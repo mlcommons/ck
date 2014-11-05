@@ -3437,10 +3437,12 @@ def access(i):
 
           if i.get('out','')=='': i['out']='con' # Default output is console 
                                                  # if called from CMD or with string
-    # Check output mode
-    o=i.get('out','')
 
+    o=''
     if rr['return']==0:
+       # Check output mode
+       o=i.get('out','')
+
        ### Process request ######################################
 
        if i.get('con_encoding','')!='': con_encoding=i['con_encoding']
