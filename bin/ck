@@ -1,0 +1,28 @@
+#! /bin/bash
+
+#
+# Collective Knowledge (CK)
+#
+# See CK LICENSE.txt for licensing details.
+# See CK Copyright.txt for copyright details.
+#
+# Developer: Grigori Fursin
+#
+
+# CK entry point
+
+# Check if CK_ROOT is defined and used it, otherwise use auto-detected path
+if [ -z "$CK_ROOT" ]; then 
+  CK_path1=`dirname $0`
+  pushd $CK_path1/.. > /dev/null
+  CK_path=`pwd`
+  popd > /dev/null
+  export CK_ROOT=$CK_path; 
+fi
+
+# Load kernel module
+if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
+ python -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
+else
+ echo "cK Error: kernel module not found!"
+fi

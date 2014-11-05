@@ -1,0 +1,15 @@
+{
+  "license": "See CK LICENSE.txt for licensing details", 
+  "desc": "CK web service", 
+  "copyright": "See CK Copyright.txt for copyright details", 
+  "actions": {
+    "start": {
+      "desc": "start web service"
+    }
+  }, 
+  "developer": "cTuning foundation",
+  "content_types":{
+    "json":"application/json",
+    "web":"text/html"
+  }
+}

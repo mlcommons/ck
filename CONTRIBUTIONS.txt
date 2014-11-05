@@ -1,0 +1,11 @@
+CK uses standard 3-clause (new) BSD license. Contributions are welcome to
+either improve existing functionality or add new functionality possibly using
+new modules.
+
+Contributors should clearly mark their contributions including date and remark.
+
+This is still a relatively new project so we still discuss how to make
+contributions easy and efficient.
+
+Issues online:
+* https://github.com/ctuning/ck/issues
