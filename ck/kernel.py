@@ -1848,6 +1848,216 @@ def delete_directory(i):
     return {'return':0}
 
 ##############################################################################
+# Convert dictionary into CK flat format
+
+def flatten_dict(i):
+    """
+    Any list item is converted to @number=value
+    Any dict item is converted to #key=value
+    # is always added at the beginning 
+
+    Input:  {
+              dict    - python dictionary
+              prefix  - prefix (for recursion)
+            }
+
+    Output: {
+              return  - return code =  0, if successful
+                                    >  0, if error
+              (error) - error text if return > 0
+              dict    - flattened dictionary
+            }
+    """
+
+    prefix='#'
+    if i.get('prefix','')!='': prefix=i['prefix']
+
+    a=i['dict']
+    aa={}
+
+    flatten_dict_internal(a, aa, prefix)
+
+    return {'return':0, 'dict': aa}
+
+##############################################################################
+# Convert dictionary into CK flat format (internal, used for recursion)
+
+def flatten_dict_internal(a, aa, prefix):
+    # Start flattening
+    if type(a) is dict or type(a) is list:
+       i=0
+       for x in a:
+           if type(a) is dict: 
+              v=a[x] 
+              prefix1=prefix+'#'+x
+           else: 
+              prefix1=prefix+'@'+str(i)
+              v=x
+           if type(v) is dict or type(v) is list:
+              flatten_dict_internal(v, aa, prefix1)
+           else:
+              aa[prefix1]=v
+           i+=1
+    else:
+       aa[prefix]=a
+
+    return {'return':0, 'dict': a}
+
+##############################################################################
+# Get value from dict by flat key
+
+def get_by_flat_key(i):
+    """
+    Input:  {
+              dict  - dictionary
+              key   - flat key
+            }
+
+    Output: {
+              return  - return code =  0, if successful
+                                    >  0, if error
+              (error) - error text if return > 0
+              value   - value or None, if doesn't exist
+            }
+    """
+    # Check vars
+    v=None
+
+    a=i['dict']
+    k=i['key']
+ 
+    # Remove leading # if exists
+    if len(k)>0 and k[0:1]=='#': k=k[1:]
+
+    k1=''
+    kt='' # type '#' or '@'
+    x=0
+    finish=False
+
+    while not finish:
+        y=k[x]
+        x+=1
+
+        if y=='#' or y=='@':
+           if kt=='#':
+              if k1 not in a: break
+              a=a[k1]
+           elif kt=='@':
+              if len(a)<=long(k1): break
+              a=a[long(k1)]
+           k1=''
+           kt=y
+        else:
+           k1+=y
+
+        if x>=len(k): break
+
+    if k1!='' and kt!='':
+       if kt=='#':   
+          if k1 in a: v=a[k1]
+       else:         
+          if len(a)>long(k1): v=a[long(k1)]
+
+    return {'return':0, 'value': v}
+
+##############################################################################
+# Set value in array using flattened key
+
+def set_by_flat_key(i):
+    """
+
+    Input:  {
+              dict            - dict (it will be directly changed!)
+              key             - flat key (or not if doesn't start with #)
+              value           - value to set
+            }
+
+    Output: {
+              return  - return code =  0, if successful
+                                    >  0, if error
+              (error) - error text if return > 0
+              dict    - modified dict
+            }
+    """
+    a=i['dict']
+    k=i['key']
+    v=i['value']
+
+    # Remove leading # if there 
+    if len(k)>0 and k[0:1]=='#': k=k[1:]
+
+    k1=''
+    kt='' # type '#' or '@'
+    x=0
+    finish=False
+
+    while not finish:
+        y=k[x]
+        x+=1
+
+        if y=='#' or y=='@':
+           if kt=='#':
+              if k1 not in a: 
+                 if y=='#': a[k1]={}
+                 else: a[k1]=[]
+              a=a[k1]
+           elif kt=='@':
+              if len(a)<=long(k1): 
+                 for q in range(len(a)-1,long(k1)):
+                     if y=='#': a.append({})
+                     else: a.append([])
+              a=a[long(k1)]
+           k1=''
+           kt=y
+        else:
+           k1+=y
+
+        if x>=len(k): break
+
+    if k1!='' and kt!='':
+       if kt=='#':   
+          a[k1]=v
+       else:         
+          if len(a)<=long(k1): 
+             for q in range(len(a)-1,long(k1)):
+                 if y=='#': a.append({})
+                 else: a.append([])
+          a[long(k1)]=v
+
+    return {'return':0, 'dict': i['dict']}
+
+##############################################################################
+# Restore flattened dict
+
+def restore_flattened_dict(i):
+    """
+    Input:  {
+              dict - flattened dict
+            }
+
+    Output: {
+              return  - return code =  0, if successful
+                                    >  0, if error
+              (error) - error text if return > 0
+              dict    - restored dict
+            }
+    """
+    # Check vars
+    a={} # default
+    b=i['dict']
+    first=True
+    for x in b:
+        if first: 
+           first=False
+           y=x[1:2]
+           if y=='@': a=[]
+           else: a={}
+
+        set_by_flat_key({'dict':a, 'key':x, 'value':b[x]})
+
+    return {'return':0, 'dict': a}
+
+##############################################################################
 # Get current date and time
 
 def get_current_date_time(i):
