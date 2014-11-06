@@ -18,7 +18,6 @@ import imp   # Loading Python modules
 initialized=False      # True if initialized
 allow_print=True       # Needed to supress all output
 con_encoding=''        # Use non-default console encoding
-cmd=False              # If True, CK was called from CMD
 
 cfg={
       "name":"Collective Knowledge",
@@ -43,6 +42,9 @@ cfg={
 
       "env_key_root":"CK_ROOT",
       "env_key_local_repo":"CK_LOCAL_REPO",
+      "env_key_repos":"CK_REPOS",
+
+      "subdir_default_repos":"repos",
 
       "subdir_default_repo":"repo",
       "subdir_kernel":"kernel",
@@ -148,6 +150,8 @@ work={
 
       "dir_work_repo":"",
       "dir_work_cfg":"",
+
+      "dir_repos":"",
 
       "dir_cache_repo_uoa":"",
       "dir_cache_repo_info":"",
@@ -704,20 +708,21 @@ def convert_ck_list_to_dict(i):
 
               p=p[2:]
               p1=p 
-              p2=''
+              p2='yes'
               q=p.find("=")
               if q>0:
                  p1=p[0:q]
                  if len(p)>q:
                    p2=p[q+1:]
               obj[p1]=p2
+
            #####################################
            elif p.startswith('-'):
               cx=False
 
               p=p[1:]
               p1=p 
-              p2=''
+              p2='yes'
               q=p.find("=")
               if q>0:
                  p1=p[0:q]
@@ -853,6 +858,12 @@ def init(i):
        r=merge_dicts({'dict1':cfg, 'dict2':cfg1})
        if r['return']>0: return r
 
+    # Check external repos
+    rps=os.environ.get(cfg['env_key_repos'],'')
+    if rps=='':
+       rps=os.path.join(work['env_root'],cfg['subdir_default_repos'])
+    work['dir_repos']=rps
+
     inintialized=True
 
     return {'return':0}
@@ -879,7 +890,6 @@ def list_all_files(i):
               number       - number of files in a current directory (needed for recursion)
             }
     """
-
 
     number=0
     if i.get('number','')!='': 
@@ -1561,7 +1571,6 @@ def perform_action(i):
           c.work['self_module_uid']=rx['data_uid']
           c.work['self_module_uoa']=rx['data_uoa']
           c.work['self_module_alias']=rx['data_alias']
-
 
           action1=u.get('actions_redirect',{}).get(action,'')
           if action1!='': action=action1
@@ -3625,7 +3634,7 @@ def access(i):
 
     """
 
-    global cmd, con_encoding
+    global con_encoding
 
     rr={'return':0}
     ii={}
@@ -3663,7 +3672,7 @@ def access(i):
           # Run module with a given action
           rr=perform_action(i)
           if rr.get('out','')!='': o=rr['out']
-          
+
     # Finalize call (check output) ####################################
     if o=='json' or o=='json_with_sep':
        if o=='json_with_sep': out(cfg['json_sep'])

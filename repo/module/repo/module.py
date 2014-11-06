@@ -40,23 +40,28 @@ def add(i):
     However, for now, we do not expect such cases (i.e. repos are created rarely)
 
     Input:  {
-              (repo_uoa)  - repo UOA (where to create entry)
-              uoa         - data UOA
-              (uid)       - data UID (if uoa is an alias)
-              (name)      - user friendly data name
+              (repo_uoa)               - repo UOA (where to create entry)
+              uoa                      - data UOA
+              (uid)                    - data UID (if uoa is an alias)
+              (name)                   - user friendly data name
 
-              (cids[0])   - as uoa or full CID
+              (cids[0])                - as uoa or full CID
 
-              (path)      - if =='' - get current path
-              (default)   - if 'yes', no path is used, 
-                            but the repository is taken either 
-                            from the CK directory or from CK_LOCAL_REPO
+              (path)                   - if =='' - get current path
+              (use_default_path)       - if 'yes' create repository in the default path (CK_REPOS)
+                                         instead of the current path
 
-              type        - type == ''    - normal (local)
-                                    'git' - synchronized with GIT repository
+              (default)                - if 'yes', no path is used, 
+                                         but the repository is taken either 
+                                         from the CK directory or from CK_LOCAL_REPO
 
-              (url)       - if type=='git', URL of the git repository
-              (sync)      - if type=='git' and =='yes', sync repo after each write operation
+              (remote)                 - if 'yes', remote repository
+              (remote_repo_uoa)        - if !='' and type=='remote' repository UOA on the remote CK server
+
+              (shared)                 - if not remote and =='git', shared through GIT
+
+              (url)                    - if type=='remote' or 'git', URL of remote repository or git repository
+              (sync)                   - if 'yes' and type=='git', sync repo after each write operation
             }
 
     output: {
@@ -73,11 +78,14 @@ def add(i):
     di=i.get('data_uid','')
     dn=i.get('data_name','')
 
-    t=i.get('type','')
+    remote=i.get('remote','')
+    rruoa=i.get('remote_repo_uoa','')
+    shared=i.get('shared','')
     url=i.get('url','')
     sync=i.get('sync','')
-
     df=i.get('default','')
+
+    udp=i.get('use_default_path','')
 
     # Get path
     p=i.get('path','')
@@ -86,8 +94,77 @@ def add(i):
     # Normalize path
     p=os.path.normpath(p)
 
-    if not os.path.isdir(p):
-       return {'return':1, 'error':'path '+p+' doesn\'t exist'}
+    if udp=='yes': p=os.path.join(ck.work['dir_repos'], d)
+
+    # If console mode, first, check if shared (GIT, etc)
+    if o=='con':
+       # Asking for alias
+       if df!='yes' and (d=='' or ck.is_uid(d)):
+          r=ck.inp({'text':'Enter an alias for this repository (or nothing to generate UID): '})
+          d=r['string']
+          if d=='': d=di
+          if d=='':
+             r=ck.gen_uid({})
+             if r['return']>0: return r
+             di=r['uid']
+             d=di
+
+       # Asking for a user-friendly name
+       if df!='yes' and dn=='':
+          r=ck.inp({'text':'Enter a user-friendly name of this repository (or nothing to reuse alias): '})
+          dn=r['string']
+          if dn=='': dn=d
+
+       # Asking for a user-friendly name
+       if df!='yes' and udp=='':
+          r=ck.inp({'text':'Would you like to create repo in the current path ("yes" or "no"/Enter for CK_REPOS): '})
+          udp=r['string']
+          if udp=='yes': p=os.path.join(ck.work['dir_repos'], d)
+
+       # Asking if remote
+       if df!='yes' and remote=='':
+          r=ck.inp({'text':'Is this repository a remote CK web service ("yes" or "no"/Enter)? '})
+          remote=r['string'].lower()
+          if remote!='yes': remote=''
+
+       # Asking for remote url
+       if df!='yes' and remote=='yes' and url=='':
+          r=ck.inp({'text':'Enter URL of remote CK repo (http://localhost:3344/json?): '})
+          url=r['string'].lower()
+          if url=='':
+             return {'return':1, 'error':'URL is empty'}
+
+       # Asking for remote repo UOA
+       if df!='yes' and remote=='yes' and rruoa=='':
+          r=ck.inp({'text':'Enter remote repo UOA or Enter for nothing: '})
+          rruoa=r['string'].lower()
+
+       # Asking for shared
+       if remote=='' and shared=='':
+          r=ck.inp({'text':'Is this repository shared ("git" or "no"/Enter)? '})
+          shared=r['string'].lower()
+          if shared!='git': shared=''
+
+       # Check additional parameters if git
+       if shared=='git' and url=='':
+          s='Enter URL of GIT repo '
+          durl='https://github.com/ctuning/'+d+'.git'
+          if d=='': s+='(for example, https://github.com/ctuning/ck-analytics.git)'
+          else:     s+='(or Enter for '+durl+')'
+          r=ck.inp({'text': s+': '})
+          url=r['string'].lower()
+          if url=='': url=durl
+                              
+       # Check additional parameters if git
+       if shared=='git' and sync=='':
+          r=ck.inp({'text': 'Would you like to sync repo each time after writing to it ("yes" or "no"/Enter)?: '})
+          sync=r['string'].lower()
+
+    # Check if already registered (if not remote)
+    if remote!='yes':
+       r=ck.find_repo_by_path({'path':p})
+       if r['return']>0 and r['return']!=16: 
+          return r
 
     # Check if repository is already registered with this path
     r=ck.find_repo_by_path({'path':p})
@@ -96,34 +173,13 @@ def add(i):
     elif r['return']!=16: 
        return r
 
-    py=os.path.join(p,ck.cfg['repo_file']) # Local description file
-
-    # Check if already registered
-    r=ck.find_repo_by_path({'path':p})
-    if r['return']>0 and r['return']!=16: return r
-
-    # If console mode, first, check if shared (GIT, etc)
-    if o=='con':
-       # Asking for type
-       if t=='':
-          r=ck.inp({'text':'What is the type of this repository (Enter for local or "git" for shared through GIT): '})
-          t=r['string'].lower()
-
-       # Check additional parameters if git
-       if t=='git' and url=='':
-          r=ck.inp({'text': 'Enter URL of GIT repo (for example, https://github.com/gfursin/cm-ctuning-shared.git): '})
-          url=r['string'].lower()
-
-       # Check additional parameters if git
-       if t=='git' and sync=='':
-          r=ck.inp({'text': 'Would you like to sync repo each time after writing to it ("yes" or "no"/Enter)?:      '})
-          sync=r['string'].lower()
+    # Prepare local description file
+    py=os.path.join(p,ck.cfg['repo_file'])
 
     # If git, clone repo
-    if t=='git':
-       r=pull({'path':p, 'type':t, 'url':url, 'clone':'yes', 'out':o})
+    if shared=='git':
+       r=pull({'path':p, 'type':shared, 'url':url, 'clone':'yes', 'out':o})
        if r['return']>0: return r
-       if o=='con': ck.out('')
 
        # Check if there is a local repo description
        if os.path.isfile(py):
@@ -131,35 +187,34 @@ def add(i):
           if r['return']>0: return r
           dc=r['dict']
 
-          d=dc.get('data_uoa','')
-          di=dc.get('data_uid','')
-          dn=dc.get('data_name','')
+          xd=dc.get('data_uoa','')
+          xdi=dc.get('data_uid','')
+          xdn=dc.get('data_name','')
 
-    # If console mode, ask different questions
-    if o=='con':
-       # Asking if it is a default repository
-       if df=='':
-          r=ck.inp({'text':'Should it be a default repository accessible via CK_LOCAL_REPO environment variable ("yes" or "no"/Enter) ?: '})
-          df=r['string'].lower()
-
-       # Asking for alias
-       if df!='yes' and (d=='' or ck.is_uid(d)):
-          r=ck.inp({'text':'Enter an alias for this repository: '})
-          d=r['string']
-
-       # Asking for a user-friendly name
-       if df!='yes' and dn=='':
-          r=ck.inp({'text':'Enter a user-friendly name of this repository: '})
-          dn=r['string']
+          if o=='con':
+             ck.out('Cloned repository has the following info:')
+             ck.out(' UID                = '+xdi)
+             ck.out(' UOA                = '+xd)
+             ck.out(' User friendly name = '+xdn)
+             r=ck.inp({'text': 'Would you like to reuse them ("yes" or "no"/Enter)?: '})
+             reuse=r['string'].lower()
+             if reuse=='yes': 
+                d=xd
+                di=xdi
+                dn=xdn
 
     # Prepare meta description
-    dd={'type':t}
-
+    dd={}
+    if df=='yes': dd['default']='yes'
+    if remote=='yes': 
+       dd['remote']='yes'
+       if rruoa!='': 
+          dd['remote_repo_uoa']=rruoa
+    if shared=='yes':
+       dd['shared']='yes'
+       if sync!='': 
+          dd['sync']=sync
     if url!='': dd['url']=url
-    if sync!='': dd['sync']=sync
-
-    if df=='yes': dd['default']=df
-
     dd['path']=p
 
     # If not default, go to common core function to create entry
@@ -185,24 +240,24 @@ def add(i):
     dx=rx['data_uid']
     alias=rx['data_alias']
 
-    # Record local repo json (useful if reference is lost)
+    # Update repo cache if not default local
     dz={'data_uoa':d, 'data_uid':dx, 'data_alias':alias, 'path_to_repo_desc':px, 'data_name':dn, 'dict':dd}
-    if not os.path.isfile(py):
-       ry=ck.save_json_to_file({'json_file':py, 'dict':dz})
-       if ry['return']>0: return ry
 
-    # If sync, add it ...
-
-
-
-
-    # Update repo cache if not defalut local
     if df!='yes':
        r=ck.reload_repo_cache({}) # Ignore errors
        ck.cache_repo_uoa[d]=dx
        ck.cache_repo_info[dx]=dz
        r=ck.save_repo_cache({})
        if r['return']>0: return r
+
+    # Record local info of the repo (just in case)
+    if 'path_to_repo_desc' in dz: del (dz['path_to_repo_desc'])        # Avoid recording some local info
+    if dz.get('dict',{}).get('path','')!='': del (dz['dict']['path'])  # Avoid recording some local info
+    if not os.path.isfile(py):
+       ry=ck.save_json_to_file({'json_file':py, 'dict':dz})
+       if ry['return']>0: return ry
+
+    # If sync, add it ...
 
     # If console mode, print various info
     if o=='con':
@@ -274,6 +329,9 @@ def pull(i):
        if i.get('clone','')=='yes': tt='clone'
 
        px=os.getcwd()
+       if not os.path.isdir(p):
+          os.makedirs(p)
+
        os.chdir(p)
 
        s=ck.cfg['repo_types'][t][tt].replace('$#url#$', url).replace('$#path#$', p)
@@ -281,8 +339,12 @@ def pull(i):
        if o=='con':
           ck.out('')
           ck.out('Executing command: '+s)
+          ck.out('')
 
        r=os.system(s)
+
+       if o=='con': 
+          ck.out('')
 
        os.chdir(px) # Restore path
 

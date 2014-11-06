@@ -94,8 +94,8 @@ You need to:
 Now you should be able to run CK from command line:
 > ck
 
-You can now try to view a simple unicoded (utf-8) 
-test entry from the repository:
+In case you use international characters, you can test your console for UTF-8 
+unicode by viewing the following test entry:
 > ck load test:unicode
 
 If you want to use CK as a python module or from IPython 
