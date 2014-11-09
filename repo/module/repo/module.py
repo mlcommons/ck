@@ -23,8 +23,8 @@ def init(i):
     Input:  {}
 
     Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
+              return   - return code =  0, if successful
+                                     >  0, if error
               (error)  - error text if return > 0
             }
 
@@ -64,9 +64,10 @@ def add(i):
               (sync)                   - if 'yes' and type=='git', sync repo after each write operation
             }
 
-    output: {
-              return - 0, if successful
-              error  - error text if return > 0
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
             }
 
     """
@@ -118,8 +119,8 @@ def add(i):
        # Asking for a user-friendly name
        if df!='yes' and udp=='':
           r=ck.inp({'text':'Would you like to create repo in the current path ("yes" or "no"/Enter for CK_REPOS): '})
-          udp=r['string']
-          if udp=='yes': p=os.path.join(ck.work['dir_repos'], d)
+          cur_path=r['string']
+          if cur_path!='yes': p=os.path.join(ck.work['dir_repos'], d)
 
        # Asking if remote
        if df!='yes' and remote=='':
@@ -176,6 +177,10 @@ def add(i):
     # Prepare local description file
     py=os.path.join(p,ck.cfg['repo_file'])
 
+    # Create dummy if doesn't exist
+    if not os.path.isdir(p):
+       os.makedirs(p)
+
     # If git, clone repo
     if shared=='git':
        r=pull({'path':p, 'type':shared, 'url':url, 'clone':'yes', 'out':o})
@@ -210,8 +215,8 @@ def add(i):
        dd['remote']='yes'
        if rruoa!='': 
           dd['remote_repo_uoa']=rruoa
-    if shared=='yes':
-       dd['shared']='yes'
+    if shared!='':
+       dd['shared']=shared
        if sync!='': 
           dd['sync']=sync
     if url!='': dd['url']=url
@@ -277,10 +282,10 @@ def add(i):
     return rx
 
 ##############################################################################
+# Pull from remote repo if URL
+
 def pull(i):
     """
-    Pull from remote repo if URL
-
     Input:  {
               (path)  - repo UOA (where to create entry)
               (type)  - type
@@ -293,9 +298,10 @@ def pull(i):
               (clone) - if 'yes', clone repo instead of update
             }
 
-    output: {
-              return - 0, if successful
-              error  - error text if return > 0
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
             }
 
     """
@@ -357,9 +363,10 @@ def pull(i):
     return {'return':0}
 
 ##############################################################################
+# Create repository in a given directory and record info in CK
+
 def create(i):
     """
-    Create repository in a given directory and record info in CK
     See function 'add'
 
     """
@@ -367,13 +374,113 @@ def create(i):
     return add(i)
 
 ##############################################################################
-def reindex(i):
-    """
-    Reindex all repositories in cache
+# Recache all repositories in cache
 
+def recache(i):
+    """
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
     """
 
 
 
 
     return {'return':0}
+
+##############################################################################
+# Remove information about repository
+
+def rm(i):
+    """
+    Input:  {
+              (repo_uoa) - repo UOA (where to delete entry about repository)
+              uoa        - data UOA
+              (force)    - if 'yes', force removal
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+    """
+
+    global cache_repo_uoa, cache_repo_info, paths_repos_all, cache_repo_init
+
+    ruoa=i.get('repo_uoa','')
+    uoa=i.get('data_uoa','')
+
+    o=i.get('out','')
+
+    if uoa=='': 
+       return {'return':1, 'error':'UOA of the repository is not defined'}
+
+    r=ck.access({'action':'load',
+                 'repo_uoa':ruoa,
+                 'module_uoa':work['self_module_uoa'],
+                 'data_uoa':uoa,
+                 'common_func':'yes'})
+    if r['return']>0: return r
+    duid=r['data_uid']
+    duoa=r['data_uoa']
+
+    to_delete=True
+    if o=='con' and i.get('force','')!='yes':
+       r=ck.inp({'text':'Are you sure to delete information about repository '+duoa+' (Y/yes or N/no/Enter): '})
+       c=r['string'].lower()
+       if c!='y' and c!='yes': to_delete=False
+
+    if to_delete:
+       if o=='con': 
+          ck.out('')
+          ck.out('Reloading repo cache ...')
+       r=ck.reload_repo_cache({}) # Ignore errors
+       if r['return']>0: return r
+
+       if o=='con': ck.out('Removing from cache ...')
+       if duoa in ck.cache_repo_uoa: del (ck.cache_repo_uoa[duoa])
+       if duid in ck.cache_repo_info: del (ck.cache_repo_info[duid])
+
+       if o=='con': ck.out('Rewriting repo cache ...')
+       r=ck.save_repo_cache({})
+       if r['return']>0: return r
+
+       if o=='con': ck.out('Removing entry ...')
+       r=ck.access({'action':'remove',
+                    'repo_uoa':ruoa,
+                    'module_uoa':work['self_module_uoa'],
+                    'data_uoa':uoa,
+                    'common_func':'yes'})
+       if r['return']>0: return r
+
+       if o=='con': 
+          ck.out('')
+          ck.out('Information about repository was removed successfully!')
+          ck.out('Note: repository itself was not removed!')
+
+    return {'return':0}
+
+##############################################################################
+# Remove information about repository
+
+def remove(i):
+    """
+    Input:  { See 'rm' function }
+    Output: { See 'rm' function }
+    """
+
+    return rm(i)
+
+##############################################################################
+# Remove information about repository
+
+def delete(i):
+    """
+    Input:  { See 'rm' function }
+    Output: { See 'rm' function }
+    """
+
+    return rm(i)

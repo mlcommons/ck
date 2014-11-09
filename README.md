@@ -1,24 +1,24 @@
 Collective Knowledge
 ====================
-Collective Knowledge (CK) is a part of Collective Mind project
-intended to clean up and systematize ad-hoc experimental setups
-(code and data), assign DOI-style UID, make them searchable
-(using ElasticSearch), shareable through CK webservices and
-GITHUB (or any other version control system), and expose them  to
-powerful third-party statistical analysis and big data predictive
-analytics tools including R and SciPy.
+Collective Knowledge (CK) is intended to help clean up and
+systematize ad-hoc experimental setups (code and data), assign
+DOI-style UID, make them searchable (using ElasticSearch),
+shareable through CK webservices and GITHUB (or any other version
+control system), and expose them  to powerful third-party
+statistical analysis and big data predictive analytics tools
+including R and SciPy.
 
-CK is developed as a very light, platform and technology neutral, 
-wrapper and  plugin-based framework, repository and web service which 
-allow users to gradually sort all their files, provide meta-description
-in popular JSON format together with universal access API, and
-gradually classify and interconnect together all available code 
+We are trying to develop CK as a very light, platform and technology 
+neutral, wrapper and  plugin-based framework, repository and web service 
+which should allow users to gradually sort all their files, provide 
+meta-description in popular JSON format together with universal access 
+API, and gradually classify and interconnect together all available code 
 and data in a unified format.
 
 We hope it will help enable collaborative and reproducible
 research and development projects particularly with continuously
 changing code base and with large amounts of processed
-heterogeneous data.
+heterogeneous data: http://c-mind.org/reproducibility.
 
 CK is written in Python for productivity and can be invoked from
 user programs written in practically any language including
@@ -59,8 +59,6 @@ the non-profit cTuning foundation and its volunteers.
 License
 =======
 * CK is distributed under new 3-clause BSD license.
-* OpenME interface is distributed under LGPL v2.1 license
-  (to be able to use CK in BSD and GPL projects).
 
 Where to get
 ============
@@ -94,8 +92,8 @@ You need to:
 Now you should be able to run CK from command line:
 > ck
 
-In case you use international characters, you can test your console for UTF-8 
-unicode by viewing the following test entry:
+In case you use international characters, you can test your
+console for UTF-8 unicode by viewing the following test entry:
 > ck load test:unicode
 
 If you want to use CK as a python module or from IPython 

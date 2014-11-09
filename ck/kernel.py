@@ -1,4 +1,4 @@
-#
+#              6
 # Collective Knowledge (CK)
 #
 # See CK LICENSE.txt for licensing details
@@ -37,6 +37,7 @@ cfg={
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
       "module_name":"module",
+      "repo_name":"repo",
       "module_code_name":"module",
       "module_full_code_name":"module.py",
 
@@ -178,7 +179,6 @@ def out(s):
     """
 
     if allow_print: 
-#       if con_def_encoding:
        if con_encoding=='':
           b=s.encode(sys.stdin.encoding, errors='ignore')
        else:
@@ -860,8 +860,7 @@ def init(i):
 
     # Check external repos
     rps=os.environ.get(cfg['env_key_repos'],'')
-    if rps=='':
-       rps=os.path.join(work['env_root'],cfg['subdir_default_repos'])
+    if rps=='': rps=os.path.join(work['env_root'],cfg['subdir_default_repos'])
     work['dir_repos']=rps
 
     inintialized=True
@@ -944,10 +943,12 @@ def reload_repo_cache(i):
 
     global cache_repo_uoa, cache_repo_info, paths_repos_all, cache_repo_init
 
+    # Load repo UOA -> UID disambiguator
     r=load_json_file({'json_file':work['dir_cache_repo_uoa']})
     if r['return']!=16 and r['return']>0: return r
     cache_repo_uoa=r.get('dict',{})
 
+    # Load cached repo info
     r=load_json_file({'json_file':work['dir_cache_repo_info']})
     if r['return']!=16 and r['return']>0: return r
     cache_repo_info=r.get('dict',{})
@@ -984,6 +985,44 @@ def save_repo_cache(i):
     if r['return']>0: return r
 
     return {'return':0}
+
+##############################################################################
+# Load repo from cache
+
+def load_repo_info_from_cache(i):
+    """
+    Input:  {
+              repo_uoa - repo_uoa
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                           16, if repo not found (may be warning)
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              repo_uoa     - repo UOA
+              repo_uid     - repo UID
+              repo_alias   - repo alias
+            }
+    """
+
+    ruoa=i['repo_uoa']
+    ruid=ruoa
+    
+    if not is_uid(ruoa): 
+       ruid=cache_repo_uoa.get(ruoa,'')
+       if ruid=='':
+          return {'return':1, 'error':'repository is not found in the cache'}
+
+    d=cache_repo_info.get(ruid,{})
+    if len(d)==0:
+       return {'return':1, 'error':'repository is not found in the cache'}
+
+    r={'return':0}
+    r.update(d)
+
+    return r
 
 ##############################################################################
 # Find repo by path
@@ -1216,7 +1255,7 @@ def find_path_to_entry(i):
 
     Output: {
               return       - return code =  0, if successful
-                                           16, if repo not found (may be warning)
+                                           16, if data not found (may be warning)
                                          >  0, if error
               (error)      - error text if return > 0
 
@@ -1552,7 +1591,7 @@ def perform_action(i):
     # Check if common function
     cf=i.get('common_func','')
 
-    if cf!='yes' and module_uoa!='':
+    if cf!='yes' and module_uoa!='' and module_uoa.find('*')<0 and module_uoa.find('?')<0:
        # Find module and load meta description
        rx=load({'module_uoa':cfg['module_name'], 
                 'data_uoa':module_uoa})
@@ -1809,6 +1848,7 @@ def delete_alias(i):
 
     p=i['path']
     alias=i.get('data_alias','')
+    uid=''
     if alias!='' and os.path.isdir(p):
        p1=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_alias_a'] + alias)
        if os.path.isfile(p1):
@@ -2934,45 +2974,64 @@ def rm(i):
     if duoa=='':
        return {'return':1, 'error':'data UOA is not defined'}
 
-    # Find path to data
-    r=find_path_to_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
-    if r['return']>0: return r
-    p=r['path']
-    pm=r['path_module']
-    duid=r.get('data_uid','')
-    dalias=r.get('data_alias','')
+    lst=[]
 
-    # Get user-friendly CID
-    rx=convert_entry_to_cid(r)
-    if rx['return']>0: return rx
-
-    cuoa=rx['cuoa']
-    cid=rx['cid']
-    xcuoa=rx['xcuoa']
-    xcid=rx['xcid']
-
-    # If interactive
-    to_delete=True
-    if o=='con' and i.get('force','')!='yes':
-       r=inp({'text':'Are you sure to delete CK entry from path '+p+' (Y/yes or N/no/Enter): '})
-       c=r['string'].lower()
-       if c!='y' and c!='yes': to_delete=False
-
-    # If deleting
-    if to_delete:
-       # First remove alias if exists
-       if dalias!='':
-          # Delete alias
-          r=delete_alias({'path':pm, 'data_alias':dalias, 'data_uid':duid})
-          if r['return']>0: return r
-
-       # Delete directory
-       r=delete_directory({'path':p})
+    # Check wildcards
+    if a.find('*')>=0 or a.find('?')>=0 or m.find('*')>=0 or m.find('?')>=0 or duoa.find('*')>=0 or duoa.find('?')>=0: 
+       r=list_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
        if r['return']>0: return r
 
-       if o=='con':
-          out('')
-          out('Entry '+cuoa+' ('+cid+') was successfully deleted!')
+       lst=r['lst']
+    else:
+       # Find path to data
+       r=find_path_to_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
+       if r['return']>0: return r
+       p=r['path']
+       muoa=r.get('module_uoa','')
+       muid=r.get('module_uid','')
+       duid=r.get('data_uid','')
+       duoa=r.get('data_alias','')
+       if duoa=='': duoa=duid
+
+       lst.append({'path':p, 'module_uoa':muoa, 'module_uid':muid, 'data_uoa':duoa, 'data_uid': duid})
+
+    first=True
+    for ll in lst:
+        p=ll['path']
+        pm=os.path.split(p)[0]
+
+        muid=ll['module_uid']
+        muoa=ll['module_uoa']
+        duid=ll['data_uid']
+        duoa=ll['data_uoa']
+
+        if duoa!=duid: dalias=duoa
+        else: dalias=''
+
+        # Get user-friendly CID
+        xcuoa=muoa+':'+duoa+' ('+muid+':'+duid+')'
+
+        # If interactive
+        to_delete=True
+        if o=='con' and i.get('force','')!='yes':
+           r=inp({'text':'Are you sure to delete CK entry '+xcuoa+' (Y/yes or N/no/Enter): '})
+           c=r['string'].lower()
+           if c!='y' and c!='yes': to_delete=False
+
+        # If deleting
+        if to_delete:
+           # First remove alias if exists
+           if dalias!='':
+              # Delete alias
+              r=delete_alias({'path':pm, 'data_alias':dalias, 'data_uid':duid})
+              if r['return']>0: return r
+
+           # Delete directory
+           r=delete_directory({'path':p})
+           if r['return']>0: return r
+
+           if o=='con':
+              out('   Entry '+xcuoa+' was successfully deleted!')
 
     return {'return':0}
 
@@ -3250,7 +3309,7 @@ def cp(i):
        if rx['return']>0: return rx
 
     if o=='con':
-       out('Entry was successfully '+tt+'!')
+       out('Entry '+muoa+':'+duoa+' was successfully '+tt+'!')
 
     return r
 
@@ -3276,11 +3335,12 @@ def mv(i):
               module_uoa    - module UOA
               data_uoa      - data UOA
 
-              cids[0]        - new data UOA
+              xcids[0]         - {'repo_uoa', 'module_uoa', 'data_uoa'} - new CID
                  or
-              new_data_uoa   - new data alias
-                 or
-              new_data_uid   - new data UID (leave empty to keep old one)
+              (new_repo_uoa)   - new repo UOA
+              (new_module_uoa) - new module UOA
+              (new_data_uoa)   - new data alias
+              (new_data_uid)   - new data UID (leave empty to generate new one)
 
             }
 
@@ -3294,10 +3354,39 @@ def mv(i):
 
     """
 
+    # Check if wild cards
+
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+    nduoa=i.get('new_data_uoa','')
+    nduid=i.get('new_data_uid','')
+
+    xcids=i.get('xcids',[])
+    if len(xcids)>0: 
+       xcid=xcids[0]
+       nduoa=xcid.get('data_uoa','')
+
+    if (duoa.find('*')>=0 or duoa.find('?')>=0) and nduoa=='' and nduid=='':
+       r=list_data({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
+       if r['return']>0: return r
+
+       lst=r['lst']
+    else:
+       lst=[{'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa}]
+
     i['move']='yes'
     i['keep_old_uid']='yes'
 
-    return copy(i)
+    r={'return':0}
+    for ll in lst:
+        i['repo_uoa']=ll['repo_uoa']
+        i['module_uoa']=ll['module_uoa']
+        i['data_uoa']=ll['data_uoa']
+        r=copy(i)
+        if r['return']>0: return r
+
+    return r
 
 ##############################################################################
 # Common action: move data entry
@@ -3317,22 +3406,203 @@ def move(i):
 def list_data(i):
     """
     Input:  {
-              (repo_uoa)  - repo UOA
-              module_uoa  - module UOA
-              data_uoa    - data UOA
+              (repo_uoa)   - repo UOA
+              (module_uoa) - module UOA
+              (data_uoa)   - data UOA
             }
 
     Output: {
               return       - return code =  0, if successful
                                          >  0, if error
               (error)      - error text if return > 0
+
+              lst          - [{'repo_uoa', 'repo_uid',
+                               'module_uoa', 'module_uid', 
+                               'data_uoa','data_uid',
+                               'path'}]
             }
 
     """
 
-    print (i)
+    lst=[]
 
-    return {'return':0}
+    o=i.get('out','')
+
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+    muid=i.get('module_uid','')
+
+    # Check if wild cards present (only repo or data)
+    wr=''
+    wm=''
+    wd=''
+
+    if ruoa.find('*')>=0 or ruoa.find('?')>=0: wr=ruoa
+    if muoa.find('*')>=0 or muoa.find('?')>=0: wm=muoa
+    if duoa.find('*')>=0 or duoa.find('?')>=0: wd=duoa
+
+    if wr!='' or wd!='':
+       import fnmatch
+
+    zr={}
+
+    if ruoa!='' and wr=='':
+       # Try to load a given repository
+       r=access({'action':'load',
+                 'module_uoa':cfg['repo_name'],
+                 'data_uoa':ruoa,
+                 'common_func':'yes'})
+       if r['return']>0: return r
+       duid=r['data_uid']
+
+       zr[duid]=r
+    else:
+       # Prepare all repositories
+       if not cache_repo_init:
+          r=reload_repo_cache({}) # Ignore errors
+          if r['return']>0: return r
+       zr=cache_repo_info 
+
+    # Start iterating over repositories
+    ir=0
+    iir=True
+    zrk=zr.keys()
+    lr=len(zrk)
+    while iir:
+       skip=False
+       if ir==0:
+          ruoa=cfg['repo_name_default']
+          ruid=cfg['repo_uid_default']
+          p=work.get('dir_default_repo','')
+       elif ir==1:
+          ruoa=cfg['repo_name_local']
+          ruid=cfg['repo_uid_local']
+          p=work.get('dir_local_repo','')
+          if p=='': 
+             skip=True
+       else:
+          if ir<lr+2:
+             ruid=zrk[ir-2]
+             d=zr[ruid]
+             dd=d.get('dict',{})
+             remote=dd.get('remote','')
+             if remote=='yes':
+                skip=True
+             else:
+                ruoa=d.get('data_uoa','')
+                p=dd.get('path','')
+          else:
+             skip=True
+             iir=False
+
+       # Check if wild cards
+       if not skip and p!='' and wr!='':
+          if wr=='*':
+             pass
+          elif is_uid(ruoa): 
+             skip=True # If have wildcards, but not alias
+          else:
+             if not fnmatch.fnmatch(ruoa, wr):
+                skip=True
+
+       # Check if got proper path
+       if not skip and p!='':
+          # Prepare modules in the current directory
+          xm=[]
+
+          if muoa!='' and wm=='': 
+             xm.append(muoa)
+          else:   
+             # Now iterate over modules inside a given path
+             try:
+                lm=os.listdir(p)
+             except Exception as e:
+                None
+             else:
+                for fn in lm:
+                    if fn not in cfg['special_directories']:
+                       xm.append(fn)
+
+          # Iterate over modules
+          for mu in xm:
+              r=find_path_to_entry({'path':p, 'data_uoa':mu})
+              if r['return']==0:
+                 mp=r['path']
+                 muid=r['data_uid']
+                 muoa=r['data_uoa']
+
+                 mskip=False
+
+                 if wm!='':
+                    if wm=='*':
+                       pass
+                    elif is_uid(muoa): 
+                       mskip=True # If have wildcards, but not alias
+                    else:
+                       if not fnmatch.fnmatch(muoa, wm):
+                          mskip=True
+
+                 if not mskip:
+                    # Prepare data in the current directory
+                    xd=[]
+
+                    if duoa!='' and wd=='': 
+                       xd.append(duoa)
+                    else:   
+                       # Now iterate over data inside a given path
+                       try:
+                          ld=os.listdir(mp)
+                       except Exception as e:
+                          None
+                       else:
+                          for fn in ld:
+                              if fn not in cfg['special_directories']:
+                                 xd.append(fn)
+
+                    # Iterate over data
+                    for du in xd:
+                        r=find_path_to_entry({'path':mp, 'data_uoa':du})
+                        if r['return']==0:
+                           dp=r['path']
+                           dpcfg=os.path.join(dp,cfg['subdir_ck_ext'])
+                           duid=r['data_uid']
+                           duoa=r['data_uoa']
+
+                           if os.path.isdir(dpcfg): # Check if really CK data entry
+                              dskip=False
+
+                              if wd!='':
+                                 if wd=='*':
+                                    pass
+                                 elif is_uid(duoa): 
+                                    dskip=True # If have wildcards, but not alias
+                                 else:
+                                    if not fnmatch.fnmatch(duoa, wd):
+                                       dskip=True
+
+                              if not dskip:
+                                 # Iterate over data 
+                                 ll={'repo_uoa':ruoa, 'repo_uid':ruid,
+                                    'module_uoa':muoa, 'module_uid':muid,
+                                    'data_uoa':duoa, 'data_uid':duid,
+                                    'path':dp}
+                                     
+                                 # Call filter
+                                 fskip=False
+
+                                 # Append
+                                 if not fskip:
+                                    lst.append(ll)
+
+                                    if o=='con':
+                                       x=ruoa+':'+muoa+':'+duoa
+                                       print x
+
+       # Finish iteration over repositories
+       ir+=1
+
+    return {'return':0, 'lst':lst}
 
 ##############################################################################
 # Add action to a module

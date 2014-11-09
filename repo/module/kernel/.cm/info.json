@@ -1,3 +1,14 @@
 {
-  "data_name":"CK repository"
+  "control": {
+    "engine": "CK", 
+    "version": [
+      "0", 
+      "1", 
+      "140810", 
+      "beta"
+    ], 
+    "user_name": "cTuning foundation", 
+    "iso_datetime": "2014-11-08T21:41:53.902000"
+  }, 
+  "data_name": "CK repository"
 }

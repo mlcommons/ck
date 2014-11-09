@@ -2,6 +2,9 @@
   "actions":{
     "add":{"desc":"register repository in CK"},
     "create":{"desc":"register repository in CK"},
+    "rm":{"desc":"remove repository from CK"},
+    "remove":{"desc":"remove repository from CK"},
+    "delete":{"desc":"remove repository from CK"},
     "recache":{"desc":"recache all local repositories (to speed up search)"},
     "pull":{"desc":"If shared, pull from remote repository"}
   },

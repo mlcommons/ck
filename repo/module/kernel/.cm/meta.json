@@ -1,5 +1,10 @@
 {
-  "developer":"Grigori Fursin",
-  "license": "CK 1.x license",
-  "desc":"managing CK kernel"
+  "desc": "managing CK kernel", 
+  "actions": {
+    "setup": {
+      "desc": "CK kernel setup"
+    }
+  }, 
+  "license": "CK 1.x license", 
+  "developer": "Grigori Fursin"
 }

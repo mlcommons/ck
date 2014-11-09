@@ -28,3 +28,23 @@ def init(i):
 
     """
     return {'return':0}
+
+##############################################################################
+# CK kernel setup
+
+def setup(i):
+    """
+
+    Input:  {}
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    print ('CK kernel setup')
+
+    return {'return':0}
