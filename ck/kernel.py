@@ -182,9 +182,9 @@ def out(s):
        if con_encoding=='':
           x=sys.stdin.encoding
           if x==None: 
-             b=s.encode(x, errors='ignore')
-          else:
              b=s.encode()
+          else:
+             b=s.encode(x, errors='ignore')
        else:
           b=s.encode(con_encoding, errors='ignore')
 
