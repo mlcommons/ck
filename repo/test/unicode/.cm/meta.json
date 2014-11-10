@@ -1,8 +1,11 @@
 {
   "languages": [
     "english", 
+    "español",
+    "中国",
+    "中國",
     "français", 
-    "русский", 
-    "english"
+    "日本の",
+    "русский",
   ]
 }
