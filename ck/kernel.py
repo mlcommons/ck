@@ -1304,7 +1304,7 @@ def find_path_to_entry(i):
     # If alias
     alias=duoa
 
-    p1=os.path.join(p, alias)
+    p1=os.path.join(p, alias).encode('utf-8')
     if os.path.isdir(p1):
        # Check uid for this alias
        p2=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_alias_a'] + alias)
