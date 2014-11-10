@@ -107,7 +107,7 @@ def add(i):
           if d=='':
              r=ck.gen_uid({})
              if r['return']>0: return r
-             di=r['uid']
+             di=r['data_uid']
              d=di
 
        # Asking for a user-friendly name
