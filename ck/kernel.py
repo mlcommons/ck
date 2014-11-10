@@ -181,8 +181,10 @@ def out(s):
     if allow_print: 
        if con_encoding=='':
           x=sys.stdin.encoding
-          if x==None: x='utf-8'
-          b=s.encode(x, errors='ignore')
+          if x==None: 
+             b=s.encode(x, errors='ignore')
+          else:
+             b=s.encode()
        else:
           b=s.encode(con_encoding, errors='ignore')
 
