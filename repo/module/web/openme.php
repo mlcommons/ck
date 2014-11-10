@@ -61,7 +61,11 @@ function openme_ck_access($i, $output=true)
  fclose($f);
 
  # Prepare call to CK
- $cmd="ck ".$action." @".$ftmp;
+ $ckr=getenv("CK_ROOT"); 
+ if ($ckr=="") $ckr=getcwd();
+ $ck=$ckr . '/bin/ck';
+
+ $cmd=$ck." ".$action." @".$ftmp;
 
  #Add cmd if Windows (FGG:TODO maybe can be done cleaner?)
  if (substr(strtoupper(PHP_OS),0,3)=="WIN")

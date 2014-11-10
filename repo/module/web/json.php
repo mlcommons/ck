@@ -10,6 +10,11 @@
 
  */
 
+ # Add local environment
+ # putenv("CK_ROOT=");
+ # putenv("CK_LOCAL_REPO=");
+ # putenv("CK_REPOS=");
+
  # Start session
  session_start();
 
