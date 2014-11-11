@@ -201,6 +201,7 @@ def add(i):
              ck.out(' UID                = '+xdi)
              ck.out(' UOA                = '+xd)
              ck.out(' User friendly name = '+xdn)
+             ck.out('')
              r=ck.inp({'text': 'Would you like to reuse them ("yes" or "no"/Enter)?: '})
              reuse=r['string'].lower()
              if reuse=='yes': 
