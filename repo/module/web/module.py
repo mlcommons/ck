@@ -93,7 +93,7 @@ def call_ck(i):
     os.close(fd)
 
     dc=i.get('detach_console','')
-    if dc=='yes': i['out']='con' # Force console if detached
+    if dc=='yes': i['out']='con' # If detach, output as console
 
     # Prepare dummy output
     rr={'return':0}
@@ -160,9 +160,6 @@ def call_ck(i):
     else:
        process=subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
        stdout,stderr=process.communicate()
-
-#    if stdout!=None: stdout=cm_stdout.decode("utf-8").strip()
-#    if stderr!=None: stderr=cm_stderr.decode("utf-8").strip()
 
     rr['stdout']=stdout
     rr['stderr']=stderr
@@ -351,6 +348,8 @@ def process_ck_web_request(i):
     else:
        ii.update(xpost)
 
+    dc=ii.get('detach_console','')
+
     # Check how to run #################
     if xt=='json':
        ######################### JSON ##################################################
@@ -359,8 +358,9 @@ def process_ck_web_request(i):
        os.close(fd)
 
        # Call CK
-       ii['out']='json_file'
-       ii['out_file']=fn
+       if dc!='yes':
+          ii['out']='json_file'
+          ii['out_file']=fn
 
        bin=b''
 
@@ -368,11 +368,17 @@ def process_ck_web_request(i):
 
        if r['return']==0:
           # Load output json file
-          r=ck.load_text_file({'text_file':fn, 'keep_as_bin':'yes'})
-          if r['return']==0:
-             bin=r['bin']
+          if dc=='yes': 
+             bin=r.get('stdout','').encode('utf8')
+             xt='text'
+          else:
+             r=ck.load_text_file({'text_file':fn, 'keep_as_bin':'yes'})
+             if r['return']==0:
+                bin=r['bin']
 
        if r['return']>0:
+          if rx.get('stderr','')!='': rx['error']+=' ('+rx['error']+')'
+
           rx=ck.dumps_json({'dict':r})
           if rx['return']>0:
              bin=b'{"return":1, "error": "internal CK web service error [7102] ('+rx['error'].encode('utf8')+b')"}' 
@@ -380,7 +386,8 @@ def process_ck_web_request(i):
              bin=rx['string'].encode('utf-8')
 
        # Remove temporary file
-       if os.path.isfile(fn): os.remove(fn)
+       if os.path.isfile(fn): 
+          os.remove(fn)
 
        # Output
        web_out({'http':http, 
