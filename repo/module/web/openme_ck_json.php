@@ -51,24 +51,23 @@
  $o="";
 
  # Process ck_json only in POST
- if (array_key_exists("ck_json", $post))
+ $ii=array_merge($ii, $post);
+
+ if (array_key_exists("ck_json", $ii))
  {
    try
    {
-     $jd=json_decode($post["cm_json"]);
+     $jd=json_decode(urldecode($ii["ck_json"]),TRUE);
    } 
    catch(Exception $e)
    {
      print '{"return":1, "error":"'.$e->getMessage().'"}';
      exit(1);
    }
-   $r=json_decode($s,TRUE);
 
-   unset($post["cm_json"]);
+   unset($ii["ck_json"]);
    $ii=array_merge($ii, $jd);
  }
-
- $ii=array_merge($ii, $post);
 
  # Set output to tmp file
  $ftmpo=tempnam("", "ck-");

@@ -1,0 +1,13 @@
+{
+  "36a94d813c46d497": {
+    "path_to_repo_desc": "D:\\Work1\\CK\\ck\\repo\\repo\\remote-ck", 
+    "data_uid": "36a94d813c46d497", 
+    "data_name": "remote cknowledge.org", 
+    "data_uoa": "remote-ck", 
+    "data_alias": "remote-ck", 
+    "dict": {
+      "url": "http://cknowledge.org/repo/json.php?", 
+      "remote": "yes"
+    }
+  }
+}

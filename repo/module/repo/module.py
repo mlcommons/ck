@@ -116,17 +116,17 @@ def add(i):
           dn=r['string']
           if dn=='': dn=d
 
-       # Asking for a user-friendly name
-       if df!='yes' and udp=='':
-          r=ck.inp({'text':'Would you like to create repo in the current path ("yes" or "no"/Enter for CK_REPOS): '})
-          cur_path=r['string']
-          if cur_path!='yes': p=os.path.join(ck.work['dir_repos'], d)
-
        # Asking if remote
        if df!='yes' and remote=='':
           r=ck.inp({'text':'Is this repository a remote CK web service ("yes" or "no"/Enter)? '})
           remote=r['string'].lower()
           if remote!='yes': remote=''
+
+       # Asking for a user-friendly name
+       if df!='yes' and remote!='yes' and udp=='':
+          r=ck.inp({'text':'Would you like to create repo in the current path ("yes" or "no"/Enter for CK_REPOS): '})
+          cur_path=r['string']
+          if cur_path!='yes': p=os.path.join(ck.work['dir_repos'], d)
 
        # Asking for remote url
        if df!='yes' and remote=='yes' and url=='':
@@ -178,11 +178,11 @@ def add(i):
     py=os.path.join(p,ck.cfg['repo_file'])
 
     # Create dummy if doesn't exist
-    if not os.path.isdir(p):
+    if remote!='yes' and not os.path.isdir(p):
        os.makedirs(p)
 
     # If git, clone repo
-    if shared=='git':
+    if remote!='yes' and shared=='git':
        r=pull({'path':p, 'type':shared, 'url':url, 'clone':'yes', 'out':o})
        if r['return']>0: return r
 
@@ -211,7 +211,8 @@ def add(i):
 
     # Prepare meta description
     dd={}
-    if df=='yes': dd['default']='yes'
+    if df=='yes': 
+       dd['default']='yes'
     if remote=='yes': 
        dd['remote']='yes'
        if rruoa!='': 
@@ -220,8 +221,10 @@ def add(i):
        dd['shared']=shared
        if sync!='': 
           dd['sync']=sync
-    if url!='': dd['url']=url
-    dd['path']=p
+    if url!='': 
+       dd['url']=url
+    if remote!='yes': 
+       dd['path']=p
 
     # If not default, go to common core function to create entry
     if df!='yes':
@@ -257,11 +260,12 @@ def add(i):
        if r['return']>0: return r
 
     # Record local info of the repo (just in case)
-    if 'path_to_repo_desc' in dz: del (dz['path_to_repo_desc'])        # Avoid recording some local info
-    if dz.get('dict',{}).get('path','')!='': del (dz['dict']['path'])  # Avoid recording some local info
-    if not os.path.isfile(py):
-       ry=ck.save_json_to_file({'json_file':py, 'dict':dz})
-       if ry['return']>0: return ry
+    if remote!='yes':
+       if 'path_to_repo_desc' in dz: del (dz['path_to_repo_desc'])        # Avoid recording some local info
+       if dz.get('dict',{}).get('path','')!='': del (dz['dict']['path'])  # Avoid recording some local info
+       if not os.path.isfile(py):
+          ry=ck.save_json_to_file({'json_file':py, 'dict':dz})
+          if ry['return']>0: return ry
 
     # If sync, add it ...
 

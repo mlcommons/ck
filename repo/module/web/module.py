@@ -81,7 +81,6 @@ def call_ck(i):
             }
     """
 
-    import tempfile
     import subprocess
 
     # Check action

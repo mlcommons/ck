@@ -73,6 +73,9 @@ cfg={
       "detached_console":{"win":{"cmd":"start $#cmd#$", "use_create_new_console_flag":"yes"},
                           "linux":{"cmd":"xterm -hold -e \"$#cmd#$\""}},
 
+      "default_archive_name":"ck-archive.zip",
+
+      "module_repo_name":"repo",
       "repo_name_default":"default",
       "repo_uid_default":"604419a9fcc7a081",
       "repo_name_local":"local",
@@ -133,6 +136,8 @@ cfg={
                         "mv",
                         "move",
                         "list",
+                        "pull",
+                        "push",
                         "add_action",
                         "remove_action",
                         "list_actions"]
@@ -142,14 +147,17 @@ work={
       "env_root":"",
 
       "dir_default_repo":"",
+      "dir_default_repo_path":"",
       "dir_default_kernel":"",
       "dir_default_cfg":"",
 
       "dir_local_repo":"",
+      "dir_local_repo_path":"",
       "dir_local_kernel":"",
       "dir_local_cfg":"",
 
       "dir_work_repo":"",
+      "dir_work_repo_path":"",
       "dir_work_cfg":"",
 
       "dir_repos":"",
@@ -626,6 +634,43 @@ def merge_dicts(i):
     return {'return':0, 'dict1':a}
 
 ##############################################################################
+# Convert file to upload string
+
+def convert_file_to_upload_string(i):
+    """
+    Input:  {
+              filename - file name to convert
+            }
+
+    Output: {
+              return              - return code =  0, if successful
+                                                >  0, if error
+              (error)             - error text if return > 0
+              file_content_base64 - string that can be transmitted through Internet
+            }
+    """
+
+    import base64
+
+    fn=i['filename']
+
+    if not os.path.isfile(fn):
+       return {'return':1, 'error':'file '+fn+' not found'}
+
+    s=''
+    try:
+       f=open(fn, 'rb')
+       while True:
+          x = f.read(32768);
+          if not x: break
+          s+=x
+       f.close()
+    except Exception as e:
+       return {'return':1, 'error':'error reading file ('+format(e)+')'}
+
+    return {'return':0, 'file_content_base64': base64.urlsafe_b64encode(s)}
+
+##############################################################################
 # Convert CK list to CK dict (unification of interfaces)
 
 def convert_ck_list_to_dict(i):
@@ -818,10 +863,12 @@ def init(i):
 
     # Check default repo
     work['dir_default_repo']=os.path.join(work['env_root'], cfg['subdir_default_repo'])
+    work['dir_default_repo_path']=os.path.join(work['dir_default_repo'], cfg['module_repo_name'], cfg['repo_name_default'])
     work['dir_default_kernel']=os.path.join(work['dir_default_repo'], cfg['subdir_kernel'])
     work['dir_default_cfg']=os.path.join(work['dir_default_kernel'], cfg['subdir_kernel_default'], cfg['subdir_ck_ext'], cfg['file_meta'])
 
     work['dir_work_repo']=work['dir_default_repo']
+    work['dir_work_repo_path']=work['dir_default_repo_path']
     work['dir_work_kernel']=work['dir_default_kernel']
     work['dir_work_cfg']=work['dir_default_cfg']
 
@@ -833,11 +880,13 @@ def init(i):
        s=os.environ[cfg['env_key_local_repo']].strip()
        if s!='':
           work['dir_local_repo']=os.path.realpath(s)
+          work['dir_local_repo_path']=os.path.join(work['dir_local_repo'], cfg['module_repo_name'], cfg['repo_name_local'])
           work['dir_local_kernel']=os.path.join(work['dir_local_repo'], cfg['subdir_kernel'])
           work['dir_local_cfg']=os.path.join(work['dir_local_kernel'], cfg['subdir_kernel_default'], cfg['subdir_ck_ext'], cfg['file_meta'])
 
           # Update work repo!
           work['dir_work_repo']=work['dir_local_repo']
+          work['dir_work_repo_path']=work['dir_local_repo_path']
           work['dir_work_kernel']=work['dir_local_kernel']
           work['dir_work_cfg']=work['dir_local_cfg']
 
@@ -1008,20 +1057,41 @@ def load_repo_info_from_cache(i):
               repo_uoa     - repo UOA
               repo_uid     - repo UID
               repo_alias   - repo alias
+
+              all other info from repo dict
             }
     """
 
     ruoa=i['repo_uoa']
     ruid=ruoa
-    
-    if not is_uid(ruoa): 
-       ruid=cache_repo_uoa.get(ruoa,'')
-       if ruid=='':
-          return {'return':1, 'error':'repository is not found in the cache'}
 
-    d=cache_repo_info.get(ruid,{})
-    if len(d)==0:
-       return {'return':1, 'error':'repository is not found in the cache'}
+    if ruoa==cfg['repo_name_default'] or ruoa==cfg['repo_uid_default']:
+       d={}
+       d["path_to_repo_desc"]=work['dir_default_repo_path']
+       d["data_uid"]=cfg['repo_uid_default']
+       d["data_alias"]=cfg['repo_name_default']
+       d["data_uoa"]=cfg['repo_name_default']
+       d["dict"]={"default":"yes"}
+    elif ruoa==cfg['repo_name_local'] or ruoa==cfg['repo_uid_local']:
+       d={}
+       d["path_to_repo_desc"]=work['dir_local_repo_path']
+       d["data_uid"]=cfg['repo_uid_local']
+       d["data_alias"]=cfg['repo_name_local']
+       d["data_uoa"]=cfg['repo_name_local']
+       d["dict"]={"default":"yes"}
+    else:
+       if not cache_repo_init:
+          r=reload_repo_cache({}) # Ignore errors
+          if r['return']>0: return r
+
+       if not is_uid(ruoa): 
+          ruid=cache_repo_uoa.get(ruoa,'')
+          if ruid=='':
+             return {'return':1, 'error':'repository is not found in the cache'}
+
+       d=cache_repo_info.get(ruid,{})
+       if len(d)==0:
+          return {'return':1, 'error':'repository is not found in the cache'}
 
     r={'return':0}
     r.update(d)
@@ -1308,7 +1378,9 @@ def find_path_to_entry(i):
     # If alias
     alias=duoa
 
-    p1=os.path.join(p, alias).encode('utf-8')
+    p1=os.path.join(p, alias)
+    if sys.version_info[0]<3:
+       p1=p1.encode('utf-8')
     if os.path.isdir(p1):
        # Check uid for this alias
        p2=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_alias_a'] + alias)
@@ -1479,8 +1551,6 @@ def perform_remote_action(i):
     post=urlencode({'ck_json':s})
     if sys.version_info[0]>2: post=post.encode('utf8')
 
-#    url="http://localhost:3344/json?"
-
     # Prepare request
     request = urllib2.Request(url, post)
 
@@ -1572,8 +1642,28 @@ def perform_action(i):
     i['module_uoa']=module_uoa
 
     # Check if repo exists and possibly remote!
-    ruoa=i.get('repo_uoa','')
+    remote=False
+
     rs=i.get('remote_server_url','')
+    if rs=='': 
+       ruoa=i.get('repo_uoa','')
+       if ruoa!='':
+          rq=load_repo_info_from_cache({'repo_uoa':ruoa})
+          if rq['return']>0: return rq
+
+          dd=rq.get('dict',{})
+          if dd.get('remote','')=='yes':
+             rs=dd.get('url','')
+             if rs=='':
+                return {'return':1, 'error':'URL of remote repository is not defined'}
+
+             i['remote_server_url']=rs
+
+             if dd.get('remote_repo_uoa','')!='':
+                i['repo_uoa']=dd['remote_repo_uoa']
+             else:
+                del (i['repo_uoa'])
+
     if rs!='':
        if out!='json_file': 
           i['out']='json'   # For remote web service return JSON
@@ -1587,7 +1677,7 @@ def perform_action(i):
     xcids=[]
 
     for c in cids:
-       r=parse_cid({'cid':c, 'cur_cid':rc})
+       r=parse_cid({'cid':c, 'cur_cid':rc, 'ignore_error':'yes'}) # here we ignore errors, since can be a file name, etc
        if r['return']>0: return r
        xcids.append(r)
     i['xcids']=xcids
@@ -1646,8 +1736,9 @@ def perform_action(i):
 def parse_cid(i):
     """
     Input:  {
-              cid       - in format (REPO_UOA:)MODULE_UOA:DATA_UOA 
-              (cur_cid) - output of function 'detect_cid_in_current_path'
+              cid            - in format (REPO_UOA:)MODULE_UOA:DATA_UOA 
+              (cur_cid)      - output of function 'detect_cid_in_current_path'
+              (ignore_error) - if 'yes', ignore wrong format
             }
 
     Output: {
@@ -1664,6 +1755,8 @@ def parse_cid(i):
     r={'return':0}
     c=i['cid'].strip()
 
+    ie=i.get('ignore_error','')
+
     cc=i.get('cur_cid', {})
 
     a0=cc.get('repo_uoa','')
@@ -1675,7 +1768,10 @@ def parse_cid(i):
 
     x=c.split(':')
     if len(x)<2 and m0=='':
-       return {'return':1, 'error':'unknown CID format'}
+       if ie!='yes': 
+          return {'return':1, 'error':'unknown CID format'}
+       else: 
+          return r
 
     if c=='':
        r['repo_uoa']=a0
@@ -1694,7 +1790,8 @@ def parse_cid(i):
        r['module_uoa']=x[1]
        r['data_uoa']=x[2]
     else:
-       return {'return':1, 'error':'unknown CID format'}
+       if ie!='yes': 
+          return {'return':1, 'error':'unknown CID format'}
 
     return r
 
@@ -3601,8 +3698,7 @@ def list_data(i):
 
                                     if o=='con':
                                        x=ruoa+':'+muoa+':'+duoa
-                                       print x
-
+                                       ck.out(x)
        # Finish iteration over repositories
        ir+=1
 
@@ -3862,6 +3958,159 @@ def list_actions(i):
            out(s)
 
     return {'return':0, 'actions':actions}
+
+##############################################################################
+# Pull data
+
+def pull(i):
+    """
+    Input:  {
+              (repo_uoa)      - repo UOA, if needed
+              module_uoa      - module UOA 
+              data_uoa        - data UOA
+
+              (filename)      - filename (with path)
+                  or
+              (cid[0])
+                                if empty, create an archive of the entry
+              (arcname)       - if archive, use this name, otherwise (ck_archive.zip)
+              (get_all_files) - if 'yes' and archive, add even special directories (.cm, .svn, .git, etc)
+
+
+              (to_json)       - if 'yes', encode file and return in r
+              (skip_writing)  - if 'yes', do not write file (not archive) to current directory
+            }
+
+    Output: {
+              return                - return code =  0, if successful
+                                                  >  0, if error
+              (error)               - error text if return > 0
+              (file_content_base64) - if i['to_json']=='yes', encoded file
+            }
+
+    """
+
+    o=i.get('out','')
+
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    fn=i.get('filename','')
+    if fn=='':
+       x=i.get('cids',[])
+       if len(x)>0:
+          fn=x[0]
+
+    # Attempt to load data (to find path, etc)
+    r=load({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
+    if r['return']>0: return r
+
+    p=r['path']
+    muoa=r['module_uoa']
+    duoa=r['data_uoa']
+    dd=r['dict']
+
+    # Output
+    tj=i.get('to_json','')
+    sw=i.get('skip_writing','')
+
+    # Check what to pull
+    pfn=''
+
+    if fn!='':
+       pfn=os.path.normpath(os.path.join(p,fn))
+
+       # Check that file is not getting outside paths ...
+       if not pfn.startswith(p):
+          return {'return':1, 'error':'path of file is outside entry'}
+
+       if not os.path.isfile(pfn):
+          return {'return':1, 'error':'file not found'}
+
+       if tj!='yes' and sw!='yes':
+          # Copy file to current directory
+          if os.path.isfile(fn):
+             return {'return':1, 'error':'file already exists in the current directory'}
+        
+          # Copy file
+          import shutil
+          shutil.copyfile(pfn,fn)
+
+    else:
+       # Prepare archive name
+       an=i.get('arcname','')
+       if an=='': 
+          an=cfg['default_archive_name']
+       pfn=an
+
+       if os.path.isfile(pfn):
+          return {'return':1, 'error':'archive file already exists in the current directory'}
+
+       # Prepare archive
+       import zipfile
+
+       zip_method=zipfile.ZIP_DEFLATED
+
+       gaf=i.get('get_all_files','')
+       r=list_all_files({'path':p, 'get_all_files':gaf})
+       if r['return']>0: return r
+
+       fl=r['list']
+
+       # Write archive
+       try:
+          f=open(pfn, 'wb')
+          z=zipfile.ZipFile(f, 'w', zip_method)
+          for fn in fl:
+              p1=os.path.join(p, fn)
+              z.write(p1, fn, zip_method)
+          z.close()
+          f.close()
+
+       except Exception as e:
+          return {'return':1, 'error':'failed to prepare archive ('+format(e)+')'}
+
+    # Prepare output
+    rr={'return':0}
+
+    # If add to JSON
+    if i.get('to_json','')=='yes':
+       r=convert_file_to_upload_string({'filename':pfn})
+       if r['return']>0: return 
+
+       rr['file_content_base64']=r['file_content_base64']
+
+    return rr
+
+##############################################################################
+# Push data
+
+def push(i):
+    """
+    Input:  {
+              (repo_uoa)   
+              (module_uoa) 
+              (data_uoa)  
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    print ('hello')
+
+    return {'return':0}
 
 ############################################################################
 # Main universal access function that can access all CK resources!
