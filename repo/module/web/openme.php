@@ -107,8 +107,8 @@ function openme_ck_access($i, $output=true)
 
   $r=array("return"=>$rv, "stdout"=>$tout, "stderr"=>$terr);
 
-  if ($rv>0)
-     $r["error"]="Internal CK web-service error";
+  if ($rv>0 || $terr!='')
+     $r["error"]="Internal CK web-service error (".$terr.")";
 
   return $r;
 }

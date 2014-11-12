@@ -1,4 +1,4 @@
-#              6
+#
 # Collective Knowledge (CK)
 #
 # See CK LICENSE.txt for licensing details
@@ -117,6 +117,9 @@ cfg={
                  "move":{"desc":"see 'mv'"},
 
                  "list":{"desc":"<CID> list entries"},
+
+                 "pull":{"desc":"<CID> (filename) or (empty to get the whole entry as archive) pull file from entry"},
+                 "push":{"desc":"<CID> (filename) push file to entry"},
 
                  "add_action":{"desc":"add action (function) to existing module"},
                  "remove_action":{"desc":"remove action (function) from existing module"},
@@ -1535,7 +1538,20 @@ def perform_remote_action(i):
     except:
        from urllib import urlencode
 
-    #URL
+    # Check output
+    o=i.get('out','')
+
+    # Clean up input
+    if o!='json_file': 
+       i['out']='json'   # For remote web service return JSON
+
+    if 'cid' in i: 
+       del(i['cid']) # already processed
+
+    # Get action
+    act=i.get('action','')
+
+    # Get URL
     url=i.get('remote_server_url','')
 
     # Process i
@@ -1569,8 +1585,43 @@ def perform_remote_action(i):
     r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
     if r['return']>0: 
        return {'return':1, 'error':'can\'t parse output from remote CK server ('+r['error']+')'}
+    d=r['dict']
 
-    return r['dict']
+    # Post process if pull/push file ...
+    if act=='pull':
+       if o!='json' and o!='json_file':
+          # Convert json file to real file ...
+          x=d.get('file_content_base64','')
+          if x!='':
+             import base64
+
+             fn=d.get('filename','')
+             if fn=='': fn=cfg['default_archive_name']
+
+             fc=base64.urlsafe_b64decode(str(x)) # convert from unicode to str since base64 works on strings
+                                                 # should be safe in Python 2.x and 3.x
+
+             py=os.path.split(fn)
+             px=py[1]
+
+             if os.path.isfile(px):
+                return {'return':1, 'error':'file already exists in the current directory'}
+             try:
+                fx=open(px, 'wb')
+                fx.write(fc)
+                fx.close()
+             except Exception as e:
+                return {'return':1, 'error':'problem writing file='+px+' ('+format(e)+')'}
+
+             del(d['file_content_base64'])
+
+    rr={'return':0}
+    rr.update(d)
+
+    # Restore original output
+    i['out']=o
+
+    return rr
 
 ##############################################################################
 # Perform action (find module or use kernel)
@@ -1663,16 +1714,7 @@ def perform_action(i):
                 del (i['repo_uoa'])
 
     if rs!='':
-       if out!='json_file': 
-          i['out']='json'   # For remote web service return JSON
-
-       if 'cid' in i: 
-          del(i['cid']) # already processed
-
-       r=perform_remote_action(i)
-       if out!='json_file': 
-          r['out']='json'   # For remote web service return JSON
-       return r
+       return perform_remote_action(i)
 
     # Process and parse cids -> xcids
     xcids=[]
@@ -3532,8 +3574,12 @@ def list_data(i):
 
     ruoa=i.get('repo_uoa','')
     muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
     muid=i.get('module_uid','')
+    duoa=i.get('data_uoa','')
+
+    if duoa=='': duoa='*'
+    if muoa=='' and muid=='': muoa='*'
+    if ruoa=='': ruoa='*'
 
     # Check if wild cards present (only repo or data)
     wr=''
@@ -3699,7 +3745,7 @@ def list_data(i):
 
                                     if o=='con':
                                        x=ruoa+':'+muoa+':'+duoa
-                                       ck.out(x)
+                                       out(x)
        # Finish iteration over repositories
        ir+=1
 
@@ -3970,15 +4016,15 @@ def pull(i):
               module_uoa      - module UOA 
               data_uoa        - data UOA
 
-              (filename)      - filename (with path)
+              (filename)      - filename (with path) (if empty, set archive to 'yes')
                   or
               (cid[0])
                                 if empty, create an archive of the entry
-              (arcname)       - if archive, use this name, otherwise (ck_archive.zip)
+              (archive)       - if 'yes' pull whole entry as zip archive using filename or ck_archive.zip
               (get_all_files) - if 'yes' and archive, add even special directories (.cm, .svn, .git, etc)
 
 
-              (to_json)       - if 'yes', encode file and return in r
+              (out)           - if 'json' or 'json_file', encode file and return in r
               (skip_writing)  - if 'yes', do not write file (not archive) to current directory
             }
 
@@ -3987,11 +4033,16 @@ def pull(i):
                                                   >  0, if error
               (error)               - error text if return > 0
               (file_content_base64) - if i['to_json']=='yes', encoded file
+              (filename)            - filename to record locally
             }
 
     """
 
     o=i.get('out','')
+
+    tj=False
+    if o=='json' or o=='json_file':
+       tj=True
 
     ruoa=i.get('repo_uoa','')
     muoa=i.get('module_uoa','')
@@ -4012,14 +4063,22 @@ def pull(i):
     duoa=r['data_uoa']
     dd=r['dict']
 
-    # Output
-    tj=i.get('to_json','')
+    # How output
     sw=i.get('skip_writing','')
+
+    # Prepare output
+    rr={'return':0}
 
     # Check what to pull
     pfn=''
 
-    if fn!='':
+    if fn=='': 
+       i['archive']='yes'
+
+    delete_file=''
+
+    if i.get('archive','')!='yes':
+       # Get file
        pfn=os.path.normpath(os.path.join(p,fn))
 
        # Check that file is not getting outside paths ...
@@ -4029,7 +4088,7 @@ def pull(i):
        if not os.path.isfile(pfn):
           return {'return':1, 'error':'file not found'}
 
-       if tj!='yes' and sw!='yes':
+       if not tj and sw!='yes':
           # Copy file to current directory
           if os.path.isfile(fn):
              return {'return':1, 'error':'file already exists in the current directory'}
@@ -4038,12 +4097,28 @@ def pull(i):
           import shutil
           shutil.copyfile(pfn,fn)
 
+       py=os.path.split(fn)
+       rr['filename']=py[1]
+
     else:
        # Prepare archive name
-       an=i.get('arcname','')
-       if an=='': 
-          an=cfg['default_archive_name']
-       pfn=an
+       if fn!='': 
+          # Check that file is not getting outside paths ...
+          fn=os.path.normpath(os.path.join(os.getcwd(),fn))
+          if not pfn.startswith(os.getcwd()):
+             return {'return':1, 'error':'archive filename should not have path'}
+
+       else:
+          if tj:
+             # Generate tmp file
+             import tempfile
+             fd, fn=tempfile.mkstemp(suffix='.tmp', prefix='ck-') # suffix is important - CK will delete such file!
+             os.close(fd)
+             os.remove(fn)
+             delete_file=fn
+          else:
+             fn=cfg['default_archive_name']
+       pfn=fn
 
        if os.path.isfile(pfn):
           return {'return':1, 'error':'archive file already exists in the current directory'}
@@ -4072,15 +4147,14 @@ def pull(i):
        except Exception as e:
           return {'return':1, 'error':'failed to prepare archive ('+format(e)+')'}
 
-    # Prepare output
-    rr={'return':0}
-
     # If add to JSON
-    if i.get('to_json','')=='yes':
+    if tj:
        r=convert_file_to_upload_string({'filename':pfn})
        if r['return']>0: return 
 
        rr['file_content_base64']=r['file_content_base64']
+
+       if delete_file!='': os.remove(delete_file)
 
     return rr
 

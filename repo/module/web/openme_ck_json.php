@@ -69,6 +69,10 @@
    $ii=array_merge($ii, $jd);
  }
 
+ # Check action
+ $a='';
+ if (array_key_exists("action", $ii)) $a=$ii['action'];
+
  # Set output to tmp file
  $ftmpo=tempnam("", "ck-");
  $ii['out']='json_file';
@@ -77,13 +81,21 @@
  # Call CK
  $r=openme_ck_access($ii, false);
 
+ # Process output
  if ($r["return"]>0)
  {
-  unlink($ftmpo);
+  if (file_exists($ftmpo)) unlink($ftmpo);
   if (array_key_exists("stderr", $r) && $r["stderr"]!="")
-    $o=$r["stderr"];
-  else
-    $o='{"return":'.str($r["return"]).',"error":"'.$r["error"].'"}';
+  {
+    $x=$r["stderr"];
+    $x=str_replace('\\','-',$x); 
+    $x=str_replace("\n","\\n",$x);
+    $x=str_replace("\r","\\r",$x); 
+    $x=str_replace(':','-',$x); 
+    $x=str_replace('"','\'',$x); 
+    $r["error"]=$x;
+  }
+  $o='{"return":'.strval($r["return"]).',"error":"'.$r["error"].'"}';
  }
  else
  {
@@ -92,6 +104,9 @@
  }
 
  # Set header with UTF-8 !
- print $o;
+ if ($o=='')
+   print '{"return":1, "error":"unknown internal CK web service error"}';
+ else
+   print $o;
 
 ?>
