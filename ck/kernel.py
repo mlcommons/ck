@@ -116,6 +116,8 @@ cfg={
                  "mv":{"desc":"<CID> <CID1> move entry"},
                  "move":{"desc":"see 'mv'"},
 
+                 "list_files":{"desc":"<CID> list files recursively in a given entry"},
+
                  "list":{"desc":"<CID> list entries"},
 
                  "pull":{"desc":"<CID> (filename) or (empty to get the whole entry as archive) pull file from entry"},
@@ -141,6 +143,7 @@ cfg={
                         "list",
                         "pull",
                         "push",
+                        "list_files",
                         "add_action",
                         "remove_action",
                         "list_actions"]
@@ -4186,6 +4189,54 @@ def push(i):
     print ('hello')
 
     return {'return':0}
+
+##############################################################################
+# Push data
+
+def list_files(i):
+    """
+    Input:  {
+              (repo_uoa)   
+              (module_uoa) 
+              (data_uoa)  
+
+              parameters for function 'list_all_files'
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    # Get info about entry
+    r=load({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
+    if r['return']>0: return r
+
+    p=r['path']
+
+    # Get files
+    ii={'path':p}
+    if i.get('limit','')!='': ii['limit']=i['limit']
+    if i.get('number','')!='': ii['number']=i['number']
+    if i.get('get_all_files','')!='': ii['get_all_files']=i['get_all_files']
+
+    r=list_all_files(ii)
+    if r['return']>0: return r
+
+    if o=='con':
+       for q in r.get('list',[]):
+           out(q)
+
+    return r
 
 ############################################################################
 # Main universal access function that can access all CK resources!
