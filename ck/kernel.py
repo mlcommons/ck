@@ -1539,8 +1539,6 @@ def perform_remote_action(i):
     url=i.get('remote_server_url','')
 
     # Process i
-    if 'cid' in i: del (i['cid'])
-    if 'repo_uoa' in i: del(i['repo_uoa'])
     if 'remote_server_url' in i: del(i['remote_server_url'])
 
     # Prepare post variables
@@ -1667,6 +1665,9 @@ def perform_action(i):
     if rs!='':
        if out!='json_file': 
           i['out']='json'   # For remote web service return JSON
+
+       if 'cid' in i: 
+          del(i['cid']) # already processed
 
        r=perform_remote_action(i)
        if out!='json_file': 
