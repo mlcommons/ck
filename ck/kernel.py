@@ -1506,13 +1506,15 @@ def load_meta_from_path(i):
        return {'return':1, 'error':'meta description is not found in path '+p}
 
 ##############################################################################
-# Load CK module
+# Load (CK) python module
 
 def load_module_from_path(i):
     """
     Input:  {
-              path - module path
-              cfg  - module cfg
+              path             - module path
+              module_code_name - module name
+              (cfg)            - configuration of the module if exists ...
+              (skip_init)      - if 'yes', skip init
             }
 
     Output: {
@@ -1525,10 +1527,9 @@ def load_module_from_path(i):
     """
 
     p=i['path']
-    u=i['cfg']
+    n=i['module_code_name']
 
-    # Check module name
-    n=u.get('module_name',cfg['module_code_name'])
+    cfg=i.get('cfg',None)
 
     # Find module
     try:
@@ -1553,11 +1554,12 @@ def load_module_from_path(i):
 
     # Initialize module with this CK instance 
     c.ck=sys.modules[__name__]
-    c.cfg=u
+    if cfg!=None: c.cfg=cfg
 
     # Initialize module
-    r=c.init(i)
-    if r['return']>0: return r
+    if i.get('skip_init','')!='yes':
+       r=c.init(i)
+       if r['return']>0: return r
 
     return {'return':0, 'code':c}
    
@@ -1662,6 +1664,8 @@ def perform_action(i):
     Input:  {
               all parameters from function 'access'
 
+              (web)         - if 'yes', called from the web
+
               (common_func) - if 'yes', ignore search for modules 
                                         and call common func from the CK kernel
             }
@@ -1680,6 +1684,9 @@ def perform_action(i):
     action=i.get('action','')
     if action=='' or action=='-?' or action=='-h' or action=='--help':
        action='help'
+
+    # Check web
+    wb=i.get('web','')
 
     # Substitute # in CIDs
     cid=i.get('cid','')
@@ -1771,16 +1778,22 @@ def perform_action(i):
        # Check if action in actions
        if action in u.get('actions',{}):
           # Load module
-          r=load_module_from_path({'path':p, 'cfg':u})
+          mcn=u.get('module_name',cfg['module_code_name'])
+
+          r=load_module_from_path({'path':p, 'module_code_name':mcn, 'cfg':u})
           if r['return']>0: return r
 
           c=r['code']
           c.work['self_module_uid']=rx['data_uid']
           c.work['self_module_uoa']=rx['data_uoa']
           c.work['self_module_alias']=rx['data_alias']
+          c.work['path']=p
 
           action1=u.get('actions_redirect',{}).get(action,'')
           if action1!='': action=action1
+
+          if wb=='yes' and u.get('actions',{}).get(action,{}).get('for_web','')!='yes':
+             return {'return':1, 'error':'this action is not supported in web mode'}
 
           a=getattr(c, action)
           return a(i)
@@ -1792,6 +1805,9 @@ def perform_action(i):
        #   is the same as internal python keywords such as list
        action1=cfg['actions_redirect'].get(action,'')
        if action1!='': action=action1
+
+       if wb=='yes' and cfg.get('actions',{}).get(action,{}).get('for_web','')!='yes':
+          return {'return':1, 'error':'this action is not supported in web mode'}
 
        a=getattr(sys.modules[__name__], action)
        return a(i)
@@ -3794,6 +3810,7 @@ def add_action(i):
 
               func                        - action
               (desc)                      - desc
+              (for_web)                   - if 'yes', can be used to output html
 
               (skip_appending_dummy_code) - if 'yes', do not append code
             }
@@ -3816,6 +3833,8 @@ def add_action(i):
 
     func=i.get('func','')
     desc=i.get('desc','')
+
+    fweb=i.get('for_web','')
 
     if muoa=='':
        return {'return':1, 'error':'module UOA is not defined'}
@@ -3842,6 +3861,10 @@ def add_action(i):
           r=inp({'text':'Add action function (or Enter to stop):    '})
           func=r['string']
 
+       if fweb=='':
+          r1=inp({'text':'Support web (yes or Enter to skip):        '})
+          fweb=r1['string']
+
        if desc=='':
           r1=inp({'text':'Add action description (or Enter to stop): '})
           desc=r1['string']
@@ -3856,6 +3879,7 @@ def add_action(i):
     # Adding actions
     actions[func]={}
     if desc!='': actions[func]['desc']=desc
+    if fweb!='': actions[func]['for_web']=fweb
     dd['actions']=actions
 
     if i.get('skip_appending_dummy_code','')!='yes':

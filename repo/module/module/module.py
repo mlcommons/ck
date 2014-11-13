@@ -114,10 +114,14 @@ def add(i):
           ck.out('')
           act='*'
           while act!='':
-             r=ck.inp({'text':'Add action function   (or Enter to stop): '})
+             r=ck.inp({'text':'Add action function   (or Enter to stop):  '})
              act=r['string']
              if act!='': 
                 actions[act]={}
+
+                r1=ck.inp({'text':'Support web (yes or Enter to skip):        '})
+                fweb=r1['string']
+                if fweb!='': actions[act]['for_web']=fweb
 
                 r1=ck.inp({'text':'Add action description (or Enter to stop): '})
                 adesc=r1['string']

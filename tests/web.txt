@@ -1,0 +1,17 @@
+http://localhost/ck/repo/json.php?action=load&cid=test:unicode
+
+http://localhost/ck/repo/web.php?action=test&module_uoa=web
+http://localhost/ck/repo/web.php?action=generate&module_uoa=qr-code&string=xyz
+
+http://localhost/ck/repo/json.php?action=load&cid=test:unicodex
+http://localhost/ck/repo/web.php?action=load&cid=test:unicodex
+
+=================================================================
+
+http://localhost:3344/json?action=load&cid=test:unicode
+
+http://localhost:3344/web?action=test&module_uoa=web
+http://localhost:3344/web?action=generate&module_uoa=qr-code&string=xyz
+
+http://localhost:3344/json?action=load&cid=test:unicodex
+http://localhost:3344/web?action=load&cid=test:unicodex

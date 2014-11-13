@@ -101,7 +101,7 @@ def add(i):
     if o=='con':
        # Asking for alias
        if df!='yes' and (d=='' or ck.is_uid(d)):
-          r=ck.inp({'text':'Enter an alias for this repository (or nothing to generate UID): '})
+          r=ck.inp({'text':'Enter an alias for this repository (or Enter to skip it): '})
           d=r['string']
           if d=='': d=di
           if d=='':

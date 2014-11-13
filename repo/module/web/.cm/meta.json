@@ -1,84 +1,88 @@
 {
   "license": "See CK LICENSE.txt for licensing details", 
-  "desc": "CK web service", 
   "copyright": "See CK Copyright.txt for copyright details", 
   "actions": {
+    "test": {
+      "for_web": "yes", 
+      "desc": "test web"
+    }, 
     "start": {
       "desc": "start web service"
     }
   }, 
-  "developer": "cTuning foundation",
-  "content_types":{
-    "bz2": {
-      "Content-type" : "application/x-bzip2", 
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$"
-    }, 
-    "css": {
-      "Content-type" : "text/css", 
-      "Content-disposition": "inline; filename=$#filename#$", 
-      "Content-title": "$#filename#$"
-    }, 
-    "csv": {
-      "Content-type" : "text/csv", 
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$"
-    }, 
-    "eps": {
-      "Content-type" : "application/postscript", 
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$"
-    }, 
-    "gz": {
-      "Content-type" : "application/x-gzip", 
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$"
-    }, 
-    "html": {
-      "Content-type" : "text/html; charset=utf-8"
-    }, 
-    "jpeg": {
-      "Content-type" : "image/jpeg"
-    }, 
-    "jpg": {
-      "Content-type" : "image/jpeg"
-    }, 
-    "js": {
-      "Content-type" : "text/javascript", 
-      "Content-disposition": "inline; filename=$#filename#$", 
-      "Content-title": "$#filename#$"
-    }, 
-    "json": {
-      "Content-type" : "application/json; charset=utf-8"
-    }, 
-    "pdf": {
-      "Content-type" : "application/pdf", 
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$"
-    }, 
-    "png": {
-      "Content-type" : "image/png"
-    }, 
-    "gif": {
-      "Content-type" : "image/gif"
-    }, 
+  "content_types": {
     "ps": {
-      "Content-type" : "application/postscript", 
+      "Content-type": "application/postscript", 
       "Content-disposition": "attachment; filename=$#filename#$", 
       "Content-title": "$#filename#$"
     }, 
     "txt": {
-      "Content-type" : "text/plain; charset=utf-8"
+      "Content-type": "text/plain; charset=utf-8"
+    }, 
+    "png": {
+      "Content-type": "image/png"
+    }, 
+    "bz2": {
+      "Content-type": "application/x-bzip2", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
     }, 
     "zip": {
-      "Content-type" : "application/zip", 
+      "Content-type": "application/zip", 
       "Content-disposition": "attachment; filename=$#filename#$", 
       "Content-title": "$#filename#$"
     }, 
     "unknown": {
-      "Content-type" : "application/octet-stream", 
+      "Content-type": "application/octet-stream", 
       "Content-disposition": "attachment; filename=$#filename#$", 
       "Content-title": "$#filename#$"
+    }, 
+    "gz": {
+      "Content-type": "application/x-gzip", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "jpeg": {
+      "Content-type": "image/jpeg"
+    }, 
+    "eps": {
+      "Content-type": "application/postscript", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "gif": {
+      "Content-type": "image/gif"
+    }, 
+    "json": {
+      "Content-type": "application/json; charset=utf-8"
+    }, 
+    "html": {
+      "Content-type": "text/html; charset=utf-8"
+    }, 
+    "jpg": {
+      "Content-type": "image/jpeg"
+    }, 
+    "pdf": {
+      "Content-type": "application/pdf", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "js": {
+      "Content-type": "text/javascript", 
+      "Content-disposition": "inline; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "csv": {
+      "Content-type": "text/csv", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "css": {
+      "Content-type": "text/css", 
+      "Content-disposition": "inline; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
     }
-  }
+  }, 
+  "desc": "CK web service", 
+  "developer": "cTuning foundation"
 }

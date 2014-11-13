@@ -127,11 +127,10 @@
 
  # Set output to tmp file
  $ftmpo=tempnam("", "ck-");
- if ($type=='json' || $act=='pull')
-   $ii['out']='json_file';
- else
-   $ii['out']='web';
+ if ($type!='json' && $act!='pull')
+   $ii['web']='yes';
  
+ $ii['out']='json_file';
  $ii['out_file']=$ftmpo;
 
  # Call CK
@@ -175,25 +174,32 @@
  # Output
  $fx='';
 
- if ($act=='pull' && $type!='json')
+ try
  {
-   try
-   {
-      $rr=json_decode($o,true);
-   } 
-   catch(Exception $e)
-   {
-     $er="Internal CK web service error (".$e->getMessage().")";
-     openme_web_err($cfg, $type, 1, $er);
-     exit(1);
-   }
+    $rr=json_decode($o,true);
+ } 
+ catch(Exception $e)
+ {
+   $er="Internal CK web service error (".$e->getMessage().")";
+   openme_web_err($cfg, $type, 1, $er);
+   exit(1);
+ }
 
-   if ($rr['return']>0)
-   {
-     openme_web_err($cfg, 'html', $rr['return'], $rr['error']);
-     exit(1);
-   }
+ if ($rr['return']>0)
+ {
+   openme_web_err($cfg, 'html', $rr['return'], $rr['error']);
+   exit(1);
+ }
 
+ # Check if file was returned
+ $fr=false;
+ if (array_key_exists("file_content_base64", $rr) &&
+     array_key_exists("filename", $rr))
+   $fr=true;
+
+ # Check if download
+ if ($fr || ($act=='pull' && $type!='json'))
+ {
    if (array_key_exists("file_content_base64", $rr))
      $x=$rr['file_content_base64'];
 
@@ -218,6 +224,23 @@
 
    # Process extension
    $type = pathinfo($fx, PATHINFO_EXTENSION);
+ }
+ else
+ {
+   # If html mode and output file is empty, use stdout from module ...
+   if (array_key_exists("html", $rr))
+      $o=$rr['html'];
+
+   if ($o=='')
+   {
+     if (array_key_exists("stdout", $r) && $r["stdout"]!="")
+     $o=$r['stdout'];
+   }
+   else
+   {
+     if (array_key_exists("file_content_base64", $rr))
+       $x=$rr['file_content_base64'];
+   }
  }
 
  openme_web_out($cfg, $type, $o, $fx);

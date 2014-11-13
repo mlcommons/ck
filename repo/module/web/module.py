@@ -373,15 +373,15 @@ def process_ck_web_request(i):
     if xt!='json' and xt!='web':
        web_out({'http':http, 
                 'type':'web', 
-                'bin':'<html><body>Unknown CK request!</body></html>'})
+                'bin':b'<html><body>Unknown CK request!</body></html>'})
+       return {'return':1, 'error':'unknown CK request'}
 
     # Call CK
     if dc!='yes':
+       if xt!='json' and act!='pull':
+          ii['web']='yes'
+       ii['out']='json_file'
        ii['out_file']=fn
-       if xt=='json' or act=='pull':
-          ii['out']='json_file'
-       elif xt=='web':
-          ii['out']='web'
 
     bin=b''
 
@@ -397,7 +397,7 @@ def process_ck_web_request(i):
           r=ck.load_text_file({'text_file':fn, 'keep_as_bin':'yes'})
           if r['return']==0:
              bin=r['bin']
-
+             
     # Remove temporary file
     if os.path.isfile(fn): 
        os.remove(fn)
@@ -417,41 +417,62 @@ def process_ck_web_request(i):
              bin=rx['string'].encode('utf-8')
        else:
           bin=str(r['error']).encode('utf-8')
-          xt=='web'
+          xt=='html'
 
-    # Check how to run #################
+       web_err({'http':http, 
+                'type':xt, 
+                'bin':bin})
+       return {'return':1, 'error':'internal error'}
+
+
+    # Process output
     fx=''
-    if (r['return']==0 and r.get('stderr','')=='') and xt=='web':
-       if act=='pull':
-          if sys.version_info[0]>2: bin=bin.decode('utf-8')
-          ru=ck.convert_json_str_to_dict({'str':bin, 'skip_quote_replacement':'yes'})
-          if ru['return']>0:
-             bin=str(ru['error']).encode('utf-8')
-             xt=='web'
-          else:
-             ry=ru['dict']
-             if ry['return']>0:
-                bin=str(ry['error']).encode('utf-8')
-                xt=='web'
+
+    if sys.version_info[0]>2: bin=bin.decode('utf-8')
+
+    ru=ck.convert_json_str_to_dict({'str':bin, 'skip_quote_replacement':'yes'})
+    if ru['return']>0:
+       bin=str(ru['error']).encode('utf-8')
+       xt=='html'
+    else:
+       rr=ru['dict']
+       if rr['return']>0:
+          bin=rr['error'].encode('utf-8')
+          xt=='html'
+       else:
+          # Check if file was returned
+          fr=False
+
+          if 'file_content_base64' in rr and rr.get('filename','')!='':
+             fr=True
+
+          # Check if download
+          if fr or (act=='pull' and xt!='json'):
+             x=rr.get('file_content_base64','')
+
+             fx=rr.get('filename','')
+             if fx=='': fx=ck.cfg['default_archive_name']
+
+             # Fixing Python bug
+             if sys.version_info[0]==3 and sys.version_info[1]<3:
+                x=x.encode('utf-8')
              else:
-                x=ry.get('file_content_base64','')
+                x=str(x)
+             bin=base64.urlsafe_b64decode(x) # convert from unicode to str since base64 works on strings
+                                                  # should be safe in Python 2.x and 3.x
 
-                fx=ry.get('filename','')
-                if fx=='': fx=ck.cfg['default_archive_name']
-
-                # Fixing Python bug
-                if sys.version_info[0]==3 and sys.version_info[1]<3:
-                   x=x.encode('utf-8')
-                else:
-                   x=str(x)
-                bin=base64.urlsafe_b64decode(x) # convert from unicode to str since base64 works on strings
-                                                     # should be safe in Python 2.x and 3.x
-
-                # Process extension
-                fn1, fne = os.path.splitext(fx)
-                if fne.startswith('.'): fne=fne[1:]
-                if fne!='': xt=fne
-                else: xt='unknown'
+             # Process extension
+             fn1, fne = os.path.splitext(fx)
+             if fne.startswith('.'): fne=fne[1:]
+             if fne!='': xt=fne
+             else: xt='unknown'
+          else:
+             # Check and output html
+             if rr.get('html','')!='':
+                bin=rr['html'].encode('utf-8')
+             else:
+                if sys.version_info[0]>2: # If json output and Python 3.x, encode ...
+                   bin=bin.encode('utf-8')
 
     # Output
     web_out({'http':http, 
@@ -551,3 +572,33 @@ def start(i):
        return {'return':1, 'error':'problem starting CK web service ('+format(e)+')'}
 
     return {'return':0}
+
+##############################################################################
+# test web
+
+def test(i):
+    """
+
+    Input:  {}
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    h='<B>Test CK web (with unicode)</B><BR><BR>'
+
+    r=ck.access({'action':'load',
+                 'module_uoa':'test',
+                 'data_uoa':'unicode'})
+    if r['return']>0: return r
+
+    d=r['dict']
+
+    for q in d['languages']:
+        h+=q+'<BR>'
+
+    return {'return':0, 'html':h}
