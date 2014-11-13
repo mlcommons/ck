@@ -161,6 +161,9 @@ def call_ck(i):
        process=subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
        stdout,stderr=process.communicate()
 
+       if sys.version_info[0]>2:
+          stderr=stderr.decode('utf-8')
+
     rr['stdout']=stdout
     rr['stderr']=stderr
 
@@ -192,7 +195,7 @@ def web_err(i):
     if tp=='json':
        bin2=b'{"return":1, "error":"'+bin1+b'"}'
     else:
-       bin2=b'<html><bin>'+bin1+b'</html></body>'
+       bin2=b'<html><body>'+bin1+b'</body></html>'
 
     i['bin']=bin2
     return web_out(i)
@@ -205,9 +208,10 @@ def web_out(i):
     """
 
     Input:  {
-              http - http object
-              type - content type
-              bin  - bytes to output
+              http       - http object
+              type       - content type
+              bin        - bytes to output
+              (filename) - if !='', substitute filename in headers
             }
 
     Output: { 
@@ -216,18 +220,28 @@ def web_out(i):
     """
     
     http=i['http']
-    tp=i['type']
     bin=i['bin']
 
-    tpx=cfg['content_types'].get(tp,'')
-    if tpx=='': 
-       tp='web'
+    tp=i['type']
+
+    if tp=='' or tp=='web': tp='html'
+
+    tpx=cfg['content_types'].get(tp,{})
+    if len(tpx)==0:
+       tp='unknown'
        tpx=cfg['content_types'][tp]
 
+    fn=i.get('filename','')
+
     # Output
-    http.send_header('Content-type', tpx+';charset=utf-8')
+    for k in sorted(tpx.keys()):
+        v=tpx[k]
+        if fn!='': v=v.replace('$#filename#$', fn)
+        http.send_header(k,v)
+
     http.send_header('Content-Length', str(len(bin)))
     http.end_headers()
+
     http.wfile.write(bin)
 
     return {'return':0}
@@ -350,66 +364,102 @@ def process_ck_web_request(i):
 
     dc=ii.get('detach_console','')
 
-    # Check how to run #################
-    if xt=='json':
-       ######################### JSON ##################################################
-       # Prepare temporary output file
-       fd, fn=tempfile.mkstemp(prefix='ck-')
-       os.close(fd)
+    act=ii.get('action','')
 
-       # Call CK
-       if dc!='yes':
+    # Prepare temporary output file
+    fd, fn=tempfile.mkstemp(prefix='ck-')
+    os.close(fd)
+
+    if xt!='json' and xt!='web':
+       web_out({'http':http, 
+                'type':'web', 
+                'bin':'<html><body>Unknown CK request!</body></html>'})
+
+    # Call CK
+    if dc!='yes':
+       ii['out_file']=fn
+       if xt=='json' or act=='pull':
           ii['out']='json_file'
-          ii['out_file']=fn
+       elif xt=='web':
+          ii['out']='web'
 
-       bin=b''
+    bin=b''
 
-       r=call_ck(ii)
+    r=call_ck(ii)
 
-       if r['return']==0:
-          # Load output json file
-          if dc=='yes': 
-             bin=r.get('stdout','').encode('utf8')
-             xt='text'
-          else:
-             r=ck.load_text_file({'text_file':fn, 'keep_as_bin':'yes'})
-             if r['return']==0:
-                bin=r['bin']
+    # If no error, try to read file
+    if r['return']==0 and r.get('stderr','')=='':
+       # Load output json file
+       if dc=='yes': 
+          bin=r.get('stdout','').encode('utf8')
+          xt='web'
+       else:
+          r=ck.load_text_file({'text_file':fn, 'keep_as_bin':'yes'})
+          if r['return']==0:
+             bin=r['bin']
 
-       if r['return']>0:
-          if rx.get('stderr','')!='': rx['error']+=' ('+rx['error']+')'
+    # Remove temporary file
+    if os.path.isfile(fn): 
+       os.remove(fn)
 
+    # If error
+    if r['return']>0 or r.get('stderr','')!='':
+       if r.get('stderr','')!='': 
+          if r.get('error','')=='': r['error']=b''
+          else: r['error']=r['error'].encode('utf8')
+          r['error']+=b' ('+str(r['stderr']).encode('utf8')+b')'
+
+       if xt=='json':
           rx=ck.dumps_json({'dict':r})
           if rx['return']>0:
              bin=b'{"return":1, "error": "internal CK web service error [7102] ('+rx['error'].encode('utf8')+b')"}' 
           else:
              bin=rx['string'].encode('utf-8')
+       else:
+          bin=str(r['error']).encode('utf-8')
+          xt=='web'
 
-       # Remove temporary file
-       if os.path.isfile(fn): 
-          os.remove(fn)
+    # Check how to run #################
+    fx=''
+    if (r['return']==0 and r.get('stderr','')=='') and xt=='web':
+       if act=='pull':
+          if sys.version_info[0]>2: bin=bin.decode('utf-8')
+          ru=ck.convert_json_str_to_dict({'str':bin, 'skip_quote_replacement':'yes'})
+          if ru['return']>0:
+             bin=str(ru['error']).encode('utf-8')
+             xt=='web'
+          else:
+             ry=ru['dict']
+             if ry['return']>0:
+                bin=str(ry['error']).encode('utf-8')
+                xt=='web'
+             else:
+                x=ry.get('file_content_base64','')
 
-       # Output
-       web_out({'http':http, 
-                'type':xt, 
-                'bin':bin})
+                fx=ry.get('filename','')
+                if fx=='': fx=ck.cfg['default_archive_name']
+
+                # Fixing Python bug
+                if sys.version_info[0]==3 and sys.version_info[1]<3:
+                   x=x.encode('utf-8')
+                else:
+                   x=str(x)
+                bin=base64.urlsafe_b64decode(x) # convert from unicode to str since base64 works on strings
+                                                     # should be safe in Python 2.x and 3.x
+
+                # Process extension
+                fn1, fne = os.path.splitext(fx)
+                if fne.startswith('.'): fne=fne[1:]
+                if fne!='': xt=fne
+                else: xt='unknown'
+
+    # Output
+    web_out({'http':http, 
+             'type':xt, 
+             'bin':bin,
+             'filename':fx})
        
-    elif xt=='web':
-       ######################### HTML ##################################################
-       web_out({'http':http, 
-                'type':xt, 
-                'bin':'<html><body>To be implemented!</body></html>'})
-
-
-
-
-
-    else:
-       web_out({'http':http, 
-                'type':'web', 
-                'bin':'<html><body>Unknown CK request!</body></html>'})
-
-    return
+    return {'return':0}
 
 ##############################################################################
 # Class to handle requests in separate threads

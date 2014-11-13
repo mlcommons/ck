@@ -41,6 +41,44 @@ function openme_web_to_array($web, $prefix, $remove=true)
   return $r; 
 }
 
+function openme_web_err($cfg, $tp, $err, $str)
+{
+  if ($tp=='json')
+  {
+    $s='{"return":'.strval($err).',"error":"'.$str.'"}';
+  }
+  else
+  {
+    $tp='html'; 
+    $s='<html></body>'.$str.'</html></body>';
+  }
+
+  return openme_web_out($cfg, $tp, $s, '');
+}
+
+function openme_web_out($cfg, $tp, $str, $filename)
+{
+  if ($tp=='' || $tp=='web')
+     $tp='html';
+
+  $tpx1=$cfg['content_types'];
+  if (!array_key_exists($tp, $tpx1))
+     $tp='unknown';
+
+  $tpx=$cfg['content_types'][$tp];
+
+  foreach ($tpx as $key => $value) 
+  {
+    $x=$key.': '.$value;
+    $y=str_replace('$#filename#$',$filename, $x);
+    header($y); 
+  }
+
+  print $str;
+
+  return;
+}
+
 function openme_ck_access($i, $output=true)
 {
  # Convert to json and call CK
@@ -108,9 +146,19 @@ function openme_ck_access($i, $output=true)
   $r=array("return"=>$rv, "stdout"=>$tout, "stderr"=>$terr);
 
   if ($rv>0 || $terr!='')
-     $r["error"]="Internal CK web-service error (".$terr.")";
+  {
+    $x=$tout;
+    if ($terr!='') $x=$x.'( '+$terr+')';
+    $r["error"]=$x;
+  }
 
   return $r;
+}
+
+function urlsafe_b64decode($s) 
+{
+# return str_replace(array('-','_','.'), array('+','/','='), $s);
+ return base64_decode(str_replace(array('-','_'), array('+','/'), $s));
 }
 
 ?>

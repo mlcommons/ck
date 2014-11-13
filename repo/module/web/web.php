@@ -19,7 +19,7 @@
  session_start();
 
  # Type
- $type='json';
+ $type='html';
 
  # initalize path to CK
  $ckr=getenv("CK_ROOT"); 
@@ -30,8 +30,8 @@
 
  # Check if library exists
  if (!file_exists($omc)) {
-   header("content-type: application/json; charset=UTF-8"); 
-   print '{"return":1, "error":"Internal CK web service error (Can\'t find openme_web.php)"}';
+   header("content-type: text/html; charset=UTF-8"); 
+   print 'Internal CK web service error (Can\'t find openme_web.php)';
    exit(1);
  }
  else

@@ -9,7 +9,76 @@
   }, 
   "developer": "cTuning foundation",
   "content_types":{
-    "json":"application/json",
-    "web":"text/html"
+    "bz2": {
+      "Content-type" : "application/x-bzip2", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "css": {
+      "Content-type" : "text/css", 
+      "Content-disposition": "inline; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "csv": {
+      "Content-type" : "text/csv", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "eps": {
+      "Content-type" : "application/postscript", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "gz": {
+      "Content-type" : "application/x-gzip", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "html": {
+      "Content-type" : "text/html; charset=utf-8"
+    }, 
+    "jpeg": {
+      "Content-type" : "image/jpeg"
+    }, 
+    "jpg": {
+      "Content-type" : "image/jpeg"
+    }, 
+    "js": {
+      "Content-type" : "text/javascript", 
+      "Content-disposition": "inline; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "json": {
+      "Content-type" : "application/json; charset=utf-8"
+    }, 
+    "pdf": {
+      "Content-type" : "application/pdf", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "png": {
+      "Content-type" : "image/png"
+    }, 
+    "gif": {
+      "Content-type" : "image/gif"
+    }, 
+    "ps": {
+      "Content-type" : "application/postscript", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "txt": {
+      "Content-type" : "text/plain; charset=utf-8"
+    }, 
+    "zip": {
+      "Content-type" : "application/zip", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
+    "unknown": {
+      "Content-type" : "application/octet-stream", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }
   }
 }

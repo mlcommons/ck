@@ -663,7 +663,7 @@ def convert_file_to_upload_string(i):
     if not os.path.isfile(fn):
        return {'return':1, 'error':'file '+fn+' not found'}
 
-    s=''
+    s=b''
     try:
        f=open(fn, 'rb')
        while True:
@@ -674,7 +674,49 @@ def convert_file_to_upload_string(i):
     except Exception as e:
        return {'return':1, 'error':'error reading file ('+format(e)+')'}
 
-    return {'return':0, 'file_content_base64': base64.urlsafe_b64encode(s)}
+    return {'return':0, 'file_content_base64': base64.urlsafe_b64encode(s).decode('utf-8')}
+
+##############################################################################
+# Convert file to upload string
+
+def convert_upload_string_to_file(i):
+    """
+    Input:  {
+              file_content_base64 - string transmitted through Internet
+              filename            - file name to write
+            }
+
+    Output: {
+              return              - return code =  0, if successful
+                                                >  0, if error
+              (error)             - error text if return > 0
+              filename_ext        - filename extension
+            }
+    """
+
+    import base64
+
+    x=i['file_content_base64']
+    fn=i['filename']
+
+    fc=base64.urlsafe_b64decode(str(x)) # convert from unicode to str since base64 works on strings
+                                        # should be safe in Python 2.x and 3.x
+
+    py=os.path.split(fn)
+    px=py[1]
+
+    fn1, fne = os.path.splitext(px)
+
+    if os.path.isfile(px):
+       return {'return':1, 'error':'file already exists in the current directory'}
+    try:
+       fx=open(px, 'wb')
+       fx.write(fc)
+       fx.close()
+    except Exception as e:
+       return {'return':1, 'error':'problem writing file='+px+' ('+format(e)+')'}
+
+    return {'return':0, 'filename_ext': fne}
 
 ##############################################################################
 # Convert CK list to CK dict (unification of interfaces)
@@ -1593,30 +1635,16 @@ def perform_remote_action(i):
     # Post process if pull/push file ...
     if act=='pull':
        if o!='json' and o!='json_file':
-          # Convert json file to real file ...
+          # Convert encoded file to real file ...
           x=d.get('file_content_base64','')
-          if x!='':
-             import base64
 
-             fn=d.get('filename','')
-             if fn=='': fn=cfg['default_archive_name']
+          fn=d.get('filename','')
+          if fn=='': fn=cfg['default_archive_name']
 
-             fc=base64.urlsafe_b64decode(str(x)) # convert from unicode to str since base64 works on strings
-                                                 # should be safe in Python 2.x and 3.x
+          r=convert_upload_string_to_file({'file_content_base64':x, 'filename':fn})
+          if r['return']>0: return r
 
-             py=os.path.split(fn)
-             px=py[1]
-
-             if os.path.isfile(px):
-                return {'return':1, 'error':'file already exists in the current directory'}
-             try:
-                fx=open(px, 'wb')
-                fx.write(fc)
-                fx.close()
-             except Exception as e:
-                return {'return':1, 'error':'problem writing file='+px+' ('+format(e)+')'}
-
-             del(d['file_content_base64'])
+          del(d['file_content_base64'])
 
     rr={'return':0}
     rr.update(d)
@@ -4153,7 +4181,7 @@ def pull(i):
     # If add to JSON
     if tj:
        r=convert_file_to_upload_string({'filename':pfn})
-       if r['return']>0: return 
+       if r['return']>0: return r
 
        rr['file_content_base64']=r['file_content_base64']
 
