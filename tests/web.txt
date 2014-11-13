@@ -25,3 +25,21 @@ http://cknowledge.org/repo/web.php?action=generate&module_uoa=qr-code&string=xyz
 
 http://cknowledge.org/repo/json.php?action=load&cid=test:unicodex
 http://cknowledge.org/repo/web.php?action=load&cid=test:unicodex
+
+=================================================================
+
+ck pull remote-local:test:unicodex
+ck pull remote-local:test:unicode 
+ck pull remote-local:test:unicode filename=ck_logo.png
+
+ck pull remote-local1:test:unicodex
+ck pull remote-local1:test:unicode 
+ck pull remote-local1:test:unicode filename=ck_logo.png
+
+ck pull remote-local2:test:unicodex
+ck pull remote-local2:test:unicode 
+ck pull remote-local2:test:unicode filename=ck_logo.png
+
+ck pull remote-ck:test:unicodex
+ck pull remote-ck:test:unicode 
+ck pull remote-ck:test:unicode filename=ck_logo.png

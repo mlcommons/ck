@@ -19,7 +19,7 @@
  session_start();
 
  # Type
- $type='html';
+ $type='web';
 
  # initalize path to CK
  $ckr=getenv("CK_ROOT"); 

@@ -190,12 +190,17 @@ def web_err(i):
     tp=i['type']
     bin=i['bin']
 
-    bin1=bin+b'! Please, report to developers '+ck.cfg['ck_web'].encode('utf-8')
+    try: bin=bin.decode('utf-8')
+    except Exception as e: pass
 
     if tp=='json':
-       bin2=b'{"return":1, "error":"'+bin1+b'"}'
+       rx=ck.dumps_json({'dict':{'return':1, 'error':bin}})
+       if rx['return']>0:
+          bin2=rx['error'].encode('utf8')
+       else:
+          bin2=rx['string'].encode('utf-8')
     else:
-       bin2=b'<html><body>'+bin1+b'</body></html>'
+       bin2=b'<html><body>'+bin.encode('utf8')+b'</body></html>'
 
     i['bin']=bin2
     return web_out(i)
@@ -374,7 +379,7 @@ def process_ck_web_request(i):
        web_out({'http':http, 
                 'type':'web', 
                 'bin':b'<html><body>Unknown CK request!</body></html>'})
-       return {'return':1, 'error':'unknown CK request'}
+       return
 
     # Call CK
     if dc!='yes':
@@ -397,7 +402,7 @@ def process_ck_web_request(i):
           r=ck.load_text_file({'text_file':fn, 'keep_as_bin':'yes'})
           if r['return']==0:
              bin=r['bin']
-             
+
     # Remove temporary file
     if os.path.isfile(fn): 
        os.remove(fn)
@@ -412,7 +417,7 @@ def process_ck_web_request(i):
        if xt=='json':
           rx=ck.dumps_json({'dict':r})
           if rx['return']>0:
-             bin=b'{"return":1, "error": "internal CK web service error [7102] ('+rx['error'].encode('utf8')+b')"}' 
+             bin=b"internal CK web service error [7102] ('+rx['error'].encode('utf8')+b')"
           else:
              bin=rx['string'].encode('utf-8')
        else:
@@ -424,7 +429,6 @@ def process_ck_web_request(i):
                 'bin':bin})
        return {'return':1, 'error':'internal error'}
 
-
     # Process output
     fx=''
 
@@ -432,13 +436,23 @@ def process_ck_web_request(i):
 
     ru=ck.convert_json_str_to_dict({'str':bin, 'skip_quote_replacement':'yes'})
     if ru['return']>0:
-       bin=str(ru['error']).encode('utf-8')
-       xt=='html'
+       bin=rr['error']
+
+       try: bin=bin.encode('utf-8')
+       except Exception as e: pass
+
+       web_err({'http':http, 'type':xt, 'bin':bin})
+       return
     else:
        rr=ru['dict']
        if rr['return']>0:
-          bin=rr['error'].encode('utf-8')
-          xt=='html'
+          bin=str(rr['error'])
+
+          try: bin=bin.encode('utf-8')
+          except Exception as e: pass
+
+          web_err({'http':http, 'type':xt, 'bin':bin})
+          return
        else:
           # Check if file was returned
           fr=False
@@ -447,7 +461,7 @@ def process_ck_web_request(i):
              fr=True
 
           # Check if download
-          if fr or (act=='pull' and xt!='json'):
+          if (xt=='web' and fr) or (act=='pull' and xt!='json'):
              x=rr.get('file_content_base64','')
 
              fx=rr.get('filename','')
@@ -475,10 +489,7 @@ def process_ck_web_request(i):
                    bin=bin.encode('utf-8')
 
     # Output
-    web_out({'http':http, 
-             'type':xt, 
-             'bin':bin,
-             'filename':fx})
+    web_out({'http':http, 'type':xt, 'bin':bin, 'filename':fx})
        
     return {'return':0}
 

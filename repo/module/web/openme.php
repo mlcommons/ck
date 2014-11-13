@@ -45,7 +45,8 @@ function openme_web_err($cfg, $tp, $err, $str)
 {
   if ($tp=='json')
   {
-    $s='{"return":'.strval($err).',"error":"'.$str.'"}';
+    $a=array('return' => strval($err), 'error' => $str);
+    $s=json_encode($a);
   }
   else
   {

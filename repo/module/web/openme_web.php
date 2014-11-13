@@ -187,7 +187,7 @@
 
  if ($rr['return']>0)
  {
-   openme_web_err($cfg, 'html', $rr['return'], $rr['error']);
+   openme_web_err($cfg, $type, $rr['return'], $rr['error']);
    exit(1);
  }
 
@@ -198,7 +198,7 @@
    $fr=true;
 
  # Check if download
- if ($fr || ($act=='pull' && $type!='json'))
+ if (($type=='web' && $fr) || ($act=='pull' && $type!='json'))
  {
    if (array_key_exists("file_content_base64", $rr))
      $x=$rr['file_content_base64'];

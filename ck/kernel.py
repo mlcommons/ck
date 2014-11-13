@@ -1634,6 +1634,9 @@ def perform_remote_action(i):
        return {'return':1, 'error':'can\'t parse output from remote CK server ('+r['error']+')'}
     d=r['dict']
 
+    if d.get('return',0)>0:
+       return d
+
     # Post process if pull/push file ...
     if act=='pull':
        if o!='json' and o!='json_file':
@@ -1646,7 +1649,7 @@ def perform_remote_action(i):
           r=convert_upload_string_to_file({'file_content_base64':x, 'filename':fn})
           if r['return']>0: return r
 
-          del(d['file_content_base64'])
+          if 'file_content_base64' in d: del(d['file_content_base64'])
 
     rr={'return':0}
     rr.update(d)
