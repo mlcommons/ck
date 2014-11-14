@@ -4319,12 +4319,14 @@ def push(i):
     # Create missing dirs
     if not os.path.isdir(p): os.makedirs(p)
 
+    overwrite=i.get('overwrite','')
+
     # Copy or record file
     p3=os.path.normpath(os.path.join(p, fn))
     if not p3.startswith(p3):
        return {'return':1,'error':'extra path is outside entry'}
 
-    if os.path.isfile(p3) and i.get('overwrite','')!='yes':
+    if os.path.isfile(p3) and overwrite!='yes':
        return {'return':1,'error':'file already exists in the entry'}
 
     if fcb:
@@ -4352,9 +4354,13 @@ def push(i):
                  if not os.path.exists(pp): os.makedirs(pp)
               else:
                  # extract file
-                 fo=open(pp, 'wb')
-                 fo.write(z.read(d))
-                 fo.close()
+                 if os.path.isfile(pp) and overwrite!='yes':
+                    if o=='con':
+                       out('File '+d+' already exists in the entry - skipping ...')
+                 else:
+                    fo=open(pp, 'wb')
+                    fo.write(z.read(d))
+                    fo.close()
        f.close()
        os.remove(p3)
        y='and unziped '
