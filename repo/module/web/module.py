@@ -330,7 +330,7 @@ def process_ck_web_request(i):
           s=http.rfile.read(length)
           if sys.version_info[0]>2: s=s.decode('utf8')
           xpost1 = cgi.parse_qs(s, keep_blank_values=1)
-
+ 
     except Exception as e:
        bin=b'internal CK web service error [7101] ('+format(e).encode('utf8')+')'
        web_err({'http':http, 'type':xt, 'bin':bin})
@@ -346,7 +346,16 @@ def process_ck_web_request(i):
            for l in v:
                xpost[k1].append(urlunquote(l))
         else: 
-           xpost[k]=urlunquote(v[0])
+           if k!='file_content':
+              xpost[k]=urlunquote(v[0])
+           else:
+              xpost[k]=v[0]
+
+        if k=='file_content':
+           import base64
+           xpost[k+'_base64']=base64.urlsafe_b64encode(xpost[k]).decode('utf8')
+           del(xpost[k])
+           k+='_base64'
 
         if sys.version_info[0]<3:
            xpost[k]=xpost[k].decode('utf8')
@@ -414,20 +423,16 @@ def process_ck_web_request(i):
           else: r['error']=r['error'].encode('utf8')
           r['error']+=b' ('+str(r['stderr']).encode('utf8')+b')'
 
-       if xt=='json':
-          rx=ck.dumps_json({'dict':r})
-          if rx['return']>0:
-             bin=b"internal CK web service error [7102] ('+rx['error'].encode('utf8')+b')"
-          else:
-             bin=rx['string'].encode('utf-8')
-       else:
-          bin=str(r['error']).encode('utf-8')
-          xt=='html'
+       bin=r['error']
+
+       try: bin=bin.encode('utf-8')
+       except Exception as e: pass
 
        web_err({'http':http, 
                 'type':xt, 
                 'bin':bin})
-       return {'return':1, 'error':'internal error'}
+
+       return
 
     # Process output
     fx=''

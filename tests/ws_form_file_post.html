@@ -2,8 +2,19 @@
 <body>
 Testing CK web service (post variables)
 
-<form name="input" action="http://localhost:3344/load?cid=kernel:default" enctype="multipart/form-data" method="post">
-File: <input type="file" name="datafile"><br>
+<form name="input" action="http://localhost:3344/json?" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+
+Action: <input type="text" name="action"><br>
+CID: <input type="text" name="cid"><br>
+
+ck_json: <input type="text" name="ck_json"><br>
+
+Overwrite: <input type="text" name="overwrite"><br>
+
+
+Filename: <input type="text" name="filename"><br>
+Extra path: <input type="text" name="extra_path"><br>
+File: <input type="file" name="file_content"><br>
 <input type="submit" value="Upload">
 </form> 
 

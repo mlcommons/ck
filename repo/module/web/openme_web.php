@@ -105,7 +105,7 @@
  # Process ck_json only in POST
  $ii=array_merge($ii, $post);
 
- if (array_key_exists("ck_json", $ii))
+ if (array_key_exists("ck_json", $ii) && $ii['ck_json']!='')
  {
    try
    {

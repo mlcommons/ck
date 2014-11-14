@@ -1604,6 +1604,29 @@ def perform_remote_action(i):
     # Process i
     if 'remote_server_url' in i: del(i['remote_server_url'])
 
+    # Pre process if push file ...
+    if act=='push':
+       # Check file
+       fn=i.get('filename','')
+       if fn=='':
+          x=i.get('cids',[])
+          if len(x)>0:
+             fn=x[0]
+
+       if fn=='':
+          return {'return':1, 'error':'filename is empty'}
+
+       if not os.path.isfile(fn):
+          return {'return':1, 'error':'file '+fn+' not found'}
+
+       rx=convert_file_to_upload_string({'filename':fn})
+       if rx['return']>0: return rx
+
+       i['file_content_base64']=rx['file_content_base64']
+
+       # Leave only filename without path
+       i['filename']=os.path.basename(fn)
+
     # Prepare post variables
     r=dumps_json({'dict':i, 'skip_indent':'yes'})
     if r['return']>0: return r
@@ -1637,7 +1660,7 @@ def perform_remote_action(i):
     if d.get('return',0)>0:
        return d
 
-    # Post process if pull/push file ...
+    # Post process if pull file ...
     if act=='pull':
        if o!='json' and o!='json_file':
           # Convert encoded file to real file ...
@@ -4222,9 +4245,22 @@ def pull(i):
 def push(i):
     """
     Input:  {
-              (repo_uoa)   
-              (module_uoa) 
-              (data_uoa)  
+              (repo_uoa)            - repo UOA, if needed
+              module_uoa            - module UOA 
+              data_uoa              - data UOA
+
+              (filename)            - local filename 
+                  or
+              (cid[0])
+
+              (extra_path)          - extra path inside entry (create if doesn't exist)
+
+              (file_content_base64) - if !='', take its content and record into filename
+
+              (archive)             - if 'yes' pull to entry and unzip ...
+
+              (overwrite)           - if 'yes', overwrite files
+
             }
 
     Output: {
@@ -4241,7 +4277,90 @@ def push(i):
     muoa=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
 
-    print ('hello')
+    # Check file
+    fn=i.get('filename','')
+    if fn=='':
+       x=i.get('cids',[])
+       if len(x)>0:
+          fn=x[0]
+
+    if fn=='':
+       return {'return':1, 'error':'filename is empty'}
+
+    fcb=False
+    if 'file_content_base64' in i:
+       import base64
+
+       bin=base64.urlsafe_b64decode(i['file_content_base64'].encode('utf8')) # convert from unicode to str since base64 works on strings
+                                                                   # should be safe in Python 2.x and 3.x
+       fcb=True
+    else:
+       if not os.path.isfile(fn):
+          return {'return':1, 'error':'file '+fn+' not found'}
+
+    # Attempt to load data (to find path, etc)
+    rx=load({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
+    if rx['return']>0: return rx
+
+    p=rx['path']
+    muoa=rx['module_uoa']
+    duoa=rx['data_uoa']
+    dd=rx['dict']
+
+    # Prepare path
+    p1=i.get('extra_path','')
+    if p1!='':
+       p2=os.path.normpath(os.path.join(p,p1))
+       if not p2.startswith(p):
+          return {'return':1,'error':'extra path is outside entry'}
+
+       p=p2
+
+    # Create missing dirs
+    if not os.path.isdir(p): os.makedirs(p)
+
+    # Copy or record file
+    p3=os.path.normpath(os.path.join(p, fn))
+    if not p3.startswith(p3):
+       return {'return':1,'error':'extra path is outside entry'}
+
+    if os.path.isfile(p3) and i.get('overwrite','')!='yes':
+       return {'return':1,'error':'file already exists in the entry'}
+
+    if fcb:
+       try:
+         f=open(p3, 'wb')
+         f.write(bin)
+         f.close()
+       except Exception as e:
+          return {'return':1, 'error':'problem writing text file='+p3+' ('+format(e)+')'}
+    else:
+       import shutil
+       shutil.copyfile(fn, p3)
+
+    # Process if archive
+    y=''
+    if i.get('archive','')=='yes':
+       import zipfile
+       f=open(p3,'rb')
+       z=zipfile.ZipFile(f)
+       for d in z.namelist():
+           if not d.startswith('.') and not d.startswith('/') and not d.startswith('\\'):
+              pp=os.path.join(p,d)
+              if d.endswith('/'): 
+                 # create directory 
+                 if not os.path.exists(pp): os.makedirs(pp)
+              else:
+                 # extract file
+                 fo=open(pp, 'wb')
+                 fo.write(z.read(d))
+                 fo.close()
+       f.close()
+       os.remove(p3)
+       y='and unziped '
+
+    if o=='con':
+       out('File was pushed '+y+'successfully!')
 
     return {'return':0}
 
