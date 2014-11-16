@@ -175,7 +175,7 @@ work={
       "repo_uid_work":""
      }
 
-paths_repos=[]     # First path to local repo (if exist), than global
+paths_repos=[]        # First path to local repo (if exist), than global
 
 cache_repo_init=False # True, if initialized
 paths_repos_all=[]    # Path to all repos
@@ -183,7 +183,7 @@ cache_repo_uoa={}     # Disambiguate repo UOA to repo UID
 cache_repo_info={}    # Cache repo info with path and type
 
 ##############################################################################
-# Universal print of unicode string in UTF-8 that supports Python 2.x and 3.x
+# Universal print of unicode string in utf8 that supports Python 2.x and 3.x
 
 def out(s):
     """
@@ -213,7 +213,7 @@ def out(s):
     return None
 
 ##############################################################################
-# Universal input of unicode string in UTF-8 that supports Python 2.x and 3.x
+# Universal input of unicode string in utf8 that supports Python 2.x and 3.x
 
 def inp(i):
     """
@@ -230,10 +230,21 @@ def inp(i):
 
     t=i['text']
 
-    if sys.version_info[0]>2:
-       s=input(t)
+    if con_encoding=='':
+       x=sys.stdin.encoding
+       if x==None: 
+          b=t.encode()
+       else:
+          b=t.encode(x, errors='ignore')
     else:
-       s=raw_input(t).decode(sys.stdin.encoding).encode('utf8')
+       b=t.encode(con_encoding, errors='ignore')
+
+    b=b.decode('utf8')
+
+    if sys.version_info[0]>2:
+       s=input(b)
+    else:
+       s=raw_input(b).decode(sys.stdin.encoding).encode('utf8')
 
     return {'return':0, 'string':s}
 
@@ -674,7 +685,9 @@ def convert_file_to_upload_string(i):
     except Exception as e:
        return {'return':1, 'error':'error reading file ('+format(e)+')'}
 
-    return {'return':0, 'file_content_base64': base64.urlsafe_b64encode(s).decode('utf-8')}
+    s=base64.urlsafe_b64encode(s).decode('utf8')
+
+    return {'return':0, 'file_content_base64': s}
 
 ##############################################################################
 # Convert file to upload string
@@ -796,7 +809,8 @@ def convert_ck_list_to_dict(i):
            if p=='--':
               cx=False
 
-              obj['unparsed']=i[x+1:]
+              p2=i[x+1:]
+              obj['unparsed']=p2
               break
 
            #####################################
@@ -941,9 +955,15 @@ def init(i):
           work['repo_name_work']=cfg['repo_name_local']
           work['repo_uid_work']=cfg['repo_uid_local']
 
-          paths_repos.append(work['dir_local_repo'])
+          paths_repos.append({'path':work['dir_local_repo'],
+                              'repo_uoa':cfg['repo_name_local'],
+                              'repo_uid':cfg['repo_uid_local'],
+                              'repo_alias':cfg['repo_name_local']})
 
-    paths_repos.append(work['dir_default_repo'])
+    paths_repos.append({'path':work['dir_default_repo'],
+                        'repo_uoa':cfg['repo_name_default'],
+                        'repo_uid':cfg['repo_uid_default'],
+                        'repo_alias':cfg['repo_name_default']})
 
     # Prepare repo cache
     work['dir_cache_repo_uoa']=os.path.join(work['dir_work_repo'],cfg['file_cache_repo_uoa'])
@@ -1006,6 +1026,7 @@ def list_all_files(i):
        pe=i['path_ext']
 
     po=i.get('path','')
+    if sys.version_info[0]<3: po=unicode(po)
 
     try:
        dirList=os.listdir(po)
@@ -1017,7 +1038,7 @@ def list_all_files(i):
 
             if i.get('get_all_files','')=='yes' or fn not in cfg['special_directories']:
                if os.path.isdir(p):
-                  r=list_all_files({'path':os.path.join(p), 'path_ext':os.path.join(pe, fn), 'number':str(number)})
+                  r=list_all_files({'path':p, 'path_ext':os.path.join(pe, fn), 'number':str(number)})
                   if r['return']>0: return r
                   a.extend(r['list'])
                else:
@@ -1057,9 +1078,13 @@ def reload_repo_cache(i):
     # Prepare all paths
     for q in cache_repo_info:
         qq=cache_repo_info[q]
-        p=qq['dict'].get('path','')
+        dd=qq['dict']
+        p=dd.get('path','')
         if p!='':
-           paths_repos_all.append(os.path.normpath(p))
+           paths_repos_all.append({'path':os.path.normpath(p),
+                                   'repo_uoa':qq['data_uoa'],
+                                   'repo_uid':qq['data_uid'],
+                                   'repo_alias':qq['data_alias']})
 
     cache_repo_init=True
 
@@ -1288,6 +1313,9 @@ def find_path_to_data(i):
               path         - path to data
               path_module  - path to module entry with this entry
               path_repo    - path to the repository of this entry
+              repo_uoa     - repo UOA 
+              repo_uid     - repo UID
+              repo_alias   - repo alias
               module_uoa   - module UOA 
               module_uid   - module UID
               module_alias - module alias
@@ -1303,11 +1331,14 @@ def find_path_to_data(i):
 
     ruoa=i.get('repo_uoa','')
     ruid=''
+    ralias=''
     if ruoa!='':
        r=find_path_to_repo({'repo_uoa':ruoa})
        if r['return']>0: return r
        ps=[r['path']]
+       ruoa=r['repo_uoa']
        ruid=r['repo_uid']
+       ralias=r['repo_alias']
        qmax=1
     else:
        ps=paths_repos
@@ -1330,7 +1361,11 @@ def find_path_to_data(i):
               if r['return']>0: return r
            ps=paths_repos_all
 
-        for pr in ps:
+        for prx in ps:
+            pr=prx['path']
+            ruoa=prx['repo_uoa']
+            ruid=prx['repo_uid']
+            ralias=prx['repo_alias']
             r=find_path_to_entry({'path':pr, 'data_uoa':muoa})
             if r['return']>0 and r['return']!=16: return r
             elif r['return']==0:
@@ -1361,7 +1396,17 @@ def find_path_to_data(i):
 
        return {'return':16, 'error':'can\'t find path to data "'+s}
 
+#    # Get info about repo
+#    if ruid=='':
+#       r=find_repo_by_path({'path':pr})
+#       if r['return']>0: return r
+#       ruoa=r['repo_uoa']
+#       ruid=r['repo_uid']
+#       ralias=r['repo_alias']
+#       qmax=1
+
     return {'return':0, 'path':pd, 'path_module':pm, 'path_repo':pr,
+                        'repo_uoa':ruoa, 'repo_uid':ruid, 'repo_alias':ralias,
                         'module_uoa':muoa, 'module_uid':muid, 'module_alias':malias,
                         'data_uoa':duoa, 'data_uid':duid, 'data_alias':dalias}
 
@@ -1428,7 +1473,7 @@ def find_path_to_entry(i):
 
     p1=os.path.join(p, alias)
     if sys.version_info[0]<3:
-       p1=p1.encode('utf-8')
+       p1=p1.encode('utf8')
     if os.path.isdir(p1):
        # Check uid for this alias
        p2=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_alias_a'] + alias)
@@ -1585,12 +1630,18 @@ def perform_remote_action(i):
     except:
        from urllib import urlencode
 
+    rr={'return':0}
+
     # Check output
     o=i.get('out','')
 
+    if o=='con':
+       out('Initiating remote access ...')
+
     # Clean up input
     if o!='json_file': 
-       i['out']='json'   # For remote web service return JSON
+       rr['out']='json' # Decided to return json to show that it's remote ...
+       i['out']='json'  # For remote web service return JSON
 
     if 'cid' in i: 
        del(i['cid']) # already processed
@@ -1674,7 +1725,6 @@ def perform_remote_action(i):
 
           if 'file_content_base64' in d: del(d['file_content_base64'])
 
-    rr={'return':0}
     rr.update(d)
 
     # Restore original output
@@ -1760,7 +1810,7 @@ def perform_action(i):
     rs=i.get('remote_server_url','')
     if rs=='': 
        ruoa=i.get('repo_uoa','')
-       if ruoa!='':
+       if ruoa!='' and ruoa.find('*')<0 and ruoa.find('?')<0:
           rq=load_repo_info_from_cache({'repo_uoa':ruoa})
           if rq['return']>0: return rq
 
@@ -2878,15 +2928,47 @@ def find(i):
 
     o=i.get('out','')
     i['out']=''
-    r=load(i)
-    i['out']=o
 
-    if r['return']>0: return r
-    p=r['path']
+    # Check wildcards
+    lst=[]
 
-    # If console mode, print path
+    a=i.get('repo_uoa','')
+    m=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    if a.find('*')>=0 or a.find('?')>=0 or m.find('*')>=0 or m.find('?')>=0 or duoa.find('*')>=0 or duoa.find('?')>=0: 
+       r=list_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
+       if r['return']>0: return r
+
+       lst=r['lst']
+
+       r={'return':0}
+
+       r.update(lst[0])
+    else:
+       # Find path to data
+       r=find_path_to_data(i)
+       if r['return']>0: return r
+
+       p=r['path']
+       ruoa=r.get('repo_uoa','')
+       ruid=r.get('repo_uid','')
+       muoa=r.get('module_uoa','')
+       muid=r.get('module_uid','')
+       duid=r.get('data_uid','')
+       duoa=r.get('data_alias','')
+       if duoa=='': duoa=duid
+
+       lst.append({'path':p, 'repo_uoa':ruoa, 'repo_uid':ruid, 
+                             'module_uoa':muoa, 'module_uid':muid, 
+                             'data_uoa':duoa, 'data_uid': duid})
+    
     if o=='con':
-       out(p)
+       for q in lst:
+           p=q['path']
+           out(p)
+
+    i['out']=o
 
     return r
 
@@ -2912,11 +2994,13 @@ def add(i):
               (update)               - if == 'yes' and entry exists, update it
 
               (dict)                 - meta description to record
-              (merge_dict)           - if 'yes' and update=='yes' merge dictionaries, either substitute!
+              (substitute)           - if 'yes' and update=='yes' substitute dictionaries, otherwise merge!
 
               (info)                 - entry info to record - normally, should not use it!
               (updates)              - entry updates info to record - normally, should not use it!
               (ignore_update)        - if 'yes', do not add info about update
+
+              (ask)                  - if 'yes', ask questions, otherwise silent
             }
 
     Output: {
@@ -2942,6 +3026,8 @@ def add(i):
 
     up=i.get('update','')
 
+    ask=i.get('ask','')
+
     # Get repo path
     r=find_path_to_repo({'repo_uoa':ra})
     if r['return']>0: return r
@@ -2959,7 +3045,7 @@ def add(i):
     module_desc=r['dict']
 
     # Ask additional questions
-    if o=='con':
+    if o=='con' and ask=='yes':
        # Asking for alias
        if d=='' or is_uid(d):
           r=inp({'text':'Enter an alias (or Enter to skip it): '})
@@ -2969,8 +3055,9 @@ def add(i):
        if dn=='' and up!='yes':
           r=inp({'text':'Enter a user-friendly name of this entry (or Enter to reuse alias): '})
           dn=r['string']
-          if dn=='' and not is_uid(d):
-             dn=d
+
+    if dn=='' and not is_uid(d):
+       dn=d
 
     # Load dictionary from other entry if needed
     dfcid=i.get('dict_from_cid','')
@@ -3050,11 +3137,11 @@ def add(i):
 
     # If dict, info and updates are in input, try to merge ...
     cma=i.get('dict',{})
-    if i.get('merge_dict','')=='yes':
+    if i.get('substitute','')=='yes':
+       a=cma
+    else:
        r=merge_dicts({'dict1':a, 'dict2':cma})
        if r['return']>0: return r
-    else:
-       a=cma
 
     cminfo=i.get('info',{})
     if len(cminfo)!=0:
@@ -3104,10 +3191,7 @@ def add(i):
     if rx['return']>0: return rx
 
     if o=='con':
-       out('Entry '+t+' successfully!')
-       out('')
-       out('Path = '+p2)
-       out('UID  = '+duid)
+       out('Entry '+d+' ('+duid+', '+p2+') '+t+' successfully!')
 
     rr['return']=0
 
@@ -3135,6 +3219,8 @@ def update(i):
 
               (info)                 - entry info to record - normally, should not use it!
               (updates)              - entry updates info to record - normally, should not use it!
+
+              (ask)                  - if 'yes', ask questions, otherwise silent
             }
 
     Output: {
@@ -3142,7 +3228,7 @@ def update(i):
                                          >  0, if error
               (error)      - error text if return > 0
 
-              Output from the 'create_entry' function
+              Output from the 'add' function (the last one in case of wildcards)
             }
 
     """
@@ -3153,14 +3239,56 @@ def update(i):
     o=i.get('out','')
     i['out']=''
 
-    r=load(i)
+    # Check wildcards
+    lst=[]
+
+    a=i.get('repo_uoa','')
+    m=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    single_not_found=False # If no wild cards and entry not found, then add
+
+    if a.find('*')>=0 or a.find('?')>=0 or m.find('*')>=0 or m.find('?')>=0 or duoa.find('*')>=0 or duoa.find('?')>=0: 
+       r=list_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
+       if r['return']>0: return r
+
+       lst=r['lst']
+    else:
+       # Find path to data
+       r=find_path_to_data(i)
+       if r['return']>0: 
+          single_not_found=True
+       else:
+          p=r['path']
+          ruoa=r.get('repo_uoa','')
+          ruid=r.get('repo_uid','')
+          muoa=r.get('module_uoa','')
+          muid=r.get('module_uid','')
+          duid=r.get('data_uid','')
+          duoa=r.get('data_alias','')
+          if duoa=='': duoa=duid
+
+          lst.append({'path':p, 'repo_uoa':ruoa, 'repo_uid':ruid, 
+                                'module_uoa':muoa, 'module_uid':muid, 
+                                'data_uoa':duoa, 'data_uid': duid})
+    
+    # Update entries
     i['out']=o
 
-    if r['return']==0: 
+    r={'return':0}
+    if single_not_found:
+       r=add(i)
+    else:
        i['update']='yes'
+   
+       for q in lst:
+           ii={}
+           ii.update(i)
+           ii.update(q)
+           r=add(ii)
+           if r['return']>0: return r
 
-    # Try to add or updated
-    return add(i)
+    return r
 
 ##############################################################################
 # Common action: delete data (module) entry
@@ -3204,13 +3332,17 @@ def rm(i):
        r=find_path_to_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
        if r['return']>0: return r
        p=r['path']
+       ruoa=r.get('repo_uoa','')
+       ruid=r.get('repo_uid','')
        muoa=r.get('module_uoa','')
        muid=r.get('module_uid','')
        duid=r.get('data_uid','')
        duoa=r.get('data_alias','')
        if duoa=='': duoa=duid
 
-       lst.append({'path':p, 'module_uoa':muoa, 'module_uid':muid, 'data_uoa':duoa, 'data_uid': duid})
+       lst.append({'path':p, 'repo_uoa':ruoa, 'repo_uid':ruid, 
+                             'module_uoa':muoa, 'module_uid':muid, 
+                             'data_uoa':duoa, 'data_uid': duid})
 
     first=True
     for ll in lst:
@@ -3513,7 +3645,7 @@ def cp(i):
         pn1d=os.path.dirname(pn1)
         if not os.path.isdir(pn1d): os.makedirs(pn1d)
 
-        shutil.copyfile(p1,pn1)
+        shutil.copy(p1,pn1)
 
     tt='copied'
     # If move, remove old one
@@ -3688,7 +3820,7 @@ def list_data(i):
     # Start iterating over repositories
     ir=0
     iir=True
-    zrk=zr.keys()
+    zrk=list(zr.keys())
     lr=len(zrk)
     while iir:
        skip=False

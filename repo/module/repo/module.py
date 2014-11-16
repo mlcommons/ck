@@ -413,7 +413,7 @@ def rm(i):
             }
     """
 
-    global cache_repo_uoa, cache_repo_info, paths_repos_all, cache_repo_init
+    global cache_repo_uoa, cache_repo_info
 
     ruoa=i.get('repo_uoa','')
     uoa=i.get('data_uoa','')
