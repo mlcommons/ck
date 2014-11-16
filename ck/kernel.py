@@ -239,7 +239,11 @@ def inp(i):
     else:
        b=t.encode(con_encoding, errors='ignore')
 
-    b=b.decode('utf8')
+    if sys.version_info[0]>2:
+       try: b=b.decode(sys.stdin.encoding)
+       except Exception as e: 
+         try: b=b.decode('utf8')
+         except Exception as e: pass
 
     if sys.version_info[0]>2:
        s=input(b)
@@ -732,7 +736,7 @@ def convert_upload_string_to_file(i):
     return {'return':0, 'filename_ext': fne}
 
 ##############################################################################
-# Convert CK list to CK dict (unification of interfaces)
+# Convert CK list to CK dict with unicode in UTF-8 (unification of interfaces)
 
 def convert_ck_list_to_dict(i):
     """
@@ -805,10 +809,10 @@ def convert_ck_list_to_dict(i):
     if l>1:
        for x in range(1, len(i)):
            p=i[x].rstrip()
+
            #####################################
            if p=='--':
               cx=False
-
               p2=i[x+1:]
               obj['unparsed']=p2
               break
@@ -1335,10 +1339,7 @@ def find_path_to_data(i):
     if ruoa!='':
        r=find_path_to_repo({'repo_uoa':ruoa})
        if r['return']>0: return r
-       ps=[r['path']]
-       ruoa=r['repo_uoa']
-       ruid=r['repo_uid']
-       ralias=r['repo_alias']
+       ps=[r]
        qmax=1
     else:
        ps=paths_repos
@@ -1472,8 +1473,9 @@ def find_path_to_entry(i):
     alias=duoa
 
     p1=os.path.join(p, alias)
-    if sys.version_info[0]<3:
-       p1=p1.encode('utf8')
+    if sys.version_info[0]<3: 
+       try: p1=p1.encode('utf8')
+       except Exception as e: pass
     if os.path.isdir(p1):
        # Check uid for this alias
        p2=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_alias_a'] + alias)
@@ -3949,7 +3951,9 @@ def list_data(i):
                                     lst.append(ll)
 
                                     if o=='con':
-                                       x=ruoa+':'+muoa+':'+duoa
+                                       x=ruoa+u':'+muoa+u':'
+                                       if sys.version_info[0]<3: x+=duoa.decode(sys.stdin.encoding)
+                                       else: x+=duoa
                                        out(x)
        # Finish iteration over repositories
        ir+=1
