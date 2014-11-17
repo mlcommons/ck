@@ -2,6 +2,7 @@
   "actions":{
     "add":{"desc":"register repository in CK"},
     "create":{"desc":"register repository in CK"},
+    "update":{"desc":"update repository information"},
     "rm":{"desc":"remove repository from CK"},
     "remove":{"desc":"remove repository from CK"},
     "delete":{"desc":"remove repository from CK"},

@@ -267,7 +267,7 @@ def test():
     out(cfg['name'])
 
     out('')
-    out('Test function executed successfully')
+    out('Test function executed successfully!')
 
     return {'return':0}
 
@@ -1245,6 +1245,7 @@ def find_path_to_repo(i):
                                          >  0, if error
               (error)      - error text if return > 0
 
+              dict         - dict from cache
               path         - path to repo
 
               repo_uoa     - repo UOA
@@ -1263,11 +1264,13 @@ def find_path_to_repo(i):
           uoa=cfg['repo_name_default']
           uid=cfg['repo_uid_default']
           alias=uoa
+          dt={}
        elif a==cfg['repo_name_local']:
           pr=work['dir_local_repo']
           uoa=cfg['repo_name_local']
           uid=cfg['repo_uid_local']
           alias=uoa
+          dt={}
        else:
           # Reload cache if not initialized
           if not cache_repo_init:
@@ -1280,10 +1283,8 @@ def find_path_to_repo(i):
                 return {'return':1, 'error':'repository "'+a+'" was not found in cache'}
 
           cri=cache_repo_info.get(ai, {})
-          pr=cri.get('dict',{}).get('path','')
-
-          if pr=='':
-             return {'return':1, 'error':'path for repository "'+a+'" was not found in cache'}
+          dt=cri.get('dict',{})
+          pr=dt.get('path','')
 
           uoa=cri['data_uoa']
           uid=cri['data_uid']
@@ -1295,8 +1296,9 @@ def find_path_to_repo(i):
        uoa=work['repo_name_work']
        uid=work['repo_uid_work']
        alias=uoa
+       dt={}
 
-    return {'return':0, 'path':pr, 'repo_uoa':uoa, 'repo_uid':uid, 'repo_alias':alias}
+    return {'return':0, 'path':pr, 'repo_uoa':uoa, 'repo_uid':uid, 'repo_alias':alias, 'dict':dt}
 
 ##############################################################################
 # Find path to data (first search in default repo, then local one and then all other repos)
@@ -3230,9 +3232,11 @@ def update(i):
                                        from this (module_uoa):data_uoa (analog of copy)
 
               (dict)                 - meta description to record
+              (substitute)           - if 'yes' and update=='yes' substitute dictionaries, otherwise merge!
 
               (info)                 - entry info to record - normally, should not use it!
               (updates)              - entry updates info to record - normally, should not use it!
+              (ignore_update)        - if 'yes', do not add info about update
 
               (ask)                  - if 'yes', ask questions, otherwise silent
             }

@@ -41,9 +41,9 @@ def add(i):
 
     Input:  {
               (repo_uoa)               - repo UOA (where to create entry)
-              uoa                      - data UOA
-              (uid)                    - data UID (if uoa is an alias)
-              (name)                   - user friendly data name
+              data_uoa                 - data UOA
+              (data_uid)               - data UID (if uoa is an alias)
+              (data_name)              - user friendly data name
 
               (cids[0])                - as uoa or full CID
 
@@ -287,6 +287,114 @@ def add(i):
     return rx
 
 ##############################################################################
+# Update repository in a given directory and record info in CK
+
+def update(i):
+    """
+    Update repository info
+
+    Input:  {
+              data_uoa                 - data UOA
+
+              (shared)                 - if not remote and =='git', shared through GIT
+
+              (url)                    - if type=='git', URL of remote repository or git repository
+              (sync)                   - if 'yes' and type=='git', sync repo after each write operation
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    duoa=i.get('data_uoa','')
+
+    remote=i.get('remote','')
+    rruoa=i.get('remote_repo_uoa','')
+    shared=i.get('shared','')
+    url=i.get('url','')
+    sync=i.get('sync','')
+
+    # Get configuration
+    r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
+    if r['return']>0: return r
+
+    dn=r.get('data_name','')
+    d=r['dict']
+
+    changed=False
+
+    # Check user-friendly name
+    if dn!='':
+       ck.out('Current user-friendly name of this repository: '+dn)
+       ck.out('')
+
+    r=ck.inp({'text':'Enter a user-friendly name of this repository (or nothing to keep old value): '})
+    x=r['string']
+    if x!='': 
+       dn=x
+       changed=True
+
+    # If remote, update URL
+    shared=d.get('shared','')
+    if d.get('remote','')=='yes':
+       url=d.get('url','')
+       ck.out('Repository is remote ...')
+       ck.out('')
+       ck.out('Current URL: '+url)
+       ck.out('')
+       rx=ck.inp({'text':'Enter new URL (or nothing to leave old one): '})
+       x=rx['string']
+       if x!='': 
+          d['url']=x
+          changed=True
+    elif shared!='':
+       url=d.get('url','')
+       ck.out('Repository is shared ...')
+       ck.out('')
+       ck.out('Current URL: '+url)
+
+       if shared=='git':
+          sync=d.get('sync','')
+          ck.out('')
+          if sync!='':
+             ck.out('Current sync setting: '+sync)
+          r=ck.inp({'text': 'Would you like to sync repo each time after writing to it (yes/no or Enter to keep old value)?: '})
+          x=r['string'].lower()
+          if x!='':
+             d['sync']=x
+             changed=True
+
+    # Write if changed
+    if changed:
+       if o=='con':
+          ck.out('')
+          ck.out('Updating repo info ...')
+
+       rx=ck.access({'action':'update',
+                     'module_uoa':ck.cfg['repo_name'],
+                     'data_uoa':duoa,
+                     'data_name':dn,
+                     'dict':d,
+                     'common_func':'yes',
+                     'overwrite':'yes'})
+       if rx['return']>0: return rx
+
+       # Recaching
+       if o=='con':
+          ck.out('')
+
+       r=recache({'out':o})
+       if r['return']>0: return r
+
+    return {'return':0}
+
+##############################################################################
 # Pull from remote repo if URL
 
 def pull(i):
@@ -331,7 +439,7 @@ def pull(i):
        d=r['dict']
 
        p=d['path']
-       t=d['type']
+       t=d.get('shared','')
        url=d.get('url','')
 
     # Updating ...
@@ -343,6 +451,8 @@ def pull(i):
        if not os.path.isdir(p):
           os.makedirs(p)
 
+       if o=='con':
+          ck.out('Moving to directory '+p+' ...')
        os.chdir(p)
 
        s=ck.cfg['repo_types'][t][tt].replace('$#url#$', url).replace('$#path#$', p)
@@ -383,6 +493,8 @@ def create(i):
 
 def recache(i):
     """
+    Input:  {}
+
     Output: {
               return       - return code =  0, if successful
                                          >  0, if error
@@ -390,8 +502,68 @@ def recache(i):
             }
     """
 
+    o=i.get('out','')
 
+    # Listing all repos
+    r=ck.access({'action':'list',
+                 'module_uoa':ck.cfg['repo_name']})
+    if r['return']>0: return r
+    l=r['lst']
 
+    cru={}
+    cri={}
+
+    # Processing repos
+    for q in l:
+        ruoa=q['repo_uoa']
+        muoa=q['module_uoa']
+        duoa=q['data_uoa']
+        duid=q['data_uid']
+
+        if duid==ck.cfg['repo_uid_default'] or duid==ck.cfg['repo_uid_local']:
+           if o=='con':
+              ck.out('Skipping repo '+duoa+' ...')
+        else:
+           if o=='con':
+              ck.out('Processing repo '+duoa+' ...')
+
+           # Load repo (do not use repo, since may not exist in cache)
+           rx=ck.access({'action':'load',
+                         'module_uoa':muoa,
+                         'data_uoa':duoa})
+           if rx['return']>0: return rx
+           dt=rx['dict']
+           dname=rx['data_name']
+           dalias=rx['data_alias']
+           dp=rx['path']
+
+           if duoa!=duid:
+              cru[duoa]=duid
+
+           dd={'dict':dt}
+
+           dd['data_uid']=duid
+           dd['data_uoa']=duoa
+           dd['data_alias']=dalias
+           dd['data_name']=dname
+           dd['path_to_repo_desc']=dp
+
+           cri[duid]=dd
+
+    # Recording 
+    ck.cache_repo_uoa=cru
+    ck.cache_repo_info=cri
+
+    if o=='con':
+       ck.out('')
+       ck.out('Recording repo cache ...')
+    
+    rx=ck.save_repo_cache({})
+    if rx['return']>0: return rx
+
+    if o=='con':
+       ck.out('')
+       ck.out('Repositories was successfully recached!')
 
     return {'return':0}
 
