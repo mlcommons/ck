@@ -43,6 +43,8 @@ def setup(i):
               (group)      - if !='', configure only this group:
                              * install - install as python library
                              * content - related to content 
+                             * writing - related to writing control 
+                             * indexing - related to indexing
             }
 
     Output: {
@@ -155,10 +157,36 @@ def setup(i):
        d=r['string']
        if d!='': cfg['default_license']=d
 
+    # Developer options
+    if param=='' or param=='writing':
+       ck.out(sep)
+       ck.out('*** Writing control ***')
 
+       ck.out('')
+       ck.out('Forbid all writing operations (useful for permanent web-based repositories): '+cfg.get('forbid_global_writing' ,ck.cfg.get('forbid_global_writing','')))
+       ck.out('Forbid adding new modules:                                                   '+cfg.get('forbid_adding_modules', ck.cfg.get('forbid_adding_modules','')))
 
+       ck.out('')
+       r=ck.inp({'text': 'Forbid all writing operations (yes or Enter to keep previous)?: '})
+       d=r['string']
+       if d!='': cfg['forbid_global_writing']=d
 
+       r=ck.inp({'text': 'Forbid adding new modules (yes or Enter to keep previous)?:     '})
+       d=r['string']
+       if d!='': cfg['forbid_adding_modules']=d
 
+    # Developer options
+    if param=='' or param=='indexing':
+       ck.out(sep)
+       ck.out('*** Indexing control (through ElasticSearch) ***')
+
+       ck.out('')
+       ck.out('Use indexing: '+cfg.get('use_indexing' ,ck.cfg.get('use_indexing','')))
+
+       ck.out('')
+       r=ck.inp({'text': 'Use indexing (yes or Enter to keep previous)?: '})
+       d=r['string']
+       if d!='': cfg['use_indexing']=d
 
     # Writing/updating configuration
     ck.out(sep)

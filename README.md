@@ -6,7 +6,7 @@ and crowdsource their ad-hoc experiments (code and data).
 
 CK let users assign assign DOI-style UID to any available code
 and data, make them searchable (using ElasticSearch), shareable
-with the community through CK we-bservices and GITHUB (or any
+with the community through CK web-services and GITHUB (or any
 other version control system), and expose them to powerful
 third-party statistical analysis and big data predictive
 analytics tools including R and SciPy.
@@ -126,8 +126,8 @@ For end users:
 * https://github.com/ctuning/ck/wiki
 
 For developers:
-* CK kernel API: http://ctuning.org/software/ck/docs/ck_kernel_api/html/namespaceck_1_1kernel.html
-* CK modules API: http://ctuning.org/software/ck/docs/ck_modules_api/html/files.html
+* CK kernel API: http://cknowledge.org/soft/docs/ck_kernel_api/html/namespaceck_1_1kernel.html
+* CK modules API: http://cknowledge.org/soft/docs/ck_modules_api/html/files.html
 
 Mailing list
 ============
@@ -139,5 +139,6 @@ See CONTRIBUTIONS.txt
 
 Acknowledgments
 ===============
-We would like to thank EU FP7 609491 TETRACOM project for initial funding,
-ARM for helping to validate the concept, and all volunteers for their support.
+This project has been funded by EU FP7 609491 TETRACOM project,
+ARM and cTuning foundation. We would like to thank all volunteers
+for their feedback and support.
