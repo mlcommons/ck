@@ -63,6 +63,8 @@ ck pull remote-local2:test:unicodex
 ck pull remote-local2:test:unicode 
 ck pull remote-local2:test:unicode filename=ck_logo.png
 
+ck load remote-ck:test:unicode
 ck pull remote-ck:test:unicodex
 ck pull remote-ck:test:unicode 
 ck pull remote-ck:test:unicode filename=ck_logo.png
+ck list remote-ck:repo:

@@ -10,10 +10,8 @@
 
  */
 
- # Add local environment
- # putenv("CK_ROOT=");
- # putenv("CK_LOCAL_REPO=");
- # putenv("CK_REPOS=");
+ # Load local environment, if needed
+ if (file_exists('local_env.php')) require_once 'local_env.php';
 
  # Start session
  session_start();

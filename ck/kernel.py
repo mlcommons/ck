@@ -198,9 +198,9 @@ def out(s):
           if x==None: 
              b=s.encode()
           else:
-             b=s.encode(x, errors='ignore')
+             b=s.encode(x, 'ignore')
        else:
-          b=s.encode(con_encoding, errors='ignore')
+          b=s.encode(con_encoding, 'ignore')
 
        if sys.version_info[0]>2:
           sys.stdout.buffer.write(b)
@@ -235,9 +235,9 @@ def inp(i):
        if x==None: 
           b=t.encode()
        else:
-          b=t.encode(x, errors='ignore')
+          b=t.encode(x, 'ignore')
     else:
-       b=t.encode(con_encoding, errors='ignore')
+       b=t.encode(con_encoding, 'ignore')
 
     if sys.version_info[0]>2:
        try: b=b.decode(sys.stdin.encoding)
