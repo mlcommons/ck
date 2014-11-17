@@ -212,7 +212,7 @@ def web_err(i):
     elif tp=='con':
        bin2=bin.encode('utf8')
     else:
-       bin2=b'<html><body>'+bin.encode('utf8')+b'</body></html>'
+       bin2=b'<html><body><pre>'+bin.encode('utf8')+b'</pre></body></html>'
 
     i['bin']=bin2
     return web_out(i)
@@ -373,8 +373,9 @@ def process_ck_web_request(i):
 
     # Prepare input and check if CK json present
     ii=xget
+    ii.update(xpost)
 
-    cj=xpost.get('ck_json','').strip()
+    cj=ii.get('ck_json','').strip()
     if cj!='':
        r=ck.convert_json_str_to_dict({'str':cj, 'skip_quote_replacement':'yes'})
        if r['return']>0: 
@@ -383,9 +384,8 @@ def process_ck_web_request(i):
           ck.out(ck.cfg['error']+bin.decode('utf8'))
           return
 
+       del(ii['ck_json'])
        ii.update(r['dict'])
-    else:
-       ii.update(xpost)
 
     # Misc parameters
     dc=ii.get('detach_console','')
@@ -420,7 +420,7 @@ def process_ck_web_request(i):
           ii['out']='json_file'
        # else output to console (for remote access for example)
 
-    ii['con_encoding']='utf-8'
+    ii['con_encoding']='utf8'
 
     # Execute command *********************************************************
     r=call_ck(ii)
@@ -439,16 +439,11 @@ def process_ck_web_request(i):
                 'bin':bout})
        return
 
-    xstd=r['std']
-    xstdout=r['stdout']
-    xstderr=r['stderr']
-
-    # If detached console
-    if dc=='yes' or xt=='con': 
+    # If output to console or detached console
+    if xt=='con' or dc=='yes': 
        if os.path.isfile(fn): os.remove(fn)
 
        bout=r.get('std','').encode('utf8')
-       xt='web'
 
        web_out({'http':http, 'type':xt, 'bin':bout})
 
@@ -459,7 +454,7 @@ def process_ck_web_request(i):
     if not os.path.isfile(fn):
        web_err({'http':http, 
                 'type':xt, 
-                'bin':b'Output json file was not created, see output ('+std.encode('utf8')+b')!'})
+                'bin':b'Output json file was not created, see output ('+r['std'].encode('utf8')+b')!'})
        return
 
     r=ck.load_text_file({'text_file':fn, 'keep_as_bin':'yes'})

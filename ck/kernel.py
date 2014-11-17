@@ -98,7 +98,7 @@ cfg={
 
                  "add":{"desc":"<CID> add entry"},
                  "update":{"desc":"<CID> update entry"},
-                 "load":{"desc":"<CID> load meta description of entry"},
+                 "load":{"desc":"<CID> load meta description of entry", "for_web": "yes"},
 
                  "find":{"desc":"<CID> find path to entry"},
                  "path":{"desc":"<CID> detect CID in the current directory"},
@@ -1641,8 +1641,8 @@ def perform_remote_action(i):
     o=i.get('out','')
 
     if o=='con':
-       out('Initiating remote access ...')
-       out('')
+#       out('Initiating remote access ...')
+#       out('')
        i['out']='con'
        i['quiet']='yes'
        if act=='pull':
@@ -1712,7 +1712,9 @@ def perform_remote_action(i):
 
     # Check output
     if o=='con' and act!='pull':
-       out(s)
+       try: s=s.decode('utf8')
+       except Exception as e: pass
+       out(s.rstrip())
     else:
        # Try to convert output to dictionary
        r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
@@ -3980,7 +3982,13 @@ def list_data(i):
 
                                     if o=='con':
                                        x=ruoa+':'+muoa+':'
-                                       if sys.version_info[0]<3: x+=duoa.decode(sys.stdin.encoding)
+                                       if sys.version_info[0]<3: 
+                                          y=duoa
+                                          try: y=y.decode(sys.stdin.encoding)
+                                          except Exception as e: 
+                                            try: y=y.decode('utf8')
+                                            except Exception as e: pass
+                                          x+=y
                                        else: x+=duoa
                                        out(x)
        # Finish iteration over repositories

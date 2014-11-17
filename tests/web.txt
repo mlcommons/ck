@@ -1,40 +1,59 @@
+http://localhost/ck/repo/ck.php?action=load&cid=test:unicode&out=json
 http://localhost/ck/repo/json.php?action=load&cid=test:unicode
+http://localhost/ck/repo/console.php?action=load&cid=test:unicode
 
 http://localhost/ck/repo/web.php?action=test&module_uoa=web
+
 http://localhost/ck/repo/web.php?action=generate&module_uoa=qr-code&string=xyz
+http://localhost/ck/repo/web.php?action=pull&cid=test:unicode&filename=ck_logo.png
 
 http://localhost/ck/repo/json.php?action=load&cid=test:unicodex
 http://localhost/ck/repo/web.php?action=load&cid=test:unicodex
+http://localhost/ck/repo/console.php?action=load&cid=test:unicodex
+
+http://localhost/ck/repo/console.php?action=list&module_uoa=repo
 
 =================================================================
 
 http://localhost:3344/ck?action=load&cid=test:unicode&out=json
 http://localhost:3344/json?action=load&cid=test:unicode
+http://localhost:3344/con?action=load&cid=test:unicode
 
 http://localhost:3344/web?action=test&module_uoa=web
-http://localhost:3344/web?action=generate&module_uoa=qr-code&string=xyz
 
+http://localhost:3344/web?action=generate&module_uoa=qr-code&string=xyz
 http://localhost:3344/web?action=pull&cid=test:unicode&filename=ck_logo.png
 
 http://localhost:3344/json?action=load&cid=test:unicodex
 http://localhost:3344/web?action=load&cid=test:unicodex
-http://localhost:3344/con?action=load&cid=test:unicode
+http://localhost:3344/con?action=load&cid=test:unicodex
+
+http://localhost:3344/con?action=list&module_uoa=repo
 
 =================================================================
 
+http://cknowledge.org/repo/ck.php?action=load&cid=test:unicode&out=json
 http://cknowledge.org/repo/json.php?action=load&cid=test:unicode
+http://cknowledge.org/repo/console.php?action=load&cid=test:unicode
 
 http://cknowledge.org/repo/web.php?action=test&module_uoa=web
+
 http://cknowledge.org/repo/web.php?action=generate&module_uoa=qr-code&string=xyz
+http://cknowledge.org/repo/web.php?action=pull&cid=test:unicode&filename=ck_logo.png
 
 http://cknowledge.org/repo/json.php?action=load&cid=test:unicodex
 http://cknowledge.org/repo/web.php?action=load&cid=test:unicodex
+http://cknowledge.org/repo/console.php?action=load&cid=test:unicodex
+
+http://cknowledge.org/repo/console.php?action=list&module_uoa=repo
 
 =================================================================
 
+ck load remote-local:test:unicode
 ck pull remote-local:test:unicodex
 ck pull remote-local:test:unicode 
 ck pull remote-local:test:unicode filename=ck_logo.png
+ck list remote-local:repo:
 
 ck pull remote-local1:test:unicodex
 ck pull remote-local1:test:unicode 
