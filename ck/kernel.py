@@ -1002,7 +1002,7 @@ def list_all_files(i):
               (path_ext)      - path extension (needed for recursion)
               (limit)         - limit number of files (if directories with a large number of files)
               (number)        - current number of files
-              (get_all_files) - if 'yes' do not ignore special directories (like .cm)
+              (all) - if 'yes' do not ignore special directories (like .cm)
             }
 
     Output: {
@@ -1040,7 +1040,7 @@ def list_all_files(i):
         for fn in dirList:
             p=os.path.join(po, fn)
 
-            if i.get('get_all_files','')=='yes' or fn not in cfg['special_directories']:
+            if i.get('all','')=='yes' or fn not in cfg['special_directories']:
                if os.path.isdir(p):
                   r=list_all_files({'path':p, 'path_ext':os.path.join(pe, fn), 'number':str(number)})
                   if r['return']>0: return r
@@ -4278,7 +4278,7 @@ def pull(i):
               (cid[0])
                                 if empty, create an archive of the entry
               (archive)       - if 'yes' pull whole entry as zip archive using filename or ck_archive.zip
-              (get_all_files) - if 'yes' and archive, add even special directories (.cm, .svn, .git, etc)
+              (all) - if 'yes' and archive, add even special directories (.cm, .svn, .git, etc)
 
 
               (out)           - if 'json' or 'json_file', encode file and return in r
@@ -4385,8 +4385,8 @@ def pull(i):
 
        zip_method=zipfile.ZIP_DEFLATED
 
-       gaf=i.get('get_all_files','')
-       r=list_all_files({'path':p, 'get_all_files':gaf})
+       gaf=i.get('all','')
+       r=list_all_files({'path':p, 'all':gaf})
        if r['return']>0: return r
 
        fl=r['list']
@@ -4583,7 +4583,7 @@ def list_files(i):
     ii={'path':p}
     if i.get('limit','')!='': ii['limit']=i['limit']
     if i.get('number','')!='': ii['number']=i['number']
-    if i.get('get_all_files','')!='': ii['get_all_files']=i['get_all_files']
+    if i.get('all','')!='': ii['all']=i['all']
 
     r=list_all_files(ii)
     if r['return']>0: return r
