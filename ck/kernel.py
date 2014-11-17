@@ -84,7 +84,9 @@ cfg={
       "repo_types":{
                      "git":{
                             "clone":"git clone $#url#$ $#path#$",
-                            "update":"git pull"
+                            "pull":"git pull",
+                            "push":"git push",
+                            "commit":"git commit"
                            }
                    },
 
@@ -3263,6 +3265,8 @@ def update(i):
     a=i.get('repo_uoa','')
     m=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
+
+    if duoa=='': duoa='*'
 
     single_not_found=False # If no wild cards and entry not found, then add
 

@@ -395,7 +395,7 @@ def update(i):
     return {'return':0}
 
 ##############################################################################
-# Pull from remote repo if URL
+# Pull from shared repo if URL
 
 def pull(i):
     """
@@ -444,10 +444,10 @@ def pull(i):
 
     # Updating ...
     if t=='git':
-       tt='update'
        if i.get('clone','')=='yes': tt='clone'
 
        px=os.getcwd()
+
        if not os.path.isdir(p):
           os.makedirs(p)
 
@@ -455,7 +455,7 @@ def pull(i):
           ck.out('Moving to directory '+p+' ...')
        os.chdir(p)
 
-       s=ck.cfg['repo_types'][t][tt].replace('$#url#$', url).replace('$#path#$', p)
+       s=ck.cfg['repo_types'][t]['pull'].replace('$#url#$', url).replace('$#path#$', p)
        
        if o=='con':
           ck.out('')
@@ -467,6 +467,98 @@ def pull(i):
        if o=='con': 
           ck.out('')
 
+       os.chdir(px) # Restore path
+
+       if r>0:
+          return {'return':1, 'error':'repository update likely failed - exit code '+str(r)}
+    else:
+       if o=='con':
+          ck.out('CK warning: this repository is not shared!')
+
+    return {'return':0}
+
+##############################################################################
+# Push and commit to shared repo if URL
+
+def push(i):
+    """
+    Input:  {
+              (path)  - repo UOA (where to create entry)
+              (type)  - type
+              (url)   - URL
+
+                or
+
+              (uoa)   - repo UOA
+
+              (clone) - if 'yes', clone repo instead of update
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    p=i.get('path','')
+    t=i.get('type','')
+    url=i.get('url','')
+
+    uoa=i.get('data_uoa','')
+    cids=i.get('cids',[])
+    if len(cids)>0: uoa=cids[0]
+
+    if uoa!='':
+       # Loading repo
+       r=ck.access({'action':'load',
+                    'module_uoa':work['self_module_uoa'],
+                    'data_uoa':uoa,
+                    'common':'yes'})
+       if r['return']>0: return r
+       d=r['dict']
+
+       p=d['path']
+       t=d.get('shared','')
+       url=d.get('url','')
+
+    # Updating ...
+    if t=='git':
+       if i.get('clone','')=='yes': tt='clone'
+
+       px=os.getcwd()
+  
+       if not os.path.isdir(p):
+          return {'return':1, 'error':'local path to repository is not found'}
+
+       if o=='con':
+          ck.out('Moving to directory '+p+' ...')
+          
+       os.chdir(p)
+
+       s=ck.cfg['repo_types'][t]['commit'].replace('$#url#$', url).replace('$#path#$', p)
+       if o=='con':
+          ck.out('')
+          ck.out('Executing command: '+s)
+          ck.out('')
+       r=os.system(s)
+
+       if o=='con': 
+          ck.out('')
+
+       s=ck.cfg['repo_types'][t]['push'].replace('$#url#$', url).replace('$#path#$', p)
+       if o=='con':
+          ck.out('')
+          ck.out('Executing command: '+s)
+          ck.out('')
+       r=os.system(s)
+
+       if o=='con': 
+          ck.out('')
+  
        os.chdir(px) # Restore path
 
        if r>0:

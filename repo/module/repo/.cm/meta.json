@@ -7,7 +7,8 @@
     "remove":{"desc":"remove repository from CK"},
     "delete":{"desc":"remove repository from CK"},
     "recache":{"desc":"recache all local repositories (to speed up search)"},
-    "pull":{"desc":"If shared, pull from remote repository"}
+    "pull":{"desc":"If shared, pull from shared repository"},
+    "push":{"desc":"If shared, push and commit to shared repository"}
   },
   "developer":"Grigori Fursin",
   "license": "CK 1.x license",
