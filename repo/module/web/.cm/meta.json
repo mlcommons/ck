@@ -19,6 +19,9 @@
     "txt": {
       "Content-type": "text/plain; charset=utf-8"
     }, 
+    "con": {
+      "Content-type": "text/plain; charset=utf-8"
+    }, 
     "png": {
       "Content-type": "image/png"
     }, 

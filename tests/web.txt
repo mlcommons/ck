@@ -8,13 +8,17 @@ http://localhost/ck/repo/web.php?action=load&cid=test:unicodex
 
 =================================================================
 
+http://localhost:3344/ck?action=load&cid=test:unicode&out=json
 http://localhost:3344/json?action=load&cid=test:unicode
 
 http://localhost:3344/web?action=test&module_uoa=web
 http://localhost:3344/web?action=generate&module_uoa=qr-code&string=xyz
 
+http://localhost:3344/web?action=pull&cid=test:unicode&filename=ck_logo.png
+
 http://localhost:3344/json?action=load&cid=test:unicodex
 http://localhost:3344/web?action=load&cid=test:unicodex
+http://localhost:3344/con?action=load&cid=test:unicode
 
 =================================================================
 

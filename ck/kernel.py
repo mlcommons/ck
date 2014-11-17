@@ -89,8 +89,8 @@ cfg={
                    },
 
       "actions":{
-                 "uid":{"desc":"generate UID"},
-                 "version":{"desc":"print CK version"},
+                 "uid":{"desc":"generate UID", "for_web": "yes"},
+                 "version":{"desc":"print CK version", "for_web": "yes"},
 
                  "help":{"desc":"<CID> print help about data (module) entry"},
                  "webhelp":{"desc":"<CID> open browser with online help (description) for a data (module) entry"}, 
@@ -116,9 +116,9 @@ cfg={
                  "mv":{"desc":"<CID> <CID1> move entry"},
                  "move":{"desc":"see 'mv'"},
 
-                 "list_files":{"desc":"<CID> list files recursively in a given entry"},
+                 "list_files":{"desc":"<CID> list files recursively in a given entry", "for_web": "yes"},
 
-                 "list":{"desc":"<CID> list entries"},
+                 "list":{"desc":"<CID> list entries", "for_web": "yes"},
 
                  "pull":{"desc":"<CID> (filename) or (empty to get the whole entry as archive) pull file from entry"},
                  "push":{"desc":"<CID> (filename) push file to entry"},
@@ -1634,22 +1634,28 @@ def perform_remote_action(i):
 
     rr={'return':0}
 
+    # Get action
+    act=i.get('action','')
+
     # Check output
     o=i.get('out','')
 
     if o=='con':
        out('Initiating remote access ...')
+       out('')
+       i['out']='con'
+       i['quiet']='yes'
+       if act=='pull':
+          i['out']='json'
+    else:
+       i['out']='json'
 
-    # Clean up input
-    if o!='json_file': 
-       rr['out']='json' # Decided to return json to show that it's remote ...
-       i['out']='json'  # For remote web service return JSON
+#    # Clean up input
+#    if o!='json_file': 
+#       rr['out']='json' # Decided to return json to show that it's remote ...
 
     if 'cid' in i: 
        del(i['cid']) # already processed
-
-    # Get action
-    act=i.get('action','')
 
     # Get URL
     url=i.get('remote_server_url','')
@@ -1704,30 +1710,34 @@ def perform_remote_action(i):
     except Exception as e:
        return {'return':1, 'error':'Failed reading stream from remote CK web service ('+format(e)+')'}
 
-    # Try to convert output to dictionary
-    r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
-    if r['return']>0: 
-       return {'return':1, 'error':'can\'t parse output from remote CK server ('+r['error']+')'}
-    d=r['dict']
+    # Check output
+    if o=='con' and act!='pull':
+       out(s)
+    else:
+       # Try to convert output to dictionary
+       r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
+       if r['return']>0: 
+          return {'return':1, 'error':'can\'t parse output from remote CK server ('+r['error']+')'}
+       d=r['dict']
 
-    if d.get('return',0)>0:
-       return d
+       if d.get('return',0)>0:
+          return d
 
-    # Post process if pull file ...
-    if act=='pull':
-       if o!='json' and o!='json_file':
-          # Convert encoded file to real file ...
-          x=d.get('file_content_base64','')
+       # Post process if pull file ...
+       if act=='pull':
+          if o!='json' and o!='json_file':
+             # Convert encoded file to real file ...
+             x=d.get('file_content_base64','')
 
-          fn=d.get('filename','')
-          if fn=='': fn=cfg['default_archive_name']
+             fn=d.get('filename','')
+             if fn=='': fn=cfg['default_archive_name']
 
-          r=convert_upload_string_to_file({'file_content_base64':x, 'filename':fn})
-          if r['return']>0: return r
+             r=convert_upload_string_to_file({'file_content_base64':x, 'filename':fn})
+             if r['return']>0: return r
 
-          if 'file_content_base64' in d: del(d['file_content_base64'])
+             if 'file_content_base64' in d: del(d['file_content_base64'])
 
-    rr.update(d)
+       rr.update(d)
 
     # Restore original output
     i['out']=o
@@ -1868,12 +1878,12 @@ def perform_action(i):
           c.work['path']=p
 
           action1=u.get('actions_redirect',{}).get(action,'')
-          if action1!='': action=action1
+          if action1=='': action1=action
 
-          if wb=='yes' and u.get('actions',{}).get(action,{}).get('for_web','')!='yes':
+          if wb=='yes' and (out=='con' or out=='web') and u.get('actions',{}).get(action,{}).get('for_web','')!='yes':
              return {'return':1, 'error':'this action is not supported in web mode'}
 
-          a=getattr(c, action)
+          a=getattr(c, action1)
           return a(i)
 
     # Check if action == special keyword (add, delete, list, etc)
@@ -1882,12 +1892,12 @@ def perform_action(i):
        # Check function redirect - needed if action 
        #   is the same as internal python keywords such as list
        action1=cfg['actions_redirect'].get(action,'')
-       if action1!='': action=action1
+       if action1=='': action1=action
 
-       if wb=='yes' and cfg.get('actions',{}).get(action,{}).get('for_web','')!='yes':
-          return {'return':1, 'error':'this action is not supported in web mode'}
+       if wb=='yes' and (out=='con' or out=='web') and cfg.get('actions',{}).get(action,{}).get('for_web','')!='yes':
+          return {'return':1, 'error':'this action is not supported in web mode '}
 
-       a=getattr(sys.modules[__name__], action)
+       a=getattr(sys.modules[__name__], action1)
        return a(i)
 
     # Prepare error
@@ -3802,6 +3812,7 @@ def list_data(i):
 
     zr={}
 
+    fixed_repo=False
     if ruoa!='' and wr=='':
        # Try to load a given repository
        r=access({'action':'load',
@@ -3812,6 +3823,7 @@ def list_data(i):
        duid=r['data_uid']
 
        zr[duid]=r
+       fixed_repo=True
     else:
        # Prepare all repositories
        if not cache_repo_init:
@@ -3826,7 +3838,23 @@ def list_data(i):
     lr=len(zrk)
     while iir:
        skip=False
-       if ir==0:
+       if fixed_repo:
+          if ir>0:
+             skip=True
+             iir=False
+          else:
+             ruid=zrk[0]
+             d=zr[ruid]
+             dd=d.get('dict',{})
+             remote=dd.get('remote','')
+             if remote=='yes':
+                skip=True
+             else:
+                ruoa=d.get('data_uoa','')
+                p=dd.get('path','')
+                if ruid==cfg['repo_uid_default']: p=work.get('dir_default_repo','')
+                elif ruid==cfg['repo_uid_local']: p=work.get('dir_local_repo','')
+       elif ir==0:
           ruoa=cfg['repo_name_default']
           ruid=cfg['repo_uid_default']
           p=work.get('dir_default_repo','')
@@ -3951,7 +3979,7 @@ def list_data(i):
                                     lst.append(ll)
 
                                     if o=='con':
-                                       x=ruoa+u':'+muoa+u':'
+                                       x=ruoa+':'+muoa+':'
                                        if sys.version_info[0]<3: x+=duoa.decode(sys.stdin.encoding)
                                        else: x+=duoa
                                        out(x)

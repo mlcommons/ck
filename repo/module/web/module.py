@@ -78,6 +78,13 @@ def call_ck(i):
             }
 
     Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              (stdout)     - stdout, if available
+              (stderr)     - stderr, if available
+              (std)        - stdout+stderr
             }
     """
 
@@ -155,15 +162,18 @@ def call_ck(i):
              process=os.system(dcmd)
              os._exit(0)
 
-       stdout=ck.cfg.get('detached_console_html','Console was detached ...')
+       stdout=ck.cfg.get('detached_console_html', 'Console was detached ...')
        stderr=''
     else:
        process=subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
        stdout,stderr=process.communicate()
 
-       if sys.version_info[0]>2:
-          stderr=stderr.decode('utf-8')
+    try: stdout=stdout.decode('utf8')
+    except Exception as e: pass
+    try: stderr=stderr.decode('utf8')
+    except Exception as e: pass
 
+    rr['std']=stdout+stderr
     rr['stdout']=stdout
     rr['stderr']=stderr
 
@@ -199,6 +209,8 @@ def web_err(i):
           bin2=rx['error'].encode('utf8')
        else:
           bin2=rx['string'].encode('utf-8')
+    elif tp=='con':
+       bin2=bin.encode('utf8')
     else:
        bin2=b'<html><body>'+bin.encode('utf8')+b'</body></html>'
 
@@ -270,9 +282,9 @@ def process_ck_web_request(i):
 
     # Parse GET variables and path
     xget={}
-    xpath={'first':'', 'rest':'', 'query':''}
+    xpath={'first':'', 'rest':'', 'query':''} # May be used in the future
 
-    xt='json' # Return RAW run, return json
+    xt='json'
 
     # Check GET variables
     if http.path!='':
@@ -289,13 +301,12 @@ def process_ck_web_request(i):
           xr=xp[u+1:]
           xp=xp[:u]
 
+       xt=xp
+
        xpath['first']=xp
        xpath['rest']=xr
        xpath['query']=a.query
        b=urlparse.parse_qs(a.query, keep_blank_values=True, )
-
-       if xp!='':
-          xt=xp
 
        xget={}
        for k in b:
@@ -376,124 +387,157 @@ def process_ck_web_request(i):
     else:
        ii.update(xpost)
 
+    # Misc parameters
     dc=ii.get('detach_console','')
-
     act=ii.get('action','')
+
+    # Check output type
+    if ii.get('out','')!='': 
+       xt=ii['out']
+
+    if xt!='json' and xt!='con' and xt!='web':
+       web_out({'http':http, 
+                'type':'web', 
+                'bin':b'Unknown CK request ('+xt.encode('utf8')+b')!'})
+       return
 
     # Prepare temporary output file
     fd, fn=tempfile.mkstemp(prefix='ck-')
     os.close(fd)
+    os.remove(fn)
 
-    if xt!='json' and xt!='web':
-       web_out({'http':http, 
-                'type':'web', 
-                'bin':b'<html><body>Unknown CK request!</body></html>'})
-       return
-
-    # Call CK
-    if dc!='yes':
-       if xt!='json' and act!='pull':
-          ii['web']='yes'
-       ii['out']='json_file'
+    # Check output
+    if dc=='yes':
+       if ck.cfg.get('forbid_detached_console','')=='yes':
+          web_out({'http':http, 
+                   'type':'web', 
+                   'bin':b'Detached console is forbidden!'})
+          return
+    else:
        ii['out_file']=fn
+       ii['web']='yes'
+       if xt=='json' or xt=='web': 
+          ii['out']='json_file'
+       # else output to console (for remote access for example)
 
-    bin=b''
+    ii['con_encoding']='utf-8'
 
+    # Execute command *********************************************************
     r=call_ck(ii)
 
-    # If no error, try to read file
-    if r['return']==0 and r.get('stderr','')=='':
-       # Load output json file
-       if dc=='yes': 
-          bin=r.get('stdout','').encode('utf8')
-          xt='web'
-       else:
-          r=ck.load_text_file({'text_file':fn, 'keep_as_bin':'yes'})
-          if r['return']==0:
-             bin=r['bin']
+    # Process output
+    if r['return']>0:
+       if os.path.isfile(fn): os.remove(fn)
 
-    # Remove temporary file
-    if os.path.isfile(fn): 
-       os.remove(fn)
+       bout=r['error']
 
-    # If error
-    if r['return']>0 or r.get('stderr','')!='':
-       if r.get('stderr','')!='': 
-          if r.get('error','')=='': r['error']=b''
-          else: r['error']=r['error'].encode('utf8')
-          r['error']+=b' ('+str(r['stderr']).encode('utf8')+b')'
-
-       bin=r['error']
-
-       try: bin=bin.encode('utf-8')
+       try: bout=bout.encode('utf-8')
        except Exception as e: pass
-
+       
        web_err({'http':http, 
                 'type':xt, 
-                'bin':bin})
+                'bin':bout})
+       return
+
+    xstd=r['std']
+    xstdout=r['stdout']
+    xstderr=r['stderr']
+
+    # If detached console
+    if dc=='yes' or xt=='con': 
+       if os.path.isfile(fn): os.remove(fn)
+
+       bout=r.get('std','').encode('utf8')
+       xt='web'
+
+       web_out({'http':http, 'type':xt, 'bin':bout})
 
        return
 
-    # Process output
+    # If json or web
+    # Try to load output file
+    if not os.path.isfile(fn):
+       web_err({'http':http, 
+                'type':xt, 
+                'bin':b'Output json file was not created, see output ('+std.encode('utf8')+b')!'})
+       return
+
+    r=ck.load_text_file({'text_file':fn, 'keep_as_bin':'yes'})
+    if r['return']>0:
+       bout=r['error']
+
+       try: bout=bout.encode('utf-8')
+       except Exception as e: pass
+
+       web_err({'http':http, 'type':xt, 'bin':bout})
+
+       return
+
+    bin=r['bin']
+   
+    if os.path.isfile(fn): os.remove(fn)
+
+    # Process JSON output from file
     fx=''
 
     if sys.version_info[0]>2: bin=bin.decode('utf-8')
 
     ru=ck.convert_json_str_to_dict({'str':bin, 'skip_quote_replacement':'yes'})
     if ru['return']>0:
-       bin=rr['error']
+       bout=ru['error']
 
-       try: bin=bin.encode('utf-8')
+       try: bout=bout.encode('utf-8')
        except Exception as e: pass
 
-       web_err({'http':http, 'type':xt, 'bin':bin})
+       web_err({'http':http, 'type':xt, 'bin':bout})
+
        return
-    else:
-       rr=ru['dict']
-       if rr['return']>0:
-          bin=str(rr['error'])
 
-          try: bin=bin.encode('utf-8')
-          except Exception as e: pass
+    rr=ru['dict']
+    if rr['return']>0:
+       bout=rr['error']
 
-          web_err({'http':http, 'type':xt, 'bin':bin})
-          return
+       try: bout=bout.encode('utf-8')
+       except Exception as e: pass
+
+       web_err({'http':http, 'type':xt, 'bin':bout})
+       return
+
+    # Check if file was returned
+    fr=False
+
+    if 'file_content_base64' in rr and rr.get('filename','')!='':
+       fr=True
+
+    # Check if download
+    if (xt=='web' and fr) or (act=='pull' and xt!='json'):
+       import base64
+       x=rr.get('file_content_base64','')
+
+       fx=rr.get('filename','')
+       if fx=='': fx=ck.cfg['default_archive_name']
+
+       # Fixing Python bug
+       if sys.version_info[0]==3 and sys.version_info[1]<3:
+          x=x.encode('utf-8')
        else:
-          # Check if file was returned
-          fr=False
+          x=str(x)
+       bin=base64.urlsafe_b64decode(x) # convert from unicode to str since base64 works on strings
+                                            # should be safe in Python 2.x and 3.x
 
-          if 'file_content_base64' in rr and rr.get('filename','')!='':
-             fr=True
+       # Process extension
+       fn1, fne = os.path.splitext(fx)
+       if fne.startswith('.'): fne=fne[1:]
+       if fne!='': xt=fne
+       else: xt='unknown'
+    else:
+       # Check and output html
+       if rr.get('html','')!='':
+          bin=rr['html'].encode('utf-8')
+       else:
+          if sys.version_info[0]>2: # Unknown output
+             bin=bin.encode('utf-8')
 
-          # Check if download
-          if (xt=='web' and fr) or (act=='pull' and xt!='json'):
-             x=rr.get('file_content_base64','')
-
-             fx=rr.get('filename','')
-             if fx=='': fx=ck.cfg['default_archive_name']
-
-             # Fixing Python bug
-             if sys.version_info[0]==3 and sys.version_info[1]<3:
-                x=x.encode('utf-8')
-             else:
-                x=str(x)
-             bin=base64.urlsafe_b64decode(x) # convert from unicode to str since base64 works on strings
-                                                  # should be safe in Python 2.x and 3.x
-
-             # Process extension
-             fn1, fne = os.path.splitext(fx)
-             if fne.startswith('.'): fne=fne[1:]
-             if fne!='': xt=fne
-             else: xt='unknown'
-          else:
-             # Check and output html
-             if rr.get('html','')!='':
-                bin=rr['html'].encode('utf-8')
-             else:
-                if sys.version_info[0]>2: # If json output and Python 3.x, encode ...
-                   bin=bin.encode('utf-8')
-
-    # Output
     web_out({'http':http, 'type':xt, 'bin':bin, 'filename':fx})
        
     return {'return':0}
