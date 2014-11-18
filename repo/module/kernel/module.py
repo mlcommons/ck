@@ -210,11 +210,22 @@ def setup(i):
 
     # Writing/updating configuration
     ck.out(sep)
-    ck.out('Writing local configuration (directly) ...')
 
     fc=ck.work['dir_work_cfg']
+    if os.path.isfile(fc):
+       ck.out('Writing local configuration (directly) ...')
+       r=ck.save_json_to_file({'json_file':fc, 'dict':cfg})
+    else:
+       ck.out('Adding local configuration ...')
+       ii={'action':'update',
+           'repo_uoa':ck.cfg['repo_name_local'],
+           'module_uoa':work['self_module_uoa'],
+           'data_uoa':ck.cfg['subdir_kernel_default'],
+           'dict':cfg,
+           'substitute':'yes',
+           'ignore_update':'yes'}
+       r=ck.access(ii)
 
-    r=ck.save_json_to_file({'json_file':fc, 'dict':cfg})
     if r['return']>0: return r
 
     ck.out('')
