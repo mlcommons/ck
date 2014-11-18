@@ -190,20 +190,14 @@ def setup(i):
 
     # Writing/updating configuration
     ck.out(sep)
-    ck.out('Writing local configuration ...')
+    ck.out('Writing local configuration (directly) ...')
 
-    r=ck.access({'action':'update',
-                 'repo_uoa':ck.cfg['repo_name_local'],
-                 'module_uoa':ck.cfg['subdir_kernel'],
-                 'data_uoa':ck.cfg['subdir_kernel_default'],
-                 'dict':cfg,
-                 'substitute':'yes',
-                 'ignore_update':'yes'})
+    fc=ck.work['dir_work_cfg']
+
+    r=ck.save_json_to_file({'json_file':fc, 'dict':cfg})
     if r['return']>0: return r
 
-    p=r['path']
-
     ck.out('')
-    ck.out('Configuration successfully recorded to entry '+p+' ...')
+    ck.out('Configuration successfully recorded to '+fc+' ...')
 
     return {'return':0}

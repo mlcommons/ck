@@ -72,6 +72,10 @@ def add(i):
 
     """
 
+    # Check if global writing is allowed
+    r=ck.check_writing({})
+    if r['return']>0: return r
+
     o=i.get('out','')
 
     a=i.get('repo_uoa','')
@@ -309,6 +313,10 @@ def update(i):
             }
 
     """
+
+    # Check if global writing is allowed
+    r=ck.check_writing({})
+    if r['return']>0: return r
 
     o=i.get('out','')
 
@@ -676,6 +684,10 @@ def rm(i):
               (error)      - error text if return > 0
             }
     """
+
+    # Check if global writing is allowed
+    r=ck.check_writing({})
+    if r['return']>0: return r
 
     global cache_repo_uoa, cache_repo_info
 

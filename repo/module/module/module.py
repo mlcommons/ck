@@ -59,6 +59,10 @@ def add(i):
 
     """
 
+    # Check if global writing is allowed
+    r=ck.check_writing({})
+    if r['return']>0: return r
+
     o=i.get('out','')
 
     # Find path to module 'module' to get dummies

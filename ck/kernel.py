@@ -255,6 +255,28 @@ def inp(i):
     return {'return':0, 'string':s}
 
 ##############################################################################
+# Check writing possibility
+
+def check_writing(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    if cfg.get('forbid_global_writing','')=='yes':
+       return {'return':1, 'error':'global writing is forbidden'}
+
+    return {'return':0}
+
+
+##############################################################################
 # Simple test of CK installation
 
 def test():
@@ -3051,6 +3073,10 @@ def add(i):
     if r['return']>0: return r
     pr=r['path']
 
+    # Check if writing is allowed
+    r=check_writing({})
+    if r['return']>0: return r
+
     # Load info about module
     r=load({'module_uoa':cfg['module_name'],
             'data_uoa':m})
@@ -3332,6 +3358,10 @@ def rm(i):
 
     """
 
+    # Check if global writing is allowed
+    r=check_writing({})
+    if r['return']>0: return r
+
     o=i.get('out','')
 
     a=i.get('repo_uoa','')
@@ -3457,6 +3487,10 @@ def ren(i):
             }
 
     """
+
+    # Check if global writing is allowed
+    r=check_writing({})
+    if r['return']>0: return r
 
     o=i.get('out','')
 
@@ -3593,6 +3627,10 @@ def cp(i):
 
     """
 
+    # Check if global writing is allowed
+    r=check_writing({})
+    if r['return']>0: return r
+
     import shutil
 
     o=i.get('out','')
@@ -3725,8 +3763,11 @@ def mv(i):
 
     """
 
-    # Check if wild cards
+    # Check if global writing is allowed
+    r=check_writing({})
+    if r['return']>0: return r
 
+    # Check if wild cards
     ruoa=i.get('repo_uoa','')
     muoa=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
@@ -4031,6 +4072,10 @@ def add_action(i):
 
     """
 
+    # Check if global writing is allowed
+    r=check_writing({})
+    if r['return']>0: return r
+
     o=i.get('out','')
 
     ruoa=i.get('repo_uoa','')
@@ -4151,6 +4196,10 @@ def remove_action(i):
             }
 
     """
+    # Check if global writing is allowed
+    r=check_writing({})
+    if r['return']>0: return r
+
     o=i.get('out','')
 
     ruoa=i.get('repo_uoa','')
@@ -4450,6 +4499,10 @@ def push(i):
             }
 
     """
+
+    # Check if global writing is allowed
+    r=check_writing({})
+    if r['return']>0: return r
 
     o=i.get('out','')
 
