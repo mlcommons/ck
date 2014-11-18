@@ -460,59 +460,94 @@ def pull(i):
 
     o=i.get('out','')
 
-    p=i.get('path','')
+    pp=[]
+    px=i.get('path','')
     t=i.get('type','')
     url=i.get('url','')
+
+    if px!='': 
+       pp.append({'path':px, 'type':t, 'url':url})
 
     uoa=i.get('data_uoa','')
     cids=i.get('cids',[])
     if len(cids)>0: uoa=cids[0]
 
     if uoa!='':
-       # Loading repo
-       r=ck.access({'action':'load',
-                    'module_uoa':work['self_module_uoa'],
-                    'data_uoa':uoa,
-                    'common':'yes'})
-       if r['return']>0: return r
-       d=r['dict']
+       if uoa.find('*')>=0 or uoa.find('?')>=0:
+          r=ck.list_data({'module_uoa':work['self_module_uoa'], 'data_uoa':uoa})
+          if r['return']>0: return r
 
-       p=d['path']
-       t=d.get('shared','')
-       url=d.get('url','')
+          lst=r['lst']
+          for q in lst:
+              # Loading repo
+              r=ck.access({'action':'load',
+                           'module_uoa':work['self_module_uoa'],
+                           'data_uoa':q['data_uoa'],
+                           'common':'yes'})
+              if r['return']>0: return r
+              d=r['dict']
+              t=d.get('shared','')
+              if t!='':
+                 p=d.get('path','')
+                 url=d.get('url','')
+                 pp.append({'path':p, 'type':t, 'url':url})
+       else:
+          # Loading repo
+          r=ck.access({'action':'load',
+                       'module_uoa':work['self_module_uoa'],
+                       'data_uoa':uoa,
+                       'common':'yes'})
+          if r['return']>0: return r
+          d=r['dict']
+
+          p=d['path']
+          t=d.get('shared','')
+          url=d.get('url','')
+
+          pp.append({'path':p, 'type':t, 'url':url})
 
     # Updating ...
-    if t=='git':
-       if i.get('clone','')=='yes': tt='clone'
+    for q in pp:
+        p=q.get('path','')
+        t=q.get('type','')
+        url=q.get('url','')
 
-       px=os.getcwd()
+        if o=='con':
+           ck.out('')
+           ck.out('Trying to update '+p+' ...')
 
-       if not os.path.isdir(p):
-          os.makedirs(p)
+        if t=='git':
+           if i.get('clone','')=='yes': tt='clone'
 
-       if o=='con':
-          ck.out('Moving to directory '+p+' ...')
-       os.chdir(p)
+           px=os.getcwd()
 
-       s=ck.cfg['repo_types'][t]['pull'].replace('$#url#$', url).replace('$#path#$', p)
-       
-       if o=='con':
-          ck.out('')
-          ck.out('Executing command: '+s)
-          ck.out('')
+           if not os.path.isdir(p):
+              os.makedirs(p)
 
-       r=os.system(s)
+           if o=='con':
+              ck.out('')
+              ck.out('cd '+p+' ...')
+           os.chdir(p)
 
-       if o=='con': 
-          ck.out('')
+           s=ck.cfg['repo_types'][t]['pull'].replace('$#url#$', url).replace('$#path#$', p)
+           
+           if o=='con':
+              ck.out('')
+              ck.out('Executing command: '+s)
+              ck.out('')
 
-       os.chdir(px) # Restore path
+           r=os.system(s)
 
-       if r>0:
-          return {'return':1, 'error':'repository update likely failed - exit code '+str(r)}
-    else:
-       if o=='con':
-          ck.out('CK warning: this repository is not shared!')
+           if o=='con': 
+              ck.out('')
+
+           os.chdir(px) # Restore path
+
+           if r>0:
+              return {'return':1, 'error':'repository update likely failed - exit code '+str(r)}
+        else:
+           if o=='con':
+              ck.out('CK warning: this repository is not shared!')
 
     return {'return':0}
 
@@ -541,70 +576,103 @@ def push(i):
 
     """
 
-    o=i.get('out','')
-
-    p=i.get('path','')
+    pp=[]
+    px=i.get('path','')
     t=i.get('type','')
     url=i.get('url','')
+
+    if px!='': 
+       pp.append({'path':px, 'type':t, 'url':url})
 
     uoa=i.get('data_uoa','')
     cids=i.get('cids',[])
     if len(cids)>0: uoa=cids[0]
 
     if uoa!='':
-       # Loading repo
-       r=ck.access({'action':'load',
-                    'module_uoa':work['self_module_uoa'],
-                    'data_uoa':uoa,
-                    'common':'yes'})
-       if r['return']>0: return r
-       d=r['dict']
+       if uoa.find('*')>=0 or uoa.find('?')>=0:
+          r=ck.list_data({'module_uoa':work['self_module_uoa'], 'data_uoa':uoa})
+          if r['return']>0: return r
 
-       p=d['path']
-       t=d.get('shared','')
-       url=d.get('url','')
+          lst=r['lst']
+          for q in lst:
+              # Loading repo
+              r=ck.access({'action':'load',
+                           'module_uoa':work['self_module_uoa'],
+                           'data_uoa':q['data_uoa'],
+                           'common':'yes'})
+              if r['return']>0: return r
+              d=r['dict']
+              t=d.get('shared','')
+              if t!='':
+                 p=d.get('path','')
+                 url=d.get('url','')
+                 pp.append({'path':p, 'type':t, 'url':url})
+       else:
+          # Loading repo
+          r=ck.access({'action':'load',
+                       'module_uoa':work['self_module_uoa'],
+                       'data_uoa':uoa,
+                       'common':'yes'})
+          if r['return']>0: return r
+          d=r['dict']
 
-    # Updating ...
-    if t=='git':
-       if i.get('clone','')=='yes': tt='clone'
+          p=d['path']
+          t=d.get('shared','')
+          url=d.get('url','')
 
-       px=os.getcwd()
-  
-       if not os.path.isdir(p):
-          return {'return':1, 'error':'local path to repository is not found'}
+          pp.append({'path':p, 'type':t, 'url':url})
 
-       if o=='con':
-          ck.out('Moving to directory '+p+' ...')
-          
-       os.chdir(p)
+    # Pushing ...
+    for q in pp:
+        p=q.get('path','')
+        t=q.get('type','')
+        url=q.get('url','')
 
-       s=ck.cfg['repo_types'][t]['commit'].replace('$#url#$', url).replace('$#path#$', p)
-       if o=='con':
-          ck.out('')
-          ck.out('Executing command: '+s)
-          ck.out('')
-       r=os.system(s)
+        if o=='con':
+           ck.out('')
+           ck.out('Trying to update '+p+' ...')
 
-       if o=='con': 
-          ck.out('')
+        if t=='git':
+           if i.get('clone','')=='yes': tt='clone'
 
-       s=ck.cfg['repo_types'][t]['push'].replace('$#url#$', url).replace('$#path#$', p)
-       if o=='con':
-          ck.out('')
-          ck.out('Executing command: '+s)
-          ck.out('')
-       r=os.system(s)
+           px=os.getcwd()
+      
+           if not os.path.isdir(p):
+              return {'return':1, 'error':'local path to repository is not found'}
 
-       if o=='con': 
-          ck.out('')
-  
-       os.chdir(px) # Restore path
+           if o=='con':
+              ck.out('')
+              ck.out('cd '+p+' ...')
+              
+           os.chdir(p)
 
-       if r>0:
-          return {'return':1, 'error':'repository update likely failed - exit code '+str(r)}
-    else:
-       if o=='con':
-          ck.out('CK warning: this repository is not shared!')
+           s=ck.cfg['repo_types'][t]['commit'].replace('$#url#$', url).replace('$#path#$', p)
+           if o=='con':
+              ck.out('')
+              ck.out('Executing command: '+s)
+              ck.out('')
+           r=os.system(s)
+
+           if o=='con': 
+              ck.out('')
+
+           s=ck.cfg['repo_types'][t]['push'].replace('$#url#$', url).replace('$#path#$', p)
+           if o=='con':
+              ck.out('')
+              ck.out('Executing command: '+s)
+              ck.out('')
+           r=os.system(s)
+
+           if o=='con': 
+              ck.out('')
+      
+           os.chdir(px) # Restore path
+
+           if r>0:
+              return {'return':1, 'error':'repository update likely failed - exit code '+str(r)}
+        else:
+           if o=='con':
+              ck.out('CK warning: this repository is not shared!')
 
     return {'return':0}
 
