@@ -40,28 +40,31 @@ def add(i):
     However, for now, we do not expect such cases (i.e. repos are created rarely)
 
     Input:  {
-              (repo_uoa)               - repo UOA (where to create entry)
-              data_uoa                 - data UOA
-              (data_uid)               - data UID (if uoa is an alias)
-              (data_name)              - user friendly data name
+              (repo_uoa)                 - repo UOA (where to create entry)
+              data_uoa                   - data UOA
+              (data_uid)                 - data UID (if uoa is an alias)
+              (data_name)                - user friendly data name
 
-              (cids[0])                - as uoa or full CID
+              (cids[0])                  - as uoa or full CID
 
-              (path)                   - if =='' - get current path
-              (use_default_path)       - if 'yes' create repository in the default path (CK_REPOS)
-                                         instead of the current path
+              (path)                     - if =='' - get current path
+              (use_default_path)         - if 'yes' create repository in the default path (CK_REPOS)
+                                           instead of the current path
 
-              (default)                - if 'yes', no path is used, 
-                                         but the repository is taken either 
-                                         from the CK directory or from CK_LOCAL_REPO
+              (default)                  - if 'yes', no path is used, 
+                                           but the repository is taken either 
+                                           from the CK directory or from CK_LOCAL_REPO
 
-              (remote)                 - if 'yes', remote repository
-              (remote_repo_uoa)        - if !='' and type=='remote' repository UOA on the remote CK server
+              (remote)                   - if 'yes', remote repository
+              (remote_repo_uoa)          - if !='' and type=='remote' repository UOA on the remote CK server
 
-              (shared)                 - if not remote and =='git', shared through GIT
+              (shared)                   - if not remote and =='git', shared through GIT
 
-              (url)                    - if type=='remote' or 'git', URL of remote repository or git repository
-              (sync)                   - if 'yes' and type=='git', sync repo after each write operation
+              (allow_writing)            - if 'yes', allow writing 
+                                           (useful when kernel is set to allow writing only to such repositories)
+
+              (url)                      - if type=='remote' or 'git', URL of remote repository or git repository
+              (sync)                     - if 'yes' and type=='git', sync repo after each write operation
             }
 
     Output: {
@@ -89,6 +92,8 @@ def add(i):
     url=i.get('url','')
     sync=i.get('sync','')
     df=i.get('default','')
+
+    eaw=i.get('allow_writing','')
 
     udp=i.get('use_default_path','')
 
@@ -165,6 +170,11 @@ def add(i):
           r=ck.inp({'text': 'Would you like to sync repo each time after writing to it ("yes" or "no"/Enter)?: '})
           sync=r['string'].lower()
 
+       # Asking for a user-friendly name
+       if df!='yes' and remote!='yes' and eaw=='':
+          r=ck.inp({'text':'Would you like to explicitly allow writing to this repository ("yes" or "no"/Enter): '})
+          eaw=r['string'].lower()
+
     # Check if already registered (if not remote)
     if remote!='yes':
        r=ck.find_repo_by_path({'path':p})
@@ -229,6 +239,8 @@ def add(i):
        dd['url']=url
     if remote!='yes': 
        dd['path']=p
+    if eaw=='yes':
+       dd['allow_writing']='yes'
 
     # If not default, go to common core function to create entry
     if df!='yes':
@@ -298,12 +310,14 @@ def update(i):
     Update repository info
 
     Input:  {
-              data_uoa                 - data UOA
+              data_uoa                   - data UOA of the repo
 
-              (shared)                 - if not remote and =='git', shared through GIT
+              (shared)                   - if not remote and =='git', shared through GIT
 
-              (url)                    - if type=='git', URL of remote repository or git repository
-              (sync)                   - if 'yes' and type=='git', sync repo after each write operation
+              (url)                      - if type=='git', URL of remote repository or git repository
+              (sync)                     - if 'yes' and type=='git', sync repo after each write operation
+              (allow_writing)            - if 'yes', allow writing 
+                                           (useful when kernel is set to allow writing only to such repositories)
             }
 
     Output: {
@@ -328,12 +342,16 @@ def update(i):
     url=i.get('url','')
     sync=i.get('sync','')
 
+    eaw=i.get('allow_writing','')
+
     # Get configuration
     r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
     if r['return']>0: return r
 
     dn=r.get('data_name','')
     d=r['dict']
+
+    remote=d.get('remote','')
 
     changed=False
 
@@ -350,7 +368,7 @@ def update(i):
 
     # If remote, update URL
     shared=d.get('shared','')
-    if d.get('remote','')=='yes':
+    if remote=='yes':
        url=d.get('url','')
        ck.out('Repository is remote ...')
        ck.out('')
@@ -377,6 +395,19 @@ def update(i):
           if x!='':
              d['sync']=x
              changed=True
+
+    # Asking for a user-friendly name
+    if remote!='yes' and eaw=='':
+       if eaw=='': eaw=d.get('allow_writing','')
+       ck.out('')
+       if eaw!='':
+          ck.out('Current "allow writing" setting: '+eaw)
+
+       r=ck.inp({'text':'Would you like to allow writing to this repository ("yes" or "no"/Enter): '})
+       x=r['string'].lower()
+       if x=='yes':
+          d['allow_writing']=x
+          changed=True
 
     # Write if changed
     if changed:

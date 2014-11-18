@@ -1,4 +1,4 @@
-#
+# 
 # Collective Knowledge (CK)
 #
 # See CK LICENSE.txt for licensing details
@@ -299,7 +299,18 @@ def check_writing(i):
     if cfg.get('forbid_writing_to_local_repo','')=='yes':
        if ruoa==cfg['repo_name_local'] or ruid==cfg['repo_uid_local']:
           return {'return':1, 'error':'writing to local repo is forbidden'}
- 
+
+    if cfg.get('allow_writing_only_to_allowed','')=='yes':
+       rd={}
+       if ruoa!='':
+          if 'repo_dict' in i:
+             rd=i['repo_dict']
+          else:
+             rx=load_repo_info_from_cache({'repo_uoa':ruoa})
+             if rx['return']>0: return rx
+             rd=rx.get('dict',{})
+       if rd.get('allow_writing','')!='yes':
+          return {'return':1, 'error':'writing to this repo is forbidden'}
 
     return {'return':0}
 

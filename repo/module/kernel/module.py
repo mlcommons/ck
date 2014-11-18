@@ -172,23 +172,28 @@ def setup(i):
        ck.out('Forbid writing modules (adding/updating/removing):                           '+cfg.get('forbid_writing_modules', ck.cfg.get('forbid_writing_modules','')))
        ck.out('Forbid writing to default repo:                                              '+cfg.get('forbid_writing_to_default_repo' ,ck.cfg.get('forbid_writing_to_default_repo','')))
        ck.out('Forbid writing to local repo:                                                '+cfg.get('forbid_writing_to_local_repo', ck.cfg.get('forbid_writing_to_local_repo','')))
+       ck.out('Allow writing only to allowed individual repos:                              '+cfg.get('allow_writing_only_to_allowed', ck.cfg.get('allow_writing_only_to_allowed','')))
 
        ck.out('')
-       r=ck.inp({'text': 'Forbid all writing operations (yes or Enter to keep previous)?:  '})
-       d=r['string']
+       r=ck.inp({'text': 'Forbid all writing operations (yes or Enter to keep previous)?:                  '})
+       d=r['string'].lower()
        if d!='': cfg['forbid_global_writing']=d
 
-       r=ck.inp({'text': 'Forbid adding new modules (yes or Enter to keep previous)?:      '})
-       d=r['string']
+       r=ck.inp({'text': 'Forbid adding new modules (yes or Enter to keep previous)?:                      '})
+       d=r['string'].lower()
        if d!='': cfg['forbid_writing_modules']=d
 
-       r=ck.inp({'text': 'Forbid writing to default repo (yes or Enter to keep previous)?: '})
-       d=r['string']
+       r=ck.inp({'text': 'Forbid writing to default repo (yes or Enter to keep previous)?:                 '})
+       d=r['string'].lower()
        if d!='': cfg['forbid_writing_to_default_repo']=d
 
-       r=ck.inp({'text': 'Forbid writing to local repo (yes or Enter to keep previous)?: '})
-       d=r['string']
+       r=ck.inp({'text': 'Forbid writing to local repo (yes or Enter to keep previous)?:                   '})
+       d=r['string'].lower()
        if d!='': cfg['forbid_writing_to_local_repo']=d
+
+       r=ck.inp({'text': 'Allow writing only to allowed individual repos (yes or Enter to keep previous)?: '})
+       d=r['string'].lower()
+       if d!='': cfg['allow_writing_only_to_allowed']=d
 
     # Developer options
     if param=='' or param=='indexing':
@@ -200,7 +205,7 @@ def setup(i):
 
        ck.out('')
        r=ck.inp({'text': 'Use indexing (yes or Enter to keep previous)?: '})
-       d=r['string']
+       d=r['string'].lower()
        if d!='': cfg['use_indexing']=d
 
     # Writing/updating configuration
