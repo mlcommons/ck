@@ -531,8 +531,6 @@ def pull(i):
            ck.out('Trying to update '+p+' ...')
 
         if t=='git':
-           if i.get('clone','')=='yes': tt='clone'
-
            px=os.getcwd()
 
            if not os.path.isdir(p):
@@ -543,7 +541,7 @@ def pull(i):
               ck.out('cd '+p+' ...')
            os.chdir(p)
 
-           s=ck.cfg['repo_types'][t]['pull'].replace('$#url#$', url).replace('$#path#$', p)
+           s=ck.cfg['repo_types'][t]['clone'].replace('$#url#$', url).replace('$#path#$', p)
            
            if o=='con':
               ck.out('')
@@ -649,8 +647,6 @@ def push(i):
            ck.out('Trying to update '+p+' ...')
 
         if t=='git':
-           if i.get('clone','')=='yes': tt='clone'
-
            px=os.getcwd()
       
            if not os.path.isdir(p):
