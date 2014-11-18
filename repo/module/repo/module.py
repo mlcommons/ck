@@ -590,6 +590,8 @@ def push(i):
 
     """
 
+    o=i.get('out','')
+
     pp=[]
     px=i.get('path','')
     t=i.get('type','')
