@@ -263,6 +263,10 @@ def check_writing(i):
     Input:  {
               (module_uoa)
               (module_uid)
+
+              (repo_uoa)
+              (repo_uid)
+              (repo_dict)
             }
 
     Output: {
@@ -279,14 +283,25 @@ def check_writing(i):
     if len(i)==0: 
        return {'return':0} # Check only global writing
 
-    muoa=i.get('module_uoa','')
-    muid=i.get('module_uid','')
+    if cfg.get('forbid_writing_modules','')=='yes':
+       muoa=i.get('module_uoa','')
+       muid=i.get('module_uid','')
+       if muoa==cfg['module_name'] or (muid!='' and muid in cfg['module_uids']):
+          return {'return':1, 'error':'writing/changing modules is forbidden'}
 
-    if cfg.get('forbid_writing_modules','')=='yes' and (muoa==cfg['module_name'] or (muid!='' and muid in cfg['module_uids'])):
-       return {'return':1, 'error':'writing/changing modules is forbidden'}
+    ruoa=i.get('repo_uoa','')
+    ruid=i.get('repo_uid','')
+
+    if cfg.get('forbid_writing_to_default_repo','')=='yes':
+       if ruoa==cfg['repo_name_default'] or ruid==cfg['repo_uid_default']:
+          return {'return':1, 'error':'writing to default repo is forbidden'}
+
+    if cfg.get('forbid_writing_to_local_repo','')=='yes':
+       if ruoa==cfg['repo_name_local'] or ruid==cfg['repo_uid_local']:
+          return {'return':1, 'error':'writing to local repo is forbidden'}
+ 
 
     return {'return':0}
-
 
 ##############################################################################
 # Simple test of CK installation
@@ -2922,6 +2937,9 @@ def load(i):
               path         - path to data entry
               path_module  - path to module entry with this entry
               path_repo    - path to the repository of this entry
+              repo_uoa     - repo UOA 
+              repo_uid     - repo UID
+              repo_alias   - repo alias
               module_uoa   - module UOA 
               module_uid   - module UID
               module_alias - module alias
@@ -3086,7 +3104,7 @@ def add(i):
     pr=r['path']
 
     # Check if writing is allowed
-    ii={'module_uoa':m}
+    ii={'module_uoa':m, 'repo_uoa':r['repo_uoa'], 'repo_uid':r['repo_uid'], 'repo_dict':r['dict']}
     r=check_writing(ii)
     if r['return']>0: return r
 
@@ -3292,7 +3310,9 @@ def update(i):
 
     """
 
-    # Check for writing will be done in add
+    # Check if global writing is allowed
+    r=check_writing({})
+    if r['return']>0: return r
 
     # Try to load entry, if doesn't exist, add entry
     dd={}
@@ -3428,7 +3448,7 @@ def rm(i):
         xcuoa=muoa+':'+duoa+' ('+muid+':'+duid+')'
 
         # Check repo/module writing
-        ii={'module_uoa':muoa, 'module_uid':muid}
+        ii={'module_uoa':m, 'repo_uoa':ll['repo_uoa'], 'repo_uid':ll['repo_uid']}
         r=check_writing(ii)
         if r['return']>0: return r
 
@@ -3537,7 +3557,7 @@ def ren(i):
     pn=p
 
     # Check if writing is allowed
-    ii={'path_repo':pr, 'module_uoa':muoa, 'module_uid':muid}
+    ii={'module_uoa':muoa, 'module_uid':muid, 'repo_uoa':ruoa, 'repo_uid':r['repo_uid']}
     r=check_writing(ii)
     if r['return']>0: return r
 
@@ -3685,7 +3705,7 @@ def cp(i):
     du=r.get('updates',{})
 
     # Check if writing is allowed
-    ii={'path_repo':pr, 'module_uoa':muoa, 'module_uid':muid}
+    ii={'module_uoa':muoa, 'module_uid':r['module_uid'], 'repo_uoa':ruoa, 'repo_uid':r['repo_uid']}
     r=check_writing(ii)
     if r['return']>0: return r
 
@@ -3716,6 +3736,11 @@ def cp(i):
     # Adding new entry 
     if nruoa==ruoa and nmuoa==muoa and nduid==duid:
        return {'return':1, 'error':'moving within the same directory - use "rename" instead'}
+
+    # Check if writing is allowed to the new repo
+    ii={'repo_uoa':nruoa}
+    r=check_writing(ii)
+    if r['return']>0: return r
 
     ii={'module_uoa':nmuoa, 'data_uoa': nduoa, 'dict':dd, 'info':di, 
         'updates':du, 'ignore_update':'yes'}

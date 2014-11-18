@@ -57,6 +57,11 @@ def setup(i):
 
     param=i.get('param','')
 
+    if param=='':
+       if i.get('content','')=='yes': param='content'
+       elif i.get('writing','')=='yes': param='writing'
+       elif i.get('indexing','')=='yes': param='indexing'
+
     # Check if local repo
     dlrp=ck.work['dir_default_repo']
     if dlrp=='':
@@ -165,15 +170,25 @@ def setup(i):
        ck.out('')
        ck.out('Forbid all writing operations (useful for permanent web-based repositories): '+cfg.get('forbid_global_writing' ,ck.cfg.get('forbid_global_writing','')))
        ck.out('Forbid writing modules (adding/updating/removing):                           '+cfg.get('forbid_writing_modules', ck.cfg.get('forbid_writing_modules','')))
+       ck.out('Forbid writing to default repo:                                              '+cfg.get('forbid_writing_to_default_repo' ,ck.cfg.get('forbid_writing_to_default_repo','')))
+       ck.out('Forbid writing to local repo:                                                '+cfg.get('forbid_writing_to_local_repo', ck.cfg.get('forbid_writing_to_local_repo','')))
 
        ck.out('')
-       r=ck.inp({'text': 'Forbid all writing operations (yes or Enter to keep previous)?: '})
+       r=ck.inp({'text': 'Forbid all writing operations (yes or Enter to keep previous)?:  '})
        d=r['string']
        if d!='': cfg['forbid_global_writing']=d
 
-       r=ck.inp({'text': 'Forbid adding new modules (yes or Enter to keep previous)?:     '})
+       r=ck.inp({'text': 'Forbid adding new modules (yes or Enter to keep previous)?:      '})
        d=r['string']
        if d!='': cfg['forbid_writing_modules']=d
+
+       r=ck.inp({'text': 'Forbid writing to default repo (yes or Enter to keep previous)?: '})
+       d=r['string']
+       if d!='': cfg['forbid_writing_to_default_repo']=d
+
+       r=ck.inp({'text': 'Forbid writing to local repo (yes or Enter to keep previous)?: '})
+       d=r['string']
+       if d!='': cfg['forbid_writing_to_local_repo']=d
 
     # Developer options
     if param=='' or param=='indexing':
