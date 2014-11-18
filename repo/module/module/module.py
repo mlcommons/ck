@@ -60,7 +60,7 @@ def add(i):
     """
 
     # Check if global writing is allowed
-    r=ck.check_writing({})
+    r=ck.check_writing({'module_uoa':work['self_module_uoa']})
     if r['return']>0: return r
 
     o=i.get('out','')

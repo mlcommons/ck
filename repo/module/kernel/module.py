@@ -164,7 +164,7 @@ def setup(i):
 
        ck.out('')
        ck.out('Forbid all writing operations (useful for permanent web-based repositories): '+cfg.get('forbid_global_writing' ,ck.cfg.get('forbid_global_writing','')))
-       ck.out('Forbid adding new modules:                                                   '+cfg.get('forbid_adding_modules', ck.cfg.get('forbid_adding_modules','')))
+       ck.out('Forbid writing modules (adding/updating/removing):                           '+cfg.get('forbid_writing_modules', ck.cfg.get('forbid_writing_modules','')))
 
        ck.out('')
        r=ck.inp({'text': 'Forbid all writing operations (yes or Enter to keep previous)?: '})
@@ -173,7 +173,7 @@ def setup(i):
 
        r=ck.inp({'text': 'Forbid adding new modules (yes or Enter to keep previous)?:     '})
        d=r['string']
-       if d!='': cfg['forbid_adding_modules']=d
+       if d!='': cfg['forbid_writing_modules']=d
 
     # Developer options
     if param=='' or param=='indexing':

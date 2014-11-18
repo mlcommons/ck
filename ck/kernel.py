@@ -37,6 +37,7 @@ cfg={
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
       "module_name":"module",
+      "module_uids":["032630d041b4fd8a"],
       "repo_name":"repo",
       "module_code_name":"module",
       "module_full_code_name":"module.py",
@@ -260,6 +261,8 @@ def inp(i):
 def check_writing(i):
     """
     Input:  {
+              (module_uoa)
+              (module_uid)
             }
 
     Output: {
@@ -272,6 +275,15 @@ def check_writing(i):
 
     if cfg.get('forbid_global_writing','')=='yes':
        return {'return':1, 'error':'global writing is forbidden'}
+
+    if len(i)==0: 
+       return {'return':0} # Check only global writing
+
+    muoa=i.get('module_uoa','')
+    muid=i.get('module_uid','')
+
+    if cfg.get('forbid_writing_modules','')=='yes' and (muoa==cfg['module_name'] or (muid!='' and muid in cfg['module_uids'])):
+       return {'return':1, 'error':'writing/changing modules is forbidden'}
 
     return {'return':0}
 
@@ -3074,7 +3086,8 @@ def add(i):
     pr=r['path']
 
     # Check if writing is allowed
-    r=check_writing({})
+    ii={'module_uoa':m}
+    r=check_writing(ii)
     if r['return']>0: return r
 
     # Load info about module
@@ -3279,6 +3292,8 @@ def update(i):
 
     """
 
+    # Check for writing will be done in add
+
     # Try to load entry, if doesn't exist, add entry
     dd={}
 
@@ -3412,6 +3427,11 @@ def rm(i):
         # Get user-friendly CID
         xcuoa=muoa+':'+duoa+' ('+muid+':'+duid+')'
 
+        # Check repo/module writing
+        ii={'module_uoa':muoa, 'module_uid':muid}
+        r=check_writing(ii)
+        if r['return']>0: return r
+
         # If interactive
         to_delete=True
         if o=='con' and i.get('force','')!='yes':
@@ -3506,6 +3526,8 @@ def ren(i):
     if ruoa!='': ii['repo_uoa']=ruoa
     r=load(ii)
     if r['return']>0: return r
+    muid=r['module_uid']
+    pr=r['path_repo']
 
     duoa=r['data_uoa']
     duid=r['data_uid']
@@ -3513,6 +3535,11 @@ def ren(i):
     pm=r['path_module'] 
     p1=os.path.join(pm, cfg['subdir_ck_ext'])
     pn=p
+
+    # Check if writing is allowed
+    ii={'path_repo':pr, 'module_uoa':muoa, 'module_uid':muid}
+    r=check_writing(ii)
+    if r['return']>0: return r
 
     # Check new data UOA
     nduoa=i.get('new_data_uoa','')
@@ -3656,6 +3683,11 @@ def cp(i):
     dd=r.get('dict',{})
     di=r.get('info',{})
     du=r.get('updates',{})
+
+    # Check if writing is allowed
+    ii={'path_repo':pr, 'module_uoa':muoa, 'module_uid':muid}
+    r=check_writing(ii)
+    if r['return']>0: return r
 
     # Check new CID
     nruoa=i.get('new_repo_uoa','')
