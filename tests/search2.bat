@@ -1,0 +1,1 @@
+ck search @search2.json --print_time

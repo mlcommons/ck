@@ -7,5 +7,16 @@
     "français", 
     "日本の", 
     "русский"
-  ]
+  ],
+  "lang1":"english",
+  "lang2":"español",
+  "lang3":"中国",
+  "lang4":"中國",
+  "lang5":"français",
+  "lang6":"日本の",
+  "lang7":"русский",
+  "test": {
+   "key1":["a","b","c"],
+   "key2":"value2"
+  }
 }

@@ -123,6 +123,8 @@ cfg={
 
                  "list":{"desc":"<CID> list entries", "for_web": "yes"},
 
+                 "search":{"desc":"<CID> search entries", "for_web": "yes"},
+
                  "pull":{"desc":"<CID> (filename) or (empty to get the whole entry as archive) pull file from entry"},
                  "push":{"desc":"<CID> (filename) push file to entry"},
 
@@ -144,6 +146,7 @@ cfg={
                         "mv",
                         "move",
                         "list",
+                        "search",
                         "pull",
                         "push",
                         "list_files",
@@ -3886,9 +3889,16 @@ def move(i):
 def list_data(i):
     """
     Input:  {
-              (repo_uoa)   - repo UOA
-              (module_uoa) - module UOA
-              (data_uoa)   - data UOA
+              (repo_uoa)           - repo UOA
+              (module_uoa)         - module UOA
+              (data_uoa)           - data UOA
+
+              (filter_func)        - name of filter function
+
+              (search_flat_dict)   - search if these flat keys/values exist in entries
+              (search_dict)        - search if this dict is a part of the entry
+
+              (print_time)         - if 'yes', print elapsed time at the end
             }
 
     Output: {
@@ -3900,9 +3910,14 @@ def list_data(i):
                                'module_uoa', 'module_uid', 
                                'data_uoa','data_uid',
                                'path'}]
+
+              elapsed_time - elapsed time in string
             }
 
     """
+
+    import time
+    start_time = time.time()
 
     lst=[]
 
@@ -3913,9 +3928,18 @@ def list_data(i):
     muid=i.get('module_uid','')
     duoa=i.get('data_uoa','')
 
+    ff=i.get('filter_func',None)
+
     if duoa=='': duoa='*'
     if muoa=='' and muid=='': muoa='*'
     if ruoa=='': ruoa='*'
+
+    sff=i.get('filter_func','')
+    ff=None
+    if sff!='':
+       ff=getattr(sys.modules[__name__], sff)
+       sfd=i.get('search_flat_dict',{})
+       sd=i.get('search_dict',{})
 
     # Check if wild cards present (only repo or data)
     wr=''
@@ -4093,6 +4117,17 @@ def list_data(i):
                                  # Call filter
                                  fskip=False
 
+                                 if ff!=None and ff!='':
+                                    ll['search_flat_dict']=sfd
+                                    ll['search_dict']=sd
+
+                                    rx=ff(ll)
+                                    if rx['return']==0:
+                                       if rx['skip']=='yes':
+                                          fskip=True
+                                    else:
+                                       fskip=True
+
                                  # Append
                                  if not fskip:
                                     lst.append(ll)
@@ -4108,10 +4143,150 @@ def list_data(i):
                                           x+=y
                                        else: x+=duoa
                                        out(x)
+
        # Finish iteration over repositories
        ir+=1
 
-    return {'return':0, 'lst':lst}
+    # your code
+    elapsed_time = time.time() - start_time
+
+    if o=='con' and i.get('print_time','')=='yes':
+       out('Elapsed time: '+str(elapsed_time)+' sec., number of entries: '+str(len(lst)))
+
+    return {'return':0, 'lst':lst, 'elapsed_time':str(elapsed_time)}
+
+##############################################################################
+# Common action: search entries
+
+def search(i):
+    """
+    Input:  {
+              (repo_uoa)           - repo UOA
+              (module_uoa)         - module UOA
+              (data_uoa)           - data UOA
+
+              (print_time)         - if 'yes', print elapsed time at the end
+
+              (search_flat_dict)   - search if these flat keys/values exist in entries
+              (search_dict)        - search if this dict is a part of the entry
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              lst          - [{'repo_uoa', 'repo_uid',
+                               'module_uoa', 'module_uid', 
+                               'data_uoa','data_uid',
+                               'path'}]
+              elapsed_time - elapsed time in string
+            }
+
+    """
+    o=i.get('out','')
+
+    i['filter_func']='search_filter'
+    r=list_data(i)
+
+    return r
+
+##############################################################################
+# Search filter
+
+def search_filter(i):
+    """
+    Input:  {
+              repo_uoa             - repo UOA
+              module_uoa           - module UOA
+              data_uoa             - data UOA
+              path                 - path  
+
+              (search_flat_dict)   - search if these flat keys/values exist in entries
+              (search_dict)        - search if this dict is a part of the entry
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              lst          - [{'repo_uoa', 'repo_uid',
+                               'module_uoa', 'module_uid', 
+                               'data_uoa','data_uid',
+                               'path'}]
+            }
+
+    """
+
+    # To be fast, load directly
+    p=i['path']
+
+    skip='yes'
+
+    sfd=i.get('search_flat_dict',{})
+    sd=i.get('search_dict',{})
+
+    p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta'])
+    if not os.path.isfile(p1):
+       p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta_old'])
+       if not os.path.isfile(p1):
+          return {'return':0, 'skip':'yes'}
+
+    r=load_json_file({'json_file':p1})
+    if r['return']>0: return r
+    d=r['dict']
+
+    # Check directly
+    rx=compare_dicts({'dict1':d, 'dict2':sd})
+    if rx['return']>0: return rx
+    equal=rx['equal']
+    if equal=='yes': skip='no'
+
+    return {'return':0, 'skip':skip}
+
+##############################################################################
+# Compare dicts
+
+def compare_dicts(i):
+    """
+    Input:  {
+              dict1 - dictionary 1
+              dict2 - dictionary 2
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              equal - if 'yes' dictionaries equal
+            }
+    """
+
+    d1=i.get('dict1',{})
+    d2=i.get('dict2',{})
+
+    equal='yes'
+
+    for q2 in d2:
+        v2=d2[q2]
+        if type(v2)==dict:
+           v1=d1.get(q2,{})
+           rx=compare_dicts({'dict1':v1,'dict2':v2})
+           if rx['return']>0: return rx
+           equal=rx['equal']
+           if equal=='no':
+              break
+        elif type(v2)==list:
+           return {'return':1, 'error':'can\'t yet search by list'}
+        else:
+           v1=d1.get(q2,'')
+           if v2!=v1:
+              equal='no'
+              break
+
+    return {'return':0, 'equal':equal}
 
 ##############################################################################
 # Add action to a module
