@@ -479,6 +479,9 @@ def pull(i):
     t=i.get('type','')
     url=i.get('url','')
 
+    tt='pull'
+    if i.get('clone','')=='yes': tt='clone'
+
     if px!='': 
        pp.append({'path':px, 'type':t, 'url':url})
 
@@ -541,7 +544,7 @@ def pull(i):
               ck.out('cd '+p+' ...')
            os.chdir(p)
 
-           s=ck.cfg['repo_types'][t]['clone'].replace('$#url#$', url).replace('$#path#$', p)
+           s=ck.cfg['repo_types'][t][tt].replace('$#url#$', url).replace('$#path#$', p)
            
            if o=='con':
               ck.out('')
