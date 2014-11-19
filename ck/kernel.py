@@ -3692,7 +3692,7 @@ def ren(i):
 
        pn=os.path.join(pm, nduoa)
 #xyz 
-      os.rename(p, pn)
+       os.rename(p, pn)
 
     if nduid=='': nduid=duid
 
