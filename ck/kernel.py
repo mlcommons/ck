@@ -87,6 +87,8 @@ cfg={
                             "clone":"git clone $#url#$ $#path#$",
                             "pull":"git pull",
                             "push":"git push",
+                            "add":"git add $#files#$",
+                            "rm":"git rm -rf $#files#$",
                             "commit":"git commit"
                            }
                    },
@@ -99,27 +101,28 @@ cfg={
                  "webhelp":{"desc":"<CID> open browser with online help (description) for a data (module) entry"}, 
                  "info":{"desc":"<CID> print help about data entry"},
 
-                 "add":{"desc":"<CID> add entry"},
-                 "update":{"desc":"<CID> update entry"},
+                 "add":{"desc":"<CID> add entry", "for_web":"yes"},
+                 "update":{"desc":"<CID> update entry", "for_web":"yes"},
                  "load":{"desc":"<CID> load meta description of entry", "for_web": "yes"},
 
                  "find":{"desc":"<CID> find path to entry"},
                  "path":{"desc":"<CID> detect CID in the current directory"},
 
-                 "rm":{"desc":"<CID> delete entry"},
-                 "remove":{"desc":"see 'rm'"},
-                 "delete":{"desc":"see 'rm'"},
+                 "rm":{"desc":"<CID> delete entry", "for_web":"yes"},
+                 "remove":{"desc":"see 'rm'", "for_web":"yes"},
+                 "delete":{"desc":"see 'rm'", "for_web":"yes"},
 
-                 "ren":{"desc":"<CID> <new name) (data_uid) (remove_alias) rename entry"},
-                 "rename":{"desc":"see 'ren' function"},
+                 "ren":{"desc":"<CID> <new name) (data_uid) (remove_alias) rename entry", "for_web":"yes"},
+                 "rename":{"desc":"see 'ren' function", "for_web":"yes"},
 
-                 "cp":{"desc":"<CID> <CID1> copy entry"},
-                 "copy":{"desc":"see 'cp'"},
+                 "cp":{"desc":"<CID> <CID1> copy entry", "for_web":"yes"},
+                 "copy":{"desc":"see 'cp'", "for_web":"yes"},
 
-                 "mv":{"desc":"<CID> <CID1> move entry"},
-                 "move":{"desc":"see 'mv'"},
+                 "mv":{"desc":"<CID> <CID1> move entry", "for_web":"yes"},
+                 "move":{"desc":"see 'mv'", "for_web":"yes"},
 
-                 "list_files":{"desc":"<CID> list files recursively in a given entry", "for_web": "yes"},
+                 "list_files":{"desc":" list files recursively in a given entry", "for_web": "yes"},
+                 "delete_file":{"desc":"<file> delete file from a given entry", "for_web":"yes"},
 
                  "list":{"desc":"<CID> list entries", "for_web": "yes"},
 
@@ -130,7 +133,7 @@ cfg={
 
                  "add_action":{"desc":"add action (function) to existing module"},
                  "remove_action":{"desc":"remove action (function) from existing module"},
-                 "list_actions":{"desc":"list actions (functions) in existing module"}
+                 "list_actions":{"desc":"list actions (functions) in existing module", "for_web":"yes"}
                 },
 
       "actions_redirect":{"list":"list_data"},
@@ -150,6 +153,7 @@ cfg={
                         "pull",
                         "push",
                         "list_files",
+                        "delete_file",
                         "add_action",
                         "remove_action",
                         "list_actions"]
@@ -276,6 +280,7 @@ def check_writing(i):
               return       - return code =  0, if successful
                                          >  0, if error
               (error)      - error text if return > 0
+              (repo_dict)  - repo cfg if available
             }
 
     """
@@ -303,6 +308,8 @@ def check_writing(i):
        if ruoa==cfg['repo_name_local'] or ruid==cfg['repo_uid_local']:
           return {'return':1, 'error':'writing to local repo is forbidden'}
 
+    rr={'return':0}
+
     if cfg.get('allow_writing_only_to_allowed','')=='yes':
        rd={}
        if ruoa!='':
@@ -312,10 +319,11 @@ def check_writing(i):
              rx=load_repo_info_from_cache({'repo_uoa':ruoa})
              if rx['return']>0: return rx
              rd=rx.get('dict',{})
+          rr['repo_dict']=rd
        if rd.get('allow_writing','')!='yes':
           return {'return':1, 'error':'writing to this repo is forbidden'}
 
-    return {'return':0}
+    return rr
 
 ##############################################################################
 # Simple test of CK installation
@@ -1950,7 +1958,7 @@ def perform_action(i):
           if action1=='': action1=action
 
           if wb=='yes' and (out=='con' or out=='web') and u.get('actions',{}).get(action,{}).get('for_web','')!='yes':
-             return {'return':1, 'error':'this action is not supported in web mode'}
+             return {'return':1, 'error':'this action is not supported in remote/web mode'}
 
           a=getattr(c, action1)
           return a(i)
@@ -1964,7 +1972,7 @@ def perform_action(i):
        if action1=='': action1=action
 
        if wb=='yes' and (out=='con' or out=='web') and cfg.get('actions',{}).get(action,{}).get('for_web','')!='yes':
-          return {'return':1, 'error':'this action is not supported in web mode '}
+          return {'return':1, 'error':'this action is not supported in remote/web mode '}
 
        a=getattr(sys.modules[__name__], action1)
        return a(i)
@@ -2185,6 +2193,7 @@ def delete_alias(i):
               path         - path to the entry
               data_uid     - data UID
               (data_alias) - data alias
+              (repo_dict)  - repo cfg if available to check sync
             }
 
     Output: {
@@ -2194,11 +2203,25 @@ def delete_alias(i):
             }
     """
 
+    rd=i.get('repo_dict','')
+    rshared=rd.get('shared','')
+    rsync=rd.get('sync','')
+
+
     p=i['path']
     alias=i.get('data_alias','')
     uid=''
+
     if alias!='' and os.path.isdir(p):
-       p1=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_alias_a'] + alias)
+       p0=os.path.join(p, cfg['subdir_ck_ext'])
+
+       p9=cfg['file_alias_a'] + alias
+       p1=os.path.join(p0, p9)
+
+       if rshared!='':
+          ppp=os.getcwd()
+          os.chdir(p0)
+
        if os.path.isfile(p1):
           try:
              f=open(p1)
@@ -2206,14 +2229,27 @@ def delete_alias(i):
              f.close()
           except Exception as e:
              None
-          os.remove(p1)
+
+          if rshared!='':
+             ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', p9)
+             rx=os.system(ss)
+
+          if os.path.isfile(p1): os.remove(p1)
 
        if uid=='': uid=i['data_uid']
 
        if uid!='':
-          p1=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_alias_u'] + uid)
+          p9=cfg['file_alias_u'] + uid
+          p1=os.path.join(p0, p9)
           if os.path.isfile(p1):
-             os.remove(p1)
+             if rshared!='':
+                ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', p9)
+                rx=os.system(ss)
+
+             if os.path.isfile(p1): os.remove(p1)
+
+       if rshared!='':
+          os.chdir(ppp)
 
     return {'return':0}
 
@@ -2237,10 +2273,8 @@ def delete_directory(i):
 
     p=i['path']
 
-    if not os.path.isdir(p):
-       return {'return':1, 'error':p+' is not a directory'}
-
-    shutil.rmtree(p)
+    if os.path.isdir(p):
+       shutil.rmtree(p)
 
     return {'return':0}
 
@@ -3117,8 +3151,12 @@ def add(i):
     if r['return']>0: return r
     pr=r['path']
 
+    rd=r['dict']
+    rshared=rd.get('shared','')
+    rsync=rd.get('sync','')
+
     # Check if writing is allowed
-    ii={'module_uoa':m, 'repo_uoa':r['repo_uoa'], 'repo_uid':r['repo_uid'], 'repo_dict':r['dict']}
+    ii={'module_uoa':m, 'repo_uoa':r['repo_uoa'], 'repo_uid':r['repo_uid'], 'repo_dict':rd}
     r=check_writing(ii)
     if r['return']>0: return r
 
@@ -3182,12 +3220,16 @@ def add(i):
 
     # Create second level entry (data)
     i1={'path':p1}
-    if d!='': i1['data_uoa']=d
-    if di!='': i1['data_uid']=di
+    pdd=''
+    if di!='': 
+       i1['data_uid']=di
+    if d!='': 
+       i1['data_uoa']=d
     rr=create_entry(i1)
     if rr['return']>0 and rr['return']!=16: return rr
 
     duid=rr['data_uid']
+    pdd=rr['data_uoa']
 
     # Preparing meta-description
     a={}
@@ -3281,6 +3323,25 @@ def add(i):
 
     if o=='con':
        out('Entry '+d+' ('+duid+', '+p2+') '+t+' successfully!')
+
+    # Check if needs to be synced
+    if rshared!='' and rsync=='yes':
+       ppp=os.getcwd()
+
+       os.chdir(pr)
+       print (pr)
+       ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
+       rx=os.system(ss)
+       print (ss)
+
+       os.chdir(p1)
+       ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
+       rx=os.system(ss)
+
+       ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', pdd)
+       rx=os.system(ss)
+
+       os.chdir(ppp)
 
     rr['return']=0
 
@@ -3466,6 +3527,10 @@ def rm(i):
         r=check_writing(ii)
         if r['return']>0: return r
 
+        rd=r.get('repo_dict',{})
+        rshared=rd.get('shared','')
+        rsync=rd.get('sync','')
+
         # If interactive
         to_delete=True
         if o=='con' and i.get('force','')!='yes':
@@ -3478,11 +3543,29 @@ def rm(i):
            # First remove alias if exists
            if dalias!='':
               # Delete alias
-              r=delete_alias({'path':pm, 'data_alias':dalias, 'data_uid':duid})
+              r=delete_alias({'path':pm, 'data_alias':dalias, 'data_uid':duid, 'repo_dict':rd})
               if r['return']>0: return r
 
+           if rshared!='':
+
+              pp=os.path.split(p)
+              pp0=pp[0]
+              pp1=pp[1]
+
+              ppp=os.getcwd()
+              os.chdir(pp0)
+
+              ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', pp1)
+              rx=os.system(ss)
+
            # Delete directory
-           r=delete_directory({'path':p})
+           r={'return':0}
+           if os.path.isdir(p):
+              r=delete_directory({'path':p})
+
+           if rshared!='':
+              os.chdir(ppp)
+
            if r['return']>0: return r
 
            if o=='con':
@@ -3575,6 +3658,10 @@ def ren(i):
     r=check_writing(ii)
     if r['return']>0: return r
 
+    rd=r.get('repo_dict',{})
+    rshared=rd.get('shared','')
+    rsync=rd.get('sync','')
+ 
     # Check new data UOA
     nduoa=i.get('new_data_uoa','')
     nduid=i.get('new_data_uid','')
@@ -3604,7 +3691,8 @@ def ren(i):
           return {'return':1, 'error': 'new alias already exists'}
 
        pn=os.path.join(pm, nduoa)
-       os.rename(p, pn)
+#xyz 
+      os.rename(p, pn)
 
     if nduid=='': nduid=duid
 
@@ -3614,6 +3702,7 @@ def ren(i):
        if r['return']>0: return r
 
     # Add new disambiguator, if needed
+#xyz
     if not is_uid(nduoa):
        if not os.path.isdir(p1):
           # Create .cm directory
@@ -3778,6 +3867,8 @@ def cp(i):
 
         shutil.copy(p1,pn1)
 
+#xyz
+
     tt='copied'
     # If move, remove old one
     if i.get('move','')=='yes':
@@ -3882,6 +3973,128 @@ def move(i):
     """
 
     return mv(i)
+
+##############################################################################
+# Common action: delete file from an entry
+
+def delete_file(i):
+    """
+    Input:  {
+              (repo_uoa)  - repo UOA
+              module_uoa  - module UOA
+              data_uoa    - data UOA
+
+              filename    - filename to delete including relative path
+              (force)     - if 'yes', force deleting without questions
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    # Check if global writing is allowed
+    r=check_writing({})
+    if r['return']>0: return r
+
+    o=i.get('out','')
+
+
+
+
+
+
+
+
+
+    ra=i.get('repo_uoa','')
+    m=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    if duoa=='':
+       return {'return':1, 'error':'data UOA is not defined'}
+
+    # Get repo path
+    r=find_path_to_repo({'repo_uoa':ra})
+    if r['return']>0: return r
+    pr=r['path']
+
+    rd=r['dict']
+    rshared=rd.get('shared','')
+    rsync=rd.get('sync','')
+
+    # Check if writing is allowed
+    ii={'module_uoa':m, 'repo_uoa':r['repo_uoa'], 'repo_uid':r['repo_uid'], 'repo_dict':rd}
+    r=check_writing(ii)
+    if r['return']>0: return r
+
+    # Load info about module
+    r=load({'module_uoa':cfg['module_name'],
+            'data_uoa':m})
+    if r['return']>0: return r
+    elif r['return']==16: 
+       return {'return':8, 'error':'can\'t find path to module "'+m+'"'}
+    uid=r['data_uid']
+    alias=r['data_alias']
+    if alias=='': alias=uid
+    module_desc=r['dict']
+
+
+
+
+    # Check repo/module writing
+    ii={'module_uoa':m, 'repo_uoa':ll['repo_uoa'], 'repo_uid':ll['repo_uid']}
+    r=check_writing(ii)
+    if r['return']>0: return r
+
+    rd=r.get('repo_dict',{})
+    rshared=rd.get('shared','')
+    rsync=rd.get('sync','')
+
+    # If interactive
+    to_delete=True
+    if o=='con' and i.get('force','')!='yes':
+       r=inp({'text':'Are you sure to delete CK entry '+xcuoa+' (Y/yes or N/no/Enter): '})
+       c=r['string'].lower()
+       if c!='y' and c!='yes': to_delete=False
+
+    # If deleting
+    if to_delete:
+       # First remove alias if exists
+       if dalias!='':
+          # Delete alias
+          r=delete_alias({'path':pm, 'data_alias':dalias, 'data_uid':duid, 'repo_dict':rd})
+          if r['return']>0: return r
+
+       if rshared!='':
+
+          pp=os.path.split(p)
+          pp0=pp[0]
+          pp1=pp[1]
+
+          ppp=os.getcwd()
+          os.chdir(pp0)
+
+          ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', pp1)
+          rx=os.system(ss)
+
+       # Delete directory
+       r={'return':0}
+       if os.path.isdir(p):
+          r=delete_directory({'path':p})
+
+       if rshared!='':
+          os.chdir(ppp)
+
+       if r['return']>0: return r
+
+       if o=='con':
+          out('   Entry '+xcuoa+' was successfully deleted!')
+
+    return {'return':0}
 
 ##############################################################################
 # Common action: list data entries
