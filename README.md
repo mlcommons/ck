@@ -137,6 +137,22 @@ Contributions
 =============
 See CONTRIBUTIONS.txt
 
+Publication
+===========
+Framework concept (including internals) has been introduced in
+* Grigori Fursin, Renato Miceli, Anton Lokhmotov, Michael Gerndt, 
+  Marc Baboulin, Allen D. Malony, Zbigniew Chamski, 
+  Diego Novillo, Davide Del Vento, 
+  "Collective mind: Towards practical and collaborative auto-tuning", 
+  Journal of Scientific Programming 22 (4), 2014
+  http://hal.inria.fr/hal-01054763
+
+First high-level concept has been presented in
+* Grigori Fursin, "Collective Tuning Initiative: automating 
+  and accelerating development and optimization of computing systems", 
+  Proceedings of the GCC Summit, Montreal, Canada, 2009
+  https://hal.inria.fr/inria-00436029
+
 Acknowledgments
 ===============
 This project has been funded by EU FP7 609491 TETRACOM project,

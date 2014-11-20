@@ -7,5 +7,9 @@ Contributors should clearly mark their contributions including date and remark.
 This is still a relatively new project so we still discuss how to make
 contributions easy and efficient.
 
-Issues online:
+For now, patches can be sent directly to the collective-mind@googlegroups.com
+
+Bugs can be reported here:
 * https://github.com/ctuning/ck/issues
+
+Thank you for your interest!

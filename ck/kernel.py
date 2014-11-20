@@ -310,16 +310,18 @@ def check_writing(i):
 
     rr={'return':0}
 
+    # Load info about repo
+    rd={}
+    if ruoa!='':
+       if 'repo_dict' in i:
+          rd=i['repo_dict']
+       else:
+          rx=load_repo_info_from_cache({'repo_uoa':ruoa})
+          if rx['return']>0: return rx
+          rd=rx.get('dict',{})
+       rr['repo_dict']=rd
+
     if cfg.get('allow_writing_only_to_allowed','')=='yes':
-       rd={}
-       if ruoa!='':
-          if 'repo_dict' in i:
-             rd=i['repo_dict']
-          else:
-             rx=load_repo_info_from_cache({'repo_uoa':ruoa})
-             if rx['return']>0: return rx
-             rd=rx.get('dict',{})
-          rr['repo_dict']=rd
        if rd.get('allow_writing','')!='yes':
           return {'return':1, 'error':'writing to this repo is forbidden'}
 
@@ -2203,10 +2205,9 @@ def delete_alias(i):
             }
     """
 
-    rd=i.get('repo_dict','')
+    rd=i.get('repo_dict',{})
     rshared=rd.get('shared','')
     rsync=rd.get('sync','')
-
 
     p=i['path']
     alias=i.get('data_alias','')
@@ -3329,10 +3330,8 @@ def add(i):
        ppp=os.getcwd()
 
        os.chdir(pr)
-       print (pr)
        ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
        rx=os.system(ss)
-       print (ss)
 
        os.chdir(p1)
        ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
@@ -3691,8 +3690,35 @@ def ren(i):
           return {'return':1, 'error': 'new alias already exists'}
 
        pn=os.path.join(pm, nduoa)
-#xyz 
-       os.rename(p, pn)
+
+       if rshared!='' and rsync=='yes':
+          import shutil
+
+          shutil.copytree(p,pn)
+
+          ppp=os.getcwd()
+
+          pp=os.path.split(pn)
+          pp0=pp[0]
+          pp1=pp[1]
+
+          os.chdir(pp0)
+          ss=cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
+          rx=os.system(ss)
+
+          pp=os.path.split(p)
+          pp0=pp[0]
+          pp1=pp[1]
+
+          ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', pp1)
+          rx=os.system(ss)
+
+          os.chdir(ppp)
+
+          if os.path.isdir(p):
+             shutil.rmtree(p)
+       else:
+          os.rename(p, pn)
 
     if nduid=='': nduid=duid
 
@@ -3702,7 +3728,6 @@ def ren(i):
        if r['return']>0: return r
 
     # Add new disambiguator, if needed
-#xyz
     if not is_uid(nduoa):
        if not os.path.isdir(p1):
           # Create .cm directory
@@ -3728,6 +3753,19 @@ def ren(i):
           f.close()
        except Exception as e:
           None
+
+       if rshared!='' and rsync=='yes':
+          ppp=os.getcwd()
+
+          pp=os.path.split(p1)
+          pp0=pp[0]
+          pp1=pp[1]
+
+          os.chdir(pp0)
+          ss=cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
+          rx=os.system(ss)
+
+          os.chdir(ppp)
 
     if o=='con':
        out('Entry was successfully renamed!')
@@ -3845,6 +3883,10 @@ def cp(i):
     r=check_writing(ii)
     if r['return']>0: return r
 
+    rd=r.get('repo_dict',{})
+    rshared=rd.get('shared','')
+    rsync=rd.get('sync','')
+
     ii={'module_uoa':nmuoa, 'data_uoa': nduoa, 'dict':dd, 'info':di, 
         'updates':du, 'ignore_update':'yes'}
     if nduid!='': ii['data_uid']=nduid
@@ -3867,7 +3909,18 @@ def cp(i):
 
         shutil.copy(p1,pn1)
 
-#xyz
+    if rshared!='' and rsync=='yes':
+       ppp=os.getcwd()
+
+       pp=os.path.split(pn)
+       pp0=pp[0]
+       pp1=pp[1]
+
+       os.chdir(pp0)
+       ss=cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
+       rx=os.system(ss)
+
+       os.chdir(ppp)
 
     tt='copied'
     # If move, remove old one
@@ -4002,51 +4055,37 @@ def delete_file(i):
 
     o=i.get('out','')
 
-
-
-
-
-
-
-
-
-    ra=i.get('repo_uoa','')
-    m=i.get('module_uoa','')
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
+
+    # Check file
+    fn=i.get('filename','')
+    if fn=='':
+       x=i.get('cids',[])
+       if len(x)>0:
+          fn=x[0]
+
+    if fn=='':
+       return {'return':1, 'error':'filename is empty'}
 
     if duoa=='':
        return {'return':1, 'error':'data UOA is not defined'}
 
-    # Get repo path
-    r=find_path_to_repo({'repo_uoa':ra})
-    if r['return']>0: return r
-    pr=r['path']
+    if fn=='':
+       return {'return':1, 'error':'filename is not defined'}
 
-    rd=r['dict']
-    rshared=rd.get('shared','')
-    rsync=rd.get('sync','')
-
-    # Check if writing is allowed
-    ii={'module_uoa':m, 'repo_uoa':r['repo_uoa'], 'repo_uid':r['repo_uid'], 'repo_dict':rd}
-    r=check_writing(ii)
+    # Get info about entry
+    r=load({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
     if r['return']>0: return r
 
-    # Load info about module
-    r=load({'module_uoa':cfg['module_name'],
-            'data_uoa':m})
-    if r['return']>0: return r
-    elif r['return']==16: 
-       return {'return':8, 'error':'can\'t find path to module "'+m+'"'}
-    uid=r['data_uid']
-    alias=r['data_alias']
-    if alias=='': alias=uid
-    module_desc=r['dict']
+    p=r['path']
 
-
-
+    ruoa=r['repo_uoa']
+    ruid=r['repo_uid']
 
     # Check repo/module writing
-    ii={'module_uoa':m, 'repo_uoa':ll['repo_uoa'], 'repo_uid':ll['repo_uid']}
+    ii={'module_uoa':muoa, 'repo_uoa':ruoa, 'repo_uid':ruid}
     r=check_writing(ii)
     if r['return']>0: return r
 
@@ -4054,45 +4093,38 @@ def delete_file(i):
     rshared=rd.get('shared','')
     rsync=rd.get('sync','')
 
-    # If interactive
-    to_delete=True
-    if o=='con' and i.get('force','')!='yes':
-       r=inp({'text':'Are you sure to delete CK entry '+xcuoa+' (Y/yes or N/no/Enter): '})
-       c=r['string'].lower()
-       if c!='y' and c!='yes': to_delete=False
+    p1=os.path.normpath(os.path.join(p, fn))
+    px=os.path.normpath(os.path.join(p, cfg['subdir_ck_ext']))
 
-    # If deleting
-    if to_delete:
-       # First remove alias if exists
-       if dalias!='':
-          # Delete alias
-          r=delete_alias({'path':pm, 'data_alias':dalias, 'data_uid':duid, 'repo_dict':rd})
-          if r['return']>0: return r
+    if p1.startswith(px):
+       return {'return':1, 'error':'path points to the special directory with meta info'}
 
-       if rshared!='':
+    if not p1.startswith(p):
+       return {'return':1, 'error':'path is outside entry'}
 
-          pp=os.path.split(p)
-          pp0=pp[0]
-          pp1=pp[1]
+    if not os.path.isfile(p1) and not os.path.isdir(p1):
+       return {'return':1, 'error':'file or directory is not found'}
 
-          ppp=os.getcwd()
-          os.chdir(pp0)
+    p2=os.path.split(p1)
+    px0=p2[0]
+    px1=p2[1]
 
-          ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', pp1)
-          rx=os.system(ss)
+    if rshared!='':
+       ppp=os.getcwd()
+       os.chdir(px0)
 
-       # Delete directory
-       r={'return':0}
-       if os.path.isdir(p):
-          r=delete_directory({'path':p})
+       ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', px1)
+       rx=os.system(ss)
 
-       if rshared!='':
-          os.chdir(ppp)
+    if os.path.isfile(p1):
+       os.remove(p1)
 
-       if r['return']>0: return r
+    if os.path.isdir(p1):
+       import shutil
+       shutil.rmtree(p1)
 
-       if o=='con':
-          out('   Entry '+xcuoa+' was successfully deleted!')
+    if rshared!='':
+       os.chdir(ppp)
 
     return {'return':0}
 
@@ -4996,6 +5028,20 @@ def push(i):
     duoa=rx['data_uoa']
     dd=rx['dict']
 
+    px=os.path.normpath(os.path.join(p, cfg['subdir_ck_ext']))
+
+    ruoa=rx['repo_uoa']
+    ruid=rx['repo_uid']
+
+    # Check repo/module writing
+    ii={'module_uoa':muoa, 'repo_uoa':ruoa, 'repo_uid':ruid}
+    r=check_writing(ii)
+    if r['return']>0: return r
+    rd=r.get('repo_dict',{})
+
+    rshared=rd.get('shared','')
+    rsync=rd.get('sync','')
+
     # Prepare path
     p1=i.get('extra_path','')
     if p1!='':
@@ -5014,6 +5060,9 @@ def push(i):
     p3=os.path.normpath(os.path.join(p, fn))
     if not p3.startswith(p3):
        return {'return':1,'error':'extra path is outside entry'}
+
+    if p3.startswith(px):
+       return {'return':1, 'error':'path points to the special directory with meta info'}
 
     if os.path.isfile(p3) and overwrite!='yes':
        return {'return':1,'error':'file already exists in the entry'}
@@ -5053,6 +5102,21 @@ def push(i):
        f.close()
        os.remove(p3)
        y='and unziped '
+
+
+    if rshared!='':
+       ppp=os.getcwd()
+
+       pp=os.path.split(p)
+       pp0=pp[0]
+       pp1=pp[1]
+
+       os.chdir(pp0)
+
+       ss=cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
+       rx=os.system(ss)
+
+       os.chdir(ppp)
 
     if o=='con':
        out('File was pushed '+y+'successfully!')
