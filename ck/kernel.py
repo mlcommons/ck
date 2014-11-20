@@ -4186,6 +4186,8 @@ def list_data(i):
        ff=getattr(sys.modules[__name__], sff)
        sd=i.get('search_dict',{})
        ic=i.get('ignore_case','')
+       ss=i.get('search_string','')
+       if ic=='yes': ss=ss.lower()
 
     # Check if wild cards present (only repo or data)
     wr=''
@@ -4365,6 +4367,7 @@ def list_data(i):
 
                                  if ff!=None and ff!='':
                                     ll['search_dict']=sd
+                                    ll['search_string']=ss
                                     ll['ignore_case']=ic
 
                                     rx=ff(ll)
@@ -4415,6 +4418,8 @@ def search(i):
 
               (search_flat_dict)   - search if these flat keys/values exist in entries
               (search_dict)        - search if this dict is a part of the entry
+                   or
+              (search_string)      - search with expressions *?
 
               (ignore_case)        - if 'yes', ignore case of letters
             }
@@ -4434,19 +4439,24 @@ def search(i):
     """
     o=i.get('out','')
 
-    sfd=i.get('search_flat_dict',{})
-    if len(sfd)>0:
-       r=restore_flattened_dict({'dict':sfd})
-       if r['return']>0: return r
-
-       nd=r['dict']
-
+    ss=i.get('search_string','')
+    if ss!='':
+       i['filter_func']='search_string_filter'
+    else:
+       sfd=i.get('search_flat_dict',{})
        sd=i.get('search_dict',{})
-       sd.update(nd)
 
-       del (i['search_flat_dict'])
+       if len(sfd)>0:
+          r=restore_flattened_dict({'dict':sfd})
+          if r['return']>0: return r
 
-    i['filter_func']='search_filter'
+          nd=r['dict']
+
+          sd.update(nd)
+
+          del (i['search_flat_dict'])
+
+       i['filter_func']='search_filter'
     r=list_data(i)
 
     return r
@@ -4556,6 +4566,122 @@ def compare_dicts(i):
               break
 
     return {'return':0, 'equal':equal}
+
+##############################################################################
+# Find string in dict
+
+def find_string_in_dict_or_list(i):
+    """
+    Input:  {
+              dict            - dictionary 1
+              (search_string) - search string
+              (ignore_case)   - ignore case of letters
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              found        - if 'yes', string found
+            }
+    """
+
+    d=i.get('dict',{})
+
+    found='no'
+
+    wc=False
+    ss=i.get('search_string','')
+    if ss.find('*')>=0 or ss.find('?')>=0:
+       wc=True
+       import fnmatch
+
+    bic=False
+    ic=i.get('ignore_case','')
+    if ic=='yes': 
+       bic=True
+       ss=ss.lower()
+
+    for q in d:
+        if type(d)==dict:   v=d[q]
+        elif type(d)==list: v=q
+        else:               v=str(q)
+
+        if type(v)==dict or type(v)==list:
+           rx=find_string_in_dict_or_list({'dict':v, 'search_string':ss, 'ignore_case':ic})
+           if rx['return']>0: return rx
+           found=rx['found']
+           if found=='yes':
+              break
+        else:
+           try: v=str(v)
+           except Exception as e: pass
+
+           if bic: 
+              v=v.lower()
+
+           if (wc and fnmatch.fnmatch(v, ss)) or v==ss:
+              found='yes'
+              break
+
+    return {'return':0, 'found':found}
+
+##############################################################################
+# Search filter
+
+def search_string_filter(i):
+    """
+    Input:  {
+              repo_uoa             - repo UOA
+              module_uoa           - module UOA
+              data_uoa             - data UOA
+              path                 - path  
+
+              (search_string)      - search with expressions *?
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              lst          - [{'repo_uoa', 'repo_uid',
+                               'module_uoa', 'module_uid', 
+                               'data_uoa','data_uid',
+                               'path'}]
+            }
+
+    """
+
+    # To be fast, load directly
+    p=i['path']
+
+    skip='yes'
+
+    ss=i.get('search_string','')
+    if ss=='':
+       skip='no'
+    else:
+       ic=i.get('ignore_case','')
+
+       p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta'])
+       if not os.path.isfile(p1):
+          p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta_old'])
+          if not os.path.isfile(p1):
+             return {'return':0, 'skip':'yes'}
+
+       r=load_json_file({'json_file':p1})
+       if r['return']>0: return r
+       d=r['dict']
+
+       # Check directly
+       rx=find_string_in_dict_or_list({'dict':d, 'search_string':ss, 'ignore_case':ic})
+       if rx['return']>0: return rx
+       found=rx['found']
+       if found=='yes': skip='no'
+
+    return {'return':0, 'skip':skip}
 
 ##############################################################################
 # Add action to a module
