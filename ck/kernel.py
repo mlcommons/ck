@@ -4140,8 +4140,9 @@ def list_data(i):
 
               (filter_func)        - name of filter function
 
-              (search_flat_dict)   - search if these flat keys/values exist in entries
               (search_dict)        - search if this dict is a part of the entry
+
+              (ignore_case)        - ignore case when searching!
 
               (print_time)         - if 'yes', print elapsed time at the end
             }
@@ -4184,6 +4185,7 @@ def list_data(i):
     if sff!='':
        ff=getattr(sys.modules[__name__], sff)
        sd=i.get('search_dict',{})
+       ic=i.get('ignore_case','')
 
     # Check if wild cards present (only repo or data)
     wr=''
@@ -4363,6 +4365,7 @@ def list_data(i):
 
                                  if ff!=None and ff!='':
                                     ll['search_dict']=sd
+                                    ll['ignore_case']=ic
 
                                     rx=ff(ll)
                                     if rx['return']==0:
@@ -4412,6 +4415,8 @@ def search(i):
 
               (search_flat_dict)   - search if these flat keys/values exist in entries
               (search_dict)        - search if this dict is a part of the entry
+
+              (ignore_case)        - if 'yes', ignore case of letters
             }
 
     Output: {
@@ -4458,6 +4463,7 @@ def search_filter(i):
               path                 - path  
 
               (search_dict)        - search if this dict is a part of the entry
+              (ignore_case)        - if 'yes', ignore case of letters
             }
 
     Output: {
@@ -4480,6 +4486,8 @@ def search_filter(i):
 
     sd=i.get('search_dict',{})
 
+    ic=i.get('ignore_case','')
+
     p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta'])
     if not os.path.isfile(p1):
        p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta_old'])
@@ -4491,7 +4499,7 @@ def search_filter(i):
     d=r['dict']
 
     # Check directly
-    rx=compare_dicts({'dict1':d, 'dict2':sd})
+    rx=compare_dicts({'dict1':d, 'dict2':sd, 'ignore_case':ic})
     if rx['return']>0: return rx
     equal=rx['equal']
     if equal=='yes': skip='no'
@@ -4504,8 +4512,9 @@ def search_filter(i):
 def compare_dicts(i):
     """
     Input:  {
-              dict1 - dictionary 1
-              dict2 - dictionary 2
+              dict1         - dictionary 1
+              dict2         - dictionary 2
+              (ignore_case) - ignore case of letters
             }
 
     Output: {
@@ -4522,11 +4531,15 @@ def compare_dicts(i):
 
     equal='yes'
 
+    bic=False
+    ic=i.get('ignore_case','')
+    if ic=='yes': bic=True
+
     for q2 in d2:
         v2=d2[q2]
         if type(v2)==dict:
            v1=d1.get(q2,{})
-           rx=compare_dicts({'dict1':v1,'dict2':v2})
+           rx=compare_dicts({'dict1':v1,'dict2':v2, 'ignore_case':ic})
            if rx['return']>0: return rx
            equal=rx['equal']
            if equal=='no':
@@ -4535,6 +4548,9 @@ def compare_dicts(i):
            return {'return':1, 'error':'can\'t yet search by list'}
         else:
            v1=d1.get(q2,'')
+           if bic: 
+              v1=v1.lower()
+              v2=v2.lower()
            if v2!=v1:
               equal='no'
               break
