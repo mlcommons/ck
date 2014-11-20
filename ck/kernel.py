@@ -4183,7 +4183,6 @@ def list_data(i):
     ff=None
     if sff!='':
        ff=getattr(sys.modules[__name__], sff)
-       sfd=i.get('search_flat_dict',{})
        sd=i.get('search_dict',{})
 
     # Check if wild cards present (only repo or data)
@@ -4363,7 +4362,6 @@ def list_data(i):
                                  fskip=False
 
                                  if ff!=None and ff!='':
-                                    ll['search_flat_dict']=sfd
                                     ll['search_dict']=sd
 
                                     rx=ff(ll)
@@ -4431,6 +4429,18 @@ def search(i):
     """
     o=i.get('out','')
 
+    sfd=i.get('search_flat_dict',{})
+    if len(sfd)>0:
+       r=restore_flattened_dict({'dict':sfd})
+       if r['return']>0: return r
+
+       nd=r['dict']
+
+       sd=i.get('search_dict',{})
+       sd.update(nd)
+
+       del (i['search_flat_dict'])
+
     i['filter_func']='search_filter'
     r=list_data(i)
 
@@ -4447,7 +4457,6 @@ def search_filter(i):
               data_uoa             - data UOA
               path                 - path  
 
-              (search_flat_dict)   - search if these flat keys/values exist in entries
               (search_dict)        - search if this dict is a part of the entry
             }
 
@@ -4469,7 +4478,6 @@ def search_filter(i):
 
     skip='yes'
 
-    sfd=i.get('search_flat_dict',{})
     sd=i.get('search_dict',{})
 
     p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta'])
