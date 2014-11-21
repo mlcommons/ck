@@ -52,6 +52,7 @@ cfg={
       "subdir_kernel":"kernel",
       "subdir_kernel_default":"default",
       "subdir_ck_ext":".cm", # keep compatibility with Collective Mind V1.x
+      "file_for_lock":"ck_lock.txt",
 
       "special_directories":[".cm", ".svn", ".git"], # special directories that should be ignored when copying/moving entries
 
@@ -75,6 +76,10 @@ cfg={
                           "linux":{"cmd":"xterm -hold -e \"$#cmd#$\""}},
 
       "default_archive_name":"ck-archive.zip",
+
+      "index_host":"localhost",
+      "index_port":"9300",
+      "index_use_curl":"yes",
 
       "module_repo_name":"repo",
       "repo_name_default":"default",
@@ -404,7 +409,7 @@ def gen_uid(i):
                                          >  0, if error
               (error)      - error text if return > 0
 
-              uid          - UID in string format (16 characters 0..9,a..f)
+              data_uid     - UID in string format (16 characters 0..9,a..f)
             }
     """
 
@@ -2490,6 +2495,162 @@ def restore_flattened_dict(i):
     return {'return':0, 'dict': a}
 
 ##############################################################################
+# Set lock for path
+
+def set_lock(i):
+    """
+    Input:  {
+              path               - path to be locked
+
+              (get_lock)         - if 'yes', lock this entry
+              (lock_retries)     - number of retries to aquire lock (default=11)
+              (lock_retry_delay) - delay in seconds before trying to aquire lock again (default=3)
+              (lock_expire_time) - number of seconds before lock expires (default=30)
+
+              (unlock_uid)       - UID of the lock to release it
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         = 32, couldn't acquire lock (still locked after all retries)
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              (lock_uid)   - lock UID, if locked successfully
+            }
+    """
+    p=i['path']
+
+    gl=i.get('get_lock','')
+    uuid=i.get('unlock_uid','')
+    exp=float(i.get('lock_expire_time','30'))
+
+    rr={'return':0}
+
+    if gl=='yes' or uuid!='':
+       pl=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_for_lock'])
+
+       luid=''
+       if os.path.isfile(pl):
+          import time
+
+          # Read lock file
+          try:
+             f=open(pl)
+             luid=f.readline().strip()
+             exp=float(f.readline().strip())
+             if exp<0: exp=1
+             f.close()
+          except Exception as e:
+             return {'return':1, 'error':'problem reading lock file'}
+
+          # Check if lock has expired
+          if gl=='yes' and uuid=='':
+             # Retry if locked
+             retry=int(i.get('lock_retries','11'))
+             retryd=float(i.get('lock_retry_delay','3'))
+
+             dt=os.path.getmtime(pl)+exp-time.time()
+             if dt>0: 
+                while retry>0 and os.path.isfile(pl) and dt>0:
+                   print (dt)
+                   retry-=1
+                   time.sleep(retryd)
+                   if os.path.isfile(pl): 
+                      dt=os.path.getmtime(pl)+exp-time.time()
+
+                if retry==0 and dt>0 and os.path.isfile(pl):
+                   return {'return':32, 'error':'entry is still locked'}
+
+             luid=''
+             if os.path.isfile(pl): os.remove(pl)
+
+       # Release lock if requested (and if not locked by another UID)
+       if luid!='' and uuid!='':
+          if luid!=uuid:
+             return {'return':32, 'error': 'entry is locked with another UID'}
+          luid=''
+          os.remove(pl)
+
+       # Finish aquiring lock
+       if gl=='yes':
+          # (Re)acquire lock
+          if uuid=='':
+             r=gen_uid({})
+             if r['return']>0: return r
+             luid=r['data_uid']
+          else:
+             luid=uuid
+
+          # Write lock file
+          try:
+             f=open(pl,'w')
+             f.write(luid+'\n')
+             f.write(str(exp)+'\n')
+             f.close()
+          except Exception as e:
+             return {'return':1, 'error':'problem writing lock file'}
+
+          rr['lock_uid']=luid
+
+    return rr
+
+##############################################################################
+# Check if locked and unlock if needed
+
+def check_lock(i):
+    """
+    Input:  {
+              path               - path to be locked
+              (unlock_uid)       - UID of the lock to release it
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         = 32, lock UID is not matching
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+    """
+    p=i['path']
+    uuid=i.get('unlock_uid','')
+
+    pl=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_for_lock'])
+
+    luid=''
+    if os.path.isfile(pl):
+       import time
+
+       # Read lock file
+       try:
+          f=open(pl)
+          luid=f.readline().strip()
+          exp=float(f.readline().strip())
+          if exp<0: exp=1
+          f.close()
+       except Exception as e:
+          return {'return':1, 'error':'problem reading lock file'}
+
+       # Check if lock has expired
+       dt=os.path.getmtime(pl)+exp-time.time()
+       if dt<0: 
+          # Expired
+          if uuid=='' or uuid==luid:
+             os.remove(pl)
+          else:
+             return {'return':32, 'error':'entry lock UID is not matching'}
+       else:
+          if uuid=='':
+             return {'return':32, 'error':'entry is locked'}
+          elif uuid!=luid:
+             return {'return':32, 'error':'entry is locked with different UID'}
+       
+    elif uuid!='':
+       return {'return':32, 'error':'lock was removed or expired'}
+
+    return {'return':0}
+
+##############################################################################
 # Get current date and time
 
 def get_current_date_time(i):
@@ -2969,9 +3130,16 @@ def path(i):
 def load(i):
     """
     Input:  {
-              (repo_uoa)       - repo UOA
-              module_uoa       - module UOA
-              data_uoa         - data UOA
+              (repo_uoa)         - repo UOA
+              module_uoa         - module UOA
+              data_uoa           - data UOA
+
+              (get_lock)         - if 'yes', lock this entry
+              (lock_retries)     - number of retries to aquire lock (default=5)
+              (lock_retry_delay) - delay in seconds before trying to aquire lock again (default=10)
+              (lock_expire_time) - number of seconds before lock expires (default=30)
+
+              (unlock_uid)       - UID of the lock to release it
             }
 
     Output: {
@@ -2996,6 +3164,8 @@ def load(i):
               data_uid     - data UID
               data_alias   - data alias
               data_name    - user friendly name
+
+              (lock_uid)   - unlock UID, if locked successfully
             }
     """
 
@@ -3012,6 +3182,13 @@ def load(i):
     if r['return']>0: return r
     p=r['path']
 
+    # Set/check lock
+    i['path']=p
+    rx=set_lock(i)
+    if rx['return']>0: return rx
+
+    luid=rx.get('lock_uid','')
+
     # Load meta description
     r1=load_meta_from_path({'path':p})
     if r1['return']>0: return r1
@@ -3020,6 +3197,8 @@ def load(i):
     r['path']=p
 
     r['data_name']=r1.get('info',{}).get('data_name','')
+
+    if luid!='': r['lock_uid']=luid
 
     # If console mode, print json
     if o=='con':
@@ -3044,6 +3223,10 @@ def find(i):
               Output of the 'load' function 
             }
     """
+
+    r=access_index_server({'dict':{}})
+    print (r)
+    exit(1)
 
     o=i.get('out','')
     i['out']=''
@@ -3120,6 +3303,8 @@ def add(i):
               (ignore_update)        - if 'yes', do not add info about update
 
               (ask)                  - if 'yes', ask questions, otherwise silent
+
+              (unlock_uid)           - unlock UID if was previously locked
             }
 
     Output: {
@@ -3142,6 +3327,8 @@ def add(i):
     d=i.get('data_uoa','')
     di=i.get('data_uid','')
     dn=i.get('data_name','')
+
+    uuid=i.get('unlock_uid','')
 
     up=i.get('update','')
 
@@ -3247,6 +3434,11 @@ def add(i):
     if rr['return']==16:
        if up=='yes':
           t='updated'
+
+          # Check if locked
+          rl=check_lock({'path':p2, 'unlock_uid':uuid})
+          if rl['return']>0: return rl
+
           # Entry exists, load configuration if update
           r2=load_meta_from_path({'path':p2})
           if r2['return']>0: return r2
@@ -3341,6 +3533,11 @@ def add(i):
        rx=os.system(ss)
 
        os.chdir(ppp)
+
+    # Remove lock after update if needed
+    if uuid!='':
+       pl=os.path.join(p2, cfg['subdir_ck_ext'], cfg['file_for_lock'])
+       if os.path.isfile(pl): os.remove(pl)
 
     rr['return']=0
 
@@ -4682,6 +4879,81 @@ def search_string_filter(i):
        if found=='yes': skip='no'
 
     return {'return':0, 'skip':skip}
+
+##############################################################################
+# Search filter
+
+def access_index_server(i):
+    """
+    Input:  {
+              (module_uid)   - module UID
+              (data_uid)     - data UID
+              (path)         - path  
+
+              (dict)         - query as dict to send
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              dict         - returned dict
+            }
+
+    """
+
+    # Prepare URL
+
+#xyz
+
+    host=cfg.get('index_host','')
+    if host=='':
+       return {'return':1, 'error':'index host is not defined in configuration'}
+
+    url=host
+    port=cfg.get('index_port','')
+    if port!='':
+       url+=':'+port
+
+    dd=i.get('dict',{})
+    ddo={}
+
+    if cfg.get('index_use_curl','')=='yes':
+       import tempfile
+
+       fd1, fn1=tempfile.mkstemp(suffix='.tmp', prefix='ck-')
+       os.close(fd1)
+       os.remove(fn1)
+
+       fd2, fn2=tempfile.mkstemp(suffix='.tmp', prefix='ck-')
+       os.close(fd2)
+       os.remove(fn2)
+
+       r=save_json_to_file({'json_file':fn1, 'dict':dd})
+       if r['return']>0: return r
+
+       cmd='curl -XPUT '+url+' -d @'+fn1+' -s -o '+fn2
+       print (cmd);
+       os.system(cmd)
+
+       # Read output
+       r=load_json_file({'json_file':fn2})
+       print (r)
+       exit(1)
+
+       if os.path.isfile(fn1): os.remove(fn1)
+       if os.path.isfile(fn2): os.remove(fn2)
+
+       if r['return']>0: return r
+       ddo=r['dict']
+
+    print (ddo)
+
+    return {'return':0, 'dict':ddo}
+
+
+
 
 ##############################################################################
 # Add action to a module
