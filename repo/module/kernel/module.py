@@ -168,16 +168,21 @@ def setup(i):
        ck.out('*** Writing control ***')
 
        ck.out('')
-       ck.out('Forbid all writing operations (useful for permanent web-based repositories): '+cfg.get('forbid_global_writing' ,ck.cfg.get('forbid_global_writing','')))
-       ck.out('Forbid writing modules (adding/updating/removing):                           '+cfg.get('forbid_writing_modules', ck.cfg.get('forbid_writing_modules','')))
-       ck.out('Forbid writing to default repo:                                              '+cfg.get('forbid_writing_to_default_repo' ,ck.cfg.get('forbid_writing_to_default_repo','')))
-       ck.out('Forbid writing to local repo:                                                '+cfg.get('forbid_writing_to_local_repo', ck.cfg.get('forbid_writing_to_local_repo','')))
-       ck.out('Allow writing only to allowed individual repos:                              '+cfg.get('allow_writing_only_to_allowed', ck.cfg.get('allow_writing_only_to_allowed','')))
+       ck.out('Forbid all writing operations (useful for permanent web-based repositories):     '+cfg.get('forbid_global_writing' ,ck.cfg.get('forbid_global_writing','')))
+       ck.out('Forbid delete/rename operations (useful for aggregating web-based repositories): '+cfg.get('forbid_global_delete' ,ck.cfg.get('forbid_global_delete','')))
+       ck.out('Forbid writing modules (adding/updating/removing):                               '+cfg.get('forbid_writing_modules', ck.cfg.get('forbid_writing_modules','')))
+       ck.out('Forbid writing to default repo:                                                  '+cfg.get('forbid_writing_to_default_repo' ,ck.cfg.get('forbid_writing_to_default_repo','')))
+       ck.out('Forbid writing to local repo:                                                    '+cfg.get('forbid_writing_to_local_repo', ck.cfg.get('forbid_writing_to_local_repo','')))
+       ck.out('Allow writing only to allowed individual repos:                                  '+cfg.get('allow_writing_only_to_allowed', ck.cfg.get('allow_writing_only_to_allowed','')))
 
        ck.out('')
        r=ck.inp({'text': 'Forbid all writing operations (yes or Enter to keep previous)?:                  '})
        d=r['string'].lower()
        if d!='': cfg['forbid_global_writing']=d
+
+       r=ck.inp({'text': 'Forbid all delete operations (yes or Enter to keep previous)?:                   '})
+       d=r['string'].lower()
+       if d!='': cfg['forbid_global_delete']=d
 
        r=ck.inp({'text': 'Forbid adding new modules (yes or Enter to keep previous)?:                      '})
        d=r['string'].lower()

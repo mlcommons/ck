@@ -279,6 +279,8 @@ def check_writing(i):
               (repo_uoa)
               (repo_uid)
               (repo_dict)
+
+              (delete)     - if 'yes', check if global delete operation is allowed
             }
 
     Output: {
@@ -289,6 +291,9 @@ def check_writing(i):
             }
 
     """
+
+    if i.get('delete','')=='yes' and cfg.get('forbid_global_delete','')=='yes':
+       return {'return':1, 'error':'delete/rename operations are forbidden'}
 
     if cfg.get('forbid_global_writing','')=='yes':
        return {'return':1, 'error':'global writing is forbidden'}
@@ -3665,7 +3670,7 @@ def rm(i):
     """
 
     # Check if global writing is allowed
-    r=check_writing({})
+    r=check_writing({'delete':'yes'})
     if r['return']>0: return r
 
     o=i.get('out','')
@@ -3822,7 +3827,7 @@ def ren(i):
     """
 
     # Check if global writing is allowed
-    r=check_writing({})
+    r=check_writing({'delete':'yes'})
     if r['return']>0: return r
 
     o=i.get('out','')
@@ -4176,7 +4181,7 @@ def mv(i):
     """
 
     # Check if global writing is allowed
-    r=check_writing({})
+    r=check_writing({'delete':'yes'})
     if r['return']>0: return r
 
     # Check if wild cards
@@ -4247,7 +4252,7 @@ def delete_file(i):
     """
 
     # Check if global writing is allowed
-    r=check_writing({})
+    r=check_writing({'delete':'yes'})
     if r['return']>0: return r
 
     o=i.get('out','')
