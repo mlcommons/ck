@@ -63,7 +63,7 @@ def setup(i):
        elif i.get('indexing','')=='yes': param='indexing'
 
     # Check if local repo
-    dlrp=ck.work['dir_default_repo']
+    dlrp=ck.work['dir_local_repo']
     if dlrp=='':
        ck.out(sep)
        ck.out('Local repository is not defined:')
