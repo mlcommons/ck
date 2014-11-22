@@ -14,7 +14,8 @@ setup(
   license='BSD 3-clause',
   author='Grigori Fursin and cTuning foundation',
   author_email='Grigori.Fursin@cTuning.org',
-  description='Simple wrappers and file-based framework and repository'
-              'that enables collaborative and reproducible experimentation',
+  description='Open platform, repository and web service '
+              'to enables collaborative, systematic and reproducible '
+              'research and experimentation',
   packages=['ck']
 )
