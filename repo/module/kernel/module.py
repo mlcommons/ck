@@ -114,7 +114,7 @@ def setup(i):
              ck.out('* Changing directory to '+p+' ...')
              os.chdir(p)
 
-             c='python setup.py install'
+             c=ck.cfg['install_ck_as_lib']
              ck.out('')
              ck.out('* Executing command "'+c+'" ...')
              os.system(c)

@@ -64,6 +64,8 @@ cfg={
       "file_alias_a": "alias-a-", 
       "file_alias_u": "alias-u-",
 
+      "install_ck_as_lib":"sudo python setup.py install",
+
       "repo_file":".ckr.json",
 
       "file_cache_repo_uoa":".ck.cache_repo_uoa.json",
@@ -112,6 +114,7 @@ cfg={
 
                  "find":{"desc":"<CID> find path to entry"},
                  "path":{"desc":"<CID> detect CID in the current directory"},
+                 "cid":{"desc":"<CID> get CID of the current entry"},
 
                  "rm":{"desc":"<CID> delete entry", "for_web":"yes"},
                  "remove":{"desc":"see 'rm'", "for_web":"yes"},
@@ -143,9 +146,10 @@ cfg={
 
       "actions_redirect":{"list":"list_data"},
 
-      "common_actions":["webhelp", "help", "info", "path",
+      "common_actions":["webhelp", "help", "info", 
+                        "path", "find", "cid",
                         "add", 
-                        "load", "find",
+                        "load", 
                         "rm", "remove", "delete",
                         "update",
                         "ren", "rename",
@@ -3126,6 +3130,41 @@ def path(i):
        out(cid)
        out(xcuoa)
        out(xcid)
+
+    return r
+
+############################################################
+# Common action: get CID from current path (module_uid:data_uid)
+
+def cid(i):
+    """
+    Input:  {}
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              Output from from 'detect_cid_in_current_path' function
+
+              cid          - module_uid:data_uid           (substituted with ? if can't find)
+            }
+
+    """
+
+    o=i.get('out','')
+
+    r=detect_cid_in_current_path(i)
+    if r['return']>0: return r
+
+    rx=convert_entry_to_cid(r)
+    if rx['return']>0: return rx
+
+    cid=rx['cid']
+
+    # If console, print CIDs
+    if o=='con':
+       out(cid)
 
     return r
 
