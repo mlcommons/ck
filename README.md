@@ -1,15 +1,21 @@
 Collective Knowledge
 ====================
-Collective Knowledge (CK) is a community-driven open platform
-and web service intended to help researchers clean up, systematize 
-and crowdsource their ad-hoc experiments (code and data). 
+Collective Knowledge (CK) is an open, community-driven, 
+and technology neutral platform and repository for personal 
+knowledge management and exchange.
 
-CK let users assign assign DOI-style UID to any available code
-and data, make them searchable (using ElasticSearch), shareable
-with the community through CK web-services and GITHUB (or any
-other version control system), and expose them to powerful
-third-party statistical analysis and big data predictive
-analytics tools including R and SciPy.
+It is intended to help users clean up, describe, organize,
+systematize, preserve, find, share (or P2P exchange), cite and
+reuse any ad-hoc and heterogeneous data, code (and experimental
+setups) on their local machines, in workgroups or in a cloud.
+
+CK let users slightly restructure their files and directories
+into a linked entries with DOI-style UID and public APIs,
+make them searchable (using ElasticSearch), shareable with the
+community through CK web-services and GITHUB (or any other
+version control system), and expose them to powerful third-party
+statistical analysis and big data predictive analytics tools
+including R and SciPy.
 
 We are trying to develop CK as a very light and technology
 neutral, wrapper and  plugin-based framework, repository and web
@@ -139,15 +145,15 @@ See CONTRIBUTIONS.txt
 
 Publication
 ===========
-Framework concept (including internals) has been introduced in
-* Grigori Fursin, Renato Miceli, Anton Lokhmotov, Michael Gerndt, 
-  Marc Baboulin, Allen D. Malony, Zbigniew Chamski, 
-  Diego Novillo, Davide Del Vento, 
+Concepts has been described in
+
+* Grigori Fursin, Renato Miceli, Anton Lokhmotov, 
+  Michael Gerndt, Marc Baboulin, Allen D. Malony, 
+  Zbigniew Chamski, Diego Novillo, Davide Del Vento, 
   "Collective mind: Towards practical and collaborative auto-tuning", 
   Journal of Scientific Programming 22 (4), 2014
   http://hal.inria.fr/hal-01054763
 
-First high-level concept has been presented in
 * Grigori Fursin, "Collective Tuning Initiative: automating 
   and accelerating development and optimization of computing systems", 
   Proceedings of the GCC Summit, Montreal, Canada, 2009

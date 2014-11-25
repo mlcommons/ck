@@ -180,3 +180,75 @@ def status(i):
     if r['return']>0: return r
 
     return {'return':0, 'status':s}
+
+##############################################################################
+# check indexing status
+
+def test(i):
+    """
+
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    r=ck.access_index_server({'request':'TEST', 'dict':{}})
+    if r['return']>0: return r
+    dd=r['dict']
+
+    status=dd.get('status',0)
+    if status!=200:
+       return {'return':1, 'error':'returned status is not 200'}
+
+    version=dd.get('version',{}).get('number','')
+
+    if o=='con':
+       ck.out('Indexing server is working. Version = '+version+'.')
+
+    return r
+
+##############################################################################
+# clean whole index
+
+def clean(i):
+    """
+
+    Input:  {
+              (force)  - if 'yes', force cleaning
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    to_delete=True
+    if o=='con' and i.get('force','')!='yes':
+       r=ck.inp({'text':'Are you sure to clean the whole index (Y/yes or N/no/Enter): '})
+       c=r['string'].lower()
+       if c!='y' and c!='yes': to_delete=False
+
+    if to_delete:
+       r=ck.access_index_server({'request':'DELETE', 'path':'/_all', 'dict':{}})
+       if r['return']>0: return r
+       dd=r['dict']
+
+       status=dd.get('status',0)
+       err=dd.get('error','')
+
+       if err!='': r={'return':1, 'error':err}
+
+    return r

@@ -1,4 +1,4 @@
-# 
+#
 # Collective Knowledge (CK)
 #
 # See CK LICENSE.txt for licensing details
@@ -32,7 +32,7 @@ cfg={
       "default_copyright":"See CK Copyright.txt for copyright details",
       "default_developer":"cTuning foundation",
 
-      "version":["0", "1", "140810", "beta"],
+      "version":["0", "9", "4113"],
       "error":"CK error: ",
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
@@ -79,9 +79,9 @@ cfg={
 
       "default_archive_name":"ck-archive.zip",
 
-      "index_host":"localhost",
-      "index_port":"9300",
-      "index_use_curl":"yes",
+      "index_host":"http://localhost",
+      "index_port":"9200",
+      "index_use_curl":"no",
 
       "module_repo_name":"repo",
       "repo_name_default":"default",
@@ -106,7 +106,7 @@ cfg={
 
                  "help":{"desc":"<CID> print help about data (module) entry"},
                  "webhelp":{"desc":"<CID> open browser with online help (description) for a data (module) entry"}, 
-                 "info":{"desc":"<CID> print help about data entry"},
+                 "info":{"desc":"<CID> print help about module"},
 
                  "add":{"desc":"<CID> add entry", "for_web":"yes"},
                  "update":{"desc":"<CID> update entry", "for_web":"yes"},
@@ -141,7 +141,10 @@ cfg={
 
                  "add_action":{"desc":"add action (function) to existing module"},
                  "remove_action":{"desc":"remove action (function) from existing module"},
-                 "list_actions":{"desc":"list actions (functions) in existing module", "for_web":"yes"}
+                 "list_actions":{"desc":"list actions (functions) in existing module", "for_web":"yes"},
+
+                 "add_index":{"desc":"<CID> add index"},
+                 "delete_index":{"desc":"<CID> remove index"}
                 },
 
       "actions_redirect":{"list":"list_data"},
@@ -153,10 +156,8 @@ cfg={
                         "rm", "remove", "delete",
                         "update",
                         "ren", "rename",
-                        "cp",
-                        "copy",
-                        "mv",
-                        "move",
+                        "cp", "copy",
+                        "mv", "move",
                         "list",
                         "search",
                         "pull",
@@ -165,7 +166,9 @@ cfg={
                         "delete_file",
                         "add_action",
                         "remove_action",
-                        "list_actions"]
+                        "list_actions",
+                        "add_index",
+                        "delete_index"]
     }
 
 work={
@@ -1479,11 +1482,12 @@ def find_path_to_data(i):
 
     if not found:
        s=''
-       if ruoa!='': s+=ruoa+':'
+#       if ruoa!='': s+=ruoa+':'
        s+=muoa+':'+duoa+'" ('
        if ruoa!='': 
-          if ruid!='':s+=ruid+':'
-          else: s+='?:'
+#          if ruid!='':s+=ruid+':'
+#          else: s+='?:'
+          s+='?:'
        s+=muid+':'+duid+')'
 
        return {'return':16, 'error':'can\'t find path to data "'+s}
@@ -1580,7 +1584,7 @@ def find_path_to_entry(i):
 
        return {'return':0, 'path':p1, 'data_uid':uid, 'data_alias':alias, 'data_uoa':alias}
 
-    return {'return':16}
+    return {'return':16, 'error':'can\'t find path to entry'}
 
 ##############################################################################
 # Load meta description from a path
@@ -2562,7 +2566,6 @@ def set_lock(i):
              dt=os.path.getmtime(pl)+exp-time.time()
              if dt>0: 
                 while retry>0 and os.path.isfile(pl) and dt>0:
-                   print (dt)
                    retry-=1
                    time.sleep(retryd)
                    if os.path.isfile(pl): 
@@ -3268,10 +3271,6 @@ def find(i):
             }
     """
 
-    r=access_index_server({'dict':{}})
-    print (r)
-    exit(1)
-
     o=i.get('out','')
     i['out']=''
 
@@ -3282,6 +3281,11 @@ def find(i):
     m=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
 
+    if m=='':
+       return {'return':1, 'error':'module UOA is not defined'}
+    if duoa=='':
+       return {'return':1, 'error':'data UOA is not defined'}
+
     if a.find('*')>=0 or a.find('?')>=0 or m.find('*')>=0 or m.find('?')>=0 or duoa.find('*')>=0 or duoa.find('?')>=0: 
        r=list_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
        if r['return']>0: return r
@@ -3290,7 +3294,11 @@ def find(i):
 
        r={'return':0}
 
-       r.update(lst[0])
+       if len(lst)>0:
+          r.update(lst[0])
+       else:
+          return {'return':1, 'error':'entry was not found'}
+
     else:
        # Find path to data
        r=find_path_to_data(i)
@@ -3383,6 +3391,10 @@ def add(i):
     if r['return']>0: return r
     pr=r['path']
 
+    ruoa=r['repo_uoa']
+    ruid=r['repo_uid']
+    ralias=r['repo_alias']
+
     rd=r['dict']
     rshared=rd.get('shared','')
     rsync=rd.get('sync','')
@@ -3398,6 +3410,11 @@ def add(i):
     if r['return']>0: return r
     elif r['return']==16: 
        return {'return':8, 'error':'can\'t find path to module "'+m+'"'}
+    muoa=r['data_uoa']
+    muid=r['data_uid']
+    malias=r['data_alias']
+    pm=r['path']
+
     uid=r['data_uid']
     alias=r['data_alias']
     if alias=='': alias=uid
@@ -3462,6 +3479,7 @@ def add(i):
 
     duid=rr['data_uid']
     pdd=rr['data_uoa']
+    dalias=rr['data_alias']
 
     # Preparing meta-description
     a={}
@@ -3577,6 +3595,35 @@ def add(i):
        rx=os.system(ss)
 
        os.chdir(ppp)
+
+    # Prepare output
+    rr={'return':0,
+        'dict': a,
+        'info': info,
+        'updates': updates, 
+        'path':p2,
+        'path_module': pm,
+        'path_repo': pr,
+        'repo_uoa':ruoa,
+        'repo_uid':ruid,
+        'repo_alias':ralias,
+        'module_uoa':muoa,
+        'module_uid':muid,
+        'module_alias':malias,
+        'data_uoa':pdd,
+        'data_uid':duid,
+        'data_alias':dalias,
+        'data_name':dn}
+
+    # Check if need to add index
+    if cfg['use_indexing']=='yes':
+       muid=rr['module_uid']
+       duid=rr['data_uid']
+       path='/'+muid+'/'+duid+'/1'
+       ri=access_index_server({'request':'DELETE', 'path':path})
+       if ri['return']>0: return ri
+       ri=access_index_server({'request':'PUT', 'path':path, 'dict':rr})
+       if ri['return']>0: return ri
 
     # Remove lock after update if needed
     if uuid!='':
@@ -3808,6 +3855,12 @@ def rm(i):
 
            if r['return']>0: return r
 
+           # Check if need to delete index
+           if cfg['use_indexing']=='yes':
+              path='/'+muid+'/'+duid+'/1'
+              ri=access_index_server({'request':'DELETE', 'path':path})
+              if ri['return']>0: return ri
+
            if o=='con':
               out('   Entry '+xcuoa+' was successfully deleted!')
 
@@ -3883,6 +3936,7 @@ def ren(i):
     if ruoa!='': ii['repo_uoa']=ruoa
     r=load(ii)
     if r['return']>0: return r
+    rdd=r
     muid=r['module_uid']
     pr=r['path_repo']
 
@@ -3901,6 +3955,12 @@ def ren(i):
     rd=r.get('repo_dict',{})
     rshared=rd.get('shared','')
     rsync=rd.get('sync','')
+
+    # Check if index -> delete old index
+    if cfg['use_indexing']=='yes':
+       path='/'+muid+'/'+duid+'/1'
+       ri=access_index_server({'request':'DELETE', 'path':path})
+       if ri['return']>0: return ri
  
     # Check new data UOA
     nduoa=i.get('new_data_uoa','')
@@ -4008,6 +4068,15 @@ def ren(i):
 
           os.chdir(ppp)
 
+    # Check if index and add new
+    if cfg['use_indexing']=='yes':
+       if is_uid(nduoa): nduid=nduoa
+       path='/'+muid+'/'+nduid+'/1'
+       ri=access_index_server({'request':'DELETE', 'path':path})
+       if ri['return']>0: return ri
+       ri=access_index_server({'request':'PUT', 'path':path, 'dict':rdd})
+       if ri['return']>0: return ri
+
     if o=='con':
        out('Entry was successfully renamed!')
 
@@ -4076,6 +4145,8 @@ def cp(i):
     if ruoa!='': ii['repo_uoa']=ruoa
     r=load(ii)
     if r['return']>0: return r
+    rdd=r
+    muid=r['module_uid']
 
     duoa=r['data_uoa']
     duid=r['data_uid']
@@ -4135,6 +4206,7 @@ def cp(i):
     r=add(ii)
     if r['return']>0: return r
     pn=r['path']
+    nmuid=r['module_uid']
 
     # Recursively copying all files (except .cm)
     rx=list_all_files({'path':p})
@@ -4172,6 +4244,15 @@ def cp(i):
        if ruoa!='': ii['repo_uoa']=ruoa
        rx=rm(ii)
        if rx['return']>0: return rx
+
+    # Check if index and add new
+    if cfg['use_indexing']=='yes':
+       if is_uid(nduoa): nduid=nduoa
+       path='/'+nmuid+'/'+nduid+'/1'
+       ri=access_index_server({'request':'DELETE', 'path':path})
+       if ri['return']>0: return ri
+       ri=access_index_server({'request':'PUT', 'path':path, 'dict':rdd})
+       if ri['return']>0: return ri
 
     if o=='con':
        out('Entry '+muoa+':'+duoa+' was successfully '+tt+'!')
@@ -4379,13 +4460,24 @@ def list_data(i):
               (module_uoa)         - module UOA
               (data_uoa)           - data UOA
 
+              (repo_uoa_list)      - list of repos to search
+              (module_uoa_list)    - list of module to search
+              (data_uoa_list)      - list of data to search
+
               (filter_func)        - name of filter function
+              (filter_func_addr)   - address of filter function
 
               (search_dict)        - search if this dict is a part of the entry
 
               (ignore_case)        - ignore case when searching!
 
               (print_time)         - if 'yes', print elapsed time at the end
+
+              (do_not_add_to_lst)  - if 'yes', do not add entries to lst
+
+              (time_out)           - in secs, default=30 (if -1, no timeout)
+
+              (limit_size)         - if !='' limit size
             }
 
     Output: {
@@ -4399,6 +4491,8 @@ def list_data(i):
                                'path'}]
 
               elapsed_time - elapsed time in string
+
+              (timed_out)  - if 'yes', timed out or limited by size
             }
 
     """
@@ -4406,25 +4500,38 @@ def list_data(i):
     import time
     start_time = time.time()
 
+    ls=int(i.get('limit_size','0'))
+    ils=0
+
     lst=[]
 
     o=i.get('out','')
+
+    dnatl=i.get('do_not_add_to_lst','')
+    idnatl=False
+    if dnatl=='yes': idnatl=True
 
     ruoa=i.get('repo_uoa','')
     muoa=i.get('module_uoa','')
     muid=i.get('module_uid','')
     duoa=i.get('data_uoa','')
 
-    ff=i.get('filter_func',None)
+    lruoa=i.get('repo_uoa_list',[])
+    lmuoa=i.get('module_uoa_list',[])
+    lduoa=i.get('data_uoa_list',[])
+
+    to=float(i.get('time_out','30'))
+    elapsed_time=0
 
     if duoa=='': duoa='*'
     if muoa=='' and muid=='': muoa='*'
     if ruoa=='': ruoa='*'
 
     sff=i.get('filter_func','')
-    ff=None
+    ff=i.get('filter_func_addr',None)
     if sff!='':
        ff=getattr(sys.modules[__name__], sff)
+    if ff!=None:
        sd=i.get('search_dict',{})
        ic=i.get('ignore_case','')
        ss=i.get('search_string','')
@@ -4468,6 +4575,7 @@ def list_data(i):
     iir=True
     zrk=list(zr.keys())
     lr=len(zrk)
+    finish=False
     while iir:
        skip=False
        if fixed_repo:
@@ -4513,13 +4621,14 @@ def list_data(i):
 
        # Check if wild cards
        if not skip and p!='' and wr!='':
-          if wr=='*':
+          if len(lruoa)>0 and (ruoa not in lruoa and ruid not in lruoa):
+             skip=True
+          elif wr=='*':
              pass
           elif is_uid(ruoa): 
              skip=True # If have wildcards, but not alias
-          else:
-             if not fnmatch.fnmatch(ruoa, wr):
-                skip=True
+          elif not fnmatch.fnmatch(ruoa, wr):
+             skip=True
 
        # Check if got proper path
        if not skip and p!='':
@@ -4536,7 +4645,7 @@ def list_data(i):
                 None
              else:
                 for fn in lm:
-                    if fn not in cfg['special_directories']:
+                    if os.path.isdir(os.path.join(p,fn)) and fn not in cfg['special_directories']:
                        xm.append(fn)
 
           # Iterate over modules
@@ -4550,13 +4659,14 @@ def list_data(i):
                  mskip=False
 
                  if wm!='':
-                    if wm=='*':
+                    if len(lmuoa)>0 and (muoa not in lmuoa and muid not in lmuoa):
+                       mskip=True
+                    elif wm=='*':
                        pass
                     elif is_uid(muoa): 
                        mskip=True # If have wildcards, but not alias
-                    else:
-                       if not fnmatch.fnmatch(muoa, wm):
-                          mskip=True
+                    elif not fnmatch.fnmatch(muoa, wm):
+                       mskip=True
 
                  if not mskip:
                     # Prepare data in the current directory
@@ -4572,78 +4682,97 @@ def list_data(i):
                           None
                        else:
                           for fn in ld:
-                              if fn not in cfg['special_directories']:
+                              if os.path.isdir(os.path.join(mp,fn)) and fn not in cfg['special_directories']:
                                  xd.append(fn)
 
                     # Iterate over data
                     for du in xd:
                         r=find_path_to_entry({'path':mp, 'data_uoa':du})
-                        if r['return']==0:
-                           dp=r['path']
-                           dpcfg=os.path.join(dp,cfg['subdir_ck_ext'])
-                           duid=r['data_uid']
-                           duoa=r['data_uoa']
+                        if r['return']>0: return r
 
-                           if os.path.isdir(dpcfg): # Check if really CK data entry
-                              dskip=False
+                        dp=r['path']
+                        dpcfg=os.path.join(dp,cfg['subdir_ck_ext'])
+                        duid=r['data_uid']
+                        duoa=r['data_uoa']
 
-                              if wd!='':
-                                 if wd=='*':
-                                    pass
-                                 elif is_uid(duoa): 
-                                    dskip=True # If have wildcards, but not alias
-                                 else:
-                                    if not fnmatch.fnmatch(duoa, wd):
-                                       dskip=True
+                        if os.path.isdir(dpcfg): # Check if really CK data entry
+                           dskip=False
 
-                              if not dskip:
-                                 # Iterate over data 
-                                 ll={'repo_uoa':ruoa, 'repo_uid':ruid,
-                                    'module_uoa':muoa, 'module_uid':muid,
-                                    'data_uoa':duoa, 'data_uid':duid,
-                                    'path':dp}
-                                     
-                                 # Call filter
-                                 fskip=False
+                           if wd!='':
+                              if len(lduoa)>0 and (duoa not in lduoa and duid not in lduoa):
+                                 dskip=True
+                              elif wd=='*':
+                                 pass
+                              elif is_uid(duoa): 
+                                 dskip=True # If have wildcards, but not alias
+                              elif not fnmatch.fnmatch(duoa, wd):
+                                 dskip=True
 
-                                 if ff!=None and ff!='':
-                                    ll['search_dict']=sd
-                                    ll['search_string']=ss
-                                    ll['ignore_case']=ic
+                           if not dskip:
+                              # Iterate over data 
+                              ll={'repo_uoa':ruoa, 'repo_uid':ruid,
+                                 'module_uoa':muoa, 'module_uid':muid,
+                                 'data_uoa':duoa, 'data_uid':duid,
+                                 'path':dp}
+                                  
+                              # Call filter
+                              fskip=False
 
-                                    rx=ff(ll)
-                                    if rx['return']==0:
-                                       if rx['skip']=='yes':
-                                          fskip=True
-                                    else:
-                                       fskip=True
+                              if ff!=None and ff!='':
+                                 ll['out']=o
+                                 ll['search_dict']=sd
+                                 ll['search_string']=ss
+                                 ll['ignore_case']=ic
 
-                                 # Append
-                                 if not fskip:
+                                 rx=ff(ll)
+                                 if rx['return']>0: return rx
+
+                                 if rx.get('skip','')=='yes':
+                                    fskip=True
+
+                              # Append
+                              if not fskip:
+                                 ils+=1
+ 
+                                 if not idnatl:
                                     lst.append(ll)
 
-                                    if o=='con':
-                                       x=ruoa+':'+muoa+':'
-                                       if sys.version_info[0]<3: 
-                                          y=duoa
-                                          try: y=y.decode(sys.stdin.encoding)
-                                          except Exception as e: 
-                                            try: y=y.decode('utf8')
-                                            except Exception as e: pass
-                                          x+=y
-                                       else: x+=duoa
-                                       out(x)
+                                 if o=='con':
+                                    x=ruoa+':'+muoa+':'
+                                    if sys.version_info[0]<3: 
+                                       y=duoa
+                                       try: y=y.decode(sys.stdin.encoding)
+                                       except Exception as e: 
+                                         try: y=y.decode('utf8')
+                                         except Exception as e: pass
+                                       x+=y
+                                    else: x+=duoa
+                                    out(x)
+
+                              # Check timeout
+                              elapsed_time = time.time() - start_time
+                              if to!=-1 and elapsed_time>to:
+                                 finish=True
+                                 break
+
+                              # Check size
+                              if ls>0 and ils==ls:
+                                 finish=True
+                                 break
+
+                    if finish: break
+          if finish: break
 
        # Finish iteration over repositories
        ir+=1
 
-    # your code
-    elapsed_time = time.time() - start_time
-
     if o=='con' and i.get('print_time','')=='yes':
-       out('Elapsed time: '+str(elapsed_time)+' sec., number of entries: '+str(len(lst)))
+       out('Elapsed time: '+str(elapsed_time)+' sec., number of entries: '+str(ils))
 
-    return {'return':0, 'lst':lst, 'elapsed_time':str(elapsed_time)}
+    rr={'return':0, 'lst':lst, 'elapsed_time':str(elapsed_time)}
+    if finish: rr['timed_out']='yes'
+
+    return rr
 
 ##############################################################################
 # Common action: search entries
@@ -4655,6 +4784,10 @@ def search(i):
               (module_uoa)         - module UOA
               (data_uoa)           - data UOA
 
+              (repo_uoa_list)      - list of repos to search
+              (module_uoa_list)    - list of module to search
+              (data_uoa_list)      - list of data to search
+
               (print_time)         - if 'yes', print elapsed time at the end
 
               (search_flat_dict)   - search if these flat keys/values exist in entries
@@ -4663,6 +4796,12 @@ def search(i):
               (search_string)      - search with expressions *?
 
               (ignore_case)        - if 'yes', ignore case of letters
+
+              (time_out)           - in secs, default=30
+
+              (internal)           - if 'yes', use internal search even if indexing is on
+
+              (limit_size)         - by default 5000 or -1 if no limit
             }
 
     Output: {
@@ -4675,32 +4814,146 @@ def search(i):
                                'data_uoa','data_uid',
                                'path'}]
               elapsed_time - elapsed time in string
+
+              (timed_out)  - if 'yes', timed out
             }
 
     """
     o=i.get('out','')
-
     ss=i.get('search_string','')
-    if ss!='':
-       i['filter_func']='search_string_filter'
+    ls=i.get('limit_size','5000')
+
+    rr={'return':0}
+
+    # Check if index
+    if cfg['use_indexing']!='yes' or i.get('internal','')=='yes':
+       if ss!='':
+          i['filter_func']='search_string_filter'
+       else:
+          sfd=i.get('search_flat_dict',{})
+          sd=i.get('search_dict',{})
+
+          if len(sfd)>0:
+             r=restore_flattened_dict({'dict':sfd})
+             if r['return']>0: return r
+
+             nd=r['dict']
+
+             sd.update(nd)
+
+             del (i['search_flat_dict'])
+
+          i['filter_func']='search_filter'
+
+       rr=list_data(i)
     else:
-       sfd=i.get('search_flat_dict',{})
+       import time
+       start_time = time.time()
+
+       ruoa=i.get('repo_uoa','')
+       muoa=i.get('module_uoa','')
+       duoa=i.get('data_uoa','')
+
+       lruoa=i.get('repo_uoa_list',[])
+       lmuoa=i.get('module_uoa_list',[])
+       lduoa=i.get('data_uoa_list',[])
+
+       if ruoa!='': lruoa.append(ruoa)
+       if muoa!='': lmuoa.append(muoa)
+       if duoa!='': lduoa.append(duoa)
+
+       if len(lruoa)>0:
+          if ss!='': ss+=' AND '
+          ss+=' ('
+          first=True
+          for x in lruoa:
+              if first: first=False
+              else: ss+=' OR '
+              ss+='(repo_uid:"'+x+'") OR (repo_uoa:"'+x+'")'
+          ss+=')'
+
+       if len(lmuoa)>0:
+          if ss!='': ss+=' AND '
+          ss+='('
+          first=True
+          for x in lmuoa:
+              if first: first=False
+              else: ss+=' OR '
+              ss+='(module_uid:"'+x+'") OR (module_uoa:"'+x+'")'
+          ss+=')'
+
+       if len(lduoa)>0:
+          if ss!='': ss+=' AND '
+          ss+='('
+          first=True
+          for x in lduoa:
+              if first: first=False
+              else: ss+=' OR '
+              ss+='(data_uid:"'+x+'") OR (data_uoa:"'+x+'")'
+          ss+=')'
+
+       # Check search keys
+       first=True
        sd=i.get('search_dict',{})
+       for u in sd:
+           v=sd[u]
+           if first: 
+              first=False
+              if ss=='': ss+='('
+              else: ss+=' AND ('
+           else: 
+              ss+=' AND '
+           ss+=u+':"'+v+'"'
 
-       if len(sfd)>0:
-          r=restore_flattened_dict({'dict':sfd})
-          if r['return']>0: return r
+       if not first:
+          ss+=')'
 
-          nd=r['dict']
+       import urllib
 
-          sd.update(nd)
+       path='/_search?'
+       if ss!='': path+='q='+urllib.quote_plus(ss.encode('utf-8'))
+       if ls!='': path+='&size='+ls
 
-          del (i['search_flat_dict'])
+       ri=access_index_server({'request':'GET', 'path':path})
+       if ri['return']>0: return ri
 
-       i['filter_func']='search_filter'
-    r=list_data(i)
+       dd=ri['dict'].get('hits',{}).get('hits',[])
 
-    return r
+       lst=[]
+       for qx in dd:
+           q=qx.get('_source',{})
+           ruoa=q.get('repo_uoa','')
+           ruid=q.get('repo_uid','')
+           muoa=q.get('module_uoa','')
+           muid=q.get('module_uid','')
+           duoa=q.get('data_uoa','')
+           duid=q.get('data_uid','')
+           path=q.get('path','')
+
+           lst.append({'repo_uoa':ruoa, 'repo_uid':ruid,
+              'module_uoa':muoa, 'module_uid':muid,
+              'data_uoa':duoa, 'data_uid':duid,
+              'path':path})
+
+           if o=='con':
+              x=ruoa+':'+muoa+':'
+              if sys.version_info[0]<3: 
+                 y=duoa
+                 try: y=y.decode(sys.stdin.encoding)
+                 except Exception as e: 
+                   try: y=y.decode('utf8')
+                   except Exception as e: pass
+                 x+=y
+              else: x+=duoa
+              out(x)
+
+       rr['lst']=lst
+       rr['elapsed_time']=str(time.time() - start_time)
+
+       if o=='con' and i.get('print_time','')=='yes':
+          out('Elapsed time: '+rr['elapsed_time']+' sec., number of entries: '+str(len(lst)))
+
+    return rr
 
 ##############################################################################
 # Search filter
@@ -4925,15 +5178,13 @@ def search_string_filter(i):
     return {'return':0, 'skip':skip}
 
 ##############################################################################
-# Search filter
+# Access index server
 
 def access_index_server(i):
     """
     Input:  {
-              (module_uid)   - module UID
-              (data_uid)     - data UID
+              request        - request type ('PUT', 'DELETE', 'TEST')
               (path)         - path  
-
               (dict)         - query as dict to send
             }
 
@@ -4947,10 +5198,9 @@ def access_index_server(i):
 
     """
 
+    request=i['request']
+
     # Prepare URL
-
-#xyz
-
     host=cfg.get('index_host','')
     if host=='':
        return {'return':1, 'error':'index host is not defined in configuration'}
@@ -4959,6 +5209,9 @@ def access_index_server(i):
     port=cfg.get('index_port','')
     if port!='':
        url+=':'+port
+
+    path=i.get('path','')
+    url+=path
 
     dd=i.get('dict',{})
     ddo={}
@@ -4977,27 +5230,66 @@ def access_index_server(i):
        r=save_json_to_file({'json_file':fn1, 'dict':dd})
        if r['return']>0: return r
 
-       cmd='curl -XPUT '+url+' -d @'+fn1+' -s -o '+fn2
-       print (cmd);
+       cmd='curl -X'+request+' '+url+' -d @'+fn1+' -s -o '+fn2
        os.system(cmd)
 
        # Read output
+       if not os.path.isfile(fn2):
+          return {'return':1, 'error':'problem accessing indexing server - maybe indexing server is down?'}
+
        r=load_json_file({'json_file':fn2})
-       print (r)
-       exit(1)
 
        if os.path.isfile(fn1): os.remove(fn1)
        if os.path.isfile(fn2): os.remove(fn2)
 
        if r['return']>0: return r
        ddo=r['dict']
+    else:
+       try:
+          import urllib.request as urllib2
+       except:
+          import urllib2
 
-    print (ddo)
+       try:
+          from urllib.parse import urlencode
+       except:
+          from urllib import urlencode
+
+       # Prepare post variables
+       r=dumps_json({'dict':dd, 'skip_indent':'yes'})
+       if r['return']>0: return r
+       s=r['string'].encode('utf8')
+
+       rq = urllib2.Request(url, s)
+       if request=='DELETE':
+          rq.get_method = lambda: request
+
+       not_found=False
+       try:
+          f=urllib2.urlopen(rq)
+       except urllib2.URLError as e:
+          se=format(e)
+          if request=='DELETE' and se.find('404')>0:
+             not_found=True
+          else:
+             return {'return':1, 'error':'problem accessing indexing server ('+se+')'}
+
+       if not not_found:
+          try:
+             s=f.read()
+             f.close()
+          except Exception as e:
+             return {'return':1, 'error':'can\'t parse output during indexing ('+format(e)+')'}
+
+          if sys.version_info[0]>2:
+             s=s.decode('utf8')
+
+          r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
+          if r['return']>0: 
+             return {'return':1, 'error':'can\'t parse output from index server ('+r['error']+')'}
+          ddo=r['dict']
 
     return {'return':0, 'dict':ddo}
-
-
-
 
 ##############################################################################
 # Add action to a module
@@ -5636,6 +5928,172 @@ def list_files(i):
            out(q)
 
     return r
+
+##############################################################################
+# add index
+
+def add_index(i):
+    """
+
+    Input:  {
+              (repo_uoa)   - repo UOA with wild cards
+              (module_uoa) - module UOA with wild cards
+              (data_uoa)   - data UOA with wild cards
+
+              (print_time) - if 'yes'. print elapse time at the end
+
+              (time_out)   - in sec. (default -1, i.e. no timeout)
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    import sys
+
+    o=i.get('out','')
+
+    # Check wildcards
+    lst=[]
+
+    to=i.get('time_out','')
+    if to=='': to='-1'
+
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    if ruoa=='': ruoa='*'
+    if muoa=='': muoa='*'
+    if duoa=='': duoa='*'
+
+    ii={}
+    ii['out']=o
+    ii['repo_uoa']=ruoa
+    ii['module_uoa']=muoa
+    ii['data_uoa']=duoa
+    ii['filter_func_addr']=getattr(sys.modules[__name__], 'filter_add_index')
+    ii['do_not_add_to_lst']='yes'
+    ii['print_time']=i.get('print_time','')
+    ii['time_out']=to
+
+    return list_data(ii)
+
+##############################################################################
+# add index filter
+
+def filter_add_index(i):
+    """
+
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+    i['out']=''
+    rx=load(i)
+    i['out']=o
+
+    if rx['return']>0: return rx
+
+    muid=rx['module_uid']
+    duid=rx['data_uid']
+    path='/'+muid+'/'+duid+'/1'
+    r=access_index_server({'request':'DELETE', 'path':path})
+    if r['return']>0: return r
+    r=access_index_server({'request':'PUT', 'path':path, 'dict':rx})
+    return r
+
+##############################################################################
+# delete index
+
+def delete_index(i):
+    """
+
+    Input:  {
+              (repo_uoa)   - repo UOA with wild cards
+              (module_uoa) - module UOA with wild cards
+              (data_uoa)   - data UOA with wild cards
+
+              (print_time) - if 'yes'. print elapse time at the end
+
+              (time_out)   - in sec. (default -1, i.e. no timeout)
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    import sys
+
+    o=i.get('out','')
+
+    # Check wildcards
+    lst=[]
+
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    if ruoa=='': ruoa='*'
+    if muoa=='': muoa='*'
+    if duoa=='': duoa='*'
+
+    ii={}
+    ii['out']=o
+    ii['repo_uoa']=ruoa
+    ii['module_uoa']=muoa
+    ii['data_uoa']=duoa
+    ii['filter_func_addr']=getattr(sys.modules[__name__], 'filter_delete_index')
+    ii['do_not_add_to_lst']='yes'
+
+    return list_data(ii)
+
+##############################################################################
+# add index filter
+
+def filter_delete_index(i):
+    """
+
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+    i['out']=''
+    r=load(i)
+    i['out']=o
+
+    if r['return']>0: return r
+
+    muid=r['module_uid']
+    duid=r['data_uid']
+
+    path='/'+muid+'/'+duid+'/1'
+
+    return access_index_server({'request':'DELETE', 'path':path})
 
 ############################################################################
 # Main universal access function that can access all CK resources!

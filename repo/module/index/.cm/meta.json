@@ -8,6 +8,12 @@
     }, 
     "show": {
       "desc": "show indexing status"
+    },
+    "test": {
+      "desc": "test indexing server"
+    },
+    "clean": {
+      "desc": "flush whole index"
     }
   }, 
   "developer": "Grigori Fursin", 

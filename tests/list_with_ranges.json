@@ -1,0 +1,5 @@
+{
+ "repo_uoa_list":["default"],
+ "module_uoa_list":["test", "index"],
+ "data_uoa_list":["unicode"]
+}
