@@ -608,6 +608,7 @@ def dumps_json(i):
     Input:  {
               dict          - dictionary
               (skip_indent) - if 'yes', skip indent
+              (sort_keys)   - if 'yes', sort keys
             }
 
     Output: {
@@ -621,13 +622,16 @@ def dumps_json(i):
     d=i['dict']
     si=i.get('skip_indent','')
 
+    sk=False
+    if i.get('sort_keys','')=='yes': sk=True
+
     try:
        if sys.version_info[0]>2:
-          if si=='yes': s=json.dumps(d, ensure_ascii=False)
-          else:         s=json.dumps(d, indent=2, ensure_ascii=False)
+          if si=='yes': s=json.dumps(d, ensure_ascii=False, sort_keys=sk)
+          else:         s=json.dumps(d, indent=2, ensure_ascii=False, sort_keys=sk)
        else:
-          if si=='yes': s=json.dumps(d, ensure_ascii=False, encoding='utf8')
-          else:         s=json.dumps(d, indent=2, ensure_ascii=False, encoding='utf8')
+          if si=='yes': s=json.dumps(d, ensure_ascii=False, encoding='utf8', sort_keys=sk)
+          else:         s=json.dumps(d, indent=2, ensure_ascii=False, encoding='utf8', sort_keys=sk)
     except Exception as e:
        return {'return':1, 'error':'problem converting dict to json ('+format(e)+')'}
 
@@ -639,8 +643,9 @@ def dumps_json(i):
 def save_json_to_file(i):
     """
     Input:  {
-              json_file - file name
-              dict      - dict to save
+              json_file   - file name
+              dict        - dict to save
+              (sort_keys) - if 'yes', sort keys
             }
 
     Output: {
@@ -3357,6 +3362,8 @@ def add(i):
               (ask)                  - if 'yes', ask questions, otherwise silent
 
               (unlock_uid)           - unlock UID if was previously locked
+
+              (sort_keys)            - if 'yes', sort keys
             }
 
     Output: {
@@ -3568,12 +3575,14 @@ def add(i):
        rx=save_json_to_file({'json_file':p4u, 'dict':updates})
        if rx['return']>0: return rx
 
+    sk=i.get('sort_keys','')
+
     # Record meta description
-    rx=save_json_to_file({'json_file':p4, 'dict':a})
+    rx=save_json_to_file({'json_file':p4, 'dict':a, 'sort_keys':sk})
     if rx['return']>0: return rx
 
     # Record info
-    rx=save_json_to_file({'json_file':p4i, 'dict':info})
+    rx=save_json_to_file({'json_file':p4i, 'dict':info, 'sort_keys':sk})
     if rx['return']>0: return rx
 
     if o=='con':
@@ -3660,6 +3669,8 @@ def update(i):
               (ignore_update)        - if 'yes', do not add info about update
 
               (ask)                  - if 'yes', ask questions, otherwise silent
+
+              (sort_keys)            - if 'yes', sort keys
             }
 
     Output: {

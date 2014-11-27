@@ -161,6 +161,6 @@ Concepts has been described in
 
 Acknowledgments
 ===============
-This project has been funded by EU FP7 609491 TETRACOM project,
+This project has been initially funded by EU FP7 609491 TETRACOM project,
 ARM and cTuning foundation. We would like to thank all volunteers
 for their feedback and support.

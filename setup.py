@@ -14,6 +14,6 @@ setup(
   license='BSD 3-clause',
   author='Grigori Fursin and cTuning foundation',
   author_email='Grigori.Fursin@cTuning.org',
-  description='Turning user data and code into collective knowledge'
+  description='Turning user data and code into collective knowledge',
   packages=['ck']
 )
