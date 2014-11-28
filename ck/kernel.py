@@ -194,7 +194,10 @@ work={
       "dir_cache_repo_info":"",
 
       "repo_name_work":"",
-      "repo_uid_work":""
+      "repo_uid_work":"",
+
+      'cached_module_by_path':{},
+      'cached_module_by_path_last_modification':{}
      }
 
 paths_repos=[]        # First path to local repo (if exist), than global
@@ -1012,7 +1015,7 @@ def init(i):
     global cfg, work, initialized, paths_repos
 
     if initialized:
-       return {'return':1, 'error': 'CK is already initialized'}
+       return {'return':0}
 
     # Check CK_ROOT environment variable
     if not cfg['env_key_root'] in os.environ.keys():
@@ -1085,7 +1088,7 @@ def init(i):
     if rps=='': rps=os.path.join(work['env_root'],cfg['subdir_default_repos'])
     work['dir_repos']=rps
 
-    inintialized=True
+    initialized=True
 
     return {'return':0}
 
@@ -1166,26 +1169,27 @@ def reload_repo_cache(i):
 
     global cache_repo_uoa, cache_repo_info, paths_repos_all, cache_repo_init
 
-    # Load repo UOA -> UID disambiguator
-    r=load_json_file({'json_file':work['dir_cache_repo_uoa']})
-    if r['return']!=16 and r['return']>0: return r
-    cache_repo_uoa=r.get('dict',{})
+    if not cache_repo_init:
+       # Load repo UOA -> UID disambiguator
+       r=load_json_file({'json_file':work['dir_cache_repo_uoa']})
+       if r['return']!=16 and r['return']>0: return r
+       cache_repo_uoa=r.get('dict',{})
 
-    # Load cached repo info
-    r=load_json_file({'json_file':work['dir_cache_repo_info']})
-    if r['return']!=16 and r['return']>0: return r
-    cache_repo_info=r.get('dict',{})
+       # Load cached repo info
+       r=load_json_file({'json_file':work['dir_cache_repo_info']})
+       if r['return']!=16 and r['return']>0: return r
+       cache_repo_info=r.get('dict',{})
 
-    # Prepare all paths
-    for q in cache_repo_info:
-        qq=cache_repo_info[q]
-        dd=qq['dict']
-        p=dd.get('path','')
-        if p!='':
-           paths_repos_all.append({'path':os.path.normpath(p),
-                                   'repo_uoa':qq['data_uoa'],
-                                   'repo_uid':qq['data_uid'],
-                                   'repo_alias':qq['data_alias']})
+       # Prepare all paths
+       for q in cache_repo_info:
+           qq=cache_repo_info[q]
+           dd=qq['dict']
+           p=dd.get('path','')
+           if p!='':
+              paths_repos_all.append({'path':os.path.normpath(p),
+                                      'repo_uoa':qq['data_uoa'],
+                                      'repo_uid':qq['data_uid'],
+                                      'repo_alias':qq['data_alias']})
 
     cache_repo_init=True
 
@@ -1254,9 +1258,8 @@ def load_repo_info_from_cache(i):
        d["data_uoa"]=cfg['repo_name_local']
        d["dict"]={"default":"yes"}
     else:
-       if not cache_repo_init:
-          r=reload_repo_cache({}) # Ignore errors
-          if r['return']>0: return r
+       r=reload_repo_cache({}) # Ignore errors
+       if r['return']>0: return r
 
        if not is_uid(ruoa): 
           ruid=cache_repo_uoa.get(ruoa,'')
@@ -1308,9 +1311,8 @@ def find_repo_by_path(i):
        alias=uoa
        found=True
     else:
-       if not cache_repo_init:
-          r=reload_repo_cache({}) # Ignore errors
-          if r['return']>0: return r
+       r=reload_repo_cache({}) # Ignore errors
+       if r['return']>0: return r
 
        for q in cache_repo_info:
            qq=cache_repo_info[q]
@@ -1370,9 +1372,8 @@ def find_path_to_repo(i):
           dt={}
        else:
           # Reload cache if not initialized
-          if not cache_repo_init:
-             r=reload_repo_cache({}) # Ignore errors
-             if r['return']>0: return r
+          r=reload_repo_cache({}) # Ignore errors
+          if r['return']>0: return r
 
           if not is_uid(a):
              ai=cache_repo_uoa.get(a,'')
@@ -1427,6 +1428,9 @@ def find_path_to_data(i):
               alias        - data alias
             }
     """
+    import time
+    start_time = time.time()
+
     muoa=i['module_uoa']
     muid='?'
     duoa=i['data_uoa']
@@ -1456,9 +1460,8 @@ def find_path_to_data(i):
 
         if q==1:
            # Check / reload all repos
-           if not cache_repo_init:
-              r=reload_repo_cache({}) # Ignore errors
-              if r['return']>0: return r
+           r=reload_repo_cache({}) # Ignore errors
+           if r['return']>0: return r
            ps=paths_repos_all
 
         for prx in ps:
@@ -1670,6 +1673,8 @@ def load_module_from_path(i):
               (error)      - error text if return > 0
 
               code         - python code object
+              path         - full path to the module
+              cuid         - internal UID of the module
             }
     """
 
@@ -1684,6 +1689,15 @@ def load_module_from_path(i):
     except ImportError as e:
        return {'return':1, 'error':'can\'t find module code (path='+p+', name='+n+', err='+format(e)+')'}
 
+    ff=x[0]
+    full_path=x[1]
+
+    # Check if code has been already loaded
+    if full_path in work['cached_module_by_path'] and work['cached_module_by_path_last_modification'][full_path]==os.path.getmtime(full_path):
+       ff.close()
+       # Code already loaded 
+       return work['cached_module_by_path'][full_path]
+
     # Generate uid for the run-time extension of the loaded module 
     # otherwise modules with the same extension (key.py for example) 
     # will be reloaded ...
@@ -1693,7 +1707,7 @@ def load_module_from_path(i):
     ruid='rt-'+r['data_uid']
 
     try:
-       c=imp.load_module(ruid, x[0], x[1], x[2])
+       c=imp.load_module(ruid, ff, full_path, x[2])
     except ImportError as e:
        return {'return':1, 'error':'can\'t load module code (path='+p+', name='+n+', err='+format(e)+')'}
 
@@ -1708,7 +1722,13 @@ def load_module_from_path(i):
        r=c.init(i)
        if r['return']>0: return r
 
-    return {'return':0, 'code':c}
+    r={'return':0, 'code':c, 'path':full_path, 'cuid':ruid}
+
+    # Cache code together with its time of change
+    work['cached_module_by_path'][full_path]=r
+    work['cached_module_by_path_last_modification'][full_path]=os.path.getmtime(full_path)
+
+    return r
    
 ##############################################################################
 # Perform action
@@ -3221,6 +3241,9 @@ def load(i):
             }
     """
 
+#    import time
+#    start_time = time.time()
+
     o=i.get('out','')
 
     a=i.get('repo_uoa','')
@@ -3376,6 +3399,9 @@ def add(i):
             }
 
     """
+
+#    import time
+#    start_time = time.time()
 
     o=i.get('out','')
 
@@ -3669,6 +3695,8 @@ def update(i):
               (ignore_update)        - if 'yes', do not add info about update
 
               (ask)                  - if 'yes', ask questions, otherwise silent
+
+              (unlock_uid)           - unlock UID if was previously locked
 
               (sort_keys)            - if 'yes', sort keys
             }
@@ -4576,9 +4604,8 @@ def list_data(i):
        fixed_repo=True
     else:
        # Prepare all repositories
-       if not cache_repo_init:
-          r=reload_repo_cache({}) # Ignore errors
-          if r['return']>0: return r
+       r=reload_repo_cache({}) # Ignore errors
+       if r['return']>0: return r
        zr=cache_repo_info 
 
     # Start iterating over repositories
