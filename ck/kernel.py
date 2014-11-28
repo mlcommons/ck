@@ -5064,7 +5064,7 @@ def compare_dicts(i):
                                          >  0, if error
               (error)      - error text if return > 0
 
-              equal - if 'yes' dictionaries equal
+              equal        - if 'yes' dictionaries equal
             }
     """
 
