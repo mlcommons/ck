@@ -1961,6 +1961,10 @@ def perform_action(i):
              else:
                 del (i['repo_uoa'])
 
+             if i.get('remote_repo_uoa','')!='':
+                i['repo_uoa']=i['remote_repo_uoa']
+                del(i['remote_repo_uoa'])
+
     if rs!='':
        return perform_remote_action(i)
 
