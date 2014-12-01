@@ -167,6 +167,7 @@ def add(i):
     # Add entry (it will ask further questions about alias and user-friendly name)
     i['common_func']='yes'
     i['dict']=dx
+    i['sort_keys']='yes'
     r=ck.access(i)
     if r['return']>0: return r
 

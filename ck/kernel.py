@@ -1831,9 +1831,9 @@ def perform_remote_action(i):
        return {'return':1, 'error':'Failed reading stream from remote CK web service ('+format(e)+')'}
 
     # Check output
+    try: s=s.decode('utf8')
+    except Exception as e: pass
     if o=='con' and act!='pull':
-       try: s=s.decode('utf8')
-       except Exception as e: pass
        out(s.rstrip())
     else:
        # Try to convert output to dictionary
@@ -5455,7 +5455,8 @@ def add_action(i):
     ii={'module_uoa':cfg['module_name'],
         'data_uoa':muoa,
         'dict':dd,
-        'out':o}
+        'out':o,
+        'sort_keys':'yes'}
     if ruoa!='': ii['repo_uoa']=ruoa
     r=update(ii)
     if r['return']>0: return r
