@@ -3655,7 +3655,7 @@ def add(i):
         'data_name':dn}
 
     # Check if need to add index
-    if cfg['use_indexing']=='yes':
+    if cfg.get('use_indexing','')=='yes':
        muid=rr['module_uid']
        duid=rr['data_uid']
        path='/'+muid+'/'+duid+'/1'
@@ -3899,7 +3899,7 @@ def rm(i):
            if r['return']>0: return r
 
            # Check if need to delete index
-           if cfg['use_indexing']=='yes':
+           if cfg.get('use_indexing','')=='yes':
               path='/'+muid+'/'+duid+'/1'
               ri=access_index_server({'request':'DELETE', 'path':path})
               if ri['return']>0: return ri
@@ -4000,7 +4000,7 @@ def ren(i):
     rsync=rd.get('sync','')
 
     # Check if index -> delete old index
-    if cfg['use_indexing']=='yes':
+    if cfg.get('use_indexing','')=='yes':
        path='/'+muid+'/'+duid+'/1'
        ri=access_index_server({'request':'DELETE', 'path':path})
        if ri['return']>0: return ri
@@ -4112,7 +4112,7 @@ def ren(i):
           os.chdir(ppp)
 
     # Check if index and add new
-    if cfg['use_indexing']=='yes':
+    if cfg.get('use_indexing','')=='yes':
        if is_uid(nduoa): nduid=nduoa
        path='/'+muid+'/'+nduid+'/1'
        ri=access_index_server({'request':'DELETE', 'path':path})
@@ -4289,7 +4289,7 @@ def cp(i):
        if rx['return']>0: return rx
 
     # Check if index and add new
-    if cfg['use_indexing']=='yes':
+    if cfg.get('use_indexing','')=='yes':
        if is_uid(nduoa): nduid=nduoa
        path='/'+nmuid+'/'+nduid+'/1'
        ri=access_index_server({'request':'DELETE', 'path':path})
@@ -4868,7 +4868,7 @@ def search(i):
     rr={'return':0}
 
     # Check if index
-    if cfg['use_indexing']!='yes' or i.get('internal','')=='yes':
+    if cfg.get('use_indexing','')!='yes' or i.get('internal','')=='yes':
        if ss!='':
           i['filter_func']='search_string_filter'
        else:
