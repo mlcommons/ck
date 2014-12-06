@@ -1,0 +1,14 @@
+#! /bin/bash
+
+#
+# Collective Knowledge (CK)
+#
+# See CK LICENSE.txt for licensing details.
+# See CK Copyright.txt for copyright details.
+#
+# Developer: Grigori Fursin
+#
+
+# Change dir to the CK entry
+
+cd `ck find $1'

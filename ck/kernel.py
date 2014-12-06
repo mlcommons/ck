@@ -718,6 +718,52 @@ def save_text_file(i):
     return {'return':0}
 
 ##############################################################################
+# Copy string to clipboard if supported by OS (requires Tk)
+
+def copy_to_clipboard(i):
+    """
+    Input:  {
+              string - string to copy
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+    """
+
+    s=i['string']
+
+    # Try to load Tkinter
+    loaded=True
+
+    try:
+       from Tkinter import Tk
+    except ImportError:
+       loaded=False
+
+    if not loaded:
+       try:
+          from tkinter import Tk
+       except ImportError:
+          pass
+
+    if not loaded:
+       return {'return':1, 'error':'seems that "tkinter" python package is not installed'}
+
+    # Copy to clipboard
+    try:
+       r = Tk()
+       r.withdraw()
+       r.clipboard_clear()
+       r.clipboard_append(s)
+       r.destroy()
+    except Exception as e:
+       return {'return':1, 'error':'problem copying string to clipboard ('+format(e)+')'}
+
+    return {'return':0}
+
+##############################################################################
 # Merge intelligently dict1 with dict2 key by key in contrast with dict1.update(dict2)
 
 def merge_dicts(i):
@@ -3197,6 +3243,9 @@ def cid(i):
     # If console, print CIDs
     if o=='con':
        out(cid)
+       # First path, try to copy to Clipboard if supported by OS
+       rx=copy_to_clipboard({'string':'"'+cid+'"'})
+       # Ignore error
 
     return r
 
@@ -3350,9 +3399,16 @@ def find(i):
                              'data_uoa':duoa, 'data_uid': duid})
     
     if o=='con':
+       pf='' 
        for q in lst:
            p=q['path']
            out(p)
+           if pf=='': pf=p
+
+       if pf!='': 
+          # First path, try to copy to Clipboard if supported by OS
+          rx=copy_to_clipboard({'string':'"'+pf+'"'})
+          # Ignore error
 
     i['out']=o
 
