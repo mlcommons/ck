@@ -3,8 +3,8 @@
 
 def $#action#$(i):
     """
-
-    Input:  {}
+    Input:  {
+            }
 
     Output: {
               return       - return code =  0, if successful

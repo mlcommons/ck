@@ -1,10 +1,12 @@
 {
-  "actions":{
-    "add":{"desc":"add module with code"}
-  },
-  "developer":"Grigori Fursin",
-  "license": "CK 1.x license",
-  "desc":"Dealing with CK modules",
-  "dummy_module":"dummy_module.py",
-  "dummy_module_action":"dummy_module_action.py"
+  "license": "CK 1.x license", 
+  "dummy_module_action": "dummy_module_action.py", 
+  "actions": {
+    "add": {
+      "desc": "add module with code"
+    }
+  }, 
+  "dummy_module": "dummy_module.py", 
+  "developer": "Grigori Fursin", 
+  "desc": "Dealing with CK modules"
 }

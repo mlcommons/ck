@@ -1,8 +1,8 @@
 {
-  "actions":{
-    "test":{}
-  },
-  "developer":"Grigori Fursin",
-  "license": "CK 1.x license",
-  "desc":"testing CK functionality"
+  "desc": "testing CK functionality", 
+  "license": "CK 1.x license", 
+  "actions": {
+    "test": {}
+  }, 
+  "developer": "Grigori Fursin"
 }

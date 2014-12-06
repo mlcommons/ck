@@ -1,23 +1,23 @@
 {
+  "license": "See CK LICENSE.txt for licensing details", 
+  "desc": "indexing through ElasticSearch", 
+  "copyright": "See CK Copyright.txt for copyright details", 
   "actions": {
+    "test": {
+      "desc": "test indexing server"
+    }, 
     "on": {
       "desc": "turn indexing on"
     }, 
     "off": {
       "desc": "turn indexing off"
     }, 
-    "show": {
-      "desc": "show indexing status"
-    },
-    "test": {
-      "desc": "test indexing server"
-    },
     "clean": {
       "desc": "flush whole index"
+    }, 
+    "show": {
+      "desc": "show indexing status"
     }
   }, 
-  "developer": "Grigori Fursin", 
-  "copyright": "See CK Copyright.txt for copyright details", 
-  "license": "See CK LICENSE.txt for licensing details", 
-  "desc": "indexing through ElasticSearch"
+  "developer": "Grigori Fursin"
 }

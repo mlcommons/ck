@@ -1,10 +1,10 @@
 {
-  "desc": "managing CK kernel", 
+  "developer": "Grigori Fursin", 
+  "license": "CK 1.x license", 
   "actions": {
     "setup": {
       "desc": "CK kernel setup"
     }
   }, 
-  "license": "CK 1.x license", 
-  "developer": "Grigori Fursin"
+  "desc": "managing CK kernel"
 }

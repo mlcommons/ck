@@ -16,14 +16,10 @@
       "Content-disposition": "attachment; filename=$#filename#$", 
       "Content-title": "$#filename#$"
     }, 
-    "txt": {
-      "Content-type": "text/plain; charset=utf-8"
-    }, 
-    "con": {
-      "Content-type": "text/plain; charset=utf-8"
-    }, 
-    "png": {
-      "Content-type": "image/png"
+    "csv": {
+      "Content-type": "text/csv", 
+      "Content-disposition": "attachment; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
     }, 
     "bz2": {
       "Content-type": "application/x-bzip2", 
@@ -65,6 +61,11 @@
     "jpg": {
       "Content-type": "image/jpeg"
     }, 
+    "css": {
+      "Content-type": "text/css", 
+      "Content-disposition": "inline; filename=$#filename#$", 
+      "Content-title": "$#filename#$"
+    }, 
     "pdf": {
       "Content-type": "application/pdf", 
       "Content-disposition": "attachment; filename=$#filename#$", 
@@ -75,15 +76,14 @@
       "Content-disposition": "inline; filename=$#filename#$", 
       "Content-title": "$#filename#$"
     }, 
-    "csv": {
-      "Content-type": "text/csv", 
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$"
+    "txt": {
+      "Content-type": "text/plain; charset=utf-8"
     }, 
-    "css": {
-      "Content-type": "text/css", 
-      "Content-disposition": "inline; filename=$#filename#$", 
-      "Content-title": "$#filename#$"
+    "png": {
+      "Content-type": "image/png"
+    }, 
+    "con": {
+      "Content-type": "text/plain; charset=utf-8"
     }
   }, 
   "desc": "CK web service", 

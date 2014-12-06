@@ -1,16 +1,34 @@
 {
-  "actions":{
-    "add":{"desc":"register repository in CK"},
-    "create":{"desc":"register repository in CK"},
-    "update":{"desc":"update repository information"},
-    "rm":{"desc":"remove repository from CK"},
-    "remove":{"desc":"remove repository from CK"},
-    "delete":{"desc":"remove repository from CK"},
-    "recache":{"desc":"recache all local repositories (to speed up search)"},
-    "pull":{"desc":"If shared, pull from shared repository"},
-    "push":{"desc":"If shared, push and commit to shared repository"}
-  },
-  "developer":"Grigori Fursin",
-  "license": "CK 1.x license",
-  "desc":"managing CK repositories"
+  "desc": "managing CK repositories", 
+  "license": "CK 1.x license", 
+  "actions": {
+    "pull": {
+      "desc": "If shared, pull from shared repository"
+    }, 
+    "recache": {
+      "desc": "recache all local repositories (to speed up search)"
+    }, 
+    "create": {
+      "desc": "register repository in CK"
+    }, 
+    "update": {
+      "desc": "update repository information"
+    }, 
+    "remove": {
+      "desc": "remove repository from CK"
+    }, 
+    "add": {
+      "desc": "register repository in CK"
+    }, 
+    "push": {
+      "desc": "If shared, push and commit to shared repository"
+    }, 
+    "rm": {
+      "desc": "remove repository from CK"
+    }, 
+    "delete": {
+      "desc": "remove repository from CK"
+    }
+  }, 
+  "developer": "Grigori Fursin"
 }
