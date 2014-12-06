@@ -1765,8 +1765,10 @@ def load_module_from_path(i):
 
     # Initialize module
     if i.get('skip_init','')!='yes':
-       r=c.init(i)
-       if r['return']>0: return r
+       # Check if init function exists
+       if getattr(c, 'init')!=None:
+          r=c.init(i)
+          if r['return']>0: return r
 
     r={'return':0, 'code':c, 'path':full_path, 'cuid':ruid}
 
@@ -3679,12 +3681,14 @@ def add(i):
        ppp=os.getcwd()
 
        os.chdir(pr)
-       ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
-       rx=os.system(ss)
+       if os.path.isdir(cfg['subdir_ck_ext']):
+          ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
+          rx=os.system(ss)
 
        os.chdir(p1)
-       ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
-       rx=os.system(ss)
+       if os.path.isdir(cfg['subdir_ck_ext']):
+          ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
+          rx=os.system(ss)
 
        ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', pdd)
        rx=os.system(ss)
