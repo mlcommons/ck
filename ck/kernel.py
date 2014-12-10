@@ -3256,11 +3256,18 @@ def path(i):
     return r
 
 ############################################################
-# Common action: get CID from current path (module_uid:data_uid)
+# Common action: get CID from current path or given CID (module_uid:data_uid)
 
 def cid(i):
     """
-    Input:  {}
+    Input:  {
+              (repo_uoa)   - repo UOA
+              (module_uoa) - module UOA
+              (data_uoa)   - data UOA
+
+                 If above is empty, detect in current path !
+
+            }
 
     Output: {
               return       - return code =  0, if successful
@@ -3276,7 +3283,15 @@ def cid(i):
 
     o=i.get('out','')
 
-    r=detect_cid_in_current_path(i)
+    # Check which CID to detect
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    if ruoa=='' and muoa=='' and duoa=='':
+       r=detect_cid_in_current_path(i)
+    else:
+       r=find({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
     if r['return']>0: return r
 
     rx=convert_entry_to_cid(r)
@@ -4691,7 +4706,7 @@ def list_data(i):
     if muoa.find('*')>=0 or muoa.find('?')>=0: wm=muoa
     if duoa.find('*')>=0 or duoa.find('?')>=0: wd=duoa
 
-    if wr!='' or wd!='':
+    if wr!='' or wm!='' or wd!='':
        import fnmatch
 
     zr={}
@@ -4817,7 +4832,9 @@ def list_data(i):
                     xd=[]
 
                     if duoa!='' and wd=='': 
-                       xd.append(duoa)
+                       r=find_path_to_entry({'path':mp, 'data_uoa':duoa})
+                       if r['return']==0:
+                          xd.append(duoa)
                     else:   
                        # Now iterate over data inside a given path
                        try:
