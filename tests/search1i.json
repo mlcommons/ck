@@ -1,5 +1,6 @@
 {
  "search_flat_dict":{},
- "search_dict":{"int_num":10 
+ "search_dict":{"int_num":10,
+                "bool_num1":true 
                }
 }

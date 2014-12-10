@@ -25,5 +25,8 @@
   "lang6": "日本の",
   "float_num":1.5,
   "int_num":10,
-  "float_list":[5,2,3]
+  "float_list":[5,2,3],
+  "bool_num1":true,
+  "bool_num2":false
 }
+                  

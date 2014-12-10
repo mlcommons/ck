@@ -604,6 +604,43 @@ def load_text_file(i):
     return r
 
 ##############################################################################
+# Substitute string in file
+
+def substitute_str_in_file(i):
+    """
+    Input:  {
+              filename - file
+              string1  - string to be replaced
+              string2  - replace string
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         = 16, if file not found
+                                         >  0, if error
+              (error)  - error text if return > 0
+            }
+    """
+
+    fn=i['filename']
+    s1=i['string1']
+    s2=i['string2']
+
+    # Load text file (unicode)
+    r=load_text_file({'text_file':fn})
+    if r['return']>0: return r
+
+    # Replace
+    x=r['string']
+    x=x.replace(s1,s2)
+
+    # Save text file (unicode)
+    r=save_text_file({'text_file':fn, 'string':x})
+    if r['return']>0: return r
+
+    return {'return':0}
+
+##############################################################################
 # Dump json to sring
 
 def dumps_json(i):
@@ -704,9 +741,14 @@ def save_text_file(i):
     s=i['string'].replace('\r','')
 
     try:
+       s=s.encode('utf8')
+    except Exception as e:
+       pass
+
+    try:
       if sys.version_info[0]>2:
          f=open(fn, 'wb')
-         f.write(s.encode('utf8'))
+         f.write(s)
       else:
          f=open(fn,'w')
          f.write(s)
@@ -3245,8 +3287,8 @@ def cid(i):
     # If console, print CIDs
     if o=='con':
        out(cid)
-       # First path, try to copy to Clipboard if supported by OS
-       rx=copy_to_clipboard({'string':'"'+cid+'"'})
+       # Try to copy to Clipboard if supported by OS
+       rx=copy_to_clipboard({'string':cid})
        # Ignore error
 
     return r
