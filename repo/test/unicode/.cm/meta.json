@@ -8,7 +8,6 @@
     "日本の", 
     "русский"
   ], 
-  "lang1": "english", 
   "test": {
     "key2": "value2", 
     "key1": [
@@ -17,10 +16,14 @@
       "c"
     ]
   }, 
+  "lang1": "english", 
   "lang3": "中国", 
   "lang2": "español", 
   "lang5": "français", 
   "lang4": "中國", 
   "lang7": "русский", 
-  "lang6": "日本の"
+  "lang6": "日本の",
+  "float_num":1.5,
+  "int_num":10,
+  "float_list":[5,2,3]
 }
