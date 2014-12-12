@@ -148,7 +148,7 @@ def add(i):
        # Asking for remote url
        if df!='yes' and remote=='yes' and url=='':
           if quiet!='yes':
-             r=ck.inp({'text':'Enter URL of remote CK repo (http://localhost:3344/json?): '})
+             r=ck.inp({'text':'Enter URL of remote CK repo (http://localhost:3344/ck?): '})
              url=r['string'].lower()
           if url=='':
              return {'return':1, 'error':'URL is empty'}
