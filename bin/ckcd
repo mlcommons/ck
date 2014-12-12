@@ -11,4 +11,4 @@
 
 # Change dir to the CK entry
 
-cd `ck find $1'
+cd `ck find $1`
