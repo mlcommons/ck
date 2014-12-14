@@ -32,7 +32,7 @@ cfg={
       "default_copyright":"See CK Copyright.txt for copyright details",
       "default_developer":"cTuning foundation",
 
-      "version":["0", "9", "4113"],
+      "version":["1", "0", "1214"],
       "error":"CK error: ",
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
