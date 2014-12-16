@@ -164,7 +164,7 @@ def add(i):
        # Asking for shared
        if remote=='' and shared=='':
           if quiet!='yes':
-             r=ck.inp({'text':'Is this repository shared through GIT (y/N)? '})
+             r=ck.inp({'text':'Is this repository shared via GIT (y/N)? '})
              x=r['string'].lower()
              if x=='yes' or x=='y':
                 shared='git'
