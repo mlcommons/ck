@@ -105,10 +105,12 @@ def setup(i):
 
        if not installed or param=='install':
           ck.out('')
-          r=ck.inp({'text':'Would you like to install CK as root library (yes or no/Enter): '})
-          d=r['string'].lower()
-          if d=='yes':
+          r=ck.inp({'text':'Would you like to install CK as root library (y/N): '})
+          d=''
+          x=r['string'].lower()
+          if x=='y' or x=='yes': d='yes'
 
+          if d=='yes':
              p=ck.work['env_root']
              ck.out('')
              ck.out('* Changing directory to '+p+' ...')
@@ -189,26 +191,32 @@ def setup(i):
        ck.out('')
        r=ck.inp({'text': 'Forbid all writing operations (yes or Enter to keep previous)?:                  '})
        d=r['string'].lower()
+       if d=='y': d=='yes'
        if d!='': cfg['forbid_global_writing']=d
 
        r=ck.inp({'text': 'Forbid all delete operations (yes or Enter to keep previous)?:                   '})
        d=r['string'].lower()
+       if d=='y': d=='yes'
        if d!='': cfg['forbid_global_delete']=d
 
        r=ck.inp({'text': 'Forbid adding new modules (yes or Enter to keep previous)?:                      '})
        d=r['string'].lower()
+       if d=='y': d=='yes'
        if d!='': cfg['forbid_writing_modules']=d
 
        r=ck.inp({'text': 'Forbid writing to default repo (yes or Enter to keep previous)?:                 '})
        d=r['string'].lower()
+       if d=='y': d=='yes'
        if d!='': cfg['forbid_writing_to_default_repo']=d
 
        r=ck.inp({'text': 'Forbid writing to local repo (yes or Enter to keep previous)?:                   '})
        d=r['string'].lower()
+       if d=='y': d=='yes'
        if d!='': cfg['forbid_writing_to_local_repo']=d
 
        r=ck.inp({'text': 'Allow writing only to allowed individual repos (yes or Enter to keep previous)?: '})
        d=r['string'].lower()
+       if d=='y': d=='yes'
        if d!='': cfg['allow_writing_only_to_allowed']=d
 
     # Developer options
@@ -222,6 +230,7 @@ def setup(i):
        ck.out('')
        r=ck.inp({'text': 'Use indexing (yes or Enter to keep previous)?: '})
        d=r['string'].lower()
+       if d=='y': d=='yes'
        if d!='': cfg['use_indexing']=d
 
     # Writing/updating configuration

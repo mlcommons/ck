@@ -129,19 +129,22 @@ def add(i):
           if developer_webpage=='': developer_webpage=ck.cfg['default_developer_webpage']
 
        if len(actions)==0:
-          ck.out('')
           act='*'
           while act!='':
-             r=ck.inp({'text':'Add action function   (or Enter to stop):  '})
+             if act!='*': ck.out('')
+
+             r=ck.inp({'text':'Add action function (or Enter to stop): '})
              act=r['string']
              if act!='': 
                 actions[act]={}
 
-                r1=ck.inp({'text':'Support web (yes or Enter to skip):        '})
-                fweb=r1['string']
-                if fweb!='': actions[act]['for_web']=fweb
+                r1=ck.inp({'text':'Support web (y/N): '})
+                x=r1['string'].lower()
+                if x=='yes' or x=='y': 
+                   fweb='yes'
+                   actions[act]['for_web']=fweb
 
-                r1=ck.inp({'text':'Add action description (or Enter to stop): '})
+                r1=ck.inp({'text':'Add action description: '})
                 adesc=r1['string']
                 if adesc!='': 
                    actions[act]['desc']=adesc

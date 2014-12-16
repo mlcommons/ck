@@ -237,7 +237,7 @@ def clean(i):
 
     to_delete=True
     if o=='con' and i.get('force','')!='yes':
-       r=ck.inp({'text':'Are you sure to clean the whole index (Y/yes or N/no/Enter): '})
+       r=ck.inp({'text':'Are you sure to clean the whole index (y/N): '})
        c=r['string'].lower()
        if c!='y' and c!='yes': to_delete=False
 

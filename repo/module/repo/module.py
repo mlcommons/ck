@@ -67,6 +67,8 @@ def add(i):
               (sync)                     - if 'yes' and type=='git', sync repo after each write operation
 
               (quiet)                    - if 'yes', do not ask questions unless really needed
+
+              (skip_reusing_remote_info) - if 'yes', do not reuse remote .cmr.json description of a repository
             }
 
     Output: {
@@ -126,29 +128,29 @@ def add(i):
        # Asking for a user-friendly name
        if df!='yes' and dn=='':
           if quiet!='yes':
-             r=ck.inp({'text':'Enter a user-friendly name of this repository (or nothing to reuse alias): '})
+             r=ck.inp({'text':'Enter a user-friendly name of this repository (or Enter to reuse alias): '})
              dn=r['string']
           if dn=='': dn=d
 
        # Asking if remote
        if df!='yes' and remote=='':
           if quiet!='yes':
-             r=ck.inp({'text':'Is this repository a remote CK web service ("yes" or "no"/Enter)? '})
+             r=ck.inp({'text':'Is this repository a remote CK web service (y/N)? '})
              remote=r['string'].lower()
-          if remote!='yes': remote=''
+          if remote!='yes' and remote!='y': remote=''
 
        # Asking for a user-friendly name
        if df!='yes' and remote!='yes' and udp=='':
-          cur_path=os.getcwd()
           if quiet!='yes':
-             r=ck.inp({'text':'Would you like to create repo in the current path ("yes" or "no"/Enter for CK_REPOS): '})
-             cur_path=r['string']
-          if cur_path!='yes': p=os.path.join(ck.work['dir_repos'], d)
+             r=ck.inp({'text':'Would you like to create repo in the directory from CK_REPOS variable (Y/n): '})
+             x=r['string'].lower()
+             if x=='' or x=='yes' or x=='y':
+                p=os.path.join(ck.work['dir_repos'], d)
 
        # Asking for remote url
        if df!='yes' and remote=='yes' and url=='':
           if quiet!='yes':
-             r=ck.inp({'text':'Enter URL of remote CK repo (http://localhost:3344/ck?): '})
+             r=ck.inp({'text':'Enter URL of remote CK repo (example: http://localhost:3344/ck?): '})
              url=r['string'].lower()
           if url=='':
              return {'return':1, 'error':'URL is empty'}
@@ -156,15 +158,16 @@ def add(i):
        # Asking for remote repo UOA
        if df!='yes' and remote=='yes' and rruoa=='':
           if quiet!='yes':
-             r=ck.inp({'text':'Enter remote repo UOA or Enter for nothing: '})
+             r=ck.inp({'text':'Enter remote repo UOA or Enter to skip: '})
              rruoa=r['string'].lower()
 
        # Asking for shared
        if remote=='' and shared=='':
           if quiet!='yes':
-             r=ck.inp({'text':'Is this repository shared ("git" or "no"/Enter)? '})
-             shared=r['string'].lower()
-          if shared!='git': shared=''
+             r=ck.inp({'text':'Is this repository shared through GIT (y/N)? '})
+             x=r['string'].lower()
+             if x=='yes' or x=='y':
+                shared='git'
 
        # Check additional parameters if git
        if shared=='git' and url=='':
@@ -180,14 +183,18 @@ def add(i):
        # Check additional parameters if git
        if shared=='git' and sync=='':
           if quiet!='yes':
-             r=ck.inp({'text': 'Would you like to sync repo each time after writing to it ("yes" or "no"/Enter)?: '})
-             sync=r['string'].lower()
+             r=ck.inp({'text': 'Would you like to sync repo each time after writing to it (y/N)?: '})
+             x=r['string'].lower()
+             if x=='yes' or x=='y':
+                sync='yes'
 
        # Asking for a user-friendly name
        if df!='yes' and remote!='yes' and eaw=='':
           if quiet!='yes':
-             r=ck.inp({'text':'Would you like to explicitly allow writing to this repository ("yes" or "no"/Enter): '})
-             eaw=r['string'].lower()
+             r=ck.inp({'text':'Would you like to explicitly allow writing to this repository (y/N): '})
+             x=r['string'].lower()
+             if x=='yes' or x=='y':
+                eaw='yes'
 
     # Check if already registered (if not remote)
     if remote!='yes':
@@ -230,9 +237,7 @@ def add(i):
              ck.out(' UOA                = '+xd)
              ck.out(' User friendly name = '+xdn)
              ck.out('')
-             r=ck.inp({'text': 'Would you like to reuse them ("yes" or "no"/Enter)?: '})
-             reuse=r['string'].lower()
-             if reuse=='yes': 
+             if i.get('skip_reusing_remote_info','')!='yes':
                 d=xd
                 di=xdi
                 dn=xdn
@@ -374,7 +379,7 @@ def update(i):
        ck.out('Current user-friendly name of this repository: '+dn)
        ck.out('')
 
-    r=ck.inp({'text':'Enter a user-friendly name of this repository (or nothing to keep old value): '})
+    r=ck.inp({'text':'Enter a user-friendly name of this repository (or Enter to keep old value): '})
     x=r['string']
     if x!='': 
        dn=x
@@ -388,7 +393,7 @@ def update(i):
        ck.out('')
        ck.out('Current URL: '+url)
        ck.out('')
-       rx=ck.inp({'text':'Enter new URL (or nothing to leave old one): '})
+       rx=ck.inp({'text':'Enter new URL (or Enter to leave old one): '})
        x=rx['string']
        if x!='': 
           d['url']=x
@@ -404,10 +409,10 @@ def update(i):
           ck.out('')
           if sync!='':
              ck.out('Current sync setting: '+sync)
-          r=ck.inp({'text': 'Would you like to sync repo each time after writing to it (yes/no or Enter to keep old value)?: '})
+          r=ck.inp({'text': 'Would you like to sync repo each time after writing to it (y/N)?: '})
           x=r['string'].lower()
-          if x!='':
-             d['sync']=x
+          if x=='yes' or x=='y':
+             d['sync']='yes'
              changed=True
 
     # Asking for a user-friendly name
@@ -417,10 +422,10 @@ def update(i):
        if eaw!='':
           ck.out('Current "allow writing" setting: '+eaw)
 
-       r=ck.inp({'text':'Would you like to allow writing to this repository ("yes" or "no"/Enter): '})
+       r=ck.inp({'text':'Would you like to allow writing to this repository (y/N): '})
        x=r['string'].lower()
-       if x=='yes':
-          d['allow_writing']=x
+       if x=='yes' or x=='y':
+          d['allow_writing']='yes'
           changed=True
 
     # Write if changed
@@ -824,9 +829,9 @@ def rm(i):
 
     to_delete=True
     if o=='con' and i.get('force','')!='yes':
-       r=ck.inp({'text':'Are you sure to delete information about repository '+duoa+' (Y/yes or N/no/Enter): '})
+       r=ck.inp({'text':'Are you sure to delete information about repository '+duoa+' (y/N): '})
        c=r['string'].lower()
-       if c!='y' and c!='yes': to_delete=False
+       if c!='yes' and c!='y': to_delete=False
 
     if to_delete:
        if o=='con': 
