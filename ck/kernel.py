@@ -31,8 +31,10 @@ cfg={
       "default_license":"See CK LICENSE.txt for licensing details",
       "default_copyright":"See CK Copyright.txt for copyright details",
       "default_developer":"cTuning foundation",
+      "default_developer_email":"admin@cTuning.org",
+      "default_developer_webpage":"http://cTuning.org",
 
-      "version":["1", "0", "1214"],
+      "version":["1", "0", "1215", "beta"],
       "error":"CK error: ",
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
@@ -477,6 +479,47 @@ def is_uoa(str):
     if str.find('?')>=0: return False
 
     return True
+
+##############################################################################
+# Prepare special info about entry (engine used, author, date, etc)
+
+def prepare_special_info_about_entry(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              dict         - dict with info
+            }
+    """
+
+    # Add control info
+    d={'engine':'CK',
+       'version':cfg['version']}
+
+    if cfg.get('default_developer','')!='':
+       d['author']=cfg['default_developer']
+
+    if cfg.get('default_developer_email','')!='':
+       d['author_email']=cfg['default_developer_email']
+
+    if cfg.get('default_developer_webpage','')!='':
+       d['author_webpage']=cfg['default_developer_webpage']
+
+    if cfg.get('default_license','')!='':
+       d['license']=cfg['default_license']
+
+    if cfg.get('default_copyright','')!='':
+       d['copyright']=cfg['default_copyright']
+
+    r=get_current_date_time({})
+    d['iso_datetime']=r['iso_datetime']
+
+    return {'return':0, 'dict': d}
 
 ##############################################################################
 # Convert string of a special format to json
@@ -3697,14 +3740,9 @@ def add(i):
     if dn!='': info['data_name']=dn
 
     # Add control info
-    x={'engine':'CK',
-       'version':cfg['version']}
-    if 'user_name' in cfg:
-       x['user_name']=cfg['user_name']
-    if 'license_for_data' in cfg:
-       x['license']=cfg['license_for_data'] 
-    r=get_current_date_time({})
-    x['iso_datetime']=r['iso_datetime']
+    ri=prepare_special_info_about_entry({})
+    if ri['return']>0: return ri
+    x=ri['dict']
 
     y=info.get('control',{})
     if i.get('ignore_update','')!='yes':
@@ -3715,12 +3753,12 @@ def add(i):
           y.append(x)
           updates['control']=y
 
+    sk=i.get('sort_keys','')
+
     if len(updates)>0:
        # Record updates
-       rx=save_json_to_file({'json_file':p4u, 'dict':updates})
+       rx=save_json_to_file({'json_file':p4u, 'dict':updates, 'sort_keys':sk})
        if rx['return']>0: return rx
-
-    sk=i.get('sort_keys','')
 
     # Record meta description
     rx=save_json_to_file({'json_file':p4, 'dict':a, 'sort_keys':sk})

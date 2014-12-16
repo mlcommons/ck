@@ -1,12 +1,15 @@
 {
-  "license": "CK 1.x license", 
-  "dummy_module_action": "dummy_module_action.py", 
   "actions": {
     "add": {
       "desc": "add module with code"
     }
   }, 
-  "dummy_module": "dummy_module.py", 
+  "copyright": "See CK Copyright.txt for copyright details", 
+  "desc": "Dealing with CK modules", 
   "developer": "Grigori Fursin", 
-  "desc": "Dealing with CK modules"
+  "developer_email": "Grigori.Fursin@cTuning.org", 
+  "developer_webpage": "http://cTuning.org/lab/people/gfursin", 
+  "dummy_module": "dummy_module.py", 
+  "dummy_module_action": "dummy_module_action.py", 
+  "license": "See CK LICENSE.txt for licensing details"
 }

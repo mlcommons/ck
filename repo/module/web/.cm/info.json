@@ -1,14 +1,17 @@
 {
   "control": {
+    "author": "Grigori Fursin", 
+    "author_email": "Grigori.Fursin@cTuning.org", 
+    "author_webpage": "http://cTuning.org/lab/people/gfursin", 
+    "copyright": "See CK Copyright.txt for copyright details", 
     "engine": "CK", 
+    "iso_datetime": "2014-12-06T15:37:32.348000", 
+    "license": "See CK LICENSE.txt for licensing details", 
     "version": [
       "0", 
-      "1", 
-      "140810", 
-      "beta"
-    ], 
-    "user_name": "cTuning foundation", 
-    "iso_datetime": "2014-10-30T11:53:23.147000"
+      "9", 
+      "4113"
+    ]
   }, 
   "data_name": "web"
 }

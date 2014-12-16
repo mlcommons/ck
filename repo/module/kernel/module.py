@@ -146,13 +146,24 @@ def setup(i):
 
        ck.out('')
        ck.out('Current author/developer of the content: '+cfg.get('default_developer' ,ck.cfg.get('default_developer','')))
+       ck.out('Current author/developer email :         '+cfg.get('default_developer_email' ,ck.cfg.get('default_developer_email','')))
+       ck.out('Current author/developer webpage :       '+cfg.get('default_developer_webpage' ,ck.cfg.get('default_developer_webpage','')))
        ck.out('Current copyright of the content:        '+cfg.get('default_copyright', ck.cfg.get('default_copyright','')))
        ck.out('Current license of the content:          '+cfg.get('default_license', ck.cfg.get('default_license','')))
 
        ck.out('')
+
        r=ck.inp({'text': 'Change author/developer of the content (or Enter to keep previous): '})
        d=r['string']
        if d!='': cfg['default_developer']=d
+
+       r=ck.inp({'text': 'Change author/developer email (or Enter to keep previous):          '})
+       d=r['string']
+       if d!='': cfg['default_developer_email']=d
+
+       r=ck.inp({'text': 'Change author/developer webpage (or Enter to keep previous):        '})
+       d=r['string']
+       if d!='': cfg['default_developer_webpage']=d
 
        r=ck.inp({'text': 'Change copyright of the content (or Enter to keep previous):        '})
        d=r['string']

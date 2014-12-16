@@ -37,16 +37,18 @@ def init(i):
 def add(i):
     """
     Input:  {
-              (repo_uoa)  - repo UOA
-              module_uoa  - normally should be 'module' already
-              data_uoa    - UOA of the module to be created
+              (repo_uoa)          - repo UOA
+              module_uoa          - normally should be 'module' already
+              data_uoa            - UOA of the module to be created
 
-              (desc)      - module description
-              (license)   - module license
-              (copyright) - module copyright
-              (developer) - module developer
-              (actions)   - dict with actions {"func1":{}, "func2":{} ...}
-              (dict)      - other meta description to add to entry
+              (desc)              - module description
+              (license)           - module license
+              (copyright)         - module copyright
+              (developer)         - module developer
+              (developer_email)   - module developer
+              (developer_webpage) - module developer
+              (actions)           - dict with actions {"func1":{}, "func2":{} ...}
+              (dict)              - other meta description to add to entry
             }
 
     Output: {
@@ -91,28 +93,40 @@ def add(i):
     license=i.get('license','')
     copyright=i.get('copyright','')
     developer=i.get('developer','')
+    developer_email=i.get('developer_email','')
+    developer_webpage=i.get('developer_webpage','')
     actions=i.get('actions',{})
 
     # If console mode, ask some questions
     if o=='con':
        if desc=='':
-          r=ck.inp({'text':'Add brief module description:                                '})
+          r=ck.inp({'text':'Add brief module description: '})
           desc=r['string']
 
        if license=='':
-          r=ck.inp({'text':'Add brief module license (or Enter to use CK license):       '})
+          r=ck.inp({'text':'Add brief module license (or Enter to use "'+ck.cfg['default_license']+'"): '})
           license=r['string']
           if license=='': license=ck.cfg['default_license']
 
        if copyright=='':
-          r=ck.inp({'text':'Add brief module copyright (or Enter to use CK copyright):   '})
+          r=ck.inp({'text':'Add brief module copyright (or Enter to use "'+ck.cfg['default_copyright']+'"): '})
           copyright=r['string']
           if copyright=='': copyright=ck.cfg['default_copyright']
 
        if developer=='':
-          r=ck.inp({'text':'Add module\'s developer (or Enter to use cTuning foundation): '})
+          r=ck.inp({'text':'Add module\'s developer (or Enter to use "'+ck.cfg['default_developer']+'"): '})
           developer=r['string']
           if developer=='': developer=ck.cfg['default_developer']
+
+       if developer_email=='':
+          r=ck.inp({'text':'Add module\'s developer email (or Enter to use "'+ck.cfg['default_developer_email']+'"): '})
+          developer_email=r['string']
+          if developer_email=='': developer_email=ck.cfg['default_developer_email']
+
+       if developer_webpage=='':
+          r=ck.inp({'text':'Add module\'s developer webpage (or Enter to use "'+ck.cfg['default_developer_webpage']+'"): '})
+          developer_webpage=r['string']
+          if developer_webpage=='': developer_webpage=ck.cfg['default_developer_webpage']
 
        if len(actions)==0:
           ck.out('')
@@ -148,9 +162,23 @@ def add(i):
        dd['copyright']=copyright
     spm=spm.replace('$#copyright#$', copyright)
 
+    dev=''
     if developer!='': 
+       dev=developer
        dd['developer']=developer
-    spm=spm.replace('$#developer#$', developer)
+
+    if developer_email!='': 
+       if dev!='': dev+=', '
+       dev+=developer_email
+       dd['developer_email']=developer_email
+
+    if developer_webpage!='': 
+       if dev!='': dev+=', '
+       dev+=developer_webpage
+       dd['developer_webpage']=developer_webpage
+
+    if dev!='':
+       spm=spm.replace('$#developer#$', dev)
 
     dd['actions']=actions
 
