@@ -49,7 +49,10 @@ def add(i):
 
               (path)                     - if =='' - get current path
               (use_default_path)         - if 'yes' create repository in the default path (CK_REPOS)
-                                           instead of the current path
+                                           instead of the current path (default is 'yes')
+
+              (use_current_path)         - if 'yes' create repository in the current path
+                                           (default is 'no')
 
               (default)                  - if 'yes', no path is used, 
                                            but the repository is taken either 
@@ -99,7 +102,9 @@ def add(i):
 
     eaw=i.get('allow_writing','')
 
-    udp=i.get('use_default_path','')
+    udp=i.get('use_default_path','yes')
+    ucp=i.get('use_current_path','')
+    if ucp=='yes': udp=''
 
     quiet=i.get('quiet','')
 
