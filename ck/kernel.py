@@ -3737,6 +3737,8 @@ def add(i):
 #       if r['return']>0: return r
 
     # If name exists, add
+    info['backup_module_uoa']=muoa
+    info['backup_module_uid']=muid
     if dn!='': info['data_name']=dn
 
     # Add control info
