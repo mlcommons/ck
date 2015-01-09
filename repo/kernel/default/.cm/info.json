@@ -10,5 +10,7 @@
     "user_name": "cTuning foundation", 
     "iso_datetime": "2014-11-03T14:18:03.997000"
   }, 
-  "data_name": "default"
+  "backup_module_uoa": "kernel", 
+  "data_name": "default", 
+  "backup_module_uid": "b1e99f6461424276"
 }

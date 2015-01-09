@@ -10,5 +10,7 @@
     "user_name": "cTuning foundation", 
     "iso_datetime": "2014-10-30T16:20:59.278000"
   }, 
-  "data_name": "unicode"
+  "backup_module_uoa": "test", 
+  "data_name": "unicode", 
+  "backup_module_uid": "942e180ee60b2d72"
 }
