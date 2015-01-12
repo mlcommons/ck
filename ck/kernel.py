@@ -118,7 +118,7 @@ cfg={
                  "add":{"desc":"<CID> add entry", "for_web":"yes"},
                  "update":{"desc":"<CID> update entry", "for_web":"yes"},
                  "load":{"desc":"<CID> load meta description of entry", "for_web": "yes"},
-                 "edit":{"desc":"<CID> edit entry description using external editor", "for_web":"yes"},
+                 "edit":{"desc":"<CID> edit entry description using external editor", "for_web":"no"},
 
                  "find":{"desc":"<CID> find path to entry"},
                  "path":{"desc":"<CID> detect CID in the current directory"},
@@ -2018,6 +2018,8 @@ def perform_action(i):
 
               (common_func) - if 'yes', ignore search for modules 
                                         and call common func from the CK kernel
+
+              (local)       - if 'yes', run locally even if remote repo ...
             }
 
     Output: {
@@ -2105,7 +2107,7 @@ def perform_action(i):
                 i['repo_uoa']=i['remote_repo_uoa']
                 del(i['remote_repo_uoa'])
 
-    if rs!='':
+    if rs!='' and i.get('local','')!='yes':
        return perform_remote_action(i)
 
     # Process and parse cids -> xcids
