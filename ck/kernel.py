@@ -2083,6 +2083,8 @@ def perform_action(i):
     # Check if repo exists and possibly remote!
     remote=False
 
+    local=i.get('local','')
+
     rs=i.get('remote_server_url','')
     if rs=='': 
        ruoa=i.get('repo_uoa','')
@@ -2091,7 +2093,7 @@ def perform_action(i):
           if rq['return']>0: return rq
 
           dd=rq.get('dict',{})
-          if dd.get('remote','')=='yes':
+          if dd.get('remote','')=='yes' and local!='yes':
              rs=dd.get('url','')
              if rs=='':
                 return {'return':1, 'error':'URL of remote repository is not defined'}
@@ -2107,7 +2109,7 @@ def perform_action(i):
                 i['repo_uoa']=i['remote_repo_uoa']
                 del(i['remote_repo_uoa'])
 
-    if rs!='' and i.get('local','')!='yes':
+    if rs!='' and local!='yes':
        return perform_remote_action(i)
 
     # Process and parse cids -> xcids
@@ -4006,6 +4008,7 @@ def edit(i):
         'module_uoa':muoa,
         'data_uoa':duoa,
         'common_func':'yes'}
+    print (ii)
     r=access(ii)
     if r['return']>0: return r
 
@@ -4035,13 +4038,17 @@ def edit(i):
     meta=r['dict']
 
     # Update entry to finish sync/indexing
-    ii['action']='update'
-    ii['ignore_update']=iu
-    ii['dict']=meta
-    ii['substitute']='yes'
-    ii['sort_keys']=sk
-    ii['out']=o
-    r=update(ii)
+    ii={'action':'update',
+        'repo_uoa':ruoa,
+        'module_uoa':muoa,
+        'data_uoa':duoa,
+        'common_func':'yes',
+        'ignore_update':iu,
+        'dict':meta,
+        'substitute':'yes',
+        'sort_keys':sk,
+        'out':o}
+    r=access(ii)
 
     # Delete tmp file
     if os.path.isfile(fn): 
