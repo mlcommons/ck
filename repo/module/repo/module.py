@@ -907,3 +907,32 @@ def delete(i):
     """
 
     return rm(i)
+
+##############################################################################
+# find path to a local repository
+
+def where(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    duoa=i.get('data_uoa','')
+    r=ck.find_path_to_repo({'repo_uoa':duoa})
+    if r['return']>0: return r
+
+    p=r['path']
+
+    if o=='con':
+       ck.out(p)
+
+    return r
