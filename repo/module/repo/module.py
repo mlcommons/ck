@@ -61,7 +61,8 @@ def add(i):
               (remote)                   - if 'yes', remote repository
               (remote_repo_uoa)          - if !='' and type=='remote' repository UOA on the remote CK server
 
-              (shared)                   - if not remote and =='git', shared through GIT
+              (shared)                   - if not remote and =='git', repo is shared/synced through GIT
+              (share)                    - (for user-friendly CMD) if 'yes', set shared=git
 
               (allow_writing)            - if 'yes', allow writing 
                                            (useful when kernel is set to allow writing only to such repositories)
@@ -96,6 +97,9 @@ def add(i):
     remote=i.get('remote','')
     rruoa=i.get('remote_repo_uoa','')
     shared=i.get('shared','')
+    share=i.get('share','')
+    if share=='yes' and shared=='': shared='git'
+
     url=i.get('url','')
     sync=i.get('sync','')
     df=i.get('default','')
@@ -167,12 +171,14 @@ def add(i):
              rruoa=r['string'].lower()
 
        # Asking for shared
-       if remote=='' and shared=='':
+       if remote=='' and shared=='' and share=='':
           if quiet!='yes':
              r=ck.inp({'text':'Is this repository shared via GIT (y/N)? '})
              x=r['string'].lower()
              if x=='yes' or x=='y':
-                shared='git'
+                share='yes'
+
+       if share=='yes' and shared=='': shared='git'
 
        # Check additional parameters if git
        if shared=='git' and url=='':
@@ -196,7 +202,7 @@ def add(i):
        # Asking for a user-friendly name
        if df!='yes' and remote!='yes' and eaw=='':
           if quiet!='yes':
-             r=ck.inp({'text':'Would you like to explicitly allow writing to this repository (y/N): '})
+             r=ck.inp({'text':'Would you like to explicitly allow writing to this repository in case kernel disables all writing (y/N): '})
              x=r['string'].lower()
              if x=='yes' or x=='y':
                 eaw='yes'
@@ -308,6 +314,14 @@ def add(i):
           if ry['return']>0: return ry
 
     # If sync, add it ...
+    if sync=='yes':
+       ppp=os.getcwd()
+
+       os.chdir(p)
+       ss=ck.cfg['repo_types'][shared]['add'].replace('$#path#$', px).replace('$#files#$', ck.cfg['repo_file'])
+       os.system(ss)
+
+       os.chdir(ppp)
 
     # If console mode, print various info
     if o=='con':
@@ -427,7 +441,7 @@ def update(i):
        if eaw!='':
           ck.out('Current "allow writing" setting: '+eaw)
 
-       r=ck.inp({'text':'Would you like to allow writing to this repository (y/N): '})
+       r=ck.inp({'text':'Would you like to allow explicit writing to this repository when kernel disables all writing (y/N): '})
        x=r['string'].lower()
        if x=='yes' or x=='y':
           d['allow_writing']='yes'
@@ -498,6 +512,8 @@ def pull(i):
     uoa=i.get('data_uoa','')
     cids=i.get('cids',[])
     if len(cids)>0: uoa=cids[0]
+
+    if uoa=='' and len(pp)==0: uoa='*'
 
     if uoa!='':
        if uoa.find('*')>=0 or uoa.find('?')>=0:
@@ -614,6 +630,8 @@ def push(i):
     uoa=i.get('data_uoa','')
     cids=i.get('cids',[])
     if len(cids)>0: uoa=cids[0]
+
+    if uoa=='' and len(pp)==0: uoa='*'
 
     if uoa!='':
        if uoa.find('*')>=0 or uoa.find('?')>=0:
