@@ -43,6 +43,7 @@ def setup(i):
               (group)      - if !='', configure only this group:
                              * install - install as python library
                              * content - related to content 
+                             * editing - related to editing
                              * writing - related to writing control 
                              * indexing - related to indexing
             }
@@ -55,10 +56,16 @@ def setup(i):
 
     """
 
-    param=i.get('param','')
+    # Get OS
+    r=ck.get_platform({})
+    if r['return']>0: return r
+    plat=r['platform']
 
+    # Check groups 
+    param=i.get('param','')
     if param=='':
        if i.get('content','')=='yes': param='content'
+       elif i.get('editing','')=='yes': param='editing'
        elif i.get('writing','')=='yes': param='writing'
        elif i.get('indexing','')=='yes': param='indexing'
 
@@ -141,15 +148,15 @@ def setup(i):
     if r['return']==0: 
        cfg.update(r['dict'])
 
-    # Developer options
+    # Content authorship options
     if param=='' or param=='content':
        ck.out(sep)
        ck.out('*** Content authorship ***')
 
        ck.out('')
-       ck.out('Current author/developer of the content: '+cfg.get('default_developer' ,ck.cfg.get('default_developer','')))
-       ck.out('Current author/developer email :         '+cfg.get('default_developer_email' ,ck.cfg.get('default_developer_email','')))
-       ck.out('Current author/developer webpage :       '+cfg.get('default_developer_webpage' ,ck.cfg.get('default_developer_webpage','')))
+       ck.out('Current author/developer of the content: '+cfg.get('default_developer', ck.cfg.get('default_developer','')))
+       ck.out('Current author/developer email :         '+cfg.get('default_developer_email', ck.cfg.get('default_developer_email','')))
+       ck.out('Current author/developer webpage :       '+cfg.get('default_developer_webpage', ck.cfg.get('default_developer_webpage','')))
        ck.out('Current copyright of the content:        '+cfg.get('default_copyright', ck.cfg.get('default_copyright','')))
        ck.out('Current license of the content:          '+cfg.get('default_license', ck.cfg.get('default_license','')))
 
@@ -175,7 +182,22 @@ def setup(i):
        d=r['string']
        if d!='': cfg['default_license']=d
 
-    # Developer options
+    # Editing options
+    if param=='' or param=='editing':
+       ck.out(sep)
+       ck.out('*** Editing control ***')
+
+       ck.out('')
+       ck.out('CMD to edit meta-description of entries: '+cfg.get('external_editor',ck.cfg.get('external_editor',{})).get(plat,''))
+
+       ck.out('')
+       r=ck.inp({'text': 'Enter CMD to enter meta-description using $#filename#$ to substitute filename (Enter to keep previous): '})
+       d=r['string']
+       if d!='': 
+          if 'external_editor' not in cfg: cfg['external_editor']={}
+          cfg['external_editor'][plat]=d
+
+    # Writing options
     if param=='' or param=='writing':
        ck.out(sep)
        ck.out('*** Writing control ***')
@@ -219,7 +241,7 @@ def setup(i):
        if d=='y': d=='yes'
        if d!='': cfg['allow_writing_only_to_allowed']=d
 
-    # Developer options
+    # Indexing options
     if param=='' or param=='indexing':
        ck.out(sep)
        ck.out('*** Indexing control (through ElasticSearch) ***')

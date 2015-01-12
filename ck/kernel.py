@@ -27,6 +27,7 @@ cfg={
       "wiki_data_web":"https://github.com/ctuning/ck/wiki/Description",
       "help_web":"More info: https://github.com/ctuning/ck",
       "ck_web":"https://github.com/ctuning/ck",
+      "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
 
       "default_license":"See CK LICENSE.txt for licensing details",
       "default_copyright":"See CK Copyright.txt for copyright details",
@@ -91,6 +92,9 @@ cfg={
       "repo_name_local":"local",
       "repo_uid_local":"9a3280b14a4285c9",
 
+      "external_editor":{"win":"wordpad $#filename#$",
+                         "linux":"vim $#filename#$"},
+
       "repo_types":{
                      "git":{
                             "clone":"git clone $#url#$ $#path#$",
@@ -108,11 +112,13 @@ cfg={
 
                  "help":{"desc":"<CID> print help about data (module) entry"},
                  "webhelp":{"desc":"<CID> open browser with online help (description) for a data (module) entry"}, 
+                 "guide":{"desc":"open cK wiki with user/developer guides"}, 
                  "info":{"desc":"<CID> print help about module"},
 
                  "add":{"desc":"<CID> add entry", "for_web":"yes"},
                  "update":{"desc":"<CID> update entry", "for_web":"yes"},
                  "load":{"desc":"<CID> load meta description of entry", "for_web": "yes"},
+                 "edit":{"desc":"<CID> edit entry description using external editor", "for_web":"no"},
 
                  "find":{"desc":"<CID> find path to entry"},
                  "path":{"desc":"<CID> detect CID in the current directory"},
@@ -153,7 +159,8 @@ cfg={
 
       "common_actions":["webhelp", "help", "info", 
                         "path", "find", "cid",
-                        "add", 
+                        "add",
+                        "edit", 
                         "load", 
                         "rm", "remove", "delete",
                         "update",
@@ -3093,6 +3100,29 @@ def webhelp(i):
 
     return {'return':0}
 
+############################################################
+# Special function: open webbrowser with user/developer guide wiki
+
+def guide(i):
+    """
+    Input:  {}
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+    url=cfg['ck_web_wiki']
+
+    out('Opening web page '+url+' ...')
+
+    import webbrowser
+    webbrowser.open(url)
+
+    return {'return':0}
+
 #########################################################
 # Common action: print help for a given module
 
@@ -3932,6 +3962,67 @@ def update(i):
            ii.update(q)
            r=add(ii)
            if r['return']>0: return r
+
+    return r
+
+##############################################################################
+# Common action: edit data meta-description through external editor
+
+def edit(i):
+    """
+    Input:  {
+              (repo_uoa)             - repo UOA
+              module_uoa             - module UOA
+              data_uoa               - data UOA
+
+              (ignore_update)        - (default==yes) if 'yes', do not add info about update
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    iu=i.get('ignore_update','')
+    if iu=='': iu='yes'
+
+    ii={'action':'load',
+        'repo_uoa':ruoa,
+        'module_uoa':muoa,
+        'data_uoa':duoa}
+    r=load(ii)
+    if r['return']>0: return r
+
+    p=r['path']
+    px=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta'])
+    if not os.path.isfile(px):
+       px=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta_old'])
+       if not os.path.isfile(px):
+          return {'return':1, 'error':'meta description file is not found ('+px+')'}
+
+    # Get OS
+    r=get_platform({})
+    if r['return']>0: return r
+    plat=r['platform']
+
+    x=cfg['external_editor'][plat].replace('$#filename#$', px)
+
+    os.system(x)
+
+    # Update entry to finish sync/indexing
+    ii['action']='update'
+    ii['ignore_update']=iu
+    ii['out']=o
+    r=update(ii)
 
     return r
 
