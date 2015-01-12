@@ -1,4 +1,20 @@
 {
+  "bool_num1": true, 
+  "bool_num2": false, 
+  "float_list": [
+    5, 
+    2, 
+    3
+  ], 
+  "float_num": 1.5, 
+  "int_num": 10, 
+  "lang1": "english", 
+  "lang2": "español", 
+  "lang3": "中国", 
+  "lang4": "中國", 
+  "lang5": "français", 
+  "lang6": "日本の", 
+  "lang7": "русский", 
   "languages": [
     "english", 
     "español", 
@@ -10,27 +26,11 @@
   ], 
   "none": null, 
   "test": {
-    "key2": "value2", 
     "key1": [
       "a", 
       "b", 
       "c"
-    ]
-  }, 
-  "bool_num2": false, 
-  "int_num": 10, 
-  "bool_num1": true, 
-  "float_num": 1.5, 
-  "float_list": [
-    5, 
-    2, 
-    3
-  ], 
-  "lang1": "english", 
-  "lang3": "中国", 
-  "lang2": "español", 
-  "lang5": "français", 
-  "lang4": "中國", 
-  "lang7": "русский", 
-  "lang6": "日本の"
+    ], 
+    "key2": "value2"
+  }
 }

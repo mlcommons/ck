@@ -69,26 +69,25 @@ def setup(i):
        elif i.get('writing','')=='yes': param='writing'
        elif i.get('indexing','')=='yes': param='indexing'
 
-    # Check if local repo
-    dlrp=ck.work['dir_local_repo']
-    if dlrp=='':
-       ck.out(sep)
-       ck.out('Local repository is not defined:')
-       ck.out('* environment variable '+ck.cfg['env_key_local_repo']+' is empty!')
-       ck.out('')
-       ck.out('We strongly recommend you to set up local repository to avoid polluting CK:')
-       ck.out('')
-       ck.out('* Select directory where local or downloaded repositories will reside (for example, /home/user/ck-repos).')
-       ck.out('')
-       ck.out('* Add environment variable CK_REPOS pointing to this directory to your profile.')
-       ck.out('  (for example, export CK_REPOS=/home/user/ck-repos or set CK_REPOS=/home/user/ck-repos')
-       ck.out('')
-       ck.out('* Create "local-repo" directory there (for example, $CK_REPOS/local or %CK_REPOS%\\local)')
-       ck.out('')
-       ck.out('* Add environment variable CK_LOCAL_REPO pointing to this directory to your profile.')
-       ck.out('  (for example, export CK_LOCAL_REPO=$CK_REPOS/local or set CK_LOCAL_REPO=%CK_REPOS%\\local')
- 
-       return {'return':0}
+    # Get current configuration
+    cfg={}
+
+    ck.out(sep)
+    ck.out('Loading current configuration ...')
+
+    r=ck.access({'action':'load',
+                 'repo_uoa':ck.cfg['repo_name_default'],
+                 'module_uoa':ck.cfg['subdir_kernel'],
+                 'data_uoa':ck.cfg['subdir_kernel_default']})
+    if r['return']==0: 
+       cfg.update(r['dict'])
+
+    r=ck.access({'action':'load',
+                 'repo_uoa':ck.cfg['repo_name_local'],
+                 'module_uoa':ck.cfg['subdir_kernel'],
+                 'data_uoa':ck.cfg['subdir_kernel_default']})
+    if r['return']==0: 
+       cfg.update(r['dict'])
 
     # Install options
     if param=='' or param=='install':
@@ -110,12 +109,19 @@ def setup(i):
           ck.out('')
           ck.out('CK is not installed as Python library.')
 
-       if not installed or param=='install':
+       if (not installed and cfg.get('skip_ck_install','')!='yes') or param=='install':
           ck.out('')
           r=ck.inp({'text':'Would you like to install CK as root library (y/N): '})
           d=''
           x=r['string'].lower()
-          if x=='y' or x=='yes': d='yes'
+          if x=='y' or x=='yes': 
+             d='yes'
+          else:
+             r1=ck.inp({'text':'Do not ask this question again (Y/n): '})
+             d1=''
+             x1=r1['string'].lower()
+             if x1=='y' or x1=='yes': 
+                cfg['skip_ck_install']='yes'
 
           if d=='yes':
              p=ck.work['env_root']
@@ -127,26 +133,6 @@ def setup(i):
              ck.out('')
              ck.out('* Executing command "'+c+'" ...')
              os.system(c)
-
-    # Get current configuration
-    cfg={}
-
-    ck.out(sep)
-    ck.out('Loading current configuration ...')
-
-    r=ck.access({'action':'load',
-                 'repo_uoa':ck.cfg['repo_name_default'],
-                 'module_uoa':ck.cfg['subdir_kernel'],
-                 'data_uoa':ck.cfg['subdir_kernel_default']})
-    if r['return']==0: 
-       cfg.update(r['dict'])
-
-    r=ck.access({'action':'load',
-                 'repo_uoa':ck.cfg['repo_name_local'],
-                 'module_uoa':ck.cfg['subdir_kernel'],
-                 'data_uoa':ck.cfg['subdir_kernel_default']})
-    if r['return']==0: 
-       cfg.update(r['dict'])
 
     # Content authorship options
     if param=='' or param=='content':

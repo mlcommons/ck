@@ -51,6 +51,8 @@ cfg={
 
       "subdir_default_repos":"repos",
 
+      "user_home_dir_ext":"CK", # if no path to repos is defined, use user home dir with this extension
+
       "subdir_default_repo":"repo",
       "subdir_kernel":"kernel",
       "subdir_kernel_default":"default",
@@ -1179,9 +1181,33 @@ def init(i):
     work['repo_name_work']=cfg['repo_name_default']
     work['repo_uid_work']=cfg['repo_uid_default']
 
+    # Check external repos
+    rps=os.environ.get(cfg['env_key_repos'],'')
+    if rps=='': 
+       # Get home user directory
+       from os.path import expanduser
+       home = expanduser("~")
+
+       # In the original version, if path to repos was not defined, I was using CK path,
+       # however, when installed as root, it will fail
+       # rps=os.path.join(work['env_root'],cfg['subdir_default_repos'])
+       # hence I changed to <user home dir>/CK
+       rps=os.path.join(home, cfg['user_home_dir_ext'])
+       if not os.path.isdir(rps):
+          os.mkdir(rps)
+
+    work['dir_repos']=rps
+
     # Check CK_LOCAL_REPO environment variable - if exists, override
     if cfg['env_key_local_repo'] in os.environ.keys():
        s=os.environ[cfg['env_key_local_repo']].strip()
+
+       if s=='':
+          # Set up local default repository
+          s=os.path.join(rps, cfg['repo_name_local'])
+          if not os.path.isdir(s):
+             os.mkdir(s)
+
        if s!='':
           work['dir_local_repo']=os.path.realpath(s)
           work['dir_local_repo_path']=os.path.join(work['dir_local_repo'], cfg['module_repo_name'], cfg['repo_name_local'])
@@ -1220,11 +1246,6 @@ def init(i):
        # Update cfg
        r=merge_dicts({'dict1':cfg, 'dict2':cfg1})
        if r['return']>0: return r
-
-    # Check external repos
-    rps=os.environ.get(cfg['env_key_repos'],'')
-    if rps=='': rps=os.path.join(work['env_root'],cfg['subdir_default_repos'])
-    work['dir_repos']=rps
 
     initialized=True
 
@@ -4008,7 +4029,6 @@ def edit(i):
         'module_uoa':muoa,
         'data_uoa':duoa,
         'common_func':'yes'}
-    print (ii)
     r=access(ii)
     if r['return']>0: return r
 
