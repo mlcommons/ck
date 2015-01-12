@@ -48,6 +48,10 @@ function openme_web_err($cfg, $tp, $err, $str)
     $a=array('return' => strval($err), 'error' => $str);
     $s=json_encode($a);
   }
+  else if ($tp=='con')
+  {
+    $s=$str;
+  }
   else
   {
     $tp='html'; 
