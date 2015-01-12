@@ -118,7 +118,7 @@ cfg={
                  "add":{"desc":"<CID> add entry", "for_web":"yes"},
                  "update":{"desc":"<CID> update entry", "for_web":"yes"},
                  "load":{"desc":"<CID> load meta description of entry", "for_web": "yes"},
-                 "edit":{"desc":"<CID> edit entry description using external editor", "for_web":"no"},
+                 "edit":{"desc":"<CID> edit entry description using external editor", "for_web":"yes"},
 
                  "find":{"desc":"<CID> find path to entry"},
                  "path":{"desc":"<CID> detect CID in the current directory"},
