@@ -3879,7 +3879,7 @@ def update(i):
                                        from this (module_uoa):data_uoa (analog of copy)
 
               (dict)                 - meta description to record
-              (substitute)           - if 'yes' and update=='yes' substitute dictionaries, otherwise merge!
+              (substitute)           - if 'yes', substitute dictionaries, otherwise merge!
 
               (info)                 - entry info to record - normally, should not use it!
               (updates)              - entry updates info to record - normally, should not use it!
@@ -3976,6 +3976,7 @@ def edit(i):
               data_uoa               - data UOA
 
               (ignore_update)        - (default==yes) if 'yes', do not add info about update
+              (sort_keys)            - (default==yes) if 'yes', sort keys
             }
 
     Output: {
@@ -3995,34 +3996,54 @@ def edit(i):
     iu=i.get('ignore_update','')
     if iu=='': iu='yes'
 
+    sk=i.get('sort_keys','')
+    if sk=='': sk='yes'
+
     ii={'action':'load',
         'repo_uoa':ruoa,
         'module_uoa':muoa,
-        'data_uoa':duoa}
-    r=load(ii)
+        'data_uoa':duoa,
+        'common_func':'yes'}
+    r=access(ii)
     if r['return']>0: return r
 
-    p=r['path']
-    px=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta'])
-    if not os.path.isfile(px):
-       px=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta_old'])
-       if not os.path.isfile(px):
-          return {'return':1, 'error':'meta description file is not found ('+px+')'}
+    meta=r['dict']
+
+    # Record to tmp file
+    import tempfile
+    fd, fn=tempfile.mkstemp(suffix='.tmp', prefix='ck-') # suffix is important - CK will delete such file!
+    os.close(fd)
+    os.remove(fn)
+
+    r=save_json_to_file({'json_file':fn, 'dict':meta, 'sort_keys':sk})
+    if r['return']>0: return r
 
     # Get OS
     r=get_platform({})
     if r['return']>0: return r
     plat=r['platform']
 
-    x=cfg['external_editor'][plat].replace('$#filename#$', px)
+    x=cfg['external_editor'][plat].replace('$#filename#$', fn)
 
     os.system(x)
+
+    # Load file
+    r=load_json_file({'json_file':fn})
+    if r['return']>0: return r
+    meta=r['dict']
 
     # Update entry to finish sync/indexing
     ii['action']='update'
     ii['ignore_update']=iu
+    ii['dict']=meta
+    ii['substitute']='yes'
+    ii['sort_keys']=sk
     ii['out']=o
     r=update(ii)
+
+    # Delete tmp file
+    if os.path.isfile(fn): 
+       os.remove(fn)
 
     return r
 
