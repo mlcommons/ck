@@ -1246,6 +1246,16 @@ def init(i):
     work['dir_cache_repo_uoa']=os.path.join(work['dir_work_repo'],cfg['file_cache_repo_uoa'])
     work['dir_cache_repo_info']=os.path.join(work['dir_work_repo'],cfg['file_cache_repo_info'])
 
+    # Check if local configuration exists, and if not, create it
+    if not os.path.isfile(work['dir_local_cfg']):
+       # Create empty local configuration
+       rx=add({'repo_uoa':cfg['repo_name_local'],
+               'module_uoa':cfg['subdir_kernel'],
+               'data_uoa':cfg['subdir_kernel_default']})
+       if rx['return']>0:
+          return {'return':rx['return'],
+                  'error':'can\'t create local configuration entry'}
+
     # Read kernel configuration (if exists)
     if os.path.isfile(work['dir_work_cfg']):
        r=load_json_file({'json_file':work['dir_work_cfg']})
