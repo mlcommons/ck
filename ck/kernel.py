@@ -105,7 +105,7 @@ cfg={
       "forbid_writing_to_local_repo": "no", 
       "allow_writing_only_to_allowed": "no", 
 
-      "use_indexing": "no"
+      "use_indexing": "no",
 
       "repo_types":{
                      "git":{
