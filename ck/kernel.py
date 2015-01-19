@@ -98,6 +98,15 @@ cfg={
       "external_editor":{"win":"wordpad $#filename#$",
                          "linux":"vim $#filename#$"},
 
+      "forbid_global_delete": "no", 
+      "forbid_global_writing": "no", 
+      "forbid_writing_modules": "no", 
+      "forbid_writing_to_default_repo": "no", 
+      "forbid_writing_to_local_repo": "no", 
+      "allow_writing_only_to_allowed": "no", 
+
+      "use_indexing": "no"
+
       "repo_types":{
                      "git":{
                             "clone":"git clone $#url#$ $#path#$",
