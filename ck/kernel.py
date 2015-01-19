@@ -25,6 +25,7 @@ cfg={
       "cmd":"ck <action> $#module_uoa#$ (cid1/uid1) (cid2/uid2) (cid3/uid3) key_i=value_i ... @file.json",
 
       "wiki_data_web":"https://github.com/ctuning/ck/wiki/Description",
+      "api_web":"http://cknowledge.org/soft/docs/",
       "help_web":"More info: https://github.com/ctuning/ck",
       "ck_web":"https://github.com/ctuning/ck",
       "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
@@ -124,6 +125,7 @@ cfg={
 
                  "help":{"desc":"<CID> print help about data (module) entry"},
                  "webhelp":{"desc":"<CID> open browser with online help (description) for a data (module) entry"}, 
+                 "webapi":{"desc":"<CID> open browser with online API for a given module, if exists"}, 
                  "guide":{"desc":"open cK wiki with user/developer guides"}, 
                  "info":{"desc":"<CID> print help about module"},
 
@@ -169,7 +171,7 @@ cfg={
 
       "actions_redirect":{"list":"list_data"},
 
-      "common_actions":["webhelp", "help", "info", 
+      "common_actions":["webhelp", "webapi", "help", "info",
                         "path", "find", "cid",
                         "add",
                         "edit", 
@@ -3136,6 +3138,48 @@ def webhelp(i):
 
        # Prepare URL
        url+='_'+cid.replace(':','_')
+
+    out('Opening web page '+url+' ...')
+
+    import webbrowser
+    webbrowser.open(url)
+
+    return {'return':0}
+
+############################################################
+# Special function: open webbrowser with API, if exists
+
+def webapi(i):
+    """
+    Input:  { from acess function }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    url=cfg['api_web']
+
+    if muoa=='':
+       muoa=duoa
+
+    if muoa=='':
+       url+='ck_'+cfg['subdir_kernel']+'_api/html/kernel_8py.html'
+    else:
+       duoa=muoa
+       muoa=cfg['module_name']
+
+       r=load({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
+       if r['return']>0: return r
+       muoa=r['data_uoa']
+
+       url+='ck_modules_api/html/'+muoa+'_2module_8py.html'
 
     out('Opening web page '+url+' ...')
 
