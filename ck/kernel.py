@@ -1204,7 +1204,7 @@ def init(i):
        # hence I changed to <user home dir>/CK
        rps=os.path.join(home, cfg['user_home_dir_ext'])
        if not os.path.isdir(rps):
-          os.mkdir(rps)
+          os.makedirs(rps)
 
     work['dir_repos']=rps
 
@@ -1215,7 +1215,7 @@ def init(i):
        # Set up local default repository
        s=os.path.join(rps, cfg['repo_name_local'])
        if not os.path.isdir(s):
-          os.mkdir(s)
+          os.makedirs(s)
 
     if s!='':
        work['dir_local_repo']=os.path.realpath(s)
