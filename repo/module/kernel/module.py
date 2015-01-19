@@ -65,6 +65,7 @@ def setup(i):
     param=i.get('param','')
     if param=='':
        if i.get('content','')=='yes': param='content'
+       elif i.get('install','')=='yes': param='install'
        elif i.get('editing','')=='yes': param='editing'
        elif i.get('writing','')=='yes': param='writing'
        elif i.get('indexing','')=='yes': param='indexing'
@@ -100,16 +101,7 @@ def setup(i):
        except Exception as e:
           installed=False
 
-       if installed:
-          ck.out('')
-          ck.out('CK is installed as python library. Testing ...')
-          ck.out('')
-          ckx.test()
-       else:
-          ck.out('')
-          ck.out('CK is not installed as Python library.')
-
-       if (not installed and cfg.get('skip_ck_install','')!='yes') or param=='install':
+       if param=='install' or (param=='' and not installed and cfg.get('skip_ck_install','')!='yes'):
           ck.out('')
           r=ck.inp({'text':'Would you like to install CK as root library (y/N): '})
           d=''
@@ -130,9 +122,32 @@ def setup(i):
              os.chdir(p)
 
              c=ck.cfg['install_ck_as_lib']
+
+             # Get OS
+             r=ck.get_platform({})
+             if r['return']>0: return r
+             plat=r['platform']
+             if plat!='win':
+                c=ck.cfg.get('linux_sudo','')+' '+c
+
              ck.out('')
              ck.out('* Executing command "'+c+'" ...')
              os.system(c)
+
+       installed=True
+       try:
+          import ck.kernel as ckx
+       except Exception as e:
+          installed=False
+
+       if installed:
+          ck.out('')
+          ck.out('CK is now installed as python library. Testing ...')
+          ck.out('')
+          ckx.test()
+       else:
+          ck.out('')
+          ck.out('CK was not installed as Python library.')
 
     # Content authorship options
     if param=='' or param=='content':

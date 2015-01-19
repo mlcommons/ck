@@ -69,7 +69,8 @@ cfg={
       "file_alias_a": "alias-a-", 
       "file_alias_u": "alias-u-",
 
-      "install_ck_as_lib":"sudo python setup.py install",
+      "linux_sudo":"sudo",
+      "install_ck_as_lib":"python setup.py install",
 
       "repo_file":".ckr.json",
 
