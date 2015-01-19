@@ -1182,7 +1182,7 @@ def init(i):
     work['repo_uid_work']=cfg['repo_uid_default']
 
     # Check external repos
-    rps=os.environ.get(cfg['env_key_repos'],'')
+    rps=os.environ.get(cfg['env_key_repos'],'').strip()
     if rps=='': 
        # Get home user directory
        from os.path import expanduser
@@ -1198,35 +1198,34 @@ def init(i):
 
     work['dir_repos']=rps
 
-    # Check CK_LOCAL_REPO environment variable - if exists, override
-    if cfg['env_key_local_repo'] in os.environ.keys():
-       s=os.environ[cfg['env_key_local_repo']].strip()
+    # Check CK_LOCAL_REPO environment variable - if doesn't exist, create in user space
+    s=os.environ.get(cfg['env_key_local_repo'],'').strip()
 
-       if s=='':
-          # Set up local default repository
-          s=os.path.join(rps, cfg['repo_name_local'])
-          if not os.path.isdir(s):
-             os.mkdir(s)
+    if s=='':
+       # Set up local default repository
+       s=os.path.join(rps, cfg['repo_name_local'])
+       if not os.path.isdir(s):
+          os.mkdir(s)
 
-       if s!='':
-          work['dir_local_repo']=os.path.realpath(s)
-          work['dir_local_repo_path']=os.path.join(work['dir_local_repo'], cfg['module_repo_name'], cfg['repo_name_local'])
-          work['dir_local_kernel']=os.path.join(work['dir_local_repo'], cfg['subdir_kernel'])
-          work['dir_local_cfg']=os.path.join(work['dir_local_kernel'], cfg['subdir_kernel_default'], cfg['subdir_ck_ext'], cfg['file_meta'])
+    if s!='':
+       work['dir_local_repo']=os.path.realpath(s)
+       work['dir_local_repo_path']=os.path.join(work['dir_local_repo'], cfg['module_repo_name'], cfg['repo_name_local'])
+       work['dir_local_kernel']=os.path.join(work['dir_local_repo'], cfg['subdir_kernel'])
+       work['dir_local_cfg']=os.path.join(work['dir_local_kernel'], cfg['subdir_kernel_default'], cfg['subdir_ck_ext'], cfg['file_meta'])
 
-          # Update work repo!
-          work['dir_work_repo']=work['dir_local_repo']
-          work['dir_work_repo_path']=work['dir_local_repo_path']
-          work['dir_work_kernel']=work['dir_local_kernel']
-          work['dir_work_cfg']=work['dir_local_cfg']
+       # Update work repo!
+       work['dir_work_repo']=work['dir_local_repo']
+       work['dir_work_repo_path']=work['dir_local_repo_path']
+       work['dir_work_kernel']=work['dir_local_kernel']
+       work['dir_work_cfg']=work['dir_local_cfg']
 
-          work['repo_name_work']=cfg['repo_name_local']
-          work['repo_uid_work']=cfg['repo_uid_local']
+       work['repo_name_work']=cfg['repo_name_local']
+       work['repo_uid_work']=cfg['repo_uid_local']
 
-          paths_repos.append({'path':work['dir_local_repo'],
-                              'repo_uoa':cfg['repo_name_local'],
-                              'repo_uid':cfg['repo_uid_local'],
-                              'repo_alias':cfg['repo_name_local']})
+       paths_repos.append({'path':work['dir_local_repo'],
+                           'repo_uoa':cfg['repo_name_local'],
+                           'repo_uid':cfg['repo_uid_local'],
+                           'repo_alias':cfg['repo_name_local']})
 
     paths_repos.append({'path':work['dir_default_repo'],
                         'repo_uoa':cfg['repo_name_default'],

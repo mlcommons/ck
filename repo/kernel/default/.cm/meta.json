@@ -1,1 +1,8 @@
-{}
+{
+  "default_developer": "Grigori Fursin", 
+  "default_developer_email": "Grigori.Fursin@cTuning.org", 
+  "external_editor": {
+    "linux": "mcedit $#filename#$"
+  }, 
+  "default_developer_webpage": "http://cTuning.org/lab/people/gfursin"
+}
