@@ -116,9 +116,9 @@ to reference above publications in your reports.
 
 Acknowledgments
 ===============
-This project has been initially funded by EU FP7 609491 TETRACOM project,
-ARM and cTuning foundation. We would like to thank all volunteers
-for their valuable feedback and support.
+This project has been initially funded by EU FP7 609491 TETRACOM
+project. We would like to thank all volunteers for their valuable
+feedback and support.
 
 Full documentation and usage scenarios
 ======================================
