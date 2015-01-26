@@ -815,9 +815,10 @@ def recache(i):
 def rm(i):
     """
     Input:  {
-              (repo_uoa) - repo UOA (where to delete entry about repository)
-              uoa        - data UOA
-              (force)    - if 'yes', force removal
+              (repo_uoa)   - repo UOA (where to delete entry about repository)
+              uoa          - data UOA
+              (force)      - if 'yes', force removal
+              (with_files) - if 'yes', remove files as well
             }
 
     Output: {
@@ -841,6 +842,9 @@ def rm(i):
     if uoa=='': 
        return {'return':1, 'error':'UOA of the repository is not defined'}
 
+    wf=i.get('with_files','')
+    force=i.get('force','')
+
     r=ck.access({'action':'load',
                  'repo_uoa':ruoa,
                  'module_uoa':work['self_module_uoa'],
@@ -850,11 +854,19 @@ def rm(i):
     duid=r['data_uid']
     duoa=r['data_uoa']
 
+    d=r['dict']
+    p=d.get('path','')
+
     to_delete=True
-    if o=='con' and i.get('force','')!='yes':
+    if o=='con' and force!='yes':
        r=ck.inp({'text':'Are you sure to delete information about repository '+duoa+' (y/N): '})
        c=r['string'].lower()
        if c!='yes' and c!='y': to_delete=False
+
+    if to_delete and o=='con' and force!='yes' and wf=='yes':
+       r=ck.inp({'text':'You indicated that you want to DELETE ALL ENTRIES IN THE REPOSITORY! Are you sure (y/N): '})
+       x=r['string'].lower()
+       if x!='yes' and x!='y': wf=''
 
     if to_delete:
        if o=='con': 
@@ -879,10 +891,16 @@ def rm(i):
                     'common_func':'yes'})
        if r['return']>0: return r
 
+       if wf=='yes' and p!='':
+          if o=='con': ck.out('Removing entries from the repository ...')
+          import shutil
+          shutil.rmtree(p)
+
        if o=='con': 
           ck.out('')
           ck.out('Information about repository was removed successfully!')
-          ck.out('Note: repository itself was not removed!')
+          if wf!='yes':
+             ck.out('Note: repository itself was not removed!')
 
     return {'return':0}
 

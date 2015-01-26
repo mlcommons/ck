@@ -4882,6 +4882,12 @@ def list_data(i):
               (time_out)           - in secs, default=30 (if -1, no timeout)
 
               (limit_size)         - if !='' limit size
+
+              (print_full)         - if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
+              (print_uid)          - if 'yes', print UID in brackets
+
+              (print_name)         - if 'yes', print name (and add info to the list)
+              (add_info)           - if 'yes', add info about entry to the list
             }
 
     Output: {
@@ -4892,7 +4898,8 @@ def list_data(i):
               lst          - [{'repo_uoa', 'repo_uid',
                                'module_uoa', 'module_uid', 
                                'data_uoa','data_uid',
-                               'path'}]
+                               'path' (,info) 
+                               }]
 
               elapsed_time - elapsed time in string
 
@@ -4910,6 +4917,22 @@ def list_data(i):
     lst=[]
 
     o=i.get('out','')
+
+    prf=i.get('print_full','')
+    iprf=False
+    if prf=='yes': iprf=True
+
+    prn=i.get('print_name','')
+    iprn=False
+    if prn=='yes': iprn=True
+
+    pru=i.get('print_uid','')
+    ipru=False
+    if pru=='yes': ipru=True
+
+    af=i.get('add_info','')
+    iaf=False
+    if af=='yes': iaf=True
 
     dnatl=i.get('do_not_add_to_lst','')
     idnatl=False
@@ -5097,6 +5120,7 @@ def list_data(i):
 
                         dp=r['path']
                         dpcfg=os.path.join(dp,cfg['subdir_ck_ext'])
+                        dpinfo=os.path.join(dp,cfg['subdir_ck_ext'],cfg['file_info'])
                         duid=r['data_uid']
                         duoa=r['data_uoa']
 
@@ -5120,6 +5144,13 @@ def list_data(i):
                                  'data_uoa':duoa, 'data_uid':duid,
                                  'path':dp}
                                   
+                              # Need to load info?
+                              if iaf or iprn:
+                                 if os.path.isfile(dpinfo):
+                                    y=load_json_file({'json_file':dpinfo})
+                                    if y['return']>0: return y
+                                    ll['info']=y['dict']
+
                               # Call filter
                               fskip=False
 
@@ -5143,7 +5174,8 @@ def list_data(i):
                                     lst.append(ll)
 
                                  if o=='con':
-                                    x=ruoa+':'+muoa+':'
+                                    x=''
+                                    if iprf: x=ruoa+':'+muoa+':'
                                     if sys.version_info[0]<3: 
                                        y=duoa
                                        try: y=y.decode(sys.stdin.encoding)
@@ -5152,6 +5184,11 @@ def list_data(i):
                                          except Exception as e: pass
                                        x+=y
                                     else: x+=duoa
+                                    if ipru: x+=' ('+duid+')'
+                                    if iprn:
+                                       name=ll.get('info',{}).get('data_name','')
+                                       if name!='':
+                                          x=name+' ('+x+')'
                                     out(x)
 
                               # Check timeout
