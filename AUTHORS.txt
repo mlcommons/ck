@@ -1,3 +1,6 @@
-Collective Knowledge is being developed collaboratively 
-by Grigori Fursin, cTuning foundation and volunteers 
-since the 5th of November 2014.
+=======================================================================
+N: Grigori Fursin
+E: Grigori.Fursin@cTuning.org
+O: cTuning foundation
+C: original concept and design
+W: since Nov.1, 2014 
