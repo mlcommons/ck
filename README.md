@@ -43,7 +43,8 @@ auto-tuning and co-design combined with machine learning
 * collaborative and reproducible R&D in computer engineering
 (http://c-mind.org/reproducibility)
 
-Further information:
+Further information (documentation, user scenarios 
+and developer guide):
 * https://github.com/ctuning/ck/wiki
 
 Developers
