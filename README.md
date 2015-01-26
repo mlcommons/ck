@@ -36,12 +36,15 @@ support through web services) and Windows 7.
 We use CK to systematize our own R&D in the following projects 
 and initiatives:
 * software and hardware performance and energy 
-auto-tuning and co-design combined with machine learning:
-** http://hal.inria.fr/hal-01054763
-* crowdsourcing benchmarking of new compilers for new architectures
-** https://play.google.com/store/apps/details?id=com.collective_mind.node
+auto-tuning and co-design combined with machine learning 
+(http://hal.inria.fr/hal-01054763)
+* crowdsourcing benchmarking of new compilers for new architectures 
+(https://play.google.com/store/apps/details?id=com.collective_mind.node)
 * collaborative and reproducible R&D in computer engineering
-** http://c-mind.org/reproducibility
+(http://c-mind.org/reproducibility)
+
+Further information:
+* https://github.com/ctuning/ck/wiki
 
 Developers
 ==========
@@ -90,13 +93,12 @@ In such case, if you have IPython installed, you can
 check CK as following:
 
  > ipython
- > import ck.kernel as ck
- > ck.test()
- > ck.access('load kernel default')
 
-Full documentation and usage scenarios
-======================================
-* https://github.com/ctuning/ck/wiki
+ > import ck.kernel as ck
+
+ > ck.test()
+
+ > ck.access('load kernel default')
 
 Mailing list
 ============
@@ -117,3 +119,7 @@ Acknowledgments
 This project has been initially funded by EU FP7 609491 TETRACOM project,
 ARM and cTuning foundation. We would like to thank all volunteers
 for their valuable feedback and support.
+
+Full documentation and usage scenarios
+======================================
+* https://github.com/ctuning/ck/wiki
