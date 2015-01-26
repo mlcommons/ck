@@ -10,9 +10,9 @@ code and data on their devices, in workgroups or in a cloud.
 
 CK lets users gradually organize their files (code and data)
 locally into cross-linked entries with DOI-style UIDs, simple and
-unified API (through CK modules written in Python), and JSON-based
-extensible meta-description, thus protecting them from continuous
-changes in the system.
+unified API (through CK modules written in Python), and
+JSON-based, schema-free and extensible meta-description, thus
+protecting them from continuous changes in the system.
 
 These entries can be transparently indexed and searched
 by third-party ElasticSearch tool, shared via GIT and connected
