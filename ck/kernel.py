@@ -106,6 +106,15 @@ cfg={
       "forbid_writing_to_local_repo": "no", 
       "allow_writing_only_to_allowed": "no", 
 
+      "allow_run_only_from_allowed_repos": "no",
+      "repo_uids_to_allow_run":["604419a9fcc7a081", 
+                                "9a3280b14a4285c9", 
+                                "76c4424a1473c873",
+                                "a4328ba99679e0d1",
+                                "7fd7e76e13f4cd6a",
+                                "215d441c19db1fed",
+                                "43eaa6c2d1892c32"],
+
       "use_indexing": "no",
 
       "repo_types":{
@@ -2245,6 +2254,13 @@ def perform_action(i):
        rx=load({'module_uoa':cfg['module_name'], 
                 'data_uoa':module_uoa})
        if rx['return']>0: return rx
+
+       # Check if allowed to run only from specific repos
+       if cfg.get('allow_run_only_from_allowed_repos','')=='yes':
+          ruid=rx['repo_uid']
+
+          if ruid not in cfg.get('repo_uids_to_allow_run',[]):
+             return {'return':1, 'error':'executing modules from this repository is not allowed'}
 
        u=rx['dict']
        p=rx['path']
