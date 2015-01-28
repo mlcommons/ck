@@ -20,6 +20,6 @@
     }
   }, 
   "developer_webpage": "http://cTuning.org/lab/people/gfursin", 
-  "developer": "Grigori Fursin", 
-  "desc": "indexing through ElasticSearch"
+  "desc": "indexing through ElasticSearch", 
+  "developer": "Grigori Fursin"
 }

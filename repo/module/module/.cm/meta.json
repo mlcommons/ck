@@ -10,6 +10,6 @@
   }, 
   "developer_webpage": "http://cTuning.org/lab/people/gfursin", 
   "dummy_module": "dummy_module.py", 
-  "developer": "Grigori Fursin", 
-  "desc": "Dealing with CK modules"
+  "desc": "Dealing with CK modules", 
+  "developer": "Grigori Fursin"
 }

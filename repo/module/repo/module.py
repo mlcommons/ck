@@ -47,7 +47,8 @@ def add(i):
 
               (cids[0])                  - as uoa or full CID
 
-              (path)                     - if =='' - get current path
+              (path)                     - if !='' - creat in this path
+              (here)                     - if =='yes', create in current path
               (use_default_path)         - if 'yes' create repository in the default path (CK_REPOS)
                                            instead of the current path (default is 'yes')
 
@@ -113,13 +114,14 @@ def add(i):
     quiet=i.get('quiet','')
 
     # Get path
-    p=i.get('path','')
-    if p=='': p=os.getcwd()
+    px=i.get('path','')
+    if i.get('here','')=='yes': px=os.getcwd()
+    p=px
+
+    if p=='' and udp=='yes': p=os.path.join(ck.work['dir_repos'], d)
 
     # Normalize path
     p=os.path.normpath(p)
-
-    if udp=='yes': p=os.path.join(ck.work['dir_repos'], d)
 
     # If console mode, first, check if shared (GIT, etc)
     if o=='con':
@@ -149,7 +151,7 @@ def add(i):
           if remote!='yes' and remote!='y': remote=''
 
        # Asking for a user-friendly name
-       if df!='yes' and remote!='yes' and udp=='':
+       if px=='' and df!='yes' and remote!='yes' and udp=='':
           if quiet!='yes':
              r=ck.inp({'text':'Would you like to create repo in the directory from CK_REPOS variable (Y/n): '})
              x=r['string'].lower()
@@ -483,7 +485,7 @@ def pull(i):
 
                 or
 
-              (uoa)   - repo UOA
+              (data_uoa)   - repo UOA
 
               (clone) - if 'yes', clone repo instead of update
             }
@@ -604,7 +606,7 @@ def push(i):
 
                 or
 
-              (uoa)   - repo UOA
+              (data_uoa)  - repo UOA
 
               (clone) - if 'yes', clone repo instead of update
             }
@@ -954,3 +956,77 @@ def where(i):
        ck.out(p)
 
     return r
+
+##############################################################################
+# archive repository
+
+def zip(i):
+    """
+    Input:  {
+              data_uoa       - repo UOA
+              (archive_name) - if '' use <data_uoa>.zip as archive_name
+              (archive_path) - if '' create inside repo path
+              (store)        - if 'yes', store files instead of packing
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    duoa=i.get('data_uoa','')
+
+    # Find path to repo
+    r=ck.find_path_to_repo({'repo_uoa':duoa})
+    if r['return']>0: return r
+
+    duoa=r['repo_uoa']
+    path=r['path']
+
+    an=i.get('archive_name','')
+    if an=='': an=duoa+'.zip'
+
+    ap=i.get('archive_path','')
+    if ap=='': ap=path
+
+    pfn=os.path.join(ap, an)
+
+    if os.path.isfile(pfn):
+       return {'return':1, 'error':'archive '+pfn+' already exists'}
+
+    if o=='con':
+       ck.out('Creating archive '+pfn+' - please wait, it may take some time ...')
+
+    # Prepare archive
+    import zipfile
+
+    zip_method=zipfile.ZIP_DEFLATED
+    if i.get('store','')=='yes':
+       zip_method=zipfile.ZIP_STORED
+
+    r=ck.list_all_files({'path':path, 'all':'yes', 'ignore_names':ck.cfg.get('ignore_directories_when_archive_repo',[])})
+    if r['return']>0: return r
+
+    fl=r['list']
+
+    # Write archive
+    try:
+       f=open(pfn, 'wb')
+       z=zipfile.ZipFile(f, 'w', zip_method)
+       for fn in fl:
+           p1=os.path.join(path, fn)
+           z.write(p1, fn, zip_method)
+       z.close()
+       f.close()
+
+    except Exception as e:
+       return {'return':1, 'error':'failed to prepare archive ('+format(e)+')'}
+
+    print ('archive=',pfn)
+
+    return {'return':0}

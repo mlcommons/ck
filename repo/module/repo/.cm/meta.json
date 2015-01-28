@@ -29,6 +29,9 @@
     }, 
     "where": {
       "desc": "find path to a local repository"
+    }, 
+    "zip": {
+      "desc": "archive repository"
     }
   }, 
   "copyright": "See CK Copyright.txt for copyright details", 

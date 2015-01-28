@@ -62,6 +62,8 @@ cfg={
 
       "special_directories":[".cm", ".svn", ".git"], # special directories that should be ignored when copying/moving entries
 
+      "ignore_directories_when_archive_repo":[".svn", ".git"], 
+
       "file_meta_old":"data.json", # keep compatibility with Collective Mind V1.x
       "file_meta":"meta.json",
       "file_info":"info.json",
@@ -175,7 +177,10 @@ cfg={
                  "list_actions":{"desc":"list actions (functions) in existing module", "for_web":"yes"},
 
                  "add_index":{"desc":"<CID> add index"},
-                 "delete_index":{"desc":"<CID> remove index"}
+                 "delete_index":{"desc":"<CID> remove index"},
+
+                 "convert_cm_to_ck":{"desc":"<CID> convert old CM entries to CK entries"}
+
                 },
 
       "actions_redirect":{"list":"list_data"},
@@ -200,7 +205,8 @@ cfg={
                         "remove_action",
                         "list_actions",
                         "add_index",
-                        "delete_index"]
+                        "delete_index",
+                        "convert_cm_to_ck"]
     }
 
 work={
@@ -1365,7 +1371,8 @@ def list_all_files(i):
               (path_ext)      - path extension (needed for recursion)
               (limit)         - limit number of files (if directories with a large number of files)
               (number)        - current number of files
-              (all) - if 'yes' do not ignore special directories (like .cm)
+              (all)           - if 'yes' do not ignore special directories (like .cm)
+              (ignore_names)  - list of names to ignore
             }
 
     Output: {
@@ -1382,11 +1389,15 @@ def list_all_files(i):
     if i.get('number','')!='': 
        number=int(i['number'])
 
+    inames=i.get('ignore_names',[])
+
     limit=-1
     if i.get('limit','')!='': 
        limit=int(i['limit'])
 
     a=[] 
+
+    iall=i.get('all','')
 
     pe=''
     if i.get('path_ext','')!='': 
@@ -1402,17 +1413,17 @@ def list_all_files(i):
     else:
         for fn in dirList:
             p=os.path.join(po, fn)
+            if iall=='yes' or fn not in cfg['special_directories']:
+               if len(inames)==0 or fn not in inames:               
+                  if os.path.isdir(p):
+                     r=list_all_files({'path':p, 'all':iall, 'path_ext':os.path.join(pe, fn), 'number':str(number), 'ignore_names':inames})
+                     if r['return']>0: return r
+                     a.extend(r['list'])
+                  else:
+                     a.append(os.path.join(pe, fn))
 
-            if i.get('all','')=='yes' or fn not in cfg['special_directories']:
-               if os.path.isdir(p):
-                  r=list_all_files({'path':p, 'path_ext':os.path.join(pe, fn), 'number':str(number)})
-                  if r['return']>0: return r
-                  a.extend(r['list'])
-               else:
-                  a.append(os.path.join(pe, fn))
-
-                  number=len(a)
-                  if limit!=-1 and number>limit: break
+                     number=len(a)
+                     if limit!=-1 and number>limit: break
  
     return {'return':0, 'list':a, 'number':str(number)}
 
@@ -1621,13 +1632,13 @@ def find_path_to_repo(i):
 
     pr=''
     if a!='':
-       if a==cfg['repo_name_default']:
+       if a==cfg['repo_name_default'] or a==cfg['repo_uid_default']:
           pr=work['dir_default_repo']
           uoa=cfg['repo_name_default']
           uid=cfg['repo_uid_default']
           alias=uoa
           dt={}
-       elif a==cfg['repo_name_local']:
+       elif a==cfg['repo_name_local'] or a==cfg['repo_uid_local']:
           pr=work['dir_local_repo']
           uoa=cfg['repo_name_local']
           uid=cfg['repo_uid_local']
@@ -4315,7 +4326,7 @@ def rm(i):
         # If interactive
         to_delete=True
         if o=='con' and i.get('force','')!='yes':
-           r=inp({'text':'Are you sure to delete CK entry '+xcuoa+' (Y/yes or N/no/Enter): '})
+           r=inp({'text':'Are you sure to delete CK entry '+xcuoa+' (y/N): '})
            c=r['string'].lower()
            if c!='y' and c!='yes': to_delete=False
 
@@ -4965,6 +4976,8 @@ def list_data(i):
               (add_if_date_after)  - add only entries with date after this date
               (add_if_date)        - add only entries with this date
 
+              (ignore_update)      - if 'yes', do not add info about update (when updating in filter)
+
               (search_by_name)     - search by name
 
               (search_dict)        - search if this dict is a part of the entry
@@ -5013,6 +5026,8 @@ def list_data(i):
     lst=[]
 
     o=i.get('out','')
+
+    iu=i.get('ignore_update', '')
 
     prf=i.get('print_full','')
     iprf=False
@@ -5288,6 +5303,7 @@ def list_data(i):
                                  ll['search_dict']=sd
                                  ll['search_string']=ss
                                  ll['ignore_case']=ic
+                                 ll['ignore_update']=iu
 
                                  if oaidb!=None: ll['obj_date_before']=oaidb
                                  if oaida!=None: ll['obj_date_after']=oaida
@@ -6022,7 +6038,7 @@ def add_action(i):
           func=r['string']
 
        if fweb=='':
-          r1=inp({'text':'Support web (yes or Enter to skip):        '})
+          r1=inp({'text':'Support web (y/N):                         '})
           fweb=r1['string']
 
        if desc=='':
@@ -6592,6 +6608,153 @@ def list_files(i):
            out(q)
 
     return r
+
+##############################################################################
+# convert_cm_to_ck
+
+def convert_cm_to_ck(i):
+    """
+
+    Input:  {
+              (repo_uoa)   - repo UOA with wild cards
+              (module_uoa) - module UOA with wild cards
+              (data_uoa)   - data UOA with wild cards
+
+              (print_full) - if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
+
+              (print_time) - if 'yes'. print elapse time at the end
+
+              (ignore_update) - if 'yes', do not add info about update
+
+              (time_out)   - in sec. (default -1, i.e. no timeout)
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    import sys
+
+    o=i.get('out','')
+
+    # Check wildcards
+    lst=[]
+
+    to=i.get('time_out','')
+    if to=='': to='-1'
+
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    if ruoa=='': ruoa='*'
+    if muoa=='': muoa='*'
+    if duoa=='': duoa='*'
+
+    pf=i.get('print_full','')
+    if pf=='': pf='yes'
+
+    ii={}
+    ii['out']=o
+    ii['repo_uoa']=ruoa
+    ii['module_uoa']=muoa
+    ii['data_uoa']=duoa
+    ii['filter_func_addr']=getattr(sys.modules[__name__], 'filter_convert_cm_to_ck')
+    ii['do_not_add_to_lst']='yes'
+    ii['print_time']=i.get('print_time','')
+    ii['print_time']=i.get('print_time','')
+    ii['print_full']=pf
+    ii['time_out']=to
+    ii['ignore_update']=i.get('ignore_update','')
+    return list_data(ii)
+
+##############################################################################
+# convet cm to ck filter
+
+def filter_convert_cm_to_ck(i):
+    """
+
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+    i['out']=''
+    rx=load(i)
+    i['out']=o
+
+    if rx['return']>0: return rx
+
+    ruid=rx['repo_uid']
+    muid=rx['module_uid']
+    duid=rx['data_uid']
+
+    d=rx['dict']
+    info=rx.get('info',{})
+
+    # Converting 
+    if 'cm_access_control' in d:
+       if 'cm_outdated' not in info: info['cm_outdated']={}
+       info['cm_outdated']['cm_access_control']=d['cm_access_control']
+       del (d['cm_access_control'])
+
+    if 'cm_display_as_alias' in d:
+       info['data_name']=d['cm_display_as_alias']
+       del(d['cm_display_as_alias'])
+
+    if 'powered_by' in d:
+       if 'cm_outdated' not in info: info['cm_outdated']={}
+       info['cm_outdated']['powered_by']=d['powered_by']
+       del(d['powered_by'])
+
+    if 'cm_description' in d:
+       info['description']=d['cm_description']
+       del(d['cm_description'])
+
+    if 'cm_updated' in d:
+       dcu=d['cm_updated'][0]
+       cidate=dcu.get('cm_iso_datetime','')
+       cuoa=dcu.get('cm_user_uoa','')
+
+       if 'control' not in info:
+          info['control']={}
+
+       if cidate!='': 
+          info['control']['iso_datetime']=cidate
+
+       if cuoa!='':
+          info['control']['author_uoa']=cuoa
+       
+       info['control']['engine']='CM'
+       info['control']['version']=[]
+
+       del(d['cm_updated'])
+
+    if 'version' in info: del(info['version'])
+
+    # Saving
+    ii={'action':'update',
+        'repo_uoa':ruid,
+        'module_uoa':muid,
+        'data_uoa':duid,
+        'substitute':'yes',
+        'dict':d,
+        'info':info,
+        'ignore_update':i.get('ignore_update','')
+       }
+    rx=update(ii)
+    return rx
 
 ##############################################################################
 # add index
