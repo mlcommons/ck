@@ -5259,6 +5259,7 @@ def list_data(i):
 
                     # Iterate over data
                     for du in xd:
+                        print mp, du
                         r=find_path_to_entry({'path':mp, 'data_uoa':du})
                         if r['return']>0: return r
 
@@ -5390,6 +5391,7 @@ def search(i):
 
               (search_flat_dict)   - search if these flat keys/values exist in entries
               (search_dict)        - search if this dict is a part of the entry
+              (tags)               - add tags to search in format tags=x,y,z
                    or
               (search_string)      - search with expressions *?
 
@@ -5429,13 +5431,23 @@ def search(i):
 
     rr={'return':0}
 
+    sd=i.get('search_dict',{})
+
+    tags=i.get('tags','')
+    if tags!='':
+       xtags=tags.split(',')
+       sd['tags']=xtags
+
+
+
+    print sd
+
     # Check if index
     if cfg.get('use_indexing','')!='yes' or i.get('internal','')=='yes':
        if ss!='':
           i['filter_func']='search_string_filter'
        else:
           sfd=i.get('search_flat_dict',{})
-          sd=i.get('search_dict',{})
 
           if len(sfd)>0:
              r=restore_flattened_dict({'dict':sfd})
@@ -5448,6 +5460,8 @@ def search(i):
              del (i['search_flat_dict'])
 
           i['filter_func']='search_filter'
+
+       i['search_dict']=sd
 
        pf=i.get('print_full','')
        if pf=='': pf='yes'
@@ -5502,7 +5516,6 @@ def search(i):
 
        # Check search keys
        first=True
-       sd=i.get('search_dict',{})
        for u in sd:
            v=sd[u]
            if first: 
@@ -5728,7 +5741,15 @@ def compare_dicts(i):
            if equal=='no':
               break
         elif type(v2)==list:
-           return {'return':1, 'error':'can\'t yet search by list'}
+           # For now can check only values in list
+           v1=d1.get(q2,{})
+           if type(v1)!=list:
+              equal='no'
+              break
+           for m in v2:
+               if m not in v1:
+                  equal='no'
+                  break
         else:
            v1=d1.get(q2,'')
            if bic: 
