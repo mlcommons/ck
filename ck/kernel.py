@@ -5481,14 +5481,57 @@ def search(i):
               ss+=' AND '
            ss+=u+':"'+v+'"'
 
+       # Check special parameters
+       aidb=i.get('add_if_date_before','')
+       aida=i.get('add_if_date_after','')
+       aid=i.get('add_if_date','')
+       sn=i.get('search_by_name','')
+
+       if sn!='':
+          if first: 
+             first=False
+             if ss=='': ss+='('
+             else: ss+=' AND ('
+          else: 
+             ss+=' AND '
+
+          if sn.find('*')<0 and sn.find('?')<0:
+             ss+='data_name:"'+sn+'"'
+          else:
+             ss+='data_name:'+sn+''
+
+       if aidb!='' or aida!='' or aid!='':
+          if first: 
+             first=False
+             if ss=='': ss+='('
+             else: ss+=' AND ('
+          else: 
+             ss+=' AND '
+
+          ss+='iso_datetime:'
+          if aid!='': ss+='"'+aid+'"'
+          else:
+             ss+='['
+             if aida!='': 
+                ss+='"'+aida+'"'
+             else:
+                ss+='*'
+             if aidb!='':
+                ss+=' TO "'+aidb+'"'
+             ss+='] '
+
+       # Finish query
        if not first:
           ss+=')'
 
+       # Prepare ElasticSearch query
        import urllib
 
        path='/_search?'
        if ss!='': path+='q='+urllib.quote_plus(ss.encode('utf-8'))
        if ls!='': path+='&size='+ls
+
+       print path
 
        ri=access_index_server({'request':'GET', 'path':path})
        if ri['return']>0: return ri
