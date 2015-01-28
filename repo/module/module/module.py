@@ -103,6 +103,8 @@ def add(i):
           r=ck.inp({'text':'Add brief module description: '})
           desc=r['string']
 
+       ck.out('')
+
        if license=='':
           r=ck.inp({'text':'Add brief module license (or Enter to use "'+ck.cfg['default_license']+'"): '})
           license=r['string']
@@ -112,6 +114,8 @@ def add(i):
           r=ck.inp({'text':'Add brief module copyright (or Enter to use "'+ck.cfg['default_copyright']+'"): '})
           copyright=r['string']
           if copyright=='': copyright=ck.cfg['default_copyright']
+
+       ck.out('')
 
        if developer=='':
           r=ck.inp({'text':'Add module\'s developer (or Enter to use "'+ck.cfg['default_developer']+'"): '})
@@ -131,7 +135,7 @@ def add(i):
        if len(actions)==0:
           act='*'
           while act!='':
-             if act!='*': ck.out('')
+             ck.out('')
 
              r=ck.inp({'text':'Add action function (or Enter to stop): '})
              act=r['string']

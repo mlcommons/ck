@@ -261,6 +261,80 @@ def out(s):
     return None
 
 ##############################################################################
+# Converting iso text time to datetime object
+
+def convert_iso_time(i):
+    """
+    Input:  {
+              iso_datetime - iso date time
+            }
+
+    Output: { 
+              return         - return code =  0, if successful
+                                           >  0, if error
+              (error)        - error text if return > 0
+              (datetime_obj) - datetime object
+            }
+    """
+
+    t=i['iso_datetime']
+
+    import datetime
+    import time
+
+    dto=None
+
+    ok=True
+
+    try: dto=datetime.datetime.strptime(t, "%Y-%m-%dT%H:%M:%S.%f")
+    except Exception as e: 
+       ok=False
+       pass
+
+    if not ok:
+       ok=True
+       try: dto=datetime.datetime.strptime(t, "%Y-%m-%dT%H:%M:%S")
+       except Exception as e: 
+          ok=False
+          pass
+
+    if not ok:
+       ok=True
+       try: dto=datetime.datetime.strptime(t, "%Y-%m-%dT%H:%M")
+       except Exception as e: 
+          ok=False
+          pass
+
+    if not ok:
+       ok=True
+       try: dto=datetime.datetime.strptime(t, "%Y-%m-%dT%H")
+       except Exception as e: 
+          ok=False
+          pass
+
+    if not ok:
+       ok=True
+       try: dto=datetime.datetime.strptime(t, "%Y-%m-%d")
+       except Exception as e: 
+          ok=False
+          pass
+
+    if not ok:
+       ok=True
+       try: dto=datetime.datetime.strptime(t, "%Y-%m")
+       except Exception as e: 
+          ok=False
+          pass
+
+    if not ok:
+       ok=True
+       try: dto=datetime.datetime.strptime(t, "%Y")
+       except Exception as e: 
+          return {'return':1, 'error':'can\'t parse ISO date time: '+t}
+
+    return {'return':0, 'datetime_obj':dto}
+
+##############################################################################
 # Universal input of unicode string in utf8 that supports Python 2.x and 3.x
 
 def inp(i):
@@ -4871,6 +4945,12 @@ def list_data(i):
               (filter_func)        - name of filter function
               (filter_func_addr)   - address of filter function
 
+              (add_if_date_before) - add only entries with date before this date 
+              (add_if_date_after)  - add only entries with date after this date
+              (add_if_date)        - add only entries with this date
+
+              (search_by_name)     - search by name
+
               (search_dict)        - search if this dict is a part of the entry
 
               (ignore_case)        - ignore case when searching!
@@ -4930,9 +5010,42 @@ def list_data(i):
     ipru=False
     if pru=='yes': ipru=True
 
+    # Add info about entry to the final list 
+    # (particularly when searching by special keywords, 
+    # such as name or date of creation
+
     af=i.get('add_info','')
     iaf=False
     if af=='yes': iaf=True
+
+    aidb=i.get('add_if_date_before','')
+    aida=i.get('add_if_date_after','')
+    aid=i.get('add_if_date','')
+
+    oaidb=None
+    oaida=None
+    oaid=None
+
+    sn=i.get('search_by_name','')
+
+    if aidb!='' or aida!='' or aid!='':
+
+       import datetime
+       if aidb!='': 
+          rx=convert_iso_time({'iso_datetime':aidb})
+          if rx['return']>0: return rx
+          oaidb=rx['datetime_obj']
+       if aida!='': 
+          rx=convert_iso_time({'iso_datetime':aida})
+          if rx['return']>0: return rx
+          oaida=rx['datetime_obj']
+       if aid!='':  
+          rx=convert_iso_time({'iso_datetime':aid})
+          if rx['return']>0: return rx
+          oaid=rx['datetime_obj']
+
+    if oaidb!=None or oaida!=None or oaid!=None or sn!='': 
+       iaf=True
 
     dnatl=i.get('do_not_add_to_lst','')
     idnatl=False
@@ -5160,6 +5273,11 @@ def list_data(i):
                                  ll['search_string']=ss
                                  ll['ignore_case']=ic
 
+                                 if oaidb!=None: ll['obj_date_before']=oaidb
+                                 if oaida!=None: ll['obj_date_after']=oaida
+                                 if oaid!=None: ll['obj_date']=oaid
+                                 if sn!=None: ll['search_by_name']=sn
+
                                  rx=ff(ll)
                                  if rx['return']>0: return rx
 
@@ -5230,6 +5348,12 @@ def search(i):
               (module_uoa_list)    - list of module to search
               (data_uoa_list)      - list of data to search
 
+              (add_if_date_before) - add only entries with date before this date 
+              (add_if_date_after)  - add only entries with date after this date
+              (add_if_date)        - add only entries with this date
+
+              (search_by_name)     - search by name
+
               (print_time)         - if 'yes', print elapsed time at the end
 
               (search_flat_dict)   - search if these flat keys/values exist in entries
@@ -5244,6 +5368,12 @@ def search(i):
               (internal)           - if 'yes', use internal search even if indexing is on
 
               (limit_size)         - by default 5000 or -1 if no limit
+
+              (print_full)         - if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
+              (print_uid)          - if 'yes', print UID in brackets
+
+              (print_name)         - if 'yes', print name (and add info to the list)
+              (add_info)           - if 'yes', add info about entry to the list
             }
 
     Output: {
@@ -5286,6 +5416,10 @@ def search(i):
              del (i['search_flat_dict'])
 
           i['filter_func']='search_filter'
+
+       pf=i.get('print_full','')
+       if pf=='': pf='yes'
+       i['print_full']=pf
 
        rr=list_data(i)
     else:
@@ -5425,14 +5559,42 @@ def search_filter(i):
 
     """
 
+    ic=i.get('ignore_case','')
+
+    # Check special info
+    info=i.get('info',{})
+    if len(info)!='':
+       oaidb=i.get('obj_date_before', None)
+       oaida=i.get('obj_date_after', None)
+       oaid=i.get('obj_date', None)
+       sn=i.get('search_by_name','')
+
+       # Check dates
+       if oaidb!=None or oaida!=None or oaid!=None:
+          idt=info.get('control',{}).get('iso_datetime','')
+          if idt!='':
+             rx=convert_iso_time({'iso_datetime':idt})
+             if rx['return']>0: return rx
+             oidt=rx['datetime_obj']
+
+             if oaidb!=None and oidt>oaidb: return {'return':0, 'skip':'yes'}
+             if oaida!=None and oidt<oaida: return {'return':0, 'skip':'yes'}
+             if oaid!=None and oidt!=oaid: return {'return':0, 'skip':'yes'}
+
+       # Check if search by name
+       if sn!='':
+          ro=find_string_in_dict_or_list({'dict':{'string':info.get('data_name','')}, 
+                                          'search_string':sn,
+                                          'ignore_case':ic})
+          if ro['return']>0: return ro
+          if ro['found']!='yes': return {'return':0, 'skip':'yes'}
+
     # To be fast, load directly
     p=i['path']
 
     skip='yes'
 
     sd=i.get('search_dict',{})
-
-    ic=i.get('ignore_case','')
 
     p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta'])
     if not os.path.isfile(p1):
@@ -6383,6 +6545,8 @@ def add_index(i):
               (module_uoa) - module UOA with wild cards
               (data_uoa)   - data UOA with wild cards
 
+              (print_full)         - if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
+
               (print_time) - if 'yes'. print elapse time at the end
 
               (time_out)   - in sec. (default -1, i.e. no timeout)
@@ -6414,6 +6578,9 @@ def add_index(i):
     if muoa=='': muoa='*'
     if duoa=='': duoa='*'
 
+    pf=i.get('print_full','')
+    if pf=='': pf='yes'
+
     ii={}
     ii['out']=o
     ii['repo_uoa']=ruoa
@@ -6422,6 +6589,7 @@ def add_index(i):
     ii['filter_func_addr']=getattr(sys.modules[__name__], 'filter_add_index')
     ii['do_not_add_to_lst']='yes'
     ii['print_time']=i.get('print_time','')
+    ii['print_full']=pf
     ii['time_out']=to
 
     return list_data(ii)
