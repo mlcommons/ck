@@ -1,1 +1,2 @@
 http://localhost:3344/json?action=load&cid=kernel:default
+http://localhost/ck/repo/json.php?action=load&cid=kernel:default

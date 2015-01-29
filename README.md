@@ -101,8 +101,9 @@ check CK as following:
 
  > ck.access('load kernel default')
 
-Mailing list
-============
+Questions/comments/discussions?
+===============================
+Please, use our mailing list:
 * http://groups.google.com/group/collective-mind
 
 Publications

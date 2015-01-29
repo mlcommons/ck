@@ -92,6 +92,9 @@ cfg={
       "index_port":"9200",
       "index_use_curl":"no",
 
+      "wfe_url_prefix":"http://localhost:3344/web?",
+      "wfe_template":"default",
+
       "module_repo_name":"repo",
       "repo_name_default":"default",
       "repo_uid_default":"604419a9fcc7a081",

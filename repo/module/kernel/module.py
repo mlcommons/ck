@@ -45,6 +45,7 @@ def setup(i):
                              * content - related to content 
                              * editing - related to editing
                              * writing - related to writing control 
+                             * wfe - related to web front end
                              * indexing - related to indexing
             }
 
@@ -68,6 +69,7 @@ def setup(i):
        elif i.get('install','')=='yes': param='install'
        elif i.get('editing','')=='yes': param='editing'
        elif i.get('writing','')=='yes': param='writing'
+       elif i.get('wfe','')=='yes': param='wfe'
        elif i.get('indexing','')=='yes': param='indexing'
 
     # Get current configuration
@@ -241,6 +243,31 @@ def setup(i):
        d=r['string'].lower()
        if d=='y': d=='yes'
        if d!='': cfg['allow_writing_only_to_allowed']=d
+
+    # Web front-end options
+    if param=='' or param=='wfe':
+       ck.out(sep)
+       ck.out('*** Web front end control (through CK web server or third-party web server and CK php connector) ***')
+
+       ck.out('')
+
+       x=cfg.get('wfe_url_prefix','')
+       if x=='': x=ck.cfg.get('wfe_url_prefix','')
+       ck.out('Current web front-end URL prefix: '+x)
+
+       x=cfg.get('wfe_template','')
+       if x=='': x=ck.cfg.get('wfe_template','')
+       ck.out('Current web front-end template:   '+x)
+
+       ck.out('')
+
+       r=ck.inp({'text': 'Enter new web front-end URL prefix (Enter to keep previous): '})
+       x=r['string']
+       if x!='': cfg['wfe_url_prefix']=x
+
+       r=ck.inp({'text': 'Enter new web front-end template (Enter to keep previous): '})
+       x=r['string']
+       if x!='': cfg['wfe_template']=x
 
     # Indexing options
     if param=='' or param=='indexing':
