@@ -5468,6 +5468,8 @@ def search(i):
        import time
        start_time = time.time()
 
+       dss={}
+
        ruoa=i.get('repo_uoa','')
        muoa=i.get('module_uoa','')
        duoa=i.get('data_uoa','')
@@ -5520,7 +5522,16 @@ def search(i):
               else: ss+=' AND ('
            else: 
               ss+=' AND '
-           ss+=u+':"'+v+'"'
+           if type(v)==list:
+              first1=True
+              for lk in v:
+                  if first1:
+                     first1=False
+                  else:
+                     ss+=' AND '
+                  ss+=u+':"'+str(lk)+'"'
+           else:
+              ss+=u+':"'+v+'"'
 
        # Check special parameters
        aidb=i.get('add_if_date_before','')
@@ -5572,9 +5583,10 @@ def search(i):
        if ss!='': path+='q='+urllib.quote_plus(ss.encode('utf-8'))
        if ls!='': path+='&size='+ls
 
-       print path
+#       dss={'query':{'filtered':{'filter':{'terms':sd}}}}
+       dss={}
 
-       ri=access_index_server({'request':'GET', 'path':path})
+       ri=access_index_server({'request':'GET', 'path':path, 'dict':dss})
        if ri['return']>0: return ri
 
        dd=ri['dict'].get('hits',{}).get('hits',[])
