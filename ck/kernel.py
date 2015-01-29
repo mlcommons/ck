@@ -6278,7 +6278,7 @@ def pull(i):
               (cid[0])
                                 if empty, create an archive of the entry
               (archive)       - if 'yes' pull whole entry as zip archive using filename or ck_archive.zip
-              (all) - if 'yes' and archive, add even special directories (.cm, .svn, .git, etc)
+              (all)           - if 'yes' and archive, add even special directories (.cm, .svn, .git, etc)
 
 
               (out)           - if 'json' or 'json_file', encode file and return in r
@@ -6550,6 +6550,9 @@ def push(i):
                  # create directory 
                  if not os.path.exists(pp): os.makedirs(pp)
               else:
+                 ppd=os.path.dirname(pp)
+                 if not os.path.exists(ppd): os.makedirs(ppd)
+
                  # extract file
                  if os.path.isfile(pp) and overwrite!='yes':
                     if o=='con':
@@ -6561,7 +6564,6 @@ def push(i):
        f.close()
        os.remove(p3)
        y='and unziped '
-
 
     if rshared!='':
        ppp=os.getcwd()

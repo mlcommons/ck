@@ -71,6 +71,9 @@ def add(i):
               (url)                      - if type=='remote' or 'git', URL of remote repository or git repository
               (sync)                     - if 'yes' and type=='git', sync repo after each write operation
 
+              (zip)                      - path to zipfile (local or remote http/ftp)
+              (overwrite)                - if 'yes', overwrite files when unarchiving
+
               (quiet)                    - if 'yes', do not ask questions unless really needed
 
               (skip_reusing_remote_info) - if 'yes', do not reuse remote .cmr.json description of a repository
@@ -94,6 +97,9 @@ def add(i):
     d=i.get('data_uoa','')
     di=i.get('data_uid','')
     dn=i.get('data_name','')
+
+    zp=i.get('zip','')
+    overwrite=i.get('overwrite','')
 
     remote=i.get('remote','')
     rruoa=i.get('remote_repo_uoa','')
@@ -228,6 +234,86 @@ def add(i):
     # Create dummy if doesn't exist
     if remote!='yes' and not os.path.isdir(p):
        os.makedirs(p)
+
+    # If zip, get (download) and unzip file ...
+    rm_zip=False
+    if zp.find('://')>=0:
+       if o=='con':
+          ck.out('Downloading CK archive - it may take some time ...')
+
+       rm_zip=True
+
+       # Generate tmp file
+       import tempfile
+       fd, fn=tempfile.mkstemp(suffix='.tmp', prefix='ck-') # suffix is important - CK will delete such file!
+       os.close(fd)
+       os.remove(fn)
+
+       # Import modules compatible with Python 2.x and 3.x
+       import urllib
+
+       try:
+          import urllib.request as urllib2
+       except:
+          import urllib2
+
+       # Prepare request
+       request = urllib2.Request(zp)
+
+       # Connect
+       try:
+          f=urllib2.urlopen(request)
+       except Exception as e:
+          return {'return':1, 'error':'Failed downloading CK archive ('+format(e)+')'}
+
+       chunk=32768
+
+       try:
+          fo=open(fn, 'wb')
+       except Exception as e:
+          return {'return':1, 'error':'problem opening file='+fn+' ('+format(e)+')'}
+
+       # Read from Internet
+       try:
+          while True:
+             s=f.read(chunk)
+             if not s: break
+             fo.write(s)
+
+          f.close()
+       except Exception as e:
+          return {'return':1, 'error':'Failed downlading CK archive ('+format(e)+')'}
+
+       fo.close()
+
+       zp=fn
+
+    # Unzip if zip
+    if zp!='':
+       import zipfile
+       f=open(zp,'rb')
+       z=zipfile.ZipFile(f)
+       for dx in z.namelist():
+           pp=os.path.join(p,dx)
+           if dx.endswith('/'): 
+              # create directory 
+              if not os.path.exists(pp): os.makedirs(pp)
+           else:
+              # extract file
+              ppd=os.path.dirname(pp)
+              if not os.path.exists(ppd): os.makedirs(ppd)
+
+              if os.path.isfile(pp) and overwrite!='yes':
+                 if o=='con':
+                    ck.out('File '+dx+' already exists in the entry - skipping ...')
+              else:
+                 fo=open(pp, 'wb')
+                 fo.write(z.read(dx))
+                 fo.close()
+       f.close()
+
+       if rm_zip:
+          os.remove(zp)
 
     # If git, clone repo
     if remote!='yes' and shared=='git':
