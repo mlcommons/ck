@@ -1053,6 +1053,8 @@ def zip(i):
               data_uoa       - repo UOA
               (archive_name) - if '' use <data_uoa>.zip as archive_name
               (archive_path) - if '' create inside repo path
+              (auto_name)    - if 'yes', generate name from data_uoa: ckr-<data_uoa>.zip
+              (overwrite)    - if 'yes', overwrite zip file
               (store)        - if 'yes', store files instead of packing
             }
 
@@ -1076,7 +1078,10 @@ def zip(i):
     path=r['path']
 
     an=i.get('archive_name','')
-    if an=='': an=duoa+'.zip'
+    if an=='': an='ckr.zip'
+
+    if i.get('auto_name','')=='yes':
+       an='ckr-'+duoa+'.zip'
 
     ap=i.get('archive_path','')
     if ap=='': ap=path
@@ -1084,7 +1089,10 @@ def zip(i):
     pfn=os.path.join(ap, an)
 
     if os.path.isfile(pfn):
-       return {'return':1, 'error':'archive '+pfn+' already exists'}
+       if i.get('overwrite','')=='yes':
+          os.remove(pfn)
+       else:
+          return {'return':1, 'error':'archive '+pfn+' already exists'}
 
     if o=='con':
        ck.out('Creating archive '+pfn+' - please wait, it may take some time ...')
@@ -1113,7 +1121,5 @@ def zip(i):
 
     except Exception as e:
        return {'return':1, 'error':'failed to prepare archive ('+format(e)+')'}
-
-    print ('archive=',pfn)
 
     return {'return':0}
