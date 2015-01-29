@@ -5438,10 +5438,6 @@ def search(i):
        xtags=tags.split(',')
        sd['tags']=xtags
 
-
-
-    print sd
-
     # Check if index
     if cfg.get('use_indexing','')!='yes' or i.get('internal','')=='yes':
        if ss!='':
