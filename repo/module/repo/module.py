@@ -154,7 +154,8 @@ def add(i):
           if quiet!='yes':
              r=ck.inp({'text':'Is this repository a remote CK web service (y/N)? '})
              remote=r['string'].lower()
-          if remote!='yes' and remote!='y': remote=''
+          if remote=='yes' or remote=='y': remote='yes'
+          else: remote=''
 
        # Asking for a user-friendly name
        if px=='' and df!='yes' and remote!='yes' and udp=='':
