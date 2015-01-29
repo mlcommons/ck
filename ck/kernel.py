@@ -5259,7 +5259,7 @@ def list_data(i):
 
                     # Iterate over data
                     for du in xd:
-                        print mp, du
+#                        print mp, du
                         r=find_path_to_entry({'path':mp, 'data_uoa':du})
                         if r['return']>0: return r
 
