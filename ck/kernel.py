@@ -1426,7 +1426,9 @@ def list_all_files(i):
                      a.append(os.path.join(pe, fn))
 
                      number=len(a)
-                     if limit!=-1 and number>limit: break
+
+                     if limit!=-1 and number>limit: 
+                        break
  
     return {'return':0, 'list':a, 'number':str(number)}
 
@@ -5439,7 +5441,10 @@ def search(i):
     tags=i.get('tags','')
     if tags!='':
        xtags=tags.split(',')
-       sd['tags']=xtags
+       xtags1=[]
+       for q in xtags:
+           xtags1.append(q.strip())
+       sd['tags']=xtags1
 
     # Check if index
     if cfg.get('use_indexing','')!='yes' or i.get('internal','')=='yes':
