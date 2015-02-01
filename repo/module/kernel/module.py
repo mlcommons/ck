@@ -43,6 +43,7 @@ def setup(i):
               (group)      - if !='', configure only this group:
                              * install - install as python library
                              * content - related to content 
+                             * repos - related to repositories 
                              * editing - related to editing
                              * writing - related to writing control 
                              * wfe - related to web front end
@@ -68,6 +69,7 @@ def setup(i):
        if i.get('content','')=='yes': param='content'
        elif i.get('install','')=='yes': param='install'
        elif i.get('editing','')=='yes': param='editing'
+       elif i.get('repos','')=='yes': param='repos'
        elif i.get('writing','')=='yes': param='writing'
        elif i.get('wfe','')=='yes': param='wfe'
        elif i.get('indexing','')=='yes': param='indexing'
@@ -184,6 +186,23 @@ def setup(i):
        r=ck.inp({'text': 'Change license of the content (or Enter to keep previous):          '})
        d=r['string']
        if d!='': cfg['default_license']=d
+
+    # Repo options
+    if param=='' or param=='repos':
+       ck.out(sep)
+       ck.out('*** Repositories control ***')
+
+       ck.out('')
+       x=cfg.get('default_shared_repo_url','')
+       if x=='':
+          x=ck.cfg.get('default_shared_repo_url','')
+       ck.out('Default URL for shared repositories: '+x)
+
+       ck.out('')
+       r=ck.inp({'text': 'Enter new URL (Enter to keep current): '})
+       x=r['string']
+       if x!='': 
+          cfg['default_shared_repo_url']=x
 
     # Editing options
     if param=='' or param=='editing':

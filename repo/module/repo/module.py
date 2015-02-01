@@ -191,7 +191,7 @@ def add(i):
 
        # Check additional parameters if git
        if shared=='git' and url=='':
-          durl='https://github.com/ctuning/'+d+'.git'
+          durl=ck.cfg.get('default_shared_repo_url','')+'/'+d+'.git'
           if quiet!='yes':
              s='Enter URL of GIT repo '
              if d=='': s+='(for example, https://github.com/ctuning/ck-analytics.git)'

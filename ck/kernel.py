@@ -30,6 +30,8 @@ cfg={
       "ck_web":"https://github.com/ctuning/ck",
       "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
 
+      "default_shared_repo_url":"https://github.com/ctuning",
+
       "default_license":"See CK LICENSE.txt for licensing details",
       "default_copyright":"See CK Copyright.txt for copyright details",
       "default_developer":"cTuning foundation",
