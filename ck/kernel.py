@@ -39,7 +39,7 @@ cfg={
       "default_developer_email":"admin@cTuning.org",
       "default_developer_webpage":"http://cTuning.org",
 
-      "version":["1", "1", "0201"],
+      "version":["1", "1", "0202"],
       "error":"CK error: ",
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",

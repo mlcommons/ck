@@ -423,6 +423,11 @@ def process_ck_web_request(i):
     ii['con_encoding']='utf8'
 
     # Execute command *********************************************************
+    if act=='':
+       if cfg.get('if_web_action_not_defined','')!='' and cfg.get('if_web_module_not_defined','')!='':
+          ii['module_uoa']=cfg['if_web_module_not_defined']
+          ii['action']=cfg['if_web_action_not_defined']
+
     r=call_ck(ii)
 
     # Process output

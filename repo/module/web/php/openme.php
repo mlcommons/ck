@@ -91,7 +91,7 @@ function openme_ck_access($i, $output=true)
 
  # Get action
  if (!array_key_exists('action', $i))
-   return array("return"=>1,"error"=>"action is not defined");
+    return array("return"=>1,"error"=>"action is not defined");
 
  $action=$i["action"];
  unset($i["cm_action"]);

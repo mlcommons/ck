@@ -89,5 +89,7 @@
   }, 
   "developer_webpage": "http://cTuning.org/lab/people/gfursin", 
   "desc": "CK web service", 
-  "developer": "Grigori Fursin"
+  "developer": "Grigori Fursin",
+  "if_web_action_not_defined":"index",
+  "if_web_module_not_defined":"wfe"
 }
