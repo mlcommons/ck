@@ -5,10 +5,10 @@ light-weight, plugin-based and technology neutral framework and
 repository for low-level knowledge management and exchange.
 
 It is intended to help users organize, describe, preserve, 
-cross-link, find, share (or P2P exchange), cite and reuse any 
+cross-link, find, share, exchange, cite and reuse any 
 code and data on their devices, in workgroups or in a cloud.
 
-CK lets users gradually organize their files (code and data)
+CK helps users gradually organize their files (code and data)
 locally into cross-linked entries with DOI-style UIDs, simple and
 unified API (through CK modules written in Python), and
 JSON-based, schema-free and extensible meta-description, thus
@@ -42,6 +42,9 @@ auto-tuning and co-design combined with machine learning
 (https://play.google.com/store/apps/details?id=com.collective_mind.node)
 * collaborative and reproducible R&D in computer engineering
 (http://c-mind.org/reproducibility)
+
+Live demo of the Collective Knowledge browser:
+* http://cknowledge.org/repo
 
 Further information (documentation, user scenarios 
 and developer guide):

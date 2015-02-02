@@ -1,2 +1,9 @@
-v0.1.140810, 2014-11-05 -- starting point
-v1.0.1214.beta, 2014-12-14 -- stable pre-release for collaborators
+# v0.1.140810, 2014-11-05 -- starting point
+
+# v1.0.1214.beta, 2014-12-14 -- stable pre-release for collaborators
+
+# V1.1.0201, 2014-02-01 -- stable pre-release for collaborators
+
+  * Adding many user-friendly functions
+  * Ading basic CK web browser. See demo: http://cknowledge.org/repo
+  * Small bug fixes
