@@ -42,6 +42,7 @@ def setup(i):
     Input:  {
               (group)      - if !='', configure only this group:
                              * install - install as python library
+                             * update - check for update
                              * content - related to content 
                              * repos - related to repositories 
                              * editing - related to editing
@@ -68,6 +69,7 @@ def setup(i):
     if param=='':
        if i.get('content','')=='yes': param='content'
        elif i.get('install','')=='yes': param='install'
+       elif i.get('update','')=='yes': param='update'
        elif i.get('editing','')=='yes': param='editing'
        elif i.get('repos','')=='yes': param='repos'
        elif i.get('writing','')=='yes': param='writing'
@@ -152,6 +154,18 @@ def setup(i):
        else:
           ck.out('')
           ck.out('CK was not installed as Python library.')
+
+    # Content authorship options
+    if param=='' or param=='update':
+       ck.out(sep)
+       ck.out('*** Check latest version ***')
+
+       ck.out('')
+       r=ck.inp({'text': 'Would you like to check if your version is up-to-date (Y/n): '})
+       x=r['string'].lower()
+       if x!='n' and x!='no':
+          ck.out('')
+          ck.status({'out':'con'})
 
     # Content authorship options
     if param=='' or param=='content':
@@ -324,5 +338,25 @@ def setup(i):
 
     ck.out('')
     ck.out('Configuration successfully recorded to '+fc+' ...')
+
+    return {'return':0}
+
+##############################################################################
+# check CK version status
+
+def status(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    print ('check CK version status')
 
     return {'return':0}

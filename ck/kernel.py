@@ -26,6 +26,7 @@ cfg={
 
       "wiki_data_web":"https://github.com/ctuning/ck/wiki/Description",
       "api_web":"http://cknowledge.org/soft/docs/",
+      "status_url":"http://cknowledge.org/soft/status/",
       "help_web":"More info: https://github.com/ctuning/ck",
       "ck_web":"https://github.com/ctuning/ck",
       "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
@@ -138,6 +139,7 @@ cfg={
       "actions":{
                  "uid":{"desc":"generate UID", "for_web": "yes"},
                  "version":{"desc":"print CK version", "for_web": "yes"},
+                 "status":{"desc":"check CK version status", "for_web": "yes"},
 
                  "help":{"desc":"<CID> print help about data (module) entry"},
                  "webhelp":{"desc":"<CID> open browser with online help (description) for a data (module) entry"}, 
@@ -2025,15 +2027,11 @@ def perform_remote_action(i):
     # Import modules compatible with Python 2.x and 3.x
     import urllib
 
-    try:
-       import urllib.request as urllib2
-    except:
-       import urllib2
+    try:    import urllib.request as urllib2
+    except: import urllib2
 
-    try:
-       from urllib.parse import urlencode
-    except:
-       from urllib import urlencode
+    try:    from urllib.parse import urlencode
+    except: from urllib import urlencode
 
     rr={'return':0}
 
@@ -3147,6 +3145,90 @@ def version(i):
        out('V'+version_str)
 
     return r
+
+############################################################
+# Action: check CK status
+
+def status(i):
+    """
+    Input:  {}
+
+    Output: {
+              outdated     - if 'yes', newer version exists
+
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    outdated=''
+
+    o=i.get('out','')
+
+    try:    import urllib.request as urllib2
+    except: import urllib2
+
+    try:    from urllib.parse import urlencode
+    except: from urllib import urlencode
+
+    r=get_version({})
+    if r['return']>0: return r
+    version=r['version']
+    version_str=r['version_str']
+
+    lnk=cfg['status_url']+'latest.php'
+
+    page=''
+    try:
+       res=urllib2.urlopen(lnk)
+       page=res.read()
+    except urllib2.HTTPError as e:
+       return {'return':1, 'error':'Problem accessing server ('+format(e)+')'}
+    except urllib2.URLError as e:
+       return {'return':1, 'error':'Problem accessing server ('+format(e)+')'}
+
+    if page!='':
+       s1='<!-- START TEXT -->'
+       i1=page.find(s1)
+       if i1>0:
+          i2=page.find('<!-- STOP TEXT -->')
+          if i2>0:
+             text=page[i1+len(s1):i2].strip()
+             r=convert_json_str_to_dict({'str':text, 'skip_quote_replacement':'yes'})
+             if r['return']>0: 
+                return {'return':1, 'error':'can\'t parse output from server with version'}
+
+             lversion=r['dict'].get('version',[])
+             if len(lversion)<3:
+                return {'return':1, 'error':'can\'t parse output from server with version'}
+ 
+             if int(lversion[0])>int(version[0]) or \
+                (int(lversion[0])==int(version[0]) and int(lversion[1])>int(version[1])) or \
+                (int(lversion[0])==int(version[0]) and int(lversion[1])==int(version[1]) and int(lversion[2])>int(version[2])) or \
+                (int(lversion[0])==int(version[0]) and int(lversion[1])==int(version[1]) and int(lversion[2])==int(version[2]) and \
+                 len(version)>3 and version[3]!='' and (len(lversion)==3 or len(lversion)>3 and lversion[3]=='')):
+                
+                outdated='yes'
+
+                lversion_str=''
+                for q in lversion:
+                    if lversion_str!='': lversion_str+='.'
+                    lversion_str+=q
+
+                if o=='con':
+                   out('Your version is outdated: V'+version_str)
+                   out('New available version   : V'+lversion_str)
+                   u=cfg.get('ck_web','')
+                   if u!='':
+                      out('')
+                      out('Visit '+u+' for more details ...')
+
+    if o=='con' and outdated!='yes':
+       out('Your version is up-to-date: V'+version_str)
+
+    return {'return':0, 'outdated':outdated}
 
 ############################################################
 # Convert info about entry to CID
