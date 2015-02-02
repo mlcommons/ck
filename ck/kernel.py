@@ -89,6 +89,9 @@ cfg={
       "detached_console":{"win":{"cmd":"start $#cmd#$", "use_create_new_console_flag":"yes"},
                           "linux":{"cmd":"xterm -hold -e \"$#cmd#$\""}},
 
+      "batch_extension":{"win":".bat",
+                         "linux":".sh"},
+
       "default_archive_name":"ck-archive.zip",
 
       "index_host":"http://localhost",
@@ -140,6 +143,7 @@ cfg={
                  "uid":{"desc":"generate UID", "for_web": "yes"},
                  "version":{"desc":"print CK version", "for_web": "yes"},
                  "status":{"desc":"check CK version status", "for_web": "yes"},
+                 "copy_path_to_clipboard":{"desc":"copy current path to clipboard", "for_web": "no"},
 
                  "help":{"desc":"<CID> print help about data (module) entry"},
                  "webhelp":{"desc":"<CID> open browser with online help (description) for a data (module) entry"}, 
@@ -3627,7 +3631,9 @@ def cid(i):
 
               Output from from 'detect_cid_in_current_path' function
 
-              cid          - module_uid:data_uid           (substituted with ? if can't find)
+              data_uoa     - data UOA
+              module_uoa   - module UOA
+              (repo_uoa)   - repo UOA
             }
 
     """
@@ -3658,6 +3664,34 @@ def cid(i):
        # Ignore error
 
     return r
+
+############################################################
+# Copy current path to clipboard (productivity function)
+
+def copy_path_to_clipboard(i):
+    """
+    Input:  {
+              (add_quotes) - if 'yes', add quotes
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    import os
+    p=os.getcwd()
+
+    if i.get('add_quotes','')=='yes':
+       p='"'+p+'"'
+
+    rx=copy_to_clipboard({'string':p})
+    # Ignore error
+
+    return {'return':0}
 
 #########################################################
 # Common action: load data (module) meta description
