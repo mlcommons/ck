@@ -5120,6 +5120,7 @@ def list_data(i):
 
               (print_name)         - if 'yes', print name (and add info to the list)
               (add_info)           - if 'yes', add info about entry to the list
+              (add_meta)           - if 'yes', add meta about entry to the list
             }
 
     Output: {
@@ -5171,6 +5172,10 @@ def list_data(i):
     af=i.get('add_info','')
     iaf=False
     if af=='yes': iaf=True
+
+    am=i.get('add_meta','')
+    iam=False
+    if am=='yes': iam=True
 
     aidb=i.get('add_if_date_before','')
     aida=i.get('add_if_date_after','')
@@ -5389,6 +5394,7 @@ def list_data(i):
                         dp=r['path']
                         dpcfg=os.path.join(dp,cfg['subdir_ck_ext'])
                         dpinfo=os.path.join(dp,cfg['subdir_ck_ext'],cfg['file_info'])
+                        dpmeta=os.path.join(dp,cfg['subdir_ck_ext'],cfg['file_meta'])
                         duid=r['data_uid']
                         duoa=r['data_uoa']
 
@@ -5418,6 +5424,13 @@ def list_data(i):
                                     y=load_json_file({'json_file':dpinfo})
                                     if y['return']>0: return y
                                     ll['info']=y['dict']
+
+                              # Need to load meta?
+                              if iam:
+                                 if os.path.isfile(dpmeta):
+                                    y=load_json_file({'json_file':dpmeta})
+                                    if y['return']>0: return y
+                                    ll['meta']=y['dict']
 
                               # Call filter
                               fskip=False
@@ -5531,6 +5544,7 @@ def search(i):
 
               (print_name)         - if 'yes', print name (and add info to the list)
               (add_info)           - if 'yes', add info about entry to the list
+              (add_meta)           - if 'yes', add meta about entry to the list
             }
 
     Output: {
