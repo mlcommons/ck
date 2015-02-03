@@ -104,6 +104,31 @@ check CK as following:
 
  > ck.access('load kernel default')
 
+Collaborative R&D scenarios:
+===============================
+
+Users can assemble various R&D scenarios (workflows, pipelines) 
+from shared code and data as LEGO(R) using simple CK API.
+Pipelines are also implemented as CK modules and can be shared
+with all dependencies via GIT(HUB).
+
+We currently work on the following public scenarios:
+* unified experimentation combined with predictive analytics
+** http://github.com/ctuning/ck-analytics
+** This CK repo can be easily imported using:
+
+ > ck add repo:ck-analytics --share --quiet
+
+* auto-tuning and crowd-tuning
+** https://github.com/ctuning/ck-auto-tuning
+** This CK repo can also be imported using 
+
+ > ck add repo:ck-auto-tuning --share --quiet
+
+All shared repositories can be updated from time to time using:
+
+ > ck pull repo
+
 Questions/comments/discussions?
 ===============================
 Please, use our mailing lists:
@@ -124,6 +149,10 @@ Concepts has been described in the following publications:
 
 If you found CK interesting and possibly useful, you are welcome 
 to reference above publications in your reports.
+
+Fun
+===
+* See CK development as a video: http://cknowledge.org/soft/commits/ck-visualization.mp4
 
 Acknowledgments
 ===============
