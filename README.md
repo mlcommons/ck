@@ -133,12 +133,9 @@ Questions/comments/discussions?
 ===============================
 Please, use our mailing lists:
 * General topics of knowledge preservation, sharing and reuse
-  as well as collaborative and reproducible R&D: 
-  http://groups.google.com/group/collective-mind
+  as well as collaborative and reproducible R&D: http://groups.google.com/group/collective-mind
 * Software and hardware performance/energy/size/reliability  
-  (auto/crowd)-tuning 
-  
-http://groups.google.com/group/ctuning-discussions
+  (auto/crowd)-tuning: http://groups.google.com/group/ctuning-discussions
 
 Publications
 ============
