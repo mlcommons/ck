@@ -106,8 +106,14 @@ check CK as following:
 
 Questions/comments/discussions?
 ===============================
-Please, use our mailing list:
-* http://groups.google.com/group/collective-mind
+Please, use our mailing lists:
+* General topics of knowledge preservation, sharing and reuse
+  as well as collaborative and reproducible R&D: 
+  http://groups.google.com/group/collective-mind
+* Software and hardware performance/energy/size/reliability  
+  (auto/crowd)-tuning 
+  
+http://groups.google.com/group/ctuning-discussions
 
 Publications
 ============
@@ -116,7 +122,7 @@ Concepts has been described in the following publications:
 * http://hal.inria.fr/hal-01054763
 * https://hal.inria.fr/inria-00436029
 
-If you found CK interesting and maybe useful, you are welcome 
+If you found CK interesting and possibly useful, you are welcome 
 to reference above publications in your reports.
 
 Acknowledgments
