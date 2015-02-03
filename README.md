@@ -113,15 +113,13 @@ Pipelines are also implemented as CK modules and can be shared
 with all dependencies via GIT(HUB).
 
 We currently work on the following public scenarios:
-* unified experimentation combined with predictive analytics
-** http://github.com/ctuning/ck-analytics
+* unified experimentation combined with predictive analytics: http://github.com/ctuning/ck-analytics
 
  This CK repo can be easily imported using:
 
  > ck add repo:ck-analytics --share --quiet
 
-* auto-tuning and crowd-tuning
-** https://github.com/ctuning/ck-auto-tuning
+* auto-tuning and crowd-tuning: https://github.com/ctuning/ck-auto-tuning
 
  This CK repo can also be imported using 
 
