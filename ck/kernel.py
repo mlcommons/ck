@@ -5144,7 +5144,9 @@ def list_data(i):
     import time
     start_time = time.time()
 
-    ls=int(i.get('limit_size','0'))
+    xls=i.get('limit_size','')
+    if xls=='': xls='0'
+    ls=int(xls)
     ils=0
 
     lst=[]
