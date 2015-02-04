@@ -148,7 +148,7 @@ cfg={
                  "help":{"desc":"<CID> print help about data (module) entry"},
                  "webhelp":{"desc":"<CID> open browser with online help (description) for a data (module) entry"}, 
                  "webapi":{"desc":"<CID> open browser with online API for a given module, if exists"}, 
-                 "guide":{"desc":"open cK wiki with user/developer guides"}, 
+                 "guide":{"desc":"open CK wiki with user/developer guides"}, 
                  "info":{"desc":"<CID> print help about module"},
 
                  "add":{"desc":"<CID> add entry", "for_web":"yes"},

@@ -35,7 +35,7 @@ if r.get('return',-1)!=0:
    sys.exit(1)
 
 ck.out('')
-ck.out('cK version: '+r.get('ver_str',''))
+ck.out('CK version: '+r.get('ver_str',''))
 
 ##############################################
 ck.out('Parsing CK command line ...')
