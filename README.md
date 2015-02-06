@@ -141,6 +141,7 @@ Publications
 Concepts has been described in the following publications:
 
 * http://hal.inria.fr/hal-01054763
+* http://arxiv.org/abs/1406.4020
 * https://hal.inria.fr/inria-00436029
 
 If you found CK interesting and possibly useful, you are welcome 
