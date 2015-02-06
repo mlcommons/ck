@@ -3,10 +3,9 @@ Introduction
 Collective Knowledge (CK) is an open-source, community-driven,
 light-weight, plugin-based and technology neutral framework and 
 repository for low-level knowledge management and exchange.
-
 It is intended to help users organize, describe, preserve, 
-cross-link, find, share, exchange, cite and reuse any 
-code and data on their devices, in workgroups or in a cloud.
+cross-link, find, share, exchange and reuse any code and 
+data as reusable components with unified API.
 
 CK helps users gradually organize their files (code and data)
 locally into cross-linked entries with DOI-style UIDs, simple and
