@@ -395,6 +395,8 @@ def process_ck_web_request(i):
     if ii.get('out','')!='': 
        xt=ii['out']
 
+    if xt=='': xt='web'
+
     if xt!='json' and xt!='con' and xt!='web':
        web_out({'http':http, 
                 'type':'web', 
