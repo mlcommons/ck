@@ -1,36 +1,36 @@
 {
+  "lang2": "español",
+  "bool_num1": true,
+  "int_num": 10,
+  "lang7": "русский",
   "languages": [
-    "english", 
-    "español", 
-    "中国", 
-    "中國", 
-    "français", 
-    "日本の", 
+    "english",
+    "español",
+    "中国",
+    "中國",
+    "français",
+    "日本の",
     "русский"
-  ], 
-  "none": null, 
-  "lang3": "中国", 
-  "bool_num2": false, 
-  "int_num": 10, 
-  "bool_num1": true, 
-  "float_num": 1.5, 
+  ],
+  "none": null,
+  "lang6": "日本の",
+  "lang1": "english",
   "float_list": [
-    5, 
-    2, 
+    5,
+    2,
     3
-  ], 
+  ],
+  "lang4": "中國",
+  "bool_num2": false,
+  "lang3": "中国",
   "test": {
-    "key2": "value2", 
+    "key2": "value2",
     "key1": [
-      "a", 
-      "b", 
+      "a",
+      "b",
       "c"
     ]
-  }, 
-  "lang1": "english", 
-  "lang2": "español", 
-  "lang5": "français", 
-  "lang4": "中國", 
-  "lang7": "русский", 
-  "lang6": "日本の"
+  },
+  "lang5": "français",
+  "float_num": 1.5
 }

@@ -41,6 +41,19 @@ function openme_web_to_array($web, $prefix, $remove=true)
   return $r; 
 }
 
+function openme_web_file_to_array($web)
+{
+  $r=array();
+  foreach ($web as $key => $value)
+  {
+    if (array_key_exists('tmp_name', $value))
+    {
+       $r[$key.'_uploaded']=$value['tmp_name'];
+    }
+  }
+  return $r; 
+}
+
 function openme_web_err($cfg, $tp, $err, $str)
 {
   if ($tp=='json')

@@ -84,8 +84,11 @@
  $cookie=$_COOKIE;
  $get=openme_web_to_array($_GET, "");
  $post=openme_web_to_array($_POST, "");
+ $files=openme_web_file_to_array($_FILES, "");
 
  $ii=$get;
+
+ $ii=array_merge($ii, $files);
 
  $o="";
 

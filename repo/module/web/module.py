@@ -363,10 +363,23 @@ def process_ck_web_request(i):
               xpost[k]=v[0]
 
         if k=='file_content':
-           import base64
-           xpost[k+'_base64']=base64.urlsafe_b64encode(xpost[k]).decode('utf8')
-           del(xpost[k])
-           k+='_base64'
+           fcrt=xpost1.get('file_content_record_to_tmp','')
+           if (type(fcrt)==list and len(fcrt)>0 and fcrt[0]=='yes') or fcrt=='yes':
+              fd, fn=tempfile.mkstemp(suffix='.tmp', prefix='ck-') # suffix is important - CK will delete such file!
+              os.close(fd)
+
+              f=open(fn,'wb')
+              f.write(xpost[k])
+              f.close()
+
+              xpost[k+'_uploaded']=fn
+              del(xpost[k])
+              k+='_uploaded'
+           else:
+              import base64
+              xpost[k+'_base64']=base64.urlsafe_b64encode(xpost[k]).decode('utf8')
+              del(xpost[k])
+              k+='_base64'
 
         if sys.version_info[0]<3:
            xpost[k]=xpost[k].decode('utf8')

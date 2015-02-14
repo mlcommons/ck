@@ -3914,6 +3914,7 @@ def add(i):
               (substitute)           - if 'yes' and update=='yes' substitute dictionaries, otherwise merge!
 
               (info)                 - entry info to record - normally, should not use it!
+              (extra_info)           - enforce extra info such as author, license, etc
               (updates)              - entry updates info to record - normally, should not use it!
               (ignore_update)        - if 'yes', do not add info about update
 
@@ -4119,7 +4120,12 @@ def add(i):
     if ri['return']>0: return ri
     x=ri['dict']
 
+    # Check if pre-set control params such as author, copyright, license
+    ei=i.get('extra_info',{})
+    if len(ei)!=0: x.update(ei)
+
     y=info.get('control',{})
+
     if i.get('ignore_update','')!='yes':
        if len(y)==0:
           info['control']=x
