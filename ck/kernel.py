@@ -190,13 +190,15 @@ cfg={
                  "add_index":{"desc":"<CID> add index"},
                  "delete_index":{"desc":"<CID> remove index"},
 
-                 "convert_cm_to_ck":{"desc":"<CID> convert old CM entries to CK entries"}
+                 "convert_cm_to_ck":{"desc":"<CID> convert old CM entries to CK entries"},
+
+                 "print_input":{"desc":"prints input"},
 
                 },
 
       "actions_redirect":{"list":"list_data"},
 
-      "common_actions":["webhelp", "webapi", "help", "info",
+      "common_actions":["webhelp", "webapi", "help", "info", "print_input",
                         "path", "find", "cid",
                         "add",
                         "edit", 
@@ -3472,6 +3474,35 @@ def help(i):
     if o=='con': out(h)
 
     return {'return':0, 'help':h}
+
+#########################################################
+# Common action: print input
+
+def print_input(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              help         - input as JSON
+            }
+
+    """
+
+    o=i.get('out','')
+
+    rx=dumps_json({'dict':i, 'sort_keys':'yes'})
+    if rx['return']>0: return rx
+
+    h=rx['string']
+
+    if o=='con': out(h)
+
+    return {'return':0, 'html':h}
 
 #########################################################
 # Common action: print info about a given CK entry
