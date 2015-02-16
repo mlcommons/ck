@@ -104,6 +104,8 @@ def add(i):
     remote=i.get('remote','')
     rruoa=i.get('remote_repo_uoa','')
     shared=i.get('shared','')
+    if shared=='yes': shared='git'
+
     share=i.get('share','')
     if share=='yes' and shared=='': shared='git'
 
