@@ -5921,7 +5921,10 @@ def compare_dicts(i):
     for q2 in d2:
         v2=d2[q2]
         if type(v2)==dict:
-           v1=d1.get(q2,{})
+           if q2 not in d1:
+              equal='no'
+              break
+
            rx=compare_dicts({'dict1':v1,'dict2':v2, 'ignore_case':ic})
            if rx['return']>0: return rx
            equal=rx['equal']
@@ -5929,19 +5932,31 @@ def compare_dicts(i):
               break
         elif type(v2)==list:
            # For now can check only values in list
-           v1=d1.get(q2,{})
+           if q2 not in d1:
+              equal='no'
+              break
+
+           v1=d1[q2]
+
            if type(v1)!=list:
               equal='no'
               break
+
            for m in v2:
                if m not in v1:
                   equal='no'
                   break
         else:
-           v1=d1.get(q2,'')
-           if bic: 
+           if q2 not in d1:
+              equal='no'
+              break
+
+           v1=d1[q2]
+
+           if bic and type(v)!=int and type(v)!=float: 
               v1=v1.lower()
               v2=v2.lower()
+
            if v2!=v1:
               equal='no'
               break
