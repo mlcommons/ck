@@ -5955,7 +5955,7 @@ def compare_dicts(i):
 
            v1=d1[q2]
 
-           if bic and type(v)!=int and type(v)!=float: 
+           if bic and type(v)!=int and type(v)!=float and type(v)!=bool: 
               v1=v1.lower()
               v2=v2.lower()
 
