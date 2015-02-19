@@ -5925,6 +5925,8 @@ def compare_dicts(i):
               equal='no'
               break
 
+           v1=d1[q2]
+
            rx=compare_dicts({'dict1':v1,'dict2':v2, 'ignore_case':ic})
            if rx['return']>0: return rx
            equal=rx['equal']
