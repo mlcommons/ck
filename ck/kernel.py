@@ -2647,7 +2647,7 @@ def flatten_dict(i):
     """
 
     prefix='#'
-    if i.get('prefix','')!='': prefix=i['prefix']
+    if i.get('prefix','')!='': prefix=str(i['prefix'])
 
     a=i['dict']
     aa={}
@@ -2666,7 +2666,7 @@ def flatten_dict_internal(a, aa, prefix):
        for x in a:
            if type(a) is dict: 
               v=a[x] 
-              prefix1=prefix+'#'+x
+              prefix1=prefix+'#'+str(x)
            else: 
               prefix1=prefix+'@'+str(i)
               v=x
