@@ -3,21 +3,17 @@ Introduction
 Collective Knowledge (CK) is an open-source, community-driven,
 light-weight, plugin-based and technology neutral framework and 
 repository for low-level knowledge management and exchange.
+
 It is intended to help users organize, describe, preserve, 
 cross-link, find, share, exchange and reuse any code and 
-data as reusable components with unified API.
+data as reusable Python-based components with unified API 
+and JSON-based schema-free meta-description.
 
-CK helps users gradually organize their files (code and data)
-locally into cross-linked entries with DOI-style UIDs, simple and
-unified API (through CK modules written in Python), and
-JSON-based, schema-free and extensible meta-description, thus
-protecting them from continuous changes in the system.
-
-These entries can be transparently indexed and searched
+All components can be transparently indexed and searched
 by third-party ElasticSearch tool, shared via GIT and connected
-together as LEGO(R) into pipelines (workflows) to quickly and
-collaboratively prototype various research ideas, replay past
-experiments, and take advantage of powerful third-party
+together as LEGO(R) into pipelines (workflows) to quickly 
+prototype various research ideas, replay (reproduce) 
+past experiments, and take advantage of powerful third-party
 statistical analysis and big data predictive analytics tools
 including R and SciPy.
 
