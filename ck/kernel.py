@@ -110,6 +110,16 @@ cfg={
       "external_editor":{"win":"wordpad $#filename#$",
                          "linux":"vim $#filename#$"},
 
+      "shell":{"linux":{
+                         "redirect_stdout":">",
+                         "env_separator": ";" 
+                       },
+               "win":  {
+                         "redirect_stdout":">",
+                         "env_separator": "&&"
+                       }
+      },
+
       "forbid_global_delete": "no", 
       "forbid_global_writing": "no", 
       "forbid_writing_modules": "no", 
@@ -516,26 +526,100 @@ def get_version(i):
     return {'return':0, 'version':cfg['version'], 'version_str':s}
 
 ##############################################################################
+# Get CK version
+
+def gen_tmp_file(i):
+    """
+    Input:  {
+              (suffix) - temp file suffix
+              (prefix) - temp file prefix
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              file_name    - temp file name 
+            }
+
+    """
+
+    xs=i.get('suffix','')
+    xp=i.get('prefix','')
+
+    import tempfile
+    fd, fn=tempfile.mkstemp(suffix=xs, prefix=xp)
+    os.close(fd)
+    os.remove(fn)
+
+    return {'return':0, 'file_name':fn}
+
+##############################################################################
 # Get platform (currently win or linux)
 
 def get_platform(i):
     """
-    Input: {}
+    Input:  {
+              (os_uoa)     - load info from 
+              (find_close) - if 'yes', find the most close from OS modules
+            }
 
     Output: {
               return   - return code =  0
-              platform - win or linux
+              platform - 'win' or 'linux'
+              bits     - (str) 32 or 64
             }
     """
 
     import platform
+    import struct
+
+    bits=str(8 * struct.calcsize("P"))
 
     plat='linux'
-
     if platform.system().lower().startswith('win'):
        plat='win'
 
-    return {'return':0, 'platform':plat}
+    xos=i.get('os_uoa','')
+    fc=i.get('find_close','')
+
+    if xos=='' and fc=='yes':
+       # Detect host platform
+       # Search the most close OS
+       ii={'module_uoa':'os',
+           'search_dict':{'ck_name':plat,
+                          'bits':bits,
+                          'generic':'yes'},
+           'internal':'yes'}
+       rx=search(ii)
+       if rx['return']>0: return rx
+
+       lst=rx['lst']
+       if len(lst)==0:
+          return {'return':0, 'error':'most close platform was not found in CK'}
+
+       pl=lst[0]
+
+       xos=pl.get('data_uoa','')
+
+    rr={'return':0, 'platform':plat, 'bits':bits}
+
+    # Load OS
+    if xos!='':
+       r=load({'module_uoa':'os', 'data_uoa':xos})
+       if r['return']>0: return r
+
+       os_uoa=r['data_uoa']
+       os_uid=r['data_uid']
+
+       dd=r['dict']
+
+       rr['os_uoa']=os_uoa
+       rr['os_uid']=os_uid
+       rr['os_dict']=dd
+
+    return rr
 
 ##############################################################################
 # Generate CK UID
@@ -733,6 +817,7 @@ def load_text_file(i):
     Input:  {
               text_file     - name of text file
               (keep_as_bin) - if 'yes', return only bin
+              (encoding)    - by default 'utf8', however sometimes we use utf16
             }
 
     Output: {
@@ -747,6 +832,9 @@ def load_text_file(i):
     """
 
     fn=i['text_file']
+
+    en=i.get('encoding','')
+    if en=='': en='utf8'
 
     try:
        f=open(fn, 'rb')
@@ -764,7 +852,7 @@ def load_text_file(i):
     r={'return':0, 'bin':b}
 
     if i.get('keep_as_bin','')!='yes':
-       s=b.decode('utf8').replace('\r','') # decode into Python string (unicode in Python3)
+       s=b.decode(en).replace('\r','') # decode into Python string (unicode in Python3)
        r['string']=s
 
     return r
