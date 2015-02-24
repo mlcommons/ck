@@ -12,7 +12,7 @@ Package: ck
 Architecture: all
 Section: python
 Depends: ${misc:Depends}, ${python:Depends}
-Description: collaborative research and experimentation
+Description: organize, cross-link, share and reuse your data and code
  .
  Collective Knowledge (CK) is an open-source, community-driven,
  light-weight, plugin-based and technology neutral framework and 
