@@ -18,9 +18,12 @@ Description: organize, cross-link, share and reuse your data and code
  light-weight, plugin-based and technology neutral framework and 
  repository for low-level knowledge management and exchange.
  .
- It is intended to help users organize, describe, preserve, 
- cross-link, find, share, exchange and reuse any code and 
- data as reusable Python-based components with unified API 
+ CK targets researchers and anyone else interested
+ to preserve, share and reuse their knowledge.
+ .
+ CK helps users organize, describe, preserve, cross-link, 
+ find, share, exchange and reuse any code and data 
+ as reusable Python-based components with unified API 
  and JSON-based schema-free meta-description.
  .
  All components can be transparently indexed and searched
