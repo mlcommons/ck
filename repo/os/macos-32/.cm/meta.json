@@ -1,0 +1,42 @@
+{
+  "batch_prefix": "#! /bin/bash\n# CK generated script\n", 
+  "bin_prefix": "./", 
+  "bits": "32", 
+  "change_dir": "cd", 
+  "ck_name": "linux", 
+  "cmd_for_detached_console": "xterm -hold -e \"$#cmd#$\"", 
+  "dir_sep": "/", 
+  "env_call": ".", 
+  "env_dollar_if_remote": "yes", 
+  "env_quotes": "\"", 
+  "env_quotes_if_remote": "\"", 
+  "env_separator": ";", 
+  "env_set": "export", 
+  "exec_prefix": "./", 
+  "extract_package": {
+    ".tar.bz2": "rm -f $#cm_file_without_one_ext#$ ; bzip2 -d $#cm_file#$ ; tar xvf $#cm_file_without_one_ext#$; rm -f $#cm_file_without_one_ext#$", 
+    ".tar.gz": "rm -f $#cm_file_without_one_ext#$ ; gzip -d $#cm_file#$ ; tar xvf $#cm_file_without_one_ext#$; rm -f $#cm_file_without_one_ext#$", 
+    ".zip": "unzip -q -o $#cm_file#$ ; rm -f $#cm_file#$"
+  }, 
+  "family": "linux", 
+  "file_extensions": {
+    "dll": ".so", 
+    "exe": ".out", 
+    "java_class": ".class", 
+    "java_lib": ".jar", 
+    "lib": ".a"
+  }, 
+  "generic": "yes", 
+  "html_for_detached_console": "<html>\r\n<body>\r\n<script language=\"javascript\">\r\n<!--\r\nself.close();\r\n//-->\r\n</script> \r\nConsole was detached. This window can be closed!\r\n</body>\r\n</html>", 
+  "lib_dir": "lib", 
+  "md5sum": "md5sum", 
+  "name": "unix", 
+  "redirect_stderr": "2>", 
+  "redirect_stderr_aggr": "2>>", 
+  "redirect_stderr_with_stdout": "2>>&1", 
+  "redirect_stdout": ">", 
+  "redirect_stdout_aggr": ">>", 
+  "rem": "#", 
+  "script_ext": ".sh", 
+  "set_executable": "chmod 755"
+}
