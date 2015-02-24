@@ -115,7 +115,7 @@ def call_ck(i):
     cmd='ck '+action+' @'+fn
     if dc=='yes':
        # Check platform
-       rx=ck.get_platform({})
+       rx=ck.get_os_ck({})
        if rx['return']>0: return rx
 
        plat=rx['platform']

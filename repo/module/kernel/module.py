@@ -60,7 +60,7 @@ def setup(i):
     """
 
     # Get OS
-    r=ck.get_platform({})
+    r=ck.get_os_ck({})
     if r['return']>0: return r
     plat=r['platform']
 
@@ -130,7 +130,7 @@ def setup(i):
              c=ck.cfg['install_ck_as_lib']
 
              # Get OS
-             r=ck.get_platform({})
+             r=ck.get_os_ck({})
              if r['return']>0: return r
              plat=r['platform']
              if plat!='win':
