@@ -38,6 +38,7 @@
   "remote": "yes", 
   "remote_dir": "/data/local/tmp", 
   "remote_init": "adb shell echo \"Initializing device ...\"", 
+  "adb_devices": "adb devices $#redirect_stdout#$ $#output_file#$", 
   "remote_pull": "adb pull", 
   "remote_push": "adb push", 
   "remote_shell": "adb shell", 

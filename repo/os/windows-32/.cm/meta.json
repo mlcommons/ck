@@ -37,5 +37,6 @@
   "redirect_stdout_aggr": ">>", 
   "rem": "rem", 
   "script_ext": ".bat", 
+  "windows_base":"yes",
   "use_create_new_console_flag": "yes"
 }
