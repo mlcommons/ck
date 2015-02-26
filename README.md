@@ -1,7 +1,7 @@
 Introduction
 ====================
 Collective Knowledge (CK) is a light-weight, portable,
-plugin-based SDK with a simple repository and web services 
+plugin-based framework,repository, web service and SDK
 for collaborative knowledge management and exchange.
 
 CK helps users preserve, organize, describe, cross-link and share
