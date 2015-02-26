@@ -1,49 +1,51 @@
 Introduction
 ====================
-Collective Knowledge (CK) is an open-source, community-driven,
-light-weight, plugin-based and technology neutral framework and 
-repository for low-level knowledge management and exchange.
+Collective Knowledge (CK) is a light-weight, portable,
+plugin-based SDK with a simple repository and web services 
+for collaborative knowledge management and exchange.
 
-It is intended to help users organize, describe, preserve, 
-cross-link, find, share, exchange and reuse any code and 
-data as reusable Python-based components with unified API 
-and JSON-based schema-free meta-description.
+CK helps users preserve, organize, describe, cross-link and share
+their code, data and experimental results as reusable
+Python-based components with a unified API and JSON-based
+schema-free meta description.
 
-All components can be transparently indexed and searched
-by third-party ElasticSearch tool, shared via GIT and connected
-together as LEGO(R) into pipelines (workflows) to quickly 
-prototype various research ideas, replay (reproduce) 
-past experiments, and take advantage of powerful third-party
-statistical analysis and big data predictive analytics tools
-including R and SciPy.
+All components can be transparently indexed and searched via
+ElasticSearch, shared via GIT, and connected together into
+pipelines (workflows) just as LEGO(R) to quickly prototype
+various research ideas, crowdsource experiments, reproduce 
+past results, perform statistical analysis and apply predictive 
+analytics (as described in http://hal.inria.fr/hal-01054763).
 
-CK can be invoked either through universal command line
-front-end, as a web-service or from other programs and tools
-written in practically any language including C, C++, Fortran, 
-PHP  and Java using OpenME event-based plugin framework
-developed separately:
-* https://github.com/ctuning/openme
+CK can be invoked in a unified way via CMD, web service or from
+other programs and tools written in practically any language
+including C, C++, Fortran, PHP and Java using OpenME event-based
+plugin framework developed separately
+(https://github.com/ctuning/openme).
 
-We tested CK with Python 2.x and 3.x on various platforms
+CK has been tested with Python 2.x and 3.x on various platforms
 including Ubuntu, OpenSUSE, CentOS, Android (partial
-support through web services) and Windows 7. 
+support through web services and OpenME) and Windows 7. 
 
-We use CK to systematize our own R&D in the following projects 
-and initiatives:
-* software and hardware performance and energy 
-auto-tuning and co-design combined with machine learning 
+CK is extensively used in the following projects:
+* building public repository of knowledge for computer engineering
+(http://cknowledge.org/repo , http://c-mind.org/repo)
+* crowdsourcing program and hardware auto-tuning combined
+with predictive analytics and run-time adaptation
 (http://hal.inria.fr/hal-01054763)
-* crowdsourcing benchmarking of new compilers for new architectures 
+* crowdsourcing automatic compiler optimization heuristic tuning
+and benchmarking of new architectures across shared resources
+such as mobile phones, tablets, cloud services, etc.
 (https://play.google.com/store/apps/details?id=com.collective_mind.node)
-* collaborative and reproducible R&D in computer engineering
-(http://c-mind.org/reproducibility)
+* enabling reproducible experimentation in computer engineering
+(http://cknowledge.org/reproducibility)
 
-Live demo of the Collective Knowledge browser:
-* http://cknowledge.org/repo
-
-Further information (documentation, user scenarios 
-and developer guide):
+Further information including documentation, 
+user scenarios and developer guide:
 * https://github.com/ctuning/ck/wiki
+
+License
+=======
+* 3-clause BSD license (see LICENSE.txt).
 
 Developers
 ==========
@@ -53,10 +55,6 @@ cTuning foundation and its volunteers.
 (C)opyright 2014-2015 Grigori Fursin, 
 cTuning foundation and contributors
 
-License
-=======
-* CK is distributed under new 3-clause BSD license.
-
 Where to get
 ============
 * https://github.com/ctuning/ck
@@ -65,6 +63,7 @@ Where to get
 Minimal requirements
 ====================
 * Python > 2.6 (Python 2.x may have some issues with Unicode support)
+* Python 3.x is supported
 
 Installation
 ============
@@ -130,7 +129,7 @@ to reference above publications in your reports.
 
 Fun
 ===
-* See CK development as a video: http://cknowledge.org/soft/commits/ck-visualization.mp4
+* CK GIT commits as a video: http://cknowledge.org/soft/commits/ck-visualization.mp4
 
 Acknowledgments
 ===============

@@ -12,26 +12,22 @@ Package: ck
 Architecture: all
 Section: python
 Depends: ${misc:Depends}, ${python:Depends}
-Description: organize, cross-link, share and reuse your data and code
+Description: plugin-based SDK to organize, cross-link, share and reuse code and data
  .
- Collective Knowledge (CK) is an open-source, community-driven,
- light-weight, plugin-based and technology neutral framework and 
- repository for low-level knowledge management and exchange.
+ Collective Knowledge (CK) is a light-weight, portable,
+ plugin-based SDK with a simple repository and web services 
+ for collaborative knowledge management and exchange.
  .
- CK targets researchers and anyone else interested
- to preserve, share and reuse their knowledge.
+ CK helps users preserve, organize, describe, cross-link and share
+ their code, data and experimental results as reusable
+ Python-based components with a unified API and JSON-based
+ schema-free meta description.
  .
- CK helps users organize, describe, preserve, cross-link, 
- find, share, exchange and reuse any code and data 
- as reusable Python-based components with unified API 
- and JSON-based schema-free meta-description.
+ All components can be transparently indexed and searched via
+ ElasticSearch, shared via GIT, and connected together into
+ pipelines (workflows) just as LEGO(R) to quickly prototype
+ various research ideas, crowdsource experiments, reproduce 
+ past results, perform statistical analysis and apply predictive 
+ analytics (as described in http://hal.inria.fr/hal-01054763).
  .
- All components can be transparently indexed and searched
- by third-party ElasticSearch tool, shared via GIT and connected
- together as LEGO(R) into pipelines (workflows) to quickly 
- prototype various research ideas, replay (reproduce) 
- past experiments, and take advantage of powerful third-party
- statistical analysis and big data predictive analytics tools
- including R and SciPy.
- .
- Further info avalable at http://github.com/ctuning/ck/wiki
+ Further info available at http://github.com/ctuning/ck/wiki
