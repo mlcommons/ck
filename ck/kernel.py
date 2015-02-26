@@ -558,7 +558,7 @@ def gen_tmp_file(i):
 ##############################################################################
 # Get platform (currently win or linux)
 
-def get_platform(i):
+def get_os_ck(i):
     """
     Input:  {
               (os_uoa)     - load info from 
@@ -4456,7 +4456,7 @@ def edit(i):
     if r['return']>0: return r
 
     # Get OS
-    r=get_platform({})
+    r=get_os_ck({})
     if r['return']>0: return r
     plat=r['platform']
 
