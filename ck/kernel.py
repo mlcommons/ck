@@ -815,9 +815,10 @@ def load_json_file(i):
 def load_text_file(i):
     """
     Input:  {
-              text_file     - name of text file
-              (keep_as_bin) - if 'yes', return only bin
-              (encoding)    - by default 'utf8', however sometimes we use utf16
+              text_file       - name of text file
+              (keep_as_bin)   - if 'yes', return only bin
+              (encoding)      - by default 'utf8', however sometimes we use utf16
+              (split_to_list) - if 'yes', split to list
             }
 
     Output: {
@@ -827,7 +828,8 @@ def load_text_file(i):
               (error)  - error text if return > 0
 
               bin      - bin
-              string   - loaded text (with removed \r)
+              (string) - loaded text (with removed \r)
+              (lst)    - if split_to_list=='yes', return as list
             }
     """
 
@@ -854,6 +856,9 @@ def load_text_file(i):
     if i.get('keep_as_bin','')!='yes':
        s=b.decode(en).replace('\r','') # decode into Python string (unicode in Python3)
        r['string']=s
+
+       lst=s.split('\n')
+       r['lst']=lst
 
     return r
 
@@ -7331,9 +7336,9 @@ def access(i):
     if o=='json' or o=='json_with_sep':
        if o=='json_with_sep': out(cfg['json_sep'])
 
-       rr=dumps_json({'dict':rr})
-       if rr['return']==0:
-          s=rr['string']
+       rr1=dumps_json({'dict':rr})
+       if rr1['return']==0:
+          s=rr1['string']
           out(s)
 
     elif o=='json_file':
@@ -7342,7 +7347,10 @@ def access(i):
           rr['return']=1
           rr['error']='out==json_file but out_file is not defined in kernel access function'
        else:
-          rr=save_json_to_file({'json_file':fn, 'dict':rr})
+          rr1=save_json_to_file({'json_file':fn, 'dict':rr})
+          if rr1['return']>0:
+             rr['return']=1
+             rr['error']=rr1['error']
 
     # If error and CMD, output error to console
     if cmd:

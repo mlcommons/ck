@@ -10,11 +10,12 @@ Python-based components with a unified API and JSON-based
 schema-free meta description.
 
 All components can be transparently indexed and searched via
-ElasticSearch, shared via GIT, and connected together into
-pipelines (workflows) just as LEGO(R) to quickly prototype
-various research ideas, crowdsource experiments, reproduce 
-past results, perform statistical analysis and apply predictive 
-analytics (as described in http://hal.inria.fr/hal-01054763).
+third-party Hadoop-based ElasticSearch, shared via GIT, and
+connected together into pipelines (workflows) just as LEGO(R)
+to quickly prototype various research ideas, crowdsource
+experiments, reproduce past results, perform statistical analysis
+and apply predictive analytics (as described
+in http://hal.inria.fr/hal-01054763).
 
 CK can be invoked in a unified way via CMD, web service or from
 other programs and tools written in practically any language
