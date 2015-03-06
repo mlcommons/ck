@@ -2364,11 +2364,19 @@ def perform_action(i):
     # Check if common function
     cf=i.get('common_func','')
 
+    xmodule_uoa=module_uoa
     if cf!='yes' and module_uoa!='' and module_uoa.find('*')<0 and module_uoa.find('?')<0:
        # Find module and load meta description
        rx=load({'module_uoa':cfg['module_name'], 
                 'data_uoa':module_uoa})
        if rx['return']>0: return rx
+
+       xmodule_uoa=rx['data_uoa']
+       xmodule_uid=rx['data_uid']
+       if xmodule_uoa!=xmodule_uid:
+          xmodule_uoa='"'+xmodule_uoa+'" ('+xmodule_uid+')'
+       else:
+          xmodule_uoa='"'+xmodule_uoa+'"'
 
        # Check if allowed to run only from specific repos
        if cfg.get('allow_run_only_from_allowed_repos','')=='yes':
@@ -2421,7 +2429,7 @@ def perform_action(i):
     if module_uoa=='':
        er='in kernel'
     else:
-       er='in module "'+module_uoa+'"'
+       er='in module '+xmodule_uoa
 
     return {'return':1,'error':'action not found '+er}
 

@@ -6,8 +6,9 @@ for collaborative knowledge management and exchange.
 
 CK helps users preserve, organize, describe, cross-link and share
 their code, data and experimental results as reusable
-Python-based components with a unified API and JSON-based
-schema-free meta description.
+Python-based components with a very simple API (one function with
+JSON in and JSON out) and JSON-based schema-free meta
+description.
 
 All components can be transparently indexed and searched via
 third-party Hadoop-based ElasticSearch, shared via GIT, and
@@ -30,8 +31,8 @@ support through web services and OpenME) and Windows 7.
 CK is extensively used in the following projects:
 * building public repository of knowledge for computer engineering
 (http://cknowledge.org/repo , http://c-mind.org/repo)
-* crowdsourcing program and hardware auto-tuning combined
-with predictive analytics and run-time adaptation
+* implementing our plugin-based auto-tuning approach combined
+with crowdsourcing, predictive analytics and run-time adaptation
 (http://hal.inria.fr/hal-01054763)
 * crowdsourcing automatic compiler optimization heuristic tuning
 and benchmarking of new architectures across shared resources
