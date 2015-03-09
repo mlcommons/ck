@@ -1810,9 +1810,6 @@ def find_path_to_data(i):
               alias        - data alias
             }
     """
-    import time
-    start_time = time.time()
-
     muoa=i['module_uoa']
     muid='?'
     duoa=i['data_uoa']
@@ -3870,9 +3867,6 @@ def load(i):
             }
     """
 
-#    import time
-#    start_time = time.time()
-
     o=i.get('out','')
 
     a=i.get('repo_uoa','')
@@ -4036,9 +4030,6 @@ def add(i):
             }
 
     """
-
-#    import time
-#    start_time = time.time()
 
     o=i.get('out','')
 
@@ -7329,6 +7320,12 @@ def access(i):
        # Check output mode
        o=i.get('out','')
 
+       ### If profile
+       cp=i.get('ck_profile','')
+       if cp=='yes':
+          import time
+          start_time = time.time()
+
        ### Process request ######################################
 
        if i.get('con_encoding','')!='': con_encoding=i['con_encoding']
@@ -7339,6 +7336,12 @@ def access(i):
           # Run module with a given action
           rr=perform_action(i)
           if rr.get('out','')!='': o=rr['out']
+
+       if cp=='yes':
+          elapsed_time=time.time()-start_time
+          rr['ck_profile_time']=elapsed_time
+          if o=='con':
+             out('CK profile time: '+str(elapsed_time)+' sec.')
 
     # Finalize call (check output) ####################################
     if o=='json' or o=='json_with_sep':
