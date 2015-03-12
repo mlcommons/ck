@@ -375,6 +375,15 @@ def convert_iso_time(i):
     return {'return':0, 'datetime_obj':dto}
 
 ##############################################################################
+# Convert dict str keys to int to be sorted
+
+def convert_str_key_to_int(key):
+    try:
+       return int(key)
+    except ValueError:
+       return 0
+
+##############################################################################
 # Universal input of unicode string in utf8 that supports Python 2.x and 3.x
 
 def inp(i):
