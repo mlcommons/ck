@@ -567,70 +567,59 @@ def gen_tmp_file(i):
     return {'return':0, 'file_name':fn}
 
 ##############################################################################
-# Get platform (currently win or linux)
+# Get platform (currently win or linux) and OS bits
 
 def get_os_ck(i):
     """
     Input:  {
-              (os_uoa)     - load info from 
-              (find_close) - if 'yes', find the most close from OS modules
+              (bits)      - force OS bits
             }
 
     Output: {
-              return   - return code =  0
-              platform - 'win' or 'linux'
-              bits     - (str) 32 or 64
+              return      - return code =  0
+              platform    - 'win' or 'linux'
+              bits        - OS bits in string: 32 or 64
+              python_bits - Pythin installation bits in string: 32 or 64
+
             }
     """
 
+    import os
     import platform
     import struct
 
-    bits=str(8 * struct.calcsize("P"))
+    pbits=str(8 * struct.calcsize("P"))
 
     plat='linux'
     if platform.system().lower().startswith('win'):
        plat='win'
 
-    xos=i.get('os_uoa','')
-    fc=i.get('find_close','')
+    obits=i.get('bits','')
+    if obits=='':
+       obits='32'
+       if plat=='win':
+          # Trying to get fast way to detect bits
+          if os.environ.get('ProgramW6432','')!='' or os.environ.get('ProgramFiles(x86)','')!='':
+             obits='64'
+       else:
+          # On Linux use first getconf LONG_BIT and if doesn't work use python bits
 
-    if xos=='' and fc=='yes':
-       # Detect host platform
-       # Search the most close OS
-       ii={'module_uoa':'os',
-           'search_dict':{'ck_name':plat,
-                          'bits':bits,
-                          'generic':'yes'},
-           'internal':'yes'}
-       rx=search(ii)
-       if rx['return']>0: return rx
+          obits=pbits
+         
+          r=gen_tmp_file({})
+          if r['return']>0: return r
+          fn=r['file_name']
 
-       lst=rx['lst']
-       if len(lst)==0:
-          return {'return':0, 'error':'most close platform was not found in CK'}
+          cmd='getconf LONG_BIT > '+fn
+          rx=os.system(cmd)
+          if rx==0:
+             r=load_text_file({'text_file':fn})
+             if r['return']==0:
+                s=r['string'].strip()
+                if len(s)>0 and len(s)<4:
+                   obits=s
 
-       pl=lst[0]
-
-       xos=pl.get('data_uoa','')
-
-    rr={'return':0, 'platform':plat, 'bits':bits}
-
-    # Load OS
-    if xos!='':
-       r=load({'module_uoa':'os', 'data_uoa':xos})
-       if r['return']>0: return r
-
-       os_uoa=r['data_uoa']
-       os_uid=r['data_uid']
-
-       dd=r['dict']
-
-       rr['os_uoa']=os_uoa
-       rr['os_uid']=os_uid
-       rr['os_dict']=dd
-
-    return rr
+    return {'return':0, 'platform':plat, 'bits':obits, 'python_bits':pbits}
 
 ##############################################################################
 # Generate CK UID
@@ -2439,7 +2428,7 @@ def perform_action(i):
     else:
        er='in module '+xmodule_uoa
 
-    return {'return':1,'error':'action not found '+er}
+    return {'return':1,'error':'action "'+action+'" not found '+er}
 
 ##############################################################################
 # Convert CID to dict and add missing parts in CID with current path if #
