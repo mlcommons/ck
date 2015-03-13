@@ -881,16 +881,20 @@ def load_text_file(i):
              dd={}
 
              ss=i.get('str_split','')
+             rq=i.get('remove_quotes','')
              if ss=='': ss=':'
 
              for q in lst:
                  qq=q.strip()
                  ix=qq.find(ss)
                  if ix>0:
-                    k=qq[0:ix-1].strip()
+                    k=qq[0:ix].strip()
                     v=''
-                    if ix+1<len(ss):
+                    if ix+1<len(qq):
                        v=qq[ix+1:].strip()
+                    if v!='' and rq=='yes':
+                       if v.startswith('"'): v=v[1:]
+                       if v.endswith('"'): v=v[:-1]
                     dd[k]=v
 
              r['dict']=dd
