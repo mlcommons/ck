@@ -109,6 +109,9 @@ cfg={
       "repo_name_local":"local",
       "repo_uid_local":"9a3280b14a4285c9",
 
+      "default_exchange_repo_uoa":"remote-ck",
+      "default_exchange_subrepo_uoa":"upload",
+
       "external_editor":{"win":"wordpad $#filename#$",
                          "linux":"vim $#filename#$"},
 
@@ -1026,6 +1029,7 @@ def save_text_file(i):
     Input:  {
               text_file - name of text file
               string    - string to write (with removed \r)
+              (append)  - if 'yes', append
             }
 
     Output: {
@@ -1038,6 +1042,9 @@ def save_text_file(i):
     fn=i['text_file']
     s=i['string'].replace('\r','')
 
+    m='w'
+    if i.get('append','')=='yes': m='a'
+
     try:
        s=s.encode('utf8')
     except Exception as e:
@@ -1045,10 +1052,10 @@ def save_text_file(i):
 
     try:
       if sys.version_info[0]>2:
-         f=open(fn, 'wb')
+         f=open(fn, m+'b')
          f.write(s)
       else:
-         f=open(fn,'w')
+         f=open(fn, m)
          f.write(s)
     except Exception as e:
        return {'return':1, 'error':'problem writing text file='+fn+' ('+format(e)+')'}
