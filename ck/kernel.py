@@ -819,7 +819,13 @@ def load_text_file(i):
               text_file           - name of text file
               (keep_as_bin)       - if 'yes', return only bin
               (encoding)          - by default 'utf8', however sometimes we use utf16
+
               (split_to_list)     - if 'yes', split to list
+
+              (convert_to_dict)   - if 'yes', split to list and convert to dict
+              (str_split)         - if !='', use as separator of keys/values when converting to dict
+              (remote_quotes)     - if 'yes', remove quotes from values when converting to dict
+
               (delete_after_read) - if 'yes', delete file after read (useful when reading tmp files)
             }
 
@@ -832,6 +838,7 @@ def load_text_file(i):
               bin      - bin
               (string) - loaded text (with removed \r)
               (lst)    - if split_to_list=='yes', return as list
+              (dict)   - if convert_to_dict=='yes', return as dict
             }
     """
 
@@ -863,8 +870,30 @@ def load_text_file(i):
        s=b.decode(en).replace('\r','') # decode into Python string (unicode in Python3)
        r['string']=s
 
-       lst=s.split('\n')
-       r['lst']=lst
+       cl=i.get('convert_to_list','')
+       cd=i.get('convert_to_dict','')
+
+       if cl=='yes' or cd=='yes':
+          lst=s.split('\n')
+          r['lst']=lst
+
+          if cd=='yes':
+             dd={}
+
+             ss=i.get('str_split','')
+             if ss=='': ss=':'
+
+             for q in lst:
+                 qq=q.strip()
+                 ix=qq.find(ss)
+                 if ix>0:
+                    k=qq[0:ix-1].strip()
+                    v=''
+                    if ix+1<len(ss):
+                       v=qq[ix+1:].strip()
+                    dd[k]=v
+
+             r['dict']=dd
 
     return r
 
