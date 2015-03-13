@@ -870,7 +870,7 @@ def load_text_file(i):
        s=b.decode(en).replace('\r','') # decode into Python string (unicode in Python3)
        r['string']=s
 
-       cl=i.get('convert_to_list','')
+       cl=i.get('split_to_list','')
        cd=i.get('convert_to_dict','')
 
        if cl=='yes' or cd=='yes':
