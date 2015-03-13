@@ -613,7 +613,8 @@ def get_os_ck(i):
           cmd='getconf LONG_BIT > '+fn
           rx=os.system(cmd)
           if rx==0:
-             r=load_text_file({'text_file':fn})
+             r=load_text_file({'text_file':fn, 
+                               'delete_after_read':'yes'})
              if r['return']==0:
                 s=r['string'].strip()
                 if len(s)>0 and len(s)<4:
@@ -815,10 +816,11 @@ def load_json_file(i):
 def load_text_file(i):
     """
     Input:  {
-              text_file       - name of text file
-              (keep_as_bin)   - if 'yes', return only bin
-              (encoding)      - by default 'utf8', however sometimes we use utf16
-              (split_to_list) - if 'yes', split to list
+              text_file           - name of text file
+              (keep_as_bin)       - if 'yes', return only bin
+              (encoding)          - by default 'utf8', however sometimes we use utf16
+              (split_to_list)     - if 'yes', split to list
+              (delete_after_read) - if 'yes', delete file after read (useful when reading tmp files)
             }
 
     Output: {
@@ -852,6 +854,10 @@ def load_text_file(i):
     f.close()
 
     r={'return':0, 'bin':b}
+
+    if i.get('delete_after_read','')=='yes':
+       import os
+       os.remove(fn)
 
     if i.get('keep_as_bin','')!='yes':
        s=b.decode(en).replace('\r','') # decode into Python string (unicode in Python3)
