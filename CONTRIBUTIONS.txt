@@ -13,3 +13,18 @@ Bugs can be reported here:
 * https://github.com/ctuning/ck/issues
 
 Thank you for your interest!
+
+=================================================================================
+Acknowledgments:
+
+N: Grigori Fursin
+E: Grigori.Fursin@cTuning.org
+O: cTuning foundation
+C: original concept and design
+W: since Nov.1, 2014 
+
+N: Anton Lokhmotov
+E: anton@dividiti.com
+O: dividiti, UK
+C: 
+W: 

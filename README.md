@@ -1,8 +1,11 @@
 Introduction
 ====================
 Collective Knowledge (CK) is a light-weight, portable,
-plugin-based framework,repository, web service and SDK
-for collaborative knowledge management and exchange.
+plugin-based framework, repository, web service and 
+SDK for collaborative knowledge management and exchange.
+
+It enables open and collaborative research and experimentation 
+(currently focusing on computer engineering).
 
 CK helps users preserve, organize, describe, cross-link and share
 their code, data and experimental results as reusable
@@ -99,6 +102,14 @@ check CK as following:
  > ck.test()
 
  > ck.access('load kernel default')
+
+You can also easily connect various external CK repositories
+shared via GITHUB (see CK wiki for more details) to build
+collaborative R&D scenarios:
+
+ > ck add repo:ck-env --shared --quiet
+
+ > ck add repo:ck-web --shared --quiet
 
 Collaborative R&D usage scenarios:
 ==================================
