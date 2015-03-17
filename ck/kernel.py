@@ -428,6 +428,65 @@ def inp(i):
     return {'return':0, 'string':s}
 
 ##############################################################################
+# Universal selector of dictionary entry
+
+def select(i):
+    """
+    Input:  {
+              dict             - dict with 'name' as string and 'sort' in int
+              (title)          - print title
+              (error_if_empty) - if 'yes' and Enter, make error
+            }
+
+    Output: {
+              return       - return code =  0
+
+              string       - selected dictionary key
+            }
+    """
+
+    s=''
+
+    title=i.get('title','')
+    if title!='':
+       out(title)
+       out('')
+
+    d=i['dict']
+    kd=sorted(d, key=lambda v: d[v].get('sort',0))
+    
+    j=0
+    ks={}
+    for k in kd:
+        q=d[k]
+
+        sj=str(j)
+        ks[sj]=k
+
+        qn=q.get('name','')
+
+        out(sj+') '+qn)
+
+        j+=1
+
+    out('')
+    rx=inp({'text':'Make your selection: '})
+    if rx['return']>0: return rx
+    sx=rx['string'].strip()
+
+    if sx=='':
+       if i.get('error_if_empty','')=='yes':
+          return {'return':1, 'error':'selection is empty'}
+       
+       s=kd[0]
+    else:
+       if sx not in ks:
+          return {'return':1, 'error':'selection is not recognized'}
+       s=ks[sx]
+
+    return {'return':0, 'string':s}
+
+##############################################################################
 # Check writing possibility
 
 def check_writing(i):
