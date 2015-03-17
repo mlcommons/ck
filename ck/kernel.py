@@ -40,6 +40,7 @@ cfg={
       "default_developer_webpage":"http://cTuning.org",
 
       "detect_cur_cid":"#",
+      "detect_cur_cid1":"^",
 
       "version":["1", "1", "0205"],
       "error":"CK error: ",
@@ -685,7 +686,7 @@ def is_uoa(str):
     Output: True if allowed UOA, False otherwise
     """
 
-    if str.find(cfg['detect_cur_cid'])>=0: return False
+    if str.find(cfg['detect_cur_cid'])>=0 or str.find(cfg['detect_cur_cid1']>=0: return False
     if str.find('*')>=0: return False
     if str.find('?')>=0: return False
 
@@ -2332,11 +2333,11 @@ def perform_action(i):
     need_subst=False
     rc={} # If CID from current directory
 
-    if cid.startswith(cfg['detect_cur_cid']):
+    if cid.startswith(cfg['detect_cur_cid']) or cid.starswith(cfg['detect_cur_cid1']):
        need_subst=True
     else:
        for c in cids:
-           if c.startswith(cfg['detect_cur_cid']): 
+           if c.startswith(cfg['detect_cur_cid']) or c.startswith(cfg['detect_cur_cid1']): 
               need_subst=True
               break
 
@@ -2347,7 +2348,7 @@ def perform_action(i):
 
     # Process cid (module or CID)
     module_uoa=cid
-    if cid.find(':')>=0 or cid.startswith(cfg['detect_cur_cid']):
+    if cid.find(':')>=0 or cid.startswith(cfg['detect_cur_cid']) or cid.startswith(cfg['detect_cur_cid1']):
        # Means that CID
        r=parse_cid({'cid':cid, 'cur_cid':rc})
        if r['return']>0: return r
@@ -2509,7 +2510,7 @@ def parse_cid(i):
     m0=cc.get('module_uoa','')
     d0=cc.get('data_uoa','')
 
-    if c.startswith(cfg['detect_cur_cid']):
+    if c.startswith(cfg['detect_cur_cid']) or c.startswith(cfg['detect_cur_cid1']):
        c=c[1:]
 
     x=c.split(':')
