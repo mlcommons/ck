@@ -2333,7 +2333,7 @@ def perform_action(i):
     need_subst=False
     rc={} # If CID from current directory
 
-    if cid.startswith(cfg['detect_cur_cid']) or cid.starswith(cfg['detect_cur_cid1']):
+    if cid.startswith(cfg['detect_cur_cid']) or cid.startswith(cfg['detect_cur_cid1']):
        need_subst=True
     else:
        for c in cids:
