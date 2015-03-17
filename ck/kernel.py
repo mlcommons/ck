@@ -686,7 +686,7 @@ def is_uoa(str):
     Output: True if allowed UOA, False otherwise
     """
 
-    if str.find(cfg['detect_cur_cid'])>=0 or str.find(cfg['detect_cur_cid1']>=0: return False
+    if str.find(cfg['detect_cur_cid'])>=0 or str.find(cfg['detect_cur_cid1'])>=0: return False
     if str.find('*')>=0: return False
     if str.find('?')>=0: return False
 
