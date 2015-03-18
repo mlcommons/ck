@@ -605,8 +605,9 @@ def get_version(i):
 def gen_tmp_file(i):
     """
     Input:  {
-              (suffix) - temp file suffix
-              (prefix) - temp file prefix
+              (suffix)     - temp file suffix
+              (prefix)     - temp file prefix
+              (remove_dir) - if 'yes', remove dir
             }
 
     Output: {
@@ -626,6 +627,9 @@ def gen_tmp_file(i):
     fd, fn=tempfile.mkstemp(suffix=xs, prefix=xp)
     os.close(fd)
     os.remove(fn)
+
+    if i.get('remove_dir','')=='yes':
+       fn=os.path.basename(fn)
 
     return {'return':0, 'file_name':fn}
 
