@@ -5627,6 +5627,8 @@ def list_data(i):
                                  xd.append(fn)
 
                     # Iterate over data
+                    if len(lduoa)>0:
+                       xd=lduoa
                     for du in xd:
 #                        print mp, du
                         r=find_path_to_entry({'path':mp, 'data_uoa':du})
