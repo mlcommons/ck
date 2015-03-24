@@ -6152,9 +6152,15 @@ def compare_dicts(i):
                if m not in v1:
                   equal='no'
                   break
+
+           if equal=='no':
+              break
         else:
            if q2 not in d1:
               equal='no'
+              break
+
+           if equal=='no':
               break
 
            v1=d1[q2]
