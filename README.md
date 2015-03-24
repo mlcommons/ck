@@ -1,12 +1,14 @@
 Introduction
 ============
 Collective Knowledge (CK) is a light-weight, portable,
-plugin-based framework, repository, web service and 
-SDK to organize local user code and data, share it as 
-reusable components with JSON API via GIT(HUB), 
-and connect to predictive analytics (statistical analysis,
-data mining, machine learning) to automate and 
-simplify any decision making.
+plugin-based framework, repository, web service and SDK 
+to organize local user code and data and share it 
+as unified and reusable components with JSON API via GIT(HUB). 
+
+Unification, in turn, allows to crowdsource experimentation 
+and expose it to predictive analytics (statistical analysis, 
+data mining, machine learning) to automate, simplify and 
+crowdsource any decision making.
 
 Description
 ===========
