@@ -1553,6 +1553,22 @@ def init(i):
     work['dir_cache_repo_uoa']=os.path.join(work['dir_work_repo'],cfg['file_cache_repo_uoa'])
     work['dir_cache_repo_info']=os.path.join(work['dir_work_repo'],cfg['file_cache_repo_info'])
 
+    # Check if first time and then copy local cache files (with remote-ck)
+    if not os.path.isfile(work['dir_cache_repo_uoa']) and not os.path.isfile(work['dir_cache_repo_info']):
+       rx=load_text_file({'text_file':os.path.join(work['dir_default_repo'],cfg['file_cache_repo_uoa'])})
+       if rx['return']>0: return rx
+       x1=rx['string']
+
+       rx=load_text_file({'text_file':os.path.join(work['dir_default_repo'],cfg['file_cache_repo_info'])})
+       if rx['return']>0: return rx
+       x2=rx['string']
+
+       rx=save_text_file({'text_file':work['dir_cache_repo_info'], 'string':x2})
+       if rx['return']>0: return rx
+
+       rx=save_text_file({'text_file':work['dir_cache_repo_uoa'], 'string':x1})
+       if rx['return']>0: return rx
+
     # Check if local configuration exists, and if not, create it
     if not os.path.isfile(work['dir_local_cfg']):
        # Create empty local configuration
