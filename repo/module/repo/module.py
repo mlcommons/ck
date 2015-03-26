@@ -239,84 +239,9 @@ def add(i):
        os.makedirs(p)
 
     # If zip, get (download) and unzip file ...
-    rm_zip=False
-    if zp.find('://')>=0:
-       if o=='con':
-          ck.out('Downloading CK archive - it may take some time ...')
-
-       rm_zip=True
-
-       # Generate tmp file
-       import tempfile
-       fd, fn=tempfile.mkstemp(suffix='.tmp', prefix='ck-') # suffix is important - CK will delete such file!
-       os.close(fd)
-       os.remove(fn)
-
-       # Import modules compatible with Python 2.x and 3.x
-       import urllib
-
-       try:
-          import urllib.request as urllib2
-       except:
-          import urllib2
-
-       # Prepare request
-       request = urllib2.Request(zp)
-
-       # Connect
-       try:
-          f=urllib2.urlopen(request)
-       except Exception as e:
-          return {'return':1, 'error':'Failed downloading CK archive ('+format(e)+')'}
-
-       chunk=32768
-
-       try:
-          fo=open(fn, 'wb')
-       except Exception as e:
-          return {'return':1, 'error':'problem opening file='+fn+' ('+format(e)+')'}
-
-       # Read from Internet
-       try:
-          while True:
-             s=f.read(chunk)
-             if not s: break
-             fo.write(s)
-
-          f.close()
-       except Exception as e:
-          return {'return':1, 'error':'Failed downlading CK archive ('+format(e)+')'}
-
-       fo.close()
-
-       zp=fn
-
-    # Unzip if zip
     if zp!='':
-       import zipfile
-       f=open(zp,'rb')
-       z=zipfile.ZipFile(f)
-       for dx in z.namelist():
-           pp=os.path.join(p,dx)
-           if dx.endswith('/'): 
-              # create directory 
-              if not os.path.exists(pp): os.makedirs(pp)
-           else:
-              # extract file
-              ppd=os.path.dirname(pp)
-              if not os.path.exists(ppd): os.makedirs(ppd)
-
-              if os.path.isfile(pp) and overwrite!='yes':
-                 if o=='con':
-                    ck.out('File '+dx+' already exists in the entry - skipping ...')
-              else:
-                 fo=open(pp, 'wb')
-                 fo.write(z.read(dx))
-                 fo.close()
-       f.close()
-
-       if rm_zip:
-          os.remove(zp)
+       rz=get_and_unzip_archive({'zip':zp, 'path':p, 'overwrite':overwrite, 'out':o})
+       if rz['return']>0: return rz
 
     # If git, clone repo
     if remote!='yes' and shared=='git':
@@ -1058,6 +983,8 @@ def zip(i):
               (auto_name)    - if 'yes', generate name from data_uoa: ckr-<data_uoa>.zip
               (overwrite)    - if 'yes', overwrite zip file
               (store)        - if 'yes', store files instead of packing
+
+              (data)         - CID allowing to add only these entries with pattern (can be from another archive)
             }
 
     Output: {
@@ -1070,23 +997,26 @@ def zip(i):
 
     o=i.get('out','')
 
-    duoa=i.get('data_uoa','')
+    duoa1=i.get('data_uoa','')
 
     # Find path to repo
-    r=ck.find_path_to_repo({'repo_uoa':duoa})
+    r=ck.find_path_to_repo({'repo_uoa':duoa1})
     if r['return']>0: return r
 
     duoa=r['repo_uoa']
     path=r['path']
 
     an=i.get('archive_name','')
-    if an=='': an='ckr.zip'
+#    if an=='': an='ckr.zip'
+    if an=='': 
+       if duoa1=='': an='ckr.zip'
+       else: an='ckr-'+duoa1+'.zip'
 
     if i.get('auto_name','')=='yes':
        an='ckr-'+duoa+'.zip'
 
     ap=i.get('archive_path','')
-    if ap=='': ap=path
+#    if ap=='': ap=path
 
     pfn=os.path.join(ap, an)
 
@@ -1106,22 +1036,219 @@ def zip(i):
     if i.get('store','')=='yes':
        zip_method=zipfile.ZIP_STORED
 
-    r=ck.list_all_files({'path':path, 'all':'yes', 'ignore_names':ck.cfg.get('ignore_directories_when_archive_repo',[])})
-    if r['return']>0: return r
+    # Prepare list of files
+    fl={}
 
-    fl=r['list']
+    data=i.get('data','')
+    if data!='':
+       xpm={}
+
+       rx=ck.access({'action':'search',
+                     'cid':data})
+       if rx['return']>0: return rx
+       lst=rx['lst']
+       for q in lst:
+           pp=q['path']
+
+           pm1,pd=os.path.split(pp)
+           pr,pm=os.path.split(pm1)
+
+           if pr not in fl:
+              fl[pr]=[]
+
+           ry=ck.find_path_to_entry({'path':pr, 'data_uoa':pm})
+           if ry['return']>0: return ry
+           pm_uid=ry['data_uid']
+           pm_alias=ry['data_alias']
+
+           if pm_alias!='':
+              if pm_alias not in xpm:
+                 xpm[pm_alias]=pm_uid
+                 fl[pr].append(os.path.join(ck.cfg['subdir_ck_ext'], ck.cfg['file_alias_a'] + pm_alias))
+                 fl[pr].append(os.path.join(ck.cfg['subdir_ck_ext'], ck.cfg['file_alias_u'] + pm_uid))
+
+           ry=ck.find_path_to_entry({'path':pm1, 'data_uoa':pd})
+           if ry['return']>0: return ry
+           pd_uid=ry['data_uid']
+           pd_alias=ry['data_alias']
+
+           if pd_alias!='':
+              fl[pr].append(os.path.join(pm, ck.cfg['subdir_ck_ext'], ck.cfg['file_alias_a'] + pd_alias))
+              fl[pr].append(os.path.join(pm, ck.cfg['subdir_ck_ext'], ck.cfg['file_alias_u'] + pd_uid))
+
+           r=ck.list_all_files({'path':pp, 'all':'yes', 'ignore_names':ck.cfg.get('ignore_directories_when_archive_repo',[])})
+           if r['return']>0: return r
+           for q in r['list']:
+               fx=os.path.join(pm,pd,q)
+               fl[pr].append(fx)
+
+    else:
+       r=ck.list_all_files({'path':path, 'all':'yes', 'ignore_names':ck.cfg.get('ignore_directories_when_archive_repo',[])})
+       if r['return']>0: return r
+       fl[path]=r['list']
 
     # Write archive
     try:
        f=open(pfn, 'wb')
        z=zipfile.ZipFile(f, 'w', zip_method)
-       for fn in fl:
-           p1=os.path.join(path, fn)
-           z.write(p1, fn, zip_method)
+       for path in fl:
+           fl1=fl[path]
+           for fn in fl1:
+               p1=os.path.join(path, fn)
+               z.write(p1, fn, zip_method)
        z.close()
        f.close()
 
     except Exception as e:
        return {'return':1, 'error':'failed to prepare archive ('+format(e)+')'}
+
+    return {'return':0}
+
+##############################################################################
+# unzip entries to a given repo
+
+def unzip(i):
+    """
+    Input:  {
+              (data_uoa)    - repo UOA where to unzip (default, if not specified)
+              zip           - path to zipfile (local or remote http/ftp)
+              (overwrite)   - if 'yes', overwrite files when unarchiving
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    duoa=i.get('data_uoa','')
+    if duoa=='': duoa='local'
+
+    overwrite=i.get('overwrite','')
+
+    zip=i.get('zip','')
+    if zip=='': zip='ckr.zip'
+
+    # Find path to repo
+    r=ck.find_path_to_repo({'repo_uoa':duoa})
+    if r['return']>0: return r
+
+    path=r['path']
+
+    # Unzipping archive
+    rz=get_and_unzip_archive({'zip':zip, 'path':path, 'overwrite':overwrite, 'out':o})
+    if rz['return']>0: return rz
+
+    return {'return':0}
+
+##############################################################################
+# received from web (if needed) and unzip archive
+
+def get_and_unzip_archive(i):
+    """
+    Input:  {
+              zip         - zip filename or URL
+              path        - path to extract
+              (overwrite) - if 'yes', overwrite files when unarchiving
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    zp=i['zip']
+    p=i['path']
+
+    overwrite=i.get('overwrite','')
+
+    # If zip, get (download) and unzip file ...
+    rm_zip=False
+    if zp.find('://')>=0:
+       if o=='con':
+          ck.out('Downloading CK archive - it may take some time ...')
+
+       rm_zip=True
+
+       # Generate tmp file
+       import tempfile
+       fd, fn=tempfile.mkstemp(suffix='.tmp', prefix='ck-') # suffix is important - CK will delete such file!
+       os.close(fd)
+       os.remove(fn)
+
+       # Import modules compatible with Python 2.x and 3.x
+       import urllib
+
+       try:
+          import urllib.request as urllib2
+       except:
+          import urllib2
+
+       # Prepare request
+       request = urllib2.Request(zp)
+
+       # Connect
+       try:
+          f=urllib2.urlopen(request)
+       except Exception as e:
+          return {'return':1, 'error':'Failed downloading CK archive ('+format(e)+')'}
+
+       chunk=32768
+
+       try:
+          fo=open(fn, 'wb')
+       except Exception as e:
+          return {'return':1, 'error':'problem opening file='+fn+' ('+format(e)+')'}
+
+       # Read from Internet
+       try:
+          while True:
+             s=f.read(chunk)
+             if not s: break
+             fo.write(s)
+
+          f.close()
+       except Exception as e:
+          return {'return':1, 'error':'Failed downlading CK archive ('+format(e)+')'}
+
+       fo.close()
+
+       zp=fn
+
+    # Unzip if zip
+    if zp!='':
+       import zipfile
+       f=open(zp,'rb')
+       z=zipfile.ZipFile(f)
+       for dx in z.namelist():
+           pp=os.path.join(p,dx)
+           if dx.endswith('/'): 
+              # create directory 
+              if not os.path.exists(pp): os.makedirs(pp)
+           else:
+              # extract file
+              ppd=os.path.dirname(pp)
+              if not os.path.exists(ppd): os.makedirs(ppd)
+
+              if os.path.isfile(pp) and overwrite!='yes':
+                 if o=='con':
+                    ck.out('File '+dx+' already exists in the entry - skipping ...')
+              else:
+                 fo=open(pp, 'wb')
+                 fo.write(z.read(dx))
+                 fo.close()
+       f.close()
+
+       if rm_zip:
+          os.remove(zp)
 
     return {'return':0}
