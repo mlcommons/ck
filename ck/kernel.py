@@ -1524,6 +1524,15 @@ def init(i):
        if not os.path.isdir(s):
           os.makedirs(s)
 
+          # Create description
+          rq=save_json_to_file({'json_file':os.path.join(s,cfg['repo_file']),
+                                'dict':{'data_alias':cfg['repo_name_local'],
+                                        'data_uoa':cfg['repo_name_local'],
+                                        'data_name':cfg['repo_name_local'],
+                                        'data_uid':cfg['repo_uid_local']},
+                                'sort_keys':'yes'})
+          if rq['return']>0: return rq
+
     if s!='':
        work['dir_local_repo']=os.path.realpath(s)
        work['dir_local_repo_path']=os.path.join(work['dir_local_repo'], cfg['module_repo_name'], cfg['repo_name_local'])
@@ -3283,7 +3292,7 @@ def detect_cid_in_current_path(i):
 
     while pr!='':
        p1=os.path.join(p, cfg['repo_file'])
- 
+
        if os.path.isfile(p1): 
           found=True
           break
