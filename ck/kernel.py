@@ -1065,7 +1065,7 @@ def save_json_to_file(i):
 
     r=dumps_json(i)
     if r['return']>0: return r
-    s=r['string']
+    s=r['string']+'\n'
 
     try:
        if sys.version_info[0]>2:
@@ -2725,12 +2725,8 @@ def create_entry(i):
           if uid1!=uid:
              return {'return':1, 'error':'different alias->uid disambiguator already exists in '+p3}
 
-       try:
-          f=open(p3, 'w')
-          f.write(uid+'\n')
-          f.close()
-       except Exception as e:
-          None
+       ru=save_text_file({'text_file':p3, 'string':uid+'\n'})
+       if ru['return']>0: return ru
 
        # Check if uid->alias exist
        p2=os.path.join(p1, cfg['file_alias_u'] + uid)
@@ -2745,12 +2741,8 @@ def create_entry(i):
           if alias1!=alias:
              return {'return':1, 'error':'different uid->alias disambiguator already exists in '+p2}
 
-       try:
-          f=open(p2, 'w')
-          f.write(alias+'\n')
-          f.close()
-       except Exception as e:
-          None
+       ru=save_text_file({'text_file':p2, 'string':alias+'\n'})
+       if ru['return']>0: return ru
 
     # Create directory
     if not os.path.exists(p):
@@ -4152,7 +4144,7 @@ def add(i):
 
               (unlock_uid)           - unlock UID if was previously locked
 
-              (sort_keys)            - if 'yes', sort keys
+              (sort_keys)            - by default, 'yes'
             }
 
     Output: {
@@ -4362,6 +4354,7 @@ def add(i):
           updates['control']=y
 
     sk=i.get('sort_keys','')
+    if sk=='': sk='yes'
 
     if len(updates)>0:
        # Record updates
@@ -4931,21 +4924,15 @@ def ren(i):
 
        # Write UOA disambiguator
        p3=os.path.join(p1, cfg['file_alias_a'] + nduoa)
-       try:
-          f=open(p3, 'w')
-          f.write(nduid+'\n')
-          f.close()
-       except Exception as e:
-          None
+
+       ru=save_text_file({'text_file':p3, 'string':nduid+'\n'})
+       if ru['return']>0: return ru
 
        # Write UID disambiguator
        p2=os.path.join(p1, cfg['file_alias_u'] + nduid)
-       try:
-          f=open(p2, 'w')
-          f.write(nduoa+'\n')
-          f.close()
-       except Exception as e:
-          None
+
+       ru=save_text_file({'text_file':p2, 'string':nduoa+'\n'})
+       if ru['return']>0: return ru
 
        if rshared!='' and rsync=='yes':
           ppp=os.getcwd()

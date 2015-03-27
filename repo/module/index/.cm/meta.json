@@ -1,25 +1,25 @@
 {
-  "license": "See CK LICENSE.txt for licensing details", 
-  "copyright": "See CK Copyright.txt for copyright details", 
-  "developer_email": "Grigori.Fursin@cTuning.org", 
   "actions": {
-    "test": {
-      "desc": "test indexing server"
-    }, 
-    "on": {
-      "desc": "turn indexing on"
-    }, 
-    "off": {
-      "desc": "turn indexing off"
-    }, 
     "clean": {
       "desc": "flush whole index"
-    }, 
+    },
+    "off": {
+      "desc": "turn indexing off"
+    },
+    "on": {
+      "desc": "turn indexing on"
+    },
     "show": {
       "desc": "show indexing status"
+    },
+    "test": {
+      "desc": "test indexing server"
     }
-  }, 
-  "developer_webpage": "http://cTuning.org/lab/people/gfursin", 
-  "desc": "indexing through ElasticSearch", 
-  "developer": "Grigori Fursin"
+  },
+  "copyright": "See CK Copyright.txt for copyright details",
+  "desc": "indexing through ElasticSearch",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://cTuning.org/lab/people/gfursin",
+  "license": "See CK LICENSE.txt for licensing details"
 }
