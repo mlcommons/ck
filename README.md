@@ -110,13 +110,19 @@ check CK as following:
 
  > ck.access('load kernel default')
 
-You can also easily connect various external CK repositories
+You can also easily clone or pull various external CK repositories
 shared via GITHUB (see CK wiki for more details) to build
 collaborative R&D scenarios:
 
- > ck add repo:ck-env --shared --quiet
+ > ck pull repo:ck-env
 
- > ck add repo:ck-web --shared --quiet
+ > ck pull repo:ck-web
+
+ > ck pull repo:ck-auto-tuning
+
+You can update the whole framework and all shared repos as following:
+
+ > ck pull all
 
 Collaborative R&D usage scenarios:
 ==================================

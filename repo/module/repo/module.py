@@ -854,10 +854,11 @@ def recache(i):
 def rm(i):
     """
     Input:  {
-              (repo_uoa)   - repo UOA (where to delete entry about repository)
-              uoa          - data UOA
-              (force)      - if 'yes', force removal
-              (with_files) - if 'yes', remove files as well
+              (repo_uoa)            - repo UOA (where to delete entry about repository)
+              uoa                   - data UOA
+              (force)               - if 'yes', force removal
+              (with_files) or (all) - if 'yes', remove files as well
+                  
             }
 
     Output: {
@@ -882,6 +883,8 @@ def rm(i):
        return {'return':1, 'error':'UOA of the repository is not defined'}
 
     wf=i.get('with_files','')
+    if wf=='': wf=i.get('all','')
+
     force=i.get('force','')
 
     r=ck.access({'action':'load',
