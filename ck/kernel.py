@@ -2767,6 +2767,7 @@ def delete_alias(i):
               data_uid     - data UID
               (data_alias) - data alias
               (repo_dict)  - repo cfg if available to check sync
+              (share)      - if 'yes', try to rm via GIT
             }
 
     Output: {
@@ -2779,6 +2780,8 @@ def delete_alias(i):
     rd=i.get('repo_dict',{})
     rshared=rd.get('shared','')
     rsync=rd.get('sync','')
+
+    if i.get('share','')=='yes': rshared='git'
 
     p=i['path']
     alias=i.get('data_alias','')
@@ -4146,6 +4149,8 @@ def add(i):
               (unlock_uid)           - unlock UID if was previously locked
 
               (sort_keys)            - by default, 'yes'
+
+              (share)                - if 'yes', try to add via GIT
             }
 
     Output: {
@@ -4187,6 +4192,8 @@ def add(i):
     rd=r['dict']
     rshared=rd.get('shared','')
     rsync=rd.get('sync','')
+
+    if i.get('share','')=='yes': rsync='yes'
 
     # Check if writing is allowed
     ii={'module_uoa':m, 'repo_uoa':r['repo_uoa'], 'repo_uid':r['repo_uid'], 'repo_dict':rd}
@@ -4630,7 +4637,8 @@ def rm(i):
               (repo_uoa)  - repo UOA
               module_uoa  - module UOA
               data_uoa    - data UOA
-              force       - if 'yes', force deleting without questions
+              (force)     - if 'yes', force deleting without questions
+              (share)     - if 'yes', try to remove via GIT
             }
 
     Output: {
@@ -4704,6 +4712,11 @@ def rm(i):
         rshared=rd.get('shared','')
         rsync=rd.get('sync','')
 
+        shr=i.get('share','')
+        if shr=='yes': 
+           rshared='git'
+           rsync='yes'
+
         # If interactive
         to_delete=True
         if o=='con' and i.get('force','')!='yes':
@@ -4716,11 +4729,10 @@ def rm(i):
            # First remove alias if exists
            if dalias!='':
               # Delete alias
-              r=delete_alias({'path':pm, 'data_alias':dalias, 'data_uid':duid, 'repo_dict':rd})
+              r=delete_alias({'path':pm, 'data_alias':dalias, 'data_uid':duid, 'repo_dict':rd, 'share':shr})
               if r['return']>0: return r
 
            if rshared!='':
-
               pp=os.path.split(p)
               pp0=pp[0]
               pp1=pp[1]
@@ -4793,6 +4805,8 @@ def ren(i):
               new_data_uid   - new data UID (leave empty to keep old one)
 
               (remove_alias) - if 'yes', remove alias
+
+              (share)        - if 'yes', try to rm via GIT
               
             }
 
@@ -4841,6 +4855,11 @@ def ren(i):
     rd=r.get('repo_dict',{})
     rshared=rd.get('shared','')
     rsync=rd.get('sync','')
+
+    shr=i.get('share','')
+    if shr=='yes': 
+       rshared='git'
+       rsync='yes'
 
     # Check if index -> delete old index
     if cfg.get('use_indexing','')=='yes':
@@ -4911,7 +4930,7 @@ def ren(i):
 
     # Remove old alias disambiguator
     if not is_uid(duoa):
-       r=delete_alias({'path':pm, 'data_uid':duid, 'data_alias':duoa})
+       r=delete_alias({'path':pm, 'data_uid':duid, 'data_alias':duoa, 'share':shr})
        if r['return']>0: return r
 
     # Add new disambiguator, if needed
