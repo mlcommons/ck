@@ -69,6 +69,7 @@ def add(i):
                                            (useful when kernel is set to allow writing only to such repositories)
 
               (url)                      - if type=='remote' or 'git', URL of remote repository or git repository
+              (githubuser)               - if shared repo, use this GITHUB user space instead of default "ctuning"
               (sync)                     - if 'yes' and type=='git', sync repo after each write operation
 
               (zip)                      - path to zipfile (local or remote http/ftp)
@@ -192,8 +193,14 @@ def add(i):
        if share=='yes' and shared=='': shared='git'
 
        # Check additional parameters if git
+       ghu=i.get('githubuser','')
        if shared=='git' and url=='':
-          durl=ck.cfg.get('default_shared_repo_url','')+'/'+d+'.git'
+
+          if ghu!='': durl=ck.cfg.get('github_repo_url','')+ghu
+          else: durl=ck.cfg.get('default_shared_repo_url','')
+
+          durl+='/'+d+'.git'
+
           if quiet!='yes':
              s='Enter URL of GIT repo '
              if d=='': s+='(for example, https://github.com/ctuning/ck-analytics.git)'
@@ -558,7 +565,20 @@ def pull(i):
                        'module_uoa':work['self_module_uoa'],
                        'data_uoa':uoa,
                        'common':'yes'})
-          if r['return']>0: return r
+          if r['return']>0: 
+             if r['return']==16:
+                # If not found, try to add from GIT
+
+                i['action']='add'
+                i['shared']='yes'
+                x=i.get('quiet','')
+                if x=='': x='yes'
+                i['quiet']=x
+
+                return add(i)
+             else:
+                return r
+
           d=r['dict']
           duoa=r['data_uoa']
 
