@@ -2,48 +2,48 @@
   "actions": {
     "add": {
       "desc": "register repository in CK"
-    },
+    }, 
     "create": {
       "desc": "register repository in CK"
-    },
+    }, 
     "delete": {
       "desc": "remove repository from CK"
-    },
+    }, 
     "get_and_unzip_archive": {
       "desc": "received from web (if needed) and unzip archive"
-    },
+    }, 
     "pull": {
       "desc": "If shared, pull from shared repository"
-    },
+    }, 
     "push": {
       "desc": "If shared, push and commit to shared repository"
-    },
+    }, 
     "recache": {
       "desc": "recache all local repositories (to speed up search)"
-    },
+    }, 
     "remove": {
       "desc": "remove repository from CK"
-    },
+    }, 
     "rm": {
       "desc": "remove repository from CK"
-    },
+    }, 
     "unzip": {
       "desc": "unzip entries to a given repo"
-    },
+    }, 
     "update": {
       "desc": "update repository information"
-    },
+    }, 
     "where": {
       "desc": "find path to a local repository"
-    },
+    }, 
     "zip": {
       "desc": "archive repository"
     }
-  },
-  "copyright": "See CK Copyright.txt for copyright details",
-  "desc": "managing CK repositories",
-  "developer": "Grigori Fursin",
-  "developer_email": "Grigori.Fursin@cTuning.org",
-  "developer_webpage": "http://cTuning.org/lab/people/gfursin",
+  }, 
+  "copyright": "See CK Copyright.txt for copyright details", 
+  "desc": "managing CK repositories", 
+  "developer": "Grigori Fursin", 
+  "developer_email": "Grigori.Fursin@cTuning.org", 
+  "developer_webpage": "http://cTuning.org/lab/people/gfursin", 
   "license": "See CK LICENSE.txt for licensing details"
 }
