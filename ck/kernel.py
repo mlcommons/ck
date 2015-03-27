@@ -151,7 +151,7 @@ cfg={
                             "push":"git push",
                             "add":"git add $#files#$",
                             "rm":"git rm -rf $#files#$",
-                            "commit":"git commit"
+                            "commit":"git commit *"
                            }
                    },
 
