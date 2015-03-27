@@ -575,7 +575,7 @@ def pull(i):
         t=q.get('type','')
         url=q.get('url','')
 
-        if o=='con':
+        if o=='con' and tt!='clone':
            ck.out('******************************************************************')
            ck.out('Trying to update repo "'+duoa+'" ('+p+') ...')
 
