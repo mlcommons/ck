@@ -54,7 +54,11 @@ def pull(i):
     os.chdir(ck_root)
 
     if o=='con':
-       ck.out('Updating CK from GITHUB ...\n')
+       ck.out('Updating CK from GITHUB ...')
+       ck.out('')
+       ck.out('  cd '+ck_root)
+       ck.out('  git pull')
+       ck.out('')
 
     rx=os.system('git pull')
     if rx>0: 

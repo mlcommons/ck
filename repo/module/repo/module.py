@@ -546,10 +546,12 @@ def pull(i):
               if r['return']>0: return r
               d=r['dict']
               t=d.get('shared','')
+              duoa=r['data_uoa']
+
               if t!='':
                  p=d.get('path','')
                  url=d.get('url','')
-                 pp.append({'path':p, 'type':t, 'url':url})
+                 pp.append({'path':p, 'type':t, 'url':url, 'data_uoa':duoa})
        else:
           # Loading repo
           r=ck.access({'action':'load',
@@ -558,22 +560,24 @@ def pull(i):
                        'common':'yes'})
           if r['return']>0: return r
           d=r['dict']
+          duoa=r['data_uoa']
 
           p=d['path']
           t=d.get('shared','')
           url=d.get('url','')
 
-          pp.append({'path':p, 'type':t, 'url':url})
+          pp.append({'path':p, 'type':t, 'url':url, 'data_uoa':duoa})
 
     # Updating ...
     for q in pp:
         p=q.get('path','')
+        duoa=q.get('data_uoa','')
         t=q.get('type','')
         url=q.get('url','')
 
         if o=='con':
-           ck.out('')
-           ck.out('Trying to update '+p+' ...')
+           ck.out('******************************************************************')
+           ck.out('Trying to update repo "'+duoa+'" ('+p+') ...')
 
         if t=='git':
            px=os.getcwd()
@@ -583,14 +587,13 @@ def pull(i):
 
            if o=='con':
               ck.out('')
-              ck.out('cd '+p+' ...')
+              ck.out('  cd '+p+' ...')
            os.chdir(p)
 
            s=ck.cfg['repo_types'][t][tt].replace('$#url#$', url).replace('$#path#$', p)
            
            if o=='con':
-              ck.out('')
-              ck.out('Executing command: '+s)
+              ck.out('  '+s)
               ck.out('')
 
            r=os.system(s)
