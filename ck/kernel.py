@@ -61,6 +61,8 @@ cfg={
 
       "user_home_dir_ext":"CK", # if no path to repos is defined, use user home dir with this extension
 
+      "file_kernel_py":"ck/kernel.py",
+
       "subdir_default_repo":"repo",
       "subdir_kernel":"kernel",
       "subdir_kernel_default":"default",
@@ -2538,6 +2540,9 @@ def perform_action(i):
           action1=u.get('actions_redirect',{}).get(action,'')
           if action1=='': action1=action
 
+          if i.get('help','')=='yes' or i.get('api','')=='yes':
+             return get_api({'path':p, 'func':action1, 'out':out})
+
           if wb=='yes' and (out=='con' or out=='web') and u.get('actions',{}).get(action,{}).get('for_web','')!='yes':
              return {'return':1, 'error':'this action is not supported in remote/web mode'}
 
@@ -2552,6 +2557,9 @@ def perform_action(i):
        action1=cfg['actions_redirect'].get(action,'')
        if action1=='': action1=action
 
+       if i.get('help','')=='yes' or i.get('api','')=='yes':
+          return get_api({'path':'', 'func':action1, 'out':out})
+
        if wb=='yes' and (out=='con' or out=='web') and cfg.get('actions',{}).get(action,{}).get('for_web','')!='yes':
           return {'return':1, 'error':'this action is not supported in remote/web mode '}
 
@@ -2565,6 +2573,92 @@ def perform_action(i):
        er='in module '+xmodule_uoa
 
     return {'return':1,'error':'action "'+action+'" not found '+er}
+
+##############################################################################
+# Print API from module for a given action #
+
+def get_api(i):
+    """
+    Input:  {
+              path  - path to module
+              func  - func for API
+              (out) - output
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              title        - title string
+              api          - api as string
+            }
+    """
+
+    p=i['path']
+    f=i['func']
+    o=i['out']
+
+    t=''
+    a=''
+
+    if p=='':
+       p=os.path.join(work['env_root'], cfg['file_kernel_py'])
+    else:
+       p=os.path.join(p, 'module.py')
+
+    if os.path.isfile(p):
+       rx=load_text_file({'text_file':p, 'split_to_list':'yes'})
+       if rx['return']>0: return rx
+
+       lst=rx['lst']
+
+       for k in range(0, len(lst)):
+           q=lst[k]
+
+           if q.find('def '+f+'(')>=0 or q.find('def '+f+' (')>=0 or \
+              q.find('def\t'+f+'(')>=0 or q.find('def\t'+f+' (')>=0:
+
+              j=k-1
+              if j>=0 and lst[j].strip()=='': j-=1
+
+              x='x'
+              while j>=0 and x!='' and not x.startswith('###'):
+                x=lst[j].strip()
+                if x!='' and not x.startswith('###'):
+                   if x.startswith('# '): x=x[2:]
+                   t=x+'\n'+t
+                j-=1
+
+              j=k+1
+              if j<len(lst) and lst[j].find('"""')>=0: 
+                 j+=1
+
+              x=''
+              while x.find('"""')<0 and j<len(lst):
+                  x=lst[j]
+                  if x.find('"""')<0:
+                     a+=x+'\n'
+                  j+=1
+
+    if o=='con':
+       out('Function: '+t)
+       out('')
+       out('Module: '+p)
+       out('')
+       out('API:')
+       out(a)
+    elif o=='web':
+       out('<B>Function:</B> '+t+'<BR>')
+       out('<BR>')
+       out('<B>Module:</B> '+p+'<BR>')
+       out('<BR>')
+       out('<B>API:</B><BR>')
+       out('<pre>')
+       out(a)
+       out('</pre><BR>')
+
+    return {'return':0, 'title':t, 'api':a}
 
 ##############################################################################
 # Convert CID to dict and add missing parts in CID with current path if #
