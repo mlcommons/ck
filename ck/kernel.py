@@ -4434,6 +4434,7 @@ def add(i):
     # If name exists, add
     info['backup_module_uoa']=muoa
     info['backup_module_uid']=muid
+    info['backup_data_uid']=duid
     if dn!='': info['data_name']=dn
 
     # Add control info
@@ -4933,11 +4934,14 @@ def ren(i):
     rdd=r
     muid=r['module_uid']
     pr=r['path_repo']
+    ddi=r['info']
 
     duoa=r['data_uoa']
     duid=r['data_uid']
+
     p=r['path']
     pm=r['path_module'] 
+
     p1=os.path.join(pm, cfg['subdir_ck_ext'])
     pn=p
 
@@ -5019,6 +5023,15 @@ def ren(i):
              shutil.rmtree(p)
        else:
           os.rename(p, pn)
+
+    if nduid!='':
+       # Change backup_data_uid in info file
+       ppi=os.path.join(pn,cfg['subdir_ck_ext'],cfg['file_info'])
+
+       ddi['backup_data_uid']=nduid
+
+       rx=save_json_to_file({'json_file':ppi, 'dict':ddi, 'sort_keys':'yes'})
+       if rx['return']>0: return rx
 
     if nduid=='': nduid=duid
 
