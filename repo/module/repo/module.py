@@ -59,6 +59,9 @@ def add(i):
                                            but the repository is taken either 
                                            from the CK directory or from CK_LOCAL_REPO
 
+              (import)                   - if 'yes', register repo in the current directory in CK
+                                           (when received from someone else)
+
               (remote)                   - if 'yes', remote repository
               (remote_repo_uoa)          - if !='' and type=='remote' repository UOA on the remote CK server
 
@@ -122,10 +125,28 @@ def add(i):
 
     quiet=i.get('quiet','')
 
-    # Get path
+    # Get repo path (unless 'here' later)
     px=i.get('path','')
+
+    # Check if import
+    imp=i.get('import','')
+    if imp=='yes': 
+       if px=='': i['here']='yes'
+
+    # Get 'here' path
     if i.get('here','')=='yes': px=os.getcwd()
     p=px
+
+    if imp=='yes': 
+       py=os.path.join(p,ck.cfg['repo_file'])
+       if os.path.isfile(py):
+          r=ck.load_json_file({'json_file':py})
+          if r['return']>0: return r
+          dc=r['dict']
+
+          d=dc.get('data_uoa','')
+          di=dc.get('data_uid','')
+          dn=dc.get('data_name','')
 
     if p=='' and udp=='yes': p=os.path.join(ck.work['dir_repos'], d)
 
@@ -208,7 +229,7 @@ def add(i):
              r=ck.inp({'text': s+': '})
              url=r['string'].lower()
           if url=='': url=durl
-                              
+
        # Check additional parameters if git
        if shared=='git' and sync=='':
           if quiet!='yes':
@@ -611,7 +632,7 @@ def pull(i):
            os.chdir(p)
 
            s=ck.cfg['repo_types'][t][tt].replace('$#url#$', url).replace('$#path#$', p)
-           
+
            if o=='con':
               ck.out('  '+s)
               ck.out('')
@@ -718,14 +739,14 @@ def push(i):
 
         if t=='git':
            px=os.getcwd()
-      
+
            if not os.path.isdir(p):
               return {'return':1, 'error':'local path to repository is not found'}
 
            if o=='con':
               ck.out('')
               ck.out('cd '+p+' ...')
-              
+
            os.chdir(p)
 
            s=ck.cfg['repo_types'][t]['commit'].replace('$#url#$', url).replace('$#path#$', p)
@@ -747,7 +768,7 @@ def push(i):
 
            if o=='con': 
               ck.out('')
-      
+
            os.chdir(px) # Restore path
 
            if r>0:
@@ -838,7 +859,7 @@ def recache(i):
     if o=='con':
        ck.out('')
        ck.out('Recording repo cache ...')
-    
+
     rx=ck.save_repo_cache({})
     if rx['return']>0: return rx
 
@@ -858,7 +879,6 @@ def rm(i):
               uoa                   - data UOA
               (force)               - if 'yes', force removal
               (with_files) or (all) - if 'yes', remove files as well
-                  
             }
 
     Output: {
@@ -1278,3 +1298,22 @@ def get_and_unzip_archive(i):
           os.remove(zp)
 
     return {'return':0}
+
+##############################################################################
+# import repo from current path
+
+def import_repo(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    i['import']='yes'
+    return add(i)

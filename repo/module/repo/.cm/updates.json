@@ -71,6 +71,20 @@
         "1", 
         "0205"
       ]
+    }, 
+    {
+      "author": "Grigori Fursin", 
+      "author_email": "Grigori.Fursin@cTuning.org", 
+      "author_webpage": "http://cTuning.org/lab/people/gfursin", 
+      "copyright": "See CK Copyright.txt for copyright details", 
+      "engine": "CK", 
+      "iso_datetime": "2015-03-30T10:56:45.712653", 
+      "license": "See CK LICENSE.txt for licensing details", 
+      "version": [
+        "1", 
+        "1", 
+        "0205"
+      ]
     }
   ]
 }
