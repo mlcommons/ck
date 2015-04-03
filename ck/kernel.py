@@ -298,8 +298,13 @@ def out(s):
           b=s.encode(con_encoding, 'ignore')
 
        if sys.version_info[0]>2:
-          sys.stdout.buffer.write(b)
-          sys.stdout.buffer.write(b'\n')
+          try: # We encountered issues on ipython with Anaconda
+               # and hence made this work around
+             sys.stdout.buffer.write(b)
+             sys.stdout.buffer.write(b'\n')
+          except Exception as e: 
+             print(s)
+             pass
        else:
           print(b)
 
@@ -5771,7 +5776,7 @@ def list_data(i):
                     for du in xd:
 #                        print mp, du
                         r=find_path_to_entry({'path':mp, 'data_uoa':du})
-                        if r['return']>0: return r
+                        if r['return']>0: continue
 
                         dp=r['path']
                         dpcfg=os.path.join(dp,cfg['subdir_ck_ext'])
