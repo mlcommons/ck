@@ -313,6 +313,25 @@ def out(s):
     return None
 
 ##############################################################################
+# Universal error print and exit
+
+def err(r):
+    """
+    Input:  {
+              return - return code
+              error - error text
+            }
+
+    Output: Nothing; quits program
+    """
+
+    rc=r['return']
+    re=r['error']
+
+    out('Error: '+re)
+    exit(rc)
+
+##############################################################################
 # Converting iso text time to datetime object
 
 def convert_iso_time(i):
