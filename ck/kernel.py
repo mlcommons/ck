@@ -920,7 +920,7 @@ def load_text_file(i):
     fn=i['text_file']
 
     en=i.get('encoding','')
-    if en=='': en='utf8'
+    if en=='' or en==None: en='utf8'
 
     try:
        f=open(fn, 'rb')
