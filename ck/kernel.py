@@ -32,6 +32,7 @@ cfg={
       "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
 
       "default_shared_repo_url":"https://github.com/ctuning",
+      "github_repo_url":"https://github.com/",
 
       "default_license":"See CK LICENSE.txt for licensing details",
       "default_copyright":"See CK Copyright.txt for copyright details",
@@ -40,6 +41,7 @@ cfg={
       "default_developer_webpage":"http://cTuning.org",
 
       "detect_cur_cid":"#",
+      "detect_cur_cid1":"^",
 
       "version":["1", "1", "0205"],
       "error":"CK error: ",
@@ -58,6 +60,8 @@ cfg={
       "subdir_default_repos":"repos",
 
       "user_home_dir_ext":"CK", # if no path to repos is defined, use user home dir with this extension
+
+      "file_kernel_py":"ck/kernel.py",
 
       "subdir_default_repo":"repo",
       "subdir_kernel":"kernel",
@@ -150,7 +154,7 @@ cfg={
                             "push":"git push",
                             "add":"git add $#files#$",
                             "rm":"git rm -rf $#files#$",
-                            "commit":"git commit"
+                            "commit":"git commit *"
                            }
                    },
 
@@ -294,14 +298,38 @@ def out(s):
           b=s.encode(con_encoding, 'ignore')
 
        if sys.version_info[0]>2:
-          sys.stdout.buffer.write(b)
-          sys.stdout.buffer.write(b'\n')
+          try: # We encountered issues on ipython with Anaconda
+               # and hence made this work around
+             sys.stdout.buffer.write(b)
+             sys.stdout.buffer.write(b'\n')
+          except Exception as e: 
+             print(s)
+             pass
        else:
           print(b)
 
     sys.stdout.flush()
 
     return None
+
+##############################################################################
+# Universal error print and exit
+
+def err(r):
+    """
+    Input:  {
+              return - return code
+              error - error text
+            }
+
+    Output: Nothing; quits program
+    """
+
+    rc=r['return']
+    re=r['error']
+
+    out('Error: '+re)
+    exit(rc)
 
 ##############################################################################
 # Converting iso text time to datetime object
@@ -427,6 +455,65 @@ def inp(i):
     return {'return':0, 'string':s}
 
 ##############################################################################
+# Universal selector of dictionary entry
+
+def select(i):
+    """
+    Input:  {
+              dict             - dict with 'name' as string and 'sort' in int
+              (title)          - print title
+              (error_if_empty) - if 'yes' and Enter, make error
+            }
+
+    Output: {
+              return       - return code =  0
+
+              string       - selected dictionary key
+            }
+    """
+
+    s=''
+
+    title=i.get('title','')
+    if title!='':
+       out(title)
+       out('')
+
+    d=i['dict']
+    kd=sorted(d, key=lambda v: d[v].get('sort',0))
+    
+    j=0
+    ks={}
+    for k in kd:
+        q=d[k]
+
+        sj=str(j)
+        ks[sj]=k
+
+        qn=q.get('name','')
+
+        out(sj+') '+qn)
+
+        j+=1
+
+    out('')
+    rx=inp({'text':'Make your selection: '})
+    if rx['return']>0: return rx
+    sx=rx['string'].strip()
+
+    if sx=='':
+       if i.get('error_if_empty','')=='yes':
+          return {'return':1, 'error':'selection is empty'}
+       
+       s=kd[0]
+    else:
+       if sx not in ks:
+          return {'return':1, 'error':'selection is not recognized'}
+       s=ks[sx]
+
+    return {'return':0, 'string':s}
+
+##############################################################################
 # Check writing possibility
 
 def check_writing(i):
@@ -545,8 +632,9 @@ def get_version(i):
 def gen_tmp_file(i):
     """
     Input:  {
-              (suffix) - temp file suffix
-              (prefix) - temp file prefix
+              (suffix)     - temp file suffix
+              (prefix)     - temp file prefix
+              (remove_dir) - if 'yes', remove dir
             }
 
     Output: {
@@ -566,6 +654,9 @@ def gen_tmp_file(i):
     fd, fn=tempfile.mkstemp(suffix=xs, prefix=xp)
     os.close(fd)
     os.remove(fn)
+
+    if i.get('remove_dir','')=='yes':
+       fn=os.path.basename(fn)
 
     return {'return':0, 'file_name':fn}
 
@@ -685,7 +776,7 @@ def is_uoa(str):
     Output: True if allowed UOA, False otherwise
     """
 
-    if str.find(cfg['detect_cur_cid'])>=0: return False
+    if str.find(cfg['detect_cur_cid'])>=0 or str.find(cfg['detect_cur_cid1'])>=0: return False
     if str.find('*')>=0: return False
     if str.find('?')>=0: return False
 
@@ -848,7 +939,7 @@ def load_text_file(i):
     fn=i['text_file']
 
     en=i.get('encoding','')
-    if en=='': en='utf8'
+    if en=='' or en==None: en='utf8'
 
     try:
        f=open(fn, 'rb')
@@ -1001,7 +1092,7 @@ def save_json_to_file(i):
 
     r=dumps_json(i)
     if r['return']>0: return r
-    s=r['string']
+    s=r['string']+'\n'
 
     try:
        if sys.version_info[0]>2:
@@ -1460,6 +1551,15 @@ def init(i):
        if not os.path.isdir(s):
           os.makedirs(s)
 
+          # Create description
+          rq=save_json_to_file({'json_file':os.path.join(s,cfg['repo_file']),
+                                'dict':{'data_alias':cfg['repo_name_local'],
+                                        'data_uoa':cfg['repo_name_local'],
+                                        'data_name':cfg['repo_name_local'],
+                                        'data_uid':cfg['repo_uid_local']},
+                                'sort_keys':'yes'})
+          if rq['return']>0: return rq
+
     if s!='':
        work['dir_local_repo']=os.path.realpath(s)
        work['dir_local_repo_path']=os.path.join(work['dir_local_repo'], cfg['module_repo_name'], cfg['repo_name_local'])
@@ -1488,6 +1588,22 @@ def init(i):
     # Prepare repo cache
     work['dir_cache_repo_uoa']=os.path.join(work['dir_work_repo'],cfg['file_cache_repo_uoa'])
     work['dir_cache_repo_info']=os.path.join(work['dir_work_repo'],cfg['file_cache_repo_info'])
+
+    # Check if first time and then copy local cache files (with remote-ck)
+    if not os.path.isfile(work['dir_cache_repo_uoa']) and not os.path.isfile(work['dir_cache_repo_info']):
+       rx=load_text_file({'text_file':os.path.join(work['dir_default_repo'],cfg['file_cache_repo_uoa'])})
+       if rx['return']>0: return rx
+       x1=rx['string']
+
+       rx=load_text_file({'text_file':os.path.join(work['dir_default_repo'],cfg['file_cache_repo_info'])})
+       if rx['return']>0: return rx
+       x2=rx['string']
+
+       rx=save_text_file({'text_file':work['dir_cache_repo_info'], 'string':x2})
+       if rx['return']>0: return rx
+
+       rx=save_text_file({'text_file':work['dir_cache_repo_uoa'], 'string':x1})
+       if rx['return']>0: return rx
 
     # Check if local configuration exists, and if not, create it
     if not os.path.isfile(work['dir_local_cfg']):
@@ -2332,11 +2448,11 @@ def perform_action(i):
     need_subst=False
     rc={} # If CID from current directory
 
-    if cid.startswith(cfg['detect_cur_cid']):
+    if cid.startswith(cfg['detect_cur_cid']) or cid.startswith(cfg['detect_cur_cid1']):
        need_subst=True
     else:
        for c in cids:
-           if c.startswith(cfg['detect_cur_cid']): 
+           if c.startswith(cfg['detect_cur_cid']) or c.startswith(cfg['detect_cur_cid1']): 
               need_subst=True
               break
 
@@ -2347,7 +2463,7 @@ def perform_action(i):
 
     # Process cid (module or CID)
     module_uoa=cid
-    if cid.find(':')>=0 or cid.startswith(cfg['detect_cur_cid']):
+    if cid.find(':')>=0 or cid.startswith(cfg['detect_cur_cid']) or cid.startswith(cfg['detect_cur_cid1']):
        # Means that CID
        r=parse_cid({'cid':cid, 'cur_cid':rc})
        if r['return']>0: return r
@@ -2448,6 +2564,9 @@ def perform_action(i):
           action1=u.get('actions_redirect',{}).get(action,'')
           if action1=='': action1=action
 
+          if i.get('help','')=='yes' or i.get('api','')=='yes':
+             return get_api({'path':p, 'func':action1, 'out':out})
+
           if wb=='yes' and (out=='con' or out=='web') and u.get('actions',{}).get(action,{}).get('for_web','')!='yes':
              return {'return':1, 'error':'this action is not supported in remote/web mode'}
 
@@ -2462,6 +2581,9 @@ def perform_action(i):
        action1=cfg['actions_redirect'].get(action,'')
        if action1=='': action1=action
 
+       if i.get('help','')=='yes' or i.get('api','')=='yes':
+          return get_api({'path':'', 'func':action1, 'out':out})
+
        if wb=='yes' and (out=='con' or out=='web') and cfg.get('actions',{}).get(action,{}).get('for_web','')!='yes':
           return {'return':1, 'error':'this action is not supported in remote/web mode '}
 
@@ -2475,6 +2597,92 @@ def perform_action(i):
        er='in module '+xmodule_uoa
 
     return {'return':1,'error':'action "'+action+'" not found '+er}
+
+##############################################################################
+# Print API from module for a given action #
+
+def get_api(i):
+    """
+    Input:  {
+              path  - path to module
+              func  - func for API
+              (out) - output
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              title        - title string
+              api          - api as string
+            }
+    """
+
+    p=i['path']
+    f=i['func']
+    o=i['out']
+
+    t=''
+    a=''
+
+    if p=='':
+       p=os.path.join(work['env_root'], cfg['file_kernel_py'])
+    else:
+       p=os.path.join(p, 'module.py')
+
+    if os.path.isfile(p):
+       rx=load_text_file({'text_file':p, 'split_to_list':'yes'})
+       if rx['return']>0: return rx
+
+       lst=rx['lst']
+
+       for k in range(0, len(lst)):
+           q=lst[k]
+
+           if q.find('def '+f+'(')>=0 or q.find('def '+f+' (')>=0 or \
+              q.find('def\t'+f+'(')>=0 or q.find('def\t'+f+' (')>=0:
+
+              j=k-1
+              if j>=0 and lst[j].strip()=='': j-=1
+
+              x='x'
+              while j>=0 and x!='' and not x.startswith('###'):
+                x=lst[j].strip()
+                if x!='' and not x.startswith('###'):
+                   if x.startswith('# '): x=x[2:]
+                   t=x+'\n'+t
+                j-=1
+
+              j=k+1
+              if j<len(lst) and lst[j].find('"""')>=0: 
+                 j+=1
+
+              x=''
+              while x.find('"""')<0 and j<len(lst):
+                  x=lst[j]
+                  if x.find('"""')<0:
+                     a+=x+'\n'
+                  j+=1
+
+    if o=='con':
+       out('Function: '+t)
+       out('')
+       out('Module: '+p)
+       out('')
+       out('API:')
+       out(a)
+    elif o=='web':
+       out('<B>Function:</B> '+t+'<BR>')
+       out('<BR>')
+       out('<B>Module:</B> '+p+'<BR>')
+       out('<BR>')
+       out('<B>API:</B><BR>')
+       out('<pre>')
+       out(a)
+       out('</pre><BR>')
+
+    return {'return':0, 'title':t, 'api':a}
 
 ##############################################################################
 # Convert CID to dict and add missing parts in CID with current path if #
@@ -2509,7 +2717,7 @@ def parse_cid(i):
     m0=cc.get('module_uoa','')
     d0=cc.get('data_uoa','')
 
-    if c.startswith(cfg['detect_cur_cid']):
+    if c.startswith(cfg['detect_cur_cid']) or c.startswith(cfg['detect_cur_cid1']):
        c=c[1:]
 
     x=c.split(':')
@@ -2636,12 +2844,8 @@ def create_entry(i):
           if uid1!=uid:
              return {'return':1, 'error':'different alias->uid disambiguator already exists in '+p3}
 
-       try:
-          f=open(p3, 'w')
-          f.write(uid+'\n')
-          f.close()
-       except Exception as e:
-          None
+       ru=save_text_file({'text_file':p3, 'string':uid+'\n'})
+       if ru['return']>0: return ru
 
        # Check if uid->alias exist
        p2=os.path.join(p1, cfg['file_alias_u'] + uid)
@@ -2656,12 +2860,8 @@ def create_entry(i):
           if alias1!=alias:
              return {'return':1, 'error':'different uid->alias disambiguator already exists in '+p2}
 
-       try:
-          f=open(p2, 'w')
-          f.write(alias+'\n')
-          f.close()
-       except Exception as e:
-          None
+       ru=save_text_file({'text_file':p2, 'string':alias+'\n'})
+       if ru['return']>0: return ru
 
     # Create directory
     if not os.path.exists(p):
@@ -2685,6 +2885,7 @@ def delete_alias(i):
               data_uid     - data UID
               (data_alias) - data alias
               (repo_dict)  - repo cfg if available to check sync
+              (share)      - if 'yes', try to rm via GIT
             }
 
     Output: {
@@ -2697,6 +2898,8 @@ def delete_alias(i):
     rd=i.get('repo_dict',{})
     rshared=rd.get('shared','')
     rsync=rd.get('sync','')
+
+    if i.get('share','')=='yes': rshared='git'
 
     p=i['path']
     alias=i.get('data_alias','')
@@ -3203,7 +3406,7 @@ def detect_cid_in_current_path(i):
 
     while pr!='':
        p1=os.path.join(p, cfg['repo_file'])
- 
+
        if os.path.isfile(p1): 
           found=True
           break
@@ -4063,7 +4266,9 @@ def add(i):
 
               (unlock_uid)           - unlock UID if was previously locked
 
-              (sort_keys)            - if 'yes', sort keys
+              (sort_keys)            - by default, 'yes'
+
+              (share)                - if 'yes', try to add via GIT
             }
 
     Output: {
@@ -4105,6 +4310,8 @@ def add(i):
     rd=r['dict']
     rshared=rd.get('shared','')
     rsync=rd.get('sync','')
+
+    if i.get('share','')=='yes': rsync='yes'
 
     # Check if writing is allowed
     ii={'module_uoa':m, 'repo_uoa':r['repo_uoa'], 'repo_uid':r['repo_uid'], 'repo_dict':rd}
@@ -4251,6 +4458,7 @@ def add(i):
     # If name exists, add
     info['backup_module_uoa']=muoa
     info['backup_module_uid']=muid
+    info['backup_data_uid']=duid
     if dn!='': info['data_name']=dn
 
     # Add control info
@@ -4273,6 +4481,7 @@ def add(i):
           updates['control']=y
 
     sk=i.get('sort_keys','')
+    if sk=='': sk='yes'
 
     if len(updates)>0:
        # Record updates
@@ -4547,7 +4756,8 @@ def rm(i):
               (repo_uoa)  - repo UOA
               module_uoa  - module UOA
               data_uoa    - data UOA
-              force       - if 'yes', force deleting without questions
+              (force)     - if 'yes', force deleting without questions
+              (share)     - if 'yes', try to remove via GIT
             }
 
     Output: {
@@ -4621,6 +4831,11 @@ def rm(i):
         rshared=rd.get('shared','')
         rsync=rd.get('sync','')
 
+        shr=i.get('share','')
+        if shr=='yes': 
+           rshared='git'
+           rsync='yes'
+
         # If interactive
         to_delete=True
         if o=='con' and i.get('force','')!='yes':
@@ -4633,11 +4848,10 @@ def rm(i):
            # First remove alias if exists
            if dalias!='':
               # Delete alias
-              r=delete_alias({'path':pm, 'data_alias':dalias, 'data_uid':duid, 'repo_dict':rd})
+              r=delete_alias({'path':pm, 'data_alias':dalias, 'data_uid':duid, 'repo_dict':rd, 'share':shr})
               if r['return']>0: return r
 
            if rshared!='':
-
               pp=os.path.split(p)
               pp0=pp[0]
               pp1=pp[1]
@@ -4710,6 +4924,8 @@ def ren(i):
               new_data_uid   - new data UID (leave empty to keep old one)
 
               (remove_alias) - if 'yes', remove alias
+
+              (share)        - if 'yes', try to rm via GIT
               
             }
 
@@ -4742,11 +4958,14 @@ def ren(i):
     rdd=r
     muid=r['module_uid']
     pr=r['path_repo']
+    ddi=r['info']
 
     duoa=r['data_uoa']
     duid=r['data_uid']
+
     p=r['path']
     pm=r['path_module'] 
+
     p1=os.path.join(pm, cfg['subdir_ck_ext'])
     pn=p
 
@@ -4758,6 +4977,11 @@ def ren(i):
     rd=r.get('repo_dict',{})
     rshared=rd.get('shared','')
     rsync=rd.get('sync','')
+
+    shr=i.get('share','')
+    if shr=='yes': 
+       rshared='git'
+       rsync='yes'
 
     # Check if index -> delete old index
     if cfg.get('use_indexing','')=='yes':
@@ -4824,11 +5048,20 @@ def ren(i):
        else:
           os.rename(p, pn)
 
+    if nduid!='':
+       # Change backup_data_uid in info file
+       ppi=os.path.join(pn,cfg['subdir_ck_ext'],cfg['file_info'])
+
+       ddi['backup_data_uid']=nduid
+
+       rx=save_json_to_file({'json_file':ppi, 'dict':ddi, 'sort_keys':'yes'})
+       if rx['return']>0: return rx
+
     if nduid=='': nduid=duid
 
     # Remove old alias disambiguator
     if not is_uid(duoa):
-       r=delete_alias({'path':pm, 'data_uid':duid, 'data_alias':duoa})
+       r=delete_alias({'path':pm, 'data_uid':duid, 'data_alias':duoa, 'share':shr})
        if r['return']>0: return r
 
     # Add new disambiguator, if needed
@@ -4842,21 +5075,15 @@ def ren(i):
 
        # Write UOA disambiguator
        p3=os.path.join(p1, cfg['file_alias_a'] + nduoa)
-       try:
-          f=open(p3, 'w')
-          f.write(nduid+'\n')
-          f.close()
-       except Exception as e:
-          None
+
+       ru=save_text_file({'text_file':p3, 'string':nduid+'\n'})
+       if ru['return']>0: return ru
 
        # Write UID disambiguator
        p2=os.path.join(p1, cfg['file_alias_u'] + nduid)
-       try:
-          f=open(p2, 'w')
-          f.write(nduoa+'\n')
-          f.close()
-       except Exception as e:
-          None
+
+       ru=save_text_file({'text_file':p2, 'string':nduoa+'\n'})
+       if ru['return']>0: return ru
 
        if rshared!='' and rsync=='yes':
           ppp=os.getcwd()
@@ -5563,10 +5790,12 @@ def list_data(i):
                                  xd.append(fn)
 
                     # Iterate over data
+                    if len(lduoa)>0:
+                       xd=lduoa
                     for du in xd:
 #                        print mp, du
                         r=find_path_to_entry({'path':mp, 'data_uoa':du})
-                        if r['return']>0: return r
+                        if r['return']>0: continue
 
                         dp=r['path']
                         dpcfg=os.path.join(dp,cfg['subdir_ck_ext'])
@@ -6086,9 +6315,15 @@ def compare_dicts(i):
                if m not in v1:
                   equal='no'
                   break
+
+           if equal=='no':
+              break
         else:
            if q2 not in d1:
               equal='no'
+              break
+
+           if equal=='no':
               break
 
            v1=d1[q2]

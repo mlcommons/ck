@@ -1,9 +1,7 @@
 {
-  "actions": {
-    "test": {}
-  }, 
+  "actions": {}, 
   "copyright": "See CK Copyright.txt for copyright details", 
-  "desc": "testing CK functionality", 
+  "desc": "demo", 
   "developer": "Grigori Fursin", 
   "developer_email": "Grigori.Fursin@cTuning.org", 
   "developer_webpage": "http://cTuning.org/lab/people/gfursin", 

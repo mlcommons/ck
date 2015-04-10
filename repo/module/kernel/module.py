@@ -41,6 +41,7 @@ def setup(i):
 
     Input:  {
               (group)      - if !='', configure only this group:
+                             * recache - recache repos (needed during first run for remote repos)
                              * install - install as python library
                              * update - check for update
                              * content - related to content 
@@ -77,7 +78,7 @@ def setup(i):
        elif i.get('indexing','')=='yes': param='indexing'
 
     # Get current configuration
-    cfg={}
+    xcfg={}
 
     ck.out(sep)
     ck.out('Loading current configuration ...')
@@ -87,14 +88,31 @@ def setup(i):
                  'module_uoa':ck.cfg['subdir_kernel'],
                  'data_uoa':ck.cfg['subdir_kernel_default']})
     if r['return']==0: 
-       cfg.update(r['dict'])
+       xcfg.update(r['dict'])
 
     r=ck.access({'action':'load',
                  'repo_uoa':ck.cfg['repo_name_local'],
                  'module_uoa':ck.cfg['subdir_kernel'],
                  'data_uoa':ck.cfg['subdir_kernel_default']})
     if r['return']==0: 
-       cfg.update(r['dict'])
+       xcfg.update(r['dict'])
+
+    # Recaching repos
+    if param=='' or param=='recache':
+       ck.out(sep)
+       ck.out('*** Caching all repos (to speed up search) ***')
+
+       ck.out('')
+       r=ck.inp({'text':'Would you like to (re)cache all repos (y/N): '})
+       d=''
+       x=r['string'].lower()
+       if x=='y' or x=='yes': 
+          ck.out('')
+
+          r=ck.access({'action':'recache',
+                       'module_uoa':cfg['module_deps']['repo'],
+                       'out':'con'})
+          if r['return']>0: return r
 
     # Install options
     if param=='' or param=='install':
@@ -107,7 +125,7 @@ def setup(i):
        except Exception as e:
           installed=False
 
-       if param=='install' or (param=='' and not installed and cfg.get('skip_ck_install','')!='yes'):
+       if param=='install' or (param=='' and not installed and xcfg.get('skip_ck_install','')!='yes'):
           ck.out('')
           r=ck.inp({'text':'Would you like to install CK as root library (y/N): '})
           d=''
@@ -119,7 +137,7 @@ def setup(i):
              d1=''
              x1=r1['string'].lower()
              if x1=='y' or x1=='yes': 
-                cfg['skip_ck_install']='yes'
+                xcfg['skip_ck_install']='yes'
 
           if d=='yes':
              p=ck.work['env_root']
@@ -173,33 +191,33 @@ def setup(i):
        ck.out('*** Content authorship ***')
 
        ck.out('')
-       ck.out('Current author/developer of the content: '+cfg.get('default_developer', ck.cfg.get('default_developer','')))
-       ck.out('Current author/developer email :         '+cfg.get('default_developer_email', ck.cfg.get('default_developer_email','')))
-       ck.out('Current author/developer webpage :       '+cfg.get('default_developer_webpage', ck.cfg.get('default_developer_webpage','')))
-       ck.out('Current copyright of the content:        '+cfg.get('default_copyright', ck.cfg.get('default_copyright','')))
-       ck.out('Current license of the content:          '+cfg.get('default_license', ck.cfg.get('default_license','')))
+       ck.out('Current author/developer of the content: '+xcfg.get('default_developer', ck.xfg.get('default_developer','')))
+       ck.out('Current author/developer email :         '+xcfg.get('default_developer_email', ck.cfg.get('default_developer_email','')))
+       ck.out('Current author/developer webpage :       '+xcfg.get('default_developer_webpage', ck.cfg.get('default_developer_webpage','')))
+       ck.out('Current copyright of the content:        '+xcfg.get('default_copyright', ck.cfg.get('default_copyright','')))
+       ck.out('Current license of the content:          '+xcfg.get('default_license', ck.cfg.get('default_license','')))
 
        ck.out('')
 
        r=ck.inp({'text': 'Change author/developer of the content (or Enter to keep previous): '})
        d=r['string']
-       if d!='': cfg['default_developer']=d
+       if d!='': xcfg['default_developer']=d
 
        r=ck.inp({'text': 'Change author/developer email (or Enter to keep previous):          '})
        d=r['string']
-       if d!='': cfg['default_developer_email']=d
+       if d!='': xcfg['default_developer_email']=d
 
        r=ck.inp({'text': 'Change author/developer webpage (or Enter to keep previous):        '})
        d=r['string']
-       if d!='': cfg['default_developer_webpage']=d
+       if d!='': xcfg['default_developer_webpage']=d
 
        r=ck.inp({'text': 'Change copyright of the content (or Enter to keep previous):        '})
        d=r['string']
-       if d!='': cfg['default_copyright']=d
+       if d!='': xcfg['default_copyright']=d
 
        r=ck.inp({'text': 'Change license of the content (or Enter to keep previous):          '})
        d=r['string']
-       if d!='': cfg['default_license']=d
+       if d!='': xcfg['default_license']=d
 
     # Repo options
     if param=='' or param=='repos':
@@ -207,7 +225,7 @@ def setup(i):
        ck.out('*** Repositories control ***')
 
        ck.out('')
-       x=cfg.get('default_shared_repo_url','')
+       x=xcfg.get('default_shared_repo_url','')
        if x=='':
           x=ck.cfg.get('default_shared_repo_url','')
        ck.out('Default URL for shared repositories: '+x)
@@ -216,7 +234,7 @@ def setup(i):
        r=ck.inp({'text': 'Enter new URL (Enter to keep current): '})
        x=r['string']
        if x!='': 
-          cfg['default_shared_repo_url']=x
+          xcfg['default_shared_repo_url']=x
 
     # Editing options
     if param=='' or param=='editing':
@@ -224,14 +242,14 @@ def setup(i):
        ck.out('*** Editing control ***')
 
        ck.out('')
-       ck.out('CMD to edit meta-description of entries: '+cfg.get('external_editor',ck.cfg.get('external_editor',{})).get(plat,''))
+       ck.out('CMD to edit meta-description of entries: '+xcfg.get('external_editor',ck.cfg.get('external_editor',{})).get(plat,''))
 
        ck.out('')
        r=ck.inp({'text': 'Enter CMD to enter meta-description using $#filename#$ to substitute filename (Enter to keep previous): '})
        d=r['string']
        if d!='': 
-          if 'external_editor' not in cfg: cfg['external_editor']={}
-          cfg['external_editor'][plat]=d
+          if 'external_editor' not in xcfg: xcfg['external_editor']={}
+          xcfg['external_editor'][plat]=d
 
     # Writing options
     if param=='' or param=='writing':
@@ -239,43 +257,43 @@ def setup(i):
        ck.out('*** Writing control ***')
 
        ck.out('')
-       ck.out('Forbid all writing operations (useful for permanent web-based repositories):     '+cfg.get('forbid_global_writing' ,ck.cfg.get('forbid_global_writing','')))
-       ck.out('Forbid delete/rename operations (useful for aggregating web-based repositories): '+cfg.get('forbid_global_delete' ,ck.cfg.get('forbid_global_delete','')))
-       ck.out('Forbid writing modules (adding/updating/removing):                               '+cfg.get('forbid_writing_modules', ck.cfg.get('forbid_writing_modules','')))
-       ck.out('Forbid writing to default repo:                                                  '+cfg.get('forbid_writing_to_default_repo' ,ck.cfg.get('forbid_writing_to_default_repo','')))
-       ck.out('Forbid writing to local repo:                                                    '+cfg.get('forbid_writing_to_local_repo', ck.cfg.get('forbid_writing_to_local_repo','')))
-       ck.out('Allow writing only to allowed individual repos:                                  '+cfg.get('allow_writing_only_to_allowed', ck.cfg.get('allow_writing_only_to_allowed','')))
+       ck.out('Forbid all writing operations (useful for permanent web-based repositories):     '+xcfg.get('forbid_global_writing' ,ck.cfg.get('forbid_global_writing','')))
+       ck.out('Forbid delete/rename operations (useful for aggregating web-based repositories): '+xcfg.get('forbid_global_delete' ,ck.cfg.get('forbid_global_delete','')))
+       ck.out('Forbid writing modules (adding/updating/removing):                               '+xcfg.get('forbid_writing_modules', ck.cfg.get('forbid_writing_modules','')))
+       ck.out('Forbid writing to default repo:                                                  '+xcfg.get('forbid_writing_to_default_repo' ,ck.cfg.get('forbid_writing_to_default_repo','')))
+       ck.out('Forbid writing to local repo:                                                    '+xcfg.get('forbid_writing_to_local_repo', ck.cfg.get('forbid_writing_to_local_repo','')))
+       ck.out('Allow writing only to allowed individual repos:                                  '+xcfg.get('allow_writing_only_to_allowed', ck.cfg.get('allow_writing_only_to_allowed','')))
 
        ck.out('')
        r=ck.inp({'text': 'Forbid all writing operations (yes or Enter to keep previous)?:                  '})
        d=r['string'].lower()
        if d=='y': d=='yes'
-       if d!='': cfg['forbid_global_writing']=d
+       if d!='': xcfg['forbid_global_writing']=d
 
        r=ck.inp({'text': 'Forbid all delete operations (yes or Enter to keep previous)?:                   '})
        d=r['string'].lower()
        if d=='y': d=='yes'
-       if d!='': cfg['forbid_global_delete']=d
+       if d!='': xcfg['forbid_global_delete']=d
 
        r=ck.inp({'text': 'Forbid adding new modules (yes or Enter to keep previous)?:                      '})
        d=r['string'].lower()
        if d=='y': d=='yes'
-       if d!='': cfg['forbid_writing_modules']=d
+       if d!='': xcfg['forbid_writing_modules']=d
 
        r=ck.inp({'text': 'Forbid writing to default repo (yes or Enter to keep previous)?:                 '})
        d=r['string'].lower()
        if d=='y': d=='yes'
-       if d!='': cfg['forbid_writing_to_default_repo']=d
+       if d!='': xcfg['forbid_writing_to_default_repo']=d
 
        r=ck.inp({'text': 'Forbid writing to local repo (yes or Enter to keep previous)?:                   '})
        d=r['string'].lower()
        if d=='y': d=='yes'
-       if d!='': cfg['forbid_writing_to_local_repo']=d
+       if d!='': xcfg['forbid_writing_to_local_repo']=d
 
        r=ck.inp({'text': 'Allow writing only to allowed individual repos (yes or Enter to keep previous)?: '})
        d=r['string'].lower()
        if d=='y': d=='yes'
-       if d!='': cfg['allow_writing_only_to_allowed']=d
+       if d!='': xcfg['allow_writing_only_to_allowed']=d
 
     # Web front-end options
     if param=='' or param=='wfe':
@@ -284,11 +302,11 @@ def setup(i):
 
        ck.out('')
 
-       x=cfg.get('wfe_url_prefix','')
+       x=xcfg.get('wfe_url_prefix','')
        if x=='': x=ck.cfg.get('wfe_url_prefix','')
        ck.out('Current web front-end URL prefix: '+x)
 
-       x=cfg.get('wfe_template','')
+       x=xcfg.get('wfe_template','')
        if x=='': x=ck.cfg.get('wfe_template','')
        ck.out('Current web front-end template:   '+x)
 
@@ -296,11 +314,11 @@ def setup(i):
 
        r=ck.inp({'text': 'Enter new web front-end URL prefix (Enter to keep previous): '})
        x=r['string']
-       if x!='': cfg['wfe_url_prefix']=x
+       if x!='': xcfg['wfe_url_prefix']=x
 
        r=ck.inp({'text': 'Enter new web front-end template (Enter to keep previous): '})
        x=r['string']
-       if x!='': cfg['wfe_template']=x
+       if x!='': xcfg['wfe_template']=x
 
     # Indexing options
     if param=='' or param=='indexing':
@@ -308,13 +326,13 @@ def setup(i):
        ck.out('*** Indexing control (through ElasticSearch) ***')
 
        ck.out('')
-       ck.out('Use indexing: '+cfg.get('use_indexing' ,ck.cfg.get('use_indexing','')))
+       ck.out('Use indexing: '+xcfg.get('use_indexing' ,ck.cfg.get('use_indexing','')))
 
        ck.out('')
        r=ck.inp({'text': 'Use indexing (yes or Enter to keep previous)?: '})
        d=r['string'].lower()
        if d=='y': d=='yes'
-       if d!='': cfg['use_indexing']=d
+       if d!='': xcfg['use_indexing']=d
 
     # Writing/updating configuration
     ck.out(sep)
@@ -322,14 +340,14 @@ def setup(i):
     fc=ck.work['dir_work_cfg']
     if os.path.isfile(fc):
        ck.out('Writing local configuration (directly) ...')
-       r=ck.save_json_to_file({'json_file':fc, 'dict':cfg})
+       r=ck.save_json_to_file({'json_file':fc, 'dict':xcfg})
     else:
        ck.out('Adding local configuration ...')
        ii={'action':'update',
            'repo_uoa':ck.cfg['repo_name_local'],
            'module_uoa':work['self_module_uoa'],
            'data_uoa':ck.cfg['subdir_kernel_default'],
-           'dict':cfg,
+           'dict':xcfg,
            'substitute':'yes',
            'ignore_update':'yes'}
        r=ck.access(ii)

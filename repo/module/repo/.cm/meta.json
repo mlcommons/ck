@@ -9,6 +9,12 @@
     "delete": {
       "desc": "remove repository from CK"
     }, 
+    "get_and_unzip_archive": {
+      "desc": "received from web (if needed) and unzip archive"
+    }, 
+    "import": {
+      "desc": "import repo from current path"
+    }, 
     "pull": {
       "desc": "If shared, pull from shared repository"
     }, 
@@ -24,6 +30,9 @@
     "rm": {
       "desc": "remove repository from CK"
     }, 
+    "unzip": {
+      "desc": "unzip entries to a given repo"
+    }, 
     "update": {
       "desc": "update repository information"
     }, 
@@ -33,6 +42,9 @@
     "zip": {
       "desc": "archive repository"
     }
+  }, 
+  "actions_redirect": {
+    "import": "import_repo"
   }, 
   "copyright": "See CK Copyright.txt for copyright details", 
   "desc": "managing CK repositories", 
