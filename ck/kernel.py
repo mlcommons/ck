@@ -5795,7 +5795,7 @@ def list_data(i):
                     for du in xd:
 #                        print mp, du
                         r=find_path_to_entry({'path':mp, 'data_uoa':du})
-                        if r['return']>0: continue
+                        if r['return']!=0: continue
 
                         dp=r['path']
                         dpcfg=os.path.join(dp,cfg['subdir_ck_ext'])
