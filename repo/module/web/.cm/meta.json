@@ -2,94 +2,94 @@
   "actions": {
     "start": {
       "desc": "start web service"
-    }, 
+    },
     "test": {
-      "desc": "test web", 
+      "desc": "test web",
       "for_web": "yes"
     }
-  }, 
+  },
   "content_types": {
     "bz2": {
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$", 
+      "Content-disposition": "attachment; filename=$#filename#$",
+      "Content-title": "$#filename#$",
       "Content-type": "application/x-bzip2"
-    }, 
+    },
     "con": {
       "Content-type": "text/plain; charset=utf-8"
-    }, 
+    },
     "css": {
-      "Content-disposition": "inline; filename=$#filename#$", 
-      "Content-title": "$#filename#$", 
+      "Content-disposition": "inline; filename=$#filename#$",
+      "Content-title": "$#filename#$",
       "Content-type": "text/css"
-    }, 
+    },
     "csv": {
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$", 
+      "Content-disposition": "attachment; filename=$#filename#$",
+      "Content-title": "$#filename#$",
       "Content-type": "text/csv"
-    }, 
+    },
     "eps": {
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$", 
+      "Content-disposition": "attachment; filename=$#filename#$",
+      "Content-title": "$#filename#$",
       "Content-type": "application/postscript"
-    }, 
+    },
     "gif": {
       "Content-type": "image/gif"
-    }, 
+    },
     "gz": {
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$", 
+      "Content-disposition": "attachment; filename=$#filename#$",
+      "Content-title": "$#filename#$",
       "Content-type": "application/x-gzip"
-    }, 
+    },
     "html": {
       "Content-type": "text/html; charset=utf-8"
-    }, 
+    },
     "jpeg": {
       "Content-type": "image/jpeg"
-    }, 
+    },
     "jpg": {
       "Content-type": "image/jpeg"
-    }, 
+    },
     "js": {
-      "Content-disposition": "inline; filename=$#filename#$", 
-      "Content-title": "$#filename#$", 
+      "Content-disposition": "inline; filename=$#filename#$",
+      "Content-title": "$#filename#$",
       "Content-type": "text/javascript"
-    }, 
+    },
     "json": {
       "Content-type": "application/json; charset=utf-8"
-    }, 
+    },
     "pdf": {
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$", 
+      "Content-disposition": "attachment; filename=$#filename#$",
+      "Content-title": "$#filename#$",
       "Content-type": "application/pdf"
-    }, 
+    },
     "png": {
       "Content-type": "image/png"
-    }, 
+    },
     "ps": {
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$", 
+      "Content-disposition": "attachment; filename=$#filename#$",
+      "Content-title": "$#filename#$",
       "Content-type": "application/postscript"
-    }, 
+    },
     "txt": {
       "Content-type": "text/plain; charset=utf-8"
-    }, 
+    },
     "unknown": {
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$", 
+      "Content-disposition": "attachment; filename=$#filename#$",
+      "Content-title": "$#filename#$",
       "Content-type": "application/octet-stream"
-    }, 
+    },
     "zip": {
-      "Content-disposition": "attachment; filename=$#filename#$", 
-      "Content-title": "$#filename#$", 
+      "Content-disposition": "attachment; filename=$#filename#$",
+      "Content-title": "$#filename#$",
       "Content-type": "application/zip"
     }
-  }, 
-  "copyright": "See CK Copyright.txt for copyright details", 
-  "desc": "CK web service", 
-  "developer": "Grigori Fursin", 
-  "developer_email": "Grigori.Fursin@cTuning.org", 
-  "developer_webpage": "http://cTuning.org/lab/people/gfursin", 
-  "if_web_action_not_defined": "index", 
-  "if_web_module_not_defined": "wfe", 
+  },
+  "copyright": "See CK Copyright.txt for copyright details",
+  "desc": "CK web service",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://cTuning.org/lab/people/gfursin",
+  "if_web_action_not_defined": "index",
+  "if_web_module_not_defined": "wfe",
   "license": "See CK LICENSE.txt for licensing details"
 }

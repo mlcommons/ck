@@ -1092,25 +1092,9 @@ def save_json_to_file(i):
 
     r=dumps_json(i)
     if r['return']>0: return r
-    s=r['string']+'\n'
+    s=r['string'].replace('\r','')+'\n'
 
-    try:
-       if sys.version_info[0]>2:
-          f=open(fn,'wb')
-       else:
-          f=open(fn,'w')
-    except Exception as e:
-       return {'return':1, 'error':'problem writing dict to file='+fn+' ('+format(e)+')'}
-
-    try:
-       f.write(s.encode('utf8'))
-    except Exception as e:
-       f.close()
-       return {'return':1, 'error':'problem writing dict to file='+fn+' ('+format(e)+')'}
-
-    f.close()
-
-    return {'return':0}
+    return save_text_file({'text_file':fn, 'string':s})
 
 ##############################################################################
 # save string into text file
@@ -1142,12 +1126,12 @@ def save_text_file(i):
        pass
 
     try:
-      if sys.version_info[0]>2:
-         f=open(fn, m+'b')
-         f.write(s)
-      else:
-         f=open(fn, m)
-         f.write(s)
+#      if sys.version_info[0]>2:
+#         f=open(fn, m+'b')
+#         f.write(s)
+#      else:
+      f=open(fn, m+'b')
+      f.write(s)
     except Exception as e:
        return {'return':1, 'error':'problem writing text file='+fn+' ('+format(e)+')'}
 

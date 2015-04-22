@@ -1,36 +1,36 @@
 {
-  "bool_num1": true, 
-  "bool_num2": false, 
+  "bool_num1": true,
+  "bool_num2": false,
   "float_list": [
-    5, 
-    2, 
+    5,
+    2,
     3
-  ], 
-  "float_num": 1.5, 
-  "int_num": 10, 
-  "lang1": "english", 
-  "lang2": "español", 
-  "lang3": "中国", 
-  "lang4": "中國", 
-  "lang5": "français", 
-  "lang6": "日本の", 
-  "lang7": "русский", 
+  ],
+  "float_num": 1.5,
+  "int_num": 10,
+  "lang1": "english",
+  "lang2": "español",
+  "lang3": "中国",
+  "lang4": "中國",
+  "lang5": "français",
+  "lang6": "日本の",
+  "lang7": "русский",
   "languages": [
-    "english", 
-    "español", 
-    "中国", 
-    "中國", 
-    "français", 
-    "日本の", 
+    "english",
+    "español",
+    "中国",
+    "中國",
+    "français",
+    "日本の",
     "русский"
-  ], 
-  "none": null, 
+  ],
+  "none": null,
   "test": {
     "key1": [
-      "a", 
-      "b", 
+      "a",
+      "b",
       "c"
-    ], 
+    ],
     "key2": "value2"
   }
 }

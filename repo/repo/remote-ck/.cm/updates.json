@@ -1,55 +1,55 @@
 {
   "control": [
     {
-      "engine": "CK", 
-      "iso_datetime": "2014-11-17T16:55:04.288000", 
+      "engine": "CK",
+      "iso_datetime": "2014-11-17T16:55:04.288000",
       "version": [
-        "0", 
-        "1", 
-        "140810", 
+        "0",
+        "1",
+        "140810",
         "beta"
       ]
-    }, 
+    },
     {
-      "engine": "CK", 
-      "iso_datetime": "2014-11-17T16:56:54.675000", 
+      "engine": "CK",
+      "iso_datetime": "2014-11-17T16:56:54.675000",
       "version": [
-        "0", 
-        "1", 
-        "140810", 
+        "0",
+        "1",
+        "140810",
         "beta"
       ]
-    }, 
+    },
     {
-      "engine": "CK", 
-      "iso_datetime": "2014-11-17T17:03:22.325000", 
+      "engine": "CK",
+      "iso_datetime": "2014-11-17T17:03:22.325000",
       "version": [
-        "0", 
-        "1", 
-        "140810", 
+        "0",
+        "1",
+        "140810",
         "beta"
       ]
-    }, 
+    },
     {
-      "engine": "CK", 
-      "iso_datetime": "2014-12-06T15:37:32.472000", 
+      "engine": "CK",
+      "iso_datetime": "2014-12-06T15:37:32.472000",
       "version": [
-        "0", 
-        "9", 
+        "0",
+        "9",
         "4113"
       ]
-    }, 
+    },
     {
-      "author": "Grigori Fursin", 
-      "author_email": "Grigori.Fursin@cTuning.org", 
-      "author_webpage": "http://cTuning.org/lab/people/gfursin", 
-      "copyright": "See CK Copyright.txt for copyright details", 
-      "engine": "CK", 
-      "iso_datetime": "2015-03-27T17:07:22.664983", 
-      "license": "See CK LICENSE.txt for licensing details", 
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://cTuning.org/lab/people/gfursin",
+      "copyright": "See CK Copyright.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2015-03-27T17:07:22.664983",
+      "license": "See CK LICENSE.txt for licensing details",
       "version": [
-        "1", 
-        "1", 
+        "1",
+        "1",
         "0205"
       ]
     }

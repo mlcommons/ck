@@ -2,17 +2,17 @@
   "actions": {
     "setup": {
       "desc": "CK kernel setup"
-    }, 
+    },
     "status": {
       "desc": "check CK version status"
     }
-  }, 
-  "copyright": "See CK Copyright.txt for copyright details", 
-  "desc": "managing CK kernel", 
-  "developer": "Grigori Fursin", 
-  "developer_email": "Grigori.Fursin@cTuning.org", 
-  "developer_webpage": "http://cTuning.org/lab/people/gfursin", 
-  "license": "See CK LICENSE.txt for licensing details", 
+  },
+  "copyright": "See CK Copyright.txt for copyright details",
+  "desc": "managing CK kernel",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://cTuning.org/lab/people/gfursin",
+  "license": "See CK LICENSE.txt for licensing details",
   "module_deps": {
     "repo": "befd7892b0d469e9"
   }

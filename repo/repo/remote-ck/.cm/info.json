@@ -1,17 +1,17 @@
 {
-  "backup_data_uid": "36a94d813c46d497", 
-  "backup_module_uid": "befd7892b0d469e9", 
-  "backup_module_uoa": "repo", 
+  "backup_data_uid": "36a94d813c46d497",
+  "backup_module_uid": "befd7892b0d469e9",
+  "backup_module_uoa": "repo",
   "control": {
-    "engine": "CK", 
-    "iso_datetime": "2014-11-12T15:20:32.293000", 
-    "user_name": "cTuning foundation", 
+    "engine": "CK",
+    "iso_datetime": "2014-11-12T15:20:32.293000",
+    "user_name": "cTuning foundation",
     "version": [
-      "0", 
-      "1", 
-      "140810", 
+      "0",
+      "1",
+      "140810",
       "beta"
     ]
-  }, 
+  },
   "data_name": "remote-ck"
 }
