@@ -217,10 +217,16 @@ def add(i):
        ghu=i.get('githubuser','')
        if shared=='git' and url=='':
 
-          if ghu!='': durl=ck.cfg.get('github_repo_url','')+ghu
+          if ghu!='': 
+             durl=ck.cfg.get('github_repo_url','')
+             if not durl.endswith('/'): durl+='/'
+             durl+=ghu
           else: durl=ck.cfg.get('default_shared_repo_url','')
 
-          durl+='/'+d+'.git'
+          if not durl.endswith('/'): durl+='/'
+          durl+=d
+#          if durl.startswith('http://') or durl.startswith('https://'):
+#             durl+='.git'
 
           if quiet!='yes':
              s='Enter URL of GIT repo '

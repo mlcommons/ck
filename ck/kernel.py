@@ -32,7 +32,7 @@ cfg={
       "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
 
       "default_shared_repo_url":"https://github.com/ctuning",
-      "github_repo_url":"https://github.com/",
+      "github_repo_url":"https://github.com",
 
       "default_license":"See CK LICENSE.txt for licensing details",
       "default_copyright":"See CK Copyright.txt for copyright details",

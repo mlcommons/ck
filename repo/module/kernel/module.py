@@ -46,6 +46,7 @@ def setup(i):
                              * update - check for update
                              * content - related to content 
                              * repos - related to repositories 
+                             * git - related to git repos
                              * editing - related to editing
                              * writing - related to writing control 
                              * wfe - related to web front end
@@ -72,6 +73,7 @@ def setup(i):
        elif i.get('install','')=='yes': param='install'
        elif i.get('update','')=='yes': param='update'
        elif i.get('editing','')=='yes': param='editing'
+       elif i.get('git','')=='yes': param='git'
        elif i.get('repos','')=='yes': param='repos'
        elif i.get('writing','')=='yes': param='writing'
        elif i.get('wfe','')=='yes': param='wfe'
@@ -191,7 +193,7 @@ def setup(i):
        ck.out('*** Content authorship ***')
 
        ck.out('')
-       ck.out('Current author/developer of the content: '+xcfg.get('default_developer', ck.xfg.get('default_developer','')))
+       ck.out('Current author/developer of the content: '+xcfg.get('default_developer', ck.cfg.get('default_developer','')))
        ck.out('Current author/developer email :         '+xcfg.get('default_developer_email', ck.cfg.get('default_developer_email','')))
        ck.out('Current author/developer webpage :       '+xcfg.get('default_developer_webpage', ck.cfg.get('default_developer_webpage','')))
        ck.out('Current copyright of the content:        '+xcfg.get('default_copyright', ck.cfg.get('default_copyright','')))
@@ -250,6 +252,25 @@ def setup(i):
        if d!='': 
           if 'external_editor' not in xcfg: xcfg['external_editor']={}
           xcfg['external_editor'][plat]=d
+
+    # Git options
+    if param=='' or param=='git':
+       ck.out(sep)
+       ck.out('*** Set up GIT repos ***')
+
+       ck.out('')
+       ck.out('Current URL of default GIT repo with user : '+xcfg.get('default_shared_repo_url', ck.cfg.get('default_shared_repo_url','')))
+       ck.out('Current URL of default GIT repo :           '+xcfg.get('github_repo_url', ck.cfg.get('github_repo_url','')))
+
+       ck.out('')
+
+       r=ck.inp({'text': 'Change URL of default GIT repo with user (or Enter to keep previous): '})
+       d=r['string']
+       if d!='': xcfg['default_shared_repo_url']=d
+
+       r=ck.inp({'text': 'Change URL of default GIT repo (or Enter to keep previous):           '})
+       d=r['string']
+       if d!='': xcfg['github_repo_url']=d
 
     # Writing options
     if param=='' or param=='writing':
