@@ -57,7 +57,7 @@ user scenarios and developer guide:
 
 License
 =======
-* 3-clause BSD license (see LICENSE.txt).
+* Permissive simplified 3-clause BSD license (see LICENSE.txt).
 
 Developers
 ==========
