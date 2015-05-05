@@ -41,8 +41,12 @@ support through web services and OpenME) and Windows 7.
 CK is extensively used in the following projects:
 * building public repository of knowledge for computer engineering
 (http://cknowledge.org/repo , http://c-mind.org/repo)
-* implementing our plugin-based auto-tuning approach combined
-with crowdsourcing, predictive analytics and run-time adaptation
+* implementing our universal multi-objective plugin-based
+autotuning approach combined with crowdsourcing, predictive
+analytics and run-time adaptation. We support OpenCL, CUDA,
+OpenMP, MPI, compiler and any other tuning for performance,
+energy, size, reliablity, cost and any other metrics across small
+kernels/codelets and large applications.
 (http://hal.inria.fr/hal-01054763)
 * crowdsourcing automatic compiler optimization heuristic tuning
 and benchmarking of new architectures across shared resources
