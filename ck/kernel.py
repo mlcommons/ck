@@ -1620,6 +1620,7 @@ def list_all_files(i):
     """
     Input:  {
               path            - top level path
+              (pattern)       - return only files with this pattern
               (path_ext)      - path extension (needed for recursion)
               (limit)         - limit number of files (if directories with a large number of files)
               (number)        - current number of files
@@ -1658,6 +1659,10 @@ def list_all_files(i):
     po=i.get('path','')
     if sys.version_info[0]<3: po=unicode(po)
 
+    pattern=i.get('pattern','')
+    if pattern!='':
+       import fnmatch
+
     try:
        dirList=os.listdir(po)
     except Exception as e:
@@ -1668,16 +1673,22 @@ def list_all_files(i):
             if iall=='yes' or fn not in cfg['special_directories']:
                if len(inames)==0 or fn not in inames:               
                   if os.path.isdir(p):
-                     r=list_all_files({'path':p, 'all':iall, 'path_ext':os.path.join(pe, fn), 'number':str(number), 'ignore_names':inames})
+                     r=list_all_files({'path':p, 'all':iall, 'path_ext':os.path.join(pe, fn), 'number':str(number), 'ignore_names':inames, 'pattern':pattern})
                      if r['return']>0: return r
                      a.extend(r['list'])
                   else:
-                     a.append(os.path.join(pe, fn))
+                     add=True
 
-                     number=len(a)
+                     if pattern!='' and not fnmatch.fnmatch(fn, pattern):
+                        add=False
 
-                     if limit!=-1 and number>limit: 
-                        break
+                     if add:
+                        a.append(os.path.join(pe, fn))
+
+                        number=len(a)
+
+                        if limit!=-1 and number>limit: 
+                           break
  
     return {'return':0, 'list':a, 'number':str(number)}
 
