@@ -1,24 +1,55 @@
 Introduction
 ============
-Collective Knowledge (CK) is a light-weight, portable,
-plugin-based framework, repository, web service and SDK 
-to organize local user code and data and share it 
-as unified and reusable components with JSON API via GIT(HUB). 
+Collective Knowledge (CK) is a light-weight, portable, modular
+and python-based framework, repository, web service and SDK 
+to organize, describe, cross-link and share user code, data,
+experimental setups and meta information as unified 
+and reusable components with JSON API via standard 
+Git services (such as GITHUB or BitBucket).
 
-Unification, in turn, allows to crowdsource experimentation 
-and expose it to predictive analytics (statistical analysis, 
-data mining, machine learning) to automate, simplify and 
-crowdsource any decision making.
+Such unification can help researchers assemble experimental setups
+from shared components as LEGO(TM) while automating, preserving, 
+distributing, crowdsourcing and reproducing their experiments.
 
-Description
-===========
-CK is inteneded to enable open and collaborative research 
-and experimentation particularly in computer engineering.
-It can help users preserve, organize, describe, cross-link and 
-share their code, data and experimental results as reusable
-Python-based components with a very simple API (one function with
-JSON in and JSON out) and JSON-based schema-free meta
-description.
+Furthermore, CK simplifies connection of unified experiments 
+to powerful predictive analytics tools such as scikit-learn 
+and R (statistical analysis, data mining,  machine learning)
+to automate and speed up exploration of multi-dimensional
+experimental choices, analysis of results and decision making.
+
+For example, we use this framework primarily to systematize, 
+open and crowdsource our research on how to design faster, 
+smaller, more power efficient and reliable software and hardware 
+(by combining autotuning, run-time adaptation, machine learning 
+and public repository of knowledge) as described in the following
+paper:
+
+* [PDF] https://hal.inria.fr/hal-01054763/document
+* [HTML] https://hal.inria.fr/hal-01054763
+* [BibTex] https://hal.inria.fr/hal-01054763v1/bibtex
+
+Further information including documentation, user scenarios 
+and developer guide:
+* https://github.com/ctuning/ck/wiki
+
+License
+=======
+* Permissive simplified 3-clause BSD license (see LICENSE.txt).
+
+Author
+======
+Grigori Fursin, non-profit cTuning foundation, France
+* http://cTuning.org/lab/people/gfursin
+
+Extra description
+=================
+We developed CK is intended to enable open and collaborative
+research and experimentation particularly in computer
+engineering. It can help users preserve, organize, describe,
+cross-link and share their code, data and experimental results
+as reusable Python-based components with a very simple API (one
+function with JSON in and JSON out) and JSON-based schema-free
+meta description.
 
 All components can be transparently indexed and searched via
 third-party Hadoop-based ElasticSearch, shared via GIT, and
@@ -39,29 +70,25 @@ including Ubuntu, OpenSUSE, CentOS, Android (partial
 support through web services and OpenME) and Windows 7. 
 
 CK is extensively used in the following projects:
+
 * building public repository of knowledge for computer engineering
 (http://cknowledge.org/repo , http://c-mind.org/repo)
-* implementing our universal multi-objective plugin-based
-autotuning approach combined with crowdsourcing, predictive
+
+* implementing our universal multi-dimensional, multi-objective 
+plugin-based autotuning approach combined with crowdsourcing, predictive
 analytics and run-time adaptation. We support OpenCL, CUDA,
 OpenMP, MPI, compiler and any other tuning for performance,
-energy, size, reliablity, cost and any other metrics across small
+energy, size, reliability, cost and any other metrics across small
 kernels/codelets and large applications.
 (http://hal.inria.fr/hal-01054763)
+
 * crowdsourcing automatic compiler optimization heuristic tuning
 and benchmarking of new architectures across shared resources
 such as mobile phones, tablets, cloud services, etc.
 (https://play.google.com/store/apps/details?id=com.collective_mind.node)
+
 * enabling reproducible experimentation in computer engineering
 (http://cknowledge.org/reproducibility)
-
-Further information including documentation, 
-user scenarios and developer guide:
-* https://github.com/ctuning/ck/wiki
-
-License
-=======
-* Permissive simplified 3-clause BSD license (see LICENSE.txt).
 
 Developers
 ==========
@@ -166,7 +193,3 @@ Acknowledgments
 This project has been initially funded by EU FP7 609491 TETRACOM
 project. We would like to thank all volunteers for their valuable
 feedback and support.
-
-Full documentation and usage scenarios
-======================================
-* https://github.com/ctuning/ck/wiki
