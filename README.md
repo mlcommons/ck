@@ -87,7 +87,13 @@ and benchmarking of new architectures across shared resources
 such as mobile phones, tablets, cloud services, etc.
 (https://play.google.com/store/apps/details?id=com.collective_mind.node)
 
-* enabling reproducible experimentation in computer engineering
+* supporting artifact evaluation initiatives for major conferences
+and journals where all artifacts are shared along with publications
+to be validated by the community (http://ctuning.org/event/ae-ppopp2016 ,
+http://arxiv.org/abs/1406.4020 )
+
+* enabling open, collaborative and reproducible research and experimentation 
+with interactive publications focusing on computer engineering 
 (http://cknowledge.org/reproducibility)
 
 Developers
