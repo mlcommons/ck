@@ -3,9 +3,9 @@ bin/ckcd /usr/bin
 ck /var/ck
 repo /var/ck
 tests /var/ck
-AUTHORS.txt /var/ck
-CHANGES.txt /var/ck
-CONTRIBUTIONS.txt /var/ck
-COPYRIGHT.txt /var/ck
-LICENSE.txt /var/ck
+AUTHORS /var/ck
+CHANGES /var/ck
+CONTRIBUTIONS /var/ck
+COPYRIGHT /var/ck
+LICENSE /var/ck
 README.md /var/ck

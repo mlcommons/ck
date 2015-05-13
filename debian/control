@@ -12,22 +12,35 @@ Package: ck
 Architecture: all
 Section: python
 Depends: ${misc:Depends}, ${python:Depends}
-Description: enabling collaborative research and experimentation
+Description: enabling collaborative and reproducible research and experimentation
  .
- Collective Knowledge (CK) is a light-weight, portable,
- plugin-based framework,repository, web service and SDK
- for collaborative knowledge management and exchange.
+ Collective Knowledge (CK) is a light-weight, portable, modular
+ and python-based framework, repository, web service and SDK 
+ to organize, describe, cross-link and share user code, data,
+ experimental setups and meta information as unified 
+ and reusable components with JSON API via standard 
+ Git services (such as GITHUB or BitBucket).
  .
- CK helps users preserve, organize, describe, cross-link and share
- their code, data and experimental results as reusable
- Python-based components with a unified API and JSON-based
- schema-free meta description.
+ Such unification can help researchers assemble experimental setups
+ (workflows, pipelines, etc) from shared components just as LEGO(TM)
+ to quickly prototype ideas while automating, preserving, 
+ distributing, crowdsourcing and reproducing experiments.
  .
- All components can be transparently indexed and searched via
- ElasticSearch, shared via GIT, and connected together into
- pipelines (workflows) just as LEGO(R) to quickly prototype
- various research ideas, crowdsource experiments, reproduce 
- past results, perform statistical analysis and apply predictive 
- analytics (as described in http://hal.inria.fr/hal-01054763).
+ Furthermore, CK simplifies connection of unified experiments 
+ to powerful predictive analytics tools such as scikit-learn 
+ and R (statistical analysis, data mining,  machine learning)
+ to automate and speed up exploration of multi-dimensional
+ experimental choices, analysis of results and decision making.
  .
- Further info available at http://github.com/ctuning/ck/wiki
+ For example, we use this framework primarily to systematize, 
+ open and crowdsource our research on how to design faster, 
+ smaller, more power efficient and reliable software and hardware 
+ (by combining autotuning, run-time adaptation, machine learning 
+ and public repository of knowledge) as described in the following
+ paper:
+ * [PDF] https://hal.inria.fr/hal-01054763/document
+ * [HTML] https://hal.inria.fr/hal-01054763
+ * [BibTex] https://hal.inria.fr/hal-01054763v1/bibtex
+ .
+ Further information including documentation, user scenarios 
+ and developer guide: https://github.com/ctuning/ck/wiki

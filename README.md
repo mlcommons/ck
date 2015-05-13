@@ -8,8 +8,9 @@ and reusable components with JSON API via standard
 Git services (such as GITHUB or BitBucket).
 
 Such unification can help researchers assemble experimental setups
-from shared components as LEGO(TM) while automating, preserving, 
-distributing, crowdsourcing and reproducing their experiments.
+(workflows, pipelines, etc) from shared components just as LEGO(TM)
+to quickly prototype ideas while automating, preserving, 
+distributing, crowdsourcing and reproducing experiments.
 
 Furthermore, CK simplifies connection of unified experiments 
 to powerful predictive analytics tools such as scikit-learn 

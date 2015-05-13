@@ -3,11 +3,11 @@
     "pull": {
       "desc": "update CK and all repos"
     }
-  },
-  "copyright": "See CK Copyright.txt for copyright details",
-  "desc": "some common operations for all CK",
-  "developer": "Grigori Fursin",
-  "developer_email": "Grigori.Fursin@cTuning.org",
-  "developer_webpage": "http://cTuning.org/lab/people/gfursin",
+  }, 
+  "copyright": "See CK Copyright.txt for copyright details", 
+  "desc": "some common operations for all CK", 
+  "developer": "Grigori Fursin", 
+  "developer_email": "Grigori.Fursin@cTuning.org", 
+  "developer_webpage": "http://cTuning.org/lab/people/gfursin", 
   "license": "See CK LICENSE.txt for licensing details"
 }

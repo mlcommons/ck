@@ -1,3 +1,10 @@
+ck (1.2.0513) UNRELEASED; urgency=medium
+
+  * No major problems found during past 2 months
+  * A few extensions and small bug fixes
+
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  02 Feb 2015 11:12:13 +0100
+
 ck (1.1.0202) UNRELEASED; urgency=medium
 
   * A few minor bug fixes.
