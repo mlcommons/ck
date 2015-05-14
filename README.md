@@ -18,16 +18,18 @@ and R (statistical analysis, data mining,  machine learning)
 to automate and speed up exploration of multi-dimensional
 experimental choices, analysis of results and decision making.
 
-For example, we use this framework primarily to systematize, 
-open and crowdsource our research on how to design faster, 
-smaller, more power efficient and reliable software and hardware 
-(by combining autotuning, run-time adaptation, machine learning 
-and public repository of knowledge) as described in the following
-paper:
+Finally, unified and integrated repository of knowledge allows 
+community to help validate experimental results, improve models, 
+find missing features and so on.
+
+For example, we use this framework primarily to systematize, open
+and crowdsource our research and experimentation to design
+faster, smaller, more power efficient and reliable software and
+hardware (by combining autotuning, run-time adaptation, machine
+learning and public repository of knowledge):
 
 * [PDF] https://hal.inria.fr/hal-01054763/document
-* [HTML] https://hal.inria.fr/hal-01054763
-* [BibTex] https://hal.inria.fr/hal-01054763v1/bibtex
+* [Android app] https://play.google.com/store/apps/details?id=com.collective_mind.node
 
 Further information including documentation, user scenarios 
 and developer guide:
@@ -114,6 +116,10 @@ Minimal requirements
 ====================
 * Python > 2.6 (Python 2.x may have some issues with Unicode support)
 * Python 3.x is supported
+
+We have been successfully using Anaconda python distribution
+which includes all scientific packages required for predictive 
+analytics in CK.
 
 Installation
 ============
