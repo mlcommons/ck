@@ -497,7 +497,7 @@ def select(i):
         j+=1
 
     out('')
-    rx=inp({'text':'Make your selection: '})
+    rx=inp({'text':'Make your selection (or press Enter for 0): '})
     if rx['return']>0: return rx
     sx=rx['string'].strip()
 
