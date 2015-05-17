@@ -332,6 +332,33 @@ def err(r):
     exit(rc)
 
 ##############################################################################
+# Get value from one dict, remove it from there and move to another
+
+def get_from_dicts(dict1, key, default_value, dict2, extra='##'):
+    """
+    Input:  dict1         - first check in this dict (and remove if there)
+            key           - key in dict1
+            default_value - default value if not found
+            dict2         - then check from here
+
+    Output: value
+    """
+
+    value=default_value
+
+    if key not in dict1:
+       if dict2!=None:
+          value=dict2.get(extra+key, default_value)
+    else:
+       value=dict1[key]
+       del(dict1[key])
+
+       if dict2!=None:
+          dict2[extra+key]=value
+
+    return value
+
+##############################################################################
 # Converting iso text time to datetime object
 
 def convert_iso_time(i):
@@ -512,6 +539,82 @@ def select(i):
        s=ks[sx]
 
     return {'return':0, 'string':s}
+
+##############################################################################
+# Universal UOA selector
+
+def select_uoa(i):
+    """
+    Input:  {
+              choices      - list from search function
+              (skip_enter) - if 'yes', do not select 0 when entering 0
+            }
+
+    Output: {
+              return  - return code =  0, if successful
+                                    >  0, if error
+              (error) - error text if return > 0
+              choice  - data UOA
+            }
+
+    """
+
+    se=i.get('skip_enter','')
+
+    lst=i.get('choices',[])
+
+    zz={}
+    iz=0
+    for z1 in sorted(lst, key=lambda v: v['data_uoa']):
+        z=z1['data_uid']
+        zu=z1['data_uoa']
+
+        zs=str(iz)
+        zz[zs]=z
+
+        out(zs+') '+zu+' ('+z+')')
+
+        iz+=1
+
+    out('')
+    y='Choose first number to select UOA'
+    if se!='yes': y+=' (or press Enter for 0)'
+    y+=': '
+    
+    rx=inp({'text':y})
+    x=rx['string'].strip()
+    if x=='' and se!='yes': x='0' 
+
+    if x not in zz:
+       return {'return':1, 'error':'number is not recognized'}
+
+    dduoa=zz[x]
+
+    return {'return':0, 'choice':dduoa}
+
+##############################################################################
+# Universal UOA selector
+
+def convert_str_tags_to_list(i):
+    """
+    Input:  if type(i)!=list, convert string to list 
+
+    Output: list of tags (stripped)
+
+    """
+
+    r=[]
+
+    if type(i)==list:
+       r=i
+    else:
+       ii=i.split(',')
+       for q in ii:
+           q=q.strip()
+           if q!='':
+              r.append(q)
+
+    return r
 
 ##############################################################################
 # Check writing possibility

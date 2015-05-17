@@ -28,7 +28,7 @@ faster, smaller, more power efficient and reliable software and
 hardware (by combining autotuning, run-time adaptation, machine
 learning and public repository of knowledge):
 
-* [PDF] https://hal.inria.fr/hal-01054763/document
+* [PDF] https://hal.inria.fr/hal-01054763
 * [Android app] https://play.google.com/store/apps/details?id=com.collective_mind.node
 
 Further information including documentation, user scenarios 
