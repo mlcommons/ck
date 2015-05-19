@@ -334,7 +334,7 @@ def err(r):
 ##############################################################################
 # Get value from one dict, remove it from there and move to another
 
-def get_from_dicts(dict1, key, default_value, dict2, extra='##'):
+def get_from_dicts(dict1, key, default_value, dict2, extra=''):
     """
     Input:  dict1         - first check in this dict (and remove if there)
             key           - key in dict1
@@ -3079,8 +3079,11 @@ def flatten_dict(i):
     # is always added at the beginning 
 
     Input:  {
-              dict    - python dictionary
-              prefix  - prefix (for recursion)
+              dict         - python dictionary
+
+              (prefix)     - prefix (for recursion)
+              
+              (prune_keys) - list of keys to prune (can have wildcards)
             }
 
     Output: {
@@ -3097,14 +3100,17 @@ def flatten_dict(i):
     a=i['dict']
     aa={}
 
-    flatten_dict_internal(a, aa, prefix)
+    pk=i.get('prune_keys','')
+    if pk=='': pk=[]
+
+    flatten_dict_internal(a, aa, prefix, pk)
 
     return {'return':0, 'dict': aa}
 
 ##############################################################################
 # Convert dictionary into CK flat format (internal, used for recursion)
 
-def flatten_dict_internal(a, aa, prefix):
+def flatten_dict_internal(a, aa, prefix, pk):
     # Start flattening
     if type(a) is dict or type(a) is list:
        i=0
@@ -3116,14 +3122,39 @@ def flatten_dict_internal(a, aa, prefix):
               prefix1=prefix+'@'+str(i)
               v=x
            if type(v) is dict or type(v) is list:
-              flatten_dict_internal(v, aa, prefix1)
+              flatten_dict_internal(v, aa, prefix1, pk)
            else:
-              aa[prefix1]=v
+              if flatten_dict_internal_check_key(prefix1, pk):
+                 aa[prefix1]=v
            i+=1
     else:
-       aa[prefix]=a
+       if flatten_dict_internal_check_key(prefix, pk):
+          aa[prefix]=a
 
     return {'return':0, 'dict': a}
+
+##############################################################################
+# Convert dictionary into CK flat format (internal, used for recursion)
+
+def flatten_dict_internal_check_key(prefix, pk):
+    import fnmatch
+
+    add=False
+
+    if len(pk)==0:
+       add=True
+    else:
+       for c in pk:
+           if '*' in c or '?' in c:
+               if fnmatch.fnmatch(prefix,c):
+                  add=True
+                  break
+           else:
+              if q==c:
+                 add=True
+                 break
+
+    return add
 
 ##############################################################################
 # Get value from dict by flat key
