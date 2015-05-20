@@ -2476,7 +2476,8 @@ def perform_remote_action(i):
        # Try to convert output to dictionary
        r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
        if r['return']>0: 
-          return {'return':1, 'error':'can\'t parse output from remote CK server ('+r['error']+')'}
+          return {'return':1, 'error':'can\'t parse output from remote CK server ('+r['error']+'):\n'+s[:256]+'\n\n...)'}
+
        d=r['dict']
 
        if d.get('return',0)>0:
