@@ -99,7 +99,7 @@
  {
    try
    {
-     $jd=json_decode(urldecode($ii["ck_json"]),TRUE);
+     $jd=json_decode(urldecode($ii["ck_json"]));//,TRUE);
    } 
    catch(Exception $e)
    {
@@ -108,7 +108,7 @@
    }
 
    unset($ii["ck_json"]);
-   $ii=array_merge($ii, $jd);
+   $ii=array_merge($ii, get_object_vars($jd));
  }
 
  # Check action
