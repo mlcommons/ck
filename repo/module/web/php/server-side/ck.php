@@ -17,7 +17,7 @@
  session_start();
 
  # Type
- $xt='ck';
+ $xt='';
 
  # initalize path to CK
  $ckr=getenv("CK_ROOT"); 

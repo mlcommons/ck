@@ -16,7 +16,6 @@
  $ckr=getenv("CK_ROOT"); 
  if ($ckr=="") $ckr=getcwd();
 
-
  # Load configuration 
  $pcfg=$ckr . '/repo/module/web/.cm/meta.json';
 
@@ -59,10 +58,8 @@
    exit(1);
  }
 
-
  # Load OpenME for CK
  $om=$ckr . '/repo/module/web/php/openme.php';
-
 
  # Check if library exists
  if (!file_exists($om)) {
@@ -81,7 +78,6 @@
  }
  else
    require_once $om;
-
 
  # Get web environment variables
  $session=$_SESSION;
@@ -122,11 +118,12 @@
  # Check output type
  if (array_key_exists("out", $ii) && $ii['out']!='') $xt=$ii['out'];
 
+ if ($xt=='') $xt='web';
+
  if ($xt!='json' && $xt!='con' && $xt!='web')
  {
     header("content-type: text/html; charset=UTF-8"); 
-    print 'Unknown CK request ('+$xt+')!';
-
+    print 'Unknown CK request ('.$xt.')!';
     return;
  }
 
