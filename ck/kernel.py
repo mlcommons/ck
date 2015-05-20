@@ -55,6 +55,7 @@ cfg={
 
       "env_key_root":"CK_ROOT",
       "env_key_local_repo":"CK_LOCAL_REPO",
+      "env_key_local_kernel_uoa":"CK_LOCAL_KERNEL_UOA",
       "env_key_repos":"CK_REPOS",
 
       "subdir_default_repos":"repos",
@@ -253,6 +254,8 @@ work={
       "dir_local_repo_path":"",
       "dir_local_kernel":"",
       "dir_local_cfg":"",
+
+      "local_kernel_uoa":"",
 
       "dir_work_repo":"",
       "dir_work_repo_path":"",
@@ -1648,10 +1651,14 @@ def init(i):
           if rq['return']>0: return rq
 
     if s!='':
+       work['local_kernel_uoa']=cfg['subdir_kernel_default']
+       x=os.environ.get(cfg['env_key_local_kernel_uoa'],'').strip()
+       if x!='': work['local_kernel_uoa']=x
+
        work['dir_local_repo']=os.path.realpath(s)
        work['dir_local_repo_path']=os.path.join(work['dir_local_repo'], cfg['module_repo_name'], cfg['repo_name_local'])
        work['dir_local_kernel']=os.path.join(work['dir_local_repo'], cfg['subdir_kernel'])
-       work['dir_local_cfg']=os.path.join(work['dir_local_kernel'], cfg['subdir_kernel_default'], cfg['subdir_ck_ext'], cfg['file_meta'])
+       work['dir_local_cfg']=os.path.join(work['dir_local_kernel'], work['local_kernel_uoa'], cfg['subdir_ck_ext'], cfg['file_meta'])
 
        # Update work repo!
        work['dir_work_repo']=work['dir_local_repo']
@@ -1697,7 +1704,7 @@ def init(i):
        # Create empty local configuration
        rx=add({'repo_uoa':cfg['repo_name_local'],
                'module_uoa':cfg['subdir_kernel'],
-               'data_uoa':cfg['subdir_kernel_default']})
+               'data_uoa':work['local_kernel_uoa']})
        if rx['return']>0:
           return {'return':rx['return'],
                   'error':'can\'t create local configuration entry'}
