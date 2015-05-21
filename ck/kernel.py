@@ -5933,8 +5933,8 @@ def list_data(i):
                     # Iterate over data
                     if len(lduoa)>0:
                        xd=lduoa
+
                     for du in xd:
-#                        print mp, du
                         r=find_path_to_entry({'path':mp, 'data_uoa':du})
                         if r['return']!=0: continue
 
@@ -5942,27 +5942,27 @@ def list_data(i):
                         dpcfg=os.path.join(dp,cfg['subdir_ck_ext'])
                         dpinfo=os.path.join(dp,cfg['subdir_ck_ext'],cfg['file_info'])
                         dpmeta=os.path.join(dp,cfg['subdir_ck_ext'],cfg['file_meta'])
-                        duid=r['data_uid']
-                        duoa=r['data_uoa']
+                        tduid=r['data_uid']
+                        tduoa=r['data_uoa']
 
                         if os.path.isdir(dpcfg): # Check if really CK data entry
                            dskip=False
 
                            if wd!='':
-                              if len(lduoa)>0 and (duoa not in lduoa and duid not in lduoa):
+                              if len(lduoa)>0 and (tduoa not in lduoa and tduid not in lduoa):
                                  dskip=True
                               elif wd=='*':
                                  pass
-                              elif is_uid(duoa): 
+                              elif is_uid(tduoa): 
                                  dskip=True # If have wildcards, but not alias
-                              elif not fnmatch.fnmatch(duoa, wd):
+                              elif not fnmatch.fnmatch(tduoa, wd):
                                  dskip=True
 
                            if not dskip:
                               # Iterate over data 
                               ll={'repo_uoa':ruoa, 'repo_uid':ruid,
                                  'module_uoa':muoa, 'module_uid':muid,
-                                 'data_uoa':duoa, 'data_uid':duid,
+                                 'data_uoa':tduoa, 'data_uid':tduid,
                                  'path':dp}
                                   
                               # Need to load info?
@@ -6011,14 +6011,14 @@ def list_data(i):
                                     x=''
                                     if iprf: x=ruoa+':'+muoa+':'
                                     if sys.version_info[0]<3: 
-                                       y=duoa
+                                       y=tduoa
                                        try: y=y.decode(sys.stdin.encoding)
                                        except Exception as e: 
                                          try: y=y.decode('utf8')
                                          except Exception as e: pass
                                        x+=y
-                                    else: x+=duoa
-                                    if ipru: x+=' ('+duid+')'
+                                    else: x+=tduoa
+                                    if ipru: x+=' ('+tduid+')'
                                     if iprn:
                                        name=ll.get('info',{}).get('data_name','')
                                        if name!='':
