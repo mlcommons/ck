@@ -4550,7 +4550,11 @@ def add(i):
 
           # Check if locked
           rl=check_lock({'path':p2, 'unlock_uid':uuid})
-          if rl['return']>0: return rl
+          if rl['return']>0: 
+             if rl['return']==32:
+                rl['data_uoa']=pdd
+                rl['data_uid']=duid
+             return rl
 
           # Entry exists, load configuration if update
           r2=load_meta_from_path({'path':p2})
@@ -6394,7 +6398,7 @@ def search_filter(i):
     return {'return':0, 'skip':skip}
 
 ##############################################################################
-# Compare dicts
+# Compare 2 dictionaries (recursively)
 
 def compare_dicts(i):
     """
@@ -6472,6 +6476,77 @@ def compare_dicts(i):
            if v2!=v1:
               equal='no'
               break
+
+    return {'return':0, 'equal':equal}
+
+##############################################################################
+# Compare two flat dictionaries
+
+def compare_flat_dicts(i):
+    """
+    Input:  {
+              dict1            - dictionary 1
+              dict2            - dictionary 2
+              (ignore_case)    - ignore case of letters
+              (space_as_none)  - if 'yes', consider "" as None
+              (keys_to_ignore) - list of keys to ignore (can be wildcards)
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              equal        - if 'yes' dictionaries are equal
+            }
+    """
+
+    d1=i.get('dict1',{})
+    d2=i.get('dict2',{})
+
+    equal='yes'
+
+    ic=False
+    x=i.get('ignore_case','')
+    if x=='yes': ic=True
+
+    san=None
+    x=i.get('space_as_none','')
+    if x=='yes': san=''
+
+    # Create common set of keys
+    keys=list(d1.keys())
+    for q in d2:
+        if q not in keys:
+           keys.append(q)
+
+    # If keys to ignore
+    kti=i.get('keys_to_ignore',[])
+    if len(kti)>0:
+       import fnmatch
+
+       x=[]
+       for q in keys:
+           skip=False
+           for k in kti:
+               if fnmatch.fnmatch(q,k):
+                  skip=True
+           if not skip:
+              x.append(q)
+       keys=x
+    
+    # Compare all keys
+    for q in keys:
+        v1=d1.get(q, san)
+        v2=d2.get(q, san)
+
+        if ic and type(v1)!=int and type(v1)!=float and type(v1)!=bool: 
+           v1=v1.lower()
+           v2=v2.lower()
+
+        if v1!=v2:
+           equal='no'
+           break
 
     return {'return':0, 'equal':equal}
 
