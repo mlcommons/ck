@@ -1744,6 +1744,7 @@ def list_all_files(i):
               (error)      - error text if return > 0
 
               list         - list of all files
+              sizes        - sizes of files (the same order)
               number       - number of files in a current directory (needed for recursion)
             }
     """
@@ -1758,7 +1759,7 @@ def list_all_files(i):
     if i.get('limit','')!='': 
        limit=int(i['limit'])
 
-    a=[] 
+    a={} 
 
     iall=i.get('all','')
 
@@ -1785,7 +1786,7 @@ def list_all_files(i):
                   if os.path.isdir(p):
                      r=list_all_files({'path':p, 'all':iall, 'path_ext':os.path.join(pe, fn), 'number':str(number), 'ignore_names':inames, 'pattern':pattern})
                      if r['return']>0: return r
-                     a.extend(r['list'])
+                     a.update(r['list'])
                   else:
                      add=True
 
@@ -1793,7 +1794,8 @@ def list_all_files(i):
                         add=False
 
                      if add:
-                        a.append(os.path.join(pe, fn))
+                        pg=os.path.join(pe, fn)
+                        a[pg]={'size':os.stat(p).st_size}
 
                         number=len(a)
 
@@ -6847,13 +6849,16 @@ def add_action(i):
           r=inp({'text':'Add action function (or Enter to stop):    '})
           func=r['string']
 
-       if fweb=='':
-          r1=inp({'text':'Support web (y/N):                         '})
-          fweb=r1['string']
+       if func!='':
+          if fweb=='':
+             r1=inp({'text':'Support web (y/N):                         '})
+             fweb=r1['string'].lower()
+             if fweb=='y' or fweb=='yes': fweb='yes'
+             else: fweb=''
 
-       if desc=='':
-          r1=inp({'text':'Add action description (or Enter to stop): '})
-          desc=r1['string']
+          if desc=='':
+             r1=inp({'text':'Add action description:                    '})
+             desc=r1['string']
 
     # Check if empty
     if func=='':
@@ -7374,7 +7379,7 @@ def push(i):
     return {'return':0}
 
 ##############################################################################
-# Push data
+# List files in a given entry
 
 def list_files(i):
     """
@@ -7390,6 +7395,8 @@ def list_files(i):
               return       - return code =  0, if successful
                                          >  0, if error
               (error)      - error text if return > 0
+
+              Output of list all files
             }
 
     """
