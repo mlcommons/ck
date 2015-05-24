@@ -46,7 +46,7 @@ Grigori Fursin, non-profit cTuning foundation, France
 
 Extra description
 =================
-We developed CK is intended to enable open and collaborative
+CK is intended to enable open and collaborative
 research and experimentation particularly in computer
 engineering. It can help users preserve, organize, describe,
 cross-link and share their code, data and experimental results
