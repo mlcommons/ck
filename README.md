@@ -1,3 +1,5 @@
+CK - knowledge management and predictive analytics for everyone
+
 Introduction
 ============
 Collective Knowledge (CK) is a light-weight, portable, modular
