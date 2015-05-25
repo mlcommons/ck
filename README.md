@@ -1,4 +1,4 @@
-CK - collaborative knowledge management and predictive analytics for everyone
+CK - simplifying collaborative knowledge management and predictive analytics
 
 Introduction
 ============
