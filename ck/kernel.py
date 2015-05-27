@@ -4896,11 +4896,17 @@ def edit(i):
 def rm(i):
     """
     Input:  {
-              (repo_uoa)  - repo UOA
-              module_uoa  - module UOA
-              data_uoa    - data UOA
-              (force)     - if 'yes', force deleting without questions
-              (share)     - if 'yes', try to remove via GIT
+              (repo_uoa)      - repo UOA    ; can be wild cards
+              module_uoa      - module UOA  ; can be wild cards
+              data_uoa        - data UOA    ; can be wild cards
+
+              (force)         - if 'yes', force deleting without questions
+
+              (share)         - if 'yes', try to remove via GIT
+
+              (tags)          - use these tags in format tags=x,y,z to prune rm
+                   or
+              (search_string) - prune entries with expression *?
             }
 
     Output: {
@@ -4926,10 +4932,17 @@ def rm(i):
 
     lst=[]
 
+    tags=i.get('tags','')
+    ss=i.get('search_string','')
+
     # Check wildcards
     if a.find('*')>=0 or a.find('?')>=0 or m.find('*')>=0 or m.find('?')>=0 or duoa.find('*')>=0 or duoa.find('?')>=0: 
-       r=list_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
-       if r['return']>0: return r
+       if tags=='' and ss=='':
+          r=list_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
+          if r['return']>0: return r
+       else:
+          r=search({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa, 'tags':tags, 'search_string':ss})
+          if r['return']>0: return r
 
        lst=r['lst']
     else:
