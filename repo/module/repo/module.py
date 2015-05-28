@@ -396,6 +396,10 @@ def add(i):
           ck.out('CK repo description path = '+px)
           ck.out('CK repo UID              = '+dx)
 
+    # Recache repos otherwise may be problems with deps
+    r=recache({'out':o})
+    if r['return']>0: return r
+
     # Check deps
     if o=='con':
        ck.out('  ******************************************************************')
