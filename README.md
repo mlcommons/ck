@@ -22,11 +22,12 @@ to automate and speed up exploration of multi-dimensional
 experimental choices, analysis of results and decision making.
 
 Finally, unified and integrated repository of knowledge allows 
-community to help validate experimental results, improve models, 
-find missing features and so on.
+community to systematize unstructured code and data while 
+collaboratively validating experimental results, improving models, 
+finding missing features and so on.
 
-For example, we use this framework primarily to systematize, open
-and crowdsource our research and experimentation to design
+For example, we use this framework primarily to systematize, 
+open and crowdsource our research and experimentation to design
 faster, smaller, more power efficient and reliable software and
 hardware (by combining autotuning, run-time adaptation, machine
 learning and public repository of knowledge):
