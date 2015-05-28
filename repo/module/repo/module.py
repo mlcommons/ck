@@ -75,12 +75,15 @@ def add(i):
               (githubuser)               - if shared repo, use this GITHUB user space instead of default "ctuning"
               (sync)                     - if 'yes' and type=='git', sync repo after each write operation
 
+              (gitzip)                   - if 'yes', download as zip from GITHUB
               (zip)                      - path to zipfile (local or remote http/ftp)
               (overwrite)                - if 'yes', overwrite files when unarchiving
 
               (quiet)                    - if 'yes', do not ask questions unless really needed
 
               (skip_reusing_remote_info) - if 'yes', do not reuse remote .cmr.json description of a repository
+
+              (current_repos)            - if resolving dependencies on other repos, list of repos being updated (to avoid infinite recursion)
             }
 
     Output: {
@@ -102,8 +105,19 @@ def add(i):
     di=i.get('data_uid','')
     dn=i.get('data_name','')
 
+    cr=i.get('current_repos',[])
+
+    quiet=i.get('quiet','')
+
     zp=i.get('zip','')
     overwrite=i.get('overwrite','')
+
+    gz=i.get('gitzip','')
+    ptr=''
+    if gz=='yes':
+       zp=ck.cfg['default_shared_repo_url']+'/'+d+'/archive/master.zip'
+       ptr=d+'-master/'
+       quiet='yes'
 
     remote=i.get('remote','')
     rruoa=i.get('remote_repo_uoa','')
@@ -122,8 +136,6 @@ def add(i):
     udp=i.get('use_default_path','yes')
     ucp=i.get('use_current_path','')
     if ucp=='yes': udp=''
-
-    quiet=i.get('quiet','')
 
     # Get repo path (unless 'here' later)
     px=i.get('path','')
@@ -274,7 +286,8 @@ def add(i):
 
     # If zip, get (download) and unzip file ...
     if zp!='':
-       rz=get_and_unzip_archive({'zip':zp, 'path':p, 'overwrite':overwrite, 'out':o})
+
+       rz=get_and_unzip_archive({'zip':zp, 'path':p, 'path_to_remove':ptr, 'overwrite':overwrite, 'out':o})
        if rz['return']>0: return rz
 
     # If git, clone repo
@@ -379,14 +392,31 @@ def add(i):
        ck.out('CK repository successfully registered!')
        ck.out('')
 
-       if df=='yes':
-          ck.out('Please, do not forget to add path to this repository to CK_LOCAL_REPO environment variable:')
-          ck.out('')
-          ck.out('  Linux: export CK_LOCAL_REPO='+p)
-          ck.out('  Windows: set CK_LOCAL_REPO='+p)
-       else:
+       if df!='yes':
           ck.out('CK repo description path = '+px)
           ck.out('CK repo UID              = '+dx)
+
+    # Check deps
+    if o=='con':
+       ck.out('  ******************************************************************')
+       ck.out('  Checking dependencies on other repos ...')
+       ck.out('')
+
+    how='pull'
+    if gz=='yes': how='add'
+    r=deps({'path':p,
+            'current_path':cr,
+            'how':how,
+            'out':o})
+    if r['return']>0: return r
+
+    # Print if default
+    if df=='yes' and o=='con':
+       ck.out('')
+       ck.out('Please, do not forget to add path to this repository to CK_LOCAL_REPO environment variable:')
+       ck.out('')
+       ck.out('  Linux: export CK_LOCAL_REPO='+p)
+       ck.out('  Windows: set CK_LOCAL_REPO='+p)
 
     return rx
 
@@ -533,9 +563,11 @@ def pull(i):
 
                 or
 
-              (data_uoa)   - repo UOA
+              (data_uoa)      - repo UOA
 
-              (clone) - if 'yes', clone repo instead of update
+              (clone)         - if 'yes', clone repo instead of update
+
+              (current_repos) - if resolving dependencies on other repos, list of repos being updated (to avoid infinite recursion)
             }
 
     Output: {
@@ -552,6 +584,8 @@ def pull(i):
     px=i.get('path','')
     t=i.get('type','')
     url=i.get('url','')
+
+    cr=i.get('current_repos',[])
 
     tt='pull'
     if i.get('clone','')=='yes': tt='clone'
@@ -601,6 +635,7 @@ def pull(i):
                 x=i.get('quiet','')
                 if x=='': x='yes'
                 i['quiet']=x
+                i['current_repos']=cr
 
                 return add(i)
              else:
@@ -655,6 +690,19 @@ def pull(i):
         else:
            if o=='con':
               ck.out('CK warning: this repository is not shared!')
+
+        # Check deps
+        if tt!='clone': # clone is done in add ...
+           if o=='con':
+              ck.out('  ******************************************************************')
+              ck.out('  Checking dependencies on other repos ...')
+              ck.out('')
+
+           r=deps({'path':p,
+                   'current_path':cr,
+                   'how':'pull',
+                   'out':o})
+           if r['return']>0: return r
 
     return {'return':0}
 
@@ -1203,9 +1251,10 @@ def unzip(i):
 def get_and_unzip_archive(i):
     """
     Input:  {
-              zip         - zip filename or URL
-              path        - path to extract
-              (overwrite) - if 'yes', overwrite files when unarchiving
+              zip              - zip filename or URL
+              path             - path to extract
+              (overwrite)      - if 'yes', overwrite files when unarchiving
+              (path_to_remove) - if !='', remove this part of the path from extracted archive
             }
 
     Output: {
@@ -1220,6 +1269,7 @@ def get_and_unzip_archive(i):
 
     zp=i['zip']
     p=i['path']
+    pr=i.get('path_to_remove','')
 
     overwrite=i.get('overwrite','')
 
@@ -1227,7 +1277,7 @@ def get_and_unzip_archive(i):
     rm_zip=False
     if zp.find('://')>=0:
        if o=='con':
-          ck.out('Downloading CK archive - it may take some time ...')
+          ck.out('Downloading CK archive ('+zp+') - it may take some time ...')
 
        rm_zip=True
 
@@ -1254,7 +1304,12 @@ def get_and_unzip_archive(i):
        except Exception as e:
           return {'return':1, 'error':'Failed downloading CK archive ('+format(e)+')'}
 
-       chunk=32768
+       import time
+       t = time.time()
+       t0 = t
+
+       chunk=32767
+       size=0
 
        try:
           fo=open(fn, 'wb')
@@ -1268,6 +1323,13 @@ def get_and_unzip_archive(i):
              if not s: break
              fo.write(s)
 
+             size+=len(s)
+
+             if o=='con' and (time.time()-t)>3:
+                speed='%.1d' % (size/(1000*(time.time()-t0)))
+                ck.out('  Downloaded '+str(int(size/1000))+' KB ('+speed+' KB/sec.) ...')
+                t=time.time()
+
           f.close()
        except Exception as e:
           return {'return':1, 'error':'Failed downlading CK archive ('+format(e)+')'}
@@ -1278,26 +1340,34 @@ def get_and_unzip_archive(i):
 
     # Unzip if zip
     if zp!='':
+       if o=='con':
+          ck.out('  Extracting to '+p+' ...')
+
        import zipfile
        f=open(zp,'rb')
        z=zipfile.ZipFile(f)
        for dx in z.namelist():
-           pp=os.path.join(p,dx)
-           if dx.endswith('/'): 
-              # create directory 
-              if not os.path.exists(pp): os.makedirs(pp)
-           else:
-              # extract file
-              ppd=os.path.dirname(pp)
-              if not os.path.exists(ppd): os.makedirs(ppd)
+           dx1=dx
+           if pr!='' and dx.startswith(pr): 
+              dx1=dx1[len(pr):]
 
-              if os.path.isfile(pp) and overwrite!='yes':
-                 if o=='con':
-                    ck.out('File '+dx+' already exists in the entry - skipping ...')
+           if dx1!='':
+              pp=os.path.join(p,dx1)
+              if dx.endswith('/'): 
+                 # create directory 
+                 if not os.path.exists(pp): os.makedirs(pp)
               else:
-                 fo=open(pp, 'wb')
-                 fo.write(z.read(dx))
-                 fo.close()
+                 # extract file
+                 ppd=os.path.dirname(pp)
+                 if not os.path.exists(ppd): os.makedirs(ppd)
+
+                 if os.path.isfile(pp) and overwrite!='yes':
+                    if o=='con':
+                       ck.out('File '+dx+' already exists in the entry - skipping ...')
+                 else:
+                    fo=open(pp, 'wb')
+                    fo.write(z.read(dx))
+                    fo.close()
        f.close()
 
        if rm_zip:
@@ -1323,3 +1393,107 @@ def import_repo(i):
 
     i['import']='yes'
     return add(i)
+
+##############################################################################
+# resolve dependencies for a repo
+
+def deps(i):
+    """
+    Input:  {
+              (data_uoa)      - repo UOA
+                  or
+              (path)          - path to .cmr.json
+
+              (current_repos) - list of repos being updated (to avoid infinite recursion)
+
+              (how)           - 'pull' (default) or 'add'
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    import os
+
+    o=i.get('out','')
+
+    duoa=i.get('data_uoa','')
+
+    cr=i.get('current_repos',[])
+
+    how=i.get('how','')
+    if how=='': how='pull'
+
+    p=i.get('path','')
+    if p=='':
+       r=ck.access({'action':'load',
+                    'module_uoa':work['self_module_uoa'],
+                    'data_uoa':duoa})
+       if r['return']>0: return r
+       dr=r['dict']
+       p=dr.get('path','')
+
+    if p!='':
+       # path to repo description
+       pp=os.path.join(p, ck.cfg['repo_file'])
+       if not os.path.isfile(pp):
+          return {'return':1, 'error':'repository description ('+pp+') is not found'}
+
+       r=ck.load_json_file({'json_file':pp})
+       if r['return']>0: return r
+
+       d=r['dict']
+
+       rp1=d.get('repo_deps',[])
+       rp2=[]
+       rp=[]
+
+       if len(rp1)>0:
+          for ruoa in rp1:
+              if ruoa not in cr:
+                 rp2.append(ruoa)
+
+       if len(rp2)==0:
+          if o=='con':
+             ck.out('  No dependencies on other repositories found!')
+       else:
+          for ruoa in rp2:
+              x='  Dependency on repository '+ruoa+' '
+
+              # Check if this repo exists
+              r=ck.access({'action':'load',
+                           'module_uoa':work['self_module_uoa'],
+                           'data_uoa':ruoa})
+              if r['return']>0: 
+                 if r['return']!=16: return r
+                 rp.append(ruoa)
+                 x+=': should be resolved ...'
+              else:
+                 x+=': Ok'
+
+              if o=='con':
+                 ck.out(x)
+          
+       if len(rp)>0:
+          for ruoa in rp:
+              if o=='con':
+                 ck.out('')
+                 ck.out('  Resolving dependency on repo:'+ruoa)
+                 ck.out('')
+
+              cr.append(ruoa)
+
+              ii={'action':how,
+                  'module_uoa':work['self_module_uoa'],
+                  'data_uoa':ruoa,
+                  'current_repos':cr,
+                  'out':o}
+              if how=='add': ii['gitzip']='yes'
+              r=ck.access(ii)
+              if r['return']>0: return r
+
+    return {'return':0, 'current_repos':cr}

@@ -27,6 +27,9 @@
     "remove": {
       "desc": "remove repository from CK"
     }, 
+    "deps": {
+      "desc": "resolve dependencies for a repo"
+    }, 
     "rm": {
       "desc": "remove repository from CK"
     }, 
