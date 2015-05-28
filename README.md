@@ -1,4 +1,5 @@
-CK - simplifying collaborative knowledge management and predictive analytics
+CK - enabling and simplifying collaborative and reproducible research, 
+experimentation, knowledge management and predictive analytics
 
 Introduction
 ============
