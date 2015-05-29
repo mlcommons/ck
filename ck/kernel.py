@@ -165,6 +165,8 @@ cfg={
                  "status":{"desc":"check CK version status", "for_web": "yes"},
                  "copy_path_to_clipboard":{"desc":"copy current path to clipboard", "for_web": "no"},
 
+                 "wiki":{"desc":"<CID> open discussion wiki page for a given entry"}, 
+
                  "help":{"desc":"<CID> print help about data (module) entry"},
                  "webhelp":{"desc":"<CID> open browser with online help (description) for a data (module) entry"}, 
                  "webapi":{"desc":"<CID> open browser with online API for a given module, if exists"}, 
@@ -219,6 +221,7 @@ cfg={
       "actions_redirect":{"list":"list_data"},
 
       "common_actions":["webhelp", "webapi", "help", "info", "print_input",
+                        "wiki",
                         "path", "find", "cid",
                         "add",
                         "edit", 
@@ -3829,6 +3832,61 @@ def webhelp(i):
     return {'return':0}
 
 ############################################################
+# Special function: open webbrowser with help
+
+def wiki(i):
+    """
+    Input:  { 
+               (repo_uoa)
+               (module_uoa)
+               (data_uoa)
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    url=cfg['wiki_data_web']
+
+    if muoa=='' or duoa=='':
+       # Try to detect CID in current path
+       rx=detect_cid_in_current_path({})
+       if rx['return']==0:
+          muoa=rx.get('module_uoa','')
+          duoa=rx.get('data_uoa','')
+
+    if muoa=='' or duoa=='':
+       return {'return':1, 'error':'entry is not defined'}
+
+    r=find_path_to_data({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
+    if r['return']>0: return r
+
+    rx=convert_entry_to_cid(r)
+    if rx['return']>0: return rx
+
+    cuoa=rx['cuoa']
+    cid=rx['cid']
+    xcuoa=rx['xcuoa']
+    xcid=rx['xcid']
+
+    # Prepare URL
+    url+='_'+cid.replace(':','_')
+
+    out('Opening web page '+url+' ...')
+
+    import webbrowser
+    webbrowser.open(url)
+
+    return {'return':0}
+
+############################################################
 # Special function: open webbrowser with API, if exists
 
 def webapi(i):
@@ -3864,6 +3922,8 @@ def webapi(i):
        url+='ck_modules_api/html/'+muoa+'_2module_8py.html'
 
     out('Opening web page '+url+' ...')
+    out('  Note: if discussion wiki page doesn\'t exist yet, root Wiki will open!')
+    out('        You should then log in to Github, and restart ck wiki agian to edit it ...')
 
     import webbrowser
     webbrowser.open(url)
