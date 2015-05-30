@@ -24,8 +24,8 @@ cfg={
       "desc":"exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",
       "cmd":"ck <action> $#module_uoa#$ (cid1/uid1) (cid2/uid2) (cid3/uid3) key_i=value_i ... @file.json",
 
-      "wiki_data_web":"https://github.com/ctuning/ck/wiki/Description_",
-      "private_wiki_data_web":"https://github.com/ctuning/ck/wiki/Description_",
+      "wiki_data_web":"https://github.com/ctuning/ck/wiki/ckb_",           # Collective Knowledge Base (ckb)
+      "private_wiki_data_web":"https://github.com/ctuning/ck/wiki/ckb_",   # Collective Knowledge Base (ckb)
       "api_web":"http://cknowledge.org/soft/docs/",
       "status_url":"http://cknowledge.org/soft/status/",
       "help_web":"More info: https://github.com/ctuning/ck",
@@ -166,7 +166,7 @@ cfg={
                  "status":{"desc":"check CK version status", "for_web": "yes"},
                  "copy_path_to_clipboard":{"desc":"copy current path to clipboard", "for_web": "no"},
 
-                 "wiki":{"desc":"<CID> open discussion wiki page for a given entry"}, 
+                 "wiki":{"desc":"<CID> open discussion wiki page for a given entry"},           # Collective Knowledge Base (ckb)
                  "pwiki":{"desc":"<CID> open private discussion wiki page for a given entry"}, 
 
                  "help":{"desc":"<CID> print help about data (module) entry"},
