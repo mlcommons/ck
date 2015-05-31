@@ -397,12 +397,16 @@ def add(i):
           ck.out('CK repo UID              = '+dx)
 
     # Recache repos otherwise may be problems with deps
+    if o=='con':
+       ck.out('')
+       ck.out('Recaching repos to speed up access ...')
+       ck.out('')
     r=recache({'out':o})
     if r['return']>0: return r
 
     # Check deps
     if o=='con':
-       ck.out('  ******************************************************************')
+       ck.out('  ========================================')
        ck.out('  Checking dependencies on other repos ...')
        ck.out('')
 
@@ -549,7 +553,8 @@ def update(i):
        # Recaching
        if o=='con':
           ck.out('')
-
+          ck.out('Recaching repos to speed up access ...')
+          ck.out('')
        r=recache({'out':o})
        if r['return']>0: return r
 
@@ -698,7 +703,7 @@ def pull(i):
         # Check deps
         if tt!='clone': # clone is done in add ...
            if o=='con':
-              ck.out('  ******************************************************************')
+              ck.out('  ========================================')
               ck.out('  Checking dependencies on other repos ...')
               ck.out('')
 
