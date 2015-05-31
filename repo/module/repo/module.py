@@ -695,7 +695,16 @@ def pull(i):
            os.chdir(px) # Restore path
 
            if r>0:
-              return {'return':1, 'error':'repository update likely failed - exit code '+str(r)}
+              if o=='con':
+                 ck.out('')
+                 ck.out(' WARNING: repository update likely failed - exit code '+str(r))
+                 ck.out('')
+                 rx=ck.inp({'text': 'Would you like to continue (Y/n)?: '})
+                 x=rx['string'].lower()
+                 if x=='n' or x=='no':
+                    return {'return':1, 'error':'repository update likely failed - exit code '+str(r)}
+              else:
+                 return {'return':1, 'error':'repository update likely failed - exit code '+str(r)}
         else:
            if o=='con':
               ck.out('CK warning: this repository is not shared!')
@@ -835,7 +844,16 @@ def push(i):
            os.chdir(px) # Restore path
 
            if r>0:
-              return {'return':1, 'error':'repository update likely failed - exit code '+str(r)}
+              if o=='con':
+                 ck.out('')
+                 ck.out(' WARNING: repository update likely failed - exit code '+str(r))
+                 ck.out('')
+                 rx=ck.inp({'text': 'Would you like to continue (Y/n)?: '})
+                 x=rx['string'].lower()
+                 if x=='n' or x=='no':
+                    return {'return':1, 'error':'repository update likely failed - exit code '+str(r)}
+              else:
+                 return {'return':1, 'error':'repository update likely failed - exit code '+str(r)}
         else:
            if o=='con':
               ck.out('CK warning: this repository is not shared!')
