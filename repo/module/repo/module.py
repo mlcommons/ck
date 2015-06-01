@@ -1467,64 +1467,62 @@ def deps(i):
     if p!='':
        # path to repo description
        pp=os.path.join(p, ck.cfg['repo_file'])
-       if not os.path.isfile(pp):
-          return {'return':1, 'error':'repository description ('+pp+') is not found'}
+       if os.path.isfile(pp):
+          r=ck.load_json_file({'json_file':pp})
+          if r['return']>0: return r
 
-       r=ck.load_json_file({'json_file':pp})
-       if r['return']>0: return r
+          d=r['dict']
 
-       d=r['dict']
+          rp1=d.get('repo_deps',[])
+          rp2=[]
+          rp=[]
 
-       rp1=d.get('repo_deps',[])
-       rp2=[]
-       rp=[]
+          if len(rp1)>0:
+             for xruoa in rp1:
+                 ruoa=xruoa.get('repo_uoa','')
+                 if ruoa!='' and ruoa not in cr:
+                    rp2.append(xruoa)
 
-       if len(rp1)>0:
-          for xruoa in rp1:
-              ruoa=xruoa.get('repo_uoa','')
-              if ruoa!='' and ruoa not in cr:
-                 rp2.append(xruoa)
+          if len(rp2)==0:
+             if o=='con':
+                ck.out('  No dependencies on other repositories found!')
+          else:
+             for xruoa in rp2:
+                 ruoa=xruoa.get('repo_uoa','')
+                 if ruoa!='':
+                    x='  Dependency on repository '+ruoa+' '
 
-       if len(rp2)==0:
-          if o=='con':
-             ck.out('  No dependencies on other repositories found!')
-       else:
-          for xruoa in rp2:
-              ruoa=xruoa.get('repo_uoa','')
-              if ruoa!='':
-                 x='  Dependency on repository '+ruoa+' '
+                    # Check if this repo exists
+                    r=ck.access({'action':'load',
+                                 'module_uoa':work['self_module_uoa'],
+                                 'data_uoa':ruoa})
+                    if r['return']>0: 
+                       if r['return']!=16: return r
+                       rp.append(xruoa)
+                       x+=': should be resolved ...'
+                    else:
+                       x+=': Ok'
 
-                 # Check if this repo exists
-                 r=ck.access({'action':'load',
-                              'module_uoa':work['self_module_uoa'],
-                              'data_uoa':ruoa})
-                 if r['return']>0: 
-                    if r['return']!=16: return r
-                    rp.append(xruoa)
-                    x+=': should be resolved ...'
-                 else:
-                    x+=': Ok'
-
+                    if o=='con':
+                       ck.out(x)
+             
+          if len(rp)>0:
+             for xruoa in rp:
+                 ruoa=xruoa.get('repo_uoa','')
                  if o=='con':
-                    ck.out(x)
-          
-       if len(rp)>0:
-          for xruoa in rp:
-              ruoa=xruoa.get('repo_uoa','')
-              if o=='con':
-                 ck.out('')
-                 ck.out('  Resolving dependency on repo:'+ruoa)
-                 ck.out('')
+                    ck.out('')
+                    ck.out('  Resolving dependency on repo:'+ruoa)
+                    ck.out('')
 
-              cr.append(ruoa)
+                 cr.append(ruoa)
 
-              ii={'action':how,
-                  'module_uoa':work['self_module_uoa'],
-                  'data_uoa':ruoa,
-                  'current_repos':cr,
-                  'out':o}
-              if how=='add': ii['gitzip']='yes'
-              r=ck.access(ii)
-              if r['return']>0: return r
+                 ii={'action':how,
+                     'module_uoa':work['self_module_uoa'],
+                     'data_uoa':ruoa,
+                     'current_repos':cr,
+                     'out':o}
+                 if how=='add': ii['gitzip']='yes'
+                 r=ck.access(ii)
+                 if r['return']>0: return r
 
     return {'return':0, 'current_repos':cr}
