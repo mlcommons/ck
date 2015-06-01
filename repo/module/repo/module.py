@@ -1479,9 +1479,10 @@ def deps(i):
 
           if len(rp1)>0:
              for xruoa in rp1:
-                 ruoa=xruoa.get('repo_uoa','')
-                 if ruoa!='' and ruoa not in cr:
-                    rp2.append(xruoa)
+                 if type(xruoa)!=list:
+                    ruoa=xruoa.get('repo_uoa','')
+                    if ruoa!='' and ruoa not in cr:
+                       rp2.append(xruoa)
 
           if len(rp2)==0:
              if o=='con':
