@@ -1480,33 +1480,37 @@ def deps(i):
        rp=[]
 
        if len(rp1)>0:
-          for ruoa in rp1:
-              if ruoa not in cr:
-                 rp2.append(ruoa)
+          for xruoa in rp1:
+              ruoa=xruoa.get('repo_uoa','')
+              if ruoa!='' and ruoa not in cr:
+                 rp2.append(xruoa)
 
        if len(rp2)==0:
           if o=='con':
              ck.out('  No dependencies on other repositories found!')
        else:
-          for ruoa in rp2:
-              x='  Dependency on repository '+ruoa+' '
+          for xruoa in rp2:
+              ruoa=xruoa.get('repo_uoa','')
+              if ruoa!='':
+                 x='  Dependency on repository '+ruoa+' '
 
-              # Check if this repo exists
-              r=ck.access({'action':'load',
-                           'module_uoa':work['self_module_uoa'],
-                           'data_uoa':ruoa})
-              if r['return']>0: 
-                 if r['return']!=16: return r
-                 rp.append(ruoa)
-                 x+=': should be resolved ...'
-              else:
-                 x+=': Ok'
+                 # Check if this repo exists
+                 r=ck.access({'action':'load',
+                              'module_uoa':work['self_module_uoa'],
+                              'data_uoa':ruoa})
+                 if r['return']>0: 
+                    if r['return']!=16: return r
+                    rp.append(xruoa)
+                    x+=': should be resolved ...'
+                 else:
+                    x+=': Ok'
 
-              if o=='con':
-                 ck.out(x)
+                 if o=='con':
+                    ck.out(x)
           
        if len(rp)>0:
-          for ruoa in rp:
+          for xruoa in rp:
+              ruoa=xruoa.get('repo_uoa','')
               if o=='con':
                  ck.out('')
                  ck.out('  Resolving dependency on repo:'+ruoa)
