@@ -78,6 +78,7 @@ cfg={
       "file_meta_old":"data.json", # keep compatibility with Collective Mind V1.x
       "file_meta":"meta.json",
       "file_info":"info.json",
+      "file_desc":"desc.json",
       "file_updates":"updates.json",
 
       "file_alias_a": "alias-a-", 
@@ -2253,7 +2254,10 @@ def find_path_to_entry(i):
 def load_meta_from_path(i):
     """
     Input:  {
-              path     - path to a data entry
+              path           - path to a data entry
+
+              (skip_updates) - if 'yes', do not load updates
+              (skip_desc)    - if 'yes', do not load descriptions
             }
 
     Output: {
@@ -2269,10 +2273,14 @@ def load_meta_from_path(i):
 
               (updates)      - dict with updates if exists
               (path_updates) - path to json file with updates
+              (path_desc)    - path to json file with API description
             }
     """
 
     p=i['path']
+
+    slu=i.get('skip_updates','')
+    sld=i.get('skip_desc','')
 
     p1=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta'])
     if not os.path.isfile(p1):
@@ -2297,12 +2305,22 @@ def load_meta_from_path(i):
           rx['info']=r['dict']
 
        # Check updates file
-       p3=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_updates'])
-       if os.path.isfile(p3):
-          r=load_json_file({'json_file':p3})
-          if r['return']>0: return r
-          rx['path_updates']=p3
-          rx['updates']=r['dict']
+       if slu!='yes':
+          p3=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_updates'])
+          if os.path.isfile(p3):
+             r=load_json_file({'json_file':p3})
+             if r['return']>0: return r
+             rx['path_updates']=p3
+             rx['updates']=r['dict']
+
+       # Check desc file
+       if sld!='yes':
+          p4=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_desc'])
+          if os.path.isfile(p4):
+             r=load_json_file({'json_file':p4})
+             if r['return']>0: return r
+             rx['path_desc']=p4
+             rx['desc']=r['dict']
 
        return rx
     else:
@@ -4335,16 +4353,19 @@ def copy_path_to_clipboard(i):
 def load(i):
     """
     Input:  {
-              (repo_uoa)         - repo UOA
-              module_uoa         - module UOA
-              data_uoa           - data UOA
+              (repo_uoa)          - repo UOA
+              module_uoa          - module UOA
+              data_uoa            - data UOA
 
-              (get_lock)         - if 'yes', lock this entry
-              (lock_retries)     - number of retries to aquire lock (default=5)
-              (lock_retry_delay) - delay in seconds before trying to aquire lock again (default=10)
-              (lock_expire_time) - number of seconds before lock expires (default=30)
+              (get_lock)          - if 'yes', lock this entry
+              (lock_retries)      - number of retries to aquire lock (default=5)
+              (lock_retry_delay)  - delay in seconds before trying to aquire lock again (default=10)
+              (lock_expire_time)  - number of seconds before lock expires (default=30)
 
-              (unlock_uid)       - UID of the lock to release it
+              (skip_updates)      - if 'yes', do not load updates
+              (skip_desc)         - if 'yes', do not load descriptions
+
+              (unlock_uid)        - UID of the lock to release it
             }
 
     Output: {
@@ -4355,6 +4376,7 @@ def load(i):
               dict         - entry meta description
               (info)       - entry info
               (updates)    - entry updates
+              (desc)       - entry description
 
               path         - path to data entry
               path_module  - path to module entry with this entry
@@ -4387,6 +4409,9 @@ def load(i):
     if r['return']>0: return r
     p=r['path']
 
+    slu=i.get('skip_updates','')
+    sld=i.get('skip_desc','')
+
     # Set/check lock
     i['path']=p
     rx=set_lock(i)
@@ -4395,7 +4420,7 @@ def load(i):
     luid=rx.get('lock_uid','')
 
     # Load meta description
-    r1=load_meta_from_path({'path':p})
+    r1=load_meta_from_path({'path':p, 'skip_updates':slu, 'skip_desc':sld})
     if r1['return']>0: return r1
 
     r.update(r1)
@@ -4514,6 +4539,8 @@ def add(i):
 
               (dict)                 - meta description to record
               (substitute)           - if 'yes' and update=='yes' substitute dictionaries, otherwise merge!
+
+              (desc)                 - description of an entry (gradually adding API description in flat format)
 
               (info)                 - entry info to record - normally, should not use it!
               (extra_info)           - enforce extra info such as author, license, etc
@@ -4657,12 +4684,14 @@ def add(i):
     a={}
     info={}
     updates={}
+    desc={}
 
     p2=rr['path']
     p3=os.path.join(p2, cfg['subdir_ck_ext'])
     p4=os.path.join(p3, cfg['file_meta'])
     p4i=os.path.join(p3, cfg['file_info'])
     p4u=os.path.join(p3, cfg['file_updates'])
+    p4d=os.path.join(p3, cfg['file_desc'])
 
     # If last entry exists
     if rr['return']==16:
@@ -4683,6 +4712,7 @@ def add(i):
           a=r2['dict']
           info=r2.get('info',{})
           updates=r2.get('updates',{})
+          desc=r2.get('desc',{})
        else:
           return {'return':1,'error':'entry already exists in path ('+p2+')'}
     else:
@@ -4699,10 +4729,14 @@ def add(i):
 
     # If dict, info and updates are in input, try to merge ...
     cma=i.get('dict',{})
+    cmad=i.get('desc',{})
     if i.get('substitute','')=='yes':
        a=cma
+       desc=cmad
     else:
        r=merge_dicts({'dict1':a, 'dict2':cma})
+       if r['return']>0: return r
+       r=merge_dicts({'dict1':desc, 'dict2':cmad})
        if r['return']>0: return r
 
     cminfo=i.get('info',{})
@@ -4756,6 +4790,10 @@ def add(i):
 
     # Record info
     rx=save_json_to_file({'json_file':p4i, 'dict':info, 'sort_keys':sk})
+    if rx['return']>0: return rx
+
+    # Record desc
+    rx=save_json_to_file({'json_file':p4d, 'dict':desc, 'sort_keys':sk})
     if rx['return']>0: return rx
 
     if o=='con':
@@ -5461,6 +5499,7 @@ def cp(i):
     dd=r.get('dict',{})
     di=r.get('info',{})
     du=r.get('updates',{})
+    dx=r.get('desc',{})
 
     # Check if writing is allowed
     ii={'module_uoa':muoa, 'module_uid':r['module_uid'], 'repo_uoa':ruoa, 'repo_uid':r['repo_uid']}
@@ -5505,7 +5544,7 @@ def cp(i):
     rsync=rd.get('sync','')
 
     ii={'module_uoa':nmuoa, 'data_uoa': nduoa, 'dict':dd, 'info':di, 
-        'updates':du, 'ignore_update':'yes'}
+        'updates':du, 'desc':dx, 'ignore_update':'yes'}
     if nduid!='': ii['data_uid']=nduid
     if nruoa!='': ii['repo_uoa']=nruoa
     r=add(ii)
