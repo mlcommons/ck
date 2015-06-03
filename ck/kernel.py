@@ -2654,6 +2654,12 @@ def perform_action(i):
     # Check if common function
     cf=i.get('common_func','')
 
+    # Check if no module_uoa, not common function, then try to get module from current 
+    if cf!='yes' and module_uoa=='' and action not in cfg['common_actions']:
+       rc=detect_cid_in_current_path({})
+       if rc['return']==0:
+          module_uoa=rc.get('module_uoa','')
+
     xmodule_uoa=module_uoa
     if cf!='yes' and module_uoa!='' and module_uoa.find('*')<0 and module_uoa.find('?')<0:
        # Find module and load meta description
