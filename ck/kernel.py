@@ -3725,11 +3725,11 @@ def status(i):
              if len(lversion)<3:
                 return {'return':1, 'error':'can\'t parse output from server with version'}
  
-             if int(lversion[0])>int(version[0]) or \
-                (int(lversion[0])==int(version[0]) and int(lversion[1])>int(version[1])) or \
-                (int(lversion[0])==int(version[0]) and int(lversion[1])==int(version[1]) and int(lversion[2])>int(version[2])) or \
-                (int(lversion[0])==int(version[0]) and int(lversion[1])==int(version[1]) and int(lversion[2])==int(version[2]) and \
-                 len(version)>3 and version[3]!='' and (len(lversion)==3 or len(lversion)>3 and lversion[3]=='')):
+             if int(version[0])>int(lversion[0]) or \
+                (int(version[0])==int(lversion[0]) and int(version[1])>int(lversion[1])) or \
+                (int(version[0])==int(lversion[0]) and int(version[1])==int(lversion[1]) and int(version[2])>int(lversion[2])) or \
+                (int(version[0])==int(lversion[0]) and int(version[1])==int(lversion[1]) and int(version[2])==int(lversion[2]) or \
+                 (len(lversion)>3 and lversion[3]!='' and (len(version)==3 or len(version)>3 and version[3]==''))):
                 
                 outdated='yes'
 
@@ -3744,10 +3744,13 @@ def status(i):
                    u=cfg.get('ck_web','')
                    if u!='':
                       out('')
-                      out('Visit '+u+' for more details ...')
+                      out('Just execute "ck pull all" to update CK or visit '+u+' for more details ...')
 
-    if o=='con' and outdated!='yes':
-       out('Your version is up-to-date: V'+version_str)
+    if o=='con':
+       if outdated!='yes':
+          out('Your version is up-to-date: V'+version_str)
+       elif outdated=='':
+          out('Problem checking version ...')
 
     return {'return':0, 'outdated':outdated}
 
