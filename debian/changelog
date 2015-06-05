@@ -1,9 +1,19 @@
+ck (1.2.0605) UNRELEASED; urgency=medium
+  * several extra features to improve autotuning
+  * save/load extra json files to/from entries
+  * adding desc.json into .cm (collective meta) to describe API in flat format
+  * adding dependencies to repos (automatically pull all related repos -
+      useful to distribute repos with all packed artifacts to reproduce experiments from papers)
+  * a few cosmetic fixes
+
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  05 Jun 2015 11:12:13 +0100
+
 ck (1.2.0513) UNRELEASED; urgency=medium
 
   * No major problems found during past 2 months
   * A few extensions and small bug fixes
 
- -- Grigori Fursin <Grigori.Fursin@cTuning.org>  02 Feb 2015 11:12:13 +0100
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  13 Apr 2015 11:12:13 +0100
 
 ck (1.1.0202) UNRELEASED; urgency=medium
 
