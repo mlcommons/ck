@@ -44,7 +44,7 @@ cfg={
       "detect_cur_cid":"#",
       "detect_cur_cid1":"^",
 
-      "version":["1", "2", "0514"],
+      "version":["1", "2", "0605"],
       "error":"CK error: ",
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
@@ -4359,19 +4359,21 @@ def copy_path_to_clipboard(i):
 def load(i):
     """
     Input:  {
-              (repo_uoa)          - repo UOA
-              module_uoa          - module UOA
-              data_uoa            - data UOA
+              (repo_uoa)              - repo UOA
+              module_uoa              - module UOA
+              data_uoa                - data UOA
 
-              (get_lock)          - if 'yes', lock this entry
-              (lock_retries)      - number of retries to aquire lock (default=5)
-              (lock_retry_delay)  - delay in seconds before trying to aquire lock again (default=10)
-              (lock_expire_time)  - number of seconds before lock expires (default=30)
+              (get_lock)              - if 'yes', lock this entry
+              (lock_retries)          - number of retries to aquire lock (default=5)
+              (lock_retry_delay)      - delay in seconds before trying to aquire lock again (default=10)
+              (lock_expire_time)      - number of seconds before lock expires (default=30)
 
-              (skip_updates)      - if 'yes', do not load updates
-              (skip_desc)         - if 'yes', do not load descriptions
+              (skip_updates)          - if 'yes', do not load updates
+              (skip_desc)             - if 'yes', do not load descriptions
 
-              (unlock_uid)        - UID of the lock to release it
+              (load_extra_json_files) - list of files to load from the entry
+
+              (unlock_uid)            - UID of the lock to release it
             }
 
     Output: {
@@ -4397,6 +4399,8 @@ def load(i):
               data_uid     - data UID
               data_alias   - data alias
               data_name    - user friendly name
+
+              (extra_json_files) - dict with extra json files (key is the filename from 'load_extra_json_files')
 
               (lock_uid)   - unlock UID, if locked successfully
             }
@@ -4435,6 +4439,16 @@ def load(i):
     r['data_name']=r1.get('info',{}).get('data_name','')
 
     if luid!='': r['lock_uid']=luid
+
+    # If load extra files
+    lejf=i.get('load_extra_json_files',[])
+    if len(lejf)>0:
+       ejf={}
+       for ff in lejf:
+           rx=load_json_file({'json_file':os.path.join(p,ff)})
+           if rx['return']>0: return rx
+           ejf[ff]=rx['dict']
+       r['extra_json_files']=ejf
 
     # If console mode, print json
     if o=='con':
@@ -4547,6 +4561,8 @@ def add(i):
               (substitute)           - if 'yes' and update=='yes' substitute dictionaries, otherwise merge!
 
               (desc)                 - description of an entry (gradually adding API description in flat format)
+
+              (extra_json_files)     - dict with extra json files to save to entry (key is a filename)
 
               (info)                 - entry info to record - normally, should not use it!
               (extra_info)           - enforce extra info such as author, license, etc
@@ -4801,6 +4817,14 @@ def add(i):
     # Record desc
     rx=save_json_to_file({'json_file':p4d, 'dict':desc, 'sort_keys':sk})
     if rx['return']>0: return rx
+
+    # Record extra files if there
+    ejf=i.get('extra_json_files',{})
+    if len(ejf)>0:
+       for ff in ejf:
+           dff=ejf[ff]
+           rz=save_json_to_file({'json_file':os.path.join(p2,ff), 'dict':dff, 'sort_keys':sk})
+           if rz['return']>0: return rz
 
     if o=='con':
        out('Entry '+d+' ('+duid+', '+p2+') '+t+' successfully!')

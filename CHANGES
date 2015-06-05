@@ -1,3 +1,12 @@
+# V1.2.0605, 2015-06-05 -- stable release
+  (several extra features to improve autotuning)
+
+  * save/load extra json files to/from entries
+  * adding desc.json into .cm (collective meta) to describe API in flat format
+  * adding dependencies to repos (automatically pull all related repos -
+      useful to distribute repos with all packed artifacts to reproduce experiments from papers)
+  * a few cosmetic fixes
+
 # V1.2.0513, 2015-05-13 -- stable release 
   (no major problems found during past 2 months)
 
