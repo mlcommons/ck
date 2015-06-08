@@ -292,7 +292,7 @@ def add(i):
 
     # If git, clone repo
     if remote!='yes' and shared=='git':
-       r=pull({'path':p, 'type':shared, 'url':url, 'clone':'yes', 'out':o})
+       r=pull({'path':p, 'type':shared, 'url':url, 'clone':'yes', 'git':i.get('git',''), 'out':o})
        if r['return']>0: return r
 
        # Check if there is a local repo description
