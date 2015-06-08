@@ -577,6 +577,8 @@ def pull(i):
               (clone)         - if 'yes', clone repo instead of update
 
               (current_repos) - if resolving dependencies on other repos, list of repos being updated (to avoid infinite recursion)
+
+              (git)           - if 'yes', use git protocol instead of https
             }
 
     Output: {
@@ -666,9 +668,21 @@ def pull(i):
         t=q.get('type','')
         url=q.get('url','')
 
+        # Semi hack (useful for Anton)
+        if i.get('git','')=='yes':
+           url=url.replace('https://','git@')
+
+           j=url.find('/')
+           if j>0:
+              url=url[:j]+':'+url[j+1:]
+
+           url+='.git'
+
         if o=='con' and tt!='clone':
            ck.out('******************************************************************')
-           ck.out('Trying to update repo "'+duoa+'" ('+p+') ...')
+           ck.out('Trying to update repo "'+duoa+'" ...')
+           ck.out('  Local path: '+p)
+           ck.out('  URL:        '+url)
 
         if t=='git':
            px=os.getcwd()
@@ -678,7 +692,7 @@ def pull(i):
 
            if o=='con':
               ck.out('')
-              ck.out('  cd '+p+' ...')
+              ck.out('  cd '+p)
            os.chdir(p)
 
            s=ck.cfg['repo_types'][t][tt].replace('$#url#$', url).replace('$#path#$', p)
