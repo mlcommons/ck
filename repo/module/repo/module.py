@@ -1504,6 +1504,7 @@ def deps(i):
           else:
              for xruoa in rp2:
                  ruoa=xruoa.get('repo_uoa','')
+                 rurl=xruoa.get('repo_url','')
                  if ruoa!='':
                     x='  Dependency on repository '+ruoa+' '
 
@@ -1524,6 +1525,7 @@ def deps(i):
           if len(rp)>0:
              for xruoa in rp:
                  ruoa=xruoa.get('repo_uoa','')
+                 rurl=xruoa.get('repo_url','')
                  if o=='con':
                     ck.out('')
                     ck.out('  Resolving dependency on repo:'+ruoa)
@@ -1535,6 +1537,7 @@ def deps(i):
                      'module_uoa':work['self_module_uoa'],
                      'data_uoa':ruoa,
                      'current_repos':cr,
+                     'url':rurl,
                      'out':o}
                  if how=='add': ii['gitzip']='yes'
                  r=ck.access(ii)
