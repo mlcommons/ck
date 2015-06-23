@@ -1,6 +1,10 @@
 CK - enabling and simplifying collaborative and reproducible research, 
 experimentation, knowledge management and predictive analytics
 
+Note: the framework is stable but we are now working on
+"getting started" guide, documentation and demos - 
+please, stay tuned!
+
 Introduction
 ============
 Collective Knowledge (CK) is a light-weight, portable, modular
@@ -32,7 +36,8 @@ faster, smaller, more power efficient and reliable software and
 hardware (by combining autotuning, run-time adaptation, machine
 learning and public repository of knowledge):
 
-* [PDF] https://hal.inria.fr/hal-01054763
+* [PDF, part I] https://hal.inria.fr/hal-01054763
+* [PDF, part II] http://arxiv.org/abs/1506.06256
 * [Android app] https://play.google.com/store/apps/details?id=com.collective_mind.node
 
 Further information including documentation, user scenarios 
@@ -194,12 +199,13 @@ Publications
 ============
 Concepts has been described in the following publications:
 
+* http://arxiv.org/abs/1506.06256
 * http://hal.inria.fr/hal-01054763
 * http://arxiv.org/abs/1406.4020
 * https://hal.inria.fr/inria-00436029
 
-If you found CK interesting and possibly useful, you are welcome 
-to reference above publications in your reports.
+If you found CK useful and/or interesting, you are welcome 
+to reference some of the above publications in your reports.
 
 Fun
 ===
