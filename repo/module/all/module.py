@@ -36,6 +36,7 @@ def init(i):
 def pull(i):
     """
     Input:  {
+              (kernel) - if 'yes', pull kernel too (unless installed as a package)
             }
 
     Output: {
@@ -50,22 +51,23 @@ def pull(i):
 
     o=i.get('out','')
 
-    ck_root=ck.work['env_root']
-    os.chdir(ck_root)
+    if i.get('kernel','')=='yes':
+       ck_root=ck.work['env_root']
+       os.chdir(ck_root)
 
-    if o=='con':
-       ck.out('Updating CK from GITHUB ...')
-       ck.out('')
-       ck.out('  cd '+ck_root)
-       ck.out('  git pull')
-       ck.out('')
+       if o=='con':
+          ck.out('Updating CK from GITHUB ...')
+          ck.out('')
+          ck.out('  cd '+ck_root)
+          ck.out('  git pull')
+          ck.out('')
 
-    rx=os.system('git pull')
-    if rx>0: 
-       return {'return':1, 'error':'CK update failed'}
+       rx=os.system('git pull')
+       if rx>0: 
+          return {'return':1, 'error':'CK update failed'}
 
-    if o=='con':
-       ck.out('')
+       if o=='con':
+          ck.out('')
 
     return ck.access({'action':'pull',
                       'module_uoa':'repo',
