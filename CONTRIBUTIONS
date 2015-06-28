@@ -28,3 +28,9 @@ E: anton@dividiti.com
 O: dividiti, UK
 C: suggestions to improve usability, validation of concepts
 W: 
+
+N: Graham Markall
+E: graham.markall@continuum.io
+O: Continuum Analytics, UK
+C: feedback and Conda packaging (Anaconda python distro)
+W: 
