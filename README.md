@@ -19,6 +19,10 @@ Such unification can help researchers assemble experimental setups
 to quickly prototype ideas while automating, preserving, 
 distributing, crowdsourcing and reproducing experiments.
 
+Thus, CK can complement existing technology such as Docker 
+and VM Images as a higher-level light weight container
+with simple, extensible and unified API.
+
 Furthermore, CK simplifies connection of unified experiments 
 to powerful predictive analytics tools such as scikit-learn 
 and R (statistical analysis, data mining,  machine learning)
