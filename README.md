@@ -11,12 +11,18 @@ License
 Introduction
 ============
 
-Collective Knowledge (CK) is a light-weight, portable, modular
-and python-based framework, repository, web service and SDK 
-to organize, describe, cross-link and share user code, data,
-experimental setups and meta information as unified,
-cross-linked and reusable components with JSON API 
-via standard Git services (such as GITHUB or BitBucket).
+We've developed Collective Knowledge Framework and Repository (CK)
+primerily to simplify code/data/model sharing and crowdsource 
+our experimentation with machine learning in our interdisciplinary 
+research projects (such as designing faster, smaller, more power 
+efficient and reliable computer systems using predictive analytics).
+
+CK is a light-weight, portable, modular and python-based
+framework, repository, web service and SDK to organize, describe,
+cross-link and share user code, data, experimental setups and
+meta information as unified, cross-linked and reusable components
+with JSON API via standard Git services (such as GITHUB
+or BitBucket).
 
 Note, that unlike existing centralized web-based services 
 that force users to upload all their code and data before
@@ -25,7 +31,7 @@ and always keep track of them on your own machine
 while sharing them only if needed as P2P or via existing
 private and public repositories.
 
-CK helps non-specialists and professionals assemble experimental 
+CK can help non-specialists and professionals assemble experimental 
 setups (aka workflows or pipelines) from their own or shared components 
 just as LEGO(TM) to quickly prototype ideas while automating, 
 preserving, distributing, crowdsourcing and reproducing experiments.
@@ -34,7 +40,7 @@ CK can also complement existing technology such as Docker
 and VM images as a higher-level light weight container
 technology with simple, extensible and unified API.
 
-Furthermore, CK simplifies connection of unified experiments 
+Furthermore, CK can simplify connection of unified experiments 
 to powerful predictive analytics tools such as scikit-learn 
 and R (statistical analysis, data mining,  machine learning)
 to automate and speed up exploration of multi-dimensional
@@ -45,14 +51,13 @@ community to systematize unstructured code and data while
 collaboratively validating experimental results, improving models, 
 finding missing features and so on.
 
-For example, we use this framework primarily to systematize, 
-open and crowdsource our research and experimentation to design
-faster, smaller, more power efficient and reliable software and
-hardware (by combining autotuning, run-time adaptation, machine
-learning and public repository of knowledge):
+You may find motivation behind CK framework as well as real 
+usage scenarios (some are based on previous version aka Collective Mind) 
+in the following publications:
 
 * [PDF, part I] https://hal.inria.fr/hal-01054763
 * [PDF, part II] http://arxiv.org/abs/1506.06256
+* [new publication model] http://arxiv.org/abs/1406.4020
 * [Android app] https://play.google.com/store/apps/details?id=com.collective_mind.node
 
 Further information including getting started guide, 
