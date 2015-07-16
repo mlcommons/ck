@@ -98,9 +98,9 @@ Note: we plan to add CK to standard Python distributions
 please get in touch.
 
 Now, you can simply add CK bin directory to your OS PATH 
-environment variable and you are ready to go.
+environment variable and you are ready to go. For example,
+try to envoke CK command line front end via:
 
-Now you should be able to run CK from command line:
  > ck
 
 If you want to use CK as a standard python module or from 
