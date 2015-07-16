@@ -12,12 +12,14 @@ Introduction
 ============
 
 We've developed Collective Knowledge Framework and Repository (CK)
-primarily to simplify code/data/model sharing and crowdsource 
-our experimentation with machine learning in our own interdisciplinary 
-research projects (such as designing faster, smaller, more power 
-efficient and reliable computer systems using predictive analytics).
-However, after our colleagues started successfully using it in other 
-projects, we decided to make it public.
+primarily to enable code/data/model sharing, crowdsource 
+experimentation, simplify predictive analytics, and unify APIs 
+of commonly used functions among our colleagues.
+
+After successfully using it in several interdisciplinary projects
+to design faster, smaller, more power efficient and reliable computer 
+systems using autotuning, machine learning and run-time adaptation,
+we decided to make this framework public.
 
 CK is an open-source, light-weight, portable, modular and python-based
 framework, repository, web service and SDK to organize, describe,
@@ -101,7 +103,7 @@ please get in touch.
 
 Now, you can simply add CK bin directory to your OS PATH 
 environment variable and you are ready to go. For example,
-try to envoke CK command line front end via:
+try to invoke CK command line front end via:
 
  > ck
 
