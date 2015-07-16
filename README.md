@@ -74,6 +74,8 @@ cTuning foundation and its volunteers.
 (C)opyright 2014-2015 Grigori Fursin, 
 cTuning foundation and contributors
 
+http://cTuning.org
+
 Author
 ======
 Grigori Fursin, http://fursin.net
