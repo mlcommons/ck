@@ -12,12 +12,14 @@ Introduction
 ============
 
 We've developed Collective Knowledge Framework and Repository (CK)
-primerily to simplify code/data/model sharing and crowdsource 
-our experimentation with machine learning in our interdisciplinary 
+primarily to simplify code/data/model sharing and crowdsource 
+our experimentation with machine learning in our own interdisciplinary 
 research projects (such as designing faster, smaller, more power 
 efficient and reliable computer systems using predictive analytics).
+However, after our colleagues started successfully using it in other 
+projects, we decided to make it public.
 
-CK is a light-weight, portable, modular and python-based
+CK is an open-source, light-weight, portable, modular and python-based
 framework, repository, web service and SDK to organize, describe,
 cross-link and share user code, data, experimental setups and
 meta information as unified, cross-linked and reusable components
