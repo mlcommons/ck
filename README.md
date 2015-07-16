@@ -2,8 +2,7 @@ CK - simplifying collaborative and reproducible experimentation,
 knowledge management and predictive analytics.
 
 Note: the framework is stable but we are now working on
-"getting started" guide, documentation and demos:
-* https://github.com/ctuning/ck/wiki
+getting started guide, documentation and demos: https://github.com/ctuning/ck/wiki
 
 License
 =======
