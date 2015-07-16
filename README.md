@@ -1,27 +1,38 @@
 CK - enabling and simplifying collaborative and reproducible research, 
-experimentation, knowledge management and predictive analytics
+experimentation, knowledge management and predictive analytics.
 
 Note: the framework is stable but we are now working on
-"getting started" guide, documentation and demos - 
-please, stay tuned!
+"getting started" guide, documentation and demos:
+* https://github.com/ctuning/ck/wiki
+
+License
+=======
+* Permissive simplified 3-clause BSD license (see LICENSE.txt).
 
 Introduction
 ============
 Collective Knowledge (CK) is a light-weight, portable, modular
 and python-based framework, repository, web service and SDK 
 to organize, describe, cross-link and share user code, data,
-experimental setups and meta information as unified 
-and reusable components with JSON API via standard 
-Git services (such as GITHUB or BitBucket).
+experimental setups and meta information as unified,
+cross-linked and reusable components with JSON API 
+via standard Git services (such as GITHUB or BitBucket).
 
-Such unification can help researchers assemble experimental setups
-(workflows, pipelines, etc) from shared components just as LEGO(TM)
-to quickly prototype ideas while automating, preserving, 
-distributing, crowdsourcing and reproducing experiments.
+Note, that unlike existing centralized web-based services 
+that force users to upload all their code and data before
+being processed, CK allows you to organize your artifacts 
+on your own machine and share them only if needed via
+existing private or public repositories or P2P in a 
+decentralized manner. 
 
-Thus, CK can complement existing technology such as Docker 
-and VM Images as a higher-level light weight container
-with simple, extensible and unified API.
+CK helps researchers assemble experimental setups
+(aka workflows or pipelines) from their own or shared components 
+just as LEGO(TM) to quickly prototype ideas while automating, 
+preserving, distributing, crowdsourcing and reproducing experiments.
+
+CK can also complement existing technology such as Docker 
+and VM images as a higher-level light weight container
+technology with simple, extensible and unified API.
 
 Furthermore, CK simplifies connection of unified experiments 
 to powerful predictive analytics tools such as scikit-learn 
@@ -44,18 +55,98 @@ learning and public repository of knowledge):
 * [PDF, part II] http://arxiv.org/abs/1506.06256
 * [Android app] https://play.google.com/store/apps/details?id=com.collective_mind.node
 
-Further information including documentation, user scenarios 
-and developer guide:
+Further information including getting started guide, 
+real usage scenarios, and developer guide is available here:
 * https://github.com/ctuning/ck/wiki
 
-License
-=======
-* Permissive simplified 3-clause BSD license (see LICENSE.txt).
+Copyright
+=========
+This software is being developed by the non-profit 
+cTuning foundation and its volunteers.
+
+(C)opyright 2014-2015 Grigori Fursin, 
+cTuning foundation and contributors
 
 Author
 ======
-Grigori Fursin, non-profit cTuning foundation, France
-* http://cTuning.org/lab/people/gfursin
+Grigori Fursin, http://fursin.net/research
+
+Installation
+============
+We made a special effort to make CK installation 
+as simple as possible - it requires only standard 
+Python > 2.6 or 3.x.
+
+Note: since user packages may require extra functionality
+such as scipy and scikit-learn, we have been 
+successfully using Anaconda python distribution
+which includes all scientific packages required 
+for predictive analytics in CK.
+
+You can obtain the latest CK version from GITHUB:
+ > git clone https://github.com/ctuning/ck.git ck
+
+Note: we plan to add CK to standard Python distributions 
+(Linux and Windows) and Debian - if you would like to help, 
+please get in touch.
+
+Now, you can simply add CK bin directory to your OS PATH 
+environment variable and you are ready to go.
+
+Now you should be able to run CK from command line:
+ > ck
+
+If you want to use CK as a standard python module or from 
+IPython/IPython notebook, just execute the following command
+from the CK root directory (you will need sudo on Linux):
+ > python setup.py install
+
+If you have IPython installed, you can then check CK installation 
+as following:
+
+ > ipython
+
+ > import ck.kernel as ck
+
+ > ck.test()
+
+ > ck.access('list module')
+
+ > ck.access('load kernel default')
+
+Now, you can use CK to pull various shared repositories and run 
+experimental workflows (such as autotuning programs, building
+predictive models of performance, analyzing data sets, installing
+missing tools, ...).
+
+You can find further details, practical examples, motivation and 
+specification in this wiki:
+
+* https://github.com/ctuning/ck/wiki
+
+Questions/comments/discussions?
+===============================
+Please, use our mailing lists:
+* General topics of knowledge preservation, sharing and reuse
+  as well as collaborative and reproducible R&D: http://groups.google.com/group/collective-mind
+* Software and hardware performance/energy/size/reliability  
+  (auto/crowd)-tuning: http://groups.google.com/group/ctuning-discussions
+
+Publications
+============
+Concepts has been described in the following publications:
+
+* http://arxiv.org/abs/1506.06256
+* http://hal.inria.fr/hal-01054763
+* http://arxiv.org/abs/1406.4020
+* https://hal.inria.fr/inria-00436029
+
+If you found CK useful and/or interesting, you are welcome 
+to reference some of the above publications in your reports.
+
+Fun
+===
+* CK GIT commits as a video: http://cknowledge.org/soft/commits/ck-visualization.mp4
 
 Extra description
 =================
@@ -112,111 +203,8 @@ http://arxiv.org/abs/1406.4020 )
 with interactive publications focusing on computer engineering 
 (http://cknowledge.org/reproducibility)
 
-Developers
-==========
-This software is being developed by the non-profit 
-cTuning foundation and its volunteers.
-
-(C)opyright 2014-2015 Grigori Fursin, 
-cTuning foundation and contributors
-
-Where to get
-============
-* https://github.com/ctuning/ck
-* git clone https://github.com/ctuning/ck.git ck
-
-Minimal requirements
-====================
-* Python > 2.6 (Python 2.x may have some issues with Unicode support)
-* Python 3.x is supported
-
-We have been successfully using Anaconda python distribution
-which includes all scientific packages required for predictive 
-analytics in CK.
-
-Installation
-============
-We made a special effort to make installation as simple as possible.
-
-You need to:
-* add environment variable CK_ROOT to the root CK directory.
-* add CK_ROOT/bin to the PATH environment variable:
-** Linux: export PATH=$CK_ROOT/bin:$PATH
-** Windows: set PATH=%CK_ROOT%/bin;%PATH%
-
-Now you should be able to run CK from command line:
- > ck
-
-In case you use international characters, you can test your
-console for UTF-8 unicode by viewing the following test entry:
- > ck load test:unicode
-
-If you want to use CK as a python module or from IPython 
-and IPython notebook, you need to execute the following command
-from the CK root directory:
- > python setup.py install
-
-In such case, if you have IPython installed, you can 
-check CK as following:
-
- > ipython
-
- > import ck.kernel as ck
-
- > ck.test()
-
- > ck.access('load kernel default')
-
-You can also easily clone or pull various external CK repositories
-shared via GITHUB (see CK wiki for more details) to build
-collaborative R&D scenarios:
-
- > ck pull repo:ck-env
-
- > ck pull repo:ck-web
-
- > ck pull repo:ck-auto-tuning
-
-You can update the whole framework and all shared repos as following:
-
- > ck pull all
-
-Collaborative R&D usage scenarios:
-==================================
-
-Users can assemble various R&D scenarios (workflows, pipelines) 
-from shared code and data as LEGO(R) using simple CK API.
-Pipelines are also implemented as CK modules and can be shared
-with all dependencies via GIT(HUB). See more details at:
-
-* https://github.com/ctuning/ck/wiki
-
-Questions/comments/discussions?
-===============================
-Please, use our mailing lists:
-* General topics of knowledge preservation, sharing and reuse
-  as well as collaborative and reproducible R&D: http://groups.google.com/group/collective-mind
-* Software and hardware performance/energy/size/reliability  
-  (auto/crowd)-tuning: http://groups.google.com/group/ctuning-discussions
-
-Publications
-============
-Concepts has been described in the following publications:
-
-* http://arxiv.org/abs/1506.06256
-* http://hal.inria.fr/hal-01054763
-* http://arxiv.org/abs/1406.4020
-* https://hal.inria.fr/inria-00436029
-
-If you found CK useful and/or interesting, you are welcome 
-to reference some of the above publications in your reports.
-
-Fun
-===
-* CK GIT commits as a video: http://cknowledge.org/soft/commits/ck-visualization.mp4
-
 Acknowledgments
 ===============
-This project has been initially funded by EU FP7 609491 TETRACOM
+This project has been partially funded by EU FP7 609491 TETRACOM
 project. We would like to thank all volunteers for their valuable
 feedback and support.
