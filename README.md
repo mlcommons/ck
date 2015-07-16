@@ -6,7 +6,7 @@ getting started guide, documentation and demos: https://github.com/ctuning/ck/wi
 
 License
 =======
-* Permissive simplified 3-clause BSD license (see LICENSE.txt).
+* Permissive simplified 3-clause BSD license (see LICENSE file).
 
 Introduction
 ============
