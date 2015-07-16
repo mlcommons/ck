@@ -70,7 +70,7 @@ cTuning foundation and contributors
 
 Author
 ======
-Grigori Fursin, http://fursin.net/research
+Grigori Fursin, http://fursin.net
 
 Installation
 ============
