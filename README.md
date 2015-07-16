@@ -1,5 +1,5 @@
-CK - enabling and simplifying collaborative and reproducible research, 
-experimentation, knowledge management and predictive analytics.
+CK - simplifying collaborative and reproducible experimentation,
+knowledge management and predictive analytics.
 
 Note: the framework is stable but we are now working on
 "getting started" guide, documentation and demos:
@@ -11,6 +11,7 @@ License
 
 Introduction
 ============
+
 Collective Knowledge (CK) is a light-weight, portable, modular
 and python-based framework, repository, web service and SDK 
 to organize, describe, cross-link and share user code, data,
@@ -21,12 +22,12 @@ via standard Git services (such as GITHUB or BitBucket).
 Note, that unlike existing centralized web-based services 
 that force users to upload all their code and data before
 being processed, CK allows you to organize your artifacts 
-on your own machine and share them only if needed via
-existing private or public repositories or P2P in a 
-decentralized manner. 
+and always keep track of them on your own machine 
+while sharing them only if needed as P2P or via existing
+private and public repositories.
 
-CK helps researchers assemble experimental setups
-(aka workflows or pipelines) from their own or shared components 
+CK helps non-specialists and professionals assemble experimental 
+setups (aka workflows or pipelines) from their own or shared components 
 just as LEGO(TM) to quickly prototype ideas while automating, 
 preserving, distributing, crowdsourcing and reproducing experiments.
 
