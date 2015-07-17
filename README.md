@@ -24,7 +24,7 @@ we decided to make this framework public.
 CK is an open-source, light-weight, portable, modular and python-based
 framework, repository, web service and SDK to organize, describe,
 cross-link and share user code, data, experimental setups and
-meta information as unified, cross-linked and reusable components
+meta information as unified and reusable components
 with JSON API via standard Git services (such as GITHUB
 or BitBucket).
 
