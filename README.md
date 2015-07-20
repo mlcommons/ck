@@ -62,10 +62,17 @@ in the following publications:
 * [PDF, part I] https://hal.inria.fr/hal-01054763
 * [PDF, part II] http://arxiv.org/abs/1506.06256
 * [new publication model] http://arxiv.org/abs/1406.4020
-* [Android app] https://play.google.com/store/apps/details?id=com.collective_mind.node
+
+Examples of CK as a web service:
+
+* [Live repository] http://cknowledge.org/repo
+* [Interactive graphs] http://cknowledge.org/repo/web.php?wcid=graph:
+* [Interactive reports] http://cknowledge.org/repo/web.php?wcid=report:
+* [Android client to crowdsource autotuning] https://play.google.com/store/apps/details?id=com.collective_mind.node
 
 Further information including getting started guide, 
 real usage scenarios, and developer guide is available here:
+
 * https://github.com/ctuning/ck/wiki
 
 Copyright
