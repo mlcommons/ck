@@ -379,23 +379,3 @@ def setup(i):
     ck.out('Configuration successfully recorded to '+fc+' ...')
 
     return {'return':0}
-
-##############################################################################
-# check CK version status
-
-def status(i):
-    """
-    Input:  {
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
-
-    """
-
-    print ('check CK version status')
-
-    return {'return':0}

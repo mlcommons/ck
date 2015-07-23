@@ -2,9 +2,6 @@
   "actions": {
     "setup": {
       "desc": "CK kernel setup"
-    }, 
-    "status": {
-      "desc": "check CK version status"
     }
   }, 
   "copyright": "See CK Copyright.txt for copyright details", 
