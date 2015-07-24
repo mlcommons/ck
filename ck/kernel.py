@@ -217,6 +217,8 @@ cfg={
 
                  "convert_cm_to_ck":{"desc":"<CID> convert old CM entries to CK entries"},
 
+                 "get_api":{"desc":"--func=<func> print API of a function in a given module"},
+
                  "print_input":{"desc":"prints input"},
 
                 },
@@ -245,6 +247,7 @@ cfg={
                         "list_actions",
                         "add_index",
                         "delete_index",
+                        "get_api",
                         "convert_cm_to_ck"]
     }
 
@@ -2741,9 +2744,13 @@ def perform_action(i):
 def get_api(i):
     """
     Input:  {
-              path  - path to module
-              func  - func for API
-              (out) - output
+              (path)       - path to module, if comes from access function
+                or
+              (module_uoa) - if comes from CMD
+
+              (func)       - func for API
+
+              (out)  - output
             }
 
     Output: {
@@ -2756,12 +2763,21 @@ def get_api(i):
             }
     """
 
-    p=i['path']
-    f=i['func']
+
+    p=i.get('path','')
+    f=i.get('func','')
     o=i['out']
+
+    muoa=i.get('module_uoa','')
 
     t=''
     a=''
+
+    if p=='' and muoa!='':
+       rx=load({'module_uoa':cfg['module_name'], 
+                'data_uoa':muoa})
+       if rx['return']>0: return rx
+       p=rx['path']
 
     if p=='':
        p=os.path.join(work['env_root'], cfg['file_kernel_py'])
@@ -2801,6 +2817,9 @@ def get_api(i):
                   if x.find('"""')<0:
                      a+=x+'\n'
                   j+=1
+
+    if t=='' and a=='':
+       return {'return':1, 'error':'function not found'}
 
     if o=='con':
        out('Function: '+t)
@@ -3724,19 +3743,25 @@ def status(i):
              lversion=r['dict'].get('version',[])
              if len(lversion)<3:
                 return {'return':1, 'error':'can\'t parse output from server with version'}
- 
-             if int(version[0])>int(lversion[0]) or \
-                (int(version[0])==int(lversion[0]) and int(version[1])>int(lversion[1])) or \
-                (int(version[0])==int(lversion[0]) and int(version[1])==int(lversion[1]) and int(version[2])>int(lversion[2])) or \
-                (int(version[0])==int(lversion[0]) and int(version[1])==int(lversion[1]) and int(version[2])==int(lversion[2]) or \
-                 (len(lversion)>3 and lversion[3]!='' and (len(version)==3 or len(version)>3 and version[3]==''))):
+
+             lversion_str=''
+             for q in lversion:
+                 if lversion_str!='': lversion_str+='.'
+                 lversion_str+=q
+
+             # converting to int
+             for q in range(0, len(version)):
+                 if version[q]=='': version[q]='0'
+                 version[q]=int(version[q])
+             for q in range(0, len(lversion)):
+                 if lversion[q]=='': lversion[q]='0'
+                 lversion[q]=int(lversion[q])
+
+             if version[0]>lversion[0] or \
+                (version[0]==lversion[0] and version[1]>lversion[1]) or \
+                (version[0]==lversion[0] and version[1]==lversion[1] and version[2]>lversion[2]):
                 
                 outdated='yes'
-
-                lversion_str=''
-                for q in lversion:
-                    if lversion_str!='': lversion_str+='.'
-                    lversion_str+=q
 
                 if o=='con':
                    out('Your version is outdated: V'+version_str)
@@ -3744,7 +3769,7 @@ def status(i):
                    u=cfg.get('ck_web','')
                    if u!='':
                       out('')
-                      out('Just execute "ck pull all" to update CK or visit '+u+' for more details ...')
+                      out('Just execute "ck pull all --kernel" to update CK and all repositories (if you installed CK from GIT) or visit '+u+' for more details ...')
 
     if o=='con':
        if outdated!='yes':
