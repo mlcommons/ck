@@ -821,7 +821,7 @@ def push(i):
 
         if o=='con':
            ck.out('')
-           ck.out('Trying to update '+p+' ...')
+           ck.out('Trying to commit and push '+p+' ...')
 
         if t=='git':
            px=os.getcwd()
