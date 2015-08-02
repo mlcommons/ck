@@ -1,15 +1,20 @@
 {
   "actions": {
     "add": {
-      "desc": "add module with code"
+      "desc": "add new module (aka plugin, wrapper, container) with a dummy python code"
+    }, 
+    "show": {
+      "desc": "list all modules with their actions (txt, html, mediawiki)", 
+      "for_web": "yes"
     }
   }, 
   "copyright": "See CK Copyright.txt for copyright details", 
-  "desc": "Dealing with CK modules", 
+  "desc": "CK modules (aka wrappers or containers)", 
   "developer": "Grigori Fursin", 
   "developer_email": "Grigori.Fursin@cTuning.org", 
   "developer_webpage": "http://cTuning.org/lab/people/gfursin", 
   "dummy_module": "dummy_module.py", 
   "dummy_module_action": "dummy_module_action.py", 
-  "license": "See CK LICENSE.txt for licensing details"
+  "license": "See CK LICENSE.txt for licensing details",
+  "skip_repos":["fgg-modules", "ctuning-benchmarks"]
 }

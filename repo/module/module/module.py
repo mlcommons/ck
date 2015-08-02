@@ -219,3 +219,129 @@ def add(i):
     if rx['return']>0: return rx
 
     return r
+
+##############################################################################
+# show info about modules
+
+def show(i):
+    """
+    Input:  {
+               (the same as list; can use wildcards)
+
+
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    html=False
+    if o=='html' or i.get('web','')=='yes':
+       html=True
+
+    h=''
+
+    import copy
+    ii=copy.deepcopy(i)
+
+    ii['out']=''
+    ii['action']='list'
+    ii['add_meta']='yes'
+
+    rx=ck.access(ii)
+    if rx['return']>0: return rx
+
+    ll=sorted(rx['lst'], key=lambda k: k['data_uoa'])
+
+    if html:
+       h+='<i><b>Note:</b> you can obtain JSON API of a given action of a given module in CMD via "ck &lt;action&gt; &lt;module&gt; --help"</i><br><br>\n'
+       h+='<table cellpadding="5">\n'
+
+       h+=' <tr>\n'
+       h+='  <td><b>CK&nbsp;module&nbsp;(aka&nbsp;wrapper,&nbsp;plugin&nbsp;or&nbsp;container):</b></td>\n'
+       h+='  <td><b>CK Repository:</b></td>\n'
+       h+='  <td><b>Description and actions:</b></td>\n'
+       h+=' </tr>\n'
+
+
+    repo_url={}
+
+    for l in ll:
+        ln=l['data_uoa']
+        lr=l['repo_uoa']
+
+        lr_uid=l['repo_uid']
+        url=''
+        if lr=='default':
+           url='http://github.com/ctuning/ck'
+        elif lr_uid in repo_url:
+           url=repo_url[lr_uid]
+        else:
+           rx=ck.load_repo_info_from_cache({'repo_uoa':lr_uid})
+           if rx['return']>0: return rx
+           url=rx.get('dict',{}).get('url','')
+           repo_url[lr_uid]=url
+
+        if lr not in cfg['skip_repos']:
+           lm=l['meta']
+           ld=lm.get('desc','')
+
+           actions=lm.get('actions',{})
+
+           if html:
+              h+=' <tr>\n'
+
+              h+='  <td valign="top"><b>'+ln+'</b></td>\n'
+
+              x1=''
+              x2=''
+              if url!='':
+                 x1='<a href="'+url+'">'
+                 x2='</a>'
+
+              h+='  <td valign="top"><i>'+x1+lr+x2+'</i></td>\n'
+
+              h+='  <td valign="top">'+ld+'\n'
+
+              if len(actions)>0:
+                 h+='<ul>\n'
+                 for q in sorted(actions):
+                     qq=actions[q]
+                     qd=qq.get('desc','')
+                     h+='<li><i>'+q+'</i>'
+                     if qd!='':
+                        h+=' - '+qd
+                 h+='</ul>\n'
+
+              h+='</td>\n'
+
+              h+=' </tr>\n'
+
+           elif o=='con' or o=='txt':
+              ss=''
+              if len(ln)<35: ss=' '*(35-len(ln))
+
+              ss1=''
+              if len(lr)<30: ss1=' '*(30-len(lr))
+
+              s=ln+ss+'  ('+lr+')'
+              if ld!='': s+=ss1+'  '+ld
+
+              ck.out(s)
+
+              for q in sorted(actions):
+                  ck.out('  * '+q)
+
+           elif o=='mediawiki':
+              h='todo'
+
+    if html:
+       h+='</table>\n'
+
+    return {'return':0, 'html':h}

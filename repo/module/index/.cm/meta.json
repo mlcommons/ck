@@ -4,20 +4,20 @@
       "desc": "flush whole index"
     }, 
     "off": {
-      "desc": "turn indexing off"
+      "desc": "turn transparent indexing off"
     }, 
     "on": {
-      "desc": "turn indexing on"
+      "desc": "turn transparent indexing on"
     }, 
     "show": {
-      "desc": "show indexing status"
+      "desc": "show transparent indexing status (ON or OFF)"
     }, 
     "test": {
-      "desc": "test indexing server"
+      "desc": "test ElasticSearch indexing server"
     }
   }, 
   "copyright": "See CK Copyright.txt for copyright details", 
-  "desc": "indexing through ElasticSearch", 
+  "desc": "indexing of CK entries via hadoop-based ElasticSearch to speed up search", 
   "developer": "Grigori Fursin", 
   "developer_email": "Grigori.Fursin@cTuning.org", 
   "developer_webpage": "http://cTuning.org/lab/people/gfursin", 

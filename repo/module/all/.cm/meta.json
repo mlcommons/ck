@@ -5,7 +5,7 @@
     }
   }, 
   "copyright": "See CK Copyright.txt for copyright details", 
-  "desc": "some common operations for all CK", 
+  "desc": "common operations for the whole CK", 
   "developer": "Grigori Fursin", 
   "developer_email": "Grigori.Fursin@cTuning.org", 
   "developer_webpage": "http://cTuning.org/lab/people/gfursin", 

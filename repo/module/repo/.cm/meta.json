@@ -1,25 +1,25 @@
 {
   "actions": {
     "add": {
-      "desc": "register repository in CK"
+      "desc": "register new repository in CK"
     }, 
     "create": {
-      "desc": "register repository in CK"
+      "desc": "register new repository in CK"
     }, 
     "delete": {
       "desc": "remove repository from CK"
     }, 
     "get_and_unzip_archive": {
-      "desc": "received from web (if needed) and unzip archive"
+      "desc": "(receive repository from web if needed in zip), unzip and register repository in CK"
     }, 
     "import": {
-      "desc": "import repo from current path"
+      "desc": "register repository from current path in CK"
     }, 
     "pull": {
-      "desc": "If shared, pull from shared repository"
+      "desc": "if a given repository is shared, pull it from GIT"
     }, 
     "push": {
-      "desc": "If shared, push and commit to shared repository"
+      "desc": "if a given repository is shared shared, push and commit it to GIT"
     }, 
     "recache": {
       "desc": "recache all local repositories (to speed up search)"
@@ -28,29 +28,29 @@
       "desc": "remove repository from CK"
     }, 
     "deps": {
-      "desc": "resolve dependencies for a repo"
+      "desc": "resolve dependencies on other repositories for a given repository"
     }, 
     "rm": {
       "desc": "remove repository from CK"
     }, 
     "unzip": {
-      "desc": "unzip entries to a given repo"
+      "desc": "unzip entries from an archive to a given CK repository"
     }, 
     "update": {
-      "desc": "update repository information"
+      "desc": "update repository description"
     }, 
     "where": {
-      "desc": "find path to a local repository"
+      "desc": "find local path to a given repository"
     }, 
     "zip": {
-      "desc": "archive repository"
+      "desc": "archive repository to zip (can be shared with public, for Artifact Evaluation, etc)"
     }
   }, 
   "actions_redirect": {
     "import": "import_repo"
   }, 
   "copyright": "See CK Copyright.txt for copyright details", 
-  "desc": "managing CK repositories", 
+  "desc": "CK repositories", 
   "developer": "Grigori Fursin", 
   "developer_email": "Grigori.Fursin@cTuning.org", 
   "developer_webpage": "http://cTuning.org/lab/people/gfursin", 

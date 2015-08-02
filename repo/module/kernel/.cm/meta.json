@@ -1,11 +1,11 @@
 {
   "actions": {
     "setup": {
-      "desc": "CK kernel setup"
+      "desc": "setup CK (user, license, indexing, web service, etc)"
     }
   }, 
   "copyright": "See CK Copyright.txt for copyright details", 
-  "desc": "managing CK kernel", 
+  "desc": "kernel configuration", 
   "developer": "Grigori Fursin", 
   "developer_email": "Grigori.Fursin@cTuning.org", 
   "developer_webpage": "http://cTuning.org/lab/people/gfursin", 
