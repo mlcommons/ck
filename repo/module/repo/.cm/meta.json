@@ -9,11 +9,17 @@
     "delete": {
       "desc": "remove repository from CK"
     }, 
+    "deps": {
+      "desc": "resolve dependencies on other repositories for a given repository"
+    }, 
     "get_and_unzip_archive": {
       "desc": "(receive repository from web if needed in zip), unzip and register repository in CK"
     }, 
     "import": {
       "desc": "register repository from current path in CK"
+    }, 
+    "print_deps": {
+      "desc": "print dependencies on other shared repositories"
     }, 
     "pull": {
       "desc": "if a given repository is shared, pull it from GIT"
@@ -26,9 +32,6 @@
     }, 
     "remove": {
       "desc": "remove repository from CK"
-    }, 
-    "deps": {
-      "desc": "resolve dependencies on other repositories for a given repository"
     }, 
     "rm": {
       "desc": "remove repository from CK"

@@ -247,6 +247,9 @@ def show(i):
 
     h=''
 
+    unique_repo=False
+    if i.get('repo_uoa','')!='': unique_repo=True
+
     import copy
     ii=copy.deepcopy(i)
 
@@ -265,7 +268,7 @@ def show(i):
 
        h+=' <tr>\n'
        h+='  <td><b>CK&nbsp;module&nbsp;(aka&nbsp;wrapper,&nbsp;plugin&nbsp;or&nbsp;container):</b></td>\n'
-       h+='  <td><b>CK Repository:</b></td>\n'
+       h+='  <td width="200"><b>CK Repository:</b></td>\n'
        h+='  <td><b>Description and actions:</b></td>\n'
        h+=' </tr>\n'
 
@@ -279,7 +282,7 @@ def show(i):
         lr_uid=l['repo_uid']
         url=''
         if lr=='default':
-           url='http://github.com/ctuning/ck'
+           url='' #'http://github.com/ctuning/ck'
         elif lr_uid in repo_url:
            url=repo_url[lr_uid]
         else:
@@ -288,12 +291,14 @@ def show(i):
            url=rx.get('dict',{}).get('url','')
            repo_url[lr_uid]=url
 
+
         if lr not in cfg['skip_repos']:
            lm=l['meta']
            ld=lm.get('desc','')
 
            actions=lm.get('actions',{})
 
+           ###############################################################
            if html:
               h+=' <tr>\n'
 
@@ -323,23 +328,43 @@ def show(i):
 
               h+=' </tr>\n'
 
+           ###############################################################
+           elif o=='mediawiki':
+              x=lr
+              if url!='':
+                 x='['+url+' '+lr+']'
+              ck.out('* \'\'\''+ln+'\'\'\' ('+x+') - '+ld)
+              if len(actions)>0:
+                 for q in sorted(actions):
+                     qq=actions[q]
+                     qd=qq.get('desc','')
+                     ck.out('** \'\''+q+'\'\' - '+qd)
+
+           ###############################################################
            elif o=='con' or o=='txt':
-              ss=''
-              if len(ln)<35: ss=' '*(35-len(ln))
+              if unique_repo:
+                 ck.out('')
+                 s=ln+' - '+ld
 
-              ss1=''
-              if len(lr)<30: ss1=' '*(30-len(lr))
+              else:
+                 ss=''
+                 if len(ln)<35: ss=' '*(35-len(ln))
 
-              s=ln+ss+'  ('+lr+')'
-              if ld!='': s+=ss1+'  '+ld
+                 ss1=''
+                 if len(lr)<30: ss1=' '*(30-len(lr))
+
+                 s=ln+ss+'  ('+lr+')'
+                 if ld!='': s+=ss1+'  '+ld
 
               ck.out(s)
 
-              for q in sorted(actions):
-                  ck.out('  * '+q)
+              if len(actions)>0:
+                 ck.out('')
+                 for q in sorted(actions):
+                     qq=actions[q]
+                     qd=qq.get('desc','')
+                     ck.out('  * '+q+' - '+qd)
 
-           elif o=='mediawiki':
-              h='todo'
 
     if html:
        h+='</table>\n'

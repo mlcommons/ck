@@ -79,6 +79,11 @@ def add(i):
               (zip)                      - path to zipfile (local or remote http/ftp)
               (overwrite)                - if 'yes', overwrite files when unarchiving
 
+              (repo_deps)                - dict with dependencies on other shared repositories with following keys:
+                                             "repo_uoa"
+                                             ("repo_uid") - specific UID (version) of a repo
+                                             ("repo_url") - URL of the shared repository (if not from github.com/ctuning)
+
               (quiet)                    - if 'yes', do not ask questions unless really needed
 
               (skip_reusing_remote_info) - if 'yes', do not reuse remote .cmr.json description of a repository
@@ -106,6 +111,8 @@ def add(i):
     dn=i.get('data_name','')
 
     cr=i.get('current_repos',[])
+
+    rdeps=i.get('repo_deps',[])
 
     quiet=i.get('quiet','')
 
@@ -264,6 +271,15 @@ def add(i):
              if x=='yes' or x=='y':
                 eaw='yes'
 
+       # Check if add more deps
+       if quiet!='yes':
+          r=add_more_deps({})
+          if r['return']>0: return r
+
+          rdeps1=r['repo_deps']
+          for q in rdeps1:
+              rdeps.append(q)
+
     # Check if already registered (if not remote)
     if remote!='yes':
        r=ck.find_repo_by_path({'path':p})
@@ -286,11 +302,11 @@ def add(i):
 
     # If zip, get (download) and unzip file ...
     if zp!='':
-
        rz=get_and_unzip_archive({'zip':zp, 'path':p, 'path_to_remove':ptr, 'overwrite':overwrite, 'out':o})
        if rz['return']>0: return rz
 
     # If git, clone repo
+    repo_had_local=True
     if remote!='yes' and shared=='git':
        r=pull({'path':p, 'type':shared, 'url':url, 'clone':'yes', 'git':i.get('git',''), 'out':o})
        if r['return']>0: return r
@@ -315,6 +331,8 @@ def add(i):
                 d=xd
                 di=xdi
                 dn=xdn
+       else:
+          repo_had_local=False
 
     # Prepare meta description
     dd={}
@@ -334,6 +352,8 @@ def add(i):
        dd['path']=p
     if eaw=='yes':
        dd['allow_writing']='yes'
+    if len(rdeps)>0:
+       dd['repo_deps']=rdeps
 
     # If not default, go to common core function to create entry
     if df!='yes':
@@ -372,19 +392,20 @@ def add(i):
     if remote!='yes':
        if 'path_to_repo_desc' in dz: del (dz['path_to_repo_desc'])        # Avoid recording some local info
        if dz.get('dict',{}).get('path','')!='': del (dz['dict']['path'])  # Avoid recording some local info
+
        if not os.path.isfile(py):
           ry=ck.save_json_to_file({'json_file':py, 'dict':dz})
           if ry['return']>0: return ry
 
-    # If sync, add it ...
-    if sync=='yes':
-       ppp=os.getcwd()
+       # If sync (or pulled repo did not have local description), add it ...
+       if sync=='yes' or (shared=='git' and not repo_had_local):
+          ppp=os.getcwd()
 
-       os.chdir(p)
-       ss=ck.cfg['repo_types'][shared]['add'].replace('$#path#$', px).replace('$#files#$', ck.cfg['repo_file'])
-       os.system(ss)
+          os.chdir(p)
+          ss=ck.cfg['repo_types'][shared]['add'].replace('$#path#$', px).replace('$#files#$', ck.cfg['repo_file'])
+          os.system(ss)
 
-       os.chdir(ppp)
+          os.chdir(ppp)
 
     # If console mode, print various info
     if o=='con':
@@ -444,6 +465,13 @@ def update(i):
               (sync)                     - if 'yes' and type=='git', sync repo after each write operation
               (allow_writing)            - if 'yes', allow writing 
                                            (useful when kernel is set to allow writing only to such repositories)
+
+              (repo_deps)                - dict with dependencies on other shared repositories with following keys:
+                                             "repo_uoa"
+                                             ("repo_uid") - specific UID (version) of a repo
+                                             ("repo_url") - URL of the shared repository (if not from github.com/ctuning)
+
+              (update)                   - if 'yes', force updating
             }
 
     Output: {
@@ -468,11 +496,18 @@ def update(i):
     url=i.get('url','')
     sync=i.get('sync','')
 
+    rdeps=i.get('repo_deps',[])
+
     eaw=i.get('allow_writing','')
 
-    # Get configuration
-    r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
+    # Get configuration (not from Cache - can be outdated info!)
+#    r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
+    r=ck.access({'action':'load',
+                 'module_uoa':work['self_module_uoa'],
+                 'data_uoa':duoa})
     if r['return']>0: return r
+
+    p=r.get('dict',{}).get('path','')
 
     dn=r.get('data_name','')
     d=r['dict']
@@ -522,7 +557,7 @@ def update(i):
              d['sync']='yes'
              changed=True
 
-    # Asking for a user-friendly name
+    # Asking about forbidding explicit writing to this repository
     if remote!='yes' and eaw=='':
        if eaw=='': eaw=d.get('allow_writing','')
        ck.out('')
@@ -535,8 +570,37 @@ def update(i):
           d['allow_writing']='yes'
           changed=True
 
+    # Check if explicit deps
+    if len(rdeps)>0:
+       if 'repo_deps' not in d: d['repo_deps']=rdeps
+       else: 
+          for q in rdeps:
+              d['repo_deps'].append(q)
+       changed=True
+
+    # Print deps
+    rdeps=d.get('repo_deps',[])
+    if len(rdeps)>0:
+       ck.out('')
+       ck.out('Current dependencies on other repositories:')
+       r=print_deps({'repo_deps':rdeps, 'out':o, 'out_prefix':'  '})
+       if r['return']>0: return r
+       ck.out('')
+
+    # Check if add more deps
+    r=add_more_deps({})
+    if r['return']>0: return r
+
+    rdeps1=r['repo_deps']
+    if len(rdeps1)>0:
+       if 'repo_deps' not in d: d['repo_deps']=rdeps1
+       else: 
+          for q in rdeps1:
+              d['repo_deps'].append(q)
+       changed=True
+
     # Write if changed
-    if changed:
+    if changed or i.get('update','')=='yes':
        if o=='con':
           ck.out('')
           ck.out('Updating repo info ...')
@@ -557,6 +621,20 @@ def update(i):
           ck.out('')
        r=recache({'out':o})
        if r['return']>0: return r
+
+       # Updating local repository description
+       if remote!='yes':
+          r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
+          if r['return']>0: return r
+
+          del(r['return'])
+          if 'path_to_repo_desc' in r: del (r['path_to_repo_desc'])        # Avoid recording some local info
+          if r.get('dict',{}).get('path','')!='': del (r['dict']['path'])  # Avoid recording some local info
+
+          py=os.path.join(p, ck.cfg['repo_file'])
+
+          ry=ck.save_json_to_file({'json_file':py, 'dict':r})
+          if ry['return']>0: return ry
 
     return {'return':0}
 
@@ -1119,11 +1197,16 @@ def zip(i):
     """
     Input:  {
               data_uoa       - repo UOA
-              (archive_name) - if '' use <data_uoa>.zip as archive_name
+
               (archive_path) - if '' create inside repo path
-              (auto_name)    - if 'yes', generate name from data_uoa: ckr-<data_uoa>.zip
+
+              (archive_name) - if !='' use it for zip name
+              (auto_name)    - if 'yes', generate name name from data_uoa: ckr-<repo_uoa>.zip
+              (bittorent)    - if 'yes', generate zip name for BitTorrent: ckr-<repo_uid>-YYYYMMDD.zip
+
               (overwrite)    - if 'yes', overwrite zip file
               (store)        - if 'yes', store files instead of packing
+
 
               (data)         - CID allowing to add only these entries with pattern (can be from another archive)
             }
@@ -1145,16 +1228,20 @@ def zip(i):
     if r['return']>0: return r
 
     duoa=r['repo_uoa']
+    duid=r['repo_uid']
     path=r['path']
 
     an=i.get('archive_name','')
 #    if an=='': an='ckr.zip'
-    if an=='': 
-       if duoa1=='': an='ckr.zip'
-       else: an='ckr-'+duoa1+'.zip'
 
     if i.get('auto_name','')=='yes':
        an='ckr-'+duoa+'.zip'
+    elif i.get('bittorrent','')=='yes':
+       import time
+       an='ckr-'+duid+'-'+time.strftime('%Y%m%d')+'.zip'
+    elif an=='': 
+       if duoa1=='': an='ckr.zip'
+       else: an='ckr-'+duoa1+'.zip'
 
     ap=i.get('archive_path','')
 #    if ap=='': ap=path
@@ -1464,7 +1551,7 @@ def deps(i):
 
     duoa=i.get('data_uoa','')
 
-    cr=i.get('current_repos',[])
+    cr=i.get('current_repos',[])  # Added repos to avoid duplication/recursion
 
     how=i.get('how','')
     if how=='': how='pull'
@@ -1487,7 +1574,10 @@ def deps(i):
 
           d=r['dict']
 
-          rp1=d.get('repo_deps',[])
+          rp1=d.get('dict',{}).get('repo_deps',[])
+          if len(rp1)==0:
+             rp1=d.get('repo_deps',[]) # for compatibility ...
+
           rp2=[]
           rp=[]
 
@@ -1495,15 +1585,18 @@ def deps(i):
              for xruoa in rp1:
                  if type(xruoa)!=list:
                     ruoa=xruoa.get('repo_uoa','')
+                    if xruoa.get('repo_uid','')!='': ruoa=xruoa['repo_uid']
                     if ruoa!='' and ruoa not in cr:
                        rp2.append(xruoa)
 
+          # Add dependencies on other repositories (but avoid duplication)
           if len(rp2)==0:
              if o=='con':
                 ck.out('  No dependencies on other repositories found!')
           else:
              for xruoa in rp2:
                  ruoa=xruoa.get('repo_uoa','')
+                 if xruoa.get('repo_uid','')!='': ruoa=xruoa['repo_uid']
                  rurl=xruoa.get('repo_url','')
                  if ruoa!='':
                     x='  Dependency on repository '+ruoa+' '
@@ -1525,13 +1618,17 @@ def deps(i):
           if len(rp)>0:
              for xruoa in rp:
                  ruoa=xruoa.get('repo_uoa','')
+                 ruid=xruoa.get('repo_uid','')
                  rurl=xruoa.get('repo_url','')
                  if o=='con':
                     ck.out('')
-                    ck.out('  Resolving dependency on repo:'+ruoa)
+                    x=''
+                    if ruid!='': x=' ('+ruid+')'
+                    ck.out('  Resolving dependency on repo: '+ruoa+x)
                     ck.out('')
 
-                 cr.append(ruoa)
+                 if ruid!='': cr.append(ruid)
+                 else: cr.append(ruoa)
 
                  ii={'action':how,
                      'module_uoa':work['self_module_uoa'],
@@ -1539,8 +1636,118 @@ def deps(i):
                      'current_repos':cr,
                      'url':rurl,
                      'out':o}
+                 if ruid!='': ii['data_uid']=ruid
                  if how=='add': ii['gitzip']='yes'
+                 print ii
                  r=ck.access(ii)
                  if r['return']>0: return r
 
     return {'return':0, 'current_repos':cr}
+
+##############################################################################
+# print dependencies on other shared repositories
+
+def print_deps(i):
+    """
+    Input:  {
+              data_uoa                   - data UOA of the repo
+                 or
+              repo_deps                  - dict with dependencies on other shared repos
+
+              (out_prefix)               - output prefix befor each string
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              repo_deps
+            }
+
+    """
+
+    o=i.get('out','')
+
+    op=i.get('out_prefix','')
+
+    duoa=i.get('data_uoa','')
+    if duoa!='':
+       # Get configuration
+       r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
+       if r['return']>0: return r
+
+       d=r['dict']
+       rp1=d.get('dict',{}).get('repo_deps',[])
+    else:
+       rp1=i['repo_deps']
+
+    if len(rp1)==0:
+       rp1=d.get('repo_deps',[]) # for compatibility ...
+
+    if o=='con' and len(rp1)>0:
+       for q in rp1:
+           ruoa=q.get('repo_uoa','')
+           ruid=q.get('repo_uid','')
+           rurl=q.get('repo_url','')
+
+           x=op+ruoa
+           if ruid!='': x+='; '+ruid
+           elif rurl!='': x+='; '
+           if rurl!='': x+='; '+rurl
+
+           ck.out(x)
+
+    return {'return':0, 'repo_deps':rp1}
+
+##############################################################################
+# add more dependencies 
+
+def add_more_deps(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              repo_deps    - list with dependencies on other repositories ...
+            }
+
+    """
+
+    rp=[]
+
+    r=ck.inp({'text': 'Would you like to add extra dependencies on other shared repositories (y/N)?: '})
+    x=r['string'].lower()
+    if x=='yes' or x=='y':
+       ck.out('')
+       ck.out('Use the following format: repo UOA; (repo UID) (; repo URL)')
+       ck.out('For example:')
+       ck.out('  ck-autotuning')
+       ck.out('  ck-dissemination-modules;;https://github.com/gfursin/ck-dissemination-modules.git')
+       ck.out('')
+       ck.out('Press Enter to stop adding repositories!')
+       ck.out('')
+
+       while True:
+          r=ck.inp({'text': ''})
+          x=r['string'].strip()
+          if x=='': break
+             
+          z={}
+
+          y=x.split(';')
+          if len(y)>0:
+             z['repo_uoa']=y[0].strip()
+             if len(y)>1:
+                z['repo_uid']=y[1].strip()
+                if len(y)>2:
+                   z['repo_url']=y[2].strip()
+         
+          if len(z)>0:
+             rp.append(z)
+
+    return {'return':0, 'repo_deps':rp}

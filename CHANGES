@@ -1,7 +1,15 @@
+* v1.3.xxxx
+  * added listing of all modules and their actions in user-friendly format
+  * added support to zip CK repositories in format suitable for BitTorrent
+    (to optimize exchange of large artifacts)
+  * improved functionality to update repo descriptions 
+    and manage dependencies on other shared repositories
+  * fixed a few tiny bugs
+
 # V1.2.0605, 2015-06-05 -- stable release
   (several extra features to improve autotuning)
 
-  * save/load extra json files to/from entries
+  * save/load extra JSON files to/from entries
   * adding desc.json into .cm (collective meta) to describe API in flat format
   * adding dependencies to repos (automatically pull all related repos -
       useful to distribute repos with all packed artifacts to reproduce experiments from papers)
@@ -19,7 +27,7 @@
 # V1.1.0201, 2015-02-01 -- stable pre-release for collaborators
 
   * Adding many user-friendly functions
-  * Ading basic CK web browser. See demo: http://cknowledge.org/repo
+  * Adding basic CK web browser. See demo: http://cknowledge.org/repo
   * Small bug fixes
 
 # v1.0.1214.beta, 2014-12-14 -- stable pre-release for collaborators
