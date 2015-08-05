@@ -5890,6 +5890,9 @@ def list_data(i):
               (limit_size)         - if !='' limit size
 
               (print_full)         - if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
+                  or
+              (all)
+
               (print_uid)          - if 'yes', print UID in brackets
 
               (print_name)         - if 'yes', print name (and add info to the list)
@@ -5931,6 +5934,9 @@ def list_data(i):
 
     prf=i.get('print_full','')
     iprf=False
+    if prf=='yes': iprf=True
+
+    prf=i.get('all','')
     if prf=='yes': iprf=True
 
     prn=i.get('print_name','')
