@@ -5,6 +5,8 @@ ck (1.3.xxxx) RELEASED; urgency=medium
   * improved functionality to update repo descriptions 
     and manage dependencies on other shared repositories
   * fixed a few tiny bugs
+  * added support to create an entry from a given directory (importing directories)
+
 
 ck (1.2.0605) UNRELEASED; urgency=medium
   * several extra features to improve autotuning
