@@ -63,6 +63,10 @@ in the following publications:
 * [PDF, part II] http://arxiv.org/abs/1506.06256
 * [new publication model] http://arxiv.org/abs/1406.4020
 
+Examples of shared artifacts for above papers via CK:
+* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80
+* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
+
 Examples of CK as a web service:
 
 * [Live repository] http://cknowledge.org/repo

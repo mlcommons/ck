@@ -36,6 +36,12 @@ O: Continuum Analytics, UK
 C: feedback and Conda packaging (Anaconda python distro)
 W: 
 
+N: Abdul Wahid Memon
+E: engrwahidmemon@gmail.com
+O: 
+C: checking how to convert GCC optimization flags to CK format for autotuning
+W: 
+
 N: Cedric Nugteren
 E: web@cedricnugteren.nl
 O: 
