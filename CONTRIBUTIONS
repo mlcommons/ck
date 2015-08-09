@@ -42,8 +42,20 @@ O:
 C: checking how to convert GCC optimization flags to CK format for autotuning
 W: 
 
+N: Valentin Dalibard
+E: valentin.dalibard@cl.cam.ac.uk
+O: University of Cambridge, UK
+C: feedback on autotuning and run-time adaptation
+W: 
+
+N: Eiko Yoneki
+E: eiko.yoneki@cl.cam.ac.uk
+O: University of Cambridge, UK
+C: feedback on autotuning and run-time adaptation
+W: 
+
 N: Cedric Nugteren
 E: web@cedricnugteren.nl
-O: 
+O: The Netherlands
 C: testing CK on MacOS, validating OpenCL autotuning 
 W: 
