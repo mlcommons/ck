@@ -217,6 +217,8 @@ cfg={
 
                  "convert_cm_to_ck":{"desc":"<CID> convert old CM entries to CK entries"},
 
+                 "create_entry":{"desc":"<directory> create an entry for a given directory name"},
+
                  "get_api":{"desc":"--func=<func> print API of a function in a given module"},
 
                  "print_input":{"desc":"prints input"},
@@ -245,6 +247,7 @@ cfg={
                         "add_action",
                         "remove_action",
                         "list_actions",
+                        "create_entry",
                         "add_index",
                         "delete_index",
                         "get_api",
@@ -2914,6 +2917,8 @@ def create_entry(i):
               path       - path where to create an entry
               (data_uoa) - data UOA
               (data_uid) - if uoa is an alias, we can force data UID
+
+              (force)    - if 'yes', force creation even if directory already exists
             }
 
     Output: {
@@ -2932,6 +2937,12 @@ def create_entry(i):
     p0=i.get('path','')
     d=i.get('data_uoa','')
     di=i.get('data_uid','')
+
+    xforce=i.get('force','')
+    if xforce=='yes':
+       force=True
+    else:
+       force=False
 
     # If no uoa, generate UID
     alias=''
@@ -2954,11 +2965,12 @@ def create_entry(i):
        alias=''
     else:
        # Check if already exists
-       r=find_path_to_entry({'path':p0, 'data_uoa':d})
-       if r['return']>0 and r['return']!=16: return r
-       elif r['return']==0:
-          r['return']=16
-          return r
+       if not force:
+          r=find_path_to_entry({'path':p0, 'data_uoa':d})
+          if r['return']>0 and r['return']!=16: return r
+          elif r['return']==0:
+             r['return']=16
+             return r
 
        if is_uid(d):
           uid=d
