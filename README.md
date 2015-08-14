@@ -55,30 +55,18 @@ community to systematize unstructured code and data while
 collaboratively validating experimental results, improving models, 
 finding missing features and so on.
 
-You may find motivation behind CK framework as well as real 
-usage scenarios (some are based on previous version aka Collective Mind) 
-in the following publications:
+You may check out motivation as well as real usage scenarios 
+and reproducible, interactive papers (some are based on previous 
+version aka Collective Mind) here:
 
-* [PDF, part I] https://hal.inria.fr/hal-01054763
-* [PDF, part II] http://arxiv.org/abs/1506.06256
-* [new publication model] http://arxiv.org/abs/1406.4020
+* [Interactive article 1] http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
+* [Interactive article 2] http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80
+* [All shared artifacts via CK]: http://github.com/ctuning/reproduce-ck-paper
+* [Our open publication model] http://arxiv.org/abs/1406.4020
+* [Live CK repository] http://cknowledge.org/repo
+* [Android client for crowd-benchmarking] https://play.google.com/store/apps/details?id=com.collective_mind.node
 
-Examples of shared artifacts for above papers as public CK repositories:
-* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80
-* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
-* http://github.com/ctuning/reproduce-ck-paper
-* http://github.com/ctuning/reproduce-carp-project
-* http://github.com/ctuning/reproduce-pamela-project
-
-
-Examples of CK as a web service:
-
-* [Live repository] http://cknowledge.org/repo
-* [Interactive graphs] http://cknowledge.org/repo/web.php?wcid=graph:
-* [Interactive reports] http://cknowledge.org/repo/web.php?wcid=report:
-* [Android client to crowdsource autotuning] https://play.google.com/store/apps/details?id=com.collective_mind.node
-
-Further information including getting started guide, 
+More details about CK including getting started guide, 
 real usage scenarios, and developer guide is available here:
 
 * https://github.com/ctuning/ck/wiki
