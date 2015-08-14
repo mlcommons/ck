@@ -1614,7 +1614,7 @@ def deps(i):
 
                     if o=='con':
                        ck.out(x)
-             
+
           if len(rp)>0:
              for xruoa in rp:
                  ruoa=xruoa.get('repo_uoa','')
@@ -1638,7 +1638,6 @@ def deps(i):
                      'out':o}
                  if ruid!='': ii['data_uid']=ruid
                  if how=='add': ii['gitzip']='yes'
-                 print ii
                  r=ck.access(ii)
                  if r['return']>0: return r
 
