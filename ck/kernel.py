@@ -1422,6 +1422,46 @@ def convert_upload_string_to_file(i):
     return {'return':0, 'filename_ext': fne}
 
 ##############################################################################
+# Input JSON from console (double enter to finish)
+
+def input_json(i):
+    """
+    Input:  {
+              text - text to print
+            }
+
+    Output: {
+              return              - return code =  0, if successful
+                                                >  0, if error
+              (error)             - error text if return > 0
+
+              string
+              dict                - parsed JSON
+            }
+    """
+
+
+    t=i['text']
+
+    out(t)
+
+    s=''
+
+    while True:
+       r=inp({'text':''})
+       if r['return']>0: return r
+       ss=r['string'].strip()
+       if ss=='': break
+       s+=ss
+
+    r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
+    if r['return']>0: return r
+
+    d=r['dict']
+
+    return {'return':0, 'string': s, 'dict':d}
+
+##############################################################################
 # Convert CK list to CK dict with unicode in UTF-8 (unification of interfaces)
 
 def convert_ck_list_to_dict(i):
@@ -1452,8 +1492,10 @@ def convert_ck_list_to_dict(i):
                -key11=value11
                --key12
                --key13=value13
-               @file_json
-               @@cmd_json
+               @file_json        - add JSON from this file to input
+               @@cmd_json        - add JSON as string to input (special format)
+               @@@(key)          - enter manually JSON from console and add to input. 
+                                   If key is present add JSON from console to this key
                --
                unparsed_cmd
             ]
@@ -1530,6 +1572,27 @@ def convert_ck_list_to_dict(i):
                  if len(p)>q:
                    p2=p[q+1:]
               obj[p1]=p2
+
+           #####################################
+           elif p.startswith("@@@"):
+              cx=False
+              key=p[3:]
+
+              x='Add JSON to input'
+              if key!='': x+=' for key "'+key+'"'
+              x+=' (double Enter to stop):\n\n'
+
+              rx=input_json({'text':x})
+              if rx['return']>0: return rx
+
+              dy=rx['dict']
+
+              dx=obj
+              if key!='':
+                 if key not in obj: obj[key]={}
+                 dx=obj[key]
+
+              merge_dicts({'dict1':dx, 'dict2':dy})
 
            #####################################
            elif p.startswith("@@"):
@@ -8025,8 +8088,10 @@ def access(i):
                -key11=value11
                --key12
                --key13=value13
-               @file_json
-               @@cmd_json
+               @file_json        - add JSON from this file to input
+               @@cmd_json        - add JSON as string to input (special format)
+               @@@(key)          - enter manually JSON from console and add to input. 
+                                   If key is present add JSON from console to this key
                --
                unparsed_cmd
             }

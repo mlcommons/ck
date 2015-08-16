@@ -6,6 +6,8 @@ ck (1.3.xxxx) RELEASED; urgency=medium
     and manage dependencies on other shared repositories
   * fixed a few tiny bugs
   * added support to create an entry from a given directory (importing directories)
+  * added "input_json" function to kernel to input JSON from console ...
+  * added option "@@@" to CMD to add JSON from console to input
 
 
 ck (1.2.0605) UNRELEASED; urgency=medium
