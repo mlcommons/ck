@@ -24,7 +24,7 @@ of our research on building self-optimizing computer systems
 * lack of unified and reproducible mechanisms for exchange of experimental results
 
 Eventually, we created CK as an open-source and light-weight SDK
-(~200K python code) to helps our colleagues preserve, organize, describe,
+(~200K python code) to help our colleagues preserve, organize, describe,
 cross-link and share their code, data and experimental results
 as reusable Python-based components with a very simple API (one
 function with JSON in and JSON out) and JSON-based schema-free
