@@ -41,10 +41,10 @@ searched via third-party Hadoop-based ElasticSearch, shared via GIT,
 and connected together into pipelines (workflows) just as LEGO(TM)
 to quickly prototype various research ideas, crowdsource
 experiments, reproduce past results, perform statistical analysis
-and apply predictive analytics (as conceptually described
-using previous Collective Mind version in 
-http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58 and
-http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58).
+and apply predictive analytics as conceptually described
+using previous Collective Mind version in the following publications:
+* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
+* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
 
 Furthermore, CK can simplify connection of unified experiments 
 to powerful predictive analytics tools such as scikit-learn 
