@@ -1,62 +1,81 @@
-CK - simplifying collaborative and reproducible experimentation,
-knowledge management and predictive analytics.
-
-Note: the framework is stable but we are now working on
-getting started guide, documentation and demos: https://github.com/ctuning/ck/wiki
+Collective Knowledge Infrastructure - simplifying collaborative 
+and reproducible experimentation, knowledge management 
+and predictive analytics.
 
 License
 =======
-* Permissive simplified 3-clause BSD license (see LICENSE file).
+* Permissive 3-clause BSD license (see LICENSE file).
 
 Introduction
 ============
 
-We've developed Collective Knowledge Framework and Repository (CK)
-primarily to enable code/data/model sharing, crowdsource 
-experimentation, simplify predictive analytics, and unify APIs 
-of commonly used functions among our colleagues.
+We have developed Collective Knowledge Framework and Repository (CK)
+primarily to solve numerous problems we faced during past 20 years
+of our research on building self-optimizing computer systems
+(combining performance autotuning, machine learning and run-time adaptation):
 
-After successfully using it in several interdisciplinary projects
-to design faster, smaller, more power efficient and reliable computer 
-systems using autotuning, machine learning and run-time adaptation,
-we decided to make this framework public.
+* numerous and ever changing hardware
+* black-box compilers
+* ad-hoc tools with evolving and incompatible interfaces
+* multiple heterogeneous and possibly proprietary data formats
+* raising number of design and optimization choices
+* raising amount of experimental data to process
+* ad-hoc, outdated and non-representative benchmarks with limited data sets
+* lack of unified and reproducible mechanisms for exchange of experimental results
 
-CK is an open-source, light-weight, portable, modular and python-based
-framework, repository, web service and SDK to organize, describe,
-cross-link and share user code, data, experimental setups and
-meta information as unified and reusable components
-with JSON API via standard Git services (such as GITHUB
-or BitBucket).
+Eventually, we created CK as an open-source and light-weight SDK
+(~200K python code) to helps our colleagues preserve, organize, describe,
+cross-link and share their code, data and experimental results
+as reusable Python-based components with a very simple API (one
+function with JSON in and JSON out) and JSON-based schema-free
+meta description.
 
-Note, that unlike existing centralized web-based services 
+CK also helps to abstract access to ever-changing tools via wrappers
+with unified JSON interface thus protecting experimental setups
+from low-level interface/data changes (wrappers handle such
+changes as well as multiple versions of a given tool
+or library).
+
+All components has DOI-style UID and can be transparently indexed and 
+searched via third-party Hadoop-based ElasticSearch, shared via GIT, 
+and connected together into pipelines (workflows) just as LEGO(TM)
+to quickly prototype various research ideas, crowdsource
+experiments, reproduce past results, perform statistical analysis
+and apply predictive analytics (as conceptually described
+using previous Collective Mind version in 
+http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58 and
+http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58).
+
+Furthermore, CK can simplify connection of unified experiments 
+to powerful predictive analytics tools such as scikit-learn 
+and R (statistical analysis, data mining,  machine learning)
+thus automating and speeding up exploration of multi-dimensional
+experimental choices, analysis of results and decision making.
+
+Unlike existing centralized web-based services 
 that force users to upload all their code and data before
 being processed, CK allows you to organize your artifacts 
 and always keep track of them on your own machine 
 while sharing them only if needed as P2P or via existing
 private and public repositories.
 
-CK can help non-specialists and professionals assemble experimental 
-setups (aka workflows or pipelines) from their own or shared components 
-just as LEGO(TM) to quickly prototype ideas while automating, 
-preserving, distributing, crowdsourcing and reproducing experiments.
-
 CK can also complement existing technology such as Docker 
-and VM images as a higher-level light weight container
-technology with simple, extensible and unified API.
+and VM images as a higher-level light weight wrapper
+technology with simple, extensible and unified JSON API.
 
-Furthermore, CK can simplify connection of unified experiments 
-to powerful predictive analytics tools such as scikit-learn 
-and R (statistical analysis, data mining,  machine learning)
-to automate and speed up exploration of multi-dimensional
-experimental choices, analysis of results and decision making.
+CK can be invoked in a unified way via CMD or JSON web service.
+It can also be directly invoked from other programs and tools written in practically 
+any language including C, C++, Fortran, PHP and Java using OpenME event-based
+plugin framework (we worked with the community to add similar plugin 
+interface to GCC 4.6+ and plan to add it to LLVM). 
 
-Finally, unified and integrated repository of knowledge allows 
-community to systematize unstructured code and data while 
-collaboratively validating experimental results, improving models, 
-finding missing features and so on.
+Eventually, unified mechanisms of artifact and knowledge exchange in the CK 
+allows the community to gradually validate and improve shared techniques 
+and data sets thus enabling truly open, collaborative and reproducible research
+similar to physics and other natural sciences.
 
-You may check out motivation as well as real usage scenarios 
-and reproducible, interactive papers (some are based on previous 
+You may check out our motivation as well as real usage scenarios 
+and CK-powered interactive papers (some are based on previous 
 version aka Collective Mind) here:
 
 * [Interactive article 1] http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
@@ -66,7 +85,7 @@ version aka Collective Mind) here:
 * [Live CK repository] http://cknowledge.org/repo
 * [Android client for crowd-benchmarking] https://play.google.com/store/apps/details?id=com.collective_mind.node
 
-More details about CK including getting started guide, 
+Further details about CK including getting started guide, 
 real usage scenarios, and developer guide is available here:
 
 * https://github.com/ctuning/ck/wiki
@@ -89,7 +108,12 @@ Installation
 ============
 We made a special effort to make CK installation 
 as simple as possible - it requires only standard 
-Python > 2.6 or 3.x.
+Python version 2.6 or above (3.x is supported).
+
+CK has been successfully tested by volunteers on various 
+platforms including Ubuntu, OpenSUSE, CentOS, MacOS X, 
+Android (partial support through web services and OpenME) 
+and most of the recent Windows versions. 
 
 Note: since user packages may require extra functionality
 such as scipy and scikit-learn, we have been 
@@ -101,12 +125,11 @@ You can obtain the latest CK version from GITHUB:
  > git clone https://github.com/ctuning/ck.git ck
 
 Note: we plan to add CK to standard Python distributions 
-(Linux and Windows) and Debian - if you would like to help, 
-please get in touch.
+(Linux and Windows) and Debian - any help is appreciated.
 
 Now, you can simply add CK bin directory to your OS PATH 
 environment variable and you are ready to go. For example,
-try to invoke CK command line front end via:
+you check CK's command line front-end via:
 
  > ck
 
@@ -128,13 +151,16 @@ as following:
 
  > ck.access('load kernel default')
 
-Now, you can use CK to pull various shared repositories and run 
-experimental workflows (such as autotuning programs, building
-predictive models of performance, analyzing data sets, installing
-missing tools, ...).
+Now, you can use CK to pull various public CK repositories 
+(code and data shared as reusable components via GITHUB
+or BitBucket) and run shared experimental workflows 
+(for example, to crowd-benchmark and autotune programs, 
+build predictive models of performance, analyze representative
+benchmarks and data sets, install missing tools, ...).
 
-You can find further details, practical examples, motivation and 
-specification in this wiki:
+Please, check out CK documentation for more details
+including motivation, Getting Started Guide and more practical
+examples:
 
 * https://github.com/ctuning/ck/wiki
 
@@ -144,7 +170,7 @@ Please, use our mailing lists:
 * General topics of knowledge preservation, sharing and reuse
   as well as collaborative and reproducible R&D: http://groups.google.com/group/collective-mind
 * Software and hardware performance/energy/size/reliability  
-  (auto/crowd)-tuning: http://groups.google.com/group/ctuning-discussions
+  (auto/crowd)tuning: http://groups.google.com/group/ctuning-discussions
 
 Publications
 ============
@@ -156,66 +182,52 @@ Concepts has been described in the following publications:
 * https://hal.inria.fr/inria-00436029
 
 If you found CK useful and/or interesting, you are welcome 
-to reference some of the above publications in your reports.
+to reference some of the above publications in your articles 
+and reports.
 
 Fun
 ===
 * CK GIT commits as a video: http://cknowledge.org/soft/commits/ck-visualization.mp4
 
-Extra description
-=================
-CK is intended to enable open and collaborative
-research and experimentation particularly in computer
-engineering. It can help users preserve, organize, describe,
-cross-link and share their code, data and experimental results
-as reusable Python-based components with a very simple API (one
-function with JSON in and JSON out) and JSON-based schema-free
-meta description.
+CK-powered projects
+===================
 
-All components can be transparently indexed and searched via
-third-party Hadoop-based ElasticSearch, shared via GIT, and
-connected together into pipelines (workflows) just as LEGO(R)
-to quickly prototype various research ideas, crowdsource
-experiments, reproduce past results, perform statistical analysis
-and apply predictive analytics (as described
-in http://hal.inria.fr/hal-01054763).
+CK is currently used in the following public projects:
 
-CK can be invoked in a unified way via CMD, web service or from
-other programs and tools written in practically any language
-including C, C++, Fortran, PHP and Java using OpenME event-based
-plugin framework developed separately
-(https://github.com/ctuning/openme).
-
-CK has been tested with Python 2.x and 3.x on various platforms
-including Ubuntu, OpenSUSE, CentOS, Android (partial
-support through web services and OpenME) and Windows 7. 
-
-CK is extensively used in the following projects:
-
-* building public repository of knowledge for computer engineering
+* building public repository of benchmarks, data sets, tools, predictive
+models and optimization knowledge in a unified format with the help
+of the computer engineering community
 (http://cknowledge.org/repo , http://c-mind.org/repo)
 
-* implementing our universal multi-dimensional, multi-objective 
-plugin-based autotuning approach combined with crowdsourcing, predictive
-analytics and run-time adaptation. We support OpenCL, CUDA,
-OpenMP, MPI, compiler and any other tuning for performance,
-energy, size, reliability, cost and any other metrics across small
-kernels/codelets and large applications.
-(http://hal.inria.fr/hal-01054763)
+* implementing universal multi-dimensional, multi-objective,
+plugin-based autotuning combined with crowdsourcing, predictive
+analytics and run-time adaptation (to enable self-optimizing
+computer systems). We support OpenCL, CUDA, OpenMP, MPI, compiler
+and any other tuning for performance, energy, size, reliability,
+cost and any other metrics across small kernels/codelets and
+large applications (http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80).
 
-* crowdsourcing automatic compiler optimization heuristic tuning
-and benchmarking of new architectures across shared resources
-such as mobile phones, tablets, cloud services, etc.
-(https://play.google.com/store/apps/details?id=com.collective_mind.node)
+* implementing crowd-benchmarking (crowdsourcing workload characterization
+and compiler heuristic construction across numerous architectures using shared 
+computational resources such as mobile phones, tablets, cloud services, etc.
+(https://play.google.com/store/apps/details?id=com.collective_mind.node ,
+http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80)
 
 * supporting artifact evaluation initiatives for major conferences
-and journals where all artifacts are shared along with publications
-to be validated by the community (http://ctuning.org/event/ae-ppopp2016 ,
-http://arxiv.org/abs/1406.4020 )
+and journals where all artifacts are shared as reusable components (and not
+just as black box virtual machine images) along with publications
+(http://ctuning.org/event/ae-ppopp2016 , http://arxiv.org/abs/1406.4020 , 
+http://adapt-workshop.org)
 
 * enabling open, collaborative and reproducible research and experimentation 
 with interactive publications focusing on computer engineering 
-(http://cknowledge.org/reproducibility)
+(http://cknowledge.org/reproducibility, )
+
+* enabling interactive and reproducible articles for Digital Libraries
+(http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80 , 
+http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58)
+
+You are welcome to add your own CK-powered project here!
 
 Acknowledgments
 ===============
