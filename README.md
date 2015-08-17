@@ -26,15 +26,15 @@ of our research on building self-optimizing computer systems
 Eventually, we created CK as an open-source and light-weight SDK
 (~200K python code) to help our colleagues preserve, organize, describe,
 cross-link and share their code, data and experimental results
-as reusable Python-based components with a very simple API (one
-function with JSON in and JSON out) and JSON-based schema-free
-meta description.
+as reusable Python-based components with a very simple API 
+(just one one function with JSON in and JSON out) 
+and JSON-based schema-free meta description. 
 
-CK also helps to abstract access to ever-changing tools via wrappers
-with unified JSON interface thus protecting experimental setups
-from low-level interface/data changes (wrappers handle such
-changes as well as multiple versions of a given tool
-or library).
+CK also helps to abstract access to ever-changing tools and
+hardware via wrappers with the same JSON API while protecting
+experimental setups from low-level interface/data changes
+(wrappers handle such changes as well as setting up environment
+for multiple versions of a given tool or library).
 
 All components has DOI-style UID and can be transparently indexed and 
 searched via third-party Hadoop-based ElasticSearch, shared via GIT, 
@@ -49,13 +49,14 @@ http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58).
 Furthermore, CK can simplify connection of unified experiments 
 to powerful predictive analytics tools such as scikit-learn 
 and R (statistical analysis, data mining,  machine learning)
-thus automating and speeding up exploration of multi-dimensional
-experimental choices, analysis of results and decision making.
+thus helping non-specialists automate and speed up exploration 
+of multi-dimensional experimental choices, analysis of results 
+and decision making. 
 
 Unlike existing centralized web-based services 
 that force users to upload all their code and data before
-being processed, CK allows you to organize your artifacts 
-and always keep track of them on your own machine 
+being processed, CK allows users organize their local artifacts 
+and always keep track of them on their own machine 
 while sharing them only if needed as P2P or via existing
 private and public repositories.
 
@@ -72,7 +73,9 @@ interface to GCC 4.6+ and plan to add it to LLVM).
 Eventually, unified mechanisms of artifact and knowledge exchange in the CK 
 allows the community to gradually validate and improve shared techniques 
 and data sets thus enabling truly open, collaborative and reproducible research
-similar to physics and other natural sciences.
+similar to physics and other natural sciences. To some extent, it can help
+researchers and engineers become data scientists and focus on innovation
+while liberating them from ad-hoc, repetitive, boring and time consuming tasks.
 
 You may check out our motivation as well as real usage scenarios 
 and CK-powered interactive papers (some are based on previous 
