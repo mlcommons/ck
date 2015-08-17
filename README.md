@@ -70,12 +70,14 @@ any language including C, C++, Fortran, PHP and Java using OpenME event-based
 plugin framework (we worked with the community to add similar plugin 
 interface to GCC 4.6+ and plan to add it to LLVM). 
 
-Eventually, unified mechanisms of artifact and knowledge exchange in the CK 
-allows the community to gradually validate and improve shared techniques 
-and data sets thus enabling truly open, collaborative and reproducible research
-similar to physics and other natural sciences. To some extent, it can help
-researchers and engineers become data scientists and focus on innovation
-while liberating them from ad-hoc, repetitive, boring and time consuming tasks.
+Eventually, unified mechanisms of artifact and knowledge exchange
+in the CK allows the community to gradually validate and improve
+shared techniques and data sets thus enabling truly open,
+collaborative, interdisciplinary and reproducible research
+similar to physics and other natural sciences. To some extent,
+it can help researchers and engineers become data scientists and
+focus on innovation while liberating them from ad-hoc,
+repetitive, boring and time consuming tasks.
 
 You may check out our motivation as well as real usage scenarios 
 and CK-powered interactive papers (some are based on previous 
