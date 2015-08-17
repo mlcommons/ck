@@ -1493,9 +1493,9 @@ def convert_ck_list_to_dict(i):
                --key12
                --key13=value13
                @file_json        - add JSON from this file to input
-               @@cmd_json        - add JSON as string to input (special format)
-               @@@(key)          - enter manually JSON from console and add to input. 
+               @@(key)          - enter manually JSON from console and add to input. 
                                    If key is present add JSON from console to this key
+               @@@cmd_json        - add JSON as string to input (special format)
                --
                unparsed_cmd
             ]
@@ -1576,7 +1576,19 @@ def convert_ck_list_to_dict(i):
            #####################################
            elif p.startswith("@@@"):
               cx=False
-              key=p[3:]
+              jd=p[3:]
+              if len(jd)<3:
+                 return {'return':1, 'error':'can\'t parse command line option '+p}
+
+              y=convert_json_str_to_dict({'str':jd})
+              if y['return']>0: return y
+
+              merge_dicts({'dict1':obj, 'dict2':y['dict']})
+
+           #####################################
+           elif p.startswith("@@"):
+              cx=False
+              key=p[2:]
 
               x='Add JSON to input'
               if key!='': x+=' for key "'+key+'"'
@@ -1593,18 +1605,6 @@ def convert_ck_list_to_dict(i):
                  dx=obj[key]
 
               merge_dicts({'dict1':dx, 'dict2':dy})
-
-           #####################################
-           elif p.startswith("@@"):
-              cx=False
-              jd=p[2:]
-              if len(jd)<2:
-                 return {'return':1, 'error':'can\'t parse command line option '+p}
-
-              y=convert_json_str_to_dict({'str':jd})
-              if y['return']>0: return y
-
-              merge_dicts({'dict1':obj, 'dict2':y['dict']})
 
            #####################################
            elif p.startswith("@"):
@@ -8089,9 +8089,9 @@ def access(i):
                --key12
                --key13=value13
                @file_json        - add JSON from this file to input
-               @@cmd_json        - add JSON as string to input (special format)
-               @@@(key)          - enter manually JSON from console and add to input. 
+               @@(key)          - enter manually JSON from console and add to input. 
                                    If key is present add JSON from console to this key
+               @@@cmd_json        - add JSON as string to input (special format)
                --
                unparsed_cmd
             }
