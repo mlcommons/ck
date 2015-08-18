@@ -52,8 +52,9 @@ to powerful predictive analytics tools such as scikit-learn
 and R (statistical analysis, data mining,  machine learning)
 thus helping non-specialists perform statistical analysis of results,
 automate  exploration of large, multi-dimensional design 
-and optimization choices and speed up decision making,
-as described in our CK-powered interactive articles:
+and optimization choices, speed up decision making, and
+easily share results with colleagues via interactive graphs 
+and articles, as demonstrated in our latest CK-powered interactive publications:
 * http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
 * http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
 
