@@ -28,7 +28,12 @@ Eventually, we created CK as an open-source and light-weight SDK
 cross-link and share their code, data and experimental results
 as reusable Python-based components with a very simple API 
 (just one one function with JSON in and JSON out) 
-and JSON-based schema-free meta description. 
+and JSON-based schema-free meta description, as shown in the
+following examples:
+* https://github.com/ctuning/ctuning-programs 
+* https://github.com/ctuning/ctuning-datasets-min
+* https://github.com/ctuning/ck-analytics
+* https://github.com/ctuning/ck-autotuning
 
 CK also helps to abstract access to ever-changing tools and
 hardware via wrappers with the same JSON API while protecting
@@ -38,20 +43,19 @@ for multiple versions of a given tool or library).
 
 All components has DOI-style UID and can be transparently indexed and 
 searched via third-party Hadoop-based ElasticSearch, shared via GIT, 
-and connected together into pipelines (workflows) just as LEGO(TM)
-to quickly prototype various research ideas, crowdsource
-experiments, reproduce past results, perform statistical analysis
-and apply predictive analytics as conceptually described
-using previous Collective Mind version in the following publications:
-* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
-* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
+and connected together into experimental pipelines (workflows) 
+just as LEGO(TM) to quickly prototype various research ideas, 
+crowdsource experiments, reproduce and improve past techniques.
 
 Furthermore, CK can simplify connection of unified experiments 
 to powerful predictive analytics tools such as scikit-learn 
 and R (statistical analysis, data mining,  machine learning)
-thus helping non-specialists automate and speed up exploration 
-of multi-dimensional experimental choices, analysis of results 
-and decision making. 
+thus helping non-specialists perform statistical analysis of results,
+automate  exploration of large, multi-dimensional design 
+and optimization choices and speed up decision making,
+as described in our CK-powered interactive articles:
+* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
+* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
 
 Unlike existing centralized web-based services 
 that force users to upload all their code and data before
