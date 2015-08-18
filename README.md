@@ -1,6 +1,6 @@
-Collective Knowledge Infrastructure - simplifying collaborative 
-and reproducible experimentation, knowledge management 
-and predictive analytics.
+Collective Knowledge Infrastructure - enabling collaborative 
+and reproducible experimentation, knowledge sharing 
+and collaborative predictive analytics.
 
 License
 =======
