@@ -75,8 +75,8 @@ in the CK allows the community to gradually validate and improve
 shared techniques and data sets thus enabling truly open,
 collaborative, interdisciplinary and reproducible research
 similar to physics and other natural sciences. To some extent,
-it can help researchers and engineers become data scientists and
-focus on innovation while liberating them from ad-hoc,
+it can help computer engineers and researchers become data scientists 
+and focus on innovation while liberating them from ad-hoc,
 repetitive, boring and time consuming tasks.
 
 You may check out our motivation as well as real usage scenarios 
