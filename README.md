@@ -132,7 +132,7 @@ which includes all scientific packages required
 for predictive analytics in CK.
 
 You can obtain the latest CK version from GITHUB:
- > git clone https://github.com/ctuning/ck.git ck
+ $ git clone https://github.com/ctuning/ck.git ck
 
 Note: we plan to add CK to standard Python distributions 
 (Linux and Windows) and Debian - any help is appreciated.
@@ -141,25 +141,25 @@ Now, you can simply add CK bin directory to your OS PATH
 environment variable and you are ready to go. For example,
 you check CK's command line front-end via:
 
- > ck
+ $ ck
 
 If you want to use CK as a standard python module or from 
 IPython/IPython notebook, just execute the following command
 from the CK root directory (you will need sudo on Linux):
- > python setup.py install
+ $ python setup.py install
 
 If you have IPython installed, you can then check CK installation 
 as following:
 
- > ipython
+ $ ipython
 
- > import ck.kernel as ck
+ $ import ck.kernel as ck
 
- > ck.test()
+ $ ck.test()
 
- > ck.access('list module')
+ $ ck.access('list module')
 
- > ck.access('load kernel default')
+ $ ck.access('load kernel default')
 
 Now, you can use CK to pull various public CK repositories 
 (code and data shared as reusable components via GITHUB
