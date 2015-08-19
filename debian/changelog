@@ -14,6 +14,8 @@ ck (1.3.xxxx) RELEASED; urgency=medium
       for example, useful to edit compiler flag description via
       $ ck pull repo:ck-autotuning
       $ ck edit compiler:gcc-49x
+  * adding --min flag to ''load'' function to output 
+    only desc and dict to console 
 
 ck (1.2.0605) UNRELEASED; urgency=medium
   * several extra features to improve autotuning

@@ -4477,6 +4477,8 @@ def load(i):
               (load_extra_json_files) - list of files to load from the entry
 
               (unlock_uid)            - UID of the lock to release it
+
+              (min)                   - show minimum when output to console (i.e. meta and desc)
             }
 
     Output: {
@@ -4555,7 +4557,14 @@ def load(i):
 
     # If console mode, print json
     if o=='con':
-       rr=dumps_json({'dict':r})
+       dd=r
+       if i.get('min','')=='yes':
+          dd={
+              'desc':r.get('desc',{}),
+              'dict':r.get('dict',{})
+             }
+
+       rr=dumps_json({'dict':dd})
        if rr['return']==0:
           out(rr['string'])
 
