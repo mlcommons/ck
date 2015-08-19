@@ -94,6 +94,7 @@ version aka Collective Mind) here:
 * [All shared artifacts via CK]: http://github.com/ctuning/reproduce-ck-paper
 * [Our open publication model] http://arxiv.org/abs/1406.4020
 * [Live CK repository] http://cknowledge.org/repo
+* [CK-generated interactive CV] http://fursin.net/cv.html
 * [Android client for crowd-benchmarking] https://play.google.com/store/apps/details?id=com.collective_mind.node
 
 Further details about CK including getting started guide, 
