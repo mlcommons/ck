@@ -84,6 +84,9 @@ similar to physics and other natural sciences. To some extent,
 it can help computer engineers and researchers become data scientists 
 and focus on innovation while liberating them from ad-hoc,
 repetitive, boring and time consuming tasks.
+It should also help solve some of big data issues we faced
+since 1993 by actively using and sharing predictive models 
+instead of large amount of data.
 
 You may check out our motivation as well as real usage scenarios 
 and CK-powered interactive papers (some are based on previous 
