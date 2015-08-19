@@ -24,12 +24,13 @@ of our research on building self-optimizing computer systems
 * lack of unified and reproducible mechanisms for exchange of experimental results
 
 Eventually, we created CK as an open-source and light-weight SDK
-(~200K python code) to help our colleagues preserve, organize, describe,
-cross-link and share their code, data and experimental results
-as reusable Python-based components with a very simple API 
-(just one one function with JSON in and JSON out) 
-and JSON-based schema-free meta description, as shown in the
-following examples:
+(~200K python code) to help our colleagues preserve, organize,
+describe, cross-link and share their code and data (benchmarks,
+data sets, scripts, libraries, tools, experimental results,
+models, tables, graphs, articles, etc) as reusable Python-based
+components with a very simple API (just one one function with
+JSON in and JSON out) and JSON-based schema-free meta
+description, as shown in the following examples:
 * https://github.com/ctuning/ctuning-programs 
 * https://github.com/ctuning/ctuning-datasets-min
 * https://github.com/ctuning/ck-analytics
@@ -110,9 +111,10 @@ cTuning foundation and contributors
 
 http://cTuning.org
 
-Author
-======
-Grigori Fursin, http://fursin.net
+Authors
+=======
+* Grigori Fursin, http://fursin.net
+* Anton Lokhmotov, https://www.hipeac.net/~anton
 
 Installation
 ============
