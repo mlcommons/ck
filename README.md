@@ -6,6 +6,12 @@ License
 =======
 * Permissive 3-clause BSD license (see LICENSE file).
 
+Requirements
+============
+* has been validated on Linux, Windows, Android (partially), Mac OS X
+* only python >= 2.6 (3.0+ is natively supported)
+* (OpenME API to C,C++,Fortran,PHP,Java)
+
 Introduction
 ============
 
@@ -71,10 +77,11 @@ and VM images as a higher-level light weight wrapper
 technology with simple, extensible and unified JSON API.
 
 CK can be invoked in a unified way via CMD or JSON web service.
-It can also be directly invoked from other programs and tools written in practically 
-any language including C, C++, Fortran, PHP and Java using OpenME event-based
-plugin framework (we worked with the community to add similar plugin 
-interface to GCC 4.6+ and plan to add it to LLVM). 
+It can also be directly invoked from other programs and tools
+written in practically any language including C, C++, Fortran,
+PHP and Java using OpenME event-based plugin framework (we worked
+with the community to add similar plugin interface to GCC 4.6+
+and plan to add it to LLVM).
 
 Eventually, unified mechanisms of artifact and knowledge exchange
 in the CK allows the community to gradually validate and improve
