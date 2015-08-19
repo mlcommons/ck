@@ -5610,6 +5610,8 @@ def cp(i):
 
               (move)           - if 'yes', remove old
               (keep_old_uid)   - if 'yes', keep old UID
+
+              (without_files)  - if 'yes', do not move/copy files
             }
 
     Output: {
@@ -5707,18 +5709,19 @@ def cp(i):
     nmuid=r['module_uid']
 
     # Recursively copying all files (except .cm)
-    rx=list_all_files({'path':p})
-    if rx['return']>0: return rx
+    if i.get('without_files','')!='yes':
+       rx=list_all_files({'path':p})
+       if rx['return']>0: return rx
 
-    for q in rx['list']:
-        p1=os.path.join(p,q)
-        pn1=os.path.join(pn,q)
+       for q in rx['list']:
+           p1=os.path.join(p,q)
+           pn1=os.path.join(pn,q)
 
-        # Create if dir
-        pn1d=os.path.dirname(pn1)
-        if not os.path.isdir(pn1d): os.makedirs(pn1d)
+           # Create if dir
+           pn1d=os.path.dirname(pn1)
+           if not os.path.isdir(pn1d): os.makedirs(pn1d)
 
-        shutil.copy(p1,pn1)
+           shutil.copy(p1,pn1)
 
     if rshared!='' and rsync=='yes':
        ppp=os.getcwd()

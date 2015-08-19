@@ -16,6 +16,10 @@
       $ ck edit compiler:gcc-49x
   * adding --min flag to ''load'' function to output 
     only desc and dict to console 
+  * adding --without_files to avoid copying files 
+    when copying/moving CK entries (useful
+    to create templates for example for benchmarks
+    or data sets)
 
 # V1.2.0605, 2015-06-05 -- stable release
   (several extra features to improve autotuning)
