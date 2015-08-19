@@ -5106,6 +5106,9 @@ def edit(i):
 
               (ignore_update)        - (default==yes) if 'yes', do not add info about update
               (sort_keys)            - (default==yes) if 'yes', sort keys
+
+              (edit_desc)            - if 'yes', edit description rather than meta 
+                                       (useful for compiler descriptions)
             }
 
     Output: {
@@ -5125,6 +5128,8 @@ def edit(i):
     iu=i.get('ignore_update','')
     if iu=='': iu='yes'
 
+    ed=i.get('edit_desc','')
+
     sk=i.get('sort_keys','')
     if sk=='': sk='yes'
 
@@ -5136,6 +5141,7 @@ def edit(i):
     r=access(ii)
     if r['return']>0: return r
 
+    desc=r['desc']
     meta=r['dict']
 
     # Record to tmp file
@@ -5144,7 +5150,10 @@ def edit(i):
     os.close(fd)
     os.remove(fn)
 
-    r=save_json_to_file({'json_file':fn, 'dict':meta, 'sort_keys':sk})
+    if ed=='yes': dd=desc
+    else:         dd=meta
+
+    r=save_json_to_file({'json_file':fn, 'dict':dd, 'sort_keys':sk})
     if r['return']>0: return r
 
     # Get OS
@@ -5159,7 +5168,9 @@ def edit(i):
     # Load file
     r=load_json_file({'json_file':fn})
     if r['return']>0: return r
-    meta=r['dict']
+
+    if ed=='yes': desc=r['dict']
+    else:         meta=r['dict']
 
     # Update entry to finish sync/indexing
     ii={'action':'update',
@@ -5169,6 +5180,7 @@ def edit(i):
         'common_func':'yes',
         'ignore_update':iu,
         'dict':meta,
+        'desc':desc,
         'substitute':'yes',
         'sort_keys':sk,
         'out':o}

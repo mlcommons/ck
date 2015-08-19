@@ -9,6 +9,11 @@
   * added "input_json" function to kernel to input JSON from console ...
   * added option "@@@" to CMD to add JSON from console to input
   * exchanged "@@@" and "@@" in CMD for simplicity
+  * improved 'edit' function with the possibility to edit not only 
+      meta of an entry, but also descrpition (via flag --edit_desc) -
+      for example, useful to edit compiler flag description via
+      $ ck pull repo:ck-autotuning
+      $ ck edit compiler:gcc-49x
 
 # V1.2.0605, 2015-06-05 -- stable release
   (several extra features to improve autotuning)
