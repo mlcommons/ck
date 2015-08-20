@@ -745,7 +745,7 @@ def get_version(i):
     return {'return':0, 'version':cfg['version'], 'version_str':s}
 
 ##############################################################################
-# Get CK version
+# Generate temporary files
 
 def gen_tmp_file(i):
     """
@@ -779,7 +779,7 @@ def gen_tmp_file(i):
     return {'return':0, 'file_name':fn}
 
 ##############################################################################
-# Get platform (currently win or linux) and OS bits
+# Get host platform (currently win or linux) and OS bits
 
 def get_os_ck(i):
     """
@@ -885,7 +885,8 @@ def is_uid(str):
     return True
 
 ##############################################################################
-# Check if string is allowed CK UOA
+# Check if string is correct CK UOA 
+#   (i.e. does not have special characters including *, ?)
 
 def is_uoa(str):
     """
