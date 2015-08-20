@@ -95,8 +95,8 @@ It should also help solve some of big data issues we faced
 since 1993 by actively using and sharing predictive models 
 instead of large amount of data.
 
-You may check out our motivation as well as real usage scenarios 
-and CK-powered interactive papers (some are based on previous 
+You may check out our motivation as well as real usage scenarios,
+ CK-powered interactive papers and wessites (some are based on previous 
 version aka Collective Mind) here:
 
 * [Interactive article 1] http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
@@ -105,6 +105,7 @@ version aka Collective Mind) here:
 * [Our open publication model] http://arxiv.org/abs/1406.4020
 * [Live CK repository] http://cknowledge.org/repo
 * [CK-generated interactive CV] http://fursin.net/cv.html
+* [ADAPT workshop with Reddit-based reviewing] http://adapt-workshop.org
 * [Android client for crowd-benchmarking] https://play.google.com/store/apps/details?id=com.collective_mind.node
 
 Further details about CK including getting started guide, 
