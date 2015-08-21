@@ -1,4 +1,4 @@
-ck (1.3.xxxx) RELEASED; urgency=medium
+ck (1.3.0821) RELEASED; urgency=medium
   * added listing of all modules and their actions in user-friendly format
   * added support to zip CK repositories in format suitable for BitTorrent
     (to optimize exchange of large artifacts)

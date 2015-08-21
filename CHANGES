@@ -1,4 +1,4 @@
-* v1.3.xxxx
+* v1.3.0821
   * added listing of all modules and their actions in user-friendly format
   * added support to zip CK repositories in format suitable for BitTorrent
     (to optimize exchange of large artifacts)
