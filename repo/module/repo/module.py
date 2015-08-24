@@ -989,41 +989,52 @@ def recache(i):
     cri={}
 
     # Processing repos
-    for q in l:
-        ruoa=q['repo_uoa']
-        muoa=q['module_uoa']
-        duoa=q['data_uoa']
-        duid=q['data_uid']
+    # We need 2 passes (if some repos such as remote ones are referenced inside new repos)
 
-        if duid==ck.cfg['repo_uid_default'] or duid==ck.cfg['repo_uid_local']:
-           if o=='con':
-              ck.out('Skipping repo '+duoa+' ...')
-        else:
-           if o=='con':
-              ck.out('Processing repo '+duoa+' ...')
+    for ps in range(0,1):
+        for q in l:
+            if ps==0 or (ps==1 and q.get('processed','')!='yes'):
+               ruoa=q['repo_uoa']
+               muoa=q['module_uoa']
+               duoa=q['data_uoa']
+               duid=q['data_uid']
 
-           # Load repo (do not use repo, since may not exist in cache)
-           rx=ck.access({'action':'load',
-                         'module_uoa':muoa,
-                         'data_uoa':duoa})
-           if rx['return']>0: return rx
-           dt=rx['dict']
-           dname=rx['data_name']
-           dalias=rx['data_alias']
-           dp=rx['path']
+               if duid==ck.cfg['repo_uid_default'] or duid==ck.cfg['repo_uid_local']:
+                  if o=='con':
+                     ck.out('Skipping repo '+duoa+' ...')
+               else:
+                  if o=='con':
+                     ck.out('Processing repo '+duoa+' ...')
 
-           if duoa!=duid:
-              cru[duoa]=duid
+                 # Load repo (do not use repo, since may not exist in cache)
+                  rx=ck.access({'action':'load',
+                                'module_uoa':muoa,
+                                'data_uoa':duoa})
+                  if rx['return']>0: 
+                     if ps==0:
+                        continue
+                     else:
+                        return rx
 
-           dd={'dict':dt}
+                  dt=rx['dict']
+                  dname=rx['data_name']
+                  dalias=rx['data_alias']
+                  dp=rx['path']
 
-           dd['data_uid']=duid
-           dd['data_uoa']=duoa
-           dd['data_alias']=dalias
-           dd['data_name']=dname
-           dd['path_to_repo_desc']=dp
+                  if duoa!=duid:
+                     cru[duoa]=duid
 
-           cri[duid]=dd
+                  dd={'dict':dt}
+
+                  dd['data_uid']=duid
+                  dd['data_uoa']=duoa
+                  dd['data_alias']=dalias
+                  dd['data_name']=dname
+                  dd['path_to_repo_desc']=dp
+
+                  cri[duid]=dd
+
+                  q['processed']='yes'
 
     # Recording 
     ck.cache_repo_uoa=cru
