@@ -96,7 +96,7 @@ since 1993 by actively using and sharing predictive models
 instead of large amount of data.
 
 You may check out our motivation as well as real usage scenarios,
- CK-powered interactive papers and wessites (some are based on previous 
+ CK-powered interactive papers and websites (some are based on previous 
 version aka Collective Mind) here:
 
 * [Interactive article 1] http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
@@ -255,6 +255,9 @@ You are welcome to add your own CK-powered project here!
 
 Acknowledgments
 ===============
-This project has been partially funded by EU FP7 609491 TETRACOM
-project. We would like to thank all volunteers for their valuable
-feedback and support.
+
+CK development is coordinated by the non-profit cTuning foundation
+(cTuning.org). We would like to thank the EU TETRACOM 609491 project
+(www.tetracom.eu) for initial funding and dividiti (dividiti.com) 
+for continuing support. We are also extremely grateful to all volunteers 
+for their valuable feedback and contributions.
