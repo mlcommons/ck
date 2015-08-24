@@ -991,7 +991,7 @@ def recache(i):
     # Processing repos
     # We need 2 passes (if some repos such as remote ones are referenced inside new repos)
 
-    for ps in range(0,1):
+    for ps in [0,1]:
         for q in l:
             if ps==0 or (ps==1 and q.get('processed','')!='yes'):
                ruoa=q['repo_uoa']
@@ -1034,18 +1034,14 @@ def recache(i):
 
                   cri[duid]=dd
 
-                  q['processed']='yes'
+               q['processed']='yes'
 
-    # Recording 
-    ck.cache_repo_uoa=cru
-    ck.cache_repo_info=cri
+        # Recording 
+        ck.cache_repo_uoa=cru
+        ck.cache_repo_info=cri
 
-    if o=='con':
-       ck.out('')
-       ck.out('Recording repo cache ...')
-
-    rx=ck.save_repo_cache({})
-    if rx['return']>0: return rx
+        rx=ck.save_repo_cache({})
+        if rx['return']>0: return rx
 
     if o=='con':
        ck.out('')
