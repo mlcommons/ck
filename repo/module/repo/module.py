@@ -1052,7 +1052,7 @@ def recache(i):
         rx=ck.save_repo_cache({})
         if rx['return']>0: return rx
 
-        rx=ck.reload_cache_repo({'force':'yes'})
+        rx=ck.reload_repo_cache({'force':'yes'})
         if rx['return']>0: return rx
 
     if o=='con':
