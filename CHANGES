@@ -1,3 +1,6 @@
+* v1.3.0824
+  * fixing bug with repository recaching (when pulling dependent repositories)
+
 * v1.3.0821
   * added listing of all modules and their actions in user-friendly format
   * added support to zip CK repositories in format suitable for BitTorrent
@@ -10,7 +13,7 @@
   * added option "@@@" to CMD to add JSON from console to input
   * exchanged "@@@" and "@@" in CMD for simplicity
   * improved 'edit' function with the possibility to edit not only 
-      meta of an entry, but also descrpition (via flag --edit_desc) -
+      meta of an entry, but also description (via flag --edit_desc) -
       for example, useful to edit compiler flag description via
       $ ck pull repo:ck-autotuning
       $ ck edit compiler:gcc-49x

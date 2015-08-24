@@ -44,7 +44,7 @@ cfg={
       "detect_cur_cid":"#",
       "detect_cur_cid1":"^",
 
-      "version":["1", "3", "0821"],
+      "version":["1", "3", "0824"],
       "error":"CK error: ",
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
@@ -1885,7 +1885,9 @@ def list_all_files(i):
 
 def reload_repo_cache(i):
     """
-    Input:  {}
+    Input:  {
+              (force)      - if 'yes', force recaching
+            }
 
     Output: {
               return       - return code =  0, if successful
@@ -1895,6 +1897,10 @@ def reload_repo_cache(i):
     """
 
     global cache_repo_uoa, cache_repo_info, paths_repos_all, cache_repo_init
+
+    if i.get('force','')=='yes':
+       cache_repo_init=False
+       paths_repos_all=[]
 
     if not cache_repo_init:
        # Load repo UOA -> UID disambiguator

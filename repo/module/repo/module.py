@@ -1004,6 +1004,7 @@ def recache(i):
                rx=ck.load_repo_info_from_cache({'repo_uoa':duoa})
                if rx['return']==0: 
                   rd=rx.get('dict',{})
+                  print rd
                   if rd.get('remote','')=='yes':
                      remote=True
 
@@ -1050,6 +1051,9 @@ def recache(i):
         ck.cache_repo_info=cri
 
         rx=ck.save_repo_cache({})
+        if rx['return']>0: return rx
+
+        rx=ck.reload_cache_repo({})
         if rx['return']>0: return rx
 
     if o=='con':
