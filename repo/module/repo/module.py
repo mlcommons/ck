@@ -1001,7 +1001,7 @@ def recache(i):
 
                # First try to load from cache to check that not remote ...
                remote=False
-               rx=load_repo_info_from_cache({'repo_uoa':duoa})
+               rx=ck.load_repo_info_from_cache({'repo_uoa':duoa})
                if rx['return']==0: 
                   rd=rx.get('dict',{})
                   if rd.get('remote','')=='yes':
