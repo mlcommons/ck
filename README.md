@@ -75,6 +75,13 @@ private and public repositories.
 CK can also complement existing technology such as Docker 
 and VM images as a higher-level light weight wrapper
 technology with simple, extensible and unified JSON API.
+This is particularly useful for computer systems' R&D where 
+software and even hardware is changing every day and becomes 
+outdated very quickly. Hence, researchers want to be able 
+to actually rebuild and rerun experimental setups using 
+their own native tools (latest or different operating systems, 
+compilers and libraries) rather than using VM images - 
+CK was also developed to solve this issue.
 
 CK can be invoked in a unified way via CMD or JSON web service.
 It can also be directly invoked from other programs and tools
