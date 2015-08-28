@@ -1057,7 +1057,7 @@ def recache(i):
 
     if o=='con':
        ck.out('')
-       ck.out('Repositories was successfully recached!')
+       ck.out('Repositories were successfully recached!')
 
     return {'return':0}
 
