@@ -1,3 +1,6 @@
+* Vnext
+  * fixing a few typos
+
 * v1.3.0824
   * fixing bug with repository recaching (when pulling dependent repositories)
 
