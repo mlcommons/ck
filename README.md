@@ -62,7 +62,7 @@ automate  exploration of large, multi-dimensional design
 and optimization choices, speed up decision making, and
 easily share results with colleagues via interactive graphs 
 and articles, as demonstrated in our latest CK-powered interactive publications:
-* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
+* http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80
 * http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
 
 Unlike existing centralized web-based services 
@@ -199,7 +199,7 @@ Questions/comments/discussions?
 ===============================
 Please, use our mailing lists:
 * General topics of knowledge preservation, sharing and reuse
-  as well as collaborative and reproducible R&D: http://groups.google.com/group/collective-mind
+  as well as collaborative and reproducible R&D: http://groups.google.com/group/collective-knowledge
 * Software and hardware performance/energy/size/reliability  
   (auto/crowd)tuning: http://groups.google.com/group/ctuning-discussions
 
