@@ -81,3 +81,15 @@ E: web@cedricnugteren.nl
 O: The Netherlands
 C: testing CK on MacOS, validating OpenCL autotuning 
 W: 
+
+N: Andrei Lascu
+E: andrei.lascu10@imperial.ac.uk
+O: Imperial College, UK
+C: including clsmith to CK (OpenCL compiler testing)
+W: 
+
+N: Alastair Donaldson
+E: alastair.donaldson@imperial.ac.uk
+O: Imperial College, UK
+C: including clsmith to CK (OpenCL compiler testing)
+W: 
