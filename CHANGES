@@ -1,5 +1,9 @@
 * Vnext
   * fixing a few typos
+  * adding system function with timeout possibility
+    (useful for research in computer engineering where
+     generated code may be buggy and result in infinite loops,
+     i.e. during autotuning or compiler testing and bug detection)
 
 * v1.3.0824
   * fixing bug with repository recaching (when pulling dependent repositories)

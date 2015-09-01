@@ -347,6 +347,60 @@ def err(r):
     exit(rc)
 
 ##############################################################################
+# Substituting os.system with possibility for time out 
+
+def system_with_timeout(i):
+
+    """
+    Input:  {
+              cmd       - command line
+              (timeout) - timeout in seconds (granularity 0.01 sec) - may cause overheads ...
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+                                         =  8, if timeout
+              (error)      - error text if return > 0
+
+              return_code  - return code from app
+            }
+    """
+
+    cmd=i['cmd']
+
+    rc=0
+
+    to=i.get('timeout','')
+
+    if to=='':
+       rc=os.system(i['cmd'])
+    else:
+       import subprocess
+       import time
+
+       xto=float(to)
+
+       t0=time.time()
+       t=0
+       tx=float(i['timeout'])
+
+       p=subprocess.Popen(cmd, shell=True)
+
+       while p.poll() == None and t<xto:
+          time.sleep(0.1)
+          t=time.time()-t0
+
+       if t>=xto and p.poll()==None:
+          p.kill()
+
+          return {'return':8, 'error':'process timed out and had been terminated'}
+
+       rc=p.returncode
+
+    return {'return':0, 'return_code':rc}
+
+##############################################################################
 # Get value from one dict, remove it from there and move to another
 
 def get_from_dicts(dict1, key, default_value, dict2, extra=''):
