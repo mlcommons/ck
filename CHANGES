@@ -6,6 +6,7 @@
       i.e. during autotuning or compiler testing and bug detection)
   * ck where repo:<name> will print URL for remote repositories
      (suggested by Anton)
+  * making text to select UIDs less ambiguous (asked by Anton)
 
 * v1.3.0824
   * fixing bug with repository recaching (when pulling dependent repositories)

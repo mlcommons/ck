@@ -646,7 +646,7 @@ def select_uoa(i):
         iz+=1
 
     out('')
-    y='Choose first number to select UOA'
+    y='Select UOA'
     if se!='yes': y+=' (or press Enter for 0)'
     y+=': '
     
