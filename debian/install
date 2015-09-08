@@ -6,6 +6,6 @@ tests /var/ck
 AUTHORS /var/ck
 CHANGES /var/ck
 CONTRIBUTIONS /var/ck
-COPYRIGHT /var/ck
-LICENSE /var/ck
+COPYRIGHT.txt /var/ck
+LICENSE.txt /var/ck
 README.md /var/ck

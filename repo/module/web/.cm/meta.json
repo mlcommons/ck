@@ -84,7 +84,7 @@
       "Content-type": "application/zip"
     }
   }, 
-  "copyright": "See CK Copyright.txt for copyright details", 
+  "copyright": "See CK COPYRIGHT.txt for copyright details", 
   "desc": "CK web service", 
   "developer": "Grigori Fursin", 
   "developer_email": "Grigori.Fursin@cTuning.org", 

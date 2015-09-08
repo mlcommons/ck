@@ -2,7 +2,7 @@
 # Collective Knowledge (CK)
 #
 # See CK LICENSE.txt for licensing details
-# See CK Copyright.txt for copyright details
+# See CK COPYRIGHT.txt for copyright details
 #
 # Developer: Grigori Fursin
 #
@@ -36,7 +36,7 @@ cfg={
       "github_repo_url":"https://github.com",
 
       "default_license":"See CK LICENSE.txt for licensing details",
-      "default_copyright":"See CK Copyright.txt for copyright details",
+      "default_copyright":"See CK COPYRIGHT.txt for copyright details",
       "default_developer":"cTuning foundation",
       "default_developer_email":"admin@cTuning.org",
       "default_developer_webpage":"http://cTuning.org",

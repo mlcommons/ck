@@ -4,7 +4,7 @@
       "desc": "update CK and all repos"
     }
   }, 
-  "copyright": "See CK Copyright.txt for copyright details", 
+  "copyright": "See CK COPYRIGHT.txt for copyright details", 
   "desc": "common operations for the whole CK", 
   "developer": "Grigori Fursin", 
   "developer_email": "Grigori.Fursin@cTuning.org", 

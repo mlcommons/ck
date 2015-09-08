@@ -4,7 +4,8 @@ knowledge sharing and predictive analytics.
 
 License
 =======
-* Permissive 3-clause BSD license (see LICENSE file).
+* Permissive 3-clause BSD license 
+(see LICENSE.txt file for more details).
 
 Requirements
 ============
@@ -129,6 +130,8 @@ cTuning foundation and its volunteers.
 cTuning foundation and contributors
 
 http://cTuning.org
+
+See COPYRIGHT.txt for more details.
 
 Authors
 =======

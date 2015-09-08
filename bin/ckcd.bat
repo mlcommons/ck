@@ -4,7 +4,7 @@ rem
 rem Collective Knowledge
 rem
 rem See CK LICENSE.txt for licensing details.
-rem See CK Copyright.txt for copyright details.
+rem See CK COPYRIGHT.txt for copyright details.
 rem
 rem Developer: Grigori Fursin
 rem

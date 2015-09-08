@@ -2,7 +2,7 @@
   "actions": {
     "test": {"desc":"test CK functionality (under development)"}
   }, 
-  "copyright": "See CK Copyright.txt for copyright details", 
+  "copyright": "See CK COPYRIGHT.txt for copyright details", 
   "desc": "functionality tests", 
   "developer": "Grigori Fursin", 
   "developer_email": "Grigori.Fursin@cTuning.org", 

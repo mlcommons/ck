@@ -16,7 +16,7 @@
       "desc": "test ElasticSearch indexing server"
     }
   }, 
-  "copyright": "See CK Copyright.txt for copyright details", 
+  "copyright": "See CK COPYRIGHT.txt for copyright details", 
   "desc": "indexing of CK entries via hadoop-based ElasticSearch to speed up search", 
   "developer": "Grigori Fursin", 
   "developer_email": "Grigori.Fursin@cTuning.org", 
