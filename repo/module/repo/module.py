@@ -1202,7 +1202,12 @@ def where(i):
     r=ck.find_path_to_repo({'repo_uoa':duoa})
     if r['return']>0: return r
 
+    d=r.get('dict',{})
+    url=d.get('url','')
+
     p=r['path']
+    if p=='':
+       p=url
 
     if o=='con':
        ck.out(p)
