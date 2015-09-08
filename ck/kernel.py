@@ -3344,7 +3344,7 @@ def flatten_dict_internal_check_key(prefix, pk):
                   add=True
                   break
            else:
-              if q==c:
+              if prefix==c:
                  add=True
                  break
 

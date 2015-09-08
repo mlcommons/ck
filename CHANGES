@@ -7,6 +7,7 @@
   * ck where repo:<name> will print URL for remote repositories
      (suggested by Anton)
   * making text to select UIDs less ambiguous (asked by Anton)
+  * fixing bug in flatten_dict while working with CLSmith
 
 * v1.3.0824
   * fixing bug with repository recaching (when pulling dependent repositories)
