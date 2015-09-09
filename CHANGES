@@ -1,4 +1,6 @@
 * Vnext
+
+* V1.4.0909
   * fixing a few typos
   * adding system function with timeout possibility
      (useful for research in computer engineering where
@@ -8,6 +10,7 @@
      (suggested by Anton)
   * making text to select UIDs less ambiguous (asked by Anton)
   * fixing bug in flatten_dict while working with CLSmith
+  * changing COPYRIGHT to COPYRIGHT.txt and LICENSE to LICENSE.txt
 
 * v1.3.0824
   * fixing bug with repository recaching (when pulling dependent repositories)

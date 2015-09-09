@@ -38,6 +38,7 @@ Description: enabling collaborative and reproducible research and experimentatio
  (by combining autotuning, run-time adaptation, machine learning 
  and public repository of knowledge) as described in the following
  paper:
+ * [Interactive] http://cknowledge.org/repo
  * [PDF] https://hal.inria.fr/hal-01054763/document
  * [HTML] https://hal.inria.fr/hal-01054763
  * [BibTex] https://hal.inria.fr/hal-01054763v1/bibtex

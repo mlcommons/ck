@@ -44,7 +44,7 @@ cfg={
       "detect_cur_cid":"#",
       "detect_cur_cid1":"^",
 
-      "version":["1", "3", "0824"],
+      "version":["1", "4", "0909"],
       "error":"CK error: ",
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
@@ -347,6 +347,22 @@ def err(r):
     exit(rc)
 
 ##############################################################################
+# Support function for system_with_timeout
+
+def system_with_timeout_kill(pid):
+    import psutil
+
+    p=psutil.Process(pid)
+    pc=p.get_children(recursive=True)
+
+    for px in pc:
+        px.kill()
+
+    p.kill()
+
+    return
+
+##############################################################################
 # Substituting os.system with possibility for time out 
 
 def system_with_timeout(i):
@@ -392,7 +408,7 @@ def system_with_timeout(i):
           t=time.time()-t0
 
        if t>=xto and p.poll()==None:
-          p.kill()
+          system_with_timeout_kill(p.pid)
 
           return {'return':8, 'error':'process timed out and had been terminated'}
 

@@ -1,4 +1,21 @@
+ck (1.4.0909) RELEASED; urgency=high
+
+  * fixing a few typos
+  * adding system function with timeout possibility
+     (useful for research in computer engineering where
+      generated code may be buggy and result in infinite loops,
+      i.e. during autotuning or compiler testing and bug detection)
+  * ck where repo:<name> will print URL for remote repositories
+     (suggested by Anton)
+  * making text to select UIDs less ambiguous (asked by Anton)
+  * fixing bug in flatten_dict while working with CLSmith
+  * changing COPYRIGHT to COPYRIGHT.txt and LICENSE to LICENSE.txt
+
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  9 Sep 2015 11:12:13 +0100
+
+
 ck (1.3.0824) RELEASED; urgency=high
+
   * fixing bug with repository recaching (when pulling dependent repositories)
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  24 Aug 2015 11:12:13 +0100
