@@ -226,7 +226,7 @@ Fun
 CK-powered projects
 ===================
 
-CK is currently used in the following public projects:
+CK is currently used in the following projects:
 
 * building public repository of benchmarks, data sets, tools, predictive
 models and optimization knowledge in a unified format with the help
@@ -260,6 +260,10 @@ with interactive publications focusing on computer engineering
 * enabling interactive and reproducible articles for Digital Libraries
 (http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80 , 
 http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58)
+
+* serving as a personal knowledge manager to organize, interconnect
+and preserve all personal coda and data via simple JSON
+meta with UIDs and semantic tags.
 
 You are welcome to add your own CK-powered project here!
 
