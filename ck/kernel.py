@@ -202,6 +202,7 @@ cfg={
                  "delete_file":{"desc":"<file> delete file from a given entry", "for_web":"yes"},
 
                  "list":{"desc":"<CID> list entries", "for_web": "yes"},
+                 "ls":{"desc":"see 'list'", "for_web": "yes"},
 
                  "search":{"desc":"<CID> search entries", "for_web": "yes"},
 
@@ -225,7 +226,8 @@ cfg={
 
                 },
 
-      "actions_redirect":{"list":"list_data"},
+      "actions_redirect":{"list":"list_data",
+                          "ls":"list_data"},
 
       "common_actions":["webhelp", "webapi", "help", "info", "print_input",
                         "wiki",
@@ -238,6 +240,7 @@ cfg={
                         "ren", "rename",
                         "cp", "copy",
                         "mv", "move",
+                        "ls",
                         "list",
                         "search",
                         "pull",

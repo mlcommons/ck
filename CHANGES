@@ -1,4 +1,5 @@
 * Vnext
+  * adding alias 'ls' for 'list' command (suggested by Anton)
 
 * V1.4.0909
   * fixing a few typos
