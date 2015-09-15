@@ -24,10 +24,8 @@ if [ -z "$CK_ROOT" ]; then
   export CK_ROOT=$CK_path; 
 fi
 
-# Load kernel module
+# Load kernel module (either GIT/local installation or as package)
 if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
- python -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
-elif [ -f "LIB/site-packages/ck/kernel.py" ]; then 
  python -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
 else
  python -m ck.kernel "$@"
