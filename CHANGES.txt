@@ -1,4 +1,4 @@
-* V1.5.0915
+* V1.5.0916
   * major move of 'repo' directory to 'ck' to support standard Python packaging
   * major improvement of setup.py to support standard Python packaging
   * fixing web interface paths to support standard Python packaging

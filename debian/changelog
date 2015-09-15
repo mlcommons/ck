@@ -1,4 +1,4 @@
-ck (1.5.0915) RELEASED; urgency=high
+ck (1.5.0916) RELEASED; urgency=high
 
   * major move of 'repo' directory to 'ck' to support standard Python packaging
   * major improvement of setup.py to support standard Python packaging
@@ -6,7 +6,7 @@ ck (1.5.0915) RELEASED; urgency=high
   * supporting Conda packaging (Anaconda Scientific Python)
   * adding alias 'ls' for 'list' command (suggested by Anton)
 
- -- Grigori Fursin <Grigori.Fursin@cTuning.org>  15 Sep 2015 11:12:13 +0100
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  16 Sep 2015 11:12:13 +0100
 
 ck (1.4.0909) RELEASED; urgency=high
 

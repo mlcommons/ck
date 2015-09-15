@@ -44,7 +44,7 @@ cfg={
       "detect_cur_cid":"#",
       "detect_cur_cid1":"^",
 
-      "version":["1", "5", "0915"],
+      "version":["1", "5", "0916"],
       "error":"CK error: ",
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
