@@ -1,4 +1,4 @@
-Copyright (c) cTuning Foundation and individual contributors.
+Copyright 2014-2015 Grigori Fursin, cTuning foundation and volunteers <Grigori.Fursin@cTuning.org>
 All rights reserved
 
 Redistribution and use in source and binary forms, with or without modification,

@@ -3,17 +3,17 @@ Section: python
 Priority: optional
 Maintainer: Grigori Fursin, <Grigori.Fursin@cTuning.org>
 Build-Depends: debhelper (>= 7),
-               python (>= 2.6.6-3~)
+               python-all (>= 2.6.6-3~),
+               python-setuptools
 Standards-Version: 3.9.2
 X-Python-Version: >= 2.6
+X-Python3-Version: >= 3.0
 
 
-Package: ck
+Package: python-ck
 Architecture: all
-Section: python
-Depends: ${misc:Depends}, ${python:Depends}
-Description: enabling collaborative and reproducible research and experimentation
- .
+Depends: ${python:Depends}, ${misc:Depends}
+Description: Collective Knowledge (Python 2)
  Collective Knowledge (CK) is a light-weight, portable, modular
  and python-based framework, repository, web service and SDK 
  to organize, describe, cross-link and share user code, data,
@@ -38,10 +38,10 @@ Description: enabling collaborative and reproducible research and experimentatio
  (by combining autotuning, run-time adaptation, machine learning 
  and public repository of knowledge) as described in the following
  paper:
- * [Interactive] http://cknowledge.org/repo
- * [PDF] https://hal.inria.fr/hal-01054763/document
- * [HTML] https://hal.inria.fr/hal-01054763
- * [BibTex] https://hal.inria.fr/hal-01054763v1/bibtex
+  * [Interactive] http://cknowledge.org/repo
+  * [PDF] https://hal.inria.fr/hal-01054763/document
+  * [HTML] https://hal.inria.fr/hal-01054763
+  * [BibTex] https://hal.inria.fr/hal-01054763v1/bibtex
  .
  Further information including documentation, user scenarios 
  and developer guide: https://github.com/ctuning/ck/wiki
