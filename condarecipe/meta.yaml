@@ -1,0 +1,26 @@
+package:
+  name: ck
+  version: 1.5.0915
+
+source:
+  path: ..
+
+requirements:
+  build:
+    - python
+    - setuptools
+
+  run:
+    - python
+
+test:
+  imports:
+    - ck.kernel
+  commands:
+    - ck
+
+about:
+  home: https://github.com/ctuning/ck/wiki
+  license: BSD
+  license_file: LICENSE.txt
+  summary: Collective Knowledge - lightweight knowledge manager to organize, cross-link, share and reuse artifacts

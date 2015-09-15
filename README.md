@@ -155,22 +155,26 @@ successfully using Anaconda python distribution
 which includes all scientific packages required 
 for predictive analytics in CK.
 
-You can obtain the latest CK version from GITHUB:
- $ git clone https://github.com/ctuning/ck.git ck
+You can install CK either via GIT (latest self-updatable 
+development version) or via PIP/Conda.
 
-Note: we plan to add CK to standard Python distributions 
-(Linux and Windows) and Debian - any help is appreciated.
+# PIP installation
+ $ pip install ck
+
+# Anaconda installation
+ $ conda install ck
+
+# GIT installation
+
+ $ git clone https://github.com/ctuning/ck.git ck
+ $ cd ck
+ $ (sudo) python setup.py install
 
 Now, you can simply add CK bin directory to your OS PATH 
 environment variable and you are ready to go. For example,
 you check CK's command line front-end via:
 
  $ ck
-
-If you want to use CK as a standard python module or from 
-IPython/IPython notebook, just execute the following command
-from the CK root directory (you will need sudo on Linux):
- $ python setup.py install
 
 If you have IPython installed, you can then check CK installation 
 as following:

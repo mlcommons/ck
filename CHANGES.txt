@@ -2,6 +2,7 @@
   * major move of 'repo' directory to 'ck' to support standard Python packaging
   * major improvement of setup.py to support standard Python packaging
   * fixing web interface paths to support standard Python packaging
+  * supporting Conda packaging (Anaconda Scientific Python)
   * adding alias 'ls' for 'list' command (suggested by Anton)
 
 * V1.4.0909
