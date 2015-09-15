@@ -8,7 +8,7 @@ Build-Depends: debhelper (>= 7),
 Standards-Version: 3.9.2
 X-Python3-Version: >= 3.0
 
-Package: python-ck
+Package: python3-ck
 Architecture: all
 Depends: ${python3:Depends}, ${misc:Depends}
 Description: Collective Knowledge (Python 3)
