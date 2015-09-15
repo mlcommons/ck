@@ -55,5 +55,9 @@ setup(
   data_files=[('Scripts', ['bin/ck', 
                            'bin/ck.bat',
                            'bin/ckcd',
+                           'bin/ckcd.bat']),
+              ('bin',     ['bin/ck', 
+                           'bin/ck.bat',
+                           'bin/ckcd',
                            'bin/ckcd.bat'])]
 )
