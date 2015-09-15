@@ -23,5 +23,5 @@ IF EXIST %CK_ROOT%\ck\kernel.py (
 ) ELSE IF EXIST LIB\site-packages\ck\kernel.py (
  python -W ignore::DeprecationWarning %CK_ROOT%\ck\kernel.py %*
 ) ELSE (
-  echo cK Error: kernel module not found!
+ python -W ignore::DeprecationWarning -m ck.kernel %*
 )

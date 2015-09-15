@@ -30,5 +30,5 @@ if [ -f "$CK_ROOT/ck/kernel.py" ]; then
 elif [ -f "LIB/site-packages/ck/kernel.py" ]; then 
  python -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
 else
- echo "cK Error: kernel module not found!"
+ python -m ck.kernel "$@"
 fi
