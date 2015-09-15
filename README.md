@@ -171,10 +171,16 @@ development version) or via PIP/Conda.
  $ (sudo) python setup.py install
 
 Now, you can simply add CK bin directory to your OS PATH 
-environment variable and you are ready to go. For example,
-you check CK's command line front-end via:
+environment variable and you are ready to go. 
+
+Testing
+=======
+
+You check that CK works via CMD:
 
  $ ck
+
+You should see information about ck options.
 
 If you have IPython installed, you can then check CK installation 
 as following:
