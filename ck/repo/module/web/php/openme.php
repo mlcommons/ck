@@ -120,6 +120,7 @@ function openme_ck_access($i, $output=true)
  $ckr=getenv("CK_ROOT"); 
  if ($ckr=="") $ckr=getcwd();
  $ck=$ckr . '/bin/ck';
+ if (!file_exists($ck)) $ck='ck';
 
  $cmd=$ck." ".$action." @".$ftmp;
 
