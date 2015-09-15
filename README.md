@@ -158,13 +158,13 @@ for predictive analytics in CK.
 You can install CK either via GIT (latest self-updatable 
 development version) or via PIP/Conda.
 
-# PIP installation
+### PIP installation
  $ pip install ck
 
-# Anaconda installation
+### Anaconda installation
  $ conda install ck
 
-# GIT installation
+### GIT installation
 
  $ git clone https://github.com/ctuning/ck.git ck
  $ cd ck
