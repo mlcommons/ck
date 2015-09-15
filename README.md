@@ -162,7 +162,7 @@ development version) or via PIP/Conda.
  $ pip install ck
 
 ### Anaconda installation
- $ conda install ck
+ $ conda install -c https://conda.anaconda.org/gfursin ck
 
 ### GIT installation
 
