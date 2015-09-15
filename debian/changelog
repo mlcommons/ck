@@ -1,3 +1,9 @@
+ck (1.5.0917) RELEASED; urgency=high
+
+  * proper support for DEBIAN packages
+
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  17 Sep 2015 11:12:13 +0100
+
 ck (1.5.0916) RELEASED; urgency=high
 
   * major move of 'repo' directory to 'ck' to support standard Python packaging

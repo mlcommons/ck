@@ -1,3 +1,6 @@
+* V1.5.0917
+  * proper support for DEBIAN packages
+
 * V1.5.0916
   * major move of 'repo' directory to 'ck' to support standard Python packaging
   * major improvement of setup.py to support standard Python packaging
