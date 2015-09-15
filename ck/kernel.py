@@ -1752,9 +1752,9 @@ def init(i):
     work['env_root']=os.path.realpath(s)
 
     # Check where are repos (to keep compatibility with past CK < V1.5)
-    p=os.path.join(work['env_root'], cfg['subdir_default_repo'])
+    p=os.path.join(work['env_root'], cfg['kernel_dir'], cfg['subdir_default_repo'])
     if not os.path.isdir(p):
-       p=os.path.join(work['env_root'], cfg['kernel_dir'], cfg['subdir_default_repo'])
+       p=os.path.join(work['env_root'], cfg['subdir_default_repo'])
 
     # Check default repo
     work['dir_default_repo']=p
