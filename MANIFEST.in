@@ -1,6 +1,6 @@
-include AUTHORS
-include CHANGES
-include CONTRIBUTIONS
+include AUTHORS.txt
+include CHANGES.txt
+include CONTRIBUTIONS.txt
 include COPYRIGHT.txt
 include LICENSE.txt
 include README.md
