@@ -1,3 +1,12 @@
+ck (1.5.0915) RELEASED; urgency=high
+
+  * major move of 'repo' directory to 'ck' to support standard Python packaging
+  * major improvement of setup.py to support standard Python packaging
+  * fixing web interface paths to support standard Python packaging
+  * adding alias 'ls' for 'list' command (suggested by Anton)
+
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  15 Sep 2015 11:12:13 +0100
+
 ck (1.4.0909) RELEASED; urgency=high
 
   * fixing a few typos
@@ -12,7 +21,6 @@ ck (1.4.0909) RELEASED; urgency=high
   * changing COPYRIGHT to COPYRIGHT.txt and LICENSE to LICENSE.txt
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  9 Sep 2015 11:12:13 +0100
-
 
 ck (1.3.0824) RELEASED; urgency=high
 

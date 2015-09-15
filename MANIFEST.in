@@ -1,0 +1,8 @@
+include AUTHORS
+include CHANGES
+include CONTRIBUTIONS
+include COPYRIGHT.txt
+include LICENSE.txt
+include README.md
+
+recursive-include bin *

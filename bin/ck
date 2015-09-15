@@ -27,6 +27,8 @@ fi
 # Load kernel module
 if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
  python -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
+elif [ -f "LIB/site-packages/ck/kernel.py" ]; then 
+ python -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
 else
  echo "cK Error: kernel module not found!"
 fi

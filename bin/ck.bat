@@ -20,6 +20,8 @@ IF "%CK_ROOT%"=="" set CK_ROOT=%ck_path%
 rem Load kernel module
 IF EXIST %CK_ROOT%\ck\kernel.py (
  python -W ignore::DeprecationWarning %CK_ROOT%\ck\kernel.py %*
+) ELSE IF EXIST LIB\site-packages\ck\kernel.py (
+ python -W ignore::DeprecationWarning %CK_ROOT%\ck\kernel.py %*
 ) ELSE (
   echo cK Error: kernel module not found!
 )

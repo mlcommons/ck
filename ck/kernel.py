@@ -44,7 +44,7 @@ cfg={
       "detect_cur_cid":"#",
       "detect_cur_cid1":"^",
 
-      "version":["1", "4", "0909"],
+      "version":["1", "5", "0915"],
       "error":"CK error: ",
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
@@ -63,6 +63,7 @@ cfg={
 
       "user_home_dir_ext":"CK", # if no path to repos is defined, use user home dir with this extension
 
+      "kernel_dir":"ck",
       "file_kernel_py":"ck/kernel.py",
 
       "subdir_default_repo":"repo",
@@ -1750,8 +1751,13 @@ def init(i):
 
     work['env_root']=os.path.realpath(s)
 
+    # Check where are repos (to keep compatibility with past CK < V1.5)
+    p=os.path.join(work['env_root'], cfg['subdir_default_repo'])
+    if not os.path.isdir(p):
+       p=os.path.join(work['env_root'], cfg['kernel_dir'], cfg['subdir_default_repo'])
+
     # Check default repo
-    work['dir_default_repo']=os.path.join(work['env_root'], cfg['subdir_default_repo'])
+    work['dir_default_repo']=p
     work['dir_default_repo_path']=os.path.join(work['dir_default_repo'], cfg['module_repo_name'], cfg['repo_name_default'])
     work['dir_default_kernel']=os.path.join(work['dir_default_repo'], cfg['subdir_kernel'])
     work['dir_default_cfg']=os.path.join(work['dir_default_kernel'], cfg['subdir_kernel_default'], cfg['subdir_ck_ext'], cfg['file_meta'])

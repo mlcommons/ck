@@ -17,7 +17,7 @@
  if ($ckr=="") $ckr=getcwd();
 
  # Load configuration 
- $pcfg=$ckr . '/repo/module/web/.cm/meta.json';
+ $pcfg=$ckr . '/ck/repo/module/web/.cm/meta.json';
 
  $cfg=array();
 
@@ -59,7 +59,7 @@
  }
 
  # Load OpenME for CK
- $om=$ckr . '/repo/module/web/php/openme.php';
+ $om=$ckr . '/ck/repo/module/web/php/openme.php';
 
  # Check if library exists
  if (!file_exists($om)) {

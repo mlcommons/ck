@@ -17,14 +17,14 @@
  session_start();
 
  # Type
- $xt='web';
+ $xt='con';
 
  # initalize path to CK
  $ckr=getenv("CK_ROOT"); 
  if ($ckr=="") $ckr=getcwd();
 
  # Call CK web in php
- $ckp=$ckr . '/repo/module/web/php/ck_web.php';
+ $ckp=$ckr . '/ck/repo/module/web/php/ck_web.php';
 
  # Check if library exists
  if (!file_exists($ckp)) {
