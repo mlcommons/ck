@@ -173,10 +173,10 @@ development version) or via PIP/Conda.
 Now, you can simply add CK bin directory to your OS PATH 
 environment variable and you are ready to go. 
 
-Testing
-=======
+Usage
+=====
 
-You check that CK works via CMD:
+You can check that CK works via CMD:
 
  $ ck
 
