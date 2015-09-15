@@ -3,14 +3,14 @@ Section: python
 Priority: optional
 Maintainer: Grigori Fursin, <Grigori.Fursin@cTuning.org>
 Build-Depends: debhelper (>= 7),
-               python3-all (>= 3.0),
+               python3-all,
                python3-setuptools
 Standards-Version: 3.9.2
 X-Python3-Version: >= 3.0
 
 Package: python3-ck
 Architecture: all
-Depends: ${python3:Depends}, ${misc:Depends}
+Depends: ${misc:Depends}, ${python3:Depends}
 Description: Collective Knowledge (Python 3)
  Collective Knowledge (CK) is a light-weight, portable, modular
  and python-based framework, repository, web service and SDK 
