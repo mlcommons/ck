@@ -1,10 +1,10 @@
-ck (1.5.0917) RELEASED; urgency=high
+ck (1.5.0917) UNRELEASED; urgency=low
 
   * proper support for DEBIAN packages
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  17 Sep 2015 11:12:13 +0100
 
-ck (1.5.0916) RELEASED; urgency=high
+ck (1.5.0916) UNRELEASED; urgency=low
 
   * major move of 'repo' directory to 'ck' to support standard Python packaging
   * major improvement of setup.py to support standard Python packaging
@@ -14,7 +14,7 @@ ck (1.5.0916) RELEASED; urgency=high
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  16 Sep 2015 11:12:13 +0100
 
-ck (1.4.0909) RELEASED; urgency=high
+ck (1.4.0909) UNRELEASED; urgency=low
 
   * fixing a few typos
   * adding system function with timeout possibility
@@ -29,13 +29,13 @@ ck (1.4.0909) RELEASED; urgency=high
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  9 Sep 2015 11:12:13 +0100
 
-ck (1.3.0824) RELEASED; urgency=high
+ck (1.3.0824) UNRELEASED; urgency=low
 
   * fixing bug with repository recaching (when pulling dependent repositories)
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  24 Aug 2015 11:12:13 +0100
 
-ck (1.3.0821) RELEASED; urgency=medium
+ck (1.3.0821) UNRELEASED; urgency=low
 
   * added listing of all modules and their actions in user-friendly format
   * added support to zip CK repositories in format suitable for BitTorrent
@@ -61,7 +61,7 @@ ck (1.3.0821) RELEASED; urgency=medium
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  21 Aug 2015 11:12:13 +0100
 
-ck (1.2.0605) UNRELEASED; urgency=medium
+ck (1.2.0605) UNUNRELEASED; urgency=low
 
   * several extra features to improve autotuning
   * save/load extra json files to/from entries
@@ -72,14 +72,14 @@ ck (1.2.0605) UNRELEASED; urgency=medium
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  05 Jun 2015 11:12:13 +0100
 
-ck (1.2.0513) UNRELEASED; urgency=medium
+ck (1.2.0513) UNUNRELEASED; urgency=low
 
   * No major problems found during past 2 months
   * A few extensions and small bug fixes
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  13 Apr 2015 11:12:13 +0100
 
-ck (1.1.0202) UNRELEASED; urgency=medium
+ck (1.1.0202) UNUNRELEASED; urgency=low
 
   * A few minor bug fixes.
 
