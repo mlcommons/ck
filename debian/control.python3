@@ -5,7 +5,7 @@ Maintainer: Grigori Fursin, <Grigori.Fursin@cTuning.org>
 Build-Depends: debhelper (>= 7),
                python3-all,
                python3-setuptools
-Standards-Version: 3.9.2
+Standards-Version: 3.9.5
 X-Python3-Version: >= 3.0
 
 Package: python3-ck
@@ -30,22 +30,22 @@ Description: Collective Knowledge (Python 3)
  to automate and speed up exploration of multi-dimensional
  experimental choices, analysis of results and decision making.
  .
- For example, our colleagues converted artifacts from their
- PLDI'15 paper to detect bugs in OpenCL compilers. You can
- obtain them and reproduce results simply via:
+ For example, artifacts from a PLDI'15 paper to detect bugs 
+ in OpenCL compilers have been converted to CK format. They
+ can be obtained, validated, reused and extended simply via:
  .
  $ ck pull repo:ck-clsmith
  .
- You can find Getting Started Guide to rebuild above experiments here:
+ Getting Started Guide to rebuild above experiments is available here:
  http://github.com/ctuning/ck/wiki/Getting_started_guide_clsmith
  .
- We also use this framework primarily to systematize, 
- open and crowdsource our research on how to design faster, 
- smaller, more power efficient and reliable software and hardware 
+ Another example of CK usage is to systematize, open and crowdsource 
+ research and experimentation in computer engineering, i.e. on how to 
+ design faster, smaller, more power efficient and reliable software and hardware 
  (by combining autotuning, run-time adaptation, machine learning 
  and public repository of knowledge) as described in the following
- paper:
-  * [Interactive] http://cknowledge.org/repo
+ documents:
+  * [Interactive paper] http://cknowledge.org/repo
   * [PDF] https://hal.inria.fr/hal-01054763/document
   * [HTML] https://hal.inria.fr/hal-01054763
   * [BibTex] https://hal.inria.fr/hal-01054763v1/bibtex
