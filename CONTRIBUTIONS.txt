@@ -88,6 +88,12 @@ O: Synopsys
 C: feedback, suggestions 
 W: 
 
+N: Lucas Nussbaum
+E:
+O: Universite de Lorraine, France
+C: feedback on Debian packaging
+W:
+
 N: Andrei Lascu
 E: andrei.lascu10@imperial.ac.uk
 O: Imperial College, UK
