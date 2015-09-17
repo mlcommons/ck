@@ -1,0 +1,2 @@
+version=3
+https://github.com/ctuning/ck/tags .*/archive/[a-z](\d\S*)\.tar\.gz

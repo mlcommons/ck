@@ -1,8 +1,14 @@
-ck (1.5.917) UNRELEASED; urgency=low
+ck (1.6.0) UNRELEASED; urgency=low
+
+  * changing version standard
+
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  17 Sep 2015 11:12:13 +0100
+
+ck (1.5.0917) UNRELEASED; urgency=low
 
   * proper support for DEBIAN packages
 
- -- Grigori Fursin <Grigori.Fursin@cTuning.org>  17 Sep 2015 11:12:13 +0100
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  16 Sep 2015 11:12:13 +0100
 
 ck (1.5.0916) UNRELEASED; urgency=low
 
@@ -12,7 +18,7 @@ ck (1.5.0916) UNRELEASED; urgency=low
   * supporting Conda packaging (Anaconda Scientific Python)
   * adding alias 'ls' for 'list' command (suggested by Anton)
 
- -- Grigori Fursin <Grigori.Fursin@cTuning.org>  16 Sep 2015 11:12:13 +0100
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  15 Sep 2015 11:12:13 +0100
 
 ck (1.4.0909) UNRELEASED; urgency=low
 
