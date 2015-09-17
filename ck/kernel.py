@@ -6151,6 +6151,11 @@ def list_data(i):
     aida=i.get('add_if_date_after','')
     aid=i.get('add_if_date','')
 
+    # Support ISO and human readable time
+    aidb=aidb.strip().replace(' ','T')
+    aida=aida.strip().replace(' ','T')
+    aid=aid.strip().replace(' ','T')
+
     oaidb=None
     oaida=None
     oaid=None
@@ -6649,6 +6654,12 @@ def search(i):
        aidb=i.get('add_if_date_before','')
        aida=i.get('add_if_date_after','')
        aid=i.get('add_if_date','')
+
+       # Support ISO and human readable time
+       aidb=aidb.strip().replace(' ','T')
+       aida=aida.strip().replace(' ','T')
+       aid=aid.strip().replace(' ','T')
+
        sn=i.get('search_by_name','')
 
        if sn!='':

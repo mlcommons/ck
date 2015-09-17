@@ -1,3 +1,5 @@
+  * Support ISO and human readable time during search
+
 * V1.6.2 
   * fixing length in Debian changelog
 
