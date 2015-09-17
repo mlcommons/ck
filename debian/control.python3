@@ -1,4 +1,4 @@
-Source: ck
+Source: python3-ck
 Section: python
 Priority: optional
 Maintainer: Grigori Fursin <Grigori.Fursin@cTuning.org>

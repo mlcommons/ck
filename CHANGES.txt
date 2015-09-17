@@ -1,3 +1,6 @@
+* V1.6.2 
+  * fixing length in Debian changelog
+
 * V1.6.1
   * fixing bug when calling kernel actions while current path is in some CK entry
 
