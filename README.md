@@ -43,11 +43,12 @@ description, as shown in the following examples:
 * https://github.com/ctuning/ck-analytics
 * https://github.com/ctuning/ck-autotuning
 
-CK also helps to abstract access to ever-changing tools and
-hardware via wrappers with the same JSON API while protecting
-experimental setups from low-level interface/data changes
-(wrappers handle such changes as well as setting up environment
-for multiple versions of a given tool or library).
+CK also helps to abstract access to ever-changing (and possibly
+proprietary) tools and hardware via wrappers with the same JSON
+API while protecting experimental setups from low-level
+interface/data changes (wrappers handle such changes as well
+as setting up environment for multiple versions of a given tool
+or library).
 
 All components has DOI-style UID and can be transparently indexed and 
 searched via third-party Hadoop-based ElasticSearch, shared via GIT, 
