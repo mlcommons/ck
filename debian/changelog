@@ -1,35 +1,35 @@
-ck (1.6.3) unstable; urgency=low
+python-ck (1.6.3) unstable; urgency=low
 
   * changing source package to python-ck
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  17 Sep 2015 11:43:13 +0100
 
-ck (1.6.2) unstable; urgency=low
+python-ck (1.6.2) unstable; urgency=low
 
   * fixing length in Debian changelog
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  17 Sep 2015 11:33:13 +0100
 
-ck (1.6.1) unstable; urgency=low
+python-ck (1.6.1) unstable; urgency=low
 
   * fixing bug when calling kernel actions while current path 
     is in some CK entry
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  17 Sep 2015 11:22:13 +0100
 
-ck (1.6.0) unstable; urgency=low
+python-ck (1.6.0) unstable; urgency=low
 
   * changing version standard
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  17 Sep 2015 11:12:13 +0100
 
-ck (1.5.0917) unstable; urgency=low
+python-ck (1.5.0917) unstable; urgency=low
 
   * proper support for DEBIAN packages
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  16 Sep 2015 11:12:13 +0100
 
-ck (1.5.0916) unstable; urgency=low
+python-ck (1.5.0916) unstable; urgency=low
 
   * major move of 'repo' directory to 'ck' to support standard Python packaging
   * major improvement of setup.py to support standard Python packaging
@@ -39,7 +39,7 @@ ck (1.5.0916) unstable; urgency=low
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  15 Sep 2015 11:12:13 +0100
 
-ck (1.4.0909) unstable; urgency=low
+python-ck (1.4.0909) unstable; urgency=low
 
   * fixing a few typos
   * adding system function with timeout possibility
@@ -54,13 +54,13 @@ ck (1.4.0909) unstable; urgency=low
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  9 Sep 2015 11:12:13 +0100
 
-ck (1.3.0824) unstable; urgency=low
+python-ck (1.3.0824) unstable; urgency=low
 
   * fixing bug with repository recaching (when pulling dependent repositories)
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  24 Aug 2015 11:12:13 +0100
 
-ck (1.3.0821) unstable; urgency=low
+python-ck (1.3.0821) unstable; urgency=low
 
   * added listing of all modules and their actions in user-friendly format
   * added support to zip CK repositories in format suitable for BitTorrent
@@ -86,7 +86,7 @@ ck (1.3.0821) unstable; urgency=low
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  21 Aug 2015 11:12:13 +0100
 
-ck (1.2.0605) unstable; urgency=low
+python-ck (1.2.0605) unstable; urgency=low
 
   * several extra features to improve autotuning
   * save/load extra json files to/from entries
@@ -97,14 +97,14 @@ ck (1.2.0605) unstable; urgency=low
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  05 Jun 2015 11:12:13 +0100
 
-ck (1.2.0513) unstable; urgency=low
+python-ck (1.2.0513) unstable; urgency=low
 
   * No major problems found during past 2 months
   * A few extensions and small bug fixes
 
  -- Grigori Fursin <Grigori.Fursin@cTuning.org>  13 Apr 2015 11:12:13 +0100
 
-ck (1.1.0202) unstable; urgency=low
+python-ck (1.1.0202) unstable; urgency=low
 
   * A few minor bug fixes.
 
