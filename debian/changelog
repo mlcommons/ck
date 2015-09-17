@@ -1,8 +1,8 @@
-ck (1.6.2-1) unstable; urgency=low
+ck (1.6.3) unstable; urgency=low
 
   * changing source package to python-ck
 
- -- Grigori Fursin <Grigori.Fursin@cTuning.org>  17 Sep 2015 11:33:13 +0100
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  17 Sep 2015 11:43:13 +0100
 
 ck (1.6.2) unstable; urgency=low
 

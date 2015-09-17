@@ -1,3 +1,6 @@
+* V1.6.3
+  * fixing debian source package name to python-ck
+
 * V1.6.2 
   * fixing length in Debian changelog
 
