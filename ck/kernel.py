@@ -44,7 +44,7 @@ cfg={
       "detect_cur_cid":"#",
       "detect_cur_cid1":"^",
 
-      "version":["1", "6", "0"],
+      "version":["1", "6", "1"],
       "error":"CK error: ",
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
@@ -2761,6 +2761,7 @@ def perform_action(i):
        ruoa=r.get('repo_uoa','')
        if ruoa!='': i['repo_uoa']=ruoa
 
+
     # If module_uoa exists in input, set module_uoa
     if i.get('module_uoa','')!='': module_uoa=i['module_uoa']
     i['module_uoa']=module_uoa
@@ -2810,10 +2811,12 @@ def perform_action(i):
     cf=i.get('common_func','')
 
     # Check if no module_uoa, not common function, then try to get module from current 
+    module_detected_from_dir=False
     if not need_subst and cf!='yes' and module_uoa=='' and action not in cfg['common_actions']:
        rc=detect_cid_in_current_path({})
        if rc['return']==0:
           module_uoa=rc.get('module_uoa','')
+          module_detected_from_dir=True
 
     xmodule_uoa=module_uoa
     if cf!='yes' and module_uoa!='' and module_uoa.find('*')<0 and module_uoa.find('?')<0:
@@ -2867,7 +2870,7 @@ def perform_action(i):
 
     # Check if action == special keyword (add, delete, list, etc)
     if (module_uoa!='' and action in cfg['common_actions']) or \
-       (module_uoa=='' and action in cfg['actions']):
+       ((module_uoa=='' or module_detected_from_dir) and action in cfg['actions']):
        # Check function redirect - needed if action 
        #   is the same as internal python keywords such as list
        action1=cfg['actions_redirect'].get(action,'')

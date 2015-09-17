@@ -1,3 +1,9 @@
+ck (1.6.1) unstable; urgency=low
+
+  * fixing bug when calling kernel actions while current path is in some CK entry
+
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  17 Sep 2015 11:22:13 +0100
+
 ck (1.6.0) unstable; urgency=low
 
   * changing version standard
