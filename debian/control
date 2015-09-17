@@ -12,7 +12,7 @@ X-Python-Version: >= 2.6
 Package: python-ck
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}
-Description: Collective Knowledge
+Description: Collective Knowledge for collaborative and reproducible research
  Collective Knowledge (CK) is a light-weight, portable, modular
  and python-based framework, repository, web service and SDK 
  to organize, describe, cross-link and share user code, data,
