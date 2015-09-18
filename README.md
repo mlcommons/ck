@@ -29,6 +29,8 @@ of our research on building self-optimizing computer systems
 * raising amount of experimental data to process
 * ad-hoc, outdated and non-representative benchmarks with limited data sets
 * lack of unified and reproducible mechanisms for exchange of experimental results
+* problems accessing proprietary software (compilers, benchmarks)
+  and hardware for artifact evaluation
 
 Eventually, we created CK as an open-source and light-weight SDK
 (~200K python code) to help our colleagues preserve, organize,
@@ -47,8 +49,8 @@ CK also helps to abstract access to ever-changing (and possibly
 proprietary) tools and hardware via wrappers with the same JSON
 API while protecting experimental setups from low-level
 interface/data changes (wrappers handle such changes as well
-as setting up environment for multiple versions of a given tool
-or library).
+as setting up environment for multiple versions of a given 
+and possibly pre-installed tool or library). 
 
 All components has DOI-style UID and can be transparently indexed and 
 searched via third-party Hadoop-based ElasticSearch, shared via GIT, 
