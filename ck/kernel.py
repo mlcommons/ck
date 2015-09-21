@@ -1358,6 +1358,7 @@ def copy_to_clipboard(i):
        from Tkinter import Tk
     except ImportError:
        loaded=False
+       pass
 
     if not loaded:
        try:
@@ -1379,13 +1380,16 @@ def copy_to_clipboard(i):
     else:
        # Try to load pyperclip
 
+       ee=''
        try:
           import pyperclip
-       except ImportError:
+       except Exception as e:
+          ee=format(e)
           loaded=False
+          pass
 
        if not loaded:
-          return {'return':1, 'error':'seems that "pyperclip" python package is not installed'}
+          return {'return':1, 'error':'seems that "pyperclip" python package is not installed ('+ee+')'}
 
        pyperclip.copy(s)
 
@@ -4742,11 +4746,6 @@ def find(i):
            p=q['path']
            out(p)
            if pf=='': pf=p
-
-       if pf!='': 
-          # First path, try to copy to Clipboard if supported by OS
-          rx=copy_to_clipboard({'string':'"'+pf+'"'})
-          # Ignore error
 
     i['out']=o
 
