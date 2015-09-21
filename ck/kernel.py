@@ -4685,6 +4685,8 @@ def find(i):
 
     Output: { 
               Output of the 'load' function 
+
+              number_of_entries - total number of found entries
             }
     """
 
@@ -4748,6 +4750,8 @@ def find(i):
 
     i['out']=o
 
+    r['number_of_entries']=len(lst)
+
     return r
 
 #########################################################
@@ -4778,6 +4782,13 @@ def cd(i):
     i['out']=o
 
     if r['return']>0: return r
+
+    noe=r.get('number_of_entries','')
+    if noe=='': noe=0
+
+    if noe>1 and o=='con':
+       out('CK warning: '+str(noe)+' entries found! Selecting the first one ...')
+       out('')
 
     p=r.get('path','')
     if p!='':
