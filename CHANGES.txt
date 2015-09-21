@@ -1,4 +1,5 @@
   * Support ISO and human readable time during search
+  * Removed ckcd and added commands "ck cd" and "ck cdc" 
 
 * V1.6.3
   * fixing debian source package name to python-ck

@@ -183,6 +183,8 @@ cfg={
                  "edit":{"desc":"<CID> edit entry description using external editor", "for_web":"no"},
 
                  "find":{"desc":"<CID> find path to entry"},
+                 "cd":{"desc":"<CID> print 'cd {path to entry}'"},
+                 "cdc":{"desc":"<CID> print 'cd {path to entry} and copy to clipboard, if supported"},
                  "path":{"desc":"<CID> detect CID in the current directory"},
                  "cid":{"desc":"<CID> get CID of the current entry"},
 
@@ -232,7 +234,7 @@ cfg={
 
       "common_actions":["webhelp", "webapi", "help", "info", "print_input",
                         "wiki",
-                        "path", "find", "cid",
+                        "path", "find", "cid", "cd", "cdc",
                         "add",
                         "edit", 
                         "load", 
@@ -4734,6 +4736,85 @@ def find(i):
           # Ignore error
 
     i['out']=o
+
+    return r
+
+#########################################################
+# Common action: print 'cd {path to CID}'
+
+def cd(i):
+    """
+    Input:  {
+              (repo_uoa)  - repo UOA
+              module_uoa  - module UOA
+              data_uoa    - data UOA
+                 or
+              cid
+
+            }
+
+    Output: { 
+              Output of the 'load' function 
+
+              string - prepared string 'cd {path to entry}'
+            }
+    """
+
+    o=i.get('out','')
+
+    i['out']=''
+    r=find(i)
+    i['out']=o
+
+    if r['return']>0: return r
+
+    p=r.get('path','')
+    if p!='':
+       rx=get_os_ck({})
+       if rx['return']>0: return rx
+
+       plat=rx['platform']
+
+       s='cd '
+       if plat=='win':
+          s+='/D '
+
+       if p.find(' ')>0:
+          p='"'+p+'"'
+       s+=p
+
+       out(s)
+
+       r['string']=s
+
+    return r
+
+#########################################################
+# Common action: print 'cd {path to CID} and copy to clipboard'
+
+def cdc(i):
+    """
+    Input:  {
+              (repo_uoa)  - repo UOA
+              module_uoa  - module UOA
+              data_uoa    - data UOA
+                 or
+              cid
+
+            }
+
+    Output: { 
+              Output of the 'load' function 
+            }
+    """
+
+    r=cd(i)
+    if r['return']>0: return r
+
+    s=r.get('string','')
+    if s!='':
+       rx=copy_to_clipboard({'string':s})
+       if rx['return']>0: return rx
 
     return r
 

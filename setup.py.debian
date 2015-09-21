@@ -53,8 +53,7 @@ setup(
                        'repo/test/unicode/t*',
                        'repo/test/unicode/.cm/*',
                        'repo/test/unicode/dir/*']},
-  data_files=[('bin', ['bin/ck', 
-                       'bin/ckcd'])],
+  data_files=[('bin', ['bin/ck'])],
     classifiers = [
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
