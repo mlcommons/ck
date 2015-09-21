@@ -1,6 +1,7 @@
   * Support ISO and human readable time during search
   * Removed ckcd and added commands "ck cd" and "ck cdc" 
   * fixing print of correct host and port when changed via 'ck setup kernel --wfe'
+  * adding support for 'pyperclip' to copy to clipboard
 
 * V1.6.3
   * fixing debian source package name to python-ck

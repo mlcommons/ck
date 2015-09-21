@@ -11,7 +11,13 @@ Requirements
 ============
 * has been validated on Linux, Windows, Android (partially), Mac OS X
 * only python >= 2.6 (3.0+ is natively supported)
-* (OpenME API to C,C++,Fortran,PHP,Java)
+
+Optional dependencies
+=====================
+* Python package 'Tkinter' or 'tkinter' or 'pyperclip' 
+  if copy to clipboard functionality is required
+* Python package 'matplotlib' to plot graphs
+  (during autotuning or performance/energy/accuracy modeling)
 
 Introduction
 ============
