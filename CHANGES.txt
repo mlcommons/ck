@@ -3,6 +3,7 @@
   * fixing print of correct host and port when changed via 'ck setup kernel --wfe'
   * adding support for 'pyperclip' to copy to clipboard
   * warn if more than one entry found when using 'cd' and 'cdc' commands 
+  * improving execution procedure with timeout 
 
 * V1.6.3
   * fixing debian source package name to python-ck

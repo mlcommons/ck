@@ -355,16 +355,38 @@ def err(r):
 ##############################################################################
 # Support function for system_with_timeout
 
-def system_with_timeout_kill(pid):
-    import psutil
+def system_with_timeout_kill(proc):
 
-    p=psutil.Process(pid)
-    pc=p.get_children(recursive=True)
+    # First via psutil (works better on Windows but may not be installed)
 
-    for px in pc:
-        px.kill()
+    loaded=True
+    try:
+       import psutil
+    except ImportError:
+       loaded=False
+       pass
 
-    p.kill()
+    if loaded:
+       try:
+          pid=proc.pid
+
+          p=psutil.Process(pid)
+          pc=p.get_children(recursive=True)
+
+          for px in pc:
+              px.kill()
+
+          p.kill()
+       except Exception as e: 
+          loaded=False
+          pass
+
+    # Try traditional way
+    if not loaded:
+       try:
+          proc.terminate()
+       except Exception as e: 
+          pass
 
     return
 
@@ -414,7 +436,7 @@ def system_with_timeout(i):
           t=time.time()-t0
 
        if t>=xto and p.poll()==None:
-          system_with_timeout_kill(p.pid)
+          system_with_timeout_kill(p)
 
           return {'return':8, 'error':'process timed out and had been terminated'}
 
