@@ -72,10 +72,10 @@ def add(i):
                                            (useful when kernel is set to allow writing only to such repositories)
 
               (url)                      - if type=='remote' or 'git', URL of remote repository or git repository
-              (githubuser)               - if shared repo, use this GITHUB user space instead of default "ctuning"
+              (githubuser)               - if shared repo, use this GitHub user space instead of default "ctuning"
               (sync)                     - if 'yes' and type=='git', sync repo after each write operation
 
-              (gitzip)                   - if 'yes', download as zip from GITHUB
+              (gitzip)                   - if 'yes', download as zip from GitHub
               (zip)                      - path to zipfile (local or remote http/ftp)
               (overwrite)                - if 'yes', overwrite files when unarchiving
 

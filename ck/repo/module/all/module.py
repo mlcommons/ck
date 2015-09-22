@@ -56,7 +56,7 @@ def pull(i):
        os.chdir(ck_root)
 
        if o=='con':
-          ck.out('Updating CK from GITHUB ...')
+          ck.out('Updating CK from GitHub ...')
           ck.out('')
           ck.out('  cd '+ck_root)
           ck.out('  git pull')

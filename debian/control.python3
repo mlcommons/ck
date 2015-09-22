@@ -18,7 +18,7 @@ Description: Collective Knowledge for collaborative and reproducible research
  to organize, describe, cross-link and share user code, data,
  experimental setups and meta information as unified 
  and reusable components with JSON API via standard 
- Git services (such as GITHUB or BitBucket).
+ Git services (such as GitHub or Bitbucket).
  .
  Such unification can help researchers assemble experimental setups
  (workflows, pipelines, etc) from shared components just as LEGO(TM)

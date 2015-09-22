@@ -191,7 +191,7 @@ You can check that CK works via CMD:
 
 You should see information about ck options.
 
-If you have IPython installed, you can then check CK installation 
+If you have IPython installed, you can then check CK installation
 as following:
 
  $ ipython
@@ -204,10 +204,10 @@ as following:
 
  $ ck.access('load kernel default')
 
-Now, you can use CK to pull various public CK repositories 
-(code and data shared as reusable components via GITHUB
-or BitBucket) and run shared experimental workflows 
-(for example, to crowd-benchmark and autotune programs, 
+Now, you can use CK to pull various public CK repositories
+(code and data shared as reusable components via GitHub
+or Bitbucket) and run shared experimental workflows
+(for example, to crowd-benchmark and autotune programs,
 build predictive models of performance, analyze representative
 benchmarks and data sets, install missing tools, ...).
 
@@ -222,7 +222,7 @@ Questions/comments/discussions?
 Please, use our mailing lists:
 * General topics of knowledge preservation, sharing and reuse
   as well as collaborative and reproducible R&D: http://groups.google.com/group/collective-knowledge
-* Software and hardware performance/energy/size/reliability  
+* Software and hardware performance/energy/size/reliability
   (auto/crowd)tuning: http://groups.google.com/group/ctuning-discussions
 
 Publications
@@ -234,8 +234,8 @@ Concepts has been described in the following publications:
 * http://arxiv.org/abs/1406.4020
 * https://hal.inria.fr/inria-00436029
 
-If you found CK useful and/or interesting, you are welcome 
-to reference some of the above publications in your articles 
+If you found CK useful and/or interesting, you are welcome
+to reference some of the above publications in your articles
 and reports.
 
 Fun
@@ -261,7 +261,7 @@ cost and any other metrics across small kernels/codelets and
 large applications (http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80).
 
 * implementing crowd-benchmarking (crowdsourcing workload characterization
-and compiler heuristic construction across numerous architectures using shared 
+and compiler heuristic construction across numerous architectures using shared
 computational resources such as mobile phones, tablets, cloud services, etc.
 (https://play.google.com/store/apps/details?id=com.collective_mind.node ,
 http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80)
@@ -269,15 +269,15 @@ http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80)
 * supporting artifact evaluation initiatives for major conferences
 and journals where all artifacts are shared as reusable components (and not
 just as black box virtual machine images) along with publications
-(http://ctuning.org/event/ae-ppopp2016 , http://arxiv.org/abs/1406.4020 , 
+(http://ctuning.org/event/ae-ppopp2016 , http://arxiv.org/abs/1406.4020 ,
 http://adapt-workshop.org)
 
-* enabling open, collaborative and reproducible research and experimentation 
-with interactive publications focusing on computer engineering 
+* enabling open, collaborative and reproducible research and experimentation
+with interactive publications focusing on computer engineering
 (http://cknowledge.org/reproducibility, )
 
 * enabling interactive and reproducible articles for Digital Libraries
-(http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80 , 
+(http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80 ,
 http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58)
 
 * serving as a personal knowledge manager to organize, interconnect
@@ -291,6 +291,6 @@ Acknowledgments
 
 CK development is coordinated by the non-profit cTuning foundation
 (cTuning.org). We would like to thank the EU TETRACOM 609491 project
-(www.tetracom.eu) for initial funding and dividiti (www.dividiti.com) 
-for continuing support. We are also extremely grateful to all volunteers 
+(www.tetracom.eu) for initial funding and dividiti (www.dividiti.com)
+for continuing support. We are also extremely grateful to all volunteers
 for their valuable feedback and contributions.
