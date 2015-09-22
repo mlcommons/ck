@@ -43,25 +43,25 @@ Eventually, we created CK as an open-source and light-weight SDK
 describe, cross-link and share their code and data (benchmarks,
 data sets, scripts, libraries, tools, experimental results,
 models, tables, graphs, articles, etc) as reusable Python-based
-components with a very simple API (just one one function with
-JSON in and JSON out) and JSON-based schema-free meta
-description, as shown in the following examples:
+components with a very simple API (just one function with
+JSON in and JSON out) and JSON-based schema-free meta description, 
+as shown in the following examples:
 * https://github.com/ctuning/ctuning-programs 
 * https://github.com/ctuning/ctuning-datasets-min
 * https://github.com/ctuning/ck-analytics
 * https://github.com/ctuning/ck-autotuning
 
-CK also helps to abstract access to ever-changing (and possibly
+CK also helps abstract access to ever-changing (and possibly
 proprietary) tools and hardware via wrappers with the same JSON
 API while protecting experimental setups from low-level
 interface/data changes (wrappers handle such changes as well
 as setting up environment for multiple versions of a given 
 and possibly pre-installed tool or library). 
 
-All components has DOI-style UID and can be transparently indexed and 
-searched via third-party Hadoop-based ElasticSearch, shared via GIT, 
-and connected together into experimental pipelines (workflows) 
-just as LEGO(TM) to quickly prototype various research ideas, 
+All components has DOI-style UID and can be transparently indexed 
+and searched via third-party Hadoop-based ElasticSearch, 
+shared via GIT, and connected together into experimental pipelines 
+(workflows) just as LEGO(TM) to quickly prototype various research ideas, 
 crowdsource experiments, reproduce and improve past techniques.
 
 Furthermore, CK can simplify connection of unified experiments 
@@ -83,17 +83,17 @@ while sharing them only if needed as P2P or via existing
 private and public repositories.
 
 CK can also complement existing technology such as Docker 
-and VM images as a higher-level light weight wrapper
-technology with simple, extensible and unified JSON API.
+and VM hardwired images by decomposing them into unified 
+and reusable components with a simple, extensible and unified JSON API.
 This is particularly useful for computer systems' R&D where 
 software and even hardware is changing every day and becomes 
-outdated very quickly. Hence, researchers want to be able 
-to actually rebuild and rerun experimental setups using 
-their own native tools (latest or different operating systems, 
-compilers and libraries) rather than using VM images - 
+outdated very quickly. Hence, researchers would often like to 
+be able  to actually rebuild, customize and rerun experimental 
+setups using their own native tools (latest or different operating 
+systems, compilers and libraries) rather than using VM images - 
 CK was also developed to solve this issue.
 
-CK can be invoked in a unified way via CMD or JSON web service.
+CK can be invoked in a unified way via command line or JSON web service.
 It can also be directly invoked from other programs and tools
 written in practically any language including C, C++, Fortran,
 PHP and Java using OpenME event-based plugin framework (we worked
@@ -235,7 +235,7 @@ Concepts has been described in the following publications:
 * https://hal.inria.fr/inria-00436029
 
 If you found CK useful and/or interesting, you are welcome
-to reference some of the above publications in your articles
+to reference any of the above publications in your articles
 and reports.
 
 Fun
