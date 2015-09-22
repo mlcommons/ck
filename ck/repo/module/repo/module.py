@@ -758,7 +758,7 @@ def pull(i):
 
         if o=='con' and tt!='clone':
            ck.out('******************************************************************')
-           ck.out('Trying to update repo "'+duoa+'" ...')
+           ck.out('Updating repo "'+duoa+'" ...')
            ck.out('  Local path: '+p)
            ck.out('  URL:        '+url)
 
