@@ -18,6 +18,8 @@ Optional dependencies
   if copy to clipboard functionality is required
 * Python package 'matplotlib' to plot graphs
   (during autotuning or performance/energy/accuracy modeling)
+* Python package 'psutil' to properly terminate running process 
+  on Windows after timeout
 
 Introduction
 ============
