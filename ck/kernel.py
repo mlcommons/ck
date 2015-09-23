@@ -27,7 +27,7 @@ cfg={
       "wiki_data_web":"https://github.com/ctuning/ck/wiki/ckb_",           # Collective Knowledge Base (ckb)
       "private_wiki_data_web":"https://github.com/ctuning/ck/wiki/ckb_",   # Collective Knowledge Base (ckb)
       "api_web":"http://cknowledge.org/soft/docs/",
-      "status_url":"http://cknowledge.org/soft/status/",
+      "status_url":"https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
       "help_web":"More info: https://github.com/ctuning/ck",
       "ck_web":"https://github.com/ctuning/ck",
       "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
@@ -44,7 +44,7 @@ cfg={
       "detect_cur_cid":"#",
       "detect_cur_cid1":"^",
 
-      "version":["1", "6", "3"],
+      "version":["1", "6", "4"],
       "error":"CK error: ",
       "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
       "default_module":"data",
@@ -3921,11 +3921,9 @@ def status(i):
     version=r['version']
     version_str=r['version_str']
 
-    lnk=cfg['status_url']+'latest.php'
-
     page=''
     try:
-       res=urllib2.urlopen(lnk)
+       res=urllib2.urlopen(cfg['status_url'])
        page=res.read()
     except urllib2.HTTPError as e:
        return {'return':1, 'error':'Problem accessing server ('+format(e)+')'}
@@ -3933,24 +3931,13 @@ def status(i):
        return {'return':1, 'error':'Problem accessing server ('+format(e)+')'}
 
     if page!='':
-       s1='<!-- START TEXT -->'
+       s1='version=\''
        i1=page.find(s1)
        if i1>0:
-          i2=page.find('<!-- STOP TEXT -->')
+          i2=page.find('\'',i1+9)
           if i2>0:
-             text=page[i1+len(s1):i2].strip()
-             r=convert_json_str_to_dict({'str':text, 'skip_quote_replacement':'yes'})
-             if r['return']>0: 
-                return {'return':1, 'error':'can\'t parse output from server with version'}
-
-             lversion=r['dict'].get('version',[])
-             if len(lversion)<3:
-                return {'return':1, 'error':'can\'t parse output from server with version'}
-
-             lversion_str=''
-             for q in lversion:
-                 if lversion_str!='': lversion_str+='.'
-                 lversion_str+=q
+             lversion_str=page[i1+len(s1):i2].strip()
+             lversion=lversion_str.split('.')
 
              # converting to int
              for q in range(0, len(version)):
@@ -3960,9 +3947,9 @@ def status(i):
                  if lversion[q]=='': lversion[q]='0'
                  lversion[q]=int(lversion[q])
 
-             if version[0]>lversion[0] or \
-                (version[0]==lversion[0] and version[1]>lversion[1]) or \
-                (version[0]==lversion[0] and version[1]==lversion[1] and version[2]>lversion[2]):
+             if lversion[0]>version[0] or \
+                (lversion[0]==version[0] and lversion[1]>version[1]) or \
+                (lversion[0]==version[0] and lversion[1]==version[1] and lversion[2]>version[2]):
                 
                 outdated='yes'
 

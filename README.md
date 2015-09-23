@@ -213,9 +213,48 @@ or Bitbucket) and run shared experimental workflows
 build predictive models of performance, analyze representative
 benchmarks and data sets, install missing tools, ...).
 
-Please, check out CK documentation for more details
-including motivation, Getting Started Guide and more practical
-examples:
+For example, compiling and running any shared benchmark 
+on your Linux machine with GCC can be done simply as:
+
+ $ ck pull repo:ctuning-programs
+
+ $ ck compile program:cbench-automotive-susan --speed
+
+ $ ck run program:cbench-automotive-susan
+
+Compiling and running such benchmarks on Windows or Android,
+autotuning or crowdtuning them (performance, energy, accuracy, size, etc),
+adding more data sets, applying machine learning to predict optimizations,
+and any other shared scenario requires a few more steps 
+as described in our "Getting Started Guide":
+
+* https://github.com/ctuning/ck/wiki
+
+Adding new CK modules as containers for own data, as a wrapper
+for some tool or as a workflow is also straightforward. 
+For example, you can add your own module 'hello' with an action 'say'
+and with an entry 'world' as following (you can select all
+default values by just pressing Enter):
+
+ $ ck add module:hello
+
+ $ ck add_action module --func=say
+
+ $ ck add hello:world
+
+ $ ck say hello:world
+
+You can now find and customize Python dummy function 'say' 
+in the CK module 'hello' (module.py) via
+ 
+ $ ck find module:hello
+
+You can also find associated CK entry hello:say and modify 
+its meta information (.cm/meta.json) via
+
+ $ ck find hello:world
+
+Please, follow CK guide for more details:
 
 * https://github.com/ctuning/ck/wiki
 
