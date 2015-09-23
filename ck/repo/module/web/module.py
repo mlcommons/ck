@@ -617,13 +617,7 @@ def start(i):
 
     # Prepare host (if '' - localhost)
     host=ck.cfg.get('default_web_service_host','')
-    if i.get('host','')!='': host=i['host']
-
-    xhost='localhost'
-    if host!='': xhost=host
-
     port=ck.cfg.get('default_web_service_port','')
-    if i.get('port','')!='': port=i['port']
 
     # check if defined in wfe_url_prefix
     wup=ck.cfg.get('wfe_url_prefix', '')
@@ -642,6 +636,12 @@ def start(i):
                 i3=min(i3a,i3b)
 
                 port=wup[i2+1:i3]
+
+    if i.get('host','')!='': host=i['host']
+    if i.get('port','')!='': port=i['port']
+
+    xhost='localhost'
+    if host!='': xhost=host
 
     if port=='':
        return {'return':1, 'error':'web port is not defined'}

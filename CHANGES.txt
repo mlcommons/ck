@@ -1,3 +1,7 @@
+* development
+  * fixing port selection from CMD for CK web service
+    (ck start web --port={PORT})
+
 * V1.6.4
   * Support ISO and human readable time during search
   * Removed ckcd and added commands "ck cd" and "ck cdc" 
