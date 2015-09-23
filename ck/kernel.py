@@ -28,7 +28,7 @@ cfg={
       "private_wiki_data_web":"https://github.com/ctuning/ck/wiki/ckb_",   # Collective Knowledge Base (ckb)
       "api_web":"http://cknowledge.org/soft/docs/",
       "status_url":"https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
-      "help_web":"More info: https://github.com/ctuning/ck",
+      "help_web":"More info: https://github.com/ctuning/ck/wiki",
       "ck_web":"https://github.com/ctuning/ck",
       "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
 
