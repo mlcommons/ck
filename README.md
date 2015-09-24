@@ -315,7 +315,7 @@ http://adapt-workshop.org)
 
 * enabling open, collaborative and reproducible research and experimentation
 with interactive publications focusing on computer engineering
-(http://cknowledge.org/reproducibility, )
+( http://cTuning.org/reproducibility-wiki )
 
 * enabling interactive and reproducible articles for Digital Libraries
 (http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80 ,
