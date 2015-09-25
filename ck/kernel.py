@@ -64,6 +64,8 @@ cfg={
       "user_home_dir_ext":"CK", # if no path to repos is defined, use user home dir with this extension
 
       "kernel_dir":"ck",
+      "kernel_dirs":["ck","Lib/site-packages/ck",""],
+
       "file_kernel_py":"ck/kernel.py",
 
       "subdir_default_repo":"repo",
@@ -1791,9 +1793,15 @@ def init(i):
     work['env_root']=os.path.realpath(s)
 
     # Check where are repos (to keep compatibility with past CK < V1.5)
-    p=os.path.join(work['env_root'], cfg['kernel_dir'], cfg['subdir_default_repo'])
-    if not os.path.isdir(p):
-       p=os.path.join(work['env_root'], cfg['subdir_default_repo'])
+    p=''
+    for px in cfg['kernel_dirs']:
+        py=os.path.join(work['env_root'], px, cfg['subdir_default_repo'])
+        if os.path.isdir(py):
+           p=py
+           break
+
+    if p=='':
+       return {'return':1, 'error':'Internal CK error (can\'t find default repo) - please report to authors'}
 
     # Check default repo
     work['dir_default_repo']=p
