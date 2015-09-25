@@ -5,6 +5,7 @@
   * improving help
   * fixing bug with pip installation on Anaconda for Windows
   * fixing bug with pip installation on Linux
+  * adding CK_PYTHON to change interpreter on Linux (for example python3)
 
 * V1.6.4
   * Support ISO and human readable time during search
