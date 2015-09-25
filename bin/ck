@@ -13,14 +13,10 @@
 
 # Check if CK_ROOT is defined and used it, otherwise use auto-detected path
 if [ -z "$CK_ROOT" ]; then 
-  if [ -d "/var/ck/ck" ]; then
-    CK_path="/var/ck"
-  else
-    CK_path1=`dirname $0`
-    pushd $CK_path1/.. > /dev/null
-    CK_path=`pwd`
-    popd > /dev/null
-  fi
+  CK_path1=`dirname $0`
+  pushd $CK_path1/.. > /dev/null
+  CK_path=`pwd`
+  popd > /dev/null
   export CK_ROOT=$CK_path; 
 fi
 
