@@ -1,3 +1,15 @@
+python-ck (1.6.5) unstable; urgency=low
+
+  * fixing port selection from CMD for CK web service
+    (ck start web --port=PORT)
+  * fixing bug in Python 3 for 'ck status'
+  * improving help
+  * fixing bug with pip installation on Anaconda for Windows
+  * fixing bug with pip installation on Linux
+  * adding CK_PYTHON to change interpreter on Linux (for example python3)
+
+ -- Grigori Fursin <Grigori.Fursin@cTuning.org>  25 Sep 2015 11:12:13 +0100
+
 python-ck (1.6.4) unstable; urgency=low
 
   * Support ISO and human readable time during search

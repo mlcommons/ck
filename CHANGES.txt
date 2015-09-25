@@ -1,4 +1,4 @@
-* development
+* V1.6.5
   * fixing port selection from CMD for CK web service
     (ck start web --port={PORT})
   * fixing bug in Python 3 for 'ck status'
