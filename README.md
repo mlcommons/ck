@@ -178,9 +178,6 @@ development version) or via PIP/Conda.
 ### PIP installation
  $ pip install ck
 
-### Anaconda installation
- $ conda install -c https://conda.anaconda.org/gfursin ck
-
 ### GIT installation
 
  $ git clone https://github.com/ctuning/ck.git ck
