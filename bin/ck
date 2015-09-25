@@ -1,16 +1,5 @@
 #! /bin/bash
 
-#
-# Collective Knowledge (CK)
-#
-# See CK LICENSE.txt for licensing details.
-# See CK COPYRIGHT.txt for copyright details.
-#
-# Developer: Grigori Fursin
-#
-
-# CK entry point
-
 # Check if CK_ROOT is defined and used it, otherwise use auto-detected path
 if [ -z "$CK_ROOT" ]; then 
   CK_path1=`dirname $0`
