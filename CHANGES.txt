@@ -4,6 +4,7 @@
   * fixing bug in Python 3 for 'ck status'
   * improving help
   * fixing bug with pip installation on Anaconda for Windows
+  * fixing bug with pip installation on Linux
 
 * V1.6.4
   * Support ISO and human readable time during search
