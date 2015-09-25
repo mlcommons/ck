@@ -93,7 +93,13 @@ outdated very quickly. Hence, researchers would often like to
 be able  to actually rebuild, customize and rerun experimental 
 setups using their own native tools (latest or different operating 
 systems, compilers and libraries) rather than using VM images - 
-CK was also developed to solve this issue.
+CK was also developed to solve this issue. For example,
+various research projects already use CK to share their
+research artifacts and scenarios:
+$ http://github.com/ctuning/reproduce-carp-project
+$ http://github.com/ctuning/reproduce-pamela-project
+$ http://github.com/ctuning/reproduce-clsmith
+$ http://github.com/ctuning/reproduce-ck-paper 
 
 CK can be invoked in a unified way via command line or JSON web service.
 It can also be directly invoked from other programs and tools

@@ -1,6 +1,7 @@
 * development
   * fixing port selection from CMD for CK web service
     (ck start web --port={PORT})
+  * fixing bug in Python 3 for 'ck status'
 
 * V1.6.4
   * Support ISO and human readable time during search

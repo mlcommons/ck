@@ -3930,6 +3930,13 @@ def status(i):
     except urllib2.URLError as e:
        return {'return':1, 'error':'Problem accessing server ('+format(e)+')'}
 
+    # Support for Python 3
+    if sys.version_info[0]>2:
+       try: 
+          page=page.decode('utf-8')
+       except Exception as e: 
+          pass
+
     if page!='':
        s1='version=\''
        i1=page.find(s1)
