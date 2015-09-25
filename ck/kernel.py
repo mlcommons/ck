@@ -28,7 +28,10 @@ cfg={
       "private_wiki_data_web":"https://github.com/ctuning/ck/wiki/ckb_",   # Collective Knowledge Base (ckb)
       "api_web":"http://cknowledge.org/soft/docs/",
       "status_url":"https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
-      "help_web":"More info: https://github.com/ctuning/ck/wiki",
+
+      "help_examples":"Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n $ ck pull repo:ctuning-programs\n $ ck compile program:cbench-automotive-susan --speed\n $ ck run program:cbench-automotive-susan\n\nExample of an interactive CK-powered article: http://cknowledge.org/repo\n",
+      "help_web":"Documentation and Getting Started Guide: https://github.com/ctuning/ck/wiki",
+
       "ck_web":"https://github.com/ctuning/ck",
       "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
 
@@ -4344,6 +4347,9 @@ def help(i):
         desc=cfg['actions'][q].get('desc','')
         if desc!='': s+=' - '+desc
         h+='    '+s+'\n'
+
+    h+='\n'
+    h+=cfg['help_examples']
 
     h+='\n'
     h+=cfg['help_web']
