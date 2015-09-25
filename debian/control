@@ -7,49 +7,20 @@ Build-Depends: debhelper (>= 7),
                python-all (>= 2.6.6-3~),
                python-setuptools
 Standards-Version: 3.9.6
-X-Python-Version: >= 2.6
+X-Python-Version: >= 2.7
 
 Package: python-ck
 Architecture: all
 Depends: ${python:Depends}, ${misc:Depends}
-Description: Collective Knowledge for collaborative and reproducible research
- Collective Knowledge (CK) is a light-weight, portable, modular
- and python-based framework, repository, web service and SDK 
- to organize, describe, cross-link and share user code, data,
- experimental setups and meta information as unified 
- and reusable components with JSON API via standard 
- Git services (such as GitHub or Bitbucket).
- .
- Such unification can help researchers assemble experimental setups
- (workflows, pipelines, etc) from shared components just as LEGO(TM)
- to quickly prototype ideas while automating, preserving, 
- distributing, crowdsourcing and reproducing experiments.
- .
- Furthermore, CK simplifies connection of unified experiments 
- to powerful predictive analytics tools such as scikit-learn 
- and R (statistical analysis, data mining,  machine learning)
- to automate and speed up exploration of multi-dimensional
- experimental choices, analysis of results and decision making.
- .
- For example, artifacts from a PLDI'15 paper to detect bugs 
- in OpenCL compilers have been converted to CK format. They
- can be obtained, validated, reused and extended simply via:
- .
- $ ck pull repo:ck-clsmith
- .
- Getting Started Guide to rebuild above experiments is available here:
- http://github.com/ctuning/ck/wiki/Getting_started_guide_clsmith
- .
- Another example of CK usage is to systematize, open and crowdsource 
- research and experimentation in computer engineering, i.e. on how to 
- design faster, smaller, more power efficient and reliable software and hardware 
- (by combining autotuning, run-time adaptation, machine learning 
- and public repository of knowledge) as described in the following
- documents:
-  * [Interactive paper] http://cknowledge.org/repo
-  * [PDF] https://hal.inria.fr/hal-01054763/document
-  * [HTML] https://hal.inria.fr/hal-01054763
-  * [BibTex] https://hal.inria.fr/hal-01054763v1/bibtex
- .
- Further information including documentation, user scenarios 
- and developer guide: https://github.com/ctuning/ck/wiki
+Description: Collective Knowledge Framework (CK) 
+ is used to decompose complex experimental setups 
+ into unified and reusable components with simple 
+ JSON API and meta-description shared via GitHub 
+ or any other web service. CK can complement
+ Docker and Virtual Machines while letting reseachers
+ researchers quickly prototype new ideas from shared 
+ components as LEGO(TM). As a side effect, CK also 
+ helps create reproducible and interactive articles.
+ Full documentation and examples are available at 
+ https://github.com/ctuning/ck/wiki and
+ http://cknowledge.org/repo
