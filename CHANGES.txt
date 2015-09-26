@@ -1,3 +1,6 @@
+* V1.6.9
+  * fixing/improving command line help
+
 * V1.6.8
   * moving ck and ck.bat to 'scripts' in setup.py
   * moving condarecipe to external sources 

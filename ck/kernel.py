@@ -20,7 +20,7 @@ allow_print=True       # Needed to supress all output
 con_encoding=''        # Use non-default console encoding
 
 cfg={
-      "version":["1", "6", "8"],
+      "version":["1", "6", "9"],
 
       "name":"Collective Knowledge",
       "desc":"exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",
@@ -31,8 +31,8 @@ cfg={
       "api_web":"http://cknowledge.org/soft/docs/",
       "status_url":"https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
 
-      "help_examples":"Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n $ ck pull repo:ctuning-programs\n $ ck compile program:cbench-automotive-susan --speed\n $ ck run program:cbench-automotive-susan\n\nExample of an interactive CK-powered article: http://cknowledge.org/repo\n",
-      "help_web":"Documentation and Getting Started Guide: https://github.com/ctuning/ck/wiki",
+      "help_examples":"  Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n    $ ck pull repo:ctuning-programs\n    $ ck compile program:cbench-automotive-susan --speed\n    $ ck run program:cbench-automotive-susan\n\n  Example of an interactive CK-powered article:\n    http://cknowledge.org/repo\n",
+      "help_web":"  Documentation and Getting Started Guide:\n    https://github.com/ctuning/ck/wiki",
 
       "ck_web":"https://github.com/ctuning/ck",
       "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
@@ -4315,6 +4315,15 @@ def help(i):
     h= 'Usage: '+cfg['cmd'].replace('$#module_uoa#$', m)+'\n'
 
     h+='\n'
+    h+='  Common actions:\n'
+
+    for q in sorted(cfg['common_actions']):
+        s=q
+        desc=cfg['actions'][q].get('desc','')
+        if desc!='': s+=' - '+desc
+        h+='    '+s+'\n'
+
+    h+='\n'
     h+='  Module actions:\n'
 
     if m=='<module_uoa>':
@@ -4340,17 +4349,9 @@ def help(i):
               if desc!='': s+=' - '+desc
               h+='    '+s+'\n'
 
-    h+='\n'
-    h+='  Common actions:\n'
-
-    for q in sorted(cfg['common_actions']):
-        s=q
-        desc=cfg['actions'][q].get('desc','')
-        if desc!='': s+=' - '+desc
-        h+='    '+s+'\n'
-
-    h+='\n'
-    h+=cfg['help_examples']
+    if m=='<module_uoa>':
+       h+='\n'
+       h+=cfg['help_examples']
 
     h+='\n'
     h+=cfg['help_web']
