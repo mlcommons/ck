@@ -9,7 +9,7 @@ from distutils.core import setup
 
 setup(
   name='ck',
-  version='1.6.7',
+  version='1.6.8',
   url='https://github.com/ctuning/ck/wiki',
   license='BSD 3-clause',
   author='Grigori Fursin and non-profit cTuning foundation',
@@ -54,11 +54,10 @@ setup(
                        'repo/test/unicode/t*',
                        'repo/test/unicode/.cm/*',
                        'repo/test/unicode/dir/*']},
-  data_files=[('Scripts', ['bin/ck', 
-                           'bin/ck.bat']),
-              ('bin',     ['bin/ck', 
-                           'bin/ck.bat'])],
-    classifiers = [
+
+  scripts = ["bin/ck" ,"bin/ck.bat"],
+
+  classifiers = [
         "Programming Language :: Python",
         "Programming Language :: Python :: 3",
         "Development Status :: 5 - Production/Stable",

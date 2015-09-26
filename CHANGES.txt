@@ -1,3 +1,9 @@
+* V1.6.8
+  * moving ck and ck.bat to 'scripts' in setup.py
+  * moving condarecipe to external sources 
+    (to prepare conda packages externally)
+  * using $PYTHON on Linux
+
 * V1.6.7
   * fixing 755 for bin/ck (for PIP installation)
 

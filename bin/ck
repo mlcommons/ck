@@ -10,13 +10,13 @@ if [ -z "$CK_ROOT" ]; then
 fi
 
 # Check which python to use
-if [ -z "$CK_PYTHON" ]; then
-   export CK_PYTHON=python
+if [ -z "$PYTHON" ]; then
+   export PYTHON=python
 fi
 
 # Load kernel module (either GIT/local installation or as package)
 if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
- $CK_PYTHON -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
+ $PYTHON -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
 else
- $CK_PYTHON -m ck.kernel "$@"
+ $PYTHON -m ck.kernel "$@"
 fi
