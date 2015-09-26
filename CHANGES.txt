@@ -1,5 +1,6 @@
-* Development
-  * Shortening Debian description and adding -1 to version
+* V1.6.6
+  * Fixing PIP problem (when adding new modules to CK)
+  * Removing debian description (will be separate to make non-native package)
 
 * V1.6.5
   * fixing port selection from CMD for CK web service
