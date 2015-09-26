@@ -6,3 +6,4 @@ include LICENSE.txt
 include README.md
 
 recursive-include bin *
+recursive-include man *
