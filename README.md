@@ -181,11 +181,13 @@ You can install CK either via GIT (latest,
 self-updatable, development version) or via PIP
 (please, remove 'sudo' on Windows).
 
-### PIP installation (stable)
+### PIP installation
+
+Official stable release via PyPi archive:
 
  $ sudo pip install ck
 
-### PIP installation (latest from GitHub)
+Latest development version from GitHub:
 
  $ sudo pip install https://github.com/ctuning/ck/archive/master.zip
 
@@ -201,11 +203,13 @@ self-updatable, development version) or via PIP
 Non-root installation will just require you to add
 path to bin/ck to your PATH environment variable.
 
-### PIP installation (stable)
+### PIP installation
+
+Official stable release via PyPi archive:
 
  $ pip install --user ck
 
-### PIP Installation (latest from GitHub)
+Latest development version from GitHub:
 
  $ pip install --user https://github.com/ctuning/ck/archive/master.zip
 

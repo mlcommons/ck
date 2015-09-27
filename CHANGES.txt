@@ -1,3 +1,6 @@
+* V1.6.11
+  * improved installation documentation
+
 * V1.6.10
   * fixing automatic detection of an installation directory
     when using pip install --user
