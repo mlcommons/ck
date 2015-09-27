@@ -181,34 +181,49 @@ You can install CK either via GIT (latest,
 self-updatable, development version) or via PIP
 (please, remove 'sudo' on Windows).
 
-### PIP installation
+### PIP installation (stable)
+
  $ sudo pip install ck
 
-### GIT installation
+### PIP installation (latest from GitHub)
+
+ $ sudo pip install https://github.com/ctuning/ck/archive/master.zip
+
+### Git installation (latest from GitHub)
 
  $ git clone https://github.com/ctuning/ck.git ck
+
  $ cd ck
+
  $ sudo python setup.py install
 
 ## Non-root installation
 Non-root installation will just require you to add
 path to bin/ck to your PATH environment variable.
 
-### PIP installation
+### PIP installation (stable)
+
  $ pip install --user ck
+
+### PIP Installation (latest from GitHub)
+
+ $ pip install --user https://github.com/ctuning/ck/archive/master.zip
 
 On Linux, it will most likely install ck script in
 ".local/bin" so you should add it to your PATH, i.e.
+
  $ export PATH=$HOME/.local/bin:$PATH
 
 On Windows, it will most likely install ck script
 in "C:\Users\{YOUR LOGIN}\AppData\Roaming\Python\Scripts
 that you should add to PATH environment variable.
 
-### GIT installation
+### Git installation (latest from GitHub)
 
  $ git clone https://github.com/ctuning/ck.git ck
+
  $ cd ck
+
  $ export PATH=$PWD/bin:$PATH
 
 Usage
