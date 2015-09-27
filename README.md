@@ -178,9 +178,8 @@ to your PATH and will also install CK as standard
 python module.
 
 You can install CK either via GIT (latest, 
-self-updatable, development version) or via PIP:
-
-Note: please, remove 'sudo' on Windows.
+self-updatable, development version) or via PIP
+(please, remove 'sudo' on Windows).
 
 ### PIP installation
  $ sudo pip install ck
