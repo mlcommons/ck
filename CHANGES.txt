@@ -1,3 +1,9 @@
+* V1.6.10
+  * fixing automatic detection of an installation directory
+    when using pip install --user
+  * adding ChangeLog file for backwards compatibility with Debian
+  * adding TODO.txt with a link to CK GitHub tickets
+
 * V1.6.9
   * fixing/improving command line help
 
