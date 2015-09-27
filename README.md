@@ -159,7 +159,7 @@ Installation
 ============
 We made a special effort to make CK installation 
 as simple as possible - it requires only standard 
-Python version 2.6 or above (3.x is supported).
+Python version 2.6 or above (3.x is supported). 
 
 CK has been successfully tested by volunteers on various 
 platforms including Ubuntu, OpenSUSE, CentOS, MacOS X, 
@@ -172,25 +172,50 @@ successfully using Anaconda python distribution
 which includes all scientific packages required 
 for predictive analytics in CK.
 
-You can install CK either via GIT (latest self-updatable 
-development version) or via PIP/Conda.
+## Root installation
+Root installation will automatically add ck script 
+to your PATH and will also install CK as standard
+python module.
+
+You can install CK either via GIT (latest, 
+self-updatable, development version) or via PIP:
+
+Note: please, remove 'sudo' on Windows.
 
 ### PIP installation
- $ pip install ck
+ $ sudo pip install ck
 
 ### GIT installation
 
  $ git clone https://github.com/ctuning/ck.git ck
  $ cd ck
- $ (sudo) python setup.py install
+ $ sudo python setup.py install
 
-Now, you can simply add CK bin directory to your OS PATH 
-environment variable and you are ready to go. 
+## Non-root installation
+Non-root installation will just require you to add
+path to bin/ck to your PATH environment variable.
+
+### PIP installation
+ $ pip install --user ck
+
+On Linux, it will most likely install ck script in
+".local/bin" so you should add it to your PATH, i.e.
+ $ export PATH=$HOME/.local/bin:$PATH
+
+On Windows, it will most likely install ck script
+in "C:\Users\{YOUR LOGIN}\AppData\Roaming\Python\Scripts
+that you should add to PATH environment variable.
+
+### GIT installation
+
+ $ git clone https://github.com/ctuning/ck.git ck
+ $ cd ck
+ $ export PATH=$PWD/bin:$PATH
 
 Usage
 =====
 
-You can check that CK works via CMD:
+You can check that CK is installed correctly via:
 
  $ ck
 
