@@ -191,6 +191,12 @@ Latest development version from GitHub:
 
  $ sudo pip install https://github.com/ctuning/ck/archive/master.zip
 
+### Anaconda installation
+
+Official stable release:
+
+ $ conda install -c http://conda.anaconda.org/ctuning ck
+
 ### Git installation (latest from GitHub)
 
  $ git clone https://github.com/ctuning/ck.git ck

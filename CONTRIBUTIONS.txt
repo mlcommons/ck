@@ -34,7 +34,7 @@ W: since Mar.1, 2015
 N: Graham Markall
 E: graham.markall@continuum.io
 O: Continuum Analytics, UK
-C: feedback and Conda packaging (Anaconda python distro)
+C: feedback on basic usage and help with Conda packaging (Anaconda scientific python distribution)
 W: 
 
 N: Alexey Kravets
@@ -104,4 +104,10 @@ N: Alastair Donaldson
 E: alastair.donaldson@imperial.ac.uk
 O: Imperial College, UK
 C: including clsmith to CK (OpenCL compiler testing)
+W: 
+
+N: Egor Pasko
+E: 
+O: Google
+C: feedback on basic usage
 W: 
