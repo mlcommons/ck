@@ -268,6 +268,9 @@ on your Linux machine with GCC can be done simply as:
 
  $ ck run program:cbench-automotive-susan
 
+You will be asked a few questions and for now you can just press Enter 
+to select the default choices.
+
 Compiling and running such benchmarks on Windows or Android,
 autotuning or crowdtuning them (performance, energy, accuracy, size, etc),
 adding more data sets, applying machine learning to predict optimizations,
