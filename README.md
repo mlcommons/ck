@@ -2,6 +2,10 @@ Collective Knowledge Infrastructure - enabling open,
 collaborative and reproducible experimentation, 
 knowledge sharing and predictive analytics.
 
+Documentation
+=============
+* http://github.com/ctuning/ck/wiki
+
 License
 =======
 * Permissive 3-clause BSD license 
@@ -62,8 +66,8 @@ and possibly pre-installed tool or library).
 
 All components has DOI-style UID and can be transparently indexed 
 and searched via third-party Hadoop-based ElasticSearch, 
-shared via GIT, and connected together into experimental pipelines 
-(workflows) just as LEGO(TM) to quickly prototype various research ideas, 
+shared via GIT, and connected together into experimental workflows
+(CK pipelines) just as LEGO(TM) to quickly prototype various research ideas, 
 crowdsource experiments, reproduce and improve past techniques.
 
 Furthermore, CK can simplify connection of unified experiments 
@@ -82,7 +86,8 @@ that force users to upload all their code and data before
 being processed, CK allows users organize their local artifacts 
 and always keep track of them on their own machine 
 while sharing them only if needed as P2P or via existing
-private and public repositories.
+private and public repositories. CK can be also easily
+deployed by users in a cloud such as Amazon Web Service (AWS).
 
 CK can also complement existing technology such as Docker 
 and VM hardwired images by decomposing them into unified 
