@@ -111,3 +111,9 @@ E:
 O: Google
 C: feedback on basic usage
 W: 
+
+N: Gianfranco Costamagna
+E:
+O: 
+C: feedback on Debian packaging
+W:
