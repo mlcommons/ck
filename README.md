@@ -2,9 +2,10 @@ Collective Knowledge Infrastructure - enabling open,
 collaborative and reproducible experimentation, 
 knowledge sharing and predictive analytics.
 
-Documentation
-=============
+Documentation and demo
+======================
 * http://github.com/ctuning/ck/wiki
+* http://cknowledge.org/repo
 
 License
 =======
