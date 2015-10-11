@@ -37,7 +37,7 @@ of our research on building self-optimizing computer systems
 
 * numerous and ever changing hardware
 * black-box compilers
-* ad-hoc tools with evolving and incompatible interfaces
+* ad-hoc tools and scripts with evolving and incompatible interfaces
 * multiple heterogeneous and possibly proprietary data formats
 * raising number of design and optimization choices
 * raising amount of experimental data to process
