@@ -115,17 +115,20 @@ PHP and Java using OpenME event-based plugin framework (we worked
 with the community to add similar plugin interface to GCC 4.6+
 and plan to add it to LLVM).
 
-Eventually, unified mechanisms of artifact and knowledge exchange
-in the CK allows the community to gradually validate and improve
-shared techniques and data sets thus enabling truly open,
+We hope that our approach will let industry, academia and
+volunteers work together to gradually improve research
+techniques and continuously share realistic benchmarks and data
+sets. We believe that this can eventually enable truly open,
 collaborative, interdisciplinary and reproducible research
-similar to physics and other natural sciences. To some extent,
-it can help computer engineers and researchers become data scientists 
-and focus on innovation while liberating them from ad-hoc,
-repetitive, boring and time consuming tasks.
-It should also help solve some of big data issues we faced
-since 1993 by actively using and sharing predictive models 
-instead of large amount of data.
+to some extent similar to physics, other natural sciences,
+Wikipedia and open-source movement. It may also help computer
+engineers and researchers become data scientists and focus
+on innovation while liberating them from ad-hoc, repetitive,
+boring and time consuming tasks. It should also help solve some
+of big data problems we faced since 1993 by preserving
+predictive models (knowledge) and finding missing features
+rather than keeping large and possible useless amounts of raw
+data.
 
 You may check out our motivation as well as real usage scenarios,
  CK-powered interactive papers and websites (some are based on previous 
