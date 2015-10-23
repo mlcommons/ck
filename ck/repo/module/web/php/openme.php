@@ -2,27 +2,14 @@
 
 /*
 
- OpenME - Event-driven, plugin-based interactive interface to "open up" 
-          any software and connect it to cM or CK
-
- Developer: Grigori Fursin
- http://cTuning.org/lab/people/gfursin
-
- (C)opyright 2014-2015 cTuning foundation
-
- This library is free software; you can redistribute it and/or
- modify it under the terms of the GNU Lesser General Public
- License as published by the Free Software Foundation; either
- version 2.1 of the License, or (at your option) any later version.
-
- This library is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
- Lesser General Public License for more details.
-
- You should have received a copy of the GNU Lesser General Public
- License along with this library; if not, write to the Free Software
- Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301  USA
+#
+# Part of OpenME interface to connect PHP (web requests) to CK
+#
+# See CK LICENSE.txt for licensing details
+# See CK COPYRIGHT.txt for copyright details
+#
+# Developer: Grigori Fursin, 2014-2015
+#
 
 */
 

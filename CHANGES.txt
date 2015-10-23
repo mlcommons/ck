@@ -1,3 +1,7 @@
+* Vnext
+  * fixing license of a php OpenME code - now the same as CK
+    (tiny part to connect PHP-based web requests to CK)
+
 * V1.6.11
   * improved installation documentation
 
