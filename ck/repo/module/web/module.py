@@ -11,6 +11,9 @@ cfg={}  # Will be updated by CK (meta description of this module)
 work={} # Will be updated by CK (temporal data)
 ck=None # Will be updated by CK (initialized CK kernel) 
 
+s_host=''
+s_port=''
+
 # Local settings
 import os
 import sys
@@ -282,9 +285,12 @@ def process_ck_web_request(i):
 
     # Parse GET variables and path
     xget={}
-    xpath={'first':'', 'rest':'', 'query':''} # May be used in the future
+    xpath={'host':'', 'port':'', 'first':'', 'rest':'', 'query':''} # May be used in the future
 
     xt='json'
+
+    xpath['host']=i.get('host','')
+    xpath['port']=i.get('port','')
 
     # Check GET variables
     if http.path!='':
@@ -436,6 +442,9 @@ def process_ck_web_request(i):
        # else output to console (for remote access for example)
 
     ii['con_encoding']='utf8'
+
+    ii['server_host']=s_host
+    ii['server_port']=s_port
 
     # Execute command *********************************************************
     if act=='':
@@ -612,6 +621,8 @@ def start(i):
 
     """
 
+    global s_host, s_port
+
     ck.out('For now we can only start server indefinitely')
     ck.out("but we should add a proper start/stop/resume support at some point ...")
 
@@ -626,7 +637,7 @@ def start(i):
        if i1>0:
           i2=wup.find(':',i1+3)
           if i2>0:
-             xhost=wup[i1+3:i2]
+             host=wup[i1+3:i2]
 
              i3a=wup.find('?',i2+1)
              i3b=wup.find('/',i2+1)
@@ -649,6 +660,9 @@ def start(i):
     ck.out('')
     ck.out('Starting CK web service on '+xhost+':'+port+' ...')
     ck.out('')
+
+    s_host=xhost
+    s_port=port
 
     sys.stdout.flush()
 

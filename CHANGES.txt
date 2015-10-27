@@ -5,7 +5,9 @@
     default behavior. Now "ck find repo:<name>" returns
     path to repository rather than to meta. To return
     path to meta, use "ck find repo:<name> --meta".
-    Closes ticket #45.
+    Closes ticket #45
+  * automatically detecting server host and port, if used!
+    Closes ticket #38
 
 * V1.6.11
   * improved installation documentation
