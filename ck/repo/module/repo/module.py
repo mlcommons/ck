@@ -1246,23 +1246,30 @@ def zip(i):
     o=i.get('out','')
 
     duoa1=i.get('data_uoa','')
+    duid=''
+    path=''
 
-    # Find path to repo
-    r=ck.find_path_to_repo({'repo_uoa':duoa1})
-    if r['return']>0: return r
+    if duoa1!='':
+       # Find path to repo
+       r=ck.find_path_to_repo({'repo_uoa':duoa1})
+       if r['return']>0: return r
 
-    duoa=r['repo_uoa']
-    duid=r['repo_uid']
-    path=r['path']
+       duoa=r['repo_uoa']
+       duid=r['repo_uid']
+       path=r['path']
 
     an=i.get('archive_name','')
 #    if an=='': an='ckr.zip'
 
     if i.get('auto_name','')=='yes':
-       an='ckr-'+duoa+'.zip'
+       an='ckr'
+       if duoa!='': an+='-'+duoa
+       an+='.zip'
     elif i.get('bittorrent','')=='yes':
        import time
-       an='ckr-'+duid+'-'+time.strftime('%Y%m%d')+'.zip'
+       an='ckr-'
+       if duid!='': an+=duid
+       an+='-'+time.strftime('%Y%m%d')+'.zip'
     elif an=='': 
        if duoa1=='': an='ckr.zip'
        else: an='ckr-'+duoa1+'.zip'

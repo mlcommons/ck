@@ -8,6 +8,8 @@
     Closes ticket #45
   * automatically detecting server host and port, if used!
     Closes ticket #38
+  * adding zip action to CK kernel, to simplify archiving of entries, 
+    i.e. "$ ck zip (repo wildcards:)module wild cards:<data wild cards>"
 
 * V1.6.11
   * improved installation documentation

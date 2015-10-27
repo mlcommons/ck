@@ -188,6 +188,8 @@ cfg={
                  "load":{"desc":"<CID> load meta description of entry", "for_web": "yes"},
                  "edit":{"desc":"<CID> edit entry description using external editor", "for_web":"no"},
 
+                 "zip":{"desc":"<CID> zip entries", "for_web":"no"},
+
                  "find":{"desc":"<CID> find path to entry"},
                  "cd":{"desc":"<CID> print 'cd {path to entry}'"},
                  "cdc":{"desc":"<CID> print 'cd {path to entry} and copy to clipboard, if supported"},
@@ -244,6 +246,7 @@ cfg={
                         "add",
                         "edit", 
                         "load", 
+                        "zip",
                         "rm", "remove", "delete",
                         "update",
                         "ren", "rename",
@@ -8224,6 +8227,54 @@ def add_index(i):
     ii['time_out']=to
 
     return list_data(ii)
+
+##############################################################################
+# zip entries (call repo)
+
+def zip(i):
+    """
+
+    Input:  {
+              (repo_uoa)   - repo UOA with wild cards
+              (module_uoa) - module UOA with wild cards
+              (data_uoa)   - data UOA with wild cards
+
+              (archive_path) - if '' create inside repo path
+
+              (archive_name) - if !='' use it for zip name
+              (auto_name)    - if 'yes', generate name name from data_uoa: ckr-<repo_uoa>.zip
+              (bittorent)    - if 'yes', generate zip name for BitTorrent: ckr-<repo_uid>-YYYYMMDD.zip
+
+              (overwrite)    - if 'yes', overwrite zip file
+              (store)        - if 'yes', store files instead of packing
+
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    if i.get('data_uoa','')!='': del(i['data_uoa'])
+
+    ruoa=i.get('repo_uoa','')
+    if ruoa!='':
+       if ruoa.find('*')<0 and ruoa.find('?')<0:
+          i['data_uoa']=ruoa
+       else:
+          del(i['repo_uoa'])
+
+    i['module_uoa']=cfg['module_repo_name']
+    i['data']=i.get('cid','')
+
+    if i.get('cid','')!='': del(i['cid'])
+
+    print (i)
+
+    return access(i)
 
 ##############################################################################
 # add index filter
