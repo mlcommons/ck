@@ -5872,6 +5872,8 @@ def cp(i):
 
     """
 
+    move=i.get('move','')
+
     # Check if global writing is allowed
     r=check_writing({})
     if r['return']>0: return r
@@ -5904,6 +5906,16 @@ def cp(i):
     di=r.get('info',{})
     du=r.get('updates',{})
     dx=r.get('desc',{})
+
+    if move!='yes':
+       control=di.get('control',{})
+
+       control['version']=cfg['version']
+
+       rdt=get_current_date_time({})
+       control['iso_datetime']=rdt['iso_datetime']
+
+       di['control']=control
 
     # Check if writing is allowed
     ii={'module_uoa':muoa, 'module_uid':r['module_uid'], 'repo_uoa':ruoa, 'repo_uid':r['repo_uid']}
@@ -5986,7 +5998,7 @@ def cp(i):
 
     tt='copied'
     # If move, remove old one
-    if i.get('move','')=='yes':
+    if move=='yes':
        tt='moved'
 
        ii={'module_uoa':muoa, 'data_uoa': duoa}

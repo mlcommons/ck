@@ -10,6 +10,7 @@
     Closes ticket #38
   * adding zip action to CK kernel, to simplify archiving of entries, 
     i.e. "$ ck zip (repo wildcards:)module wild cards:<data wild cards>"
+  * when copying entry, changing date and CK version (fixing #39)
 
 * V1.6.11
   * improved installation documentation
