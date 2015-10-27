@@ -12,6 +12,9 @@
     "deps": {
       "desc": "resolve dependencies on other repositories for a given repository"
     }, 
+    "find": {
+      "desc": "find path to repo"
+    }, 
     "get_and_unzip_archive": {
       "desc": "(receive repository from web if needed in zip), unzip and register repository in CK"
     }, 

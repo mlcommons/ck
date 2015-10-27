@@ -1,6 +1,11 @@
 * Vnext
   * fixing license of a php OpenME code - now the same as CK
     (tiny part to connect PHP-based web requests to CK)
+  * adding 'find' function to 'repo' module and changing
+    default behavior. Now "ck find repo:<name>" returns
+    path to repository rather than to meta. To return
+    path to meta, use "ck find repo:<name> --meta".
+    Closes ticket #45.
 
 * V1.6.11
   * improved installation documentation

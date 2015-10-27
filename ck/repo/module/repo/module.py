@@ -1774,3 +1774,33 @@ def add_more_deps(i):
              rp.append(z)
 
     return {'return':0, 'repo_deps':rp}
+
+##############################################################################
+# Find location of the repository (see ticket #45)
+# Technically speaking it doesn't follow CK concept
+# to always find path to CK entries (and thus to the repo description),
+# but it is more intuitive.
+# That's why we also added option --meta to revert back
+# to original functionality and find path to repo meta
+
+def find(i):
+    """
+    Input:  {
+              (meta)       - if 'yes', return location of repo entry with meta
+                             rather than path to the repository
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    if i.get('meta','')!='yes':
+       i['action']='where'
+    else:
+       i['common_func']='yes'
+
+    return ck.access(i)
