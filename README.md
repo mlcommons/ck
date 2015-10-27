@@ -2,10 +2,11 @@ Collective Knowledge Infrastructure - enabling open,
 collaborative and reproducible experimentation, 
 knowledge sharing and predictive analytics.
 
-Documentation, demo and video
-=============================
+Documentation, demo, CGO/PPoPP artifact evaluation and video 
+============================================================
 * http://github.com/ctuning/ck/wiki
 * http://cknowledge.org/repo
+* http://cTuning.org/ae
 * https://youtu.be/Q94yWxXUMP0
 
 License
@@ -375,7 +376,7 @@ http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80)
 * supporting artifact evaluation initiatives for major conferences
 and journals where all artifacts are shared as reusable components (and not
 just as black box virtual machine images) along with publications
-(http://ctuning.org/event/ae-ppopp2016 , http://arxiv.org/abs/1406.4020 ,
+(http://cTuning.org/ae , http://arxiv.org/abs/1406.4020 ,
 http://adapt-workshop.org)
 
 * enabling open, collaborative and reproducible research and experimentation
