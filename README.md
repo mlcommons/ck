@@ -8,9 +8,9 @@ to help:
 * apply predictive analytics;
 * enable interactive graphs and articles.
 
-Our long term goal is to enable truly open, collaborative
-and reproducible research, experimentation, 
-knowledge sharing and predictive analytics.
+Our long term goal is to enable truly open, collaborative and
+reproducible research, experimentation and knowledge sharing
+while making it as simple and powerful as Wikipedia.
 
 Documentation, demo, CGO/PPoPP artifact evaluation and video 
 ============================================================
