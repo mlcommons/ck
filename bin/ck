@@ -11,7 +11,11 @@ fi
 
 # Check which python to use
 if [ -z "$PYTHON" ]; then
-   export PYTHON=python
+   if $(python3 --version &> /dev/null) ; then
+      export PYTHON=python3
+   else
+      export PYTHON=python
+   fi
 fi
 
 # Load kernel module (either GIT/local installation or as package)

@@ -20,7 +20,7 @@ allow_print=True       # Needed to supress all output
 con_encoding=''        # Use non-default console encoding
 
 cfg={
-      "version":["1", "6", "11"],
+      "version":["1", "6", "12"],
 
       "name":"Collective Knowledge",
       "desc":"exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",

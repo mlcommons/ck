@@ -1,4 +1,5 @@
-* Vnext
+* V1.6.12
+  * automatically detecting python3 or python on Linux
   * fixing license of a php OpenME code - now the same as CK
     (tiny part to connect PHP-based web requests to CK)
   * adding 'find' function to 'repo' module and changing

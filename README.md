@@ -1,11 +1,12 @@
 Collective Knowledge Infrastructure and Repository
-is a tiny Python app without any extra dependencies to:
+is a tiny Python lib and app (without any extra dependencies)
+to help:
 
 * preserve, organize, share and reuse your local research artifacts and workflows; 
 * quickly prototype research ideas from shared components; 
 * reproduce and crowdsource experiments;
 * apply predictive analytics;
-* and enable interactive graphs and articles.
+* enable interactive graphs and articles.
 
 Our long term goal is to enable truly open, collaborative
 and reproducible research, experimentation, 
