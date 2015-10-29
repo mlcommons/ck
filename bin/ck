@@ -10,6 +10,10 @@ if [ -z "$CK_ROOT" ]; then
 fi
 
 # Check which python to use
+if [ "$CK_PYTHON" != "" ]; then
+   export PYTHON=$CK_PYTHON
+fi
+
 if [ -z "$PYTHON" ]; then
    if $(python3 --version &> /dev/null) ; then
       export PYTHON=python3
@@ -17,6 +21,8 @@ if [ -z "$PYTHON" ]; then
       export PYTHON=python
    fi
 fi
+
+echo $PYTHON
 
 # Load kernel module (either GIT/local installation or as package)
 if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
