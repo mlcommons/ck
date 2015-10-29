@@ -22,8 +22,6 @@ if [ -z "$PYTHON" ]; then
    fi
 fi
 
-echo $PYTHON
-
 # Load kernel module (either GIT/local installation or as package)
 if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
  $PYTHON -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
