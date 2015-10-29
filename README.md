@@ -1,5 +1,14 @@
-Collective Knowledge Infrastructure - enabling open,
-collaborative and reproducible experimentation, 
+Collective Knowledge Infrastructure and Repository
+is a tiny Python app without any extra dependencies to:
+
+* preserve, organize, share and reuse your local research artifacts and workflows; 
+* quickly prototype research ideas from shared components; 
+* reproduce and crowdsource experiments;
+* apply predictive analytics;
+* and enable interactive graphs and articles.
+
+Our long term goal is to enable truly open, collaborative
+and reproducible research, experimentation, 
 knowledge sharing and predictive analytics.
 
 Documentation, demo, CGO/PPoPP artifact evaluation and video 
