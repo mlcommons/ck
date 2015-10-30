@@ -5,7 +5,7 @@ to help:
 * preserve, organize, share and reuse your local research artifacts and workflows; 
 * quickly prototype research ideas from shared components; 
 * reproduce and crowdsource experiments;
-* apply predictive analytics;
+* apply predictive analytics and accelerate knowledge discovery;
 * enable interactive graphs and articles.
 
 Our long term goal is to enable truly open, collaborative and
