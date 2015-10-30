@@ -69,6 +69,7 @@ as shown in the following examples:
 * https://github.com/ctuning/ctuning-datasets-min
 * https://github.com/ctuning/ck-analytics
 * https://github.com/ctuning/ck-autotuning
+* https://github.com/ctuning/ck-env
 
 CK also helps abstract access to ever-changing (and possibly
 proprietary) tools and hardware via wrappers with the same JSON
@@ -114,10 +115,10 @@ systems, compilers and libraries) rather than using VM images -
 CK was also developed to solve this issue. For example,
 various research projects already use CK to share their
 research artifacts and scenarios:
-$ http://github.com/ctuning/reproduce-carp-project
-$ http://github.com/ctuning/reproduce-pamela-project
-$ http://github.com/ctuning/reproduce-clsmith
-$ http://github.com/ctuning/reproduce-ck-paper 
+* http://github.com/ctuning/reproduce-carp-project
+* http://github.com/ctuning/reproduce-pamela-project
+* http://github.com/ctuning/reproduce-clsmith
+* http://github.com/ctuning/reproduce-ck-paper 
 
 CK can be invoked in a unified way via command line or JSON web service.
 It can also be directly invoked from other programs and tools
