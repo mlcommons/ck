@@ -133,7 +133,8 @@ techniques and continuously share realistic benchmarks and data
 sets. We believe that this can eventually enable truly open,
 collaborative, interdisciplinary and reproducible research
 to some extent similar to physics, other natural sciences,
-Wikipedia and open-source movement. It may also help computer
+Wikipedia, literate programming and open-source movement. 
+It may also help computer
 engineers and researchers become data scientists and focus
 on innovation while liberating them from ad-hoc, repetitive,
 boring and time consuming tasks. It should also help solve some
