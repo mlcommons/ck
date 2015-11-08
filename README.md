@@ -4,8 +4,9 @@ to help:
 
 * preserve, organize, share and reuse your local research artifacts and workflows; 
 * quickly prototype research ideas from shared components; 
-* reproduce and crowdsource experiments;
+* crowdsource and reproduce experiments;
 * apply predictive analytics and accelerate knowledge discovery;
+* design competitions with knowledge sharing;
 * enable interactive graphs and articles.
 
 Our long term goal is to enable truly open, collaborative and
@@ -31,12 +32,11 @@ Requirements
 
 Optional dependencies
 =====================
-* Python package 'Tkinter' or 'tkinter' or 'pyperclip' 
-  if copy to clipboard functionality is required
-* Python package 'matplotlib' to plot graphs
-  (during autotuning or performance/energy/accuracy modeling)
-* Python package 'psutil' to properly terminate running process 
-  on Windows after timeout
+* Python packages:
+** 'Tkinter' or 'tkinter' or 'pyperclip' if copy to clipboard functionality is required
+** 'matplotlib','scipy' and 'numpy' to plot graphs and perform statistical analysis (during autotuning or performance/energy/accuracy modeling)
+** 'sklearn-kit' for predictive analytics
+** 'psutil' to properly terminate running process on Windows after timeout (during program autotuning)
 
 Introduction
 ============
