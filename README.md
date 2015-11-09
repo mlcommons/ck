@@ -195,6 +195,30 @@ successfully using Anaconda python distribution
 which includes all scientific packages required 
 for predictive analytics in CK.
 
+Also, if CK does not pick up the correct python
+version (python or python3), you can explicitly
+set it via environment variable "CK_PYTHON". 
+For example:
+
+ $ export CK_PYTHON=python3
+
+## Non-root manual installation of the latest version from GitHub
+
+ $ git clone https://github.com/ctuning/ck.git ck
+
+ $ export PATH=$PWD/ck/bin:$PATH
+
+On Windows, you should manually add full path to ck/bin 
+to you PATH environment variable.
+
+If you would like to use CK as a standard python module
+from python or ipython, you may need root privileges 
+(unless python is installed in user space):
+
+ $ cd ck
+
+ $ sudo python setup.py install
+
 ## Root installation
 Root installation will automatically add ck script 
 to your PATH and will also install CK as standard
@@ -228,7 +252,7 @@ Official stable release:
 
  $ sudo python setup.py install
 
-## Non-root installation
+## Non-root automatic installation
 Non-root installation will just require you to add
 path to bin/ck to your PATH environment variable.
 

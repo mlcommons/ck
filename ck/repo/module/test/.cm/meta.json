@@ -1,6 +1,12 @@
 {
   "actions": {
-    "test": {"desc":"test CK functionality (under development)"}
+    "cmd": {
+      "desc": "show cmd", 
+      "for_web": "yes"
+    }, 
+    "test": {
+      "desc": "test CK functionality (under development)"
+    }
   }, 
   "copyright": "See CK COPYRIGHT.txt for copyright details", 
   "desc": "functionality tests", 

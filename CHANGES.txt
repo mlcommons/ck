@@ -1,3 +1,9 @@
+* Vnext
+  * adding 'ck cmd test' to let users understand CK command line -
+    it will just print input as JSON ...
+  * adding input print when creating dummy module to help
+    users understand command line
+
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 
     to let user select required python version (python or python3)

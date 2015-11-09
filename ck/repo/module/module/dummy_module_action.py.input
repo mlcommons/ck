@@ -16,4 +16,13 @@ def $#action#$(i):
 
     print ('$#desc#$')
 
+    ck.out('')
+    ck.out('Command line: ')
+    ck.out('')
+
+    import json
+    cmd=json.dumps(i, indent=2)
+
+    ck.out(cmd)
+
     return {'return':0}

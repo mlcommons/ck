@@ -44,3 +44,29 @@ def test(i):
 
     """
     return {'return':0}
+
+##############################################################################
+# show cmd
+
+def cmd(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    ck.out('Command line: ')
+    ck.out('')
+
+    import json
+    cmd=json.dumps(i, indent=2)
+
+    ck.out(cmd)
+
+    return {'return':0}
