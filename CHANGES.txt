@@ -1,4 +1,4 @@
-* Vnext
+* V1.6.12x
   * adding 'ck cmd test' to let users understand CK command line -
     it will just print input as JSON ...
   * adding input print when creating dummy module to help
