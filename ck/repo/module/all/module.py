@@ -53,6 +53,10 @@ def pull(i):
 
     if i.get('kernel','')=='yes':
        ck_root=ck.work['env_root']
+
+       if not os.isdir(ck_root):
+          return {'return':1, 'error':'Can\'t find CK in '+ck_root+' - please check CK_ROOT env'}
+
        os.chdir(ck_root)
 
        if o=='con':
