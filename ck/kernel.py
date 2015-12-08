@@ -1577,7 +1577,12 @@ def input_json(i):
        if ss=='': break
        s+=ss
 
+    s=s.strip()
+
     if s=='': s='{}' # empty json
+    else:
+       if not s.startswith('{'): s='{'+s
+       if not s.endswith('}'): s+='}'
 
     r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
     if r['return']>0: return r
