@@ -7,6 +7,8 @@
   * can now generate new UID when renaming entires (--new_uid)
     to avoid collecting experiments from multiple users 
     with the same UID ...
+  * can now add UID to alias when renaming entries (--add_uid_to_alias)
+    to distingiush some shared entries with common alias ...
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 

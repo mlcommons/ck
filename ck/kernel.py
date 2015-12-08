@@ -5628,21 +5628,23 @@ def delete(i):
 def ren(i):
     """
     Input:  {
-              (repo_uoa)     - repo UOA
-              module_uoa     - module UOA
-              data_uoa       - old data UOA
+              (repo_uoa)         - repo UOA
+              module_uoa         - module UOA
+              data_uoa           - old data UOA
 
-              new_data_uoa   - new data alias
+              new_data_uoa       - new data alias
                  or
-              new_data_uid   - new data UID (leave empty to keep old one)
+              new_data_uid       - new data UID (leave empty to keep old one)
                  or
-              xcids[0]       - {'data_uoa'} - new data UOA
+              xcids[0]           - {'data_uoa'} - new data UOA
 
-              (new_uid)      - generate new UID
+              (new_uid)          - generate new UID
 
-              (remove_alias) - if 'yes', remove alias
+              (remove_alias)     - if 'yes', remove alias
 
-              (share)        - if 'yes', try to rm via GIT
+              (add_uid_to_alias) - if 'yes', add UID to alias
+
+              (share)            - if 'yes', try to remove old entry via GIT and add new one
               
             }
 
@@ -5730,6 +5732,12 @@ def ren(i):
        p2=os.path.join(p1, cfg['file_alias_u'] + nduid)
        if os.path.isfile(p2):
           return {'return':1, 'error':'new UID already exists'}
+
+    # Check if adding UID to alias
+    if i.get('add_uid_to_alias','')=='yes':
+       x=nduid
+       if x=='': x=duid
+       nduoa+='-'+x
 
     if nduoa!=duoa:
        if not is_uoa(nduoa):
