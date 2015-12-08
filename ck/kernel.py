@@ -1722,7 +1722,7 @@ def convert_ck_list_to_dict(i):
 
               x='Add JSON to input'
               if key!='': x+=' for key "'+key+'"'
-              x+=' (double Enter to stop):\n\n'
+              x+=' (double Enter to stop):\n'
 
               rx=input_json({'text':x})
               if rx['return']>0: return rx

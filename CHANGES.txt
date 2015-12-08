@@ -12,6 +12,7 @@
   * if adding json via CMD (@@key) and string is empty,
     convert it to {} (empty dict) rather than failing.
     Also add missing {}.
+  * removing extra \n when entering JSON from CMD ...
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 
