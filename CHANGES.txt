@@ -9,6 +9,8 @@
     with the same UID ...
   * can now add UID to alias when renaming entries (--add_uid_to_alias)
     to distingiush some shared entries with common alias ...
+  * if adding json via CMD (@@key) and string is empty,
+    convert it to {} (empty dict) rather than failing
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 
