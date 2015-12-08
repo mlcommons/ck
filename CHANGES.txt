@@ -3,7 +3,10 @@
     it will just print input as JSON ...
   * adding input print when creating dummy module to help
     users understand command line
-  * checking CK directory when updating kernel
+  * checking if CK directory exists when updating kernel
+  * can now generate new UID when renaming entires (--new_uid)
+    to avoid collecting experiments from multiple users 
+    with the same UID ...
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 

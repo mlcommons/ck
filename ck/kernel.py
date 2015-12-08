@@ -5630,13 +5630,15 @@ def ren(i):
     Input:  {
               (repo_uoa)     - repo UOA
               module_uoa     - module UOA
-              data_uoa       - data UOA
+              data_uoa       - old data UOA
 
-              xcids[0]       - {'data_uoa'} -new data UOA
-                 or
               new_data_uoa   - new data alias
                  or
               new_data_uid   - new data UID (leave empty to keep old one)
+                 or
+              xcids[0]       - {'data_uoa'} - new data UOA
+
+              (new_uid)      - generate new UID
 
               (remove_alias) - if 'yes', remove alias
 
@@ -5707,6 +5709,11 @@ def ren(i):
     # Check new data UOA
     nduoa=i.get('new_data_uoa','')
     nduid=i.get('new_data_uid','')
+
+    if nduid=='' and i.get('new_uid','')=='yes':
+       rx=gen_uid({})
+       if rx['return']>0: return rx
+       nduid=rx['data_uid']
 
     xcids=i.get('xcids',[])
     if len(xcids)>0: 
