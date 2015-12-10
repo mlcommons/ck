@@ -768,7 +768,7 @@ def pull(i):
            if rq['return']>0: return rq
            xfn=rq['file_name']
 
-           os.system(ck.cfg['repo_types'][t]['version']+' > '+xfn)
+           os.system('git --version > '+xfn)
 
            rq=ck.load_text_file({'text_file':xfn, 
                                  'delete_after_read':'yes'})
