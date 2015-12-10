@@ -2,7 +2,7 @@ Collective Knowledge Infrastructure and Repository
 is a small Python lib and app without any extra dependencies
 (less than 1Mb) to help researchers:
 
-* convert research artifacts into reusable components and customizable workflows with unified JSON API and meta information; 
+* convert research artifacts (benchmarks, data sets, scripts, tools, predictive models, graphs, articles) into reusable components and customizable workflows with unified JSON API and meta information; 
 * quickly prototype research ideas from shared components; 
 * crowdsource and reproduce experiments (such as empirical multi-objective autotuning and design space exploration);
 * apply predictive analytics to accelerate knowledge discovery;
@@ -12,9 +12,8 @@ is a small Python lib and app without any extra dependencies
 Our long term goal is to enable truly open, collaborative and
 reproducible research, experimentation and knowledge sharing
 while making it as simple and powerful as Wikipedia.
-
-See our recent short position paper for more details (DATE'16): 
-* http://bit.ly/ck-date16
+See our recent short position paper for more details 
+(DATE'16): http://bit.ly/ck-date16
 
 Documentation, demo, CGO/PPoPP artifact evaluation and video 
 ============================================================
