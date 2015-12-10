@@ -15,6 +15,10 @@
   * removing extra \n when entering JSON from CMD ...
   * slightly improving Readme (adding our latest position paper 
     about CK from DATE'16)
+  * fixing issue with 'read-only' files on Windows 
+    when removing a given repo completely
+  * fixing issue when installing repository manually downloaded
+    from GitHub (removing root directory), see issue #46
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 

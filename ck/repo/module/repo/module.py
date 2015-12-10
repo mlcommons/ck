@@ -1062,6 +1062,22 @@ def recache(i):
     return {'return':0}
 
 ##############################################################################
+# Remove files and dirs even if read only (internal use)
+def rm_read_only(f,p,e):
+    import os
+    import stat
+    import errno
+
+    ex=e[1]
+
+    if ex.errno!=errno.EACCES or f not in (os.rmdir,os.remove): raise
+
+    os.chmod(p,stat.S_IRWXU|stat.S_IRWXG|stat.S_IRWXO)
+    f(p)
+
+    return
+
+##############################################################################
 # Remove information about repository
 
 def rm(i):
@@ -1148,7 +1164,7 @@ def rm(i):
        if wf=='yes' and p!='':
           if o=='con': ck.out('Removing entries from the repository ...')
           import shutil
-          shutil.rmtree(p)
+          shutil.rmtree(p, onerror=rm_read_only)
 
        if o=='con': 
           ck.out('')
@@ -1505,10 +1521,20 @@ def get_and_unzip_archive(i):
        import zipfile
        f=open(zp,'rb')
        z=zipfile.ZipFile(f)
+
+       # First, try to find .ckr.json
+       xprefix=''
+       for dx in z.namelist():
+           if pr!='' and dx.startswith(pr): dx=dx[len(pr):]
+           if dx.endswith(ck.cfg['repo_file']):
+              xprefix=dx[:-len(ck.cfg['repo_file'])]
+              break
+
+       # Second, extract files
        for dx in z.namelist():
            dx1=dx
-           if pr!='' and dx.startswith(pr): 
-              dx1=dx1[len(pr):]
+           if pr!=''and dx1.startswith(pr): dx1=dx1[len(pr):]
+           if xprefix!='' and dx1.startswith(xprefix): dx1=dx1[len(xprefix):]
 
            if dx1!='':
               pp=os.path.join(p,dx1)
