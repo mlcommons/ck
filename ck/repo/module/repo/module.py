@@ -1181,7 +1181,7 @@ def rm(i):
        if wf=='yes' and p!='':
           if o=='con': ck.out('Removing entries from the repository ...')
           import shutil
-          shutil.rmtree(p, onerror=rm_read_only)
+          if os.path.isdir(p): shutil.rmtree(p, onerror=rm_read_only)
 
        if o=='con': 
           ck.out('')
