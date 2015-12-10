@@ -32,13 +32,12 @@ Requirements
 * has been validated on Linux, Windows, Android (partially), Mac OS X
 * only python >= 2.6 (3.0+ is natively supported)
 
-Optional dependencies (for example, for multi-objective autotuning)
-===================================================================
-* Python packages:
-** 'Tkinter' or 'tkinter' or 'pyperclip' if copy to clipboard functionality is required (to reproduce CK experiments from the web)
-** 'matplotlib','scipy' and 'numpy' to plot graphs and perform statistical analysis (during performance/energy/accuracy autotuning and modeling)
-** 'sklearn-kit' for predictive analytics
-** 'psutil' to properly terminate running process on Windows after timeout (during program autotuning)
+Optional python dependencies (for example, for multi-objective autotuning)
+==========================================================================
+* 'Tkinter' or 'tkinter' or 'pyperclip' if copy to clipboard functionality is required (to reproduce CK experiments from the web)
+* 'matplotlib','scipy' and 'numpy' to plot graphs and perform statistical analysis (during performance/energy/accuracy autotuning and modeling)
+* 'sklearn-kit' for predictive analytics
+* 'psutil' to properly terminate running process on Windows after timeout (during program autotuning)
 
 Introduction
 ============
