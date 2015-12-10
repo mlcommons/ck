@@ -763,6 +763,23 @@ def pull(i):
            ck.out('  URL:        '+url)
 
         if t=='git':
+           # Check if git is installed
+           rq=ck.gen_tmp_file({})
+           if rq['return']>0: return rq
+           xfn=rq['file_name']
+
+           os.system(ck.cfg['repo_types'][t]['version']+' > '+xfn)
+
+           rq=ck.load_text_file({'text_file':xfn, 
+                                 'delete_after_read':'yes'})
+           xs=''
+           if rq['return']==0:
+              xs=rq['string'].strip()
+
+           if xs.find(' version ')<0:
+              return{'return':1, 'error':'git command line client is not found - please, install it or download repo as zip'}
+
+           # Continue
            px=os.getcwd()
 
            if not os.path.isdir(p):

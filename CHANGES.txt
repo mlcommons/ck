@@ -19,6 +19,8 @@
     when removing a given repo completely
   * fixing issue when installing repository manually downloaded
     from GitHub (removing root directory), see issue #46
+  * checking if git command line client is installed 
+    when pulling shared repo 
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 

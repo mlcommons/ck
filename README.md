@@ -30,7 +30,8 @@ License
 Requirements
 ============
 * has been validated on Linux, Windows, Android (partially), Mac OS X
-* only python >= 2.6 (3.0+ is natively supported)
+* python >= 2.6 (3.0+ is natively supported)
+* git command line client
 
 Optional python dependencies (for example, for multi-objective autotuning)
 ==========================================================================
