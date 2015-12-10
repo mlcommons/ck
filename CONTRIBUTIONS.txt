@@ -117,3 +117,10 @@ E:
 O: 
 C: feedback on Debian packaging
 W:
+
+N: Michael Kruse
+E: MichaelKruse@meinersbur.de
+O: ENS Paris, France
+C: evaluating CK-based gemmbench (http://github.com/dividiti/gemmbench)
+   and providing feedback about autotuning and experiment reproducibility
+W:

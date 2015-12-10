@@ -8,11 +8,13 @@
     to avoid collecting experiments from multiple users 
     with the same UID ...
   * can now add UID to alias when renaming entries (--add_uid_to_alias)
-    to distingiush some shared entries with common alias ...
+    to distinguish some shared entries with common alias ...
   * if adding json via CMD (@@key) and string is empty,
     convert it to {} (empty dict) rather than failing.
     Also add missing {}.
   * removing extra \n when entering JSON from CMD ...
+  * slightly improving Readme (adding our latest position paper 
+    about CK from DATE'16)
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 
@@ -37,7 +39,7 @@
 * V1.6.10
   * fixing automatic detection of an installation directory
     when using pip install --user
-  * adding ChangeLog file for backwards compatibility with Debian
+  * adding ChangeLog file for backward compatibility with Debian
   * adding TODO.txt with a link to CK GitHub tickets
 
 * V1.6.9
@@ -54,7 +56,7 @@
 
 * V1.6.6
   * Fixing PIP problem (when adding new modules to CK)
-  * Removing debian description (will be separate to make non-native package)
+  * Removing Debian description (will be separate to make non-native package)
 
 * V1.6.5
   * fixing port selection from CMD for CK web service
@@ -76,7 +78,7 @@
     (also checking it via GitHub)
 
 * V1.6.3
-  * fixing debian source package name to python-ck
+  * fixing Debian source package name to python-ck
 
 * V1.6.2 
   * fixing length in Debian changelog

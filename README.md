@@ -1,17 +1,20 @@
 Collective Knowledge Infrastructure and Repository
-is a tiny Python lib and app (without any extra dependencies)
-to help:
+is a small Python lib and app without any extra dependencies
+(less than 1Mb) to help researchers:
 
-* preserve, organize, share and reuse your local research artifacts and workflows; 
+* convert research artifacts into reusable components and customizable workflows with unified JSON API and meta information; 
 * quickly prototype research ideas from shared components; 
-* crowdsource and reproduce experiments;
-* apply predictive analytics and accelerate knowledge discovery;
-* design competitions with knowledge sharing;
+* crowdsource and reproduce experiments (such as empirical multi-objective autotuning and design space exploration);
+* apply predictive analytics to accelerate knowledge discovery;
+* design competitions with unified knowledge sharing;
 * enable interactive graphs and articles.
 
 Our long term goal is to enable truly open, collaborative and
 reproducible research, experimentation and knowledge sharing
 while making it as simple and powerful as Wikipedia.
+
+See our recent short position paper for more details (DATE'16): 
+* http://bit.ly/ck-date16
 
 Documentation, demo, CGO/PPoPP artifact evaluation and video 
 ============================================================
@@ -30,11 +33,11 @@ Requirements
 * has been validated on Linux, Windows, Android (partially), Mac OS X
 * only python >= 2.6 (3.0+ is natively supported)
 
-Optional dependencies
-=====================
+Optional dependencies (for example, for multi-objective autotuning)
+===================================================================
 * Python packages:
-** 'Tkinter' or 'tkinter' or 'pyperclip' if copy to clipboard functionality is required
-** 'matplotlib','scipy' and 'numpy' to plot graphs and perform statistical analysis (during autotuning or performance/energy/accuracy modeling)
+** 'Tkinter' or 'tkinter' or 'pyperclip' if copy to clipboard functionality is required (to reproduce CK experiments from the web)
+** 'matplotlib','scipy' and 'numpy' to plot graphs and perform statistical analysis (during performance/energy/accuracy autotuning and modeling)
 ** 'sklearn-kit' for predictive analytics
 ** 'psutil' to properly terminate running process on Windows after timeout (during program autotuning)
 
@@ -147,6 +150,7 @@ You may check out our motivation as well as real usage scenarios,
  CK-powered interactive papers and websites (some are based on previous 
 version aka Collective Mind) here:
 
+* [Position paper] http://bit.ly/ck-date16
 * [Interactive article 1] http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:6f40bc99c4f7df58
 * [Interactive article 2] http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80
 * [All shared artifacts via CK]: http://github.com/ctuning/reproduce-ck-paper
