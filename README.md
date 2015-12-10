@@ -71,6 +71,8 @@ as shown in the following examples:
 * https://github.com/ctuning/ck-analytics
 * https://github.com/ctuning/ck-autotuning
 * https://github.com/ctuning/ck-env
+* https://github.com/dividiti/gemmbench
+* https://github.com/ctuning/ck-clsmith
 
 CK also helps abstract access to ever-changing (and possibly
 proprietary) tools and hardware via wrappers with the same JSON
