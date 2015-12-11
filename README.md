@@ -104,7 +104,7 @@ You can check that CK is installed correctly via:
 
  $ ck
 
-You should see information about ck options.
+You should see information about CK options.
 
 If you have IPython installed, you can then check CK library 
 installation as following:
@@ -195,10 +195,6 @@ Concepts has been described in the following publications:
 If you found CK useful and/or interesting, you are welcome
 to reference any of the above publications in your articles
 and reports.
-
-Fun
-===
-* CK GIT commits as a video: http://cknowledge.org/soft/commits/ck-visualization.mp4
 
 CK-powered projects
 ===================
