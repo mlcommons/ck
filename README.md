@@ -28,23 +28,27 @@ License
 
 Minimal requirements
 ====================
-* python >= 2.6 (3.0+ is natively supported)
-* git command line client
+* Python >= 2.6 (3.0+ is natively supported)
+* GIT command line client
 
-We successfully validated CK on Linux, Windows, Max OS X and Android (partially).
+If you would like to use shared repositories with already implemented
+crowd-benchmarking, multi-objective autotuning, statsistical anlsysis,
+predictive analytics, interactive graphs, etc, you may need to install
+extra Python packages: 
 
-Optional python dependencies (for example, for multi-objective autotuning)
-==========================================================================
 * 'matplotlib','scipy' and 'numpy' to plot graphs and perform statistical analysis (during performance/energy/accuracy autotuning and modeling)
 * 'sklearn-kit' for predictive analytics
 * 'psutil' to properly terminate running process on Windows after timeout (during program autotuning)
 * 'Tkinter' or 'tkinter' or 'pyperclip' if copy to clipboard functionality is required (to reproduce CK experiments from the web)
 
+Alternatively, you can use Anaconda python distribution
+which includes all scientific packages required for CK-based
+collaborative and reproducible experimentation.
+
+We successfully validated CK on Linux, Windows, Max OS X and Android (partially).
+
 Copyright
 =========
-This software is being developed by the non-profit 
-cTuning foundation and its volunteers.
-
 (C)opyright 2014-2015 Grigori Fursin, 
 cTuning foundation and contributors
 
@@ -71,25 +75,17 @@ Add ck/bin directory to PATH variable
 On Windows, you should manually add full path to ck/bin 
 to you PATH environment variable.
 
-If you would like to use CK as a standard python library
-(useful for ipython notebook), you can install it as following
-(you may need root privileges depending how your Python
-is installed):
+If you would like to use CK from ipython notebook or other
+python applications, you can install it as a standard 
+Python library (you may need root privileges depending 
+on how your Python is installed):
 
  $ cd ck
 
  $ sudo python setup.py install
 
-If you plan to use extra functionality from shared
-repositories such as plotting graphs, performing
-statistical analysis, apply predictive analytics, etc. you
-may need to install extra Python packages such
-as 'matplotlib', 'scipy', 'numpy', 'sklearn-kit'.
-Alternatively, you can use Anaconda python distribution
-which includes all scientific packages required for CK.
-
 By default, CK uses the latest version of installed Python, i.e.
-v3 and then v2. You can force CK to use a given python version
+v3 and then v2. You can force CK to use a given Python version
 by changing environment variable "CK_PYTHON", i.e.:
 
  $ export CK_PYTHON=python3
@@ -174,7 +170,7 @@ its meta information (.cm/meta.json) via
 
  $ ck find hello:world
 
-Please, follow CK guide for more details:
+Please, follow CK documentation (inlcuding various Getting Started Guides) for more details:
 
 * https://github.com/ctuning/ck/wiki
 
