@@ -20,13 +20,22 @@ for major computer systems' conferences, and live repository demo for more detai
 * http://cTuning.org/ae
 * http://cknowledge.org/repo
 
-CK full documentation
-=====================
+CK full documentation and getting started guides
+================================================
 * http://github.com/ctuning/ck/wiki
 
 License
 =======
 * Permissive 3-clause BSD license (see LICENSE.txt file for more details).
+
+Authors
+=======
+* Grigori Fursin, http://fursin.net
+* Anton Lokhmotov, https://www.hipeac.net/~anton
+
+Copyright
+=========
+(C)opyright 2014-2015 Grigori Fursin, Anton Lokhmotov and contributors
 
 Minimal requirements
 ====================
@@ -48,15 +57,6 @@ which includes all scientific packages required for CK-based
 collaborative and reproducible experimentation.
 
 We successfully validated CK on Linux, Windows, Max OS X and Android (partially).
-
-Copyright
-=========
-(C)opyright 2014-2015 Grigori Fursin, Anton Lokhmotov and contributors
-
-Authors
-=======
-* Grigori Fursin, http://fursin.net
-* Anton Lokhmotov, https://www.hipeac.net/~anton
 
 Minimal installation
 ====================
@@ -94,8 +94,8 @@ by changing environment variable "CK_PYTHON", i.e.:
 Other installation possibilities (via PIP, Conda, Debian) are described
 here: https://github.com/ctuning/ck/wiki/Installation 
 
-Usage
-=====
+Basic usage
+===========
 
 You can check that CK is installed correctly via:
 
