@@ -14,8 +14,10 @@ reproducible research, experimentation and knowledge sharing
 (currently focusing on computer engineering) while making it 
 as simple and powerful as Wikipedia. 
 
-See our recent short position paper at DATE'16 and live repository demo for more details: 
+See our recent short position paper at DATE'16, artifact evaluation initiative
+for major computer systems' conferences, and live repository demo for more details: 
 * http://bit.ly/ck-date16
+* http://cTuning.org/ae
 * http://cknowledge.org/repo
 
 CK full documentation
@@ -32,7 +34,7 @@ Minimal requirements
 * GIT command line client
 
 If you would like to use shared repositories with already implemented
-crowd-benchmarking, multi-objective autotuning, statsistical anlsysis,
+crowd-benchmarking, multi-objective autotuning, statistical analysis,
 predictive analytics, interactive graphs, etc, you may need to install
 extra Python packages: 
 
@@ -170,7 +172,7 @@ its meta information (.cm/meta.json) via
 
  $ ck find hello:world
 
-Please, follow CK documentation (inlcuding various Getting Started Guides) for more details:
+Please, follow CK documentation (including various Getting Started Guides) for more details:
 
 * https://github.com/ctuning/ck/wiki
 
