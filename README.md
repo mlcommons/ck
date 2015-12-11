@@ -51,12 +51,7 @@ We successfully validated CK on Linux, Windows, Max OS X and Android (partially)
 
 Copyright
 =========
-(C)opyright 2014-2015 Grigori Fursin, 
-cTuning foundation and contributors
-
-http://cTuning.org
-
-See COPYRIGHT.txt for more details.
+(C)opyright 2014-2015 Grigori Fursin, Anton Lokhmotov and contributors
 
 Authors
 =======
