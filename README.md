@@ -63,7 +63,6 @@ and effectively compact "bit data";
 We hope that our approach will enable truly open, collaborative, agile
 and reproducible research, experimentation and knowledge sharing
 while keeping it as simple as GitHub and Wikipedia. 
-
 See our recent vision paper at DATE'16, artifact
 sharing and evaluation initiative for major computer systems'
 conferences, and live demo with reproducible and interactive
