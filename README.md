@@ -60,13 +60,14 @@ learning), share and improve predictive models (knowledge),
 and effectively compact "bit data";
 * use built-in web server to enable interactive graphs and articles.
 
-We hope that our approach will enable truly open, collaborative, agile
-and reproducible research, experimentation and knowledge sharing
-while keeping it as simple as GitHub and Wikipedia. 
-See our recent vision paper at DATE'16, artifact
-sharing and evaluation initiative for major computer systems'
-conferences, and live demo with reproducible and interactive
-articles for more details:
+We hope that our collaborative approach will help
+dramatically accelerate knowledge discovery via truly open,
+agile and reproducible research, experimentation and
+knowledge sharing while keeping it as simple as GitHub and
+Wikipedia. See our recent vision paper at DATE'16, artifact
+sharing and evaluation initiative for major computer
+systems' conferences, and live demo with reproducible and
+interactive articles for more details:
 * http://bit.ly/ck-date16
 * http://cTuning.org/ae
 * http://cknowledge.org/repo
