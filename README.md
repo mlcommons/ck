@@ -255,7 +255,8 @@ and reports.
 CK-powered projects
 ===================
 
-CK is currently used in the following projects:
+We currently use and improve CK is the following computer systems'
+research projects:
 
 * building public repository of benchmarks, data sets, tools, predictive
 models and optimization knowledge in a unified format with the help
