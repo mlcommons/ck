@@ -1,27 +1,76 @@
-Collective Knowledge Infrastructure and Repository
-is a small Python application (less than 1Mb)
-with command line and web front-ends to help researchers:
+You may find Collective Knowledge Framework (CK) useful
+if you are a researcher performing many experiments 
+on a daily basis and experiencing the following problems:
 
-* easily convert their research artifacts (benchmarks, data sets, scripts, tools, predictive models, graphs, articles) into reusable and interconnected components and customizable workflows with unified JSON API and meta information; 
-* quickly prototype research ideas from shared components and exchange results; 
-* crowdsource and reproduce experiments (such as empirical multi-objective autotuning and design space exploration);
-* apply predictive analytics to accelerate knowledge discovery;
-* design competitions with unified knowledge sharing;
-* enable interactive graphs and articles.
+* spending more and more time on adapting your experimental 
+setups to ever changing software, hardware, interfaces
+and numerous data formats, rather than innovating;
+* having difficulty finding, managing and reusing
+your own past scripts, tools, data sets and experimental 
+results;
+* experiencing problems sharing the whole experimental
+setups and knowledge with your colleagues to be reproduced, 
+customized and built upon (particularly if they use 
+different operating systems, software and hardware);
+* suffering from a raising amount of experimental 
+choices to explore (design and optimization spaces); 
+* suffering from a raising amount of experimental results
+to process (big data problem);
+* receiving increasing bills for computational resources 
+(particularly in data centers and supercomputers);
+* finding it complex or simply too long to master 
+powerful predictive analytics techniques that could help 
+automatically process your "big data" (experimental results); 
+* wishing to automate paper/report generation whenever new
+experimental results are available (or even enable
+interactive graphs and articles).
 
-Our long term goal is to enable truly open, collaborative and
-reproducible research, experimentation and knowledge sharing
+After suffering from these problems during 15 years 
+of our own R&D (enabling faster, smaller, more power efficient
+and reliable computer systems via autotuning, machine learning
+and run-time adaptation), we gradually developed this
+open-source, light-weight and portable Python-based framework
+(less than 1Mb with minimal dependencies) with command line 
+and web front-ends to help scientists and research
+engineers:
+
+* abstract and unify access to any software, hardware 
+and data using CK modules (wrappers) with a simple  
+JSON API while handling all continuous and low-level 
+changes;
+* use CK modules to slightly reorganize local artifacts 
+(scripts, benchmarks, data sets, tools, predictive models, 
+graphs, articles) into searchable, customizable, 
+reusable and interconnected components with UID 
+and JSON-based meta information which can be easily
+shared via GitHub, BitBucket and other services;
+* quickly prototype research ideas (experimental workflows)
+from shared components as LEGO(TM) and exchange results
+in JSON format (for example, performance benchmarking 
+and empirical multi-objective program autotuning);
+* crowdsource and reproduce experiments while involving
+the community to detect unexpected behavior, solve
+it via shared CK modules and push them back to the community;
+* apply predictive analytics to process large experimental
+results (possibly on the fly via active learning), 
+build and share models (knowledge), and thus compact 
+"bit data";
+* use CK web server to enable interactive graphs and articles.
+
+Our long term goal is to enable truly open, collaborative, agile 
+and reproducible research, experimentation and knowledge sharing
 (currently focusing on computer engineering) while making it 
 as simple and powerful as Wikipedia. 
 
-See our recent short position paper at DATE'16, artifact evaluation initiative
-for major computer systems' conferences, and live repository demo for more details: 
+See our recent short position paper at DATE'16, artifact
+evaluation initiative for major computer systems'
+conferences, and live repository demo for more details:
 * http://bit.ly/ck-date16
 * http://cTuning.org/ae
 * http://cknowledge.org/repo
 
-CK full documentation and getting started guides
-================================================
+CK documentation including motivation, getting started guide and tutorials
+==========================================================================
 * http://github.com/ctuning/ck/wiki
 
 License
@@ -167,6 +216,14 @@ its meta information (.cm/meta.json) via
 
  $ ck find hello:world
 
+Finally, you can start CK web server either to collect
+experimental results from other users or to browse your
+local artifacts (including interactive graphs and articles):
+
+ $ ck start web
+
+ $ open browser with URL http://localhost:3344
+
 Please, follow CK documentation (including various Getting Started Guides) for more details:
 
 * https://github.com/ctuning/ck/wiki
@@ -183,11 +240,11 @@ Publications
 ============
 Concepts has been described in the following publications:
 
-* http://bit.ly/ck-date16
-* http://arxiv.org/abs/1506.06256
-* http://hal.inria.fr/hal-01054763
-* http://arxiv.org/abs/1406.4020
-* https://hal.inria.fr/inria-00436029
+* http://bit.ly/ck-date16 (DATE'16)
+* http://arxiv.org/abs/1506.06256 (CPC'15)
+* http://hal.inria.fr/hal-01054763 (Journal of Scientific Programming'14)
+* http://arxiv.org/abs/1406.4020 (TRUST'14 @ PLDI'14)
+* https://hal.inria.fr/inria-00436029 (GCC Summit'09)
 
 If you found CK useful and/or interesting, you are welcome
 to reference any of the above publications in your articles
@@ -201,7 +258,9 @@ CK is currently used in the following projects:
 * building public repository of benchmarks, data sets, tools, predictive
 models and optimization knowledge in a unified format with the help
 of the computer engineering community
-(http://cknowledge.org/repo , http://c-mind.org/repo)
+(http://github.com/ctuning/ctuning-programs , 
+https://github.com/ctuning/ctuning-datasets-min ,
+http://cknowledge.org/repo , http://c-mind.org/repo)
 
 * implementing universal multi-dimensional, multi-objective,
 plugin-based autotuning combined with crowdsourcing, predictive
@@ -209,7 +268,10 @@ analytics and run-time adaptation (to enable self-optimizing
 computer systems). We support OpenCL, CUDA, OpenMP, MPI, compiler
 and any other tuning for performance, energy, size, reliability,
 cost and any other metrics across small kernels/codelets and
-large applications (http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80).
+large applications (http://github.com/ctuning/ck-autotuning, 
+http://github.com/ctuning/ck-analytics , 
+http://github.com/ctuning/ck-env ,
+http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80).
 
 * implementing crowd-benchmarking (crowdsourcing workload characterization
 and compiler heuristic construction across numerous architectures using shared
@@ -220,8 +282,8 @@ http://cknowledge.org/repo/web.php?wcid=29db2248aba45e59:cd11e3a188574d80)
 * supporting artifact evaluation initiatives for major conferences
 and journals where all artifacts are shared as reusable components (and not
 just as black box virtual machine images) along with publications
-(http://cTuning.org/ae , http://arxiv.org/abs/1406.4020 ,
-http://adapt-workshop.org)
+(http://cTuning.org/ae , http://www.dagstuhl.de/de/programm/kalender/semhp/?semnr=15452 ,
+http://arxiv.org/abs/1406.4020 , http://adapt-workshop.org)
 
 * enabling open, collaborative and reproducible research and experimentation
 with interactive publications focusing on computer engineering

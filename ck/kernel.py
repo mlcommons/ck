@@ -165,7 +165,8 @@ cfg={
                             "add":"git add $#files#$",
                             "rm":"git rm -rf $#files#$",
                             "commit":"git commit *",
-                            "version":"git --version"
+                            "version":"git --version",
+                            "checkout":"git checkout $#id#$"
                            }
                    },
 
