@@ -14,8 +14,7 @@ customized and built upon (particularly if they use
 different operating systems, software and hardware);
 * suffering from a raising amount of experimental 
 choices to explore (design and optimization spaces); 
-* suffering from a raising amount of experimental results
-to process (big data problem);
+and experimental results to process (big data problem);
 * receiving increasing bills for computational resources 
 (particularly in data centers and supercomputers);
 * finding it complex or simply too long to master 
@@ -25,14 +24,14 @@ automatically process your "big data" (experimental results);
 experimental results are available (or even enable
 interactive graphs and articles).
 
-After suffering from these problems during 15 years 
-of our own R&D (enabling faster, smaller, more power efficient
-and reliable computer systems via autotuning, machine learning
-and run-time adaptation), we gradually developed this
-open-source, light-weight and portable Python-based framework
-(less than 1Mb with minimal dependencies) with command line 
-and web front-ends to help scientists and research
-engineers:
+After suffering from these problems during 15 years which
+dramatically slowed down our own R&D (enabling faster,
+smaller, more power efficient and reliable computer systems
+via autotuning, machine learning and run-time adaptation),
+we gradually developed this open-source, light-weight and
+portable Python-based framework (less than 1Mb with minimal
+dependencies) with command line and web front-ends to help
+scientists and research engineers:
 
 * abstract and unify access to any software, hardware 
 and data using CK modules (wrappers) with a simple  
