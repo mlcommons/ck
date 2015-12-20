@@ -13,16 +13,15 @@ setups and knowledge with your colleagues to be reproduced,
 customized and built upon (particularly if they use 
 different operating systems, software and hardware);
 * suffering from a raising amount of experimental 
-choices to explore (design and optimization spaces); 
+choices to explore (design and optimization spaces)
 and experimental results to process (big data problem);
 * receiving increasing bills for computational resources 
 (particularly in data centers and supercomputers);
 * finding it complex or simply too long to master 
 powerful predictive analytics techniques that could help 
 automatically process your "big data" (experimental results); 
-* wishing to automate paper/report generation whenever new
-experimental results are available (or even enable
-interactive graphs and articles).
+* finding it very time consuming to rebuild papers/reports
+whenever new experimental results are available.
 
 After suffering from these problems during 15 years which
 dramatically slowed down our own R&D (enabling faster,
@@ -35,35 +34,38 @@ scientists and research engineers:
 
 * abstract and unify access to any software, hardware 
 and data using CK modules (wrappers) with a simple  
-JSON API while handling all continuous and low-level 
-changes;
+JSON API while handling all continuous low-level changes;
 * use CK modules to slightly reorganize local artifacts 
 (scripts, benchmarks, data sets, tools, predictive models, 
 graphs, articles) into searchable, customizable, 
-reusable and interconnected components with UID 
+reusable and interconnected components with unique IDs 
 and JSON-based meta information which can be easily
 shared via GitHub, BitBucket and other services;
-* quickly prototype research ideas (experimental workflows)
-from shared components as LEGO(TM) and exchange results
-in JSON format (for example, performance benchmarking 
-and empirical multi-objective program autotuning);
-* crowdsource and reproduce experiments while involving
-the community to detect unexpected behavior, solve
-it via shared CK modules and push them back to the community;
-* apply predictive analytics to process large experimental
-results (possibly on the fly via active learning), 
-build and share models (knowledge), and thus compact 
-"bit data";
-* use CK web server to enable interactive graphs and articles.
+* be able to quickly prototype research ideas (experimental
+workflows) from shared components as LEGO(TM) and exchange
+results in schema-free JSON format (for example,
+performance benchmarking and empirical multi-objective
+program autotuning);
+* involve interdisciplinary community to crowdsource and
+reproduce experiments using spare computational resources
+while detecting unexpected behavior, collaboratively
+solving it by improving shared CK modules and data, and
+immediately push improvements back to the community;
+* easily reuse statistical analysis and predictive
+analytics techniques via CK modules to process large
+experimental results (possibly on the fly via active
+learning), share and improve predictive models (knowledge),
+and effectively compact "bit data";
+* use built-in web server to enable interactive graphs and articles.
 
 Our long term goal is to enable truly open, collaborative, agile 
 and reproducible research, experimentation and knowledge sharing
-(currently focusing on computer engineering) while making it 
-as simple and powerful as Wikipedia. 
+via CK components while making it as simple and powerful as Wikipedia. 
 
-See our recent short position paper at DATE'16, artifact
-evaluation initiative for major computer systems'
-conferences, and live repository demo for more details:
+See our recent vision paper at DATE'16, artifact
+sharing and evaluation initiative for major computer systems'
+conferences, and live demo with reproducible and interactive
+articles for more details:
 * http://bit.ly/ck-date16
 * http://cTuning.org/ae
 * http://cknowledge.org/repo
