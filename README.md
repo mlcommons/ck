@@ -40,17 +40,19 @@ JSON API while handling all continuous low-level changes;
 graphs, articles) into searchable, customizable, 
 reusable and interconnected components with unique IDs 
 and JSON-based meta information which can be easily
-shared via GitHub, BitBucket and other services;
-* be able to quickly prototype research ideas (experimental
+shared via GitHub, BitBucket and other public or private
+services;
+* quickly prototype research ideas (experimental
 workflows) from shared components as LEGO(TM) and exchange
 results in schema-free JSON format (for example,
 performance benchmarking and empirical multi-objective
 program autotuning);
 * involve interdisciplinary community to crowdsource and
-reproduce experiments using spare computational resources
-while detecting unexpected behavior, collaboratively
-solving it by improving shared CK modules and data, and
-immediately push improvements back to the community;
+reproduce experiments using spare computational resources,
+report unexpected behavior, collaboratively
+explain and solve it by improving shared CK modules, 
+and immediately push improvements back to the community
+(similar to Wikipedia);
 * easily reuse statistical analysis and predictive
 analytics techniques via CK modules to process large
 experimental results (possibly on the fly via active
@@ -58,9 +60,9 @@ learning), share and improve predictive models (knowledge),
 and effectively compact "bit data";
 * use built-in web server to enable interactive graphs and articles.
 
-Our long term goal is to enable truly open, collaborative, agile 
+We hope that our approach will enable truly open, collaborative, agile
 and reproducible research, experimentation and knowledge sharing
-via CK components while making it as simple and powerful as Wikipedia. 
+while keeping it as simple as GitHub and Wikipedia. 
 
 See our recent vision paper at DATE'16, artifact
 sharing and evaluation initiative for major computer systems'
