@@ -1,6 +1,6 @@
 You may find Collective Knowledge Framework (CK) useful
 if you are a researcher performing many experiments 
-on a daily basis and experiencing the following problems:
+on a regular basis and experiencing the following problems:
 
 * spending more and more time on adapting your experimental 
 setups to ever changing software, hardware, interfaces
