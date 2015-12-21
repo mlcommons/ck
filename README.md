@@ -73,9 +73,11 @@ interactive articles for more details:
 * http://cTuning.org/ae
 * http://cknowledge.org/repo
 
-CK documentation including motivation, getting started guide and tutorials
-==========================================================================
-* http://github.com/ctuning/ck/wiki
+Documentation 
+=============
+* Full CK documentation (including motivation, getting started guide and tutorials): http://github.com/ctuning/ck/wiki
+* All shared modules: https://github.com/ctuning/ck/wiki/Shared_modules
+* All shared repositories: https://github.com/ctuning/ck/wiki/Shared_repos
 
 License
 =======

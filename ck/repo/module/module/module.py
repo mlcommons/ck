@@ -333,12 +333,21 @@ def show(i):
               x=lr
               if url!='':
                  x='['+url+' '+lr+']'
-              ck.out('* \'\'\''+ln+'\'\'\' ('+x+') - '+ld)
+              ck.out('')
+              ck.out('=== '+ln+' ('+lr+') ===')
+              ck.out('')
+              ck.out('Desc: '+ld+'<br>')
+              ck.out('CK Repo URL: '+x)
+              ck.out('')
               if len(actions)>0:
+
+                 ck.out('Actions (functions):')
+                 ck.out('')
+
                  for q in sorted(actions):
                      qq=actions[q]
                      qd=qq.get('desc','')
-                     ck.out('** \'\''+q+'\'\' - '+qd)
+                     ck.out('* \'\''+q+'\'\' - '+qd)
 
            ###############################################################
            elif o=='con' or o=='txt':

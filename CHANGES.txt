@@ -21,6 +21,7 @@
     from GitHub (removing root directory), see issue #46
   * checking if git command line client is installed 
     when pulling shared repo 
+  * improving listing of all modules and actions
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 
