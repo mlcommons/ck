@@ -103,8 +103,8 @@ and help you process large amount of experimental results
 improve predictive models and features (knowledge), and
 effectively compact "big data".
 
-For example, CK already helped us and our colleagues unify
-all our past R&D and enable extensible and multi-objective
+For example, CK already helped our colleagues unify
+past R&D and enable extensible and multi-objective
 SW/HW autotuning as a CK template (workflow). The community
 now gradually exposes various tuning choices (algorithm
 and OpenCL/CUDA/MPI parameters, compiler flags, polyhedral
@@ -116,13 +116,14 @@ optimization spaces. Our colleagues already managed
 to speed up some popular applications with real workloads
 across latest platforms (from mobile devices to data
 centers) by 10x with the same numerical accuracy, reduce
-energy by 30% and code size by 50%. Furthermore, this
+energy by 30% and code size by 50%. Furthermore, such
 CK template can be easily reused in other research
-scenarios while allowing students and researchers start new
-experiments in minutes rather than days and weeks,
+scenarios while allowing our students and collaborators 
+start new experiments in minutes rather than days and weeks,
 as described here:
 * http://github.com/ctuning/ck/wiki/Getting_started_guide_example_slambench
 * http://cknowledge.org/repo
+* https://github.com/ctuning/ck/wiki/Getting_started_guide_clsmith
 
 Our long-term mission is to help the research community
 dramatically accelerate knowledge discovery via open,
