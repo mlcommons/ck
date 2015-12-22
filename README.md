@@ -79,6 +79,9 @@ types, descriptions and tests, and not vice versa);
 setups via popular public services including GitHub and
 BitBucket while keeping track of all development history;
 
+* speed up search across all your local artifacts by JSON
+meta information using third-party ElasticSearch indexing service;
+
 * involve the community or workgroups to share realistic
 workloads, benchmarks, data sets, tools, predictive models 
 and features in a unified and customizable format;
@@ -99,6 +102,27 @@ and help you process large amount of experimental results
 (possibly on the fly via active learning), share and
 improve predictive models and features (knowledge), and
 effectively compact "big data".
+
+For example, CK already helped us and our colleagues unify
+all our past R&D and enable extensible and multi-objective
+SW/HW autotuning as a CK template (workflow). The community
+now gradually exposes various tuning choices (algorithm
+and OpenCL/CUDA/MPI parameters, compiler flags, polyhedral
+transformations, CPU/GPU frequency, etc) and objectives
+(execution time, code size, compilation time, energy,
+processors size, accuracy, reliability) while reusing
+shared autotuning and machine learning plugins to explore
+optimization spaces. Our colleagues already managed
+to speed up some popular applications with real workloads
+across latest platforms (from mobile devices to data
+centers) by 10x with the same numerical accuracy, reduce
+energy by 30% and code size by 50%. Furthermore, this
+CK template can be easily reused in other research
+scenarios while allowing students and researchers start new
+experiments in minutes rather than days and weeks,
+as described here:
+* http://github.com/ctuning/ck/wiki/Getting_started_guide_example_slambench
+* http://cknowledge.org/repo
 
 Our long-term mission is to help the research community
 dramatically accelerate knowledge discovery via open,
