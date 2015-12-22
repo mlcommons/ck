@@ -19,11 +19,12 @@ operating systems, tools, libraries and hardware
 (and you do want to use their environment rather 
 than possibly outdated Docker and VM images);
 
-* you do not have an access to realistic workloads, 
-benchmarks and data sets;
+* you do not have enough realistic workloads, 
+benchmarks and data sets for your research;
+
 * you suffer from a raising amount of experimental 
-choices to explore (design and optimization spaces),
-and experimental results to process (big data problem);
+choices to explore (design and optimization spaces)
+and experimental results to process and store (big data problem);
 
 * you or your organization receive increasing bills for 
 computational resources (particularly in data centers 
@@ -36,18 +37,17 @@ automatically process and compact your "big data"
 (experimental results) while preserving knowledge 
 as features and models; 
 
-* you are tired spending days and weeks to rebuild your papers 
+* you are tired wasting days and weeks to rebuild your papers 
 and reports whenever new results are obtained.
 
 All above problems dramatically slowed down our own
 computer systems' research during past 15 years (developing
 faster, smaller, more power efficient and reliable computer
 systems via multi-objective autotuning, machine learning 
-and run-time adaptation). 
-
-Eventually, we have developed Collective Knowledge Framework 
-and Repository (CK) to bring an interdisciplinary community together 
-to gradually and collaboratively solve above problems.
+and run-time adaptation) and eventually motivated us to 
+develop Collective Knowledge Framework (CK) which brings 
+an interdisciplinary community together to collaboratively 
+solve above problems.
 
 CK is an open-source, light-weight, portable and
 customizable Python-based wrapper framework (less than 1Mb
@@ -56,7 +56,7 @@ to access CK from C,C++,Fortran,Java,PHP) with a command
 line front-end and integrated web server to help scientists
 and research engineers:
 
-* abstract and unify access to any software, data and hardware 
+* abstract and unify access to their software, hardware and data 
 via CK modules (wrappers) with a simple JSON API 
 while protecting users from continuous low-level changes
 and exposing only minimal information needed for research
@@ -66,10 +66,10 @@ and experimentation;
 (CK repositories) to gradually convert all local artifacts 
 (scripts, benchmarks, data sets, tools, predictive models, 
 graphs, articles) into searchable, reusable and interconnected 
-CK entries with unique IDs and JSON-based meta information
-thus getting rid of hardwired paths;
+CK entries (components) with unique IDs and JSON-based meta information
+while getting rid of all hardwired paths;
 
-* quickly prototyping research ideas from shared components
+* quickly prototype research ideas from shared components
 as LEGO(TM), unify exchange of results in schema-free JSON
 format and focus on knowledge discovery (only when idea
 is validated you should spend extra time on adding proper
@@ -77,28 +77,28 @@ types, descriptions and tests, and not vice versa);
 
 * easily share CK repositories with whole experimental
 setups via popular public services including GitHub and
-BitBucket while keeping all development history;
+BitBucket while keeping track of all development history;
 
 * involve the community or workgroups to share realistic
 workloads, benchmarks, data sets, tools, predictive models 
-and features in a unified format;
+and features in a unified and customizable format;
 
-* use built-in web server to easily crowdsource experiments 
-and enable interactive graphs and articles;
+* use built-in CK web server to view interactive graphs
+and articles while easily crowdsourcing experiments 
+using spare computational resources (mobile devices, data centers,
+supercomputers) and reporting back unexpected behavior; 
 
-* get help from an interdisciplinary community
-to crowdsource and reproduce your experiments using spare
-computational resources (mobile devices, data centers,
-supercomputers) while reporting unexpected behavior,
-collaboratively explaining and solving it, improving shared
-CK modules, and immediately pushing changes back to the
-community (similar to Wikipedia);
+* obtain help from an interdisciplinary community
+to reproduce and explain unexpected behavior, solve it 
+by improving related CK modules and entries, and immediately 
+push changes back to the community (similar to Wikipedia);
 
 * simplify the use of statistical analysis and predictive
-analytics techniques via CK modules and help you process 
-large amount of experimental results (possibly on the fly 
-via active learning), share and improve predictive models 
-and features (knowledge), and effectively compact "big data".
+analytics techniques for non-specialists via CK modules
+and help you process large amount of experimental results
+(possibly on the fly via active learning), share and
+improve predictive models and features (knowledge), and
+effectively compact "big data".
 
 Our long-term mission is to help the research community
 dramatically accelerate knowledge discovery via open,
