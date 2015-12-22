@@ -76,8 +76,9 @@ is validated you should spend extra time on adding proper
 types, descriptions and tests, and not vice versa);
 
 * easily share CK repositories with whole experimental
-setups via popular public services including GitHub and
-BitBucket while keeping track of all development history;
+setups and templates with the community via popular public
+services including GitHub and BitBucket while keeping track
+of all development history;
 
 * speed up search across all your local artifacts by JSON
 meta information using third-party ElasticSearch indexing service;
@@ -103,26 +104,26 @@ and help you process large amount of experimental results
 improve predictive models and features (knowledge), and
 effectively compact "big data".
 
-For example, CK already helped our colleagues unify
-past R&D and enable extensible and multi-objective
-SW/HW autotuning as a CK template (workflow). The community
-now gradually exposes various tuning choices (algorithm
-and OpenCL/CUDA/MPI parameters, compiler flags, polyhedral
-transformations, CPU/GPU frequency, etc) and objectives
-(execution time, code size, compilation time, energy,
-processors size, accuracy, reliability) while reusing
-shared autotuning and machine learning plugins to explore
-optimization spaces. Our colleagues already managed
-to speed up some popular applications with real workloads
-across latest platforms (from mobile devices to data
-centers) by 10x with the same numerical accuracy, reduce
-energy by 30% and code size by 50%. Furthermore, such
-CK template can be easily reused in other research
-scenarios while allowing our students and collaborators 
-start new experiments in minutes rather than days and weeks,
-as described here:
-* http://github.com/ctuning/ck/wiki/Getting_started_guide_example_slambench
+For example, CK already helped our colleagues unify some
+of the past computer systems' research, and enable
+extensible and multi-objective SW/HW autotuning as a CK
+template (workflow). The community now gradually exposes
+various tuning choices (algorithm and OpenCL/CUDA/MPI
+parameters, compiler flags, polyhedral transformations,
+CPU/GPU frequency, etc) and objectives (execution time,
+code size, compilation time, energy, processors size,
+accuracy, reliability) while reusing shared autotuning and
+machine learning plugins to explore optimization spaces.
+Our colleagues already managed to speed up some popular
+applications with real workloads across latest platforms
+(from mobile phones to cloud servers) by 10x with the same
+numerical accuracy, reduce energy by 30% and code size
+by 50%. Furthermore, such CK templates can be easily reused
+in other research scenarios while allowing students and
+researchers start new experiments or reproduce others' results
+in minutes rather than days and weeks, as described here:
 * http://cknowledge.org/repo
+* http://github.com/ctuning/ck/wiki/Getting_started_guide_example_slambench
 * https://github.com/ctuning/ck/wiki/Getting_started_guide_clsmith
 
 Our long-term mission is to help the research community
