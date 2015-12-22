@@ -3,74 +3,116 @@ if you are a researcher or organization performing many
 experiments on a regular basis and experiencing the
 following problems:
 
-* spending more and more time on adapting your experimental 
-setups to ever changing software, hardware, interfaces
-and numerous data formats, rather than innovating;
-* having difficulty finding, managing and reusing
-your own past scripts, tools, data sets and experimental 
-results;
-* experiencing problems sharing the whole experimental
-setups and knowledge with your colleagues to be reproduced, 
-customized and built upon (particularly if they use 
-different operating systems, software and hardware);
-* suffering from a raising amount of experimental 
-choices to explore (design and optimization spaces)
+* instead of innovation, you spend weeks and months
+preparing ad-hoc experimental setups (which may be easily
+trashed if your idea is not validated) and adapting
+them to ever changing software, hardware, interfaces and
+numerous data formats;
+
+* you have difficulty finding, managing, reproducing and
+reusing your own scripts, tools, data sets and experimental
+results from the past projects;
+
+* you find it difficult to share whole experimental setups 
+and results with your colleagues since they use different 
+operating systems, tools, libraries and hardware
+(and you do want to use their environment rather 
+than possibly outdated Docker and VM images);
+
+* you do not have an access to realistic workloads, 
+benchmarks and data sets;
+* you suffer from a raising amount of experimental 
+choices to explore (design and optimization spaces),
 and experimental results to process (big data problem);
-* receiving increasing bills for computational resources 
-(particularly in data centers and supercomputers);
-* finding it complex or simply too long to master 
+
+* you or your organization receive increasing bills for 
+computational resources (particularly in data centers 
+and supercomputers) while you do not even know whether
+your software is efficient or may run 10 times faster;
+
+* you find it complex or simply too long to master 
 powerful predictive analytics techniques that could help 
-automatically process your "big data" (experimental results); 
-* finding it very time consuming to rebuild papers/reports
-whenever new experimental results are available.
+automatically process and compact your "big data" 
+(experimental results) while preserving knowledge 
+as features and models; 
 
-After suffering from these problems during 15 years which
-dramatically slowed down our own R&D (enabling faster,
-smaller, more power efficient and reliable computer systems
-via autotuning, machine learning and run-time adaptation),
-we gradually developed this open-source, light-weight and
-portable Python-based framework (less than 1Mb with minimal
-dependencies) with command line and web front-ends to help
-scientists and research engineers:
+* you are tired spending days and weeks to rebuild your papers 
+and reports whenever new results are obtained.
 
-* abstract and unify access to any software, hardware 
-and data using CK modules (wrappers) with a simple  
-JSON API while handling all continuous low-level changes;
-* use CK modules to slightly reorganize local artifacts 
+All above problems dramatically slowed down our own
+computer systems' research during past 15 years (developing
+faster, smaller, more power efficient and reliable computer
+systems via multi-objective autotuning, machine learning 
+and run-time adaptation). 
+
+Eventually, we have developed Collective Knowledge Framework 
+and Repository (CK) to bring an interdisciplinary community together 
+to gradually and collaboratively solve above problems.
+
+CK is an open-source, light-weight, portable and
+customizable Python-based wrapper framework (less than 1Mb
+with minimal dependencies and with a tiny OpenME library
+to access CK from C,C++,Fortran,Java,PHP) with a command
+line front-end and integrated web server to help scientists
+and research engineers:
+
+* abstract and unify access to any software, data and hardware 
+via CK modules (wrappers) with a simple JSON API 
+while protecting users from continuous low-level changes
+and exposing only minimal information needed for research
+and experimentation;
+
+* provide a simple and user-friendly directory structure 
+(CK repositories) to gradually convert all local artifacts 
 (scripts, benchmarks, data sets, tools, predictive models, 
-graphs, articles) into searchable, customizable, 
-reusable and interconnected components with unique IDs 
-and JSON-based meta information which can be easily
-shared via GitHub, BitBucket and other public or private
-services;
-* quickly prototype research ideas (experimental
-workflows) from shared components as LEGO(TM) and exchange
-results in schema-free JSON format (for example,
-performance benchmarking and empirical multi-objective
-program autotuning);
-* involve interdisciplinary community to crowdsource and
-reproduce experiments using spare computational resources,
-report unexpected behavior, collaboratively
-explain and solve it by improving shared CK modules, 
-and immediately push improvements back to the community
-(similar to Wikipedia);
-* easily reuse statistical analysis and predictive
-analytics techniques via CK modules to process large
-experimental results (possibly on the fly via active
-learning), share and improve predictive models (knowledge),
-and effectively compact "bit data";
-* use built-in web server to enable interactive graphs and articles.
+graphs, articles) into searchable, reusable and interconnected 
+CK entries with unique IDs and JSON-based meta information
+thus getting rid of hardwired paths;
 
-We hope that our collaborative approach will help
-dramatically accelerate knowledge discovery via truly open,
-agile and reproducible research, experimentation and
-knowledge sharing while keeping it as simple as GitHub and
-Wikipedia. See our recent vision paper at DATE'16, artifact
-sharing and evaluation initiative for major computer
-systems' conferences, and live demo with reproducible and
-interactive articles for more details:
+* quickly prototyping research ideas from shared components
+as LEGO(TM), unify exchange of results in schema-free JSON
+format and focus on knowledge discovery (only when idea
+is validated you should spend extra time on adding proper
+types, descriptions and tests, and not vice versa);
+
+* easily share CK repositories with whole experimental
+setups via popular public services including GitHub and
+BitBucket while keeping all development history;
+
+* involve the community or workgroups to share realistic
+workloads, benchmarks, data sets, tools, predictive models 
+and features in a unified format;
+
+* use built-in web server to easily crowdsource experiments 
+and enable interactive graphs and articles;
+
+* get help from an interdisciplinary community
+to crowdsource and reproduce your experiments using spare
+computational resources (mobile devices, data centers,
+supercomputers) while reporting unexpected behavior,
+collaboratively explaining and solving it, improving shared
+CK modules, and immediately pushing changes back to the
+community (similar to Wikipedia);
+
+* simplify the use of statistical analysis and predictive
+analytics techniques via CK modules and help you process 
+large amount of experimental results (possibly on the fly 
+via active learning), share and improve predictive models 
+and features (knowledge), and effectively compact "big data".
+
+Our long-term mission is to help the research community
+dramatically accelerate knowledge discovery via open,
+agile, collaborative and reproducible research,
+experimentation and knowledge sharing while keeping it as
+simple as GitHub and Wikipedia - join us!
+
+For more details, please see our recent vision paper at DATE'16, 
+ADAPT workshop, artifact sharing and evaluation initiative for 
+computer systems' conferences, and live demo with the CK-based
+reproducible and interactive articles:
 * http://bit.ly/ck-date16
 * http://cTuning.org/ae
+* http://adapt-workshop.org
 * http://cknowledge.org/repo
 
 Documentation 
@@ -173,13 +215,16 @@ installation as following:
 
 Now, you can use CK to pull various shared CK repositories
 (code and data shared as reusable components via GitHub
-or Bitbucket) and run shared experimental workflows
-(for example, to crowd-benchmark and autotune programs,
-build predictive models of performance, analyze representative
-benchmarks and data sets, install missing tools, ...).
+or Bitbucket) and run shared experimental workflows.
 
-For example, compiling and running any shared benchmark 
-on your Linux machine with GCC can be done simply as:
+For example, we use CK to systematize and accelerate our computer systems' 
+research, perform systematic benchmarking across any existing hardware, 
+crowdsource multi-objective program optimization, share realistic workloads, 
+build predictive models of performance, analyze representative benchmarks 
+and data sets, install missing tools, etc. Rather than wasting weeks and
+months developing your own ad-hoc experimental setups, you can now obtain,
+compile and run any shared benchmark on your Linux machine with GCC 
+in less than a minute via:
 
  $ ck pull repo:ctuning-programs
 
@@ -190,19 +235,27 @@ on your Linux machine with GCC can be done simply as:
 You will be asked a few questions and for now you can just press Enter 
 to select the default choices.
 
-Compiling and running such benchmarks on Windows or Android,
-autotuning or crowdtuning them (performance, energy, accuracy, size, etc),
-adding more data sets, applying machine learning to predict optimizations,
-and any other shared scenario requires a few more steps 
-as described in our "Getting Started Guide":
+Please refer to CK documentation (https://github.com/ctuning/ck/wiki)
+to find out how to compile and run such benchmarks on Windows or Android,
+autotune or crowdtune them (performance, energy, accuracy, size, etc),
+share other realistic workloads, benchmarks and data sets, apply machine 
+learning to explain unexpected behavior or predict optimizations, 
+and quickly prototype your own research ideas.
 
-* https://github.com/ctuning/ck/wiki
+CK also helps you get rid of hardwired paths for your local data sets,
+tools and scripts - instead you can simply query CK and obtain all 
+shared data sets by specific tags simply via
 
-Adding new CK modules as containers for own data, as a wrapper
-for some tool or as a workflow is also straightforward. 
-For example, you can add your own module 'hello' with an action 'say'
-and with an entry 'world' as following (you can select all
-default values by just pressing Enter):
+ $ ck search dataset --tags=image,jpeg
+
+ $ ck find dataset:[name from above list]
+
+You can also easily add your own CK modules to serve
+as wrappers (containers) with unified API for your data and
+tools while gradually substituting all your ad-hoc scripts.
+For example, you can add your own module 'hello' with
+an action 'say' and with an entry 'world' as following (you
+can select all default values by just pressing Enter):
 
  $ ck add module:hello
 
@@ -222,9 +275,10 @@ its meta information (.cm/meta.json) via
 
  $ ck find hello:world
 
-Finally, you can start CK web server either to collect
-experimental results from other users or to browse your
-local artifacts (including interactive graphs and articles):
+Finally, you can start CK web server either to be able
+to collect experimental results from other users or to
+browse your local artifacts (including interactive graphs
+and articles) in a user-friendly way:
 
  $ ck start web
 
@@ -237,8 +291,8 @@ Please, follow CK documentation (including various Getting Started Guides) for m
 Questions/comments/discussions?
 ===============================
 Please, use our mailing lists:
-* General topics of knowledge preservation, sharing and reuse
-  as well as collaborative and reproducible R&D: http://groups.google.com/group/collective-knowledge
+* Open, collaborative and reproducible R&D including knowledge preservation, sharing and reuse:
+  http://groups.google.com/group/collective-knowledge
 * Software and hardware multi-objective (performance/energy/accuracy/size/reliability/cost)
   benchmarking, autotuning, crowdtuning and run-time adaptation: http://groups.google.com/group/ctuning-discussions
 
@@ -262,19 +316,22 @@ CK-powered projects
 We currently use and improve CK is the following computer systems'
 research projects:
 
-* building public repository of benchmarks, data sets, tools, predictive
-models and optimization knowledge in a unified format with the help
-of the computer engineering community
-(http://github.com/ctuning/ctuning-programs , 
-https://github.com/ctuning/ctuning-datasets-min ,
+* building public repository of realistic workloads, benchmarks, 
+data sets, tools, predictive models and optimization knowledge 
+in a unified format with the help of the computer engineering 
+community (http://github.com/ctuning/ctuning-programs , 
+http://github.com/ctuning/reproduce-pamela-project ,
+http://github.com/ctuning/reproduce-carp-project ,
+http://github.com/ctuning/ctuning-datasets-min ,
 http://cknowledge.org/repo , http://c-mind.org/repo)
 
-* implementing universal multi-dimensional, multi-objective,
-plugin-based autotuning combined with crowdsourcing, predictive
-analytics and run-time adaptation (to enable self-optimizing
-computer systems). We support OpenCL, CUDA, OpenMP, MPI, compiler
-and any other tuning for performance, energy, size, reliability,
-cost and any other metrics across small kernels/codelets and
+* implementing universal multi-dimensional,
+multi-objective, plugin-based autotuning combined with
+crowdsourcing, predictive analytics and run-time adaptation
+(to enable self-optimizing computer systems). We support
+OpenCL, CUDA, OpenMP, MPI, compiler and any other tuning
+for performance, energy, accuracy, size, reliability, cost
+and any other metrics across small kernels/codelets and
 large applications (http://github.com/ctuning/ck-autotuning, 
 http://github.com/ctuning/ck-analytics , 
 http://github.com/ctuning/ck-env ,
