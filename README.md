@@ -13,10 +13,14 @@ numerous data formats;
 reusing your own scripts, tools, data sets and experimental
 results from the past projects;
 
+* you have problems retrieving data from your own or 
+someone else's "black-box" database (particularly 
+if you do not have or even lost the schema);
+
 * you find it difficult to share whole experimental setups 
 and results with your colleagues since they use different 
-operating systems, tools, libraries and hardware
-(and you do want to use their environment rather 
+operating systems, data bases, tools, libraries and hardware
+(and they want to use their latest environment rather 
 than possibly outdated Docker and VM images);
 
 * you do not have enough realistic workloads, 
@@ -29,7 +33,9 @@ and experimental results to process and store (big data problem);
 * you or your organization receive increasing bills for 
 computational resources (particularly in data centers 
 and supercomputers) while you do not even know whether
-your software is efficient or may run 10 times faster;
+your software is efficient (maybe your deep
+neural network or video processing algorithms 
+may run 10 times faster?);
 
 * you find it complex or simply too long to master 
 powerful predictive analytics techniques that could help 
@@ -60,14 +66,16 @@ and research engineers:
 via CK modules (wrappers) with a simple JSON API 
 while protecting users from continuous low-level changes
 and exposing only minimal information needed for research
-and experimentation;
+and experimentation (this, in turn, enables simple 
+co-existence of multiple tools and libraries such as 
+different versions of compilers including LLVM, GCC and ICC);
 
 * provide a simple and user-friendly directory structure 
 (CK repositories) to gradually convert all local artifacts 
-(scripts, benchmarks, data sets, tools, predictive models, 
+(scripts, benchmarks, data sets, tools, results, predictive models, 
 graphs, articles) into searchable, reusable and interconnected 
-CK entries (components) with unique IDs and JSON-based meta information
-while getting rid of all hardwired paths;
+CK entries (components) with unique IDs and open JSON-based meta 
+information while getting rid of all hardwired paths;
 
 * quickly prototype research ideas from shared components
 as LEGO(TM), unify exchange of results in schema-free JSON
@@ -81,19 +89,25 @@ services including GitHub and BitBucket while keeping track
 of all development history;
 
 * speed up search across all your local artifacts by JSON
-meta information using third-party ElasticSearch indexing service;
+meta information using popular ElasticSearch (optional);
 
 * involve the community or workgroups to share realistic
 workloads, benchmarks, data sets, tools, predictive models 
 and features in a unified and customizable format;
+
+* reproduce empirical experimental results in a different environment 
+and under different conditions, and apply statistical analysis 
+(similar to physics) rather than just replicating them 
+- useful to analyze and validate varying results
+(such as performance and energy);
 
 * use built-in CK web server to view interactive graphs
 and articles while easily crowdsourcing experiments 
 using spare computational resources (mobile devices, data centers,
 supercomputers) and reporting back unexpected behavior; 
 
-* obtain help from an interdisciplinary community
-to reproduce and explain unexpected behavior, solve it 
+* obtain help from an interdisciplinary community to explain 
+unexpected behavior when reproducing experiments, solve it 
 by improving related CK modules and entries, and immediately 
 push changes back to the community (similar to Wikipedia);
 
@@ -170,16 +184,24 @@ crowd-benchmarking, multi-objective autotuning, statistical analysis,
 predictive analytics, interactive graphs, etc, you may need to install
 extra Python packages: 
 
-* 'matplotlib','scipy' and 'numpy' to plot graphs and perform statistical analysis (during performance/energy/accuracy autotuning and modeling)
+* 'matplotlib','scipy' and 'numpy' to plot graphs and perform statistical 
+analysis (during performance/energy/accuracy autotuning and modeling)
 * 'sklearn-kit' for predictive analytics
-* 'psutil' to properly terminate running process on Windows after timeout (during program autotuning)
-* 'Tkinter' or 'tkinter' or 'pyperclip' if copy to clipboard functionality is required (to reproduce CK experiments from the web)
+* 'psutil' to properly terminate running process on Windows after timeout 
+(during program autotuning and design space exploration)
+* 'Tkinter' or 'tkinter' or 'pyperclip' if copy to clipboard functionality 
+is required (to reproduce CK experiments from the web)
 
 Alternatively, you can use Anaconda python distribution
 which includes all scientific packages required for CK-based
 collaborative and reproducible experimentation.
 
-We successfully validated CK on Linux, Windows, Max OS X and Android (partially).
+You can also considerably speed up local search by installing 
+free third-party Hadoop-based ElasticSearch (http://elastic.co) 
+and turning on transparent indexing in CK.
+
+We successfully validated CK on Linux, Windows, Mac OS X 
+and partially on Android.
 
 Minimal installation
 ====================
