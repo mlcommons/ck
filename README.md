@@ -1,50 +1,45 @@
-You may find Collective Knowledge Framework (CK) useful
-if you are a researcher or organization performing many
-experiments on a regular basis and experiencing the
-following problems:
+Are you an individual researcher or organization performing
+many experiments on a regular basis? You may find the Collective 
+Knowledge framework (CK) useful if you suffer from one or more 
+of the following problems:
 
-* instead of innovation, you spend weeks and months
-preparing ad-hoc experimental setups (which may be easily
-trashed if your idea is not validated) and adapting
-them to ever changing software, hardware, interfaces and
-numerous data formats;
+* instead of innovating, you spend weeks and months preparing 
+ad-hoc experimental workflows, which you either throw away 
+when your ideas are not validated or need to maintain
+(adapting to ever changing software, hardware, interfaces and
+data formats);
 
-* you have difficulty finding, managing, reproducing and
-reusing your own scripts, tools, data sets and experimental
-results from the past projects;
+* you have trouble sharing whole experimental workflows 
+and results with your colleagues since they use different
+operating systems, tools, libraries and hardware
+(and they do need to use their latest environment rather 
+than possibly outdated Docker or VM images);
 
-* you have problems retrieving data from your own or 
-someone else's "black-box" database (particularly 
-if you do not have or even lost the schema);
+* you have trouble managing and reusing your own scripts, tools, 
+data sets and reproducing your own results from past projects;
 
-* you find it difficult to share whole experimental setups 
-and results with your colleagues since they use different 
-operating systems, data bases, tools, libraries and hardware
-(and they want to use their latest environment rather 
-than possibly outdated Docker and VM images);
+* you have trouble retrieving data from your own or someone else's
+"black-box" database (particularly if you do not know the schema);
 
-* you do not have enough realistic workloads, 
-benchmarks and data sets for your research;
+* you spend lots of time updating your reports and papers whenever
+you obtain new results;
 
-* you suffer from a raising amount of experimental 
-choices to explore (design and optimization spaces)
-and experimental results to process and store (big data problem);
+* you do not have enough realistic workloads, benchmarks and data sets
+for your research;
 
-* you or your organization receive increasing bills for 
-computational resources (particularly in data centers 
-and supercomputers) while you do not even know whether
-your software is efficient (maybe your deep
-neural network or video processing algorithms 
-may run 10 times faster?);
+* you face the ever increasing number of experimental choices
+to explore in complex design and optimization spaces;
 
-* you find it complex or simply too long to master 
-powerful predictive analytics techniques that could help 
-automatically process and compact your "big data" 
-(experimental results) while preserving knowledge 
-as features and models; 
+* you accumulate vast amounts of raw experimental data but do not
+know what the data is telling you ("big data" problem);
 
-* you are tired wasting days and weeks to rebuild your papers 
-and reports whenever new results are obtained.
+* you want to extract knowledge from raw data in form of models
+but never find time to master powerful predictive analytics techniques;
+
+* your organization pays dearly for its computational needs (in particular,
+for hardware and energy used in data centers and supercomputers) 
+while you suspect they could be met at a fraction of the cost (if, for example,
+your deep learning algorithms could run 10 times faster).
 
 All above problems dramatically slowed down our own
 computer systems' research during past 15 years (developing
