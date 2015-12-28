@@ -41,21 +41,19 @@ for hardware and energy used in data centers and supercomputers)
 while you suspect they could be met at a fraction of the cost (if, for example,
 your deep learning algorithms could run 10 times faster).
 
-All above problems dramatically slowed down our own
-computer systems' research during past 15 years (developing
-faster, smaller, more power efficient and reliable computer
-systems via multi-objective autotuning, machine learning 
-and run-time adaptation) and eventually motivated us to 
-develop Collective Knowledge Framework (CK) which brings 
-an interdisciplinary community together to collaboratively 
-solve above problems.
+Over the past 15 years, we have suffered from all the above problems, which
+intolerably slowed down our own research (on developing faster, smaller, more
+energy efficient and reliable computer systems via multi-objective autotuning,
+machine learning and run-time adaptation).
+Eventually, we have realized that the above problems can only be tackled
+collaboratively by bringing together an interdisciplinary community.
 
-CK is an open-source, light-weight, portable and
-customizable Python-based wrapper framework (less than 1Mb
-with minimal dependencies and with a tiny OpenME library
-to access CK from C,C++,Fortran,Java,PHP) with a command
-line front-end and integrated web server to help scientists
-and research engineers:
+Collective Knowledge is an open-source (under permissive license), lightweight (< 1 MB),
+portable and customizable Python-based framework. 
+It has minimal dependencies and simple interfaces with software written
+in C, C++, Fortran, Java, PHP and other languages.
+
+CK is designed to help scientists and research engineers to:
 
 * abstract and unify access to their software, hardware and data 
 via CK modules (wrappers) with a simple JSON API 
@@ -70,7 +68,7 @@ different versions of compilers including LLVM, GCC and ICC);
 (scripts, benchmarks, data sets, tools, results, predictive models, 
 graphs, articles) into searchable, reusable and interconnected 
 CK entries (components) with unique IDs and open JSON-based meta 
-information while getting rid of all hardcoded paths;
+information while getting rid of all hardwired paths;
 
 * quickly prototype research ideas from shared components
 as LEGO(TM), unify exchange of results in schema-free JSON
@@ -113,8 +111,8 @@ and help you process large amount of experimental results
 improve predictive models and features (knowledge), and
 effectively compact "big data".
 
-For example, CK already helped our colleagues unify some
-of the past computer systems' research, and enable
+For example, our colleagues have used CK to unify many typical 
+scenarios encountered in computer systems' research, and enable
 extensible and multi-objective SW/HW autotuning as a CK
 template (workflow). The community now gradually exposes
 various tuning choices (algorithm and OpenCL/CUDA/MPI
@@ -123,8 +121,9 @@ CPU/GPU frequency, etc) and objectives (execution time,
 code size, compilation time, energy, processors size,
 accuracy, reliability) while reusing shared autotuning and
 machine learning plugins to explore optimization spaces.
-Our colleagues already managed to speed up some popular
-applications with real workloads across latest platforms
+
+Our colleagues have managed to speed up their real-world
+applications across latest platforms
 (from mobile phones to cloud servers) by 10x with the same
 numerical accuracy, reduce energy by 30% and code size
 by 50%. Furthermore, such CK templates can be easily reused
@@ -139,7 +138,7 @@ Our long-term mission is to help the research community
 dramatically accelerate knowledge discovery via open,
 agile, collaborative and reproducible research,
 experimentation and knowledge sharing while keeping it as
-simple as GitHub and Wikipedia - join us!
+simple as GitHub and Wikipedia - do join us!
 
 For more details, please see our recent vision paper at DATE'16, 
 ADAPT workshop, artifact sharing and evaluation initiative for 
@@ -285,7 +284,7 @@ share other realistic workloads, benchmarks and data sets, apply machine
 learning to explain unexpected behavior or predict optimizations, 
 and quickly prototype your own research ideas.
 
-CK also helps you get rid of hardcoded paths for your local data sets,
+CK also helps you get rid of hardwired paths for your local data sets,
 tools and scripts - instead you can simply query CK and obtain all 
 shared data sets by specific tags simply via
 
