@@ -70,7 +70,7 @@ different versions of compilers including LLVM, GCC and ICC);
 (scripts, benchmarks, data sets, tools, results, predictive models, 
 graphs, articles) into searchable, reusable and interconnected 
 CK entries (components) with unique IDs and open JSON-based meta 
-information while getting rid of all hardwired paths;
+information while getting rid of all hardcoded paths;
 
 * quickly prototype research ideas from shared components
 as LEGO(TM), unify exchange of results in schema-free JSON
@@ -285,7 +285,7 @@ share other realistic workloads, benchmarks and data sets, apply machine
 learning to explain unexpected behavior or predict optimizations, 
 and quickly prototype your own research ideas.
 
-CK also helps you get rid of hardwired paths for your local data sets,
+CK also helps you get rid of hardcoded paths for your local data sets,
 tools and scripts - instead you can simply query CK and obtain all 
 shared data sets by specific tags simply via
 
