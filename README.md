@@ -166,7 +166,7 @@ Authors
 
 Copyright
 =========
-(C)opyright 2014-2015 Grigori Fursin, Anton Lokhmotov and contributors
+(C)opyright 2014-2016 Grigori Fursin, Anton Lokhmotov and contributors
 
 Minimal requirements
 ====================

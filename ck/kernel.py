@@ -7165,7 +7165,7 @@ def compare_flat_dicts(i):
            if not skip:
               x.append(q)
        keys=x
-    
+
     # Compare all keys
     for q in keys:
         v1=d1.get(q, san)
