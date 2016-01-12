@@ -4,15 +4,12 @@ new modules.
 
 Contributors should clearly mark their contributions including date and remark.
 
-This is still a relatively new project so we still discuss how to make
-contributions easy and efficient.
-
-For now, patches can be sent directly to the collective-knowledge@googlegroups.com
+Patches can be submitted via GitHub or via collective-knowledge@googlegroups.com
 
 Bugs can be reported here:
 * https://github.com/ctuning/ck/issues
 
-Thank you for your interest!
+Thank you for all your help to support this community project!
 
 =================================================================================
 Acknowledgments:
