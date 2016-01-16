@@ -14,7 +14,7 @@ def $#action#$(i):
 
     """
 
-    print ('$#desc#$')
+    ck.out('$#desc#$')
 
     ck.out('')
     ck.out('Command line: ')
