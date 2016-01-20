@@ -4933,6 +4933,8 @@ def add(i):
 
               (extra_json_files)     - dict with extra json files to save to entry (key is a filename)
 
+              (tags)                 - list or comma separated list of tags to add to entry
+
               (info)                 - entry info to record - normally, should not use it!
               (extra_info)           - enforce extra info such as author, license, etc
               (updates)              - entry updates info to record - normally, should not use it!
@@ -5130,6 +5132,23 @@ def add(i):
        r=merge_dicts({'dict1':desc, 'dict2':cmad})
        if r['return']>0: return r
 
+    # Check tags xyz
+    xtags=a.get('tags',[])
+
+    tags=i.get('tags','')
+    if tags=='': tags=[]
+    elif type(tags)!=list:
+       tags=tags.split(',')
+    
+    for l in range(0,len(tags)):
+        ll=tags[l].strip()
+        if ll not in xtags:
+           xtags.append(ll)
+
+    if len(xtags)>0:
+       a['tags']=xtags
+
+    # Process info
     cminfo=i.get('info',{})
     if len(cminfo)!=0:
        info=cminfo
@@ -5275,6 +5294,8 @@ def update(i):
 
               (dict)                 - meta description to record
               (substitute)           - if 'yes', substitute dictionaries, otherwise merge!
+
+              (tags)                 - list or comma separated list of tags to add to entry
 
               (info)                 - entry info to record - normally, should not use it!
               (updates)              - entry updates info to record - normally, should not use it!

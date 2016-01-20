@@ -22,6 +22,7 @@
   * checking if git command line client is installed 
     when pulling shared repo 
   * improving listing of all modules and actions
+  * now you can add tags from CMD when adding/updating entries (ck add dataset:xyz --tags=abc)
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 
