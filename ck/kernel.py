@@ -632,7 +632,7 @@ def select(i):
 
     d=i['dict']
     kd=sorted(d, key=lambda v: d[v].get('sort',0))
-    
+
     j=0
     ks={}
     for k in kd:
@@ -655,7 +655,7 @@ def select(i):
     if sx=='':
        if i.get('error_if_empty','')=='yes':
           return {'return':1, 'error':'selection is empty'}
-       
+
        s=kd[0]
     else:
        if sx not in ks:
@@ -704,7 +704,7 @@ def select_uoa(i):
     y='Select UOA'
     if se!='yes': y+=' (or press Enter for 0)'
     y+=': '
-    
+
     rx=inp({'text':y})
     x=rx['string'].strip()
     if x=='' and se!='yes': x='0' 
@@ -926,7 +926,7 @@ def get_os_ck(i):
           # On Linux use first getconf LONG_BIT and if doesn't work use python bits
 
           obits=pbits
-         
+
           r=gen_tmp_file({})
           if r['return']>0: return r
           fn=r['file_name']
@@ -1969,13 +1969,17 @@ def init(i):
 def list_all_files(i):
     """
     Input:  {
-              path            - top level path
-              (pattern)       - return only files with this pattern
-              (path_ext)      - path extension (needed for recursion)
-              (limit)         - limit number of files (if directories with a large number of files)
-              (number)        - current number of files
-              (all)           - if 'yes' do not ignore special directories (like .cm)
-              (ignore_names)  - list of names to ignore
+              path               - top level path
+              (file_name)        - search for a specific file name
+              (pattern)          - return only files with this pattern
+              (path_ext)         - path extension (needed for recursion)
+              (limit)            - limit number of files (if directories with a large number of files)
+              (number)           - current number of files
+              (all)              - if 'yes' do not ignore special directories (like .cm)
+              (ignore_names)     - list of names to ignore
+              (ignore_symb_dirs) - if 'yes', ignore symbolically linked dirs 
+                                   (to avoid recursion such as in LLVM)
+              (add_path)         - if 'yes', add path
             }
 
     Output: {
@@ -1994,6 +1998,8 @@ def list_all_files(i):
        number=int(i['number'])
 
     inames=i.get('ignore_names',[])
+
+    fname=i.get('file_name','')
 
     limit=-1
     if i.get('limit','')!='': 
@@ -2014,6 +2020,12 @@ def list_all_files(i):
     if pattern!='':
        import fnmatch
 
+    xisd=i.get('ignore_symb_dirs','')
+    isd=False
+    if xisd=='yes': isd=True
+
+    ap=i.get('add_path','')
+
     try:
        dirList=os.listdir(po)
     except Exception as e:
@@ -2022,13 +2034,19 @@ def list_all_files(i):
         for fn in dirList:
             p=os.path.join(po, fn)
             if iall=='yes' or fn not in cfg['special_directories']:
-               if len(inames)==0 or fn not in inames:               
+               if len(inames)==0 or fn not in inames:
                   if os.path.isdir(p):
-                     r=list_all_files({'path':p, 'all':iall, 'path_ext':os.path.join(pe, fn), 'number':str(number), 'ignore_names':inames, 'pattern':pattern})
-                     if r['return']>0: return r
-                     a.update(r['list'])
+                     if not isd or os.path.realpath(p)==p:
+                        r=list_all_files({'path':p, 'all':iall, 'path_ext':os.path.join(pe, fn),
+                                          'number':str(number), 'ignore_names':inames, 'pattern':pattern,
+                                          'file_name':fname, 'ignore_symb_dirs':xisd, 'add_path':ap})
+                        if r['return']>0: return r
+                        a.update(r['list'])
                   else:
                      add=True
+
+                     if fname!='' and fname!=fn:
+                        add=False
 
                      if pattern!='' and not fnmatch.fnmatch(fn, pattern):
                         add=False
@@ -2037,11 +2055,13 @@ def list_all_files(i):
                         pg=os.path.join(pe, fn)
                         a[pg]={'size':os.stat(p).st_size}
 
+                        if ap=='yes': a[pg]['path']=po
+
                         number=len(a)
 
                         if limit!=-1 and number>limit: 
                            break
- 
+
     return {'return':0, 'list':a, 'number':str(number)}
 
 ##############################################################################
@@ -2642,7 +2662,7 @@ def load_module_from_path(i):
     work['cached_module_by_path_last_modification'][full_path]=os.path.getmtime(full_path)
 
     return r
-   
+
 ##############################################################################
 # Perform action
 
@@ -3389,7 +3409,7 @@ def flatten_dict(i):
               dict         - python dictionary
 
               (prefix)     - prefix (for recursion)
-              
+
               (prune_keys) - list of keys to prune (can have wildcards)
             }
 
@@ -3485,7 +3505,7 @@ def get_by_flat_key(i):
 
     a=i['dict']
     k=i['key']
- 
+
     # Remove leading # if exists
     if len(k)>0 and k[0:1]=='#': k=k[1:]
 
@@ -3562,7 +3582,7 @@ def set_by_flat_key(i):
                  else: a[k1]=[]
               a=a[k1]
            elif kt=='@':
-              if len(a)<=long(k1): 
+              if len(a)<=long(k1):
                  for q in range(len(a)-1,long(k1)):
                      if y=='#': a.append({})
                      else: a.append([])
@@ -3575,9 +3595,9 @@ def set_by_flat_key(i):
         if x>=len(k): break
 
     if k1!='' and kt!='':
-       if kt=='#':   
+       if kt=='#':
           a[k1]=v
-       else:         
+       else:
           if len(a)<=long(k1): 
              for q in range(len(a)-1,long(k1)):
                  if y=='#': a.append({})
@@ -3766,7 +3786,7 @@ def check_lock(i):
              return {'return':32, 'error':'entry is locked'}
           elif uuid!=luid:
              return {'return':32, 'error':'entry is locked with different UID'}
-       
+
     elif uuid!='':
        return {'return':32, 'error':'lock was removed or expired'}
 
@@ -3870,7 +3890,7 @@ def detect_cid_in_current_path(i):
           r['module_uoa']=rx['data_uoa']
           r['module_uid']=rx['data_uid']
           r['module_alias']=rx['data_alias']
-       
+
        # Check info about data
        if ld>1:
           d=dirs[ld-2]
@@ -4003,7 +4023,7 @@ def status(i):
              if lversion[0]>version[0] or \
                 (lversion[0]==version[0] and lversion[1]>version[1]) or \
                 (lversion[0]==version[0] and lversion[1]==version[1] and lversion[2]>version[2]):
-                
+
                 outdated='yes'
 
                 if o=='con':
@@ -4425,7 +4445,7 @@ def info(i):
     """
 
     o=i.get('out','')
-    
+
     ruoa=i.get('repo_uoa','')
     muoa=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
@@ -4805,7 +4825,7 @@ def find(i):
        lst.append({'path':p, 'repo_uoa':ruoa, 'repo_uid':ruid, 
                              'module_uoa':muoa, 'module_uid':muid, 
                              'data_uoa':duoa, 'data_uid': duid})
-    
+
     if o=='con':
        pf='' 
        for q in lst:
@@ -5139,7 +5159,7 @@ def add(i):
     if tags=='': tags=[]
     elif type(tags)!=list:
        tags=tags.split(',')
-    
+
     for l in range(0,len(tags)):
         ll=tags[l].strip()
         if ll not in xtags:
@@ -5362,7 +5382,7 @@ def update(i):
           lst.append({'path':p, 'repo_uoa':ruoa, 'repo_uid':ruid, 
                                 'module_uoa':muoa, 'module_uid':muid, 
                                 'data_uoa':duoa, 'data_uid': duid})
-    
+
     # Update entries
     i['out']=o
 
@@ -5371,7 +5391,7 @@ def update(i):
        r=add(i)
     else:
        i['update']='yes'
-   
+
        for q in lst:
            ii={}
            ii.update(i)
@@ -5675,7 +5695,6 @@ def ren(i):
               (add_uid_to_alias) - if 'yes', add UID to alias
 
               (share)            - if 'yes', try to remove old entry via GIT and add new one
-              
             }
 
     Output: {
@@ -5737,7 +5756,7 @@ def ren(i):
        path='/'+muid+'/'+duid+'/1'
        ri=access_index_server({'request':'DELETE', 'path':path})
        if ri['return']>0: return ri
- 
+
     # Check new data UOA
     nduoa=i.get('new_data_uoa','')
     nduid=i.get('new_data_uid','')
@@ -6610,7 +6629,7 @@ def list_data(i):
                                  'module_uoa':muoa, 'module_uid':muid,
                                  'data_uoa':tduoa, 'data_uid':tduid,
                                  'path':dp}
-                                  
+
                               # Need to load info?
                               if iaf or iprn:
                                  if os.path.isfile(dpinfo):
@@ -7793,7 +7812,7 @@ def pull(i):
           # Copy file to current directory
           if os.path.isfile(fn):
              return {'return':1, 'error':'file already exists in the current directory'}
-        
+
           # Copy file
           import shutil
           shutil.copyfile(pfn,fn)
@@ -8204,7 +8223,7 @@ def filter_convert_cm_to_ck(i):
 
        if cuoa!='':
           info['control']['author_uoa']=cuoa
-       
+
        info['control']['engine']='CM'
        info['control']['version']=[]
 
