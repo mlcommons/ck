@@ -49,6 +49,9 @@ def add(i):
               (developer_webpage) - module developer
               (actions)           - dict with actions {"func1":{}, "func2":{} ...}
               (dict)              - other meta description to add to entry
+
+              (quiet)             - minimal interaction
+              (func)              - just add one dummy action
             }
 
     Output: {
@@ -97,8 +100,14 @@ def add(i):
     developer_webpage=i.get('developer_webpage','')
     actions=i.get('actions',{})
 
+    func=i.get('func','')
+    if func!='':
+       actions[func]={}
+
+    quiet=i.get('quiet','')
+
     # If console mode, ask some questions
-    if o=='con':
+    if quiet!='yes' and o=='con':
        if desc=='':
           r=ck.inp({'text':'Add brief module description: '})
           desc=r['string']
