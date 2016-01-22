@@ -55,17 +55,17 @@ Knowledge Framework (CK) to support this agile approach.
 CK is just a small and highly customizable Python wrapper
 framework with a unified JSON API, command line, web
 services and meta-descriptions. Though seemingly simple,
-CK allows researchers easily warp and glue together 
-any existing software, hardware and data, share and reuse 
-wrappers via Git, unify information flow between them, 
-quickly prototype experimental workflows from shared artifacts, 
-apply predictive analytics and enable interactive articles.
+such agile approach allows researchers gradually warp and
+glue together any existing software, hardware and data,
+share and reuse wrappers via Git, unify information flow
+between them, quickly prototype experimental workflows from
+shared artifacts, apply predictive analytics and enable
+interactive articles.
 
 CK is an open-source (under permissive license),
 lightweight (< 1 MB) and very portable framework. It has
 minimal dependencies and simple interfaces with software
 written in C, C++, Fortran, Java, PHP and other languages.
-
 Please, check out CK documentation and Getting Started Guide 
 for more details: http://github.com/ctuning/ck/wiki
 
