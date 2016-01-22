@@ -47,20 +47,19 @@ problems, which intolerably slowed down our own research
 (on developing faster, smaller, more energy efficient and
 reliable computer systems via multi-objective autotuning,
 machine learning and run-time adaptation). 
-
 Eventually, we have realized that the above problems 
 can only be tackled collaboratively by bringing together
 an interdisciplinary community, and designed Collective
 Knowledge Framework (CK) to support this agile approach.
 
-''CK is just a small and highly customizable Python wrapper
+CK is just a small and highly customizable Python wrapper
 framework with a unified JSON API, command line, web
 services and meta-descriptions. Though seemingly simple,
 CK allows researchers easily warp and glue together 
 any existing software, hardware and data, share and reuse 
 wrappers via Git, unify information flow between them, 
-quickly prototype experiments from shared components, 
-apply predictive analytics and enable interactive articles.''
+quickly prototype experimental workflows from shared artifacts, 
+apply predictive analytics and enable interactive articles.
 
 CK is an open-source (under permissive license),
 lightweight (< 1 MB) and very portable framework. It has
@@ -128,21 +127,22 @@ and help you process large amount of experimental results
 improve predictive models and features (knowledge), and
 effectively compact "big data".
 
-For example, our colleagues have successfully used CK 
-to accelerate computer systems' research, solve issues
-known for 15 years, and practically enable customizable,
-extensible and multi-objective software/hardware optimization,
-run-time adaptation and co-design as a CK
-experimental workflow. The community now gradually exposes
+For example, our colleagues successfully use CK to
+accelerate computer systems' research and tackle issues
+known and unsolved for more than 15 years. They started
+practically enabling customizable, extensible and
+multi-objective software/hardware optimization, run-time
+adaptation and co-design as a CK experimental workflow
+shared via GitHub. The community can now gradually expose
 various tuning choices (algorithm and OpenCL/CUDA/MPI
 parameters, compiler flags, polyhedral transformations,
 CPU/GPU frequency, etc) and objectives (execution time,
 code size, compilation time, energy, processors size,
-accuracy, reliability) . The community can also reuse 
-shared autotuning and machine learning plugins to speed up
-exploration of large and non-linear optimization spaces
-and even enable run-time adaptation (self-tuning
-computer systems).
+accuracy, reliability) . The community can also reuse
+shared autotuning and machine learning plugins to speed
+up exploration of large and non-linear optimization spaces
+and even enable run-time adaptation (self-tuning computer
+systems).
 
 Our colleagues have managed to speed up their real-world
 applications across latest platforms
@@ -155,6 +155,7 @@ in minutes rather than days and weeks, as described here:
 * http://cknowledge.org/interactive-report
 * http://github.com/ctuning/ck/wiki/Getting_started_guide_example_slambench
 * https://github.com/ctuning/ck/wiki/Getting_started_guide_clsmith
+* http:/github.com/ctuning/ck-autotuning
 
 Our long-term mission is to help the research community
 dramatically accelerate knowledge discovery via open,
