@@ -156,6 +156,9 @@ in minutes rather than days and weeks, as described here:
 * http://github.com/ctuning/ck/wiki/Getting_started_guide_example_slambench
 * https://github.com/ctuning/ck/wiki/Getting_started_guide_clsmith
 * http:/github.com/ctuning/ck-autotuning
+* http:/github.com/ctuning/reproduce-pamela-project
+* http:/github.com/ctuning/reproduce-carp-project
+* https://github.com/dividiti/gemmbench
 
 Our long-term mission is to help the research community
 dramatically accelerate knowledge discovery via open,
