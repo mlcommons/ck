@@ -350,7 +350,9 @@ Concepts has been described in the following publications:
 
 If you found CK useful and/or interesting, you are welcome
 to reference any of the above publications in your articles
-and reports.
+and reports. You can download above references in bib format here:
+
+* https://raw.githubusercontent.com/ctuning/ck-guide-images/master/collective-knowledge-refs.bib
 
 CK-powered projects
 ===================
