@@ -1,7 +1,7 @@
 Are you an individual researcher or organization performing
 many experiments on a regular basis? You may find the Collective 
-Knowledge framework (CK) useful if you suffer from one or more 
-of the following problems:
+Knowledge framework (CK) useful if you suffer from one or
+more of the following problems:
 
 * instead of innovating, you spend weeks and months preparing 
 ad-hoc experimental workflows, which you either throw away 
@@ -36,24 +36,41 @@ know what the data is telling you ("big data" problem);
 * you want to extract knowledge from raw data in form of models
 but never find time to master powerful predictive analytics techniques;
 
-* your organization pays dearly for its computational needs (in particular,
-for hardware and energy used in data centers and supercomputers) 
-while you suspect they could be met at a fraction of the cost (if, for example,
-your deep learning algorithms could run 10 times faster).
+* your organization pays dearly for its computational needs
+(in particular, for hardware and energy used in data
+centers and supercomputers) while you suspect they could
+be met at a fraction of the cost (if, for example, your
+deep learning algorithms could run 10 times faster).
 
-Over the past 15 years, we have suffered from all the above problems, which
-intolerably slowed down our own research (on developing faster, smaller, more
-energy efficient and reliable computer systems via multi-objective autotuning,
-machine learning and run-time adaptation).
-Eventually, we have realized that the above problems can only be tackled
-collaboratively by bringing together an interdisciplinary community.
+Over the past 15 years, we have suffered from all the above
+problems, which intolerably slowed down our own research
+(on developing faster, smaller, more energy efficient and
+reliable computer systems via multi-objective autotuning,
+machine learning and run-time adaptation). 
 
-Collective Knowledge is an open-source (under permissive license), lightweight (< 1 MB),
-portable and customizable Python-based framework. 
-It has minimal dependencies and simple interfaces with software written
-in C, C++, Fortran, Java, PHP and other languages.
+Eventually, we have realized that the above problems 
+can only be tackled collaboratively by bringing together
+an interdisciplinary community, and designed Collective
+Knowledge Framework (CK) to support this agile approach.
 
-CK is designed to help scientists and research engineers to:
+''CK is just a small and highly customizable Python wrapper
+framework with a unified JSON API, command line, web
+services and meta-descriptions. Though seemingly simple,
+CK allows researchers easily warp and glue together 
+any existing software, hardware and data, share and reuse 
+wrappers via Git, unify information flow between them, 
+quickly prototype experiments from shared components, 
+apply predictive analytics and enable interactive articles.''
+
+CK is an open-source (under permissive license),
+lightweight (< 1 MB) and very portable framework. It has
+minimal dependencies and simple interfaces with software
+written in C, C++, Fortran, Java, PHP and other languages.
+
+Please, check out CK documentation and Getting Started Guide 
+for more details: http://github.com/ctuning/ck/wiki
+
+CK is now successfully used by scientists and research engineers to:
 
 * abstract and unify access to their software, hardware and data 
 via CK modules (wrappers) with a simple JSON API 
@@ -111,16 +128,21 @@ and help you process large amount of experimental results
 improve predictive models and features (knowledge), and
 effectively compact "big data".
 
-For example, our colleagues have used CK to unify many typical 
-scenarios encountered in computer systems' research, and enable
-extensible and multi-objective SW/HW autotuning as a CK
-template (workflow). The community now gradually exposes
+For example, our colleagues have successfully used CK 
+to accelerate computer systems' research, solve issues
+known for 15 years, and practically enable customizable,
+extensible and multi-objective software/hardware optimization,
+run-time adaptation and co-design as a CK
+experimental workflow. The community now gradually exposes
 various tuning choices (algorithm and OpenCL/CUDA/MPI
 parameters, compiler flags, polyhedral transformations,
 CPU/GPU frequency, etc) and objectives (execution time,
 code size, compilation time, energy, processors size,
-accuracy, reliability) while reusing shared autotuning and
-machine learning plugins to explore optimization spaces.
+accuracy, reliability) . The community can also reuse 
+shared autotuning and machine learning plugins to speed up
+exploration of large and non-linear optimization spaces
+and even enable run-time adaptation (self-tuning
+computer systems).
 
 Our colleagues have managed to speed up their real-world
 applications across latest platforms
@@ -130,7 +152,7 @@ by 50%. Furthermore, such CK templates can be easily reused
 in other research scenarios while allowing students and
 researchers start new experiments or reproduce others' results
 in minutes rather than days and weeks, as described here:
-* http://cknowledge.org/repo
+* http://cknowledge.org/interactive-report
 * http://github.com/ctuning/ck/wiki/Getting_started_guide_example_slambench
 * https://github.com/ctuning/ck/wiki/Getting_started_guide_clsmith
 
@@ -142,12 +164,14 @@ simple as GitHub and Wikipedia - do join us!
 
 For more details, please see our recent vision paper at DATE'16, 
 ADAPT workshop, artifact sharing and evaluation initiative for 
-computer systems' conferences, and live demo with the CK-based
-reproducible and interactive articles:
+computer systems' conferences, live demo with the CK-based
+reproducible and interactive articles, and ARM's testimonials 
+about CK:
 * http://bit.ly/ck-date16
 * http://cTuning.org/ae
 * http://adapt-workshop.org
 * http://cknowledge.org/repo
+* http://es.iet.unipi.it/tetracom/content/index.php/impacts
 
 Documentation 
 =============
@@ -326,7 +350,8 @@ and articles) in a user-friendly way:
 
  $ open browser with URL http://localhost:3344
 
-Please, follow CK documentation (including various Getting Started Guides) for more details:
+Please, check out CK documentation (including Getting Started Guide 
+and various tutorials) for more details:
 
 * https://github.com/ctuning/ck/wiki
 
@@ -350,7 +375,8 @@ Concepts has been described in the following publications:
 
 If you found CK useful and/or interesting, you are welcome
 to reference any of the above publications in your articles
-and reports. You can download above references in bib format here:
+and reports. You can download above references in BibTex 
+format here:
 
 * https://raw.githubusercontent.com/ctuning/ck-guide-images/master/collective-knowledge-refs.bib
 
