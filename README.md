@@ -49,18 +49,17 @@ reliable computer systems via multi-objective autotuning,
 machine learning and run-time adaptation). 
 Eventually, we have realized that the above problems 
 can only be tackled collaboratively by bringing together
-an interdisciplinary community, and designed Collective
-Knowledge Framework (CK) to support this agile approach.
+an interdisciplinary community.
 
-CK is just a small and highly customizable Python wrapper
+Hence, we designed Collective Knowledge (CK) as just 
+a small and highly customizable Python wrapper
 framework with a unified JSON API, command line, web
-services and meta-descriptions. Though seemingly simple,
-such agile approach allows researchers gradually warp and
-glue together any existing software, hardware and data,
-share and reuse wrappers via Git, unify information flow
-between them, quickly prototype experimental workflows from
-shared artifacts, apply predictive analytics and enable
-interactive articles.
+services and meta-descriptions. This allows researchers 
+gradually warp and glue together any existing software, 
+hardware and data, share and reuse wrappers via Git, 
+unify information flow between them, quickly prototype 
+experimental workflows from shared artifacts, 
+apply predictive analytics and enable interactive articles.
 
 CK is an open-source (under permissive license),
 lightweight (< 1 MB) and very portable framework. It has
@@ -69,7 +68,8 @@ written in C, C++, Fortran, Java, PHP and other languages.
 Please, check out CK documentation and Getting Started Guide 
 for more details: http://github.com/ctuning/ck/wiki
 
-CK is now successfully used by scientists and research engineers to:
+Though seemingly simple, such agile approach already proved
+to be powerful enough to help scientists and research engineers:
 
 * abstract and unify access to their software, hardware and data 
 via CK modules (wrappers) with a simple JSON API 
