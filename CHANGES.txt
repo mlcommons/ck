@@ -25,6 +25,7 @@
   * now you can add tags from CMD when adding/updating entries (ck add dataset:xyz --tags=abc)
   * improving ck.list_all_files (avoid recursive symbolic directories, add path if needed)
   * added --quiet mode when creating new modules (to simplify procedure)
+  * fixing small buy when detecting latest CK version (works even if non-integer value)
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 

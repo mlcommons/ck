@@ -4015,10 +4015,14 @@ def status(i):
              # converting to int
              for q in range(0, len(version)):
                  if version[q]=='': version[q]='0'
-                 version[q]=int(version[q])
+                 x=version[q]
+                 if x.endswith('x'): x=x[:-1]
+                 version[q]=int(x)
              for q in range(0, len(lversion)):
                  if lversion[q]=='': lversion[q]='0'
-                 lversion[q]=int(lversion[q])
+                 x=lversion[q]
+                 if x.endswith('x'): x=x[:-1]
+                 lversion[q]=int(x)
 
              if lversion[0]>version[0] or \
                 (lversion[0]==version[0] and lversion[1]>version[1]) or \
