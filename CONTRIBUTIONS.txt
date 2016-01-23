@@ -12,8 +12,8 @@ CK bugs can be reported here:
 * https://github.com/ctuning/ck/issues
 
 Bugs related to shared repositories (predictive analytics, reproducible
-experimentation, autotuning, etc) should be reported via they GitHub pages. 
-For example, you can report bugs about autotuning here:
+experimentation, autotuning, etc) should be reported via their corresponding
+GitHub pages. For example, you can report bugs about autotuning here:
 * https://github.com/ctuning/ck-autotuning/issues
 
 Thank you for all your help to support this community project!
