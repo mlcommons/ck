@@ -4,10 +4,17 @@ new modules.
 
 Contributors should clearly mark their contributions including date and remark.
 
-Patches can be submitted via GitHub or via collective-knowledge@googlegroups.com
+You can easily contribute to CK and all related repositories by forking them 
+on GitHub and then submitting a pull request. Alternatively, you can submit
+patches via collective-knowledge@googlegroups.com .
 
-Bugs can be reported here:
+CK bugs can be reported here:
 * https://github.com/ctuning/ck/issues
+
+Bugs related to shared repositories (predictive analytics, reproducible
+experimentation, autotuning, etc) should be reported via they GitHub pages. 
+For example, you can report bugs about autotuning here:
+* https://github.com/ctuning/ck-autotuning/issues
 
 Thank you for all your help to support this community project!
 

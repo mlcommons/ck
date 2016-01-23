@@ -51,8 +51,8 @@ Eventually, we have realized that the above problems
 can only be tackled collaboratively by bringing together
 an interdisciplinary community.
 
-Hence, we designed Collective Knowledge (CK) as just 
-a small and highly customizable Python wrapper
+Hence, we designed Collective Knowledge (CK) as 
+just a small and highly customizable Python wrapper
 framework with a unified JSON API, command line, web
 services and meta-descriptions. This allows researchers 
 gradually warp and glue together any existing software, 
@@ -62,11 +62,11 @@ experimental workflows from shared artifacts,
 apply predictive analytics and enable interactive articles.
 
 CK is an open-source (under permissive license),
-lightweight (< 1 MB) and very portable framework. It has
+lightweight (< 1 MB) and very portable research SDK. It has
 minimal dependencies and simple interfaces with software
 written in C, C++, Fortran, Java, PHP and other languages.
-Please, check out CK documentation and Getting Started Guide 
-for more details: http://github.com/ctuning/ck/wiki
+Please, check out CK documentation and Getting Started
+Guide for more details: http://github.com/ctuning/ck/wiki
 
 Though seemingly simple, such agile approach already proved
 to be powerful enough to help scientists and research engineers:
