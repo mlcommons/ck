@@ -26,6 +26,8 @@
   * improving ck.list_all_files (avoid recursive symbolic directories, add path if needed)
   * added --quiet mode when creating new modules (to simplify procedure)
   * fixing small buy when detecting latest CK version (works even if non-integer value)
+  * added support to pack files with multiple pattern (useful to transfer new solutions
+    via Internet when crowdsourcing experiments)
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 

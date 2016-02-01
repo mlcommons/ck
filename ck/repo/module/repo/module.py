@@ -1583,6 +1583,7 @@ def get_and_unzip_archive(i):
 def import_repo(i):
     """
     Input:  {
+              See action 'add' where import=yes
             }
 
     Output: {

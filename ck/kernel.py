@@ -5156,7 +5156,7 @@ def add(i):
        r=merge_dicts({'dict1':desc, 'dict2':cmad})
        if r['return']>0: return r
 
-    # Check tags xyz
+    # Check tags 
     xtags=a.get('tags',[])
 
     tags=i.get('tags','')
@@ -7750,6 +7750,9 @@ def pull(i):
 
               (out)           - if 'json' or 'json_file', encode file and return in r
               (skip_writing)  - if 'yes', do not write file (not archive) to current directory
+
+              (pattern)       - return only files with this pattern
+              (patterns)      - multiple patterns (useful to pack mutiple points in experiments)
             }
 
     Output: {
@@ -7771,6 +7774,11 @@ def pull(i):
     ruoa=i.get('repo_uoa','')
     muoa=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
+
+    pat=i.get('pattern','')
+    pats=i.get('patterns',[])
+    if pat!='':
+       pats.append(pat)
 
     fn=i.get('filename','')
     if fn=='':
@@ -7853,10 +7861,17 @@ def pull(i):
        zip_method=zipfile.ZIP_DEFLATED
 
        gaf=i.get('all','')
-       r=list_all_files({'path':p, 'all':gaf})
-       if r['return']>0: return r
 
-       fl=r['list']
+       fl={}
+
+       for q in pats:
+           r=list_all_files({'path':p, 'all':gaf, 'pattern':q})
+           if r['return']>0: return r
+
+           flx=r['list']
+
+           for k in flx:
+               fl[k]=flx[k]
 
        # Write archive
        try:
