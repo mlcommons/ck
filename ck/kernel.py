@@ -7753,6 +7753,8 @@ def pull(i):
 
               (pattern)       - return only files with this pattern
               (patterns)      - multiple patterns (useful to pack mutiple points in experiments)
+
+              (encode_file)   - if 'yes', encode file
             }
 
     Output: {
@@ -7768,7 +7770,7 @@ def pull(i):
     o=i.get('out','')
 
     tj=False
-    if o=='json' or o=='json_file':
+    if o=='json' or o=='json_file' or i.get('encode_file','')=='yes':
        tj=True
 
     ruoa=i.get('repo_uoa','')
