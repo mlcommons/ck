@@ -1511,13 +1511,14 @@ def convert_upload_string_to_file(i):
     """
     Input:  {
               file_content_base64 - string transmitted through Internet
-              filename            - file name to write
+              (filename)          - file name to write (if empty, generate tmp file)
             }
 
     Output: {
               return              - return code =  0, if successful
                                                 >  0, if error
               (error)             - error text if return > 0
+              filename            - filename with full path
               filename_ext        - filename extension
             }
     """
@@ -1525,13 +1526,19 @@ def convert_upload_string_to_file(i):
     import base64
 
     x=i['file_content_base64']
-    fn=i['filename']
 
     fc=base64.urlsafe_b64decode(str(x)) # convert from unicode to str since base64 works on strings
                                         # should be safe in Python 2.x and 3.x
 
-    py=os.path.split(fn)
-    px=py[1]
+    fn=i.get('filename','')
+
+    if fn=='':
+       rx=gen_tmp_file({'prefix':'tmp-'})
+       if rx['return']>0: return rx
+       px=rx['file_name']
+    else:
+       py=os.path.split(fn)
+       px=py[1]
 
     fn1, fne = os.path.splitext(px)
 
@@ -1544,7 +1551,7 @@ def convert_upload_string_to_file(i):
     except Exception as e:
        return {'return':1, 'error':'problem writing file='+px+' ('+format(e)+')'}
 
-    return {'return':0, 'filename_ext': fne}
+    return {'return':0, 'filename':px, 'filename_ext': fne}
 
 ##############################################################################
 # Input JSON from console (double enter to finish)
@@ -7920,7 +7927,6 @@ def push(i):
               (archive)             - if 'yes' pull to entry and unzip ...
 
               (overwrite)           - if 'yes', overwrite files
-
             }
 
     Output: {
@@ -8024,29 +8030,11 @@ def push(i):
     # Process if archive
     y=''
     if i.get('archive','')=='yes':
-       import zipfile
-       f=open(p3,'rb')
-       z=zipfile.ZipFile(f)
-       for d in z.namelist():
-           if not d.startswith('.') and not d.startswith('/') and not d.startswith('\\'):
-              pp=os.path.join(p,d)
-              if d.endswith('/'): 
-                 # create directory 
-                 if not os.path.exists(pp): os.makedirs(pp)
-              else:
-                 ppd=os.path.dirname(pp)
-                 if not os.path.exists(ppd): os.makedirs(ppd)
-
-                 # extract file
-                 if os.path.isfile(pp) and overwrite!='yes':
-                    if o=='con':
-                       out('File '+d+' already exists in the entry - skipping ...')
-                 else:
-                    fo=open(pp, 'wb')
-                    fo.write(z.read(d))
-                    fo.close()
-       f.close()
-       os.remove(p3)
+       rx=unzip_file({'archive_file':p3,
+                      'path':p,
+                      'overwrite':overwrite,
+                      'delete_after_unzip':'yes'})
+       if rx['return']>0: return rx
        y='and unziped '
 
     if rshared!='':
@@ -8067,6 +8055,68 @@ def push(i):
        out('File was pushed '+y+'successfully!')
 
     return {'return':0}
+
+##############################################################################
+# List files in a given entry
+
+def unzip_file(i):
+    """
+    Input:  {
+              archive_file         - full path to zip file  
+              (path)               - path where unzip (current if empty)
+              (overwrite)          - if 'yes', overwrite
+              (delete_after_unzip) - if 'yes', delete original zip file after unzipping
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              skipped       - list of files which was not overwritten
+           }
+
+    """
+
+    import zipfile
+
+    p=i.get('path','')
+    if p=='':
+       p=os.getcwd()
+
+    p3=i['archive_file']
+
+    overwrite=i.get('overwrite','')
+
+    dau=i.get('delete_after_unzip','')
+
+    s=[]
+
+    f=open(p3,'rb')
+    z=zipfile.ZipFile(f)
+    for d in z.namelist():
+        if not d.startswith('.') and not d.startswith('/') and not d.startswith('\\'):
+           pp=os.path.join(p,d)
+           if d.endswith('/'): 
+              # create directory 
+              if not os.path.exists(pp): os.makedirs(pp)
+           else:
+              ppd=os.path.dirname(pp)
+              if not os.path.exists(ppd): os.makedirs(ppd)
+
+              # extract file
+              if os.path.isfile(pp) and overwrite!='yes':
+                 s.append(d)
+              else:
+                 fo=open(pp, 'wb')
+                 fo.write(z.read(d))
+                 fo.close()
+    f.close()
+
+    if dau=='yes':
+       os.remove(p3)
+
+    return {'return':0, 'skipped':s}
 
 ##############################################################################
 # List files in a given entry
