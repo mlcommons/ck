@@ -5055,9 +5055,6 @@ def add(i):
           r=inp({'text':'Enter a user-friendly name of this entry (or Enter to reuse alias): '})
           dn=r['string']
 
-    if dn=='' and not is_uid(d):
-       dn=d
-
     # Load dictionary from other entry if needed
     dfcid=i.get('dict_from_cid','')
     dfruoa=i.get('dict_from_repo_uoa','')
@@ -5137,6 +5134,8 @@ def add(i):
           info=r2.get('info',{})
           updates=r2.get('updates',{})
           desc=r2.get('desc',{})
+
+          if dn=='': dn=info.get('data_name','')
        else:
           return {'return':1,'error':'entry already exists in path ('+p2+')'}
     else:
@@ -5146,6 +5145,9 @@ def add(i):
              os.mkdir(p3)
           except Exception as e:
              return {'return':1, 'error':format(e)}
+
+    if dn=='' and not is_uid(d):
+       dn=d
 
     if dfduoa!='':
        r=merge_dicts({'dict1':a, 'dict2':df})

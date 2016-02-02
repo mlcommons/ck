@@ -29,6 +29,7 @@
   * added support to pack files with multiple pattern (useful to transfer new solutions
     via Internet when crowdsourcing experiments)
   * adding unzip_file function (to pack and exchange solutions when crowdsourcing experiments)
+  * fixing a minor bug when updating entries (do not set data_name to default if already exists)
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 
