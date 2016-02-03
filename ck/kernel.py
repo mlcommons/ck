@@ -847,11 +847,15 @@ def get_version(i):
 
     s=''
 
-    for q in cfg['version']:
+    x=cfg['version']
+
+    print ('xyz=',x)
+
+    for q in x:
         if s!='': s+='.'
         s+=q
 
-    return {'return':0, 'version':cfg['version'], 'version_str':s}
+    return {'return':0, 'version':x, 'version_str':s}
 
 ##############################################################################
 # Generate temporary files
@@ -2603,6 +2607,7 @@ def load_module_from_path(i):
               module_code_name - module name
               (cfg)            - configuration of the module if exists ...
               (skip_init)      - if 'yes', skip init
+              (data_uoa)       - module UOA (useful when printing error)
             }
 
     Output: {
@@ -2619,7 +2624,7 @@ def load_module_from_path(i):
     p=i['path']
     n=i['module_code_name']
 
-    cfg=i.get('cfg',None)
+    xcfg=i.get('cfg',None)
 
     # Find module
     try:
@@ -2635,6 +2640,18 @@ def load_module_from_path(i):
        ff.close()
        # Code already loaded 
        return work['cached_module_by_path'][full_path]
+
+    # Check if has dependency on specific CK kernel version
+    if xcfg!=None:
+       kd=xcfg.get('min_kernel_dep','')
+       if kd!='':
+          rx=check_version({'version':kd})
+          if rx['return']>0: return rx
+
+          ok=rx['ok']
+          version_str=rx['current_version']
+          if ok!='yes':
+             return {'return':1, 'error':'module "'+i.get('data_uoa','')+'" requires minimal CK kernel version '+kd+' while your version is '+version_str} 
 
     # Generate uid for the run-time extension of the loaded module 
     # otherwise modules with the same extension (key.py for example) 
@@ -2653,7 +2670,7 @@ def load_module_from_path(i):
 
     # Initialize module with this CK instance 
     c.ck=sys.modules[__name__]
-    if cfg!=None: c.cfg=cfg
+    if xcfg!=None: c.cfg=xcfg
 
     # Initialize module
     if i.get('skip_init','')!='yes':
@@ -2959,7 +2976,7 @@ def perform_action(i):
           # Load module
           mcn=u.get('module_name',cfg['module_code_name'])
 
-          r=load_module_from_path({'path':p, 'module_code_name':mcn, 'cfg':u})
+          r=load_module_from_path({'path':p, 'module_code_name':mcn, 'cfg':u, 'data_uoa':rx['data_uoa']})
           if r['return']>0: return r
 
           c=r['code']
@@ -3721,7 +3738,7 @@ def set_lock(i):
           luid=''
           os.remove(pl)
 
-       # Finish aquiring lock
+       # Finish acquiring lock
        if gl=='yes':
           # (Re)acquire lock
           if uuid=='':
@@ -3989,11 +4006,6 @@ def status(i):
     try:    from urllib.parse import urlencode
     except: from urllib import urlencode
 
-    r=get_version({})
-    if r['return']>0: return r
-    version=r['version']
-    version_str=r['version_str']
-
     page=''
     try:
        res=urllib2.urlopen(cfg['status_url'])
@@ -4017,24 +4029,13 @@ def status(i):
           i2=page.find('\'',i1+9)
           if i2>0:
              lversion_str=page[i1+len(s1):i2].strip()
-             lversion=lversion_str.split('.')
 
-             # converting to int
-             for q in range(0, len(version)):
-                 if version[q]=='': version[q]='0'
-                 x=version[q]
-                 if x.endswith('x'): x=x[:-1]
-                 version[q]=int(x)
-             for q in range(0, len(lversion)):
-                 if lversion[q]=='': lversion[q]='0'
-                 x=lversion[q]
-                 if x.endswith('x'): x=x[:-1]
-                 lversion[q]=int(x)
+             rx=check_version({'version':lversion_str})
+             if rx['return']>0: return rx
 
-             if lversion[0]>version[0] or \
-                (lversion[0]==version[0] and lversion[1]>version[1]) or \
-                (lversion[0]==version[0] and lversion[1]==version[1] and lversion[2]>version[2]):
-
+             ok=rx['ok']
+             version_str=rx['current_version']
+             if ok!='yes':
                 outdated='yes'
 
                 if o=='con':
@@ -4052,6 +4053,54 @@ def status(i):
           out('Problem checking version ...')
 
     return {'return':0, 'outdated':outdated}
+
+############################################################
+# Compare versions 
+
+def check_version(i):
+    """
+    Input:  {
+              version      - your version (string)
+            }
+
+    Output: {
+              return          - return code =  0
+
+              ok              - if 'yes', your CK kernel version is outdated
+              current_version - your CK kernel version
+            }
+
+    """
+
+    ok='yes'
+
+    r=get_version({})
+    if r['return']>0: return r
+    version=r['version']
+    version_str=r['version_str']
+
+    lversion_str=i['version']
+    lversion=lversion_str.split('.')
+
+    # converting to int
+    for q in range(0, len(version)):
+        if version[q]=='': version[q]='0'
+        x=version[q]
+        if x.endswith('x'): x=x[:-1]
+        version[q]=int(x)
+    for q in range(0, len(lversion)):
+        if lversion[q]=='': lversion[q]='0'
+        x=lversion[q]
+        if x.endswith('x'): x=x[:-1]
+        lversion[q]=int(x)
+
+    if lversion[0]>version[0] or \
+       (lversion[0]==version[0] and lversion[1]>version[1]) or \
+       (lversion[0]==version[0] and lversion[1]==version[1] and lversion[2]>version[2]):
+
+       ok='no'
+
+    return {'return':0, 'ok':ok, 'current_version':version_str}
 
 ############################################################
 # Convert info about entry to CID
@@ -4682,6 +4731,8 @@ def load(i):
               (unlock_uid)            - UID of the lock to release it
 
               (min)                   - show minimum when output to console (i.e. meta and desc)
+
+              (create_if_not_found)   - if 'yes', create, if entry is not found - useful to create and lock entries
             }
 
     Output: {
@@ -4724,7 +4775,16 @@ def load(i):
        return {'return':1, 'error':'data UOA is not defined'}
 
     r=find_path_to_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':d})
-    if r['return']>0: return r
+    if r['return']>0: 
+       if r['return']==16 and i.get('create_if_not_found','')=='yes':
+          r=add({'repo_uoa':a, 'module_uoa':m, 'data_uoa':d})
+          if r['return']>0:
+             return r
+          r=find_path_to_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':d})
+          if r['return']>0: return r
+       else:
+          return r
+
     p=r['path']
 
     slu=i.get('skip_updates','')
