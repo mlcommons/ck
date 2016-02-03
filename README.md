@@ -247,10 +247,14 @@ on how your Python is installed):
  $ cd ck
 
  $ sudo python setup.py install
+    and/or
+ $ sudo python3 setup.py install
 
-By default, CK uses the latest version of installed Python, i.e.
-v3 and then v2. You can force CK to use a given Python version
-by changing environment variable "CK_PYTHON", i.e.:
+By default, CK attempts to find and use the latest version of installed Python, 
+i.e. v3 and only then v2. However, this may cause ambiguities with above 
+installation. If you get an error "no module named ck.kernel", you can
+force CK to use a specific Python version by changing environment 
+variable "CK_PYTHON", i.e.:
 
  $ export CK_PYTHON=python3
  

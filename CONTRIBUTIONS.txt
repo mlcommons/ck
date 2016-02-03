@@ -128,3 +128,16 @@ O: ENS Paris, France
 C: evaluating CK-based gemmbench (http://github.com/dividiti/gemmbench)
    and providing feedback about autotuning and experiment reproducibility
 W:
+
+N: Chandan Reddy Gopal 
+E: 
+O: ENS Paris, France
+C: evaluating CK for polyhedral autotuning (Pencil and PPCG from CARP project)
+   and providing various feedback
+W:
+
+N: Michel Steuwer 
+E: 
+O: University of Edinburgh, UK
+C: feedback about documentation
+W:
