@@ -849,8 +849,6 @@ def get_version(i):
 
     x=cfg['version']
 
-    print ('xyz=',x)
-
     for q in x:
         if s!='': s+='.'
         s+=q
