@@ -847,13 +847,15 @@ def get_version(i):
 
     """
 
+    import copy
+
     s=''
 
-    x=cfg['version']
+    x=copy.deepcopy(cfg['version'])
 
     for q in x:
         if s!='': s+='.'
-        s+=q
+        s+=str(q)
 
     return {'return':0, 'version':x, 'version_str':s}
 
