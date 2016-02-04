@@ -309,6 +309,8 @@ paths_repos_all=[]    # Path to all repos
 cache_repo_uoa={}     # Disambiguate repo UOA to repo UID
 cache_repo_info={}    # Cache repo info with path and type
 
+type_long=None        # In Python 3 -> int, in Python 2 -> long
+
 ##############################################################################
 # Universal print of unicode string in utf8 that supports Python 2.x and 3.x
 
@@ -1803,7 +1805,7 @@ def init(i):
     """
 
 
-    global cfg, work, initialized, paths_repos
+    global cfg, work, initialized, paths_repos, type_long
 
     if initialized:
        return {'return':0}
@@ -1817,6 +1819,14 @@ def init(i):
        return {'return':1, 'error':cfg['env_key_root']+' environment variable is empty'}
 
     work['env_root']=os.path.realpath(s)
+
+    # Check long/int types
+    try:
+       x=long
+    except Exception as e:
+       type_long=int
+    else:
+       type_long=long
 
     # Check where are repos (to keep compatibility with past CK < V1.5)
     p=''
