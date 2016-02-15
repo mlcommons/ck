@@ -141,3 +141,9 @@ E:
 O: University of Edinburgh, UK
 C: feedback about documentation
 W:
+
+N: Ed Plowman 
+E: 
+O: ARM, UK
+C: CK feedback and discussions 
+W:
