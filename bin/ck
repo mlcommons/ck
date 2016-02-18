@@ -9,22 +9,37 @@ if [ -z "$CK_ROOT" ]; then
   export CK_ROOT=$CK_path; 
 fi
 
-# Check which python to use
-if [ "$CK_PYTHON" != "" ]; then
-   export PYTHON=$CK_PYTHON
-fi
-
-if [ -z "$PYTHON" ]; then
-   if $(python3 --version &> /dev/null) ; then
-      export PYTHON=python3
-   else
-      export PYTHON=python
-   fi
-fi
-
 # Load kernel module (either GIT/local installation or as package)
 if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
- $PYTHON -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
+   if [ "$CK_PYTHON" == "" ]; then
+      CK_PYTHON=$PYTHON
+      if [ "$CK_PYTHON" == "" ]; then
+         CK_PYTHON=python
+      fi
+   fi
+
+   $CK_PYTHON -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
+
 else
- $PYTHON -m ck.kernel "$@"
+  if [ "$CK_PYTHON" == "" ]; then
+     CK_PYTHON=python
+     $CK_PYTHON -m ck.kernel test &> /dev/null
+
+     if [ $? -ne 0 ]; then
+        CK_PYTHON=python2
+        $CK_PYTHON -m ck.kernel test &> /dev/null
+
+        if [ $? -ne 0 ]; then
+           CK_PYTHON=python3
+           $CK_PYTHON -m ck.kernel test &> /dev/null
+        fi
+     fi
+  fi
+
+  if [ $? -ne 0 ]; then
+     echo "Can't find CK kernel - check installation or report to authors!"
+     exit 1
+  fi
+
+  $CK_PYTHON -m ck.kernel "$@"
 fi

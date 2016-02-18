@@ -36,6 +36,7 @@
   * fixing bug when loading new module (replacing old cfg)
   * adding ck.type_long (set to long in Python 2.x and to int in Python 3.x) for compatibility
   * adding ck.safe_float and ck.safe_int (for safe sorting - used when sorting crowdtuning results)
+  * fixing detection of a right Python version
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 
