@@ -366,6 +366,28 @@ def err(r):
     exit(rc)
 
 ##############################################################################
+# Support function for safe float (useful for sorting function)
+def safe_float(i,d):
+    r=d
+    try:
+       r=float(i)
+    except Exception as e: 
+       pass
+
+    return r
+
+##############################################################################
+# Support function for safe int (useful for sorting function)
+def safe_int(i,d):
+    r=d
+    try:
+       r=int(i)
+    except Exception as e: 
+       pass
+
+    return r
+
+##############################################################################
 # Support function for system_with_timeout
 
 def system_with_timeout_kill(proc):
