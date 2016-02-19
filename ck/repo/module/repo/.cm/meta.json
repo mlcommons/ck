@@ -36,6 +36,9 @@
     "remove": {
       "desc": "remove repository from CK"
     }, 
+    "renew": {
+      "desc": "renew repository (remove fully and pull again)"
+    }, 
     "rm": {
       "desc": "remove repository from CK"
     }, 

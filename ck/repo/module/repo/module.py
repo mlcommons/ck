@@ -1855,3 +1855,66 @@ def find(i):
        i['common_func']='yes'
 
     return ck.access(i)
+
+##############################################################################
+# renew repository (remove fully and pull again)
+
+def renew(i):
+    """
+    Input:  {
+              data_uoa                   - data UOA of the repo
+
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    # Check if global writing is allowed
+    r=ck.check_writing({})
+    if r['return']>0: return r
+
+    o=i.get('out','')
+
+    duoa=i.get('data_uoa','')
+    if duoa=='':
+       return {'return':1, 'error':'repository UOA is not specified'}
+
+    # Get configuration (not from Cache - can be outdated info!)
+#    r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
+    r=ck.access({'action':'load',
+                 'module_uoa':work['self_module_uoa'],
+                 'data_uoa':duoa})
+    if r['return']>0: return r
+
+    p=r.get('dict',{}).get('path','')
+    d=r['dict']
+    dn=r.get('data_name','')
+
+    shared=d.get('shared','')
+    url=d.get('url','')
+
+    if shared!='git' and url=='':
+       return {'return':1, 'error':'this repository is not shared and can not be renewed!'}
+
+    # first delete
+    ii={'action':'rm',
+        'module_uoa':work['self_module_uoa'],
+        'data_uoa':duoa,
+        'all':'yes'}
+    if o=='con':
+       ii['out']='con'
+    r=ck.access(ii)
+    if r['return']>0: return r
+
+    # pull again
+    ii={'action':'pull',
+        'module_uoa':work['self_module_uoa'],
+        'data_uoa':duoa,
+        'data_name':dn,
+        'url':url}
+    return ck.access(ii)
