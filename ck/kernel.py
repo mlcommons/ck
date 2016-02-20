@@ -789,7 +789,9 @@ def check_writing(i):
 
     """
 
-    if i.get('delete','')=='yes' and cfg.get('forbid_global_delete','')=='yes':
+    dl=i.get('delete','')
+
+    if dl=='yes' and cfg.get('forbid_global_delete','')=='yes':
        return {'return':1, 'error':'delete/rename operations are forbidden'}
 
     if cfg.get('forbid_global_writing','')=='yes':
@@ -831,6 +833,9 @@ def check_writing(i):
     if cfg.get('allow_writing_only_to_allowed','')=='yes':
        if rd.get('allow_writing','')!='yes':
           return {'return':1, 'error':'writing to this repo is forbidden'}
+
+    if rd.get('forbid_deleting','')=='yes' and dl=='yes':
+       return {'return':1, 'error':'deleting in this repo is forbidden'}
 
     return rr
 

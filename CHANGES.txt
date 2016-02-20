@@ -39,6 +39,8 @@
   * fixing detection of a right Python version
   * adding 'renew repo' function to completely remove polluted and shared repository,
     and pull new one (Issue #12) 
+  * adding support to forbid deleting in specific repos
+    (useful only to aggregate information such as during crowdtuning)
 
 * V1.6.12
   * adding CK_PYTHON env variable in ck script 
