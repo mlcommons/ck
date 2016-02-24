@@ -8694,7 +8694,7 @@ def access(i):
 
     ### If input is a list
     if type(i)==list:
-       if len(i)>0 and i[0].strip()=='test':
+       if len(i)==1 and i[0].strip()=='test_install':
           return rr # installation test
 
        cmd=True
