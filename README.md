@@ -144,7 +144,13 @@ up exploration of large and non-linear optimization spaces
 and even enable run-time adaptation (self-tuning computer
 systems).
 
-Our colleagues have managed to speed up their real-world
+For example, check out public GCC/LLVM optimization results 
+of various shared workloads across  diverse hardware including
+mobile devices provided by volunteers:
+* http://cTuning.org/crowd-results
+* https://play.google.com/store/apps/details?id=openscience.crowdsource.experiments
+
+Furthermore, our colleagues have managed to speed up their real-world
 applications across latest platforms
 (from mobile phones to cloud servers) by 10x with the same
 numerical accuracy, reduce energy by 30% and code size
@@ -363,6 +369,17 @@ and various tutorials) for more details:
 
 * https://github.com/ctuning/ck/wiki
 
+Participating in experiment crowdsourcing
+=========================================
+You can easily partipcate in collaborative program optimization and 
+machine learning using the following two steps:
+
+ $ ck pull repo:ck-crowdtuning
+ 
+ $ ck crowtune program
+
+All public optimization results are available at http://cTuning.org/crowd-results
+
 Questions/comments/discussions?
 ===============================
 Please, use our mailing lists:
@@ -375,8 +392,9 @@ Publications
 ============
 Concepts has been described in the following publications:
 
-* http://bit.ly/ck-date16 (DATE'16)
 * http://arxiv.org/abs/1506.06256 (CPC'15)
+* http://bit.ly/ck-date16 (DATE'16)
+* http://cknowledge.org/interactive-report
 * http://hal.inria.fr/hal-01054763 (Journal of Scientific Programming'14)
 * http://arxiv.org/abs/1406.4020 (TRUST'14 @ PLDI'14)
 * https://hal.inria.fr/inria-00436029 (GCC Summit'09)
