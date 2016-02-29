@@ -1,4 +1,7 @@
-* V1.6.13x
+* V1.6.14x
+
+* V1.6.14
+  * forgot to add cfg module to setup.py (preferred to generate new version)
 
 * V1.6.13
   * adding 'ck cmd test' to let users understand CK command line -

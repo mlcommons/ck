@@ -9,7 +9,7 @@ from distutils.core import setup
 
 setup(
   name='ck',
-  version='1.6.13',
+  version='1.6.14',
   url='https://github.com/ctuning/ck/wiki',
   license='BSD 3-clause',
   author='Grigori Fursin and non-profit cTuning foundation',
@@ -37,6 +37,8 @@ setup(
                        'repo/module/module/.cm/*',
                        'repo/module/repo/*.py',
                        'repo/module/repo/.cm/*',
+                       'repo/module/cfg/*.py',
+                       'repo/module/cfg/.cm/*',
                        'repo/module/test/*.py',
                        'repo/module/test/.cm/*',
                        'repo/module/tmp/*.py',
