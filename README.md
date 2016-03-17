@@ -6,20 +6,25 @@ to quickly prototype experimental workflows (such as multi-objective autotuning)
 from shared components with unified JSON API; crowdsource and reproduce experiments; 
 apply predictive analytics; enable interactive articles. 
 
-The minimal version only require only Python >=2.7 and Git client installed.
+The minimal version only requires only Python >=2.7 and Git client installed.
 
 For example, you can install shared workflow for collaborative program optimization
-with all related artifacts, and start participating in crowdtuning as following:
+with all related artifacts, and start participating in crowdtuning simply as following:
 
 $ git clone https://github.com/ctuning/ck.git ck
+
 $ export PATH=$PWD/ck/bin:$PATH
+
 $ ck pull repo:ck-crowdtuning
+
 $ ck crowdsource experiment
 
-If you have LLVM installed, you can start continuously crowd-tune 
-its optimization heuristic in a quiet mode (for example overnight) via
+If you have GCC or LLVM compilers installed, you can start continuously crowd-tune 
+their optimization heuristics in a quiet mode (for example overnight) via
 
 $ ck crowdtune program --llvm --quiet
+
+$ ck crowdtune program --gcc --quiet
 
 This experimental workflow will be optimizing different shared workloads
 for multiple objectives (execution time, code size, energy, compilation time, etc)
@@ -28,7 +33,7 @@ and send best found optimization cases to the public CK-based server:
 * http://cknowledge.org/repo
 
 You can also participate in collaborative experiments using your Android mobile phone
-by installing this application from Google Play Store:
+by installing the following application from Google Play Store:
 
 * https://play.google.com/store/apps/details?id=openscience.crowdsource.experiments
 
