@@ -4,12 +4,13 @@ Introduction
 Collective Knowledge is a small, portable and customizable research platform 
 to quickly prototype experimental workflows (such as multi-objective autotuning) 
 from shared components with unified JSON API; crowdsource and reproduce experiments; 
-apply predictive analytics; enable interactive articles. 
+apply predictive analytics and enable interactive articles. 
 
-The minimal version only requires only Python >=2.7 and Git client installed.
+The minimal version only requires Python >=2.7 and Git client installed.
 
 For example, you can install shared workflow for collaborative program optimization
-with all related artifacts, and start participating in crowdtuning simply as following:
+with all related artifacts, and start participating in multi-objective crowdtuning 
+simply as following: 
 
 $ git clone https://github.com/ctuning/ck.git ck
 
@@ -28,12 +29,17 @@ $ ck crowdtune program --gcc --quiet
 
 This experimental workflow will be optimizing different shared workloads
 for multiple objectives (execution time, code size, energy, compilation time, etc)
-and send best found optimization cases to the public CK-based server:
+using all exposed design and optimization knobs, and send best found optimization 
+cases to the public CK-based server:
 
 * http://cknowledge.org/repo
 
+CK server will, in turn, perform on-line learning to classify optimization 
+versus workloads which can be useful for compiler/hardware designers and 
+performance engineers (described in more detail in http://arxiv.org/abs/1506.06256 ).
+
 You can also participate in collaborative experiments using your Android mobile phone
-by installing the following application from Google Play Store:
+by installing the following application from the Google Play Store:
 
 * https://play.google.com/store/apps/details?id=openscience.crowdsource.experiments
 
