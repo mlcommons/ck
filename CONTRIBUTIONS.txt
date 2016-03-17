@@ -147,3 +147,27 @@ E:
 O: ARM, UK
 C: CK feedback and discussions 
 W:
+
+N: Luigi Nardi 
+E: 
+O: STMicroelectronics, France
+C: testing GCC crowdtuning engine and reporting a few minor bugs
+W:
+
+N: Michael Haidl
+E:
+H:
+O: 
+C: helping test ARM64-based mobile phone to crowdsource optimizations
+
+N: Toomas Remmelg
+E:
+H:
+O: University of Edinburgh, UK
+C: helping test ARM64-based Android mobile devices (flags and OpenCL)
+
+N: Christophe Guillon 
+E: 
+O: STMicroelectronics, France
+C: testing GCC crowdtuning engine and reporting a few minor bugs
+W:

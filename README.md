@@ -1,3 +1,97 @@
+Introduction
+============
+
+Collective Knowledge is a small, portable and customizable research platform 
+to quickly prototype experimental workflows (such as multi-objective autotuning) 
+from shared components with unified JSON API; crowdsource and reproduce experiments; 
+apply predictive analytics; enable interactive articles. 
+
+The minimal version only require only Python >=2.7 and Git client installed.
+
+For example, you can install shared workflow for collaborative program optimization
+with all related artifacts, and start participating in crowdtuning as following:
+
+$ git clone https://github.com/ctuning/ck.git ck
+$ export PATH=$PWD/ck/bin:$PATH
+$ ck pull repo:ck-crowdtuning
+$ ck crowdsource experiment
+
+If you have LLVM installed, you can start continuously crowd-tune 
+its optimization heuristic in a quiet mode (for example overnight) via
+
+$ ck crowdtune program --llvm --quiet
+
+This experimental workflow will be optimizing different shared workloads
+for multiple objectives (execution time, code size, energy, compilation time, etc)
+and send best found optimization cases to the public CK-based server:
+
+* http://cknowledge.org/repo
+
+You can also participate in collaborative experiments using your Android mobile phone
+by installing this application from Google Play Store:
+
+* https://play.google.com/store/apps/details?id=openscience.crowdsource.experiments
+
+Further info, publications and related initiatives:
+
+* https://github.com/ctuning/ck/wiki
+* http://cTuning.org/ae
+* http://arxiv.org/abs/1506.06256
+* http://bit.ly/ck-date16
+* http://cknowledge.org/interactive-report
+* http://hal.inria.fr/hal-01054763
+* http://adapt-workshop.org
+
+Documentation 
+=============
+* Full CK documentation (including motivation, getting started guide and tutorials): http://github.com/ctuning/ck/wiki
+* All shared modules: https://github.com/ctuning/ck/wiki/Shared_modules
+* All shared repositories: https://github.com/ctuning/ck/wiki/Shared_repos
+
+License
+=======
+* Permissive 3-clause BSD license (see LICENSE.txt file for more details).
+
+Authors
+=======
+* Grigori Fursin, http://fursin.net
+* Anton Lokhmotov, https://www.hipeac.net/~anton
+
+Copyright
+=========
+(C)opyright 2014-2016 Grigori Fursin, Anton Lokhmotov and contributors
+
+Minimal requirements
+====================
+* Python >= 2.6 (3.0+ is natively supported)
+* GIT command line client
+
+If you would like to use shared repositories with already implemented
+crowd-benchmarking, multi-objective autotuning, statistical analysis,
+predictive analytics, interactive graphs, etc, you may need to install
+extra Python packages: 
+
+* 'matplotlib','scipy' and 'numpy' to plot graphs and perform statistical 
+analysis (during performance/energy/accuracy autotuning and modeling)
+* 'sklearn-kit' for predictive analytics
+* 'psutil' to properly terminate running process on Windows after timeout 
+(during program autotuning and design space exploration)
+* 'Tkinter' or 'tkinter' or 'pyperclip' if copy to clipboard functionality 
+is required (to reproduce CK experiments from the web)
+
+Alternatively, you can use Anaconda python distribution
+which includes all scientific packages required for CK-based
+collaborative and reproducible experimentation.
+
+You can also considerably speed up local search by installing 
+free third-party Hadoop-based ElasticSearch (http://elastic.co) 
+and turning on transparent indexing in CK.
+
+We successfully validated CK on Linux, Windows, Mac OS X 
+and partially on Android.
+
+Motivation
+==========
 Are you an individual researcher or organization performing
 many experiments on a regular basis? You may find the Collective 
 Knowledge framework (CK) useful if you suffer from one or
@@ -183,54 +277,6 @@ about CK:
 * http://cknowledge.org/repo
 * http://es.iet.unipi.it/tetracom/content/index.php/impacts
 
-Documentation 
-=============
-* Full CK documentation (including motivation, getting started guide and tutorials): http://github.com/ctuning/ck/wiki
-* All shared modules: https://github.com/ctuning/ck/wiki/Shared_modules
-* All shared repositories: https://github.com/ctuning/ck/wiki/Shared_repos
-
-License
-=======
-* Permissive 3-clause BSD license (see LICENSE.txt file for more details).
-
-Authors
-=======
-* Grigori Fursin, http://fursin.net
-* Anton Lokhmotov, https://www.hipeac.net/~anton
-
-Copyright
-=========
-(C)opyright 2014-2016 Grigori Fursin, Anton Lokhmotov and contributors
-
-Minimal requirements
-====================
-* Python >= 2.6 (3.0+ is natively supported)
-* GIT command line client
-
-If you would like to use shared repositories with already implemented
-crowd-benchmarking, multi-objective autotuning, statistical analysis,
-predictive analytics, interactive graphs, etc, you may need to install
-extra Python packages: 
-
-* 'matplotlib','scipy' and 'numpy' to plot graphs and perform statistical 
-analysis (during performance/energy/accuracy autotuning and modeling)
-* 'sklearn-kit' for predictive analytics
-* 'psutil' to properly terminate running process on Windows after timeout 
-(during program autotuning and design space exploration)
-* 'Tkinter' or 'tkinter' or 'pyperclip' if copy to clipboard functionality 
-is required (to reproduce CK experiments from the web)
-
-Alternatively, you can use Anaconda python distribution
-which includes all scientific packages required for CK-based
-collaborative and reproducible experimentation.
-
-You can also considerably speed up local search by installing 
-free third-party Hadoop-based ElasticSearch (http://elastic.co) 
-and turning on transparent indexing in CK.
-
-We successfully validated CK on Linux, Windows, Mac OS X 
-and partially on Android.
-
 Minimal installation
 ====================
 
@@ -371,12 +417,12 @@ and various tutorials) for more details:
 
 Participating in experiment crowdsourcing
 =========================================
-You can easily partipcate in collaborative program optimization and 
+You can easily participate in collaborative program optimization and 
 machine learning using the following two steps:
 
  $ ck pull repo:ck-crowdtuning
  
- $ ck crowtune program
+ $ ck crowdtune program
 
 All public optimization results are available at http://cTuning.org/crowd-results
 
