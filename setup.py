@@ -9,7 +9,7 @@ from distutils.core import setup
 
 setup(
   name='ck',
-  version='1.6.14',
+  version='1.6.14x',
   url='https://github.com/ctuning/ck/wiki',
   license='BSD 3-clause',
   author='Grigori Fursin and non-profit cTuning foundation',

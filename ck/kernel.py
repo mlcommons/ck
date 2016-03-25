@@ -20,7 +20,7 @@ allow_print=True       # Needed to supress all output
 con_encoding=''        # Use non-default console encoding
 
 cfg={
-      "version":["1", "6", "14"],
+      "version":["1", "6", "14x"],
 
       "name":"Collective Knowledge",
       "desc":"exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",
@@ -7861,6 +7861,8 @@ def pull(i):
               (patterns)      - multiple patterns (useful to pack mutiple points in experiments)
 
               (encode_file)   - if 'yes', encode file
+
+              (skip_tmp)      - if 'yes', skip tmp files and directories
             }
 
     Output: {
@@ -7878,6 +7880,8 @@ def pull(i):
     tj=False
     if o=='json' or o=='json_file' or i.get('encode_file','')=='yes':
        tj=True
+
+    st=i.get('skip_tmp','')
 
     ruoa=i.get('repo_uoa','')
     muoa=i.get('module_uoa','')
@@ -7972,22 +7976,29 @@ def pull(i):
 
        fl={}
 
-       for q in pats:
-           r=list_all_files({'path':p, 'all':gaf, 'pattern':q})
-           if r['return']>0: return r
+       if len(pats)>0:
+          for q in pats:
+              r=list_all_files({'path':p, 'all':gaf, 'pattern':q})
+              if r['return']>0: return r
 
-           flx=r['list']
+              flx=r['list']
 
-           for k in flx:
-               fl[k]=flx[k]
+              for k in flx:
+                  fl[k]=flx[k]
+       else:
+          r=list_all_files({'path':p, 'all':gaf})
+          if r['return']>0: return r
+
+          fl=r['list']
 
        # Write archive
        try:
           f=open(pfn, 'wb')
           z=zipfile.ZipFile(f, 'w', zip_method)
           for fn in fl:
-              p1=os.path.join(p, fn)
-              z.write(p1, fn, zip_method)
+              if st!='yes' or not fn.startswith('tmp'):
+                 p1=os.path.join(p, fn)
+                 z.write(p1, fn, zip_method)
           z.close()
           f.close()
 
