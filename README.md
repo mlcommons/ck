@@ -6,7 +6,8 @@ Collective Knowledge is a small, portable and customizable research platform to
 * quickly prototype experimental workflows (such as multi-objective autotuning) from such components;
 * enable co-existence of multiple versions of a given tool or library;
 * let researchers reuse the latest environment for experiments (rather than using quickly outdated virtual images);
-* crowdsource, store and reproduce experiments; 
+* automate and reproduce experiments; 
+* crowdsource experiments using CK JSON-based web service;
 * apply predictive analytics;
 * enable reproducible and interactive articles. 
 
