@@ -75,7 +75,17 @@ Copyright
 Minimal requirements
 ====================
 * Python >= 2.6 (3.0+ is natively supported)
-* GIT command line client
+* Git command line client
+
+On Ubuntu, you can install these dependencies via
+
+$ apt-get install python git
+
+On Windows, you can download and install these tools from the following sites:
+
+* Git: https://git-for-windows.github.io
+* Minimal Python: https://www.python.org/downloads/windows
+* Anaconda scientific Python with all packages: https://www.continuum.io/downloads#_windows
 
 If you would like to use shared repositories with already implemented
 crowd-benchmarking, multi-objective autotuning, statistical analysis,

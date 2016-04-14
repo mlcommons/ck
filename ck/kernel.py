@@ -8,6 +8,7 @@
 #
 
 # CK kernel
+__version__ = "1.6.14x"
 
 # Extra modules global for the whole kernel
 import sys
@@ -20,7 +21,7 @@ allow_print=True       # Needed to supress all output
 con_encoding=''        # Use non-default console encoding
 
 cfg={
-      "version":["1", "6", "14x"],
+#      "version":["1", "6", "14x"],
 
       "name":"Collective Knowledge",
       "desc":"exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",
@@ -1833,11 +1834,13 @@ def init(i):
             }
     """
 
-
     global cfg, work, initialized, paths_repos, type_long
 
     if initialized:
        return {'return':0}
+
+    # Split version
+    cfg['version']=__version__.split('.')
 
     # Check CK_ROOT environment variable
     if not cfg['env_key_root'] in os.environ.keys():
