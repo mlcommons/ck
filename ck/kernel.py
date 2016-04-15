@@ -2463,7 +2463,7 @@ def find_path_to_data(i):
           s+='?:'
        s+=muid+':'+duid+')'
 
-       return {'return':16, 'error':'can\'t find path to data "'+s}
+       return {'return':16, 'error':'can\'t find path to CK entry "'+s}
 
 #    # Get info about repo
 #    if ruid=='':
@@ -2557,7 +2557,7 @@ def find_path_to_entry(i):
 
        return {'return':0, 'path':p1, 'data_uid':uid, 'data_alias':alias, 'data_uoa':alias}
 
-    return {'return':16, 'error':'can\'t find path to entry'}
+    return {'return':16, 'error':'can\'t find path to CK entry'}
 
 ##############################################################################
 # Load meta description from a path

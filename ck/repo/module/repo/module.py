@@ -1877,7 +1877,6 @@ def renew(i):
     """
     Input:  {
               data_uoa                   - data UOA of the repo
-
             }
 
     Output: {
@@ -1932,3 +1931,48 @@ def renew(i):
         'data_name':dn,
         'url':url}
     return ck.access(ii)
+
+##############################################################################
+# show remote repo in a browser
+
+def show(i):
+    """
+    Input:  {
+              data_uoa                   - data UOA of the repo
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    duoa=i.get('data_uoa','')
+    if duoa=='':
+       return {'return':1, 'error':'repository UOA is not specified'}
+
+    # Get configuration (not from Cache - can be outdated info!)
+#    r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
+    r=ck.access({'action':'load',
+                 'module_uoa':work['self_module_uoa'],
+                 'data_uoa':duoa})
+    if r['return']>0: return r
+
+    p=r.get('dict',{}).get('path','')
+    d=r['dict']
+    dn=r.get('data_name','')
+
+    shared=d.get('shared','')
+    url=d.get('url','')
+
+    if shared!='git' and url=='':
+       return {'return':1, 'error':'this repository is not shared!'}
+
+    import webbrowser
+    webbrowser.open(url)
+
+    return {'return':0}

@@ -42,6 +42,9 @@
     "rm": {
       "desc": "remove repository from CK"
     }, 
+    "show": {
+      "desc": "show remote repo in a browser"
+    }, 
     "unzip": {
       "desc": "unzip entries from an archive to a given CK repository"
     }, 
