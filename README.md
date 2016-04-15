@@ -3,12 +3,12 @@ Introduction
 
 Collective Knowledge is a small, portable and customizable research platform to
 * share artifacts (programs, benchmarks, data sets, tools, predictive models, etc) as reusable and indexable Python components with unified JSON API and meta information; 
-* quickly prototype experimental workflows (such as multi-objective autotuning) from such components;
+* quickly prototype experimental workflows (such as multi-objective autotuning) from shared components;
 * enable co-existence of multiple versions of a given tool or library;
 * let researchers reuse the latest environment for experiments (rather than using quickly outdated virtual images);
 * automate and reproduce experiments; 
 * crowdsource experiments using CK JSON-based web service;
-* apply predictive analytics;
+* apply predictive analytics via unified JSON API (scikit-learn, R, etc);
 * enable reproducible and interactive articles. 
 
 The minimal version only requires Python >=2.7 and Git client installed.

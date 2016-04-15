@@ -683,10 +683,23 @@ def pull(i):
        pp.append({'path':px, 'type':t, 'url':url})
 
     uoa=i.get('data_uoa','')
-    cids=i.get('cids',[])
-    if len(cids)>0: uoa=cids[0]
 
-    if uoa=='' and len(pp)==0: uoa='*'
+    cids=i.get('cids',[])
+    if len(cids)>0 and uoa=='': 
+       uoa=cids[0]
+
+    # If url is not empty and uoa is empty, get name from URL:
+    if url!='' and uoa=='' and px=='':
+       ix=url.rfind('/')
+       if ix>0:
+          uoa=url[ix+1:]
+          if uoa.endswith('.git'):
+             uoa=uoa[:-4]
+
+          i['data_uoa']=uoa
+
+    if uoa=='' and len(pp)==0 and url=='': 
+       uoa='*'
 
     if uoa!='':
        if uoa.find('*')>=0 or uoa.find('?')>=0:
@@ -759,6 +772,7 @@ def pull(i):
         if o=='con' and tt!='clone':
            ck.out('******************************************************************')
            ck.out('Updating repo "'+duoa+'" ...')
+           ck.out('')
            ck.out('  Local path: '+p)
            ck.out('  URL:        '+url)
 
