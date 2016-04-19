@@ -2038,7 +2038,8 @@ def list_all_files(i):
                                          >  0, if error
               (error)      - error text if return > 0
 
-              list         - list of all files
+              list         - dictionary of all files:
+                               {"file_with_full_path":{"size":.., "path":..}
               sizes        - sizes of files (the same order)
               number       - number of files in a current directory (needed for recursion)
             }
