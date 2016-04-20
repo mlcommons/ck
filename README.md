@@ -1,9 +1,10 @@
 Introduction
 ============
 
-Collective Knowledge is a small, portable and customizable research platform to
+Collective Knowledge is our swiss knife for open, collaborative and reproducible research.
+CK is a small, portable and customizable research platform to
 * share artifacts (programs, benchmarks, data sets, tools, predictive models, etc) as reusable and indexable Python components with unified JSON API and meta information; 
-* quickly prototype experimental workflows from shared components (such as multi-objective OpenCL,CUDA,MPI,OpenMP and compiler flag autotuning);
+* quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags);
 * let researchers install, use and select  multiple versions of a given tool or library;
 * let researchers reuse the latest environment for experiments (rather than using quickly outdated virtual images);
 * let researchers transparently use both Python 2.x and 3.x;
