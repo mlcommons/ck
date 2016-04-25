@@ -3,14 +3,12 @@ Introduction
 
 Collective Knowledge is our swiss knife for open, collaborative and reproducible research.
 CK is a small, portable and customizable research platform to
-* share artifacts (programs, benchmarks, data sets, tools, predictive models, etc) as reusable and indexable Python components with unified JSON API and meta information; 
+* share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc); 
 * quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags);
-* let researchers install, use and select  multiple versions of a given tool or library;
-* let researchers reuse the latest environment for experiments (rather than using quickly outdated virtual images);
-* let researchers transparently use both Python 2.x and 3.x;
-* automate and reproduce experiments
-* crowdsource experiments using CK JSON-based web service;
-* apply predictive analytics via unified JSON API (scikit-learn, R, etc);
+* unify access to evolving software across Windows, Linux and Android (tools, programs, libraries);
+* use the latest environment for experiments (rather than using quickly outdated virtual images);
+* automate, reproduce and crowdsource experiments (using CK JSON-based web services);
+* unify access to predictive analytics via unified JSON API and CK web services (scikit-learn, R, DNN, etc);
 * enable reproducible and interactive articles. 
 
 The minimal version only requires Python >=2.7 and Git client installed.

@@ -389,6 +389,16 @@ def safe_int(i,d):
     return r
 
 ##############################################################################
+# Support function to get value from list without error if out of bounds
+# (useful for various sorting)
+
+def safe_get_val_from_list(lst, index, default_value):
+    v=default_value
+    if index<len(lst):
+       v=lst[index]
+    return v
+
+##############################################################################
 # Support function for system_with_timeout
 
 def system_with_timeout_kill(proc):

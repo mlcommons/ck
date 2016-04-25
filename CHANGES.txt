@@ -6,6 +6,7 @@
   * automatically extracting repo name from URL string when pulling repos from GitHub via --url
   * added action 'show' to 'repo' module to be able to open browser 
     with an URL of a shared repository. For example, 'ck show repo:ck-autotuning'
+  * Adding support function to get value from list without error if out of bounds (useful for sorting)
 
 * V1.6.14
   * forgot to add cfg module to setup.py (preferred to generate new version)
