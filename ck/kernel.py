@@ -2115,14 +2115,15 @@ def list_all_files(i):
 
                      if add:
                         pg=os.path.join(pe, fn)
-                        a[pg]={'size':os.stat(p).st_size}
+                        if os.path.isfile(pg):
+                           a[pg]={'size':os.stat(p).st_size}
 
-                        if ap=='yes': a[pg]['path']=po
+                           if ap=='yes': a[pg]['path']=po
 
-                        number=len(a)
+                           number=len(a)
 
-                        if limit!=-1 and number>limit: 
-                           break
+                           if limit!=-1 and number>limit: 
+                              break
 
     return {'return':0, 'list':a, 'number':str(number)}
 
