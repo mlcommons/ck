@@ -2115,7 +2115,7 @@ def list_all_files(i):
 
                      if add:
                         pg=os.path.join(pe, fn)
-                        if os.path.isfile(pg):
+                        if os.path.isfile(p):
                            a[pg]={'size':os.stat(p).st_size}
 
                            if ap=='yes': a[pg]['path']=po
