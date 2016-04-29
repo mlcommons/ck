@@ -57,21 +57,28 @@ def pull(i):
        if not os.path.isdir(ck_root):
           return {'return':1, 'error':'Can\'t find CK in '+ck_root+' - please check CK_ROOT env'}
 
-       os.chdir(ck_root)
-
-       if o=='con':
-          ck.out('Updating CK from GitHub ...')
+       cont=True
+       if not os.path.isdir(os.path.join(ck_root,'.git')) and i.get('force','')!='yes':
+          ck.out('WARNING: seems like your CK_ROOT installation is not from GitHub - skipping kernel update ...')
           ck.out('')
-          ck.out('  cd '+ck_root)
-          ck.out('  git pull')
-          ck.out('')
+          cont=False
 
-       rx=os.system('git pull')
-       if rx>0: 
-          return {'return':1, 'error':'CK update failed'}
+       if cont:
+          os.chdir(ck_root)
 
-       if o=='con':
-          ck.out('')
+          if o=='con':
+             ck.out('Updating CK from GitHub ...')
+             ck.out('')
+             ck.out('  cd '+ck_root)
+             ck.out('  git pull')
+             ck.out('')
+
+          rx=os.system('git pull')
+          if rx>0: 
+             return {'return':1, 'error':'CK update failed'}
+
+          if o=='con':
+             ck.out('')
 
     return ck.access({'action':'pull',
                       'module_uoa':'repo',
