@@ -137,7 +137,7 @@ format here:
 
 Testimonials and awards
 =======================
-* ARM and dividiti are using CK to accelerate computer engineering (https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf , page 17)
+* ARM and dividiti are using CK to accelerate computer engineering (2016, https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf , page 17)
 * HiPEAC technology transfer award (2015, http://www.hipeac.net)
 
 Acknowledgments
