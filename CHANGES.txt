@@ -1,4 +1,4 @@
-* V1.6.14x
+* V1.6.15
   * adding mode to skip tmp files/directories when downloading entry
   * fixing bug in entry downloader
   * adding __version__ to CK kernel
