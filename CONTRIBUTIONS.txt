@@ -171,3 +171,21 @@ E:
 O: STMicroelectronics, France
 C: testing GCC crowdtuning engine and reporting a few minor bugs
 W:
+
+N: Leonid Fursin
+E:
+O: 
+C: feedback about crowdtuning on Samsung T-900 tablet
+W:
+
+N: Jiahao Chen
+E:
+O: MIT, USA
+C: discussions about Julia language and CK-based performance autotuning
+W:
+
+N: Jarrett Revels
+E:
+O: MIT, USA
+C: discussions about Julia performane tuning and feedback about CK-based LLVM crowdtuning on MacOS
+W:
