@@ -5,6 +5,7 @@ if [ -z "$CK_ROOT" ]; then
   CK_path0=`realpath $0`
   CK_path1=`dirname $CK_path0`
   export CK_ROOT=`dirname $CK_path1`
+  echo $CK_ROOT
 #  pushd $CK_path1/.. > /dev/null
 #  CK_path=`pwd`
 #  popd > /dev/null
@@ -39,7 +40,7 @@ else
   fi
 
   if [ $? -ne 0 ]; then
-     echo "Can't find CK kernel - check installation or report to authors!"
+     echo "Can't find CK kernel - you may need to set CK_ROOT environment variable manually!"
      exit 1
   fi
 
