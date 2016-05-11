@@ -45,13 +45,17 @@ simply as following:
  $ git clone https://github.com/ctuning/ck.git ck
 
  $ export PATH=$PWD/ck/bin:$PATH (on Linux)
+
 or
+
  $ set PATH={CURRENT PATH}\ck\bin;%PATH% (on Windows)
 
  $ ck pull repo:ck-crowdtuning
 
  $ ck crowdsource experiment (to crowdsource any available experiment scenario on Linux)
+
 or
+
  $ ck crowdtune program --gcc --target_os=mingw-64 (to crowdsource program optimization on Windows via GCC MingW compiler)
 
 If you have GCC or LLVM compilers installed, you can start continuously crowd-tune 
@@ -86,15 +90,11 @@ Please check out CK getting started guide and CK wiki for further details:
 * https://github.com/ctuning/ck/wiki/Getting_started_guide_basic
 * https://github.com/ctuning/ck/wiki
 
-Related initiatives
-===================
+Our related initiatives
+=======================
 
 * Artifact Evaluation for computer systems' conferences: http://cTuning.org/ae
 * New publication model with the community-driven public reviewing: http://adapt-workshop.org
-
-* http://arxiv.org/abs/1506.06256
-* http://bit.ly/ck-date16
-* http://hal.inria.fr/hal-01054763
 
 CK-powered projects
 ===================
