@@ -1,5 +1,7 @@
 * V1.6.16x
   * fixing detection of CK installation even when ck is soft linked
+  * changing remote-ck repo URL pointing to cknowledge.org 
+    (after moving personal CK server to Azure cloud)
 
 * V1.6.15
   * adding mode to skip tmp files/directories when downloading entry

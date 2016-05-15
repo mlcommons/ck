@@ -146,5 +146,7 @@ Acknowledgments
 CK development is coordinated by the non-profit cTuning foundation
 (cTuning.org). We would like to thank the EU TETRACOM 609491 project
 (www.tetracom.eu) for initial funding and dividiti (www.dividiti.com)
-for continuing support. We are also extremely grateful to all volunteers
+for continuing support. We would also like to thank Microsoft4Research
+program for one-year grant to move CK public repository to Azure cloud.
+We are also extremely grateful to all volunteers
 for their valuable feedback and contributions.
