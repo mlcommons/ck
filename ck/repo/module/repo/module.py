@@ -307,6 +307,7 @@ def add(i):
 
     # If git, clone repo
     repo_had_local=True
+    dd={}
     if remote!='yes' and shared=='git':
        r=pull({'path':p, 'type':shared, 'url':url, 'clone':'yes', 'git':i.get('git',''), 'out':o})
        if r['return']>0: return r
@@ -316,6 +317,8 @@ def add(i):
           r=ck.load_json_file({'json_file':py})
           if r['return']>0: return r
           dc=r['dict']
+          ddc=dc.get('dict',{})
+          dd.update(ddc)
 
           xd=dc.get('data_uoa','')
           xdi=dc.get('data_uid','')
@@ -335,7 +338,6 @@ def add(i):
           repo_had_local=False
 
     # Prepare meta description
-    dd={}
     if df=='yes': 
        dd['default']='yes'
     if remote=='yes': 
@@ -669,6 +671,8 @@ def pull(i):
 
     o=i.get('out','')
 
+    xrecache=False
+
     pp=[]
     px=i.get('path','')
     t=i.get('type','')
@@ -718,6 +722,9 @@ def pull(i):
               t=d.get('shared','')
               duoa=r['data_uoa']
 
+              if d.get('recache','')=='yes':
+                 xrecache=True
+
               if t!='':
                  p=d.get('path','')
                  url=d.get('url','')
@@ -745,6 +752,9 @@ def pull(i):
 
           d=r['dict']
           duoa=r['data_uoa']
+
+          if d.get('recache','')=='yes':
+             xrecache=True
 
           p=d['path']
           t=d.get('shared','')
@@ -844,6 +854,16 @@ def pull(i):
                    'how':'pull',
                    'out':o})
            if r['return']>0: return r
+
+    # Re-caching ...
+    if xrecache:
+       if o=='con':
+          ck.out('  ==============================================')
+          ck.out('  At least one repository requires recaching ...')
+          ck.out('')
+
+          r=recache({'out':o})
+          if r['return']>0: return r
 
     return {'return':0}
 
