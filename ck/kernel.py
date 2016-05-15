@@ -10,7 +10,7 @@
 # CK kernel - we made it monolithic with a minimal set 
 # of common functions for performance reasons
 
-__version__ = "1.6.16x"
+__version__ = "1.6.16dev"
 
 # Extra modules global for the whole kernel
 import sys
@@ -2821,6 +2821,19 @@ def perform_remote_action(i):
     post=urlencode({'ck_json':s})
     if sys.version_info[0]>2: post=post.encode('utf8')
 
+    # If auth
+    au=i.get('remote_server_user','')
+    if au!='': 
+       del(i['remote_server_user'])
+
+       ap=i.get('remote_server_pass','')
+       if ap!='': 
+          del(i['remote_server_pass'])
+
+       auth = urllib2.HTTPPasswordMgrWithDefaultRealm()
+       auth.add_password(None, url, au, ap)
+       urllib2.install_opener(urllib2.build_opener(urllib2.HTTPBasicAuthHandler(auth)))
+
     # Prepare request
     request = urllib2.Request(url, post)
 
@@ -2968,6 +2981,13 @@ def perform_action(i):
                 return {'return':1, 'error':'URL of remote repository is not defined'}
 
              i['remote_server_url']=rs
+
+             if dd.get('remote_user','')!='':
+                i['remote_server_user']=dd['remote_user']
+
+             # It is completely unsave - just for proof of concept ...
+             if dd.get('remote_password','')!='':
+                i['remote_server_pass']=dd['remote_password']
 
              if dd.get('remote_repo_uoa','')!='':
                 i['repo_uoa']=dd['remote_repo_uoa']
@@ -4141,12 +4161,26 @@ def check_version(i):
         if version[q]=='': version[q]='0'
         x=version[q]
         if x.endswith('x'): x=x[:-1]
-        version[q]=int(x)
+
+        xx=x
+        try: 
+           xx=int(x)
+        except ValueError:
+           pass
+
+        version[q]=xx
     for q in range(0, len(lversion)):
         if lversion[q]=='': lversion[q]='0'
         x=lversion[q]
         if x.endswith('x'): x=x[:-1]
-        lversion[q]=int(x)
+
+        xx=x
+        try: 
+           xx=int(x)
+        except ValueError:
+           pass
+
+        lversion[q]=xx
 
     if lversion[0]>version[0] or \
        (lversion[0]==version[0] and lversion[1]>version[1]) or \
