@@ -674,8 +674,9 @@ def start(i):
 
     sys.stdout.flush()
 
-    import webbrowser
-    webbrowser.open(rurl)
+    if i.get('browser','')=='yes':
+       import webbrowser
+       webbrowser.open(rurl)
 
     try:
        server = ThreadedHTTPServer((host, int(port)), server_handler)
