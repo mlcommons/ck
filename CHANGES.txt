@@ -7,6 +7,9 @@
   * adding support to automatically open web service and browser via
     "ck browser" (or "ck browser --template=<template>" with a given web template)
     similar to ipython notebook
+  * adding possibility to open a given entry in a browser via
+    "ck browser test:unicode" or browse entries via
+    "ck browser dataset:" ...
 
 * V1.6.15
   * adding mode to skip tmp files/directories when downloading entry

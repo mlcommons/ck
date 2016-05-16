@@ -250,6 +250,7 @@ cfg={
       "common_actions":["webhelp", "webapi", "help", "info", "print_input",
                         "wiki",
                         "path", "find", "cid", "cd", "cdc",
+                        "browser",
                         "add",
                         "edit", 
                         "load", 
@@ -4460,7 +4461,10 @@ def webapi(i):
 def browser(i):
     """
     Input:  {
-              (template) - use this web template
+              (template)   - use this web template
+              (repo_uoa)   -
+              (module_uoa) - 
+              (data_uoa)   - view a given entry
             }
 
     Output: {
@@ -4484,8 +4488,18 @@ def browser(i):
 
     t=i.get('template','')
 
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    cid=''
+    if duoa!='' or muoa!='' or ruoa!='':
+       if ruoa!='': cid=ruoa+':'
+       if muoa!='': cid+=muoa+':'
+       if duoa!='': cid+=duoa
+
     # Starting web service and asking to open page
-    return access({'action':'start', 'module_uoa':'web', 'browser':'yes', 'template':t})
+    return access({'action':'start', 'module_uoa':'web', 'browser':'yes', 'template':t, 'cid':cid})
 
 ############################################################
 # Special function: open webbrowser with user/developer guide wiki

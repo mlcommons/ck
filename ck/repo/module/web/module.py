@@ -614,6 +614,7 @@ def start(i):
 
               (browser)    - if 'yes', open browser
               (template)   - if !='', add template
+              (cid)        - view a given entry
             }
 
     Output: {
@@ -661,9 +662,6 @@ def start(i):
        return {'return':1, 'error':'web port is not defined'}
 
     url=xhost+':'+port
-    rurl='http://'+url
-    if i.get('template','')!='':
-       rurl+='/?template='+i['template']
 
     ck.out('')
     ck.out('Starting CK web service on '+url+' ...')
@@ -675,6 +673,17 @@ def start(i):
     sys.stdout.flush()
 
     if i.get('browser','')=='yes':
+       rurl='http://'+url
+       tm=i.get('template','')
+       if tm!='':
+          rurl+='/?template='+tm
+
+       cid=i.get('cid','')
+       if cid!='':
+          if tm!='': rurl+='&'
+          else: rurl+='/?'
+          rurl+='wcid='+cid
+
        import webbrowser
        webbrowser.open(rurl)
 
