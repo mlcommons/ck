@@ -188,6 +188,8 @@ cfg={
                  "guide":{"desc":"open CK wiki with user/developer guides"}, 
                  "info":{"desc":"<CID> print help about module"},
 
+                 "browser":{"desc":"start CK web service and open browser"},
+
                  "add":{"desc":"<CID> add entry", "for_web":"yes"},
                  "update":{"desc":"<CID> update entry", "for_web":"yes"},
                  "load":{"desc":"<CID> load meta description of entry", "for_web": "yes"},
@@ -4254,7 +4256,7 @@ def convert_entry_to_cid(i):
 
 def webhelp(i):
     """
-    Input:  { from acess function }
+    Input:  { from access function }
 
     Output: {
               return       - return code =  0, if successful
@@ -4413,7 +4415,7 @@ def pwiki(i):
 
 def webapi(i):
     """
-    Input:  { from acess function }
+    Input:  { from access function }
 
     Output: {
               return       - return code =  0, if successful
@@ -4451,6 +4453,39 @@ def webapi(i):
     webbrowser.open(url)
 
     return {'return':0}
+
+############################################################
+# Special function: open webbrowser with API, if exists
+
+def browser(i):
+    """
+    Input:  {
+              (template) - use this web template
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    # Check if ck-web is installed
+    r=find({'module_uoa':'module',
+            'data_uoa':'wfe'})
+    if r['return']>0:
+       if r['return']!=16: return r
+ 
+       out('Seems like ck-web repository is not installed (can\'t find wfe module)!')
+       out('Please, install it via "ck pull repo:ck-web" and try again!')
+
+       return {'return':0}
+
+    t=i.get('template','')
+
+    # Starting web service and asking to open page
+    return access({'action':'start', 'module_uoa':'web', 'browser':'yes', 'template':t})
 
 ############################################################
 # Special function: open webbrowser with user/developer guide wiki

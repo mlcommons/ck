@@ -611,6 +611,9 @@ def start(i):
     Input:  {
               (host)       - Web host
               (port)       - Web port
+
+              (browser)    - if 'yes', open browser
+              (template)   - if !='', add template
             }
 
     Output: {
@@ -657,14 +660,22 @@ def start(i):
     if port=='':
        return {'return':1, 'error':'web port is not defined'}
 
+    url=xhost+':'+port
+    rurl='http://'+url
+    if i.get('template','')!='':
+       rurl+='/?template='+i['template']
+
     ck.out('')
-    ck.out('Starting CK web service on '+xhost+':'+port+' ...')
+    ck.out('Starting CK web service on '+url+' ...')
     ck.out('')
 
     s_host=xhost
     s_port=port
 
     sys.stdout.flush()
+
+    import webbrowser
+    webbrowser.open(rurl)
 
     try:
        server = ThreadedHTTPServer((host, int(port)), server_handler)

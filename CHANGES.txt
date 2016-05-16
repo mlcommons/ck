@@ -4,6 +4,9 @@
     (after moving personal CK server to Azure cloud)
   * adding support for basic http authentication for remote repositories
   * adding automatic recaching of repositories if has remote access ...
+  * adding support to automatically open web service and browser via
+    "ck browser" (or "ck browser --template=<template>" with a given web template)
+    similar to ipython notebook
 
 * V1.6.15
   * adding mode to skip tmp files/directories when downloading entry
