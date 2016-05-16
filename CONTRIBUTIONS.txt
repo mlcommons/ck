@@ -189,3 +189,15 @@ E:
 O: MIT, USA
 C: discussions about Julia performane tuning and feedback about CK-based LLVM crowdtuning on MacOS
 W:
+
+N: Aaron Smith
+E:
+O: Microsoft, USA
+C: general discussions, feedback and help to move CK to Azure cloud (http://cknowledge.org)
+W:
+
+N: Dave Wilkinson
+E:
+O: University of Pittsburgh, USA
+C: evaluating CK and providing several suggestions on usability
+W:
