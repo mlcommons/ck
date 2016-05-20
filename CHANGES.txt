@@ -11,6 +11,7 @@
     "ck browser test:unicode" or browse entries via
     "ck browser dataset:" ...
   * fixing CK server vulnerability (action with ; can run various CMD commands)
+  * fixing above vulnerability both in php and python ...
 
 * V1.6.15
   * adding mode to skip tmp files/directories when downloading entry

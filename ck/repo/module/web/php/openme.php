@@ -98,7 +98,7 @@ function openme_ck_access($i, $output=true)
 
  # Check that no special characters, otherwise can run any command from CMD
  if (preg_match('/[^A-Za-z_\-0-9]/i', $action))
-    return array("return"=>1,"error"=>"action (".$action.") contains illegal characters");
+    return array("return"=>1,"error"=>"action contains illegal characters");
 
  # Decode dict to json and save to temp file
  $str=json_encode($i);

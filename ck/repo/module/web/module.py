@@ -92,11 +92,16 @@ def call_ck(i):
     """
 
     import subprocess
+    import re
 
     # Check action
     action=i.get('action','')
     if action=='':
        return {'return':1, 'error':'action is not defined'}
+
+    # Check that no special characters, otherwise can run any command from CMD
+    if not re.match('^[A-Za-z0-9-_]*$', action):
+       return {'return':1, 'error':'action contains illegal characters'}
 
     # Generate tmp file
     fd, fn=tempfile.mkstemp(suffix='.tmp', prefix='ck-') # suffix is important - CK will delete such file!
