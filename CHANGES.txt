@@ -10,6 +10,7 @@
   * adding possibility to open a given entry in a browser via
     "ck browser test:unicode" or browse entries via
     "ck browser dataset:" ...
+  * fixing CK server vulnerability (action with ; can run various CMD commands)
 
 * V1.6.15
   * adding mode to skip tmp files/directories when downloading entry
