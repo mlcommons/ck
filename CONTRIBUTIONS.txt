@@ -201,3 +201,9 @@ E:
 O: University of Pittsburgh, USA
 C: evaluating CK and providing several suggestions on usability
 W:
+
+N: Kenan Kalajdzic
+E:
+O:
+C: reporting vulnerability in CK public repository (fixed)
+W:
