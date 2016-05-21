@@ -1,3 +1,5 @@
+* V1.6.17dev
+
 * V1.6.16
   * fixing detection of CK installation even when ck is soft linked
   * changing remote-ck repo URL pointing to cknowledge.org 
