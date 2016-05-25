@@ -6,6 +6,7 @@
 #
 
 from distutils.core import setup
+from distutils.util import convert_path
 
 setup(
   name='ck',
@@ -15,7 +16,7 @@ setup(
   author='Grigori Fursin and non-profit cTuning foundation',
   author_email='Grigori.Fursin@cTuning.org',
   description='Collective Knowledge - lightweight knowledge manager to organize, cross-link, share and reuse artifacts',
-  long_description=open('README.md').read(),
+  long_description=open(convert_path('./README.md')).read(),
   packages=['ck'],
   package_dir={'ck': 'ck'},
   package_data={'ck': ['repo/.ck*', 
