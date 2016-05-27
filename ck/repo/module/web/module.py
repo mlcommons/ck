@@ -13,6 +13,7 @@ ck=None # Will be updated by CK (initialized CK kernel)
 
 s_host=''
 s_port=''
+use_wfe_url=''
 
 # Local settings
 import os
@@ -448,8 +449,9 @@ def process_ck_web_request(i):
 
     ii['con_encoding']='utf8'
 
-    ii['server_host']=s_host
-    ii['server_port']=s_port
+    if use_wfe_url!='yes':
+       ii['server_host']=s_host
+       ii['server_port']=s_port
 
     # Execute command *********************************************************
     if act=='':
@@ -656,6 +658,10 @@ def start(i):
                 i3=min(i3a,i3b)
 
                 port=wup[i2+1:i3]
+
+    # Force using wfe url
+    if i.get('use_wfe_url','')=='yes':
+       use_wfe_url='yes'
 
     if i.get('host','')!='': host=i['host']
     if i.get('port','')!='': port=i['port']
