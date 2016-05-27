@@ -632,7 +632,7 @@ def start(i):
 
     """
 
-    global s_host, s_port
+    global s_host, s_port, use_wfe_url
 
     ck.out('For now we can only start server indefinitely')
     ck.out("but we should add a proper start/stop/resume support at some point ...")
