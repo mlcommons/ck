@@ -616,12 +616,14 @@ def start(i):
     """
 
     Input:  {
-              (host)       - Web host
-              (port)       - Web port
+              (host)        - Web host
+              (port)        - Web port
 
-              (browser)    - if 'yes', open browser
-              (template)   - if !='', add template
-              (cid)        - view a given entry
+              (browser)     - if 'yes', open browser
+              (template)    - if !='', add template
+              (cid)         - view a given entry
+              (use_wfe_url) - force using WFE URL from CK kernel configuration
+                              even if host/port are used ...
             }
 
     Output: {
