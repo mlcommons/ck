@@ -1855,6 +1855,9 @@ def init(i):
     # Split version
     cfg['version']=__version__.split('.')
 
+    # Default URL. FIXME: should be formed from wfe_host and wfe_port when they are known.
+    cfg['wfe_url_prefix'] = 'http://%s:%s/web?' % (cfg['default_host'], cfg['default_port'])
+
     # Check CK_ROOT environment variable
     if not cfg['env_key_root'] in os.environ.keys():
        return {'return':1, 'error':cfg['env_key_root']+' environment variable is not defined'}
