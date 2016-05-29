@@ -18,19 +18,21 @@ Project homepage:
 
 License
 =======
-* Permissive 3-clause BSD license (see LICENSE.txt file for more details).
+* Permissive 3-clause BSD license. (See `LICENSE.txt` for more details).
 
 Minimal installation
 ====================
 
 The minimal installation requires:
 
-* Python >= 2.6 (3.0+ is natively supported) - we suggest Anaconda scientific Python distribution;
+* Python >= 2.6 (3.0+ is natively supported).
 * Git command line client.
 
 On Ubuntu, you can install these dependencies via
 
-$ apt-get install python git
+```
+$ apt-get install -y python git
+```
 
 On Windows, you can download and install these tools from the following sites:
 
@@ -40,30 +42,33 @@ On Windows, you can download and install these tools from the following sites:
 
 For example, you can install shared workflow for collaborative program optimization
 with all related artifacts, and start participating in multi-objective crowdtuning 
-simply as following: 
+simply as follows: 
 
+```
  $ git clone https://github.com/ctuning/ck.git ck
-
  $ export PATH=$PWD/ck/bin:$PATH (on Linux)
-
+```
 or
 
+```
  $ set PATH={CURRENT PATH}\ck\bin;%PATH% (on Windows)
-
  $ ck pull repo:ck-crowdtuning
-
  $ ck crowdsource experiment (to crowdsource any available experiment scenario on Linux)
+```
 
 or
 
+```
  $ ck crowdtune program --gcc --target_os=mingw-64 (to crowdsource program optimization on Windows via GCC MingW compiler)
+```
 
 If you have GCC or LLVM compilers installed, you can start continuously crowd-tune 
 their optimization heuristics in a quiet mode (for example overnight) via
 
+```
 $ ck crowdtune program --llvm --quiet
-
 $ ck crowdtune program --gcc --quiet
+```
 
 This experimental workflow will be optimizing different shared workloads
 for multiple objectives (execution time, code size, energy, compilation time, etc)
@@ -111,7 +116,7 @@ Authors
 
 Questions/comments/discussions?
 ===============================
-Please, use our mailing lists:
+Please subscribe to our mailing lists:
 * Open, collaborative and reproducible R&D including knowledge preservation, sharing and reuse:
   http://groups.google.com/group/collective-knowledge
 * Software and hardware multi-objective (performance/energy/accuracy/size/reliability/cost)
@@ -119,10 +124,11 @@ Please, use our mailing lists:
 
 Publications
 ============
-Concepts has been described in the following publications:
+The concepts has been described in the following publications:
 
 * http://arxiv.org/abs/1506.06256 (CPC'15)
 * http://bit.ly/ck-date16 (DATE'16)
+* http://bit.ly/ck-multiprog16 (MULTIPROG'16)
 * http://cknowledge.org/interactive-report
 * http://hal.inria.fr/hal-01054763 (Journal of Scientific Programming'14)
 * http://arxiv.org/abs/1406.4020 (TRUST'14 @ PLDI'14)
@@ -130,23 +136,23 @@ Concepts has been described in the following publications:
 
 If you found CK useful and/or interesting, you are welcome
 to reference any of the above publications in your articles
-and reports. You can download above references in BibTex 
-format here:
+and reports. You can download the above references in the 
+BibTex format here:
 
 * https://raw.githubusercontent.com/ctuning/ck-guide-images/master/collective-knowledge-refs.bib
 
 Testimonials and awards
 =======================
-* ARM and dividiti are using CK to accelerate computer engineering (2016, https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf , page 17)
-* HiPEAC technology transfer award (2015, http://www.hipeac.net)
+* HiPEAC technology transfer award (2014, [HiPEAC TT winners](https://www.hipeac.net/research/technology-transfer-awards/2014))
+* ARM and dividiti use CK to accelerate computer engineering (2016, [HiPEAC Info'45](https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf), page 17)
 
 Acknowledgments
 ===============
 
-CK development is coordinated by the non-profit cTuning foundation
-(cTuning.org). We would like to thank the EU TETRACOM 609491 project
-(www.tetracom.eu) for initial funding and dividiti (www.dividiti.com)
-for continuing support. We would also like to thank Microsoft4Research
-program for one-year grant to move CK public repository to Azure cloud.
-We are also extremely grateful to all volunteers
-for their valuable feedback and contributions.
+CK development is coordinated by the non-profit [cTuning
+foundation](http://cTuning.org). We thank the [EU TETRACOM 609491 Coordination
+Action](http://tetracom.eu) for initial funding and
+[dividiti](http://dividiti.com) for continuing support. We would also like to
+thank Microsoft Research program for one-year grant to host the CK public
+repository in the Azure cloud.  We are also extremely grateful to all
+volunteers for their valuable feedback and contributions.
