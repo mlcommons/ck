@@ -9,11 +9,10 @@
 
 cfg={}  # Will be updated by CK (meta description of this module)
 work={} # Will be updated by CK (temporal data)
-ck=None # Will be updated by CK (initialized CK kernel) 
+ck=None # Will be updated by CK (initialized CK kernel)
 
-s_host=''
-s_port=''
-use_wfe_url=''
+wfe_host=''
+wfe_port=''
 
 # Local settings
 import os
@@ -240,11 +239,11 @@ def web_out(i):
               (filename) - if !='', substitute filename in headers
             }
 
-    Output: { 
+    Output: {
               return - 0
             }
     """
-    
+
     http=i['http']
     bin=i['bin']
 
@@ -338,7 +337,7 @@ def process_ck_web_request(i):
        if content_type != None:
           ctype, pdict = cgi.parse_header(content_type)
           # Python3 cgi.parse_multipart expects boundary to be bytes, not str.
-          if sys.version_info[0]<3 and 'boundary' in pdict: 
+          if sys.version_info[0]<3 and 'boundary' in pdict:
              pdict['boundary'] = pdict['boundary'].encode()
 
        if ctype == 'multipart/form-data':
@@ -353,7 +352,7 @@ def process_ck_web_request(i):
           s=http.rfile.read(length)
           if sys.version_info[0]>2: s=s.decode('utf8')
           xpost1 = cgi.parse_qs(s, keep_blank_values=1)
- 
+
     except Exception as e:
        bin=b'internal CK web service error [7101] ('+format(e).encode('utf8')+')'
        web_err({'http':http, 'type':xt, 'bin':bin})
@@ -363,12 +362,12 @@ def process_ck_web_request(i):
     # Post processing
     for k in xpost1:
         v=xpost1[k]
-        if k.endswith('[]'): 
+        if k.endswith('[]'):
            k1=k[:-2]
            xpost[k1]=[]
            for l in v:
                xpost[k1].append(urlunquote(l))
-        else: 
+        else:
            if k!='file_content':
               xpost[k]=urlunquote(v[0])
            else:
@@ -403,7 +402,7 @@ def process_ck_web_request(i):
     cj=ii.get('ck_json','').strip()
     if cj!='':
        r=ck.convert_json_str_to_dict({'str':cj, 'skip_quote_replacement':'yes'})
-       if r['return']>0: 
+       if r['return']>0:
           bin=b'internal CK web service error [7102] ('+r['error'].encode('utf8')+b')'
           web_err({'http':http, 'type':xt, 'bin':bin})
           ck.out(ck.cfg['error']+bin.decode('utf8'))
@@ -417,14 +416,14 @@ def process_ck_web_request(i):
     act=ii.get('action','')
 
     # Check output type
-    if ii.get('out','')!='': 
+    if ii.get('out','')!='':
        xt=ii['out']
 
     if xt=='': xt='web'
 
     if xt!='json' and xt!='con' and xt!='web':
-       web_out({'http':http, 
-                'type':'web', 
+       web_out({'http':http,
+                'type':'web',
                 'bin':b'Unknown CK request ('+xt.encode('utf8')+b')!'})
        return
 
@@ -436,22 +435,21 @@ def process_ck_web_request(i):
     # Check output
     if dc=='yes':
        if ck.cfg.get('forbid_detached_console','')=='yes':
-          web_out({'http':http, 
-                   'type':'web', 
+          web_out({'http':http,
+                   'type':'web',
                    'bin':b'Detached console is forbidden!'})
           return
     else:
        ii['out_file']=fn
        ii['web']='yes'
-       if xt=='json' or xt=='web': 
+       if xt=='json' or xt=='web':
           ii['out']='json_file'
        # else output to console (for remote access for example)
 
     ii['con_encoding']='utf8'
 
-    if use_wfe_url!='yes':
-       ii['server_host']=s_host
-       ii['server_port']=s_port
+    ii['host']=wfe_host
+    ii['port']=wfe_port
 
     # Execute command *********************************************************
     if act=='':
@@ -469,14 +467,14 @@ def process_ck_web_request(i):
 
        try: bout=bout.encode('utf-8')
        except Exception as e: pass
-       
-       web_err({'http':http, 
-                'type':xt, 
+
+       web_err({'http':http,
+                'type':xt,
                 'bin':bout})
        return
 
     # If output to console or detached console
-    if xt=='con' or dc=='yes': 
+    if xt=='con' or dc=='yes':
        if os.path.isfile(fn): os.remove(fn)
 
        bout=r.get('std','').encode('utf8')
@@ -488,8 +486,8 @@ def process_ck_web_request(i):
     # If json or web
     # Try to load output file
     if not os.path.isfile(fn):
-       web_err({'http':http, 
-                'type':xt, 
+       web_err({'http':http,
+                'type':xt,
                 'bin':b'Output json file was not created, see output ('+r['std'].encode('utf8')+b')!'})
        return
 
@@ -505,7 +503,7 @@ def process_ck_web_request(i):
        return
 
     bin=r['bin']
-   
+
     if os.path.isfile(fn): os.remove(fn)
 
     # Process JSON output from file
@@ -570,7 +568,7 @@ def process_ck_web_request(i):
              bin=bin.encode('utf-8')
 
     web_out({'http':http, 'type':xt, 'bin':bin, 'filename':fx})
-       
+
     return {'return':0}
 
 ##############################################################################
@@ -595,7 +593,7 @@ class server_handler(BaseHTTPRequestHandler):
     def do_GET(self):
         process_ck_web_request({'http':self})
         return
-     
+
     # Process GET and POST
     def do_POST(self):
         process_ck_web_request({'http':self})
@@ -616,14 +614,15 @@ def start(i):
     """
 
     Input:  {
-              (host)        - Web host
-              (port)        - Web port
+              (host)        - Internal web server host
+              (port)        - Internal web server port
+
+              (wfe_host)    - External web server host
+              (wfe_port)    - External web server port
 
               (browser)     - if 'yes', open browser
               (template)    - if !='', add template
               (cid)         - view a given entry
-              (use_wfe_url) - force using WFE URL from CK kernel configuration
-                              even if host/port are used ...
             }
 
     Output: {
@@ -634,54 +633,32 @@ def start(i):
 
     """
 
-    global s_host, s_port, use_wfe_url
+    # Define internal server host.
+    host=ck.cfg.get('default_host','')
+    host=i.get('host',host)
+    if host=='': host='localhost' # 'localhost' if ''
 
-    ck.out('For now we can only start server indefinitely')
-    ck.out("but we should add a proper start/stop/resume support at some point ...")
+    # Define external server host.
+    global wfe_host
+    wfe_host=ck.cfg.get('default_wfe_host',host)
+    wfe_host=i.get('wfe_host',wfe_host)
 
-    # Prepare host (if '' - localhost)
-    host=ck.cfg.get('default_web_service_host','')
-    port=ck.cfg.get('default_web_service_port','')
+    # Define internal server port.
+    port=ck.cfg.get('default_port','')
+    port=i.get('port',port)
+    if port=='': return {'return':1, 'error':'web port is not defined'}
 
-    # check if defined in wfe_url_prefix
-    wup=ck.cfg.get('wfe_url_prefix', '')
-    if wup!='':
-       i1=wup.find('://')
-       if i1>0:
-          i2=wup.find(':',i1+3)
-          if i2>0:
-             host=wup[i1+3:i2]
+    # Define external server port.
+    global wfe_port
+    wfe_port=ck.cfg.get('default_wfe_port',port)
+    wfe_port=i.get('wfe_port',wfe_port)
 
-             i3a=wup.find('?',i2+1)
-             i3b=wup.find('/',i2+1)
-             if i3a>0 or i3b>0:
-                if i3a==-1: i3a=i3b
-                if i3b==-1: i3b=i3a
-                i3=min(i3a,i3b)
+    # Assemble URL.
+    url=host+':'+port
+    wfe_url=wfe_host+':'+wfe_port
 
-                port=wup[i2+1:i3]
-
-    # Force using wfe url
-    if i.get('use_wfe_url','')=='yes':
-       use_wfe_url='yes'
-
-    if i.get('host','')!='': host=i['host']
-    if i.get('port','')!='': port=i['port']
-
-    xhost='localhost'
-    if host!='': xhost=host
-
-    if port=='':
-       return {'return':1, 'error':'web port is not defined'}
-
-    url=xhost+':'+port
-
+    ck.out('Starting CK web service on '+url+' (configured for access at '+wfe_url+') ...')
     ck.out('')
-    ck.out('Starting CK web service on '+url+' ...')
-    ck.out('')
-
-    s_host=xhost
-    s_port=port
 
     sys.stdout.flush()
 

@@ -23,8 +23,6 @@ allow_print=True       # Needed to supress all output
 con_encoding=''        # Use non-default console encoding
 
 cfg={
-#      "version":["1", "6", "14x"],
-
       "name":"Collective Knowledge",
       "desc":"exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",
       "cmd":"ck <action> $#module_uoa#$ (cid1/uid1) (cid2/uid2) (cid3/uid3) key_i=value_i ... @file.json",
@@ -102,8 +100,8 @@ cfg={
       "file_cache_repo_uoa":".ck.cache_repo_uoa.json",
       "file_cache_repo_info":".ck.cache_repo_info.json",
 
-      "default_web_service_host":"",
-      "default_web_service_port":"3344",
+      "default_host":"localhost",
+      "default_port":"3344",
 
       "detached_console":{"win":{"cmd":"start $#cmd#$", "use_create_new_console_flag":"yes"},
                           "linux":{"cmd":"xterm -hold -e \"$#cmd#$\""}},
@@ -113,11 +111,13 @@ cfg={
 
       "default_archive_name":"ck-archive.zip",
 
+      # TODO: remove "http://"?
       "index_host":"http://localhost",
       "index_port":"9200",
       "index_use_curl":"no",
 
-      "wfe_url_prefix":"http://localhost:3344/web?",
+      "default_wfe_host":"localhost",
+      "default_wfe_port":"3344",
       "wfe_template":"default",
 
       "module_repo_name":"repo",

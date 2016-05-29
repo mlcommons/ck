@@ -1,7 +1,5 @@
 * V1.7.2dev
-  * adding flag --use_wfe_url in "ck start web" to force 
-    using web front-end URL from configuration rather than
-    detecting it automatically
+  * adding the --wfe_host and --wfe_host flags to "ck start web".
 
 * V1.7.1
   * fixing detection of CK installation even when ck is soft linked

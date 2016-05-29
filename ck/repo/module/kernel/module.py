@@ -9,7 +9,7 @@
 
 cfg={}  # Will be updated by CK (meta description of this module)
 work={} # Will be updated by CK (temporal data)
-ck=None # Will be updated by CK (initialized CK kernel) 
+ck=None # Will be updated by CK (initialized CK kernel)
 
 # Local settings
 sep='======================================================================='
@@ -44,11 +44,11 @@ def setup(i):
                              * recache - recache repos (needed during first run for remote repos)
                              * install - install as python library
                              * update - check for update
-                             * content - related to content 
-                             * repos - related to repositories 
+                             * content - related to content
+                             * repos - related to repositories
                              * git - related to git repos
                              * editing - related to editing
-                             * writing - related to writing control 
+                             * writing - related to writing control
                              * wfe - related to web front end
                              * indexing - related to indexing
             }
@@ -66,7 +66,7 @@ def setup(i):
     if r['return']>0: return r
     plat=r['platform']
 
-    # Check groups 
+    # Check groups
     param=i.get('param','')
     if param=='':
        if i.get('content','')=='yes': param='content'
@@ -89,14 +89,14 @@ def setup(i):
                  'repo_uoa':ck.cfg['repo_name_default'],
                  'module_uoa':ck.cfg['subdir_kernel'],
                  'data_uoa':ck.cfg['subdir_kernel_default']})
-    if r['return']==0: 
+    if r['return']==0:
        xcfg.update(r['dict'])
 
     r=ck.access({'action':'load',
                  'repo_uoa':ck.cfg['repo_name_local'],
                  'module_uoa':ck.cfg['subdir_kernel'],
                  'data_uoa':ck.cfg['subdir_kernel_default']})
-    if r['return']==0: 
+    if r['return']==0:
        xcfg.update(r['dict'])
 
     # Recaching repos
@@ -108,7 +108,7 @@ def setup(i):
        r=ck.inp({'text':'Would you like to (re)cache all repos (y/N): '})
        d=''
        x=r['string'].lower()
-       if x=='y' or x=='yes': 
+       if x=='y' or x=='yes':
           ck.out('')
 
           r=ck.access({'action':'recache',
@@ -132,13 +132,13 @@ def setup(i):
           r=ck.inp({'text':'Would you like to install CK as root library (y/N): '})
           d=''
           x=r['string'].lower()
-          if x=='y' or x=='yes': 
+          if x=='y' or x=='yes':
              d='yes'
           else:
              r1=ck.inp({'text':'Do not ask this question again (Y/n): '})
              d1=''
              x1=r1['string'].lower()
-             if x1=='y' or x1=='yes': 
+             if x1=='y' or x1=='yes':
                 xcfg['skip_ck_install']='yes'
 
           if d=='yes':
@@ -235,7 +235,7 @@ def setup(i):
        ck.out('')
        r=ck.inp({'text': 'Enter new URL (Enter to keep current): '})
        x=r['string']
-       if x!='': 
+       if x!='':
           xcfg['default_shared_repo_url']=x
 
     # Editing options
@@ -249,7 +249,7 @@ def setup(i):
        ck.out('')
        r=ck.inp({'text': 'Enter CMD to enter meta-description using $#filename#$ to substitute filename (Enter to keep previous): '})
        d=r['string']
-       if d!='': 
+       if d!='':
           if 'external_editor' not in xcfg: xcfg['external_editor']={}
           xcfg['external_editor'][plat]=d
 
@@ -319,23 +319,31 @@ def setup(i):
     # Web front-end options
     if param=='' or param=='wfe':
        ck.out(sep)
-       ck.out('*** Web front end control (through CK web server or third-party web server and CK php connector) ***')
+       ck.out('*** Web front-end control (via CK web server, or third-party web server and CK PHP connector) ***')
 
        ck.out('')
 
-       x=xcfg.get('wfe_url_prefix','')
-       if x=='': x=ck.cfg.get('wfe_url_prefix','')
-       ck.out('Current web front-end URL prefix: '+x)
+       x=xcfg.get('wfe_host','')
+       if x=='': x=ck.cfg.get('wfe_host','')
+       ck.out('Current web front-end host: '+x)
+
+       x=xcfg.get('wfe_port','')
+       if x=='': x=ck.cfg.get('wfe_port','')
+       ck.out('Current web front-end port: '+x)
 
        x=xcfg.get('wfe_template','')
        if x=='': x=ck.cfg.get('wfe_template','')
-       ck.out('Current web front-end template:   '+x)
+       ck.out('Current web front-end template: '+x)
 
        ck.out('')
 
-       r=ck.inp({'text': 'Enter new web front-end URL prefix (Enter to keep previous): '})
+       r=ck.inp({'text': 'Enter new web front-end host (Enter to keep previous): '})
        x=r['string']
-       if x!='': xcfg['wfe_url_prefix']=x
+       if x!='': xcfg['wfe_host']=x
+
+       r=ck.inp({'text': 'Enter new web front-end port (Enter to keep previous): '})
+       x=r['string']
+       if x!='': xcfg['wfe_port']=x
 
        r=ck.inp({'text': 'Enter new web front-end template (Enter to keep previous): '})
        x=r['string']
