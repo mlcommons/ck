@@ -640,8 +640,7 @@ def start(i):
 
     # Define external server host.
     global wfe_host
-    wfe_host=ck.cfg.get('default_wfe_host',host)
-    wfe_host=i.get('wfe_host',wfe_host)
+    wfe_host=i.get('wfe_host',host)
 
     # Define internal server port.
     port=ck.cfg.get('default_port','')
@@ -650,8 +649,7 @@ def start(i):
 
     # Define external server port.
     global wfe_port
-    wfe_port=ck.cfg.get('default_wfe_port',port)
-    wfe_port=i.get('wfe_port',wfe_port)
+    wfe_port=i.get('wfe_port',port)
 
     # Assemble URL.
     url=host+':'+port

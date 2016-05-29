@@ -116,8 +116,6 @@ cfg={
       "index_port":"9200",
       "index_use_curl":"no",
 
-      "default_wfe_host":"localhost",
-      "default_wfe_port":"3344",
       "wfe_template":"default",
 
       "module_repo_name":"repo",
