@@ -8793,6 +8793,24 @@ def access(i):
 
     global con_encoding
 
+#    # Set fresh configuration for each access - very costly
+#    if cfg.get('loading_config','') == '':
+#        cfg['loading_config'] = 'yes'
+#        r=access({'action':'load',
+#                  'repo_uoa':cfg['repo_name_default'],
+#                  'module_uoa':cfg['subdir_kernel'],
+#                  'data_uoa':cfg['subdir_kernel_default']})
+#        if r['return']==0:
+#           cfg.update(r['dict'])
+#
+#        r=access({'action':'load',
+#                  'repo_uoa':cfg['repo_name_local'],
+#                  'module_uoa':cfg['subdir_kernel'],
+#                  'data_uoa':cfg['subdir_kernel_default']})
+#        if r['return']==0:
+#           cfg.update(r['dict'])
+#        cfg['loading_config'] = ''
+
     rr={'return':0}
     ii={}
     cmd=False
@@ -8874,6 +8892,7 @@ def access(i):
 
 ##############################################################################
 if __name__ == "__main__":
+
    r=access(sys.argv[1:])
 
    if 'return' not in r:

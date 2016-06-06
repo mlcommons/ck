@@ -1,5 +1,6 @@
 * V1.7.2dev
-  * adding the --wfe_host and --wfe_host flags to "ck start web".
+  * added the --wfe_host and --wfe_host flags to "ck start web".
+  * improved API when starting CK server and a browser at the same time ...
 
 * V1.7.1
   * fixing detection of CK installation even when ck is soft linked

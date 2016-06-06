@@ -47,7 +47,7 @@ def add(i):
 
               (cids[0])                  - as uoa or full CID
 
-              (path)                     - if !='' - creat in this path
+              (path)                     - if !='' - create in this path or import from this path
               (here)                     - if =='yes', create in current path
               (use_default_path)         - if 'yes' create repository in the default path (CK_REPOS)
                                            instead of the current path (default is 'yes')
@@ -1994,5 +1994,34 @@ def show(i):
 
     import webbrowser
     webbrowser.open(url)
+
+    return {'return':0}
+
+##############################################################################
+# describe repository for Artifact Evaluation
+
+def describe(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    ck.out('describe repository for Artifact Evaluation')
+
+    ck.out('')
+    ck.out('Command line: ')
+    ck.out('')
+
+    import json
+    cmd=json.dumps(i, indent=2)
+
+    ck.out(cmd)
 
     return {'return':0}

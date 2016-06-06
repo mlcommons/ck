@@ -623,6 +623,7 @@ def start(i):
               (browser)     - if 'yes', open browser
               (template)    - if !='', add template
               (cid)         - view a given entry
+              (extra_url)   - extra text for URL
             }
 
     Output: {
@@ -662,15 +663,23 @@ def start(i):
 
     if i.get('browser','')=='yes':
        rurl='http://'+url
-       tm=i.get('template','')
-       if tm!='':
-          rurl+='/?template='+tm
+
+       ext=''
+
+       if i.get('template','')!='':
+          ext='template='+i['template']
 
        cid=i.get('cid','')
-       if cid!='':
-          if tm!='': rurl+='&'
-          else: rurl+='/?'
-          rurl+='wcid='+cid
+       if cid!='' and cid!='web':
+          if ext!='': ext+='&'
+          ext+='wcid='+cid
+
+       if i.get('extra_url','')!='':
+          if ext!='': ext+='&'
+          ext+=i['extra_url']
+
+       if ext!='':
+          rurl+='/?'+ext
 
        import webbrowser
        webbrowser.open(rurl)
