@@ -95,6 +95,26 @@ Please check out CK getting started guide and CK wiki for further details:
 * https://github.com/ctuning/ck/wiki/Getting_started_guide_basic
 * https://github.com/ctuning/ck/wiki
 
+Trying CK using Docker image
+============================
+
+If you would like to try CK without installing it, 
+you can run the following Docker image:
+
+```
+ $ docker run -it ctuning/ck
+```
+
+However, the idea of CK is to be able to rebuild user experimental workflows
+natively to be able to take advantage of latest environment and tools.
+
+Also, note that we support Docker automation. Please 
+check 'ck-docker' repository at GitHub as following:
+
+```
+ $ ck show repo:ck-docker
+```
+
 Our related initiatives
 =======================
 
