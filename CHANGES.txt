@@ -2,6 +2,10 @@
   * added the --wfe_host and --wfe_host flags to "ck start web".
   * improved API when starting CK server and a browser at the same time ...
   * added info about Docker support in CK
+  * simplified adding remote repo using --hostname --port --hostext
+  * added possibility to describe repository for Artifact Evaluation
+    using flag --describe (see http://cTuning.org/ae), i.e.
+    ck add repo:my-artifact-pack --describe
 
 * V1.7.1
   * fixing detection of CK installation even when ck is soft linked

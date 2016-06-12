@@ -72,6 +72,11 @@ def add(i):
                                            (useful when kernel is set to allow writing only to such repositories)
 
               (url)                      - if type=='remote' or 'git', URL of remote repository or git repository
+              (hostname)                 - if !='', automatically form url above (add http:// + /ck?)
+              (port)                     - if !='', automatically add to url above
+              (hostext)                  - if !='', add to the end of above URL instead of '/ck?' -
+                                           useful when CK server is accessed via Apache2, IIS, Nginx or other web servers
+
               (githubuser)               - if shared repo, use this GitHub user space instead of default "ctuning"
               (sync)                     - if 'yes' and type=='git', sync repo after each write operation
 
@@ -89,6 +94,8 @@ def add(i):
               (skip_reusing_remote_info) - if 'yes', do not reuse remote .cmr.json description of a repository
 
               (current_repos)            - if resolving dependencies on other repos, list of repos being updated (to avoid infinite recursion)
+
+              (describe)                 - describe repository for Artifact Evaluation (see http://cTuning.org/ae)
             }
 
     Output: {
@@ -134,7 +141,10 @@ def add(i):
     share=i.get('share','')
     if share=='yes' and shared=='': shared='git'
 
-    url=i.get('url','')
+    rx=form_url(i)
+    if rx['return']>0: return rx
+    url=rx['url']
+
     sync=i.get('sync','')
     df=i.get('default','')
 
@@ -357,6 +367,11 @@ def add(i):
     if len(rdeps)>0:
        dd['repo_deps']=rdeps
 
+    # Check if need to describe for Artifact Evaluation
+    if i.get('describe','')=='yes':
+       r=describe({'dict':dd})
+       if r['return']>0: return r
+
     # If not default, go to common core function to create entry
     if df!='yes':
        ii={'module_uoa':work['self_module_uoa'],
@@ -464,6 +479,11 @@ def update(i):
               (shared)                   - if not remote and =='git', shared through GIT
 
               (url)                      - if type=='git', URL of remote repository or git repository
+              (hostname)                 - if !='', automatically form url above (add http:// + /ck?)
+              (port)                     - if !='', automatically add to url above
+              (hostext)                  - if !='', add to the end of above URL instead of '/ck?' -
+                                           useful when CK server is accessed via Apache2, IIS, Nginx or other web servers
+
               (sync)                     - if 'yes' and type=='git', sync repo after each write operation
               (allow_writing)            - if 'yes', allow writing 
                                            (useful when kernel is set to allow writing only to such repositories)
@@ -474,6 +494,8 @@ def update(i):
                                              ("repo_url") - URL of the shared repository (if not from github.com/ctuning)
 
               (update)                   - if 'yes', force updating
+
+              (describe)                 - describe repository for Artifact Evaluation (see http://cTuning.org/ae)
             }
 
     Output: {
@@ -495,8 +517,11 @@ def update(i):
     remote=i.get('remote','')
     rruoa=i.get('remote_repo_uoa','')
     shared=i.get('shared','')
-    url=i.get('url','')
     sync=i.get('sync','')
+
+    rx=form_url(i)
+    if rx['return']>0: return rx
+    url=rx['url']
 
     rdeps=i.get('repo_deps',[])
 
@@ -599,6 +624,12 @@ def update(i):
        else: 
           for q in rdeps1:
               d['repo_deps'].append(q)
+       changed=True
+
+    # Check if need to describe for Artifact Evaluation
+    if i.get('describe','')=='yes':
+       r=describe({'dict':d})
+       if r['return']>0: return r
        changed=True
 
     # Write if changed
@@ -2003,25 +2034,125 @@ def show(i):
 def describe(i):
     """
     Input:  {
+              (dict)  - dict with current repo description
             }
 
     Output: {
               return       - return code =  0, if successful
                                          >  0, if error
               (error)      - error text if return > 0
+
+              (dict)  - updated dict with current repo description
             }
 
     """
 
-    ck.out('describe repository for Artifact Evaluation')
+    d=i.get('dict',{})
+
+    a=d.get('artifact_pack_description',{})
 
     ck.out('')
-    ck.out('Command line: ')
+    ck.out('Please, provide description of your artifact pack (see http://cTuning.org/ae for more details):')
     ck.out('')
 
-    import json
-    cmd=json.dumps(i, indent=2)
+    r=ck.inp({'text':'Enter title of your artifact pack (or associated paper): '})
+    x=r['string']
+    if x!='': a['title']=x
 
-    ck.out(cmd)
+    r=ck.inp({'text':'List contributors: '})
+    x=r['string']
+    if x!='': a['contributors']=x
 
-    return {'return':0}
+    r=ck.inp({'text':'Enter artifact abstract: '})
+    x=r['string']
+    if x!='': a['description']=x
+
+    r=ck.inp({'text':'Enter license of the whole artifact pack: '})
+    x=r['string']
+    if x!='': a['license']=x
+
+    r=ck.inp({'text':'Enter version/revision of the whole artifact pack: '})
+    x=r['string']
+    if x!='': a['version']=x
+
+    r=ck.inp({'text':'How delivered (URL, DOI, OCRID, etc): '})
+    x=r['string']
+    if x!='': a['how_delivered']=x
+
+    r=ck.inp({'text':'Describe software dependencies: '})
+    x=r['string']
+    if x!='': a['software_dependencies']=x
+
+    r=ck.inp({'text':'Describe hardware dependencies: '})
+    x=r['string']
+    if x!='': a['hardware_dependencies']=x
+
+    r=ck.inp({'text':'Describe data sets: '})
+    x=r['string']
+    if x!='': a['datasets']=x
+
+    r=ck.inp({'text':'Describe installation procedure: '})
+    x=r['string']
+    if x!='': a['installation']=x
+
+    r=ck.inp({'text':'Describe possible experiment parameterization: '})
+    x=r['string']
+    if x!='': a['parameterization']=x
+
+    r=ck.inp({'text':'Describe experiment workflow: '})
+    x=r['string']
+    if x!='': a['experiment_workflow']=x
+
+    r=ck.inp({'text':'Describe evaluation procedure and expected output: '})
+    x=r['string']
+    if x!='': a['evaluation']=x
+
+    r=ck.inp({'text':'Acknowledgments: '})
+    x=r['string']
+    if x!='': a['acknowledgments']=x
+
+    r=ck.inp({'text':'Misc notes: '})
+    x=r['string']
+    if x!='': a['notes']=x
+
+    d['artifact_pack_description']=a
+
+    return {'return':0, 'dict':d}
+
+##############################################################################
+# form URL from hostname, hostext and port
+
+def form_url(i):
+    """
+    Input:  {
+              (url)                      - if type=='remote' or 'git', URL of remote repository or git repository
+              (hostname)                 - if !='', automatically form url above (add http:// + /ck?)
+              (port)                     - if !='', automatically add to url above
+              (hostext)                  - if !='', add to the end of above URL instead of '/ck?' -
+                                           useful when CK server is accessed via Apache2, IIS or other web servers
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              url          - formed URL
+            }
+
+    """
+
+    url=i.get('url','')
+
+    if i.get('hostname','')!='':
+       url='http://'+i['hostname']
+
+       if i.get('port','')!='':
+          url+=':'+i['port']
+
+       if i.get('hostext','')!='':
+          url+='/'+i['hostext']
+       else:
+          url+='/ck?'
+
+    return {'return':0, 'url':url}

@@ -12,9 +12,6 @@
     "deps": {
       "desc": "resolve dependencies on other repositories for a given repository"
     }, 
-    "describe": {
-      "desc": "describe repository for Artifact Evaluation"
-    }, 
     "find": {
       "desc": "find path to repo"
     }, 
