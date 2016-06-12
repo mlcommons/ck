@@ -108,14 +108,20 @@ you can run the following Docker image:
 However, the idea of CK is to be able to rebuild user experimental workflows
 natively to take advantage of the latest software environment.
 
-Also, note that CK supports Docker automation (to evaluate artifacts
-at the conferences, share interactive and reproducible articles 
-or crowdsource experiments for example). 
+Also note that we added Docker automation to CK (to help 
+evaluate artifacts at the conferences, share interactive 
+and reproducible articles or crowdsource experiments for example). 
 
 Please check 'ck-docker' repository at GitHub:
 
 ```
  $ ck show repo:ck-docker
+```
+
+You can download and view one of our CK-based interactive and reproducible articles as following:
+```
+ $ ck pull repo:ck-docker
+ $ ck run docker:ck-interactive-article --browser (--sudo)
 ```
 
 Our related initiatives
