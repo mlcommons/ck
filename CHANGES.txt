@@ -6,6 +6,7 @@
   * added possibility to describe repository for Artifact Evaluation
     using flag --describe (see http://cTuning.org/ae), i.e.
     ck add repo:my-artifact-pack --describe
+  * return 16 when adding new entry (including repository) and it already exists
 
 * V1.7.1
   * fixing detection of CK installation even when ck is soft linked

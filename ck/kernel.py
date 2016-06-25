@@ -5180,7 +5180,7 @@ def add(i):
 
     Output: {
               return       - return code =  0, if successful
-                                           16, if data entry already exists
+                                           16, if entry already exists
                                          >  0, if error
               (error)      - error text if return > 0
 
@@ -5335,7 +5335,7 @@ def add(i):
 
           if dn=='': dn=info.get('data_name','')
        else:
-          return {'return':1,'error':'entry already exists in path ('+p2+')'}
+          return {'return':16,'error':'entry already exists in path ('+p2+')'}
     else:
        # Create configuration directory
        if not os.path.isdir(p3):

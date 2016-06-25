@@ -100,6 +100,7 @@ def add(i):
 
     Output: {
               return       - return code =  0, if successful
+                                           16, repository with a given path is already registered in CK
                                          >  0, if error
               (error)      - error text if return > 0
             }
@@ -299,7 +300,7 @@ def add(i):
     # Check if repository is already registered with this path
     r=ck.find_repo_by_path({'path':p})
     if r['return']==0:
-       return {'return':1, 'error':'repository with a given path is already registered in CK'}
+       return {'return':16, 'error':'repository with a given path is already registered in CK'}
     elif r['return']!=16: 
        return r
 
