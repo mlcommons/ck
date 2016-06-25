@@ -1180,6 +1180,52 @@ def load_json_file(i):
     return {'return':0, 'dict': d}
 
 ##############################################################################
+# Load YAML from file into dict
+
+def load_yaml_file(i):
+    """
+    Input:  {
+              yaml_file - name of YAML file
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         = 16, if file not found (may be warning)
+                                         >  0, if error
+              (error)  - error text if return > 0
+
+              dict     - dict from YAML file
+            }
+    """
+
+    import yaml
+
+    fn=i['yaml_file']
+
+    try:
+      if sys.version_info[0]>2:
+         f=open(fn, 'r', encoding='utf8')
+      else:
+         f=open(fn, 'r')
+    except Exception as e:
+       return {'return':16, 'error':'problem opening YAML file='+fn+' ('+format(e)+')'}
+
+    try:
+      s=f.read()
+    except Exception as e:
+       f.close()
+       return {'return':1, 'error':'problem reading YAML file='+fn+' ('+format(e)+')'}
+
+    f.close()
+
+    try:
+      d=yaml.load(s)
+    except Exception as e:
+       return {'return':1, 'error':'problem parsing YAML from file='+fn+' ('+format(e)+')'}
+
+    return {'return':0, 'dict': d}
+
+##############################################################################
 # Load text file into string
 
 def load_text_file(i):
@@ -1368,6 +1414,35 @@ def save_json_to_file(i):
     r=dumps_json(i)
     if r['return']>0: return r
     s=r['string'].replace('\r','')+'\n'
+
+    return save_text_file({'text_file':fn, 'string':s})
+
+##############################################################################
+# Save dict as yaml file
+
+def save_yaml_to_file(i):
+    """
+    Input:  {
+              yaml_file   - file name
+              dict        - dict to save
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+    """
+
+    import yaml
+
+    fn=i['yaml_file']
+    d=i['dict']
+
+    try:
+       s=yaml.dump(d)
+    except Exception as e:
+       return {'return':1, 'error':'problem converting dict to YAML ('+format(e)+')'}
 
     return save_text_file({'text_file':fn, 'string':s})
 
