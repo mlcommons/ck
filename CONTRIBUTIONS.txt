@@ -207,3 +207,9 @@ E:
 O:
 C: reporting vulnerability in CK public repository (fixed)
 W:
+
+N: Michael Mcgeagh
+E:
+O: ARM, UK
+C: reporting problem with yaml recording and CPU feature detection (in new format)
+W:

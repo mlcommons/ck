@@ -1440,7 +1440,9 @@ def save_yaml_to_file(i):
     d=i['dict']
 
     try:
-       s=yaml.dump(d)
+       # If using just dump and keys are in unicode, 
+       # pyyaml adds warning and makes produced yaml unparsable
+       s=yaml.safe_dump(d) 
     except Exception as e:
        return {'return':1, 'error':'problem converting dict to YAML ('+format(e)+')'}
 

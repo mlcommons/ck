@@ -8,6 +8,7 @@
     ck add repo:my-artifact-pack --describe
   * return 16 when adding new entry (including repository) and it already exists
   * added often used 'load_yaml_file' and 'save_yaml_to_file' functions to kernel
+  * changing yaml.dump to yaml.safe_dump
 
 * V1.7.1
   * fixing detection of CK installation even when ck is soft linked
