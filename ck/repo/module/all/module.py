@@ -36,7 +36,8 @@ def init(i):
 def pull(i):
     """
     Input:  {
-              (kernel) - if 'yes', pull kernel too (unless installed as a package)
+              (kernel)  - if 'yes', pull kernel too (unless installed as a package)
+              (install) - if 'yes', install CK kernel as python module (via python setup.py install)
             }
 
     Output: {
@@ -51,12 +52,18 @@ def pull(i):
 
     o=i.get('out','')
 
-    if i.get('kernel','')=='yes':
+    kernel=i.get('kernel','')
+    install=i.get('install','')
+
+    if kernel=='yes' or install=='yes':
        ck_root=ck.work['env_root']
 
        if not os.path.isdir(ck_root):
           return {'return':1, 'error':'Can\'t find CK in '+ck_root+' - please check CK_ROOT env'}
 
+       os.chdir(ck_root)
+
+    if kernel=='yes':
        cont=True
        if not os.path.isdir(os.path.join(ck_root,'.git')) and i.get('force','')!='yes':
           ck.out('WARNING: seems like your CK_ROOT installation is not from GitHub - skipping kernel update ...')
@@ -64,8 +71,6 @@ def pull(i):
           cont=False
 
        if cont:
-          os.chdir(ck_root)
-
           if o=='con':
              ck.out('Updating CK from GitHub ...')
              ck.out('')
@@ -79,6 +84,30 @@ def pull(i):
 
           if o=='con':
              ck.out('')
+
+    if install=='yes':
+       c=ck.cfg['install_ck_as_lib']
+
+       py=os.getenv('CK_PYTHON','')
+       if py!='':
+          c=c.replace('python ',py+' ')
+
+       ck.out('')
+       ck.out('Installing CK kernel as python module ...')
+
+       ck.out('')
+       ck.out('  cd '+ck_root)
+
+       # Get OS
+       r=ck.get_os_ck({})
+       if r['return']>0: return r
+       plat=r['platform']
+       if plat!='win':
+          c=ck.cfg.get('linux_sudo','')+' '+c
+
+       ck.out('  '+c)
+       ck.out('')
+       os.system(c)
 
     return ck.access({'action':'pull',
                       'module_uoa':'repo',
