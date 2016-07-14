@@ -1,4 +1,5 @@
 * V1.7.3dev
+  * fixing rare bug when 'return' is non-integer in remote CK access (such as during crowd-tuning and crowd-testing)
 
 * V1.7.2
   * added the --wfe_host and --wfe_host flags to "ck start web".

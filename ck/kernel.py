@@ -2944,6 +2944,8 @@ def perform_remote_action(i):
 
        d=r['dict']
 
+       if 'return' in d: d['return']=int(d['return']) # Fix for some strange behavior when 'return' is not integer - should check why ...
+
        if d.get('return',0)>0:
           return d
 
@@ -8212,7 +8214,7 @@ def push(i):
 
               (file_content_base64) - if !='', take its content and record into filename
 
-              (archive)             - if 'yes' pull to entry and unzip ...
+              (archive)             - if 'yes' push to entry and unzip ...
 
               (overwrite)           - if 'yes', overwrite files
             }
