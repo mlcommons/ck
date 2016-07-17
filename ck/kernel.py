@@ -1508,22 +1508,42 @@ def copy_to_clipboard(i):
 
     s=i['string']
 
-    # Try to load Tkinter
-    loaded=True
+    failed=False
+    ee=''
 
+    # Try to load pyperclip (seems to work fine on Windows)
     try:
-       from Tkinter import Tk
-    except ImportError:
-       loaded=False
+       import pyperclip
+    except Exception as e:
+       ee=format(e)
+       failed=True
        pass
 
-    if not loaded:
+    if not failed:
+       pyperclip.copy(s)
+    else:
+       failed=False
+
+       # Try to load Tkinter
        try:
-          from tkinter import Tk
-       except ImportError:
+          from Tkinter import Tk
+       except ImportError as e:
+          ee=format(e)
+          failed=True
           pass
 
-    if loaded:
+       if failed:
+          failed=False
+          try:
+             from tkinter import Tk
+          except ImportError as e:
+             ee=format(e)
+             failed=True
+             pass
+
+       if failed:
+          return {'return':1, 'error':'none of pyperclip/Tkinter/tkinter packages is installed'}
+
        # Copy to clipboard
        try:
           r = Tk()
@@ -1533,22 +1553,6 @@ def copy_to_clipboard(i):
           r.destroy()
        except Exception as e:
           return {'return':1, 'error':'problem copying string to clipboard ('+format(e)+')'}
-
-    else:
-       # Try to load pyperclip
-
-       ee=''
-       try:
-          import pyperclip
-       except Exception as e:
-          ee=format(e)
-          loaded=False
-          pass
-
-       if not loaded:
-          return {'return':1, 'error':'seems that "pyperclip" python package is not installed ('+ee+')'}
-
-       pyperclip.copy(s)
 
     return {'return':0}
 
