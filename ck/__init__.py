@@ -8,3 +8,9 @@
 #
 
 # CK dummy
+
+from ck.kernel import init,err
+
+# Initialize various vars and paths
+r=init({})
+if r['return']>0: err(r)

@@ -1,2 +1,5 @@
+build
 build/*
+MANIFEST
 *.pyc
+__pycache__
