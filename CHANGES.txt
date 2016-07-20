@@ -2,6 +2,7 @@
   * fixed rare bug when 'return' is non-integer in remote CK access (such as during crowd-tuning and crowd-testing)
   * fixed copying to clipboard on Windows
   * fixed __init__.py when using CK from scripts/ipython/jupyter (calling init())
+  * added ck.jerr(r) - print error with raise KeyboardInterrupt for Jupyter Notebooks
 
 * V1.7.2
   * added the --wfe_host and --wfe_host flags to "ck start web".

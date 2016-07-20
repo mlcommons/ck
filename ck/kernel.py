@@ -370,6 +370,26 @@ def err(r):
     exit(rc)
 
 ##############################################################################
+# Universal error print for Jupyter Notebook with raise KeyboardInterrupt
+
+def jerr(r):
+    """
+    Input:  {
+              return - return code
+              error - error text
+            }
+
+    Output: Nothing; quits program
+    """
+
+    rc=r['return']
+    re=r['error']
+
+    out('Error: '+re)
+
+    raise KeyboardInterrupt
+
+##############################################################################
 # Support function for safe float (useful for sorting function)
 def safe_float(i,d):
     r=d
