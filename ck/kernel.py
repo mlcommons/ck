@@ -363,11 +363,13 @@ def err(r):
     Output: Nothing; quits program
     """
 
+    import sys
+
     rc=r['return']
     re=r['error']
 
     out('Error: '+re)
-    exit(rc)
+    sys.exit(rc)
 
 ##############################################################################
 # Universal error print for Jupyter Notebook with raise KeyboardInterrupt
@@ -1988,16 +1990,6 @@ def init(i):
     # Default URL. FIXME: should be formed from wfe_host and wfe_port when they are known.
     # cfg['wfe_url_prefix'] = 'http://%s:%s/web?' % (cfg['default_host'], cfg['default_port'])
 
-    # Check CK_ROOT environment variable
-    if not cfg['env_key_root'] in os.environ.keys():
-       return {'return':1, 'error':cfg['env_key_root']+' environment variable is not defined'}
-
-    s=os.environ[cfg['env_key_root']].strip()
-    if s=='':
-       return {'return':1, 'error':cfg['env_key_root']+' environment variable is empty'}
-
-    work['env_root']=os.path.realpath(s)
-
     # Check long/int types
     try:
        x=long
@@ -2015,12 +2007,6 @@ def init(i):
     if os.path.isdir(py):
        p=py
 
-    for px in cfg['kernel_dirs']:
-        py=os.path.join(work['env_root'], px, cfg['subdir_default_repo'])
-        if os.path.isdir(py):
-           p=py
-           break
-
     if p=='':
        from distutils.sysconfig import get_python_lib
        py=os.path.join(get_python_lib(), cfg['kernel_dir'], cfg['subdir_default_repo'])
@@ -2031,6 +2017,17 @@ def init(i):
        import site
        for px in site.getsitepackages():
            py=os.path.join(px, cfg['kernel_dir'],cfg['subdir_default_repo'])
+           if os.path.isdir(py):
+              p=py
+              break
+
+    # Check CK_ROOT environment variable
+    s=os.environ.get(cfg['env_key_root'],'').strip()
+    if s!='':
+       work['env_root']=os.path.realpath(s)
+
+       for px in cfg['kernel_dirs']:
+           py=os.path.join(work['env_root'], px, cfg['subdir_default_repo'])
            if os.path.isdir(py):
               p=py
               break
