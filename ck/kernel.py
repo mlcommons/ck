@@ -1973,14 +1973,16 @@ def init(i):
     p=''
 
     import inspect
-    px=os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe()))) 
-    py=os.path.join(px, cfg['subdir_default_repo'])
+    pxx=os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
+    px=os.path.dirname(pxx)
+    py=os.path.join(pxx, cfg['subdir_default_repo'])
     if os.path.isdir(py):
        p=py
 
     if p=='':
        from distutils.sysconfig import get_python_lib
-       py=os.path.join(get_python_lib(), cfg['kernel_dir'], cfg['subdir_default_repo'])
+       px=get_python_lib()
+       py=os.path.join(px, cfg['kernel_dir'], cfg['subdir_default_repo'])
        if os.path.isdir(py):
           p=py
 
@@ -2002,6 +2004,8 @@ def init(i):
            if os.path.isdir(py):
               p=py
               break
+    elif px!='':
+      work['env_root']=px    
 
     if p=='':
        return {'return':1, 'error':'Internal CK error (can\'t find default repo) - please report to authors'}
