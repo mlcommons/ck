@@ -1,3 +1,5 @@
+* V1.7.4dev
+
 * V1.7.3
   * fixed rare bug when 'return' is non-integer in remote CK access (such as during crowd-tuning and crowd-testing)
   * fixed copying to clipboard on Windows
