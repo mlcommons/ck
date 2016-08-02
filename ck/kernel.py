@@ -516,6 +516,35 @@ def system_with_timeout(i):
     return {'return':0, 'return_code':rc}
 
 ##############################################################################
+# Run command and get stdout
+
+def run_and_get_stdout(i):
+  """
+  Input:  {
+            cmd       - list of command line arguments, starting with the command itself
+          }
+
+  Output: {
+            return       - return code =  0, if successful
+                                       >  0, if error
+                                       =  8, if timeout
+            (error)      - error text if return > 0
+
+            return_code  - return code from app
+
+            stdout       - string, standard output of the command
+          }
+  """
+
+  import subprocess
+
+  p1 = subprocess.Popen(i['cmd'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  output = p1.communicate()[0]
+  if sys.version_info[0]>2:
+    output = output.decode(encoding='UTF-8')
+  return {'return':0, 'return_code':p1.returncode, 'stdout':output}
+
+##############################################################################
 # Get value from one dict, remove it from there and move to another
 
 def get_from_dicts(dict1, key, default_value, dict2, extra=''):
