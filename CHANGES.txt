@@ -5,6 +5,7 @@
   * added ck.jerr(r) - print error with raise KeyboardInterrupt for Jupyter Notebooks
   * fixed major problem with using CK without CK_ROOT env, i.e. from python scripts or Jupyter Notebooks
   * fixed minor problem with CK_ROOT env (when is not set but can be detected automatically)
+  * added run_and_get_stdout function and fixed various problems with crowdtuning on MacOS 
 
 * V1.7.2
   * added the --wfe_host and --wfe_host flags to "ck start web".
