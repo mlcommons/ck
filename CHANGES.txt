@@ -1,4 +1,4 @@
-* V1.7.3dev
+* V1.7.3
   * fixed rare bug when 'return' is non-integer in remote CK access (such as during crowd-tuning and crowd-testing)
   * fixed copying to clipboard on Windows
   * fixed __init__.py when using CK from scripts/ipython/jupyter (calling init())
