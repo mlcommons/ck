@@ -538,11 +538,19 @@ def run_and_get_stdout(i):
 
   import subprocess
 
-  p1 = subprocess.Popen(i['cmd'], stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  cmd=i['cmd']
+  if type(cmd)!=list:
+     cmd=cmd.split(' ')
+
+  p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
   output = p1.communicate()[0]
+  error = p1.communicate()[1]
+
   if sys.version_info[0]>2:
     output = output.decode(encoding='UTF-8')
-  return {'return':0, 'return_code':p1.returncode, 'stdout':output}
+    error = error.decode(encoding='UTF-8')
+
+  return {'return':0, 'return_code':p1.returncode, 'stdout':output, 'stderr':error}
 
 ##############################################################################
 # Get value from one dict, remove it from there and move to another

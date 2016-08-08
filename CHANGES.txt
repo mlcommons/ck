@@ -1,4 +1,5 @@
 * V1.7.4dev
+  * extended run_and_get_stdout kernel function 
 
 * V1.7.3
   * fixed rare bug when 'return' is non-integer in remote CK access (such as during crowd-tuning and crowd-testing)
