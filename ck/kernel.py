@@ -543,8 +543,7 @@ def run_and_get_stdout(i):
      cmd=cmd.split(' ')
 
   p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-  output = p1.communicate()[0]
-  error = p1.communicate()[1]
+  output, error = p1.communicate()
 
   if sys.version_info[0]>2:
     output = output.decode(encoding='UTF-8')
