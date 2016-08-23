@@ -10,7 +10,7 @@
 # CK kernel - we made it monolithic with a minimal set 
 # of common functions for performance reasons
 
-__version__ = "1.7.4"
+__version__ = "1.8.1dev"
 
 # Extra modules global for the whole kernel
 import sys

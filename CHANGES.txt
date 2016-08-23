@@ -1,3 +1,5 @@
+* v1.8.1dev
+
 * V1.7.4
   * extended run_and_get_stdout kernel function 
   * fixed problem in run_and_get_stdout (ValueError: I/O operation on closed file)
