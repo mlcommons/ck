@@ -2041,7 +2041,7 @@ def init(i):
               p=py
               break
     elif px!='':
-      work['env_root']=px    
+      work['env_root']=px
 
     if p=='':
        return {'return':1, 'error':'Internal CK error (can\'t find default repo) - please report to authors'}
@@ -3265,7 +3265,6 @@ def get_api(i):
             }
     """
 
-
     p=i.get('path','')
     f=i.get('func','')
     o=i['out']
@@ -3282,7 +3281,11 @@ def get_api(i):
        p=rx['path']
 
     if p=='':
-       p=os.path.join(work['env_root'], cfg['file_kernel_py'])
+       p1=os.path.dirname(os.path.dirname(work['dir_default_repo']))
+       p=os.path.join(p1, cfg['file_kernel_py'])
+
+       if not os.path.isfile(p):
+          return {'return':1, 'error':'kernel not found in '+p}
     else:
        p=os.path.join(p, 'module.py')
 

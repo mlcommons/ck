@@ -1,6 +1,7 @@
 * V1.7.4dev
   * extended run_and_get_stdout kernel function 
   * fixed problem in run_and_get_stdout (ValueError: I/O operation on closed file)
+  * fixed problem with --help or --get_api from kernel
 
 * V1.7.3
   * fixed rare bug when 'return' is non-integer in remote CK access (such as during crowd-tuning and crowd-testing)
