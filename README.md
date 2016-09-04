@@ -72,7 +72,7 @@ You can now test CK by pulling and executing one of multiple shared research sce
 
 ```
  $ ck pull repo:ck-crowdtuning
- $ ck crowdsource experiment (to crowdsource any available experiment scenario on Linux)
+ $ ck crowdsource experiment
 ```
 
 For example, you can execute shared workflow for collaborative program optimization
