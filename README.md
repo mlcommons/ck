@@ -26,12 +26,14 @@ Minimal installation
 The minimal installation requires:
 
 * Python >= 2.6 (3.0+ is natively supported).
+* Python PIP (if you would like to install CK via PIP)
 * Git command line client.
+
 
 On Ubuntu, you can install these dependencies via
 
 ```
-$ apt-get install -y python git
+$ apt-get install -y python python-pip git
 ```
 
 On Windows, you can download and install these tools from the following sites:
@@ -40,26 +42,50 @@ On Windows, you can download and install these tools from the following sites:
 * Minimal Python: https://www.python.org/downloads/windows
 * Anaconda scientific Python with all packages: https://www.continuum.io/downloads#_windows
 
-For example, you can install shared workflow for collaborative program optimization
-with all related artifacts, and start participating in multi-objective crowdtuning 
-simply as follows: 
+You can now install stable CK version via PIP simply as following
+(you may need to prefix it with "sudo" on Linux):
+
+```
+$ pip install ck
+```
+
+Alternatively, you can install development CK version in your local user space
+via GIT as following:
 
 ```
  $ git clone https://github.com/ctuning/ck.git ck
- $ export PATH=$PWD/ck/bin:$PATH (on Linux)
 ```
-or
+and then add CK to PATH on Linux as following:
+```
+ $ export PATH=$PWD/ck/bin:$PATH
+```
+or on Windows as following:
 
 ```
- $ set PATH={CURRENT PATH}\ck\bin;%PATH% (on Windows)
+ $ set PATH={CURRENT PATH}\ck\bin;%PATH%
+```
+
+Experiment crowdsourcing example
+================================
+
+You can now test CK by pulling and executing one of multiple shared research scenarios.
+
+```
  $ ck pull repo:ck-crowdtuning
  $ ck crowdsource experiment (to crowdsource any available experiment scenario on Linux)
 ```
 
-or
+For example, you can execute shared workflow for collaborative program optimization
+with all related artifacts, and start participating in multi-objective crowdtuning 
+simply as following: 
 
 ```
- $ ck crowdtune program --gcc --target_os=mingw-64 (to crowdsource program optimization on Windows via GCC MingW compiler)
+ $ ck crowdtune program
+```
+
+You can also crowd-tune GCC on Windows as following:
+```
+ $ ck crowdtune program --gcc --target_os=mingw-64
 ```
 
 If you have GCC or LLVM compilers installed, you can start continuously crowd-tune 
