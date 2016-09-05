@@ -12,4 +12,4 @@ python:
 # skip the install step for now
 install: true
 
-script: pytest ck
+script: py.test ck
