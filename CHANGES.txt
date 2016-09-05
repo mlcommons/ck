@@ -1,6 +1,7 @@
 * v1.8.1dev
   * added Travis dummy
   * started working on extensible test infrastructure for CK
+  * initiated first Travis build (test)
 
 * V1.7.4
   * extended run_and_get_stdout kernel function 
