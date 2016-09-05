@@ -3,3 +3,4 @@ build/*
 MANIFEST
 *.pyc
 __pycache__
+.cache/
