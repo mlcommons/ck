@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/dsavenko/ck.svg?branch=master)](https://travis-ci.org/dsavenko/ck)
+[![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
 
 Introduction
 ============
