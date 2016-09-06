@@ -1,5 +1,12 @@
 [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
 
+NEWS
+====
+* Collective Knowledge presentation at [ARM TechCon'16 (Oct. 27)](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems)
+* CK registered at Travis to automate testing
+* We plan to update CK documentation this Fall
+* CK repository for CAFFE (open source DNN framework) is now available [here](http://github.com/dividiti/ck-caffe)
+
 Introduction
 ============
 
