@@ -46,16 +46,19 @@ def run(i):
 
     """
 
-    # run tests for default modules
-    r = ck.list_data({'repo_uoa':'default'})
-    kernel_modules_lst = r['lst']
+    r = ck.list_data({})
+    if r['return']>0: return r
+    modules_lst = r['lst']
 
-    for kernel_module in kernel_modules_lst:
-      run_module_tests('kernel:' + kernel_module['data_uoa'], kernel_module)
+    ret_code = 0
+    for m in modules_lst:
+      r = run_module_tests(m)
+      if r['return']>0: 
+        ret_code = r['return']
 
-    return {'return':0}
+    return {'return':ret_code, 'error': '' if 0 == ret_code else 'Some tests failed'}
 
-def run_module_tests(name, module):
+def run_module_tests(module):
   import os
 
   tests_path = os.path.join(module['path'], 'test')
@@ -63,14 +66,16 @@ def run_module_tests(name, module):
     return {'return': 0}
 
   suite = CkTestLoader().discover(tests_path)
-  ck.out('*** Running tests for ' + name)
-  unittest.TextTestRunner().run(suite)
+  ck.out('*** Running tests for ' + module['data_uoa'])
+  test_result = unittest.TextTestRunner().run(suite)
 
-  return {'return':0}
+  return { 'return': 0 if test_result.wasSuccessful() else 1 }
 
 class CkTestLoader(unittest.TestLoader):
   def loadTestsFromModule(self, module, pattern=None):
     module.ck = ck
+    module.cfg = cfg
+    module.work = work
     return unittest.TestLoader.loadTestsFromModule(self, module, pattern)
 
 ##############################################################################

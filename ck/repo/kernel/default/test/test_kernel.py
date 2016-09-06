@@ -1,7 +1,5 @@
 import unittest
 
-ck=None
-
 class TestKernel(unittest.TestCase):
 
     def test_safe_float(self):
