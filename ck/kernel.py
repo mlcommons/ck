@@ -912,25 +912,6 @@ def check_writing(i):
     return rr
 
 ##############################################################################
-# Simple test of CK installation
-
-def test():
-    """
-    Input:  None
-
-    Output: {
-              return       - return code =  0
-            }
-
-    """
-    out(cfg['name'])
-
-    out('')
-    out('Test function executed successfully!')
-
-    return {'return':0}
-
-##############################################################################
 # Get CK version
 
 def get_version(i):
