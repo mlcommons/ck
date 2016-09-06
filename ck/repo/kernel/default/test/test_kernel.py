@@ -1,19 +1,25 @@
 import unittest
+import sys
 
 ck=None # Will be updated by CK (initialized CK kernel)
 
 def dummy_exit(code):
     print('Exit code: ' + str(code))
 
+def get_io():
+    if sys.version_info[0]>2:
+        import io
+        return io.StringIO()
+    else:
+        from StringIO import StringIO
+        return StringIO()
+
 class TestKernel(unittest.TestCase):
 
     def test_out(self):
-        import sys
-        from StringIO import StringIO
-
         saved_stdout = sys.stdout
         try:
-            out = StringIO()
+            out = get_io()
             sys.stdout = out
             ck.out('test')
             self.assertEqual('test', out.getvalue().strip())
@@ -22,13 +28,10 @@ class TestKernel(unittest.TestCase):
 
 
     def test_err(self):
-        import sys
-        from StringIO import StringIO
-
         saved_stdout = sys.stdout
         saved_exit = sys.exit
         try:
-            out = StringIO()
+            out = get_io()
             sys.stdout = out
             sys.exit = dummy_exit
             ck.err({'return': 2, 'error': 'test.'})
@@ -38,12 +41,9 @@ class TestKernel(unittest.TestCase):
             sys.exit = saved_exit
 
     def test_jerr(self):
-        import sys
-        from StringIO import StringIO
-
         saved_stdout = sys.stdout
         try:
-            out = StringIO()
+            out = get_io()
             sys.stdout = out
             with self.assertRaises(KeyboardInterrupt):
                 ck.jerr({'return': 2, 'error': 'test.'})
