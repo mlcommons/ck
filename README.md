@@ -2,10 +2,10 @@
 
 NEWS
 ====
-* Collective Knowledge presentation at [ARM TechCon'16 (Oct. 27)](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems)
-* CK registered at Travis to automate testing
-* We plan to update CK documentation this Fall
-* CK repository for CAFFE (open source DNN framework) is now available [here](http://github.com/dividiti/ck-caffe)
+* Upcoming CK presentation at [ARM TechCon'16 (Oct. 27)](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems);
+* CK registered at [https://travis-ci.org/ctuning/ck](Travis) to automate testing;
+* We plan to update [http://github.com/ctuning/ck/wiki](CK documentation) this Fall;
+* CK repository for CAFFE (crowdbenchmarking open source DNN framework) is now available [here](http://github.com/dividiti/ck-caffe)!
 
 Introduction
 ============
