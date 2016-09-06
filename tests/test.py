@@ -7,7 +7,7 @@
 # Developer: Grigori Fursin
 #
 
-# CK installation test
+# Entry point for running CK tests for CI and coverage measurement tools
 
 import ck.kernel as ck
 
