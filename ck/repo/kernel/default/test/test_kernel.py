@@ -118,7 +118,8 @@ class TestKernel(unittest.TestCase):
         try:
             out_stream = get_io()
             in_stream = get_io('test input')
-            in_stream.encoding = 'utf8'
+            if not hasattr(in_stream, 'encoding'):
+                in_stream.encoding = 'utf8'
             sys.stdout = out_stream
             sys.stdin = in_stream
             r = ck.inp({'text': 'test output'})
@@ -135,7 +136,8 @@ class TestKernel(unittest.TestCase):
         try:
             out_stream = get_io()
             in_stream = get_io('1\n')
-            in_stream.encoding = 'utf8'
+            if not hasattr(in_stream, 'encoding'):
+                in_stream.encoding = 'utf8'
             sys.stdout = out_stream
             sys.stdin = in_stream
 
@@ -158,7 +160,8 @@ class TestKernel(unittest.TestCase):
         try:
             out_stream = get_io()
             in_stream = get_io('1\n')
-            in_stream.encoding = 'utf8'
+            if not hasattr(in_stream, 'encoding'):
+                in_stream.encoding = 'utf8'
             sys.stdout = out_stream
             sys.stdin = in_stream
 
