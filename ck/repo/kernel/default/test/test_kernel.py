@@ -300,7 +300,10 @@ class TestKernel(unittest.TestCase):
                 pass
 
     def test_dumps_json(self):
-        self.assertEqual('{"a": 1, "b": [2, 3]}', ck.dumps_json({'dict': {'a': 1, 'b': [2, 3]}, 'skip_indent': 'yes'})['string'])
+        d = {'a': 1, 'b': [2, 3]}
+        json_str = ck.dumps_json({'dict': d, 'skip_indent': 'yes'})['string']
+        parsed_dict = ck.convert_json_str_to_dict({'str': json_str, 'skip_quote_replacement': 'yes'})['dict']
+        self.assertEqual(d, parsed_dict)
 
     def test_merge_dicts(self):
         d1 = {'a': 1, 'b': 2}
