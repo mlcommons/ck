@@ -482,37 +482,36 @@ def system_with_timeout(i):
             }
     """
 
+    import subprocess
+    import time
+
     cmd=i['cmd']
 
     rc=0
 
     to=i.get('timeout','')
 
-    if to=='':
-       rc=os.system(i['cmd'])
+    p=subprocess.Popen(cmd, shell=True)
+
+    if to != '':
+      xto=float(to)
+
+      t0=time.time()
+      t=0
+      tx=float(i['timeout'])
+
+      while p.poll() == None and t<xto:
+        time.sleep(0.1)
+        t=time.time()-t0
+
+      if t>=xto and p.poll()==None:
+        system_with_timeout_kill(p)
+
+        return {'return':8, 'error':'process timed out and had been terminated'}
     else:
-       import subprocess
-       import time
+      p.wait()
 
-       xto=float(to)
-
-       t0=time.time()
-       t=0
-       tx=float(i['timeout'])
-
-       p=subprocess.Popen(cmd, shell=True)
-
-       while p.poll() == None and t<xto:
-          time.sleep(0.1)
-          t=time.time()-t0
-
-       if t>=xto and p.poll()==None:
-          system_with_timeout_kill(p)
-
-          return {'return':8, 'error':'process timed out and had been terminated'}
-
-       rc=p.returncode
-
+    rc=p.returncode
     return {'return':0, 'return_code':rc}
 
 ##############################################################################
@@ -707,7 +706,7 @@ def inp(i):
 def select(i):
     """
     Input:  {
-              dict             - dict with 'name' as string and 'sort' in int
+              dict             - dict with values being dicts with 'name' as string to display and 'sort' as int (for ordering)
               (title)          - print title
               (error_if_empty) - if 'yes' and Enter, make error
             }
@@ -767,7 +766,7 @@ def select_uoa(i):
     """
     Input:  {
               choices      - list from search function
-              (skip_enter) - if 'yes', do not select 0 when entering 0
+              (skip_enter) - if 'yes', do not select 0 when user presses Enter
             }
 
     Output: {
@@ -813,13 +812,15 @@ def select_uoa(i):
     return {'return':0, 'choice':dduoa}
 
 ##############################################################################
-# Universal UOA selector
+# Convert string to list
 
 def convert_str_tags_to_list(i):
     """
-    Input:  if type(i)!=list, convert string to list 
+    Input:  either a list, or a string of comma-separated tags.
 
-    Output: list of tags (stripped)
+    Output: If i is a list, it's returned.
+            If i is a string, the list of tags it represents is returned 
+            (each tag is stripped of leading and trailing whitespace).
 
     """
 
@@ -1394,6 +1395,7 @@ def substitute_str_in_file(i):
 
 ##############################################################################
 # Dump json to sring
+# TODO: probably should've been called 'dump_json', but it's too late to rename. Should we introduce an alias with that name?
 
 def dumps_json(i):
     """
