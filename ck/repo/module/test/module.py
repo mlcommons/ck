@@ -32,7 +32,7 @@ def init(i):
     return {'return':0}
 
 ##############################################################################
-# Run tests
+# Run tests for all modules in all repos
 
 def run(i):
     """
@@ -40,8 +40,20 @@ def run(i):
 
     Output: {
               return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+                                         >  0, if error. This error means test execution failed.
+                                            If some tests are failed, but the process overall succeded,
+                                            the return value is 0.
+              
+              (error)      - error message
+
+              (stats) {
+                        tests_run      - integer, total number of tests run
+                        tests_failed   - integer, total number of tests failed by all reasons. Detailed results are
+                                         provided in the 'results' field (see below)
+                      }
+
+              (repo_results)   - list of results for each repo. 
+                                 Each list item is what 'run_data_tests' returned for this repo.
             }
 
     """
@@ -51,12 +63,26 @@ def run(i):
     r = ck.list_data({'module_uoa': 'repo', 'cid': 'repo:*', 'data_uoa': '*'})
     if r['return']>0: return r
 
+    ret = {
+      'return': 0,
+      'stats': { 'tests_run': 0, 'tests_failed': 0 },
+      'repo_results': []
+    }
     for d in r['lst']:
       r = run_data_tests({'list_data': {'repo_uoa': d['data_uoa']}})
       if r['return']>0: 
-        ret_code = r['return']
+        ret['return'] = r['return']
+        ret['error'] = r['error']
+        return ret
 
-    return {'return':ret_code, 'error': '' if 0 == ret_code else 'Some tests failed'}
+      ret['stats']['tests_run'] += r['stats']['tests_run']
+      ret['stats']['tests_failed'] += r['stats']['tests_failed']
+      ret['repo_results'].append(r)
+
+    return ret
+
+##############################################################################
+# Run tests for modules/repos specified by the given criteria
 
 def run_data_tests(i):
     """
@@ -65,8 +91,23 @@ def run_data_tests(i):
             }
 
     Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
+              return         - return code =  0, if successful
+                                           >  0, if error. This error means test execution failed.
+                                              If some tests are failed, but the process overall succeded,
+                                              the return value is 0.
+
+              (error)        - error message
+              
+              (repo_uoa)     - repo_uoa, if provided in the input
+              
+              (stats) {
+                        tests_run      - integer, total number of tests run
+                        tests_failed   - integer, total number of tests failed by all reasons. Detailed results are
+                                         provided in the 'results' field (see below)
+                      }
+
+              (module_results)   - list of results for each module. 
+                                   Each list item is what 'run_module_tests' returned for this module.
             }
 
     """
@@ -77,13 +118,26 @@ def run_data_tests(i):
     if r['return']>0: return r
     modules_lst = r['lst']
 
-    ret_code = 0
+    ret = {
+      'return': 0,
+      'stats': { 'tests_run': 0, 'tests_failed': 0 },
+      'module_results': []
+    }
     for m in modules_lst:
       r = run_module_tests({'module': m, 'repo_uoa': repo_uoa})
-      if r['return']>0: 
-        ret_code = r['return']
+      if r['return']>0:
+        ret['return'] = r['return']
+        ret['error'] = r['error']
+        return ret
 
-    return {'return':ret_code, 'error': '' if 0 == ret_code else 'Some tests failed'}
+      ret['stats']['tests_run'] += r['stats']['tests_run']
+      ret['stats']['tests_failed'] += r['stats']['tests_failed']
+      ret['module_results'].append(r)
+
+    return ret
+
+##############################################################################
+# Run tests for a single module
 
 def run_module_tests(i):
     """
@@ -93,8 +147,28 @@ def run_module_tests(i):
             }
 
     Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
+              return                 - return code =  0, if successful
+                                                   >  0, if error. This error means test execution failed. 
+                                                      If some tests are failed, but the process overall succeded,
+                                                      the return value is 0.
+
+              (error)                - error message
+              
+              (module_uoa)           - module UOA
+
+              (repo_uoa)             - repo UOA (may be an empty string, if not provided in the input)
+
+              (stats) {
+                        tests_run      - integer, total number of tests run
+                        tests_failed   - integer, total number of tests failed by all reasons. Detailed results are
+                                         provided in the 'results' field (see below)
+                      }
+
+              (results) {
+                          errors                - list of test errors (unexpected exceptions in tests)
+                          failures              - list of test failures (cases when an assertion is failed in test)
+                          unexpected_successes  - list of unexpected successes (when a test should fail but succeded)
+                        }
             }
 
     """
@@ -102,19 +176,50 @@ def run_module_tests(i):
     import os
 
     module = i['module']
+    repo_uoa = i.get('repo_uoa', '')
+
+    ret = {
+      'return': 0,
+      'module_uoa': module['data_uoa'],
+      'repo_uoa': repo_uoa,
+      'stats': { 
+        'tests_run' : 0,
+        'tests_failed': 0
+      },
+      'results': {
+        'errors': [],
+        'failures': [],
+        'unexpected_successes': []
+      }
+    }
 
     tests_path = os.path.join(module['path'], 'test')
     if not os.path.isdir(tests_path):
-      return {'return': 0}
+      return ret
 
     suite = CkTestLoader().discover(tests_path)
-    prefix = i.get('repo_uoa', '')
+    prefix = repo_uoa
     if prefix != '':
       prefix += ':'
     ck.out('*** Running tests for ' + prefix + module['data_uoa'])
     test_result = unittest.TextTestRunner().run(suite)
 
-    return { 'return': 0 if test_result.wasSuccessful() else 1 }
+    ret['stats']['tests_run'] = test_result.testsRun
+    ret['stats']['tests_failed'] = len(test_result.errors) + len(test_result.failures) + len(test_result.unexpectedSuccesses)
+
+    ret['results']['errors'] = convert_error_tuples(test_result.errors)
+    ret['results']['failures'] = convert_error_tuples(test_result.failures)
+    ret['results']['unexpected_successes'] = convert_error_tuples(test_result.unexpectedSuccesses)
+
+    return ret
+
+def convert_error_tuples(list):
+  ret = []
+  for t in list:
+    test_case, traceback = t
+    ret.append({'test': test_case.id(), 'traceback': traceback})
+  return ret
+
 
 class CkTestLoader(unittest.TestLoader):
   def loadTestsFromModule(self, module, pattern=None):
