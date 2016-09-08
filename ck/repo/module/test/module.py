@@ -36,7 +36,9 @@ def init(i):
 
 def run(i):
     """
-    Input:  {}
+    Input:  {
+              (out)        - output
+            }
 
     Output: {
               return       - return code =  0, if successful
@@ -61,24 +63,29 @@ def run(i):
     ret_code = 0
 
     r = ck.list_data({'module_uoa': 'repo', 'cid': 'repo:*', 'data_uoa': '*'})
-    if r['return']>0: return r
+    if r['return']>0:
+      out_json_if_needed(i, r)
+      return r
 
     ret = {
       'return': 0,
       'stats': { 'tests_run': 0, 'tests_failed': 0 },
       'repo_results': []
     }
+    out = 'con' if i.get('out','') == 'con' else ''
     for d in r['lst']:
-      r = run_data_tests({'list_data': {'repo_uoa': d['data_uoa']}})
+      r = run_data_tests({'list_data': {'repo_uoa': d['data_uoa']}, 'out': out})
       if r['return']>0: 
         ret['return'] = r['return']
         ret['error'] = r['error']
+        out_json_if_needed(i, ret)
         return ret
 
       ret['stats']['tests_run'] += r['stats']['tests_run']
       ret['stats']['tests_failed'] += r['stats']['tests_failed']
       ret['repo_results'].append(r)
 
+    out_json_if_needed(i, ret)
     return ret
 
 ##############################################################################
@@ -88,6 +95,7 @@ def run_data_tests(i):
     """
     Input:  {
               list_data    - the same dict as the input of ck.list_data()
+              (out)        - output
             }
 
     Output: {
@@ -115,7 +123,10 @@ def run_data_tests(i):
     repo_uoa = i['list_data'].get('repo_uoa', '')
 
     r = ck.list_data(i['list_data'])
-    if r['return']>0: return r
+    if r['return']>0:
+      out_json_if_needed(i, r)
+      return r
+
     modules_lst = r['lst']
 
     ret = {
@@ -123,8 +134,9 @@ def run_data_tests(i):
       'stats': { 'tests_run': 0, 'tests_failed': 0 },
       'module_results': []
     }
+    out = 'con' if i.get('out','') == 'con' else ''
     for m in modules_lst:
-      r = run_module_tests({'module': m, 'repo_uoa': repo_uoa})
+      r = run_module_tests({'module': m, 'repo_uoa': repo_uoa, 'out': out})
       if r['return']>0:
         ret['return'] = r['return']
         ret['error'] = r['error']
@@ -134,6 +146,7 @@ def run_data_tests(i):
       ret['stats']['tests_failed'] += r['stats']['tests_failed']
       ret['module_results'].append(r)
 
+    out_json_if_needed(i, ret)
     return ret
 
 ##############################################################################
@@ -144,6 +157,7 @@ def run_module_tests(i):
     Input:  {
               module       - module dict, must have 'path' and 'data_uoa' keys
               (repo_uoa)   - repo_uoa of that module. Will be printed on the console
+              (out)        - output
             }
 
     Output: {
@@ -193,16 +207,28 @@ def run_module_tests(i):
       }
     }
 
+    o = i.get('out', '')
+
     tests_path = os.path.join(module['path'], 'test')
     if not os.path.isdir(tests_path):
+      out_json_if_needed(i, ret)
       return ret
 
     suite = CkTestLoader().discover(tests_path)
     prefix = repo_uoa
     if prefix != '':
       prefix += ':'
-    ck.out('*** Running tests for ' + prefix + module['data_uoa'])
-    test_result = unittest.TextTestRunner().run(suite)
+
+    if o == 'con':
+      ck.out('*** Running tests for ' + prefix + module['data_uoa'])
+
+    test_result = None
+    if o == 'con':
+      test_result = unittest.TextTestRunner().run(suite)
+    else: 
+      # supress all output
+      with open(os.devnull, 'w') as f:
+        test_result = unittest.TextTestRunner(stream=f).run(suite)
 
     ret['stats']['tests_run'] = test_result.testsRun
     ret['stats']['tests_failed'] = len(test_result.errors) + len(test_result.failures) + len(test_result.unexpectedSuccesses)
@@ -211,7 +237,17 @@ def run_module_tests(i):
     ret['results']['failures'] = convert_error_tuples(test_result.failures)
     ret['results']['unexpected_successes'] = convert_error_tuples(test_result.unexpectedSuccesses)
 
+    out_json_if_needed(i, ret)
     return ret
+
+def out_json_if_needed(i, ret):
+  o = i.get('out', '')
+  if o == 'json':
+    r = ck.dumps_json({'dict': ret})
+    if r['return']>0:
+      ck.out(r['error'])
+    else:
+      ck.out(r['string'])
 
 def convert_error_tuples(list):
   ret = []
