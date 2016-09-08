@@ -281,9 +281,10 @@ def show(i):
        h+='  <td><b>Description and actions:</b></td>\n'
        h+=' </tr>\n'
 
-
     repo_url={}
+    repo_private={}
 
+    private=''
     for l in ll:
         ln=l['data_uoa']
         lr=l['repo_uoa']
@@ -298,10 +299,12 @@ def show(i):
            rx=ck.load_repo_info_from_cache({'repo_uoa':lr_uid})
            if rx['return']>0: return rx
            url=rx.get('dict',{}).get('url','')
+           repo_private[lr_uid]=rx.get('dict',{}).get('private','')
            repo_url[lr_uid]=url
 
+        private=repo_private.get(lr_uid,'')
 
-        if lr not in cfg['skip_repos']:
+        if lr not in cfg['skip_repos'] and private!='yes':
            lm=l['meta']
            ld=lm.get('desc','')
 
