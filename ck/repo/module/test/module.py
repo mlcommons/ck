@@ -46,30 +46,75 @@ def run(i):
 
     """
 
-    r = ck.list_data({})
-    if r['return']>0: return r
-    modules_lst = r['lst']
-
     ret_code = 0
-    for m in modules_lst:
-      r = run_module_tests(m)
+
+    r = ck.list_data({'module_uoa': 'repo', 'cid': 'repo:*', 'data_uoa': '*'})
+    if r['return']>0: return r
+
+    for d in r['lst']:
+      r = run_data_tests({'list_data': {'repo_uoa': d['data_uoa']}})
       if r['return']>0: 
         ret_code = r['return']
 
     return {'return':ret_code, 'error': '' if 0 == ret_code else 'Some tests failed'}
 
-def run_module_tests(module):
-  import os
+def run_data_tests(i):
+    """
+    Input:  {
+              list_data    - the same dict as the input of ck.list_data()
+            }
 
-  tests_path = os.path.join(module['path'], 'test')
-  if not os.path.isdir(tests_path):
-    return {'return': 0}
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+            }
 
-  suite = CkTestLoader().discover(tests_path)
-  ck.out('*** Running tests for ' + module['data_uoa'])
-  test_result = unittest.TextTestRunner().run(suite)
+    """
 
-  return { 'return': 0 if test_result.wasSuccessful() else 1 }
+    repo_uoa = i['list_data'].get('repo_uoa', '')
+
+    r = ck.list_data(i['list_data'])
+    if r['return']>0: return r
+    modules_lst = r['lst']
+
+    ret_code = 0
+    for m in modules_lst:
+      r = run_module_tests({'module': m, 'repo_uoa': repo_uoa})
+      if r['return']>0: 
+        ret_code = r['return']
+
+    return {'return':ret_code, 'error': '' if 0 == ret_code else 'Some tests failed'}
+
+def run_module_tests(i):
+    """
+    Input:  {
+              module       - module dict, must have 'path' and 'data_uoa' keys
+              (repo_uoa)   - repo_uoa of that module. Will be printed on the console
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+            }
+
+    """
+
+    import os
+
+    module = i['module']
+
+    tests_path = os.path.join(module['path'], 'test')
+    if not os.path.isdir(tests_path):
+      return {'return': 0}
+
+    suite = CkTestLoader().discover(tests_path)
+    prefix = i.get('repo_uoa', '')
+    if prefix != '':
+      prefix += ':'
+    ck.out('*** Running tests for ' + prefix + module['data_uoa'])
+    test_result = unittest.TextTestRunner().run(suite)
+
+    return { 'return': 0 if test_result.wasSuccessful() else 1 }
 
 class CkTestLoader(unittest.TestLoader):
   def loadTestsFromModule(self, module, pattern=None):
