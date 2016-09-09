@@ -40,6 +40,8 @@ def run(i):
               (out)                 - output
               (repo_uoa)            - repository for run tests for. If not set, runs tests for all repositories
               (test_module_uoa)     - module for tun tests for. If not set, runs tests for all modules
+              (test_file_pattern)   - test file pattern. If not given, the default if 'test*.py'. 
+                                      Only tests from files that comply with the pattern, will be executed.
             }
 
     Output: {
@@ -64,6 +66,7 @@ def run(i):
 
     ret_code = 0
     test_module_uoa = i.get('test_module_uoa', '')
+    test_file_pattern = i.get('test_file_pattern', '')
 
     repo_uoas = []
     if '' == i.get('repo_uoa', ''):
@@ -84,7 +87,7 @@ def run(i):
       list_data = {'repo_uoa': repo_uoa}
       if '' != test_module_uoa:
         list_data['data_uoa'] = test_module_uoa
-      r = run_data_tests({'list_data': list_data, 'out': out})
+      r = run_data_tests({'list_data': list_data, 'out': out, 'test_file_pattern': test_file_pattern})
       if r['return']>0: 
         ret['return'] = r['return']
         ret['error'] = r['error']
@@ -102,8 +105,10 @@ def run(i):
 def run_data_tests(i):
     """
     Input:  {
-              list_data    - the same dict as the input of ck.list_data()
-              (out)        - output
+              list_data             - the same dict as the input of ck.list_data()
+              (out)                 - output
+              (test_file_pattern)   - test file pattern. If not given, the default if 'test*.py'. 
+                                      Only tests from files that comply with the pattern, will be executed.
             }
 
     Output: {
@@ -129,6 +134,7 @@ def run_data_tests(i):
     """
 
     repo_uoa = i['list_data'].get('repo_uoa', '')
+    test_file_pattern = i.get('test_file_pattern', '')
 
     r = ck.list_data(i['list_data'])
     if r['return']>0:
@@ -143,7 +149,7 @@ def run_data_tests(i):
     }
     out = 'con' if i.get('out','') == 'con' else ''
     for m in modules_lst:
-      r = run_module_tests({'module': m, 'repo_uoa': repo_uoa, 'out': out})
+      r = run_module_tests({'module': m, 'repo_uoa': repo_uoa, 'out': out, 'test_file_pattern': test_file_pattern})
       if r['return']>0:
         ret['return'] = r['return']
         ret['error'] = r['error']
@@ -161,9 +167,11 @@ def run_data_tests(i):
 def run_module_tests(i):
     """
     Input:  {
-              module       - module dict, must have 'path' and 'data_uoa' keys
-              (repo_uoa)   - repo_uoa of that module. Will be printed on the console
-              (out)        - output
+              module                - module dict, must have 'path' and 'data_uoa' keys
+              (repo_uoa)            - repo_uoa of that module. Will be printed on the console
+              (out)                 - output
+              (test_file_pattern)   - test file pattern. If not given, the default if 'test*.py'. 
+                                      Only tests from files that comply with the pattern, will be executed.
             }
 
     Output: {
@@ -219,7 +227,11 @@ def run_module_tests(i):
     if not os.path.isdir(tests_path):
       return ret
 
-    suite = CkTestLoader().discover(tests_path)
+    test_file_pattern = i.get('test_file_pattern', '')
+    if '' == test_file_pattern.strip():
+      test_file_pattern = 'test*.py'
+
+    suite = CkTestLoader().discover(tests_path, pattern=test_file_pattern)
     prefix = repo_uoa
     if prefix != '':
       prefix += ':'
