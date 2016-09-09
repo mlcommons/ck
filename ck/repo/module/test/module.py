@@ -38,6 +38,7 @@ def run(i):
     """
     Input:  {
               (out)        - output
+              (repo_uoa)   - repository for run tests for. If not set, runs tests for all repositories
             }
 
     Output: {
@@ -62,10 +63,15 @@ def run(i):
 
     ret_code = 0
 
-    r = ck.list_data({'module_uoa': 'repo', 'cid': 'repo:*', 'data_uoa': '*'})
-    if r['return']>0:
-      out_json_if_needed(i, r)
-      return r
+    repo_uoas = []
+    if '' == i.get('repo_uoa', ''):
+      r = ck.list_data({'module_uoa': 'repo', 'cid': 'repo:*', 'data_uoa': '*'})
+      if r['return']>0:
+        out_json_if_needed(i, r)
+        return r
+      repo_uoas = map(lambda r: r['data_uoa'], r['lst'])
+    else:
+      repo_uoas = [i['repo_uoa']]
 
     ret = {
       'return': 0,
@@ -73,8 +79,8 @@ def run(i):
       'repo_results': []
     }
     out = 'con' if i.get('out','') == 'con' else ''
-    for d in r['lst']:
-      r = run_data_tests({'list_data': {'repo_uoa': d['data_uoa']}, 'out': out})
+    for repo_uoa in repo_uoas:
+      r = run_data_tests({'list_data': {'repo_uoa': repo_uoa}, 'out': out})
       if r['return']>0: 
         ret['return'] = r['return']
         ret['error'] = r['error']
