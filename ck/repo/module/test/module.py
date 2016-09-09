@@ -37,8 +37,9 @@ def init(i):
 def run(i):
     """
     Input:  {
-              (out)        - output
-              (repo_uoa)   - repository for run tests for. If not set, runs tests for all repositories
+              (out)                 - output
+              (repo_uoa)            - repository for run tests for. If not set, runs tests for all repositories
+              (test_module_uoa)     - module for tun tests for. If not set, runs tests for all modules
             }
 
     Output: {
@@ -62,12 +63,12 @@ def run(i):
     """
 
     ret_code = 0
+    test_module_uoa = i.get('test_module_uoa', '')
 
     repo_uoas = []
     if '' == i.get('repo_uoa', ''):
       r = ck.list_data({'module_uoa': 'repo', 'cid': 'repo:*', 'data_uoa': '*'})
       if r['return']>0:
-        out_json_if_needed(i, r)
         return r
       repo_uoas = map(lambda r: r['data_uoa'], r['lst'])
     else:
@@ -80,18 +81,19 @@ def run(i):
     }
     out = 'con' if i.get('out','') == 'con' else ''
     for repo_uoa in repo_uoas:
-      r = run_data_tests({'list_data': {'repo_uoa': repo_uoa}, 'out': out})
+      list_data = {'repo_uoa': repo_uoa}
+      if '' != test_module_uoa:
+        list_data['data_uoa'] = test_module_uoa
+      r = run_data_tests({'list_data': list_data, 'out': out})
       if r['return']>0: 
         ret['return'] = r['return']
         ret['error'] = r['error']
-        out_json_if_needed(i, ret)
         return ret
 
       ret['stats']['tests_run'] += r['stats']['tests_run']
       ret['stats']['tests_failed'] += r['stats']['tests_failed']
       ret['repo_results'].append(r)
 
-    out_json_if_needed(i, ret)
     return ret
 
 ##############################################################################
@@ -130,7 +132,6 @@ def run_data_tests(i):
 
     r = ck.list_data(i['list_data'])
     if r['return']>0:
-      out_json_if_needed(i, r)
       return r
 
     modules_lst = r['lst']
@@ -152,7 +153,6 @@ def run_data_tests(i):
       ret['stats']['tests_failed'] += r['stats']['tests_failed']
       ret['module_results'].append(r)
 
-    out_json_if_needed(i, ret)
     return ret
 
 ##############################################################################
@@ -217,7 +217,6 @@ def run_module_tests(i):
 
     tests_path = os.path.join(module['path'], 'test')
     if not os.path.isdir(tests_path):
-      out_json_if_needed(i, ret)
       return ret
 
     suite = CkTestLoader().discover(tests_path)
@@ -243,17 +242,7 @@ def run_module_tests(i):
     ret['results']['failures'] = convert_error_tuples(test_result.failures)
     ret['results']['unexpected_successes'] = convert_error_tuples(test_result.unexpectedSuccesses)
 
-    out_json_if_needed(i, ret)
     return ret
-
-def out_json_if_needed(i, ret):
-  o = i.get('out', '')
-  if o == 'json':
-    r = ck.dumps_json({'dict': ret})
-    if r['return']>0:
-      ck.out(r['error'])
-    else:
-      ck.out(r['string'])
 
 def convert_error_tuples(list):
   ret = []
