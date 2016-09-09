@@ -14,6 +14,7 @@ def get_io(buf=''):
         from StringIO import StringIO
         return StringIO(buf)
 
+# Contains new kernel tests. Add new tests here!
 class TestKernel(unittest.TestCase):
 
     def test_out(self):
@@ -181,12 +182,6 @@ class TestKernel(unittest.TestCase):
     def test_convert_str_tags_to_list(self):
         self.assertEqual([1, 2], ck.convert_str_tags_to_list([1, 2]))
         self.assertEqual(['1', '2'], ck.convert_str_tags_to_list('  1 , 2  '))
-
-    def test_get_version(self):
-        r = ck.get_version({})
-        self.assertEqual(0, r['return'])
-        self.assertEqual(ck.__version__, r['version_str'])
-        self.assertEqual(ck.__version__.split('.'), r['version'])
 
     def test_gen_tmp_file(self):
         import os
