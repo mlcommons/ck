@@ -220,3 +220,5 @@ Action](http://tetracom.eu) for initial funding and
 thank Microsoft Research program for one-year grant to host the CK public
 repository in the Azure cloud.  We are also extremely grateful to all
 volunteers for their valuable feedback and contributions.
+
+[[https://github.com/ctuning/ck-guide-images/blob/master/logo-validated-by-the-community-simple.png]]

@@ -4476,7 +4476,7 @@ def wiki(i):
           duoa=rx.get('data_uoa','')
 
     if muoa=='' or duoa=='':
-       return {'return':1, 'error':'entry is not defined'}
+       return guide({}) #{'return':1, 'error':'entry is not defined'}
 
     r=find_path_to_data({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
     if r['return']>0: return r
