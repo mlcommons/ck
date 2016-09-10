@@ -5802,7 +5802,7 @@ def edit(i):
     r=access(ii)
     if r['return']>0: return r
 
-    desc=r['desc']
+    desc=r.get('desc',{})
     meta=r['dict']
 
     # Record to tmp file

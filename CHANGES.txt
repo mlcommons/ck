@@ -3,6 +3,7 @@
   * started working on extensible test infrastructure for CK
   * initiated first Travis build (test)
   * added possibility to skip listing of all modules from private repositories
+  * fixed error in 'ck edit'
 
 * V1.7.4
   * extended run_and_get_stdout kernel function 
