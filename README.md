@@ -5,8 +5,8 @@ NEWS
 * Upcoming CK presentation at [ARM TechCon'16 (Oct. 27)](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems);
 * CK registered at [Travis](https://travis-ci.org/ctuning/ck) to automate testing;
 * We plan to update [CK documentation](http://github.com/ctuning/ck/wiki) this Fall;
-* CK repository for CAFFE (crowdbenchmarking open source DNN framework) is now available [here](http://github.com/dividiti/ck-caffe)!
-* CK and ARM has received [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014)
+* CK repository for CAFFE (crowdbenchmarking open source DNN framework) is now available [here](http://github.com/dividiti/ck-caffe);
+* CK and ARM has received [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014).
 
 Introduction
 ============
