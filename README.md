@@ -35,10 +35,9 @@ Minimal installation
 
 The minimal installation requires:
 
-* Python >= 2.6 (3.0+ is natively supported).
+* Python 2.7 or 3.3+ (limitation is mainly due to unitests)
 * Python PIP (if you would like to install CK via PIP)
 * Git command line client.
-
 
 On Ubuntu, you can install these dependencies via
 
@@ -158,6 +157,13 @@ You can download and view one of our CK-based interactive and reproducible artic
 ```
  $ ck pull repo:ck-docker
  $ ck run docker:ck-interactive-article --browser (--sudo)
+```
+
+Testing CK
+==========
+You can test CK functionality via
+```
+ $ ck run test
 ```
 
 Our related initiatives
