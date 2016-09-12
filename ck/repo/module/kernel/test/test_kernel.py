@@ -267,7 +267,7 @@ class TestKernel(unittest.TestCase):
 
             r = ck.load_text_file({'text_file': fname, 'split_to_list': 'yes'})
             self.assertEqual(0, r['return'])
-            self.assertEqual(str.encode(content), r['bin'])
+            self.assertEqual(str.encode(content.replace('\n', os.linesep)), r['bin'])
             self.assertEqual(content, r['string'])
             self.assertEqual(content.strip().split('\n'), r['lst'])
         finally:
