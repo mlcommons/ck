@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
+[![Coverage Status](https://coveralls.io/repos/github/dsavenko/ck/badge.svg?branch=coverage)](https://coveralls.io/github/dsavenko/ck?branch=coverage)
 
 Introduction
 ============
