@@ -1,4 +1,10 @@
 * v1.8.1dev
+  * added Travis dummy
+  * started working on extensible test infrastructure for CK
+  * initiated first Travis build (test)
+  * added possibility to skip listing of all modules from private repositories
+  * fixed error in 'ck edit'
+  * unitests added (we now support Python 2.7 and 3.3+)
 
 * V1.7.4
   * extended run_and_get_stdout kernel function 

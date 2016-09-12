@@ -1,6 +1,14 @@
 [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
 [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
+NEWS
+====
+* Upcoming CK presentation at [ARM TechCon'16 (Oct. 27)](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems);
+* CK registered at [Travis](https://travis-ci.org/ctuning/ck) to automate testing;
+* We plan to update [CK documentation](http://github.com/ctuning/ck/wiki) this Fall;
+* CK repository for CAFFE (crowdbenchmarking open source DNN framework) is now available [here](http://github.com/dividiti/ck-caffe);
+* CK and ARM has received [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014).
+
 Introduction
 ============
 
@@ -28,10 +36,9 @@ Minimal installation
 
 The minimal installation requires:
 
-* Python >= 2.6 (3.0+ is natively supported).
+* Python 2.7 or 3.3+ (limitation is mainly due to unitests)
 * Python PIP (if you would like to install CK via PIP)
 * Git command line client.
-
 
 On Ubuntu, you can install these dependencies via
 
@@ -153,6 +160,13 @@ You can download and view one of our CK-based interactive and reproducible artic
  $ ck run docker:ck-interactive-article --browser (--sudo)
 ```
 
+Testing CK
+==========
+You can test CK functionality via
+```
+ $ ck run test
+```
+
 Our related initiatives
 =======================
 
@@ -214,3 +228,5 @@ Action](http://tetracom.eu) for initial funding and
 thank Microsoft Research program for one-year grant to host the CK public
 repository in the Azure cloud.  We are also extremely grateful to all
 volunteers for their valuable feedback and contributions.
+
+![logo](https://github.com/ctuning/ck-guide-images/blob/master/logo-validated-by-the-community-simple.png)

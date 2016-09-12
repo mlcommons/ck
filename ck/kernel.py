@@ -494,22 +494,22 @@ def system_with_timeout(i):
     p=subprocess.Popen(cmd, shell=True)
 
     if to != '':
-      xto=float(to)
+       xto=float(to)
 
-      t0=time.time()
-      t=0
-      tx=float(i['timeout'])
+       t0=time.time()
+       t=0
+       tx=float(i['timeout'])
 
-      while p.poll() == None and t<xto:
-        time.sleep(0.1)
-        t=time.time()-t0
+       while p.poll() == None and t<xto:
+          time.sleep(0.1)
+          t=time.time()-t0
 
-      if t>=xto and p.poll()==None:
-        system_with_timeout_kill(p)
+       if t>=xto and p.poll()==None:
+          system_with_timeout_kill(p)
 
-        return {'return':8, 'error':'process timed out and had been terminated'}
+       return {'return':8, 'error':'process timed out and had been terminated'}
     else:
-      p.wait()
+       p.wait()
 
     rc=p.returncode
     return {'return':0, 'return_code':rc}
@@ -4459,7 +4459,7 @@ def wiki(i):
           duoa=rx.get('data_uoa','')
 
     if muoa=='' or duoa=='':
-       return {'return':1, 'error':'entry is not defined'}
+       return guide({}) #{'return':1, 'error':'entry is not defined'}
 
     r=find_path_to_data({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
     if r['return']>0: return r
@@ -5785,7 +5785,7 @@ def edit(i):
     r=access(ii)
     if r['return']>0: return r
 
-    desc=r['desc']
+    desc=r.get('desc',{})
     meta=r['dict']
 
     # Record to tmp file

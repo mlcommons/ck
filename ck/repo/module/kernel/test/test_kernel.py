@@ -8,11 +8,11 @@ def dummy_exit(code):
 
 def get_io(buf=''):
     if sys.version_info[0]>2:
-        import io
-        return io.StringIO(buf)
+       import io
+       return io.StringIO(buf)
     else:
-        from StringIO import StringIO
-        return StringIO(buf)
+       from StringIO import StringIO
+       return StringIO(buf)
 
 # Contains new kernel tests. Add new tests here!
 class TestKernel(unittest.TestCase):
@@ -267,7 +267,7 @@ class TestKernel(unittest.TestCase):
 
             r = ck.load_text_file({'text_file': fname, 'split_to_list': 'yes'})
             self.assertEqual(0, r['return'])
-            self.assertEqual(str.encode(content), r['bin'])
+            self.assertEqual(str.encode(content.replace('\n', os.linesep)), r['bin'])
             self.assertEqual(content, r['string'])
             self.assertEqual(content.strip().split('\n'), r['lst'])
         finally:
