@@ -33,6 +33,7 @@ setup(
                        'repo/module/index/.cm/*',
                        'repo/module/kernel/*.py',
                        'repo/module/kernel/.cm/*',
+                       'repo/module/kernel/test/test*.py',
                        'repo/module/module/*.py',
                        'repo/module/module/*.input',
                        'repo/module/module/.cm/*',
