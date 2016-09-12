@@ -8,11 +8,11 @@ def dummy_exit(code):
 
 def get_io(buf=''):
     if sys.version_info[0]>2:
-        import io
-        return io.StringIO(buf)
+       import io
+       return io.StringIO(buf)
     else:
-        from StringIO import StringIO
-        return StringIO(buf)
+       from StringIO import StringIO
+       return StringIO(buf)
 
 # Contains new kernel tests. Add new tests here!
 class TestKernel(unittest.TestCase):
