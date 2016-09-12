@@ -70,32 +70,32 @@ def run(i):
 
     repo_uoas = []
     if '' == i.get('repo_uoa', ''):
-      r = ck.list_data({'module_uoa': 'repo', 'cid': 'repo:*', 'data_uoa': '*'})
-      if r['return']>0:
-        return r
-      repo_uoas = map(lambda r: r['data_uoa'], r['lst'])
+       r = ck.list_data({'module_uoa': 'repo', 'cid': 'repo:*', 'data_uoa': '*'})
+       if r['return']>0:
+          return r
+       repo_uoas = map(lambda r: r['data_uoa'], r['lst'])
     else:
-      repo_uoas = [i['repo_uoa']]
+       repo_uoas = [i['repo_uoa']]
 
     ret = {
-      'return': 0,
-      'stats': { 'tests_run': 0, 'tests_failed': 0 },
-      'repo_results': []
+       'return': 0,
+       'stats': { 'tests_run': 0, 'tests_failed': 0 },
+       'repo_results': []
     }
     out = 'con' if i.get('out','') == 'con' else ''
     for repo_uoa in repo_uoas:
-      list_data = {'repo_uoa': repo_uoa}
-      if '' != test_module_uoa:
-        list_data['data_uoa'] = test_module_uoa
-      r = run_data_tests({'list_data': list_data, 'out': out, 'test_file_pattern': test_file_pattern})
-      if r['return']>0: 
-        ret['return'] = r['return']
-        ret['error'] = r['error']
-        return ret
+        list_data = {'repo_uoa': repo_uoa}
+        if '' != test_module_uoa:
+           list_data['data_uoa'] = test_module_uoa
+        r = run_data_tests({'list_data': list_data, 'out': out, 'test_file_pattern': test_file_pattern})
+        if r['return']>0: 
+           ret['return'] = r['return']
+           ret['error'] = r['error']
+           return ret
 
-      ret['stats']['tests_run'] += r['stats']['tests_run']
-      ret['stats']['tests_failed'] += r['stats']['tests_failed']
-      ret['repo_results'].append(r)
+        ret['stats']['tests_run'] += r['stats']['tests_run']
+        ret['stats']['tests_failed'] += r['stats']['tests_failed']
+        ret['repo_results'].append(r)
 
     return ret
 
@@ -138,26 +138,26 @@ def run_data_tests(i):
 
     r = ck.list_data(i['list_data'])
     if r['return']>0:
-      return r
+       return r
 
     modules_lst = r['lst']
 
     ret = {
-      'return': 0,
-      'stats': { 'tests_run': 0, 'tests_failed': 0 },
-      'module_results': []
+       'return': 0,
+       'stats': { 'tests_run': 0, 'tests_failed': 0 },
+       'module_results': []
     }
     out = 'con' if i.get('out','') == 'con' else ''
     for m in modules_lst:
-      r = run_module_tests({'module': m, 'repo_uoa': repo_uoa, 'out': out, 'test_file_pattern': test_file_pattern})
-      if r['return']>0:
-        ret['return'] = r['return']
-        ret['error'] = r['error']
-        return ret
+        r = run_module_tests({'module': m, 'repo_uoa': repo_uoa, 'out': out, 'test_file_pattern': test_file_pattern})
+        if r['return']>0:
+           ret['return'] = r['return']
+           ret['error'] = r['error']
+           return ret
 
-      ret['stats']['tests_run'] += r['stats']['tests_run']
-      ret['stats']['tests_failed'] += r['stats']['tests_failed']
-      ret['module_results'].append(r)
+        ret['stats']['tests_run'] += r['stats']['tests_run']
+        ret['stats']['tests_failed'] += r['stats']['tests_failed']
+        ret['module_results'].append(r)
 
     return ret
 
@@ -207,45 +207,45 @@ def run_module_tests(i):
     repo_uoa = i.get('repo_uoa', '')
 
     ret = {
-      'return': 0,
-      'module_uoa': module['data_uoa'],
-      'repo_uoa': repo_uoa,
-      'stats': { 
-        'tests_run' : 0,
-        'tests_failed': 0
-      },
-      'results': {
-        'errors': [],
-        'failures': [],
-        'unexpected_successes': []
-      }
+       'return': 0,
+       'module_uoa': module['data_uoa'],
+       'repo_uoa': repo_uoa,
+       'stats': { 
+          'tests_run' : 0,
+          'tests_failed': 0
+       },
+       'results': {
+          'errors': [],
+          'failures': [],
+          'unexpected_successes': []
+       }
     }
 
     o = i.get('out', '')
 
     tests_path = os.path.join(module['path'], 'test')
     if not os.path.isdir(tests_path):
-      return ret
+       return ret
 
     test_file_pattern = i.get('test_file_pattern', '')
     if '' == test_file_pattern.strip():
-      test_file_pattern = 'test*.py'
+       test_file_pattern = 'test*.py'
 
     suite = CkTestLoader().discover(tests_path, pattern=test_file_pattern)
     prefix = repo_uoa
     if prefix != '':
-      prefix += ':'
+       prefix += ':'
 
     if o == 'con':
-      ck.out('*** Running tests for ' + prefix + module['data_uoa'])
+       ck.out('*** Running tests for ' + prefix + module['data_uoa'])
 
     test_result = None
     if o == 'con':
-      test_result = unittest.TextTestRunner().run(suite)
+       test_result = unittest.TextTestRunner().run(suite)
     else: 
-      # supress all output
-      with open(os.devnull, 'w') as f:
-        test_result = unittest.TextTestRunner(stream=f).run(suite)
+       # supress all output
+       with open(os.devnull, 'w') as f:
+          test_result = unittest.TextTestRunner(stream=f).run(suite)
 
     ret['stats']['tests_run'] = test_result.testsRun
     ret['stats']['tests_failed'] = len(test_result.errors) + len(test_result.failures) + len(test_result.unexpectedSuccesses)
@@ -257,19 +257,19 @@ def run_module_tests(i):
     return ret
 
 def convert_error_tuples(list):
-  ret = []
-  for t in list:
-    test_case, traceback = t
-    ret.append({'test': test_case.id(), 'traceback': traceback})
-  return ret
+    ret = []
+    for t in list:
+        test_case, traceback = t
+        ret.append({'test': test_case.id(), 'traceback': traceback})
+    return ret
 
 
 class CkTestLoader(unittest.TestLoader):
   def loadTestsFromModule(self, module, pattern=None):
-    module.ck = ck
-    module.cfg = cfg
-    module.work = work
-    return unittest.TestLoader.loadTestsFromModule(self, module, pattern)
+      module.ck = ck
+      module.cfg = cfg
+      module.work = work
+      return unittest.TestLoader.loadTestsFromModule(self, module, pattern)
 
 ##############################################################################
 # show cmd
