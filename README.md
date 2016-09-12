@@ -1,4 +1,5 @@
 [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
+[![Windows Build status](https://ci.appveyor.com/api/projects/status/github/ctuning/ck?svg=true)](https://ci.appveyor.com/project/ctuning/ck)
 
 NEWS
 ====
