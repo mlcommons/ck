@@ -4,3 +4,4 @@ MANIFEST
 *.pyc
 __pycache__
 .cache/
+.coverage
