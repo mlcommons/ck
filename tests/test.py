@@ -7,51 +7,22 @@
 # Developer: Grigori Fursin
 #
 
-# CK installation test
+# Entry point for running CK tests for CI and coverage measurement tools
 
-import ck.kernel as ck
-import sys
-import json
+from __future__ import print_function
 
-##############################################
-print('Calling CK ...')
-print('')
+try:
+    import ck.kernel as ck
 
-r=ck.test()
+    r = ck.access(['run', 'test'])
+    if 'return' not in r:
+        raise Exception('CK access function should always return key \'return\'!')
+    exit(int(r['return']))
 
-if r.get('return',0)!=123:
-   print('')
-   print('Test FAILED (output!=123) !')
-   sys.exit(1)
+except ImportError as e:
+    from sys import stderr
+    from subprocess import call
 
-##############################################
-print('Getting CK version ...')
-print('')
-
-r=ck.get_version()
-if r.get('return',-1)!=0:
-   ck.out('')
-   ck.out('Test FAILED!')
-   sys.exit(1)
-
-ck.out('')
-ck.out('CK version: '+r.get('ver_str',''))
-
-##############################################
-ck.out('Parsing CK command line ...')
-ck.out('')
-cmd="mv data cid1 cid2 key1=value1 key2=value2 key3 key4=value4 -key10 -key11=value11 --key12 --key13=value13 @test1.json @test2.json @test2unicode.json @@{'a':['b','c']} -- abc"
-i=cmd.split(' ')
-
-r=ck.list2dict(i)
-if r['return']>0:
-   ck.out('Test FAILED ('+r['error']+')!')
-   sys.exit(1)
-
-ck.out(json.dumps(r, indent=2))
-                             
-##############################################
-ck.out('')
-ck.out('Test passed successfully!')
-
-sys.exit(0)
+    print('WARNING: CK kernel module for python is not installed & jupyter notebooks will not be supported', file=stderr)
+    retcode = call(['ck', 'run', 'test'])
+    exit(retcode)

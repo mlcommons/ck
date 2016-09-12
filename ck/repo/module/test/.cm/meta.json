@@ -4,8 +4,8 @@
       "desc": "show cmd", 
       "for_web": "yes"
     }, 
-    "test": {
-      "desc": "test CK functionality (under development)"
+    "run": {
+      "desc": "test CK functionality"
     }
   }, 
   "copyright": "See CK COPYRIGHT.txt for copyright details", 
