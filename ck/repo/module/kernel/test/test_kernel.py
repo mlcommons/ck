@@ -88,6 +88,12 @@ class TestKernel(unittest.TestCase):
         self.assertEqual('abcd\n', r['stdout'])
         self.assertEqual('err\n', r['stderr'])
 
+        r = ck.run_and_get_stdout({'cmd': 'sh -c "echo abcd && >&2 echo err && exit 2"'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual(2, r['return_code'])
+        self.assertEqual('abcd\n', r['stdout'])
+        self.assertEqual('err\n', r['stderr'])
+
     def test_get_from_dicts(self):
         d1 = {'a': 1, 'b': 2}
         d2 = {'c': 3}
