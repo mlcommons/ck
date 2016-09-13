@@ -15,7 +15,7 @@ environment:
     - PYTHON: "C:\\Python35-x64"
 
 install:
-    - "pip install pyyaml"
+    - "%PYTHON%\\Scripts\\pip.exe install pyyaml"
 
 build: false
 
