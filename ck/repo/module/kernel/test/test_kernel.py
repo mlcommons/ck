@@ -1,5 +1,7 @@
 import unittest
 import sys
+import os
+from contextlib import contextmanager
 
 ck=None # Will be updated by CK (initialized CK kernel)
 
@@ -14,43 +16,58 @@ def get_io(buf=''):
        from StringIO import StringIO
        return StringIO(buf)
 
+@contextmanager
+def tmp_file(suffix='', prefix='ck-test-', content=''):
+    fname = ck.gen_tmp_file({'suffix': suffix, 'prefix': prefix})['file_name']
+    try:
+        if content != '':
+            with open(fname, 'w') as f:
+                f.write(content)            
+        yield fname
+    finally:
+        try:
+            os.remove(fname)
+        except OSError:
+            pass        
+
+@contextmanager
+def tmp_sys(input_buf=''):
+    saved_stdout = sys.stdout
+    saved_stdin = sys.stdin
+    saved_exit = sys.exit
+    try:
+        out_stream = get_io()
+        in_stream = get_io(input_buf)
+        if not hasattr(in_stream, 'encoding'):
+            in_stream.encoding = 'utf8'
+        sys.stdout = out_stream
+        sys.stdin = in_stream
+        sys.exit = dummy_exit
+
+        yield
+    finally:
+        sys.stdout = saved_stdout
+        sys.stdin = saved_stdin
+        sys.exit = saved_exit
+
 # Contains new kernel tests. Add new tests here!
 class TestKernel(unittest.TestCase):
 
     def test_out(self):
-        saved_stdout = sys.stdout
-        try:
-            out = get_io()
-            sys.stdout = out
+        with tmp_sys():
             ck.out('test')
-            self.assertEqual('test', out.getvalue().strip())
-        finally:
-            sys.stdout = saved_stdout
-
+            self.assertEqual('test', sys.stdout.getvalue().strip())
 
     def test_err(self):
-        saved_stdout = sys.stdout
-        saved_exit = sys.exit
-        try:
-            out = get_io()
-            sys.stdout = out
-            sys.exit = dummy_exit
+        with tmp_sys():
             ck.err({'return': 2, 'error': 'test.'})
-            self.assertEqual('Error: test.\nExit code: 2', out.getvalue().strip())
-        finally:
-            sys.stdout = saved_stdout
-            sys.exit = saved_exit
+            self.assertEqual('Error: test.\nExit code: 2', sys.stdout.getvalue().strip())
 
     def test_jerr(self):
-        saved_stdout = sys.stdout
-        try:
-            out = get_io()
-            sys.stdout = out
+        with tmp_sys():
             with self.assertRaises(KeyboardInterrupt):
                 ck.jerr({'return': 2, 'error': 'test.'})
-            self.assertEqual('Error: test.', out.getvalue().strip())
-        finally:
-            sys.stdout = saved_stdout
+            self.assertEqual('Error: test.', sys.stdout.getvalue().strip())
 
     def test_safe_float(self):
         import math
@@ -62,8 +79,6 @@ class TestKernel(unittest.TestCase):
         self.assertTrue(math.isnan(ck.safe_float('nan', 0)))
 
     def test_safe_int(self):
-        import math
-
         self.assertEqual(ck.safe_int(1, 0), 1)
         self.assertEqual(ck.safe_int('a', 0), 0)
         self.assertEqual(ck.safe_int('-5', 0), -5)
@@ -83,6 +98,12 @@ class TestKernel(unittest.TestCase):
 
     def test_run_and_get_stdout(self):
         r = ck.run_and_get_stdout({'cmd': ['sh', '-c', 'echo abcd && >&2 echo err && exit 2']})
+        self.assertEqual(0, r['return'])
+        self.assertEqual(2, r['return_code'])
+        self.assertEqual('abcd\n', r['stdout'])
+        self.assertEqual('err\n', r['stderr'])
+
+        r = ck.run_and_get_stdout({'cmd': 'sh -c "echo abcd && >&2 echo err && exit 2"'})
         self.assertEqual(0, r['return'])
         self.assertEqual(2, r['return_code'])
         self.assertEqual('abcd\n', r['stdout'])
@@ -114,90 +135,45 @@ class TestKernel(unittest.TestCase):
         self.assertEqual(0, ck.convert_str_key_to_int('a'))
 
     def test_inp(self):
-        saved_stdout = sys.stdout
-        saved_stdin = sys.stdin
-        try:
-            out_stream = get_io()
-            in_stream = get_io('test input')
-            if not hasattr(in_stream, 'encoding'):
-                in_stream.encoding = 'utf8'
-            sys.stdout = out_stream
-            sys.stdin = in_stream
+        with tmp_sys('test input'):
             r = ck.inp({'text': 'test output'})
-            self.assertEqual('test output', out_stream.getvalue().strip())
+            self.assertEqual('test output', sys.stdout.getvalue().strip())
             self.assertEqual('test input', r['string'])
             self.assertEqual(0, r['return'])
-        finally:
-            sys.stdout = saved_stdout
-            sys.stdin = saved_stdin
 
     def test_select(self):
-        saved_stdout = sys.stdout
-        saved_stdin = sys.stdin
-        try:
-            out_stream = get_io()
-            in_stream = get_io('1\n')
-            if not hasattr(in_stream, 'encoding'):
-                in_stream.encoding = 'utf8'
-            sys.stdout = out_stream
-            sys.stdin = in_stream
-
+        with tmp_sys('1\n'):
             d = {
                 'key0': { 'name': 'n0', 'sort': 1 },
                 'key1': { 'name': 'n1', 'sort': 0 }
             }
             r = ck.select({'dict': d, 'title': 'Select:'})
 
-            self.assertEqual('Select:\n\n0) n1\n1) n0\n\nMake your selection (or press Enter for 0):', out_stream.getvalue().strip())
+            self.assertEqual('Select:\n\n0) n1\n1) n0\n\nMake your selection (or press Enter for 0):', sys.stdout.getvalue().strip())
             self.assertEqual(0, r['return'])
             self.assertEqual('key0', r['string'])
-        finally:
-            sys.stdout = saved_stdout
-            sys.stdin = saved_stdin
 
     def test_select_uoa(self):
-        saved_stdout = sys.stdout
-        saved_stdin = sys.stdin
-        try:
-            out_stream = get_io()
-            in_stream = get_io('1\n')
-            if not hasattr(in_stream, 'encoding'):
-                in_stream.encoding = 'utf8'
-            sys.stdout = out_stream
-            sys.stdin = in_stream
-
+        with tmp_sys('1\n'):
             lst = [
                 {'data_uid': 'uid1', 'data_uoa': 'b'},
                 {'data_uid': 'uid2', 'data_uoa': 'a'}
             ]
             r = ck.select_uoa({'choices': lst})
 
-            self.assertEqual('0) a (uid2)\n1) b (uid1)\n\nSelect UOA (or press Enter for 0):', out_stream.getvalue().strip())
+            self.assertEqual('0) a (uid2)\n1) b (uid1)\n\nSelect UOA (or press Enter for 0):', sys.stdout.getvalue().strip())
             self.assertEqual(0, r['return'])
             self.assertEqual('uid1', r['choice'])
-        finally:
-            sys.stdout = saved_stdout
-            sys.stdin = saved_stdin
 
     def test_convert_str_tags_to_list(self):
         self.assertEqual([1, 2], ck.convert_str_tags_to_list([1, 2]))
         self.assertEqual(['1', '2'], ck.convert_str_tags_to_list('  1 , 2  '))
 
     def test_gen_tmp_file(self):
-        import os
-
-        r = ck.gen_tmp_file({'suffix': '.txt', 'prefix': 'ck-test-'})
-        fname = r['file_name']
-        try:
-            self.assertEqual(0, r['return'])
+        with tmp_file(suffix='.txt') as fname:
             # check we can write to the file
             with open(fname, 'w') as f:
                 f.write('test')
-        finally:
-            try:
-                os.remove(fname)
-            except OSError:
-                pass
 
     def test_gen_uid(self):
         import uuid
@@ -240,59 +216,32 @@ class TestKernel(unittest.TestCase):
         self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
 
     def test_load_json_file(self):
-        import os
-
-        fname = ck.gen_tmp_file({'suffix': '.json', 'prefix': 'ck-test-'})['file_name']
-        try:
-            with open(fname, 'w') as f:
-                f.write('{"a": 1, "b": [2, 3]}')
-
+        with tmp_file(suffix='.json', content='{"a": 1, "b": [2, 3]}') as fname:
             r = ck.load_json_file({'json_file': fname})
             self.assertEqual(0, r['return'])
             self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
-        finally:
-            try:
-                os.remove(fname)
-            except OSError:
-                pass
+
+    def test_load_yaml_file(self):
+        with tmp_file(suffix='.yml', content='a: 1\nb:\n  - 2\n  - 3\n') as fname:
+            r = ck.load_yaml_file({'yaml_file': fname})
+            self.assertEqual(0, r['return'])
+            self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
 
     def test_load_text_file(self):
-        import os
-
-        fname = ck.gen_tmp_file({'suffix': '.txt', 'prefix': 'ck-test-'})['file_name']
-        try:
-            content = 'a\nb\nc'
-            with open(fname, 'w') as f:
-                f.write(content)
-
+        content = 'a\nb\nc'
+        with tmp_file(suffix='.txt', content=content) as fname:
             r = ck.load_text_file({'text_file': fname, 'split_to_list': 'yes'})
             self.assertEqual(0, r['return'])
             self.assertEqual(str.encode(content.replace('\n', os.linesep)), r['bin'])
             self.assertEqual(content, r['string'])
             self.assertEqual(content.strip().split('\n'), r['lst'])
-        finally:
-            try:
-                os.remove(fname)
-            except OSError:
-                pass
 
     def test_substitute_str_in_file(self):
-        import os
-
-        fname = ck.gen_tmp_file({'suffix': '.txt', 'prefix': 'ck-test-'})['file_name']
-        try:
-            content = 'a\nb\nc'
-            with open(fname, 'w') as f:
-                f.write(content)
-
+        content = 'a\nb\nc'
+        with tmp_file(suffix='.txt', content=content) as fname:
             r = ck.substitute_str_in_file({'filename': fname, 'string1': 'b', 'string2': 'd'})
             self.assertEqual(0, r['return'])
             self.assertEqual('a\nd\nc', ck.load_text_file({'text_file': fname})['string'])
-        finally:
-            try:
-                os.remove(fname)
-            except OSError:
-                pass
 
     def test_dumps_json(self):
         d = {'a': 1, 'b': [2, 3]}
@@ -305,3 +254,38 @@ class TestKernel(unittest.TestCase):
         d2 = {'c': 3}
         ck.merge_dicts({'dict1': d1, 'dict2': d2})
         self.assertEqual({'a': 1, 'b': 2, 'c': 3}, d1)
+
+    def test_save_yaml_to_file(self):
+        d = {'a': 1, 'b': [2, 3]}
+        with tmp_file(suffix='.yml') as fname:
+            r = ck.save_yaml_to_file({'yaml_file': fname, 'dict': d})
+            self.assertEqual(0, r['return'])
+
+            r = ck.load_yaml_file({'yaml_file': fname})
+            self.assertEqual(0, r['return'])
+            self.assertEqual(d, r['dict'])
+
+    def test_convert_file_to_upload_string(self):
+        with tmp_file(suffix='.txt', content='http://ctuning.org/') as fname:
+            r = ck.convert_file_to_upload_string({'filename': fname})
+            self.assertEqual(0, r['return'])
+            self.assertEqual('aHR0cDovL2N0dW5pbmcub3JnLw==', r['file_content_base64'])
+
+    def test_convert_upload_string_to_file(self):
+        with tmp_file(suffix='.txt') as fname:
+            r = ck.convert_upload_string_to_file({'file_content_base64': 'aHR0cDovL2N0dW5pbmcub3JnLw==', 'filename': fname})
+            self.assertEqual(0, r['return'])
+            self.assertEqual(fname, r['filename'])
+
+            r = ck.load_text_file({'text_file': fname})
+            self.assertEqual(0, r['return'])
+            self.assertEqual('http://ctuning.org/', r['string'])
+
+    def test_input_json(self):
+        content = '{"a": 1, "b": [2, 3]}\n\n'
+        with tmp_sys(content):
+            r = ck.input_json({'text': 'input json'})
+            self.assertEqual(0, r['return'])
+            self.assertEqual('input json', sys.stdout.getvalue().strip())
+            self.assertEqual(content.strip(), r['string'])
+            self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])

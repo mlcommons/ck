@@ -8,7 +8,9 @@ python:
     - "nightly" # currently points to 3.6-dev
 
 # skip the install step for now
-install: pip install coveralls
+install: 
+    - "pip install coveralls"
+    - "pip install pyyaml"
 
 script: coverage run -m tests.test
 

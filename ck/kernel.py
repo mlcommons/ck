@@ -536,10 +536,11 @@ def run_and_get_stdout(i):
   """
 
   import subprocess
+  import shlex
 
   cmd=i['cmd']
   if type(cmd)!=list:
-     cmd=cmd.split(' ')
+     cmd=shlex.split(cmd)
 
   p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
   output, error = p1.communicate()
@@ -987,7 +988,7 @@ def get_os_ck(i):
               return      - return code =  0
               platform    - 'win' or 'linux'
               bits        - OS bits in string: 32 or 64
-              python_bits - Pythin installation bits in string: 32 or 64
+              python_bits - Python installation bits in string: 32 or 64
 
             }
     """
@@ -1726,8 +1727,7 @@ def convert_upload_string_to_file(i):
        if rx['return']>0: return rx
        px=rx['file_name']
     else:
-       py=os.path.split(fn)
-       px=py[1]
+       px=fn
 
     fn1, fne = os.path.splitext(px)
 
