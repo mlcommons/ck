@@ -208,14 +208,20 @@ O:
 C: reporting vulnerability in CK public repository (fixed)
 W:
 
-N: Michael Mcgeagh
+N: Yuriy Kashnikov 
 E:
-O: ARM, UK
-C: reporting problem with yaml recording and CPU feature detection (in new format)
+O: Xored, Russia
+C: crowd-tuning discussions
 W:
 
 N: Dmitry Savenko 
 E:
-O: 
-C: added run_and_get_stdout function and fixed various problems with crowdtuning on MacOS 
+O: Xored, Russia
+C: added continuous integration, various tests and fixed various problems with crowdtuning on MacOS 
+W:
+
+N: Michael Mcgeagh
+E:
+O: ARM, UK
+C: reporting problem with yaml recording and CPU feature detection (in new format)
 W:

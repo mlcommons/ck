@@ -1,12 +1,13 @@
-[![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
-[![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
+Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
+Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
+Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
 NEWS
 ====
 * Upcoming CK presentation at [ARM TechCon'16 (Oct. 27)](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems);
-* CK registered at [Travis](https://travis-ci.org/ctuning/ck) to automate testing;
-* We plan to update [CK documentation](http://github.com/ctuning/ck/wiki) this Fall;
-* CK repository for CAFFE (crowdbenchmarking open source DNN framework) is now available [here](http://github.com/dividiti/ck-caffe);
+* We have added continuous integration;
+* We are considerably updating [CK documentation](http://github.com/ctuning/ck/wiki);
+* CK repository to crowd-benchmark and crowd-tuning CAFFE (DNN framework) is now available [here](http://github.com/dividiti/ck-caffe);
 * CK and ARM has received [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014).
 
 Introduction

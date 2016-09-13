@@ -1394,10 +1394,30 @@ def substitute_str_in_file(i):
     return {'return':0}
 
 ##############################################################################
-# Dump json to sring
-# TODO: probably should've been called 'dump_json', but it's too late to rename. Should we introduce an alias with that name?
+# Deprecated: Dump json to sring (left for compatibility with older kernel - should eventually remove it) - see 'dump_json'
 
 def dumps_json(i):
+    """
+    Input:  {
+              dict          - dictionary
+              (skip_indent) - if 'yes', skip indent
+              (sort_keys)   - if 'yes', sort keys
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+
+              string       - json string (in utf8)
+            }
+    """
+
+    return dump_json(i)
+
+##############################################################################
+# Dump json to sring
+
+def dump_json(i):
     """
     Input:  {
               dict          - dictionary
