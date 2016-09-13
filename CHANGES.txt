@@ -1,5 +1,6 @@
 * v1.8.1dev
   * added continuous integration via Travis (Linux) and AppVeyor (Windows)
+  * added CoverAlls to measure test coverage
   * added possibility to skip listing of all modules from private repositories
   * fixed error in 'ck edit'
   * unitests added (we now support Python 2.7 and 3.3+)
