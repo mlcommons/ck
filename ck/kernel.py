@@ -536,10 +536,11 @@ def run_and_get_stdout(i):
   """
 
   import subprocess
+  import shlex
 
   cmd=i['cmd']
   if type(cmd)!=list:
-     cmd=cmd.split(' ')
+     cmd=shlex.split(cmd)
 
   p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
   output, error = p1.communicate()
