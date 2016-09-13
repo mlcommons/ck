@@ -1,13 +1,15 @@
 language: python
 python:
-  - "2.7"
-  - "3.3"
-  - "3.4"
-  - "3.5"
-  - "3.5-dev" # 3.5 development branch
-  - "nightly" # currently points to 3.6-dev
+    - "2.7"
+    - "3.3"
+    - "3.4"
+    - "3.5"
+    - "3.5-dev" # 3.5 development branch
+    - "nightly" # currently points to 3.6-dev
 
 # skip the install step for now
-install: true
+install: pip install coveralls
 
-script: python -m tests.test
+script: coverage run -m tests.test
+
+after_success: coveralls
