@@ -1,4 +1,4 @@
-* v1.8.1dev
+* v1.8.1
   * added continuous integration via Travis (Linux) and AppVeyor (Windows)
   * added CoverAlls to measure test coverage
   * added possibility to skip listing of all modules from private repositories
