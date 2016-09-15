@@ -6,7 +6,7 @@ NEWS
 ====
 * Upcoming CK presentation at [ARM TechCon'16 (Oct. 27)](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems);
 * Fully updated documentation is now [available](http://github.com/ctuning/ck/wiki);
-* We have moved Open Science resources [here](http://github.com/ctuning/ck/wiki/Enabling-Open-Science)
+* We have moved Open Science resources [here](http://github.com/ctuning/ck/wiki/Enabling-Open-Science);
 * We have added continuous integration;
 * CK repository to crowd-benchmark and crowd-tuning CAFFE (DNN framework) is now available [here](http://github.com/dividiti/ck-caffe);
 * CK and ARM has received [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014).
