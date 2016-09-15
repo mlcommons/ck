@@ -125,11 +125,12 @@ by installing the following application from the Google Play Store:
 * https://play.google.com/store/apps/details?id=openscience.crowdsource.experiments
 
 You can find already shared artifacts and repositories here:
-* List of shared repositories: https://github.com/ctuning/ck/wiki/Shared_repos
-* List of shared modules: https://github.com/ctuning/ck/wiki/Shared_modules
+* List of shared repositories: https://github.com/ctuning/ck/wiki/Shared-repos
+* List of shared modules: https://github.com/ctuning/ck/wiki/Shared-modules
 
-Please check out CK getting started guide and CK wiki for further details:
-* https://github.com/ctuning/ck/wiki/Getting_started_guide_basic
+Please check out CK getting started guides and CK wiki for further details:
+* https://github.com/ctuning/ck/wiki/Getting-started-guide
+* https://github.com/ctuning/ck/wiki/Portable-workflows
 * https://github.com/ctuning/ck/wiki
 
 Trying CK using Docker image
@@ -174,9 +175,9 @@ Our related initiatives
 * Artifact Evaluation for computer systems' conferences: http://cTuning.org/ae
 * New publication model with the community-driven public reviewing: http://adapt-workshop.org
 
-CK-powered projects
+Plans
 ===================
-* https://github.com/ctuning/ck/wiki/Summary_of_projects
+* https://github.com/ctuning/ck/wiki/Plans
 
 Motivation
 ==========
