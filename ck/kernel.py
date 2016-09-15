@@ -3270,7 +3270,7 @@ def get_api(i):
 
     p=i.get('path','')
     f=i.get('func','')
-    o=i['out']
+    o=i.get('out','')
 
     muoa=i.get('module_uoa','')
 
@@ -4756,7 +4756,7 @@ def print_input(i):
                                          >  0, if error
               (error)      - error text if return > 0
 
-              help         - input as JSON
+              html         - input as JSON
             }
 
     """

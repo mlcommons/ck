@@ -176,8 +176,6 @@ class TestKernel(unittest.TestCase):
                 f.write('test')
 
     def test_gen_uid(self):
-        import uuid
-
         r = ck.gen_uid({})
         self.assertEqual(0, r['return'])
 
@@ -289,3 +287,151 @@ class TestKernel(unittest.TestCase):
             self.assertEqual('input json', sys.stdout.getvalue().strip())
             self.assertEqual(content.strip(), r['string'])
             self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
+
+    def test_list_all_files(self):
+        import shutil
+        import tempfile
+
+        fname = tempfile.mkdtemp()
+        try:
+            os.makedirs(fname + '/a')
+            os.makedirs(fname + '/b')
+
+            with open(fname + '/a/test.txt', 'a') as f:
+                f.write('abc')
+
+            with open(fname + '/b/test.log', 'a') as f:
+                f.write('12')
+
+            r = ck.list_all_files({'path': fname})
+            self.assertEqual(0, r['return'])
+            t = r['list']
+            self.assertEqual({'size': 3}, t['a/test.txt'])
+            self.assertEqual({'size': 2}, t['b/test.log'])
+
+            r = ck.list_all_files({'path': fname, 'pattern': '*.txt'})
+            self.assertEqual(0, r['return'])
+            t = r['list']
+            self.assertEqual({'size': 3}, t['a/test.txt'])
+            self.assertEqual(None, t.get('b/test.log'))
+        finally:
+            shutil.rmtree(fname)
+
+    def test_save_repo_cache(self):
+        r = ck.save_repo_cache({})
+        self.assertEqual(0, r['return'])
+
+        r = ck.load_json_file({'json_file': ck.work['dir_cache_repo_uoa']})
+        self.assertEqual(ck.cache_repo_uoa, r['dict'])
+
+        r = ck.load_json_file({'json_file': ck.work['dir_cache_repo_info']})
+        self.assertEqual(ck.cache_repo_info, r['dict'])
+
+    def test_load_repo_info_from_cache(self):
+        r = ck.load_repo_info_from_cache({'repo_uoa': 'default'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('default', r['data_alias'])
+        self.assertEqual('default', r['data_uoa'])
+
+    def test_find_repo_by_path(self):
+        r = ck.find_path_to_repo({'repo_uoa': 'default'})
+        r = ck.find_repo_by_path({'path': r['path']})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('default', r['repo_uoa'])
+        self.assertEqual('default', r['repo_alias'])
+
+    def test_get_api(self):
+        r = ck.get_api({'func': 'list_actions'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('List actions in a module', r['title'].strip())
+        self.assertTrue(r['api'].strip().startswith('Input:  {'))
+
+    def test_parse_cid(self):
+        r = ck.parse_cid({'cid': 'a:b:c'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('a', r['repo_uoa'])
+        self.assertEqual('b', r['module_uoa'])
+        self.assertEqual('c', r['data_uoa'])
+
+    def test_delete_directory(self):
+        import shutil
+        import tempfile
+
+        fname = tempfile.mkdtemp()
+        try:
+            os.makedirs(fname + '/a')
+            os.makedirs(fname + '/b')
+
+            with open(fname + '/a/test.txt', 'a') as f:
+                f.write('abc')
+
+            with open(fname + '/b/test.log', 'a') as f:
+                f.write('12')
+
+            r = ck.delete_directory({'path': fname})
+            self.assertEqual(0, r['return'])
+            self.assertFalse(os.path.isdir(fname))
+        except:
+            shutil.rmtree(fname)
+
+    def test_get_by_flat_key(self):
+        a = {'dyn_features':{'ft1':'1', 'ft2':'2'}, 'static_features':{'ft3':'3','ft4':'4'}}
+        r = ck.get_by_flat_key({'dict': a, 'key': '##dyn_features#ft2'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('2', r['value'])
+
+    def test_detect_cid_in_current_path(self):
+        r = ck.find_path_to_repo({'repo_uoa': 'default'})
+        r = ck.detect_cid_in_current_path({'path': r['path']})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('default', r['repo_uoa'])
+        self.assertEqual('default', r['repo_alias'])
+
+    def test_uid(self):
+        r = ck.uid({})
+        self.assertEqual(0, r['return'])
+
+        uid = r['data_uid']
+        self.assertEqual(16, len(uid))
+
+        chars = '0123456789abcdef'
+        for c in uid:
+            self.assertIn(c, chars)
+        
+    def test_version(self):
+        r = ck.get_version({})
+        self.assertEqual(0, r['return'])
+        self.assertEqual(ck.__version__, r['version_str'])
+        self.assertEqual(ck.__version__.split('.'), r['version'])
+
+    def test_check_version(self):
+        r = ck.check_version({'version': '1.7.4'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('yes', r['ok'])
+        self.assertEqual(ck.__version__, r['current_version'])
+
+    def test_convert_entry_to_cid(self):
+        r = ck.convert_entry_to_cid({'repo_uoa': 'a', 'module_uoa': 'b', 'data_uoa': 'c'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('a:b:c', r['xcuoa'])
+
+    def test_help(self):
+        r = ck.help({})
+        self.assertEqual(0, r['return'])
+        self.assertTrue('Usage:' in r['help'])
+        self.assertTrue('Common actions:' in r['help'])
+        for ca in ck.cfg['common_actions']:
+            self.assertTrue(ca in r['help'])
+
+    def test_print_input(self):
+        d = {'a': 1, 'b': [2, 3]}
+        r = ck.print_input(d)
+        self.assertEqual(0, r['return'])
+        parsed_dict = ck.convert_json_str_to_dict({'str': r['html'], 'skip_quote_replacement': 'yes'})['dict']
+        self.assertEqual(d, parsed_dict)
+
+    def test_info(self):
+        r = ck.info({'module_uoa': 'kernel'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('kernel', r['data_uoa'])
+        self.assertEqual('kernel', r['data_alias'])
