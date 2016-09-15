@@ -9,6 +9,7 @@ NEWS
 * We have moved Open Science resources [here](http://github.com/ctuning/ck/wiki/Enabling-Open-Science);
 * We have added continuous integration;
 * CK repository to crowd-benchmark and crowd-tuning CAFFE (DNN framework) is now available [here](http://github.com/dividiti/ck-caffe);
+* CK supports [Jupyter notebooks](http://jupyter.org) and [Docker](http://github.com/ctuning/ck-docker);
 * CK and ARM has received [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014).
 
 Introduction
