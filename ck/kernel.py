@@ -4878,11 +4878,6 @@ def path(i):
               (error)      - error text if return > 0
 
               Output from from 'detect_cid_in_current_path' function
-
-              cuoa         - module_uoa:data_uoa           (substituted with ? if can't find)
-              cid          - module_uid:data_uid           (substituted with ? if can't find)
-              xcuoa        - repo_uoa:module_uoa:data_uoa  (substituted with ? if can't find)
-              xcid         - repo_uid:module_uid:data_uid  (substituted with ? if can't find)
             }
 
     """

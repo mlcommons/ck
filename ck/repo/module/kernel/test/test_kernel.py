@@ -435,3 +435,114 @@ class TestKernel(unittest.TestCase):
         self.assertEqual(0, r['return'])
         self.assertEqual('kernel', r['data_uoa'])
         self.assertEqual('kernel', r['data_alias'])
+
+    def test_path(self):
+        r = ck.find_path_to_repo({'repo_uoa': 'default'})
+        r = ck.path({'path': r['path']})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('default', r['repo_uoa'])
+        self.assertEqual('default', r['repo_alias'])
+
+    def test_find(self):
+        r = ck.find({'module_uoa': 'kernel', 'data_uoa': 'default'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual(1, r['number_of_entries'])
+        self.assertEqual('kernel', r['module_uoa'])
+        self.assertEqual('kernel', r['module_alias'])
+        self.assertEqual('default', r['data_uoa'])
+        self.assertEqual('local', r['repo_alias'])
+        self.assertEqual('local', r['repo_uoa'])
+        self.assertIn('repo_uid', r)
+        self.assertIn('module_uid', r)
+        self.assertIn('data_uid', r)
+        self.assertIn('path_repo', r)
+        self.assertIn('path', r)
+
+    def test_cd(self):
+        r = ck.cd({'module_uoa': 'kernel', 'data_uoa': 'default'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('cd ' + r['path'], r['string'])
+        # check for fields from ck.find:
+        self.assertEqual(1, r['number_of_entries'])
+        self.assertEqual('kernel', r['module_uoa'])
+        self.assertEqual('kernel', r['module_alias'])
+        self.assertEqual('default', r['data_uoa'])
+        self.assertEqual('local', r['repo_alias'])
+        self.assertEqual('local', r['repo_uoa'])
+        self.assertIn('repo_uid', r)
+        self.assertIn('module_uid', r)
+        self.assertIn('data_uid', r)
+        self.assertIn('path_repo', r)
+        self.assertIn('path', r)
+
+    def test_search(self):
+        r = ck.search({'repo_uoa': 'default', 'module_uoa': 'kernel'})
+        self.assertEqual(0, r['return'])
+        lst = r['lst']
+        self.assertEqual(1, len(lst))
+        r = lst[0]
+        self.assertEqual('kernel', r['module_uoa'])
+        self.assertEqual('default', r['data_uoa'])
+        self.assertEqual('default', r['repo_uoa'])
+        self.assertIn('repo_uid', r)
+        self.assertIn('module_uid', r)
+        self.assertIn('data_uid', r)
+        self.assertIn('path', r)
+
+    def test_compare_dicts(self):
+        d1 = {'a': 1, 'b': [2, 3]}
+        d2 = {'b': [2, 3], 'a': 1}
+
+        r = ck.compare_dicts({'dict1': d1, 'dict2': d2})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('yes', r['equal'])
+
+        d2['b'][1] = 4
+        r = ck.compare_dicts({'dict1': d1, 'dict2': d2})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('no', r['equal'])
+
+    def test_compare_flat_dicts(self):
+        d1 = {'a': 1, 'b': [2, 3]}
+        d2 = {'b': [2, 3], 'a': 1}
+
+        r = ck.compare_flat_dicts({'dict1': d1, 'dict2': d2})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('yes', r['equal'])
+
+        d2['b'][1] = 4
+        r = ck.compare_flat_dicts({'dict1': d1, 'dict2': d2})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('no', r['equal'])
+
+    def test_compare_flat_dicts(self):
+        d1 = {'a': 1, 'b': [2, 3]}
+        d2 = {'b': [2, 3], 'a': 1}
+
+        r = ck.compare_flat_dicts({'dict1': d1, 'dict2': d2})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('yes', r['equal'])
+
+        d2['b'][1] = 4
+        r = ck.compare_flat_dicts({'dict1': d1, 'dict2': d2})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('no', r['equal'])
+
+    def test_find_string_in_dict_or_list(self):
+        d = {'a': 1, 'b': [2, 3]}
+
+        r = ck.find_string_in_dict_or_list({'dict': d, 'search_string': '2'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('yes', r['found'])
+
+        r = ck.find_string_in_dict_or_list({'dict': d, 'search_string': '4'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('no', r['found'])
+
+    def test_list_files(self):
+        r = ck.list_files({'repo_uoa': 'default', 'module_uoa': 'module', 'data_uoa': 'kernel'})
+        self.assertEqual(0, r['return'])
+        lst = r['list']
+        self.assertIn('module.py', lst)
+        self.assertIn('test/test_kernel.py', lst)
+        self.assertIn('test/test_original_tests.py', lst)
