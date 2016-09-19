@@ -7998,7 +7998,7 @@ def remove_action(i):
     # Check func and desc
     if o=='con':
        if func=='':
-          r=inp({'text':'Add action function (or Enter to stop): '})
+          r=inp({'text':'Enter function to be removed (or Enter to quit) - note that we remove only reference to this function from the module meta: '})
           func=r['string']
 
     # Check if empty
@@ -8017,10 +8017,16 @@ def remove_action(i):
     ii={'module_uoa':cfg['module_name'],
         'data_uoa':muoa,
         'dict':dd,
+        'substitute':'yes',
+        'sort_keys':'yes',
         'out':o}
     if ruoa!='': ii['repo_uoa']=ruoa
     r=update(ii)
     if r['return']>0: return r
+
+    if o=='con':
+       out('')
+       out('Reference to the function "'+func+'" was removed from module meta. Function body was not removed from the python code')
 
     return r
 
