@@ -54,7 +54,7 @@ class TestMgmt(unittest.TestCase):
             self.assertNotEqual(0, ck.load_meta_from_path({'path': path + '-copy'})['return'])
             self.assertEqual(meta_dict, ck.load_meta_from_path({'path': r['path']})['dict'])
 
-            r = ck.remove(merge(entry, {'module_uoa': 'test'}))
+            r = ck.delete(merge(entry, {'module_uoa': 'test'}))
             self.assertEqual(0, r['return'])
 
             fname = path + '/test.txt'
@@ -69,3 +69,22 @@ class TestMgmt(unittest.TestCase):
         finally:
             r = ck.remove(entry)
             self.assertEqual(0, r['return'])
+
+    def test_perform_remote_action(self):
+        r = ck.perform_remote_action({
+            'module_uoa': 'kernel', 
+            'remote_server_url': 'http://cknowledge.org/repo/ck.php?',
+            'data_uoa': 'default',
+            'repo_uoa': 'default',
+            'action': 'search'})
+        self.assertEqual(0, r['return'])
+        lst = r['lst']
+        self.assertEqual(1, len(lst))
+        r = lst[0]
+        self.assertEqual('kernel', r['module_uoa'])
+        self.assertEqual('default', r['data_uoa'])
+        self.assertEqual('default', r['repo_uoa'])
+        self.assertIn('repo_uid', r)
+        self.assertIn('module_uid', r)
+        self.assertIn('data_uid', r)
+        self.assertIn('path', r)
