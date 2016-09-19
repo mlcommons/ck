@@ -88,3 +88,39 @@ class TestMgmt(unittest.TestCase):
         self.assertIn('module_uid', r)
         self.assertIn('data_uid', r)
         self.assertIn('path', r)
+
+    def test_actions_crud(self):
+        entry = {
+            'module_uoa': 'module',
+            'repo_uoa': 'local',
+            'data_uoa': 'ck-test-abcd',
+            'common_func': 'yes',
+            'action': 'add',
+            'dict': {'license': '1', 'copyright': '2', 'developer_email': '3', 'actions': {}, 'developer_webpage': '4', 'developer': '5', 'desc': 'abcd'}, 
+            'sort_keys': 'yes'
+        }
+        r = ck.add(entry)
+        self.assertEqual(0, r['return'])
+        try:
+            r = ck.add_action(merge(entry, {'func': 'test_func', 'desc': 'test descr', 'skip_appending_dummy_code': 'yes'}))
+            self.assertEqual(0, r['return'])
+
+            r = ck.list_actions(entry)
+            self.assertEqual(0, r['return'])
+            lst = r['actions']
+            self.assertEqual(1, len(lst))
+            self.assertEqual('test descr', lst['test_func']['desc'])
+
+            r = ck.remove_action(merge(entry, {'func': 'test_func'}))
+            self.assertEqual(0, r['return'])
+
+            # TODO: uncomment this check, when remove_action is fixed
+            # r = ck.list_actions(entry)
+            # self.assertEqual(0, r['return'])
+            # lst = r['actions']
+            # self.assertEqual(0, len(lst))
+        finally:
+            r = ck.remove(entry)
+            self.assertEqual(0, r['return'])
+
+
