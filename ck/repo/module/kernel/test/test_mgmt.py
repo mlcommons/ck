@@ -114,11 +114,10 @@ class TestMgmt(unittest.TestCase):
             r = ck.remove_action(merge(entry, {'func': 'test_func'}))
             self.assertEqual(0, r['return'])
 
-            # TODO: uncomment this check, when remove_action is fixed
-            # r = ck.list_actions(entry)
-            # self.assertEqual(0, r['return'])
-            # lst = r['actions']
-            # self.assertEqual(0, len(lst))
+            r = ck.list_actions(entry)
+            self.assertEqual(0, r['return'])
+            lst = r['actions']
+            self.assertEqual(0, len(lst))
         finally:
             r = ck.remove(entry)
             self.assertEqual(0, r['return'])
