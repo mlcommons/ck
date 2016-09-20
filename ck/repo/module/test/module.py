@@ -8,6 +8,9 @@
 #
 
 import unittest
+import sys
+import os
+from contextlib import contextmanager
 
 cfg={}  # Will be updated by CK (meta description of this module)
 work={} # Will be updated by CK (temporal data)
@@ -263,11 +266,74 @@ def convert_error_tuples(list): # pragma: no cover
         ret.append({'test': test_case.id(), 'traceback': traceback})
     return ret
 
+def dummy_exit(code):
+    print('Exit code: ' + str(code))
+
+class CkTestUtil:
+
+  def get_io(self, buf=''):
+      if sys.version_info[0]>2:
+         import io
+         return io.StringIO(buf)
+      else:
+         from StringIO import StringIO
+         return StringIO(buf)
+
+  @contextmanager
+  def tmp_file(self, suffix='', prefix='ck-test-', content=''):
+      fname = ck.gen_tmp_file({'suffix': suffix, 'prefix': prefix})['file_name']
+      try:
+          if content != '':
+              with open(fname, 'w') as f:
+                  f.write(content)            
+          yield fname
+      finally:
+          try:
+              os.remove(fname)
+          except OSError:
+              pass
+
+  @contextmanager
+  def tmp_dir(self, suffix='', prefix='ck-test-'):
+      import shutil
+      import tempfile
+
+      dname = tempfile.mkdtemp()
+      try:
+        yield dname
+      finally:
+          try:
+            shutil.rmtree(dname)
+          except OSError:
+              pass
+
+  @contextmanager
+  def tmp_sys(self, input_buf=''):
+      saved_stdout = sys.stdout
+      saved_stdin = sys.stdin
+      saved_exit = sys.exit
+      try:
+          out_stream = self.get_io()
+          in_stream = self.get_io(input_buf)
+          if not hasattr(in_stream, 'encoding'):
+              in_stream.encoding = 'utf8'
+          sys.stdout = out_stream
+          sys.stdin = in_stream
+          sys.exit = dummy_exit
+
+          yield
+      finally:
+          sys.stdout = saved_stdout
+          sys.stdin = saved_stdin
+          sys.exit = saved_exit
+
+
 class CkTestLoader(unittest.TestLoader):
   def loadTestsFromModule(self, module, pattern=None):
       module.ck = ck
       module.cfg = cfg
       module.work = work
+      module.test_util = CkTestUtil()
       return unittest.TestLoader.loadTestsFromModule(self, module, pattern)
 
 ##############################################################################

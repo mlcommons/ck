@@ -3,68 +3,24 @@ import sys
 import os
 from contextlib import contextmanager
 
-ck=None # Will be updated by CK (initialized CK kernel)
-
-def dummy_exit(code):
-    print('Exit code: ' + str(code))
-
-def get_io(buf=''):
-    if sys.version_info[0]>2:
-       import io
-       return io.StringIO(buf)
-    else:
-       from StringIO import StringIO
-       return StringIO(buf)
-
-@contextmanager
-def tmp_file(suffix='', prefix='ck-test-', content=''):
-    fname = ck.gen_tmp_file({'suffix': suffix, 'prefix': prefix})['file_name']
-    try:
-        if content != '':
-            with open(fname, 'w') as f:
-                f.write(content)            
-        yield fname
-    finally:
-        try:
-            os.remove(fname)
-        except OSError:
-            pass
-
-@contextmanager
-def tmp_sys(input_buf=''):
-    saved_stdout = sys.stdout
-    saved_stdin = sys.stdin
-    saved_exit = sys.exit
-    try:
-        out_stream = get_io()
-        in_stream = get_io(input_buf)
-        if not hasattr(in_stream, 'encoding'):
-            in_stream.encoding = 'utf8'
-        sys.stdout = out_stream
-        sys.stdin = in_stream
-        sys.exit = dummy_exit
-
-        yield
-    finally:
-        sys.stdout = saved_stdout
-        sys.stdin = saved_stdin
-        sys.exit = saved_exit
+ck=None           # Will be updated by CK (initialized CK kernel)
+test_util=None    # Will be updated by CK (initialized CK test utils)
 
 # Contains new kernel tests. Add new tests here!
 class TestKernel(unittest.TestCase):
 
     def test_out(self):
-        with tmp_sys():
+        with test_util.tmp_sys():
             ck.out('test')
             self.assertEqual('test', sys.stdout.getvalue().strip())
 
     def test_err(self):
-        with tmp_sys():
+        with test_util.tmp_sys():
             ck.err({'return': 2, 'error': 'test.'})
             self.assertEqual('Error: test.\nExit code: 2', sys.stdout.getvalue().strip())
 
     def test_jerr(self):
-        with tmp_sys():
+        with test_util.tmp_sys():
             with self.assertRaises(KeyboardInterrupt):
                 ck.jerr({'return': 2, 'error': 'test.'})
             self.assertEqual('Error: test.', sys.stdout.getvalue().strip())
@@ -135,14 +91,14 @@ class TestKernel(unittest.TestCase):
         self.assertEqual(0, ck.convert_str_key_to_int('a'))
 
     def test_inp(self):
-        with tmp_sys('test input'):
+        with test_util.tmp_sys('test input'):
             r = ck.inp({'text': 'test output'})
             self.assertEqual('test output', sys.stdout.getvalue().strip())
             self.assertEqual('test input', r['string'])
             self.assertEqual(0, r['return'])
 
     def test_select(self):
-        with tmp_sys('1\n'):
+        with test_util.tmp_sys('1\n'):
             d = {
                 'key0': { 'name': 'n0', 'sort': 1 },
                 'key1': { 'name': 'n1', 'sort': 0 }
@@ -154,7 +110,7 @@ class TestKernel(unittest.TestCase):
             self.assertEqual('key0', r['string'])
 
     def test_select_uoa(self):
-        with tmp_sys('1\n'):
+        with test_util.tmp_sys('1\n'):
             lst = [
                 {'data_uid': 'uid1', 'data_uoa': 'b'},
                 {'data_uid': 'uid2', 'data_uoa': 'a'}
@@ -170,7 +126,7 @@ class TestKernel(unittest.TestCase):
         self.assertEqual(['1', '2'], ck.convert_str_tags_to_list('  1 , 2  '))
 
     def test_gen_tmp_file(self):
-        with tmp_file(suffix='.txt') as fname:
+        with test_util.tmp_file(suffix='.txt') as fname:
             # check we can write to the file
             with open(fname, 'w') as f:
                 f.write('test')
@@ -214,20 +170,20 @@ class TestKernel(unittest.TestCase):
         self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
 
     def test_load_json_file(self):
-        with tmp_file(suffix='.json', content='{"a": 1, "b": [2, 3]}') as fname:
+        with test_util.tmp_file(suffix='.json', content='{"a": 1, "b": [2, 3]}') as fname:
             r = ck.load_json_file({'json_file': fname})
             self.assertEqual(0, r['return'])
             self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
 
     def test_load_yaml_file(self):
-        with tmp_file(suffix='.yml', content='a: 1\nb:\n  - 2\n  - 3\n') as fname:
+        with test_util.tmp_file(suffix='.yml', content='a: 1\nb:\n  - 2\n  - 3\n') as fname:
             r = ck.load_yaml_file({'yaml_file': fname})
             self.assertEqual(0, r['return'])
             self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
 
     def test_load_text_file(self):
         content = 'a\nb\nc'
-        with tmp_file(suffix='.txt', content=content) as fname:
+        with test_util.tmp_file(suffix='.txt', content=content) as fname:
             r = ck.load_text_file({'text_file': fname, 'split_to_list': 'yes'})
             self.assertEqual(0, r['return'])
             self.assertEqual(str.encode(content.replace('\n', os.linesep)), r['bin'])
@@ -236,7 +192,7 @@ class TestKernel(unittest.TestCase):
 
     def test_substitute_str_in_file(self):
         content = 'a\nb\nc'
-        with tmp_file(suffix='.txt', content=content) as fname:
+        with test_util.tmp_file(suffix='.txt', content=content) as fname:
             r = ck.substitute_str_in_file({'filename': fname, 'string1': 'b', 'string2': 'd'})
             self.assertEqual(0, r['return'])
             self.assertEqual('a\nd\nc', ck.load_text_file({'text_file': fname})['string'])
@@ -255,7 +211,7 @@ class TestKernel(unittest.TestCase):
 
     def test_save_yaml_to_file(self):
         d = {'a': 1, 'b': [2, 3]}
-        with tmp_file(suffix='.yml') as fname:
+        with test_util.tmp_file(suffix='.yml') as fname:
             r = ck.save_yaml_to_file({'yaml_file': fname, 'dict': d})
             self.assertEqual(0, r['return'])
 
@@ -264,13 +220,13 @@ class TestKernel(unittest.TestCase):
             self.assertEqual(d, r['dict'])
 
     def test_convert_file_to_upload_string(self):
-        with tmp_file(suffix='.txt', content='http://ctuning.org/') as fname:
+        with test_util.tmp_file(suffix='.txt', content='http://ctuning.org/') as fname:
             r = ck.convert_file_to_upload_string({'filename': fname})
             self.assertEqual(0, r['return'])
             self.assertEqual('aHR0cDovL2N0dW5pbmcub3JnLw==', r['file_content_base64'])
 
     def test_convert_upload_string_to_file(self):
-        with tmp_file(suffix='.txt') as fname:
+        with test_util.tmp_file(suffix='.txt') as fname:
             r = ck.convert_upload_string_to_file({'file_content_base64': 'aHR0cDovL2N0dW5pbmcub3JnLw==', 'filename': fname})
             self.assertEqual(0, r['return'])
             self.assertEqual(fname, r['filename'])
@@ -281,7 +237,7 @@ class TestKernel(unittest.TestCase):
 
     def test_input_json(self):
         content = '{"a": 1, "b": [2, 3]}\n\n'
-        with tmp_sys(content):
+        with test_util.tmp_sys(content):
             r = ck.input_json({'text': 'input json'})
             self.assertEqual(0, r['return'])
             self.assertEqual('input json', sys.stdout.getvalue().strip())
@@ -289,11 +245,7 @@ class TestKernel(unittest.TestCase):
             self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
 
     def test_list_all_files(self):
-        import shutil
-        import tempfile
-
-        fname = tempfile.mkdtemp()
-        try:
+        with test_util.tmp_dir() as fname:
             os.makedirs(fname + '/a')
             os.makedirs(fname + '/b')
 
@@ -314,8 +266,6 @@ class TestKernel(unittest.TestCase):
             t = r['list']
             self.assertEqual({'size': 3}, t['a/test.txt'])
             self.assertEqual(None, t.get('b/test.log'))
-        finally:
-            shutil.rmtree(fname)
 
     def test_save_repo_cache(self):
         r = ck.save_repo_cache({})
@@ -354,11 +304,7 @@ class TestKernel(unittest.TestCase):
         self.assertEqual('c', r['data_uoa'])
 
     def test_delete_directory(self):
-        import shutil
-        import tempfile
-
-        fname = tempfile.mkdtemp()
-        try:
+        with test_util.tmp_dir() as fname:
             os.makedirs(fname + '/a')
             os.makedirs(fname + '/b')
 
@@ -371,8 +317,6 @@ class TestKernel(unittest.TestCase):
             r = ck.delete_directory({'path': fname})
             self.assertEqual(0, r['return'])
             self.assertFalse(os.path.isdir(fname))
-        except:
-            shutil.rmtree(fname)
 
     def test_get_by_flat_key(self):
         a = {'dyn_features':{'ft1':'1', 'ft2':'2'}, 'static_features':{'ft3':'3','ft4':'4'}}

@@ -106,7 +106,7 @@ def add(i):
             }
 
     """
-
+    print(i)
     # Check if global writing is allowed
     r=ck.check_writing({})
     if r['return']>0: return r
