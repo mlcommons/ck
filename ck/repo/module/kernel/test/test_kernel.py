@@ -28,7 +28,7 @@ def tmp_file(suffix='', prefix='ck-test-', content=''):
         try:
             os.remove(fname)
         except OSError:
-            pass        
+            pass
 
 @contextmanager
 def tmp_sys(input_buf=''):

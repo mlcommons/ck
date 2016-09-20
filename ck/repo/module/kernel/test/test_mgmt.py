@@ -1,5 +1,8 @@
 import unittest
-import os.path
+import os
+import shutil
+import tempfile
+from contextlib import contextmanager
 
 ck=None # Will be updated by CK (initialized CK kernel)
 
@@ -7,6 +10,20 @@ def merge(dict1, dict2):
     ret = dict1.copy()
     ret.update(dict2)
     return ret
+
+@contextmanager
+def tmp_file(suffix='', prefix='ck-test-', content=''):
+    fname = ck.gen_tmp_file({'suffix': suffix, 'prefix': prefix})['file_name']
+    try:
+        if content != '':
+            with open(fname, 'w') as f:
+                f.write(content)            
+        yield fname
+    finally:
+        # try:
+        #     os.remove(fname)
+        # except OSError:
+        pass
 
 # Tests for repo/module/entry management operations like creating, adding actions, deleting, etc.
 # Generally, these are more complex tests, then those from 'test_kernel.py'. These tests
@@ -122,4 +139,21 @@ class TestMgmt(unittest.TestCase):
             r = ck.remove(entry)
             self.assertEqual(0, r['return'])
 
+    def test_zip_unzip(self):
+        with tmp_file() as fname:
+            r = ck.zip({'action': 'zip', 'repo_uoa': 'default', 'module_uoa': 'module', 'data_uoa': 'repo', 'archive_name': fname})
+            self.assertEqual(0, r['return'])
+            self.assertTrue(os.path.isfile(fname))
 
+            dirname = tempfile.mkdtemp()
+            self.assertEqual([], os.listdir(dirname))
+            try:
+                r = ck.unzip_file({'archive_file': fname, 'path': dirname})
+                files = os.listdir(dirname)
+                self.assertNotEqual([], files)
+                self.assertIn('kernel', files)
+                self.assertIn('module', files)
+                self.assertIn('repo', files)
+                self.assertIn('test', files)
+            finally:
+                shutil.rmtree(dirname)
