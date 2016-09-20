@@ -1556,7 +1556,7 @@ def save_text_file(i):
 ##############################################################################
 # Copy string to clipboard if supported by OS (requires Tk)
 
-def copy_to_clipboard(i):
+def copy_to_clipboard(i): # pragma: no cover 
     """
     Input:  {
               string - string to copy
@@ -5249,7 +5249,7 @@ def cd(i):
 #########################################################
 # Common action: print 'cd {path to CID} and copy to clipboard'
 
-def cdc(i):
+def cdc(i): # pragma: no cover
     """
     Input:  {
               (repo_uoa)  - repo UOA
@@ -5756,7 +5756,7 @@ def update(i):
 ##############################################################################
 # Common action: edit data meta-description through external editor
 
-def edit(i):
+def edit(i): # pragma: no cover
     """
     Input:  {
               (repo_uoa)             - repo UOA

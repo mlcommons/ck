@@ -242,7 +242,7 @@ def run_module_tests(i):
     test_result = None
     if o == 'con':
        test_result = unittest.TextTestRunner().run(suite)
-    else: 
+    else: # pragma: no cover
        # supress all output
        with open(os.devnull, 'w') as f:
           test_result = unittest.TextTestRunner(stream=f).run(suite)
@@ -256,13 +256,12 @@ def run_module_tests(i):
 
     return ret
 
-def convert_error_tuples(list):
+def convert_error_tuples(list): # pragma: no cover
     ret = []
     for t in list:
         test_case, traceback = t
         ret.append({'test': test_case.id(), 'traceback': traceback})
     return ret
-
 
 class CkTestLoader(unittest.TestLoader):
   def loadTestsFromModule(self, module, pattern=None):
@@ -274,7 +273,7 @@ class CkTestLoader(unittest.TestLoader):
 ##############################################################################
 # show cmd
 
-def cmd(i):
+def cmd(i): # pragma: no cover
     """
     Input:  {
             }
