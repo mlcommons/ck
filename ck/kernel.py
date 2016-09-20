@@ -8529,7 +8529,7 @@ def list_files(i):
 ##############################################################################
 # convert_cm_to_ck
 
-def convert_cm_to_ck(i):
+def convert_cm_to_ck(i): # pragma: no cover
     """
 
     Input:  {
@@ -8592,7 +8592,7 @@ def convert_cm_to_ck(i):
 ##############################################################################
 # convet cm to ck filter
 
-def filter_convert_cm_to_ck(i):
+def filter_convert_cm_to_ck(i): # pragma: no cover
     """
 
     Input:  {
