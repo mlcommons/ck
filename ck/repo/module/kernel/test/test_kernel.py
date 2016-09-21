@@ -98,38 +98,92 @@ class TestKernel(unittest.TestCase):
             self.assertEqual(0, r['return'])
 
     def test_select(self):
+        d = {
+            'key0': { 'name': 'n0', 'sort': 1 },
+            'key1': { 'name': 'n1', 'sort': 0 }
+        }
         with test_util.tmp_sys('1\n'):
-            d = {
-                'key0': { 'name': 'n0', 'sort': 1 },
-                'key1': { 'name': 'n1', 'sort': 0 }
-            }
             r = ck.select({'dict': d, 'title': 'Select:'})
 
             self.assertEqual('Select:\n\n0) n1\n1) n0\n\nMake your selection (or press Enter for 0):', sys.stdout.getvalue().strip())
             self.assertEqual(0, r['return'])
             self.assertEqual('key0', r['string'])
 
+        with test_util.tmp_sys('\n'):
+            r = ck.select({'dict': d, 'title': 'Select:', 'error_if_empty': 'yes'})
+            self.assertEqual(1, r['return'])
+            self.assertEqual('selection is empty', r['error'])
+
+        with test_util.tmp_sys('\n'):
+            r = ck.select({'dict': d, 'title': 'Select:'})
+            self.assertEqual(0, r['return'])
+            self.assertEqual('key1', r['string'])
+
+        with test_util.tmp_sys('2\n'):
+            r = ck.select({'dict': d, 'title': 'Select:'})
+            self.assertEqual(1, r['return'])
+            self.assertEqual('selection is not recognized', r['error'])
+
     def test_select_uoa(self):
+        lst = [
+            {'data_uid': 'uid1', 'data_uoa': 'b'},
+            {'data_uid': 'uid2', 'data_uoa': 'a'}
+        ]
         with test_util.tmp_sys('1\n'):
-            lst = [
-                {'data_uid': 'uid1', 'data_uoa': 'b'},
-                {'data_uid': 'uid2', 'data_uoa': 'a'}
-            ]
             r = ck.select_uoa({'choices': lst})
 
             self.assertEqual('0) a (uid2)\n1) b (uid1)\n\nSelect UOA (or press Enter for 0):', sys.stdout.getvalue().strip())
             self.assertEqual(0, r['return'])
             self.assertEqual('uid1', r['choice'])
 
+        with test_util.tmp_sys('2\n'):
+            r = ck.select_uoa({'choices': lst})
+            self.assertEqual(1, r['return'])
+            self.assertEqual('number is not recognized', r['error'])
+
     def test_convert_str_tags_to_list(self):
         self.assertEqual([1, 2], ck.convert_str_tags_to_list([1, 2]))
         self.assertEqual(['1', '2'], ck.convert_str_tags_to_list('  1 , 2  '))
+
+    def test_check_writing(self):
+        with test_util.tmp_cfg('forbid_global_delete'):
+            r = ck.check_writing({'delete': 'yes'})
+            self.assertEqual(1, r['return'])
+
+        with test_util.tmp_cfg('forbid_global_writing'):
+            r = ck.check_writing({})
+            self.assertEqual(1, r['return'])
+
+        with test_util.tmp_cfg('forbid_writing_modules'):
+            r = ck.check_writing({'module_uoa': 'module'})
+            self.assertEqual(1, r['return'])
+
+        with test_util.tmp_cfg('forbid_writing_to_default_repo'):
+            r = ck.check_writing({'repo_uoa': 'default'})
+            self.assertEqual(1, r['return'])
+
+        with test_util.tmp_cfg('forbid_writing_to_local_repo'):
+            r = ck.check_writing({'repo_uoa': 'local'})
+            self.assertEqual(1, r['return'])
+
+        with test_util.tmp_cfg('allow_writing_only_to_allowed'):
+            r = ck.check_writing({'repo_uoa': 'default'})
+            self.assertEqual(1, r['return'])
+
+        r = ck.check_writing({'repo_uoa': 'default', 'delete': 'yes', 'repo_dict': {'forbid_deleting': 'yes'}})
+        self.assertEqual(1, r['return'])
 
     def test_gen_tmp_file(self):
         with test_util.tmp_file(suffix='.txt') as fname:
             # check we can write to the file
             with open(fname, 'w') as f:
                 f.write('test')
+
+        fname = ck.gen_tmp_file({})['file_name']
+        self.assertIn(os.sep, fname)
+
+        fname = ck.gen_tmp_file({'remove_dir': 'yes'})['file_name']
+        self.assertNotIn(os.sep, fname)
 
     def test_gen_uid(self):
         r = ck.gen_uid({})
@@ -190,6 +244,12 @@ class TestKernel(unittest.TestCase):
             self.assertEqual(content, r['string'])
             self.assertEqual(content.strip().split('\n'), r['lst'])
 
+        content = 'a:1\nb:"z"\nc:2'
+        with test_util.tmp_file(suffix='.txt', content=content) as fname:
+            r = ck.load_text_file({'text_file': fname, 'convert_to_dict': 'yes', 'remove_quotes': 'yes'})
+            self.assertEqual(0, r['return'])
+            self.assertEqual({'a': '1', 'b': 'z', 'c': '2'}, r['dict'])
+
     def test_substitute_str_in_file(self):
         content = 'a\nb\nc'
         with test_util.tmp_file(suffix='.txt', content=content) as fname:
@@ -205,9 +265,9 @@ class TestKernel(unittest.TestCase):
 
     def test_merge_dicts(self):
         d1 = {'a': 1, 'b': 2}
-        d2 = {'c': 3}
+        d2 = {'c': 3, 'b': {}}
         ck.merge_dicts({'dict1': d1, 'dict2': d2})
-        self.assertEqual({'a': 1, 'b': 2, 'c': 3}, d1)
+        self.assertEqual({'a': 1, 'b': {}, 'c': 3}, d1)
 
     def test_save_yaml_to_file(self):
         d = {'a': 1, 'b': [2, 3]}
@@ -225,6 +285,10 @@ class TestKernel(unittest.TestCase):
             self.assertEqual(0, r['return'])
             self.assertEqual('aHR0cDovL2N0dW5pbmcub3JnLw==', r['file_content_base64'])
 
+        with test_util.tmp_file() as fname:
+            r = ck.convert_file_to_upload_string({'filename': fname})
+            self.assertEqual(1, r['return'])
+
     def test_convert_upload_string_to_file(self):
         with test_util.tmp_file(suffix='.txt') as fname:
             r = ck.convert_upload_string_to_file({'file_content_base64': 'aHR0cDovL2N0dW5pbmcub3JnLw==', 'filename': fname})
@@ -234,6 +298,56 @@ class TestKernel(unittest.TestCase):
             r = ck.load_text_file({'text_file': fname})
             self.assertEqual(0, r['return'])
             self.assertEqual('http://ctuning.org/', r['string'])
+
+        r = ck.convert_upload_string_to_file({'file_content_base64': 'aHR0cDovL2N0dW5pbmcub3JnLw=='})
+        fname = r['filename']
+        try:
+            self.assertEqual(0, r['return'])
+
+            r = ck.load_text_file({'text_file': fname})
+            self.assertEqual(0, r['return'])
+            self.assertEqual('http://ctuning.org/', r['string'])
+        finally:
+            os.remove(fname)
+
+        with test_util.tmp_file(suffix='.txt', content='test') as fname:
+            r = ck.convert_upload_string_to_file({'file_content_base64': 'aHR0cDovL2N0dW5pbmcub3JnLw==', 'filename': fname})
+            self.assertEqual(1, r['return'])
+
+    def test_convert_ck_list_to_dict(self):
+        r = ck.convert_ck_list_to_dict(['a', '--', 1, '2'])
+        self.assertEqual(0, r['return'])
+        self.assertEqual({'action': 'a', 'cids': [], 'unparsed': [1, '2']}, r['ck_dict'])
+
+        r = ck.convert_ck_list_to_dict(['a', '-k=1'])
+        self.assertEqual(0, r['return'])
+        self.assertEqual({'action': 'a', 'cids': [], 'k': '1'}, r['ck_dict'])
+
+        r = ck.convert_ck_list_to_dict(['a', '@@@2'])
+        self.assertEqual(1, r['return'])
+
+        r = ck.convert_ck_list_to_dict(['a', '@@@{\'k\': 1}'])
+        self.assertEqual(0, r['return'])
+        self.assertEqual({'action': 'a', 'cids': [], 'k': 1}, r['ck_dict'])
+
+        with test_util.tmp_sys('{"k": 1}\n\n'):
+            r = ck.convert_ck_list_to_dict(['a', '@@'])
+            self.assertEqual(0, r['return'])
+            self.assertEqual({'action': 'a', 'cids': [], 'k': 1}, r['ck_dict'])
+
+        with test_util.tmp_sys('{"k": 1}\n\n'):
+            r = ck.convert_ck_list_to_dict(['a', '@@q'])
+            self.assertEqual(0, r['return'])
+            self.assertEqual({'action': 'a', 'cids': [], 'q':{'k': 1}}, r['ck_dict'])
+
+        r = ck.convert_ck_list_to_dict(['a', '@2'])
+        self.assertEqual(1, r['return'])
+
+        with test_util.tmp_file(suffix='.tmp', content='{"k": 1}') as fname:
+            r = ck.convert_ck_list_to_dict(['a', '@' + fname])
+            self.assertEqual(0, r['return'])
+            self.assertEqual({'action': 'a', 'cids': [], 'k': 1}, r['ck_dict'])
+            self.assertFalse(os.path.isfile(fname))
 
     def test_input_json(self):
         content = '{"a": 1, "b": [2, 3]}\n\n'
@@ -255,7 +369,7 @@ class TestKernel(unittest.TestCase):
             with open(fname + '/b/test.log', 'a') as f:
                 f.write('12')
 
-            r = ck.list_all_files({'path': fname})
+            r = ck.list_all_files({'path': fname, 'limit': 10})
             self.assertEqual(0, r['return'])
             t = r['list']
             self.assertEqual({'size': 3}, t['a/test.txt'])
@@ -266,6 +380,26 @@ class TestKernel(unittest.TestCase):
             t = r['list']
             self.assertEqual({'size': 3}, t['a/test.txt'])
             self.assertEqual(None, t.get('b/test.log'))
+
+            r = ck.list_all_files({'path': fname, 'file_name': 'test.txt'})
+            self.assertEqual(0, r['return'])
+            t = r['list']
+            self.assertEqual({'size': 3}, t['a/test.txt'])
+
+        with test_util.tmp_dir() as fname:
+            with open(fname + '/test.txt', 'a') as f:
+                f.write('abc')
+            with open(fname + '/test.log', 'a') as f:
+                f.write('12')
+            with open(fname + '/test.abc', 'a') as f:
+                f.write('12')
+
+            r = ck.list_all_files({'path': fname, 'limit': 1})
+            self.assertEqual(0, r['return'])
+
+            # TODO: there should be 1 below, but due to the current issue with limit it's 2. Need to fix,
+            # once the issue is fixed.
+            self.assertEqual(2, len(r['list']))
 
     def test_save_repo_cache(self):
         r = ck.save_repo_cache({})

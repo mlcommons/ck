@@ -327,6 +327,17 @@ class CkTestUtil:
           sys.stdin = saved_stdin
           sys.exit = saved_exit
 
+  @contextmanager
+  def tmp_cfg(self, cfg_key, cfg_value='yes'):
+      saved_value = ck.cfg.get(cfg_key, None)
+      try:
+        ck.cfg[cfg_key] = cfg_value
+        yield
+      finally:
+        if saved_value is None:
+          ck.cfg.pop(cfg_key, None)
+        else:
+          ck.cfg[cfg_key] = saved_value
 
 class CkTestLoader(unittest.TestLoader):
   def loadTestsFromModule(self, module, pattern=None):

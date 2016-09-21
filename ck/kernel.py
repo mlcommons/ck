@@ -437,7 +437,7 @@ def system_with_timeout_kill(proc):
        loaded=False
        pass
 
-    if loaded:
+    if loaded: # pragma: no cover
        try:
           pid=proc.pid
 
@@ -686,7 +686,7 @@ def inp(i):
        else:
           b=t.encode(x, 'ignore')
     else:
-       b=t.encode(con_encoding, 'ignore')
+       b=t.encode(con_encoding, 'ignore') # pragma: no cover 
 
     if sys.version_info[0]>2:
        try: b=b.decode(sys.stdin.encoding)
@@ -1053,7 +1053,7 @@ def gen_uid(i):
     uid=str(uuid.uuid4().hex)
 
     if len(uid)!=32:
-       return {'return':1, 'error':'problem generating UID : len='+str(len(uid))+' !=32'}
+       return {'return':1, 'error':'problem generating UID : len='+str(len(uid))+' !=32'} # pragma: no cover 
 
     random.seed
 
@@ -1280,7 +1280,7 @@ def load_text_file(i):
 
               (convert_to_dict)   - if 'yes', split to list and convert to dict
               (str_split)         - if !='', use as separator of keys/values when converting to dict
-              (remote_quotes)     - if 'yes', remove quotes from values when converting to dict
+              (remove_quotes)     - if 'yes', remove quotes from values when converting to dict
 
               (delete_after_read) - if 'yes', delete file after read (useful when reading tmp files)
             }
@@ -1978,7 +1978,7 @@ def convert_ck_list_to_dict(i):
 ##############################################################################
 # Init CK (current instance - has state!)
 
-def init(i):
+def init(i): # pragma: no cover
     """
     Input:  {}
 
@@ -2292,7 +2292,7 @@ def reload_repo_cache(i):
 
     global cache_repo_uoa, cache_repo_info, paths_repos_all, cache_repo_init
 
-    if i.get('force','')=='yes':
+    if i.get('force','')=='yes': # pragma: no cover
        cache_repo_init=False
        paths_repos_all=[]
 

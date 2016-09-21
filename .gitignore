@@ -5,3 +5,4 @@ MANIFEST
 __pycache__
 .cache/
 .coverage
+htmlcov
