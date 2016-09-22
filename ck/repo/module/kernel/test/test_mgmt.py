@@ -85,6 +85,45 @@ class TestMgmt(unittest.TestCase):
             r = ck.remove(entry)
             self.assertEqual(0, r['return'])
 
+    def test_create_entry(self):
+        with test_util.tmp_repo() as r:
+            path = r['path']
+            r = ck.create_entry({'path': path, 'force': 'yes'})
+            self.assertEqual(0, r['return'])
+            self.assertEqual(os.path.join(path, r['data_uid']), r['path'])
+            self.assertEqual('', r['data_alias'])
+            self.assertEqual(r['data_uoa'], r['data_uid'])
+
+            uid = ck.gen_uid({})['data_uid']
+            r = ck.create_entry({'path': path, 'data_uid': uid})
+            self.assertEqual(0, r['return'])
+            self.assertEqual(os.path.join(path, r['data_uid']), r['path'])
+            self.assertEqual(uid, r['data_uid'])
+            self.assertEqual('', r['data_alias'])
+            self.assertEqual(r['data_uoa'], r['data_uid'])
+
+            # second time with the same UID should fail
+            r = ck.create_entry({'path': path, 'data_uid': uid})
+            self.assertEqual(16, r['return'])
+
+            # uid instead of uoa
+            uid = ck.gen_uid({})['data_uid']
+            r = ck.create_entry({'path': path, 'data_uoa': uid})
+            self.assertEqual(0, r['return'])
+            self.assertEqual(os.path.join(path, r['data_uid']), r['path'])
+            self.assertEqual(uid, r['data_uid'])
+            self.assertEqual('', r['data_alias'])
+            self.assertEqual(r['data_uoa'], r['data_uid'])
+
+            # with alias
+            alias = 'create-entry-test'
+            r = ck.create_entry({'path': path, 'data_uoa': alias})
+            self.assertEqual(0, r['return'])
+            self.assertEqual(os.path.join(path, alias), r['path'])
+            self.assertIn('data_uid', r)
+            self.assertEqual(alias, r['data_alias'])
+            self.assertEqual(alias, r['data_uoa'])
+
     def test_perform_remote_action(self):
         r = ck.perform_remote_action({
             'module_uoa': 'kernel', 

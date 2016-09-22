@@ -500,12 +500,63 @@ class TestKernel(unittest.TestCase):
         self.assertEqual('List actions in a module', r['title'].strip())
         self.assertTrue(r['api'].strip().startswith('Input:  {'))
 
+        missing_file = ck.gen_uid({})['data_uid'] + '.py'
+        with test_util.tmp_cfg('file_kernel_py', missing_file):
+            r = ck.get_api({})
+            self.assertEqual(1, r['return'])
+            self.assertTrue(r['error'].strip().startswith('kernel not found in'))
+
+        r = ck.get_api({'module_uoa': 'test'})
+        self.assertEqual(1, r['return'])
+        self.assertEqual('function not found', r['error'])
+
+        with test_util.tmp_sys():
+            r = ck.get_api({'module_uoa': 'test', 'func': 'cmd', 'out': 'con'})
+            self.assertEqual(0, r['return'])
+            self.assertTrue(r['api'].strip().startswith('Input:'))
+            self.assertTrue(sys.stdout.getvalue().strip().startswith('Function: show cmd'))
+
+        with test_util.tmp_sys():
+            r = ck.get_api({'module_uoa': 'test', 'func': 'cmd', 'out': 'web'})
+            self.assertEqual(0, r['return'])
+            self.assertTrue(r['api'].strip().startswith('Input:'))
+            self.assertTrue(sys.stdout.getvalue().strip().startswith('<B>Function:</B> show cmd'))
+
     def test_parse_cid(self):
         r = ck.parse_cid({'cid': 'a:b:c'})
         self.assertEqual(0, r['return'])
         self.assertEqual('a', r['repo_uoa'])
         self.assertEqual('b', r['module_uoa'])
         self.assertEqual('c', r['data_uoa'])
+
+        r = ck.parse_cid({'cid': '#a'})
+        self.assertEqual(1, r['return'])
+        self.assertEqual('unknown CID format', r['error'])
+
+        r = ck.parse_cid({'cid': '#a', 'ignore_error': 'yes'})
+        self.assertEqual(0, r['return'])
+
+        r = ck.parse_cid({'cid': '', 'cur_cid': {'repo_uoa': 'r', 'module_uoa': 'm', 'data_uoa': 'd'}})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('r', r['repo_uoa'])
+        self.assertEqual('m', r['module_uoa'])
+        self.assertEqual('d', r['data_uoa'])
+
+        r = ck.parse_cid({'cid': 'a', 'cur_cid': {'repo_uoa': 'r', 'module_uoa': 'm', 'data_uoa': 'd'}})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('r', r['repo_uoa'])
+        self.assertEqual('m', r['module_uoa'])
+        self.assertEqual('a', r['data_uoa'])
+
+        r = ck.parse_cid({'cid': 'a:b', 'cur_cid': {'repo_uoa': 'r', 'module_uoa': 'm', 'data_uoa': 'd'}})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('r', r['repo_uoa'])
+        self.assertEqual('a', r['module_uoa'])
+        self.assertEqual('b', r['data_uoa'])
+
+        r = ck.parse_cid({'cid': 'a:b:c:d', 'cur_cid': {'repo_uoa': 'r', 'module_uoa': 'm', 'data_uoa': 'd'}})
+        self.assertEqual(1, r['return'])
+        self.assertEqual('unknown CID format', r['error'])
 
     def test_delete_directory(self):
         with test_util.tmp_dir() as fname:

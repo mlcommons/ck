@@ -8,9 +8,7 @@
 #
 
 import unittest
-import sys
 import os
-from contextlib import contextmanager
 
 cfg={}  # Will be updated by CK (meta description of this module)
 work={} # Will be updated by CK (temporal data)
@@ -266,104 +264,18 @@ def convert_error_tuples(list): # pragma: no cover
         ret.append({'test': test_case.id(), 'traceback': traceback})
     return ret
 
-def dummy_exit(code):
-    print('Exit code: ' + str(code))
-
-class CkTestUtil:
-
-  def get_io(self, buf=''):
-      if sys.version_info[0]>2:
-         import io
-         return io.StringIO(buf)
-      else:
-         from StringIO import StringIO
-         return StringIO(buf)
-
-  @contextmanager
-  def tmp_file(self, suffix='', prefix='ck-test-', content=''):
-      fname = ck.gen_tmp_file({'suffix': suffix, 'prefix': prefix})['file_name']
-      try:
-          if content != '':
-             with open(fname, 'w') as f:
-                 f.write(content)            
-          yield fname
-      finally:
-          try:
-              os.remove(fname)
-          except OSError:
-              pass
-
-  @contextmanager
-  def tmp_dir(self, suffix='', prefix='ck-test-', cwd=False):
-      import shutil
-      import tempfile
-
-      saved_cwd = os.getcwd()
-      dname = tempfile.mkdtemp()
-      try:
-          if cwd:
-             os.chdir(dname)
-          yield dname
-      finally:
-          if cwd:
-             os.chdir(saved_cwd)
-             
-          try:
-              shutil.rmtree(dname)
-          except OSError:
-              pass
-
-  @contextmanager
-  def tmp_sys(self, input_buf=''):
-      saved_stdout = sys.stdout
-      saved_stdin = sys.stdin
-      saved_exit = sys.exit
-      try:
-          out_stream = self.get_io()
-          in_stream = self.get_io(input_buf)
-          if not hasattr(in_stream, 'encoding'):
-              in_stream.encoding = 'utf8'
-          sys.stdout = out_stream
-          sys.stdin = in_stream
-          sys.exit = dummy_exit
-
-          yield
-      finally:
-          sys.stdout = saved_stdout
-          sys.stdin = saved_stdin
-          sys.exit = saved_exit
-
-  @contextmanager
-  def tmp_cfg(self, cfg_key, cfg_value='yes'):
-      saved_value = ck.cfg.get(cfg_key, None)
-      try:
-          ck.cfg[cfg_key] = cfg_value
-          yield
-      finally:
-          if saved_value is None:
-             ck.cfg.pop(cfg_key, None)
-          else:
-             ck.cfg[cfg_key] = saved_value
-
-  @contextmanager
-  def tmp_repo(self, name='ck-test-repo'):
-      r = ck.access({'module_uoa': 'repo', 'quiet': 'yes', 'data_uoa': name, 'action': 'add'})
-      if 0 != r['return']:
-         raise AssertionError('Failed to create a temporary repo ' + name)
-      path = r['dict']['path']
-      try:
-          yield r
-      finally:
-          r = ck.access({'module_uoa': 'repo', 'quiet': 'yes', 'data_uoa': name, 'action': 'remove'})
-          if 0 != r['return']:
-             raise AssertionError('Failed to remove temporary repo ' + name + ' at location ' + path)
-
 class CkTestLoader(unittest.TestLoader):
+  def __init__(self):
+      r = ck.load_module_from_path({'path': work['path'], 'module_code_name': 'test_util', 'skip_init': 'yes'})
+      if r['return']>0:
+        raise Exception('Failed to load test_util module')
+      self.test_util = r['code']
+
   def loadTestsFromModule(self, module, pattern=None):
       module.ck = ck
       module.cfg = cfg
       module.work = work
-      module.test_util = CkTestUtil()
+      module.test_util = self.test_util
       return unittest.TestLoader.loadTestsFromModule(self, module, pattern)
 
 ##############################################################################

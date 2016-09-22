@@ -3499,14 +3499,14 @@ def create_entry(i):
        p1=os.path.join(p0, cfg['subdir_ck_ext'])
        if not os.path.isdir(p1):
           # Create .cm directory
-          try:
+          try:    # pragma: no cover
              os.mkdir(p1)
           except Exception as e:
              return {'return':1, 'error':format(e)}
 
        # Check if alias->uid exist
        p3=os.path.join(p1, cfg['file_alias_a'] + alias)
-       if os.path.isfile(p3):
+       if os.path.isfile(p3):     # pragma: no cover
           try:
              fx=open(p3)
              uid1=fx.readline().strip()
@@ -3522,7 +3522,7 @@ def create_entry(i):
 
        # Check if uid->alias exist
        p2=os.path.join(p1, cfg['file_alias_u'] + uid)
-       if os.path.isfile(p2):
+       if os.path.isfile(p2):     # pragma: no cover
           try:
              fx=open(p2)
              alias1=fx.readline().strip()
