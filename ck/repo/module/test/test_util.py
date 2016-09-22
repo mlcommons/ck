@@ -5,6 +5,12 @@
 # See CK COPYRIGHT.txt for copyright details
 #
 
+# This module contains function to help writing unit tests. 
+# This module is automatically added to each unit test module during 
+# execution as the 'test_util' variable (much like the 'ck' variable).
+# For examples of the usage of this functions, please looks at the kernel tests 
+# (ck/repo/kernel/test/test_*.py files).
+
 import unittest
 import sys
 import os
