@@ -284,8 +284,8 @@ class CkTestUtil:
       fname = ck.gen_tmp_file({'suffix': suffix, 'prefix': prefix})['file_name']
       try:
           if content != '':
-              with open(fname, 'w') as f:
-                  f.write(content)            
+             with open(fname, 'w') as f:
+                 f.write(content)            
           yield fname
       finally:
           try:
@@ -294,16 +294,22 @@ class CkTestUtil:
               pass
 
   @contextmanager
-  def tmp_dir(self, suffix='', prefix='ck-test-'):
+  def tmp_dir(self, suffix='', prefix='ck-test-', cwd=False):
       import shutil
       import tempfile
 
+      saved_cwd = os.getcwd()
       dname = tempfile.mkdtemp()
       try:
-        yield dname
+          if cwd:
+             os.chdir(dname)
+          yield dname
       finally:
+          if cwd:
+             os.chdir(saved_cwd)
+             
           try:
-            shutil.rmtree(dname)
+              shutil.rmtree(dname)
           except OSError:
               pass
 
@@ -331,13 +337,26 @@ class CkTestUtil:
   def tmp_cfg(self, cfg_key, cfg_value='yes'):
       saved_value = ck.cfg.get(cfg_key, None)
       try:
-        ck.cfg[cfg_key] = cfg_value
-        yield
+          ck.cfg[cfg_key] = cfg_value
+          yield
       finally:
-        if saved_value is None:
-          ck.cfg.pop(cfg_key, None)
-        else:
-          ck.cfg[cfg_key] = saved_value
+          if saved_value is None:
+             ck.cfg.pop(cfg_key, None)
+          else:
+             ck.cfg[cfg_key] = saved_value
+
+  @contextmanager
+  def tmp_repo(self, name='ck-test-repo'):
+      r = ck.access({'module_uoa': 'repo', 'quiet': 'yes', 'data_uoa': name, 'action': 'add'})
+      if 0 != r['return']:
+         raise AssertionError('Failed to create a temporary repo ' + name)
+      path = r['dict']['path']
+      try:
+          yield r
+      finally:
+          r = ck.access({'module_uoa': 'repo', 'quiet': 'yes', 'data_uoa': name, 'action': 'remove'})
+          if 0 != r['return']:
+             raise AssertionError('Failed to remove temporary repo ' + name + ' at location ' + path)
 
 class CkTestLoader(unittest.TestLoader):
   def loadTestsFromModule(self, module, pattern=None):

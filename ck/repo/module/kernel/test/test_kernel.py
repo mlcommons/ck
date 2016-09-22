@@ -417,12 +417,82 @@ class TestKernel(unittest.TestCase):
         self.assertEqual('default', r['data_alias'])
         self.assertEqual('default', r['data_uoa'])
 
+        missing_repo = ck.gen_uid({})['data_uid']
+        r = ck.load_repo_info_from_cache({'repo_uoa': missing_repo})
+        self.assertEqual(1, r['return'])
+
+        r = ck.load_repo_info_from_cache({'repo_uoa': missing_repo + '='})
+        self.assertEqual(1, r['return'])
+
     def test_find_repo_by_path(self):
         r = ck.find_path_to_repo({'repo_uoa': 'default'})
         r = ck.find_repo_by_path({'path': r['path']})
         self.assertEqual(0, r['return'])
         self.assertEqual('default', r['repo_uoa'])
         self.assertEqual('default', r['repo_alias'])
+
+        r = ck.find_path_to_repo({'repo_uoa': 'local'})
+        r = ck.find_repo_by_path({'path': r['path']})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('local', r['repo_uoa'])
+        self.assertEqual('local', r['repo_alias'])
+
+        with test_util.tmp_file() as missing_repo_path:
+            r = ck.find_repo_by_path({'path': missing_repo_path})
+            self.assertEqual(16, r['return'])
+
+        with test_util.tmp_repo() as r:
+            path = r['dict']['path']
+            name = r['data_name']
+            r = ck.find_repo_by_path({'path': path})
+            self.assertEqual(0, r['return'])
+            self.assertEqual(name, r['repo_uoa'])
+            self.assertEqual(name, r['repo_alias'])
+
+    def test_find_path_to_repo(self):
+        with test_util.tmp_repo() as r:
+            path = r['dict']['path']
+            name = r['data_name']
+            r = ck.find_path_to_repo({'repo_uoa': name})
+            self.assertEqual(0, r['return'])
+            self.assertEqual(path, r['path'])
+
+        missing_repo = ck.gen_uid({})['data_uid']
+        r = ck.find_path_to_repo({'repo_uoa': missing_repo + '='})
+        self.assertEqual(1, r['return'])
+
+    def test_find_path_to_data(self):
+        missing_data = ck.gen_uid({})['data_uid']
+        r = ck.find_path_to_data({'module_uoa': 'default', 'data_uoa': missing_data})
+        self.assertEqual(16, r['return'])
+
+    def test_load_module_from_path(self):
+        repo_path = ck.find_path_to_repo({'repo_uoa': 'local'})['path']
+        missing_module = ck.gen_uid({})['data_uid']
+        r = ck.load_module_from_path({'path': repo_path, 'module_code_name': missing_module})
+        self.assertEqual(1, r['return'])
+
+        r = ck.load_module_from_path({'path': work['path'], 'module_code_name': 'dummy_module', 'cfg': {'min_kernel_dep': '10'}})
+        self.assertEqual(1, r['return'])
+
+    def test_perform_action(self):
+        r = ck.perform_action({})
+        self.assertEqual(0, r['return'])        
+
+        with test_util.tmp_dir(cwd=True):
+            r = ck.perform_action({'cid': '#'})
+            self.assertEqual(16, r['return'])
+            self.assertEqual('repository is not detected in the current path', r['error'])
+
+        with test_util.tmp_dir(cwd=True):
+            r = ck.perform_action({'cids': ['#']})
+            self.assertEqual(16, r['return'])
+            self.assertEqual('repository is not detected in the current path', r['error'])
+
+        with test_util.tmp_sys():
+            r = ck.perform_action({'cid': 'default:test:', 'cids': ['default:test:'], 'action': 'cmd'})
+            self.assertEqual(0, r['return'])
+            self.assertTrue(sys.stdout.getvalue().strip().startswith('Command line:'))
 
     def test_get_api(self):
         r = ck.get_api({'func': 'list_actions'})

@@ -2533,7 +2533,7 @@ def find_path_to_data(i):
     Input:  {
               (repo_uoa) - repo UOA
               module_uoa - module UOA
-              uoa        - data UOA
+              data_uoa   - data UOA
             }
 
     Output: {
@@ -2664,7 +2664,7 @@ def find_path_to_entry(i):
     p=i['path']
     duoa=i['data_uoa']
 
-    if duoa=='':
+    if duoa=='': # pragma: no cover
        raise Exception('data_uoa is empty')
 
     # Disambiguate UOA
@@ -2828,7 +2828,7 @@ def load_module_from_path(i):
     # Find module
     try:
        x=imp.find_module(n, [p])
-    except ImportError as e:
+    except ImportError as e: # pragma: no cover
        return {'return':1, 'error':'can\'t find module code (path='+p+', name='+n+', err='+format(e)+')'}
 
     ff=x[0]
@@ -2862,7 +2862,7 @@ def load_module_from_path(i):
 
     try:
        c=imp.load_module(ruid, ff, full_path, x[2])
-    except ImportError as e:
+    except ImportError as e: # pragma: no cover
        return {'return':1, 'error':'can\'t load module code (path='+p+', name='+n+', err='+format(e)+')'}
 
     x[0].close()
@@ -2899,10 +2899,10 @@ def perform_remote_action(i):
     import urllib
 
     try:    import urllib.request as urllib2
-    except: import urllib2
+    except: import urllib2 # pragma: no cover
 
     try:    from urllib.parse import urlencode
-    except: from urllib import urlencode
+    except: from urllib import urlencode # pragma: no cover
 
     rr={'return':0}
 
