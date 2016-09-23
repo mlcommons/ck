@@ -131,6 +131,55 @@ class TestMgmt(unittest.TestCase):
             self.assertEqual(alias, r['data_alias'])
             self.assertEqual(alias, r['data_uoa'])
 
+    def test_lock(self):
+        with test_util.tmp_repo() as repo:
+            import time
+
+            path = repo['path']
+
+            r = ck.set_lock({'path': path, 'get_lock': 'yes'})
+            self.assertEqual(0, r['return'])
+
+            lock_uid = r['lock_uid']
+
+            r = ck.set_lock({'path': path, 'get_lock': 'yes', 'lock_retries': '1', 'lock_retry_delay': '1'})
+            self.assertEqual(32, r['return'])
+
+            r = ck.set_lock({'path': path, 'unlock_uid': lock_uid+'1'})
+            self.assertEqual(32, r['return'])
+            self.assertEqual('entry is locked with another UID', r['error'])
+
+            r = ck.set_lock({'path': path, 'unlock_uid': lock_uid})
+            self.assertEqual(0, r['return'])
+
+            r = ck.set_lock({'path': path, 'get_lock': 'yes', 'lock_expire_time': '1', 'unlock_uid': lock_uid})
+            self.assertEqual(0, r['return'])
+            time.sleep(1)
+            
+            r = ck.set_lock({'path': path, 'lock_expire_time': '1', 'get_lock': 'yes'})
+            self.assertEqual(0, r['return'])
+            lock_uid = r['lock_uid']
+
+            r = ck.check_lock({'path': path})
+            self.assertEqual(32, r['return'])
+            self.assertEqual('entry is locked', r['error'])
+
+            r = ck.check_lock({'path': path, 'unlock_uid': lock_uid + '1'})
+            self.assertEqual(32, r['return'])
+            self.assertEqual('entry is locked with different UID', r['error'])
+
+            time.sleep(1)
+            r = ck.check_lock({'path': path, 'unlock_uid': lock_uid + '1'})
+            self.assertEqual(32, r['return'])
+            self.assertEqual('entry lock UID is not matching', r['error'])
+
+            r = ck.check_lock({'path': path, 'unlock_uid': lock_uid})
+            self.assertEqual(0, r['return'])
+
+            r = ck.check_lock({'path': path, 'unlock_uid': lock_uid})
+            self.assertEqual(32, r['return'])
+            self.assertEqual('lock was removed or expired', r['error'])
+
     def test_perform_remote_action(self):
         r = ck.perform_remote_action({
             'module_uoa': 'kernel', 
