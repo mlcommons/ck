@@ -1,7 +1,13 @@
+#
+# Collective Knowledge
+#
+# See CK LICENSE.txt for licensing details
+# See CK COPYRIGHT.txt for copyright details
+#
+
 import unittest
 import sys
 import os
-from contextlib import contextmanager
 
 ck=None           # Will be updated by CK (initialized CK kernel)
 test_util=None    # Will be updated by CK (initialized CK test utils)

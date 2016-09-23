@@ -1,8 +1,7 @@
 [run]
-source = ck
+source = ck.kernel
 
 [report]
-omit = */test/test*.py
 
 # Regexes for lines to exclude from consideration
 exclude_lines =

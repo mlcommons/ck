@@ -1,3 +1,10 @@
+#
+# Collective Knowledge
+#
+# See CK LICENSE.txt for licensing details
+# See CK COPYRIGHT.txt for copyright details
+#
+
 import unittest
 import os
 import shutil

@@ -1,5 +1,12 @@
 # -*- coding: utf-8 -*-
 
+#
+# Collective Knowledge
+#
+# See CK LICENSE.txt for licensing details
+# See CK COPYRIGHT.txt for copyright details
+#
+
 import unittest
 
 ck=None # Will be updated by CK (initialized CK kernel)
@@ -23,6 +30,27 @@ class OriginalKernelTest(unittest.TestCase):
         r=ck.restore_flattened_dict({'dict':x})
         self.assertEqual(0, r['return'])
         self.assertEqual(a, r['dict'])
+
+        r=ck.flatten_dict({'dict':['t1', 't2']})
+        self.assertEqual(0, r['return'])
+        self.assertEqual({'#@0': 't1', '#@1': 't2'}, r['dict'])
+
+        r=ck.flatten_dict({'dict':'t1', 'prune_keys': ['prefix'], 'prefix': 'prefix'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual({'prefix': 't1'}, r['dict'])
+
+        r=ck.flatten_dict({'dict':'t1', 'prune_keys': ['pr??ix'], 'prefix': 'prefix'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual({'prefix': 't1'}, r['dict'])
+
+        r=ck.get_by_flat_key({'dict':['t1', ['a1', 'a2']], 'key': '@1@1'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('a2', r['value'])
+
+        d = ['t1']
+        r=ck.set_by_flat_key({'dict': d, 'key': '@1#a@1@1', 'value': 'a3'})
+        self.assertEqual(0, r['return'])
+        self.assertEqual('a3', d[1]['a'][1][1])
 
     def test_list_with_ranges(self):
         r = ck.list_data({"repo_uoa_list":["default"],"module_uoa_list":["test", "index"],"data_uoa_list":["unicode"]})
