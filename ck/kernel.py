@@ -437,7 +437,7 @@ def system_with_timeout_kill(proc):
        loaded=False
        pass
 
-    if loaded:
+    if loaded: # pragma: no cover
        try:
           pid=proc.pid
 
@@ -686,7 +686,7 @@ def inp(i):
        else:
           b=t.encode(x, 'ignore')
     else:
-       b=t.encode(con_encoding, 'ignore')
+       b=t.encode(con_encoding, 'ignore') # pragma: no cover 
 
     if sys.version_info[0]>2:
        try: b=b.decode(sys.stdin.encoding)
@@ -988,7 +988,7 @@ def get_os_ck(i):
               return      - return code =  0
               platform    - 'win' or 'linux'
               bits        - OS bits in string: 32 or 64
-              python_bits - Pythin installation bits in string: 32 or 64
+              python_bits - Python installation bits in string: 32 or 64
 
             }
     """
@@ -1053,7 +1053,7 @@ def gen_uid(i):
     uid=str(uuid.uuid4().hex)
 
     if len(uid)!=32:
-       return {'return':1, 'error':'problem generating UID : len='+str(len(uid))+' !=32'}
+       return {'return':1, 'error':'problem generating UID : len='+str(len(uid))+' !=32'} # pragma: no cover 
 
     random.seed
 
@@ -1280,7 +1280,7 @@ def load_text_file(i):
 
               (convert_to_dict)   - if 'yes', split to list and convert to dict
               (str_split)         - if !='', use as separator of keys/values when converting to dict
-              (remote_quotes)     - if 'yes', remove quotes from values when converting to dict
+              (remove_quotes)     - if 'yes', remove quotes from values when converting to dict
 
               (delete_after_read) - if 'yes', delete file after read (useful when reading tmp files)
             }
@@ -1556,7 +1556,7 @@ def save_text_file(i):
 ##############################################################################
 # Copy string to clipboard if supported by OS (requires Tk)
 
-def copy_to_clipboard(i):
+def copy_to_clipboard(i): # pragma: no cover 
     """
     Input:  {
               string - string to copy
@@ -1727,8 +1727,7 @@ def convert_upload_string_to_file(i):
        if rx['return']>0: return rx
        px=rx['file_name']
     else:
-       py=os.path.split(fn)
-       px=py[1]
+       px=fn
 
     fn1, fne = os.path.splitext(px)
 
@@ -1979,7 +1978,7 @@ def convert_ck_list_to_dict(i):
 ##############################################################################
 # Init CK (current instance - has state!)
 
-def init(i):
+def init(i): # pragma: no cover
     """
     Input:  {}
 
@@ -2293,7 +2292,7 @@ def reload_repo_cache(i):
 
     global cache_repo_uoa, cache_repo_info, paths_repos_all, cache_repo_init
 
-    if i.get('force','')=='yes':
+    if i.get('force','')=='yes': # pragma: no cover
        cache_repo_init=False
        paths_repos_all=[]
 
@@ -2534,7 +2533,7 @@ def find_path_to_data(i):
     Input:  {
               (repo_uoa) - repo UOA
               module_uoa - module UOA
-              uoa        - data UOA
+              data_uoa   - data UOA
             }
 
     Output: {
@@ -2665,7 +2664,7 @@ def find_path_to_entry(i):
     p=i['path']
     duoa=i['data_uoa']
 
-    if duoa=='':
+    if duoa=='': # pragma: no cover
        raise Exception('data_uoa is empty')
 
     # Disambiguate UOA
@@ -2829,7 +2828,7 @@ def load_module_from_path(i):
     # Find module
     try:
        x=imp.find_module(n, [p])
-    except ImportError as e:
+    except ImportError as e: # pragma: no cover
        return {'return':1, 'error':'can\'t find module code (path='+p+', name='+n+', err='+format(e)+')'}
 
     ff=x[0]
@@ -2863,7 +2862,7 @@ def load_module_from_path(i):
 
     try:
        c=imp.load_module(ruid, ff, full_path, x[2])
-    except ImportError as e:
+    except ImportError as e: # pragma: no cover
        return {'return':1, 'error':'can\'t load module code (path='+p+', name='+n+', err='+format(e)+')'}
 
     x[0].close()
@@ -2900,10 +2899,10 @@ def perform_remote_action(i):
     import urllib
 
     try:    import urllib.request as urllib2
-    except: import urllib2
+    except: import urllib2 # pragma: no cover
 
     try:    from urllib.parse import urlencode
-    except: from urllib import urlencode
+    except: from urllib import urlencode # pragma: no cover
 
     rr={'return':0}
 
@@ -3271,7 +3270,7 @@ def get_api(i):
 
     p=i.get('path','')
     f=i.get('func','')
-    o=i['out']
+    o=i.get('out','')
 
     muoa=i.get('module_uoa','')
 
@@ -3500,14 +3499,14 @@ def create_entry(i):
        p1=os.path.join(p0, cfg['subdir_ck_ext'])
        if not os.path.isdir(p1):
           # Create .cm directory
-          try:
+          try:    # pragma: no cover
              os.mkdir(p1)
           except Exception as e:
              return {'return':1, 'error':format(e)}
 
        # Check if alias->uid exist
        p3=os.path.join(p1, cfg['file_alias_a'] + alias)
-       if os.path.isfile(p3):
+       if os.path.isfile(p3):     # pragma: no cover
           try:
              fx=open(p3)
              uid1=fx.readline().strip()
@@ -3523,7 +3522,7 @@ def create_entry(i):
 
        # Check if uid->alias exist
        p2=os.path.join(p1, cfg['file_alias_u'] + uid)
-       if os.path.isfile(p2):
+       if os.path.isfile(p2):     # pragma: no cover
           try:
              fx=open(p2)
              alias1=fx.readline().strip()
@@ -3763,6 +3762,11 @@ def get_by_flat_key(i):
     x=0
     finish=False
 
+    if sys.version_info[0]>2:
+       long_type = int
+    else:
+       long_type = long
+
     while not finish:
         y=k[x]
         x+=1
@@ -3772,8 +3776,8 @@ def get_by_flat_key(i):
               if k1 not in a: break
               a=a[k1]
            elif kt=='@':
-              if len(a)<=long(k1): break
-              a=a[long(k1)]
+              if len(a)<=long_type(k1): break
+              a=a[long_type(k1)]
            k1=''
            kt=y
         else:
@@ -3785,7 +3789,7 @@ def get_by_flat_key(i):
        if kt=='#':   
           if k1 in a: v=a[k1]
        else:         
-          if len(a)>long(k1): v=a[long(k1)]
+          if len(a)>long_type(k1): v=a[long_type(k1)]
 
     return {'return':0, 'value': v}
 
@@ -3820,6 +3824,11 @@ def set_by_flat_key(i):
     x=0
     finish=False
 
+    if sys.version_info[0]>2:
+       long_type = int
+    else:
+       long_type = long
+
     while not finish:
         y=k[x]
         x+=1
@@ -3831,11 +3840,11 @@ def set_by_flat_key(i):
                  else: a[k1]=[]
               a=a[k1]
            elif kt=='@':
-              if len(a)<=long(k1):
-                 for q in range(len(a)-1,long(k1)):
+              if len(a)<=long_type(k1):
+                 for q in range(len(a)-1,long_type(k1)):
                      if y=='#': a.append({})
                      else: a.append([])
-              a=a[long(k1)]
+              a=a[long_type(k1)]
            k1=''
            kt=y
         else:
@@ -3847,11 +3856,11 @@ def set_by_flat_key(i):
        if kt=='#':
           a[k1]=v
        else:
-          if len(a)<=long(k1): 
-             for q in range(len(a)-1,long(k1)):
+          if len(a)<=long_type(k1): 
+             for q in range(len(a)-1,long_type(k1)):
                  if y=='#': a.append({})
                  else: a.append([])
-          a[long(k1)]=v
+          a[long_type(k1)]=v
 
     return {'return':0, 'dict': i['dict']}
 
@@ -4757,7 +4766,7 @@ def print_input(i):
                                          >  0, if error
               (error)      - error text if return > 0
 
-              help         - input as JSON
+              html         - input as JSON
             }
 
     """
@@ -4879,11 +4888,6 @@ def path(i):
               (error)      - error text if return > 0
 
               Output from from 'detect_cid_in_current_path' function
-
-              cuoa         - module_uoa:data_uoa           (substituted with ? if can't find)
-              cid          - module_uid:data_uid           (substituted with ? if can't find)
-              xcuoa        - repo_uoa:module_uoa:data_uoa  (substituted with ? if can't find)
-              xcid         - repo_uid:module_uid:data_uid  (substituted with ? if can't find)
             }
 
     """
@@ -5255,7 +5259,7 @@ def cd(i):
 #########################################################
 # Common action: print 'cd {path to CID} and copy to clipboard'
 
-def cdc(i):
+def cdc(i): # pragma: no cover
     """
     Input:  {
               (repo_uoa)  - repo UOA
@@ -5762,7 +5766,7 @@ def update(i):
 ##############################################################################
 # Common action: edit data meta-description through external editor
 
-def edit(i):
+def edit(i): # pragma: no cover
     """
     Input:  {
               (repo_uoa)             - repo UOA
@@ -8535,7 +8539,7 @@ def list_files(i):
 ##############################################################################
 # convert_cm_to_ck
 
-def convert_cm_to_ck(i):
+def convert_cm_to_ck(i): # pragma: no cover
     """
 
     Input:  {
@@ -8598,7 +8602,7 @@ def convert_cm_to_ck(i):
 ##############################################################################
 # convet cm to ck filter
 
-def filter_convert_cm_to_ck(i):
+def filter_convert_cm_to_ck(i): # pragma: no cover
     """
 
     Input:  {

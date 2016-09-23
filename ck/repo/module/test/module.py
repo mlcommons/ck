@@ -8,6 +8,7 @@
 #
 
 import unittest
+import os
 
 cfg={}  # Will be updated by CK (meta description of this module)
 work={} # Will be updated by CK (temporal data)
@@ -242,7 +243,7 @@ def run_module_tests(i):
     test_result = None
     if o == 'con':
        test_result = unittest.TextTestRunner().run(suite)
-    else: 
+    else: # pragma: no cover
        # supress all output
        with open(os.devnull, 'w') as f:
           test_result = unittest.TextTestRunner(stream=f).run(suite)
@@ -256,25 +257,31 @@ def run_module_tests(i):
 
     return ret
 
-def convert_error_tuples(list):
+def convert_error_tuples(list): # pragma: no cover
     ret = []
     for t in list:
         test_case, traceback = t
         ret.append({'test': test_case.id(), 'traceback': traceback})
     return ret
 
-
 class CkTestLoader(unittest.TestLoader):
+  def __init__(self):
+      r = ck.load_module_from_path({'path': work['path'], 'module_code_name': 'test_util', 'skip_init': 'yes'})
+      if r['return']>0:
+        raise Exception('Failed to load test_util module')
+      self.test_util = r['code']
+
   def loadTestsFromModule(self, module, pattern=None):
       module.ck = ck
       module.cfg = cfg
       module.work = work
+      module.test_util = self.test_util
       return unittest.TestLoader.loadTestsFromModule(self, module, pattern)
 
 ##############################################################################
 # show cmd
 
-def cmd(i):
+def cmd(i): # pragma: no cover
     """
     Input:  {
             }
