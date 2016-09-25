@@ -14,6 +14,13 @@ cfg={}  # Will be updated by CK (meta description of this module)
 work={} # Will be updated by CK (temporal data)
 ck=None # Will be updated by CK (initialized CK kernel) 
 
+# The value added to the number of failed tests to form the return code, when some tests are failed.
+# If return code is less or equal than this value (but more than 0), this means execution error.
+# If return code is more, than this value, this means (return code - this value) tests failed.
+# E.g. return code 113 would mean 13 failed tests. This may be convenient for writing shell scripts.
+# If return code is 0, this means everything's fine and all tests passed.
+test_fail_retcode_addition = 100
+
 # Local settings
 
 ##############################################################################
@@ -89,16 +96,17 @@ def run(i):
         if '' != test_module_uoa:
            list_data['data_uoa'] = test_module_uoa
         r = run_data_tests({'list_data': list_data, 'out': out, 'test_file_pattern': test_file_pattern})
-        if r['return']>0: 
+        if is_execution_error(r):
+           # execution error happened - fail fast
            ret['return'] = r['return']
-           ret['error'] = r['error']
+           ret['error'] = r.get('error', '')
            return ret
 
         ret['stats']['tests_run'] += r['stats']['tests_run']
         ret['stats']['tests_failed'] += r['stats']['tests_failed']
         ret['repo_results'].append(r)
 
-    return ret
+    return polish_return_value(ret)
 
 ##############################################################################
 # Run tests for modules/repos specified by the given criteria
@@ -151,16 +159,17 @@ def run_data_tests(i):
     out = 'con' if i.get('out','') == 'con' else ''
     for m in modules_lst:
         r = run_module_tests({'module': m, 'repo_uoa': repo_uoa, 'out': out, 'test_file_pattern': test_file_pattern})
-        if r['return']>0:
+        if is_execution_error(r):
+           # execution error happened - fail fast
            ret['return'] = r['return']
-           ret['error'] = r['error']
+           ret['error'] = r.get('error', '')
            return ret
 
         ret['stats']['tests_run'] += r['stats']['tests_run']
         ret['stats']['tests_failed'] += r['stats']['tests_failed']
         ret['module_results'].append(r)
 
-    return ret
+    return polish_return_value(ret)
 
 ##############################################################################
 # Run tests for a single module
@@ -255,6 +264,16 @@ def run_module_tests(i):
     ret['results']['failures'] = convert_error_tuples(test_result.failures)
     ret['results']['unexpected_successes'] = convert_error_tuples(test_result.unexpectedSuccesses)
 
+    return polish_return_value(ret)
+
+def is_execution_error(r):
+    return 0 < r['return'] and r['return'] <= test_fail_retcode_addition
+
+def polish_return_value(ret):
+    failed_count = ret['stats']['tests_failed']
+    if failed_count > 0:
+       ret['return'] = test_fail_retcode_addition + failed_count
+       ret['error'] = str(failed_count) + ' test(s) failed'
     return ret
 
 def convert_error_tuples(list): # pragma: no cover
