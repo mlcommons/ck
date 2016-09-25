@@ -375,22 +375,24 @@ class TestKernel(unittest.TestCase):
             with open(fname + '/b/test.log', 'a') as f:
                 f.write('12')
 
+            s = os.sep
+
             r = ck.list_all_files({'path': fname, 'limit': 10})
             self.assertEqual(0, r['return'])
             t = r['list']
-            self.assertEqual({'size': 3}, t['a/test.txt'])
-            self.assertEqual({'size': 2}, t['b/test.log'])
+            self.assertEqual({'size': 3}, t['a' + s + 'test.txt'])
+            self.assertEqual({'size': 2}, t['b' + s + 'test.log'])
 
             r = ck.list_all_files({'path': fname, 'pattern': '*.txt'})
             self.assertEqual(0, r['return'])
             t = r['list']
-            self.assertEqual({'size': 3}, t['a/test.txt'])
-            self.assertEqual(None, t.get('b/test.log'))
+            self.assertEqual({'size': 3}, t['a' + s + 'test.txt'])
+            self.assertEqual(None, t.get('b' + s + 'test.log'))
 
             r = ck.list_all_files({'path': fname, 'file_name': 'test.txt'})
             self.assertEqual(0, r['return'])
             t = r['list']
-            self.assertEqual({'size': 3}, t['a/test.txt'])
+            self.assertEqual({'size': 3}, t['a' + s + 'test.txt'])
 
         with test_util.tmp_dir() as fname:
             with open(fname + '/test.txt', 'a') as f:
@@ -664,9 +666,17 @@ class TestKernel(unittest.TestCase):
         self.assertIn('path', r)
 
     def test_cd(self):
+        r = ck.get_os_ck({})
+        plat = r['platform']
+
         r = ck.cd({'module_uoa': 'kernel', 'data_uoa': 'default'})
         self.assertEqual(0, r['return'])
-        self.assertEqual('cd ' + r['path'], r['string'])
+
+        if plat == 'win':
+            self.assertEqual('cd /D ' + r['path'], r['string'])
+        else:
+            self.assertEqual('cd ' + r['path'], r['string'])
+
         # check for fields from ck.find:
         self.assertEqual(1, r['number_of_entries'])
         self.assertEqual('kernel', r['module_uoa'])
@@ -745,9 +755,11 @@ class TestKernel(unittest.TestCase):
         self.assertEqual('no', r['found'])
 
     def test_list_files(self):
+        s = os.sep
+
         r = ck.list_files({'repo_uoa': 'default', 'module_uoa': 'module', 'data_uoa': 'kernel'})
         self.assertEqual(0, r['return'])
         lst = r['list']
         self.assertIn('module.py', lst)
-        self.assertIn('test/test_kernel.py', lst)
-        self.assertIn('test/test_original_tests.py', lst)
+        self.assertIn('test' + s + 'test_kernel.py', lst)
+        self.assertIn('test' + s + 'test_original_tests.py', lst)
