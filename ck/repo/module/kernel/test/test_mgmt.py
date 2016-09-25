@@ -168,7 +168,7 @@ class TestMgmt(unittest.TestCase):
             self.assertEqual(32, r['return'])
             self.assertEqual('entry is locked with different UID', r['error'])
 
-            time.sleep(1)
+            time.sleep(2)
             r = ck.check_lock({'path': path, 'unlock_uid': lock_uid + '1'})
             self.assertEqual(32, r['return'])
             self.assertEqual('entry lock UID is not matching', r['error'])
