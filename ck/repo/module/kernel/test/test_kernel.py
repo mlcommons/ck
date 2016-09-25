@@ -669,26 +669,27 @@ class TestKernel(unittest.TestCase):
         r = ck.get_os_ck({})
         plat = r['platform']
 
-        r = ck.cd({'module_uoa': 'kernel', 'data_uoa': 'default'})
-        self.assertEqual(0, r['return'])
+        with test_util.tmp_sys():
+            r = ck.cd({'module_uoa': 'kernel', 'data_uoa': 'default'})
+            self.assertEqual(0, r['return'])
 
-        if plat == 'win':
-            self.assertEqual('cd /D ' + r['path'], r['string'])
-        else:
-            self.assertEqual('cd ' + r['path'], r['string'])
+            if plat == 'win':
+                self.assertEqual('cd /D ' + r['path'], r['string'])
+            else:
+                self.assertEqual('cd ' + r['path'], r['string'])
 
-        # check for fields from ck.find:
-        self.assertEqual(1, r['number_of_entries'])
-        self.assertEqual('kernel', r['module_uoa'])
-        self.assertEqual('kernel', r['module_alias'])
-        self.assertEqual('default', r['data_uoa'])
-        self.assertEqual('local', r['repo_alias'])
-        self.assertEqual('local', r['repo_uoa'])
-        self.assertIn('repo_uid', r)
-        self.assertIn('module_uid', r)
-        self.assertIn('data_uid', r)
-        self.assertIn('path_repo', r)
-        self.assertIn('path', r)
+            # check for fields from ck.find:
+            self.assertEqual(1, r['number_of_entries'])
+            self.assertEqual('kernel', r['module_uoa'])
+            self.assertEqual('kernel', r['module_alias'])
+            self.assertEqual('default', r['data_uoa'])
+            self.assertEqual('local', r['repo_alias'])
+            self.assertEqual('local', r['repo_uoa'])
+            self.assertIn('repo_uid', r)
+            self.assertIn('module_uid', r)
+            self.assertIn('data_uid', r)
+            self.assertIn('path_repo', r)
+            self.assertIn('path', r)
 
     def test_search(self):
         r = ck.search({'repo_uoa': 'default', 'module_uoa': 'kernel'})
