@@ -314,6 +314,7 @@ cache_repo_uoa={}     # Disambiguate repo UOA to repo UID
 cache_repo_info={}    # Cache repo info with path and type
 
 type_long=None        # In Python 3 -> int, in Python 2 -> long
+string_io=None        # StringIO, which is imported differently in Python 2 and 3
 
 ##############################################################################
 # Universal print of unicode string in utf8 that supports Python 2.x and 3.x
@@ -1989,7 +1990,7 @@ def init(i): # pragma: no cover
             }
     """
 
-    global cfg, work, initialized, paths_repos, type_long
+    global cfg, work, initialized, paths_repos, type_long, string_io
 
     if initialized:
        return {'return':0}
@@ -2007,6 +2008,14 @@ def init(i): # pragma: no cover
        type_long=int
     else:
        type_long=long
+
+    # Import StringIO
+    if sys.version_info[0]>2:
+       import io
+       string_io=io.StringIO
+    else:
+       from StringIO import StringIO
+       string_io=StringIO
 
     # Check where are repos (to keep compatibility with past CK < V1.5)
     p=''
