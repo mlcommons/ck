@@ -158,9 +158,4 @@ def dummy_exit(code):
 # Returns StringIO buffer. Used internnaly
 
 def get_io(buf=''):
-    if sys.version_info[0]>2:
-       import io
-       return io.StringIO(buf)
-    else:
-       from StringIO import StringIO
-       return StringIO(buf)
+    return ck.string_io(buf)

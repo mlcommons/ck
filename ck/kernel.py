@@ -314,6 +314,7 @@ cache_repo_uoa={}     # Disambiguate repo UOA to repo UID
 cache_repo_info={}    # Cache repo info with path and type
 
 type_long=None        # In Python 3 -> int, in Python 2 -> long
+string_io=None        # StringIO, which is imported differently in Python 2 and 3
 
 ##############################################################################
 # Universal print of unicode string in utf8 that supports Python 2.x and 3.x
@@ -1989,7 +1990,7 @@ def init(i): # pragma: no cover
             }
     """
 
-    global cfg, work, initialized, paths_repos, type_long
+    global cfg, work, initialized, paths_repos, type_long, string_io
 
     if initialized:
        return {'return':0}
@@ -2007,6 +2008,14 @@ def init(i): # pragma: no cover
        type_long=int
     else:
        type_long=long
+
+    # Import StringIO
+    if sys.version_info[0]>2:
+       import io
+       string_io=io.StringIO
+    else:
+       from StringIO import StringIO
+       string_io=StringIO
 
     # Check where are repos (to keep compatibility with past CK < V1.5)
     p=''
@@ -3762,11 +3771,6 @@ def get_by_flat_key(i):
     x=0
     finish=False
 
-    if sys.version_info[0]>2:
-       long_type = int
-    else:
-       long_type = long
-
     while not finish:
         y=k[x]
         x+=1
@@ -3776,8 +3780,8 @@ def get_by_flat_key(i):
               if k1 not in a: break
               a=a[k1]
            elif kt=='@':
-              if len(a)<=long_type(k1): break
-              a=a[long_type(k1)]
+              if len(a)<=type_long(k1): break
+              a=a[type_long(k1)]
            k1=''
            kt=y
         else:
@@ -3789,7 +3793,7 @@ def get_by_flat_key(i):
        if kt=='#':   
           if k1 in a: v=a[k1]
        else:         
-          if len(a)>long_type(k1): v=a[long_type(k1)]
+          if len(a)>type_long(k1): v=a[type_long(k1)]
 
     return {'return':0, 'value': v}
 
@@ -3824,11 +3828,6 @@ def set_by_flat_key(i):
     x=0
     finish=False
 
-    if sys.version_info[0]>2:
-       long_type = int
-    else:
-       long_type = long
-
     while not finish:
         y=k[x]
         x+=1
@@ -3840,11 +3839,11 @@ def set_by_flat_key(i):
                  else: a[k1]=[]
               a=a[k1]
            elif kt=='@':
-              if len(a)<=long_type(k1):
-                 for q in range(len(a)-1,long_type(k1)):
+              if len(a)<=type_long(k1):
+                 for q in range(len(a)-1,type_long(k1)):
                      if y=='#': a.append({})
                      else: a.append([])
-              a=a[long_type(k1)]
+              a=a[type_long(k1)]
            k1=''
            kt=y
         else:
@@ -3856,11 +3855,11 @@ def set_by_flat_key(i):
        if kt=='#':
           a[k1]=v
        else:
-          if len(a)<=long_type(k1): 
-             for q in range(len(a)-1,long_type(k1)):
+          if len(a)<=type_long(k1): 
+             for q in range(len(a)-1,type_long(k1)):
                  if y=='#': a.append({})
                  else: a.append([])
-          a[long_type(k1)]=v
+          a[type_long(k1)]=v
 
     return {'return':0, 'dict': i['dict']}
 
