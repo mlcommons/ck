@@ -3762,11 +3762,6 @@ def get_by_flat_key(i):
     x=0
     finish=False
 
-    if sys.version_info[0]>2:
-       long_type = int
-    else:
-       long_type = long
-
     while not finish:
         y=k[x]
         x+=1
@@ -3776,8 +3771,8 @@ def get_by_flat_key(i):
               if k1 not in a: break
               a=a[k1]
            elif kt=='@':
-              if len(a)<=long_type(k1): break
-              a=a[long_type(k1)]
+              if len(a)<=type_long(k1): break
+              a=a[type_long(k1)]
            k1=''
            kt=y
         else:
@@ -3789,7 +3784,7 @@ def get_by_flat_key(i):
        if kt=='#':   
           if k1 in a: v=a[k1]
        else:         
-          if len(a)>long_type(k1): v=a[long_type(k1)]
+          if len(a)>type_long(k1): v=a[type_long(k1)]
 
     return {'return':0, 'value': v}
 
@@ -3824,11 +3819,6 @@ def set_by_flat_key(i):
     x=0
     finish=False
 
-    if sys.version_info[0]>2:
-       long_type = int
-    else:
-       long_type = long
-
     while not finish:
         y=k[x]
         x+=1
@@ -3840,11 +3830,11 @@ def set_by_flat_key(i):
                  else: a[k1]=[]
               a=a[k1]
            elif kt=='@':
-              if len(a)<=long_type(k1):
-                 for q in range(len(a)-1,long_type(k1)):
+              if len(a)<=type_long(k1):
+                 for q in range(len(a)-1,type_long(k1)):
                      if y=='#': a.append({})
                      else: a.append([])
-              a=a[long_type(k1)]
+              a=a[type_long(k1)]
            k1=''
            kt=y
         else:
@@ -3856,11 +3846,11 @@ def set_by_flat_key(i):
        if kt=='#':
           a[k1]=v
        else:
-          if len(a)<=long_type(k1): 
-             for q in range(len(a)-1,long_type(k1)):
+          if len(a)<=type_long(k1): 
+             for q in range(len(a)-1,type_long(k1)):
                  if y=='#': a.append({})
                  else: a.append([])
-          a[long_type(k1)]=v
+          a[type_long(k1)]=v
 
     return {'return':0, 'dict': i['dict']}
 
