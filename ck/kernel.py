@@ -538,17 +538,20 @@ def run_and_get_stdout(i):
 
   import subprocess
   import shlex
+  import platform
 
   cmd=i['cmd']
   if type(cmd)!=list:
-     cmd=shlex.split(cmd)
+      # Split only on non-Windows platforms (since Windows takes a string in Popen)
+      if not platform.system().lower().startswith('win'):
+          cmd=shlex.split(cmd)
 
   p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
   output, error = p1.communicate()
 
   if sys.version_info[0]>2:
-    output = output.decode(encoding='UTF-8')
-    error = error.decode(encoding='UTF-8')
+      output = output.decode(encoding='UTF-8')
+      error = error.decode(encoding='UTF-8')
 
   return {'return':0, 'return_code':p1.returncode, 'stdout':output, 'stderr':error}
 

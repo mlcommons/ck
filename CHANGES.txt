@@ -1,5 +1,6 @@
 * V1.8.2dev
   * fixed bug in 'remove_action' in CK kernel
+  * fixed issue in "run_and_get_stdout" on Windows
 
 * V1.8.1
   * added continuous integration via Travis (Linux) and AppVeyor (Windows)
