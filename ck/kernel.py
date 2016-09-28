@@ -522,6 +522,7 @@ def run_and_get_stdout(i):
   """
   Input:  {
             cmd       - list of command line arguments, starting with the command itself
+            (shell)   - if 'yes', reuse shell environment
           }
 
   Output: {
@@ -546,7 +547,11 @@ def run_and_get_stdout(i):
       if not platform.system().lower().startswith('win'):
           cmd=shlex.split(cmd)
 
-  p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+  xshell=False
+  if i.get('shell','')=='yes':
+      xshell=True
+
+  p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=xshell)
   output, error = p1.communicate()
 
   if sys.version_info[0]>2:

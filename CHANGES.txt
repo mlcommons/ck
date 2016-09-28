@@ -2,6 +2,8 @@
   * fixed bug in 'remove_action' in CK kernel
   * fixed issue in "run_and_get_stdout" on Windows
   * printing module UOA in square brackets when error (useful for debugging)
+  * added 'shell' parameter to kernel 'run_and_get_stdout' function
+    (needed for ck-crowdnode)
 
 * V1.8.1
   * added continuous integration via Travis (Linux) and AppVeyor (Windows)
