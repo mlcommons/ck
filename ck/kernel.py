@@ -9045,7 +9045,10 @@ def access(i):
     # If error and CMD, output error to console
     if cmd:
        if rr['return']>0:
-          out(cfg['error']+rr['error']+'!')
+          x=i.get('module_uoa','')
+          if x!='':
+             x='['+x+'] '
+          out(cfg['error']+x+rr['error']+'!')
 
     return rr
 
