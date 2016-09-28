@@ -245,7 +245,7 @@ class TestMgmt(unittest.TestCase):
                 'remote_server_user': missing_user,
                 'remote_server_pass': missing_pass})
             self.assertEqual(1, r['return'])
-            self.assertEqual('CK error: writing to default repo is forbidden!', r['error'].strip())
+            self.assertEqual('CK error: [kernel] writing to default repo is forbidden!', r['error'].strip())
 
         with test_util.tmp_dir(cwd=True):
             r = ck.perform_remote_action({
