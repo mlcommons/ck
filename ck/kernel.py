@@ -377,10 +377,10 @@ def eout(s):
              sys.stderr.buffer.write(b)
              sys.stderr.buffer.write(b'\n')
           except Exception as e: 
-             print(s, file=sys.stderr)
+             sys.stderr.write(b)
              pass
        else:
-          print >> sys.stderr, b
+          sys.stderr.write(b)
 
     sys.stderr.flush()
 
