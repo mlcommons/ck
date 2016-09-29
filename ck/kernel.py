@@ -352,6 +352,41 @@ def out(s):
     return None
 
 ##############################################################################
+# Universal print of unicode string in utf8 that supports Python 2.x and 3.x to stderr
+
+def eout(s):
+    """
+    Input:  s - unicode string to print
+
+    Output: Nothing
+    """
+
+    if allow_print: 
+       if con_encoding=='':
+          x=sys.stdin.encoding
+          if x==None: 
+             b=s.encode()
+          else:
+             b=s.encode(x, 'ignore')
+       else:
+          b=s.encode(con_encoding, 'ignore')
+
+       if sys.version_info[0]>2:
+          try: # We encountered issues on ipython with Anaconda
+               # and hence made this work around
+             sys.stderr.buffer.write(b)
+             sys.stderr.buffer.write(b'\n')
+          except Exception as e: 
+             print(s, file=sys.stderr)
+             pass
+       else:
+          print(b, file=sys.stderr)
+
+    sys.stderr.flush()
+
+    return None
+
+##############################################################################
 # Universal error print and exit
 
 def err(r):
