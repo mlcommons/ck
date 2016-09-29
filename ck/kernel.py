@@ -380,7 +380,7 @@ def eout(s):
              print(s, file=sys.stderr)
              pass
        else:
-          print(b, file=sys.stderr)
+          print >> sys.stderr, b
 
     sys.stderr.flush()
 
