@@ -377,7 +377,7 @@ def eout(s):
              sys.stderr.buffer.write(b)
              sys.stderr.buffer.write(b'\n')
           except Exception as e: 
-             sys.stderr.write(b)
+             sys.stderr.write(s)
              pass
        else:
           sys.stderr.write(b)

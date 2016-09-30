@@ -20,6 +20,11 @@ class TestKernel(unittest.TestCase):
             ck.out('test')
             self.assertEqual('test', sys.stdout.getvalue().strip())
 
+    def test_eout(self):
+        with test_util.tmp_sys():
+            ck.eout('test')
+            self.assertEqual('test', sys.stderr.getvalue().strip())
+
     def test_err(self):
         with test_util.tmp_sys():
             ck.err({'return': 2, 'error': 'test.'})
