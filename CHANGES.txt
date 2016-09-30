@@ -1,3 +1,6 @@
+* V1.8.3dev
+  * starting new development version
+
 * V1.8.2
   * fixed bug in 'remove_action' in CK kernel
   * fixed issue in "run_and_get_stdout" on Windows
