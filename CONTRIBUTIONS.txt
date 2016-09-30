@@ -220,6 +220,12 @@ O: Xored, Russia
 C: added continuous integration, various tests and fixed various problems with crowdtuning on MacOS 
 W:
 
+N: Daniil Efremov 
+E:
+O: Xored, Russia
+C: testing and improving CK
+W:
+
 N: Michael Mcgeagh
 E:
 O: ARM, UK
