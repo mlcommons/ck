@@ -78,7 +78,7 @@ def tmp_dir(suffix='', prefix='ck-test-', cwd=False):
 @contextmanager
 def tmp_sys(input_buf=''):
     """
-    Yields nothing, but substitutes standard input and output streams with 
+    Yields nothing, but substitutes standard input, output and error streams with 
     StringIO streams. If 'input_buf' is given, make sure the new input stream
     contains it.
 
@@ -89,20 +89,24 @@ def tmp_sys(input_buf=''):
     """
 
     saved_stdout = sys.stdout
+    saved_stderr = sys.stderr
     saved_stdin = sys.stdin
     saved_exit = sys.exit
     try:
         out_stream = get_io()
+        err_stream = get_io()
         in_stream = get_io(input_buf)
         if not hasattr(in_stream, 'encoding'):
             in_stream.encoding = 'utf8'
         sys.stdout = out_stream
+        sys.stderr = err_stream
         sys.stdin = in_stream
         sys.exit = dummy_exit
 
         yield
     finally:
         sys.stdout = saved_stdout
+        sys.stderr = saved_stderr
         sys.stdin = saved_stdin
         sys.exit = saved_exit
 
