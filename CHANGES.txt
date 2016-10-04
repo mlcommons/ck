@@ -1,5 +1,5 @@
 * V1.8.3dev
-  * starting new development version
+  * fixed minor issue in ck.list_all_files() with 'limit' parameter
 
 * V1.8.2
   * fixed bug in 'remove_action' in CK kernel
