@@ -409,10 +409,20 @@ class TestKernel(unittest.TestCase):
 
             r = ck.list_all_files({'path': fname, 'limit': 1})
             self.assertEqual(0, r['return'])
+            self.assertEqual(1, len(r['list']))
 
-            # TODO: there should be 1 below, but due to the current issue with limit it's 2. Need to fix,
-            # once the issue is fixed.
-            self.assertEqual(2, len(r['list']))
+            os.makedirs(fname + '/a')
+            os.makedirs(fname + '/b')
+
+            with open(fname + '/a/1.txt', 'a') as f:
+                f.write('abc')
+
+            with open(fname + '/b/1.log', 'a') as f:
+                f.write('12')
+
+            r = ck.list_all_files({'path': fname, 'limit': 1})
+            self.assertEqual(0, r['return'])
+            self.assertEqual(1, len(r['list']))
 
     def test_save_repo_cache(self):
         r = ck.save_repo_cache({})
