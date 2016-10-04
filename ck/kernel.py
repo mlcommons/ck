@@ -2300,7 +2300,7 @@ def list_all_files(i):
                      if not isd or os.path.realpath(p)==p:
                         r=list_all_files({'path':p, 'all':iall, 'path_ext':os.path.join(pe, fn),
                                           'number':str(number), 'ignore_names':inames, 'pattern':pattern,
-                                          'file_name':fname, 'ignore_symb_dirs':xisd, 'add_path':ap})
+                                          'file_name':fname, 'ignore_symb_dirs':xisd, 'add_path':ap, 'limit': limit})
                         if r['return']>0: return r
                         a.update(r['list'])
                   else:
@@ -2319,10 +2319,9 @@ def list_all_files(i):
 
                            if ap=='yes': a[pg]['path']=po
 
-                           number=len(a)
-
-                           if limit!=-1 and number>limit: 
-                              break
+                  number=len(a)
+                  if limit!=-1 and number>=limit:
+                     break
 
     return {'return':0, 'list':a, 'number':str(number)}
 
