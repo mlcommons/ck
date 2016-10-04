@@ -50,6 +50,7 @@ def run(i):
               (test_module_uoa)     - module for tun tests for. If not set, runs tests for all modules
               (test_file_pattern)   - test file pattern. If not given, the default if 'test*.py'. 
                                       Only tests from files that comply with the pattern, will be executed.
+              (test_names)          - comma-separated names of the test methods to run. If not set, all methods are run
             }
 
     Output: {
@@ -75,6 +76,7 @@ def run(i):
     ret_code = 0
     test_module_uoa = i.get('test_module_uoa', '')
     test_file_pattern = i.get('test_file_pattern', '')
+    test_names = i.get('test_names', '')
 
     repo_uoas = []
     if '' == i.get('repo_uoa', ''):
@@ -95,7 +97,8 @@ def run(i):
         list_data = {'repo_uoa': repo_uoa}
         if '' != test_module_uoa:
            list_data['data_uoa'] = test_module_uoa
-        r = run_data_tests({'list_data': list_data, 'out': out, 'test_file_pattern': test_file_pattern})
+        r = run_data_tests({'list_data': list_data, 'out': out, 
+                            'test_file_pattern': test_file_pattern, 'test_names': test_names})
         if is_execution_error(r):
            # execution error happened - fail fast
            ret['return'] = r['return']
@@ -118,6 +121,7 @@ def run_data_tests(i):
               (out)                 - output
               (test_file_pattern)   - test file pattern. If not given, the default if 'test*.py'. 
                                       Only tests from files that comply with the pattern, will be executed.
+              (test_names)          - comma-separated names of the test methods to run. If not set, all methods are run
             }
 
     Output: {
@@ -144,6 +148,7 @@ def run_data_tests(i):
 
     repo_uoa = i['list_data'].get('repo_uoa', '')
     test_file_pattern = i.get('test_file_pattern', '')
+    test_names = i.get('test_names', '')
 
     r = ck.list_data(i['list_data'])
     if r['return']>0:
@@ -158,7 +163,8 @@ def run_data_tests(i):
     }
     out = 'con' if i.get('out','') == 'con' else ''
     for m in modules_lst:
-        r = run_module_tests({'module': m, 'repo_uoa': repo_uoa, 'out': out, 'test_file_pattern': test_file_pattern})
+        r = run_module_tests({'module': m, 'repo_uoa': repo_uoa, 'out': out, 
+                              'test_file_pattern': test_file_pattern, 'test_names': test_names})
         if is_execution_error(r):
            # execution error happened - fail fast
            ret['return'] = r['return']
@@ -182,6 +188,7 @@ def run_module_tests(i):
               (out)                 - output
               (test_file_pattern)   - test file pattern. If not given, the default if 'test*.py'. 
                                       Only tests from files that comply with the pattern, will be executed.
+              (test_names)          - comma-separated names of the test methods to run. If not set, all methods are run
             }
 
     Output: {
@@ -241,7 +248,12 @@ def run_module_tests(i):
     if '' == test_file_pattern.strip():
        test_file_pattern = 'test*.py'
 
-    suite = CkTestLoader().discover(tests_path, pattern=test_file_pattern)
+    test_names = i.get('test_names', '')
+    test_names_list = None
+    if '' != test_names:
+      test_names_list = list(map(str.strip, test_names.split(',')))
+    suite = CkTestLoader(test_names_list).discover(tests_path, pattern=test_file_pattern)
+
     prefix = repo_uoa
     if prefix != '':
        prefix += ':'
@@ -284,18 +296,28 @@ def convert_error_tuples(list): # pragma: no cover
     return ret
 
 class CkTestLoader(unittest.TestLoader):
-  def __init__(self):
+  def __init__(self, test_names=None):
       r = ck.load_module_from_path({'path': work['path'], 'module_code_name': 'test_util', 'skip_init': 'yes'})
       if r['return']>0:
         raise Exception('Failed to load test_util module')
       self.test_util = r['code']
+      self.test_names = test_names
+
+  def _is_test_name_accepted(self, n):
+      return n in self.test_names
+
+  def getTestCaseNames(self, testCaseClass):
+      ret = super(CkTestLoader, self).getTestCaseNames(testCaseClass)
+      if self.test_names is not None:
+        ret = list(filter(self._is_test_name_accepted, ret))
+      return ret
 
   def loadTestsFromModule(self, module, pattern=None):
       module.ck = ck
       module.cfg = cfg
       module.work = work
       module.test_util = self.test_util
-      return unittest.TestLoader.loadTestsFromModule(self, module, pattern)
+      return super(CkTestLoader, self).loadTestsFromModule(module, pattern)
 
 ##############################################################################
 # show cmd
