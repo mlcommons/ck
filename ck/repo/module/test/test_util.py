@@ -96,8 +96,7 @@ def tmp_sys(input_buf=''):
         out_stream = get_io()
         err_stream = get_io()
         in_stream = get_io(input_buf)
-        if not hasattr(in_stream, 'encoding'):
-            in_stream.encoding = 'utf8'
+
         sys.stdout = out_stream
         sys.stderr = err_stream
         sys.stdin = in_stream
@@ -162,4 +161,7 @@ def dummy_exit(code):
 # Returns StringIO buffer. Used internnaly
 
 def get_io(buf=''):
-    return ck.string_io(buf)
+    r = ck.string_io(buf)
+    if not hasattr(r, 'encoding'):
+        r.encoding = 'utf8'
+    return r
