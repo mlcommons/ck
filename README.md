@@ -201,7 +201,7 @@ Please subscribe to our mailing lists:
 
 Publications
 ============
-The concepts has been described in the following publications:
+The concepts have been described in the following publications:
 
 * http://arxiv.org/abs/1506.06256 (CPC'15)
 * http://bit.ly/ck-date16 (DATE'16)
@@ -211,12 +211,10 @@ The concepts has been described in the following publications:
 * http://arxiv.org/abs/1406.4020 (TRUST'14 @ PLDI'14)
 * https://hal.inria.fr/inria-00436029 (GCC Summit'09)
 
-If you found CK useful and/or interesting, you are welcome
+If you found CK useful for your R&D, you are welcome
 to reference any of the above publications in your articles
-and reports. You can download the above references in the 
-BibTex format here:
-
-* https://raw.githubusercontent.com/ctuning/ck-guide-images/master/collective-knowledge-refs.bib
+and reports. You can download all above references in one 
+BibTex file [here](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/collective-knowledge-refs.bib).
 
 Testimonials and awards
 =======================
@@ -227,8 +225,9 @@ Testimonials and awards
 Acknowledgments
 ===============
 
-CK development is coordinated by the non-profit [cTuning
-foundation](http://cTuning.org). We thank the [EU TETRACOM 609491 Coordination
+CK development is coordinated by the [cTuning
+foundation](http://cTuning.org) (non-profit research organization). 
+We thank the [EU TETRACOM 609491 Coordination
 Action](http://tetracom.eu) for initial funding and
 [dividiti](http://dividiti.com) for continuing support. We would also like to
 thank Microsoft Research program for one-year grant to host the CK public
