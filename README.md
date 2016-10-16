@@ -5,12 +5,13 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 NEWS
 ====
 * Upcoming CK presentation at [ARM TechCon'16 (Oct. 27)](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems);
-* Fully updated documentation is now [available](http://github.com/ctuning/ck/wiki);
+* ARM uses CK as a front-end for systematic and reproducible benchmarking and tuning of real workloads: [link](https://github.com/ctuning/ck-wa); 
+* Fully updated documentation is now available: [Wiki](http://github.com/ctuning/ck/wiki), [Getting Started Guide](http://github.com/ctuning/ck/wiki/Getting-started-guide), [Portable workflows](http://github.com/ctuning/ck/wiki/Portable-workflows);
 * We have moved Open Science resources [here](http://github.com/ctuning/ck/wiki/Enabling-Open-Science);
-* We have added continuous integration;
-* CK repository to crowd-benchmark and crowd-tuning CAFFE (DNN framework) is now available [here](http://github.com/dividiti/ck-caffe);
+* We have added continuous integration for Linux and Windows;
+* General Motors and dividiti shared CK workflow to crowd-benchmark and crowd-tuning CAFFE (DNN framework) [here](https://github.com/dividiti/ck-caffe);
 * CK supports [Jupyter notebooks](http://jupyter.org) and [Docker](http://github.com/ctuning/ck-docker);
-* CK and ARM has received [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014).
+* cTuning foundation and ARM has received [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014) for the CK concept.
 
 Introduction
 ============
