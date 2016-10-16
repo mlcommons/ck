@@ -220,9 +220,9 @@ BibTex format here:
 
 Testimonials and awards
 =======================
-* HiPEAC technology transfer award (2014, [HiPEAC TT winners](https://www.hipeac.net/research/technology-transfer-awards/2014))
-* ARM and the cTuning foundation use CK to accelerate computer engineering (2016, [HiPEAC Info'45](https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf), page 17), ([ARM TechCon'16](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems), ([public repo](https://github.com/ctuning/ck-wa))
-* General Motors and dividiti use CK to crowdsource benchmarking and optimization of CAFFE (2016, [public repo](https://github.com/dividiti/ck-caffe));
+* 2014: HiPEAC technology transfer award: [HiPEAC TT winners](https://www.hipeac.net/research/technology-transfer-awards/2014)
+* 2015: ARM and the cTuning foundation use CK to accelerate computer engineering: [HiPEAC Info'45 page 17](https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf), [ARM TechCon'16 presentation and demo](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems), [public CK repo](https://github.com/ctuning/ck-wa)
+* 2016: General Motors and dividiti use CK to crowdsource benchmarking and optimization of CAFFE: [public CK repo](https://github.com/dividiti/ck-caffe)
 
 Acknowledgments
 ===============
