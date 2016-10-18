@@ -1044,7 +1044,7 @@ def get_os_ck(i):
     pbits=str(8 * struct.calcsize("P"))
 
     plat='linux'
-    if platform.system().lower().startswith('win'):
+    if platform.system().lower().startswith('win'): # pragma: no cover
        plat='win'
 
     obits=i.get('bits','')
@@ -1052,7 +1052,7 @@ def get_os_ck(i):
        obits='32'
        if plat=='win':
           # Trying to get fast way to detect bits
-          if os.environ.get('ProgramW6432','')!='' or os.environ.get('ProgramFiles(x86)','')!='':
+          if os.environ.get('ProgramW6432','')!='' or os.environ.get('ProgramFiles(x86)','')!='': # pragma: no cover
              obits='64'
        else:
           # On Linux use first getconf LONG_BIT and if doesn't work use python bits

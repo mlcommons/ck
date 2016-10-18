@@ -180,6 +180,26 @@ class TestMgmt(unittest.TestCase):
             self.assertEqual(32, r['return'])
             self.assertEqual('lock was removed or expired', r['error'])
 
+    def test_perform_action_on_remote_repo(self):
+        with test_util.tmp_repo(cfg={'remote': 'yes', 'url': 'http://cknowledge.org/repo/ck.php?'}) as repo:
+            repo_uoa = repo['data_uid']
+            with test_util.tmp_sys():
+                r = ck.perform_action({
+                    'repo_uoa': repo_uoa,
+                    'data_uoa': 'default',
+                    'module_uoa': 'repo',
+                    'action': 'search',
+                    'out': 'con'})
+                self.assertEqual(0, r['return'])
+                self.assertEqual('default:repo:default', sys.stdout.getvalue().strip())
+
+        with test_util.tmp_repo(cfg={'remote': 'yes'}) as repo:
+            repo_uoa = repo['data_uid']
+            with test_util.tmp_sys():
+                r = ck.perform_action({'repo_uoa': repo_uoa, 'action': 'search'})
+                self.assertEqual(1, r['return'])
+                self.assertEqual('URL of remote repository is not defined', r['error'])
+
     def test_perform_remote_action(self):
         r = ck.perform_remote_action({
             'module_uoa': 'kernel', 

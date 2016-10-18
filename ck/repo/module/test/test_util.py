@@ -133,17 +133,22 @@ def tmp_cfg(cfg_key, cfg_value='yes'):
 # Temporary repository helper.
 
 @contextmanager
-def tmp_repo(name='ck-test-repo'):
+def tmp_repo(name='ck-test-repo', cfg={}):
     """
     Creates a new repository and yields the information about it.
 
     Removes the repository afterwards.
     """
 
-    r = ck.access({'module_uoa': 'repo', 'quiet': 'yes', 'data_uoa': name, 'action': 'add'})
+    d = {'module_uoa': 'repo', 'quiet': 'yes', 'data_uoa': name, 'action': 'add'}
+    d.update(cfg)
+    r = ck.access(d)
     if 0 != r['return']:
        raise AssertionError('Failed to create a temporary repo ' + name)
-    path = r['dict']['path']
+    try:
+        path = r['dict']['path']
+    except Exception:
+        path = '<unknown>'
     try:
         yield r
     finally:

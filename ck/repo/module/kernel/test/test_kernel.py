@@ -495,8 +495,13 @@ class TestKernel(unittest.TestCase):
         r = ck.load_module_from_path({'path': repo_path, 'module_code_name': missing_module})
         self.assertEqual(1, r['return'])
 
-        r = ck.load_module_from_path({'path': work['path'], 'module_code_name': 'dummy_module', 'cfg': {'min_kernel_dep': '10'}})
-        self.assertEqual(1, r['return'])
+        with test_util.tmp_dir() as dname:
+            module_name = 'test'
+            module_file = os.path.join(dname, module_name + '.py')
+            with open(module_file, 'w') as f:
+                f.write('pass\n')
+            r = ck.load_module_from_path({'path': dname, 'module_code_name': 'test', 'cfg': {'min_kernel_dep': '10'}})
+            self.assertEqual(1, r['return'])
 
     def test_perform_action(self):
         r = ck.perform_action({})
