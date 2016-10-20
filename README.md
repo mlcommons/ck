@@ -6,7 +6,7 @@ NEWS
 ====
 * Upcoming CK presentation at [ARM TechCon'16 (Oct. 27)](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems);
 * ARM uses CK as a front-end for systematic and reproducible benchmarking and tuning of real workloads: [link](https://github.com/ctuning/ck-wa); 
-* Open challenges in computer engineering have been update: [link](https://github.com/ctuning/ck/wiki/Research-and-development-challenges);
+* Open challenges in computer engineering have been updated: [link](https://github.com/ctuning/ck/wiki/Research-and-development-challenges);
 * Fully updated documentation is now available: [Wiki](http://github.com/ctuning/ck/wiki), [Getting Started Guide](http://github.com/ctuning/ck/wiki/Getting-started-guide), [Portable workflows](http://github.com/ctuning/ck/wiki/Portable-workflows);
 * We have moved Open Science resources [here](http://github.com/ctuning/ck/wiki/Enabling-Open-Science);
 * We have added continuous integration for Linux and Windows;
