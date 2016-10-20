@@ -6,6 +6,7 @@ NEWS
 ====
 * Upcoming CK presentation at [ARM TechCon'16 (Oct. 27)](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems);
 * ARM uses CK as a front-end for systematic and reproducible benchmarking and tuning of real workloads: [link](https://github.com/ctuning/ck-wa); 
+* Open challanges in computer engineering have been update: [link](https://github.com/ctuning/ck/wiki/Research-and-development-challenges);
 * Fully updated documentation is now available: [Wiki](http://github.com/ctuning/ck/wiki), [Getting Started Guide](http://github.com/ctuning/ck/wiki/Getting-started-guide), [Portable workflows](http://github.com/ctuning/ck/wiki/Portable-workflows);
 * We have moved Open Science resources [here](http://github.com/ctuning/ck/wiki/Enabling-Open-Science);
 * We have added continuous integration for Linux and Windows;
@@ -193,10 +194,11 @@ Authors
 
 Questions/comments/discussions?
 ===============================
-Please subscribe to our mailing lists:
-* Open, collaborative and reproducible R&D including knowledge preservation, sharing and reuse:
+* Public wiki with open challenges in computer engineering:
+  https://github.com/ctuning/ck/wiki/Research-and-development-challenges
+* Mailing list for open, collaborative and reproducible R&D including knowledge preservation, sharing and reuse:
   http://groups.google.com/group/collective-knowledge
-* Software and hardware multi-objective (performance/energy/accuracy/size/reliability/cost)
+* Mailing list for software and hardware multi-objective (performance/energy/accuracy/size/reliability/cost)
   benchmarking, autotuning, crowdtuning and run-time adaptation: http://groups.google.com/group/ctuning-discussions
 
 Publications
@@ -204,7 +206,7 @@ Publications
 The concepts have been described in the following publications:
 
 * http://arxiv.org/abs/1506.06256 (CPC'15)
-* http://bit.ly/ck-date16 (DATE'16)
+* https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability (DATE'16)
 * http://bit.ly/ck-multiprog16 (MULTIPROG'16)
 * http://cknowledge.org/interactive-report
 * http://hal.inria.fr/hal-01054763 (Journal of Scientific Programming'14)
