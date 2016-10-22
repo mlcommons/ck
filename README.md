@@ -206,7 +206,7 @@ Publications
 The concepts have been described in the following publications:
 
 * http://arxiv.org/abs/1506.06256 (CPC'15)
-* https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability (DATE'16)
+* http://tinyurl.com/zyupd5v (DATE'16)
 * http://bit.ly/ck-multiprog16 (MULTIPROG'16)
 * http://cknowledge.org/interactive-report
 * http://hal.inria.fr/hal-01054763 (Journal of Scientific Programming'14)
