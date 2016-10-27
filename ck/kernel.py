@@ -741,7 +741,10 @@ def inp(i):
     if sys.version_info[0]>2:
        s=input(b)
     else:
-       s=raw_input(b).decode(sys.stdin.encoding).encode('utf8')
+       x=sys.stdin.encoding
+       if x==None:
+          x='utf8'
+       s=raw_input(b).decode(x).encode('utf8')
 
     return {'return':0, 'string':s}
 
