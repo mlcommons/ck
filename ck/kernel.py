@@ -4386,6 +4386,16 @@ def check_version(i):
 
         lversion[q]=xx
 
+    def parseint(val):
+        if type(val) is str:
+            return int(''.join([x for x in val if x.isdigit()]))
+        else:
+            return val
+
+    for i in range(len(version)):
+        lversion[i] = parseint(lversion[i])
+        version[i] = parseint(version[i])
+
     if lversion[0]>version[0] or \
        (lversion[0]==version[0] and lversion[1]>version[1]) or \
        (lversion[0]==version[0] and lversion[1]==version[1] and lversion[2]>version[2]):
