@@ -4,9 +4,8 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 NEWS
 ====
-* Upcoming CK presentation at [ARM TechCon'16 (Oct. 27)](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems);
-* ARM uses CK as a front-end for systematic and reproducible benchmarking and tuning of real workloads: [link](https://github.com/ctuning/ck-wa); 
-* Open challenges in computer engineering have been updated: [link](https://github.com/ctuning/ck/wiki/Research-and-development-challenges);
+* ARM uses CK as a front-end for systematic and reproducible benchmarking and tuning of real workloads: [GitHub](https://github.com/ctuning/ck-wa), [ARM TechCon'16 presentation](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems); 
+* CK-powered open challenges in computer engineering have been updated: [link](https://github.com/ctuning/ck/wiki/Research-and-development-challenges);
 * Fully updated documentation is now available: [Wiki](http://github.com/ctuning/ck/wiki), [Getting Started Guide](http://github.com/ctuning/ck/wiki/Getting-started-guide), [Portable workflows](http://github.com/ctuning/ck/wiki/Portable-workflows);
 * We have moved Open Science resources [here](http://github.com/ctuning/ck/wiki/Enabling-Open-Science);
 * We have added continuous integration for Linux and Windows;
@@ -207,22 +206,23 @@ The concepts have been described in the following publications:
 
 * http://arxiv.org/abs/1506.06256 (CPC'15)
 * http://tinyurl.com/zyupd5v (DATE'16)
+* http://hal.inria.fr/hal-01054763 (Journal of Scientific Programming'14)
+
 * http://bit.ly/ck-multiprog16 (MULTIPROG'16)
 * http://cknowledge.org/interactive-report
-* http://hal.inria.fr/hal-01054763 (Journal of Scientific Programming'14)
 * http://arxiv.org/abs/1406.4020 (TRUST'14 @ PLDI'14)
 * https://hal.inria.fr/inria-00436029 (GCC Summit'09)
 
-If you found CK useful for your R&D, you are welcome
-to reference any of the above publications in your articles
-and reports. You can download all above references in one 
-BibTex file [here](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/collective-knowledge-refs.bib).
+If you found CK useful, feel free to reference 
+any of the above publications. You can download 
+all above references in one BibTex file 
+[here](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/collective-knowledge-refs.bib).
 
 Testimonials and awards
 =======================
-* 2014: HiPEAC technology transfer award: [HiPEAC TT winners](https://www.hipeac.net/research/technology-transfer-awards/2014)
-* 2015: ARM and the cTuning foundation use CK to accelerate computer engineering: [HiPEAC Info'45 page 17](https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf), [ARM TechCon'16 presentation and demo](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems), [public CK repo](https://github.com/ctuning/ck-wa)
 * 2016: General Motors and dividiti use CK to crowdsource benchmarking and optimization of CAFFE: [public CK repo](https://github.com/dividiti/ck-caffe)
+* 2015: ARM and the cTuning foundation use CK to accelerate computer engineering: [HiPEAC Info'45 page 17](https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf), [ARM TechCon'16 presentation and demo](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems), [public CK repo](https://github.com/ctuning/ck-wa)
+* 2014: HiPEAC technology transfer award: [HiPEAC TT winners](https://www.hipeac.net/research/technology-transfer-awards/2014)
 
 Acknowledgments
 ===============

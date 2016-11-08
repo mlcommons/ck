@@ -10,7 +10,8 @@
 # CK kernel - we made it monolithic with a minimal set 
 # of common functions for performance reasons
 
-__version__ = "1.8.3dev"
+__version__ = "1.8.3.2" # We use 3 digits for the main (released) version and 4th digit for development revision
+                        # Do not use characters (to detect oudated version)!
 
 # Extra modules global for the whole kernel
 import sys
@@ -4322,7 +4323,13 @@ def status(i):
                    u=cfg.get('ck_web','')
                    if u!='':
                       out('')
-                      out('Just execute "ck pull all --kernel" to update CK and all repositories (if you installed CK from GIT) or visit '+u+' for more details ...')
+                      out('If you install CK via pip, upgrade it as following (prefix with "sudo" on Linux):')
+                      out(' $ pip install ck --upgrade')
+                      out('')
+                      out('If you use GitHub version, update CK kernel (and all other repositories) as following:')
+                      out(' $ ck pull all --kernel')
+                      out('')
+                      out('Visit '+u+' for more details!')
 
     if o=='con':
        if outdated!='yes':
@@ -4357,40 +4364,23 @@ def check_version(i):
     version=r['version']
     version_str=r['version_str']
 
-    lversion_str=i['version']
+    lversion_str=i['version'].replace('dev','.1') # for compatibility with older versions
     lversion=lversion_str.split('.')
 
-    # converting to int
+    # Comparing
     for q in range(0, len(version)):
-        if version[q]=='': version[q]='0'
-        x=version[q]
-        if x.endswith('x'): x=x[:-1]
+        if len(lversion)<=q:
+            break
 
-        xx=x
-        try: 
-           xx=int(x)
-        except ValueError:
-           pass
+        v=version[q]
+        lv=lversion[q]
 
-        version[q]=xx
-    for q in range(0, len(lversion)):
-        if lversion[q]=='': lversion[q]='0'
-        x=lversion[q]
-        if x.endswith('x'): x=x[:-1]
+        if lv>v:
+            ok='no'
+            break
 
-        xx=x
-        try: 
-           xx=int(x)
-        except ValueError:
-           pass
-
-        lversion[q]=xx
-
-    if lversion[0]>version[0] or \
-       (lversion[0]==version[0] and lversion[1]>version[1]) or \
-       (lversion[0]==version[0] and lversion[1]==version[1] and lversion[2]>version[2]):
-
-       ok='no'
+        if lv<v:
+            break
 
     return {'return':0, 'ok':ok, 'current_version':version_str}
 

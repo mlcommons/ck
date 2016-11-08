@@ -231,3 +231,9 @@ E:
 O: ARM, UK
 C: reporting problem with yaml recording and CPU feature detection (in new format)
 W:
+
+N: Chris Cummins
+E:
+O: University of Edinburgh, UK
+C: reporting problem with the 'ck status'
+W:
