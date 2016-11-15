@@ -10,7 +10,7 @@ from distutils.util import convert_path
 
 setup(
   name='ck',
-  version='1.8.3dev',
+  version='1.8.4',
   url='https://github.com/ctuning/ck/wiki',
   license='BSD 3-clause',
   author='Grigori Fursin and non-profit cTuning foundation',

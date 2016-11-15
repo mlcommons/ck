@@ -1,4 +1,4 @@
-* V1.8.3.2
+* V1.8.4
   * fixed 'ck status' and version comparison
   * minor fix when listing all modules in mediawiki format
 
