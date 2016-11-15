@@ -1,3 +1,6 @@
+* V1.8.4.2 
+  * started new development version
+
 * V1.8.4
   * fixed 'ck status' and version comparison
   * minor fix when listing all modules in mediawiki format
