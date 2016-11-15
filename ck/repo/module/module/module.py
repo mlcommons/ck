@@ -310,6 +310,13 @@ def show(i):
 
            actions=lm.get('actions',{})
 
+           if lr=='default':
+              to_get=''
+           elif url.find('github.com/ctuning/')>0:
+              to_get='ck pull repo:'+lr
+           else:
+              to_get='ck pull repo --url='+url
+
            ###############################################################
            if html:
               h+=' <tr>\n'
@@ -348,8 +355,10 @@ def show(i):
               ck.out('')
               ck.out('=== '+ln+' ('+lr+') ===')
               ck.out('')
-              ck.out('Desc: '+ld+'<br>')
-              ck.out('CK Repo URL: '+x)
+              ck.out('Desc: '+ld)
+              ck.out('<br>CK Repo URL: '+x)
+              if to_get!='':
+                 ck.out('<br>How to get: <i>'+to_get+'</i>')
               ck.out('')
               if len(actions)>0:
 
