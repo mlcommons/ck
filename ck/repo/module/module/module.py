@@ -304,7 +304,7 @@ def show(i):
 
         private=repo_private.get(lr_uid,'')
 
-        if lr not in cfg['skip_repos'] and private!='yes':
+        if lr not in cfg.get('skip_repos',[]) and private!='yes':
            lm=l['meta']
            ld=lm.get('desc','')
 
