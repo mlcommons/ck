@@ -237,3 +237,9 @@ E:
 O: University of Edinburgh, UK
 C: reporting problem with the 'ck status'
 W:
+
+N: Sam Ainsworth
+E:
+O: University of Cambridge, UK
+C: reporting a few issues when converting his CGO 2017 artifacts to CK format (https://github.com/SamAinsworth/reproduce-cgo2017-paper)
+W:
