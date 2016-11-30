@@ -835,7 +835,11 @@ def pull(i):
               return{'return':1, 'error':'git command line client is not found - please, install it or download repo as zip'}
 
            # Continue
-           px=os.getcwd()
+           try:
+              px=os.getcwd()
+           except OSError:
+              from os.path import expanduser
+              px=expanduser("~")
 
            if not os.path.isdir(p):
               os.makedirs(p)
