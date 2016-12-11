@@ -1,6 +1,6 @@
 * V1.8.4.2 
   * do not crash if renewing repo while staying inside it
-  * started new development version
+  * fixed bug in "system_with_timeout" (was always returning error) - required by ck-clsmith
 
 * V1.8.4
   * fixed 'ck status' and version comparison

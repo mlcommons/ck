@@ -543,8 +543,7 @@ def system_with_timeout(i):
 
        if t>=xto and p.poll()==None:
           system_with_timeout_kill(p)
-
-       return {'return':8, 'error':'process timed out and had been terminated'}
+          return {'return':8, 'error':'process timed out and had been terminated'}
     else:
        p.wait()
 
