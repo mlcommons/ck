@@ -623,7 +623,7 @@ def start(i):
               (browser)     - if 'yes', open browser
               (template)    - if !='', add template
               (cid)         - view a given entry
-              (extra_url)   - extra text for URL
+              (extra_url)   - extra URL
             }
 
     Output: {

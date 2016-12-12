@@ -757,6 +757,7 @@ def select(i):
               dict             - dict with values being dicts with 'name' as string to display and 'sort' as int (for ordering)
               (title)          - print title
               (error_if_empty) - if 'yes' and Enter, make error
+              (skip_sort)      - if 'yes', do not sort array
             }
 
     Output: {
@@ -774,7 +775,10 @@ def select(i):
        out('')
 
     d=i['dict']
-    kd=sorted(d, key=lambda v: d[v].get('sort',0))
+    if i.get('skip_sort','')!='':
+       kd=sorted(d, key=lambda v: d[v].get('sort',0))
+    else:
+       kd=d
 
     j=0
     ks={}
@@ -815,6 +819,7 @@ def select_uoa(i):
     Input:  {
               choices      - list from search function
               (skip_enter) - if 'yes', do not select 0 when user presses Enter
+              (skip_sort)  - if 'yes', do not sort array
             }
 
     Output: {
@@ -830,9 +835,15 @@ def select_uoa(i):
 
     lst=i.get('choices',[])
 
+    if i.get('skip_sort','')!='':
+       klst=sorted(lst, key=lambda v: v['data_uoa'])
+    else:
+       klst=lst
+
     zz={}
     iz=0
-    for z1 in sorted(lst, key=lambda v: v['data_uoa']):
+
+    for z1 in klst:
         z=z1['data_uid']
         zu=z1['data_uoa']
 
@@ -4655,6 +4666,7 @@ def browser(i):
               (repo_uoa)   -
               (module_uoa) - 
               (data_uoa)   - view a given entry
+              (extra_url)  - extra URL
             }
 
     Output: {
@@ -4689,7 +4701,8 @@ def browser(i):
        if duoa!='': cid+=duoa
 
     # Starting web service and asking to open page
-    return access({'action':'start', 'module_uoa':'web', 'browser':'yes', 'template':t, 'cid':cid})
+    return access({'action':'start', 'module_uoa':'web', 'browser':'yes', 
+                   'template':t, 'cid':cid, 'extra_url':i.get('extra_url','')})
 
 ############################################################
 # Special function: open webbrowser with user/developer guide wiki
@@ -9076,9 +9089,11 @@ def access(i):
     # If error and CMD, output error to console
     if cmd:
        if rr['return']>0:
-          x=i.get('module_uoa','')
-          if x!='':
-             x='['+x+'] '
+          x=''
+          if type(i)==dict:
+             x=i.get('module_uoa','')
+             if x!='':
+                x='['+x+'] '
           out(cfg['error']+x+rr['error']+'!')
 
     return rr
