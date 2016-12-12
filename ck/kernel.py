@@ -159,6 +159,24 @@ cfg={
 
       "use_indexing": "no",
 
+      "internal_keys": [
+                         "action",
+                         "repo_uoa",
+                         "module_uoa",
+                         "data_uoa",
+                         "cid",
+                         "cids",
+                         "cid1",
+                         "cid2",
+                         "cid3",
+                         "xcids",
+                         "unparsed_cmd",
+                         "con_encoding",
+                         "ck_profile",
+                         "out",
+                         "out_file"
+                       ],
+
       "repo_types":{
                      "git":{
                             "clone":"git clone $#url#$ $#path#$",
@@ -1852,38 +1870,8 @@ def input_json(i):
 
 def convert_ck_list_to_dict(i):
     """
-    Input:  CK list
-            [
-               action
-               module_uoa or CID -> converted to cid
-                 or
-               (cidx)            -  if doesn't have = and doesn't start from -- or - or @ -> appended to cids[]
-                 or
-               (repo_uoa)
-               (module_uoa)
-               (data_uoa)
-
-               (out=type)     Module output
-                              == ''              - none
-                              == 'con'           - console interaction (if from CMD, default)
-                              == 'json'          - return dict as json to console
-                              == 'json_with_sep' - separation line and return dict as json to console
-                              == 'json_file'     - return dict as json to file
-               (out_file)     Output file if out=='json_file'
-               ...
-               key1=value1
-               key2=value2
-               ...
-               -key10
-               -key11=value11
-               --key12
-               --key13=value13
-               @file_json        - add JSON from this file to input
-               @@(key)          - enter manually JSON from console and add to input. 
-                                   If key is present add JSON from console to this key
-               @@@cmd_json        - add JSON as string to input (special format)
-               --
-               unparsed_cmd
+    Input:  [ 
+              CK list: see 'action' function from this kernel
             ]
 
     Output: {
@@ -8958,11 +8946,18 @@ def access(i):
             If string or list convert them to CK dictionary and set cmd=True
 
             {
-               function
-               module_uoa
-               (cid1)
-               (cid2)
-               (cid3)
+               action
+
+               module_uoa or CID -> converted to cid
+                 or
+               (cid1)            -  if doesn't have = and doesn't start from -- or - or @ -> appended to cids[]
+               (cid2)            -  if doesn't have = and doesn't start from -- or - or @ -> appended to cids[]
+               (cid3)            -  if doesn't have = and doesn't start from -- or - or @ -> appended to cids[]
+                 or
+               (repo_uoa)
+               (module_uoa)
+               (data_uoa)
+
                (out=type)     Module output
                               == ''              - none
                               == 'con'           - console interaction (if from CMD, default)
@@ -8970,6 +8965,10 @@ def access(i):
                               == 'json_with_sep' - separation line and return dict as json to console
                               == 'json_file'     - return dict as json to file
                (out_file)     Output file if out=='json_file'
+
+               (con_encoding) - force encoding for IO
+               (ck_profile)   - if 'yes', profile CK
+
                ...
                key1=value1
                key2=value2
@@ -8978,6 +8977,7 @@ def access(i):
                -key11=value11
                --key12
                --key13=value13
+
                @file_json        - add JSON from this file to input
                @@(key)          - enter manually JSON from console and add to input. 
                                    If key is present add JSON from console to this key
