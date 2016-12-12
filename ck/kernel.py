@@ -793,7 +793,7 @@ def select(i):
        out('')
 
     d=i['dict']
-    if i.get('skip_sort','')!='':
+    if i.get('skip_sort','')!='yes':
        kd=sorted(d, key=lambda v: d[v].get('sort',0))
     else:
        kd=d
@@ -853,7 +853,7 @@ def select_uoa(i):
 
     lst=i.get('choices',[])
 
-    if i.get('skip_sort','')!='':
+    if i.get('skip_sort','')!='yes':
        klst=sorted(lst, key=lambda v: v['data_uoa'])
     else:
        klst=lst
