@@ -1,6 +1,7 @@
 * V1.8.4.2 
   * do not crash if renewing repo while staying inside it
   * fixed bug in "system_with_timeout" (was always returning error) - required by ck-clsmith
+  * added "skip_sort" to "select" and "select_uoa" functions
   * fixed minor bug when @file.json from CMD not found
 
 * V1.8.4
