@@ -1,4 +1,4 @@
-* V1.8.4.2 
+* V1.8.5 
   * do not crash if renewing repo while staying inside it
   * fixed bug in "system_with_timeout" (was always returning error) - required by ck-clsmith
   * added "skip_sort" to "select" and "select_uoa" functions
