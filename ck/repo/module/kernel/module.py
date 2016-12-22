@@ -79,6 +79,15 @@ def setup(i):
        elif i.get('wfe','')=='yes': param='wfe'
        elif i.get('indexing','')=='yes': param='indexing'
 
+    # Check if var
+    vr={}
+    for k in i:
+        if k.startswith('var.'):
+           vr[k[4:]]=i[k]
+
+    if len(vr)>0 and param=='':
+       param='vars' # to avoid selecting all sub-scenarios below
+
     # Get current configuration
     xcfg={}
 
@@ -363,12 +372,40 @@ def setup(i):
        if d=='y': d=='yes'
        if d!='': xcfg['use_indexing']=d
 
+    # Checking vars
+    if len(vr)>0:
+       ck.out('')
+       for k in vr:
+           ck.out('* Updating CK kernel key "'+k+'"')
+
+           kk=k
+           if not kk.startswith('#'):
+              kk='##'+kk
+
+           r=ck.get_by_flat_key({'dict':xcfg, 'key':kk})
+           if r['return']>0: return r
+           v=r['value']
+
+           if v==None: # If empty, try from internal configuration
+              r=ck.get_by_flat_key({'dict':ck.cfg, 'key':kk})
+              if r['return']>0: return r
+              v=r['value']
+
+           ck.out('    Old value: '+str(v))
+
+           v=vr[k]
+
+           r=ck.set_by_flat_key({'dict':xcfg, 'key':kk, 'value':v})
+           if r['return']>0: return r
+
+           ck.out('    New value: '+str(v))
+
     # Writing/updating configuration
     ck.out(sep)
 
     fc=ck.work['dir_work_cfg']
     if os.path.isfile(fc):
-       ck.out('Writing local configuration (directly) ...')
+       ck.out('Updating local configuration (directly) ...')
        r=ck.save_json_to_file({'json_file':fc, 'dict':xcfg})
     else:
        ck.out('Adding local configuration ...')
