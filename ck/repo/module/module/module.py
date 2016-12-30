@@ -193,8 +193,7 @@ def add(i):
        dev+=developer_webpage
        dd['developer_webpage']=developer_webpage
 
-    if dev!='':
-       spm=spm.replace('$#developer#$', dev)
+    spm=spm.replace('$#developer#$', dev)
 
     dd['actions']=actions
 
