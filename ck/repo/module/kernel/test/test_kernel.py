@@ -226,7 +226,8 @@ class TestKernel(unittest.TestCase):
     def test_prepare_special_info_about_entry(self):
         r = ck.prepare_special_info_about_entry({})
         self.assertEqual(0, r['return'])
-        keys = sorted(['engine', 'version', 'author', 'author_email', 'author_webpage', 'license', 'copyright', 'iso_datetime'])
+#        keys = sorted(['engine', 'version', 'author', 'author_email', 'author_webpage', 'license', 'copyright', 'iso_datetime'])
+        keys = sorted(['engine', 'version', 'iso_datetime'])
         self.assertEqual(keys, sorted(list(r['dict'].keys())))
 
     def test_convert_json_str_to_dict(self):

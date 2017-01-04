@@ -55,7 +55,7 @@ class TestMgmt(unittest.TestCase):
             meta_dict = {'a': 1, 'b': [2, 3]}
             r = ck.update(merge(entry, {'dict': meta_dict}))
             self.assertEqual(0, r['return'])
-            
+
             self.assertEqual(meta_dict, ck.load_meta_from_path({'path':path})['dict'])
 
             r = ck.rename(merge(entry, {'new_data_uoa': 'ck-test-0123'}))
