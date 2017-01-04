@@ -1,4 +1,4 @@
-* V1.8.5.3
+* V1.8.6
   * added direct update of kernel vars via CMD similar to Git. For example:
 
     $ ck setup kernel --var.default_license="See CK LICENSE.txt for licensing details"
@@ -6,6 +6,11 @@
     $ ck setup kernel --var.default_developer="cTuning foundation"
     $ ck setup kernel --var.default_developer_email="admin@cTuning.org"
     $ ck setup kernel --var.default_developer_webpage="http://cTuning.org"
+
+  * added -f flag to force removal of entries (i.e. ck rm x:y -f) to be compatible
+    with bash rm -f ...
+
+  * added JSON sorting when viewing entries from CMD (via ck load x:y)
 
 * V1.8.5 
   * do not crash if renewing repo while staying inside it

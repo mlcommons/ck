@@ -10,9 +10,10 @@ NEWS
 * Fully updated documentation is now available: [Wiki](http://github.com/ctuning/ck/wiki), [Getting Started Guide](http://github.com/ctuning/ck/wiki/Getting-started-guide), [Portable workflows](http://github.com/ctuning/ck/wiki/Portable-workflows);
 * We have moved Open Science resources [here](http://github.com/ctuning/ck/wiki/Enabling-Open-Science);
 * We have added continuous integration for Linux and Windows;
-* General Motors and dividiti shared CK workflow to crowdsource benchmarking and optimization of CAFFE (DNN framework) [here](https://github.com/dividiti/ck-caffe);
+* General Motors and dividiti crowdsource benchmarking and optimization of CAFFE (DNN framework) using CK: [GitHub](https://github.com/dividiti/ck-caffe), [Android app](https://play.google.com/store/apps/details?id=openscience.crowdsource.video.experiments);
 * CK supports [Jupyter notebooks](http://jupyter.org) and [Docker](http://github.com/ctuning/ck-docker);
 * cTuning foundation and ARM has received [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014) for the CK concept.
+* [CGO'17 paper](https://github.com/SamAinsworth/reproduce-cgo2017-paper) has its experimental workflow implemented using CK!
 
 Introduction
 ============

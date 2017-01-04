@@ -1,1 +1,1 @@
-(C)opyright 2014-2016 Grigori Fursin, Anton Lokhmotov and contributors
+(C)opyright 2014-2017 Grigori Fursin, Anton Lokhmotov and contributors

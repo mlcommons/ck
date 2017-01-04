@@ -10,7 +10,7 @@
 # CK kernel - we made it monolithic with a minimal set 
 # of common functions for performance reasons
 
-__version__ = "1.8.5.3"  # We use 3 digits for the main (released) version and 4th digit for development revision
+__version__ = "1.8.6"  # We use 3 digits for the main (released) version and 4th digit for development revision
                        # Do not use characters (to detect oudated version)!
 
 # Extra modules global for the whole kernel
@@ -42,11 +42,11 @@ cfg={
       "default_shared_repo_url":"https://github.com/ctuning",
       "github_repo_url":"https://github.com",
 
-      "default_license":"See CK LICENSE.txt for licensing details",
-      "default_copyright":"See CK COPYRIGHT.txt for copyright details",
-      "default_developer":"cTuning foundation",
-      "default_developer_email":"admin@cTuning.org",
-      "default_developer_webpage":"http://cTuning.org",
+#      "default_license":"See CK LICENSE.txt for licensing details",
+#      "default_copyright":"See CK COPYRIGHT.txt for copyright details",
+#      "default_developer":"cTuning foundation",
+#      "default_developer_email":"admin@cTuning.org",
+#      "default_developer_webpage":"http://cTuning.org",
 
       "detect_cur_cid":"#",
       "detect_cur_cid1":"^",
@@ -5150,7 +5150,7 @@ def load(i):
               'dict':r.get('dict',{})
              }
 
-       rr=dumps_json({'dict':dd})
+       rr=dumps_json({'dict':dd, 'sort_keys':'yes'})
        if rr['return']==0:
           out(rr['string'])
 
@@ -5350,7 +5350,14 @@ def add(i):
               (tags)                 - list or comma separated list of tags to add to entry
 
               (info)                 - entry info to record - normally, should not use it!
-              (extra_info)           - enforce extra info such as author, license, etc
+              (extra_info)           - enforce extra info such as
+                                          author
+                                          author_email
+                                          author_webpage
+                                          license
+                                          copyright
+                                       If not specified then taken from kernel (prefix 'default_')
+
               (updates)              - entry updates info to record - normally, should not use it!
               (ignore_update)        - if 'yes', do not add info about update
 
@@ -5906,6 +5913,8 @@ def rm(i):
               data_uoa        - data UOA    ; can be wild cards
 
               (force)         - if 'yes', force deleting without questions
+                 or
+              (f)             - to be compatible with rm -f 
 
               (share)         - if 'yes', try to remove via GIT
 
@@ -5967,6 +5976,10 @@ def rm(i):
                              'module_uoa':muoa, 'module_uid':muid, 
                              'data_uoa':duoa, 'data_uid': duid})
 
+    force=i.get('force','')
+    if force=='':
+       force=i.get('f','')
+
     first=True
     for ll in lst:
         p=ll['path']
@@ -5999,7 +6012,7 @@ def rm(i):
 
         # If interactive
         to_delete=True
-        if o=='con' and i.get('force','')!='yes':
+        if o=='con' and force!='yes':
            r=inp({'text':'Are you sure to delete CK entry '+xcuoa+' (y/N): '})
            c=r['string'].lower()
            if c!='y' and c!='yes': to_delete=False
