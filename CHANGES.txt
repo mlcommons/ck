@@ -1,3 +1,6 @@
+* V1.8.6.1 
+  * starting new version
+
 * V1.8.6
   * added direct update of kernel vars via CMD similar to Git. For example:
 
