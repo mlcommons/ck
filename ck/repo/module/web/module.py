@@ -622,7 +622,9 @@ def start(i):
 
               (browser)     - if 'yes', open browser
               (template)    - if !='', add template
-              (cid)         - view a given entry
+              (wcid)         - view a given entry
+                or
+              (cid)
               (extra_url)   - extra URL
             }
 
@@ -669,10 +671,15 @@ def start(i):
        if i.get('template','')!='':
           ext='template='+i['template']
 
-       cid=i.get('cid','')
+       cid=i.get('wcid','')
+       if cid=='':
+          cid=i.get('cid','')
+
        if cid!='' and cid!='web':
           if ext!='': ext+='&'
           ext+='wcid='+cid
+
+       print (cid)
 
        if i.get('extra_url','')!='':
           if ext!='': ext+='&'
@@ -680,6 +687,8 @@ def start(i):
 
        if ext!='':
           rurl+='/?'+ext
+
+       print (rurl)
 
        import webbrowser
        webbrowser.open(rurl)
