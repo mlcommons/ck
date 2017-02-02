@@ -5,6 +5,9 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 NEWS
 ====
+* Michel Steuwer (University of Edinburgh) blogged about [CK concepts](https://michel-steuwer.github.io/About-CK);
+* Check out new [CK-AI](http://cKnowledge.org/ai) initiative to prepare DNN frameworks for collaborative optimization;
+* We will present the CGO-PPoPP'17 distinguished CK artifact award at the [Artifact Evaluation panel](http://cTuning.org/ae) on Monday 6 February, 17:15-17:45 (Austin, TX, USA);
 * ARM uses CK as a front-end for systematic and reproducible benchmarking and tuning of real workloads: [GitHub](https://github.com/ctuning/ck-wa), [ARM TechCon'16 presentation](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems); 
 * CK-powered open challenges in computer engineering have been updated: [link](https://github.com/ctuning/ck/wiki/Research-and-development-challenges);
 * Fully updated documentation is now available: [Wiki](http://github.com/ctuning/ck/wiki), [Getting Started Guide](http://github.com/ctuning/ck/wiki/Getting-started-guide), [Portable workflows](http://github.com/ctuning/ck/wiki/Portable-workflows);
@@ -21,10 +24,11 @@ Introduction
 Collective Knowledge is our "swiss knife" for open, collaborative and reproducible experimentation.
 CK is a small, portable and customizable research platform to
 * share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc); 
-* quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags);
+* quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software;
 * crowdsource experiments across diverse hardware and workloads provided by volunteers, and report "interesting" or unexpected behavior;
 * unify and abstract access to continuously evolving software across Windows, Linux and Android (tools, programs, libraries);
-* use the latest environment for experiments (rather than using quickly outdated virtual images);
+* protect experimental setups from continuous software and hardware changes;
+* use the latest environment for experimental workflows (when Docker or VirtualBox are not suitable);
 * automate, reproduce and crowdsource empirical experiments (using CK JSON-based web services);
 * unify access to predictive analytics via unified JSON API and CK web services (scikit-learn, R, DNN, etc);
 * enable reproducible and interactive articles. 
@@ -32,6 +36,9 @@ CK is a small, portable and customizable research platform to
 Project homepage: 
 * http://cknowledge.org
 * http://cTuning.org
+
+Notable use cases:
+* [Wikipedia article](https://en.wikipedia.org/wiki/Collective_Knowledge_(software)#Notable_usages)
 
 License
 =======
