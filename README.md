@@ -40,6 +40,9 @@ Project homepage:
 Notable use cases:
 * [Wikipedia article](https://en.wikipedia.org/wiki/Collective_Knowledge_(software)#Notable_usages)
 
+CK concept by Michel Steuwer:
+* https://michel-steuwer.github.io/About-CK
+
 License
 =======
 * Permissive 3-clause BSD license. (See `LICENSE.txt` for more details).
