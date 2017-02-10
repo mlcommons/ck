@@ -5,9 +5,9 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 NEWS
 ====
+* CK-powered artifact receives distinguished award at CGO'17 (Austin,TX): [paper with AE appendix and CK workflow](http://cTuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf), [GitHub sources](https://github.com/SamAinsworth/reproduce-cgo2017-paper), [CK interactive dashboard snapshot](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf)
 * Michel Steuwer (University of Edinburgh) blogged about [CK concepts](https://michel-steuwer.github.io/About-CK);
 * Check out new [CK-AI](http://cKnowledge.org/ai) initiative to prepare DNN frameworks for collaborative optimization;
-* We will present the CGO-PPoPP'17 distinguished CK artifact award at the [Artifact Evaluation panel](http://cTuning.org/ae) on Monday 6 February, 17:15-17:45 (Austin, TX, USA);
 * ARM uses CK as a front-end for systematic and reproducible benchmarking and tuning of real workloads: [GitHub](https://github.com/ctuning/ck-wa), [ARM TechCon'16 presentation](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems); 
 * CK-powered open challenges in computer engineering have been updated: [link](https://github.com/ctuning/ck/wiki/Research-and-development-challenges);
 * Fully updated documentation is now available: [Wiki](http://github.com/ctuning/ck/wiki), [Getting Started Guide](http://github.com/ctuning/ck/wiki/Getting-started-guide), [Portable workflows](http://github.com/ctuning/ck/wiki/Portable-workflows);
@@ -40,7 +40,7 @@ Project homepage:
 Notable use cases:
 * [Wikipedia article](https://en.wikipedia.org/wiki/Collective_Knowledge_(software)#Notable_usages)
 
-CK concept by Michel Steuwer:
+CK concepts by Michel Steuwer:
 * https://michel-steuwer.github.io/About-CK
 
 License
@@ -139,6 +139,10 @@ by installing the following application from the Google Play Store:
 
 * https://play.google.com/store/apps/details?id=openscience.crowdsource.experiments
 
+If you want to try something more complex, you can check our cross-platform DNN unification,
+customized installation and benchmarking via CK with JSON API and web services:
+* http://cKnowledge.org/ai
+
 You can find already shared artifacts and repositories here:
 * List of shared repositories: https://github.com/ctuning/ck/wiki/Shared-repos
 * List of shared modules: https://github.com/ctuning/ck/wiki/Shared-modules
@@ -147,6 +151,10 @@ Please check out CK getting started guides and CK wiki for further details:
 * https://github.com/ctuning/ck/wiki/Getting-started-guide
 * https://github.com/ctuning/ck/wiki/Portable-workflows
 * https://github.com/ctuning/ck/wiki
+
+You can also reuse and customize artifacts with CK-based experimental workflows 
+shared at the leading computer systems' conferences:
+* http://cTuning.org/ae/artifacts.html
 
 Trying CK using Docker image
 ============================
