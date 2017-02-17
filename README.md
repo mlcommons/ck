@@ -6,7 +6,7 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 NEWS
 ====
 * We received [CGO test of time award](http://dividiti.blogspot.fr/2017/02/we-received-test-of-time-award-for-our.html);
-* CK-powered artifact receives distinguished award at CGO'17 (Austin,TX): [paper with AE appendix and CK workflow](http://cTuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf), [GitHub sources](https://github.com/SamAinsworth/reproduce-cgo2017-paper), [CK interactive dashboard snapshot](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf)
+* CK-powered artifact received distinguished award at CGO'17 (Austin,TX): [paper with AE appendix and CK workflow](http://cTuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf), [GitHub sources](https://github.com/SamAinsworth/reproduce-cgo2017-paper), [CK interactive dashboard snapshot](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf);
 * Michel Steuwer (University of Edinburgh) blogged about [CK concepts](https://michel-steuwer.github.io/About-CK);
 * We [discussed with the commnunity](http://dividiti.blogspot.fr/2017/01/artifact-evaluation-discussion-session.html) how to use CK to improve Artifact Evaluation for CGO,PPoPP,PACT,RTSS,SC;
 * Check out new [CK-AI](http://cKnowledge.org/ai) initiative to provide common JSON API and web-services for popular DNN frameworks (Caffe, TensorFlow, TensorRT) and prepare them for collaborative optimization (code and models);
