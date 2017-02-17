@@ -5,9 +5,11 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 NEWS
 ====
+* We received [CGO test of time award](http://dividiti.blogspot.fr/2017/02/we-received-test-of-time-award-for-our.html);
 * CK-powered artifact receives distinguished award at CGO'17 (Austin,TX): [paper with AE appendix and CK workflow](http://cTuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf), [GitHub sources](https://github.com/SamAinsworth/reproduce-cgo2017-paper), [CK interactive dashboard snapshot](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf)
 * Michel Steuwer (University of Edinburgh) blogged about [CK concepts](https://michel-steuwer.github.io/About-CK);
-* Check out new [CK-AI](http://cKnowledge.org/ai) initiative to prepare DNN frameworks for collaborative optimization;
+* We [discussed with the commnunity](http://dividiti.blogspot.fr/2017/01/artifact-evaluation-discussion-session.html) how to use CK to improve Artifact Evaluation for CGO,PPoPP,PACT,RTSS,SC;
+* Check out new [CK-AI](http://cKnowledge.org/ai) initiative to provide common JSON API and web-services for popular DNN frameworks (Caffe, TensorFlow, TensorRT) and prepare them for collaborative optimization (code and models);
 * ARM uses CK as a front-end for systematic and reproducible benchmarking and tuning of real workloads: [GitHub](https://github.com/ctuning/ck-wa), [ARM TechCon'16 presentation](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems); 
 * CK-powered open challenges in computer engineering have been updated: [link](https://github.com/ctuning/ck/wiki/Research-and-development-challenges);
 * Fully updated documentation is now available: [Wiki](http://github.com/ctuning/ck/wiki), [Getting Started Guide](http://github.com/ctuning/ck/wiki/Getting-started-guide), [Portable workflows](http://github.com/ctuning/ck/wiki/Portable-workflows);
@@ -16,7 +18,6 @@ NEWS
 * General Motors and dividiti crowdsource benchmarking and optimization of CAFFE (DNN framework) using CK: [GitHub](https://github.com/dividiti/ck-caffe), [Android app](https://play.google.com/store/apps/details?id=openscience.crowdsource.video.experiments);
 * CK supports [Jupyter notebooks](http://jupyter.org) and [Docker](http://github.com/ctuning/ck-docker);
 * cTuning foundation and ARM has received [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014) for the CK concept.
-* [CGO'17 paper](https://github.com/SamAinsworth/reproduce-cgo2017-paper) has its experimental workflow implemented using CK!
 
 Introduction
 ============
