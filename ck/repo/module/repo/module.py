@@ -1385,7 +1385,7 @@ def zip(i):
        from os.path import expanduser
        home = expanduser("~")
 
-       pfn=os.path.abspath(home+pfn[1:])
+       pfn=os.path.abspath(home+os.sep+pfn[1:])
 
     if os.path.isfile(pfn):
        if i.get('overwrite','')=='yes':
