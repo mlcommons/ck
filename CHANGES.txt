@@ -1,5 +1,6 @@
 * V1.8.6.1 
   * fixed minor bug in API when starting CK web service and viewing entry (wcid option)
+  * allow ~ in an archive name when archiving CK entries using 'ck zip ...'
 
 * V1.8.6
   * added direct update of kernel vars via CMD similar to Git. For example:
