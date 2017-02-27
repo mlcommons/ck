@@ -109,34 +109,36 @@ def add(i):
     # If console mode, ask some questions
     if quiet!='yes' and o=='con':
        if desc=='':
+          ck.out('')
           r=ck.inp({'text':'Add brief module description: '})
           desc=r['string']
 
-       ck.out('')
-
        if license=='' and ck.cfg.get('default_license','')!='':
+          ck.out('')
           r=ck.inp({'text':'Add brief module license (or Enter to use "'+ck.cfg['default_license']+'"): '})
           license=r['string']
           if license=='': license=ck.cfg['default_license']
 
        if copyright=='' and ck.cfg.get('default_copyright','')!='':
+          ck.out('')
           r=ck.inp({'text':'Add brief module copyright (or Enter to use "'+ck.cfg['default_copyright']+'"): '})
           copyright=r['string']
           if copyright=='': copyright=ck.cfg['default_copyright']
 
-       ck.out('')
-
        if developer=='' and ck.cfg.get('default_developer','')!='':
+          ck.out('')
           r=ck.inp({'text':'Add module\'s developer (or Enter to use "'+ck.cfg['default_developer']+'"): '})
           developer=r['string']
           if developer=='': developer=ck.cfg['default_developer']
 
        if developer_email=='' and ck.cfg.get('default_developer_email','')!='':
+          ck.out('')
           r=ck.inp({'text':'Add module\'s developer email (or Enter to use "'+ck.cfg['default_developer_email']+'"): '})
           developer_email=r['string']
           if developer_email=='': developer_email=ck.cfg['default_developer_email']
 
        if developer_webpage==''  and ck.cfg.get('default_developer_webpage','')!='':
+          ck.out('')
           r=ck.inp({'text':'Add module\'s developer webpage (or Enter to use "'+ck.cfg['default_developer_webpage']+'"): '})
           developer_webpage=r['string']
           if developer_webpage=='': developer_webpage=ck.cfg['default_developer_webpage']
