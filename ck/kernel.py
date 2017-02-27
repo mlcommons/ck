@@ -10,8 +10,8 @@
 # CK kernel - we made it monolithic with a minimal set 
 # of common functions for performance reasons
 
-__version__ = "1.8.6.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
-                         # Do not use characters (to detect oudated version)!
+__version__ = "1.8.7"  # We use 3 digits for the main (released) version and 4th digit for development revision
+                       # Do not use characters (to detect oudated version)!
 
 # Extra modules global for the whole kernel
 import sys
