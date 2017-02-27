@@ -114,29 +114,29 @@ def add(i):
 
        ck.out('')
 
-       if license=='':
+       if license=='' and ck.cfg.get('default_license','')!='':
           r=ck.inp({'text':'Add brief module license (or Enter to use "'+ck.cfg['default_license']+'"): '})
           license=r['string']
           if license=='': license=ck.cfg['default_license']
 
-       if copyright=='':
+       if copyright=='' and ck.cfg.get('default_copyright','')!='':
           r=ck.inp({'text':'Add brief module copyright (or Enter to use "'+ck.cfg['default_copyright']+'"): '})
           copyright=r['string']
           if copyright=='': copyright=ck.cfg['default_copyright']
 
        ck.out('')
 
-       if developer=='':
+       if developer=='' and ck.cfg.get('default_developer','')!='':
           r=ck.inp({'text':'Add module\'s developer (or Enter to use "'+ck.cfg['default_developer']+'"): '})
           developer=r['string']
           if developer=='': developer=ck.cfg['default_developer']
 
-       if developer_email=='':
+       if developer_email=='' and ck.cfg.get('default_developer_email','')!='':
           r=ck.inp({'text':'Add module\'s developer email (or Enter to use "'+ck.cfg['default_developer_email']+'"): '})
           developer_email=r['string']
           if developer_email=='': developer_email=ck.cfg['default_developer_email']
 
-       if developer_webpage=='':
+       if developer_webpage==''  and ck.cfg.get('default_developer_webpage','')!='':
           r=ck.inp({'text':'Add module\'s developer webpage (or Enter to use "'+ck.cfg['default_developer_webpage']+'"): '})
           developer_webpage=r['string']
           if developer_webpage=='': developer_webpage=ck.cfg['default_developer_webpage']
