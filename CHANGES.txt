@@ -1,3 +1,6 @@
+* V1.8.7.1
+  * started new development version
+
 * V1.8.7 
   * fixed major bug with default license/author (to avoid crashing when adding new module)
   * fixed minor bug in API when starting CK web service and viewing entry (wcid option)
