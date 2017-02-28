@@ -26,7 +26,7 @@ Collective Knowledge is our "swiss knife" for open, collaborative and reproducib
 CK is a small, portable and customizable research platform to
 * share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc); 
 * quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software;
-* automate installation/building of all software dependencies for a given experimental workflow across Linux, Windows and Android based platforms via [CK portable package manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
+* automate installation/building of all software dependencies with multiple co-existing versions (compilers, benchmarks, libraries, tools) for a given experimental workflow across diverse Linux, Windows and Android based platforms via [CK portable package manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
 * crowdsource experiments across diverse hardware and workloads provided by volunteers, and report "interesting" or unexpected behavior;
 * unify and abstract access to continuously evolving software across Windows, Linux and Android (tools, programs, libraries);
 * protect experimental setups from continuous software and hardware changes;
