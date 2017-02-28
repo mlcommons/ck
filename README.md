@@ -36,7 +36,7 @@ CK is a small, portable and customizable research platform to
 * enable reproducible and interactive articles. 
 
 Project homepage: 
-* http://cknowledge.org
+* http://cKnowledge.org
 * http://cTuning.org
 
 Notable use cases:
