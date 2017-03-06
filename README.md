@@ -256,8 +256,8 @@ Motivation
 
 Authors
 =======
-* Grigori Fursin, http://fursin.net
-* Anton Lokhmotov, https://www.hipeac.net/~anton
+* [Grigori Fursin](http://fursin.net/research.html), cTuning foundation / dividiti
+* [Anton Lokhmotov](https://www.hipeac.net/~anton), dividiti
 
 Questions/comments/discussions?
 ===============================
