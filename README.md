@@ -25,8 +25,8 @@ Introduction
 Collective Knowledge is our "swiss knife" for open, collaborative and reproducible experimentation.
 CK is a small, portable and customizable research platform to
 * share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc); 
-* quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software;
 * automate installation/building of all software dependencies with multiple co-existing versions (compilers, benchmarks, libraries, tools) for a given experimental workflow across diverse Linux, Windows and Android based platforms via [CK portable package manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
+* quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software;
 * crowdsource experiments across diverse hardware and workloads provided by volunteers, and report "interesting" or unexpected behavior;
 * unify and abstract access to continuously evolving software across Windows, Linux and Android (tools, programs, libraries);
 * protect experimental setups from continuous software and hardware changes;
@@ -93,10 +93,56 @@ or on Windows as following:
  $ set PATH={CURRENT PATH}\ck\bin;%PATH%
 ```
 
+Unified benchmarking example
+============================
+
+You can now test CK by pulling and executing one of many shared workflows.
+
+For example, you can try the following community project to unify benchmarking
+across ever changing hardware and software:
+
+```
+ $ ck pull repo:ck-autotuning
+ $ ck pull repo:ctuning-programs
+```
+
+You can see shared programs in the CK format (JSON meta information 
+describing how to compile and run shared program with all dependencies and data sets):
+```
+ $ ck list program
+```
+
+You can now compile a given program simply as following:
+```
+ $ ck compile program:cbench-automotive-susan --speed
+```
+
+Note, that CK will detect all available versions of required compilers (GCC, LLVM, ICC ...) 
+and libraries on your system using [CK portable package and environment manager](https://github.com/ctuning/ck-env).
+If some software dependencies are missing, CK will automatically install required packages
+as described in this [article about portable CK workflows](https://github.com/ctuning/ck/wiki/Portable-workflows.mediawiki).
+
+Now you can run your program simply as following:
+```
+ $ ck run program:cbench-automotive-susan
+```
+
+CK will ask you which command line to use and will automatically detect or install all required data sets.
+
+If you have Android NDK/SDK installed on your host machine and Android device connected via ADB, 
+you can simply compile and run the same problem on this device as following:
+```
+ $ ck compile program:cbench-automotive-susan --speed --target_os=android21-arm-v7a
+ $ ck run program:cbench-automotive-susan --target_os=android21-arm-v7a
+```
+
 Experiment crowdsourcing example
 ================================
 
-You can now test CK by pulling and executing one of multiple shared research scenarios.
+You can check our shared workflow to crowdsource experiments across diverse
+software and hardware provided by volunteers 
+aka SETI@HOME for computer systems' research:
+
 
 ```
  $ ck pull repo:ck-crowdtuning
@@ -224,10 +270,20 @@ Questions/comments/discussions?
 
 Publications
 ============
+
+@inproceedings{ck-date16,
+    title = {{Collective Knowledge}: towards {R\&D} sustainability},
+    author = {Fursin, Grigori and Lokhmotov, Anton and Plowman, Ed},
+    booktitle = {Proceedings of the Conference on Design, Automation and Test in Europe (DATE'16)},
+    year = {2016},
+    month = {March},
+    url = {https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability}
+}
+
 The concepts have been described in the following publications:
 
-* http://arxiv.org/abs/1506.06256 (CPC'15)
 * http://tinyurl.com/zyupd5v (DATE'16)
+* http://arxiv.org/abs/1506.06256 (CPC'15)
 * http://hal.inria.fr/hal-01054763 (Journal of Scientific Programming'14)
 
 * http://bit.ly/ck-multiprog16 (MULTIPROG'16)
