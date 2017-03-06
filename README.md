@@ -25,7 +25,7 @@ Introduction
 Collective Knowledge is our "swiss knife" for open, collaborative and reproducible experimentation.
 CK is a small, portable and customizable research platform to
 * share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc); 
-* automate installation/building of all software dependencies with multiple co-existing versions (compilers, benchmarks, libraries, tools) for a given experimental workflow across diverse Linux, Windows and Android based platforms via [CK portable package manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
+* automate installation/building of all software dependencies with multiple co-existing versions (compilers, benchmarks, libraries, tools) for a given experimental workflow across diverse Linux, Windows and Android based platforms via [CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
 * quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software;
 * crowdsource experiments across diverse hardware and workloads provided by volunteers, and report "interesting" or unexpected behavior;
 * unify and abstract access to continuously evolving software across Windows, Linux and Android (tools, programs, libraries);
@@ -118,7 +118,7 @@ You can now compile a given program simply as following:
 ```
 
 Note, that CK will detect all available versions of required compilers (GCC, LLVM, ICC ...) 
-and libraries on your system using [CK portable package and environment manager](https://github.com/ctuning/ck-env).
+and libraries on your system using [CK customizable cross-platform package and environment manager with JSON API and meta](https://github.com/ctuning/ck-env).
 If some software dependencies are missing, CK will automatically install required packages
 as described in this [article about portable CK workflows](https://github.com/ctuning/ck/wiki/Portable-workflows.mediawiki).
 
