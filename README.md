@@ -271,6 +271,7 @@ Questions/comments/discussions?
 Publications
 ============
 
+```
 @inproceedings{ck-date16,
     title = {{Collective Knowledge}: towards {R\&D} sustainability},
     author = {Fursin, Grigori and Lokhmotov, Anton and Plowman, Ed},
@@ -279,6 +280,7 @@ Publications
     month = {March},
     url = {https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability}
 }
+```
 
 The concepts have been described in the following publications:
 
