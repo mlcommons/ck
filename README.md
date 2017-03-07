@@ -1,4 +1,7 @@
+[![logo](https://github.com/ctuning/ck-guide-images/blob/master/logo-powered-by-ck.png)](http://cKnowledge.org)
+[![logo](https://github.com/ctuning/ck-guide-images/blob/master/logo-validated-by-the-community-simple.png)](http://cTuning.org)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
+
 Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
@@ -26,14 +29,14 @@ Collective Knowledge is our "swiss knife" for open, collaborative and reproducib
 CK is a small, portable and customizable research platform to
 * share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc); 
 * automate installation/building of all software dependencies with multiple co-existing versions (compilers, benchmarks, libraries, tools) for a given experimental workflow across diverse Linux, Windows and Android based platforms via [CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
-* quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software;
-* crowdsource experiments across diverse hardware and workloads provided by volunteers, and report "interesting" or unexpected behavior;
-* unify and abstract access to continuously evolving software across Windows, Linux and Android (tools, programs, libraries);
+* quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software ([CK repo](https://github.com/ctuning/ck-autotuning));
+* crowdsource experiments across diverse hardware and workloads provided by volunteers, and report "interesting" or unexpected behavior ([CK repo](https://github.com/ctuning/ck-crowdtuning));
+* unify and abstract access to continuously evolving software across Windows, Linux and Android including compilers, libraries, tools, programs, models, datasets ([CK repo](https://github.com/ctuning/ck-env));
 * protect experimental setups from continuous software and hardware changes;
 * use the latest environment for experimental workflows (when Docker or VirtualBox are not suitable);
-* automate, reproduce and crowdsource empirical experiments (using CK JSON-based web services);
-* unify access to predictive analytics via unified JSON API and CK web services (scikit-learn, R, DNN, etc);
-* enable reproducible and interactive articles. 
+* automate, reproduce and crowdsource empirical experiments using CK JSON-based web services ([live repo](http://cKnowledge.org/repo));
+* unify access to predictive analytics (scikit-learn, R, DNN, etc) via unified JSON API and CK web services ([CK repo](https://github.com/ctuning/ck-analytics));
+* enable reproducible and interactive articles ([CK repo](https://github.com/ctuning/ck-web)). 
 
 Project homepage: 
 * http://cKnowledge.org
@@ -315,5 +318,3 @@ Action](http://tetracom.eu) for initial funding and
 thank Microsoft Research program for one-year grant to host the CK public
 repository in the Azure cloud.  We are also extremely grateful to all
 volunteers for their valuable feedback and contributions.
-
-![logo](https://github.com/ctuning/ck-guide-images/blob/master/logo-validated-by-the-community-simple.png)
