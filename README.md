@@ -28,12 +28,11 @@ Introduction
 Collective Knowledge is our "swiss knife" for open, collaborative and reproducible experimentation.
 CK is a small, portable and customizable research platform to
 * share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc); 
-* automate installation/building of all software dependencies with multiple co-existing versions (compilers, benchmarks, libraries, tools) for a given experimental workflow across diverse Linux, Windows and Android based platforms via [CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
+* automate detection or installation of all software dependencies on Linux, Windows, MacOS, Android while enabling co-existence of different versions (compilers, benchmarks, libraries, tools) for a given experimental workflow across diverse Linux, Windows and Android based platforms via [CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
 * quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software ([CK repo](https://github.com/ctuning/ck-autotuning));
-* crowdsource experiments across diverse hardware and workloads provided by volunteers, and report "interesting" or unexpected behavior ([CK repo](https://github.com/ctuning/ck-crowdtuning));
-* unify and abstract access to continuously evolving software across Windows, Linux and Android including compilers, libraries, tools, programs, models, datasets ([CK repo](https://github.com/ctuning/ck-env));
-* protect experimental setups from continuous software and hardware changes;
-* use the latest environment for experimental workflows (when Docker or VirtualBox are not suitable);
+* crowdsource experiments across diverse hardware and workloads provided by volunteers and validate ideas or report unexpected behavior and bugs ([CK repo](https://github.com/ctuning/ck-crowdtuning));
+* reuse and collaborative improve JSON description of all existing platforms from IoT to supercomputers ([CK repo](https://github.com/ctuning/ck-crowdtuning-platforms));
+* abstract access to continuously evolving software and hardware stack ([CK repo](https://github.com/ctuning/ck-env));
 * automate, reproduce and crowdsource empirical experiments using CK JSON-based web services ([live repo](http://cKnowledge.org/repo));
 * unify access to predictive analytics (scikit-learn, R, DNN, etc) via unified JSON API and CK web services ([CK repo](https://github.com/ctuning/ck-analytics));
 * enable reproducible and interactive articles ([CK repo](https://github.com/ctuning/ck-web)). 
