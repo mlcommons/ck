@@ -6,10 +6,11 @@ Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
-NEWS
+News
 ====
 * Our CGO'07 paper (which later motivated creation of CK) received [CGO test of time award](http://dividiti.blogspot.fr/2017/02/we-received-test-of-time-award-for-our.html);
 * CK-powered artifact received distinguished award at CGO'17 (Austin,TX): [paper with AE appendix and CK workflow](http://cTuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf), [GitHub sources](https://github.com/SamAinsworth/reproduce-cgo2017-paper), [CK interactive dashboard snapshot](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf);
+* Our CK-related CNRS presentation "[Enabling open and reproducible research at computer systems conferences: the good, the bad and the ugly](http://dividiti.blogspot.fr/2017/03/enabling-open-and-reproducible-computer.html)"
 * Michel Steuwer (University of Edinburgh) blogged about [CK concepts](https://michel-steuwer.github.io/About-CK);
 * We [discussed with the commnunity](http://dividiti.blogspot.fr/2017/01/artifact-evaluation-discussion-session.html) how to use CK to improve Artifact Evaluation for CGO,PPoPP,PACT,RTSS,SC;
 * Check out new [CK-AI](http://cKnowledge.org/ai) initiative to provide common JSON API and web-services for popular DNN frameworks (Caffe, TensorFlow, TensorRT) and prepare them for collaborative optimization (code and models);
@@ -27,7 +28,7 @@ Introduction
 
 Collective Knowledge is our "swiss knife" for open, collaborative and reproducible experimentation.
 CK is a small, portable and customizable research platform to
-* share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc); 
+* share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc) - see [Artifact Evaluation website](http://ctuning.org/ae/submission.html); 
 * automate detection or installation of all software dependencies on Linux, Windows, MacOS, Android while enabling co-existence of different versions (compilers, benchmarks, libraries, tools) for a given experimental workflow across diverse Linux, Windows and Android based platforms via [CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
 * quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software ([CK repo](https://github.com/ctuning/ck-autotuning));
 * crowdsource experiments across diverse hardware and workloads provided by volunteers and validate ideas or report unexpected behavior and bugs ([CK repo](https://github.com/ctuning/ck-crowdtuning));
@@ -95,13 +96,15 @@ or on Windows as following:
  $ set PATH={CURRENT PATH}\ck\bin;%PATH%
 ```
 
-Unified benchmarking example
-============================
+Portable and customizable benchmarking
+======================================
 
 You can now test CK by pulling and executing one of many shared workflows.
 
 For example, you can try the following community project to unify benchmarking
-across ever changing hardware and software:
+across ever changing hardware and software - just check that you have at least
+one compiler installed for your target platform as described 
+[here](https://github.com/ctuning/ck/wiki/Compiler-autotuning#Installing_compilers):
 
 ```
  $ ck pull repo:ck-autotuning
@@ -138,8 +141,23 @@ you can simply compile and run the same problem on this device as following:
  $ ck run program:cbench-automotive-susan --target_os=android21-arm-v7a
 ```
 
-Experiment crowdsourcing example
-================================
+Artifact evaluation
+===================
+
+Collective Knowledge can help you convert your ad-hoc experimental scripts to portable, customizable and reusable 
+with automatic cross-platform software installation and web-based experimental dashboards 
+for [Artifact Evaluation](http://cTuning.org/ae) at the leading conferences and journals as briefly described
+[here](https://github.com/ctuning/ck/wiki/Artifact-sharing). Feel free to ask for help from the CK community 
+[here](http://groups.google.com/group/collective-knowledge)!
+
+See example of a CGO'17 distinguished artifact from the University of Cambridge implemented using CK:
+* [CK artifacts at GitHub](https://github.com/SamAinsworth/reproduce-cgo2017-paper)
+* [Paper with AE appendix and CK workflow](http://ctuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf)
+* [PDF snapshot of the interactive CK dashboard](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf)
+* [CK concepts](https://michel-steuwer.github.io/About-CK)
+
+Portable experiment crowdsourcing workflow
+==========================================
 
 You can check our shared workflow to crowdsource experiments across diverse
 software and hardware provided by volunteers 
@@ -309,10 +327,8 @@ Testimonials and awards
 Acknowledgments
 ===============
 
-CK development is coordinated by the [cTuning
-foundation](http://cTuning.org) (non-profit research organization). 
-We thank the [EU TETRACOM 609491 Coordination
-Action](http://tetracom.eu) for initial funding and
+CK development is coordinated by the [cTuning foundation](http://cTuning.org) (non-profit research organization). 
+We thank the [EU TETRACOM 609491 Coordination Action](http://tetracom.eu) for initial funding and
 [dividiti](http://dividiti.com) for continuing support. We would also like to
 thank Microsoft Research program for one-year grant to host the CK public
 repository in the Azure cloud.  We are also extremely grateful to all
