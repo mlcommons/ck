@@ -10,5 +10,5 @@ rem Load kernel module (either GIT/local installation or as package)
 IF EXIST %CK_ROOT%\ck\kernel.py (
  python -W ignore::DeprecationWarning %CK_ROOT%\ck\kernel.py %*
 ) ELSE (
- python -W ignore::DeprecationWarning -m ck.kernel %*
+ python -W ignore::DeprecationWarning -W ignore::RuntimeWarning -m ck.kernel %*
 )
