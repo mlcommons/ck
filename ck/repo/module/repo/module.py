@@ -1156,7 +1156,7 @@ def rm_read_only(f,p,e):
 
     ex=e[1]
 
-    if ex.errno!=errno.EACCES or f not in (os.rmdir,os.remove): raise
+#    if ex.errno!=errno.EACCES or f not in (os.rmdir,os.remove): raise
 
     os.chmod(p,stat.S_IRWXU|stat.S_IRWXG|stat.S_IRWXO)
     f(p)

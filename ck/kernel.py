@@ -371,6 +371,35 @@ def out(s):
     return None
 
 ##############################################################################
+# Universal debug print of a dictionary (removing unprintable parts)
+
+def debug_out(i):
+    """
+    Input:  i - dictionary
+
+    Output: return = 0
+    """
+
+    import copy
+    import json
+
+    ii={}
+
+    # Check main unprintable keys
+    for k in i:
+        try:
+           s=json.dumps(i[k])
+        except Exception as e: 
+           pass
+        else:
+           ii[k]=i[k]
+
+    # Dump
+    out(json.dumps(ii, indent=2))
+
+    return {'return':0}
+
+##############################################################################
 # Universal print of unicode string in utf8 that supports Python 2.x and 3.x to stderr
 
 def eout(s):
