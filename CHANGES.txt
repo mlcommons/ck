@@ -1,6 +1,6 @@
 * V1.8.7.1
   * added ck.debug_out(i) to print dict to console
-  * fixed strange warnings on Windows 10 with Python 3.6
+  * fixed strange warnings for Python 3.5+ on Windows and Linux (when installed via pip)
   * fixed repo renewing on latest Windows (when access error to Git files)
 
 * V1.8.7 

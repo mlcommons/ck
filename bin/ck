@@ -41,5 +41,5 @@ else
      exit 1
   fi
 
-  $CK_PYTHON -m ck.kernel "$@"
+  $CK_PYTHON -W ignore::RuntimeWarning -m ck.kernel "$@"
 fi
