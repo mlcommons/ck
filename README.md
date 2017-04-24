@@ -155,6 +155,19 @@ See example of a CGO'17 distinguished artifact from the University of Cambridge 
 * [PDF snapshot of the interactive CK dashboard](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf)
 * [CK concepts](https://michel-steuwer.github.io/About-CK)
 
+Note that you can install above repositories and dependencies to a new CK space without mixing up your current installations
+(similar to virtual environment) as following (substitute "export" with "set" on Windows):
+
+```
+ $ export CK_REPOS={path to a new CK space with all repos and dependencies}
+ $ ck setup kernel --var.install_to_env=yes
+ $ ck pull repo --url={URL of the artifact repository}
+```
+
+When CK kernels variable "install_to_env" is set to "yes", CK will be installing 
+required packages inside CK space. In such case, when you stop evaluating artifacts,
+you can easily remove the whole CK space together with all installed packages.
+
 Portable experiment crowdsourcing workflow
 ==========================================
 
