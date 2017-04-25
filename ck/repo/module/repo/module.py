@@ -1996,7 +1996,7 @@ def renew(i):
 ##############################################################################
 # show remote repo in a browser
 
-def show(i):
+def browse(i):
     """
     Input:  {
               data_uoa                   - data UOA of the repo
@@ -2166,3 +2166,89 @@ def form_url(i):
           url+='/ck?'
 
     return {'return':0, 'url':url}
+
+##############################################################################
+# show repositories and their status
+
+def show(i):
+    """
+    Input:  {
+              (data_uoa) - repo UOA
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    import os
+
+    curdir=os.getcwd()
+
+    duoa=i.get('data_uoa','')
+
+    r=ck.list_data({'module_uoa':work['self_module_uoa'], 
+                    'data_uoa':duoa})
+    if r['return']>0: return r
+
+    lst=r['lst']
+    pp=[]
+    il=0
+    for q in sorted(lst, key=lambda x: x.get('data_uoa','')):
+        # Loading repo
+        r=ck.access({'action':'load',
+                     'module_uoa':work['self_module_uoa'],
+                     'data_uoa':q['data_uoa'],
+                     'common':'yes'})
+        if r['return']>0: return r
+        d=r['dict']
+
+        duoa=r['data_uoa']
+
+        t=d.get('shared','')
+
+        if t!='':
+           if len(duoa)>il: il=len(duoa)
+
+           p=d.get('path','')
+           url=d.get('url','')
+
+           branch=''
+           checkout=''
+
+           if os.path.isdir(p):
+              # Detect status
+              os.chdir(p)
+
+              r=ck.run_and_get_stdout({'cmd':['git','rev-parse','--abbrev-ref','HEAD']})
+              if r['return']==0 and r['return_code']==0: 
+                 branch=r['stdout'].strip()
+
+              r=ck.run_and_get_stdout({'cmd':['git','rev-parse','--short','HEAD']})
+              if r['return']==0 and r['return_code']==0: 
+                 checkout=r['stdout'].strip()
+
+           pp.append({'branch':branch, 'checkout':checkout, 'path':p, 'type':t, 'url':url, 'data_uoa':duoa})
+
+    # Print
+    for q in pp:
+        name=q['data_uoa']
+
+        x=name+' '*(il-len(name))
+
+        branch=q.get('branch','')
+        checkout=q.get('checkout','')
+        url=q.get('url','')
+
+        if branch!='' or checkout!='' or url!='':
+           x+=' ( '+branch+' ; '+checkout+' ; '+url+' )'
+
+        ck.out(x)
+
+
+    os.chdir(curdir)
+
+    return {'return':0}
