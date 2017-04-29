@@ -42,6 +42,9 @@
     "renew": {
       "desc": "renew repository (remove fully and pull again)"
     },
+    "reset": {
+      "desc": "reset git repos (default branch)"
+    },
     "rm": {
       "desc": "remove repository from CK"
     },

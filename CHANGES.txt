@@ -1,8 +1,10 @@
-* V1.8.7.1
+* V1.9.1
   * added ck.debug_out(i) to print dict to console
   * fixed strange warnings for Python 3.5+ on Windows and Linux (when installed via pip)
   * fixed repo renewing on latest Windows (when access error to Git files)
   * added ck show repo to show git status of all repos
+  * started highly experimental support for stable repos or different branches/checkouts
+    (particularly useful for Artifact Evaluation to check out only stable repos)
 
 * V1.8.7 
   * fixed major bug with default license/author (to avoid crashing when adding new module)

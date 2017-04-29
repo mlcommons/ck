@@ -96,6 +96,11 @@ def add(i):
               (current_repos)            - if resolving dependencies on other repos, list of repos being updated (to avoid infinite recursion)
 
               (describe)                 - describe repository for Artifact Evaluation (see http://cTuning.org/ae)
+
+              (stable)        - take stable version (highly experimental)
+              (version)       - checkout version (default - stable)
+              (branch)        - git branch
+              (checkout)      - git checkout
             }
 
     Output: {
@@ -116,6 +121,12 @@ def add(i):
     d=i.get('data_uoa','')
     di=i.get('data_uid','')
     dn=i.get('data_name','')
+
+    stable=i.get('stable','')
+    version=i.get('version','')
+    if stable=='yes': version='stable'
+    branch=i.get('branch','')
+    checkout=i.get('checkout','')
 
     cr=i.get('current_repos',[])
 
@@ -453,6 +464,9 @@ def add(i):
     r=deps({'path':p,
             'current_path':cr,
             'how':how,
+            'version':version,
+            'branch':branch,
+            'checkout':checkout,
             'out':o})
     if r['return']>0: return r
 
@@ -690,6 +704,13 @@ def pull(i):
               (current_repos) - if resolving dependencies on other repos, list of repos being updated (to avoid infinite recursion)
 
               (git)           - if 'yes', use git protocol instead of https
+
+              (ignore_pull)   - useful just for switching to another branch
+
+              (stable)        - take stable version (highly experimental)
+              (version)       - checkout version (default - stable)
+              (branch)        - git branch
+              (checkout)      - git checkout
             }
 
     Output: {
@@ -708,6 +729,14 @@ def pull(i):
     px=i.get('path','')
     t=i.get('type','')
     url=i.get('url','')
+
+    stable=i.get('stable','')
+    version=i.get('version','')
+    if stable=='yes': version='stable'
+    branch=i.get('branch','')
+    checkout=i.get('checkout','')
+
+    ip=i.get('ignore_pull','')
 
     cr=i.get('current_repos',[])
 
@@ -759,7 +788,8 @@ def pull(i):
               if t!='':
                  p=d.get('path','')
                  url=d.get('url','')
-                 pp.append({'path':p, 'type':t, 'url':url, 'data_uoa':duoa})
+                 checkouts=d.get('checkouts',{})
+                 pp.append({'path':p, 'type':t, 'url':url, 'data_uoa':duoa, 'checkouts':checkouts})
        else:
           # Loading repo
           r=ck.access({'action':'load',
@@ -790,8 +820,9 @@ def pull(i):
           p=d['path']
           t=d.get('shared','')
           url=d.get('url','')
+          checkouts=d.get('checkouts',{})
 
-          pp.append({'path':p, 'type':t, 'url':url, 'data_uoa':duoa})
+          pp.append({'path':p, 'type':t, 'url':url, 'data_uoa':duoa, 'checkouts':checkouts})
 
     # Updating ...
     for q in pp:
@@ -849,23 +880,25 @@ def pull(i):
               ck.out('  cd '+p)
            os.chdir(p)
 
-           s=ck.cfg['repo_types'][t][tt].replace('$#url#$', url).replace('$#path#$', p)
+           r=0
+           if ip!='yes':
+              s=ck.cfg['repo_types'][t][tt].replace('$#url#$', url).replace('$#path#$', p)
 
-           if o=='con':
-              ck.out('  '+s)
-              ck.out('')
+              if o=='con':
+                 ck.out('  '+s)
+                 ck.out('')
 
-           r=os.system(s)
+              r=os.system(s)
 
-           if o=='con': 
-              ck.out('')
+              if o=='con': 
+                 ck.out('')
 
            os.chdir(px) # Restore path
 
            if r>0:
               if o=='con':
                  ck.out('')
-                 ck.out(' WARNING: repository update likely failed - exit code '+str(r))
+                 ck.out(' WARNING: repository update likely failed OR IN A DIFFERENT BRANCH/CHECKOUT (git exit code: '+str(r)+')')
                  ck.out('')
                  rx=ck.inp({'text': 'Would you like to continue (Y/n)?: '})
                  x=rx['string'].lower()
@@ -887,6 +920,9 @@ def pull(i):
            r=deps({'path':p,
                    'current_path':cr,
                    'how':'pull',
+                   'version':version,
+                   'branch':branch,
+                   'checkout':checkout,
                    'out':o})
            if r['return']>0: return r
 
@@ -1685,6 +1721,10 @@ def deps(i):
               (current_repos) - list of repos being updated (to avoid infinite recursion)
 
               (how)           - 'pull' (default) or 'add'
+
+              (version)       - checkout version (default - stable)
+              (branch)        - git branch
+              (checkout)      - git checkout
             }
 
     Output: {
@@ -1724,16 +1764,52 @@ def deps(i):
 
           d=r['dict']
 
+          # Check checkouts
+          version=i.get('version','')
+          branch=i.get('branch','')
+          checkout=i.get('checkout','')
+
+          if version!='':
+             cx=d.get('dict',{}).get('checkouts',{}).get(version,{})
+             branch=cx.get('branch','')
+             checkout=cx.get('checkout','')
+
+          ppp=os.getcwd()
+
+          os.chdir(p)
+
+          if branch!='':
+             if o=='con':
+                ck.out('  ====================================')
+                ck.out('  git checkout '+branch)
+                ck.out('')
+
+             r=ck.run_and_get_stdout({'cmd':['git','checkout',branch]})
+             ck.out(r.get('stdout',''))
+             ck.out(r.get('stderr',''))
+
+          if checkout!='':
+             if o=='con':
+                ck.out('  ====================================')
+                ck.out('  git checkout '+checkout)
+                ck.out('')
+
+             r=ck.run_and_get_stdout({'cmd':['git','checkout',checkout]})
+             ck.out(r.get('stdout',''))
+             ck.out(r.get('stderr',''))
+
+          os.chdir(ppp)
+
           rp1=d.get('dict',{}).get('repo_deps',[])
           if len(rp1)==0:
-             rp1=d.get('repo_deps',[]) # for compatibility ...
+             rp1=d.get('repo_deps',[]) # for backwards compatibility ...
 
           rp2=[]
           rp=[]
 
           if len(rp1)>0:
              for xruoa in rp1:
-                 if type(xruoa)!=list:
+                 if type(xruoa)!=list: # for backwards compatibility
                     ruoa=xruoa.get('repo_uoa','')
                     if xruoa.get('repo_uid','')!='': ruoa=xruoa['repo_uid']
                     if ruoa!='' and ruoa not in cr:
@@ -1760,7 +1836,18 @@ def deps(i):
                        rp.append(xruoa)
                        x+=': should be resolved ...'
                     else:
-                       x+=': Ok'
+                       # If explicit branch, still add !
+                       branch=xruoa.get('branch','')
+                       checkout=xruoa.get('checkout','')
+                       stable=xruoa.get('stable','')
+                       version=xruoa.get('version','')
+
+                       if branch!='' or checkout!='' or stable!='' or version!='':
+                          xruoa['ignore_pull']='yes'
+                          rp.append(xruoa)
+                          x+=': should be switched to explicit branch ...'
+                       else:
+                          x+=': Ok'
 
                     if o=='con':
                        ck.out(x)
@@ -1770,6 +1857,14 @@ def deps(i):
                  ruoa=xruoa.get('repo_uoa','')
                  ruid=xruoa.get('repo_uid','')
                  rurl=xruoa.get('repo_url','')
+
+                 branch=xruoa.get('branch','')
+                 checkout=xruoa.get('checkout','')
+                 stable=xruoa.get('stable','')
+                 version=xruoa.get('version','')
+
+                 ignore_pull=xruoa.get('ignore_pull','')
+
                  if o=='con':
                     ck.out('')
                     x=''
@@ -1785,6 +1880,11 @@ def deps(i):
                      'data_uoa':ruoa,
                      'current_repos':cr,
                      'url':rurl,
+                     'ignore_pull':ignore_pull,
+                     'branch':branch,
+                     'checkout':checkout,
+                     'stable':stable,
+                     'version':version,
                      'out':o}
                  if ruid!='': ii['data_uid']=ruid
                  if how=='add': ii['gitzip']='yes'
@@ -1938,6 +2038,9 @@ def renew(i):
     """
     Input:  {
               data_uoa                   - data UOA of the repo
+
+              (stable)                   - take stable version (highly experimental)
+              (checkout)                 - checkout (default - stable)
             }
 
     Output: {
@@ -1990,7 +2093,9 @@ def renew(i):
         'module_uoa':work['self_module_uoa'],
         'data_uoa':duoa,
         'data_name':dn,
-        'url':url}
+        'url':url,
+        'stable':i.get('stable',''),
+        'checkout':i.get('checkout','')}
     return ck.access(ii)
 
 ##############################################################################
@@ -2174,6 +2279,11 @@ def show(i):
     """
     Input:  {
               (data_uoa) - repo UOA
+
+              (reset)    - if 'yes', reset repos
+
+              (stable)   - take stable version (highly experimental)
+              (version)  - checkout version (default - stable)
             }
 
     Output: {
@@ -2186,31 +2296,41 @@ def show(i):
 
     import os
 
+    o=i.get('out','')
+
     curdir=os.getcwd()
 
     duoa=i.get('data_uoa','')
+
+    reset=i.get('reset','')
+
+    stable=i.get('stable','')
+    version=i.get('version','')
+    if stable=='yes': version='stable'
 
     r=ck.list_data({'module_uoa':work['self_module_uoa'], 
                     'data_uoa':duoa})
     if r['return']>0: return r
 
-    lst=r['lst']
+    if o=='con':
+       ck.out('Please wait - it may take some time ...')
+       ck.out('')
+
+    r=ck.reload_repo_cache({}) # Ignore errors
+
     pp=[]
     il=0
-    for q in sorted(lst, key=lambda x: x.get('data_uoa','')):
-        # Loading repo
-        r=ck.access({'action':'load',
-                     'module_uoa':work['self_module_uoa'],
-                     'data_uoa':q['data_uoa'],
-                     'common':'yes'})
-        if r['return']>0: return r
-        d=r['dict']
+    for q in ck.cache_repo_info:
+        # Get repo info
+        qq=ck.cache_repo_info[q]
 
-        duoa=r['data_uoa']
+        d=qq['dict']
 
         t=d.get('shared','')
 
         if t!='':
+           duoa=qq['data_uoa']
+
            if len(duoa)>il: il=len(duoa)
 
            p=d.get('path','')
@@ -2223,10 +2343,29 @@ def show(i):
               # Detect status
               os.chdir(p)
 
+              if reset=='yes':
+                 r=ck.run_and_get_stdout({'cmd':['git','checkout','master']})
+
+              if version!='':
+                 cx=qq.get('dict',{}).get('checkouts',{}).get(version,{})
+                 branch=cx.get('branch','')
+                 checkout=cx.get('checkout','')
+
+                 if branch!='':
+                    r=ck.run_and_get_stdout({'cmd':['git','checkout',branch]})
+
+                 if checkout!='':
+                    r=ck.run_and_get_stdout({'cmd':['git','checkout',checkout]})
+
+              # FGG TBD: we may need to add explicit check for branch/checkout in repo_deps here?
+              # OR MAYBE NOT - need to think ...
+
+              # Get current branch
               r=ck.run_and_get_stdout({'cmd':['git','rev-parse','--abbrev-ref','HEAD']})
               if r['return']==0 and r['return_code']==0: 
                  branch=r['stdout'].strip()
 
+              # Get current checkout
               r=ck.run_and_get_stdout({'cmd':['git','rev-parse','--short','HEAD']})
               if r['return']==0 and r['return_code']==0: 
                  checkout=r['stdout'].strip()
@@ -2248,7 +2387,30 @@ def show(i):
 
         ck.out(x)
 
-
     os.chdir(curdir)
 
     return {'return':0}
+
+##############################################################################
+# reset git repos to default branch and latest checkout (or specific one)
+
+def reset(i):
+    """
+    Input:  {
+              (data_uoa) - repository UOA
+
+              (stable)        - take stable version (highly experimental)
+              (version)       - checkout version (default - stable)
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    i['reset']='yes'
+
+    return show(i)
