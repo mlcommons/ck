@@ -1,3 +1,6 @@
+* V1.9.1.1
+  * starting new version
+
 * V1.9.1
   * added ck.debug_out(i) to print dict to console
   * fixed strange warnings for Python 3.5+ on Windows and Linux (when installed via pip)
