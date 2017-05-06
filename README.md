@@ -8,6 +8,7 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 News
 ====
 * Our CGO'07 paper (which later motivated creation of CK) received [CGO test of time award](http://dividiti.blogspot.fr/2017/02/we-received-test-of-time-award-for-our.html);
+* Demo of CK-powered AI API with collaboratively optimized DNN is now available [here](http://cknowledge.org/ai/ck-json-api here);
 * CK-powered artifact received distinguished award at CGO'17 (Austin,TX): [paper with AE appendix and CK workflow](http://cTuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf), [GitHub sources](https://github.com/SamAinsworth/reproduce-cgo2017-paper), [CK interactive dashboard snapshot](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf);
 * Our CK-related CNRS presentation "[Enabling open and reproducible research at computer systems conferences: the good, the bad and the ugly](http://dividiti.blogspot.fr/2017/03/enabling-open-and-reproducible-computer.html)"
 * Michel Steuwer (University of Edinburgh) blogged about [CK concepts](https://michel-steuwer.github.io/About-CK);
@@ -95,6 +96,14 @@ or on Windows as following:
  $ set PATH={CURRENT PATH}\ck\bin;%PATH%
 ```
 
+Collaborative AI optimization (DNN engines and models)
+======================================================
+
+See [cKnowledge.org/ai](http://cKnowledge.org/ai), 
+[unified CK AI API demo](http://cKnowledge.org/ai/ck-api-demo),
+[Caffe/TensorFlow optimization statistics from various devices](http://cKnowledge.org/repo)
+for more details.
+
 Portable and customizable benchmarking
 ======================================
 
@@ -139,6 +148,10 @@ you can simply compile and run the same problem on this device as following:
  $ ck compile program:cbench-automotive-susan --speed --target_os=android21-arm-v7a
  $ ck run program:cbench-automotive-susan --target_os=android21-arm-v7a
 ```
+
+You can also participate in machine learning based compiler optimization
+using this [CK repository](https://github.com/ctuning/reproduce-milepost-project) 
+and [online demo](http://cKnowledge.org/ai/ck-api-demo).
 
 Artifact evaluation
 ===================
