@@ -11,7 +11,7 @@
 # of common functions for performance reasons
 
 __version__ = "1.9.1.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
-                         # Do not use characters (to detect oudated version)!
+                         # Do not use characters (to detect outdated version)!
 
 # Extra modules global for the whole kernel
 import sys
@@ -20,7 +20,7 @@ import os
 import imp   # Loading Python modules
 
 initialized=False      # True if initialized
-allow_print=True       # Needed to supress all output
+allow_print=True       # Needed to suppress all output
 con_encoding=''        # Use non-default console encoding
 
 cfg={
@@ -5316,6 +5316,14 @@ def cd(i):
        out(s)
 
        r['string']=s
+
+       import platform
+       if platform.system().lower().startswith('win'): # pragma: no cover
+          out('')
+          out('Warning: you are in a new shell (with reused environment). Enter "exit" to return to the original one!')
+          import subprocess
+          p = subprocess.Popen(["cmd", "/k", s], shell = True, env=os.environ)
+          p.wait()
 
     return r
 
