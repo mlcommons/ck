@@ -1069,6 +1069,7 @@ def gen_tmp_file(i):
 
     xs=i.get('suffix','')
     xp=i.get('prefix','')
+    s=i.get('string','')
 
     import tempfile
     fd, fn=tempfile.mkstemp(suffix=xs, prefix=xp)
@@ -5318,12 +5319,24 @@ def cd(i):
        r['string']=s
 
        import platform
+       import subprocess
+
+       out('')
+       out('Warning: you are in a new shell with a reused environment. Enter "exit" to return to the original one!')
+
        if platform.system().lower().startswith('win'): # pragma: no cover
-          out('')
-          out('Warning: you are in a new shell (with reused environment). Enter "exit" to return to the original one!')
-          import subprocess
           p = subprocess.Popen(["cmd", "/k", s], shell = True, env=os.environ)
           p.wait()
+
+       else:
+          rx=gen_tmp_file({})
+          if rx['return']>0: return rx
+          fn=rx['file_name']
+
+          rx=save_text_file({'text_file':fn, 'string':s})
+          if rx['return']>0: return rx
+
+          os.system("bash --rcfile "+fn)
 
     return r
 
