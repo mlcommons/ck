@@ -1,5 +1,6 @@
 * V1.9.1.1
   * added "ck cd {CK entry}" to open a new shell in a given CK entry
+  * fixed some self tests
 
 * V1.9.1
   * added ck.debug_out(i) to print dict to console

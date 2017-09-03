@@ -163,6 +163,7 @@ def run_data_tests(i):
     }
     out = 'con' if i.get('out','') == 'con' else ''
     for m in modules_lst:
+#        print (m,repo_uoa,out,test_file_pattern, test_names)
         r = run_module_tests({'module': m, 'repo_uoa': repo_uoa, 'out': out, 
                               'test_file_pattern': test_file_pattern, 'test_names': test_names})
         if is_execution_error(r):
