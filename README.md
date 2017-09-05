@@ -5,27 +5,6 @@ Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
-News
-====
-* Our CGO'07 paper (which later motivated creation of CK) received [CGO test of time award](http://dividiti.blogspot.fr/2017/02/we-received-test-of-time-award-for-our.html);
-* Demo of CK-powered AI API with collaboratively optimized DNN is now available [here](http://cknowledge.org/ai/ck-api-demo);
-* CK-powered artifact received distinguished award at CGO'17 (Austin,TX): [paper with AE appendix and CK workflow](http://cTuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf), [GitHub sources](https://github.com/SamAinsworth/reproduce-cgo2017-paper), [CK interactive dashboard snapshot](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf);
-* Our CK-related CNRS presentation "[Enabling open and reproducible research at computer systems conferences: the good, the bad and the ugly](http://dividiti.blogspot.fr/2017/03/enabling-open-and-reproducible-computer.html)"
-* Michel Steuwer (University of Edinburgh) blogged about [CK concepts](https://michel-steuwer.github.io/About-CK);
-* We [discussed with the commnunity](http://dividiti.blogspot.fr/2017/01/artifact-evaluation-discussion-session.html) how to use CK to improve Artifact Evaluation for CGO,PPoPP,PACT,RTSS,SC;
-* Check out new [CK-AI](http://cKnowledge.org/ai) initiative to provide common JSON API and web-services for popular DNN frameworks (Caffe, TensorFlow, TensorRT) and prepare them for collaborative optimization (code and models);
-* ARM uses CK as a front-end for systematic and reproducible benchmarking and tuning of real workloads: [GitHub](https://github.com/ctuning/ck-wa), [ARM TechCon'16 presentation](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems); 
-* CK-powered open challenges in computer engineering have been updated: [link](https://github.com/ctuning/ck/wiki/Research-and-development-challenges);
-* Fully updated documentation is now available: [Wiki](http://github.com/ctuning/ck/wiki), [Getting Started Guide](http://github.com/ctuning/ck/wiki/Getting-started-guide), [Portable workflows](http://github.com/ctuning/ck/wiki/Portable-workflows);
-* We have moved Open Science resources [here](http://github.com/ctuning/ck/wiki/Enabling-Open-Science);
-* We have added continuous integration for Linux and Windows;
-* General Motors and dividiti crowdsource benchmarking and optimization of CAFFE (DNN framework) using CK: [GitHub](https://github.com/dividiti/ck-caffe), [Android app](https://play.google.com/store/apps/details?id=openscience.crowdsource.video.experiments);
-* CK supports [Jupyter notebooks](http://jupyter.org) and [Docker](http://github.com/ctuning/ck-docker);
-* cTuning foundation and ARM has received [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014) for the CK concept.
-
-Introduction
-============
-
 Collective Knowledge is our "swiss knife" for open, collaborative and reproducible experimentation.
 CK is a small, portable and customizable research platform to
 * share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc) - see [Artifact Evaluation website](http://ctuning.org/ae/submission.html); 
@@ -38,19 +17,51 @@ CK is a small, portable and customizable research platform to
 * unify access to predictive analytics (scikit-learn, R, DNN, etc) via unified JSON API and CK web services ([CK repo](https://github.com/ctuning/ck-analytics));
 * enable reproducible and interactive articles ([CK repo](https://github.com/ctuning/ck-web)). 
 
-Project homepage: 
+Project website with the latest news: 
 * http://cKnowledge.org
-* http://cTuning.org
+* [News archive](https://github.com/ctuning/ck/wiki/News-archive)
 
 Notable use cases:
 * [Wikipedia article](https://en.wikipedia.org/wiki/Collective_Knowledge_(software)#Notable_usages)
 
-CK concepts by Michel Steuwer:
-* https://michel-steuwer.github.io/About-CK
+Documentation including "Getting Started Guides":
+* [GitHub wiki](https://github.com/ctuning/ck/wiki)
+
+Mailing list:
+* [Google group](https://groups.google.com/forum/#!forum/collective-knowledge)
+
+Reference publication (see [online](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability)):
+
+```
+@inproceedings{ck-date16,
+    title = {{Collective Knowledge}: towards {R\&D} sustainability},
+    author = {Fursin, Grigori and Lokhmotov, Anton and Plowman, Ed},
+    booktitle = {Proceedings of the Conference on Design, Automation and Test in Europe (DATE'16)},
+    year = {2016},
+    month = {March},
+    url = {https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability}
+}
+```
 
 License
 =======
 * Permissive 3-clause BSD license. (See `LICENSE.txt` for more details).
+
+Testimonials and awards
+=======================
+* 2017: ACM CGO test of time award for our CGO'07 paper that led to creating CK
+* 2016: General Motors and dividiti use CK to crowdsource benchmarking and optimization of CAFFE: [public CK repo](https://github.com/dividiti/ck-caffe)
+* 2015: ARM and the cTuning foundation use CK to accelerate computer engineering: [HiPEAC Info'45 page 17](https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf), [ARM TechCon'16 presentation and demo](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems), [public CK repo](https://github.com/ctuning/ck-wa)
+* 2014: HiPEAC technology transfer award: [HiPEAC TT winners](https://www.hipeac.net/research/technology-transfer-awards/2014)
+
+Acknowledgments
+===============
+
+CK development is coordinated by the [cTuning foundation](http://cTuning.org) (non-profit research organization)
+and [dividiti](http://dividiti.com). We would like to thank the [EU TETRACOM 609491 Coordination Action](http://tetracom.eu) 
+for initial funding, Microsoft for sponsoring hosting of a CK public
+repository in the Azure cloud, and all our partners for continuing support.  
+We are also extremely grateful to all volunteers for their valuable feedback and contributions.
 
 Minimal installation
 ====================
@@ -342,19 +353,3 @@ If you found CK useful, feel free to reference
 any of the above publications. You can download 
 all above references in one BibTex file 
 [here](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/collective-knowledge-refs.bib).
-
-Testimonials and awards
-=======================
-* 2016: General Motors and dividiti use CK to crowdsource benchmarking and optimization of CAFFE: [public CK repo](https://github.com/dividiti/ck-caffe)
-* 2015: ARM and the cTuning foundation use CK to accelerate computer engineering: [HiPEAC Info'45 page 17](https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf), [ARM TechCon'16 presentation and demo](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems), [public CK repo](https://github.com/ctuning/ck-wa)
-* 2014: HiPEAC technology transfer award: [HiPEAC TT winners](https://www.hipeac.net/research/technology-transfer-awards/2014)
-
-Acknowledgments
-===============
-
-CK development is coordinated by the [cTuning foundation](http://cTuning.org) (non-profit research organization). 
-We thank the [EU TETRACOM 609491 Coordination Action](http://tetracom.eu) for initial funding and
-[dividiti](http://dividiti.com) for continuing support. We would also like to
-thank Microsoft Research program for one-year grant to host the CK public
-repository in the Azure cloud.  We are also extremely grateful to all
-volunteers for their valuable feedback and contributions.
