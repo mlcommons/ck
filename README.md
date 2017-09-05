@@ -5,8 +5,11 @@ Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
+Introduction
+============
+
 Collective Knowledge is our "swiss knife" for open, collaborative and reproducible experimentation.
-CK is a small, portable and customizable research platform to
+CK is a small, portable and customizable research SDK to
 * share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc) - see [Artifact Evaluation website](http://ctuning.org/ae/submission.html); 
 * automate detection or installation of all software dependencies on Linux, Windows, MacOS, Android while enabling co-existence of different versions (compilers, benchmarks, libraries, tools) for a given experimental workflow across diverse Linux, Windows and Android based platforms via [CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
 * quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software ([CK repo](https://github.com/ctuning/ck-autotuning));
@@ -17,21 +20,15 @@ CK is a small, portable and customizable research platform to
 * unify access to predictive analytics (scikit-learn, R, DNN, etc) via unified JSON API and CK web services ([CK repo](https://github.com/ctuning/ck-analytics));
 * enable reproducible and interactive articles ([CK repo](https://github.com/ctuning/ck-web)). 
 
-Project website with the latest news: 
-* http://cKnowledge.org
+Useful links
+============
+
+* [cKnowledge.org - project website with the latest news](http://cKnowledge.org)
 * [News archive](https://github.com/ctuning/ck/wiki/News-archive)
-
-Notable use cases:
-* [Wikipedia article](https://en.wikipedia.org/wiki/Collective_Knowledge_(software)#Notable_usages)
-
-Documentation including "Getting Started Guides":
-* [GitHub wiki](https://github.com/ctuning/ck/wiki)
-
-Mailing list:
-* [Google group](https://groups.google.com/forum/#!forum/collective-knowledge)
-
-Reference publication (see [online](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability)):
-
+* [Notable use cases](https://en.wikipedia.org/wiki/Collective_Knowledge_(software)#Notable_usages)
+* [Documentation including "Getting Started Guide"](https://github.com/ctuning/ck/wiki)
+* [CK Mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
+* [Reference publication](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability)
 ```
 @inproceedings{ck-date16,
     title = {{Collective Knowledge}: towards {R\&D} sustainability},
@@ -49,7 +46,7 @@ License
 
 Testimonials and awards
 =======================
-* 2017: ACM CGO test of time award for our CGO'07 paper that led to creating CK
+* 2017: [ACM CGO test of time award for our CGO'07 paper that led to creating CK](http://dividiti.blogspot.com/2017/02/we-received-test-of-time-award-for-our.html)
 * 2016: General Motors and dividiti use CK to crowdsource benchmarking and optimization of CAFFE: [public CK repo](https://github.com/dividiti/ck-caffe)
 * 2015: ARM and the cTuning foundation use CK to accelerate computer engineering: [HiPEAC Info'45 page 17](https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf), [ARM TechCon'16 presentation and demo](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems), [public CK repo](https://github.com/ctuning/ck-wa)
 * 2014: HiPEAC technology transfer award: [HiPEAC TT winners](https://www.hipeac.net/research/technology-transfer-awards/2014)
