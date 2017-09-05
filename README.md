@@ -28,7 +28,7 @@ Useful links
 * [Notable use cases](https://en.wikipedia.org/wiki/Collective_Knowledge_(software)#Notable_usages)
 * [Documentation including "Getting Started Guide"](https://github.com/ctuning/ck/wiki)
 * [CK Mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
-* [Reference publication](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability)
+* [Reference publication](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability), bibtex:
 ```
 @inproceedings{ck-date16,
     title = {{Collective Knowledge}: towards {R\&D} sustainability},
@@ -46,10 +46,12 @@ License
 
 Testimonials and awards
 =======================
-* 2017: [ACM CGO test of time award for our CGO'07 paper that led to creating CK](http://dividiti.blogspot.com/2017/02/we-received-test-of-time-award-for-our.html)
+* 2017: [Test of time award for our ACM CGO'07 paper that led to creating CK](http://dividiti.blogspot.com/2017/02/we-received-test-of-time-award-for-our.html)
+* 2017: [ARM video about CK-powered optimization of DNN at the Embedded Vision Summit](http://dividiti.blogspot.com/2017/09/video-from-arm-presenting-our.html)
+* 2017: [ACM evaluates CK technology to share experimental workflows in Digital Libraries](http://dl.acm.org/docs/reproducibility.cfm)
 * 2016: General Motors and dividiti use CK to crowdsource benchmarking and optimization of CAFFE: [public CK repo](https://github.com/dividiti/ck-caffe)
 * 2015: ARM and the cTuning foundation use CK to accelerate computer engineering: [HiPEAC Info'45 page 17](https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf), [ARM TechCon'16 presentation and demo](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems), [public CK repo](https://github.com/ctuning/ck-wa)
-* 2014: HiPEAC technology transfer award: [HiPEAC TT winners](https://www.hipeac.net/research/technology-transfer-awards/2014)
+* 2014: [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014)
 
 Acknowledgments
 ===============
@@ -57,7 +59,7 @@ Acknowledgments
 CK development is coordinated by the [cTuning foundation](http://cTuning.org) (non-profit research organization)
 and [dividiti](http://dividiti.com). We would like to thank the [EU TETRACOM 609491 Coordination Action](http://tetracom.eu) 
 for initial funding, Microsoft for sponsoring hosting of a CK public
-repository in the Azure cloud, and all our partners for continuing support.  
+repository in the Azure cloud, and all our partners for continuing support.
 We are also extremely grateful to all volunteers for their valuable feedback and contributions.
 
 Minimal installation
