@@ -144,6 +144,7 @@ You can download and view one of our CK-based interactive and reproducible artic
 ```
  $ ck pull repo:ck-docker
  $ ck run docker:ck-interactive-article --browser (--sudo)
+```
 
 See the list of other CK-related Docker images [here](https://hub.docker.com/u/ctuning).
 
