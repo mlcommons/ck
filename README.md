@@ -25,10 +25,20 @@ Useful links
 
 * [cKnowledge.org - project website with the latest news](http://cKnowledge.org)
 * [News archive](https://github.com/ctuning/ck/wiki/News-archive)
-* [Notable use cases](https://en.wikipedia.org/wiki/Collective_Knowledge_(software)#Notable_usages)
+* [Practical use cases](http://cKnowledge.org/use_cases.html)
+* [Academic and industrial partners](http://cKnowledge.org/partners.html)
 * [Documentation including "Getting Started Guide"](https://github.com/ctuning/ck/wiki)
+* [CK motivation](https://github.com/ctuning/ck/wiki/Motivation)
+* [Development plans](https://github.com/ctuning/ck/wiki/Plans)
+* [CK-related publications](https://github.com/ctuning/ck/wiki/Publications)
+* [CK-powered open research challenges](https://github.com/ctuning/ck/wiki/Research-and-development-challenges)
+* [Previous deprecated version (Collective Mind)](http://c-mind.org)
 * [CK Mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
-* [Reference publication](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability), bibtex:
+
+Reference article
+=================
+* [Online PDF](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability)
+
 ```
 @inproceedings{ck-date16,
     title = {{Collective Knowledge}: towards {R\&D} sustainability},
@@ -49,6 +59,8 @@ Testimonials and awards
 * 2017: [Test of time award for our ACM CGO'07 paper that led to creating CK](http://dividiti.blogspot.com/2017/02/we-received-test-of-time-award-for-our.html)
 * 2017: [ARM video about CK-powered optimization of DNN at the Embedded Vision Summit](http://dividiti.blogspot.com/2017/09/video-from-arm-presenting-our.html)
 * 2017: [ACM evaluates CK technology to share experimental workflows in Digital Libraries](http://dl.acm.org/docs/reproducibility.cfm)
+* 2017: CK-powered experimental workflow from the UCambridge received distinguished artifact award at the CGO'17: [GitHub](https://github.com/SamAinsworth/reproduce-cgo2017-paper), [PDF](http://ctuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf), [CK dashboard snapshot](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf)
+* 2016: Imperial College London colleagues won [HiPEAC TT award](https://www.hipeac.net/press/6801/hipeac-tech-transfer-awards-announced) for their CK-based project to crowdsource OpenCL bug detection: [GitHub](https://github.com/ctuning/ck-clsmith);
 * 2016: General Motors and dividiti use CK to crowdsource benchmarking and optimization of CAFFE: [public CK repo](https://github.com/dividiti/ck-caffe)
 * 2015: ARM and the cTuning foundation use CK to accelerate computer engineering: [HiPEAC Info'45 page 17](https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf), [ARM TechCon'16 presentation and demo](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems), [public CK repo](https://github.com/ctuning/ck-wa)
 * 2014: [HiPEAC technology transfer award](https://www.hipeac.net/research/technology-transfer-awards/2014)
@@ -106,158 +118,7 @@ or on Windows as following:
  $ set PATH={CURRENT PATH}\ck\bin;%PATH%
 ```
 
-Collaborative AI optimization (DNN engines and models)
-======================================================
-
-See [cKnowledge.org/ai](http://cKnowledge.org/ai), 
-[unified CK AI API demo](http://cKnowledge.org/ai/ck-api-demo),
-[Caffe/TensorFlow optimization statistics from various devices](http://cKnowledge.org/repo)
-for more details.
-
-Portable and customizable benchmarking
-======================================
-
-You can now test CK by pulling and executing one of many shared workflows.
-
-For example, you can try the following community project to unify benchmarking
-across ever changing hardware and software - just check that you have at least
-one compiler installed for your target platform as described 
-[here](https://github.com/ctuning/ck/wiki/Compiler-autotuning#Installing_compilers):
-
-```
- $ ck pull repo:ck-autotuning
- $ ck pull repo:ctuning-programs
-```
-
-You can see shared programs in the CK format (JSON meta information 
-describing how to compile and run shared program with all dependencies and data sets):
-```
- $ ck list program
-```
-
-You can now compile a given program simply as following:
-```
- $ ck compile program:cbench-automotive-susan --speed
-```
-
-Note, that CK will detect all available versions of required compilers (GCC, LLVM, ICC ...) 
-and libraries on your system using [CK customizable cross-platform package and environment manager with JSON API and meta](https://github.com/ctuning/ck-env).
-If some software dependencies are missing, CK will automatically install required packages
-as described in this [article about portable CK workflows](https://github.com/ctuning/ck/wiki/Portable-workflows.mediawiki).
-
-Now you can run your program simply as following:
-```
- $ ck run program:cbench-automotive-susan
-```
-
-CK will ask you which command line to use and will automatically detect or install all required data sets.
-
-If you have Android NDK/SDK installed on your host machine and Android device connected via ADB, 
-you can simply compile and run the same problem on this device as following:
-```
- $ ck compile program:cbench-automotive-susan --speed --target_os=android21-arm-v7a
- $ ck run program:cbench-automotive-susan --target_os=android21-arm-v7a
-```
-
-You can also participate in machine learning based compiler optimization
-using this [CK repository](https://github.com/ctuning/reproduce-milepost-project) 
-and [online demo](http://cKnowledge.org/ai/ck-api-demo).
-
-Artifact evaluation
-===================
-
-Collective Knowledge can help you convert your ad-hoc experimental scripts to portable, customizable and reusable 
-with automatic cross-platform software installation and web-based experimental dashboards 
-for [Artifact Evaluation](http://cTuning.org/ae) at the leading conferences and journals as briefly described
-[here](https://github.com/ctuning/ck/wiki/Artifact-sharing). Feel free to ask for help from the CK community 
-[here](http://groups.google.com/group/collective-knowledge)!
-
-See example of a CGO'17 distinguished artifact from the University of Cambridge implemented using CK:
-* [CK artifacts at GitHub](https://github.com/SamAinsworth/reproduce-cgo2017-paper)
-* [Paper with AE appendix and CK workflow](http://ctuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf)
-* [PDF snapshot of the interactive CK dashboard](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf)
-* [CK concepts](https://michel-steuwer.github.io/About-CK)
-
-Note that you can install above repositories and dependencies to a new CK space without mixing up your current installations
-(similar to virtual environment) as following (substitute "export" with "set" on Windows):
-
-```
- $ export CK_REPOS={path to a new CK space with all repos and dependencies}
- $ ck setup kernel --var.install_to_env=yes
- $ ck pull repo --url={URL of the artifact repository}
-```
-
-When CK kernels variable "install_to_env" is set to "yes", CK will be installing 
-required packages inside CK space. In such case, when you stop evaluating artifacts,
-you can easily remove the whole CK space together with all installed packages.
-
-Portable experiment crowdsourcing workflow
-==========================================
-
-You can check our shared workflow to crowdsource experiments across diverse
-software and hardware provided by volunteers 
-aka SETI@HOME for computer systems' research:
-
-
-```
- $ ck pull repo:ck-crowdtuning
- $ ck crowdsource experiment
-```
-
-For example, you can execute shared workflow for collaborative program optimization
-with all related artifacts, and start participating in multi-objective crowdtuning 
-simply as following: 
-
-```
- $ ck crowdtune program
-```
-
-You can also crowd-tune GCC on Windows as following:
-```
- $ ck crowdtune program --gcc --target_os=mingw-64
-```
-
-If you have GCC or LLVM compilers installed, you can start continuously crowd-tune 
-their optimization heuristics in a quiet mode (for example overnight) via
-
-```
-$ ck crowdtune program --llvm --quiet
-$ ck crowdtune program --gcc --quiet
-```
-
-This experimental workflow will be optimizing different shared workloads
-for multiple objectives (execution time, code size, energy, compilation time, etc)
-using all exposed design and optimization knobs, while sending best performing 
-optimizations to the public CK-based server:
-
-* http://cTuning.org/crowd-results
-* http://cknowledge.org/interactive-report
-
-CK server will, in turn, perform on-line learning to classify optimization 
-versus workloads which can be useful for compiler/hardware designers and 
-performance engineers (described in more detail in http://arxiv.org/abs/1506.06256 ).
-
-You can even participate in collaborative experiments using your Android mobile phone
-by installing the following application from the Google Play Store:
-
-* https://play.google.com/store/apps/details?id=openscience.crowdsource.experiments
-
-If you want to try something more complex, you can check our cross-platform DNN unification,
-customized installation and benchmarking via CK with JSON API and web services:
-* http://cKnowledge.org/ai
-
-You can find already shared artifacts and repositories here:
-* List of shared repositories: https://github.com/ctuning/ck/wiki/Shared-repos
-* List of shared modules: https://github.com/ctuning/ck/wiki/Shared-modules
-
-Please check out CK getting started guides and CK wiki for further details:
-* https://github.com/ctuning/ck/wiki/Getting-started-guide
-* https://github.com/ctuning/ck/wiki/Portable-workflows
-* https://github.com/ctuning/ck/wiki
-
-You can also reuse and customize artifacts with CK-based experimental workflows 
-shared at the leading computer systems' conferences:
-* http://cTuning.org/ae/artifacts.html
+Further installation details can be found [here](https://github.com/ctuning/ck/wiki/Getting-started-guide#Quick_CK_installation).
 
 Trying CK using Docker image
 ============================
@@ -269,11 +130,8 @@ you can run the following Docker image:
  $ docker run -it ctuning/ck
 ```
 
-However, the idea of CK is to be able to rebuild user experimental workflows
-natively to take advantage of the latest software environment.
-
-Also note that we added Docker automation to CK (to help 
-evaluate artifacts at the conferences, share interactive 
+Also note that we added Docker automation to CK 
+(to help evaluate artifacts at the conferences, share interactive 
 and reproducible articles or crowdsource experiments for example). 
 
 Please check 'ck-docker' repository at GitHub:
@@ -286,69 +144,30 @@ You can download and view one of our CK-based interactive and reproducible artic
 ```
  $ ck pull repo:ck-docker
  $ ck run docker:ck-interactive-article --browser (--sudo)
-```
 
-Testing CK
-==========
-You can test CK functionality via
-```
- $ ck run test
-```
+See the list of other CK-related Docker images [here](https://hub.docker.com/u/ctuning).
 
-Our related initiatives
-=======================
+However note that the main idea behind CK is to be able to rebuild user experimental workflows
+natively, take advantage of the latest software environment and hardware,
+and enable open research via collaborative reuse and agile improvement 
+of all shared artifacts and workflows.
 
-* Artifact Evaluation for computer systems' conferences: http://cTuning.org/ae
-* New publication model with the community-driven public reviewing: http://adapt-workshop.org
-
-Plans
+Practical use cases
 ===================
-* https://github.com/ctuning/ck/wiki/Plans
 
-Motivation
-==========
-* https://github.com/ctuning/ck/wiki/Motivation
-
-Authors
-=======
-* [Grigori Fursin](http://fursin.net/research.html), cTuning foundation / dividiti
-* [Anton Lokhmotov](https://www.hipeac.net/~anton), dividiti
+See the [list of real use cases](http://cKnowledge.org/use_cases.html) 
+by the [growing CK community](http://cKnowledge.org/partners.html).
 
 Questions/comments/discussions?
 ===============================
-* Public wiki with open challenges in computer engineering:
-  https://github.com/ctuning/ck/wiki/Research-and-development-challenges
 * Mailing list for open, collaborative and reproducible R&D including knowledge preservation, sharing and reuse:
   http://groups.google.com/group/collective-knowledge
 * Mailing list for software and hardware multi-objective (performance/energy/accuracy/size/reliability/cost)
   benchmarking, autotuning, crowdtuning and run-time adaptation: http://groups.google.com/group/ctuning-discussions
+* Public wiki with CK-powered open challenges in computer engineering:
+  https://github.com/ctuning/ck/wiki/Research-and-development-challenges
 
-Publications
-============
-
-```
-@inproceedings{ck-date16,
-    title = {{Collective Knowledge}: towards {R\&D} sustainability},
-    author = {Fursin, Grigori and Lokhmotov, Anton and Plowman, Ed},
-    booktitle = {Proceedings of the Conference on Design, Automation and Test in Europe (DATE'16)},
-    year = {2016},
-    month = {March},
-    url = {https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability}
-}
-```
-
-The concepts have been described in the following publications:
-
-* http://tinyurl.com/zyupd5v (DATE'16)
-* http://arxiv.org/abs/1506.06256 (CPC'15)
-* http://hal.inria.fr/hal-01054763 (Journal of Scientific Programming'14)
-
-* http://bit.ly/ck-multiprog16 (MULTIPROG'16)
-* http://cknowledge.org/interactive-report
-* http://arxiv.org/abs/1406.4020 (TRUST'14 @ PLDI'14)
-* https://hal.inria.fr/inria-00436029 (GCC Summit'09)
-
-If you found CK useful, feel free to reference 
-any of the above publications. You can download 
-all above references in one BibTex file 
-[here](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/collective-knowledge-refs.bib).
+CK authors
+==========
+* [Grigori Fursin](http://fursin.net/research.html), cTuning foundation / dividiti
+* [Anton Lokhmotov](https://www.hipeac.net/~anton), dividiti
