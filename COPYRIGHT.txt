@@ -1,1 +1,1 @@
-(C)opyright 2014-2017 Grigori Fursin, Anton Lokhmotov and contributors
+Copyright (c) 2014-2017 cTuning foundation

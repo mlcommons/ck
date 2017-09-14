@@ -1,4 +1,4 @@
-Copyright 2014-2017 Grigori Fursin, cTuning foundation and volunteers <Grigori.Fursin@cTuning.org>
+Copyright (c) 2014-2017 cTuning foundation <admin@cTuning.org>
 All rights reserved
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -11,7 +11,7 @@ are permitted provided that the following conditions are met:
        notice, this list of conditions and the following disclaimer in the
        documentation and/or other materials provided with the distribution.
 
-    3. Neither the name of Grigori Fursin and CTUNING FOUNDATION
+    3. Neither the name of the cTuning foundation
        nor the names of its contributors may be used to endorse
        or promote products derived from this software without
        specific prior written permission.
