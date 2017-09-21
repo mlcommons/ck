@@ -7536,6 +7536,16 @@ def compare_dicts(i):
               dict1         - dictionary 1
               dict2         - dictionary 2
               (ignore_case) - ignore case of letters
+
+              Note that if dict1 and dict2 has lists, the results will be as following:
+
+              * dict1={"key":['a','b','c']}
+                dict2={"key":['a','b']}
+                EQUAL
+
+              * dict1={"key":['a','b']}
+                dict2={"key":['a','b','c']}
+                NOT EQUAL
             }
 
     Output: {
