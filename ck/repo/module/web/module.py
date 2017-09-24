@@ -679,16 +679,12 @@ def start(i):
           if ext!='': ext+='&'
           ext+='wcid='+cid
 
-       print (cid)
-
        if i.get('extra_url','')!='':
           if ext!='': ext+='&'
           ext+=i['extra_url']
 
        if ext!='':
           rurl+='/?'+ext
-
-       print (rurl)
 
        import webbrowser
        webbrowser.open(rurl)
