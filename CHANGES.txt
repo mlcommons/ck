@@ -2,6 +2,7 @@
   * added "ck cd {CK entry}" to open a new shell in a given CK entry
   * added ck.compare_dicts examples
   * fixed some self tests
+  * added safe recording of JSON (even if some keys are not serializable)
 
 * V1.9.1
   * added ck.debug_out(i) to print dict to console

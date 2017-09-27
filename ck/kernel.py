@@ -1564,9 +1564,10 @@ def dump_json(i):
 def save_json_to_file(i):
     """
     Input:  {
-              json_file   - file name
-              dict        - dict to save
-              (sort_keys) - if 'yes', sort keys
+              json_file    - file name
+              dict         - dict to save
+              (sort_keys)  - if 'yes', sort keys
+              (safe)       - if 'yes', ignore non-JSON values (only for Debugging - changes original dict!)
             }
 
     Output: {
@@ -1577,7 +1578,22 @@ def save_json_to_file(i):
     """
 
     fn=i['json_file']
-    d=i['dict']
+
+    if i.get('safe','')=='yes':
+       d=i['dict']
+
+       sd={}
+
+       # Check main unprintable keys
+       for k in d:
+           try:
+              json.dumps(d[k])
+           except Exception as e: 
+              pass
+           else:
+              sd[k]=d[k]
+
+       i['dict']=sd
 
     r=dumps_json(i)
     if r['return']>0: return r
