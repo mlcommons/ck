@@ -1184,22 +1184,6 @@ def recache(i):
     return {'return':0}
 
 ##############################################################################
-# Remove files and dirs even if read only (internal use)
-def rm_read_only(f,p,e):
-    import os
-    import stat
-    import errno
-
-    ex=e[1]
-
-#    if ex.errno!=errno.EACCES or f not in (os.rmdir,os.remove): raise
-
-    os.chmod(p,stat.S_IRWXU|stat.S_IRWXG|stat.S_IRWXO)
-    f(p)
-
-    return
-
-##############################################################################
 # Remove information about repository
 
 def rm(i):
@@ -1286,7 +1270,8 @@ def rm(i):
        if wf=='yes' and p!='':
           if o=='con': ck.out('Removing entries from the repository ...')
           import shutil
-          if os.path.isdir(p): shutil.rmtree(p, onerror=rm_read_only)
+          if os.path.isdir(p): 
+             shutil.rmtree(p, onerror=ck.rm_read_only)
 
        if o=='con': 
           ck.out('')

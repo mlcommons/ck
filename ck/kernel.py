@@ -3739,7 +3739,7 @@ def delete_directory(i):
     p=i['path']
 
     if os.path.isdir(p):
-       shutil.rmtree(p)
+       shutil.rmtree(p, onerror=rm_read_only)
 
     return {'return':0}
 
@@ -6071,7 +6071,7 @@ def rm(i):
                  if x2!='':
                     x='"'+x2+'"\n    '+x
 
-        xcuoa=x+' ('+muid+':'+duid+') ?'
+        xcuoa=x+' ('+muid+':'+duid+')'
 
         # Check repo/module writing
         ii={'module_uoa':m, 'repo_uoa':ll['repo_uoa'], 'repo_uid':ll['repo_uid']}
@@ -6090,7 +6090,7 @@ def rm(i):
         # If interactive
         to_delete=True
         if o=='con' and force!='yes':
-           r=inp({'text':'Are you sure to delete CK entry '+xcuoa+' (y/N): '})
+           r=inp({'text':'Are you sure to delete CK entry '+xcuoa+' ? (y/N): '})
            c=r['string'].lower()
            if c!='y' and c!='yes': to_delete=False
 
@@ -6309,7 +6309,8 @@ def ren(i):
           os.chdir(ppp)
 
           if os.path.isdir(p):
-             shutil.rmtree(p)
+             shutil.rmtree(p, onerror=rm_read_only)
+
        else:
           os.rename(p, pn)
 
@@ -6754,7 +6755,7 @@ def delete_file(i):
 
     if os.path.isdir(p1):
        import shutil
-       shutil.rmtree(p1)
+       shutil.rmtree(p1, onerror=rm_read_only)
 
     if rshared!='':
        os.chdir(ppp)
@@ -9034,6 +9035,20 @@ def filter_delete_index(i):
     path='/'+muid+'/'+duid+'/1'
 
     return access_index_server({'request':'DELETE', 'path':path})
+
+##############################################################################
+# Remove files and dirs even if read only (internal use)
+def rm_read_only(f,p,e):
+    import os
+    import stat
+    import errno
+
+    ex=e[1]
+
+    os.chmod(p,stat.S_IRWXU|stat.S_IRWXG|stat.S_IRWXO)
+    f(p)
+
+    return
 
 ############################################################################
 # Main universal access function that can access all CK resources!

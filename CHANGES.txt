@@ -8,6 +8,7 @@
   * added more user-friendly configuration of internal CK variables via
     $ ck set kernel
     $ ck set kernel var.install_to_env=yes
+  * added safe deletion of CK entries with Git files on Windows
 
 * V1.9.1
   * added ck.debug_out(i) to print dict to console
