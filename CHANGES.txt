@@ -9,6 +9,7 @@
     $ ck set kernel
     $ ck set kernel var.install_to_env=yes
   * added safe deletion of CK entries with Git files on Windows
+  * automated adding CK .zip repos without questions
 
 * V1.9.1
   * added ck.debug_out(i) to print dict to console

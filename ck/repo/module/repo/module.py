@@ -134,11 +134,41 @@ def add(i):
 
     quiet=i.get('quiet','')
 
-    zp=i.get('zip','')
     overwrite=i.get('overwrite','')
 
-    gz=i.get('gitzip','')
     ptr=''
+    zp=i.get('zip','')
+    gz=i.get('gitzip','')
+
+    if zp!='':
+       quiet='yes'
+
+       if d=='':
+          # Try to get data UOA
+          if not os.path.isfile(zp):
+             return {'return':1, 'error':'zip file not found'}
+
+          # Try to get .ckr.json
+          import zipfile
+
+          try:
+             with zipfile.ZipFile(zp) as z:
+                x=z.open(ck.cfg['repo_file'])
+                y=x.read()
+
+                r=ck.convert_json_str_to_dict({'str':y, 'skip_quote_replacement':'yes'})
+                if r['return']>0: return r
+                yd=r['dict']
+
+                d=yd.get('data_uoa','')
+                di=yd.get('data_uid','')
+                dn=yd.get('data_name','')
+
+                x.close()
+             z.close()
+          except Exception as e:
+             return {'return':1, 'error':'problem reading zip file ('+format(e)+')'}
+
     if gz=='yes':
        zp=ck.cfg['default_shared_repo_url']+'/'+d+'/archive/master.zip'
        ptr=d+'-master/'
