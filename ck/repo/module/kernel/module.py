@@ -16,6 +16,7 @@ sep='======================================================================='
 
 import sys
 import os
+import copy
 
 ##############################################################################
 # Initialize module
@@ -40,7 +41,7 @@ def setup(i):
     """
 
     Input:  {
-              (group)      - if !='', configure only this group:
+              (param)      - if !='', configure only this group:
                              * recache - recache repos (needed during first run for remote repos)
                              * install - install as python library
                              * update - check for update
@@ -51,6 +52,7 @@ def setup(i):
                              * writing - related to writing control
                              * wfe - related to web front end
                              * indexing - related to indexing
+                             * (vars) - internal - update/print kernel variables
             }
 
     Output: {
@@ -66,7 +68,7 @@ def setup(i):
     if r['return']>0: return r
     plat=r['platform']
 
-    # Check groups
+    # Check groups of parameters
     param=i.get('param','')
     if param=='':
        if i.get('content','')=='yes': param='content'
@@ -84,6 +86,11 @@ def setup(i):
     for k in i:
         if k.startswith('var.'):
            vr[k[4:]]=i[k]
+
+    if len(i.get('cids',[]))>0:
+       for k in i['cids']:
+           if k.startswith('var.'):
+               vr[k[4:]]=None
 
     if len(vr)>0 and param=='':
        param='vars' # to avoid selecting all sub-scenarios below
@@ -107,6 +114,8 @@ def setup(i):
                  'data_uoa':ck.cfg['subdir_kernel_default']})
     if r['return']==0:
        xcfg.update(r['dict'])
+
+    copy_xcfg=copy.deepcopy(xcfg) # to check if changed
 
     # Recaching repos
     if param=='' or param=='recache':
@@ -373,54 +382,104 @@ def setup(i):
        if d!='': xcfg['use_indexing']=d
 
     # Checking vars
-    if len(vr)>0:
+    if param=='vars':
        ck.out('')
-       for k in vr:
-           ck.out('* Updating CK kernel key "'+k+'"')
+       ck.out('Kernel variables:')
+       ck.out('')
 
-           kk=k
-           if not kk.startswith('#'):
-              kk='##'+kk
+       if len(vr)==0:
+          r=ck.flatten_dict({'dict':xcfg})
+          if r['return']>0: return r
+          xd=r['dict']
 
-           r=ck.get_by_flat_key({'dict':xcfg, 'key':kk})
-           if r['return']>0: return r
-           v=r['value']
+          for k in sorted(xd):
+              vv=str(xd[k])
+              if vv=='': vv='""'
+              ck.out(' * '+k+' = '+vv)
 
-           if v==None: # If empty, try from internal configuration
-              r=ck.get_by_flat_key({'dict':ck.cfg, 'key':kk})
+       else:
+          for k in vr:
+              kk=k
+              if not kk.startswith('#'):
+                 kk='##'+kk
+
+              r=ck.get_by_flat_key({'dict':xcfg, 'key':kk})
               if r['return']>0: return r
               v=r['value']
 
-           ck.out('    Old value: '+str(v))
+              if v==None: # If empty, try from internal configuration
+                 r=ck.get_by_flat_key({'dict':ck.cfg, 'key':kk})
+                 if r['return']>0: return r
+                 v=r['value']
 
-           v=vr[k]
+              vc=str(v) # current value
 
-           r=ck.set_by_flat_key({'dict':xcfg, 'key':kk, 'value':v})
-           if r['return']>0: return r
+              v=vr[k] # new value (or print current if none)
+              vv=str(v)
 
-           ck.out('    New value: '+str(v))
+              x1=vc
+              x2=''
+              if v!=None and vc!=vv:
+                 r=ck.set_by_flat_key({'dict':xcfg, 'key':kk, 'value':v})
+                 if r['return']>0: return r
+
+                 if vc=='': vc='""'
+                 x1=vv
+                 x2=' (changed from '+vc+')'
+
+              if x1=='': x1='""'
+
+              ck.out(' * '+k+' = '+x1+x2)
+
+       ck.out('')
 
     # Writing/updating configuration
-    ck.out(sep)
+    if xcfg!=copy_xcfg:
+       ck.out(sep)
 
-    fc=ck.work['dir_work_cfg']
-    if os.path.isfile(fc):
-       ck.out('Updating local configuration (directly) ...')
-       r=ck.save_json_to_file({'json_file':fc, 'dict':xcfg})
-    else:
-       ck.out('Adding local configuration ...')
-       ii={'action':'update',
-           'repo_uoa':ck.cfg['repo_name_local'],
-           'module_uoa':work['self_module_uoa'],
-           'data_uoa':ck.cfg['subdir_kernel_default'],
-           'dict':xcfg,
-           'substitute':'yes',
-           'ignore_update':'yes'}
-       r=ck.access(ii)
+       fc=ck.work['dir_work_cfg']
+       if os.path.isfile(fc):
+          ck.out('Updating local configuration (directly) ...')
+          r=ck.save_json_to_file({'json_file':fc, 'dict':xcfg, 'sort_keys':'yes'})
+       else:
+          ck.out('Adding local configuration ...')
+          ii={'action':'update',
+              'repo_uoa':ck.cfg['repo_name_local'],
+              'module_uoa':work['self_module_uoa'],
+              'data_uoa':ck.cfg['subdir_kernel_default'],
+              'dict':xcfg,
+              'substitute':'yes',
+              'ignore_update':'yes',
+              'sort_keys':'yes'}
+          r=ck.access(ii)
 
-    if r['return']>0: return r
+       if r['return']>0: return r
 
-    ck.out('')
-    ck.out('Configuration successfully recorded to '+fc+' ...')
+       ck.out('')
+       ck.out('Configuration successfully recorded to '+fc+' ...')
 
     return {'return':0}
+
+##############################################################################
+# set variable in kernel
+
+def set(i):
+    """
+    Input:  {
+              var.(kernel key) (=xyz) 
+                               for example, "ck set kernel var.install_to_env" will print install_to_env var
+                                            "ck set kernel var.install_to_env=yes" will set install_to_env var to yes
+                                            "ck set kernel var.install_to_env=" will set install_to_env var to ""
+                                            "ck set kernel" will print all vars
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    i['param']='vars'
+    return setup(i)

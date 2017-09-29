@@ -1,5 +1,8 @@
 {
   "actions": {
+    "set": {
+      "desc": "set variable in kernel"
+    },
     "setup": {
       "desc": "setup CK (user, license, indexing, web service, etc)"
     }

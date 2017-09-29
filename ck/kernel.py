@@ -6060,7 +6060,18 @@ def rm(i):
         else: dalias=''
 
         # Get user-friendly CID
-        xcuoa=muoa+':'+duoa+' ('+muid+':'+duid+')'
+        x=muoa+':'+duoa
+        if o=='con':
+           # Try to check if has data name (useful for env)
+           p2=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_info'])
+           if os.path.isfile(p2):
+              r2=load_json_file({'json_file':p2})
+              if r2['return']==0:
+                 x2=r2['dict'].get('data_name','')
+                 if x2!='':
+                    x='"'+x2+'"\n    '+x
+
+        xcuoa=x+' ('+muid+':'+duid+') ?'
 
         # Check repo/module writing
         ii={'module_uoa':m, 'repo_uoa':ll['repo_uoa'], 'repo_uid':ll['repo_uid']}
