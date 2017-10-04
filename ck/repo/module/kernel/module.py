@@ -466,6 +466,8 @@ def setup(i):
 def set(i):
     """
     Input:  {
+              (kernel key) (=xyz)
+                 or
               var.(kernel key) (=xyz) 
                                for example, "ck set kernel var.install_to_env" will print install_to_env var
                                             "ck set kernel var.install_to_env=yes" will set install_to_env var to yes

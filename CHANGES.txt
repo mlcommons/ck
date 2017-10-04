@@ -1,4 +1,4 @@
-* V1.9.1.1
+* V1.9.2
   * added "ck cd {CK entry}" to open a new shell in a given CK entry
   * added ck.compare_dicts examples
   * fixed some self tests
