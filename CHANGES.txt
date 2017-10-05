@@ -1,5 +1,5 @@
 * V1.9.2.1 
-  * starting new version
+  * fixed issue #80 (adding zip repo if starts with ~)
 
 * V1.9.2
   * added "ck cd {CK entry}" to open a new shell in a given CK entry

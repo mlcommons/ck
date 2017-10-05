@@ -141,6 +141,12 @@ def add(i):
     gz=i.get('gitzip','')
 
     if zp!='':
+       if zp.startswith('~'):
+          from os.path import expanduser
+          home = expanduser("~")
+
+          zp=os.path.abspath(home+os.sep+zp[1:])
+
        quiet='yes'
 
        if d=='':
