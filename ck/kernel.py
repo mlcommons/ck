@@ -6216,6 +6216,9 @@ def ren(i):
 
     duoa=r['data_uoa']
     duid=r['data_uid']
+    dalias=r['data_alias']
+
+    change_data_name=(ddi.get('data_name','')==dalias)
 
     p=r['path']
     pm=r['path_module'] 
@@ -6314,11 +6317,15 @@ def ren(i):
        else:
           os.rename(p, pn)
 
-    if nduid!='':
+    if nduid!='' or change_data_name:
        # Change backup_data_uid in info file
        ppi=os.path.join(pn,cfg['subdir_ck_ext'],cfg['file_info'])
 
-       ddi['backup_data_uid']=nduid
+       if nduid!='':
+          ddi['backup_data_uid']=nduid
+
+       if change_data_name:
+          ddi['data_name']=nduoa
 
        rx=save_json_to_file({'json_file':ppi, 'dict':ddi, 'sort_keys':'yes'})
        if rx['return']>0: return rx
