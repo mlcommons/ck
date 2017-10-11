@@ -6813,6 +6813,9 @@ def list_data(i):
               (print_uid)          - if 'yes', print UID in brackets
 
               (print_name)         - if 'yes', print name (and add info to the list)
+                  or
+              (name)
+
               (add_info)           - if 'yes', add info about entry to the list
               (add_meta)           - if 'yes', add meta about entry to the list
             }
@@ -6850,31 +6853,22 @@ def list_data(i):
     iu=i.get('ignore_update', '')
 
     prf=i.get('print_full','')
-    iprf=False
-    if prf=='yes': iprf=True
-
-    prf=i.get('all','')
-    if prf=='yes': iprf=True
+    if prf=='': prf=i.get('all','')
+    iprf=(prf=='yes')
 
     prn=i.get('print_name','')
-    iprn=False
-    if prn=='yes': iprn=True
+    if prn=='': prn=i.get('name','')
+    iprn=(prn=='yes')
 
-    pru=i.get('print_uid','')
-    ipru=False
-    if pru=='yes': ipru=True
+    ipru=(i.get('print_uid','')=='yes')
 
     # Add info about entry to the final list 
     # (particularly when searching by special keywords, 
     # such as name or date of creation
 
-    af=i.get('add_info','')
-    iaf=False
-    if af=='yes': iaf=True
+    iaf=(i.get('add_info','')=='yes')
 
-    am=i.get('add_meta','')
-    iam=False
-    if am=='yes': iam=True
+    iam=(i.get('add_meta','')=='yes')
 
     aidb=i.get('add_if_date_before','')
     aida=i.get('add_if_date_after','')

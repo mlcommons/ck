@@ -1,6 +1,7 @@
 * V1.9.2.1 
   * fixed issue #80 (adding zip repo if starts with ~)
   * fixed issue #81 (when renaming entry with data_name==data_alias, change it to the new alias)
+  * added flag --name (duplicate of --show_name) to "ck ls"
 
 * V1.9.2
   * added "ck cd {CK entry}" to open a new shell in a given CK entry
