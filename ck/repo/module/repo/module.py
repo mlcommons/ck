@@ -159,21 +159,31 @@ def add(i):
 
           try:
              with zipfile.ZipFile(zp) as z:
-                x=z.open(ck.cfg['repo_file'])
-                y=x.read()
+                if ck.cfg['repo_file'] in z.namelist():
+                   x=z.open(ck.cfg['repo_file'])
+                   y=x.read()
 
-                r=ck.convert_json_str_to_dict({'str':y, 'skip_quote_replacement':'yes'})
-                if r['return']>0: return r
-                yd=r['dict']
+                   r=ck.convert_json_str_to_dict({'str':y, 'skip_quote_replacement':'yes'})
+                   if r['return']>0: return r
+                   yd=r['dict']
 
-                d=yd.get('data_uoa','')
-                di=yd.get('data_uid','')
-                dn=yd.get('data_name','')
+                   d=yd.get('data_uoa','')
+                   di=yd.get('data_uid','')
+                   dn=yd.get('data_name','')
 
-                x.close()
+                   x.close()
              z.close()
           except Exception as e:
              return {'return':1, 'error':'problem reading zip file ('+format(e)+')'}
+
+          if d=='':
+             x1=os.path.basename(zp)
+             d=os.path.splitext(x1)[0]
+             if d.startswith('ckr-'):
+                d=d[4:]
+
+             if o=='con':
+                ck.out('Auto-detected repo name from zip filename: '+d)
 
     if gz=='yes':
        zp=ck.cfg['default_shared_repo_url']+'/'+d+'/archive/master.zip'
