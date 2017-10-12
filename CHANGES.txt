@@ -3,6 +3,7 @@
   * fixed issue #81 (when renaming entry with data_name==data_alias, change it to the new alias)
   * added flag --name (duplicate of --show_name) to "ck ls"
   * fixed issue #82 (detecting name of repo from the zip filename)
+  * fixed repo renaming (now updates .ckr.json and recache repo properly)
 
 * V1.9.2
   * added "ck cd {CK entry}" to open a new shell in a given CK entry

@@ -2445,3 +2445,125 @@ def reset(i):
     i['reset']='yes'
 
     return show(i)
+
+##############################################################################
+# rename repo
+
+def ren(i):
+    """
+    Input:  {
+              data_uoa  - repo UOA
+
+              (new_data_uoa)
+                 or
+              xcids[0]           - {'data_uoa'} - new data UOA
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    duoa=i.get('data_uoa','')
+
+    if duoa=='':
+       return {'return':1, 'error':'repo is not defined'}
+
+    r=ck.access({'action':'load',
+                 'module_uoa':work['self_module_uid'],
+                 'data_uoa':duoa})
+    if r['return']>0: return r
+
+    dd=r['dict']
+    dp=r['path']
+    duoa_real=r['data_uoa']
+    dname=r['data_name']
+
+    nduoa=i.get('new_data_uoa','')
+
+    if nduoa=='':
+       xcids=i.get('xcids',[])
+       if len(xcids)>0: 
+          xcid=xcids[0]
+          nduoa=xcid.get('data_uoa','')
+
+    if nduoa=='':
+       xcids=i.get('cids',[])
+       if len(xcids)>0: 
+          nduoa=xcids[0]
+
+    if nduoa=='': 
+       return {'return':1, 'error':'new repo name is not defined'}
+
+    if nduoa=='': 
+       return {'return':1, 'error':'new repo name is not defined'}
+
+    if nduoa=='local' or nduoa=='default': 
+       return {'return':1, 'error':'new repo name already exists'}
+
+    # Check if such repo doesn't exist
+    r=ck.access({'action':'load',
+                 'module_uoa':work['self_module_uid'],
+                 'data_uoa':nduoa})
+    if r['return']==0:
+       return {'return':1, 'error':'repo already exists'}
+
+    # Update .ckr.json
+    dpp=dd.get('path','')
+    if dpp!='':
+       pckr=os.path.join(dpp,ck.cfg['repo_file'])
+
+       r=ck.load_json_file({'json_file':pckr})
+       if r['return']>0: return r
+
+       dckr=r['dict']
+
+       x=dckr.get('data_uoa','')
+       if x!='' and x==duoa_real: dckr['data_uoa']=nduoa
+
+       x=dckr.get('data_alias','')
+       if x!='' and x==duoa_real: dckr['data_alias']=nduoa
+
+       x=dckr.get('data_name','')
+       if x!='' and x==duoa_real: dckr['data_name']=nduoa
+
+       r=ck.save_json_to_file({'json_file':pckr, 'dict':dckr})
+       if r['return']>0: return r
+
+    # Rename repo entry using internal command
+    r=ck.access({'action':'ren',
+                 'module_uoa':work['self_module_uid'],
+                 'data_uoa':duoa,
+                 'new_data_uoa':nduoa,
+                 'common_func':'yes'})
+    if r['return']>0: return r
+
+    # Recache repos
+    r1=recache({'out':o})
+    if r1['return']>0: return r1
+
+    return r
+
+##############################################################################
+# rename repo
+
+def rename(i):
+    """
+    Input:  {
+               See "ck ren repo --help"
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    return ren(i)
