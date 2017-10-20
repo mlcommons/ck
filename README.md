@@ -20,6 +20,8 @@ CK is a small, portable and customizable research SDK to
 * unify access to predictive analytics (scikit-learn, R, DNN, etc) via unified JSON API and CK web services ([CK repo](https://github.com/ctuning/ck-analytics));
 * enable reproducible and interactive articles ([CK repo](https://github.com/ctuning/ck-web)). 
 
+We use CK to gradually develop common API and meta for reproducible computer systems research together with the community and [ACM](https://dl.acm.org/docs/reproducibility.cfm)!
+
 Useful links
 ============
 
