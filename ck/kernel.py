@@ -2607,6 +2607,9 @@ def find_path_to_repo(i):
                 return {'return':1, 'error':'repository "'+a+'" was not found in cache'}
 
           cri=cache_repo_info.get(ai, {})
+          if len(cri)==0:
+             return {'return':1, 'error':'repository "'+ai+'" was not found in cache'}
+
           dt=cri.get('dict',{})
           pr=dt.get('path','')
 
@@ -6850,6 +6853,8 @@ def list_data(i):
 
     o=i.get('out','')
 
+    debug=(cfg.get('debug','').lower()=='yes' or cfg.get('debug','').lower()=='1')
+
     iu=i.get('ignore_update', '')
 
     prf=i.get('print_full','')
@@ -7122,14 +7127,18 @@ def list_data(i):
                               if iaf or iprn:
                                  if os.path.isfile(dpinfo):
                                     y=load_json_file({'json_file':dpinfo})
-                                    if y['return']>0: return y
+                                    if y['return']>0: 
+                                       if not debug: continue
+                                       return y
                                     ll['info']=y['dict']
 
                               # Need to load meta?
                               if iam:
                                  if os.path.isfile(dpmeta):
                                     y=load_json_file({'json_file':dpmeta})
-                                    if y['return']>0: return y
+                                    if y['return']>0: 
+                                       if not debug: continue
+                                       return y
                                     ll['meta']=y['dict']
 
                               # Call filter
@@ -7148,7 +7157,9 @@ def list_data(i):
                                  if sn!=None: ll['search_by_name']=sn
 
                                  rx=ff(ll)
-                                 if rx['return']>0: return rx
+                                 if rx['return']>0: 
+                                    if not debug: continue
+                                    return rx
 
                                  if rx.get('skip','')=='yes':
                                     fskip=True
