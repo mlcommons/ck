@@ -1,5 +1,5 @@
 * V1.9.4.1
-  * starting new development version
+  * added "debug":"yes" to kernel for GitHub versions
 
 * V1.9.4
   * fixed minor bug when searching repo by UID when repo doesn't exist
