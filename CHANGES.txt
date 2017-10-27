@@ -1,4 +1,4 @@
-* V1.9.3.1
+* V1.9.4
   * fixed minor bug when searching repo by UID when repo doesn't exist
   * added CK internal var "debug". If set to "yes", print error when CK entries are broken or ignore them (now default)
     See https://github.com/ctuning/ck-tensorflow/commit/c4ddfcde1baacf6bebb23f345735b38006be08d1#commitcomment-25230616
