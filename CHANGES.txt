@@ -1,3 +1,6 @@
+* V1.9.4.1
+  * starting new development version
+
 * V1.9.4
   * fixed minor bug when searching repo by UID when repo doesn't exist
   * added CK internal var "debug". If set to "yes", print error when CK entries are broken or ignore them (now default)
