@@ -14,7 +14,7 @@ CK is a small, portable and customizable research SDK to
 * automate detection or installation of all software dependencies on Linux, Windows, MacOS, Android while enabling co-existence of different versions (compilers, benchmarks, libraries, tools) for a given experimental workflow across diverse Linux, Windows and Android based platforms via [CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
 * quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software ([CK repo](https://github.com/ctuning/ck-autotuning));
 * crowdsource experiments across diverse hardware and workloads provided by volunteers and validate ideas or report unexpected behavior and bugs ([CK repo](https://github.com/ctuning/ck-crowdtuning));
-* reuse and collaborative improve JSON description of all existing platforms from IoT to supercomputers ([CK repo](https://github.com/ctuning/ck-crowdtuning-platforms));
+* reuse and collaboratively extend JSON description of all existing platforms from IoT to supercomputers ([CK repo](https://github.com/ctuning/ck-crowdtuning-platforms));
 * abstract access to continuously evolving software and hardware stack ([CK repo](https://github.com/ctuning/ck-env));
 * automate, reproduce and crowdsource empirical experiments using CK JSON-based web services ([live repo](http://cKnowledge.org/repo));
 * unify access to predictive analytics (scikit-learn, R, DNN, etc) via unified JSON API and CK web services ([CK repo](https://github.com/ctuning/ck-analytics));
@@ -64,7 +64,7 @@ Testimonials and awards
 * 2017: [Test of time award for our ACM CGO'07 paper that led to creating CK](http://dividiti.blogspot.com/2017/02/we-received-test-of-time-award-for-our.html)
 * 2017: [ARM video about CK-powered optimization of DNN at the Embedded Vision Summit](http://dividiti.blogspot.com/2017/09/video-from-arm-presenting-our.html)
 * 2017: [ACM evaluates CK technology to share experimental workflows in Digital Libraries](http://dl.acm.org/docs/reproducibility.cfm)
-* 2017: CK-powered experimental workflow from the UCambridge received distinguished artifact award at the CGO'17: [GitHub](https://github.com/SamAinsworth/reproduce-cgo2017-paper), [PDF](http://ctuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf), [CK dashboard snapshot](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf)
+* 2017: CK-powered experimental workflow from the UCambridge received a distinguished artifact award at the CGO'17: [GitHub](https://github.com/SamAinsworth/reproduce-cgo2017-paper), [PDF](http://ctuning.org/ae/resources/paper-with-distinguished-ck-artifact-and-ae-appendix-cgo2017.pdf), [CK dashboard snapshot](https://github.com/SamAinsworth/reproduce-cgo2017-paper/files/618737/ck-aarch64-dashboard.pdf)
 * 2016: Imperial College London colleagues won [HiPEAC TT award](https://www.hipeac.net/press/6801/hipeac-tech-transfer-awards-announced) for their CK-based project to crowdsource OpenCL bug detection: [GitHub](https://github.com/ctuning/ck-clsmith);
 * 2016: General Motors and dividiti use CK to crowdsource benchmarking and optimization of CAFFE: [public CK repo](https://github.com/dividiti/ck-caffe)
 * 2015: ARM and the cTuning foundation use CK to accelerate computer engineering: [HiPEAC Info'45 page 17](https://www.hipeac.net/assets/public/publications/newsletter/hipeacinfo45.pdf), [ARM TechCon'16 presentation and demo](http://schedule.armtechcon.com/session/know-your-workloads-design-more-efficient-systems), [public CK repo](https://github.com/ctuning/ck-wa)
@@ -100,15 +100,15 @@ On Windows, you can download and install these tools from the following sites:
 * Minimal Python: https://www.python.org/downloads/windows
 * Anaconda scientific Python with all packages: https://www.continuum.io/downloads#_windows
 
-You can now install stable CK version via PIP simply as following
+You can now install a stable CK version via PIP simply as following
 (you may need to prefix it with "sudo" on Linux):
 
 ```
 $ pip install ck
 ```
 
-Alternatively, you can install development CK version in your local user space
-via GIT as following:
+Alternatively, you can install a development CK version 
+in your local user space via GIT as following:
 
 ```
  $ git clone https://github.com/ctuning/ck.git ck
