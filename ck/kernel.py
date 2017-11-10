@@ -2951,6 +2951,7 @@ def load_module_from_path(i):
 
           ok=rx['ok']
           version_str=rx['current_version']
+
           if ok!='yes':
              return {'return':1, 'error':'module "'+i.get('data_uoa','')+'" requires minimal CK kernel version '+kd+' while your version is '+version_str} 
 
@@ -4421,6 +4422,14 @@ def check_version(i):
 
         v=version[q]
         lv=lversion[q]
+
+        # try int first, then try string
+        try:
+           if int(lv)>int(v):
+               ok='no'
+               break
+        except Exception as e:
+            pass
 
         if lv>v:
             ok='no'
