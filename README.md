@@ -29,6 +29,7 @@ Useful links
 ============
 
 * [cKnowledge.org - project website with the latest news](http://cKnowledge.org)
+* [CK-powered reproducible AI/SW/HW co-design competitions](http://cKnowledge.org/request)
 * [News archive](https://github.com/ctuning/ck/wiki/News-archive)
 * [Practical use cases](http://cKnowledge.org/use_cases.html)
 * [CK-powered AI hub](http://cKnowledge.org/ai)
