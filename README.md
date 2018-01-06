@@ -18,7 +18,7 @@ Originally, we developed Collective Knowledge framework (CK) to enable collabora
 * support [Artifact Evaluation](http://cTuning.org/ae) at premier systems and ML conferences;
 * enable open, reproducible, multi-objective optimization and co-design tournaments of the whole AI/SW/HW stack (see [ReQuEST](http://cKnowledge.org/request)). 
 
-We now work closely with [the CK community](http://cKnowledge.org/partners.html), [Computer Systems conferences](http://cTuning.org/ae), [machine learning and systems community](http://cKnowledge.org/request)  and [ACM] (https://dl.acm.org/docs/reproducibility.cfm) to gradually standardize all APIs and meta description of all shared artifacts and workflows to enable [open and reproducible systems research]( https://slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly)
+We now work closely with [the CK community](http://cKnowledge.org/partners.html), [Computer Systems conferences](http://cTuning.org/ae), [machine learning and systems community](http://cKnowledge.org/request)  and [ACM](https://dl.acm.org/docs/reproducibility.cfm) to gradually standardize all APIs and meta description of all shared artifacts and workflows to enable [open and reproducible systems research]( https://slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly)
 
 Feel free to [contact CK authors](http://cKnowledge.org/contacts.html) if you want to participate in our activities, or contact [CK mailing list]( https://groups.google.com/forum/#!forum/collective-knowledge) if you need voluntarily help from the CK community to convert your artifacts and workflows to the CK format.
 
@@ -150,16 +150,10 @@ You can download and view one of our CK-based interactive and reproducible artic
 
 See the list of other CK-related Docker images [here](https://hub.docker.com/u/ctuning).
 
-However note that the main idea behind CK is to let experimental workflows
-and artifacts [adapt to the latest user environment and hardware](xyz), and let the community
-continuously reuse, improve and build upon them in a DevOps and Wikipedia fasion.
-
-
-be able 
-to rebuild user experimental workflows
-natively, take advantage of the latest software environment and hardware,
-and enable open research via collaborative reuse and agile improvement 
-of all shared artifacts and workflows (.
+However note that the main idea behind CK is to make experimental workflows
+and artifacts [adaptable to any latest user environment and hardware](https://github.com/ctuning/ck/wiki/Portable-workflows).
+Thus, rather than just being archived, they can be continuously reused,
+customized, improved and built upon based on Wikipedia and DevOps principles!
 
 Practical use cases
 ===================
