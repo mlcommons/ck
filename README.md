@@ -8,38 +8,30 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 Introduction
 ============
 
-Collective Knowledge is our "swiss knife" for open, collaborative and reproducible experimentation.
-CK is a small, portable and customizable research SDK to
-* share artifacts as reusable and indexable Python components with unified JSON API and meta information (programs, benchmarks, data sets, tools, predictive models, etc) - see [Artifact Evaluation website](http://ctuning.org/ae/submission.html) and [Reusable AI artifacts](http://cKnowledge.org/ai-artifacts); 
-* automate detection or installation of all software dependencies on Linux, Windows, MacOS, Android while enabling co-existence of different versions (compilers, benchmarks, libraries, tools) for a given experimental workflow across diverse Linux, Windows and Android based platforms via [CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
-* enable simple virtual environment for native OS packages besides Python packages;
-* quickly prototype experimental workflows from shared components (such as customizable and multi-objective autotuning for DSL, OpenCL, CUDA, MPI, OpenMP and compiler flags) across diverse hardware and software ([CK repo](https://github.com/ctuning/ck-autotuning));
-* crowdsource experiments across diverse hardware and workloads provided by volunteers and validate ideas or report unexpected behavior and bugs ([CK repo](https://github.com/ctuning/ck-crowdtuning));
-* reuse and collaboratively extend JSON description of all existing platforms from IoT to supercomputers ([CK repo](https://github.com/ctuning/ck-crowdtuning-platforms));
-* abstract access to continuously evolving software and hardware stack ([CK repo](https://github.com/ctuning/ck-env));
-* automate, reproduce and crowdsource empirical experiments using CK JSON-based web services ([live repo](http://cKnowledge.org/repo));
-* unify access to predictive analytics (scikit-learn, R, DNN, etc) via unified JSON API and CK web services ([CK repo](https://github.com/ctuning/ck-analytics));
-* enable reproducible and interactive articles ([CK repo](https://github.com/ctuning/ck-web)). 
+Originally, we developed Collective Knowledge framework (CK) to enable collaborative, reproducible, sustainable and agile research and experimentation for [our partners](http://cKnowledge.org/partners.html) based on Wikipedia and DevOps principles. However, after a growing number of [use cases](http://cKnowledge.org/use_cases.html), we decided to continue it as a community effort to help researchers and developers:
+* share their artifacts as portable, customizable and reusable Python plugins with a unified JSON API and meta information (programs, benchmarks, data sets, libraries, tools, predictive models, etc);
+* quickly prototype research workflows from shared artifacts (such as [customizable, multi-objective and input-aware autotuning](https://hal.inria.fr/hal-01054763) and [crowdsource/reproduce/build upon various experiments](http://cKnowledge.org/repo) across diverse hardware and software stack provided by volunteers;
+* make their research workflows portable and adaptable to any platform with Linux, Windows, MacOS and Android using
+[CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
+* [unify access to predictive analytics](http://cKnowledge.org/ai) (TensorFlow, Caffe, scikit-learn, R, DNN, etc) via unified CK JSON API and CK web service;
+* enable reproducible, interactive and "live" articles (see [example]( cKnowledge.org/interactive-report)); 
+* support [Artifact Evaluation](http://cTuning.org/ae) at premier systems and ML conferences;
+* enable open, reproducible, multi-objective optimization and co-design tournaments of the whole AI/SW/HW stack (see [ReQuEST](http://cKnowledge.org/request)). 
 
-We use CK to gradually develop common API and meta for reproducible computer systems research together with the community and [ACM](https://dl.acm.org/docs/reproducibility.cfm)!
+We now work closely with [the CK community](http://cKnowledge.org/partners.html), [Computer Systems conferences](http://cTuning.org/ae), [machine learning and systems community](http://cKnowledge.org/request)  and [ACM] (https://dl.acm.org/docs/reproducibility.cfm) to gradually standardize all APIs and meta description of all shared artifacts and workflows to enable [open and reproducible systems research]( https://slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly)
 
-Feel free to [contact us](http://cKnowledge.org/contacts.html) if you need free help to convert your artifacts and workflows to the CK format.
+Feel free to [contact CK authors](http://cKnowledge.org/contacts.html) if you want to participate in our activities, or contact [CK mailing list]( https://groups.google.com/forum/#!forum/collective-knowledge) if you need voluntarily help from the CK community to convert your artifacts and workflows to the CK format.
 
-Useful links
+CK resources
 ============
 
 * [cKnowledge.org - project website with the latest news](http://cKnowledge.org)
-* [CK-powered and reproducible AI/SW/HW co-design competitions](http://cKnowledge.org/request)
-* [News archive](https://github.com/ctuning/ck/wiki/News-archive)
+* [CK documentation including “Getting Started Guide”](https://github.com/ctuning/ck/wiki)
+* [Academic and industrial partners]()](http://cKnowledge.org/partners.html)
+* [Reproducible SW/HW co-design competitions for deep learning and other emerging workloads using CK](http://cKnowledge.org/request)
 * [Practical use cases](http://cKnowledge.org/use_cases.html)
 * [CK-powered AI hub](http://cKnowledge.org/ai)
-* [Academic and industrial partners](http://cKnowledge.org/partners.html)
-* [Documentation including "Getting Started Guide"](https://github.com/ctuning/ck/wiki)
-* [CK motivation](https://github.com/ctuning/ck/wiki/Motivation)
-* [Development plans](https://github.com/ctuning/ck/wiki/Plans)
 * [CK-related publications](https://github.com/ctuning/ck/wiki/Publications)
-* [CK-powered open research challenges](https://github.com/ctuning/ck/wiki/Research-and-development-challenges)
-* [Previous deprecated version (Collective Mind)](http://c-mind.org)
 * [CK Mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
 
 Reference article
@@ -77,8 +69,7 @@ Acknowledgments
 
 CK development is coordinated by the [cTuning foundation](http://cTuning.org) (non-profit research organization)
 and [dividiti](http://dividiti.com). We would like to thank the [EU TETRACOM 609491 Coordination Action](http://tetracom.eu) 
-for initial funding, Microsoft for sponsoring hosting of a CK public
-repository in the Azure cloud, and all our partners for continuing support.
+for initial funding, Microsoft for sponsoring the hosting of a [public CK optimization repository](http://cKnowledge.org/repo) in the Azure cloud, and [all our partners](http://cKnowledge.org/partners.html) for continuing support. 
 We are also extremely grateful to all volunteers for their valuable feedback and contributions.
 
 Minimal installation
@@ -155,10 +146,16 @@ You can download and view one of our CK-based interactive and reproducible artic
 
 See the list of other CK-related Docker images [here](https://hub.docker.com/u/ctuning).
 
-However note that the main idea behind CK is to be able to rebuild user experimental workflows
+However note that the main idea behind CK is to let experimental workflows
+and artifacts [adapt to the latest user environment and hardware](xyz), and let the community
+continuously reuse, improve and build upon them in a DevOps and Wikipedia fasion.
+
+
+be able 
+to rebuild user experimental workflows
 natively, take advantage of the latest software environment and hardware,
 and enable open research via collaborative reuse and agile improvement 
-of all shared artifacts and workflows.
+of all shared artifacts and workflows (.
 
 Practical use cases
 ===================
