@@ -26,8 +26,12 @@ CK resources
 ============
 
 * [cKnowledge.org - project website with the latest news](http://cKnowledge.org)
-* [CK documentation including “Getting Started Guide”](https://github.com/ctuning/ck/wiki)
 * [Academic and industrial partners]()](http://cKnowledge.org/partners.html)
+* [CK documentation including “Getting Started Guide”](https://github.com/ctuning/ck/wiki)
+** [Shared CK repositories](https://github.com/ctuning/ck/wiki/Shared-repos)
+** [Shared CK plugins](https://github.com/ctuning/ck/wiki/Shared-modules)
+** [Shared software detection plugins](https://github.com/ctuning/ck/wiki/Shared-soft-descriptions)
+** [Shared CK packages to automate installation of workflows across diverse platforms](https://github.com/ctuning/ck/wiki/Shared-packages)
 * [Reproducible SW/HW co-design competitions for deep learning and other emerging workloads using CK](http://cKnowledge.org/request)
 * [Practical use cases](http://cKnowledge.org/use_cases.html)
 * [CK-powered AI hub](http://cKnowledge.org/ai)
