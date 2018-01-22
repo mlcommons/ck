@@ -27,7 +27,7 @@ CK resources
 
 * [cKnowledge.org - project website with the latest news](http://cKnowledge.org)
 * [Academic and industrial partners](http://cKnowledge.org/partners.html)
-* [CK documentation including “Getting Started Guide”](https://github.com/ctuning/ck/wiki)
+* [CK documentation including "Getting Started Guide"](https://github.com/ctuning/ck/wiki)
   * [Shared CK repositories](https://github.com/ctuning/ck/wiki/Shared-repos)
   * [Shared CK plugins](https://github.com/ctuning/ck/wiki/Shared-modules)
   * [Shared software detection plugins](https://github.com/ctuning/ck/wiki/Shared-soft-descriptions)
