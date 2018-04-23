@@ -2,6 +2,7 @@
   * added "debug":"yes" to kernel for GitHub versions
   * fixed minor bug in detection of minimal CK kernel version
     (important since current python3-ck in official Ubunutu 17.04 is quite outdated: v1.7.2)
+  * fixed tests to report the error detected by running ck.access() or equivalent
 
 * V1.9.4
   * fixed minor bug when searching repo by UID when repo doesn't exist
