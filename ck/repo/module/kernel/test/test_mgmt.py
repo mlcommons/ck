@@ -28,7 +28,7 @@ class TestMgmt(unittest.TestCase):
     def test_entry_crud(self):
         entry = {'module_uoa': 'kernel', 'repo_uoa': 'local', 'data_uoa': 'ck-test-abcd'}
         r = ck.add(entry)
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         try:
             self.assertIn('data_uid', r)
             self.assertIn('data_name', r)
@@ -45,7 +45,7 @@ class TestMgmt(unittest.TestCase):
 
             module_path = os.path.join(ck.find_path_to_repo({'repo_uoa': 'local'})['path'], 'kernel')
             r = ck.find_path_to_entry({'path': module_path, 'data_uoa': uid})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(path, r['path'])
 
             missing_data = ck.gen_uid({})['data_uid']
@@ -54,30 +54,30 @@ class TestMgmt(unittest.TestCase):
 
             meta_dict = {'a': 1, 'b': [2, 3]}
             r = ck.update(merge(entry, {'dict': meta_dict}))
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
             self.assertEqual(meta_dict, ck.load_meta_from_path({'path':path})['dict'])
 
             r = ck.rename(merge(entry, {'new_data_uoa': 'ck-test-0123'}))
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
             self.assertNotEqual(meta_dict, ck.load_meta_from_path({'path':path})['return'])
 
             # rename back
             r = ck.rename(merge(entry, {'data_uoa': 'ck-test-0123', 'new_data_uoa': 'ck-test-abcd'}))
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
             r = ck.copy(merge(entry, {'new_data_uoa': 'ck-test-abcd-copy'}))
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(path + '-copy', r['path'])
 
             r = ck.move(merge(entry, {'data_uoa': 'ck-test-abcd-copy', 'new_module_uoa': 'test', 'new_data_uoa': 'ck-test-abcd'}))
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertNotEqual(0, ck.load_meta_from_path({'path': path + '-copy'})['return'])
             self.assertEqual(meta_dict, ck.load_meta_from_path({'path': r['path']})['dict'])
 
             r = ck.delete(merge(entry, {'module_uoa': 'test'}))
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
             fname = path + '/test.txt'
             with open(fname, 'w') as f:
@@ -85,25 +85,25 @@ class TestMgmt(unittest.TestCase):
             self.assertTrue(os.path.isfile(fname))
 
             r = ck.delete_file(merge(entry, {'filename': 'test.txt'}))
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertFalse(os.path.isfile(fname))
 
         finally:
             r = ck.remove(entry)
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
     def test_create_entry(self):
         with test_util.tmp_repo() as r:
             path = r['path']
             r = ck.create_entry({'path': path, 'force': 'yes'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(os.path.join(path, r['data_uid']), r['path'])
             self.assertEqual('', r['data_alias'])
             self.assertEqual(r['data_uoa'], r['data_uid'])
 
             uid = ck.gen_uid({})['data_uid']
             r = ck.create_entry({'path': path, 'data_uid': uid})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(os.path.join(path, r['data_uid']), r['path'])
             self.assertEqual(uid, r['data_uid'])
             self.assertEqual('', r['data_alias'])
@@ -116,7 +116,7 @@ class TestMgmt(unittest.TestCase):
             # uid instead of uoa
             uid = ck.gen_uid({})['data_uid']
             r = ck.create_entry({'path': path, 'data_uoa': uid})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(os.path.join(path, r['data_uid']), r['path'])
             self.assertEqual(uid, r['data_uid'])
             self.assertEqual('', r['data_alias'])
@@ -125,7 +125,7 @@ class TestMgmt(unittest.TestCase):
             # with alias
             alias = 'create-entry-test'
             r = ck.create_entry({'path': path, 'data_uoa': alias})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(os.path.join(path, alias), r['path'])
             self.assertIn('data_uid', r)
             self.assertEqual(alias, r['data_alias'])
@@ -138,7 +138,7 @@ class TestMgmt(unittest.TestCase):
             path = repo['path']
 
             r = ck.set_lock({'path': path, 'get_lock': 'yes'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
             lock_uid = r['lock_uid']
 
@@ -150,14 +150,14 @@ class TestMgmt(unittest.TestCase):
             self.assertEqual('entry is locked with another UID', r['error'])
 
             r = ck.set_lock({'path': path, 'unlock_uid': lock_uid})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
             r = ck.set_lock({'path': path, 'get_lock': 'yes', 'lock_expire_time': '1', 'unlock_uid': lock_uid})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             time.sleep(1)
             
             r = ck.set_lock({'path': path, 'lock_expire_time': '1', 'get_lock': 'yes'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             lock_uid = r['lock_uid']
 
             r = ck.check_lock({'path': path})
@@ -174,7 +174,7 @@ class TestMgmt(unittest.TestCase):
             self.assertEqual('entry lock UID is not matching', r['error'])
 
             r = ck.check_lock({'path': path, 'unlock_uid': lock_uid})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
             r = ck.check_lock({'path': path, 'unlock_uid': lock_uid})
             self.assertEqual(32, r['return'])
@@ -190,7 +190,7 @@ class TestMgmt(unittest.TestCase):
                     'module_uoa': 'repo',
                     'action': 'search',
                     'out': 'con'})
-                self.assertEqual(0, r['return'])
+                self.assertEqual(0, r['return'], r.get('error', None))
                 self.assertEqual('default:repo:default', sys.stdout.getvalue().strip())
 
         with test_util.tmp_repo(cfg={'remote': 'yes'}) as repo:
@@ -208,7 +208,7 @@ class TestMgmt(unittest.TestCase):
             'repo_uoa': 'default',
             'action': 'search',
             'cid': 'invalid_cid_for_deletion'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         lst = r['lst']
         self.assertEqual(1, len(lst))
         r = lst[0]
@@ -228,7 +228,7 @@ class TestMgmt(unittest.TestCase):
                 'repo_uoa': 'default',
                 'action': 'search',
                 'out': 'con'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual('default:kernel:default', sys.stdout.getvalue().strip())
 
         r = ck.perform_remote_action({
@@ -276,7 +276,7 @@ class TestMgmt(unittest.TestCase):
                 'action': 'pull',
                 'filename': '.cm/meta.json',
                 'out': 'con'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
     def test_actions_crud(self):
         entry = {
@@ -289,32 +289,32 @@ class TestMgmt(unittest.TestCase):
             'sort_keys': 'yes'
         }
         r = ck.add(entry)
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         try:
             r = ck.add_action(merge(entry, {'func': 'test_func', 'desc': 'test descr', 'skip_appending_dummy_code': 'yes'}))
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
             r = ck.list_actions(entry)
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             lst = r['actions']
             self.assertEqual(1, len(lst))
             self.assertEqual('test descr', lst['test_func']['desc'])
 
             r = ck.remove_action(merge(entry, {'func': 'test_func'}))
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
             r = ck.list_actions(entry)
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             lst = r['actions']
             self.assertEqual(0, len(lst))
         finally:
             r = ck.remove(entry)
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
     def test_zip_unzip(self):
         with test_util.tmp_file() as fname:
             r = ck.zip({'action': 'zip', 'repo_uoa': 'default', 'module_uoa': 'module', 'data_uoa': 'repo', 'archive_name': fname})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertTrue(os.path.isfile(fname))
 
             dirname = tempfile.mkdtemp()

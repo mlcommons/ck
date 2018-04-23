@@ -144,7 +144,7 @@ def tmp_repo(name='ck-test-repo', cfg={}):
     d.update(cfg)
     r = ck.access(d)
     if 0 != r['return']:
-       raise AssertionError('Failed to create a temporary repo ' + name)
+       raise AssertionError('Failed to create a temporary repo ' + name + ' : ' + r.get('error', None))
     try:
         path = r['dict']['path']
     except Exception:
@@ -154,7 +154,7 @@ def tmp_repo(name='ck-test-repo', cfg={}):
     finally:
         r = ck.access({'module_uoa': 'repo', 'quiet': 'yes', 'data_uoa': name, 'action': 'remove'})
         if 0 != r['return']:
-           raise AssertionError('Failed to remove temporary repo ' + name + ' at location ' + path)
+           raise AssertionError('Failed to remove temporary repo ' + name + ' at location ' + path + ' : ' + r.get('error', None))
 
 ##############################################################################
 # Prints exit code to the system output. Used internally
