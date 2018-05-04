@@ -57,7 +57,7 @@ class TestKernel(unittest.TestCase):
 
     def test_system_with_timeout(self):
         r = ck.system_with_timeout({'cmd': 'exit 2'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual(2, r['return_code'])
 
         r = ck.system_with_timeout({'cmd': 'sleep 5', 'timeout': 0.05})
@@ -65,13 +65,13 @@ class TestKernel(unittest.TestCase):
 
     def test_run_and_get_stdout(self):
         r = ck.run_and_get_stdout({'cmd': ['sh', '-c', 'echo abcd && >&2 echo err && exit 2']})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual(2, r['return_code'])
         self.assertEqual('abcd\n', r['stdout'])
         self.assertEqual('err\n', r['stderr'])
 
         r = ck.run_and_get_stdout({'cmd': 'sh -c "echo abcd && >&2 echo err && exit 2"'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual(2, r['return_code'])
         self.assertEqual('abcd\n', r['stdout'])
         self.assertEqual('err\n', r['stderr'])
@@ -94,7 +94,7 @@ class TestKernel(unittest.TestCase):
         self.assertEqual(1, r['return'])
 
         r = ck.convert_iso_time({'iso_datetime': '2016-09-07T13:47:34.5'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual(2016, r['datetime_obj'].year)
 
     def test_convert_str_key_to_int(self):
@@ -106,7 +106,7 @@ class TestKernel(unittest.TestCase):
             r = ck.inp({'text': 'test output'})
             self.assertEqual('test output', sys.stdout.getvalue().strip())
             self.assertEqual('test input', r['string'])
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
     def test_select(self):
         d = {
@@ -117,7 +117,7 @@ class TestKernel(unittest.TestCase):
             r = ck.select({'dict': d, 'title': 'Select:'})
 
             self.assertEqual('Select:\n\n0) n1\n1) n0\n\nMake your selection (or press Enter for 0):', sys.stdout.getvalue().strip())
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual('key0', r['string'])
 
         with test_util.tmp_sys('\n'):
@@ -127,7 +127,7 @@ class TestKernel(unittest.TestCase):
 
         with test_util.tmp_sys('\n'):
             r = ck.select({'dict': d, 'title': 'Select:'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual('key1', r['string'])
 
         with test_util.tmp_sys('2\n'):
@@ -144,7 +144,7 @@ class TestKernel(unittest.TestCase):
             r = ck.select_uoa({'choices': lst})
 
             self.assertEqual('0) a (uid2)\n1) b (uid1)\n\nSelect UOA (or press Enter for 0):', sys.stdout.getvalue().strip())
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual('uid1', r['choice'])
 
         with test_util.tmp_sys('2\n'):
@@ -198,7 +198,7 @@ class TestKernel(unittest.TestCase):
 
     def test_gen_uid(self):
         r = ck.gen_uid({})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
 
         uid = r['data_uid']
         self.assertEqual(16, len(uid))
@@ -225,7 +225,7 @@ class TestKernel(unittest.TestCase):
 
     def test_prepare_special_info_about_entry(self):
         r = ck.prepare_special_info_about_entry({})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
 #        keys = sorted(['engine', 'version', 'author', 'author_email', 'author_webpage', 'license', 'copyright', 'iso_datetime'])
         keys = ['engine', 'version', 'iso_datetime'] # min set of keys to check, since other keys can differ depending on user configuration
         xkeys = []
@@ -238,26 +238,26 @@ class TestKernel(unittest.TestCase):
 
     def test_convert_json_str_to_dict(self):
         r = ck.convert_json_str_to_dict({'str': "{'a': 1, 'b': [2, 3]}"})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
 
     def test_load_json_file(self):
         with test_util.tmp_file(suffix='.json', content='{"a": 1, "b": [2, 3]}') as fname:
             r = ck.load_json_file({'json_file': fname})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
 
     def test_load_yaml_file(self):
         with test_util.tmp_file(suffix='.yml', content='a: 1\nb:\n  - 2\n  - 3\n') as fname:
             r = ck.load_yaml_file({'yaml_file': fname})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
 
     def test_load_text_file(self):
         content = 'a\nb\nc'
         with test_util.tmp_file(suffix='.txt', content=content) as fname:
             r = ck.load_text_file({'text_file': fname, 'split_to_list': 'yes'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(str.encode(content.replace('\n', os.linesep)), r['bin'])
             self.assertEqual(content, r['string'])
             self.assertEqual(content.strip().split('\n'), r['lst'])
@@ -265,14 +265,14 @@ class TestKernel(unittest.TestCase):
         content = 'a:1\nb:"z"\nc:2'
         with test_util.tmp_file(suffix='.txt', content=content) as fname:
             r = ck.load_text_file({'text_file': fname, 'convert_to_dict': 'yes', 'remove_quotes': 'yes'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual({'a': '1', 'b': 'z', 'c': '2'}, r['dict'])
 
     def test_substitute_str_in_file(self):
         content = 'a\nb\nc'
         with test_util.tmp_file(suffix='.txt', content=content) as fname:
             r = ck.substitute_str_in_file({'filename': fname, 'string1': 'b', 'string2': 'd'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual('a\nd\nc', ck.load_text_file({'text_file': fname})['string'])
 
     def test_dumps_json(self):
@@ -291,16 +291,16 @@ class TestKernel(unittest.TestCase):
         d = {'a': 1, 'b': [2, 3]}
         with test_util.tmp_file(suffix='.yml') as fname:
             r = ck.save_yaml_to_file({'yaml_file': fname, 'dict': d})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
             r = ck.load_yaml_file({'yaml_file': fname})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(d, r['dict'])
 
     def test_convert_file_to_upload_string(self):
         with test_util.tmp_file(suffix='.txt', content='http://ctuning.org/') as fname:
             r = ck.convert_file_to_upload_string({'filename': fname})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual('aHR0cDovL2N0dW5pbmcub3JnLw==', r['file_content_base64'])
 
         with test_util.tmp_file() as fname:
@@ -310,20 +310,20 @@ class TestKernel(unittest.TestCase):
     def test_convert_upload_string_to_file(self):
         with test_util.tmp_file(suffix='.txt') as fname:
             r = ck.convert_upload_string_to_file({'file_content_base64': 'aHR0cDovL2N0dW5pbmcub3JnLw==', 'filename': fname})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(fname, r['filename'])
 
             r = ck.load_text_file({'text_file': fname})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual('http://ctuning.org/', r['string'])
 
         r = ck.convert_upload_string_to_file({'file_content_base64': 'aHR0cDovL2N0dW5pbmcub3JnLw=='})
         fname = r['filename']
         try:
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
 
             r = ck.load_text_file({'text_file': fname})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual('http://ctuning.org/', r['string'])
         finally:
             os.remove(fname)
@@ -334,28 +334,28 @@ class TestKernel(unittest.TestCase):
 
     def test_convert_ck_list_to_dict(self):
         r = ck.convert_ck_list_to_dict(['a', '--', 1, '2'])
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual({'action': 'a', 'cids': [], 'unparsed': [1, '2']}, r['ck_dict'])
 
         r = ck.convert_ck_list_to_dict(['a', '-k=1'])
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual({'action': 'a', 'cids': [], 'k': '1'}, r['ck_dict'])
 
         r = ck.convert_ck_list_to_dict(['a', '@@@2'])
         self.assertEqual(1, r['return'])
 
         r = ck.convert_ck_list_to_dict(['a', '@@@{\'k\': 1}'])
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual({'action': 'a', 'cids': [], 'k': 1}, r['ck_dict'])
 
         with test_util.tmp_sys('{"k": 1}\n\n'):
             r = ck.convert_ck_list_to_dict(['a', '@@'])
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual({'action': 'a', 'cids': [], 'k': 1}, r['ck_dict'])
 
         with test_util.tmp_sys('{"k": 1}\n\n'):
             r = ck.convert_ck_list_to_dict(['a', '@@q'])
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual({'action': 'a', 'cids': [], 'q':{'k': 1}}, r['ck_dict'])
 
         r = ck.convert_ck_list_to_dict(['a', '@2'])
@@ -363,7 +363,7 @@ class TestKernel(unittest.TestCase):
 
         with test_util.tmp_file(suffix='.tmp', content='{"k": 1}') as fname:
             r = ck.convert_ck_list_to_dict(['a', '@' + fname])
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual({'action': 'a', 'cids': [], 'k': 1}, r['ck_dict'])
             self.assertFalse(os.path.isfile(fname))
 
@@ -371,7 +371,7 @@ class TestKernel(unittest.TestCase):
         content = '{"a": 1, "b": [2, 3]}\n\n'
         with test_util.tmp_sys(content):
             r = ck.input_json({'text': 'input json'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual('input json', sys.stdout.getvalue().strip())
             self.assertEqual(content.strip(), r['string'])
             self.assertEqual({'a': 1, 'b': [2, 3]}, r['dict'])
@@ -390,19 +390,19 @@ class TestKernel(unittest.TestCase):
             s = os.sep
 
             r = ck.list_all_files({'path': fname, 'limit': 10})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             t = r['list']
             self.assertEqual({'size': 3}, t['a' + s + 'test.txt'])
             self.assertEqual({'size': 2}, t['b' + s + 'test.log'])
 
             r = ck.list_all_files({'path': fname, 'pattern': '*.txt'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             t = r['list']
             self.assertEqual({'size': 3}, t['a' + s + 'test.txt'])
             self.assertEqual(None, t.get('b' + s + 'test.log'))
 
             r = ck.list_all_files({'path': fname, 'file_name': 'test.txt'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             t = r['list']
             self.assertEqual({'size': 3}, t['a' + s + 'test.txt'])
 
@@ -415,7 +415,7 @@ class TestKernel(unittest.TestCase):
                 f.write('12')
 
             r = ck.list_all_files({'path': fname, 'limit': 1})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(1, len(r['list']))
 
             os.makedirs(fname + '/a')
@@ -428,12 +428,12 @@ class TestKernel(unittest.TestCase):
                 f.write('12')
 
             r = ck.list_all_files({'path': fname, 'limit': 1})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(1, len(r['list']))
 
     def test_save_repo_cache(self):
         r = ck.save_repo_cache({})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
 
         r = ck.load_json_file({'json_file': ck.work['dir_cache_repo_uoa']})
         self.assertEqual(ck.cache_repo_uoa, r['dict'])
@@ -443,7 +443,7 @@ class TestKernel(unittest.TestCase):
 
     def test_load_repo_info_from_cache(self):
         r = ck.load_repo_info_from_cache({'repo_uoa': 'default'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('default', r['data_alias'])
         self.assertEqual('default', r['data_uoa'])
 
@@ -457,13 +457,13 @@ class TestKernel(unittest.TestCase):
     def test_find_repo_by_path(self):
         r = ck.find_path_to_repo({'repo_uoa': 'default'})
         r = ck.find_repo_by_path({'path': r['path']})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('default', r['repo_uoa'])
         self.assertEqual('default', r['repo_alias'])
 
         r = ck.find_path_to_repo({'repo_uoa': 'local'})
         r = ck.find_repo_by_path({'path': r['path']})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('local', r['repo_uoa'])
         self.assertEqual('local', r['repo_alias'])
 
@@ -475,7 +475,7 @@ class TestKernel(unittest.TestCase):
             path = r['dict']['path']
             name = r['data_name']
             r = ck.find_repo_by_path({'path': path})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(name, r['repo_uoa'])
             self.assertEqual(name, r['repo_alias'])
 
@@ -484,7 +484,7 @@ class TestKernel(unittest.TestCase):
             path = r['dict']['path']
             name = r['data_name']
             r = ck.find_path_to_repo({'repo_uoa': name})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(path, r['path'])
 
         missing_repo = ck.gen_uid({})['data_uid']
@@ -512,7 +512,7 @@ class TestKernel(unittest.TestCase):
 
     def test_perform_action(self):
         r = ck.perform_action({})
-        self.assertEqual(0, r['return'])        
+        self.assertEqual(0, r['return'], r.get('error', None))
 
         with test_util.tmp_dir(cwd=True):
             r = ck.perform_action({'cid': '#'})
@@ -526,12 +526,12 @@ class TestKernel(unittest.TestCase):
 
         with test_util.tmp_sys():
             r = ck.perform_action({'cid': 'default:test:', 'cids': ['default:test:'], 'action': 'cmd'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertTrue(sys.stdout.getvalue().strip().startswith('Command line:'))
 
     def test_get_api(self):
         r = ck.get_api({'func': 'list_actions'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('List actions in a module', r['title'].strip())
         self.assertTrue(r['api'].strip().startswith('Input:  {'))
 
@@ -547,19 +547,19 @@ class TestKernel(unittest.TestCase):
 
         with test_util.tmp_sys():
             r = ck.get_api({'module_uoa': 'test', 'func': 'cmd', 'out': 'con'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertTrue(r['api'].strip().startswith('Input:'))
             self.assertTrue(sys.stdout.getvalue().strip().startswith('Function: show cmd'))
 
         with test_util.tmp_sys():
             r = ck.get_api({'module_uoa': 'test', 'func': 'cmd', 'out': 'web'})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertTrue(r['api'].strip().startswith('Input:'))
             self.assertTrue(sys.stdout.getvalue().strip().startswith('<B>Function:</B> show cmd'))
 
     def test_parse_cid(self):
         r = ck.parse_cid({'cid': 'a:b:c'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('a', r['repo_uoa'])
         self.assertEqual('b', r['module_uoa'])
         self.assertEqual('c', r['data_uoa'])
@@ -569,22 +569,22 @@ class TestKernel(unittest.TestCase):
         self.assertEqual('unknown CID format', r['error'])
 
         r = ck.parse_cid({'cid': '#a', 'ignore_error': 'yes'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
 
         r = ck.parse_cid({'cid': '', 'cur_cid': {'repo_uoa': 'r', 'module_uoa': 'm', 'data_uoa': 'd'}})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('r', r['repo_uoa'])
         self.assertEqual('m', r['module_uoa'])
         self.assertEqual('d', r['data_uoa'])
 
         r = ck.parse_cid({'cid': 'a', 'cur_cid': {'repo_uoa': 'r', 'module_uoa': 'm', 'data_uoa': 'd'}})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('r', r['repo_uoa'])
         self.assertEqual('m', r['module_uoa'])
         self.assertEqual('a', r['data_uoa'])
 
         r = ck.parse_cid({'cid': 'a:b', 'cur_cid': {'repo_uoa': 'r', 'module_uoa': 'm', 'data_uoa': 'd'}})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('r', r['repo_uoa'])
         self.assertEqual('a', r['module_uoa'])
         self.assertEqual('b', r['data_uoa'])
@@ -605,25 +605,25 @@ class TestKernel(unittest.TestCase):
                 f.write('12')
 
             r = ck.delete_directory({'path': fname})
-            self.assertEqual(0, r['return'])
+            self.assertEqual(0, r['return'], r.get('error', None))
             self.assertFalse(os.path.isdir(fname))
 
     def test_get_by_flat_key(self):
         a = {'dyn_features':{'ft1':'1', 'ft2':'2'}, 'static_features':{'ft3':'3','ft4':'4'}}
         r = ck.get_by_flat_key({'dict': a, 'key': '##dyn_features#ft2'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('2', r['value'])
 
     def test_detect_cid_in_current_path(self):
         r = ck.find_path_to_repo({'repo_uoa': 'default'})
         r = ck.detect_cid_in_current_path({'path': r['path']})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('default', r['repo_uoa'])
         self.assertEqual('default', r['repo_alias'])
 
     def test_uid(self):
         r = ck.uid({})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
 
         uid = r['data_uid']
         self.assertEqual(16, len(uid))
@@ -634,24 +634,24 @@ class TestKernel(unittest.TestCase):
         
     def test_version(self):
         r = ck.get_version({})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual(ck.__version__, r['version_str'])
         self.assertEqual(ck.__version__.split('.'), r['version'])
 
     def test_check_version(self):
         r = ck.check_version({'version': '1.7.4'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('yes', r['ok'])
         self.assertEqual(ck.__version__, r['current_version'])
 
     def test_convert_entry_to_cid(self):
         r = ck.convert_entry_to_cid({'repo_uoa': 'a', 'module_uoa': 'b', 'data_uoa': 'c'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('a:b:c', r['xcuoa'])
 
     def test_help(self):
         r = ck.help({})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertTrue('Usage:' in r['help'])
         self.assertTrue('Common actions:' in r['help'])
         for ca in ck.cfg['common_actions']:
@@ -660,26 +660,26 @@ class TestKernel(unittest.TestCase):
     def test_print_input(self):
         d = {'a': 1, 'b': [2, 3]}
         r = ck.print_input(d)
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         parsed_dict = ck.convert_json_str_to_dict({'str': r['html'], 'skip_quote_replacement': 'yes'})['dict']
         self.assertEqual(d, parsed_dict)
 
     def test_info(self):
         r = ck.info({'module_uoa': 'kernel'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('kernel', r['data_uoa'])
         self.assertEqual('kernel', r['data_alias'])
 
     def test_path(self):
         r = ck.find_path_to_repo({'repo_uoa': 'default'})
         r = ck.path({'path': r['path']})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('default', r['repo_uoa'])
         self.assertEqual('default', r['repo_alias'])
 
     def test_find(self):
         r = ck.find({'module_uoa': 'kernel', 'data_uoa': 'default'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual(1, r['number_of_entries'])
         self.assertEqual('kernel', r['module_uoa'])
         self.assertEqual('kernel', r['module_alias'])
@@ -701,7 +701,7 @@ class TestKernel(unittest.TestCase):
 #
 #        with test_util.tmp_sys():
 #            r = ck.cd({'module_uoa': 'kernel', 'data_uoa': 'default'})
-#            self.assertEqual(0, r['return'])
+#            self.assertEqual(0, r['return'], r.get('error', None))
 #
 #            if plat == 'win':
 #                self.assertEqual('cd /D ' + r['path'], r['string'])
@@ -723,7 +723,7 @@ class TestKernel(unittest.TestCase):
 
     def test_search(self):
         r = ck.search({'repo_uoa': 'default', 'module_uoa': 'kernel'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         lst = r['lst']
         self.assertEqual(1, len(lst))
         r = lst[0]
@@ -740,12 +740,12 @@ class TestKernel(unittest.TestCase):
         d2 = {'b': [2, 3], 'a': 1}
 
         r = ck.compare_dicts({'dict1': d1, 'dict2': d2})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('yes', r['equal'])
 
         d2['b'][1] = 4
         r = ck.compare_dicts({'dict1': d1, 'dict2': d2})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('no', r['equal'])
 
     def test_compare_flat_dicts(self):
@@ -753,12 +753,12 @@ class TestKernel(unittest.TestCase):
         d2 = {'b': [2, 3], 'a': 1}
 
         r = ck.compare_flat_dicts({'dict1': d1, 'dict2': d2})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('yes', r['equal'])
 
         d2['b'][1] = 4
         r = ck.compare_flat_dicts({'dict1': d1, 'dict2': d2})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('no', r['equal'])
 
     def test_compare_flat_dicts(self):
@@ -766,30 +766,30 @@ class TestKernel(unittest.TestCase):
         d2 = {'b': [2, 3], 'a': 1}
 
         r = ck.compare_flat_dicts({'dict1': d1, 'dict2': d2})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('yes', r['equal'])
 
         d2['b'][1] = 4
         r = ck.compare_flat_dicts({'dict1': d1, 'dict2': d2})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('no', r['equal'])
 
     def test_find_string_in_dict_or_list(self):
         d = {'a': 1, 'b': [2, 3]}
 
         r = ck.find_string_in_dict_or_list({'dict': d, 'search_string': '2'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('yes', r['found'])
 
         r = ck.find_string_in_dict_or_list({'dict': d, 'search_string': '4'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         self.assertEqual('no', r['found'])
 
     def test_list_files(self):
         s = os.sep
 
         r = ck.list_files({'repo_uoa': 'default', 'module_uoa': 'module', 'data_uoa': 'kernel'})
-        self.assertEqual(0, r['return'])
+        self.assertEqual(0, r['return'], r.get('error', None))
         lst = r['list']
         self.assertIn('module.py', lst)
         self.assertIn('test' + s + 'test_kernel.py', lst)
