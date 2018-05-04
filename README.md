@@ -122,6 +122,12 @@ or on Windows as following:
 
 Further installation details can be found [here](https://github.com/ctuning/ck/wiki/Getting-started-guide#Quick_CK_installation).
 
+Getting first feeling about portable and customizable benchmarking
+==================================================================
+
+* [Getting Started Guide](https://github.com/ctuning/ck/wiki/First-feeling) 
+
+
 Trying CK using Docker image
 ============================
 
