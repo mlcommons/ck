@@ -14,9 +14,9 @@ Originally, we developed Collective Knowledge framework (CK) to enable collabora
 * make their research workflows portable and adaptable to any platform with Linux, Windows, MacOS and Android using
 [CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
 * [unify access to predictive analytics](http://cKnowledge.org/ai) (TensorFlow, Caffe, scikit-learn, R, DNN, etc) via unified CK JSON API and CK web service;
-* enable reproducible, interactive and "live" articles (see [example]( cKnowledge.org/interactive-report)); 
-* support [Artifact Evaluation](http://cTuning.org/ae) at premier systems and ML conferences;
-* enable open, reproducible, multi-objective optimization and co-design tournaments of the whole AI/SW/HW stack (see [ReQuEST](http://cKnowledge.org/request)). 
+* enable reproducible, interactive and "live" articles (see [example](http://cKnowledge.org/rpi-crowd-tuning)); 
+* support [Artifact Evaluation](http://cTuning.org/ae) at systems and ML conferences;
+* support open, reproducible and multi-objective benchmarking, optimization and co-design competitions for the whole AI/SW/HW stack (see [ReQuEST](http://cKnowledge.org/request)). 
 
 We now work closely with [the CK community](http://cKnowledge.org/partners.html), [Computer Systems conferences](http://cTuning.org/ae), [machine learning and systems community](http://cKnowledge.org/request)  and [ACM](https://dl.acm.org/docs/reproducibility.cfm) to gradually standardize all APIs and meta description of all shared artifacts and workflows to enable [open and reproducible systems research]( https://slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly)
 
