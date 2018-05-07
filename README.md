@@ -38,8 +38,8 @@ CK resources
 * [CK-related publications](https://github.com/ctuning/ck/wiki/Publications)
 * [CK Mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
 
-Reference article
-=================
+Citing CK
+=========
 * [Online PDF](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability)
 
 ```
@@ -164,11 +164,12 @@ customized, improved and built upon based on Wikipedia and DevOps principles!
 Practical use cases
 ===================
 
-See the [list of real use cases](http://cKnowledge.org/use_cases.html) 
-by the [growing CK community](http://cKnowledge.org/partners.html).
+See the [list of real use cases](http://cKnowledge.org/partners.html) 
+by our academic and industrial partners.
 
-Questions/comments/discussions?
-===============================
+Discussions/questions/comments
+==============================
+* Slack channel: [ [View](https://collective-knowledge.slack.com) ], [ [Get invite](https://join.slack.com/t/collective-knowledge/signup) ]
 * Mailing list for open, collaborative and reproducible R&D including knowledge preservation, sharing and reuse:
   http://groups.google.com/group/collective-knowledge
 * Mailing list for software and hardware multi-objective (performance/energy/accuracy/size/reliability/cost)
