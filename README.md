@@ -62,6 +62,8 @@ Citing CK
 }
 ```
 
+Some ideas were also originally presented in this [2009 paper](https://hal.inria.fr/inria-00436029).
+
 License
 =======
 * Permissive 3-clause BSD license. (See `LICENSE.txt` for more details).
