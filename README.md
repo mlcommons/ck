@@ -8,12 +8,12 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 Introduction
 ============
 
-We started developed Collective Knowledge framework (CK)
+We are developing the Collective Knowledge framework (CK)
 to enable collaborative, reproducible, sustainable and agile
 research and experimentation for [our partners](http://cKnowledge.org/partners.html)
-and automate [Artifact Evaluation at ACM and IEEE conferences](http://cTuning.org/ae)
+and to automate [Artifact Evaluation at systems and ML/AI conferences](http://cTuning.org/ae)
 based on Wikipedia and DevOps principles.
-After a growing number of [practical use cases](http://cKnowledge.org/use_cases.html),
+After a growing number of [use cases](http://cKnowledge.org/use_cases.html),
 we decided to continue it as a community effort to help
 researchers and developers:
 
@@ -26,9 +26,10 @@ researchers and developers:
 * support [Artifact Evaluation](http://cTuning.org/ae) at systems and ML conferences;
 * support open, reproducible and multi-objective benchmarking, optimization and co-design competitions for the whole AI/SW/HW stack (see [ReQuEST](http://cKnowledge.org/request)). 
 
-We now work closely with [the CK community](http://cKnowledge.org/partners.html), [Computer Systems conferences](http://cTuning.org/ae), [machine learning and systems community](http://cKnowledge.org/request)  and [ACM](https://dl.acm.org/docs/reproducibility.cfm) to gradually standardize all APIs and meta description of all shared artifacts and workflows to enable [open and reproducible systems research]( https://slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly)
-
-Feel free to [contact CK authors](http://cKnowledge.org/contacts.html) if you want to participate in our activities, or contact [CK mailing list]( https://groups.google.com/forum/#!forum/collective-knowledge) if you need voluntarily help from the CK community to convert your artifacts and workflows to the CK format.
+We collaborate with [the CK community](http://cKnowledge.org/partners.html), [Systems/ML/AI conferences](http://cTuning.org/ae), 
+[reproducible tournaments](http://cKnowledge.org/request) and [ACM](https://dl.acm.org/docs/reproducibility.cfm) 
+to gradually standardize APIs and meta description of all shared artifacts and workflows, 
+and enable [open, reproducible and reusable research]( https://slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly).
 
 CK resources
 ============
