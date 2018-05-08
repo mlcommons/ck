@@ -43,13 +43,12 @@ CK resources
   * [Shared CK packages to automate installation of workflows across diverse platforms](https://github.com/ctuning/ck/wiki/Shared-packages)
 * [Reproducible SW/HW co-design competitions for deep learning and other emerging workloads using CK](http://cKnowledge.org/request)
 * [CK-powered AI hub](http://cKnowledge.org/ai)
-* [CK-related publications](https://github.com/ctuning/ck/wiki/Publications)
+* [CK-related publications]( https://github.com/ctuning/ck/wiki/Publications )
 * [CK Mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
 * [CK slack](https://collective-knowledge.slack.com)
 
 Citing CK
 =========
-* [Online PDF](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability)
 
 ```
 @inproceedings{ck-date16,
@@ -60,6 +59,23 @@ Citing CK
     month = {March},
     url = {https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability}
 }
+```
+
+```
+@inproceedings{cm:29db2248aba45e59:c4b24bff57f4ad07,
+   author = {{Fursin}, Grigori and {Lokhmotov}, Anton and {Savenko}, Dmitry and {Upton}, Eben},
+    title = "{A Collective Knowledge workflow for collaborative research into multi-objective autotuning and machine learning techniques}",
+  journal = {ArXiv e-prints},
+archivePrefix = "arXiv",
+   eprint = {1801.08024},
+ primaryClass = "cs.CY",
+ keywords = {Computer Science - Computers and Society, Computer Science - Software Engineering},
+     year = 2018,
+    month = jan,
+    url = {https://arxiv.org/abs/1801.08024},
+   adsurl = {http://adsabs.harvard.edu/abs/2018arXiv180108024F}
+}
+
 ```
 
 Some ideas were also originally presented in this [2009 paper](https://hal.inria.fr/inria-00436029).
