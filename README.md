@@ -8,7 +8,15 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 Introduction
 ============
 
-Originally, we developed Collective Knowledge framework (CK) to enable collaborative, reproducible, sustainable and agile research and experimentation for [our partners](http://cKnowledge.org/partners.html) based on Wikipedia and DevOps principles. However, after a growing number of [use cases](http://cKnowledge.org/use_cases.html), we decided to continue it as a community effort to help researchers and developers:
+We started developed Collective Knowledge framework (CK)
+to enable collaborative, reproducible, sustainable and agile
+research and experimentation for [our partners](http://cKnowledge.org/partners.html)
+and automate [Artifact Evaluation at ACM and IEEE conferences](http://cTuning.org/ae)
+based on Wikipedia and DevOps principles.
+After a growing number of [practical use cases](http://cKnowledge.org/use_cases.html),
+we decided to continue it as a community effort to help
+researchers and developers:
+
 * share their artifacts as portable, customizable and reusable Python plugins with a unified JSON API and meta information (programs, benchmarks, data sets, libraries, tools, predictive models, etc);
 * quickly prototype research workflows from shared artifacts (such as [customizable, multi-objective and input-aware autotuning](https://hal.inria.fr/hal-01054763) and [crowdsource/reproduce/build upon various experiments](http://cKnowledge.org/repo) across diverse hardware and software stack provided by volunteers;
 * make their research workflows portable and adaptable to any platform with Linux, Windows, MacOS and Android using
@@ -26,17 +34,17 @@ CK resources
 ============
 
 * [cKnowledge.org - project website with the latest news](http://cKnowledge.org)
-* [Academic and industrial partners](http://cKnowledge.org/partners.html)
+* [Academic and industrial partners with their use-cases](http://cKnowledge.org/partners.html)
 * [CK documentation including "Getting Started Guide"](https://github.com/ctuning/ck/wiki)
   * [Shared CK repositories](https://github.com/ctuning/ck/wiki/Shared-repos)
   * [Shared CK plugins](https://github.com/ctuning/ck/wiki/Shared-modules)
   * [Shared software detection plugins](https://github.com/ctuning/ck/wiki/Shared-soft-descriptions)
   * [Shared CK packages to automate installation of workflows across diverse platforms](https://github.com/ctuning/ck/wiki/Shared-packages)
 * [Reproducible SW/HW co-design competitions for deep learning and other emerging workloads using CK](http://cKnowledge.org/request)
-* [Practical use cases](http://cKnowledge.org/use_cases.html)
 * [CK-powered AI hub](http://cKnowledge.org/ai)
 * [CK-related publications](https://github.com/ctuning/ck/wiki/Publications)
 * [CK Mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
+* [CK slack](https://collective-knowledge.slack.com)
 
 Citing CK
 =========
