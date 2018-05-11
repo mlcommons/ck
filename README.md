@@ -196,7 +196,7 @@ by our academic and industrial partners.
 
 Discussions/questions/comments
 ==============================
-* Slack channel: https://collective-knowledge.slack.com ; to get an invitation please send an email to info@cTuning.org with a subject "invitation to the CK Slack channel"
+* Slack channel: https://collective-knowledge.slack.com ; to get an invitation please send an email to admin@cTuning.org with a subject "invitation to the CK Slack channel"
 * Mailing list for open, collaborative and reproducible R&D including knowledge preservation, sharing and reuse:
   http://groups.google.com/group/collective-knowledge
 * Mailing list for software and hardware multi-objective (performance/energy/accuracy/size/reliability/cost)
