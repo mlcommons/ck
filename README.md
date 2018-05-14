@@ -185,7 +185,20 @@ Run CK classification workflow example using installed TF:
 $ ck run program:tensorflow --cmd_key=classify
 ```
 
-Compile, run, benchmark and crowd-tune some C program (see shared optimization cases in http://cKnowledge.org/repo):
+Now you can try a more complex example to build Caffe with CUDA support
+and run classification. Note that CK should automatically detect your CUDA compilers, 
+libraries and other deps or install missing packages:
+
+```
+$ ck pull repo --url=https://github.com/dividiti/ck-caffe
+$ ck install package:lib-caffe-bvlc-master-cuda-universal
+$ ck run program:caffe --cmd_key=classify
+```
+
+You can see how to install Caffe for Linux, MacOS, Windows and Android via CK
+[here](https://github.com/dividiti/ck-caffe/wiki/Installation).
+
+Finally, compile, run, benchmark and crowd-tune some C program (see shared optimization cases in http://cKnowledge.org/repo):
 ```
 $ ck pull repo:ck-crowdtuning
 
