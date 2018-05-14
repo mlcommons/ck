@@ -118,9 +118,9 @@ or
 
 
 ```
- $ git clone https://github.com/ctuning/ck.git ck
- $ set PATH={CURRENT PATH}\ck\bin;%PATH%
- $ set PYTHONPATH={CURRENT PATH}\ck;%PYTHONPATH%
+ $ git clone https://github.com/ctuning/ck.git ck-master
+ $ set PATH={CURRENT PATH}\ck-master\bin;%PATH%
+ $ set PYTHONPATH={CURRENT PATH}\ck-master;%PYTHONPATH%
 ```
 
 ### Customization and troubleshooting
