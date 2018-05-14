@@ -86,7 +86,7 @@ The minimal installation requires:
 * Python 2.7 or 3.3+ (limitation is mainly due to unitests)
 * Git command line client.
 
-## Linux/MacOS
+### Linux/MacOS
 
 You can install CK in your local user space simply as following:
 
@@ -96,7 +96,7 @@ $ export PATH=$PWD/ck/bin:$PATH
 
 ```
 
-## Windows
+### Windows
 
 First you need to download and install a few dependencies from the following sites:
 
@@ -109,7 +109,7 @@ You can then install CK as following:
  $ set PATH={CURRENT PATH}\ck\bin;%PATH%
 ```
 
-## Customization
+### Customization and troubleshooting
 
 You can find troubleshooting notes or other ways to install CK 
 such as via pip [here](https://github.com/ctuning/ck/wiki/Getting-started-guide#Quick_CK_installation).
@@ -117,10 +117,6 @@ You can find how to customize your CK installation [here](https://github.com/ctu
 
 Getting first feeling about portable and customizable workflows for collaborative benchmarking
 ==============================================================================================
-
-See [Getting Started Guide](https://github.com/ctuning/ck/wiki/First-feeling),
-[ReQuEST tournaments](http://cKnowledge.org/request)
-and [ReQuEST live scoreboard with benchmarking results](http://cKnowledge.org/repo)
 
 Test ck:
 
@@ -211,6 +207,11 @@ Find and reuse other shared CK workflows and artifacts:
 * [Shared CK modules (plugins)](https://github.com/ctuning/ck/wiki/Shared-modules)
 * [Shared software detection plugins](https://github.com/ctuning/ck/wiki/Shared-soft-descriptions)
 * [Shared CK packages to automate installation of workflows across diverse platforms](https://github.com/ctuning/ck/wiki/Shared-packages)
+
+Further details:
+* [Getting Started Guides](https://github.com/ctuning/ck/wiki),
+* [ReQuEST tournaments](http://cKnowledge.org/request)
+* [ReQuEST live scoreboard with benchmarking results](http://cKnowledge.org/repo)
 
 Trying CK using Docker image
 ============================
