@@ -61,7 +61,6 @@ You can install CK in your local user space as following:
 $ git clone http://github.com/ctuning/ck
 $ export PATH=$PWD/ck/bin:$PATH
 $ export PYTHONPATH=$PWD/ck:$PYTHONPATH
-
 ```
 
 You can also install CK via PIP with sudo to avoid setting up environment variables yourself:
