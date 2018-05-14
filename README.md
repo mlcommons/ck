@@ -203,7 +203,7 @@ $ ck crowdtune program:cbench-automotive-susan
 Find and reuse other shared CK workflows and artifacts:
 
 * [Shared CK repositories](https://github.com/ctuning/ck/wiki/Shared-repos)
-** [Shared CK deep learning workflows from ReQuEST tournaments](https://github.com/ctuning/ck-request-asplos18-results)
+* [Shared CK deep learning workflows from ReQuEST tournaments](https://github.com/ctuning/ck-request-asplos18-results)
 * [Shared CK modules (plugins)](https://github.com/ctuning/ck/wiki/Shared-modules)
 * [Shared software detection plugins](https://github.com/ctuning/ck/wiki/Shared-soft-descriptions)
 * [Shared CK packages to automate installation of workflows across diverse platforms](https://github.com/ctuning/ck/wiki/Shared-packages)
