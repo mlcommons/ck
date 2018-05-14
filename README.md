@@ -98,6 +98,7 @@ Alternatively, you can install CK in your local user space simply as following:
 ```
 $ git clone http://github.com/ctuning/ck
 $ export PATH=$PWD/ck/bin:$PATH
+$ export PYTHONPATH=$PWD/ck:$PYTHONPATH
 
 ```
 
@@ -110,8 +111,16 @@ First you need to download and install a few dependencies from the following sit
 
 You can then install CK as following:
 ```
+ $ pip install ck
+```
+
+or
+
+
+```
  $ git clone https://github.com/ctuning/ck.git ck
  $ set PATH={CURRENT PATH}\ck\bin;%PATH%
+ $ set PYTHONPATH={CURRENT PATH}\ck;%PYTHONPATH%
 ```
 
 ### Customization and troubleshooting
