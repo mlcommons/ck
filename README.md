@@ -6,13 +6,12 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 Introduction
 ============
 
-We are developing the Collective Knowledge framework (CK)
-to enable collaborative, reproducible and sustainable 
-research and experimentation particularly at [systems and ML/AI conferences](http://cTuning.org/ae)
-based on agile, DevOps and Wikipedia principles.
-After a growing number of [use cases](http://cKnowledge.org/use_cases.html),
-we decided to continue it as a community effort to help
-researchers and developers:
+Collective Knowledge (CK) is a [community project](http://cKnowledge.org/partners.html)
+to develop supporting technology for collaborative, reproducible and sustainable 
+experimentation based on agile, DevOps and Wikipedia principles
+particularly at [systems/ML/AI conferences](http://cTuning.org/ae).
+
+CK framework is intended to help researchers and developers:
 
 * share artifacts as portable, customizable and reusable Python plugins with a unified JSON API and meta information (programs, benchmarks, data sets, libraries, tools, predictive models, etc);
 * quickly prototype research workflows from shared artifacts (such as [customizable, multi-objective and input-aware autotuning](https://hal.inria.fr/hal-01054763) and [crowdsource/reproduce/build upon various experiments](http://cKnowledge.org/repo) across diverse hardware and software stack provided by volunteers;
@@ -23,11 +22,11 @@ researchers and developers:
 * automate [Artifact Evaluation](http://cTuning.org/ae) at systems and ML conferences;
 * support open, reproducible and multi-objective benchmarking, optimization and co-design competitions for the whole AI/SW/HW stack (see [ACM ReQuEST tournaments](http://cKnowledge.org/request)). 
 
-We collaborate with [the CK community](http://cKnowledge.org/partners.html), 
-[Systems/ML/AI conferences](http://cTuning.org/ae), 
-[reproducible tournaments](http://cKnowledge.org/request) and [ACM](https://dl.acm.org/docs/reproducibility.cfm) 
-to gradually standardize APIs and meta description of all shared artifacts and workflows, 
-and enable [open, reproducible and reusable research]( https://slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly).
+Please, check out [CK motivation slides](https://slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly) 
+and [CK use cases](http://cKnowledge.org/use_cases.html) from our [partners](http://cKnowledge.org/partners.html)
+including [reproducible ACM tournaments on reproducible SW/HW co-design of emerging workloads](http://cKnowledge.org/request)
+and [artifact sharing via ACM Digital Library](https://dl.acm.org/docs/reproducibility.cfm).
+Join the CK consortium to gradually standardize APIs and meta description of all shared artifacts and workflows!
 
 CK resources
 ============
@@ -79,62 +78,129 @@ archivePrefix = "arXiv",
 
 Some ideas were also originally presented in this [2009 paper](https://hal.inria.fr/inria-00436029).
 
-Getting first feeling about portable and customizable benchmarking
-==================================================================
-
-* [Getting Started Guide](https://github.com/ctuning/ck/wiki/First-feeling) 
-
 Minimal installation
 ====================
 
 The minimal installation requires:
 
 * Python 2.7 or 3.3+ (limitation is mainly due to unitests)
-* Python PIP (if you would like to install CK via PIP)
 * Git command line client.
 
-On Ubuntu, you can install these dependencies via
+## Linux/MacOS
+
+You can install CK in your local user space simply as following:
 
 ```
-$ apt-get install -y python python-pip git
+$ git clone http://github.com/ctuning/ck
+$ export PATH=$PWD/ck/bin:$PATH
+
 ```
 
-On Windows, you can download and install these tools from the following sites:
+## Windows
+
+First you need to download and install a few dependencies from the following sites:
 
 * Git: https://git-for-windows.github.io
 * Minimal Python: https://www.python.org/downloads/windows
-* Anaconda scientific Python with all packages: https://www.continuum.io/downloads#_windows
 
-You can now install a stable CK version via PIP simply as following
-(you may need to prefix it with "sudo" on Linux):
-
-```
-$ pip install ck
-```
-
-Alternatively, you can install a development CK version 
-in your local user space via GIT as following:
-
+You can then install CK as following:
 ```
  $ git clone https://github.com/ctuning/ck.git ck
-```
-and then add CK to PATH on Linux as following:
-```
- $ export PATH=$PWD/ck/bin:$PATH
-```
-or on Windows as following:
-
-```
  $ set PATH={CURRENT PATH}\ck\bin;%PATH%
 ```
 
-Further installation details can be found [here](https://github.com/ctuning/ck/wiki/Getting-started-guide#Quick_CK_installation).
+## Customization
 
-Practical use cases
-===================
+You can find troubleshooting notes or other ways to install CK 
+such as via pip [here](https://github.com/ctuning/ck/wiki/Getting-started-guide#Quick_CK_installation).
+You can find how to customize your CK installation [here](https://github.com/ctuning/ck/wiki/Customization).
 
-See the [list of real use cases](http://cKnowledge.org/partners.html) 
-by our academic and industrial partners.
+Getting first feeling about portable and customizable workflows for collaborative benchmarking
+==============================================================================================
+
+See [Getting Started Guide](https://github.com/ctuning/ck/wiki/First-feeling),
+[ReQuEST tournaments](http://cKnowledge.org/request)
+and [ReQuEST live scoreboard with benchmarking results](http://cKnowledge.org/repo)
+
+Test ck:
+
+```
+$ ck version
+```
+
+Get shared [ck-tensorflow](https://github.com/ctuning/ck-tensorflow) repo with all dependencies:
+```
+$ ck pull repo:ck-tensorflow
+```
+
+List CK repos:
+```
+$ ck ls repo | sort
+```
+
+Find where CK repos are installed on your machine:
+```
+$ ck where repo:ck-tensorflow
+```
+
+Detect available compilers on your machine and register virtual environments in the CK:
+```
+$ ck detect soft --tags=compiler,gcc
+$ ck detect soft --tags=compiler,llvm
+$ ck detect soft --tags=compiler,icc
+```
+
+See virtual environments in the CK:
+```
+$ ck show env
+```
+
+Install CPU-version of TensorFlow via CK packages:
+```
+$ ck install package --tags=lib,tensorflow,vcpu,vprebuilt
+```
+
+Check that it's installed fine:
+
+```
+$ ck show env --tags=lib,tensorflow
+```
+
+Run CK virtual environment and test TF:
+```
+$ ck virtual env --tags=lib,tensorflow
+$ ipython
+> import tensorflow as tf
+```
+
+Run CK classification workflow example using installed TF:
+
+```
+$ ck run program:tensorflow --cmd_key=classify
+```
+
+Compile, run, benchmark and crowd-tune some C program (see shared optimization cases in http://cKnowledge.org/repo):
+```
+$ ck pull repo:ck-crowdtuning
+
+$ ck ls program
+$ ck ls dataset
+
+$ ck compile program:cbench-automotive-susan --speed
+$ ck run program:cbench-automotive-susan
+
+$ ck benchmark program:cbench-automotive-susan
+
+$ ck crowdtune program:cbench-automotive-susan
+```
+
+Find and reuse other shared CK workflows and artifacts:
+
+* [Shared CK repositories](https://github.com/ctuning/ck/wiki/Shared-repos)
+** [Shared CK deep learning workflows from ReQuEST tournaments](https://github.com/ctuning/ck-request-asplos18-results)
+* [Shared CK modules (plugins)](https://github.com/ctuning/ck/wiki/Shared-modules)
+* [Shared software detection plugins](https://github.com/ctuning/ck/wiki/Shared-soft-descriptions)
+* [Shared CK packages to automate installation of workflows across diverse platforms](https://github.com/ctuning/ck/wiki/Shared-packages)
 
 Trying CK using Docker image
 ============================
