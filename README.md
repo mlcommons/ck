@@ -7,7 +7,7 @@ Introduction
 ============
 
 Collective Knowledge (CK) is a [community project](http://cKnowledge.org/partners.html)
-to develop supporting technology for collaborative, reproducible and sustainable 
+to develop the supporting technology for collaborative, reproducible and sustainable 
 experimentation based on agile, DevOps and Wikipedia principles
 particularly at [systems/ML/AI conferences](http://cTuning.org/ae).
 
