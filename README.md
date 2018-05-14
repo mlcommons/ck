@@ -88,7 +88,12 @@ The minimal installation requires:
 
 ### Linux/MacOS
 
-You can install CK in your local user space simply as following:
+We suggest you to install CK via pip with sudo to be able to use CK module in Python scripts:
+```
+$ sudo pip install ck
+```
+
+Alternatively, you can install CK in your local user space simply as following:
 
 ```
 $ git clone http://github.com/ctuning/ck
