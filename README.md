@@ -45,39 +45,6 @@ CK resources
 * [CK Mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
 * [CK slack](https://collective-knowledge.slack.com)
 
-Citing CK
-=========
-
-```
-@inproceedings{ck-date16,
-    title = {{Collective Knowledge}: towards {R\&D} sustainability},
-    author = {Fursin, Grigori and Lokhmotov, Anton and Plowman, Ed},
-    booktitle = {Proceedings of the Conference on Design, Automation and Test in Europe (DATE'16)},
-    year = {2016},
-    month = {March},
-    url = {https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability}
-}
-```
-
-```
-@inproceedings{cm:29db2248aba45e59:c4b24bff57f4ad07,
-   author = {{Fursin}, Grigori and {Lokhmotov}, Anton and {Savenko}, Dmitry and {Upton}, Eben},
-    title = "{A Collective Knowledge workflow for collaborative research into multi-objective autotuning and machine learning techniques}",
-  journal = {ArXiv e-prints},
-archivePrefix = "arXiv",
-   eprint = {1801.08024},
- primaryClass = "cs.CY",
- keywords = {Computer Science - Computers and Society, Computer Science - Software Engineering},
-     year = 2018,
-    month = jan,
-    url = {https://arxiv.org/abs/1801.08024},
-   adsurl = {http://adsabs.harvard.edu/abs/2018arXiv180108024F}
-}
-
-```
-
-Some ideas were also originally presented in this [2009 paper](https://hal.inria.fr/inria-00436029).
-
 Minimal installation
 ====================
 
@@ -277,6 +244,39 @@ However note that the main idea behind CK is to let the community collaborativel
 improve common experimental workflows while making them 
 [adaptable to latest environments and hardware](https://github.com/ctuning/ck/wiki/Portable-workflows),
 and gradually fixing reproducibility issues as described [here](http://cknowledge.org/rpi-crowd-tuning)!
+
+Citing CK
+=========
+
+```
+@inproceedings{ck-date16,
+    title = {{Collective Knowledge}: towards {R\&D} sustainability},
+    author = {Fursin, Grigori and Lokhmotov, Anton and Plowman, Ed},
+    booktitle = {Proceedings of the Conference on Design, Automation and Test in Europe (DATE'16)},
+    year = {2016},
+    month = {March},
+    url = {https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability}
+}
+```
+
+```
+@inproceedings{cm:29db2248aba45e59:c4b24bff57f4ad07,
+   author = {{Fursin}, Grigori and {Lokhmotov}, Anton and {Savenko}, Dmitry and {Upton}, Eben},
+    title = "{A Collective Knowledge workflow for collaborative research into multi-objective autotuning and machine learning techniques}",
+  journal = {ArXiv e-prints},
+archivePrefix = "arXiv",
+   eprint = {1801.08024},
+ primaryClass = "cs.CY",
+ keywords = {Computer Science - Computers and Society, Computer Science - Software Engineering},
+     year = 2018,
+    month = jan,
+    url = {https://arxiv.org/abs/1801.08024},
+   adsurl = {http://adsabs.harvard.edu/abs/2018arXiv180108024F}
+}
+
+```
+
+Some ideas were also originally presented in this [2009 paper](https://hal.inria.fr/inria-00436029).
 
 Discussions/questions/comments
 ==============================
