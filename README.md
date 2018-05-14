@@ -155,7 +155,12 @@ See virtual environments in the CK:
 $ ck show env
 ```
 
-Install CPU-version of TensorFlow via CK packages:
+We recommend to setup CK to install new packages inside CK virtual env entries:
+```
+$ ck set kernel var.install_to_env=yes
+```
+
+Now install CPU-version of TensorFlow via CK packages:
 ```
 $ ck install package --tags=lib,tensorflow,vcpu,vprebuilt
 ```
@@ -164,6 +169,11 @@ Check that it's installed fine:
 
 ```
 $ ck show env --tags=lib,tensorflow
+```
+
+You can find a path to a given entry (with TF installation) as following:
+```
+$ ck find env:{env UID from above list}
 ```
 
 Run CK virtual environment and test TF:
