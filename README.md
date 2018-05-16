@@ -55,7 +55,7 @@ The minimal installation requires:
 
 ### Linux/MacOS
 
-You can install CK in your local user space as following:
+You can install CK in your local user space as follows:
 
 ```
 $ git clone http://github.com/ctuning/ck
@@ -76,7 +76,7 @@ First you need to download and install a few dependencies from the following sit
 * Git: https://git-for-windows.github.io
 * Minimal Python: https://www.python.org/downloads/windows
 
-You can then install CK as following:
+You can then install CK as follows:
 ```
  $ pip install ck
 ```
@@ -148,7 +148,7 @@ Check that it's installed fine:
 $ ck show env --tags=lib,tensorflow
 ```
 
-You can find a path to a given entry (with TF installation) as following:
+You can find a path to a given entry (with TF installation) as follows:
 ```
 $ ck find env:{env UID from above list}
 ```
@@ -221,7 +221,7 @@ artifacts at the conferences, share interactive
 and reproducible articles, crowdsource experiments and so on.
 
 For example, you can participate in GCC or LLVM crowd-tuning on your machine
-simply as following:
+simply as follows:
 ```
  $ (sudo) docker run ck-crowdtune-gcc
  $ (sudo) docker run ck-crowdtune-llvm
@@ -232,7 +232,7 @@ You can then browse top shared optimization results on the live CK scoreboard: h
 Open ACM ReQuEST tournaments are now using our approach and technology 
 to co-design efficient SW/HW stack for deep learning and other emerging workloads: http://cKnowledge.org/request
 
-You can also download and view one of our CK-based interactive and reproducible articles as following:
+You can also download and view one of our CK-based interactive and reproducible articles as follows:
 ```
  $ ck pull repo:ck-docker
  $ ck run docker:ck-interactive-article --browser (--sudo)
@@ -245,8 +245,11 @@ improve common experimental workflows while making them
 [adaptable to latest environments and hardware](https://github.com/ctuning/ck/wiki/Portable-workflows),
 and gradually fixing reproducibility issues as described [here](http://cknowledge.org/rpi-crowd-tuning)!
 
-Citing CK
-=========
+Citing CK (BibTeX)
+==================
+
+* [PDF 1](https://arxiv.org/abs/1801.08024)
+* [PDF 2](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability)
 
 ```
 @inproceedings{ck-date16,
