@@ -120,7 +120,15 @@ Find where CK repos are installed on your machine:
 $ ck where repo:ck-tensorflow
 ```
 
-Detect available compilers on your machine and register virtual environments in the CK:
+Detect your platform properties via extensible CK plugins as follows 
+(needed to unify benchmarking across diverse platforms
+with Linux, Windows, MacOS and Android):
+
+```
+$ ck detect platform
+```
+
+Now detect available compilers on your machine and register virtual environments in the CK:
 ```
 $ ck detect soft --tags=compiler,gcc
 $ ck detect soft --tags=compiler,llvm
@@ -192,6 +200,20 @@ $ ck run program:cbench-automotive-susan
 $ ck benchmark program:cbench-automotive-susan
 
 $ ck crowdtune program:cbench-automotive-susan
+```
+
+You can also quickly your own program/workflow using provided templates as follows:
+```
+$ ck add program:my-new-program
+```
+
+When CK asks you to select a template, please choose "C program "Hello world". 
+You can then immediately compile and run your C program as follows:
+
+```
+$ ck compile program:my-new-program --speed
+$ ck run program:my-new-program
+$ ck run program:my-new-program --env.CK_VAR1=222
 ```
 
 Find and reuse other shared CK workflows and artifacts:
