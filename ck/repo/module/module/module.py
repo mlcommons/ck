@@ -251,6 +251,10 @@ def show(i):
 
     o=i.get('out','')
 
+    of=i.get('out_file','')
+    if of!='':
+       xof=os.path.splitext(of)
+
     html=False
     if o=='html' or i.get('web','')=='yes':
        html=True
@@ -273,13 +277,36 @@ def show(i):
     ll=sorted(rx['lst'], key=lambda k: k['data_uoa'])
 
     if html:
-       h+='<i><b>Note:</b> you can obtain JSON API of a given action of a given module in CMD via "ck &lt;action&gt; &lt;module&gt; --help"</i><br><br>\n'
-       h+='<table cellpadding="5">\n'
+       h+='You can install and reuse CK modules as follows:\n'
+       h+='<pre>\n'
+       h+=' ck pull repo:{Repo UOA - see below}\n'
+       h+=' ck help {module UOA - see below}\n'
+       h+='</pre>\n'
+
+       h+='You can check a JSON API of a given action of a given module as follows:\n'
+       h+='<pre>\n'
+       h+=' ck {module action - see below} {module UOA} --help\n'
+       h+='</pre>\n'
+
+       h+='You can add your own dummy CK module as follows:\n'
+       h+='<pre>\n'
+       h+=' ck add module:{my module alias}\n'
+       h+='</pre>\n'
+
+       h+='You can add a new action to the CK module as follows:\n'
+       h+='<pre>\n'
+       h+=' ck add_action module:{my module alias}\n'
+       h+='</pre>\n'
+
+       h+='See <a href="https://github.com/ctuning/ck/wiki">CK documentation</a> for further details.\n'
+
+       h+='<p>\n'
+       h+='<table cellpadding="4" border="1" style="border-collapse: collapse; border: 1px solid black;">\n'
 
        h+=' <tr>\n'
-       h+='  <td><b>CK&nbsp;module&nbsp;(aka&nbsp;wrapper,&nbsp;plugin&nbsp;or&nbsp;container):</b></td>\n'
-       h+='  <td width="200"><b>CK Repository:</b></td>\n'
-       h+='  <td><b>Description and actions:</b></td>\n'
+       h+='  <td nowrap><b>Module&nbsp;UOA with JSON API<br>(Python module/wrapper/plugin)</b></td>\n'
+       h+='  <td nowrap><b>Repo UOA</b></td>\n'
+       h+='  <td><b>Description and actions</b></td>\n'
        h+=' </tr>\n'
 
     repo_url={}
@@ -305,7 +332,7 @@ def show(i):
 
         private=repo_private.get(lr_uid,'')
 
-        if lr not in cfg.get('skip_repos',[]) and private!='yes':
+        if lr not in cfg.get('skip_repos',[]) and private!='yes' and url!='':
            lm=l['meta']
            ld=lm.get('desc','')
 
@@ -322,15 +349,19 @@ def show(i):
            if html:
               h+=' <tr>\n'
 
-              h+='  <td valign="top"><b>'+ln+'</b></td>\n'
-
               x1=''
               x2=''
+              z1=''
+              z11=''
               if url!='':
                  x1='<a href="'+url+'">'
                  x2='</a>'
+                 z1='<a href="'+url+'/tree/master/module/'+ln+'/module.py">'
+                 z11='<a href="'+url+'/tree/master/module/'+ln+'/.cm/meta.json">'
 
-              h+='  <td valign="top"><i>'+x1+lr+x2+'</i></td>\n'
+              h+='  <td nowrap valign="top">'+z1+ln+x2+'</b> <i>('+z11+'CK meta'+x2+')</i></td>\n'
+
+              h+='  <td nowrap valign="top"><b>'+x1+lr+x2+'</b></td>\n'
 
               h+='  <td valign="top">'+ld+'\n'
 
@@ -399,5 +430,9 @@ def show(i):
 
     if html:
        h+='</table>\n'
+
+       if of!='':
+          r=ck.save_text_file({'text_file':of, 'string':h})
+          if r['return']>0: return r
 
     return {'return':0, 'html':h}
