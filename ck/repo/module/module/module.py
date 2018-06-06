@@ -370,7 +370,7 @@ def show(i):
                  for q in sorted(actions):
                      qq=actions[q]
                      qd=qq.get('desc','')
-                     h+='<li><i>'+q+'</i>'
+                     h+='<li>"ck <i>'+q+'</i> '+ln+'"'
                      if qd!='':
                         h+=' - '+qd
                  h+='</ul>\n'
