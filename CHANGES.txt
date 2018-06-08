@@ -6,6 +6,7 @@
   * testfix: stop testing 3.5dev and nightly Python, but add 3.6 which everyone uses
   * improved auto-generation of a list of all modules and actions: 
     http://cKnowledge.org/shared-modules.html
+  * made removal of \r in text files safer on Windows (across different Python versions)
 
 * V1.9.4
   * fixed minor bug when searching repo by UID when repo doesn't exist

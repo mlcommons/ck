@@ -1651,7 +1651,18 @@ def save_text_file(i):
     """
 
     fn=i['text_file']
-    s=i['string'].replace('\r','')
+
+    s=i['string']
+
+    try:
+      s=s.replace('\r','')
+    except Exception as e:
+       pass
+
+    try:
+      s=s.replace(b'\r',b'')
+    except Exception as e:
+       pass
 
     m='w'
     if i.get('append','')=='yes': m='a'
