@@ -305,6 +305,7 @@ def show(i):
        h+='<table cellpadding="4" border="1" style="border-collapse: collapse; border: 1px solid black;">\n'
 
        h+=' <tr>\n'
+       h+='  <td nowrap><b>#</b></td>\n'
        h+='  <td nowrap><b>Module&nbsp;UOA with JSON API<br>(Python module/wrapper/plugin)</b></td>\n'
        h+='  <td nowrap><b>Repo UOA</b></td>\n'
        h+='  <td><b>Description and actions</b></td>\n'
@@ -314,7 +315,10 @@ def show(i):
     repo_private={}
 
     private=''
+    num=0
     for l in ll:
+        num+=1
+
         ln=l['data_uoa']
         lr=l['repo_uoa']
 
@@ -359,6 +363,8 @@ def show(i):
                  x2='</a>'
                  z1='<a href="'+url+'/tree/master/module/'+ln+'/module.py">'
                  z11='<a href="'+url+'/tree/master/module/'+ln+'/.cm/meta.json">'
+
+              h+='  <td nowrap valign="top">'+str(num)+'</b></td>\n'
 
               h+='  <td nowrap valign="top">'+z1+ln+x2+'</b> <i>('+z11+'CK meta'+x2+')</i></td>\n'
 
