@@ -325,7 +325,7 @@ def show(i):
         lr_uid=l['repo_uid']
         url=''
         if lr=='default':
-           url='' #'http://github.com/ctuning/ck'
+           url='https://github.com/ctuning/ck/tree/master/ck/repo'
         elif lr_uid in repo_url:
            url=repo_url[lr_uid]
         else:
@@ -337,6 +337,7 @@ def show(i):
 
         private=repo_private.get(lr_uid,'')
 
+#        if lr not in cfg.get('skip_repos',[]) and private!='yes' and url!='':
         if lr not in cfg.get('skip_repos',[]) and private!='yes' and url!='':
            lm=l['meta']
            ld=lm.get('desc','')
@@ -361,10 +362,15 @@ def show(i):
               if url!='':
                  x1='<a href="'+url+'">'
                  x2='</a>'
-                 z1='<a href="'+url+'/tree/master/module/'+ln+'/module.py">'
-                 z11='<a href="'+url+'/tree/master/module/'+ln+'/.cm/meta.json">'
 
-              h+='  <td nowrap valign="top">'+str(num)+'</b></td>\n'
+                 url2=url
+                 if '/tree/master/' not in url2:
+                    url2+='/tree/master/module/'
+
+                 z1='<a href="'+url2+ln+'/module.py">'
+                 z11='<a href="'+url2+ln+'/.cm/meta.json">'
+
+              h+='  <td nowrap valign="top"><a name="'+ln+'">'+str(num)+'</b></td>\n'
 
               h+='  <td nowrap valign="top">'+z1+ln+x2+'</b> <i>('+z11+'CK meta'+x2+')</i></td>\n'
 
