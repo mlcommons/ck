@@ -366,6 +366,8 @@ def show(i):
                  url2=url
                  if '/tree/master/' not in url2:
                     url2+='/tree/master/module/'
+                 else:
+                    url2+='/module/'
 
                  z1='<a href="'+url2+ln+'/module.py">'
                  z11='<a href="'+url2+ln+'/.cm/meta.json">'
