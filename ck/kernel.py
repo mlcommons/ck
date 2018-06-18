@@ -3539,7 +3539,8 @@ def get_api(i):
               while j>=0 and x!='' and not x.startswith('###'):
                 x=lst[j].strip()
                 if x!='' and not x.startswith('###'):
-                   if x.startswith('# '): x=x[2:]
+                   if x=='#': x=' '
+                   elif x.startswith('# '): x=x[2:]
                    t=x+'\n'+t
                 j-=1
 
