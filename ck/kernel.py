@@ -295,7 +295,7 @@ cfg={
     }
 
 work={
-      "env_root":"",
+      "env_root":"",               # Path to CK installation
 
       "dir_default_repo":"",
       "dir_default_repo_path":"",
@@ -337,6 +337,8 @@ string_io=None        # StringIO, which is imported differently in Python 2 and 
 
 ##############################################################################
 # Universal print of unicode string in utf8 that supports Python 2.x and 3.x
+#
+# TARGET: end users
 
 def out(s):
     """
@@ -372,6 +374,8 @@ def out(s):
 
 ##############################################################################
 # Universal debug print of a dictionary (removing unprintable parts)
+#
+# TARGET: end users
 
 def debug_out(i):
     """
@@ -400,7 +404,9 @@ def debug_out(i):
     return {'return':0}
 
 ##############################################################################
-# Universal print of unicode string in utf8 that supports Python 2.x and 3.x to stderr
+# Universal print of unicode error string in utf8 that supports Python 2.x and 3.x to stderr
+#
+# TARGET: end users
 
 def eout(s):
     """
@@ -436,6 +442,8 @@ def eout(s):
 
 ##############################################################################
 # Universal error print and exit
+#
+# TARGET: end users
 
 def err(r):
     """
@@ -457,6 +465,8 @@ def err(r):
 
 ##############################################################################
 # Universal error print for Jupyter Notebook with raise KeyboardInterrupt
+#
+# TARGET: end users
 
 def jerr(r):
     """
@@ -477,6 +487,9 @@ def jerr(r):
 
 ##############################################################################
 # Support function for safe float (useful for sorting function)
+#
+# TARGET: end users
+
 def safe_float(i,d):
     r=d
     try:
@@ -488,6 +501,9 @@ def safe_float(i,d):
 
 ##############################################################################
 # Support function for safe int (useful for sorting function)
+#
+# TARGET: end users
+
 def safe_int(i,d):
     r=d
     try:
@@ -500,6 +516,8 @@ def safe_int(i,d):
 ##############################################################################
 # Support function to get value from list without error if out of bounds
 # (useful for various sorting)
+#
+# TARGET: end users
 
 def safe_get_val_from_list(lst, index, default_value):
     v=default_value
@@ -509,6 +527,8 @@ def safe_get_val_from_list(lst, index, default_value):
 
 ##############################################################################
 # Support function for system_with_timeout
+#
+# TARGET: end users
 
 def system_with_timeout_kill(proc):
 
@@ -547,6 +567,8 @@ def system_with_timeout_kill(proc):
 
 ##############################################################################
 # Substituting os.system with possibility for time out 
+#
+# TARGET: end users
 
 def system_with_timeout(i):
 
@@ -599,6 +621,8 @@ def system_with_timeout(i):
 
 ##############################################################################
 # Run command and get stdout
+#
+# TARGET: end users
 
 def run_and_get_stdout(i):
   """
@@ -644,6 +668,8 @@ def run_and_get_stdout(i):
 
 ##############################################################################
 # Get value from one dict, remove it from there and move to another
+#
+# TARGET: end users
 
 def get_from_dicts(dict1, key, default_value, dict2, extra=''):
     """
@@ -671,6 +697,8 @@ def get_from_dicts(dict1, key, default_value, dict2, extra=''):
 
 ##############################################################################
 # Converting iso text time to datetime object
+#
+# TARGET: end users
 
 def convert_iso_time(i):
     """
@@ -744,7 +772,9 @@ def convert_iso_time(i):
     return {'return':0, 'datetime_obj':dto}
 
 ##############################################################################
-# Convert dict str keys to int to be sorted
+# Safe convert dict str keys to int to be sorted
+#
+# TARGET: end users
 
 def convert_str_key_to_int(key):
     try:
@@ -754,6 +784,8 @@ def convert_str_key_to_int(key):
 
 ##############################################################################
 # Universal input of unicode string in utf8 that supports Python 2.x and 3.x
+#
+# TARGET: end users
 
 def inp(i):
     """
@@ -797,6 +829,8 @@ def inp(i):
 
 ##############################################################################
 # Universal selector of dictionary entry
+#
+# TARGET: end users (advanced version available in module "choice")
 
 def select(i):
     """
@@ -860,6 +894,8 @@ def select(i):
 
 ##############################################################################
 # Universal UOA selector
+#
+# TARGET: end users (advanced version available in module "choice")
 
 def select_uoa(i):
     """
@@ -919,6 +955,8 @@ def select_uoa(i):
 
 ##############################################################################
 # Convert string to list
+#
+# TARGET: end users
 
 def convert_str_tags_to_list(i):
     """
@@ -945,6 +983,8 @@ def convert_str_tags_to_list(i):
 
 ##############################################################################
 # Check writing possibility
+#
+# TARGET: CK kernel and low-level developers
 
 def check_writing(i):
     """
@@ -1020,6 +1060,8 @@ def check_writing(i):
 
 ##############################################################################
 # Get CK version
+#
+# TARGET: end users
 
 def get_version(i):
     """
@@ -1048,6 +1090,8 @@ def get_version(i):
 
 ##############################################################################
 # Generate temporary files
+#
+# TARGET: end users
 
 def gen_tmp_file(i):
     """
@@ -1083,6 +1127,8 @@ def gen_tmp_file(i):
 
 ##############################################################################
 # Get host platform (currently win or linux) and OS bits
+#
+# TARGET: end users
 
 def get_os_ck(i):
     """
@@ -1139,6 +1185,8 @@ def get_os_ck(i):
 
 ##############################################################################
 # Generate CK UID
+#
+# TARGET: end users
 
 def gen_uid(i):
     """
@@ -1168,6 +1216,8 @@ def gen_uid(i):
 
 ##############################################################################
 # Check if string is CK UID
+#
+# TARGET: end users
 
 def is_uid(str):
     """
@@ -1190,6 +1240,8 @@ def is_uid(str):
 ##############################################################################
 # Check if string is correct CK UOA 
 #   (i.e. does not have special characters including *, ?)
+#
+# TARGET: end users
 
 def is_uoa(str):
     """
@@ -1206,6 +1258,8 @@ def is_uoa(str):
 
 ##############################################################################
 # Prepare special info about entry (engine used, author, date, etc)
+#
+# TARGET: CK kernel and low-level developers
 
 def prepare_special_info_about_entry(i):
     """
@@ -1247,6 +1301,8 @@ def prepare_special_info_about_entry(i):
 
 ##############################################################################
 # Convert string of a special format to json
+#
+# TARGET: end users
 
 def convert_json_str_to_dict(i):
     """
@@ -1281,6 +1337,8 @@ def convert_json_str_to_dict(i):
 
 ##############################################################################
 # Load json from file into dict
+#
+# TARGET: end users
 
 def load_json_file(i):
     """
@@ -1328,6 +1386,8 @@ def load_json_file(i):
 
 ##############################################################################
 # Load YAML from file into dict
+#
+# TARGET: end users
 
 def load_yaml_file(i):
     """
@@ -1374,6 +1434,8 @@ def load_yaml_file(i):
 
 ##############################################################################
 # Load text file into string
+#
+# TARGET: end users
 
 def load_text_file(i):
     """
@@ -1465,6 +1527,8 @@ def load_text_file(i):
 
 ##############################################################################
 # Substitute string in file
+#
+# TARGET: end users
 
 def substitute_str_in_file(i):
     """
@@ -1502,6 +1566,8 @@ def substitute_str_in_file(i):
 
 ##############################################################################
 # Deprecated: Dump json to sring (left for compatibility with older kernel - should eventually remove it) - see 'dump_json'
+#
+# TARGET: end users
 
 def dumps_json(i):
     """
@@ -1523,6 +1589,8 @@ def dumps_json(i):
 
 ##############################################################################
 # Dump json to sring
+#
+# TARGET: end users
 
 def dump_json(i):
     """
@@ -1560,6 +1628,8 @@ def dump_json(i):
 
 ##############################################################################
 # Save dict as json file
+#
+# TARGET: end users
 
 def save_json_to_file(i):
     """
@@ -1603,6 +1673,8 @@ def save_json_to_file(i):
 
 ##############################################################################
 # Save dict as yaml file
+#
+# TARGET: end users
 
 def save_yaml_to_file(i):
     """
@@ -1634,6 +1706,8 @@ def save_yaml_to_file(i):
 
 ##############################################################################
 # save string into text file
+#
+# TARGET: end users
 
 def save_text_file(i):
     """
@@ -1688,6 +1762,8 @@ def save_text_file(i):
 
 ##############################################################################
 # Copy string to clipboard if supported by OS (requires Tk)
+#
+# TARGET: end users
 
 def copy_to_clipboard(i): # pragma: no cover 
     """
@@ -1753,6 +1829,8 @@ def copy_to_clipboard(i): # pragma: no cover
 
 ##############################################################################
 # Merge intelligently dict1 with dict2 key by key in contrast with dict1.update(dict2)
+#
+# TARGET: end users
 
 def merge_dicts(i):
     """
@@ -1790,6 +1868,8 @@ def merge_dicts(i):
 
 ##############################################################################
 # Convert file to upload string
+#
+# TARGET: end users
 
 def convert_file_to_upload_string(i):
     """
@@ -1828,7 +1908,9 @@ def convert_file_to_upload_string(i):
     return {'return':0, 'file_content_base64': s}
 
 ##############################################################################
-# Convert file to upload string
+# Convert upload string to file
+#
+# TARGET: end users
 
 def convert_upload_string_to_file(i):
     """
@@ -1877,6 +1959,8 @@ def convert_upload_string_to_file(i):
 
 ##############################################################################
 # Input JSON from console (double enter to finish)
+#
+# TARGET: end users
 
 def input_json(i):
     """
@@ -1924,6 +2008,8 @@ def input_json(i):
 
 ##############################################################################
 # Convert CK list to CK dict with unicode in UTF-8 (unification of interfaces)
+#
+# TARGET: CK kernel and low-level developers
 
 def convert_ck_list_to_dict(i):
     """
@@ -2080,6 +2166,8 @@ def convert_ck_list_to_dict(i):
 
 ##############################################################################
 # Init CK (current instance - has state!)
+#
+# TARGET: internal use
 
 def init(i): # pragma: no cover
     """
@@ -2284,6 +2372,8 @@ def init(i): # pragma: no cover
 
 ##############################################################################
 # List all files recursively in a given directory
+#
+# TARGET: CK kernel and low-level developers
 
 def list_all_files(i):
     """
@@ -2386,6 +2476,8 @@ def list_all_files(i):
 
 ##############################################################################
 # Reload repo cache 
+#
+# TARGET: CK kernel and low-level developers
 
 def reload_repo_cache(i):
     """
@@ -2434,6 +2526,8 @@ def reload_repo_cache(i):
 
 ##############################################################################
 # Save repo cache 
+#
+# TARGET: CK kernel and low-level developers
 
 def save_repo_cache(i):
     """
@@ -2456,6 +2550,8 @@ def save_repo_cache(i):
 
 ##############################################################################
 # Load repo from cache
+#
+# TARGET: CK kernel and low-level developers
 
 def load_repo_info_from_cache(i):
     """
@@ -2514,6 +2610,8 @@ def load_repo_info_from_cache(i):
 
 ##############################################################################
 # Find repo by path
+#
+# TARGET: CK kernel and low-level developers
 
 def find_repo_by_path(i):
     """
@@ -2568,6 +2666,8 @@ def find_repo_by_path(i):
 
 ##############################################################################
 # Find path to a given repo
+#
+# TARGET: end users
 
 def find_path_to_repo(i):
     """
@@ -2640,6 +2740,8 @@ def find_path_to_repo(i):
 
 ##############################################################################
 # Find path to data (first search in default repo, then local one and then all other repos)
+#
+# TARGET: CK kernel and low-level developers
 
 def find_path_to_data(i):
     """
@@ -2753,6 +2855,8 @@ def find_path_to_data(i):
 
 ##############################################################################
 # Find path to an UOA entry (check UID or alias)
+#
+# TARGET: CK kernel and low-level developers
 
 def find_path_to_entry(i):
     """
@@ -2833,6 +2937,8 @@ def find_path_to_entry(i):
 
 ##############################################################################
 # Load meta description from a path
+#
+# TARGET: CK kernel and low-level developers
 
 def load_meta_from_path(i):
     """
@@ -2911,6 +3017,8 @@ def load_meta_from_path(i):
 
 ##############################################################################
 # Load (CK) python module
+#
+# TARGET: end users
 
 def load_module_from_path(i):
     """
@@ -3001,7 +3109,9 @@ def load_module_from_path(i):
     return r
 
 ##############################################################################
-# Perform action
+# Perform remote action via CK web service
+#
+# TARGET: CK kernel and low-level developers
 
 def perform_remote_action(i):
     """
@@ -3150,6 +3260,8 @@ def perform_remote_action(i):
 
 ##############################################################################
 # Perform action (find module or use kernel)
+#
+# TARGET: CK kernel and low-level developers
 
 def perform_action(i):
     """
@@ -3359,6 +3471,8 @@ def perform_action(i):
 
 ##############################################################################
 # Print API from module for a given action #
+#
+# TARGET: CK kernel and low-level developers
 
 def get_api(i):
     """
@@ -3464,6 +3578,8 @@ def get_api(i):
 
 ##############################################################################
 # Convert CID to dict and add missing parts in CID with current path if #
+#
+# TARGET: CK kernel and low-level developers
 
 def parse_cid(i):
     """
@@ -3529,6 +3645,8 @@ def parse_cid(i):
 
 ##############################################################################
 # Create an UOA entry in a given path
+#
+# TARGET: CK kernel and low-level developers
 
 def create_entry(i):
     """
@@ -3664,6 +3782,8 @@ def create_entry(i):
 
 ##############################################################################
 # Delete entry alias from path
+#
+# TARGET: CK kernel and low-level developers
 
 def delete_alias(i):
     """
@@ -3735,6 +3855,8 @@ def delete_alias(i):
 
 ##############################################################################
 # Delete a given directory with subdirectories (be careful)
+#
+# TARGET: CK kernel and low-level developers
 
 def delete_directory(i):
     """
@@ -3760,6 +3882,8 @@ def delete_directory(i):
 
 ##############################################################################
 # Convert dictionary into CK flat format
+#
+# TARGET: end users
 
 def flatten_dict(i):
     """
@@ -3798,6 +3922,8 @@ def flatten_dict(i):
 
 ##############################################################################
 # Convert dictionary into CK flat format (internal, used for recursion)
+#
+# TARGET: internal use
 
 def flatten_dict_internal(a, aa, prefix, pk):
     # Start flattening
@@ -3824,6 +3950,8 @@ def flatten_dict_internal(a, aa, prefix, pk):
 
 ##############################################################################
 # Convert dictionary into CK flat format (internal, used for recursion)
+#
+# TARGET: end users
 
 def flatten_dict_internal_check_key(prefix, pk):
     import fnmatch
@@ -3847,6 +3975,8 @@ def flatten_dict_internal_check_key(prefix, pk):
 
 ##############################################################################
 # Get value from dict by flat key
+#
+# TARGET: end users
 
 def get_by_flat_key(i):
     """
@@ -3904,6 +4034,8 @@ def get_by_flat_key(i):
 
 ##############################################################################
 # Set value in array using flattened key
+#
+# TARGET: end users
 
 def set_by_flat_key(i):
     """
@@ -3970,6 +4102,8 @@ def set_by_flat_key(i):
 
 ##############################################################################
 # Restore flattened dict
+#
+# TARGET: end users
 
 def restore_flattened_dict(i):
     """
@@ -4001,6 +4135,8 @@ def restore_flattened_dict(i):
 
 ##############################################################################
 # Set lock for path
+#
+# TARGET: CK kernel and low-level developers
 
 def set_lock(i):
     """
@@ -4101,6 +4237,8 @@ def set_lock(i):
 
 ##############################################################################
 # Check if locked and unlock if needed
+#
+# TARGET: CK kernel and low-level developers
 
 def check_lock(i):
     """
@@ -4156,6 +4294,8 @@ def check_lock(i):
 
 ##############################################################################
 # Get current date and time
+#
+# TARGET: end users
 
 def get_current_date_time(i):
     """
@@ -4188,7 +4328,8 @@ def get_current_date_time(i):
 ##############################################################################
 ###########################################################
 # Detect CID of the current directory (repository entry)
-# \n=======================================================
+#
+# TARGET: CK kernel and low-level developers
 
 def detect_cid_in_current_path(i):
     """
@@ -4272,6 +4413,8 @@ def detect_cid_in_current_path(i):
 
 ############################################################
 # Action: generate CK UID
+#
+# TARGET: end users
 
 def uid(i):
     """
@@ -4295,6 +4438,8 @@ def uid(i):
 
 ############################################################
 # Action: print CK version
+#
+# TARGET: end users
 
 def version(i):
     """
@@ -4319,6 +4464,8 @@ def version(i):
 
 ############################################################
 # Action: check CK status
+#
+# TARGET: CK kernel and low-level developers
 
 def status(i):
     """
@@ -4382,10 +4529,10 @@ def status(i):
                    u=cfg.get('ck_web','')
                    if u!='':
                       out('')
-                      out('If you install CK via pip, upgrade it as following (prefix with "sudo" on Linux):')
+                      out('If you install CK via pip, upgrade it as follows (prefix with "sudo" on Linux):')
                       out(' $ pip install ck --upgrade')
                       out('')
-                      out('If you use GitHub version, update CK kernel (and all other repositories) as following:')
+                      out('If you use GitHub version, update CK kernel (and all other repositories) as follows:')
                       out(' $ ck pull all --kernel')
                       out('')
                       out('Visit '+u+' for more details!')
@@ -4400,6 +4547,8 @@ def status(i):
 
 ############################################################
 # Compare versions 
+#
+# TARGET: CK kernel and low-level developers
 
 def check_version(i):
     """
@@ -4453,7 +4602,8 @@ def check_version(i):
 
 ############################################################
 # Convert info about entry to CID
-# \n=======================================================
+#
+# TARGET: CK kernel and low-level developers
 
 def convert_entry_to_cid(i):
     """
@@ -4512,6 +4662,8 @@ def convert_entry_to_cid(i):
 
 ############################################################
 # Special function: open webbrowser with help
+#
+# TARGET: CK kernel and low-level developers
 
 def webhelp(i):
     """
@@ -4560,6 +4712,8 @@ def webhelp(i):
 ############################################################
 # Special function: open webbrowser with discussion wiki page for collaborative R&D
 #  URL is taken from default kernel configuration cfg['wiki_data_web']
+#
+# TARGET: CK kernel and low-level developers
 
 def wiki(i):
     """
@@ -4616,6 +4770,8 @@ def wiki(i):
 ############################################################
 # Special function: open webbrowser with private discussion wiki page for collaborative R&D
 #  URL is taken from default kernel configuration cfg['private_wiki_data_web']
+#
+# TARGET: CK kernel and low-level developers
 
 def pwiki(i):
     """
@@ -4671,6 +4827,8 @@ def pwiki(i):
 
 ############################################################
 # Special function: open webbrowser with API, if exists
+#
+# TARGET: CK kernel and low-level developers
 
 def webapi(i):
     """
@@ -4715,6 +4873,8 @@ def webapi(i):
 
 ############################################################
 # Special function: open webbrowser with API, if exists
+#
+# TARGET: CK kernel and low-level developers
 
 def browser(i):
     """
@@ -4763,6 +4923,8 @@ def browser(i):
 
 ############################################################
 # Special function: open webbrowser with user/developer guide wiki
+#
+# TARGET: CK kernel and low-level developers
 
 def guide(i):
     """
@@ -4786,6 +4948,8 @@ def guide(i):
 
 #########################################################
 # Common action: print help for a given module
+#
+# TARGET: CK kernel and low-level developers
 
 def help(i):
     """
@@ -4858,6 +5022,8 @@ def help(i):
 
 #########################################################
 # Common action: print input
+#
+# TARGET: CK kernel and low-level developers
 
 def print_input(i):
     """
@@ -4887,6 +5053,9 @@ def print_input(i):
 
 #########################################################
 # Common action: print info about a given CK entry
+#
+# TARGET: CK kernel and low-level developers
+
 def info(i):
     """
     Input:  {
@@ -4980,6 +5149,8 @@ def info(i):
 
 ############################################################
 # Common action: get CID from current path
+#
+# TARGET: CK kernel and low-level developers
 
 def path(i):
     """
@@ -5019,6 +5190,8 @@ def path(i):
 
 ############################################################
 # Common action: get CID from current path or given CID (module_uid:data_uid)
+#
+# TARGET: end users
 
 def cid(i):
     """
@@ -5074,6 +5247,8 @@ def cid(i):
 
 ############################################################
 # Copy current path to clipboard (productivity function)
+#
+# TARGET: CK kernel and low-level developers
 
 def copy_path_to_clipboard(i):
     """
@@ -5102,6 +5277,8 @@ def copy_path_to_clipboard(i):
 
 #########################################################
 # Common action: load data (module) meta description
+#
+# TARGET: CK kernel and low-level developers
 
 def load(i):
     """
@@ -5227,6 +5404,8 @@ def load(i):
 
 #########################################################
 # Common action: find data (module) - uses 'load' function
+#
+# TARGET: CK kernel and low-level developers
 
 def find(i):
     """
@@ -5304,6 +5483,8 @@ def find(i):
 
 #########################################################
 # Common action: print 'cd {path to CID}'
+#
+# TARGET: CK kernel and low-level developers
 
 def cd(i):
     """
@@ -5381,6 +5562,8 @@ def cd(i):
 
 #########################################################
 # Common action: print 'cd {path to CID} and copy to clipboard'
+#
+# TARGET: CK kernel and low-level developers
 
 def cdc(i): # pragma: no cover
     """
@@ -5410,7 +5593,8 @@ def cdc(i): # pragma: no cover
 
 ##############################################################################
 # Common action: add data (module) meta-description to a repository
-# \n=======================================================
+#
+# TARGET: CK kernel and low-level developers
 
 def add(i):
     """
@@ -5788,6 +5972,8 @@ def add(i):
 
 ##############################################################################
 # Common action: update data (module) meta-description to a repository
+#
+# TARGET: CK kernel and low-level developers
 
 def update(i):
     """
@@ -5895,6 +6081,8 @@ def update(i):
 
 ##############################################################################
 # Common action: edit data meta-description through external editor
+#
+# TARGET: CK kernel and low-level developers
 
 def edit(i): # pragma: no cover
     """
@@ -5993,6 +6181,8 @@ def edit(i): # pragma: no cover
 
 ##############################################################################
 # Common action: delete data (module) entry
+#
+# TARGET: CK kernel and low-level developers
 
 def rm(i):
     """
@@ -6159,6 +6349,8 @@ def rm(i):
 
 ##############################################################################
 # Common action: delete data (module) entry -> calls rm function
+#
+# TARGET: CK kernel and low-level developers
 
 def remove(i):
     """
@@ -6171,6 +6363,8 @@ def remove(i):
 
 ##############################################################################
 # Common action: delete data (module) entry -> calls rm function
+#
+# TARGET: CK kernel and low-level developers
 
 def delete(i):
     """
@@ -6183,6 +6377,8 @@ def delete(i):
 
 ##############################################################################
 # Common action: rename data entry
+#
+# TARGET: CK kernel and low-level developers
 
 def ren(i):
     """
@@ -6410,6 +6606,8 @@ def ren(i):
 
 ##############################################################################
 # Common action: rename data entry -> calls 'ren' function
+#
+# TARGET: CK kernel and low-level developers
 
 def rename(i):
     """
@@ -6422,6 +6620,8 @@ def rename(i):
 
 ##############################################################################
 # Common action: copy (or move) data entry
+#
+# TARGET: CK kernel and low-level developers
 
 def cp(i):
     """
@@ -6603,6 +6803,8 @@ def cp(i):
 
 ##############################################################################
 # Common action: copy (or move) data entry
+#
+# TARGET: CK kernel and low-level developers
 
 def copy(i):
     """
@@ -6615,6 +6817,8 @@ def copy(i):
 
 ##############################################################################
 # Common action: move data entry
+#
+# TARGET: CK kernel and low-level developers
 
 def mv(i):
     """
@@ -6681,6 +6885,8 @@ def mv(i):
 
 ##############################################################################
 # Common action: move data entry
+#
+# TARGET: CK kernel and low-level developers
 
 def move(i):
     """
@@ -6693,6 +6899,8 @@ def move(i):
 
 ##############################################################################
 # Common action: delete file from an entry
+#
+# TARGET: CK kernel and low-level developers
 
 def delete_file(i):
     """
@@ -6794,6 +7002,8 @@ def delete_file(i):
 
 ##############################################################################
 # Common action: list data entries
+#
+# TARGET: CK kernel and low-level developers
 
 def list_data(i):
     """
@@ -7236,6 +7446,8 @@ def list_data(i):
 
 ##############################################################################
 # Common action: search entries
+#
+# TARGET: CK kernel and low-level developers
 
 def search(i):
     """
@@ -7506,6 +7718,8 @@ def search(i):
 
 ##############################################################################
 # Search filter
+#
+# TARGET: CK kernel and low-level developers
 
 def search_filter(i):
     """
@@ -7589,6 +7803,8 @@ def search_filter(i):
 
 ##############################################################################
 # Compare 2 dictionaries (recursively)
+#
+# TARGET: end users
 
 def compare_dicts(i):
     """
@@ -7597,7 +7813,7 @@ def compare_dicts(i):
               dict2         - dictionary 2
               (ignore_case) - ignore case of letters
 
-              Note that if dict1 and dict2 has lists, the results will be as following:
+              Note that if dict1 and dict2 has lists, the results will be as follows:
 
               * dict1={"key":['a','b','c']}
                 dict2={"key":['a','b']}
@@ -7681,6 +7897,8 @@ def compare_dicts(i):
 
 ##############################################################################
 # Compare two flat dictionaries
+#
+# TARGET: end users
 
 def compare_flat_dicts(i):
     """
@@ -7752,6 +7970,8 @@ def compare_flat_dicts(i):
 
 ##############################################################################
 # Find string in dict
+#
+# TARGET: end users
 
 def find_string_in_dict_or_list(i):
     """
@@ -7812,6 +8032,8 @@ def find_string_in_dict_or_list(i):
 
 ##############################################################################
 # Search filter
+#
+# TARGET: CK kernel and low-level developers
 
 def search_string_filter(i):
     """
@@ -7868,6 +8090,8 @@ def search_string_filter(i):
 
 ##############################################################################
 # Access index server
+#
+# TARGET: CK kernel and low-level developers
 
 def access_index_server(i):
     """
@@ -7982,6 +8206,8 @@ def access_index_server(i):
 
 ##############################################################################
 # Add action to a module
+#
+# TARGET: CK kernel and low-level developers
 
 def add_action(i):
     """
@@ -8115,6 +8341,8 @@ def add_action(i):
 
 ##############################################################################
 # Remove action from a module
+#
+# TARGET: CK kernel and low-level developers
 
 def remove_action(i):
     """
@@ -8203,6 +8431,8 @@ def remove_action(i):
 
 ##############################################################################
 # List actions in a module
+#
+# TARGET: CK kernel and low-level developers
 
 def list_actions(i):
     """
@@ -8263,6 +8493,8 @@ def list_actions(i):
 
 ##############################################################################
 # Pull data
+#
+# TARGET: CK kernel and low-level developers
 
 def pull(i):
     """
@@ -8443,6 +8675,8 @@ def pull(i):
 
 ##############################################################################
 # Push data
+#
+# TARGET: CK kernel and low-level developers
 
 def push(i):
     """
@@ -8593,6 +8827,8 @@ def push(i):
 
 ##############################################################################
 # List files in a given entry
+#
+# TARGET: end users
 
 def unzip_file(i):
     """
@@ -8655,6 +8891,8 @@ def unzip_file(i):
 
 ##############################################################################
 # List files in a given entry
+#
+# TARGET: end users
 
 def list_files(i):
     """
@@ -8705,6 +8943,8 @@ def list_files(i):
 
 ##############################################################################
 # convert_cm_to_ck
+#
+# TARGET: internal use
 
 def convert_cm_to_ck(i): # pragma: no cover
     """
@@ -8768,6 +9008,8 @@ def convert_cm_to_ck(i): # pragma: no cover
 
 ##############################################################################
 # convet cm to ck filter
+#
+# TARGET: internal use
 
 def filter_convert_cm_to_ck(i): # pragma: no cover
     """
@@ -8852,6 +9094,8 @@ def filter_convert_cm_to_ck(i): # pragma: no cover
 
 ##############################################################################
 # add index
+#
+# TARGET: CK kernel and low-level developers
 
 def add_index(i):
     """
@@ -8912,6 +9156,8 @@ def add_index(i):
 
 ##############################################################################
 # zip entries (call repo)
+#
+# TARGET: CK kernel and low-level developers
 
 def zip(i):
     """
@@ -8958,6 +9204,8 @@ def zip(i):
 
 ##############################################################################
 # add index filter
+#
+# TARGET: CK kernel and low-level developers
 
 def filter_add_index(i):
     """
@@ -8990,6 +9238,8 @@ def filter_add_index(i):
 
 ##############################################################################
 # delete index
+#
+# TARGET: CK kernel and low-level developers
 
 def delete_index(i):
     """
@@ -9039,6 +9289,8 @@ def delete_index(i):
 
 ##############################################################################
 # add index filter
+#
+# TARGET: CK kernel and low-level developers
 
 def filter_delete_index(i):
     """
@@ -9069,7 +9321,10 @@ def filter_delete_index(i):
     return access_index_server({'request':'DELETE', 'path':path})
 
 ##############################################################################
-# Remove files and dirs even if read only (internal use)
+# Remove files and dirs even if read only
+#
+# TARGET: internal use
+
 def rm_read_only(f,p,e):
     import os
     import stat
@@ -9083,14 +9338,14 @@ def rm_read_only(f,p,e):
     return
 
 ############################################################################
-# Main universal access function that can access all CK resources!
+# Universal access to all CK functions (Unified JSON/dictionary API)
+#
+# TARGET: end users
 
 def access(i):
 
     """
-    Input:  Either string or list or dictionary
-
-            If string or list convert them to CK dictionary and set cmd=True
+    Input:  Can be dictionary or string (string will be converted to dictionary)
 
             {
                action
@@ -9111,32 +9366,43 @@ def access(i):
                               == 'json'          - return dict as json to console
                               == 'json_with_sep' - separation line and return dict as json to console
                               == 'json_file'     - return dict as json to file
+
                (out_file)     Output file if out=='json_file'
 
                (con_encoding) - force encoding for IO
                (ck_profile)   - if 'yes', profile CK
 
-               ...
-               key1=value1
-               key2=value2
-               ...
-               -key10
-               -key11=value11
-               --key12
-               --key13=value13
+               INPUT TO A GIVEN FUNCTION
 
-               @file_json        - add JSON from this file to input
-               @@(key)          - enter manually JSON from console and add to input. 
-                                   If key is present add JSON from console to this key
-               @@@cmd_json        - add JSON as string to input (special format)
-               --
-               unparsed_cmd
+
+               NOTE: If INPUT is a string and it will be converted to INPUT dictionary as follows (the same as CK command line):
+
+                     ck key1=value1    -> converted to {key1:value1}
+
+                        -key10         -> converted to {key10:"yes"}
+                        -key11=value11 -> converted to {key11:value11}
+
+                        --key12         -> converted to {key12:"yes"}
+                        --key13=value13 -> converted to {key13:value13}
+
+
+                     @file_json         -> JSON from this file will be merged with INPUT
+                     @@                 -> CK will ask user ot enter manually JSON from console and merge with INPUT
+                     @@key              -> Enter JSON manually from console and merge with INPUT under this key
+
+                     @@@cmd_json        -> convert string to JSON (special format) and merge with INPUT
+
+                     -- xyz             -> add everything after -- to "unparsed_cmd" key in INPUT
+
+                     When string is converted to INPUT dictionary, "cmd" variable is set to True
             }
 
     Output: {
               return       - return code =  0, if successful
                                          >  0, if error
               (error)      - error text if return > 0
+
+              OUTPUT FROM A GIVEN FUNCTION
             }
 
     """

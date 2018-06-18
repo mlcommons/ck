@@ -7,6 +7,8 @@
   * improved auto-generation of a list of all modules and actions: 
     http://cKnowledge.org/shared-modules.html
   * made removal of \r in text files safer on Windows (across different Python versions)
+  * added TARGET remark to all CK kernel functions to show target audience (end users vs CK kernel developers).
+    Used in "ck list_kernel_functions misc".
 
 * V1.9.4
   * fixed minor bug when searching repo by UID when repo doesn't exist

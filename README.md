@@ -16,7 +16,7 @@ CK framework is intended to help researchers and developers:
 * share artifacts as portable, customizable and reusable Python plugins with a unified JSON API and meta information (programs, benchmarks, data sets, libraries, tools, predictive models, etc);
 * quickly prototype research workflows from shared artifacts (such as [customizable, multi-objective and input-aware autotuning](https://hal.inria.fr/hal-01054763) and [crowdsource/reproduce/build upon various experiments](http://cKnowledge.org/repo) across diverse hardware and software stack provided by volunteers;
 * make benchmarks and research workflows portable, customizable and adaptable to any platform with Linux, Windows, MacOS and Android using
-[CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows);
+[CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows) or using ;
 * [unify access to predictive analytics](http://cKnowledge.org/ai) (TensorFlow, Caffe, scikit-learn, R, DNN, etc) via unified CK JSON API and CK web service;
 * enable reproducible, interactive and "live" articles (see [example](http://cKnowledge.org/rpi-crowd-tuning)); 
 * automate [Artifact Evaluation](http://cTuning.org/ae) at systems and ML conferences;
