@@ -1183,7 +1183,22 @@ def recache(i):
                      if o=='con':
                         ck.out('Processing repo '+duoa+' ...')
 
-                    # Load repo (do not use repo, since may not exist in cache)
+                     # Repo dictionary (may be changing in .ckr.json)
+                     dt={}
+
+                     # Find real repo and get .ckr.json
+                     rx=ck.access({'action':'where',
+                                   'module_uoa':muoa,
+                                   'data_uoa':duoa})
+                     if rx['return']==0: 
+                        pckr=os.path.join(rx['path'], ck.cfg['repo_file'])
+                        if os.path.isfile(pckr):
+                           rx=ck.load_json_file({'json_file':pckr})
+                           if rx['return']>0: return rx
+
+                           dt=rx['dict']['dict']
+
+                     # Load extra info repo (do not use repo, since may not exist in cache)
                      rx=ck.access({'action':'load',
                                    'module_uoa':muoa,
                                    'data_uoa':duoa})
@@ -1193,7 +1208,12 @@ def recache(i):
                         else:
                            return rx
 
-                     dt=rx['dict']
+                     if len(dt)==0:
+                        dt=rx['dict']
+                     else:
+                        if rx['dict'].get('path','')!='':
+                           dt['path']=rx['dict']['path']
+
                      dname=rx['data_name']
                      dalias=rx['data_alias']
                      dp=rx['path']
