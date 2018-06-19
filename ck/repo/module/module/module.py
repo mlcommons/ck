@@ -317,8 +317,6 @@ def show(i):
     private=''
     num=0
     for l in ll:
-        num+=1
-
         ln=l['data_uoa']
         lr=l['repo_uoa']
 
@@ -339,6 +337,8 @@ def show(i):
 
 #        if lr not in cfg.get('skip_repos',[]) and private!='yes' and url!='':
         if lr not in cfg.get('skip_repos',[]) and private!='yes' and url!='':
+           num+=1
+
            lm=l['meta']
            ld=lm.get('desc','')
 
