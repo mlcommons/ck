@@ -6,6 +6,12 @@
     "browse": {
       "desc": "show remote repo in a browser"
     },
+    "copy": {
+      "desc": "copy repo (forbidden)"
+    },
+    "cp": {
+      "desc": "copy repo (forbidden)"
+    },
     "create": {
       "desc": "register new repository in CK"
     },

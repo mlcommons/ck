@@ -10,6 +10,7 @@
   * added TARGET remark to all CK kernel functions to show target audience (end users vs CK kernel developers).
     Used in "ck list_kernel_functions misc".
   * improved recaching of repos (taking latest updates from .ckr.json into account)
+  * blocked copying of repositories to avoid duplication of CK entries
 
 * V1.9.4
   * fixed minor bug when searching repo by UID when repo doesn't exist

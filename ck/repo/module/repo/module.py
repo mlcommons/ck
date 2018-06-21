@@ -2587,3 +2587,39 @@ def rename(i):
     """
 
     return ren(i)
+
+##############################################################################
+# copy repo (forbidden)
+
+def copy(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    return cp(i)
+
+##############################################################################
+# copy repo (forbidden)
+
+def cp(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    return {'return':1, 'error':'copying CK repositories is forbidden to avoid duplication of CK entries. Create a new one instead and move CK entries there'}
