@@ -7,26 +7,37 @@ Introduction
 ============
 
 Collective Knowledge (CK) is a [community project](http://cKnowledge.org/partners.html)
-to develop the supporting technology for collaborative, reproducible and sustainable 
-experimentation at [systems, ML, AI and other conferences](http://cTuning.org/ae)
+to develop an open platform for collaborative, reproducible and sustainable 
+research and experimentation at [systems, ML, AI and other conferences](http://cTuning.org/ae)
 based on agile, DevOps and Wikipedia principles.
 
-CK framework is intended to help researchers and developers:
+CK framework is intended to help researchers and developers to:
 
-* share artifacts as portable, customizable and reusable Python plugins with a unified JSON API and meta information (programs, benchmarks, data sets, libraries, tools, predictive models, etc);
-* quickly prototype research workflows from shared artifacts (such as [customizable, multi-objective and input-aware autotuning](https://hal.inria.fr/hal-01054763) and [crowdsource/reproduce/build upon various experiments](http://cKnowledge.org/repo) across diverse hardware and software stack provided by volunteers;
-* make benchmarks and research workflows portable, customizable and adaptable to any platform with Linux, Windows, MacOS and Android using
-[CK cross-platform customizable package and environment manager](https://github.com/ctuning/ck/wiki/Portable-workflows) or using ;
-* [unify access to predictive analytics](http://cKnowledge.org/ai) (TensorFlow, Caffe, scikit-learn, R, DNN, etc) via unified CK JSON API and CK web service;
-* enable reproducible, interactive and "live" articles (see [example](http://cKnowledge.org/rpi-crowd-tuning)); 
-* automate [Artifact Evaluation](http://cTuning.org/ae) at systems and ML conferences;
-* support open, reproducible and multi-objective benchmarking, optimization and co-design competitions for the whole AI/SW/HW stack (see [ACM ReQuEST tournaments](http://cKnowledge.org/request)). 
+* decompose complex software projects with ad-hoc scripts into portable, customizable and reusable components 
+  (<a href="http://cKnowledge.org/shared-packages.html">packages</a>, 
+   <a href="http://cKnowledge.org/shared-soft-detection-plugins.html">software detection plugins</a>,  
+   <a href="http://cKnowledge.org/shared-modules.html">modules</a> and 
+   <a href="http://cKnowledge.org/shared-programs.html">workflows</a>) with a unified Python JSON API 
+  and an <a href="https://github.com/ctuning/ck/wiki/Portable-workflows">integrated package manager</a>;
+* organize all their local components (artifacts) in open [CK repositories](http://cKnowledge.org/shared-repos.html) 
+  and continuously exchange them with the community via GitHub, GitLab, BitBucket, BitTorrent, [ACM DL](https://dl.acm.org/docs/reproducibility.cfm), etc. to encourage artifact reuse;
+* quickly prototype research ideas from shared components (such as [customizable, multi-objective, machine-learning based and input-aware autotuning](http://cKnowledge.org/rpi-crowd-tuning))
+* enable <a href="https://github.com/ctuning/ck/wiki/Portable-workflows">universal virtual CK environment</a> where multiple versions of different software can easily co-exist;
+* crowdsource different experiments across diverse data sets, models and platforms provided by volunteers (such as [crowd-benchmarking deep learning](http://cKnowledge.org/dnn-crowd-benchmarking-results));
+* convert existing benchmarks into portable and customizable CK workflows adaptable to any platform with Linux, Windows, MacOS and Android using (see [ACM ReQuEST initiative](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf));
+* [unify access to predictive analytics](http://cKnowledge.org/ai) (TensorFlow, TFLite, MXNet, Caffe, Caffe2, CNTK, scikit-learn, R, DNN, etc) via unified CK JSON API and CK web services;
+* enable reproducible, interactive and "live" articles as shown in this [interactive CK report with Raspberry Pi foundation](http://cKnowledge.org/rpi-crowd-tuning); 
+* automate and unify [Artifact Evaluation](http://cTuning.org/ae) at systems and ML conferences;
+* support open, reproducible and multi-objective co-design competitions of the whole SW/HW stack for emerging workloads such as AI (see [ACM ReQuEST tournaments](http://cKnowledge.org/request)). 
 
-Please, check out [CK motivation slides](https://slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly) 
+Please, check out the [latest ACM ReQuEST-ASPLOS'18 report about results of the 1st CK-powered competition on co-designing Pareto-efficient SW/HW stack for deep learning](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf), 
+[CK motivation slides](https://slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly) 
 and [CK use cases](http://cKnowledge.org/use_cases.html) from our [partners](http://cKnowledge.org/partners.html)
 including [reproducible ACM tournaments on reproducible SW/HW co-design of emerging workloads](http://cKnowledge.org/request)
 and [artifact sharing via ACM Digital Library](https://dl.acm.org/docs/reproducibility.cfm).
-Join the CK consortium to gradually standardize APIs and meta description of all shared artifacts and workflows!
+
+Join the [CK consortium](http://cknowledge.org/contacts.html) to influence CK long-term developments 
+and standardization of APIs and meta descriptions of all shared CK workflows and components!
 
 CK resources
 ============
