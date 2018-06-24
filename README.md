@@ -13,15 +13,9 @@ based on agile, DevOps and Wikipedia principles.
 
 CK framework is intended to help researchers and developers to:
 
-* decompose complex software projects with ad-hoc scripts into portable, customizable and reusable components 
-  (<a href="http://cKnowledge.org/shared-packages.html">packages</a>, 
-   <a href="http://cKnowledge.org/shared-soft-detection-plugins.html">software detection plugins</a>,  
-   <a href="http://cKnowledge.org/shared-modules.html">modules</a> and 
-   <a href="http://cKnowledge.org/shared-programs.html">workflows</a>) with a unified Python JSON API 
-  and an <a href="https://github.com/ctuning/ck/wiki/Portable-workflows">integrated package manager</a>;
-* organize all their local components (artifacts) in open [CK repositories](http://cKnowledge.org/shared-repos.html) 
-  and continuously exchange them with the community via GitHub, GitLab, BitBucket, BitTorrent, [ACM DL](https://dl.acm.org/docs/reproducibility.cfm), etc. to encourage artifact reuse;
-* quickly prototype research ideas from shared components (such as [customizable, multi-objective, machine-learning based and input-aware autotuning](http://cKnowledge.org/rpi-crowd-tuning))
+* decompose complex software projects with ad-hoc scripts into portable, customizable and reusable components (<a href="http://cKnowledge.org/shared-packages.html">packages</a>, <a href="http://cKnowledge.org/shared-soft-detection-plugins.html">software detection plugins</a>, <a href="http://cKnowledge.org/shared-modules.html">modules</a> and <a href="http://cKnowledge.org/shared-programs.html">workflows</a>) with a unified Python JSON API and an <a href="https://github.com/ctuning/ck/wiki/Portable-workflows">integrated package manager</a>;
+* organize all their local components (artifacts) in open [CK repositories](http://cKnowledge.org/shared-repos.html) and continuously exchange them with the community via GitHub, GitLab, BitBucket, BitTorrent, [ACM DL](https://dl.acm.org/docs/reproducibility.cfm), etc. to encourage artifact reuse;
+* quickly prototype research ideas from shared components (such as [customizable, multi-objective, machine-learning based and input-aware autotuning](http://cKnowledge.org/rpi-crowd-tuning));
 * enable <a href="https://github.com/ctuning/ck/wiki/Portable-workflows">universal virtual CK environment</a> where multiple versions of different software can easily co-exist;
 * crowdsource different experiments across diverse data sets, models and platforms provided by volunteers (such as [crowd-benchmarking deep learning](http://cKnowledge.org/dnn-crowd-benchmarking-results));
 * convert existing benchmarks into portable and customizable CK workflows adaptable to any platform with Linux, Windows, MacOS and Android using (see [ACM ReQuEST initiative](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf));
