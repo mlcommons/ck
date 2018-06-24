@@ -21,7 +21,7 @@ CK framework is intended to help researchers and developers to:
 * convert existing benchmarks into portable and customizable CK workflows adaptable to any platform with Linux, Windows, MacOS and Android using (see [ACM ReQuEST initiative](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf));
 * [unify access to predictive analytics](http://cKnowledge.org/ai) (TensorFlow, TFLite, MXNet, Caffe, Caffe2, CNTK, scikit-learn, R, DNN, etc) via unified CK JSON API and CK web services;
 * enable reproducible, interactive and "live" articles as shown in this [interactive CK report with Raspberry Pi foundation](http://cKnowledge.org/rpi-crowd-tuning); 
-* automate and unify [Artifact Evaluation](http://cTuning.org/ae) at systems and ML conferences;
+* automate and unify [Artifact Evaluation](http://cTuning.org/ae) at systems, ML and AI conferences;
 * support open, reproducible and multi-objective co-design competitions of the whole SW/HW stack for emerging workloads such as AI (see [ACM ReQuEST tournaments](http://cKnowledge.org/request)). 
 
 Please, check out the [latest ACM ReQuEST-ASPLOS'18 report about results of the 1st CK-powered competition on co-designing Pareto-efficient SW/HW stack for deep learning](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf), 
