@@ -193,6 +193,7 @@ cfg={
       "actions":{
                  "uid":{"desc":"generate UID", "for_web": "yes"},
                  "version":{"desc":"print CK version", "for_web": "yes"},
+                 "python_version":{"desc":"print python version used by CK", "for_web": "no"},
                  "status":{"desc":"check CK version status", "for_web": "yes"},
                  "copy_path_to_clipboard":{"desc":"copy current path to clipboard", "for_web": "no"},
 
@@ -4462,6 +4463,34 @@ def version(i):
        out('V'+version_str)
 
     return r
+
+############################################################
+# Action: print python version used by CK
+#
+# TARGET: end users
+
+def python_version(i):
+    """
+    Input:  {}
+
+    Output: {
+               version - sys.version
+               version_info - sys.version_info
+            }
+
+    """
+
+    import sys
+
+    o=i.get('out','')
+
+    v1=sys.version
+    v2=sys.version_info
+
+    if o=='con':
+       out(v1)
+
+    return {'return':0, 'version':v1, 'version_info':v2}
 
 ############################################################
 # Action: check CK status
