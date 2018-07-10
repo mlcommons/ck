@@ -364,6 +364,10 @@ def show(i):
                  x2='</a>'
 
                  url2=url
+
+                 if url2.endswith('.git'):
+                    url2=url2[:-4]
+
                  if '/tree/master/' not in url2:
                     url2+='/tree/master/module/'
                  else:

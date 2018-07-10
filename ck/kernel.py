@@ -201,6 +201,7 @@ cfg={
                  "pwiki":{"desc":"<CID> open private discussion wiki page for a given entry"}, 
 
                  "help":{"desc":"<CID> print help about data (module) entry"},
+                 "short_help":{"desc":"<CID> print short help about CK"},
                  "webhelp":{"desc":"<CID> open browser with online help (description) for a data (module) entry"}, 
                  "webapi":{"desc":"<CID> open browser with online API for a given module, if exists"}, 
                  "guide":{"desc":"open CK wiki with user/developer guides"}, 
@@ -3289,7 +3290,9 @@ def perform_action(i):
 
     # Check action
     action=i.get('action','')
-    if action=='' or action=='-?' or action=='-h' or action=='--help':
+    if action=='':
+       action='short_help'
+    elif action=='-?' or action=='-h' or action=='--help':
        action='help'
 
     # Check web
@@ -5047,6 +5050,47 @@ def help(i):
     h+=cfg['help_web']
 
     if o=='con': out(h)
+
+    return {'return':0, 'help':h}
+
+#########################################################
+# Common action: print help for a given module
+#
+# TARGET: CK kernel and low-level developers
+
+def short_help(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              help         - help text
+            }
+
+
+
+    """
+
+    o=i.get('out','')
+
+    r=version({})
+    if r['return']>0: return r
+
+    h='CK version: '+r['version_str']+'\n'
+
+    r=python_version({})
+    if r['return']>0: return r
+
+    h+='\nPython version used by CK: '+r['version']+'\n'
+
+    h+='\n'+cfg['help_web'].replace('\n','').strip().replace('   ','')
+
+    if o=='con': 
+       out(h)
 
     return {'return':0, 'help':h}
 
