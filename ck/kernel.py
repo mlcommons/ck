@@ -3398,7 +3398,12 @@ def perform_action(i):
           module_uoa=rc.get('module_uoa','')
           module_detected_from_dir=True
 
-    xmodule_uoa=module_uoa
+    display_module_uoa  = module_uoa
+    default_action_name = None
+    loaded_module       = None
+
+    ## If a specific module_uoa was given (not a wildcard) :
+    #
     if cf!='yes' and module_uoa!='' and module_uoa.find('*')<0 and module_uoa.find('?')<0:
        # Find module and load meta description
        rx=load({'module_uoa':cfg['module_name'], 
@@ -3407,10 +3412,9 @@ def perform_action(i):
 
        xmodule_uoa=rx['data_uoa']
        xmodule_uid=rx['data_uid']
+       display_module_uoa = '"{}"'.format(xmodule_uoa)
        if xmodule_uoa!=xmodule_uid:
-          xmodule_uoa='"'+xmodule_uoa+'" ('+xmodule_uid+')'
-       else:
-          xmodule_uoa='"'+xmodule_uoa+'"'
+          display_module_uoa += ' ({})'.format(xmodule_uid)
 
        # Check if allowed to run only from specific repos
        if cfg.get('allow_run_only_from_allowed_repos','')=='yes':
@@ -3422,19 +3426,21 @@ def perform_action(i):
        u=rx['dict']
        p=rx['path']
 
-       # Check if action in actions
-       if action in u.get('actions',{}):
+       declared_action      = action in u.get('actions',{})
+       default_action_name  = u.get('default_action_name','')
+
+       if declared_action or default_action_name:
           # Load module
           mcn=u.get('module_name',cfg['module_code_name'])
 
           r=load_module_from_path({'path':p, 'module_code_name':mcn, 'cfg':u, 'data_uoa':rx['data_uoa']})
           if r['return']>0: return r
 
-          c=r['code']
-          c.work['self_module_uid']=rx['data_uid']
-          c.work['self_module_uoa']=rx['data_uoa']
-          c.work['self_module_alias']=rx['data_alias']
-          c.work['path']=p
+          loaded_module=r['code']
+          loaded_module.work['self_module_uid']=rx['data_uid']
+          loaded_module.work['self_module_uoa']=rx['data_uoa']
+          loaded_module.work['self_module_alias']=rx['data_alias']
+          loaded_module.work['path']=p
 
           action1=u.get('actions_redirect',{}).get(action,'')
           if action1=='': action1=action
@@ -3445,8 +3451,9 @@ def perform_action(i):
           if wb=='yes' and (out=='con' or out=='web') and u.get('actions',{}).get(action,{}).get('for_web','')!='yes':
              return {'return':1, 'error':'this action is not supported in remote/web mode'}
 
-          a=getattr(c, action1)
-          return a(i)
+          if declared_action:   # otherwise fall through and try a "special" kernel method first
+              a=getattr(loaded_module, action1)
+              return a(i)
 
     # Check if action == special keyword (add, delete, list, etc)
     if (module_uoa!='' and action in cfg['common_actions']) or \
@@ -3465,11 +3472,15 @@ def perform_action(i):
        a=getattr(sys.modules[__name__], action1)
        return a(i)
 
+    if default_action_name:
+       a=getattr(loaded_module, default_action_name)
+       return a(i)
+
     # Prepare error
     if module_uoa=='':
        er='in kernel'
     else:
-       er='in module '+xmodule_uoa
+       er='in module '+display_module_uoa
 
     return {'return':1,'error':'action "'+action+'" not found '+er}
 
