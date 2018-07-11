@@ -243,3 +243,9 @@ E:
 O: University of Cambridge, UK
 C: reporting a few issues when converting his CGO 2017 artifacts to CK format (https://github.com/SamAinsworth/reproduce-cgo2017-paper)
 W:
+
+N: Todd Gamblin
+E:
+O: LLNL
+C: discussing how to connect CK and spack, and fixing detection of native LLVM on MacOS (https://github.com/ctuning/ck-env/pull/70)
+W:
