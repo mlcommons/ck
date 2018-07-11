@@ -59,7 +59,8 @@ Minimal installation
 The minimal installation requires:
 
 * Python 2.7 or 3.3+ (limitation is mainly due to unitests)
-* Git command line client.
+* Git command line client
+* wget (Linux/MacOS)
 
 ### Linux/MacOS
 
