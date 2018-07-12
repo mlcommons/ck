@@ -5087,6 +5087,8 @@ def short_help(i):
 
     h+='\nPython version used by CK: '+r['version']+'\n'
 
+    h+='\nAll internal CK commands: ck help\n'
+
     h+='\n'+cfg['help_web'].replace('\n','').strip().replace('   ','')
 
     if o=='con': 
