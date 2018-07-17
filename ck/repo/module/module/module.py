@@ -232,6 +232,7 @@ def add(i):
 
 ##############################################################################
 # show info about modules
+# Notice that we now suggest to use "ck list_modules misc"
 
 def show(i):
     """
