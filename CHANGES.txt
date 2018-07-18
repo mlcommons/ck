@@ -1,3 +1,6 @@
+* V1.9.5.1
+  * started new development version
+
 * V1.9.5
   * added "debug":"yes" to kernel for GitHub versions
   * fixed minor bug in detection of minimal CK kernel version
