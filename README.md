@@ -6,12 +6,17 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 Introduction
 ============
 
-Collective Knowledge (CK) is a [community project](http://cKnowledge.org/partners.html)
-to develop an open platform for collaborative, reproducible and sustainable 
-research and experimentation at [systems, ML, AI and other conferences](http://cTuning.org/ae)
-based on agile, DevOps and Wikipedia principles.
+Collective Knowledge (CK) is an open-source framework to speed up
+collaborative and reproducible R&D with reusable, customizable
+and portable components. 
+Trusted by a growing number of [academic and industrial partners](http://cKnowledge.org/partners.html),
+CK helps to automate [artifact evaluation](http://cTuning.org/ae) 
+and accelerate complex experiments such as benchmarking, co-design and optimization 
+of the whole SW/HW stack for [AI/ML](http://cKnowledge.org/ai.html).
+Git it [a try](https://github.com/ctuning/ck/wiki/First-steps)!
 
-CK framework is intended to help researchers and developers to:
+
+CK framework is based on agile, DevOps and Wikipedia principles helping users to:
 
 * decompose complex software projects with ad-hoc scripts into portable, customizable and reusable components (<a href="http://cKnowledge.org/shared-packages.html">packages</a>, <a href="http://cKnowledge.org/shared-soft-detection-plugins.html">software detection plugins</a>, <a href="http://cKnowledge.org/shared-modules.html">modules</a> and <a href="http://cKnowledge.org/shared-programs.html">workflows</a>) with a unified Python JSON API and an <a href="https://github.com/ctuning/ck/wiki/Portable-workflows">integrated package manager</a>;
 * organize all their local components (artifacts) in open [CK repositories](http://cKnowledge.org/shared-repos.html) and continuously exchange them with the community via GitHub, GitLab, BitBucket, BitTorrent, [ACM DL](https://dl.acm.org/docs/reproducibility.cfm), etc. to encourage artifact reuse;
