@@ -3428,6 +3428,7 @@ def perform_action(i):
 
        declared_action      = action in u.get('actions',{})
        default_action_name  = u.get('default_action_name','')
+       intercept_kernel     = i.get('{}.intercept_kernel'.format(module_uoa),'')
 
        if declared_action or default_action_name:
           # Load module
@@ -3451,9 +3452,14 @@ def perform_action(i):
           if wb=='yes' and (out=='con' or out=='web') and u.get('actions',{}).get(action,{}).get('for_web','')!='yes':
              return {'return':1, 'error':'this action is not supported in remote/web mode'}
 
-          if declared_action:   # otherwise fall through and try a "special" kernel method first
+          if declared_action:
               a=getattr(loaded_module, action1)
               return a(i)
+          elif default_action_name and intercept_kernel:
+              a=getattr(loaded_module, default_action_name)
+              return a(i)
+          # otherwise fall through and try a "special" kernel method first
+
 
     # Check if action == special keyword (add, delete, list, etc)
     if (module_uoa!='' and action in cfg['common_actions']) or \
