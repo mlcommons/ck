@@ -6303,13 +6303,14 @@ def rm(i):
 
     """
 
+    a=i.get('repo_uoa','')
+
     # Check if global writing is allowed
-    r=check_writing({'delete':'yes'})
+    r=check_writing({'repo_uoa':a, 'delete':'yes'})
     if r['return']>0: return r
 
     o=i.get('out','')
 
-    a=i.get('repo_uoa','')
     m=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
 

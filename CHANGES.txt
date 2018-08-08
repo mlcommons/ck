@@ -1,5 +1,5 @@
 * V1.9.5.1
-  * started new development version
+  * fixed minor bug in "ck rm" when deleting entries only from allowed repos (for crowdsourcing)
 
 * V1.9.5
   * added "debug":"yes" to kernel for GitHub versions
