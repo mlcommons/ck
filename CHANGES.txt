@@ -1,5 +1,6 @@
 * V1.9.5.1
   * fixed minor bug in "ck rm" when deleting entries only from allowed repos (for crowdsourcing)
+  * fixed problem with wrong repo UID when repo is installed from zip archive
 
 * V1.9.5
   * added "debug":"yes" to kernel for GitHub versions

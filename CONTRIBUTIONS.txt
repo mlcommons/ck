@@ -249,3 +249,12 @@ E:
 O: LLNL
 C: discussing how to connect CK and spack, and fixing detection of native LLVM on MacOS (https://github.com/ctuning/ck-env/pull/70)
 W:
+
+N: Dave Greasley
+E:
+O: University of Bristol
+C: fixed problem with repo UID when installing CK repo as zip:
+   * https://github.com/ctuning/ck/pull/92
+   * https://github.com/ctuning/ck/issues/91
+   provided feedback about RPi crowd-tuning: http://cKnowledge.org/rpi-crowd-tuning
+W:
