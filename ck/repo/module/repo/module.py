@@ -372,6 +372,16 @@ def add(i):
        rz=get_and_unzip_archive({'zip':zp, 'path':p, 'path_to_remove':ptr, 'overwrite':overwrite, 'out':o})
        if rz['return']>0: return rz
 
+       py = os.path.join(p, ck.cfg['repo_file'])
+       if os.path.isfile(py):
+           r = ck.load_json_file({'json_file': py})
+           if r['return'] > 0: return r
+           dc = r['dict']
+
+           d = dc.get('data_uoa', '')
+           di = dc.get('data_uid', '')
+           dn = dc.get('data_name', '')
+
     # If git, clone repo
     repo_had_local=True
     dd={}
