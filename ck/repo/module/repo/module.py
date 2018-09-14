@@ -2426,8 +2426,8 @@ def show(i):
               if r['return']==0 and r['return_code']==0: 
                  branch=r['stdout'].strip()
 
-              # Get current checkout
-              r=ck.run_and_get_stdout({'cmd':['git','rev-parse','--short','HEAD']})
+              # Get current checkout (append '-dirty' on dirty working tree)
+              r=ck.run_and_get_stdout({'cmd':['git','describe','--match=NeVeRmAtCh','--always','--abbrev','--dirty']})
               if r['return']==0 and r['return_code']==0: 
                  checkout=r['stdout'].strip()
 
