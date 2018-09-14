@@ -2379,7 +2379,8 @@ def show(i):
 
     r=ck.reload_repo_cache({}) # Ignore errors
 
-    pp=[]
+    # header
+    pp=[({'branch':'branch', 'origin':'origin', 'checkout':'local', 'path':'path', 'type':'type', 'url':'url', 'data_uoa':'data_uoa'})]
     il=0
     for q in ck.cache_repo_info:
         # Get repo info
@@ -2423,15 +2424,20 @@ def show(i):
 
               # Get current branch
               r=ck.run_and_get_stdout({'cmd':['git','rev-parse','--abbrev-ref','HEAD']})
-              if r['return']==0 and r['return_code']==0: 
+              if r['return']==0 and r['return_code']==0:
                  branch=r['stdout'].strip()
 
-              # Get current checkout (append '-dirty' on dirty working tree)
+              # Get origin hash
+              r=ck.run_and_get_stdout({'cmd':['git','rev-parse','--short','origin/HEAD']})
+              if r['return']==0 and r['return_code']==0:
+                 origin=r['stdout'].strip()
+
+              # Get current hash (append '-dirty' on dirty working tree)
               r=ck.run_and_get_stdout({'cmd':['git','describe','--match=NeVeRmAtCh','--always','--abbrev','--dirty']})
-              if r['return']==0 and r['return_code']==0: 
+              if r['return']==0 and r['return_code']==0:
                  checkout=r['stdout'].strip()
 
-           pp.append({'branch':branch, 'checkout':checkout, 'path':p, 'type':t, 'url':url, 'data_uoa':duoa})
+           pp.append({'branch':branch, 'origin':origin, 'checkout':checkout, 'path':p, 'type':t, 'url':url, 'data_uoa':duoa})
 
     # Print
     for q in pp:
@@ -2440,11 +2446,12 @@ def show(i):
         x=name+' '*(il-len(name))
 
         branch=q.get('branch','')
+        origin=q.get('origin','')
         checkout=q.get('checkout','')
         url=q.get('url','')
 
-        if branch!='' or checkout!='' or url!='':
-           x+=' ( '+branch+' ; '+checkout+' ; '+url+' )'
+        if branch!='' or 'origin' or checkout!='' or url!='':
+           x+=' ( '+branch+' ; '+origin+' ; '+checkout+' ; '+url+' )'
 
         ck.out(x)
 
