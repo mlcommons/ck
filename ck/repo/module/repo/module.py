@@ -2379,7 +2379,7 @@ def show(i):
 
     r=ck.reload_repo_cache({}) # Ignore errors
 
-    # header
+    # Init header.
     pp=[({'branch':'branch', 'origin':'origin', 'checkout':'local', 'path':'path', 'type':'type', 'url':'url', 'data_uoa':'data_uoa'})]
     il=0
     for q in ck.cache_repo_info:
@@ -2399,6 +2399,7 @@ def show(i):
            url=d.get('url','')
 
            branch=''
+           origin=''
            checkout=''
 
            if os.path.isdir(p):
