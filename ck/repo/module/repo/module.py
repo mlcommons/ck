@@ -1432,6 +1432,8 @@ def zip(i):
 
 
               (data)         - CID allowing to add only these entries with pattern (can be from another archive)
+
+              (all)          - archive all files
             }
 
     Output: {
@@ -1493,6 +1495,11 @@ def zip(i):
     if o=='con':
        ck.out('Creating archive '+pfn+' - please wait, it may take some time ...')
 
+    # Check all files
+    ignore=[]
+    if i.get('all','')!='yes':
+       ignore=ck.cfg.get('ignore_directories_when_archive_repo',[])
+
     # Prepare archive
     import zipfile
 
@@ -1540,14 +1547,14 @@ def zip(i):
               fl[pr].append(os.path.join(pm, ck.cfg['subdir_ck_ext'], ck.cfg['file_alias_a'] + pd_alias))
               fl[pr].append(os.path.join(pm, ck.cfg['subdir_ck_ext'], ck.cfg['file_alias_u'] + pd_uid))
 
-           r=ck.list_all_files({'path':pp, 'all':'yes', 'ignore_names':ck.cfg.get('ignore_directories_when_archive_repo',[])})
+           r=ck.list_all_files({'path':pp, 'all':'yes', 'ignore_names':ignore})
            if r['return']>0: return r
            for q in r['list']:
                fx=os.path.join(pm,pd,q)
                fl[pr].append(fx)
 
     else:
-       r=ck.list_all_files({'path':path, 'all':'yes', 'ignore_names':ck.cfg.get('ignore_directories_when_archive_repo',[])})
+       r=ck.list_all_files({'path':path, 'all':'yes', 'ignore_names':ignore})
        if r['return']>0: return r
        fl[path]=r['list']
 
