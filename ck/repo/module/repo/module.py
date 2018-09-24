@@ -136,6 +136,14 @@ def add(i):
 
     overwrite=i.get('overwrite','')
 
+    remote=i.get('remote','')
+    rruoa=i.get('remote_repo_uoa','')
+    shared=i.get('shared','')
+    if shared=='yes': shared='git'
+
+    share=i.get('share','')
+    if share=='yes' and shared=='': shared='git'
+
     ptr=''
     zp=i.get('zip','')
     gz=i.get('gitzip','')
@@ -159,6 +167,10 @@ def add(i):
 
           try:
              with zipfile.ZipFile(zp) as z:
+                zip_has_git=False
+                if '.git/HEAD' in z.namelist():
+                   zip_has_git=True
+
                 if ck.cfg['repo_file'] in z.namelist():
                    x=z.open(ck.cfg['repo_file'])
                    y=x.read()
@@ -170,6 +182,12 @@ def add(i):
                    d=yd.get('data_uoa','')
                    di=yd.get('data_uid','')
                    dn=yd.get('data_name','')
+
+                   zip_shared=yd.get('dict',{}).get('shared','')
+                   if zip_shared!='':
+                      if zip_shared!='git' or zip_has_git:
+                         shared=yd['dict']['shared']
+                         share='yes'
 
                    x.close()
              z.close()
@@ -189,14 +207,6 @@ def add(i):
        zp=ck.cfg['default_shared_repo_url']+'/'+d+'/archive/master.zip'
        ptr=d+'-master/'
        quiet='yes'
-
-    remote=i.get('remote','')
-    rruoa=i.get('remote_repo_uoa','')
-    shared=i.get('shared','')
-    if shared=='yes': shared='git'
-
-    share=i.get('share','')
-    if share=='yes' and shared=='': shared='git'
 
     rx=form_url(i)
     if rx['return']>0: return rx
@@ -385,7 +395,7 @@ def add(i):
     # If git, clone repo
     repo_had_local=True
     dd={}
-    if remote!='yes' and shared=='git':
+    if remote!='yes' and shared=='git' and zp=='':
        r=pull({'path':p, 'type':shared, 'url':url, 'clone':'yes', 'git':i.get('git',''), 'out':o})
        if r['return']>0: return r
 

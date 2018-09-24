@@ -2,6 +2,7 @@
   * fixed minor bug in "ck rm" when deleting entries only from allowed repos (for crowdsourcing)
   * fixed problem with wrong repo UID when repo is installed from zip archive
   * added flag --all to "ck zip" to archive all files including .git
+  * fixed "ck add repo --zip" if zip contains Git repository (making it shared)
 
 * V1.9.5
   * added "debug":"yes" to kernel for GitHub versions
