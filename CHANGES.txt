@@ -1,3 +1,6 @@
+* V1.9.6.1
+  New development version
+
 * V1.9.6
   * fixed minor bug in "ck rm" when deleting entries only from allowed repos (for crowdsourcing)
   * fixed problem with wrong repo UID when repo is installed from zip archive
