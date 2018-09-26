@@ -1,7 +1,7 @@
 =======================================================================
 N: Grigori Fursin
 E: Grigori.Fursin@cTuning.org
-H: http://fursin.net
+H: http://fursin.net/research.html
 O: cTuning foundation / dividiti
 C: original concept and design
 W: since 1 November 2014 
