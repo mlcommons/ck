@@ -6,14 +6,26 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 Introduction
 ============
 
-Collective Knowledge (CK) is an open-source workflow framework to speed up
-collaborative and reproducible R&D with reusable, customizable
-and portable components. 
+We believe in the power of collaborative, systematic and reproducible R&D to solve the World's most challenging problems!
+
+We created Collective Knowledge (CK) as an open-source workflow framework 
+to speed up collaborative and reproducible R&D with reusable, customizable,
+portable and non-virtualized components. 
 Trusted by a growing number of [academic and industrial partners](http://cKnowledge.org/partners.html),
 CK helps to automate [artifact evaluation](http://cTuning.org/ae) 
 and accelerate complex experiments such as benchmarking, co-design and optimization 
 of the whole SW/HW stack for [AI/ML](http://cKnowledge.org/ai.html).
 Give it [a try](https://github.com/ctuning/ck/wiki/First-steps)!
+
+Note that CK is basically a low-level collection of unified APIs
+shared via Git(Hub) and accessible from the command line or from
+Python and other languages. The community can integrate CK 
+with their own local and cloud projects, or develop more user-friendly 
+front-ends similar to [Overleaf web front-end](https://www.overleaf.com/)
+for [LaTeX](https://www.latex-project.org/) or [GitHub](https://github.com) 
+and [TortoiseGit GUI](https://tortoisegit.org) for [Git projects](https://git-scm.com/).
+For example, see [web front-end for live CK repository](http://cKnowledge.org/repo)
+and this [GUI for CK-based DNN crowd-benchmarking](https://github.com/dividiti/ck-crowdsource-dnn-optimization).
 
 CK framework is based on agile, DevOps, [FAIR](https://www.nature.com/articles/sdata201618) and Wikipedia principles helping users to:
 
