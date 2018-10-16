@@ -6,7 +6,7 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 Introduction
 ============
 
-We believe in the power of collaborative, systematic and reproducible R&D to solve the World's most challenging problems!
+**We believe in the power of collaborative, systematic and reproducible R&D to solve the World's most challenging problems!**
 
 We created Collective Knowledge (CK) as an open-source workflow framework 
 to speed up collaborative and reproducible R&D with reusable, customizable,
@@ -25,8 +25,11 @@ front-ends similar to [Overleaf web front-end](https://www.overleaf.com/)
 for [LaTeX](https://www.latex-project.org/) or [GitHub](https://github.com) 
 and [TortoiseGit GUI](https://tortoisegit.org) for [Git projects](https://git-scm.com/).
 For example, see [web front-end for live CK repository](http://cKnowledge.org/repo),
-[Android front-ends to crowdsource optimization of AI models and frameworks](http://cKnowledge.org/android-apps.html)
+[Android front-ends to crowdsource optimization of AI models and frameworks](http://cKnowledge.org/android-apps.html),
 and this [desktop GUI for CK-based DNN crowd-benchmarking](https://github.com/dividiti/ck-crowdsource-dnn-optimization).
+If something is unclear, do not hesitate to ask the community 
+via [CK mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
+or [CK slack channel](https://collective-knowledge.slack.com)!
 
 CK framework is based on agile, DevOps, [FAIR](https://www.nature.com/articles/sdata201618) and Wikipedia principles helping users to:
 
