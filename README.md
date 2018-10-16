@@ -24,8 +24,9 @@ with their own local and cloud projects, or develop more user-friendly
 front-ends similar to [Overleaf web front-end](https://www.overleaf.com/)
 for [LaTeX](https://www.latex-project.org/) or [GitHub](https://github.com) 
 and [TortoiseGit GUI](https://tortoisegit.org) for [Git projects](https://git-scm.com/).
-For example, see [web front-end for live CK repository](http://cKnowledge.org/repo)
-and this [GUI for CK-based DNN crowd-benchmarking](https://github.com/dividiti/ck-crowdsource-dnn-optimization).
+For example, see [web front-end for live CK repository](http://cKnowledge.org/repo),
+[Android front-ends to crowdsource optimization of AI models and frameworks](http://cKnowledge.org/android-apps.html)
+and this [desktop GUI for CK-based DNN crowd-benchmarking](https://github.com/dividiti/ck-crowdsource-dnn-optimization).
 
 CK framework is based on agile, DevOps, [FAIR](https://www.nature.com/articles/sdata201618) and Wikipedia principles helping users to:
 
