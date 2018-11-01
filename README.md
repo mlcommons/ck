@@ -6,7 +6,7 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 Introduction
 ============
 
-**We believe in the power of collaborative, systematic and reproducible R&D to solve the World's most challenging problems! Therefore, do not hesitate to share your thoughts about how to improve our open-source technology via [this mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)!**
+**We believe in the power of collaborative, systematic and reproducible R&D to solve the World's most challenging problems! Therefore, do not hesitate to share your thoughts about how to improve our open-source technology via this [public discussion group](https://groups.google.com/forum/#!forum/collective-knowledge)!**
 
 We created Collective Knowledge (CK) as an open-source workflow framework 
 to speed up collaborative and reproducible R&D with reusable, customizable,
