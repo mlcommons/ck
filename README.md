@@ -6,8 +6,8 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 Introduction
 ============
 
-** We believe in the power of collaborative, systematic and reproducible R&D 
-to solve the World's most challenging problems! **
+**We believe in the power of collaborative, systematic and reproducible R&D 
+to solve the World's most challenging problems!**
 
 Unfortunately, interdisciplinary researchers often struggle to apply novel 
 techniques and reuse research artifacts developed for one domain to another 
@@ -25,10 +25,10 @@ from shared components and crowdsource complex experiments across
 diverse models, data sets, environments and platforms with Linux, MacOS,
 Windows and Android.
 
-** Just [give it a try](https://github.com/ctuning/ck/wiki/First-steps)
+**Just [give it a try](https://github.com/ctuning/ck/wiki/First-steps)
 or see our [motivation slides](https://www.slideshare.net/GrigoriFursin/accelerating-open-science-and-ai-with-automated-portable-customizable-and-reusable-research-components-and-workflows)
 and [ACM ReQuEST report about CK-based co-design of efficient SW/HW stacks for deep learning](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf))
-for more details! **
+for more details!**
 
 Having a common experimental infrastructure also simplifies
 validation of research techniques from numerous papers 
