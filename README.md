@@ -27,7 +27,7 @@ Windows and Android.
 
 **Just [give it a try](https://github.com/ctuning/ck/wiki/First-steps)
 or see our [motivation slides](https://www.slideshare.net/GrigoriFursin/accelerating-open-science-and-ai-with-automated-portable-customizable-and-reusable-research-components-and-workflows)
-and [ACM ReQuEST report about CK-based co-design of efficient SW/HW stacks for deep learning](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf))
+and [ACM ReQuEST report about CK-based co-design of efficient SW/HW stacks for deep learning](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf)
 for more details!**
 
 Having a common experimental infrastructure also simplifies
