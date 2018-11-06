@@ -12,6 +12,9 @@
 
 */
 
+ # Allow local widget to fetch data from website
+ header("Access-Control-Allow-Origin: *");
+
  # initalize path to CK
  $ckr=getenv("CK_ROOT"); 
  if ($ckr=="") $ckr=getcwd();
