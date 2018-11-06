@@ -1,5 +1,6 @@
 * V1.9.6.1
-  New development version
+  * Allow local widget to fetch data from cKnowledge.org (or other) website:
+    https://github.com/ctuning/ck/pull/93
 
 * V1.9.6
   * fixed minor bug in "ck rm" when deleting entries only from allowed repos (for crowdsourcing)

@@ -210,19 +210,19 @@ W:
 
 N: Yuriy Kashnikov 
 E:
-O: Xored, Russia
+O: Xored
 C: crowd-tuning discussions
 W:
 
 N: Dmitry Savenko 
 E:
-O: Xored, Russia
+O: Xored
 C: added continuous integration, various tests and fixed various problems with crowdtuning on MacOS 
 W:
 
 N: Daniil Efremov 
 E:
-O: Xored, Russia
+O: Xored
 C: testing and improving CK
 W:
 
@@ -242,6 +242,12 @@ N: Sam Ainsworth
 E:
 O: University of Cambridge, UK
 C: reporting a few issues when converting his CGO 2017 artifacts to CK format (https://github.com/SamAinsworth/reproduce-cgo2017-paper)
+W:
+
+N: Nikolay Istomin
+E:
+O: Xored
+C: fixed issue with widget fetching data from another source
 W:
 
 N: Todd Gamblin
