@@ -25,10 +25,14 @@ from shared components and crowdsource complex experiments across
 diverse models, data sets, environments and platforms with Linux, MacOS,
 Windows and Android.
 
-**Just [give it a try](https://github.com/ctuning/ck/wiki/First-steps)
-or see our [motivation slides](https://www.slideshare.net/GrigoriFursin/accelerating-open-science-and-ai-with-automated-portable-customizable-and-reusable-research-components-and-workflows)
-and [ACM ReQuEST report about CK-based co-design of efficient SW/HW stacks for deep learning](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf)
-for more details!**
+**See articles, presentations and videos featuring CK from 
+[IBM ("Reproducing Quantum results from Nature - how hard could it be?")](https://www.linkedin.com/pulse/reproducing-quantum-results-from-nature-how-hard-could-lickorish/),
+[General Motors ("Collaboratively Benchmarking and Optimizing Deep Learning Implementations")](https://www.youtube.com/watch?v=1ldgVZ64hEI),
+[Amazon ("Scaling deep learning on AWS using C5 instances with MXNet, TensorFlow, and BigDL: From the edge to the cloud")](https://conferences.oreilly.com/artificial-intelligence/ai-eu/public/schedule/detail/71549),
+[Arm (ARM Demonstration of Collaboratively Optimizing Deep Learning Applications)](https://www.youtube.com/watch?v=f4CfMrGPJPY),
+[ACM ReQuEST (tournaments to co-design efficient SW/HW stacks for deep learning)](),
+[dividiti/cTuning foundation](https://www.slideshare.net/GrigoriFursin/accelerating-open-science-and-ai-with-automated-portable-customizable-and-reusable-research-components-and-workflows),
+and just [give it a try](https://github.com/ctuning/ck/wiki/First-steps)**
 
 Having a common experimental infrastructure also simplifies
 validation of research techniques from numerous papers 
