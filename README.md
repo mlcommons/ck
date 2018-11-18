@@ -76,7 +76,7 @@ $ brew install wget
 * Download and install Git from https://git-for-windows.github.io
 * Download and install Python from https://www.python.org/downloads/windows
 
-## Installation from Git
+## Installation from GitHub
 
 ### Linux/MacOS
 
