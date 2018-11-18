@@ -13,10 +13,11 @@ CK bugs can be reported here:
 
 Bugs related to shared repositories (predictive analytics, reproducible
 experimentation, autotuning, etc) should be reported via their corresponding
-GitHub pages. For example, you can report bugs about autotuning here:
+GitHub pages. For example, you can report bugs about progrma workflows
+and autotuning here:
 * https://github.com/ctuning/ck-autotuning/issues
 
-Thank you for all your help to support this community project!
+Thank you for supporting this community project!
 
 =================================================================================
 Acknowledgments:
@@ -25,14 +26,14 @@ N: Grigori Fursin (alias: FGG)
 E: Grigori.Fursin@cTuning.org
 H: http://fursin.net
 O: cTuning foundation, France
-C: original concept and design
+C: original concept and design, real-world use cases
 W: since Nov.1, 2014 
 
 N: Anton Lokhmotov
 E: anton@dividiti.com
 H: https://www.hipeac.net/~anton
 O: dividiti, UK
-C: use cases, marketing
+C: real-world use cases
 W: since Mar.1, 2015
 
 N: Graham Markall
@@ -264,3 +265,9 @@ C: fixed problem with repo UID when installing CK repo as zip:
    * https://github.com/ctuning/ck/issues/91
    provided feedback about RPi crowd-tuning: http://cKnowledge.org/rpi-crowd-tuning
 W:
+
+N: Stephen Herbein
+E: 
+O: LLNL
+C: customizing kernel to search soft in Spack directories
+W: https://herbein.net
