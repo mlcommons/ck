@@ -17,14 +17,14 @@ and gradually fixing [reproducibility issues](http://cknowledge.org/rpi-crowd-tu
 CK supports [our long-term vision](https://www.slideshare.net/GrigoriFursin/accelerating-open-science-and-ai-with-automated-portable-customizable-and-reusable-research-components-and-workflows) 
 to connect academia and industry to solve the real-world challenges.
 For example, see several important use cases from [our partners](http://cKnowledge.org/partners.html):
-* IBM: ["Reproducing Quantum results from Nature - how hard could it be?"](https://www.linkedin.com/pulse/reproducing-quantum-results-from-nature-how-hard-could-lickorish/);
-* General Motors: ["Collaboratively Benchmarking and Optimizing Deep Learning Implementations"](https://www.youtube.com/watch?v=1ldgVZ64hEI);
-* Amazon: ["Scaling deep learning on AWS using C5 instances with MXNet, TensorFlow, and BigDL: From the edge to the cloud"](https://conferences.oreilly.com/artificial-intelligence/ai-eu/public/schedule/detail/71549);
-* Arm: [ARM Demonstration of Collaboratively Optimizing Deep Learning Applications](https://www.youtube.com/watch?v=f4CfMrGPJPY);
-* Raspberry Pi foundation: [interactive and reproducible article about "a Collective Knowledge workflow for collaborative research into multi-objective autotuning and machine learning techniques"](http://cKnowledge.org/rpi-crowd-tuning);
-* ACM, IEEE and NIPS conferences: [automating artifact evaluation](http://cTuning.org/ae);
-* ACM and dividiti:[ReQuEST tournaments to co-design efficient SW/HW stacks for deep learning across diverse models, data sets and platforms from cloud to edge](http://cKnowledge.org/request), [organizers' report](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf);
-* dividiti: [CK-based public benchmarking of Quantum systems and algorithms](http://cKnowledge.org/quantum).
+* IBM: ["Reproducing Quantum results from Nature - how hard could it be?"](https://www.linkedin.com/pulse/reproducing-quantum-results-from-nature-how-hard-could-lickorish/)
+* General Motors: ["Collaboratively Benchmarking and Optimizing Deep Learning Implementations"](https://www.youtube.com/watch?v=1ldgVZ64hEI)
+* Amazon: ["Scaling deep learning on AWS using C5 instances with MXNet, TensorFlow, and BigDL: From the edge to the cloud"](https://conferences.oreilly.com/artificial-intelligence/ai-eu/public/schedule/detail/71549)
+* Arm: [ARM Demonstration of Collaboratively Optimizing Deep Learning Applications](https://www.youtube.com/watch?v=f4CfMrGPJPY)
+* Raspberry Pi foundation: [interactive and reproducible article about "a Collective Knowledge workflow for collaborative research into multi-objective autotuning and machine learning techniques"](http://cKnowledge.org/rpi-crowd-tuning)
+* ACM, IEEE and NIPS conferences: [automating artifact evaluation](http://cTuning.org/ae)
+* ACM and dividiti:[ReQuEST tournaments to co-design efficient SW/HW stacks for deep learning across diverse models, data sets and platforms from cloud to edge](http://cKnowledge.org/request), [organizers' report](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf)
+* dividiti: [CK-based public benchmarking of Quantum systems and algorithms](http://cKnowledge.org/quantum)
 
 Just **[give it a try](https://github.com/ctuning/ck/wiki/First-feeling.mediawiki)** 
 and do not hesitate to provide your feedback to the CK community
@@ -32,7 +32,7 @@ via [public CK discussion group](https://groups.google.com/forum/#!forum/collect
 
 # CK resources
 
-* [cKnowledge.org - project website](http://cKnowledge.org)
+* Project website: [cKnowledge.org](http://cKnowledge.org)
 * CK [motivation](https://github.com/ctuning/ck/wiki/Motivation) and [main features](https://github.com/ctuning/ck/wiki/Features)
 * [Real world use cases from the CK community](http://cKnowledge.org/partners.html)
 * [CK documentation](https://github.com/ctuning/ck/wiki)
@@ -45,8 +45,7 @@ via [public CK discussion group](https://groups.google.com/forum/#!forum/collect
 * [Reproducible SW/HW co-design competitions for deep learning and other emerging workloads using CK](http://cKnowledge.org/request)
 * [Live Scoreboard with results from crowd-sourced experiments such as SW/HW co-design of deep learning](http://cKnowledge.org/repo)
 * [CK publications](https://github.com/ctuning/ck/wiki/Publications)
-* [CK Mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
-* [CK slack](https://collective-knowledge.slack.com)
+* CK [mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) and [Slack](https://collective-knowledge.slack.com)
 
 # Installation
 
@@ -296,7 +295,7 @@ See [CK publications](https://github.com/ctuning/ck/wiki/Publications).
 
 # CK authors
 
-* [Grigori Fursin](http://fursin.net/research.html), cTuning foundation / dividiti
+* [Grigori Fursin](http://fursin.net/research.html), cTuning foundation and dividiti
 * [Anton Lokhmotov](https://uk.linkedin.com/in/lokhmotov), dividiti
 
 # License
