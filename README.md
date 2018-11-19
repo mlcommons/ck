@@ -3,6 +3,10 @@ Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
+*Note that we just completed a proof-of-concept stage for CK with our [partners](http://cKnowledge.org/partners.html)
+and plan to gradually improve CK documentation, specification and APIs in Q1 2019. Please be patient, stay tuned 
+or help the CK community via this [open CK forum](https://groups.google.com/forum/#!forum/collective-knowledge)!*
+
 Collective Knowledge (CK) is a community effort to develop the universal, portable, customizable 
 and automated workflow framework with "plug&play" components to enable collaborative and reproducible R&D
 based on agile, DevOps, [FAIR](https://www.nature.com/articles/sdata201618) and Wikipedia principles
