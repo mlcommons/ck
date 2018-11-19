@@ -22,30 +22,36 @@ For example, see several important use cases from [our partners](http://cKnowled
 * Amazon: ["Scaling deep learning on AWS using C5 instances with MXNet, TensorFlow, and BigDL: From the edge to the cloud"](https://conferences.oreilly.com/artificial-intelligence/ai-eu/public/schedule/detail/71549)
 * Arm: [ARM Demonstration of Collaboratively Optimizing Deep Learning Applications](https://www.youtube.com/watch?v=f4CfMrGPJPY)
 * Raspberry Pi foundation: [interactive and reproducible article about "a Collective Knowledge workflow for collaborative research into multi-objective autotuning and machine learning techniques"](http://cKnowledge.org/rpi-crowd-tuning)
-* ACM, IEEE and NIPS conferences: [automating artifact evaluation](http://cTuning.org/ae)
+* ACM, IEEE and NIPS conferences: [automated artifact evaluation](http://cTuning.org/ae), [CGO'17 paper](https://github.com/SamAinsworth/reproduce-cgo2017-paper), [ReQuEST'18 papers](https://dl.acm.org/citation.cfm?doid=3229762)
 * ACM and dividiti:[ReQuEST tournaments to co-design efficient SW/HW stacks for deep learning across diverse models, data sets and platforms from cloud to edge](http://cKnowledge.org/request), [organizers' report](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf)
 * dividiti: [CK-based public benchmarking of Quantum systems and algorithms](http://cKnowledge.org/quantum)
 
-Just **[give it a try](https://github.com/ctuning/ck/wiki/First-feeling.mediawiki)** 
+Just **[give it a try](https://github.com/ctuning/ck/wiki/First-steps)** 
 and do not hesitate to provide your feedback to the CK community
-via [public CK discussion group](https://groups.google.com/forum/#!forum/collective-knowledge)!
+via this [public CK discussion group](https://groups.google.com/forum/#!forum/collective-knowledge)!
 
 # CK resources
 
 * Project website: [cKnowledge.org](http://cKnowledge.org)
-* CK [motivation](https://github.com/ctuning/ck/wiki/Motivation) and [main features](https://github.com/ctuning/ck/wiki/Features)
 * [Real world use cases from the CK community](http://cKnowledge.org/partners.html)
-* [CK documentation](https://github.com/ctuning/ck/wiki)
-  * [Shared CK programs (workflows)](http://cKnowledge.org/shared-programs.html)
-  * [Shared CK repositories with reusable workflows and artifacts](http://cKnowledge.org/shared-repos.html)
+* **[CK documentation](https://github.com/ctuning/ck/wiki)**
+  * [Motivation](https://github.com/ctuning/ck/wiki/Motivation) and [main features](https://github.com/ctuning/ck/wiki/Features)
+  * [CK basics](https://michel-steuwer.github.io/About-CK)
+  * [Getting started guide](https://github.com/ctuning/ck/wiki/First-steps)
+  * [Adding new CK components](https://github.com/ctuning/ck/wiki/Adding-new-workflows)
+* Shared CK components
+  * [Program workflows](http://cKnowledge.org/shared-programs.html)
+  * [Repositories with reusable workflows and artifacts](http://cKnowledge.org/shared-repos.html)
   * [Reusable CK modules (plugins)](http://cKnowledge.org/shared-modules.html)
     * [Exposed CK kernel productivity functions](http://cKnowledge.org/ck-kernel-functions.html)
   * [Reusable software detection plugins](http://cKnowledge.org/shared-soft-detection-plugins.html)
-  * [Reusable CK packages to automate installation of workflows across diverse platforms](http://cKnowledge.org/shared-packages.html)
-* [Reproducible SW/HW co-design competitions for deep learning and other emerging workloads using CK](http://cKnowledge.org/request)
-* [Live Scoreboard with results from crowd-sourced experiments such as SW/HW co-design of deep learning](http://cKnowledge.org/repo)
+  * [Packages to automate installation of workflows across diverse platforms](http://cKnowledge.org/shared-packages.html)
+* Examples of collaborative R&D
+  * [Public scoreboard with results from crowd-sourced experiments such as SW/HW co-design of deep learning](http://cKnowledge.org/repo)
+  * [Reproducible SW/HW co-design competitions for deep learning and other emerging workloads using CK](http://cKnowledge.org/request)
+  * [Open benchmarking of quantum algorithms](http://cKnowledge.org/quantum)
 * [CK publications](https://github.com/ctuning/ck/wiki/Publications)
-* CK [mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) and [Slack](https://collective-knowledge.slack.com)
+* [Open discussion group](https://groups.google.com/forum/#!forum/collective-knowledge) and [Slack](https://collective-knowledge.slack.com)
 
 # Installation
 
@@ -215,7 +221,7 @@ $ ck run program:caffe --cmd_key=classify
 You can see how to install Caffe for Linux, MacOS, Windows and Android via CK
 [here](https://github.com/dividiti/ck-caffe/wiki/Installation).
 
-Finally, compile, run, benchmark and crowd-tune some C program (see shared optimization cases in http://cKnowledge.org/repo):
+Finally, compile, run, benchmark and crowd-tune some C program.
 ```
 $ ck pull repo:ck-crowdtuning
 
@@ -230,7 +236,9 @@ $ ck benchmark program:cbench-automotive-susan
 $ ck crowdtune program:cbench-automotive-susan
 ```
 
-You can also quickly your own program/workflow using provided templates as follows:
+You can then browse top shared optimization results on the live CK scoreboard: http://cKnowledge.org/repo .
+
+You can also add and later customize your own program/workflow using provided templates as follows:
 ```
 $ ck add program:my-new-program
 ```
@@ -244,19 +252,6 @@ $ ck run program:my-new-program
 $ ck run program:my-new-program --env.CK_VAR1=222
 ```
 
-Find and reuse other shared CK workflows and artifacts:
-
-* [Shared CK repositories](https://github.com/ctuning/ck/wiki/Shared-repos)
-* [Shared CK deep learning workflows from ReQuEST tournaments](https://github.com/ctuning/ck-request-asplos18-results)
-* [Shared CK modules (plugins)](https://github.com/ctuning/ck/wiki/Shared-modules)
-* [Shared software detection plugins](https://github.com/ctuning/ck/wiki/Shared-soft-descriptions)
-* [Shared CK packages to automate installation of workflows across diverse platforms](https://github.com/ctuning/ck/wiki/Shared-packages)
-
-Further details:
-* [Getting Started Guides](https://github.com/ctuning/ck/wiki),
-* [ReQuEST tournaments](http://cKnowledge.org/request)
-* [ReQuEST live scoreboard with benchmarking results](http://cKnowledge.org/repo)
-
 # Trying CK from Docker images
 
 You can try CK using the following Docker image:
@@ -269,25 +264,13 @@ Note that we added Docker automation to CK to help evaluate
 artifacts at the conferences, share interactive 
 and reproducible articles, crowdsource experiments and so on.
 
-For example, you can participate in GCC or LLVM crowd-tuning on your machine
-simply as follows:
+For example, you can participate in GCC or LLVM crowd-tuning on your machine as follows:
 ```
  $ (sudo) docker run ck-crowdtune-gcc
  $ (sudo) docker run ck-crowdtune-llvm
 ```
 
-You can then browse top shared optimization results on the live CK scoreboard: http://cKnowledge.org/repo
-
-Open ACM ReQuEST tournaments are now using our approach and technology 
-to co-design efficient SW/HW stack for deep learning and other emerging workloads: http://cKnowledge.org/request
-
-You can also download and view one of our CK-based interactive and reproducible articles as follows:
-```
- $ ck pull repo:ck-docker
- $ ck run docker:ck-interactive-article --browser (--sudo)
-```
-
-See the list of other CK-related Docker images [here](https://hub.docker.com/u/ctuning).
+Top optimization results are continuously aggregated in the live CK repository: http://cKnowledge.org/repo .
 
 # Citing CK
 
