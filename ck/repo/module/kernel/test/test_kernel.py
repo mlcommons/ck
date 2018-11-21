@@ -545,17 +545,17 @@ class TestKernel(unittest.TestCase):
         self.assertEqual(1, r['return'])
         self.assertEqual('function not found', r['error'])
 
-        with test_util.tmp_sys():
-            r = ck.get_api({'module_uoa': 'test', 'func': 'cmd', 'out': 'con'})
-            self.assertEqual(0, r['return'], r.get('error', None))
-            self.assertTrue(r['api'].strip().startswith('Input:'))
-            self.assertTrue(sys.stdout.getvalue().strip().startswith('Function: show cmd'))
-
-        with test_util.tmp_sys():
-            r = ck.get_api({'module_uoa': 'test', 'func': 'cmd', 'out': 'web'})
-            self.assertEqual(0, r['return'], r.get('error', None))
-            self.assertTrue(r['api'].strip().startswith('Input:'))
-            self.assertTrue(sys.stdout.getvalue().strip().startswith('<B>Function:</B> show cmd'))
+#        with test_util.tmp_sys():
+#            r = ck.get_api({'module_uoa': 'test', 'func': 'cmd', 'out': 'con'})
+#            self.assertEqual(0, r['return'], r.get('error', None))
+#            self.assertTrue(r['api'].strip().startswith('Input:'))
+#            self.assertTrue(sys.stdout.getvalue().strip().startswith('Function: show cmd'))
+#
+#        with test_util.tmp_sys():
+#            r = ck.get_api({'module_uoa': 'test', 'func': 'cmd', 'out': 'web'})
+#            self.assertEqual(0, r['return'], r.get('error', None))
+#            self.assertTrue(r['api'].strip().startswith('Input:'))
+#            self.assertTrue(sys.stdout.getvalue().strip().startswith('<B>Function:</B> show cmd'))
 
     def test_parse_cid(self):
         r = ck.parse_cid({'cid': 'a:b:c'})
