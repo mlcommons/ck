@@ -3523,8 +3523,10 @@ def get_api(i):
 
     muoa=i.get('module_uoa','')
 
-    t=''
-    a=''
+    t=''      # last function description (if redirect to another API)
+    t_orig='' # original function description
+    l=0       # API line
+    a=''      # accumulated API
 
     if p=='' and muoa!='':
        rx=load({'module_uoa':cfg['module_name'], 
@@ -3547,42 +3549,65 @@ def get_api(i):
 
        lst=rx['lst']
 
-       for k in range(0, len(lst)):
-           q=lst[k]
+       k=-1
+       while k<len(lst)-1:
+             k+=1
+             q=lst[k]
 
-           if q.find('def '+f+'(')>=0 or q.find('def '+f+' (')>=0 or \
-              q.find('def\t'+f+'(')>=0 or q.find('def\t'+f+' (')>=0:
+             if q.find('def '+f+'(')>=0 or q.find('def '+f+' (')>=0 or \
+                q.find('def\t'+f+'(')>=0 or q.find('def\t'+f+' (')>=0:
 
-              j=k-1
-              if j>=0 and lst[j].strip()=='': j-=1
+                j=k-1
+                if j>=0 and lst[j].strip()=='': j-=1
 
-              x='x'
-              while j>=0 and x!='' and not x.startswith('###'):
-                x=lst[j].strip()
-                if x!='' and not x.startswith('###'):
-                   if x=='#': x=' '
-                   elif x.startswith('# '): x=x[2:]
-                   t=x+'\n'+t
-                j-=1
+                x='x'
+                while j>=0 and x!='' and not x.startswith('###'):
+                  x=lst[j].strip()
+                  if x!='' and not x.startswith('###'):
+                     if x=='#': x=' '
+                     elif x.startswith('# '): x=x[2:]
+                     t=x+'\n'+t
+                  j-=1
 
-              j=k+1
-              if j<len(lst) and lst[j].find('"""')>=0: 
-                 j+=1
+                if t!='':
+                   l=j+2
+                   if t_orig=='': t_orig=t 
 
-              x=''
-              while x.find('"""')<0 and j<len(lst):
-                  x=lst[j]
-                  if x.find('"""')<0:
-                     a+=x+'\n'
-                  j+=1
+                # Find starting point of an API
+                j=k+1
+                if j<len(lst) and lst[j].find('"""')>=0: 
+                   j+=1
+
+                # Check if redirect to another function
+                restart=False
+                if j<len(lst):
+                   x=lst[j].strip()
+                   if x.lower().startswith("see"):
+                      z1=x.find('"')
+                      if z1>0:
+                         z2=x.find('"',z1+1)
+                         if z2>0:
+                            f=x[z1+1:z2] # new function name
+                            k=-1
+                            restart=True # restart search for new function
+                   
+                if not restart:
+                   x=''
+                   while x.find('"""')<0 and j<len(lst):
+                       x=lst[j]
+                       if x.find('"""')<0:
+                          a+=x+'\n'
+                       j+=1
 
     if t=='' and a=='':
        return {'return':1, 'error':'function not found'}
 
     if o=='con':
-       out('Function: '+t)
+       out('Description: '+t_orig.strip())
        out('')
        out('Module: '+p)
+       out('')
+       out('Line: '+str(l))
        out('')
        out('API:')
        out(a)
