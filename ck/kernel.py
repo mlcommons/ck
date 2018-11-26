@@ -3513,7 +3513,10 @@ def get_api(i):
               (error)      - error text if return > 0
 
               title        - title string
+              desc         - original description
+              module       - module name
               api          - api as string
+              line         - line in found module
             }
     """
 
@@ -3602,8 +3605,9 @@ def get_api(i):
     if t=='' and a=='':
        return {'return':1, 'error':'function not found'}
 
+    dd=t_orig.strip()
     if o=='con':
-       out('Description: '+t_orig.strip())
+       out('Description: '+dd)
        out('')
        out('Module: '+p)
        out('')
@@ -3621,7 +3625,7 @@ def get_api(i):
        out(a)
        out('</pre><BR>')
 
-    return {'return':0, 'title':t, 'api':a}
+    return {'return':0, 'title':t, 'desc':dd, 'module':p, 'api':a, 'line':l}
 
 ##############################################################################
 # Convert CID to dict and add missing parts in CID with current path if #
