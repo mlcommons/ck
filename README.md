@@ -261,7 +261,7 @@ $ ck run program:my-new-program --env.CK_VAR1=222
 You can try CK using the following Docker image:
 
 ```
- $ (sudo) docker run -it ctuning/ck
+ $ (sudo) docker run -it ctuning/ck-ubuntu-18.04
 ```
 
 Note that we added Docker automation to CK to help evaluate 
