@@ -3,6 +3,7 @@
     https://github.com/ctuning/ck/pull/93
   * automatically print API of redirected functions (ck <action> <module> --help)
   * improved module API printing
+  * added pypi download stats
 
 * V1.9.6
   * fixed minor bug in "ck rm" when deleting entries only from allowed repos (for crowdsourcing)
