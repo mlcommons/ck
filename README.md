@@ -1,4 +1,4 @@
-[<img src=https://pypistats.com/badge/ck.png  width="125" height="20" valign="top" alt="PyPi Downloads"/>](https://pypistats.com/package/ck)
+[<img src=https://pypistats.com/badge/ck.png  width="140" height="20" valign="top" alt="PyPi Downloads"/>](https://pypistats.com/package/ck)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
