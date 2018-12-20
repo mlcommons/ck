@@ -271,3 +271,15 @@ E:
 O: LLNL
 C: customizing kernel to search soft in Spack directories
 W: https://herbein.net
+
+N: Flavio Vella
+E: 
+O: Free University of Bozen-Bolzano
+C: feedack and support
+W: 
+
+N: Leo Gordon
+E: 
+O: dividiti
+C: feedback, support and improvements
+W: 
