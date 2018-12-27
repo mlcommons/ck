@@ -1,3 +1,4 @@
+[![Downloads](https://pepy.tech/badge/ck)](https://pepy.tech/project/ck)
 [<img src=https://pypistats.com/badge/ck.png  width="140" height="20" valign="top" alt="PyPi Downloads"/>](https://pypistats.com/package/ck)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2459444.svg)](https://doi.org/10.5281/zenodo.2459444)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
