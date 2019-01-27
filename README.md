@@ -120,13 +120,6 @@ You can also install CK via PIP with sudo to avoid setting up environment variab
 $ sudo pip install ck
 ```
 
-Starting from Ubuntu 18.10, you can install it via apt:
-```
-$ sudo apt install python-ck
- or
-$ sudo apt install python3-ck
-```
-
 ### MacOS/Windows
 
 ```
