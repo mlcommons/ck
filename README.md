@@ -98,8 +98,15 @@ You can install CK in your local user space as follows:
 
 ```
 $ git clone http://github.com/ctuning/ck
-$ export PATH=$PWD/ck/bin:$PATH
-$ export PYTHONPATH=$PWD/ck:$PYTHONPATH
+$ . ck/set-env.sh
+$ ck version
+```
+
+You can also set CK environments in your .profile or .bash_profile:
+
+```
+export PATH=$PWD/ck/bin:$PATH
+export PYTHONPATH=$PWD/ck:$PYTHONPATH
 ```
 
 ### Windows
@@ -182,7 +189,7 @@ $ ck set kernel var.install_to_env=yes
 
 Now install CPU-version of TensorFlow via CK packages:
 ```
-$ ck install package --tags=lib,tensorflow,vcpu,vprebuilt
+$ ck install package --tags=lib,tensorflow,vcpu,vprebuilt,v1.11.0
 ```
 
 Check that it's installed fine:

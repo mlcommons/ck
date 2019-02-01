@@ -6,6 +6,7 @@ include LICENSE.txt
 include README.md
 include TODO.txt
 include ChangeLog
+include set-env.sh
 
 recursive-include bin *
 recursive-include man *
