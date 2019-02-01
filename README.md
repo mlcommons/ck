@@ -7,22 +7,23 @@ Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
-*Note that we just completed a proof-of-concept stage for CK with our [partners](http://cKnowledge.org/partners.html)
-and plan to gradually improve CK documentation, specification and APIs in Q1 2019. Please be patient, stay tuned 
-or help the CK community via this [open CK forum](https://groups.google.com/forum/#!forum/collective-knowledge)!*
+*Note that we have just completed a proof-of-concept stage with the great help from our [partners](http://cKnowledge.org/partners.html),
+and now plan to gradually add more CK tutorials or improve CK documentation, specification and APIs in 2019. Please be patient, 
+stay tuned or help the CK community via this [open CK forum](https://groups.google.com/forum/#!forum/collective-knowledge)!*
 
-Collective Knowledge (CK) is a community effort to develop the universal, portable, customizable 
-and automated workflow framework with "plug&play" components to enable collaborative and reproducible R&D
+Collective Knowledge (CK) is a community effort to develop a generic, portable and customizable 
+workflow framework with "plug&play" components to automate, crowdsource and reproduce 
+complex experiments while [automatically adapting to any user platform and environment](https://github.com/ctuning/ck/wiki/Portable-workflows) 
+without the need for virtualization!
+
+CK workflows with unified APIs and JSON meta descriptions help the community enable collaborative and reproducible R&D
 based on agile, DevOps, [FAIR](https://www.nature.com/articles/sdata201618) and Wikipedia principles
 (see [CK motivation](https://github.com/ctuning/ck/wiki/Motivation), 
 [main features](https://github.com/ctuning/ck/wiki/Features)
-and [RESCUE-HPC workshop](http://rescue-hpc.org)).
+and [RESCUE-HPC workshop](http://rescue-hpc.org)). For example, it is now possible to automatically generate
+[interactive and reproducible articles with reusable research components](http://cKnowledge.org/rpi-crowd-tuning).
 
-The idea is to let the community collaboratively improve common experimental workflows and components
-via Git while making them [adaptable to new environments and platforms](https://github.com/ctuning/ck/wiki/Portable-workflows),
-and gradually fixing [reproducibility issues](http://cknowledge.org/rpi-crowd-tuning)!
-
-CK supports [our long-term vision](https://www.slideshare.net/GrigoriFursin/accelerating-open-science-and-ai-with-automated-portable-customizable-and-reusable-research-components-and-workflows) 
+CK supports [our long-term vision](https://zenodo.org/record/2544262#.XFS3prh7lPY) 
 to connect academia and industry to solve the real-world challenges.
 For example, see several important use cases from [our partners](http://cKnowledge.org/partners.html):
 * IBM: ["Reproducing Quantum results from Nature - how hard could it be?"](https://www.linkedin.com/pulse/reproducing-quantum-results-from-nature-how-hard-could-lickorish/)
@@ -98,15 +99,16 @@ You can install CK in your local user space as follows:
 
 ```
 $ git clone http://github.com/ctuning/ck
-$ . ck/set-env.sh
+$ export PATH=$PWD/ck/bin:$PATH
+$ export PYTHONPATH=$PWD/ck:$PYTHONPATH
 $ ck version
 ```
 
-You can also set CK environments in your .profile or .bash_profile:
-
+You can also set CK environment variables and test dependencies as follows:
 ```
-export PATH=$PWD/ck/bin:$PATH
-export PYTHONPATH=$PWD/ck:$PYTHONPATH
+$ git clone http://github.com/ctuning/ck
+$ . ./set-env.sh
+$ ck version
 ```
 
 ### Windows
@@ -139,7 +141,9 @@ Check [this documentation](https://github.com/ctuning/ck/wiki/Customization)
 about CK customization. For example, you can change directories with CK repositories
 and packages or change search paths during software detection (useful for HPC setups).
 
-# Basic usage example
+
+
+# Basic usage example (automatically detect compilers, install packages, compile and run benchmarks)
 
 Test ck:
 
@@ -147,19 +151,19 @@ Test ck:
 $ ck version
 ```
 
-Get shared [ck-tensorflow](https://github.com/ctuning/ck-tensorflow) repo with all dependencies:
+Pull [CK repositories](http://cKnowledge.org/shared-repos.html) with benchmarks, data sets, software detection plugins, packages, etc:
 ```
-$ ck pull repo:ck-tensorflow
+$ ck pull repo:ck-crowdtuning
 ```
 
-List CK repos:
+See the list of installed CK repos:
 ```
 $ ck ls repo | sort
 ```
 
-Find where CK repos are installed on your machine:
+Find where CK repository with benchmarks is installed on your machine and browse it to get familiar with the structure (consistent across all repos):
 ```
-$ ck where repo:ck-tensorflow
+$ ck where repo:ctuning-programs
 ```
 
 Detect your platform properties via extensible CK plugins as follows 
@@ -168,6 +172,12 @@ with Linux, Windows, MacOS and Android):
 
 ```
 $ ck detect platform
+```
+
+Check JSON output 
+
+```
+$ ck detect platform --out=json
 ```
 
 Now detect available compilers on your machine and register virtual environments in the CK:
@@ -182,9 +192,80 @@ See virtual environments in the CK:
 $ ck show env
 ```
 
+Find and explore CK env entries:
+```
+$ ck search env --tags=compiler
+```
+
 We recommend to setup CK to install new packages inside CK virtual env entries:
 ```
 $ ck set kernel var.install_to_env=yes
+```
+
+Try to install LLVM binary via CK packages:
+```
+$ ck install package --tags=llvm
+```
+
+Check available data sets:
+```
+$ ck search dataset
+$ ck search dataset --tags=jpeg
+
+```
+
+Now you can compile and run shared benchmarks with some data sets, benchmark and crowd-tune some C program.
+```
+$ ck ls program
+```
+
+Let's check the CK JSON meta for benchmark "cbench-automotive-susan":
+```
+$ ck load program:cbench-automotive-susan --min
+```
+
+Now let's compile and run it:
+
+```
+$ ck compile program:cbench-automotive-susan --speed
+$ ck run program:cbench-automotive-susan
+```
+
+You can now benchmark this program (CK will execute several times while monitoring the state of the system):
+```
+$ ck benchmark program:cbench-automotive-susan
+```
+
+Finally, you can autotune this program using shared CK autotuning scenarios, record results and reply them:
+```
+$ ck autotune program:cbench-automotive-susan
+```
+
+You can also crowdtune this program, i.e. autotune it while sharig best results in the [public repository](http://cKnowledge.org/repo):
+```
+$ ck crowdtune program:cbench-automotive-susan
+```
+
+You can now add (and later customize) your own program workflow using shared templates as follows:
+```
+$ ck add program:my-new-program
+```
+
+When CK asks you to select a template, please choose "C program "Hello world". 
+You can then immediately compile and run your C program as follows:
+
+```
+$ ck compile program:my-new-program --speed
+$ ck run program:my-new-program
+$ ck run program:my-new-program --env.CK_VAR1=222
+```
+
+# Advanced usage example (image classification via TensorFlow and Caffe)
+
+Get shared [ck-tensorflow](https://github.com/ctuning/ck-tensorflow) repository with all dependencies:
+
+```
+$ ck pull repo:ck-tensorflow
 ```
 
 Now install CPU-version of TensorFlow via CK packages:
@@ -229,38 +310,9 @@ $ ck run program:caffe --cmd_key=classify
 You can see how to install Caffe for Linux, MacOS, Windows and Android via CK
 [here](https://github.com/dividiti/ck-caffe/wiki/Installation).
 
-Finally, compile, run, benchmark and crowd-tune some C program.
-```
-$ ck pull repo:ck-crowdtuning
 
-$ ck ls program
-$ ck ls dataset
 
-$ ck compile program:cbench-automotive-susan --speed
-$ ck run program:cbench-automotive-susan
-
-$ ck benchmark program:cbench-automotive-susan
-
-$ ck crowdtune program:cbench-automotive-susan
-```
-
-You can then browse top shared optimization results on the live CK scoreboard: http://cKnowledge.org/repo .
-
-You can also add and later customize your own program/workflow using provided templates as follows:
-```
-$ ck add program:my-new-program
-```
-
-When CK asks you to select a template, please choose "C program "Hello world". 
-You can then immediately compile and run your C program as follows:
-
-```
-$ ck compile program:my-new-program --speed
-$ ck run program:my-new-program
-$ ck run program:my-new-program --env.CK_VAR1=222
-```
-
-# Trying CK from Docker images
+# Trying CK from a Docker image
 
 You can try CK using the following Docker image:
 
@@ -279,6 +331,8 @@ For example, you can participate in GCC or LLVM crowd-tuning on your machine as 
 ```
 
 Top optimization results are continuously aggregated in the live CK repository: http://cKnowledge.org/repo .
+
+
 
 # Citing CK
 
