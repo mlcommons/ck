@@ -12,30 +12,31 @@ Documentation: [wiki](https://github.com/ctuning/ck/wiki)
 and now plan to gradually add more CK tutorials or improve CK documentation, specification and APIs in 2019. Please be patient, 
 stay tuned or help the CK community via this [open CK forum](https://groups.google.com/forum/#!forum/collective-knowledge)!*
 
-Collective Knowledge (CK) is a small and stable framework to help users 
-quickly create and share unified Python+JSON APIs
-and associated code/data with unified JSON meta descriptions. 
+We designed Collective Knowledge (CK) as a very small, stable and portable framework 
+with minimal dependencies to help researchers and developers quickly create, share 
+and reuse extensible Python APIs and JSON meta descriptions 
+to abstract any (evolving) code, data and hardware.
 
-Though seemingly simple, such approach already helps [the community](http://cKnowledge.org/partners.html) 
-to gradually [abstract](http://cKnowledge.org/shared-modules.html) 
-any complex software, hardware, datasets and models. End-users can then assemble customizable workflows 
-to automate, crowdsource and reproduce complex experiments such as [AI/SW/HW autotuning and co-design](http://cKnowledge.org/request) 
-while [automatically adapting to any user platform and environment](https://github.com/ctuning/ck/wiki/Portable-workflows) 
+Though seemingly simple, such approach helps [the community](http://cKnowledge.org/partners.html) 
+implement customizable workflows to automate, crowdsource and reproduce complex experiments 
+such as [AI/SW/HW autotuning and co-design](http://cKnowledge.org/request) 
+while [automatically adapting to any rapidly evolving software and hardware](https://github.com/ctuning/ck/wiki/Portable-workflows) 
 without the need for virtualization! 
 
-Unified CK APIs and JSON meta descriptions also enable collaborative and reproducible R&D
+Unified CK APIs and JSON meta descriptions allow easy integration of CK workflows
+with popular tools and services such as GitHub, AWS, Docker, Singularity, Jupyter notebooks, Jenkins, Travis, etc.
+This, in turn, help to enable collaborative and reproducible R&D
 based on agile, DevOps, [FAIR](https://www.nature.com/articles/sdata201618) and Wikipedia principles
 (see [CK motivation](https://github.com/ctuning/ck/wiki/Motivation), 
 [main features](https://github.com/ctuning/ck/wiki/Features)
-and [RESCUE-HPC workshop](http://rescue-hpc.org)). CK APIs also allow easy integration of CK workflows
-with popular tools such as Docker, Singularity, Jupyter notebooks, Jenkins, etc.
-It is even possible to automatically generate
-[interactive and reproducible articles with reusable research components](http://cKnowledge.org/rpi-crowd-tuning)
-thus enabling true open science.
+and [RESCUE-HPC workshop](http://rescue-hpc.org)). 
+It is now even possible to automatically generate
+[interactive and reproducible articles with reusable research components](http://cKnowledge.org/rpi-crowd-tuning).
 
 CK supports [our long-term vision](https://zenodo.org/record/2544262#.XFS3prh7lPY) 
-to connect academia and industry to solve the real-world challenges.
-For example, see several important use cases from [our partners](http://cKnowledge.org/partners.html):
+to connect academia and industry to solve the real-world challenges, and 
+to enable true open science. Please, have a look at several related
+use cases from [our partners](http://cKnowledge.org/partners.html):
 * IBM: ["Reproducing Quantum results from Nature - how hard could it be?"](https://www.linkedin.com/pulse/reproducing-quantum-results-from-nature-how-hard-could-lickorish/)
 * General Motors: ["Collaboratively Benchmarking and Optimizing Deep Learning Implementations"](https://www.youtube.com/watch?v=1ldgVZ64hEI)
 * Amazon: ["Scaling deep learning on AWS using C5 instances with MXNet, TensorFlow, and BigDL: From the edge to the cloud"](https://conferences.oreilly.com/artificial-intelligence/ai-eu/public/schedule/detail/71549)
@@ -45,8 +46,9 @@ For example, see several important use cases from [our partners](http://cKnowled
 * ACM and dividiti:[ReQuEST tournaments to co-design efficient SW/HW stacks for deep learning across diverse models, data sets and platforms from cloud to edge](http://cKnowledge.org/request), [organizers' report](https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf)
 * dividiti: [CK-based public benchmarking of Quantum systems and algorithms](http://cKnowledge.org/quantum)
 
-Just **[give it a try](https://github.com/ctuning/ck/wiki/First-steps)** 
-and do not hesitate to provide your feedback to the CK community
+We hope that CK will help you accelerate your own R&D - 
+just **[give CK a try](https://github.com/ctuning/ck/wiki/First-steps)** 
+and do not hesitate to provide your feedback 
 via this [public CK discussion group](https://groups.google.com/forum/#!forum/collective-knowledge)!
 
 # CK resources
