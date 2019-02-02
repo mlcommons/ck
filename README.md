@@ -68,14 +68,35 @@ via this [public CK discussion group](https://groups.google.com/forum/#!forum/co
 
 The minimal CK installation requires:
 
-* Python 2.7 or 3.3+ with PIP (limitation is mainly due to unitests)
-* Git command line client
-* wget (Linux/MacOS)
+* Python 2.7 or 3.3+ with PIP (limitation is mainly due to unitests). CK automatically adapts to Python 2 or 3 and provides extra API to let users write workflows for any Python version;
+* Git command line client;
+* wget (Linux/MacOS).
 
 ### Ubuntu
 
 ```
 $ sudo apt-get install python3 python3-pip git wget
+$ sudo pip install ck
+
+$ ck version
+```
+
+If you don't have sudo (root) access, you can easily install CK in your user space from GitHub:
+
+```
+$ git clone http://github.com/ctuning/ck
+$ export PATH=$PWD/ck/bin:$PATH
+$ export PYTHONPATH=$PWD/ck:$PYTHONPATH
+
+$ ck version
+```
+
+You can also set CK environment variables and test dependencies using provided script as follows:
+```
+$ git clone http://github.com/ctuning/ck
+$ . ./set-env.sh
+
+$ ck version
 ```
 
 ### MacOS
@@ -84,34 +105,38 @@ $ sudo apt-get install python3 python3-pip git wget
 $ brew install python3
 $ brew install git
 $ brew install wget
+$ pip install ck
+
+$ ck version
 ```
 
+You can also install CK via GitHub as described in the "Ubuntu" section above.
+
 ### Windows
+
+You can download a CK installer which already includes Git 2.20.1 and Python 3.7.2
+from Zenodo using this [link](https://zenodo.org/record/2555622/files/ck-git-2.20.1-python-3.7.2.zip).
+
+Just unzip it and run one of the following scripts:
+
+1. install-pip.bat to install CK via PIP
+1. install-github.bat to install CK from GitHub
+
+These scripts will install Python in your dedicated directory and will ask you to add several environment variables to your system (just copy/paste them) - that's all!
+
+Alternatively you can download and install Git and Python yourself:
 
 * Download and install Git from https://git-for-windows.github.io
 * Download and install Python from https://www.python.org/downloads/windows
 
-## Installation from GitHub
-
-### Linux/MacOS
-
-You can install CK in your local user space as follows:
-
+You can then install CK via PIP:
 ```
-$ git clone http://github.com/ctuning/ck
-$ export PATH=$PWD/ck/bin:$PATH
-$ export PYTHONPATH=$PWD/ck:$PYTHONPATH
+$ pip install ck
+
 $ ck version
 ```
 
-You can also set CK environment variables and test dependencies as follows:
-```
-$ git clone http://github.com/ctuning/ck
-$ . ./set-env.sh
-$ ck version
-```
-
-### Windows
+You can also install CK from GitHub:
 
 ```
  $ git clone https://github.com/ctuning/ck.git ck-master
@@ -119,21 +144,6 @@ $ ck version
  $ set PYTHONPATH={CURRENT PATH}\ck-master;%PYTHONPATH%
 ```
 
-## Installation via PIP
-
-### Ubuntu
-
-You can also install CK via PIP with sudo to avoid setting up environment variables yourself:
-
-```
-$ sudo pip install ck
-```
-
-### MacOS/Windows
-
-```
-$ pip install ck
-```
 
 ## Installation customization
 
