@@ -75,7 +75,7 @@ via this [public CK discussion group](https://groups.google.com/forum/#!forum/co
 # Installation
 
 *If you have any issues with installation, please do not hesitate to [tell us](https://groups.google.com/forum/#!forum/collective-knowledge) 
-or open a [GitHub ticket](https://github.com/ctuning/ck/issues).
+or open a [GitHub ticket](https://github.com/ctuning/ck/issues).*
 
 The minimal CK installation requires:
 
