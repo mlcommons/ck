@@ -27,7 +27,9 @@ Unified CK APIs and JSON meta descriptions also enable collaborative and reprodu
 based on agile, DevOps, [FAIR](https://www.nature.com/articles/sdata201618) and Wikipedia principles
 (see [CK motivation](https://github.com/ctuning/ck/wiki/Motivation), 
 [main features](https://github.com/ctuning/ck/wiki/Features)
-and [RESCUE-HPC workshop](http://rescue-hpc.org)). It is even possible to automatically generate
+and [RESCUE-HPC workshop](http://rescue-hpc.org)). CK APIs also allow easy integration of CK workflows
+with popular tools such as Docker, Singularity, Jupyter notebooks, Jenkins, etc.
+It is even possible to automatically generate
 [interactive and reproducible articles with reusable research components](http://cKnowledge.org/rpi-crowd-tuning)
 thus enabling true open science.
 
