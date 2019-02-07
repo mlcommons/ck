@@ -94,7 +94,15 @@ $ sudo pip install ck
 $ ck version
 ```
 
-If you don't have sudo (root) access, you can easily install CK in your user space from GitHub:
+If you don't have sudo (root) access, you can install CK in your user space either via PIP (note that you should have directory $HOME/.local/bin in your PATH)
+
+```
+$ pip install ck --user
+
+$ ck version
+```
+
+or from GitHub:
 
 ```
 $ git clone http://github.com/ctuning/ck
