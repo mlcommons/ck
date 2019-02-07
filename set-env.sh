@@ -12,7 +12,7 @@ fi
 
 if ! ( [ "$XPYTHON" == "YES" ] || [ "$XPYTHON3" == "YES" ] ) ; then
   echo "Problem: neither python nor python3 is installed!"
-  exit 1
+  return 1
 fi
 
 XGIT=""
@@ -22,7 +22,7 @@ fi
 
 if [ "$XGIT" == "" ] ; then
   echo "Problem: git is not installed!"
-  exit 1
+  return 1
 fi
 
 XWGET=""
@@ -32,7 +32,7 @@ fi
 
 if [ "$XWGET" == "" ] ; then
   echo "Problem: wget is not installed!"
-  exit 1
+  return 1
 fi
 
 export PATH=$PWD/ck/bin:$PATH
@@ -42,3 +42,5 @@ if [ "$PYTHONPATH" == "" ] ; then
 else
    export PYTHONPATH=$PWD/ck:$PYTHONPATH
 fi
+
+return 0
