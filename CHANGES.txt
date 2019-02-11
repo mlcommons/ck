@@ -1,3 +1,6 @@
+* V1.9.7.1
+  * started new development version
+
 * V1.9.7
   * allowed local widget to fetch data from cKnowledge.org (or other) website:
     https://github.com/ctuning/ck/pull/93
