@@ -417,10 +417,10 @@ def add(i):
              ck.out(' UOA                = '+xd)
              ck.out(' User friendly name = '+xdn)
              ck.out('')
-             if i.get('skip_reusing_remote_info','')!='yes':
-                d=xd
-                di=xdi
-                dn=xdn
+          if i.get('skip_reusing_remote_info','')!='yes':
+             d=xd
+             di=xdi
+             dn=xdn
        else:
           repo_had_local=False
 
@@ -999,8 +999,8 @@ def pull(i):
           ck.out('  At least one repository requires recaching ...')
           ck.out('')
 
-          r=recache({'out':o})
-          if r['return']>0: return r
+       r=recache({'out':o})
+       if r['return']>0: return r
 
     return {'return':0}
 
@@ -2174,6 +2174,8 @@ def renew(i):
         'url':url,
         'stable':i.get('stable',''),
         'checkout':i.get('checkout','')}
+    if o=='con':
+       ii['out']='con'
     return ck.access(ii)
 
 ##############################################################################

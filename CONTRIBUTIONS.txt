@@ -278,6 +278,12 @@ O: Free University of Bozen-Bolzano
 C: feedack and support
 W: 
 
+N: Ivan Ospiov
+E: 
+O: Xored
+C: reported a problem with shared-repos.html; general feedback
+W: 
+
 N: Leo Gordon
 E: 
 O: dividiti

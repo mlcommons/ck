@@ -13,7 +13,7 @@ setup(
   version='1.9.6.1',
   url='https://github.com/ctuning/ck/wiki',
   license='BSD 3-clause',
-  author='Grigori Fursin and non-profit cTuning foundation',
+  author='Grigori Fursin and the cTuning foundation',
   author_email='Grigori.Fursin@cTuning.org',
   description='Collective Knowledge - lightweight knowledge manager to organize, cross-link, share and reuse artifacts',
   long_description=open(convert_path('./README.md')).read(),
