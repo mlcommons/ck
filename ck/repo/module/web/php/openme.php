@@ -84,53 +84,59 @@ function openme_web_out($cfg, $tp, $str, $filename)
   return;
 }
 
-function openme_ck_access($i, $output=true)
+function openme_ck_access($i, $output=true, $json=false)
 {
- # Convert to json and call CK
- # FGG: in the future we may want to connect through socket
+  # Convert to json and call CK
+  # FGG: in the future we may want to connect through socket
 
- # Get action
- if (!array_key_exists('action', $i))
-    return array("return"=>1,"error"=>"action is not defined");
+  # Get action
+  if (!array_key_exists('action', $i))
+     return array("return"=>1,"error"=>"action is not defined");
 
- $action=$i["action"];
- unset($i["cm_action"]);
+  $action=$i["action"];
+  unset($i["cm_action"]);
 
- # Check that no special characters, otherwise can run any command from CMD
- if (preg_match('/[^A-Za-z_\-0-9]/i', $action))
-    return array("return"=>1,"error"=>"action contains illegal characters");
+  if ($json) {
+    $ftmpout=tempnam("", "ck-out-");
+    $i["out"]="json_file";
+    $i["out_file"]=$ftmpout;
+  }
 
- # Decode dict to json and save to temp file
- $str=json_encode($i);
- $ftmp=tempnam("", "ck-");
- $f=fopen($ftmp, "w");
-  fwrite($f, $str);
- fclose($f);
+  # Check that no special characters, otherwise can run any command from CMD
+  if (preg_match('/[^A-Za-z_\-0-9]/i', $action))
+     return array("return"=>1,"error"=>"action contains illegal characters");
 
- # Prepare call to CK
- $ckr=getenv("CK_ROOT"); 
- if ($ckr=="") $ckr=getcwd();
- $ck=$ckr . '/bin/ck';
- if (!file_exists($ck)) $ck='ck';
+  # Decode dict to json and save to temp file
+  $str=json_encode($i);
+  $ftmp=tempnam("", "ck-");
+  $f=fopen($ftmp, "w");
+   fwrite($f, $str);
+  fclose($f);
 
- $cmd=$ck." ".$action." @".$ftmp;
+  # Prepare call to CK
+  $ckr=getenv("CK_ROOT"); 
+  if ($ckr=="") $ckr=getcwd();
+  $ck=$ckr . '/bin/ck';
+  if (!file_exists($ck)) $ck='ck';
 
- #Add cmd if Windows (FGG:TODO maybe can be done cleaner?)
- if (substr(strtoupper(PHP_OS),0,3)=="WIN")
-    $cmd="cmd /c ".$cmd;
+  $cmd=$ck." ".$action." @".$ftmp;
 
- #FGG: important note for Windows: stderr pipe should be "a" not "w"
- #     see http://www.php.net/manual/en/function.proc-open.php   Luceo 28-Mar-2010 07:39
- $tmpfname = tempnam("", "ck-err-");
- $descriptorspec = array(0 => array("pipe", "r"), 1 => array("pipe", "w"), 2 => array("file", $tmpfname, "w"));
+  #Add cmd if Windows (FGG:TODO maybe can be done cleaner?)
+  if (substr(strtoupper(PHP_OS),0,3)=="WIN")
+     $cmd="cmd /c ".$cmd;
 
- $process = proc_open($cmd, $descriptorspec, $pipes, NULL, NULL);
+  #FGG: important note for Windows: stderr pipe should be "a" not "w"
+  #     see http://www.php.net/manual/en/function.proc-open.php   Luceo 28-Mar-2010 07:39
+  $tmpfname = tempnam("", "ck-err-");
+  $descriptorspec = array(0 => array("pipe", "r"), 1 => array("pipe", "w"), 2 => array("file", $tmpfname, "w"));
 
- $tout='';
- $terr='';
- $rv=0;
- if (is_resource($process)) 
- {
+  $process = proc_open($cmd, $descriptorspec, $pipes, NULL, NULL);
+
+  $tout='';
+  $terr='';
+  $rv=0;
+  if (is_resource($process)) 
+  {
     fclose($pipes[0]);
 
     $tout=stream_get_contents($pipes[1]);
@@ -154,6 +160,14 @@ function openme_ck_access($i, $output=true)
      unlink($ftmp);
 
   $r=array("return"=>$rv, "stdout"=>$tout, "stderr"=>$terr, "std"=>$tout.$terr);
+
+  # Check if output to json
+  if ($json) {
+    $jfile=file_get_contents($ftmpout);
+    unlink($ftmpout);
+
+    $r["json_out"]=json_decode($jfile,true);
+  }
 
   if ($rv>0)
     $r["error"]=$tout.$terr;
