@@ -84,10 +84,10 @@ function openme_web_out($cfg, $tp, $str, $filename)
   return;
 }
 
-function openme_ck_access($i, $output=true, $json=false)
+function openme_ck_access($i, $output=true, $json=false, $add_web_vars=false)
 {
   # Convert to json and call CK
-  # FGG: in the future we may want to connect through socket
+  # FGG: in the future we may want to connect through a socket
 
   # Get action
   if (!array_key_exists('action', $i))
@@ -105,6 +105,13 @@ function openme_ck_access($i, $output=true, $json=false)
   # Check that no special characters, otherwise can run any command from CMD
   if (preg_match('/[^A-Za-z_\-0-9]/i', $action))
      return array("return"=>1,"error"=>"action contains illegal characters");
+
+  # Check vars
+  if ($add_web_vars) {
+    $i["web_vars_get"]=$_GET;
+    $i["web_vars_post"]=$_POST;
+    $i["web_vars_session"]=$_SESSION;
+  }
 
   # Decode dict to json and save to temp file
   $str=json_encode($i);

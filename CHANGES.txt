@@ -1,5 +1,6 @@
 * V1.9.7.1
   * improved OpenME to call CK in dynamic websites
+  * added passing of $_SESSION, $_POST, $_GET to CK via OpenME
 
 * V1.9.7
   * allowed local widget to fetch data from cKnowledge.org (or other) website:
