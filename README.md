@@ -13,9 +13,13 @@ and now plan to gradually add more CK tutorials or improve CK documentation, spe
 stay tuned or help the CK community via this [open CK forum](https://groups.google.com/forum/#!forum/collective-knowledge)!*
 
 We designed Collective Knowledge (CK) as a very small, stable and portable framework 
-with minimal dependencies to help researchers and developers quickly create, share 
-and reuse extensible Python APIs and JSON meta descriptions 
-to abstract any (evolving) code, data and hardware.
+with minimal dependencies to help users automate their [repetitive and often painful tasks](http://crowd-research.com)
+in a form of Python wrappers with a unified API, CLI and JSON
+meta description (installing software, models and data sets
+across diverse platforms from IoT to clouds, running and
+autotuning AI/ML workflows, analyzing data, generating
+reproducible papers, etc), easily share them with the community,
+and collaboratively improve them.
 
 Though seemingly simple, such approach helps [the community](http://cKnowledge.org/partners.html) 
 implement customizable workflows to automate, crowdsource and reproduce complex experiments 
@@ -84,6 +88,14 @@ The minimal CK installation requires:
 * Python 2.7 or 3.3+ with PIP (limitation is mainly due to unitests). CK automatically adapts to Python 2 or 3 and provides extra API to let users write workflows for any Python version;
 * Git command line client;
 * wget (Linux/MacOS).
+
+In many cases it should be enough to start using CK as follows:
+```
+$ pip install ck
+$ ck pull repo:ck-tensorflow
+$ ck install package:lib-tensorflow-1.12.0-cpu
+$ ck run program:tensorflow-classification
+```
 
 ## Ubuntu
 
