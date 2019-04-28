@@ -42,7 +42,15 @@ and the [Slack channel](http://bit.ly/ck-slack).
 
 ## Installation
 
-You can install CK from PyPi via ``pip install ck`` or ``pip install ck --user`` and then test that it works via ``ck version``.
+You can install CK from PyPi via ``pip install ck`` or ``pip install ck --user``.
+
+You can then test that it works from the command line via ``ck version`` or from your python environment as follows:
+```
+$ python
+
+> import ck.kernel as ck
+> ck.version({})
+```
 
 CK requires just a few tools in your PATH:
 
@@ -321,6 +329,12 @@ crowdsource [experiments](http://cKnowledge.org/dashboard), and even automatical
 [reproducible](http://crowd-research.com) and [interactive articles](http://cKnowledge.org/rpi-crowd-tuning) 
 with reusable research components!
 
+
+
+## Calling CK functions from other languages
+
+We developed a small [OpenME](https://github.com/ctuning/openme) library 
+to connect CK with different languages including C, C++, Fortran and Java. 
 
 
 
