@@ -264,6 +264,7 @@ def web_out(i):
         if fn!='': v=v.replace('$#filename#$', fn)
         http.send_header(k,v)
 
+    http.send_header('Access-Control-Allow-Origin', '*')
     http.send_header('Content-Length', str(len(bin)))
     http.end_headers()
 
