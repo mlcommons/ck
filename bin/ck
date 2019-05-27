@@ -22,16 +22,22 @@ if [ -f "$CK_ROOT/ck/kernel.py" ]; then
 
 else
   if [ "$CK_PYTHON" == "" ]; then
-     CK_PYTHON=python
+
+     CK_PYTHON=$CK_ROOT/bin/python
      $CK_PYTHON -m ck.kernel test_install &> /dev/null
 
      if [ $? -ne 0 ]; then
-        CK_PYTHON=python2
+        CK_PYTHON=python
         $CK_PYTHON -m ck.kernel test_install &> /dev/null
 
         if [ $? -ne 0 ]; then
-           CK_PYTHON=python3
+           CK_PYTHON=python2
            $CK_PYTHON -m ck.kernel test_install &> /dev/null
+
+           if [ $? -ne 0 ]; then
+              CK_PYTHON=python3
+              $CK_PYTHON -m ck.kernel test_install &> /dev/null
+           fi
         fi
      fi
   fi

@@ -3,6 +3,10 @@
   * added passing of $_SESSION, $_POST, $_GET to CK via OpenME
   * added "Access-Control-Allow-Origin=*" to module:web 
     to be able to access CK from local web pages
+  * fixed CK execution with Anaconda python (Linux and MacOS) 
+    when installed via pip
+  * added possibility to change default repo 
+    using "CK_DEFAULT_REPO" env var
 
 * V1.9.7
   * allowed local widget to fetch data from cKnowledge.org (or other) website:

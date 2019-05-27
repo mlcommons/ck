@@ -63,6 +63,7 @@ cfg={
       "env_key_root":"CK_ROOT",
       "env_key_local_repo":"CK_LOCAL_REPO",
       "env_key_local_kernel_uoa":"CK_LOCAL_KERNEL_UOA",
+      "env_key_default_repo":"CK_DEFAULT_REPO",
       "env_key_repos":"CK_REPOS",
 
       "subdir_default_repos":"repos",
@@ -2251,7 +2252,13 @@ def init(i): # pragma: no cover
        return {'return':1, 'error':'Internal CK error (can\'t find default repo) - please report to authors'}
 
     # Check default repo
-    work['dir_default_repo']=p
+    x=os.environ.get(cfg['env_key_default_repo'],'').strip()
+
+    if x!='' and os.path.isdir(x):
+       work['dir_default_repo']=x
+    else:
+       work['dir_default_repo']=p
+
     work['dir_default_repo_path']=os.path.join(work['dir_default_repo'], cfg['module_repo_name'], cfg['repo_name_default'])
     work['dir_default_kernel']=os.path.join(work['dir_default_repo'], cfg['subdir_kernel'])
     work['dir_default_cfg']=os.path.join(work['dir_default_kernel'], cfg['subdir_kernel_default'], cfg['subdir_ck_ext'], cfg['file_meta'])
