@@ -7,6 +7,8 @@
     when installed via pip
   * added possibility to change default repo 
     using "CK_DEFAULT_REPO" env var
+  * added flag --module_version to use different Python module:
+    (module{.{module_version}}.py)
 
 * V1.9.7
   * allowed local widget to fetch data from cKnowledge.org (or other) website:

@@ -3441,6 +3441,16 @@ def perform_action(i):
           # Load module
           mcn=u.get('module_name',cfg['module_code_name'])
 
+          if i.get('module_version','')!='': 
+             mcnv=i['module_version'].strip()
+             if mcnv=='0': 
+                mcnv=''
+          else: 
+             mcnv=u.get('module_version','')
+
+          if mcnv!='':
+             mcn+='.'+mcnv
+
           r=load_module_from_path({'path':p, 'module_code_name':mcn, 'cfg':u, 'data_uoa':rx['data_uoa']})
           if r['return']>0: return r
 
