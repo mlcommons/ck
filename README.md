@@ -12,8 +12,8 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 ## Introduction
 
-CK is a portable and open-source framework to help you share improve your knowledge (data, models, code), 
-best practices and repetitive and painful automation tasks in the form of reusable Python components 
+CK is a portable and open-source framework to help you share your knowledge (data, models, code), 
+best practices and repetitive and painful tasks in the form of automated and reusable Python components 
 with a unified API, CLI, JSON meta description and connectors from C,C++,Fortran,
 Java and other languages: see the [index of shared components](http://crowd-research.com/c.php).
 

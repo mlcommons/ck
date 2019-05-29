@@ -1,3 +1,6 @@
+* V1.9.8.1
+  * started new version
+
 * V1.9.8
   * improved OpenME to call CK in dynamic websites
   * added passing of $_SESSION, $_POST, $_GET to CK via OpenME
