@@ -1,4 +1,4 @@
-* V1.9.7.1
+* V1.9.8
   * improved OpenME to call CK in dynamic websites
   * added passing of $_SESSION, $_POST, $_GET to CK via OpenME
   * added "Access-Control-Allow-Origin=*" to module:web 
