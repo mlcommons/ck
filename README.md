@@ -1,6 +1,6 @@
 # Collective Knowledge Framework (CK)
 
-**CK websites: [cKnowledge.org](http://cKnowledge.org) and [crowd-research.com](http://crowd-research.com)**
+**CK websites: [cKnowledge.org](https://cKnowledge.org) and [ReproIndex.com](https://ReproIndex.com)**
 
 [![Downloads](https://pepy.tech/badge/ck)](https://pepy.tech/project/ck)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2459444.svg)](https://doi.org/10.5281/zenodo.2459444)
@@ -15,7 +15,7 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 CK is a portable and open-source framework to help you share your knowledge (data, models, code), 
 best practices and repetitive and painful tasks in the form of automated and reusable Python components 
 with a unified API, CLI, JSON meta description and connectors from C,C++,Fortran,
-Java and other languages: see the [index of shared components](http://crowd-research.com/c.php).
+Java and other languages: see the [index of shared components](https://ReproIndex/components).
 
 Such components can be continuously improved by the community and connected together 
 into portable and automated workflows to collaboratively solve real world problems: 
@@ -31,7 +31,7 @@ to find out more about CK concepts and our long-term vision.
 **CK is a collaborative project and not a magic ;)** - if some third-party automation fails 
 or misses some functionality (software detection, package installation, benchmarking and autotuning workflow, etc),
 the CK concept is to continuously and collaboratively improve such reusable components! 
-Please provide your feedback and report bugs in the respective [GitHub repositories](http://crowd-research.com/c.php)!
+Please provide your feedback and report bugs in the respective [GitHub repositories](https://ReproIndex.com/components)!
 
 Feel free to discuss CK or ask for help using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
 and the [Slack channel](http://bit.ly/ck-slack).
@@ -88,7 +88,8 @@ $ ck install package:lib-tensorflow-1.12.0-cpu
 $ ck run program:tensorflow-classification
 ```
 
-You can find a non-exhaustive index of CK-compatible repositories at [crowd-research.com](http://crowd-research.com/c.php) - just follow their READMEs to find out more about shared components and workflows!
+You can find a non-exhaustive index of CK-compatible repositories at [ReproIndex.com](https://ReproIndex.com/components) - 
+just follow their READMEs to find out more about shared components and workflows!
 
 
 Please check our [Getting Started Guide](https://github.com/ctuning/ck/wiki/First-steps) to try different CK examples.
@@ -98,7 +99,7 @@ Please check our [Getting Started Guide](https://github.com/ctuning/ck/wiki/Firs
 
 ## Examples of popular and reusable CK-based automation tasks
 
-Pull one of [CK repositories](http://crowd-research.com/c.php) with shared benchmarks, data sets, software detection plugins, packages, etc:
+Pull one of [CK repositories](https://ReproIndex.com/components) with shared benchmarks, data sets, software detection plugins, packages, etc:
 
 ```
 $ ck pull repo:ck-crowdtuning
@@ -324,9 +325,9 @@ $ ck ls repo:my-*
 
 
 Such simple approach allowed [our partners](http://cKnowledge.org/partners.html) to gradually abstract 
-complex AI, ML, and quantum experiments via shared [CK APIs](http://cKnowledge.org/shared-modules.html),
-crowdsource [experiments](http://cKnowledge.org/dashboard), and even automatically generate 
-[reproducible](http://crowd-research.com) and [interactive articles](http://cKnowledge.org/rpi-crowd-tuning) 
+complex AI, ML, and quantum experiments via shared [CK APIs](https://ReproIndex.com/components),
+crowdsource [experiments](https://cKnowledge.org/dashboard), and even automatically generate 
+[reproducible](https://ReproIndex.com/papers) and [interactive articles](http://cKnowledge.org/rpi-crowd-tuning) 
 with reusable research components!
 
 
