@@ -1,5 +1,5 @@
-* V1.9.8.1
-  * started new version
+* V1.9.9
+  * fixed installation bug (non UTF-8 character)
 
 * V1.9.8
   * improved OpenME to call CK in dynamic websites
