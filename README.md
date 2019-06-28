@@ -32,7 +32,7 @@ and [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) for
   and real use-cases from our [partners](http://cKnowledge.org/partners.html).
 
 * CK also helps to implement reproducible papers with reusable research components:
-  see [the list of articles with CK workflows](https://ReproIndex.com) and 
+  see [the list of articles with CK workflows](https://ReproIndex.com/papers) and 
   the [CK-based interactive report with Raspberry Pi foundation](https://cKnowledge.org/rpi-crowd-tuning).
 
 * The community uses CK to crowdsource autotuning and co-design of efficient software, hardware and models
