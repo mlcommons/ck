@@ -1,7 +1,5 @@
 # Collective Knowledge Framework (CK)
 
-**CK websites: [cKnowledge.org](https://cKnowledge.org) and [ReproIndex.com](https://ReproIndex.com)**
-
 [![Downloads](https://pepy.tech/badge/ck)](https://pepy.tech/project/ck)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2459444.svg)](https://doi.org/10.5281/zenodo.2459444)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
@@ -10,40 +8,51 @@ Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
+## Project websites
+
+**[cKnowledge.org](https://cKnowledge.org) and [ReproIndex.com](https://ReproIndex.com)**
+
 ## Introduction
 
-After struggling to reproduce experimental results and reuse artifacts 
-from published papers (ML, AI, systems and quantum computing), 
-we decided to develop the open-source Collective Knowledge framework (CK) 
-to help the community share any knowledge (data, models, code,  best practices, 
-and repetitive and painful tasks) in the form of automated, portable and reusable 
-components with a unified Python API, CLI, JSON meta description 
-and connectors from C, C++, Fortran, Java and other languages.
-See the [online index of shared components](https://ReproIndex.com/components)
-from [reproduced papers](https://ReproIndex.com/papers).
+Collective Knowledge framework helps you to automate repetitive tasks 
+in the form of "actions" and Python modules with a unified API, CLI, JSON meta-description, 
+web interface and connectors from other languages. 
 
-Such components can be continuously improved by the community and connected together 
-into portable and automated workflows to collaboratively solve real world problems: 
-see some [CK use cases from GM, Arm, IBM, Raspberry Pi, ACM/IEEE/NIPS and MLPerf](http://cKnowledge.org/partners.html)
-and [CK dashboard with crowdsourced experiments](http://cKnowledge.org/dashboard).
+Our long-term goal is to enable collaborative and reproducible research based on DevOps principles
+(see [CK publications](https://github.com/ctuning/ck/wiki/Publications)
+and [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) for more details):
 
-See our [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) 
-and [CK publications](https://github.com/ctuning/ck/wiki/Publications) 
-to find out more about CK concepts and our long-term vision.
+* Such actions can be shared and reused across research projects:
+  see the [list of shared actions and modules](https://reproindex.com/components/&?c=module).
 
-## Community
+* Standardized APIs and meta-descriptions allow users to connect such CK actions together 
+  into automated, portable and customizable workflows, 
+  and quickly integrate them with all major tools, frameworks and Continuous Integration Services: 
+  see the [list of shared repositories with CK workflows and actions](https://reproindex.com/components)
+  and real use-cases from our [partners](http://cKnowledge.org/partners.html).
 
-**CK is a collaborative project and not a magic ;)** - if some third-party automation fails 
-or misses some functionality (software detection, package installation, benchmarking and autotuning workflow, etc),
-the CK concept is to continuously and collaboratively improve such reusable components! 
-Please provide your feedback and report bugs in the respective [GitHub repositories](https://ReproIndex.com/components)!
+* CK also helps to implement reproducible papers with reusable research components:
+  see [the list of articles with CK workflows](https://ReproIndex.com) and 
+  the [CK-based interactive report with Raspberry Pi foundation](https://cKnowledge.org/rpi-crowd-tuning).
 
-Feel free to discuss CK or ask for help using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
-and the [Slack channel](http://bit.ly/ck-slack).
+* The community uses CK to crowdsource autotuning and co-design of efficient software, hardware and models
+  for emerging AI, ML and quantum computing workloads in terms of speed, accuracy, energy and costs: 
+  see [live CK dashboard with results from different Hackathons, tournaments and crowd-tuning campaigns](http://cKnowledge.org/dashboard).
+
+***Thanks to your feedback we are brainstorming a new and backward-compatible version of CK - please stay tuned!***
+
+## Our community
+
+Don't hesitate to ask questions using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
+and the [Slack channel](http://bit.ly/ck-slack) with 100+ active members.
+
+You are also welcome to help the community fix or improve third-party components (actions, modules, packages, software plugins, workflows) 
+when they fail on new platforms or miss some functionality - you can provide your feedback and report bugs 
+in the respective [GitHub repositories](https://ReproIndex.com/components)!
 
 ## Documentation
 
-[CK wiki](https://github.com/ctuning/ck/wiki) - major revision is planned in 2019. 
+[CK wiki](https://github.com/ctuning/ck/wiki) - a major revision is planned.
 
 ## Installation
 
