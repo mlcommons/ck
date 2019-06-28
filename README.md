@@ -33,11 +33,11 @@ and [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) for
 
 * CK also helps to implement reproducible papers with reusable research components:
   see [the list of articles with CK workflows](https://ReproIndex.com/papers) and 
-  the [CK-based interactive report with Raspberry Pi foundation](https://cKnowledge.org/rpi-crowd-tuning).
+  the [CK-based interactive report with the Raspberry Pi foundation](https://cKnowledge.org/rpi-crowd-tuning).
 
 * The community uses CK to crowdsource autotuning and co-design of efficient software, hardware and models
   for emerging AI, ML and quantum computing workloads in terms of speed, accuracy, energy and costs: 
-  see [live CK dashboard with results from different Hackathons, tournaments and crowd-tuning campaigns](http://cKnowledge.org/dashboard).
+  see the [live CK dashboard with results from different Hackathons, tournaments and crowd-tuning campaigns](http://cKnowledge.org/dashboard).
 
 ***Thanks to your feedback we are brainstorming a new and backward-compatible version of CK - please stay tuned!***
 
