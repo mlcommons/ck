@@ -14,16 +14,17 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 ## Introduction
 
-Collective Knowledge framework helps you to automate repetitive tasks 
+Collective Knowledge is a small, cross-platform and community driven framework 
+that can help you to automate repetitive tasks 
 in the form of "actions" and Python modules with a unified API, CLI, JSON meta-description, 
-web interface and connectors from other languages. 
+web interface and UID.
 
 Our long-term goal is to enable collaborative and reproducible research based on DevOps principles
 (see [CK publications](https://github.com/ctuning/ck/wiki/Publications)
 and [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) for more details):
 
 * Such actions can be shared and reused across research projects:
-  see the [list of shared actions and modules](https://reproindex.com/components/&?c=module).
+  see the [list of available actions and modules](https://reproindex.com/components/&?c=module).
 
 * Standardized APIs and meta-descriptions allow users to connect such CK actions together 
   into automated, portable and customizable workflows, 
@@ -31,11 +32,11 @@ and [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) for
   see the [list of shared repositories with CK workflows and actions](https://reproindex.com/components)
   and real use-cases from our [partners](http://cKnowledge.org/partners.html).
 
-* CK also helps to implement reproducible papers with reusable research components:
+* CK can help to implement reproducible papers with reusable research components:
   see [the list of articles with CK workflows](https://ReproIndex.com/papers) and 
   the [CK-based interactive report with the Raspberry Pi foundation](https://cKnowledge.org/rpi-crowd-tuning).
 
-* The community uses CK to crowdsource autotuning and co-design of efficient software, hardware and models
+* CK can be used to crowdsource autotuning and co-design of efficient software, hardware and models
   for emerging AI, ML and quantum computing workloads in terms of speed, accuracy, energy and costs: 
   see the [live CK dashboard with results from different Hackathons, tournaments and crowd-tuning campaigns](http://cKnowledge.org/dashboard).
 

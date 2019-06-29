@@ -34,7 +34,7 @@ cfg={
       "status_url":"https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
 
       "help_examples":"  Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n    $ ck pull repo:ctuning-programs\n    $ ck compile program:cbench-automotive-susan --speed\n    $ ck run program:cbench-automotive-susan\n\n  Example of an interactive CK-powered article:\n    http://cknowledge.org/repo\n",
-      "help_web":"  Documentation and Getting Started Guide:\n    https://github.com/ctuning/ck/wiki",
+      "help_web":"  Documentation:\n    https://github.com/ctuning/ck/wiki",
 
       "ck_web":"https://github.com/ctuning/ck",
       "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
@@ -5138,6 +5138,8 @@ def short_help(i):
 
     """
 
+    import sys
+
     o=i.get('out','')
 
     r=version({})
@@ -5148,11 +5150,18 @@ def short_help(i):
     r=python_version({})
     if r['return']>0: return r
 
+    x=sys.executable
+    if x!=None and x!='':
+       h+='\nPython executable used by CK: '+x+'\n'
+
     h+='\nPython version used by CK: '+r['version']+'\n'
 
     h+='\nAll internal CK commands: ck help\n'
 
-    h+='\n'+cfg['help_web'].replace('\n','').strip().replace('   ','')
+    h+='\n'+cfg['help_web'].replace('\n','').strip().replace('   ','')+'\n'
+
+    h+='CK Google group: https://bit.ly/ck-google-group\n'
+    h+='CK Slack channel: https://bit.ly/ck-slack'
 
     if o=='con': 
        out(h)

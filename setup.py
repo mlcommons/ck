@@ -5,9 +5,62 @@
 # See CK Copyright.txt for copyright details.
 #
 
-from distutils.core import setup
-from distutils.util import convert_path
+import sys
+import os
 
+try:
+    from setuptools import setup
+except ImportError:
+    from distutils.core import setup
+
+try:
+    from setuptools import convert_path
+except ImportError:
+    from distutils.util import convert_path
+
+try:
+    from setuptools.command.install import install
+except ImportError:
+    from distutils.command.install import install
+
+try:
+   from setuptools.command.install_scripts import install_scripts
+except ImportError:
+    from distutils.command.install_scripts import install_scripts
+
+install_dir=""
+
+class custom_install(install):
+    def run(self):
+        global install_dir
+
+        install.run(self)
+
+        # Check if detected script directory
+        if install_dir!="" and os.path.isdir(install_dir):
+           # Check which python interpreter is used
+           python_bin=sys.executable
+           if os.path.isfile(python_bin):
+              # Attempt to write to $SCRIPTS/ck-python.cfg
+              p=os.path.join(install_dir, 'ck-python.cfg')
+              try:
+                 with open(p, "w") as f:
+                    f.write(python_bin)
+
+                 print ("writing CK python executable ("+python_bin+") to "+p)
+              except:
+                pass
+
+# Get 
+class custom_install_scripts(install_scripts):
+   def run(self):
+       global install_dir
+       install_scripts.run(self)
+       install_dir=self.install_dir
+       if install_dir!=None and install_dir!="":
+          print ("detected install dir: "+install_dir)
+
+# Describing CK setup
 setup(
   name='ck',
   version='1.9.9.1',
@@ -60,6 +113,9 @@ setup(
                        'repo/test/unicode/dir/*']},
 
   scripts = ["bin/ck" ,"bin/ck.bat"],
+
+  cmdclass={'install': custom_install, 
+            'install_scripts': custom_install_scripts},
 
   classifiers = [
         "Programming Language :: Python",

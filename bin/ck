@@ -1,51 +1,80 @@
 #! /bin/bash
 
-# Check if CK_ROOT is defined and used it, otherwise use auto-detected path
-if [ -z "$CK_ROOT" ]; then 
-  CK_path1=`dirname $0`
-  pushd $CK_path1/.. > /dev/null
-  CK_path=`pwd`
-  popd > /dev/null
-  export CK_ROOT=$CK_path
+# Check path to this file
+CK_PATH1=`dirname $0`
+
+# Check if installed via PIP
+CK_USE_PIP=""
+if [ "$CK_PYTHON" == "" ]; then
+  if [ -f "$HOME/.ck/ck-python.cfg" ]; then
+    CK_PYTHON=`cat $HOME/.ck/ck-python.cfg`
+    if [ -f "$CK_PYTHON" ]; then
+       $CK_PYTHON -m ck.kernel test_install &> /dev/null
+       if [ $? -eq 0 ]; then
+          CK_USE_PIP="YES"
+       fi
+    fi
+  elif [ -f "$CK_PATH1/ck-python.cfg" ]; then
+    CK_PYTHON=`cat $CK_PATH1/ck-python.cfg`
+    if [ -f "$CK_PYTHON" ]; then
+       if [ $? -eq 0 ]; then
+          CK_USE_PIP="YES"
+       fi
+    fi
+  fi
 fi
 
-# Load kernel module (either GIT/local installation or as package)
-if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
-   if [ "$CK_PYTHON" == "" ]; then
-      CK_PYTHON=$PYTHON
-      if [ "$CK_PYTHON" == "" ]; then
-         CK_PYTHON=python
-      fi
-   fi
-
-   $CK_PYTHON -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
-
+if [ "$CK_USE_PIP" == "YES" ]; then
+  $CK_PYTHON -W ignore::RuntimeWarning -m ck.kernel "$@"
 else
-  if [ "$CK_PYTHON" == "" ]; then
+  pushd $CK_PATH1/.. > /dev/null
+  CK_PATH=`pwd`
+  popd > /dev/null
 
-     CK_PYTHON=$CK_ROOT/bin/python
-     $CK_PYTHON -m ck.kernel test_install &> /dev/null
+  # Check if CK_ROOT is defined and used it, otherwise use auto-detected path
+  if [ -z "$CK_ROOT" ]; then 
+    export CK_ROOT=$CK_PATH
+  fi
 
-     if [ $? -ne 0 ]; then
-        CK_PYTHON=python
-        $CK_PYTHON -m ck.kernel test_install &> /dev/null
-
-        if [ $? -ne 0 ]; then
-           CK_PYTHON=python2
-           $CK_PYTHON -m ck.kernel test_install &> /dev/null
-
-           if [ $? -ne 0 ]; then
-              CK_PYTHON=python3
-              $CK_PYTHON -m ck.kernel test_install &> /dev/null
-           fi
+  # Load kernel module (either GIT/local installation or as package)
+  if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
+     if [ "$CK_PYTHON" == "" ]; then
+        CK_PYTHON=$PYTHON
+        if [ "$CK_PYTHON" == "" ]; then
+           CK_PYTHON=python
         fi
      fi
-  fi
 
-  if [ $? -ne 0 ]; then
-     echo "Can't find CK kernel - you may need to set CK_ROOT environment variable manually!"
-     exit 1
-  fi
+     $CK_PYTHON -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
 
-  $CK_PYTHON -W ignore::RuntimeWarning -m ck.kernel "$@"
+  else
+    if [ "$CK_PYTHON" == "" ]; then
+
+       CK_PYTHON=$CK_ROOT/bin/python
+       $CK_PYTHON -m ck.kernel test_install &> /dev/null
+
+       if [ $? -ne 0 ]; then
+          CK_PYTHON=python
+          $CK_PYTHON -m ck.kernel test_install &> /dev/null
+
+          if [ $? -ne 0 ]; then
+             CK_PYTHON=python2
+             $CK_PYTHON -m ck.kernel test_install &> /dev/null
+
+             if [ $? -ne 0 ]; then
+                CK_PYTHON=python3
+                $CK_PYTHON -m ck.kernel test_install &> /dev/null
+             fi
+          fi
+       fi
+    fi
+
+    if [ $? -ne 0 ]; then
+       echo "Can't find CK kernel - you may need to set CK_ROOT environment variable manually!"
+       echo "Feel free to ask for help via Slack if you continue experiencing problems"
+       exit 1
+    fi
+
+    $CK_PYTHON -W ignore::RuntimeWarning -m ck.kernel "$@"
+  fi
 fi
