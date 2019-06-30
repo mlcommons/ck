@@ -12,7 +12,7 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 **[cKnowledge.org](https://cKnowledge.org) and [ReproIndex.com](https://ReproIndex.com)**
 
-[[https://github.com/ctuning/ck-guide-images/blob/master/ck-example.gif]]
+<img src="https://github.com/ctuning/ck-guide-images/blob/master/ck-example.gif">
 
 ## Introduction
 
