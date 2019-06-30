@@ -12,6 +12,8 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 **[cKnowledge.org](https://cKnowledge.org) and [ReproIndex.com](https://ReproIndex.com)**
 
+[[https://github.com/ctuning/ck-guide-images/blob/master/ck-example.gif]]
+
 ## Introduction
 
 Collective Knowledge is a small, cross-platform and community driven framework 
@@ -99,13 +101,20 @@ and many more:
 
 ```
 $ ck pull repo:ck-tensorflow
+
+$ ck detect platform
+
 $ ck install package:lib-tensorflow-1.12.0-cpu
+
 $ ck run program:tensorflow-classification
+
+$ ck show env
 ```
+
+**Note that tensorflow 1.12.0 can work only with Python version<=3.6 - please select an appropriate Python version during automatic environment detection**
 
 You can find a non-exhaustive index of CK-compatible repositories at [ReproIndex.com](https://ReproIndex.com/components) - 
 just follow their READMEs to find out more about shared components and workflows!
-
 
 Please check our [Getting Started Guide](https://github.com/ctuning/ck/wiki/First-steps) to try different CK examples.
 
