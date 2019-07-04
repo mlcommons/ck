@@ -47,7 +47,7 @@ and [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) for
 ## Our community
 
 Don't hesitate to ask questions using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
-and the [Slack channel](http://bit.ly/ck-slack) with 100+ active members.
+and the [Slack channel](http://bit.ly/ck-slack).
 
 You are also welcome to help the community fix or improve third-party components (actions, modules, packages, software plugins, workflows) 
 when they fail on new platforms or miss some functionality - you can provide your feedback and report bugs 

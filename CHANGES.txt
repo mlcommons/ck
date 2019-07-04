@@ -1,8 +1,12 @@
-* V1.9.9.1
+* V1.10.1
   * added support for setuptools
   * added report on Python executable used by CK
   * recording python executable to ck-python.cfg during installation -
     it can now be used by default when calling CK CLI
+  * added experimental functionality to automatically download 
+    missing components from cKnowledge.org.
+    It is turned off by default. 
+    To turn it on use "ck set kernel var.download_missing_components=yes"
 
 * V1.9.9
   * fixed installation bug (non UTF-8 character)

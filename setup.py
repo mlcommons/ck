@@ -63,12 +63,12 @@ class custom_install_scripts(install_scripts):
 # Describing CK setup
 setup(
   name='ck',
-  version='1.9.9.1',
+  version='1.10.1',
   url='https://github.com/ctuning/ck/wiki',
   license='BSD 3-clause',
   author='Grigori Fursin and the cTuning foundation',
   author_email='Grigori.Fursin@cTuning.org',
-  description='Collective Knowledge - lightweight knowledge manager to organize, cross-link, share and reuse artifacts',
+  description='Collective Knowledge - lightweight knowledge manager to organize, cross-link, share and reuse artifacts and workflows',
   long_description=open(convert_path('./README.md')).read(),
   packages=['ck'],
   package_dir={'ck': 'ck'},

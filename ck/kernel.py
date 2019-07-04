@@ -10,8 +10,8 @@
 # CK kernel - we made it monolithic with a minimal set 
 # of common functions for performance reasons
 
-__version__ = "1.9.9.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
-                         # Do not use characters (to detect outdated version)!
+__version__ = "1.10.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
+                        # Do not use characters (to detect outdated version)!
 
 # Extra modules global for the whole kernel
 import sys
@@ -260,12 +260,14 @@ cfg={
 
                  "get_api":{"desc":"--func=<func> print API of a function in a given module"},
 
+                 "download":{"desc":"<CID> attempt to download entry from remote host (experimental)", "for_web": "yes"},
+
                  "print_input":{"desc":"prints input"},
 
                 },
 
-      "actions_redirect":{"list":"list_data",
-                          "ls":"list_data"},
+      "actions_redirect":{"list":"list_data2",
+                          "ls":"list_data2"},
 
       "common_actions":["webhelp", "webapi", "help", "info", "print_input",
                         "wiki",
@@ -294,6 +296,7 @@ cfg={
                         "add_index",
                         "delete_index",
                         "get_api",
+                        "download",
                         "convert_cm_to_ck"]
     }
 
@@ -2484,6 +2487,139 @@ def list_all_files(i):
     return {'return':0, 'list':a, 'number':str(number)}
 
 ##############################################################################
+# Download entry from remote host (experimental)
+#
+# TARGET: end users
+def download(i):
+    """
+    Input:  {
+              (repo_uoa)   
+              (module_uoa) 
+              (data_uoa)  
+
+              (new_repo_uoa)   - new repo UOA; "local" by default
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    o=i.get('out','')
+
+    ruoa=i.get('repo_uoa','')
+    muoa=i.get('module_uoa','')
+    duoa=i.get('data_uoa','')
+
+    # Check components to skip
+    if muoa in ['repo', 'befd7892b0d469e9',
+                'env', '9b9b3208ac44b891', 
+                'kernel', 'b1e99f6461424276',
+                'cfg', 'b34231a3467566f8']:
+       return {'return':0}
+
+    if muoa=='':
+       return {'return':1, 'error':'module UOA is not defined'}
+
+    if duoa=='':
+       return {'return':1, 'error':'data UOA is not defined'}
+
+    nruoa=i.get('new_repo_uoa','')
+    if nruoa=='': nruoa='local'
+
+    # Check if writing to new repo is allowed
+    r=find_path_to_repo({'repo_uoa':nruoa})
+    if r['return']>0: return r
+
+    nruoa=r['repo_uoa']
+    nruid=r['repo_uid']
+    nrd=r['dict']
+
+    ii={'repo_uoa':nruoa, 'repo_uid':nruid, 'repo_dict':nrd}
+    r=check_writing(ii)
+    if r['return']>0: return r
+
+    rz={'return':0}
+
+    if o=='con':
+       out('')
+       out('  WARNING: downloading missing CK component "'+muoa+':'+duoa+'" from cKnowledge.org ...')
+
+    ry=access({'action':'ls',
+               'repo_uoa':cfg['default_exchange_repo_uoa'],
+               'module_uoa':muoa,
+               'data_uoa':duoa})
+    if ry['return']==0:
+       lst=ry['lst']
+       for q in lst:
+          # Get UOA
+          nmuoa=q['module_uoa']
+          nmuid=q['module_uid']
+          nduoa=q['data_uoa']
+          nduid=q['data_uid']
+
+          # Later check multiple entries
+          import tempfile
+          tmp_dir=tempfile.mkdtemp(prefix='ck-component-')
+
+          cur_dir=os.getcwd()
+          os.chdir(tmp_dir)
+
+          rz=access({'action':'pull',
+                     'repo_uoa':cfg['default_exchange_repo_uoa'],
+                     'module_uoa':muoa,
+                     'data_uoa':duoa,
+                     'all':'yes',
+                     'archive':'yes'})
+          os.chdir(cur_dir)
+
+          if rz['return']>0: return rz
+
+          # Creating dummy entry
+          rz=access({'action':'add',
+                     'module_uoa':nmuoa,
+                     'module_uid':nmuoa,
+                     'data_uoa':nduoa,
+                     'data_uid':nduid,
+                     'common_func':'yes'})
+          if rz['return']==0:
+             new_path=rz['path']
+
+             # Unzipping archive
+             os.chdir(tmp_dir)
+
+             import zipfile
+
+             new_f=open(os.path.join(cfg['default_archive_name']), 'rb')
+             new_z=zipfile.ZipFile(new_f)
+
+             for new_d in new_z.namelist():
+                 if new_d!='.' and new_d!='..' and not new_d.startswith('\\'):
+                    new_pp=os.path.join(new_path,new_d)
+                    if new_d.endswith('/'): 
+                       if not os.path.exists(new_pp): os.makedirs(new_pp)
+                    else:
+                       new_ppd=os.path.dirname(new_pp)
+                       if not os.path.exists(new_ppd): os.makedirs(new_ppd)
+
+                       # extract file
+                       new_fo=open(new_pp, 'wb')
+                       new_fo.write(new_z.read(new_d))
+                       new_fo.close()
+             new_f.close()
+
+             os.chdir(cur_dir)
+
+          # Removing tmp dir
+          import shutil
+          shutil.rmtree(tmp_dir)
+
+    return {'return':0}
+
+##############################################################################
 # Reload repo cache 
 #
 # TARGET: CK kernel and low-level developers
@@ -3309,7 +3445,7 @@ def perform_action(i):
     cid=i.get('cid','')
     cids=i.get('cids',[])
 
-    out=i.get('out','')
+    xout=i.get('out','')
 
     need_subst=False
     rc={} # If CID from current directory
@@ -3415,7 +3551,36 @@ def perform_action(i):
        # Find module and load meta description
        rx=load({'module_uoa':cfg['module_name'], 
                 'data_uoa':module_uoa})
-       if rx['return']>0: return rx
+       if rx['return']>0: 
+          if cfg.get('download_missing_components','')!='yes':
+             return rx
+
+          # Check if search in remote server ...
+          restarted=False
+          if rx['return']==16:
+             xout2=''
+             if xout=='con': xout2=xout
+
+             # Try to download missing action/module
+             ry=download({'module_uoa':cfg['module_name'],
+                          'data_uoa':module_uoa,
+                          'out':xout2})
+             if ry['return']>0: return ry
+
+             # Attempt to load module again
+             rx=load({'module_uoa':cfg['module_name'], 
+                      'data_uoa':module_uoa})
+             if rx['return']>0: return rx
+
+             restarted=True
+
+             xout=''
+
+             if xout=='con':
+                out('')
+
+          if not restarted:
+             return rx
 
        xmodule_uoa=rx['data_uoa']
        xmodule_uid=rx['data_uid']
@@ -3464,9 +3629,9 @@ def perform_action(i):
           if action1=='': action1=action
 
           if i.get('help','')=='yes' or i.get('api','')=='yes':
-             return get_api({'path':p, 'func':action1, 'out':out})
+             return get_api({'path':p, 'func':action1, 'out':xout})
 
-          if wb=='yes' and (out=='con' or out=='web') and u.get('actions',{}).get(action,{}).get('for_web','')!='yes':
+          if wb=='yes' and (xout=='con' or xout=='web') and u.get('actions',{}).get(action,{}).get('for_web','')!='yes':
              return {'return':1, 'error':'this action is not supported in remote/web mode'}
 
           if declared_action:
@@ -3487,9 +3652,9 @@ def perform_action(i):
        if action1=='': action1=action
 
        if i.get('help','')=='yes' or i.get('api','')=='yes':
-          return get_api({'path':'', 'func':action1, 'out':out})
+          return get_api({'path':'', 'func':action1, 'out':xout})
 
-       if wb=='yes' and (out=='con' or out=='web') and cfg.get('actions',{}).get(action,{}).get('for_web','')!='yes':
+       if wb=='yes' and (xout=='con' or xout=='web') and cfg.get('actions',{}).get(action,{}).get('for_web','')!='yes':
           return {'return':1, 'error':'this action is not supported in remote/web mode '}
 
        a=getattr(sys.modules[__name__], action1)
@@ -5154,9 +5319,10 @@ def short_help(i):
     if x!=None and x!='':
        h+='\nPython executable used by CK: '+x+'\n'
 
-    h+='\nPython version used by CK: '+r['version']+'\n'
+    h+='\nPython version used by CK: '+r['version'].replace('\n','\n   ')+'\n'
 
-    h+='\nAll internal CK commands: ck help\n'
+    h+='\nPath to the default repo: '+work['dir_default_repo_path']+'\n'
+    h+=  'Path to CK repositories: '+work['dir_repos']+'\n'
 
     h+='\n'+cfg['help_web'].replace('\n','').strip().replace('   ','')+'\n'
 
@@ -5569,6 +5735,38 @@ def find(i):
               number_of_entries - total number of found entries
             }
     """
+
+    o=i.get('out','')
+
+    rr=find2(i)
+    if rr['return']>0:
+       if rr['return']==16 and cfg.get('download_missing_components','')=='yes':
+          import copy
+
+          muoa=i.get('module_uoa','')
+          duoa=i.get('data_uoa','')
+
+          out('')
+          out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at cKnowledge.org ...')
+
+          ii=copy.deepcopy(i)
+
+          ii['repo_uoa']=cfg['default_exchange_repo_uoa']
+          ii['out']='con'
+
+          # Try to download 
+          ry=download(ii)
+          if ry['return']>0: return ry
+                  
+          # Restart local find
+          rr=find2(i)
+
+    return rr
+
+#########################################################
+# original find
+
+def find2(i):
 
     o=i.get('out','')
     i['out']=''
@@ -7594,6 +7792,63 @@ def list_data(i):
     return rr
 
 ##############################################################################
+# List data with search
+
+def list_data2(i):
+    o=i.get('out','')
+
+    rr=list_data(i)
+
+    lst=rr['lst']
+    if len(lst)==0 and cfg.get('download_missing_components','')=='yes':
+       # Search on cKnowledge.org
+       import copy
+
+       oo=''
+       if o=='con': oo=o
+
+       muoa=i.get('module_uoa','')
+       duoa=i.get('data_uoa','')
+
+       out('')
+       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at cKnowledge.org ...')
+
+       ii=copy.deepcopy(i)
+
+       ii['repo_uoa']=cfg['default_exchange_repo_uoa']
+       ii['action']='search'
+       ffa=None
+       if 'filter_func_addr' in ii: 
+          ffa=ii['filter_func_addr']
+          del(ii['filter_func_addr'])
+       ry=access(ii)
+       if ry['return']==0:
+          lst=ry['lst']
+          if len(lst)>0:
+             for ll in lst:
+                 if ffa!=None:
+
+                    ll['out']=o
+
+                    rx=ffa(ll)
+                    if rx['return']>0: return rx
+
+                    if rx.get('skip','')!='yes':
+                       muoa=ll['module_uoa']
+                       duoa=ll['data_uoa']
+
+                       # Try to download missing action/module
+                       ry=download({'module_uoa':muoa,
+                                    'data_uoa':duoa,
+                                    'out':'con'})
+                       if ry['return']>0: return ry
+               
+             # Restart local search
+             rr=list_data(i)
+
+    return rr
+
+##############################################################################
 # Common action: search entries
 #
 # TARGET: CK kernel and low-level developers
@@ -7654,7 +7909,55 @@ def search(i):
             }
 
     """
+
     o=i.get('out','')
+
+    rr=search2(i)
+
+    lst=rr['lst']
+    if len(lst)==0 and cfg.get('download_missing_components','')=='yes':
+       # Search on cKnowledge.org
+       import copy
+
+       oo=''
+       if o=='con': oo=o
+
+       muoa=i.get('module_uoa','')
+       duoa=i.get('data_uoa','')
+
+       out('')
+       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at cKnowledge.org ...')
+
+       ii=copy.deepcopy(i)
+
+       ii['repo_uoa']=cfg['default_exchange_repo_uoa']
+       ii['action']='search'
+
+       ry=access(ii)
+       if ry['return']==0:
+          lst=ry['lst']
+          if len(lst)>0:
+             for q in lst:
+                 muoa=q['module_uoa']
+                 duoa=q['data_uoa']
+
+                 # Try to download missing action/module
+                 ry=download({'module_uoa':muoa,
+                              'data_uoa':duoa,
+                              'out':'con'})
+                 if ry['return']>0: return ry
+
+               
+             # Restart local search
+             rr=search2(i)
+
+    return rr
+
+##############################################################################
+# Original search
+
+def search2(i):
+
     ss=i.get('search_string','')
     ls=i.get('limit_size','5000')
 
@@ -7864,6 +8167,7 @@ def search(i):
           out('Elapsed time: '+rr['elapsed_time']+' sec., number of entries: '+str(len(lst)))
 
     return rr
+
 
 ##############################################################################
 # Search filter
