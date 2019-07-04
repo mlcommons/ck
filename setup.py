@@ -63,7 +63,7 @@ class custom_install_scripts(install_scripts):
 # Describing CK setup
 setup(
   name='ck',
-  version='1.10.1',
+  version='1.10.2',
   url='https://github.com/ctuning/ck/wiki',
   license='BSD 3-clause',
   author='Grigori Fursin and the cTuning foundation',

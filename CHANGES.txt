@@ -1,3 +1,6 @@
+* V1.10.2
+  * fixed mistake in PyPi release
+
 * V1.10.1
   * added support for setuptools
   * added report on Python executable used by CK
