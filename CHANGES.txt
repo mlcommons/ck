@@ -1,3 +1,6 @@
+* V1.10.3.1
+  * started new development version
+
 * V1.10.3
   * fixed major bug with kernel version checking
 
