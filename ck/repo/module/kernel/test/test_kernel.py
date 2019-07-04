@@ -631,7 +631,7 @@ class TestKernel(unittest.TestCase):
         chars = '0123456789abcdef'
         for c in uid:
             self.assertIn(c, chars)
-        
+
     def test_version(self):
         r = ck.get_version({})
         self.assertEqual(0, r['return'], r.get('error', None))

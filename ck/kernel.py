@@ -4846,9 +4846,8 @@ def check_version(i):
 
         # try int first, then try string
         try:
-           if int(lv)>int(v):
-               ok='no'
-               break
+           lv=int(lv)
+           v=int(v)
         except Exception as e:
             pass
 

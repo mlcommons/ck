@@ -1,5 +1,5 @@
 * V1.10.2.1
-  * started development version
+  * fixed bug in testing latest version
 
 * V1.10.2
   * fixed mistake in PyPi release
