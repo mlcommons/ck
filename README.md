@@ -16,25 +16,28 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 ## Introduction
 
-Collective Knowledge is a small, cross-platform and community driven framework 
-that can help you to automate repetitive tasks 
-in the form of "actions" and Python modules with a unified API, CLI, JSON meta-description, 
-web interface and UID.
+Collective Knowledge is a small, cross-platform and community driven Python framework 
+to abstract, automate, share, reproduce and reuse any R&D task 
+in the form of actions, workflows and Python modules. 
+Such actions and workflows has a unified API, CLI, JSON meta-description, 
+web interface and UID to simplify the integration
+with existing production systems.
 
-Our long-term goal is to enable collaborative and reproducible research based on DevOps principles
-(see [CK publications](https://github.com/ctuning/ck/wiki/Publications)
-and [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) for more details):
+Our long-term goal is to enable collaborative, reproducible and production-ready research 
+based on DevOps principles. We want researchers and engineers to focus on innovation 
+while CK takes care of the rest (see [CK real use cases](https://cKnowledge.org/partners.html), 
+[publications](https://github.com/ctuning/ck/wiki/Publications)
+and the [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) for more details):
 
-* Such actions can be shared and reused across research projects:
+* CK actions can be shared and reused across research projects:
   see the [list of available actions and modules](https://reproindex.com/components/&?c=module).
 
-* Standardized APIs and meta-descriptions allow users to connect such CK actions together 
-  into automated, portable and customizable workflows, 
-  and quickly integrate them with all major tools, frameworks and Continuous Integration Services: 
-  see the [list of shared repositories with CK workflows and actions](https://reproindex.com/components)
-  and real use-cases from our [partners](http://cKnowledge.org/partners.html).
+* Standardized CK APIs and meta-descriptions help  users 
+  to easily connect actions into automated, portable and customizable workflows, 
+  and quickly integrate them with practically all major tools, frameworks and Continuous Integration Services: 
+  see the [list of shared repositories with CK workflows and actions](https://reproindex.com/components).
 
-* CK can help to implement reproducible papers with reusable research components:
+* CK helps to perform reproducible experiments and generate papers with reusable research components:
   see [the list of articles with CK workflows](https://ReproIndex.com/papers) and 
   the [CK-based interactive report with the Raspberry Pi foundation](https://cKnowledge.org/rpi-crowd-tuning).
 
