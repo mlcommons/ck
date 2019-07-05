@@ -19,7 +19,7 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 Collective Knowledge is a small, cross-platform and community driven Python framework 
 to abstract, automate, share, reproduce and reuse any R&D task 
 in the form of actions, workflows and Python modules. 
-Such actions and workflows has a unified API, CLI, JSON meta-description, 
+Such actions and workflows have a unified API, CLI, JSON meta-description, 
 web interface and UID to simplify the integration
 with existing production systems.
 
