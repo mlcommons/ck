@@ -506,6 +506,24 @@ def safe_float(i,d):
     return r
 
 ##############################################################################
+# Support function for splitting entry name
+#
+# TARGET: end users
+
+def split_name(name, number):
+
+    sd1=name
+    sd2=''
+
+    if number!='': 
+       number=int(number)
+       if number!=0:
+          sd1=name[:number]
+          sd2=name[number:]
+
+    return (sd1,sd2)
+
+##############################################################################
 # Support function for safe int (useful for sorting function)
 #
 # TARGET: end users
@@ -2960,7 +2978,19 @@ def find_path_to_data(i):
                muid=r['data_uid']
                malias=r['data_alias']
                pm=r['path']
-               r1=find_path_to_entry({'path':pm, 'data_uoa':duoa})
+
+               # Check if there is a split of directories for this module in local config
+               # to handle numerous entries (similar to MediaWiki)
+               xsplit_dirs=cfg.get('split_dirs',{})
+               split_dirs=xsplit_dirs.get(muid, '')
+               if split_dirs=='':
+                  split_dirs=xsplit_dirs.get(muoa, '')
+
+               iii={'path':pm, 'data_uoa':duoa}
+               if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+                  iii['split_dirs']=split_dirs
+
+               r1=find_path_to_entry(iii)
                if r1['return']>0 and r1['return']!=16: return r1
                elif r1['return']==0:
                   found=True
@@ -3006,8 +3036,10 @@ def find_path_to_data(i):
 def find_path_to_entry(i):
     """
     Input:  {
-              path     - path to a repository
-              data_uoa - data UOA
+              path         - (str) path to a repository
+              data_uoa     - (str) data UOA
+              (split_dirs) - (int/str) number of first characters to split directory into subdirectories
+                                       to be able to handle many entries (similar to Mediawiki)
             }
 
     Output: {
@@ -3029,6 +3061,14 @@ def find_path_to_entry(i):
     if duoa=='': # pragma: no cover
        raise Exception('data_uoa is empty')
 
+    split_dirs=i.get('split_dirs','')
+
+    # Check split
+    sd1,sd2=split_name(duoa, split_dirs)
+    pp=p
+    if sd2!='': # otherwise name is smaller than the split number
+       p=os.path.join(p,sd1)
+
     # Disambiguate UOA
     alias=''
     if is_uid(duoa):
@@ -3036,7 +3076,7 @@ def find_path_to_entry(i):
        uid=duoa
 
        # Check if alias exists
-       p1=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_alias_u'] + uid)
+       p1=os.path.join(pp, cfg['subdir_ck_ext'], cfg['file_alias_u'] + uid)
        found_alias=False
        if os.path.isfile(p1):
           try:
@@ -3067,7 +3107,7 @@ def find_path_to_entry(i):
        except Exception as e: pass
     if os.path.isdir(p1):
        # Check uid for this alias
-       p2=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_alias_a'] + alias)
+       p2=os.path.join(pp, cfg['subdir_ck_ext'], cfg['file_alias_a'] + alias)
        try:
           f=open(p2)
           uid=f.readline().strip()
@@ -3884,11 +3924,13 @@ def parse_cid(i):
 def create_entry(i):
     """
     Input:  {
-              path       - path where to create an entry
-              (data_uoa) - data UOA
-              (data_uid) - if uoa is an alias, we can force data UID
+              path         - path where to create an entry
+              (split_dirs) - (int) number of first characters to split directory into subdirectories
+                                   to be able to handle many entries (similar to Mediawiki)
+              (data_uoa)   - data UOA
+              (data_uid)   - if uoa is an alias, we can force data UID
 
-              (force)    - if 'yes', force creation even if directory already exists
+              (force)      - if 'yes', force creation even if directory already exists
             }
 
     Output: {
@@ -3908,6 +3950,8 @@ def create_entry(i):
     d=i.get('data_uoa','')
     di=i.get('data_uid','')
 
+    split_dirs=i.get('split_dirs','')
+
     xforce=i.get('force','')
     if xforce=='yes':
        force=True
@@ -3926,7 +3970,10 @@ def create_entry(i):
           uid=di
 
           # Check if already exists
-          r=find_path_to_entry({'path':p0, 'data_uoa':uid})
+          iii={'path':p0, 'data_uoa':uid}
+          if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+             iii['split_dirs']=split_dirs
+          r=find_path_to_entry(iii)
           if r['return']>0 and r['return']!=16: return r
           elif r['return']==0:
              r['return']=16
@@ -3936,7 +3983,11 @@ def create_entry(i):
     else:
        # Check if already exists
        if not force:
-          r=find_path_to_entry({'path':p0, 'data_uoa':d})
+          # Check if already exists
+          iii={'path':p0, 'data_uoa':d}
+          if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+             iii['split_dirs']=split_dirs
+          r=find_path_to_entry(iii)
           if r['return']>0 and r['return']!=16: return r
           elif r['return']==0:
              r['return']=16
@@ -3954,10 +4005,21 @@ def create_entry(i):
              if r['return']>0: return r
              uid=r['data_uid']
 
-    if alias!='':
-       p=os.path.join(p0, alias)
-    else:
-       p=os.path.join(p0, uid)
+    # Check dir name
+    dir_name=(alias,uid) [alias=='']
+
+    # Check split
+    p00=p0
+    sd1,sd2=split_name(dir_name, split_dirs)
+    if sd2!='': # otherwise name is smaller than the split number
+       p00=os.path.join(p0,sd1)
+
+       # Create first split if doesn't exist
+       if not os.path.isdir(p00):
+          os.mkdir(p00)
+
+    # Finalize path to entry
+    p=os.path.join(p00, dir_name)
 
     # Check alias disambiguation
     if alias!='':
@@ -4617,9 +4679,11 @@ def detect_cid_in_current_path(i):
 
     # Check info about module
     ld=len(dirs)
+
     if ld>0:
        m=dirs[ld-1]
 
+       split_dirs=''
        rx=find_path_to_entry({'path':p, 'data_uoa':m})
        if rx['return']>0 and rx['return']!=16: return rx
        elif rx['return']==0:
@@ -4627,11 +4691,29 @@ def detect_cid_in_current_path(i):
           r['module_uid']=rx['data_uid']
           r['module_alias']=rx['data_alias']
 
+          muid=rx['data_uid']
+          muoa=rx['data_uoa']
+
+          # Check if there is a split of directories for this module in local config
+          # to handle numerous entries (similar to MediaWiki)
+          xsplit_dirs=cfg.get('split_dirs',{})
+          split_dirs=xsplit_dirs.get(muid, '')
+          if split_dirs=='':
+             split_dirs=xsplit_dirs.get(muoa, '')
+
        # Check info about data
        if ld>1:
           d=dirs[ld-2]
+          iii={}
 
-          rx=find_path_to_entry({'path':os.path.join(p,m), 'data_uoa':d})
+          if split_dirs!='' and split_dirs!=None and split_dirs!=0 and len(d)==split_dirs:
+             d=dirs[ld-3]
+             iii['split_dirs']=split_dirs
+
+          iii['path']=os.path.join(p,m)
+          iii['data_uoa']=d
+
+          rx=find_path_to_entry(iii)
           if rx['return']>0 and rx['return']!=16: return rx
           elif rx['return']==0:
              r['data_uoa']=rx['data_uoa']
@@ -6051,6 +6133,13 @@ def add(i):
     if alias=='': alias=uid
     module_desc=r['dict']
 
+    # Check if there is a split of directories for this module in local config
+    # to handle numerous entries (similar to MediaWiki)
+    xsplit_dirs=cfg.get('split_dirs',{})
+    split_dirs=xsplit_dirs.get(muid, '')
+    if split_dirs=='':
+       split_dirs=xsplit_dirs.get(muoa, '')
+
     # Ask additional questions
     if o=='con' and ask=='yes':
        # Asking for alias
@@ -6097,6 +6186,8 @@ def add(i):
 
     # Create second level entry (data)
     i1={'path':p1}
+    if split_dirs!='' and split_dirs!=None and split_dirs!=0: 
+       i1['split_dirs']=split_dirs
     pdd=''
     if di!='': 
        i1['data_uid']=di
@@ -6588,18 +6679,34 @@ def rm(i):
        # Find path to data
        r=find_path_to_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
        if r['return']>0: return r
+
        p=r['path']
+
        ruoa=r.get('repo_uoa','')
        ruid=r.get('repo_uid','')
+
        muoa=r.get('module_uoa','')
        muid=r.get('module_uid','')
+
        duid=r.get('data_uid','')
        duoa=r.get('data_alias','')
+
        if duoa=='': duoa=duid
 
-       lst.append({'path':p, 'repo_uoa':ruoa, 'repo_uid':ruid, 
-                             'module_uoa':muoa, 'module_uid':muid, 
-                             'data_uoa':duoa, 'data_uid': duid})
+       uu={'path':p, 'repo_uoa':ruoa, 'repo_uid':ruid, 
+           'module_uoa':muoa, 'module_uid':muid, 
+           'data_uoa':duoa, 'data_uid': duid}
+
+       # Check if there is a split of directories for this module in local config
+       # to handle numerous entries (similar to MediaWiki)
+       xsplit_dirs=cfg.get('split_dirs',{})
+       split_dirs=xsplit_dirs.get(muid, '')
+       if split_dirs=='':
+          split_dirs=xsplit_dirs.get(muoa, '')
+       if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+          uu['split_dirs']=split_dirs
+
+       lst.append(uu)
 
     force=i.get('force','')
     if force=='':
@@ -6609,6 +6716,10 @@ def rm(i):
     for ll in lst:
         p=ll['path']
         pm=os.path.split(p)[0]
+
+        split_dirs=ll.get('split_dirs','')
+        if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+           pm=os.path.split(pm)[0]
 
         muid=ll['module_uid']
         muoa=ll['module_uoa']
@@ -6850,7 +6961,24 @@ def ren(i):
        if os.path.isdir(nduoa):
           return {'return':1, 'error': 'new alias already exists'}
 
-       pn=os.path.join(pm, nduoa)
+       # Check if there is a split of directories for this module in local config
+       # to handle numerous entries (similar to MediaWiki)
+       xsplit_dirs=cfg.get('split_dirs',{})
+       split_dirs=xsplit_dirs.get(muid, '')
+       if split_dirs=='':
+          split_dirs=xsplit_dirs.get(muoa, '')
+
+       if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+          sd1,sd2=split_name(nduoa, split_dirs)
+          pm1=pm
+          if sd2!='': # otherwise name is smaller than the split number
+             pm1=os.path.join(pm, sd1)
+             if not os.path.isdir(pm1):
+                os.mkdir(pm1)
+
+          pn=os.path.join(pm1, nduoa)
+       else:
+          pn=os.path.join(pm, nduoa)
 
        if rshared!='' and rsync=='yes':
           import shutil
@@ -7633,6 +7761,13 @@ def list_data(i):
                  muid=r['data_uid']
                  muoa=r['data_uoa']
 
+                 # Check if there is a split of directories for this module in local config
+                 # to handle numerous entries (similar to MediaWiki)
+                 xsplit_dirs=cfg.get('split_dirs',{})
+                 split_dirs=xsplit_dirs.get(muid, '')
+                 if split_dirs=='':
+                    split_dirs=xsplit_dirs.get(muoa, '')
+
                  mskip=False
 
                  if wm!='':
@@ -7650,7 +7785,10 @@ def list_data(i):
                     xd=[]
 
                     if duoa!='' and wd=='': 
-                       r=find_path_to_entry({'path':mp, 'data_uoa':duoa})
+                       iii={'path':mp, 'data_uoa':duoa}
+                       if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+                          iii['split_dirs']=split_dirs
+                       r=find_path_to_entry(iii)
                        if r['return']==0:
                           xd.append(duoa)
                     else:   
@@ -7662,14 +7800,28 @@ def list_data(i):
                        else:
                           for fn in ld:
                               if os.path.isdir(os.path.join(mp,fn)) and fn not in cfg['special_directories']:
-                                 xd.append(fn)
+                                 if split_dirs!='' and split_dirs!=None and split_dirs!=0 and len(fn)==split_dirs:
+                                    mp2=os.path.join(mp,fn)
+                                    try:
+                                       ld2=os.listdir(mp2)
+                                    except Exception as e:
+                                       None
+
+                                    for fn in ld2:
+                                        if os.path.isdir(os.path.join(mp2,fn)) and fn not in cfg['special_directories']:
+                                           xd.append(fn)
+                                 else:   
+                                    xd.append(fn)
 
                     # Iterate over data
                     if len(lduoa)>0:
                        xd=lduoa
 
                     for du in xd:
-                        r=find_path_to_entry({'path':mp, 'data_uoa':du})
+                        iii={'path':mp, 'data_uoa':du}
+                        if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+                           iii['split_dirs']=split_dirs
+                        r=find_path_to_entry(iii)
                         if r['return']!=0: continue
 
                         dp=r['path']

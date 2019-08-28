@@ -12,8 +12,8 @@ IF "%CK_PYTHON%"=="" (
 )
 
 rem Load kernel module (either GIT/local installation or as package)
-IF EXIST %CK_ROOT%\ck\kernel.py (
- %CK_PYTHON% -W ignore::DeprecationWarning %CK_ROOT%\ck\kernel.py %*
+IF EXIST "%CK_ROOT%\ck\kernel.py" (
+ %CK_PYTHON% -W ignore::DeprecationWarning "%CK_ROOT%\ck\kernel.py" %*
 ) ELSE (
  %CK_PYTHON% -W ignore::DeprecationWarning -W ignore::RuntimeWarning -m ck.kernel %*
 )
