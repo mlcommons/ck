@@ -7,8 +7,11 @@
 # Developer: Grigori Fursin
 #
 
-# CK kernel - we made it monolithic with a minimal set 
-# of common functions for performance reasons
+# This is the kernel of CK. It is implemented in just one file 
+# with a minimal set of common portable functions and without OO
+# to make it simpler to re-implement it in any another language if needed.
+# For example, we implemented some functions in Java, C, C++ and Fortran
+# (see our xOpenME library used in Android)
 
 __version__ = "1.10.3.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
                           # Do not use characters (to detect outdated version)!
@@ -504,6 +507,33 @@ def safe_float(i,d):
        pass
 
     return r
+
+##############################################################################
+# Support function for checking splitting entry number
+#
+# TARGET: end users
+
+def get_split_dir_number(repo_dict, module_uid, module_uoa):
+
+    # Check if there is a split of directories for this module in local config
+    # to handle numerous entries (similar to MediaWiki)
+    found=False
+    split_dir_number=0
+
+    for xcfg in [cfg, repo_dict]:
+        xsplit_dirs=xcfg.get('split_dirs',{})
+
+        found=False
+        for m in [module_uid, module_uoa]:
+            split_dir_number=safe_int(xsplit_dirs.get(m,0),0)
+            if split_dir_number!=0:
+               found=True
+               break
+
+        if found:
+           break
+
+    return split_dir_number
 
 ##############################################################################
 # Support function for splitting entry name
@@ -2797,6 +2827,8 @@ def find_repo_by_path(i):
     p=i['path']
     if p!='': p=os.path.normpath(p)
 
+    dd={}
+
     found=False
     if p==work['dir_default_repo']:
        uoa=cfg['repo_name_default']
@@ -2814,7 +2846,8 @@ def find_repo_by_path(i):
 
        for q in cache_repo_info:
            qq=cache_repo_info[q]
-           if p==qq['dict'].get('path',''):
+           dd=qq['dict']
+           if p==dd.get('path',''):
               uoa=qq['data_uoa']
               uid=qq['data_uid']
               alias=uid
@@ -2825,7 +2858,7 @@ def find_repo_by_path(i):
     if not found:
        return {'return':16, 'error': 'repository not found in this path'}
 
-    return {'return':0, 'repo_uoa': uoa, 'repo_uid': uid, 'repo_alias':alias}
+    return {'return':0, 'repo_uoa': uoa, 'repo_uid': uid, 'repo_alias':alias, 'repo_dict':dd}
 
 ##############################################################################
 # Find path to a given repo
@@ -2981,13 +3014,10 @@ def find_path_to_data(i):
 
                # Check if there is a split of directories for this module in local config
                # to handle numerous entries (similar to MediaWiki)
-               xsplit_dirs=cfg.get('split_dirs',{})
-               split_dirs=xsplit_dirs.get(muid, '')
-               if split_dirs=='':
-                  split_dirs=xsplit_dirs.get(muoa, '')
+               split_dirs=get_split_dir_number(prx.get('dict',{}), muid, muoa)
 
                iii={'path':pm, 'data_uoa':duoa}
-               if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+               if split_dirs!=0:
                   iii['split_dirs']=split_dirs
 
                r1=find_path_to_entry(iii)
@@ -3061,7 +3091,7 @@ def find_path_to_entry(i):
     if duoa=='': # pragma: no cover
        raise Exception('data_uoa is empty')
 
-    split_dirs=i.get('split_dirs','')
+    split_dirs=safe_int(i.get('split_dirs',0),0)
 
     # Check split
     sd1,sd2=split_name(duoa, split_dirs)
@@ -3950,7 +3980,7 @@ def create_entry(i):
     d=i.get('data_uoa','')
     di=i.get('data_uid','')
 
-    split_dirs=i.get('split_dirs','')
+    split_dirs=safe_int(i.get('split_dirs',0),0)
 
     xforce=i.get('force','')
     if xforce=='yes':
@@ -3971,7 +4001,7 @@ def create_entry(i):
 
           # Check if already exists
           iii={'path':p0, 'data_uoa':uid}
-          if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+          if split_dirs!=0:
              iii['split_dirs']=split_dirs
           r=find_path_to_entry(iii)
           if r['return']>0 and r['return']!=16: return r
@@ -3985,7 +4015,7 @@ def create_entry(i):
        if not force:
           # Check if already exists
           iii={'path':p0, 'data_uoa':d}
-          if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+          if split_dirs!=0:
              iii['split_dirs']=split_dirs
           r=find_path_to_entry(iii)
           if r['return']>0 and r['return']!=16: return r
@@ -4677,13 +4707,15 @@ def detect_cid_in_current_path(i):
     r=find_repo_by_path({'path':p})
     if r['return']>0: return r
 
+    repo_dict=r.get('repo_dict',{})
+
     # Check info about module
     ld=len(dirs)
 
     if ld>0:
        m=dirs[ld-1]
 
-       split_dirs=''
+       split_dirs=0
        rx=find_path_to_entry({'path':p, 'data_uoa':m})
        if rx['return']>0 and rx['return']!=16: return rx
        elif rx['return']==0:
@@ -4696,17 +4728,14 @@ def detect_cid_in_current_path(i):
 
           # Check if there is a split of directories for this module in local config
           # to handle numerous entries (similar to MediaWiki)
-          xsplit_dirs=cfg.get('split_dirs',{})
-          split_dirs=xsplit_dirs.get(muid, '')
-          if split_dirs=='':
-             split_dirs=xsplit_dirs.get(muoa, '')
+          split_dirs=get_split_dir_number(repo_dict, muid, muoa)
 
        # Check info about data
        if ld>1:
           d=dirs[ld-2]
           iii={}
 
-          if split_dirs!='' and split_dirs!=None and split_dirs!=0 and len(d)==split_dirs:
+          if split_dirs!=0:
              d=dirs[ld-3]
              iii['split_dirs']=split_dirs
 
@@ -6135,10 +6164,7 @@ def add(i):
 
     # Check if there is a split of directories for this module in local config
     # to handle numerous entries (similar to MediaWiki)
-    xsplit_dirs=cfg.get('split_dirs',{})
-    split_dirs=xsplit_dirs.get(muid, '')
-    if split_dirs=='':
-       split_dirs=xsplit_dirs.get(muoa, '')
+    split_dirs=get_split_dir_number(rd, muid, muoa)
 
     # Ask additional questions
     if o=='con' and ask=='yes':
@@ -6186,7 +6212,7 @@ def add(i):
 
     # Create second level entry (data)
     i1={'path':p1}
-    if split_dirs!='' and split_dirs!=None and split_dirs!=0: 
+    if split_dirs!=0:
        i1['split_dirs']=split_dirs
     pdd=''
     if di!='': 
@@ -6696,16 +6722,6 @@ def rm(i):
        uu={'path':p, 'repo_uoa':ruoa, 'repo_uid':ruid, 
            'module_uoa':muoa, 'module_uid':muid, 
            'data_uoa':duoa, 'data_uid': duid}
-
-       # Check if there is a split of directories for this module in local config
-       # to handle numerous entries (similar to MediaWiki)
-       xsplit_dirs=cfg.get('split_dirs',{})
-       split_dirs=xsplit_dirs.get(muid, '')
-       if split_dirs=='':
-          split_dirs=xsplit_dirs.get(muoa, '')
-       if split_dirs!='' and split_dirs!=None and split_dirs!=0:
-          uu['split_dirs']=split_dirs
-
        lst.append(uu)
 
     force=i.get('force','')
@@ -6716,10 +6732,6 @@ def rm(i):
     for ll in lst:
         p=ll['path']
         pm=os.path.split(p)[0]
-
-        split_dirs=ll.get('split_dirs','')
-        if split_dirs!='' and split_dirs!=None and split_dirs!=0:
-           pm=os.path.split(pm)[0]
 
         muid=ll['module_uid']
         muoa=ll['module_uoa']
@@ -6751,6 +6763,12 @@ def rm(i):
         rd=r.get('repo_dict',{})
         rshared=rd.get('shared','')
         rsync=rd.get('sync','')
+
+        # Check if there is a split of directories for this module in local config
+        # to handle numerous entries (similar to MediaWiki)
+        split_dirs=get_split_dir_number(rd, muid, muoa)
+        if split_dirs!=0:
+           pm=os.path.split(pm)[0]
 
         shr=i.get('share','')
         if shr=='yes': 
@@ -6880,7 +6898,7 @@ def ren(i):
     if muoa=='': return {'return':1, 'error':'module UOA is not defined'}
     if duoa=='': return {'return':1, 'error':'data UOA is not defined'}
 
-    # Attempt to load
+    # Attempt to load original entry meta
     ii={'module_uoa':muoa, 'data_uoa':duoa}
     if ruoa!='': ii['repo_uoa']=ruoa
     r=load(ii)
@@ -6963,12 +6981,9 @@ def ren(i):
 
        # Check if there is a split of directories for this module in local config
        # to handle numerous entries (similar to MediaWiki)
-       xsplit_dirs=cfg.get('split_dirs',{})
-       split_dirs=xsplit_dirs.get(muid, '')
-       if split_dirs=='':
-          split_dirs=xsplit_dirs.get(muoa, '')
+       split_dirs=get_split_dir_number(rd, muid, muoa)
 
-       if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+       if split_dirs!=0:
           sd1,sd2=split_name(nduoa, split_dirs)
           pm1=pm
           if sd2!='': # otherwise name is smaller than the split number
@@ -7673,7 +7688,7 @@ def list_data(i):
        # Prepare all repositories
        r=reload_repo_cache({}) # Ignore errors
        if r['return']>0: return r
-       zr=cache_repo_info 
+       zr=cache_repo_info
 
     # Start iterating over repositories
     ir=0
@@ -7683,6 +7698,8 @@ def list_data(i):
     finish=False
     while iir:
        skip=False
+       repo_dict={}
+
        if fixed_repo:
           if ir>0:
              skip=True
@@ -7691,6 +7708,7 @@ def list_data(i):
              ruid=zrk[0]
              d=zr[ruid]
              dd=d.get('dict',{})
+             repo_dict=dd
              remote=dd.get('remote','')
              if remote=='yes':
                 skip=True
@@ -7714,6 +7732,7 @@ def list_data(i):
              ruid=zrk[ir-2]
              d=zr[ruid]
              dd=d.get('dict',{})
+             repo_dict=dd
              remote=dd.get('remote','')
              if remote=='yes':
                 skip=True
@@ -7763,10 +7782,7 @@ def list_data(i):
 
                  # Check if there is a split of directories for this module in local config
                  # to handle numerous entries (similar to MediaWiki)
-                 xsplit_dirs=cfg.get('split_dirs',{})
-                 split_dirs=xsplit_dirs.get(muid, '')
-                 if split_dirs=='':
-                    split_dirs=xsplit_dirs.get(muoa, '')
+                 split_dirs=get_split_dir_number(repo_dict, muid, muoa)
 
                  mskip=False
 
@@ -7786,7 +7802,7 @@ def list_data(i):
 
                     if duoa!='' and wd=='': 
                        iii={'path':mp, 'data_uoa':duoa}
-                       if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+                       if split_dirs!=0:
                           iii['split_dirs']=split_dirs
                        r=find_path_to_entry(iii)
                        if r['return']==0:
@@ -7800,7 +7816,7 @@ def list_data(i):
                        else:
                           for fn in ld:
                               if os.path.isdir(os.path.join(mp,fn)) and fn not in cfg['special_directories']:
-                                 if split_dirs!='' and split_dirs!=None and split_dirs!=0 and len(fn)==split_dirs:
+                                 if split_dirs!=0:
                                     mp2=os.path.join(mp,fn)
                                     try:
                                        ld2=os.listdir(mp2)
@@ -7810,7 +7826,7 @@ def list_data(i):
                                     for fn in ld2:
                                         if os.path.isdir(os.path.join(mp2,fn)) and fn not in cfg['special_directories']:
                                            xd.append(fn)
-                                 else:   
+                                 else:
                                     xd.append(fn)
 
                     # Iterate over data
@@ -7819,7 +7835,7 @@ def list_data(i):
 
                     for du in xd:
                         iii={'path':mp, 'data_uoa':du}
-                        if split_dirs!='' and split_dirs!=None and split_dirs!=0:
+                        if split_dirs!=0:
                            iii['split_dirs']=split_dirs
                         r=find_path_to_entry(iii)
                         if r['return']!=0: continue
@@ -7993,7 +8009,7 @@ def list_data2(i):
                                     'data_uoa':duoa,
                                     'out':'con'})
                        if ry['return']>0: return ry
-               
+
              # Restart local search
              rr=list_data(i)
 
@@ -8098,7 +8114,7 @@ def search(i):
                               'out':'con'})
                  if ry['return']>0: return ry
 
-               
+
              # Restart local search
              rr=search2(i)
 
