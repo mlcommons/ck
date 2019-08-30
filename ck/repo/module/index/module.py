@@ -176,7 +176,8 @@ def status(i):
                  'data_uoa':ck.cfg['subdir_kernel_default'],
                  'dict':cfg,
                  'substitute':'yes',
-                 'ignore_update':'yes'})
+                 'ignore_update':'yes',
+                 'skip_indexing':'yes'})
     if r['return']>0: return r
 
     return {'return':0, 'status':s}
@@ -211,7 +212,7 @@ def test(i):
     version=dd.get('version',{}).get('number','')
 
     if o=='con':
-       ck.out('Indexing server is working. Version = '+version+'.')
+       ck.out('Indexing server is working (version = '+version+')')
 
     return r
 

@@ -6103,6 +6103,8 @@ def add(i):
               (sort_keys)            - by default, 'yes'
 
               (share)                - if 'yes', try to add via GIT
+
+              (skip_indexing)        - if 'yes', skip indexing even if it is globally on
             }
 
     Output: {
@@ -6420,7 +6422,7 @@ def add(i):
         'data_name':dn}
 
     # Check if need to add index
-    if cfg.get('use_indexing','')=='yes':
+    if i.get('skip_indexing','')!='yes' and cfg.get('use_indexing','')=='yes':
        muid=rr['module_uid']
        duid=rr['data_uid']
        path='/'+muid+'/'+duid+'/1'
@@ -6472,6 +6474,8 @@ def update(i):
               (unlock_uid)           - unlock UID if was previously locked
 
               (sort_keys)            - if 'yes', sort keys
+
+              (skip_indexing)        - if 'yes', skip indexing even if it is globally on
             }
 
     Output: {
@@ -8750,12 +8754,14 @@ def access_index_server(i):
        url+=':'+port
 
     path=i.get('path','')
-    url+=path
+    xpath=path.split('/')
 
     dd=i.get('dict',{})
     ddo={}
 
     if cfg.get('index_use_curl','')=='yes':
+       url+=path
+
        import tempfile
 
        fd1, fn1=tempfile.mkstemp(suffix='.tmp', prefix='ck-')
@@ -8783,7 +8789,9 @@ def access_index_server(i):
 
        if r['return']>0: return r
        ddo=r['dict']
-    else:
+    elif cfg.get('index_use_web','')=='yes':
+       url+=path
+
        try:
           import urllib.request as urllib2
        except:
@@ -8827,6 +8835,71 @@ def access_index_server(i):
           if r['return']>0: 
              return {'return':1, 'error':'can\'t parse output from index server ('+r['error']+')'}
           ddo=r['dict']
+    else:
+       # Check that elastic search client is installed
+       found_elasticsearch=True
+       try:
+          import elasticsearch
+       except Exception as e:
+          found_elasticsearch=False
+          pass
+
+       if not found_elasticsearch:
+          return {'return':1, 'error':'Python elasticsearch client library was not found; try to install it via "pip install elasticsearch"'}
+
+       # Init ElasticSearch
+       try:
+          es=elasticsearch.Elasticsearch([url])
+       except elasticsearch.ElasticsearchException as e:
+          return {'return':1, 'error':'problem initializing ElasticSearch ('+format(e)+')'}
+
+       es_index='ck'
+       es_doc_type='_doc'
+
+       # Check commands
+       if request=='TEST':
+          # Normally we already connected fine above
+
+          ddo=es.info()
+          ddo['health']=es.cluster.health()
+          ddo['status']=200
+
+       else:
+          es_id=''
+          if len(xpath)>1:
+              es_id+=xpath[1]
+          if len(xpath)>2:
+              es_id+='_'+xpath[2]
+
+          if request=='DELETE':
+             if path=='/_all':
+                try:
+                   ddo=es.indices.delete(index=es_index, ignore=[400, 404])
+                except elasticsearch.ElasticsearchException as e:
+                   se=format(e)
+                   return {'return':2, 'error':'problem 2 accessing indexing server ('+se+')'}
+             else:
+                exists=True
+                try:
+                   ddo=es.get(index=es_index, doc_type=es_doc_type, id=es_id)
+                except elasticsearch.ElasticsearchException as e:
+                   es_status=e.info.get('status',0)
+                   if es_status==404 or e.info.get('found')==False:
+                      exists=False
+
+                if exists:
+                   try:
+                      ddo=es.delete(index=es_index, doc_type=es_doc_type, id=es_id)
+                   except elasticsearch.ElasticsearchException as e:
+                      se=format(e)
+                      return {'return':3, 'error':'problem 3 accessing indexing server ('+se+')'}
+
+          elif request=='PUT':
+            try:
+               ddo=es.index(index=es_index, doc_type=es_doc_type, id=es_id, body=dd)
+            except elasticsearch.ElasticsearchException as e:
+               se=format(e)
+               return {'return':4, 'error':'problem 4 accessing indexing server ('+se+')'}
 
     return {'return':0, 'dict':ddo}
 

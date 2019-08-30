@@ -653,7 +653,7 @@ class TestKernel(unittest.TestCase):
         r = ck.help({})
         self.assertEqual(0, r['return'], r.get('error', None))
         self.assertTrue('Usage:' in r['help'])
-        self.assertTrue('Common actions:' in r['help'])
+        self.assertTrue('Common actions for' in r['help'])
         for ca in ck.cfg['common_actions']:
             self.assertTrue(ca in r['help'])
 

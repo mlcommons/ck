@@ -5,6 +5,7 @@
     it can be configured via local kernel meta:
     "split_dirs":{"module UOA":N} 
   * improved "ck help" function
+  * added support for the latest ElasticSearch via Python client
 
 * V1.10.3
   * fixed major bug with kernel version checking
