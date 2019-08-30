@@ -4,6 +4,7 @@
     this is needed to handle millions of entries;
     it can be configured via local kernel meta:
     "split_dirs":{"module UOA":N} 
+  * improved "ck help" function
 
 * V1.10.3
   * fixed major bug with kernel version checking

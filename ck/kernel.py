@@ -5345,27 +5345,29 @@ def help(i):
 
     h= 'Usage: '+cfg['cmd'].replace('$#module_uoa#$', m)+'\n'
 
-    h+='\n'
-    h+='  Common actions:\n'
-
-    for q in sorted(cfg['common_actions']):
-        s=q
-        desc=cfg['actions'][q].get('desc','')
-        if desc!='': s+=' - '+desc
-        h+='    '+s+'\n'
-
-    h+='\n'
-    h+='  Module actions:\n'
-
     if m=='<module_uoa>':
-       # Internal actions (for this kernel)
+       h+='\n'
+       h+='  Common actions for all CK modules (unless overloaded):\n'
+
+       for q in sorted(cfg['common_actions']):
+           s=q
+           desc=cfg['actions'][q].get('desc','')
+           if desc!='': s+=' - '+desc
+           h+='    * '+s+'\n'
+
+       h+='\n'
+       h+='  CK kernel actions:\n'
+
        for q in sorted(cfg['actions']):
            if q not in cfg['common_actions']:
               s=q
               desc=cfg['actions'][q].get('desc','')
               if desc!='': s+=' - '+desc
-              h+='    '+s+'\n'
+              h+='    * '+s+'\n'
     else:
+       h+='\n'
+       h+='  Available actions:\n\n'
+
        # Attempt to load 
        r=list_actions({'module_uoa':m}) 
        if r['return']>0: return r
@@ -5378,7 +5380,11 @@ def help(i):
               s=q
               desc=actions[q].get('desc','')
               if desc!='': s+=' - '+desc
-              h+='    '+s+'\n'
+              h+='    * '+s+'\n'
+
+       h+='\n'
+       h+='  Common actions for this module from the CK kernel:\n'
+       h+='    $ ck help\n'
 
     if m=='<module_uoa>':
        h+='\n'
