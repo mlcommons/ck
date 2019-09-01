@@ -6,6 +6,7 @@
     "split_dirs":{"module UOA":N} 
   * improved "ck help" function
   * added support for the latest ElasticSearch via Python client
+  * improved CK search via ElasticSearch
 
 * V1.10.3
   * fixed major bug with kernel version checking

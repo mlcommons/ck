@@ -8062,6 +8062,7 @@ def search(i):
               (internal)           - if 'yes', use internal search even if indexing is on
 
               (limit_size)         - by default 5000 or -1 if no limit
+              (start_from)         - start from a specific entry (only for ElasticSearch)
 
               (print_full)         - if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
               (print_uid)          - if 'yes', print UID in brackets
@@ -8069,6 +8070,8 @@ def search(i):
               (print_name)         - if 'yes', print name (and add info to the list)
               (add_info)           - if 'yes', add info about entry to the list
               (add_meta)           - if 'yes', add meta about entry to the list
+
+              (debug)              - if 'yes', print debug info
             }
 
     Output: {
@@ -8090,6 +8093,7 @@ def search(i):
     o=i.get('out','')
 
     rr=search2(i)
+    if rr['return']>0: return rr
 
     lst=rr['lst']
     if len(lst)==0 and cfg.get('download_missing_components','')=='yes':
@@ -8135,13 +8139,16 @@ def search(i):
 
 def search2(i):
 
+    o=i.get('out','')
+
     ss=i.get('search_string','')
+    sd=i.get('search_dict',{})
+
     ls=i.get('limit_size','5000')
 
     rr={'return':0}
 
-    sd=i.get('search_dict',{})
-
+    # Check tags
     tags=i.get('tags','')
     if tags!='':
        xtags=tags.split(',')
@@ -8180,7 +8187,12 @@ def search2(i):
        import time
        start_time = time.time()
 
-       dss={}
+       # Check if using ElasticSearch via Python client
+       eec=False 
+       if cfg.get('index_use_curl','')=='yes' or cfg.get('index_use_web','')=='yes':
+          eec=True
+
+       dss={} # Used with python ElasticSearch client
 
        ruoa=i.get('repo_uoa','')
        muoa=i.get('module_uoa','')
@@ -8201,7 +8213,12 @@ def search2(i):
           for x in lruoa:
               if first: first=False
               else: ss+=' OR '
-              ss+='(repo_uid:"'+x+'") OR (repo_uoa:"'+x+'")'
+
+              xx1='"'
+              if x.find('*')>=0 or x.find('?')>=0:
+                 xx1=''
+
+              ss+='(repo_uid:'+xx1+x+xx1+') OR (repo_uoa:'+xx1+x+xx1+')'
           ss+=')'
 
        if len(lmuoa)>0:
@@ -8211,7 +8228,12 @@ def search2(i):
           for x in lmuoa:
               if first: first=False
               else: ss+=' OR '
-              ss+='(module_uid:"'+x+'") OR (module_uoa:"'+x+'")'
+
+              xx1='"'
+              if x.find('*')>=0 or x.find('?')>=0:
+                 xx1=''
+
+              ss+='(module_uid:'+xx1+x+xx1+') OR (module_uoa:'+xx1+x+xx1+')'
           ss+=')'
 
        if len(lduoa)>0:
@@ -8221,19 +8243,26 @@ def search2(i):
           for x in lduoa:
               if first: first=False
               else: ss+=' OR '
-              ss+='(data_uid:"'+x+'") OR (data_uoa:"'+x+'")'
+
+              xx1='"'
+              if x.find('*')>=0 or x.find('?')>=0:
+                 xx1=''
+
+              ss+='(data_uid:'+xx1+x+xx1+') OR (data_uoa:'+xx1+x+xx1+')'
           ss+=')'
 
        # Check search keys
        first=True
        for u in sd:
            v=sd[u]
+
            if first: 
               first=False
               if ss=='': ss+='('
               else: ss+=' AND ('
            else: 
               ss+=' AND '
+
            if type(v)==list:
               first1=True
               for lk in v:
@@ -8241,9 +8270,22 @@ def search2(i):
                      first1=False
                   else:
                      ss+=' AND '
-                  ss+=u+':"'+str(lk)+'"'
+
+                  x=str(lk)
+
+                  xx1='"'
+                  if x.find('*')>=0 or x.find('?')>=0:
+                     xx1=''
+
+                  ss+=u+':'+xx1+x+xx1
            else:
-              ss+=u+':"'+v+'"'
+              x=str(v)
+
+              xx1='"'
+              if x.find('*')>=0 or x.find('?')>=0:
+                 xx1=''
+
+              ss+=u+':'+xx1+x+xx1
 
        # Check special parameters
        aidb=i.get('add_if_date_before','')
@@ -8265,10 +8307,11 @@ def search2(i):
           else: 
              ss+=' AND '
 
-          if sn.find('*')<0 and sn.find('?')<0:
-             ss+='data_name:"'+sn+'"'
-          else:
-             ss+='data_name:'+sn+''
+          xx1='"'
+          if sn.find('*')>=0 or sn.find('?')>=0:
+             xx1=''
+
+          ss+='data_name:'+xx1+sn+xx1
 
        if aidb!='' or aida!='' or aid!='':
           if first: 
@@ -8279,7 +8322,9 @@ def search2(i):
              ss+=' AND '
 
           ss+='iso_datetime:'
-          if aid!='': ss+='"'+aid+'"'
+
+          if aid!='': 
+             ss+='"'+aid+'"'
           else:
              ss+='['
              if aida!='': 
@@ -8295,16 +8340,28 @@ def search2(i):
           ss+=')'
 
        # Prepare ElasticSearch query
-       import urllib
+       try:
+         import urllib.parse as ur
+       except Exception as e:
+         import urllib as ur
 
        path='/_search?'
-       if ss!='': path+='q='+urllib.quote_plus(ss.encode('utf-8'))
+       if ss!='': path+='q='+ur.quote_plus(ss.encode('utf-8'))
        if ls!='': path+='&size='+ls
 
 #       dss={'query':{'filtered':{'filter':{'terms':sd}}}}
        dss={}
 
-       ri=access_index_server({'request':'GET', 'path':path, 'dict':dss})
+       if i.get('debug','')=='yes':
+          out('Query string: '+ss)
+          out('')
+
+       ri=access_index_server({'request':'GET', 
+                               'path':path, 
+                               'dict':dss, 
+                               'original_string':ss, 
+                               'limit_size':ls, 
+                               'start_from':i.get('start_from','')})
        if ri['return']>0: return ri
 
        dd=ri['dict'].get('hits',{}).get('hits',[])
@@ -8726,9 +8783,11 @@ def search_string_filter(i):
 def access_index_server(i):
     """
     Input:  {
-              request        - request type ('PUT', 'DELETE', 'TEST')
+              request        - request type ('PUT' | 'DELETE' | 'TEST' | 'GET')
               (path)         - path  
               (dict)         - query as dict to send
+              (limit_size)   - limit queries with this number (if 'GET')
+              (start_from)   - start from a given entry in a query
             }
 
     Output: {
@@ -8871,7 +8930,34 @@ def access_index_server(i):
           if len(xpath)>2:
               es_id+='_'+xpath[2]
 
-          if request=='DELETE':
+          if request=='GET':
+             lsize=i.get('limit_size','')
+             if lsize!='' and lsize!=None:
+                lsize=int(lsize)
+             else:
+                lsize=1000
+
+             start_from=i.get('start_from','')
+             if start_from!='' and start_from!=None:
+                start_from=int(start_from)
+             else:
+                start_from=0
+
+             s=i.get('original_string','')
+             try:
+                ddo = es.search(index="ck", 
+                                body={"query": {
+                                  "query_string":{
+                                     "query":s,
+                                     "analyze_wildcard":True
+                                  }
+                                }, 
+                                "from":start_from, 
+                                "size":lsize})
+             except elasticsearch.ElasticsearchException as e:
+                se=format(e)
+                return {'return':33, 'error':'problem 33 accessing indexing server ('+se+')'}
+          elif request=='DELETE':
              if path=='/_all':
                 try:
                    ddo=es.indices.delete(index=es_index, ignore=[400, 404])
