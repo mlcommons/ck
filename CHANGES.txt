@@ -2,11 +2,16 @@
   * fixed ck.bat on Windows (if CK_ROOT has spaces)
   * added possibility to add sub-directory for all entries of a given module based on first N characters of an entry name;
     this is needed to handle millions of entries;
-    it can be configured via local kernel meta:
-    "split_dirs":{"module UOA":N} 
+    it can be configured via local kernel meta: "split_dirs":{"module UOA":N} 
   * improved "ck help" function
   * added support for the latest ElasticSearch via Python client
   * improved CK search via ElasticSearch
+  * added possibility to auto convert all entry names to lower case;
+    it can be configured via local kernel meta: "force_lower":"yes"
+  * added check for allowed entry names;
+    it can be configured as RE via local kernel meta: "allowed_entry_names": "^[A-Za-z0-9_@. -]*$"
+  * added check for allowed action names in modules;
+    it can be configured as RE via local kernel meta: "allowed_action_names": "^[A-Za-z_-]*$"
 
 * V1.10.3
   * fixed major bug with kernel version checking

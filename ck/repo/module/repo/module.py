@@ -122,6 +122,21 @@ def add(i):
     di=i.get('data_uid','')
     dn=i.get('data_name','')
 
+    if ck.cfg.get('allowed_entry_names','')!='':
+       import re
+
+       anames=ck.cfg.get('allowed_entry_names','')
+
+       if not re.match(anames, a) or \
+          not re.match(anames, d) or \
+          not re.match(anames, di):
+          return {'return':1, 'error':'found disallowed characters in names (allowed: "'+anames+'")'}
+
+    if ck.cfg.get('force_lower','')=='yes':
+       a=a.lower()
+       d=d.lower()
+       di=di.lower()
+
     stable=i.get('stable','')
     version=i.get('version','')
     if stable=='yes': version='stable'
@@ -594,6 +609,9 @@ def update(i):
 
     duoa=i.get('data_uoa','')
 
+    if ck.cfg.get('force_lower','')=='yes':
+       duoa=duoa.lower()
+
     remote=i.get('remote','')
     rruoa=i.get('remote_repo_uoa','')
     shared=i.get('shared','')
@@ -817,6 +835,9 @@ def pull(i):
     cids=i.get('cids',[])
     if len(cids)>0 and uoa=='': 
        uoa=cids[0]
+
+    if ck.cfg.get('force_lower','')=='yes':
+       uoa=uoa.lower()
 
     # If url is not empty and uoa is empty, get name from URL:
     if url!='' and uoa=='' and px=='':
@@ -1044,6 +1065,9 @@ def push(i):
     if len(cids)>0: uoa=cids[0]
 
     if uoa=='' and len(pp)==0: uoa='*'
+
+    if ck.cfg.get('force_lower','')=='yes':
+       uoa=uoa.lower()
 
     if uoa!='':
        if uoa.find('*')>=0 or uoa.find('?')>=0:
@@ -1297,6 +1321,10 @@ def rm(i):
     ruoa=i.get('repo_uoa','')
     uoa=i.get('data_uoa','')
 
+    if ck.cfg.get('force_lower','')=='yes':
+       ruoa=ruoa.lower()
+       uoa=uoa.lower()
+
     o=i.get('out','')
 
     if uoa=='': 
@@ -1408,6 +1436,10 @@ def where(i):
     o=i.get('out','')
 
     duoa=i.get('data_uoa','')
+
+    if ck.cfg.get('force_lower','')=='yes':
+       duoa=duoa.lower()
+
     r=ck.find_path_to_repo({'repo_uoa':duoa})
     if r['return']>0: return r
 
@@ -1457,6 +1489,10 @@ def zip(i):
     o=i.get('out','')
 
     duoa1=i.get('data_uoa','')
+
+    if ck.cfg.get('force_lower','')=='yes':
+       duoa1=duoa1.lower()
+
     duid=''
     path=''
 
@@ -1608,6 +1644,9 @@ def unzip(i):
 
     duoa=i.get('data_uoa','')
     if duoa=='': duoa='local'
+
+    if ck.cfg.get('force_lower','')=='yes':
+       duoa=duoa.lower()
 
     overwrite=i.get('overwrite','')
 
@@ -1818,6 +1857,9 @@ def deps(i):
     o=i.get('out','')
 
     duoa=i.get('data_uoa','')
+
+    if ck.cfg.get('force_lower','')=='yes':
+       duoa=duoa.lower()
 
     cr=i.get('current_repos',[])  # Added repos to avoid duplication/recursion
 
@@ -2063,7 +2105,7 @@ def add_more_deps(i):
           r=ck.inp({'text': ''})
           x=r['string'].strip()
           if x=='': break
-             
+
           z={}
 
           y=x.split(';')
@@ -2073,7 +2115,7 @@ def add_more_deps(i):
                 z['repo_uid']=y[1].strip()
                 if len(y)>2:
                    z['repo_url']=y[2].strip()
-         
+
           if len(z)>0:
              rp.append(z)
 
@@ -2139,6 +2181,9 @@ def renew(i):
     if duoa=='':
        return {'return':1, 'error':'repository UOA is not specified'}
 
+    if ck.cfg.get('force_lower','')=='yes':
+       duoa=duoa.lower()
+
     # Get configuration (not from Cache - can be outdated info!)
 #    r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
     r=ck.access({'action':'load',
@@ -2200,6 +2245,9 @@ def browse(i):
     duoa=i.get('data_uoa','')
     if duoa=='':
        return {'return':1, 'error':'repository UOA is not specified'}
+
+    if ck.cfg.get('force_lower','')=='yes':
+       duoa=duoa.lower()
 
     # Get configuration (not from Cache - can be outdated info!)
 #    r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
@@ -2382,6 +2430,9 @@ def show(i):
 
     duoa=i.get('data_uoa','')
 
+    if ck.cfg.get('force_lower','')=='yes':
+       duoa=duoa.lower()
+
     reset=i.get('reset','')
 
     stable=i.get('stable','')
@@ -2531,6 +2582,9 @@ def ren(i):
     if duoa=='':
        return {'return':1, 'error':'repo is not defined'}
 
+    if ck.cfg.get('force_lower','')=='yes':
+       duoa=duoa.lower()
+
     r=ck.access({'action':'load',
                  'module_uoa':work['self_module_uid'],
                  'data_uoa':duoa})
@@ -2557,8 +2611,16 @@ def ren(i):
     if nduoa=='': 
        return {'return':1, 'error':'new repo name is not defined'}
 
-    if nduoa=='': 
-       return {'return':1, 'error':'new repo name is not defined'}
+    if ck.cfg.get('allowed_entry_names','')!='':
+       import re
+
+       anames=ck.cfg.get('allowed_entry_names','')
+
+       if not re.match(nduoa, a):
+          return {'return':1, 'error':'found disallowed characters in names (allowed: "'+anames+'")'}
+
+    if ck.cfg.get('force_lower','')=='yes':
+       nduoa=nduoa.lower()
 
     if nduoa=='local' or nduoa=='default': 
        return {'return':1, 'error':'new repo name already exists'}

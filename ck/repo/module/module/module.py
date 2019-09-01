@@ -48,6 +48,7 @@ def add(i):
               (developer_email)   - module developer
               (developer_webpage) - module developer
               (actions)           - dict with actions {"func1":{}, "func2":{} ...}
+              (actions_redirect)  - dict with actions redrect {"func":"real func", ...}
               (dict)              - other meta description to add to entry
 
               (quiet)             - minimal interaction
@@ -99,9 +100,22 @@ def add(i):
     developer_email=i.get('developer_email','')
     developer_webpage=i.get('developer_webpage','')
     actions=i.get('actions',{})
+    actions_redirect=i.get('actions_redirect',{})
 
     func=i.get('func','')
     if func!='':
+       if ck.cfg.get('allowed_action_names','')!='':
+          import re
+
+          anames=ck.cfg.get('allowed_action_names','')
+
+          if not re.match(anames, func):
+             return {'return':1, 'error':'found disallowed characters in the action name (allowed: "'+anames+'")'}
+
+       if '-' in func:
+          func1=func.replace('-','_')
+          actions_redirect[func]=func1
+
        actions[func]={}
 
     quiet=i.get('quiet','')
@@ -149,9 +163,22 @@ def add(i):
              ck.out('')
 
              r=ck.inp({'text':'Add action function (or Enter to stop): '})
-             act=r['string']
+             act=r['string'].strip()
              if act!='': 
+
+                if ck.cfg.get('allowed_action_names','')!='':
+                   import re
+
+                   anames=ck.cfg.get('allowed_action_names','')
+
+                   if not re.match(anames, act):
+                      return {'return':1, 'error':'found disallowed characters in the action name (allowed: "'+anames+'")'}
+
                 actions[act]={}
+
+                if '-' in act:
+                   act1=act.replace('-','_')
+                   actions_redirect[act]=act1
 
                 r1=ck.inp({'text':'Support web (y/N): '})
                 x=r1['string'].lower()
@@ -198,10 +225,14 @@ def add(i):
     spm=spm.replace('$#developer#$', dev)
 
     dd['actions']=actions
+    if len(actions_redirect)>0:
+       dd['actions_redirect']=actions_redirect
 
     # Substitute actions
     for act in actions:
         adesc=actions[act].get('desc','TBD: action description')
+        if act in actions_redirect:
+           act=actions_redirect[act]
         spm+='\n'+spma.replace('$#action#$', act).replace('$#desc#$',adesc)
 
     dx=i.get('dict',{})
@@ -219,7 +250,7 @@ def add(i):
     # Add module code
     p=r['path']
     pf=os.path.join(p, ck.cfg['module_full_code_name'])
-   
+
     if o=='con':
        ck.out('')
        ck.out('Creating module code '+pf+' ...')

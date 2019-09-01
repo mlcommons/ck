@@ -509,6 +509,20 @@ def safe_float(i,d):
     return r
 
 ##############################################################################
+# Support function to lower values in a list
+#
+# TARGET: internal
+
+def lower_list(lst):
+
+    nlst=[]
+
+    for v in lst:
+        nlst.append(v.lower())
+
+    return nlst
+
+##############################################################################
 # Support function for checking splitting entry number
 #
 # TARGET: end users
@@ -2319,6 +2333,15 @@ def init(i): # pragma: no cover
     work['dir_work_kernel']=work['dir_default_kernel']
     work['dir_work_cfg']=work['dir_default_cfg']
 
+    if os.path.isfile(work['dir_default_cfg']):
+       r=load_json_file({'json_file':work['dir_default_cfg']})
+       if r['return']>0: return r
+       cfg1=r['dict']
+
+       # Update cfg
+       r=merge_dicts({'dict1':cfg, 'dict2':cfg1})
+       if r['return']>0: return r
+
     work['repo_name_work']=cfg['repo_name_default']
     work['repo_uid_work']=cfg['repo_uid_default']
 
@@ -2769,6 +2792,10 @@ def load_repo_info_from_cache(i):
     ruoa=i['repo_uoa']
     ruid=ruoa
 
+    if cfg.get('force_lower','')=='yes':
+       ruoa=ruoa.lower()
+       ruid=ruid.lower()
+
     if ruoa==cfg['repo_name_default'] or ruoa==cfg['repo_uid_default']:
        d={}
        d["path_to_repo_desc"]=work['dir_default_repo_path']
@@ -2790,11 +2817,11 @@ def load_repo_info_from_cache(i):
        if not is_uid(ruoa): 
           ruid=cache_repo_uoa.get(ruoa,'')
           if ruid=='':
-             return {'return':1, 'error':'repository "'+ruoa+'" is not found in the cache. Check if repository exists or try "ck recache repo"'}
+             return {'return':1, 'error':'repository "'+ruoa+'" wasnot found in the cache. Check if repository exists or try "ck recache repo"'}
 
        d=cache_repo_info.get(ruid,{})
        if len(d)==0:
-          return {'return':1, 'error':'repository is not found in the cache'}
+          return {'return':1, 'error':'repository was not found in the cache'}
 
     r={'return':0}
     r.update(d)
@@ -2887,6 +2914,10 @@ def find_path_to_repo(i):
     """
 
     a=i.get('repo_uoa','')
+
+    if cfg.get('force_lower','')=='yes':
+       a=a.lower()
+
     ai=a
 
     pr=''
@@ -3087,6 +3118,8 @@ def find_path_to_entry(i):
 
     p=i['path']
     duoa=i['data_uoa']
+    if cfg.get('force_lower','')=='yes':
+       duoa=duoa.lower()
 
     if duoa=='': # pragma: no cover
        raise Exception('data_uoa is empty')
@@ -6128,6 +6161,23 @@ def add(i):
     di=i.get('data_uid','')
     dn=i.get('data_name','')
 
+    if cfg.get('allowed_entry_names','')!='':
+       import re
+
+       anames=cfg.get('allowed_entry_names','')
+
+       if not re.match(anames, ra) or \
+          not re.match(anames, m) or \
+          not re.match(anames, d) or \
+          not re.match(anames, di):
+          return {'return':1, 'error':'found disallowed characters in names (allowed: "'+anames+'")'}
+
+    if cfg.get('force_lower','')=='yes':
+       ra=ra.lower()
+       m=m.lower()
+       d=d.lower()
+       di=di.lower()
+
     uuid=i.get('unlock_uid','')
 
     up=i.get('update','')
@@ -6969,6 +7019,19 @@ def ren(i):
 
     if nduoa=='': nduoa=duoa
 
+    if cfg.get('allowed_entry_names','')!='':
+       import re
+
+       anames=cfg.get('allowed_entry_names','')
+
+       if not re.match(anames, nduoa) or \
+          not re.match(anames, nduid):
+          return {'return':1, 'error':'found disallowed characters in names (allowed: "'+anames+'")'}
+
+    if cfg.get('force_lower','')=='yes':
+       nduoa=nduoa.lower()
+       nduid=nduid.lower()
+
     if nduid!=duid:
        # Check that new UID doesn't exist
        p2=os.path.join(p1, cfg['file_alias_u'] + nduid)
@@ -7225,6 +7288,21 @@ def cp(i):
 
     if nmuoa=='': nmuoa=muoa
     if nruoa=='': nruoa=ruoa
+
+    if cfg.get('allowed_entry_names','')!='':
+       import re
+
+       anames=cfg.get('allowed_entry_names','')
+
+       if not re.match(anames, nduoa) or \
+          not re.match(anames, nduid):
+          return {'return':1, 'error':'found disallowed characters in names (allowed: "'+anames+'")'}
+
+    if cfg.get('force_lower','')=='yes':
+       nduoa=nduoa.lower()
+       nduid=nduid.lower()
+       nmuoa=nmuoa.lower()
+       nruoa=nruoa.lower()
 
     # Adding new entry 
     if nruoa==ruoa and nmuoa==muoa and nduid==duid:
@@ -7619,6 +7697,7 @@ def list_data(i):
 
     sn=i.get('search_by_name','')
 
+
     if aidb!='' or aida!='' or aid!='':
 
        import datetime
@@ -7650,6 +7729,17 @@ def list_data(i):
     lruoa=i.get('repo_uoa_list',[])
     lmuoa=i.get('module_uoa_list',[])
     lduoa=i.get('data_uoa_list',[])
+
+    # Check if need to force lower case for all entries
+    if cfg.get('force_lower','')=='yes':
+       ruoa=ruoa.lower()
+       muoa=muoa.lower()
+       muid=muid.lower()
+       duoa=duoa.lower()
+
+       lruoa=lower_list(lruoa)
+       lmuoa=lower_list(lmuoa)
+       lduoa=lower_list(lduoa)
 
     to=float(i.get('time_out','30'))
     elapsed_time=0
@@ -9029,6 +9119,7 @@ def add_action(i):
     duoa=i.get('data_uoa','')
 
     func=i.get('func','')
+
     desc=i.get('desc','')
 
     fweb=i.get('for_web','')
@@ -9051,6 +9142,7 @@ def add_action(i):
     dd=r['dict']
 
     actions=dd.get('actions',{})
+    actions_redirect=dd.get('actions_redirect',{})
 
     # Check func and desc
     if o=='con':
@@ -9073,14 +9165,28 @@ def add_action(i):
     if func=='':
        return {'return':1, 'error':'action (function) is not defined'}
 
+    if cfg.get('allowed_action_names','')!='':
+       import re
+
+       anames=cfg.get('allowed_action_names','')
+
+       if not re.match(anames, func):
+          return {'return':1, 'error':'found disallowed characters in the action name (allowed: "'+anames+'")'}
+
     if func in actions:
        return {'return':1, 'error':'action (function) already exists in the module'}
+
+    if '-' in func:
+       func1=func.replace('-','_')
+       actions_redirect[func]=func1
 
     # Adding actions
     actions[func]={}
     if desc!='': actions[func]['desc']=desc
     if fweb!='': actions[func]['for_web']=fweb
+
     dd['actions']=actions
+    dd['actions_redirect']=actions_redirect
 
     if i.get('skip_appending_dummy_code','')!='yes':
        ii={'module_uoa':cfg['module_name'],
@@ -9105,6 +9211,8 @@ def add_action(i):
        spm=r['string']
 
        # Update
+       if func in actions_redirect:
+          func=actions_redirect[func]
        spm+='\n'+spma.replace('$#action#$', func).replace('$#desc#$',desc)
 
        # Write current module
