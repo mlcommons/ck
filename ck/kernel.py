@@ -562,8 +562,12 @@ def split_name(name, number):
     if number!='': 
        number=int(number)
        if number!=0:
-          sd1=name[:number]
-          sd2=name[number:]
+          if len(name)>number:
+             sd1=name[:number]
+             sd2=name[number:]
+          else:
+             sd1='_'
+             sd2=name
 
     return (sd1,sd2)
 
