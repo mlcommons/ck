@@ -9,9 +9,15 @@
   * added possibility to auto convert all entry names to lower case;
     it can be configured via local kernel meta: "force_lower":"yes"
   * added check for allowed entry names;
-    it can be configured as RE via local kernel meta: "allowed_entry_names": "^[A-Za-z0-9_@. -]*$"
+    it can be configured as RE via local kernel meta: 
+    "allowed_entry_names": "^[A-Za-z0-9_@. -]*$"
   * added check for allowed action names in modules;
-    it can be configured as RE via local kernel meta: "allowed_action_names": "^[A-Za-z_-]*$"
+    it can be configured as RE via local kernel meta: 
+    "allowed_action_names": "^[A-Za-z_-]*$"
+  * added possibility to index data for only specific modules via local kernel meta:
+    "index_modules":[list of module UIDs and aliases]
+  * removed AUTHORS.txt as non-standard (leaving CONTRIBUTIONS.txt)
+  * added possibility to skip SSL certificate check for remote repositories
 
 * V1.10.3
   * fixed major bug with kernel version checking

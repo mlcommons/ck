@@ -26,6 +26,10 @@ initialized=False      # True if initialized
 allow_print=True       # Needed to suppress all output
 con_encoding=''        # Use non-default console encoding
 
+# This configuration dictionary will be overloaded at run-time
+# from the CK entry default:kernel:default (from this CK distro)
+# and then from the local:kernel:default (from a local user repository)
+
 cfg={
       "name":"Collective Knowledge",
       "desc":"exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",
@@ -525,7 +529,7 @@ def lower_list(lst):
 ##############################################################################
 # Support function for checking splitting entry number
 #
-# TARGET: end users
+# TARGET: CK kernel and low-level developers
 
 def get_split_dir_number(repo_dict, module_uid, module_uoa):
 
@@ -549,10 +553,11 @@ def get_split_dir_number(repo_dict, module_uid, module_uoa):
 
     return split_dir_number
 
+
 ##############################################################################
 # Support function for splitting entry name
 #
-# TARGET: end users
+# TARGET: CK kernel and low-level developers
 
 def split_name(name, number):
 
@@ -570,6 +575,26 @@ def split_name(name, number):
              sd2=name
 
     return (sd1,sd2)
+
+##############################################################################
+# Support function for checking whether to index data or not ...
+#
+# TARGET: CK kernel and low-level developers
+
+def index_module(module_uoa):
+
+    im=cfg.get('index_modules',[])
+
+    ret=True
+
+    # If im is empty index all
+    if len(im)>0:
+       ret=False
+
+       if module_uoa in im:
+          ret=True
+
+    return ret
 
 ##############################################################################
 # Support function for safe int (useful for sorting function)
@@ -3442,7 +3467,25 @@ def perform_remote_action(i):
     post=urlencode({'ck_json':s})
     if sys.version_info[0]>2: post=post.encode('utf8')
 
+    # Check if skip SSL certificate
+    ctx=None
+    add_ctx=False
+
+    if i.get('remote_skip_certificate_validation','')=='yes':
+       del(i['remote_skip_certificate_validation'])
+
+       import ssl
+
+       ctx = ssl.create_default_context()
+       ctx.check_hostname = False
+       ctx.verify_mode = ssl.CERT_NONE
+
+       add_ctx=True
+
     # If auth
+    auth=None
+    add_auth=False
+
     au=i.get('remote_server_user','')
     if au!='': 
        del(i['remote_server_user'])
@@ -3453,7 +3496,16 @@ def perform_remote_action(i):
 
        auth = urllib2.HTTPPasswordMgrWithDefaultRealm()
        auth.add_password(None, url, au, ap)
+
+       add_auth=True
+
+    # Prepare handler (TBD: maybe there is another, more elegant way?)
+    if add_auth and add_ctx:
+       urllib2.install_opener(urllib2.build_opener(urllib2.HTTPBasicAuthHandler(auth), urllib2.HTTPSHandler(context=ctx)))
+    elif add_auth:
        urllib2.install_opener(urllib2.build_opener(urllib2.HTTPBasicAuthHandler(auth)))
+    elif add_ctx:
+       urllib2.install_opener(urllib2.build_opener(urllib2.HTTPSHandler(context=ctx)))
 
     # Prepare request
     request = urllib2.Request(url, post)
@@ -3615,6 +3667,9 @@ def perform_action(i):
              # It is completely unsave - just for proof of concept ...
              if dd.get('remote_password','')!='':
                 i['remote_server_pass']=dd['remote_password']
+
+             if dd.get('remote_skip_certificate_validation','')!='':
+                i['remote_skip_certificate_validation']=dd['remote_skip_certificate_validation']
 
              if dd.get('remote_repo_uoa','')!='':
                 i['repo_uoa']=dd['remote_repo_uoa']
@@ -6478,12 +6533,13 @@ def add(i):
     # Check if need to add index
     if i.get('skip_indexing','')!='yes' and cfg.get('use_indexing','')=='yes':
        muid=rr['module_uid']
-       duid=rr['data_uid']
-       path='/'+muid+'/'+duid+'/1'
-       ri=access_index_server({'request':'DELETE', 'path':path})
-       if ri['return']>0: return ri
-       ri=access_index_server({'request':'PUT', 'path':path, 'dict':rr})
-       if ri['return']>0: return ri
+       if index_module(muid):
+          duid=rr['data_uid']
+          path='/'+muid+'/'+duid+'/1'
+          ri=access_index_server({'request':'DELETE', 'path':path})
+          if ri['return']>0: return ri
+          ri=access_index_server({'request':'PUT', 'path':path, 'dict':rr})
+          if ri['return']>0: return ri
 
     # Remove lock after update if needed
     if uuid!='':
@@ -6876,7 +6932,7 @@ def rm(i):
            if r['return']>0: return r
 
            # Check if need to delete index
-           if cfg.get('use_indexing','')=='yes':
+           if cfg.get('use_indexing','')=='yes' and index_module(muid):
               path='/'+muid+'/'+duid+'/1'
               ri=access_index_server({'request':'DELETE', 'path':path})
               if ri['return']>0: return ri
@@ -6999,7 +7055,7 @@ def ren(i):
        rsync='yes'
 
     # Check if index -> delete old index
-    if cfg.get('use_indexing','')=='yes':
+    if cfg.get('use_indexing','')=='yes' and index_module(muid):
        path='/'+muid+'/'+duid+'/1'
        ri=access_index_server({'request':'DELETE', 'path':path})
        if ri['return']>0: return ri
@@ -7157,7 +7213,7 @@ def ren(i):
           os.chdir(ppp)
 
     # Check if index and add new
-    if cfg.get('use_indexing','')=='yes':
+    if cfg.get('use_indexing','')=='yes' and index_module(muid):
        if is_uid(nduoa): nduid=nduoa
        path='/'+muid+'/'+nduid+'/1'
        ri=access_index_server({'request':'DELETE', 'path':path})
@@ -7369,7 +7425,7 @@ def cp(i):
        if rx['return']>0: return rx
 
     # Check if index and add new
-    if cfg.get('use_indexing','')=='yes':
+    if cfg.get('use_indexing','')=='yes' and index_module(muid):
        if is_uid(nduoa): nduid=nduoa
        path='/'+nmuid+'/'+nduid+'/1'
        ri=access_index_server({'request':'DELETE', 'path':path})
@@ -8252,7 +8308,7 @@ def search2(i):
        sd['tags']=xtags1
 
     # Check if index
-    if cfg.get('use_indexing','')!='yes' or i.get('internal','')=='yes':
+    if i.get('internal','')=='yes' or cfg.get('use_indexing','')!='yes' or (i.get('module_uoa','')!='' and not index_module(i['module_uoa'])):
        if ss!='':
           i['filter_func']='search_string_filter'
        else:

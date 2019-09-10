@@ -57,6 +57,7 @@ class OriginalKernelTest(unittest.TestCase):
         self.assertEqual(0, r['return'], r.get('error', None))
 
         lst = r['lst']
+        print (lst)
         self.assertEqual(1, len(lst))
         self.assertEqual('unicode', lst[0]['data_uoa'])
 
