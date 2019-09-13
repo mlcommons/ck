@@ -1,4 +1,4 @@
-* V1.10.3.1
+* V1.11.1
   * fixed ck.bat on Windows (if CK_ROOT has spaces)
   * added possibility to add sub-directory for all entries of a given module based on first N characters of an entry name;
     this is needed to handle millions of entries;
