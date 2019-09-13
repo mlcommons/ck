@@ -18,6 +18,8 @@
     "index_modules":[list of module UIDs and aliases]
   * removed AUTHORS.txt as non-standard (leaving CONTRIBUTIONS.txt)
   * added possibility to skip SSL certificate check for remote repositories
+  * added CK kernel functions save_state(), restore_state, reinit
+    to let multiple CK instances co-exist
 
 * V1.10.3
   * fixed major bug with kernel version checking
