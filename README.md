@@ -58,7 +58,7 @@ in the respective [GitHub repositories](https://ReproIndex.com/components)!
 
 ## Documentation
 
-[CK wiki](https://github.com/ctuning/ck/wiki) - a major revision is planned.
+[CK wiki](https://github.com/ctuning/ck/wiki) - we plan to rewrite CK documentation completely using [Sphinx](http://www.sphinx-doc.org/en/master).
 
 ## Installation
 
@@ -96,37 +96,15 @@ or open a [GitHub issue](https://github.com/ctuning/ck/issues).
 ## Usage
 
 When you see an archive or a repository with a badge [![compatibility](https://github.com/ctuning/ck-guide-images/blob/master/ck-compatible.svg)](https://github.com/ctuning/ck), 
-it means you can reuse its functionality (code, data, models, packages, workflows) via unified CK interfaces, and integrate it with your own projects.
+you can reuse its functionality (code, data, models, packages, workflows) via unified CK interfaces (CLI, Python, Web).
 
-For example, you can pull [ck-tensorflow](https://github.com/ctuning/ck-tensorflow) and use different automation 
-tasks such detecting or rebuilding different TensorFlow versions across diverse platforms, running AI/ML workflows
-and many more:
-
-```
-$ ck pull repo:ck-tensorflow
-
-$ ck detect platform
-
-$ ck install package:lib-tensorflow-1.12.0-cpu
-
-$ ck run program:tensorflow-classification
-
-$ ck show env
-```
-
-**Note that tensorflow 1.12.0 can work only with Python version<=3.6 - please select an appropriate Python version during automatic environment detection**
-
-You can find a non-exhaustive index of CK-compatible repositories at [ReproIndex.com](https://ReproIndex.com/components) - 
-just follow their READMEs to find out more about shared components and workflows!
-
-Please check our [Getting Started Guide](https://github.com/ctuning/ck/wiki/First-steps) to try different CK examples.
+You can find a list of CK repositories at https://reproindex.com/components.
 
 
 
+### Example of crowdsourcing compiler autotuning
 
-## Examples of popular and reusable CK-based automation tasks
-
-Pull one of [CK repositories](https://ReproIndex.com/components) with shared benchmarks, data sets, software detection plugins, packages, etc:
+Pull CK repository for experiment crowdsourcing (similar to SETI@home):
 
 ```
 $ ck pull repo:ck-crowdtuning
@@ -240,61 +218,20 @@ $ ck run program:my-new-program --env.CK_VAR1=222
 
 
 
-## Example of a unified image classification via TensorFlow and Caffe
+### Example of AI workflows
 
-Get shared [ck-tensorflow](https://github.com/ctuning/ck-tensorflow) repository with all dependencies:
+Please follow readme of these CK-powered repositories:
 
-```
-$ ck pull repo:ck-tensorflow
-```
-
-Now install CPU-version of TensorFlow via CK packages:
-```
-$ ck install package --tags=lib,tensorflow,vcpu,vprebuilt,v1.11.0
-```
-
-Check that it's installed fine:
-
-```
-$ ck show env --tags=lib,tensorflow
-```
-
-You can find a path to a given entry (with TF installation) as follows:
-```
-$ ck find env:{env UID from above list}
-```
-
-Run CK virtual environment and test TF:
-```
-$ ck virtual env --tags=lib,tensorflow
-$ ipython
-> import tensorflow as tf
-```
-
-Run CK classification workflow example using installed TF:
-
-```
-$ ck run program:tensorflow --cmd_key=classify
-```
-
-Now you can try a more complex example to build Caffe with CUDA support
-and run classification. Note that CK should automatically detect your CUDA compilers, 
-libraries and other deps or install missing packages:
-
-```
-$ ck pull repo --url=https://github.com/dividiti/ck-caffe
-$ ck install package:lib-caffe-bvlc-master-cuda-universal
-$ ck run program:caffe --cmd_key=classify
-```
-
-You can see how to install Caffe for Linux, MacOS, Windows and Android via CK
-[here](https://github.com/dividiti/ck-caffe/wiki/Installation).
+* https://github.com/ctuning/ck-tensorflow
+* https://github.com/ctuning/ck-request
+* https://github.com/ctuning/ck-mxnet
+* https://github.com/mlperf/inference/tree/master/v0.5/classification_and_detection/optional_harness_ck/classification
+* https://github.com/mlperf/inference/tree/master/v0.5/classification_and_detection/optional_harness_ck/detection
 
 
 
 
-
-## Adding your own repository and API:
+## Creating your own CK repository with CK actions:
 
 You can make your existing Git repository compatible with CK as follows:
 
@@ -385,12 +322,20 @@ For example, you can participate in GCC or LLVM crowd-tuning on your machine as 
  $ (sudo) docker run ck-crowdtune-llvm
 ```
 
-Top optimization results are continuously aggregated in the live CK repository: http://cKnowledge.org/repo .
+Top optimization results are continuously aggregated in the live CK repository: http://cKnowledge.org/dashboard .
 
 
 ## Contributing
 
-Please follow this [guide](https://github.com/ctuning/ck/wiki) to add your workflows and components. Note that major revision to simplify this guide based on your feedback is planned in 2019!
+Please follow this [guide](https://github.com/ctuning/ck/wiki) to add your workflows and components. 
+Note that we plan to rewrite and simplify this guide based on your feedback.
 
-Feel free to provide your suggestions using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
-and the [Slack channel](http://bit.ly/ck-slack)!
+Feel free to get in touch with the community using the [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge).
+
+
+## Sponsoring further developments
+
+CK development is supported by the [cTuning foundation](https://cTuning.org) (non-profit R&D organization [registered in France](https://www.societe.com/societe/ctuning-foundation-804023562.html)).
+We would like to thank all our sponsors including [dividiti](http://dividiti.com) and [Microsoft](https://nonprofit.microsoft.com) and for their financial support!
+
+Don't hesitate to contact [cTuning foundation](mailto:Grigori.Fursin@cTuning.org) if you would like to give a donation to support this project!
