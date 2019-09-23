@@ -13,7 +13,7 @@
 # For example, we implemented some functions in Java, C, C++ and Fortran
 # (see our xOpenME library used in Android)
 
-__version__ = "1.10.3.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
+__version__ = "1.11.1.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
                           # Do not use characters (to detect outdated version)!
 
 # Extra modules global for the whole kernel
@@ -347,6 +347,90 @@ cache_repo_info={}    # Cache repo info with path and type
 
 type_long=None        # In Python 3 -> int, in Python 2 -> long
 string_io=None        # StringIO, which is imported differently in Python 2 and 3
+
+##############################################################################
+# Save CK state
+#
+# TARGET: end users
+
+def save_state():
+    """
+    Input:  None
+
+    Output: dict with state
+    """
+
+    import copy
+    import os
+
+    r={}
+
+    r['cfg']=copy.deepcopy(cfg)
+    r['paths_repos']=copy.deepcopy(paths_repos)
+
+    r['cache_repo_init']=cache_repo_init
+    r['paths_repos_all']=copy.deepcopy(paths_repos_all)
+    r['cache_repo_uoa']=copy.deepcopy(cache_repo_uoa)
+    r['cache_repo_info']=copy.deepcopy(cache_repo_info)
+
+    r['os.environ']=copy.deepcopy(os.environ)
+
+    return r
+
+##############################################################################
+# Restore CK state
+#
+# TARGET: end users
+
+def restore_state(r):
+    """
+    Input:  dict with state
+
+    Output: output from "init" function
+    """
+
+    global initialized, cfg, paths_repos, cache_repo_init, paths_repos_all, cache_repo_uoa, cache_repo_info
+
+    import copy
+    import os
+
+    cfg=r['cfg']
+    paths_repos=r['paths_repos']
+    
+    cache_repo_init=r['cache_repo_init']
+    paths_repos_all=r['paths_repos_all']
+    cache_repo_uoa=r['cache_repo_uoa']
+    cache_repo_info=r['cache_repo_info']
+
+    os.environ=r['os.environ']
+
+    initialized=False
+
+    return init({})
+
+##############################################################################
+# Reinitialize CK
+#
+# TARGET: end users
+
+def reinit():
+    """
+    Input:  None
+
+    Output: output from "init" function
+    """
+
+    global initialized, paths_repos, cache_repo_init, paths_repos_all, cache_repo_uoa, cache_repo_info
+
+    initialized=False
+    paths_repos=[]
+
+    cache_repo_init=False
+    paths_repos_all=[]
+    cache_repo_uoa={}
+    cache_repo_info={}
+
+    return init({})
 
 ##############################################################################
 # Universal print of unicode string in utf8 that supports Python 2.x and 3.x
@@ -2852,7 +2936,7 @@ def load_repo_info_from_cache(i):
        if not is_uid(ruoa): 
           ruid=cache_repo_uoa.get(ruoa,'')
           if ruid=='':
-             return {'return':1, 'error':'repository "'+ruoa+'" wasnot found in the cache. Check if repository exists or try "ck recache repo"'}
+             return {'return':1, 'error':'repository "'+ruoa+'" was not found in the cache. Check if repository exists or try "ck recache repo"'}
 
        d=cache_repo_info.get(ruid,{})
        if len(d)==0:
@@ -5535,12 +5619,13 @@ def short_help(i):
 
     h+='\nPython version used by CK: '+r['version'].replace('\n','\n   ')+'\n'
 
-    h+='\nPath to the default repo: '+work['dir_default_repo_path']+'\n'
-    h+=  'Path to CK repositories: '+work['dir_repos']+'\n'
+    h+='\nPath to the default repo: '+work['dir_default_repo']+'\n'
+    h+=  'Path to the local repo:   '+work['dir_local_repo']+'\n'
+    h+=  'Path to CK repositories:  '+work['dir_repos']+'\n'
 
-    h+='\n'+cfg['help_web'].replace('\n','').strip().replace('   ','')+'\n'
+    h+='\n'+cfg['help_web'].replace('\n','').strip()+'\n' #.replace('   ','')+'\n'
 
-    h+='CK Google group: https://bit.ly/ck-google-group\n'
+    h+='CK Google group:  https://bit.ly/ck-google-group\n'
     h+='CK Slack channel: https://bit.ly/ck-slack'
 
     if o=='con': 
