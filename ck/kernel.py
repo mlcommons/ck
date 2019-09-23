@@ -2930,7 +2930,7 @@ def load_repo_info_from_cache(i):
        if not is_uid(ruoa): 
           ruid=cache_repo_uoa.get(ruoa,'')
           if ruid=='':
-             return {'return':1, 'error':'repository "'+ruoa+'" wasnot found in the cache. Check if repository exists or try "ck recache repo"'}
+             return {'return':1, 'error':'repository "'+ruoa+'" was not found in the cache. Check if repository exists or try "ck recache repo"'}
 
        d=cache_repo_info.get(ruid,{})
        if len(d)==0:
