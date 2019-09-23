@@ -581,13 +581,19 @@ def split_name(name, number):
 #
 # TARGET: CK kernel and low-level developers
 
-def index_module(module_uoa):
-
-    im=cfg.get('index_modules',[])
+def index_module(module_uoa, repo_uoa):
 
     ret=True
 
-    # If im is empty index all
+    # First check if index the whole repo
+    ir=cfg.get('index_repos',[])
+    if len(ir)>0 and repo_uoa!='':
+       if repo_uoa in ir:
+          return ret
+
+    im=cfg.get('index_modules',[])
+
+    # Next check if index module (if im is empty index all)
     if len(im)>0:
        ret=False
 
@@ -6533,7 +6539,7 @@ def add(i):
     # Check if need to add index
     if i.get('skip_indexing','')!='yes' and cfg.get('use_indexing','')=='yes':
        muid=rr['module_uid']
-       if index_module(muid):
+       if index_module(muid,ruid):
           duid=rr['data_uid']
           path='/'+muid+'/'+duid+'/1'
           ri=access_index_server({'request':'DELETE', 'path':path})
@@ -6932,7 +6938,7 @@ def rm(i):
            if r['return']>0: return r
 
            # Check if need to delete index
-           if cfg.get('use_indexing','')=='yes' and index_module(muid):
+           if cfg.get('use_indexing','')=='yes' and index_module(muid,ll['repo_uid']):
               path='/'+muid+'/'+duid+'/1'
               ri=access_index_server({'request':'DELETE', 'path':path})
               if ri['return']>0: return ri
@@ -7041,7 +7047,8 @@ def ren(i):
     pn=p
 
     # Check if writing is allowed
-    ii={'module_uoa':muoa, 'module_uid':muid, 'repo_uoa':ruoa, 'repo_uid':r['repo_uid']}
+    ruid=r['repo_uid']
+    ii={'module_uoa':muoa, 'module_uid':muid, 'repo_uoa':ruoa, 'repo_uid':ruid}
     r=check_writing(ii)
     if r['return']>0: return r
 
@@ -7055,7 +7062,7 @@ def ren(i):
        rsync='yes'
 
     # Check if index -> delete old index
-    if cfg.get('use_indexing','')=='yes' and index_module(muid):
+    if cfg.get('use_indexing','')=='yes' and index_module(muid,ruid):
        path='/'+muid+'/'+duid+'/1'
        ri=access_index_server({'request':'DELETE', 'path':path})
        if ri['return']>0: return ri
@@ -7213,7 +7220,7 @@ def ren(i):
           os.chdir(ppp)
 
     # Check if index and add new
-    if cfg.get('use_indexing','')=='yes' and index_module(muid):
+    if cfg.get('use_indexing','')=='yes' and index_module(muid,ruid):
        if is_uid(nduoa): nduid=nduoa
        path='/'+muid+'/'+nduid+'/1'
        ri=access_index_server({'request':'DELETE', 'path':path})
@@ -7321,7 +7328,8 @@ def cp(i):
        di['control']=control
 
     # Check if writing is allowed
-    ii={'module_uoa':muoa, 'module_uid':r['module_uid'], 'repo_uoa':ruoa, 'repo_uid':r['repo_uid']}
+    ruid=r['repo_uid']
+    ii={'module_uoa':muoa, 'module_uid':r['module_uid'], 'repo_uoa':ruoa, 'repo_uid':ruid}
     r=check_writing(ii)
     if r['return']>0: return r
 
@@ -7425,11 +7433,12 @@ def cp(i):
        if rx['return']>0: return rx
 
     # Check if index and add new
-    if cfg.get('use_indexing','')=='yes' and index_module(muid):
+    if cfg.get('use_indexing','')=='yes' and index_module(muid,ruid):
        if is_uid(nduoa): nduid=nduoa
        path='/'+nmuid+'/'+nduid+'/1'
        ri=access_index_server({'request':'DELETE', 'path':path})
        if ri['return']>0: return ri
+    if cfg.get('use_indexing','')=='yes' and index_module(muid,nruoa):
        ri=access_index_server({'request':'PUT', 'path':path, 'dict':rdd})
        if ri['return']>0: return ri
 
@@ -8308,7 +8317,7 @@ def search2(i):
        sd['tags']=xtags1
 
     # Check if index
-    if i.get('internal','')=='yes' or cfg.get('use_indexing','')!='yes' or (i.get('module_uoa','')!='' and not index_module(i['module_uoa'])):
+    if i.get('internal','')=='yes' or cfg.get('use_indexing','')!='yes' or (i.get('module_uoa','')!='' and not index_module(i['module_uoa'],i.get('repo_uoa',''))):
        if ss!='':
           i['filter_func']='search_string_filter'
        else:
