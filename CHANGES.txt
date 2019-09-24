@@ -2,6 +2,7 @@
   * fixed typo
   * added possibility to force index data for specific repos via local kernel meta:
     "index_repos":[list of repo UIDs and aliases]
+  * bug fix for split directories if UID is used for an entry with alias
 
 * V1.11.1
   * fixed ck.bat on Windows (if CK_ROOT has spaces)
