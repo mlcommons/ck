@@ -3246,10 +3246,7 @@ def find_path_to_entry(i):
     split_dirs=safe_int(i.get('split_dirs',0),0)
 
     # Check split
-    sd1,sd2=split_name(duoa, split_dirs)
     pp=p
-    if sd2!='': # otherwise name is smaller than the split number
-       p=os.path.join(p,sd1)
 
     # Disambiguate UOA
     alias=''
@@ -3271,14 +3268,26 @@ def find_path_to_entry(i):
 
        # If alias exists, check directory with alias
        if found_alias:
+          sd1,sd2=split_name(alias, split_dirs)
+          if sd2!='': # otherwise name is smaller than the split number
+             p=os.path.join(p,sd1)
+
           p2=os.path.join(p, alias)
           return {'return':0, 'path':p2, 'data_uid':uid, 'data_alias':alias, 'data_uoa':alias}
+
+       sd1,sd2=split_name(uid, split_dirs)
+       if sd2!='': # otherwise name is smaller than the split number
+          p=os.path.join(p,sd1)
 
        p2=os.path.join(p, uid)
        if os.path.isdir(p2):
           return {'return':0, 'path':p2, 'data_uid':uid, 'data_alias':'', 'data_uoa':uid}
 
        return {'return':-1}
+
+    sd1,sd2=split_name(duoa, split_dirs)
+    if sd2!='': # otherwise name is smaller than the split number
+       p=os.path.join(p,sd1)
 
     # If alias
     alias=duoa
@@ -3841,7 +3850,7 @@ def perform_action(i):
           display_module_uoa += ' ({})'.format(xmodule_uid)
 
        # Check if allowed to run only from specific repos
-       if cfg.get('allow_run_only_from_allowed_repos','')=='yes':
+       if cfg.get('allow_run_only_from_allowed_repos','')=='yes':# and cf!='yes':
           ruid=rx['repo_uid']
 
           if ruid not in cfg.get('repo_uids_to_allow_run',[]):
