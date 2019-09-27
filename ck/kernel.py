@@ -2433,7 +2433,7 @@ def init(i): # pragma: no cover
       work['env_root']=px
 
     if p=='':
-       return {'return':1, 'error':'Internal CK error (can\'t find default repo) - please report to authors'}
+       return {'return':1, 'error':'Unusual CK installation detected since we can\'t find the default CK repo. It often happens when you install CK under root and other tools (which use CK) under user and vice versa.  Please reinstall other tools that use CK in the same way as CK (root or user). If the problem persists, please report to the author (Grigori.Fursin@cTuning.org).'}
 
     # Check default repo
     x=os.environ.get(cfg['env_key_default_repo'],'').strip()
