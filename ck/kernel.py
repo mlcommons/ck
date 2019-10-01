@@ -2397,10 +2397,13 @@ def init(i): # pragma: no cover
     # Check where are repos (to keep compatibility with past CK < V1.5)
     p=''
 
+    searched_places=[]
+
     import inspect
     pxx=os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
     px=os.path.dirname(pxx)
     py=os.path.join(pxx, cfg['subdir_default_repo'])
+    searched_places.append(py)
     if os.path.isdir(py):
        p=py
 
@@ -2408,6 +2411,7 @@ def init(i): # pragma: no cover
        from distutils.sysconfig import get_python_lib
        px=get_python_lib()
        py=os.path.join(px, cfg['kernel_dir'], cfg['subdir_default_repo'])
+       searched_places.append(py)
        if os.path.isdir(py):
           p=py
 
@@ -2415,6 +2419,7 @@ def init(i): # pragma: no cover
        import site
        for px in site.getsitepackages():
            py=os.path.join(px, cfg['kernel_dir'],cfg['subdir_default_repo'])
+           searched_places.append(py)
            if os.path.isdir(py):
               p=py
               break
@@ -2425,6 +2430,7 @@ def init(i): # pragma: no cover
        work['env_root']=os.path.realpath(s)
 
        for px in cfg['kernel_dirs']:
+           searched_places.append(py)
            py=os.path.join(work['env_root'], px, cfg['subdir_default_repo'])
            if os.path.isdir(py):
               p=py
@@ -2432,15 +2438,15 @@ def init(i): # pragma: no cover
     elif px!='':
       work['env_root']=px
 
-    if p=='':
-       return {'return':1, 'error':'Unusual CK installation detected since we can\'t find the default CK repo. It often happens when you install CK under root and other tools (which use CK) under user and vice versa.  Please reinstall other tools that use CK in the same way as CK (root or user). If the problem persists, please report to the author (Grigori.Fursin@cTuning.org).'}
-
     # Check default repo
     x=os.environ.get(cfg['env_key_default_repo'],'').strip()
 
     if x!='' and os.path.isdir(x):
        work['dir_default_repo']=x
     else:
+       if p=='':
+          return {'return':1, 'error':'Unusual CK installation detected since we can\'t find the CK package path with the default repo (searched in '+str(searched_places)+'). It often happens when you install CK under root while other tools (which use CK) under user and vice versa.  Please reinstall other tools that use CK in the same way as CK (root or user). If the problem persists, please report to the author (Grigori.Fursin@cTuning.org).'}
+
        work['dir_default_repo']=p
 
     work['dir_default_repo_path']=os.path.join(work['dir_default_repo'], cfg['module_repo_name'], cfg['repo_name_default'])
@@ -5635,7 +5641,7 @@ def short_help(i):
     h+='\n'+cfg['help_web'].replace('\n','').strip()+'\n' #.replace('   ','')+'\n'
 
     h+='CK Google group:  https://bit.ly/ck-google-group\n'
-    h+='CK Slack channel: https://bit.ly/ck-slack'
+    h+='CK Slack channel: https://cKnowledge.org/join-slack'
 
     if o=='con': 
        out(h)

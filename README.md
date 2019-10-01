@@ -50,7 +50,7 @@ and the [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY)
 ## Our community
 
 Don't hesitate to ask questions using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
-and the [Slack channel](http://bit.ly/ck-slack).
+and the [Slack channel](https://cKnowledge.org/join-slack).
 
 You are also welcome to help the community fix or improve third-party components (actions, modules, packages, software plugins, workflows) 
 when they fail on new platforms or miss some functionality - you can provide your feedback and report bugs 
@@ -393,4 +393,4 @@ Top optimization results are continuously aggregated in the live CK repository: 
 Please follow this [guide](https://github.com/ctuning/ck/wiki) to add your workflows and components. Note that major revision to simplify this guide based on your feedback is planned in 2019!
 
 Feel free to provide your suggestions using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
-and the [Slack channel](http://bit.ly/ck-slack)!
+and the [Slack channel](https://cKnowledge.org/join-slack)!
