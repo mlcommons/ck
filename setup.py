@@ -70,8 +70,12 @@ setup(
   author_email='Grigori.Fursin@cTuning.org',
   description='Collective Knowledge - lightweight knowledge manager to organize, cross-link, share and reuse artifacts and workflows',
   long_description=open(convert_path('./README.md')).read(),
+
   packages=['ck'],
   package_dir={'ck': 'ck'},
+
+  zip_safe=False,
+
   package_data={'ck': ['repo/.ck*', 
                        'repo/.cm/*',
                        'repo/kernel/.cm/*',

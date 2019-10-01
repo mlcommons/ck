@@ -4,6 +4,7 @@
     "index_repos":[list of repo UIDs and aliases]
   * bug fix for split directories if UID is used for an entry with alias
   * fixed link to CK slack channel
+  * added zip_safe=False
 
 * V1.11.1
   * fixed ck.bat on Windows (if CK_ROOT has spaces)
