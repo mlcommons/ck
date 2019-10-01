@@ -1,4 +1,4 @@
-* V1.11.1.1
+* V1.11.2
   * fixed typo
   * added possibility to force index data for specific repos via local kernel meta:
     "index_repos":[list of repo UIDs and aliases]
