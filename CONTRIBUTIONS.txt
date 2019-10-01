@@ -295,3 +295,15 @@ E:
 O: CodeReef
 C: testing and feedback
 W: 
+
+N: Vincent Rehm
+E: 
+O: CodeReef
+C: testing and feedback with LinuxBrew
+W: 
+
+N: Thibaut Dumontet
+E: 
+O: CodeReef
+C: testing and feedback with LinuxBrew
+W: 
