@@ -13,8 +13,8 @@
 # For example, we implemented some functions in Java, C, C++ and Fortran
 # (see our xOpenME library used in Android)
 
-__version__ = "1.11.2"  # We use 3 digits for the main (released) version and 4th digit for development revision
-                        # Do not use characters (to detect outdated version)!
+__version__ = "1.11.2.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
+                          # Do not use characters (to detect outdated version)!
 
 # Extra modules global for the whole kernel
 import sys
@@ -814,8 +814,8 @@ def system_with_timeout(i):
 def run_and_get_stdout(i):
   """
   Input:  {
-            cmd       - list of command line arguments, starting with the command itself
-            (shell)   - if 'yes', reuse shell environment
+            cmd [list] - list of command line arguments, starting with the command itself
+            (shell)    - if 'yes', reuse shell environment
           }
 
   Output: {
@@ -827,6 +827,7 @@ def run_and_get_stdout(i):
             return_code  - return code from app
 
             stdout       - string, standard output of the command
+            stderr       - string, standard error of the command
           }
   """
 

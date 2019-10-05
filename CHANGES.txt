@@ -1,3 +1,6 @@
+* V1.11.2.1
+  * minor clean up of the API doc
+
 * V1.11.2
   * fixed typo
   * added possibility to force index data for specific repos via local kernel meta:
