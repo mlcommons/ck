@@ -6,6 +6,7 @@
   * added commands "private", "recache", "split_all_dirs" to ck add/update repo
   * added try/catch around encode/decode routines to better support non-UTF locale
   * can use wildcards when searching for UIDs
+  * added repo_module_uoa to be able to execute module from a specific repository
 
 * V1.11.2
   * fixed typo

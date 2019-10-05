@@ -3748,6 +3748,8 @@ def perform_action(i):
     ruoa=''
     ruid=''
 
+    repo_module_uoa=i.get('repo_module_uoa','')
+
     need_subst=False
     rc={} # If CID from current directory
 
@@ -3853,7 +3855,8 @@ def perform_action(i):
     #
     if cf!='yes' and module_uoa!='' and module_uoa.find('*')<0 and module_uoa.find('?')<0:
        # Find module and load meta description
-       rx=load({'module_uoa':cfg['module_name'], 
+       rx=load({'repo_uoa':repo_module_uoa,
+                'module_uoa':cfg['module_name'], 
                 'data_uoa':module_uoa})
        if rx['return']>0: 
           if cfg.get('download_missing_components','')!='yes':
