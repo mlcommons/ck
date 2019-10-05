@@ -3837,7 +3837,7 @@ def perform_action(i):
 
     # Check if common function
     cf=i.get('common_func','')
-    if cf=='': cf=i.get('kernel','') # making it easier to call it from the command line
+    if cf=='': cf=i.get('common','') # making it easier to call it from the command line
 
     # Check if no module_uoa, not common function, then try to get module from current 
     module_detected_from_dir=False
