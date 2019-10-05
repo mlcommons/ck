@@ -1,5 +1,11 @@
 * V1.11.2.1
   * minor clean up of the API doc
+  * now copying default repo to $HOME/.ck/{version} to be able to always find it
+  * added possibility to split dirs for the whole repo 
+    (to be able to exchange repos with split directories)
+  * added commands "private", "recache", "split_all_dirs" to ck add/update repo
+  * added try/catch around encode/decode routines to better support non-UTF locale
+  * can use wildcards when searching for UIDs
 
 * V1.11.2
   * fixed typo

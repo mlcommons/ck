@@ -7,7 +7,9 @@
 
 import sys
 import os
+import re
 
+############################################################
 try:
     from setuptools import setup
 except ImportError:
@@ -28,8 +30,25 @@ try:
 except ImportError:
     from distutils.command.install_scripts import install_scripts
 
+############################################################
+# Global variables
 install_dir=""
 
+############################################################
+# Find version
+current_version=''
+current_path=os.path.abspath(os.path.dirname(__file__))
+kernel_file=os.path.join(current_path, 'ck', 'kernel.py')
+
+with open(kernel_file, encoding="utf-8") as f:
+    search = re.search(r'__version__ = ["\']([^"\']+)', f.read())
+
+    if not search:
+       raise ValueError("We can't find the version number in from ck/kernel.py")
+
+    current_version = search.group(1)
+
+############################################################
 class custom_install(install):
     def run(self):
         global install_dir
@@ -49,21 +68,43 @@ class custom_install(install):
 
                  print ("writing CK python executable ("+python_bin+") to "+p)
               except:
-                pass
+                 print ("warning: can\'t write info about CK python executable to "+p)
+                 pass
 
-# Get 
+        # Copy default repo
+        try:
+           # Find home user directory (to record default repo)
+           from os.path import expanduser
+           import shutil
+           user_home = expanduser("~")
+
+           path_to_default_repo=os.path.join(current_path, 'ck', 'repo')
+           path_to_copy_of_default_repo=os.path.join(user_home, '.ck', current_version, 'repo')
+
+           if os.path.isdir(path_to_copy_of_default_repo):
+              shutil.rmtree(path_to_copy_of_default_repo)
+
+           shutil.copytree(path_to_default_repo, path_to_copy_of_default_repo)
+
+           print ("copying default CK repo to "+path_to_copy_of_default_repo)
+        except:
+           print ("warning: can\'t copy default CK repo to "+path_to_copy_of_default_repo)
+           pass
+
+############################################################
 class custom_install_scripts(install_scripts):
    def run(self):
        global install_dir
        install_scripts.run(self)
        install_dir=self.install_dir
        if install_dir!=None and install_dir!="":
-          print ("detected install dir: "+install_dir)
+          print ("detected installation directory: "+install_dir)
 
+############################################################
 # Describing CK setup
 setup(
   name='ck',
-  version='1.11.2.1',
+  version=current_version,
   url='https://github.com/ctuning/ck/wiki',
   license='BSD 3-clause',
   author='Grigori Fursin and the cTuning foundation',

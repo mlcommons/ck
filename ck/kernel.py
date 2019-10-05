@@ -396,7 +396,7 @@ def restore_state(r):
 
     cfg=r['cfg']
     paths_repos=r['paths_repos']
-    
+
     cache_repo_init=r['cache_repo_init']
     paths_repos_all=r['paths_repos_all']
     cache_repo_uoa=r['cache_repo_uoa']
@@ -622,18 +622,31 @@ def get_split_dir_number(repo_dict, module_uid, module_uoa):
     found=False
     split_dir_number=0
 
+    # Check global split for all repositories (in cfg) or for a given repo
     for xcfg in [cfg, repo_dict]:
-        xsplit_dirs=xcfg.get('split_dirs',{})
+        x=xcfg.get('split_all_dirs','')
+        if x!='':
+           x=safe_int(x,0)
+           if x!=0:
+              found=True
+              split_dir_number=x
+              break
 
-        found=False
-        for m in [module_uid, module_uoa]:
-            split_dir_number=safe_int(xsplit_dirs.get(m,0),0)
-            if split_dir_number!=0:
-               found=True
-               break
+    # Check split per module
+    if not found:
+       for xcfg in [cfg, repo_dict]:
+           xsplit_dirs=xcfg.get('split_dirs',{})
 
-        if found:
-           break
+           found=False
+           for m in [module_uid, module_uoa]:
+               x=safe_int(xsplit_dirs.get(m,0),0)
+               if x!=0:
+                  split_dir_number=x
+                  found=True
+                  break
+
+           if found:
+              break
 
     return split_dir_number
 
@@ -849,8 +862,15 @@ def run_and_get_stdout(i):
   output, error = p1.communicate()
 
   if sys.version_info[0]>2:
-      output = output.decode(encoding='UTF-8')
-      error = error.decode(encoding='UTF-8')
+     try:
+       output = output.decode(encoding='UTF-8')
+     except Exception as e:
+       return {'return':1, 'error':'problem encoding stdout ('+format(e)+')'}
+
+     try:
+       error = error.decode(encoding='UTF-8')
+     except Exception as e:
+       return {'return':1, 'error':'problem encoding stderr ('+format(e)+')'}
 
   return {'return':0, 'return_code':p1.returncode, 'stdout':output, 'stderr':error}
 
@@ -1679,7 +1699,11 @@ def load_text_file(i):
        os.remove(fn)
 
     if i.get('keep_as_bin','')!='yes':
-       s=b.decode(en).replace('\r','') # decode into Python string (unicode in Python3)
+       try:
+          s=b.decode(en).replace('\r','') # decode into Python string (unicode in Python3)
+       except Exception as e:
+          return {'return':1, 'error':'problem decoding content from file "'+fn+'" ('+format(e)+')'}
+   
        r['string']=s
 
        cl=i.get('split_to_list','')
@@ -2439,12 +2463,22 @@ def init(i): # pragma: no cover
     elif px!='':
       work['env_root']=px
 
+    # Get home user directory
+    from os.path import expanduser
+    home=expanduser("~")
+
     # Check default repo
     x=os.environ.get(cfg['env_key_default_repo'],'').strip()
 
     if x!='' and os.path.isdir(x):
        work['dir_default_repo']=x
     else:
+       if p=='':
+          # Attempt to find in userspace (since V1.11.2.1)
+          x=os.path.join(home, '.ck', __version__, cfg['subdir_default_repo'])
+          if os.path.isfile(os.path.join(x, cfg['repo_file'])):
+             p=x
+
        if p=='':
           return {'return':1, 'error':'Unusual CK installation detected since we can\'t find the CK package path with the default repo (searched in '+str(searched_places)+'). It often happens when you install CK under root while other tools (which use CK) under user and vice versa.  Please reinstall other tools that use CK in the same way as CK (root or user). If the problem persists, please report to the author (Grigori.Fursin@cTuning.org).'}
 
@@ -2474,10 +2508,6 @@ def init(i): # pragma: no cover
     # Check external repos
     rps=os.environ.get(cfg['env_key_repos'],'').strip()
     if rps=='': 
-       # Get home user directory
-       from os.path import expanduser
-       home = expanduser("~")
-
        # In the original version, if path to repos was not defined, I was using CK path,
        # however, when installed as root, it will fail
        # rps=os.path.join(work['env_root'],cfg['subdir_default_repos'])
@@ -2858,6 +2888,7 @@ def reload_repo_cache(i):
            p=dd.get('path','')
            if p!='':
               paths_repos_all.append({'path':os.path.normpath(p),
+                                      'dict': dd, # Added in version 1.11.2.1 to support dir split per repo
                                       'repo_uoa':qq['data_uoa'],
                                       'repo_uid':qq['data_uid'],
                                       'repo_alias':qq['data_alias']})
@@ -3682,6 +3713,8 @@ def perform_action(i):
 
               (common_func) - if 'yes', ignore search for modules 
                                         and call common func from the CK kernel
+                  or
+              (kernel)
 
               (local)       - if 'yes', run locally even if remote repo ...
             }
@@ -3712,6 +3745,9 @@ def perform_action(i):
 
     xout=i.get('out','')
 
+    ruoa=''
+    ruid=''
+
     need_subst=False
     rc={} # If CID from current directory
 
@@ -3741,7 +3777,6 @@ def perform_action(i):
 
        ruoa=r.get('repo_uoa','')
        if ruoa!='': i['repo_uoa']=ruoa
-
 
     # If module_uoa exists in input, set module_uoa
     if i.get('module_uoa','')!='': module_uoa=i['module_uoa']
@@ -3800,6 +3835,7 @@ def perform_action(i):
 
     # Check if common function
     cf=i.get('common_func','')
+    if cf=='': cf=i.get('kernel','') # making it easier to call it from the command line
 
     # Check if no module_uoa, not common function, then try to get module from current 
     module_detected_from_dir=False
@@ -3861,7 +3897,7 @@ def perform_action(i):
           ruid=rx['repo_uid']
 
           if ruid not in cfg.get('repo_uids_to_allow_run',[]):
-             return {'return':1, 'error':'executing modules from this repository is not allowed'}
+             return {'return':1, 'error':'executing commands is not allowed from this repository "'+ruoa+'"'}
 
        u=rx['dict']
        p=rx['path']
@@ -8125,8 +8161,8 @@ def list_data(i):
                                  dskip=True
                               elif wd=='*':
                                  pass
-                              elif is_uid(tduoa): 
-                                 dskip=True # If have wildcards, but not alias
+#                              elif is_uid(tduoa): 
+#                                 dskip=True # If have wildcards, but not alias
                               elif not fnmatch.fnmatch(tduoa, wd):
                                  dskip=True
 

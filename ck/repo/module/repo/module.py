@@ -101,6 +101,13 @@ def add(i):
               (version)       - checkout version (default - stable)
               (branch)        - git branch
               (checkout)      - git checkout
+
+              (private)                  - if 'yes', mark as private (do not automatically list entries, etc)
+
+              (split_all_dirs)           - if !='0' force split of all dirs in this repo (be careful)
+                                           must be empty before doing this!
+
+              (recache)                  - if 'yes' force recache
             }
 
     Output: {
@@ -158,6 +165,10 @@ def add(i):
 
     share=i.get('share','')
     if share=='yes' and shared=='': shared='git'
+
+    private=i.get('private','')
+    split_all_dirs=i.get('split_all_dirs','')
+    xrecache=i.get('recache','')
 
     ptr=''
     zp=i.get('zip','')
@@ -458,6 +469,12 @@ def add(i):
        dd['allow_writing']='yes'
     if len(rdeps)>0:
        dd['repo_deps']=rdeps
+    if private!='':
+       dd['private']=private
+    if split_all_dirs!='':
+       dd['split_all_dirs']=split_all_dirs
+    if xrecache!='':
+       dd['recache']=xrecache
 
     # Check if need to describe for Artifact Evaluation
     if i.get('describe','')=='yes':
@@ -591,6 +608,15 @@ def update(i):
               (update)                   - if 'yes', force updating
 
               (describe)                 - describe repository for Artifact Evaluation (see http://cTuning.org/ae)
+
+              (private)                  - if 'yes', mark as private (do not automatically list entries, etc)
+
+              (split_all_dirs)           - if !='0' force split of all dirs in this repo (be careful)
+                                           must be empty before doing this!
+
+              (recache)                  - if 'yes' force recache
+
+              (quiet)                    - if 'yes', do not answer extra questions
             }
 
     Output: {
@@ -625,6 +651,8 @@ def update(i):
 
     eaw=i.get('allow_writing','')
 
+    quiet=i.get('quiet','')
+
     # Get configuration (not from Cache - can be outdated info!)
 #    r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
     r=ck.access({'action':'load',
@@ -646,11 +674,12 @@ def update(i):
        ck.out('Current user-friendly name of this repository: '+dn)
        ck.out('')
 
-    r=ck.inp({'text':'Enter a user-friendly name of this repository (or Enter to keep old value): '})
-    x=r['string']
-    if x!='': 
-       dn=x
-       changed=True
+       if quiet!='yes':
+          r=ck.inp({'text':'Enter a user-friendly name of this repository (or Enter to keep old value): '})
+          x=r['string']
+          if x!='': 
+             dn=x
+             changed=True
 
     # If remote, update URL
     shared=d.get('shared','')
@@ -660,11 +689,12 @@ def update(i):
        ck.out('')
        ck.out('Current URL: '+url)
        ck.out('')
-       rx=ck.inp({'text':'Enter new URL (or Enter to leave old one): '})
-       x=rx['string']
-       if x!='': 
-          d['url']=x
-          changed=True
+       if quiet!='yes':
+          rx=ck.inp({'text':'Enter new URL (or Enter to leave old one): '})
+          x=rx['string']
+          if x!='': 
+             d['url']=x
+             changed=True
     elif shared!='':
        url=d.get('url','')
        ck.out('Repository is shared ...')
@@ -676,11 +706,12 @@ def update(i):
           ck.out('')
           if sync!='':
              ck.out('Current sync setting: '+sync)
-          r=ck.inp({'text': 'Would you like to sync repo each time after writing to it (y/N)?: '})
-          x=r['string'].lower()
-          if x=='yes' or x=='y':
-             d['sync']='yes'
-             changed=True
+          if quiet!='yes':
+             r=ck.inp({'text': 'Would you like to sync repo each time after writing to it (y/N)?: '})
+             x=r['string'].lower()
+             if x=='yes' or x=='y':
+                d['sync']='yes'
+                changed=True
 
     # Asking about forbidding explicit writing to this repository
     if remote!='yes' and eaw=='':
@@ -689,11 +720,12 @@ def update(i):
        if eaw!='':
           ck.out('Current "allow writing" setting: '+eaw)
 
-       r=ck.inp({'text':'Would you like to allow explicit writing to this repository when kernel disables all writing (y/N): '})
-       x=r['string'].lower()
-       if x=='yes' or x=='y':
-          d['allow_writing']='yes'
-          changed=True
+       if quiet!='yes':
+          r=ck.inp({'text':'Would you like to allow explicit writing to this repository when kernel disables all writing (y/N): '})
+          x=r['string'].lower()
+          if x=='yes' or x=='y':
+             d['allow_writing']='yes'
+             changed=True
 
     # Check if explicit deps
     if len(rdeps)>0:
@@ -713,21 +745,40 @@ def update(i):
        ck.out('')
 
     # Check if add more deps
-    r=add_more_deps({})
-    if r['return']>0: return r
+    if quiet!='yes':
+       r=add_more_deps({})
+       if r['return']>0: return r
 
-    rdeps1=r['repo_deps']
-    if len(rdeps1)>0:
-       if 'repo_deps' not in d: d['repo_deps']=rdeps1
-       else: 
-          for q in rdeps1:
-              d['repo_deps'].append(q)
-       changed=True
+       rdeps1=r['repo_deps']
+       if len(rdeps1)>0:
+          if 'repo_deps' not in d: d['repo_deps']=rdeps1
+          else: 
+             for q in rdeps1:
+                 d['repo_deps'].append(q)
+          changed=True
 
     # Check if need to describe for Artifact Evaluation
     if i.get('describe','')=='yes':
        r=describe({'dict':d})
        if r['return']>0: return r
+       changed=True
+
+    # Check if private
+    private=i.get('private','')
+    if private!='':
+       d['private']=private
+       changed=True
+
+    # Check if split_all_dirs
+    split_all_dirs=i.get('split_all_dirs','')
+    if split_all_dirs!='':
+       d['split_all_dirs']=split_all_dirs
+       changed=True
+
+    # Check if recache
+    xrecache=i.get('recache','')
+    if xrecache!='':
+       d['recache']=xrecache
        changed=True
 
     # Write if changed
@@ -742,7 +793,8 @@ def update(i):
                      'data_name':dn,
                      'dict':d,
                      'common_func':'yes',
-                     'overwrite':'yes'})
+                     'overwrite':'yes',
+                     'sort_keys':'yes'})
        if rx['return']>0: return rx
 
        # Recaching
@@ -755,17 +807,25 @@ def update(i):
 
        # Updating local repository description
        if remote!='yes':
-          r=ck.load_repo_info_from_cache({'repo_uoa':duoa})
-          if r['return']>0: return r
+          pcfg=os.path.join(p, ck.cfg['repo_file'])
+          if os.path.isfile(pcfg):
+             r=ck.load_json_file({'json_file':pcfg})
+             if r['return']>0: return r
 
-          del(r['return'])
-          if 'path_to_repo_desc' in r: del (r['path_to_repo_desc'])        # Avoid recording some local info
-          if r.get('dict',{}).get('path','')!='': del (r['dict']['path'])  # Avoid recording some local info
+             dcfg=r['dict']
 
-          py=os.path.join(p, ck.cfg['repo_file'])
+             if 'dict' not in dcfg:
+                dcfg['dict']={}
 
-          ry=ck.save_json_to_file({'json_file':py, 'dict':r})
-          if ry['return']>0: return ry
+             dcfg['dict'].update(d)
+
+             # Clean not needed keys (local)
+             for k in ['data_uid', 'data_uoa', 'data_alias', 'data_name', 'path']:
+                 if k in dcfg['dict']:
+                    del(dcfg['dict'][k])
+
+             r=ck.save_json_to_file({'json_file':pcfg, 'dict':dcfg, 'sort_keys':'yes'})
+             if r['return']>0: return ry
 
     return {'return':0}
 
