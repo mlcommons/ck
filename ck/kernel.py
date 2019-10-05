@@ -3897,7 +3897,7 @@ def perform_action(i):
           ruid=rx['repo_uid']
 
           if ruid not in cfg.get('repo_uids_to_allow_run',[]):
-             return {'return':1, 'error':'executing commands is not allowed from this repository "'+ruoa+'"'}
+             return {'return':1, 'error':'executing commands is not allowed from this repository "'+ruid+'"'}
 
        u=rx['dict']
        p=rx['path']
