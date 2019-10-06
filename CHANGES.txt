@@ -1,4 +1,4 @@
-* V1.11.2.1
+* V1.11.3
   * minor clean up of the API doc
   * now copying default repo to $HOME/.ck/{version} to be able to always find it
   * added possibility to split dirs for the whole repo 
