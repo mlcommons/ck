@@ -9374,6 +9374,9 @@ def add_action(i):
     if func=='':
        return {'return':1, 'error':'action (function) is not defined'}
 
+    if len(func)>0 and func[0].isdigit():
+       return {'return':1, 'error':'action name should not start from a number'}
+
     if cfg.get('allowed_action_names','')!='':
        import re
 
