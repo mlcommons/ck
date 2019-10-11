@@ -11,6 +11,11 @@ import re
 
 ############################################################
 try:
+    from io import open
+except ImportError:
+    pass
+
+try:
     from setuptools import setup
 except ImportError:
     from distutils.core import setup
