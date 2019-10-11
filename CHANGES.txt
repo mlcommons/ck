@@ -1,3 +1,8 @@
+* V1.11.3.1
+  * fixed problem when ck-python.cfg contains non-existent python
+  * fixed problem with allowed action_names 
+    (should not start with number but can have numbers in the middle)
+
 * V1.11.3
   * minor clean up of the API doc
   * now copying default repo to $HOME/.ck/{version} to be able to always find it

@@ -13,8 +13,8 @@
 # For example, we implemented some functions in Java, C, C++ and Fortran
 # (see our xOpenME library used in Android)
 
-__version__ = "1.11.3"  # We use 3 digits for the main (released) version and 4th digit for development revision
-                        # Do not use characters (to detect outdated version)!
+__version__ = "1.11.3.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
+                          # Do not use characters (to detect outdated version)!
 
 # Extra modules global for the whole kernel
 import sys
@@ -9382,6 +9382,9 @@ def add_action(i):
     # Check if empty
     if func=='':
        return {'return':1, 'error':'action (function) is not defined'}
+
+    if len(func)>0 and func[0].isdigit():
+       return {'return':1, 'error':'action name should not start from a number'}
 
     if cfg.get('allowed_action_names','')!='':
        import re

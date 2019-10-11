@@ -7,18 +7,20 @@ CK_PATH1=`dirname $0`
 CK_USE_PIP=""
 if [ "$CK_PYTHON" == "" ]; then
   if [ -f "$HOME/.ck/ck-python.cfg" ]; then
-    CK_PYTHON=`cat $HOME/.ck/ck-python.cfg`
-    if [ -f "$CK_PYTHON" ]; then
-       $CK_PYTHON -m ck.kernel test_install &> /dev/null
+    CK_PYTHON2=`cat $HOME/.ck/ck-python.cfg`
+    if [ -f "$CK_PYTHON2" ]; then
+       $CK_PYTHON2 -m ck.kernel test_install &> /dev/null
        if [ $? -eq 0 ]; then
           CK_USE_PIP="YES"
+          CK_PYTHON=$CK_PYTHON2
        fi
     fi
   elif [ -f "$CK_PATH1/ck-python.cfg" ]; then
-    CK_PYTHON=`cat $CK_PATH1/ck-python.cfg`
-    if [ -f "$CK_PYTHON" ]; then
+    CK_PYTHON2=`cat $CK_PATH1/ck-python.cfg`
+    if [ -f "$CK_PYTHON2" ]; then
        if [ $? -eq 0 ]; then
           CK_USE_PIP="YES"
+          CK_PYTHON=$CK_PYTHON2
        fi
     fi
   fi
