@@ -3,6 +3,8 @@
   * fixed problem with allowed action_names 
     (should not start with number but can have numbers in the middle)
   * fixed problem with ElasticSearch when renaming entries
+  * Added key "use_git_instead_of_https" to kernel cfg 
+    to substitute https:// with git@ in repositories
 
 * V1.11.3
   * minor clean up of the API doc

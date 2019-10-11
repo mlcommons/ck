@@ -67,13 +67,18 @@ class custom_install(install):
            if os.path.isfile(python_bin):
               # Attempt to write to $SCRIPTS/ck-python.cfg
               p=os.path.join(install_dir, 'ck-python.cfg')
+
+              file_type='wb'
+              if sys.version_info[0]>2:
+                 file_type='w'
+
               try:
-                 with open(p, "w") as f:
-                    f.write(python_bin)
+                 with open(p, file_type) as f:
+                    f.write(python_bin+'\n')
 
                  print ("writing CK python executable ("+python_bin+") to "+p)
-              except:
-                 print ("warning: can\'t write info about CK python executable to "+p)
+              except Exception as e: 
+                 print ("warning: can\'t write info about CK python executable to "+p+" ("+format(e)+")")
                  pass
 
         # Copy default repo

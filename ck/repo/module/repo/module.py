@@ -978,8 +978,8 @@ def pull(i):
         t=q.get('type','')
         url=q.get('url','')
 
-        # Semi hack (useful for Anton)
-        if i.get('git','')=='yes':
+        # Substitute all https:// with git@ to be able to save password or use ssh key
+        if i.get('git','')=='yes' or ck.cfg.get('use_git_instead_of_https','')=='yes':
            url=url.replace('https://','git@')
 
            j=url.find('/')

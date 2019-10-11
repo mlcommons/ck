@@ -307,3 +307,9 @@ E:
 O: CodeReef
 C: testing and feedback with LinuxBrew
 W: 
+
+N: Alex Redshaw
+E: 
+O: Arm
+C: feedback about installation issue with Python 2.7
+W: 

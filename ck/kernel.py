@@ -7545,10 +7545,12 @@ def cp(i):
 
     # Recursively copying all files (except .cm)
     if i.get('without_files','')!='yes':
-       rx=list_all_files({'path':p})
+       rx=list_all_files({'path':p, 'all':'yes'})
        if rx['return']>0: return rx
 
        for q in rx['list']:
+           if q.startswith('.cm'): continue
+
            p1=os.path.join(p,q)
            pn1=os.path.join(pn,q)
 
