@@ -13,8 +13,8 @@
 # For example, we implemented some functions in Java, C, C++ and Fortran
 # (see our xOpenME library used in Android)
 
-__version__ = "1.11.3.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
-                          # Do not use characters (to detect outdated version)!
+__version__ = "1.11.4"  # We use 3 digits for the main (released) version and 4th digit for development revision
+                        # Do not use characters (to detect outdated version)!
 
 # Extra modules global for the whole kernel
 import sys
@@ -347,6 +347,8 @@ cache_repo_info={}    # Cache repo info with path and type
 
 type_long=None        # In Python 3 -> int, in Python 2 -> long
 string_io=None        # StringIO, which is imported differently in Python 2 and 3
+
+log_ck_entries=False  # If true, log CK entries to record all dependencies
 
 ##############################################################################
 # Save CK state
@@ -2392,7 +2394,7 @@ def init(i): # pragma: no cover
             }
     """
 
-    global cfg, work, initialized, paths_repos, type_long, string_io
+    global cfg, work, initialized, paths_repos, type_long, string_io, log_ck_entries
 
     if initialized:
        return {'return':0}
@@ -2604,6 +2606,10 @@ def init(i): # pragma: no cover
        # Update cfg
        r=merge_dicts({'dict1':cfg, 'dict2':cfg1})
        if r['return']>0: return r
+
+    # Check if need to log CK entries
+    if cfg.get('log_ck_entries','')!='':
+       log_ck_entries=True
 
     initialized=True
 
@@ -3240,6 +3246,22 @@ def find_path_to_data(i):
 #       ruid=r['repo_uid']
 #       ralias=r['repo_alias']
 #       qmax=1
+
+    # Check logging of repo:module:uoa to be able to rebuild CK dependencies
+    if log_ck_entries:
+       lce=cfg.get('log_ck_entries','')
+       if lce!='':
+          rl=save_text_file({'text_file':lce,
+                             'string':'"action":"find", "repo_uoa":"'+
+                                      ruoa+'", "repo_uid":"'+
+                                      ruid+'", "module_uoa":"'+
+                                      muoa+'", "module_uid":"'+
+                                      muid+'", "data_uoa":"'+
+                                      duoa+'", "data_uid":"'+
+                                      duid+'"\n',
+                             'append':'yes'})
+          if rl['return']>0: return rl
+
 
     return {'return':0, 'path':pd, 'path_module':pm, 'path_repo':pr,
                         'repo_uoa':ruoa, 'repo_uid':ruid, 'repo_alias':ralias,
@@ -3904,6 +3926,20 @@ def perform_action(i):
 
        u=rx['dict']
        p=rx['path']
+
+       # Check logging of repo:module:uoa to be able to rebuild CK dependencies
+       if log_ck_entries:
+          lce=cfg.get('log_ck_entries','')
+          if lce!='':
+             rl=save_text_file({'text_file':lce,
+                                'string':'"action":"'+action+'", "repo_uoa":"'+
+                                         i.get('repo_uoa','')+'", "repo_module_uoa":"'+
+                                         repo_module_uoa+'", "module_uoa":"'+
+                                         xmodule_uoa+'", "module_uid":"'+
+                                         xmodule_uid+'", "data_uoa":"'+
+                                         i.get('data_uoa','')+'"\n',
+                                'append':'yes'})
+             if rl['return']>0: return rl
 
        declared_action      = action in u.get('actions',{})
        default_action_name  = u.get('default_action_name','')
@@ -7371,7 +7407,6 @@ def ren(i):
 
        if is_uid(nduoa): nduid=nduoa
        path='/'+muid+'/'+nduid+'/1'
-       print ('xyz2=',path)
        ri=access_index_server({'request':'DELETE', 'path':path})
        if ri['return']>0: return ri
        ri=access_index_server({'request':'PUT', 'path':path, 'dict':rdd})
@@ -8235,6 +8270,20 @@ def list_data(i):
                                  if not idnatl:
                                     lst.append(ll)
 
+                                    if log_ck_entries:
+                                       lce=cfg.get('log_ck_entries','')
+                                       if lce!='':
+                                          rl=save_text_file({'text_file':lce,
+                                                             'string':'"action":"list", "repo_uoa":"'+
+                                                                      ll.get('repo_uoa','')+'", "repo_uid":"'+
+                                                                      ll.get('repo_uid','')+'", "module_uoa":"'+
+                                                                      ll.get('module_uoa','')+'", "module_uid":"'+
+                                                                      ll.get('module_uid','')+'", "data_uoa":"'+
+                                                                      ll.get('data_uoa','')+'", "data_uid":"'+
+                                                                      ll.get('data_uid','')+'"\n',
+                                                             'append':'yes'})
+                                          if rl['return']>0: return rl
+
                                  if o=='con':
                                     x=''
                                     if iprf: x=ruoa+':'+muoa+':'
@@ -8437,7 +8486,6 @@ def search(i):
                               'data_uoa':duoa,
                               'out':'con'})
                  if ry['return']>0: return ry
-
 
              # Restart local search
              rr=search2(i)
@@ -8691,6 +8739,20 @@ def search2(i):
               'module_uoa':muoa, 'module_uid':muid,
               'data_uoa':duoa, 'data_uid':duid,
               'path':path})
+
+           if log_ck_entries:
+              lce=cfg.get('log_ck_entries','')
+              if lce!='':
+                 rl=save_text_file({'text_file':lce,
+                                    'string':'"action":"find", "repo_uoa":"'+
+                                             ruoa+'", "repo_uid":"'+
+                                             ruid+'", "module_uoa":"'+
+                                             muoa+'", "module_uid":"'+
+                                             muid+'", "data_uoa":"'+
+                                             duoa+'", "data_uid":"'+
+                                             duid+'"\n',
+                                    'append':'yes'})
+                 if rl['return']>0: return rl
 
            if o=='con':
               x=ruoa+':'+muoa+':'

@@ -1,10 +1,16 @@
-* V1.11.3.1
+* V1.11.4
   * fixed problem when ck-python.cfg contains non-existent python
   * fixed problem with allowed action_names 
     (should not start with number but can have numbers in the middle)
   * fixed problem with ElasticSearch when renaming entries
   * Added key "use_git_instead_of_https" to kernel cfg 
     to substitute https:// with git@ in repositories
+  * fixed problem with pip installation using Python 2.7
+    (thanks to Alex Redshaw from Arm)
+  * added possibility to log all used CK entries to find out all dependencies
+
+    turn on: ck set kernel --var.log_ck_entries={file}
+    turn off: ck set kernel --var.log_ck_entries=""
 
 * V1.11.3
   * minor clean up of the API doc
