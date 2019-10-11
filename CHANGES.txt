@@ -2,6 +2,7 @@
   * fixed problem when ck-python.cfg contains non-existent python
   * fixed problem with allowed action_names 
     (should not start with number but can have numbers in the middle)
+  * fixed problem with ElasticSearch when renaming entries
 
 * V1.11.3
   * minor clean up of the API doc
