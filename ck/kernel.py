@@ -7170,6 +7170,7 @@ def ren(i):
     r=load(ii)
     if r['return']>0: return r
     rdd=r
+
     muid=r['module_uid']
     pr=r['path_repo']
     ddi=r['info']
@@ -7361,8 +7362,16 @@ def ren(i):
 
     # Check if index and add new
     if cfg.get('use_indexing','')=='yes' and index_module(muid,ruid):
+
+       # Need to reload to get new dictionary with updated aliases/UIDs
+       rdd=load({'repo_uoa':ruid,
+                 'module_uoa':muid,
+                 'data_uoa':nduid})
+       if rdd['return']>0: return rdd
+
        if is_uid(nduoa): nduid=nduoa
        path='/'+muid+'/'+nduid+'/1'
+       print ('xyz2=',path)
        ri=access_index_server({'request':'DELETE', 'path':path})
        if ri['return']>0: return ri
        ri=access_index_server({'request':'PUT', 'path':path, 'dict':rdd})
