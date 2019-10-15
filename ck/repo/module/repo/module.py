@@ -617,6 +617,8 @@ def update(i):
               (recache)                  - if 'yes' force recache
 
               (quiet)                    - if 'yes', do not answer extra questions
+
+              (dict)                     - update dict directly
             }
 
     Output: {
@@ -626,6 +628,8 @@ def update(i):
             }
 
     """
+
+    import copy
 
     # Check if global writing is allowed
     r=ck.check_writing({})
@@ -664,6 +668,10 @@ def update(i):
 
     dn=r.get('data_name','')
     d=r['dict']
+
+    dd=i.get('dict',{})
+    if len(dd)>0:
+       d.update(dd)
 
     remote=d.get('remote','')
 
@@ -781,51 +789,60 @@ def update(i):
        d['recache']=xrecache
        changed=True
 
+    # Refreshing local repository description
+    if remote!='yes':
+       pcfg=os.path.join(p, ck.cfg['repo_file'])
+       if os.path.isfile(pcfg):
+          if o=='con':
+             ck.out('')
+             ck.out('Refreshing repo info in '+pcfg+' ...')
+
+          r=ck.load_json_file({'json_file':pcfg})
+          if r['return']>0: return r
+
+          dcfg=r['dict']
+
+          if 'dict' not in dcfg:
+             dcfg['dict']={}
+
+          dcfg['dict'].update(d)
+
+          # Clean not needed keys (local)
+          for k in ['data_uid', 'data_uoa', 'data_alias', 'data_name', 'path']:
+              if k in dcfg['dict']:
+                 del(dcfg['dict'][k])
+
+          r=ck.save_json_to_file({'json_file':pcfg, 'dict':dcfg, 'sort_keys':'yes'})
+          if r['return']>0: return ry
+
+          # Update back repo meta in CK
+          copy_dcfg=copy.deepcopy(dcfg)
+          d.update(copy_dcfg['dict'])
+
     # Write if changed
-    if changed or i.get('update','')=='yes':
-       if o=='con':
-          ck.out('')
-          ck.out('Updating repo info ...')
+#    if changed or i.get('update','')=='yes':
+    if o=='con':
+       ck.out('')
+       ck.out('Refreshing repo info in the CK local:repo:'+duoa+' ...')
 
-       rx=ck.access({'action':'update',
-                     'module_uoa':ck.cfg['repo_name'],
-                     'data_uoa':duoa,
-                     'data_name':dn,
-                     'dict':d,
-                     'common_func':'yes',
-                     'overwrite':'yes',
-                     'sort_keys':'yes'})
-       if rx['return']>0: return rx
+    rx=ck.access({'action':'update',
+                  'module_uoa':ck.cfg['repo_name'],
+                  'data_uoa':duoa,
+                  'data_name':dn,
+                  'dict':d,
+                  'common_func':'yes',
+                  'substitute':'yes',
+                  'skip_update':'yes',
+                  'sort_keys':'yes'})
+    if rx['return']>0: return rx
 
-       # Recaching
-       if o=='con':
-          ck.out('')
-          ck.out('Recaching repos to speed up access ...')
-          ck.out('')
-       r=recache({'out':o})
-       if r['return']>0: return r
-
-       # Updating local repository description
-       if remote!='yes':
-          pcfg=os.path.join(p, ck.cfg['repo_file'])
-          if os.path.isfile(pcfg):
-             r=ck.load_json_file({'json_file':pcfg})
-             if r['return']>0: return r
-
-             dcfg=r['dict']
-
-             if 'dict' not in dcfg:
-                dcfg['dict']={}
-
-             dcfg['dict'].update(d)
-
-             # Clean not needed keys (local)
-             for k in ['data_uid', 'data_uoa', 'data_alias', 'data_name', 'path']:
-                 if k in dcfg['dict']:
-                    del(dcfg['dict'][k])
-
-             r=ck.save_json_to_file({'json_file':pcfg, 'dict':dcfg, 'sort_keys':'yes'})
-             if r['return']>0: return ry
+    # Recaching
+    if o=='con':
+       ck.out('')
+       ck.out('Recaching repos to speed up access ...')
+       ck.out('')
+    r=recache({'out':o})
+    if r['return']>0: return r
 
     return {'return':0}
 
