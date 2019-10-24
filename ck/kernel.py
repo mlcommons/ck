@@ -8545,6 +8545,9 @@ def search2(i):
        import time
        start_time = time.time()
 
+       b_add_meta=(i.get('add_meta','')=='yes')
+       b_add_info=(i.get('add_info','')=='yes')
+
        # Check if using ElasticSearch via Python client
        eec=False 
        if cfg.get('index_use_curl','')=='yes' or cfg.get('index_use_web','')=='yes':
@@ -8735,10 +8738,15 @@ def search2(i):
            duid=q.get('data_uid','')
            path=q.get('path','')
 
-           lst.append({'repo_uoa':ruoa, 'repo_uid':ruid,
+           to_add={'repo_uoa':ruoa, 'repo_uid':ruid,
               'module_uoa':muoa, 'module_uid':muid,
               'data_uoa':duoa, 'data_uid':duid,
-              'path':path})
+              'path':path}
+
+           if b_add_meta: to_add['meta']=q.get('dict')
+           if b_add_info: to_add['info']=q.get('dict')
+
+           lst.append(to_add)
 
            if log_ck_entries:
               lce=cfg.get('log_ck_entries','')
