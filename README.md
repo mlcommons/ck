@@ -16,36 +16,40 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 ## Introduction
 
-Collective Knowledge is a small, cross-platform and community driven Python framework 
-to abstract, automate, share, reproduce and reuse any R&D task 
-in the form of actions, workflows and Python modules. 
-Such actions and workflows have a unified API, CLI, JSON meta-description, 
-web interface and UID to simplify the integration
-with existing production systems.
+Collective Knowledge (CK) is a small, cross-platform and community-driven Python framework 
+to help you add, share and reuse standardized CLI actions with Python/C/Java APIs, UIDs 
+and JSON meta descriptions for any code and data in a non-intrusive way. 
 
-Our long-term goal is to enable collaborative, reproducible and production-ready research 
-based on DevOps principles. We want researchers and engineers to focus on innovation 
-while CK takes care of the rest (see [CK real use cases](https://cKnowledge.org/partners.html), 
+Such actions can be connected into platform-agnostic, portable, customizable, reusable and reproducible workflows,
+and can be easily integrated with existing production and legacy systems.
+
+Our long-term goal is to help users automate their tedious, repetitive and time-consuming R&D tasks,
+and enable collaborative, reproducible, sustainable and production-ready research 
+based on DevOps principles.
+
+See [CK real use cases](https://cKnowledge.org/partners.html), 
 [publications](https://github.com/ctuning/ck/wiki/Publications)
-and the [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) for more details):
+and the [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) for more details.
+
+Some important CK features:
 
 * CK actions can be shared and reused across research projects:
-  see the [list of available actions and modules](https://reproindex.com/components/&?c=module).
+  see the [list of available actions and modules](https://dev.codereef.ai/portal/search/?q=module_uoa%3Amodule).
 
 * Standardized CK APIs and meta-descriptions help  users 
   to easily connect actions into automated, portable and customizable workflows, 
   and quickly integrate them with practically all major tools, frameworks and Continuous Integration Services: 
-  see the [list of shared repositories with CK workflows and actions](https://reproindex.com/components).
+  see the [list of shared repositories with CK workflows and actions](https://dev.codereef.ai/portal/search/?q=module_uoa%3A%22cr-repo%22).
 
 * CK helps to perform reproducible experiments and generate papers with reusable research components:
-  see [the list of articles with CK workflows](https://ReproIndex.com/papers) and 
-  the [CK-based interactive report with the Raspberry Pi foundation](https://cKnowledge.org/rpi-crowd-tuning).
+  see [the list of articles with CK workflows](https://dev.codereef.ai/portal/search/?q=%22reproduced-papers%22) 
+  and the [CK-based interactive report with the Raspberry Pi foundation](https://dev.codereef.ai/portal/c/report/rpi3-crowd-tuning-2017-interactive).
 
-* CK can be used to crowdsource autotuning and co-design of efficient software, hardware and models
-  for emerging AI, ML and quantum computing workloads in terms of speed, accuracy, energy and costs: 
-  see the [live CK dashboard with results from different Hackathons, tournaments and crowd-tuning campaigns](http://cKnowledge.org/dashboard).
+* CK can be used to crowdsource autotuning and co-design of efficient software, hardware, and models
+  for emerging AI, ML and quantum computing workloads in terms of speed, accuracy, energy, and costs: 
+  see the [live CK dashboard with results from different Hackathons, tournaments and crowd-tuning campaigns](https://dev.codereef.ai/portal/search/?q=%22codereef-result%22).
 
-***Thanks to your feedback we are brainstorming a new and backward-compatible version of CK - please stay tuned!***
+***Thanks to your feedback we are brainstorming a new and backward-compatible version of CK! We are also working on an [open PyPI-like repository](https://dev.codereef.ai/portal) to share stable versions of all CK components, workflows and results! Feel free to sign up [here](https://dev.codereef.ai/portal/account/signup) to be notified about our news!***
 
 ## Our community
 
@@ -54,7 +58,7 @@ and the [Slack channel](https://cKnowledge.org/join-slack).
 
 You are also welcome to help the community fix or improve third-party components (actions, modules, packages, software plugins, workflows) 
 when they fail on new platforms or miss some functionality - you can provide your feedback and report bugs 
-in the respective [GitHub repositories](https://ReproIndex.com/components)!
+in the respective [GitHub CK dev repositories](https://dev.codereef.ai/portal/search/?q=module_uoa%3A%22cr-repo%22)!
 
 ## Documentation
 
