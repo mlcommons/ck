@@ -10,7 +10,7 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 ## News
 
-***[Codereef](https://codereef.ai) is building an [open PyPI-like repository](https://dev.codereef.ai/portal) to simplify the creation, sharing and reuse of CK components, workflows and experimental results!***
+***[Codereef](https://codereef.ai) is building an [open PyPI-like repository](https://dev.codereef.ai/portal) to simplify the creation, sharing and reuse of CK components, workflows and reproduced results!***
 
 ## Introduction
 
