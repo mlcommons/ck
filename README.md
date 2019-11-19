@@ -12,9 +12,9 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 ***[Codereef](https://codereef.ai) is building an [open PyPI-like repository](https://dev.codereef.ai/portal) to simplify the creation, sharing and reuse of CK components, workflows and experimental results!***
 
-<img src="https://github.com/ctuning/ck-guide-images/blob/master/ck-example.gif">
-
 ## Introduction
+
+<img src="https://github.com/ctuning/ck-guide-images/blob/master/ck-example.gif">
 
 Collective Knowledge (CK) is a small, cross-platform and community-driven Python framework 
 to help you add, share and reuse standardized CLI actions with Python/C/Java APIs, UIDs 
