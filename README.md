@@ -8,9 +8,9 @@ Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
-## Project websites
+## News
 
-**[cKnowledge.org](https://cKnowledge.org) and [ReproIndex.com](https://ReproIndex.com)**
+***[Codereef](https://codereef.ai) is building an [open PyPI-like repository](https://dev.codereef.ai/portal) to simplify the creation, sharing and reuse of CK components, workflows and experimental results!***
 
 <img src="https://github.com/ctuning/ck-guide-images/blob/master/ck-example.gif">
 
@@ -48,8 +48,6 @@ Some important CK features:
 * CK can be used to crowdsource autotuning and co-design of efficient software, hardware, and models
   for emerging AI, ML and quantum computing workloads in terms of speed, accuracy, energy, and costs: 
   see the [live CK dashboard with results from different Hackathons, tournaments and crowd-tuning campaigns](https://dev.codereef.ai/portal/search/?q=%22codereef-result%22).
-
-***Thanks to your feedback we are brainstorming a new and backward-compatible version of CK! We are also working on an [open PyPI-like repository](https://dev.codereef.ai/portal) to share stable versions of all CK components, workflows and results! Feel free to sign up [here](https://dev.codereef.ai/portal/account/signup) to be notified about our news!***
 
 ## Our community
 
@@ -394,7 +392,9 @@ Top optimization results are continuously aggregated in the live CK repository: 
 
 ## Contributing
 
-Please follow this [guide](https://github.com/ctuning/ck/wiki) to add your workflows and components. Note that major revision to simplify this guide based on your feedback is planned in 2019!
+Please follow this [guide](https://github.com/ctuning/ck/wiki) to add your workflows and components. Note that we plan to rewrite it and add tutorials as soon as we have more resources!
 
 Feel free to provide your suggestions using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
 and the [Slack channel](https://cKnowledge.org/join-slack)!
+
+Contact [Grigori Fursin](mailto:grigori.fursin@codereef.ai) about the long-term vision and development plans.

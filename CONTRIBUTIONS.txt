@@ -26,7 +26,7 @@ N: Grigori Fursin (alias: FGG)
 E: Grigori.Fursin@cTuning.org
 H: http://fursin.net
 O: cTuning foundation, France
-C: original concept and design, real-world use cases
+C: original concept and design, real-world use cases, cKnowledge.org development
 W: since Nov.1, 2014 
 
 N: Anton Lokhmotov
