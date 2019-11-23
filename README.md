@@ -10,7 +10,7 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 ## News
 
-***[Codereef](https://codereef.ai) is building an [open PyPI-like repository](https://dev.codereef.ai/portal) to simplify the creation, sharing and reuse of CK components, workflows and reproduced results - feel free to subscribe as a beta tester!***
+***[Codereef](https://codereef.ai) is building an [open platform](https://dev.codereef.ai/portal) to simplify the creation, sharing and reuse of [CK components](https://dev.codereef.ai/portal/search/?q=%22digital-component%22), [workflows](https://dev.codereef.ai/portal/c/cr-solution/demo-obj-detection-coco-tf-cpu-webcam-linux-azure/) and [reproduced results](https://dev.codereef.ai/portal/search/?q=%22reproduced-results%22) - feel free to subscribe as a beta tester!***
 
 ## Introduction
 
