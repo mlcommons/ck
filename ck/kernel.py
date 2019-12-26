@@ -125,6 +125,9 @@ cfg={
       "index_port":"9200",
       "index_use_curl":"no",
 
+      "codereef_api":"https://codereef.ai/portal/api/v1/?",
+#      "download_missing_components":"yes",
+
       "wfe_template":"default",
 
       "module_repo_name":"repo",
@@ -2731,6 +2734,8 @@ def download(i):
               (data_uoa)  
 
               (new_repo_uoa)   - new repo UOA; "local" by default
+
+              (skip_module_check) - if 'yes', do not check if module for a given component exists
             }
 
     Output: {
@@ -2747,6 +2752,8 @@ def download(i):
     muoa=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
 
+    smc=(i.get('skip_module_check','')=='yes')
+
     # Check components to skip
     if muoa in ['repo', 'befd7892b0d469e9',
                 'env', '9b9b3208ac44b891', 
@@ -2757,8 +2764,8 @@ def download(i):
     if muoa=='':
        return {'return':1, 'error':'module UOA is not defined'}
 
-    if duoa=='':
-       return {'return':1, 'error':'data UOA is not defined'}
+    if duoa=='': duoa='*'
+#       return {'return':1, 'error':'data UOA is not defined'}
 
     nruoa=i.get('new_repo_uoa','')
     if nruoa=='': nruoa='local'
@@ -2771,6 +2778,8 @@ def download(i):
     nruid=r['repo_uid']
     nrd=r['dict']
 
+    npath=r['path']
+
     ii={'repo_uoa':nruoa, 'repo_uid':nruid, 'repo_dict':nrd}
     r=check_writing(ii)
     if r['return']>0: return r
@@ -2778,77 +2787,210 @@ def download(i):
     rz={'return':0}
 
     if o=='con':
-       out('')
-       out('  WARNING: downloading missing CK component "'+muoa+':'+duoa+'" from cKnowledge.org ...')
+#       out('')
+       out('  WARNING: downloading missing CK component "'+muoa+':'+duoa+'" from the CodeReef portal ...')
 
-    ry=access({'action':'ls',
-               'repo_uoa':cfg['default_exchange_repo_uoa'],
-               'module_uoa':muoa,
-               'data_uoa':duoa})
-    if ry['return']==0:
-       lst=ry['lst']
-       for q in lst:
-          # Get UOA
-          nmuoa=q['module_uoa']
-          nmuid=q['module_uid']
-          nduoa=q['data_uoa']
-          nduid=q['data_uid']
+    # Import modules compatible with Python 2.x and 3.x
+    import urllib
 
-          # Later check multiple entries
-          import tempfile
-          tmp_dir=tempfile.mkdtemp(prefix='ck-component-')
+    try:    import urllib.request as urllib2
+    except: import urllib2
 
-          cur_dir=os.getcwd()
-          os.chdir(tmp_dir)
+    try:    from urllib.parse import urlencode
+    except: from urllib import urlencode
 
-          rz=access({'action':'pull',
-                     'repo_uoa':cfg['default_exchange_repo_uoa'],
-                     'module_uoa':muoa,
-                     'data_uoa':duoa,
-                     'all':'yes',
-                     'archive':'yes'})
-          os.chdir(cur_dir)
+    # Prepare dict to send to CodeReef portal
+    ii={
+        'action':'download',
+        'dict':{
+                'module_uoa':muoa,
+                'data_uoa':duoa
+               }
+       }
 
-          if rz['return']>0: return rz
+    # Prepare post variables
+    r=dumps_json({'dict':ii, 'skip_indent':'yes'})
+    if r['return']>0: return r
 
-          # Creating dummy entry
-          rz=access({'action':'add',
-                     'module_uoa':nmuoa,
-                     'module_uid':nmuoa,
-                     'data_uoa':nduoa,
-                     'data_uid':nduid,
-                     'common_func':'yes'})
-          if rz['return']==0:
-             new_path=rz['path']
+    s=r['string']
+    if sys.version_info[0]>2: s=s.encode('utf8')
 
-             # Unzipping archive
-             os.chdir(tmp_dir)
+    post=urlencode({'cr_json':s}) # We have to send JSON as string
+    if sys.version_info[0]>2: post=post.encode('utf8')
 
-             import zipfile
+    # Prepare request
+    request = urllib2.Request(cfg['codereef_api'], post)
 
-             new_f=open(os.path.join(cfg['default_archive_name']), 'rb')
-             new_z=zipfile.ZipFile(new_f)
+    # Connect
+    try:
+       f=urllib2.urlopen(request)
+    except Exception as e:
+       return {'return':1, 'error':'Access to the CodeReef portal failed ('+format(e)+')'}
 
-             for new_d in new_z.namelist():
-                 if new_d!='.' and new_d!='..' and not new_d.startswith('\\'):
-                    new_pp=os.path.join(new_path,new_d)
-                    if new_d.endswith('/'): 
-                       if not os.path.exists(new_pp): os.makedirs(new_pp)
-                    else:
-                       new_ppd=os.path.dirname(new_pp)
-                       if not os.path.exists(new_ppd): os.makedirs(new_ppd)
+    # Read from Internet
+    try:
+       s=f.read()
+       f.close()
+    except Exception as e:
+       return {'return':1, 'error':'Failed reading stream from the CodeReef portal ('+format(e)+')'}
 
-                       # extract file
-                       new_fo=open(new_pp, 'wb')
-                       new_fo.write(new_z.read(new_d))
-                       new_fo.close()
-             new_f.close()
+    # Check output
+    try: s=s.decode('utf8')
+    except Exception as e: pass
 
-             os.chdir(cur_dir)
+    # Try to convert output to dictionary
+    r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
+    if r['return']>0: 
+       return {'return':1, 'error':'can\'t parse output from the CodeReef portal ('+r['error']+'):\n'+s[:256]+'\n\n...)'}
 
-          # Removing tmp dir
-          import shutil
-          shutil.rmtree(tmp_dir)
+    d=r['dict']
+
+    if 'return' in d: 
+       d['return']=int(d['return'])
+    else:
+       return {'return':99, 'error':'repsonse doesn\'t follow the CodeReef API standard'}
+
+    if d['return']>0:
+       if d['return']!=16:
+          return {'return':d['return'], 'error':d['error']}
+       out('      Warning: component not found')
+       return {'return':0}
+
+    nlst=d.get('components',[])
+
+    # Check if module:module there (bootstrapping)
+    lst1=[]
+    lst=[]
+    path_to_module=''
+    for q in nlst:
+        nmuoa=q['module_uoa']
+        nmuid=q['module_uid']
+        nduoa=q['data_uoa']
+        nduid=q['data_uid']
+
+        if nmuoa=='module' and nduoa=='module':
+           out('      Bootstrapping '+nmuoa+':'+nduoa+' ...')
+
+           # TBD: Check split dirs in local repo...
+           iii={'path':npath, 'data_uoa':'module', 'data_uid':nduid}
+           rz=find_path_to_entry(iii)
+           if rz['return']>0 and rz['return']!=16: return rz
+           elif rz['return']==16:
+              rz=create_entry(iii)
+              if rz['return']>0: return rz
+
+           npath2=rz['path']
+
+           iii={'path':npath2, 'data_uoa':'module', 'data_uid':nduid}
+           rz=find_path_to_entry(iii)
+           if rz['return']>0 and rz['return']!=16: return rz
+           elif rz['return']==16:
+              rz=create_entry(iii)
+              if rz['return']>0: return rz
+
+           path_to_module=rz['path']
+
+           lst.append(q)
+        else:
+           lst1.append(q)
+
+    lst+=lst1
+
+    # Recording downloaded components
+    for q in lst:
+        # Get UOA
+        nmuoa=q['module_uoa']
+        nmuid=q['module_uid']
+        nduoa=q['data_uoa']
+        nduid=q['data_uid']
+
+        file_base64=q['file_base64']
+        file_md5=q['file_md5']
+
+        out('      Extracting '+nmuoa+':'+nduoa+' ...')
+
+        # Check that module:module exists
+        if nmuoa=='module' and nduoa=='module' and path_to_module!='':
+           new_path=path_to_module
+        else:
+           if not smc:
+              save_state=cfg['download_missing_components']
+              cfg['download_missing_components']='no'
+
+              rz=access({'action':'find',
+                         'module_uoa':'module',
+                         'data_uoa':'module',
+                         'common_func':'yes'})
+              if rz['return']>0 and rz['return']!=16: return rz
+
+              if rz['return']==16:
+                 rz=download({'repo_uoa':nruoa,
+                              'module_uoa':'module',
+                              'data_uoa':'module',
+                              'skip_module_check':'yes'})
+                 if rz['return']>0: return rz
+                 
+              cfg['download_missing_components']=save_state
+
+           # Adding dummy module
+           rz=access({'action':'add',
+                      'module_uoa':nmuoa,
+                      'module_uid':nmuoa,
+                      'data_uoa':nduoa,
+                      'data_uid':nduid,
+                      'repo_uoa':'local',
+                      'common_func':'yes'})
+           if rz['return']>0:
+              print(rz)
+              out('        Skipping ...')
+              continue
+
+           new_path=rz['path']
+
+        # Prepare pack
+        ppz=os.path.join(new_path, 'codereef-pack.zip')
+
+        if os.path.isfile(ppz):
+           os.remove(ppz)
+
+        # Save pack to file
+        rx=convert_upload_string_to_file({'file_content_base64':file_base64, 'filename':ppz})
+        if rx['return']>0: return rx
+
+        # MD5 of the pack
+        rx=load_text_file({'text_file':ppz, 'keep_as_bin':'yes'})
+        if rx['return']>0: return rx
+        bpack=rx['bin']
+
+        import hashlib
+        md5=hashlib.md5(bpack).hexdigest()
+
+        if md5!=file_md5:
+           return {'return':1, 'error':'MD5 of the newly created pack ('+md5+') did not match the one from the CodeReef portal ('+file_md5+')'}
+
+        # Unzipping archive
+        import zipfile
+
+        new_f=open(ppz, 'rb')
+        new_z=zipfile.ZipFile(new_f)
+
+        for new_d in new_z.namelist():
+            if new_d!='.' and new_d!='..' and not new_d.startswith('\\'):
+               new_pp=os.path.join(new_path,new_d)
+               if new_d.endswith('/'): 
+                  if not os.path.exists(new_pp): os.makedirs(new_pp)
+               else:
+                  new_ppd=os.path.dirname(new_pp)
+                  if not os.path.exists(new_ppd): os.makedirs(new_ppd)
+
+                  # extract file
+                  new_fo=open(new_pp, 'wb')
+                  new_fo.write(new_z.read(new_d))
+                  new_fo.close()
+        new_f.close()
+
+        # Remove pack file
+        os.remove(ppz)
 
     return {'return':0}
 
@@ -6136,8 +6278,8 @@ def find(i):
           muoa=i.get('module_uoa','')
           duoa=i.get('data_uoa','')
 
-          out('')
-          out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at cKnowledge.org ...')
+#          out('')
+#          out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CodeReef portal ...')
 
           ii=copy.deepcopy(i)
 
@@ -7052,7 +7194,7 @@ def rm(i):
               r2=load_json_file({'json_file':p2})
               if r2['return']==0:
                  x2=r2['dict'].get('data_name','')
-                 if x2!='':
+                 if x2!='' and x2!=None:
                     x='"'+x2+'"\n    '+x
 
         xcuoa=x+' ('+muid+':'+duid+')'
@@ -8346,41 +8488,17 @@ def list_data2(i):
        muoa=i.get('module_uoa','')
        duoa=i.get('data_uoa','')
 
-       out('')
-       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at cKnowledge.org ...')
+#       out('')
+#       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CodeReef portal ...')
 
-       ii=copy.deepcopy(i)
+       # Try to download missing action/module
+       ry=download({'module_uoa':muoa,
+                    'data_uoa':duoa,
+                    'out':'con'})
+       if ry['return']>0: return ry
 
-       ii['repo_uoa']=cfg['default_exchange_repo_uoa']
-       ii['action']='search'
-       ffa=None
-       if 'filter_func_addr' in ii: 
-          ffa=ii['filter_func_addr']
-          del(ii['filter_func_addr'])
-       ry=access(ii)
-       if ry['return']==0:
-          lst=ry['lst']
-          if len(lst)>0:
-             for ll in lst:
-                 if ffa!=None:
-
-                    ll['out']=o
-
-                    rx=ffa(ll)
-                    if rx['return']>0: return rx
-
-                    if rx.get('skip','')!='yes':
-                       muoa=ll['module_uoa']
-                       duoa=ll['data_uoa']
-
-                       # Try to download missing action/module
-                       ry=download({'module_uoa':muoa,
-                                    'data_uoa':duoa,
-                                    'out':'con'})
-                       if ry['return']>0: return ry
-
-             # Restart local search
-             rr=list_data(i)
+       # Restart local search
+       rr=list_data(i)
 
     return rr
 
@@ -8465,30 +8583,16 @@ def search(i):
        muoa=i.get('module_uoa','')
        duoa=i.get('data_uoa','')
 
-       out('')
-       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at cKnowledge.org ...')
+#       out('')
+#       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CodeReef portal ...')
 
-       ii=copy.deepcopy(i)
+       ry=download({'module_uoa':muoa,
+                    'data_uoa':duoa,
+                    'out':'con'})
+       if ry['return']>0: return ry
 
-       ii['repo_uoa']=cfg['default_exchange_repo_uoa']
-       ii['action']='search'
-
-       ry=access(ii)
-       if ry['return']==0:
-          lst=ry['lst']
-          if len(lst)>0:
-             for q in lst:
-                 muoa=q['module_uoa']
-                 duoa=q['data_uoa']
-
-                 # Try to download missing action/module
-                 ry=download({'module_uoa':muoa,
-                              'data_uoa':duoa,
-                              'out':'con'})
-                 if ry['return']>0: return ry
-
-             # Restart local search
-             rr=search2(i)
+       # Restart local search
+       rr=search2(i)
 
     return rr
 

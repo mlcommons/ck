@@ -1,6 +1,8 @@
 * V1.11.4.1
   * fixed repo update
   * added backwards compatibility for the search via ElasticSearch
+  * [experimental] prototyped automatic downloading of stable CK components 
+    from the CodeReef portal (https://codereef.ai/portal)
 
 * V1.11.4
   * fixed problem when ck-python.cfg contains non-existent python
