@@ -53,6 +53,7 @@ def add(i):
 
               (quiet)             - minimal interaction
               (func)              - just add one dummy action
+              (support_web)       - if 'yes', make it a web API, i.e. allow an access to this function in the CK server
             }
 
     Output: {
@@ -180,10 +181,15 @@ def add(i):
                    act1=act.replace('-','_')
                    actions_redirect[act]=act1
 
-                r1=ck.inp({'text':'Support web (y/N): '})
-                x=r1['string'].lower()
-                if x=='yes' or x=='y': 
-                   fweb='yes'
+                fweb=i.get('support_web','')
+                if fweb!='':
+                   if fweb!='yes': fweb=''
+
+#                r1=ck.inp({'text':'Support web (y/N): '})
+#                x=r1['string'].lower()
+#                if x=='yes' or x=='y': 
+#                   fweb='yes'
+                if fweb!='':
                    actions[act]['for_web']=fweb
 
                 r1=ck.inp({'text':'Add action description: '})

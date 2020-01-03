@@ -3,6 +3,7 @@
   * added backwards compatibility for the search via ElasticSearch
   * [experimental] prototyped automatic downloading of stable CK components 
     from the CodeReef portal (https://codereef.ai/portal)
+  * do not ask for "web support" by default when adding actions
 
 * V1.11.4
   * fixed problem when ck-python.cfg contains non-existent python

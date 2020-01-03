@@ -9487,7 +9487,8 @@ def add_action(i):
 
               func                        - action
               (desc)                      - desc
-              (for_web)                   - if 'yes', can be used to output html
+
+              (for_web)                   - if 'yes', make it a web API, i.e. allow an access to this function in the CK server
 
               (skip_appending_dummy_code) - if 'yes', do not append code
             }
@@ -9541,18 +9542,18 @@ def add_action(i):
     # Check func and desc
     if o=='con':
        if func=='':
-          r=inp({'text':'Add action function (or Enter to stop):    '})
+          r=inp({'text':'Add action function (or Enter to stop): '})
           func=r['string']
 
        if func!='':
-          if fweb=='':
-             r1=inp({'text':'Support web (y/N):                         '})
-             fweb=r1['string'].lower()
-             if fweb=='y' or fweb=='yes': fweb='yes'
-             else: fweb=''
+#          if fweb=='':
+#             r1=inp({'text':'Support web (y/N):                         '})
+#             fweb=r1['string'].lower()
+#             if fweb=='y' or fweb=='yes': fweb='yes'
+#             else: fweb=''
 
           if desc=='':
-             r1=inp({'text':'Add action description:                    '})
+             r1=inp({'text':'Add action description:                 '})
              desc=r1['string']
 
     # Check if empty
