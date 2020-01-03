@@ -1,6 +1,8 @@
 # Collective Knowledge Framework (CK)
 
 [![Downloads](https://pepy.tech/badge/ck)](https://pepy.tech/project/ck)
+[![PyPI version](https://badge.fury.io/py/ck.svg)](https://badge.fury.io/py/ck)
+[![Python Version](https://img.shields.io/badge/python-2.7%20|%203.4+-blue.svg)](https://pypi.org/project/codereef)
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2459444.svg)](https://doi.org/10.5281/zenodo.2459444)
 [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
