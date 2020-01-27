@@ -34,7 +34,8 @@ required by a given research project to run on any target platform.
 
 Such CK actions and components can be connected into platform-agnostic, 
 portable, customizable, reusable and reproducible [workflows](https://CodeReef.ai/portal/c/program) 
-that can be easily integrated with Continuous Integration tools, existing/legacy projects, and production systems.
+(CK "program" component) that can be easily integrated with Continuous Integration tools, 
+existing/legacy projects, and production systems.
 
 The stable components are published at the [open CodeReef platform](https://CodeReef.ai/static/docs)
 similar to PyPI along with auto-generated "live" papers and portable workflows 
@@ -79,12 +80,12 @@ Learn more about our long-term vision in the following white papers and presenta
 
 * Research projects in the CK format from [our partners](https://cKnowledge.org/partners.html).
 * [Research papers from ML and systems conferences](https://codereef.ai/portal/search/?q=%22reproduced-papers%22%20AND%20%22portable-workflow-ck%22) shared with artifacts and workflows in the CK format.
-* [MLPerf benchmark automation demo](https://CodeReef.ai/demo)
-* [GitHub repositories in the CK format](https://CodeReef.ai/portal/c/cr-repo)
-* [R&D automation actions](https://CodeReef.ai/portal/c/cr-action)
-* [Software detection plugins](https://CodeReef.ai/portal/c/soft)
-* [Meta-packages](https://CodeReef.ai/portal/c/packages)
-* [Artifact abstractions (CK modules)](https://CodeReef.ai/portal/c/module)
+* [MLPerf benchmark automation demo](https://CodeReef.ai/demo).
+* [GitHub repositories in the CK format](https://CodeReef.ai/portal/c/cr-repo).
+* [R&D automation actions](https://CodeReef.ai/portal/c/cr-action).
+* [Software detection plugins](https://CodeReef.ai/portal/c/soft).
+* [Meta-packages](https://CodeReef.ai/portal/c/package).
+* [Artifact abstractions (CK Python modules for CK components)](https://CodeReef.ai/portal/c/module).
 
 
 
@@ -93,8 +94,8 @@ Learn more about our long-term vision in the following white papers and presenta
 
 *We plan a major revision of the CK documentation in 2020 based on user-feedback*
 
-* [CK wiki](https://github.com/ctuning/ck/wiki)
-* [CK basics](https://michel.steuwer.info/About-CK/)
+* [CK wiki](https://github.com/ctuning/ck/wiki) - we plan to rewrite it in the Sphinx format 
+* [CK basics](https://michel.steuwer.info/About-CK)
 * [CK Getting Started Guide](https://github.com/ctuning/ck/wiki/First-steps)
 
 
