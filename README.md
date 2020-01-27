@@ -224,7 +224,7 @@ Based on user feedback we plan the following activities:
 * GUI to assemble portable workflows
 * GUI to automate [MLPerf](https://mlperf.org) submissions
 
-![CK concept](https://cTuning.org/_resources/ctuning-activities-resize.png)
+![CK concept](https://cTuning.org/_resources/ctuning-activities-resize.png | width=687)
 
 
 
