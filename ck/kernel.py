@@ -42,7 +42,7 @@ cfg={
       "status_url":"https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
 
       "help_examples":"  Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n    $ ck pull repo:ctuning-programs\n    $ ck compile program:cbench-automotive-susan --speed\n    $ ck run program:cbench-automotive-susan\n\n  Example of an interactive CK-powered article:\n    http://cknowledge.org/repo\n",
-      "help_web":"  Documentation:\n    https://github.com/ctuning/ck/wiki",
+      "help_web":"  Documentation:\n        https://github.com/ctuning/ck/wiki",
 
       "ck_web":"https://github.com/ctuning/ck",
       "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
@@ -5869,8 +5869,9 @@ def short_help(i):
 
     h+='\n'+cfg['help_web'].replace('\n','').strip()+'\n' #.replace('   ','')+'\n'
 
-    h+='CK Google group:  https://bit.ly/ck-google-group\n'
-    h+='CK Slack channel: https://cKnowledge.org/join-slack'
+    h+='CK Google group:      https://bit.ly/ck-google-group\n'
+    h+='CK Slack channel:     https://cKnowledge.org/join-slack\n'
+    h+='Stable CK components: https://CodeReef.ai/portal'
 
     if o=='con': 
        out(h)
