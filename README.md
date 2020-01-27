@@ -46,7 +46,7 @@ Our long-term goal is to enable collaborative, reproducible, sustainable and pro
 based on DevOps principles.
 
 Learn more about our long-term vision in the following white papers and presentations: 
-[MLOps@MLSys'20](https://arxiv.org/abs/2001.07935),
+[MLOps@MLSys'20]( https://arxiv.org/abs/2001.07935 ),
 [FOSDEM'19](https://doi.org/10.5281/zenodo.2556147),
 [CNRS'17](https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly),
 [DATE'16](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability),
@@ -77,6 +77,8 @@ Learn more about our long-term vision in the following white papers and presenta
 
 
 ## CK-based projects
+
+* [cKnowledge.org](https://cKnowledge.org) and [CodeReef](https://CodeReef.ai/static/docs)
 
 * Research projects in the CK format from [our partners](https://cKnowledge.org/partners.html).
 * [Research papers from ML and systems conferences](https://codereef.ai/portal/search/?q=%22reproduced-papers%22%20AND%20%22portable-workflow-ck%22) shared with artifacts and workflows in the CK format.
