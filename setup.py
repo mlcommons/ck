@@ -115,12 +115,18 @@ class custom_install_scripts(install_scripts):
 setup(
   name='ck',
   version=current_version,
-  url='https://github.com/ctuning/ck/wiki',
+
+  url='https://github.com/ctuning/ck',
+
   license='BSD 3-clause',
+
   author='Grigori Fursin and the cTuning foundation',
   author_email='Grigori.Fursin@cTuning.org',
+
   description='Collective Knowledge - lightweight knowledge manager to organize, cross-link, share and reuse artifacts and workflows',
+
   long_description=open(convert_path('./README.md')).read(),
+  long_description_content_type="text/markdown",
 
   packages=['ck'],
   package_dir={'ck': 'ck'},

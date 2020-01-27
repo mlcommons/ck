@@ -1,3 +1,6 @@
+* V1.12.1.1 
+  * started new version
+
 * V1.12.1
   * added first draft of the docs in the Sphinx format
   * fixed repo update
