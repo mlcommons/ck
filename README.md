@@ -53,7 +53,6 @@ Learn more about our long-term vision in the following white papers and presenta
 [CTI'09](https://hal.inria.fr/inria-00436029v2).
 
 
-
 ## Important features
 
 * CK actions can be shared and reused across research projects:
@@ -137,20 +136,21 @@ If the installation is successful, you will see some internal information
 about the CK installation and a Python version used:
 
 ```
-CK version: 1.11.4.1
+CK version: 1.12.1
 
 Python executable used by CK: /usr/bin/python
 
 Python version used by CK: 2.7.12 (default, Oct  8 2019, 14:14:10)
    [GCC 5.4.0 20160609]
 
-Path to the default repo: /usr/local/lib/python2.7/dist-packages/ck/repo
+Path to the default repo: /home/fursin/fggwork/ck/ck/repo
 Path to the local repo:   /home/fursin/CK/local
 Path to CK repositories:  /home/fursin/CK
 
-Documentation:    https://github.com/ctuning/ck/wiki
-CK Google group:  https://bit.ly/ck-google-group
-CK Slack channel: https://cKnowledge.org/join-slack
+Documentation:        https://github.com/ctuning/ck/wiki
+CK Google group:      https://bit.ly/ck-google-group
+CK Slack channel:     https://cKnowledge.org/join-slack
+Stable CK components: https://CodeReef.ai/portal
 ```
 
 ### Prerequisites
@@ -208,6 +208,26 @@ Select the most relevant image and run it as follows:
 ```
 docker run -p 3344:3344 -it {Docker image name from the above list} /bin/bash
 ```
+
+
+
+
+
+
+## Next steps
+
+Based on user feedback we plan the following activities:
+
+* Standardization of CK actions, APIs and meta descriptions
+* Better documentation
+* GUI to create, test and interconnect CK actions
+* GUI to assemble portable workflows
+* GUI to automate [MLPerf](https://mlperf.org) submissions
+
+![CK concept](https://cTuning.org/_resources/ctuning-activities-resize.png)
+
+
+
 
 
 ## Get involved
