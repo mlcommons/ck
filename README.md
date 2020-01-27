@@ -79,7 +79,6 @@ Learn more about our long-term vision in the following white papers and presenta
 ## CK-based projects
 
 * [cKnowledge.org](https://cKnowledge.org) and [CodeReef](https://CodeReef.ai/static/docs)
-
 * Research projects in the CK format from [our partners](https://cKnowledge.org/partners.html).
 * [Research papers from ML and systems conferences](https://codereef.ai/portal/search/?q=%22reproduced-papers%22%20AND%20%22portable-workflow-ck%22) shared with artifacts and workflows in the CK format.
 * [MLPerf benchmark automation demo](https://CodeReef.ai/demo).
