@@ -1,6 +1,6 @@
 {
   "allowed_action_names": "^[A-Za-z0-9_-]*$",
-  "allowed_entry_names": "^[A-Za-z0-9_@. -]*$",
+  "allowed_entry_names": "^[A-Za-z0-9_@.' -]*$",
   "debug": "",
   "install_to_env": "",
   "package_channel": ""

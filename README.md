@@ -10,393 +10,214 @@ Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
-## News
 
-***[Codereef](https://codereef.ai) is building an [open platform](https://dev.codereef.ai/portal) to simplify the creation, sharing and reuse of [CK components](https://dev.codereef.ai/portal/search/?q=%22digital-component%22), [workflows](https://dev.codereef.ai/portal/c/cr-solution/demo-obj-detection-coco-tf-cpu-webcam-linux-azure/) and [reproduced results](https://dev.codereef.ai/portal/search/?q=%22reproduced-results%22) - feel free to subscribe as a beta tester!***
 
 ## Introduction
 
-<img src="https://github.com/ctuning/ck-guide-images/blob/master/ck-example.gif">
+We have developed the Collective Knowledge framework (CK) to help researchers 
+share their projects and artifacts (code, data, models, scripts, experiments, papers)
+in a common format as a human-readable database with a standardized API, CLI and JSON input/output/meta descriptions
 
-Collective Knowledge (CK) is a small, cross-platform and community-driven Python framework 
-to help you add, share and reuse standardized CLI actions with Python/C/Java APIs, UIDs 
-and JSON meta descriptions for any code and data in a non-intrusive way. 
+CK is a small, cross-platform, CLI-based and community-driven Python framework 
+to add, share and reuse [automation actions](https://codereef.ai/portal/c/cr-action) 
+for repetitive, tedious, and time-consuming R&D tasks in a non-intrusive way
+along with existing research projects.
 
-Such actions can be connected into platform-agnostic, portable, customizable, reusable and reproducible workflows,
-and can be easily integrated with existing production and legacy systems.
+CK also helps to convert all ad-hoc artfiacts into standardized and reusable CK components 
+with a common API and JSON meta description.
+For example, CK features 
+[software detection plugins](https://codereef.ai/portal/c/soft) (CK "soft" component), 
+[meta packages](https://codereef.ai/portal/c/package) (CK "package" component) 
+and [OS descriptions](https://codereef.ai/portal/c/os)
+to automate the detection and installation of all the dependencies 
+required by a given research project to run on any target platform.
 
-Our long-term goal is to help users automate their tedious, repetitive and time-consuming R&D tasks,
-and enable collaborative, reproducible, sustainable and production-ready research 
+Such CK actions and components can be connected into platform-agnostic, 
+portable, customizable, reusable and reproducible [workflows](https://CodeReef.ai/portal/c/program) 
+that can be easily integrated with Continuous Integration tools, existing/legacy projects, and production systems.
+
+The stable components are published at the [open CodeReef platform](https://CodeReef.ai/static/docs)
+similar to PyPI along with auto-generated "live" papers and portable workflows 
+to help the community participate in [collaborative validation of research results](https://CodeReef.ai/portal/c/result) 
+across diverse hardware, datasets and models similar to SETI@home.
+
+Our long-term goal is to enable collaborative, reproducible, sustainable and production-ready research 
 based on DevOps principles.
 
-See [CK real use cases](https://cKnowledge.org/partners.html), 
-[publications](https://github.com/ctuning/ck/wiki/Publications)
-and the [FOSDEM'19 presentation](https://zenodo.org/record/2556147#.XMViWKRS9PY) for more details.
+Learn more about our long-term vision in the following white papers and presentations: 
+[MLOps@MLSys'20](https://arxiv.org/abs/2001.07935),
+[FOSDEM'19](https://doi.org/10.5281/zenodo.2556147),
+[CNRS'17](https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly),
+[DATE'16](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability),
+[CTI'09](https://hal.inria.fr/inria-00436029v2).
 
-Some important CK features:
+
+
+## Important features
 
 * CK actions can be shared and reused across research projects:
-  see the [list of available actions and modules](https://dev.codereef.ai/portal/search/?q=module_uoa%3Amodule).
+  see the [list of available actions and modules](https://codereef.ai/portal/c/module).
 
 * Standardized CK APIs and meta-descriptions help  users 
   to easily connect actions into automated, portable and customizable workflows, 
   and quickly integrate them with practically all major tools, frameworks and Continuous Integration Services: 
-  see the [list of shared repositories with CK workflows and actions](https://dev.codereef.ai/portal/search/?q=module_uoa%3A%22cr-repo%22).
+  see the [list of shared repositories with CK workflows and actions](https://dev.codereef.ai/portal/c/cr-repo).
 
-* CK helps to perform reproducible experiments and generate papers with reusable research components:
-  see [the list of articles with CK workflows](https://dev.codereef.ai/portal/search/?q=%22reproduced-papers%22) 
-  and the [CK-based interactive report with the Raspberry Pi foundation](https://dev.codereef.ai/portal/c/report/rpi3-crowd-tuning-2017-interactive).
+* CK helps to automate [Artifact Evaluation](https://cTuning.org/ae), 
+  perform [reproducible experiments](https://codereef.ai/portal/c/cr-result) 
+  and generate papers with reusable research components:
+  see [the list of articles with CK workflows](https://codereef.ai/portal/search/?q=%22reproduced-papers%22) 
+  and the [CK-based interactive report with the Raspberry Pi foundation](https://codereef.ai/portal/c/report/rpi3-crowd-tuning-2017-interactive).
 
-* CK can be used to crowdsource autotuning and co-design of efficient software, hardware, and models
+* CK is used in reproducible optimization competitions to co-design efficient software and hardware
   for emerging AI, ML and quantum computing workloads in terms of speed, accuracy, energy, and costs: 
   see the [live CK dashboard with results from different Hackathons, tournaments and crowd-tuning campaigns](https://dev.codereef.ai/portal/search/?q=%22codereef-result%22).
 
-## Our community
 
-Don't hesitate to ask questions using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
-and the [Slack channel](https://cKnowledge.org/join-slack).
 
-You are also welcome to help the community fix or improve third-party components (actions, modules, packages, software plugins, workflows) 
-when they fail on new platforms or miss some functionality - you can provide your feedback and report bugs 
-in the respective [GitHub CK dev repositories](https://dev.codereef.ai/portal/search/?q=module_uoa%3A%22cr-repo%22)!
+## CK-based projects
+
+* Research projects in the CK format from [our partners](https://cKnowledge.org/partners.html).
+* [Research papers from ML and systems conferences](https://codereef.ai/portal/search/?q=%22reproduced-papers%22%20AND%20%22portable-workflow-ck%22) shared with artifacts and workflows in the CK format.
+* [MLPerf benchmark automation demo](https://CodeReef.ai/demo)
+* [GitHub repositories in the CK format](https://CodeReef.ai/portal/c/cr-repo)
+* [R&D automation actions](https://CodeReef.ai/portal/c/cr-action)
+* [Software detection plugins](https://CodeReef.ai/portal/c/soft)
+* [Meta-packages](https://CodeReef.ai/portal/c/packages)
+* [Artifact abstractions (CK modules)](https://CodeReef.ai/portal/c/module)
+
+
+
 
 ## Documentation
 
-[CK wiki](https://github.com/ctuning/ck/wiki) - a major revision is planned.
+*We plan a major revision of the CK documentation in 2020 based on user-feedback*
+
+* [CK wiki](https://github.com/ctuning/ck/wiki)
+* [CK basics](https://michel.steuwer.info/About-CK/)
+* [CK Getting Started Guide](https://github.com/ctuning/ck/wiki/First-steps)
+
+
+
+
 
 ## Installation
 
-You can install CK from PyPi via ``pip install ck`` or ``pip install ck --user``.
+You can install the Collective Knowledge framework on most platforms using PIP as follows:
 
-You can then test that it works from the command line via ``ck version`` or from your python environment as follows:
 ```
-$ python
-
-> import ck.kernel as ck
-> ck.version({})
-```
-
-CK requires just a few tools in your PATH:
-
-* Python 2.7 or 3.3+ with PIP (limitation is mainly due to unitests). CK automatically adapts to Python 2 or 3 and provides extra API to let users write workflows for any Python version;
-* Git command line client;
-* wget (Linux/MacOS).
-
-Example of installing dependencies and CK across different platforms:
-
-| | Ubuntu | MacOS | Windows | 
-|-|-|-|-|
-| Third-party | ```sudo apt-get install python3 python3-pip git wget``` | ``brew install python3 git wget`` | 1) Download and install Git from https://git-for-windows.github.io<br>2) Download and install any Python from https://www.python.org/downloads/windows |
-| PyPi | ``sudo pip install ck``<br>or<br>``pip install ck --user``<br><br>Check that ck is in your PATH: ``ck version`` | ``pip install ck`` | ``pip install ck``<br><br>You can also download a [CK installer](https://zenodo.org/record/2555622/files/ck-git-2.20.1-python-3.7.2.zip) which already includes Git 2.20.1 and Python 3.7.2<br><br>Just unzip it and run ``install-pip.bat`` to install CK via PIP<br>This script will install Python in your dedicated directory and will ask you to add several environment variables to your system (just copy/paste them) - that's all! |
-| GitHub | ``git clone http://github.com/ctuning/ck``<br>``export PATH=$PWD/ck/bin:$PATH``<br>``export PYTHONPATH=$PWD/ck:$PYTHONPATH``<br><br>You can also set CK environment variables and test dependencies using provided script as follows:<br><br>``git clone http://github.com/ctuning/ck``<br>``. ./set-env.sh`` | Similar to Ubuntu | ``git clone https://github.com/ctuning/ck.git ck-master``<br>``set PATH={CURRENT PATH}\ck-master\bin;%PATH%``<br>``set PYTHONPATH={CURRENT PATH}\ck-master;%PYTHONPATH%``<br><br>You can also download a [CK installer](https://zenodo.org/record/2555622/files/ck-git-2.20.1-python-3.7.2.zip) which already includes Git 2.20.1 and Python 3.7.2<br><br>Just unzip it and run ``install-github.bat`` to install CK from GitHub<br>This script will install Python in your dedicated directory and will ask you to add several environment variables to your system (just copy/paste them)|
-
-CK allows very flexible customization to adapt to your platform and different requirements as described [here](https://github.com/ctuning/ck/wiki/Customization).
-For example, you can change directories where to store CK repositories or install CK packages, change search paths during software detection (useful for HPC setups) 
-and so on. 
-
-If you experience problems with installation and customization, please [tell us](https://groups.google.com/forum/#!forum/collective-knowledge) 
-or open a [GitHub issue](https://github.com/ctuning/ck/issues).
-
-## Usage
-
-When you see an archive or a repository with a badge [![compatibility](https://github.com/ctuning/ck-guide-images/blob/master/ck-compatible.svg)](https://github.com/ctuning/ck), 
-it means you can reuse its functionality (code, data, models, packages, workflows) via unified CK interfaces, and integrate it with your own projects.
-
-For example, you can pull [ck-tensorflow](https://github.com/ctuning/ck-tensorflow) and use different automation 
-tasks such detecting or rebuilding different TensorFlow versions across diverse platforms, running AI/ML workflows
-and many more:
-
-```
-$ ck pull repo:ck-tensorflow
-
-$ ck detect platform
-
-$ ck install package:lib-tensorflow-1.12.0-cpu
-
-$ ck run program:tensorflow-classification
-
-$ ck show env
-```
-
-**Note that tensorflow 1.12.0 can work only with Python version<=3.6 - please select an appropriate Python version during automatic environment detection**
-
-You can find a non-exhaustive index of CK-compatible repositories at [ReproIndex.com](https://ReproIndex.com/components) - 
-just follow their READMEs to find out more about shared components and workflows!
-
-Please check our [Getting Started Guide](https://github.com/ctuning/ck/wiki/First-steps) to try different CK examples.
-
-
-
-
-## Examples of popular and reusable CK-based automation tasks
-
-Pull one of [CK repositories](https://ReproIndex.com/components) with shared benchmarks, data sets, software detection plugins, packages, etc:
-
-```
-$ ck pull repo:ck-crowdtuning
-```
-
-See the list of installed CK repos:
-```
-$ ck ls repo | sort
-```
-
-Find where CK repository with benchmarks is installed on your machine and browse it to get familiar with the structure (consistent across all repos):
-```
-$ ck where repo:ctuning-programs
-```
-
-Detect your platform properties via extensible CK plugins as follows 
-(needed to unify benchmarking across diverse platforms
-with Linux, Windows, MacOS and Android):
-
-```
-$ ck detect platform
-```
-
-Check JSON output 
-
-```
-$ ck detect platform --out=json
-```
-
-Now detect available compilers on your machine and register virtual environments in the CK:
-```
-$ ck detect soft --tags=compiler,gcc
-$ ck detect soft --tags=compiler,llvm
-$ ck detect soft --tags=compiler,icc
-```
-
-See virtual environments in the CK:
-```
-$ ck show env
-```
-
-Find and explore CK env entries:
-```
-$ ck search env --tags=compiler
-```
-
-We recommend to setup CK to install new packages inside CK virtual env entries:
-```
-$ ck set kernel var.install_to_env=yes
-```
-
-Try to install LLVM binary via CK packages:
-```
-$ ck install package --tags=llvm
-```
-
-Check available data sets:
-```
-$ ck search dataset
-$ ck search dataset --tags=jpeg
-
-```
-
-Now you can compile and run shared benchmarks with some data sets, benchmark and crowd-tune some C program.
-```
-$ ck ls program
-```
-
-Let's check the CK JSON meta for benchmark "cbench-automotive-susan":
-```
-$ ck load program:cbench-automotive-susan --min
-```
-
-Now let's compile and run it:
-
-```
-$ ck compile program:cbench-automotive-susan --speed
-$ ck run program:cbench-automotive-susan
-```
-
-You can now benchmark this program (CK will execute several times while monitoring the state of the system):
-```
-$ ck benchmark program:cbench-automotive-susan
-```
-
-Finally, you can autotune this program using shared CK autotuning scenarios, record results and reply them:
-```
-$ ck autotune program:cbench-automotive-susan
-```
-
-You can also crowdtune this program, i.e. autotune it while sharig best results in the [public repository](http://cKnowledge.org/repo):
-```
-$ ck crowdtune program:cbench-automotive-susan
-```
-
-You can now add (and later customize) your own program workflow using shared templates as follows:
-```
-$ ck add program:my-new-program
-```
-
-When CK asks you to select a template, please choose "C program "Hello world". 
-You can then immediately compile and run your C program as follows:
-
-```
-$ ck compile program:my-new-program --speed
-$ ck run program:my-new-program
-$ ck run program:my-new-program --env.CK_VAR1=222
-```
-
-
-
-
-
-## Example of a unified image classification via TensorFlow and Caffe
-
-Get shared [ck-tensorflow](https://github.com/ctuning/ck-tensorflow) repository with all dependencies:
-
+pip install ck
 ```
-$ ck pull repo:ck-tensorflow
-```
 
-Now install CPU-version of TensorFlow via CK packages:
+You can also install CK using a specific Python version (for example, Python 3.6 or for Python 2.7):
 ```
-$ ck install package --tags=lib,tensorflow,vcpu,vprebuilt,v1.11.0
+python3.6 -m pip install ck
 ```
-
-Check that it's installed fine:
-
+or
 ```
-$ ck show env --tags=lib,tensorflow
+python2.7 -m pip install ck
 ```
 
-You can find a path to a given entry (with TF installation) as follows:
+*You may need to add flag "--user" to install the client in your user space:*
 ```
-$ ck find env:{env UID from above list}
+pip install ck --user
+python3.6 -m pip install ck --user
 ```
 
-Run CK virtual environment and test TF:
-```
-$ ck virtual env --tags=lib,tensorflow
-$ ipython
-> import tensorflow as tf
+You should now be able to run CK using one of the following alternative commands:
 ```
+ck
 
-Run CK classification workflow example using installed TF:
-
-```
-$ ck run program:tensorflow --cmd_key=classify
+python3.6 -m ck
 ```
 
-Now you can try a more complex example to build Caffe with CUDA support
-and run classification. Note that CK should automatically detect your CUDA compilers, 
-libraries and other deps or install missing packages:
-
-```
-$ ck pull repo --url=https://github.com/dividiti/ck-caffe
-$ ck install package:lib-caffe-bvlc-master-cuda-universal
-$ ck run program:caffe --cmd_key=classify
+If the installation is successful, you will see some internal information 
+about the CK installation and a Python version used:
 ```
-
-You can see how to install Caffe for Linux, MacOS, Windows and Android via CK
-[here](https://github.com/dividiti/ck-caffe/wiki/Installation).
-
+CK version: 1.11.4.1
 
+Python executable used by CK: c:\Users\fgg\Anaconda3\python.exe
 
+Python version used by CK: 3.6.3 |Anaconda custom (64-bit)| (default, Oct 15 2017, 03:27:45) [MSC v.1900 64 bit (AMD64)]
 
+Path to the default repo: D:\Work1\CK\ck\ck\repo
+Path to the local repo:   D:\Work1\CK\ck-repos\local
+Path to CK repositories:  D:\Work1\CK\ck-repos
 
-## Adding your own repository and API:
-
-You can make your existing Git repository compatible with CK as follows:
-
+Documentation:    https://github.com/ctuning/ck/wiki
+CK Google group:  https://bit.ly/ck-google-group
+CK Slack channel: https://cKnowledge.org/join-slack
 ```
-$ ck pull repo --url={URL of your Git repository}
-```
 
-CK will add *.ckr.json* file to the root of your repository which you should commit back to your repository - that's all!
+### Prerequisites
 
-You can then add CK components to your repository using it's public Git name, for example *my-repo*:
+The CK framework requires minimal dependencies: Python 2.7+ or 3.x, PIP and Git. 
 
-For example, you can now add a CK module to prepare APIs:
-```
-$ ck add my-repo:module:hello
-```
+CK supports the following platforms:
 
-It will create an entry "module:hello" in the my-repo with a dummy module.py:
-```
-$ ls `ck find module:hello`
-```
+|               | As a host platform | As a target platform |
+|---------------|:------------------:|:--------------------:|
+| Generic Linux | ✓ | ✓ |
+| Linux (Arm)   | ✓ | ✓ |
+| Raspberry Pi  | ✓ | ✓ |
+| MacOS         | ✓ | ✓ |
+| Windows       | ✓ | ✓ |
+| Android       | partially | ✓ |
+| iOS           | TBD | TBD |
 
-Now you can add "say" API to the CK python module "hello":
-```
-$ ck add_action module:hello --func=say
-```
+### Linux
 
-CK will add a dummy function "say" in the module.py in "module:hello" which you can immediately use (!):
-```
-$ ck say hello
-$ ck say hello --out=json
-```
+You need to have the following packages installed (Ubuntu example):
 
-Furthermore, you can now create a data entry for your module "hello":
 ```
-$ ck add hello:world --tags=cool,api
-
-$ ck search hello --tags=api
-
-$ ck say hello:world
-
-$ ck ren hello:world hello:team
-
-$ ck say hello:team
+sudo apt-get install python3 python3-pip git wget
 ```
 
+### MacOS
 
-Alternatively, you can create a local (non-shared) repository to gradually organize your code and data in the CK format as follows:
 ```
-$ ck add repo:my-repo --quiet
-
-$ ck where repo:my-repo
-
-$ ck ls repo:my-*
+brew install python3 python3-pip git wget
 ```
-
-
-Such simple approach allowed [our partners](http://cKnowledge.org/partners.html) to gradually abstract 
-complex AI, ML, and quantum experiments via shared [CK APIs](https://ReproIndex.com/components),
-crowdsource [experiments](https://cKnowledge.org/dashboard), and even automatically generate 
-[reproducible](https://ReproIndex.com/papers) and [interactive articles](http://cKnowledge.org/rpi-crowd-tuning) 
-with reusable research components!
-
 
+### Windows
 
-## Calling CK functions from other languages
+* Download and install Git from [git-for-windows.github.io](https://git-for-windows.github.io).
+* Download and install any Python from [www.python.org/downloads/windows](https://www.python.org/downloads/windows).
 
-We developed a small [OpenME](https://github.com/ctuning/openme) library 
-to connect CK with different languages including C, C++, Fortran and Java. 
+### Android (Linux host)
 
+These dependencies are needed to cross-compile for Android (tested on Ubuntu 18.04 including Docker and Windows 10 Subsystem for Linux). 
 
-
-
-## Trying CK from a Docker image
-
-You can try CK using the following Docker image:
-
 ```
- $ (sudo) docker run -it ctuning/ck-ubuntu-18.04
+ sudo apt update
+ sudo apt install git wget libz-dev curl cmake
+ sudo apt install gcc g++ autoconf autogen libtool
+ sudo apt install android-sdk
+ sudo apt install google-android-ndk-installer
 ```
 
-Note that we added Docker automation to CK to help evaluate 
-artifacts at the conferences, share interactive 
-and reproducible articles, crowdsource experiments and so on.
+### Docker
 
-For example, you can participate in GCC or LLVM crowd-tuning on your machine as follows:
+We prepared several Docker images with the CK framework and AI/ML CK workflows 
+at the [cTuning Docker hub](https://hub.docker.com/u/ctuning).
+Select the most relevant image and run it as follows:
 ```
- $ (sudo) docker run ck-crowdtune-gcc
- $ (sudo) docker run ck-crowdtune-llvm
+docker run -p 3344:3344 -it {Docker image name from the above list} /bin/bash
 ```
-
-Top optimization results are continuously aggregated in the live CK repository: http://cKnowledge.org/repo .
 
 
-## Contributing
+## Get involved
 
 Please follow this [guide](https://github.com/ctuning/ck/wiki) to add your workflows and components. Note that we plan to rewrite it and add tutorials as soon as we have more resources!
 
-Feel free to provide your suggestions using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
+Provide your suggestions using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
 and the [Slack channel](https://cKnowledge.org/join-slack)!
 
-Contact [Grigori Fursin](mailto:grigori.fursin@codereef.ai) about the long-term vision and development plans.
+Help the community to improve the existing CK components (actions, modules, packages, software plugins, workflows),
+when they fail on new platforms or miss some functionality, share the new ones and fix buges - you can provide 
+your feedback and report bugs in the respective [CK development repositories](https://codereef.ai/portal/c/cr-repo) 
+or using [the CodeReef platform](https://CodeReef.ai/portal)!
+
+Consider sponsoring the [cTuning foundation](https://cTuning.org) to support our community activities.
+
+Contact [Grigori Fursin](mailto:grigori.fursin@ctuning.org) (the CK author) about our long-term vision and development plans.

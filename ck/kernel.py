@@ -35,9 +35,10 @@ cfg={
       "desc":"exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",
       "cmd":"ck <action> $#module_uoa#$ (cid1/uid1) (cid2/uid2) (cid3/uid3) key_i=value_i ... @file.json",
 
-      "wiki_data_web":"https://github.com/ctuning/ck/wiki/ckb_",           # Collective Knowledge Base (ckb)
+      "wiki_data_web":"https://CodeReef.ai/portal/c/",           # Collective Knowledge Base (ckb)
+      "codereef":"https://CodeReef.ai/portal/c/",
       "private_wiki_data_web":"https://github.com/ctuning/ck/wiki/ckb_",   # Collective Knowledge Base (ckb)
-      "api_web":"http://cknowledge.org/soft/docs/",
+      "api_web":"https://CodeReef.ai/portal/c/module/",
       "status_url":"https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
 
       "help_examples":"  Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n    $ ck pull repo:ctuning-programs\n    $ ck compile program:cbench-automotive-susan --speed\n    $ ck run program:cbench-automotive-susan\n\n  Example of an interactive CK-powered article:\n    http://cknowledge.org/repo\n",
@@ -213,8 +214,9 @@ cfg={
 
                  "help":{"desc":"<CID> print help about data (module) entry"},
                  "short_help":{"desc":"<CID> print short help about CK"},
-                 "webhelp":{"desc":"<CID> open browser with online help (description) for a data (module) entry"}, 
-                 "webapi":{"desc":"<CID> open browser with online API for a given module, if exists"}, 
+                 "webhelp":{"desc":"<CID> open browser with online help (description) for a given CK entry"}, 
+                 "codereef":{"desc":"<CID> open browser with online help (description) for a given CK entry"}, 
+                 "webapi":{"desc":"<CID> open browser with online API for a given module"}, 
                  "guide":{"desc":"open CK wiki with user/developer guides"}, 
                  "info":{"desc":"<CID> print help about module"},
 
@@ -279,7 +281,7 @@ cfg={
       "actions_redirect":{"list":"list_data2",
                           "ls":"list_data2"},
 
-      "common_actions":["webhelp", "webapi", "help", "info", "print_input",
+      "common_actions":["webhelp", "webapi", "codereef", "help", "info", "print_input",
                         "wiki",
                         "path", "find", "cid", "cd", "cdc",
                         "browser",
@@ -5451,6 +5453,14 @@ def convert_entry_to_cid(i):
 #
 # TARGET: CK kernel and low-level developers
 
+def codereef(i):
+    return webhelp(i)
+
+############################################################
+# Special function: open webbrowser with help
+#
+# TARGET: CK kernel and low-level developers
+
 def webhelp(i):
     """
     Input:  { from access function }
@@ -5477,6 +5487,9 @@ def webhelp(i):
        if r['return']>0: return r
        p=r['path']
 
+       muoa=r.get('module_uoa','')
+       duoa=r.get('data_uoa','')
+
        rx=convert_entry_to_cid(r)
        if rx['return']>0: return rx
 
@@ -5486,7 +5499,7 @@ def webhelp(i):
        xcid=rx['xcid']
 
        # Prepare URL
-       url+=cid.replace(':','_')
+       url+=muoa+':'+duoa #cid.replace(':','/')
 
     out('Opening web page '+url+' ...')
 
@@ -5646,11 +5659,9 @@ def webapi(i):
        if r['return']>0: return r
        muoa=r['data_uoa']
 
-       url+='ck_modules_api/html/'+muoa+'_2module_8py.html'
+       url+=muoa+'/#api'
 
     out('Opening web page '+url+' ...')
-    out('  Note: if discussion wiki page doesn\'t exist yet, root Wiki will open!')
-    out('        You should then log in to Github, and restart ck wiki agian to edit it ...')
 
     import webbrowser
     webbrowser.open(url)
