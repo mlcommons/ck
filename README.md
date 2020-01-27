@@ -135,16 +135,18 @@ python3.6 -m ck
 
 If the installation is successful, you will see some internal information 
 about the CK installation and a Python version used:
+
 ```
 CK version: 1.11.4.1
 
-Python executable used by CK: c:\Users\fgg\Anaconda3\python.exe
+Python executable used by CK: /usr/bin/python
 
-Python version used by CK: 3.6.3 |Anaconda custom (64-bit)| (default, Oct 15 2017, 03:27:45) [MSC v.1900 64 bit (AMD64)]
+Python version used by CK: 2.7.12 (default, Oct  8 2019, 14:14:10)
+   [GCC 5.4.0 20160609]
 
-Path to the default repo: D:\Work1\CK\ck\ck\repo
-Path to the local repo:   D:\Work1\CK\ck-repos\local
-Path to CK repositories:  D:\Work1\CK\ck-repos
+Path to the default repo: /usr/local/lib/python2.7/dist-packages/ck/repo
+Path to the local repo:   /home/fursin/CK/local
+Path to CK repositories:  /home/fursin/CK
 
 Documentation:    https://github.com/ctuning/ck/wiki
 CK Google group:  https://bit.ly/ck-google-group
