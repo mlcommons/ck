@@ -1,5 +1,5 @@
-* V1.12.1.1 
-  * started new version
+* V1.12.2
+  * fixed UTF-8 problem with README.md in setup.py
 
 * V1.12.1
   * added first draft of the docs in the Sphinx format

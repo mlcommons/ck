@@ -125,7 +125,7 @@ setup(
 
   description='Collective Knowledge - lightweight knowledge manager to organize, cross-link, share and reuse artifacts and workflows',
 
-  long_description=open(convert_path('./README.md')).read(),
+  long_description=open(convert_path('./README.md'), encoding="utf-8").read(),
   long_description_content_type="text/markdown",
 
   packages=['ck'],
