@@ -76,7 +76,9 @@ Learn more about our long-term vision in the following white papers and presenta
 
 ## CK-based projects
 
-* [cKnowledge.org](https://cKnowledge.org) and the [open CodeReef portal](https://CodeReef.ai/static/docs).
+* [CodeReef portal to exchange CK components and participate in crowd-benchmarking](https://CodeReef.ai/portal).
+* [MLOps platform and reproducible benchmarking](https://arxiv.org/abs/2001.07935)
+* [cKnowledge.org portal](https://cKnowledge.org)
 * Research projects in the CK format from [our partners](https://cKnowledge.org/partners.html).
 * [Research papers from ML and systems conferences](https://codereef.ai/portal/search/?q=%22reproduced-papers%22%20AND%20%22portable-workflow-ck%22) shared with artifacts and workflows in the CK format.
 * [MLPerf benchmark automation demo](https://CodeReef.ai/demo).
@@ -243,4 +245,4 @@ or using [the CodeReef platform](https://CodeReef.ai/portal)!
 
 Consider sponsoring the [cTuning foundation](https://cTuning.org) to support our community activities.
 
-Contact [Grigori Fursin](mailto:grigori.fursin@ctuning.org) (the CK author) about our long-term vision and development plans.
+Contact [Grigori Fursin](https://fursin.net) (the CK author) about our long-term vision and development plans.
