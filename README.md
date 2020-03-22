@@ -10,17 +10,19 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
 
-
 ## Introduction
 
 We have developed the Collective Knowledge framework (CK) to help researchers 
 share their projects and artifacts (code, data, models, scripts, experiments, papers)
-in a common format as a human-readable database with a standardized API, CLI and JSON input/output/meta descriptions
+in a common format as a human-readable database with a standardized API, CLI and JSON input/output/meta descriptions.
 
 CK is a small, cross-platform, CLI-based and community-driven Python framework 
 to add, share and reuse [automation actions](https://codereef.ai/portal/c/cr-action) 
 for repetitive, tedious, and time-consuming R&D tasks in a non-intrusive way
 along with existing research projects.
+
+[![ACM integration](https://img.youtube.com/vi/DIkZxraTmGM/0.jpg)](https://www.youtube.com/watch?v=DIkZxraTmGM)
+[![FOSDEM presentation](https://img.youtube.com/vi/VpedDdia5yY/0.jpg)](https://www.youtube.com/watch?v=VpedDdia5yY)
 
 CK also helps to convert all ad-hoc artfiacts into standardized and reusable CK components 
 with a common API and JSON meta description.
@@ -50,7 +52,6 @@ Learn more about our long-term vision in the following white papers and presenta
 [CNRS'17](https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly),
 [DATE'16](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability),
 [CTI'09](https://hal.inria.fr/inria-00436029v2).
-
 
 ## Important features
 

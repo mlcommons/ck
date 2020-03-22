@@ -8,6 +8,7 @@
 import sys
 import os
 import re
+import ck.api
 
 ############################################################
 try:
@@ -34,6 +35,8 @@ try:
    from setuptools.command.install_scripts import install_scripts
 except ImportError:
     from distutils.command.install_scripts import install_scripts
+
+
 
 ############################################################
 # Global variables
@@ -80,6 +83,12 @@ class custom_install(install):
               except Exception as e: 
                  print ("warning: can\'t write info about CK python executable to "+p+" ("+format(e)+")")
                  pass
+
+        # Check default repo status before copying
+        r=ck.api.request({'get':{'action':'get-default-repo-status', 'version': current_version}})
+        d=r.get('dict',{})
+        if d.get('skip_copy_default_repo', False):
+           return
 
         # Copy default repo
         try:

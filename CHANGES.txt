@@ -1,3 +1,6 @@
+* V1.12.3
+  * prototype: testing the status of repositories (stable and warning)
+
 * V1.12.2
   * fixed UTF-8 problem with README.md in setup.py
 
