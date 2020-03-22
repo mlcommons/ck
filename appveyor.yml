@@ -24,4 +24,6 @@ install:
 build: false
 
 test_script:
+  - "%PYTHON%\\python.exe setup.py install"
+  - "ck pull repo:ck-web"
   - "%PYTHON%\\python.exe -m tests.test"
