@@ -1,5 +1,4 @@
 environment:
-
   matrix:
 
     # For Python versions available on Appveyor, see
@@ -17,6 +16,10 @@ environment:
     - PYTHON: "C:\\Python35-x64"
     - PYTHON: "C:\\Python36-x64"
     - PYTHON: "C:\\Python37-x64"
+
+init:
+    - set PATH=%PYTHON%;%PYTHON%\\Scripts;%PATH%
+    - python --version
 
 install:
     - "%PYTHON%\\Scripts\\pip.exe install pyyaml"

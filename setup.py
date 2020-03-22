@@ -129,7 +129,7 @@ setup(
 
   license='BSD 3-clause',
 
-  author='Grigori Fursin and the cTuning foundation',
+  author='Grigori Fursin',
   author_email='Grigori.Fursin@cTuning.org',
 
   description='Collective Knowledge - lightweight knowledge manager to organize, cross-link, share and reuse artifacts and workflows',
