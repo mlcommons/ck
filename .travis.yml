@@ -8,11 +8,11 @@ python:
 matrix:
     include:
         - os: osx
-          language: generic
+          language: python
           python:   2.7
           env:      WANTED_PYTHON_VERSION=2.7
         - os: osx
-          language: generic
+          language: python
           python:   3.7
           env:      WANTED_PYTHON_VERSION=3.7
 
@@ -26,7 +26,7 @@ before_install:
                 brew reinstall python\@2 || brew link --overwrite python\@2     # install and link python2 and pip2 to /usr/local/bin
                 export PATH=/usr/local/opt/python\@2/bin:$PATH
                 export PYTHON_EXE=python
-                export PIP_EXE=python
+                export PIP_EXE=pip
             else
                 brew reinstall python                                           # install and link python3 and pip3 to /usr/local/bin
                 export PATH=/usr/local/opt/python/bin:$PATH
@@ -40,7 +40,7 @@ before_install:
             export WANTED_PYTHON_VERSION=$TRAVIS_PYTHON_VERSION                 # since Python is supported in Linux, get it from Travis
             export CK_PLATFORM_NAME="generic-linux "                            # used later by CK (note the trailing space to make the choice unique)
             export PYTHON_EXE=python
-            export PIP_EXE=python
+            export PIP_EXE=pip
         fi
 
 
