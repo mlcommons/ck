@@ -10,8 +10,8 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
 
-[<img src="https://img.youtube.com/vi/DIkZxraTmGM/0.jpg" width="200">](https://www.youtube.com/watch?v=DIkZxraTmGM)
-[<img src="https://img.youtube.com/vi/VpedDdia5yY/0.jpg" width="200">](https://www.youtube.com/watch?v=VpedDdia5yY)
+[<img src="https://img.youtube.com/vi/DIkZxraTmGM/0.jpg" width="320">](https://www.youtube.com/watch?v=DIkZxraTmGM)
+[<img src="https://img.youtube.com/vi/VpedDdia5yY/0.jpg" width="320">](https://www.youtube.com/watch?v=VpedDdia5yY)
 
 ## Introduction
 
