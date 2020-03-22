@@ -10,6 +10,9 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
 
+[![ACM integration](https://img.youtube.com/vi/DIkZxraTmGM/0.jpg | width=240)](https://www.youtube.com/watch?v=DIkZxraTmGM)
+[![FOSDEM presentation](https://img.youtube.com/vi/VpedDdia5yY/0.jpg | width=240)](https://www.youtube.com/watch?v=VpedDdia5yY)
+
 ## Introduction
 
 We have developed the Collective Knowledge framework (CK) to help researchers 
@@ -21,8 +24,6 @@ to add, share and reuse [automation actions](https://codereef.ai/portal/c/cr-act
 for repetitive, tedious, and time-consuming R&D tasks in a non-intrusive way
 along with existing research projects.
 
-[![ACM integration](https://img.youtube.com/vi/DIkZxraTmGM/0.jpg)](https://www.youtube.com/watch?v=DIkZxraTmGM)
-[![FOSDEM presentation](https://img.youtube.com/vi/VpedDdia5yY/0.jpg)](https://www.youtube.com/watch?v=VpedDdia5yY)
 
 CK also helps to convert all ad-hoc artfiacts into standardized and reusable CK components 
 with a common API and JSON meta description.
