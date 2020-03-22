@@ -50,6 +50,7 @@ install:
 
 script: 
     - "$PYTHON_EXE setup.py install"
+    - "ck pull repo:ck-web"
     - "coverage run -m tests.test"
 
 after_success: coveralls
