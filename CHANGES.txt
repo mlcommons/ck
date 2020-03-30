@@ -1,3 +1,6 @@
+* V1.12.3.1
+  * Fixed ElasticSearch indexing error when index is empty
+
 * V1.12.3
   * improved tests on Linux, MacOS and Windows
   * prototyped testing of the status of repositories (stable and warning)

@@ -13,8 +13,8 @@
 # For example, we implemented some functions in Java, C, C++ and Fortran
 # (see our xOpenME library used in Android)
 
-__version__ = "1.12.3"  # We use 3 digits for the main (released) version and 4th digit for development revision
-                        # Do not use characters (to detect outdated version)!
+__version__ = "1.12.3.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
+                          # Do not use characters (to detect outdated version)!
 
 # Extra modules global for the whole kernel
 import sys
@@ -10810,7 +10810,8 @@ def access(i):
              x=i.get('module_uoa','')
              if x!='':
                 x='['+x+'] '
-          out(cfg['error']+x+rr['error']+'!')
+          #FGG added this to fix temporal error with ElasticSearch indexing when index is empty
+          out(str(cfg['error'])+x+str(rr['error'])+'!')
 
     return rr
 
