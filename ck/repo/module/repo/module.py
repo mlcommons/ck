@@ -2288,7 +2288,7 @@ def renew(i):
     url=d.get('url','')
 
     if shared!='git' and url=='':
-       return {'return':1, 'error':'this repository is not shared and can not be renewed!'}
+       return {'return':1, 'error':'this repository is not shared and can not be renewed'}
 
     # first delete
     ii={'action':'rm',
@@ -2353,7 +2353,7 @@ def browse(i):
     url=d.get('url','')
 
     if shared!='git' and url=='':
-       return {'return':1, 'error':'this repository is not shared!'}
+       return {'return':1, 'error':'this repository is not shared'}
 
     import webbrowser
     webbrowser.open(url)

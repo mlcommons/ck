@@ -35,10 +35,9 @@ cfg={
       "desc":"exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",
       "cmd":"ck <action> $#module_uoa#$ (cid1/uid1) (cid2/uid2) (cid3/uid3) key_i=value_i ... @file.json",
 
-      "wiki_data_web":"https://CodeReef.ai/portal/c/",           # Collective Knowledge Base (ckb)
-      "codereef":"https://CodeReef.ai/portal/c/",
+      "wiki_data_web":"https://cKnowledge.io/c/",           # Collective Knowledge Base (ckb)
       "private_wiki_data_web":"https://github.com/ctuning/ck/wiki/ckb_",   # Collective Knowledge Base (ckb)
-      "api_web":"https://CodeReef.ai/portal/c/module/",
+      "api_web":"https://cKnowledge.io/c/module/",
       "status_url":"https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
 
       "help_examples":"  Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n    $ ck pull repo:ctuning-programs\n    $ ck compile program:cbench-automotive-susan --speed\n    $ ck run program:cbench-automotive-susan\n\n  Example of an interactive CK-powered article:\n    http://cknowledge.org/repo\n",
@@ -126,7 +125,7 @@ cfg={
       "index_port":"9200",
       "index_use_curl":"no",
 
-      "codereef_api":"https://codereef.ai/portal/api/v1/?",
+      "cknowledge_api":"https://cKnowledge.io/api/v1/?",
 #      "download_missing_components":"yes",
 
       "wfe_template":"default",
@@ -215,7 +214,6 @@ cfg={
                  "help":{"desc":"<CID> print help about data (module) entry"},
                  "short_help":{"desc":"<CID> print short help about CK"},
                  "webhelp":{"desc":"<CID> open browser with online help (description) for a given CK entry"}, 
-                 "codereef":{"desc":"<CID> open browser with online help (description) for a given CK entry"}, 
                  "webapi":{"desc":"<CID> open browser with online API for a given module"}, 
                  "guide":{"desc":"open CK wiki with user/developer guides"}, 
                  "info":{"desc":"<CID> print help about module"},
@@ -281,7 +279,7 @@ cfg={
       "actions_redirect":{"list":"list_data2",
                           "ls":"list_data2"},
 
-      "common_actions":["webhelp", "webapi", "codereef", "help", "info", "print_input",
+      "common_actions":["webhelp", "webapi", "help", "info", "print_input",
                         "wiki",
                         "path", "find", "cid", "cd", "cdc",
                         "browser",
@@ -2790,7 +2788,7 @@ def download(i):
 
     if o=='con':
 #       out('')
-       out('  WARNING: downloading missing CK component "'+muoa+':'+duoa+'" from the CodeReef portal ...')
+       out('  WARNING: downloading missing CK component "'+muoa+':'+duoa+'" from the cKnowledge.io portal ...')
 
     # Import modules compatible with Python 2.x and 3.x
     import urllib
@@ -2801,7 +2799,7 @@ def download(i):
     try:    from urllib.parse import urlencode
     except: from urllib import urlencode
 
-    # Prepare dict to send to CodeReef portal
+    # Prepare dict to send to CK portal
     ii={
         'action':'download',
         'dict':{
@@ -2817,24 +2815,21 @@ def download(i):
     s=r['string']
     if sys.version_info[0]>2: s=s.encode('utf8')
 
-    post=urlencode({'cr_json':s}) # We have to send JSON as string
-    if sys.version_info[0]>2: post=post.encode('utf8')
-
     # Prepare request
-    request = urllib2.Request(cfg['codereef_api'], post)
+    request = urllib2.Request(cfg['cknowledge_api'], s)
 
     # Connect
     try:
        f=urllib2.urlopen(request)
     except Exception as e:
-       return {'return':1, 'error':'Access to the CodeReef portal failed ('+format(e)+')'}
+       return {'return':1, 'error':'Access to the CK portal failed ('+format(e)+')'}
 
     # Read from Internet
     try:
        s=f.read()
        f.close()
     except Exception as e:
-       return {'return':1, 'error':'Failed reading stream from the CodeReef portal ('+format(e)+')'}
+       return {'return':1, 'error':'Failed reading stream from the CK portal ('+format(e)+')'}
 
     # Check output
     try: s=s.decode('utf8')
@@ -2843,14 +2838,14 @@ def download(i):
     # Try to convert output to dictionary
     r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
     if r['return']>0: 
-       return {'return':1, 'error':'can\'t parse output from the CodeReef portal ('+r['error']+'):\n'+s[:256]+'\n\n...)'}
+       return {'return':1, 'error':'can\'t parse output from the CK portal ('+r['error']+'):\n'+s[:256]+'\n\n...)'}
 
     d=r['dict']
 
     if 'return' in d: 
        d['return']=int(d['return'])
     else:
-       return {'return':99, 'error':'repsonse doesn\'t follow the CodeReef API standard'}
+       return {'return':99, 'error':'repsonse doesn\'t follow the CK API standard'}
 
     if d['return']>0:
        if d['return']!=16:
@@ -2950,7 +2945,7 @@ def download(i):
            new_path=rz['path']
 
         # Prepare pack
-        ppz=os.path.join(new_path, 'codereef-pack.zip')
+        ppz=os.path.join(new_path, 'pack.zip')
 
         if os.path.isfile(ppz):
            os.remove(ppz)
@@ -2968,7 +2963,7 @@ def download(i):
         md5=hashlib.md5(bpack).hexdigest()
 
         if md5!=file_md5:
-           return {'return':1, 'error':'MD5 of the newly created pack ('+md5+') did not match the one from the CodeReef portal ('+file_md5+')'}
+           return {'return':1, 'error':'MD5 of the newly created pack ('+md5+') did not match the one from the portal ('+file_md5+')'}
 
         # Unzipping archive
         import zipfile
@@ -5453,14 +5448,6 @@ def convert_entry_to_cid(i):
 #
 # TARGET: CK kernel and low-level developers
 
-def codereef(i):
-    return webhelp(i)
-
-############################################################
-# Special function: open webbrowser with help
-#
-# TARGET: CK kernel and low-level developers
-
 def webhelp(i):
     """
     Input:  { from access function }
@@ -5871,7 +5858,7 @@ def short_help(i):
 
     h+='CK Google group:      https://bit.ly/ck-google-group\n'
     h+='CK Slack channel:     https://cKnowledge.org/join-slack\n'
-    h+='Stable CK components: https://CodeReef.ai/portal'
+    h+='Stable CK components: https://cKnowledge.io'
 
     if o=='con': 
        out(h)
@@ -6291,7 +6278,7 @@ def find(i):
           duoa=i.get('data_uoa','')
 
 #          out('')
-#          out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CodeReef portal ...')
+#          out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CK portal ...')
 
           ii=copy.deepcopy(i)
 
@@ -8501,7 +8488,7 @@ def list_data2(i):
        duoa=i.get('data_uoa','')
 
 #       out('')
-#       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CodeReef portal ...')
+#       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CK portal ...')
 
        # Try to download missing action/module
        ry=download({'module_uoa':muoa,
@@ -8596,7 +8583,7 @@ def search(i):
        duoa=i.get('data_uoa','')
 
 #       out('')
-#       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CodeReef portal ...')
+#       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CK portal ...')
 
        ry=download({'module_uoa':muoa,
                     'data_uoa':duoa,
