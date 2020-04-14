@@ -20,7 +20,7 @@ share their projects and artifacts (code, data, models, scripts, experiments, pa
 in a common format as a human-readable database with a standardized API, CLI and JSON input/output/meta descriptions.
 
 CK is a small, cross-platform, CLI-based and community-driven Python framework 
-to add, share and reuse [automation actions](https://codereef.ai/portal/c/cr-action) 
+to add, share and reuse [automation actions](https://cKnowledge.io/actions) 
 for repetitive, tedious, and time-consuming R&D tasks in a non-intrusive way
 along with existing research projects.
 
@@ -28,20 +28,20 @@ along with existing research projects.
 CK also helps to convert all ad-hoc artfiacts into standardized and reusable CK components 
 with a common API and JSON meta description.
 For example, CK features 
-[software detection plugins](https://codereef.ai/portal/c/soft) (CK "soft" component), 
-[meta packages](https://codereef.ai/portal/c/package) (CK "package" component) 
-and [OS descriptions](https://codereef.ai/portal/c/os)
+[software detection plugins](https://cKnowledge.io/soft) (CK "soft" component), 
+[meta packages](https://cKnowledge.io/packages) (CK "package" component) 
+and [OS descriptions](https://cKnowledge.io/c/os)
 to automate the detection and installation of all the dependencies 
 required by a given research project to run on any target platform.
 
 Such CK actions and components can be connected into platform-agnostic, 
-portable, customizable, reusable and reproducible [workflows](https://CodeReef.ai/portal/c/program) 
+portable, customizable, reusable and reproducible [workflows](https://cKnowledge.io/programs) 
 (CK "program" component) that can be easily integrated with Continuous Integration tools, 
 existing/legacy projects, and production systems.
 
-The stable components are published at the [open CodeReef platform](https://CodeReef.ai/static/docs)
+The stable components are published at the [open Collective Knowledge platform](https://cKnowledge.io)
 similar to PyPI along with auto-generated "live" papers and portable workflows 
-to help the community participate in [collaborative validation of research results](https://CodeReef.ai/portal/c/result) 
+to help the community participate in [collaborative validation of research results](https://cKnowledge.io/results) 
 across diverse hardware, datasets and models similar to SETI@home.
 
 Our long-term goal is to enable collaborative, reproducible, sustainable and production-ready research 
@@ -57,38 +57,37 @@ Learn more about our long-term vision in the following white papers and presenta
 ## Important features
 
 * CK actions can be shared and reused across research projects:
-  see the [list of available actions and modules](https://codereef.ai/portal/c/module).
+  see the [list of available actions and modules](https://cKnowledge.io/modules).
 
 * Standardized CK APIs and meta-descriptions help  users 
   to easily connect actions into automated, portable and customizable workflows, 
   and quickly integrate them with practically all major tools, frameworks and Continuous Integration Services: 
-  see the [list of shared repositories with CK workflows and actions](https://dev.codereef.ai/portal/c/cr-repo).
+  see the [list of shared repositories with CK workflows and actions](https://cKnowledge.io/repos).
 
 * CK helps to automate [Artifact Evaluation](https://cTuning.org/ae), 
-  perform [reproducible experiments](https://codereef.ai/portal/c/cr-result) 
+  perform [reproducible experiments](https://cKnowledge.io/results) 
   and generate papers with reusable research components:
-  see [the list of articles with CK workflows](https://codereef.ai/portal/search/?q=%22reproduced-papers%22) 
-  and the [CK-based interactive report with the Raspberry Pi foundation](https://codereef.ai/portal/c/report/rpi3-crowd-tuning-2017-interactive).
+  see [the list of articles with CK workflows](https://cKnowledge.io/?q=%22reproduced-papers%22) 
+  and the [CK-based interactive report with the Raspberry Pi foundation](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
 
 * CK is used in reproducible optimization competitions to co-design efficient software and hardware
   for emerging AI, ML and quantum computing workloads in terms of speed, accuracy, energy, and costs: 
-  see the [live CK dashboard with results from different Hackathons, tournaments and crowd-tuning campaigns](https://dev.codereef.ai/portal/search/?q=%22codereef-result%22).
+  see the [live CK dashboard with results from different Hackathons, tournaments and crowd-tuning campaigns](https://cKnowledge.io/results).
 
 
 
 ## CK-based projects
 
-* [CodeReef portal to exchange CK components and participate in crowd-benchmarking](https://CodeReef.ai/portal).
-* [MLOps platform and reproducible benchmarking](https://arxiv.org/abs/2001.07935)
-* [cKnowledge.org portal](https://cKnowledge.org)
+* [CK portal to exchange CK components and participate in crowd-benchmarking](https://cKnowledge.io).
 * Research projects in the CK format from [our partners](https://cKnowledge.org/partners.html).
-* [Research papers from ML and systems conferences](https://codereef.ai/portal/search/?q=%22reproduced-papers%22%20AND%20%22portable-workflow-ck%22) shared with artifacts and workflows in the CK format.
-* [MLPerf benchmark automation demo](https://CodeReef.ai/demo).
-* [GitHub repositories in the CK format](https://CodeReef.ai/portal/c/cr-repo).
-* [R&D automation actions](https://CodeReef.ai/portal/c/cr-action).
-* [Software detection plugins](https://CodeReef.ai/portal/c/soft).
-* [Meta-packages](https://CodeReef.ai/portal/c/package).
-* [Artifact abstractions (CK Python modules for CK components)](https://CodeReef.ai/portal/c/module).
+* [MLOps platform and reproducible benchmarking](https://arxiv.org/abs/2001.07935)
+* [Reproduced papers from ML and systems conferences](https://cKnowledge.io/?q=%22reproduced-papers%22%20AND%20%22portable-workflow-ck%22) shared with CK benchmarking pipelines
+* [MLPerf benchmark automation demo](https://cKnowledge.io/demo).
+* [GitHub repositories in the CK format](https://cKnowledge.io/repos).
+* [R&D automation actions](https://cKnowledge.io/actions).
+* [Software detection plugins](https://cKnowledge.io/soft).
+* [Meta-packages](https://cKnowledge.io/packages).
+* [Artifact abstractions (CK Python modules with a unified API and JSON IO)](https://cKnowledge.io/modules).
 
 
 
@@ -153,7 +152,7 @@ Path to CK repositories:  /home/fursin/CK
 Documentation:        https://github.com/ctuning/ck/wiki
 CK Google group:      https://bit.ly/ck-google-group
 CK Slack channel:     https://cKnowledge.org/join-slack
-Stable CK components: https://CodeReef.ai/portal
+Stable CK components: https://cKnowledge.io
 ```
 
 ### Prerequisites
@@ -242,8 +241,8 @@ and the [Slack channel](https://cKnowledge.org/join-slack)!
 
 Help the community to improve the existing CK components (actions, modules, packages, software plugins, workflows),
 when they fail on new platforms or miss some functionality, share the new ones and fix buges - you can provide 
-your feedback and report bugs in the respective [CK development repositories](https://codereef.ai/portal/c/cr-repo) 
-or using [the CodeReef platform](https://CodeReef.ai/portal)!
+your feedback and report bugs in the respective [CK development repositories](https://cKnowledge.io/repos) 
+or using [the Collective Knowledge platform](https://cKnowledge.io/browse)!
 
 Consider sponsoring the [cTuning foundation](https://cTuning.org) to support our community activities.
 

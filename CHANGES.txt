@@ -13,8 +13,6 @@
   * added first draft of the docs in the Sphinx format
   * fixed repo update
   * added backward compatibility for the search via ElasticSearch
-  * [experimental] prototyped automatic downloading of stable CK components 
-    from the CodeReef portal (https://codereef.ai/portal)
   * do not ask for "web support" by default when adding actions
   * ck webhelp now shows published components at the CodeReef portal
   * ck webapi now shows module API at the CodeReef portal
