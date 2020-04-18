@@ -4591,11 +4591,35 @@ def delete_alias(i):
           p9=cfg['file_alias_u'] + uid
           p1=os.path.join(p0, p9)
           if os.path.isfile(p1):
-             if rshared!='':
-                ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', p9)
-                rx=os.system(ss)
+             # Check if multiple aliases
+             delete=True
 
-             if os.path.isfile(p1): os.remove(p1)
+             alias1=''
+             alias1s=[]
+             try:
+                fx=open(p1)
+                alias1=fx.read().strip()
+                alias1s=alias1.split('\n')
+                fx.close()
+             except Exception as e:
+                None
+
+             if len(alias1s)>1:
+                delete=False
+                alias1s.remove(alias)
+                xalias='\n'.join(alias1s)
+
+                # Update alias disambiguator
+                ru=save_text_file({'text_file':p1, 'string':xalias})
+                if ru['return']>0: return ru
+
+             if delete:
+                if rshared!='':
+                   ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', p9)
+                   rx=os.system(ss)
+
+                if os.path.isfile(p1): 
+                   os.remove(p1)
 
        if rshared!='':
           os.chdir(ppp)
