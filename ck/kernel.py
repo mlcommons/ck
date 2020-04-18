@@ -2938,7 +2938,6 @@ def download(i):
                       'repo_uoa':'local',
                       'common_func':'yes'})
            if rz['return']>0:
-              print(rz)
               out('        Skipping ...')
               continue
 
@@ -4373,6 +4372,10 @@ def create_entry(i):
               (data_uid)   - if uoa is an alias, we can force data UID
 
               (force)      - if 'yes', force creation even if directory already exists
+
+              (allow_multiple_aliases) - if 'yes', allow multiple aliases for the same UID 
+                                         (needed for cKnowledge.io to publish
+                                         renamed components with the same UID)
             }
 
     Output: {
@@ -4391,6 +4394,8 @@ def create_entry(i):
     p0=i.get('path','')
     d=i.get('data_uoa','')
     di=i.get('data_uid','')
+
+    ama=(i.get('allow_multiple_aliases','')=='yes') # Experimental functionality for cKnowledge.io
 
     split_dirs=safe_int(i.get('split_dirs',0),0)
 
@@ -4486,23 +4491,30 @@ def create_entry(i):
           if uid1!=uid:
              return {'return':1, 'error':'different alias->uid disambiguator already exists in '+p3}
 
-       ru=save_text_file({'text_file':p3, 'string':uid+'\n'})
-       if ru['return']>0: return ru
-
        # Check if uid->alias exist
+       xalias=alias
        p2=os.path.join(p1, cfg['file_alias_u'] + uid)
        if os.path.isfile(p2):     # pragma: no cover
+          alias1=''
+          alias1s=[]
           try:
              fx=open(p2)
-             alias1=fx.readline().strip()
+             alias1=fx.read().strip()
+             alias1s=alias1.split('\n')
              fx.close()
           except Exception as e:
              None
 
-          if alias1!=alias:
-             return {'return':1, 'error':'different uid->alias disambiguator already exists in '+p2}
+          if alias not in alias1s:
+             if ama:
+                xalias=alias+'\n'+alias1
+             else:
+                return {'return':1, 'error':'different uid->alias disambiguator already exists in '+p2}
 
-       ru=save_text_file({'text_file':p2, 'string':alias+'\n'})
+       ru=save_text_file({'text_file':p3, 'string':uid+'\n'})
+       if ru['return']>0: return ru
+
+       ru=save_text_file({'text_file':p2, 'string':xalias+'\n'})
        if ru['return']>0: return ru
 
     # Create directory
@@ -6520,6 +6532,10 @@ def add(i):
               (share)                - if 'yes', try to add via GIT
 
               (skip_indexing)        - if 'yes', skip indexing even if it is globally on
+
+              (allow_multiple_aliases) - if 'yes', allow multiple aliases for the same UID 
+                                         (needed for cKnowledge.io to publish
+                                         renamed components with the same UID)
             }
 
     Output: {
@@ -6542,6 +6558,8 @@ def add(i):
     d=i.get('data_uoa','')
     di=i.get('data_uid','')
     dn=i.get('data_name','')
+
+    ama=(i.get('allow_multiple_aliases','')=='yes') # Experimental functionality for cKnowledge.io
 
     if cfg.get('allowed_entry_names','')!='':
        import re
@@ -6659,6 +6677,9 @@ def add(i):
        i1['data_uid']=di
     if d!='': 
        i1['data_uoa']=d
+    if ama:
+       i1['allow_multiple_aliases']='yes'
+
     rr=create_entry(i1)
     if rr['return']>0 and rr['return']!=16: return rr
 
