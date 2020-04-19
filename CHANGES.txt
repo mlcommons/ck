@@ -5,7 +5,7 @@
     to be able to push renamed components to the cKnowledge.io portal
   * Started breaking CK kernel into sub modules:
     https://github.com/ctuning/ck/issues/107
-  * Started improving ck scripts to automatically detect installation:
+  * Started improving ck scripts to automatically detect installation (Linux and Windows):
     https://github.com/ctuning/ck/issues/106
 
 * V1.12.3

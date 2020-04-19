@@ -47,7 +47,7 @@ if [ "$CK_ROOT" == "" ]; then
    # If PIP didn't update above var during installation check which Python is available
    if [ "$CK_ROOT" == "" ]; then
       export CK_ROOT=$CK_PATH2
-  fi
+   fi
 fi
 
 if [ ! -f "$CK_ROOT/ck/kernel.py" ]; then 
@@ -56,4 +56,4 @@ if [ ! -f "$CK_ROOT/ck/kernel.py" ]; then
    exit 1
 fi
 
-$CK_PYTHON $CK_ROOT/ck/kernel.py "$@"
+$CK_PYTHON -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
