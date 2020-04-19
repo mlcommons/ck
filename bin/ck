@@ -51,8 +51,11 @@ if [ "$CK_ROOT" == "" ]; then
 fi
 
 if [ ! -f "$CK_ROOT/ck/kernel.py" ]; then 
-   echo "Can't find the CK kernel - you may need to set CK_ROOT environment variable manually!"
-   echo "Please report this problem at https://github.com/ctuning/ck/issues!"
+   echo ""
+   echo "CK installation problem: can't find ck/kernel.py in CK_ROOT!"
+   echo "Detected CK_ROOT: ${CK_ROOT}"
+   echo "Please report this problem at https://github.com/ctuning/ck/issues"
+   echo ""
    exit 1
 fi
 
