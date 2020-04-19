@@ -7,6 +7,7 @@
     https://github.com/ctuning/ck/issues/107
   * Started improving ck scripts to automatically detect installation (Linux and Windows):
     https://github.com/ctuning/ck/issues/106
+  * Added support to download missing components from cKnowledge.io
 
 * V1.12.3
   * improved tests on Linux, MacOS and Windows

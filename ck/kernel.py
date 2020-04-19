@@ -1552,35 +1552,35 @@ def convert_json_str_to_dict(i):
 
 ##############################################################################
 def load_json_file(i):
-    import ck.io
-    return ck.io.load_json_file(i)
+    import ck.files
+    return ck.files.load_json_file(i)
 
 ##############################################################################
 def save_json_to_file(i):
-    import ck.io
-    return ck.io.save_json_to_file(i)
+    import ck.files
+    return ck.files.save_json_to_file(i)
 
 
 ##############################################################################
 def load_yaml_file(i):
-    import ck.io
-    return ck.io.load_yaml_file(i)
+    import ck.files
+    return ck.files.load_yaml_file(i)
 
 ##############################################################################
 def save_yaml_to_file(i):
-    import ck.io
-    return ck.io.save_yaml_to_file(i)
+    import ck.files
+    return ck.files.save_yaml_to_file(i)
 
 
 ##############################################################################
 def load_text_file(i):
-    import ck.io
-    return ck.io.load_text_file(i)
+    import ck.files
+    return ck.files.load_text_file(i)
 
 ##############################################################################
 def save_text_file(i):
-    import ck.io
-    return ck.io.save_text_file(i)
+    import ck.files
+    return ck.files.save_text_file(i)
 
 
 
@@ -1634,18 +1634,18 @@ def substitute_str_in_file(i):
 ##############################################################################
 # Deprecated
 def dumps_json(i):
-    from . import strings
-    return strings.dump_json(i)
+    import ck.strings
+    return ck.strings.dump_json(i)
 
 ##############################################################################
 def dump_json(i):
-    from . import strings
-    return strings.dump_json(i)
+    import ck.strings
+    return ck.strings.dump_json(i)
 
 ##############################################################################
 def copy_to_clipboard(i): # pragma: no cover 
-    from . import strings
-    return strings.copy_to_clipboard(i)
+    import ck.strings
+    return ck.strings.copy_to_clipboard(i)
 
 
 
@@ -2425,7 +2425,7 @@ def download(i):
     if sys.version_info[0]>2: s=s.encode('utf8')
 
     # Prepare request
-    request = urllib2.Request(cfg['cknowledge_api'], s)
+    request = urllib2.Request(cfg['cknowledge_api'], s, {'Content-Type': 'application/json'})
 
     # Connect
     try:
@@ -2510,10 +2510,10 @@ def download(i):
         nduoa=q['data_uoa']
         nduid=q['data_uid']
 
-        file_base64=q['file_base64']
+        file_url=q['file_url']
         file_md5=q['file_md5']
 
-        out('      Extracting '+nmuoa+':'+nduoa+' ...')
+        out('      Downloading and extracting '+nmuoa+':'+nduoa+' ...')
 
         # Check that module:module exists
         if nmuoa=='module' and nduoa=='module' and path_to_module!='':
@@ -2535,7 +2535,7 @@ def download(i):
                               'data_uoa':'module',
                               'skip_module_check':'yes'})
                  if rz['return']>0: return rz
-                 
+
               cfg['download_missing_components']=save_state
 
            # Adding dummy module
@@ -2558,9 +2558,21 @@ def download(i):
         if os.path.isfile(ppz):
            os.remove(ppz)
 
-        # Save pack to file
-        rx=convert_upload_string_to_file({'file_content_base64':file_base64, 'filename':ppz})
-        if rx['return']>0: return rx
+        # Download file
+        # Import modules compatible with Python 2.x and 3.x
+        import urllib
+
+        try:    from urllib.request import urlretrieve
+        except: from urllib import urlretrieve
+
+        # Connect
+        try:
+           urlretrieve(file_url, ppz)
+        except Exception as e:
+           return {'return':1, 'error':'download failed ('+format(e)+')'}
+
+        statinfo = os.stat(ppz)
+        file_size=statinfo.st_size
 
         # MD5 of the pack
         rx=load_text_file({'text_file':ppz, 'keep_as_bin':'yes'})

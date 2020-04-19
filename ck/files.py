@@ -83,7 +83,7 @@ def save_json_to_file(i):
     """
 
     import json
-    from . import strings
+    import ck.strings
 
     fn=i['json_file']
 
@@ -103,7 +103,7 @@ def save_json_to_file(i):
 
        i['dict']=sd
 
-    r=strings.dump_json(i)
+    r=ck.strings.dump_json(i)
     if r['return']>0: return r
     s=r['string'].replace('\r','')+'\n'
 

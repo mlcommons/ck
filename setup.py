@@ -9,7 +9,6 @@ import sys
 import os
 import re
 import ck.net
-import ck.io
 
 ############################################################
 try:
