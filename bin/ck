@@ -3,80 +3,57 @@
 # Check path to this file
 CK_PATH1=`dirname $0`
 
-# Check if installed via PIP
-CK_USE_PIP=""
+pushd $CK_PATH1/.. > /dev/null
+CK_PATH2=`pwd`
+popd > /dev/null
+
+# If CK_PYTHON and CK_ROOT are not set up by user, use the ones prepared during PIP installation 
+# or from current directory
+
 if [ "$CK_PYTHON" == "" ]; then
-  if [ -f "$HOME/.ck/ck-python.cfg" ]; then
-    CK_PYTHON2=`cat $HOME/.ck/ck-python.cfg`
-    if [ -f "$CK_PYTHON2" ]; then
-       $CK_PYTHON2 -m ck.kernel test_install &> /dev/null
-       if [ $? -eq 0 ]; then
-          CK_USE_PIP="YES"
-          CK_PYTHON=$CK_PYTHON2
-       fi
-    fi
-  elif [ -f "$CK_PATH1/ck-python.cfg" ]; then
-    CK_PYTHON2=`cat $CK_PATH1/ck-python.cfg`
-    if [ -f "$CK_PYTHON2" ]; then
-       if [ $? -eq 0 ]; then
-          CK_USE_PIP="YES"
-          CK_PYTHON=$CK_PYTHON2
-       fi
-    fi
+   if [ -f "$CK_PATH1/ck-python.cfg" ]; then
+      CK_PYTHON_PIP=`cat $CK_PATH1/ck-python.cfg`
+      if [ -f "$CK_PYTHON_PIP" ]; then
+         CK_PYTHON=$CK_PYTHON_PIP
+      fi
+   fi
+
+   # If PIP didn't update above var during installation check which Python is available
+   if [ "$CK_PYTHON" == "" ]; then
+
+      # Set python3 as default and try to find the installed one
+      export CK_PYTHON=python3
+
+      X=`type -P python3`
+      if [ "$X" != "" ] ; then
+         export CK_PYTHON=$X
+      else
+         X=`type -P python`
+         if [ "$X" != "" ] ; then
+            export CK_PYTHON=$X
+         fi
+      fi
+   fi
+fi
+
+if [ "$CK_ROOT" == "" ]; then
+   if [ -f "$CK_PATH1/ck-root.cfg" ]; then
+      CK_PYTHON_ROOT=`cat $CK_PATH1/ck-root.cfg`
+      if [ -f "$CK_PYTHON_ROOT/ck/kernel.py" ]; then
+         CK_ROOT=$CK_PYTHON_ROOT
+      fi
+   fi
+
+   # If PIP didn't update above var during installation check which Python is available
+   if [ "$CK_ROOT" == "" ]; then
+      export CK_ROOT=$CK_PATH2
   fi
 fi
 
-if [ "$CK_USE_PIP" == "YES" ]; then
-  $CK_PYTHON -W ignore::RuntimeWarning -m ck.kernel "$@"
-else
-  pushd $CK_PATH1/.. > /dev/null
-  CK_PATH=`pwd`
-  popd > /dev/null
-
-  # Check if CK_ROOT is defined and used it, otherwise use auto-detected path
-  if [ -z "$CK_ROOT" ]; then 
-    export CK_ROOT=$CK_PATH
-  fi
-
-  # Load kernel module (either GIT/local installation or as package)
-  if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
-     if [ "$CK_PYTHON" == "" ]; then
-        CK_PYTHON=$PYTHON
-        if [ "$CK_PYTHON" == "" ]; then
-           CK_PYTHON=python
-        fi
-     fi
-
-     $CK_PYTHON -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
-
-  else
-    if [ "$CK_PYTHON" == "" ]; then
-
-       CK_PYTHON=$CK_ROOT/bin/python
-       $CK_PYTHON -m ck.kernel test_install &> /dev/null
-
-       if [ $? -ne 0 ]; then
-          CK_PYTHON=python
-          $CK_PYTHON -m ck.kernel test_install &> /dev/null
-
-          if [ $? -ne 0 ]; then
-             CK_PYTHON=python2
-             $CK_PYTHON -m ck.kernel test_install &> /dev/null
-
-             if [ $? -ne 0 ]; then
-                CK_PYTHON=python3
-                $CK_PYTHON -m ck.kernel test_install &> /dev/null
-             fi
-          fi
-       fi
-    fi
-
-    if [ $? -ne 0 ]; then
-       echo "Can't find CK kernel - you may need to set CK_ROOT environment variable manually!"
-       echo "Feel free to ask for help via Slack if you continue experiencing problems"
-       exit 1
-    fi
-
-    $CK_PYTHON -W ignore::RuntimeWarning -m ck.kernel "$@"
-  fi
+if [ ! -f "$CK_ROOT/ck/kernel.py" ]; then 
+   echo "Can't find the CK kernel - you may need to set CK_ROOT environment variable manually!"
+   echo "Please report this problem at https://github.com/ctuning/ck/issues!"
+   exit 1
 fi
+
+$CK_PYTHON $CK_ROOT/ck/kernel.py "$@"
