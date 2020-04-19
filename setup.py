@@ -46,7 +46,6 @@ from distutils.sysconfig import get_python_lib
 ############################################################
 # Global variables
 dir_install_script=""
-dir_install_lib=""
 
 ############################################################
 # Find version
@@ -66,7 +65,6 @@ with open(kernel_file, encoding="utf-8") as f:
 class custom_install(install):
     def run(self):
         global dir_install_script
-        global dir_install_lib
 
         install.run(self)
 
@@ -76,7 +74,7 @@ class custom_install(install):
            python_bin=sys.executable
            real_python_bin=os.path.abspath(python_bin)
 
-           if os.path.isfile(python_bin) and os.path.isdir(dir_install_lib):
+           if os.path.isfile(python_bin):
               # Attempt to write to $SCRIPTS/ck-python.cfg
               file_type='wb'
               if sys.version_info[0]>2:
@@ -88,20 +86,11 @@ class custom_install(install):
                  with open(p, file_type) as f:
                     f.write(python_bin+'\n')
 
-                 print ("writing CK python executable ("+python_bin+") to "+p)
+                 print ('')
+                 print ("Writing CK python executable ("+python_bin+") to "+p)
+                 print ('')
               except Exception as e: 
                  print ("warning: can\'t write info about CK python executable to "+p+" ("+format(e)+")")
-                 pass
-
-              p=os.path.join(dir_install_script, 'ck-root.cfg')
-
-              try:
-                 with open(p, file_type) as f:
-                    f.write(dir_install_lib+'\n')
-
-                 print ("writing CK root directory ("+dir_install_lib+") to "+p)
-              except Exception as e: 
-                 print ("warning: can\'t write info about CK root directory to "+p+" ("+format(e)+")")
                  pass
 
         # Check default repo status before copying
@@ -109,29 +98,6 @@ class custom_install(install):
         d=r.get('dict',{})
         if d.get('skip_copy_default_repo', False):
            return
-
-# Grigori removed it in 202004 because Travis and other CI tests fail 
-# when we record CK default repo to the $HOME directory outside sandbox
-
-#        # Copy default repo
-#        try:
-#           # Find home user directory (to record default repo)
-#           from os.path import expanduser
-#           import shutil
-#           user_home = expanduser("~")
-#
-#           path_to_default_repo=os.path.join(current_path, 'ck', 'repo')
-#           path_to_copy_of_default_repo=os.path.join(user_home, '.ck', current_version, 'repo')
-#
-#           if os.path.isdir(path_to_copy_of_default_repo):
-#              shutil.rmtree(path_to_copy_of_default_repo)
-#
-#           shutil.copytree(path_to_default_repo, path_to_copy_of_default_repo)
-#
-#           print ("copying default CK repo to "+path_to_copy_of_default_repo)
-#        except:
-#           print ("warning: can\'t copy default CK repo to "+path_to_copy_of_default_repo)
-#           pass
 
 ############################################################
 class custom_install_scripts(install_scripts):
@@ -150,24 +116,8 @@ class custom_install_scripts(install_scripts):
        return
 
 ############################################################
-class custom_install_lib(install_lib):
-   def run(self):
-       global dir_install_lib
-
-       install_lib.run(self)
-
-       dir_install_lib=os.path.abspath(self.install_dir)
-
-       if dir_install_lib!=None and dir_install_lib!="" and os.path.isdir(dir_install_lib):
-          print ('')
-          print ("Detected lib installation directory: "+dir_install_lib)
-          print ('')
-
-       return
-
-############################################################
 # Describing CK setup
-setup(
+r=setup(
   name='ck',
   version=current_version,
 
@@ -230,9 +180,10 @@ setup(
 
   scripts = ["bin/ck" ,"bin/ck.bat"],
 
-  cmdclass={'install': custom_install, 
-            'install_scripts': custom_install_scripts,
-            'install_lib': custom_install_lib},
+  cmdclass={
+   'install': custom_install, 
+   'install_scripts': custom_install_scripts
+  },
 
   classifiers = [
         "Programming Language :: Python",

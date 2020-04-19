@@ -8,10 +8,6 @@ if exist "%ck_path1%\ck-python.cfg%" (
    set /p ck_python_pip=<"%ck_path1%\ck-python.cfg"
 )
 
-if exist "%ck_path1%\ck-root.cfg%" (
-   set /p ck_root_pip=<"%ck_path1%\ck-root.cfg"
-)
-
 IF "%CK_PYTHON%"=="" (
    set CK_PYTHON=python
    if exist "%ck_python_pip%" (
@@ -20,13 +16,9 @@ IF "%CK_PYTHON%"=="" (
 )
 
 IF "%CK_ROOT%"=="" (
-   if exist "%ck_root_pip%\ck\kernel.py" (
+   if exist "%ck_path2%\ck\kernel.py" (
       set CK_ROOT=%ck_root_pip%
    )
-)
-
-IF "%CK_ROOT%"=="" (
-   set CK_ROOT=%ck_path2%
 )
 
 rem Load kernel module (either GIT/local installation or as package)
