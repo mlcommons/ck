@@ -2,13 +2,23 @@
 
 rem Set default path by detecting the path to this script
 set ck_path1=%~dp0
-set ck_path=%ck_path1%\..
+set ck_path2=%ck_path1%\..
 
-rem Check if CK_ROOT is defined and used it, otherwise use auto-detected path
-IF "%CK_ROOT%"=="" set CK_ROOT=%ck_path%
+if exist "%ck_path1%\ck-python.cfg%" (
+   set /p ck_python_pip=<"%ck_path1%\ck-python.cfg"
+)
 
 IF "%CK_PYTHON%"=="" (
    set CK_PYTHON=python
+   if exist "%ck_python_pip%" (
+      set CK_PYTHON=%ck_python_pip%
+   )
+)
+
+IF "%CK_ROOT%"=="" (
+   if exist "%ck_path2%\ck\kernel.py" (
+      set CK_ROOT=%ck_root_pip%
+   )
 )
 
 rem Load kernel module (either GIT/local installation or as package)

@@ -13,7 +13,7 @@
 # For example, we implemented some functions in Java, C, C++ and Fortran
 # (see our xOpenME library used in Android)
 
-__version__ = "1.12.3.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
+__version__ = "1.12.3.3"  # We use 3 digits for the main (released) version and 4th digit for development revision
                           # Do not use characters (to detect outdated version)!
 
 # Extra modules global for the whole kernel
@@ -1548,199 +1548,47 @@ def convert_json_str_to_dict(i):
 
     return {'return':0, 'dict': d}
 
-##############################################################################
-# Load json from file into dict
-#
-# TARGET: end users
 
+
+##############################################################################
 def load_json_file(i):
-    """
-    Input:  {
-              json_file - name of file with json
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         = 16, if file not found (may be warning)
-                                         >  0, if error
-              (error)  - error text if return > 0
-
-              dict     - dict from json file
-            }
-    """
-
-    fn=i['json_file']
-
-    try:
-      if sys.version_info[0]>2:
-         f=open(fn, 'r', encoding='utf8')
-      else:
-         f=open(fn, 'r')
-    except Exception as e:
-       return {'return':16, 'error':'problem opening json file='+fn+' ('+format(e)+')'}
-
-    try:
-      s=f.read()
-    except Exception as e:
-       f.close()
-       return {'return':1, 'error':'problem reading json file='+fn+' ('+format(e)+')'}
-
-    f.close()
-
-    try:
-      if sys.version_info[0]>2:
-         d=json.loads(s)
-      else:
-         d=json.loads(s, encoding='utf8')
-    except Exception as e:
-       return {'return':1, 'error':'problem parsing json from file='+fn+' ('+format(e)+')'}
-
-    return {'return':0, 'dict': d}
+    import ck.files
+    return ck.files.load_json_file(i)
 
 ##############################################################################
-# Load YAML from file into dict
-#
-# TARGET: end users
+def save_json_to_file(i):
+    import ck.files
+    return ck.files.save_json_to_file(i)
 
+
+##############################################################################
 def load_yaml_file(i):
-    """
-    Input:  {
-              yaml_file - name of YAML file
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         = 16, if file not found (may be warning)
-                                         >  0, if error
-              (error)  - error text if return > 0
-
-              dict     - dict from YAML file
-            }
-    """
-
-    import yaml
-
-    fn=i['yaml_file']
-
-    try:
-      if sys.version_info[0]>2:
-         f=open(fn, 'r', encoding='utf8')
-      else:
-         f=open(fn, 'r')
-    except Exception as e:
-       return {'return':16, 'error':'problem opening YAML file='+fn+' ('+format(e)+')'}
-
-    try:
-      s=f.read()
-    except Exception as e:
-       f.close()
-       return {'return':1, 'error':'problem reading YAML file='+fn+' ('+format(e)+')'}
-
-    f.close()
-
-    try:
-      d=yaml.load(s)
-    except Exception as e:
-       return {'return':1, 'error':'problem parsing YAML from file='+fn+' ('+format(e)+')'}
-
-    return {'return':0, 'dict': d}
+    import ck.files
+    return ck.files.load_yaml_file(i)
 
 ##############################################################################
-# Load text file into string
-#
-# TARGET: end users
+def save_yaml_to_file(i):
+    import ck.files
+    return ck.files.save_yaml_to_file(i)
 
+
+##############################################################################
 def load_text_file(i):
-    """
-    Input:  {
-              text_file           - name of text file
-              (keep_as_bin)       - if 'yes', return only bin
-              (encoding)          - by default 'utf8', however sometimes we use utf16
+    import ck.files
+    return ck.files.load_text_file(i)
 
-              (split_to_list)     - if 'yes', split to list
+##############################################################################
+def save_text_file(i):
+    import ck.files
+    return ck.files.save_text_file(i)
 
-              (convert_to_dict)   - if 'yes', split to list and convert to dict
-              (str_split)         - if !='', use as separator of keys/values when converting to dict
-              (remove_quotes)     - if 'yes', remove quotes from values when converting to dict
 
-              (delete_after_read) - if 'yes', delete file after read (useful when reading tmp files)
-            }
 
-    Output: {
-              return       - return code =  0, if successful
-                                         = 16, if file not found (may be warning)
-                                         >  0, if error
-              (error)  - error text if return > 0
 
-              bin      - bin
-              (string) - loaded text (with removed \r)
-              (lst)    - if split_to_list=='yes', return as list
-              (dict)   - if convert_to_dict=='yes', return as dict
-            }
-    """
 
-    fn=i['text_file']
 
-    en=i.get('encoding','')
-    if en=='' or en==None: en='utf8'
 
-    try:
-       f=open(fn, 'rb')
-    except Exception as e:
-       return {'return':16, 'error':'problem opening text file='+fn+' ('+format(e)+')'}
 
-    try:
-       b=f.read()
-    except Exception as e:
-       f.close()
-       return {'return':1, 'error':'problem reading text file='+fn+' ('+format(e)+')'}
-
-    f.close()
-
-    r={'return':0, 'bin':b}
-
-    if i.get('delete_after_read','')=='yes':
-       import os
-       os.remove(fn)
-
-    if i.get('keep_as_bin','')!='yes':
-       try:
-          s=b.decode(en).replace('\r','') # decode into Python string (unicode in Python3)
-       except Exception as e:
-          return {'return':1, 'error':'problem decoding content from file "'+fn+'" ('+format(e)+')'}
-   
-       r['string']=s
-
-       cl=i.get('split_to_list','')
-       cd=i.get('convert_to_dict','')
-
-       if cl=='yes' or cd=='yes':
-          lst=s.split('\n')
-          r['lst']=lst
-
-          if cd=='yes':
-             dd={}
-
-             ss=i.get('str_split','')
-             rq=i.get('remove_quotes','')
-             if ss=='': ss=':'
-
-             for q in lst:
-                 qq=q.strip()
-                 ix=qq.find(ss)
-                 if ix>0:
-                    k=qq[0:ix].strip()
-                    v=''
-                    if ix+1<len(qq):
-                       v=qq[ix+1:].strip()
-                    if v!='' and rq=='yes':
-                       if v.startswith('"'): v=v[1:]
-                       if v.endswith('"'): v=v[:-1]
-                    dd[k]=v
-
-             r['dict']=dd
-
-    return r
 
 ##############################################################################
 # Substitute string in file
@@ -1781,268 +1629,25 @@ def substitute_str_in_file(i):
 
     return {'return':0}
 
-##############################################################################
-# Deprecated: Dump json to sring (left for compatibility with older kernel - should eventually remove it) - see 'dump_json'
-#
-# TARGET: end users
 
+
+##############################################################################
+# Deprecated
 def dumps_json(i):
-    """
-    Input:  {
-              dict          - dictionary
-              (skip_indent) - if 'yes', skip indent
-              (sort_keys)   - if 'yes', sort keys
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-
-              string       - json string (in utf8)
-            }
-    """
-
-    return dump_json(i)
+    import ck.strings
+    return ck.strings.dump_json(i)
 
 ##############################################################################
-# Dump json to sring
-#
-# TARGET: end users
-
 def dump_json(i):
-    """
-    Input:  {
-              dict          - dictionary
-              (skip_indent) - if 'yes', skip indent
-              (sort_keys)   - if 'yes', sort keys
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-
-              string       - json string (in utf8)
-            }
-    """
-
-    d=i['dict']
-    si=i.get('skip_indent','')
-
-    sk=False
-    if i.get('sort_keys','')=='yes': sk=True
-
-    try:
-       if sys.version_info[0]>2:
-          if si=='yes': s=json.dumps(d, ensure_ascii=False, sort_keys=sk)
-          else:         s=json.dumps(d, indent=2, ensure_ascii=False, sort_keys=sk)
-       else:
-          if si=='yes': s=json.dumps(d, ensure_ascii=False, encoding='utf8', sort_keys=sk)
-          else:         s=json.dumps(d, indent=2, ensure_ascii=False, encoding='utf8', sort_keys=sk)
-    except Exception as e:
-       return {'return':1, 'error':'problem converting dict to json ('+format(e)+')'}
-
-    return {'return':0, 'string':s}
+    import ck.strings
+    return ck.strings.dump_json(i)
 
 ##############################################################################
-# Save dict as json file
-#
-# TARGET: end users
-
-def save_json_to_file(i):
-    """
-    Input:  {
-              json_file    - file name
-              dict         - dict to save
-              (sort_keys)  - if 'yes', sort keys
-              (safe)       - if 'yes', ignore non-JSON values (only for Debugging - changes original dict!)
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
-    """
-
-    fn=i['json_file']
-
-    if i.get('safe','')=='yes':
-       d=i['dict']
-
-       sd={}
-
-       # Check main unprintable keys
-       for k in d:
-           try:
-              json.dumps(d[k])
-           except Exception as e: 
-              pass
-           else:
-              sd[k]=d[k]
-
-       i['dict']=sd
-
-    r=dumps_json(i)
-    if r['return']>0: return r
-    s=r['string'].replace('\r','')+'\n'
-
-    return save_text_file({'text_file':fn, 'string':s})
-
-##############################################################################
-# Save dict as yaml file
-#
-# TARGET: end users
-
-def save_yaml_to_file(i):
-    """
-    Input:  {
-              yaml_file   - file name
-              dict        - dict to save
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
-    """
-
-    import yaml
-
-    fn=i['yaml_file']
-    d=i['dict']
-
-    try:
-       # If using just dump and keys are in unicode, 
-       # pyyaml adds warning and makes produced yaml unparsable
-       s=yaml.safe_dump(d) 
-    except Exception as e:
-       return {'return':1, 'error':'problem converting dict to YAML ('+format(e)+')'}
-
-    return save_text_file({'text_file':fn, 'string':s})
-
-##############################################################################
-# save string into text file
-#
-# TARGET: end users
-
-def save_text_file(i):
-    """
-    Input:  {
-              text_file - name of text file
-              string    - string to write (with removed \r)
-              (append)  - if 'yes', append
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)  - error text if return > 0
-            }
-    """
-
-    fn=i['text_file']
-
-    s=i['string']
-
-    try:
-      s=s.replace('\r','')
-    except Exception as e:
-       pass
-
-    try:
-      s=s.replace(b'\r',b'')
-    except Exception as e:
-       pass
-
-    m='w'
-    if i.get('append','')=='yes': m='a'
-
-    try:
-       s=s.encode('utf8')
-    except Exception as e:
-       pass
-
-    try:
-#      if sys.version_info[0]>2:
-#         f=open(fn, m+'b')
-#         f.write(s)
-#      else:
-      f=open(fn, m+'b')
-      f.write(s)
-    except Exception as e:
-       return {'return':1, 'error':'problem writing text file='+fn+' ('+format(e)+')'}
-
-    f.close()
-
-    return {'return':0}
-
-##############################################################################
-# Copy string to clipboard if supported by OS (requires Tk)
-#
-# TARGET: end users
-
 def copy_to_clipboard(i): # pragma: no cover 
-    """
-    Input:  {
-              string - string to copy
+    import ck.strings
+    return ck.strings.copy_to_clipboard(i)
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
-    """
 
-    s=i['string']
-
-    failed=False
-    ee=''
-
-    # Try to load pyperclip (seems to work fine on Windows)
-    try:
-       import pyperclip
-    except Exception as e:
-       ee=format(e)
-       failed=True
-       pass
-
-    if not failed:
-       pyperclip.copy(s)
-    else:
-       failed=False
-
-       # Try to load Tkinter
-       try:
-          from Tkinter import Tk
-       except ImportError as e:
-          ee=format(e)
-          failed=True
-          pass
-
-       if failed:
-          failed=False
-          try:
-             from tkinter import Tk
-          except ImportError as e:
-             ee=format(e)
-             failed=True
-             pass
-
-       if failed:
-          return {'return':1, 'error':'none of pyperclip/Tkinter/tkinter packages is installed'}
-
-       # Copy to clipboard
-       try:
-          r = Tk()
-          r.withdraw()
-          r.clipboard_clear()
-          r.clipboard_append(s)
-          r.destroy()
-       except Exception as e:
-          return {'return':1, 'error':'problem copying string to clipboard ('+format(e)+')'}
-
-    return {'return':0}
 
 ##############################################################################
 # Merge intelligently dict1 with dict2 key by key in contrast with dict1.update(dict2)
@@ -2401,6 +2006,10 @@ def init(i): # pragma: no cover
 
     if initialized:
        return {'return':0}
+
+    # Add this path to syspath to be able to call other modules
+    this_kernel_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    sys.path.insert(0, this_kernel_dir)
 
     # Split version
     cfg['version']=__version__.split('.')
@@ -2816,7 +2425,7 @@ def download(i):
     if sys.version_info[0]>2: s=s.encode('utf8')
 
     # Prepare request
-    request = urllib2.Request(cfg['cknowledge_api'], s)
+    request = urllib2.Request(cfg['cknowledge_api'], s, {'Content-Type': 'application/json'})
 
     # Connect
     try:
@@ -2901,10 +2510,10 @@ def download(i):
         nduoa=q['data_uoa']
         nduid=q['data_uid']
 
-        file_base64=q['file_base64']
+        file_url=q['file_url']
         file_md5=q['file_md5']
 
-        out('      Extracting '+nmuoa+':'+nduoa+' ...')
+        out('      Downloading and extracting '+nmuoa+':'+nduoa+' ...')
 
         # Check that module:module exists
         if nmuoa=='module' and nduoa=='module' and path_to_module!='':
@@ -2926,7 +2535,7 @@ def download(i):
                               'data_uoa':'module',
                               'skip_module_check':'yes'})
                  if rz['return']>0: return rz
-                 
+
               cfg['download_missing_components']=save_state
 
            # Adding dummy module
@@ -2938,7 +2547,6 @@ def download(i):
                       'repo_uoa':'local',
                       'common_func':'yes'})
            if rz['return']>0:
-              print(rz)
               out('        Skipping ...')
               continue
 
@@ -2950,9 +2558,21 @@ def download(i):
         if os.path.isfile(ppz):
            os.remove(ppz)
 
-        # Save pack to file
-        rx=convert_upload_string_to_file({'file_content_base64':file_base64, 'filename':ppz})
-        if rx['return']>0: return rx
+        # Download file
+        # Import modules compatible with Python 2.x and 3.x
+        import urllib
+
+        try:    from urllib.request import urlretrieve
+        except: from urllib import urlretrieve
+
+        # Connect
+        try:
+           urlretrieve(file_url, ppz)
+        except Exception as e:
+           return {'return':1, 'error':'download failed ('+format(e)+')'}
+
+        statinfo = os.stat(ppz)
+        file_size=statinfo.st_size
 
         # MD5 of the pack
         rx=load_text_file({'text_file':ppz, 'keep_as_bin':'yes'})
@@ -4373,6 +3993,10 @@ def create_entry(i):
               (data_uid)   - if uoa is an alias, we can force data UID
 
               (force)      - if 'yes', force creation even if directory already exists
+
+              (allow_multiple_aliases) - if 'yes', allow multiple aliases for the same UID 
+                                         (needed for cKnowledge.io to publish
+                                         renamed components with the same UID)
             }
 
     Output: {
@@ -4391,6 +4015,8 @@ def create_entry(i):
     p0=i.get('path','')
     d=i.get('data_uoa','')
     di=i.get('data_uid','')
+
+    ama=(i.get('allow_multiple_aliases','')=='yes') # Experimental functionality for cKnowledge.io
 
     split_dirs=safe_int(i.get('split_dirs',0),0)
 
@@ -4486,23 +4112,30 @@ def create_entry(i):
           if uid1!=uid:
              return {'return':1, 'error':'different alias->uid disambiguator already exists in '+p3}
 
-       ru=save_text_file({'text_file':p3, 'string':uid+'\n'})
-       if ru['return']>0: return ru
-
        # Check if uid->alias exist
+       xalias=alias
        p2=os.path.join(p1, cfg['file_alias_u'] + uid)
        if os.path.isfile(p2):     # pragma: no cover
+          alias1=''
+          alias1s=[]
           try:
              fx=open(p2)
-             alias1=fx.readline().strip()
+             alias1=fx.read().strip()
+             alias1s=alias1.split('\n')
              fx.close()
           except Exception as e:
              None
 
-          if alias1!=alias:
-             return {'return':1, 'error':'different uid->alias disambiguator already exists in '+p2}
+          if alias not in alias1s:
+             if ama:
+                xalias=alias+'\n'+alias1
+             else:
+                return {'return':1, 'error':'different uid->alias disambiguator already exists in '+p2}
 
-       ru=save_text_file({'text_file':p2, 'string':alias+'\n'})
+       ru=save_text_file({'text_file':p3, 'string':uid+'\n'})
+       if ru['return']>0: return ru
+
+       ru=save_text_file({'text_file':p2, 'string':xalias+'\n'})
        if ru['return']>0: return ru
 
     # Create directory
@@ -4579,11 +4212,35 @@ def delete_alias(i):
           p9=cfg['file_alias_u'] + uid
           p1=os.path.join(p0, p9)
           if os.path.isfile(p1):
-             if rshared!='':
-                ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', p9)
-                rx=os.system(ss)
+             # Check if multiple aliases
+             delete=True
 
-             if os.path.isfile(p1): os.remove(p1)
+             alias1=''
+             alias1s=[]
+             try:
+                fx=open(p1)
+                alias1=fx.read().strip()
+                alias1s=alias1.split('\n')
+                fx.close()
+             except Exception as e:
+                None
+
+             if len(alias1s)>1:
+                delete=False
+                alias1s.remove(alias)
+                xalias='\n'.join(alias1s)
+
+                # Update alias disambiguator
+                ru=save_text_file({'text_file':p1, 'string':xalias})
+                if ru['return']>0: return ru
+
+             if delete:
+                if rshared!='':
+                   ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', p9)
+                   rx=os.system(ss)
+
+                if os.path.isfile(p1): 
+                   os.remove(p1)
 
        if rshared!='':
           os.chdir(ppp)
@@ -6520,6 +6177,10 @@ def add(i):
               (share)                - if 'yes', try to add via GIT
 
               (skip_indexing)        - if 'yes', skip indexing even if it is globally on
+
+              (allow_multiple_aliases) - if 'yes', allow multiple aliases for the same UID 
+                                         (needed for cKnowledge.io to publish
+                                         renamed components with the same UID)
             }
 
     Output: {
@@ -6542,6 +6203,8 @@ def add(i):
     d=i.get('data_uoa','')
     di=i.get('data_uid','')
     dn=i.get('data_name','')
+
+    ama=(i.get('allow_multiple_aliases','')=='yes') # Experimental functionality for cKnowledge.io
 
     if cfg.get('allowed_entry_names','')!='':
        import re
@@ -6659,6 +6322,9 @@ def add(i):
        i1['data_uid']=di
     if d!='': 
        i1['data_uoa']=d
+    if ama:
+       i1['allow_multiple_aliases']='yes'
+
     rr=create_entry(i1)
     if rr['return']>0 and rr['return']!=16: return rr
 
