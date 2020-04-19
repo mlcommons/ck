@@ -140,13 +140,14 @@ class custom_install_scripts(install_scripts):
 
        install_scripts.run(self)
 
-       dir_install_script=self.install_dir
+       dir_install_script=os.path.abspath(self.install_dir)
 
        if dir_install_script!=None and dir_install_script!="" and os.path.isdir(dir_install_script):
           print ('')
           print ("Detected script installation directory: "+dir_install_script)
           print ('')
 
+       return
 
 ############################################################
 class custom_install_lib(install_lib):
@@ -155,12 +156,14 @@ class custom_install_lib(install_lib):
 
        install_lib.run(self)
 
-       dir_install_lib=self.install_dir
+       dir_install_lib=os.path.abspath(self.install_dir)
 
        if dir_install_lib!=None and dir_install_lib!="" and os.path.isdir(dir_install_lib):
           print ('')
           print ("Detected lib installation directory: "+dir_install_lib)
           print ('')
+
+       return
 
 ############################################################
 # Describing CK setup
