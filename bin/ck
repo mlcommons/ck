@@ -37,30 +37,14 @@ if [ "$CK_PYTHON" == "" ]; then
 fi
 
 if [ "$CK_ROOT" == "" ]; then
-   if [ -f "$CK_PATH1/ck-root.cfg" ]; then
-      CK_PYTHON_ROOT=`cat $CK_PATH1/ck-root.cfg`
-      if [ -f "$CK_PYTHON_ROOT/ck/kernel.py" ]; then
-         CK_ROOT=$CK_PYTHON_ROOT
-      fi
-   fi
-
-   # If PIP didn't update above var during installation check which Python is available
-   if [ "$CK_ROOT" == "" ]; then
+   if [ -f "$CK_PATH2/ck/kernel.py" ]; then
       export CK_ROOT=$CK_PATH2
    fi
 fi
 
-if [ ! -f "$CK_ROOT/ck/kernel.py" ]; then 
-#   echo ""
-#   echo "CK installation problem: can't find ck/kernel.py in CK_ROOT!"
-#   echo "Detected CK_ROOT: ${CK_ROOT}"
-#   echo "Please report this problem at https://github.com/ctuning/ck/issues"
-#   echo ""
-#   exit 1
-# Attempt to run directly (usually venv)
-
-   $CK_PYTHON -W ignore::RuntimeWarning -m ck.kernel "$@"
-else
+if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
    $CK_PYTHON -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
+else
+   $CK_PYTHON -W ignore::RuntimeWarning -W ignore::RuntimeWarning -m ck.kernel "$@"
 fi
 
