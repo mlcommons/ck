@@ -70,10 +70,10 @@ cBrain - more user-friendly wrapper around CK and conected with cKnowledge.io
 
 
 
-## Use cases
+## CK use cases
 
-* [Real world use cases of CK from our industrial and academic partners](https://cKnowledge.org/partners.html)
-* [Demo of a CK-based MLPerf benchmark automation with a SOTA scoreboard](https://cKnowledge.io/demo)
+* [Real world use cases from our industrial and academic partners](https://cKnowledge.org/partners.html)
+* [MLPerf benchmark automation demo with a CK SOTA scoreboard](https://cKnowledge.io/demo)
 * [Demo of a CK-based live research paper (collaboration with the Raspberry Pi foundation)](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
 
 
