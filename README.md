@@ -67,23 +67,23 @@ cBrain - more user-friendly wrapper around CK and conected with cKnowledge.io
 
 
 
-and the [CK-based interactive report with the Raspberry Pi foundation](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
 
 
 
 ## Use cases
 
 * [Real world use cases from our industrial and academic partners](https://cKnowledge.org/partners.html)
+* [MLPerf benchmark automation demo](https://cKnowledge.io/demo)
+* [Demo of a live research paper (collaboration with the Raspberry Pi foundation)](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
 
 
 
-## Resources
+## Open knowledge portal
 
 * [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for deep tech systems (AI,ML,quantum,IoT):
   * [Browse SOTA scoreboards powered by CK workflows](https://cKnowledge.io/reproduced-results)
   * [Browse all deep tech CK components](https://cKnowledge.io/browse)
   * [Search for reusable CK components](https://cKnowledge.io)
-* [MLPerf benchmark automation demo](https://cKnowledge.io/demo)
 * [Our reproducibility checklist for systems conferences](https://cTuning.org/ae)
 
 
