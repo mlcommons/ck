@@ -23,7 +23,7 @@ and an [open repository of knowledge]( https://cKnowledge.io )
 to share [deep tech components]( https://cKnowledge.io/browse ) 
 and [R&D automation actions]( https://cKnowledge.io/actions ) 
 in a human-readable format 
-with a unified CLI, JSON API, and JSON meta descriptions.
+with a unified CLI, Python API, and JSON meta descriptions.
 
 Our idea is to abstract and connect different evolving software and hardware
 into [portable and non-virtualized (bare-metal) benchmarking "solutions"]( https://cKnowledge.io/solutions )
