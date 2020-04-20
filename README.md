@@ -12,61 +12,50 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 
 
-[<img src="https://img.youtube.com/vi/DIkZxraTmGM/0.jpg" width="320">](https://www.youtube.com/watch?v=DIkZxraTmGM)
-[<img src="https://img.youtube.com/vi/VpedDdia5yY/0.jpg" width="320">](https://www.youtube.com/watch?v=VpedDdia5yY)
-
-
-
-
 ## Introduction
 
-We have developed the Collective Knowledge framework (CK) to help researchers 
-share their projects and artifacts (code, data, models, scripts, experiments, papers)
-in a common format as a human-readable database with a standardized API, CLI and JSON input/output/meta descriptions.
+Designing deep tech systems (ML, AI, Quantum, IoT) and moving them to production
+is a very tedious process due to continuously changing models, data sets, software and hardware.
 
-CK is a small, cross-platform, CLI-based and community-driven Python framework 
-to add, share and reuse [automation actions](https://cKnowledge.io/actions) 
-for repetitive, tedious, and time-consuming R&D tasks in a non-intrusive way
-along with existing research projects.
+The Collective Knowledge project (CK) is our attempt to develop a common SDK
+and an [open repository of knowledge]( https://cKnowledge.io ) 
+to share [deep tech components]( https://cKnowledge.io/browse ) 
+and [R&D automation actions]( https://cKnowledge.io/actions ) 
+in a human-readable format 
+with a unified CLI, JSON API, and JSON meta descriptions.
+
+The idea is to abstract and connect different evolving deep tech software and hardware
+into [bare-metal portable benchmarking solutions]( https://cKnowledge.io/solutions )
+with [public SOTA scoreboards](https://cKnowledge.io/results )
+to collaboratively benchmark and optimize them across diverse hardware,
+models and data sets in terms of speed, accuracy, energy and other costs.
+
+resolved dependencies can be 
+
+Docker and Kubernetes
+shared along research papers,
 
 
-CK also helps to convert all ad-hoc artfiacts into standardized and reusable CK components 
-with a common API and JSON meta description.
-For example, CK features 
-[software detection plugins](https://cKnowledge.io/soft) (CK "soft" component), 
-[meta packages](https://cKnowledge.io/packages) (CK "package" component) 
-and [OS descriptions](https://cKnowledge.io/c/os)
-to automate the detection and installation of all the dependencies 
-required by a given research project to run on any target platform.
 
 Such CK actions and components can be connected into platform-agnostic, 
 portable, customizable, reusable and reproducible [workflows](https://cKnowledge.io/programs) 
 (CK "program" component) that can be easily integrated with Continuous Integration tools, 
 existing/legacy projects, and production systems.
 
-The stable components are published at the [open Collective Knowledge platform](https://cKnowledge.io)
-similar to PyPI along with auto-generated "live" papers and portable workflows 
-to help the community participate in [collaborative validation of research results](https://cKnowledge.io/results) 
-across diverse hardware, datasets and models similar to SETI@home.
-
-Our long-term goal is to enable collaborative, reproducible, sustainable and production-ready research 
-based on DevOps principles.
-
-Learn more about our long-term vision in the following white papers and presentations: 
-[MLOps@MLSys'20]( https://arxiv.org/abs/2001.07935 ),
-[FOSDEM'19](https://doi.org/10.5281/zenodo.2556147),
-[CNRS'17](https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly),
-[DATE'16](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability),
-[CTI'09](https://hal.inria.fr/inria-00436029v2).
+Learn more about our long-term vision in the following presentations and white papers: 
+[2019]( https://doi.org/10.5281/zenodo.2556147 ),
+[2018]( https://cknowledge.io/c/report/rpi3-crowd-tuning-2017-interactive ),
+[2017]( https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly ),
+[2009]( https://hal.inria.fr/inria-00436029v2 ).
 
 
-low-level and not very user friendly SDK
-cBrain - more user-friendly wrapper around CK and conected with cKnowledge.io
+*Note that the CK framework is a low-level and no so user-friendly SDK. That is why we are also developing a more user-friendly wrapper around CK ([cBrain](https://github.com/cknowledge/cbrain)) and a [CK GUI](https://cKnowledge.io/demo).*
 
 
-
-
-
+<div align="center">
+ [<img src="https://img.youtube.com/vi/DIkZxraTmGM/0.jpg" width="320">](https://www.youtube.com/watch?v=DIkZxraTmGM)
+ [<img src="https://img.youtube.com/vi/VpedDdia5yY/0.jpg" width="320">](https://www.youtube.com/watch?v=VpedDdia5yY)
+</div>
 
 
 
