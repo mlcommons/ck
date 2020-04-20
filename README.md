@@ -133,7 +133,7 @@ CK supports the following platforms:
 
 ## Acknowledgments
 
-We would like to thank all [CK users](https://cKnowledge.org/partners.html) 
+We would like to thank all [CK users and partners](https://cKnowledge.org/partners.html) 
 for fruitful discussions and feedback!
 
 
