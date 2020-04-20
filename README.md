@@ -52,7 +52,7 @@ and the following presentations and white papers:
 [2009]( https://hal.inria.fr/inria-00436029v2 ).
 
 
-*Note that the CK framework is a low-level and no so user-friendly SDK. That is why we are also developing a more user-friendly wrapper around CK ([cBrain](https://github.com/cknowledge/cbrain)) and a [CK GUI](https://cKnowledge.io/demo).*
+*Note that the CK framework is a low-level and not so user-friendly SDK. That is why we are also developing a more user-friendly wrapper around CK ([cBrain](https://github.com/cknowledge/cbrain)) and a [CK GUI](https://cKnowledge.io/demo).*
 
 
 ## Open knowledge portal
