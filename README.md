@@ -33,7 +33,7 @@ in terms of speed, accuracy, energy and other costs
 with the help of the community similar to SETI@home.
 
 We hope that the unified APIs and meta descriptions of such functional CK solutions 
-will make it possible to understand [what is happening]( https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies ) 
+will make it possible to better understand [what is happening]( https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies ) 
 inside "black box" deep tech systems,
 integrate them with production and legacy systems,
 use them inside Docker and Kubernetes,
