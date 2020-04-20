@@ -41,7 +41,6 @@ and bring DevOps principles to deep tech R&D.
 
 We are only at the beginning of this long-term project. Please check our [MLPerf automation demo](https://cKnowledge.io/demo)
 and feel free to [get in touch](https://cKnowledge.org/contacts.html) if you have any feedback and suggestions!
-
 Learn more about our project in the [CK documentation](https://cKnowledge.io/docs) 
 and the following presentations and white papers: 
 [2019]( https://doi.org/10.5281/zenodo.2556147 ),
