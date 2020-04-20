@@ -120,6 +120,10 @@ CK supports the following platforms:
 Please follow [this guide](https://cKnowledge.io/docs/getting-started/ck-installation.html) 
 to install the CK SDK on your platform.
 
+Check [CK-based demo](https://cKnowledge.io/demo) to participate in reproducible MLPerf benchmarking
+with a [public SOTA scoreboard](https://cknowledge.io/c/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking).
+
+
 
 
 ## Get involved
