@@ -15,7 +15,8 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 ## Introduction
 
 Designing deep tech systems (ML, AI, Quantum, IoT) and moving them to production
-is a very tedious process due to continuously changing models, data sets, software and hardware.
+is a very tedious and time-consuming process due to continuously 
+changing models, data sets, software and hardware.
 
 The Collective Knowledge project (CK) is our attempt to develop a common SDK
 and an [open repository of knowledge]( https://cKnowledge.io ) 
@@ -27,8 +28,9 @@ with a unified CLI, JSON API, and JSON meta descriptions.
 Our idea is to abstract and connect different evolving software and hardware
 into [portable and non-virtualized (bare-metal) benchmarking "solutions"]( https://cKnowledge.io/solutions )
 with [public SOTA scoreboards]( https://cKnowledge.io/results )
-to collaboratively benchmark and optimize deep tech systems across diverse hardware,
-models and data sets in terms of speed, accuracy, energy and other costs.
+to collaboratively benchmark and optimize deep tech systems 
+in terms of speed, accuracy, energy and other costs
+with the help of the community similar to SETI@home.
 
 We hope that the unified APIs and meta descriptions of such functional CK solutions 
 will make it possible to understand [what is happening]( https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies ) 
@@ -38,8 +40,9 @@ use them inside Docker and Kubernetes,
 share them along with [published and reproduced papers](https://cKnowledge.io/reproduced-papers)
 and bring DevOps principles to deep tech R&D.
 
-
-We are only at the beginning of this long-term project. Please check our [MLPerf automation demo](https://cKnowledge.io/demo)
+Even though this CK SDK is <a href="https://cKnowledge.org/partners.html">stable and used in production</a>,
+there is still a lot to be done and we are only at the beginning of this long-term project. 
+Please check our [MLPerf automation demo](https://cKnowledge.io/demo)
 and feel free to [get in touch](https://cKnowledge.org/contacts.html) if you have any feedback and suggestions!
 Learn more about our project in the [CK documentation](https://cKnowledge.io/docs) 
 and the following presentations and white papers: 
