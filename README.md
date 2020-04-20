@@ -59,6 +59,17 @@ Learn more about our long-term vision in the following white papers and presenta
 [DATE'16](https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability),
 [CTI'09](https://hal.inria.fr/inria-00436029v2).
 
+
+low-level and not very user friendly SDK
+cBrain - more user-friendly wrapper around CK and conected with cKnowledge.io
+
+
+
+
+
+
+
+
 ## Important features
 
 * CK actions can be shared and reused across research projects:
@@ -95,10 +106,17 @@ Learn more about our long-term vision in the following white papers and presenta
 * [Artifact abstractions (CK Python modules with a unified API and JSON IO)](https://cKnowledge.io/modules).
 
 
-
 ## Use cases
 
 * [Real world use cases from our industrial and academic partners](https://cKnowledge.org/partners.html)
+
+## Resources
+
+* The open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for deep tech systems (AI,ML,quantum,IoT): [cKnowledge.io](https://cKnowledge.io)
+** [Browse all deep tech components](https://cKnowledge.io/browse)
+** [Search for reusable components](https://cKnowledge.io)
+
+
 
 
 ## Documentation
@@ -130,6 +148,7 @@ CK supports the following platforms:
 
 Please follow [this guide](https://cKnowledge.io/docs/getting-started/ck-installation.html) 
 to install the CK SDK on your platform.
+
 
 
 ## Get involved
