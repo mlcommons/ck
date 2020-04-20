@@ -10,8 +10,13 @@ Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
+
+
 [<img src="https://img.youtube.com/vi/DIkZxraTmGM/0.jpg" width="320">](https://www.youtube.com/watch?v=DIkZxraTmGM)
 [<img src="https://img.youtube.com/vi/VpedDdia5yY/0.jpg" width="320">](https://www.youtube.com/watch?v=VpedDdia5yY)
+
+
+
 
 ## Introduction
 
@@ -92,15 +97,18 @@ Learn more about our long-term vision in the following white papers and presenta
 
 
 
+
+
 ## Documentation
 
-*We plan a major revision of the CK documentation in 2020 based on user-feedback*
+* [Online CK documentation](https://cKnowledge.io/docs) 
 
-* [CK wiki](https://github.com/ctuning/ck/wiki) - we plan to rewrite it in the Sphinx format 
+Older wiki-based documentation (we gradually move it to Sphinx-based docs above):
+
+* [CK wiki](https://github.com/ctuning/ck/wiki)
 * [CK basics](https://michel.steuwer.info/About-CK)
 * [CK Getting Started Guide](https://github.com/ctuning/ck/wiki/First-steps)
-
-
+* [Contributing to CK](https://github.com/ctuning/ck/wiki/Adding-new-workflows)
 
 
 
@@ -138,7 +146,7 @@ to install the CK SDK on your platform.
 
 ## Acknowledgments
 
-We would like to thank all [CK partners](https://cKnowledge.org/partners.html) 
+We would like to thank all [CK users](https://cKnowledge.org/partners.html) 
 for fruitful discussions and feedback!
 
 
