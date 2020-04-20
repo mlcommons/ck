@@ -113,8 +113,8 @@ cBrain - more user-friendly wrapper around CK and conected with cKnowledge.io
 ## Resources
 
 * The open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for deep tech systems (AI,ML,quantum,IoT): [cKnowledge.io](https://cKnowledge.io)
-** [Browse all deep tech components](https://cKnowledge.io/browse)
-** [Search for reusable components](https://cKnowledge.io)
+  * [Browse all deep tech components](https://cKnowledge.io/browse)
+  * [Search for reusable components](https://cKnowledge.io)
 
 
 
