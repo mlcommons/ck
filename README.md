@@ -67,28 +67,7 @@ cBrain - more user-friendly wrapper around CK and conected with cKnowledge.io
 
 
 
-
-
-
-## Important features
-
-* CK actions can be shared and reused across research projects:
-  see the [list of available actions and modules](https://cKnowledge.io/modules).
-
-* Standardized CK APIs and meta-descriptions help  users 
-  to easily connect actions into automated, portable and customizable workflows, 
-  and quickly integrate them with practically all major tools, frameworks and Continuous Integration Services: 
-  see the [list of shared repositories with CK workflows and actions](https://cKnowledge.io/repos).
-
-* CK helps to automate [Artifact Evaluation](https://cTuning.org/ae), 
-  perform [reproducible experiments](https://cKnowledge.io/results) 
-  and generate papers with reusable research components:
-  see [the list of articles with CK workflows](https://cKnowledge.io/?q=%22reproduced-papers%22) 
-  and the [CK-based interactive report with the Raspberry Pi foundation](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
-
-* CK is used in reproducible optimization competitions to co-design efficient software and hardware
-  for emerging AI, ML and quantum computing workloads in terms of speed, accuracy, energy, and costs: 
-  see the [live CK dashboard with results from different Hackathons, tournaments and crowd-tuning campaigns](https://cKnowledge.io/results).
+and the [CK-based interactive report with the Raspberry Pi foundation](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
 
 
 
@@ -100,12 +79,12 @@ cBrain - more user-friendly wrapper around CK and conected with cKnowledge.io
 
 ## Resources
 
-* [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for deep tech systems (AI,ML,quantum,IoT)
-  * [Browse SOTA scoreboards](https://cKnowledge.io/reproduced-results)
+* [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for deep tech systems (AI,ML,quantum,IoT):
+  * [Browse SOTA scoreboards powered by CK workflows](https://cKnowledge.io/reproduced-results)
   * [Browse all deep tech CK components](https://cKnowledge.io/browse)
   * [Search for reusable CK components](https://cKnowledge.io)
-* [MLPerf benchmark automation demo](https://cKnowledge.io/demo).
-* [Our reproducibility checklist for systems conferences](https://cTuning.org/ae).
+* [MLPerf benchmark automation demo](https://cKnowledge.io/demo)
+* [Our reproducibility checklist for systems conferences](https://cTuning.org/ae)
 
 
 
