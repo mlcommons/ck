@@ -40,6 +40,11 @@ use them inside Docker and Kubernetes,
 share them along with [published and reproduced papers](https://cKnowledge.io/reproduced-papers)
 and bring DevOps principles to deep tech R&D.
 
+We also hope that the CK technology will complement existing reproducibility efforts
+such as [PapersWithCode](https://paperswithcode.com),
+[ACM](https://www.acm.org/publications/policies/artifact-review-badging)
+and [artifact evaluation](https://cTuning.org/ae).
+
 Even though this CK SDK is <a href="https://cKnowledge.org/partners.html">stable and used in production</a>,
 there is still a lot to be done and we are only at the beginning of this long-term project. 
 Please check our [MLPerf automation demo](https://cKnowledge.io/demo)
