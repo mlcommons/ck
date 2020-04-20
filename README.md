@@ -113,42 +113,33 @@ CK supports the following platforms:
 | Generic Linux | ✓ | ✓ |
 | Linux (Arm)   | ✓ | ✓ |
 | Raspberry Pi  | ✓ | ✓ |
-| MacOS         | ✓ | ✓ |
+| MacOS         | ✓ | ± |
 | Windows       | ✓ | ✓ |
-| Android       | partially | ✓ |
+| Android       | ± | ✓ |
 | iOS           | TBD | TBD |
 
 Please follow [this guide](https://cKnowledge.io/docs/getting-started/ck-installation.html) 
 to install the CK SDK on your platform.
 
 
-
-
-
-## Next steps
-
-Based on user feedback we plan the following activities:
-
-* Standardization of CK actions, APIs and meta descriptions
-* Better documentation
-* GUI to create, test and interconnect CK actions
-* GUI to assemble portable workflows
-* GUI to automate [MLPerf](https://mlperf.org) submissions
-
-
-
 ## Get involved
 
-Please follow this [guide](https://github.com/ctuning/ck/wiki) to add your workflows and components. Note that we plan to rewrite it and add tutorials as soon as we have more resources!
+* This is an ongoing community project and there is a lot to be improved - 
+  don't hesitate to [get in touch](https://cKnowledge.org/contacts.html)
+  using our slack, mailing list, twitter and email
+  if you have any feedback or would like to collaborate.
 
-Provide your suggestions using our [public mailing list](https://groups.google.com/forum/#!forum/collective-knowledge) 
-and the [Slack channel](https://cKnowledge.org/join-slack)!
+* Check this [outdated guide](https://github.com/ctuning/ck/wiki) to add your workflows and components. 
+  We are gradually rewriting [this guide](https://cKnowledge.io/docs) with our limited resources
+  and developing a [CK wrapper (cBrain)](https://github.com/cknowledge/cbrain) to simplify
+  the user experience and provide a CK GUI at the [open cKnowledge.io platform](https://cKnowledge.io).
 
-Help the community to improve the existing CK components (actions, modules, packages, software plugins, workflows),
-when they fail on new platforms or miss some functionality, share the new ones and fix buges - you can provide 
-your feedback and report bugs in the respective [CK development repositories](https://cKnowledge.io/repos) 
-or using [the Collective Knowledge platform](https://cKnowledge.io/browse)!
 
-Consider sponsoring the [cTuning foundation](https://cTuning.org) to support our community activities.
 
-Contact [Grigori Fursin](https://fursin.net) (the CK author) about our long-term vision and development plans.
+## Acknowledgments
+
+We would like to thank all [CK partners](https://cKnowledge.org/partners.html) 
+for fruitful discussions and feedback!
+
+
+*Copyright 2015-2020 [Grigori Fursin](https://cKnowledge.io/@gfursin) and the [cTuning foundation](https://cTuning.org)*
