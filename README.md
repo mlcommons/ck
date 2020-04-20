@@ -92,29 +92,20 @@ cBrain - more user-friendly wrapper around CK and conected with cKnowledge.io
 
 
 
-## CK-based projects
-
-* [CK portal to exchange CK components and participate in crowd-benchmarking](https://cKnowledge.io).
-* Research projects in the CK format from [our partners](https://cKnowledge.org/partners.html).
-* [MLOps platform and reproducible benchmarking](https://arxiv.org/abs/2001.07935)
-* [Reproduced papers from ML and systems conferences](https://cKnowledge.io/?q=%22reproduced-papers%22%20AND%20%22portable-workflow-ck%22) shared with CK benchmarking pipelines
-* [MLPerf benchmark automation demo](https://cKnowledge.io/demo).
-* [GitHub repositories in the CK format](https://cKnowledge.io/repos).
-* [R&D automation actions](https://cKnowledge.io/actions).
-* [Software detection plugins](https://cKnowledge.io/soft).
-* [Meta-packages](https://cKnowledge.io/packages).
-* [Artifact abstractions (CK Python modules with a unified API and JSON IO)](https://cKnowledge.io/modules).
-
-
 ## Use cases
 
 * [Real world use cases from our industrial and academic partners](https://cKnowledge.org/partners.html)
 
+
+
 ## Resources
 
-* The open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for deep tech systems (AI,ML,quantum,IoT): [cKnowledge.io](https://cKnowledge.io)
-  * [Browse all deep tech components](https://cKnowledge.io/browse)
-  * [Search for reusable components](https://cKnowledge.io)
+* [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for deep tech systems (AI,ML,quantum,IoT)
+  * [Browse SOTA scoreboards](https://cKnowledge.io/reproduced-results)
+  * [Browse all deep tech CK components](https://cKnowledge.io/browse)
+  * [Search for reusable CK components](https://cKnowledge.io)
+* [MLPerf benchmark automation demo](https://cKnowledge.io/demo).
+* [Our reproducibility checklist for systems conferences](https://cTuning.org/ae).
 
 
 
