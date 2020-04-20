@@ -42,7 +42,8 @@ portable, customizable, reusable and reproducible [workflows](https://cKnowledge
 (CK "program" component) that can be easily integrated with Continuous Integration tools, 
 existing/legacy projects, and production systems.
 
-Learn more about our long-term vision in the following presentations and white papers: 
+Learn more about our project in the [CK documentation](https://cKnowledge.io/docs) 
+and the following presentations and white papers: 
 [2019]( https://doi.org/10.5281/zenodo.2556147 ),
 [2018]( https://cknowledge.io/c/report/rpi3-crowd-tuning-2017-interactive ),
 [2017]( https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly ),
