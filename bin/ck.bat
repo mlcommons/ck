@@ -17,7 +17,7 @@ IF "%CK_PYTHON%"=="" (
 
 IF "%CK_ROOT%"=="" (
    if exist "%ck_path2%\ck\kernel.py" (
-      set CK_ROOT=%ck_root_pip%
+      set CK_ROOT=%ck_path2%
    )
 )
 

@@ -127,6 +127,7 @@ cfg={
 
       "cknowledge_api":"https://cKnowledge.io/api/v1/?",
 #      "download_missing_components":"yes",
+      "check_missing_modules":"yes",
 
       "wfe_template":"default",
 
@@ -1512,42 +1513,6 @@ def prepare_special_info_about_entry(i):
 
     return {'return':0, 'dict': d}
 
-##############################################################################
-# Convert string of a special format to json
-#
-# TARGET: end users
-
-def convert_json_str_to_dict(i):
-    """
-    Input:  {
-              str                      - string (use ' instead of ", i.e. {'a':'b'} 
-                                         to avoid issues in CMD in Windows and Linux!)
-
-              (skip_quote_replacement) - if 'yes', do not make above replacement
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-
-              dict         - dict from json file
-            }
-    """
-
-    s=i['str']
-
-    if i.get('skip_quote_replacement','')!='yes':
-       s=s.replace('"', '\\"')
-       s=s.replace('\'', '"')
-
-    try:
-       d=json.loads(s, encoding='utf8')
-    except Exception as e:
-       return {'return':1, 'error':'problem converting text to json ('+format(e)+')'}
-
-    return {'return':0, 'dict': d}
-
 
 
 ##############################################################################
@@ -1646,6 +1611,12 @@ def dump_json(i):
 def copy_to_clipboard(i): # pragma: no cover 
     import ck.strings
     return ck.strings.copy_to_clipboard(i)
+
+##############################################################################
+def convert_json_str_to_dict(i):
+    import ck.strings
+    return ck.strings.convert_json_str_to_dict(i)
+
 
 
 
@@ -2399,16 +2370,6 @@ def download(i):
 #       out('')
        out('  WARNING: downloading missing CK component "'+muoa+':'+duoa+'" from the cKnowledge.io portal ...')
 
-    # Import modules compatible with Python 2.x and 3.x
-    import urllib
-
-    try:    import urllib.request as urllib2
-    except: import urllib2
-
-    try:    from urllib.parse import urlencode
-    except: from urllib import urlencode
-
-    # Prepare dict to send to CK portal
     ii={
         'action':'download',
         'dict':{
@@ -2417,44 +2378,11 @@ def download(i):
                }
        }
 
-    # Prepare post variables
-    r=dumps_json({'dict':ii, 'skip_indent':'yes'})
+    import ck.net
+    r=ck.net.access_ck_api({'url':cfg['cknowledge_api'], 'dict':ii})
     if r['return']>0: return r
-
-    s=r['string']
-    if sys.version_info[0]>2: s=s.encode('utf8')
-
-    # Prepare request
-    request = urllib2.Request(cfg['cknowledge_api'], s, {'Content-Type': 'application/json'})
-
-    # Connect
-    try:
-       f=urllib2.urlopen(request)
-    except Exception as e:
-       return {'return':1, 'error':'Access to the CK portal failed ('+format(e)+')'}
-
-    # Read from Internet
-    try:
-       s=f.read()
-       f.close()
-    except Exception as e:
-       return {'return':1, 'error':'Failed reading stream from the CK portal ('+format(e)+')'}
-
-    # Check output
-    try: s=s.decode('utf8')
-    except Exception as e: pass
-
-    # Try to convert output to dictionary
-    r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
-    if r['return']>0: 
-       return {'return':1, 'error':'can\'t parse output from the CK portal ('+r['error']+'):\n'+s[:256]+'\n\n...)'}
-
+ 
     d=r['dict']
-
-    if 'return' in d: 
-       d['return']=int(d['return'])
-    else:
-       return {'return':99, 'error':'repsonse doesn\'t follow the CK API standard'}
 
     if d['return']>0:
        if d['return']!=16:
@@ -2994,6 +2922,33 @@ def find_path_to_data(i):
 #          else: s+='?:'
           s+='?:'
        s+=muid+':'+duid+')'
+
+       if muoa=='module' or muoa=='032630d041b4fd8a':
+          if cfg.get('check_missing_modules','')=='yes':
+             ii={
+                 'action':'download',
+                 'dict':{
+                         'module_uoa':muoa,
+                         'data_uoa':duoa
+                        }
+                }
+
+             import ck.net
+             r=ck.net.access_ck_api({'url':cfg['cknowledge_api'], 'dict':ii})
+             if r['return']>0: return r
+         
+             d=r['dict']
+
+             component_url=''
+             dc=d.get('components',[])
+             if len(dc)==1:
+                component_url=dc[0].get('file_url','')
+                if component_url!='':
+                   j=component_url.find('/?')
+                   if j>=0:
+                      component_url=component_url[:j]
+                   s+='. However, it was found at '+component_url+' '
+
 
        return {'return':16, 'error':'can\'t find path to CK entry "'+s}
 
