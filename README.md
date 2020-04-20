@@ -96,7 +96,9 @@ Learn more about our long-term vision in the following white papers and presenta
 
 
 
+## Use cases
 
+* [Real world use cases from our industrial and academic partners](https://cKnowledge.org/partners.html)
 
 
 ## Documentation
