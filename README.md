@@ -23,7 +23,7 @@ and an [open repository of knowledge]( https://cKnowledge.io )
 to share [deep tech components]( https://cKnowledge.io/browse ) 
 and [R&D automation actions]( https://cKnowledge.io/actions ) 
 in a human-readable format 
-with a unified CLI, JSON API, and JSON meta descriptions.
+with a unified CLI, Python API, and JSON meta descriptions.
 
 Our idea is to abstract and connect different evolving software and hardware
 into [portable and non-virtualized (bare-metal) benchmarking "solutions"]( https://cKnowledge.io/solutions )
@@ -40,6 +40,11 @@ use them inside Docker and Kubernetes,
 share them along with [published and reproduced papers](https://cKnowledge.io/reproduced-papers)
 and bring DevOps principles to deep tech R&D.
 
+We also hope that the CK technology will complement existing reproducibility efforts
+such as [PapersWithCode](https://paperswithcode.com),
+[ACM](https://www.acm.org/publications/policies/artifact-review-badging)
+and [artifact evaluation](https://cTuning.org/ae).
+
 Even though this CK SDK is <a href="https://cKnowledge.org/partners.html">stable and used in production</a>,
 there is still a lot to be done and we are only at the beginning of this long-term project. 
 Please check our [MLPerf automation demo](https://cKnowledge.io/demo)
@@ -52,7 +57,7 @@ and the following presentations and white papers:
 [2009]( https://hal.inria.fr/inria-00436029v2 ).
 
 
-*Note that the CK framework is a low-level and no so user-friendly SDK. That is why we are also developing a more user-friendly wrapper around CK ([cBrain](https://github.com/cknowledge/cbrain)) and a [CK GUI](https://cKnowledge.io/demo).*
+*Note that the CK framework is a low-level and not so user-friendly SDK. That is why we are also developing a more user-friendly wrapper around CK ([cBrain](https://github.com/cknowledge/cbrain)) and a [CK GUI](https://cKnowledge.io/demo).*
 
 
 ## Open knowledge portal
@@ -133,7 +138,7 @@ CK supports the following platforms:
 
 ## Acknowledgments
 
-We would like to thank all [CK users](https://cKnowledge.org/partners.html) 
+We would like to thank all [CK users and partners](https://cKnowledge.org/partners.html) 
 for fruitful discussions and feedback!
 
 

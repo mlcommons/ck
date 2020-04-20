@@ -1,5 +1,6 @@
 * V1.12.3.3
   * Fixed installation in virtual env / pip for Linux/Windows
+  * Started working on a new Sphinx-based documentation
 
 * V1.12.3.1
   * Fixed ElasticSearch indexing error when index is empty
