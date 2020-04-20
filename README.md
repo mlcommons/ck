@@ -85,7 +85,7 @@ cBrain - more user-friendly wrapper around CK and conected with cKnowledge.io
   * [Browse SOTA scoreboards powered by CK workflows](https://cKnowledge.io/reproduced-results)
   * [Browse all deep tech CK components](https://cKnowledge.io/browse)
   * [Search for reusable CK components](https://cKnowledge.io)
-* [Our reproducibility checklist for systems conferences](https://cTuning.org/ae)
+* [Our reproducibility initiatives for systems and ML conferences](https://cTuning.org/ae)
 
 
 
