@@ -119,3 +119,41 @@ def copy_to_clipboard(i): # pragma: no cover
 
     return {'return':0}
 
+
+##############################################################################
+def convert_json_str_to_dict(i):
+    """
+    Desc: Convert string of a special format to json
+
+    Target: end users
+
+    Input:  {
+              str                      - string (use ' instead of ", i.e. {'a':'b'} 
+                                         to avoid issues in CMD in Windows and Linux!)
+
+              (skip_quote_replacement) - if 'yes', do not make above replacement
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+
+              dict         - dict from json file
+            }
+    """
+
+    import json
+
+    s=i['str']
+
+    if i.get('skip_quote_replacement','')!='yes':
+       s=s.replace('"', '\\"')
+       s=s.replace('\'', '"')
+
+    try:
+       d=json.loads(s, encoding='utf8')
+    except Exception as e:
+       return {'return':1, 'error':'problem converting text to json ('+format(e)+')'}
+
+    return {'return':0, 'dict': d}
