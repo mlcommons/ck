@@ -105,6 +105,12 @@ Older wiki-based documentation (we gradually move it to Sphinx-based docs above)
 
 ## Installation
 
+Follow [this guide](https://cKnowledge.io/docs/getting-started/ck-installation.html) 
+to install the CK SDK on your platform.
+
+Check [CK-based demo](https://cKnowledge.io/demo) to participate in reproducible MLPerf benchmarking
+with a [public SOTA scoreboard](https://cknowledge.io/c/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking).
+
 CK supports the following platforms:
 
 |               | As a host platform | As a target platform |
@@ -116,12 +122,6 @@ CK supports the following platforms:
 | Windows       | ✓ | ✓ |
 | Android       | ± | ✓ |
 | iOS           | TBD | TBD |
-
-Please follow [this guide](https://cKnowledge.io/docs/getting-started/ck-installation.html) 
-to install the CK SDK on your platform.
-
-Check [CK-based demo](https://cKnowledge.io/demo) to participate in reproducible MLPerf benchmarking
-with a [public SOTA scoreboard](https://cknowledge.io/c/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking).
 
 
 
