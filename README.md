@@ -53,6 +53,16 @@ and the following presentations and white papers:
 *Note that the CK framework is a low-level and no so user-friendly SDK. That is why we are also developing a more user-friendly wrapper around CK ([cBrain](https://github.com/cknowledge/cbrain)) and a [CK GUI](https://cKnowledge.io/demo).*
 
 
+## Open knowledge portal
+
+* [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for deep tech systems (AI,ML,quantum,IoT):
+  * [Browse SOTA scoreboards powered by CK workflows](https://cKnowledge.io/reproduced-results)
+  * [Browse all deep tech CK components](https://cKnowledge.io/browse)
+  * [Search for reusable CK components](https://cKnowledge.io)
+* [Our reproducibility initiatives for systems and ML conferences](https://cTuning.org/ae)
+
+
+
 
 ## CK use cases
 
@@ -65,14 +75,6 @@ and the following presentations and white papers:
 
 
 
-
-## Open knowledge portal
-
-* [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for deep tech systems (AI,ML,quantum,IoT):
-  * [Browse SOTA scoreboards powered by CK workflows](https://cKnowledge.io/reproduced-results)
-  * [Browse all deep tech CK components](https://cKnowledge.io/browse)
-  * [Search for reusable CK components](https://cKnowledge.io)
-* [Our reproducibility initiatives for systems and ML conferences](https://cTuning.org/ae)
 
 
 
