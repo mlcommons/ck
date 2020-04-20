@@ -119,7 +119,7 @@ CK supports the following platforms:
 | iOS           | TBD | TBD |
 
 Please follow [this guide](https://cKnowledge.io/docs/getting-started/ck-installation.html) 
-to install CK SDK on your platform.
+to install the CK SDK on your platform.
 
 
 
@@ -134,10 +134,6 @@ Based on user feedback we plan the following activities:
 * GUI to create, test and interconnect CK actions
 * GUI to assemble portable workflows
 * GUI to automate [MLPerf](https://mlperf.org) submissions
-
-
-<img src="https://cTuning.org/_resources/ctuning-activities-resize.png" width="687">
-
 
 
 
