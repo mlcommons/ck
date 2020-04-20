@@ -24,23 +24,23 @@ and [R&D automation actions]( https://cKnowledge.io/actions )
 in a human-readable format 
 with a unified CLI, JSON API, and JSON meta descriptions.
 
-The idea is to abstract and connect different evolving deep tech software and hardware
-into [bare-metal portable benchmarking solutions]( https://cKnowledge.io/solutions )
-with [public SOTA scoreboards](https://cKnowledge.io/results )
-to collaboratively benchmark and optimize them across diverse hardware,
+Our idea is to abstract and connect different evolving software and hardware
+into [portable and non-virtualized (bare-metal) benchmarking "solutions"]( https://cKnowledge.io/solutions )
+with [public SOTA scoreboards]( https://cKnowledge.io/results )
+to collaboratively benchmark and optimize deep tech systems across diverse hardware,
 models and data sets in terms of speed, accuracy, energy and other costs.
 
-resolved dependencies can be 
+We hope that the unified APIs and meta descriptions of such functional CK solutions 
+will make it possible to understand [what is happening]( https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies ) 
+inside "black box" deep tech systems,
+integrate them with production and legacy systems,
+use them inside Docker and Kubernetes,
+share them along with [published and reproduced papers](https://cKnowledge.io/reproduced-papers)
+and bring DevOps principles to deep tech R&D.
 
-Docker and Kubernetes
-shared along research papers,
 
-
-
-Such CK actions and components can be connected into platform-agnostic, 
-portable, customizable, reusable and reproducible [workflows](https://cKnowledge.io/programs) 
-(CK "program" component) that can be easily integrated with Continuous Integration tools, 
-existing/legacy projects, and production systems.
+We are only at the beginning of this long-term project. Please check our [MLPerf automation demo](https://cKnowledge.io/demo)
+and feel free to [get in touch](https://cKnowledge.org/contacts.html) if you have any feedback and suggestions!
 
 Learn more about our project in the [CK documentation](https://cKnowledge.io/docs) 
 and the following presentations and white papers: 
@@ -53,16 +53,15 @@ and the following presentations and white papers:
 *Note that the CK framework is a low-level and no so user-friendly SDK. That is why we are also developing a more user-friendly wrapper around CK ([cBrain](https://github.com/cknowledge/cbrain)) and a [CK GUI](https://cKnowledge.io/demo).*
 
 
-[<img src="https://img.youtube.com/vi/DIkZxraTmGM/0.jpg" width="320">](https://www.youtube.com/watch?v=DIkZxraTmGM)
-[<img src="https://img.youtube.com/vi/VpedDdia5yY/0.jpg" width="320">](https://www.youtube.com/watch?v=VpedDdia5yY)
-
-
 
 ## CK use cases
 
 * [Real world use cases from our industrial and academic partners](https://cKnowledge.org/partners.html)
 * [MLPerf benchmark automation demo with a CK SOTA scoreboard](https://cKnowledge.io/demo)
 * [Demo of a CK-based live research paper (collaboration with the Raspberry Pi foundation)](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
+
+[<img src="https://img.youtube.com/vi/DIkZxraTmGM/0.jpg" width="320">](https://www.youtube.com/watch?v=DIkZxraTmGM)
+[<img src="https://img.youtube.com/vi/VpedDdia5yY/0.jpg" width="320">](https://www.youtube.com/watch?v=VpedDdia5yY)
 
 
 
