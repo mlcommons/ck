@@ -188,7 +188,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'ck.tex', u'Collective Knowledge',
-     author, 'CK', 'Collective Knowledge about deep tech systems',
+     author, 'CK', 'Collective Knowledge about complex computational systems',
      'reproducibility'),
 ]
 
