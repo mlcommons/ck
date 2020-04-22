@@ -1,4 +1,4 @@
-﻿# CK Portal API
+# CK Portal API
 
 The cKnowledge portal features an open JSON API to download and publish AI/ML/systems components, workflows and solutions, 
 and to create customizable dashboards for auto-generated live papers, collaborative and reproducible benchmarking,

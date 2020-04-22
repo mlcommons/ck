@@ -1,4 +1,4 @@
-﻿# cBrain commands
+# cBrain commands
 
 After installing the [CK client (cBrain)](../getting-started/installation) you can use the following commands:
 

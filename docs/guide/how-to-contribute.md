@@ -1,4 +1,4 @@
-﻿# How to contribute
+# How to contribute
 
 * This is an ongoing community project and there is a lot to be improved - 
   don't hesitate to [get in touch](https://cKnowledge.org/contacts.html)

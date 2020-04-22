@@ -1,4 +1,4 @@
-﻿.. Copyright 2015-2020 cTuning foundation
+.. Copyright 2015-2020 cTuning foundation
 
 .. CK documentation master file
 

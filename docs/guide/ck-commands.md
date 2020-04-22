@@ -1,4 +1,4 @@
-﻿# CK commands
+# CK commands
 
 We plan to rewrite this documentation when we have more resources. 
 In the mean time have a look at this older wiki-based documentation:

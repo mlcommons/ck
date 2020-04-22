@@ -1,4 +1,4 @@
-﻿# Practical use cases and tutorials
+# Practical use cases and tutorials
 
 We gradually update and improve this section with the help of our users.
 Feel free to extend it via [GitHub pull-requests](https://github.com/cknowledge/cbrain).
