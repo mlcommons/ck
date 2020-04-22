@@ -1,4 +1,4 @@
-# Collective Knowledge framework (low-level CK SDK)
+# Collective Knowledge SDK
 
 [![Downloads](https://pepy.tech/badge/ck)](https://pepy.tech/project/ck)
 [![PyPI version](https://badge.fury.io/py/ck.svg)](https://badge.fury.io/py/ck)
@@ -14,57 +14,59 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 ## Introduction
 
-Designing deep tech systems (ML, AI, Quantum, IoT) and moving them to production
-is a very tedious and time-consuming process due to continuously 
-changing models, data sets, software and hardware.
+Developing complex computational systems for emerging workloads (ML, AI,
+Quantum, IoT) and moving them to production is a very tedious, ad-hoc and
+time consuming process due to continuously changing software, hardware,
+models, data sets and research techniques.
 
-The Collective Knowledge project (CK) is our attempt to develop a common SDK
-and an [open repository of knowledge]( https://cKnowledge.io ) 
-to share [deep tech components]( https://cKnowledge.io/browse ) 
-and [R&D automation actions]( https://cKnowledge.io/actions ) 
-in a human-readable format 
-with a unified CLI, Python API, and JSON meta descriptions.
+The Collective Knowledge project (CK) is our attempt to solve these problems
+with a common SDK and an [open repository of knowledge]( https://cKnowledge.io ) 
+to decompose complex systems and research projects into reusable, portable, 
+customizable and non-virtualized [CK components]( https://cKnowledge.io/browse )
+with the [unified automation actions]( https://cKnowledge.io/actions ), 
+Python APIs, CLI and JSON meta description. 
 
-Our idea is to abstract and connect different evolving software and hardware
-into [portable and non-virtualized (bare-metal) benchmarking "solutions"]( https://cKnowledge.io/solutions )
-with [public SOTA scoreboards]( https://cKnowledge.io/results )
-to collaboratively benchmark and optimize deep tech systems 
-in terms of speed, accuracy, energy and other costs
-with the help of the community similar to SETI@home.
+We can then use the DevOps methodology to connect such components together 
+into [portable CK solutions](https://cKnowledge.io/solutions) 
+that can automatically adapt to evolving models, data sets and bare-metal platforms. 
 
-We hope that the unified APIs and meta descriptions of such functional CK solutions 
-will make it possible to better understand [what is happening]( https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies ) 
-inside "black box" deep tech systems,
+Our goal is to help researchers and practitioners to collaboratively
+validate innovative techniques, benchmark and optimize novel computational
+systems, and find the most efficient ones in terms of speed, accuracy,
+energy, size and different costs using a public repository of knowledge
+with [live SOTA scoreboards]( https://cKnowledge.io/results ) 
+and [reproducible papers]( https://cKnowledge.io/reproduced-papers ).
+
+We hope that such approach will make it possible 
+to better understand [what is happening]( https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies ) 
+inside complex and "black box" computational systems,
 integrate them with production and legacy systems,
 use them inside Docker and Kubernetes,
-share them along with [published and reproduced papers](https://cKnowledge.io/reproduced-papers)
-and bring DevOps principles to deep tech R&D.
+share them along with [published papers](https://cKnowledge.io/events),
+and apply the DevOps methodology in deep tech research and computational science.
 
 We also hope that the CK technology will complement existing reproducibility efforts
 such as [PapersWithCode](https://paperswithcode.com),
 [ACM](https://www.acm.org/publications/policies/artifact-review-badging)
 and [artifact evaluation](https://cTuning.org/ae).
 
-Even though this CK SDK is <a href="https://cKnowledge.org/partners.html">stable and used in production</a>,
-there is still a lot to be done and we are only at the beginning of this long-term project. 
 Please check our [MLPerf automation demo](https://cKnowledge.io/demo)
 and feel free to [get in touch](https://cKnowledge.org/contacts.html) if you have any feedback and suggestions!
-Learn more about our project in the [CK documentation](https://cKnowledge.io/docs) 
+You can learn more about our project in the [CK documentation](https://cKnowledge.io/docs) 
 and the following presentations and white papers: 
 [2019]( https://doi.org/10.5281/zenodo.2556147 ),
 [2018]( https://cknowledge.io/c/report/rpi3-crowd-tuning-2017-interactive ),
 [2017]( https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly ),
 [2009]( https://hal.inria.fr/inria-00436029v2 ).
 
-
-*Note that the CK framework is a low-level and not so user-friendly SDK. That is why we are also developing a more user-friendly wrapper around CK ([cBrain](https://github.com/cknowledge/cbrain)) and a [CK GUI](https://cKnowledge.io/demo).*
+**Even though the CK technology is used [in production](https://cKnowledge.org/partners.html) for more than 5 years, it is still a proof-of-concept prototype requiring further improvements and standardization. Depending on the available resources, we plan to develop a new, backward-compatible and more user-friendly version - please [get in touch](https://cKnowledge.org/contacts.html) if you are interested to know more!**
 
 
 ## Open knowledge portal
 
-* [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for deep tech systems (AI,ML,quantum,IoT):
+* [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for complex computational systems (AI,ML,quantum,IoT):
   * [Browse SOTA scoreboards powered by CK workflows](https://cKnowledge.io/reproduced-results)
-  * [Browse all deep tech CK components](https://cKnowledge.io/browse)
+  * [Browse all shared CK components](https://cKnowledge.io/browse)
   * [Search for reusable CK components](https://cKnowledge.io)
 * [Our reproducibility initiatives for systems and ML conferences](https://cTuning.org/ae)
 

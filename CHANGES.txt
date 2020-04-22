@@ -1,11 +1,10 @@
-* V1.12.3.3
+* V1.15.0
+  * Improved the integration with the open CK portal: https://cKnowledge.io
   * Fixed installation in virtual env / pip for Linux/Windows
   * Started working on a new Sphinx-based documentation
   * Check missing modules at cKnowledge.io
     (can be turned off by "ck set kernel --var.check_missing_modules=no")
   * Fixed ck.bat for Windows when CK is used from GitHub
-
-* V1.12.3.1
   * Fixed ElasticSearch indexing error when index is empty
   * Fixed remote repo access
   * Added experimental mode to support multiple aliases for the same UID
