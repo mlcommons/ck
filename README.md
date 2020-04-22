@@ -25,7 +25,6 @@ to decompose complex systems and research projects into reusable, portable,
 customizable and non-virtualized [CK components]( https://cKnowledge.io/browse )
 with the [unified automation actions]( https://cKnowledge.io/actions ), 
 Python APIs, CLI and JSON meta description. 
-
 We can then use the DevOps methodology to connect such components together 
 into [portable CK solutions](https://cKnowledge.io/solutions) 
 that can automatically adapt to evolving models, data sets and bare-metal platforms. 
@@ -44,7 +43,6 @@ integrate them with production and legacy systems,
 use them inside Docker and Kubernetes,
 share them along with [published papers](https://cKnowledge.io/events),
 and apply the DevOps methodology in deep tech research and computational science.
-
 We also hope that the CK technology will complement existing reproducibility efforts
 such as [PapersWithCode](https://paperswithcode.com),
 [ACM](https://www.acm.org/publications/policies/artifact-review-badging)
@@ -59,7 +57,7 @@ and the following presentations and white papers:
 [2017]( https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly ),
 [2009]( https://hal.inria.fr/inria-00436029v2 ).
 
-**Even though the CK technology is used [in production](https://cKnowledge.org/partners.html) for more than 5 years, it is still a proof-of-concept prototype requiring further improvements and standardization. Depending on the available resources, we plan to develop a new, backward-compatible and more user-friendly version - please [get in touch](https://cKnowledge.org/contacts.html) if you are interested to know more!**
+*Even though the CK technology is used [in production](https://cKnowledge.org/partners.html) for more than 5 years, it is still a proof-of-concept prototype requiring further improvements and standardization. Depending on the available resources, we plan to develop a new, backward-compatible and more user-friendly version - please [get in touch](https://cKnowledge.org/contacts.html) if you are interested to know more!*
 
 
 ## Open knowledge portal
