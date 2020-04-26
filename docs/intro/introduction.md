@@ -7,23 +7,27 @@ Quantum, IoT) and moving them to production is a very tedious, ad-hoc and
 time consuming process due to continuously changing software, hardware,
 models, data sets and research techniques.
 
-We decided to start the Collective Knowledge project (CK) after suffering from these issues from many years.
-The CK concept is to decompose complex systems and research projects into reusable, portable, 
-customizable and non-virtualized [CK components]( https://cKnowledge.io/browse )
-with the unified [automation actions]( https://cKnowledge.io/actions ), 
-Python APIs, CLI and JSON meta description. 
-We can then use the DevOps methodology to connect such components together 
-into [portable workflows](https://cKnowledge.io/programs) 
-and [complete functional solutions](https://cKnowledge.io/demo)
-that can automatically adapt to evolving models, data sets and bare-metal platforms.
+After struggling with these problems for many years, we started the *Collective Knowledge project (CK)*
+to decompose complex systems and research projects 
+into [reusable, portable, customizable and non-virtualized CK components](https://cKnowledge.io/browse) 
+with the unified [automation actions, Python APIs, CLI and JSON meta description](https://cKnowledge.io/actions).
 
-CK is basically an intermediate language helping to connect researchers and practitioners 
+Our idea is to gradually abstract all existing artifacts (software, hardware, models, data sets, results)
+and use the DevOps methodology to connect such components together 
+into [functional solutions](https://cKnowledge.io/demo)
+that can automatically adapt to evolving models, data sets and bare-metal platforms
+with the help of [customizable program workflows](https://cKnowledge.io/programs),
+a list of [all dependencies](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies)
+(models, data sets, frameworks), and a portable 
+[meta package manager](https://cKnowledge.io/packages).
+
+CK is basically our intermediate language to connect researchers and practitioners 
 to collaboratively design, benchmark, optimize and validate innovative computational systems.
 It then makes it possible to find the most efficient system configurations
 on a [Pareto frontier](https://cKnowledge.org/request)
-(speed, accuracy, energy, size and different costs)
+(trading off speed, accuracy, energy, size and different costs)
 using an [open repository of knowledge](https://cKnowledge.io)
-with [live SOTA scoreboards](https://cKnowledge.io/results)
+with [live SOTA scoreboards](https://cKnowledge.io/sota)
 and [reproducible papers](https://cKnowledge.io/reproduced-papers).
 
 We hope that such approach will make it possible 
