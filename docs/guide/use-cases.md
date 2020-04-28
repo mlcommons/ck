@@ -1,7 +1,7 @@
 # Practical use cases and tutorials
 
 We gradually update and improve this section with the help of our users.
-Feel free to extend it via [GitHub pull-requests](https://github.com/cknowledge/cbrain).
+Feel free to extend it via [GitHub pull-requests](https://github.com/cknowledge/cbench).
 
 
 
@@ -49,8 +49,8 @@ necessary to benchmarking deep tech systems in a reproducible and collaborative 
 and to enable portable MLOps with the automated deployment of ML models 
 in production across diverse systems from IoT to data centers in the most efficient way (MLSysOps).
 
-You need to install the [cBrain client](../getting-started/installation) 
-and then follow [this guide](commands.html#cbrain-ck-components)
+You need to install [cBench](../getting-started/installation) 
+and then follow [this guide](commands.html#cbench-ck-components)
 to learn how to download or upload your CK components. 
 
 
@@ -63,7 +63,7 @@ We created CK also to support [auto-generated and live papers](https://cKnowledg
 and [crowd-benchmarking](https://cKnowledge.io/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking)
 
 The users can now create customizable dashboards on cKnowledge platform
-and push their results. Please follow [this guide](commands.html##cbrain-dashboards) to learn
+and push their results. Please follow [this guide](commands.html##cbench-dashboards) to learn
 how to create such dashboards.
 
 You can also check our [MLPerf demo](https://cKnowledge.io/c/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/) 
@@ -78,7 +78,7 @@ with [crowd results](https://cKnowledge.io/result/sota-mlperf-object-detection-v
 
 See the list of [shared software detection plugins](https://cKnowledge.io/c/soft) with usage examples.
 
-See examples of MLPerf inference benchmark automation using cKnowledge.io and the cBrain client
+See examples of MLPerf inference benchmark automation using cKnowledge.io and cBench
 for [Linux](https://cKnowledge.io/c/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#prereq),
 [Raspberry Pi](https://cKnowledge.io/c/solution/demo-obj-detection-coco-tf-cpu-benchmark-rpi-portable-workflows/#prereq) 
 and [Android](https://cKnowledge.io/c/solution/demo-obj-detection-coco-tflite-cpu-benchmark-android-portable-workflows/#prereq).
@@ -107,4 +107,4 @@ See the list of [shared program workflows](https://cKnowledge.io/c/program) with
 
 See the list of [shared solutions](https://cKnowledge.io/c/program) and the [MLPerf automation demo](https://cKnowledge.io/c/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows).
 
-Please follow [this guide](commands.html#cbrain-solutions).
+Please follow [this guide](commands.html#cbench-solutions).

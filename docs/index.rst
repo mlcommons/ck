@@ -17,7 +17,7 @@ Collective Knowledge documentation
    :maxdepth: 2
    :caption: Getting Started
 
-   getting-started/cbrain-installation
+   getting-started/cbench-installation
    getting-started/ck-installation
    getting-started/demo-mlperf
 
@@ -25,7 +25,7 @@ Collective Knowledge documentation
    :maxdepth: 2
    :caption: User Guide
 
-   guide/cbrain-commands
+   guide/cbench-commands
    guide/ck-commands
    guide/use-cases
    guide/how-to-contribute
@@ -35,7 +35,7 @@ Collective Knowledge documentation
    :caption: Resources
 
    resources/portal-api
-   _package/cbrain
+   _package/cbench
    _package/ck
 
 Index

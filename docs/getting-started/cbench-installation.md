@@ -1,27 +1,27 @@
-# cBrain installation
+# cBench installation
 
-You can install the client on most platforms using PIP as follows:
+You can install cBench on most platforms using PIP as follows:
 
 ```
-pip install cbrain
+pip install cbench
 ```
 
-You can also install the cBrain client using a specific Python version (for example, Python 3.6):
+You can also install cBench using a specific Python version (for example, Python 3.6):
 ```
-python3.6 -m pip install cbrain
+python3.6 -m pip install cbench
 ```
 
 *You may need to add flag "--user" to install the client in the user space:*
 ```
-pip install cbrain --user
-python3.6 -m pip install cbrain --user
+pip install cbench --user
+python3.6 -m pip install cbench --user
 ```
 
 You should now be able to run this client using one of the following alternative commands:
 ```
 cb
 
-python3.6 -m cbrain
+python3.6 -m cbench
 ```
 
 If the installation is successful, you will see the list of all [available commands](../guide/commands).
@@ -63,6 +63,6 @@ These dependencies are needed to cross-compile for Android (tested on Ubuntu 18.
 
 ### Docker
 
-We prepared a Docker image with the cBrain client installed:
+We prepared a Docker image with cBench installed:
 
-* [CK-based MLPerf worklfow](https://hub.docker.com/repository/docker/ctuning/cbrain-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows)
+* [CK-based MLPerf worklfow](https://hub.docker.com/repository/docker/ctuning/cbench-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows)

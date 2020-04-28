@@ -6,15 +6,15 @@ and MLSysOps.
 
 cKnowledge API URL: [http://cKnowledge.io/api/v1/?](http://cKnowledge.io/api/v1/?)
 
-The [cBrain client](https://github.com/cknowledge/cbrain) provides a user-friendly access to this API. 
+[cBench](https://github.com/cknowledge/cbench) provides a user-friendly access to this API. 
 
 You can also use Curl to test it as follows:
 ```
-curl -d @cbrain-input.json -H "Content-Type: application/json"  https://cKnowledge.io/api/v1/? -o cbrain-output.json
+curl -d @cbench-input.json -H "Content-Type: application/json"  https://cKnowledge.io/api/v1/? -o cbench-output.json
 ```
-where *cbrain-input.json* contains a Json dictionary with commands listed below.
+where *cbench-input.json* contains a Json dictionary with commands listed below.
 
-If you have the cBrain client installed, you can use the following command to test the low-level access to this API instead of Curl:
+If you have cBench installed, you can use the following command to test the low-level access to this API instead of Curl:
 ```
 cr access --json="{'action':'get_obj_info', 'dict':{'module_uoa':'package', 'data_uoa':'lib-tensorflow-1.14.0-src-cuda'}}"
 
@@ -215,7 +215,7 @@ JSON input:
   (
    "ownership":{
      private [bool] - private component, if True
-     workspaces [list] - list of cBrain workspaces
+     workspaces [list] - list of cKnowledge workspaces
    }
   )
 

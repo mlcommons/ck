@@ -59,8 +59,8 @@ the following presentations and white papers:
 
 ## Glossary
 
-**[CK framework](https://github.com/ctuning/ck)** is a low-level
-and not so user friendly SDK to share [reusable CK components](https://cKnowledge.io/browse)
+**[CK framework](https://github.com/ctuning/ck)** is a low-level CLI-based SDK 
+to share [reusable CK components](https://cKnowledge.io/browse)
 and [R&D automation actions](https://cKnowledge.io/actions) 
 in a human-readable format with a unified CLI, Python API, and JSON meta descriptions.
 
@@ -68,8 +68,8 @@ in a human-readable format with a unified CLI, Python API, and JSON meta descrip
 (models, data sets, packages, scripts) from research projects in the [common CK format](https://github.com/ctuning/ck)
 required to enable portable, customizable and reproducible benchmarking pipelines.
 
-**[CK component](https://cKnowledge.io/browse)** is an abstraction of an existing computational component (code, model, data set, script, result)
-consisting of a CK module, CK data and a collection of native files and directories. Have a look at the example
+**[CK component](https://cKnowledge.io/browse)** is an abstraction of any existing artifact (code, model, data set, script, result)
+consisting of a CK module, CK data and a collection of native files and directories from a given artifact. See the example
 of a CK package component "package:compiler-llvm-8.0.0-universal" at [GitHub](https://github.com/ctuning/ck-env/tree/master/package/compiler-llvm-8.0.0-universal)
 and on [cKnowledge.io platform](https://cknowledge.io/c/package/compiler-llvm-8.0.0-universal)
 
@@ -98,7 +98,7 @@ inside this repository. Such repository receives the following badge on GitHub:
 
 **[Reproducible benchmarking pipeline](https://cKnowledge.io/programs)**
 
-The unified API and JSON meta of all KC components allow us to connect them 
+The unified API and JSON meta of all CK components allow us to connect them 
 into [customizable benchmarking pipelines](https://hal.inria.fr/hal-01054763). 
 It is also possible to expose all design
 and optimization parameters of all components (models, frameworks, compilers, run-time systems, hardware)
@@ -113,19 +113,21 @@ components to ensure reproducibility of results.
 See how CK was used to [autotune ML models for MLPerf submission](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
 and for [reproducible and Pareto-efficient ML/SW/HW co-design tournaments](https://cKnowledge.org/request).
 
-**[Live SOTA scoreboards](https://cKnowledge.io/results)** are connected with above CK pipelines 
-to collect information about the behavior of different computational systems across diverse
-software, hardware, models and data sets similar to SETI@home. They are used
+**[cBench](https://github.com/cknowledge/cbench)** is a wrapper around the low-level CK SDK 
+to connect it with the CK portal while improving and simplifying the user experience
+during collaborative benchmarking and optimization of complex computational systems.
+
+**[Live SOTA dashboards](https://cKnowledge.io/results)** are connected with cBench 
+to aggregate information about the behavior of computational systems across diverse
+software, hardware, models and data sets similar to SETI@home. They are also used
 for our [reproducibility initiatives](https://cKnowledge.io/events) 
 to validate results from published papers at [systems and ML conferences](https://cTuning.org/ae).
 
 **[Reproduced research paper](https://cKnowledge.io/reproduced-papers)** is published on our portal
-if it was reproduced using a [standard ACM/cTuning procedure](https://cTuning.org/ae) 
+if it was reproduced using the [standard ACM/cTuning evaluaiton procedure](https://cTuning.org/ae) 
+with the [unified Artifact Appendix and reproducibility checklist](https://ctuning.org/ae/submission_extra.html)
 which we helped to prepare in collaboration with the [ACM taskforce on reproducibility](https://www.acm.org/publications/task-force-on-data-software-and-reproducibility).
 
-**[cBrain](https://github.com/cknowledge/cbrain)** is a wrapper around the low-level CK SDK 
-to connect it with the CK portal while improving and simplifying the user experience
-during collaborative benchmarking and optimization of complex computational systems.
 
 **[CK solution](https://cKnowledge.io/c/solution)** is a set of JSON files describing 
 how to download, build, benchmark and use a complex computational system 
@@ -139,14 +141,14 @@ how to download, build, benchmark and use a complex computational system
 * an associated [SOTA scoreboard](https://cKnowledge.io/results) for collaborative benchmarking and optimization of related systems; 
 
 **[CK solution for MLPerf](https://cKnowledge.io/c/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/)** 
-demonstrates how to use our CK solutions with the cBrain client 
+demonstrates how to use our CK solutions with cBench 
 to automatically build, run and [crowd-benchmark](https://cKnowledge.io/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking/) 
 object detection based on [SSD-Mobilenets, TensorFlow and COCO dataset](https://cKnowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies)
 from the latest [MLPerf inference benchmark](https://mlperf.org) across a wide range of platforms 
 from Raspberry Pi, Android phones and IoT devices to HPC servers with GPUs.
 
 
-**Lowercase c (cKnowledge, cBrain, cTuning)** means "collective", "collaborative" or "crowd" based on our vision
+**Lowercase c (cKnowledge, cBench, cTuning)** means "collective", "collaborative" or "crowd" based on our vision
 of collaborative and reproducible benchmarking and optimization of complex computational systems:
 [2009]( https://en.wikipedia.org/wiki/Collective_Tuning_Initiative ),
 [2017]( https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly ),
@@ -157,7 +159,7 @@ of collaborative and reproducible benchmarking and optimization of complex compu
 ## Why CK?
 
 The CK project was heavily motivated by our [painful experience](https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly-) 
-validating the innovative technology from research papers
+validating innovative ideas from research papers
 at [ML and systems conferences](https://cKnowledge.io/reproduced-results) 
 and moving them to production.
 We have noticed that while finding the code from research papers 
@@ -244,7 +246,7 @@ instead of hardwired scripts and data formats.
 Even though the CK technology is <a href="https://cKnowledge.org/partners.html">stable and used in production</a>,
 there is still a lot to be done and we are only at the beginning of this long-term project. 
 
-We continue improving the cBrain client as a more user-friendly wrapper around CK,
+We continue improving cBench as a more user-friendly wrapper around CK,
 and we continue improving the open cKnowledge.io portal as a centralized
 place to aggregate, version, test and create all components
 and workflows necessary to design complex computational systems.

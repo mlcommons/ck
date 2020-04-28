@@ -1,6 +1,6 @@
-# cBrain commands
+# cBench commands
 
-After installing the [CK client (cBrain)](../getting-started/installation) you can use the following commands:
+After installing [cBench](../getting-started/installation) you can use the following commands:
 
 
 
@@ -86,7 +86,7 @@ Note that you need to add flag "-h 0.0.0.0" if you start it from Docker:
 cb start -h 0.0.0.0
 ```
 
-See the [demo of the cBrain client](https://cKnowledge.io/c/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/) 
+See the [demo of cBench](https://cKnowledge.io/c/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/) 
 communicating with the cKnowledge portal to crowd-benchmark MLPerf.
 
 
@@ -185,7 +185,7 @@ cb versions {module name}:{data name}
 
 ### Open a cKnowledge web page with a given component
 
-*Open a cBrain web page with a given component.*
+*Open a cKnowledge.io web page with a given component.*
 
 
 ```
@@ -297,7 +297,7 @@ You can download existing solution from this [list](https://cKnowledge.io/c/solu
 cb init demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows
 ```
 
-Note that the cBrain client will attempt to automatically download all required CK components 
+Note that cBench will attempt to automatically download all required CK components 
 (models, data sets, frameworks, packages, etc) and install missing software dependencies.
 However, the installation of system packages is not yet automated and must be done manually 
 (our future work).
@@ -368,7 +368,7 @@ Example:
 cb activate demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows
 ```
 
-You can then use [CK](https://github.com/ctuning/ck) as well as the cBrain client
+You can then use [CK](https://github.com/ctuning/ck) as well as cBench
 to improve/update this solution. 
 
 We plan to provide a tutorial about that.
