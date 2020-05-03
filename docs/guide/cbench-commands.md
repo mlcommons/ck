@@ -260,8 +260,19 @@ Here is the example of the "graph-desc.json" to aggregate results from this [MLP
 cb push-result --help
 ```
 
+First, you need to check the meta description of a given graph (dashboard or scoreboard) using the link "graph meta description".
+
 You can push the new results to the [existing dashboard](https://cKnowledge.io/results) as follows:
 
+```
+cb push-result {name of the existing dashboard} --json="[{'key1':value1,'key2':value2 ...}]"
+
+```
+
+You can find the format of accepted values for keys in the "table_view" list in the graph meta description.
+
+
+You can also push multiple blobs of results at the saemt time:
 
 ```
 cb push-result {name of the existing dashboard} --json="[{'x':3,'y':-3}, {'x':4, 'y':5}]"
@@ -272,7 +283,7 @@ or
 cb push-result {name of the existing dashboard} --file="$PWD/result.json"
 ```
 
-where "result.json" file contains a list of dictionaries with results.
+where "result.json" contains a list of dictionaries with results.
 
 
 
@@ -283,7 +294,7 @@ where "result.json" file contains a list of dictionaries with results.
 The client can help to initialize, download, test and run [AI/ML solutions](https://cKnowledge.io/c/solution)
 across diverse platforms as shown in this [demo](https://cKnowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/).
 
-### Initialize a solution
+### Download and initialize the existing solution
 
 *Download existing or start the new cKnowledge solution*
 
@@ -408,3 +419,34 @@ Example:
 ```
 cb rm demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows
 ```
+
+### Create a new solution
+
+*To be updated*
+
+At the moment it is possible to create a portable CK solution from CK [program pipelines](https://cKnowledge.io/programs).
+We plan to add a possibility to create a CK solution for any workflow.
+
+You can follow this [real example](https://github.com/cknowledge/cbench/tree/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux)
+to automate the MLPerf inference benchmark submissions. 
+It shows how to create a CK solution to prepare object classification benchmark with Intel OpenVINO, SSD-Mobilenet, COCO data set and 500 images.
+
+First you need to create a public scoreboard as described above.
+You can initialize such scoreboard using [this script](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/_init_graph.sh) 
+and this [graph meta description](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/graph-desc.json).
+
+If you want to push crowd results to an existing [dashboard](https://cKnowledge.io/c/result), 
+you need to create [graph-convertor.json](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/graph-convertor.json).
+
+After that you need to create two text files:
+* [prereq.txt](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/prereq.txt) 
+  describing all OS-specific prerequisites
+* [prepare.txt](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/prepare.txt)
+  describing CK components and installation procedures.
+
+Finally, you need to initialize your solution as show in this [sample script](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/_init.sh).
+
+If you successfully initialized this solution on your machine, you can then push it to the cKnowledge.io platform 
+as shown in this [sample script](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/_publish.sh).
+  
+We plan to considerably improve this section. If you have questions or suggestions, do not hesitate to [get in touch](https://cKnowledge.org/contacts).
