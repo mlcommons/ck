@@ -20,7 +20,8 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 We have developed the Collective Knowledge framework (CK) to help our colleagues, researchers and practitioners
 share their projects and artifacts (code, data, models, scripts, experiments, papers)
-in a common format as a human-readable database with a standardized API, CLI and JSON input/output/meta descriptions.
+in a common format as a human-readable database ([CK repository]( https://cKnowledge.io/repos )) 
+with a standardized API, CLI and JSON input/output/meta descriptions.
 
 CK is a small, cross-platform, CLI-based and community-driven Python framework 
 to add, share and reuse [automation actions]( https://cKnowledge.io/actions ) 
