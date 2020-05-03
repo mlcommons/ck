@@ -45,7 +45,7 @@ existing/legacy projects, and production systems.
 The stable components and portable workflows are published along with [reproduced papers](https://cKnowledge.io/reproduced-papers) 
 at the [open Collective Knowledge platform](https://cKnowledge.io)
 to help the community participate in [collaborative benchmarking and validation of research techniques](https://cKnowledge.io/solutions) 
-across diverse hardware, datasets and models using [public scoreboards][https://cKnowledge.io/results]
+across diverse hardware, datasets and models using [public scoreboards](https://cKnowledge.io/results)
 
 Our long-term goal is to enable collaborative, reproducible, sustainable and production-ready deep tech research (AI, ML, quantum, IoT).
 
