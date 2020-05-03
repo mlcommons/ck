@@ -48,7 +48,6 @@ to help the community participate in [collaborative benchmarking and validation 
 across diverse hardware, datasets and models using [public scoreboards](https://cKnowledge.io/results)
 
 Our long-term goal is to enable collaborative, reproducible, sustainable and production-ready deep tech research (AI, ML, quantum, IoT).
-
 See the [real CK use cases from our partners](https://cKnowledge.org/partners.html)
 and try our [MLPerf automation demo](https://cKnowledge.io/demo) on your platform.
 
