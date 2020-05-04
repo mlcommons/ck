@@ -18,33 +18,30 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 **You can read about our motivation to create CK at [cKnowledge.org](https://cKnowledge.org)**
 
-We have developed the Collective Knowledge framework (CK) to help our colleagues, researchers and practitioners
+We have developed the Collective Knowledge framework (CK) to help our colleagues, students, researchers and practitioners
 share their projects and artifacts (code, data, models, scripts, experiments, papers)
-in a common format as a human-readable database ([CK repository]( https://cKnowledge.io/repos )) 
-with a standardized API, CLI and JSON input/output/meta descriptions.
+as a human-readable database ([CK repository]( https://cKnowledge.io/repos )) 
+with unified API, CLI, JSON input/output/meta descriptions
+and [reusable automation actions](https://cKnowledge.io/actions).
 
-CK is a small, cross-platform, CLI-based and community-driven Python framework 
-to add, share and reuse [automation actions]( https://cKnowledge.io/actions ) 
-for repetitive, tedious, and time-consuming R&D tasks in a non-intrusive way
-along with existing research projects.
-
-CK also helps to convert all ad-hoc artifacts into standardized and reusable CK components 
-with a common API and JSON meta description.
 For example, CK features 
-[software detection plugins](https://cKnowledge.io/soft) (CK "soft" component), 
-[meta packages](https://cKnowledge.io/packages) (CK "package" component) 
+[software detection plugins](https://cKnowledge.io/soft), 
+[meta packages](https://cKnowledge.io/packages) 
 and [OS descriptions](https://cKnowledge.io/c/os)
 to automate the detection and installation of [all the dependencies](https://cknowledge.io/c/solution/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/#dependencies) 
-required by a given research project to run on any target platform.
+including data sets and models required by a given research project to run on any target platform.
 
 Such CK actions and components can be connected into platform-agnostic, 
-portable, customizable, reusable and reproducible [workflows](https://cKnowledge.io/programs) 
-(CK "program" component) that can be easily connected to Continuous Integration tools, 
+portable, customizable and reproducible [program pipelines](https://cKnowledge.io/programs) 
+and [functional solutions](https://cKnowledge.io/solutions)
+that can be used with Continuous Integration tools, 
 existing/legacy projects, and production systems.
 
-The stable components and portable workflows are published along with [reproduced papers](https://cKnowledge.io/reproduced-papers) 
-at the [open Collective Knowledge platform](https://cKnowledge.io)
-to help the community participate in [collaborative benchmarking and validation of research techniques](https://cKnowledge.io/solutions) 
+The stable components, portable workflows and solutions are published along 
+with [reproduced papers](https://cKnowledge.io/reproduced-papers) 
+at the [open Collective Knowledge platform](https://cKnowledge.io).
+They provide a unified way to benchmark, optimize, test and co-design
+software and hardware for emerging technoligies (AI, ML, quantum, IoT)
 across diverse hardware, datasets and models using [public scoreboards](https://cKnowledge.io/results)
 
 Our long-term goal is to enable collaborative, reproducible, sustainable and production-ready deep tech research (AI, ML, quantum, IoT).
