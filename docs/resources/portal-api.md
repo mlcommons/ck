@@ -6,7 +6,7 @@ and MLSysOps.
 
 cKnowledge API URL: [http://cKnowledge.io/api/v1/?](http://cKnowledge.io/api/v1/?)
 
-[cBench](https://github.com/cknowledge/cbench) provides a user-friendly access to this API. 
+[cBench](https://github.com/ctuning/cbench) provides a user-friendly access to this API. 
 
 You can also use Curl to test it as follows:
 ```

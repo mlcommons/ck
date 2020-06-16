@@ -125,7 +125,7 @@ and for [reproducible and Pareto-efficient ML/SW/HW co-design tournaments](https
 
 ### cBench
 
-**[cBench](https://github.com/cknowledge/cbench)** is a wrapper around the low-level CK SDK 
+**[cBench](https://github.com/ctuning/cbench)** is a wrapper around the low-level CK SDK 
 to connect it with the CK portal while improving and simplifying the user experience
 during collaborative benchmarking and optimization of complex computational systems.
 
@@ -217,7 +217,8 @@ and collaborative validation of research results from <a href="https://cKnowledg
 ([2009](https://en.wikipedia.org/wiki/Collective_Tuning_Initiative"),
  [2014](https://cTuning.org/ae"),
  [2017](https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly"),
- [2019](https://doi.org/10.5281/zenodo.2556147")).
+ [2019](https://doi.org/10.5281/zenodo.2556147"),
+ [2020](https://arxiv.org/abs/2006.07161)).
 
 The idea is to help the community exchange all the basic blocks (CK components) 
 needed to assemble portable workflows for complex systems, collaboratively benchmark them 

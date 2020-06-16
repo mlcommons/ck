@@ -7,5 +7,5 @@
 
 * Check this [outdated guide](https://github.com/ctuning/ck/wiki) to add your workflows and components. 
   We are gradually rewriting [this guide](https://cKnowledge.io/docs) with our limited resources
-  and developing [cBench](https://github.com/cknowledge/cbench) to simplify
+  and developing [cBench](https://github.com/ctuning/cbench) to simplify
   the user experience and provide a CK GUI at the [open cKnowledge.io platform](https://cKnowledge.io).

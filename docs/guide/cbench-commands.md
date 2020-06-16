@@ -427,26 +427,26 @@ cb rm demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows
 At the moment it is possible to create a portable CK solution from CK [program pipelines](https://cKnowledge.io/programs).
 We plan to add a possibility to create a CK solution for any workflow.
 
-You can follow this [real example](https://github.com/cknowledge/cbench/tree/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux)
+You can follow this [real example](https://github.com/ctuning/cbench/tree/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux)
 to automate the MLPerf inference benchmark submissions. 
 It shows how to create a CK solution to prepare object classification benchmark with Intel OpenVINO, SSD-Mobilenet, COCO data set and 500 images.
 
 First you need to create a public scoreboard as described above.
-You can initialize such scoreboard using [this script](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/_init_graph.sh) 
-and this [graph meta description](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/graph-desc.json).
+You can initialize such scoreboard using [this script](https://github.com/ctuning/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/_init_graph.sh) 
+and this [graph meta description](https://github.com/ctuning/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/graph-desc.json).
 
 If you want to push crowd results to an existing [dashboard](https://cKnowledge.io/c/result), 
-you need to create [graph-convertor.json](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/graph-convertor.json).
+you need to create [graph-convertor.json](https://github.com/ctuning/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/graph-convertor.json).
 
 After that you need to create two text files:
-* [prereq.txt](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/prereq.txt) 
+* [prereq.txt](https://github.com/ctuning/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/prereq.txt) 
   describing all OS-specific prerequisites
-* [prepare.txt](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/prepare.txt)
+* [prepare.txt](https://github.com/ctuning/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/prepare.txt)
   describing CK components and installation procedures.
 
-Finally, you need to initialize your solution as show in this [sample script](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/_init.sh).
+Finally, you need to initialize your solution as show in this [sample script](https://github.com/ctuning/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/_init.sh).
 
 If you successfully initialized this solution on your machine, you can then push it to the cKnowledge.io platform 
-as shown in this [sample script](https://github.com/cknowledge/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/_publish.sh).
+as shown in this [sample script]( https://github.com/ctuning/cbench/blob/master/examples/solutions/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/_publish.sh ).
   
 We plan to considerably improve this section. If you have questions or suggestions, do not hesitate to [get in touch](https://cKnowledge.org/contacts).

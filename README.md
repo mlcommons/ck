@@ -13,6 +13,13 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
 
+## News
+
+We have successfully completed the prototyping phase of the Collective Knolwedge technology
+to make it easier to reproduce AI&ML and deploy it in production using portable CK workflows and reusable components
+as described in this [white paper](https://arxiv.org/abs/2006.07161).
+We are now preparing the second phase of this project to make CK more user friendly - 
+don't hesitate to get in touch with the [CK author](https://cKnowledge.io/@gfursin) to know more!
 
 ## Introduction
 
@@ -50,6 +57,7 @@ and try our [MLPerf automation demo](https://cKnowledge.io/demo) on your platfor
 
 You can learn more about our project in the [online documentation](https://cKnowledge.io/docs)
 and the following presentations and white papers: 
+[2020]( https://arxiv.org/abs/2006.07161 ),
 [2019]( https://doi.org/10.5281/zenodo.2556147 ),
 [2018]( https://cknowledge.io/c/report/rpi3-crowd-tuning-2017-interactive ),
 [2017]( https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly ),
@@ -58,7 +66,7 @@ and the following presentations and white papers:
 *Even though the CK technology is used [in production](https://cKnowledge.org/partners.html) for more than 5 years, it is still a proof-of-concept prototype requiring further improvements and standardization. Depending on the available resources, we plan to develop a new, backward-compatible and more user-friendly version - please [get in touch](https://cKnowledge.org/contacts.html) if you are interested to know more!*
 
 
-## Open knowledge portal
+## Open CK portal
 
 * [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for complex computational systems (AI,ML,quantum,IoT):
   * [Browse SOTA scoreboards powered by CK workflows](https://cKnowledge.io/reproduced-results)
@@ -72,8 +80,9 @@ and the following presentations and white papers:
 ## CK use cases
 
 * [Real world use cases from our industrial and academic partners](https://cKnowledge.org/partners.html)
-* [MLPerf benchmark automation demo with a CK SOTA scoreboard](https://cKnowledge.io/demo)
-* [Demo of a CK-based live research paper (collaboration with the Raspberry Pi foundation)](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
+* [MLPerf CK workflow (development version)](https://github.com/ctuning/ck-mlperf)
+* [MLPerf stable crowd-benchmarking demo with the live scoreboard](https://cKnowledge.io/test)
+* [CK-based live research paper (collaboration with the Raspberry Pi foundation)](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
 
 [<img src="https://img.youtube.com/vi/DIkZxraTmGM/0.jpg" width="320">](https://www.youtube.com/watch?v=DIkZxraTmGM)
 [<img src="https://img.youtube.com/vi/VpedDdia5yY/0.jpg" width="320">](https://www.youtube.com/watch?v=VpedDdia5yY)
@@ -88,7 +97,7 @@ and the following presentations and white papers:
 
 * [Online CK documentation](https://cKnowledge.io/docs) 
 
-Older wiki-based documentation (we gradually move it to Sphinx-based docs above):
+Older wiki-based documentation (we gradually move it to the above Sphinx-based documentation):
 
 * [CK wiki](https://github.com/ctuning/ck/wiki)
 * [CK basics](https://michel.steuwer.info/About-CK)
