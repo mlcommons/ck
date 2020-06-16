@@ -17,7 +17,8 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 We have successfully completed the prototyping phase of the Collective Knolwedge technology
 to make it easier to reproduce AI&ML and deploy it in production using portable CK workflows and reusable components
-as described in this [white paper](https://arxiv.org/abs/2006.07161).
+as described in this [white paper](https://arxiv.org/abs/2006.07161)
+and the [CK presentation](https://cKnowledge.io/presentation/ck).
 We are now preparing the second phase of this project to make CK simpler to use and more user friendly - 
 don't hesitate to get in touch with the [CK author](https://cKnowledge.io/@gfursin) to know more!
 
