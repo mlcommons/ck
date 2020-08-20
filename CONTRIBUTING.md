@@ -1,24 +1,41 @@
-CK uses standard 3-clause (new) BSD license. Contributions are welcome 
-to improve the existing functionality of the CK framework and/or CK modules.
+# General guidelines
+
+Collective Knowledge framework (CK) uses standard 3-clause (new) BSD license. 
+Contributions are welcome to improve the existing functionality of the CK framework 
+and/or CK modules.
 
 You can easily contribute to CK and all related repositories by forking them 
-on GitHub and then submitting a pull request. Feel free to tell the community
-about your PR using CK google group:
+on GitHub and then submitting a pull request. Feel free to discuss your
+PR with the community using the public CK google group:
 * https://groups.google.com/forum/#!forum/collective-knowledge
+
+Since most CK modules and components are reused in different projects, 
+please make sure that you thoroughly tested your contributions 
+and they are backwards compatible!
+
+When sending PRs, please briefly explain why they are needed,
+how their work, and how you tested backwards compatibility
+to make sure that dependent projects continue working correctly.
 
 Please submit bug reports, feedback, and ideas here:
 * https://github.com/ctuning/ck/issues
 
-Thank you for supporting this community project!
 
-=================================================================================
-Acknowledgments:
+*Note that we plan to rewrite CK and make it more pythonic and user-friendly
+when we have more resources! Feel free to [get in touch](https://cKnowledge.org/contacts.html)
+if you would like to know more about our future R&D plans.*
 
+**Thank you very much for supporting this community project!**
+
+
+# Acknowledgments
+
+```
 N: Grigori Fursin (alias: FGG)
 E: Grigori.Fursin@cTuning.org
 H: http://fursin.net
 O: cTuning foundation, France
-C: original concept and design, real-world use cases, cKnowledge.org development
+C: original concept and prototyping, real-world use cases, development of https://cKnowledge.org and https://cKnowledge.io
 W: since Nov.1, 2014 
 
 N: Anton Lokhmotov
@@ -305,3 +322,4 @@ E:
 O: Arm
 C: feedback about installation issue with Python 2.7
 W: 
+```
