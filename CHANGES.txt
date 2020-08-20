@@ -1,3 +1,6 @@
+* V1.15.0.1
+  * Started development version
+
 * V1.15.0
   * Improved the integration with the open CK portal: https://cKnowledge.io
   * Fixed installation in virtual env / pip for Linux/Windows

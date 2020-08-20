@@ -1,21 +1,13 @@
-CK uses standard 3-clause (new) BSD license. Contributions are welcome to
-either improve existing functionality or add new functionality possibly using
-new modules.
-
-Contributors should clearly mark their contributions including date and remark.
+CK uses standard 3-clause (new) BSD license. Contributions are welcome 
+to improve the existing functionality of the CK framework and/or CK modules.
 
 You can easily contribute to CK and all related repositories by forking them 
-on GitHub and then submitting a pull request. Alternatively, you can submit
-patches via collective-knowledge@googlegroups.com .
+on GitHub and then submitting a pull request. Feel free to tell the community
+about your PR using CK google group:
+* https://groups.google.com/forum/#!forum/collective-knowledge
 
-CK bugs can be reported here:
+Please submit bug reports, feedback, and ideas here:
 * https://github.com/ctuning/ck/issues
-
-Bugs related to shared repositories (predictive analytics, reproducible
-experimentation, autotuning, etc) should be reported via their corresponding
-GitHub pages. For example, you can report bugs about progrma workflows
-and autotuning here:
-* https://github.com/ctuning/ck-autotuning/issues
 
 Thank you for supporting this community project!
 
