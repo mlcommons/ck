@@ -107,3 +107,9 @@ Older wiki-based documentation (we gradually move it to the above Sphinx-based d
 * [CK basics](https://michel.steuwer.info/About-CK)
 * [CK Getting Started Guide](https://github.com/ctuning/ck/wiki/First-steps)
 * [Contributing to CK](https://github.com/ctuning/ck/wiki/Adding-new-workflows)
+
+
+
+## Author
+
+* [Grigori Fursin](https://cKnowledge.io/@gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge SAS](https://www.linkedin.com/company/cknowledge))

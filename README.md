@@ -68,11 +68,17 @@ CK supports the following platforms:
 | Windows       | ✓ | ✓ |
 | Android       | ± | ✓ |
 | iOS           | TBD | TBD |
+| Bare-metal (edge devices)   | - | ± |
 
 ## Documentation
 
-* [Online CK documentation](https://ck.readthedocs.io) 
+* [Online CK documentation (under construction)](https://ck.readthedocs.io) 
+* [Open CK portal with all CK components, workflows, and live dashboards](https://cKnowledge.io) 
 
 
 * [CK Basics](https://michel-steuwer.github.io/About-CK)
-* [Older Wiki](https://github.com/ctuning/ck/wiki)
+* [CK Wiki](https://github.com/ctuning/ck/wiki)
+
+## Author
+
+* [Grigori Fursin](https://cKnowledge.io/@gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge SAS](https://www.linkedin.com/company/cknowledge))
