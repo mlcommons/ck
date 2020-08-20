@@ -1,17 +1,3 @@
-# Supported platforms
-
-CK supports the following platforms:
-
-|               | As a host platform | As a target platform |
-|---------------|:------------------:|:--------------------:|
-| Generic Linux | ✓ | ✓ |
-| Linux (Arm)   | ✓ | ✓ |
-| Raspberry Pi  | ✓ | ✓ |
-| MacOS         | ✓ | ± |
-| Windows       | ✓ | ✓ |
-| Android       | ± | ✓ |
-| iOS           | TBD | TBD |
-
 # CK framework installation
 
 You can install the Collective Knowledge framework on most platforms using PIP as follows:
