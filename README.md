@@ -1,28 +1,65 @@
-# Collective Knowledge SDK
+# Collective Knowledge framework (CK)
 
 [![Downloads](https://pepy.tech/badge/ck)](https://pepy.tech/project/ck)
 [![PyPI version](https://badge.fury.io/py/ck.svg)](https://badge.fury.io/py/ck)
 [![Python Version](https://img.shields.io/badge/python-2.7%20|%203.4+-blue.svg)](https://pypi.org/project/ck)
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.2556147.svg)](https://doi.org/10.5281/zenodo.2556147)
-
-Code license: [![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-Data license: [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](http://creativecommons.org/licenses/by/4.0/)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
+References: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3865242.svg)](https://doi.org/10.5281/zenodo.3865242)
+[![arXiv](https://img.shields.io/badge/arXiv-2006.07161-00ff00.svg)](https://arxiv.org/abs/2006.07161)
+
 
 ## News
 
-We have successfully completed the prototyping phase of the Collective Knowledge technology
-to make it easier to reproduce AI&ML and deploy it in production with the help of portable CK workflows, reusable artifacts and MLOps
-as described in this [white paper](https://arxiv.org/abs/2006.07161)
-and the [CK presentation](https://cKnowledge.io/presentation/ck).
-We are now preparing the second phase of this project to make CK simpler to use, more stable and more user friendly - 
-don't hesitate to get in touch with the [CK author](https://cKnowledge.io/@gfursin) to know more!
+* **2020 August**: We are very excited to announce that we have completed 
+  the prototyping phase of the Collective Knowledge framework (CK)
+  and successfully validated it in several [industrial and academic projects](https://cKnowledge.org/partners)
+  as briefly described in this [white paper](https://arxiv.org/abs/2006.07161)
+  and the [CK presentation](https://cKnowledge.io/presentation/ck).
+  We have helped the community to use CK as an extensible playground to implement reusable [automation actions]( https://cKnowledge.io/actions ) 
+  and [components]( https://cknowledge.io/?q=%22digital-component%22 ) for AI, ML, and systems R&D
+  and assemble [portable workflows](https://cknowledge.io/programs)
+  from [reproduced research papers](https://cknowledge.io/reproduced-papers) during so-called [artifact evaluation](https://cTuning.org/ae).
+  We then demonstrated that it was possible to use such portable workflows 
+  to automate the [MLPerf benchmark](https://mlperf.org)
+  and [quickly deploy]( https://cKnowledge.io/solution )  emerging AI, ML, and IoT technology in production
+  in the [most efficient way (speed, accuracy, energy, costs)]( https://cKnowledge.io/results ) 
+  across diverse platforms from data centers to edge devices.
 
-## Introduction
+  *We are now raising funding for the second phase of this project to standardize CK APIs and meta descriptions, 
+  make CK more pythonic and user-friendly, and enhance our [open CK platform](https://cKnowledge.io). 
+  Our mission is to organize all AI, ML, and systems knowledge in the form of portable workflows and reusable artifacts
+  to accelerate the development of innovative technology and facilitate its adoption -
+  get in touch with [Grigori Fursin](https://cKnowledge.io/@gfursin) (CK author and project leader) to know more!*
+
+## What problems are we trying to solve?
+
+Several major problems that we continue to encounter when reproducing results from [research projects](https://cTuning.org/ae) 
+and trying to move some of them to production with our industrial partners are:
+* each research project shared as a Docker image, zip archive, GitHub repository, or Jupyter/Colab notebook
+  has 
+   API
+   paths
+
+
+* lots of manual intervention when trying a different data set, model, library, framework or run on another hardware
+
+
+
+
+
+## CK approach
+
+
+## CK platform
+
+
+
+
 
 **You can read about our motivation to create CK at [cKnowledge.org](https://cKnowledge.org)**
 
@@ -149,5 +186,4 @@ CK supports the following platforms:
 We would like to thank all [CK users and partners](https://cKnowledge.org/partners.html) 
 for fruitful discussions and feedback!
 
-
-*Copyright 2015-2020 [Grigori Fursin](https://cKnowledge.io/@gfursin) and the [cTuning foundation](https://cTuning.org)*
+*Copyright 2015-2020 [Grigori Fursin](https://cKnowledge.io/@gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge consulting SAS](https://www.linkedin.com/company/cknowledge))*

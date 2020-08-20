@@ -4,311 +4,58 @@
 # See CK LICENSE.txt for licensing details
 # See CK COPYRIGHT.txt for copyright details
 #
-# Developer: Grigori Fursin
+# Author and developer: Grigori Fursin
 #
 
-# This is the kernel of CK. It is implemented in just one file 
-# with a minimal set of common portable functions and without OO
-# to make it simpler to re-implement it in any another language if needed.
-# For example, we implemented some functions in Java, C, C++ and Fortran
-# (see our xOpenME library used in Android)
+# I have prototyped the CK kernel as a monolithic architecture 
+# without object oriented programming and with global variables 
+# and a minimal set of common portable functions 
+# only because we originally planned to quickly reimplement this kernel
+# and all CK modules in a low-level language like C to speed up operations 
+# and provide connectors from other languages like Java, C++ and go
+# (see my xOpenME library with some CK functions used in Android).
+#
+# Another reason was to make it easiers to use CK for researchers
+# without strong engineering background and for practitioners 
+# with just a few simple CK functions and a human readable JSON I/O. 
 
-__version__ = "1.15.0"  # We use 3 digits for the main (released) version and 4th digit for development revision
-                        # Do not use characters (to detect outdated version)!
+# However, since CK is most commonly used as a Python library,
+# I believe that we should eventually rewrite it in a pythonic way 
+# and with object oriented programming while keeping backward compatibility.
+# I call this project the CK2 and plan to work on it 
+# when I have more time and funding.
 
-# Extra modules global for the whole kernel
+
+__version__ = "1.15.0.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
+                          # Do not use characters (to detect outdated version)!
+
+# Import packages that are global for the whole kernel
 import sys
 import json
 import os
-import imp   # Loading Python modules
+import imp   # Needed to load CK Python modules from CK repositories
 
 initialized=False      # True if initialized
-allow_print=True       # Needed to suppress all output
+allow_print=True       # Needed to suppress all output (useful for CK-based web services)
 con_encoding=''        # Use non-default console encoding
 
-# This configuration dictionary will be overloaded at run-time
-# from the CK entry default:kernel:default (from this CK distro)
-# and then from the local:kernel:default (from a local user repository)
+# This cfg configuration dictionary will be overloaded at run-time
+# with meta.json from the CK entry default:kernel:default 
+#   (from the "default" CK repository that resides in the CK distro)
+# and then from the local:kernel:default 
+#    (from a local CK repository that is created during the first CK installation)
 
 cfg={
-      "name":"Collective Knowledge",
-      "desc":"exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",
-      "cmd":"ck <action> $#module_uoa#$ (cid1/uid1) (cid2/uid2) (cid3/uid3) key_i=value_i ... @file.json",
-
-      "wiki_data_web":"https://cKnowledge.io/c/",           # Collective Knowledge Base (ckb)
-      "private_wiki_data_web":"https://github.com/ctuning/ck/wiki/ckb_",   # Collective Knowledge Base (ckb)
-      "api_web":"https://cKnowledge.io/c/module/",
-      "status_url":"https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
-
-      "help_examples":"  Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n    $ ck pull repo:ctuning-programs\n    $ ck compile program:cbench-automotive-susan --speed\n    $ ck run program:cbench-automotive-susan\n\n  Example of an interactive CK-powered article:\n    http://cknowledge.org/repo\n",
-      "help_web":"  Documentation:\n        https://github.com/ctuning/ck/wiki",
-
-      "ck_web":"https://github.com/ctuning/ck",
-      "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
-
-      "default_shared_repo_url":"https://github.com/ctuning",
-      "github_repo_url":"https://github.com",
-
-#      "default_license":"See CK LICENSE.txt for licensing details",
-#      "default_copyright":"See CK COPYRIGHT.txt for copyright details",
-#      "default_developer":"cTuning foundation",
-#      "default_developer_email":"admin@cTuning.org",
-#      "default_developer_webpage":"http://cTuning.org",
-
-      "detect_cur_cid":"#",
-      "detect_cur_cid1":"^",
-
-      "error":"CK error: ",
-      "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
-      "default_module":"data",
-      "module_name":"module",
-      "module_uids":["032630d041b4fd8a"],
-      "repo_name":"repo",
-      "module_code_name":"module",
-      "module_full_code_name":"module.py",
-
-      "env_key_root":"CK_ROOT",
-      "env_key_local_repo":"CK_LOCAL_REPO",
-      "env_key_local_kernel_uoa":"CK_LOCAL_KERNEL_UOA",
-      "env_key_default_repo":"CK_DEFAULT_REPO",
-      "env_key_repos":"CK_REPOS",
-
-      "subdir_default_repos":"repos",
-
-      "user_home_dir_ext":"CK", # if no path to repos is defined, use user home dir with this extension
-
-      "kernel_dir":"ck",
-      "kernel_dirs":["ck",""],
-
-      "file_kernel_py":"ck/kernel.py",
-
       "subdir_default_repo":"repo",
-      "subdir_kernel":"kernel",
-      "subdir_kernel_default":"default",
-      "subdir_ck_ext":".cm", # keep compatibility with Collective Mind V1.x
-      "file_for_lock":"ck_lock.txt",
-
-      "special_directories":[".cm", ".svn", ".git"], # special directories that should be ignored when copying/moving entries
-
-      "ignore_directories_when_archive_repo":[".svn", ".git"], 
-
-      "file_meta_old":"data.json", # keep compatibility with Collective Mind V1.x
-      "file_meta":"meta.json",
-      "file_info":"info.json",
-      "file_desc":"desc.json",
-      "file_updates":"updates.json",
-
-      "file_alias_a": "alias-a-", 
-      "file_alias_u": "alias-u-",
-
-      "linux_sudo":"sudo",
-      "install_ck_as_lib":"python setup.py install",
-
-      "repo_file":".ckr.json",
-
-      "file_cache_repo_uoa":".ck.cache_repo_uoa.json",
-      "file_cache_repo_info":".ck.cache_repo_info.json",
-
-      "default_host":"localhost",
-      "default_port":"3344",
-
-      "detached_console":{"win":{"cmd":"start $#cmd#$", "use_create_new_console_flag":"yes"},
-                          "linux":{"cmd":"xterm -hold -e \"$#cmd#$\""}},
-
-      "batch_extension":{"win":".bat",
-                         "linux":".sh"},
-
-      "default_archive_name":"ck-archive.zip",
-
-      # TODO: remove "http://"?
-      "index_host":"http://localhost",
-      "index_port":"9200",
-      "index_use_curl":"no",
-
-      "cknowledge_api":"https://cKnowledge.io/api/v1/?",
-#      "download_missing_components":"yes",
-      "check_missing_modules":"yes",
-
-      "wfe_template":"default",
-
+      "env_key_root":"CK_ROOT",
+      "kernel_dirs":["ck",""],
+      "env_key_default_repo":"CK_DEFAULT_REPO",
       "module_repo_name":"repo",
       "repo_name_default":"default",
-      "repo_uid_default":"604419a9fcc7a081",
-      "repo_name_local":"local",
-      "repo_uid_local":"9a3280b14a4285c9",
-
-      "default_exchange_repo_uoa":"remote-ck",
-      "default_exchange_subrepo_uoa":"upload",
-
-      "external_editor":{"win":"wordpad $#filename#$",
-                         "linux":"vim $#filename#$"},
-
-      "shell":{"linux":{
-                         "redirect_stdout":">",
-                         "env_separator": ";" 
-                       },
-               "win":  {
-                         "redirect_stdout":">",
-                         "env_separator": "&&"
-                       }
-      },
-
-      "forbid_global_delete": "no", 
-      "forbid_global_writing": "no", 
-      "forbid_writing_modules": "no", 
-      "forbid_writing_to_default_repo": "no", 
-      "forbid_writing_to_local_repo": "no", 
-      "allow_writing_only_to_allowed": "no", 
-
-      "allow_run_only_from_allowed_repos": "no",
-      "repo_uids_to_allow_run":["604419a9fcc7a081", 
-                                "9a3280b14a4285c9", 
-                                "76c4424a1473c873",
-                                "a4328ba99679e0d1",
-                                "7fd7e76e13f4cd6a",
-                                "215d441c19db1fed",
-                                "43eaa6c2d1892c32"],
-
-      "use_indexing": "no",
-
-      "internal_keys": [
-                         "action",
-                         "repo_uoa",
-                         "module_uoa",
-                         "data_uoa",
-                         "cid",
-                         "cids",
-                         "cid1",
-                         "cid2",
-                         "cid3",
-                         "xcids",
-                         "unparsed_cmd",
-                         "con_encoding",
-                         "ck_profile",
-                         "out",
-                         "out_file"
-                       ],
-
-      "repo_types":{
-                     "git":{
-                            "clone":"git clone $#url#$ $#path#$",
-                            "pull":"git pull",
-                            "push":"git push",
-                            "add":"git add $#files#$",
-                            "rm":"git rm -rf $#files#$",
-                            "commit":"git commit *",
-                            "version":"git --version",
-                            "checkout":"git checkout $#id#$"
-                           }
-                   },
-
-      "actions":{
-                 "uid":{"desc":"generate UID", "for_web": "yes"},
-                 "version":{"desc":"print CK version", "for_web": "yes"},
-                 "python_version":{"desc":"print python version used by CK", "for_web": "no"},
-                 "status":{"desc":"check CK version status", "for_web": "yes"},
-                 "copy_path_to_clipboard":{"desc":"copy current path to clipboard", "for_web": "no"},
-
-                 "wiki":{"desc":"<CID> open discussion wiki page for a given entry"},           # Collective Knowledge Base (ckb)
-                 "pwiki":{"desc":"<CID> open private discussion wiki page for a given entry"}, 
-
-                 "help":{"desc":"<CID> print help about data (module) entry"},
-                 "short_help":{"desc":"<CID> print short help about CK"},
-                 "webhelp":{"desc":"<CID> open browser with online help (description) for a given CK entry"}, 
-                 "webapi":{"desc":"<CID> open browser with online API for a given module"}, 
-                 "guide":{"desc":"open CK wiki with user/developer guides"}, 
-                 "info":{"desc":"<CID> print help about module"},
-
-                 "browser":{"desc":"start CK web service and open browser"},
-
-                 "add":{"desc":"<CID> add entry", "for_web":"yes"},
-                 "update":{"desc":"<CID> update entry", "for_web":"yes"},
-                 "load":{"desc":"<CID> load meta description of entry", "for_web": "yes"},
-                 "edit":{"desc":"<CID> edit entry description using external editor", "for_web":"no"},
-
-                 "zip":{"desc":"<CID> zip entries", "for_web":"no"},
-
-                 "find":{"desc":"<CID> find path to entry"},
-                 "cd":{"desc":"<CID> print 'cd {path to entry}'"},
-                 "cdc":{"desc":"<CID> print 'cd {path to entry} and copy to clipboard, if supported"},
-                 "path":{"desc":"<CID> detect CID in the current directory"},
-                 "cid":{"desc":"<CID> get CID of the current entry"},
-
-                 "rm":{"desc":"<CID> delete entry", "for_web":"yes"},
-                 "remove":{"desc":"see 'rm'", "for_web":"yes"},
-                 "delete":{"desc":"see 'rm'", "for_web":"yes"},
-
-                 "ren":{"desc":"<CID> <new name) (data_uid) (remove_alias) rename entry", "for_web":"yes"},
-                 "rename":{"desc":"see 'ren' function", "for_web":"yes"},
-
-                 "cp":{"desc":"<CID> <CID1> copy entry", "for_web":"yes"},
-                 "copy":{"desc":"see 'cp'", "for_web":"yes"},
-
-                 "mv":{"desc":"<CID> <CID1> move entry", "for_web":"yes"},
-                 "move":{"desc":"see 'mv'", "for_web":"yes"},
-
-                 "list_files":{"desc":" list files recursively in a given entry", "for_web": "yes"},
-                 "delete_file":{"desc":"<file> delete file from a given entry", "for_web":"yes"},
-
-                 "list":{"desc":"<CID> list entries", "for_web": "yes"},
-                 "ls":{"desc":"see 'list'", "for_web": "yes"},
-
-                 "search":{"desc":"<CID> search entries", "for_web": "yes"},
-
-                 "pull":{"desc":"<CID> (filename) or (empty to get the whole entry as archive) pull file from entry"},
-                 "push":{"desc":"<CID> (filename) push file to entry"},
-
-                 "add_action":{"desc":"add action (function) to existing module"},
-                 "remove_action":{"desc":"remove action (function) from existing module"},
-                 "list_actions":{"desc":"list actions (functions) in existing module", "for_web":"yes"},
-
-                 "add_index":{"desc":"<CID> add index"},
-                 "delete_index":{"desc":"<CID> remove index"},
-
-                 "convert_cm_to_ck":{"desc":"<CID> convert old CM entries to CK entries"},
-
-                 "create_entry":{"desc":"<directory> create an entry for a given directory name"},
-
-                 "get_api":{"desc":"--func=<func> print API of a function in a given module"},
-
-                 "download":{"desc":"<CID> attempt to download entry from remote host (experimental)", "for_web": "yes"},
-
-                 "print_input":{"desc":"prints input"},
-
-                },
-
-      "actions_redirect":{"list":"list_data2",
-                          "ls":"list_data2"},
-
-      "common_actions":["webhelp", "webapi", "help", "info", "print_input",
-                        "wiki",
-                        "path", "find", "cid", "cd", "cdc",
-                        "browser",
-                        "add",
-                        "edit", 
-                        "load", 
-                        "zip",
-                        "rm", "remove", "delete",
-                        "update",
-                        "ren", "rename",
-                        "cp", "copy",
-                        "mv", "move",
-                        "ls",
-                        "list",
-                        "search",
-                        "pull",
-                        "push",
-                        "list_files",
-                        "delete_file",
-                        "add_action",
-                        "remove_action",
-                        "list_actions",
-                        "create_entry",
-                        "add_index",
-                        "delete_index",
-                        "get_api",
-                        "download",
-                        "convert_cm_to_ck"]
+      "subdir_kernel":"kernel",
+      "subdir_kernel_default":"default",
+      "subdir_ck_ext":".cm", # keep compatibility with Collective Mind V1.x (my prequel to CK)
+      "file_meta":"meta.json",
     }
 
 work={
