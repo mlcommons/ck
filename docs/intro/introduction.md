@@ -1,17 +1,5 @@
 # Collective Knowledge framework (CK)
 
-[![Downloads](https://pepy.tech/badge/ck)](https://pepy.tech/project/ck)
-[![PyPI version](https://badge.fury.io/py/ck.svg)](https://badge.fury.io/py/ck)
-[![Python Version](https://img.shields.io/badge/python-2.7%20|%203.4+-blue.svg)](https://pypi.org/project/ck)
-[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
-
-Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
-Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
-Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
-
-References: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3865242.svg)](https://doi.org/10.5281/zenodo.3865242)
-[![arXiv](https://img.shields.io/badge/arXiv-2006.07161-00ff00.svg)](https://arxiv.org/abs/2006.07161)
-
 ## News
 
 * **2020 August**: We are very excited to announce that we have completed 
@@ -113,48 +101,9 @@ and the following presentations and white papers:
 
 ## Documentation
 
-* [Online CK documentation](https://cKnowledge.io/docs) 
-
 Older wiki-based documentation (we gradually move it to the above Sphinx-based documentation):
 
 * [CK wiki](https://github.com/ctuning/ck/wiki)
 * [CK basics](https://michel.steuwer.info/About-CK)
 * [CK Getting Started Guide](https://github.com/ctuning/ck/wiki/First-steps)
 * [Contributing to CK](https://github.com/ctuning/ck/wiki/Adding-new-workflows)
-
-
-
-## Installation
-
-Follow [this guide](https://cKnowledge.io/docs/getting-started/ck-installation.html) 
-to install the CK SDK on your platform.
-
-Check [CK-based demo](https://cKnowledge.io/demo) to participate in reproducible MLPerf benchmarking
-with a [public SOTA scoreboard](https://cknowledge.io/c/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking).
-
-CK supports the following platforms:
-
-|               | As a host platform | As a target platform |
-|---------------|:------------------:|:--------------------:|
-| Generic Linux | ✓ | ✓ |
-| Linux (Arm)   | ✓ | ✓ |
-| Raspberry Pi  | ✓ | ✓ |
-| MacOS         | ✓ | ± |
-| Windows       | ✓ | ✓ |
-| Android       | ± | ✓ |
-| iOS           | TBD | TBD |
-
-
-
-
-## Get involved
-
-* This is an ongoing community project and there is a lot to be improved - 
-  don't hesitate to [get in touch](https://cKnowledge.org/contacts.html)
-  using our slack, mailing list, twitter and email
-  if you have any feedback or would like to collaborate.
-
-* Check this [outdated guide](https://github.com/ctuning/ck/wiki) to add your workflows and components. 
-  We are gradually rewriting [this guide](https://cKnowledge.io/docs) with our limited resources
-  and developing [cBench](https://github.com/cknowledge/cbench) to simplify
-  the user experience and provide a CK GUI at the [open cKnowledge.io platform](https://cKnowledge.io).

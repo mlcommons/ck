@@ -9,11 +9,12 @@ CK framework documentation
 
 .. epigraph::
 
-Collective Knowledge framework (CK) provides a common API with reusable
-automation actions to all software projects together with a database-like
-control for their individual components including algorithms, packages,
-data sets, models, and results. The goal is to make it easier for
-researchers and practitioners to reuse best R&D practices and artifacts,
+Collective Knowledge framework (CK) provides a common API to all software projects 
+together with a database-like control and reusable automation actions 
+for their individual components (algorithms, packages,
+data sets, models, scripts, results, and so on). 
+The goal is to make it easier for researchers and practitioners 
+to reuse best R&D practices and artifacts,
 assemble portable workflows, reproduce and compare research techniques,
 build upon them, and use them in production. See some real-world use cases
 from Arm, General Motors, IBM, MLPerf, RPi, and ACM at https://cKnowledge.org/partners.html.
