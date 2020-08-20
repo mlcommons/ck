@@ -321,3 +321,8 @@ O: Arm
 C: feedback about installation issue with Python 2.7
 W: 
 ```
+N: Patrick Hesse
+E: 
+O: College of Saint Benedict and Saint John's University, USA
+C: adding CK tutorial for March Madness sample program
+W: 

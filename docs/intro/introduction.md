@@ -1,52 +1,81 @@
-# Introduction
+# Collective Knowledge framework (CK)
 
-## What is the Collective Knowledge project (CK)
+[![Downloads](https://pepy.tech/badge/ck)](https://pepy.tech/project/ck)
+[![PyPI version](https://badge.fury.io/py/ck.svg)](https://badge.fury.io/py/ck)
+[![Python Version](https://img.shields.io/badge/python-2.7%20|%203.4+-blue.svg)](https://pypi.org/project/ck)
+[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
-Developing complex computational systems for emerging workloads (ML, AI,
-Quantum, IoT) and moving them to production is a very tedious, ad-hoc and
-time consuming process due to continuously changing software, hardware,
-models, data sets and research techniques.
+Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
+Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
+Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
-After struggling with these problems for many years, we started the *Collective Knowledge project (CK)*
-to decompose complex systems and research projects 
-into [reusable, portable, customizable and non-virtualized CK components](https://cKnowledge.io/browse) 
-with the unified [automation actions, Python APIs, CLI and JSON meta description](https://cKnowledge.io/actions).
+References: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3865242.svg)](https://doi.org/10.5281/zenodo.3865242)
+[![arXiv](https://img.shields.io/badge/arXiv-2006.07161-00ff00.svg)](https://arxiv.org/abs/2006.07161)
 
-Our idea is to gradually abstract all existing artifacts (software, hardware, models, data sets, results)
-and use the DevOps methodology to connect such components together 
-into [functional solutions](https://cKnowledge.io/demo)
-that can automatically adapt to evolving models, data sets and bare-metal platforms
-with the help of [customizable program workflows](https://cKnowledge.io/programs),
-a list of [all dependencies](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies)
-(models, data sets, frameworks), and a portable 
-[meta package manager](https://cKnowledge.io/packages).
+## News
 
-CK is basically our intermediate language to connect researchers and practitioners 
-to collaboratively design, benchmark, optimize and validate innovative computational systems.
-It then makes it possible to find the most efficient system configurations
-on a [Pareto frontier](https://cKnowledge.org/request)
-(trading off speed, accuracy, energy, size and different costs)
-using an [open repository of knowledge](https://cKnowledge.io)
-with [live SOTA scoreboards](https://cKnowledge.io/sota)
-and [reproducible papers](https://cKnowledge.io/reproduced-papers).
+* **2020 August**: We are very excited to announce that we have completed 
+  the prototyping phase of the Collective Knowledge framework (CK)
+  and successfully validated it in several [industrial and academic projects](https://cKnowledge.org/partners)
+  as briefly described in this [white paper](https://arxiv.org/abs/2006.07161)
+  and the [CK presentation](https://cKnowledge.io/presentation/ck).
+  We have helped our partners and the community to use CK as a playground to implement reusable 
+  [components]( https://cknowledge.io/?q=%22digital-component%22 ) with [automation actions]( https://cKnowledge.io/actions ) 
+  for AI, ML, and systems R&D while agreeing on common APIs and JSON meta descriptions. 
+  We then used such components to assemble [portable workflows](https://cknowledge.io/programs)
+  from [reproduced research papers](https://cknowledge.io/reproduced-papers) during 
+  the so-called [artifact evaluation](https://cTuning.org/ae).
+  We also  demonstrated that it was possible to use such portable workflows 
+  to automate the complex co-design process of efficient software, hardware and models, 
+  simplify [MLPerf benchmark](https://mlperf.org) submissions,
+  and [quickly deploy]( https://cKnowledge.io/solution )  emerging AI, ML, and IoT technology in production
+  in the [most efficient way (speed, accuracy, energy, costs)]( https://cKnowledge.io/results ) 
+  across diverse platforms from supercomputers and data centers to mobile phones and edge devices.
 
-We hope that such approach will make it possible 
-to better understand [what is happening]( https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies ) 
-inside complex and "black box" computational systems,
-integrate them with production and legacy systems,
-use them inside Docker and Kubernetes,
-share them along with [published papers](https://cKnowledge.io/events),
-and apply the DevOps methodology in deep tech research and computational science.
-We also use CK to complement related reproducibility initiatives
-including [MLPerf](https://mlperf.org), 
-[PapersWithCode](https://paperswithcode.com),
-[ACM artifact review and badging](https://www.acm.org/publications/policies/artifact-review-badging)
-and [artifact evaluation](https://cTuning.org/ae).
+  *We are now raising funding for the second phase of this project to standardize CK APIs and meta descriptions, 
+  make CK more pythonic and user-friendly, and enhance our [open CK platform](https://cKnowledge.io). 
+  Our mission is to organize all AI, ML, and systems knowledge in the form of portable workflows
+  with reusable automation actions and artifacts
+  to accelerate the development and adoption of innovative technology -
+  get in touch with [Grigori Fursin](https://cKnowledge.io/@gfursin) (CK author and project leader) to know more!*
 
+## Overview
+
+**You can read about our motivation to create CK at [cKnowledge.org](https://cKnowledge.org)**
+
+We have developed the Collective Knowledge framework (CK) to help our colleagues, students, researchers and practitioners
+share their projects and artifacts (code, data, models, scripts, experiments, papers)
+as a human-readable database ([CK repository]( https://cKnowledge.io/repos )) 
+with unified API, CLI, JSON input/output/meta descriptions
+and [reusable automation actions](https://cKnowledge.io/actions).
+
+For example, CK features 
+[software detection plugins](https://cKnowledge.io/soft), 
+[meta packages](https://cKnowledge.io/packages) 
+and [OS descriptions](https://cKnowledge.io/c/os)
+to automate the detection and installation of [all the dependencies](https://cknowledge.io/c/solution/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/#dependencies) 
+including data sets and models required by a given research project to run on any target platform.
+
+Such CK actions and components can be connected into platform-agnostic, 
+portable, customizable and reproducible [program pipelines](https://cKnowledge.io/programs) 
+and [functional solutions](https://cKnowledge.io/solutions)
+that can be used with Continuous Integration tools, 
+existing/legacy projects, and production systems.
+
+The stable components, portable workflows and solutions are published along 
+with [reproduced papers](https://cKnowledge.io/reproduced-papers) 
+at the [open Collective Knowledge platform](https://cKnowledge.io).
+They provide a unified way to benchmark, optimize, test and co-design
+software and hardware for emerging technoligies (AI, ML, quantum, IoT)
+across diverse hardware, datasets and models using [public scoreboards](https://cKnowledge.io/results)
+
+Our long-term goal is to enable collaborative, reproducible, sustainable and production-ready deep tech research (AI, ML, quantum, IoT).
 See the [real CK use cases from our partners](https://cKnowledge.org/partners.html)
 and try our [MLPerf automation demo](https://cKnowledge.io/demo) on your platform.
-You can learn more about our project in this documentation and 
-the following presentations and white papers: 
+
+You can learn more about our project in the [online documentation](https://cKnowledge.io/docs)
+and the following presentations and white papers: 
+[2020]( https://arxiv.org/abs/2006.07161 ),
 [2019]( https://doi.org/10.5281/zenodo.2556147 ),
 [2018]( https://cknowledge.io/c/report/rpi3-crowd-tuning-2017-interactive ),
 [2017]( https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly ),
@@ -55,245 +84,77 @@ the following presentations and white papers:
 *Even though the CK technology is used [in production](https://cKnowledge.org/partners.html) for more than 5 years, it is still a proof-of-concept prototype requiring further improvements and standardization. Depending on the available resources, we plan to develop a new, backward-compatible and more user-friendly version - please [get in touch](https://cKnowledge.org/contacts.html) if you are interested to know more!*
 
 
-![cKnowledge platform concept](../static/platform.png)
+## Open CK portal
 
-## Glossary
-
-### CK framework
-
-The **[CK framework](https://github.com/ctuning/ck)** is a low-level CLI-based SDK 
-to share [reusable CK components](https://cKnowledge.io/browse)
-and [R&D automation actions](https://cKnowledge.io/actions) 
-in a human-readable format with a unified CLI, Python API, and JSON meta descriptions.
-
-### CK portal
-
-The **[CK portal](https://cKnowledge.io)** is an open platform to share and interconnect reusable CK components 
-(models, data sets, packages, scripts) from research projects in the [common CK format](https://github.com/ctuning/ck)
-required to enable portable, customizable and reproducible benchmarking pipelines.
-
-### CK component
-
-A **[CK component](https://cKnowledge.io/browse)** is an abstraction of any existing artifact (code, model, data set, script, result)
-consisting of a CK module, CK data and a collection of native files and directories from a given artifact. See the example
-of a CK package component "package:compiler-llvm-8.0.0-universal" at [GitHub](https://github.com/ctuning/ck-env/tree/master/package/compiler-llvm-8.0.0-universal)
-and on [cKnowledge.io platform](https://cknowledge.io/c/package/compiler-llvm-8.0.0-universal)
-
-  * **[CK module](https://cKnowledge.io/modules)** provides a unified Python API with JSON input/output 
-    and a Command Line Interface for a given computational component.
-  * **CK data** provides a unified JSON meta description of a given
-    computational component and connects it with native files and directories of this component.
-    * **CK UID** is a unique ID of 16 lowercase hexadecimal digits automatically assigned 
-      to all CK modules and data during creation. This is needed to keep track of all distributed components.
-    * **CK UOA** is an abbreviation when one can use **U**nique ID **O**r **A**lias where alias
-      is a user-friendly name of a given module and data.
-    * **CID** is a combination of {module UOA}:{data UOA} to uniquely identify and find any CK component.
-  * **[CK action](https://cKnowledge.io/action)** describes all public automation functions from a given CK module
-    applied to a given CK data 
-
-  * **[CK soft components](https://cKnowledge.io/soft)** automatically detect required 
-    software for a given computational system on a given platform (models, data sets, frameworks, libraries ...)
-  * **[CK package components](https://cKnowledge.io/package)** automatically install 
-    missing software for a given computational system on a given platform (models, data sets, frameworks, libraries ...)
-
-### CK repository
-
-A **[CK repository](https://cKnowledge.io/repos)** is a directory with a collection of CK components.
-After such a repository is installed by CK, a user has a unified access to all new CK components 
-inside this repository. Such repository receives the following badge on GitHub:
-
-![cKnowledge compatible badge](../static/ck-compatible-badge.png)
-
-### Reproducible benchmarking pipeline and autotuning workflow
-
-The **[Reproducible benchmarking pipeline](https://cKnowledge.io/programs)**
-
-The unified API and JSON meta of all CK components allow us to connect them 
-into [customizable benchmarking pipelines](https://hal.inria.fr/hal-01054763). 
-It is also possible to expose all design
-and optimization parameters of all components (models, frameworks, compilers, run-time systems, hardware)
-in a unified way and enable complete system autotuning to find the most efficient
-solutions on a Pareto frontier in terms of speed, accuracy, energy and other costs
-also exposed via unified APIs. 
-Furthermore, unified APIs allow one to keep track of all information passed between
-components to ensure reproducibility of results.
-
-![cKnowledge pipeline](../static/pipeline.png)
-
-See how CK was used to [autotune ML models for MLPerf submission](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
-and for [reproducible and Pareto-efficient ML/SW/HW co-design tournaments](https://cKnowledge.org/request).
-
-### cBench
-
-**[cBench](https://github.com/ctuning/cbench)** is a wrapper around the low-level CK SDK 
-to connect it with the CK portal while improving and simplifying the user experience
-during collaborative benchmarking and optimization of complex computational systems.
-
-### Live SOTA dashboards
-
-**[Live SOTA dashboards](https://cKnowledge.io/results)** are connected with cBench 
-to aggregate information about the behavior of computational systems across diverse
-software, hardware, models and data sets similar to SETI@home. They are also used
-for our [reproducibility initiatives](https://cKnowledge.io/events) 
-to validate results from published papers at [systems and ML conferences](https://cTuning.org/ae).
-
-### Reproduced research papers
-
-**[Reproduced research papers](https://cKnowledge.io/reproduced-papers)** are published on our portal
-if it was reproduced using the [standard ACM/cTuning evaluaiton procedure](https://cTuning.org/ae) 
-with the [unified Artifact Appendix and reproducibility checklist](https://ctuning.org/ae/submission_extra.html)
-which we helped to prepare in collaboration with the [ACM taskforce on reproducibility](https://www.acm.org/publications/task-force-on-data-software-and-reproducibility).
-
-### Portable CK solution
-
-A **[Portable CK solution](https://cKnowledge.io/c/solution)** is a set of JSON files describing 
-how to download, build, benchmark and use AI, ML, quantum, IoT and other emerging technologies
-across diverse hardware, software, models and data sets. It includes:
-
-* a portable and reproducible [program pipeline (workflow)](https://cKnowledge.io/programs) with a unified interface to build and run this system (see above);
-* [all necessary dependencies](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies) 
-  on [portable CK components](https://cKnowledge.io/browse) (code, data, models)];
-* a universal autotuning workflow to optimize the whole system;
-* a convention about how to benchmark this system and reproduce results;
-* an associated [SOTA scoreboard](https://cKnowledge.io/results) for collaborative benchmarking and optimization of related systems; 
-
-We need it to provide a common format for research code and results 
-shared along with [published papers](https://cknowledge.io/papers) 
-during our [reproducibility initiatives](https://cknowledge.io/events)
-for systems and ML conferences. 
-
-### CK solutions for MLPerf
-
-**[CK portable solutions for MLPerf](https://cKnowledge.io/c/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/)** 
-demonstrates how to use our CK solutions with cBench 
-to automatically build, run and [crowd-benchmark](https://cKnowledge.io/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking/) 
-object detection based on [SSD-Mobilenets, TensorFlow and COCO dataset](https://cKnowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies)
-from the latest [MLPerf inference benchmark](https://mlperf.org) across a wide range of platforms 
-from Raspberry Pi, Android phones and IoT devices to HPC servers with GPUs.
+* [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for complex computational systems (AI,ML,quantum,IoT):
+  * [Browse SOTA scoreboards powered by CK workflows](https://cKnowledge.io/reproduced-results)
+  * [Browse all shared CK components](https://cKnowledge.io/browse)
+  * [Search for reusable CK components](https://cKnowledge.io)
+* [Our reproducibility initiatives for systems and ML conferences](https://cTuning.org/ae)
 
 
-### The meaning behind the "c"
-
-**The lowercase c (cKnowledge, cBench, cTuning)** means "collective", "collaborative" or "crowd" based on our vision
-of collaborative and reproducible benchmarking and optimization of complex computational systems:
-[2009]( https://en.wikipedia.org/wiki/Collective_Tuning_Initiative ),
-[2017]( https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly ),
-[2018]( https://cknowledge.io/c/report/rpi3-crowd-tuning-2017-interactive ),
-[2019]( https://doi.org/10.5281/zenodo.2556147 ).
 
 
-## Why CK?
+## CK use cases
 
-The CK project was heavily motivated by our [painful experience](https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly-) 
-validating innovative ideas from research papers
-at [ML and systems conferences](https://cKnowledge.io/reproduced-results) 
-and moving them to production.
-We have noticed that while finding the code from research papers 
-is not a problem anymore thanks to [ArXiv](https://arxiv.org),
-[PapersWithCode](https://PapersWithCode.com) and [MLPerf](https://mlperf.org), 
-it is only a small tip of the iceberg.
-The major challenge afterwards is to figure out how to
-find and connect all compatible dependencies (code, data, models)
-for numerous and rapidly evolving heterogeneous systems 
-with continuously changing interfaces and data formats,
-integrate them with complex applications,
-customize them and run them in the most efficient way.
+* [Real world use cases from our industrial and academic partners](https://cKnowledge.org/partners.html)
+* [MLPerf CK workflow (development version)](https://github.com/ctuning/ck-mlperf)
+* [MLPerf stable crowd-benchmarking demo with the live scoreboard](https://cKnowledge.io/test)
+* [CK-based live research paper (collaboration with the Raspberry Pi foundation)](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
 
-Existing useful tools such as MLFlow, Kedro and Amazon SageMaker
-help to automate training and other high-level ML operations 
-while Docker, Kubernetes and other
-container based tools can hide software chaos 
-but there is a lack of an intermediate framework and format
-to bridge the growing gap between deep tech research 
-and real computer systems, particularly
-when targeting resource constrained embedded devices and IoT!
-
-All these problems motivated [Grigori Fursin](https://cKnowledge.org) 
-to start the Collective Knowledge Project
-and pursue his vision 
-of the collaborative and reproducible development of efficient computational systems (AI, ML, quantum, IoT)
-with the help of a common research SDK, an <a href="https://cKnowledge.io">open repository of knowledge</a>
-and collaborative validation of research results from <a href="https://cKnowledge.io/reproduced-papers">published papers</a>
-([2009](https://en.wikipedia.org/wiki/Collective_Tuning_Initiative"),
- [2014](https://cTuning.org/ae"),
- [2017](https://www.slideshare.net/GrigoriFursin/enabling-open-and-reproducible-computer-systems-research-the-good-the-bad-and-the-ugly"),
- [2019](https://doi.org/10.5281/zenodo.2556147"),
- [2020](https://arxiv.org/abs/2006.07161)).
-
-The idea is to help the community exchange all the basic blocks (CK components) 
-needed to assemble portable workflows for complex systems, collaboratively benchmark them 
-and compare their performance using [live SOTA scoreboards](https://cKnowledge.io/reproduced-results).
-
-One of the current practical applications  of the CK technology 
-is to enable portable MLSysOps, i.e. cross-platform [MLOps](https://en.wikipedia.org/wiki/MLOps)
-with the automated deployment of ML models in production across diverse systems
-from IoT to data centers in the most efficient way.
-
-We also work with the community to reproduce and compare SOTA results from AI, ML and systems research 
-using our (<a href="https://cKnowledge.io/solutions">CK solutions</a>) 
-with a common API (compile, run, benchmark, validate) in terms
-of speed, accuracy, latency, energy usage, memory consumption and costs.
+[<img src="https://img.youtube.com/vi/DIkZxraTmGM/0.jpg" width="320">](https://www.youtube.com/watch?v=DIkZxraTmGM)
+[<img src="https://img.youtube.com/vi/VpedDdia5yY/0.jpg" width="320">](https://www.youtube.com/watch?v=VpedDdia5yY)
 
 
-## Why open CK format?
 
-We have been working on a common format for collaborative benchmarking and optimization
-since [2009](https://en.wikipedia.org/wiki/Collective_Tuning_Initiative).
-In 2015 we prototyped the new, open and human-readable CK format 
-to share computational components and workflows.
-It turned out to be flexible and customizable enough 
-to support many [real use cases] from our academic and industrial partners.
-For example, the authors of 15+ research papers from
-different [systems and ML conferences](https://cTuning.org/ae) used CK to share their
-[research code, data and results](https://cKnowledge.io/?q="portable-workflow-ck").
 
-CK concept is to gradually convert ad-hoc research projects into
-file-based databases of [reusable components](https://cKnowledge.io/c/module)
-including code, data, models, pre-/post-processing scripts,
-experimental results, best research practices to reproduce
-results, and [auto-generated papers](https://cKnowledge.io/?q=%22live-paper%22) 
-with unified Python APIs, 
-[CLI-based automation actions](https://cKnowledge.io/c/ck-action)
-and JSON meta information.
 
-CK also features plugins to [automatically detect](https://cKnowledge.io/c/soft) different software, models 
-and data sets on a user machine and [install the missing ones](https://cKnowledge.io/c/package)
- while supporting different operating
-systems (Linux, Windows, MacOS, Android) and heterogeneous hardware from all major vendors
-including Intel, Arm, Nvidia and AMD.
 
-Such approach allows researchers and practitioners to create and share
-flexible APIs with JSON input/output for different AI/ML
-frameworks, libraries, compilers, models and data sets,
-and connect them together into [portable and unified workflows](https://cKnowledge.io/c/program)
-instead of hardwired scripts and data formats.
 
-## Our goals and plans
+## Documentation
 
-Even though the CK technology is <a href="https://cKnowledge.org/partners.html">stable and used in production</a>,
-there is still a lot to be done and we are only at the beginning of this long-term project. 
+* [Online CK documentation](https://cKnowledge.io/docs) 
 
-We continue improving cBench as a more user-friendly wrapper around CK,
-and we continue improving the open cKnowledge.io portal as a centralized
-place to aggregate, version, test and create all components
-and workflows necessary to design complex computational systems.
+Older wiki-based documentation (we gradually move it to the above Sphinx-based documentation):
 
-We are making a special effort to ensure that the CK technology is non-intrusive,
-i.e. that it complements, abstracts and interconnects all existing tools
-including MLFlow, MLPerf, Docker, Kubernetes, GitHub actions making
-them more system aware rather than replacing or rewriting them.
+* [CK wiki](https://github.com/ctuning/ck/wiki)
+* [CK basics](https://michel.steuwer.info/About-CK)
+* [CK Getting Started Guide](https://github.com/ctuning/ck/wiki/First-steps)
+* [Contributing to CK](https://github.com/ctuning/ck/wiki/Adding-new-workflows)
 
-Our goal is to help researchers and practitioners to collaboratively
-validate innovative techniques, benchmark and optimize novel computational
-systems, and find the most efficient ones in terms of speed, accuracy,
-energy, size and different costs using a [public repository of knowledge](https://cKnowledge.io/browse)
-with [live SOTA scoreboards](https://cKnowledge.io/results) 
-and [reproducible papers](https://cKnowledge.io/reproduced-papers).
 
-Based on your feedback we plan to add the following features to our platform in 2020:
-* GUI to add, test and interconnect computational components (software detection plugins, meta packages, pre/post-processing scripts)
-* GUI to assemble portable solutions from above components to be able to adapt computational systems to evolving hardware and software
-* GUI for automated [MLPerf benchmark submissions and validations](https://mlperf.org) across diverse systems, models and data set (see our [proof-of-concept demo](https://cKnowledge.io/demo))
-* Continuous testing of all shared components and portable workflows
-* Improved SOTA scoreboards to support [reproducibility initiatives and optimization tournaments/hackathons]( https://cKnowledge.io/events ) 
-* Improved SOTA scoreboards to [reproduce and crowd-benchmark AI/ML solutions](https://cKnowledge.io/reproduced-results) from [SOTA papers]( https://cknowledge.io/c/lib/ ).
+
+## Installation
+
+Follow [this guide](https://cKnowledge.io/docs/getting-started/ck-installation.html) 
+to install the CK SDK on your platform.
+
+Check [CK-based demo](https://cKnowledge.io/demo) to participate in reproducible MLPerf benchmarking
+with a [public SOTA scoreboard](https://cknowledge.io/c/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking).
+
+CK supports the following platforms:
+
+|               | As a host platform | As a target platform |
+|---------------|:------------------:|:--------------------:|
+| Generic Linux | ✓ | ✓ |
+| Linux (Arm)   | ✓ | ✓ |
+| Raspberry Pi  | ✓ | ✓ |
+| MacOS         | ✓ | ± |
+| Windows       | ✓ | ✓ |
+| Android       | ± | ✓ |
+| iOS           | TBD | TBD |
+
+
+
+
+## Get involved
+
+* This is an ongoing community project and there is a lot to be improved - 
+  don't hesitate to [get in touch](https://cKnowledge.org/contacts.html)
+  using our slack, mailing list, twitter and email
+  if you have any feedback or would like to collaborate.
+
+* Check this [outdated guide](https://github.com/ctuning/ck/wiki) to add your workflows and components. 
+  We are gradually rewriting [this guide](https://cKnowledge.io/docs) with our limited resources
+  and developing [cBench](https://github.com/cknowledge/cbench) to simplify
+  the user experience and provide a CK GUI at the [open cKnowledge.io platform](https://cKnowledge.io).

@@ -12,6 +12,17 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 References: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3865242.svg)](https://doi.org/10.5281/zenodo.3865242)
 [![arXiv](https://img.shields.io/badge/arXiv-2006.07161-00ff00.svg)](https://arxiv.org/abs/2006.07161)
 
+## Overview
+
+Collective Knowledge framework (CK) provides a common API with reusable
+automation actions to all software projects together with a database-like
+control for their individual components including algorithms, packages,
+data sets, models, and results. The goal is to make it easier for
+researchers and practitioners to reuse best R&D practices and artifacts,
+assemble portable workflows, reproduce and compare research techniques,
+build upon them, and use them in production. 
+See [some real-world use cases](https://cKnowledge.org/partners.html)
+from Arm, General Motors, IBM, MLPerf, RPi, and ACM.
 
 ## News
 
@@ -20,46 +31,27 @@ References: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3865242.svg)](ht
   and successfully validated it in several [industrial and academic projects](https://cKnowledge.org/partners)
   as briefly described in this [white paper](https://arxiv.org/abs/2006.07161)
   and the [CK presentation](https://cKnowledge.io/presentation/ck).
-  We have helped the community to use CK as an extensible playground to implement reusable [automation actions]( https://cKnowledge.io/actions ) 
-  and [components]( https://cknowledge.io/?q=%22digital-component%22 ) for AI, ML, and systems R&D
-  and assemble [portable workflows](https://cknowledge.io/programs)
-  from [reproduced research papers](https://cknowledge.io/reproduced-papers) during so-called [artifact evaluation](https://cTuning.org/ae).
-  We then demonstrated that it was possible to use such portable workflows 
-  to automate the [MLPerf benchmark](https://mlperf.org)
+  We have helped our partners and the community to use CK as a playground to implement reusable 
+  [components]( https://cknowledge.io/?q=%22digital-component%22 ) with [automation actions]( https://cKnowledge.io/actions ) 
+  for AI, ML, and systems R&D while agreeing on common APIs and JSON meta descriptions. 
+  We then used such components to assemble [portable workflows](https://cknowledge.io/programs)
+  from [reproduced research papers](https://cknowledge.io/reproduced-papers) during 
+  the so-called [artifact evaluation](https://cTuning.org/ae).
+  We also  demonstrated that it was possible to use such portable workflows 
+  to automate the complex co-design process of efficient software, hardware and models, 
+  simplify [MLPerf benchmark](https://mlperf.org) submissions,
   and [quickly deploy]( https://cKnowledge.io/solution )  emerging AI, ML, and IoT technology in production
   in the [most efficient way (speed, accuracy, energy, costs)]( https://cKnowledge.io/results ) 
-  across diverse platforms from data centers to edge devices.
+  across diverse platforms from supercomputers and data centers to mobile phones and edge devices.
 
   *We are now raising funding for the second phase of this project to standardize CK APIs and meta descriptions, 
   make CK more pythonic and user-friendly, and enhance our [open CK platform](https://cKnowledge.io). 
-  Our mission is to organize all AI, ML, and systems knowledge in the form of portable workflows and reusable artifacts
-  to accelerate the development of innovative technology and facilitate its adoption -
+  Our mission is to organize all AI, ML, and systems knowledge in the form of portable workflows
+  with reusable automation actions and artifacts
+  to accelerate the development and adoption of innovative technology -
   get in touch with [Grigori Fursin](https://cKnowledge.io/@gfursin) (CK author and project leader) to know more!*
 
-## What problems are we trying to solve?
-
-Several major problems that we continue to encounter when reproducing results from [research projects](https://cTuning.org/ae) 
-and trying to move some of them to production with our industrial partners are:
-* each research project shared as a Docker image, zip archive, GitHub repository, or Jupyter/Colab notebook
-  has 
-   API
-   paths
-
-
-* lots of manual intervention when trying a different data set, model, library, framework or run on another hardware
-
-
-
-
-
-## CK approach
-
-
-## CK platform
-
-
-
-
+## Concept
 
 **You can read about our motivation to create CK at [cKnowledge.org](https://cKnowledge.org)**
 

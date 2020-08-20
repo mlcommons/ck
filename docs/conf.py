@@ -15,23 +15,34 @@
 
 import os
 import sys
+import re
 
 sys.path.insert(0, os.path.abspath('..'))
 sys.path.insert(0, os.path.abspath('_ext'))
 sys.path.insert(0, os.path.abspath('.'))
 
-
 # -- Project information -----------------------------------------------------
 
-project = u'Collective Knowledge'
+project = u'Collective Knowledge framework'
 copyright = u'2015-2020 Grigori Fursin and the cTuning foundation'
 author = u'Grigori Fursin'
 
-version='20200420'
+version=''
 release=version
 
 edit_on_github_url='https://github.com'
 edit_on_github_project = 'ctuning/ck'
+
+kernel_file=os.path.join('..', 'ck', 'kernel.py')
+
+with open(kernel_file, encoding="utf-8") as f:
+    search = re.search(r'__version__ = ["\']([^"\']+)', f.read())
+
+    if not search:
+       raise ValueError("We can't find the CK version in ck/kernel.py")
+
+    version = search.group(1)
+
 
 # The short X.Y version
 #version = u'0.7.18'
@@ -188,8 +199,7 @@ man_pages = [
 #  dir menu entry, description, category)
 texinfo_documents = [
     (master_doc, 'ck.tex', u'Collective Knowledge',
-     author, 'CK', 'Collective Knowledge about complex computational systems',
-     'reproducibility'),
+     author, 'CK', 'common-api', 'reproducibility', 'reusability'),
 ]
 
 
