@@ -79,6 +79,9 @@ CK supports the following platforms:
 * [CK Basics](https://michel-steuwer.github.io/About-CK)
 * [CK Wiki](https://github.com/ctuning/ck/wiki)
 
+
+* MLPerf benchmark automation demo: via [open CK platform](https://cKnowledge.io/test) or via [CK-compatible GitHub repo](https://github.com/ctuning/ck-mlperf)
+
 ## Author
 
 * [Grigori Fursin](https://cKnowledge.io/@gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge SAS](https://www.linkedin.com/company/cknowledge))
