@@ -9,21 +9,20 @@ Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
 Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
-References: [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3865242.svg)](https://doi.org/10.5281/zenodo.3865242)
-[![arXiv](https://img.shields.io/badge/arXiv-2006.07161-00ff00.svg)](https://arxiv.org/abs/2006.07161)
-
 ## Overview
 
-Collective Knowledge framework (CK) provides a common API to all software projects 
-together with a database-like control and reusable automation actions 
-for their individual components (algorithms, packages,
-data sets, models, scripts, results, and so on). 
-The goal is to make it easier for researchers and practitioners 
-to reuse best R&D practices and artifacts,
-assemble portable workflows, reproduce and compare research techniques,
-build upon them, and use them in production. 
-See [some real-world use cases](https://cKnowledge.org/partners.html)
-from Arm, General Motors, IBM, MLPerf, RPi, and ACM.
+Collective Knowledge framework (CK) helps to organize any project
+as a database of reusable components with common automation actions
+and extensible meta descriptions based on [FAIR principles](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4792175)
+(findability, accessibility, interoperability, and reusability).
+
+The ultimate goal is to help everyone share, reuse, and extend their knowledge
+in the form of reusable artifacts and portable workflows with a common API, CLI,
+and JSON meta description. 
+
+See some real-world use cases from Arm, General Motors, IBM, MLPerf, the Raspberry Pi foundation, 
+and ACM to support collaborative and reproducible AI, ML, and systems R&D 
+at https://cKnowledge.org/partners.
 
 ## News
 
@@ -72,15 +71,14 @@ CK supports the following platforms:
 
 ## Documentation
 
-* [Online CK documentation (under construction)](https://ck.readthedocs.io) 
-* [Open CK portal with all CK components, workflows, and live dashboards](https://cKnowledge.io) 
-
-
 * [CK Basics](https://michel-steuwer.github.io/About-CK)
 * [CK Wiki](https://github.com/ctuning/ck/wiki)
 
+* [Online CK documentation (under construction)](https://ck.readthedocs.io) 
+* [Open CK portal with all CK components, workflows, and live dashboards](https://cKnowledge.io) 
 
-* MLPerf benchmark automation demo: via [open CK platform](https://cKnowledge.io/test) or via [CK-compatible GitHub repo](https://github.com/ctuning/ck-mlperf)
+* [Real-world use-cases](https://cKnowledge.org/partners)
+* [Publications](https://github.com/ctuning/ck/wiki/Publications)
 
 ## Author
 
