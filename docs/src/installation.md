@@ -1,4 +1,4 @@
-# CK framework installation
+# CK installation
 
 You can install the Collective Knowledge framework on most platforms using PIP as follows:
 

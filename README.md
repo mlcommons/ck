@@ -11,18 +11,18 @@ Coverage: [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge
 
 ## Overview
 
-Collective Knowledge framework (CK) helps to organize any project
+Collective Knowledge framework (CK) helps to organize any software project
 as a database of reusable components with common automation actions
-and extensible meta descriptions based on [FAIR principles](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4792175)
+and extensible meta descriptions based on [FAIR principles](https://www.nature.com/articles/sdata201618)
 (findability, accessibility, interoperability, and reusability).
 
 The ultimate goal is to help everyone share, reuse, and extend their knowledge
 in the form of reusable artifacts and portable workflows with a common API, CLI,
 and JSON meta description. 
 
-See some real-world use cases from Arm, General Motors, IBM, MLPerf, the Raspberry Pi foundation, 
-and ACM to support collaborative and reproducible AI, ML, and systems R&D 
-at https://cKnowledge.org/partners.
+See how CK helps to support collaborative and reproducible AI, ML, and systems R&D
+in some real-world use cases from Arm, General Motors, IBM, MLPerf, the Raspberry Pi foundation, 
+and ACM at [cKnowledge.org/partners](https://cKnowledge.org/partners.html).
 
 ## News
 
@@ -51,10 +51,24 @@ at https://cKnowledge.org/partners.
   to accelerate the development and adoption of innovative technology -
   get in touch with [Grigori Fursin](https://cKnowledge.io/@gfursin) (CK author and project leader) to know more!*
 
+## Documentation
+
+* [Online CK documentation (under construction)]( https://ck.readthedocs.io ) 
+* [CK Basics](https://michel-steuwer.github.io/About-CK)
+* [Try CK](https://github.com/ctuning/ck/wiki/First-steps)
+* [CK Wiki]( https://github.com/ctuning/ck/wiki )
+
+* [Open CK portal with all CK components, workflows, and live dashboards](https://cKnowledge.io) 
+
+* [Real-world use-cases](https://cKnowledge.org/partners)
+* [Publications](https://github.com/ctuning/ck/wiki/Publications)
+
 ## Installation
 
 Follow [this guide](https://ck.readthedocs.io/en/latest/getting-started/installation.html) 
 to install CK framework on your platform.
+Follow [this guide](https://github.com/ctuning/ck/wiki/First-steps)
+to try CK.
 
 CK supports the following platforms:
 
@@ -68,17 +82,6 @@ CK supports the following platforms:
 | Android       | ± | ✓ |
 | iOS           | TBD | TBD |
 | Bare-metal (edge devices)   | - | ± |
-
-## Documentation
-
-* [CK Basics](https://michel-steuwer.github.io/About-CK)
-* [CK Wiki](https://github.com/ctuning/ck/wiki)
-
-* [Online CK documentation (under construction)](https://ck.readthedocs.io) 
-* [Open CK portal with all CK components, workflows, and live dashboards](https://cKnowledge.io) 
-
-* [Real-world use-cases](https://cKnowledge.org/partners)
-* [Publications](https://github.com/ctuning/ck/wiki/Publications)
 
 ## Author
 

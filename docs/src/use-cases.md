@@ -49,7 +49,7 @@ necessary to benchmarking deep tech systems in a reproducible and collaborative 
 and to enable portable MLOps with the automated deployment of ML models 
 in production across diverse systems from IoT to data centers in the most efficient way (MLSysOps).
 
-You need to install [cBench](../getting-started/installation) 
+You need to install [cBench](installation.md) 
 and then follow [this guide](commands.html#cbench-ck-components)
 to learn how to download or upload your CK components. 
 
