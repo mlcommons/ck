@@ -54,9 +54,9 @@ and ACM at [cKnowledge.org/partners](https://cKnowledge.org/partners.html).
 ## Documentation
 
 * [Online CK documentation]( https://ck.readthedocs.io ) 
-** [Why CK?]( https://ck.readthedocs.io/en/latest/src/introduction.html ) 
-** [CK Basics](https://michel-steuwer.github.io/About-CK)
-** [Try CK](https://github.com/ctuning/ck/wiki/First-steps)
+ * [Why CK?]( https://ck.readthedocs.io/en/latest/src/introduction.html ) 
+ * [CK Basics](https://michel-steuwer.github.io/About-CK)
+ * [Try CK](https://github.com/ctuning/ck/wiki/First-steps)
 * [CK Wiki]( https://github.com/ctuning/ck/wiki )
 
 * [Open CK portal with all CK components, workflows, and live dashboards](https://cKnowledge.io) 
