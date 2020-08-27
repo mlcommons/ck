@@ -53,9 +53,10 @@ and ACM at [cKnowledge.org/partners](https://cKnowledge.org/partners.html).
 
 ## Documentation
 
-* [Online CK documentation (under construction)]( https://ck.readthedocs.io ) 
-* [CK Basics](https://michel-steuwer.github.io/About-CK)
-* [Try CK](https://github.com/ctuning/ck/wiki/First-steps)
+* [Online CK documentation]( https://ck.readthedocs.io ) 
+** [Why CK?]( https://ck.readthedocs.io/en/latest/src/introduction.html ) 
+** [CK Basics](https://michel-steuwer.github.io/About-CK)
+** [Try CK](https://github.com/ctuning/ck/wiki/First-steps)
 * [CK Wiki]( https://github.com/ctuning/ck/wiki )
 
 * [Open CK portal with all CK components, workflows, and live dashboards](https://cKnowledge.io) 
@@ -65,10 +66,8 @@ and ACM at [cKnowledge.org/partners](https://cKnowledge.org/partners.html).
 
 ## Installation
 
-Follow [this guide](https://ck.readthedocs.io/en/latest/getting-started/installation.html) 
+Follow [this guide](https://ck.readthedocs.io/en/latest/src/installation.html) 
 to install CK framework on your platform.
-Follow [this guide](https://github.com/ctuning/ck/wiki/First-steps)
-to try CK.
 
 CK supports the following platforms:
 
@@ -86,3 +85,9 @@ CK supports the following platforms:
 ## Author
 
 * [Grigori Fursin](https://cKnowledge.io/@gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge SAS](https://www.linkedin.com/company/cknowledge))
+
+## Acknowledgments
+
+We would like to thank all [contributors](https://github.com/ctuning/ck/blob/master/CONTRIBUTING.md) 
+and [collaborators](https://cKnowledge.org/partners.html) for their support, fruitful discussions, 
+and useful feedback!
