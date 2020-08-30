@@ -55,18 +55,22 @@ and ACM at [cKnowledge.org/partners](https://cKnowledge.org/partners.html).
 
 ## Documentation
 
+* [News](https://github.com/ctuning/ck/wiki/News-archive)
 * [Online CK documentation]( https://ck.readthedocs.io ) 
- * [Why CK?]( https://ck.readthedocs.io/en/latest/src/introduction.html ) 
- * [CK Basics](https://michel-steuwer.github.io/About-CK)
- * [Try CK](https://github.com/ctuning/ck/wiki/First-steps)
-* [CK Wiki]( https://github.com/ctuning/ck/wiki )
-
+  * [Why CK?]( https://ck.readthedocs.io/en/latest/src/introduction.html ) 
+  * [CK Basics](https://michel-steuwer.github.io/About-CK)
+  * [Try CK](https://github.com/ctuning/ck/wiki/First-steps)
+  * [CK Wiki]( https://github.com/ctuning/ck/wiki )
 * [Open CK portal with all CK components, workflows, and live dashboards](https://cKnowledge.io) 
-
+  * Automation actions and components for [ML&systems R&D]( https://doi.org/10.5281/zenodo.4005773 ):
+    * [platform detection]( https://cnowledge.io/?q=module+AND+platform* )
+    * [software detection (code, data, models)]( https://cKnowledge.io/soft )
+    * [package installation]( https://cKnowledge.io/packages )
+    * [portable program workflow]( https://cKnowledge.io/programs )
+    * [experiment replay]( https://cKnowledge.io/c/module/experiment )
+    * [live scoreboards]( https://cKnowledge.io/reproduced-results )
 * [Real-world use-cases](https://cKnowledge.org/partners)
 * [Publications](https://github.com/ctuning/ck/wiki/Publications)
-
-* [News](https://github.com/ctuning/ck/wiki/News-archive)
 
 ## Installation
 

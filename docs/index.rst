@@ -43,6 +43,7 @@ and ACM: https://cKnowledge.org/partners.
    :caption: User Guide
 
    src/commands
+   src/specs
    src/how-to-contribute
 
 .. toctree::

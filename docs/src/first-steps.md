@@ -82,7 +82,14 @@ CK will invoke the function "compile" in the module "program" (you can see it at
 or you can find the source code of this CK module locally using "ck find module:program"),
 read the JSON meta of *cbench-automotive-susan*, and perform a given action.
 
-In our case, CK will first attempt to automatically detect the properties of the platform
+Note, that you can obtain all flags for a given action as follows:
+```bash
+ck compile program --help
+```
+
+You can update any above key from the command line by adding "--" to it. If you omit the value, CK will use "yes" by default.
+
+When compiling program, CK will first attempt to automatically detect the properties of the platform
 and all required software dependencies such as compilers and libraries that are already installed on this platform. 
 CK uses [multiple plugins](https://cKnowledge.io/soft) describing how to detect different software, models, and datasets.
 
