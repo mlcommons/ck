@@ -2,27 +2,27 @@
 
 You can install the Collective Knowledge framework on most platforms using PIP as follows:
 
-```
+```bash
 pip install ck
 ```
 
 You can also install CK using a specific Python version (for example, Python 3.6 or for Python 2.7):
-```
+```bash
 python3.6 -m pip install ck
 ```
 or
-```
+```bash
 python2.7 -m pip install ck
 ```
 
 *You may need to add flag "--user" to install the client in your user space:*
-```
+```bash
 pip install ck --user
 python3.6 -m pip install ck --user
 ```
 
 You should now be able to run CK using one of the following alternative commands:
-```
+```bash
 ck
 
 python3.6 -m ck
@@ -32,7 +32,7 @@ If the installation is successful, you will see some internal information
 about the CK installation and a Python version used:
 
 ```
-CK version: 1.12.1
+CK version: 1.15.0
 
 Python executable used by CK: /usr/bin/python
 
@@ -57,13 +57,13 @@ The CK framework requires minimal dependencies: Python 2.7+ or 3.x, PIP and Git.
 
 You need to have the following packages installed (Ubuntu example):
 
-```
+```bash
 sudo apt-get install python3 python3-pip git wget
 ```
 
 ### MacOS
 
-```
+```bash
 brew install python3 python3-pip git wget
 ```
 
@@ -76,7 +76,7 @@ brew install python3 python3-pip git wget
 
 These dependencies are needed to cross-compile for Android (tested on Ubuntu 18.04 including Docker and Windows 10 Subsystem for Linux). 
 
-```
+```bash
  sudo apt update
  sudo apt install git wget libz-dev curl cmake
  sudo apt install gcc g++ autoconf autogen libtool
@@ -89,6 +89,6 @@ These dependencies are needed to cross-compile for Android (tested on Ubuntu 18.
 We prepared several Docker images with the CK framework and AI/ML CK workflows 
 at the [cTuning Docker hub](https://hub.docker.com/u/ctuning).
 Select the most relevant image and run it as follows:
-```
+```bash
 docker run -p 3344:3344 -it {Docker image name from the above list} /bin/bash
 ```

@@ -64,6 +64,8 @@ and ACM at [cKnowledge.org/partners](https://cKnowledge.org/partners.html).
 * [Real-world use-cases](https://cKnowledge.org/partners)
 * [Publications](https://github.com/ctuning/ck/wiki/Publications)
 
+* [News](https://github.com/ctuning/ck/wiki/News-archive)
+
 ## Installation
 
 Follow [this guide](https://ck.readthedocs.io/en/latest/src/installation.html) 

@@ -10,7 +10,8 @@ CK framework documentation
 .. epigraph::
 
 Collective Knowledge framework (CK) helps to organize any software project
-as a database of reusable components with common automation actions
+as a database of reusable components (algorithms, datasets, models, frameworks, scripts, 
+experimental results, papers, etc) with common automation actions
 and extensible meta descriptions based on FAIR principles
 (findability, accessibility, interoperability, and reusability).
 
@@ -35,7 +36,7 @@ and ACM: https://cKnowledge.org/partners.
    :caption: Getting Started
 
    src/installation
-   src/getting-started
+   src/first-steps
 
 .. toctree::
    :maxdepth: 2

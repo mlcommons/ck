@@ -1,4 +1,6 @@
-# Why CK?
+# CK basics
+
+## Why CK?
 
 While working in large R&D projects with multiple partners to design efficient machine learning systems, 
 we face the same problems over and over again:
@@ -38,7 +40,7 @@ published in this [Nature article](https://www.nature.com/articles/sdata201618).
 
 
 
-# What is CK?
+## What is CK?
 
 We have developed the [Collective Knowledge framework (CK)](https://github.com/ctuning/ck) 
 as a small Python library with a unified command line interface (CLI).
@@ -81,26 +83,68 @@ reimplementing them from scratch for each new project.
 Note that CK framework has an internal [***default CK repository***]( https://github.com/ctuning/ck/tree/master/ck/repo ) 
 with stable [***CK modules***](https://github.com/ctuning/ck/tree/master/ck/repo/module) and most commonly used automation actions.
 When CK is used for the first time, it also creates a ***local CK repository***
-in the user space to be used as a working repository or a scratchpad.
+in the user space to be used as a working repository or a scratch-pad.
+
+CK provides a simple command line interface similar natural language to manage CK repositories, entries, and actions:
+```bash
+ck <action> <CK module name> (flags) (@input.json)
+ck <action> <CK module name>:<CK entry name> (flags) (@input.json)
+ck <action> <CK repository name>:<CK module name>:<CK entry name>
+```
+
+For example:
+
+```bash
+pip install ck
+
+ck pull repo --url=https://github.com/ctuning/ck-crowdtuning
+
+ck compile program:cbench-automotive-susan --speed
+ck run program:cbench-automotive-susan --env.OMP_NUM_THREADS=4
+
+ck cp program:cbench-automotive-susan program:cbench-automotive-susan-copy
+
+```
+
+CK also provides a Python library with a simple API that can be easily used in web applications or continuous integration services:
+```python
+import ck.kernel as ck
+
+# Equivalent of "ck compile program:cbench-automotive-susan --speed"
+r=ck.access({'action':'compile', 'module_uoa':'program', 'data_uoa':'cbench-automotive-susan', 
+             'speed':'yes'})
+if r['return']>0: return r # unified error handling 
+
+print (r)
+
+# Equivalent of "ck run program:cbench-automotive-susan --env.OMP_NUM_THREADS=4
+r=ck.access({'action':'run', 'module_uoa':'program', 'data_uoa':'cbench-automotive-susan', 
+             'env':{'OMP_NUM_THREADS':4}})
+if r['return']>0: return r # unified error handling 
+
+print (r)
+
+```
+
 
 Based on the feedback from our users, we have recently developed an open ***CK platform***
-to share CK components and participate in collaborative experiments: [https://cKnowledge.io](cKnowledge.io).
+to help the community share CK components, create live scoreboards,
+and participate in collaborative experiments: [https://cKnowledge.io](cKnowledge.io).
 
-* You may want to read this [nice blog post](https://michel.steuwer.info/About-CK/)
- from Michel Steuwer about CK basics!
+* We suggest you to read this [nice blog post](https://michel.steuwer.info/About-CK/) from Michel Steuwer about CK basics!
 * You can find a partial list of CK-compatible repositories at [cKnowledge.io/repos](https://cKnowledge.io/repos).
 
 
 
 
 
-# CK modules and actions to support collaborative ML&systems research
+## How CK supports collaborative and reproducible ML&systems research
 
 It is a very tedious, ad-hoc, and time consuming process to design complex computational systems 
 that can run AI, ML, and other emerging workloads in the most efficient way 
 due to continuously changing software, hardware, models, data sets, and research techniques.
 
-We have developed and used CK first to connect our colleagues, students, researchers, and engineers
+The first reason why we have developed CK was to connect our colleagues, students, researchers, and engineers
 from different workgroups to collaboratively solve these problems and decompose complex systems and research projects
 into [reusable, portable, customizable, and non-virtualized CK components](https://cKnowledge.io/browse)
 with unified [automation actions, Python APIs, CLI, and JSON meta description](https://cKnowledge.io/actions).
@@ -176,7 +220,7 @@ interested to know more!*
 
 
 
-# CK platform
+## CK platform
 
 
 * [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for complex computational systems (AI,ML,quantum,IoT):
@@ -191,7 +235,7 @@ interested to know more!*
 
 
 
-# CK use cases
+## CK use cases
 
 * [Real-world use cases from our industrial and academic partners](https://cKnowledge.org/partners.html)
 * [MLPerf CK workflow (development version)](https://github.com/ctuning/ck-mlperf)
