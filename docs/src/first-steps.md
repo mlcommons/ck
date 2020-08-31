@@ -1,4 +1,4 @@
-﻿# First steps
+﻿# Trying CK
 
 ## How CK enables portable and customizable workflows
 
@@ -181,6 +181,10 @@ ck show env --tags=llvm,v10.0.0
 
 By default, all packages are installed in the user space (*$HOME/CK-TOOLS*).
 You can change this path using the CK environment variable *CK_TOOLS*.
+You can also ask CK to install packages inside CK virtual environment entries directly as follows:
+```bash
+ck set kernel var.install_to_env=yes
+```
 
 Note that you can now detect or install multiple versions of the same tool on your system
 that can be picked up and used by portable CK workflows!

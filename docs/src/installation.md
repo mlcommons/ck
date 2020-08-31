@@ -92,3 +92,9 @@ Select the most relevant image and run it as follows:
 ```bash
 docker run -p 3344:3344 -it {Docker image name from the above list} /bin/bash
 ```
+
+
+### Customization
+
+Please check this [wiki](https://github.com/ctuning/ck/wiki/Customization)
+to learn more about how to customize your CK installation.

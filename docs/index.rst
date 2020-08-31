@@ -37,10 +37,11 @@ and ACM: https://cKnowledge.org/partners.
 
    src/installation
    src/first-steps
+   src/typical-usage
 
 .. toctree::
    :maxdepth: 2
-   :caption: User Guide
+   :caption: User guide
 
    src/commands
    src/specs
@@ -48,13 +49,11 @@ and ACM: https://cKnowledge.org/partners.
 
 .. toctree::
    :maxdepth: 2
-   :caption: Tutorials
-
-.. toctree::
-   :maxdepth: 2
    :caption: Resources
 
    _package/ck
+   src/misc
+
 
 Index
 =====
