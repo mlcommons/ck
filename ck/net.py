@@ -25,16 +25,23 @@ except:
 
 ##########################################################################
 def request(i):
-    """
-    Input:  {
-              get - get parameters
-              post - post parameters
-            }
+    """Web request to cKnowledge.org server
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return  - return code = 0 if success or >0 if error
-              (error) - error string if return>0 
-            }
+    Args:    
+              get (dict): GET parameters
+              post (dict): POST parameters
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                string (str): returned string from the server
+                dict (dict): JSON string converted to dict (if possible)
+
     """
 
     url='https://cKnowledge.org/api.php?'
@@ -91,18 +98,22 @@ def request(i):
 
 ##########################################################################
 def access_ck_api(i):
-    """
-    Input:  {
-              url    - URL API
-              (dict) - sending dict to cKnowledge.io API
-            }
+    """Universal web request to the CK server (usually cKnowledge.io)
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return  - return code = 0 if success or >0 if error
-              (error) - error string if return>0 
+    Args:    
+              url (str): URL API
+              (dict) (dict): dict to send to above URL
 
-              ... response from cKnowledge.io
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict (dict): dictionary from the CK server
+
     """
 
     import ck.strings

@@ -51,7 +51,7 @@ and ACM: https://cKnowledge.org/partners.
    :maxdepth: 2
    :caption: Resources
 
-   _package/ck
+   src/ck
    src/misc
 
 

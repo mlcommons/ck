@@ -12,23 +12,21 @@ import os
 
 ##############################################################################
 def load_json_file(i):
-    """
-    Desc: Load json from file into dict
+    """Load json from file into dict
+       Target audience: end users
 
-    Target: end users
+    Args:    
+              json_file (str): name of a json file 
 
-    Input:  {
-              json_file - name of file with json
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: {
-              return       - return code =  0, if successful
-                                         = 16, if file not found (may be warning)
-                                         >  0, if error
-              (error)  - error text if return > 0
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-              dict     - dict from json file
-            }
+                dict (dict or list): dict or list from the json file
+
     """
 
     import json
@@ -63,23 +61,22 @@ def load_json_file(i):
 
 ##############################################################################
 def save_json_to_file(i):
-    """
-    Desc: Save dict as json file
+    """Save dict to a json file
+       Target audience: end users
 
-    Target: end users
+    Args:    
+              json_file (str): filename to save dictionary
+              dict (dict): dict to save
+              (sort_keys) (str): if 'yes', sort keys
+              (safe) (str): if 'yes', ignore non-JSON values (only for Debugging - changes original dict!)
 
-    Input:  {
-              json_file    - file name
-              dict         - dict to save
-              (sort_keys)  - if 'yes', sort keys
-              (safe)       - if 'yes', ignore non-JSON values (only for Debugging - changes original dict!)
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
     """
 
     import json
@@ -114,23 +111,21 @@ def save_json_to_file(i):
 
 ##############################################################################
 def load_yaml_file(i):
-    """
-    Desc: Load YAML from file into dict
+    """Load YAML file to dict
+       Target audience: end users
 
-    Target: end users
+    Args:    
+              yaml_file (str): name of a YAML file
 
-    Input:  {
-              yaml_file - name of YAML file
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: {
-              return       - return code =  0, if successful
-                                         = 16, if file not found (may be warning)
-                                         >  0, if error
-              (error)  - error text if return > 0
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-              dict     - dict from YAML file
-            }
+                dict (dict): dict from a YAML file
+
     """
 
     import yaml
@@ -162,21 +157,20 @@ def load_yaml_file(i):
 
 ##############################################################################
 def save_yaml_to_file(i):
-    """
-    Desc: Save dict as yaml file
+    """Save dict to a YAML file
+       Target audience: end users
 
-    Target: end users
+    Args:    
+              yaml_file (str): name of a YAML file
+              dict (dict): dict to save
 
-    Input:  {
-              yaml_file   - file name
-              dict        - dict to save
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
     """
 
     import yaml
@@ -197,36 +191,37 @@ def save_yaml_to_file(i):
 
 ##############################################################################
 def load_text_file(i):
-    """
-    Desc: Load text file into string or list
+    """Load a text file to a string or list
+       Target audience: end users
 
-    Target: end users
+    Args:    
+              text_file (str): name of a text file
+              (keep_as_bin) (str): if 'yes', return only bin
+              (encoding) (str): by default 'utf8', however sometimes we use utf16
 
-    Input:  {
-              text_file           - name of text file
-              (keep_as_bin)       - if 'yes', return only bin
-              (encoding)          - by default 'utf8', however sometimes we use utf16
+              (split_to_list) (str): if 'yes', split to list
 
-              (split_to_list)     - if 'yes', split to list
+              (convert_to_dict) (str): if 'yes', split to list and convert to dict
+              (str_split) (str): if !='', use as separator of keys/values when converting to dict
+              (remove_quotes) (str): if 'yes', remove quotes from values when converting to dict
 
-              (convert_to_dict)   - if 'yes', split to list and convert to dict
-              (str_split)         - if !='', use as separator of keys/values when converting to dict
-              (remove_quotes)     - if 'yes', remove quotes from values when converting to dict
+              (delete_after_read) (str): if 'yes', delete file after read (useful when reading tmp files)
 
-              (delete_after_read) - if 'yes', delete file after read (useful when reading tmp files)
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: {
-              return       - return code =  0, if successful
-                                         = 16, if file not found (may be warning)
-                                         >  0, if error
-              (error)  - error text if return > 0
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-              bin      - bin
-              (string) - loaded text (with removed \r)
-              (lst)    - if split_to_list=='yes', return as list
-              (dict)   - if convert_to_dict=='yes', return as dict
-            }
+                bin (byte): loaded text file as byte array
+
+                (string) (str): loaded text as string with removed \r
+
+                (lst) (list): if split_to_list=='yes', split text to list
+
+                (dict) (dict): if convert_to_dict=='yes', return as dict
+
     """
 
     fn=i['text_file']
@@ -294,22 +289,21 @@ def load_text_file(i):
 
 ##############################################################################
 def save_text_file(i):
-    """
-    Desc: save string to text file
+    """Save string to a text file with all \r removed
+       Target audience: end users
 
-    Target: end users
+    Args:    
+              text_file (str): name of a text file
+              string (str): string to write to a file (all \r will be removed)
+              (append) (str): if 'yes', append to a file
 
-    Input:  {
-              text_file - name of text file
-              string    - string to write (with removed \r)
-              (append)  - if 'yes', append
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)  - error text if return > 0
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
     """
 
     fn=i['text_file']

@@ -1,5 +1,5 @@
 * V1.15.0.1
-  * Started development version
+  * Updated description of all CK APIs in Google format!
 
 * V1.15.0
   * Improved the integration with the open CK portal: https://cKnowledge.io

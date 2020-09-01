@@ -11,23 +11,23 @@ import sys
 
 ##############################################################################
 def dump_json(i):
-    """
-    Desc: dump json to string
+    """Dump dictionary (json) to a string
+       Target audience: end users
 
-    Target: end users
+    Args:    
+              dict (dict) : dictionary to convert to a string
+              (skip_indent) (str): if 'yes', skip indent
+              (sort_keys) (str): if 'yes', sort keys
 
-    Input:  {
-              dict          - dictionary
-              (skip_indent) - if 'yes', skip indent
-              (sort_keys)   - if 'yes', sort keys
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-              string       - json string (in utf8)
-            }
+                string (str): JSON string
+
     """
 
     import json
@@ -54,19 +54,19 @@ def dump_json(i):
 
 ##############################################################################
 def copy_to_clipboard(i): # pragma: no cover 
-    """
-    Desc: Copy string to clipboard if supported by OS (requires Tk or pyperclip)
+    """Copy string to clipboard if supported by OS (requires Tk or pyperclip)
+       Target audience: end users
 
-    Target: end users
+    Args:    
+              string (str): string to copy
 
-    Input:  {
-              string - string to copy
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
     """
 
     s=i['string']
@@ -122,25 +122,21 @@ def copy_to_clipboard(i): # pragma: no cover
 
 ##############################################################################
 def convert_json_str_to_dict(i):
-    """
-    Desc: Convert string of a special format to json
+    """Convert string in a special format to dict (JSON)
+       Target audience: end users
 
-    Target: end users
+    Args:    
+              str (str): string (use ' instead of ", i.e. {'a':'b'} to avoid issues in CMD in Windows and Linux!)
 
-    Input:  {
-              str                      - string (use ' instead of ", i.e. {'a':'b'} 
-                                         to avoid issues in CMD in Windows and Linux!)
+    Returns:
+              (dict): Unified CK dictionary:
 
-              (skip_quote_replacement) - if 'yes', do not make above replacement
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+                dict (dict): dict from json file
 
-              dict         - dict from json file
-            }
     """
 
     import json

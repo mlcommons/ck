@@ -370,15 +370,22 @@ string_io=None        # StringIO, which is imported differently in Python 2 and 
 log_ck_entries=False  # If true, log CK entries to record all dependencies
 
 ##############################################################################
-# Save CK state
+# Save the CK state
 #
 # TARGET: end users
 
 def save_state():
-    """
-    Input:  None
+    """Save CK state
+       Target audience: end users
 
-    Output: dict with state
+       FGG: note that in the future we want to implement CK kernel as a Python class
+       where we will not need such save/restore state ...
+
+    Args:    
+             None
+
+    Returns: 
+             (dict): current CK state
     """
 
     import copy
@@ -404,10 +411,15 @@ def save_state():
 # TARGET: end users
 
 def restore_state(r):
-    """
-    Input:  dict with state
+    """Restore CK state
+       Target audience: end users
 
-    Output: output from "init" function
+    Args:    
+             r (dict): saved CK state
+
+    Returns: 
+             (dict): output from the "init" function
+
     """
 
     global initialized, cfg, paths_repos, cache_repo_init, paths_repos_all, cache_repo_uoa, cache_repo_info
@@ -435,10 +447,14 @@ def restore_state(r):
 # TARGET: end users
 
 def reinit():
-    """
-    Input:  None
+    """Reinitialize CK
+       Target audience: end users
 
-    Output: output from "init" function
+    Args:    
+             None
+
+    Returns: 
+             (dict): output from the "init" function
     """
 
     global initialized, paths_repos, cache_repo_init, paths_repos_all, cache_repo_uoa, cache_repo_info
@@ -459,10 +475,17 @@ def reinit():
 # TARGET: end users
 
 def out(s):
-    """
-    Input:  s - unicode string to print
+    """Universal print of a unicode string in UTF-8 or other format 
+       Target audience: end users
 
-    Output: Nothing
+       Supports: Python 2.x and 3.x
+
+
+    Args:    
+             s (str): unicode string to print
+
+    Returns: 
+             None
     """
 
     if allow_print: 
@@ -496,10 +519,17 @@ def out(s):
 # TARGET: end users
 
 def debug_out(i):
-    """
-    Input:  i - dictionary
+    """Universal debug print of a dictionary while removing unprintable parts
+       Target audience: end users
 
-    Output: return = 0
+    Args:    
+             i (dict): dictionary to print
+
+    Returns: 
+             (dict): Unified CK dictionary:
+
+                return (int): 0
+
     """
 
     import copy
@@ -527,10 +557,16 @@ def debug_out(i):
 # TARGET: end users
 
 def eout(s):
-    """
-    Input:  s - unicode string to print
+    """Universal print of a unicode error string in the UTF-8 or other format to stderr
+       Target audience: end users
 
-    Output: Nothing
+       Supports: Python 2.x and 3.x
+
+    Args:    
+             s (str): unicode string to print
+
+    Returns: 
+             None
     """
 
     if allow_print: 
@@ -564,13 +600,27 @@ def eout(s):
 # TARGET: end users
 
 def err(r):
-    """
-    Input:  {
-              return - return code
-              error - error text
-            }
+    """Print error to stderr and exit with a given return code
+       Target audience: end users
 
-    Output: Nothing; quits program
+       Used in Bash and Python scripts to exit on error
+
+       Example:
+         import ck.kernel as ck
+
+         r=ck.access({'action':'load', 'module_uoa':'tmp', 'data_uoa':'some tmp entry'})
+
+         if r['return']>0: ck.err(r)
+
+    Args:    
+             r (dict): output dictionary of any standard CK function:
+
+                      - return (int): return code
+
+                      - (error) (str): error string if return>0
+
+    Returns: 
+             None - exits script!
     """
 
     import sys
@@ -587,13 +637,28 @@ def err(r):
 # TARGET: end users
 
 def jerr(r):
-    """
-    Input:  {
-              return - return code
-              error - error text
-            }
+    """Print error message for CK functions in the Jupyter Notebook and raise KeyboardInterrupt
+       Target audience: end users
 
-    Output: Nothing; quits program
+       Used in Jupyter Notebook
+
+       Example:
+         import ck.kernel as ck
+
+         r=ck.access({'action':'load', 'module_uoa':'tmp', 'data_uoa':'some tmp entry'})
+
+         if r['return']>0: ck.jerr(r)
+
+    Args:    
+             r (dict): output dictionary of any standard CK function:
+
+                      - return (int): return code
+
+                      - (error) (str): error string if return>0
+
+    Returns: 
+             None - exits script with KeyboardInterrupt!
+
     """
 
     rc=r['return']
@@ -609,6 +674,18 @@ def jerr(r):
 # TARGET: end users
 
 def safe_float(i,d):
+    """Support function for safe float (useful for sorting function)
+       Target audience: end users
+
+    Args:    
+             i (any): variable with any type
+             d (float): default value
+
+    Returns: 
+             (float): returns i if it can be converted to float or d otherwise
+
+    """
+
     r=d
     try:
        r=float(i)
@@ -623,6 +700,16 @@ def safe_float(i,d):
 # TARGET: internal
 
 def lower_list(lst):
+    """Support function to convert all strings into lower case in a list
+       Target audience: internal
+
+    Args:    
+             lst (list): list of strings
+
+    Returns: 
+             (list): list of lowercased strings
+
+    """
 
     nlst=[]
 
@@ -637,6 +724,19 @@ def lower_list(lst):
 # TARGET: CK kernel and low-level developers
 
 def get_split_dir_number(repo_dict, module_uid, module_uoa):
+    """Support function for checking splitting entry number
+       Target audience: CK kernel and low-level developers
+
+    Args:    
+             repo_dict (dict): dictionary with CK repositories
+             module_uid (str): requested CK module UID
+             module_uoa (str): requested CK module UOA
+
+    Returns: 
+             (int): number of sub-directories for CK entries -
+                    useful when holding millions of entries
+
+    """
 
     # Check if there is a split of directories for this module in local config
     # to handle numerous entries (similar to MediaWiki)
@@ -671,13 +771,26 @@ def get_split_dir_number(repo_dict, module_uid, module_uoa):
 
     return split_dir_number
 
-
 ##############################################################################
-# Support function for splitting entry name
+# Support function to split entry name (if needed)
 #
 # TARGET: CK kernel and low-level developers
 
 def split_name(name, number):
+    """Support function to split entry name (if needed)
+       Target audience: CK kernel and low-level developers
+
+    Args:    
+             name (str): CK entry name
+             number (int): Split number (do not split if 0)
+
+    Returns: 
+             (
+               name1 (str): first part of splitted name
+
+               name2 (str): second part of splitted name
+             )
+    """
 
     sd1=name
     sd2=''
@@ -700,6 +813,18 @@ def split_name(name, number):
 # TARGET: CK kernel and low-level developers
 
 def index_module(module_uoa, repo_uoa):
+    """Support function for checking whether to index data using ElasticSearch or not ...
+       Target audience: CK kernel and low-level developers
+
+       Useful to skip some sensitive data from global indexing.
+
+    Args:    
+             module_uoa (str): CK module UID or alias
+             repo_uoa (str): CK repo UID or alias
+
+    Returns: 
+             (bool): True if needs to index
+    """
 
     ret=True
 
@@ -726,6 +851,17 @@ def index_module(module_uoa, repo_uoa):
 # TARGET: end users
 
 def safe_int(i,d):
+    """Support function for safe int (useful for sorting function)
+       Target audience: end users
+
+    Args:    
+             i (any): variable with any type
+             d (int): default value
+
+    Returns: 
+             (int): returns i if it can be converted to int, or d otherwise
+    """
+
     r=d
     try:
        r=int(i)
@@ -741,17 +877,40 @@ def safe_int(i,d):
 # TARGET: end users
 
 def safe_get_val_from_list(lst, index, default_value):
+    """Support function to get value from list without error if out of bounds
+       Target audience: end users
+
+       Useful for sorting functions.
+
+    Args:    
+             lst (list): list of values
+             index (int): index in a list
+             default_value (any): if index inside list, return lst[index] or default value otherwise
+
+    Returns: 
+             (int): returns i if it can be converted to int, or d otherwise
+    """
+
     v=default_value
     if index<len(lst):
        v=lst[index]
     return v
 
 ##############################################################################
-# Support function for system_with_timeout
+# Support function for safeily kill a given process
 #
 # TARGET: end users
 
 def system_with_timeout_kill(proc):
+    """Support function to safely terminate a given process 
+       Target audience: end users
+
+    Args:    
+             proc (obj): process object
+
+    Returns: 
+             None
+    """
 
     # First via psutil (works better on Windows but may not be installed)
 
@@ -792,21 +951,21 @@ def system_with_timeout_kill(proc):
 # TARGET: end users
 
 def system_with_timeout(i):
+    """os.system with time out 
+       Target audience: end users
 
-    """
-    Input:  {
-              cmd       - command line
-              (timeout) - timeout in seconds (granularity 0.01 sec) - may cause overheads ...
-            }
+    Args:    
+             cmd (str): command line
+             (timeout) (float): timeout in seconds (granularity 0.01 sec) - may cause some overheads ...
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-                                         =  8, if timeout
-              (error)      - error text if return > 0
+    Returns:
+              (dict): Unified CK dictionary:
 
-              return_code  - return code from app
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                return_code (int): return code from the os.system call
     """
 
     import subprocess
@@ -846,54 +1005,56 @@ def system_with_timeout(i):
 # TARGET: end users
 
 def run_and_get_stdout(i):
-  """
-  Input:  {
-            cmd [list] - list of command line arguments, starting with the command itself
-            (shell)    - if 'yes', reuse shell environment
-          }
+    """Run command and log stdout and stdout
+       Target audience: end users
 
-  Output: {
-            return       - return code =  0, if successful
-                                       >  0, if error
-                                       =  8, if timeout
-            (error)      - error text if return > 0
+    Args:    
+             cmd (list): list of command line arguments, starting with the command itself
+             (shell) (str): if 'yes', reuse shell environment
 
-            return_code  - return code from app
+    Returns:
+              (dict): Unified CK dictionary:
 
-            stdout       - string, standard output of the command
-            stderr       - string, standard error of the command
-          }
-  """
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-  import subprocess
-  import shlex
-  import platform
+                return_code (int): return code from the os.system call
 
-  cmd=i['cmd']
-  if type(cmd)!=list:
-      # Split only on non-Windows platforms (since Windows takes a string in Popen)
-      if not platform.system().lower().startswith('win'):
-          cmd=shlex.split(cmd)
+                stdout (str): standard output of the command
 
-  xshell=False
-  if i.get('shell','')=='yes':
-      xshell=True
+                stderr (str): standard error of the command
+    """
 
-  p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=xshell)
-  output, error = p1.communicate()
+    import subprocess
+    import shlex
+    import platform
 
-  if sys.version_info[0]>2:
-     try:
-       output = output.decode(encoding='UTF-8')
-     except Exception as e:
-       return {'return':1, 'error':'problem encoding stdout ('+format(e)+')'}
+    cmd=i['cmd']
+    if type(cmd)!=list:
+        # Split only on non-Windows platforms (since Windows takes a string in Popen)
+        if not platform.system().lower().startswith('win'):
+            cmd=shlex.split(cmd)
 
-     try:
-       error = error.decode(encoding='UTF-8')
-     except Exception as e:
-       return {'return':1, 'error':'problem encoding stderr ('+format(e)+')'}
+    xshell=False
+    if i.get('shell','')=='yes':
+        xshell=True
 
-  return {'return':0, 'return_code':p1.returncode, 'stdout':output, 'stderr':error}
+    p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=xshell)
+    output, error = p1.communicate()
+
+    if sys.version_info[0]>2:
+       try:
+         output = output.decode(encoding='UTF-8')
+       except Exception as e:
+         return {'return':1, 'error':'problem encoding stdout ('+format(e)+')'}
+
+       try:
+         error = error.decode(encoding='UTF-8')
+       except Exception as e:
+         return {'return':1, 'error':'problem encoding stderr ('+format(e)+')'}
+
+    return {'return':0, 'return_code':p1.returncode, 'stdout':output, 'stderr':error}
 
 ##############################################################################
 # Get value from one dict, remove it from there and move to another
@@ -901,13 +1062,17 @@ def run_and_get_stdout(i):
 # TARGET: end users
 
 def get_from_dicts(dict1, key, default_value, dict2, extra=''):
-    """
-    Input:  dict1         - first check in this dict (and remove if there)
-            key           - key in dict1
-            default_value - default value if not found
-            dict2         - then check from here
+    """Get value from one dict, remove it from there and move to another
+       Target audience: end users
 
-    Output: value
+    Args:    
+            dict1 (dict): first check in this dict (and remove if there)
+            key (str): key in the dict1
+            default_value (str): default value if not found
+            dict2 (dict): then check key in this dict
+
+    Returns:
+              (any): value from the dictionary
     """
 
     value=default_value
@@ -925,22 +1090,25 @@ def get_from_dicts(dict1, key, default_value, dict2, extra=''):
     return value
 
 ##############################################################################
-# Converting iso text time to datetime object
+# Convert iso text time to a datetime object
 #
 # TARGET: end users
 
 def convert_iso_time(i):
-    """
-    Input:  {
-              iso_datetime - iso date time
-            }
+    """Convert iso text time to a datetime object
+       Target audience: end users
 
-    Output: { 
-              return         - return code =  0, if successful
-                                           >  0, if error
-              (error)        - error text if return > 0
-              (datetime_obj) - datetime object
-            }
+    Args:    
+             iso_datetime (str): date time as string in ISO standard
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                datetime_obj (obj): datetime object
     """
 
     t=i['iso_datetime']
@@ -1001,11 +1169,22 @@ def convert_iso_time(i):
     return {'return':0, 'datetime_obj':dto}
 
 ##############################################################################
-# Safe convert dict str keys to int to be sorted
+# Support function for safe convert str to int
 #
 # TARGET: end users
 
 def convert_str_key_to_int(key):
+    """Support function for safe convert str to int
+       Target audience: end users
+
+    Args:    
+             key (str): variable to be converted to int
+
+    Returns: 
+             (int): int(key) if key can be converted to int, or 0 otherwise
+
+    """
+
     try:
        return int(key)
     except ValueError:
@@ -1017,16 +1196,22 @@ def convert_str_key_to_int(key):
 # TARGET: end users
 
 def inp(i):
-    """
-    Input:  {
-              text - text to print
-            }
+    """Universal input of unicode string in UTF-8 or other format
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0
+       Supports Python 2.x and 3.x
 
-              string       - input string
-            }
+    Args:    
+             text (str): text to print before the input
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                string (str): entered string
     """
 
     t=i['text']
@@ -1057,24 +1242,30 @@ def inp(i):
     return {'return':0, 'string':s}
 
 ##############################################################################
-# Universal selector of dictionary entry
+# Universal selector of a dictionary key
 #
 # TARGET: end users (advanced version available in module "choice")
 
 def select(i):
-    """
-    Input:  {
-              dict             - dict with values being dicts with 'name' as string to display and 'sort' as int (for ordering)
-              (title)          - print title
-              (error_if_empty) - if 'yes' and Enter, make error
-              (skip_sort)      - if 'yes', do not sort array
-            }
+    """Universal selector of a dictionary key
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0
+       Note: advanced version available in the CK module "choice"
 
-              string       - selected dictionary key
-            }
+    Args:    
+              dict (dict): dict with values being dicts with 'name' as string to display and 'sort' as int (for ordering)
+              (title) (str): print title
+              (error_if_empty) (str): if 'yes' and just Enter, return error
+              (skip_sort) (str): if 'yes', do not sort dictionary keys
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                string (str): selected dictionary key
     """
 
     s=''
@@ -1122,25 +1313,29 @@ def select(i):
     return {'return':0, 'string':s}
 
 ##############################################################################
-# Universal UOA selector
+# Universal CK entry UOA selector
 #
 # TARGET: end users (advanced version available in module "choice")
 
 def select_uoa(i):
-    """
-    Input:  {
-              choices      - list from search function
-              (skip_enter) - if 'yes', do not select 0 when user presses Enter
-              (skip_sort)  - if 'yes', do not sort array
-            }
+    """Universal CK entry UOA selector
+       Target audience: end users
 
-    Output: {
-              return  - return code =  0, if successful
-                                    >  0, if error
-              (error) - error text if return > 0
-              choice  - data UOA
-            }
+       Note: advanced version available in the CK module "choice"
 
+    Args:    
+              choices (list): list from the search function
+              (skip_enter) (str): if 'yes', do not select 0 when a user presses Enter
+              (skip_sort) (str): if 'yes', do not sort list
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                choice (str): CK entry UOA
     """
 
     se=i.get('skip_enter','')
@@ -1183,18 +1378,21 @@ def select_uoa(i):
     return {'return':0, 'choice':dduoa}
 
 ##############################################################################
-# Convert string to list
+# Split string by comma into a list of stripped values 
 #
 # TARGET: end users
 
 def convert_str_tags_to_list(i):
-    """
-    Input:  either a list, or a string of comma-separated tags.
+    """Split string by comma into a list of stripped strings 
+       Target audience: end users
 
-    Output: If i is a list, it's returned.
-            If i is a string, the list of tags it represents is returned 
-            (each tag is stripped of leading and trailing whitespace).
+       Used to process and strip tags
 
+    Args:    
+              i (list or string): list or string to be splitted and stripped
+
+    Returns:
+              (list): list of stripped strings
     """
 
     r=[]
@@ -1211,30 +1409,32 @@ def convert_str_tags_to_list(i):
     return r
 
 ##############################################################################
-# Check writing possibility
+# Check is writing to a given repo with a given module is allowed
 #
 # TARGET: CK kernel and low-level developers
 
 def check_writing(i):
-    """
-    Input:  {
-              (module_uoa)
-              (module_uid)
+    """Check is writing to a given repo with a given module is allowed
+       Target audience: CK kernel and low-level developers
 
-              (repo_uoa)
-              (repo_uid)
-              (repo_dict)
+    Args:    
+              (module_uoa) (str): module UOA
+              (module_uid) (str): module UID
 
-              (delete)     - if 'yes', check if global delete operation is allowed
-            }
+              (repo_uoa) (str): repo UOA
+              (repo_uid) (str): repo UID
+              (repo_dict) (dict): repo meta description with potential read/write permissions
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-              (repo_dict)  - repo cfg if available
-            }
+              (delete) (str): if 'yes', check if global delete operation is allowed
 
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                (repo_dict) (dict): repo meta description if available
     """
 
     dl=i.get('delete','')
@@ -1293,16 +1493,21 @@ def check_writing(i):
 # TARGET: end users
 
 def get_version(i):
-    """
-    Input:  {}
+    """Get CK version
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0
+    Args:    None
 
-              version      - list starting from major version number
-              version_str  - version string
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                version (list): list of sub-versions starting from major version number
+
+                version_str (str): version string
     """
 
     import copy
@@ -1323,21 +1528,22 @@ def get_version(i):
 # TARGET: end users
 
 def gen_tmp_file(i):
-    """
-    Input:  {
-              (suffix)     - temp file suffix
-              (prefix)     - temp file prefix
-              (remove_dir) - if 'yes', remove dir
-            }
+    """Generate temporary files
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              (suffix) (str): temp file suffix
+              (prefix) (str): temp file prefix
+              (remove_dir) (str): if 'yes', remove dir
 
-              file_name    - temp file name 
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                file_name (str): temp file name 
     """
 
     xs=i.get('suffix','')
@@ -1355,23 +1561,29 @@ def gen_tmp_file(i):
     return {'return':0, 'file_name':fn}
 
 ##############################################################################
-# Get host platform (currently win or linux) and OS bits
+# Get host platform name (currently win or linux) and OS bits
 #
 # TARGET: end users
 
 def get_os_ck(i):
-    """
-    Input:  {
-              (bits)      - force OS bits
-            }
+    """Get host platform name (currently win or linux) and OS bits
+       Target audience: end users
 
-    Output: {
-              return      - return code =  0
-              platform    - 'win' or 'linux'
-              bits        - OS bits in string: 32 or 64
-              python_bits - Python installation bits in string: 32 or 64
+    Args:    
+              (bits) (int): force OS bits
 
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                platform (str): 'win' or 'linux'
+
+                bits (str): OS bits in string (32 or 64)
+
+                python_bits (str): Python installation bits (32 or 64)
     """
 
     import os
@@ -1418,16 +1630,20 @@ def get_os_ck(i):
 # TARGET: end users
 
 def gen_uid(i):
-    """
-    Input:  {}
+    """Generate valid CK UID
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              None
 
-              data_uid     - UID in string format (16 characters 0..9,a..f)
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                data_uid (str): UID in string format (16 lowercase characters 0..9,a..f)
     """
 
     import uuid
@@ -1444,24 +1660,28 @@ def gen_uid(i):
     return {'return':0, 'data_uid':uid[x:x+16]}
 
 ##############################################################################
-# Check if string is CK UID
+# Check if a string is a valid CK UID
 #
 # TARGET: end users
 
-def is_uid(str):
-    """
-    Input:  string to check
+def is_uid(s):
+    """Check if a string is a valid CK UID
+       Target audience: end users
 
-    Output: True if UID, otherwise False
+    Args:    
+              s (str): string
+
+    Returns:
+              (bool): True if a string is a valid CK UID
     """
 
     import re
 
-    if len(str)!=16:
+    if len(s)!=16:
        return False
 
     pattern = r'[^\.a-f0-9]'
-    if re.search(pattern, str.lower()):
+    if re.search(pattern, s.lower()):
         return False
 
     return True
@@ -1472,36 +1692,44 @@ def is_uid(str):
 #
 # TARGET: end users
 
-def is_uoa(str):
-    """
-    Input:  string to check
+def is_uoa(s):
+    """Check if string is correct CK UOA, i.e. it does not have special characters including *, ?
+       Target audience: end users
 
-    Output: True if allowed UOA, False otherwise
+    Args:    
+              s (str): string
+
+    Returns:
+              (bool): True if a string is a valid CK UID or alias
     """
 
-    if str.find(cfg['detect_cur_cid'])>=0 or str.find(cfg['detect_cur_cid1'])>=0: return False
-    if str.find('*')>=0: return False
-    if str.find('?')>=0: return False
+    if s.find(cfg['detect_cur_cid'])>=0 or s.find(cfg['detect_cur_cid1'])>=0: return False
+    if s.find('*')>=0: return False
+    if s.find('?')>=0: return False
 
     return True
 
 ##############################################################################
-# Prepare special info about entry (engine used, author, date, etc)
+# Prepare provenance for a given CK entry (CK used, author, date, etc)
 #
 # TARGET: CK kernel and low-level developers
 
 def prepare_special_info_about_entry(i):
-    """
-    Input:  {
-            }
+    """Prepare provenance for a given CK entry (CK used, author, date, etc)
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              i (dict): empty dict
 
-              dict         - dict with info
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict (dict): dictionary with provenance information
+
     """
 
     # Add control info
@@ -1529,36 +1757,153 @@ def prepare_special_info_about_entry(i):
     return {'return':0, 'dict': d}
 
 
-
 ##############################################################################
 def load_json_file(i):
+    """Load json from file into dict
+       Target audience: end users
+
+    Args:    
+              json_file (str): name of a json file 
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict (dict or list): dict or list from the json file
+
+    """
+
     import ck.files
     return ck.files.load_json_file(i)
 
 ##############################################################################
 def save_json_to_file(i):
+    """Save dict to a json file
+       Target audience: end users
+
+    Args:    
+              json_file (str): filename to save dictionary
+              dict (dict): dict to save
+              (sort_keys) (str): if 'yes', sort keys
+              (safe) (str): if 'yes', ignore non-JSON values (only for Debugging - changes original dict!)
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+    """
+
     import ck.files
     return ck.files.save_json_to_file(i)
 
 
 ##############################################################################
 def load_yaml_file(i):
+    """Load YAML file to dict
+       Target audience: end users
+
+    Args:    
+              yaml_file (str): name of a YAML file
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict (dict): dict from a YAML file
+
+    """
+
     import ck.files
     return ck.files.load_yaml_file(i)
 
 ##############################################################################
 def save_yaml_to_file(i):
+    """Save dict to a YAML file
+       Target audience: end users
+
+    Args:    
+              yaml_file (str): name of a YAML file
+              dict (dict): dict to save
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+    """
+
     import ck.files
     return ck.files.save_yaml_to_file(i)
 
 
 ##############################################################################
 def load_text_file(i):
+    """Load a text file to a string or list
+       Target audience: end users
+
+    Args:    
+              text_file (str): name of a text file
+              (keep_as_bin) (str): if 'yes', return only bin
+              (encoding) (str): by default 'utf8', however sometimes we use utf16
+
+              (split_to_list) (str): if 'yes', split to list
+
+              (convert_to_dict) (str): if 'yes', split to list and convert to dict
+              (str_split) (str): if !='', use as separator of keys/values when converting to dict
+              (remove_quotes) (str): if 'yes', remove quotes from values when converting to dict
+
+              (delete_after_read) (str): if 'yes', delete file after read (useful when reading tmp files)
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                bin (byte): loaded text file as byte array
+
+                (string) (str): loaded text as string with removed \r
+
+                (lst) (list): if split_to_list=='yes', split text to list
+
+                (dict) (dict): if convert_to_dict=='yes', return as dict
+
+    """
+
     import ck.files
     return ck.files.load_text_file(i)
 
 ##############################################################################
 def save_text_file(i):
+    """Save string to a text file with all \r removed
+       Target audience: end users
+
+    Args:    
+              text_file (str): name of a text file
+              string (str): string to write to a file (all \r will be removed)
+              (append) (str): if 'yes', append to a file
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+    """
+
     import ck.files
     return ck.files.save_text_file(i)
 
@@ -1571,24 +1916,26 @@ def save_text_file(i):
 
 
 ##############################################################################
-# Substitute string in file
+# Substitute string in a file
 #
 # TARGET: end users
 
 def substitute_str_in_file(i):
-    """
-    Input:  {
-              filename - file
-              string1  - string to be replaced
-              string2  - replace string
-            }
+    """Substitute string in a file
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         = 16, if file not found
-                                         >  0, if error
-              (error)  - error text if return > 0
-            }
+    Args:    
+              filename (str): filename
+              string1 (str): string to be replaced
+              string2 (str): replacement string
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
     """
 
     fn=i['filename']
@@ -1614,21 +1961,91 @@ def substitute_str_in_file(i):
 ##############################################################################
 # Deprecated
 def dumps_json(i):
+    """Dump dictionary (json) to a string
+       Target audience: end users
+
+    Args:    
+              dict (dict) : dictionary to convert to a string
+              (skip_indent) (str): if 'yes', skip indent
+              (sort_keys) (str): if 'yes', sort keys
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                string (str): JSON string
+
+    """
+
     import ck.strings
     return ck.strings.dump_json(i)
 
 ##############################################################################
 def dump_json(i):
+    """Dump dictionary (json) to a string
+       Target audience: end users
+
+    Args:    
+              dict (dict) : dictionary to convert to a string
+              (skip_indent) (str): if 'yes', skip indent
+              (sort_keys) (str): if 'yes', sort keys
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                string (str): JSON string
+
+    """
+
     import ck.strings
     return ck.strings.dump_json(i)
 
 ##############################################################################
 def copy_to_clipboard(i): # pragma: no cover 
+    """Copy string to clipboard if supported by OS (requires Tk or pyperclip)
+       Target audience: end users
+
+    Args:    
+              string (str): string to copy
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+    """
+
     import ck.strings
     return ck.strings.copy_to_clipboard(i)
 
 ##############################################################################
 def convert_json_str_to_dict(i):
+    """Convert string in a special format to dict (JSON)
+       Target audience: end users
+
+    Args:    
+              str (str): string (use ' instead of ", i.e. {'a':'b'} to avoid issues in CMD in Windows and Linux!)
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict (dict): dict from json file
+
+    """
+
     import ck.strings
     return ck.strings.convert_json_str_to_dict(i)
 
@@ -1641,16 +2058,24 @@ def convert_json_str_to_dict(i):
 # TARGET: end users
 
 def merge_dicts(i):
-    """
-    Input:  {
-              dict1 - merge this dict with dict2 (will be directly modified!)
-              dict2 - dict
+    """Merge intelligently dict1 with dict2 key by key in contrast with dict1.update(dict2)
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
+       It can merge sub-dictionaries and lists instead of substituting them
 
-              dict1        - output dict
-            }
+    Args:    
+              dict1 (dict): merge this dict with dict2 (will be directly modified!)
+              dict2 (dict): dict to be merged
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict1 (dict): dict1 passed through the function
+
     """
 
     a=i['dict1']
@@ -1675,22 +2100,26 @@ def merge_dicts(i):
     return {'return':0, 'dict1':a}
 
 ##############################################################################
-# Convert file to upload string
+# Convert file to a string for web-based upload
 #
 # TARGET: end users
 
 def convert_file_to_upload_string(i):
-    """
-    Input:  {
-              filename - file name to convert
-            }
+    """Convert file to a string for web-based upload
+       Target audience: end users
 
-    Output: {
-              return              - return code =  0, if successful
-                                                >  0, if error
-              (error)             - error text if return > 0
-              file_content_base64 - string that can be transmitted through Internet
-            }
+    Args:    
+              filename (str): file name to convert
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                file_content_base64 (str): string that can be transmitted through Internet
+
     """
 
     import base64
@@ -1721,19 +2150,24 @@ def convert_file_to_upload_string(i):
 # TARGET: end users
 
 def convert_upload_string_to_file(i):
-    """
-    Input:  {
-              file_content_base64 - string transmitted through Internet
-              (filename)          - file name to write (if empty, generate tmp file)
-            }
+    """Convert upload string to file
+       Target audience: end users
 
-    Output: {
-              return              - return code =  0, if successful
-                                                >  0, if error
-              (error)             - error text if return > 0
-              filename            - filename with full path
-              filename_ext        - filename extension
-            }
+    Args:    
+              file_content_base64 (str): string transmitted through Internet
+              (filename) (str): file name to write (if empty, generate tmp file)
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                filename (str): filename with full path
+
+                filename_ext (str): filename extension
+
     """
 
     import base64
@@ -1771,21 +2205,24 @@ def convert_upload_string_to_file(i):
 # TARGET: end users
 
 def input_json(i):
+    """Input JSON from console (double enter to finish)
+       Target audience: end users
+
+    Args:    
+              text (str): text to print
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                string (str): entered string
+
+                dict (str): dictionary from JSON string
+
     """
-    Input:  {
-              text - text to print
-            }
-
-    Output: {
-              return              - return code =  0, if successful
-                                                >  0, if error
-              (error)             - error text if return > 0
-
-              string
-              dict                - parsed JSON
-            }
-    """
-
 
     t=i['text']
 
@@ -1820,33 +2257,46 @@ def input_json(i):
 # TARGET: CK kernel and low-level developers
 
 def convert_ck_list_to_dict(i):
+    """Convert CK list to CK dict with unicode in UTF-8 (unification of interfaces)
+       Target audience: CK kernel and low-level developers
+
+    Args:    
+              (list): list from the 'action' function in this kernel
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                ck_dict (dict): 
+
+                     action (str): CK action
+
+                     cid (str): CK module UOA or CID (x means that it may not be really CID and has to be processed specially
+
+                     cids (list): a list of multple CIDs from CMD (commands like copy, move, etc) [cid1, cid2, cid3, ...]
+
+                     key1 (str): value1 from --key1=value1 or -key1=value1 or key1=value
+
+                     key2 (str):
+
+                     ...
+
+
+                     key10 (str):
+
+                     ...
+
+                     keys (str): keys/values from file specified by "file_json"; if file extension is .tmp,  it will be deleted after read!
+
+                     keys (str): keys/values from cmd_json
+
+                     unparsed (str): unparsed command line after --
+
     """
-    Input:  [ 
-              CK list: see 'action' function from this kernel
-            ]
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-
-              ck_dict      - {
-                               "action":action
-                               "cid":module_uoa or CID (x means that it may not be really CID 
-                                       and has to be processed specially
-                               "cids":[cid1, cid2, cid3, ...]
-                               "key1":value1
-                               "key2":value2
-                               ...
-                               "key10":""
-                               "key11":value11
-                               keys/values from file_json; if file extension is .tmp, 
-                                                           it will be deleted after read!
-                               keys/values from cmd_json
-                               "unparsed":unparsed_cmd
-                             }
-
-    """
     obj={}
     obj['cids']=[]
 
@@ -1973,19 +2423,24 @@ def convert_ck_list_to_dict(i):
     return {'return':0, 'ck_dict':obj}
 
 ##############################################################################
-# Init CK (current instance - has state!)
+# Inititalize CK (current instance - has a global state!)
 #
 # TARGET: internal use
 
 def init(i): # pragma: no cover
-    """
-    Input:  {}
+    """Inititalize CK (current instance - has a global state!)
+       Target audience: internal use
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Args:    
+              (dict): empty dict
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
     """
 
     global cfg, work, initialized, paths_repos, type_long, string_io, log_ck_entries
@@ -2216,34 +2671,39 @@ def init(i): # pragma: no cover
 ##############################################################################
 # List all files recursively in a given directory
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: all users
 
 def list_all_files(i):
-    """
-    Input:  {
-              path               - top level path
-              (file_name)        - search for a specific file name
-              (pattern)          - return only files with this pattern
-              (path_ext)         - path extension (needed for recursion)
-              (limit)            - limit number of files (if directories with a large number of files)
-              (number)           - current number of files
-              (all)              - if 'yes' do not ignore special directories (like .cm)
-              (ignore_names)     - list of names to ignore
-              (ignore_symb_dirs) - if 'yes', ignore symbolically linked dirs 
-                                   (to avoid recursion such as in LLVM)
-              (add_path)         - if 'yes', add path
-            }
+    """List all files recursively in a given directory
+       Target audience: all users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              path (str): top level path
+              (file_name) (str): search for a specific file name
+              (pattern) (str): return only files with this pattern
+              (path_ext) (str): path extension (needed for recursion)
+              (limit) (str): limit number of files (if directories with a large number of files)
+              (number) (int): current number of files
+              (all) (str): if 'yes' do not ignore special directories (like .cm)
+              (ignore_names) (list): list of names to ignore
+              (ignore_symb_dirs) (str): if 'yes', ignore symbolically linked dirs 
+                                        (to avoid recursion such as in LLVM)
+              (add_path) (str) - if 'yes', add full path to the final list of files
 
-              list         - dictionary of all files:
-                               {"file_with_full_path":{"size":.., "path":..}
-              sizes        - sizes of files (the same order)
-              number       - number of files in a current directory (needed for recursion)
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                list (dict): dictionary of all files:
+                             {"file_with_full_path":{"size":.., "path":..}
+
+                sizes (dict): sizes of all files (the same order as above "list")
+
+                number (int): (internal) total number of files in a current directory (needed for recursion)
+
     """
 
     number=0
@@ -2321,23 +2781,27 @@ def list_all_files(i):
 # Download entry from remote host (experimental)
 #
 # TARGET: end users
+
 def download(i):
-    """
-    Input:  {
-              (repo_uoa)   
-              (module_uoa) 
-              (data_uoa)  
+    """Download CK entry from remote host (experimental)
+       Target audience: end users
 
-              (new_repo_uoa)   - new repo UOA; "local" by default
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              (module_uoa) (str): CK module UOA 
+              (data_uoa) (str): CK data UOA  
 
-              (skip_module_check) - if 'yes', do not check if module for a given component exists
-            }
+              (new_repo_uoa) (str): target CK repo UOA, "local" by default
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+              (skip_module_check) (str): if 'yes', do not check if module for a given component exists
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
 
     """
 
@@ -2555,21 +3019,25 @@ def download(i):
     return {'return':0}
 
 ##############################################################################
-# Reload repo cache 
+# Reload cache with meta-descriptions of all CK repos
 #
 # TARGET: CK kernel and low-level developers
 
 def reload_repo_cache(i):
-    """
-    Input:  {
-              (force)      - if 'yes', force recaching
-            }
+    """Reload cache with meta-descriptions of all CK repos
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Args:    
+              (force) (str): if 'yes', force recaching
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+
     """
 
     global cache_repo_uoa, cache_repo_info, paths_repos_all, cache_repo_init
@@ -2606,19 +3074,25 @@ def reload_repo_cache(i):
     return {'return':0}
 
 ##############################################################################
-# Save repo cache 
+# Save cache with meta-descriptions of all CK repos
 #
 # TARGET: CK kernel and low-level developers
 
 def save_repo_cache(i):
-    """
-    Input:  {}
+    """Save cache with meta-descriptions of all CK repos
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Args:    
+              (dict): empty dict
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+
     """
 
     r=save_json_to_file({'json_file':work['dir_cache_repo_uoa'], 'dict':cache_repo_uoa})
@@ -2630,28 +3104,32 @@ def save_repo_cache(i):
     return {'return':0}
 
 ##############################################################################
-# Load repo from cache
+# Load repo meta description from cache
 #
 # TARGET: CK kernel and low-level developers
 
 def load_repo_info_from_cache(i):
-    """
-    Input:  {
-              repo_uoa - repo_uoa
-            }
+    """Load repo meta description from cache
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                           16, if repo not found (may be warning)
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              repo_uoa (str): CK repo UOA
 
-              repo_uoa     - repo UOA
-              repo_uid     - repo UID
-              repo_alias   - repo alias
+    Returns:
+              (dict): Unified CK dictionary:
 
-              all other info from repo dict
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                repo_uoa (str): CK repo UOA
+
+                repo_uid (str): CK repo UID
+
+                repo_alias (str): CK repo alias
+
+                all other keys from repo dict
+
     """
 
     ruoa=i['repo_uoa']
@@ -2694,26 +3172,30 @@ def load_repo_info_from_cache(i):
     return r
 
 ##############################################################################
-# Find repo by path
+# Find CK repo info by path
 #
 # TARGET: CK kernel and low-level developers
 
 def find_repo_by_path(i):
-    """
-    Input:  {
-              path - path to repo
-            }
+    """Find CK repo info by path
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                           16, if repo not found (may be warning)
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              path (str) - path to a potential CK repo
 
-              repo_uoa     - repo UOA
-              repo_uid     - repo UID
-              repo_alias   - repo alias
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                repo_uoa (str): CK repo UOA
+
+                repo_uid (str): CK repo UID
+
+                repo_alias (str): CK repo alias
+
     """
 
     p=i['path']
@@ -2753,29 +3235,33 @@ def find_repo_by_path(i):
     return {'return':0, 'repo_uoa': uoa, 'repo_uid': uid, 'repo_alias':alias, 'repo_dict':dd}
 
 ##############################################################################
-# Find path to a given repo
+# Find path for a given CK repo
 #
 # TARGET: end users
 
 def find_path_to_repo(i):
-    """
-    Input:  {
-              (repo_uoa) - repo UOA; if empty, get the default repo
-            }
+    """Find path for a given CK repo
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                           16, if repo not found (may be warning)
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              (repo_uoa) (str): CK repo UOA. If empty, get the path to the default repo (inside CK framework)
 
-              dict         - dict from cache
-              path         - path to repo
+    Returns:
+              (dict): Unified CK dictionary:
 
-              repo_uoa     - repo UOA
-              repo_uid     - repo UID
-              repo_alias   - repo alias
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict (dict): CK repo meta description from the cache
+                path (str): path to this repo
+
+                repo_uoa (str): CK repo UOA
+
+                repo_uid (str): CK repo UID
+
+                repo_alias (str): CK repo alias
+
     """
 
     a=i.get('repo_uoa','')
@@ -2831,37 +3317,53 @@ def find_path_to_repo(i):
     return {'return':0, 'path':pr, 'repo_uoa':uoa, 'repo_uid':uid, 'repo_alias':alias, 'dict':dt}
 
 ##############################################################################
-# Find path to data (first search in default repo, then local one and then all other repos)
+# Find path to CK sub-directory
 #
 # TARGET: CK kernel and low-level developers
 
 def find_path_to_data(i):
-    """
-    Input:  {
-              (repo_uoa) - repo UOA
-              module_uoa - module UOA
-              data_uoa   - data UOA
-            }
+    """Find path to CK sub-directory
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                           16, if data not found (may be warning)
-                                         >  0, if error
-              (error)      - error text if return > 0
-              path         - path to data
-              path_module  - path to module entry with this entry
-              path_repo    - path to the repository of this entry
-              repo_uoa     - repo UOA 
-              repo_uid     - repo UID
-              repo_alias   - repo alias
-              module_uoa   - module UOA 
-              module_uid   - module UID
-              module_alias - module alias
-              uoa          - data UOA
-              uid          - data UID
-              alias        - data alias
-            }
+       First search in the default repo, then in the local repo, and then in all installed repos
+
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK data UOA
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                path (str): path to CK entry (CK data)
+
+                path_module (str): path to CK module entry (part of the CK entry)
+
+                path_repo (str): path to the CK repository with this entry
+
+                repo_uoa (str): CK repo UOA 
+
+                repo_uid (str): CK repo UID
+
+                repo_alias (str): CK repo alias
+
+                module_uoa (str): CK module UOA 
+
+                module_uid (str): CK module UID
+
+                module_alias (str): CK module alias
+
+                uoa (str): CK sub-directory UOA
+
+                uid (str): CK sub-directory UID
+
+                alias (str): CK sub-directory alias
     """
+
     muoa=i['module_uoa']
     muid='?'
     duoa=i['data_uoa']
@@ -2998,30 +3500,35 @@ def find_path_to_data(i):
                         'data_uoa':duoa, 'data_uid':duid, 'data_alias':dalias}
 
 ##############################################################################
-# Find path to an UOA entry (check UID or alias)
+# Find path to CK entry (CK data) while checking both UID and alias
 #
 # TARGET: CK kernel and low-level developers
 
 def find_path_to_entry(i):
-    """
-    Input:  {
-              path         - (str) path to a repository
-              data_uoa     - (str) data UOA
-              (split_dirs) - (int/str) number of first characters to split directory into subdirectories
-                                       to be able to handle many entries (similar to Mediawiki)
-            }
+    """Find path to CK entry (CK data) while checking both UID and alias. 
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                           16, if data not found (may be warning)
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              path (str): path to a data entry
+              data_uoa (str): CK entry UOA (CK data)
+              (split_dirs) (int/str): number of first characters to split directory into subdirectories
+                                      to be able to handle many entries (similar to Mediawiki)
 
-              path         - path to data entry
-              data_uid     - data uid (from UOA)
-              data_alias   - data alias (from UOA)
-              data_uoa     - data alias or data uid, if data alias==''
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                path (str): path to CK entry
+
+                data_uid (str): CK entry UID 
+
+                data_alias (str): CK entry alias
+
+                data_uoa (str): CK entry alias of UID, if alias is empty
+
     """
 
     p=i['path']
@@ -3101,34 +3608,40 @@ def find_path_to_entry(i):
     return {'return':16, 'error':'can\'t find path to CK entry'}
 
 ##############################################################################
-# Load meta description from a path
+# Load CK meta description from a path
 #
 # TARGET: CK kernel and low-level developers
 
 def load_meta_from_path(i):
-    """
-    Input:  {
-              path           - path to a data entry
+    """Load CK meta description from a path
+       Target audience: CK kernel and low-level developers
 
-              (skip_updates) - if 'yes', do not load updates
-              (skip_desc)    - if 'yes', do not load descriptions
-            }
+    Args:    
+              path (str): path to a data entry
+              (skip_updates) (str): if 'yes', do not load updates
+              (skip_desc) (str): if 'yes', do not load descriptions
+                                 to be able to handle many entries (similar to Mediawiki)
 
-    Output: {
-              return         - return code =  0, if successful
-                                           >  0, if error
-              (error)        - error text if return > 0
+    Returns:
+              (dict): Unified CK dictionary:
 
-              dict           - dict with meta description
-              path           - path to json file with meta description
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-              (info)         - dict with info if exists
-              (path_info)    - path to json file with info
+                dict (dict): dict with CK meta description
 
-              (updates)      - dict with updates if exists
-              (path_updates) - path to json file with updates
-              (path_desc)    - path to json file with API description
-            }
+                path (str): path to json file with meta description
+
+                (info) (dict): dict with CK info (provenance) if exists
+
+                (path_info) (str): path to json file with info
+
+                (updates) (dict): dict with updates if exists
+
+                (path_updates) (str): path to json file with updates
+
+                (path_desc) (str): path to json file with API description
     """
 
     p=i['path']
@@ -3186,24 +3699,28 @@ def load_meta_from_path(i):
 # TARGET: end users
 
 def load_module_from_path(i):
-    """
-    Input:  {
-              path             - module path
-              module_code_name - module name
-              (cfg)            - configuration of the module if exists ...
-              (skip_init)      - if 'yes', skip init
-              (data_uoa)       - module UOA (useful when printing error)
-            }
+    """Load (CK) python module
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              path (str): path to a Python module
+              module_code_name (str): Python module name
+              (cfg) (dict): CK module configuration if exists
+              (skip_init) (str): if 'yes', skip init of the CK module
+              (data_uoa) (str): CK module UOA (useful when printing errors)
 
-              code         - python code object
-              path         - full path to the module
-              cuid         - internal UID of the module
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                code (obj): Python code object
+
+                path (str): full path to the module
+
+                cuid (str): automatically generated unique ID for the module in the internal cache of modules
     """
 
     p=i['path']
@@ -3279,9 +3796,14 @@ def load_module_from_path(i):
 # TARGET: CK kernel and low-level developers
 
 def perform_remote_action(i):
-    """
-    Input:  { See 'perform_action' function }
-    Output: { See 'perform_action' function }
+    """Perform remote action via CK web service
+       Target audience: CK kernel and low-level developers
+
+    Args:    
+              See "perform_action" function
+
+    Returns:
+              See "perform_action" function
     """
 
     # Import modules compatible with Python 2.x and 3.x
@@ -3451,32 +3973,37 @@ def perform_remote_action(i):
     return rr
 
 ##############################################################################
-# Perform action (find module or use kernel)
+# Perform an automation action via CK kernel or from the kernel
 #
 # TARGET: CK kernel and low-level developers
 
 def perform_action(i):
-    """
-    Input:  {
-              all parameters from function 'access'
+    """Perform an automation action via CK kernel or from the kernel
+       Target audience: CK kernel and low-level developers
 
-              (web)         - if 'yes', called from the web
+    Args:    
+              (): all parameters from the "access" function
 
-              (common_func) - if 'yes', ignore search for modules 
-                                        and call common func from the CK kernel
+              (web) (str): if 'yes', called from the web
+
+              (common_func) (str): if 'yes', ignore search for modules 
+                                   and call common func from the CK kernel
                   or
-              (kernel)
+              (kernel) (str): the same as above
 
-              (local)       - if 'yes', run locally even if remote repo ...
-            }
+              (local) (str): if 'yes', run locally even if remote repo ...
 
-    Output: {
-              return  - return code =  0, if successful
-                                         >  0, if error
-              (error) - error text if return > 0
 
-              (out)   - if action change output, return it
-              Output from the module/action
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                (out) (str): if action changes output, log it
+
+                Output from a given action
             }
     """
 
@@ -3745,33 +4272,39 @@ def perform_action(i):
     return {'return':1,'error':'action "'+action+'" not found '+er}
 
 ##############################################################################
-# Print API from module for a given action #
+# Print API from the CK module for a given action
 #
 # TARGET: CK kernel and low-level developers
 
 def get_api(i):
-    """
-    Input:  {
-              (path)       - path to module, if comes from access function
+    """Print API from the CK module for a given action
+       Target audience: CK kernel and low-level developers
+
+    Args:    
+              (path) (str): path to a CK module, if comes from the access function
                 or
-              (module_uoa) - if comes from CMD
+              (module_uoa) (str): if comes from CMD
 
-              (func)       - func for API
+              (func): API function name
 
-              (out)  - output
-            }
+              (out): how to output this info
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Returns:
+              (dict): Unified CK dictionary:
 
-              title        - title string
-              desc         - original description
-              module       - module name
-              api          - api as string
-              line         - line in found module
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                title (str): title string
+
+                desc (str): original description
+
+                module (str): CK module name
+
+                api (str): api 
+
+                line (str): description string in the CK module
     """
 
     p=i.get('path','')
@@ -3882,27 +4415,31 @@ def get_api(i):
     return {'return':0, 'title':t, 'desc':dd, 'module':p, 'api':a, 'line':l}
 
 ##############################################################################
-# Convert CID to dict and add missing parts in CID with current path if #
+# Convert CID to a dict and add missing parts in CID from the current path
 #
 # TARGET: CK kernel and low-level developers
 
 def parse_cid(i):
-    """
-    Input:  {
-              cid            - in format (REPO_UOA:)MODULE_UOA:DATA_UOA 
-              (cur_cid)      - output of function 'detect_cid_in_current_path'
-              (ignore_error) - if 'yes', ignore wrong format
-            }
+    """Convert CID to a dict and add missing parts in CID from the current path
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              cid (str): in format (REPO_UOA:)MODULE_UOA:DATA_UOA 
+              (cur_cid) (str): output from the "detect_cid_in_current_path" function
+              (ignore_error) (str): if 'yes', ignore wrong format
 
-              data_uoa     - data UOA
-              module_uoa   - module UOA
-              (repo_uoa)   - repo UOA
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                data_uoa (str): CK data UOA
+
+                module_uoa (str): CK module UOA
+
+                (repo_uoa) (str): CK repo UOA
     """
 
     r={'return':0}
@@ -3949,37 +4486,41 @@ def parse_cid(i):
     return r
 
 ##############################################################################
-# Create an UOA entry in a given path
+# Create a CK entry with UID or alias in the given path
 #
 # TARGET: CK kernel and low-level developers
 
 def create_entry(i):
-    """
-    Input:  {
-              path         - path where to create an entry
-              (split_dirs) - (int) number of first characters to split directory into subdirectories
-                                   to be able to handle many entries (similar to Mediawiki)
-              (data_uoa)   - data UOA
-              (data_uid)   - if uoa is an alias, we can force data UID
+    """Create a CK entry with UID or alias in the given path
+       Target audience: CK kernel and low-level developers
 
-              (force)      - if 'yes', force creation even if directory already exists
+    Args:    
+              path (str): path where to create an entry
+              (split_dirs) (int): number of first characters to split directory into subdirectories
+                                  to be able to handle many entries (similar to Mediawiki)
+              (data_uoa) (str): CK entry UOA
+              (data_uid) (str): if data_uoa is an alias, we can force data UID
 
-              (allow_multiple_aliases) - if 'yes', allow multiple aliases for the same UID 
-                                         (needed for cKnowledge.io to publish
-                                         renamed components with the same UID)
-            }
+              (force) (str): if 'yes', force to create CK entry even if related directory already exists
 
-    Output: {
-              return       - return code =  0, if successful
-                                           16, if data entry already exists
-                                         >  0, if error
-              (error)      - error text if return > 0
+              (allow_multiple_aliases) (str); if 'yes', allow multiple aliases for the same UID 
+                                              (needed for cKnowledge.io to publish
+                                              renamed components with the same UID)
 
-              path         - path to data entry
-              data_uid     - data UID (from UOA)
-              data_alias   - data alias (from UOA)
-              data_uoa     - data alias or data uid if data alias==''
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                path (str): path to the created CK entry
+
+                data_uid (str): UID of the created CK entry
+
+                data_alias (str): alias of the created CK entry
+
+                data_uoa (str): alias or UID (if alias=="") of the created CK entry
     """
 
     p0=i.get('path','')
@@ -4121,25 +4662,29 @@ def create_entry(i):
     return {'return':0, 'path':p, 'data_uid':uid, 'data_alias':alias, 'data_uoa':uoa}
 
 ##############################################################################
-# Delete entry alias from path
+# Delete the CK entry alias from a given path
 #
 # TARGET: CK kernel and low-level developers
 
 def delete_alias(i):
-    """
-    Input:  {
-              path         - path to the entry
-              data_uid     - data UID
-              (data_alias) - data alias
-              (repo_dict)  - repo cfg if available to check sync
-              (share)      - if 'yes', try to rm via GIT
-            }
+    """Delete the CK entry alias from a given path
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Args:    
+              path (str): path to the CK entry
+              data_uid (str): CK entry UID
+              (data_alias) (str): CK entry alias
+              (repo_dict) (str): meta description of a given CK repository 
+                                 to check if there is an automatic sync
+                                 with a Git repository
+              (share) (str): if 'yes', try to delete using the Git client
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
     """
 
     rd=i.get('repo_dict',{})
@@ -4218,21 +4763,23 @@ def delete_alias(i):
     return {'return':0}
 
 ##############################################################################
-# Delete a given directory with subdirectories (be careful)
+# Delete a given directory with all sub-directories (must be very careful)
 #
 # TARGET: CK kernel and low-level developers
 
 def delete_directory(i):
-    """
-    Input:  {
-              path - path to delete
-            }
+    """Delete a given directory with all sub-directories (must be very careful)
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Args:    
+              path (str): path to delete
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
     """
 
     import shutil
@@ -4285,11 +4832,30 @@ def flatten_dict(i):
     return {'return':0, 'dict': aa}
 
 ##############################################################################
-# Convert dictionary into CK flat format (internal, used for recursion)
+# Convert dictionary into the CK flat format
 #
-# TARGET: internal use
+# TARGET: internal use for recursion
 
 def flatten_dict_internal(a, aa, prefix, pk):
+    """Convert dictionary into the CK flat format
+       Target audience: internal use for recursion
+
+    Args:    
+              a (any):
+              aa (dict): target dict
+              prefix (str): key prefix
+              pk: aggregated key?
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict (dict): pass dict a from the input
+    """
+
     # Start flattening
     if type(a) is dict or type(a) is list:
        i=0
@@ -4313,11 +4879,22 @@ def flatten_dict_internal(a, aa, prefix, pk):
     return {'return':0, 'dict': a}
 
 ##############################################################################
-# Convert dictionary into CK flat format (internal, used for recursion)
+# Convert dictionary into the CK flat format
 #
-# TARGET: end users
+# TARGET: internal use
 
 def flatten_dict_internal_check_key(prefix, pk):
+    """Convert dictionary into the CK flat format
+       Target audience: internal use
+
+    Args:    
+              prefix (str): key prefix
+              pk: aggregated key?
+
+    Returns:
+              (bool): key must be added if True
+    """
+
     import fnmatch
 
     add=False
@@ -4338,24 +4915,28 @@ def flatten_dict_internal_check_key(prefix, pk):
     return add
 
 ##############################################################################
-# Get value from dict by flat key
+# Get a value from a dict by the CK flat key
 #
 # TARGET: end users
 
 def get_by_flat_key(i):
-    """
-    Input:  {
-              dict  - dictionary
-              key   - flat key
-            }
+    """Get a value from a dict by the CK flat key
+       Target audience: end users
 
-    Output: {
-              return  - return code =  0, if successful
-                                    >  0, if error
-              (error) - error text if return > 0
-              value   - value or None, if doesn't exist
-            }
+    Args:    
+              dict (dict): dictionary
+              key (str): CK flat key
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                value (any): value or None, if key doesn't exist
     """
+
     # Check vars
     v=None
 
@@ -4397,26 +4978,29 @@ def get_by_flat_key(i):
     return {'return':0, 'value': v}
 
 ##############################################################################
-# Set value in array using flattened key
+# Set a value in a dictionary using the CK flat key
 #
 # TARGET: end users
 
 def set_by_flat_key(i):
+    """Set a value in a dictionary using the CK flat key
+       Target audience: end users
+
+    Args:    
+              dict (dict): dictionary
+              key (str): CK flat key
+              value (any): value to set
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict (dict): modified dict
     """
 
-    Input:  {
-              dict            - dict (it will be directly changed!)
-              key             - flat key (or not if doesn't start with #)
-              value           - value to set
-            }
-
-    Output: {
-              return  - return code =  0, if successful
-                                    >  0, if error
-              (error) - error text if return > 0
-              dict    - modified dict
-            }
-    """
     a=i['dict']
     k=i['key']
     v=i['value']
@@ -4465,23 +5049,27 @@ def set_by_flat_key(i):
     return {'return':0, 'dict': i['dict']}
 
 ##############################################################################
-# Restore flattened dict
+# Restore CK flattened dict
 #
 # TARGET: end users
 
 def restore_flattened_dict(i):
-    """
-    Input:  {
-              dict - flattened dict
-            }
+    """Restore flattened dict
+       Target audience: end users
 
-    Output: {
-              return  - return code =  0, if successful
-                                    >  0, if error
-              (error) - error text if return > 0
-              dict    - restored dict
-            }
+    Args:    
+              dict (dict): CK flattened dictionary
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict (dict): restored dict
     """
+
     # Check vars
     a={} # default
     b=i['dict']
@@ -4498,32 +5086,34 @@ def restore_flattened_dict(i):
     return {'return':0, 'dict': a}
 
 ##############################################################################
-# Set lock for path
+# Set a lock in a given path (to handle parallel writes to CK entries)
 #
 # TARGET: CK kernel and low-level developers
 
 def set_lock(i):
+    """Set a lock in a given path (to handle parallel writes to CK entries)
+       Target audience: CK kernel and low-level developers
+
+    Args:    
+              path (str): path to be locked
+
+              (get_lock) (str): if 'yes', lock this entry
+              (lock_retries) (int): number of retries to aquire lock (default=11)
+              (lock_retry_delay) (float): delay in seconds before trying to aquire lock again (default=3)
+              (lock_expire_time) (float): number of seconds before lock expires (default=30)
+
+              (unlock_uid) (str): UID of the lock to release it
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                (lock_uid) (str):  lock UID, if locked successfully
     """
-    Input:  {
-              path               - path to be locked
 
-              (get_lock)         - if 'yes', lock this entry
-              (lock_retries)     - number of retries to aquire lock (default=11)
-              (lock_retry_delay) - delay in seconds before trying to aquire lock again (default=3)
-              (lock_expire_time) - number of seconds before lock expires (default=30)
-
-              (unlock_uid)       - UID of the lock to release it
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         = 32, couldn't acquire lock (still locked after all retries)
-                                         >  0, if error
-              (error)      - error text if return > 0
-
-              (lock_uid)   - lock UID, if locked successfully
-            }
-    """
     p=i['path']
 
     gl=i.get('get_lock','')
@@ -4600,24 +5190,26 @@ def set_lock(i):
     return rr
 
 ##############################################################################
-# Check if locked and unlock if needed
+# Check if a given path is locked. Unlock if requested.
 #
 # TARGET: CK kernel and low-level developers
 
 def check_lock(i):
-    """
-    Input:  {
-              path               - path to be locked
-              (unlock_uid)       - UID of the lock to release it
-            }
+    """Check if a given path is locked. Unlock if requested.
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         = 32, lock UID is not matching
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Args:    
+              path (str): path to be checked/unlocked
+              (unlock_uid) (str): UID of the lock to release it
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
     """
+
     p=i['path']
     uuid=i.get('unlock_uid','')
 
@@ -4662,15 +5254,29 @@ def check_lock(i):
 # TARGET: end users
 
 def get_current_date_time(i):
-    """
-    Input:  {}
+    """Get current date and time
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0
+    Args:    
+              (dict): empty dict
 
-              array        - array with date and time
-              iso_datetime - date and time in ISO format
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                array (dict); dict with date and time
+
+                  - date_year (str)
+                  - date_month (str)
+                  - date_day (str)
+                  - time_hour (str)
+                  - time_minute (str)
+                  - time_second (str)
+
+                iso_datetime (str): date and time in ISO format
     """
 
     import datetime
@@ -4691,31 +5297,41 @@ def get_current_date_time(i):
 
 ##############################################################################
 ###########################################################
-# Detect CID of the current directory (repository entry)
+# Detect CID in the current directory 
 #
 # TARGET: CK kernel and low-level developers
 
 def detect_cid_in_current_path(i):
-    """
-    Input:  {
-              (path)     - path, otherwise current directory
-            }
+    """Detect CID in the current directory 
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return         - return code =  0, if successful
-                                           >  0, if error
-              (error)        - error text if return > 0
+    Args:    
+              (path) (str): path, or current directory if path==""
 
-              repo_uoa       - repo UOA
-              repo_uid       - repo UID
-              repo_alias     - repo alias
-              (module_uoa)   - module UOA
-              (module_uid)   - module UID
-              (module_alias) - module alias
-              (data_uoa)     - data UOA
-              (data_uid)     - data UID
-              (data_alias)   - data alias
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                repo_uoa (str): CK repo UOA
+
+                repo_uid (str): CK repo UID
+
+                repo_alias (str): CK repo alias
+
+                (module_uoa) (str): CK module UOA
+
+                (module_uid) (str): CK module UID
+
+                (module_alias) (str): CK module alias
+
+                (data_uoa) (str): CK entry (data) UOA
+
+                (data_uid) (str): CK entry (data) UID
+
+                (data_alias) (str): CK entry (data) alias
     """
 
     p=i.get('path','')
@@ -4800,13 +5416,20 @@ def detect_cid_in_current_path(i):
 # TARGET: end users
 
 def uid(i):
-    """
-    Input:  {}
+    """CK action: generate CK UID
+       Target audience: end users
 
-    Output: {
-              Output from 'gen_uid' function
-            }
+    Args:    
+              (dict): empty dict
 
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                data_uid (str): UID in string format (16 lowercase characters 0..9,a..f)
     """
 
     o=i.get('out','')
@@ -4825,12 +5448,22 @@ def uid(i):
 # TARGET: end users
 
 def version(i):
-    """
-    Input:  {}
+    """CK action: print CK version
+       Target audience: end users
 
-    Output: {
-              output from function 'get_version'
-            }
+    Args:    
+              (dict): empty dict
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                version (list): list of sub-versions starting from major version number
+
+                version_str (str): version string
 
     """
 
@@ -4851,13 +5484,22 @@ def version(i):
 # TARGET: end users
 
 def python_version(i):
-    """
-    Input:  {}
+    """CK action: print python version used by CK
+       Target audience: end users
 
-    Output: {
-               version - sys.version
-               version_info - sys.version_info
-            }
+    Args:    
+              (dict): empty dict
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                version (str): sys.version
+
+                version_info (str): sys.version_info
 
     """
 
@@ -4874,21 +5516,25 @@ def python_version(i):
     return {'return':0, 'version':v1, 'version_info':v2}
 
 ############################################################
-# Action: check CK status
+# Action: check CK server status
 #
 # TARGET: CK kernel and low-level developers
 
 def status(i):
-    """
-    Input:  {}
+    """CK action: check CK server status
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              outdated     - if 'yes', newer version exists
+    Args:    
+              (dict): empty dict
 
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                outdated (str): if 'yes', newer version exists
 
     """
 
@@ -4957,22 +5603,27 @@ def status(i):
     return {'return':0, 'outdated':outdated}
 
 ############################################################
-# Compare versions 
+# Compare a given version with the CK version
 #
 # TARGET: CK kernel and low-level developers
 
 def check_version(i):
-    """
-    Input:  {
-              version      - your version (string)
-            }
+    """Compare a given version with the CK version
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return          - return code =  0
+    Args:    
+              version (str): your version
 
-              ok              - if 'yes', your CK kernel version is outdated
-              current_version - your CK kernel version
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                ok (str): if 'yes', your CK kernel version is outdated
+
+                current_version (str): your CK kernel version
 
     """
 
@@ -5011,29 +5662,36 @@ def check_version(i):
     return {'return':0, 'ok':ok, 'current_version':version_str}
 
 ############################################################
-# Convert info about entry to CID
+# Convert info about CK entry to CID
 #
 # TARGET: CK kernel and low-level developers
 
 def convert_entry_to_cid(i):
-    """
-    Input:  {
-               (repo_uoa)   - Repo UOA
-               (repo_uid)   - Repo UID
-               (module_uoa) - Module UOA
-               (module_uid) - Module UID
-               (data_uoa)   - Data UOA
-               (data_uid)   - Data UID
-            }
+    """Convert info about CK entry to CID
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0
+    Args:    
+               (repo_uoa) (str): CK repo UOA
+               (repo_uid) (str): CK repo UID
+               (module_uoa) (str): CK module UOA
+               (module_uid) (str): CK module UID
+               (data_uoa) (str): CK entry (data) UOA
+               (data_uid) (str): CK entry (data) UID
 
-              cuoa         - module_uoa:data_uoa           (substituted with ? if can't find)
-              cid          - module_uid:data_uid           (substituted with ? if can't find)
-              xcuoa        - repo_uoa:module_uoa:data_uoa  (substituted with ? if can't find)
-              xcid         - repo_uid:module_uid:data_uid  (substituted with ? if can't find)
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                cuoa (str); module_uoa:data_uoa           (substituted with ? if can't find)
+
+                cid (str): module_uid:data_uid           (substituted with ? if can't find)
+
+                xcuoa (str): repo_uoa:module_uoa:data_uoa  (substituted with ? if can't find)
+
+                xcid (str): repo_uid:module_uid:data_uid  (substituted with ? if can't find)
 
     """
 
@@ -5071,21 +5729,26 @@ def convert_entry_to_cid(i):
 # **************************************************************************
 
 ############################################################
-# Special function: open webbrowser with help
+# Open web browser with the help page for a given CK entry
 #
 # TARGET: CK kernel and low-level developers
 
 def webhelp(i):
-    """
-    Input:  { from access function }
+    """Open web browser with the help page for a given CK entry
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Args:    
+               (dict): from the "access" function
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
+
     a=i.get('repo_uoa','')
     m=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
@@ -5129,20 +5792,25 @@ def webhelp(i):
 # TARGET: CK kernel and low-level developers
 
 def wiki(i):
-    """
-    Input:  { 
-               (repo_uoa)
-               (module_uoa)
-               (data_uoa)
-            }
+    """Open web browser with the discussion wiki page for a given CK entry
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+       URL is taken from default kernel configuration cfg['wiki_data_web']
+
+    Args:    
+               (repo_uoa) (str): CK repo UOA
+               (module_uoa) (str): CK module UOA
+               (data_uoa) (str): CK entry (data) UOA
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
+
     ruoa=i.get('repo_uoa','')
     muoa=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
@@ -5181,26 +5849,31 @@ def wiki(i):
     return {'return':0}
 
 ############################################################
-# Special function: open webbrowser with private discussion wiki page for collaborative R&D
+# Special function: open web browser with the private discussion wiki page for a given CK entry
 #  URL is taken from default kernel configuration cfg['private_wiki_data_web']
 #
 # TARGET: CK kernel and low-level developers
 
 def pwiki(i):
-    """
-    Input:  { 
-               (repo_uoa)
-               (module_uoa)
-               (data_uoa)
-            }
+    """Open web browser with the private discussion wiki page for a given CK entry
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+       URL is taken from default kernel configuration cfg['private_wiki_data_web']
+
+    Args:    
+               (repo_uoa) (str): CK repo UOA
+               (module_uoa) (str): CK module UOA
+               (data_uoa) (str): CK entry (data) UOA
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
+
     ruoa=i.get('repo_uoa','')
     muoa=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
@@ -5244,16 +5917,21 @@ def pwiki(i):
 # TARGET: CK kernel and low-level developers
 
 def webapi(i):
-    """
-    Input:  { from access function }
+    """Open web browser with the API page if exists
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Args:    
+               (dict): from the "access" function(repo_uoa) (str): CK repo UOA
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
+
     ruoa=i.get('repo_uoa','')
     muoa=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
@@ -5288,20 +5966,22 @@ def webapi(i):
 # TARGET: CK kernel and low-level developers
 
 def browser(i):
-    """
-    Input:  {
-              (template)   - use this web template
-              (repo_uoa)   -
-              (module_uoa) - 
-              (data_uoa)   - view a given entry
-              (extra_url)  - extra URL
-            }
+    """Open web browser with the API if exists
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Args:    
+              (template) (str): use this web template (CK wfe module)
+              (repo_uoa) (str): CK repo UOA
+              (module_uoa) (str): CK module UOA
+              (data_uoa) (str): CK entry (data) UOA
+              (extra_url) (str): Extra URL
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
 
@@ -5338,16 +6018,21 @@ def browser(i):
 # TARGET: CK kernel and low-level developers
 
 def guide(i):
-    """
-    Input:  {}
+    """Open web browser with the user/developer guide wiki
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Args:    
+              (dict): empty dict
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
+
     url=cfg['ck_web_wiki']
 
     out('Opening web page '+url+' ...')
@@ -5360,20 +6045,23 @@ def guide(i):
 #########################################################
 # Common action: print help for a given module
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: end users
 
 def help(i):
-    """
-    Input:  {
-            }
+    """CK action: print help for a given module
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              (module_uoa) (str): CK module UOA
 
-              help         - help text
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                help (str): string with the help text
 
     """
 
@@ -5438,24 +6126,25 @@ def help(i):
     return {'return':0, 'help':h}
 
 #########################################################
-# Common action: print help for a given module
+# Common action: print short CK help
 #
 # TARGET: CK kernel and low-level developers
 
 def short_help(i):
-    """
-    Input:  {
-            }
+    """Print short CK help
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              (dict): empty dict
 
-              help         - help text
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
+                help (str): string with the help text
 
     """
 
@@ -5493,22 +6182,27 @@ def short_help(i):
     return {'return':0, 'help':h}
 
 #########################################################
-# Common action: print input
+# Print input dictionary to screen for debugging
 #
 # TARGET: CK kernel and low-level developers
 
 def print_input(i):
-    """
-    Input:  {
-            }
+    """Print input dictionary to screen for debugging
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+       Used in console and web applications
 
-              html         - input as JSON
-            }
+    Args:    
+              (dict): input
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                html (str): input as JSON string
 
     """
 
@@ -5524,21 +6218,27 @@ def print_input(i):
     return {'return':0, 'html':h}
 
 #########################################################
-# Common action: print info about a given CK entry
+# Common action: print CK info about a given CK entry
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: end users
 
 def info(i):
-    """
-    Input:  {
-              (repo_uoa)
-              module_uoa
-              (data_uoa)
-            }
+    """CK action: print CK info about a given CK entry
+       Target audience: end users
 
-    Output: {
-              Output of 'load' function
-            }
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              (data_uoa) (str): CK entry (data) UOA
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                Keys from the "load" function
 
     """
 
@@ -5620,21 +6320,25 @@ def info(i):
     return r
 
 ############################################################
-# Common action: get CID from current path
+# Common action: get CID from the current path
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: end users
 
 def path(i):
-    """
-    Input:  {}
+    """CK action: get CID from the current path
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              (dict): empty dict
 
-              Output from from 'detect_cid_in_current_path' function
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                Keys from the "detect_cid_in_current_path" function
 
     """
 
@@ -5661,32 +6365,33 @@ def path(i):
     return r
 
 ############################################################
-# Common action: get CID from current path or given CID (module_uid:data_uid)
+# Common action: get CID from the current path or from the input
 #
 # TARGET: end users
 
 def cid(i):
-    """
-    Input:  {
-              (repo_uoa)   - repo UOA
-              (module_uoa) - module UOA
-              (data_uoa)   - data UOA
+    """CK action: get CID from the current path or from the input
+       Target audience: end users
 
-                 If above is empty, detect in current path !
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              (module_uoa) (str): CK module UOA
+              (data_uoa) (str): CK entry (data) UOA
 
-            }
+              If above is empty, detect CID in the current path !
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Returns:
+              (dict): Unified CK dictionary:
 
-              Output from from 'detect_cid_in_current_path' function
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-              data_uoa     - data UOA
-              module_uoa   - module UOA
-              (repo_uoa)   - repo UOA
-            }
+                data_uoa (str): CK entry (data) UOA
+
+                module_uoa (str): CK module UOA
+
+                (repo_uoa) (str): CK repo UOA
 
     """
 
@@ -5723,16 +6428,18 @@ def cid(i):
 # TARGET: CK kernel and low-level developers
 
 def copy_path_to_clipboard(i):
-    """
-    Input:  {
-              (add_quotes) - if 'yes', add quotes
-            }
+    """Copy current path to clipboard (productivity function)
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Args:    
+              (add_quotes) (str): if 'yes', add quotes
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
 
@@ -5748,62 +6455,83 @@ def copy_path_to_clipboard(i):
     return {'return':0}
 
 #########################################################
-# Common action: load data (module) meta description
+# Common action: load meta description from the CK entry
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: end users
 
 def load(i):
-    """
-    Input:  {
-              (repo_uoa)              - repo UOA
-              module_uoa              - module UOA
-              data_uoa                - data UOA
+    """CK action: load meta description from the CK entry
+       Target audience: should use via ck.kernel.access
 
-              (get_lock)              - if 'yes', lock this entry
-              (lock_retries)          - number of retries to aquire lock (default=5)
-              (lock_retry_delay)      - delay in seconds before trying to aquire lock again (default=10)
-              (lock_expire_time)      - number of seconds before lock expires (default=30)
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
 
-              (skip_updates)          - if 'yes', do not load updates
-              (skip_desc)             - if 'yes', do not load descriptions
+              (get_lock) (str): if 'yes', lock this entry
+              (lock_retries) (int): number of retries to aquire lock (default=5)
+              (lock_retry_delay) (float): delay in seconds before trying to aquire lock again (default=10)
+              (lock_expire_time) (float): number of seconds before lock expires (default=30)
 
-              (load_extra_json_files) - list of files to load from the entry
+              (skip_updates) (str): if 'yes', do not load updates
+              (skip_desc) (str): if 'yes', do not load descriptions
 
-              (unlock_uid)            - UID of the lock to release it
+              (load_extra_json_files) (str): list of files to load from the entry
 
-              (min)                   - show minimum when output to console (i.e. meta and desc)
+              (unlock_uid) (str): UID of the lock to release it
 
-              (create_if_not_found)   - if 'yes', create, if entry is not found - useful to create and lock entries
-            }
+              (min) (str): show minimum when output to console (i.e. meta and desc)
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+              (create_if_not_found) (str): if 'yes', create, if entry is not found - useful to create and lock entries
 
-              dict         - entry meta description
-              (info)       - entry info
-              (updates)    - entry updates
-              (desc)       - entry description
+    Returns:
+              (dict): Unified CK dictionary:
 
-              path         - path to data entry
-              path_module  - path to module entry with this entry
-              path_repo    - path to the repository of this entry
-              repo_uoa     - repo UOA 
-              repo_uid     - repo UID
-              repo_alias   - repo alias
-              module_uoa   - module UOA 
-              module_uid   - module UID
-              module_alias - module alias
-              data_uoa     - data UOA
-              data_uid     - data UID
-              data_alias   - data alias
-              data_name    - user friendly name
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-              (extra_json_files) - dict with extra json files (key is the filename from 'load_extra_json_files')
+                dict (dict): CK entry meta description
 
-              (lock_uid)   - unlock UID, if locked successfully
-            }
+                (info) (dict): CK entry info
+
+                (updates) (dict): CK entry updates
+
+                (desc) (dict): CK entry description
+
+
+                path (str): path to the CK entry
+
+                path_module (str):  path to the CK module entry for this CK entry
+
+                path_repo (str): path to the CK repository for this CK entry
+
+                repo_uoa (str): CK repo UOA 
+
+                repo_uid (str): CK repo UID
+
+                repo_alias (str): CK repo alias
+
+                module_uoa (str): CK module UOA 
+
+                module_uid (str): CK module UID
+
+                module_alias (str): CK module alias
+
+                data_uoa (str): CK entry (data) UOA
+
+                data_uid (str): CK entry (data) UID
+
+                data_alias (str): CK entry (data) alias
+
+                data_name (str): CK entry user friendly name
+
+
+                (extra_json_files) (dict): merged dict from JSON files specified by 'load_extra_json_files' key
+
+
+                (lock_uid) (str): unlock UID, if locked successfully
+
     """
 
     o=i.get('out','')
@@ -5875,23 +6603,29 @@ def load(i):
     return r
 
 #########################################################
-# Common action: find data (module) - uses 'load' function
+# Common action: find CK entry via the 'load' function
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: end users
 
 def find(i):
-    """
-    Input:  {
-              (repo_uoa)  - repo UOA
-              module_uoa  - module UOA
-              data_uoa    - data UOA
-            }
+    """CK action: find CK entry via the 'load' function
+       Target audience: should use via ck.kernel.access
 
-    Output: { 
-              Output of the 'load' function 
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
 
-              number_of_entries - total number of found entries
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                Output from the 'load' function 
+
+                number_of_entries (int): total number of found entries
     """
 
     o=i.get('out','')
@@ -5922,7 +6656,7 @@ def find(i):
     return rr
 
 #########################################################
-# original find
+# original find (internal function)
 
 def find2(i):
 
@@ -5988,24 +6722,29 @@ def find2(i):
 #########################################################
 # Common action: print 'cd {path to CID}'
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: end users
 
 def cd(i):
-    """
-    Input:  {
-              (repo_uoa)  - repo UOA
-              module_uoa  - module UOA
-              data_uoa    - data UOA
+    """CK action: print 'cd {path to CID}'
+       Target audience: end users
+
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
                  or
-              cid
+              cid (str): CK CID
 
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: { 
-              Output of the 'load' function 
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-              string - prepared string 'cd {path to entry}'
-            }
+                Output from the 'load' function 
+
+                string (str): prepared string 'cd {path to entry}'
     """
 
     o=i.get('out','')
@@ -6065,24 +6804,30 @@ def cd(i):
     return r
 
 #########################################################
-# Common action: print 'cd {path to CID} and copy to clipboard'
+# Common action: print 'cd {path to CID}' and copy to clipboard
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: end users
 
 def cdc(i): # pragma: no cover
-    """
-    Input:  {
-              (repo_uoa)  - repo UOA
-              module_uoa  - module UOA
-              data_uoa    - data UOA
+    """CK action: print 'cd {path to CID}' and copy to clipboard
+       Target audience: end users
+
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
                  or
-              cid
+              cid (str): CK CID
 
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: { 
-              Output of the 'load' function 
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                Output from the 'load' function 
+
     """
 
     r=cd(i)
@@ -6096,71 +6841,76 @@ def cdc(i): # pragma: no cover
     return r
 
 ##############################################################################
-# Common action: add data (module) meta-description to a repository
+# Common action: create CK entry with a given meta-description in a CK repository
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: end users
 
 def add(i):
-    """
-    Input:  {
-              (repo_uoa)             - repo UOA
-              module_uoa             - module UOA
-              data_uoa               - data UOA
-              (data_uid)             - data UID (if uoa is an alias)
-              (data_name)            - user friendly data name
+    """CK action: create CK entry with a given meta-description in a CK repository
+       Target audience: should use via ck.kernel.access
 
-              (dict_from_cid)        -
-              (dict_from_repo_uoa)   - 
-              (dict_from_module_uoa) - 
-              (dict_from_data_uoa)   - if present, pre-load dict 
-                                       from this (module_uoa):data_uoa (analog of copy)
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
+              (data_uid) (str): CK entry (data) UID (if UOA is an alias)
+              (data_name) (str): User-friendly name of this entry
 
-              (update)               - if == 'yes' and entry exists, update it
+              (dict) (dict): meta description for this entry (will be recorded to meta.json)
 
-              (dict)                 - meta description to record
-              (substitute)           - if 'yes' and update=='yes' substitute dictionaries, otherwise merge!
+              (update) (str): if == 'yes' and CK entry exists, update it
 
-              (desc)                 - description of an entry (gradually adding API description in flat format)
+              (substitute) (str): if 'yes' and update=='yes' substitute dictionaries, otherwise merge!
 
-              (extra_json_files)     - dict with extra json files to save to entry (key is a filename)
+              (dict_from_cid) (str): if !="", merge dict to meta description from this CID (analog of copy)
+              (dict_from_repo_uoa) (str): merge dict from this CK repo UOA
+              (dict_from_module_uoa) (str): merge dict from this CK module UOA
+              (dict_from_data_uoa) (str): merge dict from this CK entry UOA 
 
-              (tags)                 - list or comma separated list of tags to add to entry
+              (desc) (dict): under development - defining SPECs for meta description in the CK flat format
 
-              (info)                 - entry info to record - normally, should not use it!
-              (extra_info)           - enforce extra info such as
-                                          author
-                                          author_email
-                                          author_webpage
-                                          license
-                                          copyright
-                                       If not specified then taken from kernel (prefix 'default_')
+              (extra_json_files) (dict): dict with extra json files to save to this CK entry 
+                                         (keys in this dictionary are filenames)
 
-              (updates)              - entry updates info to record - normally, should not use it!
-              (ignore_update)        - if 'yes', do not add info about update
+              (tags) (str): list or comma separated list of tags to add to entry
 
-              (ask)                  - if 'yes', ask questions, otherwise silent
+              (info) (dict): entry info to record - normally, should not use it!
+              (extra_info) (dict): enforce extra info such as
 
-              (unlock_uid)           - unlock UID if was previously locked
+                                          - author
+                                          - author_email
+                                          - author_webpage
+                                          - license
+                                          - copyright
 
-              (sort_keys)            - by default, 'yes'
+                                       If not specified then take it from the CK kernel (prefix 'default_')
 
-              (share)                - if 'yes', try to add via GIT
+              (updates) (dict): entry updates info to record - normally, should not use it!
+              (ignore_update) (str): if 'yes', do not add info about update
 
-              (skip_indexing)        - if 'yes', skip indexing even if it is globally on
+              (ask) (str): if 'yes', ask questions, otherwise silent
 
-              (allow_multiple_aliases) - if 'yes', allow multiple aliases for the same UID 
-                                         (needed for cKnowledge.io to publish
-                                         renamed components with the same UID)
-            }
+              (unlock_uid) (str): unlock UID if was previously locked
 
-    Output: {
-              return       - return code =  0, if successful
-                                           16, if entry already exists
-                                         >  0, if error
-              (error)      - error text if return > 0
+              (sort_keys) (str): by default, 'yes'
 
-              Output from the 'create_entry' function
-            }
+              (share) (str): if 'yes', try to add via GIT
+
+              (skip_indexing) (str): if 'yes', skip indexing even if it is globally on
+
+              (allow_multiple_aliases) (str):  if 'yes', allow multiple aliases for the same UID 
+                                               (needed for cKnowledge.io to publish
+                                               renamed components with the same UID)
+
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                Output from the 'create_entry' function
 
     """
 
@@ -6510,50 +7260,75 @@ def add(i):
     return rr
 
 ##############################################################################
-# Common action: update data (module) meta-description to a repository
+# Common action: update CK entry meta-description
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: end users
 
 def update(i):
-    """
-    Input:  {
-              (repo_uoa)             - repo UOA
-              module_uoa             - module UOA
-              data_uoa               - data UOA
-              (data_uid)             - data UID (if uoa is an alias)
-              (data_name)            - user friendly data name
+    """CK action: update CK entry meta-description
+       Target audience: should use via ck.kernel.access
 
-              (dict_from_cid)        -
-              (dict_from_repo_uoa)   - 
-              (dict_from_module_uoa) - 
-              (dict_from_data_uoa)   - if present, pre-load dict 
-                                       from this (module_uoa):data_uoa (analog of copy)
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
+              (data_uid) (str): CK entry (data) UID (if UOA is an alias)
+              (data_name) (str): User-friendly name of this entry
 
-              (dict)                 - meta description to record
-              (substitute)           - if 'yes', substitute dictionaries, otherwise merge!
+              (dict) (dict): meta description for this entry (will be recorded to meta.json)
 
-              (tags)                 - list or comma separated list of tags to add to entry
+              (substitute) (str): if 'yes' and update=='yes' substitute dictionaries, otherwise merge!
 
-              (info)                 - entry info to record - normally, should not use it!
-              (updates)              - entry updates info to record - normally, should not use it!
-              (ignore_update)        - if 'yes', do not add info about update
+              (dict_from_cid) (str): if !="", merge dict to meta description from this CID (analog of copy)
+              (dict_from_repo_uoa) (str): merge dict from this CK repo UOA
+              (dict_from_module_uoa) (str): merge dict from this CK module UOA
+              (dict_from_data_uoa) (str): merge dict from this CK entry UOA 
 
-              (ask)                  - if 'yes', ask questions, otherwise silent
+              (desc) (dict): under development - defining SPECs for meta description in the CK flat format
 
-              (unlock_uid)           - unlock UID if was previously locked
+              (extra_json_files) (dict): dict with extra json files to save to this CK entry 
+                                         (keys in this dictionary are filenames)
 
-              (sort_keys)            - if 'yes', sort keys
+              (tags) (str): list or comma separated list of tags to add to entry
 
-              (skip_indexing)        - if 'yes', skip indexing even if it is globally on
-            }
+              (info) (dict): entry info to record - normally, should not use it!
+              (extra_info) (dict): enforce extra info such as
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+                                          - author
+                                          - author_email
+                                          - author_webpage
+                                          - license
+                                          - copyright
 
-              Output from the 'add' function (the last one in case of wildcards)
-            }
+                                       If not specified then take it from the CK kernel (prefix 'default_')
+
+              (updates) (dict): entry updates info to record - normally, should not use it!
+              (ignore_update) (str): if 'yes', do not add info about update
+
+              (ask) (str): if 'yes', ask questions, otherwise silent
+
+              (unlock_uid) (str): unlock UID if was previously locked
+
+              (sort_keys) (str): by default, 'yes'
+
+              (share) (str): if 'yes', try to add via GIT
+
+              (skip_indexing) (str): if 'yes', skip indexing even if it is globally on
+
+              (allow_multiple_aliases) (str):  if 'yes', allow multiple aliases for the same UID 
+                                               (needed for cKnowledge.io to publish
+                                               renamed components with the same UID)
+
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+
+                Output from the "add" function (the last "add" in case of wildcards)
 
     """
 
@@ -6623,27 +7398,29 @@ def update(i):
 ##############################################################################
 # Common action: edit data meta-description through external editor
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: end users
 
 def edit(i): # pragma: no cover
-    """
-    Input:  {
-              (repo_uoa)             - repo UOA
-              module_uoa             - module UOA
-              data_uoa               - data UOA
+    """CK action: edit data meta-description through external editor
+       Target audience: should use via ck.kernel.access
 
-              (ignore_update)        - (default==yes) if 'yes', do not add info about update
-              (sort_keys)            - (default==yes) if 'yes', sort keys
+    Args: 
+              (repo_uoa) (str): repo UOA
+              module_uoa (str): module UOA
+              data_uoa (str): data UOA
 
-              (edit_desc)            - if 'yes', edit description rather than meta 
+              (ignore_update) (str): (default==yes) if 'yes', do not add info about update
+              (sort_keys) (str): (default==yes) if 'yes', sort keys
+
+              (edit_desc) (str): if 'yes', edit description rather than meta 
                                        (useful for compiler descriptions)
-            }
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
 
@@ -6721,33 +7498,36 @@ def edit(i): # pragma: no cover
     return r
 
 ##############################################################################
-# Common action: delete data (module) entry
+# Common action: delete CK entry or CK entries
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def rm(i):
-    """
-    Input:  {
-              (repo_uoa)      - repo UOA    ; can be wild cards
-              module_uoa      - module UOA  ; can be wild cards
-              data_uoa        - data UOA    ; can be wild cards
+    """CK action: delete CK entry or CK entries
+       Target audience: should use via ck.kernel.access
 
-              (force)         - if 'yes', force deleting without questions
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
+
+              (force) (str): if 'yes', force deleting without questions
                  or
-              (f)             - to be compatible with rm -f 
+              (f) (str): to be compatible with rm -f 
 
-              (share)         - if 'yes', try to remove via GIT
+              (share) (str): if 'yes', try to remove via GIT
 
-              (tags)          - use these tags in format tags=x,y,z to prune rm
+              (tags) (str): use these tags in format tags=x,y,z to prune rm
                    or
-              (search_string) - prune entries with expression *?
-            }
+              (search_string) (str); prune entries with expression *?
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
 
@@ -6902,65 +7682,77 @@ def rm(i):
     return {'return':0}
 
 ##############################################################################
-# Common action: delete data (module) entry -> calls rm function
+# Common action: delete CK entry or CK entries
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def remove(i):
-    """
-    Input:  { See rm function }
-    Output: { See rm function }
+    """CK action: delete CK entry or CK entries
+       Target audience: should use via ck.kernel.access
+
+    Args:    
+              See "rm" function
+
+    Returns:
+              See "rm" function
 
     """
 
     return rm(i)
 
 ##############################################################################
-# Common action: delete data (module) entry -> calls rm function
+# Common action: delete CK entry or CK entries
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def delete(i):
-    """
-    Input:  { See rm function }
-    Output: { See rm function }
+    """CK action: delete CK entry or CK entries
+       Target audience: should use via ck.kernel.access
+
+    Args:    
+              See "rm" function
+
+    Returns:
+              See "rm" function
 
     """
 
     return rm(i)
 
 ##############################################################################
-# Common action: rename data entry
+# Common action: rename CK entry
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def ren(i):
-    """
-    Input:  {
-              (repo_uoa)         - repo UOA
-              module_uoa         - module UOA
-              data_uoa           - old data UOA
+    """CK action: rename CK entry
+       Target audience: should use via ck.kernel.access
 
-              new_data_uoa       - new data alias
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
+
+              new_data_uoa (str): new CK entry (data) alias
                  or
-              new_data_uid       - new data UID (leave empty to keep old one)
+              new_data_uid (str): new CK entryt (data) UID (leave empty to keep the old one)
                  or
-              xcids[0]           - {'data_uoa'} - new data UOA
+              xcids (list): take new CK entry UOA from xcids[0]['data_uoa']
 
-              (new_uid)          - generate new UID
+              (new_uid) (str): if 'yes', generate new UID
 
-              (remove_alias)     - if 'yes', remove alias
+              (remove_alias) (str): if 'yes', remove alias
 
-              (add_uid_to_alias) - if 'yes', add UID to alias
+              (add_uid_to_alias) (str): if 'yes', add UID to alias
 
-              (share)            - if 'yes', try to remove old entry via GIT and add new one
-            }
+              (share) (str): if 'yes', try to remove the old entry via GIT and add the new one
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
 
@@ -7195,51 +7987,58 @@ def ren(i):
     return {'return':0}
 
 ##############################################################################
-# Common action: rename data entry -> calls 'ren' function
+# Common action: rename CK entry
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def rename(i):
-    """
-    Input:  { See ren function }
-    Output: { See ren function }
+    """CK action: rename CK entry
+       Target audience: should use via ck.kernel.access
+
+    Args:    
+              See "ren" function
+
+    Returns:
+              See "ren" function
 
     """
 
     return ren(i)
 
 ##############################################################################
-# Common action: copy (or move) data entry
+# Common action: copy or move CK entry
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def cp(i):
-    """
-    Input:  {
-              (repo_uoa)       - repo UOA
-              module_uoa       - module UOA
-              data_uoa         - data UOA
+    """CK action: copy or move CK entry
+       Target audience: should use via ck.kernel.access
 
-              xcids[0]         - {'repo_uoa', 'module_uoa', 'data_uoa'} - new CID
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
+
+              xcids (list): use original name from xcids[0] and new name from xcids[1] ({'repo_uoa', 'module_uoa', 'data_uoa'})
                  or
-              (new_repo_uoa)   - new repo UOA
-              (new_module_uoa) - new module UOA
-              new_data_uoa     - new data alias
-              (new_data_uid)   - new data UID (leave empty to generate new one)
+              (new_repo_uoa) (str): new CK repo UOA
+              (new_module_uoa) (str): new CK module UOA
+              new_data_uoa (str): new CK data alias
+              (new_data_uid) (str): new CK entry (data) UID (leave empty to generate the new one)
 
-              (move)           - if 'yes', remove old
-              (keep_old_uid)   - if 'yes', keep old UID
+              (move) (str): if 'yes', remove the old entry
+              (keep_old_uid) (str): if 'yes', keep the old UID
 
-              (without_files)  - if 'yes', do not move/copy files
-            }
+              (without_files) (str): if 'yes', do not move/copy files
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Returns:
+              (dict): Unified CK dictionary:
 
-              Output of 'add' function
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                Output from the "add" function
 
     """
 
@@ -7411,47 +8210,53 @@ def cp(i):
     return r
 
 ##############################################################################
-# Common action: copy (or move) data entry
+# Common action: copy or move CK entry
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def copy(i):
-    """
-    Input:  { See 'cp' function }
-    Output: { See 'cp' function }
+    """CK action: copy or move CK entry
+       Target audience: should use via ck.kernel.access
+
+    Args:    
+              See "cp" function
+
+    Returns:
+              See "cp" function
 
     """
 
     return cp(i)
 
 ##############################################################################
-# Common action: move data entry
+# Common action: move CK entry to another CK repository
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def mv(i):
-    """
-    Input:  {
-              (repo_uoa)    - repo UOA
-              module_uoa    - module UOA
-              data_uoa      - data UOA
+    """CK action: move CK entry to another CK repository
+       Target audience: should use via ck.kernel.access
 
-              xcids[0]         - {'repo_uoa', 'module_uoa', 'data_uoa'} - new CID
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
+
+              xcids (list): use original name from xcids[0] and new name from xcids[1] ({'repo_uoa', 'module_uoa', 'data_uoa'})
                  or
-              (new_repo_uoa)   - new repo UOA
-              (new_module_uoa) - new module UOA
-              (new_data_uoa)   - new data alias
-              (new_data_uid)   - new data UID (leave empty to generate new one)
+              (new_repo_uoa) (str): new CK repo UOA
+              (new_module_uoa) (str): new CK module UOA
+              (new_data_uoa) (str): new CK data alias
+              (new_data_uid) (str): new CK entry (data) UID (leave empty to generate the new one)
 
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-              Output of 'copy' function
-            }
+                Output from the "copy" function
 
     """
 
@@ -7493,40 +8298,47 @@ def mv(i):
     return r
 
 ##############################################################################
-# Common action: move data entry
+# Common action: move CK entry to another CK repository
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def move(i):
-    """
-    Input:  { See 'mv' function }
-    Output: { See 'mv' function }
+    """CK action: move CK entry to another CK repository
+       Target audience: should use via ck.kernel.access
+
+    Args:    
+              See "mv" function
+
+    Returns:
+              See "mv" function
 
     """
 
     return mv(i)
 
 ##############################################################################
-# Common action: delete file from an entry
+# delete file from the CK entry
 #
 # TARGET: CK kernel and low-level developers
 
 def delete_file(i):
-    """
-    Input:  {
-              (repo_uoa)  - repo UOA
-              module_uoa  - module UOA
-              data_uoa    - data UOA
+    """Delete file from the CK entry
+       Target audience: CK kernel and low-level developers
 
-              filename    - filename to delete including relative path
-              (force)     - if 'yes', force deleting without questions
-            }
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+              filename (str): filename to delete including relative path
+              (force) (str): if 'yes', force deleting without questions
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
 
@@ -7610,72 +8422,78 @@ def delete_file(i):
     return {'return':0}
 
 ##############################################################################
-# Common action: list data entries
+# Common action: list CK entries
 #
 # TARGET: CK kernel and low-level developers
 
 def list_data(i):
-    """
-    Input:  {
-              (repo_uoa)           - repo UOA
-              (module_uoa)         - module UOA
-              (data_uoa)           - data UOA
+    """List CK entries
+       Target audience: CK kernel and low-level developers
 
-              (repo_uoa_list)      - list of repos to search
-              (module_uoa_list)    - list of module to search
-              (data_uoa_list)      - list of data to search
+    Args:    
+              (repo_uoa) (str): CK repo UOA with wildcards
+              (module_uoa) (str): CK module UOA with wildcards
+              (data_uoa) (str): CK entry (data) UOA with wildcards
 
-              (filter_func)        - name of filter function
-              (filter_func_addr)   - address of filter function
+              (repo_uoa_list) (list): list of CK repos to search
+              (module_uoa_list) (list): list of CK modules to search
+              (data_uoa_list) (list): list of CK entries to search
 
-              (add_if_date_before) - add only entries with date before this date 
-              (add_if_date_after)  - add only entries with date after this date
-              (add_if_date)        - add only entries with this date
+              (filter_func) (str): name of the filter function to customize search
+              (filter_func_addr) (obj): Python address of the filter function
 
-              (ignore_update)      - if 'yes', do not add info about update (when updating in filter)
+              (add_if_date_before) (str): add only entries with date before this date 
+              (add_if_date_after) (str): add only entries with date after this date
+              (add_if_date) (str): add only entries with this date
 
-              (search_by_name)     - search by name
+              (ignore_update) (str): if 'yes', do not add info about update (when updating in filter)
 
-              (search_dict)        - search if this dict is a part of the entry
+              (search_by_name) (str): search by name
 
-              (ignore_case)        - ignore case when searching!
+              (search_dict) (dict): search if this dict is a part of the entry
 
-              (print_time)         - if 'yes', print elapsed time at the end
+              (ignore_case) (str): ignore string case when searching!
 
-              (do_not_add_to_lst)  - if 'yes', do not add entries to lst
+              (print_time) (str): if 'yes', print elapsed time at the end
 
-              (time_out)           - in secs, default=30 (if -1, no timeout)
+              (do_not_add_to_lst) (str): if 'yes', do not add entries to lst
 
-              (limit_size)         - if !='' limit size
+              (time_out) (float): in secs, default=30 (if -1, no timeout)
 
-              (print_full)         - if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
+              (limit_size) (int): if >0, limit the number of returned entries
+
+              (print_full) (str): if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
                   or
-              (all)
+              (all) (str): the same as above
 
-              (print_uid)          - if 'yes', print UID in brackets
+              (print_uid) (str): if 'yes', print UID in brackets
 
-              (print_name)         - if 'yes', print name (and add info to the list)
+              (print_name) (str): if 'yes', print name (and add info to the list)
                   or
-              (name)
+              (name) (str): the same as above
 
-              (add_info)           - if 'yes', add info about entry to the list
-              (add_meta)           - if 'yes', add meta about entry to the list
-            }
+              (add_info) (str): if 'yes', add info about entry to the list
+              (add_meta) (str): if 'yes', add meta about entry to the list
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
 
-              lst          - [{'repo_uoa', 'repo_uid',
-                               'module_uoa', 'module_uid', 
-                               'data_uoa','data_uid',
-                               'path' (,info) 
-                               }]
+    Returns:
+              (dict): Unified CK dictionary:
 
-              elapsed_time - elapsed time in string
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
-              (timed_out)  - if 'yes', timed out or limited by size
+                lst (list): [{'repo_uoa', 'repo_uid',
+                              'module_uoa', 'module_uid', 
+                              'data_uoa','data_uid',
+                              'path' 
+                              (,meta) 
+                              (,info) ...
+                             }]
+
+                elapsed_time (float): elapsed time in string
+
+                (timed_out) (str): if 'yes', timed out or limited by size
             }
 
     """
@@ -8105,9 +8923,10 @@ def list_data(i):
     return rr
 
 ##############################################################################
-# List data with search
+# List data with search (internal)
 
 def list_data2(i):
+
     o=i.get('out','')
 
     rr=list_data(i)
@@ -8140,64 +8959,80 @@ def list_data2(i):
 ##############################################################################
 # Common action: search entries
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def search(i):
-    """
-    Input:  {
-              (repo_uoa)           - repo UOA
-              (module_uoa)         - module UOA
-              (data_uoa)           - data UOA
+    """CK action: search CK entries
+       Target audience: should use via ck.kernel.access
 
-              (repo_uoa_list)      - list of repos to search
-              (module_uoa_list)    - list of module to search
-              (data_uoa_list)      - list of data to search
+    Args:    
+              (repo_uoa) (str): CK repo UOA with wildcards
+              (module_uoa) (str): CK module UOA with wildcards
+              (data_uoa) (str): CK entry (data) UOA with wildcards
 
-              (add_if_date_before) - add only entries with date before this date 
-              (add_if_date_after)  - add only entries with date after this date
-              (add_if_date)        - add only entries with this date
+              (repo_uoa_list) (list): list of CK repos to search
+              (module_uoa_list) (list): list of CK modules to search
+              (data_uoa_list) (list): list of CK entries to search
 
-              (search_by_name)     - search by name
+              (filter_func) (str): name of the filter function to customize search
+              (filter_func_addr) (obj): Python address of the filter function
 
-              (print_time)         - if 'yes', print elapsed time at the end
+              (add_if_date_before) (str): add only entries with date before this date 
+              (add_if_date_after) (str): add only entries with date after this date
+              (add_if_date) (str): add only entries with this date
 
-              (search_flat_dict)   - search if these flat keys/values exist in entries
-              (search_dict)        - search if this dict is a part of the entry
-              (tags)               - add tags to search in format tags=x,y,z
-                   or
-              (search_string)      - search with expressions *?
+              (ignore_update) (str): if 'yes', do not add info about update (when updating in filter)
 
-              (ignore_case)        - if 'yes', ignore case of letters
+              (search_by_name) (str): search by name
 
-              (time_out)           - in secs, default=30
+              (search_dict) (dict): search if this dict is a part of the entry
 
-              (internal)           - if 'yes', use internal search even if indexing is on
+              (ignore_case) (str): ignore string case when searching!
 
-              (limit_size)         - by default 5000 or -1 if no limit
-              (start_from)         - start from a specific entry (only for ElasticSearch)
+              (print_time) (str): if 'yes', print elapsed time at the end
 
-              (print_full)         - if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
-              (print_uid)          - if 'yes', print UID in brackets
+              (do_not_add_to_lst) (str): if 'yes', do not add entries to lst
 
-              (print_name)         - if 'yes', print name (and add info to the list)
-              (add_info)           - if 'yes', add info about entry to the list
-              (add_meta)           - if 'yes', add meta about entry to the list
+              (time_out) (float): in secs, default=30 (if -1, no timeout)
 
-              (debug)              - if 'yes', print debug info
-            }
+              (print_full) (str): if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
+                  or
+              (all) (str): the same as above
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+              (print_uid) (str): if 'yes', print UID in brackets
 
-              lst          - [{'repo_uoa', 'repo_uid',
-                               'module_uoa', 'module_uid', 
-                               'data_uoa','data_uid',
-                               'path'}]
-              elapsed_time - elapsed time in string
+              (print_name) (str): if 'yes', print name (and add info to the list)
+                  or
+              (name) (str): the same as above
 
-              (timed_out)  - if 'yes', timed out
+              (add_info) (str): if 'yes', add info about entry to the list
+              (add_meta) (str): if 'yes', add meta about entry to the list
+
+              (internal) (str): if 'yes', use internal search even if indexing is on
+
+              (limit_size) (int): limit the number of returned entries. Use 5000 by default or set to -1 if no limit
+              (start_from) (int): start from a specific entry (only for ElasticSearch)
+
+              (debug) (str): if 'yes', print debug info
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                lst (list): [{'repo_uoa', 'repo_uid',
+                              'module_uoa', 'module_uid', 
+                              'data_uoa','data_uid',
+                              'path' 
+                              (,meta) 
+                              (,info) ...
+                             }]
+
+                elapsed_time (float): elapsed time in string
+
+                (timed_out) (str): if 'yes', timed out or limited by size
             }
 
     """
@@ -8232,7 +9067,7 @@ def search(i):
     return rr
 
 ##############################################################################
-# Original search
+# Original search (internal)
 
 def search2(i):
 
@@ -8528,27 +9363,27 @@ def search2(i):
 # TARGET: CK kernel and low-level developers
 
 def search_filter(i):
-    """
-    Input:  {
-              repo_uoa             - repo UOA
-              module_uoa           - module UOA
-              data_uoa             - data UOA
-              path                 - path  
+    """Search filter
+       Target audience: CK kernel and low-level developers
 
-              (search_dict)        - search if this dict is a part of the entry
-              (ignore_case)        - if 'yes', ignore case of letters
-            }
+    Args:    
+              repo_uoa (str): CK repo UOA 
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+              path (str): path to the current entry  
 
-              lst          - [{'repo_uoa', 'repo_uid',
-                               'module_uoa', 'module_uid', 
-                               'data_uoa','data_uid',
-                               'path'}]
-            }
+              (search_dict) (dict): check if this dict is a part of the entry meta description
+              (ignore_case) (str): if 'yes', ignore case of letters
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                skip (str): if 'yes', skip this entry from search
 
     """
 
@@ -8608,35 +9443,38 @@ def search_filter(i):
     return {'return':0, 'skip':skip}
 
 ##############################################################################
-# Compare 2 dictionaries (recursively)
+# Compare two dictionaries recursively
 #
 # TARGET: end users
 
 def compare_dicts(i):
-    """
-    Input:  {
-              dict1         - dictionary 1
-              dict2         - dictionary 2
-              (ignore_case) - ignore case of letters
+    """Compare two dictionaries recursively
+       Target audience: end users
 
-              Note that if dict1 and dict2 has lists, the results will be as follows:
+       Note that if dict1 and dict2 has lists, the results will be as follows:
 
-              * dict1={"key":['a','b','c']}
-                dict2={"key":['a','b']}
-                EQUAL
+       * dict1={"key":['a','b','c']}
+         dict2={"key":['a','b']}
+         EQUAL
 
-              * dict1={"key":['a','b']}
-                dict2={"key":['a','b','c']}
-                NOT EQUAL
-            }
+       * dict1={"key":['a','b']}
+         dict2={"key":['a','b','c']}
+         NOT EQUAL
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              dict1 (dict): dictionary 1
+              dict2 (dict): dictionary 2
+              (ignore_case) (str): if 'yes', ignore case of letters
 
-              equal        - if 'yes' dictionaries are equal
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                equal (str); if 'yes' then dictionaries are equal
+
     """
 
     d1=i.get('dict1',{})
@@ -8702,27 +9540,30 @@ def compare_dicts(i):
     return {'return':0, 'equal':equal}
 
 ##############################################################################
-# Compare two flat dictionaries
+# Compare two CK flat dictionaries
 #
 # TARGET: end users
 
 def compare_flat_dicts(i):
-    """
-    Input:  {
-              dict1            - dictionary 1
-              dict2            - dictionary 2
-              (ignore_case)    - ignore case of letters
-              (space_as_none)  - if 'yes', consider "" as None
-              (keys_to_ignore) - list of keys to ignore (can be wildcards)
-            }
+    """Compare two CK flat dictionaries
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              dict1 (dict): dictionary 1
+              dict2 (dict): dictionary 2
+              (ignore_case) (str): if 'yes', ignore case of letters
+              (space_as_none) (str): if 'yes', consider "" as None
+              (keys_to_ignore) (list): list of keys to ignore (can be wildcards)
 
-              equal        - if 'yes' dictionaries are equal
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                equal (str); if 'yes' then dictionaries are equal
+
     """
 
     d1=i.get('dict1',{})
@@ -8775,25 +9616,27 @@ def compare_flat_dicts(i):
     return {'return':0, 'equal':equal}
 
 ##############################################################################
-# Find string in dict
+# Find a string in a dict or list
 #
 # TARGET: end users
 
 def find_string_in_dict_or_list(i):
-    """
-    Input:  {
-              dict            - dictionary 1
-              (search_string) - search string
-              (ignore_case)   - ignore case of letters
-            }
+    """Find a string in a dict or list
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              dict (dict or list): dict or list to search
+              (search_string) (str): search string
+              (ignore_case) (str): if 'yes' then ignore case of letters
 
-              found        - if 'yes', string found
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                found (str): if 'yes', string found
     """
 
     d=i.get('dict',{})
@@ -8842,26 +9685,25 @@ def find_string_in_dict_or_list(i):
 # TARGET: CK kernel and low-level developers
 
 def search_string_filter(i):
-    """
-    Input:  {
-              repo_uoa             - repo UOA
-              module_uoa           - module UOA
-              data_uoa             - data UOA
-              path                 - path  
+    """Search filter
+       Target audience: CK kernel and low-level developers
+
+    Args:    
+              repo_uoa (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK data UOA
+              path (str): path to the current CK entry
 
               (search_string)      - search with expressions *?
-            }
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Returns:
+              (dict): Unified CK dictionary:
 
-              lst          - [{'repo_uoa', 'repo_uid',
-                               'module_uoa', 'module_uid', 
-                               'data_uoa','data_uid',
-                               'path'}]
-            }
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                skip (str): if 'yes' then skip this entry from search
 
     """
 
@@ -8895,27 +9737,29 @@ def search_string_filter(i):
     return {'return':0, 'skip':skip}
 
 ##############################################################################
-# Access index server
+# Access index server (usually ElasticSearch)
 #
 # TARGET: CK kernel and low-level developers
 
 def access_index_server(i):
-    """
-    Input:  {
-              request        - request type ('PUT' | 'DELETE' | 'TEST' | 'GET')
-              (path)         - path  
-              (dict)         - query as dict to send
-              (limit_size)   - limit queries with this number (if 'GET')
-              (start_from)   - start from a given entry in a query
-            }
+    """Access index server (usually ElasticSearch)
+       Target audience: CK kernel and low-level developers
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              request (str): request type ('PUT' | 'DELETE' | 'TEST' | 'GET')
+              (path) (str): ES "path" with indexing info
+              (dict) (dict): send this query as dict
+              (limit_size) (int): limit queries using this number (if 'GET')
+              (start_from) (int): start from a given entry in a query
 
-              dict         - returned dict
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict (dict): dictionary from ElasticSearch with all entries
 
     """
 
@@ -9109,33 +9953,34 @@ def access_index_server(i):
     return {'return':0, 'dict':ddo}
 
 ##############################################################################
-# Add action to a module
+# Add a new action to the given CK module
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def add_action(i):
-    """
-    Input:  {
-              (repo_uoa)                  - repo UOA
-              module_uoa                  - normally should be 'module' already
-              data_uoa                    - UOA of the module to be created
+    """Add a new action to the given CK module
+       Target audience: should use via ck.kernel.access
 
-              func                        - action
-              (desc)                      - desc
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): must be "module"
+              data_uoa (str): UOA of the module for the new action
 
-              (for_web)                   - if 'yes', make it a web API, i.e. allow an access to this function in the CK server
+              func (str): action name
+              (desc) (str): action description
 
-              (skip_appending_dummy_code) - if 'yes', do not append code
-            }
+              (for_web) (str): if 'yes', make it compatible with the CK web API, i.e. allow an access to this function in the CK server
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+              (skip_appending_dummy_code) (str): if 'yes', do not append code
 
-               Output of 'update' function
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                Output from the 'update' function for the given CK module
     """
 
     # Check if global writing is allowed
@@ -9266,29 +10111,31 @@ def add_action(i):
     return r
 
 ##############################################################################
-# Remove action from a module
+# Remove an action from the given module
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def remove_action(i):
+    """Remove an action from the given module
+       Target audience: should use via ck.kernel.access
+
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): must be "module"
+              data_uoa (str): UOA of the module for the new action
+
+              func (str): action name
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                Output from the 'update' function for the given CK module
     """
-    Input:  {
-              (repo_uoa)  - repo UOA
-              module_uoa  - normally should be 'module' already
-              data_uoa    - UOA of the module to be created
 
-              func        - action
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-
-               Output of 'update' function
-            }
-
-    """
     # Check if global writing is allowed
     r=check_writing({})
     if r['return']>0: return r
@@ -9356,25 +10203,27 @@ def remove_action(i):
     return r
 
 ##############################################################################
-# List actions in a module
+# List actions in the given CK module
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: should use via ck.kernel.access
 
 def list_actions(i):
-    """
-    Input:  {
-              (repo_uoa)   - repo UOA
-              (module_uoa) - module_uoa, if =="", use kernel
-              (data_uoa)  
-            }
+    """List actions in the given CK module
+       Target audience: should use via ck.kernel.access
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): must be "module"
+              data_uoa (str): UOA of the module for the new action
 
-              actions      - list of actions
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                actions (dict): dict with actions in the given CK module
 
     """
 
@@ -9418,43 +10267,50 @@ def list_actions(i):
     return {'return':0, 'actions':actions}
 
 ##############################################################################
-# Pull data
+# Pull CK entries from the CK server
 #
 # TARGET: CK kernel and low-level developers
 
 def pull(i):
-    """
-    Input:  {
-              (repo_uoa)      - repo UOA, if needed
-              module_uoa      - module UOA 
-              data_uoa        - data UOA
+    """Pull CK entries from the CK server
+       Target audience: CK kernel and low-level developers
 
-              (filename)      - filename (with path) (if empty, set archive to 'yes')
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): must be "module"
+              data_uoa (str): UOA of the module for the new action
+
+              (filename) (str): filename (with path) (if empty, set archive to 'yes').
+                                If empty, create an archive of the entry
                   or
-              (cid[0])
-                                if empty, create an archive of the entry
-              (archive)       - if 'yes' pull whole entry as zip archive using filename or ck_archive.zip
-              (all)           - if 'yes' and archive, add even special directories (.cm, .svn, .git, etc)
+              (cid[0]) (str):
+
+              (archive) (str): if 'yes' pull whole entry as zip archive using filename or ck_archive.zip
+              (all) (str): if 'yes' and archive, add even special directories (.cm, .svn, .git, etc)
 
 
-              (out)           - if 'json' or 'json_file', encode file and return in r
-              (skip_writing)  - if 'yes', do not write file (not archive) to current directory
+              (out) (str): if 'json' or 'json_file', encode file and return in r
+              (skip_writing) (str): if 'yes', do not write file (not archive) to current directory
 
-              (pattern)       - return only files with this pattern
-              (patterns)      - multiple patterns (useful to pack mutiple points in experiments)
+              (pattern) (str): return only files with this pattern
+              (patterns) (str): multiple patterns (useful to pack mutiple points in experiments)
 
-              (encode_file)   - if 'yes', encode file
+              (encode_file) (str): if 'yes', encode file
 
-              (skip_tmp)      - if 'yes', skip tmp files and directories
-            }
+              (skip_tmp) (str): if 'yes', skip tmp files and directories
 
-    Output: {
-              return                - return code =  0, if successful
-                                                  >  0, if error
-              (error)               - error text if return > 0
-              (file_content_base64) - if i['to_json']=='yes', encoded file
-              (filename)            - filename to record locally
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                actions (dict): dict with actions in the given CK module
+
+                (file_content_base64) (str): if i['to_json']=='yes', encoded file
+
+                (filename) (str): filename to record locally
 
     """
 
@@ -9600,35 +10456,38 @@ def pull(i):
     return rr
 
 ##############################################################################
-# Push data
+# Push CK entry to the CK server
 #
 # TARGET: CK kernel and low-level developers
 
 def push(i):
-    """
-    Input:  {
-              (repo_uoa)            - repo UOA, if needed
-              module_uoa            - module UOA 
-              data_uoa              - data UOA
+    """Push CK entry to the CK server
+       Target audience: CK kernel and low-level developers
 
-              (filename)            - local filename 
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): must be "module"
+              data_uoa (str): UOA of the module for the new action
+
+              (filename) (str): filename (with path) (if empty, set archive to 'yes').
+                                If empty, create an archive of the entry
                   or
-              (cid[0])
+              (cid[0]) (str):
 
-              (extra_path)          - extra path inside entry (create if doesn't exist)
+              (extra_path) (str): extra path inside entry (create if doesn't exist)
 
-              (file_content_base64) - if !='', take its content and record into filename
+              (file_content_base64) (str): if !='', take its content and record into filename
 
-              (archive)             - if 'yes' push to entry and unzip ...
+              (archive) (str): if 'yes' push to entry and unzip ...
 
-              (overwrite)           - if 'yes', overwrite files
-            }
+              (overwrite) (str); if 'yes', overwrite files
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
 
@@ -9752,26 +10611,28 @@ def push(i):
     return {'return':0}
 
 ##############################################################################
-# List files in a given entry
+# Unizip archive file to a given path
 #
 # TARGET: end users
 
 def unzip_file(i):
-    """
-    Input:  {
-              archive_file         - full path to zip file  
-              (path)               - path where unzip (current if empty)
-              (overwrite)          - if 'yes', overwrite
-              (delete_after_unzip) - if 'yes', delete original zip file after unzipping
-            }
+    """Unizip archive file to a given path
+       Target audience: end users
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+    Args:    
+              archive_file (str): full path to a zip file  
+              (path) (str): path where to unzip (use current path if empty)
+              (overwrite) (str): if 'yes', overwrite existing files
+              (delete_after_unzip) (str); if 'yes', delete original zip file after unzipping
 
-              skipped       - list of files which was not overwritten
-           }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                skipped (list): list of files that were not overwritten
 
     """
 
@@ -9816,27 +10677,29 @@ def unzip_file(i):
     return {'return':0, 'skipped':s}
 
 ##############################################################################
-# List files in a given entry
+# List files in a given CK entry
 #
 # TARGET: end users
 
 def list_files(i):
-    """
-    Input:  {
-              (repo_uoa)   
-              (module_uoa) 
-              (data_uoa)  
+    """List files in a given CK entry
+       Target audience: end users
 
-              parameters for function 'list_all_files'
-            }
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              (module_uoa) (str): CK module UOA
+              (data_uoa): CK entry (data) UOA
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+              See other keys for the "list_all_files" function
 
-              Output of list all files
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                Output from the "list_al_files" function
 
     """
 
@@ -9868,32 +10731,34 @@ def list_files(i):
     return r
 
 ##############################################################################
-# convert_cm_to_ck
+# Internal function to convert old Collective Mind entries
+# to the CK entries
 #
-# TARGET: internal use
+# TARGET: internal
 
 def convert_cm_to_ck(i): # pragma: no cover
-    """
+    """List files in a given CK entry
+       Target audience: internal
 
-    Input:  {
-              (repo_uoa)   - repo UOA with wild cards
-              (module_uoa) - module UOA with wild cards
-              (data_uoa)   - data UOA with wild cards
+    Args:    
+              (repo_uoa) (str): CK repo UOA with wild cards
+              (module_uoa) (str): CK module UOA with wild cards
+              (data_uoa) (str): CK entry (data) UOA with wild cards
 
-              (print_full) - if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
+              (print_full) (str): if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
 
-              (print_time) - if 'yes'. print elapse time at the end
+              (print_time) (str): if 'yes'. print elapse time at the end
 
-              (ignore_update) - if 'yes', do not add info about update
+              (ignore_update) (str): if 'yes', do not add info about update
 
-              (time_out)   - in sec. (default -1, i.e. no timeout)
-            }
+              (time_out) (float): time out in sec. (default -1, i.e. no timeout)
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
 
     """
 
@@ -9938,18 +10803,6 @@ def convert_cm_to_ck(i): # pragma: no cover
 # TARGET: internal use
 
 def filter_convert_cm_to_ck(i): # pragma: no cover
-    """
-
-    Input:  {
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
-
-    """
 
     o=i.get('out','')
     i['out']=''
@@ -10019,31 +10872,31 @@ def filter_convert_cm_to_ck(i): # pragma: no cover
     return rx
 
 ##############################################################################
-# add index
+# Index CK entries using ElasticSearch or similar tools
 #
 # TARGET: CK kernel and low-level developers
 
 def add_index(i):
-    """
+    """Index CK entries using ElasticSearch or similar tools
+       Target audience: CK kernel and low-level developers
 
-    Input:  {
-              (repo_uoa)   - repo UOA with wild cards
-              (module_uoa) - module UOA with wild cards
-              (data_uoa)   - data UOA with wild cards
+    Args:    
+              (repo_uoa) (str): CK repo UOA with wild cards
+              (module_uoa) (str): CK module UOA with wild cards
+              (data_uoa) (str): CK entry (data) UOA with wild cards
 
-              (print_full)         - if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
+              (print_full) (str): if 'yes', show CID (repo_uoa:module_uoa:data_uoa)
 
-              (print_time) - if 'yes'. print elapse time at the end
+              (print_time) (str): if 'yes'. print elapse time at the end
 
-              (time_out)   - in sec. (default -1, i.e. no timeout)
-            }
+              (time_out) (float): time out in sec. (default -1, i.e. no timeout)
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
     """
 
     import sys
@@ -10081,35 +10934,34 @@ def add_index(i):
     return list_data(ii)
 
 ##############################################################################
-# zip entries (call repo)
+# Zip CK entries
 #
 # TARGET: CK kernel and low-level developers
 
 def zip(i):
-    """
+    """Zip CK entries
+       Target audience: CK kernel and low-level developers
 
-    Input:  {
-              (repo_uoa)   - repo UOA with wild cards
-              (module_uoa) - module UOA with wild cards
-              (data_uoa)   - data UOA with wild cards
+    Args:    
+              (repo_uoa) (str): CK repo UOA with wild cards
+              (module_uoa) (str): CK module UOA with wild cards
+              (data_uoa) (str): CK entry (data) UOA with wild cards
 
-              (archive_path) - if '' create inside repo path
+              (archive_path) (str): if '' create inside repo path
 
-              (archive_name) - if !='' use it for zip name
-              (auto_name)    - if 'yes', generate name name from data_uoa: ckr-<repo_uoa>.zip
-              (bittorent)    - if 'yes', generate zip name for BitTorrent: ckr-<repo_uid>-YYYYMMDD.zip
+              (archive_name) (str): if !='' use it for zip name
+              (auto_name) (str): if 'yes', generate name name from data_uoa: ckr-<repo_uoa>.zip
+              (bittorent) (str): if 'yes', generate zip name for BitTorrent: ckr-<repo_uid>-YYYYMMDD.zip
 
-              (overwrite)    - if 'yes', overwrite zip file
-              (store)        - if 'yes', store files instead of packing
+              (overwrite) (str): if 'yes', overwrite zip file
+              (store) (str): if 'yes', store files instead of packing
 
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
-
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
     """
 
     if i.get('data_uoa','')!='': del(i['data_uoa'])
@@ -10129,23 +10981,11 @@ def zip(i):
     return access(i)
 
 ##############################################################################
-# add index filter
+# Add index filter
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: internal
 
 def filter_add_index(i):
-    """
-
-    Input:  {
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
-
-    """
 
     o=i.get('out','')
     i['out']=''
@@ -10157,35 +10997,38 @@ def filter_add_index(i):
     muid=rx['module_uid']
     duid=rx['data_uid']
     path='/'+muid+'/'+duid+'/1'
+
     r=access_index_server({'request':'DELETE', 'path':path})
     if r['return']>0: return r
+
     r=access_index_server({'request':'PUT', 'path':path, 'dict':rx})
+
     return r
 
 ##############################################################################
-# delete index
+# Delete index for a given CK entry in the ElasticSearch or a similar services
 #
 # TARGET: CK kernel and low-level developers
 
 def delete_index(i):
-    """
+    """Delete index for a given CK entry in the ElasticSearch or a similar services
+       Target audience: CK kernel and low-level developers
 
-    Input:  {
-              (repo_uoa)   - repo UOA with wild cards
-              (module_uoa) - module UOA with wild cards
-              (data_uoa)   - data UOA with wild cards
+    Args:    
+              (repo_uoa) (str): CK repo UOA with wild cards
+              (module_uoa) (str): CK module UOA with wild cards
+              (data_uoa) (str): CK entry (data) UOA with wild cards
 
-              (print_time) - if 'yes'. print elapse time at the end
+              (print_time) (str): if 'yes'. print elapse time at the end
 
-              (time_out)   - in sec. (default -1, i.e. no timeout)
-            }
+              (time_out) (float): in sec. (default -1, i.e. no timeout)
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
+    Returns:
+              (dict): Unified CK dictionary:
 
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
     """
 
     import sys
@@ -10214,23 +11057,11 @@ def delete_index(i):
     return list_data(ii)
 
 ##############################################################################
-# add index filter
+# Delete index filter
 #
-# TARGET: CK kernel and low-level developers
+# TARGET: internal
 
 def filter_delete_index(i):
-    """
-
-    Input:  {
-            }
-
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
-            }
-
-    """
 
     o=i.get('out','')
     i['out']=''
@@ -10264,72 +11095,74 @@ def rm_read_only(f,p,e):
     return
 
 ############################################################################
-# Universal access to all CK functions (Unified JSON/dictionary API)
+# Universal access to all CK actions with unified I/O as dictionaries
 #
 # TARGET: end users
 
 def access(i):
+    """Universal access to all CK actions with unified I/O as dictionaries
+       Target audience: end users
 
-    """
-    Input:  Can be dictionary or string (string will be converted to dictionary)
+          NOTE: If input is a string and it will be converted to the dictionary as follows (the same as CK command line):
 
-            {
-               action
+                key1=value1 -> converted to {key1:value1}
 
-               module_uoa or CID -> converted to cid
-                 or
-               (cid1)            -  if doesn't have = and doesn't start from -- or - or @ -> appended to cids[]
-               (cid2)            -  if doesn't have = and doesn't start from -- or - or @ -> appended to cids[]
-               (cid3)            -  if doesn't have = and doesn't start from -- or - or @ -> appended to cids[]
-                 or
-               (repo_uoa)
-               (module_uoa)
-               (data_uoa)
+                -key10 -> converted to {key10:"yes"}
 
-               (out=type)     Module output
-                              == ''              - none
-                              == 'con'           - console interaction (if from CMD, default)
-                              == 'json'          - return dict as json to console
-                              == 'json_with_sep' - separation line and return dict as json to console
-                              == 'json_file'     - return dict as json to file
+                -key11=value11 -> converted to {key11:value11}
 
-               (out_file)     Output file if out=='json_file'
+                --key12 -> converted to {key12:"yes"}
 
-               (con_encoding) - force encoding for IO
-               (ck_profile)   - if 'yes', profile CK
+                --key13=value13 -> converted to {key13:value13}
 
-               INPUT TO A GIVEN FUNCTION
+                @file_json -> JSON from this file will be merged with INPUT
 
+                @@ -> CK will ask user ot enter manually JSON from console and merge with INPUT
 
-               NOTE: If INPUT is a string and it will be converted to INPUT dictionary as follows (the same as CK command line):
+                @@key -> Enter JSON manually from console and merge with INPUT under this key
 
-                     ck key1=value1    -> converted to {key1:value1}
+                @@@cmd_json -> convert string to JSON (special format) and merge with INPUT
 
-                        -key10         -> converted to {key10:"yes"}
-                        -key11=value11 -> converted to {key11:value11}
+                -- xyz -> add everything after -- to "unparsed_cmd" key in INPUT
 
-                        --key12         -> converted to {key12:"yes"}
-                        --key13=value13 -> converted to {key13:value13}
+                When string is converted to INPUT dictionary, "cmd" variable is set to True
 
+    Args:    
+              Unified input as dictionary or string (converted to dict)
 
-                     @file_json         -> JSON from this file will be merged with INPUT
-                     @@                 -> CK will ask user ot enter manually JSON from console and merge with INPUT
-                     @@key              -> Enter JSON manually from console and merge with INPUT under this key
+                 action (str): automation action
 
-                     @@@cmd_json        -> convert string to JSON (special format) and merge with INPUT
+                 module_uoa (str): CK module UOA for the automation action
+                   or
+                 (cid1) (str): if doesn't have = and doesn't start from -- or - or @ -> appended to cids[]
+                 (cid2) (str): if doesn't have = and doesn't start from -- or - or @ -> appended to cids[]
+                 (cid3) (str): if doesn't have = and doesn't start from -- or - or @ -> appended to cids[]
 
-                     -- xyz             -> add everything after -- to "unparsed_cmd" key in INPUT
+                 (repo_uoa) (str): CK repo UOA if action is applied to some CK entry
+                 (data_uoa) (str): CK entry name(s)
 
-                     When string is converted to INPUT dictionary, "cmd" variable is set to True
-            }
+                 (out) (str): output for a given action
+                               - if '', none
+                               - if 'con', console interaction (if from CMD, default)
+                               - if 'json', print return dict as json to console
+                               - if 'json_with_sep', separation line and return dict as json to console
+                               - if 'json_file', save return dict to JSON file
 
-    Output: {
-              return       - return code =  0, if successful
-                                         >  0, if error
-              (error)      - error text if return > 0
+                 (out_file) (str): Name of the file to save return dict if 'out'=='json_file'
 
-              OUTPUT FROM A GIVEN FUNCTION
-            }
+                 (con_encoding) (str): force encoding for I/O
+                 (ck_profile) (str): if 'yes', profile CK 
+
+                 Keys for a given CK automation action
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                Output from the given CK automation action
 
     """
 

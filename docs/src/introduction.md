@@ -64,7 +64,7 @@ The root also contains directories to group related components together such as 
 Finally, the root directory contains ``.cm`` directory that keeps Unique IDs of all components
 to be able to keep track of all created components even if their names have changed (***CK alias***).
 
-The second directory level (``CK entries``) is used to store artifacts (any files and sub-directories) 
+The second directory level (``CK entries`` or ``CK data``) is used to store artifacts (any files and sub-directories) 
 for components such as ``dataset/text1234-for-nlp`` or ``dataset/some-images-from-imagenet``. 
 Each such sub-directory also contains ``.cm`` directory with a ``meta.json`` file to describe a given component
 and a ``info.json`` file to keep the provenance of a given component

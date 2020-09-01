@@ -6,11 +6,23 @@ with [automation actions]( https://cKnowledge.io/actions ) and associated
 
 Here we describe the main CK functionality to manage repositories, modules, and actions.
 Remember that you can see all flags for a given automation action from the command line as follows:
-```
+```bash
 ck {action} {CK module} --help
 ```
 
+You can set the *value* of any *key* for the automation action as follows:
+```bash
+ck {action} ... key=value
+ck {action} ... -key=value
+ck {action} ... --key=value
+ck {action} ... --key=value
+```
+If the value is omitted, CK will use "yes" string.
 
+You can also use a JSON file as the input to a given action:
+```bash
+ck {action} ... @input.json
+```
 
 ## Managing CK repositories
 
@@ -232,7 +244,7 @@ ck search dataset:*dnn* --tags=jpeg
 
 ### Search for CK entries by a string
 
-You can search CK entries by the occurance of a given string in values of keys in JSON meta descriptions
+You can search CK entries by the occurrence of a given string in values of keys in JSON meta descriptions
 
 ```bash
 ck search {CK module} --search_string={string with wildcards}
@@ -412,12 +424,140 @@ ck cp ctuning-datasets-min:dataset:image-jpeg-dnn-computer-mouse local::new-imag
 
 ## Managing CK actions
 
+All the functionality in CK is implemented as automation actions in CK modules.
 
+All CK modules inherit default automation actions from the previous section to manage associated CK entries.
 
+A new action can be added to a given CK module as follows:
+
+```bash
+ck add_action {module name} --func={action name}
+```
+
+CK will ask you a few questions and will create a dummy function in the given CK module.
+You can immediately test it as follows:
+```bash
+ck {action name} {module name}
+```
+
+It will just print the input as JSON to let you play with the command line 
+and help you understand how CK converts the command line parameters
+into the dictionary input for this function.
+
+Next, you can find this module and start modifying this function:
+```bash
+ck find module:{module name}
+```
+
+For example, you can add the following Python code inside
+this function to load some meta description of the entry ''my data''
+when you call the following action:
+
+```bash
+ck {action name} {module name}:{my data}
+```
+
+```Python
+    def {action name}(i):
+
+    action=i['action']     # CK will substitute 'action' with {action name}
+    module=i['module_uoa'] # CK will substitute 'module_uoa' with {module name}
+    data=i['data_uoa']     # CK will substitute 'data_uoa' with {my data}
+
+    # Call CK API to load meta description of a given entry
+    # Equivalent to the command line: "ck load {module name}:{data name}"
+    r=ck.access({'action':'load',
+                 'module_uoa':work['self_module_uid'], # Load the UID of a given module
+                 'data_uoa':data})
+    if r['return']>0: return r # Universal error handler in the CK
+
+    meta=r['dict']      # meta of a given entry
+    info=r['info']      # provenance info of this entry
+    path=r['path']      # local path to this entry
+    uoa=r['data_uoa']   # Name of the CK entry if exists. Otherwise UID.
+    uid=r['data_uid']   # Only UID of the entry
+```
+
+Note that *uoa* means that this variable accepts Unique ID or Alias (user-friendly name).
+
+Here *ck* is a CK kernel with various productivity functions
+and one unified *access* function to all CK modules and actions
+with unified dictionary (JSON) I/O.
+
+You can find JSON API for all internal CK actions from the previous section that manage CK entries
+from the command line as follows:
+```bash
+ ck get_api --func={internal action}
+```
+
+For example, you can check the API of the "load" action as follows:
+```bash
+ ck get_api --func=load
+```
+
+For non-internal actions, you can check their API as follows:
+```bash
+ ck {action name} {module name} --help
+```
+
+You can also check them at the [cKnowledge.io platform](https://cKnowledge.io/modules).
+
+When executing the following command
+
+```bash
+ ck my_action my_module --param1=value1 --param2 -param3=value3 param4 @input.json ...
+```
+CK will convert the above command line parameters to the following Python dictionary ''i'' 
+for a given action:
+
+```Python
+ i={
+     "action":"my_action",
+     "module_uoa":"my_module",
+     "param1":"value1",
+     "param2":"yes",
+     "param3":"value3"
+
+     #extra keys merged from the input.json
+
+     ...
+ }
+```
+
+Note that when adding a new action to a given module, CK will also create a description
+of this action inside the *meta.json* of this module. You can see an example
+of such descriptions for the internal CK module "repo" [here](https://github.com/ctuning/ck/blob/master/ck/repo/module/repo/.cm/meta.json).
+When CK calls an action, it is not invoked directly from the given Python module 
+but CK first checks the description, tests inputs, and then passes the control to the given Python module.
+
+Also note that we suggest not to use aliases (user-friendly names) inside CK modules
+but CK UIDs. The reason is that CK names may change while CK UIDs stay persistent.
+We specify dependencies on other CK modules in the *meta.json* of a given module
+using the *module_deps* key. See an example in the CK module *program*:
+* [program meta.json](https://github.com/ctuning/ck-autotuning/blob/master/module/program/.cm/meta.json#L118)
+* [how it is used in the CK module program](https://github.com/ctuning/ck-autotuning/blob/master/module/program/module.py#L479)
+
+Such approach also allows us to visualize the growing knowledge graph:
+[interactive graph]( https://cKnowledge.io/kg1 ), 
+[video](https://youtu.be/nabXHyot5is).
+
+Finally, a given CK module has an access to the 3 dictionaries:
+* *cfg* - this dictionary is loaded from the *meta.json* file from the CK module
+* *work* - this dictionary has some run-time information:
+
+  * self_module_uid: UID of the module
+  * self_module_uoa: Alias (user-friendly name of the module) or UID
+  * self_module_alias: Alias (user-friendly name of the module) or empty
+  * path: path to the CK module
+* *ck.cfg* - CK global [cfg dictionary](https://github.com/ctuning/ck/blob/master/ck/kernel.py#L48) 
+  that is updated at run-time with the meta description of the "kernel:default" entry.
+  This dictionary is used to customize the local CK installation.
 
 
 
 ## CK Python API
+
+
 
 
 
