@@ -532,8 +532,8 @@ class TestKernel(unittest.TestCase):
     def test_get_api(self):
         r = ck.get_api({'func': 'list_actions'})
         self.assertEqual(0, r['return'], r.get('error', None))
-        self.assertEqual('List actions in a module\n \nTARGET: CK kernel and low-level developers', r['title'].strip())
-        self.assertTrue(r['api'].strip().startswith('Input:  {'))
+        self.assertEqual('List actions in the given CK module\n \nTARGET: should use via ck.kernel.access', r['title'].strip())
+        self.assertTrue(r['api'].strip().lower().startswith('target audience:'))
 
         missing_file = ck.gen_uid({})['data_uid'] + '.py'
         with test_util.tmp_cfg('file_kernel_py', missing_file):
