@@ -206,5 +206,6 @@ universal autotuning, ML/SW/HW co-design, model testing and deployment, paper ge
 * [A high level overview of portable CK workflows](https://cknowledge.org/high-level-overview.pdf)
 * [A Collective Knowledge workflow for collaborative research into multi-objective autotuning and machine learning techniques (collaboration with the Raspberry Pi foundation)]( https://cKnowledge.org/report/rpi3-crowd-tuning-2017-interactive )
 * [A summary of main CK-based projects with academic and industrial partners]( https://cKnowledge.org/partners.html )
+* [cKnowledge.io platform documentation]( https://cKnowledge.io/docs )
 
 Don't hesitate to [contact us](https://cKnowledge.org/contacts.html) if you have a feedback or want to know more about our plans!
