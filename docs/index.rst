@@ -45,6 +45,7 @@ and ACM: https://cKnowledge.org/partners.
 
    src/commands
    src/specs
+   src/portable-workflows
    src/how-to-contribute
 
 .. toctree::

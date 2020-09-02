@@ -70,6 +70,22 @@ and ACM at [cKnowledge.org/partners](https://cKnowledge.org/partners.html).
     * [experiment replay]( https://cKnowledge.io/c/module/experiment )
     * [live scoreboards]( https://cKnowledge.io/reproduced-results )
 * [Real-world use-cases](https://cKnowledge.org/partners)
+  * [MLPerf CK solution (GUI)](https://cKnowledge.io/test)
+  * [MLPerf CK workflows and components (development version)](https://github.com/ctuning/ck-mlperf)
+    * [ck-mlperf:soft:lib.mlperf.loadgen.static](https://github.com/ctuning/ck-mlperf/tree/master/soft/lib.mlperf.loadgen.static)
+    * [ck-mlperf:package:lib-mlperf-loadgen-static](https://github.com/ctuning/ck-mlperf/tree/master/package/lib-mlperf-loadgen-static)
+    * [ck-mlperf:package:model-onnx-mlperf-mobilenet](https://github.com/ctuning/ck-mlperf/tree/master/package/model-onnx-mlperf-mobilenet/.cm)
+    * [ck-tensorflow:package:lib-tflite](https://github.com/ctuning/ck-tensorflow/tree/master/package/lib-tflite)
+    * [ck-mlperf:program:image-classification-tflite-loadgen](https://github.com/ctuning/ck-mlperf/tree/master/program/image-classification-tflite-loadgen)
+    * [ck-tensorflow:program:image-classification-tflite](https://github.com/ctuning/ck-tensorflow/tree/master/program/image-classification-tflite)
+    * [ck-mlperf:docker:*](https://github.com/ctuning/ck-mlperf/tree/master/docker)
+    * [ck-mlperf:docker:speech-recognition.rnnt](https://github.com/ctuning/ck-mlperf/tree/master/docker/speech-recognition.rnnt)
+    * [ck-object-detection:docker:object-detection-tf-py.tensorrt.ubuntu-18.04](https://github.com/ctuning/ck-object-detection/blob/master/docker/object-detection-tf-py.tensorrt.ubuntu-18.04)
+    * [ck-object-detection:package:model-tf-*](https://github.com/ctuning/ck-object-detection/tree/master/package)
+    * [ck-mlperf:script:mlperf-inference-v0.7.image-classification](https://github.com/ctuning/ck-mlperf/tree/master/script/mlperf-inference-v0.7.image-classification)
+    * [ck-object-detection:jnotebook:object-detection](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb)
+  * [MLPerf stable crowd-benchmarking demo with the live scoreboard](https://cKnowledge.io/test)
+  * [CK-based live research paper (collaboration with the Raspberry Pi foundation)](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
 * [Publications](https://github.com/ctuning/ck/wiki/Publications)
 
 ## Installation

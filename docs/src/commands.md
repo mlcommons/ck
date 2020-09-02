@@ -1,4 +1,4 @@
-# CK commands and APIs
+# CK CLI and API
 
 Most of the CK functionality is implemented using [CK modules](https://cKnowledge.io/modules) 
 with [automation actions]( https://cKnowledge.io/actions ) and associated 
@@ -24,7 +24,7 @@ You can also use a JSON file as the input to a given action:
 ck {action} ... @input.json
 ```
 
-## Managing CK repositories
+## CLI to manage CK repositories
 
 * Automation actions are implemented using the internal CK module [*repo*]( https://cknowledge.io/c/module/repo ).
 * See the list of all automation actions and their API at [cKnowledge.io platform]( https://cknowledge.io/c/module/repo/#api ).
@@ -142,7 +142,7 @@ ck unzip repo:{CK repo name} --zip={path to a zip file with the CK repo}
 
 
 
-## Managing CK entries
+## CLI to manage CK entries
 
 CK repository is basically a database of CK modules and entries.
 You can see internal CK commands to manage CK entries as follows:
@@ -422,7 +422,7 @@ ck cp ctuning-datasets-min:dataset:image-jpeg-dnn-computer-mouse local::new-imag
 
 
 
-## Managing CK actions
+## CLI to manage CK actions
 
 All the functionality in CK is implemented as automation actions in CK modules.
 
@@ -557,8 +557,59 @@ Finally, a given CK module has an access to the 3 dictionaries:
 
 ## CK Python API
 
+One of the goals of the CK framework was to make it very simple for any user to access any automation action.
+That is why we have developed just one [unified Python "access" function](https://ck.readthedocs.io/en/latest/src/ck.html#ck.kernel.access) 
+that allows one to access all automation actions with a simple I/O (dictionary as input and dictionary as output).
 
+You can call this function from any Python script or from CK modules as follows:
 
+```Python
+import ck.kernel as ck
+
+i={'action': # specify action
+   'module_uoa': # specify CK module UID or alias
+
+   check keys from a given automation action for a given CK module (ck action module --help)
+  }
+
+r=ck.access(i)
+
+if r['return']>0: return r # if used inside CK modules to propagate to all CK callers
+#if r['return']>0: ck.err(r) # if used inside Python scripts to print an error and exit
+
+#r dictionary will contain keys from the given automation action.
+# See API of this automation action (ck action module --help)
+```
+
+Such approach allows users to continue extending different automation actions by adding new keys
+while keeping backward compatibility. That's how we managed to develop 50+ modules with the community
+without breaking portable CK workflows for our ML&systems R&D.
+
+At the same time, we have implemented a number of "productivity" functions
+in the CK kernel that are commonly used by many researchers and engineers.
+For example, you can load JSON files, list files in directories, copy strings to clipboards.
+At the same time, we made sure that these functions work in the same way across
+different Python versions (2.7+ and 3+) and different operating systems 
+thus removing this burden from developers.
+
+You can see the list of such productivity functions [here](https://ck.readthedocs.io/en/latest/src/ck.html).
+For example, you can [load a json file](https://ck.readthedocs.io/en/latest/src/ck.html#ck.kernel.load_json_file) 
+in your script or CK module in a unified way as follows:
+
+```Python
+import ck.kernel as ck
+
+r=ck.load_json_file({'json_file':'some_file.json'})
+if r['return']>0: ck.err(r)
+
+d=r['dict']
+
+d['modify_some_key']='new value'
+
+r=ck.save_json_to_file({'json_file':'new_file.json', 'dict':d, 'sort_keys':'yes'})
+if r['return']>0: ck.err(r)
+
+```
 
 
 
