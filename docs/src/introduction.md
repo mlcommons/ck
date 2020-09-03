@@ -235,24 +235,37 @@ interested to know more!*
 
 
 
-## CK use cases
+## CK-powered workflows, automation actions, and reusable artifacts for ML&systems R&D
 
-* [Real-world use cases from our industrial and academic partners](https://cKnowledge.org/partners.html)
-* [MLPerf CK solution (GUI)](https://cKnowledge.io/test)
-* [MLPerf CK workflow (development version)](https://github.com/ctuning/ck-mlperf)
-  * [ck-mlperf:soft:lib.mlperf.loadgen.static](https://github.com/ctuning/ck-mlperf/tree/master/soft/lib.mlperf.loadgen.static)
-  * [ck-mlperf:package:lib-mlperf-loadgen-static](https://github.com/ctuning/ck-mlperf/tree/master/package/lib-mlperf-loadgen-static)
-  * [ck-mlperf:package:model-onnx-mlperf-mobilenet](https://github.com/ctuning/ck-mlperf/tree/master/package/model-onnx-mlperf-mobilenet/.cm)
-  * [ck-tensorflow:package:lib-tflite](https://github.com/ctuning/ck-tensorflow/tree/master/package/lib-tflite)
-  * [ck-mlperf:program:image-classification-tflite-loadgen](https://github.com/ctuning/ck-mlperf/tree/master/program/image-classification-tflite-loadgen)
-  * [ck-tensorflow:program:image-classification-tflite](https://github.com/ctuning/ck-tensorflow/tree/master/program/image-classification-tflite)
-  * [ck-mlperf:docker:*](https://github.com/ctuning/ck-mlperf/tree/master/docker)
-  * [ck-mlperf:docker:speech-recognition.rnnt](https://github.com/ctuning/ck-mlperf/tree/master/docker/speech-recognition.rnnt)
-  * [ck-object-detection:package:model-tf-*](https://github.com/ctuning/ck-object-detection/tree/master/package)
-  * [ck-mlperf:script:mlperf-inference-v0.7.image-classification](https://github.com/ctuning/ck-mlperf/tree/master/script/mlperf-inference-v0.7.image-classification)
-  * [ck-object-detection:jnotebook:object-detection](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb)
-* [MLPerf stable crowd-benchmarking demo with the live scoreboard](https://cKnowledge.io/test)
-* [CK-based live research paper (collaboration with the Raspberry Pi foundation)](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive).
+* [Real-world use-cases](https://cKnowledge.org/partners)
+* Reproducibility initiatives: [[methodology](https://cTuning.org/ae)], [[events](https://cKnowledge.io/events)]
+* Showroom (public projects powered by CK):
+  * [MLPerf automation](https://github.com/ctuning/ck-mlperf)
+  * Student Cluster Competition automation: [SCC18](https://github.com/ctuning/ck-scc18), [digital artifacts](https://github.com/ctuning/ck-scc)
+  * ML-based autotuning project: [reproducible paper demo](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive),  [MILEPOST]( https://github.com/ctuning/reproduce-milepost-project )
+  * Stable Docker containers with CK workflows: [MLPerf example](https://cknowledge.io/c/docker/mlperf-inference-vision-with-ck.intel.ubuntu-18.04/), [cKnowledge.io]( https://cKnowledge.io/c/docker ), [Docker Hub](https://hub.docker.com/u/ctuning)
+  * Portable CK workflows and components for:
+    * [TensorFlow](https://github.com/ctuning/ck-tensorflow)
+    * [PyTorch](https://github.com/dividiti/ck-pytorch)
+    * [TensorRT](https://github.com/dividiti/ck-tensorrt)
+    * [individual NN operators](https://github.com/dividiti/ck-nntest)
+    * [object detection](https://github.com/dividiti/ck-object-detection)
+  * [GUI to automate  ML/SW/HW benchmarking with MLPerf example (under development)](https://cKnowledge.io/test)
+  * [Reproduced papers]( https://cKnowledge.io/reproduced-papers )
+  * [Live scoreboards for reproduced papers]( https://cKnowledge.io/reproduced-results )
+* Examples of CK components (automations, API, meta descriptions):
+    * *program : image-classification-tflite-loadgen* [[cKnowledge.io]( https://cKnowledge.io/c/program/image-classification-tflite-loadgen )] [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/program/image-classification-tflite-loadgen )]
+    * *program : image-classification-tflite* [[GitHub](https://github.com/ctuning/ck-tensorflow/tree/master/program/image-classification-tflite)]
+    * *soft : lib.mlperf.loadgen.static* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/soft/lib.mlperf.loadgen.static )]
+    * *package : lib-mlperf-loadgen-static* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/package/lib-mlperf-loadgen-static )]
+    * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
+    * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/ctuning/ck-tensorflow/tree/master/package/lib-tflite )]
+    * *docker : object-detection-tf-py.tensorrt.ubuntu-18.04* [[cKnowledge.io]( https://cknowledge.io/c/docker/object-detection-tf-py.tensorrt.ubuntu-18.04 )]
+    * *docker : ** [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/docker )]
+    * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/docker/speech-recognition.rnnt )]
+    * *package : model-tf-** [[GitHub]( https://github.com/ctuning/ck-object-detection/tree/master/package )]
+    * *script : mlperf-inference-v0.7.image-classification* [[cKnowledge.io]( https://cknowledge.io/c/script/mlperf-inference-v0.7.image-classification )]
+    * *jnotebook : object-detection* [[GitHub](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb)]
 
 [<img src="https://img.youtube.com/vi/DIkZxraTmGM/0.jpg" width="320">](https://www.youtube.com/watch?v=DIkZxraTmGM)
 [<img src="https://img.youtube.com/vi/VpedDdia5yY/0.jpg" width="320">](https://www.youtube.com/watch?v=VpedDdia5yY)
