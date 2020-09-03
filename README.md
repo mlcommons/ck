@@ -67,8 +67,9 @@ and ACM at [cKnowledge.org/partners](https://cKnowledge.org/partners.html).
 [cKnowledge.io](https://cKnowledge.io): organizing [ML&systems knowledge]( https://doi.org/10.5281/zenodo.4005773 )
 in the form of portable CK workflows, automation actions, and reusable components:
 
-* [all CK modules]( https://cKnowledge.io/modules )
-* [all automation actions]( https://cKnowledge.io/actions )
+* [**All CK ML&systems components**](https://cknowledge.io/?q=mlsystems)
+* [CK modules]( https://cKnowledge.io/modules )
+* [Automation actions]( https://cKnowledge.io/actions )
 * [portable program workflows]( https://cKnowledge.io/programs )
 * [package installation]( https://cKnowledge.io/packages )
 * [software detection (code, data, models)]( https://cKnowledge.io/soft )
