@@ -68,6 +68,7 @@ and ACM at [cKnowledge.org/partners](https://cKnowledge.org/partners.html).
 in the form of portable CK workflows, automation actions, and reusable components:
 
 * [**All CK ML&systems components**](https://cknowledge.io/?q=mlsystems)
+* [CK compatible repositories]( https://cknowledge.io/repos )
 * [CK modules]( https://cKnowledge.io/modules )
 * [Automation actions]( https://cKnowledge.io/actions )
 * [portable program workflows]( https://cKnowledge.io/programs )
@@ -130,6 +131,38 @@ CK supports the following platforms:
 | Android       | ± | ✓ |
 | iOS           | TBD | TBD |
 | Bare-metal (edge devices)   | - | ± |
+
+## Example
+
+Here we show how to pull a GitHub repo in the CK format 
+and use a unified CK interface to compile and run 
+any program (image corner detection in our case)
+with any compatible data set on any compatible platform:
+
+```bash
+pip install ck
+
+ck pull repo --url=https://github.com/ctuning/ck-crowdtuning
+
+ck ls program:*susan*
+
+ck search dataset --tags=jpeg
+
+ck compile program:cbench-automotive-susan --speed
+
+ck run program:cbench-automotive-susan --cmd_key=corners --repeat=1 --env.MY_ENV=123 --env.TEST=xyz
+```
+
+You can check output of this program in the following directory:
+```bash
+cd `ck find program:cbench-automotive-susan`/tmp
+ls -l
+
+tmp-output.tmp - image with detected corners (rename to ppm to view it)
+```
+
+Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for further details.
+
 
 ## Author
 

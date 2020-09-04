@@ -225,6 +225,7 @@ interested to know more!*
 
 * [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for complex computational systems (AI,ML,quantum,IoT):
   * [**Browse all CK ML&systems components**](https://cknowledge.io/?q=mlsystems)
+  * [Browse CK compatible repositories]( https://cknowledge.io/repos )
   * [Browse SOTA scoreboards powered by CK workflows](https://cKnowledge.io/reproduced-results)
   * [Browse all shared CK components](https://cKnowledge.io/browse)
 * [Check documentation](https://cKnowledge.io/docs)
