@@ -19,10 +19,12 @@ ck {action} ... --key=value
 ```
 If the value is omitted, CK will use "yes" string.
 
-You can also use a JSON file as the input to a given action:
+You can also use JSON or YAML files as inputs to a given action:
 ```bash
 ck {action} ... @input.json
+ck {action} ... @input.yaml
 ```
+
 
 ## CLI to manage CK repositories
 

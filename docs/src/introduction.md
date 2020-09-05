@@ -87,8 +87,8 @@ in the user space to be used as a working repository or a scratch-pad.
 
 CK provides a simple command line interface similar natural language to manage CK repositories, entries, and actions:
 ```bash
-ck <action> <CK module name> (flags) (@input.json)
-ck <action> <CK module name>:<CK entry name> (flags) (@input.json)
+ck <action> <CK module name> (flags) (@input.json) (@input.yaml)
+ck <action> <CK module name>:<CK entry name> (flags) (@input.json) (@input.yaml)
 ck <action> <CK repository name>:<CK module name>:<CK entry name>
 ```
 

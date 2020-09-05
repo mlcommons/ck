@@ -1,5 +1,7 @@
 * V1.15.0.1
   * Updated description of all CK APIs in Google format!
+  * Added support to load YAML files via CK CLI: ck action @file.yaml
+  * Fixed Yaml loader
 
 * V1.15.0
   * Improved the integration with the open CK portal: https://cKnowledge.io

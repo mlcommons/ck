@@ -149,7 +149,7 @@ def load_yaml_file(i):
     f.close()
 
     try:
-      d=yaml.load(s)
+      d=yaml.load(s, Loader=yaml.FullLoader)
     except Exception as e:
        return {'return':1, 'error':'problem parsing YAML from file='+fn+' ('+format(e)+')'}
 

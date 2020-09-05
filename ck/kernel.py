@@ -2389,7 +2389,11 @@ def convert_ck_list_to_dict(i):
               if len(name)<2:
                  return {'return':1, 'error':'can\'t parse command line option '+p}
 
-              y=load_json_file({'json_file':name})
+              if name.endswith('.yaml'):
+                 y=load_yaml_file({'yaml_file':name})
+              else:
+                 y=load_json_file({'json_file':name})
+
               if y['return']>0: return y
 
               if name.endswith('.tmp'):
