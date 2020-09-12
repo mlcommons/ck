@@ -13,45 +13,31 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 
 ## Overview
 
-Collective Knowledge framework (CK) helps to organize any software project
+Collective Knowledge framework (CK) helps to organize software projects
 as a database of reusable components with common automation actions
 and extensible meta descriptions based on [FAIR principles](https://www.nature.com/articles/sdata201618)
 (findability, accessibility, interoperability, and reusability).
 
-The ultimate goal is to help everyone share, reuse, and extend their knowledge
+We want to help everyone share, reuse, and extend their knowledge
 in the form of reusable artifacts and portable workflows with a common API, CLI,
-and JSON meta description. 
-
-See how CK helps to support collaborative and reproducible AI, ML, and systems R&D
-in some real-world use cases from Arm, General Motors, IBM, MLPerf, the Raspberry Pi foundation, 
-and ACM at [cKnowledge.org/partners](https://cKnowledge.org/partners.html).
+and meta description. See how CK supports collaborative and reproducible AI, ML, and Systems R&D:
+* [Real-world use-cases](https://cKnowledge.org/partners.html) from Arm, General Motors, IBM, MLPerf, the Raspberry Pi foundation, and ACM
+* [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
 
 ## News
 
-* **2020 August**: We are very excited to announce that we have completed 
-  the prototyping phase of the Collective Knowledge framework (CK)
-  and successfully validated it in several [industrial and academic projects](https://cKnowledge.org/partners)
-  as briefly described in this [white paper](https://arxiv.org/abs/2006.07161)
-  and the [CK presentation](https://cKnowledge.io/presentation/ck).
-  We have helped our partners and the community to use CK as a playground to implement reusable 
-  [components]( https://cknowledge.io/?q=%22digital-component%22 ) with [automation actions]( https://cKnowledge.io/actions ) 
-  for AI, ML, and systems R&D while agreeing on common APIs and JSON meta descriptions. 
-  We then used such components to assemble [portable workflows](https://cknowledge.io/programs)
-  from [reproduced research papers](https://cknowledge.io/reproduced-papers) during 
-  the so-called [artifact evaluation](https://cTuning.org/ae).
-  We also  demonstrated that it was possible to use such portable workflows 
-  to automate the complex co-design process of efficient software, hardware and models, 
-  simplify [MLPerf benchmark](https://mlperf.org) submissions,
-  and [quickly deploy]( https://cKnowledge.io/solution )  emerging AI, ML, and IoT technology in production
+* **2020 August**: We have completed the prototyping phase and successfully validated CK 
+  in [several projects](https://cKnowledge.org/partners)
+  to automate the complex co-design process of [efficient ML/SW/HW stacks](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all),
+  simplify [MLPerf benchmark](https://cKnowledge.io/c/docker) submissions,
+  and quickly deploy emerging technologies (AI, ML, quantum) in production
   in the [most efficient way (speed, accuracy, energy, costs)]( https://cKnowledge.io/results ) 
-  across diverse platforms from supercomputers and data centers to mobile phones and edge devices.
-
-  *We are now raising funding for the second phase of this project to standardize CK APIs and meta descriptions, 
-  make CK more pythonic and user-friendly, and enhance our [open CK platform](https://cKnowledge.io). 
-  Our mission is to organize all AI, ML, and systems knowledge in the form of portable workflows
-  with reusable automation actions and artifacts
-  to accelerate the development and adoption of innovative technology -
-  get in touch with [Grigori Fursin](https://cKnowledge.io/@gfursin) (CK author and project leader) to know more!*
+  across diverse platforms from data centers to mobile phones and edge devices.
+  See this [white paper](https://arxiv.org/abs/2006.07161)
+  and the [CK presentation](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
+  for more details.
+  *We are now raising funding to continue developing our [Collective Knowledge platform](https://cKnowledge.io) - 
+  don't hesitate to get in touch with [Grigori Fursin]( https://cKnowledge.org/contacts.html ) to know more!*
 
 ## Documentation
 
@@ -61,23 +47,6 @@ and ACM at [cKnowledge.org/partners](https://cKnowledge.org/partners.html).
   * [CK Basics](https://michel-steuwer.github.io/About-CK)
   * [Try CK]( https://ck.readthedocs.io/en/latest/src/first-steps.html )
 * [Publications](https://github.com/ctuning/ck/wiki/Publications)
-
-## Open CK portal 
-
-[cKnowledge.io](https://cKnowledge.io): organizing [ML&systems knowledge]( https://doi.org/10.5281/zenodo.4005773 )
-in the form of portable CK workflows, automation actions, and reusable components:
-
-* [**All CK ML&systems components**](https://cknowledge.io/?q=mlsystems)
-* [CK compatible repositories]( https://cknowledge.io/repos )
-* [CK modules]( https://cKnowledge.io/modules )
-* [Automation actions]( https://cKnowledge.io/actions )
-* [portable program workflows]( https://cKnowledge.io/programs )
-* [package installation]( https://cKnowledge.io/packages )
-* [software detection (code, data, models)]( https://cKnowledge.io/soft )
-* [platform detection]( https://cKnowledge.io/?q=module+AND+platform* )
-* [online experiments]( https://cKnowledge.io/c/module/experiment )
-* [live scoreboards]( https://cKnowledge.io/reproduced-results )
-* [Docker images with CK projects]( https://cKnowledge.io/c/module/docker )
 
 ## CK-powered workflows, automation actions, and reusable artifacts
 
@@ -108,11 +77,12 @@ in the form of portable CK workflows, automation actions, and reusable component
     * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
     * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/ctuning/ck-tensorflow/tree/master/package/lib-tflite )]
     * *docker : object-detection-tf-py.tensorrt.ubuntu-18.04* [[cKnowledge.io]( https://cknowledge.io/c/docker/object-detection-tf-py.tensorrt.ubuntu-18.04 )]
-    * *docker : ** [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/docker )]
+    * *docker* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/docker )]
     * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/docker/speech-recognition.rnnt )]
     * *package : model-tf-** [[GitHub]( https://github.com/ctuning/ck-object-detection/tree/master/package )]
     * *script : mlperf-inference-v0.7.image-classification* [[cKnowledge.io]( https://cknowledge.io/c/script/mlperf-inference-v0.7.image-classification )]
     * *jnotebook : object-detection* [[GitHub](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb)]
+
 
 ## Installation
 
@@ -162,6 +132,25 @@ tmp-output.tmp - image with detected corners (rename to ppm to view it)
 ```
 
 Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for further details.
+
+
+## Open CK portal 
+
+[cKnowledge.io](https://cKnowledge.io): organizing [ML and Systems knowledge]( https://doi.org/10.5281/zenodo.4005773 )
+in the form of portable CK workflows, automation actions, and reusable components:
+
+* [**All CK ML&systems components**](https://cknowledge.io/?q=mlsystems)
+* [CK compatible repositories]( https://cknowledge.io/repos )
+* [CK-based Docker images]( https://cKnowledge.io/c/module/docker )
+* [CK modules]( https://cKnowledge.io/modules )
+* [Automation actions]( https://cKnowledge.io/actions )
+* [Portable program workflows]( https://cKnowledge.io/programs )
+* [Meta packages]( https://cKnowledge.io/packages )
+* [Software detection (code, data, models)]( https://cKnowledge.io/soft )
+* [Platform detection]( https://cKnowledge.io/?q=module+AND+platform* )
+* [Shared experiments]( https://cKnowledge.io/c/module/experiment )
+* [Reproduced results from papers]( https://cKnowledge.io/reproduced-results )
+
 
 
 ## Author
