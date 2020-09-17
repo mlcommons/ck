@@ -43,66 +43,100 @@ published in this [Nature article](https://www.nature.com/articles/sdata201618).
 ## What is CK?
 
 We have developed the [Collective Knowledge framework (CK)](https://github.com/ctuning/ck) 
-as a small Python library with a unified command line interface (CLI).
-CK provides commands to organize new software projects or rearrange existing ones
-as a ***CK repository*** - a human-readable database 
-of reusable ***CK components***. 
-Such components wrap user artifacts and provide an extensible JSON meta description
-and [common automation actions](https://cKnowledge.io/actions) with a unified API, CLI and JSON input/output.
-You can find a partial list of shared CK repositories at [cKnowledge.io/repos]( https://cKnowledge.io/repos ).
+as a small Python library with minimal dependencies to be very portable 
+and have the possibility to be implemented in other languages such as C, C++, Java, and Go.
+The CK framework has a unified command line interface (CLI), a Python API,
+and a JSON-based web service to manage ***CK repositories***
+and add, find, update, delete, rename, and move ***CK components***
+(sometimes called ***CK entries*** or ***CK data***).
 
-Since we want CK to be non-intrusive and technology neutral, we use a simple 2-level directory structure
-to wrap user artifacts into CK components. We also use ``.cm`` directories (similar to ``.git``)
-to store meta information of all components including automatically assigned Unique IDs (***CK UID***):
+CK repositories are human-readable databases of reusable CK components that can be created 
+in any local directory and inside containers, pulled from GitHub and similar services, 
+and shared as standard archive files.
+CK components simply wrap user artifacts and provide an extensible JSON meta description
+with [***common automation actions***](https://cKnowledge.io/actions) for related artifacts.
+
+***Automation actions*** are implemented using [***CK modules***]( https://cKnowledge.io/modules ) - Python modules 
+with functions exposed in a unified way via CK API and CLI 
+and using extensible dictionaries for input/output (I/O).
+The use of dictionaries makes it easier to support continuous integration tools
+and web services and extend the functionality while keeping backward compatibility.
+The unified I/O also makes it possible to reuse such actions across projects
+and chain them together into unified pipelines and workflows.
+
+Since we wanted CK to be non-intrusive and technology neutral, we decided to use 
+a simple 2-level directory structure to wrap user artifacts into CK components:
 
 ![wrappers](../static/wrappers.gif)
 
-The root directory of the CK repository contains ``.ckr.json`` to describe this repository 
-and specify dependencies on other CK repositories to reuse their components and automation actions. 
-The root also contains directories to group related components together such as a ``dataset`` or ``program`` 
-(***CK component type***). 
-Finally, the root directory contains ``.cm`` directory that keeps Unique IDs of all components
-to be able to keep track of all created components even if their names have changed (***CK alias***).
+The root directory of the CK repository contains the ``.ckr.json`` file to describe this repository 
+and specify dependencies on other CK repositories to explicitly reuse their components and automation actions. 
 
-The second directory level (``CK entries`` or ``CK data``) is used to store artifacts (any files and sub-directories) 
-for components such as ``dataset/text1234-for-nlp`` or ``dataset/some-images-from-imagenet``. 
-Each such sub-directory also contains ``.cm`` directory with a ``meta.json`` file to describe a given component
-and a ``info.json`` file to keep the provenance of a given component
-including copyrights, licenses, creation date, contributors and so on.
+CK uses ``.cm`` directories similar to ``.git`` to store meta information of all components 
+as well as Unique IDs of all components to be able to find them even 
+if their user-friendly names have changed over time (***CK alias***).
 
-Each ***CK component type*** must have a related ***CK module*** 
-with the same name (for example ``dataset`` or ``program``) 
-that contains a simple Python module with common automation actions for a given component type
-such as ``compile program`` or ``run program``.
-These modules are also stored as CK entries in CK repositories
-such as ``module/dataset/module.py`` or ``module/program/module.py``.
+***CK modules*** are always stored in ***module / < CK module name >*** 
+directories in the CK repository.
+For example, ``module/dataset`` or ``module/program``.
+They have a ``module.py`` with associated automation actions (for example, ``module/dataset/module.py`` or ``module/program/module.py``).
 Such approach allows multiple users to add, improve, and reuse
 common automation action for related components rather than
 reimplementing them from scratch for each new project.
 
-Note that CK framework has an internal [***default CK repository***]( https://github.com/ctuning/ck/tree/master/ck/repo ) 
-with stable [***CK modules***](https://github.com/ctuning/ck/tree/master/ck/repo/module) and most commonly used automation actions.
-When CK is used for the first time, it also creates a ***local CK repository***
-in the user space to be used as a working repository or a scratch-pad.
+
+CK components are stored in ***< CK module name > / < CK data name >*** directories.
+For example, ``dataset/text1234-for-nlp`` or ``dataset/some-images-from-imagenet``. 
+
+Each CK component has a ``.cm`` directory with the ``meta.json`` file 
+describing a given artifact and ``info.json`` file to keep the provenance 
+of a given artifact including copyrights, licenses, creation date, 
+names of all contributors, and so on.
+
+CK framework has an internal [***default CK repository***]( https://github.com/ctuning/ck/tree/master/ck/repo ) 
+with [***stable CK modules***](https://github.com/ctuning/ck/tree/master/ck/repo/module) and the most commonly used automation actions
+across many research projects.
+When CK framework is used for the first time, it also creates a ***local CK repository***
+in the user space to be used as a scratch pad.
+
 
 CK provides a simple command line interface similar natural language to manage CK repositories, entries, and actions:
 ```bash
 ck <action> <CK module name> (flags) (@input.json) (@input.yaml)
-ck <action> <CK module name>:<CK entry name> (flags) (@input.json) (@input.yaml)
+ck <action> <CK module name>:<CK entry name> (flags) (@input.json or @input.yaml)
 ck <action> <CK repository name>:<CK module name>:<CK entry name>
 ```
 
-For example:
+The next example demonstrates how to compile and run the shared automotive benchmark
+on any platform, and then create a copy of the ***CK program component***:
 
 ```bash
 pip install ck
 
 ck pull repo --url=https://github.com/ctuning/ck-crowdtuning
 
+ck search dataset --tags=jpeg
+
+ck search program:cbench-automotive-*
+
+ck find program:cbench-automotive-susan
+
+ck load program:cbench-automotive-susan
+
+ck help program
+
 ck compile program:cbench-automotive-susan --speed
 ck run program:cbench-automotive-susan --env.OMP_NUM_THREADS=4
 
-ck cp program:cbench-automotive-susan program:cbench-automotive-susan-copy
+ck run program --help
+
+ck cp program:cbench-automotive-susan local:program:new-program-workflow
+
+ck find program:new-program-workflow
+
+ck benchmark program:new-program-workflow --record --record_uoa=my-test
+
+ck replay experiment:my-test
 
 ```
 
