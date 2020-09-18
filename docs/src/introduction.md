@@ -140,6 +140,28 @@ ck replay experiment:my-test
 
 ```
 
+The [CK program module](https://cKnowledge.io/c/module/program) describes dependencies on software detection plugins 
+and meta packages usin simple tags with version ranges that the community has to agree on:
+
+```json
+ {
+   "compiler": {
+     "name": "C++ compiler",
+     "sort": 10,
+     "tags": "compiler,lang-cpp"
+   },
+   "library": {
+     "name": "TensorFlow C++ API",
+     "no_tags": "tensorflow-lite",
+     "sort": 20,
+     "version_from": [1,13,1],
+     "version_to": [2,0,0],
+     "tags": "lib,tensorflow,vstatic"
+   }
+ }
+```
+
+
 CK also provides a Python library with a simple API that can be easily used in web applications or continuous integration services:
 ```python
 import ck.kernel as ck
