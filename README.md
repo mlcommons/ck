@@ -34,7 +34,7 @@ and meta description. See how CK supports collaborative and reproducible AI, ML,
   and quickly deploy emerging technologies (AI, ML, quantum) in production
   in the [most efficient way (speed, accuracy, energy, costs)]( https://cKnowledge.io/results ) 
   across diverse platforms from data centers to mobile phones and edge devices.
-  See this [white paper](https://arxiv.org/abs/2006.07161)
+  See this [white paper](https://doi.org/10.6084/m9.figshare.12988361)
   and the [CK presentation](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
   for more details.
   *We are now raising funding to continue developing our [Collective Knowledge platform](https://cKnowledge.io) - 
