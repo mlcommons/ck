@@ -2795,9 +2795,17 @@ def download(i):
               (module_uoa) (str): CK module UOA 
               (data_uoa) (str): CK data UOA  
 
+              (version) (str): version (the latest one if skipped)
+
               (new_repo_uoa) (str): target CK repo UOA, "local" by default
 
               (skip_module_check) (str): if 'yes', do not check if module for a given component exists
+
+              (all) (str): if 'yes', download dependencies
+
+              (force) (str): if 'yes, force download even if components already exists
+
+              (tags) (str): download components using tags separated by comma (usually soft/package)
 
     Returns:
               (dict): Unified CK dictionary:
@@ -2815,8 +2823,18 @@ def download(i):
     muoa=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
 
-    smc=(i.get('skip_module_check','')=='yes')
+    smc=i.get('skip_module_check','')
 
+    force=i.get('force','')
+    al=i.get('all','')
+    tags=i.get('tags','')
+    version=i.get('version','')
+    spaces=i.get('spaces','')
+
+    cids_in_queue=i.get('cids_in_queue',[])
+
+#    if cfg.get('download_missing_components','')=='yes' and al=='': al='yes'
+ 
     # Check components to skip
     if muoa in ['repo', 'befd7892b0d469e9',
                 'env', '9b9b3208ac44b891', 
@@ -2851,13 +2869,17 @@ def download(i):
 
     if o=='con':
 #       out('')
-       out('  WARNING: downloading missing CK component "'+muoa+':'+duoa+'" from the cKnowledge.io portal ...')
+       x=''
+       if tags!='':x=' ('+tags+')'
+       out('  WARNING: downloading missing CK component "'+muoa+':'+duoa+'"'+x+' from the cKnowledge.io portal ...')
 
     ii={
         'action':'download',
         'dict':{
                 'module_uoa':muoa,
-                'data_uoa':duoa
+                'data_uoa':duoa,
+                'version':version,
+                'tags':tags
                }
        }
 
@@ -2924,44 +2946,73 @@ def download(i):
         file_url=q['file_url']
         file_md5=q['file_md5']
 
-        out('      Downloading and extracting '+nmuoa+':'+nduoa+' ...')
+        dependencies=q.get('dependencies',[])
+
+        out(spaces+'      Downloading and extracting '+nmuoa+':'+nduoa+' ...')
+
+        if nmuoa+':'+nduoa in cids_in_queue: 
+           out(spaces+'      Skipped')
+           continue
+        cids_in_queue.append(nmuoa+':'+nduoa)
 
         # Check that module:module exists
         if nmuoa=='module' and nduoa=='module' and path_to_module!='':
            new_path=path_to_module
         else:
-           if not smc:
-              save_state=cfg['download_missing_components']
+           if smc!='yes':
+              save_state=cfg.get('download_missing_components','')
               cfg['download_missing_components']='no'
 
               rz=access({'action':'find',
+                         'repo_uoa':nruoa,
                          'module_uoa':'module',
-                         'data_uoa':'module',
+                         'data_uoa':nmuoa,
                          'common_func':'yes'})
+              cfg['download_missing_components']=save_state
               if rz['return']>0 and rz['return']!=16: return rz
 
               if rz['return']==16:
-                 rz=download({'repo_uoa':nruoa,
+                 rz=download({'new_repo_uoa':nruoa,
+                              'repo_uoa':ruoa,
                               'module_uoa':'module',
-                              'data_uoa':'module',
-                              'skip_module_check':'yes'})
+                              'data_uoa':nmuoa,
+                              'force':force,
+                              'all':al,
+                              'cids_in_queue':cids_in_queue,
+                              'skip_module_check':smc})
                  if rz['return']>0: return rz
 
-              cfg['download_missing_components']=save_state
+           # Check if entry already exists
+           new_path=''
+           save_state=cfg.get('download_missing_components','')
+           cfg['download_missing_components']='no'
+           r=access({'action':'find',
+                     'common_func':'yes',
+                     'repo_uoa':nruoa,
+                     'module_uoa':nmuoa,
+                     'data_uoa':nduoa})
+           cfg['download_missing_components']=save_state
+           if r['return']==0:
+              if force!='yes' and cfg.get('download_missing_components','')!='yes':
+                 return {'return':8, 'error':'     Already exists locally'}
+           else:
+              if r['return']!=16: return r
 
-           # Adding dummy module
-           rz=access({'action':'add',
-                      'module_uoa':nmuoa,
-                      'module_uid':nmuoa,
-                      'data_uoa':nduoa,
-                      'data_uid':nduid,
-                      'repo_uoa':'local',
-                      'common_func':'yes'})
-           if rz['return']>0:
-              out('        Skipping ...')
-              continue
+              # Adding dummy module
+              r=add({
+                         'module_uoa':nmuoa,
+                         'module_uid':nmuoa,
+                         'data_uoa':nduoa,
+                         'data_uid':nduid,
+                         'repo_uoa':nruoa,
+                         'common_func':'yes'})
+              if r['return']>0:
+                 if cfg.get('download_missing_components','')=='yes':
+                    out('        Skipping ...')
+                    continue
 
-           new_path=rz['path']
+                 return r
+           new_path=r['path']
 
         # Prepare pack
         ppz=os.path.join(new_path, 'pack.zip')
@@ -3019,6 +3070,49 @@ def download(i):
 
         # Remove pack file
         os.remove(ppz)
+
+        # Check deps
+        if al=='yes':
+           if len(dependencies)>0:
+              out(spaces+'  Checking dependencies ...')
+
+           for dep in dependencies:
+               muoa=dep.get('module_uid','')
+               duoa=dep.get('data_uid','')
+
+               tags=dep.get('tags',[])
+               xtags=''
+               if len(tags)>0:
+                  xtags=','.join(tags)
+                  muoa='package'
+                  duoa=''
+
+               if muoa+':'+duoa in cids_in_queue: continue
+               cids_in_queue.append(muoa+':'+duoa+':'+xtags)
+
+               cid=muoa+':'+duoa
+               rx=download({'new_repo_uoa':nruoa,
+                            'repo_uoa':ruoa,
+                            'module_uoa':muoa,
+                            'data_uoa':duoa,
+                            'all':al,
+                            'force':force,
+                            'tags':xtags,
+                            'cids_in_queue':cids_in_queue,
+                            'spaces':spaces+'  '})
+               if rx['return']>0 and rx['return']!=8 and rx['return']!=16: return rx
+               if rx['return']==16:
+                  if xtags=='': return rx
+                  rx=download({'new_repo_uoa':nruoa,
+                               'repo_uoa':ruoa,
+                               'module_uoa':'soft',
+                               'data_uoa':'',
+                               'force':force,
+                               'all':al,
+                               'tags':xtags,
+                               'cids_in_queue':cids_in_queue,
+                               'spaces':spaces+'  '})
+                  if rx['return']>0 and rx['return']!=8: return rx
 
     return {'return':0}
 
@@ -4141,7 +4235,7 @@ def perform_action(i):
                 'module_uoa':cfg['module_name'], 
                 'data_uoa':module_uoa})
        if rx['return']>0: 
-          if cfg.get('download_missing_components','')!='yes':
+          if cfg.get('download_missing_components','')!='yes' and action!='download':
              return rx
 
           # Check if search in remote server ...
@@ -6690,7 +6784,7 @@ def find2(i):
        if len(lst)>0:
           r.update(lst[0])
        else:
-          return {'return':1, 'error':'entry was not found'}
+          return {'return':16, 'error':'entry was not found'}
 
     else:
        # Find path to data
@@ -8945,6 +9039,7 @@ def list_data2(i):
 
        muoa=i.get('module_uoa','')
        duoa=i.get('data_uoa','')
+       tags=i.get('download_tags','')
 
 #       out('')
 #       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CK portal ...')
@@ -8952,6 +9047,7 @@ def list_data2(i):
        # Try to download missing action/module
        ry=download({'module_uoa':muoa,
                     'data_uoa':duoa,
+                    'tags':tags,
                     'out':'con'})
        if ry['return']>0: return ry
 
@@ -9056,12 +9152,14 @@ def search(i):
 
        muoa=i.get('module_uoa','')
        duoa=i.get('data_uoa','')
+       tags=i.get('tags','')
 
 #       out('')
 #       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CK portal ...')
 
        ry=download({'module_uoa':muoa,
                     'data_uoa':duoa,
+                    'tags':tags,
                     'out':'con'})
        if ry['return']>0: return ry
 
