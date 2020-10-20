@@ -3,6 +3,9 @@
   * Added support to load YAML files via CK CLI: ck action @file.yaml
   * Fixed Yaml loader
   * Added support to download components with depenendecies from cKnowledge.io
+  * Fixed issue when adding the "init" action to modules (this function always exists in CK modules).
+    We create "new_init" function in such case.
+  * Checking all function names in the CK module when adding a new action
 
 * V1.15.0
   * Improved the integration with the open CK portal: https://cKnowledge.io

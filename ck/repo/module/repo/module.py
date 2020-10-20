@@ -2811,3 +2811,32 @@ def cp(i):
     """
 
     return {'return':1, 'error':'copying CK repositories is forbidden to avoid duplication of CK entries. Create a new one instead and move CK entries there'}
+
+##############################################################################
+# init CK repo in a given directory
+
+def new_init(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    ck.out('init CK repo in a given directory')
+
+    ck.out('')
+    ck.out('Command line: ')
+    ck.out('')
+
+    import json
+    cmd=json.dumps(i, indent=2)
+
+    ck.out(cmd)
+
+    return {'return':0}

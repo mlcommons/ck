@@ -10095,7 +10095,7 @@ def add_action(i):
     muoa=i.get('module_uoa','')
     duoa=i.get('data_uoa','')
 
-    func=i.get('func','')
+    func=i.get('func','').strip()
 
     desc=i.get('desc','')
 
@@ -10153,8 +10153,18 @@ def add_action(i):
        if not re.match(anames, func):
           return {'return':1, 'error':'found disallowed characters in the action name (allowed: "'+anames+'")'}
 
+    if func=='init':
+       func1='new_'+func
+       if func1 in actions:
+          return {'return':1, 'error':'action (function) "'+func1+'" already exists in the module'}
+       actions_redirect[func]=func1
+
     if func in actions:
        return {'return':1, 'error':'action (function) already exists in the module'}
+
+    for x in actions_redirect:
+        if actions_redirect[x]==func:
+           return {'return':1, 'error':'redirected action (function) already exists in the module'}
 
     if '-' in func:
        func1=func.replace('-','_')
