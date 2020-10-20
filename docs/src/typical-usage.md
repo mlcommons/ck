@@ -19,15 +19,24 @@ that are based on our portable and customizable CK workflow:
 
 
 
-## Create a new CK repository
+## Initialize a new CK repository in the current directory (can be existing Git repo)
 
 If you plan to contribute to already [existing CK repositories]( http://cKnowledge.io/repos )
 you can skip this subsection. Otherwise, you need to manually create a new CK repository.
 
-You just need to choose some user friendly name such as "my-new-repo" and create it from the command line (Linux, Windows, and MacOS) as follows:
+You need to choose some user friendly name such as "my-new-repo" 
+and initialize CK repository in your current directory
+from the command line (Linux, Windows, and MacOS) as follows:
 
 ```bash
-ck add repo:my-new-repo --quiet
+ck init repo:my-new-repo
+```
+
+If the current directory belongs to a Git repo, CK will automatically detect the URL.
+Otherwise you need to specify it from CLI too:
+
+```bash
+ck init repo:my-new-repo --url={Git URL}
 ```
 
 You can then find where CK created this dummy CK repository using the following command:
