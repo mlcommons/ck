@@ -689,7 +689,9 @@ def update(i):
              dn=x
              changed=True
 
-    # If remote, update URL
+    # If remote or shared, update URL
+    if shared=='yes' or shared=='git': d['shared']='git'
+
     shared=d.get('shared','')
     if remote=='yes':
        url=d.get('url','')
@@ -704,6 +706,8 @@ def update(i):
              d['url']=x
              changed=True
     elif shared!='':
+       if url!='': d['url']=url
+
        url=d.get('url','')
        ck.out('Repository is shared ...')
        ck.out('')
@@ -2818,6 +2822,11 @@ def cp(i):
 def new_init(i):
     """
     Input:  {
+              (data_uoa) - repo name
+              (data_uid) - repo UID
+              (url)      - URL if shared
+              (deps)     - list of deps on other repositories separated by comma
+              (path)     - path where to initialize a repository
             }
 
     Output: {
@@ -2828,15 +2837,109 @@ def new_init(i):
 
     """
 
-    ck.out('init CK repo in a given directory')
+    # Check if global writing is allowed
+    r=ck.check_writing({})
+    if r['return']>0: return r
 
-    ck.out('')
-    ck.out('Command line: ')
-    ck.out('')
+    # Check output
+    o=i.get('out','')
+    oo=''
+    if o=='con': oo=o
 
-    import json
-    cmd=json.dumps(i, indent=2)
+    # Check path
+    path=os.getcwd()
+    if i.get('path','')!='': 
+       path=i['path']
+       if not os.path.isdir(path):
+          return {'return':1, 'error':'path not found'}
 
-    ck.out(cmd)
+    # Check name
+    data_uoa=i.get('data_uoa','')
+    data_uid=i.get('data_uid','')
 
-    return {'return':0}
+    if data_uoa=='':
+       # Check from .ckr.json
+       pckr=os.path.join(path, ck.cfg['repo_file'])
+       if os.path.isfile(pckr):
+          r=ck.load_json_file({'json_file':pckr})
+          if r['return']>0: return r
+          d=r['dict']
+
+          data_uoa=d.get('data_uoa','')
+          data_uid=d.get('data_uid','')
+
+          if data_uoa!='':
+             ck.out('Detected CK repo name: '+data_uoa)
+
+    if data_uoa=='':
+       # Try to detect from .ckr.json
+       r=ck.inp({'text':'Enter CK repository name: '})
+       if r['return']>0: return r
+       data_uoa=r['string'].strip()
+
+    # Check if already exists
+    exists=False
+    r=ck.access({'action':'load',
+                 'module_uoa':work['self_module_uid'],
+                 'data_uoa':data_uoa})
+    if r['return']>0 and r['return']!=16: return r
+    if r['return']==0: 
+       exists=True
+       
+       r=ck.inp({'text':'CK repository "'+data_uoa+'" already exists. Update (y/N)? '})
+       if r['return']>0: return r
+       s=r['string'].strip().lower()
+
+       if s=='' or s=='n' or s=='no':
+          return {'return':1, 'error':'CK repository already exists'}
+
+    # Check URL
+    url=i.get('url','')
+    if url=='':
+       # Attempt to check from current Git dir
+       pgit=os.path.join(path, '.git', 'config')
+       if os.path.isfile(pgit):
+          r=ck.load_text_file({'text_file':pgit, 'split_to_list':'yes'})
+          if r['return']>0: return r
+          ll=r['lst']
+
+          for l in ll:
+              l=l.strip()
+              if l.startswith('url ='):
+                 url=l[5:].strip()
+                 ck.out('Detected URL: '+url)
+                 break
+
+    # prepare deps
+    repo_deps=[]
+
+    deps=i.get('deps','').strip().split(',')
+
+    for q in deps:
+        q=q.strip()
+        if q!='':
+           repo_deps.append({'repo_uoa':q})
+
+    # Create or update repo
+    ii={'module_uoa':work['self_module_uid'],
+        'data_uoa':data_uoa,
+        'quiet':'yes',
+        'path':path,
+        'out':oo}
+
+    if data_uid!='': ii['data_uid']=data_uid
+
+    if exists:
+       ii['action']='update'
+    else:
+       ii['action']='add'
+
+    if url!='':
+       ii['shared']='yes'
+       ii['url']=url
+
+    if len(repo_deps)>0:
+       ii['repo_deps']=repo_deps
+       
+    r=ck.access(ii)
+    return r

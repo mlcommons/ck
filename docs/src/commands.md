@@ -31,6 +31,28 @@ ck {action} ... @input.yaml
 * Automation actions are implemented using the internal CK module [*repo*]( https://cknowledge.io/c/module/repo ).
 * See the list of all automation actions and their API at [cKnowledge.io platform]( https://cknowledge.io/c/module/repo/#api ).
 
+### Init new CK repository in the current path
+```bash
+ck init repo
+```
+
+CK will ask user for a repo name and will also attempt to detect Git URL from .git/config.
+
+Extra options:
+
+```bash
+ck init repo:{CK repo name}
+ck init repo --url={Git URL with the CK repository}
+ck init repo --url={Git URL with the CK repository} --deps={list of CK repos}
+```
+
+Example:
+
+```
+ck init repo:asplos21-artifact123 --url=https://github.com/ctuning/ck-asplos21-artifact123 --deps=ck-autotuning
+ck init repo:mlperf-submission --url=https://github.com/ctuning/ck-mlperf-submission321 --deps=ck-mlperf
+
+```
 
 ### Pull existing repository using Git URL
 

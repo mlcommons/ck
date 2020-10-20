@@ -6,6 +6,8 @@
   * Fixed issue when adding the "init" action to modules (this function always exists in CK modules).
     We create "new_init" function in such case.
   * Checking all function names in the CK module when adding a new action
+  * Added simplified "ck init repo" to create a CK repository in the current directory
+  * Added docs about "ck init repo"
 
 * V1.15.0
   * Improved the integration with the open CK portal: https://cKnowledge.io

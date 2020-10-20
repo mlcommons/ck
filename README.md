@@ -23,7 +23,7 @@ in the form of reusable artifacts and portable workflows with a common API, CLI,
 and meta description. See how CK supports collaborative and reproducible AI, ML, and Systems R&D:
 * [Real-world use-cases](https://cKnowledge.org/partners.html) from Arm, General Motors, IBM, MLPerf, the Raspberry Pi foundation, and ACM
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
-* [Project overview (preprint; to appear soon in the journal)](https://doi.org/10.6084/m9.figshare.12988361)
+* [Project overview (preprint; to appear in the journal soon)](https://doi.org/10.6084/m9.figshare.12988361)
 
 ## News
 
@@ -111,7 +111,7 @@ any program (image corner detection in our case)
 with any compatible data set on any compatible platform:
 
 ```bash
-pip install ck
+python3 -m pip install ck
 
 ck pull repo --url=https://github.com/ctuning/ck-crowdtuning
 
