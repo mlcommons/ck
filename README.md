@@ -23,7 +23,7 @@ in the form of reusable artifacts and portable workflows with a common API, CLI,
 and meta description. See how CK supports collaborative and reproducible AI, ML, and Systems R&D:
 * [Real-world use-cases](https://cKnowledge.org/partners.html) from Arm, General Motors, IBM, MLPerf, the Raspberry Pi foundation, and ACM
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
-* [Project overview (preprint; to appear in the journal soon)](https://doi.org/10.6084/m9.figshare.12988361)
+* [Project overview (accepted for Philosophical Transactions of the Royal Society A)](https://doi.org/10.6084/m9.figshare.12988361)
 
 ## News
 
