@@ -1,4 +1,4 @@
-* V1.15.0.1
+* V1.17.0
   * Updated description of all CK APIs in Google format!
   * Added support to load YAML files via CK CLI: ck action @file.yaml
   * Fixed Yaml loader

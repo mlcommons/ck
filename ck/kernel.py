@@ -26,8 +26,8 @@
 # when I have more time and funding.
 
 
-__version__ = "1.15.0.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
-                          # Do not use characters (to detect outdated version)!
+__version__ = "1.17.0"  # We use 3 digits for the main (released) version and 4th digit for development revision
+                        # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
 import sys

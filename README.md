@@ -25,6 +25,8 @@ and meta description. See how CK supports collaborative and reproducible AI, ML,
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
 * [Project overview (accepted for Philosophical Transactions of the Royal Society A)](https://doi.org/10.6084/m9.figshare.12988361)
 
+Please take [this quick questionnaire](https://docs.google.com/forms/d/e/1FAIpQLSevHBo4EGItvqzhQ8c3SmlS7TLwjvMQQBjNevK7T7UiIYvjnQ/viewform) to help us shape the future of the CK framework!
+
 ## News
 
 * **2020 August**: We have completed the prototyping phase and successfully validated CK 
