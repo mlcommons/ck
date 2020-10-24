@@ -26,8 +26,8 @@
 # when I have more time and funding.
 
 
-__version__ = "1.17.0"  # We use 3 digits for the main (released) version and 4th digit for development revision
-                        # Do not use characters (to detect outdated version)!
+__version__ = "1.17.0.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
+                          # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
 import sys
@@ -268,6 +268,8 @@ cfg={
                  "list":{"desc":"<CID> list entries", "for_web": "yes"},
                  "ls":{"desc":"see 'list'", "for_web": "yes"},
 
+                 "list_tags":{"desc":"<CID> list tags in all found entries", "for_web": "yes"},
+
                  "search":{"desc":"<CID> search entries", "for_web": "yes"},
 
                  "pull":{"desc":"<CID> (filename) or (empty to get the whole entry as archive) pull file from entry"},
@@ -310,6 +312,7 @@ cfg={
                         "mv", "move",
                         "ls",
                         "list",
+                        "list_tags",
                         "search",
                         "pull",
                         "push",
@@ -9053,6 +9056,64 @@ def list_data2(i):
 
        # Restart local search
        rr=list_data(i)
+
+    return rr
+
+##############################################################################
+# Common action: list tags in found entries
+#
+# TARGET: should use via ck.kernel.access
+
+def list_tags(i):
+    """CK action: list tags in found CK entries (uses search function)
+       Target audience: should use via ck.kernel.access
+
+    Args:    
+              The same as in "search" function
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                tags (list): sorted list of all found tags
+
+                The same as from "search" function
+            }
+
+    """
+
+    o=i.get('out','')
+
+    i['out']=''
+    i['add_meta']='yes' # Need it to get tags from meta from CK entries
+
+    rr=search2(i)
+    if rr['return']>0: return rr
+
+    lst=rr['lst']
+
+    all_tags=[]
+
+    # Extract tags
+    for l in lst:
+        meta=l['meta']
+        tags=meta.get('tags',[])
+
+        for t in tags:
+            if t not in all_tags:
+               all_tags.append(t)
+
+    # Sort tags
+    all_tags=sorted(all_tags)
+    rr['tags']=all_tags
+
+    # Print
+    if o=='con':
+       for t in all_tags:
+           out(t)
 
     return rr
 

@@ -1,3 +1,7 @@
+* V1.17.0.1 
+  * Started development version
+  * Added ck list_tags {CID} to list all tags from found entries (uses search function)
+
 * V1.17.0
   * Updated description of all CK APIs in Google format!
   * Added support to load YAML files via CK CLI: ck action @file.yaml
