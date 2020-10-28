@@ -7,14 +7,15 @@
 # Developer: $#developer#$
 #
 
-cfg={}  # Will be updated by CK (meta description of this module)
-work={} # Will be updated by CK (temporal data)
-ck=None # Will be updated by CK (initialized CK kernel) 
+cfg = {}  # Will be updated by CK (meta description of this module)
+work = {}  # Will be updated by CK (temporal data)
+ck = None  # Will be updated by CK (initialized CK kernel)
 
 # Local settings
 
 ##############################################################################
 # Initialize module
+
 
 def init(i):
     """
@@ -28,4 +29,4 @@ def init(i):
             }
 
     """
-    return {'return':0}
+    return {'return': 0}

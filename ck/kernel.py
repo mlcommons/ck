@@ -4,30 +4,31 @@
 # See CK LICENSE.txt for licensing details
 # See CK COPYRIGHT.txt for copyright details
 #
-# Author and developer: Grigori Fursin
+# The author and tech lead: Grigori Fursin
 #
 
-# I have prototyped the CK kernel as a monolithic architecture 
-# without object oriented programming and with global variables 
-# and a minimal set of common portable functions 
+# From the author: I have prototyped the CK kernel quickly as a monolithic architecture
+# in a non-python way, without object oriented programming, with global variables
+# and with a minimal set of common portable functions
 # only because we originally planned to quickly reimplement this kernel
-# and all CK modules in a low-level language like C to speed up operations 
+# and all CK modules in a low-level language like C to speed up operations
 # and provide connectors from other languages like Java, C++ and go
 # (see my xOpenME library with some CK functions used in Android).
 #
 # Another reason was to make it easiers to use CK for researchers
-# without strong engineering background and for practitioners 
-# with just a few simple CK functions and a human readable JSON I/O. 
+# without strong engineering background and for practitioners
+# with just a few simple CK functions and a human readable JSON I/O.
 
 # However, since CK is most commonly used as a Python library,
-# I believe that we should eventually rewrite it in a pythonic way 
+# I believe that we should eventually rewrite it in a pythonic way
 # and with object oriented programming while keeping backward compatibility.
-# I call this project the CK2 and plan to work on it 
+# I call this project the CK2 and plan to work on it
 # when I have more time and funding.
 
 
-__version__ = "1.17.0.1"  # We use 3 digits for the main (released) version and 4th digit for development revision
-                          # Do not use characters (to detect outdated version)!
+# We use 3 digits for the main (released) version and 4th digit for development revision
+__version__ = "1.17.0.1"
+# Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
 import sys
@@ -35,347 +36,354 @@ import json
 import os
 import imp   # Needed to load CK Python modules from CK repositories
 
-initialized=False      # True if initialized
-allow_print=True       # Needed to suppress all output (useful for CK-based web services)
-con_encoding=''        # Use non-default console encoding
+initialized = False      # True if initialized
+# Needed to suppress all output (useful for CK-based web services)
+allow_print = True
+con_encoding = ''        # Use non-default console encoding
 
 # This cfg configuration dictionary will be overloaded at run-time
-# with meta.json from the CK entry default:kernel:default 
+# with meta.json from the CK entry default:kernel:default
 #   (from the "default" CK repository that resides in the CK distro)
-# and then from the local:kernel:default 
+# and then from the local:kernel:default
 #    (from a local CK repository that is created during the first CK installation)
 
-cfg={
-      "name":"Collective Knowledge",
-      "desc":"exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",
-      "cmd":"ck <action> $#module_uoa#$ (cid1/uid1) (cid2/uid2) (cid3/uid3) key_i=value_i ... @file.json",
+cfg = {
+    "name": "Collective Knowledge",
+    "desc": "exposing ad-hoc experimental setups to extensible repository and big data predictive analytics",
+    "cmd": "ck <action> $#module_uoa#$ (cid1/uid1) (cid2/uid2) (cid3/uid3) key_i=value_i ... @file.json",
 
-      "wiki_data_web":"https://cKnowledge.io/c/",           # Collective Knowledge Base (ckb)
-      "private_wiki_data_web":"https://github.com/ctuning/ck/wiki/ckb_",   # Collective Knowledge Base (ckb)
-      "api_web":"https://cKnowledge.io/c/module/",
-      "status_url":"https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
+    # Collective Knowledge Base (ckb)
+    "wiki_data_web": "https://cKnowledge.io/c/",
+    # Collective Knowledge Base (ckb)
+    "private_wiki_data_web": "https://github.com/ctuning/ck/wiki/ckb_",
+    "api_web": "https://cKnowledge.io/c/module/",
+    "status_url": "https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
 
-      "help_examples":"  Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n    $ ck pull repo:ctuning-programs\n    $ ck compile program:cbench-automotive-susan --speed\n    $ ck run program:cbench-automotive-susan\n\n  Example of an interactive CK-powered article:\n    http://cknowledge.org/repo\n",
-      "help_web":"  Documentation:\n        https://github.com/ctuning/ck/wiki",
+    "help_examples": "  Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n    $ ck pull repo:ctuning-programs\n    $ ck compile program:cbench-automotive-susan --speed\n    $ ck run program:cbench-automotive-susan\n\n  Example of an interactive CK-powered article:\n    http://cknowledge.org/repo\n",
+    "help_web": "  Documentation:\n        https://github.com/ctuning/ck/wiki",
 
-      "ck_web":"https://github.com/ctuning/ck",
-      "ck_web_wiki":"https://github.com/ctuning/ck/wiki",
+    "ck_web": "https://github.com/ctuning/ck",
+    "ck_web_wiki": "https://github.com/ctuning/ck/wiki",
 
-      "default_shared_repo_url":"https://github.com/ctuning",
-      "github_repo_url":"https://github.com",
+    "default_shared_repo_url": "https://github.com/ctuning",
+    "github_repo_url": "https://github.com",
 
-#      "default_license":"See CK LICENSE.txt for licensing details",
-#      "default_copyright":"See CK COPYRIGHT.txt for copyright details",
-#      "default_developer":"cTuning foundation",
-#      "default_developer_email":"admin@cTuning.org",
-#      "default_developer_webpage":"http://cTuning.org",
+    #      "default_license":"See CK LICENSE.txt for licensing details",
+    #      "default_copyright":"See CK COPYRIGHT.txt for copyright details",
+    #      "default_developer":"cTuning foundation",
+    #      "default_developer_email":"admin@cTuning.org",
+    #      "default_developer_webpage":"http://cTuning.org",
 
-      "detect_cur_cid":"#",
-      "detect_cur_cid1":"^",
+    "detect_cur_cid": "#",
+    "detect_cur_cid1": "^",
 
-      "error":"CK error: ",
-      "json_sep":"*** ### --- CK JSON SEPARATOR --- ### ***",
-      "default_module":"data",
-      "module_name":"module",
-      "module_uids":["032630d041b4fd8a"],
-      "repo_name":"repo",
-      "module_code_name":"module",
-      "module_full_code_name":"module.py",
+    "error": "CK error: ",
+    "json_sep": "*** ### --- CK JSON SEPARATOR --- ### ***",
+    "default_module": "data",
+    "module_name": "module",
+    "module_uids": ["032630d041b4fd8a"],
+    "repo_name": "repo",
+    "module_code_name": "module",
+    "module_full_code_name": "module.py",
 
-      "env_key_root":"CK_ROOT",
-      "env_key_local_repo":"CK_LOCAL_REPO",
-      "env_key_local_kernel_uoa":"CK_LOCAL_KERNEL_UOA",
-      "env_key_default_repo":"CK_DEFAULT_REPO",
-      "env_key_repos":"CK_REPOS",
+    "env_key_root": "CK_ROOT",
+    "env_key_local_repo": "CK_LOCAL_REPO",
+    "env_key_local_kernel_uoa": "CK_LOCAL_KERNEL_UOA",
+    "env_key_default_repo": "CK_DEFAULT_REPO",
+    "env_key_repos": "CK_REPOS",
 
-      "subdir_default_repos":"repos",
+    "subdir_default_repos": "repos",
 
-      "user_home_dir_ext":"CK", # if no path to repos is defined, use user home dir with this extension
+    # if no path to repos is defined, use user home dir with this extension
+    "user_home_dir_ext": "CK",
 
-      "kernel_dir":"ck",
-      "kernel_dirs":["ck",""],
+    "kernel_dir": "ck",
+    "kernel_dirs": ["ck", ""],
 
-      "file_kernel_py":"ck/kernel.py",
+    "file_kernel_py": "ck/kernel.py",
 
-      "subdir_default_repo":"repo",
-      "subdir_kernel":"kernel",
-      "subdir_kernel_default":"default",
-      "subdir_ck_ext":".cm", # keep compatibility with Collective Mind V1.x
-      "file_for_lock":"ck_lock.txt",
+    "subdir_default_repo": "repo",
+    "subdir_kernel": "kernel",
+    "subdir_kernel_default": "default",
+    "subdir_ck_ext": ".cm",  # keep compatibility with Collective Mind V1.x
+    "file_for_lock": "ck_lock.txt",
 
-      "special_directories":[".cm", ".svn", ".git"], # special directories that should be ignored when copying/moving entries
+    # special directories that should be ignored when copying/moving entries
+    "special_directories": [".cm", ".svn", ".git"],
 
-      "ignore_directories_when_archive_repo":[".svn", ".git"], 
+    "ignore_directories_when_archive_repo": [".svn", ".git"],
 
-      "file_meta_old":"data.json", # keep compatibility with Collective Mind V1.x
-      "file_meta":"meta.json",
-      "file_info":"info.json",
-      "file_desc":"desc.json",
-      "file_updates":"updates.json",
+    "file_meta_old": "data.json",  # keep compatibility with Collective Mind V1.x
+    "file_meta": "meta.json",
+    "file_info": "info.json",
+    "file_desc": "desc.json",
+    "file_updates": "updates.json",
 
-      "file_alias_a": "alias-a-", 
-      "file_alias_u": "alias-u-",
+    "file_alias_a": "alias-a-",
+    "file_alias_u": "alias-u-",
 
-      "linux_sudo":"sudo",
-      "install_ck_as_lib":"python setup.py install",
+    "linux_sudo": "sudo",
+    "install_ck_as_lib": "python setup.py install",
 
-      "repo_file":".ckr.json",
+    "repo_file": ".ckr.json",
 
-      "file_cache_repo_uoa":".ck.cache_repo_uoa.json",
-      "file_cache_repo_info":".ck.cache_repo_info.json",
+    "file_cache_repo_uoa": ".ck.cache_repo_uoa.json",
+    "file_cache_repo_info": ".ck.cache_repo_info.json",
 
-      "default_host":"localhost",
-      "default_port":"3344",
+    "default_host": "localhost",
+    "default_port": "3344",
 
-      "detached_console":{"win":{"cmd":"start $#cmd#$", "use_create_new_console_flag":"yes"},
-                          "linux":{"cmd":"xterm -hold -e \"$#cmd#$\""}},
+    "detached_console": {"win": {"cmd": "start $#cmd#$", "use_create_new_console_flag": "yes"},
+                           "linux": {"cmd": "xterm -hold -e \"$#cmd#$\""}},
 
-      "batch_extension":{"win":".bat",
-                         "linux":".sh"},
+    "batch_extension": {"win": ".bat",
+                        "linux": ".sh"},
 
-      "default_archive_name":"ck-archive.zip",
+    "default_archive_name": "ck-archive.zip",
 
-      # TODO: remove "http://"?
-      "index_host":"http://localhost",
-      "index_port":"9200",
-      "index_use_curl":"no",
+    # TODO: remove "http://"?
+    "index_host": "http://localhost",
+    "index_port": "9200",
+    "index_use_curl": "no",
 
-      "cknowledge_api":"https://cKnowledge.io/api/v1/?",
-#      "download_missing_components":"yes",
-      "check_missing_modules":"yes",
+    "cknowledge_api": "https://cKnowledge.io/api/v1/?",
+    #      "download_missing_components":"yes",
+    "check_missing_modules": "yes",
 
-      "wfe_template":"default",
+    "wfe_template": "default",
 
-      "module_repo_name":"repo",
-      "repo_name_default":"default",
-      "repo_uid_default":"604419a9fcc7a081",
-      "repo_name_local":"local",
-      "repo_uid_local":"9a3280b14a4285c9",
+    "module_repo_name": "repo",
+    "repo_name_default": "default",
+    "repo_uid_default": "604419a9fcc7a081",
+    "repo_name_local": "local",
+    "repo_uid_local": "9a3280b14a4285c9",
 
-      "default_exchange_repo_uoa":"remote-ck",
-      "default_exchange_subrepo_uoa":"upload",
+    "default_exchange_repo_uoa": "remote-ck",
+    "default_exchange_subrepo_uoa": "upload",
 
-      "external_editor":{"win":"wordpad $#filename#$",
-                         "linux":"vim $#filename#$"},
+    "external_editor": {"win": "wordpad $#filename#$",
+                        "linux": "vim $#filename#$"},
 
-      "shell":{"linux":{
-                         "redirect_stdout":">",
-                         "env_separator": ";" 
-                       },
-               "win":  {
-                         "redirect_stdout":">",
-                         "env_separator": "&&"
-                       }
-      },
-
-      "forbid_global_delete": "no", 
-      "forbid_global_writing": "no", 
-      "forbid_writing_modules": "no", 
-      "forbid_writing_to_default_repo": "no", 
-      "forbid_writing_to_local_repo": "no", 
-      "allow_writing_only_to_allowed": "no", 
-
-      "allow_run_only_from_allowed_repos": "no",
-      "repo_uids_to_allow_run":["604419a9fcc7a081", 
-                                "9a3280b14a4285c9", 
-                                "76c4424a1473c873",
-                                "a4328ba99679e0d1",
-                                "7fd7e76e13f4cd6a",
-                                "215d441c19db1fed",
-                                "43eaa6c2d1892c32"],
-
-      "use_indexing": "no",
-
-      "internal_keys": [
-                         "action",
-                         "repo_uoa",
-                         "module_uoa",
-                         "data_uoa",
-                         "cid",
-                         "cids",
-                         "cid1",
-                         "cid2",
-                         "cid3",
-                         "xcids",
-                         "unparsed_cmd",
-                         "con_encoding",
-                         "ck_profile",
-                         "out",
-                         "out_file"
-                       ],
-
-      "repo_types":{
-                     "git":{
-                            "clone":"git clone $#url#$ $#path#$",
-                            "pull":"git pull",
-                            "push":"git push",
-                            "add":"git add $#files#$",
-                            "rm":"git rm -rf $#files#$",
-                            "commit":"git commit *",
-                            "version":"git --version",
-                            "checkout":"git checkout $#id#$"
-                           }
-                   },
-
-      "actions":{
-                 "uid":{"desc":"generate UID", "for_web": "yes"},
-                 "version":{"desc":"print CK version", "for_web": "yes"},
-                 "python_version":{"desc":"print python version used by CK", "for_web": "no"},
-                 "status":{"desc":"check CK version status", "for_web": "yes"},
-                 "copy_path_to_clipboard":{"desc":"copy current path to clipboard", "for_web": "no"},
-
-                 "wiki":{"desc":"<CID> open discussion wiki page for a given entry"},           # Collective Knowledge Base (ckb)
-                 "pwiki":{"desc":"<CID> open private discussion wiki page for a given entry"}, 
-
-                 "help":{"desc":"<CID> print help about data (module) entry"},
-                 "short_help":{"desc":"<CID> print short help about CK"},
-                 "webhelp":{"desc":"<CID> open browser with online help (description) for a given CK entry"}, 
-                 "webapi":{"desc":"<CID> open browser with online API for a given module"}, 
-                 "guide":{"desc":"open CK wiki with user/developer guides"}, 
-                 "info":{"desc":"<CID> print help about module"},
-
-                 "browser":{"desc":"start CK web service and open browser"},
-
-                 "add":{"desc":"<CID> add entry", "for_web":"yes"},
-                 "update":{"desc":"<CID> update entry", "for_web":"yes"},
-                 "load":{"desc":"<CID> load meta description of entry", "for_web": "yes"},
-                 "edit":{"desc":"<CID> edit entry description using external editor", "for_web":"no"},
-
-                 "zip":{"desc":"<CID> zip entries", "for_web":"no"},
-
-                 "find":{"desc":"<CID> find path to entry"},
-                 "cd":{"desc":"<CID> print 'cd {path to entry}'"},
-                 "cdc":{"desc":"<CID> print 'cd {path to entry} and copy to clipboard, if supported"},
-                 "path":{"desc":"<CID> detect CID in the current directory"},
-                 "cid":{"desc":"<CID> get CID of the current entry"},
-
-                 "rm":{"desc":"<CID> delete entry", "for_web":"yes"},
-                 "remove":{"desc":"see 'rm'", "for_web":"yes"},
-                 "delete":{"desc":"see 'rm'", "for_web":"yes"},
-
-                 "ren":{"desc":"<CID> <new name) (data_uid) (remove_alias) rename entry", "for_web":"yes"},
-                 "rename":{"desc":"see 'ren' function", "for_web":"yes"},
-
-                 "cp":{"desc":"<CID> <CID1> copy entry", "for_web":"yes"},
-                 "copy":{"desc":"see 'cp'", "for_web":"yes"},
-
-                 "mv":{"desc":"<CID> <CID1> move entry", "for_web":"yes"},
-                 "move":{"desc":"see 'mv'", "for_web":"yes"},
-
-                 "list_files":{"desc":" list files recursively in a given entry", "for_web": "yes"},
-                 "delete_file":{"desc":"<file> delete file from a given entry", "for_web":"yes"},
-
-                 "list":{"desc":"<CID> list entries", "for_web": "yes"},
-                 "ls":{"desc":"see 'list'", "for_web": "yes"},
-
-                 "list_tags":{"desc":"<CID> list tags in all found entries", "for_web": "yes"},
-
-                 "search":{"desc":"<CID> search entries", "for_web": "yes"},
-
-                 "pull":{"desc":"<CID> (filename) or (empty to get the whole entry as archive) pull file from entry"},
-                 "push":{"desc":"<CID> (filename) push file to entry"},
-
-                 "add_action":{"desc":"add action (function) to existing module"},
-                 "remove_action":{"desc":"remove action (function) from existing module"},
-                 "list_actions":{"desc":"list actions (functions) in existing module", "for_web":"yes"},
-
-                 "add_index":{"desc":"<CID> add index"},
-                 "delete_index":{"desc":"<CID> remove index"},
-
-                 "convert_cm_to_ck":{"desc":"<CID> convert old CM entries to CK entries"},
-
-                 "create_entry":{"desc":"<directory> create an entry for a given directory name"},
-
-                 "get_api":{"desc":"--func=<func> print API of a function in a given module"},
-
-                 "download":{"desc":"<CID> attempt to download entry from remote host (experimental)", "for_web": "yes"},
-
-                 "print_input":{"desc":"prints input"},
-
-                },
-
-      "actions_redirect":{"list":"list_data2",
-                          "ls":"list_data2"},
-
-      "common_actions":["webhelp", "webapi", "help", "info", "print_input",
-                        "wiki",
-                        "path", "find", "cid", "cd", "cdc",
-                        "browser",
-                        "add",
-                        "edit", 
-                        "load", 
-                        "zip",
-                        "rm", "remove", "delete",
-                        "update",
-                        "ren", "rename",
-                        "cp", "copy",
-                        "mv", "move",
-                        "ls",
-                        "list",
-                        "list_tags",
-                        "search",
-                        "pull",
-                        "push",
-                        "list_files",
-                        "delete_file",
-                        "add_action",
-                        "remove_action",
-                        "list_actions",
-                        "create_entry",
-                        "add_index",
-                        "delete_index",
-                        "get_api",
-                        "download",
-                        "convert_cm_to_ck"]
+    "shell": {"linux": {
+        "redirect_stdout": ">",
+        "env_separator": ";"
+    },
+        "win":  {
+        "redirect_stdout": ">",
+        "env_separator": "&&"
     }
+    },
 
-work={
-      "env_root":"",               # Path to CK installation
+    "forbid_global_delete": "no",
+    "forbid_global_writing": "no",
+    "forbid_writing_modules": "no",
+    "forbid_writing_to_default_repo": "no",
+    "forbid_writing_to_local_repo": "no",
+    "allow_writing_only_to_allowed": "no",
 
-      "dir_default_repo":"",
-      "dir_default_repo_path":"",
-      "dir_default_kernel":"",
-      "dir_default_cfg":"",
+    "allow_run_only_from_allowed_repos": "no",
+    "repo_uids_to_allow_run": ["604419a9fcc7a081",
+                               "9a3280b14a4285c9",
+                               "76c4424a1473c873",
+                               "a4328ba99679e0d1",
+                               "7fd7e76e13f4cd6a",
+                               "215d441c19db1fed",
+                               "43eaa6c2d1892c32"],
 
-      "dir_local_repo":"",
-      "dir_local_repo_path":"",
-      "dir_local_kernel":"",
-      "dir_local_cfg":"",
+    "use_indexing": "no",
 
-      "local_kernel_uoa":"",
+    "internal_keys": [
+        "action",
+        "repo_uoa",
+        "module_uoa",
+        "data_uoa",
+        "cid",
+        "cids",
+        "cid1",
+        "cid2",
+        "cid3",
+        "xcids",
+        "unparsed_cmd",
+        "con_encoding",
+        "ck_profile",
+        "out",
+        "out_file"
+    ],
 
-      "dir_work_repo":"",
-      "dir_work_repo_path":"",
-      "dir_work_cfg":"",
+    "repo_types": {
+        "git": {
+            "clone": "git clone $#url#$ $#path#$",
+            "pull": "git pull",
+            "push": "git push",
+            "add": "git add $#files#$",
+            "rm": "git rm -rf $#files#$",
+            "commit": "git commit *",
+            "version": "git --version",
+            "checkout": "git checkout $#id#$"
+        }
+    },
 
-      "dir_repos":"",
+    "actions": {
+        "uid": {"desc": "generate UID", "for_web": "yes"},
+        "version": {"desc": "print CK version", "for_web": "yes"},
+        "python_version": {"desc": "print python version used by CK", "for_web": "no"},
+        "status": {"desc": "check CK version status", "for_web": "yes"},
+        "copy_path_to_clipboard": {"desc": "copy current path to clipboard", "for_web": "no"},
 
-      "dir_cache_repo_uoa":"",
-      "dir_cache_repo_info":"",
+        # Collective Knowledge Base (ckb)
+        "wiki": {"desc": "<CID> open discussion wiki page for a given entry"},
+        "pwiki": {"desc": "<CID> open private discussion wiki page for a given entry"},
 
-      "repo_name_work":"",
-      "repo_uid_work":"",
+        "help": {"desc": "<CID> print help about data (module) entry"},
+        "short_help": {"desc": "<CID> print short help about CK"},
+        "webhelp": {"desc": "<CID> open browser with online help (description) for a given CK entry"},
+        "webapi": {"desc": "<CID> open browser with online API for a given module"},
+        "guide": {"desc": "open CK wiki with user/developer guides"},
+        "info": {"desc": "<CID> print help about module"},
 
-      'cached_module_by_path':{},
-      'cached_module_by_path_last_modification':{}
-     }
+        "browser": {"desc": "start CK web service and open browser"},
 
-paths_repos=[]        # First path to local repo (if exist), than global
+        "add": {"desc": "<CID> add entry", "for_web": "yes"},
+        "update": {"desc": "<CID> update entry", "for_web": "yes"},
+        "load": {"desc": "<CID> load meta description of entry", "for_web": "yes"},
+        "edit": {"desc": "<CID> edit entry description using external editor", "for_web": "no"},
 
-cache_repo_init=False # True, if initialized
-paths_repos_all=[]    # Path to all repos
-cache_repo_uoa={}     # Disambiguate repo UOA to repo UID
-cache_repo_info={}    # Cache repo info with path and type
+        "zip": {"desc": "<CID> zip entries", "for_web": "no"},
 
-type_long=None        # In Python 3 -> int, in Python 2 -> long
-string_io=None        # StringIO, which is imported differently in Python 2 and 3
+        "find": {"desc": "<CID> find path to entry"},
+        "cd": {"desc": "<CID> print 'cd {path to entry}'"},
+        "cdc": {"desc": "<CID> print 'cd {path to entry} and copy to clipboard, if supported"},
+        "path": {"desc": "<CID> detect CID in the current directory"},
+        "cid": {"desc": "<CID> get CID of the current entry"},
 
-log_ck_entries=False  # If true, log CK entries to record all dependencies
+        "rm": {"desc": "<CID> delete entry", "for_web": "yes"},
+        "remove": {"desc": "see 'rm'", "for_web": "yes"},
+        "delete": {"desc": "see 'rm'", "for_web": "yes"},
+
+        "ren": {"desc": "<CID> <new name) (data_uid) (remove_alias) rename entry", "for_web": "yes"},
+        "rename": {"desc": "see 'ren' function", "for_web": "yes"},
+
+        "cp": {"desc": "<CID> <CID1> copy entry", "for_web": "yes"},
+        "copy": {"desc": "see 'cp'", "for_web": "yes"},
+
+        "mv": {"desc": "<CID> <CID1> move entry", "for_web": "yes"},
+        "move": {"desc": "see 'mv'", "for_web": "yes"},
+
+        "list_files": {"desc": " list files recursively in a given entry", "for_web": "yes"},
+        "delete_file": {"desc": "<file> delete file from a given entry", "for_web": "yes"},
+
+        "list": {"desc": "<CID> list entries", "for_web": "yes"},
+        "ls": {"desc": "see 'list'", "for_web": "yes"},
+
+        "list_tags": {"desc": "<CID> list tags in all found entries", "for_web": "yes"},
+
+        "search": {"desc": "<CID> search entries", "for_web": "yes"},
+
+        "pull": {"desc": "<CID> (filename) or (empty to get the whole entry as archive) pull file from entry"},
+        "push": {"desc": "<CID> (filename) push file to entry"},
+
+        "add_action": {"desc": "add action (function) to existing module"},
+        "remove_action": {"desc": "remove action (function) from existing module"},
+        "list_actions": {"desc": "list actions (functions) in existing module", "for_web": "yes"},
+
+        "add_index": {"desc": "<CID> add index"},
+        "delete_index": {"desc": "<CID> remove index"},
+
+        "convert_cm_to_ck": {"desc": "<CID> convert old CM entries to CK entries"},
+
+        "create_entry": {"desc": "<directory> create an entry for a given directory name"},
+
+        "get_api": {"desc": "--func=<func> print API of a function in a given module"},
+
+        "download": {"desc": "<CID> attempt to download entry from remote host (experimental)", "for_web": "yes"},
+
+        "print_input": {"desc": "prints input"},
+
+    },
+
+    "actions_redirect": {"list": "list_data2",
+                         "ls": "list_data2"},
+
+    "common_actions": ["webhelp", "webapi", "help", "info", "print_input",
+                       "wiki",
+                       "path", "find", "cid", "cd", "cdc",
+                       "browser",
+                       "add",
+                       "edit",
+                       "load",
+                       "zip",
+                       "rm", "remove", "delete",
+                       "update",
+                       "ren", "rename",
+                       "cp", "copy",
+                       "mv", "move",
+                       "ls",
+                       "list",
+                       "list_tags",
+                       "search",
+                       "pull",
+                       "push",
+                       "list_files",
+                       "delete_file",
+                       "add_action",
+                       "remove_action",
+                       "list_actions",
+                       "create_entry",
+                       "add_index",
+                       "delete_index",
+                       "get_api",
+                       "download",
+                       "convert_cm_to_ck"]
+}
+
+work = {
+    "env_root": "",               # Path to CK installation
+
+    "dir_default_repo": "",
+    "dir_default_repo_path": "",
+    "dir_default_kernel": "",
+    "dir_default_cfg": "",
+
+    "dir_local_repo": "",
+    "dir_local_repo_path": "",
+    "dir_local_kernel": "",
+    "dir_local_cfg": "",
+
+    "local_kernel_uoa": "",
+
+    "dir_work_repo": "",
+    "dir_work_repo_path": "",
+    "dir_work_cfg": "",
+
+    "dir_repos": "",
+
+    "dir_cache_repo_uoa": "",
+    "dir_cache_repo_info": "",
+
+    "repo_name_work": "",
+    "repo_uid_work": "",
+
+    'cached_module_by_path': {},
+    'cached_module_by_path_last_modification': {}
+}
+
+paths_repos = []        # First path to local repo (if exist), than global
+
+cache_repo_init = False  # True, if initialized
+paths_repos_all = []    # Path to all repos
+cache_repo_uoa = {}     # Disambiguate repo UOA to repo UID
+cache_repo_info = {}    # Cache repo info with path and type
+
+type_long = None        # In Python 3 -> int, in Python 2 -> long
+string_io = None        # StringIO, which is imported differently in Python 2 and 3
+
+log_ck_entries = False  # If true, log CK entries to record all dependencies
 
 ##############################################################################
 # Save the CK state
 #
 # TARGET: end users
+
 
 def save_state():
     """Save CK state
@@ -394,17 +402,17 @@ def save_state():
     import copy
     import os
 
-    r={}
+    r = {}
 
-    r['cfg']=copy.deepcopy(cfg)
-    r['paths_repos']=copy.deepcopy(paths_repos)
+    r['cfg'] = copy.deepcopy(cfg)
+    r['paths_repos'] = copy.deepcopy(paths_repos)
 
-    r['cache_repo_init']=cache_repo_init
-    r['paths_repos_all']=copy.deepcopy(paths_repos_all)
-    r['cache_repo_uoa']=copy.deepcopy(cache_repo_uoa)
-    r['cache_repo_info']=copy.deepcopy(cache_repo_info)
+    r['cache_repo_init'] = cache_repo_init
+    r['paths_repos_all'] = copy.deepcopy(paths_repos_all)
+    r['cache_repo_uoa'] = copy.deepcopy(cache_repo_uoa)
+    r['cache_repo_info'] = copy.deepcopy(cache_repo_info)
 
-    r['os.environ']=copy.deepcopy(os.environ)
+    r['os.environ'] = copy.deepcopy(os.environ)
 
     return r
 
@@ -412,6 +420,7 @@ def save_state():
 # Restore CK state
 #
 # TARGET: end users
+
 
 def restore_state(r):
     """Restore CK state
@@ -430,17 +439,17 @@ def restore_state(r):
     import copy
     import os
 
-    cfg=r['cfg']
-    paths_repos=r['paths_repos']
+    cfg = r['cfg']
+    paths_repos = r['paths_repos']
 
-    cache_repo_init=r['cache_repo_init']
-    paths_repos_all=r['paths_repos_all']
-    cache_repo_uoa=r['cache_repo_uoa']
-    cache_repo_info=r['cache_repo_info']
+    cache_repo_init = r['cache_repo_init']
+    paths_repos_all = r['paths_repos_all']
+    cache_repo_uoa = r['cache_repo_uoa']
+    cache_repo_info = r['cache_repo_info']
 
-    os.environ=r['os.environ']
+    os.environ = r['os.environ']
 
-    initialized=False
+    initialized = False
 
     return init({})
 
@@ -448,6 +457,7 @@ def restore_state(r):
 # Reinitialize CK
 #
 # TARGET: end users
+
 
 def reinit():
     """Reinitialize CK
@@ -462,13 +472,13 @@ def reinit():
 
     global initialized, paths_repos, cache_repo_init, paths_repos_all, cache_repo_uoa, cache_repo_info
 
-    initialized=False
-    paths_repos=[]
+    initialized = False
+    paths_repos = []
 
-    cache_repo_init=False
-    paths_repos_all=[]
-    cache_repo_uoa={}
-    cache_repo_info={}
+    cache_repo_init = False
+    paths_repos_all = []
+    cache_repo_uoa = {}
+    cache_repo_info = {}
 
     return init({})
 
@@ -476,6 +486,7 @@ def reinit():
 # Universal print of unicode string in utf8 that supports Python 2.x and 3.x
 #
 # TARGET: end users
+
 
 def out(s):
     """Universal print of a unicode string in UTF-8 or other format 
@@ -491,26 +502,26 @@ def out(s):
              None
     """
 
-    if allow_print: 
-       if con_encoding=='':
-          x=sys.stdin.encoding
-          if x==None: 
-             b=s.encode()
-          else:
-             b=s.encode(x, 'ignore')
-       else:
-          b=s.encode(con_encoding, 'ignore')
+    if allow_print:
+        if con_encoding == '':
+            x = sys.stdin.encoding
+            if x == None:
+                b = s.encode()
+            else:
+                b = s.encode(x, 'ignore')
+        else:
+            b = s.encode(con_encoding, 'ignore')
 
-       if sys.version_info[0]>2:
-          try: # We encountered issues on ipython with Anaconda
-               # and hence made this work around
-             sys.stdout.buffer.write(b)
-             sys.stdout.buffer.write(b'\n')
-          except Exception as e: 
-             print(s)
-             pass
-       else:
-          print(b)
+        if sys.version_info[0] > 2:
+            try:  # We encountered issues on ipython with Anaconda
+                # and hence made this work around
+                sys.stdout.buffer.write(b)
+                sys.stdout.buffer.write(b'\n')
+            except Exception as e:
+                print(s)
+                pass
+        else:
+            print(b)
 
     sys.stdout.flush()
 
@@ -520,6 +531,7 @@ def out(s):
 # Universal debug print of a dictionary (removing unprintable parts)
 #
 # TARGET: end users
+
 
 def debug_out(i):
     """Universal debug print of a dictionary while removing unprintable parts
@@ -538,26 +550,27 @@ def debug_out(i):
     import copy
     import json
 
-    ii={}
+    ii = {}
 
     # Check main unprintable keys
     for k in i:
         try:
-           s=json.dumps(i[k])
-        except Exception as e: 
-           pass
+            s = json.dumps(i[k])
+        except Exception as e:
+            pass
         else:
-           ii[k]=i[k]
+            ii[k] = i[k]
 
     # Dump
     out(json.dumps(ii, indent=2))
 
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # Universal print of unicode error string in utf8 that supports Python 2.x and 3.x to stderr
 #
 # TARGET: end users
+
 
 def eout(s):
     """Universal print of a unicode error string in the UTF-8 or other format to stderr
@@ -572,26 +585,26 @@ def eout(s):
              None
     """
 
-    if allow_print: 
-       if con_encoding=='':
-          x=sys.stdin.encoding
-          if x==None: 
-             b=s.encode()
-          else:
-             b=s.encode(x, 'ignore')
-       else:
-          b=s.encode(con_encoding, 'ignore')
+    if allow_print:
+        if con_encoding == '':
+            x = sys.stdin.encoding
+            if x == None:
+                b = s.encode()
+            else:
+                b = s.encode(x, 'ignore')
+        else:
+            b = s.encode(con_encoding, 'ignore')
 
-       if sys.version_info[0]>2:
-          try: # We encountered issues on ipython with Anaconda
-               # and hence made this work around
-             sys.stderr.buffer.write(b)
-             sys.stderr.buffer.write(b'\n')
-          except Exception as e: 
-             sys.stderr.write(s)
-             pass
-       else:
-          sys.stderr.write(b)
+        if sys.version_info[0] > 2:
+            try:  # We encountered issues on ipython with Anaconda
+                # and hence made this work around
+                sys.stderr.buffer.write(b)
+                sys.stderr.buffer.write(b'\n')
+            except Exception as e:
+                sys.stderr.write(s)
+                pass
+        else:
+            sys.stderr.write(b)
 
     sys.stderr.flush()
 
@@ -601,6 +614,7 @@ def eout(s):
 # Universal error print and exit
 #
 # TARGET: end users
+
 
 def err(r):
     """Print error to stderr and exit with a given return code
@@ -628,8 +642,8 @@ def err(r):
 
     import sys
 
-    rc=r['return']
-    re=r['error']
+    rc = r['return']
+    re = r['error']
 
     out('Error: '+re)
     sys.exit(rc)
@@ -638,6 +652,7 @@ def err(r):
 # Universal error print for Jupyter Notebook with raise KeyboardInterrupt
 #
 # TARGET: end users
+
 
 def jerr(r):
     """Print error message for CK functions in the Jupyter Notebook and raise KeyboardInterrupt
@@ -664,8 +679,8 @@ def jerr(r):
 
     """
 
-    rc=r['return']
-    re=r['error']
+    rc = r['return']
+    re = r['error']
 
     out('Error: '+re)
 
@@ -676,7 +691,8 @@ def jerr(r):
 #
 # TARGET: end users
 
-def safe_float(i,d):
+
+def safe_float(i, d):
     """Support function for safe float (useful for sorting function)
        Target audience: end users
 
@@ -689,11 +705,11 @@ def safe_float(i,d):
 
     """
 
-    r=d
+    r = d
     try:
-       r=float(i)
-    except Exception as e: 
-       pass
+        r = float(i)
+    except Exception as e:
+        pass
 
     return r
 
@@ -701,6 +717,7 @@ def safe_float(i,d):
 # Support function to lower values in a list
 #
 # TARGET: internal
+
 
 def lower_list(lst):
     """Support function to convert all strings into lower case in a list
@@ -714,7 +731,7 @@ def lower_list(lst):
 
     """
 
-    nlst=[]
+    nlst = []
 
     for v in lst:
         nlst.append(v.lower())
@@ -725,6 +742,7 @@ def lower_list(lst):
 # Support function for checking splitting entry number
 #
 # TARGET: CK kernel and low-level developers
+
 
 def get_split_dir_number(repo_dict, module_uid, module_uoa):
     """Support function for checking splitting entry number
@@ -743,34 +761,34 @@ def get_split_dir_number(repo_dict, module_uid, module_uoa):
 
     # Check if there is a split of directories for this module in local config
     # to handle numerous entries (similar to MediaWiki)
-    found=False
-    split_dir_number=0
+    found = False
+    split_dir_number = 0
 
     # Check global split for all repositories (in cfg) or for a given repo
     for xcfg in [cfg, repo_dict]:
-        x=xcfg.get('split_all_dirs','')
-        if x!='':
-           x=safe_int(x,0)
-           if x!=0:
-              found=True
-              split_dir_number=x
-              break
+        x = xcfg.get('split_all_dirs', '')
+        if x != '':
+            x = safe_int(x, 0)
+            if x != 0:
+                found = True
+                split_dir_number = x
+                break
 
     # Check split per module
     if not found:
-       for xcfg in [cfg, repo_dict]:
-           xsplit_dirs=xcfg.get('split_dirs',{})
+        for xcfg in [cfg, repo_dict]:
+            xsplit_dirs = xcfg.get('split_dirs', {})
 
-           found=False
-           for m in [module_uid, module_uoa]:
-               x=safe_int(xsplit_dirs.get(m,0),0)
-               if x!=0:
-                  split_dir_number=x
-                  found=True
-                  break
+            found = False
+            for m in [module_uid, module_uoa]:
+                x = safe_int(xsplit_dirs.get(m, 0), 0)
+                if x != 0:
+                    split_dir_number = x
+                    found = True
+                    break
 
-           if found:
-              break
+            if found:
+                break
 
     return split_dir_number
 
@@ -778,6 +796,7 @@ def get_split_dir_number(repo_dict, module_uid, module_uoa):
 # Support function to split entry name (if needed)
 #
 # TARGET: CK kernel and low-level developers
+
 
 def split_name(name, number):
     """Support function to split entry name (if needed)
@@ -795,25 +814,26 @@ def split_name(name, number):
              )
     """
 
-    sd1=name
-    sd2=''
+    sd1 = name
+    sd2 = ''
 
-    if number!='': 
-       number=int(number)
-       if number!=0:
-          if len(name)>number:
-             sd1=name[:number]
-             sd2=name[number:]
-          else:
-             sd1='_'
-             sd2=name
+    if number != '':
+        number = int(number)
+        if number != 0:
+            if len(name) > number:
+                sd1 = name[:number]
+                sd2 = name[number:]
+            else:
+                sd1 = '_'
+                sd2 = name
 
-    return (sd1,sd2)
+    return (sd1, sd2)
 
 ##############################################################################
 # Support function for checking whether to index data or not ...
 #
 # TARGET: CK kernel and low-level developers
+
 
 def index_module(module_uoa, repo_uoa):
     """Support function for checking whether to index data using ElasticSearch or not ...
@@ -829,22 +849,22 @@ def index_module(module_uoa, repo_uoa):
              (bool): True if needs to index
     """
 
-    ret=True
+    ret = True
 
     # First check if index the whole repo
-    ir=cfg.get('index_repos',[])
-    if len(ir)>0 and repo_uoa!='':
-       if repo_uoa in ir:
-          return ret
+    ir = cfg.get('index_repos', [])
+    if len(ir) > 0 and repo_uoa != '':
+        if repo_uoa in ir:
+            return ret
 
-    im=cfg.get('index_modules',[])
+    im = cfg.get('index_modules', [])
 
     # Next check if index module (if im is empty index all)
-    if len(im)>0:
-       ret=False
+    if len(im) > 0:
+        ret = False
 
-       if module_uoa in im:
-          ret=True
+        if module_uoa in im:
+            ret = True
 
     return ret
 
@@ -853,7 +873,8 @@ def index_module(module_uoa, repo_uoa):
 #
 # TARGET: end users
 
-def safe_int(i,d):
+
+def safe_int(i, d):
     """Support function for safe int (useful for sorting function)
        Target audience: end users
 
@@ -865,11 +886,11 @@ def safe_int(i,d):
              (int): returns i if it can be converted to int, or d otherwise
     """
 
-    r=d
+    r = d
     try:
-       r=int(i)
-    except Exception as e: 
-       pass
+        r = int(i)
+    except Exception as e:
+        pass
 
     return r
 
@@ -878,6 +899,7 @@ def safe_int(i,d):
 # (useful for various sorting)
 #
 # TARGET: end users
+
 
 def safe_get_val_from_list(lst, index, default_value):
     """Support function to get value from list without error if out of bounds
@@ -894,15 +916,16 @@ def safe_get_val_from_list(lst, index, default_value):
              (int): returns i if it can be converted to int, or d otherwise
     """
 
-    v=default_value
-    if index<len(lst):
-       v=lst[index]
+    v = default_value
+    if index < len(lst):
+        v = lst[index]
     return v
 
 ##############################################################################
 # Support function for safeily kill a given process
 #
 # TARGET: end users
+
 
 def system_with_timeout_kill(proc):
     """Support function to safely terminate a given process 
@@ -917,41 +940,42 @@ def system_with_timeout_kill(proc):
 
     # First via psutil (works better on Windows but may not be installed)
 
-    loaded=True
+    loaded = True
     try:
-       import psutil
+        import psutil
     except ImportError:
-       loaded=False
-       pass
+        loaded = False
+        pass
 
-    if loaded: # pragma: no cover
-       try:
-          pid=proc.pid
+    if loaded:  # pragma: no cover
+        try:
+            pid = proc.pid
 
-          p=psutil.Process(pid)
-          pc=p.get_children(recursive=True)
+            p = psutil.Process(pid)
+            pc = p.get_children(recursive=True)
 
-          for px in pc:
-              px.kill()
+            for px in pc:
+                px.kill()
 
-          p.kill()
-       except Exception as e: 
-          loaded=False
-          pass
+            p.kill()
+        except Exception as e:
+            loaded = False
+            pass
 
     # Try traditional way
     if not loaded:
-       try:
-          proc.terminate()
-       except Exception as e: 
-          pass
+        try:
+            proc.terminate()
+        except Exception as e:
+            pass
 
     return
 
 ##############################################################################
-# Substituting os.system with possibility for time out 
+# Substituting os.system with possibility for time out
 #
 # TARGET: end users
+
 
 def system_with_timeout(i):
     """os.system with time out 
@@ -974,38 +998,39 @@ def system_with_timeout(i):
     import subprocess
     import time
 
-    cmd=i['cmd']
+    cmd = i['cmd']
 
-    rc=0
+    rc = 0
 
-    to=i.get('timeout','')
+    to = i.get('timeout', '')
 
-    p=subprocess.Popen(cmd, shell=True)
+    p = subprocess.Popen(cmd, shell=True)
 
     if to != '':
-       xto=float(to)
+        xto = float(to)
 
-       t0=time.time()
-       t=0
-       tx=float(i['timeout'])
+        t0 = time.time()
+        t = 0
+        tx = float(i['timeout'])
 
-       while p.poll() == None and t<xto:
-          time.sleep(0.1)
-          t=time.time()-t0
+        while p.poll() == None and t < xto:
+            time.sleep(0.1)
+            t = time.time()-t0
 
-       if t>=xto and p.poll()==None:
-          system_with_timeout_kill(p)
-          return {'return':8, 'error':'process timed out and had been terminated'}
+        if t >= xto and p.poll() == None:
+            system_with_timeout_kill(p)
+            return {'return': 8, 'error': 'process timed out and had been terminated'}
     else:
-       p.wait()
+        p.wait()
 
-    rc=p.returncode
-    return {'return':0, 'return_code':rc}
+    rc = p.returncode
+    return {'return': 0, 'return_code': rc}
 
 ##############################################################################
 # Run command and get stdout
 #
 # TARGET: end users
+
 
 def run_and_get_stdout(i):
     """Run command and log stdout and stdout
@@ -1033,36 +1058,38 @@ def run_and_get_stdout(i):
     import shlex
     import platform
 
-    cmd=i['cmd']
-    if type(cmd)!=list:
+    cmd = i['cmd']
+    if type(cmd) != list:
         # Split only on non-Windows platforms (since Windows takes a string in Popen)
         if not platform.system().lower().startswith('win'):
-            cmd=shlex.split(cmd)
+            cmd = shlex.split(cmd)
 
-    xshell=False
-    if i.get('shell','')=='yes':
-        xshell=True
+    xshell = False
+    if i.get('shell', '') == 'yes':
+        xshell = True
 
-    p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=xshell)
+    p1 = subprocess.Popen(cmd, stdout=subprocess.PIPE,
+                          stderr=subprocess.PIPE, shell=xshell)
     output, error = p1.communicate()
 
-    if sys.version_info[0]>2:
-       try:
-         output = output.decode(encoding='UTF-8')
-       except Exception as e:
-         return {'return':1, 'error':'problem encoding stdout ('+format(e)+')'}
+    if sys.version_info[0] > 2:
+        try:
+            output = output.decode(encoding='UTF-8')
+        except Exception as e:
+            return {'return': 1, 'error': 'problem encoding stdout ('+format(e)+')'}
 
-       try:
-         error = error.decode(encoding='UTF-8')
-       except Exception as e:
-         return {'return':1, 'error':'problem encoding stderr ('+format(e)+')'}
+        try:
+            error = error.decode(encoding='UTF-8')
+        except Exception as e:
+            return {'return': 1, 'error': 'problem encoding stderr ('+format(e)+')'}
 
-    return {'return':0, 'return_code':p1.returncode, 'stdout':output, 'stderr':error}
+    return {'return': 0, 'return_code': p1.returncode, 'stdout': output, 'stderr': error}
 
 ##############################################################################
 # Get value from one dict, remove it from there and move to another
 #
 # TARGET: end users
+
 
 def get_from_dicts(dict1, key, default_value, dict2, extra=''):
     """Get value from one dict, remove it from there and move to another
@@ -1078,17 +1105,17 @@ def get_from_dicts(dict1, key, default_value, dict2, extra=''):
               (any): value from the dictionary
     """
 
-    value=default_value
+    value = default_value
 
     if key not in dict1:
-       if dict2!=None:
-          value=dict2.get(extra+key, default_value)
+        if dict2 != None:
+            value = dict2.get(extra+key, default_value)
     else:
-       value=dict1[key]
-       del(dict1[key])
+        value = dict1[key]
+        del(dict1[key])
 
-       if dict2!=None:
-          dict2[extra+key]=value
+        if dict2 != None:
+            dict2[extra+key] = value
 
     return value
 
@@ -1096,6 +1123,7 @@ def get_from_dicts(dict1, key, default_value, dict2, extra=''):
 # Convert iso text time to a datetime object
 #
 # TARGET: end users
+
 
 def convert_iso_time(i):
     """Convert iso text time to a datetime object
@@ -1114,67 +1142,75 @@ def convert_iso_time(i):
                 datetime_obj (obj): datetime object
     """
 
-    t=i['iso_datetime']
+    t = i['iso_datetime']
 
     import datetime
     import time
 
-    dto=None
+    dto = None
 
-    ok=True
+    ok = True
 
-    try: dto=datetime.datetime.strptime(t, "%Y-%m-%dT%H:%M:%S.%f")
-    except Exception as e: 
-       ok=False
-       pass
-
-    if not ok:
-       ok=True
-       try: dto=datetime.datetime.strptime(t, "%Y-%m-%dT%H:%M:%S")
-       except Exception as e: 
-          ok=False
-          pass
+    try:
+        dto = datetime.datetime.strptime(t, "%Y-%m-%dT%H:%M:%S.%f")
+    except Exception as e:
+        ok = False
+        pass
 
     if not ok:
-       ok=True
-       try: dto=datetime.datetime.strptime(t, "%Y-%m-%dT%H:%M")
-       except Exception as e: 
-          ok=False
-          pass
+        ok = True
+        try:
+            dto = datetime.datetime.strptime(t, "%Y-%m-%dT%H:%M:%S")
+        except Exception as e:
+            ok = False
+            pass
 
     if not ok:
-       ok=True
-       try: dto=datetime.datetime.strptime(t, "%Y-%m-%dT%H")
-       except Exception as e: 
-          ok=False
-          pass
+        ok = True
+        try:
+            dto = datetime.datetime.strptime(t, "%Y-%m-%dT%H:%M")
+        except Exception as e:
+            ok = False
+            pass
 
     if not ok:
-       ok=True
-       try: dto=datetime.datetime.strptime(t, "%Y-%m-%d")
-       except Exception as e: 
-          ok=False
-          pass
+        ok = True
+        try:
+            dto = datetime.datetime.strptime(t, "%Y-%m-%dT%H")
+        except Exception as e:
+            ok = False
+            pass
 
     if not ok:
-       ok=True
-       try: dto=datetime.datetime.strptime(t, "%Y-%m")
-       except Exception as e: 
-          ok=False
-          pass
+        ok = True
+        try:
+            dto = datetime.datetime.strptime(t, "%Y-%m-%d")
+        except Exception as e:
+            ok = False
+            pass
 
     if not ok:
-       ok=True
-       try: dto=datetime.datetime.strptime(t, "%Y")
-       except Exception as e: 
-          return {'return':1, 'error':'can\'t parse ISO date time: '+t}
+        ok = True
+        try:
+            dto = datetime.datetime.strptime(t, "%Y-%m")
+        except Exception as e:
+            ok = False
+            pass
 
-    return {'return':0, 'datetime_obj':dto}
+    if not ok:
+        ok = True
+        try:
+            dto = datetime.datetime.strptime(t, "%Y")
+        except Exception as e:
+            return {'return': 1, 'error': 'can\'t parse ISO date time: '+t}
+
+    return {'return': 0, 'datetime_obj': dto}
 
 ##############################################################################
 # Support function for safe convert str to int
 #
 # TARGET: end users
+
 
 def convert_str_key_to_int(key):
     """Support function for safe convert str to int
@@ -1189,14 +1225,15 @@ def convert_str_key_to_int(key):
     """
 
     try:
-       return int(key)
+        return int(key)
     except ValueError:
-       return 0
+        return 0
 
 ##############################################################################
 # Universal input of unicode string in utf8 that supports Python 2.x and 3.x
 #
 # TARGET: end users
+
 
 def inp(i):
     """Universal input of unicode string in UTF-8 or other format
@@ -1217,37 +1254,41 @@ def inp(i):
                 string (str): entered string
     """
 
-    t=i['text']
+    t = i['text']
 
-    if con_encoding=='':
-       x=sys.stdin.encoding
-       if x==None: 
-          b=t.encode()
-       else:
-          b=t.encode(x, 'ignore')
+    if con_encoding == '':
+        x = sys.stdin.encoding
+        if x == None:
+            b = t.encode()
+        else:
+            b = t.encode(x, 'ignore')
     else:
-       b=t.encode(con_encoding, 'ignore') # pragma: no cover 
+        b = t.encode(con_encoding, 'ignore')  # pragma: no cover
 
-    if sys.version_info[0]>2:
-       try: b=b.decode(sys.stdin.encoding)
-       except Exception as e: 
-         try: b=b.decode('utf8')
-         except Exception as e: pass
+    if sys.version_info[0] > 2:
+        try:
+            b = b.decode(sys.stdin.encoding)
+        except Exception as e:
+            try:
+                b = b.decode('utf8')
+            except Exception as e:
+                pass
 
-    if sys.version_info[0]>2:
-       s=input(b)
+    if sys.version_info[0] > 2:
+        s = input(b)
     else:
-       x=sys.stdin.encoding
-       if x==None:
-          x='utf8'
-       s=raw_input(b).decode(x).encode('utf8')
+        x = sys.stdin.encoding
+        if x == None:
+            x = 'utf8'
+        s = raw_input(b).decode(x).encode('utf8')
 
-    return {'return':0, 'string':s}
+    return {'return': 0, 'string': s}
 
 ##############################################################################
 # Universal selector of a dictionary key
 #
 # TARGET: end users (advanced version available in module "choice")
+
 
 def select(i):
     """Universal selector of a dictionary key
@@ -1271,54 +1312,56 @@ def select(i):
                 string (str): selected dictionary key
     """
 
-    s=''
+    s = ''
 
-    title=i.get('title','')
-    if title!='':
-       out(title)
-       out('')
+    title = i.get('title', '')
+    if title != '':
+        out(title)
+        out('')
 
-    d=i['dict']
-    if i.get('skip_sort','')!='yes':
-       kd=sorted(d, key=lambda v: d[v].get('sort',0))
+    d = i['dict']
+    if i.get('skip_sort', '') != 'yes':
+        kd = sorted(d, key=lambda v: d[v].get('sort', 0))
     else:
-       kd=d
+        kd = d
 
-    j=0
-    ks={}
+    j = 0
+    ks = {}
     for k in kd:
-        q=d[k]
+        q = d[k]
 
-        sj=str(j)
-        ks[sj]=k
+        sj = str(j)
+        ks[sj] = k
 
-        qn=q.get('name','')
+        qn = q.get('name', '')
 
         out(sj+') '+qn)
 
-        j+=1
+        j += 1
 
     out('')
-    rx=inp({'text':'Make your selection (or press Enter for 0): '})
-    if rx['return']>0: return rx
-    sx=rx['string'].strip()
+    rx = inp({'text': 'Make your selection (or press Enter for 0): '})
+    if rx['return'] > 0:
+        return rx
+    sx = rx['string'].strip()
 
-    if sx=='':
-       if i.get('error_if_empty','')=='yes':
-          return {'return':1, 'error':'selection is empty'}
+    if sx == '':
+        if i.get('error_if_empty', '') == 'yes':
+            return {'return': 1, 'error': 'selection is empty'}
 
-       s=kd[0]
+        s = kd[0]
     else:
-       if sx not in ks:
-          return {'return':1, 'error':'selection is not recognized'}
-       s=ks[sx]
+        if sx not in ks:
+            return {'return': 1, 'error': 'selection is not recognized'}
+        s = ks[sx]
 
-    return {'return':0, 'string':s}
+    return {'return': 0, 'string': s}
 
 ##############################################################################
 # Universal CK entry UOA selector
 #
 # TARGET: end users (advanced version available in module "choice")
+
 
 def select_uoa(i):
     """Universal CK entry UOA selector
@@ -1341,49 +1384,52 @@ def select_uoa(i):
                 choice (str): CK entry UOA
     """
 
-    se=i.get('skip_enter','')
+    se = i.get('skip_enter', '')
 
-    lst=i.get('choices',[])
+    lst = i.get('choices', [])
 
-    if i.get('skip_sort','')!='yes':
-       klst=sorted(lst, key=lambda v: v['data_uoa'])
+    if i.get('skip_sort', '') != 'yes':
+        klst = sorted(lst, key=lambda v: v['data_uoa'])
     else:
-       klst=lst
+        klst = lst
 
-    zz={}
-    iz=0
+    zz = {}
+    iz = 0
 
     for z1 in klst:
-        z=z1['data_uid']
-        zu=z1['data_uoa']
+        z = z1['data_uid']
+        zu = z1['data_uoa']
 
-        zs=str(iz)
-        zz[zs]=z
+        zs = str(iz)
+        zz[zs] = z
 
         out(zs+') '+zu+' ('+z+')')
 
-        iz+=1
+        iz += 1
 
     out('')
-    y='Select UOA'
-    if se!='yes': y+=' (or press Enter for 0)'
-    y+=': '
+    y = 'Select UOA'
+    if se != 'yes':
+        y += ' (or press Enter for 0)'
+    y += ': '
 
-    rx=inp({'text':y})
-    x=rx['string'].strip()
-    if x=='' and se!='yes': x='0' 
+    rx = inp({'text': y})
+    x = rx['string'].strip()
+    if x == '' and se != 'yes':
+        x = '0'
 
     if x not in zz:
-       return {'return':1, 'error':'number is not recognized'}
+        return {'return': 1, 'error': 'number is not recognized'}
 
-    dduoa=zz[x]
+    dduoa = zz[x]
 
-    return {'return':0, 'choice':dduoa}
+    return {'return': 0, 'choice': dduoa}
 
 ##############################################################################
-# Split string by comma into a list of stripped values 
+# Split string by comma into a list of stripped values
 #
 # TARGET: end users
+
 
 def convert_str_tags_to_list(i):
     """Split string by comma into a list of stripped strings 
@@ -1398,16 +1444,16 @@ def convert_str_tags_to_list(i):
               (list): list of stripped strings
     """
 
-    r=[]
+    r = []
 
-    if type(i)==list:
-       r=i
+    if type(i) == list:
+        r = i
     else:
-       ii=i.split(',')
-       for q in ii:
-           q=q.strip()
-           if q!='':
-              r.append(q)
+        ii = i.split(',')
+        for q in ii:
+            q = q.strip()
+            if q != '':
+                r.append(q)
 
     return r
 
@@ -1415,6 +1461,7 @@ def convert_str_tags_to_list(i):
 # Check is writing to a given repo with a given module is allowed
 #
 # TARGET: CK kernel and low-level developers
+
 
 def check_writing(i):
     """Check is writing to a given repo with a given module is allowed
@@ -1440,53 +1487,54 @@ def check_writing(i):
                 (repo_dict) (dict): repo meta description if available
     """
 
-    dl=i.get('delete','')
+    dl = i.get('delete', '')
 
-    if dl=='yes' and cfg.get('forbid_global_delete','')=='yes':
-       return {'return':1, 'error':'delete/rename operations are forbidden'}
+    if dl == 'yes' and cfg.get('forbid_global_delete', '') == 'yes':
+        return {'return': 1, 'error': 'delete/rename operations are forbidden'}
 
-    if cfg.get('forbid_global_writing','')=='yes':
-       return {'return':1, 'error':'global writing is forbidden'}
+    if cfg.get('forbid_global_writing', '') == 'yes':
+        return {'return': 1, 'error': 'global writing is forbidden'}
 
-    if len(i)==0: 
-       return {'return':0} # Check only global writing
+    if len(i) == 0:
+        return {'return': 0}  # Check only global writing
 
-    if cfg.get('forbid_writing_modules','')=='yes':
-       muoa=i.get('module_uoa','')
-       muid=i.get('module_uid','')
-       if muoa==cfg['module_name'] or (muid!='' and muid in cfg['module_uids']):
-          return {'return':1, 'error':'writing/changing modules is forbidden'}
+    if cfg.get('forbid_writing_modules', '') == 'yes':
+        muoa = i.get('module_uoa', '')
+        muid = i.get('module_uid', '')
+        if muoa == cfg['module_name'] or (muid != '' and muid in cfg['module_uids']):
+            return {'return': 1, 'error': 'writing/changing modules is forbidden'}
 
-    ruoa=i.get('repo_uoa','')
-    ruid=i.get('repo_uid','')
+    ruoa = i.get('repo_uoa', '')
+    ruid = i.get('repo_uid', '')
 
-    if cfg.get('forbid_writing_to_default_repo','')=='yes':
-       if ruoa==cfg['repo_name_default'] or ruid==cfg['repo_uid_default']:
-          return {'return':1, 'error':'writing to default repo is forbidden'}
+    if cfg.get('forbid_writing_to_default_repo', '') == 'yes':
+        if ruoa == cfg['repo_name_default'] or ruid == cfg['repo_uid_default']:
+            return {'return': 1, 'error': 'writing to default repo is forbidden'}
 
-    if cfg.get('forbid_writing_to_local_repo','')=='yes':
-       if ruoa==cfg['repo_name_local'] or ruid==cfg['repo_uid_local']:
-          return {'return':1, 'error':'writing to local repo is forbidden'}
+    if cfg.get('forbid_writing_to_local_repo', '') == 'yes':
+        if ruoa == cfg['repo_name_local'] or ruid == cfg['repo_uid_local']:
+            return {'return': 1, 'error': 'writing to local repo is forbidden'}
 
-    rr={'return':0}
+    rr = {'return': 0}
 
     # Load info about repo
-    rd={}
-    if ruoa!='':
-       if 'repo_dict' in i:
-          rd=i['repo_dict']
-       else:
-          rx=load_repo_info_from_cache({'repo_uoa':ruoa})
-          if rx['return']>0: return rx
-          rd=rx.get('dict',{})
-       rr['repo_dict']=rd
+    rd = {}
+    if ruoa != '':
+        if 'repo_dict' in i:
+            rd = i['repo_dict']
+        else:
+            rx = load_repo_info_from_cache({'repo_uoa': ruoa})
+            if rx['return'] > 0:
+                return rx
+            rd = rx.get('dict', {})
+        rr['repo_dict'] = rd
 
-    if cfg.get('allow_writing_only_to_allowed','')=='yes':
-       if rd.get('allow_writing','')!='yes':
-          return {'return':1, 'error':'writing to this repo is forbidden'}
+    if cfg.get('allow_writing_only_to_allowed', '') == 'yes':
+        if rd.get('allow_writing', '') != 'yes':
+            return {'return': 1, 'error': 'writing to this repo is forbidden'}
 
-    if rd.get('forbid_deleting','')=='yes' and dl=='yes':
-       return {'return':1, 'error':'deleting in this repo is forbidden'}
+    if rd.get('forbid_deleting', '') == 'yes' and dl == 'yes':
+        return {'return': 1, 'error': 'deleting in this repo is forbidden'}
 
     return rr
 
@@ -1494,6 +1542,7 @@ def check_writing(i):
 # Get CK version
 #
 # TARGET: end users
+
 
 def get_version(i):
     """Get CK version
@@ -1515,20 +1564,22 @@ def get_version(i):
 
     import copy
 
-    s=''
+    s = ''
 
-    x=copy.deepcopy(cfg['version'])
+    x = copy.deepcopy(cfg['version'])
 
     for q in x:
-        if s!='': s+='.'
-        s+=str(q)
+        if s != '':
+            s += '.'
+        s += str(q)
 
-    return {'return':0, 'version':x, 'version_str':s}
+    return {'return': 0, 'version': x, 'version_str': s}
 
 ##############################################################################
 # Generate temporary files
 #
 # TARGET: end users
+
 
 def gen_tmp_file(i):
     """Generate temporary files
@@ -1549,24 +1600,25 @@ def gen_tmp_file(i):
                 file_name (str): temp file name 
     """
 
-    xs=i.get('suffix','')
-    xp=i.get('prefix','')
-    s=i.get('string','')
+    xs = i.get('suffix', '')
+    xp = i.get('prefix', '')
+    s = i.get('string', '')
 
     import tempfile
-    fd, fn=tempfile.mkstemp(suffix=xs, prefix=xp)
+    fd, fn = tempfile.mkstemp(suffix=xs, prefix=xp)
     os.close(fd)
     os.remove(fn)
 
-    if i.get('remove_dir','')=='yes':
-       fn=os.path.basename(fn)
+    if i.get('remove_dir', '') == 'yes':
+        fn = os.path.basename(fn)
 
-    return {'return':0, 'file_name':fn}
+    return {'return': 0, 'file_name': fn}
 
 ##############################################################################
 # Get host platform name (currently win or linux) and OS bits
 #
 # TARGET: end users
+
 
 def get_os_ck(i):
     """Get host platform name (currently win or linux) and OS bits
@@ -1593,44 +1645,46 @@ def get_os_ck(i):
     import platform
     import struct
 
-    pbits=str(8 * struct.calcsize("P"))
+    pbits = str(8 * struct.calcsize("P"))
 
-    plat='linux'
-    if platform.system().lower().startswith('win'): # pragma: no cover
-       plat='win'
+    plat = 'linux'
+    if platform.system().lower().startswith('win'):  # pragma: no cover
+        plat = 'win'
 
-    obits=i.get('bits','')
-    if obits=='':
-       obits='32'
-       if plat=='win':
-          # Trying to get fast way to detect bits
-          if os.environ.get('ProgramW6432','')!='' or os.environ.get('ProgramFiles(x86)','')!='': # pragma: no cover
-             obits='64'
-       else:
-          # On Linux use first getconf LONG_BIT and if doesn't work use python bits
+    obits = i.get('bits', '')
+    if obits == '':
+        obits = '32'
+        if plat == 'win':
+            # Trying to get fast way to detect bits
+            if os.environ.get('ProgramW6432', '') != '' or os.environ.get('ProgramFiles(x86)', '') != '':  # pragma: no cover
+                obits = '64'
+        else:
+            # On Linux use first getconf LONG_BIT and if doesn't work use python bits
 
-          obits=pbits
+            obits = pbits
 
-          r=gen_tmp_file({})
-          if r['return']>0: return r
-          fn=r['file_name']
+            r = gen_tmp_file({})
+            if r['return'] > 0:
+                return r
+            fn = r['file_name']
 
-          cmd='getconf LONG_BIT > '+fn
-          rx=os.system(cmd)
-          if rx==0:
-             r=load_text_file({'text_file':fn, 
-                               'delete_after_read':'yes'})
-             if r['return']==0:
-                s=r['string'].strip()
-                if len(s)>0 and len(s)<4:
-                   obits=s
+            cmd = 'getconf LONG_BIT > '+fn
+            rx = os.system(cmd)
+            if rx == 0:
+                r = load_text_file({'text_file': fn,
+                                    'delete_after_read': 'yes'})
+                if r['return'] == 0:
+                    s = r['string'].strip()
+                    if len(s) > 0 and len(s) < 4:
+                        obits = s
 
-    return {'return':0, 'platform':plat, 'bits':obits, 'python_bits':pbits}
+    return {'return': 0, 'platform': plat, 'bits': obits, 'python_bits': pbits}
 
 ##############################################################################
 # Generate CK UID
 #
 # TARGET: end users
+
 
 def gen_uid(i):
     """Generate valid CK UID
@@ -1652,20 +1706,21 @@ def gen_uid(i):
     import uuid
     import random
 
-    uid=str(uuid.uuid4().hex)
+    uid = str(uuid.uuid4().hex)
 
-    if len(uid)!=32:
-       return {'return':1, 'error':'problem generating UID : len='+str(len(uid))+' !=32'} # pragma: no cover 
+    if len(uid) != 32:
+        return {'return': 1, 'error': 'problem generating UID : len='+str(len(uid))+' !=32'}  # pragma: no cover
 
     random.seed
 
-    x=random.randrange(0,16)
-    return {'return':0, 'data_uid':uid[x:x+16]}
+    x = random.randrange(0, 16)
+    return {'return': 0, 'data_uid': uid[x:x+16]}
 
 ##############################################################################
 # Check if a string is a valid CK UID
 #
 # TARGET: end users
+
 
 def is_uid(s):
     """Check if a string is a valid CK UID
@@ -1680,8 +1735,8 @@ def is_uid(s):
 
     import re
 
-    if len(s)!=16:
-       return False
+    if len(s) != 16:
+        return False
 
     pattern = r'[^\.a-f0-9]'
     if re.search(pattern, s.lower()):
@@ -1690,10 +1745,11 @@ def is_uid(s):
     return True
 
 ##############################################################################
-# Check if string is correct CK UOA 
+# Check if string is correct CK UOA
 #   (i.e. does not have special characters including *, ?)
 #
 # TARGET: end users
+
 
 def is_uoa(s):
     """Check if string is correct CK UOA, i.e. it does not have special characters including *, ?
@@ -1706,9 +1762,12 @@ def is_uoa(s):
               (bool): True if a string is a valid CK UID or alias
     """
 
-    if s.find(cfg['detect_cur_cid'])>=0 or s.find(cfg['detect_cur_cid1'])>=0: return False
-    if s.find('*')>=0: return False
-    if s.find('?')>=0: return False
+    if s.find(cfg['detect_cur_cid']) >= 0 or s.find(cfg['detect_cur_cid1']) >= 0:
+        return False
+    if s.find('*') >= 0:
+        return False
+    if s.find('?') >= 0:
+        return False
 
     return True
 
@@ -1716,6 +1775,7 @@ def is_uoa(s):
 # Prepare provenance for a given CK entry (CK used, author, date, etc)
 #
 # TARGET: CK kernel and low-level developers
+
 
 def prepare_special_info_about_entry(i):
     """Prepare provenance for a given CK entry (CK used, author, date, etc)
@@ -1736,28 +1796,28 @@ def prepare_special_info_about_entry(i):
     """
 
     # Add control info
-    d={'engine':'CK',
-       'version':cfg['version']}
+    d = {'engine': 'CK',
+         'version': cfg['version']}
 
-    if cfg.get('default_developer','')!='':
-       d['author']=cfg['default_developer']
+    if cfg.get('default_developer', '') != '':
+        d['author'] = cfg['default_developer']
 
-    if cfg.get('default_developer_email','')!='':
-       d['author_email']=cfg['default_developer_email']
+    if cfg.get('default_developer_email', '') != '':
+        d['author_email'] = cfg['default_developer_email']
 
-    if cfg.get('default_developer_webpage','')!='':
-       d['author_webpage']=cfg['default_developer_webpage']
+    if cfg.get('default_developer_webpage', '') != '':
+        d['author_webpage'] = cfg['default_developer_webpage']
 
-    if cfg.get('default_license','')!='':
-       d['license']=cfg['default_license']
+    if cfg.get('default_license', '') != '':
+        d['license'] = cfg['default_license']
 
-    if cfg.get('default_copyright','')!='':
-       d['copyright']=cfg['default_copyright']
+    if cfg.get('default_copyright', '') != '':
+        d['copyright'] = cfg['default_copyright']
 
-    r=get_current_date_time({})
-    d['iso_datetime']=r['iso_datetime']
+    r = get_current_date_time({})
+    d['iso_datetime'] = r['iso_datetime']
 
-    return {'return':0, 'dict': d}
+    return {'return': 0, 'dict': d}
 
 
 ##############################################################################
@@ -1783,6 +1843,8 @@ def load_json_file(i):
     return ck.files.load_json_file(i)
 
 ##############################################################################
+
+
 def save_json_to_file(i):
     """Save dict to a json file
        Target audience: end users
@@ -1829,6 +1891,8 @@ def load_yaml_file(i):
     return ck.files.load_yaml_file(i)
 
 ##############################################################################
+
+
 def save_yaml_to_file(i):
     """Save dict to a YAML file
        Target audience: end users
@@ -1889,6 +1953,8 @@ def load_text_file(i):
     return ck.files.load_text_file(i)
 
 ##############################################################################
+
+
 def save_text_file(i):
     """Save string to a text file with all \r removed
        Target audience: end users
@@ -1909,13 +1975,6 @@ def save_text_file(i):
 
     import ck.files
     return ck.files.save_text_file(i)
-
-
-
-
-
-
-
 
 
 ##############################################################################
@@ -1941,24 +2000,25 @@ def substitute_str_in_file(i):
 
     """
 
-    fn=i['filename']
-    s1=i['string1']
-    s2=i['string2']
+    fn = i['filename']
+    s1 = i['string1']
+    s2 = i['string2']
 
     # Load text file (unicode)
-    r=load_text_file({'text_file':fn})
-    if r['return']>0: return r
+    r = load_text_file({'text_file': fn})
+    if r['return'] > 0:
+        return r
 
     # Replace
-    x=r['string']
-    x=x.replace(s1,s2)
+    x = r['string']
+    x = x.replace(s1, s2)
 
     # Save text file (unicode)
-    r=save_text_file({'text_file':fn, 'string':x})
-    if r['return']>0: return r
+    r = save_text_file({'text_file': fn, 'string': x})
+    if r['return'] > 0:
+        return r
 
-    return {'return':0}
-
+    return {'return': 0}
 
 
 ##############################################################################
@@ -1987,6 +2047,8 @@ def dumps_json(i):
     return ck.strings.dump_json(i)
 
 ##############################################################################
+
+
 def dump_json(i):
     """Dump dictionary (json) to a string
        Target audience: end users
@@ -2011,7 +2073,9 @@ def dump_json(i):
     return ck.strings.dump_json(i)
 
 ##############################################################################
-def copy_to_clipboard(i): # pragma: no cover 
+
+
+def copy_to_clipboard(i):  # pragma: no cover
     """Copy string to clipboard if supported by OS (requires Tk or pyperclip)
        Target audience: end users
 
@@ -2031,6 +2095,8 @@ def copy_to_clipboard(i): # pragma: no cover
     return ck.strings.copy_to_clipboard(i)
 
 ##############################################################################
+
+
 def convert_json_str_to_dict(i):
     """Convert string in a special format to dict (JSON)
        Target audience: end users
@@ -2051,8 +2117,6 @@ def convert_json_str_to_dict(i):
 
     import ck.strings
     return ck.strings.convert_json_str_to_dict(i)
-
-
 
 
 ##############################################################################
@@ -2081,31 +2145,32 @@ def merge_dicts(i):
 
     """
 
-    a=i['dict1']
-    b=i['dict2']
+    a = i['dict1']
+    b = i['dict2']
 
     for k in b:
-        v=b[k]
+        v = b[k]
         if type(v) is dict:
-           if k not in a:
-              a.update({k:b[k]})
-           elif type(a[k])==dict:
-              merge_dicts({'dict1':a[k], 'dict2':b[k]})
-           else:
-              a[k]=b[k]
+            if k not in a:
+                a.update({k: b[k]})
+            elif type(a[k]) == dict:
+                merge_dicts({'dict1': a[k], 'dict2': b[k]})
+            else:
+                a[k] = b[k]
         elif type(v) is list:
-           a[k]=[]
-           for y in v:
-               a[k].append(y)
+            a[k] = []
+            for y in v:
+                a[k].append(y)
         else:
-           a[k]=b[k]
+            a[k] = b[k]
 
-    return {'return':0, 'dict1':a}
+    return {'return': 0, 'dict1': a}
 
 ##############################################################################
 # Convert file to a string for web-based upload
 #
 # TARGET: end users
+
 
 def convert_file_to_upload_string(i):
     """Convert file to a string for web-based upload
@@ -2127,30 +2192,32 @@ def convert_file_to_upload_string(i):
 
     import base64
 
-    fn=i['filename']
+    fn = i['filename']
 
     if not os.path.isfile(fn):
-       return {'return':1, 'error':'file '+fn+' not found'}
+        return {'return': 1, 'error': 'file '+fn+' not found'}
 
-    s=b''
+    s = b''
     try:
-       f=open(fn, 'rb')
-       while True:
-          x = f.read(32768);
-          if not x: break
-          s+=x
-       f.close()
+        f = open(fn, 'rb')
+        while True:
+            x = f.read(32768)
+            if not x:
+                break
+            s += x
+        f.close()
     except Exception as e:
-       return {'return':1, 'error':'error reading file ('+format(e)+')'}
+        return {'return': 1, 'error': 'error reading file ('+format(e)+')'}
 
-    s=base64.urlsafe_b64encode(s).decode('utf8')
+    s = base64.urlsafe_b64encode(s).decode('utf8')
 
-    return {'return':0, 'file_content_base64': s}
+    return {'return': 0, 'file_content_base64': s}
 
 ##############################################################################
 # Convert upload string to file
 #
 # TARGET: end users
+
 
 def convert_upload_string_to_file(i):
     """Convert upload string to file
@@ -2175,37 +2242,40 @@ def convert_upload_string_to_file(i):
 
     import base64
 
-    x=i['file_content_base64']
+    x = i['file_content_base64']
 
-    fc=base64.urlsafe_b64decode(str(x)) # convert from unicode to str since base64 works on strings
-                                        # should be safe in Python 2.x and 3.x
+    # convert from unicode to str since base64 works on strings
+    fc = base64.urlsafe_b64decode(str(x))
+    # should be safe in Python 2.x and 3.x
 
-    fn=i.get('filename','')
+    fn = i.get('filename', '')
 
-    if fn=='':
-       rx=gen_tmp_file({'prefix':'tmp-'})
-       if rx['return']>0: return rx
-       px=rx['file_name']
+    if fn == '':
+        rx = gen_tmp_file({'prefix': 'tmp-'})
+        if rx['return'] > 0:
+            return rx
+        px = rx['file_name']
     else:
-       px=fn
+        px = fn
 
     fn1, fne = os.path.splitext(px)
 
     if os.path.isfile(px):
-       return {'return':1, 'error':'file already exists in the current directory'}
+        return {'return': 1, 'error': 'file already exists in the current directory'}
     try:
-       fx=open(px, 'wb')
-       fx.write(fc)
-       fx.close()
+        fx = open(px, 'wb')
+        fx.write(fc)
+        fx.close()
     except Exception as e:
-       return {'return':1, 'error':'problem writing file='+px+' ('+format(e)+')'}
+        return {'return': 1, 'error': 'problem writing file='+px+' ('+format(e)+')'}
 
-    return {'return':0, 'filename':px, 'filename_ext': fne}
+    return {'return': 0, 'filename': px, 'filename_ext': fne}
 
 ##############################################################################
 # Input JSON from console (double enter to finish)
 #
 # TARGET: end users
+
 
 def input_json(i):
     """Input JSON from console (double enter to finish)
@@ -2227,37 +2297,44 @@ def input_json(i):
 
     """
 
-    t=i['text']
+    t = i['text']
 
     out(t)
 
-    s=''
+    s = ''
 
     while True:
-       r=inp({'text':''})
-       if r['return']>0: return r
-       ss=r['string'].strip()
-       if ss=='': break
-       s+=ss
+        r = inp({'text': ''})
+        if r['return'] > 0:
+            return r
+        ss = r['string'].strip()
+        if ss == '':
+            break
+        s += ss
 
-    s=s.strip()
+    s = s.strip()
 
-    if s=='': s='{}' # empty json
+    if s == '':
+        s = '{}'  # empty json
     else:
-       if not s.startswith('{'): s='{'+s
-       if not s.endswith('}'): s+='}'
+        if not s.startswith('{'):
+            s = '{'+s
+        if not s.endswith('}'):
+            s += '}'
 
-    r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
-    if r['return']>0: return r
+    r = convert_json_str_to_dict({'str': s, 'skip_quote_replacement': 'yes'})
+    if r['return'] > 0:
+        return r
 
-    d=r['dict']
+    d = r['dict']
 
-    return {'return':0, 'string': s, 'dict':d}
+    return {'return': 0, 'string': s, 'dict': d}
 
 ##############################################################################
 # Convert CK list to CK dict with unicode in UTF-8 (unification of interfaces)
 #
 # TARGET: CK kernel and low-level developers
+
 
 def convert_ck_list_to_dict(i):
     """Convert CK list to CK dict with unicode in UTF-8 (unification of interfaces)
@@ -2300,141 +2377,149 @@ def convert_ck_list_to_dict(i):
 
     """
 
-    obj={}
-    obj['cids']=[]
+    obj = {}
+    obj['cids'] = []
 
-    l=len(i)
+    l = len(i)
 
-    if l>0: obj['action']=i[0]
+    if l > 0:
+        obj['action'] = i[0]
 
-    module_uoa_or_cid=''
+    module_uoa_or_cid = ''
 
     # Parsing
-    cx=True # Start first processing CIDs and then turn it off when something else is encountered
+    cx = True  # Start first processing CIDs and then turn it off when something else is encountered
 
-    if l>1:
-       for x in range(1, len(i)):
-           p=i[x].rstrip()
+    if l > 1:
+        for x in range(1, len(i)):
+            p = i[x].rstrip()
 
-           #####################################
-           if p=='--':
-              cx=False
-              p2=i[x+1:]
-              obj['unparsed']=p2
-              break
+            #####################################
+            if p == '--':
+                cx = False
+                p2 = i[x+1:]
+                obj['unparsed'] = p2
+                break
 
-           #####################################
-           elif p.startswith('--'):
-              cx=False
+            #####################################
+            elif p.startswith('--'):
+                cx = False
 
-              p=p[2:]
-              p1=p 
-              p2='yes'
-              q=p.find("=")
-              if q>0:
-                 p1=p[0:q]
-                 if len(p)>q:
-                   p2=p[q+1:]
-              obj[p1]=p2
+                p = p[2:]
+                p1 = p
+                p2 = 'yes'
+                q = p.find("=")
+                if q > 0:
+                    p1 = p[0:q]
+                    if len(p) > q:
+                        p2 = p[q+1:]
+                obj[p1] = p2
 
-           #####################################
-           elif p.startswith('-'):
-              cx=False
+            #####################################
+            elif p.startswith('-'):
+                cx = False
 
-              p=p[1:]
-              p1=p 
-              p2='yes'
-              q=p.find("=")
-              if q>0:
-                 p1=p[0:q]
-                 if len(p)>q:
-                   p2=p[q+1:]
-              obj[p1]=p2
+                p = p[1:]
+                p1 = p
+                p2 = 'yes'
+                q = p.find("=")
+                if q > 0:
+                    p1 = p[0:q]
+                    if len(p) > q:
+                        p2 = p[q+1:]
+                obj[p1] = p2
 
-           #####################################
-           elif p.startswith("@@@"):
-              cx=False
-              jd=p[3:]
-              if len(jd)<3:
-                 return {'return':1, 'error':'can\'t parse command line option '+p}
+            #####################################
+            elif p.startswith("@@@"):
+                cx = False
+                jd = p[3:]
+                if len(jd) < 3:
+                    return {'return': 1, 'error': 'can\'t parse command line option '+p}
 
-              y=convert_json_str_to_dict({'str':jd})
-              if y['return']>0: return y
+                y = convert_json_str_to_dict({'str': jd})
+                if y['return'] > 0:
+                    return y
 
-              merge_dicts({'dict1':obj, 'dict2':y['dict']})
+                merge_dicts({'dict1': obj, 'dict2': y['dict']})
 
-           #####################################
-           elif p.startswith("@@"):
-              cx=False
-              key=p[2:]
+            #####################################
+            elif p.startswith("@@"):
+                cx = False
+                key = p[2:]
 
-              x='Add JSON to input'
-              if key!='': x+=' for key "'+key+'"'
-              x+=' (double Enter to stop):\n'
+                x = 'Add JSON to input'
+                if key != '':
+                    x += ' for key "'+key+'"'
+                x += ' (double Enter to stop):\n'
 
-              rx=input_json({'text':x})
-              if rx['return']>0: return rx
+                rx = input_json({'text': x})
+                if rx['return'] > 0:
+                    return rx
 
-              dy=rx['dict']
+                dy = rx['dict']
 
-              dx=obj
-              if key!='':
-                 if key not in obj: obj[key]={}
-                 dx=obj[key]
+                dx = obj
+                if key != '':
+                    if key not in obj:
+                        obj[key] = {}
+                    dx = obj[key]
 
-              merge_dicts({'dict1':dx, 'dict2':dy})
+                merge_dicts({'dict1': dx, 'dict2': dy})
 
-           #####################################
-           elif p.startswith("@"):
-              cx=False
+            #####################################
+            elif p.startswith("@"):
+                cx = False
 
-              name=p[1:]
-              if len(name)<2:
-                 return {'return':1, 'error':'can\'t parse command line option '+p}
+                name = p[1:]
+                if len(name) < 2:
+                    return {'return': 1, 'error': 'can\'t parse command line option '+p}
 
-              if name.endswith('.yaml'):
-                 y=load_yaml_file({'yaml_file':name})
-              else:
-                 y=load_json_file({'json_file':name})
+                if name.endswith('.yaml'):
+                    y = load_yaml_file({'yaml_file': name})
+                else:
+                    y = load_json_file({'json_file': name})
 
-              if y['return']>0: return y
+                if y['return'] > 0:
+                    return y
 
-              if name.endswith('.tmp'):
-                 os.remove(name)   
+                if name.endswith('.tmp'):
+                    os.remove(name)
 
-              merge_dicts({'dict1':obj, 'dict2':y['dict']})
+                merge_dicts({'dict1': obj, 'dict2': y['dict']})
 
-           #####################################
-           elif p.find('=')>=0:
-              cx=False
+            #####################################
+            elif p.find('=') >= 0:
+                cx = False
 
-              p1=p 
-              p2=''
-              q=p.find("=")
-              if q>0:
-                 p1=p[0:q]
-                 if len(p)>q:
-                   p2=p[q+1:]
-              obj[p1]=p2
-           #####################################
-           else:
-              # If no module_uoa_or_cid -> set it
-              if module_uoa_or_cid=='': 
-                 module_uoa_or_cid=p
-              else:
-                 # Otherwise add to CIDs
-                 obj['cids'].append(p)
+                p1 = p
+                p2 = ''
+                q = p.find("=")
+                if q > 0:
+                    p1 = p[0:q]
+                    if len(p) > q:
+                        p2 = p[q+1:]
+                obj[p1] = p2
+            #####################################
+            else:
+                # If no module_uoa_or_cid -> set it
+                if module_uoa_or_cid == '':
+                    module_uoa_or_cid = p
+                else:
+                    # Otherwise add to CIDs
+                    obj['cids'].append(p)
 
-    if module_uoa_or_cid!='': obj['cid']=module_uoa_or_cid
+    if module_uoa_or_cid != '':
+        obj['cid'] = module_uoa_or_cid
 
-    return {'return':0, 'ck_dict':obj}
+    return {'return': 0, 'ck_dict': obj}
 
 ##############################################################################
 # Inititalize CK (current instance - has a global state!)
 #
 # TARGET: internal use
 
-def init(i): # pragma: no cover
+
+def init(i):  # pragma: no cover
     """Inititalize CK (current instance - has a global state!)
        Target audience: internal use
 
@@ -2453,232 +2538,259 @@ def init(i): # pragma: no cover
     global cfg, work, initialized, paths_repos, type_long, string_io, log_ck_entries
 
     if initialized:
-       return {'return':0}
+        return {'return': 0}
 
     # Add this path to syspath to be able to call other modules
-    this_kernel_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+    this_kernel_dir = os.path.join(os.path.dirname(
+        os.path.dirname(os.path.abspath(__file__))))
     sys.path.insert(0, this_kernel_dir)
 
     # Split version
-    cfg['version']=__version__.split('.')
+    cfg['version'] = __version__.split('.')
 
     # Default URL. FIXME: should be formed from wfe_host and wfe_port when they are known.
     # cfg['wfe_url_prefix'] = 'http://%s:%s/web?' % (cfg['default_host'], cfg['default_port'])
 
     # Check long/int types
     try:
-       x=long
+        x = long
     except Exception as e:
-       type_long=int
+        type_long = int
     else:
-       type_long=long
+        type_long = long
 
     # Import StringIO
-    if sys.version_info[0]>2:
-       import io
-       string_io=io.StringIO
+    if sys.version_info[0] > 2:
+        import io
+        string_io = io.StringIO
     else:
-       from StringIO import StringIO
-       string_io=StringIO
+        from StringIO import StringIO
+        string_io = StringIO
 
     # Check where are repos (to keep compatibility with past CK < V1.5)
-    p=''
+    p = ''
 
-    searched_places=[]
+    searched_places = []
 
     import inspect
-    pxx=os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
-    px=os.path.dirname(pxx)
-    py=os.path.join(pxx, cfg['subdir_default_repo'])
+    pxx = os.path.dirname(os.path.abspath(
+        inspect.getfile(inspect.currentframe())))
+    px = os.path.dirname(pxx)
+    py = os.path.join(pxx, cfg['subdir_default_repo'])
     searched_places.append(py)
     if os.path.isdir(py):
-       p=py
+        p = py
 
-    if p=='':
-       from distutils.sysconfig import get_python_lib
-       px=get_python_lib()
-       py=os.path.join(px, cfg['kernel_dir'], cfg['subdir_default_repo'])
-       searched_places.append(py)
-       if os.path.isdir(py):
-          p=py
+    if p == '':
+        from distutils.sysconfig import get_python_lib
+        px = get_python_lib()
+        py = os.path.join(px, cfg['kernel_dir'], cfg['subdir_default_repo'])
+        searched_places.append(py)
+        if os.path.isdir(py):
+            p = py
 
-    if p=='':
-       import site
-       for px in site.getsitepackages():
-           py=os.path.join(px, cfg['kernel_dir'],cfg['subdir_default_repo'])
-           searched_places.append(py)
-           if os.path.isdir(py):
-              p=py
-              break
+    if p == '':
+        import site
+        for px in site.getsitepackages():
+            py = os.path.join(px, cfg['kernel_dir'],
+                              cfg['subdir_default_repo'])
+            searched_places.append(py)
+            if os.path.isdir(py):
+                p = py
+                break
 
     # Check CK_ROOT environment variable
-    s=os.environ.get(cfg['env_key_root'],'').strip()
-    if s!='':
-       work['env_root']=os.path.realpath(s)
+    s = os.environ.get(cfg['env_key_root'], '').strip()
+    if s != '':
+        work['env_root'] = os.path.realpath(s)
 
-       for px in cfg['kernel_dirs']:
-           searched_places.append(py)
-           py=os.path.join(work['env_root'], px, cfg['subdir_default_repo'])
-           if os.path.isdir(py):
-              p=py
-              break
-    elif px!='':
-      work['env_root']=px
+        for px in cfg['kernel_dirs']:
+            searched_places.append(py)
+            py = os.path.join(work['env_root'], px, cfg['subdir_default_repo'])
+            if os.path.isdir(py):
+                p = py
+                break
+    elif px != '':
+        work['env_root'] = px
 
     # Get home user directory
     from os.path import expanduser
-    home=expanduser("~")
+    home = expanduser("~")
 
     # Check default repo
-    x=os.environ.get(cfg['env_key_default_repo'],'').strip()
+    x = os.environ.get(cfg['env_key_default_repo'], '').strip()
 
-    if x!='' and os.path.isdir(x):
-       work['dir_default_repo']=x
+    if x != '' and os.path.isdir(x):
+        work['dir_default_repo'] = x
     else:
-       if p=='':
-          # Attempt to find in userspace (since V1.11.2.1)
-          x=os.path.join(home, '.ck', __version__, cfg['subdir_default_repo'])
-          if os.path.isfile(os.path.join(x, cfg['repo_file'])):
-             p=x
+        if p == '':
+            # Attempt to find in userspace (since V1.11.2.1)
+            x = os.path.join(home, '.ck', __version__,
+                             cfg['subdir_default_repo'])
+            if os.path.isfile(os.path.join(x, cfg['repo_file'])):
+                p = x
 
-       if p=='':
-          return {'return':1, 'error':'Unusual CK installation detected since we can\'t find the CK package path with the default repo (searched in '+str(searched_places)+'). It often happens when you install CK under root while other tools (which use CK) under user and vice versa.  Please reinstall other tools that use CK in the same way as CK (root or user). If the problem persists, please report to the author (Grigori.Fursin@cTuning.org).'}
+        if p == '':
+            return {'return': 1, 'error': 'Unusual CK installation detected since we can\'t find the CK package path with the default repo (searched in '+str(searched_places)+'). It often happens when you install CK under root while other tools (which use CK) under user and vice versa.  Please reinstall other tools that use CK in the same way as CK (root or user). If the problem persists, please report to the author (Grigori.Fursin@cTuning.org).'}
 
-       work['dir_default_repo']=p
+        work['dir_default_repo'] = p
 
-    work['dir_default_repo_path']=os.path.join(work['dir_default_repo'], cfg['module_repo_name'], cfg['repo_name_default'])
-    work['dir_default_kernel']=os.path.join(work['dir_default_repo'], cfg['subdir_kernel'])
-    work['dir_default_cfg']=os.path.join(work['dir_default_kernel'], cfg['subdir_kernel_default'], cfg['subdir_ck_ext'], cfg['file_meta'])
+    work['dir_default_repo_path'] = os.path.join(
+        work['dir_default_repo'], cfg['module_repo_name'], cfg['repo_name_default'])
+    work['dir_default_kernel'] = os.path.join(
+        work['dir_default_repo'], cfg['subdir_kernel'])
+    work['dir_default_cfg'] = os.path.join(
+        work['dir_default_kernel'], cfg['subdir_kernel_default'], cfg['subdir_ck_ext'], cfg['file_meta'])
 
-    work['dir_work_repo']=work['dir_default_repo']
-    work['dir_work_repo_path']=work['dir_default_repo_path']
-    work['dir_work_kernel']=work['dir_default_kernel']
-    work['dir_work_cfg']=work['dir_default_cfg']
+    work['dir_work_repo'] = work['dir_default_repo']
+    work['dir_work_repo_path'] = work['dir_default_repo_path']
+    work['dir_work_kernel'] = work['dir_default_kernel']
+    work['dir_work_cfg'] = work['dir_default_cfg']
 
     if os.path.isfile(work['dir_default_cfg']):
-       r=load_json_file({'json_file':work['dir_default_cfg']})
-       if r['return']>0: return r
-       cfg1=r['dict']
+        r = load_json_file({'json_file': work['dir_default_cfg']})
+        if r['return'] > 0:
+            return r
+        cfg1 = r['dict']
 
-       # Update cfg
-       r=merge_dicts({'dict1':cfg, 'dict2':cfg1})
-       if r['return']>0: return r
+        # Update cfg
+        r = merge_dicts({'dict1': cfg, 'dict2': cfg1})
+        if r['return'] > 0:
+            return r
 
-    work['repo_name_work']=cfg['repo_name_default']
-    work['repo_uid_work']=cfg['repo_uid_default']
+    work['repo_name_work'] = cfg['repo_name_default']
+    work['repo_uid_work'] = cfg['repo_uid_default']
 
     # Check external repos
-    rps=os.environ.get(cfg['env_key_repos'],'').strip()
-    if rps=='': 
-       # In the original version, if path to repos was not defined, I was using CK path,
-       # however, when installed as root, it will fail
-       # rps=os.path.join(work['env_root'],cfg['subdir_default_repos'])
-       # hence I changed to <user home dir>/CK
-       rps=os.path.join(home, cfg['user_home_dir_ext'])
-       if not os.path.isdir(rps):
-          os.makedirs(rps)
+    rps = os.environ.get(cfg['env_key_repos'], '').strip()
+    if rps == '':
+        # In the original version, if path to repos was not defined, I was using CK path,
+        # however, when installed as root, it will fail
+        # rps=os.path.join(work['env_root'],cfg['subdir_default_repos'])
+        # hence I changed to <user home dir>/CK
+        rps = os.path.join(home, cfg['user_home_dir_ext'])
+        if not os.path.isdir(rps):
+            os.makedirs(rps)
 
-    work['dir_repos']=rps
+    work['dir_repos'] = rps
 
     # Check CK_LOCAL_REPO environment variable - if doesn't exist, create in user space
-    s=os.environ.get(cfg['env_key_local_repo'],'').strip()
+    s = os.environ.get(cfg['env_key_local_repo'], '').strip()
 
-    if s=='':
-       # Set up local default repository
-       s=os.path.join(rps, cfg['repo_name_local'])
-       if not os.path.isdir(s):
-          os.makedirs(s)
+    if s == '':
+        # Set up local default repository
+        s = os.path.join(rps, cfg['repo_name_local'])
+        if not os.path.isdir(s):
+            os.makedirs(s)
 
-          # Create description
-          rq=save_json_to_file({'json_file':os.path.join(s,cfg['repo_file']),
-                                'dict':{'data_alias':cfg['repo_name_local'],
-                                        'data_uoa':cfg['repo_name_local'],
-                                        'data_name':cfg['repo_name_local'],
-                                        'data_uid':cfg['repo_uid_local']},
-                                'sort_keys':'yes'})
-          if rq['return']>0: return rq
+            # Create description
+            rq = save_json_to_file({'json_file': os.path.join(s, cfg['repo_file']),
+                                    'dict': {'data_alias': cfg['repo_name_local'],
+                                             'data_uoa': cfg['repo_name_local'],
+                                             'data_name': cfg['repo_name_local'],
+                                             'data_uid': cfg['repo_uid_local']},
+                                    'sort_keys': 'yes'})
+            if rq['return'] > 0:
+                return rq
 
-    if s!='':
-       work['local_kernel_uoa']=cfg['subdir_kernel_default']
-       x=os.environ.get(cfg['env_key_local_kernel_uoa'],'').strip()
-       if x!='': work['local_kernel_uoa']=x
+    if s != '':
+        work['local_kernel_uoa'] = cfg['subdir_kernel_default']
+        x = os.environ.get(cfg['env_key_local_kernel_uoa'], '').strip()
+        if x != '':
+            work['local_kernel_uoa'] = x
 
-       work['dir_local_repo']=os.path.realpath(s)
-       work['dir_local_repo_path']=os.path.join(work['dir_local_repo'], cfg['module_repo_name'], cfg['repo_name_local'])
-       work['dir_local_kernel']=os.path.join(work['dir_local_repo'], cfg['subdir_kernel'])
-       work['dir_local_cfg']=os.path.join(work['dir_local_kernel'], work['local_kernel_uoa'], cfg['subdir_ck_ext'], cfg['file_meta'])
+        work['dir_local_repo'] = os.path.realpath(s)
+        work['dir_local_repo_path'] = os.path.join(
+            work['dir_local_repo'], cfg['module_repo_name'], cfg['repo_name_local'])
+        work['dir_local_kernel'] = os.path.join(
+            work['dir_local_repo'], cfg['subdir_kernel'])
+        work['dir_local_cfg'] = os.path.join(
+            work['dir_local_kernel'], work['local_kernel_uoa'], cfg['subdir_ck_ext'], cfg['file_meta'])
 
-       # Update work repo!
-       work['dir_work_repo']=work['dir_local_repo']
-       work['dir_work_repo_path']=work['dir_local_repo_path']
-       work['dir_work_kernel']=work['dir_local_kernel']
-       work['dir_work_cfg']=work['dir_local_cfg']
+        # Update work repo!
+        work['dir_work_repo'] = work['dir_local_repo']
+        work['dir_work_repo_path'] = work['dir_local_repo_path']
+        work['dir_work_kernel'] = work['dir_local_kernel']
+        work['dir_work_cfg'] = work['dir_local_cfg']
 
-       work['repo_name_work']=cfg['repo_name_local']
-       work['repo_uid_work']=cfg['repo_uid_local']
+        work['repo_name_work'] = cfg['repo_name_local']
+        work['repo_uid_work'] = cfg['repo_uid_local']
 
-       paths_repos.append({'path':work['dir_local_repo'],
-                           'repo_uoa':cfg['repo_name_local'],
-                           'repo_uid':cfg['repo_uid_local'],
-                           'repo_alias':cfg['repo_name_local']})
+        paths_repos.append({'path': work['dir_local_repo'],
+                            'repo_uoa': cfg['repo_name_local'],
+                            'repo_uid': cfg['repo_uid_local'],
+                            'repo_alias': cfg['repo_name_local']})
 
-    paths_repos.append({'path':work['dir_default_repo'],
-                        'repo_uoa':cfg['repo_name_default'],
-                        'repo_uid':cfg['repo_uid_default'],
-                        'repo_alias':cfg['repo_name_default']})
+    paths_repos.append({'path': work['dir_default_repo'],
+                        'repo_uoa': cfg['repo_name_default'],
+                        'repo_uid': cfg['repo_uid_default'],
+                        'repo_alias': cfg['repo_name_default']})
 
     # Prepare repo cache
-    work['dir_cache_repo_uoa']=os.path.join(work['dir_work_repo'],cfg['file_cache_repo_uoa'])
-    work['dir_cache_repo_info']=os.path.join(work['dir_work_repo'],cfg['file_cache_repo_info'])
+    work['dir_cache_repo_uoa'] = os.path.join(
+        work['dir_work_repo'], cfg['file_cache_repo_uoa'])
+    work['dir_cache_repo_info'] = os.path.join(
+        work['dir_work_repo'], cfg['file_cache_repo_info'])
 
     # Check if first time and then copy local cache files (with remote-ck)
     if not os.path.isfile(work['dir_cache_repo_uoa']) and not os.path.isfile(work['dir_cache_repo_info']):
-       rx=load_text_file({'text_file':os.path.join(work['dir_default_repo'],cfg['file_cache_repo_uoa'])})
-       if rx['return']>0: return rx
-       x1=rx['string']
+        rx = load_text_file({'text_file': os.path.join(
+            work['dir_default_repo'], cfg['file_cache_repo_uoa'])})
+        if rx['return'] > 0:
+            return rx
+        x1 = rx['string']
 
-       rx=load_text_file({'text_file':os.path.join(work['dir_default_repo'],cfg['file_cache_repo_info'])})
-       if rx['return']>0: return rx
-       x2=rx['string']
+        rx = load_text_file({'text_file': os.path.join(
+            work['dir_default_repo'], cfg['file_cache_repo_info'])})
+        if rx['return'] > 0:
+            return rx
+        x2 = rx['string']
 
-       rx=save_text_file({'text_file':work['dir_cache_repo_info'], 'string':x2})
-       if rx['return']>0: return rx
+        rx = save_text_file(
+            {'text_file': work['dir_cache_repo_info'], 'string': x2})
+        if rx['return'] > 0:
+            return rx
 
-       rx=save_text_file({'text_file':work['dir_cache_repo_uoa'], 'string':x1})
-       if rx['return']>0: return rx
+        rx = save_text_file(
+            {'text_file': work['dir_cache_repo_uoa'], 'string': x1})
+        if rx['return'] > 0:
+            return rx
 
     # Check if local configuration exists, and if not, create it
     if not os.path.isfile(work['dir_local_cfg']):
-       # Create empty local configuration
-       rx=add({'repo_uoa':cfg['repo_name_local'],
-               'module_uoa':cfg['subdir_kernel'],
-               'data_uoa':work['local_kernel_uoa']})
-       if rx['return']>0:
-          return {'return':rx['return'],
-                  'error':'can\'t create local configuration entry'}
+        # Create empty local configuration
+        rx = add({'repo_uoa': cfg['repo_name_local'],
+                  'module_uoa': cfg['subdir_kernel'],
+                  'data_uoa': work['local_kernel_uoa']})
+        if rx['return'] > 0:
+            return {'return': rx['return'],
+                    'error': 'can\'t create local configuration entry'}
 
     # Read kernel configuration (if exists)
     if os.path.isfile(work['dir_work_cfg']):
-       r=load_json_file({'json_file':work['dir_work_cfg']})
-       if r['return']>0: return r
-       cfg1=r['dict']
+        r = load_json_file({'json_file': work['dir_work_cfg']})
+        if r['return'] > 0:
+            return r
+        cfg1 = r['dict']
 
-       # Update cfg
-       r=merge_dicts({'dict1':cfg, 'dict2':cfg1})
-       if r['return']>0: return r
+        # Update cfg
+        r = merge_dicts({'dict1': cfg, 'dict2': cfg1})
+        if r['return'] > 0:
+            return r
 
     # Check if need to log CK entries
-    if cfg.get('log_ck_entries','')!='':
-       log_ck_entries=True
+    if cfg.get('log_ck_entries', '') != '':
+        log_ck_entries = True
 
-    initialized=True
+    initialized = True
 
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # List all files recursively in a given directory
 #
 # TARGET: all users
+
 
 def list_all_files(i):
     """List all files recursively in a given directory
@@ -2713,81 +2825,86 @@ def list_all_files(i):
 
     """
 
-    number=0
-    if i.get('number','')!='': 
-       number=int(i['number'])
+    number = 0
+    if i.get('number', '') != '':
+        number = int(i['number'])
 
-    inames=i.get('ignore_names',[])
+    inames = i.get('ignore_names', [])
 
-    fname=i.get('file_name','')
+    fname = i.get('file_name', '')
 
-    limit=-1
-    if i.get('limit','')!='': 
-       limit=int(i['limit'])
+    limit = -1
+    if i.get('limit', '') != '':
+        limit = int(i['limit'])
 
-    a={} 
+    a = {}
 
-    iall=i.get('all','')
+    iall = i.get('all', '')
 
-    pe=''
-    if i.get('path_ext','')!='': 
-       pe=i['path_ext']
+    pe = ''
+    if i.get('path_ext', '') != '':
+        pe = i['path_ext']
 
-    po=i.get('path','')
-    if sys.version_info[0]<3: po=unicode(po)
+    po = i.get('path', '')
+    if sys.version_info[0] < 3:
+        po = unicode(po)
 
-    pattern=i.get('pattern','')
-    if pattern!='':
-       import fnmatch
+    pattern = i.get('pattern', '')
+    if pattern != '':
+        import fnmatch
 
-    xisd=i.get('ignore_symb_dirs','')
-    isd=False
-    if xisd=='yes': isd=True
+    xisd = i.get('ignore_symb_dirs', '')
+    isd = False
+    if xisd == 'yes':
+        isd = True
 
-    ap=i.get('add_path','')
+    ap = i.get('add_path', '')
 
     try:
-       dirList=os.listdir(po)
+        dirList = os.listdir(po)
     except Exception as e:
         None
     else:
         for fn in dirList:
-            p=os.path.join(po, fn)
-            if iall=='yes' or fn not in cfg['special_directories']:
-               if len(inames)==0 or fn not in inames:
-                  if os.path.isdir(p):
-                     if not isd or os.path.realpath(p)==p:
-                        r=list_all_files({'path':p, 'all':iall, 'path_ext':os.path.join(pe, fn),
-                                          'number':str(number), 'ignore_names':inames, 'pattern':pattern,
-                                          'file_name':fname, 'ignore_symb_dirs':xisd, 'add_path':ap, 'limit': limit})
-                        if r['return']>0: return r
-                        a.update(r['list'])
-                  else:
-                     add=True
+            p = os.path.join(po, fn)
+            if iall == 'yes' or fn not in cfg['special_directories']:
+                if len(inames) == 0 or fn not in inames:
+                    if os.path.isdir(p):
+                        if not isd or os.path.realpath(p) == p:
+                            r = list_all_files({'path': p, 'all': iall, 'path_ext': os.path.join(pe, fn),
+                                                'number': str(number), 'ignore_names': inames, 'pattern': pattern,
+                                                'file_name': fname, 'ignore_symb_dirs': xisd, 'add_path': ap, 'limit': limit})
+                            if r['return'] > 0:
+                                return r
+                            a.update(r['list'])
+                    else:
+                        add = True
 
-                     if fname!='' and fname!=fn:
-                        add=False
+                        if fname != '' and fname != fn:
+                            add = False
 
-                     if pattern!='' and not fnmatch.fnmatch(fn, pattern):
-                        add=False
+                        if pattern != '' and not fnmatch.fnmatch(fn, pattern):
+                            add = False
 
-                     if add:
-                        pg=os.path.join(pe, fn)
-                        if os.path.isfile(p):
-                           a[pg]={'size':os.stat(p).st_size}
+                        if add:
+                            pg = os.path.join(pe, fn)
+                            if os.path.isfile(p):
+                                a[pg] = {'size': os.stat(p).st_size}
 
-                           if ap=='yes': a[pg]['path']=po
+                                if ap == 'yes':
+                                    a[pg]['path'] = po
 
-                  number=len(a)
-                  if limit!=-1 and number>=limit:
-                     break
+                    number = len(a)
+                    if limit != -1 and number >= limit:
+                        break
 
-    return {'return':0, 'list':a, 'number':str(number)}
+    return {'return': 0, 'list': a, 'number': str(number)}
 
 ##############################################################################
 # Download entry from remote host (experimental)
 #
 # TARGET: end users
+
 
 def download(i):
     """Download CK entry from remote host (experimental)
@@ -2820,309 +2937,333 @@ def download(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    smc=i.get('skip_module_check','')
+    smc = i.get('skip_module_check', '')
 
-    force=i.get('force','')
-    al=i.get('all','')
-    tags=i.get('tags','')
-    version=i.get('version','')
-    spaces=i.get('spaces','')
+    force = i.get('force', '')
+    al = i.get('all', '')
+    tags = i.get('tags', '')
+    version = i.get('version', '')
+    spaces = i.get('spaces', '')
 
-    cids_in_queue=i.get('cids_in_queue',[])
+    cids_in_queue = i.get('cids_in_queue', [])
 
 #    if cfg.get('download_missing_components','')=='yes' and al=='': al='yes'
- 
+
     # Check components to skip
     if muoa in ['repo', 'befd7892b0d469e9',
-                'env', '9b9b3208ac44b891', 
+                'env', '9b9b3208ac44b891',
                 'kernel', 'b1e99f6461424276',
                 'cfg', 'b34231a3467566f8']:
-       return {'return':0}
+        return {'return': 0}
 
-    if muoa=='':
-       return {'return':1, 'error':'module UOA is not defined'}
+    if muoa == '':
+        return {'return': 1, 'error': 'module UOA is not defined'}
 
-    if duoa=='': duoa='*'
+    if duoa == '':
+        duoa = '*'
 #       return {'return':1, 'error':'data UOA is not defined'}
 
-    nruoa=i.get('new_repo_uoa','')
-    if nruoa=='': nruoa='local'
+    nruoa = i.get('new_repo_uoa', '')
+    if nruoa == '':
+        nruoa = 'local'
 
     # Check if writing to new repo is allowed
-    r=find_path_to_repo({'repo_uoa':nruoa})
-    if r['return']>0: return r
+    r = find_path_to_repo({'repo_uoa': nruoa})
+    if r['return'] > 0:
+        return r
 
-    nruoa=r['repo_uoa']
-    nruid=r['repo_uid']
-    nrd=r['dict']
+    nruoa = r['repo_uoa']
+    nruid = r['repo_uid']
+    nrd = r['dict']
 
-    npath=r['path']
+    npath = r['path']
 
-    ii={'repo_uoa':nruoa, 'repo_uid':nruid, 'repo_dict':nrd}
-    r=check_writing(ii)
-    if r['return']>0: return r
+    ii = {'repo_uoa': nruoa, 'repo_uid': nruid, 'repo_dict': nrd}
+    r = check_writing(ii)
+    if r['return'] > 0:
+        return r
 
-    rz={'return':0}
+    rz = {'return': 0}
 
-    if o=='con':
-#       out('')
-       x=''
-       if tags!='':x=' ('+tags+')'
-       out('  WARNING: downloading missing CK component "'+muoa+':'+duoa+'"'+x+' from the cKnowledge.io portal ...')
+    if o == 'con':
+        #       out('')
+        x = ''
+        if tags != '':
+            x = ' ('+tags+')'
+        out('  WARNING: downloading missing CK component "'+muoa +
+            ':'+duoa+'"'+x+' from the cKnowledge.io portal ...')
 
-    ii={
-        'action':'download',
-        'dict':{
-                'module_uoa':muoa,
-                'data_uoa':duoa,
-                'version':version,
-                'tags':tags
-               }
-       }
+    ii = {
+        'action': 'download',
+        'dict': {
+            'module_uoa': muoa,
+            'data_uoa': duoa,
+            'version': version,
+            'tags': tags
+        }
+    }
 
     import ck.net
-    r=ck.net.access_ck_api({'url':cfg['cknowledge_api'], 'dict':ii})
-    if r['return']>0: return r
- 
-    d=r['dict']
+    r = ck.net.access_ck_api({'url': cfg['cknowledge_api'], 'dict': ii})
+    if r['return'] > 0:
+        return r
 
-    if d['return']>0:
-       if d['return']!=16:
-          return {'return':d['return'], 'error':d['error']}
-       out('      Warning: component not found')
-       return {'return':0}
+    d = r['dict']
 
-    nlst=d.get('components',[])
+    if d['return'] > 0:
+        if d['return'] != 16:
+            return {'return': d['return'], 'error': d['error']}
+        out('      Warning: component not found')
+        return {'return': 0}
+
+    nlst = d.get('components', [])
 
     # Check if module:module there (bootstrapping)
-    lst1=[]
-    lst=[]
-    path_to_module=''
+    lst1 = []
+    lst = []
+    path_to_module = ''
     for q in nlst:
-        nmuoa=q['module_uoa']
-        nmuid=q['module_uid']
-        nduoa=q['data_uoa']
-        nduid=q['data_uid']
+        nmuoa = q['module_uoa']
+        nmuid = q['module_uid']
+        nduoa = q['data_uoa']
+        nduid = q['data_uid']
 
-        if nmuoa=='module' and nduoa=='module':
-           out('      Bootstrapping '+nmuoa+':'+nduoa+' ...')
+        if nmuoa == 'module' and nduoa == 'module':
+            out('      Bootstrapping '+nmuoa+':'+nduoa+' ...')
 
-           # TBD: Check split dirs in local repo...
-           iii={'path':npath, 'data_uoa':'module', 'data_uid':nduid}
-           rz=find_path_to_entry(iii)
-           if rz['return']>0 and rz['return']!=16: return rz
-           elif rz['return']==16:
-              rz=create_entry(iii)
-              if rz['return']>0: return rz
+            # TBD: Check split dirs in local repo...
+            iii = {'path': npath, 'data_uoa': 'module', 'data_uid': nduid}
+            rz = find_path_to_entry(iii)
+            if rz['return'] > 0 and rz['return'] != 16:
+                return rz
+            elif rz['return'] == 16:
+                rz = create_entry(iii)
+                if rz['return'] > 0:
+                    return rz
 
-           npath2=rz['path']
+            npath2 = rz['path']
 
-           iii={'path':npath2, 'data_uoa':'module', 'data_uid':nduid}
-           rz=find_path_to_entry(iii)
-           if rz['return']>0 and rz['return']!=16: return rz
-           elif rz['return']==16:
-              rz=create_entry(iii)
-              if rz['return']>0: return rz
+            iii = {'path': npath2, 'data_uoa': 'module', 'data_uid': nduid}
+            rz = find_path_to_entry(iii)
+            if rz['return'] > 0 and rz['return'] != 16:
+                return rz
+            elif rz['return'] == 16:
+                rz = create_entry(iii)
+                if rz['return'] > 0:
+                    return rz
 
-           path_to_module=rz['path']
+            path_to_module = rz['path']
 
-           lst.append(q)
+            lst.append(q)
         else:
-           lst1.append(q)
+            lst1.append(q)
 
-    lst+=lst1
+    lst += lst1
 
     # Recording downloaded components
     for q in lst:
         # Get UOA
-        nmuoa=q['module_uoa']
-        nmuid=q['module_uid']
-        nduoa=q['data_uoa']
-        nduid=q['data_uid']
+        nmuoa = q['module_uoa']
+        nmuid = q['module_uid']
+        nduoa = q['data_uoa']
+        nduid = q['data_uid']
 
-        file_url=q['file_url']
-        file_md5=q['file_md5']
+        file_url = q['file_url']
+        file_md5 = q['file_md5']
 
-        dependencies=q.get('dependencies',[])
+        dependencies = q.get('dependencies', [])
 
         out(spaces+'      Downloading and extracting '+nmuoa+':'+nduoa+' ...')
 
-        if nmuoa+':'+nduoa in cids_in_queue: 
-           out(spaces+'      Skipped')
-           continue
+        if nmuoa+':'+nduoa in cids_in_queue:
+            out(spaces+'      Skipped')
+            continue
         cids_in_queue.append(nmuoa+':'+nduoa)
 
         # Check that module:module exists
-        if nmuoa=='module' and nduoa=='module' and path_to_module!='':
-           new_path=path_to_module
+        if nmuoa == 'module' and nduoa == 'module' and path_to_module != '':
+            new_path = path_to_module
         else:
-           if smc!='yes':
-              save_state=cfg.get('download_missing_components','')
-              cfg['download_missing_components']='no'
+            if smc != 'yes':
+                save_state = cfg.get('download_missing_components', '')
+                cfg['download_missing_components'] = 'no'
 
-              rz=access({'action':'find',
-                         'repo_uoa':nruoa,
-                         'module_uoa':'module',
-                         'data_uoa':nmuoa,
-                         'common_func':'yes'})
-              cfg['download_missing_components']=save_state
-              if rz['return']>0 and rz['return']!=16: return rz
+                rz = access({'action': 'find',
+                             'repo_uoa': nruoa,
+                             'module_uoa': 'module',
+                             'data_uoa': nmuoa,
+                             'common_func': 'yes'})
+                cfg['download_missing_components'] = save_state
+                if rz['return'] > 0 and rz['return'] != 16:
+                    return rz
 
-              if rz['return']==16:
-                 rz=download({'new_repo_uoa':nruoa,
-                              'repo_uoa':ruoa,
-                              'module_uoa':'module',
-                              'data_uoa':nmuoa,
-                              'force':force,
-                              'all':al,
-                              'cids_in_queue':cids_in_queue,
-                              'skip_module_check':smc})
-                 if rz['return']>0: return rz
+                if rz['return'] == 16:
+                    rz = download({'new_repo_uoa': nruoa,
+                                   'repo_uoa': ruoa,
+                                   'module_uoa': 'module',
+                                   'data_uoa': nmuoa,
+                                   'force': force,
+                                   'all': al,
+                                   'cids_in_queue': cids_in_queue,
+                                   'skip_module_check': smc})
+                    if rz['return'] > 0:
+                        return rz
 
-           # Check if entry already exists
-           new_path=''
-           save_state=cfg.get('download_missing_components','')
-           cfg['download_missing_components']='no'
-           r=access({'action':'find',
-                     'common_func':'yes',
-                     'repo_uoa':nruoa,
-                     'module_uoa':nmuoa,
-                     'data_uoa':nduoa})
-           cfg['download_missing_components']=save_state
-           if r['return']==0:
-              if force!='yes' and cfg.get('download_missing_components','')!='yes':
-                 return {'return':8, 'error':'     Already exists locally'}
-           else:
-              if r['return']!=16: return r
+            # Check if entry already exists
+            new_path = ''
+            save_state = cfg.get('download_missing_components', '')
+            cfg['download_missing_components'] = 'no'
+            r = access({'action': 'find',
+                        'common_func': 'yes',
+                        'repo_uoa': nruoa,
+                        'module_uoa': nmuoa,
+                        'data_uoa': nduoa})
+            cfg['download_missing_components'] = save_state
+            if r['return'] == 0:
+                if force != 'yes' and cfg.get('download_missing_components', '') != 'yes':
+                    return {'return': 8, 'error': '     Already exists locally'}
+            else:
+                if r['return'] != 16:
+                    return r
 
-              # Adding dummy module
-              r=add({
-                         'module_uoa':nmuoa,
-                         'module_uid':nmuoa,
-                         'data_uoa':nduoa,
-                         'data_uid':nduid,
-                         'repo_uoa':nruoa,
-                         'common_func':'yes'})
-              if r['return']>0:
-                 if cfg.get('download_missing_components','')=='yes':
-                    out('        Skipping ...')
-                    continue
+                # Adding dummy module
+                r = add({
+                    'module_uoa': nmuoa,
+                    'module_uid': nmuoa,
+                    'data_uoa': nduoa,
+                    'data_uid': nduid,
+                    'repo_uoa': nruoa,
+                    'common_func': 'yes'})
+                if r['return'] > 0:
+                    if cfg.get('download_missing_components', '') == 'yes':
+                        out('        Skipping ...')
+                        continue
 
-                 return r
-           new_path=r['path']
+                    return r
+            new_path = r['path']
 
         # Prepare pack
-        ppz=os.path.join(new_path, 'pack.zip')
+        ppz = os.path.join(new_path, 'pack.zip')
 
         if os.path.isfile(ppz):
-           os.remove(ppz)
+            os.remove(ppz)
 
         # Download file
         # Import modules compatible with Python 2.x and 3.x
         import urllib
 
-        try:    from urllib.request import urlretrieve
-        except: from urllib import urlretrieve
+        try:
+            from urllib.request import urlretrieve
+        except:
+            from urllib import urlretrieve
 
         # Connect
         try:
-           urlretrieve(file_url, ppz)
+            urlretrieve(file_url, ppz)
         except Exception as e:
-           return {'return':1, 'error':'download failed ('+format(e)+')'}
+            return {'return': 1, 'error': 'download failed ('+format(e)+')'}
 
         statinfo = os.stat(ppz)
-        file_size=statinfo.st_size
+        file_size = statinfo.st_size
 
         # MD5 of the pack
-        rx=load_text_file({'text_file':ppz, 'keep_as_bin':'yes'})
-        if rx['return']>0: return rx
-        bpack=rx['bin']
+        rx = load_text_file({'text_file': ppz, 'keep_as_bin': 'yes'})
+        if rx['return'] > 0:
+            return rx
+        bpack = rx['bin']
 
         import hashlib
-        md5=hashlib.md5(bpack).hexdigest()
+        md5 = hashlib.md5(bpack).hexdigest()
 
-        if md5!=file_md5:
-           return {'return':1, 'error':'MD5 of the newly created pack ('+md5+') did not match the one from the portal ('+file_md5+')'}
+        if md5 != file_md5:
+            return {'return': 1, 'error': 'MD5 of the newly created pack ('+md5+') did not match the one from the portal ('+file_md5+')'}
 
         # Unzipping archive
         import zipfile
 
-        new_f=open(ppz, 'rb')
-        new_z=zipfile.ZipFile(new_f)
+        new_f = open(ppz, 'rb')
+        new_z = zipfile.ZipFile(new_f)
 
         for new_d in new_z.namelist():
-            if new_d!='.' and new_d!='..' and not new_d.startswith('\\'):
-               new_pp=os.path.join(new_path,new_d)
-               if new_d.endswith('/'): 
-                  if not os.path.exists(new_pp): os.makedirs(new_pp)
-               else:
-                  new_ppd=os.path.dirname(new_pp)
-                  if not os.path.exists(new_ppd): os.makedirs(new_ppd)
+            if new_d != '.' and new_d != '..' and not new_d.startswith('\\'):
+                new_pp = os.path.join(new_path, new_d)
+                if new_d.endswith('/'):
+                    if not os.path.exists(new_pp):
+                        os.makedirs(new_pp)
+                else:
+                    new_ppd = os.path.dirname(new_pp)
+                    if not os.path.exists(new_ppd):
+                        os.makedirs(new_ppd)
 
-                  # extract file
-                  new_fo=open(new_pp, 'wb')
-                  new_fo.write(new_z.read(new_d))
-                  new_fo.close()
+                    # extract file
+                    new_fo = open(new_pp, 'wb')
+                    new_fo.write(new_z.read(new_d))
+                    new_fo.close()
         new_f.close()
 
         # Remove pack file
         os.remove(ppz)
 
         # Check deps
-        if al=='yes':
-           if len(dependencies)>0:
-              out(spaces+'  Checking dependencies ...')
+        if al == 'yes':
+            if len(dependencies) > 0:
+                out(spaces+'  Checking dependencies ...')
 
-           for dep in dependencies:
-               muoa=dep.get('module_uid','')
-               duoa=dep.get('data_uid','')
+            for dep in dependencies:
+                muoa = dep.get('module_uid', '')
+                duoa = dep.get('data_uid', '')
 
-               tags=dep.get('tags',[])
-               xtags=''
-               if len(tags)>0:
-                  xtags=','.join(tags)
-                  muoa='package'
-                  duoa=''
+                tags = dep.get('tags', [])
+                xtags = ''
+                if len(tags) > 0:
+                    xtags = ','.join(tags)
+                    muoa = 'package'
+                    duoa = ''
 
-               if muoa+':'+duoa in cids_in_queue: continue
-               cids_in_queue.append(muoa+':'+duoa+':'+xtags)
+                if muoa+':'+duoa in cids_in_queue:
+                    continue
+                cids_in_queue.append(muoa+':'+duoa+':'+xtags)
 
-               cid=muoa+':'+duoa
-               rx=download({'new_repo_uoa':nruoa,
-                            'repo_uoa':ruoa,
-                            'module_uoa':muoa,
-                            'data_uoa':duoa,
-                            'all':al,
-                            'force':force,
-                            'tags':xtags,
-                            'cids_in_queue':cids_in_queue,
-                            'spaces':spaces+'  '})
-               if rx['return']>0 and rx['return']!=8 and rx['return']!=16: return rx
-               if rx['return']==16:
-                  if xtags=='': return rx
-                  rx=download({'new_repo_uoa':nruoa,
-                               'repo_uoa':ruoa,
-                               'module_uoa':'soft',
-                               'data_uoa':'',
-                               'force':force,
-                               'all':al,
-                               'tags':xtags,
-                               'cids_in_queue':cids_in_queue,
-                               'spaces':spaces+'  '})
-                  if rx['return']>0 and rx['return']!=8: return rx
+                cid = muoa+':'+duoa
+                rx = download({'new_repo_uoa': nruoa,
+                               'repo_uoa': ruoa,
+                               'module_uoa': muoa,
+                               'data_uoa': duoa,
+                               'all': al,
+                               'force': force,
+                               'tags': xtags,
+                               'cids_in_queue': cids_in_queue,
+                               'spaces': spaces+'  '})
+                if rx['return'] > 0 and rx['return'] != 8 and rx['return'] != 16:
+                    return rx
+                if rx['return'] == 16:
+                    if xtags == '':
+                        return rx
+                    rx = download({'new_repo_uoa': nruoa,
+                                   'repo_uoa': ruoa,
+                                   'module_uoa': 'soft',
+                                   'data_uoa': '',
+                                   'force': force,
+                                   'all': al,
+                                   'tags': xtags,
+                                   'cids_in_queue': cids_in_queue,
+                                   'spaces': spaces+'  '})
+                    if rx['return'] > 0 and rx['return'] != 8:
+                        return rx
 
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # Reload cache with meta-descriptions of all CK repos
 #
 # TARGET: CK kernel and low-level developers
+
 
 def reload_repo_cache(i):
     """Reload cache with meta-descriptions of all CK repos
@@ -3143,41 +3284,44 @@ def reload_repo_cache(i):
 
     global cache_repo_uoa, cache_repo_info, paths_repos_all, cache_repo_init
 
-    if i.get('force','')=='yes': # pragma: no cover
-       cache_repo_init=False
-       paths_repos_all=[]
+    if i.get('force', '') == 'yes':  # pragma: no cover
+        cache_repo_init = False
+        paths_repos_all = []
 
     if not cache_repo_init:
-       # Load repo UOA -> UID disambiguator
-       r=load_json_file({'json_file':work['dir_cache_repo_uoa']})
-       if r['return']!=16 and r['return']>0: return r
-       cache_repo_uoa=r.get('dict',{})
+        # Load repo UOA -> UID disambiguator
+        r = load_json_file({'json_file': work['dir_cache_repo_uoa']})
+        if r['return'] != 16 and r['return'] > 0:
+            return r
+        cache_repo_uoa = r.get('dict', {})
 
-       # Load cached repo info
-       r=load_json_file({'json_file':work['dir_cache_repo_info']})
-       if r['return']!=16 and r['return']>0: return r
-       cache_repo_info=r.get('dict',{})
+        # Load cached repo info
+        r = load_json_file({'json_file': work['dir_cache_repo_info']})
+        if r['return'] != 16 and r['return'] > 0:
+            return r
+        cache_repo_info = r.get('dict', {})
 
-       # Prepare all paths
-       for q in cache_repo_info:
-           qq=cache_repo_info[q]
-           dd=qq['dict']
-           p=dd.get('path','')
-           if p!='':
-              paths_repos_all.append({'path':os.path.normpath(p),
-                                      'dict': dd, # Added in version 1.11.2.1 to support dir split per repo
-                                      'repo_uoa':qq['data_uoa'],
-                                      'repo_uid':qq['data_uid'],
-                                      'repo_alias':qq['data_alias']})
+        # Prepare all paths
+        for q in cache_repo_info:
+            qq = cache_repo_info[q]
+            dd = qq['dict']
+            p = dd.get('path', '')
+            if p != '':
+                paths_repos_all.append({'path': os.path.normpath(p),
+                                        'dict': dd,  # Added in version 1.11.2.1 to support dir split per repo
+                                        'repo_uoa': qq['data_uoa'],
+                                        'repo_uid': qq['data_uid'],
+                                        'repo_alias': qq['data_alias']})
 
-    cache_repo_init=True
+    cache_repo_init = True
 
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # Save cache with meta-descriptions of all CK repos
 #
 # TARGET: CK kernel and low-level developers
+
 
 def save_repo_cache(i):
     """Save cache with meta-descriptions of all CK repos
@@ -3196,18 +3340,23 @@ def save_repo_cache(i):
 
     """
 
-    r=save_json_to_file({'json_file':work['dir_cache_repo_uoa'], 'dict':cache_repo_uoa})
-    if r['return']>0: return r
+    r = save_json_to_file(
+        {'json_file': work['dir_cache_repo_uoa'], 'dict': cache_repo_uoa})
+    if r['return'] > 0:
+        return r
 
-    r=save_json_to_file({'json_file':work['dir_cache_repo_info'], 'dict':cache_repo_info})
-    if r['return']>0: return r
+    r = save_json_to_file(
+        {'json_file': work['dir_cache_repo_info'], 'dict': cache_repo_info})
+    if r['return'] > 0:
+        return r
 
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # Load repo meta description from cache
 #
 # TARGET: CK kernel and low-level developers
+
 
 def load_repo_info_from_cache(i):
     """Load repo meta description from cache
@@ -3233,41 +3382,42 @@ def load_repo_info_from_cache(i):
 
     """
 
-    ruoa=i['repo_uoa']
-    ruid=ruoa
+    ruoa = i['repo_uoa']
+    ruid = ruoa
 
-    if cfg.get('force_lower','')=='yes':
-       ruoa=ruoa.lower()
-       ruid=ruid.lower()
+    if cfg.get('force_lower', '') == 'yes':
+        ruoa = ruoa.lower()
+        ruid = ruid.lower()
 
-    if ruoa==cfg['repo_name_default'] or ruoa==cfg['repo_uid_default']:
-       d={}
-       d["path_to_repo_desc"]=work['dir_default_repo_path']
-       d["data_uid"]=cfg['repo_uid_default']
-       d["data_alias"]=cfg['repo_name_default']
-       d["data_uoa"]=cfg['repo_name_default']
-       d["dict"]={"default":"yes"}
-    elif ruoa==cfg['repo_name_local'] or ruoa==cfg['repo_uid_local']:
-       d={}
-       d["path_to_repo_desc"]=work['dir_local_repo_path']
-       d["data_uid"]=cfg['repo_uid_local']
-       d["data_alias"]=cfg['repo_name_local']
-       d["data_uoa"]=cfg['repo_name_local']
-       d["dict"]={"default":"yes"}
+    if ruoa == cfg['repo_name_default'] or ruoa == cfg['repo_uid_default']:
+        d = {}
+        d["path_to_repo_desc"] = work['dir_default_repo_path']
+        d["data_uid"] = cfg['repo_uid_default']
+        d["data_alias"] = cfg['repo_name_default']
+        d["data_uoa"] = cfg['repo_name_default']
+        d["dict"] = {"default": "yes"}
+    elif ruoa == cfg['repo_name_local'] or ruoa == cfg['repo_uid_local']:
+        d = {}
+        d["path_to_repo_desc"] = work['dir_local_repo_path']
+        d["data_uid"] = cfg['repo_uid_local']
+        d["data_alias"] = cfg['repo_name_local']
+        d["data_uoa"] = cfg['repo_name_local']
+        d["dict"] = {"default": "yes"}
     else:
-       r=reload_repo_cache({}) # Ignore errors
-       if r['return']>0: return r
+        r = reload_repo_cache({})  # Ignore errors
+        if r['return'] > 0:
+            return r
 
-       if not is_uid(ruoa): 
-          ruid=cache_repo_uoa.get(ruoa,'')
-          if ruid=='':
-             return {'return':1, 'error':'repository "'+ruoa+'" was not found in the cache. Check if repository exists or try "ck recache repo"'}
+        if not is_uid(ruoa):
+            ruid = cache_repo_uoa.get(ruoa, '')
+            if ruid == '':
+                return {'return': 1, 'error': 'repository "'+ruoa+'" was not found in the cache. Check if repository exists or try "ck recache repo"'}
 
-       d=cache_repo_info.get(ruid,{})
-       if len(d)==0:
-          return {'return':1, 'error':'repository was not found in the cache'}
+        d = cache_repo_info.get(ruid, {})
+        if len(d) == 0:
+            return {'return': 1, 'error': 'repository was not found in the cache'}
 
-    r={'return':0}
+    r = {'return': 0}
     r.update(d)
 
     return r
@@ -3276,6 +3426,7 @@ def load_repo_info_from_cache(i):
 # Find CK repo info by path
 #
 # TARGET: CK kernel and low-level developers
+
 
 def find_repo_by_path(i):
     """Find CK repo info by path
@@ -3299,46 +3450,50 @@ def find_repo_by_path(i):
 
     """
 
-    p=i['path']
-    if p!='': p=os.path.normpath(p)
+    p = i['path']
+    if p != '':
+        p = os.path.normpath(p)
 
-    dd={}
+    dd = {}
 
-    found=False
-    if p==work['dir_default_repo']:
-       uoa=cfg['repo_name_default']
-       uid=cfg['repo_uid_default']
-       alias=uoa
-       found=True
-    elif p==work['dir_local_repo']:
-       uoa=cfg['repo_name_local']
-       uid=cfg['repo_uid_local']
-       alias=uoa
-       found=True
+    found = False
+    if p == work['dir_default_repo']:
+        uoa = cfg['repo_name_default']
+        uid = cfg['repo_uid_default']
+        alias = uoa
+        found = True
+    elif p == work['dir_local_repo']:
+        uoa = cfg['repo_name_local']
+        uid = cfg['repo_uid_local']
+        alias = uoa
+        found = True
     else:
-       r=reload_repo_cache({}) # Ignore errors
-       if r['return']>0: return r
+        r = reload_repo_cache({})  # Ignore errors
+        if r['return'] > 0:
+            return r
 
-       for q in cache_repo_info:
-           qq=cache_repo_info[q]
-           dd=qq['dict']
-           if p==dd.get('path',''):
-              uoa=qq['data_uoa']
-              uid=qq['data_uid']
-              alias=uid
-              if not is_uid(uoa): alias=uoa
-              found=True
-              break
+        for q in cache_repo_info:
+            qq = cache_repo_info[q]
+            dd = qq['dict']
+            if p == dd.get('path', ''):
+                uoa = qq['data_uoa']
+                uid = qq['data_uid']
+                alias = uid
+                if not is_uid(uoa):
+                    alias = uoa
+                found = True
+                break
 
     if not found:
-       return {'return':16, 'error': 'repository not found in this path'}
+        return {'return': 16, 'error': 'repository not found in this path'}
 
-    return {'return':0, 'repo_uoa': uoa, 'repo_uid': uid, 'repo_alias':alias, 'repo_dict':dd}
+    return {'return': 0, 'repo_uoa': uoa, 'repo_uid': uid, 'repo_alias': alias, 'repo_dict': dd}
 
 ##############################################################################
 # Find path for a given CK repo
 #
 # TARGET: end users
+
 
 def find_path_to_repo(i):
     """Find path for a given CK repo
@@ -3365,62 +3520,64 @@ def find_path_to_repo(i):
 
     """
 
-    a=i.get('repo_uoa','')
+    a = i.get('repo_uoa', '')
 
-    if cfg.get('force_lower','')=='yes':
-       a=a.lower()
+    if cfg.get('force_lower', '') == 'yes':
+        a = a.lower()
 
-    ai=a
+    ai = a
 
-    pr=''
-    if a!='':
-       if a==cfg['repo_name_default'] or a==cfg['repo_uid_default']:
-          pr=work['dir_default_repo']
-          uoa=cfg['repo_name_default']
-          uid=cfg['repo_uid_default']
-          alias=uoa
-          dt={}
-       elif a==cfg['repo_name_local'] or a==cfg['repo_uid_local']:
-          pr=work['dir_local_repo']
-          uoa=cfg['repo_name_local']
-          uid=cfg['repo_uid_local']
-          alias=uoa
-          dt={}
-       else:
-          # Reload cache if not initialized
-          r=reload_repo_cache({}) # Ignore errors
-          if r['return']>0: return r
+    pr = ''
+    if a != '':
+        if a == cfg['repo_name_default'] or a == cfg['repo_uid_default']:
+            pr = work['dir_default_repo']
+            uoa = cfg['repo_name_default']
+            uid = cfg['repo_uid_default']
+            alias = uoa
+            dt = {}
+        elif a == cfg['repo_name_local'] or a == cfg['repo_uid_local']:
+            pr = work['dir_local_repo']
+            uoa = cfg['repo_name_local']
+            uid = cfg['repo_uid_local']
+            alias = uoa
+            dt = {}
+        else:
+            # Reload cache if not initialized
+            r = reload_repo_cache({})  # Ignore errors
+            if r['return'] > 0:
+                return r
 
-          if not is_uid(a):
-             ai=cache_repo_uoa.get(a,'')
-             if ai=='':
-                return {'return':1, 'error':'repository "'+a+'" was not found in cache'}
+            if not is_uid(a):
+                ai = cache_repo_uoa.get(a, '')
+                if ai == '':
+                    return {'return': 1, 'error': 'repository "'+a+'" was not found in cache'}
 
-          cri=cache_repo_info.get(ai, {})
-          if len(cri)==0:
-             return {'return':1, 'error':'repository "'+ai+'" was not found in cache'}
+            cri = cache_repo_info.get(ai, {})
+            if len(cri) == 0:
+                return {'return': 1, 'error': 'repository "'+ai+'" was not found in cache'}
 
-          dt=cri.get('dict',{})
-          pr=dt.get('path','')
+            dt = cri.get('dict', {})
+            pr = dt.get('path', '')
 
-          uoa=cri['data_uoa']
-          uid=cri['data_uid']
-          alias=cri['data_alias']
+            uoa = cri['data_uoa']
+            uid = cri['data_uid']
+            alias = cri['data_alias']
 
     else:
-       # Get current repo path
-       pr=work['dir_work_repo']
-       uoa=work['repo_name_work']
-       uid=work['repo_uid_work']
-       alias=uoa
-       dt={}
+        # Get current repo path
+        pr = work['dir_work_repo']
+        uoa = work['repo_name_work']
+        uid = work['repo_uid_work']
+        alias = uoa
+        dt = {}
 
-    return {'return':0, 'path':pr, 'repo_uoa':uoa, 'repo_uid':uid, 'repo_alias':alias, 'dict':dt}
+    return {'return': 0, 'path': pr, 'repo_uoa': uoa, 'repo_uid': uid, 'repo_alias': alias, 'dict': dt}
 
 ##############################################################################
 # Find path to CK sub-directory
 #
 # TARGET: CK kernel and low-level developers
+
 
 def find_path_to_data(i):
     """Find path to CK sub-directory
@@ -3465,110 +3622,118 @@ def find_path_to_data(i):
                 alias (str): CK sub-directory alias
     """
 
-    muoa=i['module_uoa']
-    muid='?'
-    duoa=i['data_uoa']
-    duid='?'
+    muoa = i['module_uoa']
+    muid = '?'
+    duoa = i['data_uoa']
+    duid = '?'
 
-    ruoa=i.get('repo_uoa','')
-    ruid=''
-    ralias=''
-    if ruoa!='':
-       r=find_path_to_repo({'repo_uoa':ruoa})
-       if r['return']>0: return r
-       ps=[r]
-       qmax=1
+    ruoa = i.get('repo_uoa', '')
+    ruid = ''
+    ralias = ''
+    if ruoa != '':
+        r = find_path_to_repo({'repo_uoa': ruoa})
+        if r['return'] > 0:
+            return r
+        ps = [r]
+        qmax = 1
     else:
-       ps=paths_repos
-       qmax=2
+        ps = paths_repos
+        qmax = 2
 
     # Search
-    found=False
+    found = False
 
-    pr=''
-    pm=''
-    pd=''
+    pr = ''
+    pm = ''
+    pd = ''
 
-    for q in range(0,qmax):
-        if found: break
+    for q in range(0, qmax):
+        if found:
+            break
 
-        if q==1:
-           # Check / reload all repos
-           r=reload_repo_cache({}) # Ignore errors
-           if r['return']>0: return r
-           ps=paths_repos_all
+        if q == 1:
+            # Check / reload all repos
+            r = reload_repo_cache({})  # Ignore errors
+            if r['return'] > 0:
+                return r
+            ps = paths_repos_all
 
         for prx in ps:
-            pr=prx['path']
-            ruoa=prx['repo_uoa']
-            ruid=prx['repo_uid']
-            ralias=prx['repo_alias']
-            r=find_path_to_entry({'path':pr, 'data_uoa':muoa})
-            if r['return']>0 and r['return']!=16: return r
-            elif r['return']==0:
-               muoa=r['data_uoa']
-               muid=r['data_uid']
-               malias=r['data_alias']
-               pm=r['path']
+            pr = prx['path']
+            ruoa = prx['repo_uoa']
+            ruid = prx['repo_uid']
+            ralias = prx['repo_alias']
+            r = find_path_to_entry({'path': pr, 'data_uoa': muoa})
+            if r['return'] > 0 and r['return'] != 16:
+                return r
+            elif r['return'] == 0:
+                muoa = r['data_uoa']
+                muid = r['data_uid']
+                malias = r['data_alias']
+                pm = r['path']
 
-               # Check if there is a split of directories for this module in local config
-               # to handle numerous entries (similar to MediaWiki)
-               split_dirs=get_split_dir_number(prx.get('dict',{}), muid, muoa)
+                # Check if there is a split of directories for this module in local config
+                # to handle numerous entries (similar to MediaWiki)
+                split_dirs = get_split_dir_number(
+                    prx.get('dict', {}), muid, muoa)
 
-               iii={'path':pm, 'data_uoa':duoa}
-               if split_dirs!=0:
-                  iii['split_dirs']=split_dirs
+                iii = {'path': pm, 'data_uoa': duoa}
+                if split_dirs != 0:
+                    iii['split_dirs'] = split_dirs
 
-               r1=find_path_to_entry(iii)
-               if r1['return']>0 and r1['return']!=16: return r1
-               elif r1['return']==0:
-                  found=True
-                  pd=r1['path']
-                  duoa=r1['data_uoa']
-                  duid=r1['data_uid']
-                  dalias=r1['data_alias']
-                  break
+                r1 = find_path_to_entry(iii)
+                if r1['return'] > 0 and r1['return'] != 16:
+                    return r1
+                elif r1['return'] == 0:
+                    found = True
+                    pd = r1['path']
+                    duoa = r1['data_uoa']
+                    duid = r1['data_uid']
+                    dalias = r1['data_alias']
+                    break
 
-               if found: break
+                if found:
+                    break
 
     if not found:
-       s=''
+        s = ''
 #       if ruoa!='': s+=ruoa+':'
-       s+=muoa+':'+duoa+'" ('
-       if ruoa!='': 
-#          if ruid!='':s+=ruid+':'
-#          else: s+='?:'
-          s+='?:'
-       s+=muid+':'+duid+')'
+        s += muoa+':'+duoa+'" ('
+        if ruoa != '':
+            #          if ruid!='':s+=ruid+':'
+            #          else: s+='?:'
+            s += '?:'
+        s += muid+':'+duid+')'
 
-       if muoa=='module' or muoa=='032630d041b4fd8a':
-          if cfg.get('check_missing_modules','')=='yes':
-             ii={
-                 'action':'download',
-                 'dict':{
-                         'module_uoa':muoa,
-                         'data_uoa':duoa
-                        }
+        if muoa == 'module' or muoa == '032630d041b4fd8a':
+            if cfg.get('check_missing_modules', '') == 'yes':
+                ii = {
+                    'action': 'download',
+                    'dict': {
+                        'module_uoa': muoa,
+                        'data_uoa': duoa
+                    }
                 }
 
-             import ck.net
-             r=ck.net.access_ck_api({'url':cfg['cknowledge_api'], 'dict':ii})
-             if r['return']>0: return r
-         
-             d=r['dict']
+                import ck.net
+                r = ck.net.access_ck_api(
+                    {'url': cfg['cknowledge_api'], 'dict': ii})
+                if r['return'] > 0:
+                    return r
 
-             component_url=''
-             dc=d.get('components',[])
-             if len(dc)==1:
-                component_url=dc[0].get('file_url','')
-                if component_url!='':
-                   j=component_url.find('/?')
-                   if j>=0:
-                      component_url=component_url[:j]
-                   s+='. However, it was found at '+component_url+' '
+                d = r['dict']
 
+                component_url = ''
+                dc = d.get('components', [])
+                if len(dc) == 1:
+                    component_url = dc[0].get('file_url', '')
+                    if component_url != '':
+                        j = component_url.find('/?')
+                        if j >= 0:
+                            component_url = component_url[:j]
+                        s += '. However, it was found at '+component_url+' '
 
-       return {'return':16, 'error':'can\'t find path to CK entry "'+s}
+        return {'return': 16, 'error': 'can\'t find path to CK entry "'+s}
 
 #    # Get info about repo
 #    if ruid=='':
@@ -3581,29 +3746,30 @@ def find_path_to_data(i):
 
     # Check logging of repo:module:uoa to be able to rebuild CK dependencies
     if log_ck_entries:
-       lce=cfg.get('log_ck_entries','')
-       if lce!='':
-          rl=save_text_file({'text_file':lce,
-                             'string':'"action":"find", "repo_uoa":"'+
-                                      ruoa+'", "repo_uid":"'+
-                                      ruid+'", "module_uoa":"'+
-                                      muoa+'", "module_uid":"'+
-                                      muid+'", "data_uoa":"'+
-                                      duoa+'", "data_uid":"'+
-                                      duid+'"\n',
-                             'append':'yes'})
-          if rl['return']>0: return rl
+        lce = cfg.get('log_ck_entries', '')
+        if lce != '':
+            rl = save_text_file({'text_file': lce,
+                                 'string': '"action":"find", "repo_uoa":"' +
+                                 ruoa+'", "repo_uid":"' +
+                                 ruid+'", "module_uoa":"' +
+                                 muoa+'", "module_uid":"' +
+                                 muid+'", "data_uoa":"' +
+                                 duoa+'", "data_uid":"' +
+                                 duid+'"\n',
+                                 'append': 'yes'})
+            if rl['return'] > 0:
+                return rl
 
-
-    return {'return':0, 'path':pd, 'path_module':pm, 'path_repo':pr,
-                        'repo_uoa':ruoa, 'repo_uid':ruid, 'repo_alias':ralias,
-                        'module_uoa':muoa, 'module_uid':muid, 'module_alias':malias,
-                        'data_uoa':duoa, 'data_uid':duid, 'data_alias':dalias}
+    return {'return': 0, 'path': pd, 'path_module': pm, 'path_repo': pr,
+            'repo_uoa': ruoa, 'repo_uid': ruid, 'repo_alias': ralias,
+            'module_uoa': muoa, 'module_uid': muid, 'module_alias': malias,
+            'data_uoa': duoa, 'data_uid': duid, 'data_alias': dalias}
 
 ##############################################################################
 # Find path to CK entry (CK data) while checking both UID and alias
 #
 # TARGET: CK kernel and low-level developers
+
 
 def find_path_to_entry(i):
     """Find path to CK entry (CK data) while checking both UID and alias. 
@@ -3632,86 +3798,90 @@ def find_path_to_entry(i):
 
     """
 
-    p=i['path']
-    duoa=i['data_uoa']
-    if cfg.get('force_lower','')=='yes':
-       duoa=duoa.lower()
+    p = i['path']
+    duoa = i['data_uoa']
+    if cfg.get('force_lower', '') == 'yes':
+        duoa = duoa.lower()
 
-    if duoa=='': # pragma: no cover
-       raise Exception('data_uoa is empty')
+    if duoa == '':  # pragma: no cover
+        raise Exception('data_uoa is empty')
 
-    split_dirs=safe_int(i.get('split_dirs',0),0)
+    split_dirs = safe_int(i.get('split_dirs', 0), 0)
 
     # Check split
-    pp=p
+    pp = p
 
     # Disambiguate UOA
-    alias=''
+    alias = ''
     if is_uid(duoa):
-       # If UID
-       uid=duoa
+        # If UID
+        uid = duoa
 
-       # Check if alias exists
-       p1=os.path.join(pp, cfg['subdir_ck_ext'], cfg['file_alias_u'] + uid)
-       found_alias=False
-       if os.path.isfile(p1):
-          try:
-             f=open(p1)
-             alias=f.readline().strip()
-             f.close()
-             found_alias=True
-          except Exception as e:
-             None
+        # Check if alias exists
+        p1 = os.path.join(pp, cfg['subdir_ck_ext'], cfg['file_alias_u'] + uid)
+        found_alias = False
+        if os.path.isfile(p1):
+            try:
+                f = open(p1)
+                alias = f.readline().strip()
+                f.close()
+                found_alias = True
+            except Exception as e:
+                None
 
-       # If alias exists, check directory with alias
-       if found_alias:
-          sd1,sd2=split_name(alias, split_dirs)
-          if sd2!='': # otherwise name is smaller than the split number
-             p=os.path.join(p,sd1)
+        # If alias exists, check directory with alias
+        if found_alias:
+            sd1, sd2 = split_name(alias, split_dirs)
+            if sd2 != '':  # otherwise name is smaller than the split number
+                p = os.path.join(p, sd1)
 
-          p2=os.path.join(p, alias)
-          return {'return':0, 'path':p2, 'data_uid':uid, 'data_alias':alias, 'data_uoa':alias}
+            p2 = os.path.join(p, alias)
+            return {'return': 0, 'path': p2, 'data_uid': uid, 'data_alias': alias, 'data_uoa': alias}
 
-       sd1,sd2=split_name(uid, split_dirs)
-       if sd2!='': # otherwise name is smaller than the split number
-          p=os.path.join(p,sd1)
+        sd1, sd2 = split_name(uid, split_dirs)
+        if sd2 != '':  # otherwise name is smaller than the split number
+            p = os.path.join(p, sd1)
 
-       p2=os.path.join(p, uid)
-       if os.path.isdir(p2):
-          return {'return':0, 'path':p2, 'data_uid':uid, 'data_alias':'', 'data_uoa':uid}
+        p2 = os.path.join(p, uid)
+        if os.path.isdir(p2):
+            return {'return': 0, 'path': p2, 'data_uid': uid, 'data_alias': '', 'data_uoa': uid}
 
-       return {'return':-1}
+        return {'return': -1}
 
-    sd1,sd2=split_name(duoa, split_dirs)
-    if sd2!='': # otherwise name is smaller than the split number
-       p=os.path.join(p,sd1)
+    sd1, sd2 = split_name(duoa, split_dirs)
+    if sd2 != '':  # otherwise name is smaller than the split number
+        p = os.path.join(p, sd1)
 
     # If alias
-    alias=duoa
+    alias = duoa
 
-    p1=os.path.join(p, alias)
-    if sys.version_info[0]<3: 
-       try: p1=p1.encode('utf8')
-       except Exception as e: pass
+    p1 = os.path.join(p, alias)
+    if sys.version_info[0] < 3:
+        try:
+            p1 = p1.encode('utf8')
+        except Exception as e:
+            pass
     if os.path.isdir(p1):
-       # Check uid for this alias
-       p2=os.path.join(pp, cfg['subdir_ck_ext'], cfg['file_alias_a'] + alias)
-       try:
-          f=open(p2)
-          uid=f.readline().strip()
-          f.close()
-       except Exception as e:
-          return {'return':10, 'error':'inconsistent entry: alias "'+alias+'" exists, but not the UID in file '+p2, 
-                               'path':p1, 'data_alias':alias}
+        # Check uid for this alias
+        p2 = os.path.join(pp, cfg['subdir_ck_ext'],
+                          cfg['file_alias_a'] + alias)
+        try:
+            f = open(p2)
+            uid = f.readline().strip()
+            f.close()
+        except Exception as e:
+            return {'return': 10, 'error': 'inconsistent entry: alias "'+alias+'" exists, but not the UID in file '+p2,
+                    'path': p1, 'data_alias': alias}
 
-       return {'return':0, 'path':p1, 'data_uid':uid, 'data_alias':alias, 'data_uoa':alias}
+        return {'return': 0, 'path': p1, 'data_uid': uid, 'data_alias': alias, 'data_uoa': alias}
 
-    return {'return':16, 'error':'can\'t find path to CK entry'}
+    return {'return': 16, 'error': 'can\'t find path to CK entry'}
 
 ##############################################################################
 # Load CK meta description from a path
 #
 # TARGET: CK kernel and low-level developers
+
 
 def load_meta_from_path(i):
     """Load CK meta description from a path
@@ -3745,59 +3915,65 @@ def load_meta_from_path(i):
                 (path_desc) (str): path to json file with API description
     """
 
-    p=i['path']
+    p = i['path']
 
-    slu=i.get('skip_updates','')
-    sld=i.get('skip_desc','')
+    slu = i.get('skip_updates', '')
+    sld = i.get('skip_desc', '')
 
-    p1=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta'])
+    p1 = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta'])
     if not os.path.isfile(p1):
-       p1=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta_old']) # For compatibility with cM
-       if not os.path.isfile(p1):
-          p1=''
+        # For compatibility with cM
+        p1 = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta_old'])
+        if not os.path.isfile(p1):
+            p1 = ''
 
-    if p1!='':
-       rx={'return':0}
+    if p1 != '':
+        rx = {'return': 0}
 
-       r=load_json_file({'json_file':p1})
-       if r['return']>0: return r
-       rx['path']=p1
-       rx['dict']=r['dict']
+        r = load_json_file({'json_file': p1})
+        if r['return'] > 0:
+            return r
+        rx['path'] = p1
+        rx['dict'] = r['dict']
 
-       # Check info file
-       p2=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_info'])
-       if os.path.isfile(p2):
-          r=load_json_file({'json_file':p2})
-          if r['return']>0: return r
-          rx['path_info']=p2
-          rx['info']=r['dict']
+        # Check info file
+        p2 = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_info'])
+        if os.path.isfile(p2):
+            r = load_json_file({'json_file': p2})
+            if r['return'] > 0:
+                return r
+            rx['path_info'] = p2
+            rx['info'] = r['dict']
 
-       # Check updates file
-       if slu!='yes':
-          p3=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_updates'])
-          if os.path.isfile(p3):
-             r=load_json_file({'json_file':p3})
-             if r['return']>0: return r
-             rx['path_updates']=p3
-             rx['updates']=r['dict']
+        # Check updates file
+        if slu != 'yes':
+            p3 = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_updates'])
+            if os.path.isfile(p3):
+                r = load_json_file({'json_file': p3})
+                if r['return'] > 0:
+                    return r
+                rx['path_updates'] = p3
+                rx['updates'] = r['dict']
 
-       # Check desc file
-       if sld!='yes':
-          p4=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_desc'])
-          if os.path.isfile(p4):
-             r=load_json_file({'json_file':p4})
-             if r['return']>0: return r
-             rx['path_desc']=p4
-             rx['desc']=r['dict']
+        # Check desc file
+        if sld != 'yes':
+            p4 = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_desc'])
+            if os.path.isfile(p4):
+                r = load_json_file({'json_file': p4})
+                if r['return'] > 0:
+                    return r
+                rx['path_desc'] = p4
+                rx['desc'] = r['dict']
 
-       return rx
+        return rx
     else:
-       return {'return':1, 'error':'meta description is not found in path '+p}
+        return {'return': 1, 'error': 'meta description is not found in path '+p}
 
 ##############################################################################
 # Load (CK) python module
 #
 # TARGET: end users
+
 
 def load_module_from_path(i):
     """Load (CK) python module
@@ -3824,70 +4000,75 @@ def load_module_from_path(i):
                 cuid (str): automatically generated unique ID for the module in the internal cache of modules
     """
 
-    p=i['path']
-    n=i['module_code_name']
+    p = i['path']
+    n = i['module_code_name']
 
-    xcfg=i.get('cfg',None)
+    xcfg = i.get('cfg', None)
 
     # Find module
     try:
-       x=imp.find_module(n, [p])
-    except ImportError as e: # pragma: no cover
-       return {'return':1, 'error':'can\'t find module code (path='+p+', name='+n+', err='+format(e)+')'}
+        x = imp.find_module(n, [p])
+    except ImportError as e:  # pragma: no cover
+        return {'return': 1, 'error': 'can\'t find module code (path='+p+', name='+n+', err='+format(e)+')'}
 
-    ff=x[0]
-    full_path=x[1]
+    ff = x[0]
+    full_path = x[1]
 
     # Check if code has been already loaded
-    if full_path in work['cached_module_by_path'] and work['cached_module_by_path_last_modification'][full_path]==os.path.getmtime(full_path):
-       ff.close()
-       # Code already loaded 
-       return work['cached_module_by_path'][full_path]
+    if full_path in work['cached_module_by_path'] and work['cached_module_by_path_last_modification'][full_path] == os.path.getmtime(full_path):
+        ff.close()
+        # Code already loaded
+        return work['cached_module_by_path'][full_path]
 
     # Check if has dependency on specific CK kernel version
-    if xcfg!=None:
-       kd=xcfg.get('min_kernel_dep','')
-       if kd!='':
-          rx=check_version({'version':kd})
-          if rx['return']>0: return rx
+    if xcfg != None:
+        kd = xcfg.get('min_kernel_dep', '')
+        if kd != '':
+            rx = check_version({'version': kd})
+            if rx['return'] > 0:
+                return rx
 
-          ok=rx['ok']
-          version_str=rx['current_version']
+            ok = rx['ok']
+            version_str = rx['current_version']
 
-          if ok!='yes':
-             return {'return':1, 'error':'module "'+i.get('data_uoa','')+'" requires minimal CK kernel version '+kd+' while your version is '+version_str} 
+            if ok != 'yes':
+                return {'return': 1, 'error': 'module "'+i.get('data_uoa', '')+'" requires minimal CK kernel version '+kd+' while your version is '+version_str}
 
-    # Generate uid for the run-time extension of the loaded module 
-    # otherwise modules with the same extension (key.py for example) 
+    # Generate uid for the run-time extension of the loaded module
+    # otherwise modules with the same extension (key.py for example)
     # will be reloaded ...
 
-    r=gen_uid({})
-    if r['return']>0: return r
-    ruid='rt-'+r['data_uid']
+    r = gen_uid({})
+    if r['return'] > 0:
+        return r
+    ruid = 'rt-'+r['data_uid']
 
     try:
-       c=imp.load_module(ruid, ff, full_path, x[2])
-    except ImportError as e: # pragma: no cover
-       return {'return':1, 'error':'can\'t load module code (path='+p+', name='+n+', err='+format(e)+')'}
+        c = imp.load_module(ruid, ff, full_path, x[2])
+    except ImportError as e:  # pragma: no cover
+        return {'return': 1, 'error': 'can\'t load module code (path='+p+', name='+n+', err='+format(e)+')'}
 
     x[0].close()
 
-    # Initialize module with this CK instance 
-    c.ck=sys.modules[__name__]
-    if xcfg!=None: c.cfg=xcfg
+    # Initialize module with this CK instance
+    c.ck = sys.modules[__name__]
+    if xcfg != None:
+        c.cfg = xcfg
 
     # Initialize module
-    if i.get('skip_init','')!='yes':
-       # Check if init function exists
-       if getattr(c, 'init')!=None:
-          r=c.init(i)
-          if r['return']>0: return r
+    if i.get('skip_init', '') != 'yes':
+        # Check if init function exists
+        if getattr(c, 'init') != None:
+            r = c.init(i)
+            if r['return'] > 0:
+                return r
 
-    r={'return':0, 'code':c, 'path':full_path, 'cuid':ruid}
+    r = {'return': 0, 'code': c, 'path': full_path, 'cuid': ruid}
 
     # Cache code together with its time of change
-    work['cached_module_by_path'][full_path]=r
-    work['cached_module_by_path_last_modification'][full_path]=os.path.getmtime(full_path)
+    work['cached_module_by_path'][full_path] = r
+    work['cached_module_by_path_last_modification'][full_path] = os.path.getmtime(
+        full_path)
 
     return r
 
@@ -3895,6 +4076,7 @@ def load_module_from_path(i):
 # Perform remote action via CK web service
 #
 # TARGET: CK kernel and low-level developers
+
 
 def perform_remote_action(i):
     """Perform remote action via CK web service
@@ -3910,166 +4092,186 @@ def perform_remote_action(i):
     # Import modules compatible with Python 2.x and 3.x
     import urllib
 
-    try:    import urllib.request as urllib2
-    except: import urllib2 # pragma: no cover
+    try:
+        import urllib.request as urllib2
+    except:
+        import urllib2  # pragma: no cover
 
-    try:    from urllib.parse import urlencode
-    except: from urllib import urlencode # pragma: no cover
+    try:
+        from urllib.parse import urlencode
+    except:
+        from urllib import urlencode  # pragma: no cover
 
-    rr={'return':0}
+    rr = {'return': 0}
 
     # Get action
-    act=i.get('action','')
+    act = i.get('action', '')
 
     # Check output
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    if o=='con':
-#       out('Initiating remote access ...')
-#       out('')
-       i['out']='con'
-       i['quiet']='yes'
-       if act=='pull':
-          i['out']='json'
+    if o == 'con':
+        #       out('Initiating remote access ...')
+        #       out('')
+        i['out'] = 'con'
+        i['quiet'] = 'yes'
+        if act == 'pull':
+            i['out'] = 'json'
     else:
-       i['out']='json'
+        i['out'] = 'json'
 
 #    # Clean up input
-#    if o!='json_file': 
+#    if o!='json_file':
 #       rr['out']='json' # Decided to return json to show that it's remote ...
 
-    if 'cid' in i: 
-       del(i['cid']) # already processed
+    if 'cid' in i:
+        del(i['cid'])  # already processed
 
     # Get URL
-    url=i.get('remote_server_url','')
+    url = i.get('remote_server_url', '')
 
     # Process i
-    if 'remote_server_url' in i: del(i['remote_server_url'])
+    if 'remote_server_url' in i:
+        del(i['remote_server_url'])
 
     # Pre process if push file ...
-    if act=='push':
-       # Check file
-       fn=i.get('filename','')
-       if fn=='':
-          x=i.get('cids',[])
-          if len(x)>0:
-             fn=x[0]
+    if act == 'push':
+        # Check file
+        fn = i.get('filename', '')
+        if fn == '':
+            x = i.get('cids', [])
+            if len(x) > 0:
+                fn = x[0]
 
-       if fn=='':
-          return {'return':1, 'error':'filename is empty'}
+        if fn == '':
+            return {'return': 1, 'error': 'filename is empty'}
 
-       if not os.path.isfile(fn):
-          return {'return':1, 'error':'file '+fn+' not found'}
+        if not os.path.isfile(fn):
+            return {'return': 1, 'error': 'file '+fn+' not found'}
 
-       rx=convert_file_to_upload_string({'filename':fn})
-       if rx['return']>0: return rx
+        rx = convert_file_to_upload_string({'filename': fn})
+        if rx['return'] > 0:
+            return rx
 
-       i['file_content_base64']=rx['file_content_base64']
+        i['file_content_base64'] = rx['file_content_base64']
 
-       # Leave only filename without path
-       i['filename']=os.path.basename(fn)
+        # Leave only filename without path
+        i['filename'] = os.path.basename(fn)
 
     # Prepare post variables
-    r=dumps_json({'dict':i, 'skip_indent':'yes'})
-    if r['return']>0: return r
-    s=r['string'].encode('utf8')
+    r = dumps_json({'dict': i, 'skip_indent': 'yes'})
+    if r['return'] > 0:
+        return r
+    s = r['string'].encode('utf8')
 
-    post=urlencode({'ck_json':s})
-    if sys.version_info[0]>2: post=post.encode('utf8')
+    post = urlencode({'ck_json': s})
+    if sys.version_info[0] > 2:
+        post = post.encode('utf8')
 
     # Check if skip SSL certificate
-    ctx=None
-    add_ctx=False
+    ctx = None
+    add_ctx = False
 
-    if i.get('remote_skip_certificate_validation','')=='yes':
-       del(i['remote_skip_certificate_validation'])
+    if i.get('remote_skip_certificate_validation', '') == 'yes':
+        del(i['remote_skip_certificate_validation'])
 
-       import ssl
+        import ssl
 
-       ctx = ssl.create_default_context()
-       ctx.check_hostname = False
-       ctx.verify_mode = ssl.CERT_NONE
+        ctx = ssl.create_default_context()
+        ctx.check_hostname = False
+        ctx.verify_mode = ssl.CERT_NONE
 
-       add_ctx=True
+        add_ctx = True
 
     # If auth
-    auth=None
-    add_auth=False
+    auth = None
+    add_auth = False
 
-    au=i.get('remote_server_user','')
-    if au!='': 
-       del(i['remote_server_user'])
+    au = i.get('remote_server_user', '')
+    if au != '':
+        del(i['remote_server_user'])
 
-       ap=i.get('remote_server_pass','')
-       if ap!='': 
-          del(i['remote_server_pass'])
+        ap = i.get('remote_server_pass', '')
+        if ap != '':
+            del(i['remote_server_pass'])
 
-       auth = urllib2.HTTPPasswordMgrWithDefaultRealm()
-       auth.add_password(None, url, au, ap)
+        auth = urllib2.HTTPPasswordMgrWithDefaultRealm()
+        auth.add_password(None, url, au, ap)
 
-       add_auth=True
+        add_auth = True
 
     # Prepare handler (TBD: maybe there is another, more elegant way?)
     if add_auth and add_ctx:
-       urllib2.install_opener(urllib2.build_opener(urllib2.HTTPBasicAuthHandler(auth), urllib2.HTTPSHandler(context=ctx)))
+        urllib2.install_opener(urllib2.build_opener(
+            urllib2.HTTPBasicAuthHandler(auth), urllib2.HTTPSHandler(context=ctx)))
     elif add_auth:
-       urllib2.install_opener(urllib2.build_opener(urllib2.HTTPBasicAuthHandler(auth)))
+        urllib2.install_opener(urllib2.build_opener(
+            urllib2.HTTPBasicAuthHandler(auth)))
     elif add_ctx:
-       urllib2.install_opener(urllib2.build_opener(urllib2.HTTPSHandler(context=ctx)))
+        urllib2.install_opener(urllib2.build_opener(
+            urllib2.HTTPSHandler(context=ctx)))
 
     # Prepare request
     request = urllib2.Request(url, post)
 
     # Connect
     try:
-       f=urllib2.urlopen(request)
+        f = urllib2.urlopen(request)
     except Exception as e:
-       return {'return':1, 'error':'Access to remote CK repository failed ('+format(e)+')'}
+        return {'return': 1, 'error': 'Access to remote CK repository failed ('+format(e)+')'}
 
     # Read from Internet
     try:
-       s=f.read()
-       f.close()
+        s = f.read()
+        f.close()
     except Exception as e:
-       return {'return':1, 'error':'Failed reading stream from remote CK web service ('+format(e)+')'}
+        return {'return': 1, 'error': 'Failed reading stream from remote CK web service ('+format(e)+')'}
 
     # Check output
-    try: s=s.decode('utf8')
-    except Exception as e: pass
-    if o=='con' and act!='pull':
-       out(s.rstrip())
+    try:
+        s = s.decode('utf8')
+    except Exception as e:
+        pass
+    if o == 'con' and act != 'pull':
+        out(s.rstrip())
     else:
-       # Try to convert output to dictionary
-       r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
-       if r['return']>0: 
-          return {'return':1, 'error':'can\'t parse output from remote CK server ('+r['error']+'):\n'+s[:256]+'\n\n...)'}
+        # Try to convert output to dictionary
+        r = convert_json_str_to_dict(
+            {'str': s, 'skip_quote_replacement': 'yes'})
+        if r['return'] > 0:
+            return {'return': 1, 'error': 'can\'t parse output from remote CK server ('+r['error']+'):\n'+s[:256]+'\n\n...)'}
 
-       d=r['dict']
+        d = r['dict']
 
-       if 'return' in d: d['return']=int(d['return']) # Fix for some strange behavior when 'return' is not integer - should check why ...
+        if 'return' in d:
+            # Fix for some strange behavior when 'return' is not integer - should check why ...
+            d['return'] = int(d['return'])
 
-       if d.get('return',0)>0:
-          return d
+        if d.get('return', 0) > 0:
+            return d
 
-       # Post process if pull file ...
-       if act=='pull':
-          if o!='json' and o!='json_file':
-             # Convert encoded file to real file ...
-             x=d.get('file_content_base64','')
+        # Post process if pull file ...
+        if act == 'pull':
+            if o != 'json' and o != 'json_file':
+                # Convert encoded file to real file ...
+                x = d.get('file_content_base64', '')
 
-             fn=d.get('filename','')
-             if fn=='': fn=cfg['default_archive_name']
+                fn = d.get('filename', '')
+                if fn == '':
+                    fn = cfg['default_archive_name']
 
-             r=convert_upload_string_to_file({'file_content_base64':x, 'filename':fn})
-             if r['return']>0: return r
+                r = convert_upload_string_to_file(
+                    {'file_content_base64': x, 'filename': fn})
+                if r['return'] > 0:
+                    return r
 
-             if 'file_content_base64' in d: del(d['file_content_base64'])
+                if 'file_content_base64' in d:
+                    del(d['file_content_base64'])
 
-       rr.update(d)
+        rr.update(d)
 
     # Restore original output
-    i['out']=o
+    i['out'] = o
 
     return rr
 
@@ -4077,6 +4279,7 @@ def perform_remote_action(i):
 # Perform an automation action via CK kernel or from the kernel
 #
 # TARGET: CK kernel and low-level developers
+
 
 def perform_action(i):
     """Perform an automation action via CK kernel or from the kernel
@@ -4109,273 +4312,292 @@ def perform_action(i):
     """
 
     # Check action
-    action=i.get('action','')
-    if action=='':
-       action='short_help'
-    elif action=='-?' or action=='-h' or action=='--help':
-       action='help'
+    action = i.get('action', '')
+    if action == '':
+        action = 'short_help'
+    elif action == '-?' or action == '-h' or action == '--help':
+        action = 'help'
 
     # Check web
-    wb=i.get('web','')
+    wb = i.get('web', '')
 
     # Substitute # in CIDs
-    cid=i.get('cid','')
-    cids=i.get('cids',[])
+    cid = i.get('cid', '')
+    cids = i.get('cids', [])
 
-    xout=i.get('out','')
+    xout = i.get('out', '')
 
-    ruoa=''
-    ruid=''
+    ruoa = ''
+    ruid = ''
 
-    repo_module_uoa=i.get('repo_module_uoa','')
+    repo_module_uoa = i.get('repo_module_uoa', '')
 
-    need_subst=False
-    rc={} # If CID from current directory
+    need_subst = False
+    rc = {}  # If CID from current directory
 
     if cid.startswith(cfg['detect_cur_cid']) or cid.startswith(cfg['detect_cur_cid1']):
-       need_subst=True
+        need_subst = True
     else:
-       for c in cids:
-           if c.startswith(cfg['detect_cur_cid']) or c.startswith(cfg['detect_cur_cid1']): 
-              need_subst=True
-              break
+        for c in cids:
+            if c.startswith(cfg['detect_cur_cid']) or c.startswith(cfg['detect_cur_cid1']):
+                need_subst = True
+                break
 
     # If need to substitute #, attempt to detect current CID
     if need_subst:
-       rc=detect_cid_in_current_path({})
-       if rc['return']>0: return rc
+        rc = detect_cid_in_current_path({})
+        if rc['return'] > 0:
+            return rc
 
     # Process cid (module or CID)
-    module_uoa=cid
-    if cid.find(':')>=0 or cid.startswith(cfg['detect_cur_cid']) or cid.startswith(cfg['detect_cur_cid1']):
-       # Means that CID
-       r=parse_cid({'cid':cid, 'cur_cid':rc})
-       if r['return']>0: return r
-       module_uoa=r.get('module_uoa','')
+    module_uoa = cid
+    if cid.find(':') >= 0 or cid.startswith(cfg['detect_cur_cid']) or cid.startswith(cfg['detect_cur_cid1']):
+        # Means that CID
+        r = parse_cid({'cid': cid, 'cur_cid': rc})
+        if r['return'] > 0:
+            return r
+        module_uoa = r.get('module_uoa', '')
 
-       duoa=r.get('data_uoa','')
-       if duoa!='': i['data_uoa']=duoa
+        duoa = r.get('data_uoa', '')
+        if duoa != '':
+            i['data_uoa'] = duoa
 
-       ruoa=r.get('repo_uoa','')
-       if ruoa!='': i['repo_uoa']=ruoa
+        ruoa = r.get('repo_uoa', '')
+        if ruoa != '':
+            i['repo_uoa'] = ruoa
 
     # If module_uoa exists in input, set module_uoa
-    if i.get('module_uoa','')!='': module_uoa=i['module_uoa']
-    i['module_uoa']=module_uoa
+    if i.get('module_uoa', '') != '':
+        module_uoa = i['module_uoa']
+    i['module_uoa'] = module_uoa
 
     # Check if repo exists and possibly remote!
-    remote=False
+    remote = False
 
-    local=i.get('local','')
+    local = i.get('local', '')
 
-    rs=i.get('remote_server_url','')
-    if rs=='': 
-       ruoa=i.get('repo_uoa','')
-       if ruoa!='' and ruoa.find('*')<0 and ruoa.find('?')<0:
-          rq=load_repo_info_from_cache({'repo_uoa':ruoa})
-          if rq['return']>0: return rq
+    rs = i.get('remote_server_url', '')
+    if rs == '':
+        ruoa = i.get('repo_uoa', '')
+        if ruoa != '' and ruoa.find('*') < 0 and ruoa.find('?') < 0:
+            rq = load_repo_info_from_cache({'repo_uoa': ruoa})
+            if rq['return'] > 0:
+                return rq
 
-          dd=rq.get('dict',{})
-          if dd.get('remote','')=='yes' and local!='yes':
-             rs=dd.get('url','')
-             if rs=='':
-                return {'return':1, 'error':'URL of remote repository is not defined'}
+            dd = rq.get('dict', {})
+            if dd.get('remote', '') == 'yes' and local != 'yes':
+                rs = dd.get('url', '')
+                if rs == '':
+                    return {'return': 1, 'error': 'URL of remote repository is not defined'}
 
-             i['remote_server_url']=rs
+                i['remote_server_url'] = rs
 
-             if dd.get('remote_user','')!='':
-                i['remote_server_user']=dd['remote_user']
+                if dd.get('remote_user', '') != '':
+                    i['remote_server_user'] = dd['remote_user']
 
-             # It is completely unsave - just for proof of concept ...
-             if dd.get('remote_password','')!='':
-                i['remote_server_pass']=dd['remote_password']
+                # It is completely unsave - just for proof of concept ...
+                if dd.get('remote_password', '') != '':
+                    i['remote_server_pass'] = dd['remote_password']
 
-             if dd.get('remote_skip_certificate_validation','')!='':
-                i['remote_skip_certificate_validation']=dd['remote_skip_certificate_validation']
+                if dd.get('remote_skip_certificate_validation', '') != '':
+                    i['remote_skip_certificate_validation'] = dd['remote_skip_certificate_validation']
 
-             if dd.get('remote_repo_uoa','')!='':
-                i['repo_uoa']=dd['remote_repo_uoa']
-             else:
-                del (i['repo_uoa'])
+                if dd.get('remote_repo_uoa', '') != '':
+                    i['repo_uoa'] = dd['remote_repo_uoa']
+                else:
+                    del (i['repo_uoa'])
 
-             if i.get('remote_repo_uoa','')!='':
-                i['repo_uoa']=i['remote_repo_uoa']
-                del(i['remote_repo_uoa'])
+                if i.get('remote_repo_uoa', '') != '':
+                    i['repo_uoa'] = i['remote_repo_uoa']
+                    del(i['remote_repo_uoa'])
 
-    if rs!='' and local!='yes':
-       return perform_remote_action(i)
+    if rs != '' and local != 'yes':
+        return perform_remote_action(i)
 
     # Process and parse cids -> xcids
-    xcids=[]
+    xcids = []
 
     for c in cids:
-       r=parse_cid({'cid':c, 'cur_cid':rc, 'ignore_error':'yes'}) # here we ignore errors, since can be a file name, etc
-       if r['return']>0: return r
-       xcids.append(r)
-    i['xcids']=xcids
+        # here we ignore errors, since can be a file name, etc
+        r = parse_cid({'cid': c, 'cur_cid': rc, 'ignore_error': 'yes'})
+        if r['return'] > 0:
+            return r
+        xcids.append(r)
+    i['xcids'] = xcids
 
     # Check if common function
-    cf=i.get('common_func','')
-    if cf=='': cf=i.get('common','') # making it easier to call it from the command line
+    cf = i.get('common_func', '')
+    if cf == '':
+        # making it easier to call it from the command line
+        cf = i.get('common', '')
 
-    # Check if no module_uoa, not common function, then try to get module from current 
-    module_detected_from_dir=False
-    if not need_subst and cf!='yes' and module_uoa=='' and action not in cfg['common_actions']:
-       rc=detect_cid_in_current_path({})
-       if rc['return']==0:
-          module_uoa=rc.get('module_uoa','')
-          module_detected_from_dir=True
+    # Check if no module_uoa, not common function, then try to get module from current
+    module_detected_from_dir = False
+    if not need_subst and cf != 'yes' and module_uoa == '' and action not in cfg['common_actions']:
+        rc = detect_cid_in_current_path({})
+        if rc['return'] == 0:
+            module_uoa = rc.get('module_uoa', '')
+            module_detected_from_dir = True
 
-    display_module_uoa  = module_uoa
+    display_module_uoa = module_uoa
     default_action_name = None
-    loaded_module       = None
+    loaded_module = None
 
-    ## If a specific module_uoa was given (not a wildcard) :
+    # If a specific module_uoa was given (not a wildcard) :
     #
-    if cf!='yes' and module_uoa!='' and module_uoa.find('*')<0 and module_uoa.find('?')<0:
-       # Find module and load meta description
-       rx=load({'repo_uoa':repo_module_uoa,
-                'module_uoa':cfg['module_name'], 
-                'data_uoa':module_uoa})
-       if rx['return']>0: 
-          if cfg.get('download_missing_components','')!='yes' and action!='download':
-             return rx
+    if cf != 'yes' and module_uoa != '' and module_uoa.find('*') < 0 and module_uoa.find('?') < 0:
+        # Find module and load meta description
+        rx = load({'repo_uoa': repo_module_uoa,
+                   'module_uoa': cfg['module_name'],
+                   'data_uoa': module_uoa})
+        if rx['return'] > 0:
+            if cfg.get('download_missing_components', '') != 'yes' and action != 'download':
+                return rx
 
-          # Check if search in remote server ...
-          restarted=False
-          if rx['return']==16:
-             xout2=''
-             if xout=='con': xout2=xout
+            # Check if search in remote server ...
+            restarted = False
+            if rx['return'] == 16:
+                xout2 = ''
+                if xout == 'con':
+                    xout2 = xout
 
-             # Try to download missing action/module
-             ry=download({'module_uoa':cfg['module_name'],
-                          'data_uoa':module_uoa,
-                          'out':xout2})
-             if ry['return']>0: return ry
+                # Try to download missing action/module
+                ry = download({'module_uoa': cfg['module_name'],
+                               'data_uoa': module_uoa,
+                               'out': xout2})
+                if ry['return'] > 0:
+                    return ry
 
-             # Attempt to load module again
-             rx=load({'module_uoa':cfg['module_name'], 
-                      'data_uoa':module_uoa})
-             if rx['return']>0: return rx
+                # Attempt to load module again
+                rx = load({'module_uoa': cfg['module_name'],
+                           'data_uoa': module_uoa})
+                if rx['return'] > 0:
+                    return rx
 
-             restarted=True
+                restarted = True
 
-             xout=''
+                xout = ''
 
-             if xout=='con':
-                out('')
+                if xout == 'con':
+                    out('')
 
-          if not restarted:
-             return rx
+            if not restarted:
+                return rx
 
-       xmodule_uoa=rx['data_uoa']
-       xmodule_uid=rx['data_uid']
-       display_module_uoa = '"{}"'.format(xmodule_uoa)
-       if xmodule_uoa!=xmodule_uid:
-          display_module_uoa += ' ({})'.format(xmodule_uid)
+        xmodule_uoa = rx['data_uoa']
+        xmodule_uid = rx['data_uid']
+        display_module_uoa = '"{}"'.format(xmodule_uoa)
+        if xmodule_uoa != xmodule_uid:
+            display_module_uoa += ' ({})'.format(xmodule_uid)
 
-       # Check if allowed to run only from specific repos
-       if cfg.get('allow_run_only_from_allowed_repos','')=='yes':# and cf!='yes':
-          ruid=rx['repo_uid']
+        # Check if allowed to run only from specific repos
+        # and cf!='yes':
+        if cfg.get('allow_run_only_from_allowed_repos', '') == 'yes':
+            ruid = rx['repo_uid']
 
-          if ruid not in cfg.get('repo_uids_to_allow_run',[]):
-             return {'return':1, 'error':'executing commands is not allowed from this repository "'+ruid+'"'}
+            if ruid not in cfg.get('repo_uids_to_allow_run', []):
+                return {'return': 1, 'error': 'executing commands is not allowed from this repository "'+ruid+'"'}
 
-       u=rx['dict']
-       p=rx['path']
+        u = rx['dict']
+        p = rx['path']
 
-       # Check logging of repo:module:uoa to be able to rebuild CK dependencies
-       if log_ck_entries:
-          lce=cfg.get('log_ck_entries','')
-          if lce!='':
-             rl=save_text_file({'text_file':lce,
-                                'string':'"action":"'+action+'", "repo_uoa":"'+
-                                         i.get('repo_uoa','')+'", "repo_module_uoa":"'+
-                                         repo_module_uoa+'", "module_uoa":"'+
-                                         xmodule_uoa+'", "module_uid":"'+
-                                         xmodule_uid+'", "data_uoa":"'+
-                                         i.get('data_uoa','')+'"\n',
-                                'append':'yes'})
-             if rl['return']>0: return rl
+        # Check logging of repo:module:uoa to be able to rebuild CK dependencies
+        if log_ck_entries:
+            lce = cfg.get('log_ck_entries', '')
+            if lce != '':
+                rl = save_text_file({'text_file': lce,
+                                     'string': '"action":"'+action+'", "repo_uoa":"' +
+                                     i.get('repo_uoa', '')+'", "repo_module_uoa":"' +
+                                     repo_module_uoa+'", "module_uoa":"' +
+                                     xmodule_uoa+'", "module_uid":"' +
+                                     xmodule_uid+'", "data_uoa":"' +
+                                     i.get('data_uoa', '')+'"\n',
+                                     'append': 'yes'})
+                if rl['return'] > 0:
+                    return rl
 
-       declared_action      = action in u.get('actions',{})
-       default_action_name  = u.get('default_action_name','')
-       intercept_kernel     = i.get('{}.intercept_kernel'.format(module_uoa),'')
+        declared_action = action in u.get('actions', {})
+        default_action_name = u.get('default_action_name', '')
+        intercept_kernel = i.get('{}.intercept_kernel'.format(module_uoa), '')
 
-       if declared_action or default_action_name:
-          # Load module
-          mcn=u.get('module_name',cfg['module_code_name'])
+        if declared_action or default_action_name:
+            # Load module
+            mcn = u.get('module_name', cfg['module_code_name'])
 
-          if i.get('module_version','')!='': 
-             mcnv=i['module_version'].strip()
-             if mcnv=='0': 
-                mcnv=''
-          else: 
-             mcnv=u.get('module_version','')
+            if i.get('module_version', '') != '':
+                mcnv = i['module_version'].strip()
+                if mcnv == '0':
+                    mcnv = ''
+            else:
+                mcnv = u.get('module_version', '')
 
-          if mcnv!='':
-             mcn+='.'+mcnv
+            if mcnv != '':
+                mcn += '.'+mcnv
 
-          r=load_module_from_path({'path':p, 'module_code_name':mcn, 'cfg':u, 'data_uoa':rx['data_uoa']})
-          if r['return']>0: return r
+            r = load_module_from_path(
+                {'path': p, 'module_code_name': mcn, 'cfg': u, 'data_uoa': rx['data_uoa']})
+            if r['return'] > 0:
+                return r
 
-          loaded_module=r['code']
-          loaded_module.work['self_module_uid']=rx['data_uid']
-          loaded_module.work['self_module_uoa']=rx['data_uoa']
-          loaded_module.work['self_module_alias']=rx['data_alias']
-          loaded_module.work['path']=p
+            loaded_module = r['code']
+            loaded_module.work['self_module_uid'] = rx['data_uid']
+            loaded_module.work['self_module_uoa'] = rx['data_uoa']
+            loaded_module.work['self_module_alias'] = rx['data_alias']
+            loaded_module.work['path'] = p
 
-          action1=u.get('actions_redirect',{}).get(action,'')
-          if action1=='': action1=action
+            action1 = u.get('actions_redirect', {}).get(action, '')
+            if action1 == '':
+                action1 = action
 
-          if i.get('help','')=='yes' or i.get('api','')=='yes':
-             return get_api({'path':p, 'func':action1, 'out':xout})
+            if i.get('help', '') == 'yes' or i.get('api', '') == 'yes':
+                return get_api({'path': p, 'func': action1, 'out': xout})
 
-          if wb=='yes' and (xout=='con' or xout=='web') and u.get('actions',{}).get(action,{}).get('for_web','')!='yes':
-             return {'return':1, 'error':'this action is not supported in remote/web mode'}
+            if wb == 'yes' and (xout == 'con' or xout == 'web') and u.get('actions', {}).get(action, {}).get('for_web', '') != 'yes':
+                return {'return': 1, 'error': 'this action is not supported in remote/web mode'}
 
-          if declared_action:
-              a=getattr(loaded_module, action1)
-              return a(i)
-          elif default_action_name and intercept_kernel:
-              a=getattr(loaded_module, default_action_name)
-              return a(i)
-          # otherwise fall through and try a "special" kernel method first
-
+            if declared_action:
+                a = getattr(loaded_module, action1)
+                return a(i)
+            elif default_action_name and intercept_kernel:
+                a = getattr(loaded_module, default_action_name)
+                return a(i)
+            # otherwise fall through and try a "special" kernel method first
 
     # Check if action == special keyword (add, delete, list, etc)
-    if (module_uoa!='' and action in cfg['common_actions']) or \
-       ((module_uoa=='' or module_detected_from_dir) and action in cfg['actions']):
-       # Check function redirect - needed if action 
-       #   is the same as internal python keywords such as list
-       action1=cfg['actions_redirect'].get(action,'')
-       if action1=='': action1=action
+    if (module_uoa != '' and action in cfg['common_actions']) or \
+       ((module_uoa == '' or module_detected_from_dir) and action in cfg['actions']):
+        # Check function redirect - needed if action
+        #   is the same as internal python keywords such as list
+        action1 = cfg['actions_redirect'].get(action, '')
+        if action1 == '':
+            action1 = action
 
-       if i.get('help','')=='yes' or i.get('api','')=='yes':
-          return get_api({'path':'', 'func':action1, 'out':xout})
+        if i.get('help', '') == 'yes' or i.get('api', '') == 'yes':
+            return get_api({'path': '', 'func': action1, 'out': xout})
 
-       if wb=='yes' and (xout=='con' or xout=='web') and cfg.get('actions',{}).get(action,{}).get('for_web','')!='yes':
-          return {'return':1, 'error':'this action is not supported in remote/web mode '}
+        if wb == 'yes' and (xout == 'con' or xout == 'web') and cfg.get('actions', {}).get(action, {}).get('for_web', '') != 'yes':
+            return {'return': 1, 'error': 'this action is not supported in remote/web mode '}
 
-       a=getattr(sys.modules[__name__], action1)
-       return a(i)
+        a = getattr(sys.modules[__name__], action1)
+        return a(i)
 
     if default_action_name:
-       a=getattr(loaded_module, default_action_name)
-       return a(i)
+        a = getattr(loaded_module, default_action_name)
+        return a(i)
 
     # Prepare error
-    if module_uoa=='':
-       er='in kernel'
+    if module_uoa == '':
+        er = 'in kernel'
     else:
-       er='in module '+display_module_uoa
+        er = 'in module '+display_module_uoa
 
-    return {'return':1,'error':'action "'+action+'" not found '+er}
+    return {'return': 1, 'error': 'action "'+action+'" not found '+er}
 
 ##############################################################################
 # Print API from the CK module for a given action
 #
 # TARGET: CK kernel and low-level developers
+
 
 def get_api(i):
     """Print API from the CK module for a given action
@@ -4408,117 +4630,126 @@ def get_api(i):
                 line (str): description string in the CK module
     """
 
-    p=i.get('path','')
-    f=i.get('func','')
-    o=i.get('out','')
+    p = i.get('path', '')
+    f = i.get('func', '')
+    o = i.get('out', '')
 
-    muoa=i.get('module_uoa','')
+    muoa = i.get('module_uoa', '')
 
-    t=''      # last function description (if redirect to another API)
-    t_orig='' # original function description
-    l=0       # API line
-    a=''      # accumulated API
+    t = ''      # last function description (if redirect to another API)
+    t_orig = ''  # original function description
+    l = 0       # API line
+    a = ''      # accumulated API
 
-    if p=='' and muoa!='':
-       rx=load({'module_uoa':cfg['module_name'], 
-                'data_uoa':muoa})
-       if rx['return']>0: return rx
-       p=rx['path']
+    if p == '' and muoa != '':
+        rx = load({'module_uoa': cfg['module_name'],
+                   'data_uoa': muoa})
+        if rx['return'] > 0:
+            return rx
+        p = rx['path']
 
-    if p=='':
-       p1=os.path.dirname(os.path.dirname(work['dir_default_repo']))
-       p=os.path.join(p1, cfg['file_kernel_py'])
+    if p == '':
+        p1 = os.path.dirname(os.path.dirname(work['dir_default_repo']))
+        p = os.path.join(p1, cfg['file_kernel_py'])
 
-       if not os.path.isfile(p):
-          return {'return':1, 'error':'kernel not found in '+p}
+        if not os.path.isfile(p):
+            return {'return': 1, 'error': 'kernel not found in '+p}
     else:
-       p=os.path.join(p, 'module.py')
+        p = os.path.join(p, 'module.py')
 
     if os.path.isfile(p):
-       rx=load_text_file({'text_file':p, 'split_to_list':'yes'})
-       if rx['return']>0: return rx
+        rx = load_text_file({'text_file': p, 'split_to_list': 'yes'})
+        if rx['return'] > 0:
+            return rx
 
-       lst=rx['lst']
+        lst = rx['lst']
 
-       k=-1
-       while k<len(lst)-1:
-             k+=1
-             q=lst[k]
+        k = -1
+        while k < len(lst)-1:
+            k += 1
+            q = lst[k]
 
-             if q.find('def '+f+'(')>=0 or q.find('def '+f+' (')>=0 or \
-                q.find('def\t'+f+'(')>=0 or q.find('def\t'+f+' (')>=0:
+            if q.find('def '+f+'(') >= 0 or q.find('def '+f+' (') >= 0 or \
+               q.find('def\t'+f+'(') >= 0 or q.find('def\t'+f+' (') >= 0:
 
-                j=k-1
-                if j>=0 and lst[j].strip()=='': j-=1
+                j = k-1
+                if j >= 0 and lst[j].strip() == '':
+                    j -= 1
+                    if j >= 0 and lst[j].strip() == '':
+                        j -= 1
 
-                x='x'
-                while j>=0 and x!='' and not x.startswith('###'):
-                  x=lst[j].strip()
-                  if x!='' and not x.startswith('###'):
-                     if x=='#': x=' '
-                     elif x.startswith('# '): x=x[2:]
-                     t=x+'\n'+t
-                  j-=1
+                x = 'x'
+                while j >= 0 and x != '' and not x.startswith('###'):
+                    x = lst[j].strip()
+                    if x != '' and not x.startswith('###'):
+                        if x == '#':
+                            x = ' '
+                        elif x.startswith('# '):
+                            x = x[2:]
+                        t = x+'\n'+t
+                    j -= 1
 
-                if t!='':
-                   l=j+2
-                   if t_orig=='': t_orig=t 
+                if t != '':
+                    l = j+2
+                    if t_orig == '':
+                        t_orig = t
 
                 # Find starting point of an API
-                j=k+1
-                if j<len(lst) and lst[j].find('"""')>=0: 
-                   j+=1
+                j = k+1
+                if j < len(lst) and lst[j].find('"""') >= 0:
+                    j += 1
 
                 # Check if redirect to another function
-                restart=False
-                if j<len(lst):
-                   x=lst[j].strip()
-                   if x.lower().startswith("see"):
-                      z1=x.find('"')
-                      if z1>0:
-                         z2=x.find('"',z1+1)
-                         if z2>0:
-                            f=x[z1+1:z2] # new function name
-                            k=-1
-                            restart=True # restart search for new function
-                   
+                restart = False
+                if j < len(lst):
+                    x = lst[j].strip()
+                    if x.lower().startswith("see"):
+                        z1 = x.find('"')
+                        if z1 > 0:
+                            z2 = x.find('"', z1+1)
+                            if z2 > 0:
+                                f = x[z1+1:z2]  # new function name
+                                k = -1
+                                restart = True  # restart search for new function
+
                 if not restart:
-                   x=''
-                   while x.find('"""')<0 and j<len(lst):
-                       x=lst[j]
-                       if x.find('"""')<0:
-                          a+=x+'\n'
-                       j+=1
+                    x = ''
+                    while x.find('"""') < 0 and j < len(lst):
+                        x = lst[j]
+                        if x.find('"""') < 0:
+                            a += x+'\n'
+                        j += 1
 
-    if t=='' and a=='':
-       return {'return':1, 'error':'function not found'}
+    if t == '' and a == '':
+        return {'return': 1, 'error': 'function not found'}
 
-    dd=t_orig.strip()
-    if o=='con':
-       out('Description: '+dd)
-       out('')
-       out('Module: '+p)
-       out('')
-       out('Line: '+str(l))
-       out('')
-       out('API:')
-       out(a)
-    elif o=='web':
-       out('<B>Function:</B> '+t+'<BR>')
-       out('<BR>')
-       out('<B>Module:</B> '+p+'<BR>')
-       out('<BR>')
-       out('<B>API:</B><BR>')
-       out('<pre>')
-       out(a)
-       out('</pre><BR>')
+    dd = t_orig.strip()
+    if o == 'con':
+        out('Description: '+dd)
+        out('')
+        out('Module: '+p)
+        out('')
+        out('Line: '+str(l))
+        out('')
+        out('API:')
+        out(a)
+    elif o == 'web':
+        out('<B>Function:</B> '+t+'<BR>')
+        out('<BR>')
+        out('<B>Module:</B> '+p+'<BR>')
+        out('<BR>')
+        out('<B>API:</B><BR>')
+        out('<pre>')
+        out(a)
+        out('</pre><BR>')
 
-    return {'return':0, 'title':t, 'desc':dd, 'module':p, 'api':a, 'line':l}
+    return {'return': 0, 'title': t, 'desc': dd, 'module': p, 'api': a, 'line': l}
 
 ##############################################################################
 # Convert CID to a dict and add missing parts in CID from the current path
 #
 # TARGET: CK kernel and low-level developers
+
 
 def parse_cid(i):
     """Convert CID to a dict and add missing parts in CID from the current path
@@ -4543,46 +4774,48 @@ def parse_cid(i):
                 (repo_uoa) (str): CK repo UOA
     """
 
-    r={'return':0}
-    c=i['cid'].strip()
+    r = {'return': 0}
+    c = i['cid'].strip()
 
-    ie=i.get('ignore_error','')
+    ie = i.get('ignore_error', '')
 
-    cc=i.get('cur_cid', {})
+    cc = i.get('cur_cid', {})
 
-    a0=cc.get('repo_uoa','')
-    m0=cc.get('module_uoa','')
-    d0=cc.get('data_uoa','')
+    a0 = cc.get('repo_uoa', '')
+    m0 = cc.get('module_uoa', '')
+    d0 = cc.get('data_uoa', '')
 
     if c.startswith(cfg['detect_cur_cid']) or c.startswith(cfg['detect_cur_cid1']):
-       c=c[1:]
+        c = c[1:]
 
-    x=c.split(':')
-    if len(x)<2 and m0=='':
-       if ie!='yes': 
-          return {'return':1, 'error':'unknown CID format'}
-       else: 
-          return r
+    x = c.split(':')
+    if len(x) < 2 and m0 == '':
+        if ie != 'yes':
+            return {'return': 1, 'error': 'unknown CID format'}
+        else:
+            return r
 
-    if c=='':
-       r['repo_uoa']=a0
-       r['module_uoa']=m0
-       r['data_uoa']=d0
-    elif len(x)==1:
-       if a0!='': r['repo_uoa']=a0
-       r['module_uoa']=m0
-       r['data_uoa']=x[0]
-    elif len(x)==2:
-       if a0!='': r['repo_uoa']=a0
-       r['module_uoa']=x[0]
-       r['data_uoa']=x[1]
-    elif len(x)==3:
-       r['repo_uoa']=x[0]
-       r['module_uoa']=x[1]
-       r['data_uoa']=x[2]
+    if c == '':
+        r['repo_uoa'] = a0
+        r['module_uoa'] = m0
+        r['data_uoa'] = d0
+    elif len(x) == 1:
+        if a0 != '':
+            r['repo_uoa'] = a0
+        r['module_uoa'] = m0
+        r['data_uoa'] = x[0]
+    elif len(x) == 2:
+        if a0 != '':
+            r['repo_uoa'] = a0
+        r['module_uoa'] = x[0]
+        r['data_uoa'] = x[1]
+    elif len(x) == 3:
+        r['repo_uoa'] = x[0]
+        r['module_uoa'] = x[1]
+        r['data_uoa'] = x[2]
     else:
-       if ie!='yes': 
-          return {'return':1, 'error':'unknown CID format'}
+        if ie != 'yes':
+            return {'return': 1, 'error': 'unknown CID format'}
 
     return r
 
@@ -4590,6 +4823,7 @@ def parse_cid(i):
 # Create a CK entry with UID or alias in the given path
 #
 # TARGET: CK kernel and low-level developers
+
 
 def create_entry(i):
     """Create a CK entry with UID or alias in the given path
@@ -4624,148 +4858,157 @@ def create_entry(i):
                 data_uoa (str): alias or UID (if alias=="") of the created CK entry
     """
 
-    p0=i.get('path','')
-    d=i.get('data_uoa','')
-    di=i.get('data_uid','')
+    p0 = i.get('path', '')
+    d = i.get('data_uoa', '')
+    di = i.get('data_uid', '')
 
-    ama=(i.get('allow_multiple_aliases','')=='yes') # Experimental functionality for cKnowledge.io
+    # Experimental functionality for cKnowledge.io
+    ama = (i.get('allow_multiple_aliases', '') == 'yes')
 
-    split_dirs=safe_int(i.get('split_dirs',0),0)
+    split_dirs = safe_int(i.get('split_dirs', 0), 0)
 
-    xforce=i.get('force','')
-    if xforce=='yes':
-       force=True
+    xforce = i.get('force', '')
+    if xforce == 'yes':
+        force = True
     else:
-       force=False
+        force = False
 
     # If no uoa, generate UID
-    alias=''
-    uid=''
-    if d=='':
-       if di=='':
-          r=gen_uid({})
-          if r['return']>0: return r
-          uid=r['data_uid']
-       else:
-          uid=di
+    alias = ''
+    uid = ''
+    if d == '':
+        if di == '':
+            r = gen_uid({})
+            if r['return'] > 0:
+                return r
+            uid = r['data_uid']
+        else:
+            uid = di
 
-          # Check if already exists
-          iii={'path':p0, 'data_uoa':uid}
-          if split_dirs!=0:
-             iii['split_dirs']=split_dirs
-          r=find_path_to_entry(iii)
-          if r['return']>0 and r['return']!=16: return r
-          elif r['return']==0:
-             r['return']=16
-             return r
+            # Check if already exists
+            iii = {'path': p0, 'data_uoa': uid}
+            if split_dirs != 0:
+                iii['split_dirs'] = split_dirs
+            r = find_path_to_entry(iii)
+            if r['return'] > 0 and r['return'] != 16:
+                return r
+            elif r['return'] == 0:
+                r['return'] = 16
+                return r
 
-       alias=''
+        alias = ''
     else:
-       # Check if already exists
-       if not force:
-          # Check if already exists
-          iii={'path':p0, 'data_uoa':d}
-          if split_dirs!=0:
-             iii['split_dirs']=split_dirs
-          r=find_path_to_entry(iii)
-          if r['return']>0 and r['return']!=16: return r
-          elif r['return']==0:
-             r['return']=16
-             return r
+        # Check if already exists
+        if not force:
+            # Check if already exists
+            iii = {'path': p0, 'data_uoa': d}
+            if split_dirs != 0:
+                iii['split_dirs'] = split_dirs
+            r = find_path_to_entry(iii)
+            if r['return'] > 0 and r['return'] != 16:
+                return r
+            elif r['return'] == 0:
+                r['return'] = 16
+                return r
 
-       if is_uid(d):
-          uid=d
-          alias=''
-       else:
-          alias=d
-          if di!='':
-             uid=i['data_uid']
-          else: 
-             r=gen_uid({})
-             if r['return']>0: return r
-             uid=r['data_uid']
+        if is_uid(d):
+            uid = d
+            alias = ''
+        else:
+            alias = d
+            if di != '':
+                uid = i['data_uid']
+            else:
+                r = gen_uid({})
+                if r['return'] > 0:
+                    return r
+                uid = r['data_uid']
 
     # Check dir name
-    dir_name=(alias,uid) [alias=='']
+    dir_name = (alias, uid)[alias == '']
 
     # Check split
-    p00=p0
-    sd1,sd2=split_name(dir_name, split_dirs)
-    if sd2!='': # otherwise name is smaller than the split number
-       p00=os.path.join(p0,sd1)
+    p00 = p0
+    sd1, sd2 = split_name(dir_name, split_dirs)
+    if sd2 != '':  # otherwise name is smaller than the split number
+        p00 = os.path.join(p0, sd1)
 
-       # Create first split if doesn't exist
-       if not os.path.isdir(p00):
-          os.mkdir(p00)
+        # Create first split if doesn't exist
+        if not os.path.isdir(p00):
+            os.mkdir(p00)
 
     # Finalize path to entry
-    p=os.path.join(p00, dir_name)
+    p = os.path.join(p00, dir_name)
 
     # Check alias disambiguation
-    if alias!='':
-       p1=os.path.join(p0, cfg['subdir_ck_ext'])
-       if not os.path.isdir(p1):
-          # Create .cm directory
-          try:    # pragma: no cover
-             os.mkdir(p1)
-          except Exception as e:
-             return {'return':1, 'error':format(e)}
+    if alias != '':
+        p1 = os.path.join(p0, cfg['subdir_ck_ext'])
+        if not os.path.isdir(p1):
+            # Create .cm directory
+            try:    # pragma: no cover
+                os.mkdir(p1)
+            except Exception as e:
+                return {'return': 1, 'error': format(e)}
 
-       # Check if alias->uid exist
-       p3=os.path.join(p1, cfg['file_alias_a'] + alias)
-       if os.path.isfile(p3):     # pragma: no cover
-          try:
-             fx=open(p3)
-             uid1=fx.readline().strip()
-             fx.close()
-          except Exception as e:
-             None
+        # Check if alias->uid exist
+        p3 = os.path.join(p1, cfg['file_alias_a'] + alias)
+        if os.path.isfile(p3):     # pragma: no cover
+            try:
+                fx = open(p3)
+                uid1 = fx.readline().strip()
+                fx.close()
+            except Exception as e:
+                None
 
-          if uid1!=uid:
-             return {'return':1, 'error':'different alias->uid disambiguator already exists in '+p3}
+            if uid1 != uid:
+                return {'return': 1, 'error': 'different alias->uid disambiguator already exists in '+p3}
 
-       # Check if uid->alias exist
-       xalias=alias
-       p2=os.path.join(p1, cfg['file_alias_u'] + uid)
-       if os.path.isfile(p2):     # pragma: no cover
-          alias1=''
-          alias1s=[]
-          try:
-             fx=open(p2)
-             alias1=fx.read().strip()
-             alias1s=alias1.split('\n')
-             fx.close()
-          except Exception as e:
-             None
+        # Check if uid->alias exist
+        xalias = alias
+        p2 = os.path.join(p1, cfg['file_alias_u'] + uid)
+        if os.path.isfile(p2):     # pragma: no cover
+            alias1 = ''
+            alias1s = []
+            try:
+                fx = open(p2)
+                alias1 = fx.read().strip()
+                alias1s = alias1.split('\n')
+                fx.close()
+            except Exception as e:
+                None
 
-          if alias not in alias1s:
-             if ama:
-                xalias=alias+'\n'+alias1
-             else:
-                return {'return':1, 'error':'different uid->alias disambiguator already exists in '+p2}
+            if alias not in alias1s:
+                if ama:
+                    xalias = alias+'\n'+alias1
+                else:
+                    return {'return': 1, 'error': 'different uid->alias disambiguator already exists in '+p2}
 
-       ru=save_text_file({'text_file':p3, 'string':uid+'\n'})
-       if ru['return']>0: return ru
+        ru = save_text_file({'text_file': p3, 'string': uid+'\n'})
+        if ru['return'] > 0:
+            return ru
 
-       ru=save_text_file({'text_file':p2, 'string':xalias+'\n'})
-       if ru['return']>0: return ru
+        ru = save_text_file({'text_file': p2, 'string': xalias+'\n'})
+        if ru['return'] > 0:
+            return ru
 
     # Create directory
     if not os.path.exists(p):
-       try:
-          os.mkdir(p)
-       except Exception as e:
-          return {'return':1, 'error':format(e)}
+        try:
+            os.mkdir(p)
+        except Exception as e:
+            return {'return': 1, 'error': format(e)}
 
-    uoa=uid
-    if alias!='': uoa=alias
+    uoa = uid
+    if alias != '':
+        uoa = alias
 
-    return {'return':0, 'path':p, 'data_uid':uid, 'data_alias':alias, 'data_uoa':uoa}
+    return {'return': 0, 'path': p, 'data_uid': uid, 'data_alias': alias, 'data_uoa': uoa}
 
 ##############################################################################
 # Delete the CK entry alias from a given path
 #
 # TARGET: CK kernel and low-level developers
+
 
 def delete_alias(i):
     """Delete the CK entry alias from a given path
@@ -4788,85 +5031,91 @@ def delete_alias(i):
                 (error) (str): error text if return > 0
     """
 
-    rd=i.get('repo_dict',{})
-    rshared=rd.get('shared','')
-    rsync=rd.get('sync','')
+    rd = i.get('repo_dict', {})
+    rshared = rd.get('shared', '')
+    rsync = rd.get('sync', '')
 
-    if i.get('share','')=='yes': rshared='git'
+    if i.get('share', '') == 'yes':
+        rshared = 'git'
 
-    p=i['path']
-    alias=i.get('data_alias','')
-    uid=''
+    p = i['path']
+    alias = i.get('data_alias', '')
+    uid = ''
 
-    if alias!='' and os.path.isdir(p):
-       p0=os.path.join(p, cfg['subdir_ck_ext'])
+    if alias != '' and os.path.isdir(p):
+        p0 = os.path.join(p, cfg['subdir_ck_ext'])
 
-       p9=cfg['file_alias_a'] + alias
-       p1=os.path.join(p0, p9)
+        p9 = cfg['file_alias_a'] + alias
+        p1 = os.path.join(p0, p9)
 
-       if rshared!='':
-          ppp=os.getcwd()
-          os.chdir(p0)
+        if rshared != '':
+            ppp = os.getcwd()
+            os.chdir(p0)
 
-       if os.path.isfile(p1):
-          try:
-             f=open(p1)
-             uid=f.readline().strip()
-             f.close()
-          except Exception as e:
-             None
-
-          if rshared!='':
-             ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', p9)
-             rx=os.system(ss)
-
-          if os.path.isfile(p1): os.remove(p1)
-
-       if uid=='': uid=i['data_uid']
-
-       if uid!='':
-          p9=cfg['file_alias_u'] + uid
-          p1=os.path.join(p0, p9)
-          if os.path.isfile(p1):
-             # Check if multiple aliases
-             delete=True
-
-             alias1=''
-             alias1s=[]
-             try:
-                fx=open(p1)
-                alias1=fx.read().strip()
-                alias1s=alias1.split('\n')
-                fx.close()
-             except Exception as e:
+        if os.path.isfile(p1):
+            try:
+                f = open(p1)
+                uid = f.readline().strip()
+                f.close()
+            except Exception as e:
                 None
 
-             if len(alias1s)>1:
-                delete=False
-                alias1s.remove(alias)
-                xalias='\n'.join(alias1s)
+            if rshared != '':
+                ss = cfg['repo_types'][rshared]['rm'].replace('$#files#$', p9)
+                rx = os.system(ss)
 
-                # Update alias disambiguator
-                ru=save_text_file({'text_file':p1, 'string':xalias})
-                if ru['return']>0: return ru
+            if os.path.isfile(p1):
+                os.remove(p1)
 
-             if delete:
-                if rshared!='':
-                   ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', p9)
-                   rx=os.system(ss)
+        if uid == '':
+            uid = i['data_uid']
 
-                if os.path.isfile(p1): 
-                   os.remove(p1)
+        if uid != '':
+            p9 = cfg['file_alias_u'] + uid
+            p1 = os.path.join(p0, p9)
+            if os.path.isfile(p1):
+                # Check if multiple aliases
+                delete = True
 
-       if rshared!='':
-          os.chdir(ppp)
+                alias1 = ''
+                alias1s = []
+                try:
+                    fx = open(p1)
+                    alias1 = fx.read().strip()
+                    alias1s = alias1.split('\n')
+                    fx.close()
+                except Exception as e:
+                    None
 
-    return {'return':0}
+                if len(alias1s) > 1:
+                    delete = False
+                    alias1s.remove(alias)
+                    xalias = '\n'.join(alias1s)
+
+                    # Update alias disambiguator
+                    ru = save_text_file({'text_file': p1, 'string': xalias})
+                    if ru['return'] > 0:
+                        return ru
+
+                if delete:
+                    if rshared != '':
+                        ss = cfg['repo_types'][rshared]['rm'].replace(
+                            '$#files#$', p9)
+                        rx = os.system(ss)
+
+                    if os.path.isfile(p1):
+                        os.remove(p1)
+
+        if rshared != '':
+            os.chdir(ppp)
+
+    return {'return': 0}
 
 ##############################################################################
 # Delete a given directory with all sub-directories (must be very careful)
 #
 # TARGET: CK kernel and low-level developers
+
 
 def delete_directory(i):
     """Delete a given directory with all sub-directories (must be very careful)
@@ -4885,17 +5134,18 @@ def delete_directory(i):
 
     import shutil
 
-    p=i['path']
+    p = i['path']
 
     if os.path.isdir(p):
-       shutil.rmtree(p, onerror=rm_read_only)
+        shutil.rmtree(p, onerror=rm_read_only)
 
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # Convert dictionary into CK flat format
 #
 # TARGET: end users
+
 
 def flatten_dict(i):
     """
@@ -4919,23 +5169,26 @@ def flatten_dict(i):
             }
     """
 
-    prefix='#'
-    if i.get('prefix','')!='': prefix=str(i['prefix'])
+    prefix = '#'
+    if i.get('prefix', '') != '':
+        prefix = str(i['prefix'])
 
-    a=i['dict']
-    aa={}
+    a = i['dict']
+    aa = {}
 
-    pk=i.get('prune_keys','')
-    if pk=='': pk=[]
+    pk = i.get('prune_keys', '')
+    if pk == '':
+        pk = []
 
     flatten_dict_internal(a, aa, prefix, pk)
 
-    return {'return':0, 'dict': aa}
+    return {'return': 0, 'dict': aa}
 
 ##############################################################################
 # Convert dictionary into the CK flat format
 #
 # TARGET: internal use for recursion
+
 
 def flatten_dict_internal(a, aa, prefix, pk):
     """Convert dictionary into the CK flat format
@@ -4959,30 +5212,31 @@ def flatten_dict_internal(a, aa, prefix, pk):
 
     # Start flattening
     if type(a) is dict or type(a) is list:
-       i=0
-       for x in a:
-           if type(a) is dict: 
-              v=a[x] 
-              prefix1=prefix+'#'+str(x)
-           else: 
-              prefix1=prefix+'@'+str(i)
-              v=x
-           if type(v) is dict or type(v) is list:
-              flatten_dict_internal(v, aa, prefix1, pk)
-           else:
-              if flatten_dict_internal_check_key(prefix1, pk):
-                 aa[prefix1]=v
-           i+=1
+        i = 0
+        for x in a:
+            if type(a) is dict:
+                v = a[x]
+                prefix1 = prefix+'#'+str(x)
+            else:
+                prefix1 = prefix+'@'+str(i)
+                v = x
+            if type(v) is dict or type(v) is list:
+                flatten_dict_internal(v, aa, prefix1, pk)
+            else:
+                if flatten_dict_internal_check_key(prefix1, pk):
+                    aa[prefix1] = v
+            i += 1
     else:
-       if flatten_dict_internal_check_key(prefix, pk):
-          aa[prefix]=a
+        if flatten_dict_internal_check_key(prefix, pk):
+            aa[prefix] = a
 
-    return {'return':0, 'dict': a}
+    return {'return': 0, 'dict': a}
 
 ##############################################################################
 # Convert dictionary into the CK flat format
 #
 # TARGET: internal use
+
 
 def flatten_dict_internal_check_key(prefix, pk):
     """Convert dictionary into the CK flat format
@@ -4998,20 +5252,20 @@ def flatten_dict_internal_check_key(prefix, pk):
 
     import fnmatch
 
-    add=False
+    add = False
 
-    if len(pk)==0:
-       add=True
+    if len(pk) == 0:
+        add = True
     else:
-       for c in pk:
-           if '*' in c or '?' in c:
-               if fnmatch.fnmatch(prefix,c):
-                  add=True
-                  break
-           else:
-              if prefix==c:
-                 add=True
-                 break
+        for c in pk:
+            if '*' in c or '?' in c:
+                if fnmatch.fnmatch(prefix, c):
+                    add = True
+                    break
+            else:
+                if prefix == c:
+                    add = True
+                    break
 
     return add
 
@@ -5019,6 +5273,7 @@ def flatten_dict_internal_check_key(prefix, pk):
 # Get a value from a dict by the CK flat key
 #
 # TARGET: end users
+
 
 def get_by_flat_key(i):
     """Get a value from a dict by the CK flat key
@@ -5039,49 +5294,56 @@ def get_by_flat_key(i):
     """
 
     # Check vars
-    v=None
+    v = None
 
-    a=i['dict']
-    k=i['key']
+    a = i['dict']
+    k = i['key']
 
     # Remove leading # if exists
-    if len(k)>0 and k[0:1]=='#': k=k[1:]
+    if len(k) > 0 and k[0:1] == '#':
+        k = k[1:]
 
-    k1=''
-    kt='' # type '#' or '@'
-    x=0
-    finish=False
+    k1 = ''
+    kt = ''  # type '#' or '@'
+    x = 0
+    finish = False
 
     while not finish:
-        y=k[x]
-        x+=1
+        y = k[x]
+        x += 1
 
-        if y=='#' or y=='@':
-           if kt=='#':
-              if k1 not in a: break
-              a=a[k1]
-           elif kt=='@':
-              if len(a)<=type_long(k1): break
-              a=a[type_long(k1)]
-           k1=''
-           kt=y
+        if y == '#' or y == '@':
+            if kt == '#':
+                if k1 not in a:
+                    break
+                a = a[k1]
+            elif kt == '@':
+                if len(a) <= type_long(k1):
+                    break
+                a = a[type_long(k1)]
+            k1 = ''
+            kt = y
         else:
-           k1+=y
+            k1 += y
 
-        if x>=len(k): break
+        if x >= len(k):
+            break
 
-    if k1!='' and kt!='':
-       if kt=='#':   
-          if k1 in a: v=a[k1]
-       else:         
-          if len(a)>type_long(k1): v=a[type_long(k1)]
+    if k1 != '' and kt != '':
+        if kt == '#':
+            if k1 in a:
+                v = a[k1]
+        else:
+            if len(a) > type_long(k1):
+                v = a[type_long(k1)]
 
-    return {'return':0, 'value': v}
+    return {'return': 0, 'value': v}
 
 ##############################################################################
 # Set a value in a dictionary using the CK flat key
 #
 # TARGET: end users
+
 
 def set_by_flat_key(i):
     """Set a value in a dictionary using the CK flat key
@@ -5102,57 +5364,66 @@ def set_by_flat_key(i):
                 dict (dict): modified dict
     """
 
-    a=i['dict']
-    k=i['key']
-    v=i['value']
+    a = i['dict']
+    k = i['key']
+    v = i['value']
 
-    # Remove leading # if there 
-    if len(k)>0 and k[0:1]=='#': k=k[1:]
+    # Remove leading # if there
+    if len(k) > 0 and k[0:1] == '#':
+        k = k[1:]
 
-    k1=''
-    kt='' # type '#' or '@'
-    x=0
-    finish=False
+    k1 = ''
+    kt = ''  # type '#' or '@'
+    x = 0
+    finish = False
 
     while not finish:
-        y=k[x]
-        x+=1
+        y = k[x]
+        x += 1
 
-        if y=='#' or y=='@':
-           if kt=='#':
-              if k1 not in a: 
-                 if y=='#': a[k1]={}
-                 else: a[k1]=[]
-              a=a[k1]
-           elif kt=='@':
-              if len(a)<=type_long(k1):
-                 for q in range(len(a)-1,type_long(k1)):
-                     if y=='#': a.append({})
-                     else: a.append([])
-              a=a[type_long(k1)]
-           k1=''
-           kt=y
+        if y == '#' or y == '@':
+            if kt == '#':
+                if k1 not in a:
+                    if y == '#':
+                        a[k1] = {}
+                    else:
+                        a[k1] = []
+                a = a[k1]
+            elif kt == '@':
+                if len(a) <= type_long(k1):
+                    for q in range(len(a)-1, type_long(k1)):
+                        if y == '#':
+                            a.append({})
+                        else:
+                            a.append([])
+                a = a[type_long(k1)]
+            k1 = ''
+            kt = y
         else:
-           k1+=y
+            k1 += y
 
-        if x>=len(k): break
+        if x >= len(k):
+            break
 
-    if k1!='' and kt!='':
-       if kt=='#':
-          a[k1]=v
-       else:
-          if len(a)<=type_long(k1): 
-             for q in range(len(a)-1,type_long(k1)):
-                 if y=='#': a.append({})
-                 else: a.append([])
-          a[type_long(k1)]=v
+    if k1 != '' and kt != '':
+        if kt == '#':
+            a[k1] = v
+        else:
+            if len(a) <= type_long(k1):
+                for q in range(len(a)-1, type_long(k1)):
+                    if y == '#':
+                        a.append({})
+                    else:
+                        a.append([])
+            a[type_long(k1)] = v
 
-    return {'return':0, 'dict': i['dict']}
+    return {'return': 0, 'dict': i['dict']}
 
 ##############################################################################
 # Restore CK flattened dict
 #
 # TARGET: end users
+
 
 def restore_flattened_dict(i):
     """Restore flattened dict
@@ -5172,24 +5443,27 @@ def restore_flattened_dict(i):
     """
 
     # Check vars
-    a={} # default
-    b=i['dict']
-    first=True
+    a = {}  # default
+    b = i['dict']
+    first = True
     for x in b:
-        if first: 
-           first=False
-           y=x[1:2]
-           if y=='@': a=[]
-           else: a={}
+        if first:
+            first = False
+            y = x[1:2]
+            if y == '@':
+                a = []
+            else:
+                a = {}
 
-        set_by_flat_key({'dict':a, 'key':x, 'value':b[x]})
+        set_by_flat_key({'dict': a, 'key': x, 'value': b[x]})
 
-    return {'return':0, 'dict': a}
+    return {'return': 0, 'dict': a}
 
 ##############################################################################
 # Set a lock in a given path (to handle parallel writes to CK entries)
 #
 # TARGET: CK kernel and low-level developers
+
 
 def set_lock(i):
     """Set a lock in a given path (to handle parallel writes to CK entries)
@@ -5215,78 +5489,81 @@ def set_lock(i):
                 (lock_uid) (str):  lock UID, if locked successfully
     """
 
-    p=i['path']
+    p = i['path']
 
-    gl=i.get('get_lock','')
-    uuid=i.get('unlock_uid','')
-    exp=float(i.get('lock_expire_time','30'))
+    gl = i.get('get_lock', '')
+    uuid = i.get('unlock_uid', '')
+    exp = float(i.get('lock_expire_time', '30'))
 
-    rr={'return':0}
+    rr = {'return': 0}
 
-    if gl=='yes' or uuid!='':
-       pl=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_for_lock'])
+    if gl == 'yes' or uuid != '':
+        pl = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_for_lock'])
 
-       luid=''
-       if os.path.isfile(pl):
-          import time
+        luid = ''
+        if os.path.isfile(pl):
+            import time
 
-          # Read lock file
-          try:
-             f=open(pl)
-             luid=f.readline().strip()
-             exp=float(f.readline().strip())
-             if exp<0: exp=1
-             f.close()
-          except Exception as e:
-             return {'return':1, 'error':'problem reading lock file'}
+            # Read lock file
+            try:
+                f = open(pl)
+                luid = f.readline().strip()
+                exp = float(f.readline().strip())
+                if exp < 0:
+                    exp = 1
+                f.close()
+            except Exception as e:
+                return {'return': 1, 'error': 'problem reading lock file'}
 
-          # Check if lock has expired
-          if gl=='yes' and uuid=='':
-             # Retry if locked
-             retry=int(i.get('lock_retries','11'))
-             retryd=float(i.get('lock_retry_delay','3'))
+            # Check if lock has expired
+            if gl == 'yes' and uuid == '':
+                # Retry if locked
+                retry = int(i.get('lock_retries', '11'))
+                retryd = float(i.get('lock_retry_delay', '3'))
 
-             dt=os.path.getmtime(pl)+exp-time.time()
-             if dt>0: 
-                while retry>0 and os.path.isfile(pl) and dt>0:
-                   retry-=1
-                   time.sleep(retryd)
-                   if os.path.isfile(pl): 
-                      dt=os.path.getmtime(pl)+exp-time.time()
+                dt = os.path.getmtime(pl)+exp-time.time()
+                if dt > 0:
+                    while retry > 0 and os.path.isfile(pl) and dt > 0:
+                        retry -= 1
+                        time.sleep(retryd)
+                        if os.path.isfile(pl):
+                            dt = os.path.getmtime(pl)+exp-time.time()
 
-                if retry==0 and dt>0 and os.path.isfile(pl):
-                   return {'return':32, 'error':'entry is still locked'}
+                    if retry == 0 and dt > 0 and os.path.isfile(pl):
+                        return {'return': 32, 'error': 'entry is still locked'}
 
-             luid=''
-             if os.path.isfile(pl): os.remove(pl)
+                luid = ''
+                if os.path.isfile(pl):
+                    os.remove(pl)
 
-       # Release lock if requested (and if not locked by another UID)
-       if luid!='' and uuid!='':
-          if luid!=uuid:
-             return {'return':32, 'error': 'entry is locked with another UID'}
-          luid=''
-          os.remove(pl)
+        # Release lock if requested (and if not locked by another UID)
+        if luid != '' and uuid != '':
+            if luid != uuid:
+                return {'return': 32, 'error': 'entry is locked with another UID'}
+            luid = ''
+            os.remove(pl)
 
-       # Finish acquiring lock
-       if gl=='yes':
-          # (Re)acquire lock
-          if uuid=='':
-             r=gen_uid({})
-             if r['return']>0: return r
-             luid=r['data_uid']
-          else:
-             luid=uuid
+        # Finish acquiring lock
+        if gl == 'yes':
+            # (Re)acquire lock
+            if uuid == '':
+                r = gen_uid({})
+                if r['return'] > 0:
+                    return r
+                luid = r['data_uid']
+            else:
+                luid = uuid
 
-          # Write lock file
-          try:
-             f=open(pl,'w')
-             f.write(luid+'\n')
-             f.write(str(exp)+'\n')
-             f.close()
-          except Exception as e:
-             return {'return':1, 'error':'problem writing lock file'}
+            # Write lock file
+            try:
+                f = open(pl, 'w')
+                f.write(luid+'\n')
+                f.write(str(exp)+'\n')
+                f.close()
+            except Exception as e:
+                return {'return': 1, 'error': 'problem writing lock file'}
 
-          rr['lock_uid']=luid
+            rr['lock_uid'] = luid
 
     return rr
 
@@ -5294,6 +5571,7 @@ def set_lock(i):
 # Check if a given path is locked. Unlock if requested.
 #
 # TARGET: CK kernel and low-level developers
+
 
 def check_lock(i):
     """Check if a given path is locked. Unlock if requested.
@@ -5311,48 +5589,50 @@ def check_lock(i):
                 (error) (str): error text if return > 0
     """
 
-    p=i['path']
-    uuid=i.get('unlock_uid','')
+    p = i['path']
+    uuid = i.get('unlock_uid', '')
 
-    pl=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_for_lock'])
+    pl = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_for_lock'])
 
-    luid=''
+    luid = ''
     if os.path.isfile(pl):
-       import time
+        import time
 
-       # Read lock file
-       try:
-          f=open(pl)
-          luid=f.readline().strip()
-          exp=float(f.readline().strip())
-          if exp<0: exp=1
-          f.close()
-       except Exception as e:
-          return {'return':1, 'error':'problem reading lock file'}
+        # Read lock file
+        try:
+            f = open(pl)
+            luid = f.readline().strip()
+            exp = float(f.readline().strip())
+            if exp < 0:
+                exp = 1
+            f.close()
+        except Exception as e:
+            return {'return': 1, 'error': 'problem reading lock file'}
 
-       # Check if lock has expired
-       dt=os.path.getmtime(pl)+exp-time.time()
-       if dt<0: 
-          # Expired
-          if uuid=='' or uuid==luid:
-             os.remove(pl)
-          else:
-             return {'return':32, 'error':'entry lock UID is not matching'}
-       else:
-          if uuid=='':
-             return {'return':32, 'error':'entry is locked'}
-          elif uuid!=luid:
-             return {'return':32, 'error':'entry is locked with different UID'}
+        # Check if lock has expired
+        dt = os.path.getmtime(pl)+exp-time.time()
+        if dt < 0:
+            # Expired
+            if uuid == '' or uuid == luid:
+                os.remove(pl)
+            else:
+                return {'return': 32, 'error': 'entry lock UID is not matching'}
+        else:
+            if uuid == '':
+                return {'return': 32, 'error': 'entry is locked'}
+            elif uuid != luid:
+                return {'return': 32, 'error': 'entry is locked with different UID'}
 
-    elif uuid!='':
-       return {'return':32, 'error':'lock was removed or expired'}
+    elif uuid != '':
+        return {'return': 32, 'error': 'lock was removed or expired'}
 
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # Get current date and time
 #
 # TARGET: end users
+
 
 def get_current_date_time(i):
     """Get current date and time
@@ -5382,25 +5662,26 @@ def get_current_date_time(i):
 
     import datetime
 
-    a={}
+    a = {}
 
-    now1=datetime.datetime.now()
-    now=now1.timetuple()
+    now1 = datetime.datetime.now()
+    now = now1.timetuple()
 
-    a['date_year']=now[0]
-    a['date_month']=now[1]
-    a['date_day']=now[2]
-    a['time_hour']=now[3]
-    a['time_minute']=now[4]
-    a['time_second']=now[5]
+    a['date_year'] = now[0]
+    a['date_month'] = now[1]
+    a['date_day'] = now[2]
+    a['time_hour'] = now[3]
+    a['time_minute'] = now[4]
+    a['time_second'] = now[5]
 
-    return {'return':0, 'array':a, 'iso_datetime':now1.isoformat()}
+    return {'return': 0, 'array': a, 'iso_datetime': now1.isoformat()}
 
 ##############################################################################
 ###########################################################
-# Detect CID in the current directory 
+# Detect CID in the current directory
 #
 # TARGET: CK kernel and low-level developers
+
 
 def detect_cid_in_current_path(i):
     """Detect CID in the current directory 
@@ -5435,75 +5716,79 @@ def detect_cid_in_current_path(i):
                 (data_alias) (str): CK entry (data) alias
     """
 
-    p=i.get('path','')
-    if p=='': p=os.getcwd()
-    p=os.path.normpath(p)
+    p = i.get('path', '')
+    if p == '':
+        p = os.getcwd()
+    p = os.path.normpath(p)
 
-    dirs=[]
-    p1=''
-    pr='*'
-    found=False
+    dirs = []
+    p1 = ''
+    pr = '*'
+    found = False
 
-    while pr!='':
-       p1=os.path.join(p, cfg['repo_file'])
+    while pr != '':
+        p1 = os.path.join(p, cfg['repo_file'])
 
-       if os.path.isfile(p1): 
-          found=True
-          break
+        if os.path.isfile(p1):
+            found = True
+            break
 
-       p2=os.path.split(p)
-       p=p2[0]
-       pr=p2[1]
-       dirs.append(pr)
+        p2 = os.path.split(p)
+        p = p2[0]
+        pr = p2[1]
+        dirs.append(pr)
 
     if not found:
-       return {'return':16, 'error':'repository is not detected in the current path'}
+        return {'return': 16, 'error': 'repository is not detected in the current path'}
 
     # Find info about repo (prepared as return dict)
-    r=find_repo_by_path({'path':p})
-    if r['return']>0: return r
+    r = find_repo_by_path({'path': p})
+    if r['return'] > 0:
+        return r
 
-    repo_dict=r.get('repo_dict',{})
+    repo_dict = r.get('repo_dict', {})
 
     # Check info about module
-    ld=len(dirs)
+    ld = len(dirs)
 
-    if ld>0:
-       m=dirs[ld-1]
+    if ld > 0:
+        m = dirs[ld-1]
 
-       split_dirs=0
-       rx=find_path_to_entry({'path':p, 'data_uoa':m})
-       if rx['return']>0 and rx['return']!=16: return rx
-       elif rx['return']==0:
-          r['module_uoa']=rx['data_uoa']
-          r['module_uid']=rx['data_uid']
-          r['module_alias']=rx['data_alias']
+        split_dirs = 0
+        rx = find_path_to_entry({'path': p, 'data_uoa': m})
+        if rx['return'] > 0 and rx['return'] != 16:
+            return rx
+        elif rx['return'] == 0:
+            r['module_uoa'] = rx['data_uoa']
+            r['module_uid'] = rx['data_uid']
+            r['module_alias'] = rx['data_alias']
 
-          muid=rx['data_uid']
-          muoa=rx['data_uoa']
+            muid = rx['data_uid']
+            muoa = rx['data_uoa']
 
-          # Check if there is a split of directories for this module in local config
-          # to handle numerous entries (similar to MediaWiki)
-          split_dirs=get_split_dir_number(repo_dict, muid, muoa)
+            # Check if there is a split of directories for this module in local config
+            # to handle numerous entries (similar to MediaWiki)
+            split_dirs = get_split_dir_number(repo_dict, muid, muoa)
 
-       # Check info about data
-       if ld>1:
-          d=dirs[ld-2]
-          iii={}
+        # Check info about data
+        if ld > 1:
+            d = dirs[ld-2]
+            iii = {}
 
-          if split_dirs!=0:
-             d=dirs[ld-3]
-             iii['split_dirs']=split_dirs
+            if split_dirs != 0:
+                d = dirs[ld-3]
+                iii['split_dirs'] = split_dirs
 
-          iii['path']=os.path.join(p,m)
-          iii['data_uoa']=d
+            iii['path'] = os.path.join(p, m)
+            iii['data_uoa'] = d
 
-          rx=find_path_to_entry(iii)
-          if rx['return']>0 and rx['return']!=16: return rx
-          elif rx['return']==0:
-             r['data_uoa']=rx['data_uoa']
-             r['data_uid']=rx['data_uid']
-             r['data_alias']=rx['data_alias']
+            rx = find_path_to_entry(iii)
+            if rx['return'] > 0 and rx['return'] != 16:
+                return rx
+            elif rx['return'] == 0:
+                r['data_uoa'] = rx['data_uoa']
+                r['data_uid'] = rx['data_uid']
+                r['data_alias'] = rx['data_alias']
 
     return r
 
@@ -5515,6 +5800,7 @@ def detect_cid_in_current_path(i):
 # Action: generate CK UID
 #
 # TARGET: end users
+
 
 def uid(i):
     """CK action: generate CK UID
@@ -5533,13 +5819,14 @@ def uid(i):
                 data_uid (str): UID in string format (16 lowercase characters 0..9,a..f)
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    r=gen_uid({})
-    if r['return']>0: return r
+    r = gen_uid({})
+    if r['return'] > 0:
+        return r
 
-    if o=='con':
-       out(r['data_uid'])
+    if o == 'con':
+        out(r['data_uid'])
 
     return r
 
@@ -5547,6 +5834,7 @@ def uid(i):
 # Action: print CK version
 #
 # TARGET: end users
+
 
 def version(i):
     """CK action: print CK version
@@ -5568,14 +5856,15 @@ def version(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    r=get_version({})
-    if r['return']>0: return r
-    version_str=r['version_str']
+    r = get_version({})
+    if r['return'] > 0:
+        return r
+    version_str = r['version_str']
 
-    if o=='con':
-       out('V'+version_str)
+    if o == 'con':
+        out('V'+version_str)
 
     return r
 
@@ -5583,6 +5872,7 @@ def version(i):
 # Action: print python version used by CK
 #
 # TARGET: end users
+
 
 def python_version(i):
     """CK action: print python version used by CK
@@ -5606,20 +5896,21 @@ def python_version(i):
 
     import sys
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    v1=sys.version
-    v2=sys.version_info
+    v1 = sys.version
+    v2 = sys.version_info
 
-    if o=='con':
-       out(v1)
+    if o == 'con':
+        out(v1)
 
-    return {'return':0, 'version':v1, 'version_info':v2}
+    return {'return': 0, 'version': v1, 'version_info': v2}
 
 ############################################################
 # Action: check CK server status
 #
 # TARGET: CK kernel and low-level developers
+
 
 def status(i):
     """CK action: check CK server status
@@ -5639,74 +5930,80 @@ def status(i):
 
     """
 
-    outdated=''
+    outdated = ''
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    try:    import urllib.request as urllib2
-    except: import urllib2
-
-    try:    from urllib.parse import urlencode
-    except: from urllib import urlencode
-
-    page=''
     try:
-       res=urllib2.urlopen(cfg['status_url'])
-       page=res.read()
+        import urllib.request as urllib2
+    except:
+        import urllib2
+
+    try:
+        from urllib.parse import urlencode
+    except:
+        from urllib import urlencode
+
+    page = ''
+    try:
+        res = urllib2.urlopen(cfg['status_url'])
+        page = res.read()
     except urllib2.HTTPError as e:
-       return {'return':1, 'error':'Problem accessing server ('+format(e)+')'}
+        return {'return': 1, 'error': 'Problem accessing server ('+format(e)+')'}
     except urllib2.URLError as e:
-       return {'return':1, 'error':'Problem accessing server ('+format(e)+')'}
+        return {'return': 1, 'error': 'Problem accessing server ('+format(e)+')'}
 
     # Support for Python 3
-    if sys.version_info[0]>2:
-       try: 
-          page=page.decode('utf-8')
-       except Exception as e: 
-          pass
+    if sys.version_info[0] > 2:
+        try:
+            page = page.decode('utf-8')
+        except Exception as e:
+            pass
 
-    if page!='':
-       s1='version=\''
-       i1=page.find(s1)
-       if i1>0:
-          i2=page.find('\'',i1+9)
-          if i2>0:
-             lversion_str=page[i1+len(s1):i2].strip()
+    if page != '':
+        s1 = 'version=\''
+        i1 = page.find(s1)
+        if i1 > 0:
+            i2 = page.find('\'', i1+9)
+            if i2 > 0:
+                lversion_str = page[i1+len(s1):i2].strip()
 
-             rx=check_version({'version':lversion_str})
-             if rx['return']>0: return rx
+                rx = check_version({'version': lversion_str})
+                if rx['return'] > 0:
+                    return rx
 
-             ok=rx['ok']
-             version_str=rx['current_version']
-             if ok!='yes':
-                outdated='yes'
+                ok = rx['ok']
+                version_str = rx['current_version']
+                if ok != 'yes':
+                    outdated = 'yes'
 
-                if o=='con':
-                   out('Your version is outdated: V'+version_str)
-                   out('New available version   : V'+lversion_str)
-                   u=cfg.get('ck_web','')
-                   if u!='':
-                      out('')
-                      out('If you install CK via pip, upgrade it as follows (prefix with "sudo" on Linux):')
-                      out(' $ pip install ck --upgrade')
-                      out('')
-                      out('If you use GitHub version, update CK kernel (and all other repositories) as follows:')
-                      out(' $ ck pull all --kernel')
-                      out('')
-                      out('Visit '+u+' for more details!')
+                    if o == 'con':
+                        out('Your version is outdated: V'+version_str)
+                        out('New available version   : V'+lversion_str)
+                        u = cfg.get('ck_web', '')
+                        if u != '':
+                            out('')
+                            out('If you install CK via pip, upgrade it as follows (prefix with "sudo" on Linux):')
+                            out(' $ pip install ck --upgrade')
+                            out('')
+                            out('If you use GitHub version, update CK kernel (and all other repositories) as follows:')
+                            out(' $ ck pull all --kernel')
+                            out('')
+                            out('Visit '+u+' for more details!')
 
-    if o=='con':
-       if outdated!='yes':
-          out('Your version is up-to-date: V'+version_str)
-       elif outdated=='':
-          out('Problem checking version ...')
+    if o == 'con':
+        if outdated != 'yes':
+            out('Your version is up-to-date: V'+version_str)
+        elif outdated == '':
+            out('Problem checking version ...')
 
-    return {'return':0, 'outdated':outdated}
+    return {'return': 0, 'outdated': outdated}
 
 ############################################################
 # Compare a given version with the CK version
 #
 # TARGET: CK kernel and low-level developers
+
 
 def check_version(i):
     """Compare a given version with the CK version
@@ -5728,44 +6025,47 @@ def check_version(i):
 
     """
 
-    ok='yes'
+    ok = 'yes'
 
-    r=get_version({})
-    if r['return']>0: return r
-    version=r['version']
-    version_str=r['version_str']
+    r = get_version({})
+    if r['return'] > 0:
+        return r
+    version = r['version']
+    version_str = r['version_str']
 
-    lversion_str=i['version'].replace('dev','.1') # for compatibility with older versions
-    lversion=lversion_str.split('.')
+    # for compatibility with older versions
+    lversion_str = i['version'].replace('dev', '.1')
+    lversion = lversion_str.split('.')
 
     # Comparing
     for q in range(0, len(version)):
-        if len(lversion)<=q:
+        if len(lversion) <= q:
             break
 
-        v=version[q]
-        lv=lversion[q]
+        v = version[q]
+        lv = lversion[q]
 
         # try int first, then try string
         try:
-           lv=int(lv)
-           v=int(v)
+            lv = int(lv)
+            v = int(v)
         except Exception as e:
             pass
 
-        if lv>v:
-            ok='no'
+        if lv > v:
+            ok = 'no'
             break
 
-        if lv<v:
+        if lv < v:
             break
 
-    return {'return':0, 'ok':ok, 'current_version':version_str}
+    return {'return': 0, 'ok': ok, 'current_version': version_str}
 
 ############################################################
 # Convert info about CK entry to CID
 #
 # TARGET: CK kernel and low-level developers
+
 
 def convert_entry_to_cid(i):
     """Convert info about CK entry to CID
@@ -5796,32 +6096,44 @@ def convert_entry_to_cid(i):
 
     """
 
-    xcuoa=''
-    xcid=''
+    xcuoa = ''
+    xcid = ''
 
-    if i.get('module_uoa','')!='': cuoa=i['module_uoa']
-    else: cuoa='?'
-    if i.get('module_uid','')!='': cid=i['module_uid']
-    else: cid='?'
+    if i.get('module_uoa', '') != '':
+        cuoa = i['module_uoa']
+    else:
+        cuoa = '?'
+    if i.get('module_uid', '') != '':
+        cid = i['module_uid']
+    else:
+        cid = '?'
 
-    cuoa+=':'
-    cid+=':'
+    cuoa += ':'
+    cid += ':'
 
-    if i.get('data_uoa','')!='': cuoa+=i['data_uoa']
-    else: cuoa+='?'
-    if i.get('data_uid','')!='': cid+=i['data_uid']
-    else: cid+='?'
+    if i.get('data_uoa', '') != '':
+        cuoa += i['data_uoa']
+    else:
+        cuoa += '?'
+    if i.get('data_uid', '') != '':
+        cid += i['data_uid']
+    else:
+        cid += '?'
 
-    if i.get('repo_uoa','')!='': xcuoa=i['repo_uoa']+':'+cuoa
-    else: xcuoa='?:'+cuoa
-    if i.get('repo_uid','')!='': xcid=i['repo_uid']+':'+cid
-    else: xcid='?:'+cid
+    if i.get('repo_uoa', '') != '':
+        xcuoa = i['repo_uoa']+':'+cuoa
+    else:
+        xcuoa = '?:'+cuoa
+    if i.get('repo_uid', '') != '':
+        xcid = i['repo_uid']+':'+cid
+    else:
+        xcid = '?:'+cid
 
-    r={'return':0}
-    r['cuoa']=cuoa
-    r['cid']=cid
-    r['xcuoa']=xcuoa
-    r['xcid']=xcid
+    r = {'return': 0}
+    r['cuoa'] = cuoa
+    r['cid'] = cid
+    r['xcuoa'] = xcuoa
+    r['xcid'] = xcid
 
     return r
 
@@ -5833,6 +6145,7 @@ def convert_entry_to_cid(i):
 # Open web browser with the help page for a given CK entry
 #
 # TARGET: CK kernel and low-level developers
+
 
 def webhelp(i):
     """Open web browser with the help page for a given CK entry
@@ -5850,47 +6163,51 @@ def webhelp(i):
 
     """
 
-    a=i.get('repo_uoa','')
-    m=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    a = i.get('repo_uoa', '')
+    m = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    url=cfg['wiki_data_web']
+    url = cfg['wiki_data_web']
 
-    if m!='':
-       if duoa=='': 
-          duoa=m
-          m=cfg['module_name']
+    if m != '':
+        if duoa == '':
+            duoa = m
+            m = cfg['module_name']
 
-       r=find_path_to_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
-       if r['return']>0: return r
-       p=r['path']
+        r = find_path_to_data(
+            {'repo_uoa': a, 'module_uoa': m, 'data_uoa': duoa})
+        if r['return'] > 0:
+            return r
+        p = r['path']
 
-       muoa=r.get('module_uoa','')
-       duoa=r.get('data_uoa','')
+        muoa = r.get('module_uoa', '')
+        duoa = r.get('data_uoa', '')
 
-       rx=convert_entry_to_cid(r)
-       if rx['return']>0: return rx
+        rx = convert_entry_to_cid(r)
+        if rx['return'] > 0:
+            return rx
 
-       cuoa=rx['cuoa']
-       cid=rx['cid']
-       xcuoa=rx['xcuoa']
-       xcid=rx['xcid']
+        cuoa = rx['cuoa']
+        cid = rx['cid']
+        xcuoa = rx['xcuoa']
+        xcid = rx['xcid']
 
-       # Prepare URL
-       url+=muoa+':'+duoa #cid.replace(':','/')
+        # Prepare URL
+        url += muoa+':'+duoa  # cid.replace(':','/')
 
     out('Opening web page '+url+' ...')
 
     import webbrowser
     webbrowser.open(url)
 
-    return {'return':0}
+    return {'return': 0}
 
 ############################################################
 # Special function: open webbrowser with discussion wiki page for collaborative R&D
 #  URL is taken from default kernel configuration cfg['wiki_data_web']
 #
 # TARGET: CK kernel and low-level developers
+
 
 def wiki(i):
     """Open web browser with the discussion wiki page for a given CK entry
@@ -5912,48 +6229,52 @@ def wiki(i):
 
     """
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    url=cfg['wiki_data_web']
+    url = cfg['wiki_data_web']
 
-    if muoa=='' or duoa=='':
-       # Try to detect CID in current path
-       rx=detect_cid_in_current_path({})
-       if rx['return']==0:
-          muoa=rx.get('module_uoa','')
-          duoa=rx.get('data_uoa','')
+    if muoa == '' or duoa == '':
+        # Try to detect CID in current path
+        rx = detect_cid_in_current_path({})
+        if rx['return'] == 0:
+            muoa = rx.get('module_uoa', '')
+            duoa = rx.get('data_uoa', '')
 
-    if muoa=='' or duoa=='':
-       return guide({}) #{'return':1, 'error':'entry is not defined'}
+    if muoa == '' or duoa == '':
+        return guide({})  # {'return':1, 'error':'entry is not defined'}
 
-    r=find_path_to_data({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
-    if r['return']>0: return r
+    r = find_path_to_data(
+        {'repo_uoa': ruoa, 'module_uoa': muoa, 'data_uoa': duoa})
+    if r['return'] > 0:
+        return r
 
-    rx=convert_entry_to_cid(r)
-    if rx['return']>0: return rx
+    rx = convert_entry_to_cid(r)
+    if rx['return'] > 0:
+        return rx
 
-    cuoa=rx['cuoa']
-    cid=rx['cid']
-    xcuoa=rx['xcuoa']
-    xcid=rx['xcid']
+    cuoa = rx['cuoa']
+    cid = rx['cid']
+    xcuoa = rx['xcuoa']
+    xcid = rx['xcid']
 
     # Prepare URL
-    url+=cid.replace(':','_')
+    url += cid.replace(':', '_')
 
     out('Opening web page '+url+' ...')
 
     import webbrowser
     webbrowser.open(url)
 
-    return {'return':0}
+    return {'return': 0}
 
 ############################################################
 # Special function: open web browser with the private discussion wiki page for a given CK entry
 #  URL is taken from default kernel configuration cfg['private_wiki_data_web']
 #
 # TARGET: CK kernel and low-level developers
+
 
 def pwiki(i):
     """Open web browser with the private discussion wiki page for a given CK entry
@@ -5975,47 +6296,51 @@ def pwiki(i):
 
     """
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    url=cfg['private_wiki_data_web']
+    url = cfg['private_wiki_data_web']
 
-    if muoa=='' or duoa=='':
-       # Try to detect CID in current path
-       rx=detect_cid_in_current_path({})
-       if rx['return']==0:
-          muoa=rx.get('module_uoa','')
-          duoa=rx.get('data_uoa','')
+    if muoa == '' or duoa == '':
+        # Try to detect CID in current path
+        rx = detect_cid_in_current_path({})
+        if rx['return'] == 0:
+            muoa = rx.get('module_uoa', '')
+            duoa = rx.get('data_uoa', '')
 
-    if muoa=='' or duoa=='':
-       return {'return':1, 'error':'entry is not defined'}
+    if muoa == '' or duoa == '':
+        return {'return': 1, 'error': 'entry is not defined'}
 
-    r=find_path_to_data({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
-    if r['return']>0: return r
+    r = find_path_to_data(
+        {'repo_uoa': ruoa, 'module_uoa': muoa, 'data_uoa': duoa})
+    if r['return'] > 0:
+        return r
 
-    rx=convert_entry_to_cid(r)
-    if rx['return']>0: return rx
+    rx = convert_entry_to_cid(r)
+    if rx['return'] > 0:
+        return rx
 
-    cuoa=rx['cuoa']
-    cid=rx['cid']
-    xcuoa=rx['xcuoa']
-    xcid=rx['xcid']
+    cuoa = rx['cuoa']
+    cid = rx['cid']
+    xcuoa = rx['xcuoa']
+    xcid = rx['xcid']
 
     # Prepare URL
-    url+=cid.replace(':','_')
+    url += cid.replace(':', '_')
 
     out('Opening web page '+url+' ...')
 
     import webbrowser
     webbrowser.open(url)
 
-    return {'return':0}
+    return {'return': 0}
 
 ############################################################
 # Special function: open webbrowser with API, if exists
 #
 # TARGET: CK kernel and low-level developers
+
 
 def webapi(i):
     """Open web browser with the API page if exists
@@ -6033,38 +6358,40 @@ def webapi(i):
 
     """
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    url=cfg['api_web']
+    url = cfg['api_web']
 
-    if muoa=='':
-       muoa=duoa
+    if muoa == '':
+        muoa = duoa
 
-    if muoa=='':
-       url+='ck_'+cfg['subdir_kernel']+'_api/html/kernel_8py.html'
+    if muoa == '':
+        url += 'ck_'+cfg['subdir_kernel']+'_api/html/kernel_8py.html'
     else:
-       duoa=muoa
-       muoa=cfg['module_name']
+        duoa = muoa
+        muoa = cfg['module_name']
 
-       r=load({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
-       if r['return']>0: return r
-       muoa=r['data_uoa']
+        r = load({'repo_uoa': ruoa, 'module_uoa': muoa, 'data_uoa': duoa})
+        if r['return'] > 0:
+            return r
+        muoa = r['data_uoa']
 
-       url+=muoa+'/#api'
+        url += muoa+'/#api'
 
     out('Opening web page '+url+' ...')
 
     import webbrowser
     webbrowser.open(url)
 
-    return {'return':0}
+    return {'return': 0}
 
 ############################################################
 # Special function: open webbrowser with API, if exists
 #
 # TARGET: CK kernel and low-level developers
+
 
 def browser(i):
     """Open web browser with the API if exists
@@ -6087,36 +6414,41 @@ def browser(i):
     """
 
     # Check if ck-web is installed
-    r=find({'module_uoa':'module',
-            'data_uoa':'wfe'})
-    if r['return']>0:
-       if r['return']!=16: return r
- 
-       out('Seems like ck-web repository is not installed (can\'t find wfe module)!')
-       out('Please, install it via "ck pull repo:ck-web" and try again!')
+    r = find({'module_uoa': 'module',
+              'data_uoa': 'wfe'})
+    if r['return'] > 0:
+        if r['return'] != 16:
+            return r
 
-       return {'return':0}
+        out('Seems like ck-web repository is not installed (can\'t find wfe module)!')
+        out('Please, install it via "ck pull repo:ck-web" and try again!')
 
-    t=i.get('template','')
+        return {'return': 0}
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    t = i.get('template', '')
 
-    cid=''
-    if duoa!='' or muoa!='' or ruoa!='':
-       if ruoa!='': cid=ruoa+':'
-       if muoa!='': cid+=muoa+':'
-       if duoa!='': cid+=duoa
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
+
+    cid = ''
+    if duoa != '' or muoa != '' or ruoa != '':
+        if ruoa != '':
+            cid = ruoa+':'
+        if muoa != '':
+            cid += muoa+':'
+        if duoa != '':
+            cid += duoa
 
     # Starting web service and asking to open page
-    return access({'action':'start', 'module_uoa':'web', 'browser':'yes', 
-                   'template':t, 'cid':cid, 'extra_url':i.get('extra_url','')})
+    return access({'action': 'start', 'module_uoa': 'web', 'browser': 'yes',
+                   'template': t, 'cid': cid, 'extra_url': i.get('extra_url', '')})
 
 ############################################################
 # Special function: open webbrowser with user/developer guide wiki
 #
 # TARGET: CK kernel and low-level developers
+
 
 def guide(i):
     """Open web browser with the user/developer guide wiki
@@ -6134,19 +6466,20 @@ def guide(i):
 
     """
 
-    url=cfg['ck_web_wiki']
+    url = cfg['ck_web_wiki']
 
     out('Opening web page '+url+' ...')
 
     import webbrowser
     webbrowser.open(url)
 
-    return {'return':0}
+    return {'return': 0}
 
 #########################################################
 # Common action: print help for a given module
 #
 # TARGET: end users
+
 
 def help(i):
     """CK action: print help for a given module
@@ -6166,70 +6499,76 @@ def help(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    m=i.get('module_uoa','')
-    if m=='':
-       m='<module_uoa>'
+    m = i.get('module_uoa', '')
+    if m == '':
+        m = '<module_uoa>'
 
-    h= 'Usage: '+cfg['cmd'].replace('$#module_uoa#$', m)+'\n'
+    h = 'Usage: '+cfg['cmd'].replace('$#module_uoa#$', m)+'\n'
 
-    if m=='<module_uoa>':
-       h+='\n'
-       h+='  Common actions for all CK modules (unless overloaded):\n'
+    if m == '<module_uoa>':
+        h += '\n'
+        h += '  Common actions for all CK modules (unless overloaded):\n'
 
-       for q in sorted(cfg['common_actions']):
-           s=q
-           desc=cfg['actions'][q].get('desc','')
-           if desc!='': s+=' - '+desc
-           h+='    * '+s+'\n'
+        for q in sorted(cfg['common_actions']):
+            s = q
+            desc = cfg['actions'][q].get('desc', '')
+            if desc != '':
+                s += ' - '+desc
+            h += '    * '+s+'\n'
 
-       h+='\n'
-       h+='  CK kernel actions:\n'
+        h += '\n'
+        h += '  CK kernel actions:\n'
 
-       for q in sorted(cfg['actions']):
-           if q not in cfg['common_actions']:
-              s=q
-              desc=cfg['actions'][q].get('desc','')
-              if desc!='': s+=' - '+desc
-              h+='    * '+s+'\n'
+        for q in sorted(cfg['actions']):
+            if q not in cfg['common_actions']:
+                s = q
+                desc = cfg['actions'][q].get('desc', '')
+                if desc != '':
+                    s += ' - '+desc
+                h += '    * '+s+'\n'
     else:
-       h+='\n'
-       h+='  Available actions:\n\n'
+        h += '\n'
+        h += '  Available actions:\n\n'
 
-       # Attempt to load 
-       r=list_actions({'module_uoa':m}) 
-       if r['return']>0: return r
-       actions=r['actions']
+        # Attempt to load
+        r = list_actions({'module_uoa': m})
+        if r['return'] > 0:
+            return r
+        actions = r['actions']
 
-       if len(actions)==0:
-          h+='    Not described yet ...\n'
-       else:
-          for q in sorted(actions.keys()):
-              s=q
-              desc=actions[q].get('desc','')
-              if desc!='': s+=' - '+desc
-              h+='    * '+s+'\n'
+        if len(actions) == 0:
+            h += '    Not described yet ...\n'
+        else:
+            for q in sorted(actions.keys()):
+                s = q
+                desc = actions[q].get('desc', '')
+                if desc != '':
+                    s += ' - '+desc
+                h += '    * '+s+'\n'
 
-       h+='\n'
-       h+='  Common actions for this module from the CK kernel:\n'
-       h+='    $ ck help\n'
+        h += '\n'
+        h += '  Common actions for this module from the CK kernel:\n'
+        h += '    $ ck help\n'
 
-    if m=='<module_uoa>':
-       h+='\n'
-       h+=cfg['help_examples']
+    if m == '<module_uoa>':
+        h += '\n'
+        h += cfg['help_examples']
 
-    h+='\n'
-    h+=cfg['help_web']
+    h += '\n'
+    h += cfg['help_web']
 
-    if o=='con': out(h)
+    if o == 'con':
+        out(h)
 
-    return {'return':0, 'help':h}
+    return {'return': 0, 'help': h}
 
 #########################################################
 # Common action: print short CK help
 #
 # TARGET: CK kernel and low-level developers
+
 
 def short_help(i):
     """Print short CK help
@@ -6251,41 +6590,46 @@ def short_help(i):
 
     import sys
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    r=version({})
-    if r['return']>0: return r
+    r = version({})
+    if r['return'] > 0:
+        return r
 
-    h='CK version: '+r['version_str']+'\n'
+    h = 'CK version: '+r['version_str']+'\n'
 
-    r=python_version({})
-    if r['return']>0: return r
+    r = python_version({})
+    if r['return'] > 0:
+        return r
 
-    x=sys.executable
-    if x!=None and x!='':
-       h+='\nPython executable used by CK: '+x+'\n'
+    x = sys.executable
+    if x != None and x != '':
+        h += '\nPython executable used by CK: '+x+'\n'
 
-    h+='\nPython version used by CK: '+r['version'].replace('\n','\n   ')+'\n'
+    h += '\nPython version used by CK: ' + \
+        r['version'].replace('\n', '\n   ')+'\n'
 
-    h+='\nPath to the default repo: '+work['dir_default_repo']+'\n'
-    h+=  'Path to the local repo:   '+work['dir_local_repo']+'\n'
-    h+=  'Path to CK repositories:  '+work['dir_repos']+'\n'
+    h += '\nPath to the default repo: '+work['dir_default_repo']+'\n'
+    h += 'Path to the local repo:   '+work['dir_local_repo']+'\n'
+    h += 'Path to CK repositories:  '+work['dir_repos']+'\n'
 
-    h+='\n'+cfg['help_web'].replace('\n','').strip()+'\n' #.replace('   ','')+'\n'
+    # .replace('   ','')+'\n'
+    h += '\n'+cfg['help_web'].replace('\n', '').strip()+'\n'
 
-    h+='CK Google group:      https://bit.ly/ck-google-group\n'
-    h+='CK Slack channel:     https://cKnowledge.org/join-slack\n'
-    h+='Stable CK components: https://cKnowledge.io'
+    h += 'CK Google group:      https://bit.ly/ck-google-group\n'
+    h += 'CK Slack channel:     https://cKnowledge.org/join-slack\n'
+    h += 'Stable CK components: https://cKnowledge.io'
 
-    if o=='con': 
-       out(h)
+    if o == 'con':
+        out(h)
 
-    return {'return':0, 'help':h}
+    return {'return': 0, 'help': h}
 
 #########################################################
 # Print input dictionary to screen for debugging
 #
 # TARGET: CK kernel and low-level developers
+
 
 def print_input(i):
     """Print input dictionary to screen for debugging
@@ -6307,21 +6651,24 @@ def print_input(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    rx=dumps_json({'dict':i, 'sort_keys':'yes'})
-    if rx['return']>0: return rx
+    rx = dumps_json({'dict': i, 'sort_keys': 'yes'})
+    if rx['return'] > 0:
+        return rx
 
-    h=rx['string']
+    h = rx['string']
 
-    if o=='con': out(h)
+    if o == 'con':
+        out(h)
 
-    return {'return':0, 'html':h}
+    return {'return': 0, 'html': h}
 
 #########################################################
 # Common action: print CK info about a given CK entry
 #
 # TARGET: end users
+
 
 def info(i):
     """CK action: print CK info about a given CK entry
@@ -6343,80 +6690,83 @@ def info(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    if muoa=='':
-       return {'return':1, 'error':'module UOA is not defined'}
+    if muoa == '':
+        return {'return': 1, 'error': 'module UOA is not defined'}
 
-    module_info=False
-    if duoa=='':
-       module_info=True
-       duoa=muoa
-       muoa=cfg['module_name']
+    module_info = False
+    if duoa == '':
+        module_info = True
+        duoa = muoa
+        muoa = cfg['module_name']
 
-    ii={'module_uoa':muoa, 'data_uoa':duoa}
-    if ruoa!='': ii['repo_uoa']=ruoa
-    r=load(ii)
-    if r['return']>0: return r
+    ii = {'module_uoa': muoa, 'data_uoa': duoa}
+    if ruoa != '':
+        ii['repo_uoa'] = ruoa
+    r = load(ii)
+    if r['return'] > 0:
+        return r
 
-    if o=='con':
-       if module_info:
-          p=r['path']
-          dd=r['dict']
+    if o == 'con':
+        if module_info:
+            p = r['path']
+            dd = r['dict']
 
-          developer=dd.get('developer','')
-          license=dd.get('license','')
-          desc=dd.get('desc','')
+            developer = dd.get('developer', '')
+            license = dd.get('license', '')
+            desc = dd.get('desc', '')
 
-          # Get user-friendly CID
-          rx=convert_entry_to_cid(r)
-          if rx['return']>0: return rx
+            # Get user-friendly CID
+            rx = convert_entry_to_cid(r)
+            if rx['return'] > 0:
+                return rx
 
-          cuoa=rx['cuoa']
-          cid=rx['cid']
-          xcuoa=rx['xcuoa']
-          xcid=rx['xcid']
+            cuoa = rx['cuoa']
+            cid = rx['cid']
+            xcuoa = rx['xcuoa']
+            xcid = rx['xcid']
 
-          out('*** CID ***')
-          out(cuoa+' ('+cid+')')
+            out('*** CID ***')
+            out(cuoa+' ('+cid+')')
 
-          out('')
-          out('*** Path ***')
-          out(p)
+            out('')
+            out('*** Path ***')
+            out(p)
 
-          if desc!='':
-             out('')
-             out('*** Description ***')
-             out(desc)
+            if desc != '':
+                out('')
+                out('*** Description ***')
+                out(desc)
 
-          if developer!='':
-             out('')
-             out('*** Developer ***')
-             out(developer)
+            if developer != '':
+                out('')
+                out('*** Developer ***')
+                out(developer)
 
-          if license!='':
-             out('')
-             out('*** License ***')
-             out(license)
+            if license != '':
+                out('')
+                out('*** License ***')
+                out(license)
 
-       else:
-          p=r['path']
-          duid=r['data_uid']
-          dalias=r['data_alias']
-          muid=r['module_uid']
-          malias=r['module_alias']
+        else:
+            p = r['path']
+            duid = r['data_uid']
+            dalias = r['data_alias']
+            muid = r['module_uid']
+            malias = r['module_alias']
 
-          out('Path  =        '+p)
-          out('')
-          out('Data alias =   '+dalias)
-          out('Data UID   =   '+duid)
-          out('')
-          out('Module alias = '+malias)
-          out('Module UID   = '+muid)
+            out('Path  =        '+p)
+            out('')
+            out('Data alias =   '+dalias)
+            out('Data UID   =   '+duid)
+            out('')
+            out('Module alias = '+malias)
+            out('Module UID   = '+muid)
 
     return r
 
@@ -6424,6 +6774,7 @@ def info(i):
 # Common action: get CID from the current path
 #
 # TARGET: end users
+
 
 def path(i):
     """CK action: get CID from the current path
@@ -6443,25 +6794,27 @@ def path(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    r=detect_cid_in_current_path(i)
-    if r['return']>0: return r
+    r = detect_cid_in_current_path(i)
+    if r['return'] > 0:
+        return r
 
-    rx=convert_entry_to_cid(r)
-    if rx['return']>0: return rx
+    rx = convert_entry_to_cid(r)
+    if rx['return'] > 0:
+        return rx
 
-    cuoa=rx['cuoa']
-    cid=rx['cid']
-    xcuoa=rx['xcuoa']
-    xcid=rx['xcid']
+    cuoa = rx['cuoa']
+    cid = rx['cid']
+    xcuoa = rx['xcuoa']
+    xcid = rx['xcid']
 
     # If console, print CIDs
-    if o=='con':
-       out(cuoa)
-       out(cid)
-       out(xcuoa)
-       out(xcid)
+    if o == 'con':
+        out(cuoa)
+        out(cid)
+        out(xcuoa)
+        out(xcid)
 
     return r
 
@@ -6469,6 +6822,7 @@ def path(i):
 # Common action: get CID from the current path or from the input
 #
 # TARGET: end users
+
 
 def cid(i):
     """CK action: get CID from the current path or from the input
@@ -6496,30 +6850,32 @@ def cid(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
     # Check which CID to detect
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    if ruoa=='' and muoa=='' and duoa=='':
-       r=detect_cid_in_current_path(i)
+    if ruoa == '' and muoa == '' and duoa == '':
+        r = detect_cid_in_current_path(i)
     else:
-       r=find({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
-    if r['return']>0: return r
+        r = find({'repo_uoa': ruoa, 'module_uoa': muoa, 'data_uoa': duoa})
+    if r['return'] > 0:
+        return r
 
-    rx=convert_entry_to_cid(r)
-    if rx['return']>0: return rx
+    rx = convert_entry_to_cid(r)
+    if rx['return'] > 0:
+        return rx
 
-    cid=rx['cid']
+    cid = rx['cid']
 
     # If console, print CIDs
-    if o=='con':
-       out(cid)
-       # Try to copy to Clipboard if supported by OS
-       rx=copy_to_clipboard({'string':cid})
-       # Ignore error
+    if o == 'con':
+        out(cid)
+        # Try to copy to Clipboard if supported by OS
+        rx = copy_to_clipboard({'string': cid})
+        # Ignore error
 
     return r
 
@@ -6527,6 +6883,7 @@ def cid(i):
 # Copy current path to clipboard (productivity function)
 #
 # TARGET: CK kernel and low-level developers
+
 
 def copy_path_to_clipboard(i):
     """Copy current path to clipboard (productivity function)
@@ -6545,20 +6902,21 @@ def copy_path_to_clipboard(i):
     """
 
     import os
-    p=os.getcwd()
+    p = os.getcwd()
 
-    if i.get('add_quotes','')=='yes':
-       p='"'+p+'"'
+    if i.get('add_quotes', '') == 'yes':
+        p = '"'+p+'"'
 
-    rx=copy_to_clipboard({'string':p})
+    rx = copy_to_clipboard({'string': p})
     # Ignore error
 
-    return {'return':0}
+    return {'return': 0}
 
 #########################################################
 # Common action: load meta description from the CK entry
 #
 # TARGET: end users
+
 
 def load(i):
     """CK action: load meta description from the CK entry
@@ -6635,71 +6993,78 @@ def load(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    a=i.get('repo_uoa','')
-    m=i.get('module_uoa','')
-    d=i.get('data_uoa','')
+    a = i.get('repo_uoa', '')
+    m = i.get('module_uoa', '')
+    d = i.get('data_uoa', '')
 
-    if d=='':
-       return {'return':1, 'error':'data UOA is not defined'}
+    if d == '':
+        return {'return': 1, 'error': 'data UOA is not defined'}
 
-    r=find_path_to_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':d})
-    if r['return']>0: 
-       if r['return']==16 and i.get('create_if_not_found','')=='yes':
-          r=add({'repo_uoa':a, 'module_uoa':m, 'data_uoa':d})
-          if r['return']>0:
-             return r
-          r=find_path_to_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':d})
-          if r['return']>0: return r
-       else:
-          return r
+    r = find_path_to_data({'repo_uoa': a, 'module_uoa': m, 'data_uoa': d})
+    if r['return'] > 0:
+        if r['return'] == 16 and i.get('create_if_not_found', '') == 'yes':
+            r = add({'repo_uoa': a, 'module_uoa': m, 'data_uoa': d})
+            if r['return'] > 0:
+                return r
+            r = find_path_to_data(
+                {'repo_uoa': a, 'module_uoa': m, 'data_uoa': d})
+            if r['return'] > 0:
+                return r
+        else:
+            return r
 
-    p=r['path']
+    p = r['path']
 
-    slu=i.get('skip_updates','')
-    sld=i.get('skip_desc','')
+    slu = i.get('skip_updates', '')
+    sld = i.get('skip_desc', '')
 
     # Set/check lock
-    i['path']=p
-    rx=set_lock(i)
-    if rx['return']>0: return rx
+    i['path'] = p
+    rx = set_lock(i)
+    if rx['return'] > 0:
+        return rx
 
-    luid=rx.get('lock_uid','')
+    luid = rx.get('lock_uid', '')
 
     # Load meta description
-    r1=load_meta_from_path({'path':p, 'skip_updates':slu, 'skip_desc':sld})
-    if r1['return']>0: return r1
+    r1 = load_meta_from_path(
+        {'path': p, 'skip_updates': slu, 'skip_desc': sld})
+    if r1['return'] > 0:
+        return r1
 
     r.update(r1)
-    r['path']=p
+    r['path'] = p
 
-    r['data_name']=r1.get('info',{}).get('data_name','')
+    r['data_name'] = r1.get('info', {}).get('data_name', '')
 
-    if luid!='': r['lock_uid']=luid
+    if luid != '':
+        r['lock_uid'] = luid
 
     # If load extra files
-    lejf=i.get('load_extra_json_files',[])
-    if len(lejf)>0:
-       ejf={}
-       for ff in lejf:
-           rx=load_json_file({'json_file':os.path.join(p,ff)})
-           if rx['return']>0: return rx
-           ejf[ff]=rx['dict']
-       r['extra_json_files']=ejf
+    lejf = i.get('load_extra_json_files', [])
+    if len(lejf) > 0:
+        ejf = {}
+        for ff in lejf:
+            rx = load_json_file({'json_file': os.path.join(p, ff)})
+            if rx['return'] > 0:
+                return rx
+            ejf[ff] = rx['dict']
+        r['extra_json_files'] = ejf
 
     # If console mode, print json
-    if o=='con':
-       dd=r
-       if i.get('min','')=='yes':
-          dd={
-              'desc':r.get('desc',{}),
-              'dict':r.get('dict',{})
-             }
+    if o == 'con':
+        dd = r
+        if i.get('min', '') == 'yes':
+            dd = {
+                'desc': r.get('desc', {}),
+                'dict': r.get('dict', {})
+            }
 
-       rr=dumps_json({'dict':dd, 'sort_keys':'yes'})
-       if rr['return']==0:
-          out(rr['string'])
+        rr = dumps_json({'dict': dd, 'sort_keys': 'yes'})
+        if rr['return'] == 0:
+            out(rr['string'])
 
     return r
 
@@ -6707,6 +7072,7 @@ def load(i):
 # Common action: find CK entry via the 'load' function
 #
 # TARGET: end users
+
 
 def find(i):
     """CK action: find CK entry via the 'load' function
@@ -6729,94 +7095,100 @@ def find(i):
                 number_of_entries (int): total number of found entries
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    rr=find2(i)
-    if rr['return']>0:
-       if rr['return']==16 and cfg.get('download_missing_components','')=='yes':
-          import copy
+    rr = find2(i)
+    if rr['return'] > 0:
+        if rr['return'] == 16 and cfg.get('download_missing_components', '') == 'yes':
+            import copy
 
-          muoa=i.get('module_uoa','')
-          duoa=i.get('data_uoa','')
+            muoa = i.get('module_uoa', '')
+            duoa = i.get('data_uoa', '')
 
 #          out('')
 #          out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CK portal ...')
 
-          ii=copy.deepcopy(i)
+            ii = copy.deepcopy(i)
 
-          ii['repo_uoa']=cfg['default_exchange_repo_uoa']
-          ii['out']='con'
+            ii['repo_uoa'] = cfg['default_exchange_repo_uoa']
+            ii['out'] = 'con'
 
-          # Try to download 
-          ry=download(ii)
-          if ry['return']>0: return ry
-                  
-          # Restart local find
-          rr=find2(i)
+            # Try to download
+            ry = download(ii)
+            if ry['return'] > 0:
+                return ry
+
+            # Restart local find
+            rr = find2(i)
 
     return rr
 
 #########################################################
 # original find (internal function)
 
+
 def find2(i):
 
-    o=i.get('out','')
-    i['out']=''
+    o = i.get('out', '')
+    i['out'] = ''
 
     # Check wildcards
-    lst=[]
+    lst = []
 
-    a=i.get('repo_uoa','')
-    m=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    a = i.get('repo_uoa', '')
+    m = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    if m=='':
-       return {'return':1, 'error':'module UOA is not defined'}
-    if duoa=='':
-       return {'return':1, 'error':'data UOA is not defined'}
+    if m == '':
+        return {'return': 1, 'error': 'module UOA is not defined'}
+    if duoa == '':
+        return {'return': 1, 'error': 'data UOA is not defined'}
 
-    if a.find('*')>=0 or a.find('?')>=0 or m.find('*')>=0 or m.find('?')>=0 or duoa.find('*')>=0 or duoa.find('?')>=0: 
-       r=list_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
-       if r['return']>0: return r
+    if a.find('*') >= 0 or a.find('?') >= 0 or m.find('*') >= 0 or m.find('?') >= 0 or duoa.find('*') >= 0 or duoa.find('?') >= 0:
+        r = list_data({'repo_uoa': a, 'module_uoa': m, 'data_uoa': duoa})
+        if r['return'] > 0:
+            return r
 
-       lst=r['lst']
+        lst = r['lst']
 
-       r={'return':0}
+        r = {'return': 0}
 
-       if len(lst)>0:
-          r.update(lst[0])
-       else:
-          return {'return':16, 'error':'entry was not found'}
+        if len(lst) > 0:
+            r.update(lst[0])
+        else:
+            return {'return': 16, 'error': 'entry was not found'}
 
     else:
-       # Find path to data
-       r=find_path_to_data(i)
-       if r['return']>0: return r
+        # Find path to data
+        r = find_path_to_data(i)
+        if r['return'] > 0:
+            return r
 
-       p=r['path']
-       ruoa=r.get('repo_uoa','')
-       ruid=r.get('repo_uid','')
-       muoa=r.get('module_uoa','')
-       muid=r.get('module_uid','')
-       duid=r.get('data_uid','')
-       duoa=r.get('data_alias','')
-       if duoa=='': duoa=duid
+        p = r['path']
+        ruoa = r.get('repo_uoa', '')
+        ruid = r.get('repo_uid', '')
+        muoa = r.get('module_uoa', '')
+        muid = r.get('module_uid', '')
+        duid = r.get('data_uid', '')
+        duoa = r.get('data_alias', '')
+        if duoa == '':
+            duoa = duid
 
-       lst.append({'path':p, 'repo_uoa':ruoa, 'repo_uid':ruid, 
-                             'module_uoa':muoa, 'module_uid':muid, 
-                             'data_uoa':duoa, 'data_uid': duid})
+        lst.append({'path': p, 'repo_uoa': ruoa, 'repo_uid': ruid,
+                    'module_uoa': muoa, 'module_uid': muid,
+                    'data_uoa': duoa, 'data_uid': duid})
 
-    if o=='con':
-       pf='' 
-       for q in lst:
-           p=q['path']
-           out(p)
-           if pf=='': pf=p
+    if o == 'con':
+        pf = ''
+        for q in lst:
+            p = q['path']
+            out(p)
+            if pf == '':
+                pf = p
 
-    i['out']=o
+    i['out'] = o
 
-    r['number_of_entries']=len(lst)
+    r['number_of_entries'] = len(lst)
 
     return r
 
@@ -6824,6 +7196,7 @@ def find2(i):
 # Common action: print 'cd {path to CID}'
 #
 # TARGET: end users
+
 
 def cd(i):
     """CK action: print 'cd {path to CID}'
@@ -6848,59 +7221,64 @@ def cd(i):
                 string (str): prepared string 'cd {path to entry}'
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    i['out']=''
-    r=find(i)
-    i['out']=o
+    i['out'] = ''
+    r = find(i)
+    i['out'] = o
 
-    if r['return']>0: return r
+    if r['return'] > 0:
+        return r
 
-    noe=r.get('number_of_entries','')
-    if noe=='': noe=0
+    noe = r.get('number_of_entries', '')
+    if noe == '':
+        noe = 0
 
-    if noe>1 and o=='con':
-       out('CK warning: '+str(noe)+' entries found! Selecting the first one ...')
-       out('')
+    if noe > 1 and o == 'con':
+        out('CK warning: '+str(noe)+' entries found! Selecting the first one ...')
+        out('')
 
-    p=r.get('path','')
-    if p!='':
-       rx=get_os_ck({})
-       if rx['return']>0: return rx
+    p = r.get('path', '')
+    if p != '':
+        rx = get_os_ck({})
+        if rx['return'] > 0:
+            return rx
 
-       plat=rx['platform']
+        plat = rx['platform']
 
-       s='cd '
-       if plat=='win':
-          s+='/D '
+        s = 'cd '
+        if plat == 'win':
+            s += '/D '
 
-       if p.find(' ')>0:
-          p='"'+p+'"'
-       s+=p
+        if p.find(' ') > 0:
+            p = '"'+p+'"'
+        s += p
 
-       out(s)
+        out(s)
 
-       r['string']=s
+        r['string'] = s
 
-       import platform
-       import subprocess
+        import platform
+        import subprocess
 
-       out('')
-       out('Warning: you are in a new shell with a reused environment. Enter "exit" to return to the original one!')
+        out('')
+        out('Warning: you are in a new shell with a reused environment. Enter "exit" to return to the original one!')
 
-       if platform.system().lower().startswith('win'): # pragma: no cover
-          p = subprocess.Popen(["cmd", "/k", s], shell = True, env=os.environ)
-          p.wait()
+        if platform.system().lower().startswith('win'):  # pragma: no cover
+            p = subprocess.Popen(["cmd", "/k", s], shell=True, env=os.environ)
+            p.wait()
 
-       else:
-          rx=gen_tmp_file({})
-          if rx['return']>0: return rx
-          fn=rx['file_name']
+        else:
+            rx = gen_tmp_file({})
+            if rx['return'] > 0:
+                return rx
+            fn = rx['file_name']
 
-          rx=save_text_file({'text_file':fn, 'string':s})
-          if rx['return']>0: return rx
+            rx = save_text_file({'text_file': fn, 'string': s})
+            if rx['return'] > 0:
+                return rx
 
-          os.system("bash --rcfile "+fn)
+            os.system("bash --rcfile "+fn)
 
     return r
 
@@ -6909,7 +7287,8 @@ def cd(i):
 #
 # TARGET: end users
 
-def cdc(i): # pragma: no cover
+
+def cdc(i):  # pragma: no cover
     """CK action: print 'cd {path to CID}' and copy to clipboard
        Target audience: end users
 
@@ -6931,13 +7310,15 @@ def cdc(i): # pragma: no cover
 
     """
 
-    r=cd(i)
-    if r['return']>0: return r
+    r = cd(i)
+    if r['return'] > 0:
+        return r
 
-    s=r.get('string','')
-    if s!='':
-       rx=copy_to_clipboard({'string':s})
-       if rx['return']>0: return rx
+    s = r.get('string', '')
+    if s != '':
+        rx = copy_to_clipboard({'string': s})
+        if rx['return'] > 0:
+            return rx
 
     return r
 
@@ -6945,6 +7326,7 @@ def cdc(i): # pragma: no cover
 # Common action: create CK entry with a given meta-description in a CK repository
 #
 # TARGET: end users
+
 
 def add(i):
     """CK action: create CK entry with a given meta-description in a CK repository
@@ -7015,348 +7397,386 @@ def add(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    t='added'
+    t = 'added'
 
-    ra=i.get('repo_uoa','')
-    m=i.get('module_uoa','')
-    d=i.get('data_uoa','')
-    di=i.get('data_uid','')
-    dn=i.get('data_name','')
+    ra = i.get('repo_uoa', '')
+    m = i.get('module_uoa', '')
+    d = i.get('data_uoa', '')
+    di = i.get('data_uid', '')
+    dn = i.get('data_name', '')
 
-    ama=(i.get('allow_multiple_aliases','')=='yes') # Experimental functionality for cKnowledge.io
+    # Experimental functionality for cKnowledge.io
+    ama = (i.get('allow_multiple_aliases', '') == 'yes')
 
-    if cfg.get('allowed_entry_names','')!='':
-       import re
+    if cfg.get('allowed_entry_names', '') != '':
+        import re
 
-       anames=cfg.get('allowed_entry_names','')
+        anames = cfg.get('allowed_entry_names', '')
 
-       if not re.match(anames, ra) or \
-          not re.match(anames, m) or \
-          not re.match(anames, d) or \
-          not re.match(anames, di):
-          return {'return':1, 'error':'found disallowed characters in names (allowed: "'+anames+'")'}
+        if not re.match(anames, ra) or \
+           not re.match(anames, m) or \
+           not re.match(anames, d) or \
+           not re.match(anames, di):
+            return {'return': 1, 'error': 'found disallowed characters in names (allowed: "'+anames+'")'}
 
-    if cfg.get('force_lower','')=='yes':
-       ra=ra.lower()
-       m=m.lower()
-       d=d.lower()
-       di=di.lower()
+    if cfg.get('force_lower', '') == 'yes':
+        ra = ra.lower()
+        m = m.lower()
+        d = d.lower()
+        di = di.lower()
 
-    uuid=i.get('unlock_uid','')
+    uuid = i.get('unlock_uid', '')
 
-    up=i.get('update','')
+    up = i.get('update', '')
 
-    ask=i.get('ask','')
+    ask = i.get('ask', '')
 
     # Get repo path
-    r=find_path_to_repo({'repo_uoa':ra})
-    if r['return']>0: return r
-    pr=r['path']
+    r = find_path_to_repo({'repo_uoa': ra})
+    if r['return'] > 0:
+        return r
+    pr = r['path']
 
-    ruoa=r['repo_uoa']
-    ruid=r['repo_uid']
-    ralias=r['repo_alias']
+    ruoa = r['repo_uoa']
+    ruid = r['repo_uid']
+    ralias = r['repo_alias']
 
-    rd=r['dict']
-    rshared=rd.get('shared','')
-    rsync=rd.get('sync','')
+    rd = r['dict']
+    rshared = rd.get('shared', '')
+    rsync = rd.get('sync', '')
 
-    if i.get('share','')=='yes': rsync='yes'
+    if i.get('share', '') == 'yes':
+        rsync = 'yes'
 
     # Check if writing is allowed
-    ii={'module_uoa':m, 'repo_uoa':r['repo_uoa'], 'repo_uid':r['repo_uid'], 'repo_dict':rd}
-    r=check_writing(ii)
-    if r['return']>0: return r
+    ii = {'module_uoa': m, 'repo_uoa': r['repo_uoa'],
+          'repo_uid': r['repo_uid'], 'repo_dict': rd}
+    r = check_writing(ii)
+    if r['return'] > 0:
+        return r
 
     # Load info about module
-    r=load({'module_uoa':cfg['module_name'],
-            'data_uoa':m})
-    if r['return']>0: return r
-    elif r['return']==16: 
-       return {'return':8, 'error':'can\'t find path to module "'+m+'"'}
-    muoa=r['data_uoa']
-    muid=r['data_uid']
-    malias=r['data_alias']
-    pm=r['path']
+    r = load({'module_uoa': cfg['module_name'],
+              'data_uoa': m})
+    if r['return'] > 0:
+        return r
+    elif r['return'] == 16:
+        return {'return': 8, 'error': 'can\'t find path to module "'+m+'"'}
+    muoa = r['data_uoa']
+    muid = r['data_uid']
+    malias = r['data_alias']
+    pm = r['path']
 
-    uid=r['data_uid']
-    alias=r['data_alias']
-    if alias=='': alias=uid
-    module_desc=r['dict']
+    uid = r['data_uid']
+    alias = r['data_alias']
+    if alias == '':
+        alias = uid
+    module_desc = r['dict']
 
     # Check if there is a split of directories for this module in local config
     # to handle numerous entries (similar to MediaWiki)
-    split_dirs=get_split_dir_number(rd, muid, muoa)
+    split_dirs = get_split_dir_number(rd, muid, muoa)
 
     # Ask additional questions
-    if o=='con' and ask=='yes':
-       # Asking for alias
-       if d=='' or is_uid(d):
-          r=inp({'text':'Enter an alias (or Enter to skip it): '})
-          d=r['string']
+    if o == 'con' and ask == 'yes':
+        # Asking for alias
+        if d == '' or is_uid(d):
+            r = inp({'text': 'Enter an alias (or Enter to skip it): '})
+            d = r['string']
 
-       # Asking for user-friendly name
-       if dn=='' and up!='yes':
-          r=inp({'text':'Enter a user-friendly name of this entry (or Enter to reuse alias): '})
-          dn=r['string']
+        # Asking for user-friendly name
+        if dn == '' and up != 'yes':
+            r = inp(
+                {'text': 'Enter a user-friendly name of this entry (or Enter to reuse alias): '})
+            dn = r['string']
 
     # Load dictionary from other entry if needed
-    dfcid=i.get('dict_from_cid','')
-    dfruoa=i.get('dict_from_repo_uoa','')
-    dfmuoa=i.get('dict_from_module_uoa','')
-    dfduoa=i.get('dict_from_data_uoa','')
+    dfcid = i.get('dict_from_cid', '')
+    dfruoa = i.get('dict_from_repo_uoa', '')
+    dfmuoa = i.get('dict_from_module_uoa', '')
+    dfduoa = i.get('dict_from_data_uoa', '')
 
-    if dfcid!='':
-       r=parse_cid({'cid':dfcid})
-       if r['return']>0: return r
-       dfruoa=r.get('repo_uoa','')
-       dfmuoa=r.get('module_uoa','')
-       dfduoa=r.get('data_uoa','')
+    if dfcid != '':
+        r = parse_cid({'cid': dfcid})
+        if r['return'] > 0:
+            return r
+        dfruoa = r.get('repo_uoa', '')
+        dfmuoa = r.get('module_uoa', '')
+        dfduoa = r.get('data_uoa', '')
 
-    if d!='' and not is_uoa(d):
-       return {'return':1, 'error':'alias has disallowed characters'}
+    if d != '' and not is_uoa(d):
+        return {'return': 1, 'error': 'alias has disallowed characters'}
 
-    if dfduoa!='':
-       if dfmuoa=='': dfmuoa=m
+    if dfduoa != '':
+        if dfmuoa == '':
+            dfmuoa = m
 
-       ii={'module_uoa':dfmuoa, 'data_uoa':dfduoa}
-       if dfruoa!='': ii['repo_uoa']=dfruoa
+        ii = {'module_uoa': dfmuoa, 'data_uoa': dfduoa}
+        if dfruoa != '':
+            ii['repo_uoa'] = dfruoa
 
-       r=load(ii)
-       if r['return']>0: return r
+        r = load(ii)
+        if r['return'] > 0:
+            return r
 
-       df=r.get('dict',{})
+        df = r.get('dict', {})
 
-    # Create first level entry (module) 
-    r=create_entry({'path':pr, 'data_uoa':alias, 'data_uid':uid})
-    if r['return']>0 and r['return']!=16: return r
-    p1=r['path']
+    # Create first level entry (module)
+    r = create_entry({'path': pr, 'data_uoa': alias, 'data_uid': uid})
+    if r['return'] > 0 and r['return'] != 16:
+        return r
+    p1 = r['path']
 
     # Create second level entry (data)
-    i1={'path':p1}
-    if split_dirs!=0:
-       i1['split_dirs']=split_dirs
-    pdd=''
-    if di!='': 
-       i1['data_uid']=di
-    if d!='': 
-       i1['data_uoa']=d
+    i1 = {'path': p1}
+    if split_dirs != 0:
+        i1['split_dirs'] = split_dirs
+    pdd = ''
+    if di != '':
+        i1['data_uid'] = di
+    if d != '':
+        i1['data_uoa'] = d
     if ama:
-       i1['allow_multiple_aliases']='yes'
+        i1['allow_multiple_aliases'] = 'yes'
 
-    rr=create_entry(i1)
-    if rr['return']>0 and rr['return']!=16: return rr
+    rr = create_entry(i1)
+    if rr['return'] > 0 and rr['return'] != 16:
+        return rr
 
-    duid=rr['data_uid']
-    pdd=rr['data_uoa']
-    dalias=rr['data_alias']
+    duid = rr['data_uid']
+    pdd = rr['data_uoa']
+    dalias = rr['data_alias']
 
     # Preparing meta-description
-    a={}
-    info={}
-    updates={}
-    desc={}
+    a = {}
+    info = {}
+    updates = {}
+    desc = {}
 
-    p2=rr['path']
-    p3=os.path.join(p2, cfg['subdir_ck_ext'])
-    p4=os.path.join(p3, cfg['file_meta'])
-    p4i=os.path.join(p3, cfg['file_info'])
-    p4u=os.path.join(p3, cfg['file_updates'])
-    p4d=os.path.join(p3, cfg['file_desc'])
+    p2 = rr['path']
+    p3 = os.path.join(p2, cfg['subdir_ck_ext'])
+    p4 = os.path.join(p3, cfg['file_meta'])
+    p4i = os.path.join(p3, cfg['file_info'])
+    p4u = os.path.join(p3, cfg['file_updates'])
+    p4d = os.path.join(p3, cfg['file_desc'])
 
     # If last entry exists
-    if rr['return']==16:
-       if up=='yes':
-          t='updated'
+    if rr['return'] == 16:
+        if up == 'yes':
+            t = 'updated'
 
-          # Check if locked
-          rl=check_lock({'path':p2, 'unlock_uid':uuid})
-          if rl['return']>0: 
-             if rl['return']==32:
-                rl['data_uoa']=pdd
-                rl['data_uid']=duid
-             return rl
+            # Check if locked
+            rl = check_lock({'path': p2, 'unlock_uid': uuid})
+            if rl['return'] > 0:
+                if rl['return'] == 32:
+                    rl['data_uoa'] = pdd
+                    rl['data_uid'] = duid
+                return rl
 
-          # Entry exists, load configuration if update
-          r2=load_meta_from_path({'path':p2})
-          if r2['return']>0: return r2
-          a=r2['dict']
-          info=r2.get('info',{})
-          updates=r2.get('updates',{})
-          desc=r2.get('desc',{})
+            # Entry exists, load configuration if update
+            r2 = load_meta_from_path({'path': p2})
+            if r2['return'] > 0:
+                return r2
+            a = r2['dict']
+            info = r2.get('info', {})
+            updates = r2.get('updates', {})
+            desc = r2.get('desc', {})
 
-          if dn=='': dn=info.get('data_name','')
-       else:
-          return {'return':16,'error':'entry already exists in path ('+p2+')'}
+            if dn == '':
+                dn = info.get('data_name', '')
+        else:
+            return {'return': 16, 'error': 'entry already exists in path ('+p2+')'}
     else:
-       # Create configuration directory
-       if not os.path.isdir(p3):
-          try:
-             os.mkdir(p3)
-          except Exception as e:
-             return {'return':1, 'error':format(e)}
+        # Create configuration directory
+        if not os.path.isdir(p3):
+            try:
+                os.mkdir(p3)
+            except Exception as e:
+                return {'return': 1, 'error': format(e)}
 
-    if dn=='' and not is_uid(d):
-       dn=d
+    if dn == '' and not is_uid(d):
+        dn = d
 
-    if dfduoa!='':
-       r=merge_dicts({'dict1':a, 'dict2':df})
-       if r['return']>0: return r
+    if dfduoa != '':
+        r = merge_dicts({'dict1': a, 'dict2': df})
+        if r['return'] > 0:
+            return r
 
     # If dict, info and updates are in input, try to merge ...
-    cma=i.get('dict',{})
-    cmad=i.get('desc',{})
-    if i.get('substitute','')=='yes':
-       a=cma
-       desc=cmad
+    cma = i.get('dict', {})
+    cmad = i.get('desc', {})
+    if i.get('substitute', '') == 'yes':
+        a = cma
+        desc = cmad
     else:
-       r=merge_dicts({'dict1':a, 'dict2':cma})
-       if r['return']>0: return r
-       r=merge_dicts({'dict1':desc, 'dict2':cmad})
-       if r['return']>0: return r
+        r = merge_dicts({'dict1': a, 'dict2': cma})
+        if r['return'] > 0:
+            return r
+        r = merge_dicts({'dict1': desc, 'dict2': cmad})
+        if r['return'] > 0:
+            return r
 
-    # Check tags 
-    xtags=a.get('tags',[])
+    # Check tags
+    xtags = a.get('tags', [])
 
-    tags=i.get('tags','')
-    if tags=='': tags=[]
-    elif type(tags)!=list:
-       tags=tags.split(',')
+    tags = i.get('tags', '')
+    if tags == '':
+        tags = []
+    elif type(tags) != list:
+        tags = tags.split(',')
 
-    for l in range(0,len(tags)):
-        ll=tags[l].strip()
+    for l in range(0, len(tags)):
+        ll = tags[l].strip()
         if ll not in xtags:
-           xtags.append(ll)
+            xtags.append(ll)
 
-    if len(xtags)>0:
-       a['tags']=xtags
+    if len(xtags) > 0:
+        a['tags'] = xtags
 
     # Process info
-    cminfo=i.get('info',{})
-    if len(cminfo)!=0:
-       info=cminfo
+    cminfo = i.get('info', {})
+    if len(cminfo) != 0:
+        info = cminfo
 #       r=merge_dicts({'dict1':info, 'dict2':cminfo})
 #       if r['return']>0: return r
 
-    cmupdates=i.get('updates',{})
-    if len(cmupdates)!=0:
-       updates=cmupdates
+    cmupdates = i.get('updates', {})
+    if len(cmupdates) != 0:
+        updates = cmupdates
 #       r=merge_dicts({'dict1':updates, 'dict2':cmupdates})
 #       if r['return']>0: return r
 
     # If name exists, add
-    info['backup_module_uoa']=muoa
-    info['backup_module_uid']=muid
-    info['backup_data_uid']=duid
-    if dn!='': info['data_name']=dn
+    info['backup_module_uoa'] = muoa
+    info['backup_module_uid'] = muid
+    info['backup_data_uid'] = duid
+    if dn != '':
+        info['data_name'] = dn
 
     # Add control info
-    ri=prepare_special_info_about_entry({})
-    if ri['return']>0: return ri
-    x=ri['dict']
+    ri = prepare_special_info_about_entry({})
+    if ri['return'] > 0:
+        return ri
+    x = ri['dict']
 
     # Check if pre-set control params such as author, copyright, license
-    ei=i.get('extra_info',{})
-    if len(ei)!=0: x.update(ei)
+    ei = i.get('extra_info', {})
+    if len(ei) != 0:
+        x.update(ei)
 
-    y=info.get('control',{})
+    y = info.get('control', {})
 
-    if i.get('ignore_update','')!='yes':
-       if len(y)==0:
-          info['control']=x
-       else:
-          y=updates.get('control',[])
-          y.append(x)
-          updates['control']=y
+    if i.get('ignore_update', '') != 'yes':
+        if len(y) == 0:
+            info['control'] = x
+        else:
+            y = updates.get('control', [])
+            y.append(x)
+            updates['control'] = y
 
-    sk=i.get('sort_keys','')
-    if sk=='': sk='yes'
+    sk = i.get('sort_keys', '')
+    if sk == '':
+        sk = 'yes'
 
-    if len(updates)>0:
-       # Record updates
-       rx=save_json_to_file({'json_file':p4u, 'dict':updates, 'sort_keys':sk})
-       if rx['return']>0: return rx
+    if len(updates) > 0:
+        # Record updates
+        rx = save_json_to_file(
+            {'json_file': p4u, 'dict': updates, 'sort_keys': sk})
+        if rx['return'] > 0:
+            return rx
 
     # Record meta description
-    rx=save_json_to_file({'json_file':p4, 'dict':a, 'sort_keys':sk})
-    if rx['return']>0: return rx
+    rx = save_json_to_file({'json_file': p4, 'dict': a, 'sort_keys': sk})
+    if rx['return'] > 0:
+        return rx
 
     # Record info
-    rx=save_json_to_file({'json_file':p4i, 'dict':info, 'sort_keys':sk})
-    if rx['return']>0: return rx
+    rx = save_json_to_file({'json_file': p4i, 'dict': info, 'sort_keys': sk})
+    if rx['return'] > 0:
+        return rx
 
     # Record desc
-    rx=save_json_to_file({'json_file':p4d, 'dict':desc, 'sort_keys':sk})
-    if rx['return']>0: return rx
+    rx = save_json_to_file({'json_file': p4d, 'dict': desc, 'sort_keys': sk})
+    if rx['return'] > 0:
+        return rx
 
     # Record extra files if there
-    ejf=i.get('extra_json_files',{})
-    if len(ejf)>0:
-       for ff in ejf:
-           dff=ejf[ff]
-           rz=save_json_to_file({'json_file':os.path.join(p2,ff), 'dict':dff, 'sort_keys':sk})
-           if rz['return']>0: return rz
+    ejf = i.get('extra_json_files', {})
+    if len(ejf) > 0:
+        for ff in ejf:
+            dff = ejf[ff]
+            rz = save_json_to_file(
+                {'json_file': os.path.join(p2, ff), 'dict': dff, 'sort_keys': sk})
+            if rz['return'] > 0:
+                return rz
 
-    if o=='con':
-       out('Entry '+d+' ('+duid+', '+p2+') '+t+' successfully!')
+    if o == 'con':
+        out('Entry '+d+' ('+duid+', '+p2+') '+t+' successfully!')
 
     # Check if needs to be synced
-    if rshared!='' and rsync=='yes':
-       ppp=os.getcwd()
+    if rshared != '' and rsync == 'yes':
+        ppp = os.getcwd()
 
-       os.chdir(pr)
-       if os.path.isdir(cfg['subdir_ck_ext']):
-          ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
-          rx=os.system(ss)
+        os.chdir(pr)
+        if os.path.isdir(cfg['subdir_ck_ext']):
+            ss = cfg['repo_types'][rshared]['add'].replace(
+                '$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
+            rx = os.system(ss)
 
-       os.chdir(p1)
-       if os.path.isdir(cfg['subdir_ck_ext']):
-          ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
-          rx=os.system(ss)
+        os.chdir(p1)
+        if os.path.isdir(cfg['subdir_ck_ext']):
+            ss = cfg['repo_types'][rshared]['add'].replace(
+                '$#path#$', pr).replace('$#files#$', cfg['subdir_ck_ext'])
+            rx = os.system(ss)
 
-       ss=cfg['repo_types'][rshared]['add'].replace('$#path#$', pr).replace('$#files#$', pdd)
-       rx=os.system(ss)
+        ss = cfg['repo_types'][rshared]['add'].replace(
+            '$#path#$', pr).replace('$#files#$', pdd)
+        rx = os.system(ss)
 
-       os.chdir(ppp)
+        os.chdir(ppp)
 
     # Prepare output
-    rr={'return':0,
-        'dict': a,
-        'info': info,
-        'updates': updates, 
-        'path':p2,
-        'path_module': pm,
-        'path_repo': pr,
-        'repo_uoa':ruoa,
-        'repo_uid':ruid,
-        'repo_alias':ralias,
-        'module_uoa':muoa,
-        'module_uid':muid,
-        'module_alias':malias,
-        'data_uoa':pdd,
-        'data_uid':duid,
-        'data_alias':dalias,
-        'data_name':dn}
+    rr = {'return': 0,
+          'dict': a,
+          'info': info,
+          'updates': updates,
+          'path': p2,
+          'path_module': pm,
+          'path_repo': pr,
+          'repo_uoa': ruoa,
+          'repo_uid': ruid,
+          'repo_alias': ralias,
+          'module_uoa': muoa,
+          'module_uid': muid,
+          'module_alias': malias,
+          'data_uoa': pdd,
+          'data_uid': duid,
+          'data_alias': dalias,
+          'data_name': dn}
 
     # Check if need to add index
-    if i.get('skip_indexing','')!='yes' and cfg.get('use_indexing','')=='yes':
-       muid=rr['module_uid']
-       if index_module(muid,ruid):
-          duid=rr['data_uid']
-          path='/'+muid+'/'+duid+'/1'
-          ri=access_index_server({'request':'DELETE', 'path':path})
-          if ri['return']>0: return ri
-          ri=access_index_server({'request':'PUT', 'path':path, 'dict':rr})
-          if ri['return']>0: return ri
+    if i.get('skip_indexing', '') != 'yes' and cfg.get('use_indexing', '') == 'yes':
+        muid = rr['module_uid']
+        if index_module(muid, ruid):
+            duid = rr['data_uid']
+            path = '/'+muid+'/'+duid+'/1'
+            ri = access_index_server({'request': 'DELETE', 'path': path})
+            if ri['return'] > 0:
+                return ri
+            ri = access_index_server(
+                {'request': 'PUT', 'path': path, 'dict': rr})
+            if ri['return'] > 0:
+                return ri
 
     # Remove lock after update if needed
-    if uuid!='':
-       pl=os.path.join(p2, cfg['subdir_ck_ext'], cfg['file_for_lock'])
-       if os.path.isfile(pl): os.remove(pl)
+    if uuid != '':
+        pl = os.path.join(p2, cfg['subdir_ck_ext'], cfg['file_for_lock'])
+        if os.path.isfile(pl):
+            os.remove(pl)
 
-    rr['return']=0
+    rr['return'] = 0
 
     return rr
 
@@ -7364,6 +7784,7 @@ def add(i):
 # Common action: update CK entry meta-description
 #
 # TARGET: end users
+
 
 def update(i):
     """CK action: update CK entry meta-description
@@ -7434,65 +7855,70 @@ def update(i):
     """
 
     # Check if global writing is allowed
-    r=check_writing({})
-    if r['return']>0: return r
+    r = check_writing({})
+    if r['return'] > 0:
+        return r
 
     # Try to load entry, if doesn't exist, add entry
-    dd={}
+    dd = {}
 
-    o=i.get('out','')
-    i['out']=''
+    o = i.get('out', '')
+    i['out'] = ''
 
     # Check wildcards
-    lst=[]
+    lst = []
 
-    a=i.get('repo_uoa','')
-    m=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    a = i.get('repo_uoa', '')
+    m = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    if duoa=='': duoa='*'
+    if duoa == '':
+        duoa = '*'
 
-    single_not_found=False # If no wild cards and entry not found, then add
+    single_not_found = False  # If no wild cards and entry not found, then add
 
-    if a.find('*')>=0 or a.find('?')>=0 or m.find('*')>=0 or m.find('?')>=0 or duoa.find('*')>=0 or duoa.find('?')>=0: 
-       r=list_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
-       if r['return']>0: return r
+    if a.find('*') >= 0 or a.find('?') >= 0 or m.find('*') >= 0 or m.find('?') >= 0 or duoa.find('*') >= 0 or duoa.find('?') >= 0:
+        r = list_data({'repo_uoa': a, 'module_uoa': m, 'data_uoa': duoa})
+        if r['return'] > 0:
+            return r
 
-       lst=r['lst']
+        lst = r['lst']
     else:
-       # Find path to data
-       r=find_path_to_data(i)
-       if r['return']>0: 
-          single_not_found=True
-       else:
-          p=r['path']
-          ruoa=r.get('repo_uoa','')
-          ruid=r.get('repo_uid','')
-          muoa=r.get('module_uoa','')
-          muid=r.get('module_uid','')
-          duid=r.get('data_uid','')
-          duoa=r.get('data_alias','')
-          if duoa=='': duoa=duid
+        # Find path to data
+        r = find_path_to_data(i)
+        if r['return'] > 0:
+            single_not_found = True
+        else:
+            p = r['path']
+            ruoa = r.get('repo_uoa', '')
+            ruid = r.get('repo_uid', '')
+            muoa = r.get('module_uoa', '')
+            muid = r.get('module_uid', '')
+            duid = r.get('data_uid', '')
+            duoa = r.get('data_alias', '')
+            if duoa == '':
+                duoa = duid
 
-          lst.append({'path':p, 'repo_uoa':ruoa, 'repo_uid':ruid, 
-                                'module_uoa':muoa, 'module_uid':muid, 
-                                'data_uoa':duoa, 'data_uid': duid})
+            lst.append({'path': p, 'repo_uoa': ruoa, 'repo_uid': ruid,
+                        'module_uoa': muoa, 'module_uid': muid,
+                        'data_uoa': duoa, 'data_uid': duid})
 
     # Update entries
-    i['out']=o
+    i['out'] = o
 
-    r={'return':0}
+    r = {'return': 0}
     if single_not_found:
-       r=add(i)
+        r = add(i)
     else:
-       i['update']='yes'
+        i['update'] = 'yes'
 
-       for q in lst:
-           ii={}
-           ii.update(i)
-           ii.update(q)
-           r=add(ii)
-           if r['return']>0: return r
+        for q in lst:
+            ii = {}
+            ii.update(i)
+            ii.update(q)
+            r = add(ii)
+            if r['return'] > 0:
+                return r
 
     return r
 
@@ -7501,7 +7927,8 @@ def update(i):
 #
 # TARGET: end users
 
-def edit(i): # pragma: no cover
+
+def edit(i):  # pragma: no cover
     """CK action: edit data meta-description through external editor
        Target audience: should use via ck.kernel.access
 
@@ -7525,76 +7952,87 @@ def edit(i): # pragma: no cover
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    iu=i.get('ignore_update','')
-    if iu=='': iu='yes'
+    iu = i.get('ignore_update', '')
+    if iu == '':
+        iu = 'yes'
 
-    ed=i.get('edit_desc','')
+    ed = i.get('edit_desc', '')
 
-    sk=i.get('sort_keys','')
-    if sk=='': sk='yes'
+    sk = i.get('sort_keys', '')
+    if sk == '':
+        sk = 'yes'
 
-    ii={'action':'load',
-        'repo_uoa':ruoa,
-        'module_uoa':muoa,
-        'data_uoa':duoa,
-        'common_func':'yes'}
-    r=access(ii)
-    if r['return']>0: return r
+    ii = {'action': 'load',
+          'repo_uoa': ruoa,
+          'module_uoa': muoa,
+          'data_uoa': duoa,
+          'common_func': 'yes'}
+    r = access(ii)
+    if r['return'] > 0:
+        return r
 
-    desc=r.get('desc',{})
-    meta=r['dict']
+    desc = r.get('desc', {})
+    meta = r['dict']
 
     # Record to tmp file
     import tempfile
-    fd, fn=tempfile.mkstemp(suffix='.tmp', prefix='ck-') # suffix is important - CK will delete such file!
+    # suffix is important - CK will delete such file!
+    fd, fn = tempfile.mkstemp(suffix='.tmp', prefix='ck-')
     os.close(fd)
     os.remove(fn)
 
-    if ed=='yes': dd=desc
-    else:         dd=meta
+    if ed == 'yes':
+        dd = desc
+    else:
+        dd = meta
 
-    r=save_json_to_file({'json_file':fn, 'dict':dd, 'sort_keys':sk})
-    if r['return']>0: return r
+    r = save_json_to_file({'json_file': fn, 'dict': dd, 'sort_keys': sk})
+    if r['return'] > 0:
+        return r
 
     # Get OS
-    r=get_os_ck({})
-    if r['return']>0: return r
-    plat=r['platform']
+    r = get_os_ck({})
+    if r['return'] > 0:
+        return r
+    plat = r['platform']
 
-    x=cfg['external_editor'][plat].replace('$#filename#$', fn)
+    x = cfg['external_editor'][plat].replace('$#filename#$', fn)
 
     os.system(x)
 
     # Load file
-    r=load_json_file({'json_file':fn})
-    if r['return']>0: return r
+    r = load_json_file({'json_file': fn})
+    if r['return'] > 0:
+        return r
 
-    if ed=='yes': desc=r['dict']
-    else:         meta=r['dict']
+    if ed == 'yes':
+        desc = r['dict']
+    else:
+        meta = r['dict']
 
     # Update entry to finish sync/indexing
-    ii={'action':'update',
-        'repo_uoa':ruoa,
-        'module_uoa':muoa,
-        'data_uoa':duoa,
-        'common_func':'yes',
-        'ignore_update':iu,
-        'dict':meta,
-        'desc':desc,
-        'substitute':'yes',
-        'sort_keys':sk,
-        'out':o}
-    r=access(ii)
+    ii = {'action': 'update',
+          'repo_uoa': ruoa,
+          'module_uoa': muoa,
+          'data_uoa': duoa,
+          'common_func': 'yes',
+          'ignore_update': iu,
+          'dict': meta,
+          'desc': desc,
+          'substitute': 'yes',
+          'sort_keys': sk,
+          'out': o}
+    r = access(ii)
 
     # Delete tmp file
-    if os.path.isfile(fn): 
-       os.remove(fn)
+    if os.path.isfile(fn):
+        os.remove(fn)
 
     return r
 
@@ -7602,6 +8040,7 @@ def edit(i): # pragma: no cover
 # Common action: delete CK entry or CK entries
 #
 # TARGET: should use via ck.kernel.access
+
 
 def rm(i):
     """CK action: delete CK entry or CK entries
@@ -7632,160 +8071,177 @@ def rm(i):
 
     """
 
-    a=i.get('repo_uoa','')
+    a = i.get('repo_uoa', '')
 
     # Check if global writing is allowed
-    r=check_writing({'repo_uoa':a, 'delete':'yes'})
-    if r['return']>0: return r
+    r = check_writing({'repo_uoa': a, 'delete': 'yes'})
+    if r['return'] > 0:
+        return r
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    m=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    m = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    if duoa=='':
-       return {'return':1, 'error':'data UOA is not defined'}
+    if duoa == '':
+        return {'return': 1, 'error': 'data UOA is not defined'}
 
-    lst=[]
+    lst = []
 
-    tags=i.get('tags','')
-    ss=i.get('search_string','')
+    tags = i.get('tags', '')
+    ss = i.get('search_string', '')
 
     # Check wildcards
-    if a.find('*')>=0 or a.find('?')>=0 or m.find('*')>=0 or m.find('?')>=0 or duoa.find('*')>=0 or duoa.find('?')>=0: 
-       if tags=='' and ss=='':
-          r=list_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
-          if r['return']>0: return r
-       else:
-          r=search({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa, 'tags':tags, 'search_string':ss})
-          if r['return']>0: return r
+    if a.find('*') >= 0 or a.find('?') >= 0 or m.find('*') >= 0 or m.find('?') >= 0 or duoa.find('*') >= 0 or duoa.find('?') >= 0:
+        if tags == '' and ss == '':
+            r = list_data({'repo_uoa': a, 'module_uoa': m, 'data_uoa': duoa})
+            if r['return'] > 0:
+                return r
+        else:
+            r = search({'repo_uoa': a, 'module_uoa': m,
+                        'data_uoa': duoa, 'tags': tags, 'search_string': ss})
+            if r['return'] > 0:
+                return r
 
-       lst=r['lst']
+        lst = r['lst']
     else:
-       # Find path to data
-       r=find_path_to_data({'repo_uoa':a, 'module_uoa':m, 'data_uoa':duoa})
-       if r['return']>0: return r
+        # Find path to data
+        r = find_path_to_data(
+            {'repo_uoa': a, 'module_uoa': m, 'data_uoa': duoa})
+        if r['return'] > 0:
+            return r
 
-       p=r['path']
+        p = r['path']
 
-       ruoa=r.get('repo_uoa','')
-       ruid=r.get('repo_uid','')
+        ruoa = r.get('repo_uoa', '')
+        ruid = r.get('repo_uid', '')
 
-       muoa=r.get('module_uoa','')
-       muid=r.get('module_uid','')
+        muoa = r.get('module_uoa', '')
+        muid = r.get('module_uid', '')
 
-       duid=r.get('data_uid','')
-       duoa=r.get('data_alias','')
+        duid = r.get('data_uid', '')
+        duoa = r.get('data_alias', '')
 
-       if duoa=='': duoa=duid
+        if duoa == '':
+            duoa = duid
 
-       uu={'path':p, 'repo_uoa':ruoa, 'repo_uid':ruid, 
-           'module_uoa':muoa, 'module_uid':muid, 
-           'data_uoa':duoa, 'data_uid': duid}
-       lst.append(uu)
+        uu = {'path': p, 'repo_uoa': ruoa, 'repo_uid': ruid,
+              'module_uoa': muoa, 'module_uid': muid,
+              'data_uoa': duoa, 'data_uid': duid}
+        lst.append(uu)
 
-    force=i.get('force','')
-    if force=='':
-       force=i.get('f','')
+    force = i.get('force', '')
+    if force == '':
+        force = i.get('f', '')
 
-    first=True
+    first = True
     for ll in lst:
-        p=ll['path']
-        pm=os.path.split(p)[0]
+        p = ll['path']
+        pm = os.path.split(p)[0]
 
-        muid=ll['module_uid']
-        muoa=ll['module_uoa']
-        duid=ll['data_uid']
-        duoa=ll['data_uoa']
+        muid = ll['module_uid']
+        muoa = ll['module_uoa']
+        duid = ll['data_uid']
+        duoa = ll['data_uoa']
 
-        if duoa!=duid: dalias=duoa
-        else: dalias=''
+        if duoa != duid:
+            dalias = duoa
+        else:
+            dalias = ''
 
         # Get user-friendly CID
-        x=muoa+':'+duoa
-        if o=='con':
-           # Try to check if has data name (useful for env)
-           p2=os.path.join(p, cfg['subdir_ck_ext'], cfg['file_info'])
-           if os.path.isfile(p2):
-              r2=load_json_file({'json_file':p2})
-              if r2['return']==0:
-                 x2=r2['dict'].get('data_name','')
-                 if x2!='' and x2!=None:
-                    x='"'+x2+'"\n    '+x
+        x = muoa+':'+duoa
+        if o == 'con':
+            # Try to check if has data name (useful for env)
+            p2 = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_info'])
+            if os.path.isfile(p2):
+                r2 = load_json_file({'json_file': p2})
+                if r2['return'] == 0:
+                    x2 = r2['dict'].get('data_name', '')
+                    if x2 != '' and x2 != None:
+                        x = '"'+x2+'"\n    '+x
 
-        xcuoa=x+' ('+muid+':'+duid+')'
+        xcuoa = x+' ('+muid+':'+duid+')'
 
         # Check repo/module writing
-        ii={'module_uoa':m, 'repo_uoa':ll['repo_uoa'], 'repo_uid':ll['repo_uid']}
-        r=check_writing(ii)
-        if r['return']>0: return r
+        ii = {'module_uoa': m,
+              'repo_uoa': ll['repo_uoa'], 'repo_uid': ll['repo_uid']}
+        r = check_writing(ii)
+        if r['return'] > 0:
+            return r
 
-        rd=r.get('repo_dict',{})
-        rshared=rd.get('shared','')
-        rsync=rd.get('sync','')
+        rd = r.get('repo_dict', {})
+        rshared = rd.get('shared', '')
+        rsync = rd.get('sync', '')
 
         # Check if there is a split of directories for this module in local config
         # to handle numerous entries (similar to MediaWiki)
-        split_dirs=get_split_dir_number(rd, muid, muoa)
-        if split_dirs!=0:
-           pm=os.path.split(pm)[0]
+        split_dirs = get_split_dir_number(rd, muid, muoa)
+        if split_dirs != 0:
+            pm = os.path.split(pm)[0]
 
-        shr=i.get('share','')
-        if shr=='yes': 
-           rshared='git'
-           rsync='yes'
+        shr = i.get('share', '')
+        if shr == 'yes':
+            rshared = 'git'
+            rsync = 'yes'
 
         # If interactive
-        to_delete=True
-        if o=='con' and force!='yes':
-           r=inp({'text':'Are you sure to delete CK entry '+xcuoa+' ? (y/N): '})
-           c=r['string'].lower()
-           if c!='y' and c!='yes': to_delete=False
+        to_delete = True
+        if o == 'con' and force != 'yes':
+            r = inp({'text': 'Are you sure to delete CK entry '+xcuoa+' ? (y/N): '})
+            c = r['string'].lower()
+            if c != 'y' and c != 'yes':
+                to_delete = False
 
         # If deleting
         if to_delete:
-           # First remove alias if exists
-           if dalias!='':
-              # Delete alias
-              r=delete_alias({'path':pm, 'data_alias':dalias, 'data_uid':duid, 'repo_dict':rd, 'share':shr})
-              if r['return']>0: return r
+            # First remove alias if exists
+            if dalias != '':
+                # Delete alias
+                r = delete_alias({'path': pm, 'data_alias': dalias,
+                                  'data_uid': duid, 'repo_dict': rd, 'share': shr})
+                if r['return'] > 0:
+                    return r
 
-           if rshared!='':
-              pp=os.path.split(p)
-              pp0=pp[0]
-              pp1=pp[1]
+            if rshared != '':
+                pp = os.path.split(p)
+                pp0 = pp[0]
+                pp1 = pp[1]
 
-              ppp=os.getcwd()
-              os.chdir(pp0)
+                ppp = os.getcwd()
+                os.chdir(pp0)
 
-              ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', pp1)
-              rx=os.system(ss)
+                ss = cfg['repo_types'][rshared]['rm'].replace('$#files#$', pp1)
+                rx = os.system(ss)
 
-           # Delete directory
-           r={'return':0}
-           if os.path.isdir(p):
-              r=delete_directory({'path':p})
+            # Delete directory
+            r = {'return': 0}
+            if os.path.isdir(p):
+                r = delete_directory({'path': p})
 
-           if rshared!='':
-              os.chdir(ppp)
+            if rshared != '':
+                os.chdir(ppp)
 
-           if r['return']>0: return r
+            if r['return'] > 0:
+                return r
 
-           # Check if need to delete index
-           if cfg.get('use_indexing','')=='yes' and index_module(muid,ll['repo_uid']):
-              path='/'+muid+'/'+duid+'/1'
-              ri=access_index_server({'request':'DELETE', 'path':path})
-              if ri['return']>0: return ri
+            # Check if need to delete index
+            if cfg.get('use_indexing', '') == 'yes' and index_module(muid, ll['repo_uid']):
+                path = '/'+muid+'/'+duid+'/1'
+                ri = access_index_server({'request': 'DELETE', 'path': path})
+                if ri['return'] > 0:
+                    return ri
 
-           if o=='con':
-              out('   Entry '+xcuoa+' was successfully deleted!')
+            if o == 'con':
+                out('   Entry '+xcuoa+' was successfully deleted!')
 
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # Common action: delete CK entry or CK entries
 #
 # TARGET: should use via ck.kernel.access
+
 
 def remove(i):
     """CK action: delete CK entry or CK entries
@@ -7806,6 +8262,7 @@ def remove(i):
 #
 # TARGET: should use via ck.kernel.access
 
+
 def delete(i):
     """CK action: delete CK entry or CK entries
        Target audience: should use via ck.kernel.access
@@ -7824,6 +8281,7 @@ def delete(i):
 # Common action: rename CK entry
 #
 # TARGET: should use via ck.kernel.access
+
 
 def ren(i):
     """CK action: rename CK entry
@@ -7858,239 +8316,262 @@ def ren(i):
     """
 
     # Check if global writing is allowed
-    r=check_writing({'delete':'yes'})
-    if r['return']>0: return r
+    r = check_writing({'delete': 'yes'})
+    if r['return'] > 0:
+        return r
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    if muoa=='': return {'return':1, 'error':'module UOA is not defined'}
-    if duoa=='': return {'return':1, 'error':'data UOA is not defined'}
+    if muoa == '':
+        return {'return': 1, 'error': 'module UOA is not defined'}
+    if duoa == '':
+        return {'return': 1, 'error': 'data UOA is not defined'}
 
     # Attempt to load original entry meta
-    ii={'module_uoa':muoa, 'data_uoa':duoa}
-    if ruoa!='': ii['repo_uoa']=ruoa
-    r=load(ii)
-    if r['return']>0: return r
-    rdd=r
+    ii = {'module_uoa': muoa, 'data_uoa': duoa}
+    if ruoa != '':
+        ii['repo_uoa'] = ruoa
+    r = load(ii)
+    if r['return'] > 0:
+        return r
+    rdd = r
 
-    muid=r['module_uid']
-    pr=r['path_repo']
-    ddi=r['info']
+    muid = r['module_uid']
+    pr = r['path_repo']
+    ddi = r['info']
 
-    duoa=r['data_uoa']
-    duid=r['data_uid']
-    dalias=r['data_alias']
+    duoa = r['data_uoa']
+    duid = r['data_uid']
+    dalias = r['data_alias']
 
-    change_data_name=(ddi.get('data_name','')==dalias)
+    change_data_name = (ddi.get('data_name', '') == dalias)
 
-    p=r['path']
-    pm=r['path_module'] 
+    p = r['path']
+    pm = r['path_module']
 
-    p1=os.path.join(pm, cfg['subdir_ck_ext'])
-    pn=p
+    p1 = os.path.join(pm, cfg['subdir_ck_ext'])
+    pn = p
 
     # Check if writing is allowed
-    ruid=r['repo_uid']
-    ii={'module_uoa':muoa, 'module_uid':muid, 'repo_uoa':ruoa, 'repo_uid':ruid}
-    r=check_writing(ii)
-    if r['return']>0: return r
+    ruid = r['repo_uid']
+    ii = {'module_uoa': muoa, 'module_uid': muid,
+          'repo_uoa': ruoa, 'repo_uid': ruid}
+    r = check_writing(ii)
+    if r['return'] > 0:
+        return r
 
-    rd=r.get('repo_dict',{})
-    rshared=rd.get('shared','')
-    rsync=rd.get('sync','')
+    rd = r.get('repo_dict', {})
+    rshared = rd.get('shared', '')
+    rsync = rd.get('sync', '')
 
-    shr=i.get('share','')
-    if shr=='yes': 
-       rshared='git'
-       rsync='yes'
+    shr = i.get('share', '')
+    if shr == 'yes':
+        rshared = 'git'
+        rsync = 'yes'
 
     # Check if index -> delete old index
-    if cfg.get('use_indexing','')=='yes' and index_module(muid,ruid):
-       path='/'+muid+'/'+duid+'/1'
-       ri=access_index_server({'request':'DELETE', 'path':path})
-       if ri['return']>0: return ri
+    if cfg.get('use_indexing', '') == 'yes' and index_module(muid, ruid):
+        path = '/'+muid+'/'+duid+'/1'
+        ri = access_index_server({'request': 'DELETE', 'path': path})
+        if ri['return'] > 0:
+            return ri
 
     # Check new data UOA
-    nduoa=i.get('new_data_uoa','')
-    nduid=i.get('new_data_uid','')
+    nduoa = i.get('new_data_uoa', '')
+    nduid = i.get('new_data_uid', '')
 
-    if nduid=='' and i.get('new_uid','')=='yes':
-       rx=gen_uid({})
-       if rx['return']>0: return rx
-       nduid=rx['data_uid']
+    if nduid == '' and i.get('new_uid', '') == 'yes':
+        rx = gen_uid({})
+        if rx['return'] > 0:
+            return rx
+        nduid = rx['data_uid']
 
-    xcids=i.get('xcids',[])
-    if len(xcids)>0: 
-       xcid=xcids[0]
-       nduoa=xcid.get('data_uoa','')
+    xcids = i.get('xcids', [])
+    if len(xcids) > 0:
+        xcid = xcids[0]
+        nduoa = xcid.get('data_uoa', '')
 
-    if i.get('remove_alias','')=='yes':
-       nduoa=duid
+    if i.get('remove_alias', '') == 'yes':
+        nduoa = duid
 
-    if nduoa=='': nduoa=duoa
+    if nduoa == '':
+        nduoa = duoa
 
-    if cfg.get('allowed_entry_names','')!='':
-       import re
+    if cfg.get('allowed_entry_names', '') != '':
+        import re
 
-       anames=cfg.get('allowed_entry_names','')
+        anames = cfg.get('allowed_entry_names', '')
 
-       if not re.match(anames, nduoa) or \
-          not re.match(anames, nduid):
-          return {'return':1, 'error':'found disallowed characters in names (allowed: "'+anames+'")'}
+        if not re.match(anames, nduoa) or \
+           not re.match(anames, nduid):
+            return {'return': 1, 'error': 'found disallowed characters in names (allowed: "'+anames+'")'}
 
-    if cfg.get('force_lower','')=='yes':
-       nduoa=nduoa.lower()
-       nduid=nduid.lower()
+    if cfg.get('force_lower', '') == 'yes':
+        nduoa = nduoa.lower()
+        nduid = nduid.lower()
 
-    if nduid!=duid:
-       # Check that new UID doesn't exist
-       p2=os.path.join(p1, cfg['file_alias_u'] + nduid)
-       if os.path.isfile(p2):
-          return {'return':1, 'error':'new UID already exists'}
+    if nduid != duid:
+        # Check that new UID doesn't exist
+        p2 = os.path.join(p1, cfg['file_alias_u'] + nduid)
+        if os.path.isfile(p2):
+            return {'return': 1, 'error': 'new UID already exists'}
 
     # Check if adding UID to alias
-    if i.get('add_uid_to_alias','')=='yes':
-       x=nduid
-       if x=='': x=duid
-       nduoa+='-'+x
+    if i.get('add_uid_to_alias', '') == 'yes':
+        x = nduid
+        if x == '':
+            x = duid
+        nduoa += '-'+x
 
-    if nduoa!=duoa:
-       if not is_uoa(nduoa):
-          return {'return':1, 'error':'alias has disallowed characters'}
+    if nduoa != duoa:
+        if not is_uoa(nduoa):
+            return {'return': 1, 'error': 'alias has disallowed characters'}
 
-       # Need to rename directory
-       if os.path.isdir(nduoa):
-          return {'return':1, 'error': 'new alias already exists'}
+        # Need to rename directory
+        if os.path.isdir(nduoa):
+            return {'return': 1, 'error': 'new alias already exists'}
 
-       # Check if there is a split of directories for this module in local config
-       # to handle numerous entries (similar to MediaWiki)
-       split_dirs=get_split_dir_number(rd, muid, muoa)
+        # Check if there is a split of directories for this module in local config
+        # to handle numerous entries (similar to MediaWiki)
+        split_dirs = get_split_dir_number(rd, muid, muoa)
 
-       if split_dirs!=0:
-          sd1,sd2=split_name(nduoa, split_dirs)
-          pm1=pm
-          if sd2!='': # otherwise name is smaller than the split number
-             pm1=os.path.join(pm, sd1)
-             if not os.path.isdir(pm1):
-                os.mkdir(pm1)
+        if split_dirs != 0:
+            sd1, sd2 = split_name(nduoa, split_dirs)
+            pm1 = pm
+            if sd2 != '':  # otherwise name is smaller than the split number
+                pm1 = os.path.join(pm, sd1)
+                if not os.path.isdir(pm1):
+                    os.mkdir(pm1)
 
-          pn=os.path.join(pm1, nduoa)
-       else:
-          pn=os.path.join(pm, nduoa)
+            pn = os.path.join(pm1, nduoa)
+        else:
+            pn = os.path.join(pm, nduoa)
 
-       if rshared!='' and rsync=='yes':
-          import shutil
+        if rshared != '' and rsync == 'yes':
+            import shutil
 
-          shutil.copytree(p,pn)
+            shutil.copytree(p, pn)
 
-          ppp=os.getcwd()
+            ppp = os.getcwd()
 
-          pp=os.path.split(pn)
-          pp0=pp[0]
-          pp1=pp[1]
+            pp = os.path.split(pn)
+            pp0 = pp[0]
+            pp1 = pp[1]
 
-          os.chdir(pp0)
-          ss=cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
-          rx=os.system(ss)
+            os.chdir(pp0)
+            ss = cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
+            rx = os.system(ss)
 
-          pp=os.path.split(p)
-          pp0=pp[0]
-          pp1=pp[1]
+            pp = os.path.split(p)
+            pp0 = pp[0]
+            pp1 = pp[1]
 
-          ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', pp1)
-          rx=os.system(ss)
+            ss = cfg['repo_types'][rshared]['rm'].replace('$#files#$', pp1)
+            rx = os.system(ss)
 
-          os.chdir(ppp)
+            os.chdir(ppp)
 
-          if os.path.isdir(p):
-             shutil.rmtree(p, onerror=rm_read_only)
+            if os.path.isdir(p):
+                shutil.rmtree(p, onerror=rm_read_only)
 
-       else:
-          os.rename(p, pn)
+        else:
+            os.rename(p, pn)
 
-    if nduid!='' or change_data_name:
-       # Change backup_data_uid in info file
-       ppi=os.path.join(pn,cfg['subdir_ck_ext'],cfg['file_info'])
+    if nduid != '' or change_data_name:
+        # Change backup_data_uid in info file
+        ppi = os.path.join(pn, cfg['subdir_ck_ext'], cfg['file_info'])
 
-       if nduid!='':
-          ddi['backup_data_uid']=nduid
+        if nduid != '':
+            ddi['backup_data_uid'] = nduid
 
-       if change_data_name:
-          ddi['data_name']=nduoa
+        if change_data_name:
+            ddi['data_name'] = nduoa
 
-       rx=save_json_to_file({'json_file':ppi, 'dict':ddi, 'sort_keys':'yes'})
-       if rx['return']>0: return rx
+        rx = save_json_to_file(
+            {'json_file': ppi, 'dict': ddi, 'sort_keys': 'yes'})
+        if rx['return'] > 0:
+            return rx
 
-    if nduid=='': nduid=duid
+    if nduid == '':
+        nduid = duid
 
     # Remove old alias disambiguator
     if not is_uid(duoa):
-       r=delete_alias({'path':pm, 'data_uid':duid, 'data_alias':duoa, 'share':shr})
-       if r['return']>0: return r
+        r = delete_alias({'path': pm, 'data_uid': duid,
+                          'data_alias': duoa, 'share': shr})
+        if r['return'] > 0:
+            return r
 
     # Add new disambiguator, if needed
     if not is_uid(nduoa):
-       if not os.path.isdir(p1):
-          # Create .cm directory
-          try:
-             os.mkdir(p1)
-          except Exception as e:
-             return {'return':1, 'error':format(e)}
+        if not os.path.isdir(p1):
+            # Create .cm directory
+            try:
+                os.mkdir(p1)
+            except Exception as e:
+                return {'return': 1, 'error': format(e)}
 
-       # Write UOA disambiguator
-       p3=os.path.join(p1, cfg['file_alias_a'] + nduoa)
+        # Write UOA disambiguator
+        p3 = os.path.join(p1, cfg['file_alias_a'] + nduoa)
 
-       ru=save_text_file({'text_file':p3, 'string':nduid+'\n'})
-       if ru['return']>0: return ru
+        ru = save_text_file({'text_file': p3, 'string': nduid+'\n'})
+        if ru['return'] > 0:
+            return ru
 
-       # Write UID disambiguator
-       p2=os.path.join(p1, cfg['file_alias_u'] + nduid)
+        # Write UID disambiguator
+        p2 = os.path.join(p1, cfg['file_alias_u'] + nduid)
 
-       ru=save_text_file({'text_file':p2, 'string':nduoa+'\n'})
-       if ru['return']>0: return ru
+        ru = save_text_file({'text_file': p2, 'string': nduoa+'\n'})
+        if ru['return'] > 0:
+            return ru
 
-       if rshared!='' and rsync=='yes':
-          ppp=os.getcwd()
+        if rshared != '' and rsync == 'yes':
+            ppp = os.getcwd()
 
-          pp=os.path.split(p1)
-          pp0=pp[0]
-          pp1=pp[1]
+            pp = os.path.split(p1)
+            pp0 = pp[0]
+            pp1 = pp[1]
 
-          os.chdir(pp0)
-          ss=cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
-          rx=os.system(ss)
+            os.chdir(pp0)
+            ss = cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
+            rx = os.system(ss)
 
-          os.chdir(ppp)
+            os.chdir(ppp)
 
     # Check if index and add new
-    if cfg.get('use_indexing','')=='yes' and index_module(muid,ruid):
+    if cfg.get('use_indexing', '') == 'yes' and index_module(muid, ruid):
 
-       # Need to reload to get new dictionary with updated aliases/UIDs
-       rdd=load({'repo_uoa':ruid,
-                 'module_uoa':muid,
-                 'data_uoa':nduid})
-       if rdd['return']>0: return rdd
+        # Need to reload to get new dictionary with updated aliases/UIDs
+        rdd = load({'repo_uoa': ruid,
+                    'module_uoa': muid,
+                    'data_uoa': nduid})
+        if rdd['return'] > 0:
+            return rdd
 
-       if is_uid(nduoa): nduid=nduoa
-       path='/'+muid+'/'+nduid+'/1'
-       ri=access_index_server({'request':'DELETE', 'path':path})
-       if ri['return']>0: return ri
-       ri=access_index_server({'request':'PUT', 'path':path, 'dict':rdd})
-       if ri['return']>0: return ri
+        if is_uid(nduoa):
+            nduid = nduoa
+        path = '/'+muid+'/'+nduid+'/1'
+        ri = access_index_server({'request': 'DELETE', 'path': path})
+        if ri['return'] > 0:
+            return ri
+        ri = access_index_server({'request': 'PUT', 'path': path, 'dict': rdd})
+        if ri['return'] > 0:
+            return ri
 
-    if o=='con':
-       out('Entry was successfully renamed!')
+    if o == 'con':
+        out('Entry was successfully renamed!')
 
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # Common action: rename CK entry
 #
 # TARGET: should use via ck.kernel.access
+
 
 def rename(i):
     """CK action: rename CK entry
@@ -8110,6 +8591,7 @@ def rename(i):
 # Common action: copy or move CK entry
 #
 # TARGET: should use via ck.kernel.access
+
 
 def cp(i):
     """CK action: copy or move CK entry
@@ -8143,170 +8625,195 @@ def cp(i):
 
     """
 
-    move=i.get('move','')
+    move = i.get('move', '')
 
     # Check if global writing is allowed
-    r=check_writing({})
-    if r['return']>0: return r
+    r = check_writing({})
+    if r['return'] > 0:
+        return r
 
     import shutil
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    if muoa=='': return {'return':1, 'error':'module UOA is not defined'}
-    if duoa=='': return {'return':1, 'error':'data UOA is not defined'}
+    if muoa == '':
+        return {'return': 1, 'error': 'module UOA is not defined'}
+    if duoa == '':
+        return {'return': 1, 'error': 'data UOA is not defined'}
 
     # Attempt to load
-    ii={'module_uoa':muoa, 'data_uoa':duoa}
-    if ruoa!='': ii['repo_uoa']=ruoa
-    r=load(ii)
-    if r['return']>0: return r
-    rdd=r
-    muid=r['module_uid']
+    ii = {'module_uoa': muoa, 'data_uoa': duoa}
+    if ruoa != '':
+        ii['repo_uoa'] = ruoa
+    r = load(ii)
+    if r['return'] > 0:
+        return r
+    rdd = r
+    muid = r['module_uid']
 
-    duoa=r['data_uoa']
-    duid=r['data_uid']
+    duoa = r['data_uoa']
+    duid = r['data_uid']
 
-    p=r['path']
+    p = r['path']
 
-    dd=r.get('dict',{})
-    di=r.get('info',{})
-    du=r.get('updates',{})
-    dx=r.get('desc',{})
+    dd = r.get('dict', {})
+    di = r.get('info', {})
+    du = r.get('updates', {})
+    dx = r.get('desc', {})
 
-    if move!='yes':
-       control=di.get('control',{})
+    if move != 'yes':
+        control = di.get('control', {})
 
-       control['version']=cfg['version']
+        control['version'] = cfg['version']
 
-       rdt=get_current_date_time({})
-       control['iso_datetime']=rdt['iso_datetime']
+        rdt = get_current_date_time({})
+        control['iso_datetime'] = rdt['iso_datetime']
 
-       di['control']=control
+        di['control'] = control
 
     # Check if writing is allowed
-    ruid=r['repo_uid']
-    ii={'module_uoa':muoa, 'module_uid':r['module_uid'], 'repo_uoa':ruoa, 'repo_uid':ruid}
-    r=check_writing(ii)
-    if r['return']>0: return r
+    ruid = r['repo_uid']
+    ii = {'module_uoa': muoa,
+          'module_uid': r['module_uid'], 'repo_uoa': ruoa, 'repo_uid': ruid}
+    r = check_writing(ii)
+    if r['return'] > 0:
+        return r
 
     # Check new CID
-    nruoa=i.get('new_repo_uoa','')
-    nmuoa=i.get('new_module_uoa','')
-    nduoa=i.get('new_data_uoa','')
-    nduid=i.get('new_data_uid','')
+    nruoa = i.get('new_repo_uoa', '')
+    nmuoa = i.get('new_module_uoa', '')
+    nduoa = i.get('new_data_uoa', '')
+    nduid = i.get('new_data_uid', '')
 
-    xcids=i.get('xcids',[])
-    if len(xcids)>0: 
-       xcid=xcids[0]
-       nduoa=xcid.get('data_uoa','')
+    xcids = i.get('xcids', [])
+    if len(xcids) > 0:
+        xcid = xcids[0]
+        nduoa = xcid.get('data_uoa', '')
 
-       if nduoa=='': nduoa=duoa
+        if nduoa == '':
+            nduoa = duoa
 
-       x=xcid.get('module_uoa','')
-       if x!='': nmuoa=x
+        x = xcid.get('module_uoa', '')
+        if x != '':
+            nmuoa = x
 
-       x=xcid.get('repo_uoa','')
-       if x!='': nruoa=x
+        x = xcid.get('repo_uoa', '')
+        if x != '':
+            nruoa = x
 
-    if i.get('keep_old_uid','')=='yes': nduid=duid
+    if i.get('keep_old_uid', '') == 'yes':
+        nduid = duid
 
-    if nmuoa=='': nmuoa=muoa
-    if nruoa=='': nruoa=ruoa
+    if nmuoa == '':
+        nmuoa = muoa
+    if nruoa == '':
+        nruoa = ruoa
 
-    if cfg.get('allowed_entry_names','')!='':
-       import re
+    if cfg.get('allowed_entry_names', '') != '':
+        import re
 
-       anames=cfg.get('allowed_entry_names','')
+        anames = cfg.get('allowed_entry_names', '')
 
-       if not re.match(anames, nduoa) or \
-          not re.match(anames, nduid):
-          return {'return':1, 'error':'found disallowed characters in names (allowed: "'+anames+'")'}
+        if not re.match(anames, nduoa) or \
+           not re.match(anames, nduid):
+            return {'return': 1, 'error': 'found disallowed characters in names (allowed: "'+anames+'")'}
 
-    if cfg.get('force_lower','')=='yes':
-       nduoa=nduoa.lower()
-       nduid=nduid.lower()
-       nmuoa=nmuoa.lower()
-       nruoa=nruoa.lower()
+    if cfg.get('force_lower', '') == 'yes':
+        nduoa = nduoa.lower()
+        nduid = nduid.lower()
+        nmuoa = nmuoa.lower()
+        nruoa = nruoa.lower()
 
-    # Adding new entry 
-    if nruoa==ruoa and nmuoa==muoa and nduid==duid:
-       return {'return':1, 'error':'moving within the same directory - use "rename" instead'}
+    # Adding new entry
+    if nruoa == ruoa and nmuoa == muoa and nduid == duid:
+        return {'return': 1, 'error': 'moving within the same directory - use "rename" instead'}
 
     # Check if writing is allowed to the new repo
-    ii={'repo_uoa':nruoa}
-    r=check_writing(ii)
-    if r['return']>0: return r
+    ii = {'repo_uoa': nruoa}
+    r = check_writing(ii)
+    if r['return'] > 0:
+        return r
 
-    rd=r.get('repo_dict',{})
-    rshared=rd.get('shared','')
-    rsync=rd.get('sync','')
+    rd = r.get('repo_dict', {})
+    rshared = rd.get('shared', '')
+    rsync = rd.get('sync', '')
 
-    ii={'module_uoa':nmuoa, 'data_uoa': nduoa, 'dict':dd, 'info':di, 
-        'updates':du, 'desc':dx, 'ignore_update':'yes'}
-    if nduid!='': ii['data_uid']=nduid
-    if nruoa!='': ii['repo_uoa']=nruoa
-    r=add(ii)
-    if r['return']>0: return r
-    pn=r['path']
-    nmuid=r['module_uid']
+    ii = {'module_uoa': nmuoa, 'data_uoa': nduoa, 'dict': dd, 'info': di,
+          'updates': du, 'desc': dx, 'ignore_update': 'yes'}
+    if nduid != '':
+        ii['data_uid'] = nduid
+    if nruoa != '':
+        ii['repo_uoa'] = nruoa
+    r = add(ii)
+    if r['return'] > 0:
+        return r
+    pn = r['path']
+    nmuid = r['module_uid']
 
     # Recursively copying all files (except .cm)
-    if i.get('without_files','')!='yes':
-       rx=list_all_files({'path':p, 'all':'yes'})
-       if rx['return']>0: return rx
+    if i.get('without_files', '') != 'yes':
+        rx = list_all_files({'path': p, 'all': 'yes'})
+        if rx['return'] > 0:
+            return rx
 
-       for q in rx['list']:
-           if q.startswith('.cm'): continue
+        for q in rx['list']:
+            if q.startswith('.cm'):
+                continue
 
-           p1=os.path.join(p,q)
-           pn1=os.path.join(pn,q)
+            p1 = os.path.join(p, q)
+            pn1 = os.path.join(pn, q)
 
-           # Create if dir
-           pn1d=os.path.dirname(pn1)
-           if not os.path.isdir(pn1d): os.makedirs(pn1d)
+            # Create if dir
+            pn1d = os.path.dirname(pn1)
+            if not os.path.isdir(pn1d):
+                os.makedirs(pn1d)
 
-           shutil.copy(p1,pn1)
+            shutil.copy(p1, pn1)
 
-    if rshared!='' and rsync=='yes':
-       ppp=os.getcwd()
+    if rshared != '' and rsync == 'yes':
+        ppp = os.getcwd()
 
-       pp=os.path.split(pn)
-       pp0=pp[0]
-       pp1=pp[1]
+        pp = os.path.split(pn)
+        pp0 = pp[0]
+        pp1 = pp[1]
 
-       os.chdir(pp0)
-       ss=cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
-       rx=os.system(ss)
+        os.chdir(pp0)
+        ss = cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
+        rx = os.system(ss)
 
-       os.chdir(ppp)
+        os.chdir(ppp)
 
-    tt='copied'
+    tt = 'copied'
     # If move, remove old one
-    if move=='yes':
-       tt='moved'
+    if move == 'yes':
+        tt = 'moved'
 
-       ii={'module_uoa':muoa, 'data_uoa': duoa}
-       if ruoa!='': ii['repo_uoa']=ruoa
-       rx=rm(ii)
-       if rx['return']>0: return rx
+        ii = {'module_uoa': muoa, 'data_uoa': duoa}
+        if ruoa != '':
+            ii['repo_uoa'] = ruoa
+        rx = rm(ii)
+        if rx['return'] > 0:
+            return rx
 
     # Check if index and add new
-    if cfg.get('use_indexing','')=='yes' and index_module(muid,ruid):
-       if is_uid(nduoa): nduid=nduoa
-       path='/'+nmuid+'/'+nduid+'/1'
-       ri=access_index_server({'request':'DELETE', 'path':path})
-       if ri['return']>0: return ri
-    if cfg.get('use_indexing','')=='yes' and index_module(muid,nruoa):
-       ri=access_index_server({'request':'PUT', 'path':path, 'dict':rdd})
-       if ri['return']>0: return ri
+    if cfg.get('use_indexing', '') == 'yes' and index_module(muid, ruid):
+        if is_uid(nduoa):
+            nduid = nduoa
+        path = '/'+nmuid+'/'+nduid+'/1'
+        ri = access_index_server({'request': 'DELETE', 'path': path})
+        if ri['return'] > 0:
+            return ri
+    if cfg.get('use_indexing', '') == 'yes' and index_module(muid, nruoa):
+        ri = access_index_server({'request': 'PUT', 'path': path, 'dict': rdd})
+        if ri['return'] > 0:
+            return ri
 
-    if o=='con':
-       out('Entry '+muoa+':'+duoa+' was successfully '+tt+'!')
+    if o == 'con':
+        out('Entry '+muoa+':'+duoa+' was successfully '+tt+'!')
 
     return r
 
@@ -8314,6 +8821,7 @@ def cp(i):
 # Common action: copy or move CK entry
 #
 # TARGET: should use via ck.kernel.access
+
 
 def copy(i):
     """CK action: copy or move CK entry
@@ -8333,6 +8841,7 @@ def copy(i):
 # Common action: move CK entry to another CK repository
 #
 # TARGET: should use via ck.kernel.access
+
 
 def mv(i):
     """CK action: move CK entry to another CK repository
@@ -8362,39 +8871,42 @@ def mv(i):
     """
 
     # Check if global writing is allowed
-    r=check_writing({'delete':'yes'})
-    if r['return']>0: return r
+    r = check_writing({'delete': 'yes'})
+    if r['return'] > 0:
+        return r
 
     # Check if wild cards
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
-    nduoa=i.get('new_data_uoa','')
-    nduid=i.get('new_data_uid','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
+    nduoa = i.get('new_data_uoa', '')
+    nduid = i.get('new_data_uid', '')
 
-    xcids=i.get('xcids',[])
-    if len(xcids)>0: 
-       xcid=xcids[0]
-       nduoa=xcid.get('data_uoa','')
+    xcids = i.get('xcids', [])
+    if len(xcids) > 0:
+        xcid = xcids[0]
+        nduoa = xcid.get('data_uoa', '')
 
-    if (duoa.find('*')>=0 or duoa.find('?')>=0) and nduoa=='' and nduid=='':
-       r=list_data({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
-       if r['return']>0: return r
+    if (duoa.find('*') >= 0 or duoa.find('?') >= 0) and nduoa == '' and nduid == '':
+        r = list_data({'repo_uoa': ruoa, 'module_uoa': muoa, 'data_uoa': duoa})
+        if r['return'] > 0:
+            return r
 
-       lst=r['lst']
+        lst = r['lst']
     else:
-       lst=[{'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa}]
+        lst = [{'repo_uoa': ruoa, 'module_uoa': muoa, 'data_uoa': duoa}]
 
-    i['move']='yes'
-    i['keep_old_uid']='yes'
+    i['move'] = 'yes'
+    i['keep_old_uid'] = 'yes'
 
-    r={'return':0}
+    r = {'return': 0}
     for ll in lst:
-        i['repo_uoa']=ll['repo_uoa']
-        i['module_uoa']=ll['module_uoa']
-        i['data_uoa']=ll['data_uoa']
-        r=copy(i)
-        if r['return']>0: return r
+        i['repo_uoa'] = ll['repo_uoa']
+        i['module_uoa'] = ll['module_uoa']
+        i['data_uoa'] = ll['data_uoa']
+        r = copy(i)
+        if r['return'] > 0:
+            return r
 
     return r
 
@@ -8402,6 +8914,7 @@ def mv(i):
 # Common action: move CK entry to another CK repository
 #
 # TARGET: should use via ck.kernel.access
+
 
 def move(i):
     """CK action: move CK entry to another CK repository
@@ -8421,6 +8934,7 @@ def move(i):
 # delete file from the CK entry
 #
 # TARGET: CK kernel and low-level developers
+
 
 def delete_file(i):
     """Delete file from the CK entry
@@ -8444,88 +8958,92 @@ def delete_file(i):
     """
 
     # Check if global writing is allowed
-    r=check_writing({'delete':'yes'})
-    if r['return']>0: return r
+    r = check_writing({'delete': 'yes'})
+    if r['return'] > 0:
+        return r
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
     # Check file
-    fn=i.get('filename','')
-    if fn=='':
-       x=i.get('cids',[])
-       if len(x)>0:
-          fn=x[0]
+    fn = i.get('filename', '')
+    if fn == '':
+        x = i.get('cids', [])
+        if len(x) > 0:
+            fn = x[0]
 
-    if fn=='':
-       return {'return':1, 'error':'filename is empty'}
+    if fn == '':
+        return {'return': 1, 'error': 'filename is empty'}
 
-    if duoa=='':
-       return {'return':1, 'error':'data UOA is not defined'}
+    if duoa == '':
+        return {'return': 1, 'error': 'data UOA is not defined'}
 
-    if fn=='':
-       return {'return':1, 'error':'filename is not defined'}
+    if fn == '':
+        return {'return': 1, 'error': 'filename is not defined'}
 
     # Get info about entry
-    r=load({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
-    if r['return']>0: return r
+    r = load({'repo_uoa': ruoa, 'module_uoa': muoa, 'data_uoa': duoa})
+    if r['return'] > 0:
+        return r
 
-    p=r['path']
+    p = r['path']
 
-    ruoa=r['repo_uoa']
-    ruid=r['repo_uid']
+    ruoa = r['repo_uoa']
+    ruid = r['repo_uid']
 
     # Check repo/module writing
-    ii={'module_uoa':muoa, 'repo_uoa':ruoa, 'repo_uid':ruid}
-    r=check_writing(ii)
-    if r['return']>0: return r
+    ii = {'module_uoa': muoa, 'repo_uoa': ruoa, 'repo_uid': ruid}
+    r = check_writing(ii)
+    if r['return'] > 0:
+        return r
 
-    rd=r.get('repo_dict',{})
-    rshared=rd.get('shared','')
-    rsync=rd.get('sync','')
+    rd = r.get('repo_dict', {})
+    rshared = rd.get('shared', '')
+    rsync = rd.get('sync', '')
 
-    p1=os.path.normpath(os.path.join(p, fn))
-    px=os.path.normpath(os.path.join(p, cfg['subdir_ck_ext']))
+    p1 = os.path.normpath(os.path.join(p, fn))
+    px = os.path.normpath(os.path.join(p, cfg['subdir_ck_ext']))
 
     if p1.startswith(px):
-       return {'return':1, 'error':'path points to the special directory with meta info'}
+        return {'return': 1, 'error': 'path points to the special directory with meta info'}
 
     if not p1.startswith(p):
-       return {'return':1, 'error':'path is outside entry'}
+        return {'return': 1, 'error': 'path is outside entry'}
 
     if not os.path.isfile(p1) and not os.path.isdir(p1):
-       return {'return':1, 'error':'file or directory is not found'}
+        return {'return': 1, 'error': 'file or directory is not found'}
 
-    p2=os.path.split(p1)
-    px0=p2[0]
-    px1=p2[1]
+    p2 = os.path.split(p1)
+    px0 = p2[0]
+    px1 = p2[1]
 
-    if rshared!='':
-       ppp=os.getcwd()
-       os.chdir(px0)
+    if rshared != '':
+        ppp = os.getcwd()
+        os.chdir(px0)
 
-       ss=cfg['repo_types'][rshared]['rm'].replace('$#files#$', px1)
-       rx=os.system(ss)
+        ss = cfg['repo_types'][rshared]['rm'].replace('$#files#$', px1)
+        rx = os.system(ss)
 
     if os.path.isfile(p1):
-       os.remove(p1)
+        os.remove(p1)
 
     if os.path.isdir(p1):
-       import shutil
-       shutil.rmtree(p1, onerror=rm_read_only)
+        import shutil
+        shutil.rmtree(p1, onerror=rm_read_only)
 
-    if rshared!='':
-       os.chdir(ppp)
+    if rshared != '':
+        os.chdir(ppp)
 
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # Common action: list CK entries
 #
 # TARGET: CK kernel and low-level developers
+
 
 def list_data(i):
     """List CK entries
@@ -8602,460 +9120,508 @@ def list_data(i):
     import time
     start_time = time.time()
 
-    xls=i.get('limit_size','')
-    if xls=='': xls='0'
-    ls=int(xls)
-    ils=0
+    xls = i.get('limit_size', '')
+    if xls == '':
+        xls = '0'
+    ls = int(xls)
+    ils = 0
 
-    lst=[]
+    lst = []
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    debug=(cfg.get('debug','').lower()=='yes' or cfg.get('debug','').lower()=='1')
+    debug = (cfg.get('debug', '').lower() ==
+             'yes' or cfg.get('debug', '').lower() == '1')
 
-    iu=i.get('ignore_update', '')
+    iu = i.get('ignore_update', '')
 
-    prf=i.get('print_full','')
-    if prf=='': prf=i.get('all','')
-    iprf=(prf=='yes')
+    prf = i.get('print_full', '')
+    if prf == '':
+        prf = i.get('all', '')
+    iprf = (prf == 'yes')
 
-    prn=i.get('print_name','')
-    if prn=='': prn=i.get('name','')
-    iprn=(prn=='yes')
+    prn = i.get('print_name', '')
+    if prn == '':
+        prn = i.get('name', '')
+    iprn = (prn == 'yes')
 
-    ipru=(i.get('print_uid','')=='yes')
+    ipru = (i.get('print_uid', '') == 'yes')
 
-    # Add info about entry to the final list 
-    # (particularly when searching by special keywords, 
+    # Add info about entry to the final list
+    # (particularly when searching by special keywords,
     # such as name or date of creation
 
-    iaf=(i.get('add_info','')=='yes')
+    iaf = (i.get('add_info', '') == 'yes')
 
-    iam=(i.get('add_meta','')=='yes')
+    iam = (i.get('add_meta', '') == 'yes')
 
-    aidb=i.get('add_if_date_before','')
-    aida=i.get('add_if_date_after','')
-    aid=i.get('add_if_date','')
+    aidb = i.get('add_if_date_before', '')
+    aida = i.get('add_if_date_after', '')
+    aid = i.get('add_if_date', '')
 
     # Support ISO and human readable time
-    aidb=aidb.strip().replace(' ','T')
-    aida=aida.strip().replace(' ','T')
-    aid=aid.strip().replace(' ','T')
+    aidb = aidb.strip().replace(' ', 'T')
+    aida = aida.strip().replace(' ', 'T')
+    aid = aid.strip().replace(' ', 'T')
 
-    oaidb=None
-    oaida=None
-    oaid=None
+    oaidb = None
+    oaida = None
+    oaid = None
 
-    sn=i.get('search_by_name','')
+    sn = i.get('search_by_name', '')
 
+    if aidb != '' or aida != '' or aid != '':
 
-    if aidb!='' or aida!='' or aid!='':
+        import datetime
+        if aidb != '':
+            rx = convert_iso_time({'iso_datetime': aidb})
+            if rx['return'] > 0:
+                return rx
+            oaidb = rx['datetime_obj']
+        if aida != '':
+            rx = convert_iso_time({'iso_datetime': aida})
+            if rx['return'] > 0:
+                return rx
+            oaida = rx['datetime_obj']
+        if aid != '':
+            rx = convert_iso_time({'iso_datetime': aid})
+            if rx['return'] > 0:
+                return rx
+            oaid = rx['datetime_obj']
 
-       import datetime
-       if aidb!='': 
-          rx=convert_iso_time({'iso_datetime':aidb})
-          if rx['return']>0: return rx
-          oaidb=rx['datetime_obj']
-       if aida!='': 
-          rx=convert_iso_time({'iso_datetime':aida})
-          if rx['return']>0: return rx
-          oaida=rx['datetime_obj']
-       if aid!='':  
-          rx=convert_iso_time({'iso_datetime':aid})
-          if rx['return']>0: return rx
-          oaid=rx['datetime_obj']
+    if oaidb != None or oaida != None or oaid != None or sn != '':
+        iaf = True
 
-    if oaidb!=None or oaida!=None or oaid!=None or sn!='': 
-       iaf=True
+    dnatl = i.get('do_not_add_to_lst', '')
+    idnatl = False
+    if dnatl == 'yes':
+        idnatl = True
 
-    dnatl=i.get('do_not_add_to_lst','')
-    idnatl=False
-    if dnatl=='yes': idnatl=True
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    muid = i.get('module_uid', '')
+    duoa = i.get('data_uoa', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    muid=i.get('module_uid','')
-    duoa=i.get('data_uoa','')
-
-    lruoa=i.get('repo_uoa_list',[])
-    lmuoa=i.get('module_uoa_list',[])
-    lduoa=i.get('data_uoa_list',[])
+    lruoa = i.get('repo_uoa_list', [])
+    lmuoa = i.get('module_uoa_list', [])
+    lduoa = i.get('data_uoa_list', [])
 
     # Check if need to force lower case for all entries
-    if cfg.get('force_lower','')=='yes':
-       ruoa=ruoa.lower()
-       muoa=muoa.lower()
-       muid=muid.lower()
-       duoa=duoa.lower()
+    if cfg.get('force_lower', '') == 'yes':
+        ruoa = ruoa.lower()
+        muoa = muoa.lower()
+        muid = muid.lower()
+        duoa = duoa.lower()
 
-       lruoa=lower_list(lruoa)
-       lmuoa=lower_list(lmuoa)
-       lduoa=lower_list(lduoa)
+        lruoa = lower_list(lruoa)
+        lmuoa = lower_list(lmuoa)
+        lduoa = lower_list(lduoa)
 
-    to=float(i.get('time_out','30'))
-    elapsed_time=0
+    to = float(i.get('time_out', '30'))
+    elapsed_time = 0
 
-    if duoa=='': duoa='*'
-    if muoa=='' and muid=='': muoa='*'
-    if ruoa=='': ruoa='*'
+    if duoa == '':
+        duoa = '*'
+    if muoa == '' and muid == '':
+        muoa = '*'
+    if ruoa == '':
+        ruoa = '*'
 
-    sff=i.get('filter_func','')
-    ff=i.get('filter_func_addr',None)
-    if sff!='':
-       ff=getattr(sys.modules[__name__], sff)
-    if ff!=None:
-       sd=i.get('search_dict',{})
-       ic=i.get('ignore_case','')
-       ss=i.get('search_string','')
-       if ic=='yes': ss=ss.lower()
+    sff = i.get('filter_func', '')
+    ff = i.get('filter_func_addr', None)
+    if sff != '':
+        ff = getattr(sys.modules[__name__], sff)
+    if ff != None:
+        sd = i.get('search_dict', {})
+        ic = i.get('ignore_case', '')
+        ss = i.get('search_string', '')
+        if ic == 'yes':
+            ss = ss.lower()
 
     # Check if wild cards present (only repo or data)
-    wr=''
-    wm=''
-    wd=''
+    wr = ''
+    wm = ''
+    wd = ''
 
-    if ruoa.find('*')>=0 or ruoa.find('?')>=0: wr=ruoa
-    if muoa.find('*')>=0 or muoa.find('?')>=0: wm=muoa
-    if duoa.find('*')>=0 or duoa.find('?')>=0: wd=duoa
+    if ruoa.find('*') >= 0 or ruoa.find('?') >= 0:
+        wr = ruoa
+    if muoa.find('*') >= 0 or muoa.find('?') >= 0:
+        wm = muoa
+    if duoa.find('*') >= 0 or duoa.find('?') >= 0:
+        wd = duoa
 
-    if wr!='' or wm!='' or wd!='':
-       import fnmatch
+    if wr != '' or wm != '' or wd != '':
+        import fnmatch
 
-    zr={}
+    zr = {}
 
-    fixed_repo=False
-    if ruoa!='' and wr=='':
-       # Try to load a given repository
-       r=access({'action':'load',
-                 'module_uoa':cfg['repo_name'],
-                 'data_uoa':ruoa,
-                 'common_func':'yes'})
-       if r['return']>0: return r
-       duid=r['data_uid']
+    fixed_repo = False
+    if ruoa != '' and wr == '':
+        # Try to load a given repository
+        r = access({'action': 'load',
+                    'module_uoa': cfg['repo_name'],
+                    'data_uoa': ruoa,
+                    'common_func': 'yes'})
+        if r['return'] > 0:
+            return r
+        duid = r['data_uid']
 
-       zr[duid]=r
-       fixed_repo=True
+        zr[duid] = r
+        fixed_repo = True
     else:
-       # Prepare all repositories
-       r=reload_repo_cache({}) # Ignore errors
-       if r['return']>0: return r
-       zr=cache_repo_info
+        # Prepare all repositories
+        r = reload_repo_cache({})  # Ignore errors
+        if r['return'] > 0:
+            return r
+        zr = cache_repo_info
 
     # Start iterating over repositories
-    ir=0
-    iir=True
-    zrk=list(zr.keys())
-    lr=len(zrk)
-    finish=False
+    ir = 0
+    iir = True
+    zrk = list(zr.keys())
+    lr = len(zrk)
+    finish = False
     while iir:
-       skip=False
-       repo_dict={}
+        skip = False
+        repo_dict = {}
 
-       if fixed_repo:
-          if ir>0:
-             skip=True
-             iir=False
-          else:
-             ruid=zrk[0]
-             d=zr[ruid]
-             dd=d.get('dict',{})
-             repo_dict=dd
-             remote=dd.get('remote','')
-             if remote=='yes':
-                skip=True
-             else:
-                ruoa=d.get('data_uoa','')
-                p=dd.get('path','')
-                if ruid==cfg['repo_uid_default']: p=work.get('dir_default_repo','')
-                elif ruid==cfg['repo_uid_local']: p=work.get('dir_local_repo','')
-       elif ir==0:
-          ruoa=cfg['repo_name_default']
-          ruid=cfg['repo_uid_default']
-          p=work.get('dir_default_repo','')
-       elif ir==1:
-          ruoa=cfg['repo_name_local']
-          ruid=cfg['repo_uid_local']
-          p=work.get('dir_local_repo','')
-          if p=='': 
-             skip=True
-       else:
-          if ir<lr+2:
-             ruid=zrk[ir-2]
-             d=zr[ruid]
-             dd=d.get('dict',{})
-             repo_dict=dd
-             remote=dd.get('remote','')
-             if remote=='yes':
-                skip=True
-             else:
-                ruoa=d.get('data_uoa','')
-                p=dd.get('path','')
-          else:
-             skip=True
-             iir=False
+        if fixed_repo:
+            if ir > 0:
+                skip = True
+                iir = False
+            else:
+                ruid = zrk[0]
+                d = zr[ruid]
+                dd = d.get('dict', {})
+                repo_dict = dd
+                remote = dd.get('remote', '')
+                if remote == 'yes':
+                    skip = True
+                else:
+                    ruoa = d.get('data_uoa', '')
+                    p = dd.get('path', '')
+                    if ruid == cfg['repo_uid_default']:
+                        p = work.get('dir_default_repo', '')
+                    elif ruid == cfg['repo_uid_local']:
+                        p = work.get('dir_local_repo', '')
+        elif ir == 0:
+            ruoa = cfg['repo_name_default']
+            ruid = cfg['repo_uid_default']
+            p = work.get('dir_default_repo', '')
+        elif ir == 1:
+            ruoa = cfg['repo_name_local']
+            ruid = cfg['repo_uid_local']
+            p = work.get('dir_local_repo', '')
+            if p == '':
+                skip = True
+        else:
+            if ir < lr+2:
+                ruid = zrk[ir-2]
+                d = zr[ruid]
+                dd = d.get('dict', {})
+                repo_dict = dd
+                remote = dd.get('remote', '')
+                if remote == 'yes':
+                    skip = True
+                else:
+                    ruoa = d.get('data_uoa', '')
+                    p = dd.get('path', '')
+            else:
+                skip = True
+                iir = False
 
-       # Check if wild cards
-       if not skip and p!='' and wr!='':
-          if len(lruoa)>0 and (ruoa not in lruoa and ruid not in lruoa):
-             skip=True
-          elif wr=='*':
-             pass
-          elif is_uid(ruoa): 
-             skip=True # If have wildcards, but not alias
-          elif not fnmatch.fnmatch(ruoa, wr):
-             skip=True
+        # Check if wild cards
+        if not skip and p != '' and wr != '':
+            if len(lruoa) > 0 and (ruoa not in lruoa and ruid not in lruoa):
+                skip = True
+            elif wr == '*':
+                pass
+            elif is_uid(ruoa):
+                skip = True  # If have wildcards, but not alias
+            elif not fnmatch.fnmatch(ruoa, wr):
+                skip = True
 
-       # Check if got proper path
-       if not skip and p!='':
-          # Prepare modules in the current directory
-          xm=[]
+        # Check if got proper path
+        if not skip and p != '':
+            # Prepare modules in the current directory
+            xm = []
 
-          if muoa!='' and wm=='': 
-             xm.append(muoa)
-          else:   
-             # Now iterate over modules inside a given path
-             try:
-                lm=os.listdir(p)
-             except Exception as e:
-                None
-             else:
-                for fn in lm:
-                    if os.path.isdir(os.path.join(p,fn)) and fn not in cfg['special_directories']:
-                       xm.append(fn)
+            if muoa != '' and wm == '':
+                xm.append(muoa)
+            else:
+                # Now iterate over modules inside a given path
+                try:
+                    lm = os.listdir(p)
+                except Exception as e:
+                    None
+                else:
+                    for fn in lm:
+                        if os.path.isdir(os.path.join(p, fn)) and fn not in cfg['special_directories']:
+                            xm.append(fn)
 
-          # Iterate over modules
-          for mu in xm:
-              r=find_path_to_entry({'path':p, 'data_uoa':mu})
-              if r['return']==0:
-                 mp=r['path']
-                 muid=r['data_uid']
-                 muoa=r['data_uoa']
+            # Iterate over modules
+            for mu in xm:
+                r = find_path_to_entry({'path': p, 'data_uoa': mu})
+                if r['return'] == 0:
+                    mp = r['path']
+                    muid = r['data_uid']
+                    muoa = r['data_uoa']
 
-                 # Check if there is a split of directories for this module in local config
-                 # to handle numerous entries (similar to MediaWiki)
-                 split_dirs=get_split_dir_number(repo_dict, muid, muoa)
+                    # Check if there is a split of directories for this module in local config
+                    # to handle numerous entries (similar to MediaWiki)
+                    split_dirs = get_split_dir_number(repo_dict, muid, muoa)
 
-                 mskip=False
+                    mskip = False
 
-                 if wm!='':
-                    if len(lmuoa)>0 and (muoa not in lmuoa and muid not in lmuoa):
-                       mskip=True
-                    elif wm=='*':
-                       pass
-                    elif is_uid(muoa): 
-                       mskip=True # If have wildcards, but not alias
-                    elif not fnmatch.fnmatch(muoa, wm):
-                       mskip=True
+                    if wm != '':
+                        if len(lmuoa) > 0 and (muoa not in lmuoa and muid not in lmuoa):
+                            mskip = True
+                        elif wm == '*':
+                            pass
+                        elif is_uid(muoa):
+                            mskip = True  # If have wildcards, but not alias
+                        elif not fnmatch.fnmatch(muoa, wm):
+                            mskip = True
 
-                 if not mskip:
-                    # Prepare data in the current directory
-                    xd=[]
+                    if not mskip:
+                        # Prepare data in the current directory
+                        xd = []
 
-                    if duoa!='' and wd=='': 
-                       iii={'path':mp, 'data_uoa':duoa}
-                       if split_dirs!=0:
-                          iii['split_dirs']=split_dirs
-                       r=find_path_to_entry(iii)
-                       if r['return']==0:
-                          xd.append(duoa)
-                    else:   
-                       # Now iterate over data inside a given path
-                       try:
-                          ld=os.listdir(mp)
-                       except Exception as e:
-                          None
-                       else:
-                          for fn in ld:
-                              if os.path.isdir(os.path.join(mp,fn)) and fn not in cfg['special_directories']:
-                                 if split_dirs!=0:
-                                    mp2=os.path.join(mp,fn)
-                                    try:
-                                       ld2=os.listdir(mp2)
-                                    except Exception as e:
-                                       None
+                        if duoa != '' and wd == '':
+                            iii = {'path': mp, 'data_uoa': duoa}
+                            if split_dirs != 0:
+                                iii['split_dirs'] = split_dirs
+                            r = find_path_to_entry(iii)
+                            if r['return'] == 0:
+                                xd.append(duoa)
+                        else:
+                            # Now iterate over data inside a given path
+                            try:
+                                ld = os.listdir(mp)
+                            except Exception as e:
+                                None
+                            else:
+                                for fn in ld:
+                                    if os.path.isdir(os.path.join(mp, fn)) and fn not in cfg['special_directories']:
+                                        if split_dirs != 0:
+                                            mp2 = os.path.join(mp, fn)
+                                            try:
+                                                ld2 = os.listdir(mp2)
+                                            except Exception as e:
+                                                None
 
-                                    for fn in ld2:
-                                        if os.path.isdir(os.path.join(mp2,fn)) and fn not in cfg['special_directories']:
-                                           xd.append(fn)
-                                 else:
-                                    xd.append(fn)
+                                            for fn in ld2:
+                                                if os.path.isdir(os.path.join(mp2, fn)) and fn not in cfg['special_directories']:
+                                                    xd.append(fn)
+                                        else:
+                                            xd.append(fn)
 
-                    # Iterate over data
-                    if len(lduoa)>0:
-                       xd=lduoa
+                        # Iterate over data
+                        if len(lduoa) > 0:
+                            xd = lduoa
 
-                    for du in xd:
-                        iii={'path':mp, 'data_uoa':du}
-                        if split_dirs!=0:
-                           iii['split_dirs']=split_dirs
-                        r=find_path_to_entry(iii)
-                        if r['return']!=0: continue
+                        for du in xd:
+                            iii = {'path': mp, 'data_uoa': du}
+                            if split_dirs != 0:
+                                iii['split_dirs'] = split_dirs
+                            r = find_path_to_entry(iii)
+                            if r['return'] != 0:
+                                continue
 
-                        dp=r['path']
-                        dpcfg=os.path.join(dp,cfg['subdir_ck_ext'])
-                        dpinfo=os.path.join(dp,cfg['subdir_ck_ext'],cfg['file_info'])
-                        dpmeta=os.path.join(dp,cfg['subdir_ck_ext'],cfg['file_meta'])
-                        tduid=r['data_uid']
-                        tduoa=r['data_uoa']
+                            dp = r['path']
+                            dpcfg = os.path.join(dp, cfg['subdir_ck_ext'])
+                            dpinfo = os.path.join(
+                                dp, cfg['subdir_ck_ext'], cfg['file_info'])
+                            dpmeta = os.path.join(
+                                dp, cfg['subdir_ck_ext'], cfg['file_meta'])
+                            tduid = r['data_uid']
+                            tduoa = r['data_uoa']
 
-                        if os.path.isdir(dpcfg): # Check if really CK data entry
-                           dskip=False
+                            if os.path.isdir(dpcfg):  # Check if really CK data entry
+                                dskip = False
 
-                           if wd!='':
-                              if len(lduoa)>0 and (tduoa not in lduoa and tduid not in lduoa):
-                                 dskip=True
-                              elif wd=='*':
-                                 pass
-#                              elif is_uid(tduoa): 
+                                if wd != '':
+                                    if len(lduoa) > 0 and (tduoa not in lduoa and tduid not in lduoa):
+                                        dskip = True
+                                    elif wd == '*':
+                                        pass
+#                              elif is_uid(tduoa):
 #                                 dskip=True # If have wildcards, but not alias
-                              elif not fnmatch.fnmatch(tduoa, wd):
-                                 dskip=True
+                                    elif not fnmatch.fnmatch(tduoa, wd):
+                                        dskip = True
 
-                           if not dskip:
-                              # Iterate over data 
-                              ll={'repo_uoa':ruoa, 'repo_uid':ruid,
-                                 'module_uoa':muoa, 'module_uid':muid,
-                                 'data_uoa':tduoa, 'data_uid':tduid,
-                                 'path':dp}
+                                if not dskip:
+                                    # Iterate over data
+                                    ll = {'repo_uoa': ruoa, 'repo_uid': ruid,
+                                          'module_uoa': muoa, 'module_uid': muid,
+                                          'data_uoa': tduoa, 'data_uid': tduid,
+                                          'path': dp}
 
-                              # Need to load info?
-                              if iaf or iprn:
-                                 if os.path.isfile(dpinfo):
-                                    y=load_json_file({'json_file':dpinfo})
-                                    if y['return']>0: 
-                                       if not debug: continue
-                                       return y
-                                    ll['info']=y['dict']
+                                    # Need to load info?
+                                    if iaf or iprn:
+                                        if os.path.isfile(dpinfo):
+                                            y = load_json_file(
+                                                {'json_file': dpinfo})
+                                            if y['return'] > 0:
+                                                if not debug:
+                                                    continue
+                                                return y
+                                            ll['info'] = y['dict']
 
-                              # Need to load meta?
-                              if iam:
-                                 if os.path.isfile(dpmeta):
-                                    y=load_json_file({'json_file':dpmeta})
-                                    if y['return']>0: 
-                                       if not debug: continue
-                                       return y
-                                    ll['meta']=y['dict']
+                                    # Need to load meta?
+                                    if iam:
+                                        if os.path.isfile(dpmeta):
+                                            y = load_json_file(
+                                                {'json_file': dpmeta})
+                                            if y['return'] > 0:
+                                                if not debug:
+                                                    continue
+                                                return y
+                                            ll['meta'] = y['dict']
 
-                              # Call filter
-                              fskip=False
+                                    # Call filter
+                                    fskip = False
 
-                              if ff!=None and ff!='':
-                                 ll['out']=o
-                                 ll['search_dict']=sd
-                                 ll['search_string']=ss
-                                 ll['ignore_case']=ic
-                                 ll['ignore_update']=iu
+                                    if ff != None and ff != '':
+                                        ll['out'] = o
+                                        ll['search_dict'] = sd
+                                        ll['search_string'] = ss
+                                        ll['ignore_case'] = ic
+                                        ll['ignore_update'] = iu
 
-                                 if oaidb!=None: ll['obj_date_before']=oaidb
-                                 if oaida!=None: ll['obj_date_after']=oaida
-                                 if oaid!=None: ll['obj_date']=oaid
-                                 if sn!=None: ll['search_by_name']=sn
+                                        if oaidb != None:
+                                            ll['obj_date_before'] = oaidb
+                                        if oaida != None:
+                                            ll['obj_date_after'] = oaida
+                                        if oaid != None:
+                                            ll['obj_date'] = oaid
+                                        if sn != None:
+                                            ll['search_by_name'] = sn
 
-                                 rx=ff(ll)
-                                 if rx['return']>0: 
-                                    if not debug: continue
-                                    return rx
+                                        rx = ff(ll)
+                                        if rx['return'] > 0:
+                                            if not debug:
+                                                continue
+                                            return rx
 
-                                 if rx.get('skip','')=='yes':
-                                    fskip=True
+                                        if rx.get('skip', '') == 'yes':
+                                            fskip = True
 
-                              # Append
-                              if not fskip:
-                                 ils+=1
- 
-                                 if not idnatl:
-                                    lst.append(ll)
+                                    # Append
+                                    if not fskip:
+                                        ils += 1
 
-                                    if log_ck_entries:
-                                       lce=cfg.get('log_ck_entries','')
-                                       if lce!='':
-                                          rl=save_text_file({'text_file':lce,
-                                                             'string':'"action":"list", "repo_uoa":"'+
-                                                                      ll.get('repo_uoa','')+'", "repo_uid":"'+
-                                                                      ll.get('repo_uid','')+'", "module_uoa":"'+
-                                                                      ll.get('module_uoa','')+'", "module_uid":"'+
-                                                                      ll.get('module_uid','')+'", "data_uoa":"'+
-                                                                      ll.get('data_uoa','')+'", "data_uid":"'+
-                                                                      ll.get('data_uid','')+'"\n',
-                                                             'append':'yes'})
-                                          if rl['return']>0: return rl
+                                        if not idnatl:
+                                            lst.append(ll)
 
-                                 if o=='con':
-                                    x=''
-                                    if iprf: x=ruoa+':'+muoa+':'
-                                    if sys.version_info[0]<3: 
-                                       y=tduoa
-                                       try: y=y.decode(sys.stdin.encoding)
-                                       except Exception as e: 
-                                         try: y=y.decode('utf8')
-                                         except Exception as e: pass
-                                       x+=y
-                                    else: x+=tduoa
-                                    if ipru: x+=' ('+tduid+')'
-                                    if iprn:
-                                       name=ll.get('info',{}).get('data_name','')
-                                       if name!='':
-                                          x=name+' ('+x+')'
-                                    out(x)
+                                            if log_ck_entries:
+                                                lce = cfg.get(
+                                                    'log_ck_entries', '')
+                                                if lce != '':
+                                                    rl = save_text_file({'text_file': lce,
+                                                                         'string': '"action":"list", "repo_uoa":"' +
+                                                                         ll.get('repo_uoa', '')+'", "repo_uid":"' +
+                                                                         ll.get('repo_uid', '')+'", "module_uoa":"' +
+                                                                         ll.get('module_uoa', '')+'", "module_uid":"' +
+                                                                         ll.get('module_uid', '')+'", "data_uoa":"' +
+                                                                         ll.get('data_uoa', '')+'", "data_uid":"' +
+                                                                         ll.get(
+                                                                             'data_uid', '')+'"\n',
+                                                                         'append': 'yes'})
+                                                    if rl['return'] > 0:
+                                                        return rl
 
-                              # Check timeout
-                              elapsed_time = time.time() - start_time
-                              if to!=-1 and elapsed_time>to:
-                                 finish=True
-                                 break
+                                        if o == 'con':
+                                            x = ''
+                                            if iprf:
+                                                x = ruoa+':'+muoa+':'
+                                            if sys.version_info[0] < 3:
+                                                y = tduoa
+                                                try:
+                                                    y = y.decode(
+                                                        sys.stdin.encoding)
+                                                except Exception as e:
+                                                    try:
+                                                        y = y.decode('utf8')
+                                                    except Exception as e:
+                                                        pass
+                                                x += y
+                                            else:
+                                                x += tduoa
+                                            if ipru:
+                                                x += ' ('+tduid+')'
+                                            if iprn:
+                                                name = ll.get('info', {}).get(
+                                                    'data_name', '')
+                                                if name != '':
+                                                    x = name+' ('+x+')'
+                                            out(x)
 
-                              # Check size
-                              if ls>0 and ils==ls:
-                                 finish=True
-                                 break
+                                    # Check timeout
+                                    elapsed_time = time.time() - start_time
+                                    if to != -1 and elapsed_time > to:
+                                        finish = True
+                                        break
 
-                    if finish: break
-          if finish: break
+                                    # Check size
+                                    if ls > 0 and ils == ls:
+                                        finish = True
+                                        break
 
-       # Finish iteration over repositories
-       ir+=1
+                        if finish:
+                            break
+            if finish:
+                break
 
-    if o=='con' and i.get('print_time','')=='yes':
-       out('Elapsed time: '+str(elapsed_time)+' sec., number of entries: '+str(ils))
+        # Finish iteration over repositories
+        ir += 1
 
-    rr={'return':0, 'lst':lst, 'elapsed_time':str(elapsed_time)}
-    if finish: rr['timed_out']='yes'
+    if o == 'con' and i.get('print_time', '') == 'yes':
+        out('Elapsed time: '+str(elapsed_time) +
+            ' sec., number of entries: '+str(ils))
+
+    rr = {'return': 0, 'lst': lst, 'elapsed_time': str(elapsed_time)}
+    if finish:
+        rr['timed_out'] = 'yes'
 
     return rr
 
 ##############################################################################
 # List data with search (internal)
 
+
 def list_data2(i):
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    rr=list_data(i)
+    rr = list_data(i)
 
-    lst=rr['lst']
-    if len(lst)==0 and cfg.get('download_missing_components','')=='yes':
-       # Search on cKnowledge.org
-       import copy
+    lst = rr['lst']
+    if len(lst) == 0 and cfg.get('download_missing_components', '') == 'yes':
+        # Search on cKnowledge.org
+        import copy
 
-       oo=''
-       if o=='con': oo=o
+        oo = ''
+        if o == 'con':
+            oo = o
 
-       muoa=i.get('module_uoa','')
-       duoa=i.get('data_uoa','')
-       tags=i.get('download_tags','')
+        muoa = i.get('module_uoa', '')
+        duoa = i.get('data_uoa', '')
+        tags = i.get('download_tags', '')
 
 #       out('')
 #       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CK portal ...')
 
-       # Try to download missing action/module
-       ry=download({'module_uoa':muoa,
-                    'data_uoa':duoa,
-                    'tags':tags,
-                    'out':'con'})
-       if ry['return']>0: return ry
+        # Try to download missing action/module
+        ry = download({'module_uoa': muoa,
+                       'data_uoa': duoa,
+                       'tags': tags,
+                       'out': 'con'})
+        if ry['return'] > 0:
+            return ry
 
-       # Restart local search
-       rr=list_data(i)
+        # Restart local search
+        rr = list_data(i)
 
     return rr
 
@@ -9063,6 +9629,7 @@ def list_data2(i):
 # Common action: list tags in found entries
 #
 # TARGET: should use via ck.kernel.access
+
 
 def list_tags(i):
     """CK action: list tags in found CK entries (uses search function)
@@ -9085,35 +9652,36 @@ def list_tags(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    i['out']=''
-    i['add_meta']='yes' # Need it to get tags from meta from CK entries
+    i['out'] = ''
+    i['add_meta'] = 'yes'  # Need it to get tags from meta from CK entries
 
-    rr=search2(i)
-    if rr['return']>0: return rr
+    rr = search2(i)
+    if rr['return'] > 0:
+        return rr
 
-    lst=rr['lst']
+    lst = rr['lst']
 
-    all_tags=[]
+    all_tags = []
 
     # Extract tags
     for l in lst:
-        meta=l['meta']
-        tags=meta.get('tags',[])
+        meta = l['meta']
+        tags = meta.get('tags', [])
 
         for t in tags:
             if t not in all_tags:
-               all_tags.append(t)
+                all_tags.append(t)
 
     # Sort tags
-    all_tags=sorted(all_tags)
-    rr['tags']=all_tags
+    all_tags = sorted(all_tags)
+    rr['tags'] = all_tags
 
     # Print
-    if o=='con':
-       for t in all_tags:
-           out(t)
+    if o == 'con':
+        for t in all_tags:
+            out(t)
 
     return rr
 
@@ -9121,6 +9689,7 @@ def list_tags(i):
 # Common action: search entries
 #
 # TARGET: should use via ck.kernel.access
+
 
 def search(i):
     """CK action: search CK entries
@@ -9198,324 +9767,360 @@ def search(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    rr=search2(i)
-    if rr['return']>0: return rr
+    rr = search2(i)
+    if rr['return'] > 0:
+        return rr
 
-    lst=rr['lst']
-    if len(lst)==0 and cfg.get('download_missing_components','')=='yes':
-       # Search on cKnowledge.org
-       import copy
+    lst = rr['lst']
+    if len(lst) == 0 and cfg.get('download_missing_components', '') == 'yes':
+        # Search on cKnowledge.org
+        import copy
 
-       oo=''
-       if o=='con': oo=o
+        oo = ''
+        if o == 'con':
+            oo = o
 
-       muoa=i.get('module_uoa','')
-       duoa=i.get('data_uoa','')
-       tags=i.get('tags','')
+        muoa = i.get('module_uoa', '')
+        duoa = i.get('data_uoa', '')
+        tags = i.get('tags', '')
 
 #       out('')
 #       out('  WARNING: checking missing components "'+muoa+':'+duoa+'" at the CK portal ...')
 
-       ry=download({'module_uoa':muoa,
-                    'data_uoa':duoa,
-                    'tags':tags,
-                    'out':'con'})
-       if ry['return']>0: return ry
+        ry = download({'module_uoa': muoa,
+                       'data_uoa': duoa,
+                       'tags': tags,
+                       'out': 'con'})
+        if ry['return'] > 0:
+            return ry
 
-       # Restart local search
-       rr=search2(i)
+        # Restart local search
+        rr = search2(i)
 
     return rr
 
 ##############################################################################
 # Original search (internal)
 
+
 def search2(i):
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ss=i.get('search_string','')
-    sd=i.get('search_dict',{})
+    ss = i.get('search_string', '')
+    sd = i.get('search_dict', {})
 
-    ls=i.get('limit_size','5000')
+    ls = i.get('limit_size', '5000')
 
-    rr={'return':0}
+    rr = {'return': 0}
 
     # Check tags
-    tags=i.get('tags','')
-    if tags!='':
-       xtags=tags.split(',')
-       xtags1=[]
-       for q in xtags:
-           xtags1.append(q.strip())
-       sd['tags']=xtags1
+    tags = i.get('tags', '')
+    if tags != '':
+        xtags = tags.split(',')
+        xtags1 = []
+        for q in xtags:
+            xtags1.append(q.strip())
+        sd['tags'] = xtags1
 
     # Check if index
-    if i.get('internal','')=='yes' or cfg.get('use_indexing','')!='yes' or (i.get('module_uoa','')!='' and not index_module(i['module_uoa'],i.get('repo_uoa',''))):
-       if ss!='':
-          i['filter_func']='search_string_filter'
-       else:
-          sfd=i.get('search_flat_dict',{})
+    if i.get('internal', '') == 'yes' or cfg.get('use_indexing', '') != 'yes' or (i.get('module_uoa', '') != '' and not index_module(i['module_uoa'], i.get('repo_uoa', ''))):
+        if ss != '':
+            i['filter_func'] = 'search_string_filter'
+        else:
+            sfd = i.get('search_flat_dict', {})
 
-          if len(sfd)>0:
-             r=restore_flattened_dict({'dict':sfd})
-             if r['return']>0: return r
+            if len(sfd) > 0:
+                r = restore_flattened_dict({'dict': sfd})
+                if r['return'] > 0:
+                    return r
 
-             nd=r['dict']
+                nd = r['dict']
 
-             sd.update(nd)
+                sd.update(nd)
 
-             del (i['search_flat_dict'])
+                del (i['search_flat_dict'])
 
-          i['filter_func']='search_filter'
+            i['filter_func'] = 'search_filter'
 
-       i['search_dict']=sd
+        i['search_dict'] = sd
 
-       pf=i.get('print_full','')
-       if pf=='': pf='yes'
-       i['print_full']=pf
+        pf = i.get('print_full', '')
+        if pf == '':
+            pf = 'yes'
+        i['print_full'] = pf
 
-       rr=list_data(i)
+        rr = list_data(i)
     else:
-       import time
-       start_time = time.time()
+        import time
+        start_time = time.time()
 
-       b_add_meta=(i.get('add_meta','')=='yes')
-       b_add_info=(i.get('add_info','')=='yes')
+        b_add_meta = (i.get('add_meta', '') == 'yes')
+        b_add_info = (i.get('add_info', '') == 'yes')
 
-       # Check if using ElasticSearch via Python client
-       eec=False 
-       if cfg.get('index_use_curl','')=='yes' or cfg.get('index_use_web','')=='yes':
-          eec=True
+        # Check if using ElasticSearch via Python client
+        eec = False
+        if cfg.get('index_use_curl', '') == 'yes' or cfg.get('index_use_web', '') == 'yes':
+            eec = True
 
-       dss={} # Used with python ElasticSearch client
+        dss = {}  # Used with python ElasticSearch client
 
-       ruoa=i.get('repo_uoa','')
-       muoa=i.get('module_uoa','')
-       duoa=i.get('data_uoa','')
+        ruoa = i.get('repo_uoa', '')
+        muoa = i.get('module_uoa', '')
+        duoa = i.get('data_uoa', '')
 
-       lruoa=i.get('repo_uoa_list',[])
-       lmuoa=i.get('module_uoa_list',[])
-       lduoa=i.get('data_uoa_list',[])
+        lruoa = i.get('repo_uoa_list', [])
+        lmuoa = i.get('module_uoa_list', [])
+        lduoa = i.get('data_uoa_list', [])
 
-       if ruoa!='': lruoa.append(ruoa)
-       if muoa!='': lmuoa.append(muoa)
-       if duoa!='': lduoa.append(duoa)
+        if ruoa != '':
+            lruoa.append(ruoa)
+        if muoa != '':
+            lmuoa.append(muoa)
+        if duoa != '':
+            lduoa.append(duoa)
 
-       if len(lruoa)>0:
-          if ss!='': ss+=' AND '
-          ss+=' ('
-          first=True
-          for x in lruoa:
-              if first: first=False
-              else: ss+=' OR '
+        if len(lruoa) > 0:
+            if ss != '':
+                ss += ' AND '
+            ss += ' ('
+            first = True
+            for x in lruoa:
+                if first:
+                    first = False
+                else:
+                    ss += ' OR '
 
-              xx1='"'
-              if x.find('*')>=0 or x.find('?')>=0:
-                 xx1=''
+                xx1 = '"'
+                if x.find('*') >= 0 or x.find('?') >= 0:
+                    xx1 = ''
 
-              ss+='(repo_uid:'+xx1+x+xx1+') OR (repo_uoa:'+xx1+x+xx1+')'
-          ss+=')'
+                ss += '(repo_uid:'+xx1+x+xx1+') OR (repo_uoa:'+xx1+x+xx1+')'
+            ss += ')'
 
-       if len(lmuoa)>0:
-          if ss!='': ss+=' AND '
-          ss+='('
-          first=True
-          for x in lmuoa:
-              if first: first=False
-              else: ss+=' OR '
+        if len(lmuoa) > 0:
+            if ss != '':
+                ss += ' AND '
+            ss += '('
+            first = True
+            for x in lmuoa:
+                if first:
+                    first = False
+                else:
+                    ss += ' OR '
 
-              xx1='"'
-              if x.find('*')>=0 or x.find('?')>=0:
-                 xx1=''
+                xx1 = '"'
+                if x.find('*') >= 0 or x.find('?') >= 0:
+                    xx1 = ''
 
-              ss+='(module_uid:'+xx1+x+xx1+') OR (module_uoa:'+xx1+x+xx1+')'
-          ss+=')'
+                ss += '(module_uid:'+xx1+x+xx1 + \
+                    ') OR (module_uoa:'+xx1+x+xx1+')'
+            ss += ')'
 
-       if len(lduoa)>0:
-          if ss!='': ss+=' AND '
-          ss+='('
-          first=True
-          for x in lduoa:
-              if first: first=False
-              else: ss+=' OR '
+        if len(lduoa) > 0:
+            if ss != '':
+                ss += ' AND '
+            ss += '('
+            first = True
+            for x in lduoa:
+                if first:
+                    first = False
+                else:
+                    ss += ' OR '
 
-              xx1='"'
-              if x.find('*')>=0 or x.find('?')>=0:
-                 xx1=''
+                xx1 = '"'
+                if x.find('*') >= 0 or x.find('?') >= 0:
+                    xx1 = ''
 
-              ss+='(data_uid:'+xx1+x+xx1+') OR (data_uoa:'+xx1+x+xx1+')'
-          ss+=')'
+                ss += '(data_uid:'+xx1+x+xx1+') OR (data_uoa:'+xx1+x+xx1+')'
+            ss += ')'
 
-       # Check search keys
-       first=True
-       for u in sd:
-           v=sd[u]
+        # Check search keys
+        first = True
+        for u in sd:
+            v = sd[u]
 
-           if first: 
-              first=False
-              if ss=='': ss+='('
-              else: ss+=' AND ('
-           else: 
-              ss+=' AND '
+            if first:
+                first = False
+                if ss == '':
+                    ss += '('
+                else:
+                    ss += ' AND ('
+            else:
+                ss += ' AND '
 
-           if type(v)==list:
-              first1=True
-              for lk in v:
-                  if first1:
-                     first1=False
-                  else:
-                     ss+=' AND '
+            if type(v) == list:
+                first1 = True
+                for lk in v:
+                    if first1:
+                        first1 = False
+                    else:
+                        ss += ' AND '
 
-                  x=str(lk)
+                    x = str(lk)
 
-                  xx1='"'
-                  if x.find('*')>=0 or x.find('?')>=0:
-                     xx1=''
+                    xx1 = '"'
+                    if x.find('*') >= 0 or x.find('?') >= 0:
+                        xx1 = ''
 
-                  ss+=u+':'+xx1+x+xx1
-           else:
-              x=str(v)
+                    ss += u+':'+xx1+x+xx1
+            else:
+                x = str(v)
 
-              xx1='"'
-              if x.find('*')>=0 or x.find('?')>=0:
-                 xx1=''
+                xx1 = '"'
+                if x.find('*') >= 0 or x.find('?') >= 0:
+                    xx1 = ''
 
-              ss+=u+':'+xx1+x+xx1
+                ss += u+':'+xx1+x+xx1
 
-       # Check special parameters
-       aidb=i.get('add_if_date_before','')
-       aida=i.get('add_if_date_after','')
-       aid=i.get('add_if_date','')
+        # Check special parameters
+        aidb = i.get('add_if_date_before', '')
+        aida = i.get('add_if_date_after', '')
+        aid = i.get('add_if_date', '')
 
-       # Support ISO and human readable time
-       aidb=aidb.strip().replace(' ','T')
-       aida=aida.strip().replace(' ','T')
-       aid=aid.strip().replace(' ','T')
+        # Support ISO and human readable time
+        aidb = aidb.strip().replace(' ', 'T')
+        aida = aida.strip().replace(' ', 'T')
+        aid = aid.strip().replace(' ', 'T')
 
-       sn=i.get('search_by_name','')
+        sn = i.get('search_by_name', '')
 
-       if sn!='':
-          if first: 
-             first=False
-             if ss=='': ss+='('
-             else: ss+=' AND ('
-          else: 
-             ss+=' AND '
+        if sn != '':
+            if first:
+                first = False
+                if ss == '':
+                    ss += '('
+                else:
+                    ss += ' AND ('
+            else:
+                ss += ' AND '
 
-          xx1='"'
-          if sn.find('*')>=0 or sn.find('?')>=0:
-             xx1=''
+            xx1 = '"'
+            if sn.find('*') >= 0 or sn.find('?') >= 0:
+                xx1 = ''
 
-          ss+='data_name:'+xx1+sn+xx1
+            ss += 'data_name:'+xx1+sn+xx1
 
-       if aidb!='' or aida!='' or aid!='':
-          if first: 
-             first=False
-             if ss=='': ss+='('
-             else: ss+=' AND ('
-          else: 
-             ss+=' AND '
+        if aidb != '' or aida != '' or aid != '':
+            if first:
+                first = False
+                if ss == '':
+                    ss += '('
+                else:
+                    ss += ' AND ('
+            else:
+                ss += ' AND '
 
-          ss+='iso_datetime:'
+            ss += 'iso_datetime:'
 
-          if aid!='': 
-             ss+='"'+aid+'"'
-          else:
-             ss+='['
-             if aida!='': 
-                ss+='"'+aida+'"'
-             else:
-                ss+='*'
-             if aidb!='':
-                ss+=' TO "'+aidb+'"'
-             ss+='] '
+            if aid != '':
+                ss += '"'+aid+'"'
+            else:
+                ss += '['
+                if aida != '':
+                    ss += '"'+aida+'"'
+                else:
+                    ss += '*'
+                if aidb != '':
+                    ss += ' TO "'+aidb+'"'
+                ss += '] '
 
-       # Finish query
-       if not first:
-          ss+=')'
+        # Finish query
+        if not first:
+            ss += ')'
 
-       # Prepare ElasticSearch query
-       try:
-         import urllib.parse as ur
-       except Exception as e:
-         import urllib as ur
+        # Prepare ElasticSearch query
+        try:
+            import urllib.parse as ur
+        except Exception as e:
+            import urllib as ur
 
-       path='/_search?'
-       if ss!='': path+='q='+ur.quote_plus(ss.encode('utf-8'))
-       if ls!='': path+='&size='+ls
+        path = '/_search?'
+        if ss != '':
+            path += 'q='+ur.quote_plus(ss.encode('utf-8'))
+        if ls != '':
+            path += '&size='+ls
 
 #       dss={'query':{'filtered':{'filter':{'terms':sd}}}}
-       dss={}
+        dss = {}
 
-       if i.get('debug','')=='yes':
-          out('Query string: '+ss)
-          out('')
+        if i.get('debug', '') == 'yes':
+            out('Query string: '+ss)
+            out('')
 
-       ri=access_index_server({'request':'GET', 
-                               'path':path, 
-                               'dict':dss, 
-                               'original_string':ss, 
-                               'limit_size':ls, 
-                               'start_from':i.get('start_from','')})
-       if ri['return']>0: return ri
+        ri = access_index_server({'request': 'GET',
+                                  'path': path,
+                                  'dict': dss,
+                                  'original_string': ss,
+                                  'limit_size': ls,
+                                  'start_from': i.get('start_from', '')})
+        if ri['return'] > 0:
+            return ri
 
-       dd=ri['dict'].get('hits',{}).get('hits',[])
+        dd = ri['dict'].get('hits', {}).get('hits', [])
 
-       lst=[]
-       for qx in dd:
-           q=qx.get('_source',{})
-           ruoa=q.get('repo_uoa','')
-           ruid=q.get('repo_uid','')
-           muoa=q.get('module_uoa','')
-           muid=q.get('module_uid','')
-           duoa=q.get('data_uoa','')
-           duid=q.get('data_uid','')
-           path=q.get('path','')
+        lst = []
+        for qx in dd:
+            q = qx.get('_source', {})
+            ruoa = q.get('repo_uoa', '')
+            ruid = q.get('repo_uid', '')
+            muoa = q.get('module_uoa', '')
+            muid = q.get('module_uid', '')
+            duoa = q.get('data_uoa', '')
+            duid = q.get('data_uid', '')
+            path = q.get('path', '')
 
-           to_add={'repo_uoa':ruoa, 'repo_uid':ruid,
-              'module_uoa':muoa, 'module_uid':muid,
-              'data_uoa':duoa, 'data_uid':duid,
-              'path':path}
+            to_add = {'repo_uoa': ruoa, 'repo_uid': ruid,
+                      'module_uoa': muoa, 'module_uid': muid,
+                      'data_uoa': duoa, 'data_uid': duid,
+                      'path': path}
 
-           if b_add_meta: to_add['meta']=q.get('dict')
-           if b_add_info: to_add['info']=q.get('dict')
+            if b_add_meta:
+                to_add['meta'] = q.get('dict')
+            if b_add_info:
+                to_add['info'] = q.get('dict')
 
-           lst.append(to_add)
+            lst.append(to_add)
 
-           if log_ck_entries:
-              lce=cfg.get('log_ck_entries','')
-              if lce!='':
-                 rl=save_text_file({'text_file':lce,
-                                    'string':'"action":"find", "repo_uoa":"'+
-                                             ruoa+'", "repo_uid":"'+
-                                             ruid+'", "module_uoa":"'+
-                                             muoa+'", "module_uid":"'+
-                                             muid+'", "data_uoa":"'+
-                                             duoa+'", "data_uid":"'+
-                                             duid+'"\n',
-                                    'append':'yes'})
-                 if rl['return']>0: return rl
+            if log_ck_entries:
+                lce = cfg.get('log_ck_entries', '')
+                if lce != '':
+                    rl = save_text_file({'text_file': lce,
+                                         'string': '"action":"find", "repo_uoa":"' +
+                                         ruoa+'", "repo_uid":"' +
+                                         ruid+'", "module_uoa":"' +
+                                         muoa+'", "module_uid":"' +
+                                         muid+'", "data_uoa":"' +
+                                         duoa+'", "data_uid":"' +
+                                         duid+'"\n',
+                                         'append': 'yes'})
+                    if rl['return'] > 0:
+                        return rl
 
-           if o=='con':
-              x=ruoa+':'+muoa+':'
-              if sys.version_info[0]<3: 
-                 y=duoa
-                 try: y=y.decode(sys.stdin.encoding)
-                 except Exception as e: 
-                   try: y=y.decode('utf8')
-                   except Exception as e: pass
-                 x+=y
-              else: x+=duoa
-              out(x)
+            if o == 'con':
+                x = ruoa+':'+muoa+':'
+                if sys.version_info[0] < 3:
+                    y = duoa
+                    try:
+                        y = y.decode(sys.stdin.encoding)
+                    except Exception as e:
+                        try:
+                            y = y.decode('utf8')
+                        except Exception as e:
+                            pass
+                    x += y
+                else:
+                    x += duoa
+                out(x)
 
-       rr['lst']=lst
-       rr['elapsed_time']=str(time.time() - start_time)
+        rr['lst'] = lst
+        rr['elapsed_time'] = str(time.time() - start_time)
 
-       if o=='con' and i.get('print_time','')=='yes':
-          out('Elapsed time: '+rr['elapsed_time']+' sec., number of entries: '+str(len(lst)))
+        if o == 'con' and i.get('print_time', '') == 'yes':
+            out('Elapsed time: '+rr['elapsed_time'] +
+                ' sec., number of entries: '+str(len(lst)))
 
     return rr
 
@@ -9550,65 +10155,75 @@ def search_filter(i):
 
     """
 
-    ic=i.get('ignore_case','')
+    ic = i.get('ignore_case', '')
 
     # Check special info
-    info=i.get('info',{})
-    if len(info)!='':
-       oaidb=i.get('obj_date_before', None)
-       oaida=i.get('obj_date_after', None)
-       oaid=i.get('obj_date', None)
-       sn=i.get('search_by_name','')
+    info = i.get('info', {})
+    if len(info) != '':
+        oaidb = i.get('obj_date_before', None)
+        oaida = i.get('obj_date_after', None)
+        oaid = i.get('obj_date', None)
+        sn = i.get('search_by_name', '')
 
-       # Check dates
-       if oaidb!=None or oaida!=None or oaid!=None:
-          idt=info.get('control',{}).get('iso_datetime','')
-          if idt!='':
-             rx=convert_iso_time({'iso_datetime':idt})
-             if rx['return']>0: return rx
-             oidt=rx['datetime_obj']
+        # Check dates
+        if oaidb != None or oaida != None or oaid != None:
+            idt = info.get('control', {}).get('iso_datetime', '')
+            if idt != '':
+                rx = convert_iso_time({'iso_datetime': idt})
+                if rx['return'] > 0:
+                    return rx
+                oidt = rx['datetime_obj']
 
-             if oaidb!=None and oidt>oaidb: return {'return':0, 'skip':'yes'}
-             if oaida!=None and oidt<oaida: return {'return':0, 'skip':'yes'}
-             if oaid!=None and oidt!=oaid: return {'return':0, 'skip':'yes'}
+                if oaidb != None and oidt > oaidb:
+                    return {'return': 0, 'skip': 'yes'}
+                if oaida != None and oidt < oaida:
+                    return {'return': 0, 'skip': 'yes'}
+                if oaid != None and oidt != oaid:
+                    return {'return': 0, 'skip': 'yes'}
 
-       # Check if search by name
-       if sn!='':
-          ro=find_string_in_dict_or_list({'dict':{'string':info.get('data_name','')}, 
-                                          'search_string':sn,
-                                          'ignore_case':ic})
-          if ro['return']>0: return ro
-          if ro['found']!='yes': return {'return':0, 'skip':'yes'}
+        # Check if search by name
+        if sn != '':
+            ro = find_string_in_dict_or_list({'dict': {'string': info.get('data_name', '')},
+                                              'search_string': sn,
+                                              'ignore_case': ic})
+            if ro['return'] > 0:
+                return ro
+            if ro['found'] != 'yes':
+                return {'return': 0, 'skip': 'yes'}
 
     # To be fast, load directly
-    p=i['path']
+    p = i['path']
 
-    skip='yes'
+    skip = 'yes'
 
-    sd=i.get('search_dict',{})
+    sd = i.get('search_dict', {})
 
-    p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta'])
+    p1 = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta'])
     if not os.path.isfile(p1):
-       p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta_old'])
-       if not os.path.isfile(p1):
-          return {'return':0, 'skip':'yes'}
+        p1 = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta_old'])
+        if not os.path.isfile(p1):
+            return {'return': 0, 'skip': 'yes'}
 
-    r=load_json_file({'json_file':p1})
-    if r['return']>0: return r
-    d=r['dict']
+    r = load_json_file({'json_file': p1})
+    if r['return'] > 0:
+        return r
+    d = r['dict']
 
     # Check directly
-    rx=compare_dicts({'dict1':d, 'dict2':sd, 'ignore_case':ic})
-    if rx['return']>0: return rx
-    equal=rx['equal']
-    if equal=='yes': skip='no'
+    rx = compare_dicts({'dict1': d, 'dict2': sd, 'ignore_case': ic})
+    if rx['return'] > 0:
+        return rx
+    equal = rx['equal']
+    if equal == 'yes':
+        skip = 'no'
 
-    return {'return':0, 'skip':skip}
+    return {'return': 0, 'skip': skip}
 
 ##############################################################################
 # Compare two dictionaries recursively
 #
 # TARGET: end users
+
 
 def compare_dicts(i):
     """Compare two dictionaries recursively
@@ -9640,72 +10255,75 @@ def compare_dicts(i):
 
     """
 
-    d1=i.get('dict1',{})
-    d2=i.get('dict2',{})
+    d1 = i.get('dict1', {})
+    d2 = i.get('dict2', {})
 
-    equal='yes'
+    equal = 'yes'
 
-    bic=False
-    ic=i.get('ignore_case','')
-    if ic=='yes': bic=True
+    bic = False
+    ic = i.get('ignore_case', '')
+    if ic == 'yes':
+        bic = True
 
     for q2 in d2:
-        v2=d2[q2]
-        if type(v2)==dict:
-           if q2 not in d1:
-              equal='no'
-              break
+        v2 = d2[q2]
+        if type(v2) == dict:
+            if q2 not in d1:
+                equal = 'no'
+                break
 
-           v1=d1[q2]
+            v1 = d1[q2]
 
-           rx=compare_dicts({'dict1':v1,'dict2':v2, 'ignore_case':ic})
-           if rx['return']>0: return rx
-           equal=rx['equal']
-           if equal=='no':
-              break
-        elif type(v2)==list:
-           # For now can check only values in list
-           if q2 not in d1:
-              equal='no'
-              break
+            rx = compare_dicts({'dict1': v1, 'dict2': v2, 'ignore_case': ic})
+            if rx['return'] > 0:
+                return rx
+            equal = rx['equal']
+            if equal == 'no':
+                break
+        elif type(v2) == list:
+            # For now can check only values in list
+            if q2 not in d1:
+                equal = 'no'
+                break
 
-           v1=d1[q2]
+            v1 = d1[q2]
 
-           if type(v1)!=list:
-              equal='no'
-              break
+            if type(v1) != list:
+                equal = 'no'
+                break
 
-           for m in v2:
-               if m not in v1:
-                  equal='no'
-                  break
+            for m in v2:
+                if m not in v1:
+                    equal = 'no'
+                    break
 
-           if equal=='no':
-              break
+            if equal == 'no':
+                break
         else:
-           if q2 not in d1:
-              equal='no'
-              break
+            if q2 not in d1:
+                equal = 'no'
+                break
 
-           if equal=='no':
-              break
+            if equal == 'no':
+                break
 
-           v1=d1[q2]
+            v1 = d1[q2]
 
-           if bic and type(v1)!=int and type(v1)!=float and type(v1)!=bool: 
-              v1=v1.lower()
-              v2=v2.lower()
+            if bic and type(v1) != int and type(v1) != float and type(v1) != bool:
+                v1 = v1.lower()
+                v2 = v2.lower()
 
-           if v2!=v1:
-              equal='no'
-              break
+            if v2 != v1:
+                equal = 'no'
+                break
 
-    return {'return':0, 'equal':equal}
+    return {'return': 0, 'equal': equal}
 
 ##############################################################################
 # Compare two CK flat dictionaries
 #
 # TARGET: end users
+
 
 def compare_flat_dicts(i):
     """Compare two CK flat dictionaries
@@ -9729,59 +10347,62 @@ def compare_flat_dicts(i):
 
     """
 
-    d1=i.get('dict1',{})
-    d2=i.get('dict2',{})
+    d1 = i.get('dict1', {})
+    d2 = i.get('dict2', {})
 
-    equal='yes'
+    equal = 'yes'
 
-    ic=False
-    x=i.get('ignore_case','')
-    if x=='yes': ic=True
+    ic = False
+    x = i.get('ignore_case', '')
+    if x == 'yes':
+        ic = True
 
-    san=None
-    x=i.get('space_as_none','')
-    if x=='yes': san=''
+    san = None
+    x = i.get('space_as_none', '')
+    if x == 'yes':
+        san = ''
 
     # Create common set of keys
-    keys=list(d1.keys())
+    keys = list(d1.keys())
     for q in d2:
         if q not in keys:
-           keys.append(q)
+            keys.append(q)
 
     # If keys to ignore
-    kti=i.get('keys_to_ignore',[])
-    if len(kti)>0:
-       import fnmatch
+    kti = i.get('keys_to_ignore', [])
+    if len(kti) > 0:
+        import fnmatch
 
-       x=[]
-       for q in keys:
-           skip=False
-           for k in kti:
-               if fnmatch.fnmatch(q,k):
-                  skip=True
-           if not skip:
-              x.append(q)
-       keys=x
+        x = []
+        for q in keys:
+            skip = False
+            for k in kti:
+                if fnmatch.fnmatch(q, k):
+                    skip = True
+            if not skip:
+                x.append(q)
+        keys = x
 
     # Compare all keys
     for q in keys:
-        v1=d1.get(q, san)
-        v2=d2.get(q, san)
+        v1 = d1.get(q, san)
+        v2 = d2.get(q, san)
 
-        if ic and type(v1)!=int and type(v1)!=float and type(v1)!=bool: 
-           v1=v1.lower()
-           v2=v2.lower()
+        if ic and type(v1) != int and type(v1) != float and type(v1) != bool:
+            v1 = v1.lower()
+            v2 = v2.lower()
 
-        if v1!=v2:
-           equal='no'
-           break
+        if v1 != v2:
+            equal = 'no'
+            break
 
-    return {'return':0, 'equal':equal}
+    return {'return': 0, 'equal': equal}
 
 ##############################################################################
 # Find a string in a dict or list
 #
 # TARGET: end users
+
 
 def find_string_in_dict_or_list(i):
     """Find a string in a dict or list
@@ -9802,50 +10423,58 @@ def find_string_in_dict_or_list(i):
                 found (str): if 'yes', string found
     """
 
-    d=i.get('dict',{})
+    d = i.get('dict', {})
 
-    found='no'
+    found = 'no'
 
-    wc=False
-    ss=i.get('search_string','')
-    if ss.find('*')>=0 or ss.find('?')>=0:
-       wc=True
-       import fnmatch
+    wc = False
+    ss = i.get('search_string', '')
+    if ss.find('*') >= 0 or ss.find('?') >= 0:
+        wc = True
+        import fnmatch
 
-    bic=False
-    ic=i.get('ignore_case','')
-    if ic=='yes': 
-       bic=True
-       ss=ss.lower()
+    bic = False
+    ic = i.get('ignore_case', '')
+    if ic == 'yes':
+        bic = True
+        ss = ss.lower()
 
     for q in d:
-        if type(d)==dict:   v=d[q]
-        elif type(d)==list: v=q
-        else:               v=str(q)
-
-        if type(v)==dict or type(v)==list:
-           rx=find_string_in_dict_or_list({'dict':v, 'search_string':ss, 'ignore_case':ic})
-           if rx['return']>0: return rx
-           found=rx['found']
-           if found=='yes':
-              break
+        if type(d) == dict:
+            v = d[q]
+        elif type(d) == list:
+            v = q
         else:
-           try: v=str(v)
-           except Exception as e: pass
+            v = str(q)
 
-           if bic: 
-              v=v.lower()
+        if type(v) == dict or type(v) == list:
+            rx = find_string_in_dict_or_list(
+                {'dict': v, 'search_string': ss, 'ignore_case': ic})
+            if rx['return'] > 0:
+                return rx
+            found = rx['found']
+            if found == 'yes':
+                break
+        else:
+            try:
+                v = str(v)
+            except Exception as e:
+                pass
 
-           if (wc and fnmatch.fnmatch(v, ss)) or v==ss:
-              found='yes'
-              break
+            if bic:
+                v = v.lower()
 
-    return {'return':0, 'found':found}
+            if (wc and fnmatch.fnmatch(v, ss)) or v == ss:
+                found = 'yes'
+                break
+
+    return {'return': 0, 'found': found}
 
 ##############################################################################
 # Search filter
 #
 # TARGET: CK kernel and low-level developers
+
 
 def search_string_filter(i):
     """Search filter
@@ -9871,38 +10500,43 @@ def search_string_filter(i):
     """
 
     # To be fast, load directly
-    p=i['path']
+    p = i['path']
 
-    skip='yes'
+    skip = 'yes'
 
-    ss=i.get('search_string','')
-    if ss=='':
-       skip='no'
+    ss = i.get('search_string', '')
+    if ss == '':
+        skip = 'no'
     else:
-       ic=i.get('ignore_case','')
+        ic = i.get('ignore_case', '')
 
-       p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta'])
-       if not os.path.isfile(p1):
-          p1=os.path.join(p,cfg['subdir_ck_ext'],cfg['file_meta_old'])
-          if not os.path.isfile(p1):
-             return {'return':0, 'skip':'yes'}
+        p1 = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta'])
+        if not os.path.isfile(p1):
+            p1 = os.path.join(p, cfg['subdir_ck_ext'], cfg['file_meta_old'])
+            if not os.path.isfile(p1):
+                return {'return': 0, 'skip': 'yes'}
 
-       r=load_json_file({'json_file':p1})
-       if r['return']>0: return r
-       d=r['dict']
+        r = load_json_file({'json_file': p1})
+        if r['return'] > 0:
+            return r
+        d = r['dict']
 
-       # Check directly
-       rx=find_string_in_dict_or_list({'dict':d, 'search_string':ss, 'ignore_case':ic})
-       if rx['return']>0: return rx
-       found=rx['found']
-       if found=='yes': skip='no'
+        # Check directly
+        rx = find_string_in_dict_or_list(
+            {'dict': d, 'search_string': ss, 'ignore_case': ic})
+        if rx['return'] > 0:
+            return rx
+        found = rx['found']
+        if found == 'yes':
+            skip = 'no'
 
-    return {'return':0, 'skip':skip}
+    return {'return': 0, 'skip': skip}
 
 ##############################################################################
 # Access index server (usually ElasticSearch)
 #
 # TARGET: CK kernel and low-level developers
+
 
 def access_index_server(i):
     """Access index server (usually ElasticSearch)
@@ -9926,199 +10560,210 @@ def access_index_server(i):
 
     """
 
-    request=i['request']
+    request = i['request']
 
     # Prepare URL
-    host=cfg.get('index_host','')
-    if host=='':
-       return {'return':1, 'error':'index host is not defined in configuration'}
+    host = cfg.get('index_host', '')
+    if host == '':
+        return {'return': 1, 'error': 'index host is not defined in configuration'}
 
-    url=host
-    port=cfg.get('index_port','')
-    if port!='':
-       url+=':'+port
+    url = host
+    port = cfg.get('index_port', '')
+    if port != '':
+        url += ':'+port
 
-    path=i.get('path','')
-    xpath=path.split('/')
+    path = i.get('path', '')
+    xpath = path.split('/')
 
-    dd=i.get('dict',{})
-    ddo={}
+    dd = i.get('dict', {})
+    ddo = {}
 
-    if cfg.get('index_use_curl','')=='yes':
-       url+=path
+    if cfg.get('index_use_curl', '') == 'yes':
+        url += path
 
-       import tempfile
+        import tempfile
 
-       fd1, fn1=tempfile.mkstemp(suffix='.tmp', prefix='ck-')
-       os.close(fd1)
-       os.remove(fn1)
+        fd1, fn1 = tempfile.mkstemp(suffix='.tmp', prefix='ck-')
+        os.close(fd1)
+        os.remove(fn1)
 
-       fd2, fn2=tempfile.mkstemp(suffix='.tmp', prefix='ck-')
-       os.close(fd2)
-       os.remove(fn2)
+        fd2, fn2 = tempfile.mkstemp(suffix='.tmp', prefix='ck-')
+        os.close(fd2)
+        os.remove(fn2)
 
-       r=save_json_to_file({'json_file':fn1, 'dict':dd})
-       if r['return']>0: return r
+        r = save_json_to_file({'json_file': fn1, 'dict': dd})
+        if r['return'] > 0:
+            return r
 
-       cmd='curl -X'+request+' '+url+' -d @'+fn1+' -s -o '+fn2
-       os.system(cmd)
+        cmd = 'curl -X'+request+' '+url+' -d @'+fn1+' -s -o '+fn2
+        os.system(cmd)
 
-       # Read output
-       if not os.path.isfile(fn2):
-          return {'return':1, 'error':'problem accessing indexing server - maybe indexing server is down?'}
+        # Read output
+        if not os.path.isfile(fn2):
+            return {'return': 1, 'error': 'problem accessing indexing server - maybe indexing server is down?'}
 
-       r=load_json_file({'json_file':fn2})
+        r = load_json_file({'json_file': fn2})
 
-       if os.path.isfile(fn1): os.remove(fn1)
-       if os.path.isfile(fn2): os.remove(fn2)
+        if os.path.isfile(fn1):
+            os.remove(fn1)
+        if os.path.isfile(fn2):
+            os.remove(fn2)
 
-       if r['return']>0: return r
-       ddo=r['dict']
-    elif cfg.get('index_use_web','')=='yes':
-       url+=path
+        if r['return'] > 0:
+            return r
+        ddo = r['dict']
+    elif cfg.get('index_use_web', '') == 'yes':
+        url += path
 
-       try:
-          import urllib.request as urllib2
-       except:
-          import urllib2
+        try:
+            import urllib.request as urllib2
+        except:
+            import urllib2
 
-       try:
-          from urllib.parse import urlencode
-       except:
-          from urllib import urlencode
+        try:
+            from urllib.parse import urlencode
+        except:
+            from urllib import urlencode
 
-       # Prepare post variables
-       r=dumps_json({'dict':dd, 'skip_indent':'yes'})
-       if r['return']>0: return r
-       s=r['string'].encode('utf8')
+        # Prepare post variables
+        r = dumps_json({'dict': dd, 'skip_indent': 'yes'})
+        if r['return'] > 0:
+            return r
+        s = r['string'].encode('utf8')
 
-       rq = urllib2.Request(url, s)
-       if request=='DELETE':
-          rq.get_method = lambda: request
+        rq = urllib2.Request(url, s)
+        if request == 'DELETE':
+            rq.get_method = lambda: request
 
-       not_found=False
-       try:
-          f=urllib2.urlopen(rq)
-       except urllib2.URLError as e:
-          se=format(e)
-          if request=='DELETE' and se.find('404')>0:
-             not_found=True
-          else:
-             return {'return':1, 'error':'problem accessing indexing server ('+se+')'}
+        not_found = False
+        try:
+            f = urllib2.urlopen(rq)
+        except urllib2.URLError as e:
+            se = format(e)
+            if request == 'DELETE' and se.find('404') > 0:
+                not_found = True
+            else:
+                return {'return': 1, 'error': 'problem accessing indexing server ('+se+')'}
 
-       if not not_found:
-          try:
-             s=f.read()
-             f.close()
-          except Exception as e:
-             return {'return':1, 'error':'can\'t parse output during indexing ('+format(e)+')'}
-
-          if sys.version_info[0]>2:
-             s=s.decode('utf8')
-
-          r=convert_json_str_to_dict({'str':s, 'skip_quote_replacement':'yes'})
-          if r['return']>0: 
-             return {'return':1, 'error':'can\'t parse output from index server ('+r['error']+')'}
-          ddo=r['dict']
-    else:
-       # Check that elastic search client is installed
-       found_elasticsearch=True
-       try:
-          import elasticsearch
-       except Exception as e:
-          found_elasticsearch=False
-          pass
-
-       if not found_elasticsearch:
-          return {'return':1, 'error':'Python elasticsearch client library was not found; try to install it via "pip install elasticsearch"'}
-
-       # Init ElasticSearch
-       try:
-          es=elasticsearch.Elasticsearch([url])
-       except elasticsearch.ElasticsearchException as e:
-          return {'return':1, 'error':'problem initializing ElasticSearch ('+format(e)+')'}
-
-       es_index='ck'
-       es_doc_type='_doc'
-
-       # Check commands
-       if request=='TEST':
-          # Normally we already connected fine above
-
-          ddo=es.info()
-          ddo['health']=es.cluster.health()
-          ddo['status']=200
-
-       else:
-          es_id=''
-          if len(xpath)>1:
-              es_id+=xpath[1]
-          if len(xpath)>2:
-              es_id+='_'+xpath[2]
-
-          if request=='GET':
-             lsize=i.get('limit_size','')
-             if lsize!='' and lsize!=None:
-                lsize=int(lsize)
-             else:
-                lsize=1000
-
-             start_from=i.get('start_from','')
-             if start_from!='' and start_from!=None:
-                start_from=int(start_from)
-             else:
-                start_from=0
-
-             s=i.get('original_string','')
-             try:
-                ddo = es.search(index="ck", 
-                                body={"query": {
-                                  "query_string":{
-                                     "query":s,
-                                     "analyze_wildcard":True
-                                  }
-                                }, 
-                                "from":start_from, 
-                                "size":lsize})
-             except elasticsearch.ElasticsearchException as e:
-                se=format(e)
-                return {'return':33, 'error':'problem 33 accessing indexing server ('+se+')'}
-          elif request=='DELETE':
-             if path=='/_all':
-                try:
-                   ddo=es.indices.delete(index=es_index, ignore=[400, 404])
-                except elasticsearch.ElasticsearchException as e:
-                   se=format(e)
-                   return {'return':2, 'error':'problem 2 accessing indexing server ('+se+')'}
-             else:
-                exists=True
-                try:
-                   ddo=es.get(index=es_index, doc_type=es_doc_type, id=es_id)
-                except elasticsearch.ElasticsearchException as e:
-                   es_status=e.info.get('status',0)
-                   if es_status==404 or e.info.get('found')==False:
-                      exists=False
-
-                if exists:
-                   try:
-                      ddo=es.delete(index=es_index, doc_type=es_doc_type, id=es_id)
-                   except elasticsearch.ElasticsearchException as e:
-                      se=format(e)
-                      return {'return':3, 'error':'problem 3 accessing indexing server ('+se+')'}
-
-          elif request=='PUT':
+        if not not_found:
             try:
-               ddo=es.index(index=es_index, doc_type=es_doc_type, id=es_id, body=dd)
-            except elasticsearch.ElasticsearchException as e:
-               se=format(e)
-               return {'return':4, 'error':'problem 4 accessing indexing server ('+se+')'}
+                s = f.read()
+                f.close()
+            except Exception as e:
+                return {'return': 1, 'error': 'can\'t parse output during indexing ('+format(e)+')'}
 
-    return {'return':0, 'dict':ddo}
+            if sys.version_info[0] > 2:
+                s = s.decode('utf8')
+
+            r = convert_json_str_to_dict(
+                {'str': s, 'skip_quote_replacement': 'yes'})
+            if r['return'] > 0:
+                return {'return': 1, 'error': 'can\'t parse output from index server ('+r['error']+')'}
+            ddo = r['dict']
+    else:
+        # Check that elastic search client is installed
+        found_elasticsearch = True
+        try:
+            import elasticsearch
+        except Exception as e:
+            found_elasticsearch = False
+            pass
+
+        if not found_elasticsearch:
+            return {'return': 1, 'error': 'Python elasticsearch client library was not found; try to install it via "pip install elasticsearch"'}
+
+        # Init ElasticSearch
+        try:
+            es = elasticsearch.Elasticsearch([url])
+        except elasticsearch.ElasticsearchException as e:
+            return {'return': 1, 'error': 'problem initializing ElasticSearch ('+format(e)+')'}
+
+        es_index = 'ck'
+        es_doc_type = '_doc'
+
+        # Check commands
+        if request == 'TEST':
+            # Normally we already connected fine above
+
+            ddo = es.info()
+            ddo['health'] = es.cluster.health()
+            ddo['status'] = 200
+
+        else:
+            es_id = ''
+            if len(xpath) > 1:
+                es_id += xpath[1]
+            if len(xpath) > 2:
+                es_id += '_'+xpath[2]
+
+            if request == 'GET':
+                lsize = i.get('limit_size', '')
+                if lsize != '' and lsize != None:
+                    lsize = int(lsize)
+                else:
+                    lsize = 1000
+
+                start_from = i.get('start_from', '')
+                if start_from != '' and start_from != None:
+                    start_from = int(start_from)
+                else:
+                    start_from = 0
+
+                s = i.get('original_string', '')
+                try:
+                    ddo = es.search(index="ck",
+                                    body={"query": {
+                                        "query_string": {
+                                          "query": s,
+                                          "analyze_wildcard": True
+                                          }
+                                    },
+                                        "from": start_from,
+                                        "size": lsize})
+                except elasticsearch.ElasticsearchException as e:
+                    se = format(e)
+                    return {'return': 33, 'error': 'problem 33 accessing indexing server ('+se+')'}
+            elif request == 'DELETE':
+                if path == '/_all':
+                    try:
+                        ddo = es.indices.delete(
+                            index=es_index, ignore=[400, 404])
+                    except elasticsearch.ElasticsearchException as e:
+                        se = format(e)
+                        return {'return': 2, 'error': 'problem 2 accessing indexing server ('+se+')'}
+                else:
+                    exists = True
+                    try:
+                        ddo = es.get(index=es_index,
+                                     doc_type=es_doc_type, id=es_id)
+                    except elasticsearch.ElasticsearchException as e:
+                        es_status = e.info.get('status', 0)
+                        if es_status == 404 or e.info.get('found') == False:
+                            exists = False
+
+                    if exists:
+                        try:
+                            ddo = es.delete(
+                                index=es_index, doc_type=es_doc_type, id=es_id)
+                        except elasticsearch.ElasticsearchException as e:
+                            se = format(e)
+                            return {'return': 3, 'error': 'problem 3 accessing indexing server ('+se+')'}
+
+            elif request == 'PUT':
+                try:
+                    ddo = es.index(
+                        index=es_index, doc_type=es_doc_type, id=es_id, body=dd)
+                except elasticsearch.ElasticsearchException as e:
+                    se = format(e)
+                    return {'return': 4, 'error': 'problem 4 accessing indexing server ('+se+')'}
+
+    return {'return': 0, 'dict': ddo}
 
 ##############################################################################
 # Add a new action to the given CK module
 #
 # TARGET: should use via ck.kernel.access
+
 
 def add_action(i):
     """Add a new action to the given CK module
@@ -10147,139 +10792,151 @@ def add_action(i):
     """
 
     # Check if global writing is allowed
-    r=check_writing({})
-    if r['return']>0: return r
+    r = check_writing({})
+    if r['return'] > 0:
+        return r
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    func=i.get('func','').strip()
+    func = i.get('func', '').strip()
 
-    desc=i.get('desc','')
+    desc = i.get('desc', '')
 
-    fweb=i.get('for_web','')
+    fweb = i.get('for_web', '')
 
-    if muoa=='':
-       return {'return':1, 'error':'module UOA is not defined'}
+    if muoa == '':
+        return {'return': 1, 'error': 'module UOA is not defined'}
 
-    if duoa!='':
-       muoa=duoa
-       duoa=''
+    if duoa != '':
+        muoa = duoa
+        duoa = ''
 
     # Find path to module
-    ii={'module_uoa':cfg['module_name'],
-        'data_uoa':muoa}
-    if ruoa!='': ii['repo_uoa']=ruoa
-    r=load(ii)
-    if r['return']>0: return r
+    ii = {'module_uoa': cfg['module_name'],
+          'data_uoa': muoa}
+    if ruoa != '':
+        ii['repo_uoa'] = ruoa
+    r = load(ii)
+    if r['return'] > 0:
+        return r
 
-    pp=r['path']
-    dd=r['dict']
+    pp = r['path']
+    dd = r['dict']
 
-    actions=dd.get('actions',{})
-    actions_redirect=dd.get('actions_redirect',{})
+    actions = dd.get('actions', {})
+    actions_redirect = dd.get('actions_redirect', {})
 
     # Check func and desc
-    if o=='con':
-       if func=='':
-          r=inp({'text':'Add action function (or Enter to stop): '})
-          func=r['string']
+    if o == 'con':
+        if func == '':
+            r = inp({'text': 'Add action function (or Enter to stop): '})
+            func = r['string']
 
-       if func!='':
-#          if fweb=='':
-#             r1=inp({'text':'Support web (y/N):                         '})
-#             fweb=r1['string'].lower()
-#             if fweb=='y' or fweb=='yes': fweb='yes'
-#             else: fweb=''
+        if func != '':
+            #          if fweb=='':
+            #             r1=inp({'text':'Support web (y/N):                         '})
+            #             fweb=r1['string'].lower()
+            #             if fweb=='y' or fweb=='yes': fweb='yes'
+            #             else: fweb=''
 
-          if desc=='':
-             r1=inp({'text':'Add action description:                 '})
-             desc=r1['string']
+            if desc == '':
+                r1 = inp({'text': 'Add action description:                 '})
+                desc = r1['string']
 
     # Check if empty
-    if func=='':
-       return {'return':1, 'error':'action (function) is not defined'}
+    if func == '':
+        return {'return': 1, 'error': 'action (function) is not defined'}
 
-    if len(func)>0 and func[0].isdigit():
-       return {'return':1, 'error':'action name should not start from a number'}
+    if len(func) > 0 and func[0].isdigit():
+        return {'return': 1, 'error': 'action name should not start from a number'}
 
-    if cfg.get('allowed_action_names','')!='':
-       import re
+    if cfg.get('allowed_action_names', '') != '':
+        import re
 
-       anames=cfg.get('allowed_action_names','')
+        anames = cfg.get('allowed_action_names', '')
 
-       if not re.match(anames, func):
-          return {'return':1, 'error':'found disallowed characters in the action name (allowed: "'+anames+'")'}
+        if not re.match(anames, func):
+            return {'return': 1, 'error': 'found disallowed characters in the action name (allowed: "'+anames+'")'}
 
-    if func=='init':
-       func1='new_'+func
-       if func1 in actions:
-          return {'return':1, 'error':'action (function) "'+func1+'" already exists in the module'}
-       actions_redirect[func]=func1
+    if func == 'init':
+        func1 = 'new_'+func
+        if func1 in actions:
+            return {'return': 1, 'error': 'action (function) "'+func1+'" already exists in the module'}
+        actions_redirect[func] = func1
 
     if func in actions:
-       return {'return':1, 'error':'action (function) already exists in the module'}
+        return {'return': 1, 'error': 'action (function) already exists in the module'}
 
     for x in actions_redirect:
-        if actions_redirect[x]==func:
-           return {'return':1, 'error':'redirected action (function) already exists in the module'}
+        if actions_redirect[x] == func:
+            return {'return': 1, 'error': 'redirected action (function) already exists in the module'}
 
     if '-' in func:
-       func1=func.replace('-','_')
-       actions_redirect[func]=func1
+        func1 = func.replace('-', '_')
+        actions_redirect[func] = func1
 
     # Adding actions
-    actions[func]={}
-    if desc!='': actions[func]['desc']=desc
-    if fweb!='': actions[func]['for_web']=fweb
+    actions[func] = {}
+    if desc != '':
+        actions[func]['desc'] = desc
+    if fweb != '':
+        actions[func]['for_web'] = fweb
 
-    dd['actions']=actions
-    dd['actions_redirect']=actions_redirect
+    dd['actions'] = actions
+    dd['actions_redirect'] = actions_redirect
 
-    if i.get('skip_appending_dummy_code','')!='yes':
-       ii={'module_uoa':cfg['module_name'],
-           'data_uoa':cfg['module_name']}
-       r=load(ii)
-       if r['return']>0: return r
+    if i.get('skip_appending_dummy_code', '') != 'yes':
+        ii = {'module_uoa': cfg['module_name'],
+              'data_uoa': cfg['module_name']}
+        r = load(ii)
+        if r['return'] > 0:
+            return r
 
-       px=r['path']
-       pd=r['dict']
+        px = r['path']
+        pd = r['dict']
 
-       pma=os.path.join(px, pd['dummy_module_action'])
+        pma = os.path.join(px, pd['dummy_module_action'])
 
-       # Load module action dummy
-       r=load_text_file({'text_file':pma})
-       if r['return']>0: return r
-       spma=r['string']
+        # Load module action dummy
+        r = load_text_file({'text_file': pma})
+        if r['return'] > 0:
+            return r
+        spma = r['string']
 
-       # Load current module
-       pmx=os.path.join(pp, cfg['module_full_code_name'])
-       r=load_text_file({'text_file':pmx})
-       if r['return']>0: return r
-       spm=r['string']
+        # Load current module
+        pmx = os.path.join(pp, cfg['module_full_code_name'])
+        r = load_text_file({'text_file': pmx})
+        if r['return'] > 0:
+            return r
+        spm = r['string']
 
-       # Update
-       if func in actions_redirect:
-          func=actions_redirect[func]
-       spm+='\n'+spma.replace('$#action#$', func).replace('$#desc#$',desc)
+        # Update
+        if func in actions_redirect:
+            func = actions_redirect[func]
+        spm += '\n'+spma.replace('$#action#$', func).replace('$#desc#$', desc)
 
-       # Write current module
-       rx=save_text_file({'text_file':pmx, 'string':spm})
-       if rx['return']>0: return rx
+        # Write current module
+        rx = save_text_file({'text_file': pmx, 'string': spm})
+        if rx['return'] > 0:
+            return rx
 
     # Update data entry
-    if o=='con': out('')
-    ii={'module_uoa':cfg['module_name'],
-        'data_uoa':muoa,
-        'dict':dd,
-        'out':o,
-        'sort_keys':'yes'}
-    if ruoa!='': ii['repo_uoa']=ruoa
-    r=update(ii)
-    if r['return']>0: return r
+    if o == 'con':
+        out('')
+    ii = {'module_uoa': cfg['module_name'],
+          'data_uoa': muoa,
+          'dict': dd,
+          'out': o,
+          'sort_keys': 'yes'}
+    if ruoa != '':
+        ii['repo_uoa'] = ruoa
+    r = update(ii)
+    if r['return'] > 0:
+        return r
 
     return r
 
@@ -10287,6 +10944,7 @@ def add_action(i):
 # Remove an action from the given module
 #
 # TARGET: should use via ck.kernel.access
+
 
 def remove_action(i):
     """Remove an action from the given module
@@ -10310,68 +10968,75 @@ def remove_action(i):
     """
 
     # Check if global writing is allowed
-    r=check_writing({})
-    if r['return']>0: return r
+    r = check_writing({})
+    if r['return'] > 0:
+        return r
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    func=i.get('func','')
+    func = i.get('func', '')
 
-    if muoa=='':
-       return {'return':1, 'error':'module UOA is not defined'}
+    if muoa == '':
+        return {'return': 1, 'error': 'module UOA is not defined'}
 
-    if duoa!='':
-       muoa=duoa
-       duoa=''
+    if duoa != '':
+        muoa = duoa
+        duoa = ''
 
     # Find path to module
-    ii={'module_uoa':cfg['module_name'],
-        'data_uoa':muoa}
-    if ruoa!='': ii['repo_uoa']=ruoa
-    r=load(ii)
-    if r['return']>0: return r
+    ii = {'module_uoa': cfg['module_name'],
+          'data_uoa': muoa}
+    if ruoa != '':
+        ii['repo_uoa'] = ruoa
+    r = load(ii)
+    if r['return'] > 0:
+        return r
 
-    pp=r['path']
-    dd=r['dict']
+    pp = r['path']
+    dd = r['dict']
 
-    actions=dd.get('actions',{})
+    actions = dd.get('actions', {})
 
     # Check func and desc
-    if o=='con':
-       if func=='':
-          r=inp({'text':'Enter function to be removed (or Enter to quit) - note that we remove only reference to this function from the module meta: '})
-          func=r['string']
+    if o == 'con':
+        if func == '':
+            r = inp({'text': 'Enter function to be removed (or Enter to quit) - note that we remove only reference to this function from the module meta: '})
+            func = r['string']
 
     # Check if empty
-    if func=='':
-       return {'return':1, 'error':'action (function) is not defined'}
+    if func == '':
+        return {'return': 1, 'error': 'action (function) is not defined'}
 
     if func not in actions:
-       return {'return':1, 'error':'action (function) is not found in the module'}
+        return {'return': 1, 'error': 'action (function) is not found in the module'}
 
     del (actions[func])
 
-    dd['actions']=actions
+    dd['actions'] = actions
 
     # Update data entry
-    if o=='con': out('')
-    ii={'module_uoa':cfg['module_name'],
-        'data_uoa':muoa,
-        'dict':dd,
-        'substitute':'yes',
-        'sort_keys':'yes',
-        'out':o}
-    if ruoa!='': ii['repo_uoa']=ruoa
-    r=update(ii)
-    if r['return']>0: return r
+    if o == 'con':
+        out('')
+    ii = {'module_uoa': cfg['module_name'],
+          'data_uoa': muoa,
+          'dict': dd,
+          'substitute': 'yes',
+          'sort_keys': 'yes',
+          'out': o}
+    if ruoa != '':
+        ii['repo_uoa'] = ruoa
+    r = update(ii)
+    if r['return'] > 0:
+        return r
 
-    if o=='con':
-       out('')
-       out('Reference to the function "'+func+'" was removed from module meta. Function body was not removed from the python code')
+    if o == 'con':
+        out('')
+        out('Reference to the function "'+func +
+            '" was removed from module meta. Function body was not removed from the python code')
 
     return r
 
@@ -10379,6 +11044,7 @@ def remove_action(i):
 # List actions in the given CK module
 #
 # TARGET: should use via ck.kernel.access
+
 
 def list_actions(i):
     """List actions in the given CK module
@@ -10400,49 +11066,53 @@ def list_actions(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    if muoa!='':
-       if duoa!='':
-          muoa=duoa
-          duoa=''
+    if muoa != '':
+        if duoa != '':
+            muoa = duoa
+            duoa = ''
 
-       # Find path to module 'module' to get dummies
-       ii={'action':'load',
-           'module_uoa':cfg['module_name'],
-           'data_uoa':muoa,
-           'common_func':'yes'}
-       if ruoa!='': ii['repo_uoa']=ruoa
+        # Find path to module 'module' to get dummies
+        ii = {'action': 'load',
+              'module_uoa': cfg['module_name'],
+              'data_uoa': muoa,
+              'common_func': 'yes'}
+        if ruoa != '':
+            ii['repo_uoa'] = ruoa
 
-       r=access(ii)
-       if r['return']>0: return r
+        r = access(ii)
+        if r['return'] > 0:
+            return r
 
-       dd=r['dict']
-   
-       actions=dd.get('actions',{})
+        dd = r['dict']
+
+        actions = dd.get('actions', {})
     else:
-       actions=cfg['actions']
+        actions = cfg['actions']
 
     # If console, print actions
-    if o=='con':
-       for q in sorted(actions.keys()):
-           s=q
+    if o == 'con':
+        for q in sorted(actions.keys()):
+            s = q
 
-           desc=actions[q].get('desc','')
-           if desc!='': s+=' - '+desc
+            desc = actions[q].get('desc', '')
+            if desc != '':
+                s += ' - '+desc
 
-           out(s)
+            out(s)
 
-    return {'return':0, 'actions':actions}
+    return {'return': 0, 'actions': actions}
 
 ##############################################################################
 # Pull CK entries from the CK server
 #
 # TARGET: CK kernel and low-level developers
+
 
 def pull(i):
     """Pull CK entries from the CK server
@@ -10487,144 +11157,150 @@ def pull(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    tj=False
-    if o=='json' or o=='json_file' or i.get('encode_file','')=='yes':
-       tj=True
+    tj = False
+    if o == 'json' or o == 'json_file' or i.get('encode_file', '') == 'yes':
+        tj = True
 
-    st=i.get('skip_tmp','')
+    st = i.get('skip_tmp', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    pat=i.get('pattern','')
-    pats=i.get('patterns',[])
-    if pat!='':
-       pats.append(pat)
+    pat = i.get('pattern', '')
+    pats = i.get('patterns', [])
+    if pat != '':
+        pats.append(pat)
 
-    fn=i.get('filename','')
-    if fn=='':
-       x=i.get('cids',[])
-       if len(x)>0:
-          fn=x[0]
+    fn = i.get('filename', '')
+    if fn == '':
+        x = i.get('cids', [])
+        if len(x) > 0:
+            fn = x[0]
 
     # Attempt to load data (to find path, etc)
-    r=load({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
-    if r['return']>0: return r
+    r = load({'repo_uoa': ruoa, 'module_uoa': muoa, 'data_uoa': duoa})
+    if r['return'] > 0:
+        return r
 
-    p=r['path']
-    muoa=r['module_uoa']
-    duoa=r['data_uoa']
-    dd=r['dict']
+    p = r['path']
+    muoa = r['module_uoa']
+    duoa = r['data_uoa']
+    dd = r['dict']
 
     # How output
-    sw=i.get('skip_writing','')
+    sw = i.get('skip_writing', '')
 
     # Prepare output
-    rr={'return':0}
+    rr = {'return': 0}
 
     # Check what to pull
-    pfn=''
+    pfn = ''
 
-    if fn=='': 
-       i['archive']='yes'
+    if fn == '':
+        i['archive'] = 'yes'
 
-    delete_file=''
+    delete_file = ''
 
-    if i.get('archive','')!='yes':
-       # Get file
-       pfn=os.path.normpath(os.path.join(p,fn))
+    if i.get('archive', '') != 'yes':
+        # Get file
+        pfn = os.path.normpath(os.path.join(p, fn))
 
-       # Check that file is not getting outside paths ...
-       if not pfn.startswith(p):
-          return {'return':1, 'error':'path of file is outside entry'}
+        # Check that file is not getting outside paths ...
+        if not pfn.startswith(p):
+            return {'return': 1, 'error': 'path of file is outside entry'}
 
-       if not os.path.isfile(pfn):
-          return {'return':1, 'error':'file not found'}
+        if not os.path.isfile(pfn):
+            return {'return': 1, 'error': 'file not found'}
 
-       if not tj and sw!='yes':
-          # Copy file to current directory
-          if os.path.isfile(fn):
-             return {'return':1, 'error':'file already exists in the current directory'}
+        if not tj and sw != 'yes':
+            # Copy file to current directory
+            if os.path.isfile(fn):
+                return {'return': 1, 'error': 'file already exists in the current directory'}
 
-          # Copy file
-          import shutil
-          shutil.copyfile(pfn,fn)
+            # Copy file
+            import shutil
+            shutil.copyfile(pfn, fn)
 
-       py=os.path.split(fn)
-       rr['filename']=py[1]
+        py = os.path.split(fn)
+        rr['filename'] = py[1]
 
     else:
-       # Prepare archive name
-       if fn!='': 
-          # Check that file is not getting outside paths ...
-          fn=os.path.normpath(os.path.join(os.getcwd(),fn))
-          if not pfn.startswith(os.getcwd()):
-             return {'return':1, 'error':'archive filename should not have path'}
+        # Prepare archive name
+        if fn != '':
+            # Check that file is not getting outside paths ...
+            fn = os.path.normpath(os.path.join(os.getcwd(), fn))
+            if not pfn.startswith(os.getcwd()):
+                return {'return': 1, 'error': 'archive filename should not have path'}
 
-       else:
-          if tj:
-             # Generate tmp file
-             import tempfile
-             fd, fn=tempfile.mkstemp(suffix='.tmp', prefix='ck-') # suffix is important - CK will delete such file!
-             os.close(fd)
-             os.remove(fn)
-             delete_file=fn
-          else:
-             fn=cfg['default_archive_name']
-       pfn=fn
+        else:
+            if tj:
+                # Generate tmp file
+                import tempfile
+                # suffix is important - CK will delete such file!
+                fd, fn = tempfile.mkstemp(suffix='.tmp', prefix='ck-')
+                os.close(fd)
+                os.remove(fn)
+                delete_file = fn
+            else:
+                fn = cfg['default_archive_name']
+        pfn = fn
 
-       if os.path.isfile(pfn):
-          return {'return':1, 'error':'archive file already exists in the current directory'}
+        if os.path.isfile(pfn):
+            return {'return': 1, 'error': 'archive file already exists in the current directory'}
 
-       # Prepare archive
-       import zipfile
+        # Prepare archive
+        import zipfile
 
-       zip_method=zipfile.ZIP_DEFLATED
+        zip_method = zipfile.ZIP_DEFLATED
 
-       gaf=i.get('all','')
+        gaf = i.get('all', '')
 
-       fl={}
+        fl = {}
 
-       if len(pats)>0:
-          for q in pats:
-              r=list_all_files({'path':p, 'all':gaf, 'pattern':q})
-              if r['return']>0: return r
+        if len(pats) > 0:
+            for q in pats:
+                r = list_all_files({'path': p, 'all': gaf, 'pattern': q})
+                if r['return'] > 0:
+                    return r
 
-              flx=r['list']
+                flx = r['list']
 
-              for k in flx:
-                  fl[k]=flx[k]
-       else:
-          r=list_all_files({'path':p, 'all':gaf})
-          if r['return']>0: return r
+                for k in flx:
+                    fl[k] = flx[k]
+        else:
+            r = list_all_files({'path': p, 'all': gaf})
+            if r['return'] > 0:
+                return r
 
-          fl=r['list']
+            fl = r['list']
 
-       # Write archive
-       try:
-          f=open(pfn, 'wb')
-          z=zipfile.ZipFile(f, 'w', zip_method)
-          for fn in fl:
-              if st!='yes' or not fn.startswith('tmp'):
-                 p1=os.path.join(p, fn)
-                 z.write(p1, fn, zip_method)
-          z.close()
-          f.close()
+        # Write archive
+        try:
+            f = open(pfn, 'wb')
+            z = zipfile.ZipFile(f, 'w', zip_method)
+            for fn in fl:
+                if st != 'yes' or not fn.startswith('tmp'):
+                    p1 = os.path.join(p, fn)
+                    z.write(p1, fn, zip_method)
+            z.close()
+            f.close()
 
-       except Exception as e:
-          return {'return':1, 'error':'failed to prepare archive ('+format(e)+')'}
+        except Exception as e:
+            return {'return': 1, 'error': 'failed to prepare archive ('+format(e)+')'}
 
     # If add to JSON
     if tj:
-       r=convert_file_to_upload_string({'filename':pfn})
-       if r['return']>0: return r
+        r = convert_file_to_upload_string({'filename': pfn})
+        if r['return'] > 0:
+            return r
 
-       rr['file_content_base64']=r['file_content_base64']
+        rr['file_content_base64'] = r['file_content_base64']
 
-       if delete_file!='': os.remove(delete_file)
+        if delete_file != '':
+            os.remove(delete_file)
 
     return rr
 
@@ -10632,6 +11308,7 @@ def pull(i):
 # Push CK entry to the CK server
 #
 # TARGET: CK kernel and low-level developers
+
 
 def push(i):
     """Push CK entry to the CK server
@@ -10665,128 +11342,135 @@ def push(i):
     """
 
     # Check if global writing is allowed
-    r=check_writing({})
-    if r['return']>0: return r
+    r = check_writing({})
+    if r['return'] > 0:
+        return r
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
     # Check file
-    fn=i.get('filename','')
-    if fn=='':
-       x=i.get('cids',[])
-       if len(x)>0:
-          fn=x[0]
+    fn = i.get('filename', '')
+    if fn == '':
+        x = i.get('cids', [])
+        if len(x) > 0:
+            fn = x[0]
 
-    if fn=='':
-       return {'return':1, 'error':'filename is empty'}
+    if fn == '':
+        return {'return': 1, 'error': 'filename is empty'}
 
-    fcb=False
+    fcb = False
     if 'file_content_base64' in i:
-       import base64
+        import base64
 
-       bin=base64.urlsafe_b64decode(i['file_content_base64'].encode('utf8')) # convert from unicode to str since base64 works on strings
-                                                                   # should be safe in Python 2.x and 3.x
-       fcb=True
+        # convert from unicode to str since base64 works on strings
+        bin = base64.urlsafe_b64decode(i['file_content_base64'].encode('utf8'))
+        # should be safe in Python 2.x and 3.x
+        fcb = True
     else:
-       if not os.path.isfile(fn):
-          return {'return':1, 'error':'file '+fn+' not found'}
+        if not os.path.isfile(fn):
+            return {'return': 1, 'error': 'file '+fn+' not found'}
 
     # Attempt to load data (to find path, etc)
-    rx=load({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
-    if rx['return']>0: return rx
+    rx = load({'repo_uoa': ruoa, 'module_uoa': muoa, 'data_uoa': duoa})
+    if rx['return'] > 0:
+        return rx
 
-    p=rx['path']
-    muoa=rx['module_uoa']
-    duoa=rx['data_uoa']
-    dd=rx['dict']
+    p = rx['path']
+    muoa = rx['module_uoa']
+    duoa = rx['data_uoa']
+    dd = rx['dict']
 
-    px=os.path.normpath(os.path.join(p, cfg['subdir_ck_ext']))
+    px = os.path.normpath(os.path.join(p, cfg['subdir_ck_ext']))
 
-    ruoa=rx['repo_uoa']
-    ruid=rx['repo_uid']
+    ruoa = rx['repo_uoa']
+    ruid = rx['repo_uid']
 
     # Check repo/module writing
-    ii={'module_uoa':muoa, 'repo_uoa':ruoa, 'repo_uid':ruid}
-    r=check_writing(ii)
-    if r['return']>0: return r
-    rd=r.get('repo_dict',{})
+    ii = {'module_uoa': muoa, 'repo_uoa': ruoa, 'repo_uid': ruid}
+    r = check_writing(ii)
+    if r['return'] > 0:
+        return r
+    rd = r.get('repo_dict', {})
 
-    rshared=rd.get('shared','')
-    rsync=rd.get('sync','')
+    rshared = rd.get('shared', '')
+    rsync = rd.get('sync', '')
 
     # Prepare path
-    p1=i.get('extra_path','')
-    if p1!='':
-       p2=os.path.normpath(os.path.join(p,p1))
-       if not p2.startswith(p):
-          return {'return':1,'error':'extra path is outside entry'}
+    p1 = i.get('extra_path', '')
+    if p1 != '':
+        p2 = os.path.normpath(os.path.join(p, p1))
+        if not p2.startswith(p):
+            return {'return': 1, 'error': 'extra path is outside entry'}
 
-       p=p2
+        p = p2
 
     # Create missing dirs
-    if not os.path.isdir(p): os.makedirs(p)
+    if not os.path.isdir(p):
+        os.makedirs(p)
 
-    overwrite=i.get('overwrite','')
+    overwrite = i.get('overwrite', '')
 
     # Copy or record file
-    p3=os.path.normpath(os.path.join(p, fn))
+    p3 = os.path.normpath(os.path.join(p, fn))
     if not p3.startswith(p3):
-       return {'return':1,'error':'extra path is outside entry'}
+        return {'return': 1, 'error': 'extra path is outside entry'}
 
     if p3.startswith(px):
-       return {'return':1, 'error':'path points to the special directory with meta info'}
+        return {'return': 1, 'error': 'path points to the special directory with meta info'}
 
-    if os.path.isfile(p3) and overwrite!='yes':
-       return {'return':1,'error':'file already exists in the entry'}
+    if os.path.isfile(p3) and overwrite != 'yes':
+        return {'return': 1, 'error': 'file already exists in the entry'}
 
     if fcb:
-       try:
-         f=open(p3, 'wb')
-         f.write(bin)
-         f.close()
-       except Exception as e:
-          return {'return':1, 'error':'problem writing text file='+p3+' ('+format(e)+')'}
+        try:
+            f = open(p3, 'wb')
+            f.write(bin)
+            f.close()
+        except Exception as e:
+            return {'return': 1, 'error': 'problem writing text file='+p3+' ('+format(e)+')'}
     else:
-       import shutil
-       shutil.copyfile(fn, p3)
+        import shutil
+        shutil.copyfile(fn, p3)
 
     # Process if archive
-    y=''
-    if i.get('archive','')=='yes':
-       rx=unzip_file({'archive_file':p3,
-                      'path':p,
-                      'overwrite':overwrite,
-                      'delete_after_unzip':'yes'})
-       if rx['return']>0: return rx
-       y='and unziped '
+    y = ''
+    if i.get('archive', '') == 'yes':
+        rx = unzip_file({'archive_file': p3,
+                         'path': p,
+                         'overwrite': overwrite,
+                         'delete_after_unzip': 'yes'})
+        if rx['return'] > 0:
+            return rx
+        y = 'and unziped '
 
-    if rshared!='':
-       ppp=os.getcwd()
+    if rshared != '':
+        ppp = os.getcwd()
 
-       pp=os.path.split(p)
-       pp0=pp[0]
-       pp1=pp[1]
+        pp = os.path.split(p)
+        pp0 = pp[0]
+        pp1 = pp[1]
 
-       os.chdir(pp0)
+        os.chdir(pp0)
 
-       ss=cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
-       rx=os.system(ss)
+        ss = cfg['repo_types'][rshared]['add'].replace('$#files#$', pp1)
+        rx = os.system(ss)
 
-       os.chdir(ppp)
+        os.chdir(ppp)
 
-    if o=='con':
-       out('File was pushed '+y+'successfully!')
+    if o == 'con':
+        out('File was pushed '+y+'successfully!')
 
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # Unizip archive file to a given path
 #
 # TARGET: end users
+
 
 def unzip_file(i):
     """Unizip archive file to a given path
@@ -10811,48 +11495,51 @@ def unzip_file(i):
 
     import zipfile
 
-    p=i.get('path','')
-    if p=='':
-       p=os.getcwd()
+    p = i.get('path', '')
+    if p == '':
+        p = os.getcwd()
 
-    p3=i['archive_file']
+    p3 = i['archive_file']
 
-    overwrite=i.get('overwrite','')
+    overwrite = i.get('overwrite', '')
 
-    dau=i.get('delete_after_unzip','')
+    dau = i.get('delete_after_unzip', '')
 
-    s=[]
+    s = []
 
-    f=open(p3,'rb')
-    z=zipfile.ZipFile(f)
+    f = open(p3, 'rb')
+    z = zipfile.ZipFile(f)
     for d in z.namelist():
         if not d.startswith('.') and not d.startswith('/') and not d.startswith('\\'):
-           pp=os.path.join(p,d)
-           if d.endswith('/'): 
-              # create directory 
-              if not os.path.exists(pp): os.makedirs(pp)
-           else:
-              ppd=os.path.dirname(pp)
-              if not os.path.exists(ppd): os.makedirs(ppd)
+            pp = os.path.join(p, d)
+            if d.endswith('/'):
+                # create directory
+                if not os.path.exists(pp):
+                    os.makedirs(pp)
+            else:
+                ppd = os.path.dirname(pp)
+                if not os.path.exists(ppd):
+                    os.makedirs(ppd)
 
-              # extract file
-              if os.path.isfile(pp) and overwrite!='yes':
-                 s.append(d)
-              else:
-                 fo=open(pp, 'wb')
-                 fo.write(z.read(d))
-                 fo.close()
+                # extract file
+                if os.path.isfile(pp) and overwrite != 'yes':
+                    s.append(d)
+                else:
+                    fo = open(pp, 'wb')
+                    fo.write(z.read(d))
+                    fo.close()
     f.close()
 
-    if dau=='yes':
-       os.remove(p3)
+    if dau == 'yes':
+        os.remove(p3)
 
-    return {'return':0, 'skipped':s}
+    return {'return': 0, 'skipped': s}
 
 ##############################################################################
 # List files in a given CK entry
 #
 # TARGET: end users
+
 
 def list_files(i):
     """List files in a given CK entry
@@ -10876,30 +11563,35 @@ def list_files(i):
 
     """
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
     # Get info about entry
-    r=load({'repo_uoa':ruoa, 'module_uoa':muoa, 'data_uoa':duoa})
-    if r['return']>0: return r
+    r = load({'repo_uoa': ruoa, 'module_uoa': muoa, 'data_uoa': duoa})
+    if r['return'] > 0:
+        return r
 
-    p=r['path']
+    p = r['path']
 
     # Get files
-    ii={'path':p}
-    if i.get('limit','')!='': ii['limit']=i['limit']
-    if i.get('number','')!='': ii['number']=i['number']
-    if i.get('all','')!='': ii['all']=i['all']
+    ii = {'path': p}
+    if i.get('limit', '') != '':
+        ii['limit'] = i['limit']
+    if i.get('number', '') != '':
+        ii['number'] = i['number']
+    if i.get('all', '') != '':
+        ii['all'] = i['all']
 
-    r=list_all_files(ii)
-    if r['return']>0: return r
+    r = list_all_files(ii)
+    if r['return'] > 0:
+        return r
 
-    if o=='con':
-       for q in r.get('list',[]):
-           out(q)
+    if o == 'con':
+        for q in r.get('list', []):
+            out(q)
 
     return r
 
@@ -10909,7 +11601,8 @@ def list_files(i):
 #
 # TARGET: internal
 
-def convert_cm_to_ck(i): # pragma: no cover
+
+def convert_cm_to_ck(i):  # pragma: no cover
     """List files in a given CK entry
        Target audience: internal
 
@@ -10937,37 +11630,43 @@ def convert_cm_to_ck(i): # pragma: no cover
 
     import sys
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
     # Check wildcards
-    lst=[]
+    lst = []
 
-    to=i.get('time_out','')
-    if to=='': to='-1'
+    to = i.get('time_out', '')
+    if to == '':
+        to = '-1'
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    if ruoa=='': ruoa='*'
-    if muoa=='': muoa='*'
-    if duoa=='': duoa='*'
+    if ruoa == '':
+        ruoa = '*'
+    if muoa == '':
+        muoa = '*'
+    if duoa == '':
+        duoa = '*'
 
-    pf=i.get('print_full','')
-    if pf=='': pf='yes'
+    pf = i.get('print_full', '')
+    if pf == '':
+        pf = 'yes'
 
-    ii={}
-    ii['out']=o
-    ii['repo_uoa']=ruoa
-    ii['module_uoa']=muoa
-    ii['data_uoa']=duoa
-    ii['filter_func_addr']=getattr(sys.modules[__name__], 'filter_convert_cm_to_ck')
-    ii['do_not_add_to_lst']='yes'
-    ii['print_time']=i.get('print_time','')
-    ii['print_time']=i.get('print_time','')
-    ii['print_full']=pf
-    ii['time_out']=to
-    ii['ignore_update']=i.get('ignore_update','')
+    ii = {}
+    ii['out'] = o
+    ii['repo_uoa'] = ruoa
+    ii['module_uoa'] = muoa
+    ii['data_uoa'] = duoa
+    ii['filter_func_addr'] = getattr(
+        sys.modules[__name__], 'filter_convert_cm_to_ck')
+    ii['do_not_add_to_lst'] = 'yes'
+    ii['print_time'] = i.get('print_time', '')
+    ii['print_time'] = i.get('print_time', '')
+    ii['print_full'] = pf
+    ii['time_out'] = to
+    ii['ignore_update'] = i.get('ignore_update', '')
     return list_data(ii)
 
 ##############################################################################
@@ -10975,79 +11674,85 @@ def convert_cm_to_ck(i): # pragma: no cover
 #
 # TARGET: internal use
 
-def filter_convert_cm_to_ck(i): # pragma: no cover
 
-    o=i.get('out','')
-    i['out']=''
-    rx=load(i)
-    i['out']=o
+def filter_convert_cm_to_ck(i):  # pragma: no cover
 
-    if rx['return']>0: return rx
+    o = i.get('out', '')
+    i['out'] = ''
+    rx = load(i)
+    i['out'] = o
 
-    ruid=rx['repo_uid']
-    muid=rx['module_uid']
-    duid=rx['data_uid']
+    if rx['return'] > 0:
+        return rx
 
-    d=rx['dict']
-    info=rx.get('info',{})
+    ruid = rx['repo_uid']
+    muid = rx['module_uid']
+    duid = rx['data_uid']
 
-    # Converting 
+    d = rx['dict']
+    info = rx.get('info', {})
+
+    # Converting
     if 'cm_access_control' in d:
-       if 'cm_outdated' not in info: info['cm_outdated']={}
-       info['cm_outdated']['cm_access_control']=d['cm_access_control']
-       del (d['cm_access_control'])
+        if 'cm_outdated' not in info:
+            info['cm_outdated'] = {}
+        info['cm_outdated']['cm_access_control'] = d['cm_access_control']
+        del (d['cm_access_control'])
 
     if 'cm_display_as_alias' in d:
-       info['data_name']=d['cm_display_as_alias']
-       del(d['cm_display_as_alias'])
+        info['data_name'] = d['cm_display_as_alias']
+        del(d['cm_display_as_alias'])
 
     if 'powered_by' in d:
-       if 'cm_outdated' not in info: info['cm_outdated']={}
-       info['cm_outdated']['powered_by']=d['powered_by']
-       del(d['powered_by'])
+        if 'cm_outdated' not in info:
+            info['cm_outdated'] = {}
+        info['cm_outdated']['powered_by'] = d['powered_by']
+        del(d['powered_by'])
 
     if 'cm_description' in d:
-       info['description']=d['cm_description']
-       del(d['cm_description'])
+        info['description'] = d['cm_description']
+        del(d['cm_description'])
 
     if 'cm_updated' in d:
-       dcu=d['cm_updated'][0]
-       cidate=dcu.get('cm_iso_datetime','')
-       cuoa=dcu.get('cm_user_uoa','')
+        dcu = d['cm_updated'][0]
+        cidate = dcu.get('cm_iso_datetime', '')
+        cuoa = dcu.get('cm_user_uoa', '')
 
-       if 'control' not in info:
-          info['control']={}
+        if 'control' not in info:
+            info['control'] = {}
 
-       if cidate!='': 
-          info['control']['iso_datetime']=cidate
+        if cidate != '':
+            info['control']['iso_datetime'] = cidate
 
-       if cuoa!='':
-          info['control']['author_uoa']=cuoa
+        if cuoa != '':
+            info['control']['author_uoa'] = cuoa
 
-       info['control']['engine']='CM'
-       info['control']['version']=[]
+        info['control']['engine'] = 'CM'
+        info['control']['version'] = []
 
-       del(d['cm_updated'])
+        del(d['cm_updated'])
 
-    if 'version' in info: del(info['version'])
+    if 'version' in info:
+        del(info['version'])
 
     # Saving
-    ii={'action':'update',
-        'repo_uoa':ruid,
-        'module_uoa':muid,
-        'data_uoa':duid,
-        'substitute':'yes',
-        'dict':d,
-        'info':info,
-        'ignore_update':i.get('ignore_update','')
-       }
-    rx=update(ii)
+    ii = {'action': 'update',
+          'repo_uoa': ruid,
+          'module_uoa': muid,
+          'data_uoa': duid,
+          'substitute': 'yes',
+          'dict': d,
+          'info': info,
+          'ignore_update': i.get('ignore_update', '')
+          }
+    rx = update(ii)
     return rx
 
 ##############################################################################
 # Index CK entries using ElasticSearch or similar tools
 #
 # TARGET: CK kernel and low-level developers
+
 
 def add_index(i):
     """Index CK entries using ElasticSearch or similar tools
@@ -11074,35 +11779,40 @@ def add_index(i):
 
     import sys
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
     # Check wildcards
-    lst=[]
+    lst = []
 
-    to=i.get('time_out','')
-    if to=='': to='-1'
+    to = i.get('time_out', '')
+    if to == '':
+        to = '-1'
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    if ruoa=='': ruoa='*'
-    if muoa=='': muoa='*'
-    if duoa=='': duoa='*'
+    if ruoa == '':
+        ruoa = '*'
+    if muoa == '':
+        muoa = '*'
+    if duoa == '':
+        duoa = '*'
 
-    pf=i.get('print_full','')
-    if pf=='': pf='yes'
+    pf = i.get('print_full', '')
+    if pf == '':
+        pf = 'yes'
 
-    ii={}
-    ii['out']=o
-    ii['repo_uoa']=ruoa
-    ii['module_uoa']=muoa
-    ii['data_uoa']=duoa
-    ii['filter_func_addr']=getattr(sys.modules[__name__], 'filter_add_index')
-    ii['do_not_add_to_lst']='yes'
-    ii['print_time']=i.get('print_time','')
-    ii['print_full']=pf
-    ii['time_out']=to
+    ii = {}
+    ii['out'] = o
+    ii['repo_uoa'] = ruoa
+    ii['module_uoa'] = muoa
+    ii['data_uoa'] = duoa
+    ii['filter_func_addr'] = getattr(sys.modules[__name__], 'filter_add_index')
+    ii['do_not_add_to_lst'] = 'yes'
+    ii['print_time'] = i.get('print_time', '')
+    ii['print_full'] = pf
+    ii['time_out'] = to
 
     return list_data(ii)
 
@@ -11110,6 +11820,7 @@ def add_index(i):
 # Zip CK entries
 #
 # TARGET: CK kernel and low-level developers
+
 
 def zip(i):
     """Zip CK entries
@@ -11137,19 +11848,21 @@ def zip(i):
                 (error) (str): error text if return > 0
     """
 
-    if i.get('data_uoa','')!='': del(i['data_uoa'])
+    if i.get('data_uoa', '') != '':
+        del(i['data_uoa'])
 
-    ruoa=i.get('repo_uoa','')
-    if ruoa!='':
-       if ruoa.find('*')<0 and ruoa.find('?')<0:
-          i['data_uoa']=ruoa
-       else:
-          del(i['repo_uoa'])
+    ruoa = i.get('repo_uoa', '')
+    if ruoa != '':
+        if ruoa.find('*') < 0 and ruoa.find('?') < 0:
+            i['data_uoa'] = ruoa
+        else:
+            del(i['repo_uoa'])
 
-    i['module_uoa']=cfg['module_repo_name']
-    i['data']=i.get('cid','')
+    i['module_uoa'] = cfg['module_repo_name']
+    i['data'] = i.get('cid', '')
 
-    if i.get('cid','')!='': del(i['cid'])
+    if i.get('cid', '') != '':
+        del(i['cid'])
 
     return access(i)
 
@@ -11158,23 +11871,26 @@ def zip(i):
 #
 # TARGET: internal
 
+
 def filter_add_index(i):
 
-    o=i.get('out','')
-    i['out']=''
-    rx=load(i)
-    i['out']=o
+    o = i.get('out', '')
+    i['out'] = ''
+    rx = load(i)
+    i['out'] = o
 
-    if rx['return']>0: return rx
+    if rx['return'] > 0:
+        return rx
 
-    muid=rx['module_uid']
-    duid=rx['data_uid']
-    path='/'+muid+'/'+duid+'/1'
+    muid = rx['module_uid']
+    duid = rx['data_uid']
+    path = '/'+muid+'/'+duid+'/1'
 
-    r=access_index_server({'request':'DELETE', 'path':path})
-    if r['return']>0: return r
+    r = access_index_server({'request': 'DELETE', 'path': path})
+    if r['return'] > 0:
+        return r
 
-    r=access_index_server({'request':'PUT', 'path':path, 'dict':rx})
+    r = access_index_server({'request': 'PUT', 'path': path, 'dict': rx})
 
     return r
 
@@ -11182,6 +11898,7 @@ def filter_add_index(i):
 # Delete index for a given CK entry in the ElasticSearch or a similar services
 #
 # TARGET: CK kernel and low-level developers
+
 
 def delete_index(i):
     """Delete index for a given CK entry in the ElasticSearch or a similar services
@@ -11206,26 +11923,30 @@ def delete_index(i):
 
     import sys
 
-    o=i.get('out','')
+    o = i.get('out', '')
 
     # Check wildcards
-    lst=[]
+    lst = []
 
-    ruoa=i.get('repo_uoa','')
-    muoa=i.get('module_uoa','')
-    duoa=i.get('data_uoa','')
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
 
-    if ruoa=='': ruoa='*'
-    if muoa=='': muoa='*'
-    if duoa=='': duoa='*'
+    if ruoa == '':
+        ruoa = '*'
+    if muoa == '':
+        muoa = '*'
+    if duoa == '':
+        duoa = '*'
 
-    ii={}
-    ii['out']=o
-    ii['repo_uoa']=ruoa
-    ii['module_uoa']=muoa
-    ii['data_uoa']=duoa
-    ii['filter_func_addr']=getattr(sys.modules[__name__], 'filter_delete_index')
-    ii['do_not_add_to_lst']='yes'
+    ii = {}
+    ii['out'] = o
+    ii['repo_uoa'] = ruoa
+    ii['module_uoa'] = muoa
+    ii['data_uoa'] = duoa
+    ii['filter_func_addr'] = getattr(
+        sys.modules[__name__], 'filter_delete_index')
+    ii['do_not_add_to_lst'] = 'yes'
 
     return list_data(ii)
 
@@ -11234,35 +11955,38 @@ def delete_index(i):
 #
 # TARGET: internal
 
+
 def filter_delete_index(i):
 
-    o=i.get('out','')
-    i['out']=''
-    r=load(i)
-    i['out']=o
+    o = i.get('out', '')
+    i['out'] = ''
+    r = load(i)
+    i['out'] = o
 
-    if r['return']>0: return r
+    if r['return'] > 0:
+        return r
 
-    muid=r['module_uid']
-    duid=r['data_uid']
+    muid = r['module_uid']
+    duid = r['data_uid']
 
-    path='/'+muid+'/'+duid+'/1'
+    path = '/'+muid+'/'+duid+'/1'
 
-    return access_index_server({'request':'DELETE', 'path':path})
+    return access_index_server({'request': 'DELETE', 'path': path})
 
 ##############################################################################
 # Remove files and dirs even if read only
 #
 # TARGET: internal use
 
-def rm_read_only(f,p,e):
+
+def rm_read_only(f, p, e):
     import os
     import stat
     import errno
 
-    ex=e[1]
+    ex = e[1]
 
-    os.chmod(p,stat.S_IRWXU|stat.S_IRWXG|stat.S_IRWXO)
+    os.chmod(p, stat.S_IRWXU | stat.S_IRWXG | stat.S_IRWXO)
     f(p)
 
     return
@@ -11271,6 +11995,7 @@ def rm_read_only(f,p,e):
 # Universal access to all CK actions with unified I/O as dictionaries
 #
 # TARGET: end users
+
 
 def access(i):
     """Universal access to all CK actions with unified I/O as dictionaries
@@ -11359,97 +12084,103 @@ def access(i):
 #           cfg.update(r['dict'])
 #        cfg['loading_config'] = ''
 
-    rr={'return':0}
-    ii={}
-    cmd=False
-    o=''
+    rr = {'return': 0}
+    ii = {}
+    cmd = False
+    o = ''
 
-    ### If input is string, split into list and process in the next condition
-    if type(i)==str:
-       cmd=True
-       x=i.split(' ')
-       i=x 
+    # If input is string, split into list and process in the next condition
+    if type(i) == str:
+        cmd = True
+        x = i.split(' ')
+        i = x
 
-    ### If input is a list
-    if type(i)==list:
-       if len(i)==1 and i[0].strip()=='test_install':
-          return rr # installation test
+    # If input is a list
+    if type(i) == list:
+        if len(i) == 1 and i[0].strip() == 'test_install':
+            return rr  # installation test
 
-       cmd=True
-       rr=convert_ck_list_to_dict(i)
-       if rr['return']==0:
-          i=rr.get('ck_dict',{})
+        cmd = True
+        rr = convert_ck_list_to_dict(i)
+        if rr['return'] == 0:
+            i = rr.get('ck_dict', {})
 
-          if i.get('out','')=='': i['out']='con' # Default output is console 
-                                                 # if called from CMD or with string
+            if i.get('out', '') == '':
+                i['out'] = 'con'  # Default output is console
+                # if called from CMD or with string
 
-    o=''
-    if rr['return']==0:
-       # Check output mode
-       o=i.get('out','')
+    o = ''
+    if rr['return'] == 0:
+        # Check output mode
+        o = i.get('out', '')
 
-       ### If profile
-       cp=i.get('ck_profile','')
-       if cp=='yes':
-          import time
-          start_time = time.time()
+        # If profile
+        cp = i.get('ck_profile', '')
+        if cp == 'yes':
+            import time
+            start_time = time.time()
 
-       ### Process request ######################################
+        ### Process request ######################################
 
-       if i.get('con_encoding','')!='': con_encoding=i['con_encoding']
+        if i.get('con_encoding', '') != '':
+            con_encoding = i['con_encoding']
 
-       ### Process action ###################################
-       rr=init({})
-       if rr['return']==0:
-          # Run module with a given action
-          rr=perform_action(i)
-          if rr.get('out','')!='': o=rr['out']
+        ### Process action ###################################
+        rr = init({})
+        if rr['return'] == 0:
+            # Run module with a given action
+            rr = perform_action(i)
+            if rr.get('out', '') != '':
+                o = rr['out']
 
-       if cp=='yes':
-          elapsed_time=time.time()-start_time
-          rr['ck_profile_time']=elapsed_time
-          if o=='con':
-             out('CK profile time: '+str(elapsed_time)+' sec.')
+        if cp == 'yes':
+            elapsed_time = time.time()-start_time
+            rr['ck_profile_time'] = elapsed_time
+            if o == 'con':
+                out('CK profile time: '+str(elapsed_time)+' sec.')
 
     # Finalize call (check output) ####################################
-    if o=='json' or o=='json_with_sep':
-       if o=='json_with_sep': out(cfg['json_sep'])
+    if o == 'json' or o == 'json_with_sep':
+        if o == 'json_with_sep':
+            out(cfg['json_sep'])
 
-       rr1=dumps_json({'dict':rr})
-       if rr1['return']==0:
-          s=rr1['string']
-          out(s)
+        rr1 = dumps_json({'dict': rr})
+        if rr1['return'] == 0:
+            s = rr1['string']
+            out(s)
 
-    elif o=='json_file':
-       fn=i.get('out_file','')
-       if fn=='':
-          rr['return']=1
-          rr['error']='out==json_file but out_file is not defined in kernel access function'
-       else:
-          rr1=save_json_to_file({'json_file':fn, 'dict':rr})
-          if rr1['return']>0:
-             rr['return']=1
-             rr['error']=rr1['error']
+    elif o == 'json_file':
+        fn = i.get('out_file', '')
+        if fn == '':
+            rr['return'] = 1
+            rr['error'] = 'out==json_file but out_file is not defined in kernel access function'
+        else:
+            rr1 = save_json_to_file({'json_file': fn, 'dict': rr})
+            if rr1['return'] > 0:
+                rr['return'] = 1
+                rr['error'] = rr1['error']
 
     # If error and CMD, output error to console
     if cmd:
-       if rr['return']>0:
-          x=''
-          if type(i)==dict:
-             x=i.get('module_uoa','')
-             if x!='':
-                x='['+x+'] '
-          #FGG added this to fix temporal error with ElasticSearch indexing when index is empty
-          out(str(cfg['error'])+x+str(rr['error'])+'!')
+        if rr['return'] > 0:
+            x = ''
+            if type(i) == dict:
+                x = i.get('module_uoa', '')
+                if x != '':
+                    x = '['+x+'] '
+            # FGG added this to fix temporal error with ElasticSearch indexing when index is empty
+            out(str(cfg['error'])+x+str(rr['error'])+'!')
 
     return rr
+
 
 ##############################################################################
 if __name__ == "__main__":
 
-   r=access(sys.argv[1:])
+    r = access(sys.argv[1:])
 
-   if 'return' not in r:
-      raise Exception('CK access function should always return key \'return\'!')
+    if 'return' not in r:
+        raise Exception(
+            'CK access function should always return key \'return\'!')
 
-   exit(int(r['return']))
+    exit(int(r['return']))

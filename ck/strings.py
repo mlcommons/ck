@@ -10,6 +10,8 @@
 import sys
 
 ##############################################################################
+
+
 def dump_json(i):
     """Dump dictionary (json) to a string
        Target audience: end users
@@ -32,28 +34,34 @@ def dump_json(i):
 
     import json
 
-    d=i['dict']
-    si=i.get('skip_indent','')
+    d = i['dict']
+    si = i.get('skip_indent', '')
 
-    sk=False
-    if i.get('sort_keys','')=='yes': sk=True
+    sk = False
+    if i.get('sort_keys', '') == 'yes':
+        sk = True
 
     try:
-       if sys.version_info[0]>2:
-          if si=='yes': s=json.dumps(d, ensure_ascii=False, sort_keys=sk)
-          else:         s=json.dumps(d, indent=2, ensure_ascii=False, sort_keys=sk)
-       else:
-          if si=='yes': s=json.dumps(d, ensure_ascii=False, encoding='utf8', sort_keys=sk)
-          else:         s=json.dumps(d, indent=2, ensure_ascii=False, encoding='utf8', sort_keys=sk)
+        if sys.version_info[0] > 2:
+            if si == 'yes':
+                s = json.dumps(d, ensure_ascii=False, sort_keys=sk)
+            else:
+                s = json.dumps(d, indent=2, ensure_ascii=False, sort_keys=sk)
+        else:
+            if si == 'yes':
+                s = json.dumps(d, ensure_ascii=False,
+                               encoding='utf8', sort_keys=sk)
+            else:
+                s = json.dumps(d, indent=2, ensure_ascii=False,
+                               encoding='utf8', sort_keys=sk)
     except Exception as e:
-       return {'return':1, 'error':'problem converting dict to json ('+format(e)+')'}
+        return {'return': 1, 'error': 'problem converting dict to json ('+format(e)+')'}
 
-    return {'return':0, 'string':s}
-
+    return {'return': 0, 'string': s}
 
 
 ##############################################################################
-def copy_to_clipboard(i): # pragma: no cover 
+def copy_to_clipboard(i):  # pragma: no cover
     """Copy string to clipboard if supported by OS (requires Tk or pyperclip)
        Target audience: end users
 
@@ -69,55 +77,55 @@ def copy_to_clipboard(i): # pragma: no cover
 
     """
 
-    s=i['string']
+    s = i['string']
 
-    failed=False
-    ee=''
+    failed = False
+    ee = ''
 
     # Try to load pyperclip (seems to work fine on Windows)
     try:
-       import pyperclip
+        import pyperclip
     except Exception as e:
-       ee=format(e)
-       failed=True
-       pass
+        ee = format(e)
+        failed = True
+        pass
 
     if not failed:
-       pyperclip.copy(s)
+        pyperclip.copy(s)
     else:
-       failed=False
+        failed = False
 
-       # Try to load Tkinter
-       try:
-          from Tkinter import Tk
-       except ImportError as e:
-          ee=format(e)
-          failed=True
-          pass
+        # Try to load Tkinter
+        try:
+            from Tkinter import Tk
+        except ImportError as e:
+            ee = format(e)
+            failed = True
+            pass
 
-       if failed:
-          failed=False
-          try:
-             from tkinter import Tk
-          except ImportError as e:
-             ee=format(e)
-             failed=True
-             pass
+        if failed:
+            failed = False
+            try:
+                from tkinter import Tk
+            except ImportError as e:
+                ee = format(e)
+                failed = True
+                pass
 
-       if failed:
-          return {'return':1, 'error':'none of pyperclip/Tkinter/tkinter packages is installed'}
+        if failed:
+            return {'return': 1, 'error': 'none of pyperclip/Tkinter/tkinter packages is installed'}
 
-       # Copy to clipboard
-       try:
-          r = Tk()
-          r.withdraw()
-          r.clipboard_clear()
-          r.clipboard_append(s)
-          r.destroy()
-       except Exception as e:
-          return {'return':1, 'error':'problem copying string to clipboard ('+format(e)+')'}
+        # Copy to clipboard
+        try:
+            r = Tk()
+            r.withdraw()
+            r.clipboard_clear()
+            r.clipboard_append(s)
+            r.destroy()
+        except Exception as e:
+            return {'return': 1, 'error': 'problem copying string to clipboard ('+format(e)+')'}
 
-    return {'return':0}
+    return {'return': 0}
 
 
 ##############################################################################
@@ -141,15 +149,15 @@ def convert_json_str_to_dict(i):
 
     import json
 
-    s=i['str']
+    s = i['str']
 
-    if i.get('skip_quote_replacement','')!='yes':
-       s=s.replace('"', '\\"')
-       s=s.replace('\'', '"')
+    if i.get('skip_quote_replacement', '') != 'yes':
+        s = s.replace('"', '\\"')
+        s = s.replace('\'', '"')
 
     try:
-       d=json.loads(s, encoding='utf8')
+        d = json.loads(s, encoding='utf8')
     except Exception as e:
-       return {'return':1, 'error':'problem converting text to json ('+format(e)+')'}
+        return {'return': 1, 'error': 'problem converting text to json ('+format(e)+')'}
 
-    return {'return':0, 'dict': d}
+    return {'return': 0, 'dict': d}

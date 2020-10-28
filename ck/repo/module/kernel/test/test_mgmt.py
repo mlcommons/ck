@@ -12,8 +12,9 @@ import tempfile
 import sys
 from contextlib import contextmanager
 
-ck=None           # Will be updated by CK (initialized CK kernel)
-test_util=None    # Will be updated by CK (initialized CK test utils)
+ck = None           # Will be updated by CK (initialized CK kernel)
+test_util = None    # Will be updated by CK (initialized CK test utils)
+
 
 def merge(dict1, dict2):
     ret = dict1.copy()
@@ -23,10 +24,13 @@ def merge(dict1, dict2):
 # Tests for repo/module/entry management operations like creating, adding actions, deleting, etc.
 # Generally, these are more complex tests, then those from 'test_kernel.py'. These tests
 # may take some time to execute, they may require Internet connection, etc.
+
+
 class TestMgmt(unittest.TestCase):
 
     def test_entry_crud(self):
-        entry = {'module_uoa': 'kernel', 'repo_uoa': 'local', 'data_uoa': 'ck-test-abcd'}
+        entry = {'module_uoa': 'kernel',
+                 'repo_uoa': 'local', 'data_uoa': 'ck-test-abcd'}
         r = ck.add(entry)
         self.assertEqual(0, r['return'], r.get('error', None))
         try:
@@ -41,40 +45,49 @@ class TestMgmt(unittest.TestCase):
             self.assertEqual('ck-test-abcd', r['data_name'])
             self.assertEqual('local', r['repo_uoa'])
 
-            self.assertEqual({}, ck.load_meta_from_path({'path':path})['dict'])
+            self.assertEqual({}, ck.load_meta_from_path(
+                {'path': path})['dict'])
 
-            module_path = os.path.join(ck.find_path_to_repo({'repo_uoa': 'local'})['path'], 'kernel')
+            module_path = os.path.join(ck.find_path_to_repo(
+                {'repo_uoa': 'local'})['path'], 'kernel')
             r = ck.find_path_to_entry({'path': module_path, 'data_uoa': uid})
             self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(path, r['path'])
 
             missing_data = ck.gen_uid({})['data_uid']
-            r = ck.find_path_to_entry({'path': module_path, 'data_uoa': missing_data})
+            r = ck.find_path_to_entry(
+                {'path': module_path, 'data_uoa': missing_data})
             self.assertEqual(-1, r['return'])
 
             meta_dict = {'a': 1, 'b': [2, 3]}
             r = ck.update(merge(entry, {'dict': meta_dict}))
             self.assertEqual(0, r['return'], r.get('error', None))
 
-            self.assertEqual(meta_dict, ck.load_meta_from_path({'path':path})['dict'])
+            self.assertEqual(meta_dict, ck.load_meta_from_path(
+                {'path': path})['dict'])
 
             r = ck.rename(merge(entry, {'new_data_uoa': 'ck-test-0123'}))
             self.assertEqual(0, r['return'], r.get('error', None))
 
-            self.assertNotEqual(meta_dict, ck.load_meta_from_path({'path':path})['return'])
+            self.assertNotEqual(
+                meta_dict, ck.load_meta_from_path({'path': path})['return'])
 
             # rename back
-            r = ck.rename(merge(entry, {'data_uoa': 'ck-test-0123', 'new_data_uoa': 'ck-test-abcd'}))
+            r = ck.rename(
+                merge(entry, {'data_uoa': 'ck-test-0123', 'new_data_uoa': 'ck-test-abcd'}))
             self.assertEqual(0, r['return'], r.get('error', None))
 
             r = ck.copy(merge(entry, {'new_data_uoa': 'ck-test-abcd-copy'}))
             self.assertEqual(0, r['return'], r.get('error', None))
             self.assertEqual(path + '-copy', r['path'])
 
-            r = ck.move(merge(entry, {'data_uoa': 'ck-test-abcd-copy', 'new_module_uoa': 'test', 'new_data_uoa': 'ck-test-abcd'}))
+            r = ck.move(merge(entry, {'data_uoa': 'ck-test-abcd-copy',
+                                      'new_module_uoa': 'test', 'new_data_uoa': 'ck-test-abcd'}))
             self.assertEqual(0, r['return'], r.get('error', None))
-            self.assertNotEqual(0, ck.load_meta_from_path({'path': path + '-copy'})['return'])
-            self.assertEqual(meta_dict, ck.load_meta_from_path({'path': r['path']})['dict'])
+            self.assertNotEqual(0, ck.load_meta_from_path(
+                {'path': path + '-copy'})['return'])
+            self.assertEqual(meta_dict, ck.load_meta_from_path(
+                {'path': r['path']})['dict'])
 
             r = ck.delete(merge(entry, {'module_uoa': 'test'}))
             self.assertEqual(0, r['return'], r.get('error', None))
@@ -142,7 +155,8 @@ class TestMgmt(unittest.TestCase):
 
             lock_uid = r['lock_uid']
 
-            r = ck.set_lock({'path': path, 'get_lock': 'yes', 'lock_retries': '1', 'lock_retry_delay': '1'})
+            r = ck.set_lock({'path': path, 'get_lock': 'yes',
+                             'lock_retries': '1', 'lock_retry_delay': '1'})
             self.assertEqual(32, r['return'])
 
             r = ck.set_lock({'path': path, 'unlock_uid': lock_uid+'1'})
@@ -152,11 +166,13 @@ class TestMgmt(unittest.TestCase):
             r = ck.set_lock({'path': path, 'unlock_uid': lock_uid})
             self.assertEqual(0, r['return'], r.get('error', None))
 
-            r = ck.set_lock({'path': path, 'get_lock': 'yes', 'lock_expire_time': '1', 'unlock_uid': lock_uid})
+            r = ck.set_lock({'path': path, 'get_lock': 'yes',
+                             'lock_expire_time': '1', 'unlock_uid': lock_uid})
             self.assertEqual(0, r['return'], r.get('error', None))
             time.sleep(1)
-            
-            r = ck.set_lock({'path': path, 'lock_expire_time': '1', 'get_lock': 'yes'})
+
+            r = ck.set_lock(
+                {'path': path, 'lock_expire_time': '1', 'get_lock': 'yes'})
             self.assertEqual(0, r['return'], r.get('error', None))
             lock_uid = r['lock_uid']
 
@@ -191,18 +207,21 @@ class TestMgmt(unittest.TestCase):
                     'action': 'search',
                     'out': 'con'})
                 self.assertEqual(0, r['return'], r.get('error', None))
-                self.assertEqual('default:repo:default', sys.stdout.getvalue().strip())
+                self.assertEqual('default:repo:default',
+                                 sys.stdout.getvalue().strip())
 
         with test_util.tmp_repo(cfg={'remote': 'yes'}) as repo:
             repo_uoa = repo['data_uid']
             with test_util.tmp_sys():
-                r = ck.perform_action({'repo_uoa': repo_uoa, 'action': 'search'})
+                r = ck.perform_action(
+                    {'repo_uoa': repo_uoa, 'action': 'search'})
                 self.assertEqual(1, r['return'])
-                self.assertEqual('URL of remote repository is not defined', r['error'])
+                self.assertEqual(
+                    'URL of remote repository is not defined', r['error'])
 
     def test_perform_remote_action(self):
         r = ck.perform_remote_action({
-            'module_uoa': 'kernel', 
+            'module_uoa': 'kernel',
             'remote_server_url': 'http://cknowledge.org/repo/ck.php?',
             'data_uoa': 'default',
             'repo_uoa': 'default',
@@ -229,10 +248,11 @@ class TestMgmt(unittest.TestCase):
                 'action': 'search',
                 'out': 'con'})
             self.assertEqual(0, r['return'], r.get('error', None))
-            self.assertEqual('default:kernel:default', sys.stdout.getvalue().strip())
+            self.assertEqual('default:kernel:default',
+                             sys.stdout.getvalue().strip())
 
         r = ck.perform_remote_action({
-            'module_uoa': 'kernel', 
+            'module_uoa': 'kernel',
             'remote_server_url': 'http://cknowledge.org/repo/ck.php?',
             'data_uoa': 'default',
             'repo_uoa': 'default',
@@ -243,7 +263,7 @@ class TestMgmt(unittest.TestCase):
 
         missing_filename = ck.gen_uid({})['data_uid']
         r = ck.perform_remote_action({
-            'module_uoa': 'kernel', 
+            'module_uoa': 'kernel',
             'remote_server_url': 'http://cknowledge.org/repo/ck.php?',
             'data_uoa': 'default',
             'repo_uoa': 'default',
@@ -256,7 +276,7 @@ class TestMgmt(unittest.TestCase):
             missing_user = ck.gen_uid({})['data_uid']
             missing_pass = ck.gen_uid({})['data_uid']
             r = ck.perform_remote_action({
-                'module_uoa': 'kernel', 
+                'module_uoa': 'kernel',
                 'remote_server_url': 'http://cknowledge.org/repo/ck.php?',
                 'data_uoa': 'default',
                 'repo_uoa': 'default',
@@ -265,11 +285,12 @@ class TestMgmt(unittest.TestCase):
                 'remote_server_user': missing_user,
                 'remote_server_pass': missing_pass})
             self.assertEqual(1, r['return'])
-            self.assertEqual('CK error: [kernel] writing to default repo is forbidden!', r['error'].strip())
+            self.assertEqual(
+                'CK error: [kernel] writing to default repo is forbidden!', r['error'].strip())
 
         with test_util.tmp_dir(cwd=True):
             r = ck.perform_remote_action({
-                'module_uoa': 'kernel', 
+                'module_uoa': 'kernel',
                 'remote_server_url': 'http://cknowledge.org/repo/ck.php?',
                 'data_uoa': 'default',
                 'repo_uoa': 'default',
@@ -285,13 +306,14 @@ class TestMgmt(unittest.TestCase):
             'data_uoa': 'ck-test-abcd',
             'common_func': 'yes',
             'action': 'add',
-            'dict': {'license': '1', 'copyright': '2', 'developer_email': '3', 'actions': {}, 'developer_webpage': '4', 'developer': '5', 'desc': 'abcd'}, 
+            'dict': {'license': '1', 'copyright': '2', 'developer_email': '3', 'actions': {}, 'developer_webpage': '4', 'developer': '5', 'desc': 'abcd'},
             'sort_keys': 'yes'
         }
         r = ck.add(entry)
         self.assertEqual(0, r['return'], r.get('error', None))
         try:
-            r = ck.add_action(merge(entry, {'func': 'test_func', 'desc': 'test descr', 'skip_appending_dummy_code': 'yes'}))
+            r = ck.add_action(merge(entry, {
+                              'func': 'test_func', 'desc': 'test descr', 'skip_appending_dummy_code': 'yes'}))
             self.assertEqual(0, r['return'], r.get('error', None))
 
             r = ck.list_actions(entry)
@@ -313,7 +335,8 @@ class TestMgmt(unittest.TestCase):
 
     def test_zip_unzip(self):
         with test_util.tmp_file() as fname:
-            r = ck.zip({'action': 'zip', 'repo_uoa': 'default', 'module_uoa': 'module', 'data_uoa': 'repo', 'archive_name': fname})
+            r = ck.zip({'action': 'zip', 'repo_uoa': 'default',
+                        'module_uoa': 'module', 'data_uoa': 'repo', 'archive_name': fname})
             self.assertEqual(0, r['return'], r.get('error', None))
             self.assertTrue(os.path.isfile(fname))
 

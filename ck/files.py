@@ -11,6 +11,8 @@ import sys
 import os
 
 ##############################################################################
+
+
 def load_json_file(i):
     """Load json from file into dict
        Target audience: end users
@@ -31,35 +33,37 @@ def load_json_file(i):
 
     import json
 
-    fn=i['json_file']
+    fn = i['json_file']
 
     try:
-      if sys.version_info[0]>2:
-         f=open(fn, 'r', encoding='utf8')
-      else:
-         f=open(fn, 'r')
+        if sys.version_info[0] > 2:
+            f = open(fn, 'r', encoding='utf8')
+        else:
+            f = open(fn, 'r')
     except Exception as e:
-       return {'return':16, 'error':'problem opening json file='+fn+' ('+format(e)+')'}
+        return {'return': 16, 'error': 'problem opening json file='+fn+' ('+format(e)+')'}
 
     try:
-      s=f.read()
+        s = f.read()
     except Exception as e:
-       f.close()
-       return {'return':1, 'error':'problem reading json file='+fn+' ('+format(e)+')'}
+        f.close()
+        return {'return': 1, 'error': 'problem reading json file='+fn+' ('+format(e)+')'}
 
     f.close()
 
     try:
-      if sys.version_info[0]>2:
-         d=json.loads(s)
-      else:
-         d=json.loads(s, encoding='utf8')
+        if sys.version_info[0] > 2:
+            d = json.loads(s)
+        else:
+            d = json.loads(s, encoding='utf8')
     except Exception as e:
-       return {'return':1, 'error':'problem parsing json from file='+fn+' ('+format(e)+')'}
+        return {'return': 1, 'error': 'problem parsing json from file='+fn+' ('+format(e)+')'}
 
-    return {'return':0, 'dict': d}
+    return {'return': 0, 'dict': d}
 
 ##############################################################################
+
+
 def save_json_to_file(i):
     """Save dict to a json file
        Target audience: end users
@@ -82,31 +86,30 @@ def save_json_to_file(i):
     import json
     import ck.strings
 
-    fn=i['json_file']
+    fn = i['json_file']
 
-    if i.get('safe','')=='yes':
-       d=i['dict']
+    if i.get('safe', '') == 'yes':
+        d = i['dict']
 
-       sd={}
+        sd = {}
 
-       # Check main unprintable keys
-       for k in d:
-           try:
-              json.dumps(d[k])
-           except Exception as e: 
-              pass
-           else:
-              sd[k]=d[k]
+        # Check main unprintable keys
+        for k in d:
+            try:
+                json.dumps(d[k])
+            except Exception as e:
+                pass
+            else:
+                sd[k] = d[k]
 
-       i['dict']=sd
+        i['dict'] = sd
 
-    r=ck.strings.dump_json(i)
-    if r['return']>0: return r
-    s=r['string'].replace('\r','')+'\n'
+    r = ck.strings.dump_json(i)
+    if r['return'] > 0:
+        return r
+    s = r['string'].replace('\r', '')+'\n'
 
-    return save_text_file({'text_file':fn, 'string':s})
-
-
+    return save_text_file({'text_file': fn, 'string': s})
 
 
 ##############################################################################
@@ -130,32 +133,34 @@ def load_yaml_file(i):
 
     import yaml
 
-    fn=i['yaml_file']
+    fn = i['yaml_file']
 
     try:
-      if sys.version_info[0]>2:
-         f=open(fn, 'r', encoding='utf8')
-      else:
-         f=open(fn, 'r')
+        if sys.version_info[0] > 2:
+            f = open(fn, 'r', encoding='utf8')
+        else:
+            f = open(fn, 'r')
     except Exception as e:
-       return {'return':16, 'error':'problem opening YAML file='+fn+' ('+format(e)+')'}
+        return {'return': 16, 'error': 'problem opening YAML file='+fn+' ('+format(e)+')'}
 
     try:
-      s=f.read()
+        s = f.read()
     except Exception as e:
-       f.close()
-       return {'return':1, 'error':'problem reading YAML file='+fn+' ('+format(e)+')'}
+        f.close()
+        return {'return': 1, 'error': 'problem reading YAML file='+fn+' ('+format(e)+')'}
 
     f.close()
 
     try:
-      d=yaml.load(s, Loader=yaml.FullLoader)
+        d = yaml.load(s, Loader=yaml.FullLoader)
     except Exception as e:
-       return {'return':1, 'error':'problem parsing YAML from file='+fn+' ('+format(e)+')'}
+        return {'return': 1, 'error': 'problem parsing YAML from file='+fn+' ('+format(e)+')'}
 
-    return {'return':0, 'dict': d}
+    return {'return': 0, 'dict': d}
 
 ##############################################################################
+
+
 def save_yaml_to_file(i):
     """Save dict to a YAML file
        Target audience: end users
@@ -175,18 +180,17 @@ def save_yaml_to_file(i):
 
     import yaml
 
-    fn=i['yaml_file']
-    d=i['dict']
+    fn = i['yaml_file']
+    d = i['dict']
 
     try:
-       # If using just dump and keys are in unicode, 
-       # pyyaml adds warning and makes produced yaml unparsable
-       s=yaml.safe_dump(d) 
+        # If using just dump and keys are in unicode,
+        # pyyaml adds warning and makes produced yaml unparsable
+        s = yaml.safe_dump(d)
     except Exception as e:
-       return {'return':1, 'error':'problem converting dict to YAML ('+format(e)+')'}
+        return {'return': 1, 'error': 'problem converting dict to YAML ('+format(e)+')'}
 
-    return save_text_file({'text_file':fn, 'string':s})
-
+    return save_text_file({'text_file': fn, 'string': s})
 
 
 ##############################################################################
@@ -224,70 +228,77 @@ def load_text_file(i):
 
     """
 
-    fn=i['text_file']
+    fn = i['text_file']
 
-    en=i.get('encoding','')
-    if en=='' or en==None: en='utf8'
-
-    try:
-       f=open(fn, 'rb')
-    except Exception as e:
-       return {'return':16, 'error':'problem opening text file='+fn+' ('+format(e)+')'}
+    en = i.get('encoding', '')
+    if en == '' or en == None:
+        en = 'utf8'
 
     try:
-       b=f.read()
+        f = open(fn, 'rb')
     except Exception as e:
-       f.close()
-       return {'return':1, 'error':'problem reading text file='+fn+' ('+format(e)+')'}
+        return {'return': 16, 'error': 'problem opening text file='+fn+' ('+format(e)+')'}
+
+    try:
+        b = f.read()
+    except Exception as e:
+        f.close()
+        return {'return': 1, 'error': 'problem reading text file='+fn+' ('+format(e)+')'}
 
     f.close()
 
-    r={'return':0, 'bin':b}
+    r = {'return': 0, 'bin': b}
 
-    if i.get('delete_after_read','')=='yes':
-       import os
-       os.remove(fn)
+    if i.get('delete_after_read', '') == 'yes':
+        import os
+        os.remove(fn)
 
-    if i.get('keep_as_bin','')!='yes':
-       try:
-          s=b.decode(en).replace('\r','') # decode into Python string (unicode in Python3)
-       except Exception as e:
-          return {'return':1, 'error':'problem decoding content from file "'+fn+'" ('+format(e)+')'}
+    if i.get('keep_as_bin', '') != 'yes':
+        try:
+            # decode into Python string (unicode in Python3)
+            s = b.decode(en).replace('\r', '')
+        except Exception as e:
+            return {'return': 1, 'error': 'problem decoding content from file "'+fn+'" ('+format(e)+')'}
 
-       r['string']=s
+        r['string'] = s
 
-       cl=i.get('split_to_list','')
-       cd=i.get('convert_to_dict','')
+        cl = i.get('split_to_list', '')
+        cd = i.get('convert_to_dict', '')
 
-       if cl=='yes' or cd=='yes':
-          lst=s.split('\n')
-          r['lst']=lst
+        if cl == 'yes' or cd == 'yes':
+            lst = s.split('\n')
+            r['lst'] = lst
 
-          if cd=='yes':
-             dd={}
+            if cd == 'yes':
+                dd = {}
 
-             ss=i.get('str_split','')
-             rq=i.get('remove_quotes','')
-             if ss=='': ss=':'
+                ss = i.get('str_split', '')
+                rq = i.get('remove_quotes', '')
+                if ss == '':
+                    ss = ':'
 
-             for q in lst:
-                 qq=q.strip()
-                 ix=qq.find(ss)
-                 if ix>0:
-                    k=qq[0:ix].strip()
-                    v=''
-                    if ix+1<len(qq):
-                       v=qq[ix+1:].strip()
-                    if v!='' and rq=='yes':
-                       if v.startswith('"'): v=v[1:]
-                       if v.endswith('"'): v=v[:-1]
-                    dd[k]=v
+                for q in lst:
+                    qq = q.strip()
+                    ix = qq.find(ss)
+                    if ix > 0:
+                        k = qq[0:ix].strip()
+                        v = ''
+                        if ix+1 < len(qq):
+                            v = qq[ix+1:].strip()
+                        if v != '' and rq == 'yes':
+                            if v.startswith('"'):
+                                v = v[1:]
+                            if v.endswith('"'):
+                                v = v[:-1]
+                        dd[k] = v
 
-             r['dict']=dd
+                r['dict'] = dd
 
     return r
 
 ##############################################################################
+
+
 def save_text_file(i):
     """Save string to a text file with all \r removed
        Target audience: end users
@@ -306,38 +317,39 @@ def save_text_file(i):
 
     """
 
-    fn=i['text_file']
+    fn = i['text_file']
 
-    s=i['string']
-
-    try:
-      s=s.replace('\r','')
-    except Exception as e:
-       pass
+    s = i['string']
 
     try:
-      s=s.replace(b'\r',b'')
+        s = s.replace('\r', '')
     except Exception as e:
-       pass
-
-    m='w'
-    if i.get('append','')=='yes': m='a'
+        pass
 
     try:
-       s=s.encode('utf8')
+        s = s.replace(b'\r', b'')
     except Exception as e:
-       pass
+        pass
+
+    m = 'w'
+    if i.get('append', '') == 'yes':
+        m = 'a'
 
     try:
-#      if sys.version_info[0]>2:
-#         f=open(fn, m+'b')
-#         f.write(s)
-#      else:
-      f=open(fn, m+'b')
-      f.write(s)
+        s = s.encode('utf8')
     except Exception as e:
-       return {'return':1, 'error':'problem writing text file='+fn+' ('+format(e)+')'}
+        pass
+
+    try:
+        #      if sys.version_info[0]>2:
+        #         f=open(fn, m+'b')
+        #         f.write(s)
+        #      else:
+        f = open(fn, m+'b')
+        f.write(s)
+    except Exception as e:
+        return {'return': 1, 'error': 'problem writing text file='+fn+' ('+format(e)+')'}
 
     f.close()
 
-    return {'return':0}
+    return {'return': 0}

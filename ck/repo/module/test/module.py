@@ -10,9 +10,9 @@
 import unittest
 import os
 
-cfg={}  # Will be updated by CK (meta description of this module)
-work={} # Will be updated by CK (temporal data)
-ck=None # Will be updated by CK (initialized CK kernel) 
+cfg = {}  # Will be updated by CK (meta description of this module)
+work = {}  # Will be updated by CK (temporal data)
+ck = None  # Will be updated by CK (initialized CK kernel)
 
 # The value added to the number of failed tests to form the return code, when some tests are failed.
 # If return code is less or equal than this value (but more than 0), this means execution error.
@@ -26,6 +26,7 @@ test_fail_retcode_addition = 100
 ##############################################################################
 # Initialize module
 
+
 def init(i):
     """
     Input:  {}
@@ -37,10 +38,11 @@ def init(i):
             }
 
     """
-    return {'return':0}
+    return {'return': 0}
 
 ##############################################################################
 # Run tests for all modules in all repos
+
 
 def run(i):
     """
@@ -58,7 +60,7 @@ def run(i):
                                          >  0, if error. This error means test execution failed.
                                             If some tests are failed, but the process overall succeded,
                                             the return value is 0.
-              
+
               (error)      - error message
 
               (stats) {
@@ -80,30 +82,31 @@ def run(i):
 
     repo_uoas = []
     if '' == i.get('repo_uoa', ''):
-       r = ck.list_data({'module_uoa': 'repo', 'cid': 'repo:*', 'data_uoa': '*'})
-       if r['return']>0:
-          return r
-       repo_uoas = map(lambda r: r['data_uoa'], r['lst'])
+        r = ck.list_data(
+            {'module_uoa': 'repo', 'cid': 'repo:*', 'data_uoa': '*'})
+        if r['return'] > 0:
+            return r
+        repo_uoas = map(lambda r: r['data_uoa'], r['lst'])
     else:
-       repo_uoas = [i['repo_uoa']]
+        repo_uoas = [i['repo_uoa']]
 
     ret = {
-       'return': 0,
-       'stats': { 'tests_run': 0, 'tests_failed': 0 },
-       'repo_results': []
+        'return': 0,
+        'stats': {'tests_run': 0, 'tests_failed': 0},
+        'repo_results': []
     }
-    out = 'con' if i.get('out','') == 'con' else ''
+    out = 'con' if i.get('out', '') == 'con' else ''
     for repo_uoa in repo_uoas:
         list_data = {'repo_uoa': repo_uoa}
         if '' != test_module_uoa:
-           list_data['data_uoa'] = test_module_uoa
-        r = run_data_tests({'list_data': list_data, 'out': out, 
+            list_data['data_uoa'] = test_module_uoa
+        r = run_data_tests({'list_data': list_data, 'out': out,
                             'test_file_pattern': test_file_pattern, 'test_names': test_names})
         if is_execution_error(r):
-           # execution error happened - fail fast
-           ret['return'] = r['return']
-           ret['error'] = r.get('error', '')
-           return ret
+            # execution error happened - fail fast
+            ret['return'] = r['return']
+            ret['error'] = r.get('error', '')
+            return ret
 
         ret['stats']['tests_run'] += r['stats']['tests_run']
         ret['stats']['tests_failed'] += r['stats']['tests_failed']
@@ -113,6 +116,7 @@ def run(i):
 
 ##############################################################################
 # Run tests for modules/repos specified by the given criteria
+
 
 def run_data_tests(i):
     """
@@ -131,9 +135,9 @@ def run_data_tests(i):
                                               the return value is 0.
 
               (error)        - error message
-              
+
               (repo_uoa)     - repo_uoa, if provided in the input
-              
+
               (stats) {
                         tests_run      - integer, total number of tests run
                         tests_failed   - integer, total number of tests failed by all reasons. Detailed results are
@@ -151,26 +155,26 @@ def run_data_tests(i):
     test_names = i.get('test_names', '')
 
     r = ck.list_data(i['list_data'])
-    if r['return']>0:
-       return r
+    if r['return'] > 0:
+        return r
 
     modules_lst = r['lst']
 
     ret = {
-       'return': 0,
-       'stats': { 'tests_run': 0, 'tests_failed': 0 },
-       'module_results': []
+        'return': 0,
+        'stats': {'tests_run': 0, 'tests_failed': 0},
+        'module_results': []
     }
-    out = 'con' if i.get('out','') == 'con' else ''
+    out = 'con' if i.get('out', '') == 'con' else ''
     for m in modules_lst:
-#        print (m,repo_uoa,out,test_file_pattern, test_names)
-        r = run_module_tests({'module': m, 'repo_uoa': repo_uoa, 'out': out, 
+        #        print (m,repo_uoa,out,test_file_pattern, test_names)
+        r = run_module_tests({'module': m, 'repo_uoa': repo_uoa, 'out': out,
                               'test_file_pattern': test_file_pattern, 'test_names': test_names})
         if is_execution_error(r):
-           # execution error happened - fail fast
-           ret['return'] = r['return']
-           ret['error'] = r.get('error', '')
-           return ret
+            # execution error happened - fail fast
+            ret['return'] = r['return']
+            ret['error'] = r.get('error', '')
+            return ret
 
         ret['stats']['tests_run'] += r['stats']['tests_run']
         ret['stats']['tests_failed'] += r['stats']['tests_failed']
@@ -180,6 +184,7 @@ def run_data_tests(i):
 
 ##############################################################################
 # Run tests for a single module
+
 
 def run_module_tests(i):
     """
@@ -199,7 +204,7 @@ def run_module_tests(i):
                                                       the return value is 0.
 
               (error)                - error message
-              
+
               (module_uoa)           - module UOA
 
               (repo_uoa)             - repo UOA (may be an empty string, if not provided in the input)
@@ -225,105 +230,114 @@ def run_module_tests(i):
     repo_uoa = i.get('repo_uoa', '')
 
     ret = {
-       'return': 0,
-       'module_uoa': module['data_uoa'],
-       'repo_uoa': repo_uoa,
-       'stats': { 
-          'tests_run' : 0,
-          'tests_failed': 0
-       },
-       'results': {
-          'errors': [],
-          'failures': [],
-          'unexpected_successes': []
-       }
+        'return': 0,
+        'module_uoa': module['data_uoa'],
+        'repo_uoa': repo_uoa,
+        'stats': {
+            'tests_run': 0,
+            'tests_failed': 0
+        },
+        'results': {
+            'errors': [],
+            'failures': [],
+            'unexpected_successes': []
+        }
     }
 
     o = i.get('out', '')
 
     tests_path = os.path.join(module['path'], 'test')
     if not os.path.isdir(tests_path):
-       return ret
+        return ret
 
     test_file_pattern = i.get('test_file_pattern', '')
     if '' == test_file_pattern.strip():
-       test_file_pattern = 'test*.py'
+        test_file_pattern = 'test*.py'
 
     test_names = i.get('test_names', '')
     test_names_list = None
     if '' != test_names:
-      test_names_list = list(map(str.strip, test_names.split(',')))
-    suite = CkTestLoader(test_names_list).discover(tests_path, pattern=test_file_pattern)
+        test_names_list = list(map(str.strip, test_names.split(',')))
+    suite = CkTestLoader(test_names_list).discover(
+        tests_path, pattern=test_file_pattern)
 
     prefix = repo_uoa
     if prefix != '':
-       prefix += ':'
+        prefix += ':'
 
     if o == 'con':
-       ck.out('*** Running tests for ' + prefix + module['data_uoa'])
+        ck.out('*** Running tests for ' + prefix + module['data_uoa'])
 
     test_result = None
     if o == 'con':
-       test_result = unittest.TextTestRunner().run(suite)
-    else: # pragma: no cover
-       # supress all output
-       with open(os.devnull, 'w') as f:
-          test_result = unittest.TextTestRunner(stream=f).run(suite)
+        test_result = unittest.TextTestRunner().run(suite)
+    else:  # pragma: no cover
+        # supress all output
+        with open(os.devnull, 'w') as f:
+            test_result = unittest.TextTestRunner(stream=f).run(suite)
 
     ret['stats']['tests_run'] = test_result.testsRun
-    ret['stats']['tests_failed'] = len(test_result.errors) + len(test_result.failures) + len(test_result.unexpectedSuccesses)
+    ret['stats']['tests_failed'] = len(
+        test_result.errors) + len(test_result.failures) + len(test_result.unexpectedSuccesses)
 
     ret['results']['errors'] = convert_error_tuples(test_result.errors)
     ret['results']['failures'] = convert_error_tuples(test_result.failures)
-    ret['results']['unexpected_successes'] = convert_error_tuples(test_result.unexpectedSuccesses)
+    ret['results']['unexpected_successes'] = convert_error_tuples(
+        test_result.unexpectedSuccesses)
 
     return polish_return_value(ret)
+
 
 def is_execution_error(r):
     return 0 < r['return'] and r['return'] <= test_fail_retcode_addition
 
+
 def polish_return_value(ret):
     failed_count = ret['stats']['tests_failed']
     if failed_count > 0:
-       ret['return'] = test_fail_retcode_addition + failed_count
-       ret['error'] = str(failed_count) + ' test(s) failed'
+        ret['return'] = test_fail_retcode_addition + failed_count
+        ret['error'] = str(failed_count) + ' test(s) failed'
     return ret
 
-def convert_error_tuples(list): # pragma: no cover
+
+def convert_error_tuples(list):  # pragma: no cover
     ret = []
     for t in list:
         test_case, traceback = t
         ret.append({'test': test_case.id(), 'traceback': traceback})
     return ret
 
+
 class CkTestLoader(unittest.TestLoader):
-  def __init__(self, test_names=None):
-      r = ck.load_module_from_path({'path': work['path'], 'module_code_name': 'test_util', 'skip_init': 'yes'})
-      if r['return']>0:
-        raise Exception('Failed to load test_util module')
-      self.test_util = r['code']
-      self.test_names = test_names
+    def __init__(self, test_names=None):
+        r = ck.load_module_from_path(
+            {'path': work['path'], 'module_code_name': 'test_util', 'skip_init': 'yes'})
+        if r['return'] > 0:
+            raise Exception('Failed to load test_util module')
+        self.test_util = r['code']
+        self.test_names = test_names
 
-  def _is_test_name_accepted(self, n):
-      return n in self.test_names
+    def _is_test_name_accepted(self, n):
+        return n in self.test_names
 
-  def getTestCaseNames(self, testCaseClass):
-      ret = super(CkTestLoader, self).getTestCaseNames(testCaseClass)
-      if self.test_names is not None:
-        ret = list(filter(self._is_test_name_accepted, ret))
-      return ret
+    def getTestCaseNames(self, testCaseClass):
+        ret = super(CkTestLoader, self).getTestCaseNames(testCaseClass)
+        if self.test_names is not None:
+            ret = list(filter(self._is_test_name_accepted, ret))
+        return ret
 
-  def loadTestsFromModule(self, module, pattern=None):
-      module.ck = ck
-      module.cfg = cfg
-      module.work = work
-      module.test_util = self.test_util
-      return super(CkTestLoader, self).loadTestsFromModule(module, pattern)
+    def loadTestsFromModule(self, module, pattern=None):
+        module.ck = ck
+        module.cfg = cfg
+        module.work = work
+        module.test_util = self.test_util
+        return super(CkTestLoader, self).loadTestsFromModule(module, pattern)
 
 ##############################################################################
 # show cmd
 
-def cmd(i): # pragma: no cover
+
+def cmd(i):  # pragma: no cover
     """
     Input:  {
             }
@@ -340,8 +354,8 @@ def cmd(i): # pragma: no cover
     ck.out('')
 
     import json
-    cmd=json.dumps(i, indent=2)
+    cmd = json.dumps(i, indent=2)
 
     ck.out(cmd)
 
-    return {'return':0}
+    return {'return': 0}
