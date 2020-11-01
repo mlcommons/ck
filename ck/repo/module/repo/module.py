@@ -1897,9 +1897,13 @@ def unzip(i):
 
     overwrite = i.get('overwrite', '')
 
-    zip = i.get('zip', '')
-    if zip == '':
-        zip = 'ckr.zip'
+    zip_ = i.get('zip', '')
+    if zip_ == '':
+        zip_ = 'ckr.zip'
+
+    # Check if exists
+    if not os.path.isfile(zip_):
+       return {'return':1, 'error':'file "'+zip_+'" not found'}
 
     # Find path to repo
     r = ck.find_path_to_repo({'repo_uoa': duoa})
@@ -1910,7 +1914,7 @@ def unzip(i):
 
     # Unzipping archive
     rz = get_and_unzip_archive(
-        {'zip': zip, 'path': path, 'overwrite': overwrite, 'out': o})
+        {'zip': zip_, 'path': path, 'overwrite': overwrite, 'out': o})
     if rz['return'] > 0:
         return rz
 

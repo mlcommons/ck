@@ -1,6 +1,7 @@
 * V1.17.0.1 
   * Added ck list_tags {CID} to list all tags from found entries (uses search function)
   * Converted python files to PEP8 style using autopep8
+  * Fixed bug with "ck unzip repo" if ckr.zip if not present
 
 * V1.17.0
   * Updated description of all CK APIs in Google format!
