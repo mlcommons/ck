@@ -1,5 +1,9 @@
 # CK basics
 
+## Project overview
+
+* [Philosophical Transactions of the Royal Society (2020)](https://arxiv.org/abs/2011.01149)
+
 ## Why CK?
 
 While working in large R&D projects with multiple partners to design efficient machine learning systems, 

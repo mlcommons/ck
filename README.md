@@ -21,9 +21,9 @@ and extensible meta descriptions based on [FAIR principles](https://www.nature.c
 We want to help everyone share, reuse, and extend their knowledge
 in the form of reusable artifacts and portable workflows with a common API, CLI,
 and meta description. See how CK supports collaborative and reproducible AI, ML, and Systems R&D:
+* [Project overview (accepted for Philosophical Transactions of the Royal Society A)](https://arxiv.org/abs/2011.01149)
 * [Real-world use-cases](https://cKnowledge.org/partners.html) from Arm, General Motors, IBM, MLPerf, the Raspberry Pi foundation, and ACM
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
-* [Project overview (accepted for Philosophical Transactions of the Royal Society A)](https://doi.org/10.6084/m9.figshare.12988361)
 
 Please take [this quick questionnaire](https://docs.google.com/forms/d/e/1FAIpQLSevHBo4EGItvqzhQ8c3SmlS7TLwjvMQQBjNevK7T7UiIYvjnQ/viewform) to help us shape the future of the CK framework!
 
@@ -31,16 +31,15 @@ Please take [this quick questionnaire](https://docs.google.com/forms/d/e/1FAIpQL
 
 * **2020 August**: We have completed the prototyping phase and successfully validated CK 
   in [several projects](https://cKnowledge.org/partners)
-  to automate the complex co-design process of [efficient ML/SW/HW stacks](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all),
-  simplify [MLPerf benchmark](https://cKnowledge.io/c/docker) submissions,
+  to automate the design space exploration of [efficient ML/SW/HW stacks](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all),
+  simplify [MLPerf benchmark](https://cKnowledge.io/solution) submissions,
   and quickly deploy emerging technologies (AI, ML, quantum) in production
   in the [most efficient way (speed, accuracy, energy, costs)]( https://cKnowledge.io/results ) 
   across diverse platforms from data centers to mobile phones and edge devices.
-  See this [white paper](https://doi.org/10.6084/m9.figshare.12988361)
-  and the [CK presentation](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
+  See this [white paper](https://arxiv.org/abs/2011.01149)
+  and the [Reddit discussion](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
   for more details.
-  *We are now raising funding to continue developing our [Collective Knowledge platform](https://cKnowledge.io) - 
-  don't hesitate to get in touch with [Grigori Fursin]( https://cKnowledge.org/contacts.html ) to know more!*
+  *We are now preparing the CK2 and new projects - don't hesitate to get in touch with [Grigori Fursin]( https://cKnowledge.org/contacts.html ) for further details!*
 
 ## Documentation
 
@@ -56,8 +55,9 @@ Please take [this quick questionnaire](https://docs.google.com/forms/d/e/1FAIpQL
 * [Real-world use-cases](https://cKnowledge.org/partners)
 * Reproducibility initiatives: [[methodology](https://cTuning.org/ae)], [[events](https://cKnowledge.io/events)]
 * Showroom (public projects powered by CK):
-  * [MLPerf automation](https://github.com/ctuning/ck-mlperf)
+  * [MLPerf automation](https://cKnowledge.io/solution)
   * Student Cluster Competition automation: [SCC18](https://github.com/ctuning/ck-scc18), [digital artifacts](https://github.com/ctuning/ck-scc)
+  * Jupyter notebooks: [ML/SW/HW DSE for edge devices](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb)
   * ML-based autotuning project: [reproducible paper demo](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive),  [MILEPOST]( https://github.com/ctuning/reproduce-milepost-project )
   * Stable Docker containers with CK workflows: [MLPerf example](https://cknowledge.io/c/docker/mlperf-inference-vision-with-ck.intel.ubuntu-18.04/), [cKnowledge.io]( https://cKnowledge.io/c/docker ), [Docker Hub](https://hub.docker.com/u/ctuning)
   * [Quantum hackathons](https://cKnowledge.org/quantum)
@@ -69,7 +69,7 @@ Please take [this quick questionnaire](https://docs.google.com/forms/d/e/1FAIpQL
     * [OpenVino](https://github.com/ctuning/ck-openvino)
     * [individual NN operators](https://github.com/ctuning/ck-nntest)
     * [object detection](https://github.com/ctuning/ck-object-detection)
-  * [GUI to automate  ML/SW/HW benchmarking with MLPerf example (under development)](https://cKnowledge.io/test)
+  * [GUI to automate ML/SW/HW benchmarking with MLPerf example (under development)](https://cKnowledge.io/test)
   * [Reproduced papers]( https://cKnowledge.io/reproduced-papers )
   * [Live scoreboards for reproduced papers]( https://cKnowledge.io/reproduced-results )
 * Examples of CK components (automations, API, meta descriptions):
@@ -144,7 +144,8 @@ in the form of portable CK workflows, automation actions, and reusable component
 
 * [**All CK ML&systems components**](https://cknowledge.io/?q=mlsystems)
 * [CK compatible repositories]( https://cknowledge.io/repos )
-* [CK-based Docker images]( https://cKnowledge.io/c/module/docker )
+* [CK portable solutions (including MLPerf inference on edge)]( https://cKnowledge.io/solution )
+* [CK-based adaptive containers]( https://cKnowledge.io/c/module/docker )
 * [CK modules]( https://cKnowledge.io/modules )
 * [Automation actions]( https://cKnowledge.io/actions )
 * [Portable program workflows]( https://cKnowledge.io/programs )
@@ -164,4 +165,4 @@ in the form of portable CK workflows, automation actions, and reusable component
 
 We would like to thank all [contributors](https://github.com/ctuning/ck/blob/master/CONTRIBUTING.md) 
 and [collaborators](https://cKnowledge.org/partners.html) for their support, fruitful discussions, 
-and useful feedback!
+and useful feedback! See more acknowledgments in the [CK journal article](https://arxiv.org/abs/2011.01149).
