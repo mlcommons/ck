@@ -11,6 +11,15 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 [![Documentation Status](https://readthedocs.org/projects/ck/badge/?version=latest)](https://ck.readthedocs.io/en/latest/?badge=latest)
 [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
+## News
+
+* We have finished prototyping the [CK concept](https://arxiv.org/pdf/2011.01149.pdf)
+  and successfully used it to automate  [MLPerf inference benchmark submissions for edge devices](https://cKnowledge.io/solutions)
+  and the design space exploration of [efficient ML/SW/HW stacks](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
+  in terms of speed, accuracy, energy and costs.
+  We are preparing a major update based on [your feedback](https://cknowledge.io/questionnaire/20201020) - 
+  feel free to contact [Grigori Fursin]( https://cKnowledge.io/@gfursin ) for more details!
+
 ## Overview
 
 Collective Knowledge framework (CK) helps to organize software projects
@@ -19,27 +28,12 @@ and extensible meta descriptions based on [FAIR principles](https://www.nature.c
 (findability, accessibility, interoperability, and reusability).
 
 We want to help everyone share, reuse, and extend their knowledge
-in the form of reusable artifacts and portable workflows with a common API, CLI,
-and meta description. See how CK supports collaborative and reproducible AI, ML, and Systems R&D:
-* [Project overview (accepted for Philosophical Transactions of the Royal Society A)](https://arxiv.org/abs/2011.01149)
-* [Real-world use-cases](https://cKnowledge.org/partners.html) from Arm, General Motors, IBM, MLPerf, the Raspberry Pi foundation, and ACM
+in the form of portable workflows and reusable artifacts with a common API, CLI,
+and meta description. See how CK supports collaborative and reproducible research:
+* [Project overview accepted for Philosophical Transactions of the Royal Society](https://arxiv.org/abs/2011.01149)
+* [Real-world use-cases](https://cKnowledge.org/partners.html) from MLPerf, Arm, General Motors, IBM, the Raspberry Pi foundation and ACM
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
-
-Please take [this quick questionnaire](https://docs.google.com/forms/d/e/1FAIpQLSevHBo4EGItvqzhQ8c3SmlS7TLwjvMQQBjNevK7T7UiIYvjnQ/viewform) to help us shape the future of the CK framework!
-
-## News
-
-* **2020 August**: We have completed the prototyping phase and successfully validated CK 
-  in [several projects](https://cKnowledge.org/partners)
-  to automate the design space exploration of [efficient ML/SW/HW stacks](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all),
-  simplify [MLPerf benchmark](https://cKnowledge.io/solution) submissions,
-  and quickly deploy emerging technologies (AI, ML, quantum) in production
-  in the [most efficient way (speed, accuracy, energy, costs)]( https://cKnowledge.io/results ) 
-  across diverse platforms from data centers to mobile phones and edge devices.
-  See this [white paper](https://arxiv.org/abs/2011.01149)
-  and the [Reddit discussion](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
-  for more details.
-  *We are now preparing the CK2 and new projects - don't hesitate to get in touch with [Grigori Fursin]( https://cKnowledge.org/contacts.html ) for further details!*
+* [MLPerf automation workflows](https://cKnowledge.io/solutions)
 
 ## Documentation
 
