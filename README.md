@@ -37,12 +37,12 @@ and meta description. See how CK supports collaborative and reproducible researc
 
 ## Documentation
 
-* [News](https://github.com/ctuning/ck/wiki/News-archive)
 * [Online CK documentation]( https://ck.readthedocs.io ) 
   * [Why CK?]( https://ck.readthedocs.io/en/latest/src/introduction.html ) 
   * [CK Basics](https://michel-steuwer.github.io/About-CK)
   * [Try CK]( https://ck.readthedocs.io/en/latest/src/first-steps.html )
 * [Publications](https://github.com/ctuning/ck/wiki/Publications)
+* [All news](https://github.com/ctuning/ck/wiki/News-archive)
 
 ## CK-powered workflows, automation actions, and reusable artifacts
 
