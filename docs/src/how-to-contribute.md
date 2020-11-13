@@ -1,6 +1,16 @@
+# Notes
+
+Users extend the CK functionality via external [GitHub reposities](https://cKnowledge.io/repos) in the CK format. 
+See [docs](https://ck.readthedocs.io/en/latest/src/typical-usage.html) for more details.
+
+If you want to extend the CK core, please note that we plan to completely rewrite it based on the OO principles
+(we wrote the first prototype without OO to be able to port to bare-metal devices in C but we decided not to do it at the end).
+We also plan to relicense the framework to Apache 2.0.
+In the meantime, please check [this documentation](https://ck.readthedocs.io/en/latest/src/how-to-contribute.html).
+
 # How to contribute
 
-Collective Knowledge framework (CK) uses standard 3-clause (new) BSD license. 
+Current Collective Knowledge framework (CK) uses standard 3-clause (new) BSD license. 
 Contributions are very welcome to improve the existing functionality 
 of the CK framework, CK modules, and CK components.
 

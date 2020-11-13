@@ -25,15 +25,16 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 Collective Knowledge framework (CK) helps to organize software projects
 as a database of reusable components with common automation actions
 and extensible meta descriptions based on [FAIR principles](https://www.nature.com/articles/sdata201618)
-(findability, accessibility, interoperability, and reusability).
+(findability, accessibility, interoperability and reusability).
 
-We want to help everyone share, reuse, and extend their knowledge
+We want to help everyone share, reuse and extend their knowledge
 in the form of portable workflows and reusable artifacts with a common API, CLI,
 and meta description. See how CK supports collaborative and reproducible research:
 * [Project overview accepted for Philosophical Transactions of the Royal Society](https://arxiv.org/abs/2011.01149)
 * [Real-world use-cases](https://cKnowledge.org/partners.html) from MLPerf, Arm, General Motors, IBM, the Raspberry Pi foundation and ACM
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
 * [MLPerf automation workflows](https://cKnowledge.io/solutions)
+* Reproducibility initiatives: [[methodology](https://cTuning.org/ae)], [[events](https://cKnowledge.io/events)]
 
 ## Documentation
 
@@ -43,43 +44,6 @@ and meta description. See how CK supports collaborative and reproducible researc
   * [Try CK]( https://ck.readthedocs.io/en/latest/src/first-steps.html )
 * [Publications](https://github.com/ctuning/ck/wiki/Publications)
 * [All news](https://github.com/ctuning/ck/wiki/News-archive)
-
-## CK-powered workflows, automation actions, and reusable artifacts
-
-* [Real-world use-cases](https://cKnowledge.org/partners)
-* Reproducibility initiatives: [[methodology](https://cTuning.org/ae)], [[events](https://cKnowledge.io/events)]
-* Showroom (public projects powered by CK):
-  * [MLPerf automation](https://cKnowledge.io/solution)
-  * Student Cluster Competition automation: [SCC18](https://github.com/ctuning/ck-scc18), [digital artifacts](https://github.com/ctuning/ck-scc)
-  * Jupyter notebooks: [ML/SW/HW DSE for edge devices](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb)
-  * ML-based autotuning project: [reproducible paper demo](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive),  [MILEPOST]( https://github.com/ctuning/reproduce-milepost-project )
-  * Stable Docker containers with CK workflows: [MLPerf example](https://cknowledge.io/c/docker/mlperf-inference-vision-with-ck.intel.ubuntu-18.04/), [cKnowledge.io]( https://cKnowledge.io/c/docker ), [Docker Hub](https://hub.docker.com/u/ctuning)
-  * [Quantum hackathons](https://cKnowledge.org/quantum)
-  * [ACM SW/HW co-design tournaments for Pareto-efficient deep learning](https://cKnowledge.org/request)
-  * Portable CK workflows and components for:
-    * [TensorFlow](https://github.com/ctuning/ck-tensorflow)
-    * [PyTorch](https://github.com/ctuning/ck-pytorch)
-    * [TensorRT](https://github.com/ctuning/ck-tensorrt)
-    * [OpenVino](https://github.com/ctuning/ck-openvino)
-    * [individual NN operators](https://github.com/ctuning/ck-nntest)
-    * [object detection](https://github.com/ctuning/ck-object-detection)
-  * [GUI to automate ML/SW/HW benchmarking with MLPerf example (under development)](https://cKnowledge.io/test)
-  * [Reproduced papers]( https://cKnowledge.io/reproduced-papers )
-  * [Live scoreboards for reproduced papers]( https://cKnowledge.io/reproduced-results )
-* Examples of CK components (automations, API, meta descriptions):
-    * *program : image-classification-tflite-loadgen* [[cKnowledge.io]( https://cKnowledge.io/c/program/image-classification-tflite-loadgen )] [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/program/image-classification-tflite-loadgen )]
-    * *program : image-classification-tflite* [[GitHub](https://github.com/ctuning/ck-tensorflow/tree/master/program/image-classification-tflite)]
-    * *soft : lib.mlperf.loadgen.static* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/soft/lib.mlperf.loadgen.static )]
-    * *package : lib-mlperf-loadgen-static* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/package/lib-mlperf-loadgen-static )]
-    * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
-    * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/ctuning/ck-tensorflow/tree/master/package/lib-tflite )]
-    * *docker : object-detection-tf-py.tensorrt.ubuntu-18.04* [[cKnowledge.io]( https://cknowledge.io/c/docker/object-detection-tf-py.tensorrt.ubuntu-18.04 )]
-    * *docker* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/docker )]
-    * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/docker/speech-recognition.rnnt )]
-    * *package : model-tf-** [[GitHub]( https://github.com/ctuning/ck-object-detection/tree/master/package )]
-    * *script : mlperf-inference-v0.7.image-classification* [[cKnowledge.io]( https://cknowledge.io/c/script/mlperf-inference-v0.7.image-classification )]
-    * *jnotebook : object-detection* [[GitHub](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb)]
-
 
 ## Installation
 
@@ -130,11 +94,46 @@ tmp-output.tmp - image with detected corners (rename to ppm to view it)
 
 Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for further details.
 
+## More examples of CK workflows, automation actions and reusable artifacts for
+
+* Showroom (public projects powered by CK):
+  * [MLPerf automation](https://cKnowledge.io/solution)
+  * Student Cluster Competition automation: [SCC18](https://github.com/ctuning/ck-scc18), [digital artifacts](https://github.com/ctuning/ck-scc)
+  * Jupyter notebooks: [ML/SW/HW DSE for edge devices](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb)
+  * ML-based autotuning project: [reproducible paper demo](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive),  [MILEPOST]( https://github.com/ctuning/reproduce-milepost-project )
+  * Stable Docker containers with CK workflows: [MLPerf example](https://cknowledge.io/c/docker/mlperf-inference-vision-with-ck.intel.ubuntu-18.04/), [cKnowledge.io]( https://cKnowledge.io/c/docker ), [Docker Hub](https://hub.docker.com/u/ctuning)
+  * [Quantum hackathons](https://cKnowledge.org/quantum)
+  * [ACM SW/HW co-design tournaments for Pareto-efficient deep learning](https://cKnowledge.org/request)
+  * Portable CK workflows and components for:
+    * [TensorFlow](https://github.com/ctuning/ck-tensorflow)
+    * [PyTorch](https://github.com/ctuning/ck-pytorch)
+    * [TensorRT](https://github.com/ctuning/ck-tensorrt)
+    * [OpenVino](https://github.com/ctuning/ck-openvino)
+    * [individual NN operators](https://github.com/ctuning/ck-nntest)
+    * [object detection](https://github.com/ctuning/ck-object-detection)
+  * [GUI to automate ML/SW/HW benchmarking with MLPerf example (under development)](https://cKnowledge.io/test)
+  * [Reproduced papers]( https://cKnowledge.io/reproduced-papers )
+  * [Live scoreboards for reproduced papers]( https://cKnowledge.io/reproduced-results )
+* Examples of CK components (automations, API, meta descriptions):
+    * *program : image-classification-tflite-loadgen* [[cKnowledge.io]( https://cKnowledge.io/c/program/image-classification-tflite-loadgen )] [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/program/image-classification-tflite-loadgen )]
+    * *program : image-classification-tflite* [[GitHub](https://github.com/ctuning/ck-tensorflow/tree/master/program/image-classification-tflite)]
+    * *soft : lib.mlperf.loadgen.static* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/soft/lib.mlperf.loadgen.static )]
+    * *package : lib-mlperf-loadgen-static* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/package/lib-mlperf-loadgen-static )]
+    * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
+    * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/ctuning/ck-tensorflow/tree/master/package/lib-tflite )]
+    * *docker : object-detection-tf-py.tensorrt.ubuntu-18.04* [[cKnowledge.io]( https://cknowledge.io/c/docker/object-detection-tf-py.tensorrt.ubuntu-18.04 )]
+    * *docker* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/docker )]
+    * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/docker/speech-recognition.rnnt )]
+    * *package : model-tf-** [[GitHub]( https://github.com/ctuning/ck-object-detection/tree/master/package )]
+    * *script : mlperf-inference-v0.7.image-classification* [[cKnowledge.io]( https://cknowledge.io/c/script/mlperf-inference-v0.7.image-classification )]
+    * *jnotebook : object-detection* [[GitHub](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb)]
+
+
 
 ## Open CK portal 
 
 [cKnowledge.io](https://cKnowledge.io): organizing [ML and Systems knowledge]( https://doi.org/10.5281/zenodo.4005773 )
-in the form of portable CK workflows, automation actions, and reusable components:
+in the form of portable CK workflows, automation actions and reusable components:
 
 * [**All CK ML&systems components**](https://cknowledge.io/?q=mlsystems)
 * [CK compatible repositories]( https://cknowledge.io/repos )
@@ -151,9 +150,22 @@ in the form of portable CK workflows, automation actions, and reusable component
 
 
 
+## Contributions
+
+Users extend the CK functionality via external [GitHub reposities](https://cKnowledge.io/repos) in the CK format. 
+See [docs](https://ck.readthedocs.io/en/latest/src/typical-usage.html) for more details.
+
+If you want to extend the CK core, please note that we plan to completely rewrite it based on the OO principles
+(we wrote the first prototype without OO to be able to port to bare-metal devices in C but we decided not to do it at the end).
+We also plan to relicense the framework to Apache 2.0.
+In the meantime, please check [this documentation](https://ck.readthedocs.io/en/latest/src/how-to-contribute.html).
+
+
 ## Author
 
 * [Grigori Fursin](https://cKnowledge.io/@gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge SAS](https://www.linkedin.com/company/cknowledge))
+
+
 
 ## Acknowledgments
 

@@ -294,6 +294,7 @@ cfg = {
         "create_entry": {"desc": "<directory> create an entry for a given directory name"},
 
         "get_api": {"desc": "--func=<func> print API of a function in a given module"},
+        "get_default_repo": {"desc": "print the path to the default repo"},
 
         "download": {"desc": "<CID> attempt to download entry from remote host (experimental)", "for_web": "yes"},
 
@@ -4744,6 +4745,34 @@ def get_api(i):
         out('</pre><BR>')
 
     return {'return': 0, 'title': t, 'desc': dd, 'module': p, 'api': a, 'line': l}
+
+##############################################################################
+# Print path to the default repo
+#
+# TARGET: CK kernel and low-level developers
+
+
+def get_default_repo(i):
+    """Print path to the default repo
+       Target audience: CK kernel and low-level developers
+
+    Args:    
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                path (str): path
+    """
+
+    p=work.get('dir_default_repo_path','')
+
+    out(p)
+
+    return {'return':0, 'path':p}
 
 ##############################################################################
 # Convert CID to a dict and add missing parts in CID from the current path
