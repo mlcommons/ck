@@ -1,0 +1,23 @@
+{
+  "pipeline":{
+     "cmd":"echo --compiler_flags=\"$#cflags#$\"",
+
+     "choices_desc": {
+     }, 
+     "ready": "yes"
+  },
+
+  "choices_order":[
+    [
+     "##compiler_flags#*"
+    ]
+  ],
+
+  "choices_selection": [
+     {"type":"random", "omit_probability":"0.90", "tags":"basic,optimization", "notags":""}
+  ],
+
+  "seed":12345,
+  "iterations":1000,
+  "repetitions":3
+}

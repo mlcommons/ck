@@ -1,0 +1,255 @@
+<script src="$#ck_root_url#$action=pull&common_func=yes&cid=module:graph&filename=third-party/d3/d3.v3.min.js"></script>
+
+<script>
+var margin = {top: 20, right: 20, bottom: 30, left: 40},
+    width = $#ck_image_width#$ - margin.left - margin.right,
+    height = $#ck_image_height#$ - margin.top - margin.bottom;
+
+/* 
+ * value accessor - returns the value to encode for a given data object.
+ * scale - maps value to a visual display encoding, such as a pixel position.
+ * map function - maps from data value to display value
+ * axis - sets up axis
+ */ 
+
+var xdata=$#cm_data_json#$;
+
+var xinfo=$#cm_info_json#$;
+
+var xps=$#cm_point_style_json#$;
+
+// setup x 
+var xValue = function(d) { return d.x;}, // data -> value
+    xScale = d3.scale.linear().range([0, width]), // value -> display
+    xMap = function(d) { return xScale(xValue(d));}, // data -> display
+    xAxis = d3.svg.axis().scale(xScale).orient("bottom");
+
+// setup y
+var yValue = function(d) { return d.y;}, // data -> value
+    yScale = d3.scale.linear().range([height, 0]), // value -> display
+    yMap = function(d) { return yScale(yValue(d));}, // data -> display
+    yAxis = d3.svg.axis().scale(yScale).orient("left");
+
+// add the graph canvas to the body of the webpage
+var svg = d3.select("$#ck_where#$").append("svg")
+            .attr("width", width + margin.left + margin.right)
+            .attr("height", height + margin.top + margin.bottom)
+            .append("g")
+            .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+
+// add the tooltip area to the webpage
+var tooltip = d3.select("$#ck_where#$").append("div")
+                .attr("class", "tooltip")
+                .style("opacity", 0);
+
+
+/* Check min/max on all axis */
+pxmin="$#ck_xmin#$";
+pxmax="$#ck_xmax#$";
+pymin="$#ck_ymin#$";
+pymax="$#ck_ymax#$";
+
+xmin=-1;
+xmax=-1;
+ymin=-1;
+ymax=-1;
+
+var data;
+var adata=[];
+var sgraph;
+var ps;
+
+for (graph=0; graph < 100; graph++) {
+
+   sgraph=graph.toString();
+
+   if (!(sgraph in xdata)) break;
+
+   data=xdata[sgraph];
+
+   for (l=0; l<data.length; l++)
+   {
+     v=data[l];
+
+     if (pxmin=="" && (xmin==-1 || v[0]<xmin)) xmin=v[0];
+     if (pxmax=="" && (xmax==-1 || v[0]>xmax)) xmax=v[0];
+
+     if (pymin=="" && (ymin==-1 || v[1]<ymin)) ymin=v[1];
+     if (pymax=="" && (ymax==-1 || v[1]>ymax)) ymax=v[1];
+   }
+}
+
+if (pxmin!="") xmin=parseFloat(pxmin);
+if (pxmax!="") xmax=parseFloat(pxmax);
+if (pymin!="") ymin=parseFloat(pymin);
+if (pymax!="") ymax=parseFloat(pymax);
+
+// don't want dots overlapping axis, so add in buffer to data domain
+xScale.domain([xmin, xmax]);
+yScale.domain([ymin, ymax]);
+
+// x-axis
+svg.append("g")
+   .attr("class", "x axis")
+   .attr("transform", "translate(0," + height + ")")
+   .call(xAxis)
+   .append("text")
+   .attr("class", "label")
+   .attr("x", width)
+   .attr("y", -6)
+   .style("text-anchor", "end")
+   .text("$#axis_x_desc#$");
+
+// y-axis
+svg.append("g")
+   .attr("class", "y axis")
+   .call(yAxis)
+   .append("text")
+   .attr("class", "label")
+   .attr("transform", "rotate(-90)")
+   .attr("y", 6)
+   .attr("dy", ".71em")
+   .style("text-anchor", "end")
+   .text("$#axis_y_desc#$");
+
+// Convert to internal format
+for (graph=0; graph < 100; graph++) {
+
+   sgraph=graph.toString();
+
+   if (!(sgraph in xdata)) break;
+
+   data=xdata[sgraph];
+   ps={}; 
+   if (sgraph in xps) ps=xps[sgraph];
+   info={}
+   if (sgraph in xinfo) info=xinfo[sgraph];
+
+   for (q=0; q<data.length; q++)
+   {
+     var inf={};
+     if (q in info) inf=info[q];
+
+     cid=''
+     if (('module_uoa' in inf) && ('data_uoa' in inf))
+        cid=info[q]['module_uoa']+':'+info[q]['data_uoa'];
+
+     var features={}
+     var sfeatures="";
+
+     var dat={}
+
+     if ('features' in inf) {
+        features=inf.features;
+     
+        var keys=[];
+        for (var key in features) {
+          if (features.hasOwnProperty(key)) {
+            keys.push(key);
+          }
+        }
+        keys.sort();
+
+        for (k=0; k<keys.length; k++)
+        {
+          key=keys[k];
+          sfeatures+=key+'='+features[key]+'<br>';
+        }
+     }
+
+     var size=5;
+     if ("size" in ps) size=ps.size;
+
+     var color="#0000bf";
+     if ("color" in ps) color=ps.color;
+
+     if ('point_uid' in inf) dat['subpoint']=inf.point_uid;
+     if (cid!='') dat['cid']=cid;
+     if ('type' in ps) dat['type']=ps.type; 
+
+     if ('url' in inf) dat['url']=inf.url;
+     if ('url_ext' in inf) dat['url_ext']=inf.url_ext;
+
+     dat['x']=data[q][0];
+     dat['y']=data[q][1];
+     dat['size']=size;
+     dat['color']=color;
+     dat['features']=sfeatures;
+     dat['info']=inf
+
+     adata.push(dat);
+   }
+}
+
+// check hlines
+h_lines=$#h_lines#$;
+for (q=0; q<h_lines.length; q++) {
+    v=h_lines[q];
+    svg.append("svg:line")
+        .attr("x1", 5)
+        .attr("x2", width+10)
+        .attr("y1", yScale(v))
+        .attr("y2", yScale(v))
+        .style("stroke", "rgb(189, 189, 189)");
+}
+
+// check vlines
+v_lines=$#v_lines#$;
+for (q=0; q<v_lines.length; q++) {
+    v=v_lines[q];
+    svg.append("svg:line")
+        .attr("x1", xScale(v))
+        .attr("x2", xScale(v))
+        .attr("y1", 5)
+        .attr("y2", height+10)
+        .style("stroke", "rgb(189, 189, 189)");
+}
+
+// draw dots
+svg.selectAll(".dot")
+   .data(adata)
+   .enter()
+
+   .append("circle")
+   .attr("r", function(d) {return d.size})
+   .attr("cx", xMap)
+   .attr("cy", yMap)
+   .style("fill", function(d) {return d.color})
+
+   .on("click", function(d) {
+      var cid='';
+      if ('cid' in d) {
+         cid=d['cid'];
+
+         var subpoint='';
+         if ('subpoint' in d) subpoint=d['subpoint'];
+
+         window.open("$#ck_root_url#$wcid="+cid+'&subpoint='+subpoint);
+      } else {
+         var url='';
+         if ('url' in d) {
+            url=d['url'];
+            var url_ext='';
+            if ('url_ext' in d)
+               url_ext=d['url_ext'];
+            window.open(url+url_ext);
+         }
+      }
+   })
+
+   .on("mouseover", function(d) {
+       tooltip.transition()
+            .duration(200)
+            .style("opacity", .9);
+       tooltip.html("<div style=\"text-align:left;background-color:yellow;opacity:0.8;filter:alpha(opacity=80);\"><small><b>x=" + xValue(d) + ", y=" + yValue(d) + "</b><br>"+d.features+"\n</small></div>")
+            .style("left", (d3.event.pageX + 5) + "px")
+            .style("top", (d3.event.pageY - 28) + "px");
+   })
+
+   .on("mouseout", function(d) {
+       tooltip.transition()
+            .duration(500)
+            .style("opacity", 0);
+   });
+
+</script>

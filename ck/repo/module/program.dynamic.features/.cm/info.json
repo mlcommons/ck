@@ -1,0 +1,21 @@
+{
+  "backup_data_uid": "06ca694b4b8a8943",
+  "backup_module_uid": "032630d041b4fd8a",
+  "backup_module_uoa": "module",
+  "control": {
+    "author": "Grigori Fursin",
+    "author_email": "Grigori.Fursin@cTuning.org",
+    "author_webpage": "http://fursin.net",
+    "copyright": "See CK COPYRIGHT.txt for copyright details",
+    "engine": "CK",
+    "iso_datetime": "2020-11-14T21:14:07.049208",
+    "license": "See CK LICENSE.txt for licensing details",
+    "version": [
+      "1",
+      "17",
+      "0",
+      "1"
+    ]
+  },
+  "data_name": "program.dynamic.features"
+}

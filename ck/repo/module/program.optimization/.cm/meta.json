@@ -1,0 +1,114 @@
+{
+  "actions": {
+    "add_solution": {
+      "desc": "add new solution",
+      "for_web": "yes"
+    },
+    "classify": {
+      "desc": "classify solutions",
+      "for_web": "yes"
+    },
+    "compare_results": {
+      "desc": "compare results (if similar or not)"
+    },
+    "crowdsource": {
+      "desc": "crowdsource program optimization"
+    },
+    "dashboard": {
+      "desc": "show local results"
+    },
+    "explore": {
+      "desc": "explore program optimizations"
+    },
+    "get": {
+      "desc": "get solutions",
+      "for_web": "yes"
+    },
+    "get_workloads": {
+      "desc": "get workloads for a given solution",
+      "for_web": "yes"
+    },
+    "initialize": {
+      "desc": "initialize experiment"
+    },
+    "links": {
+      "desc": "prepare links",
+      "for_web": "yes"
+    },
+    "problem": {
+      "desc": "record problems (for example, when impossible to detect CPU during mobile device crowdtuning)"
+    },
+    "prune": {
+      "desc": "prune solutions",
+      "for_web": "yes"
+    },
+    "replay": {
+      "desc": "replay solution",
+      "for_web": "yes"
+    },
+    "run": {
+      "desc": "perform program optimization"
+    },
+    "show": {
+      "desc": "show results via web service",
+      "for_web": "yes"
+    },
+    "show_json": {
+      "desc": "return json instead of html in show",
+      "for_web": "yes"
+    },
+    "test": {
+      "desc": "test remote access",
+      "for_web": "yes"
+    }
+  },
+  "cfg_uoa": "program-crowdtuning",
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "crowd_desc": "Crowdsource multi-dimensional and multi-objective optimization (performance, energy, size, reliability and other costs)",
+  "desc": "program optimization",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "file_best_solution": "best-",
+  "file_checked_solutions": "checked-",
+  "file_solution_extension": "s-",
+  "license": "See CK LICENSE.txt for licensing details",
+  "log_file_error": "log.error.txt",
+  "log_file_own": "log.crowdsourced.experiments.txt",
+  "log_file_results": "log.results.txt",
+  "log_file_test": "log.test.txt",
+  "min_kernel_dep": "1.6.12x",
+  "module_deps": {
+    "cfg": "b34231a3467566f8",
+    "env": "9b9b3208ac44b891",
+    "experiment": "bc0409fb61f0aa82",
+    "experiment.tune.compiler.flags.gcc.e": "8289e0cf24346aa7",
+    "experiment.tune.compiler.flags.gcc.e.x": "6b9845eca8aa7fa5",
+    "experiment.tune.compiler.flags.llvm.e": "2aaed4c520956635",
+    "experiment.user": "4e9cb28c86306b7f",
+    "math.conditions": "d5ac649c14325bca",
+    "module": "032630d041b4fd8a",
+    "pipeline": "db25414b48b4ffb3",
+    "platform": "707ccdfe444cafac",
+    "program": "b0ac08fe1d3c2615",
+    "wfe": "1e4e644996b7f2a0"
+  },
+  "opt_keys": [
+    "gcc",
+    "llvm",
+    "opencl",
+    "opengl",
+    "cuda",
+    "icc",
+    "pgi",
+    "openmp",
+    "mpi",
+    "bugs",
+    "explore"
+  ],
+  "solutions_modules_tags": "crowdsoure,experiments,program optimization",
+  "tags": [],
+  "url_discuss": "https://groups.google.com/forum/#!forum/ctuning-discussions",
+  "workflow": "yes",
+  "workflow_type": "program optimization front-end (workflow)"
+}

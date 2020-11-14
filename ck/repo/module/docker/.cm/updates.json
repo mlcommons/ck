@@ -1,0 +1,80 @@
+{
+  "control": [
+    {
+      "author": "cTuning foundation",
+      "author_email": "admin@cTuning.org",
+      "author_webpage": "http://cTuning.org",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-06-09T17:07:29.344156",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "7",
+        "2dev"
+      ]
+    },
+    {
+      "author": "cTuning foundation",
+      "author_email": "admin@cTuning.org",
+      "author_webpage": "http://cTuning.org",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-06-09T17:07:38.080206",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "7",
+        "2dev"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-06-11T15:55:24.833000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "7",
+        "2dev"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-06-11T16:16:27.586000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "7",
+        "2dev"
+      ]
+    },
+    {
+      "engine": "CK",
+      "iso_datetime": "2018-05-30T14:36:44.120303",
+      "version": [
+        "1",
+        "9",
+        "4",
+        "1"
+      ]
+    },
+    {
+      "engine": "CK",
+      "iso_datetime": "2018-05-30T14:36:57.735934",
+      "version": [
+        "1",
+        "9",
+        "4",
+        "1"
+      ]
+    }
+  ]
+}

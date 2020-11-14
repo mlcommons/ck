@@ -1,0 +1,343 @@
+{
+  "actions": {
+    "calculate_similarity": {
+      "desc": "calculate similarity between programs based on MILEPOST features"
+    },
+    "extract": {
+      "desc": "extract program static milepost features"
+    },
+    "show": {
+      "desc": "show features in HTML",
+      "for_web": "yes"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "program semantic features",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details",
+  "milepost_description_ctuning_page": "http://ctuning.org/wiki/index.php/CTools:MilepostGCC:StaticFeatures:MILEPOST_V2.1",
+  "milepost_features_description": {
+    "1": {
+      "desc": "Number of basic blocks in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "10": {
+      "desc": "Number of basic blocks with a two predecessors and one successor",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "11": {
+      "desc": "Number of basic blocks with two successors and two predecessors",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "12": {
+      "desc": "Number of basic blocks with more then two successors and more then two predecessors",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "13": {
+      "desc": "Number of basic blocks with number of instructions less then 15",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "14": {
+      "desc": "Number of basic blocks with number of instructions in the interval [15, 500]",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "15": {
+      "desc": "Number of basic blocks with number of instructions greater then 500",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "16": {
+      "desc": "Number of edges in the control flow graph",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "17": {
+      "desc": "Number of critical edges in the control flow graph",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "18": {
+      "desc": "Number of abnormal edges in the control flow graph",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "19": {
+      "desc": "Number of direct calls in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "2": {
+      "desc": "Number of basic blocks with a single successor",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "20": {
+      "desc": "Number of conditional branches in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "21": {
+      "desc": "Number of assignment instructions in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "22": {
+      "desc": "Number of binary integer operations in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "23": {
+      "desc": "Number of binary floating point operations in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "24": {
+      "desc": "Number of instructions in the method",
+      "normalizator": "yes",
+      "normalized": "no"
+    },
+    "25": {
+      "desc": "Average of number of instructions in basic blocks",
+      "normalized": "yes",
+      "use_for_euclidean_distance": "yes"
+    },
+    "26": {
+      "desc": "Average of number of phi-nodes at the beginning of a basic block",
+      "normalized": "yes",
+      "use_for_euclidean_distance": "yes"
+    },
+    "27": {
+      "desc": "Average of arguments for a phi-node",
+      "normalized": "yes",
+      "use_for_euclidean_distance": "yes"
+    },
+    "28": {
+      "desc": "Number of basic blocks with no phi nodes",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "29": {
+      "desc": "Number of basic blocks with phi nodes in the interval [0, 3]",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "3": {
+      "desc": "Number of basic blocks with two successors",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "30": {
+      "desc": "Number of basic blocks with more then 3 phi nodes",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "31": {
+      "desc": "Number of basic block where total number of arguments for all phi-nodes is in greater then 5",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "32": {
+      "desc": "Number of basic block where total number of arguments for all phi-nodes is in the interval [1, 5]",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "33": {
+      "desc": "Number of switch instructions in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "34": {
+      "desc": "Number of unary operations in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "35": {
+      "desc": "Number of instruction that do pointer arithmetic in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "36": {
+      "desc": "Number of indirect references via pointers (\"*\" in C)",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "37": {
+      "desc": "Number of times the address of a variables is taken (\"&\" in C)",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "38": {
+      "desc": "Number of times the address of a function is taken (\"&\" in C)",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "39": {
+      "desc": "Number of indirect calls (i.e. done via pointers) in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "4": {
+      "desc": "Number of basic blocks with more then two successors",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "40": {
+      "desc": "Number of assignment instructions with the left operand an integer constant in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "41": {
+      "desc": "Number of binary operations with one of the operands an integer constant in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "42": {
+      "desc": "Number of calls with pointers as arguments",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "43": {
+      "desc": "Number of calls with the number of arguments is greater then 4",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "44": {
+      "desc": "Number of calls that return a pointer",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "45": {
+      "desc": "Number of calls that return an integer",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "46": {
+      "desc": "Number of occurrences of integer constant zero",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "47": {
+      "desc": "Number of occurrences of 32-bit integer constants",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "48": {
+      "desc": "Number of occurrences of integer constant one",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "49": {
+      "desc": "Number of occurrences of 64-bit integer constants",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "5": {
+      "desc": "Number of basic blocks with a single predecessor",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "50": {
+      "desc": "Number of references of a local variables in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "51": {
+      "desc": "Number of references (def/use) of static/extern variables in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "52": {
+      "desc": "Number of local variables referred in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "53": {
+      "desc": "Number of static/extern variables referred in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "54": {
+      "desc": "Number of local variables that are pointers in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "55": {
+      "desc": "Number of static/extern variables that are pointers in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "56": {
+      "desc": "Number of unconditional branches in the method",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "57": {
+      "desc": "CYCLOMATIC COMPLEXITY (http://en.wikipedia.org/wiki/Cyclomatic_complexity)",
+      "normalized": "no"
+    },
+    "58": {
+      "desc": "HALSTEAD's METRICS ( http://en.wikipedia.org/wiki/Halstead_complexity_measures)",
+      "normalized": "no"
+    },
+    "59": {
+      "desc": "Number of distinct operands (Halstead n2) ",
+      "normalized": "no"
+    },
+    "6": {
+      "desc": "Number of basic blocks with two predecessors",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "60": {
+      "desc": "Number of var defs",
+      "normalized": "no"
+    },
+    "61": {
+      "desc": "Total number of operators (Halstead N1) (approx due to abstraction) ",
+      "normalized": "no"
+    },
+    "62": {
+      "desc": "Number of distinct operators (Halstead n1) (approx due to abstraction) ",
+      "normalized": "no"
+    },
+    "63": {
+      "desc": "Approximation of Halstead difficulty",
+      "normalized": "no"
+    },
+    "64": {
+      "desc": "Approximation of Halstead volume",
+      "normalized": "no"
+    },
+    "65": {
+      "desc": "Approximation of Halstead effort",
+      "normalized": "no"
+    },
+    "7": {
+      "desc": "Number of basic blocks with more then two predecessors",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "8": {
+      "desc": "Number of basic blocks with a single predecessor and a single successor",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    },
+    "9": {
+      "desc": "Number of basic blocks with a single predecessor and two successors",
+      "normalized": "no",
+      "use_for_euclidean_distance": "yes"
+    }
+  },
+  "milepost_normalization_feature": "24",
+  "module_deps": {
+    "program": "b0ac08fe1d3c2615"
+  }
+}

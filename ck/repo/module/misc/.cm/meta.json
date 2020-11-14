@@ -1,0 +1,82 @@
+{
+  "actions": {
+    "add_key": {
+      "desc": "add key to meta/files of different entries"
+    },
+    "capture_command_output": {
+      "desc": "run a shell command and return its captured output"
+    },
+    "clone_server_repo": {
+      "desc": "download a whole repository from the server"
+    },
+    "get_home_dir": {
+      "desc": "get the home directory of the current user"
+    },
+    "list_kernel_functions": {
+      "desc": "list CK kernel functions"
+    },
+    "list_kernel_functions_md": {},
+    "list_modules": {
+      "desc": "list modules"
+    },
+    "list_repos": {
+      "desc": "list repositories"
+    },
+    "list_variations": {
+      "desc": "given a query of tags/variation and an optional variation_prefix, return a list of supported variations"
+    },
+    "merge_dicts": {
+      "desc": "merge dictionaries in 2 files"
+    },
+    "preload_html_for_lists": {
+      "desc": "preload HTMLs for lists of components"
+    },
+    "prepare_entry_template": {
+      "desc": "select template for a given module"
+    },
+    "process_all_files_recursively": {
+      "desc": "process all files recursively using some action"
+    },
+    "refresh_json": {
+      "desc": "update and sort json file"
+    },
+    "replace_string_in_file": {
+      "desc": "replace string in a file"
+    },
+    "replace_strings_in_file": {
+      "desc": "replace multiple strings in a given file"
+    },
+    "search_in_variations": {
+      "desc": "given a query of tags, find entries that match both from tags and variations"
+    },
+    "select_string": {
+      "desc": "given a list of strings, pick one by index OR substring match"
+    },
+    "select_uoa": {
+      "desc": "select UOA"
+    },
+    "sort_json_file": {
+      "desc": "sort JSON file"
+    },
+    "substitute_from_dict": {
+      "desc": "substitute values from a dictionary"
+    },
+    "transfer": {
+      "desc": "download or upload a bunch of CK entries between a local and a remote repo"
+    }
+  },
+  "actions_redirect": {},
+  "cfg-list-of-repos": "list-of-repos",
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "auxiliary functions shared by Grigori Fursin",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "cfg": "b34231a3467566f8",
+    "module": "032630d041b4fd8a",
+    "repo": "befd7892b0d469e9",
+    "soft": "5e1100048ab875d7"
+  }
+}

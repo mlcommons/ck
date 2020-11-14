@@ -1,0 +1,20 @@
+{
+  "actions": {
+    "copy_file": {
+      "desc": "copy file from report entry to current directory"
+    },
+    "html_viewer": {
+      "desc": "view report as html",
+      "for_web": "yes"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "preparing experimental reports (html)",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "wfe": "1e4e644996b7f2a0"
+  }
+}

@@ -1,0 +1,24 @@
+{
+  "actions": {
+    "compare_experiments": {
+      "desc": "Compare two experiments"
+    },
+    "list_experiments": {
+      "desc": "List all MLPerf-related experiments (search by tags)"
+    },
+    "pick_an_experiment": {
+      "desc": "Select an experiment from the list (an interactive helper function)"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "Validate MLPerf submission against reference",
+  "developer": "Leo Gordon; Anton Lokhmotov",
+  "developer_email": "leo@dividiti.com; anton@dividiti.com",
+  "developer_webpage": "http://dividiti.com",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "env": "9b9b3208ac44b891"
+  },
+  "workflow": "yes",
+  "workflow_type": "MLPerf benchmarking - common functionality"
+}

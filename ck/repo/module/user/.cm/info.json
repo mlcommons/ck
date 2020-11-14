@@ -1,0 +1,16 @@
+{
+  "backup_data_uid": "31945a474d940ab0",
+  "backup_module_uid": "032630d041b4fd8a",
+  "backup_module_uoa": "module",
+  "control": {
+    "engine": "CK",
+    "iso_datetime": "2020-11-14T21:14:10.356230",
+    "version": [
+      "1",
+      "17",
+      "0",
+      "1"
+    ]
+  },
+  "data_name": "user"
+}

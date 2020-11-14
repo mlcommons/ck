@@ -1,0 +1,16 @@
+{
+  "backup_data_uid": "38b4f1dcda465782",
+  "backup_module_uid": "032630d041b4fd8a",
+  "backup_module_uoa": "module",
+  "control": {
+    "engine": "CK",
+    "iso_datetime": "2020-11-14T21:14:01.863541",
+    "version": [
+      "1",
+      "17",
+      "0",
+      "1"
+    ]
+  },
+  "data_name": "nntest"
+}

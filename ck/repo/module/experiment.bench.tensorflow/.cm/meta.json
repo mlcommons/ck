@@ -1,0 +1,50 @@
+{
+  "actions": {
+    "crowdsource": {
+      "desc": "crowdsource these experiments"
+    },
+    "replay": {
+      "desc": "replay experiment (TBD)"
+    },
+    "show": {
+      "desc": "show results"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "crowd-benchmark DNN libraries and models (TensorFlow)",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net/research.html",
+  "external_html": {
+    "action": "show",
+    "crowd_key": "ck_tensorflow_",
+    "module_uoa": "bca33b04b438d756"
+  },
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "choice": "e4564d6f984400d7",
+    "env": "9b9b3208ac44b891",
+    "graph": "2d41f89bcf32d4d4",
+    "machine": "84be34883a81b2a9",
+    "module": "032630d041b4fd8a",
+    "pipeline": "db25414b48b4ffb3",
+    "platform": "707ccdfe444cafac",
+    "platform.cpu": "aa6b542a420b8db9",
+    "platform.gpgpu": "192ed4e0bbdbe743",
+    "platform.os": "41e31cc4496b8a8e",
+    "program": "b0ac08fe1d3c2615",
+    "program.optimization": "27bc42ee449e880e",
+    "soft": "5e1100048ab875d7",
+    "wfe": "1e4e644996b7f2a0"
+  },
+  "priority": -205,
+  "program_tags": "crowd-benchmarking,tensorflow",
+  "record_module_uoa": "1eb2f50d4620903e",
+  "tags": [
+    "crowdsource",
+    "experiments",
+    "program benchmarking",
+    "program optimization",
+    "tensorflow"
+  ]
+}

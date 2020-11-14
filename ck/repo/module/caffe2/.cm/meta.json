@@ -1,0 +1,25 @@
+{
+  "actions": {
+    "autotune": {
+      "desc": "autotune Caffe2 workloads"
+    },
+    "crowdbench": {
+      "desc": "crowd-benchmark caffe2"
+    },
+    "replay": {
+      "desc": "replay caffe2 experiment"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "caffe2 CK front-end",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "experiment.bench.caffe2": "75114c4997197226",
+    "program": "b0ac08fe1d3c2615"
+  },
+  "workflow": "yes",
+  "workflow_type": "caffe2 pipeline"
+}

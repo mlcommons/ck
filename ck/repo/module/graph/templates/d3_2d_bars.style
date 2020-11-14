@@ -1,0 +1,23 @@
+.bar:hover {
+  fill: brown;
+}
+
+.axis_bar {
+  font: 10px sans-serif;
+}
+
+.axis_bar path,
+.axis_bar line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.x.axis_bar path {
+  display: none;
+}
+
+.tooltip_bar {
+  position: absolute;
+  pointer-events: none;
+}

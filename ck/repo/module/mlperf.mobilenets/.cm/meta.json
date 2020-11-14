@@ -1,0 +1,383 @@
+{
+  "actions": {
+    "get_raw_config": {
+      "desc": "get raw config for repo widget",
+      "for_web": "yes"
+    },
+    "get_raw_data": {
+      "desc": "get raw data for repo widget",
+      "for_web": "yes"
+    }
+  },
+  "convolution_method_to_name": {
+    "-1": "-",
+    "0": "GEMM",
+    "1": "DIRECT",
+    "2": "WINOGRAD",
+    "DEFAULT": "DEFAULT",
+    "DIRECT": "DIRECT",
+    "GEMM": "GEMM",
+    "WINOGRAD": "WINOGRAD"
+  },
+  "data_config": {
+    "dimensions": [
+      {
+        "key": "platform",
+        "name": "Platform",
+        "view_key": "platform"
+      },
+      {
+        "key": "library",
+        "name": "Library",
+        "view_key": "library"
+      },
+      {
+        "key": "dataset",
+        "name": "Dataset",
+        "view_key": "dataset"
+      },
+      {
+        "key": "model",
+        "name": "Model",
+        "view_key": "model"
+      },
+      {
+        "format": "%f",
+        "key": "version",
+        "name": "Version",
+        "view_key": "version"
+      },
+      {
+        "format": "%.2f",
+        "key": "multiplier",
+        "name": "Multiplier",
+        "view_key": "multiplier"
+      },
+      {
+        "format": "%f",
+        "key": "resolution",
+        "name": "Resolution",
+        "view_key": "resolution"
+      },
+      {
+        "key": "batch_size",
+        "name": "Batch size",
+        "view_key": "batch_size"
+      },
+      {
+        "key": "batch_count",
+        "name": "Batch count",
+        "view_key": "batch_count"
+      },
+      {
+        "key": "convolution_method",
+        "name": "Convolution method",
+        "view_key": "convolution_method"
+      },
+      {
+        "key": "data_layout",
+        "name": "Data layout",
+        "view_key": "data_layout"
+      },
+      {
+        "key": "kernel_tuner",
+        "name": "Kernel tuner",
+        "view_key": "kernel_tuner"
+      },
+      {
+        "key": "tunerXlayout",
+        "name": "Tuner X Layout",
+        "view_key": "tunerXlayout"
+      },
+      {
+        "key": "methodXlayout",
+        "name": "Method X Layout",
+        "view_key": "methodXlayout"
+      },
+      {
+        "key": "methodXtuner",
+        "name": "Method X Tuner",
+        "view_key": "methodXtuner"
+      },
+      {
+        "format": "%.1f",
+        "key": "rate_max_s",
+        "name": "Image classification rate (maximum, per second)",
+        "view_key": "rate_max_s"
+      },
+      {
+        "format": "%.1f",
+        "key": "rate_max_s_w",
+        "name": "Image classification efficiency (maximum, per second per Watt)",
+        "view_key": "rate_max_s_w"
+      },
+      {
+        "format": "%.3f",
+        "key": "time_min_ms",
+        "name": "Image classification time (minimum, ms)",
+        "view_key": "time_min_ms"
+      },
+      {
+        "format": "%.3f",
+        "key": "time_avg_ms",
+        "name": "Image classification time (average, ms)",
+        "view_key": "time_avg_ms"
+      },
+      {
+        "format": "%.3f",
+        "key": "accuracy_top1",
+        "name": "Image classification accuracy (top 1)",
+        "view_key": "accuracy_top1"
+      },
+      {
+        "format": "%.3f",
+        "key": "accuracy_top5",
+        "name": "Image classification accuracy (top 5)",
+        "view_key": "accuracy_top5"
+      }
+    ],
+    "selector": [],
+    "selector2": [
+      {
+        "key": "platform",
+        "name": "Platform"
+      },
+      {
+        "key": "os_name",
+        "name": "OS name (target)"
+      },
+      {
+        "key": "library",
+        "name": "Library"
+      },
+      {
+        "key": "dataset",
+        "name": "Dataset"
+      },
+      {
+        "key": "model",
+        "name": "Model"
+      },
+      {
+        "format": "%f",
+        "key": "version",
+        "name": "Version"
+      },
+      {
+        "format": "%.2f",
+        "key": "multiplier",
+        "name": "Multiplier"
+      },
+      {
+        "format": "%f",
+        "key": "resolution",
+        "name": "Resolution"
+      },
+      {
+        "key": "batch_size",
+        "name": "Batch size"
+      },
+      {
+        "key": "batch_count",
+        "name": "Batch count"
+      },
+      {
+        "key": "convolution_method",
+        "name": "Convolution method"
+      },
+      {
+        "key": "data_layout",
+        "name": "Data layout"
+      },
+      {
+        "key": "kernel_tuner",
+        "name": "Kernel tuner"
+      },
+      {
+        "key": "cpu_name",
+        "name": "CPU name (target)"
+      },
+      {
+        "key": "gpgpu_name",
+        "name": "GPGPU name"
+      }
+    ],
+    "selector3": [
+      {
+        "key": "plot_dimension1",
+        "name": "Plot dimension 1 (X)"
+      },
+      {
+        "key": "plot_variation_dimension1",
+        "name": "Show variation"
+      },
+      {
+        "key": "plot_dimension2",
+        "name": "Plot dimension 2 (Y)"
+      },
+      {
+        "key": "plot_variation_dimension2",
+        "name": "Show variation"
+      }
+    ],
+    "table_view": [
+      {
+        "key": "platform",
+        "name": "Platform"
+      },
+      {
+        "key": "library",
+        "name": "Library"
+      },
+      {
+        "key": "dataset",
+        "name": "Dataset"
+      },
+      {
+        "key": "model",
+        "name": "Model"
+      },
+      {
+        "format": "%f",
+        "key": "version",
+        "name": "Version",
+        "view_key": "version"
+      },
+      {
+        "format": "%.2f",
+        "key": "multiplier",
+        "name": "Multiplier",
+        "view_key": "multiplier"
+      },
+      {
+        "format": "%f",
+        "key": "resolution",
+        "name": "Resolution",
+        "view_key": "resolution"
+      },
+      {
+        "key": "batch_size",
+        "name": "Batch size"
+      },
+      {
+        "key": "batch_count",
+        "name": "Batch count"
+      },
+      {
+        "key": "convolution_method",
+        "name": "Convolution method"
+      },
+      {
+        "key": "data_layout",
+        "name": "Data layout"
+      },
+      {
+        "key": "kernel_tuner",
+        "name": "Kernel tuner"
+      },
+      {
+        "format": "%.1f",
+        "key": "rate_max_s",
+        "name": "Image classification rate (maximum, per second)",
+        "view_key": "rate_max_s"
+      },
+      {
+        "format": "%.1f",
+        "key": "rate_max_s_w",
+        "name": "Image classification efficiency (maximum, per second per Watt)",
+        "view_key": "rate_max_s_w"
+      },
+      {
+        "format": "%.3f",
+        "key": "time_min_ms",
+        "name": "Image classification time (minimum, ms)",
+        "view_key": "time_min_ms"
+      },
+      {
+        "format": "%.3f",
+        "key": "time_avg_ms",
+        "name": "Image classification time (average, ms)",
+        "view_key": "time_avg_ms"
+      },
+      {
+        "format": "%.3f",
+        "key": "accuracy_top1",
+        "name": "Image classification accuracy (top 1)",
+        "view_key": "accuracy_top1"
+      },
+      {
+        "format": "%.3f",
+        "key": "accuracy_top5",
+        "name": "Image classification accuracy (top 5)",
+        "view_key": "accuracy_top5"
+      },
+      {
+        "key": "os_name",
+        "name": "OS name (target)"
+      },
+      {
+        "key": "cpu_name",
+        "name": "CPU name (target)"
+      },
+      {
+        "key": "gpgpu_name",
+        "name": "GPGPU name"
+      },
+      {
+        "key": "cpu_freq",
+        "name": "CPU freq (MHz)"
+      },
+      {
+        "key": "gpu_freq",
+        "name": "GPU freq (MHz)"
+      }
+    ]
+  },
+  "desc": "Raw data (JSON) access for MLPerf MobilNets visualization widget",
+  "platform_config": {
+    "BLA-L09": {
+      "gpu": "Mali-G72 MP12",
+      "gpu_mhz": 767,
+      "id": "huawei-mate10pro",
+      "name": "Huawei Mate 10 Pro",
+      "power_w": 7.93
+    },
+    "HiKey960\u0000": {
+      "gpu": "Mali-G71 MP8",
+      "gpu_mhz": 807,
+      "id": "linaro-hikey960",
+      "name": "Linaro HiKey960",
+      "power_w": 9.51
+    },
+    "Rockchip RK3399 Firefly Board (Linux Opensource)\u0000": {
+      "gpu": "Mali-T860 MP4",
+      "gpu_mhz": 800,
+      "id": "firefly-rk3399",
+      "name": "Firefly RK3399",
+      "power_w": 6.05
+    },
+    "SM-G950U1": {
+      "gpu": "Adreno 540",
+      "gpu_mhz": 710,
+      "id": "samsung-galaxys8us",
+      "name": "Samsung Galaxy S8 US",
+      "power_w": 3.45
+    }
+  },
+  "prefilter_config": {
+    "all": {},
+    "highlights": {
+      "convolution_method_deny": [
+        "GEMM",
+        "DIRECT",
+        "WINOGRAD"
+      ],
+      "data_layout_deny": [
+        "NCHW"
+      ],
+      "kernel_tuner_deny": [
+        "NONE"
+      ]
+    }
+  }
+}

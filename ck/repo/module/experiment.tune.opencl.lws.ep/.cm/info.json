@@ -1,0 +1,21 @@
+{
+  "backup_data_uid": "f519226eb5740c8b",
+  "backup_module_uid": "032630d041b4fd8a",
+  "backup_module_uoa": "module",
+  "control": {
+    "author": "Grigori Fursin",
+    "author_email": "Grigori.Fursin@cTuning.org",
+    "author_webpage": "http://fursin.net",
+    "copyright": "See CK COPYRIGHT.txt for copyright details",
+    "engine": "CK",
+    "iso_datetime": "2020-11-14T21:13:57.252329",
+    "license": "See CK LICENSE.txt for licensing details",
+    "version": [
+      "1",
+      "17",
+      "0",
+      "1"
+    ]
+  },
+  "data_name": "experiment.tune.opencl.lws.ep"
+}

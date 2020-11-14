@@ -1,0 +1,93 @@
+{
+  "actions": {
+    "generate": {
+      "desc": "generate scenarios"
+    },
+    "process": {
+      "desc": "process raw results from mobile devices",
+      "for_web": "yes"
+    },
+    "process_unexpected_behavior": {
+      "desc": "record unexpected behavior",
+      "for_web": "yes"
+    },
+    "show": {
+      "desc": "show results"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "crowd-benchmark DNN libraries and models using mobile devices",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net/research.html",
+  "external_html": {
+    "action": "show",
+    "crowd_key": "ck_wa_",
+    "module_uoa": "4dcf435bb0d92fa6"
+  },
+  "license": "See CK LICENSE.txt for licensing details",
+  "min_kernel_dep": "1.8.2",
+  "module_deps": {
+    "choice": "e4564d6f984400d7",
+    "env": "9b9b3208ac44b891",
+    "experiment.scenario.mobile": "65477d547a49dd2c",
+    "graph": "2d41f89bcf32d4d4",
+    "machine": "84be34883a81b2a9",
+    "math.frontier": "99d08d331cdc5478",
+    "module": "032630d041b4fd8a",
+    "pipeline": "db25414b48b4ffb3",
+    "platform": "707ccdfe444cafac",
+    "platform.cpu": "aa6b542a420b8db9",
+    "platform.gpgpu": "192ed4e0bbdbe743",
+    "platform.gpu": "55ec7775f4afaabd",
+    "platform.os": "41e31cc4496b8a8e",
+    "program": "b0ac08fe1d3c2615",
+    "program.optimization": "27bc42ee449e880e",
+    "soft": "5e1100048ab875d7",
+    "wfe": "1e4e644996b7f2a0"
+  },
+  "priority": -250,
+  "prog_uoa": [
+    {
+      "engine": "Caffe CPU",
+      "engine-deps-key": "lib-caffe",
+      "engine-lib": "libcaffe.so",
+      "program_uoa": "473c67d70ebe45a9"
+    },
+    {
+      "engine": "Caffe OpenCL",
+      "engine-deps-key": "lib-caffe",
+      "engine-lib": "libcaffe.so",
+      "program_uoa": "a04a64811e45d288"
+    },
+    {
+      "engine": "TensorFlow CPU",
+      "engine-deps-key": "lib-tensorflow",
+      "engine-lib": "",
+      "program_uoa": "1c1cc5d6a4944be7"
+    },
+    {
+      "engine": "TFLite CPU",
+      "engine-deps-key": "library",
+      "engine-lib": "",
+      "program_uoa": "1a1ae632cabc15f4"
+    },
+    {
+      "engine": "ArmCL OpenCL",
+      "engine-deps-key": "library",
+      "engine-lib": "",
+      "program_uoa": "848509ef849f2f39"
+    }
+  ],
+  "program_tags": "crowd-benchmarking,dnn-mobile",
+  "skip_from_cmd": "yes",
+  "tags": [
+    "crowdsource",
+    "experiments",
+    "program benchmarking",
+    "program optimization",
+    "dnn-mobile"
+  ],
+  "workflow": "yes",
+  "workflow_type": "crowd-benchmarking deep learning via mobile devices"
+}
