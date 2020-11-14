@@ -4768,7 +4768,7 @@ def get_default_repo(i):
                 path (str): path
     """
 
-    p=work.get('dir_default_repo_path','')
+    p=work.get('dir_default_repo','')
 
     out(p)
 
