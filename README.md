@@ -17,7 +17,7 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
   and successfully used it to automate  [MLPerf inference benchmark submissions for edge devices](https://cKnowledge.io/solutions)
   and the design space exploration of [efficient ML/SW/HW stacks](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
   in terms of speed, accuracy, energy and costs.
-  We are preparing a major update based on [your feedback](https://cknowledge.io/questionnaire/20201020) - 
+  We are preparing a major redesign based on [your feedback](https://cknowledge.io/questionnaire/20201020) - 
   feel free to contact [Grigori Fursin]( https://cKnowledge.io/@gfursin ) for more details!
 
 ## Overview
@@ -25,16 +25,16 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 Collective Knowledge framework (CK) helps to organize software projects
 as a database of reusable components with common automation actions
 and extensible meta descriptions based on [FAIR principles](https://www.nature.com/articles/sdata201618)
-(findability, accessibility, interoperability and reusability).
+(findability, accessibility, interoperability and reusability)
+as described in [this article](https://arxiv.org/pdf/2011.01149.pdf).
 
-We want to help everyone share, reuse and extend their knowledge
-in the form of portable workflows and reusable artifacts with a common API, CLI,
+Our goal is to help researchers and practitioners share, reuse and extend their knowledge
+in the form of portable workflows, automation actions and reusable artifacts with a common API, CLI,
 and meta description. See how CK supports collaborative and reproducible research:
-* [Project overview accepted for Philosophical Transactions of the Royal Society](https://arxiv.org/abs/2011.01149)
-* [Real-world use-cases](https://cKnowledge.org/partners.html) from MLPerf, Arm, General Motors, IBM, the Raspberry Pi foundation and ACM
-* [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
-* [MLPerf automation workflows](https://cKnowledge.io/solutions)
-* Reproducibility initiatives: [[methodology](https://cTuning.org/ae)], [[events](https://cKnowledge.io/events)]
+* [MLPerf automation workflows](https://cKnowledge.io/solutions) ([GitHub](https://github.com/ctuning/ai));
+* [Real-world use cases](https://cKnowledge.org/partners.html) from MLPerf, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM, dividiti and other great partners;
+* [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems);
+* Our reproducibility initiatives: [[methodology](https://cTuning.org/ae)], [checklist](https://ctuning.org/ae/submission_extra.html), [[events](https://cKnowledge.io/events)].
 
 ## Documentation
 
@@ -130,7 +130,7 @@ Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for f
 
 
 
-## Open CK portal 
+## CK portal 
 
 [cKnowledge.io](https://cKnowledge.io): organizing [ML and Systems knowledge]( https://doi.org/10.5281/zenodo.4005773 )
 in the form of portable CK workflows, automation actions and reusable components:
@@ -152,13 +152,16 @@ in the form of portable CK workflows, automation actions and reusable components
 
 ## Contributions
 
-Users extend the CK functionality via external [GitHub reposities](https://cKnowledge.io/repos) in the CK format. 
-See [docs](https://ck.readthedocs.io/en/latest/src/typical-usage.html) for more details.
+Users can extend the CK functionality via external [GitHub reposities](https://cKnowledge.io/repos) in the CK format
+as described [here](https://ck.readthedocs.io/en/latest/src/typical-usage.html).
 
-If you want to extend the CK core, please note that we plan to completely rewrite it based on the OO principles
-(we wrote the first prototype without OO to be able to port to bare-metal devices in C but we decided not to do it at the end).
+Please check [this documentation](https://ck.readthedocs.io/en/latest/src/how-to-contribute.html)
+if you want to extend the CK core functionality and [modules](https://github.com/ctuning/ck/tree/master/ck/repo/module). 
+
+Note, that we plan to [redesign the CK core](https://github.com/ctuning/ck/projects/1) 
+to be more pythonic (we wrote the first prototype without OO to be able 
+to port to bare-metal devices in C but we decided not to do it at the end).
 We also plan to relicense the framework to Apache 2.0.
-In the meantime, please check [this documentation](https://ck.readthedocs.io/en/latest/src/how-to-contribute.html).
 
 
 ## Author
