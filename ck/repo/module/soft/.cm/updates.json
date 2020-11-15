@@ -1,0 +1,216 @@
+{
+  "control": [
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2015-03-03T09:26:41.895000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "1",
+        "0205"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2015-03-03T15:07:58.516000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "1",
+        "0205"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2015-03-27T17:07:23.394771",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "1",
+        "0205"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2015-04-18T19:04:10.540283",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "1",
+        "0205"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://cTuning.org/lab/people/gfursin",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-01-20T21:32:28.134602",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "6",
+        "12x"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://cTuning.org/lab/people/gfursin",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-01-20T21:37:57.356749",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "6",
+        "12x"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://cTuning.org/lab/people/gfursin",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-04-05T16:33:17.888606",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "6",
+        "14x"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-04-16T21:49:51.145000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "6",
+        "14x"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-04-21T12:25:43.933000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "6",
+        "14x"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-04-25T10:15:20.760000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "6",
+        "14x"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-04-26T10:14:15.024000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "6",
+        "14x"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-11-15T10:57:10.951168",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "8",
+        "3",
+        "2"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2017-04-28T14:48:21.212863",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "8",
+        "7",
+        "1"
+      ]
+    },
+    {
+      "engine": "CK",
+      "iso_datetime": "2017-10-03T13:20:58.448123",
+      "version": [
+        "1",
+        "9",
+        "1"
+      ]
+    },
+    {
+      "engine": "CK",
+      "iso_datetime": "2017-10-25T00:42:16.221143",
+      "version": [
+        "1",
+        "9",
+        "3"
+      ]
+    },
+    {
+      "engine": "CK",
+      "iso_datetime": "2018-12-05T10:02:25.491669",
+      "version": [
+        "1",
+        "9",
+        "6",
+        "1"
+      ]
+    }
+  ]
+}

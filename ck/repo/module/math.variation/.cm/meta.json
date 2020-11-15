@@ -1,0 +1,22 @@
+{
+  "actions": {
+    "analyze": {
+      "desc": "analyze variation of experimental results including multiple expected values"
+    },
+    "geometric_mean": {
+      "desc": "calculating geometric mean"
+    },
+    "process_plus_minus": {
+      "desc": "convert plus minus vars to user friendly strings"
+    },
+    "speedup": {
+      "desc": "analyze speedup"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "analyzing variation of experimental results (min,max,average,expected values,etc)",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details"
+}

@@ -1,0 +1,37 @@
+{
+  "actions": {
+    "describe": {
+      "desc": "describe experiment"
+    },
+    "reproduce": {
+      "desc": "reproduce experiment"
+    }
+  },
+  "choices": {
+    "flags": [
+      "-O3",
+      "-O3 -fno-if-conversion"
+    ]
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "data_deps": {
+    "subview_uoa": "143ce35aac4950a9"
+  },
+  "desc": "example of a script to reproduce and crowdsource experiments: checking program speedups vs a set of compiler flags vs a few data sets",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "full_desc": "Experiment: check program speedups vs a few combinations of compiler flags and several data sets\n\nAuthor: Grigori Fursin (Grigori.Fursin@cTuning.org)\n\nIdea: I started related and ad-hoc experiments around 1993 when optimizing simulation of my semiconductor neural networks on supercomputers in terms of performance, energy and size. Since then I spent many years developing various machine learning based autotuning techniques. At the end, I decided to unify such experimentation.\n\nFirst public version: I developed related plugin for my plugin-based autotuning and crowd-tuning cTuning framework around 2007 for the MILEPOST project (where I developed practical machine-learning based compiler).",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "dataset": "8a7141c59cd335f5",
+    "experiment": "bc0409fb61f0aa82",
+    "pipeline": "db25414b48b4ffb3",
+    "program": "b0ac08fe1d3c2615",
+    "table": "2884ee69eaefe71e"
+  },
+  "remote_experiment_uoa": "reproduce-ck-paper-filter-optimization",
+  "remote_repo_uoa": "upload",
+  "report_file": "report.program.experiment.speedup",
+  "repository_to_share_results": "remote-ck"
+}

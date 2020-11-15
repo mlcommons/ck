@@ -1,0 +1,67 @@
+{
+  "actions": {
+    "add": {
+      "desc": "add software detection plugin with template"
+    },
+    "check": {
+      "desc": "check is given software is already installed and register it in the CK or install it if package exists (the same as 'detect')"
+    },
+    "check_target": {
+      "desc": "check that host and target OS is supported"
+    },
+    "compare_versions": {
+      "desc": "compare two versions (in list)"
+    },
+    "detect": {
+      "desc": "detect is given software is already installed and register it in the CK or install it if package exists (the same as 'check')"
+    },
+    "find_config_file": {
+      "desc": "find installation JSON file"
+    },
+    "get_version": {
+      "desc": "low-level function to get version (will be substituted)"
+    },
+    "internal_detect": {
+      "desc": "detect version of a given software (internal)"
+    },
+    "list_all_files": {
+      "desc": "list all files including directories"
+    },
+    "print_help": {
+      "desc": "print help for this software entry"
+    },
+    "search_tool": {
+      "desc": "search tool in pre-defined paths"
+    },
+    "search_version": {
+      "desc": "search for soft version in some files"
+    },
+    "setup": {
+      "desc": "setup CK environment for a given software"
+    },
+    "show": {
+      "desc": "show available software descriptions",
+      "for_web": "yes"
+    },
+    "split_version": {
+      "desc": "split version"
+    }
+  },
+  "ck_install_file": "ck-install.json",
+  "ck_install_file_saved": "ck-install-saved.json",
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "custom_script_name": "customize",
+  "default_bat_name": "env",
+  "desc": "managing software (registering in CK environment)",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "env": "9b9b3208ac44b891",
+    "machine": "84be34883a81b2a9",
+    "misc": "cddc5e04b0da610e",
+    "os": "0440cb72c2bc5cc6",
+    "platform.os": "41e31cc4496b8a8e"
+  }
+}

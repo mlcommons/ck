@@ -1,0 +1,34 @@
+{
+  "actions": {
+    "browse": {
+      "desc": "browse platform.npu participated in experiment crowdsourcing (crowd-benchmarking and crowd-tuning)"
+    },
+    "detect": {
+      "desc": "detect various properties (features) of a given NPU"
+    },
+    "set_freq": {
+      "desc": "set frequency of a given NPU (if supported)"
+    },
+    "show": {
+      "desc": "viewing entries as html",
+      "for_web": "yes"
+    }
+  },
+  "cfg_uoa": "program-crowdtuning",
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "describing and detecting platform's GPU",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net/research.html",
+  "lcfg_uoa": "local-platform",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "cfg": "b34231a3467566f8",
+    "machine": "84be34883a81b2a9",
+    "os": "0440cb72c2bc5cc6",
+    "platform": "707ccdfe444cafac",
+    "platform.cpu": "aa6b542a420b8db9",
+    "platform.init": "38a2f5438d8555b6",
+    "platform.os": "41e31cc4496b8a8e"
+  }
+}

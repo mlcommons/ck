@@ -1,0 +1,19 @@
+{
+  "actions": {
+    "make": {
+      "desc": "make next choice in multi-dimensional space"
+    },
+    "select_list": {
+      "desc": "select from a list of choices in console mode"
+    },
+    "select_uoa": {
+      "desc": "improved version of UOA selector over the version from CK kernel"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "exploring choices in multi-dimensional spaces (customizing autotuning)",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details"
+}

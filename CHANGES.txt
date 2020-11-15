@@ -3,6 +3,7 @@
   * Converted python files to PEP8 style using autopep8
   * Fixed bug with "ck unzip repo" if ckr.zip if not present
   * Added command "get_default_repo" to print the path to the default repo inside CK
+  * Added stable modules from different CK repositories (Issue #120)
 
 * V1.17.0
   * Updated description of all CK APIs in Google format!

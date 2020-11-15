@@ -1,0 +1,369 @@
+{
+  "actions": {
+    "get_raw_config": {
+      "desc": "get raw config for repo widget",
+      "for_web": "yes"
+    },
+    "get_raw_data": {
+      "desc": "get raw data for widget",
+      "for_web": "yes"
+    }
+  },
+  "data_config": {
+    "dimensions": [
+      {
+        "key": "ID",
+        "name": "ID",
+        "view_key": "ID"
+      },
+      {
+        "key": "Division",
+        "name": "Division",
+        "view_key": "Division"
+      },
+      {
+        "key": "Category",
+        "name": "Category",
+        "view_key": "Category"
+      },
+      {
+        "key": "Submitter",
+        "name": "Submitter",
+        "view_key": "Submitter"
+      },
+      {
+        "key": "System",
+        "name": "System",
+        "view_key": "System"
+      },
+      {
+        "key": "Processor",
+        "name": "Processor",
+        "view_key": "Processor"
+      },
+      {
+        "key": "Processor #",
+        "name": "Processor #",
+        "view_key": "Processor #"
+      },
+      {
+        "key": "Accelerator",
+        "name": "Accelerator",
+        "view_key": "Accelerator"
+      },
+      {
+        "key": "Accelerator #",
+        "name": "Accelerator #",
+        "view_key": "Accelerator #"
+      },
+      {
+        "key": "Task",
+        "name": "Task",
+        "view_key": "Task"
+      },
+      {
+        "key": "Benchmark",
+        "name": "Benchmark",
+        "view_key": "Benchmark"
+      },
+      {
+        "key": "Scenario",
+        "name": "Scenario",
+        "view_key": "Scenario"
+      },
+      {
+        "format": "%.2f",
+        "key": "P_IC1",
+        "name": "Image Classification performance",
+        "view_key": "P_IC1"
+      },
+      {
+        "format": "%.3f",
+        "key": "A_IC1",
+        "name": "Image Classification accuracy (Top1, %)",
+        "view_key": "A_IC1"
+      },
+      {
+        "format": "%.2f",
+        "key": "P_OD1",
+        "name": "Object Detection performance",
+        "view_key": "P_OD1"
+      },
+      {
+        "format": "%.3f",
+        "key": "A_OD1",
+        "name": "Object Detection accuracy (mAP, %)",
+        "view_key": "A_OD1"
+      },
+      {
+        "format": "%.2f",
+        "key": "P_NMT",
+        "name": "Machine Translation performance",
+        "view_key": "P_NMT"
+      },
+      {
+        "format": "%.3f",
+        "key": "A_NMT",
+        "name": "Machine Translation accuracy (BLEU)",
+        "view_key": "A_NMT"
+      },
+      {
+        "format": "%d",
+        "key": "Invalid?",
+        "name": "Invalid?",
+        "view_key": "Invalid?"
+      }
+    ],
+    "selector": [],
+    "selector2": [
+      {
+        "key": "Task",
+        "name": "Task"
+      },
+      {
+        "key": "Scenario",
+        "name": "Scenario"
+      },
+      {
+        "key": "Category",
+        "name": "Category"
+      },
+      {
+        "key": "Division",
+        "name": "Division"
+      },
+      {
+        "key": "Submitter",
+        "name": "Submitter"
+      },
+      {
+        "key": "Benchmark",
+        "name": "Benchmark"
+      },
+      {
+        "key": "Accelerator",
+        "name": "Accelerator"
+      },
+      {
+        "key": "FF_M",
+        "name": "Mobile/Handheld"
+      },
+      {
+        "key": "FF_E",
+        "name": "Edge/Embedded"
+      },
+      {
+        "key": "FF_D",
+        "name": "Desktop/Workstation"
+      },
+      {
+        "key": "FF_S",
+        "name": "Server/Cloud"
+      }
+    ],
+    "selector3": [
+      {
+        "key": "plot_dimension1",
+        "name": "Plot dimension 1 (X)"
+      },
+      {
+        "key": "plot_dimension2",
+        "name": "Plot dimension 2 (Y)"
+      }
+    ],
+    "selector_s": [
+      {
+        "config": {
+          "min": 0,
+          "step": 0.1,
+          "type": "number"
+        },
+        "key": "__delta",
+        "name": "Reference accuracy delta"
+      }
+    ],
+    "table_view": [
+      {
+        "key": "Division",
+        "name": "Division"
+      },
+      {
+        "key": "Category",
+        "name": "Category"
+      },
+      {
+        "key": "Submitter",
+        "name": "Submitter"
+      },
+      {
+        "key": "System",
+        "name": "System"
+      },
+      {
+        "key": "Task",
+        "name": "Task"
+      },
+      {
+        "key": "Benchmark",
+        "name": "Benchmark"
+      },
+      {
+        "key": "Scenario",
+        "name": "Scenario"
+      },
+      {
+        "format": "%.2f",
+        "key": "P_IC1",
+        "name": "Image Classification performance (see the metric above the plot)"
+      },
+      {
+        "format": "%.3f",
+        "key": "A_IC1",
+        "name": "Image Classification accuracy<br>(ImageNet'12 val - Top1, %)"
+      },
+      {
+        "format": "%.2f",
+        "key": "P_OD1",
+        "name": "Object Detection performance (see the metric above the plot)"
+      },
+      {
+        "format": "%.3f",
+        "key": "A_OD1",
+        "name": "Object Detection accuracy<br>(COCO'17 val - mAP, %)"
+      },
+      {
+        "format": "%.2f",
+        "key": "P_NMT",
+        "name": "Machine Translation performance (see the metric above the plot)"
+      },
+      {
+        "format": "%.3f",
+        "key": "A_NMT",
+        "name": "Machine Translation accuracy<br>(WMT'16 En-De - BLEU)"
+      },
+      {
+        "key": "Processor",
+        "name": "Processor"
+      },
+      {
+        "key": "Processor #",
+        "name": "Processor #"
+      },
+      {
+        "key": "Accelerator",
+        "name": "Accelerator"
+      },
+      {
+        "key": "Accelerator #",
+        "name": "Accelerator #"
+      },
+      {
+        "key": "Software",
+        "name": "Software"
+      },
+      {
+        "key": "FF_M",
+        "name": "Form Factor - Mobile/Handheld"
+      },
+      {
+        "key": "FF_E",
+        "name": "Form Factor - Edge/Embedded"
+      },
+      {
+        "key": "FF_D",
+        "name": "Form Factor - Desktop/Workstation"
+      },
+      {
+        "key": "FF_S",
+        "name": "Form Factor - Server/Cloud"
+      },
+      {
+        "key": "Details",
+        "name": "Details"
+      },
+      {
+        "key": "Code",
+        "name": "Code"
+      },
+      {
+        "key": "Notes",
+        "name": "Notes"
+      }
+    ]
+  },
+  "desc": "Raw data (JSON) access for MLPerf Inference visualization widget",
+  "prefilter_config": {
+    "image_classification_multistream": {
+      "score_columns": [
+        "P_IC1_MS",
+        "A_IC1_MS"
+      ]
+    },
+    "image_classification_offline": {
+      "score_columns": [
+        "P_IC1_O",
+        "A_IC1_O"
+      ]
+    },
+    "image_classification_server": {
+      "score_columns": [
+        "P_IC1_S",
+        "A_IC1_S"
+      ]
+    },
+    "image_classification_singlestream": {
+      "score_columns": [
+        "P_IC1_SS",
+        "A_IC1_SS"
+      ]
+    },
+    "machine_translation_multistream": {
+      "score_columns": [
+        "P_NMT_MS",
+        "A_NMT_MS"
+      ]
+    },
+    "machine_translation_offline": {
+      "score_columns": [
+        "P_NMT_O",
+        "A_NMT_O"
+      ]
+    },
+    "machine_translation_server": {
+      "score_columns": [
+        "P_NMT_S",
+        "A_NMT_S"
+      ]
+    },
+    "machine_translation_singlestream": {
+      "score_columns": [
+        "P_NMT_SS",
+        "A_NMT_SS"
+      ]
+    },
+    "object_detection_multistream": {
+      "score_columns": [
+        "P_OD1_MS",
+        "A_OD1_MS"
+      ]
+    },
+    "object_detection_offline": {
+      "score_columns": [
+        "P_OD1_O",
+        "A_OD1_O"
+      ]
+    },
+    "object_detection_server": {
+      "score_columns": [
+        "P_OD1_S",
+        "A_OD1_S"
+      ]
+    },
+    "object_detection_singlestream": {
+      "score_columns": [
+        "P_OD1_SS",
+        "A_OD1_SS"
+      ]
+    }
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "actions": {
+    "clean": {
+      "desc": "clean tmp cache of a CK web service"
+    },
+    "convert_ck_list_to_select_data": {
+      "desc": "convert CK list to html to select data"
+    },
+    "create_button": {
+      "desc": "create html button"
+    },
+    "create_input": {
+      "desc": "create html search"
+    },
+    "create_selector": {
+      "desc": "create html universal selector"
+    },
+    "form_url_prefix": {
+      "desc": "form URL prefix (if used via CK web server or via third-party web server and PHP)"
+    },
+    "index": {
+      "desc": "browse CK repositories",
+      "for_web": "yes"
+    },
+    "parse_txt": {
+      "desc": "parse text or json files to process, high-light and cross-link special CK words including $#cm_, $#ck_, http ...",
+      "for_web": "yes"
+    },
+    "process_all_pages": {
+      "desc": "process all pages and convert them into static ones (to create static websites)"
+    },
+    "process_ck_page": {
+      "desc": "process special CK words in html pages",
+      "for_web": "yes"
+    },
+    "start_form": {
+      "desc": "start html form"
+    },
+    "view_page": {
+      "desc": "view a given CK page",
+      "for_web": "yes"
+    },
+    "webadd": {
+      "desc": "add/update CK entries via html",
+      "for_web": "yes"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "CK web front-end (browsing repository and entries, visualizing experiments, viewing interactive graphs and articles, etc)",
+  "developer": "cTuning foundation",
+  "license": "See CK LICENSE.txt for licensing details",
+  "top_menu": [
+    {
+      "module_uoa": "report",
+      "module_uoas": [
+        "report",
+        "1e348bd6ab43ce8a"
+      ],
+      "name": "Reports"
+    },
+    {
+      "module_uoa": "graph",
+      "module_uoas": [
+        "graph",
+        "2d41f89bcf32d4d4"
+      ],
+      "name": "Graphs"
+    },
+    {
+      "module_uoa": "experiment",
+      "module_uoas": [
+        "experiment",
+        "bc0409fb61f0aa82"
+      ],
+      "name": "Experiments"
+    },
+    {
+      "module_uoa": "program",
+      "module_uoas": [
+        "program",
+        "b0ac08fe1d3c2615"
+      ],
+      "name": "Programs"
+    },
+    {
+      "module_uoa": "dataset",
+      "module_uoas": [
+        "dataset",
+        "8a7141c59cd335f5"
+      ],
+      "name": "Datasets"
+    },
+    {
+      "module_uoa": "model",
+      "module_uoas": [
+        "model",
+        "f92b25ca2f1a98ae"
+      ],
+      "name": "Models"
+    },
+    {
+      "module_uoa": "",
+      "module_uoas": [
+        ""
+      ],
+      "name": "Browse"
+    },
+    {
+      "name": "Discussions",
+      "url": "https://groups.google.com/forum/#!forum/collective-knowledge"
+    },
+    {
+      "name": "Get CK",
+      "url": "http://github.com/ctuning/ck"
+    }
+  ]
+}

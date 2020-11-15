@@ -1,0 +1,25 @@
+{
+  "actions": {
+    "autotune": {
+      "desc": "autotune TensorFlow workloads"
+    },
+    "crowdbench": {
+      "desc": "crowd-benchmark TensorFlow"
+    },
+    "replay": {
+      "desc": "replay experiment"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "TensorFlow CK front-end",
+  "developer": "cTuning foundation",
+  "developer_email": "admin@cTuning.org",
+  "developer_webpage": "http://cTuning.org",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "experiment.bench.tensorflow": "bca33b04b438d756",
+    "program": "b0ac08fe1d3c2615"
+  },
+  "workflow": "yes",
+  "workflow_type": "TensorFlow front-end"
+}

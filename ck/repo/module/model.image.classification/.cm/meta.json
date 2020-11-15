@@ -1,0 +1,47 @@
+{
+  "actions": {
+    "ask_ai_web": {
+      "desc": "classify user images to crowd-tune CK-DNN and create collective training set",
+      "for_web": "yes"
+    },
+    "dashboard": {
+      "desc": "open dashboard"
+    },
+    "html_viewer": {
+      "desc": "user-friendly html view",
+      "for_web": "yes"
+    },
+    "show": {
+      "desc": "show dashboard",
+      "for_web": "yes"
+    },
+    "show_json": {
+      "desc": "return json instead of html",
+      "for_web": "yes"
+    }
+  },
+  "classify_program": {
+    "caffe": "569404c41618603a",
+    "caffe2": "883cc4dde19eb5b8",
+    "tensorflow": "62de6ce26934e3eb"
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "classify image using various models such as DNN",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "env": "9b9b3208ac44b891",
+    "module": "032630d041b4fd8a",
+    "package": "1dc07ee0f4742028",
+    "platform": "707ccdfe444cafac",
+    "program": "b0ac08fe1d3c2615",
+    "wfe": "1e4e644996b7f2a0"
+  },
+  "tags": [
+    "ck-ai-json-web-api"
+  ],
+  "workflow": "yes",
+  "workflow_type": "universal image classification pipeline"
+}
