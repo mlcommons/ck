@@ -63,7 +63,7 @@ CK supports the following platforms:
 | iOS           | TBD | TBD |
 | Bare-metal (edge devices)   | - | ± |
 
-## Example
+## Example (without Docker)
 
 Here we show how to pull a GitHub repo in the CK format 
 and use a unified CK interface to compile and run 
@@ -93,6 +93,21 @@ tmp-output.tmp - image with detected corners (rename to ppm to view it)
 ```
 
 Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for further details.
+
+## Example (with Docker)
+
+We have prepared a CK container with [AI and ML components](https://github.com/ctuning/ai): 
+[[Docker](https://hub.docker.com/r/ctuning/ck-ai)], [[CK meta](https://github.com/ctuning/ai/tree/main/docker/ck-ai)]
+
+You can start it as follows:
+
+```bash
+docker run --rm -it ctuning/ck-ai:ubuntu-20.04
+```
+
+You can then prepare and run [portable AI/ML workflows](https://cKnowledge.io/solutions) 
+and [program pipelines](https://cKnowledge.io/programs).
+
 
 ## More examples of CK workflows, automation actions and reusable artifacts for
 
