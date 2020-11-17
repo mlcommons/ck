@@ -1,3 +1,6 @@
+* V1.50.1
+  * Fixed missing CK modules
+
 * V1.50.0 
   * Added stable modules from different CK repositories (Issue #120)
 

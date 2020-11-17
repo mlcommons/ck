@@ -27,7 +27,7 @@
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
-__version__ = "1.50.0"
+__version__ = "1.50.1"
 # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
@@ -4768,9 +4768,12 @@ def get_default_repo(i):
                 path (str): path
     """
 
+    o = i.get('out', '')
+
     p=work.get('dir_default_repo','')
 
-    out(p)
+    if o == 'con':
+        out(p)
 
     return {'return':0, 'path':p}
 
