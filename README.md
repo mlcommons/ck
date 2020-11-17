@@ -17,8 +17,9 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
   and successfully used it to automate  [MLPerf inference benchmark submissions for edge devices](https://cKnowledge.io/solutions)
   and the design space exploration of [efficient ML/SW/HW stacks](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
   in terms of speed, accuracy, energy and costs.
-  We are preparing a major redesign based on [your feedback](https://cknowledge.io/questionnaire/20201020) - 
-  feel free to contact [Grigori Fursin]( https://cKnowledge.io/@gfursin ) for more details!
+  We are preparing a major redesign based on the [last CK survey](https://cknowledge.io/questionnaire/20201020) - 
+  feel free to contact [Grigori Fursin]( https://cKnowledge.io/@gfursin ) for more details 
+  and [subscribe](https://cKnowledge.io/register) for our newsletters!
 
 ## Overview
 
