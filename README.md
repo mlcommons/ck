@@ -19,7 +19,7 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
   in terms of speed, accuracy, energy and costs.
   We are preparing a major redesign based on the [last CK survey](https://cknowledge.io/questionnaire/20201020) - 
   feel free to contact [Grigori Fursin]( https://cKnowledge.io/@gfursin ) for more details 
-  and [subscribe](https://cKnowledge.io/register) for our newsletters!
+  and [subscribe](https://cKnowledge.io/register) for our newsletter!
 
 ## Overview
 
