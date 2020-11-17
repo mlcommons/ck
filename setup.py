@@ -178,7 +178,6 @@ r = setup(
                          'repo/module/compiler/.cm/*',
                          'repo/module/crowdnode/*',
                          'repo/module/crowdnode/.cm/*',
-                         'repo/module/crowdnode/tests/*',
                          'repo/module/dashboard/*',
                          'repo/module/dashboard/.cm/*',
                          'repo/module/dataset/*',
