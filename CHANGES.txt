@@ -1,3 +1,6 @@
+* V1.55.1
+  * removed two outdated modules
+
 * V1.55.0
   * Fixed missing CK modules
   * Removed module/crowdnode/tests (binary files)
