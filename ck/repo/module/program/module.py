@@ -2822,12 +2822,25 @@ def process_in_dir(i):
              if tosd.get('remote_dir_full','')!='':
                  yrdir=tosd['remote_dir_full']+stdirs+rdir
 
-             y=rs+' '+eifsx1+tosd['change_dir']+' '+yrdir+envtsep+' '+y+eifsx1+' '+rse
+             y=rs+' '+eifsx1+tosd['change_dir']+' '+yrdir+envtsep+' '+y
+
+             # Current behaviour on android is to redirect back to the host machine.
+             # This can result in a significant amount of data transferred. On some devices
+             # this has caused the adb client to crash. Proposal is to redirect to device and
+             # transfer back as a normal run_cmd_out file.
+             # Many options for redirecting to target as all seem to be valid levels to make this choice
+             rtt=tosd.get('redirect_to_target','')=='yes' or meta.get('redirect_to_target','')=='yes' or rt.get('redirect_to_target','')=='yes'
+             if not rtt:
+                y+=eifsx1+' '+rse
 
              if cons!='yes':
                 if ercmd!='': y+=' '+ercmd
                 if rco1!='': y+=' '+stro+' '+rco1
                 if rco2!='': y+=' '+stre+' '+rco2
+
+             # Delay command end to after redirects
+             if rtt:
+                y+=eifsx1+' '+rse
 
 #             if o=='con':
 #                ck.out(y)

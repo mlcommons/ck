@@ -80,6 +80,11 @@ ck ls program:*susan*
 
 ck search dataset --tags=jpeg
 
+ck detect soft --tags=compiler,gcc
+ck detect soft --tags=compiler,llvm
+
+ck show env --tags=compiler
+
 ck compile program:cbench-automotive-susan --speed
 
 ck run program:cbench-automotive-susan --cmd_key=corners --repeat=1 --env.MY_ENV=123 --env.TEST=xyz
@@ -168,7 +173,8 @@ in the form of portable CK workflows, automation actions and reusable components
 
 ## Contributions
 
-Users can extend the CK functionality via external [GitHub reposities](https://cKnowledge.io/repos) in the CK format
+Users can extend the CK functionality via [CK modules](https://github.com/ctuning/ck/tree/master/ck/repo/module) 
+or external [GitHub reposities](https://cKnowledge.io/repos) in the CK format
 as described [here](https://ck.readthedocs.io/en/latest/src/typical-usage.html).
 
 Please check [this documentation](https://ck.readthedocs.io/en/latest/src/how-to-contribute.html)
