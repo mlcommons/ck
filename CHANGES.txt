@@ -1,6 +1,8 @@
-* V1.55.1
+* V1.55.2
   * removed two outdated modules
   * updated module:program
+  * added incubator projects
+  * prepared for release
 
 * V1.55.0
   * Fixed missing CK modules

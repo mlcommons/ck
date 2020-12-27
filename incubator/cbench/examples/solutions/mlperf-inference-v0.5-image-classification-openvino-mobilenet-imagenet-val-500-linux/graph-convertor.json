@@ -1,0 +1,58 @@
+[
+  {
+    "graph_id": "mlperf-inference-v0.5-classification",
+    "keys": [
+      {"key1":"solution_uoa"},
+      {"key1":"solution_uid"},
+      {"key1":"solution_run_date"},
+      {"key1":"solution_duration"},
+      {"key1":"program_workflow_uoa"},
+      {"key1":"client_version"},
+
+      {"key1":"good"},
+      {"key1":"total"},
+      {
+        "key1": "accuracy"
+      },
+
+      {"key1":"##resolved_deps#weights#data_name", "out_key":"benchmark"},
+      {"key1":"##resolved_deps#weights#package_uoa","out_key":"benchmark_uoa"},
+      {"key1":"##resolved_deps#dataset#name", "out_key":"dataset"},
+
+      {"key1":"##resolved_deps", "out_key":"resolved_deps"},
+      {"key1":"##platform_info", "out_key":"platform_info"},
+      {
+        "key1": "##resolved_deps#openvino#data_name",
+        "key2": "##resolved_deps#openvino#version",
+        "out_key": "framework"
+      },
+      {
+        "key1": "##resolved_deps#openvino#data_name",
+        "key2": "##resolved_deps#openvino#version",
+        "out_key": "framework"
+      },
+      {
+        "out_key": "notes",
+        "value": "Crowd-benchmarking using portable CK solutions"
+      },
+      {
+        "key1": "##platform_info#cpu_unique@0#model name",
+        "out_key": "processor"
+      },
+      {
+        "out_key": "submitter",
+        "value": "Crowd-user"
+      },
+      {
+        "key1": "##platform_info#platform#vendor",
+        "key2": "##platform_info#platform#model",
+        "key3": "##platform_info#platform#name",
+        "out_key": "system"
+      },
+      {
+        "out_key": "crowd_benchmarking",
+        "value": "yes"
+      }
+    ]
+  }
+]

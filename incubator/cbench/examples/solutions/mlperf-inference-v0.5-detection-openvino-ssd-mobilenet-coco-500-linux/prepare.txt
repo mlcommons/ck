@@ -1,0 +1,94 @@
+# Get stable components for the CK solution
+cbench download package:lib-boost-1.67.0-without-python --force
+cbench download package:mlperf-inference-source-ck --force
+cbench download package:lib-openvino-ck --force
+
+
+# Pull CK repositories (including ck-mlperf, ck-env, ck-autotuning, ck-tensorflow, ck-docker).
+ck pull repo:ck-openvino
+
+# Use generic Linux settings with dummy frequency setting scripts.
+ck detect platform.os --platform_init_uoa=generic-linux-dummy
+
+# Detect C/C++ compiler (gcc).
+ck detect soft:compiler.gcc
+
+# Detect CMake build tool.
+#ck detect soft --tags=cmake --full_path=`which cmake`
+
+
+# Install the latest Python package installer (pip) and some dependencies.
+python -m pip install --ignore-installed pip setuptools
+
+
+
+#-----------------------------------------------------------------------------#
+# Step 1. Install Python dependencies (for Model Optimizer and LoadGen).
+#-----------------------------------------------------------------------------#
+# OpenVINO pre-release strictly requires TensorFlow < 2.0 and NetworkX < 2.4.
+ck install package --tags=lib,python-package,tensorflow --force_version=1.15.2
+ck install package --tags=lib,python-package,networkx --force_version=2.3.0
+ck install package --tags=lib,python-package,defusedxml
+# Cython is an implicit dependency of NumPy.
+ck install package --tags=lib,python-package,cython
+ck install package --tags=lib,python-package,numpy
+# test-generator is an implicit dependency of Model Optimizer (not in requirements.txt).
+ck install package --tags=lib,python-package,test-generator
+# Abseil is a LoadGen dependency.
+ck install package --tags=lib,python-package,absl
+
+
+#-----------------------------------------------------------------------------#
+# Step 2. Install C++ dependencies (for Inference Engine and MLPerf program).
+#-----------------------------------------------------------------------------#
+ck install package --tags=channel-stable,opencv,v3.4.3
+ck install package:lib-boost-1.67.0-without-python
+# Install LoadGen from a branch reconstructed according to Intel's README.
+ck install package --tags=ck-mlperf,inference,source,dividiti.v0.5-intel
+ck install package --tags=lib,loadgen,static
+#-----------------------------------------------------------------------------#
+
+
+#-----------------------------------------------------------------------------#
+# Step 3. Install the OpenVINO "pre-release" used for MLPerf Inference v0.5.
+#-----------------------------------------------------------------------------#
+ck install package --tags=lib,ck-openvino,pre-release
+ck compile ck-openvino:program:mlperf-inference-v0.5
+#-----------------------------------------------------------------------------#
+
+
+#-----------------------------------------------------------------------------#
+# Step 4. Install the first 500 images of the ImageNet 2012 validation dataset.
+# TODO: Create a calibration dataset.
+#-----------------------------------------------------------------------------#
+ck install package --tags=dataset,imagenet,val,min --no_tags=resized
+ck install package --tags=dataset,imagenet,aux
+# The OpenVINO program expects to find val_map.txt in the dataset directory.
+head -n 500 `ck locate env --tags=aux`/val.txt > `ck locate env --tags=val`/val_map.txt
+# Install misc Python dependencies required for calibration.
+python  -m pip install nibabel pillow progress py-cpuinfo pyyaml shapely sklearn tqdm xmltodict yamlloader
+# Install "headless" OpenCV (which doesn't need libsm6, libxext6, libxrender-dev).
+ck install package --tags=lib,python-package,cv2,opencv-python-headless
+#-----------------------------------------------------------------------------#
+
+
+#-----------------------------------------------------------------------------#
+# Step 7. Install the official SSD-MobileNet model for MLPerf Inference v0.5
+# and convert it into the OpenVINO format.
+#-----------------------------------------------------------------------------#
+ck install package --tags=model,tf,ssd-mobilenet,quantized,for.openvino
+ck install package --tags=model,openvino,ssd-mobilenet --safe
+#-----------------------------------------------------------------------------#
+
+
+#-----------------------------------------------------------------------------#
+# Step 8. Install the COCO 2017 validation dataset (5,000 images).
+#-----------------------------------------------------------------------------#
+# Download the dataset to the default path. Remove all training annotations (~765 MB).
+echo | ck install package --tags=object-detection,dataset,coco.2017,val,original,full && ck virtual env --tags=object-detection,dataset,coco.2017,val,original,full --shell_cmd='rm $CK_ENV_DATASET_COCO_LABELS_DIR/*train2017.json'
+# Install Python COCO API.
+#ck install package --tags=lib,python-package,cython # already installed
+#ck install package --tags=lib,python-package,numpy # already installed
+ck install package --tags=lib,python-package,matplotlib
+ck install package --tags=tool,coco,api
+#-----------------------------------------------------------------------------#

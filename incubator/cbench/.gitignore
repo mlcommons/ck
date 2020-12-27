@@ -1,0 +1,16 @@
+build
+build/*
+dist
+dist/*
+
+MANIFEST
+cbench.*/*
+cbench.*
+*.pyc
+__pycache__
+.cache/
+.coverage
+htmlcov
+
+.vscode
+

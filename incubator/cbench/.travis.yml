@@ -1,0 +1,35 @@
+os:       linux
+language: python
+
+python:
+    - "2.7"
+    - "3.5"
+    - "3.6"
+    - "3.7"
+
+matrix:
+    include:
+        - os: osx
+          language: generic
+
+before_install:
+    - |
+        if [ $TRAVIS_OS_NAME == "osx" ]; then
+              export PIP_EXE=pip3
+              export PYTHON_EXE=python3
+        else
+              export PIP_EXE=pip
+              export PYTHON_EXE=python
+        fi
+
+install:
+    - echo "Env var TRAVIS_OS_NAME ${TRAVIS_OS_NAME}"
+    - echo "Current directory ${CWD}"
+    - ${PYTHON_EXE} --version
+    - ${PIP_EXE} --version
+    - ${PIP_EXE} install setuptools
+    - ${PIP_EXE} install ck
+    - ${PYTHON_EXE} setup.py install
+
+script:
+    - cbench download package:lib-tensorflow-pip --all

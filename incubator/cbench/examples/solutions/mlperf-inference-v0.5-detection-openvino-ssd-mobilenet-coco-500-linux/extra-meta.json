@@ -1,0 +1,10 @@
+{
+  "related_components": {
+    "paper":{
+      "title":"MLPerf Inference Benchmark",
+      "uid":"d0e50ebb5b9d4ec9"
+    },
+    "result_uoa":"mlperf-inference-v0.5-classification"
+  },
+  "crowd_benchmarking":"yes"
+}
