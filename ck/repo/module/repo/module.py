@@ -1098,8 +1098,8 @@ def pull(i):
 
         # Check if repository is broken
         try:
-            from ck import api
-            r = api.request(
+            from ck import net
+            r = net.request(
                 {'get': {'action': 'get-repo-status', 'data_uoa': duoa, 'url': url}})
             if r['return'] == 0:
                 s = r.get('dict', {}).get('warning', '')
