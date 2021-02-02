@@ -14,13 +14,12 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 ## News
 
 * Join us at the upcoming [ACM TechTalk](https://twitter.com/acmeducation/status/1352685180637622279) (Feb.11).
+* We are preparing a major redesign of the CK framework to make it more Pythonic and easier to use (CK2) - feel free to contact [Grigori Fursin]( https://cKnowledge.io/@gfursin ) for more details 
+  and [subscribe](https://cKnowledge.io/register) for our newsletter!
 * We have finished prototyping the [CK concept](https://arxiv.org/pdf/2011.01149.pdf)
   and successfully used it to automate  [MLPerf inference benchmark submissions for edge devices](https://cKnowledge.io/solutions)
   and the design space exploration of [efficient ML/SW/HW stacks](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
   in terms of speed, accuracy, energy and costs.
-  We are preparing a major redesign based on the [last CK survey](https://cknowledge.io/questionnaire/20201020) - 
-  feel free to contact [Grigori Fursin]( https://cKnowledge.io/@gfursin ) for more details 
-  and [subscribe](https://cKnowledge.io/register) for our newsletter!
 
 ## Overview
 
