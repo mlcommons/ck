@@ -570,6 +570,8 @@ def set_freq(i):
     dir_sep=tosd.get('dir_sep','')
 
     remote=tosd.get('remote','')
+    rs=tosd.get('remote_shell','')
+    rse=tosd.get('remote_shell_end','')
 
     # Prepare scripts
     cmd=''
@@ -636,7 +638,9 @@ def set_freq(i):
           dv=''
           if tdid!='': dv=' -s '+tdid
 
-          x=tosd.get('remote_shell','').replace('$#device#$',dv)+' "'+cmd+'"'
+          x=rs.replace('$#device#$',dv)
+          # Support backwards compatibility if double quote not found in rs and rse
+          x+=('"' if rs.find('"') == -1 else '')+' '+cmd+' '+rse+('"' if rse.find('"') == -1 else '')
 
           rx=os.system(x)
           if rx!=0:
