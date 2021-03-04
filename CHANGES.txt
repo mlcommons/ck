@@ -1,4 +1,4 @@
-* V1.55.2.1
+* V1.55.3
   * fixed minor API typo
   * improvements from Arm to 2 CK modules: platform.cpu and platform.gpu:
     https://github.com/ctuning/ck-env/pull/113
