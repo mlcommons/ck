@@ -640,7 +640,7 @@ def set_freq(i):
 
           x=rs.replace('$#device#$',dv)
           # Support backwards compatibility if double quote not found in rs and rse
-          x+=('"' if rs.find('"') == -1 else '')+' '+cmd+' '+rse+('"' if rse.find('"') == -1 else '')
+          x+=' '+('"' if rs.find('"') == -1 else '')+' '+cmd+' '+rse+('"' if rse.find('"') == -1 else '')
 
           rx=os.system(x)
           if rx!=0:
