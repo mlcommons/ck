@@ -13,7 +13,8 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 
 ## News
 
-* See the [ACM TechTalk](https://event.on24.com/eventRegistration/EventLobbyServlet?target=reg20.jsp&partnerref=tw&eventid=2942043&sessionid=1&key=9C904C7AE045B5C92AAB2CF216826732&regTag=&V2=false&sourcepage=register) from the CK author (2021.Feb.11).
+* See the [ACM TechTalk](https://learning.acm.org/techtalks/reproducibility) about the CK technology, reproducible research, FAIR principles and MLPerf (February 2021).
+* The overview of the CK technology has appeared in the Philosophical Transactions A, the world's longest-running journal where Newton published: <a href="https://doi.org/10.1098/rsta.2020.0211">DOI</a>, <a href="https://arxiv.org/pdf/2011.01149.pdf">ArXiv</a>.
 * We are preparing a major redesign of the CK framework to make it more Pythonic and easier to use (CK2) - feel free to contact [Grigori Fursin]( https://cKnowledge.io/@gfursin ) for more details 
   and [subscribe](https://cKnowledge.io/register) for our newsletter!
 * We have finished prototyping the [CK concept](https://arxiv.org/pdf/2011.01149.pdf)
@@ -35,7 +36,7 @@ and meta description. See how CK supports collaborative and reproducible researc
 * [MLPerf automation workflows](https://cKnowledge.io/solutions) ([GitHub](https://github.com/ctuning/ai));
 * [Real-world use cases](https://cKnowledge.org/partners.html) from MLPerf, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM, dividiti and other great partners;
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems);
-* Our reproducibility initiatives: [[methodology](https://cTuning.org/ae)], [checklist](https://ctuning.org/ae/submission_extra.html), [[events](https://cKnowledge.io/events)].
+* Our reproducibility initiatives: [methodology](https://cTuning.org/ae), [checklist](https://ctuning.org/ae/submission_extra.html), [events](https://cKnowledge.io/events).
 
 ## Documentation
 
