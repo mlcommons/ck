@@ -13,7 +13,8 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 
 ## News
 
-* See the [ACM TechTalk](https://learning.acm.org/techtalks/reproducibility) about the CK technology, reproducible research, FAIR principles and MLPerf (February 2021).
+* We are very excited to join forces with [OctoML.ai](https://OctoML.ai)! Contact [Grigori Fursin](https://cKnowledge.io/@gfursin) for more details!
+* See our [ACM TechTalk](https://learning.acm.org/techtalks/reproducibility) about the CK technology, reproducible research, FAIR principles and MLPerf (February 2021).
 * The overview of the CK technology has appeared in the Philosophical Transactions A, the world's longest-running journal where Newton published: <a href="https://doi.org/10.1098/rsta.2020.0211">DOI</a>, <a href="https://arxiv.org/pdf/2011.01149.pdf">ArXiv</a>.
 * We are preparing a major redesign of the CK framework to make it more Pythonic and easier to use (CK2) - feel free to contact [Grigori Fursin]( https://cKnowledge.io/@gfursin ) for more details 
   and [subscribe](https://cKnowledge.io/register) for our newsletter!
