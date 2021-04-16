@@ -478,8 +478,34 @@ def install(i):
         if (moving_key not in cus) and (moving_key in d):
             cus[moving_key]=d[moving_key]
 
-
     supported_variations  = d.get('variations', {})
+
+    # If more than 1 variation and no required variations, show them to a user
+    if len(supported_variations)>1 and len(required_variations)==0:
+        ck.out('More than one version variation found in this package:')
+        ck.out('')
+
+        sorted_supported_variations=sorted(supported_variations, key=lambda k: supported_variations[k].get('on_by_default','')!='yes')
+
+        j=0
+        key_variation={}
+        for variation in sorted_supported_variations:
+             ck.out(str(j)+') '+variation)
+             key_variation[j]=variation
+             j+=1
+
+        ck.out('')
+        x=input('Please select a variation or press Enter for the default one (0): ')
+
+        x=x.strip()
+        if x=='': x='0'
+
+        ix=int(x)
+        if ix<0 or ix>=j:
+            return {'return':1, 'error':'variation number is not recognized'}
+
+        required_variations=[key_variation[ix]]
+
     required_vari_pairs   = [ (variation_name, False) for variation_name in required_variations ]
     default_vari_pairs    = [ (variation_name, True) for variation_name in supported_variations if supported_variations[variation_name].get('on_by_default', '')=='yes' ]
     vari_pairs            = required_vari_pairs + default_vari_pairs    # NB: the order is important!
