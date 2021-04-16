@@ -27,7 +27,7 @@
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
-__version__ = "1.55.4"
+__version__ = "1.55.4.1"
 # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
@@ -7171,13 +7171,30 @@ def find2(i):
     m = i.get('module_uoa', '')
     duoa = i.get('data_uoa', '')
 
+    # Check tags
+    tags = i.get('tags', '')
+    ltags = []
+    if tags != '':
+        xtags = tags.split(',')
+        for q in xtags:
+            ltags.append(q.strip())
+
+    if duoa.strip() == '' and len(ltags) > 0:
+        duoa='*'        
+
     if m == '':
         return {'return': 1, 'error': 'module UOA is not defined'}
     if duoa == '':
         return {'return': 1, 'error': 'data UOA is not defined'}
 
     if a.find('*') >= 0 or a.find('?') >= 0 or m.find('*') >= 0 or m.find('?') >= 0 or duoa.find('*') >= 0 or duoa.find('?') >= 0:
-        r = list_data({'repo_uoa': a, 'module_uoa': m, 'data_uoa': duoa})
+        ii={'repo_uoa': a, 'module_uoa': m, 'data_uoa': duoa}
+
+        if len(ltags) > 0:
+            ii['search_dict'] = {'tags':ltags}
+            ii['filter_func'] = 'search_filter'
+
+        r = list_data(ii)
         if r['return'] > 0:
             return r
 
@@ -9835,7 +9852,6 @@ def search(i):
 
 ##############################################################################
 # Original search (internal)
-
 
 def search2(i):
 
