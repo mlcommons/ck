@@ -10,7 +10,7 @@ Please see https://ck.readthedocs.io/en/latest/guide/how-to-contribute.html
 N: Grigori Fursin (alias: FGG)
 E: Grigori.Fursin@cTuning.org
 H: https://fursin.net
-O: cTuning foundation, France
+O: cTuning foundation, France / OctoML.ai, USA
 C: original concept and prototyping, real-world use cases, development of https://cKnowledge.org and https://cKnowledge.io
 W: since Nov.1, 2014 
 

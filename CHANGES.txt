@@ -1,6 +1,7 @@
-* V1.55.4.1
+* V1.55.5
   * added --tags to "ck find" action to be able to search for entries 
     by tags and return their paths
+  * added module:doc to abstract documentation
 
 * V1.55.4
   * [sztaylor] fix cpu & gpu set_freq commands
