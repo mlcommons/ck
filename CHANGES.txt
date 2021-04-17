@@ -1,4 +1,4 @@
-* V1.55.5.1
+* V1.55.6
   * extended module:package to ask a user to select a variation 
     for a given package when there are multiple versions available.
 
