@@ -511,13 +511,14 @@ def prepare_entry_template(i):
 def select_string(i):
     """
     Input:  {
-                options         - an ordered list of strings to select from
-                (question)      - the question to ask
-                (default)       - default selection
-                (no_autoselect) - if "yes", enforce the interactive choice even if there is only 1 option
-                (no_autoretry)  - if "yes", bail out on any unsuitable input, do not offer to retry
-                (no_skip_line)  - if "yes", do not skip a line after each option
-                (first_match)   - if "yes", take the first match in case there are multiple
+                options          - an ordered list of strings to select from
+                (question)       - the question to ask
+                (default)        - default selection
+                (no_autoselect)  - if "yes", enforce the interactive choice even if there is only 1 option
+                (no_autoretry)   - if "yes", bail out on any unsuitable input, do not offer to retry
+                (no_skip_line)   - if "yes", do not skip a line after each option
+                (first_match)    - if "yes", take the first match in case there are multiple
+                (select_default) - if "yes", select 0
             }
 
     Output: {
@@ -532,6 +533,8 @@ def select_string(i):
     """
 
     import copy
+
+    select_default=i.get('select_default','').strip().lower()
 
     question    = i.get('question', 'Please select from the options above')
     options     = copy.deepcopy( i.get('options') )
@@ -567,11 +570,16 @@ def select_string(i):
 
     while num_matches!=1:
 
-        r = ck.inp({'text': "{}{}: ".format(question, ' [ hit return for "{}" ]'.format(default) if default!=None and len(default) else '')})
-        response = r['string']
+        if select_default != 'yes':
+            r = ck.inp({'text': "{}{}: ".format(question, ' [ hit return for "{}" ]'.format(default) if default!=None and len(default) else '')})
+            response = r['string']
 
-        if response=='' and default!=None:
-            response = default
+            if response=='' and default!=None:
+                response = default
+        else:
+            ck.out('Selected 0 (default)')
+
+            response = '0'
 
         try:                                    # try to convert into int() and see if it works
             error_message = None

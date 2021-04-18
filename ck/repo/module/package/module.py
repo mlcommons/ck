@@ -117,6 +117,8 @@ def install(i):
               (ask_version)       - ask for the version of the package the user wants to install
 
               (debug)             - if 'yes', open shell before installing but with all resolved deps
+
+              (default)           - if 'yes', install default package (answer 0 to selection questions)
             }
 
     Output: {
@@ -140,6 +142,8 @@ def install(i):
        oo=o
 
     ask=i.get('ask','')
+
+    default=i.get('default','').strip().lower()
 
     xtags=i.get('tags','')
     xor_tags=i.get('or_tags','')
@@ -362,11 +366,12 @@ def install(i):
                         ver_options.append( skip_display_line )
 
                     select_adict = ck.access({'action': 'select_string',
-                                    'module_uoa': 'misc',
-                                    'options': ver_options,
-                                    'default': '0',
-                                    'no_skip_line': 'yes',
-                                    'question': 'Please select the package to install',
+                                      'module_uoa': 'misc',
+                                      'options': ver_options,
+                                      'default': '0',
+                                      'select_default': default,
+                                      'no_skip_line': 'yes',
+                                      'question': 'Please select the package to install',
                     })
                     if select_adict['return']>0: return select_adict
 
@@ -495,14 +500,19 @@ def install(i):
              j+=1
 
         ck.out('')
-        x=input('Please select a variation or press Enter for the default one (0): ')
 
-        x=x.strip()
-        if x=='': x='0'
+        if default!='yes':
+           x=input('Please select a variation or press Enter for the default one (0): ')
 
-        ix=int(x)
-        if ix<0 or ix>=j:
-            return {'return':1, 'error':'variation number is not recognized'}
+           x=x.strip()
+           if x=='': x='0'
+
+           ix=int(x)
+           if ix<0 or ix>=j:
+               return {'return':1, 'error':'variation number is not recognized'}
+        else:
+           ck.out('Selected 0 (default)')
+           ix=0
 
         required_variations=[key_variation[ix]]
 

@@ -1,3 +1,7 @@
+* V1.55.7
+  * added --default flag to ck install package to select 0 
+    when multiple packages and variations available.
+
 * V1.55.6
   * extended module:package to ask a user to select a variation 
     for a given package when there are multiple versions available.
