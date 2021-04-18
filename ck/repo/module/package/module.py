@@ -118,7 +118,7 @@ def install(i):
 
               (debug)             - if 'yes', open shell before installing but with all resolved deps
 
-              (default)           - if 'yes', install default package (answer 0 to selection questions)
+              (quiet)             - if 'yes', install default package (answer 0 to selection questions)
             }
 
     Output: {
@@ -143,7 +143,7 @@ def install(i):
 
     ask=i.get('ask','')
 
-    default=i.get('default','').strip().lower()
+    quiet=i.get('quiet','').strip().lower()
 
     xtags=i.get('tags','')
     xor_tags=i.get('or_tags','')
@@ -369,7 +369,7 @@ def install(i):
                                       'module_uoa': 'misc',
                                       'options': ver_options,
                                       'default': '0',
-                                      'select_default': default,
+                                      'select_default': quiet,
                                       'no_skip_line': 'yes',
                                       'question': 'Please select the package to install',
                     })
@@ -501,7 +501,7 @@ def install(i):
 
         ck.out('')
 
-        if default!='yes':
+        if quiet!='yes':
            x=input('Please select a variation or press Enter for the default one (0): ')
 
            x=x.strip()
@@ -825,6 +825,7 @@ def install(i):
            'deps_cache':deps_cache,
            'dep_add_tags': dep_add_tags,
            'safe':safe,
+           'quiet':quiet,
            'deps':udeps}
        if o=='con': env_resolve_action_dict['out']='con'
 
@@ -873,7 +874,7 @@ def install(i):
        }
 
     if o=='con': param_dict_for_pre_path['interactive']='yes'
-    if i.get('quiet','')=='yes': param_dict_for_pre_path['interactive']=''
+    if quiet=='yes': param_dict_for_pre_path['interactive']=''
 
     rx = internal_run_if_present(customization_script, 'pre_path', param_dict_for_pre_path, pr_env)
     if rx['return']>0: return rx
@@ -1239,7 +1240,7 @@ def install(i):
        }
 
     if o=='con': param_dict_for_post_deps['interactive']='yes'
-    if i.get('quiet','')=='yes': param_dict_for_post_deps['interactive']=''
+    if quiet=='yes': param_dict_for_post_deps['interactive']=''
 
     rx = internal_run_if_present(customization_script, 'post_deps', param_dict_for_post_deps, pr_env)
     if rx['return']>0: return rx
@@ -1399,7 +1400,7 @@ def install(i):
              }
 
           if o=='con': param_dict_for_setup['interactive']='yes'
-          if i.get('quiet','')=='yes': param_dict_for_setup['interactive']=''
+          if quiet=='yes': param_dict_for_setup['interactive']=''
 
           param_dict_for_post_setup=copy.deepcopy(param_dict_for_setup)
 

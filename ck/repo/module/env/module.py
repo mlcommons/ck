@@ -521,6 +521,7 @@ def env_set(i):
                         'host_os':hos,
                         'target_os':tos,
                         'target_device_id':tdid,
+                        'quiet':quiet,
                         'version_from':vfrom, 
                         'version_to':vto,
 #                        'deps':cdeps,
@@ -2271,6 +2272,7 @@ def internal_install_package(i):
         'deps_cache':deps_cache,
         'version_from':vfrom,
         'version_to':vto,
+        'quiet':quiet,
         'add_hint':ah}
 
     if rebuild=='yes': install_adict['rebuild']='yes'

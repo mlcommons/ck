@@ -1,3 +1,6 @@
+* V1.55.8
+  * added --quiet flag to automatically enter default anser to most questions
+
 * V1.55.7
   * added --default flag to ck install package to select 0 
     when multiple packages and variations available.
