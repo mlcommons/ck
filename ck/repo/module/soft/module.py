@@ -61,6 +61,8 @@ def internal_detect(i):
               (env)               - if !='', use this env string before calling compiler (to set up env)
 
               (show)              - if 'yes', show output
+
+              (force_version)     - if !='', use this version
             }
 
     Output: {
@@ -738,6 +740,11 @@ def setup(i):
              os.chdir(pwd1)
 
              ver+='-'+ss1
+
+    ########################################################################
+    # Check if force version
+    x=i.get('force_version','').strip()
+    if x!='': ver=i['force_version'] 
 
     ########################################################################
     # Ask for version if was not detected or is not explicitly specified (for example, from a package)
@@ -1451,6 +1458,8 @@ def check(i):
               (version_from)       - check version starting from ... (string or list of numbers)
               (version_to)         - check version up to ... (string list of numbers)
 
+              (force_version)      - if !='', use this version
+
               (full_path)          - force full path (rather than searching in all directories)
             }
 
@@ -2106,6 +2115,9 @@ def check(i):
 
     if cus.get('collect_device_info','')!='yes':
         ii['skip_device_info_collection']='yes'
+
+    if i.get('force_version','')!='':
+        ii['force_version']=i['force_version']
 
     rz=setup(ii)
     if rz['return']>0: return rz
