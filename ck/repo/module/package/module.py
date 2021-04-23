@@ -494,27 +494,38 @@ def install(i):
 
         j=0
         key_variation={}
+        count_ons=0
         for variation in sorted_supported_variations:
-             ck.out(str(j)+') '+variation)
+             x=str(j)+') '+variation
+
+             if supported_variations.get(variation,{}).get('on_by_default','')=='yes':
+                 x+=' (on by default)'
+                 count_ons += 1
+
+             ck.out(x)
+
              key_variation[j]=variation
              j+=1
 
         ck.out('')
 
-        if quiet!='yes':
-           x=input('Please select a variation or press Enter for the default one (0): ')
+        # If more than 1 default variation found, skip asking which one to select
+        # (it means that it's unlikely a version selection but an env customization)
+        if count_ons<2:
+            if quiet!='yes':
+               x=input('Please select a variation or press Enter for the default one (0): ')
 
-           x=x.strip()
-           if x=='': x='0'
+               x=x.strip()
+               if x=='': x='0'
 
-           ix=int(x)
-           if ix<0 or ix>=j:
-               return {'return':1, 'error':'variation number is not recognized'}
-        else:
-           ck.out('Selected 0 (default)')
-           ix=0
+               ix=int(x)
+               if ix<0 or ix>=j:
+                   return {'return':1, 'error':'variation number is not recognized'}
+            else:
+               ck.out('Selected 0 (default)')
+               ix=0
 
-        required_variations=[key_variation[ix]]
+            required_variations=[key_variation[ix]]
 
     required_vari_pairs   = [ (variation_name, False) for variation_name in required_variations ]
     default_vari_pairs    = [ (variation_name, True) for variation_name in supported_variations if supported_variations[variation_name].get('on_by_default', '')=='yes' ]

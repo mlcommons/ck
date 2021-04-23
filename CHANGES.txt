@@ -1,3 +1,7 @@
+* V1.55.10
+  * do not ask to select variations in "ck install package" 
+    when there are 2 or more variations!
+
 * V1.55.9
   * added --force_version to "ck detect soft" to force version.
     Useful to automate autodetection of imagenet, for example.
