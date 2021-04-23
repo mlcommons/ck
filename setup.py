@@ -76,7 +76,10 @@ class custom_install(install):
             python_bin = sys.executable
             real_python_bin = os.path.abspath(python_bin)
 
-            if os.path.isfile(python_bin):
+            if os.environ.get('CK_PYTHON','').strip()!='':
+                python_bin = os.environ.get('CK_PYTHON','').strip()
+
+            if os.environ.get('CK_SKIP_SAVING_PYTHON_BIN','').strip().lower()!='yes' and os.path.isfile(python_bin):
                 # Attempt to write to $SCRIPTS/ck-python.cfg
                 file_type = 'wb'
                 if sys.version_info[0] > 2:

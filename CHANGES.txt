@@ -1,3 +1,10 @@
+* V1.55.11
+  * Test environment variable "CK_SKIP_SAVING_PYTHON_BIN" during CK installation
+    to skip detecting and recording python binary to ck-python.cfg
+    to avoid mixing up virtual environments.
+  * When CK_PYTHON is defined during CK installation,
+    record it to ck-python.cfg to preserve the default version.
+
 * V1.55.10
   * do not ask to select variations in "ck install package" 
     when there are 2 or more variations!
