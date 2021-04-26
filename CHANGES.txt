@@ -1,3 +1,6 @@
+* V1.55.12
+  * added module:doc to the distribution
+
 * V1.55.11
   * Test environment variable "CK_SKIP_SAVING_PYTHON_BIN" during CK installation
     to skip detecting and recording python binary to ck-python.cfg

@@ -192,6 +192,8 @@ r = setup(
                          'repo/module/demo/*',
                          'repo/module/device/.cm/*',
                          'repo/module/device/*',
+                         'repo/module/doc/.cm/*',
+                         'repo/module/doc/*',
                          'repo/module/docker/.cm/*',
                          'repo/module/docker/*',
                          'repo/module/env/.cm/*',
