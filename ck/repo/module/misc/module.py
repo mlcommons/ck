@@ -571,7 +571,7 @@ def select_string(i):
     while num_matches!=1:
 
         if select_default != 'yes':
-            r = ck.inp({'text': "{}{}: ".format(question, ' [ hit return for "{}" ]'.format(default) if default!=None and len(default) else '')})
+            r = ck.inp({'text': "{}{}: ".format(question, ' [ Enter -1 to use CK packages or hit return for "{}" ]'.format(default) if default!=None and len(default) else '')})
             response = r['string']
 
             if response=='' and default!=None:

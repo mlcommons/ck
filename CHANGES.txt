@@ -1,3 +1,8 @@
+* V1.55.12.1
+  * print "Enter -1 to use CK packages" when detecting soft
+    to install CK packages instead of detecting 
+    already installed software
+
 * V1.55.12
   * added module:doc to the distribution
 
