@@ -1,4 +1,7 @@
-* V1.55.12.1
+* V1.55.14
+  * improved error reporting in packages and programs
+
+* V1.55.13  
   * print "Enter -1 to use CK packages" when detecting soft
     to install CK packages instead of detecting 
     already installed software

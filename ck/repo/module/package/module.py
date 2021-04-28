@@ -1905,7 +1905,7 @@ def show(i):
 
        h+='<p>\n'
        h+='See <pre>ck install package --help</pre> for more installation options.\n'
-       h+='See <a href="http://cKnowledge.org/shared-soft-detection-plugins.html">related CK soft detection plugins</a>,\n'
+       h+='See <a href="https://cKnowledge.io/c/soft">related CK soft detection plugins</a>,\n'
        h+=' <a href="https://github.com/ctuning/ck/wiki">CK documentation</a>,\n'
        h+=' <a href="https://github.com/ctuning/ck/wiki#contributing">"how to contribute" guide</a>,\n'
        h+=' <a href="https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf">ACM ReQuEST-ASPLOS\'18 report</a>\n'
@@ -2721,12 +2721,14 @@ def print_warning(i):
                    crurl=ck.cfg.get('wiki_data_web','')
                    if crurl!='':
                       crurl+='package/'+pduoa
-#                      ck.out('')
- #                     ck.out('   CK stable package URL: '+crurl)
+                      ck.out('')
+                      ck.out('   CK stable package URL: '+crurl)
 
        x1='the community'
-       x2='https://groups.google.com/forum/#!forum/collective-knowledge'
-       x3='https://github.com/ctuning/ck/issues'
+#       x2='https://groups.google.com/forum/#!forum/collective-knowledge'
+#       x3='https://github.com/ctuning/ck/issues'
+       x2='https://github.com/ctuning/ck/issues'
+       x3='https://github.com/ctuning/ck-ml/issues'
 #       if url2!='':
 #          x1='the authors'
 #          x2=url2
@@ -2736,7 +2738,7 @@ def print_warning(i):
           ck.out('   Please, check that there is no discussion about this issue at '+crurl)
           ck.out('')
 
-       ck.out('   Please, submit the *full* log to:')
+       ck.out('   Please, submit the original comand line and the *full* log to:')
        ck.out('     * '+x2)
        ck.out('     * '+x3)
 

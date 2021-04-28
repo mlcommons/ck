@@ -7698,8 +7698,10 @@ def print_warning(i):
        ck.out('   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 
        x1='the community'
-       x2='https://groups.google.com/forum/#!forum/collective-knowledge'
-       x3='https://github.com/ctuning/ck/issues'
+#       x2='https://groups.google.com/forum/#!forum/collective-knowledge'
+#       x3='https://github.com/ctuning/ck/issues'
+       x2='https://github.com/ctuning/ck/issues'
+       x3='https://github.com/ctuning/ck-ml/issues'
 #       if url2!='':
 #          x1='the authors'
 #          x2=url2
@@ -7709,7 +7711,7 @@ def print_warning(i):
           ck.out('   Please, check that there is no discussion about this issue at '+crurl)
           ck.out('')
 
-       ck.out('   Please, submit the *full* log to:')
+       ck.out('   Please, submit the original command line and the *full* log to:')
        ck.out('     * '+x2)
        ck.out('     * '+x3)
 
