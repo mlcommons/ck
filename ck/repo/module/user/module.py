@@ -1,8 +1,8 @@
 #
 # Collective Knowledge (web-based user auth)
 #
-# 
-# 
+# See CK LICENSE.txt for licensing details
+# See CK COPYRIGHT.txt for copyright details
 #
 # Developer: 
 #

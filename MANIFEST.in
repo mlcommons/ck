@@ -2,6 +2,7 @@ include CHANGES.txt
 include CONTRIBUTING.md
 include COPYRIGHT.txt
 include LICENSE.txt
+include LICENSE.third-party.txt
 include README.md
 include ChangeLog
 include set-env.sh
