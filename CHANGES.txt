@@ -1,3 +1,6 @@
+* V1.55.14.1
+  * added module:docs to be more compatible with standard repos
+
 * V1.55.14
   * improved error reporting in packages and programs
 
