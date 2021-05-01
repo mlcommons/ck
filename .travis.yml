@@ -1,10 +1,21 @@
-language: python
+os:         linux
+dist:       xenial
+sudo:       false
+language:   python
+
 python:
     - "2.7"
     - "3.5"
     - "3.6"
     - "3.7"
     - "3.8"
+
+addons:
+    apt:
+        packages:
+            - python-pip
+        sources:
+            - ubuntu-toolchain-r-test
 
 before_install:
     - |
@@ -33,12 +44,46 @@ before_install:
         fi
 
 install: 
-    - "$PIP_EXE install coveralls"
-    - "$PIP_EXE install pyyaml"
+    - CWD=`pwd`
+    - $PIP_EXE install coveralls
+    - $PIP_EXE install pyyaml
+    - echo "TRAVIS_OS_NAME=${TRAVIS_OS_NAME}, WANTED_PYTHON_VERSION=${WANTED_PYTHON_VERSION}"
+    - which "${PYTHON_EXE}"
+    - ${PYTHON_EXE} --version
 
 script: 
-    - "$PYTHON_EXE setup.py install"
-    - "ck pull repo:ck-web"
-    - "coverage run -m tests.test"
+    - $PYTHON_EXE setup.py install
+    - ck version
+    - coverage run -m tests.test
+    - ck pull repo:ck-ml
+    - ck detect soft:compiler.python --full_path=`which ${PYTHON_EXE}`
+    - ck install package --tags=lib,python-package,numpy
+    - ck install package --tags=lib,python-package,scipy
+    - ck install package --tags=lib,python-package,pillow
+    - ck install package:lib-tensorflow-1.13.1-cpu
+    - ck install package:imagenet-2012-val-min
+    - ck install package --tags=dataset,imagenet,preprocessed,using-pillow,first.20
+    - ck install package --quiet --tags=model,image-classification,onnx,mobilenet,non-quantized,nchw,downloaded
+    - ck install package --quiet --tags=model,onnx,mobilenet,nhwc,converted
+    - ck install package --quiet --tags=model,onnx,resnet,nchw,converted
+    - ck install package --quiet --tags=model,onnx,resnet,nhwc,converted
+    - ck install package --quiet --tags=lib,python-package,onnxruntime
+
+    - ck detect soft:compiler.gcc --full_path=`which gcc`
+    - ck install package --tags=tool,cmake,prebuilt --quiet
+
+    - ck install package --quiet --tags=mlperf,inference,src,r1.0
+
+    - ck install package --tags=lib,python-package,absl
+
+    - ck install package --tags=lib,python-package,mlperf,loadgen
+    - ck install package --tags=lib,mlperf,loadgen,static
+
+    - ck show env
+    - ck run program:image-classification-onnx-py --quiet --dep_add_tags.weights=mobilenet,converted --cmd_key=barebones --env.CK_BATCH_SIZE=3
+    - ck run program:image-classification-onnx-py --dep_add_tags.weights=mobilenet,downloaded --cmd_key=preprocessed --env.CK_BATCH_COUNT=2
+    - ck run program:image-classification-onnx-py --dep_add_tags.weights=resnet,nchw,converted --cmd_key=preprocessed
+    - ck run program:image-classification-onnx-py --dep_add_tags.weights=resnet,nhwc,converted --cmd_key=preprocessed
+    - ck run program:image-classification-onnx-py --cmd_key=preprocessed --dep_add_tags.weights=resnet,nchw,converted --env.CK_IMAGE_FILE=ILSVRC2012_val_00000003.JPEG
 
 after_success: coveralls

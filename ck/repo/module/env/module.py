@@ -392,7 +392,6 @@ def env_set(i):
              ck.out('')
              ck.out(' This is a possible bug - please report here:')
              ck.out('   * https://github.com/ctuning/ck/issues')
-                      or
              ck.out('   * https://github.com/ctuning/ck-ml/issues')
              ck.out('')
 

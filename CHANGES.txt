@@ -1,3 +1,7 @@
+* V1.55.16
+  * fixed a bug in module:env.
+  * added more MLPerf tests from https://github.com/ctuning/ck-ml to find above bug.
+
 * V1.55.15
   * added module:docs to be more compatible with standard repos
   * added LICENSE.third-party.txt
