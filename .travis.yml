@@ -4,7 +4,7 @@ sudo:       false
 language:   python
 
 python:
-    - "2.7"
+#    - "2.7"
     - "3.5"
     - "3.6"
     - "3.7"
@@ -56,6 +56,7 @@ script:
     - ck version
     - coverage run -m tests.test
     - ck pull repo:ck-ml
+    - echo "$CK_PLATFORM_NAME" | ck detect platform.os --update_platform_init
     - ck detect soft:compiler.python --full_path=`which ${PYTHON_EXE}`
     - ck install package --tags=lib,python-package,numpy
     - ck install package --tags=lib,python-package,scipy
