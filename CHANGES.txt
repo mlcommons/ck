@@ -1,6 +1,8 @@
 * V1.55.16
   * fixed a bug in module:env.
   * added more MLPerf tests from https://github.com/ctuning/ck-ml to find above bug.
+  * detect packages with problems and print notes how to solve them
+    (useful for ImageNet 2012 packages where direct download is no longer available)
 
 * V1.55.15
   * added module:docs to be more compatible with standard repos
