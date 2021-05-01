@@ -52,7 +52,8 @@ install:
     - ${PYTHON_EXE} --version
 
 script: 
-    - $PYTHON_EXE setup.py install
+    - ${PYTHON_EXE} -m pip install --ignore-installed --verbose pip setuptools
+    - ${PYTHON_EXE} setup.py install
     - ck version
     - coverage run -m tests.test
     - ck pull repo:ck-ml

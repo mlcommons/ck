@@ -407,6 +407,7 @@ def install(i):
 
     elif duoa:	# if tags were not available, try to load directly
        rx=ck.access({'action':'load',
+                     'repo_uoa':i.get('repo_uoa',''),
                      'module_uoa':work['self_module_uid'],
                      'data_uoa':duoa})
        if rx['return']>0: return rx
