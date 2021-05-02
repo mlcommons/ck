@@ -27,7 +27,7 @@
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
-__version__ = "1.55.16"
+__version__ = "1.55.17"
 # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel

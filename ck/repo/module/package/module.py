@@ -1282,7 +1282,7 @@ def install(i):
     soft_cfg={}
 
     # Check if continue processing
-    if (shell_script_name or (customization_script and 'setup' in dir(customization_script))) and xprocess:
+    if (shell_script_name or (customization_script and 'setup' in dir(customization_script))):
        # start bat
        shell_wrapper_contents=hosd.get('batch_prefix','')+'\n'
 
@@ -1316,7 +1316,7 @@ def install(i):
        shell_wrapper_contents+='\n'
 
        # Check installation path
-       if pi=='' and cus.get('skip_path','')!='yes':
+       if pi=='' and cus.get('skip_path','')!='yes' and not xprocess:
           if o=='con':
              ck.out('')
 
@@ -1382,7 +1382,7 @@ def install(i):
 
        cont=True
 
-       if len(fp_matches)>0:
+       if len(fp_matches)>0 and not xprocess:
           if o=='con':
                 ck.out('')
                 ck.out('It appears that package is already installed or at least file from the package already found in path: {}'.format(fp_matches))
@@ -1399,7 +1399,7 @@ def install(i):
 
 
        # Check if need to use scripts from another entry
-       if cont:
+       if cont and xprocess:
           # Customize main installation
           param_dict_for_setup={"host_os_uoa":hosx,
               "host_os_uid":hos,
