@@ -40,8 +40,8 @@ as described in this article: [[short pre-print](https://arxiv.org/abs/2006.0716
 Our goal is to help researchers and practitioners share, reuse and extend their knowledge
 in the form of portable workflows, automation actions and reusable artifacts with a common API, CLI,
 and meta description. See how CK supports collaborative and reproducible research:
-* [MLPerf automation workflows](https://cKnowledge.io/solutions) ([GitHub](https://github.com/ctuning/ai));
-* [Real-world use cases](https://cKnowledge.org/partners.html) from MLPerf, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM, dividiti and other great partners;
+* [AI/ML/MLPerf automation workflows and components from the community](https://github.com/ctuning/ck-ml);
+* [Real-world use cases](https://cKnowledge.org/partners.html) from MLPerf, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM and other great partners;
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems);
 * Our reproducibility initiatives: [methodology](https://cTuning.org/ae), [checklist](https://ctuning.org/ae/submission_extra.html), [events](https://cKnowledge.io/events).
 
