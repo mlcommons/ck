@@ -10,7 +10,7 @@ In the meantime, please check [this documentation](https://ck.readthedocs.io/en/
 
 # How to contribute
 
-Current Collective Knowledge framework (CK) uses standard 3-clause (new) BSD license. 
+Current Collective Knowledge framework (CK) uses standard Apache 2.0 license. 
 Contributions are very welcome to improve the existing functionality 
 of the CK framework, CK modules, and CK components.
 

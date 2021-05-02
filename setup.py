@@ -133,7 +133,7 @@ r = setup(
 
     url='https://github.com/ctuning/ck',
 
-    license='BSD 3-clause',
+    license='Apache 2.0',
 
     author='Grigori Fursin',
     author_email='Grigori.Fursin@cTuning.org',
@@ -436,7 +436,6 @@ r = setup(
         "Intended Audience :: End Users/Desktop",
         "Intended Audience :: Information Technology",
         "Intended Audience :: Science/Research",
-        "License :: OSI Approved :: BSD License",
         "Operating System :: OS Independent",
         "Topic :: Scientific/Engineering :: Information Analysis",
         "Topic :: Scientific/Engineering",

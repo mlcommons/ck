@@ -3,7 +3,6 @@
 [![Downloads](https://pepy.tech/badge/ck)](https://pepy.tech/project/ck)
 [![PyPI version](https://badge.fury.io/py/ck.svg)](https://badge.fury.io/py/ck)
 [![Python Version](https://img.shields.io/badge/python-2.7%20|%203.4+-blue.svg)](https://pypi.org/project/ck)
-[![License](https://img.shields.io/badge/License-BSD%203--Clause-blue.svg)](https://opensource.org/licenses/BSD-3-Clause)
 
 Linux/MacOS: [![Build Status](https://travis-ci.org/ctuning/ck.svg?branch=master)](https://travis-ci.org/ctuning/ck)
 Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw2k4eajy54xrvqc?svg=true)](https://ci.appveyor.com/project/gfursin/ck)
@@ -13,6 +12,7 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 
 ## News
 
+* CK version 2+ uses Apache 2.0 license.
 * We are very excited to join forces with [OctoML.ai](https://OctoML.ai)! Contact [Grigori Fursin](https://cKnowledge.io/@gfursin) for more details!
 * See our [ACM TechTalk](https://learning.acm.org/techtalks/reproducibility) about the CK technology, reproducible research, FAIR principles and MLPerf (February 2021).
 * The overview of the CK technology has appeared in the Philosophical Transactions A, the world's longest-running journal where Newton published: <a href="https://doi.org/10.1098/rsta.2020.0211">DOI</a>, <a href="https://arxiv.org/pdf/2011.01149.pdf">ArXiv</a>.
@@ -23,13 +23,19 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
   and the design space exploration of [efficient ML/SW/HW stacks](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
   in terms of speed, accuracy, energy and costs.
 
+## License
+
+* **V2+** : Apache 2.0
+* **V1.x** : BSD 3-clause
+
 ## Overview
 
 Collective Knowledge framework (CK) helps to organize software projects
 as a database of reusable components with common automation actions
 and extensible meta descriptions based on [FAIR principles](https://www.nature.com/articles/sdata201618)
 (findability, accessibility, interoperability and reusability)
-as described in [this article](https://arxiv.org/pdf/2011.01149.pdf).
+as described in this article: [[short pre-print](https://arxiv.org/abs/2006.07161)] 
+[[longer journal version](https://arxiv.org/pdf/2011.01149.pdf)].
 
 Our goal is to help researchers and practitioners share, reuse and extend their knowledge
 in the form of portable workflows, automation actions and reusable artifacts with a common API, CLI,
@@ -120,42 +126,34 @@ and [program pipelines](https://cKnowledge.io/programs).
 ## More examples of CK workflows, automation actions and reusable artifacts for
 
 * Showroom (public projects powered by CK):
-  * [MLPerf automation](https://cKnowledge.io/solution)
+  * [CK repository with AI/ML/MLPerf automation](https://github.com/ctuning/ck-ml)
   * Student Cluster Competition automation: [SCC18](https://github.com/ctuning/ck-scc18), [digital artifacts](https://github.com/ctuning/ck-scc)
   * Jupyter notebooks: [ML/SW/HW DSE for edge devices](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb)
   * ML-based autotuning project: [reproducible paper demo](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive),  [MILEPOST]( https://github.com/ctuning/reproduce-milepost-project )
-  * Stable Docker containers with CK workflows: [MLPerf example](https://cknowledge.io/c/docker/mlperf-inference-vision-with-ck.intel.ubuntu-18.04/), [cKnowledge.io]( https://cKnowledge.io/c/docker ), [Docker Hub](https://hub.docker.com/u/ctuning)
   * [Quantum hackathons](https://cKnowledge.org/quantum)
   * [ACM SW/HW co-design tournaments for Pareto-efficient deep learning](https://cKnowledge.org/request)
-  * Portable CK workflows and components for:
-    * [TensorFlow](https://github.com/ctuning/ck-tensorflow)
-    * [PyTorch](https://github.com/ctuning/ck-pytorch)
-    * [TensorRT](https://github.com/ctuning/ck-tensorrt)
-    * [OpenVino](https://github.com/ctuning/ck-openvino)
-    * [individual NN operators](https://github.com/ctuning/ck-nntest)
-    * [object detection](https://github.com/ctuning/ck-object-detection)
   * [GUI to automate ML/SW/HW benchmarking with MLPerf example (under development)](https://cKnowledge.io/test)
   * [Reproduced papers]( https://cKnowledge.io/reproduced-papers )
   * [Live scoreboards for reproduced papers]( https://cKnowledge.io/reproduced-results )
 * Examples of CK components (automations, API, meta descriptions):
-    * *program : image-classification-tflite-loadgen* [[cKnowledge.io]( https://cKnowledge.io/c/program/image-classification-tflite-loadgen )] [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/program/image-classification-tflite-loadgen )]
-    * *program : image-classification-tflite* [[GitHub](https://github.com/ctuning/ck-tensorflow/tree/master/program/image-classification-tflite)]
-    * *soft : lib.mlperf.loadgen.static* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/soft/lib.mlperf.loadgen.static )]
-    * *package : lib-mlperf-loadgen-static* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/package/lib-mlperf-loadgen-static )]
-    * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
-    * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/ctuning/ck-tensorflow/tree/master/package/lib-tflite )]
+    * *program : image-classification-tflite-loadgen* [[cKnowledge.io]( https://cKnowledge.io/c/program/image-classification-tflite-loadgen )] [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/program/image-classification-tflite-loadgen )]
+    * *program : image-classification-tflite* [[GitHub](https://github.com/ctuning/ck-ml/tree/master/program/image-classification-tflite)]
+    * *soft : lib.mlperf.loadgen.static* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/soft/lib.mlperf.loadgen.static )]
+    * *package : lib-mlperf-loadgen-static* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package/lib-mlperf-loadgen-static )]
+    * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
+    * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package/lib-tflite )]
     * *docker : object-detection-tf-py.tensorrt.ubuntu-18.04* [[cKnowledge.io]( https://cknowledge.io/c/docker/object-detection-tf-py.tensorrt.ubuntu-18.04 )]
-    * *docker* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/docker )]
-    * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/ctuning/ck-mlperf/tree/master/docker/speech-recognition.rnnt )]
-    * *package : model-tf-** [[GitHub]( https://github.com/ctuning/ck-object-detection/tree/master/package )]
+    * *docker* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/docker )]
+    * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/docker/speech-recognition.rnnt )]
+    * *package : model-tf-** [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package )]
     * *script : mlperf-inference-v0.7.image-classification* [[cKnowledge.io]( https://cknowledge.io/c/script/mlperf-inference-v0.7.image-classification )]
     * *jnotebook : object-detection* [[GitHub](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb)]
 
 
-
 ## CK portal 
 
-[cKnowledge.io](https://cKnowledge.io): organizing [ML and Systems knowledge]( https://doi.org/10.5281/zenodo.4005773 )
+We develop [cKnowledge.io](https://cKnowledge.io) portal to help the community 
+organize all [AI, ML and Systems knowledge]( https://doi.org/10.5281/zenodo.4005773 )
 in the form of portable CK workflows, automation actions and reusable components:
 
 * [**All CK ML&systems components**](https://cknowledge.io/?q=mlsystems)
@@ -190,8 +188,7 @@ We also plan to relicense the framework to Apache 2.0.
 
 ## Author
 
-* [Grigori Fursin](https://cKnowledge.io/@gfursin) ([cTuning foundation](https://cTuning.org) and [cKnowledge SAS](https://www.linkedin.com/company/cknowledge))
-
+* [Grigori Fursin](https://cKnowledge.io/@gfursin)
 
 
 ## Acknowledgments
