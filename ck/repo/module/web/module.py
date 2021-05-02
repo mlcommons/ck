@@ -34,6 +34,11 @@ except:
     import urlparse
 
 try:
+    from cgi import parse_qs
+except:
+    from urllib.parse import parse_qs
+
+try:
     from urllib.parse import quote as urlquote
 except:
     from urllib import quote as urlquote
@@ -373,7 +378,7 @@ def process_ck_web_request(i):
             s = http.rfile.read(length)
             if sys.version_info[0] > 2:
                 s = s.decode('utf8')
-            xpost1 = cgi.parse_qs(s, keep_blank_values=1)
+            xpost1 = parse_qs(s, keep_blank_values=1)
 
     except Exception as e:
         bin = b'internal CK web service error [7101] (' + \
