@@ -7,6 +7,9 @@
     
 ========================================================================================
 
+* V1.55.17
+  * fixed a bug in module:package when reinstalling existing package
+
 * V1.55.16
   * fixed a bug in module:env.
   * added more MLPerf tests from https://github.com/ctuning/ck-ml to find above bug.
