@@ -127,7 +127,7 @@ class custom_install_scripts(install_scripts):
 
 ############################################################
 # Describing CK setup
-r = setup(
+setup(
     name='ck',
     version=current_version,
 
@@ -417,12 +417,15 @@ r = setup(
                          'repo/test/unicode/.cm/*',
                          'repo/test/unicode/dir/*']},
 
-    scripts=["bin/ck", "bin/ck.bat"],
-
     cmdclass={
         'install': custom_install,
         'install_scripts': custom_install_scripts
     },
+
+    entry_points='''
+        [console_scripts]
+        ck=ck.kernel:cli
+    ''',
 
     classifiers=[
         "Programming Language :: Python",

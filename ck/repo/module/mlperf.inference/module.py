@@ -65,7 +65,7 @@ def get_raw_data(i):
     def get_experimental_results_from_cache(cache_dir=None, cache_file=None):
         if cache_dir is None:
             # Check this module's directory.
-            cache_repo_uoa    = 'ck-mlperf'
+            cache_repo_uoa    = ''
             cache_module_uoa  = 'module'
             cache_data_uoa    = 'mlperf.inference'
             r = ck.access({'action':'find',

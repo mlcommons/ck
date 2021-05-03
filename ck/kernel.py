@@ -27,7 +27,7 @@
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
-__version__ = "2.0.0.1"
+__version__ = "2.0.1"
 # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
@@ -12223,8 +12223,7 @@ def access(i):
 
 
 ##############################################################################
-if __name__ == "__main__":
-
+def cli():
     r = access(sys.argv[1:])
 
     if 'return' not in r:
@@ -12232,3 +12231,8 @@ if __name__ == "__main__":
             'CK access function should always return key \'return\'!')
 
     exit(int(r['return']))
+
+
+##############################################################################
+if __name__ == "__main__":
+    cli()
