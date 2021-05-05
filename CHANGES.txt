@@ -1,10 +1,12 @@
+* V2.0.1.1
+  * Removed several data zips that are not required for the releases
+
 * V2.0.1
   * Updated deprecated function in web server to support Python 3.8+
   * We now use Python to generate ck and ck.bat scripts!
     If you install CK for different python versions, 
     you can use a specific one as follows:
     python3.7 -m ck version
-
 
 * V2.0.0
   * We now use Apache 2.0 license based on the feedback from the majority of users
