@@ -327,6 +327,7 @@ def process_in_dir(i):
               (add_save_extension_to_bin)     - if 'yes', add '.save' to bin to save during cleaning ...
 
               (skip_print_timers)             - if 'yes', skip printing fine-grain timers after execution
+              (skip_print_stats)              - if 'yes', skip printing final statistics
 
               (skip_file_print)               - skip file printing (if 'print_files_after_run' list is in program meta)
 
@@ -6536,7 +6537,7 @@ def benchmark(i):
     r=ck.access(i)
     if r['return']>0: return r
 
-    if o=='con':
+    if o=='con' and i.get('skip_print_stats','')!='yes':
        ck.out(sep)
        ck.out('Some statistics:')
 
