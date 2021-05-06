@@ -327,7 +327,6 @@ def process_in_dir(i):
               (add_save_extension_to_bin)     - if 'yes', add '.save' to bin to save during cleaning ...
 
               (skip_print_timers)             - if 'yes', skip printing fine-grain timers after execution
-              (skip_print_stats)              - if 'yes', skip printing final statistics
 
               (skip_file_print)               - skip file printing (if 'print_files_after_run' list is in program meta)
 
@@ -6444,8 +6443,10 @@ def benchmark(i):
               See "ck run pipeline --help" for all input keys
 
               Extra:
-               (repetititons) - number of statistical repetitions of a pipeline
-               (console) - print to console rather than to files
+               (repetititons)     - number of statistical repetitions of a pipeline
+               (console)          - print to console rather than to files
+               (skip_print_stats) - if 'yes', skip printing final statistics
+               (print_files)      - print files separated by comma at the end of benchmarking
             }
 
     Output: {
@@ -6662,6 +6663,18 @@ def benchmark(i):
               ck.out('  '+str(sec)+') '+kernel+' : '+str(tmin)+' .. '+str(tmax)+x)
 
        ck.out('')
+
+    # Print files if needed
+    pf=i.get('print_files','').strip().split(',')
+    if len(pf)>0:
+       for f in pf:
+           r=ck.load_text_file({'text_file':f})
+           if r['return']==0:
+               if len(pf)>1:
+                  ck.out('')
+                  ck.out('* File: '+f)
+               ck.out('')
+               ck.out(r['string'])
 
     return r
 
