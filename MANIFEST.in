@@ -7,5 +7,4 @@ include README.md
 include ChangeLog
 include set-env.sh
 
-recursive-include bin *
 recursive-include man *
