@@ -6665,9 +6665,9 @@ def benchmark(i):
        ck.out('')
 
     # Print files if needed
-    pf=i.get('print_files','').strip().split(',')
-    if len(pf)>0:
-       for f in pf:
+    pf=i.get('print_files','').strip()
+    if pf!='':
+       for f in pf.split(','):
            r=ck.load_text_file({'text_file':f})
            if r['return']==0:
                if len(pf)>1:

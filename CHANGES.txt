@@ -1,6 +1,9 @@
+* V2.0.3
+  * fixed a minor bug in module:program
+
 * V2.0.2
-  * Added --print_skip_stats to "ck run benchmark" to reduce output for MLPerf benchmarks
-  * Added --print_files to "ck run benchmark" to print multiple files after MLPerf benchmarking
+  * Added --print_skip_stats to "ck benchmark program" to reduce output for MLPerf benchmarks
+  * Added --print_files to "ck benchmark program" to print multiple files after MLPerf benchmarking
   * Removed several data zips that are not required for the releases
 
 * V2.0.1
