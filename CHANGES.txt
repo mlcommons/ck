@@ -1,3 +1,6 @@
+* V2.0.3.1
+  * fixed modules mlperf.inference and mlperf.mobilenets to cache in local:tmp:{some cache}
+
 * V2.0.3
   * fixed a minor bug in module:program
 

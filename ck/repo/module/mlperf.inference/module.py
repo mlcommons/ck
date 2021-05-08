@@ -11,6 +11,7 @@
 # - Nikolay Istomin, Xored.
 # - Anton Lokhmotov, dividiti.
 # - Leo Gordon, dividiti.
+# - Grigori Fursin, OctoML.
 #
 
 cfg={}  # Will be updated by CK (meta description of this module)
@@ -64,15 +65,19 @@ def get_raw_data(i):
 
     def get_experimental_results_from_cache(cache_dir=None, cache_file=None):
         if cache_dir is None:
-            # Check this module's directory.
-            cache_repo_uoa    = ''
-            cache_module_uoa  = 'module'
-            cache_data_uoa    = 'mlperf.inference'
+            # Check directory with cached results
+            cache_repo_uoa    = 'local'
+            cache_module_uoa  = 'tmp'
+            cache_data_uoa    = 'cached-mlperf-mobilenets-results'
             r = ck.access({'action':'find',
                 'repo_uoa':cache_repo_uoa, 'module_uoa':cache_module_uoa, 'data_uoa':cache_data_uoa})
             if r['return']>0:
-                ck.out('Error: %s' % r['error'])
-                exit(1)
+                if r['return']!=16:
+                    return r
+                else:
+                    r = ck.access({'action':'add',
+                       'repo_uoa':cache_repo_uoa, 'module_uoa':cache_module_uoa, 'data_uoa':cache_data_uoa})
+                    if r['return']>0: return r
             cache_dir = r['path']
 
         if os.path.exists(cache_dir):
