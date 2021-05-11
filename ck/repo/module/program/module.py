@@ -7270,8 +7270,9 @@ def add(i):
         if k!='template': tags.append(k)
     dd['tags']=tags
 
-    dd['backup_data_uid']=duid
-    dd['data_name']=dname
+#    Grigori commented on 20210511 since it seems to be an old and not needed meta?
+#    dd['backup_data_uid']=duid
+#    dd['data_name']=dname
 
     ii={'action':'update',
         'module_uoa':muoa,

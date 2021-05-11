@@ -371,12 +371,15 @@ def add(i):
                 if not durl.endswith('/'):
                     durl += '/'
                 durl += ghu
+            elif d.find('@')>=0:
+                durl = ck.cfg.get('default_shared_repo_url_with_at', '')
             else:
                 durl = ck.cfg.get('default_shared_repo_url', '')
 
             if not durl.endswith('/'):
                 durl += '/'
-            durl += d
+            durl += d.replace('@','/')
+            print (durl)
 #          if durl.startswith('http://') or durl.startswith('https://'):
 #             durl+='.git'
 
@@ -457,6 +460,7 @@ def add(i):
             di = dc.get('data_uid', '')
             dn = dc.get('data_name', '')
 
+   
     # If git, clone repo
     repo_had_local = True
     dd = {}

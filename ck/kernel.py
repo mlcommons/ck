@@ -27,7 +27,7 @@
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
-__version__ = "2.0.4"
+__version__ = "2.0.5"
 # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
@@ -66,6 +66,7 @@ cfg = {
     "ck_web_wiki": "https://github.com/ctuning/ck/wiki",
 
     "default_shared_repo_url": "https://github.com/ctuning",
+    "default_shared_repo_url_with_at": "https://github.com",
     "github_repo_url": "https://github.com",
 
     #      "default_license":"See CK LICENSE.txt for licensing details",

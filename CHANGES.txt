@@ -1,3 +1,8 @@
+* V2.0.5
+  * added possibility to pull CK repositories from different GitHub organizations
+    as follows: "ck pull repo:{organization}@{repo}"
+  * removed old and not used meta "backup_data_uid" and "data_name" from program entries
+
 * V2.0.4
   * fixed modules mlperf.inference and mlperf.mobilenets 
     to cache results in local:tmp:{some cache}
