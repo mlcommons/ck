@@ -10,23 +10,14 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 [![Documentation Status](https://readthedocs.org/projects/ck/badge/?version=latest)](https://ck.readthedocs.io/en/latest/?badge=latest)
 [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
-## News
-
-* CK version 2+ uses Apache 2.0 license.
-* We are very excited to join forces with [OctoML.ai](https://OctoML.ai)! Contact [Grigori Fursin](https://cKnowledge.io/@gfursin) for more details!
-* See our [ACM TechTalk](https://learning.acm.org/techtalks/reproducibility) about the CK technology, reproducible research, FAIR principles and MLPerf (February 2021).
-* The overview of the CK technology has appeared in the Philosophical Transactions A, the world's longest-running journal where Newton published: <a href="https://doi.org/10.1098/rsta.2020.0211">DOI</a>, <a href="https://arxiv.org/pdf/2011.01149.pdf">ArXiv</a>.
-* We are preparing a major redesign of the CK framework to make it more Pythonic and easier to use (CK2) - feel free to contact [Grigori Fursin]( https://cKnowledge.io/@gfursin ) for more details 
-  and [subscribe](https://cKnowledge.io/register) for our newsletter!
-* We have finished prototyping the [CK concept](https://arxiv.org/pdf/2011.01149.pdf)
-  and successfully used it to automate  [MLPerf inference benchmark submissions for edge devices](https://cKnowledge.io/solutions)
-  and the design space exploration of [efficient ML/SW/HW stacks](https://cknowledge.io/c/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
-  in terms of speed, accuracy, energy and costs.
-
 ## License
 
 * **V2+** : Apache 2.0
 * **V1.x** : BSD 3-clause
+
+## News
+
+* [Project website](https://cKnowledge.org)
 
 ## Overview
 
@@ -34,12 +25,15 @@ Collective Knowledge framework (CK) helps to organize software projects
 as a database of reusable components with common automation actions
 and extensible meta descriptions based on [FAIR principles](https://www.nature.com/articles/sdata201618)
 (findability, accessibility, interoperability and reusability)
-as described in this article: [[short pre-print](https://arxiv.org/abs/2006.07161)] 
-[[longer journal version](https://arxiv.org/pdf/2011.01149.pdf)].
+as described in our [journal article](https://arxiv.org/pdf/2011.01149.pdf) ([shorter pre-print](https://arxiv.org/abs/2006.07161)).
 
 Our goal is to help researchers and practitioners share, reuse and extend their knowledge
 in the form of portable workflows, automation actions and reusable artifacts with a common API, CLI,
-and meta description. See how CK supports collaborative and reproducible research:
+and meta description. See how CK helps to automate benchmarking, optimization and design space
+exploration of [AI/ML/software/hardware stacks](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all/), 
+simplifies [MLPerf](https://mlperf.org) submissions and supports collaborative, reproducible and reusable ML Systems research:
+
+* [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4)
 * [AI/ML/MLPerf automation workflows and components from the community](https://github.com/ctuning/ck-ml);
 * [Real-world use cases](https://cKnowledge.org/partners.html) from MLPerf, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM and other great partners;
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems);
@@ -52,7 +46,6 @@ and meta description. See how CK supports collaborative and reproducible researc
   * [CK Basics](https://michel-steuwer.github.io/About-CK)
   * [Try CK]( https://ck.readthedocs.io/en/latest/src/first-steps.html )
 * [Publications](https://github.com/ctuning/ck/wiki/Publications)
-* [All news](https://github.com/ctuning/ck/wiki/News-archive)
 
 ## Installation
 
