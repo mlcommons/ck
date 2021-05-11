@@ -1,3 +1,8 @@
+* V2.0.6
+  * improved module:program meta to be able to use global CMD run_time parameters
+    for all command lines (useful to run different MLPerf scenarios
+    with similar run time parameters)
+
 * V2.0.5
   * added possibility to pull CK repositories from different GitHub organizations
     as follows: "ck pull repo:{organization}@{repo}"

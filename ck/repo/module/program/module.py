@@ -2360,6 +2360,8 @@ def process_in_dir(i):
 
        # Check if pre-processing script via CK
        pvck=rt.get('pre_process_via_ck',{})
+       if len(pvck)==0:
+           pvck=meta.get('pre_process_via_ck',{})
        if len(pvck)>0:
 
           pvckp=src_path_local
@@ -2559,7 +2561,12 @@ def process_in_dir(i):
 
        # Check pre-processing scripts
        lppc0=rt.get('pre_process_cmds',[])
+       if len(lppc0)==0:
+           lppc0=meta.get('pre_process_cmds',[])
+
        ppc0=rt.get('pre_process_cmd','')
+       if ppc0=='':
+           ppc0=meta.get('pre_process_cmd','')
        if ppc0!='': lppc0.append(ppc0)
 
        # Check if traditional pre-processing script
@@ -2640,15 +2647,27 @@ def process_in_dir(i):
 
        # Check post-processing scripts
        lppc=rt.get('post_process_cmds',[])
-       lppcvc=rt.get('post_process_via_ck','')
+       if len(lppc)==0:
+           lppc=meta.get('post_process_cmds',[])
+       lppcvc=rt.get('post_process_via_ck',{})
+       if len(lppcvc)==0:
+           lppcvc=meta.get('post_process_via_ck',{})
        ppc=rt.get('post_process_cmd','')
+       if ppc=='':
+           ppc=meta.get('post_process_cmd','')
        if ppc!='': lppc.append(ppc)
 
        ck_check_output=None # detect customized output comparison plugin
 
        fgtf=rt.get('fine_grain_timer_file','')
+       if fgtf=='':
+          fgtf=meta.get('fine_grain_timer_file','')
        if env.get('XOPENME_TIME_FILE','')!='':
           fgtf=env['XOPENME_TIME_FILE']
+
+       skip_print_timers=True if i.get('skip_print_timers','')=='yes' or \
+           rt.get('skip_print_timers','')=='yes' or \
+           meta.get('skip_print_timers','')=='yes' else False
 
        # Check if extra post_process
        if eppc!='':
@@ -2672,6 +2691,7 @@ def process_in_dir(i):
        cn_max=int(xcn_max)
 
        rof += rt.get('run_output_files',[])
+       rof += meta.get('run_output_files',[])
 
        cn=1
        while True:
@@ -3242,13 +3262,15 @@ def process_in_dir(i):
              if et!='':
                 exec_time=float(et)
 
-             if o=='con' and i.get('skip_print_timers','')!='yes':
+             if o=='con' and not skip_print_timers:
                 import json
                 ck.out(json.dumps(drq, indent=2, sort_keys=True))
                 ck.out('')
 
           # If return code >0 and program does not ignore return code, quit
-          if (rx>0 and vcmd.get('ignore_return_code','').lower()!='yes') or rry>0:
+          if (rx>0 and \
+               vcmd.get('ignore_return_code','').lower()!='yes' and \
+               meta.get('ignore_return_code','').lower()!='yes') or rry>0:
              break
 
           # Check calibration
