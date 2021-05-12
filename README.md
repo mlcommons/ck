@@ -65,7 +65,8 @@ CK supports the following platforms:
 | iOS           | TBD | TBD |
 | Bare-metal (edge devices)   | - | ± |
 
-## Portable workflow example (native environment without Docker)
+## Examples
+### Portable CK workflow (native environment without Docker)
 
 Here we show how to pull a GitHub repo in the CK format 
 and use a unified CK interface to compile and run 
@@ -101,7 +102,7 @@ tmp-output.tmp - image with detected corners (rename to ppm to view it)
 
 Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for further details.
 
-## Portable workflow example with Docker
+### Portable CK workflow (with Docker)
 
 We have prepared a CK container with [AI and ML components](https://github.com/ctuning/ai): 
 [[Docker](https://hub.docker.com/r/ctuning/ck-ai)], [[CK meta](https://github.com/ctuning/ai/tree/main/docker/ck-ai)]
@@ -115,6 +116,21 @@ docker run --rm -it ctuning/ck-ai:ubuntu-20.04
 You can then prepare and run [portable AI/ML workflows](https://cKnowledge.io/solutions) 
 and [program pipelines](https://cKnowledge.io/programs).
 
+### Portable workflow example with virtual CK environments
+
+You can create multiple [virtual CK environments](https://github.com/octoml/venv) with templates
+to automatically install different CK packages and workflows, for example for MLPerf inference:
+
+```
+ck pull repo:octoml@venv
+ck create venv:test --template=mlperf-inference-main
+ck ls venv
+ck activate venv:test
+
+ck install package --ask --tags=dataset,coco,val,2017,full
+ck show env
+
+```
 
 ## CK portal 
 
