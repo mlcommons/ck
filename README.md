@@ -172,6 +172,9 @@ to port it to bare-metal devices in C but eventually we decided to drop this ide
 
 * [Grigori Fursin](https://cKnowledge.io/@gfursin) ([OctoML](https://OctoML.ai), USA; [cTuning foundation](https://cTuning.org), France)
 
+## Sponsors
+
+* [OctoML.ai](https://octoml.ai)
 
 ## Acknowledgments
 
