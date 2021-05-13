@@ -21,6 +21,8 @@ using the open-source [CK workflow framework](https://github.com/ctuning/ck).
   * [More automation](tbd/automation.md)
   * [CK2 ideas](tbd/ck2.md)
 
+*Please feel free to contribute to this collaborative doc by sending your PR [here]( https://github.com/ctuning/ck/pulls )! Thank you!*
+
 # Feedback
 
 Contact [Grigori Fursin](https://cKnowledge.io/@gfursin) ([OctoML.ai](https://octoml.ai), [MLCommons member](https://mlcommons.org))
