@@ -18,7 +18,7 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 ## News
 
 * [Project website](https://cKnowledge.org)
-* [CK-powered MLPerf automation](https://github.com/ctuning/ck/tree/master/docs/mlperf-automation)
+* [CK-powered MLPerf automation](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md)
 
 ## Overview
 
@@ -67,6 +67,7 @@ CK supports the following platforms:
 | Bare-metal (edge devices)   | - | ± |
 
 ## Examples
+
 ### Portable CK workflow (native environment without Docker)
 
 Here we show how to pull a GitHub repo in the CK format 
@@ -102,6 +103,11 @@ tmp-output.tmp - image with detected corners (rename to ppm to view it)
 ```
 
 Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for further details.
+
+### MLPerf benchmark workflows
+
+* [Image classification](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tasks/task-image-classification.md)
+* [Object detection](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
 
 ### Portable CK workflow (with Docker)
 
