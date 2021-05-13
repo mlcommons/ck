@@ -192,6 +192,7 @@ ck run program --help
 You can then customize your CMD using JSON keys as follows:
 ```
 ck run program:my-program --key1=value1 --key2=value2
+```
 
 ### Record results to the CK repository
 

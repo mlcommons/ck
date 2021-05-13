@@ -45,7 +45,7 @@ pip3 install virtualenv
 ## Test CK automation (platform detection)
 
 ```
-ck pull repo:ck-ml
+ck pull repo:octoml@mlops
 
 ck detect platform.gpgpu --cuda
 ```

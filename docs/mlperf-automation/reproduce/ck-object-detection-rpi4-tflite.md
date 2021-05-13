@@ -26,7 +26,7 @@ Note that you need GCC 9+!
 ### Pull [CK-ML repository](https://github.com/ctuning/ck-ml)
 
 ```bash
-$ ck pull repo:ck-ml
+$ ck pull repo:octoml@mlops
 ```
 
 ### Set up CK environment

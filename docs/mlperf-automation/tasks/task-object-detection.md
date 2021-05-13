@@ -188,8 +188,9 @@ ck run program --help
 You can then customize your CMD using JSON keys as follows:
 ```
 ck run program:my-program --key1=value1 --key2=value2
+```
 
-### Record results to the CK repository
+### Record benchmarking results to the CK repository
 
 You can record results to the CK repository for further analysis (for example, using [CK dashboards](../results/ck-dashboard.md)) as follows:
 
@@ -269,6 +270,58 @@ You can delete all virtual CK environments as follows:
 ck rm venv:*
 ```
 
+## Use a Docker container
+
+We prepared a Docker container with pre-installed MLPerf inference benchmark v1.0 
+with object detection that you can use interactively to benchmark models 
+and record results in your local repository for further analysis.
+
+First, build a Docker container as follows:
+
+```
+ck build docker:ck-mlperf-inference-v1.0-object-detection-native-x8664-ubuntu-20.04
+```
+
+Then, create a local CK repository where you would like to record benchmarking results:
+```
+ck add repo:ck-experiments --quiet
+```
+
+**Linux** Start Docker while mounting CK repository with experiments:
+
+```
+export CK_HOST_REPO_EXPERIMENTS=`ck where repo:ck-experiments`
+
+echo ${CK_HOST_REPO_EXPERIMENTS}
+
+docker run --volume ${CK_HOST_REPO_EXPERIMENTS}:/home/ckuser/ck-experiments -it octoml/ck-mlperf-inference-v1.0-object-detection-native-x8664-ubuntu-20.04
+```
+
+Use this ugly hack to be able to record to your host CK repository:
+```
+sudo chmod -R 777 ck-experiments
+ck add repo:ck-experiments --path=/home/ckuser/ck-experiments --quiet
+```
+
+Then try to run some experiments and record results:
+```
+ck benchmark program:mlperf-inference-bench-object-detection-onnx-cpu \
+     --cmd_key=Performance-SingleStream \
+     --env.EXTRA_OPS="--time 60 --qps 200 --max-latency 0.1" \
+     --repetitions=1 --skip_print_timers --skip_print_stats \
+     --record \
+     --record_repo=ck-experiments \
+     --record_uoa=mlperf-inference-bench-object-detection-onnx-cpu-ssd-mobilenet-result1 \
+     --tags=mlperf-v1.0,inference,object-detection,onnx,ssd-mobilenet,cpu \
+     --print_files=mlperf_log_summary.txt,results.json
+
+```
+
+After exiting this Docker container, you can see results in your local ck-experiment repo:
+```
+exit
+ck ls ck-experiment:experiment:*
+```
 
 
 # Questions and feedback

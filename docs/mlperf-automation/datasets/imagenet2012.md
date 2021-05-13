@@ -17,7 +17,7 @@ Select ImageNet 2012 variation:
 
 ```bash
 python3 -m pip install ck
-ck pull repo:ck-ml
+ck pull repo:octoml@mlops
 ```
 
 # Install reduced ImageNet 2012 val dataset with the first 500 images
