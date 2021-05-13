@@ -1,6 +1,7 @@
-.. Copyright 2015-2020 Grigori Fursin and the cTuning foundation
+.. Copyright 2015-2021 Grigori Fursin and the cTuning foundation
 
-   SPDX-License-Identifier: (BSD-3-Clause)
+   V2+ : Apache 2.0
+   V1.x : BSD 3-clause
 
 .. CK documentation master file
 

@@ -1,7 +1,8 @@
 ﻿# Automating ML&systems R&D
 
 After releasing CK we started working with the community to [gradually automate](introduction.md#how-ck-supports-collaborative-and-reproducible-mlsystems-research) 
-the most common and repetitive tasks for ML&systems R&D (see the [FastPath'20 presentation](https://doi.org/10.5281/zenodo.4005773)).
+the most common and repetitive tasks for ML&systems R&D (see the [journal article](https://arxiv.org/pdf/2011.01149.pdf) 
+and [FastPath'20 presentation](https://doi.org/10.5281/zenodo.4005773)).
 
 We started adding the following CK modules and actions with a unified API and I/O.
 
@@ -19,6 +20,8 @@ These CK modules automate and unify the detection of different properties of use
 
 Examples:
 ```bash
+ck pull repo:octoml@mlops
+
 ck detect platform
 ck detect platform.gpgpu --cuda
 ```
@@ -93,7 +96,6 @@ based on [soft dependencies](https://cknowledge.io/solution/demo-obj-detection-c
 Examples:
 
 ```bash
-ck pull repo:ck-mlperf
 ck install package --tags=lib,tflite,v2.1.1
 ck install package --tags=tensorflowmodel,tflite,edgetpu
 ```

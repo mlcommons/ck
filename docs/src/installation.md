@@ -49,7 +49,7 @@ CK Slack channel:     https://cKnowledge.org/join-slack
 Stable CK components: https://cKnowledge.io
 ```
 
-### Prerequisites
+## Prerequisites
 
 The CK framework requires minimal dependencies: Python 2.7+ or 3.x, PIP and Git. 
 
@@ -84,7 +84,7 @@ These dependencies are needed to cross-compile for Android (tested on Ubuntu 18.
  sudo apt install google-android-ndk-installer
 ```
 
-### Docker
+## Docker
 
 We prepared several Docker images with the CK framework and AI/ML CK workflows 
 at the [cTuning Docker hub](https://hub.docker.com/u/ctuning).
@@ -93,8 +93,15 @@ Select the most relevant image and run it as follows:
 docker run -p 3344:3344 -it {Docker image name from the above list} /bin/bash
 ```
 
+## Virtual CK environments with templates
 
-### Customization
+We suggest you to use [virtual CK environments](https://github.com/octoml/venv)
+with various automation templates shared by the community such as MLPerf inference.
+
+See https://github.com/octoml/venv for more details.
+
+
+## Customization
 
 Please check this [wiki](https://github.com/ctuning/ck/wiki/Customization)
 to learn more about how to customize your CK installation.
