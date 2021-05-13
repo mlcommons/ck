@@ -18,6 +18,7 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 ## News
 
 * [Project website](https://cKnowledge.org)
+* [CK-powered MLPerf automation](https://github.com/ctuning/ck/tree/master/docs/mlperf-automation)
 
 ## Overview
 
@@ -104,17 +105,17 @@ Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for f
 
 ### Portable CK workflow (with Docker)
 
-We have prepared a CK container with [AI and ML components](https://github.com/ctuning/ai): 
-[[Docker](https://hub.docker.com/r/ctuning/ck-ai)], [[CK meta](https://github.com/ctuning/ai/tree/main/docker/ck-ai)]
+We have prepared m CK containers with ML Systems components:
+* https://github.com/ctuning/ck-ml/tree/main/docker
+* https://github.com/octoml/mlops/tree/main/docker
 
-You can start it as follows:
+You can run them as follows:
 
 ```bash
-docker run --rm -it ctuning/ck-ai:ubuntu-20.04
+ck pull repo:octoml@mlops
+ck build docker:ck-template-mlperf-x8664-ubuntu-20.04
+ck run docker:ck-template-mlperf-x8664-ubuntu-20.04
 ```
-
-You can then prepare and run [portable AI/ML workflows](https://cKnowledge.io/solutions) 
-and [program pipelines](https://cKnowledge.io/programs).
 
 ### Portable workflow example with virtual CK environments
 
@@ -127,10 +128,17 @@ ck create venv:test --template=mlperf-inference-main
 ck ls venv
 ck activate venv:test
 
+ck pull repo:octoml@mlops
 ck install package --ask --tags=dataset,coco,val,2017,full
 ck show env
 
 ```
+
+### More examples
+
+* See [docs](https://ck.readthedocs.io/en/latest/src/introduction.html#ck-showroom)
+
+
 
 ## CK portal 
 
@@ -143,31 +151,7 @@ organize and find all the CK workflows and components similar to PyPI:
 * [Test CK workflows to benchmark and optimize ML Systems]( https://cKnowledge.io/demo )
 
 
-## More examples of CK workflows and components
 
-* Showroom (public projects powered by CK):
-  * [CK repository with AI/ML/MLPerf automation](https://github.com/ctuning/ck-ml)
-  * Student Cluster Competition automation: [SCC18](https://github.com/ctuning/ck-scc18), [digital artifacts](https://github.com/ctuning/ck-scc)
-  * Jupyter notebooks: [ML/SW/HW DSE for edge devices](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb)
-  * ML-based autotuning project: [reproducible paper demo](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive),  [MILEPOST GCC]( https://github.com/ctuning/reproduce-milepost-project )
-  * [Quantum hackathons](https://cKnowledge.org/quantum)
-  * [ACM SW/HW co-design tournaments for Pareto-efficient deep learning](https://cKnowledge.org/request)
-  * [GUI to automate ML/SW/HW benchmarking with MLPerf example (under development)](https://cKnowledge.io/test)
-  * [Reproduced papers]( https://cKnowledge.io/reproduced-papers )
-  * [Live scoreboards for reproduced papers]( https://cKnowledge.io/reproduced-results )
-* Examples of CK components (automations, API, meta descriptions):
-    * *program : image-classification-tflite-loadgen* [[cKnowledge.io]( https://cKnowledge.io/c/program/image-classification-tflite-loadgen )] [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/program/image-classification-tflite-loadgen )]
-    * *program : image-classification-tflite* [[GitHub](https://github.com/ctuning/ck-ml/tree/master/program/image-classification-tflite)]
-    * *soft : lib.mlperf.loadgen.static* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/soft/lib.mlperf.loadgen.static )]
-    * *package : lib-mlperf-loadgen-static* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package/lib-mlperf-loadgen-static )]
-    * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
-    * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package/lib-tflite )]
-    * *docker : object-detection-tf-py.tensorrt.ubuntu-18.04* [[cKnowledge.io]( https://cknowledge.io/c/docker/object-detection-tf-py.tensorrt.ubuntu-18.04 )]
-    * *docker* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/docker )]
-    * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/docker/speech-recognition.rnnt )]
-    * *package : model-tf-\** [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package )]
-    * *script : mlperf-inference-v0.7.image-classification* [[cKnowledge.io]( https://cknowledge.io/c/script/mlperf-inference-v0.7.image-classification )]
-    * *jnotebook : object-detection* [[GitHub](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb)]
 
 
 ## Contributions
