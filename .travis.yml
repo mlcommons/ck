@@ -82,12 +82,12 @@ script:
     - ck show env
 
     - ck compile program:cbench-automotive-susan --speed
-    - ck run program:cbench-automotive-susan --cmd_key=corners --dataset_uoa=image-pgm-0001  --repeat=1 --env.MY_ENV=123 --env.TEST=xyz
+    - ck run program:cbench-automotive-susan --cmd_key=corners --dataset_uoa=image-pgm-0001  --repeat=1 --env.MY_ENV=123 --env.TEST=xyz --return_error_if_external_fail
     
-    - ck run program:image-classification-onnx-py --quiet --dep_add_tags.weights=mobilenet,converted --cmd_key=barebones --env.CK_BATCH_SIZE=3
-    - ck run program:image-classification-onnx-py --dep_add_tags.weights=mobilenet,downloaded --cmd_key=preprocessed --env.CK_BATCH_COUNT=2
-    - ck run program:image-classification-onnx-py --dep_add_tags.weights=resnet,nchw,converted --cmd_key=preprocessed
-    - ck run program:image-classification-onnx-py --dep_add_tags.weights=resnet,nhwc,converted --cmd_key=preprocessed
-    - ck run program:image-classification-onnx-py --cmd_key=preprocessed --dep_add_tags.weights=resnet,nchw,converted --env.CK_IMAGE_FILE=ILSVRC2012_val_00000003.JPEG
+    - ck run program:image-classification-onnx-py --quiet --dep_add_tags.weights=mobilenet,converted --cmd_key=barebones --env.CK_BATCH_SIZE=3 --return_error_if_external_fail
+    - ck run program:image-classification-onnx-py --dep_add_tags.weights=mobilenet,downloaded --cmd_key=preprocessed --env.CK_BATCH_COUNT=2 --return_error_if_external_fail
+    - ck run program:image-classification-onnx-py --dep_add_tags.weights=resnet,nchw,converted --cmd_key=preprocessed --return_error_if_external_fail
+    - ck run program:image-classification-onnx-py --dep_add_tags.weights=resnet,nhwc,converted --cmd_key=preprocessed --return_error_if_external_fail
+    - ck run program:image-classification-onnx-py --cmd_key=preprocessed --dep_add_tags.weights=resnet,nchw,converted --env.CK_IMAGE_FILE=ILSVRC2012_val_00000003.JPEG --return_error_if_external_fail
 
 after_success: coveralls
