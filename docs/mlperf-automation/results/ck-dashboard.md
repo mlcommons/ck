@@ -5,7 +5,7 @@ either locally or using the [cKnowledge.io platform](https://cKnowledge.io/resul
 
 
 
-## Demo of a Docker with MLPerf dashboards for ML Systems DSE (Linux and Windows)
+## Demo of a Docker with MLPerf&trade; dashboards for ML Systems DSE (Linux and Windows)
 
 Container: [docker:ck-mlperf-dashboard-demo](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-dashboard-demo)
 
@@ -24,7 +24,7 @@ ck pull repo:octoml@mlops
 ck build docker:ck-mlperf-dashboard-demo
 ```
 
-Note that it will build and run several MLPerf benchmarks while recording results
+Note that it will build and run several MLPerf&trade; benchmarks while recording results
 to the CK 'experiment' entries to be used in the CK dashboard.
 
 ### Run this continer
@@ -38,7 +38,7 @@ Go to http://localhost:3355/?template=dashboard&scenario=mlperf.mobilenets
 
 
 
-## Demo of a Docker with MLPerf dashboards for ML Systems DSE (Linux and Windows)
+## Demo of a Docker with MLPerf&trade; dashboards for ML Systems DSE (Linux and Windows)
 
 Container: [docker:ck-mlperf-dashboard-demo](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-dashboard-demo)
 

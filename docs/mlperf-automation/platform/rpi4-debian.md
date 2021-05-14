@@ -9,7 +9,7 @@
   and build several python versions - it worked fine.
 
 * [20210423] Grigori attempted to build loadgen 
-  from [MLCommons inference](https://github.com/mlcommons/inference/tree/master/loadgen)
+  from [MLCommons&trade; inference](https://github.com/mlcommons/inference/tree/master/loadgen)
   but it fails during C++ compliation. 
 
   The earlier revision of loadgen (r0.5?) works - this means that it's possible 

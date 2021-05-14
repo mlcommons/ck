@@ -1,4 +1,4 @@
-# MLCube project
+# MLCube&trade; project
 
 * GitHub: https://github.com/mlcommons/mlcube
 

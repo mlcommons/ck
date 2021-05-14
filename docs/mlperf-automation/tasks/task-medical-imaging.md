@@ -1,4 +1,4 @@
-﻿# MLPerf Inference v1.0: medical imaging
+﻿# MLPerf&trade; Inference v1.0: medical imaging
 
 ## Official models
 

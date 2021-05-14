@@ -1,6 +1,6 @@
 ***Reproduced by [Grigori Fursin](https://cKnowledge.io/@gfursin) on 20210501***
 
-# MLPerf Inference v1.0 - Object Detection - TFLite (with Coral EdgeTPU support)
+# MLPerf&trade; Inference v1.0 - Object Detection - TFLite (with Coral EdgeTPU support)
 
 * Platform: RPi4 with Coral EdgeTPU
 * OS: Ubuntu 20.04 64-but

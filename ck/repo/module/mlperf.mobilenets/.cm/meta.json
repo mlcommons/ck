@@ -333,7 +333,7 @@
       }
     ]
   },
-  "desc": "Raw data (JSON) access for MLPerf MobilNets visualization widget",
+  "desc": "Raw data (JSON) access for MLPerf(tm) MobilNets visualization widget",
   "platform_config": {
     "BLA-L09": {
       "gpu": "Mali-G72 MP12",

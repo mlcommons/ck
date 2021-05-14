@@ -291,7 +291,7 @@
       }
     ]
   },
-  "desc": "Raw data (JSON) access for MLPerf Inference visualization widget",
+  "desc": "Raw data (JSON) access for MLPerf(tm) Inference visualization widget",
   "prefilter_config": {
     "image_classification_multistream": {
       "score_columns": [

@@ -1,4 +1,4 @@
-﻿# MLPerf Inference v1.0: image classification
+﻿# MLPerf&trade; Inference v1.0: image classification
 
 ## Official models
 
@@ -23,7 +23,7 @@
 python3 -m pip install ck
 ```
 
-We suggest you to create a virtual CK environment using MLPerf inference v1.0 template as follows:
+We suggest you to create a virtual CK environment using MLPerf&trade; inference v1.0 template as follows:
 
 ```
 ck pull repo:octoml@venv
@@ -66,7 +66,7 @@ ck show env
 You can see explore available packages in the [CK-ML GitHub repo](https://github.com/ctuning/ck-ml/tree/main/package)
 or using the [cKnowledge.io platform](https://cKnowledge.io/c/package).
 
-## Pull CK repo with the latest MLPerf automations from OctoML:
+## Pull CK repo with the latest MLPerf&trade; automations from OctoML:
 ```
 ck pull repo:octoml@mlops
 ```
@@ -79,7 +79,7 @@ ck pull repo --url={URL}
 
 ## CK setup for the ImageNet 2012 dataset
 
-You can install a reduced ImageNet 2012 data set with the first 500 images to test MLPerf workflows as follows :
+You can install a reduced ImageNet 2012 data set with the first 500 images to test MLPerf&trade; workflows as follows :
 
 ```
 ck install package --tags=imagenet,2012,val,min,non-resized
@@ -215,7 +215,7 @@ Note that you can create a new CK repository to group your experimental results 
 ```
 ck add repo:my-cool-experiments --quiet
 ```
-and then substitute 'local' with 'my-cool-experiments' in the above CMD to run MLPerf benchmark.
+and then substitute 'local' with 'my-cool-experiments' in the above CMD to run the MLPerf&trade; benchmark.
 
 ## Analyze experimental results
 

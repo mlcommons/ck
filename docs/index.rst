@@ -21,7 +21,7 @@ in the form of reusable artifacts and portable workflows with a common API, CLI,
 and JSON meta description. 
 
 See how CK helps to support collaborative and reproducible AI, ML, and systems R&D
-in some real-world use cases from Arm, General Motors, IBM, MLPerf, the Raspberry Pi foundation, 
+in some real-world use cases from Arm, General Motors, IBM, MLPerf(tm), the Raspberry Pi foundation, 
 and ACM: https://cKnowledge.org/partners.
 
 .. toctree::

@@ -1,4 +1,4 @@
-﻿# MLPerf Inference v1.0: recommendation
+﻿# MLPerf&trade; Inference v1.0: recommendation
 
 ## Official models
 

@@ -314,7 +314,7 @@ W:
 N: Gavin Simpson
 E: 
 O: 
-C: MLPerf workflows
+C: MLPerf&trade; workflows
 W: 
 
 ```

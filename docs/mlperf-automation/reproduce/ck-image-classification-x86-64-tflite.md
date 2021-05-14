@@ -3,7 +3,7 @@
 * Platform: x86 64
 * OS: Ubuntu 18.04 64-bit
 
-# MLPerf Inference v1.0 - Image Classification - TFLite 2.4.1 (x86)
+# MLPerf&trade; Inference v1.0 - Image Classification - TFLite 2.4.1 (x86)
 
 ## System packages
 
@@ -43,7 +43,7 @@ ck detect soft:compiler.gcc --full_path=`which gcc`
 
 ## Install common CK packages
 
-You will need cmake to build MLPerf loadgen. First, attempt to detect if you already have it installed:
+You will need cmake to build MLPerf&trade; loadgen. First, attempt to detect if you already have it installed:
 ```
 ck detect soft --tags=tool,cmake
 ```
@@ -176,7 +176,7 @@ time ck benchmark program:image-classification-tflite \
 
 ```
 
-## Run MLPerf benchmark
+## Run MLPerf&trade; benchmark
 
 ### Accuracy: Single Stream (50 samples)
 
@@ -278,7 +278,7 @@ time ck benchmark program:image-classification-tflite-loadgen \
 
 See [CK-ML repo docs](https://github.com/ctuning/ck-ml/blob/main/program/image-classification-tflite-loadgen/README.md)
 
-You can list available CK MLPerf model packages as follows:
+You can list available CK MLPerf&trade; model packages as follows:
 ```
 ck ls ck-ml:package:model-*mlperf* | sort
 ```

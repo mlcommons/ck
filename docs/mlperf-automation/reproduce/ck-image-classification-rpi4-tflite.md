@@ -3,7 +3,7 @@
 * Platform: Raspberry Pi 4
 * OS: Ubuntu 20.04 64-bit
 
-# MLPerf Inference v1.0 - Image Classification - TFLite 2.4.1
+# MLPerf&trade; Inference v1.0 - Image Classification - TFLite 2.4.1
 
 ## System packages
 
@@ -43,7 +43,7 @@ ck detect soft:compiler.gcc --full_path=`which gcc`
 
 ## Install common CK packages
 
-You will need cmake to build MLPerf loadgen. First, attempt to detect if you already have it installed:
+You will need cmake to build MLPerf&trade; loadgen. First, attempt to detect if you already have it installed:
 ```
 ck detect soft --tags=tool,cmake
 ```
@@ -178,7 +178,7 @@ time ck benchmark program:image-classification-tflite \
 
 ```
 
-## Run MLPerf benchmark
+## Run MLPerf&trade; benchmark
 
 ### Accuracy: Single Stream (50 samples)
 

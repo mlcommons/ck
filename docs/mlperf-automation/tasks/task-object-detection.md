@@ -1,4 +1,4 @@
-﻿# MLPerf Inference v1.0: object detection
+﻿# MLPerf&trade; Inference v1.0: object detection
 
 ## Official models
 
@@ -28,7 +28,7 @@
 python3 -m pip install ck
 ```
 
-We suggest you to create a virtual CK environment using MLPerf inference dev template as follows:
+We suggest you to create a virtual CK environment using MLPerf&trade; inference dev template as follows:
 
 ```
 ck pull repo:octoml@venv
@@ -71,7 +71,7 @@ ck show env
 You can see explore available packages in the [CK-ML GitHub repo](https://github.com/ctuning/ck-ml/tree/main/package)
 or using the [cKnowledge.io platform](https://cKnowledge.io/c/package).
 
-## Pull CK repo with the latest MLPerf automations from OctoML:
+## Pull CK repo with the latest MLPerf&trade; automations from OctoML:
 ```
 ck pull repo:octoml@mlops
 ```
@@ -211,7 +211,7 @@ Note that you can create a new CK repository to group your experimental results 
 ```
 ck add repo:my-cool-experiments --quiet
 ```
-and then substitute 'local' with 'my-cool-experiments' in the above CMD to run MLPerf benchmark.
+and then substitute 'local' with 'my-cool-experiments' in the above CMD to run MLPerf&trade; benchmark.
 
 ## Analyze experimental results
 
@@ -272,7 +272,7 @@ ck rm venv:*
 
 ## Use a Docker container
 
-We prepared a Docker container with pre-installed MLPerf inference benchmark v1.0 
+We prepared a Docker container with pre-installed MLPerf&trade; inference benchmark v1.0 
 with object detection that you can use interactively to benchmark models 
 and record results in your local repository for further analysis.
 

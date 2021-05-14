@@ -18,7 +18,7 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 ## News
 
 * [Project website](https://cKnowledge.org)
-* [CK-powered MLPerf benchmark automation](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md)
+* [CK-powered MLPerf&trade; benchmark automation](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md)
 
 ## Overview
 
@@ -32,11 +32,11 @@ Our goal is to help researchers and practitioners share, reuse and extend their 
 in the form of portable workflows, automation actions and reusable artifacts with a common API, CLI,
 and meta description. See how CK helps to automate benchmarking, optimization and design space
 exploration of [AI/ML/software/hardware stacks](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all/), 
-simplifies [MLPerf](https://mlperf.org) submissions and supports collaborative, reproducible and reusable ML Systems research:
+simplifies [MLPerf&trade;](https://mlperf.org) submissions and supports collaborative, reproducible and reusable ML Systems research:
 
 * [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4)
-* [AI/ML/MLPerf automation workflows and components from the community](https://github.com/ctuning/ck-ml);
-* [Real-world use cases](https://cKnowledge.org/partners.html) from MLPerf, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM and other great partners;
+* [AI/ML/MLPerf&trade; automation workflows and components from the community](https://github.com/ctuning/ck-ml);
+* [Real-world use cases](https://cKnowledge.org/partners.html) from MLPerf&trade;, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM and other great partners;
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems);
 * Our reproducibility initiatives: [methodology](https://cTuning.org/ae), [checklist](https://ctuning.org/ae/submission_extra.html), [events](https://cKnowledge.io/events).
 
@@ -107,7 +107,7 @@ You can now view this image with detected corners.
 
 Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for further details.
 
-### MLPerf benchmark workflows
+### MLPerf&trade; benchmark workflows
 
 * [Image classification](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tasks/task-image-classification.md)
 * [Object detection](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
@@ -129,7 +129,7 @@ ck run docker:ck-template-mlperf-x8664-ubuntu-20.04
 ### Portable workflow example with virtual CK environments
 
 You can create multiple [virtual CK environments](https://github.com/octoml/venv) with templates
-to automatically install different CK packages and workflows, for example for MLPerf inference:
+to automatically install different CK packages and workflows, for example for MLPerf&trade; inference:
 
 ```
 ck pull repo:octoml@venv

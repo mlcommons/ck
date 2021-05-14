@@ -1,6 +1,6 @@
 ***Reproduced by [Grigori Fursin](https://cKnowledge.io/@gfursin) on 20210428***
 
-# MLPerf Inference v1.0 - Object Detection - TFLite
+# MLPerf&trade; Inference v1.0 - Object Detection - TFLite
 
 * Platform: RPi4
 * OS: Ubuntu 20.04 64-but

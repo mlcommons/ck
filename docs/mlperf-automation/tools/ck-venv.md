@@ -6,8 +6,8 @@ ck create venv:test
 ck activate venv:test
 ```
 
-You can create a virtual environment using a template such as MLPerf inference. 
-CK will attempt to automatically install extra CK packages required for MLPerf inference:
+You can create a virtual environment using a template such as MLPerf&trade; inference. 
+CK will attempt to automatically install extra CK packages required for MLPerf&trade; inference:
 ```
 ck ls venv.template
 ck create venv:mlperf --template=mlperf-inference-dev

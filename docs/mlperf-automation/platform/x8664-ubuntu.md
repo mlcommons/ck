@@ -10,7 +10,7 @@
   and build several python versions - it worked fine.
 
 * [20210421] Grigori managed to build the latest loadgen 
-  from [MLCommons inference](https://github.com/mlcommons/inference/tree/master/loadgen)
+  from [MLCommons&trade; inference](https://github.com/mlcommons/inference/tree/master/loadgen)
   (both python version and static library).
 
 

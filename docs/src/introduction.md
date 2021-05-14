@@ -264,7 +264,7 @@ Our dream is to see portable workflows shared along with new systems, algorithms
 to be able to quickly test, reuse and compare them across different data sets, models, software, and hardware!
 That is why we support related reproducibility and benchmarking initiatives
 including [artifact evaluation](https://cTuning.org/ae), 
-[MLPerf](https://mlperf.org), [PapersWithCode](https://paperswithcode.com),
+[MLPerf&trade;](https://mlperf.org), [PapersWithCode](https://paperswithcode.com),
 and [ACM artifact review and badging](https://www.acm.org/publications/policies/artifact-review-badging).
 
 ![cKnowledge platform concept](../static/platform.png)
@@ -297,7 +297,7 @@ and [ACM artifact review and badging](https://www.acm.org/publications/policies/
 * [Real-world use-cases](https://cKnowledge.org/partners)
 * Reproducibility initiatives: [[methodology](https://cTuning.org/ae)], [[events](https://cKnowledge.io/events)]
 * Showroom (public projects powered by CK):
-  * [MLPerf automation](https://github.com/octoml/mlops)
+  * [MLPerf&trade; automation](https://github.com/octoml/mlops)
   * Student Cluster Competition automation: [SCC18](https://github.com/ctuning/ck-scc18), [digital artifacts](https://github.com/ctuning/ck-scc)
   * ML-based autotuning project: [reproducible paper demo](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive),  [MILEPOST]( https://github.com/ctuning/reproduce-milepost-project )
   * [Quantum hackathons](https://cKnowledge.org/quantum)

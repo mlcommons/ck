@@ -1,5 +1,5 @@
 #
-# Collective Knowledge - common functionality for MLPerf benchmarking.
+# Collective Knowledge - common functionality for MLPerf(tm) benchmarking.
 #
 # See CK LICENSE.txt for licensing details.
 # See CK COPYRIGHT.txt for copyright details.

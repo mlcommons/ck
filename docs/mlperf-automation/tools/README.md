@@ -1,4 +1,4 @@
-# MLPerf
+# MLPerf&trade;
 
 * [LoadGen (how to build without CK)](https://github.com/mlcommons/inference/blob/master/loadgen/README_BUILD.md)
 * [MLCube](mlcube.md) (complementary to CK - plans to connect it with the CK framework)

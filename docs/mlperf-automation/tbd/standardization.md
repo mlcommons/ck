@@ -3,6 +3,6 @@
 * CK package meta and env for datasets
 * CK package meta and env for frameworks and libraries
 * platform description
-* CK program API for MLPerf tasks
+* CK program API for MLPerf&trade; tasks
 * Power measurements
 * Visualization of all results on multi-dimensional Pareto-frontier

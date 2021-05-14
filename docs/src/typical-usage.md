@@ -10,7 +10,7 @@ and [getting started guide](first-steps.md) first.
 
 You can also check the following [real-world use cases](https://cKnowledge.org/partners.html) 
 that are based on our portable and customizable CK workflow:
-* [MLPerf benchmark automation](https://github.com/ctuning/ck-mlperf)
+* [MLPerf&trade; benchmark automation](https://github.com/ctuning/ck-mlperf)
 * [Reproducible ACM REQUEST tournaments](https://cKnowledge.org/request) to co-design Pareto-efficient AI/ML/SW/HW stacks
 * [Reproducible quantum hackathons](https://cKnowledge.org/quantum)
 * Student Cluster Competition automation at SuperComputing: [SCC18]( https://github.com/ctuning/ck-scc18 ), [general SCC]( https://github.com/ctuning/ck-scc )
@@ -741,7 +741,7 @@ You can add or update a script to download and build a given package. See exampl
 CK package *imagenet-2012-aux*: [install.sh](]https://github.com/ctuning/ck-env/blob/master/package/imagenet-2012-aux/install.sh)
 and [install.bat](https://github.com/ctuning/ck-env/blob/master/package/imagenet-2012-aux/install.bat)
  to download ImageNet 2012 auxiliary dataset used in the [ACM ReQuEST-ASPLOS tournament](https://cKnowledge.org/request)
-and [MLPerf submissions](https://github.com/ctuning/ck-mlperf).
+and [MLPerf&trade; submissions](https://github.com/ctuning/ck-mlperf).
 
 Note that CK will pass at least 2 environment variables to this script:
 * *PACKAGE_DIR* - the path to the CK package entry. This is useful if your script need additional files or subscripts from the CK package entry.

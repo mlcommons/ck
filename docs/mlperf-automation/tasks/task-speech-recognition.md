@@ -1,4 +1,4 @@
-﻿# MLPerf Inference v1.0: speech recognition
+﻿# MLPerf&trade; Inference v1.0: speech recognition
 
 ## Official models
 

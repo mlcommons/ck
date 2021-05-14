@@ -1,4 +1,4 @@
-Prepare your platform for MLPerf automation using the following guidelines:
+Prepare your platform for MLPerf&trade; automation using the following guidelines:
 
 * [x8664 (Ubuntu)](x8664-ubuntu.md)
 * [Raspberry Pi4 (Ubuntu)](rpi4-ubuntu.md)

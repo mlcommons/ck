@@ -7,7 +7,7 @@
 
 Install system packages for [Nvidia jetson Nano](../platform/nvidia-jetson-nano.md).
 
-# MLPerf Inference v1.0 - Image Classification - TFLite 2.4.1
+# MLPerf&trade; Inference v1.0 - Image Classification - TFLite 2.4.1
 
 We currently run TFLite only on Arm-based CPU. 
 Please use the same instructions as for [RPi4](ck-image-classification-rpi4-tflite.md).

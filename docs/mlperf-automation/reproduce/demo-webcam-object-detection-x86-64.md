@@ -1,4 +1,4 @@
-MLPerf webcam demo: live object detection with a webcam using MLPerf models
+MLPerf&trade; webcam demo: live object detection with a webcam using MLPerf&trade; models
 
 ## Install Collective Knowledge (CK) and Virtual Environment
 
@@ -34,10 +34,10 @@ cb init demo-webcam-mlperf-obj-detection-coco-tf-cpu-linux
 
 ```
 
-It may take ~5..10 minutes to install and build all CK components for MLPerf object detection 
+It may take ~5..10 minutes to install and build all CK components for MLPerf&trade; object detection 
 SSD MobileNet non-quantized model (trained on COCO) with TensorFlow.
 
-## Run CK workflow with MLPerf model in the background
+## Run CK workflow with MLPerf&trade; model in the background
 
 ```
 cb run demo-webcam-mlperf-obj-detection-coco-tf-cpu-linux &
@@ -59,6 +59,6 @@ https://cknowledge.io/c/solution/demo-webcam-mlperf-obj-detection-coco-tf-cpu-li
 Click on "Start webcam"
 
 Click on "Start AI workflow". The browser will send a command to the cBench client
-to start MLPerf model, will continuosly push images to this model and will
+to start the MLPerf&trade; model, will continuosly push images to this model and will
 display inference results.
 

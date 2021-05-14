@@ -4,14 +4,14 @@
       "desc": "Compare two experiments"
     },
     "list_experiments": {
-      "desc": "List all MLPerf-related experiments (search by tags)"
+      "desc": "List all MLPerf(tm)-related experiments (search by tags)"
     },
     "pick_an_experiment": {
       "desc": "Select an experiment from the list (an interactive helper function)"
     }
   },
   "copyright": "See CK COPYRIGHT.txt for copyright details",
-  "desc": "Validate MLPerf submission against reference",
+  "desc": "Validate MLPerf(tm) submission against reference",
   "developer": "Leo Gordon; Anton Lokhmotov",
   "developer_email": "leo@dividiti.com; anton@dividiti.com",
   "developer_webpage": "http://dividiti.com",

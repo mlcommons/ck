@@ -9,7 +9,7 @@ Announcements:
 * [ZDNet](https://www.zdnet.com/article/ai-industrys-performance-benchmark-mlperf-for-the-first-time-also-measures-the-energy-that-machine-learning-consumes/)
 * [AnandTech](https://www.anandtech.com/show/16632/mlperf-inference-v10-2000-suite-results-new-power-measurements)
 
-* [MLCommons community meeting notes](https://docs.google.com/presentation/d/1w0BfO-S7sEA3kTmxUPaJvpHjHQgP10zf2FcRyR2Vmmc/edit#slide=id.gd34e303737_3_6)
+* [MLCommons&trade; community meeting notes](https://docs.google.com/presentation/d/1w0BfO-S7sEA3kTmxUPaJvpHjHQgP10zf2FcRyR2Vmmc/edit#slide=id.gd34e303737_3_6)
 
 
 Results:

@@ -27,7 +27,7 @@ on their own bare-metal platforms, participate in collaborative
 benchmarking and optimization, 
 and share results on [live scoreobards](https://cKnowledge.io/reproduced-results).
 
-You can try to reproduce MLPerf inference benchmark on your machine using [this solution](https://cKnowledge.io/test)
+You can try to reproduce MLPerf&trade; inference benchmark on your machine using [this solution](https://cKnowledge.io/test)
 and see public results from the community on this [scoreboard](https://cknowledge.io/c/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking).
 
 cBench is a part of the [Collective Knowledge project (CK)](https://cKnowledge.org)
@@ -67,7 +67,7 @@ Install cbench:
 python3 -m pip install cbench
 ```
 
-Initialize the [CK solution for MLPerf](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows):
+Initialize the [CK solution for MLPerf&trade;](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows):
 
 ```
 cb init demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows

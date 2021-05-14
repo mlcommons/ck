@@ -1,7 +1,7 @@
-# MLPerf benchmark tasks
+# MLPerf&trade; benchmark tasks
 
-Here we describe how to automate MLPerf inference benchmark with the help 
-of the [CK workflow framework](https://github.com/ctuning/ck) and native MLPerf scripts.
+Here we describe how to automate the MLPerf&trade; inference benchmark with the help 
+of the [CK workflow framework](https://github.com/ctuning/ck) and native MLPerf&trade; scripts.
 
 * [Image classification](task-image-classification.md)
 * [Object detection](task-object-detection.md)
@@ -24,4 +24,4 @@ of the [CK workflow framework](https://github.com/ctuning/ck) and native MLPerf 
 * [Search for CK program workflows with "loadgen"](https://cknowledge.io/?q=module_uoa%3A%22program%22+AND+loadgen)
 
 # Feedback
-Сontact [Grigori Fursin](https://cKnowledge.io/@gfursin) ([OctoML.ai](https://octoml.ai), [MLCommons member](https://mlcommons.org))
+Сontact [Grigori Fursin](https://cKnowledge.io/@gfursin) ([OctoML.ai](https://octoml.ai), [MLCommons&trade; member](https://mlcommons.org))

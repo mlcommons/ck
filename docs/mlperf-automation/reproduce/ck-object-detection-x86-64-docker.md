@@ -1,4 +1,4 @@
-# Adaptive CK container for MLPerf Inference v1.0 - Object Detection - TFLite 2.4.1 with RUY
+# Adaptive CK container for MLPerf&trade; Inference v1.0 - Object Detection - TFLite 2.4.1 with RUY
 
 ## Install Collective Knowledge (CK) with CK MLOps repo
 
@@ -7,7 +7,7 @@ python3 -m pip install ck
 ck pull repo:octoml@mlops
 ```
 
-## Build Docker container with CK components and workflows for MLPerf
+## Build Docker container with CK components and workflows for MLPerf&trade;
 
 ```
 ck build docker:ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0-x8664-ubuntu-20.04
@@ -19,7 +19,7 @@ ck build docker:ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0-x8664
 ck run docker:ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0-x8664-ubuntu-20.04
 ```
 
-You can now issue standard CK commands from [here](ck-object-detection-x86-64.md) to benchmark MLPerf model.
+You can now issue standard CK commands from [here](ck-object-detection-x86-64.md) to benchmark MLPerf&trade; model.
 
 ## Issue a CK command to this container
 
@@ -85,7 +85,7 @@ ck add repo:ck-experiment --quiet
 ```
 
 You can then run the script "ck-object-detection-x86-64-docker-start.sh" from this directory
-to pass the path to this repo to the container, run it, benchmark MLPerf model, and record 
+to pass the path to this repo to the container, run it, benchmark MLPerf&trade; model, and record 
 experiments to the above ck-experiment repository:
 
 ```

@@ -42,7 +42,7 @@ ck detect soft:compiler.gcc --full_path=`which gcc`
 
 ### Install common CK packages
 
-You will need cmake to build MLPerf loadgen. First, attempt to detect if you already have it installed:
+You will need cmake to build MLPerf&trade; loadgen. First, attempt to detect if you already have it installed:
 ```
 ck detect soft --tags=tool,cmake
 ```

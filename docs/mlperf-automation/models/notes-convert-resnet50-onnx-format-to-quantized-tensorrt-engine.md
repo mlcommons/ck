@@ -6,7 +6,7 @@ I am trying to reproduce the resnet50 benchmark result shows on [mlperf.org](htt
 psyhtest commented:
 
 
-To obtain the TensorRT plans, we followed NVIDIA's [instructions](https://github.com/mlcommons/inference_results_v0.5/tree/master/closed/NVIDIA) from their MLPerf Inference v0.5 submission. This happened between the v0.5 and v0.7 submission rounds, i.e. between October 2019 - September 2020. we submitted the results to v0.7 (without DLA support).
+To obtain the TensorRT plans, we followed NVIDIA's [instructions](https://github.com/mlcommons/inference_results_v0.5/tree/master/closed/NVIDIA) from their MLPerf&trade; Inference v0.5 submission. This happened between the v0.5 and v0.7 submission rounds, i.e. between October 2019 - September 2020. we submitted the results to v0.7 (without DLA support).
 
 After v0.7, we [reproduced](https://github.com/ctuning/ck-ml/blob/master/jnotebook/mlperf-inference-v0.7-reproduce-xavier/) some of the results with JetPack 4.5, while [resolving](https://github.com/mlcommons/inference_results_v0.7/issues/15) a few issues along the way. We did not create CK packages for the new plans though.
 

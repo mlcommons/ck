@@ -96,7 +96,7 @@ docker run -p 3344:3344 -it {Docker image name from the above list} /bin/bash
 ## Virtual CK environments with templates
 
 We suggest you to use [virtual CK environments](https://github.com/octoml/venv)
-with various automation templates shared by the community such as MLPerf inference.
+with various automation templates shared by the community such as MLPerf&trade; inference.
 
 See https://github.com/octoml/venv for more details.
 

@@ -247,7 +247,7 @@ print (r)
 ```
 
 
-## Try the CK MLPerf workflow
+## Try the CK MLPerf&trade; workflow
 
 Feel free to try more complex CK MLPerf workflows to benchmark ML Systems 
 across different models, data sets, frameworks and hardware

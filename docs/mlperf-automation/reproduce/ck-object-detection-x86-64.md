@@ -1,6 +1,6 @@
 ***Reproduced by [Grigori Fursin](https://cKnowledge.io/@gfursin) on 20210428***
 
-# MLPerf Inference v1.0 - Object Detection - TFLite 2.4.1 with RUY
+# MLPerf&trade; Inference v1.0 - Object Detection - TFLite 2.4.1 with RUY
 
 ### System packages
 
@@ -111,7 +111,7 @@ ck benchmark program:object-detection-tflite-loadgen \
      --tags=mlperf,division.closed,task.object-detection,platform.amd,inference_engine.tflite,inference_engine_version.v2.4.1,inference_engine_backend.ruy,scenario.singlestream,mode.performance,workload.ssd-mobilenet-non-quantized,preprocessed_using.pillow,target_latency.20
 ```
 
-Print MLPerf compatible output:
+Print MLPerf&trade; compatible output:
 ```
 cat `ck find program:object-detection-tflite-loadgen`/tmp/mlperf_log_summary.txt
 ```
@@ -147,7 +147,7 @@ ck benchmark program:object-detection-tflite-loadgen \
      --tags=mlperf,division.closed,task.object-detection,platform.amd,inference_engine.tflite,inference_engine_version.v2.4.1,inference_engine_backend.ruy,scenario.singlestream,mode.accuracy,workload.ssd-mobilenet-non-quantized,preprocessed_using.pillow,target_latency.20
 ```
 
-Print MLPerf compatible output:
+Print MLPerf&trade; compatible output:
      
 ```
 cat `ck find program:object-detection-tflite-loadgen`/tmp/accuracy.txt 
@@ -182,7 +182,7 @@ ck benchmark program:object-detection-tflite-loadgen \
       --tags=mlperf,division.closed,task.object-detection,platform.amd,inference_engine.tflite,inference_engine_version.v2.4.1,inference_engine_backend.ruy,scenario.singlestream,mode.performance,workload.ssd-mobilenet-non-quantized,preprocessed_using.pillow,target_latency.20,compliance.TEST04-A
 ```
 
-Print MLPerf compatible output:
+Print MLPerf&trade; compatible output:
        
 ```
 cat `ck find program:object-detection-tflite-loadgen`/tmp/mlperf_log_summary.txt

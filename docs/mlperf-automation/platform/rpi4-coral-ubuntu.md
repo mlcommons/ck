@@ -23,7 +23,7 @@ sudo apt-get install libedgetpu1-std
 
 3. Disconnect and connect again Coral Edge TPU.
 
-4. To get maximum performance for MLPerf, install a package with maximum operational frequency:
+4. To get maximum performance for MLPerf&trade;, install a package with maximum operational frequency:
 ```
 sudo apt-get install libedgetpu1-max
 
@@ -52,7 +52,7 @@ ck detect soft:compiler.python --full_path=$CK_VENV_PYTHON_BIN
 ck run program:test-coral-edge-tpu-installation
 ```
 
-* [20210428] Grigori tested MLPerf inference with libedgetpu1-max v15.0:
+* [20210428] Grigori tested MLPerf&trade; inference with libedgetpu1-max v15.0:
 
 
 ## Misc

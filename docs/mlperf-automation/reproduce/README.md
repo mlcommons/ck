@@ -1,18 +1,18 @@
-# Reproduce MLPerf benchmark
+# Reproduce MLPerf&trade; benchmark
 
-## Using ad-hoc MLCommons scripts
+## Using ad-hoc MLCommons&trade; scripts
 
 * [Dell EMC System intefernce v0.7](https://infohub.delltechnologies.com/p/running-the-mlperf-inference-v0-7-benchmark-on-dell-emc-systems)
 * [NVidia Jetson Xavier](reproduce/image-classification-nvidia-jetson-xavier-mlperf.md)
 
 ## Using CK workflows
 
-* [Official MLCommons notes for image classification (a bit outdated - more automation exists)](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection/optional_harness_ck/classification)
-* [Official MLCommons notes for object detection (a bit outdated - more automations exists)](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection/optional_harness_ck/detection)
+* [Official MLCommons&trade; notes for image classification (a bit outdated - more automation exists)](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection/optional_harness_ck/classification)
+* [Official MLCommons&trade; notes for object detection (a bit outdated - more automations exists)](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection/optional_harness_ck/detection)
 
 ## Using CK adaptive containers (to be tested!)
 
-* [MLPerf workflows](https://cknowledge.io/?q=module_uoa%3A%22docker%22+AND+%22mlperf%22)
+* [MLPerf&trade; workflows](https://cknowledge.io/?q=module_uoa%3A%22docker%22+AND+%22mlperf%22)
 
 * [CK image classification](https://cknowledge.io/?q=module_uoa%3A%22docker%22+AND+%22image-classification%22)
 * [CK object detection](https://cknowledge.io/?q=module_uoa%3A%22docker%22+AND+%22object-detection%22)

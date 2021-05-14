@@ -109,7 +109,7 @@ We also provided an abstraction for ad-hoc scripts:
 
 * *module:script* [[API](https://cknowledge.io/c/module/script/#api)] [[components](https://cKnowledge.io/c/script)]
 
-See an example of the CK component with a script used for MLPerf benchmark submissions: [GitHub](https://github.com/ctuning/ck-mlperf/tree/master/script/mlperf-inference-v0.7.image-classification)
+See an example of the CK component with a script used for MLPerf&trade; benchmark submissions: [GitHub](https://github.com/ctuning/ck-mlperf/tree/master/script/mlperf-inference-v0.7.image-classification)
 
 
 
@@ -180,7 +180,7 @@ It is possible to use CK from Jupyter and Colab notebooks. We provided an abstra
 
 * *module:jnotebook* [[API](https://cknowledge.io/c/module/jnotebook/#api)] [[components](https://cKnowledge.io/c/jnotebook)]
 
-You can see an example of a Jupyter notebook with CK commands to process MLPerf benchmark results
+You can see an example of a Jupyter notebook with CK commands to process MLPerf&trade; benchmark results
 [here](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb).
 
 
@@ -191,7 +191,7 @@ We provided an abstraction to build, pull, and run Docker images:
 
 * *module:docker* [[API](https://cknowledge.io/c/module/docker/#api)] [[components](https://cKnowledge.io/c/docker)]
 
-You can see examples of Docker images with unified CK commands to automate MLPerf benchmark 
+You can see examples of Docker images with unified CK commands to automate the MLPerf&trade; benchmark 
 [here](https://github.com/ctuning/ck-mlperf/tree/master/docker).
 
 
