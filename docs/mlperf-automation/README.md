@@ -9,11 +9,12 @@ using the open-source [CK workflow framework](https://github.com/ctuning/ck).
   * [Install CK virtual environment (optional)](tools/ck-venv.md)
   * [Use adaptive CK container](tools/ck-docker.md)
 * [**Prepare and run native MLPerf&trade;**](tasks/README.md)
+* [Integrate CK workflows with CI platforms](tools/continuous-integration.md)
 * [Analyze MLPerf inference results](results/README.md)
   * [Example of CK dashboards for ML Systems DSE](results/ck-dashboard.md)
 * [Reproduce MLPerf&trade; results and DSE](reproduce/README.md)
 * [Test models with a webcam](reproduce/demo-webcam-object-detection-x86-64.md)
-* [Explore ML Systems designs](dse/README.md)
+* [Explore ML Systems designs (AutoDSE)](dse/README.md)
 * [Submit to MLPerf&trade;](submit/README.md)
 * [Related tools](tools/README.md)
 * Further improvements:

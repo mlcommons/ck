@@ -275,6 +275,12 @@ ck rm venv:*
 ```
 
 
+## Integration with web services and CI platforms
+
+All CK modules, automation actions and workflows are accessible as a micro-service with a unified JSON I/O API
+to make it easier to integrate them with web services and CI platforms as described [here](../tools/continuous-integration.md).
+
+
 # Questions and feedback
 
 * Contact [Grigori Fursin](mailto:grigori@octoml.ai) for more details.

@@ -143,9 +143,20 @@ ck show env
 
 ```
 
+### Integration with web services and CI platforms
+
+All CK modules, automation actions and workflows are accessible as a micro-service with a unified JSON I/O API
+to make it easier to integrate them with web services and CI platforms as described 
+[here](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tools/continuous-integration.md).
+
+
+
+
 ### More examples
 
 * See [docs](https://ck.readthedocs.io/en/latest/src/introduction.html#ck-showroom)
+
+
 
 
 
