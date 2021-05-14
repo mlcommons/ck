@@ -127,26 +127,26 @@ Since CK concept is about reusing and extending existing components with a commo
 we suggest you to look at [this index]( https://cKnowledge.io/programs ) of shared CK programs
 in case someone have already shared a CK workflows for the same or similar program!
 
-If you found a similar program, for example "cbench-automotive-susan" 
+If you found a similar program, for example "image-corner-detection" 
 you can create a working copy of this program in your new CK repository
 for further editing as follows:
 
 ```bash
 ck pull repo:ctuning-programs 
-ck cp program:cbench-automotive-susan my-new-repo:program:my-copy-of-cbench-automotive-susan
+ck cp program:image-corner-detection my-new-repo:program:my-copy-of-image-corner-detection
 ```
 
-You now have a working copy of the CK "cbench-automotive-susan" program entry in your new repository 
+You now have a working copy of the CK "image-corner-detection" program entry in your new repository 
 that contains sources and the CK meta information about how to compile and run this program:
 
 ```bash
-ck compile program:my-copy-of-cbench-automotive-susan --speed
-ck run program:my-copy-of-cbench-automotive-susan
+ck compile program:my-copy-of-image-corner-detection --speed
+ck run program:my-copy-of-image-corner-detection
 ```
 
 You can find and explore the new CK entry from command line as follows:
 ```bash
-ck find program:my-copy-of-cbench-automotive-susan
+ck find program:my-copy-of-image-corner-detection
 ```
 
 You will see the following files in this directory:

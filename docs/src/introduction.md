@@ -120,24 +120,24 @@ on any platform, and then create a copy of the ***CK program component***:
 ```bash
 pip install ck
 
-ck pull repo --url=https://github.com/ctuning/ck-crowdtuning
+ck pull repo:octoml@mlops
 
 ck search dataset --tags=jpeg
 
-ck search program:cbench-automotive-*
+ck search program:image*
 
-ck find program:cbench-automotive-susan
+ck find program:image-corner-detection
 
-ck load program:cbench-automotive-susan
+ck load program:image-corner-detection --min
 
 ck help program
 
-ck compile program:cbench-automotive-susan --speed
-ck run program:cbench-automotive-susan --env.OMP_NUM_THREADS=4
+ck compile program:image-corner-detection --speed
+ck run program:image-corner-detection --env.OMP_NUM_THREADS=4
 
 ck run program --help
 
-ck cp program:cbench-automotive-susan local:program:new-program-workflow
+ck cp program:image-corner-detection local:program:new-program-workflow
 
 ck find program:new-program-workflow
 
@@ -148,7 +148,7 @@ ck replay experiment:my-test
 ```
 
 The [CK program module](https://cKnowledge.io/c/module/program) describes dependencies on software detection plugins 
-and meta packages usin simple tags with version ranges that the community has to agree on:
+and meta packages using simple tags with version ranges that the community has agreed on:
 
 ```json
  {
@@ -173,15 +173,15 @@ CK also provides a Python library with a simple API that can be easily used in w
 ```python
 import ck.kernel as ck
 
-# Equivalent of "ck compile program:cbench-automotive-susan --speed"
-r=ck.access({'action':'compile', 'module_uoa':'program', 'data_uoa':'cbench-automotive-susan', 
+# Equivalent of "ck compile program:image-corner-detection --speed"
+r=ck.access({'action':'compile', 'module_uoa':'program', 'data_uoa':'image-corner-detection', 
              'speed':'yes'})
 if r['return']>0: return r # unified error handling 
 
 print (r)
 
-# Equivalent of "ck run program:cbench-automotive-susan --env.OMP_NUM_THREADS=4
-r=ck.access({'action':'run', 'module_uoa':'program', 'data_uoa':'cbench-automotive-susan', 
+# Equivalent of "ck run program:image-corner-detection --env.OMP_NUM_THREADS=4
+r=ck.access({'action':'run', 'module_uoa':'program', 'data_uoa':'image-corner-detection', 
              'env':{'OMP_NUM_THREADS':4}})
 if r['return']>0: return r # unified error handling 
 
@@ -268,15 +268,6 @@ including [artifact evaluation](https://cTuning.org/ae),
 and [ACM artifact review and badging](https://www.acm.org/publications/policies/artifact-review-badging).
 
 ![cKnowledge platform concept](../static/platform.png)
-
-
-You can learn more about the CK project from [CK presentations and white papers](https://github.com/ctuning/ck/wiki/Publications).
-
-*Even though the CK technology is used [in production](https://cKnowledge.org/partners.html) for more than 5 years,
-it is still a proof-of-concept prototype requiring further improvements
-and standardization. Depending on the available resources, we plan
-to develop a new, backward-compatible and more user-friendly version - please [get in touch](https://cKnowledge.org/contacts.html) if you are
-interested to know more!*
 
 
 

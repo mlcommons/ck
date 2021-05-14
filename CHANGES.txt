@@ -1,7 +1,8 @@
-* V2.0.6.1
+* V2.0.7
   * fixed problem in module:program to return error when pre/post processing fails
   * added more tests to catch bugs in program workflows
   * fixed a new bug in the program workflow
+  * updated docs
 
 * V2.0.6
   * improved module:program meta to be able to use global CMD run_time parameters

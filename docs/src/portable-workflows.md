@@ -123,10 +123,10 @@ A user describes dependencies on CK packages in the CK program meta as well as c
 
 Examples:
 ```bash
-ck pull repo:ck-crowdtuning
+ck pull repo:octoml@mlops
 
-ck compile program:cbench-automotive-susan --speed
-ck run program:cbench-automotive-susan --repeat=1 --env.OMP_NUM_THREADS=4
+ck compile program:image-corner-detection --speed
+ck run program:image-corner-detection --repeat=1 --env.OMP_NUM_THREADS=4
 
 ```
 
@@ -140,7 +140,7 @@ This module records all resolved dependencies, inputs and outputs when running a
 thus allowing to preserve experiments with all the provenance and replay them later on the same or different machine:
 
 ```bash
-ck benchmark program:cbench-automotive-susan --record --record_uoa=my_experiment
+ck benchmark program:image-corner-detection --record --record_uoa=my_experiment
 
 ck find experiment:my_experiment
 

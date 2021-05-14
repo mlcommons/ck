@@ -8,7 +8,7 @@ using the open-source [CK workflow framework](https://github.com/ctuning/ck).
 * [Install CK framework](tools/ck.md)
   * [Install CK virtual environment (optional)](tools/ck-venv.md)
   * [Use adaptive CK container](tools/ck-docker.md)
-* [Prepare and run native MLPerf](tasks/README.md)
+* [**Prepare and run native MLPerf**](tasks/README.md)
 * [Analyze MLPerf inference results](results/README.md)
   * [Example of CK dashboards for ML Systems DSE](results/ck-dashboard.md)
 * [Reproduce MLPerf results and DSE](reproduce/README.md)

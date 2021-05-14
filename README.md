@@ -78,7 +78,7 @@ with any compatible data set on any compatible platform:
 ```bash
 python3 -m pip install ck
 
-ck pull repo --url=https://github.com/ctuning/ck-crowdtuning
+ck pull repo:octoml@mlops
 
 ck ls program:*susan*
 
@@ -89,18 +89,21 @@ ck detect soft --tags=compiler,llvm
 
 ck show env --tags=compiler
 
-ck compile program:cbench-automotive-susan --speed
+ck compile program:image-corner-detection --speed
 
-ck run program:cbench-automotive-susan --cmd_key=corners --repeat=1 --env.MY_ENV=123 --env.TEST=xyz
+ck run program:image-corner-detection --repeat=1 --env.MY_ENV=123 --env.TEST=xyz
 ```
 
 You can check output of this program in the following directory:
 ```bash
-cd `ck find program:cbench-automotive-susan`/tmp
-ls -l
+cd `ck find program:image-corner-detection`/tmp
+ls
 
-tmp-output.tmp - image with detected corners (rename to ppm to view it)
+processed-image.pgm
 ```
+
+You can now view this image with detected corners.
+
 
 Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for further details.
 
