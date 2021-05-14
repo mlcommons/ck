@@ -1,3 +1,6 @@
+* V2.0.6.1
+  * fixed problem in module:program to return error when pre/post processing fails
+
 * V2.0.6
   * improved module:program meta to be able to use global CMD run_time parameters
     for all command lines (useful to run different MLPerf scenarios

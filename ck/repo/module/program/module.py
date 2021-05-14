@@ -181,8 +181,12 @@ def process(i):
         ii['data_alias']=dalias
         r=process_in_dir(ii)
 
-        if r['return']>0 or r.get('misc',{}).get('fail_reason','')!='':
+        fail_reason=r.get('misc',{}).get('fail_reason','')
+        if r['return']>0 or fail_reason!='':
            print_warning({'data_uoa':dalias, 'repo_uoa':ruid})
+           if i.get('return_error_if_external_fail','')=='yes' and fail_reason!='':
+              return {'return':11, 'error':'see message above'}
+
         if r['return']>0: return r
 
     return r
@@ -349,6 +353,10 @@ def process_in_dir(i):
               (skip_exec)            - if 'yes', do not clean output files and skip exec to be able to continue
 
               (record_deps)          - if !='', record dependencies to this file
+
+              (return_error_if_external_fail) - if 'yes', return error if program ran correctly but there was an error
+                                                in pre/post processing or other scripts.
+                                                Useful for Continuous Integration tests.
             }
 
     Output: {
