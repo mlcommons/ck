@@ -3003,7 +3003,7 @@ def process_in_dir(i):
           srx=0 # script exit code
 
           # Newer variant (more consistent with pre_process_via_ck
-          if type(lppcvc)==dict and skip_exec!='yes':
+          if type(lppcvc)==dict and len(lppcvc)>0 and skip_exec!='yes':
              pvck=lppcvc
 
              pvckp=src_path_local
