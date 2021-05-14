@@ -272,11 +272,19 @@ ck rm venv:*
 
 ## Use a Docker container
 
-We prepared a Docker container with pre-installed MLPerf&trade; inference benchmark v1.0 
+It is possible to automatically generate containers with the CK workflows inside 
+while keeping the same CK interface across different projects. 
+
+We've prepared a Docker container with pre-installed MLPerf&trade; inference benchmark v1.0 
 with object detection that you can use interactively to benchmark models 
 and record results in your local repository for further analysis.
 
-First, build a Docker container as follows:
+Feel free to check the [CK entry](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-inference-v1.0-object-detection-native-x8664-ubuntu-20.04) 
+with this container. You can also check [adaptive CK containers shared by OctoML](https://github.com/octoml/mlops/tree/main/docker)
+and other [CK containers shared by the community (they may be out of date - we plan to update them soon)](https://github.com/ctuning/ck-ml/tree/main/docker).
+
+
+First, build a given Docker container using CK as follows:
 
 ```
 ck build docker:ck-mlperf-inference-v1.0-object-detection-native-x8664-ubuntu-20.04
@@ -287,7 +295,7 @@ Then, create a local CK repository where you would like to record benchmarking r
 ck add repo:ck-experiments --quiet
 ```
 
-**Linux** Start Docker while mounting CK repository with experiments:
+**Linux:** Start Docker while mounting CK repository with experiments:
 
 ```
 export CK_HOST_REPO_EXPERIMENTS=`ck where repo:ck-experiments`
