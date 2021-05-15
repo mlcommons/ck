@@ -68,7 +68,7 @@ ck show env
 
 ```
 
-You can see explore available packages in the [CK-ML GitHub repo](https://github.com/ctuning/ck-ml/tree/main/package)
+You can explore available packages in the [CK-ML GitHub repo](https://github.com/ctuning/ck-ml/tree/main/package)
 or using the [cKnowledge.io platform](https://cKnowledge.io/c/package).
 
 ## Pull CK repo with the latest MLPerf&trade; automations from OctoML:
