@@ -6,5 +6,6 @@ include LICENSE.third-party.txt
 include README.md
 include ChangeLog
 include set-env.sh
+include requirements.txt
 
 recursive-include man *

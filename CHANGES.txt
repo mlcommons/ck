@@ -1,3 +1,6 @@
+* V2.0.9
+  * added missing requirements.txt to the distro
+
 * V2.0.8
   * added requirements.txt file with pyyaml
   * simplified setup.py script
