@@ -69,7 +69,7 @@ with open(kernel_file, encoding="utf-8") as f:
 
 with open('requirements.txt', 'r', encoding='utf-8') as fr:
     requirements = []
-    for l in f:
+    for l in fr:
         requirements.append(l)
 
 
@@ -165,7 +165,7 @@ setup(
     description='Collective Knowledge - a lightweight knowledge manager to organize, cross-link, share and reuse artifacts and workflows based on FAIR principles',
 
     install_requires=requirements,
-    
+
     long_description=open(convert_path('./README.md'),
                           encoding="utf-8").read(),
     long_description_content_type="text/markdown",
