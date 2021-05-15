@@ -45,10 +45,12 @@ from distutils.sysconfig import get_python_lib
 
 ############################################################
 # Global variables
+
 dir_install_script = ""
 
 ############################################################
 # Find version
+
 current_version = ''
 current_path = os.path.abspath(os.path.dirname(__file__))
 kernel_file = os.path.join(current_path, 'ck', 'kernel.py')
@@ -61,8 +63,31 @@ with open(kernel_file, encoding="utf-8") as f:
 
     current_version = search.group(1)
 
-############################################################
 
+############################################################
+# Read dependencies
+
+with open('requirements.txt', 'r', encoding='utf-8') as fr:
+    requirements = []
+    for l in f:
+        requirements.append(l)
+
+
+############################################################
+# Add all directories in "repo" to the distribution
+
+repo=os.walk(os.path.join('ck','repo'))
+
+repo_dirs=[]
+
+for x in repo:
+    directory=os.path.join(x[0],'*')
+    if '__pycache__' not in directory:
+        repo_dirs.append(directory.replace('\\','/')[3:])
+
+
+############################################################
+# Customize installation
 
 class custom_install(install):
     def run(self):
@@ -106,8 +131,6 @@ class custom_install(install):
         if d.get('skip_copy_default_repo', False):
             return
 
-############################################################
-
 
 class custom_install_scripts(install_scripts):
     def run(self):
@@ -126,7 +149,8 @@ class custom_install_scripts(install_scripts):
 
 
 ############################################################
-# Describing CK setup
+# Describe CK setup
+
 setup(
     name='ck',
     version=current_version,
@@ -140,6 +164,8 @@ setup(
 
     description='Collective Knowledge - a lightweight knowledge manager to organize, cross-link, share and reuse artifacts and workflows based on FAIR principles',
 
+    install_requires=requirements,
+    
     long_description=open(convert_path('./README.md'),
                           encoding="utf-8").read(),
     long_description_content_type="text/markdown",
@@ -149,273 +175,7 @@ setup(
 
     zip_safe=False,
 
-    package_data={'ck': ['repo/.ck*',
-                         'repo/.cm/*',
-                         'repo/kernel/.cm/*',
-                         'repo/kernel/default/*',
-                         'repo/kernel/default/.cm/*',
-
-                         'repo/module/.cm/*',
-                         'repo/module/advice/.cm/*',
-                         'repo/module/advice/*',
-                         'repo/module/algorithm/.cm/*',
-                         'repo/module/algorithm/*',
-                         'repo/module/all/.cm/*',
-                         'repo/module/all/*',
-                         'repo/module/apk/.cm/*',
-                         'repo/module/apk/*',
-                         'repo/module/artifact/.cm/*',
-                         'repo/module/artifact/*',
-                         'repo/module/caffe/.cm/*',
-                         'repo/module/caffe/*',
-                         'repo/module/caffe2/.cm/*',
-                         'repo/module/caffe2/*',
-                         'repo/module/cfg/.cm/*',
-                         'repo/module/cfg/*',
-                         'repo/module/choice/.cm/*',
-                         'repo/module/choice/*',
-                         'repo/module/clblast/.cm/*',
-                         'repo/module/clblast/*',
-                         'repo/module/cmdgen/.cm/*',
-                         'repo/module/cmdgen/*',
-                         'repo/module/compiler/.cm/*',
-                         'repo/module/compiler/*',
-                         'repo/module/crowdnode/.cm/*',
-                         'repo/module/crowdnode/*',
-                         'repo/module/dashboard/.cm/*',
-                         'repo/module/dashboard/*',
-                         'repo/module/dataset/.cm/*',
-                         'repo/module/dataset/*',
-                         'repo/module/dataset.features/.cm/*',
-                         'repo/module/dataset.features/*',
-                         'repo/module/demo/.cm/*',
-                         'repo/module/demo/*',
-                         'repo/module/device/.cm/*',
-                         'repo/module/device/*',
-                         'repo/module/doc/.cm/*',
-                         'repo/module/doc/*',
-                         'repo/module/docker/.cm/*',
-                         'repo/module/docker/*',
-                         'repo/module/env/.cm/*',
-                         'repo/module/env/*',
-                         'repo/module/experiment/.cm/*',
-                         'repo/module/experiment/*',
-                         'repo/module/experiment.bench.caffe/.cm/*',
-                         'repo/module/experiment.bench.caffe/*',
-                         'repo/module/experiment.bench.caffe2/.cm/*',
-                         'repo/module/experiment.bench.caffe2/*',
-                         'repo/module/experiment.bench.dnn/.cm/*',
-                         'repo/module/experiment.bench.dnn/*',
-                         'repo/module/experiment.bench.dnn.mobile/.cm/*',
-                         'repo/module/experiment.bench.dnn.mobile/*',
-                         'repo/module/experiment.bench.tensorflow/.cm/*',
-                         'repo/module/experiment.bench.tensorflow/*',
-                         'repo/module/experiment.check.algorithm.scalability/.cm/*',
-                         'repo/module/experiment.check.algorithm.scalability/*',
-                         'repo/module/experiment.check.numerical.stability/.cm/*',
-                         'repo/module/experiment.check.numerical.stability/*',
-                         'repo/module/experiment.detect.opencl.bugs/.cm/*',
-                         'repo/module/experiment.detect.opencl.bugs/*',
-                         'repo/module/experiment.model.program.behavior/.cm/*',
-                         'repo/module/experiment.model.program.behavior/*',
-                         'repo/module/experiment.raw/.cm/*',
-                         'repo/module/experiment.raw/*',
-                         'repo/module/experiment.scenario.mobile/.cm/*',
-                         'repo/module/experiment.scenario.mobile/*',
-                         'repo/module/experiment.tune.compiler.flags/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags/images/*',
-                         'repo/module/experiment.tune.compiler.flags/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.custom/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.custom/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.e/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.e/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.e.x/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.e.x/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.es/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.es/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.fuzz/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.fuzz/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.s/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.s/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.x/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.gcc.x/*',
-                         'repo/module/experiment.tune.compiler.flags.llvm/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.llvm/*',
-                         'repo/module/experiment.tune.compiler.flags.llvm.e/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.llvm.e/*',
-                         'repo/module/experiment.tune.compiler.flags.llvm.e.x/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.llvm.e.x/*',
-                         'repo/module/experiment.tune.compiler.flags.llvm.fuzz/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.llvm.fuzz/*',
-                         'repo/module/experiment.tune.compiler.flags.llvm.x/.cm/*',
-                         'repo/module/experiment.tune.compiler.flags.llvm.x/*',
-                         'repo/module/experiment.tune.cuda.ws.e/.cm/*',
-                         'repo/module/experiment.tune.cuda.ws.e/*',
-                         'repo/module/experiment.tune.custom.dimensions/.cm/*',
-                         'repo/module/experiment.tune.custom.dimensions/*',
-                         'repo/module/experiment.tune.dnn.batch_size/.cm/*',
-                         'repo/module/experiment.tune.dnn.batch_size/*',
-                         'repo/module/experiment.tune.openblas.threads/.cm/*',
-                         'repo/module/experiment.tune.openblas.threads/*',
-                         'repo/module/experiment.tune.opencl.clblast/.cm/*',
-                         'repo/module/experiment.tune.opencl.clblast/*',
-                         'repo/module/experiment.tune.opencl.lws.e/.cm/*',
-                         'repo/module/experiment.tune.opencl.lws.e/*',
-                         'repo/module/experiment.tune.opencl.lws.ep/.cm/*',
-                         'repo/module/experiment.tune.opencl.lws.ep/*',
-                         'repo/module/experiment.tune.openmp.threads/.cm/*',
-                         'repo/module/experiment.tune.openmp.threads/*',
-                         'repo/module/experiment.user/.cm/*',
-                         'repo/module/experiment.user/*',
-                         'repo/module/experiment.view/.cm/*',
-                         'repo/module/experiment.view/*',
-                         'repo/module/graph/.cm/*',
-                         'repo/module/graph/templates/*',
-                         'repo/module/graph/third-party/d3/*',
-                         'repo/module/graph/third-party/*',
-                         'repo/module/graph/*',
-                         'repo/module/graph.dot/.cm/*',
-                         'repo/module/graph.dot/*',
-                         'repo/module/index/.cm/*',
-                         'repo/module/index/*',
-                         'repo/module/jnotebook/.cm/*',
-                         'repo/module/jnotebook/*',
-                         'repo/module/kernel/.cm/*',
-                         'repo/module/kernel/test/*',
-                         'repo/module/kernel/*',
-                         'repo/module/log/.cm/*',
-                         'repo/module/log/*',
-                         'repo/module/machine/.cm/*',
-                         'repo/module/machine/*',
-                         'repo/module/math.conditions/.cm/*',
-                         'repo/module/math.conditions/*',
-                         'repo/module/math.frontier/.cm/*',
-                         'repo/module/math.frontier/*',
-                         'repo/module/math.variation/.cm/*',
-                         'repo/module/math.variation/*',
-                         'repo/module/me/.cm/*',
-                         'repo/module/me/*',
-                         'repo/module/misc/.cm/*',
-                         'repo/module/misc/*',
-                         'repo/module/mlperf/.cm/*',
-                         'repo/module/mlperf/*',
-                         'repo/module/mlperf.inference/.cm/*',
-                         'repo/module/mlperf.inference/*',
-                         'repo/module/mlperf.mobilenets/.cm/*',
-                         'repo/module/mlperf.mobilenets/*',
-                         'repo/module/model/.cm/*',
-                         'repo/module/model/*',
-                         'repo/module/model.image.classification/.cm/*',
-                         'repo/module/model.image.classification/*',
-                         'repo/module/model.r/.cm/*',
-                         'repo/module/model.r/*',
-                         'repo/module/model.sklearn/.cm/*',
-                         'repo/module/model.sklearn/*',
-                         'repo/module/model.species/.cm/*',
-                         'repo/module/model.species/*',
-                         'repo/module/model.tensorflowapi/.cm/*',
-                         'repo/module/model.tensorflowapi/*',
-                         'repo/module/model.tf/.cm/*',
-                         'repo/module/model.tf/*',
-                         'repo/module/module/.cm/*',
-                         'repo/module/module/*',
-                         'repo/module/nntest/.cm/*',
-                         'repo/module/nntest/*',
-                         'repo/module/os/.cm/*',
-                         'repo/module/os/test/*',
-                         'repo/module/os/*',
-                         'repo/module/package/.cm/*',
-                         'repo/module/package/*',
-                         'repo/module/paper/.cm/*',
-                         'repo/module/paper/*',
-                         'repo/module/pipeline/.cm/*',
-                         'repo/module/pipeline/*',
-                         'repo/module/pipeline.cmd/.cm/*',
-                         'repo/module/pipeline.cmd/*',
-                         'repo/module/platform/.cm/*',
-                         'repo/module/platform/*',
-                         'repo/module/platform.cpu/.cm/*',
-                         'repo/module/platform.cpu/*',
-                         'repo/module/platform.dsp/.cm/*',
-                         'repo/module/platform.dsp/*',
-                         'repo/module/platform.gpgpu/.cm/*',
-                         'repo/module/platform.gpgpu/*',
-                         'repo/module/platform.gpu/.cm/*',
-                         'repo/module/platform.gpu/*',
-                         'repo/module/platform.init/.cm/*',
-                         'repo/module/platform.init/*',
-                         'repo/module/platform.nn/.cm/*',
-                         'repo/module/platform.nn/*',
-                         'repo/module/platform.npu/.cm/*',
-                         'repo/module/platform.npu/*',
-                         'repo/module/platform.os/.cm/*',
-                         'repo/module/platform.os/*',
-                         'repo/module/program/.cm/*',
-                         'repo/module/program/*',
-                         'repo/module/program.behavior/.cm/*',
-                         'repo/module/program.behavior/*',
-                         'repo/module/program.dynamic.features/.cm/*',
-                         'repo/module/program.dynamic.features/*',
-                         'repo/module/program.experiment.speedup/.cm/*',
-                         'repo/module/program.experiment.speedup/*',
-                         'repo/module/program.optimization/.cm/*',
-                         'repo/module/program.optimization/images/*',
-                         'repo/module/program.optimization/*',
-                         'repo/module/program.optimization.mobile/.cm/*',
-                         'repo/module/program.optimization.mobile/*',
-                         'repo/module/program.output/.cm/*',
-                         'repo/module/program.output/*',
-                         'repo/module/program.species/.cm/*',
-                         'repo/module/program.species/*',
-                         'repo/module/program.static.features/.cm/*',
-                         'repo/module/program.static.features/*',
-                         'repo/module/qr-code/.cm/*',
-                         'repo/module/qr-code/*',
-                         'repo/module/repo/.cm/*',
-                         'repo/module/repo/*',
-                         'repo/module/report/.cm/*',
-                         'repo/module/report/*',
-                         'repo/module/result/.cm/*',
-                         'repo/module/result/*',
-                         'repo/module/script/.cm/*',
-                         'repo/module/script/*',
-                         'repo/module/soft/.cm/*',
-                         'repo/module/soft/test/*',
-                         'repo/module/soft/*',
-                         'repo/module/solution/.cm/*',
-                         'repo/module/solution/*',
-                         'repo/module/sut/.cm/*',
-                         'repo/module/sut/*',
-                         'repo/module/table/.cm/*',
-                         'repo/module/table/*',
-                         'repo/module/tensorflow/.cm/*',
-                         'repo/module/tensorflow/*',
-                         'repo/module/test/.cm/*',
-                         'repo/module/test/*',
-                         'repo/module/tmp/.cm/*',
-                         'repo/module/tmp/*',
-                         'repo/module/user/.cm/*',
-                         'repo/module/user/*',
-                         'repo/module/web/.cm/*',
-                         'repo/module/web/php/server-side/*',
-                         'repo/module/web/php/*',
-                         'repo/module/web/*',
-                         'repo/module/wfe/.cm/*',
-                         'repo/module/wfe/*',
-                         'repo/module/xml/.cm/*',
-                         'repo/module/xml/*',
-
-                         'repo/repo/.cm/*',
-                         'repo/repo/default/.cm/*',
-                         'repo/repo/local/.cm/*',
-                         'repo/repo/remote-ck/.cm/*',
-                         'repo/test/.cm/*',
-                         'repo/test/unicode/c*',
-                         'repo/test/unicode/t*',
-                         'repo/test/unicode/.cm/*',
-                         'repo/test/unicode/dir/*']},
+    package_data={'ck': repo_dirs},
 
     cmdclass={
         'install': custom_install,

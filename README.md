@@ -19,6 +19,7 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 
 * [Project website](https://cKnowledge.org)
 * [CK-powered MLPerf&trade; benchmark automation](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md)
+* [Community projects to improve and redesign CK](https://github.com/ctuning/ck/blob/master/incubator/README.md)
 
 ## Overview
 

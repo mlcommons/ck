@@ -1,6 +1,7 @@
 # CK incubator 
 
-This directory contains projects to improve CK:
+This directory contains community projects to improve the CK framework or design the new one:
 
-* cbench
-* connectme
+* [CK lite](ck-lite)
+* [cBench](cbench)
+* [connectMe](connectme)
