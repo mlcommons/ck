@@ -12,7 +12,7 @@ using the open-source [CK workflow framework](https://github.com/ctuning/ck).
 * [Integrate CK workflows with CI platforms](tools/continuous-integration.md)
 * [Analyze MLPerf inference results](results/README.md)
   * [Example of CK dashboards for ML Systems DSE](results/ck-dashboard.md)
-* [Reproduce MLPerf&trade; results and DSE](reproduce/README.md)
+* [**Reproduce MLPerf&trade; results and DSE**](reproduce/README.md)
 * [Use CK with MLCube&trade;](tools/mlcube.md)
 * [Test models with a webcam](reproduce/demo-webcam-object-detection-x86-64.md)
 * [Explore ML Systems designs (AutoDSE)](dse/README.md)
