@@ -78,12 +78,12 @@ with open('requirements.txt', 'r', encoding='utf-8') as fr:
 
 repo=os.walk(os.path.join('ck','repo'))
 
-repo_dirs=[]
+repo_dirs=[os.path.join('repo','.ck*')]
 
 for x in repo:
     directory=os.path.join(x[0],'*')
     if '__pycache__' not in directory:
-        repo_dirs.append(directory.replace('\\','/')[3:])
+        repo_dirs.append(directory[3:])
 
 
 ############################################################

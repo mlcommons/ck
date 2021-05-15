@@ -1,3 +1,6 @@
+* V2.0.10
+  * fixed a bug in the new installation function
+
 * V2.0.9
   * added missing requirements.txt to the distro
 
