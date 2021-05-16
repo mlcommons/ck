@@ -8,7 +8,8 @@ using the open-source [CK workflow framework](https://github.com/ctuning/ck).
 * [Install CK framework](tools/ck.md)
   * [Install CK virtual environment (optional)](tools/ck-venv.md)
   * [Use adaptive CK container](tools/ck-docker.md)
-* [**Prepare and run native MLPerf&trade;**](tasks/README.md)
+* [**Prepare and run reference MLPerf&trade; inference benchmark**](tasks/README.md)
+  * [Customize MLPerf&trade;** inference benchmark](tasks-custom/README.md)
 * [Integrate CK workflows with CI platforms](tools/continuous-integration.md)
 * [Analyze MLPerf inference results](results/README.md)
   * [Example of CK dashboards for ML Systems DSE](results/ck-dashboard.md)
@@ -16,7 +17,7 @@ using the open-source [CK workflow framework](https://github.com/ctuning/ck).
 * [Use CK with MLCube&trade;](tools/mlcube.md)
 * [Test models with a webcam](reproduce/demo-webcam-object-detection-x86-64.md)
 * [Explore ML Systems designs (AutoDSE)](dse/README.md)
-* [Submit to MLPerf&trade;](submit/README.md)
+* [Submit to MLPerf&trade; inference](submit/README.md)
 * [Related tools](tools/README.md)
 * Further improvements:
   * [Standardization of MLPerf&trade; workflows](tbd/standardization.md)

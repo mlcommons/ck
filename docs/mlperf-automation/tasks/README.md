@@ -1,6 +1,6 @@
-# MLPerf&trade; benchmark tasks
+# Prepare and run MLPerf&trade; inference benchmark
 
-Here we describe how to automate the MLPerf&trade; inference benchmark with the help 
+Here we describe how to automate the reference MLPerf&trade; inference benchmark with the help 
 of the [CK workflow framework](https://github.com/ctuning/ck) and native MLPerf&trade; scripts.
 
 * [Image classification](task-image-classification.md)
