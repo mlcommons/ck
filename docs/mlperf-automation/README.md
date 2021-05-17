@@ -9,7 +9,7 @@ using the open-source [CK workflow framework](https://github.com/ctuning/ck).
   * [Install CK virtual environment (optional)](tools/ck-venv.md)
   * [Use adaptive CK container](tools/ck-docker.md)
 * [**Prepare and run reference MLPerf&trade; inference benchmark**](tasks/README.md)
-  * [Customize MLPerf&trade;** inference benchmark](tasks-custom/README.md)
+  * [Customize MLPerf&trade; inference benchmark](tasks-custom/README.md)
 * [Integrate CK workflows with CI platforms](tools/continuous-integration.md)
 * [Analyze MLPerf inference results](results/README.md)
   * [Example of CK dashboards for ML Systems DSE](results/ck-dashboard.md)
