@@ -46,6 +46,11 @@ ck activate venv:mlcube
 ck pull repo:octoml@mlops
 ```
 
+### Install MLCube as a CK package
+```
+ck install package --tags=lib,mlcube
+```
+
 ### List MLCube example
 
 ```
