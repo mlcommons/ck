@@ -54,7 +54,7 @@ script:
     - ${PYTHON_EXE} setup.py install
     - ck version
     - coverage run -m tests.test
-    - ck pull repo:ck-ml
+    - ck pull repo:octoml@mlops
     - echo "$CK_PLATFORM_NAME" | ck detect platform.os --update_platform_init
     - ck detect soft:compiler.python --full_path=`which ${PYTHON_EXE}`
     - ck install package --tags=lib,python-package,numpy
@@ -63,6 +63,7 @@ script:
     - ck install package:lib-tensorflow-1.13.1-cpu
     - ck install package:imagenet-2012-val-min
     - ck install package --tags=dataset,imagenet,preprocessed,using-pillow,first.20
+    - ck install package --quiet --tags=lib,python-package,onnx
     - ck install package --quiet --tags=model,image-classification,onnx,mobilenet,non-quantized,nchw,downloaded
     - ck install package --quiet --tags=model,onnx,mobilenet,nhwc,converted
     - ck install package --quiet --tags=model,onnx,resnet,nchw,converted
