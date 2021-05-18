@@ -148,7 +148,7 @@ Feel free to check [CK JSON meta](https://github.com/octoml/mlops/blob/main/pack
 
 
 
-### Benchmark
+#### Benchmark
 
 First, check LOADGEN parameters for image classification [here](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection#usage).
 
@@ -194,7 +194,7 @@ You can then customize your CMD using JSON keys as follows:
 ck run program:my-program --key1=value1 --key2=value2
 ```
 
-### Record results to the CK repository
+#### Record results to the CK repository
 
 You can record results to the CK repository for further analysis (for example, using [CK dashboards](../results/ck-dashboard.md)) as follows:
 
@@ -216,6 +216,43 @@ Note that you can create a new CK repository to group your experimental results 
 ck add repo:my-cool-experiments --quiet
 ```
 and then substitute 'local' with 'my-cool-experiments' in the above CMD to run the MLPerf&trade; benchmark.
+
+
+
+
+### PyTorch-based models for CPU
+
+Note: seems that PyTorch implementation in MLPerf inference v1.0 benchmark is not working with the latest ONNX
+
+```
+ck install package --tags=lib,python-package,onnx,1.8.1
+ck install package --tags=lib,python-package,torch
+```
+
+#### Install ResNet50 v1.5 fp32 for ONNX opset-8
+
+```
+ck install package --tags=model,image-classification,mlperf,onnx,resnet50,v1.5-opset-8
+```
+
+#### Install ResNet50 v1.5 fp32 for ONNX opset-11
+
+Note: ONNX opset-11 doesn't work with PyTorch in MLPerf inference v1.0
+
+
+
+
+#### Benchmark
+
+First, check LOADGEN parameters for image classification [here](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection#usage).
+
+```
+ck run program:mlperf-inference-bench-image-classification-pytorch-cpu --env.EXTRA_OPS="OPTIONS FOR LOADGEN"
+```
+
+
+
+
 
 ## Analyze experimental results
 
