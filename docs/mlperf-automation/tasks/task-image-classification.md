@@ -250,6 +250,11 @@ First, check LOADGEN parameters for image classification [here](https://github.c
 ck run program:mlperf-inference-bench-image-classification-pytorch-cpu --env.EXTRA_OPS="OPTIONS FOR LOADGEN"
 ```
 
+You can test it as follows:
+```
+ck run program:mlperf-inference-bench-image-classification-pytorch-cpu --cmd_key=Performance-SingleStream --env.EXTRA_OPS="--count 500 --time 60 --qps 200 --max-latency 0.1"
+```
+
 
 
 
