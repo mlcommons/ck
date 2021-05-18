@@ -20,4 +20,8 @@ Ideas:
 * provide more tests for CK workflows
 * simplify and standardize CK platform, env, soft, package, program, experiment modules
 
+* enable inheritance in entries inside the CK core 
+  * via dict key "_inherit":"entry"
+  * or via inherit.json/inherit.yaml ?
+
 More to come soon ;) ...
