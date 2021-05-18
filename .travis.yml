@@ -68,7 +68,7 @@ script:
     - ck install package --quiet --tags=model,onnx,mobilenet,nhwc,converted
     - ck install package --quiet --tags=model,onnx,resnet,nchw,converted
     - ck install package --quiet --tags=model,onnx,resnet,nhwc,converted
-    - ck install package --quiet --tags=lib,python-package,onnxruntime
+    - ck install package --quiet --tags=lib,python-package,onnxruntime,cpu
 
     - ck detect soft:compiler.gcc --full_path=`which gcc`
     - ck install package --tags=tool,cmake,prebuilt --quiet
