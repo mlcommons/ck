@@ -1,3 +1,9 @@
+* V2.1.0
+  * added support for basic inheritance in CK entries via "_base_entry" key.
+    Useful to simplify program, package and soft modules.
+  * added program.template, soft.template and package.template modules
+    to describe base entries for inheritance.
+
 * V2.0.10
   * fixed a bug in the new installation function
 

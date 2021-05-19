@@ -6265,8 +6265,8 @@ def cp(i):
 
     d=r['dict']
 
-    d['backup_data_uid']=duid
-    d['data_name']=duoa
+#    d['backup_data_uid']=duid
+#    d['data_name']=duoa
 
     ii={'action':'update',
         'module_uoa':muid,

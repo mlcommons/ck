@@ -27,7 +27,7 @@
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
-__version__ = "2.0.10"
+__version__ = "2.1.0"
 # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
@@ -6945,6 +6945,77 @@ def copy_path_to_clipboard(i):
 
     return {'return': 0}
 
+
+
+#########################################################
+# Process meta with base entry for inheritance
+#
+# TARGET: CK kernel and low-level developers
+
+def process_meta_for_inheritance(i):
+    """Process meta for inheritance
+       Target audience: CK kernel and low-level developers
+
+    Args:
+              (repo_uoa) (str): CK repo UOA
+              module_uoa (str): CK module UOA
+              data_uoa (str): CK entry (data) UOA
+
+              dict (dict): CK meta for a given entry
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict (dict): CK updated meta with inheritance from base entries
+
+    """
+
+    a = i.get('repo_uoa', '')
+    m = i.get('module_uoa', '')
+    d = i.get('data_uoa', '')
+
+    current_dict = i['dict']
+    base_entry = current_dict.get('_base_entry','').strip()
+    if base_entry!='':
+
+        del current_dict['_base_entry']
+        if '_base_entry#' in current_dict: del current_dict['_base_entry#']
+
+        # To avoid infinite loop during inheritance
+        base_recursion = int(i.get('base_recursion','0'))
+        if base_recursion > 10:
+            x = m+':'+d
+            if a!='': x = a+':'+x
+            return {'return':1, 'error':'inheritance recursions > 10 in '+x}
+
+        split_base_entry = base_entry.split(':')
+
+        base_entry_duoa = split_base_entry[-1]
+        base_entry_muoa = m
+
+        if len(split_base_entry)>1:
+            base_entry_muoa = split_base_entry[-2]
+
+        # Attempt to load base entry
+        rb = load({'module_uoa':base_entry_muoa,
+                   'data_uoa':base_entry_duoa,
+                   'base_recursion':base_recursion+1})
+        if rb['return']>0: return rb # Fail if can't find base entry
+        base_dict=rb['dict']
+
+        # Need smart merge to update parts of dictionaries that normal dict.update doesn't do ...
+        rb2 = merge_dicts({'dict1': base_dict, 'dict2': current_dict})
+        if rb2['return'] > 0:
+            return rb2
+
+        current_dict=base_dict
+
+    return {'return':0, 'dict':current_dict}
+
 #########################################################
 # Common action: load meta description from the CK entry
 #
@@ -7066,6 +7137,19 @@ def load(i):
         {'path': p, 'skip_updates': slu, 'skip_desc': sld})
     if r1['return'] > 0:
         return r1
+
+    # Process base entry (basic inheritance - prototyped by Grigori on 20210519)
+    current_dict = r1['dict']
+
+    if current_dict.get('_base_entry','').strip()!='':
+        rb = process_meta_for_inheritance({'repo_uoa':a,
+               'module_uoa':m,
+               'data_uoa':d,
+               'dict':current_dict,
+               'base_recursion':i.get('base_recursion',0)})
+        if rb['return']>0: return rb
+
+        r1['dict']=rb['dict']
 
     r.update(r1)
     r['path'] = p
@@ -9527,7 +9611,21 @@ def list_data(i):
                                                 if not debug:
                                                     continue
                                                 return y
-                                            ll['meta'] = y['dict']
+
+                                            # Process base entry (basic inheritance - prototyped by Grigori on 20210519)
+                                            current_dict = y['dict']
+
+                                            if current_dict.get('_base_entry','').strip()!='':
+                                                rb = process_meta_for_inheritance({'repo_uoa':ruoa,
+                                                       'module_uoa':muoa,
+                                                       'data_uoa':duoa,
+                                                       'dict':current_dict,
+                                                       'base_recursion':0})
+                                                if rb['return']>0: return rb
+
+                                                current_dict = rb['dict']
+
+                                            ll['meta'] = current_dict
 
                                     # Call filter
                                     fskip = False
