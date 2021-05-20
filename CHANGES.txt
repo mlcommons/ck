@@ -1,3 +1,6 @@
+* V2.2.0.1
+  * fixed function "ck status"
+
 * V2.2.0
   * enhancement of the inheritance mechanism and a few bug fixes:
     we keep original meta of a given entry when updating, copying or moving it

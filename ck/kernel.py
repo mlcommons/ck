@@ -28,7 +28,7 @@
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
-__version__ = "2.2.0"
+__version__ = "2.2.0.1"
 # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
@@ -5968,6 +5968,13 @@ def status(i):
 
     o = i.get('out', '')
 
+    # Get current version
+    r = get_version({})
+    if r['return']>0: return r
+
+    version_str = r['version_str']
+
+    # Read setup.py from GitHub (may want to use releases info in the future)
     try:
         import urllib.request as urllib2
     except:
@@ -6008,6 +6015,7 @@ def status(i):
 
                 ok = rx['ok']
                 version_str = rx['current_version']
+                print (version_str)
                 if ok != 'yes':
                     outdated = 'yes'
 
