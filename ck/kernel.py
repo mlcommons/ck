@@ -7,7 +7,9 @@
 # The author and tech lead: Grigori Fursin
 #
 
-# From the author: I have prototyped the CK kernel quickly as a monolithic architecture
+
+# From the author: 
+# I have prototyped the CK kernel quickly as a monolithic architecture
 # in a non-python way, without object oriented programming, with global variables
 # and with a minimal set of common portable functions
 # only because we originally planned to quickly reimplement this kernel
@@ -22,12 +24,11 @@
 # However, since CK is most commonly used as a Python library,
 # I believe that we should eventually rewrite it in a pythonic way
 # and with object oriented programming while keeping backward compatibility.
-# I call this project the CK2 and plan to work on it
-# when I have more time and funding.
+# We've started prototyping new ideas at https://github.com/ctuning/ck/tree/master/incubator .
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
-__version__ = "2.1.0"
+__version__ = "2.2.0"
 # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
@@ -6970,7 +6971,8 @@ def process_meta_for_inheritance(i):
                                           >  0, if error
                 (error) (str): error text if return > 0
 
-                dict (dict): CK updated meta with inheritance from base entries
+                dict (dict):        CK updated meta with inheritance from base entries
+                (dict_orig) (dict): original CK meta if CK was updated with a base entry
 
     """
 
@@ -6978,9 +6980,14 @@ def process_meta_for_inheritance(i):
     m = i.get('module_uoa', '')
     d = i.get('data_uoa', '')
 
+    rr={'return':0}
+
     current_dict = i['dict']
     base_entry = current_dict.get('_base_entry','').strip()
+
     if base_entry!='':
+        import copy
+        rr['dict_orig']=copy.deepcopy(current_dict)
 
         del current_dict['_base_entry']
         if '_base_entry#' in current_dict: del current_dict['_base_entry#']
@@ -7014,7 +7021,9 @@ def process_meta_for_inheritance(i):
 
         current_dict=base_dict
 
-    return {'return':0, 'dict':current_dict}
+    rr['dict']=current_dict
+
+    return rr
 
 #########################################################
 # Common action: load meta description from the CK entry
@@ -7047,6 +7056,9 @@ def load(i):
 
               (create_if_not_found) (str): if 'yes', create, if entry is not found - useful to create and lock entries
 
+              (ignore_inheritance) (str): if 'yes', ignore inheritance via _base_entry key
+                                          (used for low-level copy and move routines)
+
     Returns:
               (dict): Unified CK dictionary:
 
@@ -7055,6 +7067,8 @@ def load(i):
                 (error) (str): error text if return > 0
 
                 dict (dict): CK entry meta description
+                (dict_orig) (dict): original CK entry meta if there was inheritance 
+                                    from another entry
 
                 (info) (dict): CK entry info
 
@@ -7141,7 +7155,7 @@ def load(i):
     # Process base entry (basic inheritance - prototyped by Grigori on 20210519)
     current_dict = r1['dict']
 
-    if current_dict.get('_base_entry','').strip()!='':
+    if current_dict.get('_base_entry','').strip()!='' and i.get('ignore_inheritance','')!='yes':
         rb = process_meta_for_inheritance({'repo_uoa':a,
                'module_uoa':m,
                'data_uoa':d,
@@ -7150,6 +7164,7 @@ def load(i):
         if rb['return']>0: return rb
 
         r1['dict']=rb['dict']
+        if 'dict_orig' in rb: r1['dict_orig']=rb['dict_orig']
 
     r.update(r1)
     r['path'] = p
@@ -8780,7 +8795,7 @@ def cp(i):
         return {'return': 1, 'error': 'data UOA is not defined'}
 
     # Attempt to load
-    ii = {'module_uoa': muoa, 'data_uoa': duoa}
+    ii = {'module_uoa': muoa, 'data_uoa': duoa, 'ignore_inheritance':'yes'}
     if ruoa != '':
         ii['repo_uoa'] = ruoa
     r = load(ii)
@@ -9241,6 +9256,7 @@ def list_data(i):
                               'data_uoa','data_uid',
                               'path' 
                               (,meta) 
+                              (,meta_orig) # If meta had inheritance from another entry
                               (,info) ...
                              }]
 
@@ -9624,6 +9640,7 @@ def list_data(i):
                                                 if rb['return']>0: return rb
 
                                                 current_dict = rb['dict']
+                                                if 'dict_orig' in rb: ll['meta_orig']=rb['dict_orig']
 
                                             ll['meta'] = current_dict
 

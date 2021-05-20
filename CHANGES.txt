@@ -1,3 +1,8 @@
+* V2.2.0
+  * enhancement of the inheritance mechanism and a few bug fixes:
+    we keep original meta of a given entry when updating, copying or moving it
+    rather than expanding it with all the base entries.
+
 * V2.1.0
   * added support for basic inheritance in CK entries via "_base_entry" key.
     Useful to simplify program, package and soft modules.
