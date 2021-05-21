@@ -35,4 +35,4 @@ to make it easier to reproduce MLPerf&trade; benchmark results and automate new 
 # Feedback
 
 * Feel free to create tickets at [github.com/mlcommons/inference](https://github.com/mlcommons/inference) and [github.com/ctuning/ck](https://github.com/ctuning/ck).
-* Contact [Grigori Fursin](https://cKnowledge.io/@gfursin) (VP of MLOps at [OctoML.ai](https://octoml.ai) and creator of the [CK framework](https://github.com/ctuning/ck)).
+* Contact [Grigori Fursin](https://cKnowledge.io/@gfursin) (MLCommons member, VP of MLOps at [OctoML.ai](https://octoml.ai) and creator of the [CK framework](https://github.com/ctuning/ck)).
