@@ -1,3 +1,14 @@
+# Update the CK framework and installed components
+
+If you have CK installed, you can update it and all related CK repositories as follows:
+```
+python3 -m pip install ck -U
+
+ck pull all
+```
+
+# Install CK for the first time
+
 Install [CK](https://github.com/ctuning/ck) and dependencies as described [here](https://ck.readthedocs.io/en/latest/src/installation.html):
 
 ```
