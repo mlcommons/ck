@@ -1,9 +1,14 @@
-# Update the CK framework and installed components
+# Upgrade the CK framework
 
 If you have CK installed, you can update it and all related CK repositories as follows:
 ```
 python3 -m pip install ck -U
+```
 
+# Update all CK components
+
+You can update all installed CK components from Git repositories at any time as follows:
+```
 ck pull all
 ```
 
