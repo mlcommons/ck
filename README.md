@@ -124,8 +124,8 @@ You can run them as follows:
 
 ```bash
 ck pull repo:octoml@mlops
-ck build docker:ck-template-mlperf-x8664-ubuntu-20.04
-ck run docker:ck-template-mlperf-x8664-ubuntu-20.04
+ck build docker:ck-template-mlperf --tag=ubuntu-20.04
+ck run docker:ck-template-mlperf --tag=ubuntu-20.04
 ```
 
 ### Portable workflow example with virtual CK environments
