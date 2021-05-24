@@ -6,7 +6,7 @@ to make it easier to reproduce MLPerf&trade; benchmark results and automate new 
 
 # News
 
-* **20210519**: make sure that you update CK (```python3 -m pip install ck -U```) and use the version >= 2.3.0 (```ck version```) to support inheritance of CK entries.
+* **20210519**: make sure that you update CK (```python3 -m pip install ck -U```) and use the version >= 2.4.0 (```ck version```) to support inheritance of CK entries.
 
 # Table of content
 
