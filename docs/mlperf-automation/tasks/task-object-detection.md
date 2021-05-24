@@ -279,7 +279,7 @@ We've prepared a Docker container with pre-installed MLPerf&trade; inference ben
 with object detection that you can use interactively to benchmark models 
 and record results in your local repository for further analysis.
 
-Feel free to check the [CK entry](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-inference-v1.0-object-detection-native-x8664-ubuntu-20.04) 
+Feel free to check the [CK entry](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-inference-v1.0-object-detection-native) 
 with this container. You can also check [adaptive CK containers shared by OctoML](https://github.com/octoml/mlops/tree/main/docker)
 and other [CK containers shared by the community (they may be out of date - we plan to update them soon)](https://github.com/ctuning/ck-ml/tree/main/docker).
 
@@ -287,7 +287,7 @@ and other [CK containers shared by the community (they may be out of date - we p
 First, build a given Docker container using CK as follows:
 
 ```
-ck build docker:ck-mlperf-inference-v1.0-object-detection-native-x8664-ubuntu-20.04
+ck build docker:ck-mlperf-inference-v1.0-object-detection-native --tag=ubuntu-20.04
 ```
 
 Then, create a local CK repository where you would like to record benchmarking results:
@@ -302,7 +302,7 @@ export CK_HOST_REPO_EXPERIMENTS=`ck where repo:ck-experiments`
 
 echo ${CK_HOST_REPO_EXPERIMENTS}
 
-docker run --volume ${CK_HOST_REPO_EXPERIMENTS}:/home/ckuser/ck-experiments -it octoml/ck-mlperf-inference-v1.0-object-detection-native-x8664-ubuntu-20.04
+docker run --volume ${CK_HOST_REPO_EXPERIMENTS}:/home/ckuser/ck-experiments -it octoml/ck-mlperf-inference-v1.0-object-detection-native:ubuntu-20.04
 ```
 
 Use this ugly hack to be able to record to your host CK repository:

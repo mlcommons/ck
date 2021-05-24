@@ -10,13 +10,13 @@ ck pull repo:octoml@mlops
 ## Build Docker container with CK components and workflows for MLPerf&trade;
 
 ```
-ck build docker:ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0-x8664-ubuntu-20.04
+ck build docker:ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0 --tag=ubuntu-20.04
 ```
 
 ## Run this container interactively
 
 ```
-ck run docker:ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0-x8664-ubuntu-20.04
+ck run docker:ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0 --tag=ubuntu-20.04
 ```
 
 You can now issue standard CK commands from [here](ck-object-detection-x86-64.md) to benchmark MLPerf&trade; model.
@@ -25,7 +25,7 @@ You can now issue standard CK commands from [here](ck-object-detection-x86-64.md
 
 ### Linux
 ```
-docker run --rm octoml/ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0-x8664-ubuntu-20.04 \
+docker run --rm octoml/ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0:ubuntu-20.04 \
     "ck benchmark program:object-detection-tflite-loadgen \
      --env.CK_SILENT_MODE=YES \
      --skip_print_timers \
@@ -51,7 +51,7 @@ docker run --rm octoml/ck-mlperf-inference-v1.0-object-detection-4725481db87af8d
 
 ### Windows
 ```
-docker run --rm octoml/ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0-x8664-ubuntu-20.04 ^
+docker run --rm octoml/ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0:ubuntu-20.04 ^
     "ck benchmark program:object-detection-tflite-loadgen ^
      --env.CK_SILENT_MODE=YES ^
      --skip_print_timers ^
@@ -105,7 +105,7 @@ export CK_HOST_DATASETS=~/datasets
 docker run \
        --volume ${CK_HOST_REPO_EXPERIMENTS}:/home/ckuser/ck-experiments \
        --volume ${CK_HOST_RUN_SCRIPT}:/home/ckuser/${CK_LOCAL_DOCKER_SCRIPT} \
-       -it octoml/ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0-x8664-ubuntu-20.04 \
+       -it octoml/ck-mlperf-inference-v1.0-object-detection-4725481db87af8d0:ubuntu-20.04 \
        "./${CK_LOCAL_DOCKER_SCRIPT}"
 ```
 

@@ -10,13 +10,13 @@ ck pull repo:octoml@mlops
 ## Build Docker container with CK components and a small ImageNet (500 images) to test MLPerf&trade; workflows
 
 ```
-ck build docker:ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791-x8664-ubuntu-20.04
+ck build docker:ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791 --tag=ubuntu-20.04
 ```
 
 ## Run this container interactively
 
 ```
-ck run docker:ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791-x8664-ubuntu-20.04
+ck run docker:ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791 --tag=ubuntu-20.04
 ```
 
 You can now issue standard CK commands from [here](ck-image-classification-x86-64-tflite.md#install-models) to install ResNet-50 and benchmark it via loadgen.
@@ -27,7 +27,7 @@ You can now issue standard CK commands from [here](ck-image-classification-x86-6
 
 ### Linux
 ```
-docker run --rm octoml/ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791-x8664-ubuntu-20.04 \
+docker run --rm octoml/ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791:ubuntu-20.04 \
     "ck install package --tags=model,tflite,resnet50,no-argmax && ck benchmark program:image-classification-tflite-loadgen \
      --env.CK_LOADGEN_MODE=AccuracyOnly \
      --env.CK_LOADGEN_SCENARIO=SingleStream \
@@ -75,7 +75,7 @@ export CK_HOST_DATASETS=~/datasets
 docker run \
        --volume ${CK_HOST_REPO_EXPERIMENTS}:/home/ckuser/ck-experiments \
        --volume ${CK_HOST_RUN_SCRIPT}:/home/ckuser/${CK_LOCAL_DOCKER_SCRIPT} \
-       -it octoml/ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791-x8664-ubuntu-20.04 \
+       -it octoml/ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791:ubuntu-20.04 \
        "./${CK_LOCAL_DOCKER_SCRIPT}"
 ```
 

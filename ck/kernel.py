@@ -28,7 +28,7 @@
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
-__version__ = "2.3.0"
+__version__ = "2.4.0"
 # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
@@ -300,6 +300,8 @@ cfg = {
 
         "download": {"desc": "<CID> attempt to download entry from remote host (experimental)", "for_web": "yes"},
 
+        "tested": {"desc": "<CID> mark CK component as tested", "for_web": "no"},
+
         "print_input": {"desc": "prints input"},
 
     },
@@ -336,6 +338,7 @@ cfg = {
                        "delete_index",
                        "get_api",
                        "download",
+                       "tested",
                        "convert_cm_to_ck"]
 }
 
@@ -3261,6 +3264,83 @@ def download(i):
                         return rx
 
     return {'return': 0}
+
+##############################################################################
+# Mark a given CK component as tested
+#
+# TARGET: end users
+
+
+def tested(i):
+    """Mark a given CK component as tested
+       Target audience: end users
+
+    Args:    
+              (repo_uoa) (str): CK repo UOA
+              (module_uoa) (str): CK module UOA 
+              (data_uoa) (str): CK data UOA  
+
+              (name) (str): name of a tester
+              (email) (str): email of a tester
+
+    Returns:
+              return (int): return code =  0, if successful
+                                        >  0, if error
+              (error) (str): error text if return > 0
+
+
+    """
+
+    o = i.get('out', '')
+
+    ruoa = i.get('repo_uoa', '')
+    muoa = i.get('module_uoa', '')
+    duoa = i.get('data_uoa', '')
+
+    name = i.get('name','')
+    if name == '':
+        name = cfg.get('default_developer', '')
+
+    email = i.get('email','')
+    if email == '':
+        email = cfg.get('default_developer_email', '')
+
+    # Load entry
+    r=access({'action':'load',
+              'repo_uoa':ruoa,
+              'module_uoa':muoa,
+              'data_uoa':duoa})
+    if r['return']>0: return r
+
+    d=r['dict']
+
+    tested=d.get('tested',[])
+
+    pack={'name':name,
+          'email':email}
+
+    rdt = get_current_date_time({})
+    pack['iso_datetime'] = rdt['iso_datetime']
+
+    tested.append(pack)
+
+    d['tested'] = tested
+
+    # Update entry
+    r=access({'action':'update',
+              'repo_uoa':ruoa,
+              'module_uoa':muoa,
+              'data_uoa':duoa,
+              'dict':d,
+              'sort_keys':'yes',
+              'ignore_update':'yes'})
+    if r['return']>0: return r
+
+    if o=='con':
+        out('Entry updated successfully!')
+
+    return r
+
 
 ##############################################################################
 # Reload cache with meta-descriptions of all CK repos

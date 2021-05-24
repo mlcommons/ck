@@ -12,6 +12,9 @@
     "push": {
       "desc": "push a given image to the Docker Hub"
     },
+    "rebuild": {
+      "desc": "rebuild a given container"
+    },
     "run": {
       "desc": "run Docker image"
     },

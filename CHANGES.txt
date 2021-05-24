@@ -1,4 +1,18 @@
-* V2.2.0.1
+* V2.4.0
+  * added module "docker.template" to support adaptive CK containers
+  * added rebuild function to module:docker to rebuild images (#145)
+  * added support for multiple Docker tags in module:docker
+    See example: https://github.com/octoml/mlops/tree/main/docker/ck-template-mlperf
+  * added "default_org" key in Docker image to specify default organization
+  * added "outdated" and "aging" keys in Docker images to warn user
+    about a status of a given Docker image
+  * added main CK and MLPerf repositories to Zenodo
+    to ensure reproducibilty
+  * added common function "tested" to mark CK entries as tested,
+    i.e. "ck tested docker:mlperf-inference-v0.7.openvino"
+
+* V2.3.0
+  * improved "ck search" to search tags in entries with inheritance
   * fixed function "ck status"
 
 * V2.2.0

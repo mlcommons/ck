@@ -12,6 +12,7 @@ work={} # Will be updated by CK (temporal data)
 ck=None # Will be updated by CK (initialized CK kernel) 
 
 # Local settings
+line='=========================================================================='
 
 ##############################################################################
 # Initialize module
@@ -84,8 +85,9 @@ def call(i):
               data_uoa   - CK entry with Docker description
               func       - (build or run) 
 
-              (scenario) - scenario to get CMD (default if empty)
+              (scenario) - scenario to get CMD ("default" if empty)
               (org)      - organization (default - ctuning)
+              (tag)      - container tag
 
               (sudo)     - if 'yes', use sudo
 
@@ -94,6 +96,8 @@ def call(i):
               (browser)  - if 'yes', start browser
 
               (filename) - file to save/load external Docker image (data_uoa.tar by default)
+
+              (no-cache) - if 'yes', add "--no-cache" to cmd
             }
 
     Output: {
@@ -113,6 +117,8 @@ def call(i):
 
     sudo=i.get('sudo','')
 
+    ruoa=i.get('repo_uoa','')
+    
     duoa=i.get('data_uoa','')
     if duoa=='':
        return {'return':1, 'error':'please, specify CK entry with Docker description as following "ck build docker:{CK entry}"'}
@@ -122,6 +128,7 @@ def call(i):
 
     # Load CK entry
     r=ck.access({'action':'load',
+                 'repo_uoa':ruoa,
                  'module_uoa':work['self_module_uid'],
                  'data_uoa':duoa})
     if r['return']>0: return r
@@ -131,6 +138,24 @@ def call(i):
 
     duoa=r['data_uoa']
     duid=r['data_uid']
+
+    # Check if aging (may not work) or outdated (likely not working)
+    if d.get('outdated','')=='yes' or d.get('aging','')=='yes':
+        ck.out(line)
+        if d.get('outdated','')=='yes':
+            ck.out('WARNING: this container is marked as outdated and unlikely to work!')
+        else:
+            ck.out('WARNING: this container is marked as aiging and may not to work!')
+           
+        ck.out('')
+
+        r=ck.inp({'text':'Would you like to continue (y/N)?'})
+        if r['return']>0: return r
+        s=r['string'].strip().lower()
+        if s!='y' and s!='yes':
+            return {'return':0}
+    
+        ck.out('')
 
     # Check if reuse other entry
     re=d.get('reuse_another_entry','')
@@ -143,14 +168,17 @@ def call(i):
 
     # Choose scenario
     s=i.get('scenario','')
-    if s=='': s='default'
+    if s=='':
+        s='default'
 
     # Choose organization
     org=i.get('org','')
+    if org=='':
+        org=d.get('default_org','')
     if org=='': 
-       org=ck.cfg.get('docker_org','')
-       if org=='':
-          org='ctuning'
+        org=ck.cfg.get('docker_org','')
+    if org=='':
+        org='ctuning'
 
     ecmd=i.get('cmd','')
 
@@ -159,6 +187,53 @@ def call(i):
     c=cc.get(func,'')
     if c=='':
        return {'return':1, 'error':'CMD to '+func+' Docker image is not defined in the CK entry ('+duoa+')'}
+
+    # Check tag
+    tags=d.get('docker_tags',[])
+    tag=''
+
+    if i.get('tag','')!='':
+        tag=i['tag']
+    
+    elif len(tags)>0:
+        ck.out(line)
+        ck.out('Available tags:')
+        ck.out('')
+
+        k=0
+        for t in tags:
+            ck.out(str(k)+') '+t)
+            k+=1
+
+        ck.out('')
+        if i.get('quiet','')=='yes':
+            kk=0
+        else:
+            r=ck.inp({'text':'Select a tag or press Enter to select 0: '})
+            if r['return']>0: return r
+
+            s=r['string'].strip()
+            if s=='': s='0'
+
+            kk=int(s)
+
+            if kk<0 or kk>=k:
+                return {'return':1, 'error':'tag number is not recognized'}
+
+        tag=tags[kk]
+
+    stag_dot=''
+    stag_colon=''
+    if tag!='':
+        ck.out('')
+        ck.out('Selected tag: '+tag)
+        ck.out('')
+
+        stag_dot='.'+tag
+        stag_colon=':'+tag
+
+        c=c.replace('$#CK_TAG_DOT#$', stag_dot)
+        c=c.replace('$#CK_TAG_COLON#$', stag_colon)
 
     # Check if Windows
     pl=platform.system().lower()
@@ -172,6 +247,7 @@ def call(i):
            if r['return']>0: return r
            ftmp=r['file_name']
 
+           ck.out('')
            os.system(v[2:-1]+' > '+ftmp)
 
            # Read file
@@ -193,7 +269,10 @@ def call(i):
     c=c.replace('$#CK_DOCKER_FILE#$',filename)
 
     if cmd!='':
-       c=cmd+' '+c
+        c=cmd+' '+c
+
+    if i.get('no-cache','')=='yes':
+        c='--no-cache '+c
 
     c='docker '+func+' '+c
 
@@ -335,4 +414,28 @@ def ximport(i):
     """
 
     i['func']='import'
+    return call(i)
+
+##############################################################################
+# rebuild a given container
+
+def rebuild(i):
+    """
+    Input:  {
+              data_uoa   - CK entry with Docker description
+              (scenario) - scenario to get CMD (default if empty)
+              (org)      - organization (default - ctuning)
+              (cmd)      - extra CMD
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    i['func']='build'
+    i['no-cache']='yes'
     return call(i)
