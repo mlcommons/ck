@@ -63,7 +63,7 @@ def run(i):
               data_uoa   - CK entry with Docker description
               (scenario) - scenario to get CMD (default if empty)
               (cmd)      - extra CMD
-              (bas)      - if 'yes', add "bash" at the end of CMD
+              (bash)     - if 'yes', add "bash" at the end of CMD
             }
 
     Output: {
@@ -75,7 +75,6 @@ def run(i):
     """
 
     i['func']='run'
-    i['bash']='yes'
     return call(i)
 
 ##############################################################################
