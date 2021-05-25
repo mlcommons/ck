@@ -342,4 +342,4 @@ to make it easier to integrate them with web services and CI platforms as descri
 
 # Questions and feedback
 
-* Contact [Grigori Fursin](mailto:grigori@octoml.ai) for more details.
+* Contact: grigori@octoml.ai

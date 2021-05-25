@@ -2,11 +2,11 @@
 
 This document is prepared by [OctoML.ai](https://github.com/ctuning/ck) (MLCommons member) 
 in collaboration with the [MLCommons&trade; community](https://mlcommons.org)
-to make it easier to reproduce MLPerf&trade; benchmark results and automate new submissions.
+to make it easier to run MLPerf&trade; benchmark, reproduce results and automate new submissions.
 
 # News
 
-* **20210519**: make sure that you update CK (```python3 -m pip install ck -U```) and use the version >= 2.4.0 (```ck version```) to support inheritance of CK entries.
+* **20210524**: make sure that you update CK (```python3 -m pip install ck -U```) and use the version >= 2.4.0 (```ck version```) to support inheritance of CK entries.
 
 # Table of content
 
@@ -35,4 +35,4 @@ to make it easier to reproduce MLPerf&trade; benchmark results and automate new 
 # Feedback
 
 * Feel free to create tickets at [github.com/mlcommons/inference](https://github.com/mlcommons/inference) and [github.com/ctuning/ck](https://github.com/ctuning/ck).
-* Contact [Grigori Fursin](https://cKnowledge.io/@gfursin) (MLCommons member, VP of MLOps at [OctoML.ai](https://octoml.ai) and creator of the [CK framework](https://github.com/ctuning/ck)).
+* Contact: grigori@octoml.ai

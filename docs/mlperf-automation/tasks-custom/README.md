@@ -30,4 +30,4 @@ TBD:
 
 
 # Feedback
-Сontact [Grigori Fursin](https://cKnowledge.io/@gfursin) ([OctoML.ai](https://octoml.ai), [MLCommons&trade; member](https://mlcommons.org))
+* Contact: grigori@octoml.ai

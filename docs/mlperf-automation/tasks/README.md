@@ -24,4 +24,4 @@ of the [CK workflow framework](https://github.com/ctuning/ck) and native MLPerf&
 * [Search for CK program workflows with "loadgen"](https://cknowledge.io/?q=module_uoa%3A%22program%22+AND+loadgen)
 
 # Feedback
-Сontact [Grigori Fursin](https://cKnowledge.io/@gfursin) ([OctoML.ai](https://octoml.ai), [MLCommons&trade; member](https://mlcommons.org))
+* Contact: grigori@octoml.ai
