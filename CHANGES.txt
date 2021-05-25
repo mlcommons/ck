@@ -1,3 +1,6 @@
+* V2.4.0.1
+  * added --bash to docker:module to run bash in a container
+
 * V2.4.0
   * added module "docker.template" to support adaptive CK containers
   * added rebuild function to module:docker to rebuild images (#145)

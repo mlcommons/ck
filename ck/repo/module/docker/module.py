@@ -63,6 +63,7 @@ def run(i):
               data_uoa   - CK entry with Docker description
               (scenario) - scenario to get CMD (default if empty)
               (cmd)      - extra CMD
+              (bas)      - if 'yes', add "bash" at the end of CMD
             }
 
     Output: {
@@ -74,6 +75,7 @@ def run(i):
     """
 
     i['func']='run'
+    i['bash']='yes'
     return call(i)
 
 ##############################################################################
@@ -98,6 +100,8 @@ def call(i):
               (filename) - file to save/load external Docker image (data_uoa.tar by default)
 
               (no-cache) - if 'yes', add "--no-cache" to cmd
+
+              (bash)     - if 'yes', add "basH' at the end of cmd
             }
 
     Output: {
@@ -273,6 +277,9 @@ def call(i):
 
     if i.get('no-cache','')=='yes':
         c='--no-cache '+c
+
+    if i.get('bash','')=='yes':
+        c+=' bash'
 
     c='docker '+func+' '+c
 
