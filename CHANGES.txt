@@ -1,5 +1,6 @@
 * V2.4.0.1
   * added --bash to docker:module to run bash in a container
+  * removed outdated and unnecessary files
 
 * V2.4.0
   * added module "docker.template" to support adaptive CK containers

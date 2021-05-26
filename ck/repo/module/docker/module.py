@@ -148,11 +148,11 @@ def call(i):
         if d.get('outdated','')=='yes':
             ck.out('WARNING: this container is marked as outdated and unlikely to work!')
         else:
-            ck.out('WARNING: this container is marked as aiging and may not to work!')
+            ck.out('WARNING: this container is marked as aiging and may not work!')
            
         ck.out('')
 
-        r=ck.inp({'text':'Would you like to continue (y/N)?'})
+        r=ck.inp({'text':'Would you like to continue (y/N)? '})
         if r['return']>0: return r
         s=r['string'].strip().lower()
         if s!='y' and s!='yes':

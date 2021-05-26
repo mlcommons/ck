@@ -88,7 +88,7 @@ ck pull repo --url={URL}
 You can install COCO 2017 val dataset as follows:
 
 ```
-ck install package --ask --tags=dataset,coco,val,2017,full
+ck install package --tags=dataset,coco,val,2017,full
 ```
 
 Feel free to check the [CK JSON meta](https://github.com/ctuning/ck-ml/tree/main/package/dataset-coco-2017-val/.cm/meta.json)
