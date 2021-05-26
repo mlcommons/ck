@@ -1,3 +1,5 @@
+**[ [TOC](../README.md) ]**
+
 # Customize MLPerf&trade; inference benchmark
 
 Here we describe how to customize MLPerf&trade; inference benchmark 

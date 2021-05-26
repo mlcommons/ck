@@ -1,3 +1,5 @@
+**[ [TOC](../README.md) ]**
+
 # Automated design space exploration of ML/SW/HW stacks
 
 **TBD**

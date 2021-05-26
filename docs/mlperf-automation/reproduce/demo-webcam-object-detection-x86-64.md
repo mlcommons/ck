@@ -1,3 +1,5 @@
+**[ [TOC](../README.md) ]**
+
 MLPerf&trade; webcam demo: live object detection with a webcam using MLPerf&trade; models
 
 ## Install Collective Knowledge (CK) and Virtual Environment

@@ -1,3 +1,5 @@
+**[ [TOC](../README.md) ]**
+
 # Continuous integration for CK workflows
 
 All CK modules and automation actions are accessible as a micro-service with a unified JSON I/O API.

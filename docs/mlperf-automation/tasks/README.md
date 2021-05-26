@@ -1,3 +1,5 @@
+**[ [TOC](../README.md) ]**
+
 # Prepare and run MLPerf&trade; inference benchmark
 
 Here we describe how to automate the reference MLPerf&trade; inference benchmark with the help 

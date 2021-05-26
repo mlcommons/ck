@@ -1,3 +1,5 @@
+**[ [TOC](../README.md) ]**
+
 # Ideas to improve CK
 
 Developing backwards compatible CK2 based on our collective experience:

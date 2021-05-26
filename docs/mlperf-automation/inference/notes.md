@@ -1,3 +1,5 @@
+**[ [TOC](../README.md) ]**
+
 # Misc MLPerf&trade; inference notes
 
 ## [20210430] 

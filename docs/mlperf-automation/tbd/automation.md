@@ -1,3 +1,5 @@
+**[ [TOC](../README.md) ]**
+
 # Ideas to improve automation
 
 * Provide tests to automate all CK components and workflows across all available platforms

@@ -1,3 +1,5 @@
+**[ [TOC](../README.md) ]**
+
 # Logging infrastructure
 
 ## Notes
