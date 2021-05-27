@@ -610,6 +610,12 @@ def add(i):
     if r['return'] > 0:
         return r
 
+    # Check Python requirements
+    r = requirements({'path':p,
+                      'out':o})
+    if r['return'] > 0:
+        return r
+    
     # Check deps
     if o == 'con':
         ck.out('  ========================================')
@@ -1189,6 +1195,12 @@ def pull(i):
 
         # Check deps
         if tt != 'clone':  # clone is done in add ...
+            # Check Python requirements
+            r = requirements({'path':p,
+                              'out':o})
+            if r['return'] > 0:
+                return r
+
             if o == 'con':
                 ck.out('  ========================================')
                 ck.out('  Checking dependencies on other repos ...')
@@ -2094,6 +2106,45 @@ def import_repo(i):
 
     i['import'] = 'yes'
     return add(i)
+
+##############################################################################
+# process requirements
+
+def requirements(i):
+    """
+    Input:  {
+              (path)          - path to .cmr.json
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    if ck.cfg.get('skip_repo_requirements','')!='yes':
+        
+        o=i.get('out','')
+        p=i['path']
+
+        if p!='':
+            p1=os.path.join(p, 'requirements.txt')
+            if os.path.isfile(p1):
+                if o == 'con':
+                    import sys
+                    c = sys.executable + ' -m pip install -r '+p1
+                    
+                    ck.out('  ========================================')
+                    ck.out('  Processing Python requirements ...')
+                    ck.out('')
+                    ck.out('  '+c)
+                    ck.out('')
+
+                    os.system(c)
+    
+    return {'return':0}
 
 ##############################################################################
 # resolve dependencies for a repo
