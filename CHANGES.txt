@@ -1,6 +1,8 @@
 * V2.4.0.1
   * added --bash to docker:module to run bash in a container
   * removed outdated and unnecessary files
+  * added --command flag to "run docker" to run a specific command such as
+    ck run docker:xyz --command="ck show env"
 
 * V2.4.0
   * added module "docker.template" to support adaptive CK containers

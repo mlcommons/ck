@@ -62,7 +62,8 @@ def run(i):
     Input:  {
               data_uoa   - CK entry with Docker description
               (scenario) - scenario to get CMD (default if empty)
-              (cmd)      - extra CMD
+              (command)  - extra CMD (at the beginning of the docker command)
+              (cmd)      - extra CMD (at the end of the docker command)
               (bash)     - if 'yes', add "bash" at the end of CMD
             }
 
@@ -279,6 +280,10 @@ def call(i):
 
     if i.get('bash','')=='yes':
         c+=' bash'
+
+    if i.get('command','')!='':
+#        c+=' "'+i['command']+'"'
+        c+=' "'+i['command']+'"'
 
     c='docker '+func+' '+c
 
