@@ -381,6 +381,18 @@ def detect(i):
                            cc1='compute_71'
                            cc2='sm_71'
                            cc3='Volta'
+                        elif cc=='7.5': 
+                           cc1='compute_75'
+                           cc2='sm_75'
+                           cc3='Tesla'
+                        elif cc=='8.0': 
+                           cc1='compute_80'
+                           cc2='sm_80'
+                           cc3='Ampere'
+                        elif cc=='8.6': 
+                           cc1='compute_86'
+                           cc2='sm_86'
+                           cc3='Ampere'
                         else:
                            return {'return':1, 'error':'Compute capability of your CUDA device is not recognized ('+cc+') - please report at https://github.com/ctuning/ck/issues or update module:platform.gpgpu'}
 
