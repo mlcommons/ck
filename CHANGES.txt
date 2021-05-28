@@ -1,3 +1,8 @@
+* V2.5.1
+  * added --min_run to module:program to avoid pre/post processing and just run a command.
+    Useful to install Python requirements for a given program CMD.
+    We use it in MLPerf automation.
+
 * V2.5.0
   * auto-install Python requirements from pulled repositories
   * added --bash to docker:module to run bash in a container

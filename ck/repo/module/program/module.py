@@ -357,6 +357,9 @@ def process_in_dir(i):
               (return_error_if_external_fail) - if 'yes', return error if program ran correctly but there was an error
                                                 in pre/post processing or other scripts.
                                                 Useful for Continuous Integration tests.
+
+              (min_run)              - if 'yes', only run command line skiping pre/post processing.
+                                       Useful to install requirements.
             }
 
     Output: {
@@ -1884,6 +1887,11 @@ def process_in_dir(i):
 
        rt=vcmd.get('run_time',{})
 
+       min_run=i.get('min_run','')
+       if min_run=='':
+           min_run=rt.get('min_run','')
+       b_min_run=True if min_run=='yes' else False
+
        rif=rt.get('run_input_files',[])
        treat_input_file_path_as_absolute={}
 
@@ -2370,7 +2378,7 @@ def process_in_dir(i):
        pvck=rt.get('pre_process_via_ck',{})
        if len(pvck)==0:
            pvck=meta.get('pre_process_via_ck',{})
-       if len(pvck)>0:
+       if len(pvck)>0 and not b_min_run:
 
           pvckp=src_path_local
 
@@ -2473,7 +2481,7 @@ def process_in_dir(i):
              return {'return':0, 'tmp_dir':rcdir, 'misc':misc, 'characteristics':ccc, 'deps':deps}
 
        # If remote and target exe
-       if remote=='yes' and (target_exe!='' or meta.get('force_copy_input_files_to_remote','')=='yes'):
+       if remote=='yes' and (target_exe!='' or meta.get('force_copy_input_files_to_remote','')=='yes') and not b_min_run:
           if sdi!='yes' and srn==0 or ati==0:
              # Copy explicit input files, if first time
              remapped_env_path = {}
@@ -2546,7 +2554,14 @@ def process_in_dir(i):
        if ee!='':
           sb+='\n'+no+ee+'\n\n'
 
-       sb+='\necho    executing code ...\n'
+       if hplat=='win':
+           sb+='\necho.\n'
+           sb+='\necho    Executing code ...\n'
+           sb+='\necho.\n'
+       else:
+           sb+='\necho    ""\n'
+           sb+='\necho    "Executing code ..."\n'
+           sb+='\necho    ""\n'
 
        if (remote!='yes' or meta.get('run_via_third_party','')=='yes') and cons!='yes':
           if ercmd!='': c+=' '+ercmd
@@ -2555,7 +2570,7 @@ def process_in_dir(i):
        sb+=no+c+'\n'
 
        # Stop energy monitor, if needed and if supported
-       if me=='yes' and sspm2!='':
+       if me=='yes' and sspm2!='' and not b_min_run:
           if o=='con':
              ck.out('')
              ck.out('Adding energy monitor')
@@ -2579,7 +2594,7 @@ def process_in_dir(i):
 
        # Check if traditional pre-processing script
        srx=0 # script exit code
-       if len(lppc0)>0:
+       if len(lppc0)>0 and not b_min_run:
           sbu=sbenv+'\n\n'
 
           if ee!='':
@@ -2968,7 +2983,7 @@ def process_in_dir(i):
           if len(pfar)==0:
              pfar=meta.get('print_files_after_run',[])
 
-          if len(pfar)>0 and sfp!='yes' and o=='con':
+          if len(pfar)>0 and sfp!='yes' and o=='con' and not b_min_run:
              ck.out('')
              ck.out(' (printing output files) ')
 
@@ -2984,7 +2999,7 @@ def process_in_dir(i):
                         ck.out('      '+q1)
 
           # Check if post-processing script from CMD
-          if pp_uoa!='' and skip_exec!='yes':
+          if pp_uoa!='' and skip_exec!='yes' and not b_min_run:
              if o=='con':
                 ck.out('')
                 ck.out('  (post processing from script '+pp_uoa+' / '+pp_name+' ... )"')
@@ -3003,7 +3018,7 @@ def process_in_dir(i):
           srx=0 # script exit code
 
           # Newer variant (more consistent with pre_process_via_ck
-          if type(lppcvc)==dict and len(lppcvc)>0 and skip_exec!='yes':
+          if type(lppcvc)==dict and len(lppcvc)>0 and skip_exec!='yes' and not b_min_run:
              pvck=lppcvc
 
              pvckp=src_path_local
@@ -3105,7 +3120,7 @@ def process_in_dir(i):
                       return {'return':0, 'tmp_dir':rcdir, 'misc':misc, 'characteristics':ccc, 'deps':deps}
 
           # Older variant
-          if len(lppc)>0 and skip_exec!='yes':
+          if len(lppc)>0 and skip_exec!='yes' and not b_min_run:
              for ppc in lppc:
                  while ppc.find('$<<')>=0:
                     j1=ppc.find('$<<')
@@ -3242,7 +3257,7 @@ def process_in_dir(i):
               return {'return':0, 'tmp_dir':rcdir, 'misc':misc, 'characteristics':ccc, 'deps':deps}
 
           # Check if fine-grain time
-          if fgtf!='' and skip_exec!='yes':
+          if fgtf!='' and skip_exec!='yes' and not b_min_run:
              if o=='con':
                 ck.out('')
                 ck.out('  (reading fine grain timers from '+fgtf+' ...)')
@@ -3371,7 +3386,7 @@ def process_in_dir(i):
 
        rcvars=rt.get('run_correctness_vars',[])
 
-       if ccc['run_success_bool'] and len(rcof)>0 and i.get('skip_output_validation','')!='yes':
+       if ccc['run_success_bool'] and len(rcof)>0 and i.get('skip_output_validation','')!='yes' and not b_min_run:
           ck.out('')
           ck.out('  (checking output correctness ...)')
 
