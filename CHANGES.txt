@@ -1,3 +1,6 @@
+* V2.5.2
+  * fixed ck run docker --command="something" on Linux
+
 * V2.5.1
   * added --min_run to module:program to avoid pre/post processing and just run a command.
     Useful to install Python requirements for a given program CMD.

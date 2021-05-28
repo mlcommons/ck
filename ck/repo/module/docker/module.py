@@ -283,7 +283,8 @@ def call(i):
 
     if i.get('command','')!='':
 #        c+=' "'+i['command']+'"'
-        c+=' "'+i['command']+'"'
+        x='"' if pl=='windows' else ''
+        c+=' '+x+i['command']+x
 
     c='docker '+func+' '+c
 
