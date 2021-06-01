@@ -1,3 +1,6 @@
+* V2.5.2.1
+  * added "pull" function to module:docker
+
 * V2.5.2
   * fixed ck run docker --command="something" on Linux
 

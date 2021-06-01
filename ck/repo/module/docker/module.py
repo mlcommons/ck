@@ -38,6 +38,7 @@ def build(i):
     """
     Input:  {
               data_uoa   - CK entry with Docker description
+              (tag)      - tag of the docker image
               (scenario) - scenario to get CMD (default if empty)
               (org)      - organization (default - ctuning)
               (cmd)      - extra CMD
@@ -61,6 +62,7 @@ def run(i):
     """
     Input:  {
               data_uoa   - CK entry with Docker description
+              (tag)      - tag of the docker image
               (scenario) - scenario to get CMD (default if empty)
               (command)  - extra CMD (at the beginning of the docker command)
               (cmd)      - extra CMD (at the end of the docker command)
@@ -125,7 +127,7 @@ def call(i):
     
     duoa=i.get('data_uoa','')
     if duoa=='':
-       return {'return':1, 'error':'please, specify CK entry with Docker description as following "ck build docker:{CK entry}"'}
+       return {'return':1, 'error':'please, specify CK entry with Docker description as following "ck {action} docker:{CK entry}"'}
 
     filename=i.get('filename','')
     if filename=='': filename='docker-image-'+duoa+'.tar'
@@ -189,6 +191,12 @@ def call(i):
     # Find scenario in meta
     cc=d.get('cmd',{}).get(s,{})
     c=cc.get(func,'')
+
+    # Hack if pull not defined, try push
+    if func=='pull':
+        if c=='':
+            c=cc.get('push','')
+
     if c=='':
        return {'return':1, 'error':'CMD to '+func+' Docker image is not defined in the CK entry ('+duoa+')'}
 
@@ -450,4 +458,28 @@ def rebuild(i):
 
     i['func']='build'
     i['no-cache']='yes'
+    return call(i)
+
+##############################################################################
+# pull Docker image
+
+def pull(i):
+    """
+    Input:  {
+              data_uoa   - CK entry with Docker description
+              (tag)      - tag of the docker image
+              (scenario) - scenario to get CMD (default if empty)
+              (org)      - organization (default - ctuning)
+              (cmd)      - extra CMD
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    i['func']='pull'
     return call(i)

@@ -9,6 +9,9 @@
     "login": {
       "desc": "login to Docker Hub"
     },
+    "pull": {
+      "desc": "pull Docker image"
+    },
     "push": {
       "desc": "push a given image to the Docker Hub"
     },
