@@ -2742,7 +2742,7 @@ def print_warning(i):
 #       x2='https://groups.google.com/forum/#!forum/collective-knowledge'
 #       x3='https://github.com/ctuning/ck/issues'
        x2='https://github.com/ctuning/ck/issues'
-       x3='https://github.com/ctuning/ck-ml/issues'
+       x3='https://github.com/ctuning/ai/issues'
 #       if url2!='':
 #          x1='the authors'
 #          x2=url2

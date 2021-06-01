@@ -29,7 +29,7 @@ CK will attempt to detect existing python versions and will ask you which one to
 ck activate venv:reproduce-mlperf
 ```
 
-## Pull [CK-ML repository](https://github.com/ctuning/ck-ml)
+## Pull [CK MLOps repository]( https://github.com/octoml/mlops )
 
 ```bash
 ck pull repo:octoml@mlops

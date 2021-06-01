@@ -37,7 +37,7 @@ exploration of [AI/ML/software/hardware stacks](https://cknowledge.io/result/cro
 simplifies [MLPerf&trade;](https://mlperf.org) submissions and supports collaborative, reproducible and reusable ML Systems research:
 
 * [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4)
-* [AI/ML/MLPerf&trade; automation workflows and components from the community](https://github.com/ctuning/ck-ml);
+* [AI/ML/MLPerf&trade; automation workflows and components from the community](https://github.com/ctuning/ai);
 * [Real-world use cases](https://cKnowledge.org/partners.html) from MLPerf&trade;, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM and other great partners;
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems);
 * Our reproducibility initiatives: [methodology](https://cTuning.org/ae), [checklist](https://ctuning.org/ae/submission_extra.html), [events](https://cKnowledge.io/events).
@@ -117,7 +117,7 @@ Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for f
 ### Portable CK workflow (with Docker)
 
 We have prepared m CK containers with ML Systems components:
-* https://github.com/ctuning/ck-ml/tree/main/docker
+* https://github.com/ctuning/ai/tree/main/docker
 * https://github.com/octoml/mlops/tree/main/docker
 
 You can run them as follows:

@@ -7,7 +7,7 @@ and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCub
 
 A few examples: 
 * [MLPerf&trade; object detection workflow](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
-* [Docker image for MLPerf&trade; with OpenVINO](https://github.com/ctuning/ck-ml/tree/main/docker/mlperf-inference-v0.7.openvino)
+* [Docker image for MLPerf&trade; with OpenVINO]( https://github.com/ctuning/ai/tree/main/docker/mlperf-inference-v0.7.openvino )
 * [Jupyter notebook for ML DSE](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb)
 * [Webcam test of the MLPerf object detection model with TFLite](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-webcam-linux-azure#test)
 * [Public scoreboard with MLPerf DSE](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)

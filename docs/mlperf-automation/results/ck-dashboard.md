@@ -16,7 +16,7 @@ Container: [docker:ck-mlperf-dashboard-demo](https://github.com/octoml/mlops/tre
 python3 -m pip install ck
 ```
 
-### Pull ck-ml repository via CK
+### Pull CK repository
 ```
 ck pull repo:octoml@mlops
 ```

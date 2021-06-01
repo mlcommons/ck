@@ -25,10 +25,10 @@ $ source ~/.bashrc && ck version
 
 Note that you need GCC 9+!
 
-### Pull [CK-ML repository](https://github.com/ctuning/ck-ml)
+## Pull [CK MLOps repository]( https://github.com/octoml/mlops )
 
 ```bash
-$ ck pull repo:octoml@mlops
+ck pull repo:octoml@mlops
 ```
 
 ### Set up CK environment

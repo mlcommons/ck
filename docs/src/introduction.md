@@ -302,21 +302,20 @@ and [ACM artifact review and badging](https://www.acm.org/publications/policies/
   * ML-based autotuning project: [reproducible paper demo](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive),  [MILEPOST]( https://github.com/ctuning/reproduce-milepost-project )
   * [Quantum hackathons](https://cKnowledge.org/quantum)
   * [ACM SW/HW co-design tournaments for Pareto-efficient deep learning](https://cKnowledge.org/request)
-  * Portable CK workflows and components for ML Systems: https://github.com/ctuning/ck-ml
+  * Portable CK workflows and components for ML Systems: https://github.com/ctuning/ai
   * [GUI to automate  ML/SW/HW benchmarking with MLPerf example (under development)](https://cKnowledge.io/test)
   * [Reproduced papers]( https://cKnowledge.io/reproduced-papers )
   * [Live scoreboards for reproduced papers]( https://cKnowledge.io/reproduced-results )
 * Examples of CK components (automations, API, meta descriptions):
-    * *program : image-classification-tflite-loadgen* [[cKnowledge.io]( https://cKnowledge.io/c/program/image-classification-tflite-loadgen )] [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/program/image-classification-tflite-loadgen )]
-    * *program : image-classification-tflite* [[GitHub](https://github.com/ctuning/ck-ml/tree/master/program/image-classification-tflite)]
-    * *soft : lib.mlperf.loadgen.static* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/soft/lib.mlperf.loadgen.static )]
-    * *package : lib-mlperf-loadgen-static* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package/lib-mlperf-loadgen-static )]
-    * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
-    * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package/lib-tflite )]
-    * *docker : object-detection-tf-py.tensorrt.ubuntu-18.04* [[cKnowledge.io]( https://cknowledge.io/c/docker/object-detection-tf-py.tensorrt.ubuntu-18.04 )]
-    * *docker : ** [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/docker )]
-    * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/docker/speech-recognition.rnnt )]
-    * *package : model-tf-** [[GitHub]( https://github.com/ctuning/ck-ml/tree/master/package )]
+    * *program : image-classification-tflite-loadgen* [[cKnowledge.io]( https://cKnowledge.io/c/program/image-classification-tflite-loadgen )] [[GitHub]( https://github.com/ctuning/ai/tree/master/program/image-classification-tflite-loadgen )]
+    * *program : image-classification-tflite* [[GitHub]( https://github.com/ctuning/ai/tree/master/program/image-classification-tflite )]
+    * *soft : lib.mlperf.loadgen.static* [[GitHub]( https://github.com/ctuning/ai/tree/master/soft/lib.mlperf.loadgen.static )]
+    * *package : lib-mlperf-loadgen-static* [[GitHub]( https://github.com/ctuning/ai/tree/master/package/lib-mlperf-loadgen-static )]
+    * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/ctuning/ai/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
+    * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/ctuning/ai/tree/master/package/lib-tflite )]
+    * *docker : ** [[GitHub]( https://github.com/ctuning/ai/tree/master/docker )]
+    * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/ctuning/ai/tree/main/docker/mlperf-inference-speech-recognition-rnnt )]
+    * *package : model-tf-** [[GitHub]( https://github.com/ctuning/ai/tree/master/package )]
     * *script : mlperf-inference-v0.7.image-classification* [[cKnowledge.io]( https://cknowledge.io/c/script/mlperf-inference-v0.7.image-classification )]
     * *jnotebook : object-detection* [[GitHub](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb)]
 

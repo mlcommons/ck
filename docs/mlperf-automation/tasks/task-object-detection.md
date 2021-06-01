@@ -43,7 +43,7 @@ ck activate venv:mlperf-inference
 Alternatively, use the following commands if you want to use your native environment:
 
 ```
-ck pull repo:ck-ml
+ck pull repo:ai
 
 ck setup kernel --var.install_to_env=yes
 
@@ -70,7 +70,7 @@ ck show env
 
 ```
 
-You can explore available packages in the [CK-ML GitHub repo](https://github.com/ctuning/ck-ml/tree/main/package)
+You can explore available packages in the [CK GitHub repo](https://github.com/ctuning/ai/tree/main/package)
 or using the [cKnowledge.io platform](https://cKnowledge.io/c/package).
 
 ## Pull CK repo with the latest MLPerf&trade; automations from OctoML:
@@ -93,19 +93,19 @@ You can install COCO 2017 val dataset as follows:
 ck install package --tags=dataset,coco,val,2017,full
 ```
 
-Feel free to check the [CK JSON meta](https://github.com/ctuning/ck-ml/tree/main/package/dataset-coco-2017-val/.cm/meta.json)
-and CK installation scripts for [Linux](https://github.com/ctuning/ck-ml/tree/main/package/dataset-coco-2017-val/install.sh) 
-and [Windows](https://github.com/ctuning/ck-ml/tree/main/package/dataset-coco-2017-val/install.bat)
+Feel free to check the [CK JSON meta](https://github.com/ctuning/ai/tree/main/package/dataset-coco-2017-val/.cm/meta.json)
+and CK installation scripts for [Linux](https://github.com/ctuning/ai/tree/main/package/dataset-coco-2017-val/install.sh) 
+and [Windows](https://github.com/ctuning/ai/tree/main/package/dataset-coco-2017-val/install.bat)
 for the CK COCO2017 val dataset package.
 
 Please check [this doc](../datasets/coco2017.md) to see how you can preprocess this data set 
 in multiple ways with the help of CK.
 
-Feel free to check the [CK JSON meta](https://github.com/ctuning/ck-ml/tree/main/soft/dataset.coco.2017.val/.cm/meta.json)
-and [CK Python customization script](https://github.com/ctuning/ck-ml/tree/main/soft/dataset.coco.2017.val/customize.py)
+Feel free to check the [CK JSON meta](https://github.com/ctuning/ai/tree/main/soft/dataset.coco.2017.val/.cm/meta.json)
+and [CK Python customization script](https://github.com/ctuning/ai/tree/main/soft/dataset.coco.2017.val/customize.py)
 to detect this data set on your machine.
 
-You can see other software detection plugins in the [CK-ML repository](https://github.com/ctuning/ck-ml/tree/main/soft)
+You can see other software detection plugins in the [CK repository](https://github.com/ctuning/ai/tree/main/soft)
 or using the [cKnowledge.io platform](https://cKnowledge.io/c/soft).
 
 
@@ -283,7 +283,7 @@ and record results in your local repository for further analysis.
 
 Feel free to check the [CK entry](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-inference-v1.0-object-detection-native) 
 with this container. You can also check [adaptive CK containers shared by OctoML](https://github.com/octoml/mlops/tree/main/docker)
-and other [CK containers shared by the community (they may be out of date - we plan to update them soon)](https://github.com/ctuning/ck-ml/tree/main/docker).
+and other [CK containers shared by the community](https://github.com/ctuning/ai/tree/main/docker).
 
 
 First, build a given Docker container using CK as follows:
