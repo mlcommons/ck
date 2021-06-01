@@ -2540,12 +2540,130 @@ def reinstall(i):
     i['reinstall']='yes'
     return install(i)
 
+
+##############################################################################
+# add Git package
+
+def add_git(i):
+    """
+    Input:  {
+              duoa      - package UOA
+              git
+              (tags)    - tags 
+              (env_ext) - environment extension
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    import os
+    import shutil
+    git = i['git']
+
+    duoa = i['data_uoa']
+    ruoa = i.get('repo_uoa', '')
+
+    # We traditionally substitute - with . in soft
+    suoa = duoa.replace('-','.')
+
+    tags = i.get('tags','')
+    xtags = tags.split(',')
+
+    env_ext = i.get('env_ext','')
+    if env_ext == '':
+        r=ck.inp({'text':'Input environment extension: '})
+        if r['return']>0: return r
+
+        env_ext=r['string'].strip().upper()
+
+    # Load soft meta template
+    p=work['path']
+
+    p_soft_meta=os.path.join(p, 'template-git-soft.json')
+
+    r=ck.load_json_file({'json_file':p_soft_meta})
+    if r['return']>0: return r
+
+    sd=r['dict']
+
+    sd['soft_name']='Artifact from '+git
+
+    for t in xtags:
+        if t not in sd['tags']:
+            sd['tags'].append(t)
+    
+    cus=sd['customize']
+    cus['env_prefix']+=env_ext
+
+    # Create soft
+    r=ck.access({'action':'add',
+                 'module_uoa':cfg['module_deps']['soft'],
+                 'repo_uoa':ruoa,
+                 'data_uoa':suoa,
+                 'dict':sd,
+                 'sort_keys':'yes',
+                 'common':'yes'})
+    if r['return']>0: return r
+
+    path_soft=r['path']
+
+    path_soft_customize_orig = os.path.join(p, 'template-git-soft-customize.py')
+    path_soft_customize_new = os.path.join(path_soft, 'customize.py')
+
+    shutil.copyfile(path_soft_customize_orig, path_soft_customize_new)
+
+    suoa=r['data_uoa']
+    suid=r['data_uid']
+
+    # Preparing a package
+    p_package_meta=os.path.join(p, 'template-git-package.json')
+
+    r=ck.load_json_file({'json_file':p_package_meta})
+    if r['return']>0: return r
+
+    pd=r['dict']
+
+    cus=pd['customize']
+    ie=cus['install_env']
+    ie['PACKAGE_URL']=git
+
+    pd['soft_uoa']=suid
+    pd['soft_uoa#']=suoa
+
+    pd['suggested_path']+=duoa
+
+    for t in xtags:
+        if t not in pd['tags']:
+            pd['tags'].append(t)
+    pd['tags'].append('vmaster')
+
+    # Create soft
+    r=ck.access({'action':'add',
+                 'module_uoa':work['self_module_uoa'],
+                 'repo_uoa':ruoa,
+                 'data_uoa':duoa,
+                 'dict':pd,
+                 'sort_keys':'yes',
+                 'common':'yes'})
+    if r['return']>0: return r
+
+    return r
+
 ##############################################################################
 # add package with template
 
 def add(i):
     """
     Input:  {
+              (git)      - if !='', attempt to automatically create soft and package
+
+               or
+              
               soft       - specify related soft UOA
 
               (template) - if !='', use this program as template!
@@ -2562,10 +2680,15 @@ def add(i):
 
     o=i.get('out','')
 
+    # Check if git
+    git = i.get('git','')
+    if git!='':
+        return add_git(i)
+
     # Check related soft first
     suoa=i.get('soft','')
     if suoa=='':
-       return {'return':1, 'error':'related software detection plugin is not specified. Specify the existing one using --soft={name from http://cKnowledge.org/shared-soft-detection-plugins.html} or create a new one using "ck add soft {repo}:soft:{name}"'}
+       return {'return':1, 'error':'related software detection plugin is not specified. Specify the existing one using --soft={name from https://cknowledge.io/c/soft} or create a new one using "ck add soft {repo}:soft:{name}"'}
 
     # Load soft to get UID and tags
     r=ck.access({'action':'load',

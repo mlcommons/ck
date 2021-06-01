@@ -1,0 +1,43 @@
+{
+  "customize": {
+    "extra_dir": "",
+    "git_src_dir": "src",
+    "install_env": {
+      "PACKAGE_BUILD_TYPE": "",
+      "PACKAGE_GIT": "YES",
+      "PACKAGE_GIT_SUBMODULES": "YES",
+      "PACKAGE_PATCH": "NO",
+      "PACKAGE_SKIP_CLEAN_SRC_DIR": "YES",
+      "PACKAGE_SKIP_LINUX_MAKE": "YES",
+      "PACKAGE_SUB_DIR": "src"
+     },
+    "no_os_in_suggested_path": "yes",
+    "no_ver_in_suggested_path": "yes",
+    "use_git_revision": "yes",
+    "version": "vmaster"
+  },
+  "need_cpu_info": "no",
+  "only_for_host_os_tags": [],
+  "only_for_target_os_tags": [],
+  "process_script": "install",
+  "soft_uoa": "tbd",
+  "suggested_path": "git-artifact-",
+  "tags": [
+    "git"
+  ],
+  "variations": {
+    "master": {
+      "on_by_default": "yes",
+      "extra_env": {
+        "PACKAGE_GIT_CHECKOUT": ""
+      },
+      "extra_customize": {
+        "package_extra_name": ""
+      }
+    }
+  },
+  "use_scripts_from_another_entry": {
+    "data_uoa": "cd9ccc74060b3d18",
+    "module_uoa": "script"
+  }
+}
