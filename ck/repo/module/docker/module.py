@@ -221,16 +221,20 @@ def call(i):
         if i.get('quiet','')=='yes':
             kk=0
         else:
-            r=ck.inp({'text':'Select a tag or press Enter to select 0: '})
-            if r['return']>0: return r
+            if len(tags)==1:
+                kk=0
+                ck.out('Selected: 0')
+            else:
+                r=ck.inp({'text':'Select a tag or press Enter to select 0: '})
+                if r['return']>0: return r
 
-            s=r['string'].strip()
-            if s=='': s='0'
+                s=r['string'].strip()
+                if s=='': s='0'
 
-            kk=int(s)
+                kk=int(s)
 
-            if kk<0 or kk>=k:
-                return {'return':1, 'error':'tag number is not recognized'}
+                if kk<0 or kk>=k:
+                    return {'return':1, 'error':'tag number is not recognized'}
 
         tag=tags[kk]
 

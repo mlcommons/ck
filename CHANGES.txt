@@ -1,5 +1,6 @@
 * V2.5.2.1
   * added "pull" function to module:docker
+  * if only 1 tag exists in Docker, select it automatically
 
 * V2.5.2
   * fixed ck run docker --command="something" on Linux
