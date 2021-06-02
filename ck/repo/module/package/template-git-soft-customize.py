@@ -24,9 +24,9 @@ def setup(i):
     if fp=='':
         return {'return':1, 'error':''}
 
-    p1=os.path.dirname(fp)
+    # p1=os.path.dirname(fp)
 
-    env[ep]=os.path.join(p1, 'src')
+    env[ep]=os.path.join(fp, 'src')
     
     # You can extend environent variables for your soft here:
     # env[ep+'_EXTENSION']=xyz
