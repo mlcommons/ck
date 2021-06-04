@@ -374,4 +374,3 @@ def pick_an_experiment(i):
         cid = r['selected_value']
 
     return {'return':0, 'cid': cid}
-
