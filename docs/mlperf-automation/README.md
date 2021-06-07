@@ -1,9 +1,12 @@
 # MLPerf&trade; inference benchmark automation
 
-This is a community effort to make it easier to use MLPerf&trade; inference benchmarks (prepare, run, reproduce, submit) 
-using the ACM methodology and automated workflows to reproduce results from research papers 
-([ACM TechTalk intro](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae)) 
-and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCube&trade;](https://github.com/mlcommons/mlcube)).
+This is a community effort to provide out-of-the-box support to run MLPerf&trade; inference benchmarks 
+across different frameworks, models, data sets and hardware and automate the submission of new results 
+using portable workflows. 
+
+It is based on a relatively mature ACM methodology to reproduce research papers ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae)),
+open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCube&trade;](https://github.com/mlcommons/mlcube))
+and the [CK automation framework](https://github.com/ctuning/ck).
 
 A few examples: 
 * [MLPerf&trade; object detection workflow](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
@@ -19,7 +22,8 @@ Thank you!
 
 # News
 
-* **20210524**: make sure that your CK version >= 2.4.0 with many enhancements for MLPerf (```ck version```). You can update it via (```python3 -m pip install ck -U```).
+* **20210607**: Make sure that your CK version >= 2.5.3 with many enhancements for MLPerf (```ck version```). 
+  You can update it via (```python3 -m pip install ck -U```).
 
 # Table of contents
 
