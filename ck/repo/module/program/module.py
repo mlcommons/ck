@@ -1868,6 +1868,7 @@ def process_in_dir(i):
                                 'preset_deps':preset_deps,
                                 'random':ran,
                                 'safe':safe,
+                                'skip_global_deps':vcmd.get('skip_global_deps',''),
                                 'quiet':quiet})
        if rx['return']>0: return rx
 
@@ -6751,6 +6752,9 @@ def update_run_time_deps(i):
                                        (to have more deterministic build)
 
               (preset_deps)          - to preset deps
+
+              (skip_global_deps)     - if 'yes', skip global deps
+                                       (useful to install deps)
             }
 
     Output: {
@@ -6800,7 +6804,8 @@ def update_run_time_deps(i):
     rr={'return':0}
 
     if len(rdeps)==0:
-       rdeps.update(meta.get('run_deps',{}))
+       if i.get('skip_global_deps','')!='yes':
+          rdeps.update(meta.get('run_deps',{}))
        rdeps.update(vcmd.get('run_deps',{}))
 
        # Prune if needed

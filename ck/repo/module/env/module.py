@@ -896,11 +896,19 @@ def env_set(i):
 
           ck.out('')
           rx=ck.inp({'text':'Would you like to remove outdated environment entry from CK (Y/n)? '})
-          x=rx['string'].strip()
+          x=rx['string'].strip().lower()
 
           if x=='n' or x=='no':
-             return {'return':1, 'error':err}
-          to_delete=True
+             x=''
+             if o=='con':
+                ck.out('')
+                rx=ck.inp({'text':'Would you like to continue at your own risk (y/N)? '})
+                x=rx['string'].strip().lower()
+
+             if x!='y':
+                return {'return':1, 'error':err}
+          else:
+             to_delete=True
 
        # Deleting outdated environment
        if to_delete:

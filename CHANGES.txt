@@ -1,7 +1,13 @@
-* V2.5.3.1
+* V2.5.4
   * added support to automatically add simple packages from Git:
     ck add package:my-git-repo --git={URL} --tags=my-repo --env_ext=MY_GIT_REPO
   * added module:mlperf.result to abstract official MLPerf results
+  * added key "skip_global_deps" to program meta to skip global dependencies
+    for a given command line (for example, only to install python deps
+    for a given program)
+  * improved handling of a situation when CK environment has changed
+    and make it possible to continue running a workflow at user risk
+    (useful for debugging)
 
 * V2.5.3
   * added "pull" function to module:docker
