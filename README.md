@@ -39,9 +39,14 @@ simplifies [MLPerf&trade;](https://mlperf.org) submissions and supports collabor
 
 * [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4)
 * [AI/ML/MLPerf&trade; automation workflows and components from the community](https://github.com/ctuning/ai);
-* [Real-world use cases](https://cKnowledge.org/partners.html) from MLPerf&trade;, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM and other great partners;
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems);
 * Our reproducibility initiatives: [methodology](https://cTuning.org/ae), [checklist](https://ctuning.org/ae/submission_extra.html), [events](https://cKnowledge.io/events).
+
+## Current projects
+* [Automating MLPerf(tm) inference benchmark and packing ML models, data sets and frameworks as CK components with a unified API and meta description](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md)
+* [Providing a common format to share artifacts at ML, systems and other conferences](https://cTuning.org/ae)
+* Redesigning CK together with the community based on user feedback
+* [Other real-world use cases](https://cKnowledge.org/partners.html) from MLPerf&trade;, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM and other great partners;
 
 ## Documentation
 
