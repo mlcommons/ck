@@ -1,3 +1,5 @@
+# TBD: check if someone uses this env file and remove if not needed
+
 # Checking python
 
 XPYTHON=""
