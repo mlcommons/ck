@@ -9,6 +9,8 @@
 
 # Entry point for running CK tests for CI and coverage measurement tools
 
+# TBD: check all tests for Python 3.8+
+
 from __future__ import print_function
 
 try:

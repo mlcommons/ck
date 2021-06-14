@@ -6,3 +6,5 @@ __pycache__
 .cache/
 .coverage
 htmlcov
+*tmp/
+*tmp-ck-*/
