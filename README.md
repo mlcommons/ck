@@ -43,7 +43,7 @@ simplifies [MLPerf&trade;](https://mlperf.org) submissions and supports collabor
 * Our reproducibility initiatives: [methodology](https://cTuning.org/ae), [checklist](https://ctuning.org/ae/submission_extra.html), [events](https://cKnowledge.io/events).
 
 ## Current projects
-* Developing a platform to automate SW/HW co-design for ML Systems across diverse models, data sets, frameworks and platforms: [OctoML.ai](https://OctoML.ai) & [cKnowledge.io](https://cKnowledge.io)
+* Developing a platform to automate SW/HW co-design for ML Systems across diverse models, data sets, frameworks and platforms based on user constraints in terms of speed, accuracy, energy and costs: [OctoML.ai](https://OctoML.ai) & [cKnowledge.io](https://cKnowledge.io)
 * [Automating MLPerf(tm) inference benchmark and packing ML models, data sets and frameworks as CK components with a unified API and meta description](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md)
 * Providing a common format to share artifacts at ML, systems and other conferences: [video](https://youtu.be/DIkZxraTmGM), [Artifact Evaluation](https://cTuning.org/ae)
 * Redesigning CK together with the community based on user feedback
