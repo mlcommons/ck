@@ -1,8 +1,9 @@
 # MLPerf&trade; inference benchmark automation
 
-This is a community effort to provide out-of-the-box support to run MLPerf&trade; inference benchmarks 
+This is an *on-going community effort* to provide out-of-the-box support to run MLPerf&trade; inference benchmarks 
 across different frameworks, models, data sets and hardware and automate the submission of new results 
-using portable workflows. 
+using portable [CK workflows](https://github.com/ctuning/ck) 
+with unified [ML Systems components](https://github.com/ctuning/ai/tree/main/package).
 
 It is based on a relatively mature ACM methodology to reproduce research papers ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae)),
 open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCube&trade;](https://github.com/mlcommons/mlcube))
@@ -44,6 +45,7 @@ Thank you!
 * [Related tools](tools/README.md)
 * Further improvements:
   * [Ideas to make it easier to use MLPerf&trade; inference benchmarks](https://docs.google.com/document/d/1xUI4_ArXssMUigsSHTAE2lL7jRZE12XXvzoV3QMoT84)
+  * Add MLPerf&trade; power measurements to our automated benchmark toolset
   * [Standardization of MLPerf&trade; workflows](tbd/standardization.md)
   * [More automation](tbd/automation.md)
   * [Redesigning CK (CKLite)](tbd/ck2.md)
