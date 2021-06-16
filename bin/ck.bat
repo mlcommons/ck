@@ -1,5 +1,7 @@
 @echo off
 
+rem Note that this script is not used anymore during PIP installation
+
 rem Set default path by detecting the path to this script
 set ck_path1=%~dp0
 set ck_path2=%ck_path1%\..
