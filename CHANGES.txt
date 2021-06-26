@@ -1,3 +1,14 @@
+* v2.5.5
+  * added result.cfg to configure CK dashboards
+  * improved module:result to push results to CK dashboards
+  * improved module:dashboard to work with new CK dashboards
+  * improved module:wfe to work with new CK dashboards
+  * added module:ck-platform to work with cKnowledge.io platform
+    (moved cbench functionality from the CK incubator to the CK module
+     to work with cKnowledge.io dashboards directly)
+  * provided better support to work with CK modules
+    as standard Python packages (see module:ck-platform as example)
+
 * V2.5.4
   * added support to automatically add simple packages from Git:
     ck add package:my-git-repo --git={URL} --tags=my-repo --env_ext=MY_GIT_REPO

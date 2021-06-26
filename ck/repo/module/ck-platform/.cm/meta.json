@@ -1,0 +1,32 @@
+{
+  "actions": {
+    "access": {
+      "desc": "access platform"
+    },
+    "init_graph": {
+      "desc": "init graph"
+    },
+    "login": {
+      "desc": "login to the CK platform"
+    },
+    "publish": {
+      "desc": "publish CK component"
+    },
+    "push_result": {
+      "desc": "push result"
+    },
+    "setup": {
+      "desc": "setup the CK platform"
+    },
+    "versions": {
+      "desc": "list versions of a CK component"
+    }
+  },
+  "actions_redirect": {},
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "cKnowledge.io platform",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details"
+}

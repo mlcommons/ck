@@ -1,0 +1,35 @@
+{
+  "dict":{
+    "accuracy_top1": 0.45,
+    "accuracy_top5": 0.55,
+    "batch_count": 500,
+    "batch_size": 1,
+    "convolution_method": "DIRECT",
+    "cpu_freq": "max",
+    "cpu_name": "ARM Cortex-A53 MP4 + 0x41-8-0x0-0xd08-2 MP2",
+    "data_layout": "-",
+    "dataset": "val",
+    "gpgpu_name": "ARM Mali-T860",
+    "gpu_freq": "max",
+    "kernel_tuner": "-",
+    "library": "armcl-17.12",
+    "methodXlayout": "DIRECT X -",
+    "methodXtuner": "DIRECT X -",
+    "model": "v1-1.00-224",
+    "multiplier": 1.0,
+    "os_name": "Ubuntu 16.04.4 LTS",
+    "platform": "Firefly RK3399",
+    "rate_max_s": 4.744778371402272,
+    "rate_max_s_w": 0.7842608878350863,
+    "resolution": 224,
+    "time_avg_ms": 212.38999999999996,
+    "time_avg_ms#max": 213.41345610555604,
+    "time_avg_ms#min": 211.36654389444388,
+    "time_min_ms": 210.758,
+    "time_min_ms#max": 213.802,
+    "time_min_ms#min": 210.758,
+    "tunerXlayout": "- X -",
+    "version": 1
+  }
+}
+

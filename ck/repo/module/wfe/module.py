@@ -4,7 +4,8 @@
 # See CK LICENSE.txt for licensing details
 # See CK COPYRIGHT.txt for copyright details
 #
-# Developer: cTuning foundation
+# Developer(s): 
+#   * Grigori Fursin, https://fursin.net
 #
 
 cfg={}  # Will be updated by CK (meta description of this module)
@@ -376,6 +377,7 @@ def index(i):
            'form_name':form_name,
            'all_params':i}
        rx=ck.access(ii)
+       hspec=''
        if rx['return']==0:
           hspec=rx.get('html','')
           hstyle+=rx.get('style','')+'\n'
@@ -1081,6 +1083,18 @@ def index(i):
     # Substitute specials
     h=h.replace('$#title#$', 'CK Browser')
     h=h.replace('$#ck_url_template_pull#$', url_template_pull)
+    h=h.replace('$#ck_url_without_template#$', url0w)
+
+    # Check if postprocessing
+    mph=d.get('module_to_postprocess_html','')
+    if mph!='':
+        r=ck.access({'action':'postprocess_html',
+                     'module_uoa':mph,
+                     'html':h,
+                     'original_input':i})
+        if r['return']>0: return r
+
+        h=r['html']
 
     return {'return':0, 'html':h}
 

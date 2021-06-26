@@ -67,10 +67,31 @@ def display(args):
     extra_url = { key:args[key] for key in args if key in ['scenario', 'global'] }
     extra_url = "&".join("{0}={1}".format(key, extra_url[key]) for key in extra_url)
 
+    template=args.get('template','')
+    if template=='': template='dashboard'
+
+    sub_keys={'cfg':'',
+              'repo_uoa':'',
+              'data_uoa':'',
+              'tags':'',
+              'experiment_repo_uoa':'',
+              'experiment_uoa':'',
+              'experiment_tags':''}
+    
+    for k in sub_keys:
+        kk=sub_keys[k]
+        if kk=='': kk=k
+
+        v=args.get(k,'')
+        if v!='':
+           if extra_url!='':
+              extra_url+='&'
+           extra_url+=kk+'='+v
+
     args['action'] = 'start'
     args['module_uoa'] = 'web'
     args['browser'] = 'yes'
-    args['template'] = 'dashboard'
+    args['template'] = template
     args['cid'] = ''
     args['extra_url'] = extra_url
 

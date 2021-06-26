@@ -275,8 +275,26 @@ def add(i):
     if r['return'] > 0:
         return r
 
-    # Add module code
     p = r['path']
+
+    # Module UID
+    uid = r['data_uid']
+
+    ck_sub_module = 'ck_'+uid
+
+    spm = spm.replace('$#ck_sub_module#$', ck_sub_module)
+
+    p_sub_module = os.path.join(p, ck_sub_module)
+    if not os.path.isdir(p_sub_module):
+       os.makedirs(p_sub_module)
+
+    p_sub_module_init = os.path.join(p_sub_module,'__init__.py')
+    if not os.path.isfile(p_sub_module_init):
+        rx = ck.save_text_file({'text_file': p_sub_module_init, 'string': ''})
+        if rx['return'] > 0:
+            return rx
+         
+    # Add module code
     pf = os.path.join(p, ck.cfg['module_full_code_name'])
 
     if o == 'con':

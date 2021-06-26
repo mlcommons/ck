@@ -12,16 +12,19 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 [![Documentation Status](https://readthedocs.org/projects/ck/badge/?version=latest)](https://ck.readthedocs.io/en/latest/?badge=latest)
 [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
-## License
+## Versions and licenses
 
-* **V2+** : Apache 2.0
-* **V1.x** : BSD 3-clause
+* **V3** (planning) : **Apache 2.0**
+* **V2+** (development) : **Apache 2.0**
+* **V1.x** (maintenance and bug fixes) : **BSD 3-clause**
 
 ## News
 
 * [Project website](https://cKnowledge.org)
 * [CK-powered MLPerf&trade; benchmark automation](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md)
 * [Community projects to improve and redesign CK](https://github.com/ctuning/ck/blob/master/incubator/README.md)
+* [AI/ML repository with all aggregated CK components](https://github.com/ctuning/ai)
+* [OctoML's CK-based MLOps/MLPerf repository](https://github.com/octoml/mlops)
 
 ## Overview
 
@@ -35,7 +38,8 @@ Our goal is to help researchers and practitioners share, reuse and extend their 
 in the form of portable workflows, automation actions and reusable artifacts with a common API, CLI,
 and meta description. See how CK helps to automate benchmarking, optimization and design space
 exploration of [AI/ML/software/hardware stacks](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all/), 
-simplifies [MLPerf&trade;](https://mlperf.org) submissions and supports collaborative, reproducible and reusable ML Systems research:
+simplifies [MLPerf&trade; inference benchmark](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md) submissions 
+and supports collaborative, reproducible and reusable ML Systems research:
 
 * [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4)
 * [AI/ML/MLPerf&trade; automation workflows and components from the community](https://github.com/ctuning/ai);
@@ -47,7 +51,7 @@ simplifies [MLPerf&trade;](https://mlperf.org) submissions and supports collabor
 * [Automating MLPerf(tm) inference benchmark and packing ML models, data sets and frameworks as CK components with a unified API and meta description](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md)
 * Providing a common format to share artifacts at ML, systems and other conferences: [video](https://youtu.be/DIkZxraTmGM), [Artifact Evaluation](https://cTuning.org/ae)
 * Redesigning CK together with the community based on user feedback
-* [Other real-world use cases](https://cKnowledge.org/partners.html) from MLPerf&trade;, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM and other great partners;
+* [Other real-world use cases](https://cKnowledge.org/partners.html) from MLPerf&trade;, Qualcomm, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM and other great partners;
 
 ## Documentation
 
