@@ -62,6 +62,7 @@ script:
     - ck install package --tags=lib,python-package,pillow
     - ck install package:lib-tensorflow-1.13.1-cpu
     - ck install package:imagenet-2012-val-min
+    - ck install package --tags=imagenet,2012,aux,from.dividiti                     # (from.berkeley doesn't work)
     - ck install package --tags=dataset,imagenet,preprocessed,using-pillow,first.20
     - ck install package --quiet --tags=lib,python-package,onnx
     - ck install package --quiet --tags=model,image-classification,onnx,mobilenet,non-quantized,nchw,downloaded
