@@ -1,3 +1,8 @@
+* v2.5.5.1
+  * added --j flag to "ck install package" to update CK_HOST_CPU_NUMBER_OF_PROCESSORS env 
+    and force number of processes in "make -j" if used by a given package
+
+
 * v2.5.5
   * added result.cfg to configure CK dashboards
   * improved module:result to push results to CK dashboards

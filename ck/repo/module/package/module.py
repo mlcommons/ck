@@ -119,6 +119,9 @@ def install(i):
               (debug)             - if 'yes', open shell before installing but with all resolved deps
 
               (quiet)             - if 'yes', install default package (answer 0 to selection questions)
+
+              (j)                 - change CK_HOST_CPU_NUMBER_OF_PROCESSORS env to set number of processes 
+                                    in make -j (if used by this package)
             }
 
     Output: {
@@ -794,6 +797,10 @@ def install(i):
        pr_env['CK_HOST_CPU_NUMBER_OF_PROCESSORS']=cpu_ft.get('num_proc','1')
 
        # We may want to pass more info (including target CPU) ...
+
+    # Check if CK_HOST_CPU_NUMBER_OF_PROCESSORS is forced
+    if i.get('j','')!='':
+       pr_env['CK_HOST_CPU_NUMBER_OF_PROCESSORS']=i['j']
 
     # Set up extra vars
     pr_env['CK_TARGET_CPU_BITS']=tosd.get('bits','')
