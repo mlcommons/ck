@@ -27,6 +27,12 @@ ck start web
 * http://localhost:3344/?template=result&cfg=demo.mlperf.mobilenets&experiment_uoa=mlperf-image-classification-single-stream-onnx-explore-threads
 * http://localhost:3344/?template=result&cfg=demo.mlperf.mobilenets&data_uoa=-&experiment_uoa=mlperf-image-classification-single-stream-onnx-explore-threads
 
+### Push data to a dashboard
+
+```
+ck push ai:result:demo.mlperf.inference --user=all @push_result.json
+```
+
 ## Notes
 
 ### Variation
