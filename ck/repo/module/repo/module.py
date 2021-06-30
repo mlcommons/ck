@@ -2137,7 +2137,7 @@ def requirements(i):
                     c = sys.executable + ' -m pip install -r '+p1
 
                     if ck.cfg.get('pip_user','') == 'yes':
-                        c+ = ' --user'
+                        c += ' --user'
                     
                     ck.out('  ========================================')
                     ck.out('  Processing Python requirements ...')
