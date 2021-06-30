@@ -2135,6 +2135,9 @@ def requirements(i):
                 if o == 'con':
                     import sys
                     c = sys.executable + ' -m pip install -r '+p1
+
+                    if ck.cfg.get('pip_user','') == 'yes':
+                        c+ = ' --user'
                     
                     ck.out('  ========================================')
                     ck.out('  Processing Python requirements ...')
