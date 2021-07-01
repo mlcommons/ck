@@ -44,6 +44,7 @@ Thank you!
 * [Submit to MLPerf&trade; inference](submit/README.md)
 * [Related tools](tools/README.md)
 * Further improvements:
+  * [Unifying CK components for ML Systems](components/README.md)
   * [Ideas to make it easier to use MLPerf&trade; inference benchmarks](https://docs.google.com/document/d/1xUI4_ArXssMUigsSHTAE2lL7jRZE12XXvzoV3QMoT84)
   * Add MLPerf&trade; power measurements to our automated benchmark toolset
   * [Standardization of MLPerf&trade; workflows](tbd/standardization.md)
