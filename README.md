@@ -26,6 +26,13 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 * [AI/ML repository with all aggregated CK components](https://github.com/ctuning/ai)
 * [OctoML's CK-based MLOps/MLPerf repository](https://github.com/octoml/mlops)
 
+## Maintainers
+
+* [cTuning foundation](https://cTuning.org)
+* [OctoML.ai](https://OctoML.ai)
+
+*Contact: grigori@octoml.ai*
+
 ## Overview
 
 Collective Knowledge framework (CK) helps to organize software projects
@@ -204,11 +211,6 @@ to port it to bare-metal devices in C but eventually we decided to drop this ide
 ## Author
 
 * [Grigori Fursin](https://cKnowledge.io/@gfursin)
-
-## Sponsors
-
-* [OctoML.ai](https://octoml.ai)
-* [cTuning foundation](https://cTuning.org)
 
 ## Acknowledgments
 
