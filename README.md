@@ -18,6 +18,13 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 * **V2+** (development) : **Apache 2.0**
 * **V1.x** (maintenance and bug fixes) : **BSD 3-clause**
 
+## Maintainers
+
+* [cTuning foundation](https://cTuning.org)
+* [OctoML.ai](https://OctoML.ai)
+
+*Contact: grigori@octoml.ai*
+
 ## News
 
 * [Project website](https://cKnowledge.org)
@@ -25,13 +32,6 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 * [Community projects to improve and redesign CK](https://github.com/ctuning/ck/blob/master/incubator/README.md)
 * [AI/ML repository with all aggregated CK components](https://github.com/ctuning/ai)
 * [OctoML's CK-based MLOps/MLPerf repository](https://github.com/octoml/mlops)
-
-## Maintainers
-
-* [cTuning foundation](https://cTuning.org)
-* [OctoML.ai](https://OctoML.ai)
-
-*Contact: grigori@octoml.ai*
 
 ## Overview
 
