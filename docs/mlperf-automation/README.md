@@ -1,13 +1,18 @@
 # MLPerf&trade; inference benchmark automation
 
-This is an *on-going community effort* to provide out-of-the-box support to run MLPerf&trade; inference benchmarks 
-across different frameworks, models, data sets and hardware and automate the submission of new results 
-using portable [CK workflows](https://github.com/ctuning/ck) 
-with unified [ML Systems components](https://github.com/ctuning/ai/tree/main/package).
+This is an *on-going community effort* to introduce portable workflows to make it easier to customize, run and reproduce 
+MLPerf&trade; inference benchmarks across continuously changing ML models, frameworks, libraries, compilers, data sets and platform.
+We also want to develop an open database for benchmarking results and provenance information 
+compatible with [FAIR principles](https://www.go-fair.org/fair-principles).
 
-It is based on a relatively mature ACM methodology to reproduce research papers ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae)),
-open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCube&trade;](https://github.com/mlcommons/mlcube))
-and the [CK automation framework](https://github.com/ctuning/ck).
+As a starting point, we will use the open-source and technology-neutral [CK framework](https://github.com/ctuning/ck) 
+with a [collection](https://github.com/ctuning/ai) of [reusable automation recipes](https://github.com/ctuning/ai/tree/main/program) 
+and [plug&play packages](https://github.com/ctuning/ai/tree/main/package) 
+for ML systems. CK framework was already successfully used by several MLCommons members 
+to automate their MLPerf inference submissions and we want to build upon their experience. 
+
+We will also reuse a relatively mature ACM methodology to reproduce research results ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae)),
+open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCube&trade;](https://github.com/mlcommons/mlcube)).
 
 A few examples: 
 * [MLPerf&trade; object detection workflow](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
