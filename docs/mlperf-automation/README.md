@@ -26,10 +26,12 @@ or creating tickets at [github.com/mlcommons/inference](https://github.com/mlcom
 Thank you!
 
 
-# News
+# News and updates
 
-* **20210607**: Make sure that your CK version >= 2.5.3 with many enhancements for MLPerf (```ck version```). 
+* **20210701**: Make sure that your CK version >= 2.5.5 with many enhancements for MLPerf (```ck version```). 
   You can update it via (```python3 -m pip install ck -U```).
+* [TBD: Common workflow for MLPerf inference](workflows/README.md)
+
 
 # Table of contents
 
