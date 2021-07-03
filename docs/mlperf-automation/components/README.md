@@ -1,6 +1,6 @@
 **[ [TOC](../README.md) ]**
 
-# CK components for ML Systems
+# CK components for ML Systems (automation recipes)
 
 Over the past few years we've collected many CK components
 and automation recipes for ML Systems in [this public repo](https://github.com/ctuning/ai)

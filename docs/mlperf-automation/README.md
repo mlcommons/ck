@@ -31,7 +31,8 @@ Thank you!
 * **20210701**: Make sure that your CK version >= 2.5.5 with many enhancements for MLPerf (```ck version```). 
   You can update it via (```python3 -m pip install ck -U```).
 * [TBD: Common workflow for MLPerf inference](inference/workflow.md)
-
+* [TBD: Test and update CK automation recipes for MLOps](components/README.md)
+* [TBD: Docker containers to run MLPerf inference out of the box](inference/containers.md)
 
 # Table of contents
 
