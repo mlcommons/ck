@@ -6,6 +6,10 @@
     Turn it on as follows:
     $ ck set kernel var.pip_user=yes
     See ticket #157
+  * print path to the CK kernel when invoking "ck"
+  * extended "merge_dict" func in the CK kernel with "append_lists" key
+  * extended "result" module to use meta.json as a base for all sub configurations
+    (to simplify configuration for multiple dashboards - useful for MLPerf)
 
 * v2.5.5
   * added result.cfg to configure CK dashboards

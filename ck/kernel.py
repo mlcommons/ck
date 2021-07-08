@@ -2139,6 +2139,7 @@ def merge_dicts(i):
     Args:    
               dict1 (dict): merge this dict with dict2 (will be directly modified!)
               dict2 (dict): dict to be merged
+              append_lists (str): if 'yes', append lists instead of creating the new ones
 
     Returns:
               (dict): Unified CK dictionary:
@@ -2154,17 +2155,20 @@ def merge_dicts(i):
     a = i['dict1']
     b = i['dict2']
 
+    append_lists=i.get('append_lists','')
+
     for k in b:
         v = b[k]
         if type(v) is dict:
             if k not in a:
                 a.update({k: b[k]})
             elif type(a[k]) == dict:
-                merge_dicts({'dict1': a[k], 'dict2': b[k]})
+                merge_dicts({'dict1': a[k], 'dict2': b[k], 'append_lists':append_lists})
             else:
                 a[k] = b[k]
         elif type(v) is list:
-            a[k] = []
+            if append_lists!='yes' or k not in a:
+               a[k] = []
             for y in v:
                 a[k].append(y)
         else:
@@ -6703,6 +6707,7 @@ def short_help(i):
     """
 
     import sys
+    import pathlib
 
     o = i.get('out', '')
 
@@ -6723,7 +6728,8 @@ def short_help(i):
     h += '\nPython version used by CK: ' + \
         r['version'].replace('\n', '\n   ')+'\n'
 
-    h += '\nPath to the default repo: '+work['dir_default_repo']+'\n'
+    h += '\nPath to the CK kernel:    '+str(pathlib.Path(__file__))+'\n'
+    h += 'Path to the default repo: '+work['dir_default_repo']+'\n'
     h += 'Path to the local repo:   '+work['dir_local_repo']+'\n'
     h += 'Path to CK repositories:  '+work['dir_repos']+'\n'
 

@@ -312,7 +312,7 @@ def load_cfg(i):
     selector=[]
     html_selector=''
 
-    if len(data_config)==0:
+    if dcfg.get('multiple_configs','')=='yes' or len(data_config)==0:
        # Attempt to read multiple configs
        ii={'action':'create_selector',
            'module_uoa':cfg['module_deps']['wfe'],
@@ -335,8 +335,10 @@ def load_cfg(i):
 
                if cfg_id==value or (cfg_id=='' and first):
                    ii['selected_value']=value
-                   dcfg=d
-                   data_config=d['data_config']
+                   # Merge meta with this dict
+                   ck.merge_dicts({'dict1': dcfg, 'dict2': d, 'append_lists':'yes'})
+
+                   data_config=dcfg['data_config']
                    cfg_id=value
 
                selector.append({'name':name, 'value':value})
