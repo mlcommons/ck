@@ -6707,7 +6707,14 @@ def short_help(i):
     """
 
     import sys
-    import pathlib
+
+    
+    path_to_kernel=''
+    try:
+        import pathlib
+        path_to_kernel=str(pathlib.Path(__file__))
+    except Exception as e:
+        pass
 
     o = i.get('out', '')
 
@@ -6728,7 +6735,9 @@ def short_help(i):
     h += '\nPython version used by CK: ' + \
         r['version'].replace('\n', '\n   ')+'\n'
 
-    h += '\nPath to the CK kernel:    '+str(pathlib.Path(__file__))+'\n'
+    h += '\n'
+    if path_to_kernel!='':
+        h += 'Path to the CK kernel:    '+path_to_kernel+'\n'
     h += 'Path to the default repo: '+work['dir_default_repo']+'\n'
     h += 'Path to the local repo:   '+work['dir_local_repo']+'\n'
     h += 'Path to CK repositories:  '+work['dir_repos']+'\n'
