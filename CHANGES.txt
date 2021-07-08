@@ -1,4 +1,4 @@
-* v2.5.5.1
+* v2.5.6
   * added --j flag to "ck install package" to update CK_HOST_CPU_NUMBER_OF_PROCESSORS env 
     and force number of processes in "make -j" if used by a given package
   * added ck.cfg key "pip_user". If yes, add --user when to pip 
