@@ -336,7 +336,7 @@ def load_cfg(i):
                if cfg_id==value or (cfg_id=='' and first):
                    ii['selected_value']=value
                    # Merge meta with this dict
-                   ck.merge_dicts({'dict1': dcfg, 'dict2': d, 'append_lists':'yes'})
+                   merge_dicts_and_append_lists({'dict1': dcfg, 'dict2': d})
 
                    data_config=dcfg['data_config']
                    cfg_id=value
@@ -351,6 +351,54 @@ def load_cfg(i):
        html_selector='<center>\n'+r['html']+'\n</center>\n<div id="vspace8">\n'
 
     return {'return':0, 'dict':dcfg, 'cfg_id':cfg_id, 'data_config':data_config, 'html_selector':html_selector}
+
+##############################################################################
+# Merge intelligently dict1 with dict2 key by key in contrast with dict1.update(dict2)
+#
+# TARGET: end users
+
+def merge_dicts_and_append_lists(i):
+    """Merge intelligently dict1 with dict2 key by key in contrast with dict1.update(dict2)
+       Target audience: end users
+
+       It can merge sub-dictionaries and lists instead of substituting them
+
+    Args:    
+              dict1 (dict): merge this dict with dict2 (will be directly modified!)
+              dict2 (dict): dict to be merged
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                dict1 (dict): dict1 passed through the function
+
+    """
+
+    a = i['dict1']
+    b = i['dict2']
+
+    for k in b:
+        v = b[k]
+        if type(v) is dict:
+            if k not in a:
+                a.update({k: b[k]})
+            elif type(a[k]) == dict:
+                merge_dicts_and_append_lists({'dict1': a[k], 'dict2': b[k]})
+            else:
+                a[k] = b[k]
+        elif type(v) is list:
+            if k not in a:
+               a[k] = []
+            for y in v:
+                a[k].append(y)
+        else:
+            a[k] = b[k]
+
+    return {'return': 0, 'dict1': a}
 
 ##############################################################################
 # convert experiment to result
