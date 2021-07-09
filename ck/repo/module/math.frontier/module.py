@@ -111,7 +111,7 @@ def filter(i):
                      for dim in range(0, len(ks)):
                          d0=ks[dim]
 
-                         v0=p0[d0]
+                         v0=p0.get(d0, None)
                          if v0!=None and v0!='':
                             v0=float(v0)
 
