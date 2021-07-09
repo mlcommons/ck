@@ -256,6 +256,7 @@ def postprocess_html(i):
       'ck_html_title':'',
       'ck_html_title_main':'',
       'ck_html_title_note':'',
+      'ck_html_end_note':'',
       'ck_html_form':''
     }
     

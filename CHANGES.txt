@@ -1,3 +1,6 @@
+* v2.5.6.1
+  * added 'ck_html_end_note' key to customize CK result dashboard
+
 * v2.5.6
   * added --j flag to "ck install package" to update CK_HOST_CPU_NUMBER_OF_PROCESSORS env 
     and force number of processes in "make -j" if used by a given package
