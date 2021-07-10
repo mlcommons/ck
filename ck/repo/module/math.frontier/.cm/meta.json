@@ -2,7 +2,13 @@
   "actions": {
     "filter": {
       "desc": "filter experiments with multiple characteristics (performance, energy, accuracy, size, etc) to leave only points on a (Pareto) frontier"
+    },
+    "filter_2d": {
+      "desc": "Leave points on 2D frontier"
     }
+  },
+  "actions_redirect": {
+    "filter": "xfilter"
   },
   "copyright": "See CK COPYRIGHT.txt for copyright details",
   "desc": "detecting (Pareto) frontier for multi-objective optimizations",
