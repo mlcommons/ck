@@ -65,9 +65,9 @@ ck load program:image-corner-detection
 ck load program:image-corner-detection --min
 ```
 
-It may be more convenient to check the structure of this entry at [GitHub](https://github.com/ctuning/ai/tree/master/program/image-corner-detection) with all the sources and meta-descriptions.
+It may be more convenient to check the structure of this entry at [GitHub](https://github.com/ctuning/ck-mlops/tree/master/program/image-corner-detection) with all the sources and meta-descriptions.
 
-You can also see the CK JSON meta description for this CK program entry [here](https://github.com/ctuning/ai/blob/master/program/image-corner-detection/.cm/meta.json).
+You can also see the CK JSON meta description for this CK program entry [here](https://github.com/ctuning/ck-mlops/blob/master/program/image-corner-detection/.cm/meta.json).
 When you invoke automation actions in the CK module *program*, the automation code will read this meta description and perform actions for different programs accordingly.
 
 ## Invoke CK automation actions

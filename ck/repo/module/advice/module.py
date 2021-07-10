@@ -16,16 +16,10 @@ ck=None # Will be updated by CK (initialized CK kernel)
 # Local settings
 
 hextra='<center>\n'
-hextra+=' [ <a href="http://cKnowledge.org/ai.html">Project website</a> ], '
-hextra+=' [ <a href="http://cKnowledge.org/partners.html">Partners</a> ], '
-hextra+=' [ <a href="http://dividiti.blogspot.fr/2017/02/we-received-test-of-time-award-for-our.html">CGO\'17 test of time award for our interdisiplinary R&D</a> ], '
-hextra+=' [ <a href="http://cKnowledge.org/ai">Community-driven AI R&D powered by CK</a> ], '
-hextra+=' [ <a href="https://github.com/dividiti/ck-caffe">CK-Caffe</a> ], '
-hextra+=' [ <a href="https://github.com/ctuning/ck-tensorflow">CK-TensorFlow</a> ], '
-hextra+=' [ <a href="https://en.wikipedia.org/wiki/Collective_Knowledge_(software)">Wikipedia</a>, \n'
-hextra+='<a href="https://www.researchgate.net/publication/304010295_Collective_Knowledge_Towards_RD_Sustainability">paper 1</a>, \n'
-hextra+='<a href="https://arxiv.org/abs/1506.06256">Paper 2</a>, \n'
-hextra+='<a href="https://www.youtube.com/watch?v=Q94yWxXUMP0">YouTube CK intro</a> ] \n'
+hextra+=' [ <a href="https://cKnowledge.org">Project website</a> ], '
+hextra+=' [ <a href="https://cKnowledge.org/partners.html">Partners</a> ], '
+hextra+=' [ <a href="https://github.com/ctuning/ck-mlops">CK automation recipes for MLOps</a> ], '
+hextra+=' [ <a href="https://en.wikipedia.org/wiki/Collective_Knowledge_(software)">Wikipedia</a> ] \n'
 hextra+='</center>\n'
 hextra+='\n'
 

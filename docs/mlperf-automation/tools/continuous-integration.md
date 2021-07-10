@@ -41,5 +41,5 @@ Python-based CK integration with web platforms:
 
 CMD-based CK integration with CLI platforms:
 
-* [Travis for Linux and MacOS (CK ML repository)](https://github.com/ctuning/ai/blob/main/.travis.yml)
-* [AppVeyor for Windows (CK ML repository)](https://github.com/ctuning/ai/blob/main/appveyor.yml)
+* [Travis for Linux and MacOS (CK ML repository)](https://github.com/ctuning/ck-mlops/blob/main/.travis.yml)
+* [AppVeyor for Windows (CK ML repository)](https://github.com/ctuning/ck-mlops/blob/main/appveyor.yml)

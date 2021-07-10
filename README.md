@@ -30,7 +30,7 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 * [Project website](https://cKnowledge.org)
 * [CK-powered MLPerf&trade; benchmark automation](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md)
 * [Community projects to improve and redesign CK](https://github.com/ctuning/ck/blob/master/incubator/README.md)
-* [AI/ML repository with all aggregated CK components](https://github.com/ctuning/ai)
+* [CK automation recipes for portable MLOps](https://github.com/ctuning/ck-mlops)
 * [OctoML's CK-based MLOps/MLPerf repository](https://github.com/octoml/mlops)
 
 ## Overview
@@ -49,7 +49,7 @@ simplifies [MLPerf&trade; inference benchmark](https://github.com/ctuning/ck/blo
 and supports collaborative, reproducible and reusable ML Systems research:
 
 * [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4)
-* [AI/ML/MLPerf&trade; automation workflows and components from the community](https://github.com/ctuning/ai);
+* [AI/ML/MLPerf&trade; automation workflows and components from the community](https://github.com/ctuning/ck-mlops);
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems);
 * Our reproducibility initiatives: [methodology](https://cTuning.org/ae), [checklist](https://ctuning.org/ae/submission_extra.html), [events](https://cKnowledge.io/events).
 
@@ -135,7 +135,7 @@ Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for f
 ### Portable CK workflow (with Docker)
 
 We have prepared m CK containers with ML Systems components:
-* https://github.com/ctuning/ai/tree/main/docker
+* https://github.com/ctuning/ck-mlops/tree/main/docker
 * https://github.com/octoml/mlops/tree/main/docker
 
 You can run them as follows:

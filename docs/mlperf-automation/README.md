@@ -6,8 +6,8 @@ We also want to develop an open database for benchmarking results and provenance
 compatible with [FAIR principles](https://www.go-fair.org/fair-principles).
 
 As a starting point, we will use the open-source and technology-neutral [CK framework](https://github.com/ctuning/ck) 
-with a [collection](https://github.com/ctuning/ai) of [reusable automation recipes](https://github.com/ctuning/ai/tree/main/program) 
-and [plug&play packages](https://github.com/ctuning/ai/tree/main/package) 
+with a [collection](https://github.com/ctuning/ck-mlops) of [reusable automation recipes](https://github.com/ctuning/ck-mlops/tree/main/program) 
+and [plug&play packages](https://github.com/ctuning/ck-mlops/tree/main/package) 
 for ML systems. CK framework was already successfully used by several MLCommons members 
 to automate their MLPerf inference submissions and we want to build upon their experience. 
 
@@ -16,7 +16,7 @@ open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCube&tr
 
 A few examples: 
 * [MLPerf&trade; object detection workflow](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
-* [Docker image for MLPerf&trade; with OpenVINO]( https://github.com/ctuning/ai/tree/main/docker/mlperf-inference-v0.7.openvino )
+* [Docker image for MLPerf&trade; with OpenVINO]( https://github.com/ctuning/ck-mlops/tree/main/docker/mlperf-inference-v0.7.openvino )
 * [Jupyter notebook for ML DSE](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb)
 * [Webcam test of the MLPerf object detection model with TFLite](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-webcam-linux-azure#test)
 * [Public scoreboard with MLPerf DSE](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)

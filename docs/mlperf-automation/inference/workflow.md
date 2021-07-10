@@ -33,7 +33,7 @@ We plan to add module:mlperf.bench.inference with the following flags:
 
 ```
 
-This high-level workflow will install relevant CK packages ([ctuning@ai](https://github.com/ctuning/ai/tree/main/package) / [octoml@mlops](https://github.com/octoml/mlops/tree/main/package))
+This high-level workflow will install relevant CK packages ([ctuning@ai](https://github.com/ctuning/ck-mlops/tree/main/package) / [octoml@mlops](https://github.com/octoml/mlops/tree/main/package))
 and run low-level [CK program workflows for MLPerf](https://github.com/octoml/mlops/tree/main/program).
 
 
