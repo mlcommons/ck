@@ -21,7 +21,7 @@ All items are enqued from the start and then scheduled across threads.
 
 ```bash
    ck run program:mlperf-inference-bench-object-detection-tvm-cpu \
-        --cmd_key=Accuracy-Offline \
+        --cmd_key=accuracy-offline \
         --env.MLPERF_TVM_TARGET="llvm -mcpu=znver2" \
         --env.MLPERF_TVM_EXECUTOR=vm
 ```
@@ -29,7 +29,7 @@ All items are enqued from the start and then scheduled across threads.
 Customize it and record results in local CK repo:
 ```bash
 ck benchmark program:mlperf-inference-bench-object-detection-tvm-cpu \
-     --cmd_key=Accuracy-Offline \
+     --cmd_key=accuracy-offline \
      --env.MLPERF_TVM_TARGET="llvm -mcpu=znver2" \
      --env.MLPERF_TVM_EXECUTOR=vm \
      --env.EXTRA_OPS="--count 100 --threads 1 --max-batchsize 1" \
@@ -63,7 +63,7 @@ ck reply experiment:{CK alias from above list}
 
 ```bash
 ck benchmark program:mlperf-inference-bench-object-detection-onnx-cpu \
-     --cmd_key=Accuracy-Offline \
+     --cmd_key=accuracy-offline \
      --env.EXTRA_OPS="--count 100 --threads 1 --max-batchsize 1" \
      --repetitions=1 \
      --skip_stat_analysis --process_multi_keys=dummy \
@@ -75,11 +75,11 @@ ck benchmark program:mlperf-inference-bench-object-detection-onnx-cpu \
 
 ## Scenario: Accuracy; Single Stream
 
-Substitute "cmd_key" with Accuracy-SingleStream.
+Substitute "cmd_key" with accuracy-singlestream.
 
 ## Scenario: Accuracy; Server
 
-Substitute "cmd_key" with Accuracy-Server.
+Substitute "cmd_key" with accuracy-server.
 
 Extra options:
 ```bash
@@ -92,7 +92,7 @@ Extra options:
 Note that MultiStream scenario is removed from MLPerf v1.1
 
 samples-per-query are separated by max-batchsize.
-                          Substitute "cmd_key" with "Accuracy-MultiStream.
+                          Substitute "cmd_key" with "accuracy-multistream.
 
 Extra options:
 ```bash
@@ -186,7 +186,7 @@ mAP=22.317%
 
 ```bash
    ck run program:mlperf-inference-bench-object-detection-tvm-cpu \
-        --cmd_key=Performance-SingleStream \
+        --cmd_key=performance-singlestream \
         --env.MLPERF_TVM_TARGET="llvm -mcpu=znver2" \
         --env.MLPERF_TVM_EXECUTOR=vm
 ```
@@ -196,7 +196,7 @@ mAP=22.317%
 
 ```bash
 time ck benchmark program:mlperf-inference-bench-object-detection-onnx-cpu \
-     --cmd_key=Performance-SingleStream \
+     --cmd_key=performance-singlestream \
      --env.EXTRA_OPS="--count 5000 --max-batchsize 1 --threads 1" \
      --repetitions=1 \
      --skip_print_timers --skip_print_stats \
@@ -207,11 +207,11 @@ time ck benchmark program:mlperf-inference-bench-object-detection-onnx-cpu \
 
 ## Scenario: Performance; Single Stream
 
-Substitute "cmd_key" with Performance-SingleStream.
+Substitute "cmd_key" with performance-singlestream.
 
 ## Scenario: Performance; Server
 
-Substitute "cmd_key" with Performance-Server.
+Substitute "cmd_key" with performance-server.
 
 Extra options:
 ```bash
@@ -224,7 +224,7 @@ Extra options:
 Note that MultiStream scenario is removed from MLPerf v1.1
 
 samples-per-query are separated by max-batchsize.
-                          Substitute "cmd_key" with "Performance-MultiStream.
+                          Substitute "cmd_key" with "performance-multistream.
 
 Extra options:
 ```bash

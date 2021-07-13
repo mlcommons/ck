@@ -25,15 +25,18 @@
 python3 -m pip install ck
 ```
 
-We suggest you to create a virtual CK environment using MLPerf&trade; inference v1.0 template as follows:
+We suggest you to create a virtual CK environment using MLPerf&trade; inference v1.1 template 
+(with the TVM backend from OctoML) as follows:
 
 ```
 ck pull repo:octoml@venv
 
-ck create venv:mlperf-inference --template=mlperf-inference-1.0
+ck create venv:mlperf-inference --template=mlperf-inference-1.1-tvm
 
 ck activate venv:mlperf-inference
 ```
+
+Note that you need Python 3.6+ for the MLPerf inference benchmark.
 
 Alternatively, use the following commands if you want to use your native environment:
 
@@ -49,7 +52,7 @@ ck detect soft:compiler.gcc --full_path=`which gcc`
 
 ck install package --quiet --tags=tool,cmake,src
 
-ck install package --quiet --tags=mlperf,inference,src,r1.0
+ck install package --quiet --tags=mlperf,inference,src,r1.1-tvm
 
 ck install package --tags=lib,python-package,absl
 ck install package --tags=lib,python-package,numpy
@@ -175,12 +178,12 @@ More than one commmand line is found to run this program:
 
 You can test accuracy in Offline mode for 500 images as follows:
 ```
-ck run program:mlperf-inference-bench-image-classification-onnx-cpu --cmd_key=Accuracy-Offline --env.EXTRA_OPS="--count 500"
+ck run program:mlperf-inference-bench-image-classification-onnx-cpu --cmd_key=accuracy-offline --env.EXTRA_OPS="--count 500"
 ```
 
 You can test performance in SingleStream mode for 500 images as follows:
 ```
-ck run program:mlperf-inference-bench-image-classification-onnx-cpu --cmd_key=Performance-SingleStream --env.EXTRA_OPS="--count 500 --time 60 --qps 200 --max-latency 0.1"
+ck run program:mlperf-inference-bench-image-classification-onnx-cpu --cmd_key=performance-singlestream --env.EXTRA_OPS="--count 500 --time 60 --qps 200 --max-latency 0.1"
 ```
 
 Feel free to check the [CK JSON meta](https://github.com/octoml/mlops/blob/main/program/mlperf-inference-bench-image-classification-onnx-cpu/.cm/meta.json) 
@@ -202,7 +205,7 @@ You can record results to the CK repository for further analysis (for example, u
 
 ```
 ck benchmark program:mlperf-inference-bench-image-classification-onnx-cpu \
-     --cmd_key=Performance-SingleStream \
+     --cmd_key=performance-singlestream \
      --env.EXTRA_OPS="--count 500 --time 60 --qps 200 --max-latency 0.1" \
      --repetitions=1 --skip_print_timers --skip_print_stats \
      --record \
@@ -254,7 +257,7 @@ ck run program:mlperf-inference-bench-image-classification-pytorch-cpu --env.EXT
 
 You can test it as follows:
 ```
-ck run program:mlperf-inference-bench-image-classification-pytorch-cpu --cmd_key=Performance-SingleStream --env.EXTRA_OPS="--count 500 --time 60 --qps 200 --max-latency 0.1"
+ck run program:mlperf-inference-bench-image-classification-pytorch-cpu --cmd_key=performance-singlestream --env.EXTRA_OPS="--count 500 --time 60 --qps 200 --max-latency 0.1"
 ```
 
 

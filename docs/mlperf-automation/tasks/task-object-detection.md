@@ -171,12 +171,12 @@ More than one commmand line is found to run this program:
 
 You can test accuracy in Offline mode while limiting time as follows:
 ```
-ck run program:mlperf-inference-bench-object-detection-onnx-cpu --cmd_key=Accuracy-Offline --env.EXTRA_OPS="--time 60"
+ck run program:mlperf-inference-bench-object-detection-onnx-cpu --cmd_key=accuracy-offline --env.EXTRA_OPS="--time 60"
 ```
 
 You can test performance in SingleStream mode while limiting time as follows:
 ```
-ck run program:mlperf-inference-bench-object-detection-onnx-cpu --cmd_key=Performance-SingleStream --env.EXTRA_OPS="--time 60 --qps 200 --max-latency 0.1"
+ck run program:mlperf-inference-bench-object-detection-onnx-cpu --cmd_key=performance-singlestream --env.EXTRA_OPS="--time 60 --qps 200 --max-latency 0.1"
 ```
 
 Feel free to check the [CK JSON meta](https://github.com/octoml/mlops/blob/main/program/mlperf-inference-bench-object-detection-onnx-cpu/.cm/meta.json) 
@@ -198,7 +198,7 @@ You can record results to the CK repository for further analysis (for example, u
 
 ```
 ck benchmark program:mlperf-inference-bench-object-detection-onnx-cpu \
-     --cmd_key=Performance-SingleStream \
+     --cmd_key=performance-singlestream \
      --env.EXTRA_OPS="--time 60 --qps 200 --max-latency 0.1" \
      --repetitions=1 --skip_print_timers --skip_print_stats \
      --record \
@@ -316,7 +316,7 @@ ck add repo:ck-experiments --path=/home/ckuser/ck-experiments --quiet
 Then try to run some experiments and record results:
 ```
 ck benchmark program:mlperf-inference-bench-object-detection-onnx-cpu \
-     --cmd_key=Performance-SingleStream \
+     --cmd_key=performance-singlestream \
      --env.EXTRA_OPS="--time 60 --qps 200 --max-latency 0.1" \
      --repetitions=1 --skip_print_timers --skip_print_stats \
      --record \
