@@ -84,6 +84,8 @@ def login(i):
 def publish(i):
     """
     Input:  {
+              ckid (CID) - ({repo UOA}:){module UOA}:{data UOA}
+              (tags)
             }
 
     Output: {
