@@ -2,11 +2,11 @@
 
 Please see https://ck.readthedocs.io/en/latest/guide/how-to-contribute.html
 
-**Thank you very much for supporting this community project!**
+*Thank you very much for supporting this community project!*
 
 # CK author
 
-* Grigori Fursin <Grigori.Fursin@cTuning.org> https://cKnowledge.io/@gfursin
+* Grigori Fursin &lt;Grigori.Fursin@cTuning.org&gt; https://cKnowledge.io/@gfursin
 
 # Contributors in alphabetical order (feedback, ideas, components, extensions)
 
@@ -14,8 +14,8 @@ Please see https://ck.readthedocs.io/en/latest/guide/how-to-contribute.html
 * Jiahao Chen (MIT)
 * Gianfranco Costamagna
 * Chris Cummins (Facebook)
-* Valentin Dalibard <valentin.dalibard@cl.cam.ac.uk>
-* Alastair Donaldson <alastair.donaldson@imperial.ac.uk>
+* Valentin Dalibard &lt;valentin.dalibard@cl.cam.ac.uk&gt;
+* Alastair Donaldson &lt;alastair.donaldson@imperial.ac.uk&gt;
 * Thibaut Dumontet
 * Daniil Efremov (Xored)
 * Leonid Fursin
@@ -34,10 +34,10 @@ Please see https://ck.readthedocs.io/en/latest/guide/how-to-contribute.html
 * Kenan Kalajdzic
 * Yuriy Kashnikov 
 * Alexey Kravets (Arm)
-* Michael Kruse <MichaelKruse@meinersbur.de>
-* Andrei Lascu <andrei.lascu10@imperial.ac.uk>
-* Anton Lokhmotov <anton@dividiti.com>
-* Graham Markall <graham.markall@continuum.io>
+* Michael Kruse &lt;MichaelKruse@meinersbur.de&gt;
+* Andrei Lascu &lt;andrei.lascu10@imperial.ac.uk&gt;
+* Anton Lokhmotov &lt;anton@dividiti.com&gt;
+* Graham Markall &lt;graham.markall@continuum.io&gt;
 * Michael Mcgeagh (Arm)
 * Luigi Nardi 
 * Ivan Ospiov (Xored)
@@ -51,13 +51,13 @@ Please see https://ck.readthedocs.io/en/latest/guide/how-to-contribute.html
 * Gavin Simpson
 * Aaron Smith (Microsoft)
 * Michel Steuwer (University of Edinburgh)
-* Abdul Wahid Memon <engrwahidmemon@gmail.com>
-* Cedric Nugteren <web@cedricnugteren.nl>
+* Abdul Wahid Memon &lt;engrwahidmemon@gmail.com&gt;
+* Cedric Nugteren &lt;web@cedricnugteren.nl&gt;
 * Lucas Nussbaum (Universite de Lorraine)
 * Flavio Vella (Free University of Bozen-Bolzano)
 * Emanuele Vitali
 * Dave Wilkinson (University of Pittsburgh)
 * Sergey Yakushkin (Synopsys)
-* Eiko Yoneki <eiko.yoneki@cl.cam.ac.uk>
+* Eiko Yoneki &lt;eiko.yoneki@cl.cam.ac.uk&gt;
 
 See more acknowledgments at the end of this [journal article](https://arxiv.org/abs/2011.01149).
