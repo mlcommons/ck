@@ -1,6 +1,10 @@
 * v2.5.7.1
   * fixed copyright note in the License file
   * improved problem reporting in module:program
+  * important fix in "module:program" detected while preparing 
+    MLPerf inference out-of-the-box benchmarking:
+    clean tmp directory when running CK workflow
+    that doesn't have compilation!
 
 * v2.5.7
   * added 'ck_html_end_note' key to customize CK result dashboard

@@ -5816,6 +5816,14 @@ def pipeline(i):
            'extra_env_for_compilation':eefc,
            'run_timeout':xrto,
            'out':oo}
+
+       # Check if need to clean (when no_compile in meta and clean is yes)
+       cl=i.get('clean','')
+       if cl=='' and i.get('no_clean','')!='yes' and skip_exec!='yes' and srn==0: cl='yes'
+
+       if cl=='yes' and meta.get('no_compile','')=='yes':
+          ii['clean']='yes'
+
        r=process_in_dir(ii)
        if r['return']>0: return r
 
