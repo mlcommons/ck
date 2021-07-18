@@ -7695,10 +7695,9 @@ def print_warning(i):
     if pduoa!='' and ck.cfg.get('skip_message_when_program_fails')!='yes':
        pruoa=i['repo_uoa']
 
-       ck.out('')
        ck.out('   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
 
-       ck.out('   CK detected a PROBLEM in the third-party CK program pipeline:')
+       ck.out('   CK detected a potential PROBLEM in the third-party CK program workflow:')
 
 #       ck.out('The community develops, shares and improves CK program workflows')
 #       ck.out('to be portable and customizable across many evolving platforms:')
@@ -7730,7 +7729,7 @@ def print_warning(i):
        crurl=''
        if pduoa!='' or pruoa!='':
           ck.out('')
-          ck.out('   Failed(?) CK program: '+pduoa)
+          ck.out('   CK component:   program:'+pduoa)
 
           if pruoa!='':
              # Attempt to read info about this repo
@@ -7741,18 +7740,17 @@ def print_warning(i):
                 d=r['dict']
                 pruoa=r['data_uoa']
 
-                ck.out('   CK repo:              '+pruoa)
+                ck.out('   CK repo:        '+pruoa)
 
                 url=d.get('url','')
                 if url!='':
                    url1=url+'/tree/master/program/'+pduoa
                    url2=url+'/issues'
 
-                   ck.out('')
-                   ck.out('   CK repo URL:          '+url)
-                   ck.out('   CK program URL:       '+url1)
-
-                   ck.out('   Issues URL:           '+url2)
+                   ck.out('   CK repo URL:    '+url)
+                   ck.out('   CK program URL: '+url1)
+#
+#                   ck.out('   Issues URL:           '+url2)
 
                    crurl=ck.cfg.get('wiki_data_web','')
                    if crurl!='':
@@ -7772,13 +7770,15 @@ def print_warning(i):
 #          x2=url2
 
        if crurl!='':
-          ck.out('')
-          ck.out('   Please, check that there is no discussion about this issue at '+crurl)
+          ck.out('   Please, check that there is no related discussion about this issue at:')
+          ck.out('     * '+crurl)
           ck.out('')
 
        ck.out('   Please, submit the original command line and the *full* log to:')
+       ck.out('     * '+url2)
+       ck.out('')
+       ck.out('   Make the CK community aware of this problem by referencing this ticket at:')
        ck.out('     * '+x2)
-       ck.out('     * '+x3)
 
        ck.out('   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~')
        ck.out('')
