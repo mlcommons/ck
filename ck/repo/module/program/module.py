@@ -6489,9 +6489,10 @@ def benchmark(i):
               See "ck run pipeline --help" for all input keys
 
               Extra:
-               (repetititons)     - number of statistical repetitions of a pipeline
+               (repetitions)      - number of statistical repetitions of a pipeline
                (console)          - print to console rather than to files
                (skip_print_stats) - if 'yes', skip printing final statistics
+               (no_state_check)   - do not check system/CPU state (frequency) over iterations ...
                (print_files)      - print files separated by comma at the end of benchmarking
             }
 
