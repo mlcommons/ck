@@ -41,7 +41,7 @@ ck pull repo:octoml@mlops
 ck detect platform.os --platform_init_uoa=generic-linux-dummy
 ck detect soft:compiler.python --full_path=${CK_VENV_PYTHON_BIN}
 ck detect soft:compiler.gcc --full_path=`which gcc`
-``
+```
 
 ## Install common CK packages
 
