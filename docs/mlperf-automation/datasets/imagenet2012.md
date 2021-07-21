@@ -30,7 +30,7 @@ ck pull repo:octoml@mlops
 If you do not have the full ImageNet val dataset, you can install its reduced version via CK
 with the first 500 images just for a test:
 
-```
+```bash
 ck install package --tags=imagenet,2012,val,min,non-resized
 ck install package --tags=imagenet,2012,aux,from.berkeley
 ```
@@ -39,7 +39,7 @@ ck install package --tags=imagenet,2012,aux,from.berkeley
 
 ### Set up CK environment
 
-```
+```bash
 ck detect platform.os --platform_init_uoa=generic-linux-dummy
 ck detect soft:compiler.python
 ck detect soft:compiler.gcc --full_path=`which gcc`
@@ -48,23 +48,23 @@ ck detect soft:compiler.gcc --full_path=`which gcc`
 ### Install common CK packages
 
 You will need cmake to build MLPerf&trade; loadgen. First, attempt to detect if you already have it installed:
-```
+```bash
 ck detect soft --tags=tool,cmake
 ```
 
 Note that you need version >= 3.16
 
 CK will register your version if it manages to detect it:
-```
+```bash
 ck show env
 
 Env UID:         Target OS: Bits: Name: Version: Tags:
 
 2aa2c857e2be84a4   linux-64    64 cmake 3.16.3   64bits,cmake,host-os-linux-64,target-os-linux-64,tool,v3,v3.16,v3.16.3
-`````
+```
 
 If you do not have cmake installed or CK did not manage to detect it, you can use a CK package to build it for your system:
-```
+```bash
 ck install package --tags=tool,cmake,src
 ```
 
@@ -72,7 +72,7 @@ ck install package --tags=tool,cmake,src
 
 You can now install other dependencies via CK:
 
-```
+```bash
 ck install package --tags=lib,python-package,absl
 ck install package --tags=lib,python-package,numpy
 ck install package --tags=lib,python-package,cython
@@ -82,7 +82,7 @@ ck install package --tags=lib,python-package,opencv-python-headless
 
 ### Preprocess using OpenCV (better accuracy but may fail on some machines)
 
-```
+```bash
 time ck install package --dep_add_tags.dataset-source=min \
           --tags=dataset,imagenet,val,full,preprocessed,using-opencv,side.224 \
           --version=2012
@@ -90,7 +90,7 @@ time ck install package --dep_add_tags.dataset-source=min \
 
 ### Preprocess using Pillow (slightly worse accuracy but works most of the time)
 
-```
+```bash
 time ck install package --dep_add_tags.dataset-source=min \
           --tags=dataset,imagenet,val,full,preprocessed,using-pillow,side.224 \
           --version=2012
@@ -103,7 +103,7 @@ ImageNet 2012 validation set is no longer publicly available.
 If you already have it installed on your machine, you can detect
 and register it to work with CK workflows using this command:
 
-```
+```bash
 ck detect soft:dataset.imagenet.val --force_version=2012 \
             --extra_tags=full --search_dir={directory where the dataset is installed}
 ```
@@ -114,7 +114,7 @@ and then register in the CK using the above command.
 
 ## Preprocess using OpenCV (better accuracy but may fail on some machines)
 
-```
+```bash
 time ck install package --dep_add_tags.dataset-source=full \
           --tags=dataset,imagenet,val,full,preprocessed,using-opencv,side.224 \
           --version=2012
@@ -124,7 +124,7 @@ Processing time: ~30 min.
 
 ## Preprocessing using pillow (slightly worse accuracy but works most of the time)
 
-```
+```bash
 time ck install package --dep_add_tags.dataset-source=full \
           --tags=dataset,imagenet,val,full,preprocessed,using-pillow,side.224 \
           --version=2012

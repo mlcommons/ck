@@ -128,6 +128,13 @@ of compilers, frameworks, libraries, models and data sets.
  with different versions of dependencies for DSE.* 
 
 
+## Check TVM backend for MLPerf v1.1
+
+* [TVM backend with ONNX models](https://github.com/octoml/mlcommons-inference/blob/r1.1/vision/classification_and_detection/python/backend_tvm_onnx.py)
+* [TVM backend with PyTorch models](https://github.com/octoml/mlcommons-inference/blob/r1.1/vision/classification_and_detection/python/backend_tvm_pytorch.py)
+* [MLPerf Python wrapper for reference implementations](https://github.com/octoml/mlcommons-inference/blob/r1.1/vision/classification_and_detection/python/main.py)
+
+
 ## MLPerf tasks
 
 * [Image Classification](mlperf-image-classification.md)
