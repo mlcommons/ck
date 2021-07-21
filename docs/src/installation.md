@@ -31,22 +31,26 @@ python3.6 -m ck
 If the installation is successful, you will see some internal information 
 about the CK installation and a Python version used:
 
-```
-CK version: 1.15.0
+```bash
+gfursin@ck:~$ ck
 
-Python executable used by CK: /usr/bin/python
+CK version: 2.5.7
 
-Python version used by CK: 2.7.12 (default, Oct  8 2019, 14:14:10)
-   [GCC 5.4.0 20160609]
+Python executable used by CK: /usr/bin/python3
 
-Path to the default repo: /home/fursin/fggwork/ck/ck/repo
-Path to the local repo:   /home/fursin/CK/local
-Path to CK repositories:  /home/fursin/CK
+Python version used by CK: 3.6.9 (default, Jan 26 2021, 15:33:00)
+   [GCC 8.4.0]
+
+Path to the CK kernel:    /home/gfursin/.local/lib/python3.6/site-packages/ck/kernel.py
+Path to the default repo: /home/gfursin/.local/lib/python3.6/site-packages/ck/repo
+Path to the local repo:   /mnt/CK/local
+Path to CK repositories:  /mnt/CK
 
 Documentation:        https://github.com/ctuning/ck/wiki
 CK Google group:      https://bit.ly/ck-google-group
 CK Slack channel:     https://cKnowledge.org/join-slack
 Stable CK components: https://cKnowledge.io
+
 ```
 
 ## Prerequisites

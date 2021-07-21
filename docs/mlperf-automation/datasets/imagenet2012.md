@@ -1,24 +1,27 @@
-**[ [TOC](../README.md) ]**
+**[ [Back to TOC](../README.md) ]**
+
+# Shortcuts
+
+- [Install reduced dataset with the first 500 images (for tests)](#install-reduced-imagenet-2012-val-dataset-with-the-first-500-images)
+- [Install full dataset with 50,000 images](#install-detect-full-imagenet-2012-val-dataset-with-50000-images)
+
+# Notes
 
 ImageNet 2012 validation set is no longer publicly available
 and this CK meta-package cannot automatically download it!
-
 If you already have it installed on your machine, you can detect
 and register it to work with CK workflows as described further.
-
 However, we prepared a CK package with a reduced Imagenet dataset (500 images)
 to let you test CK-MLPerf workflows.
 
 
-Select ImageNet 2012 variation:
-* [Reduced dataset with the first 500 images (for tests)](#install-reduced-imagenet-2012-val-dataset-with-the-first-500-images)
-* [Full dataset with 50,000 images](#install-detect-full-imagenet-2012-val-dataset-with-50000-images)
+# Install CK
 
+Please follow [this guide](https://github.com/ctuning/ck#instalation)
 
-# Install CK with ML repository
+# Install CK repos with ML components
 
 ```bash
-python3 -m pip install ck
 ck pull repo:octoml@mlops
 ```
 
