@@ -11,7 +11,7 @@ ck install package --tags=imagenet,2012,aux,from.berkeley
 ck install package --tags=model,image-classification,mlperf,onnx,resnet50,v1.5-opset-8
 ck install package --tags=model,image-classification,mlperf,onnx,resnet50,v1.5-opset-11
 
-ck run program:mlperf-inference-bench-image-classification-tvm-cpu --cmd_key=install-python-requirements
+ck run program:mlperf-inference-bench-image-classification-tvm-onnx-cpu --cmd_key=install-python-requirements
 
 ```
 
@@ -23,13 +23,13 @@ All items are enqued from the start and then scheduled across threads.
 
 Run with default parameters:
 ```bash
-ck run program:mlperf-inference-bench-image-classification-tvm-cpu \
+ck run program:mlperf-inference-bench-image-classification-tvm-onnx-cpu \
         --cmd_key=accuracy-offline
 ```
 
 Customize it:
 ```
-ck run program:mlperf-inference-bench-image-classification-tvm-cpu \
+ck run program:mlperf-inference-bench-image-classification-tvm-onnx-cpu \
         --cmd_key=accuracy-offline \
         --env.MLPERF_TVM_EXECUTOR=graph \
         --env.MLPERF_TVM_TARGET="llvm -mcpu=znver2" \
@@ -39,7 +39,7 @@ ck run program:mlperf-inference-bench-image-classification-tvm-cpu \
 
 Record results in a local CK repository for further analysis and visualization:
 ```
-ck benchmark program:mlperf-inference-bench-image-classification-tvm-cpu \
+ck benchmark program:mlperf-inference-bench-image-classification-tvm-onnx-cpu \
      --cmd_key=accuracy-singlestream \
      --repetitions=1 \
      --skip_print_timers --skip_print_stats \
@@ -122,14 +122,14 @@ Extra options:
 ### Use TVM
 
 ```bash
-time ck run program:mlperf-inference-bench-image-classification-tvm-cpu \
+time ck run program:mlperf-inference-bench-image-classification-tvm-onnx-cpu \
      --cmd_key=performance-singlestream
 ```
 
 Customize and record it:
 ```bash
 
-time ck benchmark program:mlperf-inference-bench-image-classification-tvm-cpu \
+time ck benchmark program:mlperf-inference-bench-image-classification-tvm-onnx-cpu \
      --cmd_key=performance-singlestream \
      --env.EXTRA_OPS="--count 500 --time 60 --qps 200 --max-latency 0.1 --threads 1 --max-batchsize 1" \
      --env.MLPERF_TVM_TARGET="llvm -mcpu=znver2" \
@@ -237,7 +237,7 @@ ck run docker:ck-mlperf-inference-dev-image-classification-onnx-tvm --tag=ubuntu
 Run this container with the customized CK API command:
 ```bash
 ck run docker:ck-mlperf-inference-dev-image-classification-onnx-tvm --tag=ubuntu-20.04  \
-     --command="ck run program:mlperf-inference-bench-image-classification-tvm-cpu \
+     --command="ck run program:mlperf-inference-bench-image-classification-tvm-onnx-cpu \
      --cmd_key=accuracy-offline \
      --env.EXTRA_OPS=\"--thread 1 --max-batchsize 1\""
 ```

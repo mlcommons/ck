@@ -17,17 +17,30 @@ or
 pip3 install ck
 ```
 
-Check that ck CLI is available:
+Check that ck is accessible from the command line:
 ```bash
 fursin@ck:~$ ck
 
-CK version: 2.5.3
+CK version: 2.5.7
 
-...
+Python executable used by CK: /usr/bin/python3
+
+Python version used by CK: 3.6.9 (default, Jan 26 2021, 15:33:00)
+   [GCC 8.4.0]
+
+Path to the CK kernel:    /home/gfursin/.local/lib/python3.6/site-packages/ck/kernel.py
+Path to the default repo: /home/gfursin/.local/lib/python3.6/site-packages/ck/repo
+Path to the local repo:   /mnt/CK/local
+Path to CK repositories:  /mnt/CK
+
+Documentation:        https://github.com/ctuning/ck/wiki
+CK Google group:      https://bit.ly/ck-google-group
+CK Slack channel:     https://cKnowledge.org/join-slack
+Stable CK components: https://cKnowledge.io
 ```
 
-Sometimes you may need to add "~.local/bin/ck" to your PATH or restart your shell
-after CK installation.
+Note that you may need to restart your shell after this installation
+or add *~.local/bin/ck* to your *PATH* environment variable manually.
 
 ## Pull CK repo for virtual environments
 
@@ -37,12 +50,12 @@ ck pull repo:octoml@venv
 
 ## Check your Python version 
 
-Check your python version
+Check your python version:
 ```bash
 python3 --version
 ```
 
-If it's < 3.7, install python via CK to be used in the virtual environment:
+If your Python version is < 3.6, we suggest you to install python via CK to be used in the virtual environment:
 ```bash
 ck install package --tags=compiler,python,src
 ```
@@ -56,7 +69,7 @@ ck install package --tags=compiler,python,src --env.ENABLE_OPTS
 ## Set up CK virtual environment
 
 ```bash
-ck create venv:mlperf-tvm --template=mlperf-inference-dev-tvm
+ck create venv:mlperf-tvm --template=mlperf-inference-1.1-tvm
 ck activate venv:mlperf-tvm
 ```
 
@@ -78,12 +91,11 @@ ck install package --tags=lib,python-package,onnxruntime-cpu,1.7.0
 ck install package --tags=lib,python-package,onnx,1.9.0
 
 ck install package --tags=lib,python-package,scipy
-
 ck install package --tags=tool,cmake,prebuilt,v3.18.2
 
 ck install package --tags=compiler,llvm,prebuilt,v12.0.0
 
-ck install package --tags=compiler,tvm,dev
+ck install package --tags=compiler,tvm,dev --j=8
 
 ```
 
@@ -96,15 +108,15 @@ ck install package --tags=compiler,tvm,dev \
 ```
 
 
-
-
+*Note that all above steps can be automated via CK virtual environments too.
+ However, we describe these manual steps to let users experiment 
+ with different versions of dependencies for DSE.* 
 
 
 ## MLPerf tasks
 
 * [Image Classification](mlperf-image-classification.md)
 * [Object Detection](mlperf-object-detection.md)
-
 
 
 
