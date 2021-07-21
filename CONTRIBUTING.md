@@ -43,6 +43,7 @@ Please see https://ck.readthedocs.io/en/latest/guide/how-to-contribute.html
 * Ivan Ospiov (Xored)
 * Egor Pasko (Google)
 * Ed Plowman (Arm)
+* Lahiru Rasnayake (NTNU)
 * Alex Redshaw (Arm)
 * Vincent Rehm
 * Toomas Remmelg (University of Edinburgh)
@@ -59,5 +60,6 @@ Please see https://ck.readthedocs.io/en/latest/guide/how-to-contribute.html
 * Dave Wilkinson (University of Pittsburgh)
 * Sergey Yakushkin (Synopsys)
 * Eiko Yoneki &lt;eiko.yoneki@cl.cam.ac.uk&gt;
+* Thomas Zhu (OctoML intern)
 
 See more acknowledgments at the end of this [journal article](https://arxiv.org/abs/2011.01149).

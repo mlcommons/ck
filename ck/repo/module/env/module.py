@@ -1230,6 +1230,10 @@ def resolve(i):
                                        for this particular resolution
               (dep_add_tags.{KEY})   - extra tags added to specific subdictionary of deps{} for this particular resolution session
 
+              (remove_deps) [str] - a list of keys to remove from deps separated by comma.
+                                    Useful to run a given program workflow with an externally 
+                                    installed dependency (compiler, library, model, tool).
+
               (env)                  - env
 
               (install_env)          - env during installation
@@ -1319,6 +1323,9 @@ def resolve(i):
         else:   # I'd rather raise() here, but we are in CK
             ck.out("\n!!! Warning: dependency '{}' has not been found in the original entry - please check your input !!!\n".format(a_dep))
 
+    remove_deps=i.get('remove_deps','').strip()
+    remove_deps_list=[] if remove_deps=='' else remove_deps.split(',')
+
     deps_cache=i.get('deps_cache',[])
     reuse_deps=i.get('reuse_deps','')
 
@@ -1382,6 +1389,11 @@ def resolve(i):
 
     res=[]
     iv=0
+
+    # Check if need to remove some deps
+    for k in remove_deps_list:
+        if k in deps:
+           del(deps[k])
 
     sdeps=sorted(deps, key=lambda v: deps[v].get('sort',0))
 

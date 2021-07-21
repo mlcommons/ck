@@ -5,6 +5,13 @@
     MLPerf inference out-of-the-box benchmarking:
     clean tmp directory when running CK workflow
     that doesn't have compilation!
+  * added --remove_deps flag to module:program and module:env
+    as suggested by CK users to be able to remove some dependencies 
+    from CK program workflows and thus use natively installed compilers, 
+    tools, libraries and other components - useful to debugging and testing.
+    This flag takes a list of keys from dependencies from a given
+    program workflows separated by comma.
+  * added the latest contributors to the CK project.
 
 * v2.5.7
   * added 'ck_html_end_note' key to customize CK result dashboard

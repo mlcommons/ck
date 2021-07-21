@@ -284,6 +284,10 @@ def process_in_dir(i):
 
               (dep_add_tags.{KEY})   - extra tags added to specific subdictionary of deps{} for this particular resolution session
 
+              (remove_deps) [str] - a list of keys to remove from deps separated by comma.
+                                    Useful to run a given program workflow with an externally 
+                                    installed dependency (compiler, library, model, tool).
+
               (cmd_key)              - CMD key
               (dataset_uoa)          - UOA of a dataset
               (dataset_file)         - dataset filename (if more than one inside one entry - suggest to have a UID in name)
@@ -434,6 +438,8 @@ def process_in_dir(i):
            _ , dep_name    = q.split('.')
            dep_add_tags[dep_name] = i[q]
 
+    # Check if need to remove some keys from dependencies
+    remove_deps=i.get('remove_deps','')
 
     are=i.get('add_rnd_extension_to_bin','')
     ase=i.get('add_save_extension_to_bin','')
@@ -904,7 +910,8 @@ def process_in_dir(i):
            'random':ran,
            'quiet':quiet,
            'install_to_env':iev,
-           'dep_add_tags': dep_add_tags,
+           'dep_add_tags':dep_add_tags,
+           'remove_deps':remove_deps,
            'safe':safe}
        if o=='con': ii['out']='con'
 
@@ -1865,6 +1872,7 @@ def process_in_dir(i):
                                 'install_to_env':iev,
                                 'env_for_resolve':env,
                                 'dep_add_tags':dep_add_tags,
+                                'remove_deps':remove_deps,
                                 'preset_deps':preset_deps,
                                 'random':ran,
                                 'safe':safe,
@@ -3760,6 +3768,10 @@ def pipeline(i):
               (deps.{KEY})           - set deps[KEY]["uoa']=value (user-friendly interface via CMD to set any given dependency)
               (preset_deps)          - dict with {"KEY":"UOA"} to preset dependencies
 
+              (remove_deps) [str] - a list of keys to remove from deps separated by comma.
+                                    Useful to run a given program workflow with an externally 
+                                    installed dependency (compiler, library, model, tool).
+
               (params)               - dictionary with parameters passed via pre/post processing to third-party tools
                                        for example, to configure ARM Workload Automation
               (params.{KEY})         - set params[KEY]=value (user-friendly interface via CMD)
@@ -3935,6 +3947,8 @@ def pipeline(i):
         if q.startswith('dep_add_tags.'):
             _ , dep_name    = q.split('.')
             dep_add_tags[dep_name] = i[q]
+
+    remove_deps=i.get('remove_deps','')
 
     ai=ck.get_from_dicts(i, 'autotuning_iteration', '', None)
     sbbf=ck.get_from_dicts(i, 'select_best_base_flag_for_first_iteration','', None)
@@ -4630,6 +4644,7 @@ def pipeline(i):
                              'install_to_env':iev,
                              'env_for_resolve':run_vars,    # the whole stack (program-wide, command-wide and execution-specific)
                              'dep_add_tags':dep_add_tags,
+                             'remove_deps':remove_deps,
                              'preset_deps':preset_deps,
                              'safe':safe,
                              'quiet':quiet})
@@ -4821,7 +4836,8 @@ def pipeline(i):
                  'add_customize':'yes',
                  'quiet':quiet,
                  'install_to_env':iev,
-                 'dep_add_tags': dep_add_tags,
+                 'dep_add_tags':dep_add_tags,
+                 'remove_deps':remove_deps,
                  'safe':safe,
                  'out':oo}
 
@@ -4865,7 +4881,8 @@ def pipeline(i):
               'deps':cdeps,
               'deps_cache':deps_cache,
               'reuse_deps':reuse_deps,
-              'dep_add_tags': dep_add_tags,
+              'dep_add_tags':dep_add_tags,
+              'remove_deps':remove_deps,
               'generate_rnd_tmp_dir':grtd,
               'tmp_dir':tdir,
               'skip_clean_after':sca,
@@ -6747,6 +6764,10 @@ def update_run_time_deps(i):
               (deps_cache) - deps cache (to reuse deps if needed)
               (reuse_deps) - if 'yes', always attempt to reuse deps from above cache
 
+              (remove_deps) [str] - a list of keys to remove from deps separated by comma.
+                                    Useful to run a given program workflow with an externally 
+                                    installed dependency (compiler, library, model, tool).
+
               (meta)       - program meta
               (cmd_key)    - command line key
               (cmd_meta)   - meta for a given command line key
@@ -6797,6 +6818,7 @@ def update_run_time_deps(i):
     reuse_deps=i.get('reuse_deps','')
 
     dep_add_tags=i.get('dep_add_tags', {})
+    remove_deps=i.get('remove_deps','')
 
     o=i.get('out','')
     oo=''
@@ -6861,7 +6883,8 @@ def update_run_time_deps(i):
            'quiet':quiet,
            'random':ran,
            'install_to_env':iev,
-           'dep_add_tags': dep_add_tags,
+           'dep_add_tags':dep_add_tags,
+           'remove_deps':remove_deps,
            'safe':safe,
            'out':oo}
 
