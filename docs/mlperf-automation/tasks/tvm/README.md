@@ -107,6 +107,21 @@ ck install package --tags=compiler,tvm,dev \
                      --env.USE_GRAPH_EXECUTOR_DEBUG=ON
 ```
 
+You can find the installation directories of TVM, LLVM, MLPerf and other packages as follows:
+```bash
+ck locate env --tags=compiler,tvm
+ck locate env --tags=compiler,llvm
+ck locate env --tags=mlperf,source
+...
+```
+
+CK allows you to have multiple versions of all packages installed at the same time.
+Each directory contains *env.sh* or *env.bat* with a preset environment variables
+for a given version. 
+
+CK program workflows will automatically load these files when resolving dependencies
+thus allowing users to run the same MLPerf workflow with different versions
+of compilers, frameworks, libraries, models and data sets.
 
 *Note that all above steps can be automated via CK virtual environments too.
  However, we describe these manual steps to let users experiment 
