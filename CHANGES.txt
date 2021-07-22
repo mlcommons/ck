@@ -1,4 +1,4 @@
-* v2.5.7.1
+* v2.5.8
   * fixed copyright note in the License file
   * improved problem reporting in module:program
   * important fix in "module:program" detected while preparing 
