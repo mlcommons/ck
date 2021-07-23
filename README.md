@@ -180,6 +180,8 @@ to make it easier to integrate them with web services and CI platforms as descri
 
 
 
+
+
 ## CK portal 
 
 We have developed the [cKnowledge.io portal](https://cKnowledge.io) to help the community
@@ -192,6 +194,12 @@ organize and find all the CK workflows and components similar to PyPI:
 
 
 
+## Testing CK internals and workflows
+
+The community provides Docker containers to test CK and components using different ML/SW/HW stacks (DSE).
+
+* A set of  Docker containers to test the basic CK functionality
+  using some MLPerf inference benchmark workflows: https://github.com/ctuning/ck-mlops/tree/main/docker/test-ck
 
 
 ## Contributions
