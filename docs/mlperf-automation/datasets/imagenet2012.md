@@ -46,6 +46,7 @@ and register it to work with CK workflows using this command:
 ```bash
 ck detect soft:dataset.imagenet.val --force_version=2012 \
             --extra_tags=full --search_dir={directory where the dataset is installed}
+ck install package --tags=imagenet,2012,aux,from.berkeley
 ```
 
 You can download it via [Academic Torrents](https://academictorrents.com/details/5d6d0df7ed81efd49ca99ea4737e0ae5e3a5f2e5)
