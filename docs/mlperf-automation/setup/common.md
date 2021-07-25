@@ -89,6 +89,9 @@ ck pull repo:octoml@mlops
 
 ```bash
 ck install package --tags=lib,python-package,scipy
+```
+
+## Misc
 
 You can find the installation directories for MLPerf and other packages as follows:
 ```bash
