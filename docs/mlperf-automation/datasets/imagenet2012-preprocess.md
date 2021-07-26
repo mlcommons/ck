@@ -3,7 +3,7 @@
 # Shortcuts
 
 - [Install reduced dataset with the first 500 images (for tests)](#install-reduced-imagenet-2012-val-dataset-with-the-first-500-images)
-- [Install full dataset with 50,000 images](#install-detect-full-imagenet-2012-val-dataset-with-50000-images)
+- [Plug in full dataset with 50,000 images](#plug-in-full-imagenet-2012-val-dataset-with-50000-images)
 
 # Notes
 
@@ -97,7 +97,7 @@ time ck install package --dep_add_tags.dataset-source=min \
 ```
 
 
-# Install (detect) full ImageNet 2012 val dataset with 50000 images
+# Plug in full ImageNet 2012 val dataset with 50000 images
 
 ImageNet 2012 validation set is no longer publicly available.
 If you already have it installed on your machine, you can detect
