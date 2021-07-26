@@ -20,7 +20,7 @@ to let you test CK-MLPerf workflows.
 
 Please follow [this guide](https://github.com/ctuning/ck#instalation)
 
-# Install CK repos with ML components
+# Install CK repos with MLOps components
 
 ```bash
 ck pull repo:octoml@mlops
@@ -35,6 +35,20 @@ with the first 500 images just for a test:
 ck install package --tags=imagenet,2012,val,min,non-resized
 ck install package --tags=imagenet,2012,aux,from.berkeley
 ```
+
+You can locate the place where CK installs packages as follows:
+```bash
+ck locate env --tags=imagenet,2012,val,min,non-resized
+ck locate env --tags=imagenet,2012,aux,from.berkeley
+```
+
+If you are using MLPerf benchmark scripts without CK workflows, 
+you must copy the labels next to the images:
+```bash
+cp `ck locate env --tags=imagenet,2012,aux`/val.txt `ck locate env --tags=imagenet,2012,val`/val_map.txt
+```
+
+*Note that CK workflows will copy labels next to images automatically.*
 
 
 # Plug in full ImageNet 2012 val dataset with 50000 images
