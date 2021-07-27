@@ -276,6 +276,10 @@ time ck benchmark program:image-classification-tflite-loadgen \
      --print_files=mlperf_log_summary.txt,mlperf_log_detail.txt
 ```
 
+## Check C++ LoadGen front-ends
+* [TFLite](https://github.com/ctuning/ck-mlops/blob/main/program/image-classification-tflite-loadgen/classification.cpp) *synchronous*
+* [QAIC](https://github.com/cknowledge/ck-qaic/blob/main/program/image-classification-qaic-loadgen/harness.cpp#L219) *parallel*
+
 ## Check other models
 
 See [CK-ML repo docs](https://github.com/ctuning/ck-ml/blob/main/program/image-classification-tflite-loadgen/README.md)
