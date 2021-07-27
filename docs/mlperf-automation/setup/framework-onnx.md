@@ -6,9 +6,15 @@
 ck pull repo:octoml@mlops
 ```
 
-## Install CK packages
+## Install CK packages with ONNX (CPU)
 
 ```bash
 ck install package --tags=lib,python-package,onnxruntime-cpu,1.8.0
 ck install package --tags=lib,python-package,onnx,1.8.0
+```
+
+## Install any available version (CPU)
+```bash
+ck install package --tags=lib,python-package,onnxruntime-cpu
+ck install package --tags=lib,python-package,onnx
 ```
