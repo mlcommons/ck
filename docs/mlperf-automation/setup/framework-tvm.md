@@ -6,6 +6,28 @@
 ck pull repo:octoml@mlops
 ```
 
+## Detect already installed tools
+
+If you have already installed cmake, LLVM and TVM that you would like to use with MLPerf,
+you can automatically plug them into CK as follows:
+```bash
+ck detect soft:tool.cmake
+ck detect soft:compiler.llvm
+ck detect soft:compiler.tvm
+```
+
+CK will search for these tools in the common places (/usr, /usr/bin, $HOME, etc).
+
+You can narrow down the search as follows:
+```bash
+ck detect soft:tool.cmake --search_dirs={places to search for separated by comma}
+ck detect soft:compiler.llvm --search_dirs={places to search for separated by comma}
+ck detect soft:compiler.tvm --search_dirs={places to search for separated by comma}
+```
+
+Alternatively, you can install specific versions of these tools and plug them into CK
+using "ck install package" automation as described in the next section.
+
 ## Install CK packages
 
 ```bash
