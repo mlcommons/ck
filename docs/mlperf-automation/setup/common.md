@@ -71,7 +71,7 @@ ck install package --tags=compiler,python,src --env.ENABLE_OPTS
 ## Set up CK virtual environment
 
 ```bash
-ck create venv:mlperf-inference --template=mlperf-inference-1.1
+ck create venv:mlperf-inference --template=mlperf-inference-1.1-tvm
 ck activate venv:mlperf-inference
 ```
 
