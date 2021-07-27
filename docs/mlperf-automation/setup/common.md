@@ -8,7 +8,7 @@ Install [CK](https://github.com/ctuning/ck) and dependencies as described [here]
 (make sure that your version is >= 2.5.3):
 
 ```bash
-pip3 install ck
+pip3 install ck -U
 ```
 or 
 ```bash
@@ -16,14 +16,14 @@ python3 -m pip install ck
 ```
 or
 ```bash
-pip3 install ck
+python3 -m pip install ck --user
 ```
 
 Check that ck is accessible from the command line:
 ```bash
 fursin@ck:~$ ck
 
-CK version: 2.5.7
+CK version: 2.5.8
 
 Python executable used by CK: /usr/bin/python3
 
