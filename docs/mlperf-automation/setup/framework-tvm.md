@@ -50,7 +50,7 @@ ck install package --tags=compiler,tvm,dev \
 You can also install TVM with DNNL support as follows:
 ```bash
 ck install package --tags=lib,dnnl
-ck install package --tags=compiler,tvm,src --env.USE_DNNL_CODEGEN=ON --env.USE_OPENMP=gnu --j=16
+ck install package --tags=compiler,tvm,src,dev-dnnl-int8 --env.USE_DNNL_CODEGEN=ON --env.USE_OPENMP=gnu --j=16
 ```
 
 You can find the installation directories of TVM, LLVM, MLPerf and other packages as follows:
