@@ -85,12 +85,6 @@ for the [MLPerf inference benchmark v1.1](https://github.com/mlcommons/inference
 ck pull repo:octoml@mlops
 ```
 
-## Install extra CK packages
-
-```bash
-ck install package --tags=lib,python-package,scipy
-```
-
 ## Misc
 
 You can find the installation directories for MLPerf and other packages as follows:
