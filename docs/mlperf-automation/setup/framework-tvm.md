@@ -52,7 +52,7 @@ ck install package --tags=compiler,tvm,dev \
 
 You can also install TVM with DNNL support as follows:
 ```bash
-ck install package --tags=lib,dnnl
+ck install package --tags=lib,dnnl,v2.2.4 --dep_add_tags.compiler=llvm
 ck install package --tags=compiler,tvm,src,dev-dnnl-int8 --env.USE_DNNL_CODEGEN=ON --env.USE_OPENMP=gnu --j=16
 ```
 
