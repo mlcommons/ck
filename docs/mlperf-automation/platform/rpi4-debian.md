@@ -27,8 +27,9 @@ sudo apt install \
            openssh-client vim mc tree \
            gcc g++ autoconf autogen libtool make libc6-dev \
            libssl-dev libbz2-dev libffi-dev \
-           python3 python3-pip python3-dev
+           python3 python3-pip python3-dev \
+           libncurses5 libncurses5-dev
 
-pip3 install virtualenv
+python3 -m pip install virtualenv
 ```
 

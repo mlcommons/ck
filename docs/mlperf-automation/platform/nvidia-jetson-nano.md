@@ -29,9 +29,10 @@ sudo apt install \
            openssh-client vim mc tree \
            gcc g++ autoconf autogen libtool make libc6-dev \
            libssl-dev libbz2-dev libffi-dev \
-           python3 python3-pip python3-dev
+           python3 python3-pip python3-dev \
+           libncurses5 libncurses5-dev
 
-pip3 install virtualenv
+python3 -m pip install virtualenv
 ```
 
 ## Test CK automation (platform detection)
@@ -41,3 +42,10 @@ ck pull repo:octoml@mlops
 
 ck detect platform.gpgpu --cuda
 ```
+
+## Notes
+* Prebuilt LLVM v12.0.0 doesn't work (requires newer libraries). One should use 11.0.1:
+  * ```ck install package --tags=compiler,llvm,prebuilt,v11.0.1```
+
+* Install TVM with CUDA:
+  * ```ck install package --tags=tvm,src,dev-cuda```
