@@ -30,8 +30,11 @@ using "ck install package" automation as described in the next section.
 
 ## Install CK packages
 
+*Note that you may need to install llvm 11.0.1 on Nvidia Jetson Nano board with older Ubuntu 18.04*
+
+
 ```bash
-ck install package --tags=tool,cmake,prebuilt,v3.18.2
+ck install package --tags=tool,cmake,prebuilt,v3.21.1
 
 ck install package --tags=compiler,llvm,prebuilt,v12.0.0
 
