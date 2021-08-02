@@ -9,7 +9,8 @@ ck pull repo:octoml@mlops
 ## Install CK packages
 
 ```bash
-ck install package --tags=lib,python-package,pytorch
+ck install package --tags=lib,python-package,pytorch,1.9.0
+ck install package --tags=lib,python-package,torchvision,0.10.0
 ```
 
 ## Tested configurations
