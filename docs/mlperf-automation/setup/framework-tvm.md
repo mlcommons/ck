@@ -38,7 +38,7 @@ ck install package --tags=tool,cmake,prebuilt,v3.21.1
 
 ck install package --tags=compiler,llvm,prebuilt,v12.0.0
 
-ck install package --tags=compiler,tvm,dev --j=8
+ck install package --tags=compiler,tvm,dev --env.USE_OPENMP=gnu --j=8
 
 ```
 
