@@ -21,6 +21,8 @@ ck install package --tags=lib,python-package,onnx
 
 ## Install CK packages with ONNX (GPU)
 
+Follow [this guide](compiler-cuda.md) to plug CUDA into CK.
+
 *Note that CK will attempt to automatically detect your CUDA installation and plug it into CK*
 
 ```bash
