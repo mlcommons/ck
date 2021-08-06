@@ -26,6 +26,23 @@ Please follow [this guide](https://github.com/ctuning/ck#instalation)
 ck pull repo:octoml@mlops
 ```
 
+# Install ImageNet 2012 aux package
+
+```bash
+ck install package --tags=imagenet,2012,aux,from.berkeley
+```
+
+If berkeleyvision website is unavailable, you can use the DropBox substitute as follows:
+```bash
+ck install package --tags=imagenet,2012,aux,from.dividiti
+```
+
+You can locate the place where CK installed this package as follows:
+```bash
+ck locate env --tags=imagenet,2012,aux
+```
+
+
 # Install reduced ImageNet 2012 val dataset with the first 500 images
 
 If you do not have the full ImageNet val dataset, you can install its reduced version via CK
@@ -33,13 +50,11 @@ with the first 500 images just for a test:
 
 ```bash
 ck install package --tags=imagenet,2012,val,min,non-resized
-ck install package --tags=imagenet,2012,aux,from.berkeley
 ```
 
-You can locate the place where CK installs packages as follows:
+You can locate the place where CK installed this package as follows:
 ```bash
-ck locate env --tags=imagenet,2012,val,min,non-resized
-ck locate env --tags=imagenet,2012,aux,from.berkeley
+ck locate env --tags=imagenet,2012,val
 ```
 
 If you are using MLPerf benchmark scripts without CK workflows, 
@@ -53,14 +68,13 @@ cp `ck locate env --tags=imagenet,2012,aux`/val.txt `ck locate env --tags=imagen
 
 # Plug in full ImageNet 2012 val dataset with 50000 images
 
-ImageNet 2012 validation set is no longer publicly available.
+*ImageNet 2012 validation set is no longer publicly available.*
 If you already have it installed on your machine, you can detect
 and register it to work with CK workflows using this command:
 
 ```bash
 ck detect soft:dataset.imagenet.val --force_version=2012 \
             --extra_tags=full --search_dir={directory where the dataset is installed}
-ck install package --tags=imagenet,2012,aux,from.berkeley
 ```
 
 You can download it via [Academic Torrents](https://academictorrents.com/details/5d6d0df7ed81efd49ca99ea4737e0ae5e3a5f2e5)

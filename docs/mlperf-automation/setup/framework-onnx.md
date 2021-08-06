@@ -9,15 +9,37 @@ ck pull repo:octoml@mlops
 ## Install CK packages with ONNX (CPU)
 
 ```bash
-ck install package --tags=lib,python-package,onnxruntime-cpu,1.8.0
-ck install package --tags=lib,python-package,onnx,1.8.0
+ck install package --tags=lib,python-package,onnxruntime-cpu,1.8.1
+ck install package --tags=lib,python-package,onnx,1.8.1
 ```
 
-## Install any available version (CPU)
+### Install any available version
 ```bash
 ck install package --tags=lib,python-package,onnxruntime-cpu
 ck install package --tags=lib,python-package,onnx
 ```
+
+## Install CK packages with ONNX (GPU)
+
+*Note that CK will attempt to automatically detect your CUDA installation and plug it into CK*
+
+```bash
+ck install package --tags=lib,python-package,onnxruntime-gpu,1.8.1
+ck install package --tags=lib,python-package,onnx,1.8.1
+```
+
+You can check you CUDA capabilities via CK as follows:
+```bash
+ck detect platform.gpgpu --cuda
+```
+
+### Install any available version
+```bash
+ck install package --tags=lib,python-package,onnxruntime-gpu
+
+ck install package --tags=lib,python-package,onnx
+```
+
 
 ## Notes
 CK makes it possible to install multiple versions of different packages at the same time.
