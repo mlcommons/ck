@@ -38,9 +38,11 @@ ck install package --tags=lib,python-package,torchvision-cuda,0.6.0+cu101
 
 ## Tested configurations
 
+### 20210723
+
 Note that MLPerf reference image classification v1.1 fails with PyTorch > 1.5 (seg fault in MLPerf inference)
 
-Grigori testsed the following configuration (20210723):
+Grigori testsed the following configuration:
 * CK workflow: https://github.com/octoml/mlops/tree/main/program/mlperf-inference-bench-image-classification-pytorch-onnx-cpu
 * PyTorch 1.5.0
 * TorchVision 0.6.0 (works with PyTorch 1.5.0)

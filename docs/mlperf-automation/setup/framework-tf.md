@@ -19,7 +19,7 @@ ck install package --tags=lib,python-package,tensorflow-cpu
 
 ## Install CK packages with TensorFlow (GPU)
 
-*Note that CK will attempt to automatically detect your CUDA installation and plug it into CK*
+Follow [this guide](compiler-cuda.md) to plug CUDA into CK.
 
 ```bash
 ck install package --tags=lib,python-package,tensorflow-gpu,2.5.0
@@ -36,7 +36,7 @@ ck install package --tags=lib,python-package,tensorflow-gpu
 ```
 
 
-## Tested versions
+## Tested configurations
 
 ### 20210806
 
