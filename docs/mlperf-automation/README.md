@@ -18,8 +18,8 @@ and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCub
 
 MLPerf tasks         | PyTorch | TensorFlow | TVM | ONNX | TFLite | OpenVINO | TensorRT |
 --- | --- | --- | --- | --- | --- | --- | --- |
-Image classification | [CK &#10003;](tasks/task-image-classification-pytorch.md) | [CK &#10003;](tasks/task-image-classification-tf.md) | [CK &#10003;](tasks/task-image-classification-tvm.md) | [CK &#10003;](tasks/task-image-classification-onnx.md) | [CK &#10003;](tasks/task-image-classification-tflite.md) |  |  | 
-Object detection     |  |  | [CK &#177;](tasks/task-object-detection-tvm.md) | [CK &#10003;](tasks/task-object-detection-onnx.md) |  |  |  | 
+Image classification | [CK &#10003;](tasks/task-image-classification-pytorch.md) | [CK &#10003;](tasks/task-image-classification-tf.md) | [CK &#10003;](tasks/task-image-classification-tvm.md) | [CK &#10003;](tasks/task-image-classification-onnx.md) | [CK &#177;](tasks/task-image-classification-tflite.md) |  |  | 
+Object detection     |  |  | [CK &#177;](tasks/task-object-detection-tvm.md) | [CK &#10003;](tasks/task-object-detection-onnx.md) | [CK &#177;](tasks/task-object-detection-tflite.md) |  |  | 
 Medical imaging      |  |  |  |  |  |  |  | 
 NLP                  |  |  |  |  |  |  |  | 
 Recommendation       |  |  |  |  |  |  |  | 

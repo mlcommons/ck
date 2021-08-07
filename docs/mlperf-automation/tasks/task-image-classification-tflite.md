@@ -13,4 +13,4 @@
 # Future work
 
 We plan to update above workflow to be compatible with our 
-[new end-to-end MLPerf submission workflow]()
+[new end-to-end MLPerf submission workflow](https://github.com/octoml/mlops/tree/main/module/bench.mlperf.inference).
