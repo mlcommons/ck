@@ -3,7 +3,7 @@
 # Example of CK dashboards for ML Systems DSE
 
 You can record experiments in the CK "experiment" entries and visualize them using CK dashboards 
-either locally or using the [cKnowledge.io platform](https://cKnowledge.io/results).
+either locally or using the [cKnowledge.io platform](https://cknowledge.io/?q="mlperf-inference-all")
 
 
 

@@ -1,9 +1,28 @@
 **[ [TOC](../README.md) ]**
 
-# Prepare and run MLPerf&trade; inference benchmark
 
-Here we describe how to automate the reference MLPerf&trade; inference benchmark with the help 
-of the [CK workflow framework](https://github.com/ctuning/ck) and native MLPerf&trade; scripts.
+# CK workflows for the MLPerf inference benchmark
+
+
+# CK workflows for the MLPerf inference benchmark
+
+MLPerf tasks         | PyTorch | TensorFlow | TVM | ONNX | TFLite | OpenVINO | TensorRT |
+--- | --- | --- | --- | --- | --- | --- | --- |
+Image classification | [CK &#10003;](tasks/task-image-classification-pytorch.md) | [CK &#10003;](tasks/task-image-classification-tf.md) | [CK &#10003;](tasks/task-image-classification-tvm.md) | [CK &#10003;](tasks/task-image-classification-onnx.md) | [CK &#10003;](tasks/task-image-classification-tflite.md) |  |  | 
+Object detection     |  |  |  |  |  |  |  | 
+Medical imaging      |  |  |  |  |  |  |  | 
+NLP                  |  |  |  |  |  |  |  | 
+Recommendation       |  |  |  |  |  |  |  | 
+Speech recognition   |  |  |  |  |  |  |  | 
+
+
+
+
+# New MLPerf backends
+
+* [MLPerf with TVM and ONNX](tvm/README.md)
+
+# Unsorted notes
 
 * [Image classification](task-image-classification.md)
 * [Object detection](task-object-detection.md)
@@ -11,16 +30,6 @@ of the [CK workflow framework](https://github.com/ctuning/ck) and native MLPerf&
 * [NLP](task-nlp.md)
 * [Recommendation](task-recommendation.md)
 * [Speech recognition](task-speech-recognition.md)
-
-
-
-
-# On-going
-
-* [MLPerf with TVM and ONNX](tvm/README.md)
-
-
-# Unsorted notes
 
 * [Notes about datasets](../datasets/README.md)
 * [Notes about models (issues, quantization, etc)](../models/notes.md)

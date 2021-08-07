@@ -1,5 +1,14 @@
 **[ [TOC](../README.md) ]**
 
+
+## End-to-end submission system
+
+We are working on an end-to-end submission system based on CK workflows.
+Please follow [this guide](https://github.com/octoml/mlops/tree/main/module/bench.mlperf.inference)
+
+
+## Unsorted notes
+
 * https://mlcommons.org/en/get-involved
 
 * https://github.com/mlcommons/policies/blob/master/submission_rules.adoc

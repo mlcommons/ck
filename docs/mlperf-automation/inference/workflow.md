@@ -2,9 +2,16 @@
 
 # Common workflow for MLPerf inference
 
-## Brainstorming workflow interface
+## Prototype
 
-We plan to add module:mlperf.bench.inference with the following flags:
+We have developed the prototype of the automated submission system 
+for the MLPerf inference benchmark:
+* [CK module with Readme](https://github.com/octoml/mlops/tree/main/module/bench.mlperf.inference)
+* [API](https://github.com/octoml/mlops/blob/main/module/bench.mlperf.inference/module.py#L1230)
+
+
+## Required functionality
+
 
 ```
 --submitter (module:mlperf.submitter)
