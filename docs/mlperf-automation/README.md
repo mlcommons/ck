@@ -29,8 +29,9 @@ Speech recognition   |  |  |  |  |  |  |  |
 
 ## CK packages with MLPerf datasets
 
-* [COCO 2017](coco2017.md)
-* [ImageNet 2012](imagenet2012.md)
+* [COCO 2017](datasets/coco2017.md)
+* [ImageNet 2012](datasets/imagenet2012.md)
+* [SQuAD](datasets/squad.md)
 
 ## CK packages with the reference MLPerf models
 
