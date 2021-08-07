@@ -14,7 +14,7 @@ to automate their MLPerf inference submissions and we want to build upon their e
 We reuse a relatively mature ACM methodology to reproduce research results ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae))
 and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCube&trade;](https://github.com/mlcommons/mlcube)).
 
-# CK components
+# Standardized CK components for MLPerf
 
 ## CK workflows for the MLPerf inference benchmark
 
