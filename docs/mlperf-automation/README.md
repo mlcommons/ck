@@ -14,7 +14,9 @@ to automate their MLPerf inference submissions and we want to build upon their e
 We reuse a relatively mature ACM methodology to reproduce research results ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae))
 and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCube&trade;](https://github.com/mlcommons/mlcube)).
 
-# CK workflows for the MLPerf inference benchmark
+# CK components
+
+## CK workflows for the MLPerf inference benchmark
 
 MLPerf tasks         | PyTorch | TensorFlow | TVM | ONNX | TFLite | OpenVINO | TensorRT |
 --- | --- | --- | --- | --- | --- | --- | --- |
@@ -25,7 +27,17 @@ NLP                  |  |  |  |  |  |  |  |
 Recommendation       |  |  |  |  |  |  |  | 
 Speech recognition   |  |  |  |  |  |  |  | 
 
+## CK packages with MLPerf datasets
 
+* [COCO 2017](coco2017.md)
+* [ImageNet 2012](imagenet2012.md)
+
+## CK packages with the reference MLPerf models
+
+* ResNet50: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-onnx) [PyTorch](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-pytorch) [TensorFlow](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-tf)
+* SSD MobileNet 300: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-mobilenet-300-onnx)
+* SSD ResNet34 1200: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-resnet34-1200-onnx)
+* BERT Large: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-bert-large-squad-onnx) 
 
 # News and updates
 
