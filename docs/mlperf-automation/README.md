@@ -27,6 +27,10 @@ our new [MLPerf inference submission workflow](https://github.com/octoml/mlops/t
 
 ## CK workflows for the MLPerf inference benchmark
 
+&#10003; - supports the new [MLPerf inference submission workflow](https://github.com/octoml/mlops/tree/main/module/bench.mlperf.inference)<br>
+&#177; - works fine but uses old format
+
+
 MLPerf tasks         | PyTorch | TensorFlow | TVM | ONNX | TFLite | OpenVINO | TensorRT |
 --- | --- | --- | --- | --- | --- | --- | --- |
 Image classification | [CK &#10003;](tasks/task-image-classification-pytorch.md) | [CK &#10003;](tasks/task-image-classification-tf.md) | [CK &#10003;](tasks/task-image-classification-tvm.md) | [CK &#10003;](tasks/task-image-classification-onnx.md) | [CK &#177;](tasks/task-image-classification-tflite.md) | [CK &#177;](tasks/task-image-classification-openvino.md) |  | 
@@ -38,9 +42,14 @@ Speech               | [CK &#177;](tasks/task-speech-pytorch.md) |  |  |  |  |  
 
 ## CK packages with MLPerf datasets
 
-* [COCO 2017](datasets/coco2017.md)
-* [ImageNet 2012](datasets/imagenet2012.md)
-* [SQuAD](datasets/squad.md)
+* Object detection: [COCO 2017](datasets/coco2017.md)
+* Image classification: [ImageNet 2012](datasets/imagenet2012.md)
+* Language: [SQuAD](datasets/squad.md)
+* Speech: [LibriSpeech](datasets/librispeech.md)
+
+See other CK packages with open source datasets shared by the community 
+(to be standardized and connected with the new submission system):
+[View](https://cknowledge.io/?q=%22package%3Adataset-*%22)
 
 ## CK packages with the reference MLPerf models
 
