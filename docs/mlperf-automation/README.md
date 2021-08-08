@@ -16,7 +16,7 @@ to automate their MLPerf inference submissions and we want to build upon their e
 We reuse a relatively mature ACM methodology to reproduce research results ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae))
 and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCube&trade;](https://github.com/mlcommons/mlcube)).
 
-# Standardized CK components for MLPerf
+# Standardization of the CK components for MLPerf
 
 We are working with MLCommons and OctoML to gradually convert all [CK packages](https://github.com/ctuning/ck-mlops/tree/main/package)
 [benchmark workflows](https://github.com/ctuning/ck-mlops/tree/main/programs), 
@@ -57,6 +57,10 @@ See other CK packages with open source datasets shared by the community
 * SSD MobileNet 300: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-mobilenet-300-onnx)
 * SSD ResNet34 1200: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-resnet34-1200-onnx)
 * BERT Large: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-bert-large-squad-onnx) 
+
+## Customizable dashboards
+
+* [All aggregated MLPerf inference benchmark results](https://cknowledge.io/?q=%22mlperf-inference-all%22)
 
 # News and updates
 
