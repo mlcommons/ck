@@ -29,8 +29,8 @@ our new [MLPerf inference submission workflow](https://github.com/octoml/mlops/t
 
 MLPerf tasks         | PyTorch | TensorFlow | TVM | ONNX | TFLite | OpenVINO | TensorRT |
 --- | --- | --- | --- | --- | --- | --- | --- |
-Image classification | [CK &#10003;](tasks/task-image-classification-pytorch.md) | [CK &#10003;](tasks/task-image-classification-tf.md) | [CK &#10003;](tasks/task-image-classification-tvm.md) | [CK &#10003;](tasks/task-image-classification-onnx.md) | [CK &#177;](tasks/task-image-classification-tflite.md) | [CK &#177;](tasks/task-image-classification-openvino.md) | [CK &#177;](tasks/task-image-classification-tensorrt.md) | 
-Object detection     |  |  | [CK &#177;](tasks/task-object-detection-tvm.md) | [CK &#10003;](tasks/task-object-detection-onnx.md) | [CK &#177;](tasks/task-object-detection-tflite.md) |  |  | 
+Image classification | [CK &#10003;](tasks/task-image-classification-pytorch.md) | [CK &#10003;](tasks/task-image-classification-tf.md) | [CK &#10003;](tasks/task-image-classification-tvm.md) | [CK &#10003;](tasks/task-image-classification-onnx.md) | [CK &#177;](tasks/task-image-classification-tflite.md) | [CK &#177;](tasks/task-image-classification-openvino.md) |  | 
+Object detection     |  |  | [CK &#177;](tasks/task-object-detection-tvm.md) | [CK &#10003;](tasks/task-object-detection-onnx.md) | [CK &#177;](tasks/task-object-detection-tflite.md) |  | [CK &#177;](tasks/task-image-classification-tensorrt.md) | 
 Medical imaging      |  |  |  |  |  |  |  | 
 Language             |  |  |  | [CK &#177;](tasks/task-language-onnx.md) |  |  |  | 
 Recommendation       |  |  |  |  |  |  |  | 

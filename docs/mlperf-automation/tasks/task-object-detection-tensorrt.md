@@ -1,6 +1,6 @@
 ﻿**[ [TOC](../README.md) ]**
 
-# CK workflows for image classification with TensorRT
+# CK workflows for object detection with TensorRT
 
 * [Old CK workflow for MLPerf with TensorRT](https://github.com/ctuning/ck-mlops/tree/main/program/mlperf-inference-vision)
 
