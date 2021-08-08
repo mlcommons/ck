@@ -6,8 +6,10 @@ We also want to develop an open database for benchmarking results and provenance
 compatible with [FAIR principles](https://www.go-fair.org/fair-principles).
 
 As a starting point, we will use the open-source and technology-neutral [CK framework](https://github.com/ctuning/ck) 
-with a [collection](https://github.com/ctuning/ck-mlops) of [reusable automation recipes](https://github.com/ctuning/ck-mlops/tree/main/program) 
-and [plug&play packages](https://github.com/ctuning/ck-mlops/tree/main/package) 
+with a [collection](https://github.com/ctuning/ck-mlops) of [reusable automation recipes](https://github.com/ctuning/ck-mlops/tree/main/program), 
+[plug&play packages](https://github.com/ctuning/ck-mlops/tree/main/package) and adaptive containers with a common API
+([cTuning](https://github.com/ctuning/ck-mlops/tree/main/docker) 
+and [OctoML](https://github.com/octoml/mlops/tree/main/docker))
 for ML systems. CK framework was already successfully used by several MLCommons members 
 to automate their MLPerf inference submissions and we want to build upon their experience. 
 
@@ -20,7 +22,7 @@ and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCub
 
 MLPerf tasks         | PyTorch | TensorFlow | TVM | ONNX | TFLite | OpenVINO | TensorRT |
 --- | --- | --- | --- | --- | --- | --- | --- |
-Image classification | [CK &#10003;](tasks/task-image-classification-pytorch.md) | [CK &#10003;](tasks/task-image-classification-tf.md) | [CK &#10003;](tasks/task-image-classification-tvm.md) | [CK &#10003;](tasks/task-image-classification-onnx.md) | [CK &#177;](tasks/task-image-classification-tflite.md) |  |  | 
+Image classification | [CK &#10003;](tasks/task-image-classification-pytorch.md) | [CK &#10003;](tasks/task-image-classification-tf.md) | [CK &#10003;](tasks/task-image-classification-tvm.md) | [CK &#10003;](tasks/task-image-classification-onnx.md) | [CK &#177;](tasks/task-image-classification-tflite.md) | [CK &#177;](tasks/task-image-classification-openvino.md) |  | 
 Object detection     |  |  | [CK &#177;](tasks/task-object-detection-tvm.md) | [CK &#10003;](tasks/task-object-detection-onnx.md) | [CK &#177;](tasks/task-object-detection-tflite.md) |  |  | 
 Medical imaging      |  |  |  | [CK &#177;](tasks/task-language-onnx.md) |  |  |  | 
 Language             |  |  |  |  |  |  |  | 
