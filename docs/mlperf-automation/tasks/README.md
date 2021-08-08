@@ -13,7 +13,7 @@ Object detection     |  |  | [CK &#177;](tasks/task-object-detection-tvm.md) | [
 Medical imaging      |  |  |  |  |  |  |  | 
 Language             |  |  |  | [CK &#177;](tasks/task-language-onnx.md) |  |  |  | 
 Recommendation       |  |  |  |  |  |  |  | 
-Speech recognition   |  |  |  |  |  |  |  | 
+Speech               | [CK &#177;](tasks/task-speech-pytorch.md) |  |  |  |  |  |  | 
 
 
 
