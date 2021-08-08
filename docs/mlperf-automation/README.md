@@ -31,8 +31,8 @@ MLPerf tasks         | PyTorch | TensorFlow | TVM | ONNX | TFLite | OpenVINO | T
 --- | --- | --- | --- | --- | --- | --- | --- |
 Image classification | [CK &#10003;](tasks/task-image-classification-pytorch.md) | [CK &#10003;](tasks/task-image-classification-tf.md) | [CK &#10003;](tasks/task-image-classification-tvm.md) | [CK &#10003;](tasks/task-image-classification-onnx.md) | [CK &#177;](tasks/task-image-classification-tflite.md) | [CK &#177;](tasks/task-image-classification-openvino.md) |  | 
 Object detection     |  |  | [CK &#177;](tasks/task-object-detection-tvm.md) | [CK &#10003;](tasks/task-object-detection-onnx.md) | [CK &#177;](tasks/task-object-detection-tflite.md) |  |  | 
-Medical imaging      |  |  |  | [CK &#177;](tasks/task-language-onnx.md) |  |  |  | 
-Language             |  |  |  |  |  |  |  | 
+Medical imaging      |  |  |  |  |  |  |  | 
+Language             |  |  |  | [CK &#177;](tasks/task-language-onnx.md) |  |  |  | 
 Recommendation       |  |  |  |  |  |  |  | 
 Speech recognition   |  |  |  |  |  |  |  | 
 
