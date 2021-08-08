@@ -18,6 +18,13 @@ and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCub
 
 # Standardized CK components for MLPerf
 
+We are working with MLCommons and OctoML to gradually convert all [CK packages](https://github.com/ctuning/ck-mlops/tree/main/package)
+[benchmark workflows](https://github.com/ctuning/ck-mlops/tree/main/programs), 
+[automation scripts](https://github.com/ctuning/ck-mlops/tree/main/scripts) and 
+[Docker containers](https://github.com/ctuning/ck-mlops/tree/main/docker)
+for diverse ML tasks, models, datasets and frameworks from the community to support
+our new [MLPerf inference submission workflow](https://github.com/octoml/mlops/tree/main/module/bench.mlperf.inference).
+
 ## CK workflows for the MLPerf inference benchmark
 
 MLPerf tasks         | PyTorch | TensorFlow | TVM | ONNX | TFLite | OpenVINO | TensorRT |
@@ -37,7 +44,7 @@ Speech recognition   |  |  |  |  |  |  |  |
 
 ## CK packages with the reference MLPerf models
 
-* ResNet50: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-onnx) [PyTorch](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-pytorch) [TensorFlow](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-tf)
+* ResNet50: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-onnx) [PyTorch](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-pytorch) [TensorFlow](https://github.com/octoml/mlops/tree/master/package/ml-model-mlperf-resnet50-tf)
 * SSD MobileNet 300: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-mobilenet-300-onnx)
 * SSD ResNet34 1200: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-resnet34-1200-onnx)
 * BERT Large: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-bert-large-squad-onnx) 

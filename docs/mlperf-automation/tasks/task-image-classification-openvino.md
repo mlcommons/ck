@@ -6,7 +6,7 @@
 
 # Reproducibility study
 
-* [Running MLPerf with OpenVino 2019 R3 on x86 with Ubuntu 18.04](https://github.com/ctuning/ck/tree/main/docs/mlperf-automation/reproduce/ck-image-classification-x86-64-openvino-2019.md)
+* [Running MLPerf with OpenVino 2019 R3 on x86 with Ubuntu 18.04](https://github.com/ctuning/ck/tree/master/docs/mlperf-automation/reproduce/ck-image-classification-x86-64-openvino-2019.md)
 
 # Adaptive containers
 
