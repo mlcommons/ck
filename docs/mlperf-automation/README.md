@@ -51,9 +51,14 @@ See other CK packages with open source datasets shared by the community
 (to be standardized and connected with the new submission system):
 [View](https://cknowledge.io/?q=%22package%3Adataset-*%22)
 
-## CK packages with the reference MLPerf models
+## CK packages with ML models used for MLPerf submissions
 
-* ResNet50: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-onnx) [PyTorch](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-pytorch) [TensorFlow](https://github.com/octoml/mlops/tree/master/package/ml-model-mlperf-resnet50-tf)
+* ResNet50: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-onnx) [PyTorch](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-pytorch) [TensorFlow](https://github.com/octoml/mlops/tree/master/package/ml-model-mlperf-resnet50-tf) [TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tflite-mlperf-resnet/.cm/meta.json)
+* EfficientNet (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tflite-mlperf-efficientnet-lite/.cm/meta.json)
+* MobileNet-v3 (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v3/.cm/meta.json)
+* MobileNet-v2 (quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v2-quant/.cm/meta.json)
+* MobileNet-v2 (non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v2/.cm/meta.json)
+* MobileNet-v1 (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v1-20180802/.cm/meta.json)
 * SSD MobileNet 300: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-mobilenet-300-onnx)
 * SSD ResNet34 1200: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-resnet34-1200-onnx)
 * BERT Large: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-bert-large-squad-onnx) 

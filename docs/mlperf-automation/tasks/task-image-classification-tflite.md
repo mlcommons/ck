@@ -4,6 +4,14 @@
 
 * [Old CK workflow](https://github.com/ctuning/ck-mlops/tree/main/program/image-classification-tflite-loadgen)
 
+# Supported ML models
+
+* EfficientNet (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tflite-mlperf-efficientnet-lite/.cm/meta.json)
+* MobileNet-v3 (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v3/.cm/meta.json)
+* MobileNet-v2 (quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v2-quant/.cm/meta.json)
+* MobileNet-v2 (non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v2/.cm/meta.json)
+* MobileNet-v1 (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v1-20180802/.cm/meta.json)
+
 # Reproducibility studies
 
 * [x8664](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/reproduce/ck-image-classification-x86-64-tflite.md)
