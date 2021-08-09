@@ -1,3 +1,7 @@
+* v2.5.8.1
+  * minor enhancement of "ck display dashboard" automation module
+    to support the latest format of the MLPerf benchmark
+
 * v2.5.8
   * fixed copyright note in the License file
   * improved problem reporting in module:program
