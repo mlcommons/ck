@@ -10,3 +10,7 @@
 ## PyTorch models
 
 * [CPU](https://github.com/octoml/mlops/tree/main/program/mlperf-inference-bench-image-classification-tvm-pytorch-cpu)
+
+## TFLite models
+
+* [CPU](https://github.com/octoml/mlops/tree/main/program/mlperf-inference-bench-image-classification-tvm-tflite-cpu)
