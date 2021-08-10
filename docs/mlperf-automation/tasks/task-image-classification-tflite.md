@@ -14,7 +14,7 @@
 
 # Reproducibility studies
 
-* [x8664](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/reproduce/ck-image-classification-x86-64-tflite.md)
+* [x8664](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/reproduce/ck-image-classification-x86-64-tflite2.md)
 * [RPi4](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/reproduce/ck-image-classification-rpi4-tflite.md)
 * [Jetson Nano](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/reproduce/ck-image-classification-jetson-nano-tflite.md)
 
