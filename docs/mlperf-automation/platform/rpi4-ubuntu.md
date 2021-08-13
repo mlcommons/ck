@@ -9,6 +9,8 @@
 
 ## Notes
 
+* [20210812] Grigori updated docs to set up swap disk to run TVM with large models.
+
 * [20210422] Grigori tested ck venv to prepare CK virtual environment 
   and build several python versions - it worked fine.
 
@@ -29,4 +31,24 @@ sudo apt install \
            libncurses5 libncurses5-dev
 
 python3 -m pip install virtualenv
+```
+
+## Prepare large SWAP disk
+
+```bash
+sudo apt install dphys-swapfile
+sudo dphys-swapfile swapoff
+sudo nano /etc/dphys-swapfile
+```
+
+Update the following lines (10GB swap):
+* ```CONF_SWAPSIZE=10240```
+* ```CONF_MAXSWAP=10240```
+
+Initialize swap disk:
+
+```bash
+sudo dphys-swapfile setup
+sudo dphys-swapfile swapon
+sudo reboot
 ```
