@@ -8,6 +8,11 @@
 
 ## Notes
 
+* [20210813] Grigori successfully tested this setup with the 
+  [MLPerf end-to-end submission system](https://github.com/octoml/mlops/tree/main/module/bench.mlperf.inference)
+  for TVM, ONNX, PyTorch, TF and TFLite
+  across Azure, AWS and GCP nodes.
+
 * [20210421] Grigori tested ck venv to prepare CK virtual environment 
   and build several python versions - it worked fine.
 
