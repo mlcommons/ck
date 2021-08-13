@@ -20,7 +20,7 @@ CK can rebuilt a required version when creating a virtual environment.
 ```bash
 python3 -m pip install ck -U
 ck pull repo:octoml@venv
-ck create venv:mlperf-tflite --template=mlperf-inference-v1.1
+ck create venv:mlperf-tflite --template=mlperf-inference-1.1
 ```
 CK will attempt to detect existing python versions and will ask you which one to use for your virtual environment.
 
