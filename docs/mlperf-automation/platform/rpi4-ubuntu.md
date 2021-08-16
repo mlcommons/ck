@@ -52,3 +52,12 @@ sudo dphys-swapfile setup
 sudo dphys-swapfile swapon
 sudo reboot
 ```
+
+## Check power supply and cooling 
+
+You need to make sure that you have a native power supply (5.1V 2.5A) 
+and cooling to have stable MLPerf results.
+
+See our [power supply](images/rpi4-power-supply1.jpg) 
+and [cooling](images/rpi4-cooling.jpg)
+used to submit results to MLPerf v1.1.
