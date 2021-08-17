@@ -9,6 +9,8 @@
 
 ## Notes
 
+* [20210816] Grigori updated docs about the power supply and cooling.
+
 * [20210812] Grigori updated docs to set up swap disk to run TVM with large models.
 
 * [20210422] Grigori tested ck venv to prepare CK virtual environment 
@@ -61,3 +63,14 @@ and cooling to have stable MLPerf results.
 See our [power supply](images/rpi4-power-supply1.jpg) 
 and [cooling](images/rpi4-cooling.jpg)
 used to submit results to MLPerf v1.1.
+
+## Set up CK scripts to set CPU frequency to max
+
+```bash
+ck detect platform.os --update_platform_init --platform_init_uoa=rpi4
+```
+
+Turn off scripts to handle frequency (use dummy linux scripts):
+```bash
+ck detect platform.os --update_platform_init --platform_init_uoa=generic-linux-dummy
+```
