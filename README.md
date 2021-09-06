@@ -15,16 +15,8 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 
 ## Versions and licenses
 
-* **V3** (planning) : **Apache 2.0**
-* **V2+** (development) : **Apache 2.0**
-* **V1.x** (maintenance and bug fixes) : **BSD 3-clause**
-
-## Maintainers
-
-* [cTuning foundation](https://cTuning.org)
-* [OctoML.ai](https://OctoML.ai)
-
-*Contact: grigori@octoml.ai*
+* Current version: **V2.5.8** (Apache 2.0)
+* Deprecated: **V1.x including 1.55.5 ** (BSD 3-clause license)
 
 ## News
 
