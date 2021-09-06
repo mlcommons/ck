@@ -24,13 +24,6 @@ The latest CK version supported by MLCommons: **v2.5.8** (Apache 2.0 license):
 **Versions 1.x** including **v1.17.0 and 1.55.5** (BSD 3-clause license) are deprecated - 
 please join MLCommons workgroups and we will help you to upgrade your infrastructure to use the latest MLCommons CK framework.
 
-## News
-
-* [Project website](https://cKnowledge.org)
-* [CK-powered MLPerf&trade; benchmark automation](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md)
-* [Community projects to improve and redesign CK](https://github.com/ctuning/ck/blob/master/incubator/README.md)
-* [CK automation recipes for portable MLOps](https://github.com/ctuning/ck-mlops)
-* [OctoML's CK-based MLOps/MLPerf repository](https://github.com/octoml/mlops)
 
 ## Overview
 
@@ -44,20 +37,19 @@ Our goal is to help researchers and practitioners share, reuse and extend their 
 in the form of portable workflows, automation actions and reusable artifacts with a common API, CLI,
 and meta description. See how CK helps to automate benchmarking, optimization and design space
 exploration of [AI/ML/software/hardware stacks](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all/), 
-simplifies [MLPerf&trade; inference benchmark](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md) submissions 
+simplifies [MLPerf&trade; inference benchmark](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/README.md) submissions 
 and supports collaborative, reproducible and reusable ML Systems research:
 
 * [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4)
-* [AI/ML/MLPerf&trade; automation workflows and components from the community](https://github.com/ctuning/ck-mlops);
+* [AI/ML/MLPerf&trade; automation workflows and components from the community](https://github.com/mlcommons/ck-mlops);
 * [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems);
 * Our reproducibility initiatives: [methodology](https://cTuning.org/ae), [checklist](https://ctuning.org/ae/submission_extra.html), [events](https://cKnowledge.io/events).
 
 ## Current projects
-* Developing a platform to automate SW/HW co-design for ML Systems across diverse models, data sets, frameworks and platforms based on user constraints in terms of speed, accuracy, energy and costs: [OctoML.ai](https://OctoML.ai) & [cKnowledge.io](https://cKnowledge.io)
-* [Automating MLPerf(tm) inference benchmark and packing ML models, data sets and frameworks as CK components with a unified API and meta description](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md)
+* [Automating MLPerf(tm) inference benchmark and packing ML models, data sets and frameworks as CK components with a unified API and meta description](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/README.md)
 * Developing customizable dashboards for MLPerf&trade; to help end-users select ML/SW/HW stacks on a Pareto frontier: [aggregated MLPerf&trade; results]( https://cknowledge.io/?q="mlperf-inference-all" )
 * Providing a common format to share artifacts at ML, systems and other conferences: [video](https://youtu.be/DIkZxraTmGM), [Artifact Evaluation](https://cTuning.org/ae)
-* Redesigning CK together with the community based on user feedback
+* Redesigning CK together with the community based on user feedback: [incubator](https://github.com/mlcommons/ck/tree/master/incubator)
 * [Other real-world use cases](https://cKnowledge.org/partners.html) from MLPerf&trade;, Qualcomm, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM and other great partners;
 
 ## Documentation
@@ -66,7 +58,7 @@ and supports collaborative, reproducible and reusable ML Systems research:
   * [Why CK?]( https://ck.readthedocs.io/en/latest/src/introduction.html ) 
   * [CK Basics](https://michel-steuwer.github.io/About-CK)
   * [Try CK]( https://ck.readthedocs.io/en/latest/src/first-steps.html )
-* [Publications](https://github.com/ctuning/ck/wiki/Publications)
+* [Publications](https://github.com/mlcommons/ck/wiki/Publications)
 
 ## Installation
 
@@ -129,14 +121,13 @@ Check [CK docs](https://ck.readthedocs.io/en/latest/src/introduction.html) for f
 
 ### MLPerf&trade; benchmark workflows
 
-* [Image classification](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tasks/task-image-classification.md)
-* [Object detection](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
+* [Image classification](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/tasks/task-image-classification.md)
+* [Object detection](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
 
-### Portable CK workflow (with Docker)
+### Portable CK workflows inside containers
 
-We have prepared m CK containers with ML Systems components:
-* https://github.com/ctuning/ck-mlops/tree/main/docker
-* https://github.com/octoml/mlops/tree/main/docker
+We have prepared adaptive CK containers to demonstrate MLOps capabilities:
+* https://github.com/mlcommons/ck-mlops/tree/main/docker
 
 You can run them as follows:
 
@@ -167,7 +158,7 @@ ck show env
 
 All CK modules, automation actions and workflows are accessible as a micro-service with a unified JSON I/O API
 to make it easier to integrate them with web services and CI platforms as described 
-[here](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tools/continuous-integration.md).
+[here](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/tools/continuous-integration.md).
 
 
 
@@ -199,29 +190,29 @@ organize and find all the CK workflows and components similar to PyPI:
 The community provides Docker containers to test CK and components using different ML/SW/HW stacks (DSE).
 
 * A set of  Docker containers to test the basic CK functionality
-  using some MLPerf inference benchmark workflows: https://github.com/ctuning/ck-mlops/tree/main/docker/test-ck
+  using some MLPerf inference benchmark workflows: https://github.com/mlcommons/ck-mlops/tree/main/docker/test-ck
 
 
 ## Contributions
 
-Users can extend the CK functionality via [CK modules](https://github.com/ctuning/ck/tree/master/ck/repo/module) 
+Users can extend the CK functionality via [CK modules](https://github.com/mlcommons/ck/tree/master/ck/repo/module) 
 or external [GitHub reposities](https://cKnowledge.io/repos) in the CK format
 as described [here](https://ck.readthedocs.io/en/latest/src/typical-usage.html).
 
 Please check [this documentation](https://ck.readthedocs.io/en/latest/src/how-to-contribute.html)
-if you want to extend the CK core functionality and [modules](https://github.com/ctuning/ck/tree/master/ck/repo/module). 
+if you want to extend the CK core functionality and [modules](https://github.com/mlcommons/ck/tree/master/ck/repo/module). 
 
-Note, that we plan to [redesign the CK core](https://github.com/ctuning/ck/projects/1) 
+Note, that we plan to [redesign the CK core](https://github.com/mlcommons/ck/projects/1) 
 to be more pythonic (we wrote the first prototype without OO to be able 
 to port it to bare-metal devices in C but eventually we decided to drop this idea).
 
 
-## Author
+## Author and coordinator
 
-* [Grigori Fursin](https://cKnowledge.io/@gfursin)
+* [Grigori Fursin](https://fursin.net)
 
 ## Acknowledgments
 
-We would like to thank all [contributors](https://github.com/ctuning/ck/blob/master/CONTRIBUTING.md) 
+We would like to thank all [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 and [collaborators](https://cKnowledge.org/partners.html) for their support, fruitful discussions, 
 and useful feedback! See more acknowledgments in the [CK journal article](https://arxiv.org/abs/2011.01149).
