@@ -29,7 +29,7 @@ ck pull repo:octoml@mlops
 
 # Plug in downloaded BraTS 2019
 
-*BraTS 2019 validation set is not publicly available.*
+*BraTS 2019 dataset is not publicly available.*
 If you already have it installed on your machine, you can detect
 and register it to work with CK workflows using this command:
 
