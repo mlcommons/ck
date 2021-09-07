@@ -4,7 +4,7 @@
 
 ## Install CK framework
 
-Install [CK](https://github.com/ctuning/ck) and dependencies as described [here](https://ck.readthedocs.io/en/latest/src/installation.html)
+Install [CK](https://github.com/mlcommons/ck) and dependencies as described [here](https://ck.readthedocs.io/en/latest/src/installation.html)
 (make sure that your version is >= 2.5.3):
 
 ```bash
@@ -35,7 +35,7 @@ Path to the default repo: /home/gfursin/.local/lib/python3.6/site-packages/ck/re
 Path to the local repo:   /mnt/CK/local
 Path to CK repositories:  /mnt/CK
 
-Documentation:        https://github.com/ctuning/ck/wiki
+Documentation:        https://github.com/mlcommons/ck/wiki
 CK Google group:      https://bit.ly/ck-google-group
 CK Slack channel:     https://cKnowledge.org/join-slack
 Stable CK components: https://cKnowledge.io

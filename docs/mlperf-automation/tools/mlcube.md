@@ -27,7 +27,7 @@ mlcube run --task train --platform docker
 
 ### Common CK setup
 
-Install the [CK framework](https://github.com/ctuning/ck) as follows (check [this guide](https://github.com/ctuning/ck#installation) in case of problems).
+Install the [CK framework](https://github.com/mlcommons/ck) as follows (check [this guide](https://github.com/mlcommons/ck#installation) in case of problems).
 
 ```
 python3 -m pip install virtualenv

@@ -47,7 +47,7 @@ However, if a directory is related to CK entry, it should have the same name as 
 These 2 files in .cm help CK to understand that a given directory inside CK repository is associated with some CK entry!
 They also support fast such for a given CK entry by UIDs or aliases.
 
-However, in the future, we may want to remove such files and perform automatic indexing when CK pulls repositories (similar to Git). See [this ticket](https://github.com/ctuning/ck/issues/118).
+However, in the future, we may want to remove such files and perform automatic indexing when CK pulls repositories (similar to Git). See [this ticket](https://github.com/mlcommons/ck/issues/118).
 
 ### Sub-directories for CK entries
 

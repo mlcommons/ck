@@ -277,9 +277,9 @@ ck search {CK module} --search_string={string with wildcards}
 Note that CK supports transparent indexing of all CK JSON meta descriptions by [ElasticSearch](https://www.elastic.co) 
 to enable fast search and powerful queries. This mode is used in our [cKnowledge.io platform](https://cKnowledge.io).
 Please check these pages to know how to configure your CK installation with ES:
-* https://github.com/ctuning/ck/wiki/Customization
-* https://github.com/ctuning/ck/wiki/Indexing-entries
-* https://github.com/ctuning/ck/wiki/Searching-entries
+* https://github.com/mlcommons/ck/wiki/Customization
+* https://github.com/mlcommons/ck/wiki/Indexing-entries
+* https://github.com/mlcommons/ck/wiki/Searching-entries
 
 
 
@@ -550,7 +550,7 @@ for a given action:
 
 Note that when adding a new action to a given module, CK will also create a description
 of this action inside the *meta.json* of this module. You can see an example
-of such descriptions for the internal CK module "repo" [here](https://github.com/ctuning/ck/blob/master/ck/repo/module/repo/.cm/meta.json).
+of such descriptions for the internal CK module "repo" [here](https://github.com/mlcommons/ck/blob/master/ck/repo/module/repo/.cm/meta.json).
 When CK calls an action, it is not invoked directly from the given Python module 
 but CK first checks the description, tests inputs, and then passes the control to the given Python module.
 
@@ -573,7 +573,7 @@ Finally, a given CK module has an access to the 3 dictionaries:
   * self_module_uoa: Alias (user-friendly name of the module) or UID
   * self_module_alias: Alias (user-friendly name of the module) or empty
   * path: path to the CK module
-* *ck.cfg* - CK global [cfg dictionary](https://github.com/ctuning/ck/blob/master/ck/kernel.py#L48) 
+* *ck.cfg* - CK global [cfg dictionary](https://github.com/mlcommons/ck/blob/master/ck/kernel.py#L48) 
   that is updated at run-time with the meta description of the "kernel:default" entry.
   This dictionary is used to customize the local CK installation.
 
@@ -639,4 +639,4 @@ if r['return']>0: ck.err(r)
 
 ## More resources
 
-* [CK wiki](https://github.com/ctuning/ck/wiki)
+* [CK wiki](https://github.com/mlcommons/ck/wiki)

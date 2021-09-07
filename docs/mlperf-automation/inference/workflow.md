@@ -40,7 +40,7 @@ for the MLPerf inference benchmark:
 
 ```
 
-This high-level workflow will install relevant CK packages ([ctuning@ai](https://github.com/ctuning/ck-mlops/tree/main/package) / [octoml@mlops](https://github.com/octoml/mlops/tree/main/package))
+This high-level workflow will install relevant CK packages ([ctuning@ai](https://github.com/mlcommons/ck-mlops/tree/main/package) / [octoml@mlops](https://github.com/octoml/mlops/tree/main/package))
 and run low-level [CK program workflows for MLPerf](https://github.com/octoml/mlops/tree/main/program).
 
 

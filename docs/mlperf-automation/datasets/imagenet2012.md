@@ -18,7 +18,7 @@ to let you test CK-MLPerf workflows.
 
 # Install CK
 
-Please follow [this guide](https://github.com/ctuning/ck#instalation)
+Please follow [this guide](https://github.com/mlcommons/ck#instalation)
 
 # Install CK repos with MLOps components
 

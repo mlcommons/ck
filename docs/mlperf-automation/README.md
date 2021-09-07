@@ -5,10 +5,10 @@ MLPerf&trade; inference benchmarks across continuously changing ML models, frame
 We also want to develop an open database for benchmarking results and provenance information 
 compatible with [FAIR principles](https://www.go-fair.org/fair-principles).
 
-As a starting point, we will use the open-source and technology-neutral [CK framework](https://github.com/ctuning/ck) 
-with a [collection](https://github.com/ctuning/ck-mlops) of [reusable automation recipes](https://github.com/ctuning/ck-mlops/tree/main/program), 
-[plug&play packages](https://github.com/ctuning/ck-mlops/tree/main/package) and adaptive containers with a common API
-([cTuning](https://github.com/ctuning/ck-mlops/tree/main/docker) 
+As a starting point, we will use the open-source and technology-neutral [MLCommons CK framework](https://github.com/mlcommons/ck) 
+with a [collection](https://github.com/mlcommons/ck-mlops) of [reusable automation recipes](https://github.com/mlcommons/ck-mlops/tree/main/program), 
+[plug&play packages](https://github.com/mlcommons/ck-mlops/tree/main/package) and adaptive containers with a common API
+([cTuning](https://github.com/mlcommons/ck-mlops/tree/main/docker) 
 and [OctoML](https://github.com/octoml/mlops/tree/main/docker))
 for ML systems. CK framework was already successfully used by several MLCommons members 
 to automate their MLPerf inference submissions and we want to build upon their experience. 
@@ -18,10 +18,10 @@ and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCub
 
 # Standardization of the CK components for MLPerf
 
-We are working with MLCommons and OctoML to gradually convert all [CK packages](https://github.com/ctuning/ck-mlops/tree/main/package)
-[benchmark workflows](https://github.com/ctuning/ck-mlops/tree/main/programs), 
-[automation scripts](https://github.com/ctuning/ck-mlops/tree/main/scripts) and 
-[Docker containers](https://github.com/ctuning/ck-mlops/tree/main/docker)
+We are working with MLCommons and OctoML to gradually convert all [CK packages](https://github.com/mlcommons/ck-mlops/tree/main/package)
+[benchmark workflows](https://github.com/mlcommons/ck-mlops/tree/main/programs), 
+[automation scripts](https://github.com/mlcommons/ck-mlops/tree/main/scripts) and 
+[Docker containers](https://github.com/mlcommons/ck-mlops/tree/main/docker)
 for diverse ML tasks, models, datasets and frameworks from the community to support
 our new [MLPerf inference submission workflow](https://github.com/octoml/mlops/tree/main/module/bench.mlperf.inference).
 
@@ -53,12 +53,12 @@ See other CK packages with open source datasets shared by the community
 
 ## CK packages with ML models used for MLPerf submissions
 
-* ResNet50: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-onnx) [PyTorch](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-pytorch) [TensorFlow](https://github.com/octoml/mlops/tree/master/package/ml-model-mlperf-resnet50-tf) [TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tflite-mlperf-resnet/.cm/meta.json)
-* EfficientNet (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tflite-mlperf-efficientnet-lite/.cm/meta.json)
-* MobileNet-v3 (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v3/.cm/meta.json)
-* MobileNet-v2 (quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v2-quant/.cm/meta.json)
-* MobileNet-v2 (non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v2/.cm/meta.json)
-* MobileNet-v1 (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/ctuning/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v1-20180802/.cm/meta.json)
+* ResNet50: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-onnx) [PyTorch](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-pytorch) [TensorFlow](https://github.com/octoml/mlops/tree/master/package/ml-model-mlperf-resnet50-tf) [TFLite](https://github.com/mlcommons/ck-mlops/tree/main/package/model-tflite-mlperf-resnet/.cm/meta.json)
+* EfficientNet (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/mlcommons/ck-mlops/tree/main/package/model-tflite-mlperf-efficientnet-lite/.cm/meta.json)
+* MobileNet-v3 (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/mlcommons/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v3/.cm/meta.json)
+* MobileNet-v2 (quantized): [TensorFlow and TFLite](https://github.com/mlcommons/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v2-quant/.cm/meta.json)
+* MobileNet-v2 (non-quantized): [TensorFlow and TFLite](https://github.com/mlcommons/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v2/.cm/meta.json)
+* MobileNet-v1 (quantized/non-quantized): [TensorFlow and TFLite](https://github.com/mlcommons/ck-mlops/tree/main/package/model-tf-and-tflite-mlperf-mobilenet-v1-20180802/.cm/meta.json)
 * SSD MobileNet 300: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-mobilenet-300-onnx)
 * SSD ResNet34 1200: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-resnet34-1200-onnx)
 * BERT Large: [ONNX](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-bert-large-squad-onnx) 
@@ -93,8 +93,8 @@ See other CK packages with open source datasets shared by the community
 
 # Examples
 
-* [MLPerf&trade; object detection workflow](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
-* [Docker image for MLPerf&trade; with OpenVINO]( https://github.com/ctuning/ck-mlops/tree/main/docker/mlperf-inference-v0.7.openvino)
+* [MLPerf&trade; object detection workflow](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
+* [Docker image for MLPerf&trade; with OpenVINO]( https://github.com/mlcommons/ck-mlops/tree/main/docker/mlperf-inference-v0.7.openvino)
 * [Jupyter notebook for ML DSE](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb)
 * [Webcam test of the MLPerf object detection model with TFLite](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-webcam-linux-azure#test)
 * [Public scoreboard with MLPerf DSE](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
@@ -116,9 +116,9 @@ See other CK packages with open source datasets shared by the community
 
 # Contributions
 
-Feel free to contribute to this collaborative doc by sending your PR [here]( https://github.com/ctuning/ck/pulls )
+Feel free to contribute to this collaborative doc by sending your PR [here]( https://github.com/mlcommons/ck/pulls )
 or creating tickets at [github.com/mlcommons/inference](https://github.com/mlcommons/inference) 
-and [github.com/ctuning/ck](https://github.com/ctuning/ck). 
+and [github.com/mlcommons/ck](https://github.com/mlcommons/ck). 
 Thank you!
 
 

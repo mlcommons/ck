@@ -2,12 +2,12 @@
 
 # CK workflows for object detection with TFLite
 
-* [Old CK workflow](https://github.com/ctuning/ck-mlops/tree/main/program/object-detection-tflite-loadgen)
+* [Old CK workflow](https://github.com/mlcommons/ck-mlops/tree/main/program/object-detection-tflite-loadgen)
 
 # Reproducibility studies
 
-* [RPi4](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/reproduce/ck-object-detection-rpi4-tflite.md)
-* [Google Coral TPU](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/reproduce/ck-object-detection-rpi4-coral-tflite.md)
+* [RPi4](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/reproduce/ck-object-detection-rpi4-tflite.md)
+* [Google Coral TPU](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/reproduce/ck-object-detection-rpi4-coral-tflite.md)
 
 # Future work
 

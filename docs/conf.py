@@ -31,7 +31,7 @@ version=''
 release=version
 
 edit_on_github_url='https://github.com'
-edit_on_github_project = 'ctuning/ck'
+edit_on_github_project = 'mlcommons/ck'
 
 kernel_file=os.path.join('..', 'ck', 'kernel.py')
 

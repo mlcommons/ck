@@ -2,8 +2,8 @@
 
 ## Preparation
 
-* [Common setup](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/setup/common.md)
-* [Framework installation](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/setup/framework-tvm.md)
+* [Common setup](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/setup/common.md)
+* [Framework installation](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/setup/framework-tvm.md)
 
 ## MLPerf tasks
 

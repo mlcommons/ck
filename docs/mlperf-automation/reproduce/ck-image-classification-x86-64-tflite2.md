@@ -224,12 +224,12 @@ time ck benchmark program:image-classification-tflite-loadgen \
 ```
 
 ## Check C++ LoadGen front-ends
-* [TFLite](https://github.com/ctuning/ck-mlops/blob/main/program/image-classification-tflite-loadgen/classification.cpp) *synchronous*
+* [TFLite](https://github.com/mlcommons/ck-mlops/blob/main/program/image-classification-tflite-loadgen/classification.cpp) *synchronous*
 * [QAIC](https://github.com/cknowledge/ck-qaic/blob/main/program/image-classification-qaic-loadgen/harness.cpp#L219) *parallel*
 
 ## Check other models
 
-See [CK-ML repo docs](https://github.com/ctuning/ck-ml/blob/main/program/image-classification-tflite-loadgen/README.md)
+See [CK-ML repo docs](https://github.com/mlcommons/ck-ml/blob/main/program/image-classification-tflite-loadgen/README.md)
 
 You can list available CK MLPerf&trade; model packages as follows:
 ```

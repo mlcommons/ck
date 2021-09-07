@@ -3,7 +3,7 @@
 BeyondCloud commented:
 
 Hi,
-I am trying to reproduce the resnet50 benchmark result shows on [mlperf.org](https://mlperf.org/inference-results-0-7) (edged/closed division row 4). Currently I can achieve 2.4ms latency on Jetson Xavier AGX SingleStream scenario . However, I use [trtexec](https://github.com/NVIDIA/TensorRT/tree/master/samples/opensource/trtexec) to generate the int8 engine file from resnet50_v1.onnx and trtexec does not support calibration (it uses random weight instead). Could you tell me how did you convert resnet50_v1.onnx to int8 engine file (or plan file)  you use in this [this repo](https://github.com/ctuning/ck-mlperf/tree/master/program/image-classification-tensorrt-loadgen-py/)? 
+I am trying to reproduce the resnet50 benchmark result shows on [mlperf.org](https://mlperf.org/inference-results-0-7) (edged/closed division row 4). Currently I can achieve 2.4ms latency on Jetson Xavier AGX SingleStream scenario . However, I use [trtexec](https://github.com/NVIDIA/TensorRT/tree/master/samples/opensource/trtexec) to generate the int8 engine file from resnet50_v1.onnx and trtexec does not support calibration (it uses random weight instead). Could you tell me how did you convert resnet50_v1.onnx to int8 engine file (or plan file) you use in this [this repo](https://github.com/ctuning/ck-mlperf/tree/master/program/image-classification-tensorrt-loadgen-py/)? 
 
 psyhtest commented:
 

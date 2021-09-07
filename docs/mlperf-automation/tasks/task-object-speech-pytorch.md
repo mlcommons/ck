@@ -2,11 +2,11 @@
 
 # CK workflows for speech recognition with PyTorch
 
-* [Old CK workflow for MLPerf with TensorRT](https://github.com/ctuning/ck-mlops/tree/main/program/speech-recognition-pytorch-loadgen)
+* [Old CK workflow for MLPerf with TensorRT](https://github.com/mlcommons/ck-mlops/tree/main/program/speech-recognition-pytorch-loadgen)
 
 # Adaptive containers
 
-* [Old container](https://github.com/ctuning/ck-mlops/tree/main/docker/mlperf-inference-speech-recognition-rnnt)
+* [Old container](https://github.com/mlcommons/ck-mlops/tree/main/docker/mlperf-inference-speech-recognition-rnnt)
 
 # Future work
 

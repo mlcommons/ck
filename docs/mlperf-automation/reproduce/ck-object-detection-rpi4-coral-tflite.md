@@ -15,7 +15,7 @@ Install system packages for [RPi4 Coral Ubuntu](../platform/rpi4-coral-ubuntu.md
 
 ### Install Collective Knowledge (CK)
 
-Please follow the [installation instructions](https://github.com/ctuning/ck#installation) for your system e.g.:
+Please follow the [installation instructions](https://github.com/mlcommons/ck#installation) for your system e.g.:
 
 ```bash
 $ python3 -m pip install ck --user
@@ -106,7 +106,6 @@ ck run cmdgen:benchmark.object-detection.tflite-loadgen --verbose \
 ## Notes
 
 * https://github.com/mlcommons/inference_results_v0.7/tree/master/closed/Dividiti/measurements/rpi4coral-tflite-v2.2.0-ruy/ssd-mobilenet-non-quantized/singlestream
-* https://github.com/ctuning/ck-mlperf/blob/master/program/object-detection-tflite-loadgen/README.singlestream.md
 * https://mlcommons.org/en/inference-edge-07/
 * https://mlcommons.org/en/inference-edge-10/
 * https://github.com/mlcommons/inference_results_v1.0/blob/master/open/Krai/measurements/rpi4coral-fan.on-tflite-v2.4.1-ruy/efficientnet-lite0-non-quantized/singlestream/README.md#mobilenet_v3

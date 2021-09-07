@@ -26,7 +26,7 @@ When sending PRs, please briefly explain why they are needed,
 how their work, and how you tested backward compatibility
 to make sure that dependent projects continue working correctly.
 
-Please submit bug reports, feedback, and ideas as [GitHub issues](https://github.com/ctuning/ck/issues).
+Please submit bug reports, feedback, and ideas as [GitHub issues](https://github.com/mlcommons/ck/issues).
 
 *Note that we plan to rewrite the CK kernel and make it more pythonic
 when we have more resources! Feel free to [get in touch](https://cKnowledge.org/contacts.html)

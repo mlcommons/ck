@@ -16,7 +16,7 @@ ck pull all
 
 # Install CK for the first time
 
-Install [CK](https://github.com/ctuning/ck) and dependencies as described [here](https://ck.readthedocs.io/en/latest/src/installation.html):
+Install [CK](https://github.com/mlcommons/ck) and dependencies as described [here](https://ck.readthedocs.io/en/latest/src/installation.html):
 
 ```
 pip3 install ck
@@ -45,7 +45,7 @@ Path to the default repo: /home/fursin/.pyenv/versions/3.7.6/lib/python3.7/site-
 Path to the local repo:   /home/fursin/CK/local/venv/ck-octoml-amd/CK/local
 Path to CK repositories:  /home/fursin/CK/local/venv/ck-octoml-amd/CK
 
-Documentation:        https://github.com/ctuning/ck/wiki
+Documentation:        https://github.com/mlcommons/ck/wiki
 CK Google group:      https://bit.ly/ck-google-group
 CK Slack channel:     https://cKnowledge.org/join-slack
 Stable CK components: https://cKnowledge.io

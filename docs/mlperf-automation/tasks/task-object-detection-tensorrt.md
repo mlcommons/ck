@@ -2,11 +2,11 @@
 
 # CK workflows for object detection with TensorRT
 
-* [Old CK workflow for MLPerf with TensorRT](https://github.com/ctuning/ck-mlops/tree/main/program/mlperf-inference-vision)
+* [Old CK workflow for MLPerf with TensorRT](https://github.com/mlcommons/ck-mlops/tree/main/program/mlperf-inference-vision)
 
 # Adaptive containers
 
-* [Old container for MLPerf (master) with CUDA 10.02, cuDNN 7.6.5 and TensorRT 7.0.0 (nvcr.io/nvidia/tensorrt:20.03-py3)](https://github.com/ctuning/ck-mlops/tree/main/docker/mlperf-inference-vision-tensorrt-with-ck)
+* [Old container for MLPerf (master) with CUDA 10.02, cuDNN 7.6.5 and TensorRT 7.0.0 (nvcr.io/nvidia/tensorrt:20.03-py3)](https://github.com/mlcommons/ck-mlops/tree/main/docker/mlperf-inference-vision-tensorrt-with-ck)
 
 # Future work
 

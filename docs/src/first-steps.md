@@ -65,9 +65,9 @@ ck load program:image-corner-detection
 ck load program:image-corner-detection --min
 ```
 
-It may be more convenient to check the structure of this entry at [GitHub](https://github.com/ctuning/ck-mlops/tree/master/program/image-corner-detection) with all the sources and meta-descriptions.
+It may be more convenient to check the structure of this entry at [GitHub](https://github.com/mlcommons/ck-mlops/tree/master/program/image-corner-detection) with all the sources and meta-descriptions.
 
-You can also see the CK JSON meta description for this CK program entry [here](https://github.com/ctuning/ck-mlops/blob/master/program/image-corner-detection/.cm/meta.json).
+You can also see the CK JSON meta description for this CK program entry [here](https://github.com/mlcommons/ck-mlops/blob/master/program/image-corner-detection/.cm/meta.json).
 When you invoke automation actions in the CK module *program*, the automation code will read this meta description and perform actions for different programs accordingly.
 
 ## Invoke CK automation actions
@@ -78,7 +78,7 @@ You can now try to compile this program on your platform:
 ck compile program:image-corner-detection --speed
 ```
 
-CK will invoke the function "compile" in the module "program" (you can see it at [GitHub](https://github.com/ctuning/ck/blob/master/ck/repo/module/program/module.py#L3594)
+CK will invoke the function "compile" in the module "program" (you can see it at [GitHub](https://github.com/mlcommons/ck/blob/master/ck/repo/module/program/module.py#L3594)
 or you can find the source code of this CK module locally using "ck find module:program"),
 read the JSON meta of *image-corner-detection*, and perform a given action.
 
@@ -251,7 +251,7 @@ print (r)
 
 Feel free to try more complex CK MLPerf workflows to benchmark ML Systems 
 across different models, data sets, frameworks and hardware
-as described [here](https://github.com/ctuning/ck/blob/master/docs/mlperf-automation/README.md).
+as described [here](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/README.md).
 
 
 ## Further information

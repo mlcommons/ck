@@ -49,7 +49,7 @@ published in this [Nature article](https://www.nature.com/articles/sdata201618).
 
 ## What is CK?
 
-We have developed the [Collective Knowledge framework (CK)](https://github.com/ctuning/ck) 
+We have developed the [Collective Knowledge framework (CK)](https://github.com/mlcommons/ck) 
 as a small Python library with minimal dependencies to be very portable 
 and have the possibility to be implemented in other languages such as C, C++, Java, and Go.
 The CK framework has a unified command line interface (CLI), a Python API,
@@ -100,8 +100,8 @@ describing a given artifact and ``info.json`` file to keep the provenance
 of a given artifact including copyrights, licenses, creation date, 
 names of all contributors, and so on.
 
-CK framework has an internal [***default CK repository***]( https://github.com/ctuning/ck/tree/master/ck/repo ) 
-with [***stable CK modules***](https://github.com/ctuning/ck/tree/master/ck/repo/module) and the most commonly used automation actions
+CK framework has an internal [***default CK repository***]( https://github.com/mlcommons/ck/tree/master/ck/repo ) 
+with [***stable CK modules***](https://github.com/mlcommons/ck/tree/master/ck/repo/module) and the most commonly used automation actions
 across many research projects.
 When CK framework is used for the first time, it also creates a ***local CK repository***
 in the user space to be used as a scratch pad.
@@ -302,20 +302,20 @@ and [ACM artifact review and badging](https://www.acm.org/publications/policies/
   * ML-based autotuning project: [reproducible paper demo](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive),  [MILEPOST]( https://github.com/ctuning/reproduce-milepost-project )
   * [Quantum hackathons](https://cKnowledge.org/quantum)
   * [ACM SW/HW co-design tournaments for Pareto-efficient deep learning](https://cKnowledge.org/request)
-  * Portable CK workflows and components for ML Systems: https://github.com/ctuning/ck-mlops
+  * Portable CK workflows and components for ML Systems: https://github.com/mlcommons/ck-mlops
   * [GUI to automate  ML/SW/HW benchmarking with MLPerf example (under development)](https://cKnowledge.io/test)
   * [Reproduced papers]( https://cKnowledge.io/reproduced-papers )
   * [Live scoreboards for reproduced papers]( https://cKnowledge.io/reproduced-results )
 * Examples of CK components (automations, API, meta descriptions):
     * *program : image-classification-tflite-loadgen* [[cKnowledge.io]( https://cKnowledge.io/c/program/image-classification-tflite-loadgen )] [[GitHub]( https://github.com/ctuning/ck-mlops/tree/master/program/image-classification-tflite-loadgen )]
-    * *program : image-classification-tflite* [[GitHub]( https://github.com/ctuning/ck-mlops/tree/master/program/image-classification-tflite )]
-    * *soft : lib.mlperf.loadgen.static* [[GitHub]( https://github.com/ctuning/ck-mlops/tree/master/soft/lib.mlperf.loadgen.static )]
-    * *package : lib-mlperf-loadgen-static* [[GitHub]( https://github.com/ctuning/ck-mlops/tree/master/package/lib-mlperf-loadgen-static )]
-    * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/ctuning/ck-mlops/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
-    * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/ctuning/ck-mlops/tree/master/package/lib-tflite )]
-    * *docker : ** [[GitHub]( https://github.com/ctuning/ck-mlops/tree/master/docker )]
-    * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/ctuning/ck-mlops/tree/main/docker/mlperf-inference-speech-recognition-rnnt )]
-    * *package : model-tf-** [[GitHub]( https://github.com/ctuning/ck-mlops/tree/master/package )]
+    * *program : image-classification-tflite* [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/program/image-classification-tflite )]
+    * *soft : lib.mlperf.loadgen.static* [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/soft/lib.mlperf.loadgen.static )]
+    * *package : lib-mlperf-loadgen-static* [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/package/lib-mlperf-loadgen-static )]
+    * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
+    * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/package/lib-tflite )]
+    * *docker : ** [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/docker )]
+    * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/main/docker/mlperf-inference-speech-recognition-rnnt )]
+    * *package : model-tf-** [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/package )]
     * *script : mlperf-inference-v0.7.image-classification* [[cKnowledge.io]( https://cknowledge.io/c/script/mlperf-inference-v0.7.image-classification )]
     * *jnotebook : object-detection* [[GitHub](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb)]
 

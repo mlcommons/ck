@@ -68,7 +68,7 @@ ck show env
 
 ```
 
-You can explore available packages in the [CK GitHub repo](https://github.com/ctuning/ck-mlops/tree/main/package)
+You can explore available packages in the [CK GitHub repo](https://github.com/mlcommons/ck-mlops/tree/main/package)
 or using the [cKnowledge.io platform](https://cKnowledge.io/c/package).
 
 ## Pull CK repo with the latest MLPerf&trade; automations from OctoML:
@@ -91,9 +91,9 @@ ck install package --tags=imagenet,2012,val,min,non-resized
 ck install package --tags=imagenet,2012,aux,from.berkeley
 ```
 
-Feel free to check the [CK JSON meta](https://github.com/ctuning/ck-mlops/blob/main/package/imagenet-2012-val-min/.cm/meta.json)
-and CK installation scripts for [Linux](https://github.com/ctuning/ck-mlops/blob/main/package/imagenet-2012-val-min/install.sh) 
-and [Windows](https://github.com/ctuning/ck-mlops/blob/main/package/imagenet-2012-val-min/install.bat)
+Feel free to check the [CK JSON meta](https://github.com/mlcommons/ck-mlops/blob/main/package/imagenet-2012-val-min/.cm/meta.json)
+and CK installation scripts for [Linux](https://github.com/mlcommons/ck-mlops/blob/main/package/imagenet-2012-val-min/install.sh) 
+and [Windows](https://github.com/mlcommons/ck-mlops/blob/main/package/imagenet-2012-val-min/install.bat)
 for the CK ImageNet val min package.
 
 ImageNet 2012 validation set is no longer publicly available.
@@ -111,11 +111,11 @@ and then register in the CK using the above command.
 Please check [this doc](../datasets/imagenet2012.md) to see how you can preprocess the ImageNet 
 in multiple ways with the help of CK.
 
-Feel free to check the [CK JSON meta](https://github.com/ctuning/ck-mlops/blob/main/soft/dataset.imagenet.val/.cm/meta.json)
-and [CK Python customization script](https://github.com/ctuning/ck-mlops/blob/main/soft/dataset.imagenet.val/customize.py)
+Feel free to check the [CK JSON meta](https://github.com/mlcommons/ck-mlops/blob/main/soft/dataset.imagenet.val/.cm/meta.json)
+and [CK Python customization script](https://github.com/mlcommons/ck-mlops/blob/main/soft/dataset.imagenet.val/customize.py)
 to detect this data set on your machine.
 
-You can see other software detection plugins in the [CK repository](https://github.com/ctuning/ck-mlops/tree/main/soft)
+You can see other software detection plugins in the [CK repository](https://github.com/mlcommons/ck-mlops/tree/main/soft)
 or using the [cKnowledge.io platform](https://cKnowledge.io/c/soft).
 
 

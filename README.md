@@ -13,16 +13,22 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 [![Documentation Status](https://readthedocs.org/projects/ck/badge/?version=latest)](https://ck.readthedocs.io/en/latest/?badge=latest)
 [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
+
 ## Releases
 
-The latest CK version supported by MLCommons: **v2.5.8** (Apache 2.0 license):
+### Stable versions
+
+The latest version of the CK automation suite supported by MLCommons: **v2.5.8** (Apache 2.0 license):
 * [CK framework](https://github.com/mlcommons/ck/releases/tag/V2.5.8)
-* [CK automation workflows for the MLPerf benchmark and design space exploration of ML/SW/HW stacks](https://github.com/mlcommons/ck-mlops)
+* [CK automation suite for MLPerf and ML/SW/HW co-design](https://github.com/mlcommons/ck-mlops)
+
+## Development versions
+
+We plan to develop a new version of the CK framework (v3) as a collaborative effort within MLCommons Design Space Exploration Workgroup (Best Practices subgroup) - please feel free to join this collaborative effort!
 
 ## Deprecated versions
 
-**Versions 1.x** including **v1.17.0 and 1.55.5** (BSD 3-clause license) are deprecated - 
-please join MLCommons workgroups and we will help you to upgrade your infrastructure to use the latest MLCommons CK framework.
+**Versions 1.x including v1.17.0 and 1.55.5 (BSD license)** are not supported anymore. Please get in touch and we will help you to upgrade your infrastructure to use the latest MLCommons technology!
 
 
 ## Overview

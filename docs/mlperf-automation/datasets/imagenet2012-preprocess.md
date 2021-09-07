@@ -17,7 +17,7 @@ to let you test CK-MLPerf workflows.
 
 # Install CK
 
-Please follow [this guide](https://github.com/ctuning/ck#instalation)
+Please follow [this guide](https://github.com/mlcommons/ck#instalation)
 
 # Install CK repos with MLOps components
 
@@ -141,4 +141,4 @@ Processing time: ~26 min.
 
 ## Preprocess ImageNet for other models with different resolutions
 
-* [CK-ML repo docs](https://github.com/ctuning/ck-ml/blob/main/program/image-classification-tflite-loadgen/README.md)
+* [CK-ML repo docs](https://github.com/mlcommons/ck-mlops/blob/main/program/image-classification-tflite-loadgen/README.md)

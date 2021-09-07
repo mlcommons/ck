@@ -34,7 +34,7 @@ about the CK installation and a Python version used:
 ```bash
 gfursin@ck:~$ ck
 
-CK version: 2.5.7
+CK version: 2.5.8
 
 Python executable used by CK: /usr/bin/python3
 
@@ -46,7 +46,7 @@ Path to the default repo: /home/gfursin/.local/lib/python3.6/site-packages/ck/re
 Path to the local repo:   /mnt/CK/local
 Path to CK repositories:  /mnt/CK
 
-Documentation:        https://github.com/ctuning/ck/wiki
+Documentation:        https://github.com/mlcommons/ck/wiki
 CK Google group:      https://bit.ly/ck-google-group
 CK Slack channel:     https://cKnowledge.org/join-slack
 Stable CK components: https://cKnowledge.io
@@ -107,5 +107,5 @@ See https://github.com/octoml/venv for more details.
 
 ## Customization
 
-Please check this [wiki](https://github.com/ctuning/ck/wiki/Customization)
+Please check this [wiki](https://github.com/mlcommons/ck/wiki/Customization)
 to learn more about how to customize your CK installation.
