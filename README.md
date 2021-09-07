@@ -22,11 +22,11 @@ The latest version of the CK automation suite supported by MLCommons: **v2.5.8**
 * [CK framework](https://github.com/mlcommons/ck/releases/tag/V2.5.8)
 * [CK automation suite for MLPerf and ML/SW/HW co-design](https://github.com/mlcommons/ck-mlops)
 
-## Development versions
+### Development versions
 
 We plan to develop a new version of the CK framework (v3) as a collaborative effort within MLCommons Design Space Exploration Workgroup (Best Practices subgroup) - please feel free to join this collaborative effort!
 
-## Deprecated versions
+### Deprecated versions
 
 **Versions 1.x including v1.17.0 and 1.55.5 (BSD license)** are not supported anymore. Please get in touch and we will help you to upgrade your infrastructure to use the latest MLCommons technology!
 
