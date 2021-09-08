@@ -30,10 +30,10 @@ CK will attempt to detect existing python versions and will ask you which one to
 ck activate venv:mlperf-tflite
 ```
 
-## Pull [CK MLOps repository]( https://github.com/octoml/mlops )
+## Pull [CK MLOps repository]( https://github.com/mlcommons/ck-mlops )
 
 ```bash
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
 ## Build static LoadGen 

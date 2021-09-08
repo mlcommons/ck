@@ -17,11 +17,11 @@
 | ssd-mobilenet 300x300 quantized finetuned | tensorflow | mAP 0.23594 | coco resized to 300x300 | [from zenodo](https://zenodo.org/record/3252084/files/mobilenet_v1_ssd_8bit_finetuned.tar.gz) | Habana | int8 | ??? |   |   |   |
 | ssd-mobilenet 300x300 symmetrically quantized finetuned | tensorflow | mAP 0.234 | coco resized to 300x300 | [from zenodo](https://zenodo.org/record/3401714/files/ssd_mobilenet_v1_quant_ft_no_zero_point_frozen_inference_graph.pb) | Habana | int8 | ??? |   |   |   |
 | ssd-mobilenet 300x300 | pytorch | mAP 0.23 | coco resized to 300x300 | [from zenodo](https://zenodo.org/record/3239977/files/ssd_mobilenet_v1.pytorch) | [from tensorflow](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) | fp32 | NHWC |   |   |   |
-| ssd-mobilenet 300x300 | onnx | mAP 0.23 | coco resized to 300x300 | from zenodo [opset-8](https://zenodo.org/record/3163026/files/ssd_mobilenet_v1_coco_2018_01_28.onnx), [opset-11](https://zenodo.org/record/4735652/files/ssd_mobilenet_v1_coco_2018_01_28.onnx) | [from tensorflow](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) converted using [this script](https://github.com/mlcommons/inference/blob/master/vision/classification_and_detection/tools/convert-to-onnx.sh) | fp32 | NHWC, tested on onnxruntime, some runtime warnings |   | [link](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-mobilenet-300-onnx) | *model,object-detection,mlperf,onnx,ssd-mobilenet,side.300,non-quantized*  |
+| ssd-mobilenet 300x300 | onnx | mAP 0.23 | coco resized to 300x300 | from zenodo [opset-8](https://zenodo.org/record/3163026/files/ssd_mobilenet_v1_coco_2018_01_28.onnx), [opset-11](https://zenodo.org/record/4735652/files/ssd_mobilenet_v1_coco_2018_01_28.onnx) | [from tensorflow](http://download.tensorflow.org/models/object_detection/ssd_mobilenet_v1_coco_2018_01_28.tar.gz) converted using [this script](https://github.com/mlcommons/inference/blob/master/vision/classification_and_detection/tools/convert-to-onnx.sh) | fp32 | NHWC, tested on onnxruntime, some runtime warnings |   | [link](https://github.com/mlcommons/ck-mlops/tree/main/package/ml-model-mlperf-ssd-mobilenet-300-onnx) | *model,object-detection,mlperf,onnx,ssd-mobilenet,side.300,non-quantized*  |
 | ssd-mobilenet 300x300 | onnx, pytorch | mAP 0.23 | coco resized to 300x300  | [from zenodo](https://zenodo.org/record/3252084/files/mobilenet_v1_ssd_8bit_finetuned.tar.gz) | ??? | int8 | ??? |   |   |   |
 | ssd-resnet34 1200x1200 | tensorflow | mAP 0.20 | coco resized to 1200x1200| [from zenodo](https://zenodo.org/record/3345892/files/tf_ssd_resnet34_22.1.zip?download=1) | [from mlperf](https://github.com/mlperf/inference/tree/master/others/cloud/single_stage_detector/tensorflow), [training model](https://github.com/lji72/inference/tree/tf_ssd_resent34_align_onnx/others/cloud/single_stage_detector/tensorflow) | fp32 | NCHW |   |   |   |
 | ssd-resnet34 1200x1200 | pytorch | mAP 0.20 | coco resized to 1200x1200 | [from zenodo](https://zenodo.org/record/3236545/files/resnet34-ssd1200.pytorch) | [from mlperf](https://github.com/mlperf/inference/tree/master/others/cloud/single_stage_detector/pytorch) | fp32 | NCHW |   |   |   |
-| ssd-resnet34 1200x1200 | onnx | mAP 0.20 | coco resized to 1200x1200 | from zenodo [opset-8](https://zenodo.org/record/3228411/files/resnet34-ssd1200.onnx) | [from mlperf](https://github.com/mlperf/inference/tree/master/others/cloud/single_stage_detector) converted using the these [instructions](https://github.com/BowenBao/inference/tree/master/cloud/single_stage_detector/pytorch#6-onnx) | fp32 | Converted from pytorch model. |   | [link](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-ssd-resnet34-1200-onnx)  | *model,object-detection,mlperf,onnx,ssd-resnet34,side.1200,non-quantized,opset-8*  |
+| ssd-resnet34 1200x1200 | onnx | mAP 0.20 | coco resized to 1200x1200 | from zenodo [opset-8](https://zenodo.org/record/3228411/files/resnet34-ssd1200.onnx) | [from mlperf](https://github.com/mlperf/inference/tree/master/others/cloud/single_stage_detector) converted using the these [instructions](https://github.com/BowenBao/inference/tree/master/cloud/single_stage_detector/pytorch#6-onnx) | fp32 | Converted from pytorch model. |   | [link](https://github.com/mlcommons/ck-mlops/tree/main/package/ml-model-mlperf-ssd-resnet34-1200-onnx)  | *model,object-detection,mlperf,onnx,ssd-resnet34,side.1200,non-quantized,opset-8*  |
 | ssd-resnet34 1200x1200 | onnx | mAP 0.20 | coco resized to 1200x1200 | from zenodo [opset-11](https://zenodo.org/record/4735664/files/ssd_resnet34_mAP_20.2.onnx) | [from zenodo](https://zenodo.org/record/3345892/files/tf_ssd_resnet34_22.1.zip) converted using [this script](https://github.com/mlcommons/inference/blob/master/vision/classification_and_detection/tools/convert-to-onnx.sh) | fp32 | Converted from the tensorflow model and uses the same interface as the tensorflow model. |   |   |   |
 
 ## Common CK setup
@@ -75,10 +75,10 @@ or using the [cKnowledge.io platform](https://cKnowledge.io/c/package).
 
 ## Pull CK repo with the latest MLPerf&trade; automations from OctoML:
 ```
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
-CK will pull and install GitHub repository from https://github.com/octoml/mlops.
+CK will pull and install GitHub repository from https://github.com/mlcommons/ck-mlops.
 Note that you can pull any Git repository in the CK format as follows:
 ```
 ck pull repo --url={URL}
@@ -130,7 +130,7 @@ ck install package --tags=lib,python-package,onnxruntime-cpu,1.6.0
 ck install package --tags=model,object-detection,mlperf,onnx,ssd-mobilenet,side.300,non-quantized,opset-8
 ```
 
-Feel free to check [CK JSON meta](https://github.com/octoml/mlops/blob/main/package/ml-model-mlperf-ssd-mobilenet-300-onnx/.cm/meta.json) of this package.
+Feel free to check [CK JSON meta](https://github.com/mlcommons/ck-mlops/blob/main/package/ml-model-mlperf-ssd-mobilenet-300-onnx/.cm/meta.json) of this package.
 
 #### Install SSD-Mobilenet 300x300 non-quantized fp32 for ONNX opset-11
 
@@ -179,8 +179,8 @@ You can test performance in SingleStream mode while limiting time as follows:
 ck run program:mlperf-inference-bench-object-detection-onnx-cpu --cmd_key=performance-singlestream --env.EXTRA_OPS="--time 60 --qps 200 --max-latency 0.1"
 ```
 
-Feel free to check the [CK JSON meta](https://github.com/octoml/mlops/blob/main/program/mlperf-inference-bench-object-detection-onnx-cpu/.cm/meta.json) 
-and [CK dependencies](https://github.com/octoml/mlops/blob/main/program/mlperf-inference-bench-object-detection-onnx-cpu/.cm/meta.json#L99) for this benchmark!
+Feel free to check the [CK JSON meta](https://github.com/mlcommons/ck-mlops/blob/main/program/mlperf-inference-bench-object-detection-onnx-cpu/.cm/meta.json) 
+and [CK dependencies](https://github.com/mlcommons/ck-mlops/blob/main/program/mlperf-inference-bench-object-detection-onnx-cpu/.cm/meta.json#L99) for this benchmark!
 
 Note that you can obtain help about any CK module such as "program" and action such as "run" as follows:
 ```
@@ -281,8 +281,8 @@ We've prepared a Docker container with pre-installed MLPerf&trade; inference ben
 with object detection that you can use interactively to benchmark models 
 and record results in your local repository for further analysis.
 
-Feel free to check the [CK entry](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-inference-v1.0-object-detection-native) 
-with this container. You can also check [adaptive CK containers shared by OctoML](https://github.com/octoml/mlops/tree/main/docker)
+Feel free to check the [CK entry](https://github.com/mlcommons/ck-mlops/tree/main/docker/ck-mlperf-inference-v1.0-object-detection-native) 
+with this container. You can also check [adaptive CK containers shared by OctoML](https://github.com/mlcommons/ck-mlops/tree/main/docker)
 and other [CK containers shared by the community](https://github.com/mlcommons/ck-mlops/tree/main/docker).
 
 
@@ -304,7 +304,7 @@ export CK_HOST_REPO_EXPERIMENTS=`ck where repo:ck-experiments`
 
 echo ${CK_HOST_REPO_EXPERIMENTS}
 
-docker run --volume ${CK_HOST_REPO_EXPERIMENTS}:/home/ckuser/ck-experiments -it octoml/ck-mlperf-inference-v1.0-object-detection-native:ubuntu-20.04
+docker run --volume ${CK_HOST_REPO_EXPERIMENTS}:/home/ckuser/ck-experiments -it mlcommons/ck-mlperf-inference-v1.0-object-detection-native:ubuntu-20.04
 ```
 
 Use this ugly hack to be able to record to your host CK repository:

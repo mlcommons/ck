@@ -1,6 +1,6 @@
 **[ [TOC](../README.md) ]**
 
-You can use the [virtual CK environment](https://github.com/octoml/venv) to avoid mixing up your current Python installation as follows:
+You can use the [virtual CK environment](https://github.com/mlcommons/ck-venv) to avoid mixing up your current Python installation as follows:
 
 ```
 ck pull repo:mlcommons@ck-venv

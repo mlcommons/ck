@@ -96,7 +96,7 @@ with any compatible data set on any compatible platform:
 ```bash
 python3 -m pip install ck
 
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 
 ck ls program:*susan*
 
@@ -138,14 +138,14 @@ We have prepared adaptive CK containers to demonstrate MLOps capabilities:
 You can run them as follows:
 
 ```bash
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ck build docker:ck-template-mlperf --tag=ubuntu-20.04
 ck run docker:ck-template-mlperf --tag=ubuntu-20.04
 ```
 
 ### Portable workflow example with virtual CK environments
 
-You can create multiple [virtual CK environments](https://github.com/octoml/venv) with templates
+You can create multiple [virtual CK environments](https://github.com/mlcommons/ck-venv) with templates
 to automatically install different CK packages and workflows, for example for MLPerf&trade; inference:
 
 ```
@@ -154,7 +154,7 @@ ck create venv:test --template=mlperf-inference-main
 ck ls venv
 ck activate venv:test
 
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ck install package --ask --tags=dataset,coco,val,2017,full
 ck show env
 

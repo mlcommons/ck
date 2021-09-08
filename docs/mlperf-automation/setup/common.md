@@ -76,13 +76,13 @@ ck activate venv:mlperf-inference
 ```
 
 This CK automation will create a virtual environment and install 
-the [necessary dependencies](https://github.com/octoml/venv/blob/main/venv.template/mlperf-inference-1.1/script.sh)
+the [necessary dependencies](https://github.com/mlcommons/ck-venv/blob/main/venv.template/mlperf-inference-1.1/script.sh)
 for the [MLPerf inference benchmark v1.1](https://github.com/mlcommons/inference).
 
 ## Pull MLOps automation repo
 
 ```bash
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
 ## Misc

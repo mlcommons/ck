@@ -4,5 +4,5 @@
 
 ## ONNX models
 
-* [CPU](https://github.com/octoml/mlops/tree/main/program/mlperf-inference-bench-image-classification-pytorch-onnx-cpu)
-* [CUDA](https://github.com/octoml/mlops/tree/main/program/mlperf-inference-bench-image-classification-pytorch-onnx-gpu)
+* [CPU](https://github.com/mlcommons/ck-mlops/tree/main/program/mlperf-inference-bench-image-classification-pytorch-onnx-cpu)
+* [CUDA](https://github.com/mlcommons/ck-mlops/tree/main/program/mlperf-inference-bench-image-classification-pytorch-onnx-gpu)

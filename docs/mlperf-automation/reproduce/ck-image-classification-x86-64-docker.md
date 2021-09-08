@@ -6,7 +6,7 @@
 
 ```
 python3 -m pip install ck
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
 ## Build Docker container with CK components and a small ImageNet (500 images) to test MLPerf&trade; workflows
@@ -29,7 +29,7 @@ You can now issue standard CK commands from [here](ck-image-classification-x86-6
 
 ### Linux
 ```
-docker run --rm octoml/ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791:ubuntu-20.04 \
+docker run --rm mlcommons/ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791:ubuntu-20.04 \
     "ck install package --tags=model,tflite,resnet50,no-argmax && ck benchmark program:image-classification-tflite-loadgen \
      --env.CK_LOADGEN_MODE=AccuracyOnly \
      --env.CK_LOADGEN_SCENARIO=SingleStream \
@@ -77,7 +77,7 @@ export CK_HOST_DATASETS=~/datasets
 docker run \
        --volume ${CK_HOST_REPO_EXPERIMENTS}:/home/ckuser/ck-experiments \
        --volume ${CK_HOST_RUN_SCRIPT}:/home/ckuser/${CK_LOCAL_DOCKER_SCRIPT} \
-       -it octoml/ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791:ubuntu-20.04 \
+       -it mlcommons/ck-mlperf-inference-v1.0-image-classification-small-imagenet-fcbc9a7708491791:ubuntu-20.04 \
        "./${CK_LOCAL_DOCKER_SCRIPT}"
 ```
 

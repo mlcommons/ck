@@ -53,7 +53,7 @@ script:
     - ${PYTHON_EXE} setup.py install
     - ck version
     - coverage run -m tests.test
-    - ck pull repo:octoml@mlops
+    - ck pull repo:mlcommons@ck-mlops
     - echo "$CK_PLATFORM_NAME" | ck detect platform.os --update_platform_init
     - ck detect soft:compiler.python --full_path=`which ${PYTHON_EXE}`
     - ck install package --tags=lib,python-package,numpy

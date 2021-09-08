@@ -46,7 +46,7 @@ ck pull repo:mlcommons@ck-venv
 ck create venv:test
 ck activate venv:test
 
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 
 ck detect platform.os --platform_init_uoa=generic-linux-dummy
 ck detect soft:compiler.python --full_path=$CK_VENV_PYTHON_BIN

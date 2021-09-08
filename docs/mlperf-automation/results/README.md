@@ -7,7 +7,7 @@
 ```
 pip install ck
 
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 
 ck install package --tags=mlcommons,inference,results
 

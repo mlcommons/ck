@@ -9,7 +9,7 @@ either locally or using the [cKnowledge.io platform](https://cknowledge.io/?q="m
 
 ## Demo of a Docker with MLPerf&trade; dashboards for ML Systems DSE (Linux and Windows)
 
-Container: [docker:ck-mlperf-dashboard-demo](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-dashboard-demo)
+Container: [docker:ck-mlperf-dashboard-demo](https://github.com/mlcommons/ck-mlops/tree/main/docker/ck-mlperf-dashboard-demo)
 
 ### Install CK
 ```
@@ -18,7 +18,7 @@ python3 -m pip install ck
 
 ### Pull CK repository
 ```
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
 ### Build this container
@@ -42,7 +42,7 @@ Go to http://localhost:3355/?template=dashboard&scenario=mlperf.mobilenets
 
 ## Demo of a Docker with MLPerf&trade; dashboards for ML Systems DSE (Linux and Windows)
 
-Container: [docker:ck-mlperf-dashboard-demo](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-dashboard-demo)
+Container: [docker:ck-mlperf-dashboard-demo](https://github.com/mlcommons/ck-mlops/tree/main/docker/ck-mlperf-dashboard-demo)
 
 This container demonstrates how to run CK experiments and record results 
 from the Docker in the local "mlperf-mobilenets" repository on the host machine
@@ -55,7 +55,7 @@ python3 -m pip install ck
 
 ### Pull ck-ml repository via CK
 ```
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
 ### Create local mlperf-mobilenets repo
@@ -70,18 +70,18 @@ ck build docker:ck-mlperf-local-dashboard-demo
 
 ### Run this container
 
-You must run this container using a special script from [this directory](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-local-dashboard-demo):
+You must run this container using a special script from [this directory](https://github.com/mlcommons/ck-mlops/tree/main/docker/ck-mlperf-local-dashboard-demo):
 ```
 cd `ck find docker:ck-mlperf-local-dashboard-demo
 ```
 
-* Linux: [docker-start.sh](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-local-dashboard-demo/docker-start.sh)
-* Windows: [docker-start.bat](https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-local-dashboard-demo/docker-start.bat)
+* Linux: [docker-start.sh](https://github.com/mlcommons/ck-mlops/tree/main/docker/ck-mlperf-local-dashboard-demo/docker-start.sh)
+* Windows: [docker-start.bat](https://github.com/mlcommons/ck-mlops/tree/main/docker/ck-mlperf-local-dashboard-demo/docker-start.bat)
 
 This script will mount local CK mlperf-mobilenets repo inside Docker
 to be able to record experiments there from the Docker container.
 
-This script will call a helper script [https://github.com/octoml/mlops/tree/main/docker/ck-mlperf-local-dashboard-demo/docker-helper.sh] with benchmarks
+This script will call a helper script [https://github.com/mlcommons/ck-mlops/tree/main/docker/ck-mlperf-local-dashboard-demo/docker-helper.sh] with benchmarks
 that you can modify to run different experiments.
 
 ### View CK dashboard localy

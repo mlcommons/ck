@@ -9,7 +9,7 @@
 ## Notes
 
 * [20210813] Grigori successfully tested this setup with the 
-  [MLPerf end-to-end submission system](https://github.com/octoml/mlops/tree/main/module/bench.mlperf.inference)
+  [MLPerf end-to-end submission system](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)
   for TVM, ONNX, PyTorch, TF and TFLite
   across Azure, AWS and GCP nodes.
 

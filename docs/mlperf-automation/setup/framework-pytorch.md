@@ -3,7 +3,7 @@
 ## Pull MLOps automation repo
 
 ```bash
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
 ## Install CK packages (CPU)
@@ -43,7 +43,7 @@ ck install package --tags=lib,python-package,torchvision-cuda,0.6.0+cu101
 Note that MLPerf reference image classification v1.1 fails with PyTorch > 1.5 (seg fault in MLPerf inference)
 
 Grigori testsed the following configuration:
-* CK workflow: https://github.com/octoml/mlops/tree/main/program/mlperf-inference-bench-image-classification-pytorch-onnx-cpu
+* CK workflow: https://github.com/mlcommons/ck-mlops/tree/main/program/mlperf-inference-bench-image-classification-pytorch-onnx-cpu
 * PyTorch 1.5.0
 * TorchVision 0.6.0 (works with PyTorch 1.5.0)
 * ONNX 1.8.1

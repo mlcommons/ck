@@ -3,7 +3,7 @@
 ## Pull MLOps automation repo
 
 ```bash
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
 ## Plug CUDA into CK

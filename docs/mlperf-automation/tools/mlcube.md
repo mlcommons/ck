@@ -46,7 +46,7 @@ ck activate venv:mlcube
 
 ### Pull repo with CK MLOps, MLCube and MLPerf components:
 ```
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
 ### Install MLCube as a CK package

@@ -6,8 +6,8 @@
 
 We have developed the prototype of the automated submission system 
 for the MLPerf inference benchmark:
-* [CK module with Readme](https://github.com/octoml/mlops/tree/main/module/bench.mlperf.inference)
-* [API](https://github.com/octoml/mlops/blob/main/module/bench.mlperf.inference/module.py#L1230)
+* [CK module with Readme](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)
+* [API](https://github.com/mlcommons/ck-mlops/blob/main/module/bench.mlperf.inference/module.py#L1230)
 
 
 ## Required functionality
@@ -40,8 +40,8 @@ for the MLPerf inference benchmark:
 
 ```
 
-This high-level workflow will install relevant CK packages ([ctuning@ai](https://github.com/mlcommons/ck-mlops/tree/main/package) / [octoml@mlops](https://github.com/octoml/mlops/tree/main/package))
-and run low-level [CK program workflows for MLPerf](https://github.com/octoml/mlops/tree/main/program).
+This high-level workflow will install relevant CK packages ([ctuning@ai](https://github.com/mlcommons/ck-mlops/tree/main/package) / [mlcommons@ck-mlops](https://github.com/mlcommons/ck-mlops/tree/main/package))
+and run low-level [CK program workflows for MLPerf](https://github.com/mlcommons/ck-mlops/tree/main/program).
 
 
 ## Tested configuration

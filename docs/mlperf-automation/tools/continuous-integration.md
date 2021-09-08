@@ -6,7 +6,7 @@ All CK modules and automation actions are accessible as a micro-service with a u
 
 For example, have a look at these CLI-based CK commands:
 ```
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ck search dataset --tags=jpeg
 ck compile program:image-corner-detection --speed
 ck run program:image-corner-detection --env.XYZ=abc
@@ -17,7 +17,7 @@ They can be implemented in Python as follows:
 ```
 import ck.kernel as ck
 
-r=ck.access({'action':'pull', 'module_uoa':'repo', 'data_uoa':'octoml@mlops})
+r=ck.access({'action':'pull', 'module_uoa':'repo', 'data_uoa':'mlcommons@ck-mlops})
 if r['return']>0: ck.err(r)
 
 r=ck.access({'action':'search', 'module_uoa':'dataset', 'tags':'jpeg'})

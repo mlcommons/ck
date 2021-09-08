@@ -23,7 +23,7 @@ Please follow [this guide](https://github.com/mlcommons/ck#instalation)
 # Install CK repos with MLOps components
 
 ```bash
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
 # Install ImageNet 2012 aux package

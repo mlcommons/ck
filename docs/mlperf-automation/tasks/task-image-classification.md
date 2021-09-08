@@ -13,7 +13,7 @@
 | model | framework | accuracy | dataset | model link | model source | precision | notes | CK dataset | CK model | CK model package tags |
 | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- | ---- |
 | resnet50-v1.5 | tensorflow | 76.456% | imagenet2012 validation | [from zenodo](https://zenodo.org/record/2535873/files/resnet50_v1.pb) | [mlperf](https://github.com/mlperf/training/tree/master/image_classification), [tensorflow](https://github.com/tensorflow/models/tree/master/official/resnet) | fp32 | NHWC. More information on resnet50 v1.5 can be found [here](https://github.com/tensorflow/models/tree/master/official/resnet).||   |   |   |
-| resnet50-v1.5 | onnx | 76.456% | imagenet2012 validation | from zenodo: [opset-8](https://zenodo.org/record/2592612/files/resnet50_v1.onnx), [opset-11](https://zenodo.org/record/4735647/files/resnet50_v1.onnx) | [from zenodo](https://zenodo.org/record/2535873/files/resnet50_v1.pb) converted with [this script](https://github.com/mlcommons/inference/blob/master/vision/classification_and_detection/tools/convert-to-onnx.sh) | fp32 | NCHW, tested on pytorch and onnxruntime |   | [link](https://github.com/octoml/mlops/tree/main/package/ml-model-mlperf-resnet50-v1.5-onnx)  | *model,image-classification,mlperf,onnx,resnet50*  |
+| resnet50-v1.5 | onnx | 76.456% | imagenet2012 validation | from zenodo: [opset-8](https://zenodo.org/record/2592612/files/resnet50_v1.onnx), [opset-11](https://zenodo.org/record/4735647/files/resnet50_v1.onnx) | [from zenodo](https://zenodo.org/record/2535873/files/resnet50_v1.pb) converted with [this script](https://github.com/mlcommons/inference/blob/master/vision/classification_and_detection/tools/convert-to-onnx.sh) | fp32 | NCHW, tested on pytorch and onnxruntime |   | [link](https://github.com/mlcommons/ck-mlops/tree/main/package/ml-model-mlperf-resnet50-v1.5-onnx)  | *model,image-classification,mlperf,onnx,resnet50*  |
 | resnet50-v1.5 | pytorch | 76.014% | imagenet2012 validation | [from zenodo](https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth) | [from TorchVision](https://github.com/pytorch/vision/blob/v0.8.2/torchvision/models/resnet.py) | fp32 | NCHW |   |   |   | 
 | resnet50-v1.5 | pytorch | 75.790% | imagenet2012 validation | [from zenodo](https://zenodo.org/record/4589637/files/resnet50_INT8bit_quantized.pt) | Edgecortix [quantization script](https://github.com/mlcommons/inference/blob/master/vision/classification_and_detection/tools/calibrate_torchvision_model.py) | A: int8, W: uint8 | NCHW |   |   |   |
 
@@ -73,10 +73,10 @@ or using the [cKnowledge.io platform](https://cKnowledge.io/c/package).
 
 ## Pull CK repo with the latest MLPerf&trade; automations from OctoML:
 ```
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
-CK will pull and install GitHub repository from https://github.com/octoml/mlops.
+CK will pull and install GitHub repository from https://github.com/mlcommons/ck-mlops.
 Note that you can pull any Git repository in the CK format as follows:
 ```
 ck pull repo --url={URL}
@@ -140,7 +140,7 @@ ck install package --tags=lib,python-package,onnxruntime-cpu,1.6.0
 ck install package --tags=model,image-classification,mlperf,onnx,resnet50,v1.5-opset-8
 ```
 
-Feel free to check [CK JSON meta](https://github.com/octoml/mlops/blob/main/package/ml-model-mlperf-resnet50-v1.5-onnx/.cm/meta.json) of this package.
+Feel free to check [CK JSON meta](https://github.com/mlcommons/ck-mlops/blob/main/package/ml-model-mlperf-resnet50-v1.5-onnx/.cm/meta.json) of this package.
 
 #### Install ResNet50 v1.5 fp32 for ONNX opset-11
 
@@ -148,7 +148,7 @@ Feel free to check [CK JSON meta](https://github.com/octoml/mlops/blob/main/pack
 ck install package --tags=model,image-classification,mlperf,onnx,resnet50,v1.5-opset-11
 ```
 
-Feel free to check [CK JSON meta](https://github.com/octoml/mlops/blob/main/package/ml-model-mlperf-resnet50-v1.5-onnx/.cm/meta.json) of this package.
+Feel free to check [CK JSON meta](https://github.com/mlcommons/ck-mlops/blob/main/package/ml-model-mlperf-resnet50-v1.5-onnx/.cm/meta.json) of this package.
 
 
 
@@ -186,8 +186,8 @@ You can test performance in SingleStream mode for 500 images as follows:
 ck run program:mlperf-inference-bench-image-classification-onnx-cpu --cmd_key=performance-singlestream --env.EXTRA_OPS="--count 500 --time 60 --qps 200 --max-latency 0.1"
 ```
 
-Feel free to check the [CK JSON meta](https://github.com/octoml/mlops/blob/main/program/mlperf-inference-bench-image-classification-onnx-cpu/.cm/meta.json) 
-and [CK dependencies](https://github.com/octoml/mlops/blob/main/program/mlperf-inference-bench-image-classification-onnx-cpu/.cm/meta.json#L99) for this benchmark!
+Feel free to check the [CK JSON meta](https://github.com/mlcommons/ck-mlops/blob/main/program/mlperf-inference-bench-image-classification-onnx-cpu/.cm/meta.json) 
+and [CK dependencies](https://github.com/mlcommons/ck-mlops/blob/main/program/mlperf-inference-bench-image-classification-onnx-cpu/.cm/meta.json#L99) for this benchmark!
 
 Note that you can obtain help about any CK module such as "program" and action such as "run" as follows:
 ```

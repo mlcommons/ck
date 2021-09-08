@@ -32,7 +32,7 @@ if you encounter any problem or have questions.
 Now you can pull CK repo with the universal program workflow. 
 
 ```bash
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
 CK will automatically pull all required CK repositories with different automation actions, benchmarks, and datasets in the CK format.

@@ -4,7 +4,7 @@
 ## End-to-end submission system
 
 We are working on an end-to-end submission system based on CK workflows.
-Please follow [this guide](https://github.com/octoml/mlops/tree/main/module/bench.mlperf.inference)
+Please follow [this guide](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)
 
 
 ## Unsorted notes

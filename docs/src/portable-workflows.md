@@ -20,7 +20,7 @@ These CK modules automate and unify the detection of different properties of use
 
 Examples:
 ```bash
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 
 ck detect platform
 ck detect platform.gpgpu --cuda
@@ -123,7 +123,7 @@ A user describes dependencies on CK packages in the CK program meta as well as c
 
 Examples:
 ```bash
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 
 ck compile program:image-corner-detection --speed
 ck run program:image-corner-detection --repeat=1 --env.OMP_NUM_THREADS=4
