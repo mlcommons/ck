@@ -149,7 +149,7 @@ You can create multiple [virtual CK environments](https://github.com/octoml/venv
 to automatically install different CK packages and workflows, for example for MLPerf&trade; inference:
 
 ```
-ck pull repo:octoml@venv
+ck pull repo:mlcommons@ck-venv
 ck create venv:test --template=mlperf-inference-main
 ck ls venv
 ck activate venv:test

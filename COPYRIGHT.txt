@@ -1,1 +1,5 @@
+Copyright (c) 2021 MLCommons
+
+cTuning foundation donated this code to MLCommons to support the automation of the MLPerf benchmark.
+
 Copyright (c) 2014-2021 cTuning foundation

@@ -1,3 +1,7 @@
+20210906:
+  * cTuning foundation and OctoML donated this repository to MLCommons
+    as a part of their MLPerf inference benchmark v1.1 submission.
+
 * v2.5.8.1
   * minor enhancement of "ck display dashboard" automation module
     to support the latest format of the MLPerf benchmark

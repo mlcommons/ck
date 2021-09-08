@@ -33,7 +33,7 @@ python3 -m pip install ck
 We suggest you to create a virtual CK environment using MLPerf&trade; inference dev template as follows:
 
 ```
-ck pull repo:octoml@venv
+ck pull repo:mlcommons@ck-venv
 
 ck create venv:mlperf-inference --template=mlperf-inference-dev
 

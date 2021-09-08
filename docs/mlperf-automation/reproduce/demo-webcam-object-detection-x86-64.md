@@ -6,7 +6,7 @@ MLPerf&trade; webcam demo: live object detection with a webcam using MLPerf&trad
 
 ```
 python3 -m pip install ck
-ck pull repo:octoml@venv
+ck pull repo:mlcommons@ck-venv
 ck create venv:mlperf-webcam-demo
 ```
 

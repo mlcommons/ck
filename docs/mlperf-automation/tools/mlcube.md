@@ -37,7 +37,7 @@ python3 -m pip install ck
 We suggest you to create a virtual CK environment as follows:
 
 ```
-ck pull repo:octoml@venv
+ck pull repo:mlcommons@ck-venv
 
 ck create venv:mlcube --template=generic
 

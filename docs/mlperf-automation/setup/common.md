@@ -47,7 +47,7 @@ or add *~.local/bin/ck* to your *PATH* environment variable manually.
 ## Pull CK repo for virtual environments
 
 ```bash
-ck pull repo:octoml@venv
+ck pull repo:mlcommons@ck-venv
 ```
 
 ## Check your Python version 

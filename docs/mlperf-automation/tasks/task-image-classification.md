@@ -29,7 +29,7 @@ We suggest you to create a virtual CK environment using MLPerf&trade; inference 
 (with the TVM backend from OctoML) as follows:
 
 ```
-ck pull repo:octoml@venv
+ck pull repo:mlcommons@ck-venv
 
 ck create venv:mlperf-inference --template=mlperf-inference-1.1-tvm
 

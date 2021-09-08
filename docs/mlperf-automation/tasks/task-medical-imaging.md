@@ -12,7 +12,7 @@
 
 ```
 python3 -m pip install ck
-ck pull repo:octoml@venv
+ck pull repo:mlcommons@ck-venv
 
 ck create venv:mlperf-inference --template=mlperf-inference-1.0
 
