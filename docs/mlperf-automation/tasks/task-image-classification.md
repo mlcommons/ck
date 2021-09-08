@@ -41,7 +41,7 @@ Note that you need Python 3.6+ for the MLPerf inference benchmark.
 Alternatively, use the following commands if you want to use your native environment:
 
 ```
-ck pull repo:ck-mlops
+ck pull repo:mlcommons@ck-mlops
 
 ck setup kernel --var.install_to_env=yes
 

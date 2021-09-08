@@ -43,7 +43,7 @@ ck activate venv:mlperf-inference
 Alternatively, use the following commands if you want to use your native environment:
 
 ```
-ck pull repo:ck-mlops
+ck pull repo:mlcommons@ck-mlops
 
 ck setup kernel --var.install_to_env=yes
 
