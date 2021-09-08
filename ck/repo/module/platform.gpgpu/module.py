@@ -394,7 +394,7 @@ def detect(i):
                            cc2='sm_86'
                            cc3='Ampere'
                         else:
-                           return {'return':1, 'error':'Compute capability of your CUDA device is not recognized ('+cc+') - please report at https://github.com/ctuning/ck/issues or update module:platform.gpgpu'}
+                           return {'return':1, 'error':'Compute capability of your CUDA device is not recognized ('+cc+') - please report at https://github.com/mlcommons/ck/issues or update module:platform.gpgpu'}
 
                         prop_all['compute_capability1']=cc1
                         prop_all['compute_capability2']=cc2

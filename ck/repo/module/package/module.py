@@ -1927,8 +1927,8 @@ def show(i):
        h+='<p>\n'
        h+='See <pre>ck install package --help</pre> for more installation options.\n'
        h+='See <a href="https://cKnowledge.io/c/soft">related CK soft detection plugins</a>,\n'
-       h+=' <a href="https://github.com/ctuning/ck/wiki">CK documentation</a>,\n'
-       h+=' <a href="https://github.com/ctuning/ck/wiki#contributing">"how to contribute" guide</a>,\n'
+       h+=' <a href="https://github.com/mlcommons/ck/wiki">CK documentation</a>,\n'
+       h+=' <a href="https://github.com/mlcommons/ck/wiki#contributing">"how to contribute" guide</a>,\n'
        h+=' <a href="https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf">ACM ReQuEST-ASPLOS\'18 report</a>\n'
        h+=' and the latest <a href="http://cKnowledge.org/rpi-crowd-tuning">CK paper</a> for further details.\n'
        h+='See <a href="https://github.com/ctuning/ck-spack">ck-spack repository</a> connecting CK and spack package manager.\n'
@@ -1962,7 +1962,7 @@ def show(i):
         lr_uid=l['repo_uid']
         url=''
         if lr=='default':
-           url='' #'http://github.com/ctuning/ck'
+           url='' #'http://github.com/mlcommons/ck'
         elif lr_uid in repo_url:
            url=repo_url[lr_uid]
         else:
@@ -2768,7 +2768,7 @@ def add(i):
        ck.out('')
        ck.out('Further details about how to update meta.json and other files of your new package installation plugin:')
        ck.out('')
-       ck.out(' * https://github.com/ctuning/ck/wiki/Adding-new-workflows')
+       ck.out(' * https://github.com/mlcommons/ck/wiki/Adding-new-workflows')
 
     return ck.access(ii)
 
@@ -2870,9 +2870,9 @@ def print_warning(i):
 
        x1='the community'
 #       x2='https://groups.google.com/forum/#!forum/collective-knowledge'
-#       x3='https://github.com/ctuning/ck/issues'
-       x2='https://github.com/ctuning/ck/issues'
-       x3='https://github.com/ctuning/ck-mlops/issues'
+#       x3='https://github.com/mlcommons/ck/issues'
+       x2='https://github.com/mlcommons/ck/issues'
+       x3='https://github.com/mlcommons/ck-mlops/issues'
 #       if url2!='':
 #          x1='the authors'
 #          x2=url2

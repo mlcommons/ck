@@ -18,7 +18,7 @@ ck=None # Will be updated by CK (initialized CK kernel)
 hextra='<center>\n'
 hextra+=' [ <a href="https://cKnowledge.org">Project website</a> ], '
 hextra+=' [ <a href="https://cKnowledge.org/partners.html">Partners</a> ], '
-hextra+=' [ <a href="https://github.com/ctuning/ck-mlops">CK automation recipes for MLOps</a> ], '
+hextra+=' [ <a href="https://github.com/mlcommons/ck-mlops">CK automation recipes for MLOps</a> ], '
 hextra+=' [ <a href="https://en.wikipedia.org/wiki/Collective_Knowledge_(software)">Wikipedia</a> ] \n'
 hextra+='</center>\n'
 hextra+='\n'
@@ -138,7 +138,7 @@ def show(i):
        if r['return']>0: return r
        x=r['html']
 
-       h+='<br><b>Select AI scenario with unified <a href="https://github.com/ctuning/ck/wiki/Unifying-AI-API">CK AI JSON API</a> :</b><br><br>'+x+'<br><br><br>'
+       h+='<br><b>Select AI scenario with unified <a href="https://github.com/mlcommons/ck/wiki/Unifying-AI-API">CK AI JSON API</a> :</b><br><br>'+x+'<br><br><br>'
 
        # Render scenario
        if ai!='':

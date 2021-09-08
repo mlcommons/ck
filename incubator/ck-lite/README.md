@@ -2,7 +2,7 @@
 
 Based on user feedback, we plan to redesign the CK framework making it lighter, simpler and more pythonic.
 
-Feel free to contribute and discuss it via [open tickets](https://github.com/ctuning/ck/issues)! Thank you for supporting this community project!
+Feel free to contribute and discuss it via [open tickets](https://github.com/mlcommons/ck/issues)! Thank you for supporting this community project!
 
 Ideas:
 * separate CK database (CK repo) and automation actions

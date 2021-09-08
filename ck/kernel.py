@@ -24,7 +24,7 @@
 # However, since CK is most commonly used as a Python library,
 # I believe that we should eventually rewrite it in a pythonic way
 # and with object oriented programming while keeping backward compatibility.
-# We've started prototyping new ideas at https://github.com/ctuning/ck/tree/master/incubator .
+# We've started prototyping new ideas at https://github.com/mlcommons/ck/tree/master/incubator .
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
@@ -56,15 +56,15 @@ cfg = {
     # Collective Knowledge Base (ckb)
     "wiki_data_web": "https://cKnowledge.io/c/",
     # Collective Knowledge Base (ckb)
-    "private_wiki_data_web": "https://github.com/ctuning/ck/wiki/ckb_",
+    "private_wiki_data_web": "https://github.com/mlcommons/ck/wiki/ckb_",
     "api_web": "https://cKnowledge.io/c/module/",
-    "status_url": "https://raw.githubusercontent.com/ctuning/ck/master/setup.py",
+    "status_url": "https://raw.githubusercontent.com/mlcommons/ck/master/setup.py",
 
     "help_examples": "  Example of obtaining, compiling and running a shared benchmark on Linux with GCC:\n    $ ck pull repo:ctuning-programs\n    $ ck compile program:cbench-automotive-susan --speed\n    $ ck run program:cbench-automotive-susan\n\n  Example of an interactive CK-powered article:\n    http://cknowledge.org/repo\n",
-    "help_web": "  Documentation:\n        https://github.com/ctuning/ck/wiki",
+    "help_web": "  Documentation:\n        https://github.com/mlcommons/ck/wiki",
 
-    "ck_web": "https://github.com/ctuning/ck",
-    "ck_web_wiki": "https://github.com/ctuning/ck/wiki",
+    "ck_web": "https://github.com/mlcommons/ck",
+    "ck_web_wiki": "https://github.com/mlcommons/ck/wiki",
 
     "default_shared_repo_url": "https://github.com/ctuning",
     "default_shared_repo_url_with_at": "https://github.com",

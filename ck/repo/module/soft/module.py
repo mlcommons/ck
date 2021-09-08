@@ -2617,8 +2617,8 @@ def show(i):
        h+='<p>\n'
        h+='See <pre>ck detect soft --help</pre> for more detection options.\n'
        h+='See <a href="http://cKnowledge.org/shared-packages.html">related CK packages</a>,\n'
-       h+=' <a href="https://github.com/ctuning/ck/wiki">CK documentation</a>,\n'
-       h+=' <a href="https://github.com/ctuning/ck/wiki#contributing">"how to contribute" guide</a>,\n'
+       h+=' <a href="https://github.com/mlcommons/ck/wiki">CK documentation</a>,\n'
+       h+=' <a href="https://github.com/mlcommons/ck/wiki#contributing">"how to contribute" guide</a>,\n'
        h+=' <a href="https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf">ACM ReQuEST-ASPLOS\'18 report</a>\n'
        h+=' and the latest <a href="http://cKnowledge.org/rpi-crowd-tuning">CK paper</a> for further details.\n'
 
@@ -2651,7 +2651,7 @@ def show(i):
         lr_uid=l['repo_uid']
         url=''
         if lr=='default':
-           url='' #'http://github.com/ctuning/ck'
+           url='' #'http://github.com/mlcommons/ck'
         elif lr_uid in repo_url:
            url=repo_url[lr_uid]
         else:
@@ -3079,7 +3079,7 @@ def add(i):
        ck.out('')
        ck.out('Further details about how to update meta.json and customize.py of your new software detection plugin:')
        ck.out('')
-       ck.out(' * https://github.com/ctuning/ck/wiki/Adding-new-workflows')
+       ck.out(' * https://github.com/mlcommons/ck/wiki/Adding-new-workflows')
 
     return ck.access(ii)
 

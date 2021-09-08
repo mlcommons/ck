@@ -26,7 +26,7 @@ onchange='document.'+form_name+'.submit();'
 
 hextra='<i><center>\n'
 hextra+=' [ <a href="https://cKnowledge.org">Project website</a> ], '
-hextra+=' [ <a href="https://github.com/ctuning/ck-mlops">CK automation recipes for portable MLOps</a> ], '
+hextra+=' [ <a href="https://github.com/mlcommons/ck-mlops">CK automation recipes for portable MLOps</a> ], '
 hextra+=' [ <a href="http://cKnowledge.org/android-apps.html">Android app</a> ], '
 hextra+=' [ <a href="https://en.wikipedia.org/wiki/Collective_Knowledge_(software)">CK intro</a>, \n'
 hextra+='<a href="https://arxiv.org/abs/1506.06256">crowd-tuning</a> ] \n'

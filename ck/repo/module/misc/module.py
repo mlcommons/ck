@@ -940,7 +940,7 @@ def list_kernel_functions(i):
        h+='\n'
        h+='</pre>\n'
 
-       h+='See <a href="https://github.com/ctuning/ck/wiki">CK documentation for further details</a>.\n'
+       h+='See <a href="https://github.com/mlcommons/ck/wiki">CK documentation for further details</a>.\n'
 
        h+='<p>\n'
        h+='<table cellpadding="4" border="1" style="border-collapse: collapse; border: 1px solid black;">\n'
@@ -979,7 +979,7 @@ def list_kernel_functions(i):
             xapi+=y+'\n'
         xapi+='</pre>\n'
 
-        url='https://github.com/ctuning/ck/blob/master/ck/kernel.py'
+        url='https://github.com/mlcommons/ck/blob/master/ck/kernel.py'
 
         x=''
         if target!='':
@@ -1012,7 +1012,7 @@ def list_kernel_functions(i):
     hcfg+='    print (ck.cfg)\n'
     hcfg+='</pre>\n'
 
-    hcfg+='See <a href="https://github.com/ctuning/ck/wiki">CK documentation for further details</a>.\n'
+    hcfg+='See <a href="https://github.com/mlcommons/ck/wiki">CK documentation for further details</a>.\n'
 
     hcfg+='<p>\n'
     hcfg+='<pre>\n'
@@ -1133,9 +1133,9 @@ def list_repos(i):
        h+='<p>Feel free to add description of your own CK repository to <a href="https://github.com/ctuning/ck-env/blob/master/cfg/list-of-repos/.cm/meta.json">this JSON file</a> - just open a PR on this <a href="https://github.com/ctuning/ck-env">GitHub repo</a>.\n'
        h+='You can obtain the main key for your entry (DATA UID) as well as data_uoa (DATA ALIAS) using this command: ck info repo:{my repo name}. You can then obtain and add "dict" using this command: ck load repo:{my repo name} --min .\n'
 
-       h+='<p>See <a href="https://github.com/ctuning/ck/wiki">CK documentation</a>,\n'
-       h+=' <a href="https://github.com/ctuning/ck/wiki#contributing">"how to contribute" guide</a>\n'
-       h+=' and <a href="https://github.com/ctuning/ck/wiki#user-content-reusable-ck-components">already shared reusable components</a> for further details.\n'
+       h+='<p>See <a href="https://github.com/mlcommons/ck/wiki">CK documentation</a>,\n'
+       h+=' <a href="https://github.com/mlcommons/ck/wiki#contributing">"how to contribute" guide</a>\n'
+       h+=' and <a href="https://github.com/mlcommons/ck/wiki#user-content-reusable-ck-components">already shared reusable components</a> for further details.\n'
 
        h+='<p>\n'
        h+='<table cellpadding="4" border="1" style="border-collapse: collapse; border: 1px solid black;">\n'
@@ -1173,7 +1173,7 @@ def list_repos(i):
         url=''
 
         if lr=='default':
-           url='https://github.com/ctuning/ck/tree/master/ck/repo'
+           url='https://github.com/mlcommons/ck/tree/master/ck/repo'
         else:
            rx=ck.load_repo_info_from_cache({'repo_uoa':lr_uid})
            if rx['return']>0: return rx
@@ -1302,7 +1302,7 @@ def list_repos(i):
               url=url.replace(':','/').replace('git@','https://')
 
            if url=='' and lr=='default':
-              url='https://github.com/ctuning/ck/tree/master/ck/repo'
+              url='https://github.com/mlcommons/ck/tree/master/ck/repo'
 
            if url!='':
               x1='<a href="'+url+'">'
@@ -1473,8 +1473,8 @@ def list_modules(i):
        h+=' ck add_action module:{my module alias}\n'
        h+='</pre>\n'
 
-       h+='See <a href="https://github.com/ctuning/ck/wiki">CK documentation</a>,\n'
-       h+=' <a href="https://github.com/ctuning/ck/wiki#contributing">"how to contribute" guide</a>,\n'
+       h+='See <a href="https://github.com/mlcommons/ck/wiki">CK documentation</a>,\n'
+       h+=' <a href="https://github.com/mlcommons/ck/wiki#contributing">"how to contribute" guide</a>,\n'
        h+=' and the latest <a href="http://cKnowledge.org/rpi-crowd-tuning">CK paper</a> for further details.\n'
 
        h+='<p>\n'
@@ -1501,7 +1501,7 @@ def list_modules(i):
         lr_uid=l['repo_uid']
         url=''
         if lr=='default':
-           url='https://github.com/ctuning/ck/tree/master/ck/repo'
+           url='https://github.com/mlcommons/ck/tree/master/ck/repo'
         elif lr_uid in repo_url:
            url=repo_url[lr_uid]
         else:
@@ -2197,7 +2197,7 @@ def list_kernel_functions_md(i):
             xapi+=y+'\n'
         xapi+='```\n'
 
-        url='https://github.com/ctuning/ck/blob/master/ck/kernel.py'
+        url='https://github.com/mlcommons/ck/blob/master/ck/kernel.py'
 
         x=''
         if target!='':
@@ -2232,7 +2232,7 @@ def list_kernel_functions_md(i):
     hcfg+='    print (ck.cfg)\n'
     hcfg+='```\n\n'
 
-    hcfg+='See <a href="https://github.com/ctuning/ck/wiki">CK documentation for further details</a>.\n'
+    hcfg+='See <a href="https://github.com/mlcommons/ck/wiki">CK documentation for further details</a>.\n'
 
     hcfg+='\n'
     hcfg+='```python\n'

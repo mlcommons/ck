@@ -351,7 +351,7 @@ def snapshot(i):
        ck.out('Cloning latest CK version ...')
        ck.out('')
 
-    os.system('git clone https://github.com/ctuning/ck ck-master')
+    os.system('git clone https://github.com/mlcommons/ck ck-master')
 
     # Prepare scripts
     if o=='con':

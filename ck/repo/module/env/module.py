@@ -391,8 +391,8 @@ def env_set(i):
 
              ck.out('')
              ck.out(' This is a possible bug - please report here:')
-             ck.out('   * https://github.com/ctuning/ck/issues')
-             ck.out('   * https://github.com/ctuning/ck-mlops/issues')
+             ck.out('   * https://github.com/mlcommons/ck/issues')
+             ck.out('   * https://github.com/mlcommons/ck-mlops/issues')
              ck.out('')
 
           return {'return':33, 'error':'current host or target OS ('+str(setup)+' is not matching the one in software env '+duoa}

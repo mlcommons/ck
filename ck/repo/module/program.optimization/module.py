@@ -3130,7 +3130,7 @@ def links(i):
     h+='  <a href="http://cknowledge.org/repo/web.php?action=index&module_uoa=wfe&native_action=show&native_module_uoa=platform.gpgpu">GPGPU</a>, \n'
     h+='  <a href="http://cknowledge.org/repo/web.php?action=index&module_uoa=wfe&native_action=show&native_module_uoa=platform.nn">NN</a>, \n'
     h+='  <a href="http://cknowledge.org/repo/web.php?action=index&module_uoa=wfe&native_action=show&native_module_uoa=platform.npu">NPU</a> ] \n'
-    h+='[ <a href="https://github.com/ctuning/ck/wiki/Crowdsourcing-optimization">How to participate</a> ] \n'
+    h+='[ <a href="https://github.com/mlcommons/ck/wiki/Crowdsourcing-optimization">How to participate</a> ] \n'
     h+='[ Motivation (<a href="https://www.slideshare.net/GrigoriFursin/adapting-to-a-cambrian-aiswhw-explosion-with-open-codesign-competitions-and-collective-knowledge">PPT</a>) (<a href="https://portalparts.acm.org/3230000/3229762/fm/frontmatter.pdf">PDF</a>) ] \n'
     h+='[ <a href="https://cKnowledge.org/android-apps.html"><b>Android app</b></a> ] \n'
     h+='[ <b><a href="http://cknowledge.org/repo/web.php?wcid=42b9a1221eb50259:collective_training_set">Collective training set</a></b> ] \n'

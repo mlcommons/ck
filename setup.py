@@ -155,7 +155,7 @@ setup(
     name='ck',
     version=current_version,
 
-    url='https://github.com/ctuning/ck',
+    url='https://github.com/mlcommons/ck',
 
     license='Apache 2.0',
 

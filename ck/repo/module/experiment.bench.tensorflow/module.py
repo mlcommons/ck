@@ -26,7 +26,7 @@ onchange='document.'+form_name+'.submit();'
 
 hextra='<i><center>\n'
 hextra+=' [ <a href="https://cKnowledge.org">CK project website</a> ], '
-hextra+=' [ <a href="https://github.com/ctuning/ck-mlops">CK automation recipes for portable MLOps</a> ], '
+hextra+=' [ <a href="https://github.com/mlcommons/ck-mlops">CK automation recipes for portable MLOps</a> ], '
 hextra+=' [ <a href="http://cKnowledge.org/android-apps.html">Android app</a> ]\n '
 hextra+='</center></i>\n'
 hextra+='<br>\n'

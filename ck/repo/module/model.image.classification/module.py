@@ -14,7 +14,7 @@ ck=None # Will be updated by CK (initialized CK kernel)
 # Local settings
 hextra='<i><center>\n'
 hextra+=' [ <a href="https://cKnowledge.org">CK project website</a> ], '
-hextra+=' [ <a href="https://github.com/ctuning/ck-mlops">CK automation recipes for portable MLOps</a> ], '
+hextra+=' [ <a href="https://github.com/mlcommons/ck-mlops">CK automation recipes for portable MLOps</a> ], '
 hextra+=' [ <a href="https://en.wikipedia.org/wiki/Collective_Knowledge_(software)">Wikipedia</a> ]  \n'
 hextra+='</center></i>\n'
 hextra+='<br>\n'

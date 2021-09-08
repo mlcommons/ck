@@ -357,7 +357,7 @@ def html_viewer(i):
           if dd.get('add_ck_info','')!='':
              h+='<br>\n'
              h+=' <center><i>\n'
-             h+='  This interactive and reproducible article was automatically generated using <b><a href="http://github.com/ctuning/ck">Collective Knowledge framework</a></b>'
+             h+='  This interactive and reproducible article was automatically generated using <b><a href="http://github.com/mlcommons/ck">Collective Knowledge framework</a></b>'
              h+=' </i></center><br>\n'
 
     return {'return':0, 'raw':raw, 'show_top':top, 'html':h, 'style':st}
