@@ -54,7 +54,8 @@ ck install package --tags=compiler,tvm,dev \
 You can also install TVM with DNNL support to run MLPerf TVM2 backend as follows:
 ```bash
 ck install package --tags=lib,dnnl,v2.2.4 --dep_add_tags.compiler=llvm
-ck install package --tags=compiler,tvm,src,dev-dnnl-int8 --env.USE_DNNL_CODEGEN=ON --env.USE_OPENMP=gnu --j=16
+ck install package --tags=compiler,tvm,src,dev-0.8-dnnl-int8-v2-mlperf-1.1 \
+      --env.USE_DNNL_CODEGEN=ON --env.USE_OPENMP=gnu --j=16
 ```
 
 You can find the installation directories of TVM, LLVM, MLPerf and other packages as follows:
