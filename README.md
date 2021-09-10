@@ -9,7 +9,6 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1Fp6uxCqTazmCSSl8v-nY93VVmcOoLiXi?usp=sharing)
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1a761nKgoHlJAy6gOXh-c9H4WkLV8nzRU?usp=sharing)
-[![DOI](https://zenodo.org/badge/26230485.svg)](https://zenodo.org/badge/latestdoi/26230485)
 [![Documentation Status](https://readthedocs.org/projects/ck/badge/?version=latest)](https://ck.readthedocs.io/en/latest/?badge=latest)
 [![Coverage Status](https://coveralls.io/repos/github/ctuning/ck/badge.svg)](https://coveralls.io/github/ctuning/ck)
 
@@ -19,16 +18,19 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 ### Stable versions
 
 The latest version of the CK automation suite supported by MLCommons: **v2.5.8** (Apache 2.0 license):
-* [CK framework](https://github.com/mlcommons/ck/releases/tag/V2.5.8)
-* [CK automation suite for MLPerf and ML/SW/HW co-design](https://github.com/mlcommons/ck-mlops)
+* [MLCommons CK framework](https://github.com/mlcommons/ck/releases/tag/V2.5.8)
+* [MLCommons CK automation suite for MLPerf and ML/SW/HW co-design](https://github.com/mlcommons/ck-mlops)
 
 ### Development versions
 
-We plan to develop a new version of the CK framework (v3) as a collaborative effort within MLCommons Design Space Exploration Workgroup (Best Practices subgroup) - please feel free to join this collaborative effort!
+We plan to develop a new version of the CK framework (v3) 
+as a collaborative effort within different MLCommons workgroups - 
+please feel free to join this community effort!
 
 ### Deprecated versions
 
-**Versions 1.x including v1.17.0 and 1.55.5 (BSD license)** are not supported anymore. Please get in touch and we will help you to upgrade your infrastructure to use the latest MLCommons technology!
+**Versions 1.x including v1.17.0 and 1.55.5 (BSD license)** are stable but not officially supported anymore. 
+Please get in touch and we will help you to upgrade your infrastructure to use the latest MLCommons technology!
 
 
 ## Overview

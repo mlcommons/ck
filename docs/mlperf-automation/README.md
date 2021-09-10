@@ -7,10 +7,9 @@ compatible with [FAIR principles](https://www.go-fair.org/fair-principles).
 
 As a starting point, we will use the open-source and technology-neutral [MLCommons CK framework](https://github.com/mlcommons/ck) 
 with a [collection](https://github.com/mlcommons/ck-mlops) of [reusable automation recipes](https://github.com/mlcommons/ck-mlops/tree/main/program), 
-[plug&play packages](https://github.com/mlcommons/ck-mlops/tree/main/package) and adaptive containers with a common API
-([cTuning](https://github.com/mlcommons/ck-mlops/tree/main/docker) 
-and [OctoML](https://github.com/mlcommons/ck-mlops/tree/main/docker))
-for ML systems. CK framework was already successfully used by several MLCommons members 
+[plug&play packages](https://github.com/mlcommons/ck-mlops/tree/main/package) and 
+[adaptive containers](https://github.com/mlcommons/ck-mlops/tree/main/docker) 
+with a common API for ML systems. CK framework was already successfully used by several MLCommons members 
 to automate their MLPerf inference submissions and we want to build upon their experience. 
 
 We reuse a relatively mature ACM methodology to reproduce research results ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae))
@@ -18,12 +17,12 @@ and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCub
 
 # Standardization of the CK components for MLPerf
 
-We are working with MLCommons and OctoML to gradually convert all [CK packages](https://github.com/mlcommons/ck-mlops/tree/main/package)
+We are gradually converting all CK [packages](https://github.com/mlcommons/ck-mlops/tree/main/package)
 [benchmark workflows](https://github.com/mlcommons/ck-mlops/tree/main/programs), 
 [automation scripts](https://github.com/mlcommons/ck-mlops/tree/main/scripts) and 
 [Docker containers](https://github.com/mlcommons/ck-mlops/tree/main/docker)
 for diverse ML tasks, models, datasets and frameworks from the community to support
-our new [MLPerf inference submission workflow](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference).
+the new [MLPerf inference submission workflow](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference).
 
 ## CK workflows for the MLPerf inference benchmark
 
