@@ -17,9 +17,9 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 
 ### Stable versions
 
-The latest version of the CK automation suite supported by MLCommons: **v2.5.8** (Apache 2.0 license):
+The latest version of the CK automation suite supported by MLCommons&trade;: **v2.5.8** (Apache 2.0 license):
 * [MLCommons CK framework](https://github.com/mlcommons/ck/releases/tag/V2.5.8)
-* [MLCommons CK automation suite for MLPerf and ML/SW/HW co-design](https://github.com/mlcommons/ck-mlops)
+* [MLCommons CK automation suite for MLPerf&trade; and ML/SW/HW co-design](https://github.com/mlcommons/ck-mlops)
 
 ### Development versions
 
@@ -49,9 +49,10 @@ simplifies [MLPerf&trade; inference benchmark](https://github.com/mlcommons/ck/b
 and supports collaborative, reproducible and reusable ML Systems research:
 
 * [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4)
-* [AI/ML/MLPerf&trade; automation workflows and components from the community](https://github.com/mlcommons/ck-mlops);
-* [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems);
-* Our reproducibility initiatives: [methodology](https://cTuning.org/ae), [checklist](https://ctuning.org/ae/submission_extra.html), [events](https://cKnowledge.io/events).
+* [MLPerf inference benchmark v1.1 automation demo](https://bit.ly/ck-mlperf-demo)
+* [AI/ML/MLPerf&trade; automation workflows and components from the community](https://github.com/mlcommons/ck-mlops)
+* [Reddit discussion about reproducing 150 papers](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems)
+* Our reproducibility initiatives: [methodology](https://cTuning.org/ae), [checklist](https://ctuning.org/ae/submission_extra.html), [events](https://cKnowledge.io/events)
 
 ## Current projects
 * [Automating MLPerf(tm) inference benchmark and packing ML models, data sets and frameworks as CK components with a unified API and meta description](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/README.md)
