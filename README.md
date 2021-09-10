@@ -18,8 +18,8 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/iw
 ### Stable versions
 
 The latest version of the CK automation suite supported by MLCommons&trade;: **v2.5.8** (Apache 2.0 license):
-* [MLCommons CK framework](https://github.com/mlcommons/ck/releases/tag/V2.5.8)
-* [MLCommons CK automation suite for MLPerf&trade; and ML/SW/HW co-design](https://github.com/mlcommons/ck-mlops)
+* [CK framework](https://github.com/mlcommons/ck/releases/tag/V2.5.8)
+* [CK automation suite for MLPerf&trade; and ML/SW/HW co-design](https://github.com/mlcommons/ck-mlops)
 
 ### Development versions
 
