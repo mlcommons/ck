@@ -1,6 +1,22 @@
 **[ [TOC](../README.md) ]**
 
-# Reproduce MLPerf&trade; benchmark
+# Reproducibility reports: MLPerf&trade; inference benchmark v1.1
+
+## Powered by [MLCommons CK automation suite v2.5.8](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)
+
+### Image Classification
+
+* [Resnet50; TVM; AWS c6gd.xlarge; ARM64; edge; closed](ck-1b165548d8adbe4d.md)
+* [Resnet50; TVM; Raspberry Pi 4; ARM64; edge; closed](ck-3c77b273b4c7d878.md)
+* [DSE (Pareto frontier): efficientnet-lite0-non-quantized; TFLite; AWS c6gd.xlarge; Neoverse-N1; edge; open](ck-6582273dd3646e28.md)
+* [DSE (Pareto frontier): mobilenet-v1-0.25-224-quantized; TFLite; AWS c6gd.xlarge; Neoverse-N1; edge; open](ck-ae88dc4516a7084e.md)
+* [DSE (Pareto frontier): mobilenet-v3-large-minimalistic_224_1.0_uint8; TFLite; AWS c6gd.xlarge; Neoverse-N1; edge; open](ck-b14c70816eca59c6.md)
+* [Resnet50; ONNX (out of the box); AWS m5zn.6xlarge; X64; datacenter; open](ck-3e0ad4b09998375d.md)
+* [Resnet50; TensorFlow (out of the box); AWS m5zn.6xlarge; X64; datacenter; open](ck-a399f837b48b0d1b.md)
+* [Resnet50; ONNX (out of the box); GCP n2-standard-80; X64; datacenter; open](ck-4f1a470a8a034bc3.md)
+* [Resnet50; TensorFlow (out of the box); GCP n2-standard-80; X64; datacenter; open](ck-9fb65e57d8c61db4.md)
+
+# Reproducing MLPerf&trade; inference benchmarks (v0.7 and v1.0)
 
 ## Using ad-hoc MLCommons&trade; scripts
 
@@ -9,8 +25,8 @@
 
 ## Using CK workflows
 
-* [Official MLCommons&trade; notes for image classification (a bit outdated - more automation exists)](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection/optional_harness_ck/classification)
-* [Official MLCommons&trade; notes for object detection (a bit outdated - more automations exists)](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection/optional_harness_ck/detection)
+* [Official MLCommons&trade; notes for image classification (outdated - more automation exists)](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection/optional_harness_ck/classification)
+* [Official MLCommons&trade; notes for object detection (outdated - more automations exists)](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection/optional_harness_ck/detection)
 
 ## Using CK adaptive containers (to be tested!)
 

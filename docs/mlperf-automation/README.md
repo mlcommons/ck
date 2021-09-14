@@ -15,6 +15,14 @@ to automate their MLPerf inference submissions and we want to build upon their e
 We reuse a relatively mature ACM methodology to reproduce research results ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae))
 and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCube&trade;](https://github.com/mlcommons/mlcube)).
 
+# News
+
+* 20210914: [Reproducibility studies for the MLPerf inference benchmark](reproduce/README.md)
+* 20210911: cTuning foundation and OctoML donated the CK framework and workflows to MLCommons:
+  * https://github.com/mlcommons/ck
+  * https://github.com/mlcommons/ck-venv
+  * https://github.com/mlcommons/ck-mlops
+
 # Standardization of the CK components for MLPerf
 
 We are gradually converting all CK [packages](https://github.com/mlcommons/ck-mlops/tree/main/package)
@@ -25,6 +33,8 @@ for diverse ML tasks, models, datasets and frameworks from the community to supp
 the new [MLPerf inference submission workflow](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference).
 
 ## CK workflows for the MLPerf inference benchmark
+
+
 
 &#10003; - supports the new [MLPerf inference submission workflow](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)<br>
 &#177; - works fine but uses old format
