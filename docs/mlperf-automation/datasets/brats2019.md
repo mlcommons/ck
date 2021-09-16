@@ -24,7 +24,7 @@ Please follow [this guide](https://github.com/ctuning/ck#instalation)
 # Install CK repos with MLOps components
 
 ```bash
-ck pull repo:octoml@mlops
+ck pull repo:mlcommons@ck-mlops
 ```
 
 # Plug in downloaded BraTS 2019
