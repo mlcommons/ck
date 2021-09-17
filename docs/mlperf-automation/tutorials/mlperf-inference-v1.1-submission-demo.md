@@ -1,4 +1,5 @@
-**[ [TOC](../README.md) ]**
+**[ [Back to MLPerf v1.1 reproducibility studies](../reproduce/README.md#) ]**
+
 
 # MLPerf inference v1.1 reproducibility report for the OctoML submission: 
 
@@ -342,12 +343,14 @@ You can remove "ck-mlperf-inference-1.1-dse:" from above commands to process res
 
 ## Resources
 
-Our on-going community effort within MLCommons Design Space Exploration workgroup (Best Practices subgroup) 
-to make the MLPerf benchmark more customizable, portable and easy to use:
+Our on-going collaboration with MLCommons to make 
+the MLPerf&trade; inference benchmark more customizable, portable and easy to use:
 
+* [MLPerf Inference Benchmark article](https://arxiv.org/abs/1911.02549)
+* [Motivation](https://www.youtube.com/watch?v=7zpeIVwICa4)
 * [MLCommons working groups](https://mlcommons.org/en/groups)
-* [Customizable CK workflows for MLPerf](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation)
-* [Open-source CK framework](https://github.com/mlcommons/ck)
-  * [ML(Perf) packages from the community, OctoML and the cTuning foundation](https://github.com/mlcommons/ck-mlops/tree/main/package)
-  * [ML(Perf) workflows from the community, OctoML and the cTuning foundation](https://github.com/mlcommons/ck-mlops/tree/main/program)
-* [End-to-end submission workflow for MLPerf](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)
+* [Open-source CK framework](https://github.com/mlcommons/ck) and [MLCube](https://github.com/mlcommons/mlcube)
+  * [ML/AI packages from the community, OctoML and the cTuning foundation](https://github.com/mlcommons/ck-mlops/tree/main/package)
+  * [ML/AI workflows from the community, OctoML and the cTuning foundation](https://github.com/mlcommons/ck-mlops/tree/main/program)
+* [Documentation for the CK-powered MLPerf automation suite](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation)
+* [Prototype of the end-to-end submission workflow for the MLPerf inference benchmark](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)
