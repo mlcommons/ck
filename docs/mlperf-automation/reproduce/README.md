@@ -36,7 +36,7 @@
 * [CK object detection](https://cknowledge.io/?q=module_uoa%3A%22docker%22+AND+%22object-detection%22)
 
 
-# Reproducibility studies
+# Other reproducibility studies
 
 ## Image Classification
 
