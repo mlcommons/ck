@@ -18,7 +18,7 @@
 
 # Reproducing MLPerf&trade; inference benchmarks (v0.7 and v1.0)
 
-## Using ad-hoc MLCommons&trade; scripts
+## Using native MLCommons&trade; scripts
 
 * [Dell EMC System inteference v0.7](https://infohub.delltechnologies.com/p/running-the-mlperf-inference-v0-7-benchmark-on-dell-emc-systems)
 * [NVidia Jetson Xavier](reproduce/image-classification-nvidia-jetson-xavier-mlperf.md)
