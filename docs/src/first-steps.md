@@ -29,10 +29,11 @@ if you encounter any problem or have questions.
 ## Pull CK repositories with the universal program workflow
 
 
-Now you can pull CK repo with the universal program workflow. 
+Now you can pull CK repo with automation recipes for collaborative, reproducible and cross-platform benchmarking
 
 ```bash
 ck pull repo:mlcommons@ck-mlops
+ck pull repo:ctuning-datasets-min
 ```
 
 CK will automatically pull all required CK repositories with different automation actions, benchmarks, and datasets in the CK format.

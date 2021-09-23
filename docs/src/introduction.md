@@ -124,6 +124,10 @@ ck pull repo:mlcommons@ck-mlops
 
 ck search dataset --tags=jpeg
 
+ck pull repo:ctuning-datasets-min
+
+ck search dataset --tags=jpeg
+
 ck search program:image*
 
 ck find program:image-corner-detection
