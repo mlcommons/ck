@@ -6,9 +6,9 @@
 * Raw results: [GitHub](https://github.com/mlcommons/inference_results_v1.1)
 * News: [MLCommons press-release](https://mlcommons.org/en/news/mlperf-inference-v11)
 
-## Powered by [MLCommons CK automation suite v2.5.8](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)
-
 ### Image Classification
+
+***Powered by [MLCommons CK automation suite v2.5.8](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)***
 
 * [Resnet50; TVM; AWS m5zn.6xlarge; X64; datacenter; open division](ck-94cc7bdd1f23cce3.md)
 * [Resnet50; TVM; GCP n2-standard-80; X64; datacenter; open division](ck-c3d81b4b869e8e07.md)
