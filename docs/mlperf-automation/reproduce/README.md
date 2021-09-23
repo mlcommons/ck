@@ -2,6 +2,10 @@
 
 # Reproducibility reports: MLPerf&trade; inference benchmark v1.1
 
+* Official results: [Datacenter](https://mlcommons.org/en/inference-datacenter-11), [Edge](https://mlcommons.org/en/inference-edge-11)
+* Raw results: [GitHub](https://github.com/mlcommons/inference_results_v1.1)
+* News: [MLCommons press-release](https://mlcommons.org/en/news/mlperf-inference-v11)
+
 ## Powered by [MLCommons CK automation suite v2.5.8](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)
 
 ### Image Classification
