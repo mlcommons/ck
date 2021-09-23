@@ -8,7 +8,7 @@
 
 ### Image Classification
 
-***Powered by [MLCommons CK automation suite v2.5.8](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)***
+***Powered by [MLCommons CK automation suite v2.5.8](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference):***
 
 * [Resnet50; TVM; AWS m5zn.6xlarge; X64; datacenter; open division](ck-94cc7bdd1f23cce3.md)
 * [Resnet50; TVM; GCP n2-standard-80; X64; datacenter; open division](ck-c3d81b4b869e8e07.md)
@@ -21,6 +21,13 @@
 * [Resnet50; TensorFlow (out of the box); AWS m5zn.6xlarge; X64; datacenter; open division](ck-a399f837b48b0d1b.md)
 * [Resnet50; ONNX (out of the box); GCP n2-standard-80; X64; datacenter; open division](ck-4f1a470a8a034bc3.md)
 * [Resnet50; TensorFlow (out of the box); GCP n2-standard-80; X64; datacenter; open division](ck-9fb65e57d8c61db4.md)
+
+
+Further developments of [CK workflows](../README.md) for other ML benchmarks, models and data sets 
+are supported by [MLCommons&trade;](https://mlcommons.org) within the *Design Space Exploration workgroup*. 
+Please contact [Grigori Fursin](mailto:grigori@octoml.ai) (workgroup co-chair) 
+if you are interested to join this community effort!
+
 
 # Reproducing MLPerf&trade; inference benchmarks (v0.7 and v1.0)
 

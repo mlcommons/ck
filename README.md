@@ -67,8 +67,8 @@ and implement the following reusable automation recipes in the CK format:
 
 
 Further community developments are supported by [MLCommons&trade;](https://mlcommons.org), [OctoML](https://octoml.ai) and the [cTuning foundation](https://cTuning.org)
-with the *MLCommons' Design Space Exploration workgroup*. 
-Please contact [Grigori Fursin](mailto:grigori@octoml.ai) if you are interested to join this community effort!
+within the *MLCommons' Design Space Exploration workgroup*. 
+Please contact [Grigori Fursin](https://www.linkedin.com/in/grigorifursin) if you are interested to join this community effort!
 
 
 ## Releases
@@ -234,7 +234,7 @@ organize and find all the CK workflows and components similar to PyPI:
 
 
 
-## Testing CK internals and workflows
+## Containers to test CK automation recipes and workflows
 
 The community provides Docker containers to test CK and components using different ML/SW/HW stacks (DSE).
 
@@ -256,9 +256,9 @@ Note, that we plan to [redesign the CK core](https://github.com/mlcommons/ck/pro
 to be more pythonic (we wrote the first prototype without OO to be able 
 to port it to bare-metal devices in C but eventually we decided to drop this idea).
 
-Further community developments are supported by [MLCommons&trade;](https://mlcommons.org), [OctoML](https://octoml.ai) and the [cTuning foundation](https://cTuning.org)
-with the *MLCommons' Design Space Exploration workgroup*. 
-Please contact [Grigori Fursin](mailto:grigori@octoml.ai) if you are interested to join this community effort!
+Please consider joining the *MLCommons' Design Space Exploration workgroup*
+to join this community effort - contact [Grigori Fursin](mailto:grigori@octoml.ai) for more details.
+
 
 
 ## Author and coordinator
