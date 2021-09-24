@@ -23,7 +23,7 @@ of the whole model/software/hardware stack to trade off accuracy, latency, throu
 
 ### The CK framework
 
-*The Collective Knowledge framework (CK)* is our attempt to develop a common infrastructure that can be used
+*The Collective Knowledge framework (CK)* is our attempt to develop a common plug&play infrastructure that can be used
 by the community similar to Wikipedia to learn how to solve above challenges and make it easier to co-design, 
 benchmark, optimize and deploy Machine Learning Systems in the real world across continuously evolving software, 
 hardware and data sets (see our [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4) for more details):
