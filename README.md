@@ -28,7 +28,7 @@ by the community similar to Wikipedia to learn how to solve above challenges and
 benchmark, optimize and deploy Machine Learning Systems in the real world across continuously evolving software, 
 hardware and data sets (see our [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4) for more details):
 
-* CK aims at providing a common playground for researchers and practitioners to share their knowledge
+* CK aims at providing a simple playground with minimal software dependencies to help researchers and practitioners share their knowledge
   in the form of reusable automation recipes with a unified Python API, CLI and meta description: 
   - [Stable CK automation recipes](https://github.com/mlcommons/ck/tree/master/ck/repo/module)
   - [MLPerf&trade; benchmark automation recipes](https://github.com/mlcommons/ck/tree/master/ck-mlops/repo/module)
