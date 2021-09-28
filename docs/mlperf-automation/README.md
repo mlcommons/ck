@@ -1,8 +1,9 @@
 # MLPerf&trade; inference benchmark automation
 
-This is an *on-going community effort* to introduce portable workflows to make it easier to customize, run and reproduce 
-MLPerf&trade; inference benchmarks across continuously changing ML models, frameworks, libraries, compilers, data sets and platform.
-We also want to develop an open database for benchmarking results and provenance information 
+This is an *on-going community effort* coordinated by the MLCommons Design Space Exploration working group
+to make it easier to customize, run and reproduce MLPerf&trade; inference benchmarks 
+across continuously changing ML models, frameworks, libraries, compilers, data sets and platform.
+We are also developing an open database for benchmarking results and provenance information 
 compatible with [FAIR principles](https://www.go-fair.org/fair-principles).
 
 As a starting point, we will use the open-source and technology-neutral [MLCommons CK framework](https://github.com/mlcommons/ck) 
@@ -12,8 +13,8 @@ with a [collection](https://github.com/mlcommons/ck-mlops) of [reusable automati
 with a common API for ML systems. CK framework was already successfully used by several MLCommons members 
 to automate their MLPerf inference submissions and we want to build upon their experience. 
 
-We reuse a relatively mature ACM methodology to reproduce research results ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae))
-and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCube&trade;](https://github.com/mlcommons/mlcube)).
+We reuse a relatively mature methodology to reproduce research results from ML and Systems papers ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae))
+and open-source tools from the MLCommons&trade; including [MLCube&trade;](https://github.com/mlcommons/mlcube).
 
 # News
 
@@ -34,7 +35,6 @@ for diverse ML tasks, models, datasets and frameworks from the community to supp
 the new [MLPerf inference submission workflow](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference).
 
 ## CK workflows for the MLPerf inference benchmark
-
 
 
 &#10003; - supports the new [MLPerf inference submission workflow](https://github.com/mlcommons/ck-mlops/tree/main/module/bench.mlperf.inference)<br>
