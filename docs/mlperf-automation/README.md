@@ -17,6 +17,7 @@ and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCub
 
 # News
 
+* 20210924: We will continue further developments within a new MLCommons working group on Design Space Exploration - more details to follow soon.
 * 20210914: [Reproducibility studies for the MLPerf inference benchmark](reproduce/README.md)
 * 20210911: cTuning foundation and OctoML donated the CK framework and workflows to MLCommons:
   * https://github.com/mlcommons/ck
@@ -25,7 +26,7 @@ and open-source tools from the MLCommons&trade; Best Practices WorkGroup ([MLCub
 
 # Standardization of the CK components for MLPerf
 
-We are gradually converting all CK [packages](https://github.com/mlcommons/ck-mlops/tree/main/package)
+We are gradually converting all CK [packages](https://github.com/mlcommons/ck-mlops/tree/main/package),
 [benchmark workflows](https://github.com/mlcommons/ck-mlops/tree/main/programs), 
 [automation scripts](https://github.com/mlcommons/ck-mlops/tree/main/scripts) and 
 [Docker containers](https://github.com/mlcommons/ck-mlops/tree/main/docker)
