@@ -132,10 +132,11 @@ Install MLPerf model:
 
 ```bash
 ck install package --tags=model,image-classification,mlperf,pytorch,v1.5-int8-quantized
+```
 
 More information about this model: 
 [ [CK meta.json](https://github.com/mlcommons/ck-mlops/blob/main/package/ml-model-mlperf-resnet50-pytorch/.cm/meta.json) ]
-```
+
 
 ## Install CK workflow Python dependencies
 
