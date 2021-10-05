@@ -70,6 +70,13 @@ Further community developments are supported by [MLCommons&trade;](https://mlcom
 within the *MLCommons' Design Space Exploration workgroup*. 
 Please contact [Grigori Fursin](https://www.linkedin.com/in/grigorifursin) if you are interested to join this community effort!
 
+### Tutorials
+
+* [CK automations for unified benchmarking]( https://colab.research.google.com/drive/1a761nKgoHlJAy6gOXh-c9H4WkLV8nzRU?usp=sharing )
+* [CK-based MLPerf inference benchmark automation example]( https://colab.research.google.com/drive/1Fp6uxCqTazmCSSl8v-nY93VVmcOoLiXi?usp=sharing )
+  * [CK-based MLPerf inference vision benchmark v1.1 automation (TVM)]( https://colab.research.google.com/drive/1aywGlyD1ZRDtQTrQARVgL1882JcvmFK-?usp=sharing )
+  * [CK-based MLPerf inference vision benchmark v1.1 automation (ONNX)]( https://colab.research.google.com/drive/1ij1rWoqje5-Sn6UsdFj1OzYakudI2RIS?usp=sharing )
+* [CK basics]( https://colab.research.google.com/drive/15lQgxuTSkEPqi4plaat1_v2gJcfIrATF?usp=sharing )
 
 ## Releases
 
