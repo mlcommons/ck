@@ -66,8 +66,6 @@ and implement the following reusable automation recipes in the CK format:
   - [Design space exploration of ML/SW/HW stacks and customizable visualization](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
 
 
-Further community developments are supported by [MLCommons&trade;](https://mlcommons.org), [OctoML](https://octoml.ai) and the [cTuning foundation](https://cTuning.org)
-within the *MLCommons' Design Space Exploration workgroup*. 
 Please contact [Grigori Fursin](https://www.linkedin.com/in/grigorifursin) if you are interested to join this community effort!
 
 ### Tutorials
@@ -92,10 +90,6 @@ We plan to develop a new version of the CK framework (v3)
 within the MLCommons' Design Space Exploration workgroup -
 please contact [Grigori Fursin](mailto:grigori@octoml.ai) to join this community effort!
 
-### Deprecated versions
-
-**Versions 1.x including v1.17.0 and 1.55.5 (BSD license)** are not supported anymore. 
-Please get in touch and we will help you to upgrade your infrastructure to use the latest MLCommons technology!
 
 ## Current projects
 * [Automating MLPerf(tm) inference benchmark and packing ML models, data sets and frameworks as CK components with a unified API and meta description](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/README.md)
@@ -259,12 +253,11 @@ as described [here](https://ck.readthedocs.io/en/latest/src/typical-usage.html).
 Please check [this documentation](https://ck.readthedocs.io/en/latest/src/how-to-contribute.html)
 if you want to extend the CK core functionality and [modules](https://github.com/mlcommons/ck/tree/master/ck/repo/module). 
 
-Note, that we plan to [redesign the CK core](https://github.com/mlcommons/ck/projects/1) 
+Note, that we plan to [redesign the CK framework](https://github.com/mlcommons/ck/projects/1) 
 to be more pythonic (we wrote the first prototype without OO to be able 
 to port it to bare-metal devices in C but eventually we decided to drop this idea).
 
-Please consider joining the *MLCommons' Design Space Exploration workgroup*
-to join this community effort - contact [Grigori Fursin](mailto:grigori@octoml.ai) for more details.
+Please contact [Grigori Fursin](mailto:grigori@octoml.ai) to join this community effort.
 
 
 
