@@ -34,7 +34,7 @@ ck create venv:mlperf-inference --template=mlperf-inference-1.1-tvm-mlcommons
 ## Activate virtual environment
 
 ```bash
-ck activate venv:mlperf-inference5
+ck activate venv:mlperf-inference
 ```
 
 ## Install CK repository with ML/MLPerf automations 
