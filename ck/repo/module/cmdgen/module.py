@@ -11,6 +11,8 @@ cfg={}  # Will be updated by CK (meta description of this module)
 work={} # Will be updated by CK (temporal data)
 ck=None # Will be updated by CK (initialized CK kernel)
 
+groups_label = 'GrOuPs'
+
 
 def init(i):
     """
@@ -53,38 +55,56 @@ def iterate(i):
     for unwanted_key in ('action', 'repo_uoa', 'module_uoa', 'data_uoa', 'cid', 'cids', 'xcids', 'out'):
         input_params.pop(unwanted_key, None)
 
-    index_name  = []
-    index_range = []
+    groups = i.get(groups_label, {})    # may be issing either from the file or due to running iterate() directly
+    iteration_struct = []
 
     for param_name in input_params.keys():
         param_value = input_params[param_name]
         matchObj = re.match('(\w+)([,:])?((-?\d+):(-?\d+)(?:\:(\d+))?)?$', param_name)
-        if matchObj:
+        matchObjComplex = re.match('(\w+(?:(:)\w+)+)(,)$', param_name) or re.match('(\w+(?:(,)\w+)+)(:)$',param_name)
+        matchObjGroup = re.match('group.(\w+)$', param_name)
+        if matchObjGroup:
+            group_key           = matchObjGroup.group(1)
+            current_group       = groups[group_key]
+            new_dim_structure   = [ { k: str(old_d[k]) for k in old_d.keys() } for old_d in current_group ]
+        elif matchObjComplex:
+            delimiter_inner = matchObjComplex.group(2)
+            delimiter_out   = matchObjComplex.group(3)
+            key_list        = matchObjComplex.group(1).split(delimiter_inner)
+            split_param_values = param_value.split(delimiter_out)
+
+            new_dim_structure = [ dict(zip(key_list, value_join.split(delimiter_inner))) for value_join in split_param_values ]
+        elif matchObj:
             pure_name   = matchObj.group(1)
-            index_name.append( pure_name )
             if matchObj.group(2)==None:
-                index_range.append( [param_value] )
+                new_dim_structure = [ {pure_name: param_value} ]
             elif matchObj.group(3):
                 range_from  = int(matchObj.group(4))
                 range_to    = int(matchObj.group(5))
                 range_step  = int(matchObj.group(6)) if matchObj.group(6) else 1
-                index_range.append( [ str(n) for n in range(range_from, range_to+1, range_step) ] )
+                new_dim_structure = [ {pure_name: str(n)} for n in range(range_from, range_to+1, range_step) ]
             else:
                 delimiter   = matchObj.group(2)
-                index_range.append( param_value.split(delimiter) )
+                new_dim_structure = [ {pure_name: v} for v in param_value.split(delimiter) ]
         else:
             return {'return':1, 'error':"Could not recognize parameter '{}'".format(param_name)}
 
+        iteration_struct.append( new_dim_structure )
+
     if interactive:
-        print(dict(zip(index_name, index_range)))
+        print(iteration_struct)
         print('-'*80)
 
-    dimensions  = len(index_name)
+    dimensions  = len(iteration_struct)
     multi_idx   = [0] * dimensions
     current_dim = dimensions-1
     param_dicts = []
     while True:
-        multi_value = {index_name[i]: index_range[i][multi_idx[i]] for i in range(dimensions) }
+        multi_value = {}
+        for i in range(dimensions):
+            d = iteration_struct[i][multi_idx[i]]
+            multi_value.update( d )
+
         param_dicts.append( multi_value )
 
         if interactive:
@@ -93,7 +113,7 @@ def iterate(i):
         if current_dim>=0:
             multi_idx[current_dim] += 1
         # carry avalanche:
-        while current_dim>=0 and multi_idx[current_dim]>=len(index_range[current_dim]):
+        while current_dim>=0 and multi_idx[current_dim]>=len(iteration_struct[current_dim]):
             multi_idx[current_dim] = 0
             current_dim -= 1
             if current_dim>=0:
@@ -122,6 +142,8 @@ def gen(i):
 
                 --delta:12:18       - a range of integer values (step=1 by default), inclusive of both lower and upper bounds.
                 --delta:12:18:3     - a range of integer values (step=3), inclusive of both lower and upper bounds.
+
+                --group.edge        - import from the cmdgen metafile a group of mutually exclusive dictionaries to be iterated over
             }
 
     Output: {
@@ -158,9 +180,11 @@ def gen(i):
 
     build_map   = entry_dict.get('build_map', {})
     defaults    = entry_dict.get('defaults', {})
+    groups      = entry_dict.get('groups', {})
 
     i['action'] = 'iterate'
     i['out']    = ''
+    i[groups_label] = groups
     r=ck.access( i )
     if r['return']>0: return r
     param_dicts = r['param_dicts']
