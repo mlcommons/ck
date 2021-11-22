@@ -5,6 +5,10 @@
 * v2.5.8.1
   * minor enhancement of "ck display dashboard" automation module
     to support the latest format of the MLPerf benchmark
+  * cmdgen changes to support groups (issue #180)
+  * CK kernel setting "package_quiet_install" 
+    to turn on --quiet automatically for all ck install commands
+    (issue #142)
 
 * v2.5.8
   * fixed copyright note in the License file
