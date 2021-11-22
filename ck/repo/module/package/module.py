@@ -138,6 +138,10 @@ def install(i):
     import time
     import copy
 
+    x=ck.cfg.get('package_quiet_install','')
+    if x!='':
+        i['quiet'] = x
+
     o=i.get('out','')
 
     oo=''
