@@ -61,6 +61,7 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 * Sergey Yakushkin (Synopsys)
 * Eiko Yoneki &lt;eiko.yoneki@cl.cam.ac.uk&gt;
 * Thomas Zhu &lt;thomas.zhu.sh@gmail.com&gt;
+* @filven
 
 See more acknowledgments at the end of this [journal article](https://arxiv.org/abs/2011.01149).
 
