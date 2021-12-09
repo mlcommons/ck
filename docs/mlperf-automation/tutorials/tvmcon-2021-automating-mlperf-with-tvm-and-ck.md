@@ -1,6 +1,8 @@
 ## TVMCon'21 tutorial
 **["Automating and simplifying MLPerf inference benchmark submissions with TVM and CK"](https://www.tvmcon.org/schedule/)**
 
+*Shortcut: https://bit.ly/tvmcon21-mlperf*
+
 ## Authors
 * Grigori Fursin, OctoML
 * Thomas Zhu, Oxford University
@@ -45,6 +47,8 @@ hardware.
 
     ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/mlperf-ck-dse.png)
     ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/mlperf-ck-dse-pareto.png)
+
+    * [cKnowledge.io dashboard with reproducible results](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
 
 * OctoML's MLPerf inference submission v1.1:
 
