@@ -53,7 +53,7 @@ hardware.
 * OctoML's MLPerf inference submission v1.1:
 
   * [TVM backend for MLPerf inference (vision)](https://github.com/octoml/mlcommons-inference/blob/r1.1-seed/vision/classification_and_detection/python/backend_tvm.py)
-  * TVM extension to support MLPerf inference
+  * TVM extension to support MLPerf inference *(should be in the mainline TVM in Q1 2022)*
   * [CK packages for MLPerf](https://github.com/octoml/mlops/tree/main/package)
   * [CK workflows for MLPerf](https://github.com/octoml/mlops/tree/main/program)
   
@@ -66,6 +66,7 @@ hardware.
   *The same CK steps and APIs are used across different hardware, ML frameworks, libraries, compilers, models and data sets!*
 
   * MLPerf inference v1.1; Image Classification; Resnet50; TVM; AWS m5zn.6xlarge; X64; datacenter; open division: [preparing platform and reproducing results using the CK framework](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/reproduce/ck-94cc7bdd1f23cce3.md)
+  * [Automating MLPerf submission](https://github.com/mlcommons/inference_results_v1.1/tree/main/open/OctoML/measurements/aws-m5zn.6xlarge-tvm/resnet50/offline#prepare-your-submission)
 
 * Tutorial to extend MLPerf benchmarks 
   * Can support any framework, model, compiler, hardware
