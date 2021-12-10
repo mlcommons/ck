@@ -68,6 +68,7 @@ hardware.
   * MLPerf inference v1.1; Image Classification; Resnet50; TVM; AWS m5zn.6xlarge; X64; datacenter; open division: [preparing platform and reproducing results using the CK framework](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/reproduce/ck-94cc7bdd1f23cce3.md)
 
   * [Automating MLPerf submission](https://github.com/mlcommons/inference_results_v1.1/tree/main/open/OctoML/measurements/aws-m5zn.6xlarge-tvm/resnet50/offline#prepare-your-submission)
+    * [Using reduced ImageNet for testing](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/datasets/imagenet2012.md#install-reduced-imagenet-2012-val-dataset-with-the-first-500-images)
   
   * [Adaptive containers with the CK API](https://github.com/mlcommons/ck-mlops/tree/main/docker)
     * [Example: MLPerf object detection ONNX and TVM](https://github.com/mlcommons/ck-mlops/blob/main/docker/ck-mlperf-inference-dev-object-detection-onnx-tvm/Dockerfile.ubuntu-20.04)
