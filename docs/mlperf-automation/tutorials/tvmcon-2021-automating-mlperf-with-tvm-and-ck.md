@@ -41,6 +41,7 @@ hardware.
       [ArXiv](https://arxiv.org/abs/2011.01149),
       [automation actions](https://github.com/mlcommons/ck/tree/master/ck/repo/module),
       [MLOps components](https://github.com/mlcommons/ck-mlops)
+    * [ACM REQUEST-ASPLOS'18: the 1st Reproducible Tournament on Pareto-efficient Image Classification](https://cknowledge.io/c/event/repro-request-asplos2018)
     * [CK-based MLPerf automation](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation)
 
     ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/mlperf-ck-automation.png)
