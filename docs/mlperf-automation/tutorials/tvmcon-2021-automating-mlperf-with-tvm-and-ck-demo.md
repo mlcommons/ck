@@ -30,8 +30,6 @@ python3 -m pip install ck -U
 ck pull repo:mlcommons@ck-mlops
 ck where repo:mlcommons@ck-mlops
 
-ck pull repo:ck-mlperf-inference
-
 ```
 
 ## Prepare environment
@@ -48,6 +46,8 @@ ck detect soft:compiler.gcc --full_path=`which gcc`
 python3 -m pip install protobuf
 
 ck detect soft:tool.cmake
+
+ck show env
 
 ck install package --quiet --tags=mlperf,inference,src,r1.1-tvm-seed
 
@@ -91,7 +91,7 @@ ck install package --tags=compiler,tvm,src,dev-0.8-dnnl-int8-v2-mlperf-1.1 \
 
 ## Prepare image classification task
 
-```
+```bash
 ck install package --tags=imagenet,2012,aux
 ```
 
@@ -106,6 +106,13 @@ Find the path with the ImageNet validation set (50,000 images) and plug it into 
 ck detect soft:dataset.imagenet.val --force_version=2012 --extra_tags=full \
       --search_dir={directory where the ImageNet val dataset is downloaded}
 ```
+
+### Use reduced ImageNet to test the MLPerf workflow
+
+```bash
+ck install package --tags=imagenet,2012,val,min,non-resized
+```
+
 
 ### See all installed packages and detected components
 
@@ -194,9 +201,6 @@ One can use the [end-to-end MLPerf submission and visualization workflow](https:
 (collaboration between MLCommons, OctoML and the cTuning foundation) to prepare the above submission as follows:
 
 ```bash
-
-ck activate venv:mlperf-inference
-
 ck pull repo:ck-mlperf-inference
 
 ck install package --tags=mlperf,inference,results,dummy
@@ -207,7 +211,6 @@ ck set kernel --var.mlperf_inference_division=open
 
 ck add bench.mlperf.system:aws-m5zn.6xlarge-tvm --base=1-node-2s-clx-tf-int8
 ck set kernel --var.mlperf_inference_system=aws-m5zn.6xlarge-tvm
-
 
 ck run bench.mlperf.inference  --framework=tvm-pytorch --model=resnet50 --scenario=offline --mode=prereq
 
