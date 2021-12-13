@@ -43,11 +43,12 @@ ck detect soft:compiler.python
 
 ck detect soft:compiler.gcc --full_path=`which gcc`
 
-python3 -m pip install protobuf
-
 ck detect soft:tool.cmake
 
 ck show env
+
+
+python3 -m pip install protobuf
 
 ck install package --quiet --tags=mlperf,inference,src,r1.1-tvm-seed
 
