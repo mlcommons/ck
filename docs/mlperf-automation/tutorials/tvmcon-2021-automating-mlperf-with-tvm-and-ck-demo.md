@@ -115,19 +115,6 @@ ck install package --tags=imagenet,2012,val,min,non-resized
 ```
 
 
-### See all installed packages and detected components
-
-```bash
-ck show env
-ck show env --tags=tvm
-ck show env --tags=mlcommons,src
-ck locate env --tags=tvm
-```
-
-
-# Reproducibility report: benchmarking
-
-First, you must prepare your system based on the "Reproducibility report: system setup".
 
 
 ## Install PyTorch model (Resnet50; int8; quantized)
@@ -141,6 +128,14 @@ ck install package --tags=model,image-classification,mlperf,pytorch,v1.5-int8-qu
 More information about this model: 
 [ [CK meta.json](https://github.com/mlcommons/ck-mlops/blob/main/package/ml-model-mlperf-resnet50-pytorch/.cm/meta.json) ]
 
+### See all installed packages and detected components
+
+```bash
+ck show env
+ck show env --tags=tvm
+ck show env --tags=mlcommons,src
+ck locate env --tags=tvm
+```
 
 ## Install CK workflow Python dependencies
 
