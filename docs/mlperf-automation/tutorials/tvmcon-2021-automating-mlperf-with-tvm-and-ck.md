@@ -67,7 +67,7 @@ hardware.
 
   *The same CK steps and APIs are used across different hardware, ML frameworks, libraries, compilers, models and data sets!*
 
-  * MLPerf inference v1.1; Image Classification; Resnet50; TVM; AWS m5zn.6xlarge; X64; datacenter; open division: [tvmcon-2021-automating-mlperf-with-tvm-and-ck-demo.md]
+  * [MLPerf inference v1.1; Image Classification; Resnet50; TVM; AWS m5zn.6xlarge; X64; datacenter; open division](tvmcon-2021-automating-mlperf-with-tvm-and-ck-demo.md)
 
   * [Automating MLPerf submission](https://github.com/mlcommons/inference_results_v1.1/tree/main/open/OctoML/measurements/aws-m5zn.6xlarge-tvm/resnet50/offline#prepare-your-submission)
     * [Using reduced ImageNet for testing](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/datasets/imagenet2012.md#install-reduced-imagenet-2012-val-dataset-with-the-first-500-images)
