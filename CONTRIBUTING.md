@@ -52,6 +52,7 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 * Gavin Simpson
 * Aaron Smith (Microsoft)
 * Michel Steuwer (University of Edinburgh)
+* Arjun Suresh (KRAI)
 * Abdul Wahid Memon &lt;engrwahidmemon@gmail.com&gt;
 * Cedric Nugteren &lt;web@cedricnugteren.nl&gt;
 * Lucas Nussbaum (Universite de Lorraine)

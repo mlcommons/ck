@@ -1,4 +1,4 @@
-Copyright (c) 2021 MLCommons
+Copyright (c) 2021-2022 MLCommons
 
 cTuning foundation donated this project to MLCommons to benefit everyone. 
 
