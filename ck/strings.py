@@ -156,7 +156,10 @@ def convert_json_str_to_dict(i):
         s = s.replace('\'', '"')
 
     try:
-        d = json.loads(s, encoding='utf8')
+        if sys.version_info[0]>2:
+            d=json.loads(s)
+        else:
+            d=json.loads(s, encoding='utf8')
     except Exception as e:
         return {'return': 1, 'error': 'problem converting text to json ('+format(e)+')'}
 

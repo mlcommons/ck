@@ -1,3 +1,7 @@
+* V2.6.1:
+  * fixed convert_json_str_to_dict func to support Python 3.9+
+    (see the issue #184)
+
 * MLCommons CK V2.6.0
   * stable release to automate MLCommons inference benchmark v2.0+ submissions.
 
