@@ -81,7 +81,7 @@ Please contact [Grigori Fursin](https://www.linkedin.com/in/grigorifursin) if yo
 ### Stable versions
 
 The latest version of the CK automation suite supported by MLCommons&trade;:
-* [CK framework v2.5.8 (Apache 2.0 license)](https://github.com/mlcommons/ck/releases/tag/V2.5.8)
+* [CK framework v2.6.1 (Apache 2.0 license)](https://github.com/mlcommons/ck/releases/tag/V2.6.1)
 * [CK automation suite for MLPerf&trade; and ML/SW/HW co-design](https://github.com/mlcommons/ck-mlops)
 
 ### Development versions
