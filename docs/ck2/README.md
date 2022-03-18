@@ -18,8 +18,8 @@ see related [ACM TechTalk]( https://www.youtube.com/watch?v=7zpeIVwICa4 ),
 and [position paper]( https://arxiv.org/pdf/2006.07161.pdf ).
 
 That is why we are developing CM as a simple and collaborative playground 
-to help the community learn how to connect MLOps, DevOps, data science, 
-scientific experimentation, FAIR principles and best practices for reproducible research.
+to help the community learn how to bridge this gap by interconnecting MLOps, DevOps, data science, 
+scientific experimentation, FAIR principles, and best practices for reproducible research.
 
 # Development
 
