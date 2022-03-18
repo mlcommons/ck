@@ -13,6 +13,12 @@
 [![Colab](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/drive/1a761nKgoHlJAy6gOXh-c9H4WkLV8nzRU?usp=sharing)
 
 
+## News
+
+* **2022 March:** we are preparing the [CK2 framework](https://github.com/mlcommons/ck/tree/master/docs/ck2) - 
+  don't hesitate to get in touch with [Grigori Fursin](https://cKnowledge.io/@gfursin) to know more 
+  and join our discussions and developments!
+
 ## Motivation
 
 While Machine Learning is becoming more and more important in everyday life, designing efficient ML Systems and deploying them in the real world 
@@ -83,12 +89,6 @@ Please contact [Grigori Fursin](https://www.linkedin.com/in/grigorifursin) if yo
 The latest version of the CK automation suite supported by MLCommons&trade;:
 * [CK framework v2.6.1 (Apache 2.0 license)](https://github.com/mlcommons/ck/releases/tag/V2.6.1)
 * [CK automation suite for MLPerf&trade; and ML/SW/HW co-design](https://github.com/mlcommons/ck-mlops)
-
-### Development versions
-
-We plan to develop a new version of the CK framework (v3) 
-within the MLCommons' Design Space Exploration workgroup -
-please contact [Grigori Fursin](mailto:grigori@octoml.ai) to join this community effort!
 
 
 ## Current projects

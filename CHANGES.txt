@@ -1,3 +1,5 @@
+* Notes about the CK2 framework: https://github.com/mlcommons/ck/tree/master/docs/ck2
+
 * V2.6.1:
   * fixed convert_json_str_to_dict func to support Python 3.9+
     (see the issue #184)
