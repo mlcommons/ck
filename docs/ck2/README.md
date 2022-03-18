@@ -10,13 +10,13 @@ Our long term goal is to make it easier to transfer research ideas to production
 reduce the time to market for innovative AI and ML products,
 accelerate open science and solve the real-world challenges.
 
-Our past experience suggests that the major obstacle to achieve these goals 
+Our [past experience](https://www.youtube.com/watch?v=7zpeIVwICa4) 
+suggests that the major obstacle to achieve these goals 
 is the growing gap between tools, platforms, environments 
 and methodologies used for research and in production: 
-see related [ACM TechTalk]( https://www.youtube.com/watch?v=7zpeIVwICa4 ),
-[General Motors presentation]( https://www.youtube.com/watch?v=1ldgVZ64hEI )
-[journal article]( https://arxiv.org/pdf/2011.01149.pdf ) 
-and [position paper]( https://arxiv.org/pdf/2006.07161.pdf ).
+see related [journal article]( https://arxiv.org/pdf/2011.01149.pdf ),
+[position paper]( https://arxiv.org/pdf/2006.07161.pdf )
+and the [General Motors presentation]( https://www.youtube.com/watch?v=1ldgVZ64hEI ).
 
 That is why we are developing CM as a simple and collaborative playground 
 to help the community learn how to bridge this gap by interconnecting MLOps, DevOps, data science, 
@@ -47,4 +47,4 @@ Please report encountered issues [here](https://github.com/octoml/cm/issues).
 
 # Coordinators
 
-* [Grigori Fursin (OctoML)](https://cKnowledge.io/@gfursin)
+* [Grigori Fursin](https://cKnowledge.io/@gfursin) ([OctoML](https://octoml.ai))
