@@ -14,6 +14,7 @@ Our past experience suggests that the major obstacle to achieve these goals
 is the growing gap between tools, platforms, environments 
 and methodologies used for research and in production: 
 see related [ACM TechTalk]( https://www.youtube.com/watch?v=7zpeIVwICa4 ),
+[General Motors presentation]( https://www.youtube.com/watch?v=1ldgVZ64hEI )
 [journal article]( https://arxiv.org/pdf/2011.01149.pdf ) 
 and [position paper]( https://arxiv.org/pdf/2006.07161.pdf ).
 
