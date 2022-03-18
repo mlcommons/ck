@@ -26,6 +26,12 @@ scientific experimentation, FAIR principles, and best practices for reproducible
 
 * [The alpha version of the CM prototype](https://github.com/octoml/cm/tree/mvp)
 
+# Projects
+
+* Unifying MLPerf benchmarking across different ML models, datasets, ML frameworks and platforms
+* Making it easier to deploy ML models in production across continuously changing software and hardware stacks
+
+
 
 # Related community events
 
