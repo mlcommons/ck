@@ -24,7 +24,7 @@ scientific experimentation, FAIR principles, and best practices for reproducible
 
 # Development
 
-* [The alpha version of the CM prototype](https://github.com/octoml/cm/tree/mvp)
+* The alpha version of the CM prototype
 
 # Projects
 
