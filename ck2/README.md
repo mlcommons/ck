@@ -1,6 +1,6 @@
-# Collective Mind framework aka as CK2 or CM
+# Collective Mind automation framework (CM or CK2)
 
-*Following the success of the [Collective Knowledge framework (CK)](https://github.com/mlcommons/ck)
+*Following the success of the [Collective Knowledge automation framework (CK)](https://github.com/mlcommons/ck)
 to automate [MLPerf benchmark](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation), 
 simplify the deployment of optimized AI/ML systems [in production](https://cKnowledge.org/partners.html)
 and enable [reproducible experiments](https://cTuning.org/ae), 
@@ -35,7 +35,7 @@ scientific experimentation, FAIR principles, and best practices for reproducible
 
 # Related community events
 
-* **2022 April:** HPCA'22 reproducibility talk
+* **2022 April 3:** HPCA'22 talk about using CK/CK2 to automate MLPerf design space exploration and deploy efficient AI/ML Systems
 * **2022 March:** Presentation about our experience connecting MLOps and DevOps
 
 
@@ -46,10 +46,10 @@ scientific experimentation, FAIR principles, and best practices for reproducible
 
 # Feedback
 
-The CM framework is being developed with the community and based on the community feedback! 
+The CM framework (CK2) is being developed with the community and based on the community feedback! 
 Please don't hesitate to get in touch with us if you have any suggestions about how to
 bridge the growing gap between scientific research and production.
-Please report encountered issues [here](https://github.com/octoml/cm/issues).
+Please report encountered issues [here](https://github.com/mlcommons/ck/issues).
 
 # Coordinators
 
