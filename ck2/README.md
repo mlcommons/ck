@@ -60,7 +60,7 @@ We use [GitHub tickets](https://github.com/mlcommons/ck/issues) to improve the C
 
 * [Towards modular MLPerf benchmark](docs/projects/modular-mlperf.md).
 * [MLPerf design space exploration](docs/projects/mlperf-dse.md).
-* [Automated deployment of Pareto-efficient ML Systems](docs/projects/production-deployment.md)
+* [Automated deployment of Pareto-efficient ML Systems](docs/projects/production-deployment.md).
 
 # Resources
 
