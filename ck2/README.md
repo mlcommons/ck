@@ -3,23 +3,43 @@
 We are developing the CM toolkit to help researchers and engineers automate their boring, repetitive and time-consuming tasks
 and let them focus on innovation when prototyping complex computational systems and deploying them in the real world.
 
-It is heavily motivated by our very tedious experience when reproducing 150+ research papers
-from the leading ML and Systems conferences and validating them in the real world across 
-rapidly evolving software, hardware, models and data sets
+# Motivation
+
+CM is heavily motivated by our very tedious experience when reproducing 150+ research papers
+from the leading ML and Systems conferences and trying to validate some of them in the real world 
+across rapidly evolving software, hardware, models and data sets
 (see the [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
 and related [Reddit discussion](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems/)). 
 
-This practical experience led us to design CM as a simple and collaborative playground with minimal dependencies 
-to let researchers and practitioners convert their artifacts, knowledge and experience (code, data, models, scripts, config files, experiments) 
-into reusable automation recipes and objects with a simple API, unified CLI, 
+We have noticed that nearly each research project used many ad-hoc scripts and artifacts to perform exactly the same tasks 
+but just for different hardware, compilers, frameworks, applications, models and data sets including:
+* detecting target hardware properties
+* downloading various software and data
+* detecting and/or installing numerous dependencies for a given host and target hardware
+* substitute local paths in numerous scripts, YAML/JSON files and code
+* preparing or modifying numerous configuration files
+* setting environment variables
+* preprocessing datasets
+* preparing command lines and running applications
+* monitoring execution time, accuracy, energy, memory usage, etc
+* post-processing results, recording them to a database, comparing with some reference ones
+* visualizing and comparing results
+* connecting applications with existing DevOps and MLOps tools
+* packing all those ad-hoc scripts and artifacts into containers and deploying them in production 
+  using numerous existing solutions and platforms from cloud to edge.
+
+That is why we have decided to design CM as a simple and collaborative playground with minimal dependencies 
+to let researchers and practitioners convert their artifacts, knowledge and experience
+(code, data, models, scripts, config files, experiments, reference results) 
+into reusable automation recipes and objects with a simple API, unified CLI,
 and extensible YAML/JSON meta descriptions similar to LEGO bricks.
 
 Such unified bricks can be shared with the community to make it easier to assemble very complex computational systems, 
 connect them with existing DevOps and MLOps tools, continuously improve and optimize all components
 without breaking backwards compatibility.
 
-Our long-term goal is to use CM to enable modular AI and automatically synthesize Pareto-efficient ML and AI Systems 
-for any platform from cloud to edge based on user requirements and constraints (see [this article](https://arxiv.org/abs/2011.01149) for more details).
+One of our long-term goal is to use CM to enable modular AI and automatically synthesize Pareto-efficient ML and AI Systems 
+for any platform from cloud to edge based on user requirements and constraints as described in [this article](https://arxiv.org/abs/2011.01149).
 
 CM is the complete redesign of the [CK prototype](https://github.com/mlcommons/ck) that was successfully validated
 by [a number of companies and organizations](https://cKnowledge.org/partners.html) 
@@ -56,7 +76,7 @@ We use [GitHub tickets](https://github.com/mlcommons/ck/issues) to improve the C
 * We work with the community to convert research artifacts [from ML and Systems conferences](https://cTuning.org/ae) 
   into [reusable CM components](docs/reusable-components.md).
 
-## Modular CM-based projets
+## Modular CM-based projects
 
 * [Towards modular MLPerf benchmark](docs/projects/modular-mlperf.md).
 * [MLPerf design space exploration](docs/projects/mlperf-dse.md).
