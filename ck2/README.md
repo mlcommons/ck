@@ -80,7 +80,7 @@ We use [GitHub tickets](https://github.com/mlcommons/ck/issues) to improve the C
 ## CM-based reusable LEGO-like bricks
 
 * We work with the community to convert research artifacts [from ML and Systems conferences](https://cTuning.org/ae) 
-  into [reusable CM components](docs/reusable-components.md).
+  into [reusable CM objects](docs/reusable-components.md).
 
 ## Modular CM-based projects
 
