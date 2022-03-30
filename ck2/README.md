@@ -41,11 +41,11 @@ connect them with existing DevOps and MLOps tools,
 and continuously improve, extend and optimize all components
 without breaking backwards compatibility.
 
-Note that our CM objects make ad-hoc artifacts compatible with [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data),
-i.e. findable, accessible, interoperable and reusable.
-
 One of our long-term goal is to use CM to enable modular AI and automatically synthesize Pareto-efficient ML and AI Systems 
 for any platform from cloud to edge based on user requirements and constraints as described in [this article](https://arxiv.org/abs/2011.01149).
+
+Also note that our CM objects make ad-hoc artifacts compatible with [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data),
+i.e. findable, accessible, interoperable and reusable.
 
 CM is the complete redesign of the [CK prototype](https://github.com/mlcommons/ck) that was successfully validated
 by [a number of companies and organizations](https://cKnowledge.org/partners.html) 
