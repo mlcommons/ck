@@ -1,3 +1,5 @@
+***Check out the [new CK2 framework](https://github.com/mlcommons/ck/tree/master/docs/ck2) to automate boring, repetitive and time-consuming tasks when prototyping, developing, testing and deploying complex computational systems.***!
+
 # Collective Knowledge framework (CK)
 
 [![PyPI version](https://badge.fury.io/py/ck.svg)](https://badge.fury.io/py/ck)
@@ -15,9 +17,16 @@
 
 ## News
 
-* **2022 March:** we are preparing the [CK2 framework](https://github.com/mlcommons/ck/tree/master/docs/ck2) - 
-  don't hesitate to get in touch with [Grigori Fursin](https://cKnowledge.io/@gfursin) to know more 
-  and join our discussions and developments!
+* **2022 April 20:** Join us at the public MLCommons community meeting. Register [here](https://docs.google.com/spreadsheets/d/1bb7qWgWM-6gop1Mwjm4u8LZtC7uqbee8C30DHipkkms/edit#gid=533252977).
+
+* **2022 April 3:** Join us at the HPCA'22 workshop on [benchmarking deep learning systems](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca22/home)
+  where we will present the CK2 concept for MLPerf design space exploration and production deployment.
+
+* **2022 March:** We presented the [CK concept to enable collaborative and reproducible ML Systems R&D](https://meetings.siam.org/sess/dsp_programsess.cfm?SESSIONCODE=73126) 
+  at the SIAM'22 workshop on "Research Challenges and Opportunities within Software Productivity, Sustainability, and Reproducibility"
+
+* **2022 March:** we've released the first prototype of the [CK2 framework](https://github.com/mlcommons/ck/tree/master/ck2)
+  based on your feedback! Join this community effort to make it easier to bring research ideas to the real world!
 
 ## Motivation
 
@@ -261,12 +270,14 @@ Please contact [Grigori Fursin](mailto:grigori@octoml.ai) to join this community
 
 
 
-## Author and coordinator
+## Contacts
 
-* [Grigori Fursin](https://fursin.net) (OctoML/MLCommons/cTuning foundation)
+* [Grigori Fursin](https://fursin.net) - author
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) - maintainer
 
 ## Acknowledgments
 
 We would like to thank all [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 and [collaborators](https://cKnowledge.org/partners.html) for their support, fruitful discussions, 
-and useful feedback! See more acknowledgments in the [CK journal article](https://arxiv.org/abs/2011.01149).
+and useful feedback! See more acknowledgments in the [CK journal article](https://arxiv.org/abs/2011.01149)
+and [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4)
