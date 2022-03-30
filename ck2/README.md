@@ -31,7 +31,7 @@ but just for different hardware, compilers, frameworks, applications, models and
 That is why we have decided to design CM as a simple and collaborative playground with minimal dependencies 
 to let researchers and practitioners convert their artifacts, knowledge and experience
 (code, data, models, scripts, config files, experiments, reference results) 
-into reusable automation recipes and objects with a simple API, unified CLI,
+into a reusable object with a simple Python API, unified CLI, common automation recipes,
 and extensible YAML/JSON meta descriptions similar to LEGO bricks.
 
 Such unified bricks can be shared with the community to make it easier to assemble very complex computational systems, 
