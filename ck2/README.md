@@ -31,12 +31,18 @@ but just for different hardware, compilers, frameworks, applications, models and
 That is why we have decided to design CM as a simple and collaborative playground with minimal dependencies 
 to let researchers and practitioners convert their artifacts, knowledge and experience
 (code, data, models, scripts, config files, experiments, reference results) 
-into a reusable object with a simple Python API, unified CLI, common automation recipes,
-and extensible YAML/JSON meta descriptions similar to LEGO bricks.
+into a reusable object with an automatically generated UID, simple Python API, 
+unified CLI, common automation recipes, and extensible YAML/JSON meta descriptions 
+similar to LEGO bricks.
 
-Such unified bricks can be shared with the community to make it easier to assemble very complex computational systems, 
-connect them with existing DevOps and MLOps tools, continuously extend and optimize all components
+Such unified bricks can be shared with the community inside existing Git repositories, tar/zip files and containers 
+to make it easier to assemble very complex computational systems,  
+connect them with existing DevOps and MLOps tools,
+and continuously improve, extend and optimize all components
 without breaking backwards compatibility.
+
+Note that our CM objects make ad-hoc artifacts compatible with [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data),
+i.e. findable, accessible, interoperable and reusable.
 
 One of our long-term goal is to use CM to enable modular AI and automatically synthesize Pareto-efficient ML and AI Systems 
 for any platform from cloud to edge based on user requirements and constraints as described in [this article](https://arxiv.org/abs/2011.01149).
