@@ -15,18 +15,23 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
 # Deployment platforms
 
 - [Seldon Deploy](https://www.seldon.io/solutions/deploy)
+  - [About](https://deploy.seldon.io/en/v1.4/contents/about/index.html)
+  - [Architecture](https://deploy.seldon.io/en/v1.4/contents/architecture/index.html)
+- AWS
+- Azure
 
 # ML workflow and automation frameworks
 
 - [MLFlow](https://mlflow.org/)
 - [Kubeflow](https://www.kubeflow.org)
+- [AWS SageMaker](https://aws.amazon.com/pm/sagemaker)
 - [Kedro](https://github.com/kedro-org/kedro)
 - [Collective Knowledge](https://github.com/mlcommons/ck)
 
 # ML exchange formats
 
-- ONNX
-- NNEF (Khronos)
+- [ONNX](https://onnx.ai)
+- [NNEF (Khronos)](https://www.khronos.org/nnef)
 
 # Containers
 
