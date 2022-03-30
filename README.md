@@ -280,4 +280,4 @@ Please contact [Grigori Fursin](mailto:grigori@octoml.ai) to join this community
 We would like to thank all [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 and [collaborators](https://cKnowledge.org/partners.html) for their support, fruitful discussions, 
 and useful feedback! See more acknowledgments in the [CK journal article](https://arxiv.org/abs/2011.01149)
-and [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4)
+and [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4).
