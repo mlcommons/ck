@@ -35,7 +35,7 @@ into reusable automation recipes and objects with a simple API, unified CLI,
 and extensible YAML/JSON meta descriptions similar to LEGO bricks.
 
 Such unified bricks can be shared with the community to make it easier to assemble very complex computational systems, 
-connect them with existing DevOps and MLOps tools, continuously improve and optimize all components
+connect them with existing DevOps and MLOps tools, continuously extend and optimize all components
 without breaking backwards compatibility.
 
 One of our long-term goal is to use CM to enable modular AI and automatically synthesize Pareto-efficient ML and AI Systems 
