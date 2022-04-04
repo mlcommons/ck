@@ -73,7 +73,7 @@ gfursin@cmind:~$ cm
 
 
 ## Platform support
-CK supports the following platforms:
+CM toolkit supports the following platforms:
 
 |               | As a host platform | As a target platform |
 |---------------|:------------------:|:--------------------:|
