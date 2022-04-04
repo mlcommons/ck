@@ -8,6 +8,10 @@ and spending many months analyzing the structure of ad-hoc projects
 to validate and reuse them in the real world with different environments, settings, 
 data sets, libraries, tools and platforms.
 
+![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production.png)
+
+![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production2.png)
+
 That is why we have decided to provide a very simple and common structure for shared projects
 that makes it possible to exchange all artifacts, knowledge, experience and best practices 
 between researchers, engineers, teams and organizations 
