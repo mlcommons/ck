@@ -19,9 +19,9 @@ modularize the [MLPerf inference benchmark](https://github.com/mlcommons/ck/tree
 and [automate the development and deployment of Pareto-efficient ML Systems](https://www.youtube.com/watch?v=1ldgVZ64hEI).
 
 
-![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production.png)
+![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production.png?id=1)
 
-![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production2.png)
+![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production2.png?id=1)
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production3.png)
 
