@@ -1,6 +1,6 @@
 # Collective Mind toolkit (CM or CK2)
 
-We are developing the CM toolkit to help researchers and engineers automate their boring, repetitive and time-consuming tasks
+We are developing the CM toolkit to help researchers and engineers automate repetitive, ad-hoc and time-consuming tasks
 and let them focus on innovation when prototyping complex computational systems and deploying them in the real world.
 
 # Motivation
@@ -58,14 +58,15 @@ from years and months to weeks and days.
 
 * **2022 April 20:** Join us at the public MLCommons community meeting. Register [here](https://docs.google.com/spreadsheets/d/1bb7qWgWM-6gop1Mwjm4u8LZtC7uqbee8C30DHipkkms/edit#gid=533252977).
 
-* **2022 April 3:** Join us at the HPCA'22 workshop on [benchmarking deep learning systems](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca22/home)
-  where we will present the CK2 concept for MLPerf design space exploration and production deployment.
+* **2022 April 3:** We presented the CK concept to bridge the growing gap between ML Systems research and production 
+  at the HPCA'22 workshop on [benchmarking deep learning systems](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca22/home).
 
 * **2022 March:** We presented our [CK concept to enable collaborative and reproducible ML Systems R&D](https://meetings.siam.org/sess/dsp_programsess.cfm?SESSIONCODE=73126) 
   at the SIAM'22 workshop on "Research Challenges and Opportunities within Software Productivity, Sustainability, and Reproducibility"
 
 * **2022 March:** we've released the first prototype of the [CK2 framework](https://github.com/mlcommons/ck/tree/master/ck2)
-  based on your feedback! Join this community effort to make it easier to bring research ideas to the real world!
+  based on your feedback and our practical experience [reproducing 150+ ML and Systems papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
+! 
 
 # First steps
 
@@ -99,8 +100,8 @@ and all our colleagues for their valuable feedback and support!
 
 # Feedback
 
-We develop the CM framework (CK2) based on the [valuable feedback from the community](https://www.youtube.com/watch?v=7zpeIVwICa4)! 
-Please don't hesitate to share your ideas and report encountered issues [here](https://github.com/mlcommons/ck/issues).
+We are developing the CM framework (CK2) based on your feedback. Please don't hesitate to share your ideas 
+and report encountered issues [here](https://github.com/mlcommons/ck/issues).
 
 # Contacts
 

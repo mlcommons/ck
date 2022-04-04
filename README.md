@@ -1,4 +1,6 @@
-***Check out the [new CK2 framework](https://github.com/mlcommons/ck/tree/master/docs/ck2) to automate boring, repetitive and time-consuming tasks when prototyping, developing, testing and deploying complex computational systems.***!
+***We've started designing the new [CK2 toolkit](https://github.com/mlcommons/ck/tree/master/ck2) based on user feedback 
+   and our practical experience [reproducing 150+ ML and Systems papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
+   Please [get in touch](https://github.com/mlcommons/ck/tree/master/ck2#contacts) if you are interested to participate in this community effort!***
 
 # Collective Knowledge framework (CK)
 
@@ -19,14 +21,14 @@
 
 * **2022 April 20:** Join us at the public MLCommons community meeting. Register [here](https://docs.google.com/spreadsheets/d/1bb7qWgWM-6gop1Mwjm4u8LZtC7uqbee8C30DHipkkms/edit#gid=533252977).
 
-* **2022 April 3:** Join us at the HPCA'22 workshop on [benchmarking deep learning systems](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca22/home)
-  where we will present the CK2 concept for MLPerf design space exploration and production deployment.
+* **2022 April 3:** We presented the CK concept to bridge the growing gap between ML Systems research and production 
+  at the HPCA'22 workshop on [benchmarking deep learning systems](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca22/home).
 
 * **2022 March:** We presented the [CK concept to enable collaborative and reproducible ML Systems R&D](https://meetings.siam.org/sess/dsp_programsess.cfm?SESSIONCODE=73126) 
   at the SIAM'22 workshop on "Research Challenges and Opportunities within Software Productivity, Sustainability, and Reproducibility"
 
-* **2022 March:** we've released the first prototype of the [CK2 framework](https://github.com/mlcommons/ck/tree/master/ck2)
-  based on your feedback! Join this community effort to make it easier to bring research ideas to the real world!
+* **2022 March:** we've released the first prototype of the [CK2 toolkit](https://github.com/mlcommons/ck/tree/master/ck2)
+  based on your feedback! Join this community effort to develop CK2-powered automation recipes to co-design and deploy efficient ML Systems.
 
 ## Motivation
 
@@ -74,7 +76,7 @@ and implement the following reusable automation recipes in the CK format:
 
 * Portable workflows to automate MLPerf&trade; benchmark:
   - [End-to-end submission suite used by multiple organizations to automate the submission of MLPerf inference benchmark](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/README.md)
-    - MLperf inference v1.1 results: [MLCommons press-release](https://mlcommons.org/en/news/mlperf-inference-v11), 
+    - MLPerf inference v1.1 results: [MLCommons press-release](https://mlcommons.org/en/news/mlperf-inference-v11), 
       [Datacenter results](https://mlcommons.org/en/inference-datacenter-11), 
       [Edge results](https://mlcommons.org/en/inference-edge-11)
   - [Reproducibility studies for MLPerf inference benchmark v1.1 automated by CK](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation/reproduce#reproducibility-reports-mlperf-inference-benchmark-v11)
