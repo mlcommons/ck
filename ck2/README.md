@@ -92,17 +92,7 @@ $ cm repo find my-cool-project
 ```
 
 
-
-
-
-
- 
- in the CM format
-
-Go to your local Git repository or any project:
-```bash
-$ cd <my cool project>
-```
+To be continued ...
 
 
 
