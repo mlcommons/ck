@@ -194,6 +194,8 @@ class Repos:
         r=utils.is_file_json_or_yaml(file_name = path_to_repo_desc)
         if r['return']>0: return r
 
+        must_update_repo_desc = False
+        
         if not r['is_file']:
             # Prepare meta
             r=utils.gen_uid()
@@ -210,14 +212,26 @@ class Repos:
             if name!='': meta['name']=name
             if prefix!='': meta['prefix']=prefix
 
-            r=utils.save_yaml(path_to_repo_desc + '.yaml', meta=meta)
-            if r['return']>0: return r
+            must_update_repo_desc = True
         else:
             # Load meta from the repository
             r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)
             if r['return']>0: return r
 
             meta = r['meta']
+
+            # If alias forced by user is not the same as in meta, update it 
+            # https://github.com/mlcommons/ck/issues/196
+
+            if alias != meta.get('alias',''):
+                meta['alias']=alias
+
+                must_update_repo_desc = True
+
+        if must_update_repo_desc:
+            r=utils.save_yaml(path_to_repo_desc + '.yaml', meta=meta)
+            if r['return']>0: return r
+
 
         # Update repo list
         # TBD: make it more safe (reload and save)

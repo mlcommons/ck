@@ -25,7 +25,7 @@ and [automate the development and deployment of Pareto-efficient ML Systems](htt
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production3.png)
 
-# How it works
+# Try it yourself
 
 ## Install CM
 
@@ -35,13 +35,74 @@ It requires minimal dependencies (Python 3+, pip, pyyaml and a Git client)
 and should work with any OS including Linux, CentOS, Debian, RedHat and Windows.
 
 ```bash
-pip3 install cmind
+$ pip3 install cmind
 ```
 
 You can find more details about the installation process [here](docs/installation.md).
 
-## 
+## Share some artifact 
 
+### Without CM
+
+Image you want to share with your colleagues an image of a cat, some machine learning model
+and a JSON file with some experimental results including inference time and image classification
+via some GitHub repository.
+
+First, you will likely create a GitHub repository and clone it on your local machine:
+
+```bash
+$ git clone {GitHub repo URL} my-cool-project
+```
+ 
+You may then create some directories to store your image, model and experiment:
+
+```bash
+$ cd my-cool-project
+
+$ mkdir images
+$ copy cool-cat.jpeg images
+
+$ mkdir models
+$ copy my-cool-model.onnx models
+
+$ mkdir experiments
+$ copy my-cool-result-20220404.json experiments
+```
+
+You will then likely create a README.md describing the structure 
+and the content of your repository,
+and how you ran your experiment.
+
+Another person will need to read this README file to understand the structure
+of your repository and either reproduce results or use some artifacts
+in his or her own project.
+
+### Using CM
+
+The idea behind CM is to let you perform similar steps just prefixed by *cm* 
+to let CM index artifacts and make them findable and reusable:
+
+```bash
+$ cm repo pull my-cool-project --url={GitHub repo URL} 
+```
+
+CM will pull and register this repository. You can find where it is located on your system using CM command:`
+```bash
+$ cm repo find my-cool-project
+```
+
+
+
+
+
+
+ 
+ in the CM format
+
+Go to your local Git repository or any project:
+```bash
+$ cd <my cool project>
+```
 
 
 
