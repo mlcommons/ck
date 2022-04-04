@@ -1,89 +1,73 @@
 # Collective Mind toolkit (CM or CK2)
 
-We are developing the CM toolkit to help researchers and engineers automate repetitive, ad-hoc and time-consuming tasks
-and let them focus on innovation when prototyping complex computational systems and deploying them in the real world.
+The CM toolkit transforms Git repositories, Docker containers, Jupyter notebooks and zip/tar files
+into a database of reusable artifacts and automations with a unified CLI and extensible meta descriptions.
 
-# Motivation
+It is motivated by our tedious experience reproducing [150+ ML and Systems papers](https://www.youtube.com/watch?v=7zpeIVwICa4):
+we and our colleagues have spent many months analyzing the structure of ad-hoc projects
+to validate and reuse them in the real world with different environments, settings, 
+data sets, libraries, tools and platforms.
 
-CM is heavily motivated by our very tedious experience when reproducing 150+ research papers
-from the leading ML and Systems conferences and trying to validate some of them in the real world 
-across rapidly evolving software, hardware, models and data sets
-(see the [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
-and related [Reddit discussion](https://www.reddit.com/r/MachineLearning/comments/ioq8do/n_reproducing_150_research_papers_the_problems/)). 
+Our goal is to provide a common structure for projects and make it easier 
+to exchange any artifacts, knowledge, experience and best practices 
+between researchers, engineers, teams and organizations 
+in a reusable, reproducible and automated way.
 
-We have noticed that nearly each research project used many ad-hoc scripts and artifacts to perform exactly the same tasks 
-but just for different hardware, compilers, frameworks, applications, models and data sets including:
-* detecting target hardware properties
-* downloading various software and data
-* detecting and/or installing numerous dependencies for a given host and target hardware
-* substitute local paths in numerous scripts, YAML/JSON files and code
-* preparing or modifying numerous configuration files
-* setting environment variables
-* preprocessing datasets
-* preparing command lines and running applications
-* monitoring execution time, accuracy, energy, memory usage, etc
-* post-processing results, recording them to a database, comparing with some reference ones
-* visualizing and comparing results
-* connecting applications with existing DevOps and MLOps tools
-* packing all those ad-hoc scripts and artifacts into containers and deploying them in production 
-  using numerous existing solutions and platforms from cloud to edge.
+CM toolkit is based on the [Collective Knowledge concept](https://arxiv.org/abs/2011.01149)
+that was successfully validated in the past few years to [enable collaborative ML and Systems R&D](https://cKnowledge.org/partners.html)
+and modularize the [MLPerf inference benchmark](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation).
 
-That is why we have decided to design CM as a simple and collaborative playground with minimal dependencies 
-to let researchers and practitioners convert their artifacts, knowledge and experience
-(code, data, models, scripts, config files, experiments, reference results) 
-into a reusable object with an automatically generated UID, simple Python API, 
-unified CLI, common automation recipes, and extensible YAML/JSON meta descriptions 
-similar to LEGO bricks.
+# How it works
 
-Such unified bricks can be shared with the community inside existing Git repositories, tar/zip files and containers 
-to make it easier to assemble very complex computational systems,  
-connect them with existing DevOps and MLOps tools,
-and continuously improve, extend and optimize all components
-without breaking backwards compatibility.
+## Install CM
 
-One of our long-term goal is to use CM to enable modular AI and automatically synthesize Pareto-efficient ML and AI Systems 
-for any platform from cloud to edge based on user requirements and constraints as described in [this article](https://arxiv.org/abs/2011.01149).
+CM toolkit is implemented as a small Python library with a unified CLI and a simple API.
 
-Also note that our CM objects make ad-hoc artifacts compatible with [FAIR principles](https://en.wikipedia.org/wiki/FAIR_data),
-i.e. findable, accessible, interoperable and reusable.
+It requires minimal dependencies (Python 3+, pip, pyyaml and a Git client) 
+and should work with any OS including Linux, CentOS, Debian, RedHat and Windows.
 
-CM is the complete redesign of the [CK prototype](https://github.com/mlcommons/ck) that was successfully validated
-by [a number of companies and organizations](https://cKnowledge.org/partners.html) 
-to [make ML and Systems research more collaborative and reproducible](https://cTuning.org/ae),
-modularize and automate the [MLPerf benchmark](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation),
-and accelerate [design space exploration and deployment of efficient AI and ML Systems in production](https://www.youtube.com/watch?v=1ldgVZ64hEI)
-from years and months to weeks and days.
+```bash
+pip3 install cmind
+```
+
+You can find more details about the installation process [here](docs/installation.md).
+
+
+
+
+
+
+
 
 # News
 
 * **2022 April 20:** Join us at the public MLCommons community meeting. Register [here](https://docs.google.com/spreadsheets/d/1bb7qWgWM-6gop1Mwjm4u8LZtC7uqbee8C30DHipkkms/edit#gid=533252977).
 
-* **2022 April 3:** We presented the CK concept to bridge the growing gap between ML Systems research and production 
+* **2022 April 3:** We presented our approach to bridge the growing gap between ML Systems research and production 
   at the HPCA'22 workshop on [benchmarking deep learning systems](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca22/home).
 
-* **2022 March:** We presented our [CK concept to enable collaborative and reproducible ML Systems R&D](https://meetings.siam.org/sess/dsp_programsess.cfm?SESSIONCODE=73126) 
+* **2022 March:** We presented our concept to [enable collaborative and reproducible ML Systems R&D](https://meetings.siam.org/sess/dsp_programsess.cfm?SESSIONCODE=73126) 
   at the SIAM'22 workshop on "Research Challenges and Opportunities within Software Productivity, Sustainability, and Reproducibility"
 
-* **2022 March:** we've released the first prototype of the [CK2 framework](https://github.com/mlcommons/ck/tree/master/ck2)
+* **2022 March:** we've released the first prototype of [our toolkit ](https://github.com/mlcommons/ck/tree/master/ck2)
   based on your feedback and our practical experience [reproducing 150+ ML and Systems papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
 ! 
 
-# First steps
-
-* [Installation](docs/first-steps.md)
 
 # Research and development
 
-## CM core
+## CM core enhancements
 
-We use [GitHub tickets](https://github.com/mlcommons/ck/issues) to improve the CM core.
+We use [GitHub tickets](https://github.com/mlcommons/ck/issues) 
+to improve and enhance the CM core based on the feedback from our users!
 
-## CM-based reusable LEGO-like bricks
+## CM-based automation recipes
 
-* We work with the community to convert research artifacts [from ML and Systems conferences](https://cTuning.org/ae) 
-  into [reusable CM objects](docs/reusable-components.md).
+* We work with the community to convert projects [from ML and Systems papers](https://cTuning.org/ae) 
+  into [reusable CM artifacts and automation recipes](docs/reusable-components.md). 
+  Feel free to suggest your own automation recipes to be reused by the community.
 
-## Modular CM-based projects
+## CM-based projects
 
 * [Towards modular MLPerf benchmark](docs/projects/modular-mlperf.md).
 * [MLPerf design space exploration](docs/projects/mlperf-dse.md).
@@ -91,17 +75,14 @@ We use [GitHub tickets](https://github.com/mlcommons/ck/issues) to improve the C
 
 # Resources
 
-* [MLOps and MLPerf](docs/KB/MLOps.md)
+* [MLOps projects](docs/KB/MLOps.md)
 
-# Acknowledgments
+# Acknowledgments and feedback
 
 We thank the [CK users](https://cKnowledge.org/partners.html), [OctoML](https://octoml.ai), [MLCommons](https://mlcommons.org) 
 and all our colleagues for their valuable feedback and support!
 
-# Feedback
-
-We are developing the CM framework (CK2) based on your feedback. Please don't hesitate to share your ideas 
-and report encountered issues [here](https://github.com/mlcommons/ck/issues).
+Please don't hesitate to share your ideas and report encountered issues [here](https://github.com/mlcommons/ck/issues).
 
 # Contacts
 
