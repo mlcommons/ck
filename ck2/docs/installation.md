@@ -22,7 +22,7 @@ brew install python3 python3-pip git wget
 ### Windows
 
 * Download and install Git from [git-for-windows.github.io](https://git-for-windows.github.io).
-* Download and install any Python from [www.python.org/downloads/windows](https://www.python.org/downloads/windows).
+* Download and install Python 3+ from [www.python.org/downloads/windows](https://www.python.org/downloads/windows).
 
 ### Android (Linux host)
 

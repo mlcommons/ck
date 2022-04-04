@@ -3,15 +3,15 @@
 The CM toolkit transforms Git repositories, Docker containers, Jupyter notebooks and zip/tar files
 into a database of reusable artifacts and automations with a unified CLI and extensible meta descriptions.
 
-It is motivated by our tedious experience reproducing [150+ ML and Systems papers](https://www.youtube.com/watch?v=7zpeIVwICa4):
-we and our colleagues have spent many months analyzing the structure of ad-hoc projects
+It is motivated by our tedious experience reproducing [150+ ML and Systems papers](https://www.youtube.com/watch?v=7zpeIVwICa4)
+and spending many months analyzing the structure of ad-hoc projects
 to validate and reuse them in the real world with different environments, settings, 
 data sets, libraries, tools and platforms.
 
-Our goal is to provide a common structure for projects and make it easier 
-to exchange any artifacts, knowledge, experience and best practices 
+That is why we have decided to provide a very simple and common structure for shared projects
+that makes it possible to exchange all artifacts, knowledge, experience and best practices 
 between researchers, engineers, teams and organizations 
-in a reusable, reproducible and automated way.
+in an automated, reusable and reproducible way.
 
 CM toolkit is based on the [Collective Knowledge concept](https://arxiv.org/abs/2011.01149)
 that was successfully validated in the past few years to [enable collaborative ML and Systems R&D](https://cKnowledge.org/partners.html)
