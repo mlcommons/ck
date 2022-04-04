@@ -3,8 +3,8 @@
 The CM toolkit transforms Git repositories, Docker containers, Jupyter notebooks and zip/tar files
 into a database of reusable artifacts and automations with a unified CLI and extensible meta descriptions.
 
-It is motivated by our tedious experience reproducing [150+ ML and Systems papers](https://www.youtube.com/watch?v=7zpeIVwICa4)
-and spending many months analyzing the structure of ad-hoc projects
+It is motivated by our tedious experience reproducing [150+ ML and Systems papers](https://www.youtube.com/watch?v=7zpeIVwICa4):
+we and our colleagues spent many months analyzing the structure of ad-hoc projects
 to validate and reuse them in the real world with different environments, settings, 
 data sets, libraries, tools and platforms.
 
@@ -15,11 +15,15 @@ data sets, libraries, tools and platforms.
 That is why we have decided to provide a very simple and common structure for shared projects
 that makes it possible to exchange all artifacts, knowledge, experience and best practices 
 between researchers, engineers, teams and organizations 
-in an automated, reusable and reproducible way.
+in a more automated, reusable and reproducible way.
 
 CM toolkit is based on the [Collective Knowledge concept](https://arxiv.org/abs/2011.01149)
-that was successfully validated in the past few years to [enable collaborative ML and Systems R&D](https://cKnowledge.org/partners.html)
-and modularize the [MLPerf inference benchmark](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation).
+that was successfully validated in the past few years to [enable collaborative ML and Systems R&D](https://cKnowledge.org/partners.html),
+modularize the [MLPerf inference benchmark](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation),
+and [automate the development and deployment of Pareto-efficient ML Systems](https://www.youtube.com/watch?v=1ldgVZ64hEI).
+
+
+![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production3.png)
 
 # How it works
 
