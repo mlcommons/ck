@@ -276,7 +276,7 @@ class Module:
 
         existing_tags = meta.get('tags',[])
         if len(tags)>0: 
-            existing_tags.append(tags)
+            existing_tags+=tags
         meta['tags']=existing_tags
 
         # Record meta

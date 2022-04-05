@@ -1,31 +1,35 @@
-# Collective Mind toolkit (CM or CK2)
+# Collective Mind toolkit
 
-The CM toolkit transforms Git repositories, Docker containers, Jupyter notebooks and zip/tar files
-into a database of reusable artifacts and automations with a unified CLI and extensible meta descriptions.
+The Collective Mind toolkit (CM or CK2) transforms Git repositories, Docker containers, Jupyter notebooks and zip/tar files
+into a collective database of reusable artifacts and automation scripts with a unified interface and extensible meta descriptions.
 
-Our goal is to provide a very simple and common structure for shared projects
-and make it possible to exchange any artifacts, knowledge, experience and best practices 
-between researchers, engineers, teams and organizations 
-in a more automated, reusable and reproducible way.
+It is motivated by our tedious experience reproducing [150+ ML and Systems papers](https://www.youtube.com/watch?v=7zpeIVwICa4)
+when our colleagues have spent many months analyzing the structure of ad-hoc projects, reproducing results
+and [validating them in the real world](https://cKnowledge.org/partners.html) 
+with different and continuously changing software, hardware, environments, data sets and settings.
 
-CM is motivated by our tedious experience reproducing [150+ ML and Systems papers](https://www.youtube.com/watch?v=7zpeIVwICa4)
-when we and our colleagues spent many months analyzing the structure of ad-hoc projects, reproducing results
-and validating them in the real world with different and continuously changing software, hardware, environments, 
-data sets and settings.
+That is why we have decided to develop a simple toolkit to help you share your artifacts, knowledge, 
+experience and best practices with the whole world in a more reusable, automated, 
+portable and reproducible way.
 
-The CM toolkit is based on the [Collective Knowledge concept](https://arxiv.org/abs/2011.01149)
-that was successfully validated in the past few years to [enable collaborative ML and Systems R&D](https://cKnowledge.org/partners.html),
+The CM toolkit is based on the [Collective Knowledge concept]( https://arxiv.org/abs/2011.01149 )
+that was successfully validated in the past few years to 
+[enable collaborative ML and Systems R&D](https://cKnowledge.org/partners.html),
 modularize the [MLPerf inference benchmark](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation),
 and [automate the development and deployment of Pareto-efficient ML Systems](https://www.youtube.com/watch?v=1ldgVZ64hEI).
 
+See [related slides](docs/motivation.md) and a related article 
+about ["MLOps Is a Mess But That's to be Expected"](https://www.mihaileric.com/posts/mlops-is-a-mess/) (March 2022).
 
-![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production.png?id=1)
 
-![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production2.png?id=1)
 
-![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production3.png)
+# License
 
-# Try it yourself
+Apache 2.0
+
+
+
+# How it works
 
 ## Install CM
 
@@ -60,13 +64,13 @@ You may then create some directories to store your image, model and experiment:
 $ cd my-cool-project
 
 $ mkdir images
-$ copy cool-cat.jpeg images
+$ cp cool-cat.jpeg images
 
 $ mkdir models
-$ copy my-cool-model.onnx models
+$ cp my-cool-model.onnx models
 
 $ mkdir experiments
-$ copy my-cool-result-20220404.json experiments
+$ cp my-cool-result-20220404.json experiments
 ```
 
 You will then likely create a README.md describing the structure 
@@ -90,6 +94,39 @@ CM will pull and register this repository. You can find where it is located on y
 ```bash
 $ cm repo find my-cool-project
 ```
+
+You can then use CM to create similar structure:
+```
+$ cm images add my-cool-project:cool-cat --tags=dataset,image,cool,cat
+```
+
+CM created a directory *images/cool-cat* inside *my-cool-project* and added *_cm.json* with extensible meta description:
+```json
+{
+  "alias": "cool-cat",
+  "automation_alias": "images",
+  "automation_uid": "",
+  "tags": [
+    "dataset",
+    "image",
+    "cool",
+    "cat"
+  ],
+  "uid": "780abfe6b8084327"
+}
+```
+
+Note that CM also generated unique ID for this artifact. You can now find this artifact using its alias, UID or tags:
+```bash
+$ cm images find cool-cat
+$ cm images find 780abfe6b8084327
+$ cm images find *cat*
+$ cm images find --tags=image,cat
+``` 
+
+You can now copy your cool-cat.jpeg to this directory:
+```bash
+$ cp cool-cat.jpeg `ck images find my-cool-project:
 
 
 To be continued ...
@@ -119,15 +156,17 @@ To be continued ...
 
 We use [GitHub tickets](https://github.com/mlcommons/ck/issues) 
 to improve and enhance the CM core based on the feedback from our users!
+Please don't hesitate to share your ideas and report encountered issues!
 
-## CM-based automation recipes
+## CM-based automation scripts
 
-* We work with the community to convert projects [from ML and Systems papers](https://cTuning.org/ae) 
-  into [reusable CM artifacts and automation recipes](docs/reusable-components.md). 
+* We work with the community to transform R&D projects [from ML and Systems papers](https://cTuning.org/ae) 
+  into [reusable CM artifacts and automation scripts](docs/reusable-components.md). 
   Feel free to suggest your own automation recipes to be reused by the community.
 
 ## CM-based projects
 
+* [Universal benchmarking of computational systems](docs/projects/universal-benchmarking.md).
 * [Towards modular MLPerf benchmark](docs/projects/modular-mlperf.md).
 * [MLPerf design space exploration](docs/projects/mlperf-dse.md).
 * [Automated deployment of Pareto-efficient ML Systems](docs/projects/production-deployment.md).
@@ -136,12 +175,11 @@ to improve and enhance the CM core based on the feedback from our users!
 
 * [MLOps projects](docs/KB/MLOps.md)
 
-# Acknowledgments and feedback
+# Acknowledgments
 
-We thank the [CK users](https://cKnowledge.org/partners.html), [OctoML](https://octoml.ai), [MLCommons](https://mlcommons.org) 
+We thank the [users and partners of the original CK framework](https://cKnowledge.org/partners.html), 
+[OctoML](https://octoml.ai), [MLCommons](https://mlcommons.org) 
 and all our colleagues for their valuable feedback and support!
-
-Please don't hesitate to share your ideas and report encountered issues [here](https://github.com/mlcommons/ck/issues).
 
 # Contacts
 
