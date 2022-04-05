@@ -1,3 +1,5 @@
+***Under preparation ...***
+
 # Getting Started with Collective Mind
 
 Here we describe a few simple steps to help you install CM, 

@@ -42,9 +42,8 @@ Apache 2.0
 
 # Community meetings
 
-* TBA: Regular conf-calls
-* TBD: Public notes 
-  
+* [Public notes](meetings/)
+* [Regular conf-calls](meetings/conf-calls.md)
 
 # News
 
