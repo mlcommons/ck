@@ -4,6 +4,12 @@ One of our goals is to automate the development, optimization and deployment of 
 The main challenge is how to support numerous and continuously changing software and hardware. 
 Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, containers and production deployment of ML systems.
 
+# News and articles
+
+- March 2022: [MLOps Is a Mess But That's to be Expected](https://www.mihaileric.com/posts/mlops-is-a-mess)
+- Jun 2022: [Making ML models more portable and reproducible with open APIs, reusable best practices and MLOps](https://arxiv.org/abs/2006.07161)
+
+
 # MLPerf inference benchmark
 
 - [MLCommons website](https://mlcommons.org)
@@ -41,3 +47,4 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
 - Misc:
     - [Containerizing Huggingface Transformers for GPU inference with Docker and FastAPI on AWS](https://towardsdatascience.com/containerizing-huggingface-transformers-for-gpu-inference-with-docker-and-fastapi-on-aws-d4a83edede2f) (TowardsDataScience, 20211004)
     - [FOSDEM’22 containers track](https://fosdem.org/2022/schedule/track/containers/)
+

@@ -18,6 +18,8 @@ that was successfully validated in the past few years to
 modularize the [MLPerf inference benchmark](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation),
 and [automate the development and deployment of Pareto-efficient ML Systems](https://www.youtube.com/watch?v=1ldgVZ64hEI).
 
+See a related article about ["MLOps Is a Mess But That's to be Expected"](https://www.mihaileric.com/posts/mlops-is-a-mess/) (March 2022).
+
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production.png?id=1)
 
