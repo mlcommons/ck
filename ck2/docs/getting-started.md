@@ -1,4 +1,9 @@
-# Getting Started
+# Getting Started with Collective Mind
+
+Here we describe a few simple steps to help you install CM, 
+share your artifact as a database inside your Git project, 
+reuse it and share some common automation 
+to reusable artifacts.
 
 
 ## Install CM
@@ -12,9 +17,9 @@ and should work with any OS including Linux, CentOS, Debian, RedHat and Windows.
 $ pip3 install cmind
 ```
 
-You can find more details about the installation process [here](docs/installation.md).
+You can find more details about the installation process [here](installation.md).
 
-## Share some artifact 
+## Share some artifacts
 
 ### Without CM
 
@@ -51,21 +56,54 @@ Another person will need to read this README file to understand the structure
 of your repository and either reproduce results or use some artifacts
 in his or her own project.
 
-### Using CM
+### With CM
 
-The idea behind CM is to let you perform similar steps just prefixed by *cm* 
-to let CM index artifacts and make them findable and reusable:
+The idea behind CM is to perform very similar steps but just prefixed by *cm* 
+to let CM index artifacts, add Unique IDs and extensible JSON/YAML meta descriptions,
+and make them findable and reusable:
 
 ```bash
 $ cm repo pull my-cool-project --url={GitHub repo URL} 
 ```
 
-CM will pull and register this repository. You can find where it is located on your system using CM command:`
+CM will pull this repository to *$HOME/CM/my-coolproject* and will register this location
+in the CM-compatible repository index *$HOME/CM/repos.json*. 
+
+This is needed to let CM automatically search for reusable artifacts and automations
+in all CM-compatible directories.
+
+However, if you forget the location, you can always find it using the following CM command:`
 ```bash
 $ cm repo find my-cool-project
 ```
 
-You can then use CM to create similar structure:
+You can list all CM-compatible repositories and their locations as follows:
+```bash
+$ cm repo list
+```
+or
+```bash
+$ cm repo ls | sort
+
+default = C:\!Progs\Python39\lib\site-packages\cmind-0.5.2-py3.9.egg\cmind\repo
+local = C:\Users\grigo\CM\repos\local
+my-cool-project = C:\Users\grigo\CM\repos\my-cool-project
+octoml@mlops = C:\Users\grigo\CM\repos\octoml@mlops
+```
+
+Note that you always have at least 2 CM-compatible repositories after you use CM for the first time:
+* '''default''' is a CM repository with reusable artifacts and automations that were moved 
+  [inside the CM toolkit](https://github.com/mlcommons/ck/tree/master/ck2/cmind/repo) 
+  to ensure their stability because they are frequently used by the community.
+
+* '''local''' is a CM scratchpad repository where all new artifacts and automations 
+  are created if a repository is not specified.
+
+
+
+
+You can then use CM to create a similar structure as in the original Git repository:
+
 ```
 $ cm images add my-cool-project:cool-cat --tags=dataset,image,cool,cat
 ```
@@ -102,4 +140,28 @@ $ cp cool-cat.jpeg `ck images find my-cool-project:
 To be continued ...
 
 
+## Reuse others' artifacts
+
+[![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
+[![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
+
+### From command line
+
+### From Python
+
+### In Docker container
+
+### In Jupyter notebook
+
+### From zip file 
+
+
+## Add reusable automations to related artifacts 
+
+
+## Extend meta descriptions
+
+## Extend automations
+
+## Further thoughts
 

@@ -1,5 +1,10 @@
 # Collective Mind toolkit
 
+[![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/ck2)
+[![PyPI version](https://badge.fury.io/py/cmind.svg)](https://badge.fury.io/py/cmind)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/ck2)
+
+
 The Collective Mind toolkit (CM or CK2) transforms Git repositories, Docker containers, Jupyter notebooks and zip/tar files
 into a collective database of reusable artifacts and automation scripts with a unified interface and extensible meta descriptions.
 
@@ -8,8 +13,9 @@ when our colleagues have spent many months analyzing the structure of ad-hoc pro
 and [validating them in the real world](https://cKnowledge.org/partners.html) 
 with different and continuously changing software, hardware, environments, data sets and settings.
 
-That is why we have decided to develop a simple toolkit to help you share your artifacts, knowledge, 
-experience and best practices with the world in a more reusable, automated, portable and reproducible way.
+That is why we have decided to develop a very simple Python-based toolkit that can work on any platform 
+to help you share your artifacts, knowledge, experience and best practices with the world 
+in a more reusable, automated, portable and reproducible way.
 
 The CM toolkit is based on the [Collective Knowledge concept]( https://arxiv.org/abs/2011.01149 )
 that was successfully validated in the past few years to 
@@ -52,26 +58,27 @@ Apache 2.0
 
 * **2022 March:** we've released the first prototype of [our toolkit ](https://github.com/mlcommons/ck/tree/master/ck2)
   based on your feedback and our practical experience [reproducing 150+ ML and Systems papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
-! 
 
 
 # Research and development
 
-## CM core enhancements
+## CM open database
 
 We use [GitHub tickets](https://github.com/mlcommons/ck/issues) 
-to improve and enhance the CM core based on the feedback from our users!
+to improve and enhance the CM core to support a collective database of reusable 
+artifacts and scripts based on the feedback from our users!
 Please don't hesitate to share your ideas and report encountered issues!
 
-## CM-based automation scripts
+## Reusable CM components
 
-* We work with the community to transform R&D projects [from ML and Systems papers](https://cTuning.org/ae) 
-  into [reusable CM artifacts and automation scripts](docs/reusable-components.md). 
+* We work with the community to transform various [AI, ML and Systems R&D projects](https://cTuning.org/ae) 
+  into [reusable CM components](docs/reusable-components.md). 
+
   Feel free to suggest your own automation recipes to be reused by the community.
 
-## CM-based projects
+## Modular CM-based projects
 
-* [Universal benchmarking of computational systems](docs/projects/universal-benchmarking.md).
+* [Towards modular AI](docs/projects/modular-ai.md).
 * [Towards modular MLPerf benchmark](docs/projects/modular-mlperf.md).
 * [MLPerf design space exploration](docs/projects/mlperf-dse.md).
 * [Automated deployment of Pareto-efficient ML Systems](docs/projects/production-deployment.md).
