@@ -31,9 +31,14 @@ Apache 2.0
 # How it works
 
 * Check this [getting started tutorial](docs/getting-started.md) 
-  to undestand the CM concepts and try this toolkit yourself.
+  to undestand the Collective Mind concepts and try this toolkit.
 
- 
+
+# Community meetings
+
+* TBA: Regular conf-calls
+* TBD: Public notes 
+  
 
 # News
 
@@ -71,15 +76,18 @@ Please don't hesitate to share your ideas and report encountered issues!
 * [MLPerf design space exploration](docs/projects/mlperf-dse.md).
 * [Automated deployment of Pareto-efficient ML Systems](docs/projects/production-deployment.md).
 
+
 # Resources
 
 * [MLOps projects](docs/KB/MLOps.md)
+
 
 # Acknowledgments
 
 We thank the [users and partners of the original CK framework](https://cKnowledge.org/partners.html), 
 [OctoML](https://octoml.ai), [MLCommons](https://mlcommons.org) 
 and all our colleagues for their valuable feedback and support!
+
 
 # Contacts
 
