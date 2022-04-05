@@ -1,4 +1,4 @@
-***Under preparation ...***
+***Note that the prototype of the CM toolkit is under heavy development and may change over time ...***
 
 # Getting Started with Collective Mind
 
@@ -71,7 +71,7 @@ and make them findable, interconnectable and reusable:
 $ cm repo pull my-cool-project --url={GitHub repo URL} 
 ```
 
-CM will pull this repository to *$HOME/CM/repos/my-coolproject*, 
+CM will pull this repository to *$HOME/CM/repos/my-cool-project*, 
 will add *cmr.yaml* file with a global unique ID to let the community
 know that this repository is CM-compatible,
 and will register this location in the CM-compatible repository index *$HOME/CM/repos.json*. 
@@ -99,11 +99,11 @@ octoml@mlops = C:\Users\grigo\CM\repos\octoml@mlops
 ```
 
 Note that you always have at least 2 CM-compatible repositories after you use CM for the first time:
-* '''default''' is a CM repository with reusable artifacts and automations that were moved 
+* *default* is a CM repository with reusable artifacts and automations that were moved 
   [inside the CM toolkit](https://github.com/mlcommons/ck/tree/master/ck2/cmind/repo) 
   to ensure their stability because they are frequently used by the community.
 
-* '''local''' is a CM scratchpad repository where all new artifacts and automations 
+* *local* is a CM scratchpad repository where all new artifacts and automations 
   are created if a repository is not specified.
 
 
@@ -175,13 +175,13 @@ $ cm images load cool-cat
 
 Similarly, you can create CM artifacts for your model
 ```bash
-$ cm models add cool-model
+$ cm models add my-cool-model --tags=model,ml,onnx,image-classification
 
-$ cm experiments ls
+$ cm models ls
 
-$ cp my-cool-model.onnx `cm models find cool-model`/model.onnx
+$ cp my-cool-model.onnx `cm models find my-cool-model`/model.onnx
 
-$ ls `cm models find cool-model`
+$ ls `cm models find my-cool-model`
 
 _cm.json
 model.onnx
@@ -189,11 +189,11 @@ model.onnx
 ```
 
 ```bash
-$ cm experiments add cool-result
+$ cm experiments add cool-result --tags=experiment,inference,image-classification,cat,20220404
 
 $ cm experiments ls
 
-$ cp my-cool-result-20220404.json `cm experiments find cool-result`/my-cool-result-20220404.json
+$ cp my-cool-result-20220404.json `cm experiments find cool-result`
 
 $ ls `cm experiments find cool-result`
 
@@ -203,29 +203,129 @@ my-cool-result-20220404.json
 ```
 
 You can now update the README.md of this repository to specify CM commands 
-and you can add the following badges to tell others that it is CM-compatible repository:
+and you can add the following badges to tell others that it is CM-compatible repository
+with reusable artifacts and automations:
 
 [![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
 [![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
 
 
+
+
 ## Reuse others' artifacts
 
-*cmr.yaml* ... UID
+Whenever you see a CM-compatible repository you can install it via CM,
+start using familiar cm commands similar to having a common language 
+across all research projects, and automatically plug its artifacts 
+and automations into our own modular projects as described later.
 
-
-Shows that we can treat this repository as a database of reusable components and 
-
+You may still need to follow the README.md file with the cm commands 
+but even these steps can be also fully automated using a GUI or via
+integration with existing DevOps and MLOps platforms and tools.
 
 ### From command line
 
-### From Python
+```bash
+$ cm repo pull my-cool-project --url={GitHub repo URL} 
+$ cm experiments ls
+$ cm experiments load cool-result
+```
 
-### In Docker container
+### From Python and Jupyter notebooks
 
-### In Jupyter notebook
+CM provides a simple and unified access function to all CM repositories similar to micro-services
+and [ElasticSearch]( https://www.elastic.co ) with input as dictionary
+
+```python
+import cmind
+
+# List repositories
+
+r=cmind.access({'automation':'repo', 'action':'list'})
+if r['return']>0: cmind.error(r)
+
+print (r)
+
+# Find an artifact 
+
+r=cmind.access({'automation':'images', 'action':'load', 'artifact':'cool-cat'})
+if r['return']>0: cmind.error(r)
+
+print (r['path'])
+```
+
+```json
+{ 
+  'return': 0, 
+  'path': 'C:\\Users\\grigo\\CM\\repos\\my-cool-project\\images\\cool-cat', 
+  'meta': {
+    'alias': 'cool-cat', 
+    'automation_alias': 'images', 
+    'automation_uid': '', 
+    'tags': [], 
+    'uid': 'f94970b1af7c49db'
+  }, 
+  'artifact': <cmind.artifact.Artifact object at 0x000002A1B499AE20>
+}
+```
+
+### In Docker containers
+
+We can use CM commands to create modular containers:
+
+```
+# Adaptive container with the CM interface
+
+FROM ubuntu:20.04
+
+LABEL maintainer="Grigori Fursin <grigori@octoml.ai>"
+
+SHELL ["/bin/bash", "-c"]
+
+ARG DEBIAN_FRONTEND=noninteractive
+
+RUN apt update && \
+    apt install -y --no-install-recommends \
+           apt-utils \
+           git wget zip bzip2 libz-dev libbz2-dev cmake curl unzip \
+           openssh-client vim mc tree \
+           gcc g++ autoconf autogen libtool make libc6-dev build-essential patch \
+           gfortran libblas-dev liblapack-dev \
+           libsndfile1-dev libssl-dev libbz2-dev libxml2-dev libtinfo-dev libffi-dev \
+           python3 python3-pip python3-dev \
+           libtinfo-dev \
+           python-is-python3 \
+           libncurses-dev \
+           sudo
+
+RUN pip3 install cmind
+
+RUN cm repo pull my-cool-project --url={GitHub repo URL} 
+
+RUN cm images list
+
+RUN cm ...
+```
+
 
 ### From zip file 
+
+You can pack your CM repository to a zip file as follows:
+```bash
+$ cm repo pack my-cool-project
+
+Packing repo from C:\Users\grigo\CM\repos\my-cool-project to cm.zip ...
+```
+
+You can then share *cm.zip* with your colleagues who can unpack it 
+and install on their system using the following CM command:
+```bash
+$ cm repo unpack
+
+$ cm images list
+$ cm experiments list
+
+```
 
 
 ## Add reusable automations to related artifacts 

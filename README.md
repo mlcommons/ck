@@ -1,4 +1,4 @@
-***We've started designing the new [CK2 toolkit](https://github.com/mlcommons/ck/tree/master/ck2) 
+***We've started prototyping the new [CK2 toolkit](https://github.com/mlcommons/ck/tree/master/ck2) 
    based on your feedback and combined with our practical experience 
    [reproducing 150+ ML and Systems papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
    Please [get in touch](https://github.com/mlcommons/ck/tree/master/ck2#contacts) if you are interested to participate in this community effort!***
