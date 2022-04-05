@@ -330,7 +330,7 @@ class CM(object):
 
                 if cm_help:
                    print ('')
-                   print ('Collective database actions:')
+                   print ('Collective database actions for this artifact:')
                    print ('')
 
                    for d in sorted(dir(self.default_module)):

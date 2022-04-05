@@ -6,7 +6,7 @@
 
 
 The Collective Mind toolkit (CM or CK2) transforms Git repositories, Docker containers, Jupyter notebooks and zip/tar files
-into a collective database of reusable artifacts and automation scripts with a unified interface and extensible meta descriptions.
+into an open database of reusable artifacts and automation scripts with a unified interface and extensible meta descriptions.
 
 It is motivated by our tedious experience reproducing [150+ ML and Systems papers](https://www.youtube.com/watch?v=7zpeIVwICa4)
 when our colleagues have spent many months analyzing the structure of ad-hoc projects, reproducing results

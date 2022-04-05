@@ -5,5 +5,6 @@ and we organize some physical meetings from time to time.
 
 We plan to set up regular conf-calls to discuss CM developments and enhancements (EMEA and US friendly time).
 
-Please get in touch if you would like to participate or suggest your time.
+We consider Monday and Thursday afternoon. Please [get in touch](../README.md#contacts)
+if you would like to participate or suggest your preferred days and time.
 
