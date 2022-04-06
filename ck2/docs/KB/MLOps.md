@@ -20,20 +20,21 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
 
 # Deployment platforms
 
+- Azure
+- AWS
 - [Seldon Deploy](https://www.seldon.io/solutions/deploy)
   - [About](https://deploy.seldon.io/en/v1.4/contents/about/index.html)
   - [Architecture](https://deploy.seldon.io/en/v1.4/contents/architecture/index.html)
-- AWS
-- Azure
 
 # ML workflow and automation frameworks
 
-- [MLFlow](https://mlflow.org/)
-- [Kubeflow](https://www.kubeflow.org)
 - [AWS SageMaker](https://aws.amazon.com/pm/sagemaker)
-- [Kedro](https://github.com/kedro-org/kedro)
-- [Redun: "yet another redundant workflow engine"]( https://github.com/insitro/redun )
 - [Collective Knowledge](https://github.com/mlcommons/ck)
+- [CWL: common workflow language](https://www.commonwl.org)
+- [Kedro](https://github.com/kedro-org/kedro)
+- [Kubeflow](https://www.kubeflow.org)
+- [MLFlow](https://mlflow.org/)
+- [Redun: "yet another redundant workflow engine"]( https://github.com/insitro/redun )
 
 
 # ML exchange formats
@@ -46,6 +47,7 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
 - Docker
 - Kubernetes
 - Singularity
+
 - Misc:
     - [Containerizing Huggingface Transformers for GPU inference with Docker and FastAPI on AWS](https://towardsdatascience.com/containerizing-huggingface-transformers-for-gpu-inference-with-docker-and-fastapi-on-aws-d4a83edede2f) (TowardsDataScience, 20211004)
     - [FOSDEM’22 containers track](https://fosdem.org/2022/schedule/track/containers/)
