@@ -63,6 +63,11 @@ Apache 2.0
   based on your feedback and our practical experience [reproducing 150+ ML and Systems papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
 
 
+
+# Documentation
+
+* [User guide and API](https://cknowledge.org/docs/cm)
+
 # Research and development
 
 ## CM open database
