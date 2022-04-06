@@ -32,7 +32,9 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
 - [Kubeflow](https://www.kubeflow.org)
 - [AWS SageMaker](https://aws.amazon.com/pm/sagemaker)
 - [Kedro](https://github.com/kedro-org/kedro)
+- [Redun: "yet another redundant workflow engine"]( https://github.com/insitro/redun )
 - [Collective Knowledge](https://github.com/mlcommons/ck)
+
 
 # ML exchange formats
 

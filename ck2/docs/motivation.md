@@ -4,9 +4,9 @@ CM transforms Git repositories, Docker containers, Jupyter notebooks, zip/tar fi
 and any local directory into a globally accessible database of reusable artifacts 
 and automation scripts with a unified interface and extensible meta descriptions.
 
-We believe that we can accelerate innovation by providing a common and simple language
-to help researchers and engineers exchange their artifacts, knowledge, experience 
-and best practices in a more automated, reusable, portable and reproducible way.
+We believe that we can reduce the complexity of existing projects and accelerate innovation 
+by providing a common and simple language to help researchers and engineers exchange their artifacts, 
+knowledge, experience and best practices in a more automated, reusable, portable and reproducible way.
                              
 It is motivated by our tedious experience reproducing [150+ ML and Systems papers](https://www.youtube.com/watch?v=7zpeIVwICa4)
 when our colleagues have spent many frustrating months analyzing numerous README files, specifications, technical reports, scripts, APIs and the content 
