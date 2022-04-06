@@ -37,6 +37,10 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
 - [Redun: "yet another redundant workflow engine"]( https://github.com/insitro/redun )
 
 
+# Specifications
+
+- [MLSpec](https://github.com/mlspec/MLSpec)
+
 # ML exchange formats
 
 - [ONNX](https://onnx.ai)
