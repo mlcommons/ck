@@ -26,7 +26,7 @@ See a related article about ["MLOps Is a Mess But That's to be Expected"](https:
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production.png?id=1)
 
-![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production2.png?id=1)
+![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production2a.png)
 
-![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production3.png)
+![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production3a.png)
 
