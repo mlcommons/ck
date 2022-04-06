@@ -9,13 +9,14 @@ CM transforms Git repositories, Docker containers, Jupyter notebooks, zip/tar fi
 and any local directory into a globally accessible database of reusable artifacts 
 and automation scripts with a unified interface and extensible meta descriptions.
 
-We want to accelerate innovation by providing a common and simple communication language
-for researchers and engineers to help them exchange their artifacts, knowledge, experience 
+We believe that we can accelerate innovation by providing a common and simple language
+to help researchers and engineers exchange their artifacts, knowledge, experience 
 and best practices in a more automated, reusable, portable and reproducible way.
                              
 It is motivated by our tedious experience reproducing [150+ ML and Systems papers](https://www.youtube.com/watch?v=7zpeIVwICa4)
-when we and our colleagues have spent many months analyzing the ad-hoc structure of shared research projects to reproduce their results
-and [adapt them to the real world](https://cKnowledge.org/partners.html) 
+when our colleagues have spent many frustrating months analyzing numerous README files, specifications, technical reports, scripts, APIs and the content 
+of these projects to reproduce experimental results, integrate shared tools with the existing infrastructure 
+and [validate them to the real world](https://cKnowledge.org/partners.html) 
 with continuously changing software, hardware, environments, data sets and settings.
 
 The CM toolkit is based on the [Collective Knowledge concept]( https://arxiv.org/abs/2011.01149 )
