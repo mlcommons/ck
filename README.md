@@ -5,8 +5,8 @@
 
 # Collective Knowledge framework (CK)
 
-[![PyPI version](https://badge.fury.io/py/ck.svg)](https://badge.fury.io/py/ck)
 [![Downloads](https://pepy.tech/badge/ck)](https://pepy.tech/project/ck)
+[![PyPI version](https://badge.fury.io/py/ck.svg)](https://badge.fury.io/py/ck)
 [![Python Version](https://img.shields.io/badge/python-2.7%20|%203.4+-blue.svg)](https://pypi.org/project/ck)
 
 [![Build Status](https://travis-ci.com/ctuning/ck.svg?branch=master)](https://travis-ci.com/ctuning/ck)
