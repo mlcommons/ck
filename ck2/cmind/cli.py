@@ -4,19 +4,20 @@ import sys
 
 def run(argv = None):
     """
-    Run CM from command line.
+    Run CM action from the command line.
 
     Args:
         argv (str | list): CM input
     
-    Returns:
-        Dictionary:
-            return (int): return code == 0 if no error 
-                                      >0 if error
+    Returns: 
+        dict: CM output:
+          - return (int): return code = 0 if successful 
+                                      > 0 if error
 
-            (error) (str): error string if return>0
+          - (error) (str): error text if return > 0
 
-            data from a given action
+          - ...: Output from a given CM automation
+    
     """
 
     # Access CM

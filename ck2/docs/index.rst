@@ -26,7 +26,7 @@ CM toolkit documentation
    :maxdepth: 2
    :caption: API
 
-   _package/cmind
+   api/cmind
 
 
 Index

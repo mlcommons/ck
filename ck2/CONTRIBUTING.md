@@ -1,12 +1,16 @@
 # Contributing to CM (CK2)
 
-* Pull requests: TBA
-* Issues: TBA
-* Mailing list: TBA
+* Development website: https://github.com/mlcommons/ck/tree/master/ck2
+* Issues: https://github.com/mlcommons/ck/issues (use [CM] prefix)
+* Mailing list: https://groups.google.com/g/collective-knowledge (use [CM] prefix)
 * Discord channel: TBA
 * Slack channel: TBA
 
-# Contributors
+# Contributors (code and/or ideas)
 
-* Grigori Fursin, OctoML
-* Thierry Moreau, OctoML
+* Grigori Fursin
+* Thierry Moreau
+* Arjun Suresh
+* Thomas Zhu
+* Jason Knight
+* Jared Roesch

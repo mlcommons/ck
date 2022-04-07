@@ -1,4 +1,4 @@
-***We've started prototyping the new [CK2 toolkit](https://github.com/mlcommons/ck/tree/master/ck2) 
+***April 2022: We've started prototyping the new [CK2 toolkit](https://github.com/mlcommons/ck/tree/master/ck2) 
    based on your feedback and combined with our practical experience 
    [reproducing 150+ ML and Systems papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
    Please [get in touch](https://github.com/mlcommons/ck/tree/master/ck2#contacts) if you are interested to participate in this community effort!***
@@ -28,8 +28,8 @@
 * **2022 March:** We presented the [CK concept to enable collaborative and reproducible ML Systems R&D](https://meetings.siam.org/sess/dsp_programsess.cfm?SESSIONCODE=73126) 
   at the SIAM'22 workshop on "Research Challenges and Opportunities within Software Productivity, Sustainability, and Reproducibility"
 
-* **2022 March:** we've released the first prototype of the [CK2 toolkit](https://github.com/mlcommons/ck/tree/master/ck2)
-  based on your feedback! Join this community effort to develop CK2-powered automation recipes to co-design and deploy efficient ML Systems.
+* **2022 March:** we've released the first prototype of [the Collective Mind toolkit (CK2)](https://github.com/mlcommons/ck/tree/master/ck2)
+  based on your feedback and our practical experience [reproducing 150+ ML and Systems papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
 
 ## Motivation
 
