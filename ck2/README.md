@@ -5,33 +5,33 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/ck2)
 
 
-The Collective Mind toolkit (CM) helps you to transform Git repositories, Docker containers, Jupyter notebooks, zip/tar files
+The Collective Mind toolkit (CM) transforms Git repositories, Docker containers, Jupyter notebooks, zip/tar files
 and any local directory into a collective database of reusable artifacts 
 and automation scripts with a unified interface and extensible meta descriptions.
 
 Our goal is to help researchers and engineers exchange their artifacts, knowledge, 
-experience and best practices in a more unified, automated, reusable, portable and reproducible way
+experience and best practices in a more automated, reusable, portable and unified way
 across rapidly evolving software and hardware.
 
 CM is motivated by our tedious experience reproducing [150+ ML and Systems papers](https://www.youtube.com/watch?v=7zpeIVwICa4)
 when [our colleagues](https://ctuning.org/ae/committee.html) have spent many frustrating months communicating with each other 
-and trying to understand numerous technical reports, README files, specifications, SW/HW dependencies, 
+and trying to understand numerous technical reports, README files, specifications, dependencies, 
 ad-hoc scripts, tools, APIs, models and data sets of all shared projects 
 to be able to [validate experimental results](https://cknowledge.io/?q=%22reproduced-papers%22) 
-and [adapt ad-hoc projects to the real world](https://cKnowledge.org/partners.html) 
-with very diverse and continuously changing software, hardware, user environments, settings and data.
+and adapt ad-hoc projects to the real world with very diverse 
+and continuously changing software, hardware, user environments, settings and data.
 
 The Collective Mind toolkit is based on the [Collective Knowledge concept (CK)]( https://arxiv.org/abs/2011.01149 )
 that was successfully validated in the past few years to provide a simple, common and extensible format 
 and API for shared projects and make it easier for researchers and engineers to communicate, collaborate and innovate.
-Our CK prototype was used to [enable collaborative ML and Systems R&D](https://cKnowledge.org/partners.html),
+The CK prototype was used to [enable collaborative ML and Systems R&D](https://cKnowledge.org/partners.html),
 [connect MLOps and DevOps](https://github.com/mlcommons/ck-mlops) by treating models, datasets and other artifacts as "code" packages,
 [automate the MLPerf inference benchmark](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation),
 and [automate the development and deployment of Pareto-efficient ML Systems in the real world](https://www.youtube.com/watch?v=1ldgVZ64hEI).
-
+We are desiging the CM toolkit based on all the feedback we have received from these projects.
 
 See related slides [about our motivation](docs/motivation.md) and a related article 
-about ["MLOps Is a Mess But That's to be Expected"](https://www.mihaileric.com/posts/mlops-is-a-mess/) (March 2022).
+about ["MLOps Is a Mess But That's to be Expected"](https://www.mihaileric.com/posts/mlops-is-a-mess) (March 2022).
 
 
 
@@ -84,30 +84,22 @@ as a collective database of reusable artifacts and automations.
 Please don't hesitate to share your ideas and report encountered issues!
 
 
-## Reusable CM objects
+## Reusable CM components
 
-* We work with the community to transform existing AI, ML and Systems projects
-  into [reusable CM components](docs/reusable-cm-mlops-components.md).
-  
+We are developing reusable CM components to bridge [the gap](https://www.mihaileric.com/posts/mlops-is-a-mess) 
+between MLOps and DevOps and make it easier to co-design, benchmarking, optimize and deploy
+AI and ML system across continuously changing software and hardware stacks: https://github.com/octoml/cm-mlops . 
+
 
 ## Modular CM-based projects
 
-We work with the community to enable modular AI from reusable CM components 
-and fully automate co-designing, benchmarking, optimization and deployment 
-of intelligent and Pareto-efficient systems across continuously changing software and hardware stacks.
-
-We participate in the following CM-based projects:
-
-* [Enabling modular AI and automating their co-design, benchmarking, optimization and deployment](docs/projects/modular-ai.md).
-  * [Enabling modular MLPerf benchmark](docs/projects/modular-mlperf.md).
-  * [Automating MLPerf design space exploration](docs/projects/modular-mlperf-dse.md).
-* [Automating artifact evaluation at ML and Systems conferences](docs/projects/automated-ae.md)
+TBA
 
 
 
 # Resources
 
-* [MLOps projects](docs/KB/MLOps.md)
+* [MLOps](docs/KB/MLOps.md)
 
 
 # Acknowledgments

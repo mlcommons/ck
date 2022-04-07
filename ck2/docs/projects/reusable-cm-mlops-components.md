@@ -3,9 +3,9 @@
 We work with the community to reproduce existing [AI, ML and Systems projects](https://cTuning.org/ae) 
 and transform them into [reusable CM components](https://github.com/octoml/cm-mlops).
 
-We want to fully automate the development and optimization of intelligent and Pareto-efficient
+We want to fully automate the development and optimization of Pareto-efficient computational 
 systems across continuously changing software and hardware stacks to accelerate their deployment
-in the real world!
+in the real world.
 
 # Development
 
