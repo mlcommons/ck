@@ -269,12 +269,19 @@ class Repos:
         path_to_repo_desc = os.path.join(path_to_repo, self.cfg['file_meta_repo'])
 
         if con:
-            print ('Local path: '+path_to_repo)
+            print ('Local path to the CM repository: '+path_to_repo)
             print ('')
 
         if not os.path.isdir(path_to_repo):
             os.makedirs(path_to_repo)
 
+        # Check if file already exists
+        r=utils.is_file_json_or_yaml(file_name=path_to_repo_desc)
+        if r['return'] >0: return r
+
+        if r['is_file']:
+            return {'return':1, 'error':'Repository description already exists in {}'.format(path_to_repo)}
+        
         meta = {
                  'uid': uid,
                  'alias': alias,

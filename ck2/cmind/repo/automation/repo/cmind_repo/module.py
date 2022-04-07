@@ -233,10 +233,20 @@ class CModule(Module):
             print ('Prefix:   {}'.format(prefix))
             print ('')
         
-        # Prepare path to repo
-        repos = self.cmind.repos
+        # Check if repository with this alias and UID doesn't exist
+        for repo_artifact in [alias, uid]:
+            ii={'automation':'repo', 'action':'search', 'artifact':repo_artifact, 'skip_con':True}
 
-        r = repos.init(alias = alias, uid = uid, path = path, con = self.cmind.con, name=name, prefix=prefix)
+            r=self.cmind.access(ii) 
+            if r['return']>0: return r
+
+            lst=r['lst']
+
+            if len(lst)>0: 
+                return {'return':1, 'error':'Repository "{}" is already registered in CM'.format(repo_artifact)}
+
+        # Create repository 
+        r = self.cmind.repos.init(alias = alias, uid = uid, path = path, con = self.cmind.con, name=name, prefix=prefix)
         return r
 
     ############################################################

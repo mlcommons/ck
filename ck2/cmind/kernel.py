@@ -218,7 +218,7 @@ class CM(object):
                 raise Exception(r['error'])
 
             if self.con:
-                sys.stderr.write(self.cfg['error_prefix']+' '+r['error']+'\n')
+                sys.stderr.write(self.cfg['error_prefix']+' '+r['error']+'!\n')
 
         return r
 
