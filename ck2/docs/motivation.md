@@ -12,7 +12,7 @@ It is motivated by our tedious experience reproducing [150+ ML and Systems paper
 when we have spent many frustrating months communicating with researchers and engineers 
 to understand numerous README files, specifications, SW/HW dependencies, ad-hoc scripts, tools, APIs, models and data sets
 of their projects to be able to [reproduce experimental results](https://cTuning.org/ae) 
-and [validate them in the real world](https://cKnowledge.org/partners.html) 
+and [adapt them to the real world](https://cKnowledge.org/partners.html) 
 with continuously changing software, hardware, user environments, settings and data.
 
 That is why we believe that having a simple, common and extensible format and API for shared projects 
