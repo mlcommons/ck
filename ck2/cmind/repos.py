@@ -246,7 +246,7 @@ class Repos:
     ############################################################
     def init(self, alias, uid, path = '', con = False, name = '', prefix = ''):
         """
-        Init or clone repository
+        Init or clone a CM repository
 
         """
 
@@ -259,8 +259,15 @@ class Repos:
         repo_name=alias if alias!='' else uid
         
         path_to_repo = os.path.join(self.full_path_to_repos, repo_name) if path=='' else path
+
+        # Convert potentially relative path into an absolute path
+        # For example, it's needed when we initialize repo in the current directory
+        # or use . and ..
+
+        path_to_repo = os.path.abspath(path_to_repo)
+
         path_to_repo_desc = os.path.join(path_to_repo, self.cfg['file_meta_repo'])
-        
+
         if con:
             print ('Local path: '+path_to_repo)
             print ('')
@@ -288,36 +295,37 @@ class Repos:
         return {'return':0, 'meta':meta, 'path_to_repo': path_to_repo, 'path_to_repo_desc': path_to_repo_desc}
 
     ############################################################
-    def delete(self, alias, remove_all = False, con = False):
+    def delete(self, lst, remove_all = False, con = False):
         """
-        Delete repository with or without content
+        Delete CM repository with or without content
 
         """
 
-        # Prepare path
-        path_to_repo = os.path.join(self.full_path_to_repos, alias)
-        
-        if con:
-            print ('Local path: '+path_to_repo)
-            print ('')
-
-        if path_to_repo not in self.paths:
-            return {'return':16, 'error':'repository not found'}
-        
-        # TBD: make it more safe (reload and save)
-        r = self.process(path_to_repo, 'delete')
-        if r['return']>0: return r
-
-        # Check if remove all
-        if remove_all:
-            import shutil
+        # Navigate through repos from the search function
+        for repo in lst:
+            # Prepare path
+            path_to_repo = repo.path
 
             if con:
-                print ('Deleting repository content ...')
-            
-            shutil.rmtree(path_to_repo)
-        else:
-            if con:
-                print ('Repository was unlinked from CM but the content was not deleted.')
+                print ('Local path to a CM repository: '+path_to_repo)
+
+            if path_to_repo not in self.paths:
+                return {'return':16, 'error':'repository not found'}
+
+            # TBD: make it more safe (reload and save)
+            r = self.process(path_to_repo, 'delete')
+            if r['return']>0: return r
+
+            # Check if remove all
+            if remove_all:
+                import shutil
+
+                if con:
+                    print ('  Deleting repository content ...')
+                
+                shutil.rmtree(path_to_repo)
+            else:
+                if con:
+                    print ('  CM repository was unregistered from CM but its content was not deleted ...')
 
         return {'return':0}

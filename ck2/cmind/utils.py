@@ -11,14 +11,22 @@ def load_yaml_and_json(file_name_without_ext, check_if_exists = False, encoding 
 
     meta = {}
 
+    not_found = True
+    
     for file_ext in [('.yaml', load_yaml), 
                      ('.json', load_json)]:
         file_name = file_name_without_ext + file_ext[0]
 
         r = file_ext[1](file_name, check_if_exists = True, encoding = encoding) # To avoid failing if doesn't exist
-        if r['return'] > 0 and r['return'] != ERROR_FILE_NOT_FOUND: return r
+        if r['return'] != ERROR_FILE_NOT_FOUND:
+            not_found = False
+            if r['return'] > 0: return r
 
         meta.update(r.get('meta', {}))
+
+    # If none is found
+    if not_found:
+        return {'return':ERROR_FILE_NOT_FOUND, 'error': 'YAML and JSON file {} not found'.format(file_name_without_ext)}
 
     return {'return':0, 'meta':meta}
 

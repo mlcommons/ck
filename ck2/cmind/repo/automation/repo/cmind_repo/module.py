@@ -84,6 +84,7 @@ class CModule(Module):
 
         Args:
          (verbose) (bool) - if True show extra info about repositories
+         (skip_con) (bool) - skip output to console if True
            
         """
 
@@ -170,13 +171,20 @@ class CModule(Module):
            
         """
 
-        alias = i.get('artifact', '')
+        # Search CM repository
+        i['action']='search'
+        i['skip_con']=True
+        
+        r=self.cmind.access(i)
+        if r['return'] >0 : return r
+
+        lst = r['lst']
+        if len(lst)==0:
+           return {'return':1, 'error':'Repository not found'}
+
         remove_all = i.get('all', '')
 
-        # Prepare path to repo
-        repos = self.cmind.repos
-
-        r = repos.delete(alias = alias, remove_all = remove_all, con = self.cmind.con)
+        r = self.cmind.repos.delete(lst, remove_all = remove_all, con = self.cmind.con)
 
         return r
 
@@ -187,8 +195,9 @@ class CModule(Module):
 
         Args:
            (artifact) (str) - repository name
-           (path) (str) - if !='' use this non-standard path
-           (name) (str) - user-friendly name
+           (uid) (str) - initialize CM repository with a given UID
+           (path) (str) - initalize CM repository in a given local path
+           (name) (str) - brief description of this CM repository
            (prefix) (str) - extra directory to keep CM artifacts
         """
 
@@ -199,6 +208,15 @@ class CModule(Module):
         name = i.get('name','')
         prefix = i.get('prefix','')
 
+        # If path is not specified, initialize in the current directory!
+        if (path=='' and alias=='') or (alias!='' and path=='.'):
+           path = os.path.abspath(os.getcwd())
+
+           if alias == '':
+              # Try to get the name of the directory
+              alias = os.path.basename(path).strip()
+        
+        # Generate UID
         uid = i.get('uid','')
         if uid =='':
             r=utils.gen_uid()

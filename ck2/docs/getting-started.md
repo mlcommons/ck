@@ -1,11 +1,11 @@
-***Note that the prototype of the CM toolkit is under heavy development and may change over time ...***
+***Note that the current prototype of the CM toolkit is under heavy development and may change over time ...***
 
 # Getting Started with Collective Mind
 
-Here we describe a few simple steps to help you install CM, 
-share your artifact as a database inside your Git project, 
-reuse it and share some common automation 
-to reusable artifacts.
+Here we describe a few simple steps to help you understand the CM concept. 
+You will install CM, transform your local directory, GitHub project, Docker container 
+and Jupyter notebook into a database of reusable artifacts, share it with others
+and implement some common automation to reusable artifats.
 
 
 ## Install CM

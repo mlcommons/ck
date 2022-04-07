@@ -36,7 +36,9 @@ class Repo:
         full_path = os.path.join(self.path, self.cfg['file_meta_repo'])
 
         r = utils.load_yaml_and_json(file_name_without_ext = full_path)
-        if r['return'] >0: return r
+        if r['return'] >0: 
+           r['error']='CM repository is broken ({})'.format(r['error'])
+           return r
 
         self.meta = r['meta']
 
