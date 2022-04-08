@@ -3,7 +3,6 @@
   "alias":"core",
   "automation_uid": "bbeb15d8f0a944a4",
   "automation_alias": "automation",
-  "module_name":"cmind_core",
   "tags": [
     "automation",
     "repo"

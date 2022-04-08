@@ -1,6 +1,6 @@
 import os
 
-from cmind.module import Module
+from cmind.automation import Automation
 from cmind import utils
 
 # This is just an example of how to import extra files from such a package
@@ -9,13 +9,13 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from cm_60cb625a46b38610 import test
 
-class CModule(Module):
+class CAutomation(Automation):
     """
     CM core automation actions
     """
 
     ############################################################
-    def __init__(self, cmind, module_name):
+    def __init__(self, cmind, automation_file):
         super().__init__(cmind, __file__)
 
     ############################################################

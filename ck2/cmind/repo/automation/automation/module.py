@@ -1,16 +1,16 @@
 import os
 
-from cmind.module import Module
+from cmind.automation import Automation
 from cmind import utils
 
-class CModule(Module):
+class CAutomation(Automation):
     """
     Automation actions for the automation module
     """
 
     ############################################################
-    def __init__(self, cmind, module_name):
-        super().__init__(cmind, module_name)
+    def __init__(self, cmind, automation_file):
+        super().__init__(cmind, automation_file)
 
     ############################################################
     def add(self, i):

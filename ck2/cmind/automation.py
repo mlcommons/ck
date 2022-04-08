@@ -1,4 +1,4 @@
-﻿# Collective Mind module
+﻿# Collective Mind automation
 
 import os
 
@@ -7,17 +7,17 @@ from cmind.artifact import Artifact
 
 self_path = __file__
 
-class Module:
+class Automation:
     ############################################################
-    def __init__(self, cmind, module_file):
+    def __init__(self, cmind, automation_file):
         """
         Initialize class and reuse initialized cmind class
         """
 
         self.cmind = cmind
 
-        self.module_file_path = module_file
-        self.path = os.path.dirname(self.module_file_path)
+        self.automation_file_path = automation_file
+        self.path = os.path.dirname(self.automation_file_path)
 
     ############################################################
     def search(self, i):

@@ -2,7 +2,7 @@
 
 from cmind.config import Config
 from cmind.repos import Repos
-from cmind.module import Module
+from cmind.automation import Automation
 from cmind import utils
 
 import sys
@@ -98,8 +98,8 @@ class CM(object):
         # Repositories
         self.repos = None
 
-        # Default module
-        self.default_module = None
+        # Default automation
+        self.default_automation = None
 
     ############################################################
     def parse_cli(self, cmd):
@@ -317,8 +317,8 @@ class CM(object):
         cm_help = i.get(self.cfg['flag_help'], False) or i.get(self.cfg['flag_help2'], False)
         
         # Initialized default module
-        if self.default_module == None:
-           self.default_module = Module(self, __file__)
+        if self.default_automation == None:
+           self.default_automation = Automation(self, __file__)
         
         # Check automation
         automation = i.get('automation','')
@@ -333,7 +333,7 @@ class CM(object):
                    print ('Collective database actions for this artifact:')
                    print ('')
 
-                   for d in sorted(dir(self.default_module)):
+                   for d in sorted(dir(self.default_automation)):
                        if not d.startswith('_') and d not in ['cmind']:
                            print ('* '+d)
 
@@ -390,96 +390,96 @@ class CM(object):
         # TBD: need to move order to configuration
 
         # Search for automation in CM repositories
-        module_lst = []
+        automation_lst = []
 
-        default_automation = True if i.get('default',False) else False
+        use_default_automation = True if i.get('default',False) else False
 
         use_any_func = False
 
-        if not default_automation:
-            # Search for automation module in repos (local, default, other) TBD: maybe should be local, other, default?
-            r = self.default_module.search({'parsed_automation':[('automation','bbeb15d8f0a944a4')],
+        if not use_default_automation:
+            # Search for automations in repos (local, default, other) TBD: maybe should be local, other, default?
+            r = self.default_automation.search({'parsed_automation':[('automation','bbeb15d8f0a944a4')],
                                             'parsed_artifact':parsed_automation,
                                             'skip_con':True})
             if r['return']>0: return r
-            module_lst = r['list']
+            automation_lst = r['list']
 
-            if len(module_lst)==1:
-                module = module_lst[0]
+            if len(automation_lst)==1:
+                automation = automation_lst[0]
                 
-                module_path = module.path
-                module_name = self.cfg['default_automation_module_name']
-                module_meta = module.meta
+                automation_path = automation.path
+                automation_name = self.cfg['default_automation_module_name']
+                automation_meta = automation.meta
 
-                use_any_func = module_meta.get('use_any_func',False)
+                use_any_func = automation_meta.get('use_any_func',False)
                 
-                # Find module
+                # Find Python module for this automation
                 try:
-                    found_module = imp.find_module(module_name, [module_path])
+                    found_automation = imp.find_module(automation_name, [automation_path])
                 except ImportError as e:  # pragma: no cover
-                    return {'return': 1, 'error': 'can\'t find module code (path={}, name={}, err={})'.format(module_path, module_name, format(e))}
+                    return {'return': 1, 'error': 'can\'t find Python module code (path={}, name={}, err={})'.format(automation_path, automation_name, format(e))}
 
-                module_handler = found_module[0]
-                module_full_path = found_module[1]
+                automation_handler = found_automation[0]
+                automation_full_path = found_automation[1]
 
-                # Generate uid for the run-time extension of the loaded module
-                # otherwise modules with the same extension (key.py for example)
+                # Generate uid for the run-time extension of the loaded Python module
+                # otherwise Python modules with the same extension (key.py for example)
                 # will be reloaded ...
 
                 r = utils.gen_uid()
                 if r['return'] > 0: return r
-                module_run_time_uid = 'rt-'+r['uid']
+                automation_run_time_uid = 'rt-'+r['uid']
 
                 try:
-                   loaded_module = imp.load_module(module_run_time_uid, module_handler, module_full_path, found_module[2])
+                   loaded_automation = imp.load_module(automation_run_time_uid, automation_handler, automation_full_path, found_automation[2])
                 except ImportError as e:  # pragma: no cover
-                    return {'return': 1, 'error': 'can\'t load module code (path={}, name={}, err={})'.format(module_path, module_name, format(e))}
+                    return {'return': 1, 'error': 'can\'t load Python module code (path={}, name={}, err={})'.format(automation_path, automation_name, format(e))}
 
-                if module_handler is not None:
-                    module_handler.close()
+                if automation_handler is not None:
+                    automation_handler.close()
 
-                loaded_module_class = loaded_module.CModule
+                loaded_automation_class = loaded_automation.CAutomation
                 
                 # Try to load meta description
-                module_path_meta = os.path.join(module_path, self.cfg['file_cmeta'])
+                automation_path_meta = os.path.join(automation_path, self.cfg['file_cmeta'])
 
-                r = utils.is_file_json_or_yaml(file_name = module_path_meta)
+                r = utils.is_file_json_or_yaml(file_name = automation_path_meta)
                 if r['return']>0: return r
 
                 if not r['is_file']:
-                    return {'return':4, 'error':'automation meta not found in {}'.format(module_path)}
+                    return {'return':4, 'error':'automation meta not found in {}'.format(automation_path)}
 
                 # Load artifact class
-                r=utils.load_yaml_and_json(module_path_meta)
+                r=utils.load_yaml_and_json(automation_path_meta)
                 if r['return']>0: return r
 
-                module_meta = r['meta']
+                automation_meta = r['meta']
 
-            elif len(module_lst)>1:
-                return {'return':2, 'error':'ambiguity because several modules were found for {}'.format(auto_name)}
+            elif len(automation_lst)>1:
+                return {'return':2, 'error':'ambiguity because several automations were found for {}'.format(auto_name)}
 
             # Report an error if a repo is specified for a given automation action but it's not found there
-            if len(module_lst)==0 and auto_repo is not None:
+            if len(automation_lst)==0 and auto_repo is not None:
                 return {'return':3, 'error':'automation is not found in a specified repo {}'.format(auto_repo)}
                 
-        if default_automation or len(module_lst)==0:
-            # TBD: work for basic functions even if module is not installed
+        if use_default_automation or len(automation_lst)==0:
+            # TBD: work for basic functions even if automation is not installed
             # Maybe should be something else (internal keyword that can't be used)
             auto=('automation','bbeb15d8f0a944a4')
-            from . import module as loaded_module
+            from . import automation as loaded_automation
 
-            loaded_module_class = loaded_module.Module
+            loaded_automation_class = loaded_automation.Automation
 
-            module_full_path = loaded_module.self_path
+            automation_full_path = loaded_automation.self_path
 
-            module_meta = {
+            automation_meta = {
                             'alias':'automation',
                             'uid':'bbeb15d8f0a944a4'
                           }
 
         # Finalize automation class initialization
-        initialized_module = loaded_module_class(self, module_full_path)
-        initialized_module.meta = module_meta
+        initialized_automation = loaded_automation_class(self, automation_full_path)
+        initialized_automation.meta = automation_meta
 
         # Check automation action
         action = i.get('action','')
@@ -490,10 +490,10 @@ class CM(object):
                 print ('Collective database actions:')
                 print ('')
 
-                database_actions=dir(self.default_module)
+                database_actions=dir(self.default_automation)
                 
                 for d in sorted(database_actions):
-                    if not d.startswith('_') and d not in ['module_path', 'path', 'cmind']:
+                    if not d.startswith('_') and d not in ['automation_path', 'path', 'cmind']:
                         x = '* '+d
 
                         if d in self.cfg['action_substitutions_reverse']:
@@ -505,7 +505,7 @@ class CM(object):
                 print ('Automation actions:')
                 print ('')
 
-                for d in sorted(dir(initialized_module)):
+                for d in sorted(dir(initialized_automation)):
                     if not d.startswith('_') and d not in ['cmind', 'meta'] and d not in database_actions:
                         print ('* '+d)
 
@@ -521,7 +521,7 @@ class CM(object):
         if use_any_func:
             func = 'any'
         
-        if not hasattr(initialized_module, func):
+        if not hasattr(initialized_automation, func):
             return {'return':4, 'error':'action "{}" not found in automation {}'.format(func, auto_name)}
 
         # Check if help for automation
@@ -531,8 +531,8 @@ class CM(object):
             print ('')
 
             import inspect
-            path_to_module = inspect.getfile(inspect.getmodule(initialized_module))
-            print ('(path: {})'.format(path_to_module))
+            path_to_automation = inspect.getfile(inspect.getmodule(initialized_automation))
+            print ('(path: {})'.format(path_to_automation))
 
             print ('')
             print ('TBD')
@@ -540,7 +540,7 @@ class CM(object):
             return {'return':0}
 
         # Call automation action
-        func_addr=getattr(initialized_module, func)
+        func_addr=getattr(initialized_automation, func)
         r = func_addr(i)
 
         return r
