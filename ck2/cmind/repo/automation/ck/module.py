@@ -5,12 +5,12 @@ from cmind import utils
 
 class CModule(Module):
     """
-    OS automation actions
+    CM front-end to legacy CK framework
     """
 
     ############################################################
     def __init__(self, cmind, module_name):
-        super().__init__(cmind, module_name)
+        super().__init__(cmind, __file__)
 
     ############################################################
     def any(self, i):

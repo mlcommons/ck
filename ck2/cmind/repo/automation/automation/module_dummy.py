@@ -5,12 +5,12 @@ from cmind import utils
 
 class CModule(Module):
     """
-    OS automation actions
+    Automation actions
     """
 
     ############################################################
     def __init__(self, cmind, module_name):
-        super().__init__(cmind, module_name)
+        super().__init__(cmind, __file__)
 
     ############################################################
     def test(self, i):
@@ -22,6 +22,7 @@ class CModule(Module):
            
         """
 
-        print (i)
+        import json
+        print (json.dumps(i, indent=2))
 
         return {'return':0}

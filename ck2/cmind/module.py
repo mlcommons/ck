@@ -5,15 +5,7 @@ import os
 from cmind import utils
 from cmind.artifact import Artifact
 
-def init(cmind):
-    
-    module = Module(cmind, __file__)
-
-    module.meta = {'alias':'module',
-                   'uid':'087bf3c4403b9573'}
-    
-    return {'return':0, 'module':module}
-
+self_path = __file__
 
 class Module:
     ############################################################
@@ -24,8 +16,8 @@ class Module:
 
         self.cmind = cmind
 
-        self.module_path = module_file
-        self.path = os.path.dirname(self.module_path)
+        self.module_file_path = module_file
+        self.path = os.path.dirname(self.module_file_path)
 
     ############################################################
     def search(self, i):

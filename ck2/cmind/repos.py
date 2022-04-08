@@ -67,7 +67,11 @@ class Repos:
             r = utils.save_json(full_path_to_repo_paths, meta = self.paths)
             if r['return']>0: return r
 
-        # Prepare path for local repo
+        # Check default repo (will be after local)
+        if self.path_to_default_repo != '' and os.path.isdir(self.path_to_default_repo):
+            self.paths.insert(0, self.path_to_default_repo)
+
+        # Prepare path for local repo (will be the first in the search as a local scratchpad)
         path_local_repo = os.path.join(full_path_to_repos, self.cfg['local_repo_name'])
 
         if not os.path.isdir(path_local_repo):
@@ -82,10 +86,6 @@ class Repos:
 
         if path_local_repo not in self.paths:
             self.paths.insert(0, path_local_repo)
-
-        # Check default repo
-        if self.path_to_default_repo != '' and os.path.isdir(self.path_to_default_repo):
-            self.paths.insert(0, self.path_to_default_repo)
 
         # Check that repository exists and load meta description
         for path_to_repo in self.paths:

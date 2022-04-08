@@ -465,43 +465,6 @@ def get_list_from_cli(i, key):
 
     return tags
 
-###########################################################################
-def init_module(CModule, cmind, module_name):
-    """
-    Initialize module
-
-    Args:    
-
-    Returns:
-        return (int): return code == 0 if no error 
-                                  >0 if error
-
-        (error) (str): error string if return>0
-
-    """
-    
-
-    module = CModule(cmind, module_name)
-
-    module_path = module.path
-
-    # Try to load meta description
-    path_module_meta = os.path.join(os.path.dirname(module_path), cmind.cfg['file_cmeta'])
-
-    r = is_file_json_or_yaml(file_name = path_module_meta)
-    if r['return']>0: return r
-
-    module.meta = {}
-
-    if r['is_file']:
-        # Load artifact class
-        r=load_yaml_and_json(path_module_meta)
-        if r['return']>0: return r
-
-        module.meta = r['meta']
-
-    return {'return':0, 'module':module}
-
 ##############################################################################
 def merge_dicts(i):
     """Merge intelligently dict1 with dict2 key by key in contrast with dict1.update(dict2)

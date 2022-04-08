@@ -390,52 +390,26 @@ class CM(object):
         # TBD: need to move order to configuration
 
         # Search for automation in CM repositories
-        pruned_automations = []
+        module_lst = []
 
         default_automation = True if i.get('default',False) else False
 
         use_any_func = False
 
         if not default_automation:
-            # Search for installed automation modules
-            for installed_module in pkgutil.iter_modules():
-                module_name = installed_module[1]
-                if module_name.startswith(self.cfg['cmind_python_module_prefix']):
-                    # Check meta
-                    path_module = installed_module[0].path
-                    path_module_meta = os.path.join(path_module, self.cfg['file_cmeta'])
-
-                    r = utils.load_yaml_and_json(file_name_without_ext = path_module_meta)
-                    if r['return'] >0: return r
-
-                    module_meta = r['meta']
-
-                    installed_module_uid = module_meta['uid']
-                    installed_module_alias = module_meta['alias']
-
-                    r = utils.match_objects(uid = installed_module_uid, 
-                                            alias = installed_module_alias,
-                                            uid2 = auto_name[1],
-                                            alias2 = auto_name[0])
-                    if r['return']>0: return r
-
-                    if r['match']:
-                        pruned_automations.append({'path':path_module, 'name':module_name, 'meta':module_meta})
-            
-            # Search for automation module in repos (default, local, other)
+            # Search for automation module in repos (local, default, other) TBD: maybe should be local, other, default?
             r = self.default_module.search({'parsed_automation':[('automation','bbeb15d8f0a944a4')],
                                             'parsed_artifact':parsed_automation,
                                             'skip_con':True})
             if r['return']>0: return r
             module_lst = r['list']
 
-            for module in module_lst:
-                pruned_automations.append({'path':module.path, 'name':module.meta['module_name'], 'meta':module.meta})
-
-            if len(pruned_automations)==1:
-                module_path = pruned_automations[0]['path']
-                module_name = pruned_automations[0]['name']
-                module_meta = pruned_automations[0]['meta']
+            if len(module_lst)==1:
+                module = module_lst[0]
+                
+                module_path = module.path
+                module_name = self.cfg['default_automation_module_name']
+                module_meta = module.meta
 
                 use_any_func = module_meta.get('use_any_func',False)
                 
@@ -464,25 +438,50 @@ class CM(object):
                 if module_handler is not None:
                     module_handler.close()
 
-            elif len(pruned_automations)>1:
-                return {'return':2, 'error':'ambiguity because several modules were found for {}: {}'.format(auto_name,pruned_automations)}
+                loaded_module_class = loaded_module.CModule
+                
+                # Try to load meta description
+                module_path_meta = os.path.join(module_path, self.cfg['file_cmeta'])
+
+                r = utils.is_file_json_or_yaml(file_name = module_path_meta)
+                if r['return']>0: return r
+
+                if not r['is_file']:
+                    return {'return':4, 'error':'automation meta not found in {}'.format(module_path)}
+
+                # Load artifact class
+                r=utils.load_yaml_and_json(module_path_meta)
+                if r['return']>0: return r
+
+                module_meta = r['meta']
+
+            elif len(module_lst)>1:
+                return {'return':2, 'error':'ambiguity because several modules were found for {}'.format(auto_name)}
 
             # Report an error if a repo is specified for a given automation action but it's not found there
-            if len(pruned_automations)==0 and auto_repo is not None:
+            if len(module_lst)==0 and auto_repo is not None:
                 return {'return':3, 'error':'automation is not found in a specified repo {}'.format(auto_repo)}
                 
-        if default_automation or len(pruned_automations)==0:
+        if default_automation or len(module_lst)==0:
             # TBD: work for basic functions even if module is not installed
             # Maybe should be something else (internal keyword that can't be used)
-            auto=('module','087bf3c4403b9573')
+            auto=('automation','bbeb15d8f0a944a4')
             from . import module as loaded_module
 
-        r = loaded_module.init(self)
-        if r['return']>0: return r
+            loaded_module_class = loaded_module.Module
 
-        initialized_module = r['module']
+            module_full_path = loaded_module.self_path
 
-        # Check action
+            module_meta = {
+                            'alias':'automation',
+                            'uid':'bbeb15d8f0a944a4'
+                          }
+
+        # Finalize automation class initialization
+        initialized_module = loaded_module_class(self, module_full_path)
+        initialized_module.meta = module_meta
+
+        # Check automation action
         action = i.get('action','')
 
         if action == '':

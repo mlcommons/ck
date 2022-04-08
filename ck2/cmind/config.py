@@ -37,8 +37,7 @@ class Config(object):
 
                      "file_meta_repo": "cmr",
 
-                     "cmind_python_module_prefix": "cmind_",
-                     "cmind_python_module_uid": "cmind_uid",
+                     "default_automation_module_name": "module",
 
                      "action_substitutions": {
                        "ls":"search",
