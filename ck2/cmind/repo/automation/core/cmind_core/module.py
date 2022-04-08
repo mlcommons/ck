@@ -5,7 +5,7 @@ from cmind import utils
 
 class CModule(Module):
     """
-    Kernel automation actions
+    CM core automation actions
     """
 
     ############################################################

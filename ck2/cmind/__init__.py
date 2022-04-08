@@ -1,6 +1,6 @@
 __version__ = "0.5.4"
 
-from cmind.kernel import access
-from cmind.kernel import error
-from cmind.kernel import halt
-from cmind.kernel import CM
+from cmind.core import access
+from cmind.core import error
+from cmind.core import halt
+from cmind.core import CM

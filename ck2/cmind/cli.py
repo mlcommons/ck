@@ -21,7 +21,7 @@ def run(argv = None):
     """
 
     # Access CM
-    from cmind.kernel import CM
+    from cmind.core import CM
 
     cm = CM(out='con')
 
