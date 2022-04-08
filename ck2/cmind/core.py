@@ -1,4 +1,4 @@
-# Collective Mind kernel functions
+# Collective Mind core functions
 
 from cmind.config import Config
 from cmind.repos import Repos

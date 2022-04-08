@@ -17,7 +17,7 @@ class Config(object):
 
                      "env_home": "CM_HOME",
                      "env_debug": "CM_DEBUG",
-                     "env_kernel": "CM_KERNEL",
+                     "env_core": "CM_CORE",
 
                      "flag_debug": "cm-debug",
 
@@ -76,7 +76,7 @@ class Config(object):
         # Attempt to update config from file if specified explicitly during initialization
         # or specified by the environment variable
         if config_file is None or config_file.strip() == '':
-            config_file = os.environ.get(self.cfg['env_kernel'])
+            config_file = os.environ.get(self.cfg['env_core'])
 
         if config_file is not None and config_file.strip() != '':
             from cmind import utils
