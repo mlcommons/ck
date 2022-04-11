@@ -35,7 +35,7 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
 - [Kubeflow](https://www.kubeflow.org)
 - [MLFlow](https://mlflow.org/)
 - [Redun: "yet another redundant workflow engine"]( https://github.com/insitro/redun )
-
+- [ZenML: MLOps framework to create reproducible pipelines](https://github.com/zenml-io/zenml)
 
 # Specifications
 
