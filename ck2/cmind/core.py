@@ -15,35 +15,6 @@ import inspect
 cm = None
 
 ############################################################
-def access(i):
-    """
-    Initialize and access Collective Mind without customization
-    """
-
-    global cm
-
-    if cm is None:
-       cm=CM()
-
-    return cm.access(i)
-
-############################################################
-def error(i):
-    """
-    Print error
-    """
-
-    return cm.error(i)
-
-############################################################
-def halt(i):
-    """
-    Print error and halt
-    """
-
-    return cm.halt(i)
-
-############################################################
 class CM(object):
     """
     Main Collective Mind class
@@ -280,12 +251,18 @@ class CM(object):
         # Check automation action
         action = i.get('action','')
 
+        # Check automation
+        automation = i.get('automation','')
+
         # Print basic help if action == ''
-        if action == '':
+        extra_help = True if action == 'help' and automation =='' else False
+        
+        if action == '' or extra_help:
             if console:
                 print (self.cfg['info_cli'])
 
-                if cm_help:
+                if cm_help or extra_help:
+                   # Common automation actions
                    import types
 
                    print ('')
@@ -294,12 +271,10 @@ class CM(object):
 
                    for d in sorted(dir(self.default_automation)):
                        if type(getattr(self.default_automation, d))==types.MethodType and not d.startswith('_'):
-                           print ('* '+d)
+                           print ('  * '+d)
 
             return {'return':0, 'warning':'no action'}
 
-        # Check automation
-        automation = i.get('automation','')
 
         # Load info about all CM repositories (to enable search for automations and artifacts)
         if self.repos == None:
@@ -513,3 +488,46 @@ class CM(object):
             error(r)
 
         return r
+
+############################################################
+def access(i):
+    """
+    Initialize and access Collective Mind without customization
+    """
+
+    global cm
+
+    if cm is None:
+       cm=CM()
+
+    return cm.access(i)
+
+############################################################
+def error(i):
+    """
+    Print error
+    """
+
+    return cm.error(i)
+
+############################################################
+def halt(i):
+    """
+    Print error and halt
+    """
+
+    return cm.halt(i)
+
+############################################################
+def get_version(skip_check_status = False):
+    """
+    Get version and check status
+    """
+
+    r = {'return':0}
+
+    import cmind
+    version = cmind.__version__
+    r['version'] = version
+
+    return r

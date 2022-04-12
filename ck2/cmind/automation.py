@@ -384,3 +384,53 @@ class Automation:
             print (r['uid'])
 
         return r
+
+    ############################################################
+    def status(self, i):
+        """
+        Check CM status
+        """
+
+        import sys
+        
+        console = i.get('out') == 'con'
+
+        import cmind
+        version = cmind.__version__
+        
+        print ('CM version: {}'.format(version))
+        
+        # Check if repository is broken
+        try:
+            from cmind import net
+            rn = net.request(
+                {'get': {'action': 'get-cm-version-notes', 'version': version}})
+            if rn['return'] == 0:
+                notes = rn.get('dict', {}).get('notes', '')
+
+                if notes !='':
+                    print ('')
+                    print (notes)
+        except Exception as e:
+            print ('error: {}'.format(e))
+            pass
+
+        x = sys.executable
+        if x != None and x != '':
+            print ('')
+            print ('Python executable used by CK: {}'.format(x))
+
+
+        print ('')
+        print ('Path to CM package:         {}'.format(self.cmind.path_to_cmind))
+        print ('Path to CM core:            {}'.format(self.cmind.path_to_cmind_kernel))
+        print ('Path to CM default repo:    {}'.format(self.cmind.repos.path_to_default_repo))
+
+        print ('')
+        print ('Path to CM repositories:    {}'.format(self.cmind.home_path))
+
+        print ('')
+        print ('GitHub for CM development:  https://github.com/mlcommons/ck/tree/master/ck2')
+        print ('Reporting issues and ideas: https://github.com/mlcommons/ck/issues')
+
+        return {'return':0}
