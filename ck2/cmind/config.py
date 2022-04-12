@@ -21,8 +21,6 @@ class Config(object):
 
                      "flag_debug": "cm-debug",
 
-                     "flag_out": "out",
-
                      "flag_help": "h",
                      "flag_help2": "help",
 

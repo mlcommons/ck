@@ -150,7 +150,7 @@ class Repos:
         return {'return':0}
 
     ############################################################
-    def pull(self, alias, url = '', branch = '', checkout = '', con = False, name = '', prefix = ''):
+    def pull(self, alias, url = '', branch = '', checkout = '', console = False, name = '', prefix = ''):
         """
         Pull or clone repository
 
@@ -159,7 +159,7 @@ class Repos:
         # Prepare path
         path_to_repo = os.path.join(self.full_path_to_repos, alias)
         
-        if con:
+        if console:
             print ('Local path: '+path_to_repo)
             print ('')
 
@@ -179,13 +179,13 @@ class Repos:
 
             cmd = 'git clone '+url+' '+alias
             
-        if con:
+        if console:
             print (cmd)
             print ('')
 
         os.system(cmd)
 
-        if con:
+        if console:
             print ('')
 
         # Check if repo description exists 
@@ -244,7 +244,7 @@ class Repos:
         return {'return':0, 'meta':meta}
 
     ############################################################
-    def init(self, alias, uid, path = '', con = False, name = '', prefix = ''):
+    def init(self, alias, uid, path = '', console = False, name = '', prefix = ''):
         """
         Init or clone a CM repository
 
@@ -268,7 +268,7 @@ class Repos:
 
         path_to_repo_desc = os.path.join(path_to_repo, self.cfg['file_meta_repo'])
 
-        if con:
+        if console:
             print ('Local path to the CM repository: '+path_to_repo)
             print ('')
 
@@ -302,7 +302,7 @@ class Repos:
         return {'return':0, 'meta':meta, 'path_to_repo': path_to_repo, 'path_to_repo_desc': path_to_repo_desc}
 
     ############################################################
-    def delete(self, lst, remove_all = False, con = False):
+    def delete(self, lst, remove_all = False, console = False):
         """
         Delete CM repository with or without content
 
@@ -313,7 +313,7 @@ class Repos:
             # Prepare path
             path_to_repo = repo.path
 
-            if con:
+            if console:
                 print ('Local path to a CM repository: '+path_to_repo)
 
             if path_to_repo not in self.paths:
@@ -327,12 +327,12 @@ class Repos:
             if remove_all:
                 import shutil
 
-                if con:
+                if console:
                     print ('  Deleting repository content ...')
                 
                 shutil.rmtree(path_to_repo)
             else:
-                if con:
+                if console:
                     print ('  CM repository was unregistered from CM but its content was not deleted ...')
 
         return {'return':0}

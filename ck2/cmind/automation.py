@@ -40,7 +40,7 @@ class Automation:
 
         """
 
-        con = True if self.cmind.con and not i.get('skip_con', False) else False
+        console = i.get('out') == 'con'
 
         lst = []
 
@@ -174,7 +174,7 @@ class Automation:
 
 
         # Output paths to console if CLI or forced
-        if con:
+        if console:
             for l in lst:
                 print (l.path)
 
@@ -190,12 +190,10 @@ class Automation:
            parsed_artifact
            meta
            tags
-           skip_con
-
 
         """
 
-        con = True if self.cmind.con and not i.get('skip_con', False) else False
+        console = i.get('out') == 'con'
 
         # Get parsed automation
         parsed_automation = i.get('parsed_automation',[])
@@ -216,8 +214,7 @@ class Automation:
         # Find repository
         r = self.cmind.access({'automation':'repo',
                                'action':'find',
-                               'artifact':artifact_repo[0]+','+artifact_repo[1],
-                               'skip_con':True})
+                               'artifact':artifact_repo[0]+','+artifact_repo[1]})
         if r['return']>0: return r
 
         lst = r['lst']
@@ -275,7 +272,7 @@ class Automation:
         r = utils.save_json(meta_path_json, meta=meta)
         if r['return']>0: return r
 
-        if con:
+        if console:
             print ('Added CM object at {}'.format(obj_path))
 
         return {'return':0, 'meta':meta, 'path':obj_path}
@@ -287,7 +284,6 @@ class Automation:
 
            parsed_automation
            parsed_artifact
-           skip_con
            f or force (bool) - if True do not ask for confirmation
 
 
@@ -295,13 +291,14 @@ class Automation:
 
         import shutil
         
-        con = True if self.cmind.con and not i.get('skip_con', False) else False
+        console = i.get('out') == 'con'
+
         force = True if i.get('f', False) or i.get('force',False) else False
 
         # Find an object
-        i['skip_con']=True
-
+        i['out']=None
         r = self.search(i)
+
         if r['return']>0: return r
 
         lst = r['list']
@@ -313,7 +310,7 @@ class Automation:
         for artifact in lst:
             path_to_artifact = artifact.path
 
-            if con:
+            if console:
                 print ('Deleting CM artifact in {} ...'.format(path_to_artifact))
 
                 if not force:
@@ -332,7 +329,7 @@ class Automation:
 
             shutil.rmtree(path_to_artifact)
             
-            if con:
+            if console:
                 print ('    Deleted!')
 
         return {'return':0, 'deleted_list':deleted_lst}
@@ -344,16 +341,15 @@ class Automation:
 
            parsed_automation
            parsed_artifact
-           skip_con
 
         """
 
-        con = True if self.cmind.con and not i.get('skip_con', False) else False
+        console = i.get('out') == 'con'
 
         # Find an object
-        i['skip_con']=True
-
+        i['out'] = None
         r = self.search(i)
+
         if r['return']>0: return r
 
         lst = r['list']
@@ -367,9 +363,24 @@ class Automation:
         path = artifact.path
         meta = artifact.meta
 
-        # Output if con
-        if con:
+        # Output if console
+        if console:
             import json
             print (json.dumps(meta, indent=2, sort_keys=True))
 
         return {'return':0, 'path':path, 'meta':meta, 'artifact':artifact}
+
+    ############################################################
+    def uid(self, i):
+        """
+        Generate CM UID
+        """
+
+        console = i.get('out') == 'con'
+
+        r = utils.gen_uid()
+
+        if console:
+            print (r['uid'])
+
+        return r

@@ -33,14 +33,7 @@ def error(i):
     Print error
     """
 
-    # Force console
-    con_tmp = cm.con
-
-    cm.con=True
-
-    r = cm.error(i)
-
-    cm.con = con_tmp
+    return cm.error(i)
 
 ############################################################
 def halt(i):
@@ -57,7 +50,7 @@ class CM(object):
     """
 
     ############################################################
-    def __init__(self, home_path = '', debug = False, out = ''):
+    def __init__(self, home_path = '', debug = False):
         """
         Initialize Collective Mind class
         """
@@ -65,12 +58,6 @@ class CM(object):
 #        print ('************************************************')
 #        print ('Initialize CM ...')
 #        print ('************************************************')
-
-        # Check output (for now support con but can be json or file, etc)
-        self.out = out
-        self.con = False
-        if out == 'con':
-            self.con = True
 
         # Initialize and update CM configuration
         self.cfg = Config().cfg
@@ -217,8 +204,7 @@ class CM(object):
             if self.debug:
                 raise Exception(r['error'])
 
-            if self.con:
-                sys.stderr.write(self.cfg['error_prefix']+' '+r['error']+'!\n')
+            sys.stderr.write(self.cfg['error_prefix']+' '+r['error']+'!\n')
 
         return r
 
@@ -237,47 +223,18 @@ class CM(object):
         """
 
         # Force console
-        self.con=True
-
         self.error(r)
         
         sys.exit(r['return'])
 
     ############################################################
-    def access(self, i):
+    def access(self, i, out = None):
         """
         Access customized Collective Mind object
 
         Args:
             i (dict | str | argv): CM input
-        
-        Returns:
-            Dictionary:
-                return (int): return code == 0 if no error 
-                                          >0 if error
-
-                (error) (str): error string if return>0
-
-                data from a given action
-        
-        """
-
-        # Pass to internal access
-        r = self.internal_access(i)
-
-        return r
-
-    
-    ############################################################
-    def internal_access(self, i):
-        """
-        Access customized Collective Mind object
-
-        Args:
-            i (dict | str | argv): CM input
-
-               default (bool) - if True, call default automation without any specialization
-                                (usually for pure CM database actions)
+            out (str) - =='con' -> force output to console
 
         Returns:
             Dictionary:
@@ -306,13 +263,13 @@ class CM(object):
 
             i = r['cm_input']
 
-        # Check CM flag for CM output
-        if self.cfg['flag_out'] in i:
-           self.out = i[self.cfg['flag_out']]
+        # Check if force out programmatically (such as from CLI)
+        if 'out' not in i and out is not None:
+            i['out'] = out
 
-           if self.out == 'con':
-               self.con = True
-        
+        # Check if console
+        console = i.get('out') == 'con'
+
         # Check if has help flag
         cm_help = i.get(self.cfg['flag_help'], False) or i.get(self.cfg['flag_help2'], False)
         
@@ -325,7 +282,7 @@ class CM(object):
 
         # Print basic help if action == ''
         if action == '':
-            if self.con:
+            if console:
                 print (self.cfg['info_cli'])
 
                 if cm_help:
@@ -380,8 +337,7 @@ class CM(object):
 
             # Search for automations in repos (local, default, other) TBD: maybe should be local, other, default?
             r = self.default_automation.search({'parsed_automation':[('automation','bbeb15d8f0a944a4')],
-                                                'parsed_artifact':parsed_automation,
-                                                'skip_con':True})
+                                                'parsed_artifact':parsed_automation})
             if r['return']>0: return r
             automation_lst = r['list']
 
@@ -546,11 +502,14 @@ class CM(object):
         # Call automation action
         action_addr=getattr(initialized_automation, action)
 
-        import json
-        print ('')
-        print (json.dumps(i, indent=2))    
-        print ('')        
-        
+#        import json
+#        print ('')
+#        print (json.dumps(i, indent=2))    
+#        print ('')        
+#        
         r = action_addr(i)
+
+        if r['return']>0 and console:
+            error(r)
 
         return r

@@ -350,7 +350,7 @@ def parse_cm_object(obj, max_length = 2):
         (error) (str): error string if return>0
 
         cm_object (list): first argument: CM alias | UID
-                          (second element: 
+                          (second element: CM repo | UID)
 
     """
 
@@ -571,8 +571,7 @@ def process_meta_for_inheritance(i):
         r = cmind.access({'automation':automation,
                           'action':'search',
                           'artifact':artifact,
-                          'ignore_inheritance':True,
-                          'skip_con':True})
+                          'ignore_inheritance':True})
         if r['return']>0: return r
 
         lst = r['list']

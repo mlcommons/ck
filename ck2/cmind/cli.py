@@ -23,22 +23,14 @@ def run(argv = None):
     # Access CM
     from cmind.core import CM
 
-    cm = CM(out='con')
+    cm = CM()
 
     if argv is None:
         argv = sys.argv[1:]
 
-    r = cm.access(argv)
+    r = cm.access(argv, out='con')
 
-    ret = r['return']
-
-    # Print error only in CLI
-    if ret > 0:
-       # Process error: either raise or just print to stderr
-       # depending on settings
-       cm.error(r)
-
-    sys.exit(ret)
+    sys.exit(r['return'])
 
 
 if __name__ == "__main__":

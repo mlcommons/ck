@@ -24,7 +24,7 @@ class CAutomation(Automation):
 
         import shutil
 
-        con = True if self.cmind.con and not i.get('skip_con', False) else False
+        console = i.get('out') == 'con'
 
         parsed_artifact = i.get('parsed_artifact',[])
 
@@ -33,7 +33,7 @@ class CAutomation(Automation):
         module_name = 'module.py'
         
         # Add placeholder
-        i['skip_con']=True
+        i['out']='con'
         i['default']=True
         
         i['meta']={'automation_alias':self.meta['alias'],
@@ -45,7 +45,7 @@ class CAutomation(Automation):
 
         new_automation_path = r_obj['path']
 
-        if con:
+        if console:
             print ('Created automation in {}'.format(new_automation_path))
 
         # Create Python module holder
@@ -59,7 +59,7 @@ class CAutomation(Automation):
             f1 = os.path.join(self.path, f)
             f2 = os.path.join(new_automation_path, f.replace('_dummy',''))
 
-            if con:
+            if console:
                 print ('  * Copying {} to {}'.format(f1, f2))
 
             shutil.copyfile(f1,f2)

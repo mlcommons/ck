@@ -19,5 +19,6 @@ class CAutomation(Automation):
         super().__init__(cmind, __file__)
 
     ############################################################
+    # Just a test of an import - Grigori moved it to default automation
     def uid(self, i):
-        return test.uid(i, self.cmind.con)
+        return test.uid(i)

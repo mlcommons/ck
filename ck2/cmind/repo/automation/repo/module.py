@@ -27,6 +27,8 @@ class CAutomation(Automation):
            
         """
 
+        console = i.get('out') == 'con'
+
         alias = i.get('artifact','')
         url = i.get('url','')
         name = i.get('name','')
@@ -59,7 +61,7 @@ class CAutomation(Automation):
         branch = i.get('branch','')
         checkout = i.get('checkout','')
 
-        if self.cmind.con:
+        if console:
             print (self.cmind.cfg['line'])
             print ('Alias:    {}'.format(alias))
             print ('URL:      {}'.format(url))
@@ -70,7 +72,7 @@ class CAutomation(Automation):
         # Prepare path to repo
         repos = self.cmind.repos
 
-        r = repos.pull(alias = alias, url = url, branch = branch, checkout = checkout, con = self.cmind.con, name=name, prefix=prefix)
+        r = repos.pull(alias = alias, url = url, branch = branch, checkout = checkout, console = console, name=name, prefix=prefix)
         if r['return']>0: return r
 
         repo_meta = r['meta']
@@ -87,6 +89,8 @@ class CAutomation(Automation):
          (skip_con) (bool) - skip output to console if True
            
         """
+
+        console = i.get('out') == 'con'
 
         lst = []
 
@@ -116,7 +120,7 @@ class CAutomation(Automation):
                 lst.append(repo)
 
         # Output paths to console if CLI or forced
-        if self.cmind.con and not i.get('skip_con', False):
+        if console:
             for l in lst:
                 meta = l.meta
                 alias = meta.get('alias','')
@@ -144,6 +148,8 @@ class CAutomation(Automation):
            
         """
 
+        console = i.get('out') == 'con'
+
         for repo in self.cmind.repos.lst:
             meta = repo.meta
             
@@ -152,10 +158,10 @@ class CAutomation(Automation):
             git = meta.get('git', False)
 
             if git:
-                if self.cmind.con:
+                if console:
                     print ('Updating "{}" ...'.format(alias))
                     print ('')
-                r = self.cmind.repos.pull(alias = alias, con = self.cmind.con)
+                r = self.cmind.repos.pull(alias = alias, console = console)
                 if r['return']>0: return r
 
         return {'return':0, 'lst':self.cmind.repos.lst}
@@ -171,11 +177,13 @@ class CAutomation(Automation):
            
         """
 
+        console = i.get('out') == 'con'
+
         # Search CM repository
         i['action']='search'
-        i['skip_con']=True
-        
+        i['out']=None
         r=self.cmind.access(i)
+        
         if r['return'] >0 : return r
 
         lst = r['lst']
@@ -184,7 +192,7 @@ class CAutomation(Automation):
 
         remove_all = i.get('all', '')
 
-        r = self.cmind.repos.delete(lst, remove_all = remove_all, con = self.cmind.con)
+        r = self.cmind.repos.delete(lst, remove_all = remove_all, console = console)
 
         return r
 
@@ -201,7 +209,7 @@ class CAutomation(Automation):
            (prefix) (str) - extra directory to keep CM artifacts
         """
 
-        con = True if self.cmind.con and not i.get('skip_con', False) else False
+        console = i.get('out') == 'con'
 
         alias = i.get('artifact', '')
         path = i.get('path', '')
@@ -225,7 +233,7 @@ class CAutomation(Automation):
 
         if alias == '': alias = uid
 
-        if con:
+        if console:
             print (self.cmind.cfg['line'])
             print ('Alias:    {}'.format(alias))
             print ('UID:      {}'.format(uid))
@@ -235,7 +243,7 @@ class CAutomation(Automation):
         
         # Check if repository with this alias and UID doesn't exist
         for repo_artifact in [alias, uid]:
-            ii={'automation':'repo', 'action':'search', 'artifact':repo_artifact, 'skip_con':True}
+            ii={'automation':'repo', 'action':'search', 'artifact':repo_artifact}
 
             r=self.cmind.access(ii) 
             if r['return']>0: return r
@@ -246,7 +254,7 @@ class CAutomation(Automation):
                 return {'return':1, 'error':'Repository "{}" is already registered in CM'.format(repo_artifact)}
 
         # Create repository 
-        r = self.cmind.repos.init(alias = alias, uid = uid, path = path, con = self.cmind.con, name=name, prefix=prefix)
+        r = self.cmind.repos.init(alias = alias, uid = uid, path = path, console = console, name=name, prefix=prefix)
         return r
 
     ############################################################
@@ -274,11 +282,12 @@ class CAutomation(Automation):
 
         import zipfile
 
-        con = True if self.cmind.con and not i.get('skip_con', False) else False
+        console = i.get('out') == 'con'
         
         # Search repository
-        i['skip_con']=True
+        i['out']=None
         r = self.search(i)
+
         if r['return']>0: return r
 
         lst = r['lst']
@@ -294,7 +303,7 @@ class CAutomation(Automation):
 
         pack_file = self.cmind.cfg['default_repo_pack']
 
-        if con:
+        if console:
             print ('Packing repo from {} to {} ...'.format(repo_path, pack_file))
 
         r = utils.list_all_files({'path': repo_path, 'all': 'yes'})
@@ -330,7 +339,7 @@ class CAutomation(Automation):
 
         import zipfile
 
-        con = True if self.cmind.con and not i.get('skip_con', False) else False
+        console = i.get('out') == 'con'
 
         pack_file = self.cmind.cfg['default_repo_pack']
 
@@ -370,7 +379,7 @@ class CAutomation(Automation):
         prefix = repo_meta.get('prefix','')
 
         # Check if repo exists
-        r = self.search({'parsed_artifact':[(alias,uid)], 'skip_con':True})
+        r = self.search({'parsed_artifact':[(alias,uid)]})
         if r['return']>0: return r
 
         lst = r['lst']
@@ -381,13 +390,12 @@ class CAutomation(Automation):
         # Initialize repository
         r_new = self.init({'artifact':alias,
                            'uid':uid,
-                           'prefix':prefix,
-                           'skip_con':True})
+                           'prefix':prefix})
         if r_new['return']>0: return r_new
 
         repo_path = r_new['path_to_repo']
 
-        if con:
+        if console:
             print ('Unpacking {} to {} ...'.format(pack_file, repo_path))
 
         # Unpacking zip
