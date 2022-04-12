@@ -137,7 +137,7 @@ class CM(object):
         # First argument: automation
         special_cli_characters=['-', '@']
 
-        for key in ['automation', 'action']:
+        for key in ['action', 'automation']:
             if len(argv) > 0 and argv[0].strip()[0] not in special_cli_characters:
                 cm_input[key] = argv.pop(0)
 
@@ -194,7 +194,7 @@ class CM(object):
         # Add artifacts if > 1
         if len(artifacts) > 1:
             cm_input['artifacts'] = artifacts
-        
+
         return {'return':0, 'cm_input':cm_input}
 
     ############################################################
@@ -316,66 +316,35 @@ class CM(object):
         # Check if has help flag
         cm_help = i.get(self.cfg['flag_help'], False) or i.get(self.cfg['flag_help2'], False)
         
-        # Initialized default module
+        # Initialized default automation with default database actions
         if self.default_automation == None:
            self.default_automation = Automation(self, __file__)
-        
-        # Check automation
-        automation = i.get('automation','')
-        if automation == '': automation = i.get('a','')
 
-        if automation == '':
+        # Check automation action
+        action = i.get('action','')
+
+        # Print basic help if action == ''
+        if action == '':
             if self.con:
                 print (self.cfg['info_cli'])
 
                 if cm_help:
+                   import types
+
                    print ('')
-                   print ('Collective database actions for this artifact:')
+                   print ('Common automation actions for all CM artifacts:')
                    print ('')
 
                    for d in sorted(dir(self.default_automation)):
-                       if not d.startswith('_') and d not in ['cmind']:
+                       if type(getattr(self.default_automation, d))==types.MethodType and not d.startswith('_'):
                            print ('* '+d)
 
-            return {'return':0, 'help':'help about database actions'}
+            return {'return':0, 'warning':'no action'}
 
-        # Check if general help
-        r = utils.parse_cm_object(automation)
-        if r['return'] >0 : return r
+        # Check automation
+        automation = i.get('automation','')
 
-        # A list of CM objects
-        parsed_automation = r['cm_object']
-
-        i['parsed_automation'] = parsed_automation
-
-        # First object in a list is an automation
-        # Second optional object in a list is a repo
-        auto_name = parsed_automation[0] if len(parsed_automation)>0 else ('','')
-        auto_repo = parsed_automation[1] if len(parsed_automation)>1 else None
-
-        artifacts = i.get('artifacts',[])
-        if len(artifacts)>0:
-            parsed_artifacts = []
-
-            for artifact in artifacts:
-                # Parse artifact
-                r = utils.parse_cm_object(artifact)
-                if r['return'] >0 : return r
-
-                parsed_artifacts.append(r['cm_object'])
-
-            i['parsed_artifacts'] = parsed_artifacts
-
-        # Check artifact and artifacts
-        artifact = i.get('artifact','')
-        if artifact != '':
-            # Parse artifact
-            r = utils.parse_cm_object(artifact)
-            if r['return'] >0 : return r
-
-            i['parsed_artifact'] = r['cm_object']
-
-        # Load repositories
+        # Load info about all CM repositories (to enable search for automations and artifacts)
         if self.repos == None:
             repos = Repos(path = self.home_path, cfg = self.cfg, 
                           path_to_default_repo = self.path_to_cmind_repo)
@@ -386,21 +355,33 @@ class CM(object):
             # Set only after all initializations
             self.repos = repos
 
-        # Find automation 
-        # TBD: need to move order to configuration
-
-        # Search for automation in CM repositories
-        automation_lst = []
-
+        # Check if forced default automation
         use_default_automation = True if i.get('default',False) else False
 
-        use_any_func = False
+        automation_lst = []
+        use_any_action = False
+        
+        # If automation!='', attempt to find it and load
+        # Otherwise use the default automation
+        if automation != '' and not use_default_automation:
+            # Parse automation potentially with a repository
+            # and convert it into CM object [(artifact,UID) (,(repo,UID))]
+            r = utils.parse_cm_object(automation)
+            if r['return'] >0 : return r
 
-        if not use_default_automation:
+            parsed_automation = r['cm_object']
+            i['parsed_automation'] = parsed_automation
+
+            # First object in a list is an automation
+            # Second optional object in a list is a repo
+            auto_name = parsed_automation[0] if len(parsed_automation)>0 else ('','')
+            auto_repo = parsed_automation[1] if len(parsed_automation)>1 else None
+
+
             # Search for automations in repos (local, default, other) TBD: maybe should be local, other, default?
             r = self.default_automation.search({'parsed_automation':[('automation','bbeb15d8f0a944a4')],
-                                            'parsed_artifact':parsed_automation,
-                                            'skip_con':True})
+                                                'parsed_artifact':parsed_automation,
+                                                'skip_con':True})
             if r['return']>0: return r
             automation_lst = r['list']
 
@@ -411,7 +392,7 @@ class CM(object):
                 automation_name = self.cfg['default_automation_module_name']
                 automation_meta = automation.meta
 
-                use_any_func = automation_meta.get('use_any_func',False)
+                use_any_action = automation_meta.get('use_any_action',False)
                 
                 # Find Python module for this automation
                 try:
@@ -462,9 +443,8 @@ class CM(object):
             if len(automation_lst)==0 and auto_repo is not None:
                 return {'return':3, 'error':'automation is not found in a specified repo {}'.format(auto_repo)}
                 
+        # If no automation was found or we force default automation
         if use_default_automation or len(automation_lst)==0:
-            # TBD: work for basic functions even if automation is not installed
-            # Maybe should be something else (internal keyword that can't be used)
             auto=('automation','bbeb15d8f0a944a4')
             from . import automation as loaded_automation
 
@@ -481,66 +461,96 @@ class CM(object):
         initialized_automation = loaded_automation_class(self, automation_full_path)
         initialized_automation.meta = automation_meta
 
-        # Check automation action
-        action = i.get('action','')
-
-        if action == '':
-            if self.con:
-                print ('')
-                print ('Collective database actions:')
-                print ('')
-
-                database_actions=dir(self.default_automation)
-                
-                for d in sorted(database_actions):
-                    if not d.startswith('_') and d not in ['automation_path', 'path', 'cmind']:
-                        x = '* '+d
-
-                        if d in self.cfg['action_substitutions_reverse']:
-                            x += ' ('+', '.join(self.cfg['action_substitutions_reverse'][d])+')'
-
-                        print (x)
-                
-                print ('')
-                print ('Automation actions:')
-                print ('')
-
-                for d in sorted(dir(initialized_automation)):
-                    if not d.startswith('_') and d not in ['cmind', 'meta'] and d not in database_actions:
-                        print ('* '+d)
-
-                return {'return':0, 'help':''}
-
         # Convert action into function (substitute internal words)
-        func = action.replace('-','_')
+        original_action = action
+        action = action.replace('-','_')
 
-        if func in self.cfg['action_substitutions']:
-            func = self.cfg['action_substitutions'][func]
+        if action in self.cfg['action_substitutions']:
+            action = self.cfg['action_substitutions'][action]
         
-        # Check func in a class when importing
-        if use_any_func:
-            func = 'any'
+        # Check action in a class when importing
+        if use_any_action:
+            action = 'any'
         
-        if not hasattr(initialized_automation, func):
-            return {'return':4, 'error':'action "{}" not found in automation {}'.format(func, auto_name)}
+        print_automation = automation_meta.get('alias','')+','+automation_meta.get('uid','')
+        
+        if not hasattr(initialized_automation, action):
+            return {'return':4, 'error':'action "{}" not found in automation "{},{}"'.format(action, print_automation)}
 
-        # Check if help for automation
+        # Check if help about automation actions
+        if action == 'help':
+            print (self.cfg['info_cli'])
+
+            import types
+
+            print ('')
+            print ('Automation actions:')
+            print ('')
+
+            for d in sorted(dir(initialized_automation)):
+                if type(getattr(initialized_automation, d))==types.MethodType and not d.startswith('_'):
+                    print ('* '+d)
+
+            return {'return':0, 'warning':'no automation action'}
+
+        
+        # Check if help for a given automation action
         if cm_help:
-            print ('')
-            print ('Action help:')
-            print ('')
+            # Find path to automation
 
             import inspect
             path_to_automation = inspect.getfile(inspect.getmodule(initialized_automation))
-            print ('(path: {})'.format(path_to_automation))
 
             print ('')
-            print ('TBD')
+            print ('Automation:      {}'.format(print_automation))
+            print ('Action:          {}'.format(action))
+            print ('')
+            print ('Automation path: {}:'.format(path_to_automation))
+            print ('')
 
-            return {'return':0}
+            print ('API:')
+            print ('')
+
+            r=utils.find_api(path_to_automation, original_action)
+            if r['return']>0: return r
+
+            api = r['api']
+
+            print (api)
+            
+            return {'return':0, 'help':api}
+
+        # Process artifacts for this automation action
+        artifacts = i.get('artifacts',[])
+        if len(artifacts)>0:
+            parsed_artifacts = []
+
+            for artifact in artifacts:
+                # Parse artifact
+                r = utils.parse_cm_object(artifact)
+                if r['return'] >0 : return r
+
+                parsed_artifacts.append(r['cm_object'])
+
+            i['parsed_artifacts'] = parsed_artifacts
+
+        # Check artifact and artifacts
+        artifact = i.get('artifact','')
+        if artifact != '':
+            # Parse artifact
+            r = utils.parse_cm_object(artifact)
+            if r['return'] >0 : return r
+
+            i['parsed_artifact'] = r['cm_object']
 
         # Call automation action
-        func_addr=getattr(initialized_automation, func)
-        r = func_addr(i)
+        action_addr=getattr(initialized_automation, action)
+
+        import json
+        print ('')
+        print (json.dumps(i, indent=2))    
+        print ('')        
+        
+        r = action_addr(i)
 
         return r

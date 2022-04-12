@@ -27,7 +27,7 @@ class Config(object):
                      "flag_help2": "help",
 
                      "error_prefix": "CM error:",
-                     "info_cli": "cm {automation} {action} {artifact(s)} {flags}",
+                     "info_cli": "cm {action} {automation} {artifact(s)} {flags} @input.yaml @input.json",
 
                      "default_home_dir": "CM",
 

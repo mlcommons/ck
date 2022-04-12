@@ -102,6 +102,16 @@ def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
     return {'return':0,
             'meta': meta}
 
+
+###########################################################################
+def load_txt(file_name, encoding = 'utf8'):
+
+    with open(file_name, 'rt', encoding = encoding) as tf:
+        s = tf.read()
+
+    return {'return':0,
+            'string': s}
+
 ###########################################################################
 def save_yaml(file_name, meta={}, sort_keys=True, encoding = 'utf8'):
 
@@ -588,3 +598,50 @@ def process_meta_for_inheritance(i):
         current_meta = base_meta
 
     return {'return':0, 'meta':current_meta}
+
+
+###########################################################################
+def find_api(file_name, func):
+    """Find func API in filename
+
+    Args:
+              file_name (str): Python module
+              fund (str): func name
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                api (str): API string
+
+    """
+
+    # Load file
+    r = load_txt(file_name)
+    if r['return'] >0: return r
+
+    string = r['string']
+
+    api = ''
+    
+    # Search for def
+    j = string.find('def '+func+'(')
+    if j<0:
+        return {'return':1, 'error':'API not found'}
+
+    line1 = string.rfind('\n', 0, j)
+
+    line_comment1 = string.find('"""', j)
+    if line_comment1 <0 :
+        return {'return':1, 'error':'API not found'}
+
+    line_comment2 = string.find('"""', line_comment1 + 2)
+    if line_comment2 <0 :
+        return {'return':1, 'error':'API not found'}
+
+    api = string[line1+1:line_comment2+3]
+    
+    return {'return':0, 'api':api}
