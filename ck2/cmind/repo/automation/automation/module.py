@@ -18,7 +18,7 @@ class CAutomation(Automation):
         Add automation
 
         Args:
-           (artifact) (str) - repository name
+           (artifact) (str) - repository name or UID
            
         """
 
@@ -34,7 +34,7 @@ class CAutomation(Automation):
         
         # Add placeholder
         i['out']='con'
-        i['default']=True
+        i['common']=True
         
         i['meta']={'automation_alias':self.meta['alias'],
                    'automation_uid':self.meta['uid'],

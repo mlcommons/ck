@@ -220,7 +220,7 @@ class Automation:
                                'artifact':artifact_repo[0]+','+artifact_repo[1]})
         if r['return']>0: return r
 
-        lst = r['lst']
+        lst = r['list']
 
         if len(lst)==0:
             return {'return':16, 'error':'repository {} not found'.format(artifact_repo)}
@@ -367,7 +367,7 @@ class Automation:
         if len(lst)==0:
             return {'return':16, 'error':'artifact not found: {}'.format(i)}
         elif len(lst)>1:
-            return {'return':1, 'error':'more than 1 artifact found', 'lst':lst}
+            return {'return':1, 'error':'more than 1 artifact found', 'list':lst}
 
         artifact = lst[0]
 

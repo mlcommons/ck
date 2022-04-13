@@ -18,7 +18,7 @@ class CAutomation(Automation):
         Test automation
 
         Args:
-           (artifact) (str) - repository name
+           (artifact) (str) - artifact alias or UID
            
         """
 

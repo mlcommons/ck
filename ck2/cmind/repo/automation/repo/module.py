@@ -22,7 +22,7 @@ class CAutomation(Automation):
            (url) (str) - URL of a repository
            (branch) (str) - Git branch
            (checkout) (str) - Git checkout
-           (name) (str) - user-friendly name
+           (desc) (str) - brief repository description (1 line)
            (prefix) (str) - extra directory to keep CM artifacts
            
         """
@@ -31,7 +31,7 @@ class CAutomation(Automation):
 
         alias = i.get('artifact','')
         url = i.get('url','')
-        name = i.get('name','')
+        desc = i.get('desc','')
         prefix = i.get('prefix','')
 
         if url == '':
@@ -72,7 +72,7 @@ class CAutomation(Automation):
         # Prepare path to repo
         repos = self.cmind.repos
 
-        r = repos.pull(alias = alias, url = url, branch = branch, checkout = checkout, console = console, name=name, prefix=prefix)
+        r = repos.pull(alias = alias, url = url, branch = branch, checkout = checkout, console = console, desc=desc, prefix=prefix)
         if r['return']>0: return r
 
         repo_meta = r['meta']
@@ -128,15 +128,15 @@ class CAutomation(Automation):
                 if i.get('verbose',False):
 
                    uid = meta['uid']
-                   name = meta.get('name','')
+                   desc = meta.get('desc','')
                    path = repo.path
                    git = meta.get('git',False)
 
-                   print ('{},{} "{}" {}'.format(alias,uid,name,path))
+                   print ('{},{} "{}" {}'.format(alias,uid,desc,path))
                 else:
                    print ('{} = {}'.format(alias, l.path))
 
-        return {'return':0, 'lst':lst}
+        return {'return':0, 'list':lst}
 
     ############################################################
     def update(self, i):
@@ -164,7 +164,7 @@ class CAutomation(Automation):
                 r = self.cmind.repos.pull(alias = alias, console = console)
                 if r['return']>0: return r
 
-        return {'return':0, 'lst':self.cmind.repos.lst}
+        return {'return':0, 'list':self.cmind.repos.lst}
 
     ############################################################
     def delete(self, i):
@@ -172,7 +172,7 @@ class CAutomation(Automation):
         Delete repo (just unlink or remove content too)
 
         Args:
-           (artifact) (str) - repository name
+           (artifact) (str) - repository name or UID
            (all) (bool) - if True, remove with content otherwise just unlink
            
         """
@@ -186,7 +186,7 @@ class CAutomation(Automation):
         
         if r['return'] >0 : return r
 
-        lst = r['lst']
+        lst = r['list']
         if len(lst)==0:
            return {'return':1, 'error':'Repository not found'}
 
@@ -202,10 +202,10 @@ class CAutomation(Automation):
         Initialize repo
 
         Args:
-           (artifact) (str) - repository name
+           (artifact) (str) - repository name or UID
            (uid) (str) - initialize CM repository with a given UID
            (path) (str) - initalize CM repository in a given local path
-           (name) (str) - brief description of this CM repository
+           (desc) (str) - brief description of this CM repository
            (prefix) (str) - extra directory to keep CM artifacts
         """
 
@@ -213,7 +213,7 @@ class CAutomation(Automation):
 
         alias = i.get('artifact', '')
         path = i.get('path', '')
-        name = i.get('name','')
+        desc = i.get('desc','')
         prefix = i.get('prefix','')
 
         # If path is not specified, initialize in the current directory!
@@ -237,7 +237,7 @@ class CAutomation(Automation):
             print (self.cmind.cfg['line'])
             print ('Alias:    {}'.format(alias))
             print ('UID:      {}'.format(uid))
-            print ('Name:     {}'.format(name))
+            print ('Desc:     {}'.format(desc))
             print ('Prefix:   {}'.format(prefix))
             print ('')
         
@@ -248,13 +248,13 @@ class CAutomation(Automation):
             r=self.cmind.access(ii) 
             if r['return']>0: return r
 
-            lst=r['lst']
+            lst=r['list']
 
             if len(lst)>0: 
                 return {'return':1, 'error':'Repository "{}" is already registered in CM'.format(repo_artifact)}
 
         # Create repository 
-        r = self.cmind.repos.init(alias = alias, uid = uid, path = path, console = console, name=name, prefix=prefix)
+        r = self.cmind.repos.init(alias = alias, uid = uid, path = path, console = console, desc=desc, prefix=prefix)
         return r
 
     ############################################################
@@ -265,7 +265,7 @@ class CAutomation(Automation):
         Args:
            (artifact) (str) - repository name
            (path) (str) - if !='' use this non-standard path
-           (name) (str) - user-friendly name
+           (desc) (str) - brief repository description
            (prefix) (str) - extra directory to keep CM artifacts
         """
 
@@ -277,7 +277,7 @@ class CAutomation(Automation):
         Pack repo for further distribution
 
         Args:
-           (artifact) (str) - repository name
+           (artifact) (str) - repository name or UID
         """
 
         import zipfile
@@ -290,7 +290,7 @@ class CAutomation(Automation):
 
         if r['return']>0: return r
 
-        lst = r['lst']
+        lst = r['list']
 
         if len(lst)==0:
             return {'return':16, 'error':'no repsitories found'}
@@ -375,14 +375,14 @@ class CAutomation(Automation):
         # Get meta info
         uid = repo_meta['uid']
         alias = repo_meta['alias']
-        name = repo_meta.get('name','')
+        desc = repo_meta.get('desc','')
         prefix = repo_meta.get('prefix','')
 
         # Check if repo exists
         r = self.search({'parsed_artifact':[(alias,uid)]})
         if r['return']>0: return r
 
-        lst = r['lst']
+        lst = r['list']
 
         if len(lst)>0:
             return {'return':1, 'error':'Repository already exists'}
@@ -446,7 +446,7 @@ class CAutomation(Automation):
                      'add_meta':'yes'})
         if r['return']>0: return r
 
-        lst=r['lst']
+        lst=r['list']
 
         for l in lst:
             ruoa=l['data_uoa']

@@ -18,7 +18,6 @@ class CAutomation(Automation):
         Use as wrapper to CK
 
         Args:
-           (artifact) (str) - repository name
            
         """
 

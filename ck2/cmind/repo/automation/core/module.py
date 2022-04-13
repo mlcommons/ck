@@ -28,7 +28,7 @@ class CAutomation(Automation):
         return misc.uid(i)
 
     ############################################################
-    def status(self, i):
+    def test(self, i):
         """
         Check CM status
         """
@@ -66,7 +66,7 @@ class CAutomation(Automation):
         print ('')
         print ('Path to CM package:         {}'.format(self.cmind.path_to_cmind))
         print ('Path to CM core:            {}'.format(self.cmind.path_to_cmind_kernel))
-        print ('Path to CM default repo:    {}'.format(self.cmind.repos.path_to_default_repo))
+        print ('Path to CM internal repo:   {}'.format(self.cmind.repos.path_to_internal_repo))
 
         print ('')
         print ('Path to CM repositories:    {}'.format(self.cmind.home_path))

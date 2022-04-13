@@ -7,7 +7,7 @@ from cmind import utils
 
 class Repos:
     ############################################################
-    def __init__(self, path, cfg, path_to_default_repo = ''):
+    def __init__(self, path, cfg, path_to_internal_repo = ''):
         """
         Initialize class 
         """
@@ -23,8 +23,8 @@ class Repos:
         # List of initialized repositories
         self.lst = []
 
-        # Potential path to default repo
-        self.path_to_default_repo = path_to_default_repo
+        # Potential path to internal repo
+        self.path_to_internal_repo = path_to_internal_repo
 
         self.full_path_to_repo_paths = ''
 
@@ -67,9 +67,9 @@ class Repos:
             r = utils.save_json(full_path_to_repo_paths, meta = self.paths)
             if r['return']>0: return r
 
-        # Check default repo (will be after local)
-        if self.path_to_default_repo != '' and os.path.isdir(self.path_to_default_repo):
-            self.paths.insert(0, self.path_to_default_repo)
+        # Check internal repo (will be after local)
+        if self.path_to_internal_repo != '' and os.path.isdir(self.path_to_internal_repo):
+            self.paths.insert(0, self.path_to_internal_repo)
 
         # Prepare path for local repo (will be the first in the search as a local scratchpad)
         path_local_repo = os.path.join(full_path_to_repos, self.cfg['local_repo_name'])
@@ -150,7 +150,7 @@ class Repos:
         return {'return':0}
 
     ############################################################
-    def pull(self, alias, url = '', branch = '', checkout = '', console = False, name = '', prefix = ''):
+    def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = ''):
         """
         Pull or clone repository
 
@@ -209,7 +209,7 @@ class Repos:
                'git':True,
             }
 
-            if name!='': meta['name']=name
+            if desc!='': meta['desc']=desc
             if prefix!='': meta['prefix']=prefix
 
             must_update_repo_desc = True
@@ -244,7 +244,7 @@ class Repos:
         return {'return':0, 'meta':meta}
 
     ############################################################
-    def init(self, alias, uid, path = '', console = False, name = '', prefix = ''):
+    def init(self, alias, uid, path = '', console = False, desc = '', prefix = ''):
         """
         Init or clone a CM repository
 
@@ -288,7 +288,7 @@ class Repos:
                  'git':False,
                }
 
-        if name!='': meta['name']=name
+        if desc!='': meta['desc']=desc
         if prefix!='': meta['prefix']=prefix
 
         r=utils.save_yaml(path_to_repo_desc + '.yaml', meta=meta)

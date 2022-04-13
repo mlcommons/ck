@@ -71,8 +71,10 @@ def parse(cmd):
     special_cli_characters=['-', '@']
 
     for key in ['action', 'automation']:
-        if len(argv) > 0 and argv[0].strip()[0] not in special_cli_characters:
-            cm_input[key] = argv.pop(0)
+        if len(argv) > 0:
+            x = argv[0].strip()
+            if x != '' and x[0] not in special_cli_characters:
+                cm_input[key] = argv.pop(0)
 
     # Check if just one artifact or multiple ones
     artifact=''

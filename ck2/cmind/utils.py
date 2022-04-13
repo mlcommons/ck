@@ -605,7 +605,7 @@ def find_api(file_name, func):
 
     Args:
               file_name (str): Python module
-              fund (str): func name
+              func (str): func name
 
     Returns:
               (dict): Unified CK dictionary:
@@ -644,3 +644,56 @@ def find_api(file_name, func):
     api = string[line1+1:line_comment2+3]
     
     return {'return':0, 'api':api}
+
+
+###########################################################################
+def find_file_in_current_directory_or_above(file_name, path_to_start = None):
+    """Find file in the current directory or above
+
+    Args:
+              file_name (str): file to find
+              path_to_start (str): path to start
+                                   use current directory if None
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                found (bool): True if found
+
+                path_to_file (str): full path to found file
+                path (str): path where found file is
+
+    """
+
+    if path_to_start is None:
+        path_to_start=os.getcwd()
+    
+    found = False
+
+    current_path = path_to_start
+
+    while True:
+       path_to_file = os.path.join(current_path, file_name)
+
+       if os.path.isfile(path_to_file):
+           found = True
+           break
+
+       new_path = os.path.dirname(current_path)
+
+       if new_path == current_path:
+           break
+
+       current_path = new_path
+     
+    r = {'return':0, 'found': found}
+
+    if found:
+        r['path_to_file'] = path_to_file
+        r['path'] = os.path.dirname(path_to_file)
+
+    return r

@@ -35,7 +35,7 @@ class Config(object):
 
                      "file_meta_repo": "cmr",
 
-                     "default_automation_module_name": "module",
+                     "common_automation_module_name": "module",
 
                      "action_substitutions": {
                        "ls":"search",
@@ -59,8 +59,6 @@ class Config(object):
                         "alias": "local",
                         "name": "local CM repository"
                      },
-
-                     "default_repo_name": "default",
 
                      "default_repo_pack": "cm.zip",
 
