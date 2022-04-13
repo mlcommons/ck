@@ -4,6 +4,11 @@ import re
 
 from setuptools import find_packages, setup, convert_path
 
+try:
+    from setuptools.command.install import install
+except ImportError:
+    from distutils.command.install import install
+
 # Get version
 current_path = os.path.abspath(os.path.dirname(__file__))
 
@@ -22,6 +27,24 @@ with open(os.path.join(current_path, "cmind", "__init__.py"), encoding="utf-8") 
 #    for req in f:
 #        if not req.startswith("--") and not req.startswith("#"):
 #            requirements.append(req)
+
+# Customize installation if needed
+
+class custom_install(install):
+    def run(self):
+        global dir_install_script
+
+        install.run(self)
+
+        # Check if this version is deprecated or has vulnerabilities! 
+        import cmind.net
+        
+        r = cmind.net.request(
+            {'get': {'action': 'get-cm-version-notes-setup', 'version': version}})
+        notes = r.get('dict', {}).get('notes','')
+        if notes !='':
+            print (notes)
+
 
 ############################################################
 # Add all directories in "automations" to the distribution
@@ -66,6 +89,10 @@ setup(
     include_package_data=False,
 
     package_data={'cmind': repo_dirs},
+
+    cmdclass={
+        'install': custom_install
+    },
 
     install_requires=['pyyaml'],
 

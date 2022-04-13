@@ -196,6 +196,9 @@ class Automation:
         console = i.get('out') == 'con'
 
         # Get parsed automation
+        if 'parsed_automation' not in i:
+           return {'return':1, 'error':'automation is not specified'}
+        
         parsed_automation = i.get('parsed_automation',[])
 
         auto_name = parsed_automation[0] if len(parsed_automation)>0 else ('','')
@@ -289,6 +292,10 @@ class Automation:
 
         """
 
+        # Check parsed automation
+        if 'parsed_automation' not in i:
+           return {'return':1, 'error':'automation is not specified'}
+        
         import shutil
         
         console = i.get('out') == 'con'
@@ -344,6 +351,10 @@ class Automation:
 
         """
 
+        # Check parsed automation
+        if 'parsed_automation' not in i:
+           return {'return':1, 'error':'automation is not specified'}
+        
         console = i.get('out') == 'con'
 
         # Find an object
@@ -369,68 +380,3 @@ class Automation:
             print (json.dumps(meta, indent=2, sort_keys=True))
 
         return {'return':0, 'path':path, 'meta':meta, 'artifact':artifact}
-
-    ############################################################
-    def uid(self, i):
-        """
-        Generate CM UID
-        """
-
-        console = i.get('out') == 'con'
-
-        r = utils.gen_uid()
-
-        if console:
-            print (r['uid'])
-
-        return r
-
-    ############################################################
-    def status(self, i):
-        """
-        Check CM status
-        """
-
-        import sys
-        
-        console = i.get('out') == 'con'
-
-        import cmind
-        version = cmind.__version__
-        
-        print ('CM version: {}'.format(version))
-        
-        # Check if repository is broken
-        try:
-            from cmind import net
-            rn = net.request(
-                {'get': {'action': 'get-cm-version-notes', 'version': version}})
-            if rn['return'] == 0:
-                notes = rn.get('dict', {}).get('notes', '')
-
-                if notes !='':
-                    print ('')
-                    print (notes)
-        except Exception as e:
-            print ('error: {}'.format(e))
-            pass
-
-        x = sys.executable
-        if x != None and x != '':
-            print ('')
-            print ('Python executable used by CK: {}'.format(x))
-
-
-        print ('')
-        print ('Path to CM package:         {}'.format(self.cmind.path_to_cmind))
-        print ('Path to CM core:            {}'.format(self.cmind.path_to_cmind_kernel))
-        print ('Path to CM default repo:    {}'.format(self.cmind.repos.path_to_default_repo))
-
-        print ('')
-        print ('Path to CM repositories:    {}'.format(self.cmind.home_path))
-
-        print ('')
-        print ('GitHub for CM development:  https://github.com/mlcommons/ck/tree/master/ck2')
-        print ('Reporting issues and ideas: https://github.com/mlcommons/ck/issues')
-
-        return {'return':0}

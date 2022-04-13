@@ -59,6 +59,52 @@ class CM(object):
         # Default automation
         self.default_automation = None
 
+        # Output of the first access
+        self.output = None
+
+    ############################################################
+    def error(self, r):
+        """
+        Process CM error (print or raise and exit)
+
+            Args:
+               r (dict)        - output from CM function
+               debug (Boolean) - if True, call raise
+               
+        Returns:
+            None or raise
+
+        """
+
+        import os
+        
+        if r['return']>0:
+            if self.debug:
+                raise Exception(r['error'])
+
+            sys.stderr.write(self.cfg['error_prefix']+' '+r['error']+'!\n')
+
+        return r
+
+    ############################################################
+    def halt(self, r):
+        """
+        Process CM error and halt (useful for scripts)
+
+            Args:
+               r (dict)        - output from CM function
+               debug (Boolean) - if True, call raise
+               
+        Returns:
+            None or raise
+
+        """
+
+        # Force console
+        self.error(r)
+        
+        sys.exit(r['return'])
+
     ############################################################
     def parse_cli(self, cmd):
         """
@@ -155,48 +201,6 @@ class CM(object):
 
         return {'return':0, 'cm_input':cm_input}
 
-    ############################################################
-    def error(self, r):
-        """
-        Process CM error (print or raise and exit)
-
-            Args:
-               r (dict)        - output from CM function
-               debug (Boolean) - if True, call raise
-               
-        Returns:
-            None or raise
-
-        """
-
-        import os
-        
-        if r['return']>0:
-            if self.debug:
-                raise Exception(r['error'])
-
-            sys.stderr.write(self.cfg['error_prefix']+' '+r['error']+'!\n')
-
-        return r
-
-    ############################################################
-    def halt(self, r):
-        """
-        Process CM error and halt (useful for scripts)
-
-            Args:
-               r (dict)        - output from CM function
-               debug (Boolean) - if True, call raise
-               
-        Returns:
-            None or raise
-
-        """
-
-        # Force console
-        self.error(r)
-        
-        sys.exit(r['return'])
 
     ############################################################
     def access(self, i, out = None):
@@ -216,6 +220,20 @@ class CM(object):
 
                 data from a given action
         
+        """
+
+        r = self.internal_access(i, out)
+
+        if r['return']>0:
+            if (self.output is None and out) or self.output=='con':
+                self.error(r)
+
+        return r
+        
+    ############################################################
+    def internal_access(self, i, out = None):
+        """
+        Internal CM access without printing error
         """
 
         # Check the type of input
@@ -238,8 +256,15 @@ class CM(object):
         if 'out' not in i and out is not None:
             i['out'] = out
 
+        output = i.get('out','')
+        
+        # Set self.output to the output of the very first access 
+        # to print error in the end if needed
+        if self.output is None:
+            self.output = output
+
         # Check if console
-        console = i.get('out') == 'con'
+        console = (output == 'con')
 
         # Check if has help flag
         cm_help = i.get(self.cfg['flag_help'], False) or i.get(self.cfg['flag_help2'], False)
@@ -262,17 +287,8 @@ class CM(object):
                 print (self.cfg['info_cli'])
 
                 if cm_help or extra_help:
-                   # Common automation actions
-                   import types
-
-                   print ('')
-                   print ('Common automation actions for all CM artifacts:')
-                   print ('')
-
-                   for d in sorted(dir(self.default_automation)):
-                       if type(getattr(self.default_automation, d))==types.MethodType and not d.startswith('_'):
-                           print ('  * '+d)
-
+                   print_db_actions(self.default_automation)
+                   
             return {'return':0, 'warning':'no action'}
 
 
@@ -403,27 +419,32 @@ class CM(object):
         if use_any_action:
             action = 'any'
         
-        print_automation = automation_meta.get('alias','')+','+automation_meta.get('uid','')
+        print_automation = automation_meta.get('alias','') + ',' + automation_meta.get('uid','')
         
-        if not hasattr(initialized_automation, action):
-            return {'return':4, 'error':'action "{}" not found in automation "{},{}"'.format(action, print_automation)}
-
         # Check if help about automation actions
         if action == 'help':
+            import types
+            
             print (self.cfg['info_cli'])
 
-            import types
+            r = print_db_actions(self.default_automation)
+            if r['return']>0: return r
+
+            db_actions = r['db_actions']
 
             print ('')
             print ('Automation actions:')
             print ('')
 
             for d in sorted(dir(initialized_automation)):
-                if type(getattr(initialized_automation, d))==types.MethodType and not d.startswith('_'):
+                if d not in db_actions and type(getattr(initialized_automation, d))==types.MethodType and not d.startswith('_'):
                     print ('* '+d)
 
             return {'return':0, 'warning':'no automation action'}
 
+        # Check if action exists
+        if not hasattr(initialized_automation, action):
+            return {'return':4, 'error':'action "{}" not found in automation "{}"'.format(action, print_automation)}
         
         # Check if help for a given automation action
         if cm_help:
@@ -484,10 +505,28 @@ class CM(object):
 #        
         r = action_addr(i)
 
-        if r['return']>0 and console:
-            error(r)
-
         return r
+
+############################################################
+def print_db_actions(automation):
+
+    import types
+
+    print ('')
+    print ('Collective database actions:')
+    print ('')
+
+    db_actions=[]
+
+    for d in sorted(dir(automation)):
+        if type(getattr(automation, d))==types.MethodType and not d.startswith('_'):
+
+            db_actions.append(d)
+
+            print ('  * '+d)
+
+    return {'return':0, 'db_actions':db_actions}
+
 
 ############################################################
 def access(i):

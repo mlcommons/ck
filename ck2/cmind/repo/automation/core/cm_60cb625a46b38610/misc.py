@@ -2,11 +2,12 @@ import cmind.utils as utils
 
 ############################################################
 def uid(i):
-    """
-    Generate CM UID
-    """
+
+    console = i.get('out') == 'con'
 
     r = utils.gen_uid()
 
-    return r
+    if console:
+        print (r['uid'])
 
+    return r
