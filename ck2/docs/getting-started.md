@@ -1,5 +1,11 @@
 ***Note that the current prototype of the CM toolkit is under heavy development and may change over time ...***
 
+
+
+***OUTDATED - WILL BE UPDATED SOON***
+
+
+
 # Getting Started with Collective Mind
 
 Here we describe a few simple steps to help you understand the CM concept. 

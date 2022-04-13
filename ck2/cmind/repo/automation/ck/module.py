@@ -17,8 +17,13 @@ class CAutomation(Automation):
         """
         Use as wrapper to CK
 
+        Example:
+          cm run ck program:*susan*
+        
         Args:
-           
+          
+
+        
         """
 
         import ck.kernel as ck

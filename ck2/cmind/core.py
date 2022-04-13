@@ -240,7 +240,7 @@ class CM(object):
 
                 # Search for automations in repos (local, internal, other) TBD: maybe should be local, other, internal?
                 r = self.common_automation.search({'parsed_automation':[('automation','bbeb15d8f0a944a4')],
-                                                    'parsed_artifact':parsed_automation})
+                                                   'parsed_artifact':parsed_automation})
                 if r['return']>0: return r
                 automation_lst = r['list']
 

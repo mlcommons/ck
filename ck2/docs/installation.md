@@ -60,7 +60,7 @@ python3.9 -m pip install cmind --user
 You should now be able to run CM using one of the following alternative commands:
 ```bash
 cmind
-python3.9 -m cm
+python3 -m cmind
 ```
 
 If the installation is successful, you will see some internal information 

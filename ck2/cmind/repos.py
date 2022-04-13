@@ -232,7 +232,6 @@ class Repos:
             r=utils.save_yaml(path_to_repo_desc + '.yaml', meta=meta)
             if r['return']>0: return r
 
-
         # Update repo list
         # TBD: make it more safe (reload and save)
         r = self.process(path_to_repo, 'add')

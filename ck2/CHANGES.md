@@ -2,6 +2,7 @@
 
 ## Dev
    - major fix of search with wildcards
+   - fixed repository handling (search, unpack, etc)
    - changed "cm status core" to "cm test core"
    - changed ambiguous "default" repo to "internal" repo
    - changed ambiguous "default_automation" to "common_automation"

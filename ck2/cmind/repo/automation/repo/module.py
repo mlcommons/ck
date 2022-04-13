@@ -124,6 +124,7 @@ class CAutomation(Automation):
             for l in lst:
                 meta = l.meta
                 alias = meta.get('alias','')
+                uid = meta.get('uid','')
 
                 if i.get('verbose',False):
 
@@ -132,9 +133,9 @@ class CAutomation(Automation):
                    path = repo.path
                    git = meta.get('git',False)
 
-                   print ('{},{} "{}" {}'.format(alias,uid,desc,path))
+                   print ('{},{} "{}" {}'.format(alias, uid, desc, path))
                 else:
-                   print ('{} = {}'.format(alias, l.path))
+                   print ('{},{} = {}'.format(alias, uid, l.path))
 
         return {'return':0, 'list':lst}
 
@@ -222,7 +223,7 @@ class CAutomation(Automation):
 
            if alias == '':
               # Try to get the name of the directory
-              alias = os.path.basename(path).strip()
+              alias = os.path.basename(path).strip().lower()
         
         # Generate UID
         uid = i.get('uid','')
@@ -400,7 +401,7 @@ class CAutomation(Automation):
 
         # Unpacking zip
         for f in files:
-            if not f.startswith('.') and not f.startswith('/') and not f.startswith('\\'):
+            if not f.startswith('..') and not f.startswith('/') and not f.startswith('\\'):
                 file_path = os.path.join(repo_path, f)
                 if f.endswith('/'):
                     # create directory
@@ -422,7 +423,7 @@ class CAutomation(Automation):
         return r_new
 
     ##############################################################################
-    def convert_ck_to_cm(self, i):
+    def import_ck_to_cm(self, i):
         """
         Convert CK repos to CM repos
         
@@ -446,7 +447,7 @@ class CAutomation(Automation):
                      'add_meta':'yes'})
         if r['return']>0: return r
 
-        lst=r['list']
+        lst=r['lst']
 
         for l in lst:
             ruoa=l['data_uoa']
@@ -529,3 +530,127 @@ class CAutomation(Automation):
                                            if r['return']>0: return r
 
         return {'return':0}
+
+    ##############################################################################
+    def convert_ck_to_cm(self, i):
+        """
+        Convert CM repo in the CK format to CM format
+        
+        Input:  {
+                  (artifact)
+                }
+
+        Output: {
+                  return       - return code =  0, if successful
+                                             >  0, if error
+                  (error)      - error text if return > 0
+                }
+
+        """
+
+        import ck.kernel as ck
+        import cmind
+        import os
+
+
+        console = i.get('out') == 'con'
+
+        # Search CM repository
+        i['action']='search'
+        i['out']=None
+        r=self.cmind.access(i)
+        
+        if r['return'] >0 : return r
+
+        lst = r['list']
+        if len(lst)==0:
+           return {'return':1, 'error':'Repository not found'}
+
+        for repo in lst:
+
+            ralias = repo.meta['alias']
+            ruid = repo.meta['uid']
+            rpath = repo.path
+
+            if rpath!='' and os.path.isdir(rpath):
+                print ('********************************************************')
+                print (ralias)
+                print (ruid)
+                print (rpath)
+
+                r = convert_ck_dir_to_cm(rpath)
+                if r['return']>0: return r
+
+        return {'return':0}
+
+##############################################################################
+def convert_ck_dir_to_cm(rpath):
+    """
+    """
+
+    import ck.kernel as ck
+    import os
+
+    dir1 = os.listdir(rpath)
+
+    for d1 in dir1:
+        if d1!='.cm':
+            dd1=os.path.join(rpath, d1)
+            if os.path.isdir(dd1):
+
+                dir2 = os.listdir(dd1)
+
+                for d2 in dir2:
+                    if d2!='.cm':
+                        dd2=os.path.join(dd1, d2, '.cm')
+                        if os.path.isdir(dd2):
+                            dmeta = {}
+                            
+                            broken = False
+                            for f in ['info.json','meta.json']:
+                                dd2a=os.path.join(dd2, f)
+
+                                if os.path.isfile(dd2a):
+                                    
+                                    r=ck.load_json_file({'json_file':dd2a})
+                                    if r['return']>0: return r
+
+                                    dmeta.update(r['dict'])
+                                else:
+                                    broken=True
+                                    break
+
+                            if broken or \
+                               'backup_data_uid' not in dmeta or \
+                               'backup_module_uid' not in dmeta or \
+                               'backup_module_uoa' not in dmeta:
+
+                               print ('Ignored: '+dd2)
+                            else:
+                               backup_data_uid = dmeta['backup_data_uid']
+
+                               backup_module_uid = dmeta['backup_module_uid']
+                               backup_module_uoa = dmeta['backup_module_uoa']
+                            
+                               dmeta2 = {}
+                               for k in dmeta:
+                                   if not k.startswith('backup_') and not k.startswith('cm_'):
+                                       dmeta2[k]=dmeta[k]
+
+                               dmeta2['uid']=backup_data_uid
+
+                               if not ck.is_uid(d2):
+                                  dmeta2['alias']=d2
+
+                               dmeta2['automation_alias']=backup_module_uoa
+                               dmeta2['automation_uid']=backup_module_uid
+
+                               cm_meta_file = os.path.join(dd1, d2, '_cm.json')
+
+                               print (cm_meta_file)
+
+                               r=ck.save_json_to_file({'json_file':cm_meta_file, 'dict': dmeta2, 'sort_keys':'yes'})
+                               if r['return']>0: return r
+
+    return {'return':0}
+
