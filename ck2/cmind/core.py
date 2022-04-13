@@ -106,103 +106,6 @@ class CM(object):
         sys.exit(r['return'])
 
     ############################################################
-    def parse_cli(self, cmd):
-        """
-        Parse CM command line.
-
-        Args:
-            cmd (str | list) : arguments as a string or list
-
-        Returns:
-            Dictionary:
-                return (int): return code == 0 if no error 
-                                          >0 if error
-
-                (error) (str): error string if return>0
-
-                cm_input (dict): CM input
-        """
-
-        # If input is string, convert to argv
-        # We use shlex to properly convert ""
-        if cmd is None:
-            argv = []
-
-        elif type(cmd) == str:
-            import shlex
-            argv = shlex.split(cmd)
-        
-        else:
-            argv = cmd
-
-        # Positional arguments
-        cm_input = {}
-
-        # First argument: automation
-        special_cli_characters=['-', '@']
-
-        for key in ['action', 'automation']:
-            if len(argv) > 0 and argv[0].strip()[0] not in special_cli_characters:
-                cm_input[key] = argv.pop(0)
-
-        # Check if just one artifact or multiple ones
-        artifact=''
-        artifacts=[] # Only added if more than 1 artifact!
-        
-        for a in argv:
-            if a.startswith('@'):
-                # Load JSON or YAML file
-                from cmind.utils import io
-                r = utils.load_json_or_yaml(file_name = a[1:], check_if_exists=True)
-                if r['return'] >0 : return r
-
-                meta = r['meta']
-                
-                cm_input.update(meta)
-
-            elif not a.startswith('-'):
-                # artifact
-                if artifact=='':
-                    artifact=a
-                    cm_input['artifact']=a
-
-                artifacts.append(a)
-            else:
-                # flags
-                if '=' in a:
-                   key,value = a.split('=')
-                   value=value.strip()
-                else:
-                   key=a
-                   value=True
-
-                if key.startswith('-'): key=key[1:]
-                if key.startswith('-'): key=key[1:]
-
-                if key.endswith(','): 
-                   key = key[:-1]
-                   value = value.split(',') if value!="" else []
-               
-                if '.' in key:
-                   keys = key.split('.')
-                   new_cm_input = cm_input
-                   for key in keys[:-1]:
-                       if key not in new_cm_input:
-                          new_cm_input[key] = {}
-                       new_cm_input = new_cm_input[key]
-
-                   new_cm_input[keys[-1]]=value
-                else:
-                   cm_input[key] = value
-
-        # Add artifacts if > 1
-        if len(artifacts) > 1:
-            cm_input['artifacts'] = artifacts
-
-        return {'return':0, 'cm_input':cm_input}
-
-
-    ############################################################
     def access(self, i, out = None):
         """
         Access customized Collective Mind object
@@ -245,9 +148,11 @@ class CM(object):
         if self.cfg['flag_debug'] in i:
             self.debug = True
 
-        # Extra parse if string or list
+        # Parse as command line if string or list
         if type(i) == str or type(i) == list:
-            r = self.parse_cli(i)
+            import cmind.cli
+            
+            r = cmind.cli.parse(i)
             if r['return'] >0 : return r
 
             i = r['cm_input']
@@ -432,12 +337,18 @@ class CM(object):
 
             db_actions = r['db_actions']
 
-            print ('')
-            print ('Automation actions:')
-            print ('')
 
+            actions = []
             for d in sorted(dir(initialized_automation)):
                 if d not in db_actions and type(getattr(initialized_automation, d))==types.MethodType and not d.startswith('_'):
+                    actions.append(d)
+
+            if len(actions)>0:
+                print ('')
+                print ('Automation actions:')
+                print ('')
+
+                for d in actions:
                     print ('* '+d)
 
             return {'return':0, 'warning':'no automation action'}
