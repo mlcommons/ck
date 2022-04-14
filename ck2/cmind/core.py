@@ -106,6 +106,20 @@ class CM(object):
         sys.exit(r['return'])
 
     ############################################################
+    def access_from_cli(self, i):
+        """
+        Access from CLI and print error if needed
+        """
+
+        r = self.access(i, out='con')
+
+        if r['return']>0:
+            if (self.output is None and out) or self.output=='con':
+                self.error(r)
+        
+        return r
+
+    ############################################################
     def access(self, i, out = None):
         """
         Access customized Collective Mind object
@@ -125,20 +139,6 @@ class CM(object):
 
                 data from a given action
         
-        """
-
-        r = self.internal_access(i, out)
-
-        if r['return']>0:
-            if (self.output is None and out) or self.output=='con':
-                self.error(r)
-
-        return r
-        
-    ############################################################
-    def internal_access(self, i, out = None):
-        """
-        Internal CM access without printing error
         """
 
         # Check the type of input

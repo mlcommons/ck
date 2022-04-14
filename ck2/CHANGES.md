@@ -1,6 +1,8 @@
 # Prototyping phase
 
 ## Dev
+   - fixed "cm init repo" - just import when repo description already exists
+   - fixed bug with printing the same error recursively
    - major fix of search with wildcards
    - fixed repository handling (search, unpack, etc)
    - changed "cm status core" to "cm test core"

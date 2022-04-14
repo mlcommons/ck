@@ -243,7 +243,7 @@ class Repos:
         return {'return':0, 'meta':meta}
 
     ############################################################
-    def init(self, alias, uid, path = '', console = False, desc = '', prefix = ''):
+    def init(self, alias, uid, path = '', console = False, desc = '', prefix = '', only_register = False):
         """
         Init or clone a CM repository
 
@@ -265,33 +265,40 @@ class Repos:
 
         path_to_repo = os.path.abspath(path_to_repo)
 
-        path_to_repo_desc = os.path.join(path_to_repo, self.cfg['file_meta_repo'])
-
         if console:
             print ('Local path to the CM repository: '+path_to_repo)
             print ('')
 
-        if not os.path.isdir(path_to_repo):
-            os.makedirs(path_to_repo)
+        # If only register (description already exists), skip meta preparation
+        path_to_repo_desc = os.path.join(path_to_repo, self.cfg['file_meta_repo'])
 
-        # Check if file already exists
-        r=utils.is_file_json_or_yaml(file_name=path_to_repo_desc)
-        if r['return'] >0: return r
+        if not only_register:
+            if not os.path.isdir(path_to_repo):
+                os.makedirs(path_to_repo)
 
-        if r['is_file']:
-            return {'return':1, 'error':'Repository description already exists in {}'.format(path_to_repo)}
-        
-        meta = {
-                 'uid': uid,
-                 'alias': alias,
-                 'git':False,
-               }
+            # Check if file already exists
+            r=utils.is_file_json_or_yaml(file_name=path_to_repo_desc)
+            if r['return'] >0: return r
 
-        if desc!='': meta['desc']=desc
-        if prefix!='': meta['prefix']=prefix
+            if r['is_file']:
+                return {'return':1, 'error':'Repository description already exists in {}'.format(path_to_repo)}
+            
+            meta = {
+                     'uid': uid,
+                     'alias': alias,
+                     'git':False,
+                   }
 
-        r=utils.save_yaml(path_to_repo_desc + '.yaml', meta=meta)
-        if r['return']>0: return r
+            if desc!='': meta['desc']=desc
+            if prefix!='': meta['prefix']=prefix
+
+            r=utils.save_yaml(path_to_repo_desc + '.yaml', meta=meta)
+            if r['return']>0: return r
+        else:
+            r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)
+            if r['return'] >0: return r
+            
+            meta = r['meta']
 
         # Update repo list
         # TBD: make it more safe (reload and save)
@@ -301,7 +308,7 @@ class Repos:
         return {'return':0, 'meta':meta, 'path_to_repo': path_to_repo, 'path_to_repo_desc': path_to_repo_desc}
 
     ############################################################
-    def delete(self, lst, remove_all = False, console = False):
+    def delete(self, lst, remove_all = False, console = False, force = False):
         """
         Delete CM repository with or without content
 
@@ -316,7 +323,16 @@ class Repos:
                 print ('Local path to a CM repository: '+path_to_repo)
 
             if path_to_repo not in self.paths:
-                return {'return':16, 'error':'repository not found'}
+                return {'return':16, 'error':'repository not found in CM index - weird'}
+
+            if console:
+                if not force:
+                    ask = input('  Are you sure you want to delete this repository (y/N): ')
+                    ask = ask.strip().lower()
+
+                    if ask!='y':
+                        print ('    Skipped!')
+                        continue
 
             # TBD: make it more safe (reload and save)
             r = self.process(path_to_repo, 'delete')

@@ -647,11 +647,11 @@ def find_api(file_name, func):
 
 
 ###########################################################################
-def find_file_in_current_directory_or_above(file_name, path_to_start = None):
+def find_file_in_current_directory_or_above(file_names, path_to_start = None):
     """Find file in the current directory or above
 
     Args:
-              file_name (str): file to find
+              file_names (list): files to find
               path_to_start (str): path to start
                                    use current directory if None
 
@@ -677,12 +677,16 @@ def find_file_in_current_directory_or_above(file_name, path_to_start = None):
     current_path = path_to_start
 
     while True:
-       path_to_file = os.path.join(current_path, file_name)
+       for file_name in file_names:
+           path_to_file = os.path.join(current_path, file_name)
 
-       if os.path.isfile(path_to_file):
-           found = True
+           if os.path.isfile(path_to_file):
+               found = True
+               break
+
+       if found:
            break
-
+       
        new_path = os.path.dirname(current_path)
 
        if new_path == current_path:

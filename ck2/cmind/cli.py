@@ -29,7 +29,7 @@ def run(argv = None):
     if argv is None:
         argv = sys.argv[1:]
     
-    r = cm.access(argv, out='con')
+    r = cm.access_from_cli(argv)
 
     sys.exit(r['return'])
 

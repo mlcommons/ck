@@ -175,11 +175,15 @@ class CAutomation(Automation):
         Args:
            (artifact) (str) - repository name or UID
            (all) (bool) - if True, remove with content otherwise just unlink
+           (force) (bool) - if True, quiet mode
+           (f) (bool) - if True, quiet mode
            
         """
 
         console = i.get('out') == 'con'
 
+        force = (i.get('force',False) or i.get('f',False))
+        
         # Search CM repository
         i['action']='search'
         i['out']=None
@@ -193,7 +197,7 @@ class CAutomation(Automation):
 
         remove_all = i.get('all', '')
 
-        r = self.cmind.repos.delete(lst, remove_all = remove_all, console = console)
+        r = self.cmind.repos.delete(lst, remove_all = remove_all, console = console, force = force)
 
         return r
 
@@ -213,6 +217,7 @@ class CAutomation(Automation):
         console = i.get('out') == 'con'
 
         alias = i.get('artifact', '')
+        uid = i.get('uid','')
         path = i.get('path', '')
         desc = i.get('desc','')
         prefix = i.get('prefix','')
@@ -220,13 +225,58 @@ class CAutomation(Automation):
         # If path is not specified, initialize in the current directory!
         if (path=='' and alias=='') or (alias!='' and path=='.'):
            path = os.path.abspath(os.getcwd())
-
-           if alias == '':
-              # Try to get the name of the directory
-              alias = os.path.basename(path).strip().lower()
         
+        # Check if there is a repo in a path
+        r = self.cmind.access({'action':'detect',
+                               'automation':self.meta['alias']+','+self.meta['uid'],
+                               'path':path})
+        if r['return']>0: return r
+
+        repo_desc_found = r['found']
+        repo_registered = r.get('registered',False)
+        
+        if repo_desc_found:
+            if repo_registered:
+                return {'return':1, 'error':'CM repository found in this path and already registered in CM'}
+            
+            if console:
+                print ('CM repository description found in this path: {}'.format(r['path_to_repo_desc']))
+
+            path= r['path_to_repo']
+            
+            repo_meta = r['meta']
+
+            repo_meta_alias = repo_meta.get('alias','')
+            repo_meta_uid = repo_meta.get('uid','')
+            repo_meta_prefix = repo_meta.get('prefix','')
+
+            # Check if mismatch in alias
+            if alias!='':
+                if repo_meta_alias!='' and repo_meta_alias!=alias:
+                    return {'return':1, 'error':'mismatch between new repo alias and the existing one'}
+            else:
+                alias = repo_meta_alias
+
+            # Check if mismatch in UID
+            if uid!='':
+                if repo_meta_uid!='' and repo_meta_uid!=uid:
+                    return {'return':1, 'error':'mismatch between new repo UID and the existing one'}
+            else:
+                uid = repo_meta_uid
+
+            # Check if mismatch in prefix
+            if prefix!='':
+                if repo_meta_prefix!='' and repo_meta_prefix is not None and repo_meta_prefix!=prefix:
+                    return {'return':1, 'error':'mismatch between new repo prefix and the existing one'}
+            else:
+                prefix = repo_meta_prefix
+
+        # If still no alias, use from the path
+        if alias == '':
+            # Try to get the name of the directory
+            alias = os.path.basename(path).strip().lower()
+
         # Generate UID
-        uid = i.get('uid','')
         if uid =='':
             r=utils.gen_uid()
             if r['return']>0: return r
@@ -255,7 +305,7 @@ class CAutomation(Automation):
                 return {'return':1, 'error':'Repository "{}" is already registered in CM'.format(repo_artifact)}
 
         # Create repository 
-        r = self.cmind.repos.init(alias = alias, uid = uid, path = path, console = console, desc=desc, prefix=prefix)
+        r = self.cmind.repos.init(alias = alias, uid = uid, path = path, console = console, desc=desc, prefix=prefix, only_register=repo_desc_found)
         return r
 
     ############################################################
@@ -468,66 +518,8 @@ class CAutomation(Automation):
                                 'path':rpath})
                 if r['return']>0: return r
 
-                dir1 = os.listdir(rpath)
-
-                for d1 in dir1:
-                    if d1!='.cm':
-                        dd1=os.path.join(rpath, d1)
-                        if os.path.isdir(dd1):
-
-                            dir2 = os.listdir(dd1)
-
-                            for d2 in dir2:
-                                if d2!='.cm':
-                                    dd2=os.path.join(dd1, d2, '.cm')
-                                    if os.path.isdir(dd2):
-                                        dmeta = {}
-                                        
-                                        broken = False
-                                        for f in ['info.json','meta.json']:
-                                            dd2a=os.path.join(dd2, f)
-
-                                            if os.path.isfile(dd2a):
-                                                
-                                                r=ck.load_json_file({'json_file':dd2a})
-                                                if r['return']>0: return r
-
-                                                dmeta.update(r['dict'])
-                                            else:
-                                                broken=True
-                                                break
-
-                                        if broken or \
-                                           'backup_data_uid' not in dmeta or \
-                                           'backup_module_uid' not in dmeta or \
-                                           'backup_module_uoa' not in dmeta:
-
-                                           print ('Ignored: '+dd2)
-                                        else:
-                                           backup_data_uid = dmeta['backup_data_uid']
-
-                                           backup_module_uid = dmeta['backup_module_uid']
-                                           backup_module_uoa = dmeta['backup_module_uoa']
-                                        
-                                           dmeta2 = {}
-                                           for k in dmeta:
-                                               if not k.startswith('backup_') and not k.startswith('cm_'):
-                                                   dmeta2[k]=dmeta[k]
-
-                                           dmeta2['uid']=backup_data_uid
-
-                                           if not ck.is_uid(d2):
-                                              dmeta2['alias']=d2
-
-                                           dmeta2['automation_alias']=backup_module_uoa
-                                           dmeta2['automation_uid']=backup_module_uid
-
-                                           cm_meta_file = os.path.join(dd1, d2, '_cm.json')
-
-                                           print (cm_meta_file)
-
-                                           r=ck.save_json_to_file({'json_file':cm_meta_file, 'dict': dmeta2, 'sort_keys':'yes'})
-                                           if r['return']>0: return r
+                r = convert_ck_dir_to_cm(rpath)
+                if r['return']>0: return r
 
         return {'return':0}
 
@@ -582,6 +574,83 @@ class CAutomation(Automation):
                 if r['return']>0: return r
 
         return {'return':0}
+
+
+    ############################################################
+    def detect(self, i):
+        """
+        Detect repo in the current path
+
+        Args:
+          (path) (str) - path to repo (otherwise use current path)
+        
+
+        """
+
+        console = i.get('out') == 'con'
+
+        # Prepare path to repo
+        repos = self.cmind.repos
+
+        path = i.get('path')
+        
+        # Search for cmr.yaml or cmr.json
+        r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_meta_repo']+'.json', 
+                                                         self.cmind.cfg['file_meta_repo']+'.yaml'],
+                                                         path_to_start = path)
+        if r['return']>0: return r
+
+        rr = {'return':0}
+        
+        found = r['found']
+        rr['found'] = found
+
+        registered = False
+        
+        if found:
+            path_to_repo_desc = r['path_to_file']
+            path_to_repo = r['path']
+
+            rr['path_to_repo_desc'] = path_to_repo_desc
+            rr['path_to_repo'] = path_to_repo
+
+            # Load meta
+            r = utils.load_json_or_yaml(file_name = path_to_repo_desc)
+            if r['return']>0: return r
+
+            repo_meta = r['meta']
+
+            rr['meta'] = repo_meta
+
+            # Check if belongs to installed repo already
+            for path in repos.paths:
+                if path == path_to_repo:
+                    registered = True
+
+        rr['registered'] = registered
+
+        if console:
+            if not found:
+                print ('CM repository not found')
+            else:
+                print ('CM repository found')
+
+                print ('')
+                print ('Path to repo desc file: {}'.format(path_to_repo_desc))
+                print ('Path to repo:           {}'.format(path_to_repo))
+
+                if registered:
+                    print ('')
+                    print ('This repository is registered in CM')
+                    
+                    print ('')
+                    print ('Repo alias: {}'.format(repo_meta['alias']))
+                    print ('Repo UID:   {}'.format(repo_meta['uid']))
+
+
+        return rr
+
+
 
 ##############################################################################
 def convert_ck_dir_to_cm(rpath):
@@ -653,4 +722,3 @@ def convert_ck_dir_to_cm(rpath):
                                if r['return']>0: return r
 
     return {'return':0}
-
