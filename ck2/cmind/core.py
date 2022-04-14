@@ -184,7 +184,6 @@ class CM(object):
                    
             return {'return':0, 'warning':'no action'}
 
-
         # Load info about all CM repositories (to enable search for automations and artifacts)
         if self.repos == None:
             repos = Repos(path = self.home_path, cfg = self.cfg, 
@@ -201,6 +200,38 @@ class CM(object):
 
         automation_lst = []
         use_any_action = False
+
+        artifact = i.get('artifact','')
+        artifacts = i.get('artifacts',[]) # Only if more than 1 artifact
+                                          # First element is == artifact
+
+        # Check if automation is "." - then attempt to detect repo, automation and artifact from the current directory
+        if automation == '.':
+            r = self.access({'action':'detect',
+                             'automation':'repo,55c3e27e8a140e48'})
+            if r['return']>0: return r
+
+            # Check and substitute automation
+            if r.get('artifact_found', False):
+                automation = r['cm_automation']
+            else:
+                automation = ''
+
+            # Check and make an artifact (only if artifacts are not specified)
+            if r.get('artifact_found_in_current_path', False) and len(artifacts)==0:
+                artifact = r['cm_artifact']
+
+            if r.get('repo_found',False):
+                cm_repo = r['cm_repo']
+
+                if ':' not in artifact:
+                   artifact = cm_repo + ':' + artifact
+   
+                for ia in len(artifacts):
+                    a = artifacts[ia]
+                    if ':' not in a:
+                        a = cm_repo + ':' + a
+                        artifacts[ia] = a
         
         # If automation!='', attempt to find it and load
         # Otherwise use the common automation
@@ -377,7 +408,6 @@ class CM(object):
             return {'return':0, 'help':api}
 
         # Process artifacts for this automation action
-        artifacts = i.get('artifacts',[])
         if len(artifacts)>0:
             parsed_artifacts = []
 
@@ -391,7 +421,6 @@ class CM(object):
             i['parsed_artifacts'] = parsed_artifacts
 
         # Check artifact and artifacts
-        artifact = i.get('artifact','')
         if artifact != '':
             # Parse artifact
             r = utils.parse_cm_object(artifact)

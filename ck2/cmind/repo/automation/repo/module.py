@@ -593,8 +593,9 @@ class CAutomation(Automation):
         repos = self.cmind.repos
 
         path = i.get('path')
+        if path == '': path = None
         
-        # Search for cmr.yaml or cmr.json
+        # Search for cmr.yaml or cmr.json in current directory and above
         r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_meta_repo']+'.json', 
                                                          self.cmind.cfg['file_meta_repo']+'.yaml'],
                                                          path_to_start = path)
@@ -606,13 +607,15 @@ class CAutomation(Automation):
         rr['found'] = found
 
         registered = False
-        
+
         if found:
             path_to_repo_desc = r['path_to_file']
             path_to_repo = r['path']
 
             rr['path_to_repo_desc'] = path_to_repo_desc
             rr['path_to_repo'] = path_to_repo
+
+            rr['found_in_current_path'] = r['found_in_current_path']
 
             # Load meta
             r = utils.load_json_or_yaml(file_name = path_to_repo_desc)
@@ -623,17 +626,55 @@ class CAutomation(Automation):
             rr['meta'] = repo_meta
 
             # Check if belongs to installed repo already
-            for path in repos.paths:
-                if path == path_to_repo:
+            for tmp_path in repos.paths:
+                if tmp_path == path_to_repo:
                     registered = True
 
+            if registered:
+                rr['cm_repo'] = utils.assemble_cm_object(repo_meta['alias'],repo_meta['uid'])
+                
         rr['registered'] = registered
 
+        # Search for _cm.yaml or _cm.json in current directory and below
+        r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_cmeta']+'.json', 
+                                                         self.cmind.cfg['file_cmeta']+'.yaml'],
+                                                         path_to_start = path,
+                                                         reverse = True)
+        if r['return']>0: return r
+
+        artifact_found = r['found']
+        artifact_found_in_current_path = r.get('found_in_current_path', False)
+
+        rr['artifact_found'] = artifact_found
+
+        if artifact_found:
+            path_to_artifact_desc = r['path_to_file']
+            path_to_artifact = r['path']
+
+            rr['path_to_artifact_desc'] = path_to_artifact_desc
+            rr['path_to_artifact'] = path_to_artifact
+
+            rr['artifact_found_in_current_path'] = artifact_found_in_current_path
+
+            # Load meta
+            r = utils.load_json_or_yaml(file_name = path_to_artifact_desc)
+            if r['return']>0: return r
+
+            artifact_meta = r['meta']
+
+            rr['artifact_meta'] = artifact_meta
+
+            rr['cm_automation'] = utils.assemble_cm_object(artifact_meta['automation_alias'],artifact_meta['automation_uid'])
+
+            if artifact_found_in_current_path:
+                rr['cm_artifact'] = utils.assemble_cm_object(artifact_meta['alias'],artifact_meta['uid'])
+
+        # Print
         if console:
             if not found:
                 print ('CM repository not found')
             else:
-                print ('CM repository found')
+                print ('CM repository found:')
 
                 print ('')
                 print ('Path to repo desc file: {}'.format(path_to_repo_desc))
@@ -641,12 +682,27 @@ class CAutomation(Automation):
 
                 if registered:
                     print ('')
-                    print ('This repository is registered in CM')
+                    print ('  This repository is registered in CM')
                     
                     print ('')
-                    print ('Repo alias: {}'.format(repo_meta['alias']))
-                    print ('Repo UID:   {}'.format(repo_meta['uid']))
+                    print ('  Repo alias: {}'.format(repo_meta['alias']))
+                    print ('  Repo UID:   {}'.format(repo_meta['uid']))
 
+                if artifact_found:
+                    print ('')
+                    print ('Current directory has related CM automation:')
+                    
+                    print ('')
+                    print ('  Automation alias: {}'.format(artifact_meta['automation_alias']))
+                    print ('  Automation UID:   {}'.format(artifact_meta['automation_uid']))
+
+                if artifact_found_in_current_path:
+                    print ('')
+                    print ('Current directory has a CM artifact:')
+                    
+                    print ('')
+                    print ('  Artifact alias: {}'.format(artifact_meta['alias']))
+                    print ('  Artifact UID:   {}'.format(artifact_meta['uid']))
 
         return rr
 

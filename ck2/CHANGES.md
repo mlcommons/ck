@@ -1,6 +1,10 @@
 # Prototyping phase
 
-## Dev
+## V0.7.4
+   - added support to detect repo, automation and artifact in a current directory 
+     when using CM CLI:
+     "cm search . --tags=..."
+     "cm load ."
    - added "--out=json" to print automation action output in JSON format
    - do not wait until the end of search to print entries (otherwise may be slow)
    - treat uid and alias as case insensitive (the same on Linux and Windows)

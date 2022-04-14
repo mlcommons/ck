@@ -653,7 +653,7 @@ def find_api(file_name, func):
 
 
 ###########################################################################
-def find_file_in_current_directory_or_above(file_names, path_to_start = None):
+def find_file_in_current_directory_or_above(file_names, path_to_start = None, reverse = False):
     """Find file in the current directory or above
 
     Args:
@@ -682,6 +682,10 @@ def find_file_in_current_directory_or_above(file_names, path_to_start = None):
 
     current_path = path_to_start
 
+    # Only makes sense if found
+    found_in_current_path = True
+
+    # Go backwards to find cmr.yaml or cmr.json (CM repo description)
     while True:
        for file_name in file_names:
            path_to_file = os.path.join(current_path, file_name)
@@ -693,17 +697,77 @@ def find_file_in_current_directory_or_above(file_names, path_to_start = None):
        if found:
            break
        
-       new_path = os.path.dirname(current_path)
+       if reverse:
+          # Get first directory
+          dirs = os.listdir(current_path)
 
-       if new_path == current_path:
-           break
+          new_path = ''
+
+          for d in dirs:
+              if not d.startswith('.'):
+                  test_dir = os.path.join(current_path, d)
+                  if os.path.isdir(test_dir):
+                      new_path = test_dir
+                      break
+
+          if new_path == '':
+              break        
+
+       else:
+          new_path = os.path.dirname(current_path)
+
+          if new_path == current_path:
+              break
+
+       found_in_current_path = False
 
        current_path = new_path
-     
+
     r = {'return':0, 'found': found}
 
     if found:
         r['path_to_file'] = path_to_file
         r['path'] = os.path.dirname(path_to_file)
 
+        r['found_in_current_path'] = found_in_current_path
+
     return r
+
+###########################################################################
+def assemble_cm_object(alias,uid):
+    """Assemble CM object
+
+    Args:
+              file_names (list): files to find
+              path_to_start (str): path to start
+                                   use current directory if None
+
+    Returns:
+              (str): CM object
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                found (bool): True if found
+
+                path_to_file (str): full path to found file
+                path (str): path where found file is
+
+    """
+
+    if alias == None: alias = ''
+    if uid == None: uid = ''
+
+    cm_obj = ''
+
+    if uid != '':
+       cm_obj = uid
+
+    if alias != '':
+       if cm_obj !='':
+           cm_obj = alias + ',' + cm_obj
+       else:
+           cm_obj = alias
+
+    return cm_obj
