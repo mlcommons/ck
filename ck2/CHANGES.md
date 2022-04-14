@@ -1,6 +1,7 @@
 # Prototyping phase
 
 ## Dev
+   - treat uid and alias as case insensitive (the same on Linux and Windows)
    - fixed "cm init repo" - just import when repo description already exists
    - fixed bug with printing the same error recursively
    - major fix of search with wildcards

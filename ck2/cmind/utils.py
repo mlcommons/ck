@@ -427,6 +427,9 @@ def match_objects(uid, alias, uid2, alias2):
     if uid2 is None: uid2 = ''
     if alias2 is None: alias2 = ''
     
+    uid = uid.lower()
+    uid2 = uid2.lower()
+
     # We match first by UID no matter what the alias is (the last one can change)
     if uid!='' and uid2!='':
         if uid==uid2:
@@ -438,13 +441,16 @@ def match_objects(uid, alias, uid2, alias2):
         if '*' in alias2 or '?' in alias2:
             object2_has_wildcards = True
 
+        alias = alias.lower()
+        alias2 = alias2.lower()
+        
         if object2_has_wildcards:
             import fnmatch
 
             if fnmatch.fnmatch(alias, alias2):
                 match = True
         else:
-            if alias2=='' or alias.lower()==alias2.lower():
+            if alias2=='' or alias==alias2:
                 match = True
 
     return {'return':0, 'match': match}
