@@ -171,12 +171,9 @@ class Automation:
 
                                     lst.append(artifact_object)
 
-
-
-        # Output paths to console if CLI or forced
-        if console:
-            for l in lst:
-                print (l.path)
+                                    # Output to console if forced
+                                    if console:
+                                        print (artifact_object.path)
 
         return {'return':0, 'list':lst}
 

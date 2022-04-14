@@ -29,7 +29,14 @@ def run(argv = None):
     if argv is None:
         argv = sys.argv[1:]
     
-    r = cm.access_from_cli(argv)
+    r = cm.access(argv, out='con')
+
+    if r['return']>0:
+        if cm.output is None or cm.output=='con':
+            cm.error(r)
+        elif cm.output=='json':
+            import json
+            print (json.dumps(r, indent=2))
 
     sys.exit(r['return'])
 

@@ -426,7 +426,7 @@ def match_objects(uid, alias, uid2, alias2):
     if alias is None: alias = ''
     if uid2 is None: uid2 = ''
     if alias2 is None: alias2 = ''
-    
+
     uid = uid.lower()
     uid2 = uid2.lower()
 

@@ -1,6 +1,8 @@
 # Prototyping phase
 
 ## Dev
+   - added "--out=json" to print automation action output in JSON format
+   - do not wait until the end of search to print entries (otherwise may be slow)
    - treat uid and alias as case insensitive (the same on Linux and Windows)
    - fixed "cm init repo" - just import when repo description already exists
    - fixed bug with printing the same error recursively
