@@ -206,7 +206,7 @@ class CM(object):
                                           # First element is == artifact
 
         # Check if automation is "." - then attempt to detect repo, automation and artifact from the current directory
-        if automation == '.':
+        if automation == '' or automation == '.':
             r = self.access({'action':'detect',
                              'automation':'repo,55c3e27e8a140e48'})
             if r['return']>0: return r
@@ -232,7 +232,7 @@ class CM(object):
                     if ':' not in a:
                         a = cm_repo + ':' + a
                         artifacts[ia] = a
-        
+
         # If automation!='', attempt to find it and load
         # Otherwise use the common automation
         if automation != '' and not use_common_automation:
