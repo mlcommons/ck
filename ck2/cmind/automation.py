@@ -143,11 +143,12 @@ class Automation:
                                     
                                     automation_uid = meta.get('automation_uid')
                                     automation_alias = meta.get('automation_alias')
-                                    
+
                                     r = utils.match_objects(uid = automation_uid, 
                                                             alias = automation_alias,
                                                             uid2 = auto_name[1],
-                                                            alias2 = auto_name[0])
+                                                            alias2 = auto_name[0],
+                                                            more_strict = True)
                                     if r['return']>0: return r
 
                                     if not r['match']:

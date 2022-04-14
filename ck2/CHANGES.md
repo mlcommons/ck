@@ -1,6 +1,8 @@
 # Prototyping phase
 
 ## Master
+   - fixed a bug in "cm search" when automation is created without UID
+
 
 ## V0.7.4
    - added support to detect repo, automation and artifact in a current directory 

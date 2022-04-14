@@ -221,13 +221,13 @@ class CM(object):
             if r.get('artifact_found_in_current_path', False) and len(artifacts)==0:
                 artifact = r['cm_artifact']
 
-            if r.get('repo_found',False):
+            if r.get('found', False):
                 cm_repo = r['cm_repo']
 
                 if ':' not in artifact:
                    artifact = cm_repo + ':' + artifact
    
-                for ia in len(artifacts):
+                for ia in range(0,len(artifacts)):
                     a = artifacts[ia]
                     if ':' not in a:
                         a = cm_repo + ':' + a

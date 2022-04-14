@@ -390,24 +390,29 @@ def parse_cm_object(obj, max_length = 2):
 
 
 ###########################################################################
-def match_objects(uid, alias, uid2, alias2):
+def match_objects(uid, alias, uid2, alias2, more_strict = False):
     """
     Check if 2 CM objects match
 
     Args:    
 
-          alias can't have wildcards (real CM object)
-          alias2 can have wildcards (search)
-          
-          281d5c3e3f69d8e7,* == 281d5c3e3f69d8e7,*
-          281d5c3e3f69d8e7,os == ,os
-          ,os == 281d5c3e3f69d8e7,os
-          ,* != 281d5c3e3f69d8e7,*
+          uid (str)
+          alias (str) can't have wildcards (real CM object)
 
-          os
-          281d5c3e3f69d8e7
-          os,281d5c3e3f69d8e7
-          281d5c3e3f69d8e7,os
+          uid2 (str)
+          alias2 (str) can have wildcards (search)
+          
+               281d5c3e3f69d8e7,* == 281d5c3e3f69d8e7,*
+               281d5c3e3f69d8e7,os == ,os
+               ,os == 281d5c3e3f69d8e7,os
+               ,* != 281d5c3e3f69d8e7,*
+
+               os
+               281d5c3e3f69d8e7
+               os,281d5c3e3f69d8e7
+               281d5c3e3f69d8e7,os
+
+         more_strict (bool) - if True, then ,os != 281d5c3e3f69d8e7, (needed to check automation)
 
 
     Returns:
@@ -434,12 +439,13 @@ def match_objects(uid, alias, uid2, alias2):
     if uid!='' and uid2!='':
         if uid==uid2:
             match = True
+    elif more_strict and uid=='' and uid2!='' and alias2=='':
+        # Not match
+        pass
     else:
         # As soon as one UID is not there, we try to match by alias with wildcards
         # Both aliases must be present otherwise ambiguity - we report is as no match
-        object2_has_wildcards = False
-        if '*' in alias2 or '?' in alias2:
-            object2_has_wildcards = True
+        object2_has_wildcards = True if ('*' in alias2 or '?' in alias2) else False
 
         alias = alias.lower()
         alias2 = alias2.lower()
