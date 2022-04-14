@@ -635,39 +635,43 @@ class CAutomation(Automation):
                 
         rr['registered'] = registered
 
-        # Search for _cm.yaml or _cm.json in current directory and below
-        r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_cmeta']+'.json', 
-                                                         self.cmind.cfg['file_cmeta']+'.yaml'],
-                                                         path_to_start = path,
-                                                         reverse = True)
-        if r['return']>0: return r
-
-        artifact_found = r['found']
-        artifact_found_in_current_path = r.get('found_in_current_path', False)
-
-        rr['artifact_found'] = artifact_found
-
-        if artifact_found:
-            path_to_artifact_desc = r['path_to_file']
-            path_to_artifact = r['path']
-
-            rr['path_to_artifact_desc'] = path_to_artifact_desc
-            rr['path_to_artifact'] = path_to_artifact
-
-            rr['artifact_found_in_current_path'] = artifact_found_in_current_path
-
-            # Load meta
-            r = utils.load_json_or_yaml(file_name = path_to_artifact_desc)
+        # If repository found, search for _cm.yaml or _cm.json in current directory and below
+        artifact_found = False
+        artifact_found_in_current_path = False
+        
+        if found:
+            r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_cmeta']+'.json', 
+                                                             self.cmind.cfg['file_cmeta']+'.yaml'],
+                                                             path_to_start = path,
+                                                             reverse = True)
             if r['return']>0: return r
 
-            artifact_meta = r['meta']
+            artifact_found = r['found']
+            artifact_found_in_current_path = r.get('found_in_current_path', False)
 
-            rr['artifact_meta'] = artifact_meta
+            rr['artifact_found'] = artifact_found
 
-            rr['cm_automation'] = utils.assemble_cm_object(artifact_meta['automation_alias'],artifact_meta['automation_uid'])
+            if artifact_found:
+                path_to_artifact_desc = r['path_to_file']
+                path_to_artifact = r['path']
 
-            if artifact_found_in_current_path:
-                rr['cm_artifact'] = utils.assemble_cm_object(artifact_meta['alias'],artifact_meta['uid'])
+                rr['path_to_artifact_desc'] = path_to_artifact_desc
+                rr['path_to_artifact'] = path_to_artifact
+
+                rr['artifact_found_in_current_path'] = artifact_found_in_current_path
+
+                # Load meta
+                r = utils.load_json_or_yaml(file_name = path_to_artifact_desc)
+                if r['return']>0: return r
+
+                artifact_meta = r['meta']
+
+                rr['artifact_meta'] = artifact_meta
+
+                rr['cm_automation'] = utils.assemble_cm_object(artifact_meta['automation_alias'],artifact_meta['automation_uid'])
+
+                if artifact_found_in_current_path:
+                    rr['cm_artifact'] = utils.assemble_cm_object(artifact_meta['alias'],artifact_meta['uid'])
 
         # Print
         if console:
