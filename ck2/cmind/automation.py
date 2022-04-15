@@ -461,6 +461,9 @@ class Automation:
         """
         Update Collective Mind artifact
 
+        Note: not thread safe - we expect one pipeline running on a system
+              can make it thread safe when needed (similar to CK)
+
         Args:
            parsed_automation
            parsed_artifact
@@ -499,13 +502,11 @@ class Automation:
         # Updating artifacts
         for artifact in lst:
 
-            path = artifact.path
-            meta = artifact.meta
+            r = artifact.update(meta)
 
             # Output if console
             if console:
-                import json
-                print (json.dumps(meta, indent=2, sort_keys=True))
+                print ('Updated {}'.format(self.path))
 
         return {'return':0, 'list':lst}
 

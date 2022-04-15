@@ -1,6 +1,7 @@
 # Prototyping phase
 
 ## Master
+   - added "cm update" and fixed minor bugs with cm load/update
    - fixed problems with non-serializable keys when --out=json
    - fixed major bug with inheritance (_base)
    - fixed a bug in "cm search" when automation is created without UID
