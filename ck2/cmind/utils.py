@@ -815,3 +815,40 @@ def dump_safe_json(i):
     print (json.dumps(meta, indent=2, sort_keys=True, ensure_ascii=False))
 
     return {'return':0, 'meta': meta}
+
+###########################################################################
+def convert_tags_to_list(i):
+    """
+    Convert string tags to list
+
+    Args:
+              i (dict): dictionary with CM input
+
+    Returns:
+              (list): list of tags
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                meta (dict): safe dict
+
+    """
+
+    tags = i.get('tags')
+    if tags == None: tags=''
+
+    tags = tags.strip()
+
+    tags_list = []
+
+    if tags!='': 
+       tags_list_tmp = tags.split(',')
+
+       for tag in tags_list_tmp:
+           tag = tag.strip()
+
+           if tag not in tags_list:
+               tags_list.append(tag)
+
+    return tags_list

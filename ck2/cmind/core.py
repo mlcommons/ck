@@ -254,7 +254,6 @@ class CM(object):
                 auto_name = parsed_automation[0] if len(parsed_automation)>0 else ('','')
                 auto_repo = parsed_automation[1] if len(parsed_automation)>1 else None
 
-
                 # Search for automations in repos (local, internal, other) TBD: maybe should be local, other, internal?
                 ii={'parsed_automation':[('automation','bbeb15d8f0a944a4')],
                     'parsed_artifact':parsed_automation}
@@ -273,6 +272,10 @@ class CM(object):
                     automation_meta = automation.meta
 
                     use_any_action = automation_meta.get('use_any_action',False)
+                    
+                    # Update parsed_automation with UID and alias
+                    parsed_automation[0] = (automation_meta.get('alias',''),
+                                            automation_meta.get('uid',''))
                     
                     # Find Python module for this automation
                     try:

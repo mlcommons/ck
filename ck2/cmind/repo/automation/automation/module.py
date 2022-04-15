@@ -19,6 +19,7 @@ class CAutomation(Automation):
 
         Args:
            (artifact) (str) - repository name or UID
+           (tags) (str) - tags
            
         """
 
@@ -31,14 +32,19 @@ class CAutomation(Automation):
         artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
 
         module_name = 'module.py'
-        
-        # Add placeholder
+
+        tags_list = utils.convert_tags_to_list(i)
+        if 'automation' not in tags_list: tags_list.append('automation')
+
+        # Add placeholder (use common action)
         i['out']='con'
         i['common']=True
         
         i['meta']={'automation_alias':self.meta['alias'],
                    'automation_uid':self.meta['uid'],
-                   'tags':['automation',module_name]}
+                   'tags':tags_list}
+
+        if 'tags' in i: del(i['tags'])
 
         r_obj=self.cmind.access(i)
         if r_obj['return']>0: return r_obj
