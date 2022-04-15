@@ -1,6 +1,7 @@
 # Prototyping phase
 
 ## Master
+   - fixed problems with non-serializable keys when --out=json
    - fixed major bug with inheritance (_base)
    - fixed a bug in "cm search" when automation is created without UID
    - fixed a bug with @input.json

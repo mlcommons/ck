@@ -31,12 +31,12 @@ def run(argv = None):
     
     r = cm.access(argv, out='con')
 
-    if r['return']>0:
-        if cm.output is None or cm.output=='con':
-            cm.error(r)
-        elif cm.output=='json':
-            import json
-            print (json.dumps(r, indent=2))
+    # Check if output to console
+    if cm.output=='json':
+        from cmind import utils
+        utils.dump_safe_json(r)
+    elif r['return']>0 and (cm.output is None or cm.output=='con'):
+        cm.error(r)
 
     sys.exit(r['return'])
 

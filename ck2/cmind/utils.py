@@ -779,3 +779,39 @@ def assemble_cm_object(alias,uid):
            cm_obj = alias
 
     return cm_obj
+
+###########################################################################
+def dump_safe_json(i):
+    """Dump safe JSON
+
+    Args:
+              i (dict): dictionary or list to dump
+
+    Returns:
+              (str): CM object
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                meta (dict): safe dict
+
+    """
+
+    import json
+    
+    meta = {}
+
+    for k in i:
+        v = i[k]
+        
+        try:
+           s = json.dumps(v)
+        except Exception as e:
+           pass
+        else:
+           meta[k] = v
+
+    print (json.dumps(meta, indent=2, sort_keys=True, ensure_ascii=False))
+
+    return {'return':0, 'meta': meta}

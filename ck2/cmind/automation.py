@@ -447,13 +447,14 @@ class Automation:
 
         path = artifact.path
         meta = artifact.meta
+        original_meta = artifact.original_meta
 
         # Output if console
         if console:
             import json
             print (json.dumps(meta, indent=2, sort_keys=True))
 
-        return {'return':0, 'path':path, 'meta':meta, 'artifact':artifact}
+        return {'return':0, 'path':path, 'meta':meta, 'original_meta':original_meta, 'artifact':artifact}
 
     ############################################################
     def update(self, i):
