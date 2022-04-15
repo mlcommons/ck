@@ -206,7 +206,7 @@ class CM(object):
                                           # First element is == artifact
 
         # Check if automation is "." - then attempt to detect repo, automation and artifact from the current directory
-        if automation == '' or automation == '.':
+        if automation =='' or automation == '.':
             r = self.access({'action':'detect',
                              'automation':'repo,55c3e27e8a140e48'})
             if r['return']>0: return r
@@ -221,7 +221,7 @@ class CM(object):
             if r.get('artifact_found_in_current_path', False) and len(artifacts)==0:
                 artifact = r['cm_artifact']
 
-            if r.get('found', False):
+            if r.get('registered', False):
                 cm_repo = r['cm_repo']
 
                 if ':' not in artifact:
@@ -256,8 +256,12 @@ class CM(object):
 
 
                 # Search for automations in repos (local, internal, other) TBD: maybe should be local, other, internal?
-                r = self.common_automation.search({'parsed_automation':[('automation','bbeb15d8f0a944a4')],
-                                                   'parsed_artifact':parsed_automation})
+                ii={'parsed_automation':[('automation','bbeb15d8f0a944a4')],
+                    'parsed_artifact':parsed_automation}
+                # Ignore inheritance when called recursively
+                if i.get('ignore_inheritance',False):
+                   ii['ignore_inheritance']=True 
+                r = self.common_automation.search(ii)
                 if r['return']>0: return r
                 automation_lst = r['list']
 
@@ -431,11 +435,6 @@ class CM(object):
         # Call automation action
         action_addr=getattr(initialized_automation, action)
 
-#        import json
-#        print ('')
-#        print (json.dumps(i, indent=2))    
-#        print ('')        
-#        
         r = action_addr(i)
 
         return r

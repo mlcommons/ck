@@ -20,6 +20,75 @@ class Automation:
         self.path = os.path.dirname(self.automation_file_path)
 
     ############################################################
+    def version(self, i):
+        """
+        Print version
+
+        """
+
+        console = i.get('out') == 'con'
+
+        import cmind
+        version = cmind.__version__
+        
+        if console:
+            print (version)
+
+        return {'return':0, 'version':version}
+
+    ############################################################
+    def test(self, i):
+        """
+        Check CM status
+        """
+
+        import sys
+        
+        console = i.get('out') == 'con'
+
+        r = self.version({})
+        if r['return']>0: return r
+
+        version = r['version']
+        
+        print ('CM version: {}'.format(version))
+        
+        # Check if repository is broken
+        try:
+            from cmind import net
+            rn = net.request(
+                {'get': {'action': 'get-cm-version-notes', 'version': version}})
+            if rn['return'] == 0:
+                notes = rn.get('dict', {}).get('notes', '')
+
+                if notes !='':
+                    print ('')
+                    print (notes)
+        except Exception as e:
+            print ('error: {}'.format(e))
+            pass
+
+        x = sys.executable
+        if x != None and x != '':
+            print ('')
+            print ('Python executable used by CK: {}'.format(x))
+
+
+        print ('')
+        print ('Path to CM package:         {}'.format(self.cmind.path_to_cmind))
+        print ('Path to CM core:            {}'.format(self.cmind.path_to_cmind_kernel))
+        print ('Path to CM internal repo:   {}'.format(self.cmind.repos.path_to_internal_repo))
+
+        print ('')
+        print ('Path to CM repositories:    {}'.format(self.cmind.home_path))
+
+        print ('')
+        print ('GitHub for CM development:  https://github.com/mlcommons/ck/tree/master/ck2')
+        print ('Reporting issues and ideas: https://github.com/mlcommons/ck/issues')
+
+        return {'return':0}
+
+    ############################################################
     def search(self, i):
         """
         List CM artifacts
@@ -126,9 +195,13 @@ class Automation:
                                 # Load artifact class
                                 artifact_object = Artifact(cmind = self.cmind, path = path_artifact)
 
-                                r = artifact_object.load(ignore_inheritance = ignore_inheritance)
+                                # Force no inheritance if first artifact just to check automation UID and alias
+                                tmp_ignore_inheritance = True if first_artifact else ignore_inheritance
+                                
+                                r = artifact_object.load(ignore_inheritance = tmp_ignore_inheritance)
                                 if r['return']>0: return r
 
+                                # Check permanent meta
                                 meta = artifact_object.meta
 
                                 uid = meta.get('uid', '')
@@ -139,13 +212,8 @@ class Automation:
 
                                 if first_artifact:
                                     # Need to check if automation matches
-                                    first_artifact = False
-                                    
-                                    automation_uid = meta.get('automation_uid')
-                                    automation_alias = meta.get('automation_alias')
-
-                                    r = utils.match_objects(uid = automation_uid, 
-                                                            alias = automation_alias,
+                                    r = utils.match_objects(uid = meta.get('automation_uid'), 
+                                                            alias = meta.get('automation_alias'),
                                                             uid2 = auto_name[1],
                                                             alias2 = auto_name[0],
                                                             more_strict = True)
@@ -163,6 +231,10 @@ class Automation:
                                 if r['return']>0: return r
 
                                 if r['match']:
+                                    # Reload object with inheritance if needed before checking tags
+                                    if first_artifact:
+                                        r = artifact_object.load(ignore_inheritance = ignore_inheritance)
+                                        if r['return']>0: return r
 
                                     if len(tags)>0:
                                         tags_in_meta = meta.get('tags',[])
@@ -175,6 +247,10 @@ class Automation:
                                     # Output to console if forced
                                     if console:
                                         print (artifact_object.path)
+
+                                if first_artifact:
+                                    first_artifact = False
+
 
         return {'return':0, 'list':lst}
 
@@ -300,7 +376,7 @@ class Automation:
 
         force = True if i.get('f', False) or i.get('force',False) else False
 
-        # Find an object
+        # Find CM artifact(s)
         i['out']=None
         r = self.search(i)
 
@@ -355,7 +431,7 @@ class Automation:
         
         console = i.get('out') == 'con'
 
-        # Find an object
+        # Find CM artifact(s)
         i['out'] = None
         r = self.search(i)
 
@@ -378,3 +454,57 @@ class Automation:
             print (json.dumps(meta, indent=2, sort_keys=True))
 
         return {'return':0, 'path':path, 'meta':meta, 'artifact':artifact}
+
+    ############################################################
+    def update(self, i):
+        """
+        Update Collective Mind artifact
+
+        Args:
+           parsed_automation
+           parsed_artifact
+
+           meta (dict)
+
+
+        """
+
+        console = i.get('out') == 'con'
+
+        meta = i.get('meta',{})
+
+        # Find CM artifact(s)
+        i['out'] = None
+        r = self.search(i)
+
+        if r['return']>0: return r
+
+        lst = r['list']
+        if len(lst)==0:
+            return {'return':16, 'error':'artifact(s) not found'}
+
+        if len(lst)>1:
+            force = True if i.get('f', False) or i.get('force',False) else False
+
+            if not force:
+                ask = input('More than 1 artifact found. Are you sure you want to update them all (y/N): ')
+                ask = ask.strip().lower()
+
+                if ask!='y':
+                    return {'return':1, 'error':'more than 1 artifact found', 'list':lst}
+
+                print ('')
+
+        # Updating artifacts
+        for artifact in lst:
+
+            path = artifact.path
+            meta = artifact.meta
+
+            # Output if console
+            if console:
+                import json
+                print (json.dumps(meta, indent=2, sort_keys=True))
+
+        return {'return':0, 'list':lst}
+

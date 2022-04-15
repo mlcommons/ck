@@ -497,7 +497,7 @@ def merge_dicts(i):
     Args:    
               dict1 (dict): merge this dict with dict2 (will be directly modified!)
               dict2 (dict): dict to be merged
-              append_lists (str): if 'yes', append lists instead of creating the new ones
+              append_lists (bool): if True, append lists instead of creating the new ones
               ignore_keys (list): ignore keys
 
     Returns:
@@ -514,7 +514,7 @@ def merge_dicts(i):
     a = i['dict1']
     b = i['dict2']
 
-    append_lists=i.get('append_lists','')
+    append_lists = i.get('append_lists', False)
 
     ignore_keys = i.get('ignore_keys',[])
 
@@ -530,7 +530,7 @@ def merge_dicts(i):
             else:
                 a[k] = b[k]
         elif type(v) is list:
-            if append_lists!='yes' or k not in a:
+            if not append_lists or k not in a:
                a[k] = []
             for y in v:
                 a[k].append(y)
@@ -556,8 +556,7 @@ def process_meta_for_inheritance(i):
                                           >  0, if error
                 (error) (str): error text if return > 0
 
-                dict (dict):        CK updated meta with inheritance from base entries
-                (dict_orig) (dict): original CK meta if CK was updated with a base entry
+                meta (dict): final meta wihhout _base
 
     """
 
@@ -565,9 +564,11 @@ def process_meta_for_inheritance(i):
     current_meta = i.get('meta',{})
     cmind = i['cmind']
     
-    base_entry = current_meta.get('_base_artifact','').strip()
+    base_entry = current_meta.get('_base','').strip()
 
     if base_entry!='':
+        del (current_meta['_base'])
+
         base_recursion = int(i.get('base_recursion','0'))
 
         if base_recursion > 10:
@@ -603,10 +604,11 @@ def process_meta_for_inheritance(i):
         base_meta = base_artifact.meta
 
         r = merge_dicts({'dict1': base_meta, 
-                         'dict2': current_meta})
+                         'dict2': current_meta,
+                         'append_lists': True})
         if r['return']>0: return r
 
-        current_meta = base_meta
+        current_meta = r['dict1']
 
     return {'return':0, 'meta':current_meta}
 

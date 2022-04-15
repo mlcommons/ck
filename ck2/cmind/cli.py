@@ -90,7 +90,7 @@ def parse(cmd):
     for a in argv:
         if a.startswith('@'):
             # Load JSON or YAML file
-            from cmind.utils import io
+            from cmind import utils
             r = utils.load_json_or_yaml(file_name = a[1:], check_if_exists=True)
             if r['return'] >0 : return r
 
