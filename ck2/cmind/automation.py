@@ -486,14 +486,25 @@ class Automation:
 
         # Find CM artifact(s)
         i['out'] = None
+        print (i)
         r = self.search(i)
-
         if r['return']>0: return r
 
         lst = r['list']
         if len(lst)==0:
-            return {'return':16, 'error':'artifact(s) not found'}
+            # Attempt to add if doesn't exist
+            r = self.add(i)
+            if r['return']>0: return r
+            
+            # Load this artifact
+            r = self.load(i)
+            if r['return']>0: return r
+            
+            lst = [r['artifact']]
 
+            return {'return':0, 'list':lst}
+
+        # If more than one ask if update all or force
         if len(lst)>1:
             force = True if i.get('f', False) or i.get('force',False) else False
 

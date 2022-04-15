@@ -113,6 +113,15 @@ def load_txt(file_name, encoding = 'utf8'):
             'string': s}
 
 ###########################################################################
+def load_bin(file_name):
+
+    with open(file_name, 'rb') as bf:
+        b = bf.read()
+
+    return {'return':0,
+            'bin': b}
+
+###########################################################################
 def save_yaml(file_name, meta={}, sort_keys=True, encoding = 'utf8'):
 
     import yaml

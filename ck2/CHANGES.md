@@ -1,6 +1,7 @@
 # Prototyping phase
 
-## Master
+## V0.7.5
+   - when updating artifact, if it doesn't exist, add it
    - fixed tags processing when adding CM artifacts
    - improved CLI (change - -> _ in keys to be more user friendly)
    - added "cm update" and fixed minor bugs with cm load/update
