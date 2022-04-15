@@ -468,7 +468,12 @@ class Automation:
            parsed_automation
            parsed_artifact
 
-           meta (dict)
+           meta (dict) - new meta to be merged or to replace the original
+           
+           (replace) (bool) - i
+
+           (force) (bool) - if True, force updates if more than 1 artifact found
+           (replace_lists) - if True, replace lists rather than appending them
 
 
         """
@@ -476,6 +481,8 @@ class Automation:
         console = i.get('out') == 'con'
 
         meta = i.get('meta',{})
+
+        replace_lists = i.get('replace_lists', False)
 
         # Find CM artifact(s)
         i['out'] = None
@@ -502,11 +509,11 @@ class Automation:
         # Updating artifacts
         for artifact in lst:
 
-            r = artifact.update(meta)
+            r = artifact.update(meta, append_lists = not replace_lists)
 
             # Output if console
             if console:
-                print ('Updated {}'.format(self.path))
+                print ('Updated {}'.format(artifact.path))
 
         return {'return':0, 'list':lst}
 

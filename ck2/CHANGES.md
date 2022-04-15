@@ -1,6 +1,7 @@
 # Prototyping phase
 
 ## Master
+   - improved CLI (change - -> _ in keys to be more user friendly)
    - added "cm update" and fixed minor bugs with cm load/update
    - fixed problems with non-serializable keys when --out=json
    - fixed major bug with inheritance (_base)

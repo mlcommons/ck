@@ -124,13 +124,21 @@ def parse(cmd):
             if '.' in key:
                keys = key.split('.')
                new_cm_input = cm_input
+
+               first = True
+               
                for key in keys[:-1]:
+                   if first:
+                       key = key.replace('-','_')
+                       first = False
+                   
                    if key not in new_cm_input:
                       new_cm_input[key] = {}
                    new_cm_input = new_cm_input[key]
 
                new_cm_input[keys[-1]]=value
             else:
+               key = key.replace('-','_')
                cm_input[key] = value
 
     # Add artifacts if > 1
@@ -138,8 +146,6 @@ def parse(cmd):
         cm_input['artifacts'] = artifacts
 
     return {'return':0, 'cm_input':cm_input}
-
-
 
 if __name__ == "__main__":
     run()
