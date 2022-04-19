@@ -1,6 +1,6 @@
 # Prototyping phase
 
-## Dev
+## V0.7.6
    - added "cm move/rename": https://github.com/mlcommons/ck/issues/213 
    - adding "requirements.txt" when initializing new CM repositories: https://github.com/mlcommons/ck/issues/204
    - when "cm help {automation}" print path to the automation python module: https://github.com/mlcommons/ck/issues/218
