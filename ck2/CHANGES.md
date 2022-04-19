@@ -1,5 +1,9 @@
 # Prototyping phase
 
+## Dev
+   - added utils.get_current_date_time
+   - added utils.assemble_cm_object1
+
 ## V0.7.6
    - added "cm move/rename": https://github.com/mlcommons/ck/issues/213 
    - adding "requirements.txt" when initializing new CM repositories: https://github.com/mlcommons/ck/issues/204

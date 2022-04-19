@@ -792,6 +792,24 @@ def assemble_cm_object(alias,uid):
     return cm_obj
 
 ###########################################################################
+def assemble_cm_object1(cm_dict):
+    """Assemble CM object
+
+    Args:
+              cm_dict - CM dict with 'alias' and 'uid'
+
+    Returns:
+              (str): CM object
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+    """
+
+    return assemble_cm_object(cm_dict['alias'],cm_dict['uid'])
+
+###########################################################################
 def assemble_cm_object2(cm_obj):
     """Assemble CM object
 
@@ -882,3 +900,46 @@ def convert_tags_to_list(i):
                tags_list.append(tag)
 
     return tags_list
+
+##############################################################################
+def get_current_date_time(i):
+    """Get current date and time
+       Target audience: end users
+
+    Args:    
+              (dict): empty dict
+
+    Returns:
+              (dict): Unified CK dictionary:
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+                array (dict); dict with date and time
+
+                  - date_year (str)
+                  - date_month (str)
+                  - date_day (str)
+                  - time_hour (str)
+                  - time_minute (str)
+                  - time_second (str)
+
+                iso_datetime (str): date and time in ISO format
+    """
+
+    import datetime
+
+    a = {}
+
+    now1 = datetime.datetime.now()
+    now = now1.timetuple()
+
+    a['date_year'] = now[0]
+    a['date_month'] = now[1]
+    a['date_day'] = now[2]
+    a['time_hour'] = now[3]
+    a['time_minute'] = now[4]
+    a['time_second'] = now[5]
+
+    return {'return': 0, 'array': a, 'iso_datetime': now1.isoformat()}
