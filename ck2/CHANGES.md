@@ -1,5 +1,11 @@
 # Prototyping phase
 
+## Dev
+   - added "cm move/rename": https://github.com/mlcommons/ck/issues/213 
+   - when "cm help {automation}" print path to the automation python module: https://github.com/mlcommons/ck/issues/218
+   - print equivalent Collective DB actions: https://github.com/mlcommons/ck/issues/219
+   - various minor enhancements and bug fixes
+
 ## V0.7.5
    - when updating artifact, if it doesn't exist, add it
    - fixed tags processing when adding CM artifacts

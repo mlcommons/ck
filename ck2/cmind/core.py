@@ -180,7 +180,7 @@ class CM(object):
                 print (self.cfg['info_cli'])
 
                 if cm_help or extra_help:
-                   print_db_actions(self.common_automation)
+                   print_db_actions(self.common_automation, self.cfg['action_substitutions'])
                    
             return {'return':0, 'warning':'no action'}
 
@@ -201,7 +201,7 @@ class CM(object):
         automation_lst = []
         use_any_action = False
 
-        artifact = i.get('artifact','')
+        artifact = i.get('artifact','').strip()
         artifacts = i.get('artifacts',[]) # Only if more than 1 artifact
                                           # First element is == artifact
 
@@ -218,7 +218,7 @@ class CM(object):
                 automation = ''
 
             # Check and make an artifact (only if artifacts are not specified)
-            if r.get('artifact_found_in_current_path', False) and len(artifacts)==0:
+            if r.get('artifact_found_in_current_path', False) and artifact == '':
                 artifact = r['cm_artifact']
 
             if r.get('registered', False):
@@ -363,11 +363,13 @@ class CM(object):
             
             print (self.cfg['info_cli'])
 
-            r = print_db_actions(self.common_automation)
+            print ('')
+            print ('Automation python module: {}'.format(automation_full_path))
+
+            r = print_db_actions(self.common_automation, self.cfg['action_substitutions'])
             if r['return']>0: return r
 
             db_actions = r['db_actions']
-
 
             actions = []
             for d in sorted(dir(initialized_automation)):
@@ -418,9 +420,9 @@ class CM(object):
         if len(artifacts)>0:
             parsed_artifacts = []
 
-            for artifact in artifacts:
+            for extra_artifact in artifacts:
                 # Parse artifact
-                r = utils.parse_cm_object(artifact)
+                r = utils.parse_cm_object(extra_artifact)
                 if r['return'] >0 : return r
 
                 parsed_artifacts.append(r['cm_object'])
@@ -443,7 +445,7 @@ class CM(object):
         return r
 
 ############################################################
-def print_db_actions(automation):
+def print_db_actions(automation, equivalent_actions):
 
     import types
 
@@ -455,10 +457,26 @@ def print_db_actions(automation):
 
     for d in sorted(dir(automation)):
         if type(getattr(automation, d))==types.MethodType and not d.startswith('_'):
-
+            
             db_actions.append(d)
 
-            print ('  * '+d)
+            s = d
+            se = ''
+
+            # Check equivalent actions
+            for k in sorted(equivalent_actions.keys()):
+                v = equivalent_actions[k]
+
+                if v==d:
+                    if se!='': se+=', '
+                    se+=k
+
+                    db_actions.append(k)
+
+            if se!='':
+                s+=' (' + se + ')'
+
+            print ('  * ' + s)
 
     return {'return':0, 'db_actions':db_actions}
 

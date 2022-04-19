@@ -77,10 +77,12 @@ class Artifact:
         # Without inheritance
         current_meta = self.original_meta
 
-        r = utils.merge_dicts({'dict1':current_meta, 'dict2':meta, 'append_lists':append_lists})
-        if r['return'] >0: return 
+        if len(meta)>0:
+        
+            r = utils.merge_dicts({'dict1':current_meta, 'dict2':meta, 'append_lists':append_lists})
+            if r['return'] >0: return 
 
-        self.original_meta = r['dict1']
+            self.original_meta = r['dict1']
 
         # Save file with orignal meta without inheritance
         

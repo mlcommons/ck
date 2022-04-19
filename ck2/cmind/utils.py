@@ -755,9 +755,8 @@ def assemble_cm_object(alias,uid):
     """Assemble CM object
 
     Args:
-              file_names (list): files to find
-              path_to_start (str): path to start
-                                   use current directory if None
+              alias
+              uid
 
     Returns:
               (str): CM object
@@ -765,11 +764,6 @@ def assemble_cm_object(alias,uid):
                 return (int): return code =  0, if successful
                                           >  0, if error
                 (error) (str): error text if return > 0
-
-                found (bool): True if found
-
-                path_to_file (str): full path to found file
-                path (str): path where found file is
 
     """
 
@@ -788,6 +782,25 @@ def assemble_cm_object(alias,uid):
            cm_obj = alias
 
     return cm_obj
+
+###########################################################################
+def assemble_cm_object2(cm_obj):
+    """Assemble CM object
+
+    Args:
+              cm_obj - CM object tuple (alias, uid)
+
+    Returns:
+              (str): CM object
+
+                return (int): return code =  0, if successful
+                                          >  0, if error
+                (error) (str): error text if return > 0
+
+
+    """
+
+    return assemble_cm_object(cm_obj[0], cm_obj[1])
 
 ###########################################################################
 def dump_safe_json(i):

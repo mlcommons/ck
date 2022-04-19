@@ -41,12 +41,10 @@ class Config(object):
                        "ls":"search",
                        "list":"search",
                        "find":"search",
-                       "rm":"delete"
-                     },
-
-                     "action_substitutions_reverse": {
-                       "search":["list", "ls", "find"],
-                       "delete":["rm"]
+                       "rm":"delete",
+                       "mv":"move",
+                       "ren":"move",
+                       "rename":"move"
                      },
 
                      "cmind_automation":"automation",

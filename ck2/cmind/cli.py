@@ -103,8 +103,8 @@ def parse(cmd):
             if artifact=='':
                 artifact=a
                 cm_input['artifact']=a
-
-            artifacts.append(a)
+            else:
+                artifacts.append(a)
         else:
             # flags
             if '=' in a:
@@ -141,8 +141,8 @@ def parse(cmd):
                key = key.replace('-','_')
                cm_input[key] = value
 
-    # Add artifacts if > 1
-    if len(artifacts) > 1:
+    # Add extra artifacts if specified
+    if len(artifacts) > 0:
         cm_input['artifacts'] = artifacts
 
     return {'return':0, 'cm_input':cm_input}
