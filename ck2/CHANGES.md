@@ -2,6 +2,7 @@
 
 ## Dev
    - added "cm move/rename": https://github.com/mlcommons/ck/issues/213 
+   - adding "requirements.txt" when initializing new CM repositories: https://github.com/mlcommons/ck/issues/204
    - when "cm help {automation}" print path to the automation python module: https://github.com/mlcommons/ck/issues/218
    - print equivalent Collective DB actions: https://github.com/mlcommons/ck/issues/219
    - various minor enhancements and bug fixes

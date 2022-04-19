@@ -132,6 +132,14 @@ def save_yaml(file_name, meta={}, sort_keys=True, encoding = 'utf8'):
     return {'return':0}
 
 ###########################################################################
+def save_txt(file_name, string = '', encoding = 'utf8'):
+
+    with open(file_name, 'wt', encoding = encoding) as tf:
+        tf.write(string)
+
+    return {'return':0}
+
+###########################################################################
 def check_and_create_dir(path):
     """
     Create directories if path doesn't exist

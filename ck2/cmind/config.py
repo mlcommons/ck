@@ -47,6 +47,8 @@ class Config(object):
                        "rename":"move"
                      },
 
+                     "new_repo_requirements": "cmind >= 0.7.5\n",
+
                      "cmind_automation":"automation",
 
                      "file_cmeta":"_cm",

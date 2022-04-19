@@ -98,8 +98,8 @@ class Repos:
                     repo = Repo(full_path_to_repo, self.cfg)
 
                     r = repo.load()
-                    if r['return'] >0 : return r
-
+                    if r['return']>0: return r
+                    
                     # Set only after all initializations
                     self.lst.append(repo)
 
@@ -294,6 +294,14 @@ class Repos:
 
             r=utils.save_yaml(path_to_repo_desc + '.yaml', meta=meta)
             if r['return']>0: return r
+
+            # Check requirements.txt
+            path_to_requirements = os.path.join(path_to_repo, 'requirements.txt')
+
+            if not os.path.isfile(path_to_requirements):
+                r = utils.save_txt(file_name = path_to_requirements, string = self.cfg['new_repo_requirements'])
+                if r['return']>0: return r
+        
         else:
             r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)
             if r['return'] >0: return r
