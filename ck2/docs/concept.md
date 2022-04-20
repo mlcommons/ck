@@ -6,7 +6,7 @@
 
 
 
-# Getting Started with Collective Mind
+# Concept
 
 Here we describe a few simple steps to help you understand the CM concept. 
 You will install CM, transform your local directory, GitHub project, Docker container 

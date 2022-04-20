@@ -44,7 +44,7 @@ Apache 2.0
 
 # How it works
 
-* Check this [getting started tutorial](docs/getting-started.md) 
+* Check this [CM tutorial](docs/concept.md) 
   to understand the Collective Mind concepts and try this toolkit.
 
 

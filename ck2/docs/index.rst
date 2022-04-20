@@ -16,17 +16,19 @@ CM toolkit documentation
    :caption: Getting Started
 
    installation
+   concept
 
 .. toctree::
    :maxdepth: 2
    :caption: User guide
 
-
 .. toctree::
    :maxdepth: 2
-   :caption: API
+   :caption: Developer guide
 
+   structure
    api/cmind
+   enhancements
 
 
 Index

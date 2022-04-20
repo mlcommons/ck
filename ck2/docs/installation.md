@@ -63,13 +63,32 @@ cmind
 python3 -m cmind
 ```
 
-If the installation is successful, you will see some internal information 
-about the CM installation and a Python version used:
+If the installation is successful, you can run cm CLI as follows:
 
 ```bash
 gfursin@cmind:~$ cm
 
+cm {action} {automation} {artifact(s)} {flags} @input.yaml @input.json
 ```
+
+You can also quickly test the installation and check the version as follows:
+```bash
+gfursin@cmind:~$ cm test core
+
+CM version: 0.7.7.1
+
+Python executable used by CK: C:\!Progs\Python39\python.exe
+
+Path to CM package:         C:\!Progs\Python39\lib\site-packages\cmind
+Path to CM core:            C:\!Progs\Python39\lib\site-packages\cmind\core.py
+Path to CM internal repo:   C:\!Progs\Python39\lib\site-packages\cmind\repo
+
+Path to CM repositories:    D:\Work1\CM\cm-repos
+
+GitHub for CM development:  https://github.com/mlcommons/ck/tree/master/ck2
+Reporting issues and ideas: https://github.com/mlcommons/ck/issues
+```
+
 
 
 ## Platform support
