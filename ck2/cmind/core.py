@@ -211,9 +211,6 @@ class CM(object):
                              'automation':'repo,55c3e27e8a140e48'})
             if r['return']>0: return r
 
-            print (r)
-            input('xyz')
-
             # Check and substitute automation
             if r.get('artifact_found', False):
                 automation = r['cm_automation']
