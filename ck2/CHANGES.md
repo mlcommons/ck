@@ -2,6 +2,7 @@
 
 ## Dev
    - fixed bug when detecting repo in "internal" repo
+   - added dummy automations for env, ic and docker: #220
 
 ## V0.7.7
    - added utils.get_current_date_time
