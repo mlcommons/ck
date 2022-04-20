@@ -2,16 +2,16 @@
 
 
 
-***OUTDATED - WILL BE UPDATED SOON***
+***UNDER PREPARATION!***
 
 
 
 # Concept
 
 Here we describe a few simple steps to help you understand the CM concept. 
-You will install CM, transform your local directory, GitHub project, Docker container 
+You will install CM v0.7.7+, transform your local directory, GitHub project, Docker container 
 and Jupyter notebook into a database of reusable artifacts, share it with others
-and implement some common automation to reusable artifats.
+and implement some common automation to reusable artifacts.
 
 
 ## Install CM
@@ -65,16 +65,40 @@ in his or her own project.
 
 ### With CM
 
-#### Enabling CM-compatible Git project
+#### Initializing CM-compatible repository in the directory
 
 The idea behind CM is to perform very similar steps from the command line 
 but just prefixed by *cm* to let CM index artifacts, add Unique IDs 
 and extensible JSON/YAML meta descriptions,
 and make them findable, interconnectable and reusable:
 
+You can initialize a CM repository in a given directory as follows:
 
 ```bash
-$ cm repo pull my-cool-project --url={GitHub repo URL} 
+$ cm init repo
+```
+
+CM will use the name of this directory as an alias of this CM repository. 
+You can list already registered CM repositories as follows:
+```
+$ cm ls repo
+
+local,9a3280b14a4285c9 = ...
+internal,36b263b05174aef9 = ...
+my-cool-project, ...
+```
+
+You can find a path to this repository as follows:
+```bash
+$ cm find repo my-cool-project
+```
+
+#### Converting Git project to CM repository
+
+If you already have a Git repository you can pull and register it as follows:
+
+```bash
+$ cm pull repo my-cool-project --url={GitHub repo URL} 
 ```
 
 CM will pull this repository to *$HOME/CM/repos/my-cool-project*, 
@@ -87,16 +111,16 @@ in all CM-compatible directories on your machine and plug them into modular CM p
 
 However, if you forget the location, you can always find it using the following CM command:`
 ```bash
-$ cm repo find my-cool-project
+$ cm find repo my-cool-project
 ```
 
 You can list all CM-compatible repositories and their locations as follows:
 ```bash
-$ cm repo list
+$ cm list repo
 ```
 or
 ```bash
-$ cm repo ls | sort
+$ cm ls repo | sort
 
 default = C:\!Progs\Python39\lib\site-packages\cmind-0.5.2-py3.9.egg\cmind\repo
 local = C:\Users\grigo\CM\repos\local
@@ -105,7 +129,7 @@ octoml@mlops = C:\Users\grigo\CM\repos\octoml@mlops
 ```
 
 Note that you always have at least 2 CM-compatible repositories after you use CM for the first time:
-* *default* is a CM repository with reusable artifacts and automations that were moved 
+* *internal* is a CM repository with reusable artifacts and automations that were moved 
   [inside the CM toolkit](https://github.com/mlcommons/ck/tree/master/ck2/cmind/repo) 
   to ensure their stability because they are frequently used by the community.
 
@@ -113,12 +137,16 @@ Note that you always have at least 2 CM-compatible repositories after you use CM
   are created if a repository is not specified.
 
 
+
+
+
+
 #### Creating CM artifact
 
 You can then use CM to create a similar structure as in your original Git repository:
 
 ```
-$ cm images add my-cool-project:cool-cat --tags=dataset,image,cool,cat
+$ cm add images my-cool-project:cool-cat --tags=dataset,image,cool,cat
 ```
 
 CM created a directory *images/cool-cat* inside *my-cool-project* repository and added *_cm.json* with extensible meta description:
@@ -144,15 +172,15 @@ CM also generated a unique ID for this artifact. You can now find this artifact 
 
 
 ```bash
-$ cm images find cool-cat
-$ cm images find 780abfe6b8084327
-$ cm images find *cat*
-$ cm images find --tags=image,cat
+$ cm find images cool-cat
+$ cm find images 780abfe6b8084327
+$ cm find images *cat*
+$ cm find images --tags=image,cat
 ``` 
 
 You can now copy your cool-cat.jpeg to this directory:
 ```bash
-$ cp cool-cat.jpeg `cm images find cool-cat`
+$ cp cool-cat.jpeg `cm find images cool-cat`
 ```
 
 #### Viewing CM meta description
@@ -160,7 +188,7 @@ $ cp cool-cat.jpeg `cm images find cool-cat`
 You can use the following CM command to view the meta description of a given artifact:
 
 ```bash
-$ cm images load cool-cat
+$ cm load images cool-cat
 
 {
   "alias": "cool-cat",
@@ -181,13 +209,13 @@ $ cm images load cool-cat
 
 Similarly, you can create CM artifacts for your model
 ```bash
-$ cm models add my-cool-model --tags=model,ml,onnx,image-classification
+$ cm add models my-cool-model --tags=model,ml,onnx,image-classification
 
-$ cm models ls
+$ cm list models
 
-$ cp my-cool-model.onnx `cm models find my-cool-model`/model.onnx
+$ cp my-cool-model.onnx `cm find models my-cool-model`/model.onnx
 
-$ ls `cm models find my-cool-model`
+$ ls `cm find models my-cool-model`
 
 _cm.json
 model.onnx
@@ -195,13 +223,13 @@ model.onnx
 ```
 
 ```bash
-$ cm experiments add cool-result --tags=experiment,inference,image-classification,cat,20220404
+$ cm add experiments cool-result --tags=experiment,inference,image-classification,cat,20220404
 
-$ cm experiments ls
+$ cm ls experiments
 
-$ cp my-cool-result-20220404.json `cm experiments find cool-result`
+$ cp my-cool-result-20220404.json `cm find experiments cool-result`
 
-$ ls `cm experiments find cool-result`
+$ ls `cm find experiments cool-result`
 
 _cm.json
 my-cool-result-20220404.json
@@ -214,6 +242,11 @@ with reusable artifacts and automations:
 
 [![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
 [![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
+
+
+
+
+
 
 
 
@@ -232,9 +265,9 @@ integration with existing DevOps and MLOps platforms and tools.
 ### From command line
 
 ```bash
-$ cm repo pull my-cool-project --url={GitHub repo URL} 
-$ cm experiments ls
-$ cm experiments load cool-result
+$ cm pull repo my-cool-project --url={GitHub repo URL} 
+$ cm ls experiments
+$ cm load experiments cool-result
 ```
 
 ### From Python and Jupyter notebooks
@@ -247,14 +280,14 @@ import cmind
 
 # List repositories
 
-r=cmind.access({'automation':'repo', 'action':'list'})
+r=cmind.access({'action':'list', 'automation':'repo'})
 if r['return']>0: cmind.error(r)
 
 print (r)
 
 # Find an artifact 
 
-r=cmind.access({'automation':'images', 'action':'load', 'artifact':'cool-cat'})
+r=cmind.access({'action':'load', 'automation':'images', 'artifact':'cool-cat'})
 if r['return']>0: cmind.error(r)
 
 print (r['path'])
@@ -306,9 +339,9 @@ RUN apt update && \
 
 RUN pip3 install cmind
 
-RUN cm repo pull my-cool-project --url={GitHub repo URL} 
+RUN cm pull repo my-cool-project --url={GitHub repo URL} 
 
-RUN cm images list
+RUN cm list images
 
 RUN cm ...
 ```
@@ -318,7 +351,7 @@ RUN cm ...
 
 You can pack your CM repository to a zip file as follows:
 ```bash
-$ cm repo pack my-cool-project
+$ cm pack repo my-cool-project
 
 Packing repo from C:\Users\grigo\CM\repos\my-cool-project to cm.zip ...
 ```
@@ -326,10 +359,10 @@ Packing repo from C:\Users\grigo\CM\repos\my-cool-project to cm.zip ...
 You can then share *cm.zip* with your colleagues who can unpack it 
 and install on their system using the following CM command:
 ```bash
-$ cm repo unpack
+$ cm unpack repo
 
-$ cm images list
-$ cm experiments list
+$ cm list images
+$ cm list experiments
 
 ```
 
