@@ -626,9 +626,15 @@ class CAutomation(Automation):
             rr['meta'] = repo_meta
 
             # Check if belongs to installed repo already
-            for tmp_path in repos.paths:
-                if tmp_path == path_to_repo:
-                    registered = True
+            path_to_repo_real = os.path.realpath(path_to_repo)
+            
+            if path_to_repo_real == os.path.realpath(repos.path_to_internal_repo):
+                registered = True
+            
+            if not registered:
+                for tmp_path in repos.paths:
+                    if path_to_repo_real == os.path.realpath(tmp_path):
+                        registered = True
 
             if registered:
                 rr['cm_repo'] = utils.assemble_cm_object(repo_meta['alias'],repo_meta['uid'])

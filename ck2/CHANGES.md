@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## Dev
+   - fixed bug when detecting repo in "internal" repo
+
 ## V0.7.7
    - added utils.get_current_date_time
    - added utils.assemble_cm_object1
