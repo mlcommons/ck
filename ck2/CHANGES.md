@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## Dev
+   - documenting/updating APIs of all internal functions
+
 ## V0.7.8
    - fixed bug when detecting repo in "internal" repo
    - added dummy automations for env, ic and docker: #220

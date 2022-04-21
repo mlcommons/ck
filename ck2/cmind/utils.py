@@ -1,4 +1,6 @@
-﻿# Some functionality may be reused from the CK framework
+﻿# Auxilary functions for CM
+
+# Some functionality was reused from the CK framework for compatibility
 
 import os
 
@@ -8,6 +10,26 @@ ERROR_FILE_NOT_FOUND = 16
 
 ###########################################################################
 def load_yaml_and_json(file_name_without_ext, check_if_exists = False, encoding = 'utf8'):
+
+    """
+    Load YAML file if exists then JSON file if exists and merge with the first one
+
+    Args:    
+       (CM input dict):
+
+       file_name_without_ext (str): file name without extension (to check yaml and then json)
+       (check_if_exists) (bool): if True, fail if doesn't exist
+       (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * meta (dict): merged meta of found file(s)
+
+    """
 
     meta = {}
 
@@ -33,6 +55,24 @@ def load_yaml_and_json(file_name_without_ext, check_if_exists = False, encoding 
 ###########################################################################
 def is_file_json_or_yaml(file_name):
 
+    """
+    Is file JSON or YAML?
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): path to file without extension
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * is_file (bool): if True, there is a file with YAML and/or JSON extension
+
+    """
+
     for file_ext in ['.yaml', '.json']:
         file_path = file_name + file_ext
 
@@ -43,6 +83,25 @@ def is_file_json_or_yaml(file_name):
 
 ###########################################################################
 def load_json_or_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
+    """
+    Attempt to load file as JSON or YAML.
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): file name that has either JSON or YAML extension
+       (check_if_exists) (bool): if True, fail if doesn't exist
+       (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * meta (dict): merged meta of found file(s)
+
+    """
 
     if file_name.endswith('.json'):
         return load_json(file_name, check_if_exists = check_if_exists, encoding = encoding)
@@ -53,6 +112,25 @@ def load_json_or_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
 
 ###########################################################################
 def save_json_or_yaml(file_name, meta, sort_keys=False, encoding = 'utf8'):
+    """
+    Save meta to either JSON or YAML file.
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): file name that has either JSON or YAML extension
+       meta (dict): meta to save
+       (sort_keys) (bool): if True, sort keys
+       (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+    """
+
     if file_name.endswith('.json'):
         return save_json(file_name, meta, sort_keys, encoding = encoding)
     elif file_name.endswith('.yaml'):
@@ -62,6 +140,25 @@ def save_json_or_yaml(file_name, meta, sort_keys=False, encoding = 'utf8'):
 
 ###########################################################################
 def load_json(file_name, check_if_exists = False, encoding='utf8'):
+    """
+    Load JSON file.
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): file name
+       (check_if_exists) (bool): if True, fail if doesn't exist
+       (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * meta (dict): meta from the file
+
+    """
 
     if check_if_exists:
         import os
@@ -78,6 +175,25 @@ def load_json(file_name, check_if_exists = False, encoding='utf8'):
 
 ###########################################################################
 def save_json(file_name, meta={}, indent=2, sort_keys=True, encoding = 'utf8'):
+    """
+    Save meta to JSON file.
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): file name 
+       meta (dict): meta to save
+       (indent) (int): 2 by default
+       (sort_keys) (bool): if True, sort keys
+       (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+    """
 
     import json
     
@@ -88,6 +204,25 @@ def save_json(file_name, meta={}, indent=2, sort_keys=True, encoding = 'utf8'):
 
 ###########################################################################
 def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
+    """
+    Load YAML file.
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): file name
+       (check_if_exists) (bool): if True, fail if doesn't exist
+       (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * meta (dict): meta from the file
+
+    """
 
     if check_if_exists:
         import os
@@ -105,6 +240,24 @@ def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
 
 ###########################################################################
 def load_txt(file_name, encoding = 'utf8'):
+    """
+    Load text file.
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): file name 
+       (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * string (str): string from file
+
+    """
 
     with open(file_name, 'rt', encoding = encoding) as tf:
         s = tf.read()
@@ -114,6 +267,23 @@ def load_txt(file_name, encoding = 'utf8'):
 
 ###########################################################################
 def load_bin(file_name):
+    """
+    Load binary file.
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): file name 
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * bin (bytes): file content
+
+    """
 
     with open(file_name, 'rb') as bf:
         b = bf.read()
@@ -123,6 +293,24 @@ def load_bin(file_name):
 
 ###########################################################################
 def save_yaml(file_name, meta={}, sort_keys=True, encoding = 'utf8'):
+    """
+    Save meta to YAML file.
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): file name 
+       meta (dict): meta to save
+       (sort_keys) (bool): if True, sort keys
+       (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+    """
 
     import yaml
     
@@ -133,6 +321,23 @@ def save_yaml(file_name, meta={}, sort_keys=True, encoding = 'utf8'):
 
 ###########################################################################
 def save_txt(file_name, string = '', encoding = 'utf8'):
+    """
+    Save string to text file.
+
+    Args:    
+       (CM input dict):
+
+       file_name (str): file name 
+       string (str): string to save
+       (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+    """
 
     with open(file_name, 'wt', encoding = encoding) as tf:
         tf.write(string)
@@ -142,7 +347,18 @@ def save_txt(file_name, string = '', encoding = 'utf8'):
 ###########################################################################
 def check_and_create_dir(path):
     """
-    Create directories if path doesn't exist
+    Create directories if path doesn't exist.
+    (from the CK framework).
+
+    Args:
+       path (str): path
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
     """
 
     if not os.path.isdir(path):
@@ -195,35 +411,35 @@ def find_file_in_dir_and_above(filename,
 
 ##############################################################################
 def list_all_files(i):
-    """List all files recursively in a given directory
-       (from CK framework)
+    """
+    List all files recursively in a given directory.
+    (from the CK framework).
 
     Args:    
-              path (str): top level path
-              (file_name) (str): search for a specific file name
-              (pattern) (str): return only files with this pattern
-              (path_ext) (str): path extension (needed for recursion)
-              (limit) (str): limit number of files (if directories with a large number of files)
-              (number) (int): current number of files
-              (all) (str): if 'yes' do not ignore special directories (like .cm)
-              (ignore_names) (list): list of names to ignore
-              (ignore_symb_dirs) (str): if 'yes', ignore symbolically linked dirs 
-                                        (to avoid recursion such as in LLVM)
-              (add_path) (str) - if 'yes', add full path to the final list of files
+       (CM input dict):
+
+       path (str): top level path
+       (file_name) (str): search for a specific file name
+       (pattern) (str): return only files with this pattern
+       (path_ext) (str): path extension (needed for recursion)
+       (limit) (str): limit number of files (if directories with a large number of files)
+       (number) (int): current number of files
+       (all) (str): if 'yes' do not ignore special directories (like .cm)
+       (ignore_names) (list): list of names to ignore
+       (ignore_symb_dirs) (str): if 'yes', ignore symbolically linked dirs 
+                                 (to avoid recursion such as in LLVM)
+       (add_path) (str) - if 'yes', add full path to the final list of files
 
     Returns:
-              (dict): Unified CK dictionary:
+       (CM return dict):
 
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
 
-                list (dict): dictionary of all files:
-                             {"file_with_full_path":{"size":.., "path":..}
+       * list (dict): dictionary of all files:
+                      {"file_with_full_path":{"size":.., "path":..}
 
-                sizes (dict): sizes of all files (the same order as above "list")
-
-                number (int): (internal) total number of files in a current directory (needed for recursion)
+       * number (int): (internal) total number of files in a current directory (needed for recursion)
 
     """
 
@@ -307,7 +523,19 @@ def list_all_files(i):
 ###########################################################################
 def gen_uid():
     """
-    Generate CM UID
+    Generate CM UID.
+
+    Args:    
+        None
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * uid (str): CM UID
+
     """
 
     import uuid
@@ -318,13 +546,14 @@ def gen_uid():
 ###########################################################################
 def is_cm_uid(obj):
     """
-    Check if a string is a valid CM UID
+    Check if a string is a valid CM UID.
 
     Args:    
-              obj (str): CM alias or UID
+       obj (str): CM alias or UID
 
     Returns:
-              (bool): True if a string is a valid CK UID
+       (bool): True if valid CM UID 16 hex characters
+
     """
 
     import re
@@ -341,33 +570,40 @@ def is_cm_uid(obj):
 ###########################################################################
 def parse_cm_object(obj, max_length = 2):
     """
-    Parse CM object
+    Parse CM object in string and return tuple of CM objects.
+
+    Examples:
+        CM sub-object = UID | alias | alias,UID | UID,alias
+
+        repo CM sub-object | CM sub-object
+
+        cm os
+
+        cm 281d5c3e3f69d8e7
+        
+        cm os,281d5c3e3f69d8e7
+        
+        cm 281d5c3e3f69d8e7,os
+        
+        cm octoml@mlops,os
+        
+        cm octoml@mlops,dbfa91645e429380:os,281d5c3e3f69d8e7
+        
+        cm dbfa91645e429380:281d5c3e3f69d8e7
+
 
     Args:    
         obj (str): CM object
-
-                      CM sub-object = UID | alias | alias,UID | UID,alias
-                      repo CM sub-object | CM sub-object
-
-                      Examples:
-
-                      cm os
-                      cm 281d5c3e3f69d8e7
-                      cm os,281d5c3e3f69d8e7
-                      cm 281d5c3e3f69d8e7,os
-
-                      cm octoml@mlops,os
-                      cm octoml@mlops,dbfa91645e429380:os,281d5c3e3f69d8e7
-                      cm dbfa91645e429380:281d5c3e3f69d8e7
+        (max_length) (int): 
 
     Returns:
-        return (int): return code == 0 if no error 
-                                  >0 if error
+       (CM return dict):
 
-        (error) (str): error string if return>0
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
 
-        cm_object (list): first argument: CM alias | UID
-                          (second element: CM repo | UID)
+       * cm_object (list): first element: CM alias | UID
+                           (second element: CM repo | UID)
 
     """
 
@@ -409,36 +645,43 @@ def parse_cm_object(obj, max_length = 2):
 ###########################################################################
 def match_objects(uid, alias, uid2, alias2, more_strict = False):
     """
-    Check if 2 CM objects match
+    Check if 2 CM objects match. 
+    Used to search CM artifacts in CM repositories.
 
-    Args:    
+    Examples:
+            281d5c3e3f69d8e7,* == 281d5c3e3f69d8e7,*
 
-          uid (str)
-          alias (str) can't have wildcards (real CM object)
+            281d5c3e3f69d8e7,os == ,os
+            
+            ,os == 281d5c3e3f69d8e7,os
+            
+            ,* != 281d5c3e3f69d8e7,*
 
-          uid2 (str)
-          alias2 (str) can have wildcards (search)
-          
-               281d5c3e3f69d8e7,* == 281d5c3e3f69d8e7,*
-               281d5c3e3f69d8e7,os == ,os
-               ,os == 281d5c3e3f69d8e7,os
-               ,* != 281d5c3e3f69d8e7,*
+            os
+            
+            281d5c3e3f69d8e7
+            
+            os,281d5c3e3f69d8e7
+            
+            281d5c3e3f69d8e7,os
 
-               os
-               281d5c3e3f69d8e7
-               os,281d5c3e3f69d8e7
-               281d5c3e3f69d8e7,os
+    Args:
+       uid (str): artifact UID
+       alias (str): atifact alias that can't have wildcards [real CM object]
 
-         more_strict (bool) - if True, then ,os != 281d5c3e3f69d8e7, (needed to check automation)
+       uid2 (str): atifact 2 UID
+       alias2 (str) artifact 2 alias that can have wildcards [search]
+
+      (more_strict) (bool): if True, then ,os != 281d5c3e3f69d8e7, [needed to check automation]
 
 
     Returns:
-        return (int): return code == 0 if no error 
-                                  >0 if error
+       (CM return dict):
 
-        (error) (str): error string if return>0
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
 
-        match (bool): True if 2 CM objects match (uid and/or alias)
+       * match (bool): True if 2 CM objects match (uid and/or alias)
 
     """
 
@@ -481,17 +724,14 @@ def match_objects(uid, alias, uid2, alias2, more_strict = False):
 ###########################################################################
 def get_list_from_cli(i, key):
     """
-    Get list from a CLI 
+    Get list from CM command line.
 
     Args:    
+       i (dict): CM input dict
+       key (str): key to get
 
     Returns:
-        return (int): return code == 0 if no error 
-                                  >0 if error
-
-        (error) (str): error string if return>0
-
-        match (bool): True if 2 CM objects match (uid and/or alias)
+       tags (list): list of tags for a given key
 
     """
 
@@ -506,25 +746,26 @@ def get_list_from_cli(i, key):
 
 ##############################################################################
 def merge_dicts(i):
-    """Merge intelligently dict1 with dict2 key by key in contrast with dict1.update(dict2)
-       Target audience: end users
+    """
+    Merge intelligently dict1 with dict2 key by key in contrast with dict1.update(dict2)
 
-       It can merge sub-dictionaries and lists instead of substituting them
+    It can merge sub-dictionaries and lists instead of substituting them
 
     Args:    
-              dict1 (dict): merge this dict with dict2 (will be directly modified!)
-              dict2 (dict): dict to be merged
-              append_lists (bool): if True, append lists instead of creating the new ones
-              ignore_keys (list): ignore keys
+       (CM input dict): 
+
+       dict1 (dict): merge this dict with dict2 (will be directly modified!)
+       dict2 (dict): dict to be merged
+       (append_lists) (bool): if True, append lists instead of creating the new ones
+       (ignore_keys) (list): ignore keys
 
     Returns:
-              (dict): Unified CK dictionary:
+       (CM return dict):
 
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
 
-                dict1 (dict): dict1 passed through the function
+       * dict1 (dict): dict1 passed through the function
 
     """
 
@@ -558,22 +799,24 @@ def merge_dicts(i):
 
 ###########################################################################
 def process_meta_for_inheritance(i):
-    """Process meta for inheritance
+    """
+    Check CM meta description for inheritance and update it if needed ("_base":"automation::artifact").
 
     Args:
-              artifact (obj): CM artifact
-              meta (dict): original meta
-              cmind (obj): initialized CM to search for base artifacts
-              (base_recursion) (int): track recursion during inheritance
+       (CM input dict): 
+
+       automation (str): CM automation
+       meta (dict): original meta
+       cmind (obj): initialized CM to search for base artifacts
+       (base_recursion) (int): track recursion during inheritance
 
     Returns:
-              (dict): Unified CK dictionary:
+       (CM return dict):
 
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
 
-                meta (dict): final meta wihhout _base
+       * meta (dict): final meta description wihhout _base
 
     """
 
@@ -632,21 +875,20 @@ def process_meta_for_inheritance(i):
 
 ###########################################################################
 def find_api(file_name, func):
-    """Find func API in filename
+    """
+    Find automation action API in a Python module
 
     Args:
-              file_name (str): Python module
-              func (str): func name
+       file_name (str): Python module
+       func (str): automation action name
 
     Returns:
-              (dict): Unified CK dictionary:
+       (CM return dict):
 
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
 
-                api (str): API string
-
+       * api (str): API
     """
 
     # Load file
@@ -679,24 +921,24 @@ def find_api(file_name, func):
 
 ###########################################################################
 def find_file_in_current_directory_or_above(file_names, path_to_start = None, reverse = False):
-    """Find file in the current directory or above
+    """
+    Find file(s) in the current directory or above.
 
     Args:
-              file_names (list): files to find
-              path_to_start (str): path to start
-                                   use current directory if None
+       file_names (list): files to find
+       (path_to_start) (str): path to start; use current directory if None
+       (reverse) (bool): if True search recursively in current directory and below.
 
     Returns:
-              (dict): Unified CK dictionary:
+       (CM return dict):
 
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
 
-                found (bool): True if found
+       * found (bool): True if found
 
-                path_to_file (str): full path to found file
-                path (str): path where found file is
+       * path_to_file (str): full path to found file
+       * path (str): path where found file is
 
     """
 
@@ -760,19 +1002,15 @@ def find_file_in_current_directory_or_above(file_names, path_to_start = None, re
 
 ###########################################################################
 def assemble_cm_object(alias,uid):
-    """Assemble CM object
+    """
+    Assemble CM object string from alias and uid strings
 
-    Args:
-              alias
-              uid
+    Args:    
+       alias (str): CM artifact alias
+       uid (str): CM artifact UID
 
-    Returns:
-              (str): CM object
-
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
-
+    Returns: 
+       (str) CM object (alias,uid)
     """
 
     if alias == None: alias = ''
@@ -793,17 +1031,14 @@ def assemble_cm_object(alias,uid):
 
 ###########################################################################
 def assemble_cm_object1(cm_dict):
-    """Assemble CM object
+    """
+    Assemble CM object string from dictionary with 'alias' and 'uid' keys
 
-    Args:
-              cm_dict - CM dict with 'alias' and 'uid'
+    Args:    
+       cm_dict (dict): dictionary with CM artifact keys ('alias', 'uid')
 
-    Returns:
-              (str): CM object
-
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
+    Returns: 
+       (str) CM object (alias,uid)
 
     """
 
@@ -811,18 +1046,14 @@ def assemble_cm_object1(cm_dict):
 
 ###########################################################################
 def assemble_cm_object2(cm_obj):
-    """Assemble CM object
+    """
+    Assemble CM object string from tuple
 
-    Args:
-              cm_obj - CM object tuple (alias, uid)
+    Args:    
+       cm_obj (tuple): CM object tuple (alias, uid)
 
-    Returns:
-              (str): CM object
-
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
-
+    Returns: 
+       (str) CM object (alias,uid)
 
     """
 
@@ -830,19 +1061,19 @@ def assemble_cm_object2(cm_obj):
 
 ###########################################################################
 def dump_safe_json(i):
-    """Dump safe JSON
+    """
+    Dump safe JSON
 
-    Args:
-              i (dict): dictionary or list to dump
+    Args:    
+       (CM input dict): input to dump to console
 
-    Returns:
-              (str): CM object
+    Returns: 
+       (CM return dict):
 
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
 
-                meta (dict): safe dict
+       * meta (dict): only "safe" values left (that can be serialized)
 
     """
 
@@ -869,18 +1100,14 @@ def convert_tags_to_list(i):
     """
     Convert string tags to list
 
-    Args:
-              i (dict): dictionary with CM input
+    Args:    
+       (CM input dict): 
 
-    Returns:
-              (list): list of tags
+       (tags) (str) - string of tags separated by comma
 
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
-
-                meta (dict): safe dict
-
+    Returns: 
+       tags_list (list): list of tags
+    
     """
 
     tags = i.get('tags')
@@ -903,29 +1130,28 @@ def convert_tags_to_list(i):
 
 ##############################################################################
 def get_current_date_time(i):
-    """Get current date and time
-       Target audience: end users
+    """
+    Get current date and time.
 
     Args:    
-              (dict): empty dict
+       (CM input dict): empty dict
 
-    Returns:
-              (dict): Unified CK dictionary:
+    Returns: 
+       (CM return dict):
 
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
 
-                array (dict); dict with date and time
+       * array (dict); dict with date and time
 
-                  - date_year (str)
-                  - date_month (str)
-                  - date_day (str)
-                  - time_hour (str)
-                  - time_minute (str)
-                  - time_second (str)
+           - date_year (str)
+           - date_month (str)
+           - date_day (str)
+           - time_hour (str)
+           - time_minute (str)
+           - time_second (str)
 
-                iso_datetime (str): date and time in ISO format
+       * iso_datetime (str): date and time in ISO format
     """
 
     import datetime

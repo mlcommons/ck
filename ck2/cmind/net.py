@@ -1,11 +1,4 @@
-#
-# Collective Knowledge (CK)
-#
-# See CK LICENSE.txt for licensing details
-# See CK COPYRIGHT.txt for copyright details
-#
-# Developer: Grigori Fursin
-#
+# Reused from the CK framework for compatibility
 
 import urllib
 import json
@@ -29,20 +22,21 @@ except:
 def request(i):
     """
     Web request to cKnowledge.org server to get release notes about components
+    (for CK compatibility)
 
     Args:    
-              get (dict): GET parameters
-              post (dict): POST parameters
+        CM input passed to cKnowledge.org API
 
-    Returns:
-              (dict): Unified CK dictionary:
+    Returns: 
+        (CM return dict):
 
-                return (int): return code =  0, if successful
-                                          >  0, if error
-                (error) (str): error text if return > 0
+        * return (int): return code == 0 if no error and >0 if error
+        * (error) (str): error string if return>0
 
-                string (str): returned string from the server
-                dict (dict): JSON string converted to dict (if possible)
+        * version (str): CM version
+
+        * string (str): returned string from the server
+        * dict (dict): JSON string converted to dict (if possible)
 
     """
 

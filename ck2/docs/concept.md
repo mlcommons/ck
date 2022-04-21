@@ -17,7 +17,7 @@ into the CM format.
 
 
 
-## Install CM
+## Installing CM
 
 CM toolkit is implemented as a small Python library with a unified CLI and a simple API.
 
@@ -33,7 +33,7 @@ You can find more details about the installation process [here](installation.md)
 
 
 
-## Organize your artifacts
+## Organizing your artifacts
 
 We use CM to provide a common structure to software projects and organize all related artifacts 
 in such a way that it is possible to share, find, reuse and extend them across different teams and projects
@@ -170,13 +170,36 @@ Note that you always have at least 2 CM-compatible repositories after you use CM
 
 #### Creating CM artifacts
 
-You can then use CM to create a similar structure as in your original Git repository:
+You can now use CM to create a very similar structure as in your original Git repository
+but with some meta information in JSON and/or YAML format to describe your artifacts.
 
+The format of the CM to add artifacts is the following:
+```bash
+$ cm add {some artifact type} {artifact name} 
 ```
+
+By default, CM will create new artifacts in the "local" CM repository (scratchpad).
+You can specify another CM repository as follows:
+```bash
+$ cm add {some artifact type} {CM repo}:{artifact name}
+```
+
+You can also add some tags to describe a given artifact as follows:
+```bash
+$ cm add {some artifact type} {CM repo}:{artifact name} --tags=tag1,tag2,tag3...
+```
+
+In our case, let's use "images" as our artifact type. Note that you can either use 
+any name to organize your artifacts or reuse an existing artifact type 
+with some common automations shared by the community or within workgroups 
+as described later in this tutorial.
+
+
+```bash
 $ cm add images my-cool-project:cool-cat --tags=dataset,image,cool,cat
 ```
 
-CM created a directory *images/cool-cat* inside *my-cool-project* repository and added *_cm.json* with extensible meta description:
+CM will create a directory *images/cool-cat* inside *my-cool-project* repository and added *_cm.json* with extensible meta description:
 ```json
 {
   "alias": "cool-cat",
@@ -192,10 +215,26 @@ CM created a directory *images/cool-cat* inside *my-cool-project* repository and
 }
 ```
 
-Note that since such artifact will become reusable in the world (collective database) where similar name may exists, 
-CM also generated a unique ID for this artifact. You can now find this artifact on your system using its alias, UID or tags:
+Note that you will a different UID on your system - you should use it instead of "780abfe6b8084327"
+
+Note that CM also generated a unique ID for this artifact - the reason is that any CM artifact can be reusable
+in the world similar to a global database where another artifact with a similar name (alias) may already exist.
+In such case, we can use UID in our projects to make sure that we find and reuse a unique artifact.
+
+Also note that if you want to create another artifact in a CM repository, you can tell CM to use
+current CM repository and artifact type using "." instead of tying the full names:
+
+```bash
+$ cd automation
+$ cm add . cool-cat-v2 --tags=dataset,image,cool,cat-v2
+```
+
+CM will create *cool-cat-v2* in the current CM repository rather than in the "local" repository.
 
 #### Finding CM artifacts
+
+Since CM keeps track of CM-compatible repositories, it is now possible to find any artifact 
+using its name (alias), UID or tags:
 
 
 ```bash
@@ -205,10 +244,57 @@ $ cm find images *cat*
 $ cm find images --tags=image,cat
 ``` 
 
-You can now copy your cool-cat.jpeg to this directory:
+Note that you can also reference your CM artifact by alias and UID at the same time:
+```bash
+$ cm find images cool-cat,780abfe6b8084327
+```
+
+In such case, CM will ignore above alias and will search for an artifact by UID. 
+However, you can still see the original name of the artifact instead of a cryptic UID.
+If this name (alias) changes in the future, CM will still be able to find it using its UID!
+
+You can now use this CM artifact directory as a findable placeholder for your raw artifacts.
+For example, you can You can now copy your cool-cat.jpeg and any related files to this directory:
 ```bash
 $ cp cool-cat.jpeg `cm find images cool-cat`
 ```
+
+Now, we will be able to find any artifact on our own machines or in a cloud even years later!
+
+Furthermore, we can use the same command line language to describe our repository
+in different READMEs thus providing a common artifact management language for projects.
+
+
+#### Renaming artifact
+
+You can now rename your artifact using CM to keep UID intact as follows:
+```bash
+$ cm rename images cool-cat-v2 cool-cat-v3
+```
+
+#### Moving artifacts to another CM repository
+
+Unlike CK, you can move an artifact to any CM repository using standard OS commands.
+However, you can also use CM CLI for your convenience:
+
+```bash
+$ cm move images cool-cat-v3 local:
+```
+This command will move *images::cool-cat-v3* artifact to "local" repository.
+
+
+#### Deleting artifact
+
+Unlike CK, you can also delete your artifacts using standard OS commands.
+ 
+However, you can also use CM CLI for your convenience:
+
+```bash
+$ cm rm images cool-*-v3
+```
+This command will remove *images::cool-cat-v3* artifact.
+
+
 
 #### Viewing CM meta description
 
@@ -232,13 +318,21 @@ $ cm load images cool-cat
 
 ```
 
-#### Creating more CM artifacts
+or
+```bash
+$ cm load images --tags=cool,cat
+```
 
-Similarly, you can create CM artifacts for your model
+
+
+
+#### Creating other types of artifacts
+
+Similarly, you can create CM artifacts for your ML model
 ```bash
 $ cm add models my-cool-model --tags=model,ml,onnx,image-classification
 
-$ cm list models
+$ cm find models my-cool-project:*
 
 $ cp my-cool-model.onnx `cm find models my-cool-model`/model.onnx
 
@@ -263,22 +357,21 @@ my-cool-result-20220404.json
 
 ```
 
-You can now update the README.md of this repository to specify CM commands 
-and you can add the following badges to tell others that it is CM-compatible repository
-with reusable artifacts and automations:
+You can now update the README.md of your repository to specify CM commands 
+and you can add the following badges to tell the community 
+that it is CM compatible:
 
 [![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
 [![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
 
+This will signal other colleagues that they can now understand your README 
+and deal with your project using CM CLI or Python API:
 
 
 
 
 
-
-
-
-## Reuse others' artifacts
+## Reusing others' artifacts in the CM format
 
 Whenever you see a CM-compatible repository you can install it via CM,
 start using familiar cm commands similar to having a common language 
@@ -289,11 +382,14 @@ You may still need to follow the README.md file with the cm commands
 but even these steps can be also fully automated using a GUI or via
 integration with existing DevOps and MLOps platforms and tools.
 
+
+
+
 ### From command line
 
 ```bash
 $ cm pull repo my-cool-project --url={GitHub repo URL} 
-$ cm ls experiments
+$ cm find experiments
 $ cm load experiments cool-result
 ```
 
@@ -335,6 +431,9 @@ print (r['path'])
 }
 ```
 
+You can see the Python class for a CM artifact [here](https://github.com/mlcommons/ck/blob/master/ck2/cmind/artifact.py#L7).
+
+
 ### In Docker containers
 
 We can use CM commands to create modular containers:
@@ -368,7 +467,7 @@ RUN pip3 install cmind
 
 RUN cm pull repo my-cool-project --url={GitHub repo URL} 
 
-RUN cm list images
+RUN cm find images
 
 RUN cm ...
 ```
@@ -388,10 +487,13 @@ and install on their system using the following CM command:
 ```bash
 $ cm unpack repo
 
-$ cm list images
-$ cm list experiments
+$ cm find images
+$ cm find experiments
 
 ```
+
+
+
 
 
 ## Add reusable automations to related artifacts 
@@ -399,9 +501,14 @@ $ cm list experiments
 Systematize, reuse and interconnect similar to Wikipedia
 
 
+
+
 ## Extend meta descriptions
 
 ## Extend automations
+
+
+
 
 ## Further thoughts
 

@@ -5,20 +5,23 @@ import sys
 ############################################################
 def run(argv = None):
     """
-    Run CM commands from the command line.
+    Run CM automation actions from the command line. 
+    
+    CM command line format:
+
+    cm {action} {automation} (artifacts) (--flags) (@input.yaml) (@input.json)
 
     Args:
-        argv (str | list): CM input
-    
+        argv (list | string): command line arguments
+
     Returns: 
-        dict: CM output:
-          - return (int): return code = 0 if successful 
-                                      > 0 if error
+        (CM return dict):
 
-          - (error) (str): error text if return > 0
+        * return (int): return code == 0 if no error and >0 if error
+        * (error) (str): error string if return>0
 
-          - ...: Output from a given CM automation
-    
+        * Output from a CM automation action
+
     """
 
     # Access CM
@@ -44,19 +47,19 @@ def run(argv = None):
 ############################################################
 def parse(cmd):
     """
-    Parse CM command line.
+    Parse CM command line into CM input dictionary.
 
     Args:
         cmd (str | list) : arguments as a string or list
 
     Returns:
-        Dictionary:
-            return (int): return code == 0 if no error 
-                                      >0 if error
+        (CM return dict):
 
-            (error) (str): error string if return>0
+        * return (int): return code == 0 if no error and >0 if error
+        * (error) (str): error string if return>0
 
-            cm_input (dict): CM input
+        * cm_input (dict): CM unified input to the CM access function
+
     """
 
     # If input is string, convert to argv

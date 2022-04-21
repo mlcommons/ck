@@ -8,10 +8,24 @@ from cmind.artifact import Artifact
 self_path = __file__
 
 class Automation:
-    ############################################################
+    """
+    CM automation class
+    """
+
     def __init__(self, cmind, automation_file):
         """
-        Initialize class and reuse initialized cmind class
+        Initialize CM automation class
+
+        Args:
+            cmind (CM class)
+            automation_file (str): path to the CM automation Python module
+
+        Returns:
+            (python class) with the following vars:
+
+            * automation_file_path (str): full path to the CM automation Python module
+            * path (str): directory with the CM automation
+
         """
 
         self.cmind = cmind
@@ -22,7 +36,18 @@ class Automation:
     ############################################################
     def version(self, i):
         """
-        Print version
+        Print CM version
+
+        Args:
+            (CM input dict):
+            
+            out (str): if 'con', output to console
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
 
         """
 
@@ -39,7 +64,18 @@ class Automation:
     ############################################################
     def test(self, i):
         """
-        Check CM status
+        Test CM and print various info
+
+        Args:
+            (CM input dict):
+            
+            out (str): if 'con', output to console
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
         """
 
         import sys
@@ -91,21 +127,32 @@ class Automation:
     ############################################################
     def search(self, i):
         """
-        List CM artifacts
-        (simple and slow implementation - can be considerably accelerated with on-the-fly indexing as in CK)
+        Find CM artifacts (slow - we plan to accelerate it in the future using different indexing mechanisms)
 
         Args:
-            i (dict):
-                (parsed_automation) - tuple: automation (alias,UID) (repo (alias,UID))
+            (CM input dict):
+            
+            out (str): if 'con', output to console
 
-                (ignore_inheritance) - if True, ignore inheritance and just load meta to match UID/alias
+            parsed_automation (list): prepared in CM CLI or CM access function
+                                      [ (automation alias, automation UID) ] or
+                                      [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
 
-        Returns:
-            Dictionary:
-                return (int): return code == 0 if no error 
-                                          >0 if error
+            parsed_artifact (list): prepared in CM CLI or CM access function
+                                      [ (artifact alias, artifact UID) ] or
+                                      [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
 
-                (error) (str): error string if return>0
+            ignore_inheritance (bool): if 'True', ignore artifact meta description inheritance 
+                                       and just load meta to match UID/alias
+
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * list (list): list of CM artifact objects
 
         """
 
@@ -258,12 +305,33 @@ class Automation:
     ############################################################
     def add(self, i):
         """
-        Add Collective Mind object
+        Add CM artifact
 
-           parsed_automation
-           parsed_artifact
-           meta
-           tags
+        Args:
+            (CM input dict):
+            
+            out (str): if 'con', output to console
+
+            parsed_automation (list): prepared in CM CLI or CM access function
+                                      [ (automation alias, automation UID) ] or
+                                      [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
+
+            parsed_artifact (list): prepared in CM CLI or CM access function
+                                      [ (artifact alias, artifact UID) ] or
+                                      [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+            meta (dict): meta description of this artifact
+
+            (tags) (string or list): tags to be added to meta
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * meta (dict): final meta of the artifact
+            * path (str): path to the created artifact
 
         """
 
@@ -357,12 +425,33 @@ class Automation:
     ############################################################
     def delete(self, i):
         """
-        Delete Collective Mind artifact
+        Delete CM artifact
 
-           parsed_automation
-           parsed_artifact
-           f or force (bool) - if True do not ask for confirmation
+        Args:
+            (CM input dict):
+            
+            out (str): if 'con', output to console
 
+            parsed_automation (list): prepared in CM CLI or CM access function
+                                      [ (automation alias, automation UID) ] or
+                                      [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
+
+            parsed_artifact (list): prepared in CM CLI or CM access function
+                                      [ (artifact alias, artifact UID) ] or
+                                      [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+            (tags) (string or list): optional tags to find artifacts
+            
+            (force) (bool): force deleting CM artifacts without asking a user
+            (f) (bool): the same as "force"
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * deleted_list (list): a list of deleted CM artifacts
 
         """
 
@@ -418,11 +507,33 @@ class Automation:
     ############################################################
     def load(self, i):
         """
-        Load Collective Mind artifact
+        Load CM artifact
 
-           parsed_automation
-           parsed_artifact
+        Args:
+            (CM input dict):
+            
+            out (str): if 'con', output to console
 
+            parsed_automation (list): prepared in CM CLI or CM access function
+                                      [ (automation alias, automation UID) ] or
+                                      [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
+
+            parsed_artifact (list): prepared in CM CLI or CM access function
+                                      [ (artifact alias, artifact UID) ] or
+                                      [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+            (tags) (string or list): optional tags to find artifacts
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * path (str): path to a loaded CM artifact
+            * original_meta (dict): meta description of the loaded CM artifact before inheritance
+            * meta (dict): meta description of the loaded CM artifact after inheritance
+            * artifact (CM artifact object)
         """
 
         # Check parsed automation
@@ -459,22 +570,39 @@ class Automation:
     ############################################################
     def update(self, i):
         """
-        Update Collective Mind artifact(s)
+        Update CM artifact.
 
         Note: not thread safe - we expect one pipeline running on a system
               can make it thread safe when needed (similar to CK)
 
         Args:
-           parsed_automation
-           parsed_artifact
+            (CM input dict):
+            
+            out (str): if 'con', output to console
 
-           meta (dict) - new meta to be merged or to replace the original
-           
-           (replace) (bool) - i
+            parsed_automation (list): prepared in CM CLI or CM access function
+                                      [ (automation alias, automation UID) ] or
+                                      [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
 
-           (force) (bool) - if True, force updates if more than 1 artifact found
-           (replace_lists) - if True, replace lists rather than appending them
+            parsed_artifact (list): prepared in CM CLI or CM access function
+                                      [ (artifact alias, artifact UID) ] or
+                                      [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
 
+            (tags) (string or list): optional tags to find artifacts
+
+            meta (dict): new meta description to be merged or to replace the original meta description of a CM artifact
+
+            (replace) (bool): if True, replace original meta description
+            (force) (bool): if True, force updates if more than 1 artifact found
+            (replace_lists) (bool): if True, replace lists in meta description rather than appending them
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * list (list): list of updated CM artifacts
 
         """
 
@@ -530,15 +658,32 @@ class Automation:
     ############################################################
     def move(self, i):
         """
-        Rename Collective Mind artifacts and/or move them to another CM repository
+        Rename CM artifacts and/or move them to another CM repository.
 
         Args:
-           parsed_automation
-           parsed_artifact
+            (CM input dict):
+            
+            out (str): if 'con', output to console
 
-           parsed_artifacts (cm_obj) 
+            parsed_automation (list): prepared in CM CLI or CM access function
+                                      [ (automation alias, automation UID) ] or
+                                      [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
 
-           meta (dict) - new meta to be merged or to replace the original
+            parsed_artifact (list): prepared in CM CLI or CM access function
+                                      [ (artifact alias, artifact UID) ] or
+                                      [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+            parsed_artifacts (list): prepared in CM CLI or CM access function - 1st entry has a new artifact name and repository:
+                                      [ (artifact alias, artifact UID) ] or
+                                      [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * list (list): list of renamed/moved CM artifacts
 
         """
 

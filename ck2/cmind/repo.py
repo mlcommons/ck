@@ -5,10 +5,27 @@ import os
 from cmind import utils
 
 class Repo:
-    ############################################################
+    """
+    CM repository class
+    """
+    
     def __init__(self, path, cfg):
         """
-        Initialize class 
+        Initialize CM repository class
+
+        Args:
+            path (str): path to a CM repository
+            cfg (dict): CM configuration
+
+        Returns:
+            (python class) with the following vars:
+
+            * path (str): path to a CM repository
+            * path_prefix (str): use extra directory inside CM repository to keep CM artifacts
+            * path_with_prefix (str): path to a CM repository if directory prefix is used
+
+            * meta (dict): CM repository meta description
+        
         """
 
         self.cfg = cfg
@@ -24,7 +41,16 @@ class Repo:
     ############################################################
     def load(self):
         """
-        Load repository file
+        Load CM repository
+
+        Args:
+            None
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
 
         """
 

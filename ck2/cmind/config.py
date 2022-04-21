@@ -7,9 +7,17 @@ class Config(object):
     CM configuration class
     """
 
-    def __init__(self, config_file: str = None):
+    def __init__(self, config_file = None):
         """
-        Initialize Collective Mind configuration
+        Initialize CM configuration class
+
+        Args:
+            (config_file) (str): If not None, merge this file with the internal configuration
+
+        Returns:
+            (python class) with the following vars:
+
+            * cfg (dict): internal CM configuration
         """
 
         self.cfg = {

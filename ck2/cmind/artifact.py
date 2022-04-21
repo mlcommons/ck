@@ -5,10 +5,28 @@ import os
 from cmind import utils
 
 class Artifact:
-    ############################################################
+    """
+    CM artifact class
+    """
+
     def __init__(self, cmind, path):
         """
-        Initialize artifact class
+        Initialize CM artifact class
+        
+        Args:
+            cmind (CM class)
+            path (str): path to a CM artifact
+
+        Returns:
+            (python class) with the following vars:
+
+            * path (str): path to CM artifact
+            
+            * original_meta (dict): original meta description of this artifact without inheritance
+            
+            * meta (dict): meta description of this artifact after inheritance
+
+
         """
 
         self.cmind = cmind
@@ -23,8 +41,18 @@ class Artifact:
     ############################################################
     def load(self, ignore_inheritance = False, base_recursion = 0):
         """
-        Load artifact
+        Load CM artifact
 
+        Args:    
+                 ignore_inheritance (bool): if True ignore artifact meta description inheritance
+                 base_recursion (int): internal to avoid infinite recursion during inheritance
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+        
         """
 
         import copy
@@ -66,9 +94,20 @@ class Artifact:
         return {'return':0}
 
     ############################################################
-    def update(self, meta, append_lists = True):
+    def update(self, meta, append_lists = True, replace = False):
         """
-        Update artifact
+        Update CM artifact
+
+        Args:    
+                 meta (dict): new meta description
+                 replace (bool): if True, replace original meta description instead of merging
+                 append_lists (bool): if True and replace is False, append lists when merging meta descriptions instead of substituting
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
 
         """
 
@@ -79,10 +118,13 @@ class Artifact:
 
         if len(meta)>0:
         
-            r = utils.merge_dicts({'dict1':current_meta, 'dict2':meta, 'append_lists':append_lists})
-            if r['return'] >0: return 
+            if replace:
+                self.original_meta = meta
+            else:
+                r = utils.merge_dicts({'dict1':current_meta, 'dict2':meta, 'append_lists':append_lists})
+                if r['return'] >0: return 
 
-            self.original_meta = r['dict1']
+                self.original_meta = r['dict1']
 
         # Save file with orignal meta without inheritance
         

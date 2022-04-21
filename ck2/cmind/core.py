@@ -17,18 +17,38 @@ cm = None
 ############################################################
 class CM(object):
     """
-    Main Collective Mind class
+    Main CM class
     """
 
     ############################################################
     def __init__(self, home_path = '', debug = False):
         """
-        Initialize Collective Mind class
-        """
+        Initialize CM configuration class
 
-#        print ('************************************************')
-#        print ('Initialize CM ...')
-#        print ('************************************************')
+        Args:
+            (home_path) (str) - path to CM repositories and other information.
+            (debug) (bool) - if True, raise errors in internal functions 
+                             instead of returning a dictionary with "return">0.
+
+        Returns:
+            (python class) with the following vars:
+
+            * cfg (dict): internal CM configuration
+            * debug (bool): debug state
+
+            * home_path (str): path to CM repositories and other information
+
+            * path_to_cmind (str): path to the used CM toolkit
+            * path_to_cmind_kernel (str): path to CM kernel
+            * path_to_cmind_repo (str): path to the "internal" CM repo
+
+            * repos (list): list of initialized CM repository objects
+            
+            * common_automation (Automation class): initialized common automation with actions when a given automation is not found or doesn't exist
+
+            * output (str): value of --out during the first access to CM (to print errors, etc)
+
+        """
 
         # Initialize and update CM configuration
         self.cfg = Config().cfg
@@ -65,14 +85,13 @@ class CM(object):
     ############################################################
     def error(self, r):
         """
-        Process CM error (print or raise and exit)
+        If r['return']>0: print CM error and raise error if in debugging mode
 
-            Args:
-               r (dict)        - output from CM function
-               debug (Boolean) - if True, call raise
+        Args:
+           r (dict): output from CM function with "return" and "error"
                
         Returns:
-            None or raise
+           (dict): r
 
         """
 
@@ -89,15 +108,13 @@ class CM(object):
     ############################################################
     def halt(self, r):
         """
-        Process CM error and halt (useful for scripts)
+        If r['return']>0: print CM error and raise error if in debugging mode or halt with "return" code
 
-            Args:
-               r (dict)        - output from CM function
-               debug (Boolean) - if True, call raise
+        Args:
+           r (dict): output from CM function with "return" and "error"
                
         Returns:
-            None or raise
-
+           (dict): r
         """
 
         # Force console
@@ -108,22 +125,32 @@ class CM(object):
     ############################################################
     def access(self, i, out = None):
         """
-        Access customized Collective Mind object
+        Access CM automation actions in a unified way similar to micro-services.
+
+        i (dict | str | argv): unified CM input
 
         Args:
-            i (dict | str | argv): CM input
-            out (str) - =='con' -> force output to console
+            (action) (str): automation action
+            (automation (CM object): CM automation in format (alias | UID | alias,UID) 
+                                       or (repo alias | repo UID | repo alias,UID):(alias | UID | alias,UID) 
+            (artifact) (CM object): CM artifact
+            (artifacts) (list of CM objects): extra CM artifacts
 
-            (common) (bool) - if True force common automation action
+            (common) (bool): if True, use common automation action from Automation class
 
-        Returns:
-            Dictionary:
-                return (int): return code == 0 if no error 
-                                          >0 if error
+            (help) (bool): if True, print CM automation action API
 
-                (error) (str): error string if return>0
+            (ignore_inheritance) (bool): if True, ignore inheritance when searching for artifacts and automations
+            
+            (out) (str): if 'out', tell automations and CM to output extra information to console
 
-                data from a given action
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * Output from a CM automation action
         
         """
 
@@ -446,6 +473,11 @@ class CM(object):
 
 ############################################################
 def parse_cm_object_and_check_current_dir(cmind, artifact):
+    """
+    Internal function: parses CM object and check if there is '.' 
+    to detect CM repository in a current directory.
+
+    """
 
     if artifact.startswith('.:'):
 
@@ -462,6 +494,11 @@ def parse_cm_object_and_check_current_dir(cmind, artifact):
 
 ############################################################
 def print_db_actions(automation, equivalent_actions):
+
+    """
+    Internal function: prints CM database actions.
+
+    """
 
     import types
 
@@ -500,7 +537,11 @@ def print_db_actions(automation, equivalent_actions):
 ############################################################
 def access(i):
     """
-    Initialize and access Collective Mind without customization
+    Automatically initialize CM and run automations 
+    without the need to initialize and customize CM class.
+    Useful for Python automation scripts.
+
+    See CM.access function for more details.
     """
 
     global cm
@@ -513,7 +554,11 @@ def access(i):
 ############################################################
 def error(i):
     """
-    Print error
+    Automatically initialize CM and print error if needed
+    without the need to initialize and customize CM class.
+    Useful for Python automation scripts.
+
+    See CM.error function for more details.
     """
 
     return cm.error(i)
@@ -521,15 +566,30 @@ def error(i):
 ############################################################
 def halt(i):
     """
-    Print error and halt
+    Automatically initialize CM, print error and halt if needed
+    without the need to initialize and customize CM class.
+    Useful for Python automation scripts.
+
+    See CM.halt function for more details.
+
     """
 
     return cm.halt(i)
 
 ############################################################
-def get_version(skip_check_status = False):
+def get_version():
     """
-    Get version and check status
+    Get CM version.
+
+    Args:
+
+    Returns: 
+        (CM return dict):
+
+        * return (int): return code == 0 if no error and >0 if error
+        * (error) (str): error string if return>0
+
+        * version (str): CM version
     """
 
     r = {'return':0}

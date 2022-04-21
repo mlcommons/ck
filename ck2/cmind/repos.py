@@ -6,10 +6,27 @@ from cmind.repo import Repo
 from cmind import utils
 
 class Repos:
-    ############################################################
+    """
+    CM repositories class
+    """
+
     def __init__(self, path, cfg, path_to_internal_repo = ''):
         """
-        Initialize class 
+        Initialize CM repositories class
+
+        Args:
+            path (str): path to directory with repos.json where all paths of registered CM repositories are stored
+            cfg (dict): CM configuration
+            (path_to_internal_repo) (str): path to the internal CM repository (useful during development/debugging)
+
+        Returns:
+            (python class) with the following vars:
+
+            * path (str): path to CM repositories and index file
+            * full_path_to_repos (str): path to CM repositories
+            * path_to_internal_repo (str): path to the internal CM repository
+            * full_path_to_repo_paths (str): full path to repos.json
+            * lst (list): list of initialized CM repository classes
         """
 
         self.path = path
@@ -31,7 +48,16 @@ class Repos:
     ############################################################
     def load(self, init = False):
         """
-        Load or initialize file with repositories
+        Load or initialize repos.json file with repositories
+
+        Args:
+            init (bool): if False do not init individual CM repositories
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
 
         """
 
@@ -115,7 +141,18 @@ class Repos:
     ############################################################
     def process(self, repo_path, mode='add'):
         """
-        Process file with repo list
+        Add or delete CM repository
+
+        Args:
+            repo_path (str): path to CM repository
+            (mode) (str): "add" (default) 
+                          or "delete"
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
 
         """
 
@@ -152,7 +189,24 @@ class Repos:
     ############################################################
     def pull(self, alias, url = '', branch = '', checkout = '', console = False, desc = '', prefix = ''):
         """
-        Pull or clone repository
+        Clone or pull CM repository
+
+        Args:
+            alias (str): CM repository alias
+            (url) (str): Git repository URL
+            (branch) (str): Git repository branch
+            (checkout) (str): Git repository checkout
+            (console) (bool): if True, print some info to console
+            (desc) (str): optional repository description
+            (prefix) (str): sub-directory to be used inside this CM repository to store artifacts
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * (meta) (dict): meta of the CM repository
 
         """
 
@@ -245,7 +299,23 @@ class Repos:
     ############################################################
     def init(self, alias, uid, path = '', console = False, desc = '', prefix = '', only_register = False):
         """
-        Init or clone a CM repository
+        Init CM repository in a given path
+
+        Args:
+            alias (str): CM repository alias
+            uid (str): CM repository UID
+            (path) (str): local path to a given repository (otherwise use $HOME/CM/repos)
+            (desc) (str): optional repository description
+            (prefix) (str): sub-directory to be used inside this CM repository to store artifacts
+            (only_register) (bool): if True, only register path in the CM index of repositories but do not recreate cmr.yaml
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * (meta) (dict): meta of the CM repository
 
         """
 
@@ -318,7 +388,19 @@ class Repos:
     ############################################################
     def delete(self, lst, remove_all = False, console = False, force = False):
         """
-        Delete CM repository with or without content
+        Delete CM repository or repositories with or without content
+
+        Args:
+            lst (list of CM repository classes): list of CM repositories
+            remove_all (bool): if True, remove the content and unregister CM repository
+            console (bool): if True, output some info to console
+            force (bool): if True, do not ask questions
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
 
         """
 
