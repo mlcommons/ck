@@ -1,3 +1,5 @@
+# Needs to be updated based on make-docs.bat
+
 cd ..
 
 rm -rf _build

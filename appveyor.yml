@@ -24,4 +24,4 @@ test_script:
   - cd ck2
   - "%PYTHON%\\python.exe setup.py install"
   - "%PYTHON%\\python.exe -m cmind"
-  - "cm status"
+  - "cm"
