@@ -71,7 +71,7 @@ Apache 2.0
 
 # Documentation
 
-* [User guide and API (under development)](https://cknowledge.org/docs/cm)
+* [Online docs](https://cknowledge.org/docs/cm)
 
 
 

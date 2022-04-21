@@ -13,14 +13,10 @@ CM toolkit documentation
 
 .. toctree::
    :maxdepth: 2
-   :caption: Getting Started
+   :caption: User guide
 
    installation
    concept
-
-.. toctree::
-   :maxdepth: 2
-   :caption: User guide
 
 .. toctree::
    :maxdepth: 2
@@ -28,6 +24,11 @@ CM toolkit documentation
 
    structure
    api/cmind
+
+.. toctree::
+   :maxdepth: 2
+   :caption: Future work
+   
    enhancements
 
 

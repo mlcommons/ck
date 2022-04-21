@@ -6,12 +6,15 @@
 
 
 
-# Concept
+# Getting Started tutorial
 
-Here we describe a few simple steps to help you understand the CM concept. 
-You will install CM v0.7.7+, transform your local directory, GitHub project, Docker container 
-and Jupyter notebook into a database of reusable artifacts, share it with others
-and implement some common automation to reusable artifacts.
+Here we describe a few simple steps to let you try CM (CK2) and help you understand the [CM concepts](motivation.md). 
+You will install CM v0.7.7+, transform your local directory into a database of reusable artifacts, 
+share it with others, implement some common automation actions to reusable artifacts,
+run CM automations from Python and Jupyter Notebooks, and convert any Git repository 
+into the CM format.
+
+
 
 
 ## Install CM
@@ -19,7 +22,7 @@ and implement some common automation to reusable artifacts.
 CM toolkit is implemented as a small Python library with a unified CLI and a simple API.
 
 It requires minimal dependencies (Python 3+, pip, pyyaml and a Git client) 
-and should work with any OS including Linux, CentOS, Debian, RedHat and Windows.
+and should work with any OS including Linux, MacOS, CentOS, Debian, RedHat and Windows.
 
 ```bash
 $ pip3 install cmind
@@ -27,25 +30,34 @@ $ pip3 install cmind
 
 You can find more details about the installation process [here](installation.md).
 
-## Share some artifacts
+
+
+
+## Organize your artifacts
+
+We use CM to provide a common structure to software projects and organize all related artifacts 
+in such a way that it is possible to share, find, reuse and extend them across different teams and projects
+with a minimal effort.
+
+
 
 ### Without CM
 
-Image you want to share with your colleagues an image of a cat, some machine learning model
+Let's imagine that you want to share with your colleagues some machine learning model, an image of a cat, 
 and a JSON file with some experimental results including inference time and image classification
 via some GitHub repository.
 
-First, you will likely create a GitHub repository and clone it on your local machine:
+You will [likely](https://www.youtube.com/watch?v=7zpeIVwICa4), 
+create some local directory "my-cool-project" in your $HOME directory to organize related artifacts:
 
 ```bash
-$ git clone {GitHub repo URL} my-cool-project
+$ mkdir my-cool-project
+$ cd my-cool-project
 ```
  
-You may then create some directories to store your image, model and experiment:
+You will then create some ad-hoc directories to store your ML model, image and experimental data:
 
 ```bash
-$ cd my-cool-project
-
 $ mkdir images
 $ cp cool-cat.jpeg images
 
@@ -59,46 +71,83 @@ $ cp my-cool-result-20220404.json experiments
 You will then likely create a *README.md* describing the structure 
 and the content of your repository, and how someone can run your experiment.
 
-Another person will need to read this README file to understand the structure
-of your repository and either reproduce results or use some artifacts
-in his or her own project.
+You will then pack this repository or push it to GitHub to share it with someone else.
+
+Another person will need to read your README file to understand the structure
+of your repository, reproduce results, customize your code and reuse some artifacts
+in another project.
+
+However, since most colleagues [are very busy with their own projects](https://doi.org/10.5281/zenodo.6475385), 
+they will unlikely to have time to read yet another ad-hoc ReadMe and will unlikely to try your project
+unless they are forced to ;) ...
+
+![](https://i.pinimg.com/564x/17/45/68/174568bf0002b8832b20fd995898f8ce.jpg)
+
+Based on our [related experience](https://www.youtube.com/watch?v=7zpeIVwICa4),
+we believe that having a common format and command line interface 
+for projects and READMEs will make it easier for the community 
+to try your project and reuse your artifacts.
+
+
 
 ### With CM
 
 #### Initializing CM-compatible repository in the directory
 
-The idea behind CM is to perform very similar steps from the command line 
+The idea behind CM is to convert directories and projects into a simple
+database of [reusable](https://www.go-fair.org/fair-principles) 
+artifacts and automations with a common CLI.
+
+We want you to perform very similar steps from the command line as above
 but just prefixed by *cm* to let CM index artifacts, add Unique IDs 
 and extensible JSON/YAML meta descriptions,
-and make them findable, interconnectable and reusable:
+and make them findable, interoperable and reusable:
 
-You can initialize a CM repository in a given directory as follows:
+You can initialize a CM repository in your working directory as follows:
 
 ```bash
 $ cm init repo
 ```
 
-CM will use the name of this directory as an alias of this CM repository. 
-You can list already registered CM repositories as follows:
-```
-$ cm ls repo
+CM will create a *cmr.yaml* file with a global unique ID and will register 
+this location in the CM-compatible repository index *$HOME/CM/repos.json*. 
 
-local,9a3280b14a4285c9 = ...
-internal,36b263b05174aef9 = ...
-my-cool-project, ...
-```
+This is needed to let CM automatically search for reusable artifacts and automations
+in all CM-compatible directories on your machine and plug them into modular CM projects.
 
-You can find a path to this repository as follows:
+However, if you forget the location, you can always find it using the following CM command:
 ```bash
 $ cm find repo my-cool-project
 ```
 
-#### Converting Git project to CM repository
+Note that CM will use the name of your current directory as an alias of this CM repository. 
+You can list already registered CM repositories as follows:
+```bash
+$ cm ls repo
+```
+ or
+```bash
+$ cm ls repo | sort
 
-If you already have a Git repository you can pull and register it as follows:
+local = C:\Users\grigo\CM\repos\local
+internal = C:\!Progs\Python39\lib\site-packages\cmind-0.7.7-py3.9.egg\cmind\repo
+my-cool-project = ...
+```
+
+
+You can also create a repository with a specific name in $HOME/CM/repos directory as follows:
+```bash
+$ cm init repo another-cool-project
+$ cm find repo *cool*
+```
+
+#### Converting existing Git project to the CM repository
+
+If you already have a Git repository you can pull it via CM and make it a CM-compatible repository as follows:
 
 ```bash
-$ cm pull repo my-cool-project --url={GitHub repo URL} 
+$ cm pull repo my-cool-project --url={Git repo URL} 
+$ cm list repo 
 ```
 
 CM will pull this repository to *$HOME/CM/repos/my-cool-project*, 
@@ -106,27 +155,6 @@ will add *cmr.yaml* file with a global unique ID to let the community
 know that this repository is CM-compatible,
 and will register this location in the CM-compatible repository index *$HOME/CM/repos.json*. 
 
-This is needed to let CM automatically search for reusable artifacts and automations
-in all CM-compatible directories on your machine and plug them into modular CM projects.
-
-However, if you forget the location, you can always find it using the following CM command:`
-```bash
-$ cm find repo my-cool-project
-```
-
-You can list all CM-compatible repositories and their locations as follows:
-```bash
-$ cm list repo
-```
-or
-```bash
-$ cm ls repo | sort
-
-default = C:\!Progs\Python39\lib\site-packages\cmind-0.5.2-py3.9.egg\cmind\repo
-local = C:\Users\grigo\CM\repos\local
-my-cool-project = C:\Users\grigo\CM\repos\my-cool-project
-octoml@mlops = C:\Users\grigo\CM\repos\octoml@mlops
-```
 
 Note that you always have at least 2 CM-compatible repositories after you use CM for the first time:
 * *internal* is a CM repository with reusable artifacts and automations that were moved 
@@ -140,8 +168,7 @@ Note that you always have at least 2 CM-compatible repositories after you use CM
 
 
 
-
-#### Creating CM artifact
+#### Creating CM artifacts
 
 You can then use CM to create a similar structure as in your original Git repository:
 
@@ -168,7 +195,7 @@ CM created a directory *images/cool-cat* inside *my-cool-project* repository and
 Note that since such artifact will become reusable in the world (collective database) where similar name may exists, 
 CM also generated a unique ID for this artifact. You can now find this artifact on your system using its alias, UID or tags:
 
-#### Finding CM artifact
+#### Finding CM artifacts
 
 
 ```bash
