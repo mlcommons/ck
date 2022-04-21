@@ -42,11 +42,10 @@ Apache 2.0
 
 
 
-# How it works
+# Documentation
 
-* Check this [CM tutorial](docs/concept.md) 
-  to understand the Collective Mind concepts and try this toolkit.
-
+* [Online docs](https://cknowledge.org/docs/cm)
+  * [Getting Started tutorial](https://cknowledge.org/docs/cm/concept.html)
 
 # Community meetings
 
@@ -67,11 +66,6 @@ Apache 2.0
 * **2022 March:** we've released the first prototype of [the Collective Mind toolkit (CK2)](https://github.com/mlcommons/ck/tree/master/ck2)
   based on your feedback and our practical experience [reproducing 150+ ML and Systems papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
 
-
-
-# Documentation
-
-* [Online docs](https://cknowledge.org/docs/cm)
 
 
 
