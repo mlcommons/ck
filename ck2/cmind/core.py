@@ -422,7 +422,7 @@ class CM(object):
 
             for extra_artifact in artifacts:
                 # Parse artifact
-                r = utils.parse_cm_object(extra_artifact)
+                r = parse_cm_object_and_check_current_dir(self, extra_artifact)
                 if r['return'] >0 : return r
 
                 parsed_artifacts.append(r['cm_object'])
@@ -432,7 +432,7 @@ class CM(object):
         # Check artifact and artifacts
         if artifact != '':
             # Parse artifact
-            r = utils.parse_cm_object(artifact)
+            r = parse_cm_object_and_check_current_dir(self, artifact)
             if r['return'] >0 : return r
 
             i['parsed_artifact'] = r['cm_object']
@@ -443,6 +443,22 @@ class CM(object):
         r = action_addr(i)
 
         return r
+
+############################################################
+def parse_cm_object_and_check_current_dir(cmind, artifact):
+
+    if artifact.startswith('.:'):
+
+        r = cmind.access({'action':'detect',
+                       'automation':'repo,55c3e27e8a140e48'})
+        if r['return']>0: return r
+
+        if r.get('registered', False):
+            cm_repo = r['cm_repo']
+
+            artifact = cm_repo + artifact[1:]
+    
+    return utils.parse_cm_object(artifact)
 
 ############################################################
 def print_db_actions(automation, equivalent_actions):

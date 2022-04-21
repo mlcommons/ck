@@ -1,9 +1,10 @@
 # Prototyping phase
 
-## Dev
+## V0.7.8
    - fixed bug when detecting repo in "internal" repo
    - added dummy automations for env, ic and docker: #220
    - added dummy automation experiment
+   - added support to detect current repo in artifacts in CLI: "cm add automation .:mlperf"
 
 ## V0.7.7
    - added utils.get_current_date_time
