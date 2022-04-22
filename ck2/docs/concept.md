@@ -396,7 +396,7 @@ $ cm load experiments cool-result
 ### From Python and Jupyter notebooks
 
 CM provides a simple and unified access function to all CM repositories similar to micro-services
-and [ElasticSearch]( https://www.elastic.co ) with input as dictionary
+and [ElasticSearch]( https://www.elastic.co ) with an input as a dictionary:
 
 ```python
 import cmind
@@ -583,8 +583,8 @@ your own automation actions and apply them to artifacts: [CM internal repo](http
 Now you can share your automation for a given artifact type in your private repository
 with your colleagues or in your public repository with the whole world.
 
-Others can pull your repository via *cm pull repo ...* and immediatelly reuse
-common automations and artifacts in the existing or new projects!
+Others can pull your repository via *cm pull repo ...* and start reusing
+the common automations and artifacts in their own projects.
 
 Furthermore, everyone can now extend existing automation actions 
 or contribute the new ones instead of reinventing the wheel!
@@ -593,3 +593,23 @@ or contribute the new ones instead of reinventing the wheel!
 
 
 
+## Extending meta descriptions of artifacts
+
+Besides adding new common automation actions, the community can also gradually 
+extend JSON or YAML files of shared artifacts to find a better way to describe them
+when reusing them across different projects.
+
+We hope that such Wikipedia-style mechanisms will help the community to gradually decompose 
+all complex software and research projects into a collection of reusable artifacts and automation actions.
+
+
+
+
+
+
+
+## Next steps
+
+We are working with the community to develop portable CM automation actions and artifacts 
+that can make ML Systems benchmarking, experimenation and MLOps more collaborative,
+deterministic and reproducible: https://github.com/octoml/cm-mlops . 

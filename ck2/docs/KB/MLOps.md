@@ -56,3 +56,11 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
     - [Containerizing Huggingface Transformers for GPU inference with Docker and FastAPI on AWS](https://towardsdatascience.com/containerizing-huggingface-transformers-for-gpu-inference-with-docker-and-fastapi-on-aws-d4a83edede2f) (TowardsDataScience, 20211004)
     - [FOSDEM’22 containers track](https://fosdem.org/2022/schedule/track/containers/)
 
+# ML containers
+
+- ["COG" from Replicate](https://github.com/replicate/cog)
+- [MLCube](https://github.com/mlcommons/mlcube)
+
+# ML artifact management
+
+- [CM toolkit](https://github.com/mlcommons/ck/tree/master/ck2)
