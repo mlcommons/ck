@@ -106,5 +106,5 @@ and all our colleagues for their valuable feedback and support!
 
 # Contacts
 
-* [Grigori Fursin](https://cKnowledge.io/@gfursin) - author and coordinator
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) - coordinator and maintainer
+* [Grigori Fursin](https://cKnowledge.io/@gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)

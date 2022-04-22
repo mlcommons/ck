@@ -112,11 +112,11 @@ class Automation:
 
         print ('')
         print ('Path to CM package:         {}'.format(self.cmind.path_to_cmind))
-        print ('Path to CM core:            {}'.format(self.cmind.path_to_cmind_kernel))
+        print ('Path to CM core module:     {}'.format(self.cmind.path_to_cmind_core_module))
         print ('Path to CM internal repo:   {}'.format(self.cmind.repos.path_to_internal_repo))
 
         print ('')
-        print ('Path to CM repositories:    {}'.format(self.cmind.home_path))
+        print ('Path to CM repositories:    {}'.format(self.cmind.repos_path))
 
         print ('')
         print ('GitHub for CM development:  https://github.com/mlcommons/ck/tree/master/ck2')

@@ -21,12 +21,12 @@ class CM(object):
     """
 
     ############################################################
-    def __init__(self, home_path = '', debug = False):
+    def __init__(self, repos_path = '', debug = False):
         """
         Initialize CM configuration class
 
         Args:
-            (home_path) (str) - path to CM repositories and other information.
+            (repos_path) (str) - path to CM repositories and other information.
             (debug) (bool) - if True, raise errors in internal functions 
                              instead of returning a dictionary with "return">0.
 
@@ -36,10 +36,10 @@ class CM(object):
             * cfg (dict): internal CM configuration
             * debug (bool): debug state
 
-            * home_path (str): path to CM repositories and other information
+            * repos_path (str): path to CM repositories and other information
 
             * path_to_cmind (str): path to the used CM toolkit
-            * path_to_cmind_kernel (str): path to CM kernel
+            * path_to_cmind_core_module (str): path to CM core module
             * path_to_cmind_repo (str): path to the "internal" CM repo
 
             * repos (list): list of initialized CM repository objects
@@ -59,18 +59,24 @@ class CM(object):
             self.debug = True
 
         # Explicit path to direcory with CM repositories and other internals
-        self.home_path = home_path
-        if self.home_path == '':
-            s = os.environ.get(self.cfg['env_home'],'').strip()
+        self.repos_path = repos_path
+        if self.repos_path == '':
+            s = os.environ.get(self.cfg['env_repos'],'').strip()
             if s != '':
-                self.home_path = s
+                self.repos_path = s
 
-        if self.home_path == '':
+        if self.repos_path == '':
            from os.path import expanduser
-           self.home_path = os.path.join(expanduser("~"), self.cfg['default_home_dir'])
+           self.repos_path = os.path.join(expanduser("~"), self.cfg['default_home_dir'])
 
-        self.path_to_cmind_kernel = inspect.getfile(inspect.currentframe())
-        self.path_to_cmind = os.path.dirname(self.path_to_cmind_kernel)
+        path_to_cmind = os.environ.get(self.cfg['env_home'],'').strip()
+        if path_to_cmind != '':
+            self.path_to_cmind = path_to_cmind
+            self.path_to_cmind_core_module = os.path.join(self.path_to_cmind, 'core.py')
+        else:
+            self.path_to_cmind_core_module = inspect.getfile(inspect.currentframe())
+            self.path_to_cmind = os.path.dirname(self.path_to_cmind_core_module)
+
         self.path_to_cmind_repo = os.path.join(self.path_to_cmind, self.cfg['cmind_repo'])
 
         # Repositories
@@ -213,7 +219,7 @@ class CM(object):
 
         # Load info about all CM repositories (to enable search for automations and artifacts)
         if self.repos == None:
-            repos = Repos(path = self.home_path, cfg = self.cfg, 
+            repos = Repos(path = self.repos_path, cfg = self.cfg, 
                           path_to_internal_repo = self.path_to_cmind_repo)
 
             r = repos.load()

@@ -1,7 +1,10 @@
 # Prototyping phase
 
-## Dev
-   - documenting/updating APIs of all internal functions
+## V0.7.9
+   - documented all internal APIs
+   - changed a few ambiguous internal and environment variables
+   - moved new and unstable components for MLOps to octoml@cm-mlops
+     for further prototyping
 
 ## V0.7.8
    - fixed bug when detecting repo in "internal" repo
