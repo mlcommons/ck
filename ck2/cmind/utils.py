@@ -377,13 +377,14 @@ def find_file_in_dir_and_above(filename,
         path (str)
 
     Returns:
-        (dict) return (int): 0 - if found
-                             16 - if not found
-               (error) (str)
+       (CM return dict):
 
-               path (str): path where file is found
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
 
-               path_to_file (str): path to file
+       * path (str): path where file is found
+       * path_to_file (str): path to file
+
     """
 
     if path == "":

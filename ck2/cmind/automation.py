@@ -41,7 +41,7 @@ class Automation:
         Args:
             (CM input dict):
             
-            out (str): if 'con', output to console
+            (out) (str): if 'con', output to console
 
         Returns: 
             (CM return dict):
@@ -69,7 +69,7 @@ class Automation:
         Args:
             (CM input dict):
             
-            out (str): if 'con', output to console
+            (out) (str): if 'con', output to console
 
         Returns: 
             (CM return dict):
@@ -132,7 +132,7 @@ class Automation:
         Args:
             (CM input dict):
             
-            out (str): if 'con', output to console
+            (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
                                       [ (automation alias, automation UID) ] or
@@ -310,7 +310,7 @@ class Automation:
         Args:
             (CM input dict):
             
-            out (str): if 'con', output to console
+            (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
                                       [ (automation alias, automation UID) ] or
@@ -430,7 +430,7 @@ class Automation:
         Args:
             (CM input dict):
             
-            out (str): if 'con', output to console
+            (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
                                       [ (automation alias, automation UID) ] or
@@ -512,7 +512,7 @@ class Automation:
         Args:
             (CM input dict):
             
-            out (str): if 'con', output to console
+            (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
                                       [ (automation alias, automation UID) ] or
@@ -578,7 +578,7 @@ class Automation:
         Args:
             (CM input dict):
             
-            out (str): if 'con', output to console
+            (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
                                       [ (automation alias, automation UID) ] or
@@ -663,7 +663,7 @@ class Automation:
         Args:
             (CM input dict):
             
-            out (str): if 'con', output to console
+            (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
                                       [ (automation alias, automation UID) ] or

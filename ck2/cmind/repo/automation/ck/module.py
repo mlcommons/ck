@@ -5,7 +5,7 @@ from cmind import utils
 
 class CAutomation(Automation):
     """
-    CM front-end to legacy CK framework
+    CM front-end to the legacy CK framework
     """
 
     ############################################################
@@ -15,14 +15,21 @@ class CAutomation(Automation):
     ############################################################
     def any(self, i):
         """
-        Use as wrapper to CK
+        CM filter for CK commands.
 
         Example:
           cm run ck program:*susan*
         
         Args:
-          
+          (CM input dict): pass to CK
 
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+          
+          * Output from the CK automation action
         
         """
 

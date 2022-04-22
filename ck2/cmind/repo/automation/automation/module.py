@@ -5,7 +5,7 @@ from cmind import utils
 
 class CAutomation(Automation):
     """
-    Automation actions for the automation module
+    CM "automation" automation actions
     """
 
     ############################################################
@@ -15,11 +15,22 @@ class CAutomation(Automation):
     ############################################################
     def add(self, i):
         """
-        Add automation
+        Add CM automation.
 
         Args:
-           (artifact) (str) - repository name or UID
-           (tags) (str) - tags
+          (CM input dict): 
+
+          (out) (str): if 'con', output to console
+
+          parsed_artifact (list): prepared in CM CLI or CM access function
+                                    [ (artifact alias, artifact UID) ] or
+                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
            
         """
 

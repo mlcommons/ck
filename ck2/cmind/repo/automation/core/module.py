@@ -11,7 +11,7 @@ from cm_60cb625a46b38610 import misc
 
 class CAutomation(Automation):
     """
-    CM core automation actions
+    CM "core" automation actions
     """
 
     ############################################################
@@ -22,7 +22,18 @@ class CAutomation(Automation):
     ############################################################
     def uid(self, i):
         """
-        Generate CM UID
+        Generate CM UID.
+
+        Args:
+          (CM input dict): empty dict
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+          * uid (str): CM UID
         """
 
         return misc.uid(i)

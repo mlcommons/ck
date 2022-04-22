@@ -5,7 +5,7 @@ from cmind import utils
 
 class CAutomation(Automation):
     """
-    CM repo automation actions
+    CM "repo" automation actions
     """
 
     ############################################################
@@ -15,16 +15,28 @@ class CAutomation(Automation):
     ############################################################
     def pull(self, i):
         """
-        Pull repo
+        Clone or pull CM repository.
 
         Args:
-           (artifact) (str) - repository name
-           (url) (str) - URL of a repository
-           (branch) (str) - Git branch
-           (checkout) (str) - Git checkout
-           (desc) (str) - brief repository description (1 line)
-           (prefix) (str) - extra directory to keep CM artifacts
-           
+          (CM input dict): 
+
+          (out) (str): if 'con', output to console
+
+          (artifact) (str): repository name (alias)
+          (url) (str): URL of a repository
+          (branch) (str): Git branch
+          (checkout) (str): Git checkout
+          (desc) (str): brief repository description (1 line)
+          (prefix) (str): extra directory to keep CM artifacts
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+          * meta (dict): meta of the CM repository
+        
         """
 
         console = i.get('out') == 'con'
@@ -82,12 +94,25 @@ class CAutomation(Automation):
     ############################################################
     def search(self, i):
         """
-        List repos
+        List registered CM repos.
 
         Args:
-         (verbose) (bool) - if True show extra info about repositories
-         (skip_con) (bool) - skip output to console if True
-           
+            (CM input dict):
+            
+            (out) (str): if 'con', output to console
+
+            (verbose) (bool) - if True show extra info about repositories
+
+            parsed_artifact (list): prepared in CM CLI or CM access function - repository name with wildcards
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * list (list): list of CM repository objects
+        
         """
 
         console = i.get('out') == 'con'
@@ -142,10 +167,20 @@ class CAutomation(Automation):
     ############################################################
     def update(self, i):
         """
-        Update repos
+        Update all Git-based CM repositories (git pull).
 
         Args:
-         (verbose) (bool) - if True show extra info about repositories
+            (CM input dict):
+            
+            (out) (str): if 'con', output to console
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * list (list): list of updated CM repository objects
            
         """
 
@@ -170,14 +205,28 @@ class CAutomation(Automation):
     ############################################################
     def delete(self, i):
         """
-        Delete repo (just unlink or remove content too)
+        Delete CM repository (either just unregister it or delete the content too).
 
         Args:
-           (artifact) (str) - repository name or UID
-           (all) (bool) - if True, remove with content otherwise just unlink
-           (force) (bool) - if True, quiet mode
-           (f) (bool) - if True, quiet mode
-           
+            (CM input dict):
+            
+            (out) (str): if 'con', output to console
+
+            (verbose) (bool) - if True show extra info about repositories
+
+            parsed_artifact (list): prepared in CM CLI or CM access function - repository name with wildcards
+
+            (all) (bool) - if True, remove with content otherwise just unlink
+
+            (force) (bool) - if True, do not ask questions
+            (f) (bool) - if True, do not ask questions
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
         """
 
         console = i.get('out') == 'con'
@@ -204,14 +253,27 @@ class CAutomation(Automation):
     ############################################################
     def init(self, i):
         """
-        Initialize repo
+        Initialize CM repository.
 
         Args:
-           (artifact) (str) - repository name or UID
-           (uid) (str) - initialize CM repository with a given UID
-           (path) (str) - initalize CM repository in a given local path
-           (desc) (str) - brief description of this CM repository
-           (prefix) (str) - extra directory to keep CM artifacts
+            (CM input dict):
+            
+            (out) (str): if 'con', output to console
+
+            (artifact) (str): repository name (alias)
+            (uid) (str): force CM UID for this repository
+            (path) (str): specify a path where to create this repository
+            (desc) (str): brief repository description (1 line)
+            (prefix) (str): extra directory to keep CM artifacts
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * CM repository object
+        
         """
 
         console = i.get('out') == 'con'
@@ -311,13 +373,7 @@ class CAutomation(Automation):
     ############################################################
     def add(self, i):
         """
-        Initialize repo
-
-        Args:
-           (artifact) (str) - repository name
-           (path) (str) - if !='' use this non-standard path
-           (desc) (str) - brief repository description
-           (prefix) (str) - extra directory to keep CM artifacts
+        The same as "init".
         """
 
         return self.init(i)
@@ -325,10 +381,23 @@ class CAutomation(Automation):
     ############################################################
     def pack(self, i):
         """
-        Pack repo for further distribution
+        Pack CM repository to cm.zip file.
 
         Args:
-           (artifact) (str) - repository name or UID
+            (CM input dict):
+            
+            (out) (str): if 'con', output to console
+
+            (artifact) (str): repository name (alias)
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * CM repository object
+
         """
 
         import zipfile
@@ -382,10 +451,20 @@ class CAutomation(Automation):
     ############################################################
     def unpack(self, i):
         """
-        Unpack repository
+        Unpack cm.zip and create a CM repository.
 
         Args:
-           (artifact) (str) - CM repo pack file name
+            (CM input dict):
+            
+            (out) (str): if 'con', output to console
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * CM repository object
         """
 
         import zipfile
@@ -475,16 +554,16 @@ class CAutomation(Automation):
     ##############################################################################
     def import_ck_to_cm(self, i):
         """
-        Convert CK repos to CM repos
+        Convert all legacy CK repositories to CM repositories
         
-        Input:  {
-                }
+        Args:
+            (CM input dict): None
 
-        Output: {
-                  return       - return code =  0, if successful
-                                             >  0, if error
-                  (error)      - error text if return > 0
-                }
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
 
         """
 
@@ -526,17 +605,18 @@ class CAutomation(Automation):
     ##############################################################################
     def convert_ck_to_cm(self, i):
         """
-        Convert CM repo in the CK format to CM format
+        Convert a CM repository with CK artifacts into CM artifacts
         
-        Input:  {
-                  (artifact)
-                }
+        Args:
+            (CM input dict):
 
-        Output: {
-                  return       - return code =  0, if successful
-                                             >  0, if error
-                  (error)      - error text if return > 0
-                }
+            (artifact) (str): CM repository name (alias)
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
 
         """
 
@@ -579,11 +659,45 @@ class CAutomation(Automation):
     ############################################################
     def detect(self, i):
         """
-        Detect repo in the current path
+        Detect CM repository in the current path.
 
         Args:
-          (path) (str) - path to repo (otherwise use current path)
-        
+            (CM input dict):
+
+            (path) (str): specify path where to detect CM repo. 
+                          Use current path otherwise.
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+          
+            * found (bool): True if found
+
+            * path_to_repo (str): path to repo if repo found
+            * path_to_repo_desc (str): path to repo description if repo found
+
+            * found_in_current_path (bool): if True, found in the current directory
+
+            * meta (dict): meta of the found repo
+
+            * cm_repo (str): CM repo object (alias,UID)
+                            
+            * registered (bool): True, if this repository is registered in CM
+
+            * artifact_found (bool): True, if CM artifact found in the current path
+
+            * path_to_artifact (str): path to artifact if found
+            * path_to_artifact_desc (str): path to artifact description if found
+
+            * artifact_found_in_current_path (str): artifact found in the current directory
+
+            * artifact_meta (dict): artifact meta description
+
+            * cm_artifact (str): CM artifact object (alias,UID)
+
+            * cm_automation (str): CM automation object (alias,UID)
 
         """
 
@@ -721,6 +835,17 @@ class CAutomation(Automation):
 ##############################################################################
 def convert_ck_dir_to_cm(rpath):
     """
+    Convert CK directory to the CM format (internal function).
+
+    Args:
+        rpath (str): path to a CK repository.
+
+    Returns: 
+        (CM return dict):
+
+        * return (int): return code == 0 if no error and >0 if error
+        * (error) (str): error string if return>0
+
     """
 
     import ck.kernel as ck

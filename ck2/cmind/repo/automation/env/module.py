@@ -5,7 +5,7 @@ from cmind import utils
 
 class CAutomation(Automation):
     """
-    Automation actions
+    CM "env" automation actions
     """
 
     ############################################################
@@ -18,7 +18,31 @@ class CAutomation(Automation):
         Test automation
 
         Args:
-           (artifact) (str) - artifact alias or UID
+          (CM input dict): 
+
+          (out) (str): if 'con', output to console
+
+          automation (str): automation as CM string object
+          
+          parsed_automation (list): prepared in CM CLI or CM access function
+                                    [ (automation alias, automation UID) ] or
+                                    [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
+
+          (artifact) (str): artifact as CM string object
+          
+          (parsed_artifact) (list): prepared in CM CLI or CM access function
+                                    [ (artifact alias, artifact UID) ] or
+                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+          ...
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+          * Output from this automation action
            
         """
 
