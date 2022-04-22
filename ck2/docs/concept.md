@@ -433,6 +433,8 @@ print (r['path'])
 
 You can see the Python class for a CM artifact [here](https://github.com/mlcommons/ck/blob/master/ck2/cmind/artifact.py#L7).
 
+Note that "automation_uid" is empty because CM doesn't know yet if your artifact types exists globally and thus can't add CM UID.
+We will explain how to reuse shared artifact types and automations later in this tutorial.
 
 ### In Docker containers
 
@@ -465,9 +467,9 @@ RUN apt update && \
 
 RUN pip3 install cmind
 
-RUN cm pull repo my-cool-project --url={GitHub repo URL} 
+RUN cm pull repo octoml@cm-mlops
 
-RUN cm find images
+RUN cm find automation
 
 RUN cm ...
 ```
@@ -496,19 +498,98 @@ $ cm find experiments
 
 
 
-## Add reusable automations to related artifacts 
+## Adding reusable automations for related artifacts 
 
-Systematize, reuse and interconnect similar to Wikipedia
+One of the goals of the [Collective Mind project (CK2)](https://arxiv.org/abs/2011.01149) 
+is to gradually systematize all available artifacts and provide reusable automation actions 
+to similar artifact types.
+
+To be able to add automation actions to your artifact types and reuse them with others,
+you need to add a *CM automation* for your artifact type as follows:
+
+```bash
+$ cm add automation {artifact type}
+```
+
+For example, you can add the following automations for this tutorial:
+```bash
+$ cm add automation images
+$ cm add automation experiments
+$ cm add automation models
+```
+
+Note that CM will add those automations to the "local" CM repository.
+You can add them to another public or private repository as follows:
+```bash
+$ cm add automation my-cool-project:images
+```
+
+Or you can move your existing automation to another CM repository as follows:
+```bash
+$ cm move automation local:images my-cool-project:
+```
+
+Now, whenever you add a new artifact with an associated automation,
+CM will find this automation and record "automation_uid" in the meta description 
+of the newly created artifact!
 
 
 
 
-## Extend meta descriptions
+## Adding reusable automation actions
 
-## Extend automations
+We use Python as a simplified and portable DSL to implement reusable automation actions
+for similar artifact types. 
+
+You can find a Python module for your automation as follows:
+```bash
+$ cm find automation images
+```
+
+This directory will include a meta description of this automation in *_cm.json*
+and a *module.py* with the automation actions.
+
+This module inherits default "CM database actions" from the [Automation class](https://github.com/mlcommons/ck/blob/master/ck2/cmind/automation.py) 
+in the CM package such as "add", "rm", "find", "rename", etc.
+
+It also includes a "test" automation action to help you understand the CM CLI:
+```bash
+$ cm test images
+
+{
+  "action": "test",
+  "automation": "images",
+  "out": "con",
+  "parsed_automation": [
+    [
+      "images",
+      "..."
+    ]
+  ]
+}
+```
+
+You can add your own functions to this module that will be immediatelly accessible 
+from the command line:
+```bash
+$ cm {my-new-automation} images
+...
+```
+Note that all '-' characters in the automation action from the CLI will be converted into '_'.
+
+Please check the following examples of internal CM automations to understand how to write
+your own automation actions and apply them to artifacts: [CM internal repo](https://github.com/mlcommons/ck/tree/master/ck2/cmind/repo/automation)
+
+Now you can share your automation for a given artifact type in your private repository
+with your colleagues or in your public repository with the whole world.
+
+Others can pull your repository via *cm pull repo ...* and immediatelly reuse
+common automations and artifacts in the existing or new projects!
+
+Furthermore, everyone can now extend existing automation actions 
+or contribute the new ones instead of reinventing the wheel!
 
 
 
 
-## Further thoughts
 
