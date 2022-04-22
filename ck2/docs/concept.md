@@ -147,7 +147,7 @@ If you already have a Git repository you can pull it via CM and make it a CM-com
 
 ```bash
 $ cm pull repo my-cool-project --url={Git repo URL} 
-$ cm list repo 
+$ cm find repo 
 ```
 
 CM will pull this repository to *$HOME/CM/repos/my-cool-project*, 
@@ -403,7 +403,7 @@ import cmind
 
 # List repositories
 
-r=cmind.access({'action':'list', 'automation':'repo'})
+r=cmind.access({'action':'find', 'automation':'repo'})
 if r['return']>0: cmind.error(r)
 
 print (r)
