@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## Dev
+   - added '\n' in save_json
+
 ## V0.7.9
    - documented all internal APIs
    - changed a few ambiguous internal and environment variables

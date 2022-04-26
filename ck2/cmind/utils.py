@@ -198,7 +198,7 @@ def save_json(file_name, meta={}, indent=2, sort_keys=True, encoding = 'utf8'):
     import json
     
     with open(file_name, 'w', encoding = encoding) as jf:
-        jf.write(json.dumps(meta, indent=indent, sort_keys=sort_keys))
+        jf.write(json.dumps(meta, indent=indent, sort_keys=sort_keys)+'\n')
 
     return {'return':0}
 
