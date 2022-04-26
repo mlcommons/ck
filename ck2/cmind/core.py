@@ -245,10 +245,11 @@ class CM(object):
             if r['return']>0: return r
 
             # Check and substitute automation
+            automation = ''
             if r.get('artifact_found', False):
-                automation = r['cm_automation']
-            else:
-                automation = ''
+                if not r.get('found_in_current_path',False):
+                    # If not in the root directory (otherwise search through all automations)
+                    automation = r['cm_automation']
 
             # Check and make an artifact (only if artifacts are not specified)
             if r.get('artifact_found_in_current_path', False) and artifact == '':
