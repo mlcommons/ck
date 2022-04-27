@@ -3,6 +3,7 @@
 ## Dev
    - added '\n' in save_json
    - fixed minor bug in the "find" function (when searching in the root directory of a CK repo)
+   - fixed bug when pulling new repo with prefix
 
 ## V0.7.9
    - documented all internal APIs

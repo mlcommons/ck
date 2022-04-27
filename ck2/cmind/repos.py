@@ -286,6 +286,15 @@ class Repos:
             r=utils.save_yaml(path_to_repo_desc + '.yaml', meta=meta)
             if r['return']>0: return r
 
+        # Check paht to repo with prefix
+        path_to_repo_with_prefix = path_to_repo
+
+        if prefix!='':
+            path_to_repo_with_prefix = os.path.join(path_to_repo, prefix)
+
+            if not os.path.isdir(path_to_repo_with_prefix):
+                os.makedirs(path_to_repo_with_prefix)
+        
         # Update repo list
         # TBD: make it more safe (reload and save)
         r = self.process(path_to_repo, 'add')
@@ -315,7 +324,11 @@ class Repos:
             * return (int): return code == 0 if no error and >0 if error
             * (error) (str): error string if return>0
 
-            * (meta) (dict): meta of the CM repository
+            * meta (dict): meta of the CM repository
+
+            * path_to_repo (str): path to repository
+            * path_to_repo_desc (str): path to repository description
+            * path_to_repo_with_prefix (str): path to repository with prefix (== path_to_repo if prefix == "")
 
         """
 
@@ -359,8 +372,11 @@ class Repos:
                      'git':False,
                    }
 
-            if desc!='': meta['desc']=desc
-            if prefix!='': meta['prefix']=prefix
+            if desc!='': 
+                meta['desc']=desc
+
+            if prefix!='': 
+                meta['prefix']=prefix
 
             r=utils.save_yaml(path_to_repo_desc + '.yaml', meta=meta)
             if r['return']>0: return r
@@ -378,12 +394,24 @@ class Repos:
             
             meta = r['meta']
 
+        # Check if exist and create if not
+        path_to_repo_with_prefix = path_to_repo
+
+        if prefix!='':
+            path_to_repo_with_prefix = os.path.join(path_to_repo, prefix)
+
+            if not os.path.isdir(path_to_repo_with_prefix):
+                os.makedirs(path_to_repo_with_prefix)
+
         # Update repo list
         # TBD: make it more safe (reload and save)
         r = self.process(path_to_repo, 'add')
         if r['return']>0: return r
 
-        return {'return':0, 'meta':meta, 'path_to_repo': path_to_repo, 'path_to_repo_desc': path_to_repo_desc}
+        return {'return':0, 'meta':meta, 
+                            'path_to_repo': path_to_repo, 
+                            'path_to_repo_desc': path_to_repo_desc,
+                            'path_to_repo_with_prefix': path_to_repo_with_prefix}
 
     ############################################################
     def delete(self, lst, remove_all = False, console = False, force = False):

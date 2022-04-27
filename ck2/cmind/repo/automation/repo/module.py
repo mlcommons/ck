@@ -232,7 +232,12 @@ class CAutomation(Automation):
         console = i.get('out') == 'con'
 
         force = (i.get('force',False) or i.get('f',False))
-        
+
+        artifact = i.get('artifact','').strip()
+
+        if artifact == '':
+            return {'return':1, 'error':'repositories are not specified'}
+
         # Search CM repository
         i['action']='search'
         i['out']=None

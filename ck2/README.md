@@ -83,7 +83,7 @@ Please don't hesitate to share your ideas and report encountered issues!
 
 We are developing reusable CM components to bridge [the gap](https://www.mihaileric.com/posts/mlops-is-a-mess) 
 between MLOps and DevOps and make it easier to co-design, benchmarking, optimize and deploy
-AI and ML system across continuously changing software and hardware stacks: https://github.com/octoml/cm-mlops . 
+AI and ML system across continuously changing software and hardware stacks.
 
 
 ## Modular CM-based projects
