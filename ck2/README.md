@@ -79,20 +79,24 @@ as a collective database of reusable artifacts and automations.
 Please don't hesitate to share your ideas and report encountered issues!
 
 
-## Reusable CM components
 
-We are developing reusable CM components to bridge [the gap](https://www.mihaileric.com/posts/mlops-is-a-mess) 
-between MLOps and DevOps and make it easier to co-design, benchmarking, optimize and deploy
-AI and ML system across continuously changing software and hardware stacks.
+
 
 
 ## Modular CM-based projects
 
-TBA
+### Towards more deterministic, portable and reproducible MLOps and DevOps
+
+We are developing reusable CM components to bridge [the growing gap](https://www.mihaileric.com/posts/mlops-is-a-mess) 
+between MLOps and DevOps and make it easier to co-design, benchmark, optimize and deploy
+AI and ML system across continuously changing software and hardware stacks.
+
+* CM repository for prototyping: [GitHub](https://github.com/mlcommons/ck/tree/master/ck2-repo-mlops)
 
 
 
-# Resources
+
+# Related resources
 
 * [MLOps](docs/KB/MLOps.md)
 
