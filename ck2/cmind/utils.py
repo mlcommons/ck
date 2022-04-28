@@ -263,7 +263,7 @@ def load_txt(file_name, encoding = 'utf8', remove_after_read = False):
     with open(file_name, 'rt', encoding = encoding) as tf:
         s = tf.read()
 
-    if i.get('remove_after_read', False):
+    if remove_after_read:
         os.remove(tf)
 
     return {'return':0,
