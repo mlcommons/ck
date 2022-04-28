@@ -1,11 +1,12 @@
 # Prototyping phase
 
-## Dev
+## V0.7.10
    - added '\n' in save_json
    - fixed minor bug in the "find" function (when searching in the root directory of a CK repo)
    - fixed bug when pulling new repo with prefix
    - added "gen_tmp_file" from CK to utils
    - added "get_host_os_info" from CK to utils to support new "intelligent components"
+   - started prototyping "intelligent component"
 
 ## V0.7.9
    - documented all internal APIs
