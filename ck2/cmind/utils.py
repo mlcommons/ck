@@ -264,7 +264,7 @@ def load_txt(file_name, encoding = 'utf8', remove_after_read = False):
         s = tf.read()
 
     if remove_after_read:
-        os.remove(tf)
+        os.remove(file_name)
 
     return {'return':0,
             'string': s}
