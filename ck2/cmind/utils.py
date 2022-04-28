@@ -239,7 +239,7 @@ def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
 
 
 ###########################################################################
-def load_txt(file_name, encoding = 'utf8'):
+def load_txt(file_name, encoding = 'utf8', remove_after_read = False):
     """
     Load text file.
 
@@ -248,6 +248,7 @@ def load_txt(file_name, encoding = 'utf8'):
 
        file_name (str): file name 
        (encoding) (str): file encoding ('utf8' by default)
+       (remove_after_read) (bool): if True, remove file after read (False by default)
 
     Returns:
        (CM return dict):
@@ -261,6 +262,9 @@ def load_txt(file_name, encoding = 'utf8'):
 
     with open(file_name, 'rt', encoding = encoding) as tf:
         s = tf.read()
+
+    if i.get('remove_after_read', False):
+        os.remove(tf)
 
     return {'return':0,
             'string': s}
@@ -1170,3 +1174,117 @@ def get_current_date_time(i):
     a['time_second'] = now[5]
 
     return {'return': 0, 'array': a, 'iso_datetime': now1.isoformat()}
+
+##############################################################################
+def gen_tmp_file(i):
+    """
+    Generate temporary files
+
+    Args:    
+       (CM input dict):
+
+              (suffix) (str): temp file suffix
+              (prefix) (str): temp file prefix
+              (remove_dir) (bool): if True, remove dir
+
+    Returns: 
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * file_name (str): temp file name 
+    """
+
+    xs = i.get('suffix', '')
+    xp = i.get('prefix', '')
+    s = i.get('string', '')
+
+    import tempfile
+
+    fd, fn = tempfile.mkstemp(suffix=xs, prefix=xp)
+    os.close(fd)
+    os.remove(fn)
+
+    if i.get('remove_dir', False):
+        fn = os.path.basename(fn)
+
+    return {'return': 0, 'file_name': fn}
+
+##############################################################################
+def get_host_os_info(i):
+    """
+    Get some host platform name (currently windows or linux) and OS bits
+
+    Args:    
+       (CM input dict):
+
+       (bits) (str): force host platform bits
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * info (dict):
+         * platform (str): "windows" or "linux"
+         * bat_ext (str): ".bat" or ".sh"
+         * bits (str): 32 or 64 bits
+         * python_bits 9str): python bits
+
+    """
+
+    import os
+    import platform
+    import struct
+
+    info = {}
+    
+    pbits = str(8 * struct.calcsize("P"))
+
+    if platform.system().lower().startswith('win'):
+        platform = 'windows'
+        info['bat_ext']='.bat'
+    else:
+        platform = 'linux'
+        info['bat_ext']='.sh'
+
+    info['platform'] = platform
+
+    obits = i.get('bits', '')
+    if obits == '':
+        obits = '32'
+        if platform == 'windows':
+            # Trying to get fast way to detect bits
+            if os.environ.get('ProgramW6432', '') != '' or os.environ.get('ProgramFiles(x86)', '') != '':  # pragma: no cover
+                obits = '64'
+        else:
+            # On Linux use first getconf LONG_BIT and if doesn't work use python bits
+
+            obits = pbits
+
+            r = gen_tmp_file({})
+            if r['return'] > 0:
+                return r
+
+            fn = r['file_name']
+
+            cmd = 'getconf LONG_BIT > '+fn
+            rx = os.system(cmd)
+
+            if rx == 0:
+                r = load_txt(file_name = fn, remove_after_read = True)
+
+                if r['return'] == 0:
+                    s = r['string'].strip()
+                    if len(s) > 0 and len(s) < 4:
+                        obits = s
+            else:
+                if os.path.isfile(fn): os.remove(fn)
+
+    info['bits'] = obits
+    info['python_bits'] = pbits
+    
+    return {'return': 0, 'info': info}
+
