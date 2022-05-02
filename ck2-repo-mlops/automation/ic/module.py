@@ -25,13 +25,13 @@ class CAutomation(Automation):
           (out) (str): if 'con', output to console
 
           automation (str): automation as CM string object
-          
+
           parsed_automation (list): prepared in CM CLI or CM access function
                                     [ (automation alias, automation UID) ] or
                                     [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
 
           (artifact) (str): artifact as CM string object
-          
+
           (parsed_artifact) (list): prepared in CM CLI or CM access function
                                     [ (artifact alias, artifact UID) ] or
                                     [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
@@ -45,7 +45,7 @@ class CAutomation(Automation):
           * (error) (str): error string if return>0
 
           * Output from this automation action
-           
+
         """
 
         import json
@@ -64,17 +64,19 @@ class CAutomation(Automation):
           (out) (str): if 'con', output to console
 
           automation (str): automation as CM string object
-          
+
           parsed_automation (list): prepared in CM CLI or CM access function
                                     [ (automation alias, automation UID) ] or
                                     [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
 
           (artifact) (str): artifact as CM string object
-          
+
           (parsed_artifact) (list): prepared in CM CLI or CM access function
                                     [ (artifact alias, artifact UID) ] or
                                     [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
 
+
+          (recursion_spaces) (str): adding '  ' during recursion for debugging
           ...
 
         Returns:
@@ -84,10 +86,18 @@ class CAutomation(Automation):
           * (error) (str): error string if return>0
 
           * Output from this automation action
-           
+
         """
 
         from cmind import utils
+
+        recursion_spaces = i.get('recursion_spaces','')
+
+        # Debug
+        parsed_artifact = i.get('parsed_artifact')
+        parsed_artifact_alias = parsed_artifact[0][0] if parsed_artifact is not None else ''
+        artifact_tags = i.get('tags','')
+        print (recursion_spaces + '* Running intelligent component "{}" with tags "{}"'.format(parsed_artifact_alias, artifact_tags))
 
         r = self.find(i)
         if r['return']>0: return r
@@ -98,14 +108,15 @@ class CAutomation(Automation):
 
         # Check chain of dependencies on other "intelligent components"
         deps = meta.get('deps',{})
-        
+
         if len(deps)>0:
             for d in deps:
-                # Run IC component
+                # Run IC component via CM API:
                 # Not very efficient but allows logging - can be optimized later
                 ii = {
-                      'action':'run',
-                      'automation':utils.assemble_cm_object(self.meta['alias'],self.meta['uid'])
+                       'action':'run',
+                       'automation':utils.assemble_cm_object(self.meta['alias'],self.meta['uid']),
+                       'recursion_spaces':recursion_spaces+'  '
                      }
 
                 ii.update(d)
@@ -131,7 +142,7 @@ class CAutomation(Automation):
 
         if not os.path.isfile(path_to_run_script):
             return {'return':1, 'error':'Script ' + run_script + ' not found in '+path}
-        
+
         rc = os.system(path_to_run_script)
 
 
@@ -152,13 +163,13 @@ class CAutomation(Automation):
           (out) (str): if 'con', output to console
 
           automation (str): automation as CM string object
-          
+
           parsed_automation (list): prepared in CM CLI or CM access function
                                     [ (automation alias, automation UID) ] or
                                     [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
 
           (artifact) (str): artifact as CM string object
-          
+
           (parsed_artifact) (list): prepared in CM CLI or CM access function
                                     [ (artifact alias, artifact UID) ] or
                                     [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
@@ -172,12 +183,12 @@ class CAutomation(Automation):
           * (error) (str): error string if return>0
 
           * Output from this automation action
-           
+
         """
 
         tmp_out = i.get('out')
         console = tmp_out == 'con'
-        
+
         # Search repository
         i['out'] = None
         i['common'] = True
