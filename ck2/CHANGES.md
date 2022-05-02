@@ -2,6 +2,8 @@
 
 ## DEV
    - described CM env variables in the docs (#224)
+   - moved "get_host_os_info" from CM core utils to CM automation "utils"
+     to keep CM core small and simple
 
 ## V0.7.10
    - added '\n' in save_json
