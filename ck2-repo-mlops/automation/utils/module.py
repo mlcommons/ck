@@ -23,13 +23,13 @@ class CAutomation(Automation):
           (out) (str): if 'con', output to console
 
           automation (str): automation as CM string object
-          
+
           parsed_automation (list): prepared in CM CLI or CM access function
                                     [ (automation alias, automation UID) ] or
                                     [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
 
           (artifact) (str): artifact as CM string object
-          
+
           (parsed_artifact) (list): prepared in CM CLI or CM access function
                                     [ (artifact alias, artifact UID) ] or
                                     [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
@@ -43,7 +43,7 @@ class CAutomation(Automation):
           * (error) (str): error string if return>0
 
           * Output from this automation action
-           
+
         """
 
         import json
@@ -80,7 +80,7 @@ class CAutomation(Automation):
         import struct
 
         info = {}
-        
+
         pbits = str(8 * struct.calcsize("P"))
 
         if platform.system().lower().startswith('win'):
@@ -88,12 +88,16 @@ class CAutomation(Automation):
             info['bat_ext']='.bat'
             info['set_env']='set ${key} = ${value}'
             info['bat_rem']='rem ${rem}'
+            info['run_local_bat']='call ${bat_file}'
+            info['run_bat']='call ${bat_file}'
         else:
             platform = 'linux'
             info['bat_ext']='.sh'
             info['set_env']='export ${key} = "${value}"'
             info['set_exec_file']='chmod 755 "${file_name}"'
             info['bat_rem']='# ${rem}'
+            info['run_local_bat']='. ./${bat_file}'
+            info['run_bat']='. ${bat_file}'
 
         info['platform'] = platform
 
@@ -130,6 +134,6 @@ class CAutomation(Automation):
 
         info['bits'] = obits
         info['python_bits'] = pbits
-        
+
         return {'return': 0, 'info': info}
 

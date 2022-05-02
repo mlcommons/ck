@@ -68,7 +68,7 @@ class CAutomation(Automation):
           (tags) (str): tags to find an intelligent component (CM artifact)
 
           (env) (dict): environment files
-          
+
           (script) (list): list of commands (grows with recursive calls to "run ic")
 
           (recursion) (bool): True if recursive call. 
@@ -100,7 +100,7 @@ class CAutomation(Automation):
         artifact_tags = i.get('tags','')
 
         cm_ic_info = 'CM intelligent component "{}" with tags "{}"'.format(parsed_artifact_alias, artifact_tags)
-        
+
         print (recursion_spaces + '* Running ' + cm_ic_info)
 
         # Get and cache host OS info
@@ -182,20 +182,24 @@ class CAutomation(Automation):
             run_script = 'tmp-run' + bat_ext
 
             final_script = '\n'.join(script)
-            
+
             r = utils.save_txt(file_name=run_script, string=final_script)
             if r['return']>0: return r
 
             if os_info.get('set_exec_file','')!='':
-                cmd = os_info['set_exec_file'].replace('${filename}', run_script)
+                cmd = os_info['set_exec_file'].replace('${file_name}', run_script)
 
-                rc = os.system(run_script)
-
-                os.remove(run_script)
+                rc = os.system(cmd)
 
             # Run final command
             print ('')
-            rc = os.system(run_script)
+
+            cmd = os_info['run_local_bat'].replace('${bat_file}', run_script)
+
+            rc = os.system(cmd)
+
+            print ('')
+            print ('Exit code: {}'.format(rc))
 
 
 
