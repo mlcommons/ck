@@ -69,6 +69,12 @@ class CAutomation(Automation):
 
           (env) (dict): environment files
           
+          (script) (list): list of commands (grows with recursive calls to "run ic")
+
+          (recursion) (bool): True if recursive call. 
+                              Useful when preparing the global bat file or Docker container
+                              to save/run it in the end.
+
           (recursion_spaces) (str, internal): adding '  ' during recursion for debugging
 
           ...
@@ -86,12 +92,16 @@ class CAutomation(Automation):
         from cmind import utils
 
         recursion_spaces = i.get('recursion_spaces','')
+        recursion = i.get('recursion', False)
 
         # Debug
         parsed_artifact = i.get('parsed_artifact')
         parsed_artifact_alias = parsed_artifact[0][0] if parsed_artifact is not None else ''
         artifact_tags = i.get('tags','')
-        print (recursion_spaces + '* Running intelligent component "{}" with tags "{}"'.format(parsed_artifact_alias, artifact_tags))
+
+        cm_ic_info = 'CM intelligent component "{}" with tags "{}"'.format(parsed_artifact_alias, artifact_tags)
+        
+        print (recursion_spaces + '* Running ' + cm_ic_info)
 
         # Get and cache host OS info
         if len(self.os_info) == 0:
@@ -102,6 +112,17 @@ class CAutomation(Automation):
             os_info = r['info']
         else:
             os_info = self.os_info
+
+        # Get env vars
+        action = i.get('action','')
+        env = i.get('env',{})
+
+        script = i.get('script',[])
+
+        for k in env:
+            v = os_info['set_env'].replace('${key}', k).replace('${value}', env[k])
+            script.append(v)
+        script.append('\n')
 
         # Find artifact
         r = self.find(i)
@@ -121,7 +142,9 @@ class CAutomation(Automation):
                 ii = {
                        'action':'run',
                        'automation':utils.assemble_cm_object(self.meta['alias'],self.meta['uid']),
-                       'recursion_spaces':recursion_spaces+'  '
+                       'script':script,
+                       'recursion_spaces':recursion_spaces+'  ',
+                       'recursion':True
                      }
 
                 ii.update(d)
@@ -129,14 +152,7 @@ class CAutomation(Automation):
                 r = self.cmind.access(ii)
                 if r['return']>0: return r
 
-        # Get host OS info
-        if len(self.os_info) == 0:
-            r = utils.get_host_os_info({})
-            if r['return']>0: return r
 
-            os_info = r['info']
-        else:
-            os_info = self.os_info
 
         # Prepare run script
         path = artifact.path
@@ -145,10 +161,41 @@ class CAutomation(Automation):
 
         path_to_run_script = os.path.join(path, run_script)
 
-        if not os.path.isfile(path_to_run_script):
-            return {'return':1, 'error':'Script ' + run_script + ' not found in '+path}
+#       Currently ignore if batch file not found (thus not supported on a given OS)
+#        if not os.path.isfile(path_to_run_script):
+#            return {'return':1, 'error':'Script ' + run_script + ' not found in '+path}
 
-        rc = os.system(path_to_run_script)
+        # If bat file exists, add it ...
+        if os.path.isfile(path_to_run_script):
+            # Load file and append to script
+            r = utils.load_txt(file_name=path_to_run_script)
+            if r['return']>0: return r
+
+            s = r['string']
+
+            s = os_info['bat_rem'].replace('${rem}', cm_ic_info) + '\n' + s
+
+            script += s.split('\n')
+
+        # If in root, prepare and run the final script
+        if not recursion:
+            run_script = 'tmp-run' + bat_ext
+
+            final_script = '\n'.join(script)
+            
+            r = utils.save_txt(file_name=run_script, string=final_script)
+            if r['return']>0: return r
+
+            if os_info.get('set_exec_file','')!='':
+                cmd = os_info['set_exec_file'].replace('${filename}', run_script)
+
+                rc = os.system(run_script)
+
+                os.remove(run_script)
+
+            # Run final command
+            print ('')
+            rc = os.system(run_script)
 
 
 

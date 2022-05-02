@@ -87,10 +87,13 @@ class CAutomation(Automation):
             platform = 'windows'
             info['bat_ext']='.bat'
             info['set_env']='set ${key} = ${value}'
+            info['bat_rem']='rem ${rem}'
         else:
             platform = 'linux'
             info['bat_ext']='.sh'
             info['set_env']='export ${key} = "${value}"'
+            info['set_exec_file']='chmod 755 "${file_name}"'
+            info['bat_rem']='# ${rem}'
 
         info['platform'] = platform
 
