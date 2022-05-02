@@ -40,7 +40,7 @@ class Automation:
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
         Returns: 
@@ -55,7 +55,7 @@ class Automation:
 
         import cmind
         version = cmind.__version__
-        
+
         if console:
             print (version)
 
@@ -68,7 +68,7 @@ class Automation:
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
         Returns: 
@@ -79,16 +79,16 @@ class Automation:
         """
 
         import sys
-        
+
         console = i.get('out') == 'con'
 
         r = self.version({})
         if r['return']>0: return r
 
         version = r['version']
-        
+
         print ('CM version: {}'.format(version))
-        
+
         # Check if repository is broken
         try:
             from cmind import net
@@ -131,7 +131,7 @@ class Automation:
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
@@ -171,7 +171,7 @@ class Automation:
         parsed_automation = i.get('parsed_automation',[])
 
         auto_name = parsed_automation[0] if len(parsed_automation)>0 else ('','')
-        
+
         # Get parsed artifact
         parsed_artifact = i.get('parsed_artifact',[])
 
@@ -213,7 +213,7 @@ class Automation:
             path_repo = repo.path_with_prefix
 
             automations = os.listdir(path_repo)
-            
+
             for automation in automations:
                 path_automations = os.path.join(path_repo, automation)
 
@@ -244,7 +244,7 @@ class Automation:
 
                                 # Force no inheritance if first artifact just to check automation UID and alias
                                 tmp_ignore_inheritance = True if first_artifact else ignore_inheritance
-                                
+
                                 r = artifact_object.load(ignore_inheritance = tmp_ignore_inheritance)
                                 if r['return']>0: return r
 
@@ -309,7 +309,7 @@ class Automation:
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
@@ -340,7 +340,7 @@ class Automation:
         # Get parsed automation
         if 'parsed_automation' not in i:
            return {'return':1, 'error':'automation is not specified'}
-        
+
         parsed_automation = i.get('parsed_automation',[])
 
         auto_name = parsed_automation[0] if len(parsed_automation)>0 else ('','')
@@ -429,7 +429,7 @@ class Automation:
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
@@ -441,7 +441,7 @@ class Automation:
                                       [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
 
             (tags) (string or list): optional tags to find artifacts
-            
+
             (force) (bool): force deleting CM artifacts without asking a user
             (f) (bool): the same as "force"
 
@@ -458,9 +458,9 @@ class Automation:
         # Check parsed automation
         if 'parsed_automation' not in i:
            return {'return':1, 'error':'automation is not specified'}
-        
+
         import shutil
-        
+
         console = i.get('out') == 'con'
 
         force = True if i.get('f', False) or i.get('force',False) else False
@@ -476,7 +476,7 @@ class Automation:
             return {'return':16, 'error':'artifact(s) not found'}
 
         deleted_lst = []
-        
+
         for artifact in lst:
             path_to_artifact = artifact.path
 
@@ -493,12 +493,12 @@ class Automation:
             elif not force:
                 # If not console mode skip unless forced
                 continue
-               
+
             # Deleting artifact
             deleted_lst.append(artifact)
 
             shutil.rmtree(path_to_artifact)
-            
+
             if console:
                 print ('    Deleted!')
 
@@ -511,7 +511,7 @@ class Automation:
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
@@ -539,7 +539,7 @@ class Automation:
         # Check parsed automation
         if 'parsed_automation' not in i:
            return {'return':1, 'error':'automation is not specified'}
-        
+
         console = i.get('out') == 'con'
 
         # Find CM artifact(s)
@@ -577,7 +577,7 @@ class Automation:
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
@@ -622,11 +622,11 @@ class Automation:
             # Attempt to add if doesn't exist
             r = self.add(i)
             if r['return']>0: return r
-            
+
             # Load this artifact
             r = self.load(i)
             if r['return']>0: return r
-            
+
             lst = [r['artifact']]
 
             return {'return':0, 'list':lst}
@@ -662,7 +662,7 @@ class Automation:
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
             parsed_automation (list): prepared in CM CLI or CM access function
@@ -694,9 +694,9 @@ class Automation:
         parsed_artifacts = i.get('parsed_artifacts',[])
 
         if len(parsed_artifacts)==0:
-           return {'return':1, 'error':'target is not specified'}
+           return {'return':1, 'error':'artifact is not specified'}
         elif len(parsed_artifacts)>1:
-           return {'return':1, 'error':'more than 1 target specified'}
+           return {'return':1, 'error':'more than 1 artifact specified'}
 
         # Find CM artifact(s)
         i['out'] = None
@@ -706,7 +706,7 @@ class Automation:
         lst = r['list']
         if len(lst)==0:
             return {'return':16, 'error':'artifact not found: {}'}
-            
+
         # Check target repo
         target_artifact = parsed_artifacts[0]
 
@@ -746,12 +746,12 @@ class Automation:
             artifact_automation = os.path.basename(artifact_automation_dir)
 
             must_update_meta = False
-            
+
             # Prepare new path
             new_name = artifact_dir_name
             if target_artifact_obj_alias != '':
                 new_name = target_artifact_obj_alias
-                
+
             new_artifact_path = os.path.join(target_repo_path, artifact_automation, new_name)
 
             # Check if need to update meta
@@ -762,7 +762,7 @@ class Automation:
             if target_artifact_obj_uid != '' and artifact_uid.lower() != target_artifact_obj_uid:
                 must_update_meta = True
                 artifact_meta['uid']=target_artifact_obj_uid
-                
+
             artifact.path = new_artifact_path
 
             # Move
@@ -777,8 +777,8 @@ class Automation:
             if must_update_meta:
                 if console:
                     print ('- Updating meta in "{}"'.format(new_artifact_path))
-                
+
                 r = artifact.update({})
                 if r['return'] >0: return r
-            
+
         return {'return':0, 'list':lst}
