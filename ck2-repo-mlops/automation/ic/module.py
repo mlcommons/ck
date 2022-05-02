@@ -63,20 +63,14 @@ class CAutomation(Automation):
 
           (out) (str): if 'con', output to console
 
-          automation (str): automation as CM string object
+          (artifact) (str): specify intelligent component (CM artifact) explicitly
 
-          parsed_automation (list): prepared in CM CLI or CM access function
-                                    [ (automation alias, automation UID) ] or
-                                    [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
+          (tags) (str): tags to find an intelligent component (CM artifact)
 
-          (artifact) (str): artifact as CM string object
+          (env) (dict): environment files
+          
+          (recursion_spaces) (str, internal): adding '  ' during recursion for debugging
 
-          (parsed_artifact) (list): prepared in CM CLI or CM access function
-                                    [ (artifact alias, artifact UID) ] or
-                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
-
-
-          (recursion_spaces) (str): adding '  ' during recursion for debugging
           ...
 
         Returns:
@@ -99,6 +93,17 @@ class CAutomation(Automation):
         artifact_tags = i.get('tags','')
         print (recursion_spaces + '* Running intelligent component "{}" with tags "{}"'.format(parsed_artifact_alias, artifact_tags))
 
+        # Get and cache host OS info
+        if len(self.os_info) == 0:
+            r = self.cmind.access({'action':'get_host_os_info',
+                                   'automation':'utils,dc2743f8450541e3'})
+            if r['return']>0: return r
+
+            os_info = r['info']
+        else:
+            os_info = self.os_info
+
+        # Find artifact
         r = self.find(i)
         if r['return']>0: return r
 
