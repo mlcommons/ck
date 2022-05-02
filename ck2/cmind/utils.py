@@ -1246,9 +1246,11 @@ def get_host_os_info(i):
     if platform.system().lower().startswith('win'):
         platform = 'windows'
         info['bat_ext']='.bat'
+        info['set_env']='set ${key} = ${value}'
     else:
         platform = 'linux'
         info['bat_ext']='.sh'
+        info['set_env']='export ${key} = "${value}"'
 
     info['platform'] = platform
 

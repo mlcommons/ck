@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## DEV
+   - described CM env variables in the docs (#224)
+
 ## V0.7.10
    - added '\n' in save_json
    - fixed minor bug in the "find" function (when searching in the root directory of a CK repo)

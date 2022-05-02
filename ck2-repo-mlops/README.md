@@ -12,11 +12,11 @@ suggests that it is possible to [apply DevOps principles to MLOps](https://www.d
 if we treat all AI, ML and Systems artifacts including models, data sets, frameworks, libraries and scripts as "code" meta packages 
 with dependencies on other artifacts, operating systems and hardware.
 
-We are prototyping [CM-based components](https://github.com/mlcommons/ck/tree/master/ck2) in this repository
-to bridge the gap between MLOps and DevOps, modularize complex computational systems, 
-and enable collaborative, deterministic and reproducible co-design, benchmarking, optimization and deployment 
-of ML Systems across very diverse and continuously changing software and hardware stacks.
-
+We use this [CM-based repository](https://github.com/mlcommons/ck/tree/master/ck2) 
+as a common playground and a common language to learn with the community
+how to make benchmarking, optimization, co-design and deployment
+of complex ML Systems more deterministic, portable and reproducible 
+across continusly changing software and hardware stacks.
 
 
 # How to use

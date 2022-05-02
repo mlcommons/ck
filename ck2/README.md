@@ -71,7 +71,7 @@ Apache 2.0
 
 # Development
 
-## CM core 
+## CM playground 
 
 We use [GitHub tickets](https://github.com/mlcommons/ck/issues) 
 to improve and enhance the CM core that manages shared projects
@@ -83,15 +83,17 @@ Please don't hesitate to share your ideas and report encountered issues!
 
 
 
-## Modular CM-based projects
+## CM-based projects
 
-### Towards more deterministic, portable and reproducible MLOps and DevOps
+### Automating development, optimization and deployment of efficient ML Systems
 
-We are developing reusable CM components to bridge [the growing gap](https://www.mihaileric.com/posts/mlops-is-a-mess) 
-between MLOps and DevOps and make it easier to co-design, benchmark, optimize and deploy
-AI and ML system across continuously changing software and hardware stacks.
+CM provides a common playground and a common language to help researchers and engineers
+discuss and learn how to make benchmarking, optimization, co-design and deployment
+of complex ML Systems more deterministic, portable and reproducible across
+continusly changing software and hardware stacks.
 
-* CM repository for prototyping: [GitHub](https://github.com/mlcommons/ck/tree/master/ck2-repo-mlops)
+* Common CM repository to bridge [the growing gap](https://www.mihaileric.com/posts/mlops-is-a-mess) 
+  between ML research and production: [GitHub](https://github.com/mlcommons/ck/tree/master/ck2-repo-mlops)
 
 
 
