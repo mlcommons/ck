@@ -94,19 +94,21 @@ Reporting issues and ideas: https://github.com/mlcommons/ck/issues
 
 You can use the following environment variables to customize CM installation:
 
-* 'CM_REPOS' - path to the CM repositories and *repos.json* file.
+* 'CM_REPOS' - change path to the CM repositories and *repos.json* file.
 
   By default, CM will keep CM repositories in:
   * *$HOME/CM* directory on Linux 
   * *%USERPROFILE%\CM* directory on Windows
 
-* 'CM_CONFIG' - path to JSON or YAML file with CM configuration.
+* 'CM_CONFIG' - provide full path to a JSON or YAML file with the CM configuration.
   The content of this file will be merged with the ["cfg" dictionary](https://github.com/mlcommons/ck/blob/master/ck2/cmind/config.py#L23)
   from the *config.py*.
 
 * 'CM_DEBUG' - if set to 'yes', turn on internal CM debugging and raise errors 
   in CM automations instead of returning a dictionary with an error *{'return':ERROR CODE, 'error':'ERROR note'}*
 
+* 'CM_HOME' - change path to the CM python package with the default 'repo' directory.
+  Useful to improve the default automations inside the CM package.
 
 
 ## Platform support
