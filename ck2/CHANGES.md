@@ -1,9 +1,14 @@
 # Prototyping phase
 
-## DEV
+## V0.7.11
    - described CM env variables in the docs (#224)
    - moved "get_host_os_info" from CM core utils to CM automation "utils"
      to keep CM core small and simple
+   - added "utils.load_python_module" function to customize
+     intelligent components
+   - added "utils.update_dict_if_empty" function to update
+     the state in the intelligent component
+
 
 ## V0.7.10
    - added '\n' in save_json

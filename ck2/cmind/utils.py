@@ -164,9 +164,9 @@ def load_json(file_name, check_if_exists = False, encoding='utf8'):
         import os
         if not os.path.isfile(file_name):
             return {'return':ERROR_FILE_NOT_FOUND, 'error':'File {} not found'.format(file_name)}
-    
+
     import json
-    
+
     with open(file_name, encoding=encoding) as jf:
         meta = json.load(jf)
 
@@ -196,7 +196,7 @@ def save_json(file_name, meta={}, indent=2, sort_keys=True, encoding = 'utf8'):
     """
 
     import json
-    
+
     with open(file_name, 'w', encoding = encoding) as jf:
         jf.write(json.dumps(meta, indent=indent, sort_keys=sort_keys)+'\n')
 
@@ -230,7 +230,7 @@ def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
             return {'return':ERROR_FILE_NOT_FOUND, 'error':'File {} not found'.format(file_name)}
 
     import yaml
-    
+
     with open(file_name, 'rt', encoding = encoding) as yf:
         meta = yaml.load(yf, Loader=yaml.FullLoader)
 
@@ -317,7 +317,7 @@ def save_yaml(file_name, meta={}, sort_keys=True, encoding = 'utf8'):
     """
 
     import yaml
-    
+
     with open(file_name, 'w', encoding = encoding) as yf:
         meta = yaml.dump(meta, yf)
 
@@ -449,7 +449,7 @@ def list_all_files(i):
     """
 
     import sys
-    
+
     number = 0
     if i.get('number', '') != '':
         number = int(i['number'])
@@ -585,15 +585,15 @@ def parse_cm_object(obj, max_length = 2):
         cm os
 
         cm 281d5c3e3f69d8e7
-        
+
         cm os,281d5c3e3f69d8e7
-        
+
         cm 281d5c3e3f69d8e7,os
-        
+
         cm octoml@mlops,os
-        
+
         cm octoml@mlops,dbfa91645e429380:os,281d5c3e3f69d8e7
-        
+
         cm dbfa91645e429380:281d5c3e3f69d8e7
 
 
@@ -613,14 +613,14 @@ def parse_cm_object(obj, max_length = 2):
     """
 
     str_err='CM object {} is not recognized'
-    
+
     cm_object = []
 
     split_obj = obj.split(':')
 
     if len(split_obj) > max_length:
         return {'return':1, 'error':str_err.format(obj)}
-    
+
     for obj in split_obj:
         sub_objects = obj.split(',')
 
@@ -643,7 +643,7 @@ def parse_cm_object(obj, max_length = 2):
             return {'return':1, 'error':str_err.format(sub_objects)}
 
         cm_object.insert(0, sub_object)
-                
+
     return {'return':0, 'cm_object':cm_object}
 
 
@@ -657,17 +657,17 @@ def match_objects(uid, alias, uid2, alias2, more_strict = False):
             281d5c3e3f69d8e7,* == 281d5c3e3f69d8e7,*
 
             281d5c3e3f69d8e7,os == ,os
-            
+
             ,os == 281d5c3e3f69d8e7,os
-            
+
             ,* != 281d5c3e3f69d8e7,*
 
             os
-            
+
             281d5c3e3f69d8e7
-            
+
             os,281d5c3e3f69d8e7
-            
+
             281d5c3e3f69d8e7,os
 
     Args:
@@ -714,7 +714,7 @@ def match_objects(uid, alias, uid2, alias2, more_strict = False):
 
         alias = alias.lower()
         alias2 = alias2.lower()
-        
+
         if object2_has_wildcards:
             import fnmatch
 
@@ -828,7 +828,7 @@ def process_meta_for_inheritance(i):
     automation = i['automation']
     current_meta = i.get('meta',{})
     cmind = i['cmind']
-    
+
     base_entry = current_meta.get('_base','').strip()
 
     if base_entry!='':
@@ -838,7 +838,7 @@ def process_meta_for_inheritance(i):
 
         if base_recursion > 10:
             return {'return':8, 'error':'inheritance recursion is too deep > 10 ({})'.format(i)}
-        
+
         j=base_entry.find('::')
         if j>0:
             automation = base_entry[:j]
@@ -859,13 +859,13 @@ def process_meta_for_inheritance(i):
 
         if len(lst)>1:
             return {'return':1, 'error':'more than 1 base artifact {} found in {}'.format(artifact, current_meta['alias']+','+current_meta['uid'])}
-        
+
         base_artifact = lst[0]
 
         # Load with meta and recursive inheritance
         r = base_artifact.load(base_recursion = base_recursion + 1)
         if r['return']>0: return r
-            
+
         base_meta = base_artifact.meta
 
         r = merge_dicts({'dict1': base_meta, 
@@ -903,7 +903,7 @@ def find_api(file_name, func):
     string = r['string']
 
     api = ''
-    
+
     # Search for def
     j = string.find('def '+func+'(')
     if j<0:
@@ -920,7 +920,7 @@ def find_api(file_name, func):
         return {'return':1, 'error':'API not found'}
 
     api = string[line1+1:line_comment2+3]
-    
+
     return {'return':0, 'api':api}
 
 
@@ -949,7 +949,7 @@ def find_file_in_current_directory_or_above(file_names, path_to_start = None, re
 
     if path_to_start is None:
         path_to_start=os.getcwd()
-    
+
     found = False
 
     current_path = path_to_start
@@ -968,7 +968,7 @@ def find_file_in_current_directory_or_above(file_names, path_to_start = None, re
 
        if found:
            break
-       
+
        if reverse:
           # Get first directory
           dirs = os.listdir(current_path)
@@ -1083,12 +1083,12 @@ def dump_safe_json(i):
     """
 
     import json
-    
+
     meta = {}
 
     for k in i:
         v = i[k]
-        
+
         try:
            s = json.dumps(v)
         except Exception as e:
@@ -1112,7 +1112,7 @@ def convert_tags_to_list(i):
 
     Returns: 
        tags_list (list): list of tags
-    
+
     """
 
     tags = i.get('tags')
@@ -1210,3 +1210,82 @@ def gen_tmp_file(i):
         fn = os.path.basename(fn)
 
     return {'return': 0, 'file_name': fn}
+
+##############################################################################
+def load_python_module(i):
+    """
+    Load python module
+
+    Args:
+       (CM input dict):
+
+              path (str): path to a python module
+              name (str): Python module name (without .py)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * 
+
+    """
+
+    import imp
+
+    path = i['path']
+    name = i['name']
+
+    # Find module
+    try:
+        found_module = imp.find_module(name, [path])
+    except ImportError as e:  # pragma: no cover
+        return {'return': 1, 'error': 'can\'t find module code (path={}, name={}, error={})'.format(path,name,format(e))}
+
+    full_name = found_module[0]
+    full_path = found_module[1]
+
+    # Generate uid for the run-time extension of the loaded module
+    # otherwise modules with the same extension (key.py for example)
+    # will be reloaded ...
+
+    r = gen_uid()
+    if r['return'] > 0: return r
+
+    code_uid = 'rt-'+r['uid']
+
+    try:
+        code = imp.load_module(code_uid, full_name, full_path, found_module[2])
+    except ImportError as e:
+        return {'return': 2, 'error': 'can\'t find module code (path={}, name={}, error={})'.format(path,name,format(e))}
+
+    found_module[0].close()
+
+    return {'return':0, 'code': code, 'path': full_path, 'code_uid':code_uid}
+
+##############################################################################
+def update_dict_if_empty(d, key, value):
+    """
+    Update dictionaty if key is empty
+
+    Args:
+       d (dict): dict to check
+       key (str); key in dict
+       value: if d[key] is empty, set to this value
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       * 
+
+    """
+
+    if d.get(key)==None or d.get(key)=='':
+        d[key] = value
+
+    return {'return':0}
+
