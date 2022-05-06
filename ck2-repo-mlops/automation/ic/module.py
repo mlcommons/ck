@@ -69,13 +69,13 @@ class CAutomation(Automation):
 
           (env) (dict): environment files
 
-          (script) (list): list of commands (grows with recursive calls to "run ic")
-
           (recursion) (bool): True if recursive call. 
                               Useful when preparing the global bat file or Docker container
                               to save/run it in the end.
 
           (recursion_spaces) (str, internal): adding '  ' during recursion for debugging
+
+          (state) (dict, mostly internal): the state of the intelligent component
 
           ...
 
@@ -94,6 +94,9 @@ class CAutomation(Automation):
         recursion_spaces = i.get('recursion_spaces','')
         recursion = i.get('recursion', False)
 
+        # Prepare state of the IC component and subcomponents
+        state = i.get('state',{})
+
         # Debug
         parsed_artifact = i.get('parsed_artifact')
         parsed_artifact_alias = parsed_artifact[0][0] if parsed_artifact is not None else ''
@@ -101,9 +104,9 @@ class CAutomation(Automation):
 
         cm_ic_info = 'CM intelligent component "{}" with tags "{}"'.format(parsed_artifact_alias, artifact_tags)
 
-        print (recursion_spaces + '* Running ' + cm_ic_info)
+        print (recursion_spaces + '* Searching ' + cm_ic_info)
 
-        # Get and cache host OS info
+        # Get and cache minimal host OS info
         if len(self.os_info) == 0:
             r = self.cmind.access({'action':'get_host_os_info',
                                    'automation':'utils,dc2743f8450541e3'})
@@ -117,13 +120,6 @@ class CAutomation(Automation):
         action = i.get('action','')
         env = i.get('env',{})
 
-        script = i.get('script',[])
-
-        for k in env:
-            v = os_info['set_env'].replace('${key}', k).replace('${value}', env[k])
-            script.append(v)
-        script.append('\n')
-
         # Find artifact
         r = self.find(i)
         if r['return']>0: return r
@@ -131,9 +127,14 @@ class CAutomation(Automation):
         artifact = r['list'][0]
 
         meta = artifact.meta
+        path = artifact.path
+
+        found_artifact = utils.assemble_cm_object(meta['alias'],meta['uid'])
+
+        print (recursion_spaces+'  - Found ic::{} in {}'.format(found_artifact, path))
 
         # Check chain of dependencies on other "intelligent components"
-        deps = meta.get('deps',{})
+        deps = meta.get('deps',[])
 
         if len(deps)>0:
             for d in deps:
@@ -142,9 +143,11 @@ class CAutomation(Automation):
                 ii = {
                        'action':'run',
                        'automation':utils.assemble_cm_object(self.meta['alias'],self.meta['uid']),
-                       'script':script,
                        'recursion_spaces':recursion_spaces+'  ',
-                       'recursion':True
+                       'recursion':True,
+                       'deps':deps,
+                       'env':env,
+                       'state':state
                      }
 
                 ii.update(d)
@@ -152,10 +155,30 @@ class CAutomation(Automation):
                 r = self.cmind.access(ii)
                 if r['return']>0: return r
 
+        # Check if has customize.py
+        path_to_customize_py = os.path.join(path, 'customize.py')
+        customize_code = None
 
+        if os.path.isfile(path_to_customize_py):
+            r=utils.load_python_module({'path':path, 'name':'customize'})
+            if r['return']>0: return r
+
+            customize_code = r['code']
+
+        # Check if pre-process
+        if 'preprocess' in dir(customize_code):
+
+            print (recursion_spaces+'  - run preprocess ...')
+
+            ii={'cmind':self.cmind,
+                'deps':deps,
+                'env':env,
+                'state':state}
+
+            r = customize_code.preprocess(ii)
+            if r['return']>0: return r
 
         # Prepare run script
-        path = artifact.path
         bat_ext = os_info['bat_ext']
         run_script = 'run' + bat_ext
 
@@ -165,20 +188,30 @@ class CAutomation(Automation):
 #        if not os.path.isfile(path_to_run_script):
 #            return {'return':1, 'error':'Script ' + run_script + ' not found in '+path}
 
-        # If bat file exists, add it ...
+        # If batch file exists, run it with current env and state
         if os.path.isfile(path_to_run_script):
-            # Load file and append to script
-            r = utils.load_txt(file_name=path_to_run_script)
+
+            print (recursion_spaces+'  - run script ...')
+
+            # Update env with the current path
+            env['CM_CURRENT_IC_PATH']=path
+
+            # Record state
+            r = utils.save_json(file_name = 'tmp-run.json', meta = state)
             if r['return']>0: return r
 
-            s = r['string']
+            # Prepare env variables
+            script = []
 
-            s = os_info['bat_rem'].replace('${rem}', cm_ic_info) + '\n' + s
+            for k in sorted(env):
+                v = os_info['set_env'].replace('${key}', k).replace('${value}', env[k])
+                script.append(v)
 
-            script += s.split('\n')
+            # Append batch file to the tmp script
+            script.append('\n')
+            script.append(os_info['run_bat'].replace('${bat_file}', path_to_run_script) + '\n')
 
-        # If in root, prepare and run the final script
-        if not recursion:
+            # Prepare and run script
             run_script = 'tmp-run' + bat_ext
 
             final_script = '\n'.join(script)
@@ -188,24 +221,36 @@ class CAutomation(Automation):
 
             if os_info.get('set_exec_file','')!='':
                 cmd = os_info['set_exec_file'].replace('${file_name}', run_script)
-
                 rc = os.system(cmd)
 
             # Run final command
-            print ('')
-
             cmd = os_info['run_local_bat'].replace('${bat_file}', run_script)
 
             rc = os.system(cmd)
 
-            print ('')
-            print ('Exit code: {}'.format(rc))
+            if rc>0:
+                return {'return':1, 'error':'Component failed (return code = {})'.format(rc)}
 
+            # Check if post-process
+            if 'postprocess' in dir(customize_code):
 
+               print (recursion_spaces+'  - run postprocess ...')
 
+               ii={'cmind':self.cmind,
+                   'deps':deps,
+                   'env':env,
+                   'state':state}
 
+               r = customize_code.postprocess(ii)
+               if r['return']>0: return r
 
-        return {'return':0}
+            # Load state
+            r = utils.load_json(file_name = 'tmp-run.json')
+            if r['return']>0: return r
+
+            state = r['meta']
+
+        return {'return':0, 'state':state, 'env':env, 'deps':deps}
 
 
     ############################################################

@@ -86,14 +86,14 @@ class CAutomation(Automation):
         if platform.system().lower().startswith('win'):
             platform = 'windows'
             info['bat_ext']='.bat'
-            info['set_env']='set ${key} = ${value}'
+            info['set_env']='set ${key}=${value}'
             info['bat_rem']='rem ${rem}'
             info['run_local_bat']='call ${bat_file}'
             info['run_bat']='call ${bat_file}'
         else:
             platform = 'linux'
             info['bat_ext']='.sh'
-            info['set_env']='export ${key} = "${value}"'
+            info['set_env']='export ${key}="${value}"'
             info['set_exec_file']='chmod 755 "${file_name}"'
             info['bat_rem']='# ${rem}'
             info['run_local_bat']='. ./${bat_file}'
