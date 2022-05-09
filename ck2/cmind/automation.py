@@ -163,6 +163,15 @@ class Automation:
         # Check tags
         tags = utils.get_list_from_cli(i, key='tags')
 
+        and_tags = []
+        no_tags = []
+
+        for t in tags:
+            if t.startswith('-'):
+                no_tags.append(t[1:])
+            else:
+                and_tags.append(t)
+
         ignore_inheritance = i.get('ignore_inheritance',False) == True
 
         # Get parsed automation
@@ -283,11 +292,16 @@ class Automation:
                                         r = artifact_object.load(ignore_inheritance = ignore_inheritance)
                                         if r['return']>0: return r
 
-                                    if len(tags)>0:
+                                    if len(and_tags)>0:
                                         tags_in_meta = meta.get('tags',[])
 
-                                        if not all(t in tags_in_meta for t in tags):
+                                        if not all(t in tags_in_meta for t in and_tags):
                                             continue
+
+                                    if len(no_tags)>0:
+                                        for t in no_tags:
+                                            if t in tags_in_meta:
+                                                continue
 
                                     lst.append(artifact_object)
 
@@ -592,9 +606,9 @@ class Automation:
 
             meta (dict): new meta description to be merged or to replace the original meta description of a CM artifact
 
-            (replace) (bool): if True, replace original meta description
-            (force) (bool): if True, force updates if more than 1 artifact found
-            (replace_lists) (bool): if True, replace lists in meta description rather than appending them
+            (replace) (bool): if True, replace original meta description (False by default)
+            (force) (bool): if True, force updates if more than 1 artifact found (False by default)
+            (replace_lists) (bool): if True, replace lists in meta description rather than appending them (False by default)
 
         Returns: 
             (CM return dict):
@@ -609,6 +623,8 @@ class Automation:
         console = i.get('out') == 'con'
 
         meta = i.get('meta',{})
+
+        tags = utils.get_list_from_cli(i, key='tags')
 
         replace_lists = i.get('replace_lists', False)
 
@@ -647,7 +663,7 @@ class Automation:
         # Updating artifacts
         for artifact in lst:
 
-            r = artifact.update(meta, append_lists = not replace_lists)
+            r = artifact.update(meta, append_lists = not replace_lists, tags = tags)
 
             # Output if console
             if console:

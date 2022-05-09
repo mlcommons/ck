@@ -442,7 +442,15 @@ class CM(object):
             print ('')
 
             r=utils.find_api(path_to_automation, original_action)
-            if r['return']>0: return r
+            if r['return']>0: 
+                if r['return']==16:
+                    # Check in default automation
+                    path_to_common_automation = inspect.getfile(inspect.getmodule(self.common_automation))
+                    if path_to_common_automation == path_to_automation:
+                        return r
+
+                    r=utils.find_api(path_to_common_automation, original_action)
+                    if r['return']>0: return r
 
             api = r['api']
 

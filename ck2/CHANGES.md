@@ -1,5 +1,10 @@
 # Prototyping phase
 
+## DEV
+   - added "-tags" in search function
+   - improved "--help" option for common automations
+   - enhanced common "update" function (replace tags)
+
 ## V0.7.12
    - added "utils.sub_input"
    - added "cfg['artifact_keys']" to make it easier to create sub-inputs 

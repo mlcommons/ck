@@ -905,9 +905,10 @@ def find_api(file_name, func):
     api = ''
 
     # Search for def
-    j = string.find('def '+func+'(')
+    search = 'def '+func+'('
+    j = string.find(search)
     if j<0:
-        return {'return':1, 'error':'API not found'}
+        return {'return':16, 'error':'API not found'}
 
     line1 = string.rfind('\n', 0, j)
 

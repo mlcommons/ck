@@ -93,7 +93,7 @@ class Artifact:
         return {'return':0}
 
     ############################################################
-    def update(self, meta, append_lists = True, replace = False):
+    def update(self, meta, append_lists = True, replace = False, tags = []):
         """
         Update CM artifact
 
@@ -101,6 +101,7 @@ class Artifact:
              meta (dict): new meta description
              replace (bool): if True, replace original meta description instead of merging
              append_lists (bool): if True and replace is False, append lists when merging meta descriptions instead of substituting
+             tags (list): replace tags in meta
 
         Returns: 
             (CM return dict):
@@ -124,6 +125,9 @@ class Artifact:
                 if r['return'] >0: return 
 
                 self.original_meta = r['dict1']
+
+        if len(tags)>0:
+            self.original_meta['tags']=tags
 
         # Save file with orignal meta without inheritance
 
