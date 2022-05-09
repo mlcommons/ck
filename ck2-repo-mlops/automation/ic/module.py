@@ -91,6 +91,7 @@ class CAutomation(Automation):
         """
 
         from cmind import utils
+        import copy
 
         recursion_spaces = i.get('recursion_spaces','')
         recursion = i.get('recursion', False)
@@ -121,9 +122,6 @@ class CAutomation(Automation):
         action = i.get('action','')
         env = i.get('env',{})
 
-        if 'forced_env' in i:
-            forced_env = i['forced_env']
-
         # Find artifact
         r = self.find(i)
         if r['return']>0: return r
@@ -136,6 +134,11 @@ class CAutomation(Automation):
         found_artifact = utils.assemble_cm_object(meta['alias'],meta['uid'])
 
         print (recursion_spaces+'  - Found ic::{} in {}'.format(found_artifact, path))
+
+        # Update env from meta without overwriting current env
+        artifact_env = meta.get('env',{})
+        for k in artifact_env:
+            utils.update_dict_if_empty(env, k, artifact_env[k])
 
         # Check chain of dependencies on other "intelligent components"
         deps = meta.get('deps',[])
@@ -169,18 +172,31 @@ class CAutomation(Automation):
 
             customize_code = r['code']
 
+            customize_common_input = {
+               'input':i,
+               'automation':self,
+               'artifact':artifact,
+               'customize':artifact.meta.get('customize',{}),
+               'os_info':os_info
+            }
+
         # Check if pre-process
         if 'preprocess' in dir(customize_code):
 
             print (recursion_spaces+'  - run preprocess ...')
 
-            ii={'cmind':self.cmind,
-                'deps':deps,
-                'env':env,
-                'state':state}
+            ii=copy.deepcopy(customize_common_input)
+            for keys in [('deps',deps), ('env',env), ('state',state)]:
+                ii[keys[0]]=keys[1]
 
             r = customize_code.preprocess(ii)
             if r['return']>0: return r
+
+            # Check if preprocess says to skip this component
+            skip = r.get('skip', False)
+
+            if skip:
+                print (recursion_spaces+'  - Skiped')
 
         # Prepare run script
         bat_ext = os_info['bat_ext']
@@ -207,8 +223,22 @@ class CAutomation(Automation):
             # Prepare env variables
             script = []
 
+            # Check if script_prefix in the state from other components
+            script_prefix = state.get('script_prefix',[])
+            if len(script_prefix)>0:
+                script = script_prefix + ['\n'] + script
+            
             for k in sorted(env):
-                v = os_info['set_env'].replace('${key}', k).replace('${value}', env[k])
+                env_value = env[k]
+
+                # Process special env 
+                if k == 'CM_PATH_LIST':
+                    k = 'PATH'
+                    env_value = os_info['env_separator'].join(env_value) + \
+                        os_info['env_separator'] + \
+                        os_info['env_var'].replace('env_var',k)
+
+                v = os_info['set_env'].replace('${key}', k).replace('${value}', env_value)
                 script.append(v)
 
             # Append batch file to the tmp script
@@ -256,10 +286,9 @@ class CAutomation(Automation):
 
                print (recursion_spaces+'  - run postprocess ...')
 
-               ii={'cmind':self.cmind,
-                   'deps':deps,
-                   'env':env,
-                   'state':state}
+               ii=copy.deepcopy(customize_common_input)
+               for keys in [('deps',deps), ('env',env), ('state',state)]:
+                   ii[keys[0]]=keys[1]
 
                r = customize_code.postprocess(ii)
                if r['return']>0: return r

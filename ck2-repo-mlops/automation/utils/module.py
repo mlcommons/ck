@@ -87,6 +87,8 @@ class CAutomation(Automation):
             platform = 'windows'
             info['bat_ext']='.bat'
             info['set_env']='set ${key}=${value}'
+            info['env_separator']=';'
+            info['env_var']='%env_var%'
             info['bat_rem']='rem ${rem}'
             info['run_local_bat']='call ${bat_file}'
             info['run_bat']='call ${bat_file}'
@@ -94,6 +96,8 @@ class CAutomation(Automation):
             platform = 'linux'
             info['bat_ext']='.sh'
             info['set_env']='export ${key}="${value}"'
+            info['env_separator']=':'
+            info['env_var']='${env_var}'
             info['set_exec_file']='chmod 755 "${file_name}"'
             info['bat_rem']='# ${rem}'
             info['run_local_bat']='. ./${bat_file}'
@@ -157,6 +161,7 @@ class CAutomation(Automation):
            * return (int): return code == 0 if no error and >0 if error
            * (error) (str): error string if return>0
 
+           * filename (str): file name
            * path (str): path to file
            * size (int): file size
 
@@ -211,10 +216,13 @@ class CAutomation(Automation):
 
                         sys.stdout.write("\r{}{:3.0f}%".format(text, percent))
                         sys.stdout.flush()
+
         except requests.exceptions.RequestException as e:
             return {'return':1, 'error':format(e)}
 
-        return {'return': 0, 'path': path_to_file, 'size':size}
+        print ('')
+
+        return {'return': 0, 'filename':file_name, 'path': path_to_file, 'size':size}
 
     ##############################################################################
     def unzip_file(self, i):

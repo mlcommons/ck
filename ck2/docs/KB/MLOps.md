@@ -26,6 +26,12 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
   - [About](https://deploy.seldon.io/en/v1.4/contents/about/index.html)
   - [Architecture](https://deploy.seldon.io/en/v1.4/contents/architecture/index.html)
 
+# ML platforms
+
+- [HPE (press-release 2022-04-27)](https://www.hpe.com/us/en/newsroom/press-release/2022/04/hewlett-packard-enterprise-accelerates-ai-journey-from-poc-to-production-with-new-solution-for-ai-development-and-training-at-scale.html)
+- [Shopify's Merlin](https://shopify.engineering/merlin-shopify-machine-learning-platform)
+
+
 # ML workflow and automation frameworks
 
 - [AWS SageMaker](https://aws.amazon.com/pm/sagemaker)
