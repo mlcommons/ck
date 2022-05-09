@@ -36,7 +36,6 @@ class CAutomation(Automation):
           * (error) (str): error string if return>0
 
           * meta (dict): meta of the CM repository
-        
         """
 
         console = i.get('out') == 'con'
@@ -49,7 +48,7 @@ class CAutomation(Automation):
         if url == '':
             if alias != '':
                 url = self.cmind.cfg['repo_url_prefix']
-                
+
                 if '@' not in alias:
                     alias = self.cmind.cfg['repo_url_org'] + '@' + alias
 
@@ -80,7 +79,7 @@ class CAutomation(Automation):
             print ('Branch:   {}'.format(branch))
             print ('Checkout: {}'.format(checkout))
             print ('')
-        
+
         # Prepare path to repo
         repos = self.cmind.repos
 
@@ -98,7 +97,7 @@ class CAutomation(Automation):
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
             (verbose) (bool) - if True show extra info about repositories
@@ -112,7 +111,6 @@ class CAutomation(Automation):
             * (error) (str): error string if return>0
 
             * list (list): list of CM repository objects
-        
         """
 
         console = i.get('out') == 'con'
@@ -171,7 +169,7 @@ class CAutomation(Automation):
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
         Returns: 
@@ -181,14 +179,13 @@ class CAutomation(Automation):
             * (error) (str): error string if return>0
 
             * list (list): list of updated CM repository objects
-           
         """
 
         console = i.get('out') == 'con'
 
         for repo in self.cmind.repos.lst:
             meta = repo.meta
-            
+
             alias = meta.get('alias','')
 
             git = meta.get('git', False)
@@ -209,7 +206,7 @@ class CAutomation(Automation):
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
             (verbose) (bool) - if True show extra info about repositories
@@ -242,7 +239,7 @@ class CAutomation(Automation):
         i['action']='search'
         i['out']=None
         r=self.cmind.access(i)
-        
+
         if r['return'] >0 : return r
 
         lst = r['list']
@@ -262,7 +259,7 @@ class CAutomation(Automation):
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
             (artifact) (str): repository name (alias)
@@ -278,7 +275,6 @@ class CAutomation(Automation):
             * (error) (str): error string if return>0
 
             * CM repository object
-        
         """
 
         console = i.get('out') == 'con'
@@ -292,7 +288,7 @@ class CAutomation(Automation):
         # If path is not specified, initialize in the current directory!
         if (path=='' and alias=='') or (alias!='' and path=='.'):
            path = os.path.abspath(os.getcwd())
-        
+
         # Check if there is a repo in a path
         r = self.cmind.access({'action':'detect',
                                'automation':self.meta['alias']+','+self.meta['uid'],
@@ -301,16 +297,16 @@ class CAutomation(Automation):
 
         repo_desc_found = r['found']
         repo_registered = r.get('registered',False)
-        
+
         if repo_desc_found:
             if repo_registered:
                 return {'return':1, 'error':'CM repository found in this path and already registered in CM'}
-            
+
             if console:
                 print ('CM repository description found in this path: {}'.format(r['path_to_repo_desc']))
 
             path= r['path_to_repo']
-            
+
             repo_meta = r['meta']
 
             repo_meta_alias = repo_meta.get('alias','')
@@ -358,7 +354,7 @@ class CAutomation(Automation):
             print ('Desc:     {}'.format(desc))
             print ('Prefix:   {}'.format(prefix))
             print ('')
-        
+
         # Check if repository with this alias and UID doesn't exist
         for repo_artifact in [alias, uid]:
             ii={'automation':'repo', 'action':'search', 'artifact':repo_artifact}
@@ -390,7 +386,7 @@ class CAutomation(Automation):
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
             (artifact) (str): repository name (alias)
@@ -408,7 +404,7 @@ class CAutomation(Automation):
         import zipfile
 
         console = i.get('out') == 'con'
-        
+
         # Search repository
         i['out']=None
         r = self.search(i)
@@ -460,7 +456,7 @@ class CAutomation(Automation):
 
         Args:
             (CM input dict):
-            
+
             (out) (str): if 'con', output to console
 
         Returns: 
@@ -486,17 +482,17 @@ class CAutomation(Automation):
         repo_pack_zip = zipfile.ZipFile(repo_pack_file)
 
         repo_pack_desc = self.cmind.cfg['file_meta_repo']
-        
+
         files=repo_pack_zip.namelist()
 
         repo_meta = {}
-        
+
         file_yaml = repo_pack_desc + '.yaml'
         if file_yaml in files:
             repo_meta_yaml = repo_pack_zip.read(file_yaml)
 
             import yaml
-    
+
             repo_meta.update(yaml.load(repo_meta_yaml, Loader=yaml.FullLoader))
 
         file_json = repo_pack_desc + '.json'
@@ -504,7 +500,7 @@ class CAutomation(Automation):
             repo_meta_json = repo_pack_zip.read(file_json)
 
             import json
-    
+
             repo_meta.update(json.load(repo_meta_json))
 
         # Get meta info
@@ -560,7 +556,7 @@ class CAutomation(Automation):
     def import_ck_to_cm(self, i):
         """
         Convert all legacy CK repositories to CM repositories
-        
+
         Args:
             (CM input dict): None
 
@@ -611,7 +607,7 @@ class CAutomation(Automation):
     def convert_ck_to_cm(self, i):
         """
         Convert a CM repository with CK artifacts into CM artifacts
-        
+
         Args:
             (CM input dict):
 
@@ -636,7 +632,7 @@ class CAutomation(Automation):
         i['action']='search'
         i['out']=None
         r=self.cmind.access(i)
-        
+
         if r['return'] >0 : return r
 
         lst = r['list']
@@ -677,7 +673,7 @@ class CAutomation(Automation):
 
             * return (int): return code == 0 if no error and >0 if error
             * (error) (str): error string if return>0
-          
+
             * found (bool): True if found
 
             * path_to_repo (str): path to repo if repo found
@@ -688,7 +684,7 @@ class CAutomation(Automation):
             * meta (dict): meta of the found repo
 
             * cm_repo (str): CM repo object (alias,UID)
-                            
+
             * registered (bool): True, if this repository is registered in CM
 
             * artifact_found (bool): True, if CM artifact found in the current path
@@ -713,7 +709,7 @@ class CAutomation(Automation):
 
         path = i.get('path')
         if path == '': path = None
-        
+
         # Search for cmr.yaml or cmr.json in current directory and above
         r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_meta_repo']+'.json', 
                                                          self.cmind.cfg['file_meta_repo']+'.yaml'],
@@ -721,7 +717,7 @@ class CAutomation(Automation):
         if r['return']>0: return r
 
         rr = {'return':0}
-        
+
         found = r['found']
         rr['found'] = found
 
@@ -746,10 +742,10 @@ class CAutomation(Automation):
 
             # Check if belongs to installed repo already
             path_to_repo_real = os.path.realpath(path_to_repo)
-            
+
             if path_to_repo_real == os.path.realpath(repos.path_to_internal_repo):
                 registered = True
-            
+
             if not registered:
                 for tmp_path in repos.paths:
                     if path_to_repo_real == os.path.realpath(tmp_path):
@@ -757,13 +753,13 @@ class CAutomation(Automation):
 
             if registered:
                 rr['cm_repo'] = utils.assemble_cm_object(repo_meta['alias'],repo_meta['uid'])
-                
+
         rr['registered'] = registered
 
         # If repository found, search for _cm.yaml or _cm.json in current directory and below
         artifact_found = False
         artifact_found_in_current_path = False
-        
+
         if found:
             r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_cmeta']+'.json', 
                                                              self.cmind.cfg['file_cmeta']+'.yaml'],
@@ -812,7 +808,7 @@ class CAutomation(Automation):
                 if registered:
                     print ('')
                     print ('  This repository is registered in CM')
-                    
+
                     print ('')
                     print ('  Repo alias: {}'.format(repo_meta['alias']))
                     print ('  Repo UID:   {}'.format(repo_meta['uid']))
@@ -820,7 +816,7 @@ class CAutomation(Automation):
                 if artifact_found:
                     print ('')
                     print ('Current directory has related CM automation:')
-                    
+
                     print ('')
                     print ('  Automation alias: {}'.format(artifact_meta['automation_alias']))
                     print ('  Automation UID:   {}'.format(artifact_meta['automation_uid']))
@@ -828,7 +824,7 @@ class CAutomation(Automation):
                 if artifact_found_in_current_path:
                     print ('')
                     print ('Current directory has a CM artifact:')
-                    
+
                     print ('')
                     print ('  Artifact alias: {}'.format(artifact_meta['alias']))
                     print ('  Artifact UID:   {}'.format(artifact_meta['uid']))
@@ -870,13 +866,13 @@ def convert_ck_dir_to_cm(rpath):
                         dd2=os.path.join(dd1, d2, '.cm')
                         if os.path.isdir(dd2):
                             dmeta = {}
-                            
+
                             broken = False
                             for f in ['info.json','meta.json']:
                                 dd2a=os.path.join(dd2, f)
 
                                 if os.path.isfile(dd2a):
-                                    
+
                                     r=ck.load_json_file({'json_file':dd2a})
                                     if r['return']>0: return r
 
@@ -896,7 +892,7 @@ def convert_ck_dir_to_cm(rpath):
 
                                backup_module_uid = dmeta['backup_module_uid']
                                backup_module_uoa = dmeta['backup_module_uoa']
-                            
+
                                dmeta2 = {}
                                for k in dmeta:
                                    if not k.startswith('backup_') and not k.startswith('cm_'):

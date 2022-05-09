@@ -74,7 +74,9 @@ class Config(object):
                      "repo_url_prefix":"https://github.com/",
                      "repo_url_org":"mlcommons",
 
-                     "line":"======================================================="
+                     "line":"=======================================================",
+
+                     "artifact_keys":['automation','artifact','parsed_automation','parsed_artifact', 'tags']
                    }
 
         # Attempt to update config from file if specified explicitly during initialization

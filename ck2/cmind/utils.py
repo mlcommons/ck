@@ -1267,7 +1267,7 @@ def load_python_module(i):
 ##############################################################################
 def update_dict_if_empty(d, key, value):
     """
-    Update dictionaty if key is empty
+    Update dictionary if "key" is empty
 
     Args:
        d (dict): dict to check
@@ -1280,12 +1280,39 @@ def update_dict_if_empty(d, key, value):
        * return (int): return code == 0 if no error and >0 if error
        * (error) (str): error string if return>0
 
-       * 
-
     """
 
     if d.get(key)==None or d.get(key)=='':
         d[key] = value
 
     return {'return':0}
+
+##############################################################################
+def sub_input(i, keys, reverse = False):
+    """
+    Create sub-input from the input using list of keys
+
+    Args:
+       i (dict): input
+       keys (list); keys to check and add if reverse is False
+                    keys not to add if reverse if True
+       reverse (bool): either add or skip keys
+
+    Returns:
+       (dict): sub-input
+
+    """
+
+    ii={}
+
+    if reverse:
+        for k in i:
+            if k not in keys:
+                ii[k]=i[k]
+    else:
+        for k in keys:
+            if k in i:
+                ii[k]=i[k]
+
+    return ii
 

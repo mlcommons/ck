@@ -1,5 +1,10 @@
 # Prototyping phase
 
+## V0.7.12
+   - added "utils.sub_input"
+   - added "cfg['artifact_keys']" to make it easier to create sub-inputs 
+     to search for artifacts from original input
+
 ## V0.7.11
    - described CM env variables in the docs (#224)
    - moved "get_host_os_info" from CM core utils to CM automation "utils"

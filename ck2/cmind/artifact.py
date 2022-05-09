@@ -12,7 +12,7 @@ class Artifact:
     def __init__(self, cmind, path):
         """
         Initialize CM artifact class
-        
+
         Args:
             cmind (CM class)
             path (str): path to a CM artifact
@@ -21,9 +21,9 @@ class Artifact:
             (python class) with the following vars:
 
             * path (str): path to CM artifact
-            
+
             * original_meta (dict): original meta description of this artifact without inheritance
-            
+
             * meta (dict): meta description of this artifact after inheritance
 
 
@@ -52,11 +52,10 @@ class Artifact:
 
             * return (int): return code == 0 if no error and >0 if error
             * (error) (str): error string if return>0
-        
         """
 
         import copy
-        
+
         path_artifact_meta = os.path.join(self.path, self.cfg['file_cmeta'])
 
         r = utils.is_file_json_or_yaml(path_artifact_meta)
@@ -64,7 +63,7 @@ class Artifact:
 
         if not r['is_file']:                      
             return {'return':16, 'error': 'CM artifact not found in path {}'.format(self.path)}
-        
+
         # Search if there is a repo in this path
         r = utils.load_yaml_and_json(file_name_without_ext = path_artifact_meta)
         if r['return'] >0: return r
@@ -98,10 +97,10 @@ class Artifact:
         """
         Update CM artifact
 
-        Args:    
-                 meta (dict): new meta description
-                 replace (bool): if True, replace original meta description instead of merging
-                 append_lists (bool): if True and replace is False, append lists when merging meta descriptions instead of substituting
+        Args:
+             meta (dict): new meta description
+             replace (bool): if True, replace original meta description instead of merging
+             append_lists (bool): if True and replace is False, append lists when merging meta descriptions instead of substituting
 
         Returns: 
             (CM return dict):
@@ -112,12 +111,12 @@ class Artifact:
         """
 
         from cmind import utils
-        
+
         # Without inheritance
         current_meta = self.original_meta
 
         if len(meta)>0:
-        
+
             if replace:
                 self.original_meta = meta
             else:
@@ -127,7 +126,7 @@ class Artifact:
                 self.original_meta = r['dict1']
 
         # Save file with orignal meta without inheritance
-        
+
         # Updates are always in JSON (on top of YAML if needed or only JSON)
         path_artifact_meta_json = os.path.join(self.path, self.cfg['file_cmeta'] + '.json')
 
