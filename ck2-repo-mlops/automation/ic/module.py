@@ -77,6 +77,7 @@ class CAutomation(Automation):
 
           (state) (dict, mostly internal): the state of the intelligent component
 
+          (forced_env) (dict, internal): forced environment (taken from env during the first call)
           ...
 
         Returns:
@@ -119,6 +120,9 @@ class CAutomation(Automation):
         # Get env vars
         action = i.get('action','')
         env = i.get('env',{})
+
+        if 'forced_env' in i:
+            forced_env = i['forced_env']
 
         # Find artifact
         r = self.find(i)
@@ -231,6 +235,22 @@ class CAutomation(Automation):
             if rc>0:
                 return {'return':1, 'error':'Component failed (return code = {})'.format(rc)}
 
+            # Load state
+            r = utils.load_json(file_name = 'tmp-run.json')
+            if r['return']>0: return r
+
+            state = r['meta']
+
+            # Load env if exists
+#           if os.path.isfile('tmp-run-env.out'):
+#               r = utils.load_txt(file_name = 'tmp-run-env.out')
+#               if r['return']>0: return r
+#
+#               r = utils.convert_env_to_dict(r['string'], env)
+#               if r['return']>0: return r
+#
+#               new_env = r['dict']
+
             # Check if post-process
             if 'postprocess' in dir(customize_code):
 
@@ -244,11 +264,6 @@ class CAutomation(Automation):
                r = customize_code.postprocess(ii)
                if r['return']>0: return r
 
-            # Load state
-            r = utils.load_json(file_name = 'tmp-run.json')
-            if r['return']>0: return r
-
-            state = r['meta']
 
         return {'return':0, 'state':state, 'env':env, 'deps':deps}
 

@@ -137,3 +137,145 @@ class CAutomation(Automation):
 
         return {'return': 0, 'info': info}
 
+    ##############################################################################
+    def download_file(self, i):
+        """
+        Download file using requests
+
+        Args:
+           (CM input dict):
+
+           url (str): URL with file
+           (filename) (str): explicit file name
+           (path) (str): path to record file (or current if empty)
+           (chunk_size) (int): chunck size in bytes (65536 by default)
+           (text) (str): print text before downloaded status ("Downloaded: " by default)
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
+           * path (str): path to file
+           * size (int): file size
+
+        """
+
+        import requests
+        import time
+        import sys
+        from urllib import parse
+
+        # Get URL
+        url = i['url']
+
+        # Check file name
+        file_name = i.get('filename','')
+        if file_name == '':
+            parsed_url = parse.urlparse(url)
+            file_name = os.path.basename(parsed_url.path)
+
+        # Check path
+        path = i.get('path','')
+        if path is None or path=='':
+            path = os.getcwd()
+
+        # Output file
+        path_to_file = os.path.join(path, file_name)
+
+        if os.path.isfile(path_to_file):
+            os.remove(path_to_file)
+
+        # Download
+        size = -1
+        downloaded = 0
+        chunk_size = i.get('chunk_size', 65536)
+
+        text = i.get('text','Downloaded: ')
+
+        try:
+            with requests.get(url, stream=True, allow_redirects=True) as download:
+                download.raise_for_status()
+
+                size = int(download.headers.get('Content-Length'))
+
+                with open(path_to_file, 'wb') as output:
+                    for chunk in download.iter_content(chunk_size = chunk_size):
+
+                        if chunk:
+                            output.write(chunk)
+
+                        downloaded+=1
+                        percent = downloaded * chunk_size * 100 / size
+
+                        sys.stdout.write("\r{}{:3.0f}%".format(text, percent))
+                        sys.stdout.flush()
+        except requests.exceptions.RequestException as e:
+            return {'return':1, 'error':format(e)}
+
+        return {'return': 0, 'path': path_to_file, 'size':size}
+
+    ##############################################################################
+    def unzip_file(self, i):
+        """
+        Unzip file
+
+        Args:    
+           (CM input dict):
+
+           filename (str): explicit file name
+           (path) (str): path where to unzip file (current path otherwise)
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
+        """
+
+        import zipfile
+
+        # Check file name
+        file_name = i['filename']
+
+        if not os.path.isfile(file_name):
+            return {'return':1, 'error':'file {} not found'.format(file_name)}
+
+        console = i.get('out') == 'con'
+
+        # Attempt to read cmr.json 
+        file_name_handle = open(file_name, 'rb')
+        file_name_zip = zipfile.ZipFile(file_name_handle)
+
+        files=file_name_zip.namelist()
+
+        path=i.get('path','')
+        if path is None or path=='':
+            path=os.getcwd()
+
+        # Unpacking zip
+        for f in files:
+            if not f.startswith('..') and not f.startswith('/') and not f.startswith('\\'):
+                file_path = os.path.join(path, f)
+
+                if f.endswith('/'):
+                    # create directory
+                    if not os.path.exists(file_path):
+                        os.makedirs(file_path)
+                else:
+                    dir_name = os.path.dirname(file_path)
+                    if not os.path.exists(dir_name):
+                        os.makedirs(dir_name)
+
+                    # extract file
+                    file_out = open(file_path, 'wb')
+                    file_out.write(file_name_zip.read(f))
+                    file_out.close()
+
+        file_name_zip.close()
+        file_name_handle.close()
+
+        return {'return':0}
+
