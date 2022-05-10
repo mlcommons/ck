@@ -1317,3 +1317,41 @@ def sub_input(i, keys, reverse = False):
 
     return ii
 
+##############################################################################
+def convert_env_to_dict(s):
+    """
+    Create sub-input from the input using list of keys
+
+    Args:
+       s (str): string with env
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+       (dict): dictionary
+
+    """
+
+    env = s.split('\n')
+
+    d = {}
+
+    for e in env:
+        e = e.strip()
+
+        if e!='':
+            process = e.split('=')
+
+            if len(process)>0:
+                k = process[0].strip()
+                v = ''
+
+                if len(process)>1:
+                    v = process[1].strip()
+
+                d[k]=v
+
+    return {'return':0, 'dict':d}
