@@ -88,7 +88,8 @@ class CAutomation(Automation):
           * return (int): return code == 0 if no error and >0 if error
           * (error) (str): error string if return>0
 
-          * Output from this automation action
+          * new_env (dict): new environment (delta from this IC)
+          * new_state (dict): new state (delta from this IC)
 
         """
 
@@ -98,10 +99,15 @@ class CAutomation(Automation):
         recursion_spaces = i.get('recursion_spaces','')
         recursion = i.get('recursion', False)
 
-        # Prepare state of the IC component and subcomponents
+        # Get current state of the IC component and subcomponents
         state = i.get('state',{})
+        env = i.get('env',{})
 
-        # Debug
+        # Prepare updated state by this component (delta)
+        new_state = {}
+        new_env = {}
+
+        # Prepare debug info
         parsed_artifact = i.get('parsed_artifact')
         parsed_artifact_alias = parsed_artifact[0][0] if parsed_artifact is not None else ''
         artifact_tags = i.get('tags','')
@@ -110,7 +116,7 @@ class CAutomation(Automation):
 
         print (recursion_spaces + '* Searching ' + cm_ic_info)
 
-        # Get and cache minimal host OS info
+        # Get and cache minimal host OS info to be able to run scripts and manage OS environment
         if len(self.os_info) == 0:
             r = self.cmind.access({'action':'get_host_os_info',
                                    'automation':'utils,dc2743f8450541e3'})
@@ -119,10 +125,6 @@ class CAutomation(Automation):
             os_info = r['info']
         else:
             os_info = self.os_info
-
-        # Get env vars
-        action = i.get('action','')
-        env = i.get('env',{})
 
         # Find artifact
         r = self.find(i)
@@ -143,8 +145,9 @@ class CAutomation(Automation):
         # In such case, need to check if already installed
         install = meta.get('install', False)
         
-        remove_tmp_tag = False
         installed_artifact_uid = ''
+
+        remove_tmp_tag = False
         reuse_installed = False
 
         if install:
@@ -169,7 +172,7 @@ class CAutomation(Automation):
             num_found_installed_artifacts = len(r['list'])
 
             installed_path = ''
-            
+
             if num_found_installed_artifacts == 0:
                 # If not installed:
                 # Create installed artifact and mark as tmp (remove if install successful)
@@ -224,10 +227,10 @@ class CAutomation(Automation):
                         selection = 0
 
                     print ('')
-                    print (recursion_spaces+'    Selected {}: {}'.format(selection, r['list'][selection].path))
+                    print (recursion_spaces+'    Selected {}: {}'.format(selection, found_installed_artifacts[selection].path))
                 
                 else:
-                    print (recursion_spaces+'  - Found "installed" artifact!')
+                    print (recursion_spaces+'  - Found installed artifact: {}'.format(found_installed_artifacts[0].path))
 
                 # Continue with the selected installed artifact
                 installed_artifact = r['list'][selection]
@@ -241,21 +244,26 @@ class CAutomation(Automation):
                 if r['return']>0: return r
 
                 cached_state = r['meta']
-                  
-                cached_state['return']=0
 
-                return cached_state
+                # Return cached delta
+                return {'return':0, 'new_state':cached_state['new_state'], 'new_env':cached_state['new_env']}
 
-        # Update env from meta without overwriting current env
+        # Add env from meta to new env if not empty
         artifact_env = meta.get('env',{})
         for k in artifact_env:
-             utils.update_dict_if_empty(env, k, artifact_env[k])
+            utils.update_dict_if_empty(env, k, artifact_env[k])
+        artifact_new_env = meta.get('new_env',{})
+        for k in artifact_new_env:
+            utils.update_dict_if_empty(new_env, k, artifact_new_env[k])
 
         # Check chain of dependencies on other "intelligent components"
         deps = meta.get('deps',[])
 
         if len(deps)>0:
             for d in deps:
+                tmp_env = merge_ic_env(env, new_env)
+                tmp_state = merge_ic_state(state, new_state)
+
                 # Run IC component via CM API:
                 # Not very efficient but allows logging - can be optimized later
                 ii = {
@@ -263,15 +271,17 @@ class CAutomation(Automation):
                        'automation':utils.assemble_cm_object(self.meta['alias'],self.meta['uid']),
                        'recursion_spaces':recursion_spaces+'  ',
                        'recursion':True,
-                       'deps':deps,
-                       'env':env,
-                       'state':state
+                       'env':tmp_env,
+                       'state':tmp_state
                      }
 
                 ii.update(d)
 
                 r = self.cmind.access(ii)
                 if r['return']>0: return r
+
+                new_env = merge_ic_env(new_env, r['new_env'])
+                new_state = merge_ic_state(new_state, r['new_state'])
 
         # Check if has customize.py
         path_to_customize_py = os.path.join(path, 'customize.py')
@@ -288,16 +298,17 @@ class CAutomation(Automation):
                'automation':self,
                'artifact':artifact,
                'customize':artifact.meta.get('customize',{}),
-               'os_info':os_info
+               'os_info':os_info,
+               'recursion_spaces':recursion_spaces
             }
 
-        # Check if pre-process
+        # Check if pre-process and detect
         if 'preprocess' in dir(customize_code):
 
             print (recursion_spaces+'  - run preprocess ...')
 
             ii=copy.deepcopy(customize_common_input)
-            for keys in [('deps',deps), ('env',env), ('state',state)]:
+            for keys in [('env',env), ('state',state), ('new_env',new_env), ('new_state',new_state)]:
                 ii[keys[0]]=keys[1]
 
             r = customize_code.preprocess(ii)
@@ -328,19 +339,23 @@ class CAutomation(Automation):
             env['CM_CURRENT_IC_PATH']=path
 
             # Record state
-            r = utils.save_json(file_name = 'tmp-run.json', meta = state)
+            r = utils.save_json(file_name = 'tmp-state.json', meta = state)
+            if r['return']>0: return r
+            r = utils.save_json(file_name = 'tmp-state-new.json', meta = new_state)
             if r['return']>0: return r
 
             # Prepare env variables
             script = []
 
             # Check if script_prefix in the state from other components
-            script_prefix = state.get('script_prefix',[])
+            script_prefix = new_state.get('script_prefix',[])
             if len(script_prefix)>0:
                 script = script_prefix + ['\n'] + script
             
-            for k in sorted(env):
-                env_value = env[k]
+            tmp_env = merge_ic_env(env, new_env)
+
+            for k in sorted(tmp_env):
+                env_value = tmp_env[k]
 
                 # Process special env 
                 if k == 'CM_PATH_LIST':
@@ -377,10 +392,9 @@ class CAutomation(Automation):
                 return {'return':1, 'error':'Component failed (return code = {})'.format(rc)}
 
             # Load state
-            r = utils.load_json(file_name = 'tmp-run.json')
-            if r['return']>0: return r
-
-            state = r['meta']
+            if os.path.isfile('tmp-run-new.json'):
+                r = utils.load_json(file_name = 'tmp-run-new.json')
+                if r['return']>0: return r
 
             # Load env if exists
             if os.path.isfile('tmp-run-env.out'):
@@ -393,7 +407,7 @@ class CAutomation(Automation):
                 env_from_run = r['dict']
 
                 for k in env_from_run:
-                    utils.update_dict_if_empty(env, k, env_from_run[k])
+                    utils.update_dict_if_empty(new_env, k, env_from_run[k])
 
             # Check if post-process
             if 'postprocess' in dir(customize_code):
@@ -401,7 +415,7 @@ class CAutomation(Automation):
                print (recursion_spaces+'  - run postprocess ...')
 
                ii=copy.deepcopy(customize_common_input)
-               for keys in [('deps',deps), ('env',env), ('state',state)]:
+               for keys in [('env',env), ('state',state), ('new_env',new_env), ('new_state',new_state)]:
                    ii[keys[0]]=keys[1]
 
                r = customize_code.postprocess(ii)
@@ -416,8 +430,8 @@ class CAutomation(Automation):
                     self.file_with_cached_state)
 
                 r =  utils.save_json(file_name = path_to_cached_state_file, 
-                       meta={'state':state,
-                             'env':env,
+                       meta={'new_state':state,
+                             'new_env':new_env,
                              'deps':deps})
                 if r['return']>0: return r
                              
@@ -433,7 +447,7 @@ class CAutomation(Automation):
             
             os.chdir(current_path)
 
-        return {'return':0, 'state':state, 'env':env, 'deps':deps}
+        return {'return':0, 'new_state':new_state, 'new_env':new_env}
 
 
     ############################################################
@@ -496,7 +510,98 @@ class CAutomation(Automation):
 
         return r
 
+    ##############################################################################
+    def find_file_in_paths(self, i):
+        """
+        Find file name in a list of paths
 
+        Args:
+          (CM input dict): 
+
+          paths (list): list of paths
+          file_name (str): filename to find
+          (select) (bool): if True and more than 1 path found, select
+          (recursion_spaces) (str): add space to print
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
+           (found_paths) (list): paths to file when found
+
+        """
+
+        paths = i['paths']
+        file_name = i['file_name']
+        select = i.get('select',False)
+        recursion_spaces = i.get('recursion_spaces','')
+
+        found_paths = []
+        
+        for path in paths:
+            path_to_file = os.path.join(path, file_name)
+
+            if os.path.isfile(path_to_file):
+                if path not in found_paths:
+                    found_paths.append(path)
+
+        if select and len(found_paths)>1:
+            # Select 1 and proceed
+            print (recursion_spaces+'  - More than 1 path found:')
+
+            print ('')
+            num = 0
+
+            for path in found_paths:
+                print (recursion_spaces+'  {}) {}'.format(num, path))
+                num+=1
+
+            print ('')
+            x=input(recursion_spaces+'  Select one or press Enter for 0: ')
+
+            x=x.strip()
+            if x=='': x='0'
+            
+            selection = int(x)
+
+            if selection < 0 or selection >= num:
+                selection = 0
+
+            print ('')
+            print (recursion_spaces+'  Selected {}: {}'.format(selection, found_paths[selection]))
+
+            found_paths = [found_paths[selection]]
+
+        return {'return':0, 'found_paths':found_paths}
+
+def merge_ic_env(d, new_d):
+    import copy
+    
+    tmp_d = copy.deepcopy(d)
+
+    for k in new_d:
+        if type(new_d[k])==list:
+            if k not in d:
+                tmp_d[k]=[]
+            for v in new_d[k]:
+                if v not in tmp_d[k]:
+                    tmp_d[k].append(v)
+
+        elif tmp_d.get(k) is None or tmp_d.get(k)=='':
+            tmp_d[k] = new_d[k]
+
+    return tmp_d
+
+def merge_ic_state(d, new_d):
+    import copy
+
+    tmp_d = copy.deepcopy(d)
+
+    utils.merge_dicts({'dict1':tmp_d, 'dict2':new_d, 'append_lists':True, 'append_unique':True})
+
+    return tmp_d
 
 # Demo to show how to use CM components independently if needed
 if __name__ == "__main__":
