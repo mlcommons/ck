@@ -140,11 +140,11 @@ class CAutomation(Automation):
         print (recursion_spaces+'  - Found ic::{} in {}'.format(found_artifact, path))
 
         current_path = os.getcwd()
-        
+
         # Check if needs to be installed
         # In such case, need to check if already installed
         install = meta.get('install', False)
-        
+
         installed_artifact_uid = ''
 
         remove_tmp_tag = False
@@ -220,7 +220,7 @@ class CAutomation(Automation):
 
                     x=x.strip()
                     if x=='': x='0'
-                    
+
                     selection = int(x)
 
                     if selection < 0 or selection >= num:
@@ -228,7 +228,7 @@ class CAutomation(Automation):
 
                     print ('')
                     print (recursion_spaces+'    Selected {}: {}'.format(selection, found_installed_artifacts[selection].path))
-                
+
                 else:
                     print (recursion_spaces+'  - Found installed artifact: {}'.format(found_installed_artifacts[0].path))
 
@@ -351,7 +351,7 @@ class CAutomation(Automation):
             script_prefix = new_state.get('script_prefix',[])
             if len(script_prefix)>0:
                 script = script_prefix + ['\n'] + script
-            
+
             tmp_env = merge_ic_env(env, new_env)
 
             for k in sorted(tmp_env):
@@ -434,7 +434,7 @@ class CAutomation(Automation):
                              'new_env':new_env,
                              'deps':deps})
                 if r['return']>0: return r
-                             
+
                 # Remove tmp tag from the "installed" arifact to finalize installation
                 print (recursion_spaces+'  - Removing tmp tag ...')
 
@@ -444,7 +444,7 @@ class CAutomation(Automation):
                       'tags':installed_tags}
                 r = self.cmind.access(ii)
                 if r['return']>0: return r
-            
+
             os.chdir(current_path)
 
         return {'return':0, 'new_state':new_state, 'new_env':new_env}
@@ -505,7 +505,7 @@ class CAutomation(Automation):
             x=''
             for l in lst:
                 x+='\n'+l.path
-            
+
             return {'return':32, 'error':'more than 1 component found: {}'.format(x)}
 
         return r
@@ -539,7 +539,7 @@ class CAutomation(Automation):
         recursion_spaces = i.get('recursion_spaces','')
 
         found_paths = []
-        
+
         for path in paths:
             path_to_file = os.path.join(path, file_name)
 
@@ -563,7 +563,7 @@ class CAutomation(Automation):
 
             x=x.strip()
             if x=='': x='0'
-            
+
             selection = int(x)
 
             if selection < 0 or selection >= num:
@@ -578,7 +578,7 @@ class CAutomation(Automation):
 
 def merge_ic_env(d, new_d):
     import copy
-    
+
     tmp_d = copy.deepcopy(d)
 
     for k in new_d:
