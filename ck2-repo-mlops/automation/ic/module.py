@@ -14,6 +14,8 @@ class CAutomation(Automation):
 
         self.os_info = {}
 
+        self.file_with_cached_state = 'cm-cached-state.json'
+
     ############################################################
     def test(self, i):
         """
@@ -135,10 +137,119 @@ class CAutomation(Automation):
 
         print (recursion_spaces+'  - Found ic::{} in {}'.format(found_artifact, path))
 
+        current_path = os.getcwd()
+        
+        # Check if needs to be installed
+        # In such case, need to check if already installed
+        install = meta.get('install', False)
+        
+        remove_tmp_tag = False
+        installed_artifact_uid = ''
+        reuse_installed = False
+
+        if install:
+            print (recursion_spaces+'  - Checking if already installed ...')
+
+            # Create a search query to find that we already ran this components with the same or similar input
+            # It will be gradually enhanced with more knowledge ...
+
+            # For simplicity, we use tags for the search in "installed" components
+            # TBD: we will need to add variations/versions later
+            installed_tags = 'ic-artifact-'+meta['uid']
+
+            # Check if already installed
+            search_tags = '-tmp,'+installed_tags
+            print (recursion_spaces+'    - Tags: {}'.format(search_tags))
+            r = self.cmind.access({'action':'find',
+                                   'automation':'installed,2bb0f56a197145d5',
+                                   'tags':search_tags})
+            if r['return']>0: return r
+
+            found_installed_artifacts = r['list']
+            num_found_installed_artifacts = len(r['list'])
+
+            installed_path = ''
+            
+            if num_found_installed_artifacts == 0:
+                # If not installed:
+                # Create installed artifact and mark as tmp (remove if install successful)
+                tmp_tags = 'tmp,'+installed_tags
+
+                # Use update to update the tmp one if already exists
+                print (recursion_spaces+'  - Creating new "installed" artifact ...')
+                print (recursion_spaces+'    - Tags: {}'.format(tmp_tags))
+                ii = {'action':'update',
+                      'automation': 'installed,2bb0f56a197145d5',
+                      'tags':tmp_tags,
+                      'force':True}
+
+                r = self.cmind.access(ii)
+                if r['return'] > 0: return r
+
+                remove_tmp_tag = True
+
+                installed_artifact = r['list'][0]
+
+                installed_path = installed_artifact.path
+                installed_meta = installed_artifact.meta
+
+                installed_uid = installed_meta['uid']
+
+                print (recursion_spaces+'  - Changing to {}'.format(installed_path))
+                os.chdir(installed_path)
+
+            else:
+                selection = 0
+
+                if num_found_installed_artifacts > 1:
+                    # Select 1 and proceed
+                    print (recursion_spaces+'  - More than 1 installed artifact found:')
+
+                    print ('')
+                    num = 0
+
+                    for a in r['list']:
+                        print (recursion_spaces+'    {}) {}'.format(num, a.path))
+                        num+=1
+
+                    print ('')
+                    x=input(recursion_spaces+'    Select one or press Enter for 0: ')
+
+                    x=x.strip()
+                    if x=='': x='0'
+                    
+                    selection = int(x)
+
+                    if selection < 0 or selection >= num:
+                        selection = 0
+
+                    print ('')
+                    print (recursion_spaces+'    Selected {}: {}'.format(selection, r['list'][selection].path))
+                
+                else:
+                    print (recursion_spaces+'  - Found "installed" artifact!')
+
+                # Continue with the selected installed artifact
+                installed_artifact = r['list'][selection]
+
+                print (recursion_spaces+'  - Loading "cached" state ...')
+
+                path_to_cached_state_file = os.path.join(installed_artifact.path,
+                    self.file_with_cached_state)
+
+                r =  utils.load_json(file_name = path_to_cached_state_file)
+                if r['return']>0: return r
+
+                cached_state = r['meta']
+                  
+                cached_state['return']=0
+
+                return cached_state
+
         # Update env from meta without overwriting current env
         artifact_env = meta.get('env',{})
         for k in artifact_env:
-            utils.update_dict_if_empty(env, k, artifact_env[k])
+             utils.update_dict_if_empty(env, k, artifact_env[k])
 
         # Check chain of dependencies on other "intelligent components"
         deps = meta.get('deps',[])
@@ -209,7 +320,7 @@ class CAutomation(Automation):
 #            return {'return':1, 'error':'Script ' + run_script + ' not found in '+path}
 
         # If batch file exists, run it with current env and state
-        if os.path.isfile(path_to_run_script):
+        if os.path.isfile(path_to_run_script) and not reuse_installed:
 
             print (recursion_spaces+'  - run script ...')
 
@@ -272,14 +383,17 @@ class CAutomation(Automation):
             state = r['meta']
 
             # Load env if exists
-#           if os.path.isfile('tmp-run-env.out'):
-#               r = utils.load_txt(file_name = 'tmp-run-env.out')
-#               if r['return']>0: return r
-#
-#               r = utils.convert_env_to_dict(r['string'], env)
-#               if r['return']>0: return r
-#
-#               new_env = r['dict']
+            if os.path.isfile('tmp-run-env.out'):
+                r = utils.load_txt(file_name = 'tmp-run-env.out')
+                if r['return']>0: return r
+
+                r = utils.convert_env_to_dict(r['string'])
+                if r['return']>0: return r
+ 
+                env_from_run = r['dict']
+
+                for k in env_from_run:
+                    utils.update_dict_if_empty(env, k, env_from_run[k])
 
             # Check if post-process
             if 'postprocess' in dir(customize_code):
@@ -293,6 +407,31 @@ class CAutomation(Automation):
                r = customize_code.postprocess(ii)
                if r['return']>0: return r
 
+        # If using installed artifact, return to default path
+        if install and installed_path!='':
+            # Check if need to remove tag
+            if remove_tmp_tag:
+                # Save state, env and deps for reuse
+                path_to_cached_state_file = os.path.join(installed_path,
+                    self.file_with_cached_state)
+
+                r =  utils.save_json(file_name = path_to_cached_state_file, 
+                       meta={'state':state,
+                             'env':env,
+                             'deps':deps})
+                if r['return']>0: return r
+                             
+                # Remove tmp tag from the "installed" arifact to finalize installation
+                print (recursion_spaces+'  - Removing tmp tag ...')
+
+                ii = {'action': 'update',
+                      'automation': 'installed,2bb0f56a197145d5',
+                      'artifact': installed_uid,
+                      'tags':installed_tags}
+                r = self.cmind.access(ii)
+                if r['return']>0: return r
+            
+            os.chdir(current_path)
 
         return {'return':0, 'state':state, 'env':env, 'deps':deps}
 
@@ -349,7 +488,11 @@ class CAutomation(Automation):
         if len(lst)==0:
             return {'return':16, 'error':'no components found'}
         elif len(lst)>1:
-            return {'return':32, 'error':'more than 1 component found'}
+            x=''
+            for l in lst:
+                x+='\n'+l.path
+            
+            return {'return':32, 'error':'more than 1 component found: {}'.format(x)}
 
         return r
 

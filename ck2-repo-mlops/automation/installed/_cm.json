@@ -1,9 +1,9 @@
 {
-  "alias": "env",
+  "alias": "installed",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
   "tags": [
     "automation"
   ],
-  "uid": "17595df0911447dc"
+  "uid": "2bb0f56a197145d5"
 }
