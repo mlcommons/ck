@@ -1,10 +1,12 @@
 # Prototyping phase
 
-## DEV
+## V0.7.13
    - added "-tags" in search function
    - improved "--help" option for common automations
    - enhanced common "update" function (replace tags)
    - added "utils.convert_env_to_dict" to support intelligent components
+   - extended "utils.load_text" to split strings and detect versions
+   - fixed bug with "no_tags" in search function
 
 ## V0.7.12
    - added "utils.sub_input"

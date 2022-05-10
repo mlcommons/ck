@@ -427,7 +427,7 @@ class CAutomation(Automation):
         if console:
             print ('Packing repo from {} to {} ...'.format(repo_path, pack_file))
 
-        r = utils.list_all_files({'path': repo_path, 'all': 'yes'})
+        r = utils.list_all_files({'path': repo_path, 'all': 'yes', 'ignore_names':['.git']})
         if r['return'] > 0: return r
 
         files = r['list']

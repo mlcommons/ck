@@ -239,7 +239,9 @@ def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
 
 
 ###########################################################################
-def load_txt(file_name, encoding = 'utf8', remove_after_read = False):
+def load_txt(file_name, encoding = 'utf8', remove_after_read = False, 
+             check_if_exists = False, split = False,
+             match_text = '', fail_if_no_match = ''):
     """
     Load text file.
 
@@ -249,6 +251,9 @@ def load_txt(file_name, encoding = 'utf8', remove_after_read = False):
        file_name (str): file name 
        (encoding) (str): file encoding ('utf8' by default)
        (remove_after_read) (bool): if True, remove file after read (False by default)
+       (check_if_exists) (bool): If True, check if file exists and return CM error instead of raising error (False by default)
+       (split) (bool): If True, split string into list (False by default)
+       (match_text) (str): Regular expression to match text (useful for version detection)
 
     Returns:
        (CM return dict):
@@ -260,14 +265,31 @@ def load_txt(file_name, encoding = 'utf8', remove_after_read = False):
 
     """
 
+    if check_if_exists and not os.path.isfile(file_name):
+        return {'return':16, 'error':'{} was not found'.format(file_name)}
+    
     with open(file_name, 'rt', encoding = encoding) as tf:
         s = tf.read()
 
     if remove_after_read:
         os.remove(file_name)
 
-    return {'return':0,
-            'string': s}
+    rr = {'return':0,
+          'string':s}
+
+    if split:
+        rr['list'] = s.split('\n')
+
+    if match_text != '':
+        import re
+        match = re.search(match_text, s)
+
+        if fail_if_no_match!='' and match is None:
+            return {'return':1, 'error': fail_if_no_match}
+        
+        rr['match'] = match
+
+    return rr
 
 ###########################################################################
 def load_bin(file_name):
@@ -762,6 +784,7 @@ def merge_dicts(i):
        dict1 (dict): merge this dict with dict2 (will be directly modified!)
        dict2 (dict): dict to be merged
        (append_lists) (bool): if True, append lists instead of creating the new ones
+       (append_unique) (bool): if True, append lists when value doesn't exists in the original one
        (ignore_keys) (list): ignore keys
 
     Returns:
@@ -778,6 +801,7 @@ def merge_dicts(i):
     b = i['dict2']
 
     append_lists = i.get('append_lists', False)
+    append_unique = i.get('append_unique', False)
 
     ignore_keys = i.get('ignore_keys',[])
 
@@ -796,7 +820,11 @@ def merge_dicts(i):
             if not append_lists or k not in a:
                a[k] = []
             for y in v:
-                a[k].append(y)
+                if append_unique:
+                    if y not in a[k]:
+                        a[k].append(y)
+                else:
+                    a[k].append(y)
         else:
             a[k] = b[k]
 

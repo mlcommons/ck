@@ -292,16 +292,20 @@ class Automation:
                                         r = artifact_object.load(ignore_inheritance = ignore_inheritance)
                                         if r['return']>0: return r
 
-                                    if len(and_tags)>0:
-                                        tags_in_meta = meta.get('tags',[])
+                                    tags_in_meta = meta.get('tags',[])
 
+                                    if len(and_tags)>0:
                                         if not all(t in tags_in_meta for t in and_tags):
                                             continue
 
                                     if len(no_tags)>0:
+                                        skip = False
                                         for t in no_tags:
                                             if t in tags_in_meta:
-                                                continue
+                                                skip = True
+                                                break
+                                        if skip:
+                                            continue
 
                                     lst.append(artifact_object)
 
