@@ -4,3 +4,4 @@
  * Fixed bugs in IC
  * Added "_" prefix in tags to specify variation of IC
  * Record env.sh in "installed artifacts even if bat file is not executed
+ * Fixed experiment directory naming on Windows

@@ -100,7 +100,7 @@ class CAutomation(Automation):
         r = utils.get_current_date_time({})
         if r['return']>0: return r
 
-        date_time = r['iso_datetime']
+        date_time = r['iso_datetime'].replace(':','_')
 
         # Check/create directory with date_time
         experiment_path2 = os.path.join(experiment_path, date_time)
@@ -213,7 +213,7 @@ class CAutomation(Automation):
         print ('Experiment artifact: {}'.format(experiment_path))
 
         # Check date and time
-        datetime = i.get('datetime','')
+        datetime = i.get('datetime','').replace(':','_')
 
         if datetime=='':
             files = os.listdir(experiment_path)
