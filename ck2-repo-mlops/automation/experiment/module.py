@@ -153,7 +153,7 @@ class CAutomation(Automation):
         return rr
 
     ############################################################
-    def reply(self, i):
+    def replay(self, i):
         """
         Reply experiment
 
