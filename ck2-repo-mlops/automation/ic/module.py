@@ -17,6 +17,36 @@ class CAutomation(Automation):
         self.file_with_cached_state = 'cm-cached-state.json'
         self.variation_prefix = '_'
 
+        self.__version__ = "0.5.0"
+
+    ############################################################
+    def version(self, i):
+        """
+        Print version
+
+        Args:
+            (CM input dict):
+
+            (out) (str): if 'con', output to console
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+        """
+
+        console = i.get('out') == 'con'
+
+        version = self.__version__
+
+        if console:
+            print (version)
+
+        return {'return':0, 'version':version}
+
+
     ############################################################
     def test(self, i):
         """
