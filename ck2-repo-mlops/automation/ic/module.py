@@ -354,6 +354,7 @@ class CAutomation(Automation):
 
             tmp_env = merge_ic_env(env, new_env)
 
+            script_only_with_env = []
             for k in sorted(tmp_env):
                 env_value = tmp_env[k]
 
@@ -366,6 +367,7 @@ class CAutomation(Automation):
 
                 v = os_info['set_env'].replace('${key}', k).replace('${value}', env_value)
                 script.append(v)
+                script_only_with_env.append(v)
 
             # Append batch file to the tmp script
             script.append('\n')
@@ -373,10 +375,15 @@ class CAutomation(Automation):
 
             # Prepare and run script
             run_script = 'tmp-run' + bat_ext
+            run_script_only_with_env = 'tmp-env' + bat_ext
 
             final_script = '\n'.join(script)
+            final_script_only_with_env = '\n'.join(script_only_with_env)
 
             r = utils.save_txt(file_name=run_script, string=final_script)
+            if r['return']>0: return r
+
+            r = utils.save_txt(file_name=run_script_only_with_env, string=final_script_only_with_env)
             if r['return']>0: return r
 
             if os_info.get('set_exec_file','')!='':
@@ -576,7 +583,12 @@ class CAutomation(Automation):
 
         return {'return':0, 'found_paths':found_paths}
 
+##############################################################################
 def merge_ic_env(d, new_d):
+    """
+    Internal: merge IC global and new environments
+    """
+
     import copy
 
     tmp_d = copy.deepcopy(d)
@@ -594,7 +606,12 @@ def merge_ic_env(d, new_d):
 
     return tmp_d
 
+##############################################################################
 def merge_ic_state(d, new_d):
+    """
+    Internal: merge IC global and new states
+    """
+
     import copy
 
     tmp_d = copy.deepcopy(d)
@@ -603,6 +620,7 @@ def merge_ic_state(d, new_d):
 
     return tmp_d
 
+##############################################################################
 # Demo to show how to use CM components independently if needed
 if __name__ == "__main__":
     import cmind
