@@ -359,15 +359,19 @@ class CAutomation(Automation):
                 env_value = tmp_env[k]
 
                 # Process special env 
+                key = k
                 if k == 'CM_PATH_LIST':
-                    k = 'PATH'
+                    key = 'PATH'
                     env_value = os_info['env_separator'].join(env_value) + \
                         os_info['env_separator'] + \
-                        os_info['env_var'].replace('env_var',k)
+                        os_info['env_var'].replace('env_var',key)
 
-                v = os_info['set_env'].replace('${key}', k).replace('${value}', env_value)
+                v = os_info['set_env'].replace('${key}', key).replace('${value}', env_value)
                 script.append(v)
-                script_only_with_env.append(v)
+
+                # Add only new env
+                if k in new_env:
+                    script_only_with_env.append(v)
 
             # Append batch file to the tmp script
             script.append('\n')
