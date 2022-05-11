@@ -15,6 +15,7 @@ class CAutomation(Automation):
         self.os_info = {}
 
         self.file_with_cached_state = 'cm-cached-state.json'
+        self.variation_prefix = '_'
 
     ############################################################
     def test(self, i):
@@ -132,7 +133,7 @@ class CAutomation(Automation):
         # Extract variations from input
         tags = ii.get('tags','').strip().split(',')
 
-        artifact_tags = [t for t in tags if not t.startswith('v')]
+        artifact_tags = [t for t in tags if not t.startswith(self.variation_prefix)]
         
         ii['tags']=','.join(artifact_tags)
 
@@ -154,9 +155,10 @@ class CAutomation(Automation):
         variation_tags = []
         for t in tags:
             t=t.strip()
-            if t.startswith('v'):
-                if t not in variation_tags:
-                    variation_tags.append(t)
+            if t.startswith(self.variation_prefix):
+                t_without_prefix = t[len(self.variation_prefix):]
+                if t_without_prefix not in variation_tags:
+                    variation_tags.append(t_without_prefix)
 
         # Check if needs to be installed
         # In such case, need to check if already installed
@@ -377,20 +379,19 @@ class CAutomation(Automation):
 #        if not os.path.isfile(path_to_run_script):
 #            return {'return':1, 'error':'Script ' + run_script + ' not found in '+path}
 
+        # Update env with the current path
+        env['CM_CURRENT_IC_PATH']=path
+
+        # Record state
+        r = utils.save_json(file_name = 'tmp-state.json', meta = state)
+        if r['return']>0: return r
+        r = utils.save_json(file_name = 'tmp-state-new.json', meta = new_state)
+        if r['return']>0: return r
+            
         # If batch file exists, run it with current env and state
         if os.path.isfile(path_to_run_script) and not reuse_installed:
-
             print (recursion_spaces+'  - run script ...')
-
-            # Update env with the current path
-            env['CM_CURRENT_IC_PATH']=path
-
-            # Record state
-            r = utils.save_json(file_name = 'tmp-state.json', meta = state)
-            if r['return']>0: return r
-            r = utils.save_json(file_name = 'tmp-state-new.json', meta = new_state)
-            if r['return']>0: return r
-
+    
             # Prepare env variables
             script = []
 
@@ -451,11 +452,11 @@ class CAutomation(Automation):
                r = customize_code.postprocess(ii)
                if r['return']>0: return r
 
-            # Record new env 
-            new_env_script = convert_env_to_script(new_env, os_info)
+        # Record new env 
+        new_env_script = convert_env_to_script(new_env, os_info)
 
-            r = record_script('tmp-env' + bat_ext, new_env_script, os_info)
-            if r['return']>0: return r
+        r = record_script('tmp-env' + bat_ext, new_env_script, os_info)
+        if r['return']>0: return r
 
         # If using installed artifact, return to default path
         if install and installed_path!='':
