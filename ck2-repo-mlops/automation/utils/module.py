@@ -203,7 +203,12 @@ class CAutomation(Automation):
             with requests.get(url, stream=True, allow_redirects=True) as download:
                 download.raise_for_status()
 
-                size = int(download.headers.get('Content-Length'))
+                size_string = download.headers.get('Content-Length')
+
+                if size_string is None:
+                    return {'return':1, 'error':'did not receive file'}
+
+                size = int(size_string)
 
                 with open(path_to_file, 'wb') as output:
                     for chunk in download.iter_content(chunk_size = chunk_size):

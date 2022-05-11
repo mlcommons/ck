@@ -401,24 +401,7 @@ class CAutomation(Automation):
 
             tmp_env = merge_ic_env(env, new_env)
 
-            script_only_with_env = []
-            for k in sorted(tmp_env):
-                env_value = tmp_env[k]
-
-                # Process special env 
-                key = k
-                if k == 'CM_PATH_LIST':
-                    key = 'PATH'
-                    env_value = os_info['env_separator'].join(env_value) + \
-                        os_info['env_separator'] + \
-                        os_info['env_var'].replace('env_var',key)
-
-                v = os_info['set_env'].replace('${key}', key).replace('${value}', env_value)
-                script.append(v)
-
-                # Add only new env
-                if k in new_env:
-                    script_only_with_env.append(v)
+            script += convert_env_to_script(tmp_env, os_info)
 
             # Append batch file to the tmp script
             script.append('\n')
@@ -426,20 +409,9 @@ class CAutomation(Automation):
 
             # Prepare and run script
             run_script = 'tmp-run' + bat_ext
-            run_script_only_with_env = 'tmp-env' + bat_ext
 
-            final_script = '\n'.join(script)
-            final_script_only_with_env = '\n'.join(script_only_with_env)
-
-            r = utils.save_txt(file_name=run_script, string=final_script)
+            r = record_script(run_script, script, os_info)
             if r['return']>0: return r
-
-            r = utils.save_txt(file_name=run_script_only_with_env, string=final_script_only_with_env)
-            if r['return']>0: return r
-
-            if os_info.get('set_exec_file','')!='':
-                cmd = os_info['set_exec_file'].replace('${file_name}', run_script)
-                rc = os.system(cmd)
 
             # Run final command
             cmd = os_info['run_local_bat'].replace('${bat_file}', run_script)
@@ -478,6 +450,12 @@ class CAutomation(Automation):
 
                r = customize_code.postprocess(ii)
                if r['return']>0: return r
+
+            # Record new env 
+            new_env_script = convert_env_to_script(new_env, os_info)
+
+            r = record_script('tmp-env' + bat_ext, new_env_script, os_info)
+            if r['return']>0: return r
 
         # If using installed artifact, return to default path
         if install and installed_path!='':
@@ -670,6 +648,49 @@ def merge_ic_state(d, new_d):
     utils.merge_dicts({'dict1':tmp_d, 'dict2':new_d, 'append_lists':True, 'append_unique':True})
 
     return tmp_d
+
+##############################################################################
+def convert_env_to_script(env, os_info):
+    """
+    Internal: convert env to script for a given platform
+    """
+
+    script = []
+
+    for k in sorted(env):
+        env_value = env[k]
+
+        # Process special env 
+        key = k
+
+        if k == 'CM_PATH_LIST':
+            key = 'PATH'
+            env_value = os_info['env_separator'].join(env_value) + \
+                os_info['env_separator'] + \
+                os_info['env_var'].replace('env_var',key)
+
+        v = os_info['set_env'].replace('${key}', key).replace('${value}', env_value)
+
+        script.append(v)
+
+    return script
+
+##############################################################################
+def record_script(run_script, script, os_info):
+    """
+    Internal: record script and chmod 755 on Linux
+    """
+
+    final_script = '\n'.join(script)
+
+    r = utils.save_txt(file_name=run_script, string=final_script)
+    if r['return']>0: return r
+
+    if os_info.get('set_exec_file','')!='':
+        cmd = os_info['set_exec_file'].replace('${file_name}', run_script)
+        rc = os.system(cmd)
+
+    return {'return':0}
 
 ##############################################################################
 # Demo to show how to use CM components independently if needed

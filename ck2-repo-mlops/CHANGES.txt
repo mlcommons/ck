@@ -1,3 +1,4 @@
 20220511:
  * Better handle exceptions in utils.download_file
  * Added support for variations in intelligent components (ic)
+ * Fixed bugs in IC
