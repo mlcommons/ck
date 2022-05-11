@@ -127,7 +127,16 @@ class CAutomation(Automation):
             os_info = self.os_info
 
         # Find artifact
-        r = self.find(i)
+        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'])
+
+        # Extract variations from input
+        tags = ii.get('tags','').strip().split(',')
+
+        artifact_tags = [t for t in tags if not t.startswith('v')]
+        
+        ii['tags']=','.join(artifact_tags)
+
+        r = self.find(ii)
         if r['return']>0: return r
 
         artifact = r['list'][0]
@@ -140,6 +149,14 @@ class CAutomation(Automation):
         print (recursion_spaces+'  - Found ic::{} in {}'.format(found_artifact, path))
 
         current_path = os.getcwd()
+
+        # Check variations in input tags
+        variation_tags = []
+        for t in tags:
+            t=t.strip()
+            if t.startswith('v'):
+                if t not in variation_tags:
+                    variation_tags.append(t)
 
         # Check if needs to be installed
         # In such case, need to check if already installed
@@ -160,6 +177,14 @@ class CAutomation(Automation):
             # TBD: we will need to add variations/versions later
             installed_tags = 'ic-artifact-'+meta['uid']
 
+            # Add tags from the original component
+            if len(meta.get('tags',[]))>0:
+                installed_tags += ',' + ','.join(meta['tags'])
+            
+            # Add variation
+            if len(variation_tags)>0:
+                installed_tags += ',' + ','.join(variation_tags)
+
             # Check if already installed
             search_tags = '-tmp,'+installed_tags
             print (recursion_spaces+'    - Tags: {}'.format(search_tags))
@@ -176,6 +201,13 @@ class CAutomation(Automation):
             if num_found_installed_artifacts == 0:
                 # If not installed:
                 # Create installed artifact and mark as tmp (remove if install successful)
+                if len(variation_tags)==0:
+                    # Check if artifact meta has default variation tags and add
+                    variation_tags = meta.get('default_variations',[])            
+
+                    if len(variation_tags)>0:
+                        installed_tags += ',' + ','.join(variation_tags)
+
                 tmp_tags = 'tmp,'+installed_tags
 
                 # Use update to update the tmp one if already exists
@@ -212,7 +244,7 @@ class CAutomation(Automation):
                     num = 0
 
                     for a in r['list']:
-                        print (recursion_spaces+'    {}) {}'.format(num, a.path))
+                        print (recursion_spaces+'    {}) {} ({})'.format(num, a.path, ','.join(a.meta['tags'])))
                         num+=1
 
                     print ('')
@@ -255,6 +287,21 @@ class CAutomation(Automation):
         artifact_new_env = meta.get('new_env',{})
         for k in artifact_new_env:
             utils.update_dict_if_empty(new_env, k, artifact_new_env[k])
+
+        # Update env if variations
+        if len(variation_tags)>0:
+            variations = artifact.meta['variations']
+
+            for variation_tag in variation_tags:
+                variation_meta = variations[variation_tag]
+
+                variation_env = variation_meta.get('env',{})
+                for k in variation_env:
+                    utils.update_dict_if_empty(env, k, variation_env[k])
+
+                variation_new_env = variation_meta.get('new_env',{})
+                for k in variation_new_env:
+                    utils.update_dict_if_empty(new_env, k, variation_new_env[k])
 
         # Check chain of dependencies on other "intelligent components"
         deps = meta.get('deps',[])

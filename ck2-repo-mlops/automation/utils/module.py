@@ -217,7 +217,7 @@ class CAutomation(Automation):
                         sys.stdout.write("\r{}{:3.0f}%".format(text, percent))
                         sys.stdout.flush()
 
-        except requests.exceptions.RequestException as e:
+        except Exception as e:
             return {'return':1, 'error':format(e)}
 
         print ('')
