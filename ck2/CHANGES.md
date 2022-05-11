@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## DEV
+   - fixed search function when tags == ''
+
 ## V0.7.13
    - added "-tags" in search function
    - improved "--help" option for common automations

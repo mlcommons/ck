@@ -167,10 +167,12 @@ class Automation:
         no_tags = []
 
         for t in tags:
-            if t.startswith('-'):
-                no_tags.append(t[1:])
-            else:
-                and_tags.append(t)
+            t=t.strip()
+            if t!='':
+                if t.startswith('-'):
+                    no_tags.append(t[1:])
+                else:
+                    and_tags.append(t)
 
         ignore_inheritance = i.get('ignore_inheritance',False) == True
 
