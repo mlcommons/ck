@@ -108,9 +108,9 @@ class CAutomation(Automation):
 
           (recursion_spaces) (str, internal): adding '  ' during recursion for debugging
 
-          (state) (dict, mostly internal): the state of the intelligent component
+          (state) (dict): mostly internal - the state of the intelligent component
 
-          (forced_env) (dict, internal): forced environment (taken from env during the first call)
+          (forced_env) (dict): internal - forced environment (taken from env during the first call)
           ...
 
         Returns:
