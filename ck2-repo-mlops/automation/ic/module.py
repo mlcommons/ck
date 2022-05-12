@@ -694,8 +694,16 @@ def convert_env_to_script(env, os_info):
         # Process special env 
         key = k
 
+        merge_lists=False
+
         if k == 'CM_PATH_LIST':
             key = 'PATH'
+            merge_lists = True
+        elif k == 'CM_PYTHONPATH_LIST':
+            key = 'PYTHONPATH'
+            merge_lists = True
+
+        if merge_lists:
             env_value = os_info['env_separator'].join(env_value) + \
                 os_info['env_separator'] + \
                 os_info['env_var'].replace('env_var',key)
