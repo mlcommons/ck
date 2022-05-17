@@ -1,3 +1,7 @@
+20220517:
+ * Changed CM_PATH_LIST to +PATH
+ * Added general support for +ENV that is expanded to ENV=val1;val2;...:${ENV}
+
 20220511:
  * Better handle exceptions in utils.download_file
  * Added support for variations in intelligent components (ic)
