@@ -93,7 +93,10 @@ class CAutomation(Automation):
             info['run_local_bat']='call ${bat_file}'
             info['run_bat']='call ${bat_file}'
         else:
-            platform = 'linux'
+            if platform.system().lower().startswith('darwin'):
+                platform = 'darwin'
+            else:
+                platform = 'linux'
             info['bat_ext']='.sh'
             info['set_env']='export ${key}="${value}"'
             info['env_separator']=':'
