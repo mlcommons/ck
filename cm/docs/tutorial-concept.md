@@ -1,4 +1,4 @@
-# Tutorial: CM concept
+# Tutorial: understanding CM concepts
 
 Here we describe a few simple steps to let you try CM (aka CK2) and help you understand the [CM concepts](motivation.md). 
 You will install CM v0.7.13+, transform your local directory into a database of reusable artifacts, 

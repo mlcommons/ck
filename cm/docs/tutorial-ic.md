@@ -1,4 +1,4 @@
-# Tutorial: intelligent components (IC)
+# Tutorial: understanding intelligent CM components
 
 
 
