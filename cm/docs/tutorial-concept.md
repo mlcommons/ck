@@ -1,6 +1,6 @@
 # Tutorial: CM concept
 
-Here we describe a few simple steps to let you try CM (CK2) and help you understand the [CM concepts](motivation.md). 
+Here we describe a few simple steps to let you try CM (aka CK2) and help you understand the [CM concepts](motivation.md). 
 You will install CM v0.7.13+, transform your local directory into a database of reusable artifacts, 
 share it with others, implement some common automation actions to reusable artifacts,
 run CM automations from Python and Jupyter Notebooks, and convert any Git repository 
@@ -150,7 +150,7 @@ and will register this location in the CM-compatible repository index *$HOME/CM/
 
 Note that you always have at least 2 CM-compatible repositories after you use CM for the first time:
 * *internal* is a CM repository with reusable artifacts and automations that were moved 
-  [inside the CM toolkit](https://github.com/mlcommons/ck/tree/master/ck2/cmind/repo) 
+  [inside the CM toolkit](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo) 
   to ensure their stability because they are frequently used by the community.
 
 * *local* is a CM scratchpad repository where all new artifacts and automations 
@@ -353,8 +353,8 @@ You can now update the README.md of your repository to specify CM commands
 and you can add the following badges to tell the community 
 that it is CM compatible:
 
-[![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
-[![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
+[![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck/tree/master/cm)
+[![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck/tree/master/cm)
 
 This will signal other colleagues that they can now understand your README 
 and deal with your project using CM CLI or Python API:
@@ -423,7 +423,7 @@ print (r['path'])
 }
 ```
 
-You can see the Python class for a CM artifact [here](https://github.com/mlcommons/ck/blob/master/ck2/cmind/artifact.py#L7).
+You can see the Python class for a CM artifact [here](https://github.com/mlcommons/ck/blob/master/cm/cmind/artifact.py#L7).
 
 Note that "automation_uid" is empty because CM doesn't know yet if your artifact types exists globally and thus can't add CM UID.
 We will explain how to reuse shared artifact types and automations later in this tutorial.
@@ -492,7 +492,7 @@ $ cm find experiments
 
 ## Adding reusable automations for related artifacts 
 
-One of the goals of the [Collective Mind project (CK2)](https://arxiv.org/abs/2011.01149) 
+One of the goals of the [Collective Mind project (aka CK2)](https://arxiv.org/abs/2011.01149) 
 is to gradually systematize all available artifacts and provide reusable automation actions 
 to similar artifact types.
 
@@ -541,7 +541,7 @@ $ cm find automation images
 This directory will include a meta description of this automation in *_cm.json*
 and a *module.py* with the automation actions.
 
-This module inherits default "CM database actions" from the [Automation class](https://github.com/mlcommons/ck/blob/master/ck2/cmind/automation.py) 
+This module inherits default "CM database actions" from the [Automation class](https://github.com/mlcommons/ck/blob/master/cm/cmind/automation.py) 
 in the CM package such as "add", "rm", "find", "rename", etc.
 
 It also includes a "test" automation action to help you understand the CM CLI:
@@ -570,7 +570,7 @@ $ cm {my-new-automation} images
 Note that all '-' characters in the automation action from the CLI will be converted into '_'.
 
 Please check the following examples of internal CM automations to understand how to write
-your own automation actions and apply them to artifacts: [CM internal repo](https://github.com/mlcommons/ck/tree/master/ck2/cmind/repo/automation)
+your own automation actions and apply them to artifacts: [CM internal repo](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation)
 
 Now you can share your automation for a given artifact type in your private repository
 with your colleagues or in your public repository with the whole world.

@@ -19,7 +19,7 @@
 
 Examples: 
 
-* [Internal CM repository description](https://github.com/mlcommons/ck/blob/master/ck2/cmind/repo/cmr.yaml) 
+* [Internal CM repository description](https://github.com/mlcommons/ck/blob/master/cm/cmind/repo/cmr.yaml) 
 * [octoml@cm-mlops repository description](https://github.com/octoml/cm-mlops/blob/main/cmr.yaml)
 
 ### First level directories
@@ -28,7 +28,7 @@ Examples:
 
 Examples: 
 
-* [Internal CM repository](https://github.com/mlcommons/ck/tree/master/ck2/cmind/repo) 
+* [Internal CM repository](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo) 
 * [octoml@cm-mlops repository](https://github.com/octoml/cm-mlops)
 
 ### Second level directories
@@ -37,7 +37,7 @@ Examples:
 
 Examples: 
 
-* [Internal CM repository](https://github.com/mlcommons/ck/tree/master/ck2/cmind/repo/automation) 
+* [Internal CM repository](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation) 
 * [octoml@cm-mlops repository](https://github.com/octoml/cm-mlops/tree/main/automation)
 
 ### Third level files
@@ -104,7 +104,7 @@ $ cm {automation action} {automation} {artifact} --test --meta.a=b @input.json @
 ```
 
 The command line arguments are converted into a unified CM dictionary
-using [this function](https://github.com/mlcommons/ck/blob/master/ck2/cmind/cli.py#L48).
+using [this function](https://github.com/mlcommons/ck/blob/master/cm/cmind/cli.py#L48).
 
 Flags are converted to the dictionary keys and their argument to the string value.
 
@@ -115,7 +115,7 @@ If a flag has ".", it will be treated as dictionary with multiple subkeys separa
 If a flag ends with ",", tis argument will be treated as a list of values separated by ",".
 
 The CM dictionary is then passed to the 
-[unified CM "access" function](https://github.com/mlcommons/ck/blob/master/ck2/cmind/core.py#L132)
+[unified CM "access" function](https://github.com/mlcommons/ck/blob/master/cm/cmind/core.py#L132)
 similar to micro-services and REST API.
 
 
@@ -193,7 +193,7 @@ print (r)
 ## CM automation
 
 CM automations are kept as CM artifacts in "automation" directories 
-(see [this example](https://github.com/mlcommons/ck/tree/master/ck2/cmind/repo/automation)).
+(see [this example](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation)).
 
 You can add a new automation as follows:
 ```bash
@@ -235,7 +235,7 @@ $ cm new-action {new automation name} ...
 ## CM common automation actions
 
 All CM automations inherit common database function from the 
-[Automation class](https://github.com/mlcommons/ck/blob/master/ck2/cmind/automation.py)
+[Automation class](https://github.com/mlcommons/ck/blob/master/cm/cmind/automation.py)
 
 ### add
 

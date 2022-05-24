@@ -1,6 +1,6 @@
-# Contributing to CM (CK2)
+# Contributing to CM (aka CK2)
 
-* Development website: https://github.com/mlcommons/ck/tree/master/ck2
+* Development website: https://github.com/mlcommons/ck/tree/master/cm
 * Issues: https://github.com/mlcommons/ck/issues (use [CM] prefix)
 * Mailing list: https://groups.google.com/g/collective-knowledge (use [CM] prefix)
 * Discord channel: TBA

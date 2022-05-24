@@ -3,7 +3,7 @@
 
 ## Prerequisites
 
-The CM toolkit (CK2 framework) requires minimal dependencies: Python 3.x, PIP and Git. 
+The CM framework (aka CK2) requires minimal dependencies: Python 3.x, PIP and Git. 
 
 ### Linux
 
@@ -85,7 +85,7 @@ Path to CM internal repo:   C:\!Progs\Python39\lib\site-packages\cmind\repo
 
 Path to CM repositories:    D:\Work1\CM\cm-repos
 
-GitHub for CM development:  https://github.com/mlcommons/ck/tree/master/ck2
+GitHub for CM development:  https://github.com/mlcommons/ck/tree/master/cm
 Reporting issues and ideas: https://github.com/mlcommons/ck/issues
 ```
 
@@ -101,7 +101,7 @@ You can use the following environment variables to customize CM installation:
   * *%USERPROFILE%\CM* directory on Windows
 
 * 'CM_CONFIG' - provide full path to a JSON or YAML file with the CM configuration.
-  The content of this file will be merged with the ["cfg" dictionary](https://github.com/mlcommons/ck/blob/master/ck2/cmind/config.py#L23)
+  The content of this file will be merged with the ["cfg" dictionary](https://github.com/mlcommons/ck/blob/master/cm/cmind/config.py#L23)
   from the *config.py*.
 
 * 'CM_DEBUG' - if set to 'yes', turn on internal CM debugging and raise errors 

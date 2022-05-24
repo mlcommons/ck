@@ -80,7 +80,7 @@ setup(
     long_description=open(convert_path('./README.md'), encoding="utf-8").read(),
     long_description_content_type="text/markdown",
 
-    url="https://github.com/mlcommons/ck/tree/master/ck2",
+    url="https://github.com/mlcommons/ck/tree/master/cm",
 
     python_requires="", # do not force for testing
 

@@ -69,4 +69,4 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
 
 # ML artifact management
 
-- [CM toolkit](https://github.com/mlcommons/ck/tree/master/ck2)
+- [CM toolkit](https://github.com/mlcommons/ck/tree/master/cm)

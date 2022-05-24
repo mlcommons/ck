@@ -44,7 +44,7 @@ install:
 
 script: 
     - ${PYTHON_EXE} -m pip install --ignore-installed --verbose pip setuptools
-    - cd ck2
+    - cd cm
     - ${PYTHON_EXE} setup.py install
     - ${PYTHON_EXE} -m cmind
     - cm

@@ -31,7 +31,7 @@ version=''
 release=version
 
 edit_on_github_url='https://github.com'
-edit_on_github_project = 'mlcommons/ck/tree/master/ck2/docs/'
+edit_on_github_project = 'mlcommons/ck/tree/master/cm/docs/'
 
 kernel_file=os.path.join('..', 'cmind', '__init__.py')
 
@@ -135,7 +135,7 @@ html_context = {
     "display_github": True,
     "github_user": "mlcommons",
     "github_repo": "ck",
-    "github_version": "master/ck2/docs/",
+    "github_version": "master/cm/docs/",
 }
 
 html_logo = 'auto/static/logo.png'
