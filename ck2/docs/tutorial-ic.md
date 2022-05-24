@@ -1,5 +1,7 @@
 # Tutorial: intelligent components (IC)
 
+
+
 Converting ad-hoc scripts into "intelligent" CM components (IC).
 
 
@@ -23,6 +25,12 @@ $ python3 -m pip install cmind
 ```
 
 You can find more details about the installation process [here](installation.md).
+
+## Installing CM repository with IC
+
+```bash
+$ cm pull repo octoml@cm-mlops
+```
 
 
 

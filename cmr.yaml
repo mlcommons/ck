@@ -1,4 +1,4 @@
-alias: mlcommons@ck
+alias: mlcommons@cm-devops
 git: true
-prefix: ck2-repo-mlops
+prefix: cm-devops
 uid: a4705959af8e447a

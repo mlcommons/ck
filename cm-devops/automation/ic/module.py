@@ -143,8 +143,13 @@ class CAutomation(Automation):
         parsed_artifact_alias = parsed_artifact[0][0] if parsed_artifact is not None else ''
         artifact_tags = i.get('tags','')
 
-        cm_ic_info = 'CM intelligent component "{}" with tags "{}"'.format(parsed_artifact_alias, artifact_tags)
+        cm_ic_info = 'CM intelligent component(s)'
+        if parsed_artifact_alias!='':
+            cm_ic_info += ' "{}"'.format(parsed_artifact_alias)
+        if artifact_tags!='':
+            cm_ic_info += ' with tags "{}"'.format(artifact_tags)
 
+        print ('')
         print (recursion_spaces + '* Searching ' + cm_ic_info)
 
         # Get and cache minimal host OS info to be able to run scripts and manage OS environment
@@ -420,6 +425,7 @@ class CAutomation(Automation):
             
         # If batch file exists, run it with current env and state
         if os.path.isfile(path_to_run_script) and not reuse_installed:
+            print ('')
             print (recursion_spaces+'  - run script ...')
     
             # Prepare env variables
