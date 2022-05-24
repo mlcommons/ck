@@ -1,6 +1,6 @@
 # Motivation
 
-The Collective Mind toolkit (CM) transforms Git repositories, Docker containers, Jupyter notebooks, zip/tar files
+The Collective Mind toolkit (CM aka CK2) transforms Git repositories, Docker containers, Jupyter notebooks, zip/tar files
 and any local directory into a collective database of reusable artifacts 
 and automation scripts with a unified interface and extensible meta descriptions.
 
