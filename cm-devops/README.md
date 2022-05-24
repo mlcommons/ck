@@ -1,7 +1,7 @@
 # CM repository to enable more determinstic, portable and reproducible MLOps
 
-[![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
-[![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck/tree/master/ck2)
+[![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck/tree/master/cm)
+[![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck/tree/master/cm)
 
 
 It is becoming very challenging to co-design, optimize and deploy efficient AI Systems in the real world:
@@ -12,7 +12,7 @@ suggests that it is possible to [apply DevOps principles to MLOps](https://www.d
 if we treat all AI, ML and Systems artifacts including models, data sets, frameworks, libraries and scripts as "code" meta packages 
 with dependencies on other artifacts, operating systems and hardware.
 
-We use this [CM-based repository](https://github.com/mlcommons/ck/tree/master/ck2) 
+We use this [CM-based repository](https://github.com/mlcommons/ck/tree/master/cm) 
 as a common playground and a common language to learn with the community
 how to make benchmarking, optimization, co-design and deployment
 of complex ML Systems more deterministic, portable and reproducible 
@@ -23,7 +23,7 @@ across continusly changing software and hardware stacks.
 
 ## Install CM toolkit and dependencies
 
-Install the CM toolkit as described [here](https://github.com/mlcommons/ck/blob/master/ck2/docs/installation.md).
+Install the CM toolkit as described [here](https://github.com/mlcommons/ck/blob/master/cm/docs/installation.md).
 
 ## Install this CM repository
 
@@ -36,6 +36,11 @@ $ cm pull repo mlcommons@ck
 You can see this and other CM-compatible repositories installed on your system as follows:
 ```bash
 $ cm list repo
+```
+
+You can list reusable automations as follows:
+```bash
+$ cm find automation
 ```
 
 
