@@ -1,15 +1,7 @@
-***Note that the current prototype of the CM toolkit is under heavy development and may change over time ...***
-
-
-
-***UNDER PREPARATION!***
-
-
-
-# Getting Started tutorial
+# Tutorial: CM concept
 
 Here we describe a few simple steps to let you try CM (CK2) and help you understand the [CM concepts](motivation.md). 
-You will install CM v0.7.7+, transform your local directory into a database of reusable artifacts, 
+You will install CM v0.7.13+, transform your local directory into a database of reusable artifacts, 
 share it with others, implement some common automation actions to reusable artifacts,
 run CM automations from Python and Jupyter Notebooks, and convert any Git repository 
 into the CM format.
@@ -610,6 +602,6 @@ all complex software and research projects into a collection of reusable artifac
 
 ## Next steps
 
-We are working with the community to develop portable CM automation actions and artifacts 
-that can make ML Systems benchmarking, experimenation and MLOps more collaborative,
-deterministic and reproducible: https://github.com/octoml/cm-mlops . 
+We are working with the community to develop [intelligent CM components (IC)](https://github.com/octoml/cm-mlops/tree/main/ic)
+that can make ML Systems benchmarking, experimenation and MLOps more deterministic, collaborative and reproducible
+without the need for complex workflows: [IC tutorial](tutorial-ic.md).

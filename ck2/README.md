@@ -45,7 +45,11 @@ Apache 2.0
 # Documentation
 
 * [Online docs](https://cknowledge.org/docs/cm)
-  * [Getting Started tutorial](https://cknowledge.org/docs/cm/concept.html)
+
+# Tutorials
+
+* [Converting ad-hoc scripts into intelligent CM components](https://cknowledge.org/docs/cm/tutorial-ic.html)
+* [CM concepts](https://cknowledge.org/docs/cm/tutorial-concept.html)
 
 # Community meetings
 
@@ -55,7 +59,9 @@ Apache 2.0
 
 # News
 
-* **2022 April 20:** Join us at the public MLCommons community meeting. Register [here](https://docs.google.com/spreadsheets/d/1bb7qWgWM-6gop1Mwjm4u8LZtC7uqbee8C30DHipkkms/edit#gid=533252977).
+* **2022 May 20:** Brainstorming session for CM-powered ["intelligent components"](https://cknowledge.org/docs/cm/tutorial-ic.html) in Seattle, WA.
+
+* **2022 April 20:** MLCommons virutal community meeting.
 
 * **2022 April 3:** We presented our approach to bridge the growing gap between ML Systems research and production 
   at the HPCA'22 workshop on [benchmarking deep learning systems](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca22/home).
@@ -71,15 +77,12 @@ Apache 2.0
 
 # Development
 
-## CM playground 
+## CM database
 
 We use [GitHub tickets](https://github.com/mlcommons/ck/issues) 
 to improve and enhance the CM core that manages shared projects
 as a collective database of reusable artifacts and automations.
 Please don't hesitate to share your ideas and report encountered issues!
-
-
-
 
 
 

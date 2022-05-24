@@ -1,7 +1,8 @@
 # Prototyping phase
 
-## DEV
+## V0.7.14
    - fixed search function when tags == ''
+   - fixed cm access when automation == '' and tags!=''
 
 ## V0.7.13
    - added "-tags" in search function

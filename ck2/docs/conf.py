@@ -24,7 +24,7 @@ sys.path.insert(0, os.path.abspath('.'))
 # -- Project information -----------------------------------------------------
 
 project = u'Collective Mind toolkit'
-copyright = u'2022 Grigori Fursin'
+copyright = u'2022 MLCommons'
 author = u'Grigori Fursin'
 
 version=''

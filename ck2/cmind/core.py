@@ -239,7 +239,7 @@ class CM(object):
                                           # First element is == artifact
 
         # Check if automation is "." - then attempt to detect repo, automation and artifact from the current directory
-        if automation =='' or automation == '.':
+        if automation == '' or automation == '.':
             r = self.access({'action':'detect',
                              'automation':'repo,55c3e27e8a140e48'})
             if r['return']>0: return r
@@ -252,7 +252,7 @@ class CM(object):
                     automation = r['cm_automation']
 
             # Check and make an artifact (only if artifacts are not specified)
-            if r.get('artifact_found_in_current_path', False) and artifact == '':
+            if r.get('artifact_found_in_current_path', False) and artifact == '' and i.get('tags','') == '':
                 artifact = r['cm_artifact']
 
             if r.get('registered', False):
