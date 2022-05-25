@@ -68,7 +68,7 @@ class CAutomation(Automation):
            * (error) (str): error string if return>0
 
            * info (dict):
-             * platform (str): "windows" or "linux"
+             * platform (str): "windows", "linux" or "darwin"
              * bat_ext (str): ".bat" or ".sh"
              * bits (str): 32 or 64 bits
              * python_bits 9str): python bits

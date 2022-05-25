@@ -406,7 +406,10 @@ class CAutomation(Automation):
 
         # Prepare run script
         bat_ext = os_info['bat_ext']
-        run_script = 'run' + bat_ext
+        if bat_ext == '.sh':
+            run_script = get_script_name(new_env, path)
+        else:
+            run_script = 'run' + bat_ext
 
         path_to_run_script = os.path.join(path, run_script)
 
@@ -685,6 +688,27 @@ def merge_ic_state(d, new_d):
     utils.merge_dicts({'dict1':tmp_d, 'dict2':new_d, 'append_lists':True, 'append_unique':True})
 
     return tmp_d
+
+##############################################################################
+def get_script_name(new_env, path):
+    """
+    Internal: find the most appropriate run script name for the detected OS
+    """
+
+    from os.path import exists
+
+    tmp_suff1 = new_env['CM_HOST_OS_FLAVOR'] if 'CM_HOST_OS_FLAVOR' in new_env else ''
+    tmp_suff2 = new_env['CM_HOST_OS_VERSION'] if 'CM_HOST_OS_VERSION' in new_env else ''
+    tmp_suff3 = new_env['CM_HOST_PLATFORM_FLAVOR'] if 'CM_HOST_PLATFORM_FLAVOR' in new_env else ''
+
+    if exists(os.path.join(path, 'run-' + tmp_suff1 + tmp_suff2 + tmp_suff3 + '.sh')):
+        return 'run-' + tmp_suff1 + tmp_suff2 + tmp_suff3 + '.sh'
+    elif exists(os.path.join(path, 'run-' + tmp_suff1 + tmp_suff2 + '.sh')):
+        return 'run-' + tmp_suff1 + tmp_suff2 + '.sh'
+    elif exists(os.path.join(path, 'run-' + tmp_suff1 + '.sh')):
+        return 'run-' + tmp_suff1 + '.sh'
+    else:
+        return 'run.sh';
 
 ##############################################################################
 def convert_env_to_script(env, os_info):
