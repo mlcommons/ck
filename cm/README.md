@@ -1,4 +1,4 @@
-# Collective Mind toolkit
+# Collective Mind toolkit (CM aka CK2)
 
 [![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
 [![Downloads](https://pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 
 
-We have developed the CM toolkit to make existing DevOps and MLOps 
+We have developed the Collective Mind toolkit (CM aka CK2) to make existing DevOps and MLOps 
 more portable, interoperable, deterministic, reusable and reproducible 
 with minimal or no changes to existing projects!
 
@@ -68,7 +68,7 @@ Apache 2.0
 
 # Development
 
-## CM database
+## CM core (database)
 
 We use [GitHub tickets](https://github.com/mlcommons/ck/issues) 
 to improve and enhance the CM core that manages shared projects
