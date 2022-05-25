@@ -83,7 +83,7 @@ and create the new ones yourself.
 
 Install CM as described [here](installation.md).
 
-## Installing CM repository with IC automation
+## Installing the IC automation
 
 Pull repository with CM automations:
 
@@ -108,6 +108,11 @@ $ cm run ic --help
 
 ## Installing CM repository with ICs
 
+Intelligent CM components can be embedded in Git repositories and tar/zip archives.
+We are prototyping ICs needed for collaborative benchmarking, optimization and deployment of ML Systems
+in http://github.com/octoml/cm-mlops .
+You can install it in CM as follows:
+
 ```bash
 $ cm pull repo octoml@cm-mlops
 ```
@@ -119,13 +124,26 @@ $ cm find ic
 
 ## Running "hello world" IC
 
-You can run an IC that prints "hello world" using its explicit name:
+You can run an intelligent CM component that prints "hello world" using its explicit name:
 
 ```bash
 $ cm run ic prototype-echo-hello-world
 ```
 
 or using tags:
+
 ```bash
-$ cm run ic --tags=hello,world
+$ cm run ic --tags=echo,hello-world
+```
+
+## Understanding "hello world" IC
+
+Let's find the CM database entry for the IC component as follows:
+```bash
+$ cm find ic prototype-echo-hello-world
+```
+or
+
+```bash
+$ cm find ic --tags=echo,hello-world
 ```

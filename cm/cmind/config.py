@@ -74,6 +74,8 @@ class Config(object):
                      "repo_url_prefix":"https://github.com/",
                      "repo_url_org":"mlcommons",
 
+                     "fail_if_automation_not_found": True,
+                     
                      "line":"=======================================================",
 
                      "artifact_keys":['automation','artifact','parsed_automation','parsed_artifact', 'tags']

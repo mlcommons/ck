@@ -358,8 +358,13 @@ class CM(object):
 
                 # Report an error if a repo is specified for a given automation action but it's not found there
                 if len(automation_lst)==0 and auto_repo is not None:
-                    return {'return':3, 'error':'automation is not found in a specified repo {}'.format(auto_repo)}
+                    return {'return':3, 'error':'automation was not found in a specified repo {}'.format(auto_repo)}
                 
+        # If no automation was found we do not force common automation, check if should fail or continue
+        if not use_common_automation and len(automation_lst)==0:
+            if self.cfg['fail_if_automation_not_found']:
+                return {'return':4, 'error':'automation was not found for {}'.format(auto_name)}
+
         # If no automation was found or we force common automation
         if use_common_automation or len(automation_lst)==0:
             auto=('automation','bbeb15d8f0a944a4')
@@ -384,7 +389,7 @@ class CM(object):
 
         if action in self.cfg['action_substitutions']:
             action = self.cfg['action_substitutions'][action]
-        
+
         # Check action in a class when importing
         if use_any_action:
             action = 'any'
@@ -497,7 +502,7 @@ def parse_cm_object_and_check_current_dir(cmind, artifact):
     if artifact.startswith('.:'):
 
         r = cmind.access({'action':'detect',
-                       'automation':'repo,55c3e27e8a140e48'})
+                          'automation':'repo,55c3e27e8a140e48'})
         if r['return']>0: return r
 
         if r.get('registered', False):

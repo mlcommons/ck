@@ -1,5 +1,9 @@
 # Prototyping phase
 
+## Dev
+   - fail by default if automation is not found
+     (can be changed using cmind.cfg['fail_if_automation_not_found']=False)
+
 ## V0.7.14
    - fixed search function when tags == ''
    - fixed cm access when automation == '' and tags!=''
