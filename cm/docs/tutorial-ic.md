@@ -1,5 +1,7 @@
 # Tutorial: understanding intelligent CM components
 
+*Note that IC automation is under development and can still evolve!*
+
 We want to demonstrate that it is possible to organize ad-hoc DevOps, MLOps and other scripts
 and artifacts into a database of portable and reusable components.
 It is then possible to implement complex automation pipelines with a minimal effort
@@ -81,7 +83,9 @@ and create the new ones yourself.
 
 ## Installing CM
 
-Install CM as described [here](installation.md).
+Install CM as described [here](installation.md). Normally, CM should work on any OS and platform. 
+However, if you encounter some issues, please report them [here](https://github.com/mlcommons/ck/issues).
+
 
 ## Installing the IC automation
 
@@ -127,23 +131,233 @@ $ cm find ic
 You can run an intelligent CM component that prints "hello world" using its explicit name:
 
 ```bash
-$ cm run ic prototype-echo-hello-world
+$ cm run ic prototype-print-hello-world
+
+...
+
+CM_ENV_TEST1 = TEST1
+CM_ENV_TEST2 = TEST2
+
+HELLO WORLD!
 ```
 
 or using tags:
 
 ```bash
-$ cm run ic --tags=echo,hello-world
+$ cm run ic --tags=print,hello-world,script
+
+...
+
+CM_ENV_TEST1 = TEST1
+CM_ENV_TEST2 = TEST2
+
+HELLO WORLD!
 ```
 
 ## Understanding "hello world" IC
 
 Let's find the CM database entry for the IC component as follows:
 ```bash
-$ cm find ic prototype-echo-hello-world
+$ cm find ic prototype-print-hello-world
 ```
 or
 
 ```bash
-$ cm find ic --tags=echo,hello-world
+$ cm find ic --tags=print,hello-world,script
 ```
+
+Let's check the content of this directory (see on [GitHub](https://github.com/octoml/cm-mlops/tree/main/ic/prototype-echo-hello-world)):
+```bash
+$ ls `cm find ic --tags=print,hello-world,script`
+```
+
+* *_cm.json* - meta description of this IC
+* *run.sh* - Linux (Unix) script 
+* *run.bat* - Windows script
+
+### Meta description
+
+*_cm.json* describes how to find and run this IC:
+
+```json
+{
+  "automation_alias": "ic",               # related CM automation alias
+  "automation_uid": "972c28dafb2543fa",   # related CM automation UID
+
+  "alias": "prototype-print-hello-world", # this IC alias
+  "uid": "b9f0acba4aca4baa",              # this IC UID
+
+  "tags": [          # Tags to find this IC and differentiate from others!
+    "prototype",
+    "print",
+    "hello-world",
+    "hello world",
+    "hello",
+    "world",
+    "script"
+  ],
+
+  "env": {                      # Set global environment variables
+    "CM_ENV_TEST1": "TEST1"
+  },
+
+  "new_env": {                  # Set local environment variables
+    "CM_ENV_TEST2": "TEST2"     # (for this IC only)
+  },
+
+  "deps": [                     # Pipeline of dependencies on other IC
+    {                           # These IC will be executed before
+      "tags": "win,echo-off"    # running a given IC
+    }
+  ]
+                                
+  ...                           # Extra keys will be gradually added by the community
+                                # while enhancing the IC automation
+                                # and keeping backwards compatibility
+}
+```
+
+### Scripts
+
+*_run.bat* and *_run.sh* are native scripts that will be executed by this IC components on Linux and Windows-based system:
+
+```bash
+echo ""
+echo "CM_ENV_TEST1 = ${CM_ENV_TEST1}"
+echo "CM_ENV_TEST2 = ${CM_ENV_TEST2}"
+
+echo ""
+echo "HELLO WORLD!"
+```
+
+## Modifying environment variables
+
+IC merges "env" and "new_env" before running this script.
+
+You can modify a given environment variable as follows:
+```bash
+$ cm run ic --tags=print,hello-world,script --env.CM_ENV_TEST1=ABC1 --env.CM_ENV_TEST2=ABC2 
+
+...
+
+CM_ENV_TEST1 = ABC1
+CM_ENV_TEST2 = ABC2
+
+HELLO WORLD!
+```
+
+You can use JSON file instead of CLI. Create *input.json* (or any other filename):
+```json
+{
+  "tags":"print,hello-world,script",
+  "env":{
+    "CM_ENV_TEST1":"ABC1",
+    "CM_ENV_TEST2":"ABC2"
+  }
+}
+```
+
+and run the IC with this input file as follows:
+```
+$ cm run ic @input.json
+```
+
+
+You can use YAML file instead of CLI. Create *input.yaml* (or any other filename):
+```yaml
+tags: "print,hello-world,script"
+env:
+  CM_ENV_TEST1: "ABC1"
+  CM_ENV_TEST2: "ABC2"
+```
+
+and run the IC with this input file as follows:
+```
+$ cm run ic @input.json
+```
+
+
+## Printing JSON output
+
+You can see the output of the IC automation in JSON as follows:
+
+```bash
+$ cm run ic --tags=print,hello-world,script --env.CM_ENV_TEST1=ABC1 --env.CM_ENV_TEST2=ABC2 --out=json
+
+CM_ENV_TEST1 = ABC1
+CM_ENV_TEST2 = ABC2
+
+HELLO WORLD!
+{
+  "new_env": {
+    "CM_ENV_TEST2": "TEST2"
+  },
+  "new_state": {
+    "script_prefix": [
+      "@echo off"
+    ]
+  },
+  "return": 0
+}
+
+```
+
+## Running IC from Python
+
+You can run IC from python or Jupyter notebook as follows:
+```python
+import cmind as cm
+
+r=cm.access({'action':'run',
+             'automation':'ic',
+             'tags':'print,hello-world,script',
+             'env':{
+               'CM_ENV_TEST1':'ABC1',
+               'CM_ENV_TEST2':'ABC2'
+             }
+            })
+
+print (r)
+
+```
+
+```
+...
+
+CM_ENV_TEST1 = ABC1
+CM_ENV_TEST2 = ABC2
+
+HELLO WORLD!
+
+{'return': 0, 'new_state': {'script_prefix': ['@echo off']}, 'new_env': {'CM_ENV_TEST2': 'TEST2'}}
+
+```
+
+
+
+Deps
+
+detect-os
+
+ customize.py
+ pre/post-processing
+
+files
+ env
+ state
+
+post-processing
+why state
+
+get-python
+installed
+cached
+
+image classification
+ ml model
+ dataset
+
+Modularize containers
+
+Further work:
+ run for OS flavor, etc
