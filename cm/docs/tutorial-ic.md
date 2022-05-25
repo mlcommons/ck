@@ -1,6 +1,6 @@
 # Tutorial: understanding intelligent CM components
 
-We want to demonstrate that it is possible to organize ad-hoc scripts
+We want to demonstrate that it is possible to organize ad-hoc DevOps, MLOps and other scripts
 and artifacts into a database of portable and reusable components.
 It is then possible to implement complex automation pipelines with a minimal effort
 in a native environment and without the need for specialized workflow 
@@ -32,7 +32,7 @@ host and target platform parameters into account.
 
 That is why we are developing the CM automation 
 called [ic ("intelligent component")](https://github.com/mlcommons/ck/tree/master/cm-devops/automation/ic)
-to organize and wrap existing ad-hoc scripts and artifacts
+to organize and wrap existing ad-hoc DevOps and MLOps scripts and artifacts
 with a unified CLI and Python API.
 
 We are also developing intelligent components as CM artifacts with an extensible JSON/YAML meta description
@@ -70,24 +70,22 @@ to finalize updating "env" and "state".
 
 If meta description of a given IC contains ```"install": true```, the output files and the updated "env" and "state"
 will be cached in the "local" CM database using the "installed" automation.
+This is particularly useful when installing packages and tools or 
+downloading ML models and data sets needed to build and deploy
+complex applications and web services.
 
-Next, you can try existing IC and create the new ones yourself:
+Next, you can try to run [existing ICs](https://github.com/octoml/cm-mlops/tree/main/ic) 
+and create the new ones yourself.
+
 
 
 ## Installing CM
 
-CM toolkit is implemented as a small Python library with a unified CLI and a simple API.
-
-It requires minimal dependencies (Python 3+, pip, pyyaml and a Git client) 
-and should work with any OS including Linux, MacOS, CentOS, Debian, RedHat and Windows.
-
-```bash
-$ python3 -m pip install cmind
-```
-
-You can find more details about the installation process [here](installation.md).
+Install CM as described [here](installation.md).
 
 ## Installing CM repository with IC automation
+
+Pull repository with CM automations:
 
 ```bash
 $ cm pull repo mlcommons@ck
@@ -108,5 +106,26 @@ Check the API of the IC run action:
 $ cm run ic --help
 ```
 
+## Installing CM repository with ICs
+
+```bash
+$ cm pull repo octoml@cm-mlops
+```
+
+List available intelligent components:
+```bash
+$ cm find ic
+```
+
 ## Running "hello world" IC
 
+You can run an IC that prints "hello world" using its explicit name:
+
+```bash
+$ cm run ic prototype-echo-hello-world
+```
+
+or using tags:
+```bash
+$ cm run ic --tags=hello,world
+```
