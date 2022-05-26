@@ -1,8 +1,10 @@
 # Prototyping phase
 
-## Dev
+## V0.7.15
    - fail by default if automation is not found
      (can be changed using cmind.cfg['fail_if_automation_not_found']=False)
+   - fixed "cm update" function (added --new-tags to separate from search tags)
+   - report error if automation is not defined or found
 
 ## V0.7.14
    - fixed search function when tags == ''

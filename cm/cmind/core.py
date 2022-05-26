@@ -239,7 +239,7 @@ class CM(object):
                                           # First element is == artifact
 
         # Check if automation is "." - then attempt to detect repo, automation and artifact from the current directory
-        if automation == '' or automation == '.':
+        if automation == '.':
             r = self.access({'action':'detect',
                              'automation':'repo,55c3e27e8a140e48'})
             if r['return']>0: return r
@@ -252,7 +252,7 @@ class CM(object):
                     automation = r['cm_automation']
 
             # Check and make an artifact (only if artifacts are not specified)
-            if r.get('artifact_found_in_current_path', False) and artifact == '' and i.get('tags','') == '':
+            if r.get('artifact_found_in_current_path', False) and artifact == '':
                 artifact = r['cm_artifact']
 
             if r.get('registered', False):
@@ -363,7 +363,7 @@ class CM(object):
         # If no automation was found we do not force common automation, check if should fail or continue
         if not use_common_automation and len(automation_lst)==0:
             if self.cfg['fail_if_automation_not_found']:
-                return {'return':4, 'error':'automation was not found for {}'.format(auto_name)}
+                return {'return':4, 'error':'automation {} not found'.format(automation)}
 
         # If no automation was found or we force common automation
         if use_common_automation or len(automation_lst)==0:

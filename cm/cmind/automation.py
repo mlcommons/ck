@@ -430,8 +430,8 @@ class Automation:
 
         existing_tags = meta.get('tags',[])
         if len(tags)>0: 
-            existing_tags+=tags
-        meta['tags']=existing_tags
+            existing_tags += tags
+        meta['tags'] = existing_tags
 
         # Record meta
         r = utils.save_json(meta_path_json, meta=meta)
@@ -611,6 +611,7 @@ class Automation:
             (tags) (string or list): optional tags to find artifacts
 
             meta (dict): new meta description to be merged or to replace the original meta description of a CM artifact
+            (new_tags) (string or list): tags to be added to meta
 
             (replace) (bool): if True, replace original meta description (False by default)
             (force) (bool): if True, force updates if more than 1 artifact found (False by default)
@@ -631,6 +632,7 @@ class Automation:
         meta = i.get('meta',{})
 
         tags = utils.get_list_from_cli(i, key='tags')
+        new_tags = utils.get_list_from_cli(i, key='new_tags')
 
         replace_lists = i.get('replace_lists', False)
 
@@ -642,6 +644,12 @@ class Automation:
         lst = r['list']
         if len(lst)==0:
             # Attempt to add if doesn't exist
+
+            if 'tags' in i: del(i['tags'])
+            if len(new_tags)>0:
+                i['tags']=i['new_tags']
+                del(i['new_tags'])
+            
             r = self.add(i)
             if r['return']>0: return r
 
@@ -669,7 +677,15 @@ class Automation:
         # Updating artifacts
         for artifact in lst:
 
-            r = artifact.update(meta, append_lists = not replace_lists, tags = tags)
+            # Check if need to update tags
+            if len(new_tags)>0:
+                meta_tags = artifact.meta.get('tags',[])
+
+                for t in new_tags:
+                    if t not in meta_tags:
+                        meta_tags.append(t)
+
+            r = artifact.update(meta, append_lists = not replace_lists, tags = meta_tags)
 
             # Output if console
             if console:

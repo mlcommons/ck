@@ -187,8 +187,10 @@ $ ls `cm find ic --tags=print,hello-world,script`
   "alias": "prototype-print-hello-world", # this IC alias
   "uid": "b9f0acba4aca4baa",              # this IC UID
 
-  "tags": [          # Tags to find this IC and differentiate from others!
-    "prototype",
+  "tags": [          # Tags to find this IC in CM databases (CM repositories 
+                     # pulled from Git or downloaded as Zip/tar archives)
+                     # or shared in Docker containers)
+    "prototype",     # and differentiate this IC from other IC
     "print",
     "hello-world",
     "hello world",
@@ -205,7 +207,7 @@ $ ls `cm find ic --tags=print,hello-world,script`
     "CM_ENV_TEST2": "TEST2"     # (for this IC only)
   },
 
-  "deps": [                     # Pipeline of dependencies on other IC
+  "deps": [                     # A chain of dependencies on other IC
     {                           # These IC will be executed before
       "tags": "win,echo-off"    # running a given IC
     }
@@ -305,23 +307,25 @@ HELLO WORLD!
 ## Running IC from Python
 
 You can run IC from python or Jupyter notebook as follows:
+
 ```python
+
 import cmind as cm
 
-r=cm.access({'action':'run',
-             'automation':'ic',
-             'tags':'print,hello-world,script',
-             'env':{
-               'CM_ENV_TEST1':'ABC1',
-               'CM_ENV_TEST2':'ABC2'
-             }
-            })
+r = cm.access({'action':'run',
+               'automation':'ic',
+               'tags':'print,hello-world,script',
+               'env':{
+                 'CM_ENV_TEST1':'ABC1',
+                 'CM_ENV_TEST2':'ABC2'
+               }
+              })
 
 print (r)
 
 ```
 
-```
+```bash
 ...
 
 CM_ENV_TEST1 = ABC1
@@ -333,14 +337,122 @@ HELLO WORLD!
 
 ```
 
+## Understanding IC dependencies
+
+We want to decompose development, benchmarking, optimization and deployment of complex applications
+into intelligent CM components that wrap existing and diverse DevOps and MLOps tools while making
+them more deterministic, portable, reusable and reproducible.
+
+Our idea is to let any IC automatically run additional ICs to prepare required environment variables,
+"state" and files for a given platform and user requirements.
+
+We describe a chain of IC dependencies that must be executed before running a given IC using *deps* list in the *_cm.json* of this IC:
+
+```json
+
+{
+  "deps": [
+    {                           
+      "tags":  # a string of tags separated by comma to find and execute the 1st intelligent component
+    },
+    {                           
+      "tags":  # 2nd IC
+    },
+    ...
+  ]
+}
+
+```
+
+For example, our "Hello world" IC example has just one dependency described with tags "win,echo-off".
+
+We can find this component as follows:
+
+```bash
+$ cm find ic --tags=win,echo-off
+```
+
+This is a [very simple IC](https://github.com/octoml/cm-mlops/tree/main/ic/prototype-echo-off-win)
+that doesn't have dependencies on other IC and does not even have native OS scripts.
+
+However, it has a *customize.py* file with the *preprocess* function that is executed
+when we run this IC. 
+
+Note that this function is used to update environment variables and the "state" dictionary
+before running the native script or to influence the next ICs. For example, it can set up an 
+environment variable that will be used in some other ICs in the dependency chain to skip their execution
+as shown in [this example](https://github.com/octoml/cm-mlops/blob/main/ic/prototype-echo-off-win/customize.py#L21).
+
+This component detects that the host platform is Windows and adds "@echo off" to all further IC executions
+to minimize output noise. It does nothing on Linux:
+
+```python
+
+    if os_info['platform'] == 'windows':
+
+        script_prefix = new_state.get('script_prefix',[])
+
+        s='@echo off'
+        if s not in script_prefix:
+            script_prefix.insert(0, s)
+        
+        new_state['script_prefix'] = script_prefix
+
+```
+
+We can run it independently as follows:
+
+```bash
+$ cm run ic --tags=win,echo-off --out=json
+```
+
+The [IC automation](https://github.com/mlcommons/ck/blob/master/cm-devops/automation/ic/module.py#L90) 
+monitors the "state" and alters execution of the next ICs  
+based on specialized keys in the "state" dictionary (such as "script_prefix").
+
+This approach allows the community to gradually extend this automation and ICs without breaking 
+backwards compatibility!
 
 
-Deps
+## Customizing IC execution
+
+We use *customize.py* to preprocess the execution of the native script (if exists),
+i.e. prepare environment, the state dictionary and files needed to run this script.
+
+You can find the automation code that prepares the input for the preprocess function 
+[here](https://github.com/mlcommons/ck/blob/master/cm-devops/automation/ic/module.py#L370).
+
+We can also use this function to skip the execution of this IC based on environment, state and files
+if it returns *{"skip":True}*.
+
+
+After executing the preprocess function, the IC automation will record the global state dictionary
+into *tmp-state.json* and the local state dictionary from this IC into *tmp-state-new.json*.
+
+The IC automation will then run a native script with the global environment updated by 
+and will call a native script with a. 
+
+
+
+
+Note that the native script can create 2 files that will be automatically processed by IC automation:
+* 
+
+
+We also use *customize.py* to postprocess the output from the script 
+and update environment and the state dictionary.
+
+
+
+
+
 
 detect-os
 
  customize.py
  pre/post-processing
+
+  output (skip execution)
 
 files
  env
@@ -356,6 +468,9 @@ cached
 image classification
  ml model
  dataset
+
+variations
+versions
 
 Modularize containers
 
