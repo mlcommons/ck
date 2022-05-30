@@ -206,7 +206,7 @@ class CM(object):
         automation = i.get('automation','')
 
         # Print basic help if action == ''
-        extra_help = True if action == 'help' and automation =='' else False
+        extra_help = True if action == 'help' and automation == '' else False
         
         if action == '' or extra_help:
             if console:
@@ -215,7 +215,7 @@ class CM(object):
                 if cm_help or extra_help:
                    print_db_actions(self.common_automation, self.cfg['action_substitutions'])
                    
-            return {'return':0, 'warning':'no action'}
+            return {'return':0, 'warning':'no action specified'}
 
         # Load info about all CM repositories (to enable search for automations and artifacts)
         if self.repos == None:
@@ -236,7 +236,6 @@ class CM(object):
 
         artifact = i.get('artifact','').strip()
         artifacts = i.get('artifacts',[]) # Only if more than 1 artifact
-                                          # First element is == artifact
 
         # Check if automation is "." - then attempt to detect repo, automation and artifact from the current directory
         if automation == '.':
@@ -360,10 +359,22 @@ class CM(object):
                 if len(automation_lst)==0 and auto_repo is not None:
                     return {'return':3, 'error':'automation was not found in a specified repo {}'.format(auto_repo)}
                 
+        # Check if common automation and --help
+        if (use_common_automation or automation=='') and cm_help:
+            return print_action_help(self.common_automation, 
+                                     self.common_automation, 
+                                     'common',
+                                     action, 
+                                     action)
+        
         # If no automation was found we do not force common automation, check if should fail or continue
         if not use_common_automation and len(automation_lst)==0:
             if self.cfg['fail_if_automation_not_found']:
-                return {'return':4, 'error':'automation {} not found'.format(automation)}
+                # Quit with error
+                if automation=='':
+                    return {'return':4, 'error':'automation was not specified'}
+                else:
+                    return {'return':4, 'error':'automation {} not found'.format(automation)}
 
         # If no automation was found or we force common automation
         if use_common_automation or len(automation_lst)==0:
@@ -432,36 +443,11 @@ class CM(object):
         # Check if help for a given automation action
         if cm_help:
             # Find path to automation
-
-            import inspect
-            path_to_automation = inspect.getfile(inspect.getmodule(initialized_automation))
-
-            print ('')
-            print ('Automation:      {}'.format(print_automation))
-            print ('Action:          {}'.format(action))
-            print ('')
-            print ('Automation path: {}:'.format(path_to_automation))
-            print ('')
-
-            print ('API:')
-            print ('')
-
-            r=utils.find_api(path_to_automation, original_action)
-            if r['return']>0: 
-                if r['return']==16:
-                    # Check in default automation
-                    path_to_common_automation = inspect.getfile(inspect.getmodule(self.common_automation))
-                    if path_to_common_automation == path_to_automation:
-                        return r
-
-                    r=utils.find_api(path_to_common_automation, original_action)
-                    if r['return']>0: return r
-
-            api = r['api']
-
-            print (api)
-            
-            return {'return':0, 'help':api}
+            return print_action_help(initialized_automation, 
+                                     self.common_automation, 
+                                     print_automation,
+                                     action, 
+                                     original_action)
 
         # Process artifacts for this automation action
         if len(artifacts)>0:
@@ -553,6 +539,38 @@ def print_db_actions(automation, equivalent_actions):
 
     return {'return':0, 'db_actions':db_actions}
 
+############################################################
+def print_action_help(automation, common_automation, print_automation, action, original_action):
+
+     import inspect
+     path_to_automation = inspect.getfile(inspect.getmodule(automation))
+
+     print ('')
+     print ('Automation:      {}'.format(print_automation))
+     print ('Action:          {}'.format(action))
+     print ('')
+     print ('Automation path: {}:'.format(path_to_automation))
+     print ('')
+
+     print ('API:')
+     print ('')
+
+     r=utils.find_api(path_to_automation, original_action)
+     if r['return']>0: 
+         if r['return']==16:
+             # Check in default automation
+             path_to_common_automation = inspect.getfile(inspect.getmodule(common_automation))
+             if path_to_common_automation == path_to_automation:
+                 return r
+
+             r=utils.find_api(path_to_common_automation, original_action)
+             if r['return']>0: return r
+
+     api = r['api']
+
+     print (api)
+     
+     return {'return':0, 'help':api}
 
 ############################################################
 def access(i):

@@ -116,15 +116,24 @@ class Artifact:
         # Without inheritance
         current_meta = self.original_meta
 
-        if len(meta)>0:
+        if replace:
+            # Check that do not delete important info
+            save_info = {}
 
-            if replace:
-                self.original_meta = meta
-            else:
-                r = utils.merge_dicts({'dict1':current_meta, 'dict2':meta, 'append_lists':append_lists})
-                if r['return'] >0: return 
+            for k in ['uid', 'alias', 'automation_uid', 'automation_alias']:
+                if k not in meta and k in current_meta:
+                    save_info[k]=current_meta[k]
+            
+            self.original_meta = meta
 
-                self.original_meta = r['dict1']
+            if len(save_info)>0:
+                self.original_meta.update(save_info)
+        
+        elif len(meta)>0:
+            r = utils.merge_dicts({'dict1':current_meta, 'dict2':meta, 'append_lists':append_lists})
+            if r['return'] >0: return 
+
+            self.original_meta = r['dict1']
 
         if len(tags)>0:
             self.original_meta['tags']=tags

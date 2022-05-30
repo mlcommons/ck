@@ -608,11 +608,12 @@ class Automation:
                                       [ (artifact alias, artifact UID) ] or
                                       [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
 
-            (tags) (string or list): optional tags to find artifacts
+            (search_tags) (string or list): optional tags to find artifacts
 
-            meta (dict): new meta description to be merged or to replace the original meta description of a CM artifact
-            (new_tags) (string or list): tags to be added to meta
+            (meta) (dict): new meta description to be merged or to replace the original meta description of a CM artifact
 
+            (tags) (string or list): tags to be added to meta
+            
             (replace) (bool): if True, replace original meta description (False by default)
             (force) (bool): if True, force updates if more than 1 artifact found (False by default)
             (replace_lists) (bool): if True, replace lists in meta description rather than appending them (False by default)
@@ -632,24 +633,23 @@ class Automation:
         meta = i.get('meta',{})
 
         tags = utils.get_list_from_cli(i, key='tags')
-        new_tags = utils.get_list_from_cli(i, key='new_tags')
 
+        replace = i.get('replace', False)
         replace_lists = i.get('replace_lists', False)
 
         # Find CM artifact(s)
-        i['out'] = None
-        r = self.search(i)
+        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'])
+
+        if 'search_tags' in i: ii['tags']=i['search_tags']
+
+        ii['out'] = None
+
+        r = self.search(ii)
         if r['return']>0: return r
 
         lst = r['list']
         if len(lst)==0:
             # Attempt to add if doesn't exist
-
-            if 'tags' in i: del(i['tags'])
-            if len(new_tags)>0:
-                i['tags']=i['new_tags']
-                del(i['new_tags'])
-            
             r = self.add(i)
             if r['return']>0: return r
 
@@ -678,14 +678,17 @@ class Automation:
         for artifact in lst:
 
             # Check if need to update tags
-            if len(new_tags)>0:
+            meta_tags = []
+
+            if not replace:
                 meta_tags = artifact.meta.get('tags',[])
 
-                for t in new_tags:
+            if len(tags)>0:
+                for t in tags:
                     if t not in meta_tags:
                         meta_tags.append(t)
 
-            r = artifact.update(meta, append_lists = not replace_lists, tags = meta_tags)
+            r = artifact.update(meta, replace = replace, append_lists = not replace_lists, tags = meta_tags)
 
             # Output if console
             if console:

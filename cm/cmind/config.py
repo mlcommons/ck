@@ -78,7 +78,7 @@ class Config(object):
                      
                      "line":"=======================================================",
 
-                     "artifact_keys":['automation','artifact','parsed_automation','parsed_artifact', 'tags']
+                     "artifact_keys":['automation', 'artifact', 'parsed_automation', 'parsed_artifact']
                    }
 
         # Attempt to update config from file if specified explicitly during initialization

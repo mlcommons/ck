@@ -1,5 +1,11 @@
 # Prototyping phase
 
+## V0.7.16
+   - fixed --help when no automation is specified 
+     (to print help for the default CM database automation)
+   - fixed "cm update" function (added --search-tags 
+     and changed --new-tags back to tags)
+
 ## V0.7.15
    - fail by default if automation is not found
      (can be changed using cmind.cfg['fail_if_automation_not_found']=False)
