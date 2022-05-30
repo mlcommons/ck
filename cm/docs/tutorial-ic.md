@@ -622,14 +622,14 @@ It also has *run.sh* and *run.bat* to install Python requirements and run a Pyth
 that will output classification results. You can run it as follows:
 
 ```bash
-$ cm run ic --tags=image-classification,onnx,python --out=json
+$ cm run ic --tags=app,image-classification,onnx,python --out=json
 ```
 
 If you run this IC for the first time, it will run and cache all dependencies.
 
 You can run it with your own image as follows:
 ```bash
-$ cm run ic --tags=image-classification,onnx,python --env.CM_IMAGE={full path to my JPEG image}
+$ cm run ic --tags=app,image-classification,onnx,python --env.CM_IMAGE={full path to my JPEG image}
 ```
 
 ## Running IC inside containers
