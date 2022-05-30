@@ -680,7 +680,7 @@ class Automation:
             # Check if need to update tags
             meta_tags = []
 
-            if not replace:
+            if not replace and not replace_lists:
                 meta_tags = artifact.meta.get('tags',[])
 
             if len(tags)>0:
