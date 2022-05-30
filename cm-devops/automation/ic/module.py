@@ -163,7 +163,7 @@ class CAutomation(Automation):
             os_info = self.os_info
 
         # Find artifact
-        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'])
+        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags'])
 
         # Extract variations from input
         tags = ii.get('tags','').strip().split(',')
@@ -430,7 +430,12 @@ class CAutomation(Automation):
         if os.path.isfile(path_to_run_script) and not reuse_installed:
             print ('')
             print (recursion_spaces+'  - run script ...')
-    
+
+            # Clean some output files
+            for tmp_file in ['tmp-run-state.json', 'tmp-run-env.out']:
+                if os.path.isfile(tmp_file):
+                    os.remove(tmp_file)
+
             # Prepare env variables
             script = []
 
@@ -461,12 +466,14 @@ class CAutomation(Automation):
             if rc>0:
                 return {'return':1, 'error':'Component failed (return code = {})'.format(rc)}
 
-            # Load state
-            if os.path.isfile('tmp-run-new.json'):
-                r = utils.load_json(file_name = 'tmp-run-new.json')
+            # Load updated state if exists
+            if os.path.isfile('tmp-run-state.json'):
+                r = utils.load_json(file_name = 'tmp-run-state.json')
                 if r['return']>0: return r
 
-            # Load env if exists
+                new_state = merge_ic_state(new_state, r['meta'])
+
+            # Load updated env if exists
             if os.path.isfile('tmp-run-env.out'):
                 r = utils.load_txt(file_name = 'tmp-run-env.out')
                 if r['return']>0: return r

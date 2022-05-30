@@ -84,7 +84,7 @@ class CAutomation(Automation):
         from cmind import utils
 
         # Update/create experiment entry
-        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'])
+        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags'])
 
         ii['action']='update'
         r=self.cmind.access(ii)
@@ -119,7 +119,7 @@ class CAutomation(Automation):
             os.delete(experiment_output_file)
 
         # Prepare input for IC artifact
-        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'], reverse=True)
+        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags'], reverse=True)
 
         ii['action']='run'
         ii['automation']='ic,972c28dafb2543fa'
@@ -184,7 +184,7 @@ class CAutomation(Automation):
         from cmind import utils
 
         # Update/create experiment entry
-        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'])
+        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags'])
 
         ii['action']='find'
         r=self.cmind.access(ii)

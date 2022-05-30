@@ -1,3 +1,7 @@
+20220530:
+ * updated ic automation to read tmp-run-state.json 
+   and merge it with the "new_state" dict
+
 20220524:
  * changed directory ck2-repo-mlops to cm-devops
 
