@@ -2,18 +2,23 @@
 
 *Note that IC automation is under development and can still evolve!*
 
-We want to demonstrate that it is possible to organize ad-hoc DevOps, MLOps and other scripts
-and artifacts into a database of portable and reusable components.
-It is then possible to implement complex automation pipelines with a minimal effort
-in a native environment and without the need for specialized workflow 
+This tutorial demonstrates how to organize ad-hoc DevOps and MLOps scripts
+and related artifacts into a database of portable and reusable components.
+Such components can be chained into complex automation pipelines with a minimal effort
+in a native environment and without the need for specialized workflow
 frameworks and containers.
-Our evolutionary approach can be a simple and practical intermediate step 
-to automate and simplify the existing ad-hoc development, optimization and deployment flows 
-of complex applications before investing into specialized workflow frameworks, platforms and containers.
+This approach provides a simple and practical intermediate step 
+to make existing development, optimization and deployment scripts
+for complex applications more interchangeable, portable, deterministic, reusable and reproducible
+before investing into other specialized workflow frameworks, platforms and containers.
+
+*We suggest you to read the following docs to better understand the CM/CK concepts 
+ before this tutorial: [CK concepts](https://arxiv.org/abs/2011.01149), 
+ [CM (aka CK2) basics](tutorial-concept.md)*.
 
 ## Motivation
 
-CM is motivated by our tedious experience trying to
+The development of the CM unification framework is motivated by our tedious experience trying to
 [make ML and systems research more deterministic, reproducible and deployable in production](https://learning.acm.org/techtalks/reproducibility).
 When organizing [artifact evaluation at ML and Systems conferences](https://cTuning.org/ae) 
 we have noticed that researchers and engineers spent most of the time 
@@ -27,19 +32,19 @@ software, hardware, user environments, settings and data.
 
 However, we have also noticed that most complex applications and experiments can be decomposed
 into relatively simple, small and atomic actions easily reusable across all projects.
-Such actions usually update the global OS environment and produce new files while taking
+Such actions usually update OS environment variables and produce new files while taking
 host and target platform parameters into account.
 
 ### Intelligent CM component (IC)
 
-That is why we are developing the CM automation 
-called [ic ("intelligent component")](https://github.com/mlcommons/ck/tree/master/cm-devops/automation/ic)
-to organize and wrap existing ad-hoc DevOps and MLOps scripts and artifacts
-with a unified CLI and Python API.
+That is why we started developing the CM automation called 
+[ic ("intelligent component")](https://github.com/mlcommons/ck/tree/master/cm-devops/automation/ic)
+to wrap existing ad-hoc DevOps and MLOps scripts and artifacts
+with a simple and unified Python API and CLI.
 
-We are also developing intelligent components as CM artifacts with an extensible JSON/YAML meta description
-to make benchmarking, optimization and deployment of ML Systems more deterministic, 
-portable and reproducible: https://github.com/octoml/cm-mlops/tree/main/ic .
+Such components can be shared inside local directories, Git projects 
+and containers as a database of artifacts with an extensible JSON/YAML meta description:
+https://github.com/octoml/cm-mlops/tree/main/ic .
 
 ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-ic-concept.png)
 
@@ -128,7 +133,7 @@ $ cm find ic
 
 ## Running "hello world" IC
 
-You can run an intelligent CM component that prints "hello world" using its explicit name:
+You can run an intelligent CM component that prints "hello world" using its explicit name (CM alias):
 
 ```bash
 $ cm run ic prototype-print-hello-world
@@ -156,11 +161,13 @@ HELLO WORLD!
 
 ## Understanding "hello world" IC
 
-Let's find the CM database entry for the IC component as follows:
+Let's find the CM database entry for the IC component by CM alias as follows:
 ```bash
 $ cm find ic prototype-print-hello-world
 ```
-or
+
+or using tags from meta description:
+
 
 ```bash
 $ cm find ic --tags=print,hello-world,script
@@ -339,14 +346,14 @@ HELLO WORLD!
 
 ## Understanding IC dependencies
 
-We want to decompose development, benchmarking, optimization and deployment of complex applications
-into intelligent CM components that wrap existing and diverse DevOps and MLOps tools while making
-them more deterministic, portable, reusable and reproducible.
+We want to provide a very simple mechanism to decompose development, benchmarking, optimization and deployment of complex applications
+into our intelligent CM components that wrap existing DevOps and MLOps tools while making
+them more interoperable, deterministic and portable.
 
 Our idea is to let any IC automatically run additional ICs to prepare required environment variables,
-"state" and files for a given platform and user requirements.
+"state" and files for a given platform and user requirements required for other IC in a pipeline.
 
-We describe a chain of IC dependencies that must be executed before running a given IC using *deps* list in the *_cm.json* of this IC:
+We describe a pipeline of IC dependencies that must be executed before running a given IC using *deps* list in the *_cm.json* of this IC:
 
 ```json
 
@@ -407,7 +414,7 @@ $ cm run ic --tags=win,echo-off --out=json
 ```
 
 The [IC automation](https://github.com/mlcommons/ck/blob/master/cm-devops/automation/ic/module.py#L90) 
-monitors the "state" and alters execution of the next ICs  
+monitors the "state" and alters the execution of the next ICs  
 based on specialized keys in the "state" dictionary (such as "script_prefix").
 
 This approach allows the community to gradually extend this automation and ICs without breaking 
@@ -416,11 +423,11 @@ backwards compatibility!
 
 ## Customizing IC execution
 
-We use *customize.py* to preprocess the execution of the native script (if exists),
+We use *customize.py* to preprocess the execution of a native script (if exists),
 i.e. prepare environment, the state dictionary and files needed to run this script.
 
 You can find the automation code that prepares the input for the preprocess function 
-[here](https://github.com/mlcommons/ck/blob/master/cm-devops/automation/ic/module.py#L370).
+[here]( https://github.com/mlcommons/ck/blob/master/cm-devops/automation/ic/module.py#L370 ).
 
 We can also use this function to skip the execution of this IC based on environment, state and files
 if it returns *{"skip":True}*.
@@ -430,49 +437,256 @@ After executing the preprocess function, the IC automation will record the globa
 into *tmp-state.json* and the local state dictionary from this IC into *tmp-state-new.json*.
 
 The IC automation will then run a native script with the global environment updated by 
-and will call a native script with a. 
+and will call a native script (run.sh on Linux/MacOS or run.bat on Windows).
+
+The native script will call some MLOps or DevOps tools based on environment variables
+and files prepared by previous ICs or already preset in the native environment or container.
+
+The native script can also create 2 files that will be automatically picked up and processed by the IC automation:
+* *tmp-run-env.out* - list of environment variables to update the "new_env" of a given IC
+* *tmp-run-state.json* - the state dictionary to update the "new_state" of a given IC
+
+If the *customize.py* script exists with a *postprocess* function, the IC will call it
+to finalize the postprocessing of files, environment variables and the state dictionary.
+
+You can find the automation code that prepares the input for the postprocess function 
+[here]( https://github.com/mlcommons/ck/blob/master/cm-devops/automation/ic/module.py#L482 ).
 
 
+## Unifying host OS and CPU detection
+
+In order to make MLOps and DevOps tools more portable and interoperable, we need to unify
+the information about host OS and CPU. We are developing the following 2 IC:
+
+* *detect-os* - See [CM artifact](https://github.com/octoml/cm-mlops/tree/main/ic/prototype-detect-os)
+* *get-cpu-info* - See [CM artifact](https://github.com/octoml/cm-mlops/tree/main/ic/prototype-get-cpu-info)
+
+These 2 IC have *customize.py* with preprocess and postprocess functions
+and a native run script to detect OS info and update environment variables
+and the state dictionary needed by dependent ICs. 
+
+You can run them on your platform as follows:
+
+```bash
+$ cm run ic --tags=detect-os --out=json
+
+...
+
+$ cm run ic --tags=get,cpu-info --out=json
+```
+
+## Detecting, installing and caching system dependencies
+
+We can now use ICs to detect or install system dependencies based on the OS and CPU info.
+We have implemented such a prototype of the IC [*prototype-get-sys-utils-cm*](https://github.com/octoml/cm-mlops/tree/main/ic/prototype-get-sys-utils-cm)
+that either downloads and caches various basic tools (wget, tar, gzip) on Windows
+or installs system dependencies via *apt-get* on Linux with *sudo*.
+
+You can test it as follows:
+```bash
+$ cm run ic --tags=get,sys-utils-cm
+```
+
+## Detecting, installing and caching tools
+
+One of our goals is to automatically detect all existing dependencies required to run a given tool or application
+before installing the fixed ones to be able to automatically adapt tools and applications to a user platform and environment.
+
+We are developing IC *get-{tool}* to detect existing tools, install and even build them if a required version doesn't exist
+and cache them in the *local* CM repository using the "installed" automation.
+
+Let's check the IC *get-python* (See [CM artifact at GitHub](https://github.com/octoml/cm-mlops/tree/main/ic/prototype-get-python)).
+It has *customize.py* with *preprocess* function that implements the search for python3 on Linux
+or python.exe on Windows, 2 native scripts *run.sh* and *run.bat* to get the version of the detected python installation,
+and *postprocess* function to prepare environment variables *CM_PYTHON_BIN* and *CM_PYTHON_BIN_WITH_PATH*
+that can be used by other ICs.
+
+Let's run it:
+```bash
+$ cm run ic --tags=get-python --out=json
+```
+
+If you run it for the first time and IC detects multiple versions of python, it will ask you to select one.
+IC will then cache the output in the *installed* entry of the CM database. You can see all *installed* CM entries
+for other tools and artifacts as follows:
+```bash
+$ cm list installed
+```
+or
+``bash
+$ cm list installed --tags=get-python
+```
+
+You can see the cached files as follows:
+```bash
+$ ls `cm find installed --tags=get-python`
+```
+
+If you (or other IC) run this IC to get the python tool for the second time, IC will use the cached data:
+```bash
+$ cm run ic --tags=get,python --out=json
+```
+
+Such approach allows us to "probe" the user environment and detect different tools that can be unified
+and used by other ICs or external workflows.
 
 
-Note that the native script can create 2 files that will be automatically processed by IC automation:
-* 
+## Detecting, installing and caching artifacts
+
+One of the differences of MLOps from DevOps is that MLOps must be able to deal with diverse ML models, data sets 
+and continuous experiments to iteratively improve accuracy, performance, energy usage, model/memory size and other
+important parameters of the ML and AI-based applications.
+
+That is why our IC concept is applied not only to scripts and tools but also to any user artifact required
+to develop, optimize, deploy and use a complex application
+
+For example, we have developed 2 ICs to demonstrate how to install "ResNet-50" model and reduced "ImageNet" dataset with 500 images:
+* [*prototype-get-ml-model-resnet50-onnx*](https://github.com/octoml/cm-mlops/tree/main/ic/prototype-get-ml-model-resnet50-onnx)
+* [*prototype-get-imagenet-val*](https://github.com/octoml/cm-mlops/tree/main/ic/prototype-get-imagenet-val)
+
+You can run them as follows:
+```bash
+$ cm run ic --tags=get,ml-model,resnet50-onnx
+$ cm run ic --tags=get,dataset,imagenet
+```
+
+or
+
+```bash
+$ cm run ic --tags=get,ml-model,image-classification
+$ cm run ic --tags=get,dataset,image-classification
+```
+
+When executed for the first time, these IC will download ML artifacts and cache them using CM "installed" automation.
+
+Note that you can find these "installed" CM entries using CM database API and use them in your own projects
+without the need for further CM automation. Such approach allows gradual decomposition of complex
+applications into intelligent components and gradual (evolutionary) adoption of the CM technology.
+
+### Using variations
+
+It is possible to download a specific version of an artifact using so-called "variations".
+For example, the IC *prototype-get-ml-model-resnet50-onnx* has 2 variations for ONNX Opset 8 and 11
+as described in [_cm.json](https://github.com/octoml/cm-mlops/blob/main/ic/prototype-get-ml-model-resnet50-onnx/_cm.json#L19).
+
+It is possible to specify a required variation when running a given IC using tags with "_" prefix.
+For example, you can install ResNet-50 model with "1.5-opset-11" variation as follows:
+```bash
+$ cm run ic --tags=get,ml-model,resnet50-onnx,_1.5-opset-11
+```
+
+You can also install another variation "1.5-opset-8" of this IC at the same time:
+```bash
+$ cm run ic --tags=get,ml-model,resnet50-onnx,_1.5-opset-8
+```
+
+## Assembling image classification pipeline
+
+We can now use existing ICs as basic "LEGO" blocks to quickly assemble more complex automation pipelines and workflows
+as new ICs with the same API/CLI.
 
 
-We also use *customize.py* to postprocess the output from the script 
-and update environment and the state dictionary.
+We demonstrate this approach by implementing simple image classification as an IC 
+[*prototype-image-classification-onnx-py*](https://github.com/octoml/cm-mlops/tree/main/ic/prototype-image-classification-onnx-py).
+
+It has a dependency on the above ICs including OS unification, python detection, ResNet-50 model and the ImageNet dataset 
+as described in its [*_cm.json*](prototype-image-classification-onnx-py):
+
+```json
+"deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "tags": "echo-off"
+    },
+    {
+      "tags": "get,python"
+    },
+    {
+      "tags": "get,dataset,image-classification,original"
+    },
+    {
+      "tags": "get,dataset-aux,image-classification"
+    },
+    {
+      "tags": "get,ml-model,image-classification,onnx"
+    }
+  ]
+```
+
+It also has *run.sh* and *run.bat* to install Python requirements and run a Python script 
+that will output classification results. You can run it as follows:
+
+```bash
+$ cm run ic --tags=image-classification,onnx,python --out=json
+```
+
+If you run this IC for the first time, it will run and cache all dependencies.
+
+You can run it with your own image as follows:
+```bash
+$ cm run ic --tags=image-classification,onnx,python --env.CM_IMAGE={full path to my JPEG image}
+```
+
+## Running IC inside containers
+
+The CM framework with intelligent components can be used both in the native environment and containers.
+In fact, ICs can be used to automatically connect the same complex automation pipelines and workflows 
+with external data and tools via environment variables and files. 
+
+We are developing the concept of modular containers assembled from intelligent "CM" components
+and will update this section soon!
 
 
+## Adding new IC
+
+One of the main goals of CM (aka CK2) is to make it way easier to onboard new users and add new components
+in comparison with the 1st version (CK2).
+
+You can add your own working component with some tags and run it as a dummy filter as follows:
+
+```bash
+$ cm add ic my-cool-component --tags=my,cool-component,prototype
+$ cm run ic my-cool-component
+$ cm run ic --tags=my,cool-component
+```
+
+You can then find this component and just add there your own script with the name *run.sh* 
+on Linux/MacOS or *run.bat* on Windows:
+```bash
+$ cd `cm find ic my-cool-component`
+
+$ cat > run.sh
+echo "My cool component"
+
+$ cm run ic my-cool-component
+
+...
+My cool component
+```
+
+You can then extend *_cm.json* and add more tags or dependencies to reuse environment variables and files
+in your script prepared by other ICs from public or private projects.
+
+Finally, you can add the *customize.py* script with *preprocess* and *postprocess* functions to implement more
+complex logic to customize the execution of a given IC based on previous dependencies, flags, platform and CPU info, etc.
 
 
+## Extending ICs as a collaborative playground
 
+We have developed CM as a collaborative playground to work with the community and gradually unify diverse DevOps and MLOps scripts and tools
+and decompose development, optimization, deployment and usage of complex applications into intelligent "CM" components.
 
-detect-os
+Our next steps:
+* agreeing on and unifying tags that describe different ICs in a unique way
+* agreeing on and unifying scripts, env variables and state of different ICs
+* adding support for different IC versions and ranges similar to Pypi
+* adding support to run IC scripts for a specific host OS version and CPU
+* implementing MLPerf benchmark as a pipeline of ICs
 
- customize.py
- pre/post-processing
-
-  output (skip execution)
-
-files
- env
- state
-
-post-processing
-why state
-
-get-python
-installed
-cached
-
-image classification
- ml model
- dataset
-
-variations
-versions
-
-Modularize containers
-
-Further work:
- run for OS flavor, etc
+Please get in touch if you want to join this collaborative effort to unify DevOps and MLOps 
+and make them more portable, interoperable and deterministic.

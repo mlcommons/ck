@@ -24,16 +24,16 @@ to provide a common API and extensible meta descriptions
 with dependencies on other IC and platforms.
 
 Such evolutionary approach helps to avoid vendor lock-in on specific workflow frameworks and platforms
-while simplifying and automating the development and deployment of complex applications
+while simplifying and automating the development, optimization and deployment of complex applications
 across rapidly evolving software and hardware stacks from the cloud to the edge.
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production3a.png)
 
 ## 2nd generation of the CK technology
 
-The open-source CM toolkit is the 2nd generation of the [Collective Knowledge framework (CK)]( https://arxiv.org/abs/2011.01149 )
+The open-source CM unification framework is the 2nd generation of the [Collective Knowledge framework (CK)]( https://arxiv.org/abs/2011.01149 )
 that was [successfully validated in academia and industry]( https://cKnowledge.org/partners.html ) in the past years 
-to enable collaborative and reproducible development, opitmization and deployment
+to enable unified, interchangeable, collaborative and reproducible development, optimization and deployment
 of Pareto-efficient ML Systems in terms of accuracy, latency, throughput, energy, size and costs
 across continuously changing software and hardware.
 

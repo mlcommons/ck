@@ -6,7 +6,7 @@
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 
 
-We have developed the Collective Mind toolkit (CM aka CK2) to make existing DevOps and MLOps 
+We have developed the Collective Mind unification framework (CM aka CK2) to make existing DevOps and MLOps 
 more portable, interoperable, deterministic, reusable and reproducible 
 with minimal or no changes to existing projects!
 
