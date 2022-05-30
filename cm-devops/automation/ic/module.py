@@ -524,6 +524,7 @@ class CAutomation(Automation):
                 ii = {'action': 'update',
                       'automation': 'installed,2bb0f56a197145d5',
                       'artifact': installed_uid,
+                      'replace_lists': True, # To replace tags
                       'tags':installed_tags}
                 r = self.cmind.access(ii)
                 if r['return']>0: return r
