@@ -252,6 +252,7 @@ class CAutomation(Automation):
                 print (recursion_spaces+'    - Tags: {}'.format(tmp_tags))
                 ii = {'action':'update',
                       'automation': 'installed,2bb0f56a197145d5',
+                      'search_tags':tmp_tags,
                       'tags':tmp_tags,
                       'force':True}
 
