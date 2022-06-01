@@ -1,5 +1,6 @@
 20220601:
  * added version, path, skip_install and post_deps to IC 
+ * added --new to IC to detect new components
 
 20220530:
  * updated ic automation to read tmp-run-state.json 

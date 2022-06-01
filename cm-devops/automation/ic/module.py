@@ -110,6 +110,8 @@ class CAutomation(Automation):
           (skip_install) (bool): if True, skip installation into "installed" artifacts
                                  and run in current directory
 
+          (new) (bool): if True, skip search for installed and run again
+
           (recursion) (bool): True if recursive call.
                               Useful when preparing the global bat file or Docker container
                               to save/run it in the end.
@@ -257,24 +259,77 @@ class CAutomation(Automation):
                 installed_tags += ',version-' + version
 
             # Check if already installed
-            search_tags = '-tmp,'+installed_tags
+            if i.get('new', False):
+                search_tags = 'tmp,'+installed_tags
+            else:
+                search_tags = '-tmp,'+installed_tags
+
             print (recursion_spaces+'    - Tags: {}'.format(search_tags))
+
             r = self.cmind.access({'action':'find',
                                    'automation':'installed,2bb0f56a197145d5',
                                    'tags':search_tags})
             if r['return']>0: return r
 
             found_installed_artifacts = r['list']
-            num_found_installed_artifacts = len(r['list'])
+
+            num_found_installed_artifacts = len(found_installed_artifacts)
 
             installed_path = ''
+
+            if num_found_installed_artifacts > 0:
+                selection = 0
+
+                if num_found_installed_artifacts > 1:
+                    # Select 1 and proceed
+                    print (recursion_spaces+'  - More than 1 installed artifact found:')
+
+                    print ('')
+                    num = 0
+
+                    for a in r['list']:
+                        print (recursion_spaces+'    {}) {} ({})'.format(num, a.path, ','.join(a.meta['tags'])))
+                        num+=1
+
+                    print ('')
+                    x=input(recursion_spaces+'    Select one or press Enter for 0: ')
+
+                    x=x.strip()
+                    if x=='': x='0'
+
+                    selection = int(x)
+
+                    if selection < 0 or selection >= num:
+                        selection = 0
+
+                    print ('')
+                    print (recursion_spaces+'    Selected {}: {}'.format(selection, found_installed_artifacts[selection].path))
+
+                else:
+                    print (recursion_spaces+'  - Found installed artifact: {}'.format(found_installed_artifacts[0].path))
+
+                # Continue with the selected installed artifact
+                installed_artifact = r['list'][selection]
+
+                print (recursion_spaces+'  - Loading "cached" state ...')
+
+                path_to_cached_state_file = os.path.join(installed_artifact.path,
+                    self.file_with_cached_state)
+
+                r =  utils.load_json(file_name = path_to_cached_state_file)
+                if r['return']>0: return r
+
+                cached_state = r['meta']
+
+                # Return cached delta
+                return {'return':0, 'new_state':cached_state['new_state'], 'new_env':cached_state['new_env']}
 
             if num_found_installed_artifacts == 0:
                 # If not installed:
                 # Create installed artifact and mark as tmp (remove if install successful)
                 if len(variation_tags)==0:
                     # Check if artifact meta has default variation tags and add
-                    variation_tags = meta.get('default_variations',[])            
+                    variation_tags = meta.get('default_variations',[])
 
                     if len(variation_tags)>0:
                         installed_tags += ',' + ','.join(variation_tags)
