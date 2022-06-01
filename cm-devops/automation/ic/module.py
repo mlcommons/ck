@@ -102,7 +102,15 @@ class CAutomation(Automation):
 
           (env) (dict): environment files
 
-          (recursion) (bool): True if recursive call. 
+          (version) (str): version to be added to env.CM_NEED_VERSION to specialize this flow
+          (take_version_from_env) (bool): use version from env.CM_NEED_VERSION
+
+          (path) (str): list of paths to be added to env.CM_PATH to specialize this flow
+
+          (skip_install) (bool): if True, skip installation into "installed" artifacts
+                                 and run in current directory
+
+          (recursion) (bool): True if recursive call.
                               Useful when preparing the global bat file or Docker container
                               to save/run it in the end.
 
@@ -169,7 +177,7 @@ class CAutomation(Automation):
         tags = ii.get('tags','').strip().split(',')
 
         artifact_tags = [t for t in tags if not t.startswith(self.variation_prefix)]
-        
+
         ii['tags']=','.join(artifact_tags)
 
         r = self.find(ii)
@@ -195,9 +203,31 @@ class CAutomation(Automation):
                 if t_without_prefix not in variation_tags:
                     variation_tags.append(t_without_prefix)
 
+        # Check version
+        version = i.get('version','').strip()
+
+        if i.get('take_version_from_env', False):
+            version = env.get('CM_NEED_VERSION','')
+
+        if version == '':
+            version = meta.get('default_version','')
+
+        if version != '':
+            # We record in env and not in new env because the component 
+            # must detect and record the correct version in new_env
+            env['CM_NEED_VERSION'] = version
+
+        # Check paths
+        paths = i.get('path','').strip()
+
+        if paths != '':
+            env['CM_PATH'] = paths
+
         # Check if needs to be installed
         # In such case, need to check if already installed
         install = meta.get('install', False)
+        if i.get('skip_install', False): 
+            install = False
 
         installed_artifact_uid = ''
 
@@ -217,10 +247,14 @@ class CAutomation(Automation):
             # Add tags from the original component
             if len(meta.get('tags',[]))>0:
                 installed_tags += ',' + ','.join(meta['tags'])
-            
+
             # Add variation
             if len(variation_tags)>0:
                 installed_tags += ',' + ','.join(variation_tags)
+
+            # Add version
+            if version!='':
+                installed_tags += ',version-' + version
 
             # Check if already installed
             search_tags = '-tmp,'+installed_tags
@@ -353,8 +387,8 @@ class CAutomation(Automation):
                 # Not very efficient but allows logging - can be optimized later
                 ii = {
                        'action':'run',
-                       'automation':utils.assemble_cm_object(self.meta['alias'],self.meta['uid']),
-                       'recursion_spaces':recursion_spaces+'  ',
+                       'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
+                       'recursion_spaces':recursion_spaces + '  ',
                        'recursion':True,
                        'env':tmp_env,
                        'state':tmp_state
@@ -405,6 +439,11 @@ class CAutomation(Automation):
             if skip:
                 print (recursion_spaces+'  - Skiped')
 
+            # If return version
+            if r.get('version','') != '':
+                installed_tags += ',version-' + r['version']
+
+
         # Prepare run script
         bat_ext = os_info['bat_ext']
         if bat_ext == '.sh':
@@ -426,7 +465,7 @@ class CAutomation(Automation):
         if r['return']>0: return r
         r = utils.save_json(file_name = 'tmp-state-new.json', meta = new_state)
         if r['return']>0: return r
-            
+
         # If batch file exists, run it with current env and state
         if os.path.isfile(path_to_run_script) and not reuse_installed:
             print ('')
@@ -489,15 +528,46 @@ class CAutomation(Automation):
 
             # Check if post-process
             if 'postprocess' in dir(customize_code):
+                print (recursion_spaces+'  - run postprocess ...')
 
-               print (recursion_spaces+'  - run postprocess ...')
+                ii=copy.deepcopy(customize_common_input)
+                for keys in [('env',env), ('state',state), ('new_env',new_env), ('new_state',new_state)]:
+                    ii[keys[0]]=keys[1]
 
-               ii=copy.deepcopy(customize_common_input)
-               for keys in [('env',env), ('state',state), ('new_env',new_env), ('new_state',new_state)]:
-                   ii[keys[0]]=keys[1]
+                r = customize_code.postprocess(ii)
+                if r['return']>0: return r
 
-               r = customize_code.postprocess(ii)
-               if r['return']>0: return r
+                # If return version
+                if r.get('version','') != '':
+                    installed_tags += ',version-' + r['version']
+
+
+        # Check chain of post dependencies on other "intelligent components"
+        post_deps = meta.get('post_deps',[])
+
+        if len(post_deps)>0:
+            for d in post_deps:
+                tmp_env = merge_ic_env(env, new_env)
+                tmp_state = merge_ic_state(state, new_state)
+
+                # Run IC component via CM API:
+                # Not very efficient but allows logging - can be optimized later
+                ii = {
+                       'action':'run',
+                       'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
+                       'recursion_spaces':recursion_spaces + '  ',
+                       'recursion':True,
+                       'env':tmp_env,
+                       'state':tmp_state
+                     }
+
+                ii.update(d)
+
+                r = self.cmind.access(ii)
+                if r['return']>0: return r
+
+                new_env = merge_ic_env(new_env, r['new_env'])
+                new_state = merge_ic_state(new_state, r['new_state'])
 
         # Record new env 
         new_env_script = convert_env_to_script(new_env, os_info)
