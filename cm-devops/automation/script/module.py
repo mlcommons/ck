@@ -459,7 +459,7 @@ class CAutomation(Automation):
                 new_state = merge_script_state(new_state, r['new_state'])
 
         # Clean some output files
-        clean_files = meta.get('clean_files', []) + ['tmp-run-state.json', 'tmp-run-env.out']
+        clean_files = meta.get('clean_files', []) + ['tmp-run-state.json', 'tmp-run-env.out', 'tmp-ver.out']
 
         print ('')
         print (recursion_spaces+'  - cleaning files {} ...'.format(clean_files))
