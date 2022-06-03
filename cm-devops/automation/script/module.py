@@ -508,7 +508,7 @@ class CAutomation(Automation):
                 after_deps = r.get('deps',[])
 
                 r = {'return':0}
-                
+
                 if len(after_deps)==0:
                     r['skipped'] = True
                 else:
@@ -571,7 +571,8 @@ class CAutomation(Automation):
             print (recursion_spaces+'  - run script ...')
 
             # Prepare env variables
-            script = []
+            import copy
+            script = copy.deepcopy(os_info['start_script'])
 
             # Check if script_prefix in the state from other components
             script_prefix = new_state.get('script_prefix',[])
@@ -593,7 +594,7 @@ class CAutomation(Automation):
             if r['return']>0: return r
 
             # Run final command
-            cmd = os_info['run_local_bat'].replace('${bat_file}', run_script)
+            cmd = os_info['run_local_bat_from_python'].replace('${bat_file}', run_script)
 
             rc = os.system(cmd)
 
@@ -664,7 +665,7 @@ class CAutomation(Automation):
                 new_state = merge_script_state(new_state, r['new_state'])
 
         # Record new env 
-        new_env_script = convert_env_to_script(new_env, os_info)
+        new_env_script = convert_env_to_script(new_env, os_info, start_script = os_info['start_script'])
 
         r = record_script('tmp-env' + bat_ext, new_env_script, os_info)
         if r['return']>0: return r
@@ -838,7 +839,7 @@ class CAutomation(Automation):
           env (dict): global env
           new_env (dict): local env
           os_info (dict): OS info
-          
+
           (default_path_env_key) (str): check in default paths from global env 
                                         (PATH, PYTHONPATH, LD_LIBRARY_PATH ...)
 
@@ -1010,12 +1011,13 @@ def get_script_name(new_env, path):
         return 'run.sh';
 
 ##############################################################################
-def convert_env_to_script(env, os_info):
+def convert_env_to_script(env, os_info, start_script = []):
     """
     Internal: convert env to script for a given platform
     """
 
-    script = []
+    import copy
+    script = copy.deepcopy(start_script)
 
     for k in sorted(env):
         env_value = env[k]

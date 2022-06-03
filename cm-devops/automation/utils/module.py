@@ -91,12 +91,15 @@ class CAutomation(Automation):
             info['env_var']='%env_var%'
             info['bat_rem']='rem ${rem}'
             info['run_local_bat']='call ${bat_file}'
+            info['run_local_bat_from_python']='call ${bat_file}'
             info['run_bat']='call ${bat_file}'
+            info['start_script']=[]
         else:
             if platform.system().lower().startswith('darwin'):
                 platform = 'darwin'
             else:
                 platform = 'linux'
+
             info['bat_ext']='.sh'
             info['set_env']='export ${key}="${value}"'
             info['env_separator']=':'
@@ -104,7 +107,9 @@ class CAutomation(Automation):
             info['set_exec_file']='chmod 755 "${file_name}"'
             info['bat_rem']='# ${rem}'
             info['run_local_bat']='. ./${bat_file}'
+            info['run_local_bat_from_python']='bash -c ". ./${bat_file}"'
             info['run_bat']='. ${bat_file}'
+            info['start_script']=['#!/bin/bash', '']
 
         info['platform'] = platform
 
