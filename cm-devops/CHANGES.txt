@@ -1,4 +1,7 @@
 20220603:
+ * added "skip" and "deps" to postprocess to call other scripts.
+   For example call install LLVM if detect LLVM fails...
+
  * added "script" automation to substitute less intuitive "ic"
 
 20220601:

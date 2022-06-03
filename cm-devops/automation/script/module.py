@@ -505,10 +505,43 @@ class CAutomation(Automation):
             if skip:
                 print (recursion_spaces+'  - Skiped')
 
+                after_deps = r.get('deps',[])
+
+                r = {'return':0}
+                
+                if len(after_deps)==0:
+                    r['skipped'] = True
+                else:
+                    for d in after_deps:
+                        tmp_env = merge_script_env(env, new_env)
+                        tmp_state = merge_script_state(state, new_state)
+
+                        # Run IC component via CM API:
+                        # Not very efficient but allows logging - can be optimized later
+                        ii = {
+                               'action':'run',
+                               'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
+                               'recursion_spaces':recursion_spaces + '  ',
+                               'recursion':True,
+                               'env':tmp_env,
+                               'state':tmp_state
+                             }
+
+                        ii.update(d)
+
+                        r = self.cmind.access(ii)
+                        if r['return']>0: return r
+
+                        new_env = merge_script_env(new_env, r['new_env'])
+                        new_state = merge_script_state(new_state, r['new_state'])
+
+                r.update({'new_state':new_state, 'new_env':new_env})        
+
+                return r
+
             # If return version
             if r.get('version','') != '':
                 installed_tags += ',version-' + r['version']
-
 
         # Prepare run script
         bat_ext = os_info['bat_ext']
@@ -808,6 +841,7 @@ class CAutomation(Automation):
           
           (default_path_env_key) (str): check in default paths from global env 
                                         (PATH, PYTHONPATH, LD_LIBRARY_PATH ...)
+
           (recursion_spaces) (str): add space to print
 
         Returns:
@@ -815,6 +849,7 @@ class CAutomation(Automation):
 
            * return (int): return code == 0 if no error and >0 if error
            * (error) (str): error string if return>0
+                            error = 16 if artifact not found but no problem
 
            found_path (list): found path to an artifact
            full_path (str): full path to a found artifact
