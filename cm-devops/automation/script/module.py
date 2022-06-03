@@ -145,6 +145,9 @@ class CAutomation(Automation):
         state = i.get('state',{})
         env = i.get('env',{})
 
+        # Set current path
+        if 'CM_CURRENT_PATH' not in env: env['CM_CURRENT_PATH']=os.path.abspath(os.getcwd())
+
         # Prepare updated state by this component (delta)
         new_state = {}
         new_env = {}
