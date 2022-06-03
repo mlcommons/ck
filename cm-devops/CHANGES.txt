@@ -1,3 +1,6 @@
+20220603:
+ * added "script" automation to substitute less intuitive "ic"
+
 20220601:
  * added version, path, skip_install and post_deps to IC 
  * added --new to IC to detect new components
