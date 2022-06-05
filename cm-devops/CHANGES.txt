@@ -1,3 +1,6 @@
+20220605:
+ * clean tmp files in "script" automation by default and keep them using --dirty flag
+
 20220603:
  * added "skip" and "deps" to postprocess to call other scripts.
    For example call install LLVM if detect LLVM fails...

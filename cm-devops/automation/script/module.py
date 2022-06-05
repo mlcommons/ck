@@ -18,6 +18,16 @@ class CAutomation(Automation):
         self.file_with_cached_state = 'cm-cached-state.json'
         self.variation_prefix = '_'
 
+        self.tmp_file_state = 'tmp-state.json'
+        self.tmp_file_state_new = 'tmp-state-new.json'
+
+        self.tmp_file_run_state = 'tmp-run-state.json'
+        self.tmp_file_run_env = 'tmp-run-env.out'
+        self.tmp_file_ver = 'tmp-ver.out'
+        
+        self.tmp_file_env = 'tmp-env'
+        self.tmp_file_run = 'tmp-run'
+
         self.__version__ = "0.5.0"
 
     ############################################################
@@ -113,6 +123,8 @@ class CAutomation(Automation):
 
           (new) (bool): if True, skip search for installed and run again
 
+          (dirty) (bool): if True, do not clean files
+
           (recursion) (bool): True if recursive call.
                               Useful when preparing the global bat file or Docker container
                               to save/run it in the end.
@@ -175,6 +187,9 @@ class CAutomation(Automation):
             os_info = r['info']
         else:
             os_info = self.os_info
+
+        # Bat extension for this host OS
+        bat_ext = os_info['bat_ext']
 
         # Find artifact
         ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags'])
@@ -462,14 +477,16 @@ class CAutomation(Automation):
                 new_state = merge_script_state(new_state, r['new_state'])
 
         # Clean some output files
-        clean_files = meta.get('clean_files', []) + ['tmp-run-state.json', 'tmp-run-env.out', 'tmp-ver.out']
+        clean_files = meta.get('clean_files', []) + \
+                      [self.tmp_file_run_state, 
+                       self.tmp_file_run_env, 
+                       self.tmp_file_ver,
+                       self.tmp_file_state,
+                       self.tmp_file_state_new,
+                       self.tmp_file_env + bat_ext,
+                       self.tmp_file_run + bat_ext]
 
-        print ('')
-        print (recursion_spaces+'  - cleaning files {} ...'.format(clean_files))
-
-        for tmp_file in clean_files:
-            if os.path.isfile(tmp_file):
-                os.remove(tmp_file)
+        clean_tmp_files(clean_files, recursion_spaces)
 
         # Check if has customize.py
         path_to_customize_py = os.path.join(path, 'customize.py')
@@ -547,7 +564,6 @@ class CAutomation(Automation):
                 installed_tags += ',version-' + r['version']
 
         # Prepare run script
-        bat_ext = os_info['bat_ext']
         if bat_ext == '.sh':
             run_script = get_script_name(new_env, path)
         else:
@@ -563,9 +579,9 @@ class CAutomation(Automation):
         env['CM_CURRENT_SCRIPT_PATH']=path
 
         # Record state
-        r = utils.save_json(file_name = 'tmp-state.json', meta = state)
+        r = utils.save_json(file_name = self.tmp_file_state, meta = state)
         if r['return']>0: return r
-        r = utils.save_json(file_name = 'tmp-state-new.json', meta = new_state)
+        r = utils.save_json(file_name = self.tmp_file_state_new, meta = new_state)
         if r['return']>0: return r
 
         # If batch file exists, run it with current env and state
@@ -591,7 +607,7 @@ class CAutomation(Automation):
             script.append(os_info['run_bat'].replace('${bat_file}', path_to_run_script) + '\n')
 
             # Prepare and run script
-            run_script = 'tmp-run' + bat_ext
+            run_script = self.tmp_file_run + bat_ext
 
             r = record_script(run_script, script, os_info)
             if r['return']>0: return r
@@ -605,15 +621,15 @@ class CAutomation(Automation):
                 return {'return':1, 'error':'Component failed (return code = {})'.format(rc)}
 
             # Load updated state if exists
-            if os.path.isfile('tmp-run-state.json'):
-                r = utils.load_json(file_name = 'tmp-run-state.json')
+            if os.path.isfile(self.tmp_file_run_state):
+                r = utils.load_json(file_name = self.tmp_file_run_state)
                 if r['return']>0: return r
 
                 new_state = merge_script_state(new_state, r['meta'])
 
             # Load updated env if exists
-            if os.path.isfile('tmp-run-env.out'):
-                r = utils.load_txt(file_name = 'tmp-run-env.out')
+            if os.path.isfile(self.tmp_file_run_env):
+                r = utils.load_txt(file_name = self.tmp_file_run_env)
                 if r['return']>0: return r
 
                 r = utils.convert_env_to_dict(r['string'])
@@ -670,7 +686,7 @@ class CAutomation(Automation):
         # Record new env 
         new_env_script = convert_env_to_script(new_env, os_info, start_script = os_info['start_script'])
 
-        r = record_script('tmp-env' + bat_ext, new_env_script, os_info)
+        r = record_script(self.tmp_file_env + bat_ext, new_env_script, os_info)
         if r['return']>0: return r
 
         # If using installed artifact, return to default path
@@ -700,6 +716,10 @@ class CAutomation(Automation):
 
             os.chdir(current_path)
 
+        # Clean tmp files
+        if not i.get('dirty', False):
+            clean_tmp_files(clean_files, recursion_spaces)
+        
         return {'return':0, 'new_state':new_state, 'new_env':new_env}
 
 
@@ -933,7 +953,7 @@ class CAutomation(Automation):
         """
 
         file_name = i.get('file_name','')
-        if file_name == '': file_name = 'tmp-ver.out'
+        if file_name == '': file_name = self.tmp_file_ver
 
         match_text = i['match_text']
         group_number = i['group_number']
@@ -1056,6 +1076,21 @@ def record_script(run_script, script, os_info):
     if os_info.get('set_exec_file','')!='':
         cmd = os_info['set_exec_file'].replace('${file_name}', run_script)
         rc = os.system(cmd)
+
+    return {'return':0}
+
+##############################################################################
+def clean_tmp_files(clean_files, recursion_spaces):
+    """
+    Internal: clean tmp files
+    """
+
+    print ('')
+    print (recursion_spaces+'  - cleaning files {} ...'.format(clean_files))
+
+    for tmp_file in clean_files:
+        if os.path.isfile(tmp_file):
+            os.remove(tmp_file)
 
     return {'return':0}
 
