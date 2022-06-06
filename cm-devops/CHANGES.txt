@@ -1,3 +1,8 @@
+20220606:
+ * added "name" key to deps (list of names and UIDs)
+ * added "add_deps_tags" in variations and in CMD ({"name":"tag(s)"})
+ * added "deps" to variations to be merged with the list of current deps
+
 20220605:
  * clean tmp files in "script" automation by default and keep them using --dirty flag
 

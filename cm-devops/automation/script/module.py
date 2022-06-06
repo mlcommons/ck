@@ -113,6 +113,8 @@ class CAutomation(Automation):
 
           (env) (dict): environment files
 
+          (add_deps_tags) (dict): {"name":"tag(s)"}
+
           (version) (str): version to be added to env.CM_NEED_VERSION to specialize this flow
           (take_version_from_env) (bool): use version from env.CM_NEED_VERSION
 
@@ -434,24 +436,38 @@ class CAutomation(Automation):
         for k in artifact_new_env:
             utils.update_dict_if_empty(new_env, k, artifact_new_env[k])
 
-        # Update env if variations
+        # Get deps
+        deps = meta.get('deps',[])
+        
+        # Update env and other keys if variations
         if len(variation_tags)>0:
             variations = artifact.meta['variations']
 
             for variation_tag in variation_tags:
                 variation_meta = variations[variation_tag]
 
-                variation_env = variation_meta.get('env',{})
+                variation_env = variation_meta.get('env', {})
                 for k in variation_env:
                     utils.update_dict_if_empty(env, k, variation_env[k])
 
-                variation_new_env = variation_meta.get('new_env',{})
+                variation_new_env = variation_meta.get('new_env', {})
                 for k in variation_new_env:
                     utils.update_dict_if_empty(new_env, k, variation_new_env[k])
 
-        # Check chain of dependencies on other CM scripts
-        deps = meta.get('deps',[])
+                variation_deps = variation_meta.get('deps', [])
+                if len(variation_deps)>0:
+                    deps += variation_deps
 
+                add_deps_tags = variation_meta.get('add_deps_tags', {})
+                if len(add_deps_tags) >0 :
+                    update_deps_tags(deps, add_deps_tags)
+
+                add_deps_tags_from_input = i.get('add_deps_tags', {})
+                if len(add_deps_tags_from_input) >0 :
+                    update_deps_tags(deps, add_deps_tags_from_input)
+
+
+        # Check chain of dependencies on other CM scripts
         if len(deps)>0:
             for d in deps:
                 tmp_env = merge_script_env(env, new_env)
@@ -1091,6 +1107,28 @@ def clean_tmp_files(clean_files, recursion_spaces):
     for tmp_file in clean_files:
         if os.path.isfile(tmp_file):
             os.remove(tmp_file)
+
+    return {'return':0}
+
+##############################################################################
+def update_deps_tags(deps, add_deps_tags):
+    """
+    Internal: add deps tags by name
+    """
+
+    for deps_name in add_deps_tags:
+        deps_tags = add_deps_tags[deps_name].strip()
+
+        if deps_tags != '':
+            for dep in deps:
+                names = dep.get('names',[])
+                if len(names)>0 and deps_name in names:
+                    tags = dep.get('tags','')
+                    if tags!='': tags += ','
+                    tags += deps_tags
+                    dep['tags'] = tags
+
+                    break
 
     return {'return':0}
 
