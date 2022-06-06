@@ -2,6 +2,8 @@
  * added "name" key to deps (list of names and UIDs)
  * added "add_deps_tags" in variations and in CMD ({"name":"tag(s)"})
  * added "deps" to variations to be merged with the list of current deps
+ * added --input and --output for cm run script converted to env CM_INPUT and CM_OUTPUT
+   useful to create interactive CM scripts to process files
 
 20220605:
  * clean tmp files in "script" automation by default and keep them using --dirty flag

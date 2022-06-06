@@ -240,12 +240,12 @@ class CAutomation(Automation):
             # must detect and record the correct version in new_env
             env['CM_NEED_VERSION'] = version
 
-        # Check paths
-        paths = i.get('path','').strip()
-
-        if paths != '':
-            env['CM_PATH'] = paths
-
+        # Check input/output/paths
+        for key in ['path', 'input', 'output']:
+            value = i.get(key, '').strip()
+            if value != '':
+                env['CM_' + key.upper()] = value
+        
         # Check if needs to be installed
         # In such case, need to check if already installed
         install = meta.get('install', False)
