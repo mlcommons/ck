@@ -576,7 +576,7 @@ class CAutomation(Automation):
                 return r
 
             # If return version
-            if r.get('version','') != '':
+            if install and r.get('version','') != '':
                 installed_tags += ',version-' + r['version']
 
         # Prepare run script
@@ -668,7 +668,7 @@ class CAutomation(Automation):
                 if r['return']>0: return r
 
                 # If return version
-                if r.get('version','') != '':
+                if install and r.get('version','') != '':
                     installed_tags += ',version-' + r['version']
 
 

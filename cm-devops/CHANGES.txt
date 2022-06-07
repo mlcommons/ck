@@ -1,3 +1,7 @@
+20220607:
+ * added strip_folders to utils/unzip_file
+ * fixed minor bugs in CM script
+
 20220606:
  * added "name" key to deps (list of names and UIDs)
  * added "add_deps_tags" in variations and in CMD ({"name":"tag(s)"})

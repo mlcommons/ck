@@ -247,6 +247,7 @@ class CAutomation(Automation):
 
            filename (str): explicit file name
            (path) (str): path where to unzip file (current path otherwise)
+           (strip_folders) (int): strip first folders
 
         Returns:
            (CM return dict):
@@ -276,9 +277,17 @@ class CAutomation(Automation):
         if path is None or path=='':
             path=os.getcwd()
 
+        strip_folders = i.get('strip_folders',0)
+
         # Unpacking zip
         for f in files:
             if not f.startswith('..') and not f.startswith('/') and not f.startswith('\\'):
+                f_zip = f
+
+                if strip_folders>0:
+                    fsplit = f.split('/') # Zip standard on all OS
+                    f = '/'.join(fsplit[strip_folders:])
+                
                 file_path = os.path.join(path, f)
 
                 if f.endswith('/'):
@@ -292,7 +301,7 @@ class CAutomation(Automation):
 
                     # extract file
                     file_out = open(file_path, 'wb')
-                    file_out.write(file_name_zip.read(f))
+                    file_out.write(file_name_zip.read(f_zip))
                     file_out.close()
 
         file_name_zip.close()
