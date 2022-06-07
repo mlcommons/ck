@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## DEV
+   - removed FullLoader from yaml load to be compatible with older Python versions
+
 ## V0.7.16
    - fixed --help when no automation is specified 
      (to print help for the default CM database automation)
