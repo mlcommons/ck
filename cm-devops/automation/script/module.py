@@ -169,16 +169,6 @@ class CAutomation(Automation):
         # Prepare debug info
         parsed_artifact = i.get('parsed_artifact')
         parsed_artifact_alias = parsed_artifact[0][0] if parsed_artifact is not None else ''
-        artifact_tags = i.get('tags','')
-
-        cm_script_info = 'CM script(s)'
-        if parsed_artifact_alias!='':
-            cm_script_info += ' "{}"'.format(parsed_artifact_alias)
-        if artifact_tags!='':
-            cm_script_info += ' with tags "{}"'.format(artifact_tags)
-
-        print ('')
-        print (recursion_spaces + '* Searching ' + cm_script_info)
 
         # Get and cache minimal host OS info to be able to run scripts and manage OS environment
         if len(self.os_info) == 0:
@@ -193,15 +183,39 @@ class CAutomation(Automation):
         # Bat extension for this host OS
         bat_ext = os_info['bat_ext']
 
-        # Find artifact
-        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags'])
+        # Extract variations from the input
+        tags = i.get('tags','').strip().split(',')
 
-        # Extract variations from input
-        tags = ii.get('tags','').strip().split(',')
+        artifact_tags = []
+        variation_tags = []
 
-        artifact_tags = [t for t in tags if not t.startswith(self.variation_prefix)]
+        for t in tags:
+            t = t.strip()
+            if t != '':
+                if t.startswith(self.variation_prefix):
+                    t_without_prefix = t[len(self.variation_prefix):]
+                    if t_without_prefix not in variation_tags:
+                        variation_tags.append(t_without_prefix)
+                else:
+                    artifact_tags.append(t)
 
-        ii['tags']=','.join(artifact_tags)
+        # Find artifact (use only artifact tags without variations)
+        ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
+
+        artifact_tags_string = ','.join(artifact_tags)
+        
+        ii['tags'] = artifact_tags_string
+
+        cm_script_info = 'CM script(s)'
+
+        if parsed_artifact_alias !='' :
+            cm_script_info += ' "{}"'.format(parsed_artifact_alias)
+
+        if len(artifact_tags)>0:
+            cm_script_info += ' with tags without variation "{}"'.format(artifact_tags_string)
+
+        print ('')
+        print (recursion_spaces + '* Searching for ' + cm_script_info)
 
         r = self.find(ii)
         if r['return']>0: return r
@@ -216,15 +230,6 @@ class CAutomation(Automation):
         print (recursion_spaces+'  - Found ic::{} in {}'.format(found_artifact, path))
 
         current_path = os.getcwd()
-
-        # Check variations in input tags
-        variation_tags = []
-        for t in tags:
-            t=t.strip()
-            if t.startswith(self.variation_prefix):
-                t_without_prefix = t[len(self.variation_prefix):]
-                if t_without_prefix not in variation_tags:
-                    variation_tags.append(t_without_prefix)
 
         # Check version
         version = i.get('version','').strip()
@@ -257,23 +262,64 @@ class CAutomation(Automation):
         remove_tmp_tag = False
         reuse_installed = False
 
+        variations = artifact.meta['variations']
+
         if install:
             print (recursion_spaces+'  - Checking if already installed ...')
 
             # Create a search query to find that we already ran this components with the same or similar input
-            # It will be gradually enhanced with more knowledge ...
+            # It will be gradually enhanced with more "knowledge"  ...
 
             # For simplicity, we use tags for the search in "installed" components
             # TBD: we will need to add variations/versions later
             installed_tags = 'ic-artifact-'+meta['uid']
 
-            # Add tags from the original component
+            # Add all tags from the original CM script
             if len(meta.get('tags',[]))>0:
                 installed_tags += ',' + ','.join(meta['tags'])
 
-            # Add variation
+            # Add variation(s) if specified in the "tags" input prefixed by _
+              # If there is only 1 default variation, then just use it or substitute from CMD
+
+            default_variation = meta.get('default_variation', '')
+            default_variations = meta.get('default_variations', [])  
+
+            if len(variation_tags) == 0:
+                if default_variation != '':
+                    variation_tags = [default_variation]
+                elif len(default_variations)>0:
+                    variation_tags = default_variations
+
+            else:
+                if len(default_variations)>0:
+                    tmp_variation_tags = copy.deepcopy(default_variations)
+                    
+                    for t in variation_tags:
+                        if t.startswith('-'):
+                            t = t[1:]
+                            if t in tmp_variation_tags:
+                                del(tmp_variation_tags)
+                            else:
+                                return {'return':1, 'error':'tag {} is not in default tags {}'.format(t, tmp_variation_tags)}
+                        else:
+                            if t not in default_variations:
+                                tmp_variation_tags.append(t)
+
+                    variation_tags = tmp_variation_tags
+
+            
+            # Add the ones that are not on!
+            if len(default_variations)>0:
+                for t in variations:
+                    if t not in variation_tags:
+                        variation_tags.append('~' + t)
+
             if len(variation_tags)>0:
-                installed_tags += ',' + ','.join(variation_tags)
+                variation_tags_string = ','.join(variation_tags)
+                
+                print (recursion_spaces+'    Prepared variations: {}'.format(variation_tags_string))
+
+                installed_tags += ',' + variation_tags_string
 
             # Add version
             if version!='':
@@ -346,15 +392,7 @@ class CAutomation(Automation):
                 return {'return':0, 'new_state':cached_state['new_state'], 'new_env':cached_state['new_env']}
 
             if num_found_installed_artifacts == 0:
-                # If not installed:
-                # Create installed artifact and mark as tmp (remove if install successful)
-                if len(variation_tags)==0:
-                    # Check if artifact meta has default variation tags and add
-                    variation_tags = meta.get('default_variations',[])
-
-                    if len(variation_tags)>0:
-                        installed_tags += ',' + ','.join(variation_tags)
-
+                # If not installed, create installed artifact and mark as tmp (remove if install successful)
                 tmp_tags = 'tmp,'+installed_tags
 
                 # Use update to update the tmp one if already exists
@@ -441,9 +479,14 @@ class CAutomation(Automation):
         
         # Update env and other keys if variations
         if len(variation_tags)>0:
-            variations = artifact.meta['variations']
-
             for variation_tag in variation_tags:
+                if variation_tag.startswith('~'):
+                    # ignore such tag (needed for installation only to differentiate variations)
+                    continue
+                
+                if variation_tag not in variations:
+                    return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
+                
                 variation_meta = variations[variation_tag]
 
                 variation_env = variation_meta.get('env', {})

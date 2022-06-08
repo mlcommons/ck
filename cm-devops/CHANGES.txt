@@ -1,4 +1,8 @@
 20220608:
+ * updated "variations" logic in "script"!
+   meta['default_variation'] (str): only one of many
+   meta['default_variations'] (list): multiple choices
+
  * deprecated "ic" automation. Use "script" instead!
 
 20220607:
