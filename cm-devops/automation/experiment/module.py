@@ -66,9 +66,9 @@ class CAutomation(Automation):
 
           (tags) (str): experiment tags separated by comma
 
-          (ic) (str): use CM "intelligent component" by name
+          (script) (str): find and run CM script by name
 
-          (ic_tags) (str): use CM "intelligent component" by tags
+          (script_tags) (str): find and run CM script by tags
 
           ...
 
@@ -118,19 +118,19 @@ class CAutomation(Automation):
         if os.path.isfile(experiment_output_file):
             os.delete(experiment_output_file)
 
-        # Prepare input for IC artifact
+        # Prepare input for CM artifact with a script
         ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags'], reverse=True)
 
         ii['action']='run'
-        ii['automation']='ic,972c28dafb2543fa'
+        ii['automation']='script,bbeb15d8f0a944a4'
 
-        if ii.get('ic','')!='':
-           ii['artifact']=ii['ic']
-           del(ii['ic'])
+        if ii.get('script','')!='':
+           ii['artifact']=ii['script']
+           del(ii['script'])
 
-        if ii.get('ic_tags','')!='':
-           ii['tags']=ii['ic_tags']
-           del(ii['ic_tags'])
+        if ii.get('script_tags','')!='':
+           ii['tags']=ii['script_tags']
+           del(ii['script_tags'])
 
         # Record input
         experiment_input_file = os.path.join(experiment_path2, 'cm-input.json')
@@ -138,7 +138,7 @@ class CAutomation(Automation):
         r = utils.save_json(file_name=experiment_input_file, meta=ii)
         if r['return']>0: return r
 
-        # Run IC
+        # Run CM script
         print ('')
         rr=self.cmind.access(ii)
         if rr['return']>0: return rr
@@ -246,7 +246,7 @@ class CAutomation(Automation):
 
         ii=r['meta']
 
-        # Run IC component
+        # Run CM script
         print ('')
         rr=self.cmind.access(ii)
 

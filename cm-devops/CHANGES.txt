@@ -1,3 +1,6 @@
+20220609:
+ * changed "ic" to "script" in "experiment" automation
+
 20220608:
  * updated "variations" logic in "script"!
    meta['default_variation'] (str): only one of many
