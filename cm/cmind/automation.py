@@ -923,8 +923,8 @@ class Automation:
 
             new_artifact_path = os.path.join(target_repo_path, artifact_automation, new_name)
 
-	    #if target_artifact_obj_alias != '' and artifact_alias.lower() != target_artifact_obj_alias.lower():
-	    #   artifact_meta['alias']=target_artifact_obj_alias
+            if target_artifact_obj_alias != '' and artifact_alias.lower() != target_artifact_obj_alias.lower():
+                artifact_meta['alias']=target_artifact_obj_alias
 
             artifact_meta['uid']=target_artifact_obj_uid
 
