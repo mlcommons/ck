@@ -1,7 +1,10 @@
 # Prototyping phase
 
-## DEV
+## V0.7.17
    - removed FullLoader from yaml load to be compatible with older Python versions
+   - added cm copy & cm cp
+   - added python_version to CM class to make automations more portable
+   - fixed minor bug with target repo in "cm move"/"cm ren"/"cm mv"
 
 ## V0.7.16
    - fixed --help when no automation is specified 

@@ -748,28 +748,32 @@ class Automation:
         if len(lst)==0:
             return {'return':16, 'error':'artifact not found: {}'}
 
-        # Check target repo
+        # Check target artifact
         target_artifact = parsed_artifacts[0]
+
         target_artifact_obj = target_artifact[0]
-        target_artifact_repo = target_artifact[1] if len(target_artifact)>0 else None
-
-        r = self.cmind.access({'action':'search',
-                               'automation':'repo',
-                               'artifact': utils.assemble_cm_object2(target_artifact_repo)})
-        if r['return']>0: return r
-
-        target_repo_list = r['list']
-
-        if len(target_repo_list) == 0:
-            return {'return':1, 'error':'target repo "{}" not found'.format(target_artifact_repo)}
-        elif len(target_repo_list) >1:
-            return {'return':1, 'error':'more than 1 target repo found "{}"'.format(target_artifact_repo)}
-
-        target_repo_path = os.path.abspath(target_repo_list[0].path)
-
         target_artifact_obj_alias = target_artifact_obj[0]
         target_artifact_obj_uid = target_artifact_obj[1].lower()
+        
+        # Check target repo
+        target_artifact_repo = target_artifact[1] if len(target_artifact)>1 else None
 
+        target_repo_path = None
+
+        if target_artifact_repo is not None:
+            r = self.cmind.access({'action':'search',
+                                   'automation':'repo',
+                                   'artifact': utils.assemble_cm_object2(target_artifact_repo)})
+            if r['return']>0: return r
+
+            target_repo_list = r['list']
+
+            if len(target_repo_list) == 0:
+                return {'return':1, 'error':'target repo "{}" not found'.format(target_artifact_repo)}
+            elif len(target_repo_list) >1:
+                return {'return':1, 'error':'more than 1 target repo found "{}"'.format(target_artifact_repo)}
+
+            target_repo_path = os.path.abspath(target_repo_list[0].path)
 
         # Updating artifacts
         for artifact in lst:
@@ -792,8 +796,10 @@ class Automation:
             if target_artifact_obj_alias != '':
                 new_name = target_artifact_obj_alias
 
-            new_artifact_path = os.path.join(target_repo_path, artifact_automation, new_name)
-
+            # Use either new repo or the repo of the original artifact
+            new_artifact_path = os.path.join(target_repo_path, artifact_automation, new_name) if target_repo_path is not None \
+                else os.path.join(artifact_automation_dir, new_name)
+            
             # Check if need to update meta
             if target_artifact_obj_alias != '' and artifact_alias.lower() != target_artifact_obj_alias.lower():
                 must_update_meta = True
@@ -823,10 +829,10 @@ class Automation:
 
         return {'return':0, 'list':lst}
 
-  ############################################################
+    ############################################################
     def copy(self, i):
         """
-        Rename CM artifacts and/or move them to another CM repository.
+        Copy CM artifact(s) either to a new artifact or to a new repository
 
         Args:
             (CM input dict):
@@ -873,30 +879,34 @@ class Automation:
 
         lst = r['list']
         if len(lst)==0:
-            return {'return':16, 'error':'artifact not found: {}'}
+            return {'return':16, 'error':'artifact(s) not found: {}'}
 
-        # Check target repo
+        # Check target artifact
         target_artifact = parsed_artifacts[0]
+
         target_artifact_obj = target_artifact[0]
-        target_artifact_repo = target_artifact[1] if len(target_artifact)>0 else None
-
-        r = self.cmind.access({'action':'search',
-                               'automation':'repo',
-                               'artifact': utils.assemble_cm_object2(target_artifact_repo)})
-        if r['return']>0: return r
-
-        target_repo_list = r['list']
-
-        if len(target_repo_list) == 0:
-            return {'return':1, 'error':'target repo "{}" not found'.format(target_artifact_repo)}
-        elif len(target_repo_list) >1:
-            return {'return':1, 'error':'more than 1 target repo found "{}"'.format(target_artifact_repo)}
-
-        target_repo_path = os.path.abspath(target_repo_list[0].path)
-
         target_artifact_obj_alias = target_artifact_obj[0]
         target_artifact_obj_uid = target_artifact_obj[1].lower()
+        
+        # Check target repo
+        target_artifact_repo = target_artifact[1] if len(target_artifact)>1 else None
 
+        target_repo_path = None
+
+        if target_artifact_repo is not None:
+            r = self.cmind.access({'action':'search',
+                                   'automation':'repo',
+                                   'artifact': utils.assemble_cm_object2(target_artifact_repo)})
+            if r['return']>0: return r
+
+            target_repo_list = r['list']
+
+            if len(target_repo_list) == 0:
+                return {'return':1, 'error':'target repo "{}" not found'.format(target_artifact_repo)}
+            elif len(target_repo_list) >1:
+                return {'return':1, 'error':'more than 1 target repo found "{}"'.format(target_artifact_repo)}
+
+            target_repo_path = os.path.abspath(target_repo_list[0].path)
 
         # Updating artifacts
         for artifact in lst:
@@ -915,13 +925,14 @@ class Automation:
             artifact_automation_dir = os.path.dirname(artifact_path)
             artifact_automation = os.path.basename(artifact_automation_dir)
 
-
             # Prepare new path
             new_name = artifact_dir_name
             if target_artifact_obj_alias != '':
                 new_name = target_artifact_obj_alias
 
-            new_artifact_path = os.path.join(target_repo_path, artifact_automation, new_name)
+            # Use either new repo or the repo of the original artifact
+            new_artifact_path = os.path.join(target_repo_path, artifact_automation, new_name) if target_repo_path is not None \
+                else os.path.join(artifact_automation_dir, new_name)
 
             if target_artifact_obj_alias != '' and artifact_alias.lower() != target_artifact_obj_alias.lower():
                 artifact_meta['alias']=target_artifact_obj_alias

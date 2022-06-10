@@ -232,8 +232,11 @@ def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
     import yaml
 
     with open(file_name, 'rt', encoding = encoding) as yf:
-#        meta = yaml.load(yf, Loader=yaml.FullLoader)
-        meta = yaml.load(yf)
+        if int(yaml.__version__[0])>=5:
+            meta = yaml.load(yf, Loader=yaml.FullLoader)
+        else:
+            # To support old versions
+            meta = yaml.safe_load(yf)
 
     return {'return':0,
             'meta': meta}

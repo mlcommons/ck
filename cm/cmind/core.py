@@ -88,6 +88,9 @@ class CM(object):
         # Output of the first access
         self.output = None
 
+        # Check Python version
+        self.python_version = sys.version_info
+
     ############################################################
     def error(self, r):
         """

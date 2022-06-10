@@ -53,7 +53,8 @@ class Config(object):
                        "rm":"delete",
                        "mv":"move",
                        "ren":"move",
-                       "rename":"move"
+                       "rename":"move",
+                       "cp":"copy"
                      },
 
                      "new_repo_requirements": "cmind >= 0.7.5\n",
