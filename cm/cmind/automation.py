@@ -750,7 +750,6 @@ class Automation:
 
         # Check target repo
         target_artifact = parsed_artifacts[0]
-
         target_artifact_obj = target_artifact[0]
         target_artifact_repo = target_artifact[1] if len(target_artifact)>0 else None
 
@@ -821,5 +820,129 @@ class Automation:
 
                 r = artifact.update({})
                 if r['return'] >0: return r
+
+        return {'return':0, 'list':lst}
+
+  ############################################################
+    def copy(self, i):
+        """
+        Rename CM artifacts and/or move them to another CM repository.
+
+        Args:
+            (CM input dict):
+
+            (out) (str): if 'con', output to console
+
+            parsed_automation (list): prepared in CM CLI or CM access function
+                                      [ (automation alias, automation UID) ] or
+                                      [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
+
+            parsed_artifact (list): prepared in CM CLI or CM access function
+                                      [ (artifact alias, artifact UID) ] or
+                                      [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+            parsed_artifacts (list): prepared in CM CLI or CM access function - 1st entry has a new artifact name and repository:
+                                      [ (artifact alias, artifact UID) ] or
+                                      [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * list (list): list of renamed/moved CM artifacts
+
+        """
+
+        import shutil
+
+        console = i.get('out') == 'con'
+
+        parsed_artifacts = i.get('parsed_artifacts',[])
+
+        if len(parsed_artifacts)==0:
+           return {'return':1, 'error':'artifact is not specified'}
+        elif len(parsed_artifacts)>1:
+           return {'return':1, 'error':'more than 1 artifact specified'}
+
+        # Find CM artifact(s)
+        i['out'] = None
+        r = self.search(i)
+        if r['return']>0: return r
+
+        lst = r['list']
+        if len(lst)==0:
+            return {'return':16, 'error':'artifact not found: {}'}
+
+        # Check target repo
+        target_artifact = parsed_artifacts[0]
+        target_artifact_obj = target_artifact[0]
+        target_artifact_repo = target_artifact[1] if len(target_artifact)>0 else None
+
+        r = self.cmind.access({'action':'search',
+                               'automation':'repo',
+                               'artifact': utils.assemble_cm_object2(target_artifact_repo)})
+        if r['return']>0: return r
+
+        target_repo_list = r['list']
+
+        if len(target_repo_list) == 0:
+            return {'return':1, 'error':'target repo "{}" not found'.format(target_artifact_repo)}
+        elif len(target_repo_list) >1:
+            return {'return':1, 'error':'more than 1 target repo found "{}"'.format(target_artifact_repo)}
+
+        target_repo_path = os.path.abspath(target_repo_list[0].path)
+
+        target_artifact_obj_alias = target_artifact_obj[0]
+        target_artifact_obj_uid = target_artifact_obj[1].lower()
+
+
+        # Updating artifacts
+        for artifact in lst:
+
+            artifact_path = os.path.abspath(artifact.path)
+
+            artifact_meta = artifact.original_meta
+
+            artifact_alias = artifact_meta.get('alias','')
+            r=utils.gen_uid()
+            if r['return']>0: return r
+
+            target_artifact_obj_uid=r['uid']
+        
+            artifact_dir_name = os.path.basename(artifact_path)
+            artifact_automation_dir = os.path.dirname(artifact_path)
+            artifact_automation = os.path.basename(artifact_automation_dir)
+
+
+            # Prepare new path
+            new_name = artifact_dir_name
+            if target_artifact_obj_alias != '':
+                new_name = target_artifact_obj_alias
+
+            new_artifact_path = os.path.join(target_repo_path, artifact_automation, new_name)
+
+	    #if target_artifact_obj_alias != '' and artifact_alias.lower() != target_artifact_obj_alias.lower():
+	    #   artifact_meta['alias']=target_artifact_obj_alias
+
+            artifact_meta['uid']=target_artifact_obj_uid
+
+            artifact.path = new_artifact_path
+
+            # Copy
+            if artifact_path != new_artifact_path:
+                if console:
+                    print ('* Copying "{}" to'.format(artifact_path))
+                    print ('         "{}"'.format(new_artifact_path))
+
+                shutil.copytree(artifact_path, new_artifact_path)
+
+            # Update meta
+            if console:
+                print ('- Updating meta in "{}"'.format(new_artifact_path))
+
+            r = artifact.update({})
+            if r['return'] >0: return r
 
         return {'return':0, 'list':lst}
