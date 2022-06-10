@@ -262,7 +262,7 @@ class CAutomation(Automation):
         remove_tmp_tag = False
         reuse_installed = False
 
-        variations = artifact.meta['variations']
+        variations = artifact.meta.get('variations', {})
 
         if install:
             print (recursion_spaces+'  - Checking if already installed ...')
