@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## V0.7.18
+   - fixed bug with python_version
+
 ## V0.7.17
    - removed FullLoader from yaml load to be compatible with older Python versions
    - added cm copy & cm cp

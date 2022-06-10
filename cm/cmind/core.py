@@ -43,7 +43,7 @@ class CM(object):
             * path_to_cmind_repo (str): path to the "internal" CM repo
 
             * repos (list): list of initialized CM repository objects
-            
+
             * common_automation (Automation class): initialized common automation with actions when a given automation is not found or doesn't exist
 
             * output (str): value of --out during the first access to CM (to print errors, etc)
@@ -89,7 +89,7 @@ class CM(object):
         self.output = None
 
         # Check Python version
-        self.python_version = sys.version_info
+        self.python_version = list(sys.version_info)
 
     ############################################################
     def error(self, r):
@@ -98,14 +98,14 @@ class CM(object):
 
         Args:
            r (dict): output from CM function with "return" and "error"
-               
+
         Returns:
            (dict): r
 
         """
 
         import os
-        
+
         if r['return']>0:
             if self.debug:
                 raise Exception(r['error'])
@@ -121,14 +121,14 @@ class CM(object):
 
         Args:
            r (dict): output from CM function with "return" and "error"
-               
+
         Returns:
            (dict): r
         """
 
         # Force console
         self.error(r)
-        
+
         sys.exit(r['return'])
 
     ############################################################
@@ -150,7 +150,7 @@ class CM(object):
             (help) (bool): if True, print CM automation action API
 
             (ignore_inheritance) (bool): if True, ignore inheritance when searching for artifacts and automations
-            
+
             (out) (str): if 'out', tell automations and CM to output extra information to console
 
         Returns: 
@@ -160,7 +160,6 @@ class CM(object):
             * (error) (str): error string if return>0
 
             * Output from a CM automation action
-        
         """
 
         # Check the type of input
@@ -175,7 +174,7 @@ class CM(object):
         # Parse as command line if string or list
         if type(i) == str or type(i) == list:
             import cmind.cli
-            
+
             r = cmind.cli.parse(i)
             if r['return'] >0 : return r
 
@@ -186,7 +185,7 @@ class CM(object):
             i['out'] = out
 
         output = i.get('out','')
-        
+
         # Set self.output to the output of the very first access 
         # to print error in the end if needed
         if self.output is None:
@@ -197,7 +196,7 @@ class CM(object):
 
         # Check if has help flag
         cm_help = i.get(self.cfg['flag_help'], False) or i.get(self.cfg['flag_help2'], False)
-        
+
         # Initialized common automation with collective database actions
         if self.common_automation == None:
            self.common_automation = Automation(self, __file__)
@@ -210,14 +209,14 @@ class CM(object):
 
         # Print basic help if action == ''
         extra_help = True if action == 'help' and automation == '' else False
-        
+
         if action == '' or extra_help:
             if console:
                 print (self.cfg['info_cli'])
 
                 if cm_help or extra_help:
                    print_db_actions(self.common_automation, self.cfg['action_substitutions'])
-                   
+
             return {'return':0, 'warning':'no action specified'}
 
         # Load info about all CM repositories (to enable search for automations and artifacts)
@@ -262,7 +261,7 @@ class CM(object):
 
                 if ':' not in artifact:
                    artifact = cm_repo + ':' + artifact
-   
+
                 for ia in range(0,len(artifacts)):
                     a = artifacts[ia]
                     if ':' not in a:
@@ -308,11 +307,11 @@ class CM(object):
                     automation_meta = automation.meta
 
                     use_any_action = automation_meta.get('use_any_action',False)
-                    
+
                     # Update parsed_automation with UID and alias
                     parsed_automation[0] = (automation_meta.get('alias',''),
                                             automation_meta.get('uid',''))
-                    
+
                     # Find Python module for this automation
                     try:
                         found_automation = imp.find_module(automation_name, [automation_path])
@@ -339,7 +338,7 @@ class CM(object):
                         automation_handler.close()
 
                     loaded_automation_class = loaded_automation.CAutomation
-                    
+
                     # Try to load meta description
                     automation_path_meta = os.path.join(automation_path, self.cfg['file_cmeta'])
 
@@ -361,15 +360,15 @@ class CM(object):
                 # Report an error if a repo is specified for a given automation action but it's not found there
                 if len(automation_lst)==0 and auto_repo is not None:
                     return {'return':3, 'error':'automation was not found in a specified repo {}'.format(auto_repo)}
-                
+
         # Check if common automation and --help
         if (use_common_automation or automation=='') and cm_help:
             return print_action_help(self.common_automation, 
                                      self.common_automation, 
                                      'common',
-                                     action, 
+                                     action,
                                      action)
-        
+
         # If no automation was found we do not force common automation, check if should fail or continue
         if not use_common_automation and len(automation_lst)==0:
             if self.cfg['fail_if_automation_not_found']:
@@ -407,13 +406,13 @@ class CM(object):
         # Check action in a class when importing
         if use_any_action:
             action = 'any'
-        
+
         print_automation = automation_meta.get('alias','') + ',' + automation_meta.get('uid','')
-        
+
         # Check if help about automation actions
         if action == 'help':
             import types
-            
+
             print (self.cfg['info_cli'])
 
             print ('')
@@ -442,7 +441,7 @@ class CM(object):
         # Check if action exists
         if not hasattr(initialized_automation, action):
             return {'return':4, 'error':'action "{}" not found in automation "{}"'.format(action, print_automation)}
-        
+
         # Check if help for a given automation action
         if cm_help:
             # Find path to automation
@@ -498,7 +497,7 @@ def parse_cm_object_and_check_current_dir(cmind, artifact):
             cm_repo = r['cm_repo']
 
             artifact = cm_repo + artifact[1:]
-    
+
     return utils.parse_cm_object(artifact)
 
 ############################################################
@@ -519,7 +518,7 @@ def print_db_actions(automation, equivalent_actions):
 
     for d in sorted(dir(automation)):
         if type(getattr(automation, d))==types.MethodType and not d.startswith('_'):
-            
+
             db_actions.append(d)
 
             s = d
@@ -572,7 +571,7 @@ def print_action_help(automation, common_automation, print_automation, action, o
      api = r['api']
 
      print (api)
-     
+
      return {'return':0, 'help':api}
 
 ############################################################
