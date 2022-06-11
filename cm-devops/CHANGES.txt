@@ -1,4 +1,6 @@
 20220609:
+ * added "versions" key to the CM script meta
+   it works similar to "variations" and is forced by --version
  * changed "ic" to "script" in "experiment" automation
 
 20220608:

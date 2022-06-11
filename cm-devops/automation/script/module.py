@@ -263,6 +263,7 @@ class CAutomation(Automation):
         reuse_installed = False
 
         variations = artifact.meta.get('variations', {})
+        versions = artifact.meta.get('versions', {})
 
         if install:
             print (recursion_spaces+'  - Checking if already installed ...')
@@ -398,6 +399,7 @@ class CAutomation(Automation):
                 # Use update to update the tmp one if already exists
                 print (recursion_spaces+'  - Creating new "installed" artifact ...')
                 print (recursion_spaces+'    - Tags: {}'.format(tmp_tags))
+
                 ii = {'action':'update',
                       'automation': 'installed,2bb0f56a197145d5',
                       'search_tags':tmp_tags,
@@ -477,6 +479,14 @@ class CAutomation(Automation):
         # Get deps
         deps = meta.get('deps',[])
         
+        # Update version only if in "versions" (not obligatory)
+        # can be useful when handling complex Git revisions
+        print (version, versions)
+        if version!='' and version in versions:
+            versions_meta = versions[version]
+
+            update_state_from_meta(versions_meta, env, new_env, deps, i)
+        
         # Update env and other keys if variations
         if len(variation_tags)>0:
             for variation_tag in variation_tags:
@@ -489,27 +499,8 @@ class CAutomation(Automation):
                 
                 variation_meta = variations[variation_tag]
 
-                variation_env = variation_meta.get('env', {})
-                for k in variation_env:
-                    utils.update_dict_if_empty(env, k, variation_env[k])
-
-                variation_new_env = variation_meta.get('new_env', {})
-                for k in variation_new_env:
-                    utils.update_dict_if_empty(new_env, k, variation_new_env[k])
-
-                variation_deps = variation_meta.get('deps', [])
-                if len(variation_deps)>0:
-                    deps += variation_deps
-
-                add_deps_tags = variation_meta.get('add_deps_tags', {})
-                if len(add_deps_tags) >0 :
-                    update_deps_tags(deps, add_deps_tags)
-
-                add_deps_tags_from_input = i.get('add_deps_tags', {})
-                if len(add_deps_tags_from_input) >0 :
-                    update_deps_tags(deps, add_deps_tags_from_input)
-
-
+                update_state_from_meta(variation_meta, env, new_env, deps, i)
+                
         # Check chain of dependencies on other CM scripts
         if len(deps)>0:
             for d in deps:
@@ -527,6 +518,8 @@ class CAutomation(Automation):
                        'state':tmp_state
                      }
 
+                # G: is it really safe (can override some of the above). 
+                # On the other hand, very flexible and extensible!
                 ii.update(d)
 
                 r = self.cmind.access(ii)
@@ -1172,6 +1165,35 @@ def update_deps_tags(deps, add_deps_tags):
                     dep['tags'] = tags
 
                     break
+
+    return {'return':0}
+
+
+##############################################################################
+def update_state_from_meta(meta, env, new_env, deps, i):
+    """
+    Internal: update state from meta
+    """
+
+    update_env = meta.get('env', {})
+    for k in update_env:
+        utils.update_dict_if_empty(env, k, update_env[k])
+
+    update_new_env = meta.get('new_env', {})
+    for k in update_new_env:
+        utils.update_dict_if_empty(new_env, k, update_new_env[k])
+
+    update_deps = meta.get('deps', [])
+    if len(update_deps)>0:
+        deps += update_deps
+
+    add_deps_tags = meta.get('add_deps_tags', {})
+    if len(add_deps_tags) >0 :
+        update_deps_tags(deps, add_deps_tags)
+
+    add_deps_tags_from_input = i.get('add_deps_tags', {})
+    if len(add_deps_tags_from_input) >0 :
+        update_deps_tags(deps, add_deps_tags_from_input)
 
     return {'return':0}
 
