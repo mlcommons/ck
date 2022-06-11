@@ -177,7 +177,7 @@ or using tags from meta description:
 $ cm find script --tags=print,hello-world,script
 ```
 
-Let's check the content of this directory (see on [GitHub](https://github.com/octoml/cm-mlops/tree/main/ic/prototype-echo-hello-world)):
+Let's check the content of this directory (see on [GitHub]( https://github.com/octoml/cm-mlops/tree/main/script/prototype-print-hello-world )):
 ```bash
 $ ls `cm find script --tags=print,hello-world,script`
 ```
@@ -391,7 +391,7 @@ when we run this CM script.
 Note that this function is used to update environment variables and the "state" dictionary
 before running the native script or to influence the next CM scripts. For example, it can set up an 
 environment variable that will be used in some other CM scripts in the dependency chain to skip their execution
-as shown in [this example](https://github.com/octoml/cm-mlops/blob/main/ic/prototype-echo-off-win/customize.py#L21).
+as shown in [this example]( https://github.com/octoml/cm-mlops/blob/main/script/prototype-set-echo-off-win/customize.py#L21 ).
 
 This component detects that the host platform is Windows and adds "@echo off" to all further CM script executions
 to minimize output noise. It does nothing on Linux:
@@ -520,7 +520,7 @@ for other tools and artifacts as follows:
 $ cm list installed
 ```
 or
-``bash
+```bash
 $ cm list installed --tags=get-python
 ```
 
