@@ -10,7 +10,7 @@ We have developed the Collective Mind unification framework (CM aka CK2) to make
 more portable, interoperable, deterministic, reusable and reproducible 
 with minimal or no changes to existing projects!
 
-CM transforms existing projects into an [open database of intelligent components (IC)](https://github.com/octoml/cm-mlops/tree/main/ic) 
+CM transforms existing projects into an [open database of portable CM scripts](https://github.com/octoml/cm-mlops/tree/main/script) 
 that simply wrap existing user scripts and artifacts 
 to provide a common API and extensible meta descriptions 
 with dependencies on other IC and platforms.
@@ -39,7 +39,7 @@ Apache 2.0
 
 # Tutorials
 
-* [Understanding intelligent CM components](https://cknowledge.org/docs/cm/tutorial-ic.html)
+* [Understanding CM scripts](https://cknowledge.org/docs/cm/tutorial-scripts.html)
 * [Understanding CM concepts](https://cknowledge.org/docs/cm/tutorial-concept.html)
 
 # Community meetings
@@ -50,7 +50,7 @@ Apache 2.0
 
 # News
 
-* **2022 May 20:** Brainstorming session for CM-powered ["intelligent components"](https://cknowledge.org/docs/cm/tutorial-ic.html) in Seattle, WA.
+* **2022 May 20:** Brainstorming session for [portable CM scripts](https://cknowledge.org/docs/cm/tutorial-scripts.html) in Seattle, WA.
 
 * **2022 April 20:** MLCommons virutal community meeting.
 
@@ -88,7 +88,7 @@ continusly changing software and hardware stacks.
 
 * CM repositories to bridge [the gap between MLOps and DevOps](https://www.mihaileric.com/posts/mlops-is-a-mess):
   * [CM automations]( https://github.com/mlcommons/ck/tree/master/cm-devops )
-  * [Intelligent CM components]( https://github.com/octoml/cm-mlops/tree/main/ic )
+  * [CM scripts]( https://github.com/octoml/cm-mlops/tree/main/script )
 
 
 

@@ -602,6 +602,6 @@ all complex software and research projects into a collection of reusable artifac
 
 ## Next steps
 
-We are working with the community to develop [intelligent CM components (IC)](https://github.com/octoml/cm-mlops/tree/main/ic)
-that can make ML Systems benchmarking, experimenation and MLOps more deterministic, collaborative and reproducible
-without the need for complex workflows: [IC tutorial](tutorial-ic.md).
+We are working with the community to develop [portable CM scripts](https://github.com/octoml/cm-mlops/tree/main/script)
+and help make ML Systems benchmarking, experimenation and MLOps more deterministic, collaborative and reproducible
+without the need for complex workflows: [tutorial for CM scripts](tutorial-scripts.md).
