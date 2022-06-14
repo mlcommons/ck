@@ -481,7 +481,6 @@ class CAutomation(Automation):
         
         # Update version only if in "versions" (not obligatory)
         # can be useful when handling complex Git revisions
-        print (version, versions)
         if version!='' and version in versions:
             versions_meta = versions[version]
 
