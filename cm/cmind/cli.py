@@ -6,7 +6,7 @@ import sys
 def run(argv = None):
     """
     Run CM automation actions from the command line. 
-    
+
     CM command line format:
 
     cm {action} {automation} (artifacts) (--flags) (@input.yaml) (@input.json)
@@ -31,7 +31,7 @@ def run(argv = None):
 
     if argv is None:
         argv = sys.argv[1:]
-    
+
     r = cm.access(argv, out='con')
 
     # Check if output to console
@@ -70,7 +70,7 @@ def parse(cmd):
     elif type(cmd) == str:
         import shlex
         argv = shlex.split(cmd)
-    
+
     else:
         argv = cmd
 
@@ -89,7 +89,7 @@ def parse(cmd):
     # Check if just one artifact or multiple ones
     artifact=''
     artifacts=[] # Only added if more than 1 artifact!
-    
+
     for a in argv:
         if a.startswith('@'):
             # Load JSON or YAML file
@@ -98,7 +98,7 @@ def parse(cmd):
             if r['return'] >0 : return r
 
             meta = r['meta']
-            
+
             cm_input.update(meta)
 
         elif not a.startswith('-'):
@@ -123,18 +123,18 @@ def parse(cmd):
             if key.endswith(','): 
                key = key[:-1]
                value = value.split(',') if value!="" else []
-           
+
             if '.' in key:
                keys = key.split('.')
                new_cm_input = cm_input
 
                first = True
-               
+
                for key in keys[:-1]:
                    if first:
                        key = key.replace('-','_')
                        first = False
-                   
+
                    if key not in new_cm_input:
                       new_cm_input[key] = {}
                    new_cm_input = new_cm_input[key]
