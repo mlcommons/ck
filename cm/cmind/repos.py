@@ -69,7 +69,7 @@ class Repos:
         # Check if home directory exists. Create it otherwise.
         if not os.path.isdir(self.path):
             os.makedirs(self.path)
-        
+
         # Check repos holder
         full_path_to_repos = os.path.join(self.path,
                                           self.cfg['dir_repos'])
@@ -125,7 +125,7 @@ class Repos:
 
                     r = repo.load()
                     if r['return']>0: return r
-                    
+
                     # Set only after all initializations
                     self.lst.append(repo)
 
@@ -163,7 +163,7 @@ class Repos:
         paths = r['meta']
 
         modified = False
-        
+
         if mode == 'add':
             if repo_path not in paths:
                 paths.append(repo_path)
@@ -212,7 +212,7 @@ class Repos:
 
         # Prepare path
         path_to_repo = os.path.join(self.full_path_to_repos, alias)
-        
+
         if console:
             print ('Local path: '+path_to_repo)
             print ('')
@@ -232,7 +232,7 @@ class Repos:
             os.chdir(self.full_path_to_repos)
 
             cmd = 'git clone '+url+' '+alias
-            
+
         if console:
             print (cmd)
             print ('')
@@ -249,14 +249,14 @@ class Repos:
         if r['return']>0: return r
 
         must_update_repo_desc = False
-        
+
         if not r['is_file']:
             # Prepare meta
             r=utils.gen_uid()
             if r['return']>0: return r
 
             repo_uid = r['uid']
-            
+
             meta = {
                'uid': repo_uid,
                'alias': alias,
@@ -294,7 +294,7 @@ class Repos:
 
             if not os.path.isdir(path_to_repo_with_prefix):
                 os.makedirs(path_to_repo_with_prefix)
-        
+
         # Update repo list
         # TBD: make it more safe (reload and save)
         r = self.process(path_to_repo, 'add')
@@ -339,7 +339,7 @@ class Repos:
             uid = r['uid']
 
         repo_name=alias if alias!='' else uid
-        
+
         path_to_repo = os.path.join(self.full_path_to_repos, repo_name) if path=='' else path
 
         # Convert potentially relative path into an absolute path
@@ -365,7 +365,7 @@ class Repos:
 
             if r['is_file']:
                 return {'return':1, 'error':'Repository description already exists in {}'.format(path_to_repo)}
-            
+
             meta = {
                      'uid': uid,
                      'alias': alias,
@@ -387,11 +387,11 @@ class Repos:
             if not os.path.isfile(path_to_requirements):
                 r = utils.save_txt(file_name = path_to_requirements, string = self.cfg['new_repo_requirements'])
                 if r['return']>0: return r
-        
+
         else:
             r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)
             if r['return'] >0: return r
-            
+
             meta = r['meta']
 
         # Check if exist and create if not
@@ -462,7 +462,7 @@ class Repos:
 
                 if console:
                     print ('  Deleting repository content ...')
-                
+
                 shutil.rmtree(path_to_repo)
             else:
                 if console:

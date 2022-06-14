@@ -31,7 +31,7 @@ class CAutomation(Automation):
 
           * return (int): return code == 0 if no error and >0 if error
           * (error) (str): error string if return>0
-           
+
         """
 
         import shutil
@@ -50,7 +50,7 @@ class CAutomation(Automation):
         # Add placeholder (use common action)
         i['out']='con'
         i['common']=True
-        
+
         i['meta']={'automation_alias':self.meta['alias'],
                    'automation_uid':self.meta['uid'],
                    'tags':tags_list}

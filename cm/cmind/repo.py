@@ -8,7 +8,7 @@ class Repo:
     """
     CM repository class
     """
-    
+
     def __init__(self, path, cfg):
         """
         Initialize CM repository class
@@ -25,7 +25,7 @@ class Repo:
             * path_with_prefix (str): path to a CM repository if directory prefix is used
 
             * meta (dict): CM repository meta description
-        
+
         """
 
         self.cfg = cfg
@@ -57,7 +57,7 @@ class Repo:
         # Check if home directory exists. Create it otherwise.
         if not os.path.isdir(self.path):
             return {'return':1, 'error': 'repository path {} not found'.format(self.path)}
-        
+
         # Search if there is a repo in this path
         full_path = os.path.join(self.path, self.cfg['file_meta_repo'])
 

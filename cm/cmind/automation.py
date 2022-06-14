@@ -613,7 +613,7 @@ class Automation:
             (meta) (dict): new meta description to be merged or to replace the original meta description of a CM artifact
 
             (tags) (string or list): tags to be added to meta
-            
+
             (replace) (bool): if True, replace original meta description (False by default)
             (force) (bool): if True, force updates if more than 1 artifact found (False by default)
             (replace_lists) (bool): if True, replace lists in meta description rather than appending them (False by default)
@@ -754,7 +754,7 @@ class Automation:
         target_artifact_obj = target_artifact[0]
         target_artifact_obj_alias = target_artifact_obj[0]
         target_artifact_obj_uid = target_artifact_obj[1].lower()
-        
+
         # Check target repo
         target_artifact_repo = target_artifact[1] if len(target_artifact)>1 else None
 
@@ -799,7 +799,7 @@ class Automation:
             # Use either new repo or the repo of the original artifact
             new_artifact_path = os.path.join(target_repo_path, artifact_automation, new_name) if target_repo_path is not None \
                 else os.path.join(artifact_automation_dir, new_name)
-            
+
             # Check if need to update meta
             if target_artifact_obj_alias != '' and artifact_alias.lower() != target_artifact_obj_alias.lower():
                 must_update_meta = True
@@ -816,6 +816,9 @@ class Automation:
                 if console:
                     print ('* Moving "{}" to'.format(artifact_path))
                     print ('         "{}"'.format(new_artifact_path))
+
+                if os.path.isdir(new_artifact_path):
+                    return {'return':1, 'error':'target artifact (directory) already exists'}
 
                 shutil.move(artifact_path, new_artifact_path)
 
@@ -887,13 +890,14 @@ class Automation:
         target_artifact_obj = target_artifact[0]
         target_artifact_obj_alias = target_artifact_obj[0]
         target_artifact_obj_uid = target_artifact_obj[1].lower()
-        
+
         # Check target repo
         target_artifact_repo = target_artifact[1] if len(target_artifact)>1 else None
 
         target_repo_path = None
 
         if target_artifact_repo is not None:
+            print (target_artifact_repo)
             r = self.cmind.access({'action':'search',
                                    'automation':'repo',
                                    'artifact': utils.assemble_cm_object2(target_artifact_repo)})
@@ -906,7 +910,7 @@ class Automation:
             elif len(target_repo_list) >1:
                 return {'return':1, 'error':'more than 1 target repo found "{}"'.format(target_artifact_repo)}
 
-            target_repo_path = os.path.abspath(target_repo_list[0].path)
+            target_repo_path = os.path.abspath(target_repo_list[0].path_with_prefix)
 
         # Updating artifacts
         for artifact in lst:
@@ -920,7 +924,7 @@ class Automation:
             if r['return']>0: return r
 
             target_artifact_obj_uid=r['uid']
-        
+
             artifact_dir_name = os.path.basename(artifact_path)
             artifact_automation_dir = os.path.dirname(artifact_path)
             artifact_automation = os.path.basename(artifact_automation_dir)
@@ -946,6 +950,9 @@ class Automation:
                 if console:
                     print ('* Copying "{}" to'.format(artifact_path))
                     print ('         "{}"'.format(new_artifact_path))
+
+                if os.path.isdir(new_artifact_path):
+                    return {'return':1, 'error':'target artifact (directory) already exists'}
 
                 shutil.copytree(artifact_path, new_artifact_path)
 

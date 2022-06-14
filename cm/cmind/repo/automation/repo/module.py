@@ -98,9 +98,11 @@ class CAutomation(Automation):
         Args:
             (CM input dict):
 
+            (with_prefix) (bool): if True return path to repo artifacts (with prefix if exists)
+
             (out) (str): if 'con', output to console
 
-            (verbose) (bool) - if True show extra info about repositories
+            (verbose) (bool): if True show extra info about repositories
 
             parsed_artifact (list): prepared in CM CLI or CM access function - repository name with wildcards
 
@@ -114,6 +116,8 @@ class CAutomation(Automation):
         """
 
         console = i.get('out') == 'con'
+
+        with_prefix = i.get('with_prefix', False)
 
         lst = []
 
@@ -146,19 +150,22 @@ class CAutomation(Automation):
         if console:
             for l in lst:
                 meta = l.meta
-                alias = meta.get('alias','')
-                uid = meta.get('uid','')
+                alias = meta.get('alias', '')
+                uid = meta.get('uid', '')
+                prefix = meta.get('prefix', '')
+
+                path = l.path_with_prefix if with_prefix else l.path
 
                 if i.get('verbose',False):
 
                    uid = meta['uid']
                    desc = meta.get('desc','')
-                   path = repo.path
                    git = meta.get('git',False)
+
 
                    print ('{},{} "{}" {}'.format(alias, uid, desc, path))
                 else:
-                   print ('{},{} = {}'.format(alias, uid, l.path))
+                   print ('{},{} = {}'.format(alias, uid, path))
 
         return {'return':0, 'list':lst}
 
