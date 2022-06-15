@@ -635,7 +635,7 @@ class CAutomation(Automation):
                     r = utils.load_json(file_name = self.tmp_file_run_state)
                     if r['return']>0: return r
 
-                    updated_state = r['dict']
+                    updated_state = r['meta']
 
                     utils.merge_dicts({'dict1':state, 'dict2':updated_state, 'append_lists':True, 'append_unique':True})
 
@@ -647,7 +647,7 @@ class CAutomation(Automation):
                     r = utils.convert_env_to_dict(r['string'])
                     if r['return']>0: return r
  
-                    updated_env = r['dict']
+                    updated_env = r['meta']
 
                     utils.merge_dicts({'dict1':env, 'dict2':updated_env, 'append_lists':True, 'append_unique':True})
 
