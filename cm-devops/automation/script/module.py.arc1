@@ -18,15 +18,15 @@ class CAutomation(Automation):
         self.file_with_cached_state = 'cm-cached-state.json'
         self.variation_prefix = '_'
 
-        self.tmp_file_env = 'tmp-env'
-        self.tmp_file_env_all = 'tmp-env-all'
-        self.tmp_file_run = 'tmp-run'
         self.tmp_file_state = 'tmp-state.json'
+        self.tmp_file_state_new = 'tmp-state-new.json'
 
         self.tmp_file_run_state = 'tmp-run-state.json'
         self.tmp_file_run_env = 'tmp-run-env.out'
         self.tmp_file_ver = 'tmp-ver.out'
 
+        self.tmp_file_env = 'tmp-env'
+        self.tmp_file_run = 'tmp-run'
 
         self.__version__ = "0.5.0"
 
@@ -111,26 +111,21 @@ class CAutomation(Automation):
 
           (tags) (str): tags to find an CM script (CM artifact)
 
-          (env) (dict): global environment variables (can/will be updated by a given script and dependencies)
-          (const) (dict): constant environment variable (will be preserved and persistent for a given script and dependencies)
-
-          (state) (dict): global state dictionary (can/will be updated by a given script and dependencies)
-          (const_state) (dict): constant state (will be preserved and persistent for a given script and dependencies)
+          (env) (dict): environment files
 
           (add_deps_tags) (dict): {"name":"tag(s)"}
 
           (version) (str): version to be added to env.CM_NEED_VERSION to specialize this flow
           (take_version_from_env) (bool): use version from env.CM_NEED_VERSION
 
-          (path) (str): list of paths to be added to env.CM_TMP_PATH to specialize this flow
+          (path) (str): list of paths to be added to env.CM_PATH to specialize this flow
 
-          (skip_cache) (bool): if True, skip caching and run in current directory
+          (skip_install) (bool): if True, skip installation into "installed" artifacts
+                                 and run in current directory
 
-          (new) (bool): if True, skip search for cached and run again
+          (new) (bool): if True, skip search for installed and run again
 
           (dirty) (bool): if True, do not clean files
-
-          (save_state) (bool): if True, save env and state to tmp-env.sh/bat and tmp-state.json
 
           (recursion) (bool): True if recursive call.
                               Useful when preparing the global bat file or Docker container
@@ -138,7 +133,9 @@ class CAutomation(Automation):
 
           (recursion_spaces) (str, internal): adding '  ' during recursion for debugging
 
+          (state) (dict): mostly internal - the state of the CM script
 
+          (forced_env) (dict): internal - forced environment (taken from env during the first call)
           ...
 
         Returns:
@@ -147,13 +144,8 @@ class CAutomation(Automation):
           * return (int): return code == 0 if no error and >0 if error
           * (error) (str): error string if return>0
 
-          * (skipped) (bool): if true, this script was skipped
-
-          * new_env (dict): new environment (delta from a collective script)
-          * new_state (dict): new state (delta from a collective script)
-
-          * env (dict): global env (updated by this script - includes new_env)
-          * state (dict): global state (updated by this script - includes new_state)
+          * new_env (dict): new environment (delta from this IC)
+          * new_state (dict): new state (delta from this IC)
 
         """
 
@@ -163,23 +155,16 @@ class CAutomation(Automation):
         recursion_spaces = i.get('recursion_spaces','')
         recursion = i.get('recursion', False)
 
-        # Get current env and state before running this script and sub-scripts
-        env = i.get('env',{})
+        # Get current state of the IC component and subcomponents
         state = i.get('state',{})
+        env = i.get('env',{})
 
-        # Save current env and state to detect new env and state after this script
-        saved_env = copy.deepcopy(env)
-        saved_state = copy.deepcopy(state)
+        # Set current path
+        if 'CM_CURRENT_PATH' not in env: env['CM_CURRENT_PATH']=os.path.abspath(os.getcwd())
 
-        save_state = i.get('save_state', False)
-
-        # Get constant env and state
-        const = i.get('const',{})
-        const_state = i.get('const_state',{})
-
-        # Force current path
-        current_path = os.path.abspath(os.getcwd())
-        env['CM_TMP_CURRENT_PATH'] = current_path
+        # Prepare updated state by this component (delta)
+        new_state = {}
+        new_env = {}
 
         # Prepare debug info
         parsed_artifact = i.get('parsed_artifact')
@@ -218,10 +203,10 @@ class CAutomation(Automation):
         ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
 
         artifact_tags_string = ','.join(artifact_tags)
-
+        
         ii['tags'] = artifact_tags_string
 
-        cm_script_info = 'collective script(s)'
+        cm_script_info = 'CM script(s)'
 
         if parsed_artifact_alias !='' :
             cm_script_info += ' "{}"'.format(parsed_artifact_alias)
@@ -242,18 +227,22 @@ class CAutomation(Automation):
 
         found_artifact = utils.assemble_cm_object(meta['alias'],meta['uid'])
 
-        print (recursion_spaces+'  - Found script::{} in {}'.format(found_artifact, path))
+        print (recursion_spaces+'  - Found ic::{} in {}'.format(found_artifact, path))
+
+        current_path = os.getcwd()
 
         # Check version
         version = i.get('version','').strip()
 
         if i.get('take_version_from_env', False):
-            version = env['CM_NEED_VERSION']
+            version = env.get('CM_NEED_VERSION','')
 
         if version == '':
             version = meta.get('default_version','')
 
         if version != '':
+            # We record in env and not in new env because the component 
+            # must detect and record the correct version in new_env
             env['CM_NEED_VERSION'] = version
 
         # Check input/output/paths
@@ -261,46 +250,34 @@ class CAutomation(Automation):
             value = i.get(key, '').strip()
             if value != '':
                 env['CM_' + key.upper()] = value
+        
+        # Check if needs to be installed
+        # In such case, need to check if already installed
+        install = meta.get('install', False)
+        if i.get('skip_install', False): 
+            install = False
 
-        # Prepare files to be cleaned
-        clean_files = meta.get('clean_files', []) + \
-                      [self.tmp_file_run_state, 
-                       self.tmp_file_run_env, 
-                       self.tmp_file_ver,
-                       self.tmp_file_env + bat_ext,
-                       self.tmp_file_env_all + bat_ext,
-                       self.tmp_file_state,
-                       self.tmp_file_run + bat_ext]
-
-        # Check if needs to be cached
-        # In such case, need to check if already cached
-        cache = meta.get('cache', False)
-        if i.get('skip_cache', False): 
-            cache = False
-
-        cached_artifact_uid = ''
+        installed_artifact_uid = ''
 
         remove_tmp_tag = False
-        reuse_cached = False
+        reuse_installed = False
 
         variations = artifact.meta.get('variations', {})
         versions = artifact.meta.get('versions', {})
 
-        found_cached = False
-
-        if cache:
-            print (recursion_spaces + '  - Checking if already cached ...')
+        if install:
+            print (recursion_spaces+'  - Checking if already installed ...')
 
             # Create a search query to find that we already ran this components with the same or similar input
             # It will be gradually enhanced with more "knowledge"  ...
 
-            # For simplicity, we use tags for the search in "cached" components
+            # For simplicity, we use tags for the search in "installed" components
             # TBD: we will need to add variations/versions later
-            cached_tags = 'script-artifact-' + meta['uid']
+            installed_tags = 'ic-artifact-'+meta['uid']
 
             # Add all tags from the original CM script
-            if len(meta.get('tags', []))>0:
-                cached_tags += ',' + ','.join(meta['tags'])
+            if len(meta.get('tags',[]))>0:
+                installed_tags += ',' + ','.join(meta['tags'])
 
             # Add variation(s) if specified in the "tags" input prefixed by _
               # If there is only 1 default variation, then just use it or substitute from CMD
@@ -317,7 +294,7 @@ class CAutomation(Automation):
             else:
                 if len(default_variations)>0:
                     tmp_variation_tags = copy.deepcopy(default_variations)
-
+                    
                     for t in variation_tags:
                         if t.startswith('-'):
                             t = t[1:]
@@ -331,6 +308,7 @@ class CAutomation(Automation):
 
                     variation_tags = tmp_variation_tags
 
+            
             # Add the ones that are not on!
             if len(default_variations)>0:
                 for t in variations:
@@ -339,40 +317,40 @@ class CAutomation(Automation):
 
             if len(variation_tags)>0:
                 variation_tags_string = ','.join(variation_tags)
-
+                
                 print (recursion_spaces+'    Prepared variations: {}'.format(variation_tags_string))
 
-                cached_tags += ',' + variation_tags_string
+                installed_tags += ',' + variation_tags_string
 
             # Add version
             if version!='':
-                cached_tags += ',version-' + version
+                installed_tags += ',version-' + version
 
-            # Check if already cached
+            # Check if already installed
             if i.get('new', False):
-                search_tags = 'tmp,' + cached_tags
+                search_tags = 'tmp,'+installed_tags
             else:
-                search_tags = '-tmp,' + cached_tags
+                search_tags = '-tmp,'+installed_tags
 
             print (recursion_spaces+'    - Tags: {}'.format(search_tags))
 
             r = self.cmind.access({'action':'find',
-                                   'automation':'cached,541d6f712a6b464e',
+                                   'automation':'installed,2bb0f56a197145d5',
                                    'tags':search_tags})
             if r['return']>0: return r
 
-            found_cached_artifacts = r['list']
+            found_installed_artifacts = r['list']
 
-            num_found_cached_artifacts = len(found_cached_artifacts)
+            num_found_installed_artifacts = len(found_installed_artifacts)
 
-            cached_path = ''
+            installed_path = ''
 
-            if num_found_cached_artifacts > 0:
+            if num_found_installed_artifacts > 0:
                 selection = 0
 
-                if num_found_cached_artifacts > 1:
+                if num_found_installed_artifacts > 1:
                     # Select 1 and proceed
-                    print (recursion_spaces+'  - More than 1 cached script output found:')
+                    print (recursion_spaces+'  - More than 1 installed artifact found:')
 
                     print ('')
                     num = 0
@@ -393,46 +371,37 @@ class CAutomation(Automation):
                         selection = 0
 
                     print ('')
-                    print (recursion_spaces+'    Selected {}: {}'.format(selection, found_cached_artifacts[selection].path))
+                    print (recursion_spaces+'    Selected {}: {}'.format(selection, found_installed_artifacts[selection].path))
 
                 else:
-                    print (recursion_spaces+'  - Found cached script output: {}'.format(found_cached_artifacts[0].path))
+                    print (recursion_spaces+'  - Found installed artifact: {}'.format(found_installed_artifacts[0].path))
 
-                # Continue with the selected cached artifact
-                cached_artifact = r['list'][selection]
+                # Continue with the selected installed artifact
+                installed_artifact = r['list'][selection]
 
                 print (recursion_spaces+'  - Loading "cached" state ...')
 
-                path_to_cached_state_file = os.path.join(cached_artifact.path,
+                path_to_cached_state_file = os.path.join(installed_artifact.path,
                     self.file_with_cached_state)
 
                 r =  utils.load_json(file_name = path_to_cached_state_file)
                 if r['return']>0: return r
 
-                # Update env and state from cache!
                 cached_state = r['meta']
 
-                new_env = cached_state['new_env']
-                utils.merge_dicts({'dict1':env, 'dict2':new_env, 'append_lists':True, 'append_unique':True})
+                # Return cached delta
+                return {'return':0, 'new_state':cached_state['new_state'], 'new_env':cached_state['new_env']}
 
-                new_state = cached_state['new_state']
-                utils.merge_dicts({'dict1':state, 'dict2':new_state, 'append_lists':True, 'append_unique':True})
-
-                utils.merge_dicts({'dict1':new_env, 'dict2':const, 'append_lists':True, 'append_unique':True})
-                utils.merge_dicts({'dict1':new_state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
-
-                found_cached = True
-
-            if not found_cached and num_found_cached_artifacts == 0:
-                # If not cached, create cached artifact and mark as tmp (remove if cache successful)
-                tmp_tags = 'tmp,'+cached_tags
+            if num_found_installed_artifacts == 0:
+                # If not installed, create installed artifact and mark as tmp (remove if install successful)
+                tmp_tags = 'tmp,'+installed_tags
 
                 # Use update to update the tmp one if already exists
-                print (recursion_spaces+'  - Creating new "cached" artifact in the CM local repository ...')
+                print (recursion_spaces+'  - Creating new "installed" artifact ...')
                 print (recursion_spaces+'    - Tags: {}'.format(tmp_tags))
 
                 ii = {'action':'update',
-                      'automation': 'cached,541d6f712a6b464e',
+                      'automation': 'installed,2bb0f56a197145d5',
                       'search_tags':tmp_tags,
                       'tags':tmp_tags,
                       'force':True}
@@ -442,331 +411,368 @@ class CAutomation(Automation):
 
                 remove_tmp_tag = True
 
-                cached_artifact = r['list'][0]
+                installed_artifact = r['list'][0]
 
-                cached_path = cached_artifact.path
-                cached_meta = cached_artifact.meta
+                installed_path = installed_artifact.path
+                installed_meta = installed_artifact.meta
 
-                cached_uid = cached_meta['uid']
+                installed_uid = installed_meta['uid']
 
-                # Changing path to CM artifact for cached output
-                # to record data and files there
-                print (recursion_spaces+'  - Changing to {}'.format(cached_path))
-                os.chdir(cached_path)
+                print (recursion_spaces+'  - Changing to {}'.format(installed_path))
+                os.chdir(installed_path)
 
-        ################################ 
-        if not found_cached:
-            # Add env from meta to new env if not empty
-            artifact_env = meta.get('env',{})
-            env.update(artifact_env)
-
-            # Get dependencies on other scripts
-            deps = meta.get('deps',[])
-
-            # Update version only if in "versions" (not obligatory)
-            # can be useful when handling complex Git revisions
-            if version!='' and version in versions:
-                versions_meta = versions[version]
-                update_state_from_meta(versions_meta, env, state, deps, i)
-
-            # Update env and other keys if variations
-            if len(variation_tags)>0:
-                for variation_tag in variation_tags:
-                    if variation_tag.startswith('~'):
-                        # ignore such tag (needed for caching only to differentiate variations)
-                        continue
-
-                    if variation_tag not in variations:
-                        return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
-
-                    variation_meta = variations[variation_tag]
-
-                    update_state_from_meta(variation_meta, env, state, deps, i)
-
-            #######################################################################
-            # Check chain of dependencies on other CM scripts
-            if len(deps)>0:
-                for d in deps:
-                    # Run script via CM API:
-                    # Not very efficient but allows logging - can be optimized later
-                    ii = {
-                           'action':'run',
-                           'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
-                           'recursion_spaces':recursion_spaces + '  ',
-                           'recursion':True,
-                           'env':env,
-                           'state':state,
-                           'const':const,
-                           'const_state':const_state
-                         }
-
-                    # Update input from dependency (extensible)
-                    ii.update(d)
-
-                    r = self.cmind.access(ii)
-                    if r['return']>0: return r
-
-            # Clean some output files
-            clean_tmp_files(clean_files, recursion_spaces)
-
-            # Check if has customize.py
-            path_to_customize_py = os.path.join(path, 'customize.py')
-            customize_code = None
-
-            if os.path.isfile(path_to_customize_py):
-                r=utils.load_python_module({'path':path, 'name':'customize'})
-                if r['return']>0: return r
-
-                customize_code = r['code']
-
-                customize_common_input = {
-                   'input':i,
-                   'automation':self,
-                   'artifact':artifact,
-                   'customize':artifact.meta.get('customize',{}),
-                   'os_info':os_info,
-                   'recursion_spaces':recursion_spaces
-                }
-
-            # Check if pre-process and detect
-            if 'preprocess' in dir(customize_code):
-
-                print (recursion_spaces+'  - run preprocess ...')
-
-                # Update env and state with const
-                utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
-                utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
-
-                ii = copy.deepcopy(customize_common_input)
-                ii['env'] = env
-                ii['state'] = state
-
-                r = customize_code.preprocess(ii)
-                if r['return']>0: return r
-
-                # Check if preprocess says to skip this component
-                skip = r.get('skip', False)
-
-                if skip:
-                    print (recursion_spaces+'  - this script is skipped!')
-
-                    # Check if script asks to run other dependencies instead of the skiped one
-                    another_script = r.get('script', {})
-
-                    if len(another_script) == 0:
-                        return {'return':0, 'skipped': True}
-
-                    print (recursion_spaces+'  - another script is executed instead!')
-                    ii = {
-                           'action':'run',
-                           'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
-                           'recursion_spaces':recursion_spaces + '  ',
-                           'recursion':True,
-                           'env':env,
-                           'state':state,
-                           'const':const,
-                           'const_state':const_state,
-                           'save_state':save_state
-                         }
-
-                    ii.update(another_script)
-
-                    return self.cmind.access(ii)
-
-                # If return version
-                if cache and r.get('version','') != '':
-                    cached_tags += ',version-' + r['version']
-
-            # Prepare run script
-            if bat_ext == '.sh':
-                run_script = get_script_name(env, path)
             else:
-                run_script = 'run' + bat_ext
+                selection = 0
 
-            path_to_run_script = os.path.join(path, run_script)
+                if num_found_installed_artifacts > 1:
+                    # Select 1 and proceed
+                    print (recursion_spaces+'  - More than 1 installed artifact found:')
 
-            # Update env and state with const
-            utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
-            utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
+                    print ('')
+                    num = 0
 
-            # Update env with the current path
-            env['CM_TMP_CURRENT_SCRIPT_PATH'] = path
+                    for a in r['list']:
+                        print (recursion_spaces+'    {}) {} ({})'.format(num, a.path, ','.join(a.meta['tags'])))
+                        num+=1
 
-            # Record state
-            r = utils.save_json(file_name = self.tmp_file_state, meta = state)
+                    print ('')
+                    x=input(recursion_spaces+'    Select one or press Enter for 0: ')
+
+                    x=x.strip()
+                    if x=='': x='0'
+
+                    selection = int(x)
+
+                    if selection < 0 or selection >= num:
+                        selection = 0
+
+                    print ('')
+                    print (recursion_spaces+'    Selected {}: {}'.format(selection, found_installed_artifacts[selection].path))
+
+                else:
+                    print (recursion_spaces+'  - Found installed artifact: {}'.format(found_installed_artifacts[0].path))
+
+                # Continue with the selected installed artifact
+                installed_artifact = r['list'][selection]
+
+                print (recursion_spaces+'  - Loading "cached" state ...')
+
+                path_to_cached_state_file = os.path.join(installed_artifact.path,
+                    self.file_with_cached_state)
+
+                r =  utils.load_json(file_name = path_to_cached_state_file)
+                if r['return']>0: return r
+
+                cached_state = r['meta']
+
+                # Return cached delta
+                return {'return':0, 'new_state':cached_state['new_state'], 'new_env':cached_state['new_env']}
+
+        # Add env from meta to new env if not empty
+        artifact_env = meta.get('env',{})
+        for k in artifact_env:
+            utils.update_dict_if_empty(env, k, artifact_env[k])
+        artifact_new_env = meta.get('new_env',{})
+        for k in artifact_new_env:
+            utils.update_dict_if_empty(new_env, k, artifact_new_env[k])
+
+        # Get deps
+        deps = meta.get('deps',[])
+        
+        # Update version only if in "versions" (not obligatory)
+        # can be useful when handling complex Git revisions
+        if version!='' and version in versions:
+            versions_meta = versions[version]
+
+            update_state_from_meta(versions_meta, env, new_env, deps, i)
+        
+        # Update env and other keys if variations
+        if len(variation_tags)>0:
+            for variation_tag in variation_tags:
+                if variation_tag.startswith('~'):
+                    # ignore such tag (needed for installation only to differentiate variations)
+                    continue
+                
+                if variation_tag not in variations:
+                    return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
+                
+                variation_meta = variations[variation_tag]
+
+                update_state_from_meta(variation_meta, env, new_env, deps, i)
+                
+        # Check chain of dependencies on other CM scripts
+        if len(deps)>0:
+            for d in deps:
+                tmp_env = merge_script_env(env, new_env)
+                tmp_state = merge_script_state(state, new_state)
+
+                # Run IC component via CM API:
+                # Not very efficient but allows logging - can be optimized later
+                ii = {
+                       'action':'run',
+                       'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
+                       'recursion_spaces':recursion_spaces + '  ',
+                       'recursion':True,
+                       'env':tmp_env,
+                       'state':tmp_state
+                     }
+
+                # G: is it really safe (can override some of the above). 
+                # On the other hand, very flexible and extensible!
+                ii.update(d)
+
+                r = self.cmind.access(ii)
+                if r['return']>0: return r
+
+                new_env = merge_script_env(new_env, r['new_env'])
+                new_state = merge_script_state(new_state, r['new_state'])
+
+        # Clean some output files
+        clean_files = meta.get('clean_files', []) + \
+                      [self.tmp_file_run_state, 
+                       self.tmp_file_run_env, 
+                       self.tmp_file_ver,
+                       self.tmp_file_state,
+                       self.tmp_file_state_new,
+                       self.tmp_file_env + bat_ext,
+                       self.tmp_file_run + bat_ext]
+
+        clean_tmp_files(clean_files, recursion_spaces)
+
+        # Check if has customize.py
+        path_to_customize_py = os.path.join(path, 'customize.py')
+        customize_code = None
+
+        if os.path.isfile(path_to_customize_py):
+            r=utils.load_python_module({'path':path, 'name':'customize'})
             if r['return']>0: return r
 
-            # If batch file exists, run it with current env and state
-            if os.path.isfile(path_to_run_script) and not reuse_cached:
-                print ('')
-                print (recursion_spaces+'  - run script ...')
+            customize_code = r['code']
 
-                # Prepare env variables
-                import copy
-                script = copy.deepcopy(os_info['start_script'])
+            customize_common_input = {
+               'input':i,
+               'automation':self,
+               'artifact':artifact,
+               'customize':artifact.meta.get('customize',{}),
+               'os_info':os_info,
+               'recursion_spaces':recursion_spaces
+            }
 
-                # Check if script_prefix in the state from other components
-                script_prefix = state.get('script_prefix',[])
-                if len(script_prefix)>0:
-                    script = script_prefix + ['\n'] + script
+        # Check if pre-process and detect
+        if 'preprocess' in dir(customize_code):
 
-                script += convert_env_to_script(env, os_info)
+            print (recursion_spaces+'  - run preprocess ...')
 
-                # Append batch file to the tmp script
-                script.append('\n')
-                script.append(os_info['run_bat'].replace('${bat_file}', path_to_run_script) + '\n')
+            ii=copy.deepcopy(customize_common_input)
+            for keys in [('env',env), ('state',state), ('new_env',new_env), ('new_state',new_state)]:
+                ii[keys[0]]=keys[1]
 
-                # Prepare and run script
-                run_script = self.tmp_file_run + bat_ext
+            r = customize_code.preprocess(ii)
+            if r['return']>0: return r
 
-                r = record_script(run_script, script, os_info)
+            # Check if preprocess says to skip this component
+            skip = r.get('skip', False)
+
+            if skip:
+                print (recursion_spaces+'  - Skiped')
+
+                after_deps = r.get('deps',[])
+
+                r = {'return':0}
+
+                if len(after_deps)==0:
+                    r['skipped'] = True
+                else:
+                    for d in after_deps:
+                        tmp_env = merge_script_env(env, new_env)
+                        tmp_state = merge_script_state(state, new_state)
+
+                        # Run IC component via CM API:
+                        # Not very efficient but allows logging - can be optimized later
+                        ii = {
+                               'action':'run',
+                               'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
+                               'recursion_spaces':recursion_spaces + '  ',
+                               'recursion':True,
+                               'env':tmp_env,
+                               'state':tmp_state
+                             }
+
+                        ii.update(d)
+
+                        r = self.cmind.access(ii)
+                        if r['return']>0: return r
+
+                        new_env = merge_script_env(new_env, r['new_env'])
+                        new_state = merge_script_state(new_state, r['new_state'])
+
+                r.update({'new_state':new_state, 'new_env':new_env})        
+
+                return r
+
+            # If return version
+            if install and r.get('version','') != '':
+                installed_tags += ',version-' + r['version']
+
+        # Prepare run script
+        if bat_ext == '.sh':
+            run_script = get_script_name(new_env, path)
+        else:
+            run_script = 'run' + bat_ext
+
+        path_to_run_script = os.path.join(path, run_script)
+
+#       Currently ignore if batch file not found (thus not supported on a given OS)
+#        if not os.path.isfile(path_to_run_script):
+#            return {'return':1, 'error':'Script ' + run_script + ' not found in '+path}
+
+        # Update env with the current path
+        env['CM_CURRENT_SCRIPT_PATH']=path
+
+        # Record state
+        r = utils.save_json(file_name = self.tmp_file_state, meta = state)
+        if r['return']>0: return r
+        r = utils.save_json(file_name = self.tmp_file_state_new, meta = new_state)
+        if r['return']>0: return r
+
+        # If batch file exists, run it with current env and state
+        if os.path.isfile(path_to_run_script) and not reuse_installed:
+            print ('')
+            print (recursion_spaces+'  - run script ...')
+
+            # Prepare env variables
+            import copy
+            script = copy.deepcopy(os_info['start_script'])
+
+            # Check if script_prefix in the state from other components
+            script_prefix = new_state.get('script_prefix',[])
+            if len(script_prefix)>0:
+                script = script_prefix + ['\n'] + script
+
+            tmp_env = merge_script_env(env, new_env)
+
+            script += convert_env_to_script(tmp_env, os_info)
+
+            # Append batch file to the tmp script
+            script.append('\n')
+            script.append(os_info['run_bat'].replace('${bat_file}', path_to_run_script) + '\n')
+
+            # Prepare and run script
+            run_script = self.tmp_file_run + bat_ext
+
+            r = record_script(run_script, script, os_info)
+            if r['return']>0: return r
+
+            # Run final command
+            cmd = os_info['run_local_bat_from_python'].replace('${bat_file}', run_script)
+
+            rc = os.system(cmd)
+
+            if rc>0:
+                return {'return':1, 'error':'Component failed (return code = {})'.format(rc)}
+
+            # Load updated state if exists
+            if os.path.isfile(self.tmp_file_run_state):
+                r = utils.load_json(file_name = self.tmp_file_run_state)
                 if r['return']>0: return r
 
-                # Run final command
-                cmd = os_info['run_local_bat_from_python'].replace('${bat_file}', run_script)
+                new_state = merge_script_state(new_state, r['meta'])
 
-                rc = os.system(cmd)
+            # Load updated env if exists
+            if os.path.isfile(self.tmp_file_run_env):
+                r = utils.load_txt(file_name = self.tmp_file_run_env)
+                if r['return']>0: return r
 
-                if rc>0:
-                    return {'return':1, 'error':'Component failed (return code = {})'.format(rc)}
-
-                # Load updated state if exists
-                if os.path.isfile(self.tmp_file_run_state):
-                    r = utils.load_json(file_name = self.tmp_file_run_state)
-                    if r['return']>0: return r
-
-                    updated_state = r['dict']
-
-                    utils.merge_dicts({'dict1':state, 'dict2':updated_state, 'append_lists':True, 'append_unique':True})
-
-                # Load updated env if exists
-                if os.path.isfile(self.tmp_file_run_env):
-                    r = utils.load_txt(file_name = self.tmp_file_run_env)
-                    if r['return']>0: return r
-
-                    r = utils.convert_env_to_dict(r['string'])
-                    if r['return']>0: return r
+                r = utils.convert_env_to_dict(r['string'])
+                if r['return']>0: return r
  
-                    updated_env = r['dict']
+                env_from_run = r['dict']
 
-                    utils.merge_dicts({'dict1':env, 'dict2':updated_env, 'append_lists':True, 'append_unique':True})
+                for k in env_from_run:
+                    utils.update_dict_if_empty(new_env, k, env_from_run[k])
 
-                # Check if post-process
-                if 'postprocess' in dir(customize_code):
+            # Check if post-process
+            if 'postprocess' in dir(customize_code):
+                print (recursion_spaces+'  - run postprocess ...')
 
-                    print (recursion_spaces+'  - run postprocess ...')
+                ii=copy.deepcopy(customize_common_input)
+                for keys in [('env',env), ('state',state), ('new_env',new_env), ('new_state',new_state)]:
+                    ii[keys[0]]=keys[1]
 
-                    # Update env and state with const
-                    utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
-                    utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
+                r = customize_code.postprocess(ii)
+                if r['return']>0: return r
 
-                    ii = copy.deepcopy(customize_common_input)
-                    ii['env'] = env
-                    ii['state'] = state
-
-                    r = customize_code.postprocess(ii)
-                    if r['return']>0: return r
-
-                    # If return version
-                    if cache and r.get('version','') != '':
-                        cached_tags += ',version-' + r['version']
+                # If return version
+                if install and r.get('version','') != '':
+                    installed_tags += ',version-' + r['version']
 
 
-            # Check chain of post dependencies on other CM scripts
-            post_deps = meta.get('post_deps',[])
+        # Check chain of post dependencies on other CM scripts
+        post_deps = meta.get('post_deps',[])
 
-            if len(post_deps)>0:
-                for d in post_deps:
-                    # Run collective script via CM API:
-                    # Not very efficient but allows logging - can be optimized later
-                    ii = {
-                           'action':'run',
-                           'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
-                           'recursion_spaces':recursion_spaces + '  ',
-                           'recursion':True,
-                           'env':env,
-                           'state':state,
-                           'const':const,
-                           'const_state':const_state
-                         }
+        if len(post_deps)>0:
+            for d in post_deps:
+                tmp_env = merge_script_env(env, new_env)
+                tmp_state = merge_script_state(state, new_state)
 
-                    ii.update(d)
+                # Run IC component via CM API:
+                # Not very efficient but allows logging - can be optimized later
+                ii = {
+                       'action':'run',
+                       'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
+                       'recursion_spaces':recursion_spaces + '  ',
+                       'recursion':True,
+                       'env':tmp_env,
+                       'state':tmp_state
+                     }
 
-                    r = self.cmind.access(ii)
-                    if r['return']>0: return r
+                ii.update(d)
 
+                r = self.cmind.access(ii)
+                if r['return']>0: return r
 
+                new_env = merge_script_env(new_env, r['new_env'])
+                new_state = merge_script_state(new_state, r['new_state'])
 
+        # Record new env 
+        new_env_script = convert_env_to_script(new_env, os_info, start_script = os_info['start_script'])
 
-
-
-
-
-
-
-
-        ##################################### Finalize script
-        # Force consts in the final new env and state
-        utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
-        utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
-
-        # Detect env and state diff
-        r = detect_state_diff(env, saved_env, state, saved_state)
+        r = record_script(self.tmp_file_env + bat_ext, new_env_script, os_info)
         if r['return']>0: return r
 
-        new_env = r['new_env']
-        new_state = r['new_state']
-
-        # Record all env
-        env_all_script = convert_env_to_script(env, os_info, start_script = os_info['start_script'])
-        r = record_script(self.tmp_file_env + bat_ext, env_all_script, os_info)
-        if r['return']>0: return r
-
-        env_script = convert_env_to_script(new_env, os_info, start_script = os_info['start_script'])
-        r = record_script(self.tmp_file_env + bat_ext, env_script, os_info)
-        if r['return']>0: return r
-
-        # If using cached artifact, return to default path
-        if cache and cached_path!='':
+        # If using installed artifact, return to default path
+        if install and installed_path!='':
             # Check if need to remove tag
             if remove_tmp_tag:
                 # Save state, env and deps for reuse
-                path_to_cached_state_file = os.path.join(cached_path,
+                path_to_cached_state_file = os.path.join(installed_path,
                     self.file_with_cached_state)
 
                 r =  utils.save_json(file_name = path_to_cached_state_file, 
-                       meta={'new_state':new_state,
+                       meta={'new_state':state,
                              'new_env':new_env,
                              'deps':deps})
                 if r['return']>0: return r
 
-                # Remove tmp tag from the "cached" arifact to finalize caching
-                print (recursion_spaces+'  - Removing tmp tag in the script cached output {} ...'.format(cached_uid))
+                # Remove tmp tag from the "installed" arifact to finalize installation
+                print (recursion_spaces+'  - Removing tmp tag in CM entry installed::{} ...'.format(installed_uid))
 
                 ii = {'action': 'update',
-                      'automation': 'cached,541d6f712a6b464e',
-                      'artifact': cached_uid,
+                      'automation': 'installed,2bb0f56a197145d5',
+                      'artifact': installed_uid,
                       'replace_lists': True, # To replace tags
-                      'tags':cached_tags}
+                      'tags':installed_tags}
                 r = self.cmind.access(ii)
                 if r['return']>0: return r
 
-        # Clean tmp files only in current path (do not touch cache - we keep all info there)
-        os.chdir(current_path)
+            os.chdir(current_path)
 
+        # Clean tmp files
         if not i.get('dirty', False):
             clean_tmp_files(clean_files, recursion_spaces)
+        
+        return {'return':0, 'new_state':new_state, 'new_env':new_env}
 
-        # Record new env and new state in the current dir if needed
-        if save_state:
-#            r = utils.save_json(file_name = self.tmp_file_state, meta = new_state)
-#            if r['return']>0: return r
-
-            r = record_script(self.tmp_file_env + bat_ext, env_script, os_info)
-            if r['return']>0: return r
-
-        ############################# RETURN
-        return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 
     ############################################################
     def find(self, i):
@@ -905,6 +911,7 @@ class CAutomation(Automation):
           file_name (str): filename to find
 
           env (dict): global env
+          new_env (dict): local env
           os_info (dict): OS info
 
           (default_path_env_key) (str): check in default paths from global env 
@@ -928,13 +935,14 @@ class CAutomation(Automation):
         file_name = i['file_name']
 
         env = i['env']
+        new_env = i['new_env']
         os_info = i['os_info']
 
         default_path_env_key = i.get('default_path_env_key', '')
         recursion_spaces = i.get('recursion_spaces', '')
 
         # Check if forced to search in a specific path
-        path = env.get('CM_TMP_PATH','')
+        path = env.get('CM_PATH','')
 
         default_path_list = [] if default_path_env_key == '' else \
            os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
@@ -961,15 +969,10 @@ class CAutomation(Automation):
         found_path = found_paths[0]
 
         if found_path not in default_path_list:
-            env_key = '+'+default_path_env_key
-
-            paths = env.get(env_key, [])
-            if found_path not in paths:
-                paths.insert(0, found_path)
-                env[env_key] = paths
+            new_env['+'+default_path_env_key] = [found_path]
 
         full_path = os.path.join(found_path, file_name)
-        print (recursion_spaces + '    # Found object: {}'.format(full_path))
+        print (recursion_spaces + '    # Found component: {}'.format(full_path))
 
         return {'return':0, 'found_path':found_path, 
                             'full_path':full_path,
@@ -1024,16 +1027,53 @@ class CAutomation(Automation):
         return {'return':0, 'version':version, 'string':string}
 
 ##############################################################################
-def get_script_name(env, path):
+def merge_script_env(d, new_d):
+    """
+    Internal: merge IC global and new environments
+    """
+
+    import copy
+
+    tmp_d = copy.deepcopy(d)
+
+    for k in new_d:
+        if type(new_d[k])==list:
+            if k not in d:
+                tmp_d[k]=[]
+            for v in new_d[k]:
+                if v not in tmp_d[k]:
+                    tmp_d[k].append(v)
+
+        elif tmp_d.get(k) is None or tmp_d.get(k)=='':
+            tmp_d[k] = new_d[k]
+
+    return tmp_d
+
+##############################################################################
+def merge_script_state(d, new_d):
+    """
+    Internal: merge IC global and new states
+    """
+
+    import copy
+
+    tmp_d = copy.deepcopy(d)
+
+    utils.merge_dicts({'dict1':tmp_d, 'dict2':new_d, 'append_lists':True, 'append_unique':True})
+
+    return tmp_d
+
+##############################################################################
+def get_script_name(new_env, path):
     """
     Internal: find the most appropriate run script name for the detected OS
     """
 
     from os.path import exists
 
-    tmp_suff1 = env['CM_HOST_OS_FLAVOR'] if 'CM_HOST_OS_FLAVOR' in env else ''
-    tmp_suff2 = env['CM_HOST_OS_VERSION'] if 'CM_HOST_OS_VERSION' in env else ''
-    tmp_suff3 = env['CM_HOST_PLATFORM_FLAVOR'] if 'CM_HOST_PLATFORM_FLAVOR' in env else ''
+    tmp_suff1 = new_env['CM_HOST_OS_FLAVOR'] if 'CM_HOST_OS_FLAVOR' in new_env else ''
+    tmp_suff2 = new_env['CM_HOST_OS_VERSION'] if 'CM_HOST_OS_VERSION' in new_env else ''
+    tmp_suff3 = new_env['CM_HOST_PLATFORM_FLAVOR'] if 'CM_HOST_PLATFORM_FLAVOR' in new_env else ''
 
     if exists(os.path.join(path, 'run-' + tmp_suff1 + tmp_suff2 + tmp_suff3 + '.sh')):
         return 'run-' + tmp_suff1 + tmp_suff2 + tmp_suff3 + '.sh'
@@ -1129,16 +1169,18 @@ def update_deps_tags(deps, add_deps_tags):
 
 
 ##############################################################################
-def update_state_from_meta(meta, env, state, deps, i):
+def update_state_from_meta(meta, env, new_env, deps, i):
     """
-    Internal: update env and state from meta
+    Internal: update state from meta
     """
 
     update_env = meta.get('env', {})
-    env.update(update_env)
+    for k in update_env:
+        utils.update_dict_if_empty(env, k, update_env[k])
 
-    update_state = meta.get('state', {})
-    utils.merge_dicts({'dict1':state, 'dict2':update_state, 'append_lists':True, 'append_unique':True})
+    update_new_env = meta.get('new_env', {})
+    for k in update_new_env:
+        utils.update_dict_if_empty(new_env, k, update_new_env[k])
 
     update_deps = meta.get('deps', [])
     if len(update_deps)>0:
@@ -1153,44 +1195,6 @@ def update_state_from_meta(meta, env, state, deps, i):
         update_deps_tags(deps, add_deps_tags_from_input)
 
     return {'return':0}
-
-##############################################################################
-def detect_state_diff(env, saved_env, state, saved_state):
-    """
-    Internal: detect diff in env and state
-    """
-
-    new_env = {}
-    new_state = {}
-
-    # Env is flat so no recursion
-    for k in env:
-        if k.startswith('CM_TMP_'):
-            continue
-
-        v = env[k]
-
-        if k not in saved_env:
-           new_env[k] = v
-        elif type(v) == list:
-           if v not in saved_env[k]:
-               diff_list = [e for e in v if e not in saved_env[k]]
-               if len(diff_list)>0:
-                   new_env[k] = diff_list
-
-    # Temporal solution for state - need to add recursion
-    for k in state:
-        v = state[k]
-
-        if k not in saved_state:
-           new_state[k] = v
-        elif type(v) == list:
-           if v not in saved_state[k]:
-               diff_list = [e for e in v if e not in saved_state[k]]
-               if len(diff_list)>0:
-                   new_state[k] = diff_list
-
-    return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 
 ##############################################################################
 # Demo to show how to use CM components independently if needed

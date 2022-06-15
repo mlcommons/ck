@@ -1,9 +1,9 @@
 {
-  "alias": "installed",
+  "alias": "cached",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
   "tags": [
     "automation"
   ],
-  "uid": "2bb0f56a197145d5"
+  "uid": "541d6f712a6b464e"
 }
