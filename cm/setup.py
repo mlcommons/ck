@@ -38,7 +38,7 @@ class custom_install(install):
 
         # Check if this version is deprecated or has vulnerabilities! 
         import cmind.net
-        
+
         r = cmind.net.request(
             {'get': {'action': 'get-cm-version-notes-setup', 'version': version}})
         notes = r.get('dict', {}).get('notes','')
