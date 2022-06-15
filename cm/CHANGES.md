@@ -1,6 +1,6 @@
 # Prototyping phase
 
-## DEV
+## V0.7.20
    - fixed bugs in the old "utils.list_all_files" function
 
 ## V0.7.19
