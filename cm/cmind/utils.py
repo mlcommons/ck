@@ -497,8 +497,6 @@ def list_all_files(i):
         pe = i['path_ext']
 
     po = i.get('path', '')
-    if sys.version_info[0] < 3:
-        po = unicode(po)
 
     pattern = i.get('pattern', '')
     if pattern != '':
@@ -518,7 +516,7 @@ def list_all_files(i):
     else:
         for fn in dirList:
             p = os.path.join(po, fn)
-            if iall == 'yes' or fn not in cfg['special_directories']:
+            if iall == 'yes':
                 if len(inames) == 0 or fn not in inames:
                     if os.path.isdir(p):
                         if not isd or os.path.realpath(p) == p:

@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## DEV
+   - fixed bugs in the old "utils.list_all_files" function
+
 ## V0.7.19
    - fixed "cm copy" when copying to a repository with a prefix
    - fixed "cm copy" and "cm ren" if target artifact already exists
