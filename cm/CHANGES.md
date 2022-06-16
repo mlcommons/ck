@@ -1,6 +1,6 @@
 # Prototyping phase
 
-## DEV
+## V0.7.21
    - fixed bug in "cm move" when moving to a repository with a prefix
    - redirect "cm version" to "cm version core"
    - redirect "cm --version" to "cm version core"
