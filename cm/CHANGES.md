@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## DEV
+   - fixed bug in "cm move" when moving to a repository with a prefix
+
 ## V0.7.20
    - fixed bugs in the old "utils.list_all_files" function
 

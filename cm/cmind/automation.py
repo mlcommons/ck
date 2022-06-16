@@ -773,7 +773,7 @@ class Automation:
             elif len(target_repo_list) >1:
                 return {'return':1, 'error':'more than 1 target repo found "{}"'.format(target_artifact_repo)}
 
-            target_repo_path = os.path.abspath(target_repo_list[0].path)
+            target_repo_path = os.path.abspath(target_repo_list[0].path_with_prefix)
 
         # Updating artifacts
         for artifact in lst:
