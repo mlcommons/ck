@@ -2,6 +2,8 @@
 
 ## DEV
    - fixed bug in "cm move" when moving to a repository with a prefix
+   - redirect "cm version" to "cm version core"
+   - redirect "cm --version" to "cm version core"
 
 ## V0.7.20
    - fixed bugs in the old "utils.list_all_files" function

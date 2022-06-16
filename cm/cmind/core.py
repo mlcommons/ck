@@ -207,6 +207,13 @@ class CM(object):
         # Check automation
         automation = i.get('automation','')
 
+        # Check if asked for "version" and no automation
+        if action == 'version' and automation == '':
+            automation = 'core'
+        elif action == '' and automation == '' and i.get('version',False):
+            action = 'version'
+            automation = 'core'
+
         # Print basic help if action == ''
         extra_help = True if action == 'help' and automation == '' else False
 
