@@ -357,7 +357,7 @@ class CAutomation(Automation):
             print (recursion_spaces+'    - Tags: {}'.format(search_tags))
 
             r = self.cmind.access({'action':'find',
-                                   'automation':'cached,541d6f712a6b464e',
+                                   'automation':self.meta['deps']['cache'],
                                    'tags':search_tags})
             if r['return']>0: return r
 
@@ -432,7 +432,7 @@ class CAutomation(Automation):
                 print (recursion_spaces+'    - Tags: {}'.format(tmp_tags))
 
                 ii = {'action':'update',
-                      'automation': 'cached,541d6f712a6b464e',
+                      'automation': self.meta['deps']['cache'],
                       'search_tags':tmp_tags,
                       'tags':tmp_tags,
                       'force':True}
@@ -744,7 +744,7 @@ class CAutomation(Automation):
                 print (recursion_spaces+'  - Removing tmp tag in the script cached output {} ...'.format(cached_uid))
 
                 ii = {'action': 'update',
-                      'automation': 'cached,541d6f712a6b464e',
+                      'automation': self.meta['deps']['cache'],
                       'artifact': cached_uid,
                       'replace_lists': True, # To replace tags
                       'tags':cached_tags}

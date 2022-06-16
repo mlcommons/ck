@@ -1,3 +1,6 @@
+20220616:
+ * changed "cached" to "cache" automation
+
 20220615:
  * major update of script (remove parallel env/new_env and state/new_state).
    keep global env & state and detect changes automatically
