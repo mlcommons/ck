@@ -647,7 +647,7 @@ class CAutomation(Automation):
                     r = utils.convert_env_to_dict(r['string'])
                     if r['return']>0: return r
  
-                    updated_env = r['meta']
+                    updated_env = r['dict']
 
                     utils.merge_dicts({'dict1':env, 'dict2':updated_env, 'append_lists':True, 'append_unique':True})
 
