@@ -16,7 +16,6 @@ class CAutomation(Automation):
         self.os_info = {}
 
         self.file_with_cached_state = 'cm-cached-state.json'
-        self.variation_prefix = '_'
 
         self.tmp_file_env = 'tmp-env'
         self.tmp_file_env_all = 'tmp-env-all'
@@ -207,10 +206,15 @@ class CAutomation(Automation):
         for t in tags:
             t = t.strip()
             if t != '':
-                if t.startswith(self.variation_prefix):
-                    t_without_prefix = t[len(self.variation_prefix):]
-                    if t_without_prefix not in variation_tags:
-                        variation_tags.append(t_without_prefix)
+                if t.startswith('_'):
+                    tx = t[1:]
+                    if tx not in variation_tags:
+                        variation_tags.append(tx)
+                elif t.startswith('-_'):
+                    tx = '-' + t[2:]
+                    if tx not in variation_tags:
+                        variation_tags.append(tx)
+                   
                 else:
                     artifact_tags.append(t)
 
@@ -338,7 +342,13 @@ class CAutomation(Automation):
                         variation_tags.append('~' + t)
 
             if len(variation_tags)>0:
-                variation_tags_string = ','.join(variation_tags)
+                variation_tags_string = ''
+
+                for t in variation_tags:
+                    if variation_tags_string != '': 
+                        variation_tags_string += ','
+
+                    variation_tags_string += '_'+t
 
                 print (recursion_spaces+'    Prepared variations: {}'.format(variation_tags_string))
 
@@ -694,15 +704,6 @@ class CAutomation(Automation):
 
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
-
-
-
-
-
-
-
-
-
 
 
         ##################################### Finalize script
