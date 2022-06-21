@@ -265,22 +265,30 @@ class CAutomation(Automation):
             version = env['CM_VERSION']
         else:
             version = i.get('version','').strip()
-            if version == '': version = meta.get('default_version', '')
-        if version !='': env['CM_VERSION'] = version
 
         if 'CM_VERSION_MIN' in env: 
             version_min = env['CM_VERSION_MIN']
         else:
             version_min = i.get('version_min','').strip()
-            if version_min == '': version_min = meta.get('default_version_min', '')
-        if version_min !='': env['CM_VERSION_MIN'] = version_min
 
         if 'CM_VERSION_MAX' in env: 
             version_max = env['CM_VERSION_MAX']
         else:
             version_max = i.get('version_max','').strip()
-            if version_max == '': version_max = meta.get('default_version_max', '')
+
+        if version_min == '': version_min = meta.get('default_version_min', '')
+        if version_max == '': version_max = meta.get('default_version_max', '')
+
+        if version == '':
+            if version_min != '': version = version_min
+            elif version_max != '': version = version_max
+            else:
+                version = meta.get('default_version', '')
+
+        if version !='': env['CM_VERSION'] = version
+        if version_min !='': env['CM_VERSION_MIN'] = version_min
         if version_max !='': env['CM_VERSION_MAX'] = version_max
+
 
         # Check input/output/paths
         for key in ['path', 'input', 'output']:
