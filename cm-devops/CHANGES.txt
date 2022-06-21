@@ -1,4 +1,7 @@
- 20220617
+20220621:
+ * Added support for --quiet
+
+20220617
  * fixed logic to handle variations (-_): https://github.com/mlcommons/ck/issues/243
 
 20220616:

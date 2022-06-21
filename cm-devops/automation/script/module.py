@@ -26,8 +26,9 @@ class CAutomation(Automation):
         self.tmp_file_run_env = 'tmp-run-env.out'
         self.tmp_file_ver = 'tmp-ver.out'
 
-
         self.__version__ = "0.5.0"
+
+        self.local_env_keys = ['CM_NEED_VERSION', 'CM_NEED_VERSION_MIN', 'CM_NEED_VERSION_MAX']
 
     ############################################################
     def version(self, i):
@@ -121,7 +122,13 @@ class CAutomation(Automation):
           (version) (str): version to be added to env.CM_NEED_VERSION to specialize this flow
           (take_version_from_env) (bool): use version from env.CM_NEED_VERSION
 
+          (version_min) (str): min version to be added to env.CM_NEED_VERSION_MIN to specialize this flow
+          (version_max) (str): max version to be added to env.CM_NEED_VERSION_MAX to specialize this flo
+
           (path) (str): list of paths to be added to env.CM_TMP_PATH to specialize this flow
+
+          (quiet) (bool): if True, set env.CM_TMP_QUIET to "yes" and attempt to skip questions
+                          (the developers have to support it in pre/post processing and scripts)
 
           (skip_cache) (bool): if True, skip caching and run in current directory
 
@@ -179,6 +186,10 @@ class CAutomation(Automation):
         # Force current path
         current_path = os.path.abspath(os.getcwd())
         env['CM_TMP_CURRENT_PATH'] = current_path
+
+        # Check if quiet
+        quiet = i.get('quiet', False) if 'quiet' in i else (env.get('CM_TMP_QUIET','') == 'yes')
+        if quiet: env['CM_TMP_QUIET'] = 'yes'
 
         # Prepare debug info
         parsed_artifact = i.get('parsed_artifact')
@@ -248,17 +259,26 @@ class CAutomation(Automation):
 
         print (recursion_spaces+'  - Found script::{} in {}'.format(found_artifact, path))
 
-        # Check version
-        version = i.get('version','').strip()
-
-        if i.get('take_version_from_env', False):
+        # Check version from env (priority if passed from another script) or input (version)
+        # Version is local for a given script and is not passed further
+        # not to influence versions of dependencies
+        if 'CM_NEED_VERSION' in env: 
             version = env['CM_NEED_VERSION']
+        else:
+            version = i.get('version','').strip()
+            if version !='': env['CM_NEED_VERSION'] = version
 
-        if version == '':
-            version = meta.get('default_version','')
+        if 'CM_NEED_VERSION_MIN' in env: 
+            version_min = env['CM_NEED_VERSION_MIN']
+        else:
+            version_min = i.get('version_min','').strip()
+            if version_min !='': env['CM_NEED_VERSION_MIN'] = version_min
 
-        if version != '':
-            env['CM_NEED_VERSION'] = version
+        if 'CM_NEED_VERSION_MAX' in env: 
+            version_max = env['CM_NEED_VERSION_MAX']
+        else:
+            version_max = i.get('version_max','').strip()
+            if version_max !='': env['CM_NEED_VERSION_MAX'] = version_max
 
         # Check input/output/paths
         for key in ['path', 'input', 'output']:
@@ -441,10 +461,17 @@ class CAutomation(Automation):
                 print (recursion_spaces+'  - Creating new "cached" artifact in the CM local repository ...')
                 print (recursion_spaces+'    - Tags: {}'.format(tmp_tags))
 
+                cache_meta = {}
+
+                if version != '': cache_meta['version'] = version
+                if version_min != '': cache_meta['version_min'] = version_min
+                if version_max != '': cache_meta['version_max'] = version_max
+
                 ii = {'action':'update',
                       'automation': self.meta['deps']['cache'],
                       'search_tags':tmp_tags,
                       'tags':tmp_tags,
+                      'meta':cache_meta,
                       'force':True}
 
                 r = self.cmind.access(ii)
@@ -496,6 +523,7 @@ class CAutomation(Automation):
             #######################################################################
             # Check chain of dependencies on other CM scripts
             if len(deps)>0:
+                # Go through dependencies list and run scripts
                 for d in deps:
                     # Run script via CM API:
                     # Not very efficient but allows logging - can be optimized later
@@ -840,6 +868,7 @@ class CAutomation(Automation):
           paths (list): list of paths
           file_name (str): filename to find
           (select) (bool): if True and more than 1 path found, select
+          (select_default) (bool): if True, select the default one
           (recursion_spaces) (str): add space to print
 
         Returns:
@@ -855,6 +884,7 @@ class CAutomation(Automation):
         paths = i['paths']
         file_name = i['file_name']
         select = i.get('select',False)
+        select_default = i.get('select_default', False)
         recursion_spaces = i.get('recursion_spaces','')
 
         found_paths = []
@@ -866,27 +896,30 @@ class CAutomation(Automation):
                 if path not in found_paths:
                     found_paths.append(path)
 
-        if select and len(found_paths)>1:
-            # Select 1 and proceed
-            print (recursion_spaces+'  - More than 1 path found:')
-
-            print ('')
-            num = 0
-
-            for path in found_paths:
-                print (recursion_spaces+'  {}) {}'.format(num, path))
-                num+=1
-
-            print ('')
-            x=input(recursion_spaces+'  Select one or press Enter for 0: ')
-
-            x=x.strip()
-            if x=='': x='0'
-
-            selection = int(x)
-
-            if selection < 0 or selection >= num:
+        if select:
+            if len(found_paths) == 1 or select_default:
                 selection = 0
+            else:
+                # Select 1 and proceed
+                print (recursion_spaces+'  - More than 1 path found:')
+
+                print ('')
+                num = 0
+
+                for path in found_paths:
+                    print (recursion_spaces+'  {}) {}'.format(num, path))
+                    num+=1
+
+                print ('')
+                x=input(recursion_spaces+'  Select one or press Enter for 0: ')
+
+                x=x.strip()
+                if x=='': x='0'
+
+                selection = int(x)
+
+                if selection < 0 or selection >= num:
+                    selection = 0
 
             print ('')
             print (recursion_spaces+'  Selected {}: {}'.format(selection, found_paths[selection]))
@@ -946,10 +979,14 @@ class CAutomation(Automation):
             print (recursion_spaces + '    # Requested paths: {}'.format(path))
             path_list = path.split(os_info['env_separator'])
 
+        # Check if quiet
+        select_default = True if env.get('CM_TMP_QUIET','') == 'yes' else False
+        
         # Prepare paths to search
         r = self.find_file_in_paths({'paths':path_list,
                                      'file_name':file_name, 
                                      'select':True,
+                                     'select_default': select_default,
                                      'recursion_spaces':recursion_spaces})
         if r['return']>0: return r
 
