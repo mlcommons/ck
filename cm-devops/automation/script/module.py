@@ -120,8 +120,6 @@ class CAutomation(Automation):
           (add_deps_tags) (dict): {"name":"tag(s)"}
 
           (version) (str): version to be added to env.CM_VERSION to specialize this flow
-          (take_version_from_env) (bool): use version from env.CM_VERSION
-
           (version_min) (str): min version to be added to env.CM_VERSION_MIN to specialize this flow
           (version_max) (str): max version to be added to env.CM_VERSION_MAX to specialize this flo
 
