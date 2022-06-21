@@ -28,7 +28,7 @@ class CAutomation(Automation):
 
         self.__version__ = "0.5.0"
 
-        self.local_env_keys = ['CM_NEED_VERSION', 'CM_NEED_VERSION_MIN', 'CM_NEED_VERSION_MAX']
+        self.local_env_keys = ['CM_VERSION', 'CM_VERSION_MIN', 'CM_VERSION_MAX']
 
     ############################################################
     def version(self, i):
@@ -119,11 +119,11 @@ class CAutomation(Automation):
 
           (add_deps_tags) (dict): {"name":"tag(s)"}
 
-          (version) (str): version to be added to env.CM_NEED_VERSION to specialize this flow
-          (take_version_from_env) (bool): use version from env.CM_NEED_VERSION
+          (version) (str): version to be added to env.CM_VERSION to specialize this flow
+          (take_version_from_env) (bool): use version from env.CM_VERSION
 
-          (version_min) (str): min version to be added to env.CM_NEED_VERSION_MIN to specialize this flow
-          (version_max) (str): max version to be added to env.CM_NEED_VERSION_MAX to specialize this flo
+          (version_min) (str): min version to be added to env.CM_VERSION_MIN to specialize this flow
+          (version_max) (str): max version to be added to env.CM_VERSION_MAX to specialize this flo
 
           (path) (str): list of paths to be added to env.CM_TMP_PATH to specialize this flow
 
@@ -262,23 +262,23 @@ class CAutomation(Automation):
         # Check version from env (priority if passed from another script) or input (version)
         # Version is local for a given script and is not passed further
         # not to influence versions of dependencies
-        if 'CM_NEED_VERSION' in env: 
-            version = env['CM_NEED_VERSION']
+        if 'CM_VERSION' in env: 
+            version = env['CM_VERSION']
         else:
             version = i.get('version','').strip()
-            if version !='': env['CM_NEED_VERSION'] = version
+            if version !='': env['CM_VERSION'] = version
 
-        if 'CM_NEED_VERSION_MIN' in env: 
-            version_min = env['CM_NEED_VERSION_MIN']
+        if 'CM_VERSION_MIN' in env: 
+            version_min = env['CM_VERSION_MIN']
         else:
             version_min = i.get('version_min','').strip()
-            if version_min !='': env['CM_NEED_VERSION_MIN'] = version_min
+            if version_min !='': env['CM_VERSION_MIN'] = version_min
 
-        if 'CM_NEED_VERSION_MAX' in env: 
-            version_max = env['CM_NEED_VERSION_MAX']
+        if 'CM_VERSION_MAX' in env: 
+            version_max = env['CM_VERSION_MAX']
         else:
             version_max = i.get('version_max','').strip()
-            if version_max !='': env['CM_NEED_VERSION_MAX'] = version_max
+            if version_max !='': env['CM_VERSION_MAX'] = version_max
 
         # Check input/output/paths
         for key in ['path', 'input', 'output']:
