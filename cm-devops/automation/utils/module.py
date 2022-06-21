@@ -309,3 +309,50 @@ class CAutomation(Automation):
 
         return {'return':0}
 
+    ##############################################################################
+    def compare_versions(self, i):
+        """
+        Compare versions
+
+        Args:    
+
+           version1 (str): version 1
+           version2 (str): version 2
+
+        Returns:
+           (CM return dict):
+
+           * comparison (int):  1 - version 1 > version 2
+                                0 - version 1 == version 2
+                               -1 - version 1 < version 2
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        version1 = i['version1']
+        version2 = i['version2']
+
+        l_version1 = version1.split('.')
+        l_version2 = version2.split('.')
+
+        # 3.9.6 vs 3.9
+        # 3.9 vs 3.9.6
+
+        i_version1 = [int(v) for v in l_version1]
+        i_version2 = [int(v) for v in l_version2]
+
+        comparison = 0
+
+        for index in range(max(len(i_version1), len(i_version2))):
+            v1 = i_version1[index] if index < len(i_version1) else 0
+            v2 = i_version2[index] if index < len(i_version2) else 0
+
+            if v1 > v2:
+                comparison = 1
+                break
+            elif v1 < v2:
+                comparison = -1
+                break
+
+        return {'return':0, 'comparison': comparison}

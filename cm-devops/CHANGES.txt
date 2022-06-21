@@ -1,5 +1,9 @@
 20220621:
- * Added support for --quiet
+ * added support for --quiet
+ * changed CM_NEED_VERSION to CM_VERSION
+ * added CM_VERSION_MIN, CM_VERSION_MAX
+ * added cm compare_versions utils --version1=... --version2=...
+ * added support to detect min/max/correct versions
 
 20220617
  * fixed logic to handle variations (-_): https://github.com/mlcommons/ck/issues/243
