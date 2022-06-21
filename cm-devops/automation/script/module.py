@@ -227,7 +227,6 @@ class CAutomation(Automation):
                     tx = '-' + t[2:]
                     if tx not in variation_tags:
                         variation_tags.append(tx)
-                   
                 else:
                     artifact_tags.append(t)
 
@@ -268,19 +267,22 @@ class CAutomation(Automation):
             version = env['CM_VERSION']
         else:
             version = i.get('version','').strip()
-            if version !='': env['CM_VERSION'] = version
+            if version == '': version = meta.get('default_version', '')
+        if version !='': env['CM_VERSION'] = version
 
         if 'CM_VERSION_MIN' in env: 
             version_min = env['CM_VERSION_MIN']
         else:
             version_min = i.get('version_min','').strip()
-            if version_min !='': env['CM_VERSION_MIN'] = version_min
+            if version_min == '': version_min = meta.get('default_version_min', '')
+        if version_min !='': env['CM_VERSION_MIN'] = version_min
 
         if 'CM_VERSION_MAX' in env: 
             version_max = env['CM_VERSION_MAX']
         else:
             version_max = i.get('version_max','').strip()
-            if version_max !='': env['CM_VERSION_MAX'] = version_max
+            if version_max == '': version_max = meta.get('default_version_max', '')
+        if version_max !='': env['CM_VERSION_MAX'] = version_max
 
         # Check input/output/paths
         for key in ['path', 'input', 'output']:
@@ -397,7 +399,6 @@ class CAutomation(Automation):
             else:
                 num_found_cached_artifacts = 0
 
-            
             cached_path = ''
 
             if num_found_cached_artifacts > 0:
@@ -532,7 +533,7 @@ class CAutomation(Automation):
                     if k in env:
                         local_env[k] = env[k]
                         del(env[k])
-                
+
                 # Go through dependencies list and run scripts
                 for d in deps:
                     # Run script via CM API:
@@ -580,7 +581,7 @@ class CAutomation(Automation):
                    'tmp_file_state': self.tmp_file_state,
                    'tmp_file_run': self.tmp_file_run
             }
-            
+
             if os.path.isfile(path_to_customize_py):
                 r=utils.load_python_module({'path':path, 'name':'customize'})
                 if r['return']>0: return r
@@ -853,11 +854,11 @@ class CAutomation(Automation):
             # Check and prune versions
             if i.get('detect_version', False):
                 found_paths_with_good_version = []
-                
+
                 import copy
-                
+
                 env = i.get('env', {})
-                
+
                 run_script_input = i['run_script_input']
                 env_path_key = i['env_path_key']
 
@@ -870,14 +871,14 @@ class CAutomation(Automation):
                 if version != '': x += ' == {}'.format(version)
                 if version_min != '': x += ' >= {}'.format(version_min)
                 if version_max != '': x += ' <= {}'.format(version_max)
-                
+
                 print (recursion_spaces + '  - Detecting versions ({}) ...'.format(x))
 
                 new_recursion_spaces = recursion_spaces + '    '
 
                 for path in found_paths:
                     path_to_file = os.path.join(path, file_name)
-                    
+
                     print ('')
                     print (recursion_spaces + '    * ' + path_to_file)
 
@@ -886,7 +887,7 @@ class CAutomation(Automation):
 
                     # Prepare run script
                     rx = prepare_and_run_script_with_postprocessing(run_script_input)
-                    
+
                     run_script_input['recursion_spaces'] = recursion_spaces
 
                     if rx['return']>0: 
@@ -897,7 +898,7 @@ class CAutomation(Automation):
                        detected_version = rx.get('version','')
 
                        if detected_version != '':
-                           
+
                            ry = check_version_constraints({'detected_version': detected_version,
                                                            'version': version,
                                                            'version_min': version_min,
@@ -907,9 +908,11 @@ class CAutomation(Automation):
 
                            if not ry['skip']:
                                found_paths_with_good_version.append(path)
+                           else:
+                               print (recursion_spaces + '    SKIPPED due to version constraints ...')
 
                 found_paths = found_paths_with_good_version
-            
+
             # Continue with selection
             if len(found_paths)>1:
                 if len(found_paths) == 1 or select_default:
@@ -1000,7 +1003,7 @@ class CAutomation(Automation):
 
         # Check if quiet
         select_default = True if env.get('CM_TMP_QUIET','') == 'yes' else False
-        
+
         # Prepare paths to search
         r = self.find_file_in_paths({'paths': path_list,
                                      'file_name': file_name, 
@@ -1110,7 +1113,7 @@ def check_version_constraints(i):
                           'version1':detected_version,
                           'version2':version_min})
        if ry['return']>0: return ry
-       
+
        if ry['comparison'] < 0:
            skip = True
 
@@ -1120,7 +1123,7 @@ def check_version_constraints(i):
                           'version1':detected_version,
                           'version2':version_max})
        if ry['return']>0: return ry
-       
+
        if ry['comparison'] > 0:
            skip = True
 
@@ -1174,14 +1177,14 @@ def prepare_and_run_script_with_postprocessing(i):
         if r['return']>0: return r
 
     rr = {'return':0}
-    
+
     # If batch file exists, run it with current env and state
     if os.path.isfile(path_to_run_script) and not reuse_cached:
         if tmp_file_run_state != '' and os.path.isfile(tmp_file_run_state):
             os.remove(tmp_file_run_state)
         if tmp_file_run_env != '' and os.path.isfile(tmp_file_run_env):
             os.remove(tmp_file_run_env)
-        
+
         print ('')
         print (recursion_spaces + '  - run script ...')
 
