@@ -1276,13 +1276,12 @@ def get_script_name(env, path):
     tmp_suff1 = env['CM_HOST_OS_FLAVOR'] if 'CM_HOST_OS_FLAVOR' in env else ''
     tmp_suff2 = env['CM_HOST_OS_VERSION'] if 'CM_HOST_OS_VERSION' in env else ''
     tmp_suff3 = env['CM_HOST_PLATFORM_FLAVOR'] if 'CM_HOST_PLATFORM_FLAVOR' in env else ''
-
-    if exists(os.path.join(path, 'run-' + tmp_suff1 + tmp_suff2 + tmp_suff3 + '.sh')):
-        return 'run-' + tmp_suff1 + tmp_suff2 + tmp_suff3 + '.sh'
-    elif exists(os.path.join(path, 'run-' + tmp_suff1 + tmp_suff3 + '.sh')):
-        return 'run-' + tmp_suff1 + tmp_suff3 + '.sh'
-    elif exists(os.path.join(path, 'run-' + tmp_suff1 + tmp_suff2 + '.sh')):
-        return 'run-' + tmp_suff1 + tmp_suff2 + '.sh'
+    if exists(os.path.join(path, 'run-' + tmp_suff1 + '-'+ tmp_suff2 + '-' + tmp_suff3 + '.sh')):
+        return 'run-' + tmp_suff1 + '-' + tmp_suff2 + '-' + tmp_suff3 + '.sh'
+    elif exists(os.path.join(path, 'run-' + tmp_suff1 + '-' + tmp_suff3 + '.sh')):
+        return 'run-' + tmp_suff1 + '-' + tmp_suff3 + '.sh'
+    elif exists(os.path.join(path, 'run-' + tmp_suff1 + '-' + tmp_suff2 + '.sh')):
+        return 'run-' + tmp_suff1 + '-' + tmp_suff2 + '.sh'
     elif exists(os.path.join(path, 'run-' + tmp_suff1 + '.sh')):
         return 'run-' + tmp_suff1 + '.sh'
     else:
