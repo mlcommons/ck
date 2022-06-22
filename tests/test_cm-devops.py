@@ -1,7 +1,7 @@
 try:
     import cmind as cm
 
-    r = cm.access({'action':'run', 'automation':'script', 'tags': 'python,src,install,_shared', 'version': '3.9.10'})
+    r = cm.access({'action':'run', 'automation':'script', 'tags': 'python,src,install,_shared', 'version': '3.9.10', 'quiet': 'true'})
     if 'return' not in r:
         raise Exception('CM access function should always return key \'return\'!')
     
