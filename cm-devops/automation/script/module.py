@@ -175,6 +175,10 @@ class CAutomation(Automation):
         saved_env = copy.deepcopy(env)
         saved_state = copy.deepcopy(state)
 
+#        # However, give a possibility to reuse previous one (to connect get-llvm and install-llvm-prebuilt and treat all as new env)
+#        saved_env = i.get('saved_env', {}) if 'saved_env' in i else copy.deepcopy(env)
+#        saved_state = i.get('saved_state', {}) if 'saved_state' in i else copy.deepcopy(state)
+
         save_state = i.get('save_state', False)
 
         # Local env (only
@@ -264,31 +268,68 @@ class CAutomation(Automation):
         if 'CM_VERSION' in env: 
             version = env['CM_VERSION']
         else:
-            version = i.get('version','').strip()
+            version = i.get('version', '').strip()
 
         if 'CM_VERSION_MIN' in env: 
             version_min = env['CM_VERSION_MIN']
         else:
-            version_min = i.get('version_min','').strip()
+            version_min = i.get('version_min', '').strip()
 
         if 'CM_VERSION_MAX' in env: 
             version_max = env['CM_VERSION_MAX']
         else:
-            version_max = i.get('version_max','').strip()
+            version_max = i.get('version_max', '').strip()
 
-        if version_min == '': version_min = meta.get('default_version_min', '')
-        if version_max == '': version_max = meta.get('default_version_max', '')
+        if version_min == '': 
+            version_min = meta.get('default_version_min', '')
+
+        if version_max == '': 
+            version_max = meta.get('default_version_max', '')
 
         if version == '':
-            if version_min != '': version = version_min
-            elif version_max != '': version = version_max
-            else:
-                version = meta.get('default_version', '')
+            default_version = meta.get('default_version', '')
 
+            if default_version != '':
+                if version_min == '' and version_max == '':
+                    version = default_version
+                else:
+                    if version_min != '':
+                        # default_version = 3.9.6 < version_min = 3.10.1  -> USE version_min
+                        print (default_version, version_min)
+                        ry = self.cmind.access({'action':'compare_versions',
+                                                'automation':'utils,dc2743f8450541e3',
+                                                'version1':default_version,
+                                                'version2':version_min})
+                        if ry['return']>0: return ry
+
+                        if ry['comparison'] < 0:
+                            version = version_min
+
+                    if version == '' and version_max != '':
+                        # default_version = 3.10.5 > version_max = 3.9.99 (or 3.10.-1)   -> NEED version_default from CMD or ENV
+                        ry = self.cmind.access({'action':'compare_versions',
+                                           'automation':'utils,dc2743f8450541e3',
+                                           'version1':default_version,
+                                           'version2':version_max})
+                        if ry['return']>0: return ry
+
+                        if ry['comparison'] > 0:
+                            version = env.get('CM_VERSION_MAX_DEFAULT', '')
+                            if version == '':
+                                version = i.get('version_max_default', '')
+                            if version == '':
+                                return {'return':1, 'error':'ambiguity: default_version > version_max and version_max_default is not defined'}
+
+                    if version == '':
+                        # version_min <= default_version <= version_max
+                        version = default_version
+
+        # Update env with resolved versions
         if version !='': env['CM_VERSION'] = version
         if version_min !='': env['CM_VERSION_MIN'] = version_min
         if version_max !='': env['CM_VERSION_MAX'] = version_max
 
+        print (recursion_spaces+'    - Requested version: {}'.format(version))
 
         # Check input/output/paths
         for key in ['path', 'input', 'output']:
@@ -687,7 +728,6 @@ class CAutomation(Automation):
 
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
-
 
         ##################################### Finalize script
         # Force consts in the final new env and state
