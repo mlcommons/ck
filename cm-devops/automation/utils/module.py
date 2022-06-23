@@ -338,9 +338,9 @@ class CAutomation(Automation):
 
         # 3.9.6 vs 3.9
         # 3.9 vs 3.9.6
-
-        i_version1 = [int(v) for v in l_version1]
-        i_version2 = [int(v) for v in l_version2]
+	
+        i_version1 = [int(v) if isinstance(v, int) else v for v in l_version1]
+        i_version2 = [int(v) if isinstance(v, int) else v for v in l_version2]
 
         comparison = 0
 
