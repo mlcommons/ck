@@ -1284,6 +1284,8 @@ def get_script_name(env, path):
         return 'run-' + tmp_suff1 + '-' + tmp_suff2 + '.sh'
     elif exists(os.path.join(path, 'run-' + tmp_suff1 + '.sh')):
         return 'run-' + tmp_suff1 + '.sh'
+    elif exists(os.path.join(path, 'run-' + tmp_suff3 + '.sh')):
+        return 'run-' + tmp_suff3 + '.sh'
     else:
         return 'run.sh';
 
