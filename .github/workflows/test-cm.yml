@@ -47,4 +47,3 @@ jobs:
     - name: Test
       run: |
         python tests/test_cm.py
-        python tests/test_cm-devops.py
