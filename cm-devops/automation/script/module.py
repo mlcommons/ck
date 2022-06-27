@@ -574,15 +574,14 @@ class CAutomation(Automation):
             #######################################################################
             # Check chain of dependencies on other CM scripts
             if len(deps)>0:
-                # Preserve local env
-                local_env = {}
-                for k in self.local_env_keys:
-                    if k in env:
-                        local_env[k] = env[k]
-                        del(env[k])
-
                 # Go through dependencies list and run scripts
                 for d in deps:
+                    # Preserve local env
+                    local_env = {}
+                    for k in self.local_env_keys:
+                        if k in env:
+                            local_env[k] = env[k]
+                            del(env[k])
                     # Run script via CM API:
                     # Not very efficient but allows logging - can be optimized later
                     ii = {
@@ -602,8 +601,9 @@ class CAutomation(Automation):
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
 
-                # Restore local env
-                env.update(local_env)
+                    # Restore local env
+                    env.update(local_env)
+
 
             # Clean some output files
             clean_tmp_files(clean_files, recursion_spaces)
