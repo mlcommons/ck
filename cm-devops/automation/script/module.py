@@ -354,6 +354,7 @@ class CAutomation(Automation):
             cache = False
 
         cached_artifact_uid = ''
+        cached_meta = {}
 
         remove_tmp_tag = False
         reuse_cached = False
@@ -509,20 +510,17 @@ class CAutomation(Automation):
                 tmp_tags = 'tmp,'+cached_tags
 
                 # Use update to update the tmp one if already exists
-                print (recursion_spaces+'  - Creating new "cached" artifact in the CM local repository ...')
+                print (recursion_spaces+'  - Creating new "cache" artifact in the CM local repository ...')
                 print (recursion_spaces+'    - Tags: {}'.format(tmp_tags))
 
-                cache_meta = {}
-
-                if version != '': cache_meta['version'] = version
-                if version_min != '': cache_meta['version_min'] = version_min
-                if version_max != '': cache_meta['version_max'] = version_max
+                if version != '': 
+                    cached_meta['version'] = version
 
                 ii = {'action':'update',
                       'automation': self.meta['deps']['cache'],
                       'search_tags':tmp_tags,
                       'tags':tmp_tags,
-                      'meta':cache_meta,
+                      'meta':cached_meta,
                       'force':True}
 
                 r = self.cmind.access(ii)
@@ -753,7 +751,7 @@ class CAutomation(Automation):
         r = record_script(self.tmp_file_env + bat_ext, env_script, os_info)
         if r['return']>0: return r
 
-        # If using cached artifact, return to default path
+        # If using cached artifact, return to default path and then update the cache artifact
         if cache and cached_path!='':
             # Check if need to remove tag
             if remove_tmp_tag:
@@ -947,7 +945,6 @@ class CAutomation(Automation):
                        detected_version = rx.get('version','')
 
                        if detected_version != '':
-
                            ry = check_version_constraints({'detected_version': detected_version,
                                                            'version': version,
                                                            'version_min': version_min,
@@ -1157,24 +1154,24 @@ def check_version_constraints(i):
         skip = True
 
     if not skip and detected_version != '' and version_min != '':
-       ry = cmind.access({'action':'compare_versions',
-                          'automation':'utils,dc2743f8450541e3',
-                          'version1':detected_version,
-                          'version2':version_min})
-       if ry['return']>0: return ry
+        ry = cmind.access({'action':'compare_versions',
+                           'automation':'utils,dc2743f8450541e3',
+                           'version1':detected_version,
+                           'version2':version_min})
+        if ry['return']>0: return ry
 
-       if ry['comparison'] < 0:
-           skip = True
+        if ry['comparison'] < 0:
+            skip = True
 
     if not skip and detected_version != '' and version_max != '':
-       ry = cmind.access({'action':'compare_versions',
-                          'automation':'utils,dc2743f8450541e3',
-                          'version1':detected_version,
-                          'version2':version_max})
-       if ry['return']>0: return ry
+        ry = cmind.access({'action':'compare_versions',
+                           'automation':'utils,dc2743f8450541e3',
+                           'version1':detected_version,
+                           'version2':version_max})
+        if ry['return']>0: return ry
 
-       if ry['comparison'] > 0:
-           skip = True
+        if ry['comparison'] > 0:
+            skip = True
 
     return {'return':0, 'skip':skip}
 
