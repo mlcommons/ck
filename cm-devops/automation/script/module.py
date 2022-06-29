@@ -28,7 +28,7 @@ class CAutomation(Automation):
 
         self.__version__ = "0.5.0"
 
-        self.local_env_keys = ['CM_VERSION', 'CM_VERSION_MIN', 'CM_VERSION_MAX']
+        self.local_env_keys = ['CM_VERSION', 'CM_VERSION_MIN', 'CM_VERSION_MAX', 'CM_DETECTED_VERSION']
 
     ############################################################
     def version(self, i):
@@ -768,9 +768,15 @@ class CAutomation(Automation):
                 # Remove tmp tag from the "cached" arifact to finalize caching
                 print (recursion_spaces+'  - Removing tmp tag in the script cached output {} ...'.format(cached_uid))
 
+                # Check if version was detected and record in meta)
+                detected_version = env.get('CM_DETECTED_VERSION','')
+                if detected_version != '':
+                    cached_meta['version'] = detected_version
+
                 ii = {'action': 'update',
                       'automation': self.meta['deps']['cache'],
                       'artifact': cached_uid,
+                      'meta':cached_meta,
                       'replace_lists': True, # To replace tags
                       'tags':cached_tags}
                 r = self.cmind.access(ii)
@@ -1130,6 +1136,7 @@ class CAutomation(Automation):
         version = r['match'].group(group_number)
 
         which_env[env_key] = version
+        which_env['CM_DETECTED_VERSION'] = version # to be recorded in the cache meta
 
         return {'return':0, 'version':version, 'string':string}
 

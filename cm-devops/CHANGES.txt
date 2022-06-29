@@ -1,5 +1,6 @@
 20220629:
  * fixed a bug in version comparison (converting string to int)
+ * added recording of "version" to cache meta
 
 20220628:
  * fixed local_env with deps
