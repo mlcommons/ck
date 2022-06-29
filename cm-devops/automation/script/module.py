@@ -773,6 +773,9 @@ class CAutomation(Automation):
                 if detected_version != '':
                     cached_meta['version'] = detected_version
 
+                if found_artifact != '':
+                    cached_meta['associated_script'] = found_artifact
+
                 ii = {'action': 'update',
                       'automation': self.meta['deps']['cache'],
                       'artifact': cached_uid,
