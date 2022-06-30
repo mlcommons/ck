@@ -825,6 +825,26 @@ class CAutomation(Automation):
                     cached_tags = [x for x in cached_tags if not x.startswith('version-')]
                     cached_tags.append('version-' + r['version'])
 
+            # Assemble PIP versions
+            pip_version_string = ''
+
+            pip_version = env.get('CM_VERSION', '')
+            pip_version_min = env.get('CM_VERSION_MIN', '')
+            pip_version_max = env.get('CM_VERSION_MAX', '')
+
+            if pip_version != '':
+                pip_version_string = '=='+pip_version
+            elif pip_version_min != '' and pip_version_max != '':
+                pip_version_string = '>='+pip_version_min+',<='+pip_version_max
+            elif pip_version_min != '':
+                pip_version_string = '>='+pip_version_min
+            elif pip_version_max != '':
+                pip_version_string = '<='+pip_version_max
+
+            if pip_version_string != '':
+                env['CM_TMP_PIP_VERSION_STRING'] = pip_version_string
+                print (recursion_spaces+'  - PIP version string: '+pip_version_string)
+
             # Prepare run script
             r = prepare_and_run_script_with_postprocessing(run_script_input)
             if r['return']>0: return r
