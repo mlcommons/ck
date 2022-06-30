@@ -964,3 +964,81 @@ class Automation:
             if r['return'] >0: return r
 
         return {'return':0, 'list':lst}
+
+    ############################################################
+    def info(self, i):
+        """
+        Get info about artifacts
+
+        Args:
+            (CM input dict):
+
+            (out) (str): if 'con', output to console
+
+            parsed_automation (list): prepared in CM CLI or CM access function
+                                      [ (automation alias, automation UID) ] or
+                                      [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
+
+            parsed_artifact (list): prepared in CM CLI or CM access function
+                                      [ (artifact alias, artifact UID) ] or
+                                      [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+            parsed_artifacts (list): prepared in CM CLI or CM access function - 1st entry has a new artifact name and repository:
+                                      [ (artifact alias, artifact UID) ] or
+                                      [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+            * list (list): list of renamed/moved CM artifacts
+
+        """
+
+        # Check parsed automation
+        if 'parsed_automation' not in i:
+           return {'return':1, 'error':'automation is not specified'}
+
+        console = i.get('out') == 'con'
+
+        # Find CM artifact(s)
+        i['out'] = None
+        r = self.search(i)
+
+        if r['return']>0: return r
+
+        lst = r['list']
+        if len(lst)==0:
+            return {'return':16, 'error':'artifact not found: {}'.format(i)}
+
+        for artifact in lst:
+            if console and len(lst)>1:
+                print ('****************************************************')
+
+            path = artifact.path
+            meta = artifact.meta
+            original_meta = artifact.original_meta
+
+            alias = meta.get('alias','')
+            uid = meta.get('uid','')
+            automation_alias = meta.get('automation_alias','')
+            automation_uid = meta.get('automation_uid','')
+
+            cid_user_friendly = automation_alias if automation_alias != '' else automation_uid
+            cid_user_friendly += '::' + (alias if alias != '' else uid)
+
+            cid_misc = automation_alias if automation_alias != '' else automation_uid
+            cid_misc += '::' + uid
+            
+            cid = automation_uid + '::' + uid
+
+            # Output if console
+            if console:
+                print (cid_user_friendly)
+                print (cid_misc)
+                print (cid)
+                print (path)
+
+        return {'return':0}

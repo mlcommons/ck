@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## DEV
+   - Added "cm info" to print various info about artifacts
+
 ## V0.7.21
    - fixed bug in "cm move" when moving to a repository with a prefix
    - redirect "cm version" to "cm version core"
