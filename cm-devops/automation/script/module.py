@@ -1071,6 +1071,80 @@ class CAutomation(Automation):
         return {'return':0, 'found_paths':found_paths}
 
     ##############################################################################
+    def detect_version_using_script(self, i):
+        """
+        Detect version using script
+
+        Args:
+          (CM input dict): 
+
+          (recursion_spaces) (str): add space to print
+
+          run_script_input (dict): use this input to run script to detect version
+          (env) (dict): env to check/force version
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+                                             16 if not detected
+           * (error) (str): error string if return>0
+
+           (detected_version) (str): detected version
+
+        """
+        recursion_spaces = i.get('recursion_spaces','')
+
+        import copy
+
+        detected = False
+
+        env = i.get('env', {})
+
+        run_script_input = i['run_script_input']
+
+        version = env.get('CM_VERSION', '')
+        version_min = env.get('CM_VERSION_MIN', '')
+        version_max = env.get('CM_VERSION_MAX', '')
+
+        x = ''
+
+        if version != '': x += ' == {}'.format(version)
+        if version_min != '': x += ' >= {}'.format(version_min)
+        if version_max != '': x += ' <= {}'.format(version_max)
+
+        print (recursion_spaces + '  - Detecting versions ({}) ...'.format(x))
+
+        new_recursion_spaces = recursion_spaces + '    '
+
+        run_script_input['recursion_spaces'] = new_recursion_spaces
+
+        # Prepare run script
+        rx = prepare_and_run_script_with_postprocessing(run_script_input)
+
+        run_script_input['recursion_spaces'] = recursion_spaces
+
+        if rx['return']>0: 
+            if rx['return'] != 2:
+                return rx
+        else:
+           # Version was detected 
+           detected_version = rx.get('version','')
+
+           if detected_version != '':
+               ry = check_version_constraints({'detected_version': detected_version,
+                                               'version': version,
+                                               'version_min': version_min,
+                                               'version_max': version_max,
+                                               'cmind':self.cmind})
+               if ry['return']>0: return ry
+
+               if not ry['skip']:
+                   return {'return':0, 'detected_version':detected_version}
+
+        return {'return':16, 'error':'version was not detected'}
+
+    ##############################################################################
     def find_artifact(self, i):
         """
         Find artifact

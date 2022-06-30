@@ -1,4 +1,5 @@
 20220629:
+ * added "detect_version_using_script" in script used to detect python packages
  * major fix to properly support multiple scripts with the same tags, caching, selection, etc
  * fixed a bug in version comparison (converting string to int)
  * added recording of "version" to cache meta
