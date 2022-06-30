@@ -1124,10 +1124,7 @@ class CAutomation(Automation):
 
         run_script_input['recursion_spaces'] = recursion_spaces
 
-        if rx['return']>0: 
-            if rx['return'] != 2:
-                return rx
-        else:
+        if rx['return'] == 0: 
            # Version was detected 
            detected_version = rx.get('version','')
 
