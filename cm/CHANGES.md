@@ -2,6 +2,7 @@
 
 ## DEV
    - Added "cm info" to print various info about artifacts
+   - Fixed bug with printing help for actions when they are substituted (rm -> delete)
 
 ## V0.7.21
    - fixed bug in "cm move" when moving to a repository with a prefix

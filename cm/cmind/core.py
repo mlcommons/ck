@@ -564,7 +564,7 @@ def print_action_help(automation, common_automation, print_automation, action, o
      print ('API:')
      print ('')
 
-     r=utils.find_api(path_to_automation, original_action)
+     r=utils.find_api(path_to_automation, action)
      if r['return']>0: 
          if r['return']==16:
              # Check in default automation
