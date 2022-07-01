@@ -1,4 +1,5 @@
 20220701:
+ * added "--env" to "cm show cache" to show env and state
  * added "cm show cache"
 
 20220629:
