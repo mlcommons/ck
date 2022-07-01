@@ -61,7 +61,7 @@ class CAutomation(Automation):
     ############################################################
     def test(self, i):
         """
-        Test automation
+        Test automation (TBD)
 
         Args:
           (CM input dict): 
@@ -93,9 +93,35 @@ class CAutomation(Automation):
         """
 
         import json
-        print (json.dumps(i, indent=2))
+        
+        # Check parsed automation
+        if 'parsed_automation' not in i:
+           return {'return':1, 'error':'automation is not specified'}
 
-        return {'return':0}
+        console = i.get('out') == 'con'
+
+        # Find CM artifact(s)
+        i['out'] = None
+        r = self.search(i)
+
+        if r['return']>0: return r
+
+        lst = r['list']
+        for artifact in lst:
+            path = artifact.path
+            meta = artifact.meta
+            original_meta = artifact.original_meta
+
+            alias = meta.get('alias','')
+            uid = meta.get('uid','')
+
+            if console:
+                print ('')
+                print (path)
+                print ('  Test: TBD')
+
+
+        return {'return':0, 'list': lst}
 
     ############################################################
     def run(self, i):
