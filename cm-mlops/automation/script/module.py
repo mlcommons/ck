@@ -706,24 +706,12 @@ class CAutomation(Automation):
                 for d in deps:
 
                     if "enable_if_env" in d:
-                        enabled = False
-                        for key in d["enable_if_env"]:
-                            if key in env:
-                                if env[key] in d["enable_if_env"][key]:
-                                    enabled = True
-                                    break
-                        if not enabled:
-                            continue
+                        if not self.enable_or_skip_script(d["enable_if_env"], env, True):
+                            continue;
 
                     if "skip_if_env" in d:
-                        enabled = True
-                        for key in d["skip_if_env"]:
-                            if key in env:
-                                if env[key] in d["skip_if_env"][key]:
-                                    enabled = False
-                                    break
-                        if not enabled:
-                            continue
+                        if self.enable_or_skip_script(d["skip_if_env"], env, False):
+                            continue;
 
                     for k in self.local_env_keys:
                         if k in env:
@@ -1323,6 +1311,19 @@ class CAutomation(Automation):
 
         return {'return':0, 'version':version, 'string':string}
 
+    ##############################################################################
+    def enable_or_skip_script(self, meta, env, enable_or_skip:bool):
+        """
+        Internal: enable a dependency based on enable_if_env and skip_if_env meta information
+        """
+        for key in meta:
+            if key in env:
+                if env[key].lower() in ["yes", "on", "true", "1"]:
+                    if env[key].lower() in (meta[key] + ["yes", "on", "true", "1"]):
+                        return True
+                elif env[key].lower() in meta[key]:
+                    return True
+        return False
 
 ##############################################################################
 def check_version_constraints(i):
@@ -1711,8 +1712,6 @@ def select_artifact(lst, text, recursion_spaces, can_skip):
         print (recursion_spaces+'      Selected {}: {}'.format(selection, lst[selection].path))
 
     return selection
-
-
 
 ##############################################################################
 # Demo to show how to use CM components independently if needed
