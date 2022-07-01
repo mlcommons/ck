@@ -170,7 +170,6 @@ class CAutomation(Automation):
         # Get current env and state before running this script and sub-scripts
         env = i.get('env',{})
         state = i.get('state',{})
-
         # Save current env and state to detect new env and state after this script
         saved_env = copy.deepcopy(env)
         saved_state = copy.deepcopy(state)
@@ -705,6 +704,27 @@ class CAutomation(Automation):
 
                 # Go through dependencies list and run scripts
                 for d in deps:
+
+                    if "enable_if_env" in d:
+                        enabled = False
+                        for key in d["enable_if_env"]:
+                            if key in env:
+                                if env[key] in d["enable_if_env"][key]:
+                                    enabled = True
+                                    break
+                        if not enabled:
+                            continue
+
+                    if "skip_if_env" in d:
+                        enabled = True
+                        for key in d["skip_if_env"]:
+                            if key in env:
+                                if env[key] in d["skip_if_env"][key]:
+                                    enabled = False
+                                    break
+                        if not enabled:
+                            continue
+
                     for k in self.local_env_keys:
                         if k in env:
                             del(env[k])
