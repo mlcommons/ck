@@ -1026,19 +1026,19 @@ class Automation:
             automation_alias = meta.get('automation_alias','')
             automation_uid = meta.get('automation_uid','')
 
-            cid_user_friendly = automation_alias if automation_alias != '' else automation_uid
-            cid_user_friendly += '::' + (alias if alias != '' else uid)
-
-            cid_misc = automation_alias if automation_alias != '' else automation_uid
-            cid_misc += '::' + uid
+            cid = utils.assemble_cm_object(automation_alias,automation_uid) + \
+                  '::' + \
+                  utils.assemble_cm_object(alias,uid)
             
-            cid = automation_uid + '::' + uid
+#            cid_user_friendly = automation_alias if automation_alias != '' else automation_uid
+#            cid_user_friendly += '::' + (alias if alias != '' else uid)
+#            cid_misc = automation_alias if automation_alias != '' else automation_uid
+#            cid_misc += '::' + uid
+#            cid = automation_uid + '::' + uid
 
             # Output if console
             if console:
-                print (cid_user_friendly)
-                print (cid_misc)
                 print (cid)
-                print (path)
+                print ('  '+path)
 
-        return {'return':0}
+        return {'return':0, 'list': lst}
