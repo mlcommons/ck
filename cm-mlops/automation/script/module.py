@@ -28,7 +28,14 @@ class CAutomation(Automation):
 
         self.__version__ = "0.5.0"
 
-        self.local_env_keys = ['CM_VERSION', 'CM_VERSION_MIN', 'CM_VERSION_MAX', 'CM_DETECTED_VERSION']
+        self.local_env_keys = ['CM_VERSION', 
+                               'CM_VERSION_MIN', 
+                               'CM_VERSION_MAX', 
+                               'CM_DETECTED_VERSION',
+                               'CM_INPUT',
+                               'CM_OUTPUT',
+                               'CM_NAME',
+                               'CM_EXTRA_CACHE_TAGS']
 
     ############################################################
     def version(self, i):
@@ -151,6 +158,11 @@ class CAutomation(Automation):
 
           (path) (str): list of paths to be added to env.CM_TMP_PATH to specialize this flow
 
+          (input) (str): converted to env.CM_INPUT  (local env)
+          (output) (str): converted to env.CM_OUTPUT (local env)
+          (name) (str): converted to env.CM_NAME (local env)
+          (add_cache_tags) (str): converted to env.CM_EXTRA_CACHE_TAGS and used to add to caching (local env)
+
           (quiet) (bool): if True, set env.CM_TMP_QUIET to "yes" and attempt to skip questions
                           (the developers have to support it in pre/post processing and scripts)
 
@@ -237,9 +249,20 @@ class CAutomation(Automation):
         # Bat extension for this host OS
         bat_ext = os_info['bat_ext']
 
+        # Check path/input/output in input and pass to env
+        for key in ['path']:
+            value = i.get(key, '').strip()
+            if value != '':
+                env['CM_TMP_' + key.upper()] = value
 
+        for key in ['input', 'output', 'name', 'extra_cache_tags']:
+            value = i.get(key, '').strip()
+            if value != '':
+                env['CM_' + key.upper()] = value
 
-
+        # Check extra cache tags
+        x = env.get('CM_EXTRA_CACHE_TAGS','').strip()
+        extra_cache_tags = [] if x=='' else x.split(',')
 
 
 
@@ -367,6 +390,10 @@ class CAutomation(Automation):
                     if x not in cached_tags: cached_tags.append(x)
 
                 print (recursion_spaces+'    - Prepared variations: {}'.format(variation_tags_string))
+
+            if len(extra_cache_tags)>0:
+                for t in extra_cache_tags:
+                    if t not in cached_tags: cached_tags.append(t)
 
             # Add version
             if version !='':
@@ -641,7 +668,7 @@ class CAutomation(Automation):
                 ii = {'action':'update',
                       'automation': self.meta['deps']['cache'],
                       'search_tags':tmp_tags,
-                      'tags':','.join(sorted(tmp_tags)),
+                      'tags':','.join(tmp_tags),
                       'meta':cached_meta,
                       'force':True}
 
@@ -666,12 +693,6 @@ class CAutomation(Automation):
 
 
 
-
-        # Check input/output/paths
-        for key in ['path', 'input', 'output']:
-            value = i.get(key, '').strip()
-            if value != '':
-                env['CM_' + key.upper()] = value
 
         # Prepare files to be cleaned
         clean_files = [self.tmp_file_run_state, 
@@ -728,11 +749,11 @@ class CAutomation(Automation):
                 for d in deps:
 
                     if "enable_if_env" in d:
-                        if not self.enable_or_skip_script(d["enable_if_env"], env, True):
+                        if not enable_or_skip_script(d["enable_if_env"], env, True):
                             continue;
 
                     if "skip_if_env" in d:
-                        if self.enable_or_skip_script(d["skip_if_env"], env, False):
+                        if enable_or_skip_script(d["skip_if_env"], env, False):
                             continue;
 
                     for k in self.local_env_keys:
@@ -815,6 +836,7 @@ class CAutomation(Automation):
                 ii = copy.deepcopy(customize_common_input)
                 ii['env'] = env
                 ii['state'] = state
+                ii['meta'] = meta
                 ii['run_script_input'] = run_script_input # may need to detect versions in multiple paths
 
                 r = customize_code.preprocess(ii)
@@ -851,9 +873,15 @@ class CAutomation(Automation):
                     return self.cmind.access(ii)
 
                 # If return version
-                if cache and r.get('version','') != '':
-                    cached_tags = [x for x in cached_tags if not x.startswith('version-')]
-                    cached_tags.append('version-' + r['version'])
+                if cache:
+                    if r.get('version','') != '':
+                        cached_tags = [x for x in cached_tags if not x.startswith('version-')]
+                        cached_tags.append('version-' + r['version'])
+
+                    if len(r.get('add_extra_cache_tags',[]))>0:
+                       for t in r['add_extra_cache_tags']:
+                           if t not in cached_tags:
+                               cached_tags.append(t) 
 
             # Assemble PIP versions
             pip_version_string = ''
@@ -876,6 +904,7 @@ class CAutomation(Automation):
                 print (recursion_spaces+'  - PIP version string: '+pip_version_string)
 
             # Prepare run script
+            run_script_input['meta']=meta
             r = prepare_and_run_script_with_postprocessing(run_script_input)
             if r['return']>0: return r
 
@@ -958,7 +987,7 @@ class CAutomation(Automation):
                       'artifact': cached_uid,
                       'meta':cached_meta,
                       'replace_lists': True, # To replace tags
-                      'tags':','.join(sorted(cached_tags))}
+                      'tags':','.join(cached_tags)}
                 r = self.cmind.access(ii)
                 if r['return']>0: return r
 
@@ -1334,18 +1363,50 @@ class CAutomation(Automation):
         return {'return':0, 'version':version, 'string':string}
 
     ##############################################################################
-    def enable_or_skip_script(self, meta, env, enable_or_skip:bool):
+    def update_deps(self, i):
         """
-        Internal: enable a dependency based on enable_if_env and skip_if_env meta information
+        Update deps from pre/post processing
+
+        Args:
+          (CM input dict): 
+
+          deps (dict): deps dict
+          update_deps (dict): key matches "names" in deps
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
         """
-        for key in meta:
-            if key in env:
-                if env[key].lower() in ["yes", "on", "true", "1"]:
-                    if env[key].lower() in (meta[key] + ["yes", "on", "true", "1"]):
-                        return True
-                elif env[key].lower() in meta[key]:
+
+        deps = i['deps']
+        update_deps = i['update_deps']
+        
+        for name in update_deps:
+            for dep in deps:
+                names = dep.get('names',[])
+                if name in names:
+                    utils.merge_dicts({'dict1':dep, 'dict2':update_deps[name], 'append_lists':True, 'append_unique':True})
+
+        return {'return':0}
+
+
+##############################################################################
+def enable_or_skip_script(self, meta, env, enable_or_skip:bool):
+    """
+    Internal: enable a dependency based on enable_if_env and skip_if_env meta information
+    """
+    for key in meta:
+        if key in env:
+            if env[key].lower() in ["yes", "on", "true", "1"]:
+                if env[key].lower() in (meta[key] + ["yes", "on", "true", "1"]):
                     return True
-        return False
+            elif env[key].lower() in meta[key]:
+                return True
+    return False
+
 
 ##############################################################################
 def check_version_constraints(i):
@@ -1404,6 +1465,8 @@ def prepare_and_run_script_with_postprocessing(i):
     const = i.get('const', {})
     state = i.get('state', {})
     const_state = i.get('const_state', {})
+
+    meta = i.get('meta',{})
 
     customize_common_input = i.get('customize_common_input',{})
 
@@ -1509,6 +1572,7 @@ def prepare_and_run_script_with_postprocessing(i):
             ii = copy.deepcopy(customize_common_input)
             ii['env'] = env
             ii['state'] = state
+            ii['meta'] = meta
 
             r = customize_code.postprocess(ii)
             if r['return']>0: return r
@@ -1621,10 +1685,7 @@ def update_deps_tags(deps, add_deps_tags):
                     tags += deps_tags
                     dep['tags'] = tags
 
-                    break
-
     return {'return':0}
-
 
 ##############################################################################
 def update_state_from_meta(meta, env, state, deps, i):
