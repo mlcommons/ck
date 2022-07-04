@@ -287,14 +287,10 @@ class CAutomation(Automation):
         print ('')
         print (recursion_spaces + '* Searching for ' + cm_script_info)
 
-        tmp_out = i.get('out')
-        console = tmp_out == 'con'
+        ii['out'] = None
+        ii['common'] = True
 
-        i['out'] = None
-        i['common'] = True
-
-        r = self.search(i)
-        i['out'] = tmp_out
+        r = self.search(ii)
         if r['return']>0: return r
 
         list_of_found_scripts = r['list']
