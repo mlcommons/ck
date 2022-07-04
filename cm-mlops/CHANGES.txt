@@ -2,6 +2,7 @@
  * fixed a bug with searching for scripts with variations
  * added the possibilty to update deps from pre/post processing
  * added --extra-cache-tags and --name for "cm run script"
+ * added prototype of selection caching
 
 20220701:
  * added dummy "cm test script"

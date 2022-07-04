@@ -180,6 +180,7 @@ class CAutomation(Automation):
 
           (recursion_spaces) (str, internal): adding '  ' during recursion for debugging
 
+          (remembered_selections) (list): remember selections of cached outputs
 
           ...
 
@@ -202,8 +203,11 @@ class CAutomation(Automation):
         from cmind import utils
         import copy
 
-        recursion_spaces = i.get('recursion_spaces','')
+        recursion_spaces = i.get('recursion_spaces', '')
         recursion = i.get('recursion', False)
+
+        remembered_selections = i.get('remembered_selections', [])
+
 
         # Get current env and state before running this script and sub-scripts
         env = i.get('env',{})
@@ -318,6 +322,14 @@ class CAutomation(Automation):
 
         list_of_found_scripts = r['list']
 
+        # Check if selection is remembered
+        if len(list_of_found_scripts) > 1:
+            for selection in remembered_selections:
+                if selection['type'] == 'script' and selection['tags'] == artifact_tags_string:
+                    list_of_found_scripts = [selection['cached_artifact']]
+                    print (recursion_spaces + '  - Found remembered selection with tags "{}"!'.format(artifact_tags_string))
+                    break
+
         found_script_tags = list_of_found_scripts[0].meta.get('tags',[]) if len(list_of_found_scripts) == 1 else []
 
 
@@ -371,7 +383,8 @@ class CAutomation(Automation):
             # It will be gradually enhanced with more "knowledge"  ...
             if len(artifact_tags)>0:
                 for x in artifact_tags:
-                    cached_tags.append(x)
+                    if not x.startswith('-') and x not in cached_tags:
+                        cached_tags.append(x)
 
             if len(found_script_tags)>0:
                 for x in found_script_tags:
@@ -391,13 +404,14 @@ class CAutomation(Automation):
 
                 print (recursion_spaces+'    - Prepared variations: {}'.format(variation_tags_string))
 
-            if len(extra_cache_tags)>0:
-                for t in extra_cache_tags:
-                    if t not in cached_tags: cached_tags.append(t)
-
             # Add version
             if version !='':
                 if 'version-'+version not in cached_tags: cached_tags.append('version-'+version)
+
+            # Add extra cache tags (such as "virtual" for python)
+            if len(extra_cache_tags)>0:
+                for t in extra_cache_tags:
+                    if t not in cached_tags: cached_tags.append(t)
 
             # Check if already cached
             if not i.get('new', False):
@@ -414,6 +428,17 @@ class CAutomation(Automation):
                 found_cached_artifacts = r['list']
 
                 num_found_cached_artifacts = len(found_cached_artifacts)
+
+                # Check if selection is remembered
+                if num_found_cached_artifacts > 1:
+                    # Need to add extra cached tags here (since recorded later)
+                    for selection in remembered_selections:
+                        if selection['type'] == 'cache' and selection['tags'] == search_tags:
+                            found_cached_artifacts = [selection['cached_artifact']]
+                            num_found_cached_artifacts = len(found_cached_artifacts)
+                            print (recursion_spaces + '  - Found remembered selection with tags "{}"!'.format(search_tags))
+                            break
+
             else:
                 num_found_cached_artifacts = 0
 
@@ -468,12 +493,18 @@ class CAutomation(Automation):
                 if num_found_cached_artifacts > 1:
                     selection = select_artifact(found_cached_artifacts, 'cached script output', recursion_spaces, True)
 
+                    # Remember selection
+                    remembered_selections.append({'type': 'cache',
+                                                  'tags':search_tags,
+                                                  'cached_artifact':found_cached_artifacts[selection]})
+
+
                 else:
                     print (recursion_spaces+'    - Found cached script output: {}'.format(found_cached_artifacts[0].path))
 
                 if num_found_cached_artifacts > 0:
                     # Continue with the selected cached artifact
-                    cached_artifact = r['list'][selection]
+                    cached_artifact = found_cached_artifacts[selection]
 
                     print ('')
                     print (recursion_spaces+'      - Loading "cached" state ...')
@@ -511,6 +542,12 @@ class CAutomation(Automation):
 
             elif len(list_of_found_scripts)>1:
                 select_script = select_artifact(list_of_found_scripts, 'script', recursion_spaces, False)
+                
+                # Remember selection
+                remembered_selections.append({'type': 'script',
+                                              'tags':artifact_tags_string,
+                                              'cached_artifact':list_of_found_scripts[select_script]})
+
 
             artifact = list_of_found_scripts[select_script]
 
@@ -767,6 +804,7 @@ class CAutomation(Automation):
                            'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
                            'recursion_spaces':recursion_spaces + '  ',
                            'recursion':True,
+                           'remembered_selections':remembered_selections,
                            'env':env,
                            'state':state,
                            'const':const,
@@ -800,6 +838,7 @@ class CAutomation(Automation):
                    'const_state': const_state,
                    'reuse_cached': reuse_cached,
                    'recursion_spaces': recursion_spaces,
+                   'remembered_selections': remembered_selections,
                    'tmp_file_run_state': self.tmp_file_run_state,
                    'tmp_file_run_env': self.tmp_file_run_env,
                    'tmp_file_state': self.tmp_file_state,
@@ -925,6 +964,7 @@ class CAutomation(Automation):
                            'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
                            'recursion_spaces':recursion_spaces + '  ',
                            'recursion':True,
+                           'remembered_selections': remembered_selections,
                            'env':env,
                            'state':state,
                            'const':const,
