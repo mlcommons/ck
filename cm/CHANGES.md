@@ -1,8 +1,10 @@
 # Prototyping phase
 
-## DEV
+## V0.7.22
    - Added "cm info" to print various info about artifacts
    - Fixed bug with printing help for actions when they are substituted (rm -> delete)
+   - Added utils.filter_tags to filter tags starting from "-" (used in artifact add and update)
+   - Added tags filter to "cm add" and "cm update"
 
 ## V0.7.21
    - fixed bug in "cm move" when moving to a repository with a prefix

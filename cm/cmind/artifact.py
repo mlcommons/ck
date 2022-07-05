@@ -136,7 +136,7 @@ class Artifact:
             self.original_meta = r['dict1']
 
         if len(tags)>0:
-            self.original_meta['tags']=tags
+            self.original_meta['tags'] = utils.filter_tags(tags)
 
         # Save file with orignal meta without inheritance
 

@@ -388,7 +388,7 @@ class Automation:
             return {'return':16, 'error':'repository {} not found'.format(artifact_repo)}
 
         if len(lst)>1:
-            return {'return':1, 'error':'more than 1 repository found'}
+            return {'return':1, 'error':'more than 1 repository found (ambiguity)'}
 
         repo = lst[0]
 
@@ -431,7 +431,7 @@ class Automation:
         existing_tags = meta.get('tags',[])
         if len(tags)>0: 
             existing_tags += tags
-        meta['tags'] = existing_tags
+        meta['tags'] = utils.filter_tags(existing_tags)
 
         # Record meta
         r = utils.save_json(meta_path_json, meta=meta)

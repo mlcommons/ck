@@ -1385,3 +1385,19 @@ def convert_env_to_dict(s):
                 d[k]=v
 
     return {'return':0, 'dict':d}
+
+###########################################################################
+def filter_tags(tags):
+    """
+    Filter tags (remove starting with -)
+
+    Args:    
+       tags (list): list of tags
+
+    Returns: 
+       (list) list of filtered tags
+    """
+
+    filtered_tags = [t for t in tags if not t.startswith('-')]
+
+    return filtered_tags
