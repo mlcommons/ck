@@ -1,3 +1,7 @@
+20220705:
+ * fixes for remembered selections
+ * added --skip-remembered-selections to "cm run script"
+
 20220704:
  * fixed a bug with searching for scripts with variations
  * added the possibilty to update deps from pre/post processing

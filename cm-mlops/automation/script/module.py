@@ -168,6 +168,9 @@ class CAutomation(Automation):
 
           (skip_cache) (bool): if True, skip caching and run in current directory
 
+          (skip_remembered_selections) (bool): if True, skip remembered selections
+                                               (uses or sets env.CM_TMP_SKIP_REMEMBERED_SELECTIONS to "yes")
+
           (new) (bool): if True, skip search for cached and run again
 
           (dirty) (bool): if True, do not clean files
@@ -233,8 +236,12 @@ class CAutomation(Automation):
         env['CM_TMP_CURRENT_PATH'] = current_path
 
         # Check if quiet
-        quiet = i.get('quiet', False) if 'quiet' in i else (env.get('CM_TMP_QUIET','') == 'yes')
+        quiet = i.get('quiet', False) if 'quiet' in i else (env.get('CM_TMP_QUIET','').lower() == 'yes')
         if quiet: env['CM_TMP_QUIET'] = 'yes'
+
+        skip_remembered_selections = i.get('skip_remembered_selections', False) if 'skip_remembered_selections' in i \
+            else (env.get('CM_SKIP_REMEMBERED_SELECTIONS','').lower() == 'yes')
+        if skip_remembered_selections: env['CM_SKIP_REMEMBERED_SELECTIONS'] = 'yes'
 
         # Prepare debug info
         parsed_artifact = i.get('parsed_artifact')
@@ -323,7 +330,7 @@ class CAutomation(Automation):
         list_of_found_scripts = r['list']
 
         # Check if selection is remembered
-        if len(list_of_found_scripts) > 1:
+        if not skip_remembered_selections and len(list_of_found_scripts) > 1:
             for selection in remembered_selections:
                 if selection['type'] == 'script' and selection['tags'] == artifact_tags_string:
                     list_of_found_scripts = [selection['cached_artifact']]
@@ -383,7 +390,8 @@ class CAutomation(Automation):
             # It will be gradually enhanced with more "knowledge"  ...
             if len(artifact_tags)>0:
                 for x in artifact_tags:
-                    if not x.startswith('-') and x not in cached_tags:
+#                    if not x.startswith('-') and x not in cached_tags:
+                    if x not in cached_tags:
                         cached_tags.append(x)
 
             if len(found_script_tags)>0:
@@ -430,7 +438,7 @@ class CAutomation(Automation):
                 num_found_cached_artifacts = len(found_cached_artifacts)
 
                 # Check if selection is remembered
-                if num_found_cached_artifacts > 1:
+                if not skip_remembered_selections and num_found_cached_artifacts > 1:
                     # Need to add extra cached tags here (since recorded later)
                     for selection in remembered_selections:
                         if selection['type'] == 'cache' and selection['tags'] == search_tags:
@@ -493,10 +501,14 @@ class CAutomation(Automation):
                 if num_found_cached_artifacts > 1:
                     selection = select_artifact(found_cached_artifacts, 'cached script output', recursion_spaces, True)
 
-                    # Remember selection
-                    remembered_selections.append({'type': 'cache',
-                                                  'tags':search_tags,
-                                                  'cached_artifact':found_cached_artifacts[selection]})
+                    if selection >= 0:
+                        if not skip_remembered_selections:
+                            # Remember selection
+                            remembered_selections.append({'type': 'cache',
+                                                          'tags':search_tags,
+                                                          'cached_artifact':found_cached_artifacts[selection]})
+                    else:
+                        num_found_cached_artifacts = 0
 
 
                 else:
@@ -544,9 +556,10 @@ class CAutomation(Automation):
                 select_script = select_artifact(list_of_found_scripts, 'script', recursion_spaces, False)
                 
                 # Remember selection
-                remembered_selections.append({'type': 'script',
-                                              'tags':artifact_tags_string,
-                                              'cached_artifact':list_of_found_scripts[select_script]})
+                if not skip_remembered_selections:
+                    remembered_selections.append({'type': 'script',
+                                                  'tags':artifact_tags_string,
+                                                  'cached_artifact':list_of_found_scripts[select_script]})
 
 
             artifact = list_of_found_scripts[select_script]
@@ -1172,7 +1185,7 @@ class CAutomation(Automation):
                         num += 1
 
                     print ('')
-                    x=input(recursion_spaces+'  Select one or press Enter for 0: ')
+                    x=input(recursion_spaces+'  Make your selection or press Enter for 0: ')
 
                     x=x.strip()
                     if x=='': x='0'
@@ -1809,7 +1822,7 @@ def select_artifact(lst, text, recursion_spaces, can_skip):
 
     print ('')
 
-    s = 'Select one or press Enter for 0'
+    s = 'Make your selection or press Enter for 0'
     if can_skip:
         s += ' or use -1 to skip'
 
