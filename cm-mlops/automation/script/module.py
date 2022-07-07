@@ -28,9 +28,10 @@ class CAutomation(Automation):
 
         self.__version__ = "0.5.0"
 
-        self.local_env_keys = ['CM_VERSION', 
-                               'CM_VERSION_MIN', 
-                               'CM_VERSION_MAX', 
+        self.local_env_keys = ['CM_VERSION',
+                               'CM_VERSION_MIN',
+                               'CM_VERSION_MAX',
+                               'CM_VERSION_MAX_DEFAULT',
                                'CM_DETECTED_VERSION',
                                'CM_INPUT',
                                'CM_OUTPUT',
@@ -100,7 +101,7 @@ class CAutomation(Automation):
         """
 
         import json
-        
+
         # Check parsed automation
         if 'parsed_automation' not in i:
            return {'return':1, 'error':'automation is not specified'}
@@ -154,7 +155,8 @@ class CAutomation(Automation):
 
           (version) (str): version to be added to env.CM_VERSION to specialize this flow
           (version_min) (str): min version to be added to env.CM_VERSION_MIN to specialize this flow
-          (version_max) (str): max version to be added to env.CM_VERSION_MAX to specialize this flo
+          (version_max) (str): max version to be added to env.CM_VERSION_MAX to specialize this flow
+          (version_max_default) (str): max USABLE version to be added to env.CM_VERSION_MAX_DEFAULT
 
           (path) (str): list of paths to be added to env.CM_TMP_PATH to specialize this flow
 
@@ -361,9 +363,10 @@ class CAutomation(Automation):
         else:
             version_max = i.get('version_max', '').strip()
 
-
-
-
+        if 'CM_VERSION_MAX_DEFAULT' in env: 
+            version_max_default = env['CM_VERSION_MAX_DEFAULT']
+        else:
+            version_max_default = i.get('version_max_default', '').strip()
 
 
 
@@ -554,7 +557,7 @@ class CAutomation(Automation):
 
             elif len(list_of_found_scripts)>1:
                 select_script = select_artifact(list_of_found_scripts, 'script', recursion_spaces, False)
-                
+
                 # Remember selection
                 if not skip_remembered_selections:
                     remembered_selections.append({'type': 'script',
@@ -607,11 +610,10 @@ class CAutomation(Automation):
                             if ry['return']>0: return ry
 
                             if ry['comparison'] > 0:
-                                version = env.get('CM_VERSION_MAX_DEFAULT', '')
-                                if version == '':
-                                    version = i.get('version_max_default', '')
-                                if version == '':
+                                if version_max_default == '':
                                     return {'return':1, 'error':'ambiguity: default_version > version_max and version_max_default is not defined'}
+
+                                version = version_max_default
 
                         if version == '':
                             # version_min <= default_version <= version_max
@@ -621,6 +623,7 @@ class CAutomation(Automation):
             if version !='': env['CM_VERSION'] = version
             if version_min !='': env['CM_VERSION_MIN'] = version_min
             if version_max !='': env['CM_VERSION_MAX'] = version_max
+            if version_max_default !='': env['CM_VERSION_MAX_DEFAULT'] = version_max_default
 
             print (recursion_spaces+'    - Requested version: {}'.format(version))
 
@@ -789,6 +792,14 @@ class CAutomation(Automation):
             #######################################################################
             # Check chain of dependencies on other CM scripts
             if len(deps)>0:
+
+                import json
+                print ('=== XYZ0')
+                print (json.dumps(env, indent=2))
+                input('xyz0')
+
+
+
                 # Preserve local env
                 local_env = {}
                 for k in self.local_env_keys:
@@ -832,6 +843,11 @@ class CAutomation(Automation):
 
                 # Restore local env
                 env.update(local_env)
+
+                import json
+                print ('*** XYZ1')
+                print (json.dumps(env, indent=2))
+                input('xyz')
 
             # Clean some output files
             clean_tmp_files(clean_files, recursion_spaces)
