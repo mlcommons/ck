@@ -805,6 +805,7 @@ class CAutomation(Automation):
                 for k in self.local_env_keys:
                     if k in env:
                         local_env[k] = env[k]
+                        del(env[k])
 
                 # Go through dependencies list and run scripts
                 for d in deps:
@@ -816,10 +817,6 @@ class CAutomation(Automation):
                     if "skip_if_env" in d:
                         if enable_or_skip_script(d["skip_if_env"], env, False):
                             continue;
-
-                    for k in self.local_env_keys:
-                        if k in env:
-                            del(env[k])
 
                     # Run script via CM API:
                     # Not very efficient but allows logging - can be optimized later
@@ -840,6 +837,10 @@ class CAutomation(Automation):
 
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
+ 
+                    for k in self.local_env_keys:
+                        if k in env:
+                            del(env[k])
 
                 # Restore local env
                 env.update(local_env)
