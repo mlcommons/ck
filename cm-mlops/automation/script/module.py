@@ -793,13 +793,6 @@ class CAutomation(Automation):
             # Check chain of dependencies on other CM scripts
             if len(deps)>0:
 
-                import json
-                print ('=== XYZ0')
-                print (json.dumps(env, indent=2))
-                input('xyz0')
-
-
-
                 # Preserve local env
                 local_env = {}
                 for k in self.local_env_keys:
@@ -844,11 +837,6 @@ class CAutomation(Automation):
 
                 # Restore local env
                 env.update(local_env)
-
-                import json
-                print ('*** XYZ1')
-                print (json.dumps(env, indent=2))
-                input('xyz')
 
             # Clean some output files
             clean_tmp_files(clean_files, recursion_spaces)
