@@ -1,5 +1,6 @@
 20220708:
  * various fixes to handle versions (min/max/default)
+ * various fixes to avoid contamination of ENV from other scripts
 
 20220705:
  * fixes for remembered selections

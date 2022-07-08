@@ -177,7 +177,7 @@ class CAutomation(Automation):
 
           (dirty) (bool): if True, do not clean files
 
-          (save_state) (bool): if True, save env and state to tmp-env.sh/bat and tmp-state.json
+          (save_env) (bool): if True, save env and state to tmp-env.sh/bat and tmp-state.json
 
           (recursion) (bool): True if recursive call.
                               Useful when preparing the global bat file or Docker container
@@ -217,17 +217,12 @@ class CAutomation(Automation):
         # Get current env and state before running this script and sub-scripts
         env = i.get('env',{})
         state = i.get('state',{})
+
         # Save current env and state to detect new env and state after this script
         saved_env = copy.deepcopy(env)
         saved_state = copy.deepcopy(state)
 
-#        # However, give a possibility to reuse previous one (to connect get-llvm and install-llvm-prebuilt and treat all as new env)
-#        saved_env = i.get('saved_env', {}) if 'saved_env' in i else copy.deepcopy(env)
-#        saved_state = i.get('saved_state', {}) if 'saved_state' in i else copy.deepcopy(state)
-
-        save_state = i.get('save_state', False)
-
-        # Local env (only
+        save_env = i.get('save_env', False)
 
         # Get constant env and state
         const = i.get('const',{})
@@ -805,14 +800,9 @@ class CAutomation(Automation):
 
                     update_state_from_meta(variation_meta, env, state, deps, i)
 
-#            print ('-------------------------------')
-#            print (env)
-#            input ('xyz1')
-
             #######################################################################
             # Check chain of dependencies on other CM scripts
             if len(deps)>0:
-
                 # Preserve local env
                 local_env = {}
                 for k in self.local_env_keys:
@@ -830,6 +820,11 @@ class CAutomation(Automation):
                     if "skip_if_env" in d:
                         if enable_or_skip_script(d["skip_if_env"], env, False):
                             continue;
+
+                    if d.get("reuse_version", False):
+                        for k in local_env:
+                            if k.startswith('CM_VERSION'):
+                                env[k] = local_env[k]
 
                     # Run script via CM API:
                     # Not very efficient but allows logging - can be optimized later
@@ -858,10 +853,6 @@ class CAutomation(Automation):
                 # Restore local env
                 env.update(local_env)
 
-#            print ('-------------------------------')
-#            print (env)
-#            input ('xyz2')
-
             # Clean some output files
             clean_tmp_files(clean_files, recursion_spaces)
 
@@ -874,7 +865,6 @@ class CAutomation(Automation):
                    'path': path,
                    'bat_ext': bat_ext,
                    'os_info': os_info,
-                   'env': env,
                    'const': const,
                    'state': state,
                    'const_state': const_state,
@@ -946,7 +936,7 @@ class CAutomation(Automation):
                            'state':state,
                            'const':const,
                            'const_state':const_state,
-                           'save_state':save_state
+                           'save_env':save_env
                          }
 
                     ii.update(another_script)
@@ -982,10 +972,11 @@ class CAutomation(Automation):
 
             env['CM_TMP_PIP_VERSION_STRING'] = pip_version_string
             if pip_version_string != '':
-                print (recursion_spaces+'  - PIP version string: '+pip_version_string)
+                print (recursion_spaces+'  - potential PIP version string (if needed): '+pip_version_string)
 
             # Prepare run script
-            run_script_input['meta']=meta
+            run_script_input['meta'] = meta
+            run_script_input['env'] = env
             r = prepare_and_run_script_with_postprocessing(run_script_input)
             if r['return']>0: return r
 
@@ -998,6 +989,7 @@ class CAutomation(Automation):
             post_deps = meta.get('post_deps',[])
 
             if len(post_deps)>0:
+
                 for d in post_deps:
                     # Run collective script via CM API:
                     # Not very efficient but allows logging - can be optimized later
@@ -1019,6 +1011,7 @@ class CAutomation(Automation):
                     if r['return']>0: return r
 
         ##################################### Finalize script
+
         # Force consts in the final new env and state
         utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
         utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
@@ -1030,27 +1023,29 @@ class CAutomation(Automation):
         new_env = r['new_env']
         new_state = r['new_state']
 
-        # Record all env
-        env_all_script = convert_env_to_script(env, os_info, start_script = os_info['start_script'])
-        r = record_script(self.tmp_file_env + bat_ext, env_all_script, os_info)
-        if r['return']>0: return r
-
+        # Prepare env script content (to be saved in cache and in the current path if needed)
         env_script = convert_env_to_script(new_env, os_info, start_script = os_info['start_script'])
-        r = record_script(self.tmp_file_env + bat_ext, env_script, os_info)
-        if r['return']>0: return r
+
 
         # If using cached artifact, return to default path and then update the cache artifact
         if cache and cached_path!='':
             # Check if need to remove tag
             if remove_tmp_tag:
                 # Save state, env and deps for reuse
-                path_to_cached_state_file = os.path.join(cached_path,
-                    self.file_with_cached_state)
+                r =  utils.save_json(file_name = os.path.join(cached_path, self.file_with_cached_state), 
+                       meta={'new_state':new_state, 'new_env':new_env, 'deps':deps})
+                if r['return']>0: return r
 
-                r =  utils.save_json(file_name = path_to_cached_state_file, 
-                       meta={'new_state':new_state,
-                             'new_env':new_env,
-                             'deps':deps})
+                # Save all env
+                env_all_script = convert_env_to_script(env, os_info, start_script = os_info['start_script'])
+
+                r = record_script(os.path.join(cached_path, self.tmp_file_env_all + bat_ext),
+                                  env_all_script, os_info)
+                if r['return']>0: return r
+
+                # Save env
+                r = record_script(os.path.join(cached_path, self.tmp_file_env + bat_ext),
+                                  env_script, os_info)
                 if r['return']>0: return r
 
                 # Remove tmp tag from the "cached" arifact to finalize caching
@@ -1070,22 +1065,21 @@ class CAutomation(Automation):
                       'meta':cached_meta,
                       'replace_lists': True, # To replace tags
                       'tags':','.join(cached_tags)}
+
                 r = self.cmind.access(ii)
                 if r['return']>0: return r
 
         # Clean tmp files only in current path (do not touch cache - we keep all info there)
         os.chdir(current_path)
 
-        if not i.get('dirty', False):
+        if not i.get('dirty', False) and not cache:
             clean_tmp_files(clean_files, recursion_spaces)
 
         # Record new env and new state in the current dir if needed
-        if save_state:
-#            r = utils.save_json(file_name = self.tmp_file_state, meta = new_state)
-#            if r['return']>0: return r
-
+        if save_env:
             r = record_script(self.tmp_file_env + bat_ext, env_script, os_info)
             if r['return']>0: return r
+
 
         ############################# RETURN
         return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
@@ -1105,6 +1099,7 @@ class CAutomation(Automation):
           (select) (bool): if True and more than 1 path found, select
           (select_default) (bool): if True, select the default one
           (recursion_spaces) (str): add space to print
+          (run_script_input) (dict): prepared dict to run script and detect version
 
           (detect_version) (bool): if True, attempt to detect version
           (env_path) (str): env key to pass path to the script to detect version
@@ -1120,6 +1115,7 @@ class CAutomation(Automation):
            (found_paths) (list): paths to file when found
 
         """
+        import copy
 
         paths = i['paths']
         file_name = i['file_name']
@@ -1141,8 +1137,6 @@ class CAutomation(Automation):
             if i.get('detect_version', False):
                 found_paths_with_good_version = []
 
-                import copy
-
                 env = i.get('env', {})
 
                 run_script_input = i['run_script_input']
@@ -1162,16 +1156,17 @@ class CAutomation(Automation):
 
                 new_recursion_spaces = recursion_spaces + '    '
 
+
                 for path in found_paths:
                     path_to_file = os.path.join(path, file_name)
 
                     print ('')
                     print (recursion_spaces + '    * ' + path_to_file)
 
+                    run_script_input['env'] = env
                     run_script_input['env'][env_path_key] = path_to_file
                     run_script_input['recursion_spaces'] = new_recursion_spaces
 
-                    # Prepare run script
                     rx = prepare_and_run_script_with_postprocessing(run_script_input)
 
                     run_script_input['recursion_spaces'] = recursion_spaces
@@ -1279,6 +1274,7 @@ class CAutomation(Automation):
         new_recursion_spaces = recursion_spaces + '    '
 
         run_script_input['recursion_spaces'] = new_recursion_spaces
+        run_script_input['env'] = env
 
         # Prepare run script
         rx = prepare_and_run_script_with_postprocessing(run_script_input)
@@ -1337,10 +1333,19 @@ class CAutomation(Automation):
 
         """
 
+        import copy
+
         file_name = i['file_name']
 
-        env = i['env']
         os_info = i['os_info']
+
+        env = i['env']
+
+        run_script_input = i.get('run_script_input', {})
+
+        # Create and work on a copy to avoid contamination
+        env_copy = copy.deepcopy(env)
+        run_script_input_state_copy = copy.deepcopy(run_script_input.get('state',{}))
 
         default_path_env_key = i.get('default_path_env_key', '')
         recursion_spaces = i.get('recursion_spaces', '')
@@ -1367,9 +1372,12 @@ class CAutomation(Automation):
                                      'select_default': select_default,
                                      'detect_version': i.get('detect_version', False),
                                      'env_path_key': i.get('env_path_key', ''),
-                                     'env':env,
-                                     'run_script_input': i.get('run_script_input', {}),
+                                     'env':env_copy,
+                                     'run_script_input': run_script_input,
                                      'recursion_spaces': recursion_spaces})
+
+        run_script_input['state'] = run_script_input_state_copy
+
         if r['return']>0: return r
 
         found_paths = r['found_paths']
@@ -1465,7 +1473,7 @@ class CAutomation(Automation):
 
         deps = i['deps']
         update_deps = i['update_deps']
-        
+
         for name in update_deps:
             for dep in deps:
                 names = dep.get('names',[])
