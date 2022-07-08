@@ -31,7 +31,7 @@ class CAutomation(Automation):
         self.local_env_keys = ['CM_VERSION',
                                'CM_VERSION_MIN',
                                'CM_VERSION_MAX',
-                               'CM_VERSION_MAX_DEFAULT',
+                               'CM_VERSION_MAX_USABLE',
                                'CM_DETECTED_VERSION',
                                'CM_INPUT',
                                'CM_OUTPUT',
@@ -156,7 +156,7 @@ class CAutomation(Automation):
           (version) (str): version to be added to env.CM_VERSION to specialize this flow
           (version_min) (str): min version to be added to env.CM_VERSION_MIN to specialize this flow
           (version_max) (str): max version to be added to env.CM_VERSION_MAX to specialize this flow
-          (version_max_default) (str): max USABLE version to be added to env.CM_VERSION_MAX_DEFAULT
+          (version_max_usable) (str): max USABLE version to be added to env.CM_VERSION_MAX_USABLE
 
           (path) (str): list of paths to be added to env.CM_TMP_PATH to specialize this flow
 
@@ -363,10 +363,10 @@ class CAutomation(Automation):
         else:
             version_max = i.get('version_max', '').strip()
 
-        if 'CM_VERSION_MAX_DEFAULT' in env: 
-            version_max_default = env['CM_VERSION_MAX_DEFAULT']
+        if 'CM_VERSION_MAX_USABLE' in env: 
+            version_max_usable = env['CM_VERSION_MAX_USABLE']
         else:
-            version_max_default = i.get('version_max_default', '').strip()
+            version_max_usable = i.get('version_max_usable', '').strip()
 
 
 
@@ -578,10 +578,10 @@ class CAutomation(Automation):
             # Version is local for a given script and is not passed further
             # not to influence versions of dependencies
             if version_min == '': 
-                version_min = meta.get('default_version_min', '')
+                version_min = meta.get('version_min', '')
 
             if version_max == '': 
-                version_max = meta.get('default_version_max', '')
+                version_max = meta.get('version_max', '')
 
             if version == '':
                 default_version = meta.get('default_version', '')
@@ -610,10 +610,10 @@ class CAutomation(Automation):
                             if ry['return']>0: return ry
 
                             if ry['comparison'] > 0:
-                                if version_max_default == '':
-                                    return {'return':1, 'error':'ambiguity: default_version > version_max and version_max_default is not defined'}
+                                if version_max_usable == '':
+                                    return {'return':1, 'error':'ambiguity: default_version > version_max and version_max_usable is not defined'}
 
-                                version = version_max_default
+                                version = version_max_usable
 
                         if version == '':
                             # version_min <= default_version <= version_max
@@ -623,7 +623,7 @@ class CAutomation(Automation):
             if version !='': env['CM_VERSION'] = version
             if version_min !='': env['CM_VERSION_MIN'] = version_min
             if version_max !='': env['CM_VERSION_MAX'] = version_max
-            if version_max_default !='': env['CM_VERSION_MAX_DEFAULT'] = version_max_default
+            if version_max_usable !='': env['CM_VERSION_MAX_USABLE'] = version_max_usable
 
             print (recursion_spaces+'    - Requested version: {}'.format(version))
 
@@ -789,6 +789,10 @@ class CAutomation(Automation):
 
                     update_state_from_meta(variation_meta, env, state, deps, i)
 
+#            print ('-------------------------------')
+#            print (env)
+#            input ('xyz1')
+
             #######################################################################
             # Check chain of dependencies on other CM scripts
             if len(deps)>0:
@@ -837,6 +841,10 @@ class CAutomation(Automation):
 
                 # Restore local env
                 env.update(local_env)
+
+#            print ('-------------------------------')
+#            print (env)
+#            input ('xyz2')
 
             # Clean some output files
             clean_tmp_files(clean_files, recursion_spaces)
@@ -956,8 +964,8 @@ class CAutomation(Automation):
             elif pip_version_max != '':
                 pip_version_string = '<='+pip_version_max
 
+            env['CM_TMP_PIP_VERSION_STRING'] = pip_version_string
             if pip_version_string != '':
-                env['CM_TMP_PIP_VERSION_STRING'] = pip_version_string
                 print (recursion_spaces+'  - PIP version string: '+pip_version_string)
 
             # Prepare run script
