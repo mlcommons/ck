@@ -26,7 +26,7 @@ class CAutomation(Automation):
         self.tmp_file_run_env = 'tmp-run-env.out'
         self.tmp_file_ver = 'tmp-ver.out'
 
-        self.__version__ = "0.5.0"
+        self.__version__ = "0.6.0"
 
         self.local_env_keys = ['CM_VERSION',
                                'CM_VERSION_MIN',
@@ -620,13 +620,29 @@ class CAutomation(Automation):
                             version = default_version
 
             # Update env with resolved versions
-            if version !='': env['CM_VERSION'] = version
-            if version_min !='': env['CM_VERSION_MIN'] = version_min
-            if version_max !='': env['CM_VERSION_MAX'] = version_max
-            if version_max_usable !='': env['CM_VERSION_MAX_USABLE'] = version_max_usable
+            x = ''
+            for versions in [(version, 'CM_VERSION', '=={}'),
+                             (version_min, 'CM_VERSION_MIN', '>={}'),
+                             (version_max, 'CM_VERSION_MAX', '<={}'),
+                             (version_max_usable, 'CM_VERSION_MAX_USABLE', '({})')]:
+                var = versions[0]
+                key = versions[1]
+                note = versions[2]
 
-            print (recursion_spaces+'    - Requested version: {}'.format(version))
+                if var !='': 
+                    env[key] = var
 
+                    if x != '': x+='  '
+                    x += note.format(var)
+                elif key in env: del(env[key])
+
+#            if version !='': env['CM_VERSION'] = version
+#            if version_min !='': env['CM_VERSION_MIN'] = version_min
+#            if version_max !='': env['CM_VERSION_MAX'] = version_max
+#            if version_max_usable !='': env['CM_VERSION_MAX_USABLE'] = version_max_usable
+
+            if x != '':
+                print (recursion_spaces+'    - Requested version: ' + x)
 
 
             # Check if needs to be cached from meta
