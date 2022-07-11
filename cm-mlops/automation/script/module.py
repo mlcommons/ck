@@ -163,7 +163,11 @@ class CAutomation(Automation):
           (input) (str): converted to env.CM_INPUT  (local env)
           (output) (str): converted to env.CM_OUTPUT (local env)
           (name) (str): converted to env.CM_NAME (local env)
-          (add_cache_tags) (str): converted to env.CM_EXTRA_CACHE_TAGS and used to add to caching (local env)
+
+          (extra_cache_tags) (str): converted to env.CM_EXTRA_CACHE_TAGS and used to add to caching (local env)
+
+          (extra_cache_tags_from_env) (list): list of env keys to add to cache tags (with prefix).
+                                            Example:["CM_PYTHON_CACHE_TAGS":"python-"]
 
           (quiet) (bool): if True, set env.CM_TMP_QUIET to "yes" and attempt to skip questions
                           (the developers have to support it in pre/post processing and scripts)
