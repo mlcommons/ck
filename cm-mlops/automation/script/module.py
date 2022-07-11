@@ -654,18 +654,19 @@ class CAutomation(Automation):
                 tmp_variations = {k: False for k in variation_tags}
                 while True:
                     for variation_name in variation_tags:
-                        if "parent_variation" in variations[variation_name]:
-                            if variations[variation_name]["parent_variation"] not in variation_tags:
-                                print(variations[variation_name]["parent_variation"])
-                                variation_tags.append(variations[variation_name]["parent_variation"])
-                                tmp_variations[variations[variation_name]["parent_variation"]] = False
+                        if "base" in variations[variation_name]:
+                            base_variations = variations[variation_name]["base"]
+                            for base_variation in base_variations:
+                                if base_variation not in variation_tags:
+                                    variation_tags.append(base_variation)
+                                    tmp_variations[base_variation] = False
                         tmp_variations[variation_name] = True
-                    all_processed = True
+                    all_base_processed = True
                     for variation_name in variation_tags:
                         if tmp_variations[variation_name] == False:
-                            all_processed = False
+                            all_base_processed = False
                             break
-                    if all_processed:
+                    if all_base_processed:
                         break
 
         # Check if need to cache execution of the found script (or already in the cache mode)
