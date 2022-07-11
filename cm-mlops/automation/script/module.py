@@ -653,10 +653,25 @@ class CAutomation(Automation):
             variations = artifact.meta.get('variations', {})
             versions = artifact.meta.get('versions', {})
 
-
-
-
-
+            # Recursively add parent variations
+            if len(variation_tags) > 0:
+                tmp_variations = {k: False for k in variation_tags}
+                while True:
+                    for variation_name in variation_tags:
+                        if "base" in variations[variation_name]:
+                            base_variations = variations[variation_name]["base"]
+                            for base_variation in base_variations:
+                                if base_variation not in variation_tags:
+                                    variation_tags.append(base_variation)
+                                    tmp_variations[base_variation] = False
+                        tmp_variations[variation_name] = True
+                    all_base_processed = True
+                    for variation_name in variation_tags:
+                        if tmp_variations[variation_name] == False:
+                            all_base_processed = False
+                            break
+                    if all_base_processed:
+                        break
 
         # Check if need to cache execution of the found script (or already in the cache mode)
         if cache:
@@ -783,12 +798,13 @@ class CAutomation(Automation):
 
             # Get dependencies on other scripts
             deps = meta.get('deps',[])
+            post_deps = meta.get('post_deps',[])
 
             # Update version only if in "versions" (not obligatory)
             # can be useful when handling complex Git revisions
             if version!='' and version in versions:
                 versions_meta = versions[version]
-                update_state_from_meta(versions_meta, env, state, deps, i)
+                update_state_from_meta(versions_meta, env, state, deps, post_deps, i)
 
             # Update env and other keys if variations
             if len(variation_tags)>0:
@@ -802,7 +818,7 @@ class CAutomation(Automation):
 
                     variation_meta = variations[variation_tag]
 
-                    update_state_from_meta(variation_meta, env, state, deps, i)
+                    update_state_from_meta(variation_meta, env, state, deps, post_deps, i)
 
             #######################################################################
             # Check chain of dependencies on other CM scripts
@@ -990,10 +1006,14 @@ class CAutomation(Automation):
                 cached_tags.append('version-' + r['version'])
 
             # Check chain of post dependencies on other CM scripts
-            post_deps = meta.get('post_deps',[])
+            clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
 
             if len(post_deps)>0:
-
+                tmp_env={}
+                for key in clean_env_keys_post_deps:
+                    if key in env:
+                        tmp_env[key] = env[key]
+                        del env[key]
                 for d in post_deps:
                     # Run collective script via CM API:
                     # Not very efficient but allows logging - can be optimized later
@@ -1013,6 +1033,8 @@ class CAutomation(Automation):
 
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
+                for key in tmp_env:
+                    env[key] = tmp_env[key]
 
         ##################################### Finalize script
 
@@ -1782,7 +1804,7 @@ def update_deps_tags(deps, add_deps_tags):
     return {'return':0}
 
 ##############################################################################
-def update_state_from_meta(meta, env, state, deps, i):
+def update_state_from_meta(meta, env, state, deps, post_deps, i):
     """
     Internal: update env and state from meta
     """
@@ -1800,6 +1822,11 @@ def update_state_from_meta(meta, env, state, deps, i):
     add_deps_tags = meta.get('add_deps_tags', {})
     if len(add_deps_tags) >0 :
         update_deps_tags(deps, add_deps_tags)
+
+    update_post_deps = meta.get("post_deps", [])
+    print(update_post_deps)
+    if len(update_post_deps) > 0:
+        post_deps += update_post_deps
 
     add_deps_tags_from_input = i.get('add_deps_tags', {})
     if len(add_deps_tags_from_input) >0 :
