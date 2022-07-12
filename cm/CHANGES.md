@@ -1,6 +1,6 @@
 # Prototyping phase
 
-## DEV
+## V0.7.23
    - handle errors when loading artifact meta
    - added text output when can't detect tool version
 
