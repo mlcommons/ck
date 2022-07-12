@@ -263,8 +263,6 @@ class CAutomation(Automation):
         bat_ext = os_info['bat_ext']
 
 
-        
-        
         # Check path/input/output in input and pass to env
         for key in ['path']:
             value = i.get(key, '').strip()
@@ -332,8 +330,7 @@ class CAutomation(Automation):
                         variation_tags.append(tx)
                 else:
                     script_tags.append(t)
-        
-        
+
         # Find scripts (can be more than 1) - we will use them later (if more than 1)
         ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
 
@@ -396,8 +393,6 @@ class CAutomation(Automation):
         print (recursion_spaces+'  - Found script::{} in {}'.format(found_script_artifact, path))
 
 
-        
-        
         # Check version from env (priority if passed from another script) or input (version)
         # Version is local for a given script and is not passed further
         # not to influence versions of dependencies
@@ -467,8 +462,6 @@ class CAutomation(Automation):
 
 
 
-        
-        
 
         # Add env from meta to new env if not empty
         script_artifact_env = meta.get('env',{})
@@ -479,7 +472,6 @@ class CAutomation(Automation):
         post_deps = meta.get('post_deps',[])
 
 
-        
         # Update version only if in "versions" (not obligatory)
         # can be useful when handling complex Git revisions
         versions = script_artifact.meta.get('versions', {})
@@ -489,8 +481,6 @@ class CAutomation(Automation):
             update_state_from_meta(versions_meta, env, state, deps, post_deps, i)
 
 
-
-            
 
 
         # Get possible variations and versions from script meta
@@ -561,7 +551,7 @@ class CAutomation(Automation):
 
             print (recursion_spaces+'    Prepared variations: {}'.format(variation_tags_string))
 
-        
+
         # Update env and other keys if variations
         if len(variation_tags)>0:
             for variation_tag in variation_tags:
@@ -577,7 +567,7 @@ class CAutomation(Automation):
                 update_state_from_meta(variation_meta, env, state, deps, post_deps, i)
 
 
-        
+
         ############################################################################################################
         # Check chain of dependencies on other CM scripts
         if len(deps)>0:
@@ -609,7 +599,7 @@ class CAutomation(Automation):
                 ii = {
                        'action':'run',
                        'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
-                       'recursion_spaces':recursion_spaces + '  ',
+                       'recursion_spaces':recursion_spaces + '      ',
                        'recursion':True,
                        'remembered_selections':remembered_selections,
                        'env':env,
@@ -631,11 +621,9 @@ class CAutomation(Automation):
             # Restore local env
             env.update(local_env)
 
-    
 
 
 
-        
 
 
 
@@ -725,41 +713,40 @@ class CAutomation(Automation):
                 selection = 0
 
                 # Check version ranges ...
-                if num_found_cached_scripts > 1:
-                    new_found_cached_scripts = []
+                new_found_cached_scripts = []
 
-                    for cached_script in found_cached_scripts:
+                for cached_script in found_cached_scripts:
 
-                        cached_script_version = cached_script.meta.get('version', '')
+                    cached_script_version = cached_script.meta.get('version', '')
 
-                        skip_cached_script = False
+                    skip_cached_script = False
 
-                        if cached_script_version != '':
-                            if version_min != '':
-                                ry = self.cmind.access({'action':'compare_versions',
-                                                        'automation':'utils,dc2743f8450541e3',
-                                                        'version1':cached_script_version,
-                                                        'version2':version_min})
-                                if ry['return']>0: return ry
+                    if cached_script_version != '':
+                        if version_min != '':
+                            ry = self.cmind.access({'action':'compare_versions',
+                                                    'automation':'utils,dc2743f8450541e3',
+                                                    'version1':cached_script_version,
+                                                    'version2':version_min})
+                            if ry['return']>0: return ry
 
-                                if ry['comparison'] < 0:
-                                    skip_cached_script = True
+                            if ry['comparison'] < 0:
+                                skip_cached_script = True
 
-                            if not skip_cached_script and version_max != '':
-                                ry = self.cmind.access({'action':'compare_versions',
-                                                   'automation':'utils,dc2743f8450541e3',
-                                                   'version1':cached_script_version,
-                                                   'version2':version_max})
-                                if ry['return']>0: return ry
+                        if not skip_cached_script and version_max != '':
+                            ry = self.cmind.access({'action':'compare_versions',
+                                               'automation':'utils,dc2743f8450541e3',
+                                               'version1':cached_script_version,
+                                               'version2':version_max})
+                            if ry['return']>0: return ry
 
-                                if ry['comparison'] > 0:
-                                    skip_cached_script = True
+                            if ry['comparison'] > 0:
+                                skip_cached_script = True
 
-                        if not skip_cached_script:
-                            new_found_cached_scripts.append(cached_script)
+                    if not skip_cached_script:
+                        new_found_cached_scripts.append(cached_script)
 
-                    found_cached_scripts = new_found_cached_scripts
-                    num_found_cached_scripts = len(found_cached_scripts)
+                found_cached_scripts = new_found_cached_scripts
+                num_found_cached_scripts = len(found_cached_scripts)
 
 
                 # Check if quiet mode
@@ -780,7 +767,7 @@ class CAutomation(Automation):
                         num_found_cached_scripts = 0
 
 
-                else:
+                elif num_found_cached_scripts == 1:
                     print (recursion_spaces+'    - Found cached script output: {}'.format(found_cached_scripts[0].path))
 
                 if num_found_cached_scripts > 0:
