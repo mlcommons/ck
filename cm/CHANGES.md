@@ -2,6 +2,7 @@
 
 ## DEV
    - handle errors when loading artifact meta
+   - added text output when can't detect tool version
 
 ## V0.7.22
    - Added "cm info" to print various info about artifacts

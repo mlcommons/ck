@@ -1,4 +1,4 @@
-﻿# Auxilary functions for CM
+# Auxilary functions for CM
 
 # Some functionality was reused from the CK framework for compatibility
 
@@ -34,7 +34,7 @@ def load_yaml_and_json(file_name_without_ext, check_if_exists = False, encoding 
     meta = {}
 
     not_found = True
-    
+
     for file_ext in [('.yaml', load_yaml), 
                      ('.json', load_json)]:
         file_name = file_name_without_ext + file_ext[0]
@@ -277,7 +277,7 @@ def load_txt(file_name, encoding = 'utf8', remove_after_read = False,
 
     if check_if_exists and not os.path.isfile(file_name):
         return {'return':16, 'error':'{} was not found'.format(file_name)}
-    
+
     with open(file_name, 'rt', encoding = encoding) as tf:
         s = tf.read()
 
@@ -295,8 +295,8 @@ def load_txt(file_name, encoding = 'utf8', remove_after_read = False,
         match = re.search(match_text, s)
 
         if fail_if_no_match!='' and match is None:
-            return {'return':1, 'error': fail_if_no_match}
-        
+            return {'return':1, 'error': fail_if_no_match, 'string':s}
+
         rr['match'] = match
 
     return rr
