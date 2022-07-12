@@ -357,7 +357,7 @@ class CAutomation(Automation):
         # Check if script selection is remembered
         if not skip_remembered_selections and len(list_of_found_scripts) > 1:
             for selection in remembered_selections:
-                if selection['type'] == 'script' and selection['tags'] == script_tags_string:
+                if selection['type'] == 'scipt' and set(selection['tags'].split(',')) == set(script_tags_string.split(',')):
                     # Leave 1 entry in the found list
                     list_of_found_scripts = [selection['cached_script']]
                     print (recursion_spaces + '  - Found remembered selection with tags "{}"!'.format(script_tags_string))
@@ -681,10 +681,11 @@ class CAutomation(Automation):
                 key = extra_cache_tags['env']
                 prefix = extra_cache_tags.get('prefix','')
 
-                v = env.get(key,'')
+                v = env.get(key,'').strip()
                 if v!='':
-                    v = 'deps-' + prefix + v
-                    if v not in cached_tags: cached_tags.append(v)
+                    for t in v.split(','):
+                        x = 'deps-' + prefix + t
+                        if x not in cached_tags: cached_tags.append(x)
 
             # Check if already cached
             if not i.get('new', False):
@@ -707,7 +708,7 @@ class CAutomation(Automation):
                 if not skip_remembered_selections and num_found_cached_scripts > 1:
                     # Need to add extra cached tags here (since recorded later)
                     for selection in remembered_selections:
-                        if selection['type'] == 'cache' and selection['tags'] == search_tags:
+                        if selection['type'] == 'cache' and set(selection['tags'].split(',')) == set(search_tags.split(',')):
                             found_cached_scripts = [selection['cached_script']]
                             num_found_cached_scripts = len(found_cached_scripts)
                             print (recursion_spaces + '  - Found remembered selection with tags "{}"!'.format(search_tags))
@@ -1477,7 +1478,9 @@ class CAutomation(Automation):
                            split = True,
                            match_text = match_text,
                            fail_if_no_match = 'version was not detected')
-        if r['return']>0: return r
+        if r['return']>0: 
+           r['error'] += ' ({})'.format(r['string'])
+           return r
 
         string = r['string']
 
@@ -1769,6 +1772,9 @@ def record_script(run_script, script, os_info):
 
     final_script = '\n'.join(script)
 
+    if not final_script.endswith('\n'):
+        final_script += '\n'
+
     r = utils.save_txt(file_name=run_script, string=final_script)
     if r['return']>0: return r
 
@@ -1834,7 +1840,6 @@ def update_state_from_meta(meta, env, state, deps, post_deps, i):
         update_deps_tags(deps, add_deps_tags)
 
     update_post_deps = meta.get("post_deps", [])
-    print(update_post_deps)
     if len(update_post_deps) > 0:
         post_deps += update_post_deps
 

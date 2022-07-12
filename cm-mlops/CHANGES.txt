@@ -1,6 +1,7 @@
 20220712:
  * major script refactoring to support cache tags update from deps
  * fixed version min/max propagations in deps
+ * improvements to support tags from deps
 
 20220708:
  * various fixes to handle versions (min/max/default)
