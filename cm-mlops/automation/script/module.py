@@ -166,9 +166,6 @@ class CAutomation(Automation):
 
           (extra_cache_tags) (str): converted to env.CM_EXTRA_CACHE_TAGS and used to add to caching (local env)
 
-          (extra_cache_tags_from_env) (list): list of env keys to add to cache tags (with prefix).
-                                            Example:["CM_PYTHON_CACHE_TAGS":"python-"]
-
           (quiet) (bool): if True, set env.CM_TMP_QUIET to "yes" and attempt to skip questions
                           (the developers have to support it in pre/post processing and scripts)
 
@@ -678,6 +675,17 @@ class CAutomation(Automation):
                 for t in extra_cache_tags:
                     if t not in cached_tags: cached_tags.append(t)
 
+            # Add tags from deps
+            extra_cache_tags_from_env = meta.get('extra_cache_tags_from_env',[])
+            for extra_cache_tags in extra_cache_tags_from_env:
+                key = extra_cache_tags['env']
+                prefix = extra_cache_tags.get('prefix','')
+
+                v = env.get(key,'')
+                if v!='':
+                    v = 'deps-' + prefix + v
+                    if v not in cached_tags: cached_tags.append(v)
+
             # Check if already cached
             if not i.get('new', False):
                 search_tags = '-tmp'
@@ -693,6 +701,7 @@ class CAutomation(Automation):
                 found_cached_scripts = r['list']
 
                 num_found_cached_scripts = len(found_cached_scripts)
+
 
                 # Check if selection is remembered
                 if not skip_remembered_selections and num_found_cached_scripts > 1:
@@ -950,6 +959,7 @@ class CAutomation(Automation):
                            'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
                            'recursion_spaces':recursion_spaces + '  ',
                            'recursion':True,
+                           'remembered_selections': remembered_selections,
                            'env':env,
                            'state':state,
                            'const':const,
