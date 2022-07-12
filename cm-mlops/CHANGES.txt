@@ -1,3 +1,6 @@
+20220712:
+ * major script refactoring to support cache tags update from deps
+
 20220708:
  * various fixes to handle versions (min/max/default)
  * various fixes to avoid contamination of ENV from other scripts
