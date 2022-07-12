@@ -31,3 +31,6 @@
 
 ### Automatically generated
 
+* CM_TMP_CURRENT_PATH - script or cache
+* CM_TMP_CURRENT_SCRIPT_PATH - script only
+

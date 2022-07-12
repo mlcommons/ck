@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## DEV
+   - handle errors when loading artifact meta
+
 ## V0.7.22
    - Added "cm info" to print various info about artifacts
    - Fixed bug with printing help for actions when they are substituted (rm -> delete)

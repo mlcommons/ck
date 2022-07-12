@@ -168,7 +168,10 @@ def load_json(file_name, check_if_exists = False, encoding='utf8'):
     import json
 
     with open(file_name, encoding=encoding) as jf:
-        meta = json.load(jf)
+        try:
+            meta = json.load(jf)
+        except Exception as e:
+            return {'return':4, 'error': format(e)}
 
     return {'return':0,
             'meta': meta}
@@ -232,11 +235,14 @@ def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
     import yaml
 
     with open(file_name, 'rt', encoding = encoding) as yf:
-        if int(yaml.__version__[0])>=5:
-            meta = yaml.load(yf, Loader=yaml.FullLoader)
-        else:
-            # To support old versions
-            meta = yaml.safe_load(yf)
+        try:
+            if int(yaml.__version__[0])>=5:
+                meta = yaml.load(yf, Loader=yaml.FullLoader)
+            else:
+                # To support old versions
+                meta = yaml.safe_load(yf)
+        except Exception as e:
+            return {'return':4, 'error': format(e)}
 
     return {'return':0,
             'meta': meta}

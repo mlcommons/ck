@@ -66,7 +66,9 @@ class Artifact:
 
         # Search if there is a repo in this path
         r = utils.load_yaml_and_json(file_name_without_ext = path_artifact_meta)
-        if r['return'] >0: return r
+        if r['return'] >0: 
+           r['error'] = 'Can\'t load artifact meta in path {}: {}'.format(self.path, r['error'])
+           return r
 
         original_meta = r['meta']
         self.original_meta = copy.deepcopy(original_meta)
