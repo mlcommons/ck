@@ -567,7 +567,18 @@ class CAutomation(Automation):
 
                 update_state_from_meta(variation_meta, env, state, deps, post_deps, i)
 
-
+        ############################################################################################################
+        # Update any env key used as part of values in meta
+        import re
+        for key in env:
+            value = env[key]
+            tmp_values = re.findall(r'<<<(.*?)>>>', value)
+            if tmp_values == []: continue
+            for tmp_value in tmp_values:
+                if tmp_value not in env:
+                    return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
+                value = value.replace("<<<"+tmp_value+">>>", env[tmp_value])
+            env[key] = value
 
         ############################################################################################################
         # Check chain of dependencies on other CM scripts
