@@ -1531,10 +1531,11 @@ def enable_or_skip_script(meta, env, enable_or_skip):
         if key in env:
             if env[key].lower() in ["yes", "on", "true", "1"]:
                 if env[key].lower() in (meta[key] + ["yes", "on", "true", "1"]):
-                    return True
+                    continue
             elif env[key].lower() in meta[key]:
-                return True
-    return False
+                continue
+        return False
+    return True
 
 
 ##############################################################################
