@@ -262,7 +262,7 @@ class CAutomation(Automation):
         # Add permanent env from OS (such as CM_WINDOWS:"yes" on Windows)
         env_from_os_info = os_info.get('env',{})
         if len(env_from_os_info)>0:
-            env_from_os_info.append(env_from_os_info)
+            env.update(env_from_os_info)
 
         # Check path/input/output in input and pass to env
         for key in ['path']:
