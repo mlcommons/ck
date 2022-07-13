@@ -94,6 +94,9 @@ class CAutomation(Automation):
             info['run_local_bat_from_python']='call ${bat_file}'
             info['run_bat']='call ${bat_file}'
             info['start_script']=[]
+            info['env']={
+              "CM_WINDOWS":"yes"
+            }
         else:
             if platform.system().lower().startswith('darwin'):
                 platform = 'darwin'
@@ -110,6 +113,7 @@ class CAutomation(Automation):
             info['run_local_bat_from_python']='bash -c ". ./${bat_file}"'
             info['run_bat']='. ${bat_file}'
             info['start_script']=['#!/bin/bash', '']
+            info['env']={}
 
         info['platform'] = platform
 

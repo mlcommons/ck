@@ -1,3 +1,7 @@
+20220713:
+ * added local_env_keys to meta
+ * added "env" dict to os_info
+
 20220712:
  * major script refactoring to support cache tags update from deps
  * fixed version min/max propagations in deps

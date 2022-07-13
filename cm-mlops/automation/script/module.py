@@ -259,6 +259,10 @@ class CAutomation(Automation):
         # Bat extension for this host OS
         bat_ext = os_info['bat_ext']
 
+        # Add permanent env from OS (such as CM_WINDOWS:"yes" on Windows)
+        env_from_os_info = os_info.get('env',{})
+        if len(env_from_os_info)>0:
+            env_from_os_info.append(env_from_os_info)
 
         # Check path/input/output in input and pass to env
         for key in ['path']:
@@ -568,9 +572,16 @@ class CAutomation(Automation):
         ############################################################################################################
         # Check chain of dependencies on other CM scripts
         if len(deps)>0:
+            # Get local env keys
+            local_env_keys = copy.deepcopy(self.local_env_keys)
+
+            local_env_keys_from_meta = meta.get('local_env_keys', [])
+            if len(local_env_keys_from_meta)>0:
+                local_env_keys += local_env_keys_from_meta
+
             # Preserve local env
             local_env = {}
-            for k in self.local_env_keys:
+            for k in local_env_keys:
                 if k in env:
                     local_env[k] = env[k]
                     del(env[k])
@@ -611,7 +622,7 @@ class CAutomation(Automation):
                 r = self.cmind.access(ii)
                 if r['return']>0: return r
 
-                for k in self.local_env_keys:
+                for k in local_env_keys:
                     if k in env:
                         del(env[k])
 
