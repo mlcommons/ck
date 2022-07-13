@@ -1523,7 +1523,7 @@ class CAutomation(Automation):
 
 
 ##############################################################################
-def enable_or_skip_script(self, meta, env, enable_or_skip:bool):
+def enable_or_skip_script(meta, env, enable_or_skip):
     """
     Internal: enable a dependency based on enable_if_env and skip_if_env meta information
     """
