@@ -1776,10 +1776,17 @@ def convert_env_to_script(env, os_info, start_script = []):
         if k.startswith('+'):
             # List and append the same key at the end (+PATH, +LD_LIBRARY_PATH, +PYTHONPATH)
             key=k[1:]
+            first = key[0]
+            env_separator = os_info['env_separator']
+            # If key starts with a symbol use it as the list separator (+ CFLAG will use ' ' the 
+            # list separator while +;TEMP will use ';' as the separator)
+            if not first.isalnum():
+                env_separator = first
+                key=key[1:]
 
-            env_value = os_info['env_separator'].join(env_value) + \
-                os_info['env_separator'] + \
-                os_info['env_var'].replace('env_var',key)
+            env_value = env_separator.join(env_value) + \
+                env_separator + \
+                os_info['env_var'].replace('env_var', key)
 
         v = os_info['set_env'].replace('${key}', key).replace('${value}', str(env_value))
 
