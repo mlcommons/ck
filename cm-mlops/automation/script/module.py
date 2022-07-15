@@ -572,12 +572,12 @@ class CAutomation(Automation):
         import re
         for key in env:
             value = env[key]
-            tmp_values = re.findall(r'<<<(.*?)>>>', value)
+            tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
             if tmp_values == []: continue
             for tmp_value in tmp_values:
                 if tmp_value not in env:
                     return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
-                value = value.replace("<<<"+tmp_value+">>>", env[tmp_value])
+                value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
             env[key] = value
 
         ############################################################################################################
@@ -1781,7 +1781,7 @@ def convert_env_to_script(env, os_info, start_script = []):
                 os_info['env_separator'] + \
                 os_info['env_var'].replace('env_var',key)
 
-        v = os_info['set_env'].replace('${key}', key).replace('${value}', env_value)
+        v = os_info['set_env'].replace('${key}', key).replace('${value}', str(env_value))
 
         script.append(v)
 
