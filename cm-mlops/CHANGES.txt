@@ -1,6 +1,7 @@
 20220718:
  * fixed local_env_keys in get-python3
  * added new_env_only_keys to meta to specify which env to keep
+ * fixed problem with adding tags from the selected script during caching
 
 20220713:
  * added local_env_keys to meta

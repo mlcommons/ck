@@ -367,7 +367,6 @@ class CAutomation(Automation):
                     print (recursion_spaces + '  - Found remembered selection with tags "{}"!'.format(script_tags_string))
                     break
 
-        found_script_tags = list_of_found_scripts[0].meta.get('tags',[]) if len(list_of_found_scripts) == 1 else []
 
         # Check if more than 1 script found and selection was not remembered!
         select_script = 0
@@ -386,10 +385,13 @@ class CAutomation(Automation):
 
         script_artifact = list_of_found_scripts[select_script]
 
+
         meta = script_artifact.meta
         path = script_artifact.path
 
         found_script_artifact = utils.assemble_cm_object(meta['alias'], meta['uid'])
+
+        found_script_tags = meta.get('tags',[])
 
         print (recursion_spaces+'  - Found script::{} in {}'.format(found_script_artifact, path))
 
