@@ -748,10 +748,17 @@ class CAutomation(Automation):
                     # Need to add extra cached tags here (since recorded later)
                     for selection in remembered_selections:
                         if selection['type'] == 'cache' and set(selection['tags'].split(',')) == set(search_tags.split(',')):
-                            found_cached_scripts = [selection['cached_script']]
-                            num_found_cached_scripts = len(found_cached_scripts)
-                            print (recursion_spaces + '  - Found remembered selection with tags "{}"!'.format(search_tags))
-                            break
+                            tmp_version_in_cached_script = selection['cached_script'].meta.get('version','')
+
+                            skip_cached_script = check_versions(self.cmind, tmp_version_in_cached_script, version_min, version_max)
+
+                            if skip_cached_script:
+                                return {'return':2, 'error':'The version of the previously remembered selection for a given script ({}) mismatches the newly requested one'.format(tmp_version_in_cached_script)}
+                            else:
+                                found_cached_scripts = [selection['cached_script']]
+                                num_found_cached_scripts = len(found_cached_scripts)
+                                print (recursion_spaces + '  - Found remembered selection with tags "{}"!'.format(search_tags))
+                                break
 
             else:
                 num_found_cached_scripts = 0
@@ -768,28 +775,7 @@ class CAutomation(Automation):
 
                     cached_script_version = cached_script.meta.get('version', '')
 
-                    skip_cached_script = False
-
-                    if cached_script_version != '':
-                        if version_min != '':
-                            ry = self.cmind.access({'action':'compare_versions',
-                                                    'automation':'utils,dc2743f8450541e3',
-                                                    'version1':cached_script_version,
-                                                    'version2':version_min})
-                            if ry['return']>0: return ry
-
-                            if ry['comparison'] < 0:
-                                skip_cached_script = True
-
-                        if not skip_cached_script and version_max != '':
-                            ry = self.cmind.access({'action':'compare_versions',
-                                               'automation':'utils,dc2743f8450541e3',
-                                               'version1':cached_script_version,
-                                               'version2':version_max})
-                            if ry['return']>0: return ry
-
-                            if ry['comparison'] > 0:
-                                skip_cached_script = True
+                    skip_cached_script = check_versions(self.cmind, cached_script_version, version_min, version_max)
 
                     if not skip_cached_script:
                         new_found_cached_scripts.append(cached_script)
@@ -2013,6 +1999,36 @@ def select_script_artifact(lst, text, recursion_spaces, can_skip):
         print (recursion_spaces+'      Selected {}: {}'.format(selection, lst[selection].path))
 
     return selection
+
+##############################################################################
+def check_versions(cmind, cached_script_version, version_min, version_max):
+    """
+    Internal: check versions of the cached script
+    """
+    skip_cached_script = False
+
+    if cached_script_version != '':
+        if version_min != '':
+            ry = cmind.access({'action':'compare_versions',
+                                    'automation':'utils,dc2743f8450541e3',
+                                    'version1':cached_script_version,
+                                    'version2':version_min})
+            if ry['return']>0: return ry
+
+            if ry['comparison'] < 0:
+                skip_cached_script = True
+
+        if not skip_cached_script and version_max != '':
+            ry = cmind.access({'action':'compare_versions',
+                               'automation':'utils,dc2743f8450541e3',
+                               'version1':cached_script_version,
+                               'version2':version_max})
+            if ry['return']>0: return ry
+
+            if ry['comparison'] > 0:
+                skip_cached_script = True
+
+    return skip_cached_script
 
 ##############################################################################
 # Demo to show how to use CM components independently if needed
