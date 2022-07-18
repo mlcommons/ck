@@ -612,7 +612,7 @@ class CAutomation(Automation):
 
                 if "enable_if_env" in d:
                     if not enable_or_skip_script(d["enable_if_env"], env, True):
-                        continue;
+                        continue
 
                 if "skip_if_env" in d:
                     if enable_or_skip_script(d["skip_if_env"], env, False):
@@ -1001,6 +1001,9 @@ class CAutomation(Automation):
                          }
 
                     ii.update(another_script)
+
+                    # Return to current path
+                    os.chdir(current_path)
 
                     ############################################################################################################
                     return self.cmind.access(ii)
