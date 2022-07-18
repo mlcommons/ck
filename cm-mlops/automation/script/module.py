@@ -361,7 +361,7 @@ class CAutomation(Automation):
         # Check if script selection is remembered
         if not skip_remembered_selections and len(list_of_found_scripts) > 1:
             for selection in remembered_selections:
-                if selection['type'] == 'scipt' and set(selection['tags'].split(',')) == set(script_tags_string.split(',')):
+                if selection['type'] == 'script' and set(selection['tags'].split(',')) == set(script_tags_string.split(',')):
                     # Leave 1 entry in the found list
                     list_of_found_scripts = [selection['cached_script']]
                     print (recursion_spaces + '  - Found remembered selection with tags "{}"!'.format(script_tags_string))
