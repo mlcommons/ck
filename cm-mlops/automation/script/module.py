@@ -580,6 +580,7 @@ class CAutomation(Automation):
                 value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
             env[key] = value
 
+
         ############################################################################################################
         # Check chain of dependencies on other CM scripts
         if len(deps)>0:
@@ -592,8 +593,15 @@ class CAutomation(Automation):
 
             # Preserve local env
             local_env = {}
+
             for k in local_env_keys:
-                if k in env:
+                if '?' in k or '*' in k:
+                    import fnmatch
+                    for kk in list(env.keys()):
+                        if fnmatch.fnmatch(kk, k):
+                            local_env[kk] = env[kk]
+                            del(env[kk])
+                elif k in env:
                     local_env[k] = env[k]
                     del(env[k])
 
@@ -1076,7 +1084,9 @@ class CAutomation(Automation):
         utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
         # Detect env and state diff
-        r = detect_state_diff(env, saved_env, state, saved_state)
+        new_env_keys_only_from_meta = meta.get('new_env_only_keys', [])
+
+        r = detect_state_diff(env, saved_env, new_env_keys_only_from_meta, state, saved_state)
         if r['return']>0: return r
 
         new_env = r['new_env']
@@ -1880,7 +1890,7 @@ def update_state_from_meta(meta, env, state, deps, post_deps, i):
     return {'return':0}
 
 ##############################################################################
-def detect_state_diff(env, saved_env, state, saved_state):
+def detect_state_diff(env, saved_env, new_env_keys_only, state, saved_state):
     """
     Internal: detect diff in env and state
     """
@@ -1888,20 +1898,31 @@ def detect_state_diff(env, saved_env, state, saved_state):
     new_env = {}
     new_state = {}
 
-    # Env is flat so no recursion
-    for k in env:
-        if k.startswith('CM_TMP_'):
-            continue
+    # Check if leave only specific keys or detect diff automatically
+    if len(new_env_keys_only)>0:
+        for k in new_env_keys_only:
+            if '?' in k or '*' in k:
+                import fnmatch
+                for kk in env:
+                    if fnmatch.fnmatch(kk, k):
+                        new_env[kk] = env[kk]
+            elif k in env:
+                new_env[k] = env[k]
+    else:
+        # Env is flat so no recursion
+        for k in env:
+            if k.startswith('CM_TMP_'):
+                continue
 
-        v = env[k]
+            v = env[k]
 
-        if k not in saved_env:
-           new_env[k] = v
-        elif type(v) == list:
-           if v not in saved_env[k]:
-               diff_list = [e for e in v if e not in saved_env[k]]
-               if len(diff_list)>0:
-                   new_env[k] = diff_list
+            if k not in saved_env:
+               new_env[k] = v
+            elif type(v) == list:
+               if v not in saved_env[k]:
+                   diff_list = [e for e in v if e not in saved_env[k]]
+                   if len(diff_list)>0:
+                       new_env[k] = diff_list
 
     # Temporal solution for state - need to add recursion
     for k in state:
