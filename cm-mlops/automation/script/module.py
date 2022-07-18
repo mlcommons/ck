@@ -270,8 +270,9 @@ class CAutomation(Automation):
             if value != '':
                 env['CM_TMP_' + key.upper()] = value
 
-        for key in ['input', 'output', 'name', 'extra_cache_tags']:
-            value = i.get(key, '').strip()
+        for key in ['input', 'output', 'name', 'extra_cache_tags', 'skip_compile', 'skip_run']:
+            value = i.get(key, '')
+            if type(value)==str: value=value.strip()
             if value != '':
                 env['CM_' + key.upper()] = value
 
@@ -574,6 +575,11 @@ class CAutomation(Automation):
         import re
         for key in env:
             value = env[key]
+
+            # Check cases such as --env.CM_SKIP_COMPILE
+            if type(value)==bool: 
+                env[key] = str(value)
+
             tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
             if tmp_values == []: continue
             for tmp_value in tmp_values:
@@ -1056,11 +1062,26 @@ class CAutomation(Automation):
 
             if len(post_deps)>0:
                 tmp_env={}
+
                 for key in clean_env_keys_post_deps:
                     if key in env:
                         tmp_env[key] = env[key]
                         del env[key]
+
                 for d in post_deps:
+                    if "enable_if_env" in d:
+                        if not enable_or_skip_script(d["enable_if_env"], env, True):
+                            continue
+
+                    if "skip_if_env" in d:
+                        if enable_or_skip_script(d["skip_if_env"], env, False):
+                            continue;
+
+                    if d.get("reuse_version", False):
+                        for k in local_env:
+                            if k.startswith('CM_VERSION'):
+                                env[k] = local_env[k]
+
                     # Run collective script via CM API:
                     # Not very efficient but allows logging - can be optimized later
                     ii = {
@@ -1079,6 +1100,7 @@ class CAutomation(Automation):
 
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
+
                 for key in tmp_env:
                     env[key] = tmp_env[key]
 

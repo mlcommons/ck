@@ -2,6 +2,7 @@
  * fixed local_env_keys in get-python3
  * added new_env_only_keys to meta to specify which env to keep
  * fixed problem with adding tags from the selected script during caching
+ * added --skip-compile and --skip-run to script (converted to env CM_SKIP_COMPILE and CM_SKIP_RUN)
 
 20220713:
  * added local_env_keys to meta
