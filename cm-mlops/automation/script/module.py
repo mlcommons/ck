@@ -585,11 +585,12 @@ class CAutomation(Automation):
 
         ############################################################################################################
         # Check chain of dependencies on other CM scripts
+        local_env_keys_from_meta = meta.get('local_env_keys', [])
+
         if len(deps)>0:
             # Get local env keys
             local_env_keys = copy.deepcopy(self.local_env_keys)
 
-            local_env_keys_from_meta = meta.get('local_env_keys', [])
             if len(local_env_keys_from_meta)>0:
                 local_env_keys += local_env_keys_from_meta
 
@@ -1089,7 +1090,11 @@ class CAutomation(Automation):
         utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
         # Detect env and state diff
-        new_env_keys_only_from_meta = meta.get('new_env_only_keys', [])
+        if meta.get('new_env_only_keys_from_local_env_keys', False) and len(local_env_keys_from_meta)>0:
+            new_env_keys_only_from_meta = copy.deepcopy(meta.get('new_env_only_keys', []))
+            new_env_keys_only_from_meta += local_env_keys_from_meta
+        else:
+            new_env_keys_only_from_meta = meta.get('new_env_only_keys', [])
 
         r = detect_state_diff(env, saved_env, new_env_keys_only_from_meta, state, saved_state)
         if r['return']>0: return r
