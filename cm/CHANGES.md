@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## DEV
+   - moved cm-mlops directory to a standalone repo: https://github.com/mlcommons/cm-mlops
+
 ## V0.7.23
    - handle errors when loading artifact meta
    - added text output when can't detect tool version
