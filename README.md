@@ -17,6 +17,8 @@
 
 ## News
 
+* **2022 July 17:** We have moved CK2-based MLOps automation scripts to the new repository: https://github.com/mlcommons/cm-mlops
+
 * **2022 April 20:** Join us at the public MLCommons community meeting. Register [here](https://docs.google.com/spreadsheets/d/1bb7qWgWM-6gop1Mwjm4u8LZtC7uqbee8C30DHipkkms/edit#gid=533252977).
 
 * **2022 April 3:** We presented the CK concept to bridge the growing gap between ML Systems research and production 
