@@ -14,6 +14,7 @@ def preprocess(i):
         env['CM_DOCKER_IMAGE_REPO'] = "local/image_classification_onnx_py"
         env['CM_DOCKER_IMAGE_TAG'] = "latest"
         CMD = "docker images -q " +  env['CM_DOCKER_IMAGE_REPO'] + ":" + env['CM_DOCKER_IMAGE_TAG'] + " 2> /dev/null >docker_exists"
+        os.system(CMD)
         f = open("docker_exists", "r")
         docker_image = f.read()
         if docker_image:
