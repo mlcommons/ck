@@ -1,3 +1,6 @@
+20220721:
+ * moved MLOps scripts to cm-mlops
+
 20220718:
  * fixed local_env_keys in get-python3
  * added new_env_only_keys to meta to specify which env to keep

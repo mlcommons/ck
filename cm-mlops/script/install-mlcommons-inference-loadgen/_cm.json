@@ -1,0 +1,49 @@
+{
+  "alias": "install-mlcommons-inference-loadgen",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_version": "master",
+  "deps": [
+    {
+      "tags": "get,python3"
+    },
+    {
+      "tags": "detect,os,info"
+    }
+  ],
+  "env": {
+    "CM_GIT_URL": "https://github.com/mlcommons/inference.git",
+    "CM_SHARED_BUILD": "no"
+  },
+  "tags": [
+    "get",
+    "install",
+    "src",
+    "source",
+    "loadgen",
+    "inference",
+    "mlperf",
+    "mlcommons"
+  ],
+  "uid": "64c3d98d0ba04950",
+  "variations": {
+    "shared": {
+      "env": {
+        "CM_SHARED_BUILD": "yes"
+      }
+    }
+  },
+  "versions": {
+    "master": {
+      "env": {
+        "CM_GIT_CHECKOUT": "master"
+      }
+    },
+    "r2.1": {
+      "env": {
+        "CM_GIT_CHECKOUT": "r2.1"
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "alias": "get-ml-model-resnet50-pytorch",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "env": {
+    "CM_ML_MODEL": "RESNET50",
+    "CM_PACKAGE_URL": "https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth"
+  },
+  "tags": [
+    "get",
+    "ml-model",
+    "resnet50",
+    "resnet50-pytorch",
+    "image-classification",
+    "ml-model-pytorch",
+    "fp32"
+  ],
+  "uid": "db401be874b14341"
+}

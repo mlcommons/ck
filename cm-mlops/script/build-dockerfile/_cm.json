@@ -1,0 +1,36 @@
+{
+  "alias": "build-dockerfile",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "clean_files": [],
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    }
+  ],
+  "post_deps": [
+    {
+      "tags": "build_docker_image",
+      "enable_if_env": {
+	"CM_RUN_DOCKERFILE": [ "yes", "1" ]
+      }
+    }
+  ],
+  "env": {
+    "CM_DOCKER_IMAGE_BASE": "ubuntu:20.04",
+    "CM_DOCKER_IMAGE_ENTRYPOINT": "[\"/bin/bash\", \"-c\"]",
+    "CM_DOCKER_USER": "cmuser",
+    "CM_DOCKER_GROUP": "cm",
+    "CM_DOCKER_WORKDIR": "/home/cmuser",
+    "CM_DOCKER_IMAGE_LABEL": "",
+    "CM_DOCKER_IMAGE_SHELL": "[\"/bin/bash\", \"-c\"]",
+    "CM_DOCKER_IMAGE_TZ": "US/Pacific",
+    "CM_DOCKER_IMAGE_EOL": "\n"
+  },
+  "tags": [
+    "build",
+    "dockerfile"
+  ],
+  "uid": "e66a7483230d4641"
+}

@@ -1,0 +1,18 @@
+{
+  "alias": "test-script3",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "deps": [
+  ],
+  "env": {
+    "CM_ENV1": "TEST1C",
+    "CM_ENV2": "TEST2C",
+    "CM_VERSION": "3.0"
+  },
+  "post_deps": [],
+  "tags": [
+    "test",
+    "script3"
+  ],
+  "uid": "c6c5fd954db14dba"
+}

@@ -1,0 +1,34 @@
+{
+  "alias": "install-gcc-src",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_version": "12",
+  "deps": [
+    {
+      "tags": "detect,os,info"
+    }
+  ],
+  "env": {
+    "CM_GIT_URL": "git://gcc.gnu.org/git/gcc.git"
+  },
+  "post_deps": [
+    {
+      "tags": "get,gcc"
+    }
+  ],
+  "tags": [
+    "install",
+    "src",
+    "gcc",
+    "src-gcc"
+  ],
+  "versions": {
+    "master": {
+      "env": {
+	"CM_GIT_CHECKOUT": "master"
+      }
+    }
+  },
+  "uid": "faae0ebd6e1242db"
+}

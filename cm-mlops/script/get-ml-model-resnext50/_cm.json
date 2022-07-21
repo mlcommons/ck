@@ -1,0 +1,30 @@
+{
+  "alias": "get-ml-model-resnext50",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_variation": "onnx",
+  "env": {
+    "CM_ML_MODEL": "RESNEXT50"
+  },
+  "tags": [
+    "get",
+    "ml-model",
+    "resnext50",
+    "object-detection",
+    "fp32"
+  ],
+  "uid": "427bc5665e4541c2",
+  "variations": {
+    "onnx": {
+      "env": {
+        "CM_PACKAGE_URL": "https://zenodo.org/record/6617879/files/resnext50_32x4d_fpn.onnx"
+      }
+    },
+    "pytorch": {
+      "env": {
+        "CM_PACKAGE_URL": "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth"
+      }
+    }
+  }
+}

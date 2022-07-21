@@ -1,0 +1,7 @@
+matplotlib
+opencv-python
+scipy
+onnx
+decorator
+attrs
+psutil

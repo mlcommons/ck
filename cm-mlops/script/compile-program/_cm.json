@@ -1,0 +1,22 @@
+{
+  "alias": "compile-program",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect-cpu"
+    },
+    {
+      "tags": "get,compiler"
+    }
+  ],
+  "tags": [
+    "program",
+    "compile",
+    "compile-program"
+  ],
+  "uid": "31be8b74a69742f8"
+}

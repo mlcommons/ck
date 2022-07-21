@@ -1,0 +1,29 @@
+{
+  "alias": "install-llvm-prebuilt",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "default_version": "12.0.0",
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect,os,info"
+    }
+  ],
+  "cache": true,
+  "post_deps": [
+    {
+      "tags": "get,llvm"
+    }
+  ],
+  "tags": [
+    "prototype",
+    "install",
+    "prebuilt",
+    "llvm",
+    "prebuilt-llvm",
+    "install-prebuilt-llvm"
+  ],
+  "uid": "cda9094971724a0a"
+}

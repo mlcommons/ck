@@ -1,0 +1,26 @@
+{
+  "alias": "install-bazel",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_version": "5.2.0",
+  "deps": [
+    {
+      "tags": "detect,os,info"
+    }
+  ],
+  "env": {
+    "CM_WGET_URL": "https://github.com/bazelbuild/bazel/releases/download/[VERSION]/bazel-[VERSION]-installer-[OS]-[PLATFORM].sh"
+  },
+  "post_deps": [
+    {
+      "tags": "get,bazel"
+    }
+  ],
+  "tags": [
+    "install",
+    "script",
+    "bazel"
+  ],
+  "uid": "dfd3d2bf5b764175"
+}

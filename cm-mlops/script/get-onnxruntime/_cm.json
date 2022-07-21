@@ -1,0 +1,32 @@
+{
+  "alias": "get-onnxruntime",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "clean_files": [],
+  "deps": [
+    {
+      "tags": "get,python3",
+      "version_max_usable": "3.9.12",
+      "version_max": "3.9.999"
+    },
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect-cpu"
+    }
+  ],
+  "new_env_only_keys": [
+    "CM_ONNXRUNTIME_*"
+  ],
+  "extra_cache_tags_from_env": [
+    {"env":"CM_PYTHON_CACHE_TAGS", "prefix":"python-"}
+  ],
+  "tags": [
+    "get",
+    "onnxruntime",
+    "python-lib"
+  ],
+  "uid": "42e1670ffef9457f"
+}

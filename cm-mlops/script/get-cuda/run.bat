@@ -1,0 +1,3 @@
+"%CM_NVCC_BIN%" -V > tmp-ver.out
+IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+
