@@ -1,120 +1,129 @@
-20220721:
- * moved MLOps scripts to cm-mlops
+# 20220719
+ * moved relatively stable MLOps automation scripts here
 
-20220718:
+# 20220718
  * fixed local_env_keys in get-python3
  * added new_env_only_keys to meta to specify which env to keep
  * fixed problem with adding tags from the selected script during caching
  * added --skip-compile and --skip-run to script (converted to env CM_SKIP_COMPILE and CM_SKIP_RUN)
+ * fixed local_env_keys in get-python3
+ * added new_env_only_keys to get-python3
 
-20220713:
+# 20220713
  * added local_env_keys to meta
  * added "env" dict to os_info
 
-20220712:
+# 20220712
  * major script refactoring to support cache tags update from deps
  * fixed version min/max propagations in deps
  * improvements to support tags from deps
+ * added tags from deps (python, llvm)
 
-20220708:
+# 20220708
  * various fixes to handle versions (min/max/default)
  * various fixes to avoid contamination of ENV from other scripts
+ * various fixes to handle versions (min/max/default)
 
-20220705:
+# 20220705
  * fixes for remembered selections
  * added --skip-remembered-selections to "cm run script"
 
-20220704:
+# 20220704
  * fixed a bug with searching for scripts with variations
  * added the possibilty to update deps from pre/post processing
  * added --extra-cache-tags and --name for "cm run script"
  * added prototype of selection caching
+ * fixed get-python-venv
 
-20220701:
+# 20220701
  * added dummy "cm test script"
  * added "--env" to "cm show cache" to show env and state
  * added "cm show cache"
 
-20220629:
+# 20220629
  * added "detect_version_using_script" in script used to detect python packages
  * major fix to properly support multiple scripts with the same tags, caching, selection, etc
  * fixed a bug in version comparison (converting string to int)
  * added recording of "version" to cache meta
 
-20220628:
+# 20220628
  * fixed local_env with deps
 
-20220623:
+# 20220623
  * important update of versions logic
 
-20220621:
+# 20220621
  * added support for --quiet
  * changed CM_NEED_VERSION to CM_VERSION
  * added CM_VERSION_MIN, CM_VERSION_MAX
  * added cm compare_versions utils --version1=... --version2=...
  * added support to detect min/max/correct versions
 
-20220617
+# 20220617
  * fixed logic to handle variations (-_): https://github.com/mlcommons/ck/issues/243
 
-20220616:
+# 20220616
  * changed "cached" to "cache" automation
 
-20220615:
+# 20220615
  * major update of script (remove parallel env/new_env and state/new_state).
    keep global env & state and detect changes automatically
  * major simplification of "script"
  * removed "installed" to be more understandable
  * added "cached" to be more understandable
 
-20220609:
+# 20220609
  * added "versions" key to the CM script meta
    it works similar to "variations" and is forced by --version
  * changed "ic" to "script" in "experiment" automation
 
-20220608:
+# 20220608
  * updated "variations" logic in "script"!
    meta['default_variation'] (str): only one of many
    meta['default_variations'] (list): multiple choices
-
  * deprecated "ic" automation. Use "script" instead!
 
-20220607:
+# 20220607
  * added strip_folders to utils/unzip_file
  * fixed minor bugs in CM script
 
-20220606:
+# 20220606
  * added "name" key to deps (list of names and UIDs)
  * added "add_deps_tags" in variations and in CMD ({"name":"tag(s)"})
  * added "deps" to variations to be merged with the list of current deps
  * added --input and --output for cm run script converted to env CM_INPUT and CM_OUTPUT
    useful to create interactive CM scripts to process files
+ * Added prototype-test-deps-variations-tags to play with deps, variations, tags
 
-20220605:
+# 20220605
  * clean tmp files in "script" automation by default and keep them using --dirty flag
 
-20220603:
+# 20220603
  * added "skip" and "deps" to postprocess to call other scripts.
    For example call install LLVM if detect LLVM fails...
-
  * added "script" automation to substitute less intuitive "ic"
+ * Improved LLVM detection and installation
+ * Added example of image corner detection
+ * Added updated script entries
 
-20220601:
+# 20220601
  * added version, path, skip_install and post_deps to IC 
  * added --new to IC to detect new components
+ * Updating mechanisms to install and/or detect LLVM
+ * added support to install prebuilt LLVM for Linux, MacOs, Windows
 
-20220530:
+# 20220530
  * updated ic automation to read tmp-run-state.json 
    and merge it with the "new_state" dict
 
-20220524:
+# 20220524
  * changed directory ck2-repo-mlops to cm-devops
 
-20220517:
+# 20220517
  * Changed CM_PATH_LIST to +PATH
  * Added general support for +ENV that is expanded to ENV=val1;val2;...:${ENV}
 
-20220511:
+# 20220511
  * Better handle exceptions in utils.download_file
  * Added support for variations in intelligent components (ic)
  * Fixed bugs in IC
@@ -122,4 +131,8 @@
  * Record env.sh in "installed artifacts even if bat file is not executed
  * Fixed experiment directory naming on Windows
  * Added "cm version ic" (#233)
-
+ * Added prototype of ic::prototype-get-ml-model-resnet50-onnx with variations
+ * Added prototype of ic::prototype-get-imagenet-val with variations
+ * Added prototype of ic::prototype-get-imagenet-aux with variations
+ * Added prototype of ic::prototype-get-llvm
+ * Added prototype of ic::prototype-get-tvm

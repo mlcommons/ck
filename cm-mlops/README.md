@@ -12,10 +12,10 @@ suggests that it is possible to [apply DevOps principles to MLOps](https://www.d
 if we treat all AI, ML and Systems artifacts including models, data sets, frameworks, libraries and scripts as "code" meta packages 
 with dependencies on other artifacts, operating systems and hardware.
 
-We use this [CM-based repository](https://github.com/mlcommons/ck/tree/master/cm) 
+We use this [CM-based repository](https://github.com/mlcommons/cm-mlops) 
 as a common playground and a common language to learn with the community
-how to make benchmarking, optimization, co-design and deployment
-of complex ML Systems more deterministic, portable and reproducible 
+how to automate benchmarking, optimization, co-design and deployment
+of complex ML Systems and make it more deterministic, portable and reproducible 
 across continusly changing software and hardware stacks.
 
 
@@ -43,5 +43,26 @@ You can list reusable automations as follows:
 $ cm find automation
 ```
 
+You can now list available MLOps automation scripts as follows:
+```bash
+$ cm list script
+```
+
+You can run any portable and reusable MLOps automation script as follows:
+```bash
+$ cm run script {CM script alias or UID}
+```
+
 
 *More to come soon ...*
+
+
+## Check CM tutorials
+
+TBD
+
+
+# Contacts
+
+* [Grigori Fursin](https://cKnowledge.io/@gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
