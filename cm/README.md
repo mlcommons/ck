@@ -10,7 +10,7 @@ We have developed the Collective Mind unification framework (CM aka CK2) to make
 more portable, interoperable, deterministic, reusable and reproducible 
 with minimal or no changes to existing projects!
 
-CM transforms existing projects into an [open database of portable CM scripts](https://github.com/octoml/cm-mlops/tree/main/script) 
+CM transforms existing projects into an [open database of portable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
 that simply wrap existing user scripts and artifacts 
 to provide a common API and extensible meta descriptions 
 with dependencies on other IC and platforms.
@@ -49,6 +49,8 @@ Apache 2.0
 
 
 # News
+
+* **2022 July 21:** Pre-released relatively stable scripts for portable MLOps: https://github.com/mlcommons/ck/tree/master/cm-mlops/script
 
 * **2022 May 20:** Brainstorming session for [portable CM scripts](https://cknowledge.org/docs/cm/tutorial-scripts.html) in Seattle, WA.
 
