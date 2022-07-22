@@ -1,3 +1,7 @@
+# 20220722
+ * added --accept-license and --skip-system-deps 
+   (converted to env CM_ACCEPT_LICENSE ("True") and CM_SKIP_SYSTEM_DEPS ("True"))
+
 # 20220719
  * moved relatively stable MLOps automation scripts here
 

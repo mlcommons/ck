@@ -38,6 +38,17 @@ class CAutomation(Automation):
                                'CM_NAME',
                                'CM_EXTRA_CACHE_TAGS']
 
+        self.input_flags_converted_to_tmp_env = ['path'] 
+
+        self.input_flags_converted_to_env = ['input', 
+                                             'output', 
+                                             'name', 
+                                             'extra_cache_tags', 
+                                             'skip_compile', 
+                                             'skip_run',
+                                             'accept_license',
+                                             'skip_system_deps']
+
     ############################################################
     def version(self, i):
         """
@@ -265,12 +276,12 @@ class CAutomation(Automation):
             env.update(env_from_os_info)
 
         # Check path/input/output in input and pass to env
-        for key in ['path']:
+        for key in self.input_flags_converted_to_tmp_env:
             value = i.get(key, '').strip()
             if value != '':
                 env['CM_TMP_' + key.upper()] = value
 
-        for key in ['input', 'output', 'name', 'extra_cache_tags', 'skip_compile', 'skip_run']:
+        for key in self.input_flags_converted_to_env:
             value = i.get(key, '')
             if type(value)==str: value=value.strip()
             if value != '':
