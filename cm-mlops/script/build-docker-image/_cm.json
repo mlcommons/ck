@@ -13,6 +13,7 @@
     }
   ],
   "env": {
+    "CM_BUILD_DOCKER_CONTAINER": "yes"
   },
   "tags": [
     "build",

@@ -16,7 +16,7 @@ def preprocess(i):
         f.write('SHELL ' + env['CM_DOCKER_IMAGE_SHELL'] + EOL)
     f.write('RUN apt update -y' + EOL)
     f.write('RUN apt install -y python3 python3-pip git sudo' + EOL)
-    f.write('RUN python3 -m pip install cmind' + EOL)
+    f.write('RUN python3 -m pip install cmind requests' + EOL)
     if 'CM_DOCKER_IMAGE_ENTRYPOINT' in env and env['CM_DOCKER_IMAGE_ENTRYPOINT']:
         f.write('ENTRYPOINT ' + env['CM_DOCKER_IMAGE_ENTRYPOINT'] + EOL)
     if 'CM_DOCKER_IMAGE_TZ' in env:
@@ -42,11 +42,15 @@ def preprocess(i):
         f.write('USER ' + env['CM_DOCKER_USER'] + ":" + env['CM_DOCKER_GROUP'] + EOL)
     if 'CM_DOCKER_WORKDIR' in env:
         f.write('WORKDIR ' + env['CM_DOCKER_WORKDIR'] + EOL)
-    f.write('RUN cm pull repo mlcommons@cm-mlops' + EOL)
+    f.write('RUN cm pull repo mlcommons@ck' + EOL)
     #echo '${CM_DOCKER_IMAGE_ENV}'
 
-    f.write('RUN cm run script --tags=get,sys-utils-cm' + EOL)
+    f.write('RUN cm run script --quiet --tags=get,sys-utils-cm' + EOL)
+
+    f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + EOL)
+
     f.close()
+
     f = open(env['CM_DOCKERFILE_WITH_PATH'], "r")
     print(f.read())
 

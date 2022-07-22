@@ -9,6 +9,8 @@ def preprocess(i):
     if not exists(env['CM_DOCKERFILE_WITH_PATH']):
         env['CM_BUILD_DOCKERFILE'] = "yes"
         env['CM_RUN_DOCKERFILE'] = "yes"
+    else:
+        env['CM_BUILD_DOCKERFILE'] = "no"
     if "CM_DOCKER_IMAGE_REPO" not in env:
         env['CM_DOCKER_IMAGE_REPO'] = "local"
     if "CM_DOCKER_IMAGE_TAG" not in env:

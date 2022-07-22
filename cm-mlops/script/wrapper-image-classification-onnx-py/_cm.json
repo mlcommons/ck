@@ -18,6 +18,9 @@
   ],
   "env": {
     "CM_DOCKER_RUN_SCRIPT_TAGS": "app,image-classification,python,onnx",
+    "CM_DOCKER_IMAGE_REPO": "local/image_classification_onnx_py",
+    "CM_DOCKER_IMAGE_TAG": "latest",
+    "CM_DOCKER_CONTAINER_NAME": "image_classification_onnx_py",
     "CM_RUN_DOCKER": "no"
   },
   "tags": [

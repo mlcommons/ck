@@ -11,9 +11,9 @@
   ],
   "post_deps": [
     {
-      "tags": "build_docker_image",
+      "tags": "build,docker,image",
       "enable_if_env": {
-	"CM_RUN_DOCKERFILE": [ "yes", "1" ]
+	"CM_BUILD_DOCKER_CONTAINER": [ "yes", "1" ]
       }
     }
   ],
