@@ -8,5 +8,5 @@ sh tmp.sh -y
 
 export PATH=$PATH:$HOME/.cargo/bin
 
-${CM_PYTHON_BIN} -m pip install tensorflow-aarch64${CM_TMP_PIP_VERSION_STRING} -f https://tf.kmtea.eu/whl/stable.html --user
+${CM_PYTHON_BIN} -m pip install tensorflow-aarch64${CM_TMP_PIP_VERSION_STRING  --user
 test $? -eq 0 || exit 1
