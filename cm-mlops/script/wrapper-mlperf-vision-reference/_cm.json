@@ -1,0 +1,62 @@
+{
+  "alias": "wrapper-mlperf-vision-reference",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect,os,info"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "tags": "get,python"
+    }
+  ],
+  "env": {
+    "CM_DOCKER_RUN_SCRIPT_TAGS": "app,mlperf,reference,python",
+    "CM_DOCKER_IMAGE_REPO": "local/mlperf_reference_python",
+    "CM_DOCKER_IMAGE_TAG": "latest",
+    "CM_RUN_DOCKER": "no"
+  },
+  "post_deps": [
+    {
+      "skip_if_env": {
+        "CM_RUN_DOCKER": [
+          "yes",
+          "1"
+        ]
+      },
+      "tags": "app,mlperf,reference,python"
+    }
+  ],
+  "tags": [
+    "wrapper",
+    "run",
+    "mlperf",
+    "python",
+    "reference"
+  ],
+  "uid": "989db87796e64ee8",
+  "variations": {
+    "docker": {
+      "env": {
+        "CM_DOCKERFILE_NAME": "Dockerfile",
+        "CM_RUN_DOCKER": "yes"
+      },
+      "post_deps": [
+        {
+          "skip_if_env": {
+            "CM_DOCKER_IMAGE_EXISTS": [
+              "yes"
+            ]
+          },
+          "tags": "build,docker,image"
+        }
+      ]
+    }
+  }
+}
