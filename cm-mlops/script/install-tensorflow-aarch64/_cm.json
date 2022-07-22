@@ -32,9 +32,8 @@
   ],
   "tags": [
     "install",
-    "tensorflow",
-    "python-lib",
-    "aarch64"
+    "tensorflow-aarch64",
+    "python-lib"
   ],
   "uid": "0e94e3190d584f94"
 }
