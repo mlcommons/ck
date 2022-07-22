@@ -40,10 +40,11 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            build-essential \
            libbz2-dev \
            libffi-dev \
+           liblzma-dev \
            python3 \
            python3-pip \
            python3-dev \
            libtinfo-dev \
            python-is-python3 \
            sudo \
-	   libgl1
+           libgl1

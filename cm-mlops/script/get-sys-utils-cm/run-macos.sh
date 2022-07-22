@@ -27,4 +27,9 @@ brew update && \
            libtool \
            make \
            cmake \
+           openssl \
+           readline \
+           sqlite3 \
+           xz \
+           zlib \
            python3
