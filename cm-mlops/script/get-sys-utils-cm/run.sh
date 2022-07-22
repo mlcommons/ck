@@ -45,4 +45,5 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            python3-dev \
            libtinfo-dev \
            python-is-python3 \
-           sudo
+           sudo \
+	   libgl1
