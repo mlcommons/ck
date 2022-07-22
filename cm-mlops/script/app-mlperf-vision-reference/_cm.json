@@ -155,8 +155,9 @@
   },
   "tags": [
     "app",
-    "image-classification",
+    "vision",
     "mlcommons",
+    "mlperf",
     "reference",
     "python"
   ],
