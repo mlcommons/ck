@@ -4,7 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
-  "default_version": "2.8.0",
+  "default_version": "2.8.2",
   "deps": [
     {
       "tags": "set,echo-off,win"
