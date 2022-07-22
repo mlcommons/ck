@@ -1,0 +1,40 @@
+{
+  "alias": "install-tensorflow-aarch64",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "clean_files": [],
+  "default_version": "1.2",
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect-cpu"
+    },
+    {
+      "tags": "get,python"
+    }
+  ],
+  "extra_cache_tags_from_env": [
+    {
+      "env": "CM_PYTHON_CACHE_TAGS",
+      "prefix": "python-"
+    }
+  ],
+  "post_deps": [
+    {
+      "const": {
+        "CM_TMP_FAIL_IF_NOT_FOUND": "yes"
+      },
+      "tags": "get,tensorflow,python-lib"
+    }
+  ],
+  "tags": [
+    "install",
+    "tensorflow",
+    "python-lib",
+    "aarch64"
+  ],
+  "uid": "0e94e3190d584f94"
+}

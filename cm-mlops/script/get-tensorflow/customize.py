@@ -19,9 +19,13 @@ def preprocess(i):
                return r
 
            print (recursion_spaces+'    # {}'.format(r['error']))
+ 
+           install_tags="install,tensorflow,python-lib"
+           if env["CM_HOST_OS_MACHINE"] == "arm64":
+               install_tags+=",aarch64"
 
            # Attempt to run installer
-           r = {'return':0, 'skip':True, 'script':{'tags':'install,tensorflow,python-lib'}}
+           r = {'return':0, 'skip':True, 'script':{'tags':install_tags}}
 
        return r
 
