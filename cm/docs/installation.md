@@ -75,7 +75,7 @@ You can also quickly test the installation and check the version as follows:
 ```bash
 gfursin@cmind:~$ cm test core
 
-CM version: 0.7.7.1
+CM version: 0.7.23
 
 Python executable used by CK: C:\!Progs\Python39\python.exe
 

@@ -5,10 +5,9 @@
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 
-The Collective Mind toolkit (CM aka CK2) provides a simple, human-readable 
-and platform-independent CLI and JSON API
-to existing artifacts and automation scripts including DevOps and MLOps to 
-[make them more portable, reusable, interoperable, deterministic, reproducible and understandable](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
+The Collective Mind toolkit helps you to add and share [simple, human-readable  
+and platform-independent CLI and JSON API](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
+to existing DevOps and MLOps automation scripts and artifacts to make them more understandable, portable, reusable, interoperable, deterministic and reproducible
 across continuously changing hardware, software and data with minimal or no changes to existing projects.
 
 See an example of CM-based image classification that can run natively on any user platform with Linux, Windows and MacOS
@@ -22,6 +21,7 @@ cm run script --tags=get,python --name=my-virtual-env
 cm run script --tags=install,python-venv --name=my-virtual-env
 cm run script --tags=install,ml-model-onnx,resnet50
 cm run script --tags=install,dataset,imagenet,_2012-500
+cm show cache
 cm run script --tags=app,image-classification,onnx,python (--input=my-image.jpg)
 ```
 

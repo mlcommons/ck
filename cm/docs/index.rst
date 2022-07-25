@@ -16,8 +16,8 @@ CM toolkit documentation
    :caption: User guide
 
    installation
+   tutorial-scripts
    tutorial-concept
-   tutorial-ic
 
 .. toctree::
    :maxdepth: 2

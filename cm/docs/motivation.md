@@ -5,8 +5,8 @@ when [our colleagues](https://ctuning.org/ae/committee.html) have spent many fru
 and trying to understand numerous technical reports, README files, specifications, dependencies, 
 ad-hoc scripts, tools, APIs, models and data sets of all shared projects 
 to be able to [validate experimental results](https://cknowledge.io/?q=%22reproduced-papers%22) 
-and adapt ad-hoc projects to the real world with very diverse 
-software, hardware, user environments, settings and data.
+and adapt these projects to the real world with very diverse 
+software, hardware, user environments, settings and data sets.
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production.png?id=1)
 
@@ -15,13 +15,14 @@ software, hardware, user environments, settings and data.
 ## Community effort
 
 The open-source Collective Mind toolkit (CM aka CK2) is our community effort to solve above problems 
-by making existing DevOps and MLOps more portable, interoperable, deterministic, reusable and reproducible 
+by providing a unified CLI, API and extensible meta descriptions to existing artifacts and automation scripts for DevOps and MLOps 
+to make them more portable, interoperable, deterministic, reusable, reproducible and understandable
 with minimal or no changes to existing projects!
 
-CM transforms existing projects into an [open database of portable CM scripts](https://github.com/octoml/cm-mlops/tree/main/script) 
-that simply wrap existing user scripts and artifacts 
-to provide a common API and extensible meta descriptions 
-with dependencies on other IC and platforms.
+The CM toolkit helps users to gradually transform their existing projects, Git repositories, Docker containers,
+Jupyter notebooks and internal directories into an [open database of portable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
+with a common API, extensible meta descriptions and a simple portability and interoperability layer
+written in Python or shell scripts.
 
 Such evolutionary approach helps to avoid vendor lock-in on specific workflow frameworks and platforms
 while simplifying and automating the development, optimization and deployment of complex applications
@@ -29,21 +30,21 @@ across rapidly evolving software and hardware stacks from the cloud to the edge.
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production3a.png)
 
-## 2nd generation of the CK technology
+## The 2nd generation of the CK framework
 
 The open-source CM unification framework is the 2nd generation of the [Collective Knowledge framework (CK)]( https://arxiv.org/abs/2011.01149 )
-that was [successfully validated in academia and industry]( https://cKnowledge.org/partners.html ) in the past years 
+that was [validated in academia and industry]( https://cKnowledge.org/partners.html ) in the past years 
 to enable unified, interchangeable, collaborative and reproducible development, optimization and deployment
 of Pareto-efficient ML Systems in terms of accuracy, latency, throughput, energy, size and costs
 across continuously changing software and hardware.
 
-CM also helps to transform Git repositories, Docker containers, Jupyter notebooks, zip/tar files
+It helps to transform Git repositories, Docker containers, Jupyter notebooks, zip/tar files
 and any local directory into a collective database of reusable artifacts 
 and automation scripts with a unified interface and extensible meta descriptions.
 
-Our long-term goal is to help researchers and engineers exchange their artifacts, knowledge, 
+Our long-term goal is to make it easier for researchers and engineers to exchange their artifacts, knowledge, 
 experience and best practices in a more automated, reusable, portable and unified way
-across rapidly evolving software and hardware.
+across rapidly evolving computer systems.
 
 
 See related articles and videos:

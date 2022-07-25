@@ -29,7 +29,7 @@ Examples:
 Examples: 
 
 * [Internal CM repository](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo) 
-* [octoml@cm-mlops repository](https://github.com/octoml/cm-mlops)
+* [CM repository for MLOps and DevOps](https://github.com/mlcommons/ck/tree/master/cm-mlops)
 
 ### Second level directories
 
@@ -38,7 +38,7 @@ Examples:
 Examples: 
 
 * [Internal CM repository](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation) 
-* [octoml@cm-mlops repository](https://github.com/octoml/cm-mlops/tree/main/automation)
+* [CM repository for MLOps and DevOps](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
 
 ### Third level files
 
@@ -115,7 +115,7 @@ If a flag has ".", it will be treated as dictionary with multiple subkeys separa
 If a flag ends with ",", tis argument will be treated as a list of values separated by ",".
 
 The CM dictionary is then passed to the 
-[unified CM "access" function](https://github.com/mlcommons/ck/blob/master/cm/cmind/core.py#L132)
+[unified CM "access" function](https://github.com/mlcommons/ck/blob/master/cm/cmind/core.py#L134)
 similar to micro-services and REST API.
 
 
@@ -158,7 +158,7 @@ cm add . {some artifact}
 
 
 
-## CM Python interface
+## CM Python JSON interface
 
 CM automations can be executed from a Python as follows:
 ```python

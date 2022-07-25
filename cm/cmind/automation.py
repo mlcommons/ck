@@ -119,8 +119,9 @@ class Automation:
         print ('Path to CM repositories:    {}'.format(self.cmind.repos_path))
 
         print ('')
-        print ('GitHub for CM development:  https://github.com/mlcommons/ck/tree/master/cm')
-        print ('Reporting issues and ideas: https://github.com/mlcommons/ck/issues')
+        print ('GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm')
+        print ('GitHub for CM automation scripts:  https://github.com/mlcommons/ck/tree/master/cm-mlops')
+        print ('Reporting issues and ideas:        https://github.com/mlcommons/ck/issues')
 
         return {'return':0}
 

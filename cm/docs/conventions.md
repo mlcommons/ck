@@ -2,6 +2,10 @@
 
 ## Tags
 
+```bash
+cm (some actions) --tags={list of tags}
+```
+
 ### Searching artifacts
 
 * "-" prefix is used to exclude artifacts with this tag
@@ -9,7 +13,7 @@
 ### Differentiating ML artifacts
 
 * "app-" is used to specify application script
-* "_" is used to select variation
+* "_" is used to select variations
 
 
 ## Environment variables

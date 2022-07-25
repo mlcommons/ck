@@ -1,8 +1,9 @@
 # Enhancements
 
-## Planned enhancements
+## Automation scripts
 
-* [Timeline for Q2 and Q3 2022](https://github.com/mlcommons/ck/issues/189)
+* [Planned developments for 2022]( https://github.com/mlcommons/ck/issues/189 )
+* ~[Prototyping major automations for MLOps and DevOps](https://github.com/mlcommons/ck/issues/245)~
 
 ## Ideas
 

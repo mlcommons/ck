@@ -1,7 +1,9 @@
 # Tutorial: understanding CM database concepts
 
-Here we describe a few simple steps to let you try CM (aka CK2) and help you understand the [CM concepts](motivation.md). 
-You will install CM v0.7.13+, transform your local directory into a database of reusable artifacts, 
+Here we describe a few simple steps to let you try CM (aka CK2) and help you understand the CM [motivation](motivation.md)
+and concepts.
+
+You will install CM v0.7.24+, transform your local directory into a database of reusable artifacts, 
 share it with others, implement some common automation actions to reusable artifacts,
 run CM automations from Python and Jupyter Notebooks, and convert any Git repository 
 into the CM format.
@@ -287,6 +289,20 @@ $ cm rm images cool-*-v3
 This command will remove *images::cool-cat-v3* artifact.
 
 
+#### Copying artifact to another artifact
+
+The idea of CM is to use existing artifacts as templates for new artifacts. 
+You can copy an artifact to another one with a new alias (new UID will be generated automatically)
+as follows:
+
+```bash
+$ cm copy images cool-cat-v3 .:cool-cat-v4
+```
+This command will copy *images::cool-cat-v4* artifact to 
+*images::cool-cat-v4** in the same repository (specified by *.*)
+
+
+
 
 #### Viewing CM meta description
 
@@ -459,7 +475,7 @@ RUN apt update && \
 
 RUN pip3 install cmind
 
-RUN cm pull repo octoml@cm-mlops
+RUN cm pull repo mlcommons@ck
 
 RUN cm find automation
 
@@ -561,7 +577,7 @@ $ cm test images
 }
 ```
 
-You can add your own functions to this module that will be immediatelly accessible 
+You can add your own functions to this module that will be immediately accessible 
 from the command line:
 ```bash
 $ cm {my-new-automation} images
@@ -602,6 +618,6 @@ all complex software and research projects into a collection of reusable artifac
 
 ## Next steps
 
-We are working with the community to develop [portable CM scripts](https://github.com/octoml/cm-mlops/tree/main/script)
-and help make ML Systems benchmarking, experimenation and MLOps more deterministic, collaborative and reproducible
+We are working with the community to develop [portable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
+and help make ML Systems benchmarking, experimentation and MLOps more portable, deterministic, collaborative and reproducible
 without the need for complex workflows: [tutorial for CM scripts](tutorial-scripts.md).

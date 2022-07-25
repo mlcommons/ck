@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## V0.7.24
+   - added link to GitHub repo with CM automation scripts
+
 ## V0.7.23
    - handle errors when loading artifact meta
    - added text output when can't detect tool version
