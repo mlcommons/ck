@@ -48,6 +48,8 @@ across continuously changing software, hardware, user environments, settings, mo
 
 # News
 
+* **2022 July 25:** We updated tutorial about CM scripts: https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md .
+
 * **2022 July 21:** We have pre-released relatively stable scripts for portable DevOps and MLOps at https://github.com/mlcommons/ck/tree/master/cm-mlops/script .
 
 * **2022 May 20:** We brainstormed the minimal set of [portable CM scripts](https://cknowledge.org/docs/cm/tutorial-scripts.html) to automate deployment of ML models across diverse hardware and software at [OctoML](https://OctoML.ai) in Seattle, WA.

@@ -83,7 +83,7 @@ The output of this automation is also a unified CM dictionary:
 * "new_env" (dict): update for the original environment (excluding original environment)
 * "new_state" (dict): update for the original state (excluding original environment)
 
-![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-plug-and-play-script-details.png)
+![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-plug-and-play-script-details.v2.png)
 
 A CM script simply wraps existing user scripts (run.sh on Linux and MacOS or run.bat on Windows),
 reads meta description, runs other CM script dependencies,
