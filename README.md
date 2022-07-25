@@ -1,4 +1,4 @@
-***We are developing the new [CM toolkit aka CK2](https://github.com/mlcommons/ck/tree/master/cm) based on the community feedback.***
+## We are developing the 2nd generation of the CK framework based on the community feedback: https://github.com/mlcommons/ck/tree/master/cm
 
 # Collective Knowledge framework (CK)
 
@@ -17,9 +17,11 @@
 
 ## News
 
-* **2022 July 17:** We have moved CK2-based MLOps automation scripts to the new repository: https://github.com/mlcommons/cm-mlops
 
-* **2022 April 20:** Join us at the public MLCommons community meeting. Register [here](https://docs.google.com/spreadsheets/d/1bb7qWgWM-6gop1Mwjm4u8LZtC7uqbee8C30DHipkkms/edit#gid=533252977).
+
+* **2022 July 17:** We have pre-released CK2-based MLOps and DevOps automation scripts at https://github.com/mlcommons/ck/tree/master/cm-mlops/script
+
+* **2022 May:** We started developing the 2nd generation of the CK framework (aka CM): https://github.com/mlcommons/ck/tree/master/cm
 
 * **2022 April 3:** We presented the CK concept to bridge the growing gap between ML Systems research and production 
   at the HPCA'22 workshop on [benchmarking deep learning systems](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca22/home).
@@ -94,6 +96,12 @@ Please contact [Grigori Fursin](https://www.linkedin.com/in/grigorifursin) if yo
 * [CK basics]( https://colab.research.google.com/drive/15lQgxuTSkEPqi4plaat1_v2gJcfIrATF?usp=sharing )
 
 ## Releases
+
+### Development version
+
+We are developing the 2nd generation of the CK framework (aka CM) based on your feedback:
+* [CK2(CM) framework](https://github.com/mlcommons/ck/tree/master/cm)
+* [CK2(CM) MLOps and DevOps automation scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops)
 
 ### Stable versions
 
