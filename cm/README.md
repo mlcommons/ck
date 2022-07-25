@@ -19,9 +19,10 @@ cm pull repo mlcommons@ck
 cm run script --tags=detect,os --out=json
 cm run script --tags=get,python --name=my-virtual-env
 cm run script --tags=install,python-venv --name=my-virtual-env
-cm run script --tags=install,ml-model-onnx,resnet50
-cm run script --tags=install,dataset,imagenet,_2012-500
+cm run script --tags=get,ml-model-onnx,resnet50
+cm run script --tags=get,dataset,imagenet,original,_2012-500
 cm show cache
+cm run script --tags=get,python --version=3.9.6
 cm run script --tags=app,image-classification,onnx,python (--input=my-image.jpg)
 ```
 
