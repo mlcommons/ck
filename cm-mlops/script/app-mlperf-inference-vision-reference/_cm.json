@@ -10,26 +10,21 @@
       "tags": "detect,os,info"
     },
     {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "tags": "get,python"
+    },
+    {
+      "tags": "get,loadgen"
+    },
+    {
       "enable_if_env": {
         "CM_BACKEND": [
           "onnxruntime"
         ]
       },
       "tags": "get,onnxruntime"
-    },
-    {
-      "skip_if_env": {
-        "CM_BACKEND": [
-          "onnxruntime"
-        ]
-      },
-      "tags": "get,python"
-    },
-    {
-      "tags": "get,sys-utils-cm"
-    },
-    {
-      "tags": "get,loadgen"
     },
     {
       "enable_if_env": {
