@@ -1893,7 +1893,6 @@ def update_state_from_meta(meta, env, state, deps, post_deps, i):
     """
     Internal: update env and state from meta
     """
-
     update_env = meta.get('env', {})
     env.update(update_env)
 
@@ -1911,10 +1910,18 @@ def update_state_from_meta(meta, env, state, deps, post_deps, i):
     update_post_deps = meta.get("post_deps", [])
     if len(update_post_deps) > 0:
         post_deps += update_post_deps
+ 
+    add_post_deps_tags = meta.get('add_post_deps_tags', {})
+    if len(add_post_deps_tags) >0 :
+        update_deps_tags(post_deps, add_post_deps_tags)
 
     add_deps_tags_from_input = i.get('add_deps_tags', {})
     if len(add_deps_tags_from_input) >0 :
         update_deps_tags(deps, add_deps_tags_from_input)
+
+    add_post_deps_tags_from_input = i.get('add_post_deps_tags', {})
+    if len(add_post_deps_tags_from_input) >0 :
+        update_deps_tags(post_deps, add_post_deps_tags_from_input)
 
     return {'return':0}
 
