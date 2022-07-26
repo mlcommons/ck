@@ -6,57 +6,37 @@
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1"
   },
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect,os,info"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "tags": "get,python"
+    },
+    {
+      "tags": "get,dataset,imagenet,image-classification,original"
+    },
+    {
+      "tags": "get,dataset-aux,imagenet-aux,image-classification"
+    },
+    {
+      "tags": "get,ml-model-onnx,resnet50,image-classification"
+    },
+    {
+      "tags": "get,onnxruntime,python-lib"
+    }
+  ],
   "tags": [
     "app",
     "image-classification",
     "onnx",
     "python"
   ],
-  "default_variation": "run",
-  "uid": "3d5e908e472b417e",
-  "variations": {
-    "run": {
-      "deps": [
-	{
-	  "tags": "set,echo-off,win"
-	},
-	{
-	  "tags": "detect,os,info"
-	},
-	{
-	  "tags": "get,sys-utils-cm"
-	},
-	{
-	  "tags": "get,python"
-	},
-	{
-	  "tags": "get,dataset,imagenet,image-classification,original"
-	},
-	{
-	  "tags": "get,dataset-aux,imagenet-aux,image-classification"
-	},
-	{
-	  "tags": "get,ml-model-onnx,resnet50,image-classification"
-	},
-	{
-	  "tags": "get,onnxruntime,python-lib"
-	}
-      ]
-    },
-    "docker": {
-      "env": {
-	"CM_DOCKERFILE_NAME": "Dockerfile",
-	"CM_DOCKER_RUN_SCRIPT_TAGS": "app,image-classification,python,onnx",
-	"CM_DOCKER_IMAGE_REPO": "local/image_classification_onnx_py",
-	"CM_DOCKER_IMAGE_TAG": "latest",
-	"CM_DOCKER_CONTAINER_NAME": "image_classification_onnx_py",
-	"CM_RUN_DOCKER_CONTAINER": "yes"
-      },
-      "post_deps": [
-	{
-	  "tags": "run,docker,container"
-	}
-      ]
-    }
-  }
+  "uid": "3d5e908e472b417e"
 }

@@ -28,6 +28,7 @@
     "reference"
   ],
   "uid": "989db87796e64ee8",
+  "default_variation": "run",
   "variations": {
     "docker": {
       "env": {
