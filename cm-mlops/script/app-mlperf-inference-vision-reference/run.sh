@@ -1,4 +1,7 @@
 #!/bin/bash
+if [[ ${CM_RUN_DOCKER_CONTAINER} == "yes" ]]; then
+  exit 0
+fi
 ${CM_PYTHON_BIN} -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
 test $? -eq 0 || exit 1
 cp ${CM_DATASET_AUX_PATH}/val.txt ${CM_DATASET_PATH}/val_map.txt

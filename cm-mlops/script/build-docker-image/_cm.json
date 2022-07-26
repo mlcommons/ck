@@ -13,7 +13,8 @@
     }
   ],
   "env": {
-    "CM_BUILD_DOCKER_CONTAINER": "yes"
+    "CM_BUILD_DOCKER_CONTAINER": "yes",
+    "CM_DOCKER_CACHE": "--no-cache"
   },
   "tags": [
     "build",

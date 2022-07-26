@@ -1,5 +1,5 @@
 {
-  "alias": "wrapper-mlperf-vision-reference",
+  "alias": "wrapper-mlperf-inference-vision-reference",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "deps": [
@@ -17,26 +17,13 @@
     }
   ],
   "env": {
-    "CM_DOCKER_RUN_SCRIPT_TAGS": "app,mlperf,reference,python",
-    "CM_DOCKER_IMAGE_REPO": "local/mlperf_reference_python",
-    "CM_DOCKER_IMAGE_TAG": "latest",
     "CM_RUN_DOCKER": "no"
   },
-  "post_deps": [
-    {
-      "skip_if_env": {
-        "CM_RUN_DOCKER": [
-          "yes",
-          "1"
-        ]
-      },
-      "tags": "app,mlperf,reference,python"
-    }
-  ],
   "tags": [
     "wrapper",
     "run",
     "mlperf",
+    "inference",
     "python",
     "reference"
   ],
@@ -45,16 +32,21 @@
     "docker": {
       "env": {
         "CM_DOCKERFILE_NAME": "Dockerfile",
+        "CM_DOCKER_IMAGE_REPO": "local/mlperf_reference_python",
+        "CM_DOCKER_IMAGE_TAG": "latest",
+        "CM_DOCKER_RUN_SCRIPT_TAGS": "app,mlperf,reference,python",
         "CM_RUN_DOCKER": "yes"
       },
       "post_deps": [
         {
-          "skip_if_env": {
-            "CM_DOCKER_IMAGE_EXISTS": [
-              "yes"
-            ]
-          },
-          "tags": "build,docker,image"
+          "tags": "run,docker,container"
+        }
+      ]
+    },
+    "run": {
+      "post_deps": [
+        {
+          "tags": "app,mlperf,reference,python"
         }
       ]
     }

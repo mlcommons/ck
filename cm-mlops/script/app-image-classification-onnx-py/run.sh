@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ ${CM_RUN_DOCKER_CONTAINER} == "yes" ]]; then
+  exit 0
+fi
+
 #echo ${CM_PYTHON_BIN}
 #echo ${CM_DATASET_PATH}
 #echo ${CM_DATASET_AUX_PATH}

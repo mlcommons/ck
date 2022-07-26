@@ -1,5 +1,5 @@
 {
-  "alias": "app-mlperf-vision-reference",
+  "alias": "app-mlperf-inference-vision-reference",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "deps": [
@@ -32,40 +32,39 @@
       "tags": "get,loadgen"
     },
     {
-      "tags": "get,tensorflow,python-lib",
       "enable_if_env": {
         "CM_BACKEND": [
           "tf",
           "tflite"
         ]
-      }
+      },
+      "tags": "get,tensorflow,python-lib"
     },
     {
-      "tags": "get,dataset,image-classification,imagenet,original",
       "enable_if_env": {
         "CM_MODEL": [
           "resnet50"
         ]
-      }
+      },
+      "tags": "get,dataset,image-classification,imagenet,original"
     },
     {
-      "tags": "get,dataset-aux,image-classification,imagenet-aux",
       "enable_if_env": {
         "CM_MODEL": [
           "resnet50"
         ]
-      }
+      },
+      "tags": "get,dataset-aux,image-classification,imagenet-aux"
     },
     {
-      "tags": "get,dataset,object-detection,open-images,original",
       "enable_if_env": {
         "CM_MODEL": [
           "resnext50"
         ]
-      }
+      },
+      "tags": "get,dataset,object-detection,open-images,original"
     },
     {
-      "tags": "get,ml-model-tf,image-classification,resnet50",
       "enable_if_env": {
         "CM_BACKEND": [
           "tf",
@@ -74,10 +73,10 @@
         "CM_MODEL": [
           "resnet50"
         ]
-      }
+      },
+      "tags": "get,ml-model-tf,image-classification,resnet50"
     },
     {
-      "tags": "get,ml-model-pytorch,image-classification,resnet50",
       "enable_if_env": {
         "CM_BACKEND": [
           "pytorch"
@@ -85,10 +84,10 @@
         "CM_MODEL": [
           "resnet50"
         ]
-      }
+      },
+      "tags": "get,ml-model-pytorch,image-classification,resnet50"
     },
     {
-      "tags": "get,ml-model-onnx,image-classification,resnet50",
       "enable_if_env": {
         "CM_BACKEND": [
           "onnxruntime"
@@ -96,10 +95,10 @@
         "CM_MODEL": [
           "resnet50"
         ]
-      }
+      },
+      "tags": "get,ml-model-onnx,image-classification,resnet50"
     },
     {
-      "tags": "get,ml-model,object-detection,resnext50,fp32,_pytorch",
       "enable_if_env": {
         "CM_BACKEND": [
           "pytorch"
@@ -107,10 +106,10 @@
         "CM_MODEL": [
           "resnext50"
         ]
-      }
+      },
+      "tags": "get,ml-model,object-detection,resnext50,fp32,_pytorch"
     },
     {
-      "tags": "get,ml-model,object-detection,resnext50,fp32,_onnx",
       "enable_if_env": {
         "CM_BACKEND": [
           "onnxruntime"
@@ -118,15 +117,16 @@
         "CM_MODEL": [
           "resnext50"
         ]
-      }
+      },
+      "tags": "get,ml-model,object-detection,resnext50,fp32,_onnx"
     },
     {
-      "tags": "get,cuda",
       "enable_if_env": {
         "CM_DEVICE": [
           "gpu"
         ]
-      }
+      },
+      "tags": "get,cuda"
     },
     {
       "enable_if_env": {
@@ -137,13 +137,13 @@
       "tags": "get,tensorflow"
     },
     {
-      "tags": "get,pytorch",
       "enable_if_env": {
         "CM_BACKEND": [
           "pytorch",
           "onnxruntime"
         ]
-      }
+      },
+      "tags": "get,pytorch"
     }
   ],
   "env": {
@@ -158,6 +158,7 @@
     "vision",
     "mlcommons",
     "mlperf",
+    "inference",
     "reference",
     "python"
   ],
@@ -183,6 +184,16 @@
         "CM_BACKEND": "pytorch"
       }
     },
+    "resnet50": {
+      "env": {
+        "CM_MODEL": "resnet50"
+      }
+    },
+    "resnext50": {
+      "env": {
+        "CM_MODEL": "resnext50"
+      }
+    },
     "tf": {
       "env": {
         "CM_BACKEND": "tf"
@@ -191,16 +202,6 @@
     "tflite": {
       "env": {
         "CM_BACKEND": "tflite"
-      }
-    },
-    "resnet50": {
-      "env": {
-	"CM_MODEL": "resnet50"
-      }
-    },
-    "resnext50": {
-      "env": {
-	"CM_MODEL": "resnext50"
       }
     }
   }
