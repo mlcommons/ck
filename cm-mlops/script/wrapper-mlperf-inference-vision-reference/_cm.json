@@ -34,7 +34,7 @@
         "CM_DOCKERFILE_NAME": "Dockerfile",
         "CM_DOCKER_IMAGE_REPO": "local/mlperf_reference_python",
         "CM_DOCKER_IMAGE_TAG": "latest",
-        "CM_DOCKER_RUN_SCRIPT_TAGS": "app,mlperf,reference,python",
+        "CM_DOCKER_RUN_SCRIPT_TAGS": "app,mlperf,inference,vision,reference,python",
         "CM_RUN_DOCKER": "yes"
       },
       "post_deps": [
@@ -46,7 +46,8 @@
     "run": {
       "post_deps": [
         {
-          "tags": "app,mlperf,reference,python"
+          "names": [ "app-mlperf-inference-vision" ],
+          "tags": "app,mlperf,inference,vision,reference,python"
         }
       ]
     }
