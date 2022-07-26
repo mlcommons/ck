@@ -13,7 +13,6 @@
     },
     {
       "tags": "get,python",
-      "version_min": "3.9.1",
       "version_max": "3.9.999",
       "version_max_usable": "3.9.12"
     }
