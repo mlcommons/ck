@@ -13,18 +13,26 @@ across continuously changing hardware, software and data with minimal or no chan
 See an example of CM-based image classification that can run natively on any user platform with Linux, Windows and MacOS
 while automatically adapting to a given software, hardware and data:
 
-```
+```bash
 python3 -m pip install cmind
 cm pull repo mlcommons@ck
 cm run script --tags=detect,os --out=json
-cm run script --tags=get,python --name=my-virtual-env
+cm run script --tags=get,python --version_min=3.9.1
 cm run script --tags=install,python-venv --name=my-virtual-env
 cm run script --tags=get,ml-model-onnx,resnet50
 cm run script --tags=get,dataset,imagenet,original,_2012-500
 cm show cache
-cm run script --tags=get,python --version=3.9.6
 cm run script --tags=app,image-classification,onnx,python (--input=my-image.jpg)
 ```
+
+A few more examples to detect compilers and CUDA devices on Windows:
+```bash
+cm run script --tags=get,cl --path="C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin"
+cm run script --tags=get,cuda --path="C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\bin"
+cm show cache
+cm run script --tags=get,cuda-devices
+```
+
 
 CM is [motivated](docs/motivation.md) by our tedious and interesting experience
 [reproducing 150+ ML and systems papers and validating them in the real world](https://learning.acm.org/techtalks/reproducibility)
