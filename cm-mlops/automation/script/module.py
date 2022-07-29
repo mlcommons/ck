@@ -1889,6 +1889,27 @@ def update_deps_tags(deps, add_deps_tags):
     return {'return':0}
 
 ##############################################################################
+def add_deps(deps, new_deps):
+    """
+    Internal: add deps from meta
+    """
+
+    for dep in new_deps:
+        dep_names = dep.get('names',[])
+        if len(dep_names)>0:
+            for i in range(len(deps)):
+                main_dep = deps[i]
+                main_dep_names = main_dep.get('names',[])
+                if len(main_dep_names)>0:
+                    if set(dep_names) & set(main_dep_names):
+                        deps[i] = dep
+                        continue
+                deps.append(dep)
+
+    return {'return':0}
+
+
+##############################################################################
 def update_state_from_meta(meta, env, state, deps, post_deps, i):
     """
     Internal: update env and state from meta
@@ -1901,11 +1922,11 @@ def update_state_from_meta(meta, env, state, deps, post_deps, i):
 
     update_deps = meta.get('deps', [])
     if len(update_deps)>0:
-        deps += update_deps
+        add_deps(deps, update_deps)
 
     update_post_deps = meta.get("post_deps", [])
     if len(update_post_deps) > 0:
-        post_deps += update_post_deps
+        add_deps(post_deps, update_post_deps)
 
     add_deps_tags = meta.get('add_deps_tags', {})
     if len(add_deps_tags) >0 :
