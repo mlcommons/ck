@@ -6,10 +6,14 @@
   "default_version": "master",
   "deps": [
     {
+      "tags": "detect,os,info"
+    },
+    {
       "tags": "get,python3"
     },
     {
-      "tags": "detect,os,info"
+      "names": "inference-src",
+      "tags": "get,mlcommons,inference,src"
     }
   ],
   "env": {
@@ -19,14 +23,15 @@
   "tags": [
     "get",
     "install",
-    "src",
-    "source",
     "loadgen",
     "inference",
     "mlperf",
     "mlcommons"
   ],
   "uid": "64c3d98d0ba04950",
+  "extra_cache_tags_from_env": [
+    {"env":"CM_PYTHON_CACHE_TAGS", "prefix":"python-"}
+  ],
   "variations": {
     "shared": {
       "env": {
@@ -36,14 +41,22 @@
   },
   "versions": {
     "master": {
-      "env": {
-        "CM_GIT_CHECKOUT": "master"
-      }
+      "deps": [
+	{
+	  "names": "inference-src",
+	  "tags": "get,mlcommons,inference,src",
+	  "version": "master"
+	}
+      ]
     },
     "r2.1": {
-      "env": {
-        "CM_GIT_CHECKOUT": "r2.1"
-      }
+      "deps": [
+	{
+	  "names": "inference-src",
+	  "tags": "get,mlcommons,inference,src",
+	  "version": "r2.1"
+	}
+      ]
     }
   }
 }
