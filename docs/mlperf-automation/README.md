@@ -1,8 +1,3 @@
-***April 2022: We've started prototyping the new [CK2 toolkit](https://github.com/mlcommons/ck/tree/master/ck2) 
-   based on your feedback and combined with our practical experience 
-   [reproducing 150+ ML and Systems papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
-   Please [get in touch](https://github.com/mlcommons/ck/tree/master/ck2#contacts) if you are interested to participate in this community effort!***
-
 # MLPerf&trade; inference benchmark automation
 
 This is an *on-going community effort* coordinated by the MLCommons Design Space Exploration working group
@@ -18,12 +13,25 @@ with a [collection](https://github.com/mlcommons/ck-mlops) of [reusable automati
 with a common API for ML systems. CK framework was already successfully used by several MLCommons members 
 to automate their MLPerf inference submissions and we want to build upon their experience. 
 
+***Note, that we are currently developing the [2nd generaton of the CK framework (CK2 or CM)](https://github.com/mlcommons/ck/tree/master/cm)
+   to decompose MLPerf benchmark into a [database of reusable, portable, customizable and deterministic
+   scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) with a unified CLI, Python API 
+   and extensible JSON/YAML meta descriptions***.
+
+
+
 We reuse a relatively mature methodology to reproduce research results from ML and Systems papers ([ACM TechTalk](https://youtu.be/7zpeIVwICa4) and [Artifact Evaluation](https://cTuning.org/ae))
 and open-source tools from the MLCommons&trade; including [MLCube&trade;](https://github.com/mlcommons/mlcube).
 
 # News
 
-* 20210924: We will continue further developments within a new MLCommons working group on Design Space Exploration - more details to follow soon.
+
+* 202208: We've pre-released a set of reusable, portable, customizable and deterministic scripts for MLOps and DevOps:
+   [GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script).
+* 202205: We've started prototyping the new [CK2 toolkit](https://github.com/mlcommons/ck/tree/master/cm) 
+   based on your feedback and combined with our practical experience 
+   [reproducing 150+ ML and Systems papers and validating them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
+   Please [get in touch](https://github.com/mlcommons/ck/tree/master/cm#contacts) for more details.
 * 20210914: [Reproducibility studies for the MLPerf inference benchmark](reproduce/README.md)
 * 20210911: cTuning foundation and OctoML donated the CK framework and workflows to MLCommons:
   * https://github.com/mlcommons/ck
@@ -82,11 +90,6 @@ See other CK packages with open source datasets shared by the community
 
 * [All aggregated MLPerf inference benchmark results](https://cknowledge.io/?q=%22mlperf-inference-all%22)
 
-# News and updates
-
-* **20210808**: Make sure that your CK version >= 2.5.8 with many enhancements for MLPerf (```ck version```). 
-  You can update it via (```python3 -m pip install ck -U```).
-
 # Table of contents
 
 * [Prepare your platform](platform/README.md)
@@ -126,7 +129,6 @@ See other CK packages with open source datasets shared by the community
 * Add MLPerf&trade; power measurements to our automated benchmark toolset
 * [Standardization of MLPerf&trade; workflows](tbd/standardization.md)
 * [More automation](tbd/automation.md)
-* [Redesigning CK (CKLite)](tbd/ck2.md)
 
 
 # Contributions
