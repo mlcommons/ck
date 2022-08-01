@@ -13,4 +13,7 @@ export MODEL_DIR=${CM_ML_MODEL_PATH}
 echo "Using MLCommons Inference source from ${CM_MLC_INFERENCE_SOURCE}"
 RUN_DIR=${CM_MLC_INFERENCE_SOURCE}/vision/classification_and_detection
 cd ${RUN_DIR}
-./run_local.sh ${CM_BACKEND} ${CM_MODEL} ${CM_DEVICE} --count 100 --accuracy --time 6 --scenario Offline
+#./run_local.sh ${CM_BACKEND} ${CM_MODEL} ${CM_DEVICE} --count 100  --time 6 --scenario Offline
+CMD="./run_local.sh ${CM_BACKEND} ${CM_MODEL} ${CM_DEVICE} --scenario ${CM_LOADGEN_SCENARIO} ${CM_LOADGEN_EXTRA_OPTIONS}"
+echo $CMD
+eval $CMD
