@@ -20,6 +20,10 @@
       "version": "r2.1"
     },
     {
+      "tags": "get,mlcommons,inference,src",
+      "version": "r2.1"
+    },
+    {
       "enable_if_env": {
         "CM_BACKEND": [
           "onnxruntime"

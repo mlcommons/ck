@@ -21,8 +21,10 @@ def preprocess(i):
     if 'CM_LOADGEN_SCENARIO' not in env:
         env['CM_LOADGEN_SCENARIO'] = "Offline"
     env['CM_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_LOADGEN_QPS_OPT']
+    if 'OUTPUT_BASE_DIR' not in env:
+        env['OUTPUT_BASE_DIR'] = env['CM_MLC_INFERENCE_VISION_PATH']
     if 'OUTPUT_DIR' not in env:
-        env['OUTPUT_DIR'] =  os.path.join(os.getcwd() , env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'],
+        env['OUTPUT_DIR'] =  os.path.join(env['OUTPUT_BASE_DIR'], "results", env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'],
         env['CM_LOADGEN_SCENARIO'].lower(), env['CM_LOADGEN_MODE'])
 
     return {'return':0}
