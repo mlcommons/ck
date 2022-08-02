@@ -1,3 +1,8 @@
+# 20220802
+ * added "run_script_after_post_deps" to script meta to run script after post deps
+   (useful to activate python virtual env)
+ * added "activate-python-venv" script to make it easier to debug Python deps installation
+
 # 20220722
  * added --accept-license and --skip-system-deps 
    (converted to env CM_ACCEPT_LICENSE ("True") and CM_SKIP_SYSTEM_DEPS ("True"))

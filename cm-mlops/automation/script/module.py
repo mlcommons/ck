@@ -1043,16 +1043,20 @@ class CAutomation(Automation):
             if pip_version_string != '':
                 print (recursion_spaces+'  - potential PIP version string (if needed): '+pip_version_string)
 
-            # Prepare run script
-            run_script_input['meta'] = meta
-            run_script_input['env'] = env
-            r = prepare_and_run_script_with_postprocessing(run_script_input)
-            if r['return']>0: return r
+            # Prepare run script before post deps
+            run_script_after_post_deps = meta.get('run_script_after_post_deps', False)
 
-            # If return version
-            if cache and r.get('version','') != '':
-                cached_tags = [x for x in cached_tags if not x.startswith('version-')]
-                cached_tags.append('version-' + r['version'])
+            if not run_script_after_post_deps:
+                run_script_input['meta'] = meta
+                run_script_input['env'] = env
+                r = prepare_and_run_script_with_postprocessing(run_script_input)
+                if r['return']>0: return r
+
+                # If return version
+                if cache and r.get('version','') != '':
+                    cached_tags = [x for x in cached_tags if not x.startswith('version-')]
+                    cached_tags.append('version-' + r['version'])
+
 
             # Check chain of post dependencies on other CM scripts
             clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
@@ -1100,6 +1104,14 @@ class CAutomation(Automation):
 
                 for key in tmp_env:
                     env[key] = tmp_env[key]
+
+
+            # Prepare run script after post deps
+            if run_script_after_post_deps:
+                run_script_input['meta'] = meta
+                run_script_input['env'] = env
+                r = prepare_and_run_script_with_postprocessing(run_script_input)
+                if r['return']>0: return r
 
         ############################################################################################################
         ##################################### Finalize script

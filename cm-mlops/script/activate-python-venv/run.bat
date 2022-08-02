@@ -1,0 +1,7 @@
+echo XYZ
+
+rem %CM_PYTHON_BIN_WITH_PATH% -m pip install virtualenv
+rem IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+
+rem %CM_PYTHON_BIN_WITH_PATH% -m venv venv
+rem IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
