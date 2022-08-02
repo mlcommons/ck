@@ -1,0 +1,13 @@
+diff --git a/vision/classification_and_detection/run_local.sh b/vision/classification_and_detection/run_local.sh
+index e69e3b8..fa5c482 100755
+--- a/vision/classification_and_detection/run_local.sh
++++ b/vision/classification_and_detection/run_local.sh
+@@ -4,7 +4,7 @@ source ./run_common.sh
+ 
+ common_opt="--mlperf_conf ../../mlperf.conf"
+ dataset="--dataset-path $DATA_DIR"
+-OUTPUT_DIR=`pwd`/output/$name
++OUTPUT_DIR=${OUTPUT_DIR:-`pwd`/output/$name}
+ if [ ! -d $OUTPUT_DIR ]; then
+     mkdir -p $OUTPUT_DIR
+ fi
