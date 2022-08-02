@@ -1,7 +1,7 @@
-echo XYZ
+echo.
+echo     call "%CM_VIRTUAL_ENV_SCRIPTS_PATH%\activate.bat && cmd"
+echo.
+echo     Enter exit to exit virtual env.
+echo.
 
-rem %CM_PYTHON_BIN_WITH_PATH% -m pip install virtualenv
-rem IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
-
-rem %CM_PYTHON_BIN_WITH_PATH% -m venv venv
-rem IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
+call %CM_VIRTUAL_ENV_SCRIPTS_PATH%\activate.bat && cmd
