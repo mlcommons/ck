@@ -37,6 +37,7 @@ cm run script --tags=get,python --version_min=3.9.1
 cm run script --tags=install,python-venv --name=my-virtual-env
 cm run script --tags=get,ml-model-onnx,resnet50
 cm run script --tags=get,dataset,imagenet,original,_2012-500
+cm run script --tags=get,onnxruntime,python-lib --version=1.12.0
 
 cm show cache
 
