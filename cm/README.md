@@ -5,6 +5,8 @@
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 
+[![Documentation Status](https://img.shields.io/badge/docs-passing-green)](https://cKnowledge.org/docs/cm)
+
 The Collective Mind toolkit helps you to add and share [simple, human-readable  
 and platform-independent CLI and JSON API](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
 to existing DevOps and MLOps automation scripts and artifacts to make them more understandable, portable, reusable, interoperable, deterministic and reproducible

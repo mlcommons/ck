@@ -52,7 +52,7 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 * Gavin Simpson
 * Aaron Smith (Microsoft)
 * Michel Steuwer (University of Edinburgh)
-* Arjun Suresh (KRAI)
+* Arjun Suresh (OctoML)
 * Abdul Wahid Memon &lt;engrwahidmemon@gmail.com&gt;
 * Cedric Nugteren &lt;web@cedricnugteren.nl&gt;
 * Lucas Nussbaum (Universite de Lorraine)
@@ -68,4 +68,4 @@ See more acknowledgments at the end of this [journal article](https://arxiv.org/
 
 ## CK author and coordinator
 
-* Grigori Fursin &lt;grigori@octoml.ai&gt; https://fursin.net
+* [Grigori Fursin](https://cknowledge.io/@gfursin) &lt;grigori@octoml.ai&gt;
