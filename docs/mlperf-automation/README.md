@@ -1,7 +1,11 @@
+***Note, that this documentation is outdated since we are developing the [2nd generaton of the CK framework (CK2 or CM)](https://github.com/mlcommons/ck/tree/master/cm)
+   to decompose MLPerf benchmark into a [database of reusable, portable, customizable and deterministic scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
+   with a unified CLI, Python API and extensible JSON/YAML meta descriptions. The new documentation will be available [here](../mlperf-automation-cm)***.
+
+
 # MLPerf&trade; inference benchmark automation
 
-This is an *on-going community effort* coordinated by the MLCommons Design Space Exploration working group
-to make it easier to customize, run and reproduce MLPerf&trade; inference benchmarks 
+This is a community project to make it easier to customize, run and reproduce MLPerf&trade; inference benchmarks 
 across continuously changing ML models, frameworks, libraries, compilers, data sets and platform.
 We are also developing an open database for benchmarking results and provenance information 
 compatible with [FAIR principles](https://www.go-fair.org/fair-principles).
@@ -13,10 +17,6 @@ with a [collection](https://github.com/mlcommons/ck-mlops) of [reusable automati
 with a common API for ML systems. CK framework was already successfully used by several MLCommons members 
 to automate their MLPerf inference submissions and we want to build upon their experience. 
 
-***Note, that we are currently developing the [2nd generaton of the CK framework (CK2 or CM)](https://github.com/mlcommons/ck/tree/master/cm)
-   to decompose MLPerf benchmark into a [database of reusable, portable, customizable and deterministic
-   scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) with a unified CLI, Python API 
-   and extensible JSON/YAML meta descriptions***.
 
 
 
