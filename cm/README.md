@@ -15,13 +15,29 @@ while automatically adapting to a given software, hardware and data:
 
 ```bash
 python3 -m pip install cmind
+
 cm pull repo mlcommons@ck
+
+cm run script --tags=app,image-classification,onnx,python --quiet
+```
+
+Normally, it will take just a few minutes to adapt this task to your platform (depending on your internet speed)
+and run image classification.
+
+You can also force to install specific versions of ML artifacts 
+(models, data sets, engines, libraries, tools, etc) 
+using individual CM scripts to automatically plug them into the above ML task 
+(see [image classification dependencies using CM database of scripts](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.json#L9)):
+
+```bash
 cm run script --tags=detect,os --out=json
 cm run script --tags=get,python --version_min=3.9.1
 cm run script --tags=install,python-venv --name=my-virtual-env
 cm run script --tags=get,ml-model-onnx,resnet50
 cm run script --tags=get,dataset,imagenet,original,_2012-500
+
 cm show cache
+
 cm run script --tags=app,image-classification,onnx,python (--input=my-image.jpg)
 ```
 
@@ -29,7 +45,9 @@ A few more examples to detect compilers and CUDA devices on Windows:
 ```bash
 cm run script --tags=get,cl --path="C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin"
 cm run script --tags=get,cuda --path="C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\bin"
+
 cm show cache
+
 cm run script --tags=get,cuda-devices
 ```
 
