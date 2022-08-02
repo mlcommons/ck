@@ -33,12 +33,14 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 * Nikolay Istomin (Xored)
 * Kenan Kalajdzic
 * Yuriy Kashnikov 
+* Jason Knight (OctoML)
 * Alexey Kravets (Arm)
 * Michael Kruse &lt;MichaelKruse@meinersbur.de&gt;
 * Andrei Lascu &lt;andrei.lascu10@imperial.ac.uk&gt;
 * Anton Lokhmotov &lt;anton@dividiti.com&gt;
 * Graham Markall &lt;graham.markall@continuum.io&gt;
 * Michael Mcgeagh (Arm)
+* Thierry Moreau (OctoML)
 * Luigi Nardi 
 * Ivan Ospiov (Xored)
 * Egor Pasko (Google)
@@ -48,8 +50,9 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 * Vincent Rehm
 * Toomas Remmelg (University of Edinburgh)
 * Jarrett Revels (MIT)
+* Jared Roesch (OctoML)
 * Dmitry Savenko (Xored)
-* Gavin Simpson
+* Gavin Simpson (Arm)
 * Aaron Smith (Microsoft)
 * Michel Steuwer (University of Edinburgh)
 * Arjun Suresh (OctoML)
@@ -61,11 +64,11 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 * Dave Wilkinson (University of Pittsburgh)
 * Sergey Yakushkin (Synopsys)
 * Eiko Yoneki &lt;eiko.yoneki@cl.cam.ac.uk&gt;
-* Thomas Zhu &lt;thomas.zhu.sh@gmail.com&gt;
+* Thomas Zhu (Oxford University) &lt;thomas.zhu.sh@gmail.com&gt;
 * @filven
 
 See more acknowledgments at the end of this [journal article](https://arxiv.org/abs/2011.01149).
 
-## CK author and coordinator
+## Author and coordinator
 
-* [Grigori Fursin](https://cknowledge.io/@gfursin) &lt;grigori@octoml.ai&gt;
+* [Grigori Fursin](https://cknowledge.io/@gfursin)
