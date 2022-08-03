@@ -30,6 +30,13 @@
         "CM_DATASET_SIZE": "500",
         "CM_DATASET_VER": "2012"
       }
+    },
+    "full": {
+      "env": {
+	"CM_DATASET_SIZE": "50000",
+	"CM_IMAGENET_FULL": "yes",
+        "CM_DATASET_VER": "2012"
+      }
     }
   }
 }

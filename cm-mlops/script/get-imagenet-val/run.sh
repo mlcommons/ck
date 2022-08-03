@@ -1,5 +1,14 @@
 #!/bin/bash
 
+if [ ${CM_IMAGENET_FULL} == "yes" ]; then
+  if [ -z ${IMAGENET_PATH} ]; then
+    echo "Please set IMAGENET_PATH to the folder containing full imagenet images"
+    exit -1
+  fi
+  echo "CM_DATASET_PATH=${IMAGENET_PATH}" > tmp-run-env.out
+  exit 0
+fi
+
 if [ -f "ILSVRC2012_img_val_500.tar" ]; then
   rm -f ILSVRC2012_img_val_500.tar
 fi
