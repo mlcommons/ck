@@ -146,13 +146,21 @@
       "tags": "get,pytorch"
     }
   ],
+  "default_variations": [ "resnet50", "cpu", "tf" ],
   "env": {
-    "CM_BACKEND": "tf",
     "CM_BATCH_COUNT": "1",
-    "CM_BATCH_SIZE": "1",
-    "CM_DEVICE": "cpu",
-    "CM_MODEL": "resnet50"
+    "CM_BATCH_SIZE": "1"
   },
+  "post_deps": [
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "tags": "accuracy,imagenet"
+    }
+  ],
   "tags": [
     "app",
     "vision",

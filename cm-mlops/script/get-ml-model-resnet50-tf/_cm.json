@@ -6,7 +6,7 @@
   "env": {
     "CM_ML_MODEL": "RESNET50",
     "CM_PACKAGE_URL": "https://zenodo.org/record/2535873/files/resnet50_v1.pb",
-    "CM_STARTING_WEIGHT_FILENAME": "<<<CM_PACKAGE_URL>>>",
+    "CM_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
     "CM_MODEL_RETRAINING": "no",
     "CM_MODEL_INPUT_DATA_TYPES": "fp32",
     "CM_MODEL_WEIGHT_DATA_TYPES": "fp32"

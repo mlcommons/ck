@@ -44,9 +44,10 @@ def postprocess(i):
 
     measurements = {}
     measurements['retraining'] = env.get('CM_MODEL_RETRAINING','')
-    measurements['input_data_types'] = env.get('CM_MODEL_INPUT_DATA_TYPES','fp32')
-    measurements['weight_data_types'] = env.get('CM_MODEL_WEIGHT_DATA_TYPES','fp32')
-    measurements['weight_transformations'] = env.get('CM_MODEL_WEIGHT_TRANSFORMATIONS','none')
+    measurements['starting_weights_filename'] = env.get('CM_STARTING_WEIGHTS_FILENAME', 'none')
+    measurements['input_data_types'] = env.get('CM_MODEL_INPUT_DATA_TYPES', 'fp32')
+    measurements['weight_data_types'] = env.get('CM_MODEL_WEIGHT_DATA_TYPES', 'fp32')
+    measurements['weight_transformations'] = env.get('CM_MODEL_WEIGHT_TRANSFORMATIONS', 'none')
     os.chdir(env['OUTPUT_DIR'])
     with open ("measurements.json", "w") as fp:
         json.dump(measurements, fp, indent=2)
@@ -54,5 +55,6 @@ def postprocess(i):
         shutil.copy(env['CM_MLC_MLPERF_CONF'], 'mlperf.conf')
     if os.path.exists(env['CM_MLC_USER_CONF']):
         shutil.copy(env['CM_MLC_USER_CONF'], 'user.conf')
+    env['CM_MLC_RESULTS_DIR'] = env['OUTPUT_DIR']
 
     return {'return':0}
