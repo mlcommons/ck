@@ -27,7 +27,7 @@ def preprocess(i):
     if "output_dir" in i["input"]:
         env['OUTPUT_BASE_DIR'] = i["input"]["output_dir"]
     if 'OUTPUT_DIR' not in env:
-        env['OUTPUT_DIR'] =  os.path.join(env['OUTPUT_BASE_DIR'], "results", env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'],
+        env['OUTPUT_DIR'] =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'],
         env['CM_LOADGEN_SCENARIO'].lower(), env['CM_LOADGEN_MODE'])
 
     if 'CM_MLC_USER_CONF' not in env:

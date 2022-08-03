@@ -150,7 +150,8 @@
   "default_variations": [ "resnet50", "cpu", "tf" ],
   "env": {
     "CM_BATCH_COUNT": "1",
-    "CM_BATCH_SIZE": "1"
+    "CM_BATCH_SIZE": "1",
+    "CM_OUTPUT_FOLDER_NAME": "test_results"
   },
   "post_deps": [
     {
@@ -214,6 +215,16 @@
     "tflite": {
       "env": {
         "CM_BACKEND": "tflite"
+      }
+    },
+    "valid": {
+      "env": {
+        "CM_OUTPUT_FOLDER_NAME": "valid_results"
+      }
+    },
+    "quick": {
+      "env": {
+        "CM_OUTPUT_FOLDER_NAME": "quick_results"
       }
     }
   }
