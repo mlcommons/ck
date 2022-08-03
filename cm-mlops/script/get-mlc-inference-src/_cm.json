@@ -13,7 +13,8 @@
     }
   ],
   "env": {
-    "CM_GIT_URL": "https://github.com/mlcommons/inference.git"
+    "CM_GIT_URL": "https://github.com/mlcommons/inference.git",
+    "CM_GIT_PATCH": "no"
   },
   "tags": [
     "get",
@@ -32,7 +33,13 @@
     },
     "r2.1": {
       "env": {
-        "CM_GIT_CHECKOUT": "r2.1",
+        "CM_GIT_CHECKOUT": "r2.1"
+      }
+    }
+  },
+  "variations": {
+    "patch": {
+      "env": {
         "CM_GIT_PATCH": "yes"
       }
     }

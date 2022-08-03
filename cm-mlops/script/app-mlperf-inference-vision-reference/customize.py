@@ -7,7 +7,7 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
-    #print(i['state'])
+    script_path = i['run_script_input']['path']
     if 'CM_LOADGEN_EXTRA_OPTIONS' not in env:
         env['CM_LOADGEN_EXTRA_OPTIONS'] = ""
     if 'CM_LOADGEN_MODE' not in env:
@@ -30,10 +30,23 @@ def preprocess(i):
         env['OUTPUT_DIR'] =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'],
         env['CM_LOADGEN_SCENARIO'].lower(), env['CM_LOADGEN_MODE'])
 
-    if 'CM_MLC_USER_CONF' not in env:
-        env['CM_MLC_USER_CONF'] = os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], "user.conf")
     if 'CM_MLC_MLPERF_CONF' not in env:
         env['CM_MLC_MLPERF_CONF'] = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "mlperf.conf")
+
+    conf = i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']][env['CM_LOADGEN_SCENARIO']]
+    user_conf = ''
+    for metric in conf:
+        user_conf += env['CM_ML_MODEL'] + "." + env['CM_LOADGEN_SCENARIO'] + "." + metric + " = " + str(conf[metric]) + "\n"
+    print(user_conf)
+
+    import uuid
+    key = uuid.uuid4().hex
+    user_conf_path = os.path.join(script_path, "tmp", key+".conf")
+    from pathlib import Path
+    user_conf_file = Path(user_conf_path)
+    user_conf_file.parent.mkdir(exist_ok=True, parents=True)
+    user_conf_file.write_text(user_conf)
+    env['CM_MLC_USER_CONF'] = user_conf_path
 
     env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf " + env['CM_MLC_MLPERF_CONF']
     env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --user_conf " + env['CM_MLC_USER_CONF']
@@ -41,7 +54,6 @@ def preprocess(i):
     return {'return':0}
 
 def postprocess(i):
-    os_info = i['os_info']
     env = i['env']
 
     measurements = {}

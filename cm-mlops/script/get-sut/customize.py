@@ -5,7 +5,9 @@ import json
 def preprocess(i):
     env = i['env']
     state = i['state']
-    sut = env.get('CM_SUT_NAME', 'dummy')
+    if 'CM_SUT_NAME' not in env:
+        env['CM_SUT_NAME'] = "dummy"
+    sut = env['CM_SUT_NAME']
     path = i['run_script_input']['path']
     sut_path = os.path.join(path, "suts", sut + ".json")
     if os.path.exists(sut_path):

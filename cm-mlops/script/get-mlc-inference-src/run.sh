@@ -15,4 +15,5 @@ if [ ${CM_GIT_PATCH} ]; then
   echo "Applying patch ${SCRIPT_DIR}/patch/git.patch"
   cd inference
   git apply ${SCRIPT_DIR}/patch/git.patch
+  git commit -a -m "Change for overriding OUTPUT_DIR for reference implementation"
 fi
