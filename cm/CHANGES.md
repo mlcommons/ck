@@ -1,5 +1,8 @@
 # Prototyping phase
 
+## DEV
+   - Extended "cm info artifact"
+
 ## V0.7.24
    - added link to GitHub repo with CM automation scripts
 
