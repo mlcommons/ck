@@ -1,5 +1,5 @@
 {
-  "alias": "generate-mlcommons-inference-submission",
+  "alias": "generate-mlc-inference-submission/",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": false,
@@ -15,6 +15,19 @@
       "tags": "get,sut"
     }
   ],
+  "post_deps": [
+    {
+      "tags": "accuracy,truncate,mlc"
+    },
+    {
+      "enable_if_env": {
+        "CM_RUN_SUBMISSION_CHECKER": [
+          "yes"
+        ]
+      },
+      "tags": "submission,checker,mlc"
+    }
+  ],
   "tags": [
     "generate",
     "submission",
@@ -23,17 +36,6 @@
     "inference-submission",
     "mlperf-inference-submission",
     "mlcommons-inference-submission"
-  ],
-  "post_deps": [
-    {
-      "tags": "accuracy,truncate,mlc"
-    },
-    {
-      "tags": "submission,checker,mlc",
-      "enable_if_env": {
-	"CM_RUN_SUBMISSION_CHECKER":  [ "yes" ]
-      }
-    }
   ],
   "uid": "5f8ab2d0b5874d53"
 }
