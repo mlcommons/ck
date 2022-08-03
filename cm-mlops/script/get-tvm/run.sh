@@ -1,5 +1,8 @@
 #!/bin/bash
 
+pwd
+set > /home/grigori/xyz
+
 if [ ! -d "tvm" ]; then
   echo "git clone --recursive -b ${CM_GIT_CHECKOUT} ${CM_GIT_URL} tvm"
   git clone --recursive -b "${CM_GIT_CHECKOUT}" ${CM_GIT_URL} tvm
@@ -20,19 +23,30 @@ cp cmake/config.cmake build
 cd build
 
 if [[ ${CM_TVM_USE_LLVM} == "yes" ]]; then
-    sed -i.bak 's/set(USE_LLVM OFF)/set(USE_LLVM ON)/' config.cmake
+    sed -i.bak 's/set(USE_LLVM OFF)/set(USE_LLVM llvm-config)/' config.cmake
 fi
 
 if [[ ${CM_TVM_USE_OPENMP} == "yes" ]]; then
     sed -i.bak 's/set(USE_OPENMP none)/set(USE_OPENMP gnu)/' config.cmake
 fi
 
+echo "******************************************************"
+CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_NUMBER_OF_PROCESSORS}}
+CM_MAKE_CORES=${CM_MAKE_CORES:-2}
+
+echo $PATH
+
 cmake ..
 test $? -eq 0 || exit 1
 
-make -j4
+make -j${CM_MAKE_CORES}
 test $? -eq 0 || exit 1
+
+INSTALL_DIR=$PWD
 
 cd ../../
 
 echo "TVM_HOME=$PWD/tvm" > tmp-run-env.out
+
+echo "******************************************************"
+echo "TVM was built and installed to ${INSTALL_DIR} ..."

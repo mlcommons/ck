@@ -240,7 +240,7 @@ def run_case(dtype, image, target):
 
 
 
-    top1 = np.argmax(output[1]) #.asnumpy())
+    top1 = np.argmax(output[1])-1 #.asnumpy())
 
     top5=[]
     atop5 = get_top5(output[1][0]) #.asnumpy())
@@ -251,7 +251,7 @@ def run_case(dtype, image, target):
     print ('')
     print('Prediction Top5:')
     for p in atop5:
-        out=p[1]
+        out=p[1]-1
         name=synset[out]
         print (' * {} {}'.format(out, name))
 

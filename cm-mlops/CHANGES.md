@@ -1,3 +1,6 @@
+# 20220803
+ * various fixes for TVM and image classification
+
 # 20220802
  * added "run_script_after_post_deps" to script meta to run script after post deps
    (useful to activate python virtual env)

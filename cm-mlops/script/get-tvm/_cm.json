@@ -2,7 +2,6 @@
   "alias": "get-tvm",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "default_version": "main",
   "deps": [
     {
       "tags": "set,echo-off,win"
@@ -17,7 +16,10 @@
   "extra_cache_tags_from_env": [
     {"env":"CM_LLVM_CACHE_TAGS", "prefix":"llvm-"}
   ],
-  "env": {},
+  "env": {
+    "CM_GIT_CHECKOUT": "main",
+    "CM_GIT_URL": "https://github.com/apache/tvm"
+  },
   "cache": true,
   "tags": [
     "get",
@@ -48,6 +50,12 @@
     }
   },
   "versions": {
+    "main": {
+      "env": {
+        "CM_GIT_CHECKOUT": "main",
+        "CM_GIT_URL": "https://github.com/apache/tvm"
+      }
+    },
     "dev-0.8-dnnl-int8-v2-mlperf-1.1": {
       "deps": [
         {
@@ -79,12 +87,6 @@
       "env": {
         "CM_GIT_CHECKOUT": "ap/dnnl-int8-v2",
         "CM_GIT_URL": "https://github.com/apeskov/tvm"
-      }
-    },
-    "main": {
-      "env": {
-        "CM_GIT_CHECKOUT": "main",
-        "CM_GIT_URL": "https://github.com/apache/tvm"
       }
     },
     "masahi-onnx-combined-nms-c999a840cb5579c493f5b5e7f20bc619260dad08": {
@@ -140,6 +142,12 @@
     "v0.7.0": {
       "env": {
         "CM_GIT_CHECKOUT": "v0.7.0",
+        "CM_GIT_URL": "https://github.com/apache/tvm"
+      }
+    },
+    "v0.8.0": {
+      "env": {
+        "CM_GIT_CHECKOUT": "v0.8.0",
         "CM_GIT_URL": "https://github.com/apache/tvm"
       }
     }

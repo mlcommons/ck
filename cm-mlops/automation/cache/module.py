@@ -104,7 +104,7 @@ class CAutomation(Automation):
 
             if console:
                 print ('')
-                print ('* cache:: {}'.format(uid))
+                print ('* cache::{}'.format(uid))
                 print ('    Tags: {}'.format(tags))
                 if version!='':
                     print ('    Version: {}'.format(version))
