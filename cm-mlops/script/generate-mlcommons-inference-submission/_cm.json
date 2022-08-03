@@ -1,0 +1,28 @@
+{
+  "alias": "generate-mlcommons-inference-submission",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "deps": [
+    {
+      "tags": "get,python"
+    },
+    {
+      "tags": "mlcommons,inference,src",
+      "version": "r2.1"
+    },
+    {
+      "tags": "get,sut"
+    }
+  ],
+  "tags": [
+    "generate",
+    "submission",
+    "mlperf",
+    "mlcommons",
+    "inference-submission",
+    "mlperf-inference-submission",
+    "mlcommons-inference-submission"
+  ],
+  "uid": "5f8ab2d0b5874d53"
+}
