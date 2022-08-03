@@ -24,5 +24,16 @@
     "mlperf-inference-submission",
     "mlcommons-inference-submission"
   ],
+  "post_deps": [
+    {
+      "tags": "accuracy,truncate,mlc"
+    },
+    {
+      "tags": "submission,checker,mlc",
+      "enable_if_env": {
+	"CM_RUN_SUBMISSION_CHECKER":  [ "yes" ]
+      }
+    }
+  ],
   "uid": "5f8ab2d0b5874d53"
 }

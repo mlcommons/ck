@@ -45,6 +45,7 @@ def generate_submission(i):
 
     # Check submitter
     submitter = system_meta['submitter']
+    env['CM_MLC_SUBMITTER'] = submitter
 
     print('* MLPerf inference submitter: {}'.format(submitter))
 
@@ -54,7 +55,6 @@ def generate_submission(i):
 
     # SUT base
     system=i.get('system','dummy')
-
 
     code_path = os.path.join(path_submission, "code")
     for res in results:
@@ -76,6 +76,7 @@ def generate_submission(i):
         system_file = os.path.join(submission_system_path, res+".json")
         with open(system_file, "w") as fp:
             json.dump(system_meta, fp, indent=2)
+
         models = [f for f in os.listdir(result_path) if not os.path.isfile(os.path.join(result_path, f))]
         for model in models:
             result_model_path = os.path.join(result_path, model)
@@ -87,12 +88,6 @@ def generate_submission(i):
             submission_code_path = code_model_path
             if not os.path.isdir(submission_code_path):
                 os.makedirs(submission_code_path)
-
-
-            if model.endswith('-99.9'):
-                sub_model=model[:-5]
-            elif model.endswith('-99'):
-                sub_model=model[:-3]
 
             print('* MLPerf inference model: {}'.format(model))
             for scenario in scenarios:
@@ -131,9 +126,14 @@ def generate_submission(i):
                     if os.path.exists(user_conf_path):
                         shutil.copy(measurements_json_path, os.path.join(submission_measurement_path, res+'.json'))
                     files = []
+                    readme = False
                     for f in os.listdir(result_mode_path):
                         if f.startswith('mlperf_'):
                             files.append(f)
+                        if f == "README.md":
+                            shutil.copy(os.path.join(result_mode_path, f), os.path.join(submission_measurement_path, f))
+                            readme = True
+
                     if mode == "accuracy":
                         if os.path.exists(os.path.join(result_mode_path, "accuracy.txt")):
                             files.append("accuracy.txt")
@@ -143,8 +143,8 @@ def generate_submission(i):
                         p_target = os.path.join(submission_results_path, f)
                         shutil.copy(os.path.join(result_mode_path, f), p_target)
 
-
-
+                    if not readme:
+                        with open(os.path.join(submission_measurement_path, "README.md"), mode='w'): pass #create an empty README
 
     return {'return':0}
 
