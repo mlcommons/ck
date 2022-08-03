@@ -1,3 +1,4 @@
 pycocotools
 numpy
 opencv-python
+protobuf

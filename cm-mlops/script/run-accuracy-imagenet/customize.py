@@ -13,6 +13,6 @@ def preprocess(i):
     CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], "tools",
             "accuracy-imagenet.py") + " --mlperf-accuracy-file " + os.path.join(results_dir, "mlperf_log_accuracy.json") + " --imagenet-val-file " + os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt") + " > " + os.path.join(results_dir, "accuracy.txt")
     print(CMD)
-    os.system(CMD)
+    ret = os.system(CMD)
 
-    return {'return':0}
+    return {'return':ret}

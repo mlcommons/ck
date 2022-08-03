@@ -15,6 +15,6 @@ def preprocess(i):
     submitter = env.get("CM_MLC_SUBMITTER", "dummy")
     CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "tools", "submission",
             "submission-checker.py") + " --input " + submission_dir + " --submitter " + submitter + " --skip_compliance"
-    os.system(CMD)
+    ret = os.system(CMD)
 
     return {'return':0}

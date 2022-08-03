@@ -24,6 +24,8 @@ def preprocess(i):
     env['CM_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_LOADGEN_QPS_OPT']
     if 'OUTPUT_BASE_DIR' not in env:
         env['OUTPUT_BASE_DIR'] = env['CM_MLC_INFERENCE_VISION_PATH']
+    if "output_dir" in i["input"]:
+        env['OUTPUT_BASE_DIR'] = i["input"]["output_dir"]
     if 'OUTPUT_DIR' not in env:
         env['OUTPUT_DIR'] =  os.path.join(env['OUTPUT_BASE_DIR'], "results", env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'],
         env['CM_LOADGEN_SCENARIO'].lower(), env['CM_LOADGEN_MODE'])
@@ -56,5 +58,11 @@ def postprocess(i):
     if os.path.exists(env['CM_MLC_USER_CONF']):
         shutil.copy(env['CM_MLC_USER_CONF'], 'user.conf')
     env['CM_MLC_RESULTS_DIR'] = env['OUTPUT_DIR']
+    readme_init = ""
+    readme_body = "##\n" + env['CM_MLC_RUN_CMD']
+    readme = readme_init + readme_body
+    with open ("README.md", "w") as fp:
+        fp.write(readme)
+
 
     return {'return':0}

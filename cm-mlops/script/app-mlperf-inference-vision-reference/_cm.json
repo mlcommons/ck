@@ -156,7 +156,10 @@
       "enable_if_env": {
         "CM_MODEL": [
           "resnet50"
-        ]
+        ],
+	"CM_LOADGEN_MODE": [
+	  "accuracy"
+	]
       },
       "tags": "accuracy,imagenet"
     }
