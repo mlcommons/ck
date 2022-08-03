@@ -15,6 +15,8 @@ def preprocess(i):
 
     url = env['CM_PACKAGE_URL']
 
+    env['CM_STARTING_WEIGHT_FILENAME'] = url
+
     print ('Downloading from {}'.format(url))
 
     r = cm.access({'action':'download_file', 
