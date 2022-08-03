@@ -1,0 +1,13 @@
+{
+  "alias": "get-sut",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "tags": [
+    "get",
+    "sut",
+    "system-under-test",
+    "system-description"
+  ],
+  "uid": "e49a3f758b2d4e7b"
+}
