@@ -15,7 +15,7 @@ def preprocess(i):
 
     url = env['CM_PACKAGE_URL']
 
-    env['CM_STARTING_WEIGHT_FILENAME'] = url
+    env['CM_STARTING_WEIGHTS_FILENAME'] = url
 
     print ('Downloading from {}'.format(url))
 
