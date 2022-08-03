@@ -46,7 +46,8 @@
           "resnet50"
         ]
       },
-      "tags": "get,dataset,image-classification,imagenet,original"
+      "tags": "get,dataset,image-classification,imagenet,original",
+      "names": [ "imagenet" ]
     },
     {
       "enable_if_env": {
