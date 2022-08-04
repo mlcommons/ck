@@ -54,7 +54,7 @@ def generate_submission(i):
         os.makedirs(path_submission)
 
     # SUT base
-    system=i.get('system','dummy')
+    system=i.get('system','default')
 
     code_path = os.path.join(path_submission, "code")
     for res in results:

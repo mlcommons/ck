@@ -6,7 +6,7 @@ def preprocess(i):
     env = i['env']
     state = i['state']
     if 'CM_SUT_NAME' not in env:
-        env['CM_SUT_NAME'] = "dummy"
+        env['CM_SUT_NAME'] = "default"
     sut = env['CM_SUT_NAME']
     path = i['run_script_input']['path']
     config_path = os.path.join(path, "configs", env['CM_SUT_NAME'], "config.yaml")
