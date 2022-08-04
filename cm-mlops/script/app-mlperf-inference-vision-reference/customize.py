@@ -24,11 +24,28 @@ def preprocess(i):
     env['CM_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_LOADGEN_QPS_OPT']
     if 'OUTPUT_BASE_DIR' not in env:
         env['OUTPUT_BASE_DIR'] = env['CM_MLC_INFERENCE_VISION_PATH']
-    if "output_dir" in i["input"]:
-        env['OUTPUT_BASE_DIR'] = i["input"]["output_dir"]
+    if 'output_dir' in i['input']:
+        env['OUTPUT_BASE_DIR'] = i['input']['output_dir']
     if 'OUTPUT_DIR' not in env:
         env['OUTPUT_DIR'] =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'],
         env['CM_LOADGEN_SCENARIO'].lower(), env['CM_LOADGEN_MODE'])
+
+    if 'CM_NUM_THREADS' not in env:
+        env['CM_NUM_THREADS'] = str(int(env['CM_CPUINFO_CPUs']) // (int(env['CM_CPUINFO_Sockets']) * int(env['CM_CPUINFO_Threads_per_core']) ))
+
+    if env['CM_LOADGEN_SCENARIO'] == "SingleStream":
+        env['CM_NUM_THREADS'] = "1"
+    if env['CM_LOADGEN_SCENARIO'] == "MultiStream":
+        if int(env['CM_NUM_THREADS']) > 8:
+            env['CM_NUM_THREADS'] = "8"
+
+    if 'threads' in i['input']:
+        env['CM_NUM_THREADS'] = i['input']['threads']
+
+    env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --threads " + env['CM_NUM_THREADS']
+
+    if 'max-batchsize' in i['input']:
+        env['CM_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + i['input']['max-batchsize']
 
     if 'CM_MLC_MLPERF_CONF' not in env:
         env['CM_MLC_MLPERF_CONF'] = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "mlperf.conf")
