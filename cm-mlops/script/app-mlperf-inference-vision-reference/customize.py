@@ -53,11 +53,11 @@ def preprocess(i):
     conf = i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']][env['CM_LOADGEN_SCENARIO']]
     user_conf = ''
     for metric in conf:
-        user_conf += env['CM_ML_MODEL'] + "." + env['CM_LOADGEN_SCENARIO'] + "." + metric + " = " + str(conf[metric]) + "\n"
+        user_conf += env['CM_MODEL'] + "." + env['CM_LOADGEN_SCENARIO'] + "." + metric + " = " + str(conf[metric]) + "\n"
     if env['CM_LOADGEN_SCENARIO'] == "MultiStream":
         query_count = str(int((8000 / float(conf['target_latency'])) * 630))
-        user_conf += env['CM_ML_MODEL'] + "." + env['CM_LOADGEN_SCENARIO'] + ".max_query_count = " + query_count + "\n"
-        user_conf += env['CM_ML_MODEL'] + "." + env['CM_LOADGEN_SCENARIO'] + ".min_query_count = " + query_count + "\n"
+        user_conf += env['CM_MODEL'] + "." + env['CM_LOADGEN_SCENARIO'] + ".max_query_count = " + query_count + "\n"
+        user_conf += env['CM_MODEL'] + "." + env['CM_LOADGEN_SCENARIO'] + ".min_query_count = " + query_count + "\n"
     print(user_conf)
 
     import uuid
