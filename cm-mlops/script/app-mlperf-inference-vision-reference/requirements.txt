@@ -2,3 +2,5 @@ pycocotools
 numpy
 opencv-python
 protobuf
+onnx==1.8.1
+future

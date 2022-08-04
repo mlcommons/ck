@@ -144,7 +144,8 @@
           "onnxruntime"
         ]
       },
-      "tags": "get,pytorch"
+      "tags": "get,pytorch",
+      "version": "1.8.0"
     },
     {
       "tags": "get,sut,configs"
