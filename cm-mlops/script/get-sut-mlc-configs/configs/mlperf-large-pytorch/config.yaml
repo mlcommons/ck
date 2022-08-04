@@ -8,7 +8,7 @@
       target_latency: 10
     MultiStream:
       target_latency: 80
-  resnext50:
+  retinanet:
     Offline:
       target_qps: 1.0
     Server:
