@@ -60,7 +60,7 @@
     {
       "enable_if_env": {
         "CM_MODEL": [
-          "resnext50"
+          "retinanet"
         ]
       },
       "tags": "get,dataset,object-detection,open-images,original"
@@ -105,7 +105,7 @@
           "pytorch"
         ],
         "CM_MODEL": [
-          "resnext50"
+          "retinanet"
         ]
       },
       "tags": "get,ml-model,object-detection,resnext50,fp32,_pytorch"
@@ -116,7 +116,7 @@
           "onnxruntime"
         ],
         "CM_MODEL": [
-          "resnext50"
+          "retinanet"
         ]
       },
       "tags": "get,ml-model,object-detection,resnext50,fp32,_onnx"
@@ -206,9 +206,9 @@
         "CM_MODEL": "resnet50"
       }
     },
-    "resnext50": {
+    "retinanet": {
       "env": {
-        "CM_MODEL": "resnext50"
+        "CM_MODEL": "retinanet"
       }
     },
     "tf": {
