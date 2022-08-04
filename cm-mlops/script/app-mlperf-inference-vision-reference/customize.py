@@ -55,7 +55,7 @@ def preprocess(i):
 
 def postprocess(i):
     env = i['env']
-
+ 
     measurements = {}
     measurements['retraining'] = env.get('CM_MODEL_RETRAINING','')
     measurements['starting_weights_filename'] = env.get('CM_STARTING_WEIGHTS_FILENAME', 'none')

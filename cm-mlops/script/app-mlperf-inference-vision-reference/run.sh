@@ -17,8 +17,10 @@ export MODEL_DIR=${CM_ML_MODEL_PATH}
 echo "Using MLCommons Inference source from ${CM_MLC_INFERENCE_SOURCE}"
 RUN_DIR=${CM_MLC_INFERENCE_SOURCE}/vision/classification_and_detection
 
+model=${CM_MODEL}
+
 echo "Output Dir: ${OUTPUT_DIR}"
-CMD="cd ${RUN_DIR} && ./run_local.sh ${CM_BACKEND} ${CM_MODEL} ${CM_DEVICE} --scenario ${CM_LOADGEN_SCENARIO} ${CM_LOADGEN_EXTRA_OPTIONS}"
+CMD="cd ${RUN_DIR} && ./run_local.sh ${CM_BACKEND} $model ${CM_DEVICE} --scenario ${CM_LOADGEN_SCENARIO} ${CM_LOADGEN_EXTRA_OPTIONS}"
 echo $CMD
 eval $CMD
 test $? -eq 0 || exit 1

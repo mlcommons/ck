@@ -36,7 +36,7 @@
     },
     "validation": {
       "env": {
-        "CM_DATASET_VALIDATION": "yes"
+        "CM_DATASET_CALIBRATION": "no"
       }
     }
   }

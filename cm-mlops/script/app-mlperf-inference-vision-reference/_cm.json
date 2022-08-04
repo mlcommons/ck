@@ -140,8 +140,15 @@
     {
       "enable_if_env": {
         "CM_BACKEND": [
-          "pytorch",
           "onnxruntime"
+        ]
+      },
+      "tags": "get,pytorch"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "pytorch"
         ]
       },
       "tags": "get,pytorch",
@@ -167,7 +174,18 @@
 	  "accuracy"
 	]
       },
-      "tags": "accuracy,imagenet"
+      "tags": "run,accuracy,imagenet"
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "retinanet"
+        ],
+	"CM_LOADGEN_MODE": [
+	  "accuracy"
+	]
+      },
+      "tags": "run,accuracy,openimages"
     }
   ],
   "tags": [

@@ -1,0 +1,29 @@
+{
+  "alias": "run-accuracy-open-images",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "clean_files": [],
+  "deps": [
+    {
+      "tags": "get,python"
+    },
+    {
+      "tags": "get,dataset,object-detection,open-images"
+    },
+    {
+      "tags": "get,mlcommons,inference,src",
+      "version": "r2.1"
+    }
+  ],
+  "tags": [
+    "run",
+    "mlc",
+    "mlcommons",
+    "accuracy",
+    "open-images",
+    "openimages",
+    "accuracy-openimages"
+  ],
+  "uid": "6e809013816b42ea"
+}
