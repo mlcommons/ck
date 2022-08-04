@@ -505,6 +505,11 @@ class CAutomation(Automation):
             tmp_variations = {k: False for k in variation_tags}
             while True:
                 for variation_name in variation_tags:
+
+                    if variation_name.startswith("-"):
+                        tmp_variations[variation_name] = True
+                        continue
+
                     if "base" in variations[variation_name]:
                         base_variations = variations[variation_name]["base"]
                         for base_variation in base_variations:

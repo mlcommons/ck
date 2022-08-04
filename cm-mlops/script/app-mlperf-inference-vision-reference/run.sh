@@ -5,7 +5,10 @@ fi
 CUR_DIR=$PWD
 ${CM_PYTHON_BIN} -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
 test $? -eq 0 || exit 1
-cp ${CM_DATASET_AUX_PATH}/val.txt ${CM_DATASET_PATH}/val_map.txt
+
+if [[ ${CM_MODEL} == "resnet50" ]]; then
+  cp ${CM_DATASET_AUX_PATH}/val.txt ${CM_DATASET_PATH}/val_map.txt
+fi
 test $? -eq 0 || exit 1
 
 export DATA_DIR=${CM_DATASET_PATH}
