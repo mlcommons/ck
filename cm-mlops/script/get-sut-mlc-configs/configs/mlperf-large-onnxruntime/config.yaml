@@ -1,13 +1,13 @@
 ---
   resnet50:
     Offline:
-      target_qps: 1.0
+      target_qps: 410
     Server:
-      target_qps: 1.0
+      target_qps: 100.0
     SingleStream:
-      target_latency: 10
+      target_latency: 9
     MultiStream:
-      target_latency: 80
+      target_latency: 200
   retinanet:
     Offline:
       target_qps: 1.0
