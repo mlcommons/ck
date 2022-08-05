@@ -9,6 +9,16 @@
 
 Go to the [project page](cm).
 
+We are designing CM with the community to decompose complex software projects 
+into a database of reusable, portable, customizable and deterministic scripts 
+with a unified CLI, common Python API and extensible JSON/YAML meta descriptions
+that can automatically adapt to continuously changing software and hardware.
+
+Our current community projects:
+* [Unifying MLOps and DevOps scripts, tools and artifacts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
+* [Modularizing MLPerf inference benchmark](https://github.com/mlcommons/ck/issues/261)
+* [Implementing modular ML benchmarking based on loadgen and CM](https://github.com/mlcommons/ck/issues/253)
+
 
 # Archived Collective Knowledge framework (CK aka CK1)
 
