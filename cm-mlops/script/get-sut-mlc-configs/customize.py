@@ -15,7 +15,7 @@ def preprocess(i):
         return {'return':-1}
     if 'CM_SUT_CONFIG' not in state:
         state['CM_SUT_CONFIG'] = {}
-    state['CM_SUT_CONFIG'][env['CM_SUT_NAME']] = yaml.load(open(config_path))
+    state['CM_SUT_CONFIG'][env['CM_SUT_NAME']] = yaml.load(open(config_path), Loader=yaml.SafeLoader)
     return {'return':0}
 
 def postprocess(i):
