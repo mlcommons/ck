@@ -76,7 +76,7 @@ def generate_submission(i):
         submission_system_path = system_path
         if not os.path.isdir(submission_system_path):
             os.makedirs(submission_system_path)
-        system_file = os.path.join(submission_system_path, res+".json")
+        system_file = os.path.join(submission_system_path, sub_res+".json")
         with open(system_file, "w") as fp:
             json.dump(system_meta, fp, indent=2)
 
@@ -129,7 +129,7 @@ def generate_submission(i):
                         shutil.copy(user_conf_path, os.path.join(submission_measurement_path, 'user.conf'))
                     measurements_json_path = os.path.join(result_mode_path, "measurements.json")
                     if os.path.exists(user_conf_path):
-                        shutil.copy(measurements_json_path, os.path.join(submission_measurement_path, res+'.json'))
+                        shutil.copy(measurements_json_path, os.path.join(submission_measurement_path, sub_res+'.json'))
                     files = []
                     readme = False
                     for f in os.listdir(result_mode_path):

@@ -10,7 +10,7 @@
       target_latency: 200
   retinanet:
     Offline:
-      target_qps: 1.0
+      target_qps: 5.0
     Server:
       target_qps: 1.0
     SingleStream:
