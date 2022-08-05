@@ -5,9 +5,9 @@
     Server:
       target_qps: 1.0
     SingleStream:
-      target_latency: 10
+      target_latency: 30
     MultiStream:
-      target_latency: 80
+      target_latency: 700
   retinanet:
     Offline:
       target_qps: 1.0

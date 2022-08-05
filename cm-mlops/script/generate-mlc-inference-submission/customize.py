@@ -35,6 +35,7 @@ def generate_submission(i):
         return {'return':1, 'error':'"division" must be "open" or "closed"'}
     system_meta_base=state['CM_SUT_META']
     system_meta = system_meta_base['data']
+    division = system_meta['division']
 
     print('* MLPerf inference division: {}'.format(division))
 
