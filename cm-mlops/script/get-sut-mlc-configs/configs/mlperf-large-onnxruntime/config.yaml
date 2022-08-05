@@ -14,9 +14,9 @@
     Server:
       target_qps: 1.0
     SingleStream:
-      target_latency: 10
+      target_latency: 1000
     MultiStream:
-      target_latency: 80
+      target_latency: 4000
   bert-99:
     Offline:
       target_qps: 1.0

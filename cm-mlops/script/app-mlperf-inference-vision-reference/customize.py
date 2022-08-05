@@ -92,7 +92,7 @@ def postprocess(i):
         shutil.copy(env['CM_MLC_USER_CONF'], 'user.conf')
     env['CM_MLC_RESULTS_DIR'] = env['OUTPUT_DIR']
     readme_init = ""
-    readme_body = "##\n" + env['CM_MLC_RUN_CMD']
+    readme_body = "##\n```\n" + env['CM_MLC_RUN_CMD'] + "\n```"
     readme = readme_init + readme_body
     with open ("README.md", "w") as fp:
         fp.write(readme)

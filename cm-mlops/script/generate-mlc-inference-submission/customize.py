@@ -67,9 +67,11 @@ def generate_submission(i):
         print('* Target: {}'.format(target))
         print('* Framework: {}'.format(framework))
         result_path = os.path.join(results_dir, res)
-        submission_path = os.path.join(path_submission, "results", res)
-        measurement_path = os.path.join(path_submission, "measurements", res)
-        compliance_path = os.path.join(path_submission, "compliance", res)
+        platform_prefix = inp.get('platform_prefix', '')
+        sub_res = platform_prefix + "-" + res
+        submission_path = os.path.join(path_submission, "results", sub_res)
+        measurement_path = os.path.join(path_submission, "measurements", sub_res)
+        compliance_path = os.path.join(path_submission, "compliance", sub_res)
         system_path = os.path.join(path_submission, "systems")
         submission_system_path = system_path
         if not os.path.isdir(submission_system_path):
@@ -89,6 +91,8 @@ def generate_submission(i):
             submission_code_path = code_model_path
             if not os.path.isdir(submission_code_path):
                 os.makedirs(submission_code_path)
+            if not os.path.exists(os.path.join(submission_code_path, "README.md")):
+                with open(os.path.join(submission_code_path, "README.md"), mode='w'): pass #create an empty README
 
             print('* MLPerf inference model: {}'.format(model))
             for scenario in scenarios:
