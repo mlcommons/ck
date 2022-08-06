@@ -19,6 +19,7 @@ Our current community projects:
 * [Modularizing MLPerf inference benchmark](https://github.com/mlcommons/ck/issues/261)
 * [Implementing modular ML benchmarking based on loadgen and CM](https://github.com/mlcommons/ck/issues/253)
 
+(C)opyright 2022 MLCommons
 
 # Archived Collective Knowledge framework (CK aka CK1)
 
