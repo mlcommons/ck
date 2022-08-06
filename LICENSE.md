@@ -126,3 +126,4 @@ accepting such obligations, You may act only on Your own behalf and on Your sole
 on behalf of any other Contributor, and only if You agree to indemnify, defend, and hold each
 Contributor harmless for any liability incurred by, or claims asserted against, such Contributor by
 reason of your accepting any such warranty or additional liability.
+
