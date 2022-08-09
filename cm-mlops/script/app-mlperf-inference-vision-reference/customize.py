@@ -31,7 +31,10 @@ def preprocess(i):
         env['CM_LOADGEN_SCENARIO'].lower(), env['CM_LOADGEN_MODE'])
 
     if 'CM_NUM_THREADS' not in env:
-        env['CM_NUM_THREADS'] = str(int(env['CM_CPUINFO_CPUs']) // (int(env['CM_CPUINFO_Sockets']) * int(env['CM_CPUINFO_Threads_per_core']) ))
+        if 'CM_MINIMIZE_THREADS' in env:
+            env['CM_NUM_THREADS'] = str(int(env['CM_CPUINFO_CPUs']) // (int(env['CM_CPUINFO_Sockets']) * int(env['CM_CPUINFO_Threads_per_core']) ))
+        else:
+            env['CM_NUM_THREADS'] = str(int(env['CM_CPUINFO_CPUs']))
 
     if env['CM_LOADGEN_SCENARIO'] == "SingleStream":
         env['CM_NUM_THREADS'] = "1"
@@ -39,7 +42,7 @@ def preprocess(i):
         if int(env['CM_NUM_THREADS']) > 8:
             env['CM_NUM_THREADS'] = "8"
 
-    if 'threads' in i['input']:
+    if 'threads' in i['input']: #input overrides everything
         env['CM_NUM_THREADS'] = i['input']['threads']
 
     env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --threads " + env['CM_NUM_THREADS']
