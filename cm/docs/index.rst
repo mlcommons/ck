@@ -18,6 +18,7 @@ CM toolkit documentation
    installation
    tutorial-scripts
    tutorial-concept
+   tutorial-modular-mlperf
 
 .. toctree::
    :maxdepth: 2
