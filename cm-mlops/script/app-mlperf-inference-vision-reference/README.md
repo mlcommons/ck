@@ -28,9 +28,9 @@ cm run script --tags=mlperf,inference,reference,python,_retinanet,_onnxruntime,_
 ### Important options
 1. `--env.CM_LOADGEN_MODE`. Valid values: {performance, accuracy}
 2. `--env.CM_LOADGEN_SCENARIO`. Valid values: {Offline, Server, SingleStream, MultiStream}
-3. `--env.CM_SUT_NAME'. Valid value - any SUT which has a config file (under same name) defined [here](https://github.com/arjunsuresh/ck/tree/master/cm-mlops/script/get-sut-mlc-configs/configs)
-4. `--env.IMAGENET_PATH` Location of directory containing Imagenet which cannot be downloaded from a public URL
-5. `--env.OUTPUT_DIR` Location where the outputs are produced.
+3. `--env.CM_SUT_NAME`. Valid value - any SUT which has a config file (under same name) defined [here](https://github.com/arjunsuresh/ck/tree/master/cm-mlops/script/get-sut-mlc-configs/configs)
+4. `--env.IMAGENET_PATH`. Location of directory containing Imagenet which cannot be downloaded from a public URL
+5. `--env.OUTPUT_DIR`. Location where the outputs are produced.
 6. `--threads` - Number of CPU threads to launch the application with
 7. `--max-batchsize` - MAximum batchsize to be used
 
