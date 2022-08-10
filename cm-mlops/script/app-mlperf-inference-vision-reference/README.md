@@ -6,7 +6,7 @@ To run the Python implementation of the MLPerf Reference Implementation we can d
 --env.IMAGENET_PATH=$HOME/datasets/imagenet-2012-val \
 --env.CM_LOADGEN_MODE=performance \
 --env.CM_LOADGEN_SCENARIO=Offline \
---env.CM_SUT_NAME=gcp-n2-standard-80-onnxruntime
+--env.CM_SUT_NAME=gcp-n2-standard-80-tf
 ```
 
 Full set of tags for the script can be seen [here](https://github.com/arjunsuresh/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/_cm.json#L191)
