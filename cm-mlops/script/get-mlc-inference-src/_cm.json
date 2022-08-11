@@ -28,12 +28,14 @@
   "versions": {
     "master": {
       "env": {
-        "CM_GIT_CHECKOUT": "master"
+        "CM_GIT_CHECKOUT": "master",
+        "CM_MLC_LAST_RELEASE": "v2.1"
       }
     },
     "r2.1": {
       "env": {
-        "CM_GIT_CHECKOUT": "r2.1"
+        "CM_GIT_CHECKOUT": "r2.1",
+        "CM_MLC_LAST_RELEASE": "v2.1"
       }
     }
   },

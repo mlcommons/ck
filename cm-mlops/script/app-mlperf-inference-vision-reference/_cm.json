@@ -156,13 +156,17 @@
     },
     {
       "tags": "get,sut,configs"
+    },
+    {
+      "tags": "get,sut,description"
     }
   ],
   "default_variations": [ "resnet50", "cpu", "tf" ],
   "env": {
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1",
-    "CM_OUTPUT_FOLDER_NAME": "test_results"
+    "CM_OUTPUT_FOLDER_NAME": "test_results",
+    "CM_RUN_STYLE": "test"
   },
   "post_deps": [
     {
@@ -241,12 +245,25 @@
     },
     "valid": {
       "env": {
-        "CM_OUTPUT_FOLDER_NAME": "valid_results"
+        "CM_OUTPUT_FOLDER_NAME": "valid_results",
+	"CM_RUN_STYLE": "valid"
       }
     },
-    "quick": {
+    "fast": {
       "env": {
-        "CM_OUTPUT_FOLDER_NAME": "quick_results"
+        "CM_OUTPUT_FOLDER_NAME": "fast_results",
+	"CM_RUN_STYLE": "fast",
+	"CM_FAST_FACTOR": "5"
+      }
+    },
+    "all-scenarios": {
+      "env": {
+	"CM_ALL_SCENARIOS": "yes"
+      }
+    },
+    "all-modes": {
+      "env": {
+	"CM_ALL_MODES": "yes"
       }
     }
   }
