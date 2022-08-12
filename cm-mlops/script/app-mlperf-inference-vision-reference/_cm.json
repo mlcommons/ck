@@ -258,12 +258,17 @@
     },
     "all-scenarios": {
       "env": {
-	"CM_ALL_SCENARIOS": "yes"
+	"CM_LOADGEN_ALL_SCENARIOS": "yes"
       }
     },
     "all-modes": {
       "env": {
-	"CM_ALL_MODES": "yes"
+	"CM_LOADGEN_ALL_MODES": "yes"
+      }
+    },
+    "compliance": {
+      "env": {
+	"CM_LOADGEN_COMPLIANCE": "yes"
       }
     }
   }

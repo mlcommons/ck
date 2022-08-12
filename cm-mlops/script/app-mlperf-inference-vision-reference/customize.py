@@ -13,6 +13,15 @@ def preprocess(i):
     if env.get('CM_RUN_DOCKER_CONTAINER', '') == "yes": 
         return {'return':0}
 
+    if env.get('CM_SYSTEM_POWER','') == "yes" or i['input'].get('power', '') == "yes":
+        power = "yes"
+    else:
+        power = "no"
+    rerun = env.get("CM_RERUN", "") or i['input'].get("rerun", False)
+    required_files = []
+    #required_, required_performace_files, required_power_files, required_performance_power_files,
+    required_files = get_checker_files(env['CM_MLC_INFERENCE_SOURCE'])
+
     if env['CM_MODEL'] == "resnet50":
         cmd = "cp " + os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt") + " " + os.path.join(env['CM_DATASET_PATH'],
         "val_map.txt")
@@ -29,13 +38,13 @@ def preprocess(i):
         if 'CM_LOADGEN_SCENARIO' not in env:
             env['CM_LOADGEN_SCENARIO'] = "Offline"
 
-    if 'CM_ALL_SCENARIOS' in env:
+    if env.get('CM_LOADGEN_ALL_SCENARIOS', '') == "yes":
         system_meta = state['CM_SUT_META']
         env['CM_LOADGEN_SCENARIOS'] = get_valid_scenarios(env['CM_MODEL'], system_meta['system_type'], env['CM_MLC_LAST_RELEASE'], env['CM_MLC_INFERENCE_SOURCE'])
     else:
         env['CM_LOADGEN_SCENARIOS'] = [ env['CM_LOADGEN_SCENARIO'] ]
 
-    if 'CM_ALL_MODES' in env:
+    if env.get('CM_LOADGEN_ALL_MODES', '') == "yes":
         env['CM_LOADGEN_MODES'] = [ "performance", "accuracy" ]
     else:
         env['CM_LOADGEN_MODES'] = [ env['CM_LOADGEN_MODE'] ]
@@ -61,6 +70,9 @@ def preprocess(i):
     if 'max-batchsize' in i['input']:
         env['CM_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + i['input']['max-batchsize']
 
+    if 'count' in i['input']:
+        env['CM_LOADGEN_EXTRA_OPTIONS'] += " --count " + i['input']['count']
+
     print("Using MLCommons Inference source from " + env['CM_MLC_INFERENCE_SOURCE'])
 
     if 'CM_MLC_MLPERF_CONF' not in env:
@@ -72,11 +84,18 @@ def preprocess(i):
     env['DATA_DIR'] = env['CM_DATASET_PATH']
     env['MODEL_DIR'] = env['CM_ML_MODEL_PATH']
 
-    env['RUN_DIR'] = env['CM_MLC_INFERENCE_SOURCE'] + "/vision/classification_and_detection"
+    env['RUN_DIR'] = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "vision", "classification_and_detection")
     RUN_CMDS = []
-    state['RUN'] = []
+    COMPLIANCE_RUN_CMDS = []
+    state['RUN'] = {}
+    state['COMPLIANCE_RUN'] = {}
+    test_list = ["TEST01", "TEST04", "TEST05"]
+    if env['CM_MODEL'] in ["rnnt", "bert-99", "bert-99.9", "dlrm-99", "dlrm-99.9", "3d-unet-99", "3d-unet-99.9"]:
+        test_list.remove("TEST04")
 
     for scenario in env['CM_LOADGEN_SCENARIOS']:
+        state['RUN'][scenario] = {}
+        state['COMPLIANCE_RUN'][scenario] = {}
         scenario_extra_options = ''
 
         NUM_THREADS = env['CM_NUM_THREADS']
@@ -104,20 +123,27 @@ def preprocess(i):
             user_conf += env['CM_MODEL'] + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
 
         if env['CM_RUN_STYLE'] == "test":
+
             query_count = "10"
             user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
             user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
+            if 'count' not in i['input']:
+                scenario_extra_options +=  " --count " + query_count
         elif env['CM_RUN_STYLE'] == "fast":
             if scenario == "Server":
                 target_qps = conf['target_qps']
                 query_count = str((660/fast_factor)/(float(target_qps)))
                 user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
                 user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
+                if 'count' not in i['input']:
+                    scenario_extra_options +=  " --count " + query_count
         else:
             if scenario == "MultiStream":
                 query_count = str(int((8000 / float(conf['target_latency'])) * 660))
                 user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
                 user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
+                if 'count' not in i['input']:
+                    scenario_extra_options +=  " --count " + query_count
         print(user_conf)
         import uuid
         key = uuid.uuid4().hex
@@ -138,52 +164,103 @@ def preprocess(i):
             print("Output Dir:" + OUTPUT_DIR)
 
             cmd =  "cd "+ env['RUN_DIR'] + " && OUTPUT_DIR=" + OUTPUT_DIR + " ./run_local.sh " + env['CM_BACKEND'] + ' ' + env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options 
-            RUN_CMDS.append(cmd)
-            state['RUN'] += [ { "CM_MLC_RUN_CMD": cmd, "OUTPUT_DIR": OUTPUT_DIR, "CM_MLC_USER_CONF" : user_conf_path
-                } ]
+            if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
+                RUN_CMDS.append(cmd)
+            else:
+                print("Run files exist, skipping run...\n")
+            if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, required_files[4]):
+                state['RUN'][scenario][mode] = { "CM_MLC_RUN_CMD": cmd, "OUTPUT_DIR": OUTPUT_DIR, "CM_MLC_USER_CONF": user_conf_path }
+            else:
+                print("Measure files exist, skipping regeneration...\n")
+
+        if env.get("CM_LOADGEN_COMPLIANCE", "") == "yes":
+            for test in test_list:
+                if test == "TEST01":
+                    audit_path = os.path.join(test, env['CM_MODEL'])
+                else:
+                    audit_path = test
+                audit_full_path = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "compliance", audit_path, "audit.config")
+                mode_extra_options = " --audit " + audit_full_path
+                OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'],
+                        env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'], scenario.lower(),
+                        test)
+                cmd =  "cd "+ env['RUN_DIR'] + " && OUTPUT_DIR=" + OUTPUT_DIR + " ./run_local.sh " + env['CM_BACKEND'] + ' ' + env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + mode_extra_options
+                #COMPLIANCE_RUN_CMDS.append(cmd)
+                state['RUN'][scenario][test] = { "CM_MLC_RUN_CMD": cmd, "OUTPUT_DIR": OUTPUT_DIR, "CM_MLC_USER_CONF": user_conf_path }
+            #state['COMPLIANCE_RUN'].append({ "CM_MLC_RUN_CMD": cmd, "OUTPUT_DIR": OUTPUT_DIR, "CM_MLC_USER_CONF" : user_conf_path })
+
 
     env['CM_MLC_RUN_CMDS'] = "??".join(RUN_CMDS)
+    env['CM_MLC_COMPLIANCE_RUN_CMDS'] = "??".join(COMPLIANCE_RUN_CMDS)
     return {'return':0}
+
+def run_files_exist(mode, OUTPUT_DIR, run_files):
+    file_loc = {"accuracy": 0, "performance": 1, "power": 2, "performance_power": 3, "measure": 4}
+    for file in run_files[file_loc[mode]]:
+        if not os.path.exists(os.path.join(OUTPUT_DIR, file)) and file != "accuracy.txt":
+            return False
+    return True
+
+def measure_files_exist(OUTPUT_DIR, run_files):
+    for file in run_files:
+        if not os.path.exists(os.path.join(OUTPUT_DIR, file)):
+            return False
+    return True
 
 def get_valid_scenarios(model, category, mlc_version, mlc_path):
     import sys
     submission_checker_dir = os.path.join(mlc_path, "tools", "submission")
-    submission_checker = os.path.join(submission_checker_dir, "submission-checker.py")
-    sys.path.append(".")
     sys.path.append(submission_checker_dir)
-    shutil.copy(submission_checker, "checker.py")
-    import checker
+    #shutil.copy(submission_checker, "checker.py")
+    import submission_checker as checker
     config = checker.MODEL_CONFIG
     internal_model_name = config[mlc_version]["model_mapping"][model]
     valid_scenarios = config[mlc_version]["required-scenarios-"+category][internal_model_name]
     print("Valid Scenarios for " + model + " in " + category + " category are :" +  str(valid_scenarios))
     return valid_scenarios
 
+def get_checker_files(mlc_path):
+    import sys
+    submission_checker_dir = os.path.join(mlc_path, "tools", "submission")
+    sys.path.append(submission_checker_dir)
+    #shutil.copy(submission_checker, "checker.py")
+    import submission_checker as checker
+    REQUIRED_ACC_FILES = checker.REQUIRED_ACC_FILES
+    REQUIRED_PERF_FILES = checker.REQUIRED_PERF_FILES
+    REQUIRED_POWER_FILES = checker.REQUIRED_POWER_FILES
+    REQUIRED_MEASURE_FILES = checker.REQUIRED_MEASURE_FILES
+    REQUIRED_PERF_POWER_FILES = checker.REQUIRED_PERF_POWER_FILES
+    return REQUIRED_ACC_FILES, REQUIRED_PERF_FILES, REQUIRED_POWER_FILES, REQUIRED_PERF_POWER_FILES, REQUIRED_MEASURE_FILES
+
 
 def postprocess(i):
     env = i['env']
     state = i['state']
     #print(state['RUN']) 
-    for run in state['RUN']:
-        measurements = {}
-        measurements['retraining'] = env.get('CM_MODEL_RETRAINING','')
-        measurements['starting_weights_filename'] = env.get('CM_STARTING_WEIGHTS_FILENAME', 'none')
-        measurements['input_data_types'] = env.get('CM_MODEL_INPUT_DATA_TYPES', 'fp32')
-        measurements['weight_data_types'] = env.get('CM_MODEL_WEIGHT_DATA_TYPES', 'fp32')
-        measurements['weight_transformations'] = env.get('CM_MODEL_WEIGHT_TRANSFORMATIONS', 'none')
-        os.chdir(run['OUTPUT_DIR'])
-        with open ("measurements.json", "w") as fp:
-            json.dump(measurements, fp, indent=2)
-        if os.path.exists(env['CM_MLC_MLPERF_CONF']):
-            shutil.copy(env['CM_MLC_MLPERF_CONF'], 'mlperf.conf')
-        if os.path.exists(run['CM_MLC_USER_CONF']):
-            shutil.copy(run['CM_MLC_USER_CONF'], 'user.conf')
-        env['CM_MLC_RESULTS_DIR'] = run['OUTPUT_DIR']
-        readme_init = ""
-        readme_body = "##\n```\n" + run['CM_MLC_RUN_CMD'] + "\n```"
-        readme = readme_init + readme_body
-        with open ("README.md", "w") as fp:
-            fp.write(readme)
+    for scenario in state['RUN']:
+        for mode in scenario:
+            if mode in [ "performance", "accuracy" ]:
+                measurements = {}
+                measurements['retraining'] = env.get('CM_MODEL_RETRAINING','')
+                measurements['starting_weights_filename'] = env.get('CM_STARTING_WEIGHTS_FILENAME', 'none')
+                measurements['input_data_types'] = env.get('CM_MODEL_INPUT_DATA_TYPES', 'fp32')
+                measurements['weight_data_types'] = env.get('CM_MODEL_WEIGHT_DATA_TYPES', 'fp32')
+                measurements['weight_transformations'] = env.get('CM_MODEL_WEIGHT_TRANSFORMATIONS', 'none')
+                os.chdir(run['OUTPUT_DIR'])
+                with open ("measurements.json", "w") as fp:
+                    json.dump(measurements, fp, indent=2)
+                if os.path.exists(env['CM_MLC_MLPERF_CONF']):
+                    shutil.copy(env['CM_MLC_MLPERF_CONF'], 'mlperf.conf')
+                if os.path.exists(run['CM_MLC_USER_CONF']):
+                    shutil.copy(run['CM_MLC_USER_CONF'], 'user.conf')
+                readme_init = ""
+                readme_body = "##\n```\n" + run['CM_MLC_RUN_CMD'] + "\n```"
+                readme = readme_init + readme_body
+                with open ("README.md", "w") as fp:
+                    fp.write(readme)
+            elif mode in [ "TEST01", "TEST04", "TEST05" ]:
+                if mode == "TEST01":
+                    print (mode)
 
 
     return {'return':0}
