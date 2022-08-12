@@ -70,3 +70,7 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
 # ML artifact management
 
 - [CM toolkit](https://github.com/mlcommons/ck/tree/master/cm)
+
+# Misc tools
+
+- [rclone](https://rclone.org) - rclone is a command-line program to manage files on cloud storage. It is a feature-rich alternative to cloud vendors' web storage interfaces.
