@@ -2,3 +2,4 @@ alias: mlcommons@cm-mlops
 git: true
 prefix: cm-mlops
 uid: a4705959af8e447a
+version: "0.9.9"
