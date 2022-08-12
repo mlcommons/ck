@@ -88,14 +88,12 @@ def preprocess(i):
     RUN_CMDS = []
     COMPLIANCE_RUN_CMDS = []
     state['RUN'] = {}
-    state['COMPLIANCE_RUN'] = {}
     test_list = ["TEST01", "TEST04", "TEST05"]
     if env['CM_MODEL'] in ["rnnt", "bert-99", "bert-99.9", "dlrm-99", "dlrm-99.9", "3d-unet-99", "3d-unet-99.9"]:
         test_list.remove("TEST04")
 
     for scenario in env['CM_LOADGEN_SCENARIOS']:
         state['RUN'][scenario] = {}
-        state['COMPLIANCE_RUN'][scenario] = {}
         scenario_extra_options = ''
 
         NUM_THREADS = env['CM_NUM_THREADS']
@@ -156,11 +154,13 @@ def preprocess(i):
 
         for mode in env['CM_LOADGEN_MODES']:
             mode_extra_options = ""
-            if mode == "accuracy":
-                mode_extra_options += " --accuracy"
             OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'],
                         env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'], scenario.lower(),
                         mode)
+            if mode == "accuracy":
+                mode_extra_options += " --accuracy"
+            elif mode == "performance":
+                OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
             print("Output Dir:" + OUTPUT_DIR)
 
             cmd =  "cd "+ env['RUN_DIR'] + " && OUTPUT_DIR=" + OUTPUT_DIR + " ./run_local.sh " + env['CM_BACKEND'] + ' ' + env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options 
@@ -168,7 +168,8 @@ def preprocess(i):
                 RUN_CMDS.append(cmd)
             else:
                 print("Run files exist, skipping run...\n")
-            if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, required_files[4]):
+            if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR,
+                    required_files[4]) or env.get("CM_LOADGEN_COMPLIANCE", "") == "yes":
                 state['RUN'][scenario][mode] = { "CM_MLC_RUN_CMD": cmd, "OUTPUT_DIR": OUTPUT_DIR, "CM_MLC_USER_CONF": user_conf_path }
             else:
                 print("Measure files exist, skipping regeneration...\n")
@@ -184,14 +185,17 @@ def preprocess(i):
                 OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'],
                         env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'], scenario.lower(),
                         test)
+                print("Compliance Output Dir:" + OUTPUT_DIR)
                 cmd =  "cd "+ env['RUN_DIR'] + " && OUTPUT_DIR=" + OUTPUT_DIR + " ./run_local.sh " + env['CM_BACKEND'] + ' ' + env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + mode_extra_options
-                #COMPLIANCE_RUN_CMDS.append(cmd)
-                state['RUN'][scenario][test] = { "CM_MLC_RUN_CMD": cmd, "OUTPUT_DIR": OUTPUT_DIR, "CM_MLC_USER_CONF": user_conf_path }
-            #state['COMPLIANCE_RUN'].append({ "CM_MLC_RUN_CMD": cmd, "OUTPUT_DIR": OUTPUT_DIR, "CM_MLC_USER_CONF" : user_conf_path })
-
+                if not run_files_exist("performance", OUTPUT_DIR, required_files) or rerun:
+                    COMPLIANCE_RUN_CMDS.append(cmd)
+                else:
+                    print("Compliance run files exist, skipping compliance run...\n")
+                    state['RUN'][scenario][test] = { "CM_MLC_RUN_CMD": cmd, "OUTPUT_DIR": OUTPUT_DIR, "CM_MLC_USER_CONF": user_conf_path }
 
     env['CM_MLC_RUN_CMDS'] = "??".join(RUN_CMDS)
     env['CM_MLC_COMPLIANCE_RUN_CMDS'] = "??".join(COMPLIANCE_RUN_CMDS)
+    #print(state['RUN'])
     return {'return':0}
 
 def run_files_exist(mode, OUTPUT_DIR, run_files):
@@ -236,9 +240,9 @@ def get_checker_files(mlc_path):
 def postprocess(i):
     env = i['env']
     state = i['state']
-    #print(state['RUN']) 
+
     for scenario in state['RUN']:
-        for mode in scenario:
+        for mode in state['RUN'][scenario]:
             if mode in [ "performance", "accuracy" ]:
                 measurements = {}
                 measurements['retraining'] = env.get('CM_MODEL_RETRAINING','')
@@ -246,6 +250,7 @@ def postprocess(i):
                 measurements['input_data_types'] = env.get('CM_MODEL_INPUT_DATA_TYPES', 'fp32')
                 measurements['weight_data_types'] = env.get('CM_MODEL_WEIGHT_DATA_TYPES', 'fp32')
                 measurements['weight_transformations'] = env.get('CM_MODEL_WEIGHT_TRANSFORMATIONS', 'none')
+                run = state['RUN'][scenario][mode]
                 os.chdir(run['OUTPUT_DIR'])
                 with open ("measurements.json", "w") as fp:
                     json.dump(measurements, fp, indent=2)
@@ -259,8 +264,21 @@ def postprocess(i):
                 with open ("README.md", "w") as fp:
                     fp.write(readme)
             elif mode in [ "TEST01", "TEST04", "TEST05" ]:
-                if mode == "TEST01":
-                    print (mode)
+                compliance_run = state["RUN"][scenario][mode]
+                RESULT_DIR = os.path.split(state['RUN'][scenario]["accuracy"]["OUTPUT_DIR"])[0]
+                COMPLIANCE_DIR = compliance_run["OUTPUT_DIR"]
+                split = os.path.split(RESULT_DIR)
+                split = os.path.split(split[0])
+                model = split[1]
+                split = os.path.split(split[0])
+                sut = split[1]
+                split = os.path.split(split[0])
+                OUTPUT_DIR = os.path.join(split[0], "compliance", sut, model, scenario)
+                SCRIPT_PATH = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "compliance", "nvidia", mode, "run_verification.py")
+                cmd = env['CM_PYTHON_BIN'] + " " + SCRIPT_PATH + " -r " + RESULT_DIR + " -c " + COMPLIANCE_DIR + " -o "+ OUTPUT_DIR
+                os.system(cmd)
+            else:
+                print(mode)
 
 
     return {'return':0}
