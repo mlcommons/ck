@@ -46,4 +46,4 @@ cm run script --tags=mlperf,inference,reference,python,_retinanet,_onnxruntime,_
 --env.CM_LOADGEN_MODE=performance \
 --env.CM_LOADGEN_SCENARIO=Offline
 ```
-Rensorflow backend is currently not supported by the reference implementation.
+Tensorflow backend is currently not supported by the reference implementation.
