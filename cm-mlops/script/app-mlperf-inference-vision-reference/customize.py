@@ -19,7 +19,6 @@ def preprocess(i):
         power = "no"
     rerun = env.get("CM_RERUN", "") or i['input'].get("rerun", False)
     required_files = []
-    #required_, required_performace_files, required_power_files, required_performance_power_files,
     required_files = get_checker_files(env['CM_MLC_INFERENCE_SOURCE'])
 
     if env['CM_MODEL'] == "resnet50":
@@ -122,7 +121,7 @@ def preprocess(i):
 
         if env['CM_RUN_STYLE'] == "test":
 
-            query_count = "10"
+            query_count = env['CM_TEST_QUERY_COUNT']
             user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
             user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
             if 'count' not in i['input']:
@@ -152,9 +151,10 @@ def preprocess(i):
         user_conf_file.write_text(user_conf)
         scenario_extra_options +=  " --user_conf " + user_conf_path
 
+        env['CM_MLC_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
         for mode in env['CM_LOADGEN_MODES']:
             mode_extra_options = ""
-            OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'],
+            OUTPUT_DIR =  os.path.join(env['CM_MLC_RESULTS_DIR'],
                         env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'], scenario.lower(),
                         mode)
             if mode == "accuracy":
@@ -173,7 +173,8 @@ def preprocess(i):
                 state['RUN'][scenario][mode] = { "CM_MLC_RUN_CMD": cmd, "OUTPUT_DIR": OUTPUT_DIR, "CM_MLC_USER_CONF": user_conf_path }
             else:
                 print("Measure files exist, skipping regeneration...\n")
-
+        if system_meta.get('division', '') == "open":
+            env["CM_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
         if env.get("CM_LOADGEN_COMPLIANCE", "") == "yes":
             for test in test_list:
                 if test == "TEST01":
@@ -240,7 +241,7 @@ def get_checker_files(mlc_path):
 def postprocess(i):
     env = i['env']
     state = i['state']
-
+    accuracy_results_dir = []
     for scenario in state['RUN']:
         for mode in state['RUN'][scenario]:
             if mode in [ "performance", "accuracy" ]:
@@ -251,6 +252,8 @@ def postprocess(i):
                 measurements['weight_data_types'] = env.get('CM_MODEL_WEIGHT_DATA_TYPES', 'fp32')
                 measurements['weight_transformations'] = env.get('CM_MODEL_WEIGHT_TRANSFORMATIONS', 'none')
                 run = state['RUN'][scenario][mode]
+                if mode == "accuracy":
+                    accuracy_results_dir.append(run['OUTPUT_DIR'])
                 os.chdir(run['OUTPUT_DIR'])
                 with open ("measurements.json", "w") as fp:
                     json.dump(measurements, fp, indent=2)
@@ -280,5 +283,6 @@ def postprocess(i):
             else:
                 print(mode)
 
+    env['CM_MLC_ACCURACY_RESULTS_DIR'] = ":".join(accuracy_results_dir)
 
     return {'return':0}

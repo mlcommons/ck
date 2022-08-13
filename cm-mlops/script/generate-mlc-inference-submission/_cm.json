@@ -37,5 +37,12 @@
     "mlperf-inference-submission",
     "mlcommons-inference-submission"
   ],
-  "uid": "5f8ab2d0b5874d53"
+  "uid": "5f8ab2d0b5874d53",
+  "variations": {
+    "verify": {
+      "env": {
+	"CM_RUN_SUBMISSION_CHECKER": "yes"
+      }
+    }
+  }
 }

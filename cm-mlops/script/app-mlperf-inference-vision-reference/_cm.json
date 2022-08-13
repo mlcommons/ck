@@ -156,9 +156,6 @@
     },
     {
       "tags": "get,sut,configs"
-    },
-    {
-      "tags": "get,sut,description"
     }
   ],
   "default_variations": [ "resnet50", "cpu", "tf" ],
@@ -166,30 +163,20 @@
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1",
     "CM_OUTPUT_FOLDER_NAME": "test_results",
-    "CM_RUN_STYLE": "test"
+    "CM_RUN_STYLE": "test",
+    "CM_TEST_QUERY_COUNT": "5"
   },
   "post_deps": [
     {
-      "enable_if_env": {
-        "CM_MODEL": [
-          "resnet50"
-        ],
-	"CM_LOADGEN_MODE": [
-	  "accuracy"
-	]
-      },
-      "tags": "run,accuracy,imagenet"
-    },
-    {
+      "tags": "run,accuracy,openimages",
       "enable_if_env": {
         "CM_MODEL": [
           "retinanet"
         ],
 	"CM_LOADGEN_MODE": [
-	  "accuracy"
+	  "accuracy", "all"
 	]
-      },
-      "tags": "run,accuracy,openimages"
+      }
     }
   ],
   "tags": [
@@ -226,7 +213,17 @@
     "resnet50": {
       "env": {
         "CM_MODEL": "resnet50"
-      }
+      },
+      "post_deps": [
+        {
+          "tags": "run,accuracy,imagenet",
+          "enable_if_env": {
+	    "CM_LOADGEN_MODE": [
+	      "accuracy", "all"
+	    ]
+          }
+	}
+      ]
     },
     "retinanet": {
       "env": {
@@ -259,17 +256,34 @@
     "all-scenarios": {
       "env": {
 	"CM_LOADGEN_ALL_SCENARIOS": "yes"
-      }
+      },
+      "deps": [
+	{
+          "tags": "get,sut,description"
+        }
+      ]
     },
     "all-modes": {
       "env": {
-	"CM_LOADGEN_ALL_MODES": "yes"
+	"CM_LOADGEN_ALL_MODES": "yes",
+	"CM_LOADGEN_MODE": "all"
       }
     },
     "compliance": {
       "env": {
 	"CM_LOADGEN_COMPLIANCE": "yes"
       }
+    },
+    "submission": {
+      "env": {
+	"CM_MLPERF_SUBMISSION_RUN": "yes"
+      },
+      "base": [ "all-scenarios", "all-modes" ],
+      "post_deps": [
+	{
+	  "tags": "generate,mlperf,submission,_verify"
+	}
+      ]
     }
   }
 }

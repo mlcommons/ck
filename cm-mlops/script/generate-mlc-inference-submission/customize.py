@@ -67,7 +67,10 @@ def generate_submission(i):
         print('* Framework: {}'.format(framework))
         result_path = os.path.join(results_dir, res)
         platform_prefix = inp.get('platform_prefix', '')
-        sub_res = platform_prefix + "-" + res
+        if platform_prefix:
+            sub_res = platform_prefix + "-" + res
+        else:
+            sub_res = res
         submission_path = os.path.join(path_submission, "results", sub_res)
         measurement_path = os.path.join(path_submission, "measurements", sub_res)
         compliance_path = os.path.join(path_submission, "compliance", sub_res)
@@ -113,7 +116,9 @@ def generate_submission(i):
                     submission_results_path = submission_mode_path
                     submission_measurement_path = measurement_scenario_path
                     submission_compliance_path = os.path.join(compliance_scenario_path, mode)
-                    if mode=='performance': submission_results_path=os.path.join(submission_mode_path, 'run_1')
+                    if mode=='performance':
+                        result_mode_path=os.path.join(result_mode_path, 'run_1')
+                        submission_results_path=os.path.join(submission_mode_path, 'run_1')
                     if not os.path.isdir(submission_results_path):
                         os.makedirs(submission_results_path)
                     if not os.path.isdir(submission_measurement_path):
