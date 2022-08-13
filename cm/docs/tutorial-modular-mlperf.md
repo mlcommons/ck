@@ -60,7 +60,7 @@ Say if we want to generate a submission for a System Under Test, we need to crea
 [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-sut/suts/gcp-n2-standard-80-tf.json) and a run configuration 
 like [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-sut-mlc-configs/configs/gcp-n2-standard-80-tf/config.yaml) and then do the following command for generating a submission zip folder for `resnet50` model.
 ```
-cm run script --tags=app,mlperf,inference,reference,python,_resnet50,_tf,_cpu,_submission \
+cm run script --tags=app,mlperf,inference,reference,python,_resnet50,_tf,_cpu,_submission,_valid \
 --output_dir=$HOME/results \
 --add_deps_tags.imagenet=_full \
 --env.IMAGENET_PATH=$HOME/datasets/imagenet-2012-val \
@@ -76,7 +76,7 @@ its dataset OPENIMAGES being publicly available we no longer need to give the pa
 currently does not support `tensorflow` and thus we use `onnxruntime` for it. Thus we get the following submission generation
 command for retinanet
 ```
-cm run script --tags=app,mlperf,inference,reference,python,_retinanet,_onnxruntime,_cpu,_submission \
+cm run script --tags=app,mlperf,inference,reference,python,_retinanet,_onnxruntime,_cpu,_submission,_valid \
 --output_dir=$HOME/results \
 --env.CM_SUT_NAME=gcp-n2-standard-80-onnxruntime
 ```
