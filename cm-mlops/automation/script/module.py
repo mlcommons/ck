@@ -1911,17 +1911,20 @@ def add_deps(deps, new_deps):
     Internal: add deps from meta
     """
 
-    for dep in new_deps:
-        dep_names = dep.get('names',[])
-        if len(dep_names)>0:
+    for new_dep in new_deps:
+        existing = False
+        new_dep_names = new_dep.get('names',[])
+        if len(new_dep_names)>0:
             for i in range(len(deps)):
-                main_dep = deps[i]
-                main_dep_names = main_dep.get('names',[])
-                if len(main_dep_names)>0:
-                    if set(dep_names) & set(main_dep_names):
-                        deps[i] = dep
-                        continue
-                deps.append(dep)
+                dep = deps[i]
+                dep_names = dep.get('names',[])
+                if len(dep_names)>0:
+                    if set(new_dep_names) & set(dep_names):
+                        deps[i] = new_dep
+                        existing = True
+                        break
+        if not existing:
+            deps.append(new_dep)
 
     return {'return':0}
 
@@ -1939,6 +1942,8 @@ def update_state_from_meta(meta, env, state, deps, post_deps, i):
 
     update_deps = meta.get('deps', [])
     if len(update_deps)>0:
+        print(update_deps)
+        print(deps)
         add_deps(deps, update_deps)
 
     update_post_deps = meta.get("post_deps", [])
