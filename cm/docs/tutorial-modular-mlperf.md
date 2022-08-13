@@ -55,6 +55,28 @@ scripts as post dependecies
 After the run to Submission Checker is completed we'll have a valid submission folder provided all the runs completed as 
 expected. 
 
-## Single Command for Reproducing
+## Single Command for Generating a Submission
+Say if we want to generate a submission for a System Under Test, we need to create a system description like 
+[here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-sut/suts/gcp-n2-standard-80-tf.json) and a run configuration 
+like [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-sut-mlc-configs/configs/gcp-n2-standard-80-tf/config.yaml) and then do the following command for generating a submission zip folder for `resnet50` model.
+```
+cm run script --tags=app,mlperf,inference,reference,python,_resnet50,_tf,_cpu,_submission \
+--output_dir=$HOME/results \
+--add_deps_tags.imagenet=_full \
+--env.IMAGENET_PATH=$HOME/datasets/imagenet-2012-val \
+--env.CM_SUT_NAME=gcp-n2-standard-80-tf
+```
+Here, `_submission` variation internally calls `_all-scenarios` and `all_modes` variations (all variation tags begin with an '\_') 
+and they automatically all the required scenarios and modes needed for the given model under the category given in the input 
+system description. Here, we have to give the path of IMAGENET because it is not publicly available and so we must have a local 
+copy of it in some system location. More details and run options can be seen [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-vision-reference)
 
-## Detailed Steps
+For generating a submission for another model say `retinanet` we just have to replace `_resnet50` with `_retinanet` and 
+its dataset OPENIMAGES being publicly available we no longer need to give the path for it. Further retinanet reference implementation
+currently does not support `tensorflow` and thus we use `onnxruntime` for it. Thus we get the following submission generation
+command for retinanet
+```
+cm run script --tags=app,mlperf,inference,reference,python,_retinanet,_onnxruntime,_cpu,_submission \
+--output_dir=$HOME/results \
+--env.CM_SUT_NAME=gcp-n2-standard-80-onnxruntime
+```
