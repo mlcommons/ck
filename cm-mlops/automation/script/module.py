@@ -578,6 +578,9 @@ class CAutomation(Automation):
                 if variation_tag.startswith('~'):
                     # ignore such tag (needed for caching only to differentiate variations)
                     continue
+                if variation_tag.startswith('-'):
+                    # ignore such tag (needed for caching only to eliminate variations)
+                    continue
 
                 if variation_tag not in variations:
                     return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
@@ -706,15 +709,16 @@ class CAutomation(Automation):
             if len(found_script_tags)>0:
                 for x in found_script_tags:
                     if x not in cached_tags: cached_tags.append(x)
-
             if len(variation_tags)>0:
                 variation_tags_string = ''
 
                 for t in variation_tags:
                     if variation_tags_string != '': 
                         variation_tags_string += ','
-
-                    x = '_' + t
+                    if t.startswith('-'):
+                        x = "-_" + t[1:]
+                    else:
+                        x = '_' + t
                     variation_tags_string += x
 
                     if x not in cached_tags: cached_tags.append(x)
@@ -1942,8 +1946,6 @@ def update_state_from_meta(meta, env, state, deps, post_deps, i):
 
     update_deps = meta.get('deps', [])
     if len(update_deps)>0:
-        print(update_deps)
-        print(deps)
         add_deps(deps, update_deps)
 
     update_post_deps = meta.get("post_deps", [])
