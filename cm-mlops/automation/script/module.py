@@ -715,10 +715,7 @@ class CAutomation(Automation):
                 for t in variation_tags:
                     if variation_tags_string != '': 
                         variation_tags_string += ','
-                    if t.startswith('-'):
-                        x = "-_" + t[1:]
-                    else:
-                        x = '_' + t
+                    x = '_' + t
                     variation_tags_string += x
 
                     if x not in cached_tags: cached_tags.append(x)

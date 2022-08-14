@@ -12,7 +12,7 @@
       "tags": "get,dataset-aux,image-classification,imagenet-aux"
     },
     {
-      "tags": "get,mlcommons,inference,src",
+      "tags": "get,mlcommons,inference,src,-_patch",
       "version": "r2.1"
     }
   ],

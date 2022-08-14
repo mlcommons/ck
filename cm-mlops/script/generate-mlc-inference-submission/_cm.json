@@ -8,7 +8,7 @@
       "tags": "get,python"
     },
     {
-      "tags": "mlcommons,inference,src",
+      "tags": "mlcommons,inference,src,-_patch",
       "version": "r2.1"
     },
     {
