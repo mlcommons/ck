@@ -166,19 +166,6 @@
     "CM_RUN_STYLE": "test",
     "CM_TEST_QUERY_COUNT": "5"
   },
-  "post_deps": [
-    {
-      "tags": "run,accuracy,openimages",
-      "enable_if_env": {
-        "CM_MODEL": [
-          "retinanet"
-        ],
-	"CM_LOADGEN_MODE": [
-	  "accuracy", "all"
-	]
-      }
-    }
-  ],
   "tags": [
     "app",
     "vision",
@@ -228,7 +215,17 @@
     "retinanet": {
       "env": {
         "CM_MODEL": "retinanet"
-      }
+      },
+      "post_deps": [
+        {
+          "tags": "run,accuracy,openimages",
+          "enable_if_env": {
+	    "CM_LOADGEN_MODE": [
+	      "accuracy", "all"
+	    ]
+          }
+        }
+      ]
     },
     "tf": {
       "env": {

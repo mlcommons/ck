@@ -2,6 +2,7 @@ from cmind import utils
 import os
 import json
 import shutil
+import subprocess
 
 def preprocess(i):
 
@@ -242,6 +243,15 @@ def postprocess(i):
     env = i['env']
     state = i['state']
     accuracy_results_dir = []
+    model = env['CM_MODEL']
+    if model == "resnet50":
+        accuracy_filename = "accuracy-imagenet.py"
+        dataset_args = " --imagenet-val-file " + \
+        os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt")
+    elif model == "retinanet":
+        accuracy_filename = "accuracy-openimages.py"
+        dataset_args = " --openimages-dir " + env['CM_DATASET_PATH']
+
     for scenario in state['RUN']:
         for mode in state['RUN'][scenario]:
             if mode in [ "performance", "accuracy" ]:
@@ -252,9 +262,17 @@ def postprocess(i):
                 measurements['weight_data_types'] = env.get('CM_MODEL_WEIGHT_DATA_TYPES', 'fp32')
                 measurements['weight_transformations'] = env.get('CM_MODEL_WEIGHT_TRANSFORMATIONS', 'none')
                 run = state['RUN'][scenario][mode]
-                if mode == "accuracy":
-                    accuracy_results_dir.append(run['OUTPUT_DIR'])
                 os.chdir(run['OUTPUT_DIR'])
+                if mode == "accuracy":
+                    '''
+                    CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], "tools", \
+                    accuracy_filename) + " --mlperf-accuracy-file " + \
+                    "mlperf_log_accuracy.json" + dataset_args + " > " + \
+                    os.path.join(run['OUTPUT_DIR'], "accuracy.txt")
+                    print(CMD)
+                    result  = subprocess.run(CMD, shell=True)
+                    '''
+                    accuracy_results_dir.append(run['OUTPUT_DIR'])
                 with open ("measurements.json", "w") as fp:
                     json.dump(measurements, fp, indent=2)
                 if os.path.exists(env['CM_MLC_MLPERF_CONF']):
@@ -280,6 +298,35 @@ def postprocess(i):
                 SCRIPT_PATH = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "compliance", "nvidia", mode, "run_verification.py")
                 cmd = env['CM_PYTHON_BIN'] + " " + SCRIPT_PATH + " -r " + RESULT_DIR + " -c " + COMPLIANCE_DIR + " -o "+ OUTPUT_DIR
                 os.system(cmd)
+                if mode == "TEST01":
+                    SCRIPT_PATH = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "compliance", "nvidia", mode,
+                            "create_accuracy_baseline.sh")
+                    ACCURACY_DIR = state['RUN'][scenario]["accuracy"]["OUTPUT_DIR"]
+                    cmd = "bash " + SCRIPT_PATH + " " + os.path.join(ACCURACY_DIR, "mlperf_log_accuracy.json") + " " + \
+                            os.path.join(COMPLIANCE_DIR, "mlperf_log_accuracy.json")
+                    print(cmd)
+                    result  = subprocess.run(cmd, shell=True)
+                    CMD = "cat verify_accuracy.txt | grep 'TEST PASS'"
+                    result  = subprocess.check_output(CMD, shell=True).decode("utf-8")
+                    if not result: #Normal test failed, trying the check with non-determinism
+
+                        OUTPUT_DIR = os.path.join(OUTPUT_DIR, "TEST01", "accuracy")
+                        if not os.path.exists(OUTPUT_DIR):
+                            os.makedirs(OUTPUT_DIR)
+                        CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], "tools", \
+                                accuracy_filename) + " --mlperf-accuracy-file " + \
+                                "mlperf_log_accuracy_baseline.json" + dataset_args + " > " + \
+                                os.path.join(OUTPUT_DIR, "baseline_accuracy.txt")
+                        print(CMD)
+                        result  = subprocess.run(CMD, shell=True)
+                        CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], "tools", \
+                                accuracy_filename) + " --mlperf-accuracy-file " + \
+                                "mlperf_log_accuracy.json" + dataset_args + " > " + \
+                                os.path.join(OUTPUT_DIR, "compliance_accuracy.txt")
+                        print(CMD)
+                        result  = subprocess.run(CMD, shell=True)
+
+
             else:
                 print(mode)
 
