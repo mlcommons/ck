@@ -16,11 +16,9 @@ def preprocess(i):
     os.chdir(PATH)
     env['CM_DOCKER_IMAGE_RUN_CMD'] = CM_RUN_CMD
     DOCKER_CONTAINER = env['CM_DOCKER_IMAGE_REPO'] +  ":" + env['CM_DOCKER_IMAGE_TAG'] 
-    TMP_FILE = ".exists_" + DOCKER_CONTAINER.replace("/", "-")
-    CMD = "docker images -q " +  DOCKER_CONTAINER + " 2> /dev/null >" + TMP_FILE
-    os.system(CMD)
-    f = open(TMP_FILE, "r")
-    docker_image = f.read()
+
+    CMD = "docker images -q " +  DOCKER_CONTAINER + " 2> /dev/null"
+    docker_image = subprocess.check_output(CMD, shell=True).decode("utf-8") 
 
     if docker_image:
         print("Docker image exists with ID: " + docker_image)
