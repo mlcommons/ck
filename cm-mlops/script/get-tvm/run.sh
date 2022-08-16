@@ -1,7 +1,6 @@
 #!/bin/bash
 
 pwd
-set > /home/grigori/xyz
 
 if [ ! -d "tvm" ]; then
   echo "git clone --recursive -b ${CM_GIT_CHECKOUT} ${CM_GIT_URL} tvm"

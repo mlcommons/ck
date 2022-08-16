@@ -31,7 +31,6 @@ ${CM_PYTHON_BIN} -m pip install wheel
 PYTHON_VERSION=`${CM_PYTHON_BIN} -V |cut -d' ' -f2`
 PYTHON_SHORT_VERSION=${PYTHON_VERSION%.*}
 MLC_INFERENCE_PYTHON_SITE_BASE=${INSTALL_DIR}"/python"
-echo "PYTHONPATH=$PYTHONPATH:${MLC_INFERENCE_PYTHON_SITE_BASE}" >> tmp-run-env.out
 
 cd ${CM_MLC_INFERENCE_SOURCE}/loadgen
 CFLAGS="-std=c++14 -O3" ${CM_PYTHON_BIN} setup.py bdist_wheel

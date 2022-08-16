@@ -47,7 +47,7 @@
       "deps": [
         {
           "names": "inference-src",
-          "tags": "get,mlcommons,inference,src",
+          "tags": "get,mlcommons,inference,src,-_patch",
           "version": "master"
         }
       ]

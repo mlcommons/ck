@@ -9,6 +9,7 @@ def preprocess(i):
     os_info = i['os_info']
     env = i['env']
     state = i['state']
+    #print(env)
     script_path = i['run_script_input']['path']
 
     if env.get('CM_RUN_DOCKER_CONTAINER', '') == "yes": 
@@ -42,6 +43,7 @@ def preprocess(i):
         system_meta = state['CM_SUT_META']
         env['CM_LOADGEN_SCENARIOS'] = get_valid_scenarios(env['CM_MODEL'], system_meta['system_type'], env['CM_MLC_LAST_RELEASE'], env['CM_MLC_INFERENCE_SOURCE'])
     else:
+        system_meta = {}
         env['CM_LOADGEN_SCENARIOS'] = [ env['CM_LOADGEN_SCENARIO'] ]
 
     if env.get('CM_LOADGEN_ALL_MODES', '') == "yes":

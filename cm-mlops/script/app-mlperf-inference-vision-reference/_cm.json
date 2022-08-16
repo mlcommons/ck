@@ -10,6 +10,9 @@
       "tags": "detect,os,info"
     },
     {
+      "tags": "detect,cpu,info"
+    },
+    {
       "tags": "get,sys-utils-cm"
     },
     {
@@ -91,7 +94,8 @@
     {
       "enable_if_env": {
         "CM_BACKEND": [
-          "onnxruntime"
+          "onnxruntime",
+          "tvm"
         ],
         "CM_MODEL": [
           "resnet50"
@@ -136,6 +140,14 @@
         ]
       },
       "tags": "get,tensorflow"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "tvm"
+        ]
+      },
+      "tags": "get,tvm"
     },
     {
       "enable_if_env": {
@@ -235,6 +247,11 @@
     "tflite": {
       "env": {
         "CM_BACKEND": "tflite"
+      }
+    },
+    "tvm": {
+      "env": {
+        "CM_BACKEND": "tvm"
       }
     },
     "valid": {

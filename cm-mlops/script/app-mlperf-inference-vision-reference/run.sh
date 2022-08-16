@@ -1,5 +1,4 @@
 #!/bin/bash
-#env
 
 IFS="??" read -r -a cmd_array <<< "$CM_MLC_RUN_CMDS"
 for cmd in "${cmd_array[@]}"
