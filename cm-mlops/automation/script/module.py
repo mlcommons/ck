@@ -486,8 +486,6 @@ class CAutomation(Automation):
         post_deps = meta.get('post_deps',[])
 
 
-        update_deps_from_input(deps, post_deps, i)
-
         # Update version only if in "versions" (not obligatory)
         # can be useful when handling complex Git revisions
         versions = script_artifact.meta.get('versions', {})
@@ -607,6 +605,9 @@ class CAutomation(Automation):
                     return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
                 value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
             env[key] = value
+
+
+        update_deps_from_input(deps, post_deps, i)
 
 
         ############################################################################################################
