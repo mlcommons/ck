@@ -162,7 +162,7 @@ class CAutomation(Automation):
           (state) (dict): global state dictionary (can/will be updated by a given script and dependencies)
           (const_state) (dict): constant state (will be preserved and persistent for a given script and dependencies)
 
-          (add_deps_tags) (dict): {"name":"tag(s)"}
+          (add_deps) (dict): {"tags": {"name": "tag(s)"}, "version": {"name": "version_no"}, ...}
 
           (version) (str): version to be added to env.CM_VERSION to specialize this flow
           (version_min) (str): min version to be added to env.CM_VERSION_MIN to specialize this flow
@@ -223,7 +223,6 @@ class CAutomation(Automation):
         # Recursion spaces needed to format log and print
         recursion_spaces = i.get('recursion_spaces', '')
         recursion = i.get('recursion', False)
-
         # Caching selections to avoid asking users again
         remembered_selections = i.get('remembered_selections', [])
 
@@ -486,6 +485,8 @@ class CAutomation(Automation):
         deps = meta.get('deps',[])
         post_deps = meta.get('post_deps',[])
 
+
+        update_deps_from_input(deps, post_deps, i)
 
         # Update version only if in "versions" (not obligatory)
         # can be useful when handling complex Git revisions
@@ -1887,6 +1888,42 @@ def clean_tmp_files(clean_files, recursion_spaces):
     return {'return':0}
 
 ##############################################################################
+def update_dep_info(dep, new_info):
+    """
+    Internal: add additional info to a dependency
+    """
+    for info in new_info:
+        if info == "tags":
+            tags = dep.get('tags', '')
+            if tags != '': tags += ","
+            tags += new_info["tags"]
+            dep['tags'] = tags
+        else:
+            dep[info] = new_info[info]
+
+##############################################################################
+def update_deps(deps, add_deps):
+    """
+    Internal: add deps tags, version etc. by name
+    """
+    print(deps)
+    #deps_info_to_add = [ "version", "version_min", "version_max", "version_max_usable", "path" ]
+    new_deps_info = {}
+    for info in add_deps:
+        for deps_name in add_deps[info]:
+            if not new_deps_info.get(deps_name, {}):
+                new_deps_info[deps_name] = {}
+            new_deps_info[deps_name][info] = add_deps[info][deps_name]
+
+    for new_deps_name in new_deps_info:
+        for dep in deps:
+            names = dep.get('names',[])
+            if len(names)>0 and new_deps_name in names:
+                update_dep_info(dep, new_deps_info[new_deps_name])
+
+    return {'return':0}
+
+##############################################################################
 def update_deps_tags(deps, add_deps_tags):
     """
     Internal: add deps tags by name
@@ -1929,6 +1966,18 @@ def add_deps(deps, new_deps):
 
     return {'return':0}
 
+##############################################################################
+def update_deps_from_input(deps, post_deps, i):
+    """
+    Internal: update deps from meta
+    """
+    add_deps_info_from_input = i.get('add_deps', {})
+    if add_deps_info_from_input:
+        update_deps(deps, add_deps_info_from_input)
+        update_deps(post_deps, add_deps_info_from_input)
+
+    return {'return':0}
+
 
 ##############################################################################
 def update_state_from_meta(meta, env, state, deps, post_deps, i):
@@ -1949,17 +1998,11 @@ def update_state_from_meta(meta, env, state, deps, post_deps, i):
     if len(update_post_deps) > 0:
         add_deps(post_deps, update_post_deps)
 
-    add_deps_tags = meta.get('add_deps_tags', {})
-    if len(add_deps_tags) >0 :
-        update_deps_tags(deps, add_deps_tags)
-        update_deps_tags(post_deps, add_deps_tags)
-
+    add_deps_info = meta.get('add_deps', {})
+    if add_deps_info:
+        update_deps(deps, add_deps_info)
+        update_deps(post_deps, add_deps_info)
  
-    add_deps_tags_from_input = i.get('add_deps_tags', {})
-    if len(add_deps_tags_from_input) >0 :
-        update_deps_tags(deps, add_deps_tags_from_input)
-        update_deps_tags(post_deps, add_deps_tags_from_input)
-
     return {'return':0}
 
 ##############################################################################
