@@ -9,7 +9,6 @@ def preprocess(i):
     os_info = i['os_info']
     env = i['env']
     state = i['state']
-    #print(env)
     script_path = i['run_script_input']['path']
 
     if env.get('CM_RUN_DOCKER_CONTAINER', '') == "yes": 
@@ -219,7 +218,9 @@ def get_valid_scenarios(model, category, mlc_version, mlc_path):
     import sys
     submission_checker_dir = os.path.join(mlc_path, "tools", "submission")
     sys.path.append(submission_checker_dir)
-    #shutil.copy(submission_checker, "checker.py")
+    if not os.path.exists(os.path.join(submission_checker_dir, "submission_checker.py")):
+        shutil.copy(os.path.join(submission_checker_dir,"submission-checker.py"), os.path.join(submission_checker_dir,
+        "submission_checker.py"))
     import submission_checker as checker
     config = checker.MODEL_CONFIG
     internal_model_name = config[mlc_version]["model_mapping"][model]
@@ -231,7 +232,9 @@ def get_checker_files(mlc_path):
     import sys
     submission_checker_dir = os.path.join(mlc_path, "tools", "submission")
     sys.path.append(submission_checker_dir)
-    #shutil.copy(submission_checker, "checker.py")
+    if not os.path.exists(os.path.join(submission_checker_dir, "submission_checker.py")):
+        shutil.copy(os.path.join(submission_checker_dir,"submission-checker.py"), os.path.join(submission_checker_dir,
+        "submission_checker.py"))
     import submission_checker as checker
     REQUIRED_ACC_FILES = checker.REQUIRED_ACC_FILES
     REQUIRED_PERF_FILES = checker.REQUIRED_PERF_FILES
