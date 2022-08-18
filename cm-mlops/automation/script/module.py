@@ -1907,7 +1907,6 @@ def update_deps(deps, add_deps):
     """
     Internal: add deps tags, version etc. by name
     """
-    print(deps)
     #deps_info_to_add = [ "version", "version_min", "version_max", "version_max_usable", "path" ]
     new_deps_info = {}
     for info in add_deps:
