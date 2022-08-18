@@ -24,7 +24,8 @@
     },
     {
       "tags": "get,mlcommons,inference,src,_patch",
-      "version": "r2.1"
+      "version": "r2.1",
+      "names": [ "inference-src" ]
     },
     {
       "enable_if_env": {
@@ -139,7 +140,8 @@
           "tf"
         ]
       },
-      "tags": "get,tensorflow"
+      "tags": "get,tensorflow",
+      "names": [ "tensorflow" ]
     },
     {
       "enable_if_env": {
@@ -147,7 +149,8 @@
           "tvm"
         ]
       },
-      "tags": "get,tvm"
+      "tags": "get,tvm",
+      "names": [ "tvm" ]
     },
     {
       "enable_if_env": {
