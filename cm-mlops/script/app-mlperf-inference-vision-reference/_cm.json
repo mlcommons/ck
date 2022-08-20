@@ -96,7 +96,7 @@
       "enable_if_env": {
         "CM_BACKEND": [
           "onnxruntime",
-          "tvm"
+          "tvm-onnx"
         ],
         "CM_MODEL": [
           "resnet50"
@@ -146,7 +146,7 @@
     {
       "enable_if_env": {
         "CM_BACKEND": [
-          "tvm"
+          "tvm-onnx"
         ]
       },
       "tags": "get,tvm",
@@ -252,9 +252,9 @@
         "CM_BACKEND": "tflite"
       }
     },
-    "tvm": {
+    "tvm-onnx": {
       "env": {
-        "CM_BACKEND": "tvm"
+        "CM_BACKEND": "tvm-onnx"
       }
     },
     "valid": {

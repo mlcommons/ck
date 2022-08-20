@@ -77,7 +77,7 @@ def preprocess(i):
     print("Using MLCommons Inference source from " + env['CM_MLC_INFERENCE_SOURCE'])
 
     if 'CM_MLC_MLPERF_CONF' not in env:
-        env['CM_MLC_MLPERF_CONF'] = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "mlperf.conf")
+        env['CM_MLC_MLPERF_CONF'] = "'"+os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "mlperf.conf")+"'"
 
 
     env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf " + env['CM_MLC_MLPERF_CONF']
@@ -151,7 +151,7 @@ def preprocess(i):
         user_conf_file = Path(user_conf_path)
         user_conf_file.parent.mkdir(exist_ok=True, parents=True)
         user_conf_file.write_text(user_conf)
-        scenario_extra_options +=  " --user_conf " + user_conf_path
+        scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
 
         env['CM_MLC_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
         for mode in env['CM_LOADGEN_MODES']:
@@ -165,7 +165,7 @@ def preprocess(i):
                 OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
             print("Output Dir:" + OUTPUT_DIR)
 
-            cmd =  "cd "+ env['RUN_DIR'] + " && OUTPUT_DIR=" + OUTPUT_DIR + " ./run_local.sh " + env['CM_BACKEND'] + ' ' + env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options 
+            cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + OUTPUT_DIR + "' ./run_local.sh " + env['CM_BACKEND'] + ' ' + env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options 
             if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
                 RUN_CMDS.append(cmd)
             else:
@@ -261,11 +261,11 @@ def postprocess(i):
         for mode in state['RUN'][scenario]:
             if mode in [ "performance", "accuracy" ]:
                 measurements = {}
-                measurements['retraining'] = env.get('CM_MODEL_RETRAINING','')
                 measurements['starting_weights_filename'] = env.get('CM_STARTING_WEIGHTS_FILENAME', 'none')
-                measurements['input_data_types'] = env.get('CM_MODEL_INPUT_DATA_TYPES', 'fp32')
-                measurements['weight_data_types'] = env.get('CM_MODEL_WEIGHT_DATA_TYPES', 'fp32')
-                measurements['weight_transformations'] = env.get('CM_MODEL_WEIGHT_TRANSFORMATIONS', 'none')
+                measurements['retraining'] = env.get('MODEL_RETRAINING','')
+                measurements['input_data_types'] = env.get('MODEL_INPUT_DATA_TYPES', 'fp32')
+                measurements['weight_data_types'] = env.get('MODEL_WEIGHT_DATA_TYPES', 'fp32')
+                measurements['weight_transformations'] = env.get('MODEL_WEIGHT_TRANSFORMATIONS', 'none')
                 run = state['RUN'][scenario][mode]
                 os.chdir(run['OUTPUT_DIR'])
                 if mode == "accuracy":
@@ -334,7 +334,7 @@ def postprocess(i):
 
             else:
                 print(mode)
-
-    env['CM_MLC_ACCURACY_RESULTS_DIR'] = ":".join(accuracy_results_dir)
+    if len(accuracy_results_dir) > 0:
+        env['CM_MLC_ACCURACY_RESULTS_DIR'] = ":".join(accuracy_results_dir)
 
     return {'return':0}
