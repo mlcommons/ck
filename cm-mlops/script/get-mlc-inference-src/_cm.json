@@ -40,7 +40,7 @@
     },
     "tvm": {
       "env": {
-        "CM_GIT_URL": "https://github.com/arjunsuresh/mlcommons-inference",
+        "CM_GIT_URL": "https://github.com/octoml/mlcommons-inference",
         "CM_GIT_CHECKOUT": "master",
         "CM_MLC_LAST_RELEASE": "v2.1"
       }
