@@ -1488,14 +1488,9 @@ class CAutomation(Automation):
             if not path_tmp_abs in path_list_tmp2:
                 path_list_tmp2.append(path_tmp_abs)
 
-        print (path_list_tmp2)
-
         path_list = []
         for path_tmp in path_list_tmp2:
             path_list.append(os.path.dirname(path_tmp))
-
-        print (path_list)
-        input('xyz')
 
         # Check if quiet
         select_default = True if env.get('CM_TMP_QUIET','') == 'yes' else False
