@@ -1475,10 +1475,27 @@ class CAutomation(Automation):
            os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
 
         if path == '':
-            path_list = default_path_list
+            path_list_tmp = default_path_list
         else:
             print (recursion_spaces + '    # Requested paths: {}'.format(path))
-            path_list = path.split(os_info['env_separator'])
+            path_list_tmp = path.split(os_info['env_separator'])
+
+        # Check soft links
+        path_list_tmp2 = []
+        for path_tmp in path_list_tmp:
+            path_tmp_abs = os.path.realpath(os.path.join(path_tmp, file_name))
+
+            if not path_tmp_abs in path_list_tmp2:
+                path_list_tmp2.append(path_tmp_abs)
+
+        print (path_list_tmp2)
+
+        path_list = []
+        for path_tmp in path_list_tmp2:
+            path_list.append(os.path.dirname(path_tmp))
+
+        print (path_list)
+        input('xyz')
 
         # Check if quiet
         select_default = True if env.get('CM_TMP_QUIET','') == 'yes' else False
