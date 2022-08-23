@@ -1,3 +1,6 @@
+# 20220823
+ * various fixes for universal MLPerf inference submission automation
+
 # 20220803
  * various fixes for TVM and image classification
 

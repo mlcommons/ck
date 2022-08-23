@@ -37,4 +37,10 @@ def postprocess(i):
             if key in vkeys:
                 env['CM_CPUINFO_'+key.replace(" ","_").replace('(','').replace(')','').replace('-','_')] = v[1].strip()
 
+    # Unifying some CPU info across different platforms
+    unified_env = {'CM_CPUINFO_CPUs':'CM_HOST_TOTAL_CORES'}
+    for env_key in unified_env:
+        if env_key in env:
+            env[unified_env[env_key]]=env[env_key]
+
     return {'return':0}

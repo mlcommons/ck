@@ -17,6 +17,11 @@
   ],
   "post_deps": [
     {
+      "skip_if_env": {
+        "CM_SKIP_TRUNCATE_ACCURACY": [
+          "yes"
+        ]
+      },
       "tags": "accuracy,truncate,mlc"
     },
     {
@@ -32,6 +37,8 @@
     "generate",
     "submission",
     "mlperf",
+    "mlperf-inference",
+    "inference",
     "mlcommons",
     "inference-submission",
     "mlperf-inference-submission",
