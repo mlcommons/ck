@@ -29,7 +29,7 @@ cmake \
 if [ "${?}" != "0" ]; then exit 1; fi
 
 echo "******************************************************"
-CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_NUMBER_OF_PROCESSORS}}
+CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_TOTAL_CORES}}
 CM_MAKE_CORES=${CM_MAKE_CORES:-2}
 
 cmake --build . --target install -j${CM_MAKE_CORES}

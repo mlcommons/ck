@@ -30,7 +30,7 @@ if [[ ${CM_TVM_USE_OPENMP} == "yes" ]]; then
 fi
 
 echo "******************************************************"
-CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_NUMBER_OF_PROCESSORS}}
+CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_TOTAL_CORES}}
 CM_MAKE_CORES=${CM_MAKE_CORES:-2}
 
 echo $PATH

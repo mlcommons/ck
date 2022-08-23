@@ -2,5 +2,4 @@ pycocotools
 numpy
 opencv-python
 protobuf
-onnx
 future

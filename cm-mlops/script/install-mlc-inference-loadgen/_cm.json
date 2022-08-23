@@ -14,6 +14,10 @@
     {
       "names": "inference-src",
       "tags": "get,mlcommons,inference,src,-_patch"
+    },
+    {
+      "names":["compiler"],
+      "tags": "get,compiler"
     }
   ],
   "env": {
@@ -24,6 +28,10 @@
     {
       "env": "CM_PYTHON_CACHE_TAGS",
       "prefix": "python-"
+    },
+    {
+      "env": "CM_COMPILER_CACHE_TAGS",
+      "prefix": "compiler-"
     }
   ],
   "tags": [

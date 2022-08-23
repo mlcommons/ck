@@ -11,6 +11,9 @@
     },
     {
       "tags": "get,llvm"
+    },
+    {
+      "tags": "detect,cpu"
     }
   ],
   "extra_cache_tags_from_env": [
