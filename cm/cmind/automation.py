@@ -1041,9 +1041,18 @@ class Automation:
 #            cid = automation_uid + '::' + uid
 
             # Output if console
+            full_cid = '(' + cid + ')'
             if console:
                 print ('CID = ' + cid)
-                print ('CID2 = (' + cid + ')')
+                print ('CID2 = ' + full_cid)
                 print ('Path = ' + path)
+
+            # Attempt to copy to clipboard (if pacakge is installed)
+            try:
+                import pyperclip
+                pyperclip.copy(' = ' + full_cid)
+            except:
+                pass
+
 
         return {'return':0, 'list': lst}

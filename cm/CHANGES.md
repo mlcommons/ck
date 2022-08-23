@@ -2,6 +2,7 @@
 
 ## DEV
    - Extended "cm info artifact"
+   - Added support to copy CID of a given CM artifact to a clipboard (cm info {artifact})
 
 ## V0.7.24
    - added link to GitHub repo with CM automation scripts
