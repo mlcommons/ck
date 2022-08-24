@@ -13,6 +13,9 @@
       "version": "r2.1"
     }
   ],
+  "env": {
+    "CM_MLC_SKIP_COMPLIANCE": " --skip_compliance"
+  },
   "tags": [
     "run",
     "mlc",
@@ -25,5 +28,12 @@
     "submission-checker",
     "mlc-submission-checker"
   ],
-  "uid": "15d03ec2c1af4297"
+  "uid": "15d03ec2c1af4297",
+  "variations": {
+    "compliance": {
+      "env": {
+	"CM_MLC_SKIP_COMPLIANCE": ""
+      }
+    }
+  }
 }
