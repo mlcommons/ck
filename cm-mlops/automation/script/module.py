@@ -2044,7 +2044,7 @@ def detect_state_diff(env, saved_env, new_env_keys_only, state, saved_state):
 
             v = env[k]
 
-            if k not in saved_env:
+            if k not in saved_env or v != saved_env[k]:
                new_env[k] = v
             elif type(v) == list:
                if v not in saved_env[k]:
