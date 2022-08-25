@@ -162,10 +162,10 @@ def preprocess(i):
             if mode == "accuracy":
                 mode_extra_options += " --accuracy"
             elif mode == "performance":
-                OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
+                OUTPUT_DIR = "'" + os.path.join(OUTPUT_DIR, "run_1") + "'"
             print("Output Dir:" + OUTPUT_DIR)
 
-            cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + OUTPUT_DIR + "' ./run_local.sh " + env['CM_BACKEND'] + ' ' + env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options 
+            cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR=" + OUTPUT_DIR + " ./run_local.sh " + env['CM_BACKEND'] + ' ' + env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options 
             if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
                 RUN_CMDS.append(cmd)
             else:
@@ -184,12 +184,12 @@ def preprocess(i):
                 else:
                     audit_path = test
                 audit_full_path = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "compliance", audit_path, "audit.config")
-                mode_extra_options = " --audit " + audit_full_path
-                OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'],
+                mode_extra_options = " --audit '" + audit_full_path + "'"
+                OUTPUT_DIR =  "'" + os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'],
                         env['CM_BACKEND'] + "-" + env['CM_DEVICE'], env['CM_MODEL'], scenario.lower(),
-                        test)
+                        test) + "'"
                 print("Compliance Output Dir:" + OUTPUT_DIR)
-                cmd =  "cd "+ env['RUN_DIR'] + " && OUTPUT_DIR=" + OUTPUT_DIR + " ./run_local.sh " + env['CM_BACKEND'] + ' ' + env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + mode_extra_options
+                cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR=" + OUTPUT_DIR + " ./run_local.sh " + env['CM_BACKEND'] + ' ' + env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + mode_extra_options
                 if not run_files_exist("performance", OUTPUT_DIR, required_files) or rerun:
                     COMPLIANCE_RUN_CMDS.append(cmd)
                 else:
