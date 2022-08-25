@@ -162,7 +162,7 @@ class CAutomation(Automation):
           (state) (dict): global state dictionary (can/will be updated by a given script and dependencies)
           (const_state) (dict): constant state (will be preserved and persistent for a given script and dependencies)
 
-          (add_deps) (dict): {"tags": {"name": "tag(s)"}, "version": {"name": "version_no"}, ...}
+          (add_deps) (dict): {"name": {"tag": "tag(s)"}, "name": {"version": "version_no"}, ...}
 
           (version) (str): version to be added to env.CM_VERSION to specialize this flow
           (version_min) (str): min version to be added to env.CM_VERSION_MIN to specialize this flow
@@ -608,7 +608,6 @@ class CAutomation(Automation):
 
 
         update_deps_from_input(deps, post_deps, i)
-
 
         ############################################################################################################
         # Check chain of dependencies on other CM scripts
@@ -1908,9 +1907,10 @@ def update_dep_info(dep, new_info):
     for info in new_info:
         if info == "tags":
             tags = dep.get('tags', '')
-            if tags != '': tags += ","
-            tags += new_info["tags"]
-            dep['tags'] = tags
+            tags_list = tags.split(",")
+            new_tags_list = new_info["tags"].split(",")
+            combined_tags = tags_list + list(set(new_tags_list) - set(tags_list))
+            dep['tags'] = ",".join(combined_tags)
         else:
             dep[info] = new_info[info]
 
@@ -1921,39 +1921,18 @@ def update_deps(deps, add_deps):
     """
     #deps_info_to_add = [ "version", "version_min", "version_max", "version_max_usable", "path" ]
     new_deps_info = {}
-    for info in add_deps:
-        for deps_name in add_deps[info]:
-            if not new_deps_info.get(deps_name, {}):
-                new_deps_info[deps_name] = {}
-            new_deps_info[deps_name][info] = add_deps[info][deps_name]
-
-    for new_deps_name in new_deps_info:
+    for new_deps_name in add_deps:
+        dep_found = False
         for dep in deps:
             names = dep.get('names',[])
             if len(names)>0 and new_deps_name in names:
-                update_dep_info(dep, new_deps_info[new_deps_name])
+                update_dep_info(dep, add_deps[new_deps_name])
+                dep_found = True
+        if not dep_found:
+            return {'return': 2}
 
     return {'return':0}
 
-##############################################################################
-def update_deps_tags(deps, add_deps_tags):
-    """
-    Internal: add deps tags by name
-    """
-
-    for deps_name in add_deps_tags:
-        deps_tags = add_deps_tags[deps_name].strip()
-
-        if deps_tags != '':
-            for dep in deps:
-                names = dep.get('names',[])
-                if len(names)>0 and deps_name in names:
-                    tags = dep.get('tags','')
-                    if tags!='': tags += ','
-                    tags += deps_tags
-                    dep['tags'] = tags
-
-    return {'return':0}
 
 ##############################################################################
 def add_deps(deps, new_deps):
