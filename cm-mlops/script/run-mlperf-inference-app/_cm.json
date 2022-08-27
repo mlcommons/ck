@@ -1,0 +1,114 @@
+{
+  "alias": "run-mlperf-inference-app",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect,os,info"
+    },
+    {
+      "tags": "detect,cpu,info"
+    },
+    {
+      "names": [
+        "python3"
+      ],
+      "tags": "get,python"
+    },
+    {
+      "names": [
+        "inference-src"
+      ],
+      "tags": "get,mlcommons,inference,src"
+    },
+    {
+      "tags": "get,sut,configs"
+    }
+  ],
+  "env": {
+    "CM_BATCH_COUNT": "1",
+    "CM_BATCH_SIZE": "1",
+    "CM_MODEL": "resnet50",
+    "CM_OUTPUT_FOLDER_NAME": "test_results",
+    "CM_RUN_STYLE": "test",
+    "CM_TEST_QUERY_COUNT": "5"
+  },
+  "tags": [
+    "run",
+    "generate-run-cmds",
+    "run-mlperf",
+    "vision",
+    "mlcommons",
+    "mlperf",
+    "inference",
+    "reference",
+    "python"
+  ],
+  "uid": "4a5d5b13fd7e4ac8",
+  "variations": {
+    "all-modes": {
+      "env": {
+        "CM_LOADGEN_ALL_MODES": "yes"
+      }
+    },
+    "all-scenarios": {
+      "deps": [
+        {
+          "tags": "get,sut,description"
+        }
+      ],
+      "env": {
+        "CM_LOADGEN_ALL_SCENARIOS": "yes"
+      }
+    },
+    "compliance": {
+      "env": {
+        "CM_LOADGEN_COMPLIANCE": "yes"
+      }
+    },
+    "cpu": {
+      "env": {
+        "CM_DEVICE": "cpu"
+      }
+    },
+    "fast": {
+      "env": {
+        "CM_FAST_FACTOR": "5",
+        "CM_OUTPUT_FOLDER_NAME": "fast_results",
+        "CM_RUN_STYLE": "fast"
+      }
+    },
+    "gpu": {
+      "env": {
+        "CM_DEVICE": "gpu"
+      }
+    },
+    "submission": {
+      "base": [
+        "all-scenarios",
+        "all-modes"
+      ],
+      "env": {
+        "CM_MLPERF_SUBMISSION_RUN": "yes"
+      },
+      "post_deps": [
+        {
+          "tags": "generate,mlperf,submission,_verify"
+        }
+      ]
+    },
+    "valid": {
+      "env": {
+        "CM_OUTPUT_FOLDER_NAME": "valid_results",
+        "CM_RUN_STYLE": "valid"
+      }
+    }
+  },
+  "version": {
+    "master": {},
+    "r2.1": {}
+  }
+}
