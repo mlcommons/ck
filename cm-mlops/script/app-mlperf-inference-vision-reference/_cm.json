@@ -16,15 +16,15 @@
       "tags": "get,sys-utils-cm"
     },
     {
-      "tags": "get,python"
+      "tags": "get,python",
+      "names": [ "python3" ]
     },
     {
       "tags": "get,loadgen",
-      "version": "r2.1"
+      "names": [ "loadgen" ]
     },
     {
-      "tags": "get,mlcommons,inference,src,_patch",
-      "version": "r2.1",
+      "tags": "get,mlcommons,inference,src",
       "names": [ "inference-src" ]
     },
     {
@@ -290,17 +290,6 @@
       "env": {
 	"CM_LOADGEN_COMPLIANCE": "yes"
       }
-    },
-    "submission": {
-      "env": {
-	"CM_MLPERF_SUBMISSION_RUN": "yes"
-      },
-      "base": [ "all-scenarios", "all-modes" ],
-      "post_deps": [
-	{
-	  "tags": "generate,mlperf,submission,_verify"
-	}
-      ]
     }
   }
 }
