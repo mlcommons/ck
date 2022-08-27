@@ -10,7 +10,7 @@
     },
     {
       "tags": "get,mlcommons,inference,src",
-      "version": "r2.1"
+      "names": [ "inference-src" ]
     }
   ],
   "env": {

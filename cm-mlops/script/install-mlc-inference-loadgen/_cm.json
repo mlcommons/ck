@@ -12,11 +12,11 @@
       "tags": "get,python3"
     },
     {
-      "names": "inference-src",
+      "names": [ "inference-src" ],
       "tags": "get,mlcommons,inference,src,-_patch"
     },
     {
-      "names":["compiler"],
+      "names": [ "compiler" ],
       "tags": "get,compiler"
     }
   ],

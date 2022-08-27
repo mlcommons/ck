@@ -6,14 +6,15 @@
   "clean_files": [],
   "deps": [
     {
-      "tags": "get,python"
+      "tags": "get,python",
+      "names": [ "python3" ]
     },
     {
       "tags": "get,dataset,object-detection,open-images"
     },
     {
-      "tags": "get,mlcommons,inference,src,-_patch",
-      "version": "r2.1"
+      "tags": "get,mlcommons,inference,src",
+      "version": [ "inference-src" ]
     }
   ],
   "tags": [
