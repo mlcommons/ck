@@ -163,6 +163,7 @@ class CAutomation(Automation):
           (const_state) (dict): constant state (will be preserved and persistent for a given script and dependencies)
 
           (add_deps) (dict): {"name": {"tag": "tag(s)"}, "name": {"version": "version_no"}, ...}
+          (add_deps_recursive) (dict): same as add_deps but is passed recursively onto dependencies as well
 
           (version) (str): version to be added to env.CM_VERSION to specialize this flow
           (version_min) (str): min version to be added to env.CM_VERSION_MIN to specialize this flow
@@ -229,6 +230,8 @@ class CAutomation(Automation):
         # Get current env and state before running this script and sub-scripts
         env = i.get('env',{})
         state = i.get('state',{})
+        add_deps = i.get('add_deps',{})
+        add_deps_recursive = i.get('add_deps_recursive',{})
 
         # Save current env and state to detect new env and state after running a given script
         saved_env = copy.deepcopy(env)
@@ -607,7 +610,8 @@ class CAutomation(Automation):
             env[key] = value
 
 
-        update_deps_from_input(deps, post_deps, i)
+        r = update_deps_from_input(deps, post_deps, i)
+        if r['return']>0: return r
 
         ############################################################################################################
         # Check chain of dependencies on other CM scripts
@@ -661,7 +665,8 @@ class CAutomation(Automation):
                        'env':env,
                        'state':state,
                        'const':const,
-                       'const_state':const_state
+                       'const_state':const_state,
+                       'add_deps_recursive':add_deps_recursive
                      }
 
                 # Update input from dependency (extensible)
@@ -1008,7 +1013,8 @@ class CAutomation(Automation):
                            'state':state,
                            'const':const,
                            'const_state':const_state,
-                           'save_env':save_env
+                           'save_env':save_env,
+                           'add_deps_recursive':add_deps_recursive
                          }
 
                     ii.update(another_script)
@@ -1101,7 +1107,8 @@ class CAutomation(Automation):
                            'env':env,
                            'state':state,
                            'const':const,
-                           'const_state':const_state
+                           'const_state':const_state,
+                           'add_deps_recursive':add_deps_recursive
                          }
 
                     ii.update(d)
@@ -1915,7 +1922,7 @@ def update_dep_info(dep, new_info):
             dep[info] = new_info[info]
 
 ##############################################################################
-def update_deps(deps, add_deps):
+def update_deps(deps, add_deps, fail_error=False):
     """
     Internal: add deps tags, version etc. by name
     """
@@ -1928,14 +1935,14 @@ def update_deps(deps, add_deps):
             if len(names)>0 and new_deps_name in names:
                 update_dep_info(dep, add_deps[new_deps_name])
                 dep_found = True
-        if not dep_found:
-            return {'return': 2}
+        if not dep_found and fail_error:
+            return {'return':1, 'error':new_deps_name + ' is not one of the dependency'}
 
     return {'return':0}
 
 
 ##############################################################################
-def add_deps(deps, new_deps):
+def append_deps(deps, new_deps):
     """
     Internal: add deps from meta
     """
@@ -1964,8 +1971,13 @@ def update_deps_from_input(deps, post_deps, i):
     """
     add_deps_info_from_input = i.get('add_deps', {})
     if add_deps_info_from_input:
-        update_deps(deps, add_deps_info_from_input)
-        update_deps(post_deps, add_deps_info_from_input)
+        r1 = update_deps(deps, add_deps_info_from_input, True)
+        r2 = update_deps(post_deps, add_deps_info_from_input, True)
+        if r1['return']>0 and r2['return']>0: return r1
+    add_deps_recursive_info_from_input = i.get('add_deps_recursive', {})
+    if add_deps_recursive_info_from_input:
+        update_deps(deps, add_deps_recursive_info_from_input)
+        update_deps(post_deps, add_deps_recursive_info_from_input)
 
     return {'return':0}
 
@@ -1981,18 +1993,24 @@ def update_state_from_meta(meta, env, state, deps, post_deps, i):
     update_state = meta.get('state', {})
     utils.merge_dicts({'dict1':state, 'dict2':update_state, 'append_lists':True, 'append_unique':True})
 
-    update_deps = meta.get('deps', [])
-    if len(update_deps)>0:
-        add_deps(deps, update_deps)
+    new_deps = meta.get('deps', [])
+    if len(new_deps)>0:
+        append_deps(deps, new_deps)
 
-    update_post_deps = meta.get("post_deps", [])
-    if len(update_post_deps) > 0:
-        add_deps(post_deps, update_post_deps)
+    new_post_deps = meta.get("post_deps", [])
+    if len(new_post_deps) > 0:
+        append_deps(post_deps, new_post_deps)
 
     add_deps_info = meta.get('add_deps', {})
     if add_deps_info:
-        update_deps(deps, add_deps_info)
-        update_deps(post_deps, add_deps_info)
+        r1 = update_deps(deps, add_deps_info, True)
+        r2 = update_deps(post_deps, add_deps_info, True)
+        if r1['return']>0 and r2['return']>0: return r1
+
+    add_deps_recursive_info = i.get('add_deps_recursive', {})
+    if add_deps_recursive_info:
+        update_deps(deps, add_deps_recursive_info)
+        update_deps(post_deps, add_deps_recursive_info)
  
     return {'return':0}
 
