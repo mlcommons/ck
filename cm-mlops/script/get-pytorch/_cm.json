@@ -12,7 +12,8 @@
       "tags": "detect-cpu"
     },
     {
-      "tags": "get,python"
+      "tags": "get,python",
+      "names": [ "python", "python3" ]
     }
   ],
   "new_env_only_keys": [

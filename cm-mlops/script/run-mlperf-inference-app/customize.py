@@ -21,6 +21,11 @@ def preprocess(i):
     else:
         power = "no"
 
+    env['CM_MODEL'] = env.get('CM_MODEL', 'resnet50')
+
+    print("Using MLCommons Inference source from " + env['CM_MLC_INFERENCE_SOURCE'])
+
+
     if 'CM_LOADGEN_EXTRA_OPTIONS' not in env:
         env['CM_LOADGEN_EXTRA_OPTIONS'] = ""
     
@@ -55,32 +60,29 @@ def preprocess(i):
             env['CM_NUM_THREADS'] = str(int(env['CM_CPUINFO_CPUs']))
 
 
-    print("Using MLCommons Inference source from " + env['CM_MLC_INFERENCE_SOURCE'])
-
     test_list = ["TEST01",  "TEST05"]
     if env['CM_MODEL']  in ["resnet50"]:
         test_list.append("TEST04")
     variation_model= "_" + env.get("CM_MODEL", "resnet50")
     variation_backend= "_" + env.get("CM_BACKEND", "tf")
     variation_device= "_" + env.get("CM_DEVICE", "cpu")
+    tags =  "app,mlperf,"+variation_model+","+variation_backend+","+variation_device
 
     for scenario in env['CM_LOADGEN_SCENARIOS']:
         for mode in env['CM_LOADGEN_MODES']:
-            #cmd =  "cm run script --tags=app,mlperf,"+variation_model+","+variation_backend+","+variation_device
-            tags =  "app,mlperf,"+variation_model+","+variation_backend+","+variation_device
             env['CM_LOADGEN_SCENARIO'] = scenario
             env['CM_LOADGEN_MODE'] = mode
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
-                'env': env, 'input': inp, 'state': state, 'add_deps': inp['add_deps'], 'add_deps_recursive':
-                inp['add_deps_recursive']})
+                'env': env, 'input': inp, 'state': state, 'add_deps': inp.get('add_deps',{}), 'add_deps_recursive':
+                inp.get('add_deps_recursive', {})})
         if system_meta.get('division', '') == "open":
             env["CM_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
         if env.get("CM_LOADGEN_COMPLIANCE", "") == "yes":
             for test in test_list:
                 env['CM_LOADGEN_COMPLIANCE_TEST'] = test
                 r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
-                    'env': env, 'input': inp, 'state': state, 'add_deps': inp['add_deps'], 'add_deps_recursive':
-                    inp['add_deps_recursive']})
+                    'env': env, 'input': inp, 'state': state, 'add_deps': inp.get('add_deps', {}), 'add_deps_recursive':
+                    inp.get('add_deps_recursive', {})})
 
     return {'return':0}
 
@@ -94,7 +96,7 @@ def get_valid_scenarios(model, category, mlc_version, mlc_path):
         "submission_checker.py"))
     import submission_checker as checker
     config = checker.MODEL_CONFIG
-    internal_model_name = config[mlc_version]["model_mapping"][model]
+    internal_model_name = config[mlc_version]["model_mapping"].get(model, model)
     valid_scenarios = config[mlc_version]["required-scenarios-"+category][internal_model_name]
     print("Valid Scenarios for " + model + " in " + category + " category are :" +  str(valid_scenarios))
     return valid_scenarios

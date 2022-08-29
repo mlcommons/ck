@@ -3,7 +3,7 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
-  "default_version": "r2.1",
+  "default_version": "master",
   "deps": [
     {
       "tags": "detect,os,info"
@@ -41,26 +41,22 @@
         "CM_GIT_CHECKOUT": "r2.1",
         "CM_MLC_LAST_RELEASE": "v2.1"
       }
-    },
-    "tvm": {
-      "env": {
-        "CM_GIT_URL": "https://github.com/octoml/mlcommons-inference",
-        "CM_GIT_CHECKOUT": "master",
-        "CM_MLC_LAST_RELEASE": "v2.1"
-      }
-    },
-    "octoml": {
-      "env": {
-        "CM_GIT_URL": "https://github.com/octoml/inference",
-        "CM_GIT_CHECKOUT": "master",
-        "CM_MLC_LAST_RELEASE": "v2.1"
-      }
     }
   },
   "variations": {
     "patch": {
       "env": {
         "CM_GIT_PATCH": "yes"
+      }
+    },
+    "octoml": {
+      "env": {
+        "CM_GIT_URL": "https://github.com/octoml/inference"
+      }
+    },
+    "tvm": {
+      "env": {
+        "CM_GIT_URL": "https://github.com/octoml/mlcommons-inference"
       }
     }
   }

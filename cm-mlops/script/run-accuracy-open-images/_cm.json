@@ -7,14 +7,14 @@
   "deps": [
     {
       "tags": "get,python",
-      "names": [ "python3" ]
+      "names": [ "python3", "python" ]
     },
     {
       "tags": "get,dataset,object-detection,open-images"
     },
     {
       "tags": "get,mlcommons,inference,src",
-      "version": [ "inference-src" ]
+      "names": [ "inference-src" ]
     }
   ],
   "tags": [

@@ -31,7 +31,6 @@
   "env": {
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1",
-    "CM_MODEL": "resnet50",
     "CM_OUTPUT_FOLDER_NAME": "test_results",
     "CM_RUN_STYLE": "test",
     "CM_TEST_QUERY_COUNT": "5"

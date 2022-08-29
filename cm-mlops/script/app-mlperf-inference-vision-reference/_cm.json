@@ -222,7 +222,8 @@
           "enable_if_env": {
 	    "CM_LOADGEN_MODE": [
 	      "accuracy", "all"
-	    ]
+	    ],
+	    "CM_MODEL": [ "resnet50" ]
           }
 	}
       ]
@@ -237,7 +238,8 @@
           "enable_if_env": {
 	    "CM_LOADGEN_MODE": [
 	      "accuracy", "all"
-	    ]
+	    ],
+	    "CM_MODEL": [ "retinanet" ]
           }
         }
       ]
