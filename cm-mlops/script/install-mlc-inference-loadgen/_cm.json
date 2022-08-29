@@ -13,8 +13,8 @@
       "names": ["python3", "python" ] 
     },
     {
-      "names": [ "inference-src" ],
-      "tags": "get,mlcommons,inference,src,-_patch"
+      "names": [ "inference-src-loadgen" ],
+      "tags": "get,mlcommons,inference,src,-_patch,_default"
     },
     {
       "names": [ "compiler" ],
