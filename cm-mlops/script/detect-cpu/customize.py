@@ -21,6 +21,7 @@ def postprocess(i):
         return {'return':1, 'error':'{} was not generated'.format(lscpu_out)}
 
     r = utils.load_txt(file_name=lscpu_out)
+
     if r['return']>0: return r
 
     ss = r['string']
@@ -30,7 +31,9 @@ def postprocess(i):
     print ('')
 
     if env['CM_HOST_OS_TYPE'] == 'linux':
-        vkeys = [ 'Architecture', 'Model name', 'Vendor ID', 'CPU family', 'NUMA node(s)', 'CPU(s)', 'On-line CPU(s) list', 'Socket(s)', 'Thread(s) per core' ]
+        vkeys = [ 'Architecture', 'Model name', 'Vendor ID', 'CPU family', 'NUMA node(s)', 'CPU(s)', \
+                'On-line CPU(s) list', 'Socket(s)', 'Thread(s) per core', 'L1d cache', 'L1i cache', 'L2 cache', \
+                'L3 cache', 'CPU max MHz']
         for s in ss.split('\n'):
             v = s.split(':')
             key = v[0]
