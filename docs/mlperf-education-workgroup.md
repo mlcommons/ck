@@ -3,9 +3,9 @@
 ## Mission
 
 * Develop an open-source educational toolkit to help the newcomers learn how to use, customize and extend the MLPerf benchmarking infrastructure. 
-* Work with the community to modularize MLPerf and make it easier to plug in diverse ML tasks, models, data sets, software and hardware from the cloud to the edge. 
+* Work with the community to modularize MLPerf and make it easier to plug in their real-world tasks, models, data sets, software and hardware from the cloud to the edge. 
 * Help volunteers participate in automatic crowd-benchmarking and design space exploration of their ML Systems using the MLPerf methodology. 
-* Lower the barrier of entry for new MLPerf submitters. 
+* Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 
 ## Purpose
 
@@ -22,12 +22,23 @@ including vision, recommendation, language processing and speech recognition
 to let companies benchmark and compare their new hardware in terms of accuracy, latency, throughput and energy
 in a reproducible way twice a year.
 
-The goal of this open education workgroup is to develop an MLPerf educational toolkit based on portable workflows with a human-friendly interface to make it easier for newcomers to start using MLPerf benchmarks and lower the barrier of entry for their submissions.
+The goal of this open education workgroup is to develop an MLPerf
+educational toolkit based on portable workflows with a human-friendly
+interface to make it easier for newcomers to start using MLPerf benchmarks,
+and lower the barrier of entry for their submissions.
 
-Another goal is to use this toolkit to learn with the community how to modularize complex ML Systems and make it easier to plug in their own ML tasks, models, data sets, engines, 
+Another goal is to use this toolkit to learn with the community how to
+modularize complex ML Systems and make it easier to plug in their own ML
+tasks, models, data sets, engines,
 software and hardware.
 
-The last but not the least goal is to help students, researchers, engineers and any volunteer participate in crowd-benchmarking and crowd-exploration of the design space tradeoffs (accuracy, latency, throughput, power, size, etc.) of diverse ML Systems from the cloud to the edge using the mature MLPerf methodology while automating the submission of their Pareto-efficient results to the open division of the MLPerf inference benchmark.
+The last but not the least goal is to help students, researchers,
+engineers and any volunteer participate in crowd-benchmarking and
+crowd-exploration of the design space tradeoffs (accuracy, latency,
+throughput, power, size, etc.) of diverse ML Systems from the cloud to the
+edge using the mature MLPerf methodology while automating the submission
+of their Pareto-efficient results to the open division of the MLPerf
+inference benchmark.
 
 
 ## Technology
@@ -109,7 +120,7 @@ We use GitHub tickets to track the progress of these community developments:
 
 ## Tentative Meeting Schedule
 
-*Next meeting: Tuesday, September 6 - contact [grigori@octoml.ai](mailto:grigori@octoml.ai) to be added to our conf-calls or suggest another time.*
+*Next meeting: Tuesday, September 6 - [contact us](mailto:grigori@octoml.ai;asuresh@octoml.ai) to be added to our conf-calls or suggest another time.*
 
 * Be-weekly on Tuesday at 2:00pm CET (EMEA-friendly)
 * Be-weekly on Thursday at 9:00am PST (North America-friendly)
@@ -118,7 +129,9 @@ See our meeting notes from April 2022: https://github.com/mlcommons/ck/tree/mast
 
 ## Mailing list
 
-*We plan to move to a dedicated MLCommons mailing list.*
+*We plan to move to a dedicated MLCommons mailing list. In the meantime, please [send us an email](mailto:grigori@octoml.ai;asuresh@octoml.ai) 
+ to be added to our conf-calls or suggest another time.
+ to be added to our communication or open a ticket [here](https://github.com/mlcommons/ck/issues).*
 
 ## Contacts
 
