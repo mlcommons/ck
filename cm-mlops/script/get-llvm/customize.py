@@ -70,5 +70,7 @@ def postprocess(i):
 
     env['CM_LLVM_CLANG_CACHE_TAGS'] = 'version-'+version
     env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version
+    env['CM_COMPILER_FAMILY'] = 'LLVM'
+    env['CM_COMPILER_VERSION'] = env['CM_LLVM_CLANG_VERSION']
 
     return {'return':0, 'version':version}

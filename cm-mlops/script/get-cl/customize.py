@@ -66,5 +66,7 @@ def postprocess(i):
 
     env['CM_CL_CACHE_TAGS'] = 'version-'+version
     env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version
+    env['CM_COMPILER_FAMILY'] = 'CUDA'
+    env['CM_COMPILER_VERSION'] = env['CM_CL_VERSION']
 
     return {'return':0, 'version':version}
