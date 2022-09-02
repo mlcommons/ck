@@ -3,7 +3,8 @@
 ## Mission
 
 * Develop an open-source educational toolkit to help the newcomers learn how to use, customize and extend the MLPerf benchmarking infrastructure. 
-* Work with the community to modularize MLPerf and make it easier to plug in their real-world tasks, models, data sets, software and hardware from the cloud to the edge. 
+* Work with the community to modularize ML Systems and make it easier to plug in their real-world tasks, models, data sets, software and hardware from the cloud to the edge. 
+* Automatically test compatibility of different versions of all ML components.
 * Help volunteers participate in automatic crowd-benchmarking and design space exploration of their ML Systems using the MLPerf methodology. 
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 
