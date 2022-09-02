@@ -203,12 +203,31 @@
     },
     "onnxruntime": {
       "env": {
-        "CM_BACKEND": "onnxruntime"
+        "CM_BACKEND": "onnxruntime",
+	"CM_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
       }
     },
     "pytorch": {
       "env": {
-        "CM_BACKEND": "pytorch"
+        "CM_BACKEND": "pytorch",
+	"CM_BACKEND_VERSION": "<<<CM_PYTORCH_VERSION>>>"
+      }
+    },
+    "tf": {
+      "env": {
+        "CM_BACKEND": "tf",
+	"CM_BACKEND_VERSION": "<<<CM_TENSORFLOW_VERSION>>>"
+      }
+    },
+    "tflite": {
+      "env": {
+        "CM_BACKEND": "tflite"
+      }
+    },
+    "tvm-onnx": {
+      "env": {
+        "CM_BACKEND": "tvm-onnx",
+	"CM_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
       }
     },
     "resnet50": {
@@ -246,21 +265,6 @@
 	  }
         }
       ]
-    },
-    "tf": {
-      "env": {
-        "CM_BACKEND": "tf"
-      }
-    },
-    "tflite": {
-      "env": {
-        "CM_BACKEND": "tflite"
-      }
-    },
-    "tvm-onnx": {
-      "env": {
-        "CM_BACKEND": "tvm-onnx"
-      }
     },
     "valid": {
       "env": {
