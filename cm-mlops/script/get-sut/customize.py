@@ -6,6 +6,7 @@ def preprocess(i):
     env = i['env']
     state = i['state']
 
+    submitter = env.get('CM_MLC_SUBMITTER', 'MLCommons')
     hw_name = env.get('CM_HW_NAME', "default")
     backend = env.get('CM_BACKEND', '')
     backend_version = env.get('CM_BACKEND_VERSION', '')
@@ -45,6 +46,7 @@ def preprocess(i):
             python_version = env.get('CM_PYTHON_VERSION', '')
             compiler = env.get('CM_COMPILER_FAMILY', '')
             compiler_version = env.get('CM_COMPILER_VERSION', '')
+            state['CM_SUT_META']['submitter'] = submitter
             state['CM_SUT_META']['operating_system'] = os_name_string
             state['CM_SUT_META']['other_software_stack'] = "Python: " + python_version + ", " + compiler + "-" + compiler_version
             if 'host_processor_core_count' not in state['CM_SUT_META']:
@@ -62,7 +64,6 @@ def preprocess(i):
 
             state['CM_SUT_META'] = dict(sorted(state['CM_SUT_META'].items()))
 
-            print(state['CM_SUT_META'])
             sut_file = open(sut_path, "w")
             json.dump(state['CM_SUT_META'], sut_file, indent = 4)
             sut_file.close()

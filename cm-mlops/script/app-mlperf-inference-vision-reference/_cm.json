@@ -173,7 +173,6 @@
       "tags": "get,sut,configs"
     }
   ],
-  "default_variations": [ "resnet50", "cpu", "tf" ],
   "env": {
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1",
@@ -223,8 +222,10 @@
 	    "CM_LOADGEN_MODE": [
 	      "accuracy", "all"
 	    ],
-	    "CM_MODEL": [ "resnet50" ]
-          }
+	    "CM_MLC_ACCURACY_RESULTS_DIR": [
+	      "on"
+	    ]
+	  }
 	}
       ]
     },
@@ -239,8 +240,10 @@
 	    "CM_LOADGEN_MODE": [
 	      "accuracy", "all"
 	    ],
-	    "CM_MODEL": [ "retinanet" ]
-          }
+	    "CM_MLC_ACCURACY_RESULTS_DIR": [
+	      "on"
+	    ]
+	  }
         }
       ]
     },
