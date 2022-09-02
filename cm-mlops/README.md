@@ -1,10 +1,10 @@
-# CM repository to modularize ML and AI Systems
+# CM repository to enable more determinstic, portable and reproducible MLOps
 
 [![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck/tree/master/cm)
 [![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck/tree/master/cm)
 
 
-It is becoming very challenging to co-design, optimize and deploy efficient AI and ML Systems in the real world:
+It is becoming very challenging to co-design, optimize and deploy efficient AI Systems in the real world:
 ["MLOps Is a Mess But That's to be Expected"](https://www.mihaileric.com/posts/mlops-is-a-mess).
 
 However, [our experience](https://doi.org/10.5281/zenodo.6475385) 

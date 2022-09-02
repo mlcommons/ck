@@ -156,7 +156,7 @@ We thank the [users and partners of the original CK framework](https://cKnowledg
 and all our colleagues for their valuable feedback and support!
 
 
-# Maintainers
+# Contacts
 
 * [Grigori Fursin](https://cKnowledge.io/@gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)

@@ -17,6 +17,8 @@
 
 ## News
 
+
+
 * **2022 July 17:** We have pre-released CK2-based MLOps and DevOps automation scripts at https://github.com/mlcommons/ck/tree/master/cm-mlops/script
 
 * **2022 May:** We started developing the 2nd generation of the CK framework (aka CM): https://github.com/mlcommons/ck/tree/master/cm
