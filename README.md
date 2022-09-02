@@ -7,7 +7,7 @@ development of complex automation scripts to build, test and optimize such appli
 across rapidly evolving software and hardware from the cloud to the edge.
 
 The Collective Knowledge concept is to turn any existing automation scripts
-into [reusable, portable, customizable and deterministic components](cm-mlops/script) 
+into [reusable, portable, customizable and deterministic components](cm/docs/tutorial-scripts.md)
 with a unified API, human readable CLI and extensible JSON/YAML meta description.
 
 Our mission is to help the community share their knowledge,
@@ -26,7 +26,7 @@ to modularize AI and ML systems, make it easier to plug real-world tasks, models
 and hardware from the cloud to the edge, automate their deployment in production,
 and make them adaptable to continuously changing software and hardware.
 
-You can find further info at the [CM development page](cm).
+You can find further info at the [CM development page](cm) and [this CM tutorial](cm/docs/tutorial-scripts.md).
 
 [![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
 [![Downloads](https://pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
