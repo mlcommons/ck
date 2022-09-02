@@ -591,24 +591,6 @@ class CAutomation(Automation):
 
                 update_state_from_meta(variation_meta, env, state, deps, post_deps, i)
 
-        ############################################################################################################
-        # Update any env key used as part of values in meta
-        import re
-        for key in env:
-            value = env[key]
-
-            # Check cases such as --env.CM_SKIP_COMPILE
-            if type(value)==bool: 
-                env[key] = str(value)
-
-            tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
-            if tmp_values == []: continue
-            for tmp_value in tmp_values:
-                if tmp_value not in env:
-                    return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
-                value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
-            env[key] = value
-
 
         r = update_deps_from_input(deps, post_deps, i)
         if r['return']>0: return r
@@ -637,16 +619,23 @@ class CAutomation(Automation):
                 elif k in env:
                     local_env[k] = env[k]
                     del(env[k])
+            import re
+            for key in list(env.keys()):
+                value = env[key]
+                tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
+                if tmp_values == []: continue
+                local_env[key] = env[key]
+                del(env[key])
 
             # Go through dependencies list and run scripts
             for d in deps:
 
                 if "enable_if_env" in d:
-                    if not enable_or_skip_script(d["enable_if_env"], env, True):
+                    if not enable_or_skip_script(d["enable_if_env"], env):
                         continue
 
                 if "skip_if_env" in d:
-                    if enable_or_skip_script(d["skip_if_env"], env, False):
+                    if enable_or_skip_script(d["skip_if_env"], env):
                         continue;
 
                 if d.get("reuse_version", False):
@@ -683,7 +672,23 @@ class CAutomation(Automation):
             env.update(local_env)
 
 
+        ############################################################################################################
+        # Update any env key used as part of values in meta
+        import re
+        for key in env:
+            value = env[key]
 
+            # Check cases such as --env.CM_SKIP_COMPILE
+            if type(value)==bool:
+                env[key] = str(value)
+
+            tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
+            if tmp_values == []: continue
+            for tmp_value in tmp_values:
+                if tmp_value not in env:
+                    return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
+                value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
+            env[key] = value
 
 
 
@@ -1084,11 +1089,11 @@ class CAutomation(Automation):
 
                 for d in post_deps:
                     if "enable_if_env" in d:
-                        if not enable_or_skip_script(d["enable_if_env"], env, True):
+                        if not enable_or_skip_script(d["enable_if_env"], env):
                             continue
 
                     if "skip_if_env" in d:
-                        if enable_or_skip_script(d["skip_if_env"], env, False):
+                        if enable_or_skip_script(d["skip_if_env"], env):
                             continue;
 
                     if d.get("reuse_version", False):
@@ -1590,39 +1595,8 @@ class CAutomation(Automation):
 
         return {'return':0, 'version':version, 'string':string}
 
-    ##############################################################################
-    def update_deps(self, i):
-        """
-        Update deps from pre/post processing
-
-        Args:
-          (CM input dict): 
-
-          deps (dict): deps dict
-          update_deps (dict): key matches "names" in deps
-
-        Returns:
-           (CM return dict):
-
-           * return (int): return code == 0 if no error and >0 if error
-           * (error) (str): error string if return>0
-
-        """
-
-        deps = i['deps']
-        update_deps = i['update_deps']
-
-        for name in update_deps:
-            for dep in deps:
-                names = dep.get('names',[])
-                if name in names:
-                    utils.merge_dicts({'dict1':dep, 'dict2':update_deps[name], 'append_lists':True, 'append_unique':True})
-
-        return {'return':0}
-
-
 ##############################################################################
-def enable_or_skip_script(meta, env, enable_or_skip):
+def enable_or_skip_script(meta, env):
     """
     Internal: enable a dependency based on enable_if_env and skip_if_env meta information
     """
@@ -1630,6 +1604,9 @@ def enable_or_skip_script(meta, env, enable_or_skip):
         if key in env:
             if env[key].lower() in ["yes", "on", "true", "1"]:
                 if env[key].lower() in (meta[key] + ["yes", "on", "true", "1"]):
+                    continue
+            elif set(meta[key]) & set(["yes", "on", "true", "1"]):
+                if env[key].lower() not in ["no", "off", "false", "0"]:
                     continue
             elif env[key].lower() in meta[key]:
                 continue
