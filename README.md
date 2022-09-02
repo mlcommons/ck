@@ -20,7 +20,7 @@ automate ML and AI benchmarking and support reproducible research [here](cm/docs
 
 ## Collective Mind toolkit
 
-CM toolkit is the second generation of the [original CK framework](#collective-knowledge-framework-ck).
+CM toolkit is the next generation of the [original CK framework](#collective-knowledge-framework-ck).
 It is being developed by the [open workgroup](docs/mlperf-education-workgroup.md) with a primary focus 
 to modularize AI and ML systems, make it easier to plug real-world tasks, models, data sets, software 
 and hardware from the cloud to the edge, automate their deployment in production,
