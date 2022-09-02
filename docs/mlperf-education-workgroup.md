@@ -1,4 +1,4 @@
-# MLPerf education workgroup
+# Open education workgroup
 
 ## Mission
 
