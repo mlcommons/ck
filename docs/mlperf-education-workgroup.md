@@ -3,7 +3,7 @@
 ## Mission
 
 * Develop an open-source educational toolkit to help the newcomers learn how to use, customize and extend the MLPerf benchmarking infrastructure. 
-* Work with the community to modularize ML Systems and make it easier to plug in their real-world tasks, models, data sets, software and hardware from the cloud to the edge. 
+* Work with the community to [modularize ML and AI Systems](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) and make it easier to plug in their real-world tasks, models, data sets, software and hardware from the cloud to the edge. 
 * Automatically test compatibility of different versions of all ML components.
 * Help volunteers participate in automatic crowd-benchmarking and design space exploration of their ML Systems using the MLPerf methodology. 
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
@@ -148,7 +148,7 @@ See our meeting notes from April 2022: https://github.com/mlcommons/ck/tree/mast
 
 * Tools:
   * [MLCommons CM toolkit to modularize ML&AI Systems (Apache 2.0 license)](https://github.com/mlcommons/ck/tree/master/cm)
-  * [Portable and reusable CM components for modular ML&AI Systems (Apache 2.0 license)](https://github.com/mlcommons/ck/tree/master/cm-mlops)
+  * [Portable, reusable and customizable CM components to modularize ML and AI Systems (Apache 2.0 license)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
   * [Legacy CK automation for MLPerf](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation)
 
 * [Google Drive](https://drive.google.com/drive/folders/1CKewftoZ2VpBWheMCSxFG-pcIBgCu4Au?usp=sharing) (public access)
