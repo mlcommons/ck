@@ -29,9 +29,9 @@ interface to make it easier for newcomers to start using MLPerf benchmarks,
 and lower the barrier of entry for their submissions.
 
 Another goal is to use this toolkit to learn with the community how to
-modularize complex ML Systems and make it easier to plug in their own ML
-tasks, models, data sets, engines,
-software and hardware.
+modularize complex ML and AI Systems, make it easier to plug in their own ML
+tasks, models, data sets, engines, software and hardware
+and support collaborative and reproducible research.
 
 The last but not the least goal is to help students, researchers,
 engineers and any volunteer participate in crowd-benchmarking and
@@ -147,7 +147,7 @@ See our meeting notes from April 2022: https://github.com/mlcommons/ck/tree/mast
   * [HPCA'22 presentation "MLPerf design space exploration and production deployment"](https://doi.org/10.5281/zenodo.6475385)
 
 * Tools:
-  * [MLCommons CM toolkit to modularize ML&AI Systems (Apache 2.0 license)](https://github.com/mlcommons/ck/tree/master/cm)
+  * [MLCommons CM toolkit to modularize ML&AI Systems (Apache 2.0 license)](https://github.com/mlcommons/ck)
   * [Portable, reusable and customizable CM components to modularize ML and AI Systems (Apache 2.0 license)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
   * [Legacy CK automation for MLPerf](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation)
 

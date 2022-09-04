@@ -1,13 +1,13 @@
-# Collective Knowledge approach
+# Collective Knowledge concept
 
 Research, development and deployment of novel technologies 
-is becoming increasingly [challenging, time consuming, costly and messy](https://www.mihaileric.com/posts/mlops-is-a-mess).
-We often have to spend lots of time on exciting development of ad-hoc automation scripts 
-to connect numerous incompatible tools to build, test, optimize and deploy complex applications and manage all related artifacts 
+is becoming increasingly [challenging, time consuming and costly](https://www.mihaileric.com/posts/mlops-is-a-mess).
+We have to spend lots of time developing many ad-hoc automation scripts 
+to connect many great but often incompatible tools to build, test, optimize and deploy complex applications and manage all related artifacts 
 across rapidly evolving software and hardware from the cloud to the edge.
 
-The Collective Knowledge approach (CK) is to automatically turn ad-hoc scripts and artifacts from the community
-into an open database of [reusable, portable, customizable and deterministic components](cm/docs/tutorial-scripts.md)
+The Collective Knowledge concept (CK) is to automatically turn ad-hoc scripts and artifacts from the community
+into [reusable, portable, customizable and deterministic components](https://arxiv.org/pdf/2011.01149.pdf)
 with no or minimal effort from a user.
 
 All such components have a unified API, human readable CLI and extensible JSON/YAML meta description
@@ -15,14 +15,29 @@ making it possible to reuse them in different projects and chain them together
 into powerful, efficient and portable automation workflows, applications and web services
 adaptable to continuously changing software and hardware.
 
+The following example demonstrates how to use the Collective Mind toolkit (CM - the 2nd generation of the CK framework) 
+to run the [modular image classification workflow](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.json) 
+assembled from [such shared components called portable CM scripts](https://github.com/mlcommons/ck/blob/master/cm-mlops/script) 
+that will automatically detect, download, install and build all related artifacts and tools to adapt this workflow to a user platform 
+with Linux, Windows or MacOS:
+
+```bash
+python3 -m pip install cmind
+cm pull repo mlcommons@ck
+cm run script --tags=app,image-classification,onnx,python --quiet
+```
+It may take a few minutes to run this workflow for the first time and adapt it to your platform depending on the internet speed.
+Note that all the subsequent runs will be much faster because CM automatically caches the output of all components to be quickly reused
+in this and other CM workflows.
+
 Originally, we have developed CK to automate [reproducibility initiatives and artifact evaluation at conferences](https://cTuning.org/ae)
 and make it easier for researchers and engineers to [validate their ideas in the real world](https://learning.acm.org/techtalks/reproducibility).
 However, it turned out that the CK approach also helped [multiple organizations](https://cKnowledge.org/partners.html) 
 modularize complex ML and AI Systems and automate their benchmarking, optimization and deployment.
 
-That's why we have decided to donate CK to [MLCommons](https://mlcommons.org) to continue developing 
-this technology, modularize AI Systems and support reproducible research as a community effort 
-within the [public workgroup](docs/mlperf-education-workgroup.md).
+That's why we have decided to donate CK to [MLCommons](https://mlcommons.org) to develop
+the 2nd generation of this technology, modularize AI Systems and support reproducible research 
+as a community effort within the [public workgroup](docs/mlperf-education-workgroup.md).
 
 Everyone is welcome to join our open workgroup to develop an open-source toolkit that can help everyone
 share their knowledge, experience, artifacts and automation scripts in such a way 
@@ -74,11 +89,10 @@ Go to the [CK project page](ck1) to get the legacy CK framework v2.6.1 or check 
 (C)opyright 2021-2022 [MLCommons](https://mlcommons.org)<br>
 (C)opyright 2014-2021 [Grigori Fursin](https://cKnowledge.io/@gfursin) and the [cTuning foundation](https://cTuning.org)
 
-## Our community projects
+## Community projects
 
 * [MLPerf education workgroup to modularize AI and ML Systems](docs/mlperf-education-workgroup.md)
 * [Artifact evaluation and reproducibility initiatives at ML and Systems conferences](https://cTuning.org/ae)
-
 
 ## Contributing
 
@@ -92,9 +106,16 @@ and improve the core CM functionality.
 * [Grigori Fursin](https://cKnowledge.io@gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
+## References
+
+* [Journal article with CK/CM concepts and our long-term vision](https://arxiv.org/pdf/2011.01149.pdf)
+* [ACM TechTalk with CK/CM intro moderated by Peter Mattson (MLCommons president)](https://www.youtube.com/watch?v=7zpeIVwICa4)
+* [HPCA'22 presentation "MLPerf design space exploration and production deployment"](https://doi.org/10.5281/zenodo.6475385)
+
 ## Acknowledgments
 
-We would like to thank all [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
+We would like to thank [MLCommons](https://mlcommons.org), 
+[OctoML](https://octoml.ai), all [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md) 
 and [collaborators](https://cKnowledge.org/partners.html) for their support, fruitful discussions, 
 and useful feedback! See more acknowledgments in the [CK journal article](https://arxiv.org/abs/2011.01149)
 and our [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4).

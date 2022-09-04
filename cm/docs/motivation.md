@@ -12,14 +12,19 @@ software, hardware, user environments, settings and data sets.
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production2a.png)
 
+We have noticed that while there many great automation tools and workflow automation frameworks out there,
+some of them are good only for researchers and some are good only for engineers.
+
 ## Community effort
 
-The open-source Collective Mind toolkit (CM aka CK2) is our community effort to solve above problems 
-by providing a unified CLI, API and extensible meta descriptions to existing artifacts and automation scripts for DevOps and MLOps 
-to make them more portable, interoperable, deterministic, reusable, reproducible and understandable
+The open-source Collective Mind toolkit (CM aka CK2) is our community effort to develop a simple meta-framework 
+that can solve above problems and make existing tools easier to use for both researchers and engineers.
+
+CM provides a unified CLI, API and extensible meta descriptions to existing artifacts and automation scripts 
+for DevOps and MLOps to make them more portable, interoperable, deterministic, reusable, reproducible and understandable
 with minimal or no changes to existing projects!
 
-The CM toolkit helps users to gradually transform their existing projects, Git repositories, Docker containers,
+The CM toolkit helps users gradually transform their existing projects, Git repositories, Docker containers,
 Jupyter notebooks and internal directories into an [open database of portable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
 with a common API, extensible meta descriptions and a simple portability and interoperability layer
 written in Python or shell scripts.

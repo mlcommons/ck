@@ -1,10 +1,12 @@
 # Tutorial: understanding portable CM scripts
 
-This tutorial demonstrates how to organize existing automation scripts and artifacts
-as a database of portable, reusable, deterministic and plug&play components
-with a minimal effort using a unified CM interface and extensible meta descriptions.
 
-Such CM scripts can be chained and interconnected into complex automation pipelines and workflows 
+
+This tutorial demonstrates how to turn existing automation scripts and artifacts
+into portable, reusable, deterministic and "plug&play" components
+with a minimal effort using the CM toolkit and extensible meta descriptions.
+
+Such CM scripts can be connected together into complex automation pipelines and workflows 
 with a minimal effort in a native environment and without the need for specialized workflow
 frameworks and containers.
 
@@ -32,7 +34,7 @@ software, hardware, user environments, settings and data.
 ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-ad-hoc-scripts.png)
 
 We have developed the [original CK framework](https://cKnowledge.org/partners.html) 
-and it's 2nd generation (CM toolkit) to help researchers and engineers add and share [simple, human-readable  
+and it's 2nd generation (the CM toolkit) to help researchers and engineers add and share [simple, human-readable  
 and platform-independent CLI and JSON API](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
 to their automation scripts and artifacts to make them more understandable, portable, reusable, interoperable, deterministic and reproducible
 across continuously changing hardware, software and data with minimal or no changes to existing projects.
