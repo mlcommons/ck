@@ -1,32 +1,51 @@
 # Collective Knowledge approach
 
-Developing modern applications and deploying them in the real world 
-is becoming increasingly challenging, time consuming and costly.
-Researchers and engineers spend lots of their precious time on continuous, tedious and ad-hoc 
-development of complex automation scripts to build, test and optimize such applications
+Research, development and deployment of novel technologies 
+is becoming increasingly [challenging, time consuming, costly and messy](https://www.mihaileric.com/posts/mlops-is-a-mess).
+We often have to spend lots of time on exciting development of ad-hoc automation scripts 
+to connect numerous incompatible tools to build, test, optimize and deploy complex applications and manage all related artifacts 
 across rapidly evolving software and hardware from the cloud to the edge.
 
-The Collective Knowledge concept is to turn any existing automation scripts
-into [reusable, portable, customizable and deterministic components](cm/docs/tutorial-scripts.md)
-with a unified API, human readable CLI and extensible JSON/YAML meta description.
+The Collective Knowledge approach (CK) is to automatically turn ad-hoc scripts and artifacts from the community
+into an open database of [reusable, portable, customizable and deterministic components](cm/docs/tutorial-scripts.md)
+with no or minimal effort from a user.
 
-Our mission is to help the community share their knowledge,
-experience and ad-hoc scripts in such a way that they can be easily reused
-in different projects to automatically generate portable workflows, 
-applications and web services adaptable to any software and hardware. 
+All such components have a unified API, human readable CLI and extensible JSON/YAML meta description
+making it possible to reuse them in different projects and chain them together 
+into powerful, efficient and portable automation workflows, applications and web services
+adaptable to continuously changing software and hardware.
 
-You can read more about this concept and how it helps to modularize AI and ML Systems,
-automate ML and AI benchmarking and support reproducible research [here](cm/docs/motivation.md).
+Originally, we have developed CK to automate [reproducibility initiatives and artifact evaluation at conferences](https://cTuning.org/ae)
+and make it easier for researchers and engineers to [validate their ideas in the real world](https://learning.acm.org/techtalks/reproducibility).
+However, it turned out that the CK approach also helped [multiple organizations](https://cKnowledge.org/partners.html) 
+modularize complex ML and AI Systems and automate their benchmarking, optimization and deployment.
+
+That's why we have decided to donate CK to [MLCommons](https://mlcommons.org) to continue developing 
+this technology, modularize AI Systems and support reproducible research as a community effort 
+within the [public workgroup](docs/mlperf-education-workgroup.md).
+
+Everyone is welcome to join our open workgroup to develop an open-source toolkit that can help everyone
+share their knowledge, experience, artifacts and automation scripts in such a way 
+that they can be easily tested, reused and enhanced by the community in other projects 
+with different artifacts, software and hardware.
+
+We hope that this open-source toolkit will help researchers and engineers get rid of repetitive and unnecessary tasks,
+connect incompatible tools and modularize complex software systems, support reproducible research
+and make it easier to bring novel technologies to the rapidly evolving world.
 
 ## Collective Mind toolkit
 
 CM toolkit is the next generation of the [original CK framework](#collective-knowledge-framework-ck).
 It is being developed by the [open workgroup](docs/mlperf-education-workgroup.md) with a primary focus 
-to modularize AI and ML systems, make it easier to plug real-world tasks, models, data sets, software 
-and hardware from the cloud to the edge, automate their deployment in production,
-and make them adaptable to continuously changing software and hardware.
+to connect researchers and engineers to modularize AI and ML systems, 
+make it easier to plug real-world tasks, models, data sets, software 
+and hardware, automate their deployment in production,
+and make them adaptable to continuously changing software and hardware 
+from the cloud to the edge:
 
-You can find further info at the [CM development page](cm) and [this CM tutorial](cm/docs/tutorial-scripts.md).
+* [CM development page](cm)
+* [CM motivation](cm/docs/motivation.md)
+* [CM tutorial](cm/docs/tutorial-scripts.md)
 
 [![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
 [![Downloads](https://pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
@@ -42,7 +61,7 @@ You can find further info at the [CM development page](cm) and [this CM tutorial
 
 This legacy framework was originally developed to [make it easier to reproduce research papers and validate them in production in the real world](https://learning.acm.org/techtalks/reproducibility).
 After it was successfully validated in several [academic and industrial projects including MLPerf](https://cKnowledge.org/partners.html),
-the author donated CK to [MLCommons](https://mlcommons.org) to continue developing it as a community effort within the [open workgroup](docs/mlperf-education-workgroup.md).
+we donated CK to [MLCommons](https://mlcommons.org) to continue developing it as a community effort within the [open workgroup](docs/mlperf-education-workgroup.md).
 The feedback from the users has helped our workgroup to develop the next generation of the CK technology called [Collective Mind](#collective-mind-toolkit).
 
 Go to the [CK project page](ck1) to get the legacy CK framework v2.6.1 or check the [new CM (CK2) development project](#collective-mind-toolkit).
@@ -53,7 +72,7 @@ Go to the [CK project page](ck1) to get the legacy CK framework v2.6.1 or check 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 
 (C)opyright 2021-2022 [MLCommons](https://mlcommons.org)<br>
-(C)opyright 2014-2021 [cTuning foundation](https://cTuning.org)
+(C)opyright 2014-2021 [Grigori Fursin](https://cKnowledge.io/@gfursin) and the [cTuning foundation](https://cTuning.org)
 
 ## Our community projects
 
