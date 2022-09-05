@@ -22,6 +22,14 @@ def preprocess(i):
     required_files = []
     required_files = get_checker_files(env['CM_MLC_INFERENCE_SOURCE'])
 
+    if 'CM_LOADGEN_SCENARIO' not in env:
+        env['CM_LOADGEN_SCENARIO'] = "Offline"
+    if 'CM_LOADGEN_MODE' not in env:
+        env['CM_LOADGEN_MODE'] = "accuracy"
+    if 'CM_MODEL' not in env:
+        env['CM_MODEL'] = "resnet50"
+
+
     if env['CM_MODEL'] == "resnet50":
         cmd = "cp " + os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt") + " " + os.path.join(env['CM_DATASET_PATH'],
         "val_map.txt")
@@ -70,7 +78,7 @@ def preprocess(i):
     if env['CM_MODEL'] in ["rnnt", "bert-99", "bert-99.9", "dlrm-99", "dlrm-99.9", "3d-unet-99", "3d-unet-99.9"]:
         test_list.remove("TEST04")
 
-    scenario = env.get('CM_LOADGEN_SCENARIO', "Offline")
+    scenario = env['CM_LOADGEN_SCENARIO']
     state['RUN'][scenario] = {}
     scenario_extra_options = ''
 
@@ -126,7 +134,7 @@ def preprocess(i):
 
     env['CM_MLC_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
-    mode = env.get('CM_LOADGEN_MODE', "accuracy")
+    mode = env['CM_LOADGEN_MODE']
     mode_extra_options = ""
     OUTPUT_DIR =  os.path.join(env['CM_MLC_RESULTS_DIR'], env['CM_BACKEND'] + "-" + env['CM_DEVICE'], \
             env['CM_MODEL'], scenario.lower(), mode)
