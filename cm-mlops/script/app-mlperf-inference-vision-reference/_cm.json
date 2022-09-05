@@ -272,6 +272,12 @@
 	"CM_RUN_STYLE": "valid"
       }
     },
+    "test": {
+      "env": {
+        "CM_OUTPUT_FOLDER_NAME": "test_results",
+	"CM_RUN_STYLE": "test"
+      }
+    },
     "fast": {
       "env": {
         "CM_OUTPUT_FOLDER_NAME": "fast_results",
@@ -279,25 +285,20 @@
 	"CM_FAST_FACTOR": "5"
       }
     },
-    "all-scenarios": {
+    "r2.1_default": {
       "env": {
-	"CM_LOADGEN_ALL_SCENARIOS": "yes"
+	"CM_SKIP_SYS_UTILS": "yes"
       },
-      "deps": [
-	{
-          "tags": "get,sut,description"
-        }
-      ]
-    },
-    "all-modes": {
-      "env": {
-	"CM_LOADGEN_ALL_MODES": "yes",
-	"CM_LOADGEN_MODE": "all"
-      }
-    },
-    "compliance": {
-      "env": {
-	"CM_LOADGEN_COMPLIANCE": "yes"
+      "add_deps_recursive": {
+	"compiler": {
+	  "tags": "llvm"
+	},
+	"inference-src": {
+	  "tags": "_octoml"
+	},
+	"loadgen": {
+	  "version": "r2.1"
+	}
       }
     }
   }
