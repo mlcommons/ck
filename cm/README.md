@@ -9,10 +9,10 @@
 [![CM(CK2) test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 
 
-There are [many great automation tools and workflow frameworks](https://www.mihaileric.com/posts/mlops-is-a-mess) - 
-some are good for researchers and some for engineers. 
+There are [many great automation tools and workflow management frameworks](https://www.mihaileric.com/posts/mlops-is-a-mess) - 
+some are convenient for researchers and some for engineers. 
 The Collective Mind toolkit (CM) is [our community effort](../docs/mlperf-education-workgroup.md) 
-to develop a portable meta-framework that is good for both.
+to develop a portable meta-framework that is convenient for both.
 
 CM helps researchers and engineers wrap ad-hoc DevOps and MLOps 
 automation scripts and artifacts with a simple, human-readable
@@ -23,8 +23,8 @@ across continuously changing hardware, software and data with minimal or no chan
 Such wrappers can be automatically connected together into powerful and portable workflows, applications and web-services
 to abstract developers and scientists from the rapidly evolving world of technology.
 
-See an example of a modular image classification assembled from such components 
-([portable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)) 
+See an example of a modular image classification [assembled](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.json#L9) 
+from such ([portable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)) 
 that will automatically detect, download, install and build all related artifacts and 
 tools to adapt this workflow to a user platform with Linux, Windows or MacOS:
 

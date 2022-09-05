@@ -16,7 +16,7 @@ into powerful, efficient and portable automation workflows, applications and web
 adaptable to continuously changing software and hardware.
 
 The following example demonstrates how to use the Collective Mind toolkit (CM - the 2nd generation of the CK framework) 
-to run the [modular image classification workflow](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.json) 
+to run a [modular image classification workflow](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.json) 
 assembled from [such shared components called portable CM scripts](https://github.com/mlcommons/ck/blob/master/cm-mlops/script) 
 that will automatically detect, download, install and build all related artifacts and tools to adapt this workflow to a user platform 
 with Linux, Windows or MacOS:
