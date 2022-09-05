@@ -108,7 +108,79 @@ cm list script | sort
 
 ```
 
-## Run MLPerf inference: vision - ResNet-50 - ImageNet - ONNX
+## Run MLPerf inference
 
-You can now run MLPerf inference bench
+### Vision benchmark - ResNet-50 - ImageNet 100 images - ONNX - offline - accuracy
+
+You can now run the MLPerf vision benchmark r2.1 with default parameters 
+(reduced ImageNet with 100 original images, ResNet-50 model in ONNX format, 
+ONNX runtime, offline MLPerf scenario and accuracy mode)
+using the following CM command:
+
+```bash
+cm run script --tags=app,mlperf,inference,reference,python,_resnet50,_onnxruntime,_cpu,_r2.1_default --quiet
+```
+
+CM will automatically search for a portable CM script using above tags in all CM repositories 
+installed on your system (this allows one to easily combine public and private automation scripts and artifacts)
+and will run it according to its human readable meta description provided in either *_cm.json*
+or *_cm.yaml* file as shown [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/_cm.json).
+
+It may take a few minutes to automatically detect, download and/or install all necessary ML components
+required for this CM workflow (which is also a portable CM script with 
+[dependencies on other CM scripts](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/_cm.json#L5))
+depending on the speed of your Internet connection.
+
+Note that CM will automatically cache CM scripts during the first run!
+This means that when you run the MLPerf benchmark again using CM,
+it will automatically reuse cached components instead of downloading and installing them!
+
+You can see all cached CM components using the following command:
+```bash
+cm show cache
+```
+
+You can also see some specific cached CM components such as ML models as follows:
+```bash
+cm show cache --tags=ml-model
+```
+
+## Clean CM cache (optional)
+
+In case you need to perform a "clean" run without cached components, you can clean the whole cache as follows:
+```bash
+cm rm cache -f
+```
+
+Or you can clean the cache for specific CM components such as datasets as follows:
+```bash
+cm rm cache -f --tags=dataset
+```
+
+This will force CM to download and/or reinstall required components during the subsequent run of a given workflow.
+
+## Customize MLPerf workflow
+
+TBD
+
+--add_deps_recursive.compiler.tags=gcc
+
+## Run MLPerf inference with different tasks, models and engines
+
+### Vision benchmark - ResNet-50 - ImageNet 100 images - ONNX - offline - performance
+
+### Vision benchmark - RetinaNet - Open Images - ONNX - offline - accuracy
+
+### Vision benchmark - ResNet-50 - ImageNet 100 images - TVM - offline - accuracy
+
+
+## Automate MLPerf submission
+
+
+## The next steps
+
+Please feel free to follow the [MLCommons CM project](https://github.com/mlcommons/ck),
+check the [CM tutorial about portable CM scripts](../cm/docs/tutorial-scripts.md) 
+and join our [open education workgroup](mlperf-education-workgroup.md) 
+to participate in this community project.
 
