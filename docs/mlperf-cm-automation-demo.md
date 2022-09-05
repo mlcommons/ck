@@ -1,3 +1,2 @@
-# CM demo
+# CM demo: modularizing MLPerf benchmarks and automating submissions
 
-Please check [MLPerf automation tutorial](../cm/docs/tutorial-modular-mlperf.md).
