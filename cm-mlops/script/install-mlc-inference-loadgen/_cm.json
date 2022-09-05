@@ -3,7 +3,7 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
-  "default_version": "master",
+  "default_version": "r2.1",
   "deps": [
     {
       "tags": "detect,os,info"
@@ -53,22 +53,18 @@
   },
   "versions": {
     "master": {
-      "deps": [
-        {
-          "names": "inference-src",
-          "tags": "get,mlcommons,inference,src,-_patch",
+      "add_deps": {
+        "inference-src-loadgen": {
           "version": "master"
         }
-      ]
+      }
     },
     "r2.1": {
-      "deps": [
-        {
-          "names": "inference-src",
-          "tags": "get,mlcommons,inference,src,-_patch",
+      "add_deps": {
+        "inference-src-loadgen": {
           "version": "r2.1"
         }
-      ]
+      }
     }
   }
 }

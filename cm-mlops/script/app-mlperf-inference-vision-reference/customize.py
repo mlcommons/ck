@@ -70,7 +70,7 @@ def preprocess(i):
     if env['CM_MODEL'] in ["rnnt", "bert-99", "bert-99.9", "dlrm-99", "dlrm-99.9", "3d-unet-99", "3d-unet-99.9"]:
         test_list.remove("TEST04")
 
-    scenario = env['CM_LOADGEN_SCENARIO']
+    scenario = env.get('CM_LOADGEN_SCENARIO', "Offline")
     state['RUN'][scenario] = {}
     scenario_extra_options = ''
 
@@ -97,7 +97,6 @@ def preprocess(i):
         user_conf += env['CM_MODEL'] + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
 
     if env['CM_RUN_STYLE'] == "test":
-
         query_count = env['CM_TEST_QUERY_COUNT']
         user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
         user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
@@ -127,7 +126,7 @@ def preprocess(i):
 
     env['CM_MLC_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
-    mode = env['CM_LOADGEN_MODE']
+    mode = env.get('CM_LOADGEN_MODE', "accuracy")
     mode_extra_options = ""
     OUTPUT_DIR =  os.path.join(env['CM_MLC_RESULTS_DIR'], env['CM_BACKEND'] + "-" + env['CM_DEVICE'], \
             env['CM_MODEL'], scenario.lower(), mode)
