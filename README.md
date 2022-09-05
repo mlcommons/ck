@@ -26,6 +26,17 @@ python3 -m pip install cmind
 cm pull repo mlcommons@ck
 cm run script --tags=app,image-classification,onnx,python --quiet
 ```
+
+or using Python scripting:
+```python
+import cmind
+r=cmind.access({'action':'run', 'automation':'script'
+                'tags':['app','image-classification','onnx','python'],
+                'quiet':True})
+print (r)
+```
+
+
 It may take a few minutes to run this workflow for the first time and adapt it to your platform depending on the internet speed.
 Note that all the subsequent runs will be much faster because CM automatically caches the output of all components to be quickly reused
 in this and other CM workflows.
