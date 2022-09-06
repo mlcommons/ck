@@ -364,6 +364,7 @@ No warnings encountered during test.
 
 1 ERROR encountered. See detailed log.
 ```
+Note that MLPerf reports this run as INVALID because we force MLPerf to run just a few seconds for a demo instead of 10 minutes. The 1 reported ERROR is because the early stopping requirement failed due to runtime being less
 
 ## Run MLPerf vision benchmark - RetinaNet - Open Images - ONNX - offline - accuracy
 ```bash
@@ -404,8 +405,13 @@ mAP=54.314%
 
 ## Run MLPerf vision benchmark - ResNet-50 - ImageNet 100 images - TVM - offline - accuracy
 ```bash
-cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_tvm-onnx,_cpu,_r2.1_default               --env.CM_LOADGEN_MODE=accuracy --quiet --env.CM_LOADGEN_SCENARIO=Offline --add_deps.inference-src.tags=_tvm
+cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_tvm-onnx,_cpu,_r2.1_default \
+--env.CM_LOADGEN_MODE=accuracy \
+--env.CM_LOADGEN_SCENARIO=Offline \
+--add_deps.inference-src.tags=_tvm \
+--quiet
 ```
+
 ```
 accuracy=80.000%, good=80, total=100
 ```
