@@ -30,7 +30,8 @@
     {
       "enable_if_env": {
         "CM_BACKEND": [
-          "onnxruntime"
+          "onnxruntime",
+          "tvm-onnx"
         ]
       },
       "tags": "get,onnxruntime"

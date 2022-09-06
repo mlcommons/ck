@@ -56,11 +56,16 @@ def preprocess(i):
             if 'host_processors_per_node' not in state['CM_SUT_META']:
                 state['CM_SUT_META']['host_processors_per_node'] = env['CM_CPUINFO_Sockets']
             if 'host_processor_caches' not in state['CM_SUT_META']:
-                state['CM_SUT_META']['host_processors_caches'] = "L1d cache: " + env['CM_CPUINFO_L1d_cache'] + \
+                state['CM_SUT_META']['host_processor_caches'] = "L1d cache: " + env['CM_CPUINFO_L1d_cache'] + \
                         ", L1i cache: " + env['CM_CPUINFO_L1i_cache'] + ", L2 cache: " + env['CM_CPUINFO_L2_cache'] + \
                         ", L3 cache: " + env['CM_CPUINFO_L3_cache']
             if 'host_processor_frequency' not in state['CM_SUT_META']:
                 state['CM_SUT_META']['host_processor_frequency'] = env['CM_CPUINFO_CPU_max_MHz']
+            if 'CM_SUT_SW_NOTES' in env:
+                sw_notes = env['CM_SUT_SW_NOTES']
+            else:
+                sw_notes = ''
+            state['CM_SUT_META']['sw_notes'] = sw_notes
 
             state['CM_SUT_META'] = dict(sorted(state['CM_SUT_META'].items()))
 
