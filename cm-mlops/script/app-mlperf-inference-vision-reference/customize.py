@@ -228,6 +228,7 @@ def get_checker_files(mlc_path):
 
 def postprocess(i):
     env = i['env']
+    inp = i['input']
     state = i['state']
     if env['CM_MLC_USER_CONF'] == '':
         return {'return': 0}
@@ -264,8 +265,12 @@ def postprocess(i):
             shutil.copy(env['CM_MLC_MLPERF_CONF'], 'mlperf.conf')
         if os.path.exists(env['CM_MLC_USER_CONF']):
             shutil.copy(env['CM_MLC_USER_CONF'], 'user.conf')
+        if "cmd" in inp:
+            cmd = "cm run script \\\n\t"+" \\\n\t".join(inp['cmd'])
+        else:
+            cmd = ""
         readme_init = ""
-        readme_body = "##\n```\n" + env['CM_MLC_RUN_CMD'] + "\n```"
+        readme_body = "## CM Run Command\n```\n" + cmd + "\n```"
         readme = readme_init + readme_body
         with open ("README.md", "w") as fp:
             fp.write(readme)
