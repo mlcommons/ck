@@ -208,7 +208,7 @@ The next time, you run the MLPerf benchmark via CM without *--quiet* flag,
 it will detect several cached versions of TVM and will ask you which one to plug into the workflow
 before running the benchmark.
 
-Such plug&play CM approach allows to automtically test the accuracy of MLPerf benchmark and detect errors 
+Such plug&play CM approach allows to automatically test the accuracy of MLPerf benchmark and detect errors 
 in new or different versions of engines, libraries, models and tools.
 
 
@@ -239,7 +239,7 @@ are being updated after running each CM dependency.
 
 ## Run MLPerf vision benchmark - ResNet-50 - ImageNet 100 images - ONNX - offline - performance
 
-For exampe, you can run the same MLPerf workflow to measure performance in offline mode using the following command:
+For example, you can run the same MLPerf workflow to measure performance in offline mode using the following command:
 ```bash
 cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_onnxruntime,_cpu,_r2.1_default \
               --env.CM_LOADGEN_MODE=performance --quiet
