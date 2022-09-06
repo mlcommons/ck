@@ -52,7 +52,7 @@ def postprocess(i):
             v = s.split(':')
             key = v[0]
             if key in vkeys:
-                env_key = 'CM_CPUINFO_'+key.replace(" ","_").replace('(','').replace(')','').replace('-','_')
+                env_key = 'CM_CPUINFO_'+key.replace(" ","_").replace('(','').replace(')','').replace('-','_').replace('.','_')
                 if env_key in unified_env:
                     env[unified_env[env_key]]=v[1].strip()
                 else:
