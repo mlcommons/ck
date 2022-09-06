@@ -197,6 +197,21 @@ cm rm cache -f --tags=dataset
 This will force CM to download and/or reinstall required components during the subsequent run of a given workflow.
 
 
+## Use different engine version
+
+You can also install a different version of ONNX runtime (or any other component) 
+using the corresponding CM script as follows:
+```bash
+cm run script --tags=get,onnxruntime --version=1.10.0
+```
+The next time, you run the MLPerf benchmark via CM without *--quiet* flag, 
+it will detect several cached versions of TVM and will ask you which one to plug into the workflow
+before running the benchmark.
+
+Such plug&play CM approach allows to automtically test the accuracy of MLPerf benchmark and detect errors 
+in new or different versions of engines, libraries, models and tools.
+
+
 ## Customize MLPerf vision benchmark
 
 You can customize the execution of CM scripts using variations (tags with *_* prefix), 
@@ -459,19 +474,6 @@ at the end of the workflow execution:
 accuracy=80.000%, good=80, total=100
 ```
 
-You can also install a different version of TVM (or any other framework) using the corresponding
-CM script as follows:
-```bash
-cm run script --tags=get,tvm --version=v0.8.0
-```
-
-The next time, you run the MLPerf benchmark via CM without *--quiet* flag, 
-it will detect several cached versions of TVM and will ask you which one to plug into the workflow
-before running the benchmark.
-
-Such plug&play CM approach allows to automtically test the accuracy of MLPerf benchmark and detect errors 
-in new or different versions of engines, libraries, models and tools.
-
 ## Automate MLPerf submission
 
 Finally, we created another portable CM script as a wrapper to above MLPerf workflow 
@@ -488,6 +490,8 @@ cm run script --tags=generate-run-cmds,_submission \
   --env.CM_HW_NAME=gcp-n2-standard-80 \
   --env.CM_MLC_SUBMITTER=OctoML
 ```
+
+You can find submittable results in the $HOME/results directory.
 
 We continue improving this script with the community in the [open workgroup](mlperf-education-workgroup.md)
 to make it easier for organizations to run MLPerf benchmark and submit valid results.
