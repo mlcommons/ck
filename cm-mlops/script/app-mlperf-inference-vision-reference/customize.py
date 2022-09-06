@@ -94,6 +94,8 @@ def preprocess(i):
     user_conf = ''
     if ['CM_RUN_STYLE'] == "fast":
         fast_factor = env['CM_FAST_FACTOR']
+    else:
+        fast_factor = 1
     for metric in conf:
         metric_value = conf[metric]
         if env['CM_RUN_STYLE'] == "fast":
@@ -245,6 +247,10 @@ def postprocess(i):
         measurements['weight_transformations'] = env.get('MODEL_WEIGHT_TRANSFORMATIONS', 'none')
         output_dir = env['CM_MLC_OUTPUT_DIR']
         os.chdir(output_dir)
+        print("\n")
+        with open("mlperf_log_summary.txt", "r") as fp:
+            print(fp.read())
+
         if mode == "accuracy":
             accuracy_result_dir = output_dir
         with open ("measurements.json", "w") as fp:
