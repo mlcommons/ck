@@ -290,15 +290,19 @@ No errors encountered during test.
 Note that MLPerf reports this run as INVALID because we force MLPerf to run just a few seconds for a demo instead of 10 minutes.
 
 
-
-
 ## Run MLPerf vision benchmark - ResNet-50 - ImageNet 100 images - ONNX - server - performance
+
+We can now run the same workflow in the server mode as follows:
+
 ```bash
 cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_onnxruntime,_cpu,_r2.1_default  \
---env.CM_LOADGEN_MODE=performance \
---env.CM_LOADGEN_SCENARIO=Server \
---quiet
+  --env.CM_LOADGEN_MODE=performance \
+  --env.CM_LOADGEN_SCENARIO=Server \
+  --quiet
 ```
+
+CM will print the MLPerf results summary in case of the successful run:
+
 ```
 ================================================
 MLPerf Results Summary
@@ -364,15 +368,24 @@ No warnings encountered during test.
 
 1 ERROR encountered. See detailed log.
 ```
-Note that MLPerf reports this run as INVALID because we force MLPerf to run just a few seconds for a demo instead of 10 minutes. The 1 reported ERROR is because the early stopping requirement failed due to runtime being less
+
+Note that MLPerf reports this run as INVALID because we force MLPerf to run just a few seconds for a demo instead of 10 minutes. 
+The one reported ERROR is because the early stopping requirement failed due to runtime being less than 10 minutes.
 
 ## Run MLPerf vision benchmark - RetinaNet - Open Images - ONNX - offline - accuracy
+
+Instead of running MLPerf image classification, we can run object detection with RetinaNet 
+model and Open Images dataset using the same CM automation workflow as follows:
+
 ```bash
 cm run script --tags=app,mlperf,inference,ref,python,_retinanet,_onnxruntime,_cpu,_r2.1_default \
---env.CM_LOADGEN_MODE=accuracy \
---env.CM_LOADGEN_SCENARIO=Offline \
---quiet
+  --env.CM_LOADGEN_MODE=accuracy \
+  --env.CM_LOADGEN_SCENARIO=Offline \
+  --quiet
 ```
+
+CM will print mAP after the successful run:
+
 ```
 loading annotations into memory...
 Done (t=2.47s)
@@ -403,21 +416,67 @@ mAP=54.314%
 
 ```
 
+Note that this CM workflow will automatically download RetinaNet model using this 
+[portable CM script](https://github.com/octoml/ck/tree/master/cm-mlops/script/get-ml-model-resnext50) 
+and Open Images using another [portable CM script](https://github.com/octoml/ck/tree/master/cm-mlops/script/get-openimages-original)
+while reusing all other cached dependencies.
+
+You can check that CM successfully cached this model and dataset as follows:
+
+```bash
+cm show cache --tags=ml-model
+cm show cache --tags=dataset
+```
+You can even find them and reuse them in other projects as follows:
+
+```bash
+cm find cache --tags=dataset,openimages
+
+ls `cm find cache --tags=dataset,openimages`/install
+ls `cm find cache --tags=ml-model,retinanet`/install
+```
+
 ## Run MLPerf vision benchmark - ResNet-50 - ImageNet 100 images - TVM - offline - accuracy
+
+CM workflows allow to plug other ML engines to MLPerf such as TVM (or PyTorch, TF, TFLite, etc) 
+in the same workflow. For example, we can run the same MLPerf vision benchmark with already
+cached components and TVM backend (that OctoML recently added to MLPerf):
+
 ```bash
 cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_tvm-onnx,_cpu,_r2.1_default \
---env.CM_LOADGEN_MODE=accuracy \
---env.CM_LOADGEN_SCENARIO=Offline \
---add_deps.inference-src.tags=_tvm \
---quiet
+  --env.CM_LOADGEN_MODE=accuracy \
+  --env.CM_LOADGEN_SCENARIO=Offline \
+  --add_deps.inference-src.tags=_tvm \
+  --quiet
 ```
+
+The CM workflow will automatically download and build TVM together with other dependencies
+including cmake, llvm, and then run MLPerf with the new engine. 
+Normally, you should see the same accuracy as with ONNX runtime
+at the end of the workflow execution:
 
 ```
 accuracy=80.000%, good=80, total=100
 ```
 
+You can also install a different version of TVM (or any other framework) using the corresponding
+CM script as follows:
+```bash
+cm run script --tags=get,tvm --version=v0.8.0
+```
+
+The next time, you run the MLPerf benchmark via CM without *--quiet* flag, 
+it will detect several cached versions of TVM and will ask you which one to plug into the workflow
+before running the benchmark.
+
+Such plug&play CM approach allows to automtically test the accuracy of MLPerf benchmark and detect errors 
+in new or different versions of engines, libraries, models and tools.
 
 ## Automate MLPerf submission
+
+Finally, we created another portable CM script as a wrapper to above MLPerf workflow 
+to automatically generate and validate MLPerf submissions:
+
 ```bash
 cm run script --tags=generate-run-cmds,_submission \
 --add_deps_recursive.inference-src.tags=_octoml \
@@ -430,6 +489,8 @@ cm run script --tags=generate-run-cmds,_submission \
 --env.CM_MLC_SUBMITTER=OctoML
 ```
 
+We continue improving this script with the community in the [open workgroup](mlperf-education-workgroup.md)
+to make it easier for organizations to run MLPerf benchmark and submit valid results.
 
 
 ## The next steps
