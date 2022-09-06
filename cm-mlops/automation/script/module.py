@@ -1878,8 +1878,8 @@ def clean_tmp_files(clean_files, recursion_spaces):
     Internal: clean tmp files
     """
 
-    print ('')
-    print (recursion_spaces+'  - cleaning files {} ...'.format(clean_files))
+#    print ('')
+#    print (recursion_spaces+'  - cleaning files {} ...'.format(clean_files))
 
     for tmp_file in clean_files:
         if os.path.isfile(tmp_file):
