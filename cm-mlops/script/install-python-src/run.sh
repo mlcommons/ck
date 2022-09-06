@@ -48,18 +48,18 @@ if [ "${?}" != "0" ]; then exit 1; fi
 
 cd Python-${PYTHON_VERSION}
 
-./configure --enable-optimizations ${SHARED_BUILD_FLAGS} ${EXTRA_FLAGS} --with-ensurepip=install --prefix=${CUR_DIR}/install
+./configure --enable-optimizations ${SHARED_BUILD_FLAGS} ${EXTRA_FLAGS} --with-ensurepip=install --prefix="${CUR_DIR}/install"
 if [ "${?}" != "0" ]; then exit 1; fi
 
 make -j${CM_MAKE_CORES} install
 if [ "${?}" != "0" ]; then exit 1; fi
 
-cd ${CUR_DIR} && \
+cd "${CUR_DIR}" && \
 rm -rf src
 
 if [ "${?}" != "0" ]; then exit 1; fi
 
-cd ${CUR_DIR}/install/bin && ln -s python3 python
+cd "${CUR_DIR}/install/bin" && ln -s python3 python
 
 echo "********************************************************"
 echo "Python was built and installed to ${CUR_DIR}/install ..."
