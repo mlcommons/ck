@@ -148,6 +148,8 @@ def parse(cmd):
     if len(artifacts) > 0:
         cm_input['artifacts'] = artifacts
 
+    cm_input['cmd'] = cmd
+
     return {'return':0, 'cm_input':cm_input}
 
 if __name__ == "__main__":
