@@ -150,7 +150,7 @@
           "tvm-onnx"
         ]
       },
-      "tags": "get,tvm",
+      "tags": "get,tvm,_llvm",
       "names": [ "tvm" ]
     },
     {
