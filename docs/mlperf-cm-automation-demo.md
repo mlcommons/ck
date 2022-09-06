@@ -228,7 +228,7 @@ cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_onnxruntime,_cpu
 ```
 
 CM will reuse all cached MLPerf components, files and environment variables and will quickly start measuring performance on the ResNet-50 model.
-You should the MLPerf benchmarking report after a successful run:
+You should see the MLPerf benchmarking report after a successful run:
 
 ```
 ================================================
@@ -293,18 +293,136 @@ Note that MLPerf reports this run as INVALID because we force MLPerf to run just
 
 
 ## Run MLPerf vision benchmark - ResNet-50 - ImageNet 100 images - ONNX - server - performance
+```bash
+cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_onnxruntime,_cpu,_r2.1_default  \
+--env.CM_LOADGEN_MODE=performance \
+--env.CM_LOADGEN_SCENARIO=Server \
+--quiet
+```
+```
+================================================
+MLPerf Results Summary
+================================================
+SUT name : PySUT
+Scenario : Server
+Mode     : PerformanceOnly
+Scheduled samples per second : 100.67
+Result is : INVALID
+  Performance constraints satisfied : NO
+  Min duration satisfied : NO
+  Min queries satisfied : Yes
+  Early stopping satisfied: NO
+Recommendations:
+ * Reduce target QPS to improve latency.
+ * Increase the target QPS so the loadgen pre-generates more queries.
+Early Stopping Result:
+ * Run unsuccessful.
+ * Processed 100 queries.
+ * Would need to run at least 12471 more queries,
+ with the run being successful if every additional
+ query were under latency.
 
+================================================
+Additional Stats
+================================================
+Completed samples per second    : 30.23
 
+Min latency (ns)                : 121384491
+Max latency (ns)                : 2398618166
+Mean latency (ns)               : 1340836884
+50.00 percentile latency (ns)   : 1368839459
+90.00 percentile latency (ns)   : 2271155990
+95.00 percentile latency (ns)   : 2343500573
+97.00 percentile latency (ns)   : 2366839679
+99.00 percentile latency (ns)   : 2398618166
+99.90 percentile latency (ns)   : 2398618166
+
+================================================
+Test Parameters Used
+================================================
+samples_per_query : 1
+target_qps : 100
+target_latency (ns): 15000000
+max_async_queries : 0
+min_duration (ms): 600000
+max_duration (ms): 0
+min_query_count : 100
+max_query_count : 100
+qsl_rng_seed : 14284205019438841327
+sample_index_rng_seed : 4163916728725999944
+schedule_rng_seed : 299063814864929621
+accuracy_log_rng_seed : 0
+accuracy_log_probability : 0
+accuracy_log_sampling_target : 0
+print_timestamps : 0
+performance_issue_unique : 0
+performance_issue_same : 0
+performance_issue_same_index : 0
+performance_sample_count : 1024
+
+No warnings encountered during test.
+
+1 ERROR encountered. See detailed log.
+```
 
 ## Run MLPerf vision benchmark - RetinaNet - Open Images - ONNX - offline - accuracy
+```bash
+cm run script --tags=app,mlperf,inference,ref,python,_retinanet,_onnxruntime,_cpu,_r2.1_default \
+--env.CM_LOADGEN_MODE=accuracy \
+--env.CM_LOADGEN_SCENARIO=Offline \
+--quiet
+```
+```
+loading annotations into memory...
+Done (t=2.47s)
+creating index...
+index created!
+Loading and preparing results...
+DONE (t=0.35s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=4.45s).
+Accumulating evaluation results...
+DONE (t=3.21s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.543
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.751
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.574
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.209
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.259
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.598
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.497
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.633
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.642
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.249
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.391
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.683
+mAP=54.314%
 
-
+```
 
 ## Run MLPerf vision benchmark - ResNet-50 - ImageNet 100 images - TVM - offline - accuracy
+```bash
+cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_tvm-onnx,_cpu,_r2.1_default               --env.CM_LOADGEN_MODE=accuracy --quiet --env.CM_LOADGEN_SCENARIO=Offline --add_deps.inference-src.tags=_tvm
+```
+```
+accuracy=80.000%, good=80, total=100
+```
 
 
 ## Automate MLPerf submission
-
+```bash
+cm run script --tags=generate-run-cmds,_submission \
+--add_deps_recursive.inference-src.tags=_octoml \
+--add_deps_recursive.compiler.tags=llvm \
+--add_deps_recursive.loadgen.version=r2.1 \
+--env.CM_MODEL=resnet50 \
+--env.CM_DEVICE=cpu \
+--env.CM_BACKEND=onnxruntime \
+--env.CM_HW_NAME=gcp-n2-standard-80 \
+--env.CM_MLC_SUBMITTER=OctoML
+```
 
 
 
