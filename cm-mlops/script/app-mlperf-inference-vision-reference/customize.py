@@ -104,6 +104,11 @@ def preprocess(i):
             if metric == "target_latency" and scenario in [ "SingleStream", "MultiStream" ]:
                 metric_value *= fast_factor
             conf[metric] = metric_value
+        elif env['CM_RUN_STYLE'] == "test":
+            if metric == "target_qps" and scenario == "Offline":
+                metric_value = 1
+            if metric == "target_latency" and scenario in [ "SingleStream" ]:
+                metric_value = 1000
         user_conf += env['CM_MODEL'] + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
 
     if env['CM_RUN_STYLE'] == "test":
