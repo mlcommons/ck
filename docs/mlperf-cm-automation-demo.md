@@ -479,14 +479,14 @@ to automatically generate and validate MLPerf submissions:
 
 ```bash
 cm run script --tags=generate-run-cmds,_submission \
---add_deps_recursive.inference-src.tags=_octoml \
---add_deps_recursive.compiler.tags=llvm \
---add_deps_recursive.loadgen.version=r2.1 \
---env.CM_MODEL=resnet50 \
---env.CM_DEVICE=cpu \
---env.CM_BACKEND=onnxruntime \
---env.CM_HW_NAME=gcp-n2-standard-80 \
---env.CM_MLC_SUBMITTER=OctoML
+  --add_deps_recursive.inference-src.tags=_octoml \
+  --add_deps_recursive.compiler.tags=llvm \
+  --add_deps_recursive.loadgen.version=r2.1 \
+  --env.CM_MODEL=resnet50 \
+  --env.CM_DEVICE=cpu \
+  --env.CM_BACKEND=onnxruntime \
+  --env.CM_HW_NAME=gcp-n2-standard-80 \
+  --env.CM_MLC_SUBMITTER=OctoML
 ```
 
 We continue improving this script with the community in the [open workgroup](mlperf-education-workgroup.md)
