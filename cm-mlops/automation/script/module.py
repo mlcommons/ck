@@ -200,6 +200,8 @@ class CAutomation(Automation):
 
           (remembered_selections) (list): remember selections of cached outputs
 
+          (print_env) (bool): if True, print aggregated env before each run of a native script
+
           ...
 
         Returns:
@@ -238,6 +240,8 @@ class CAutomation(Automation):
         saved_state = copy.deepcopy(state)
 
         save_env = i.get('save_env', False)
+
+        print_env = i.get('print_env', False)
 
         # Get constant env and state
         const = i.get('const',{})
@@ -1067,6 +1071,10 @@ class CAutomation(Automation):
 
             # Prepare run script before post deps
             run_script_after_post_deps = meta.get('run_script_after_post_deps', False)
+
+            if print_env:
+                import json
+                print (json.dumps(env, indent=2, sort_keys=True))
 
             if not run_script_after_post_deps:
                 run_script_input['meta'] = meta
