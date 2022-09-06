@@ -50,17 +50,18 @@ def preprocess(i):
             state['CM_SUT_META']['operating_system'] = os_name_string
             state['CM_SUT_META']['other_software_stack'] = "Python: " + python_version + ", " + compiler + "-" + compiler_version
             if 'host_processor_core_count' not in state['CM_SUT_META']:
-                state['CM_SUT_META']['host_processor_core_count'] = env['CM_CPUINFO_CPUs']
+                state['CM_SUT_META']['host_processor_core_count'] = env.get('CM_CPUINFO_CPUs', '')
             if 'host_processor_model_name' not in state['CM_SUT_META']:
-                state['CM_SUT_META']['host_processor_model_name'] = env['CM_CPUINFO_Model_name']
+                state['CM_SUT_META']['host_processor_model_name'] = env.get('CM_CPUINFO_Model_name', '')
             if 'host_processors_per_node' not in state['CM_SUT_META']:
-                state['CM_SUT_META']['host_processors_per_node'] = env['CM_CPUINFO_Sockets']
+                state['CM_SUT_META']['host_processors_per_node'] = env.get('CM_CPUINFO_Sockets', '')
             if 'host_processor_caches' not in state['CM_SUT_META']:
-                state['CM_SUT_META']['host_processor_caches'] = "L1d cache: " + env['CM_CPUINFO_L1d_cache'] + \
-                        ", L1i cache: " + env['CM_CPUINFO_L1i_cache'] + ", L2 cache: " + env['CM_CPUINFO_L2_cache'] + \
-                        ", L3 cache: " + env['CM_CPUINFO_L3_cache']
+                state['CM_SUT_META']['host_processor_caches'] = "L1d cache: " + env.get('CM_CPUINFO_L1d_cache', ' ') + \
+                        ", L1i cache: " + env.get('CM_CPUINFO_L1i_cache', ' ') + ", L2 cache: " + \
+                        env.get('CM_CPUINFO_L2_cache', ' ') + \
+                        ", L3 cache: " + env.get('CM_CPUINFO_L3_cache', ' ')
             if 'host_processor_frequency' not in state['CM_SUT_META']:
-                state['CM_SUT_META']['host_processor_frequency'] = env['CM_CPUINFO_CPU_max_MHz']
+                state['CM_SUT_META']['host_processor_frequency'] = env.get('CM_CPUINFO_CPU_max_MHz','')
             if 'CM_SUT_SW_NOTES' in env:
                 sw_notes = env['CM_SUT_SW_NOTES']
             else:

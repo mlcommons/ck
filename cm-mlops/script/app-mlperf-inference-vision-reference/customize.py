@@ -51,7 +51,7 @@ def preprocess(i):
         if 'CM_MINIMIZE_THREADS' in env:
             env['CM_NUM_THREADS'] = str(int(env['CM_CPUINFO_CPUs']) // (int(env['CM_CPUINFO_Sockets']) * int(env['CM_CPUINFO_Threads_per_core']) ))
         else:
-            env['CM_NUM_THREADS'] = str(int(env['CM_CPUINFO_CPUs']))
+            env['CM_NUM_THREADS'] = env.get('CM_CPUINFO_CPUs', '1')
 
 
     if 'CM_LOADGEN_MAX_BATCHSIZE' in env:
