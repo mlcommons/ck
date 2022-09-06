@@ -1,5 +1,7 @@
 # CM demo: modularizing MLPerf benchmarks and automating submissions
 
+## Motivation
+
 This tutorial demonstrates how to use the [MLCommons Collective Mind toolkit (CM)](https://github.com/mlcommons/ck) 
 being developed by the [open education workgroup](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
 to make it easier to run [MLPerf inference benchmark](https://github.com/mlcommons/inference)
@@ -34,12 +36,15 @@ is intended to make CM easier to use and extend by both researchers and engineer
 The CM toolkit requires minimal dependencies: Python 3+, Python PIP and a Git client. 
 
 CM will then automatically install all other dependencies and artifacts into a local CM repository
-to bootstrap any given workflow (such as MLPerf benchmark) without even intefering with the system setup!
+to bootstrap any given workflow (such as MLPerf benchmark) without even interfering with the system setup!
 
 Here is a typical minimal CM setup on Ubuntu:
 
 ```bash
 sudo apt-get install python3 python3-pip git wget
+```
+
+```bash
 python3 -m pip install cmind
 ```
 
@@ -61,6 +66,7 @@ as follows:
 cm pull repo mlcommons@ck
 ```
 
+<details>
 You can list all portable and reusable CM scripts to modularize and automate MLPerf as follows:
 ```bash
 cm list script | sort
@@ -107,10 +113,9 @@ cm list script | sort
 /home/grigori/CM/repos/mlcommons@ck/cm-mlops/script/run-mlc-submission-checker
 
 ```
+</details>
 
-## Run MLPerf inference
-
-### Vision benchmark - ResNet-50 - ImageNet 100 images - ONNX - offline - accuracy
+## Run MLPerf vision benchmark - ResNet-50 - ImageNet 100 images - ONNX - offline - accuracy
 
 You can now run the MLPerf vision benchmark r2.1 with default parameters 
 (reduced ImageNet with 100 original images, ResNet-50 model in ONNX format, 
@@ -118,18 +123,50 @@ ONNX runtime, offline MLPerf scenario and accuracy mode)
 using the following CM command:
 
 ```bash
-cm run script --tags=app,mlperf,inference,reference,python,_resnet50,_onnxruntime,_cpu,_r2.1_default --quiet
+cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_onnxruntime,_cpu,_r2.1_default --quiet
 ```
 
-CM will automatically search for a portable CM script using above tags in all CM repositories 
-installed on your system (this allows one to easily combine public and private automation scripts and artifacts)
-and will run it according to its human readable meta description provided in either *_cm.json*
+<details>
+CM will automatically search for a portable CM script with a combination of above tags 
+(without *_* prefix that will be explained later) in all CM repositories installed on your system -
+this allows organizations to easily combine public and private automation scripts and artifacts!
+
+CM will simply read all [*_cm.json*](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/_cm.json) files
+in CM repositories and compare the above combination of tags with a "tags" key.
+
+CM will then run the [found script](https://github.com/octoml/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference) 
+according to its human readable meta description provided in either *_cm.json*
 or *_cm.yaml* file as shown [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/_cm.json).
 
-It may take a few minutes to automatically detect, download and/or install all necessary ML components
-required for this CM workflow (which is also a portable CM script with 
-[dependencies on other CM scripts](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/_cm.json#L5))
+Tags with "_" prefix are called variations and help users customize the workflow 
+by forcing some environment variables, flags and dependencies
+for specific releases and purposes (see the key "variations" in *_cm.json* 
+for all available variations for the above MLPerf
+workflow [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/_cm.json#L193).
+
+For example, variation *resnet50* forces this MLPerf workflow to download and use ResNet-50 model,
+variation *onnxruntime* forces this workflow to detect or install ONNX runtime
+and variation *r2.1_default* forces this workflow to skip installing system utils,
+sets query count to 100, forces the use of LLVM compiler,
+forces the download and installation of loadgen for official MLPerf submission v2.1,
+and forces overwriting of benchmarking results in consecutive runs.
+
+The flag *quiet* tells CM to select default scripts when more than one script is found in dependencies
+and to skip all questions. 
+
+</details>
+
+It will take 3..10 minutes to automatically detect, download and/or install all necessary ML components
+required for this CM MLPerf workflow (which is also a portable CM script with 
+simple [dependencies on other CM scripts](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/_cm.json#L5))
 depending on the speed of your Internet connection.
+
+At the end of the execution, you should see accuracy reported by MLPerf infrastructure and postprocessed by the CM script:
+```
+accuracy=80.000%, good=80, total=100
+```
+
+## Use CM cache (automatic)
 
 Note that CM will automatically cache CM scripts during the first run!
 This means that when you run the MLPerf benchmark again using CM,
@@ -152,35 +189,133 @@ In case you need to perform a "clean" run without cached components, you can cle
 cm rm cache -f
 ```
 
-Or you can clean the cache for specific CM components such as datasets as follows:
+You can also clean the CM cache for specific CM components such as datasets as follows:
 ```bash
 cm rm cache -f --tags=dataset
 ```
 
 This will force CM to download and/or reinstall required components during the subsequent run of a given workflow.
 
-## Customize MLPerf workflow
 
-TBD
+## Customize MLPerf vision benchmark
 
---add_deps_recursive.compiler.tags=gcc
+You can customize the execution of CM scripts using variations (tags with *_* prefix), 
+environment variables (flag *--env.VAR=VALUE*), 
+dependencies (flag --add_deps_recursive.DEPENDENCY_NAME.tags=EXTRA TAGS),
+and other flags that are converted to CM_flag environment variables:
 
-## Run MLPerf inference with different tasks, models and engines
+```bash
+cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_onnxruntime,_cpu \
+   --output_dir=$HOME/results \
+   --add_deps_recursive.imagenet.tags=_2012-500 \
+   --add_deps_recursive.compiler.tags=llvm \
+   --add_deps_recursive.inference-src.tags=_octoml \
+   --add_deps_recursive.loadgen.version=r2.1 \
+   --env.CM_SKIP_SYS_UTILS=yes \
+   --env.CM_RERUN=yes \
+   --env.CM_TEST_QUERY_COUNT=100 \
+   --env.CM_LOADGEN_MODE=accuracy \
+   --env.CM_LOADGEN_SCENARIO=Offline \
+   --env.CM_SUT_NAME=gcp-n2-standard-80-onnxruntime
+```
 
-### Vision benchmark - ResNet-50 - ImageNet 100 images - ONNX - offline - performance
+## Run MLPerf vision benchmark - ResNet-50 - ImageNet 100 images - ONNX - offline - performance
 
-### Vision benchmark - RetinaNet - Open Images - ONNX - offline - accuracy
+For exampe, you can run the same MLPerf workflow to measure performance in offline mode using the following command:
+```bash
+cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_onnxruntime,_cpu,_r2.1_default \
+              --env.CM_LOADGEN_MODE=performance --quiet
+```
 
-### Vision benchmark - ResNet-50 - ImageNet 100 images - TVM - offline - accuracy
+CM will reuse all cached MLPerf components, files and environment variables and will quickly start measuring performance on the ResNet-50 model.
+You should the MLPerf benchmarking report after a successful run:
+
+```
+================================================
+MLPerf Results Summary
+================================================
+SUT name : PySUT
+Scenario : Offline
+Mode     : PerformanceOnly
+Samples per second: 410.191
+Result is : INVALID
+  Min duration satisfied : NO
+  Min queries satisfied : Yes
+  Early stopping satisfied: Yes
+Recommendations:
+ * Increase expected QPS so the loadgen pre-generates a larger (coalesced) query.
+
+================================================
+Additional Stats
+================================================
+Min latency (ns)                : 652722667
+Max latency (ns)                : 1609007888
+Mean latency (ns)               : 1236473032
+50.00 percentile latency (ns)   : 1377611126
+90.00 percentile latency (ns)   : 1604137492
+95.00 percentile latency (ns)   : 1604775709
+97.00 percentile latency (ns)   : 1609007888
+99.00 percentile latency (ns)   : 1609007888
+99.90 percentile latency (ns)   : 1609007888
+
+================================================
+Test Parameters Used
+================================================
+samples_per_query : 660
+target_qps : 1
+target_latency (ns): 0
+max_async_queries : 1
+min_duration (ms): 600000
+max_duration (ms): 0
+min_query_count : 1
+max_query_count : 100
+qsl_rng_seed : 14284205019438841327
+sample_index_rng_seed : 4163916728725999944
+schedule_rng_seed : 299063814864929621
+accuracy_log_rng_seed : 0
+accuracy_log_probability : 0
+accuracy_log_sampling_target : 0
+print_timestamps : 0
+performance_issue_unique : 0
+performance_issue_same : 0
+performance_issue_same_index : 0
+performance_sample_count : 1024
+
+No warnings encountered during test.
+
+No errors encountered during test.
+
+```
+
+Note that MLPerf reports this run as INVALID because we force MLPerf to run just a few seconds for a demo instead of 10 minutes.
+
+
+
+
+## Run MLPerf vision benchmark - ResNet-50 - ImageNet 100 images - ONNX - server - performance
+
+
+
+## Run MLPerf vision benchmark - RetinaNet - Open Images - ONNX - offline - accuracy
+
+
+
+## Run MLPerf vision benchmark - ResNet-50 - ImageNet 100 images - TVM - offline - accuracy
 
 
 ## Automate MLPerf submission
 
 
+
+
 ## The next steps
 
-Please feel free to follow the [MLCommons CM project](https://github.com/mlcommons/ck),
-check the [CM tutorial about portable CM scripts](../cm/docs/tutorial-scripts.md) 
+We suggest you to check the following [CM tutorial](../cm/docs/tutorial-scripts.md)
+to understand the concept of portable CM scripts and workflows.
+
+Feel free to follow the [MLCommons CM project](https://github.com/mlcommons/ck),
 and join our [open education workgroup](mlperf-education-workgroup.md) 
 to participate in this community project.
 
+Don't hesitate to open a [ticket](https://github.com/mlcommons/ck/issues) 
+if you have questions about CM, automation scripts and MLPerf workflows.
