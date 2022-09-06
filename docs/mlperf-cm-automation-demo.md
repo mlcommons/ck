@@ -234,6 +234,9 @@ cm run script --tags=app,mlperf,inference,ref,python,_resnet50,_onnxruntime,_cpu
    --env.CM_SUT_NAME=gcp-n2-standard-80-onnxruntime
 ```
 
+Note that if you add a flag *--print_env*, you will see how environment variables
+are being updated after running each CM dependency.
+
 ## Run MLPerf vision benchmark - ResNet-50 - ImageNet 100 images - ONNX - offline - performance
 
 For exampe, you can run the same MLPerf workflow to measure performance in offline mode using the following command:
