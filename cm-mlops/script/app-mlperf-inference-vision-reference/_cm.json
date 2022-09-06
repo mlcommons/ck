@@ -289,6 +289,7 @@
     "r2.1_default": {
       "env": {
 	"CM_SKIP_SYS_UTILS": "yes",
+	"CM_RERUN": "yes",
         "CM_TEST_QUERY_COUNT": "100"
       },
       "add_deps_recursive": {
