@@ -4,7 +4,7 @@ CUR_DIR=$PWD
 
 echo "***********************************************************"
 export PYTHON_VERSION=${CM_VERSION}
-CM_WGET_URL="${CM_WGET_URL//"[PYTHON_VERSION]"/"$PYTHON_VERSION"}"
+CM_WGET_URL="${CM_WGET_URL//"[PYTHON_VERSION]"/$PYTHON_VERSION}"
 
 echo "CM_WGET_URL=${CM_WGET_URL}" >> tmp-run-env.out
 echo "wget Python src from ${CM_WGET_URL} for version ${PYTHON_VERSION}..."
