@@ -22,6 +22,14 @@ def preprocess(i):
     required_files = []
     required_files = get_checker_files(env['CM_MLC_INFERENCE_SOURCE'])
 
+    if 'CM_LOADGEN_SCENARIO' not in env:
+        env['CM_LOADGEN_SCENARIO'] = "Offline"
+    if 'CM_LOADGEN_MODE' not in env:
+        env['CM_LOADGEN_MODE'] = "accuracy"
+    if 'CM_MODEL' not in env:
+        env['CM_MODEL'] = "resnet50"
+
+
     if env['CM_MODEL'] == "resnet50":
         cmd = "cp " + os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt") + " " + os.path.join(env['CM_DATASET_PATH'],
         "val_map.txt")
@@ -43,7 +51,7 @@ def preprocess(i):
         if 'CM_MINIMIZE_THREADS' in env:
             env['CM_NUM_THREADS'] = str(int(env['CM_CPUINFO_CPUs']) // (int(env['CM_CPUINFO_Sockets']) * int(env['CM_CPUINFO_Threads_per_core']) ))
         else:
-            env['CM_NUM_THREADS'] = str(int(env['CM_CPUINFO_CPUs']))
+            env['CM_NUM_THREADS'] = env.get('CM_CPUINFO_CPUs', '1')
 
 
     if 'CM_LOADGEN_MAX_BATCHSIZE' in env:
@@ -70,7 +78,7 @@ def preprocess(i):
     if env['CM_MODEL'] in ["rnnt", "bert-99", "bert-99.9", "dlrm-99", "dlrm-99.9", "3d-unet-99", "3d-unet-99.9"]:
         test_list.remove("TEST04")
 
-    scenario = env.get('CM_LOADGEN_SCENARIO', "Offline")
+    scenario = env['CM_LOADGEN_SCENARIO']
     state['RUN'][scenario] = {}
     scenario_extra_options = ''
 
@@ -86,6 +94,8 @@ def preprocess(i):
     user_conf = ''
     if ['CM_RUN_STYLE'] == "fast":
         fast_factor = env['CM_FAST_FACTOR']
+    else:
+        fast_factor = 1
     for metric in conf:
         metric_value = conf[metric]
         if env['CM_RUN_STYLE'] == "fast":
@@ -94,6 +104,11 @@ def preprocess(i):
             if metric == "target_latency" and scenario in [ "SingleStream", "MultiStream" ]:
                 metric_value *= fast_factor
             conf[metric] = metric_value
+        elif env['CM_RUN_STYLE'] == "test":
+            if metric == "target_qps" and scenario == "Offline":
+                metric_value = 1
+            if metric == "target_latency" and scenario in [ "SingleStream" ]:
+                metric_value = 1000
         user_conf += env['CM_MODEL'] + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
 
     if env['CM_RUN_STYLE'] == "test":
@@ -126,7 +141,7 @@ def preprocess(i):
 
     env['CM_MLC_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
-    mode = env.get('CM_LOADGEN_MODE', "accuracy")
+    mode = env['CM_LOADGEN_MODE']
     mode_extra_options = ""
     OUTPUT_DIR =  os.path.join(env['CM_MLC_RESULTS_DIR'], env['CM_BACKEND'] + "-" + env['CM_DEVICE'], \
             env['CM_MODEL'], scenario.lower(), mode)
@@ -213,6 +228,7 @@ def get_checker_files(mlc_path):
 
 def postprocess(i):
     env = i['env']
+    inp = i['input']
     state = i['state']
     if env['CM_MLC_USER_CONF'] == '':
         return {'return': 0}
@@ -237,6 +253,10 @@ def postprocess(i):
         measurements['weight_transformations'] = env.get('MODEL_WEIGHT_TRANSFORMATIONS', 'none')
         output_dir = env['CM_MLC_OUTPUT_DIR']
         os.chdir(output_dir)
+        print("\n")
+        with open("mlperf_log_summary.txt", "r") as fp:
+            print(fp.read())
+
         if mode == "accuracy":
             accuracy_result_dir = output_dir
         with open ("measurements.json", "w") as fp:
@@ -245,8 +265,12 @@ def postprocess(i):
             shutil.copy(env['CM_MLC_MLPERF_CONF'], 'mlperf.conf')
         if os.path.exists(env['CM_MLC_USER_CONF']):
             shutil.copy(env['CM_MLC_USER_CONF'], 'user.conf')
+        if "cmd" in inp:
+            cmd = "cm run script \\\n\t"+" \\\n\t".join(inp['cmd'])
+        else:
+            cmd = ""
         readme_init = ""
-        readme_body = "##\n```\n" + env['CM_MLC_RUN_CMD'] + "\n```"
+        readme_body = "## CM Run Command\n```\n" + cmd + "\n```"
         readme = readme_init + readme_body
         with open ("README.md", "w") as fp:
             fp.write(readme)

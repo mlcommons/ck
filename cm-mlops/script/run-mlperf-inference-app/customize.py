@@ -66,7 +66,8 @@ def preprocess(i):
     variation_model= "_" + env.get("CM_MODEL", "resnet50")
     variation_backend= "_" + env.get("CM_BACKEND", "tf")
     variation_device= "_" + env.get("CM_DEVICE", "cpu")
-    tags =  "app,mlperf,"+variation_model+","+variation_backend+","+variation_device
+    variation_run_style= "_" + env.get("CM_RUN_STYLE", "test")
+    tags =  "app,mlperf,"+variation_model+","+variation_backend+","+variation_device+","+variation_run_style
 
     for scenario in env['CM_LOADGEN_SCENARIOS']:
         for mode in env['CM_LOADGEN_MODES']:

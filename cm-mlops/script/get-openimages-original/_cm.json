@@ -11,7 +11,8 @@
       "tags": "get,sys-utils-cm"
     },
     {
-      "tags": "mlperf,inference,source"
+      "tags": "mlperf,inference,source",
+      "names": [ "inference-src" ]
     }
   ],
   "env": {

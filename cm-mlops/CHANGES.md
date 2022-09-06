@@ -1,3 +1,8 @@
+# 20220906
+ * added --print_env flag to "cm run script" to print aggregated env
+   before running native scripts
+ * various fixes to support MLPerf automation
+
 # 20220823
  * various fixes for universal MLPerf inference submission automation
 

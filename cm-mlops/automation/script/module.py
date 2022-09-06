@@ -200,6 +200,8 @@ class CAutomation(Automation):
 
           (remembered_selections) (list): remember selections of cached outputs
 
+          (print_env) (bool): if True, print aggregated env before each run of a native script
+
           ...
 
         Returns:
@@ -238,6 +240,8 @@ class CAutomation(Automation):
         saved_state = copy.deepcopy(state)
 
         save_env = i.get('save_env', False)
+
+        print_env = i.get('print_env', False)
 
         # Get constant env and state
         const = i.get('const',{})
@@ -496,6 +500,8 @@ class CAutomation(Automation):
         if version!='' and version in versions:
             versions_meta = versions[version]
             update_state_from_meta(versions_meta, env, state, deps, post_deps, i)
+            if "add_deps_recursive" in versions_meta:
+                utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
 
 
 
@@ -590,6 +596,8 @@ class CAutomation(Automation):
                 variation_meta = variations[variation_tag]
 
                 update_state_from_meta(variation_meta, env, state, deps, post_deps, i)
+                if "add_deps_recursive" in variation_meta:
+                    utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':variation_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
 
 
         r = update_deps_from_input(deps, post_deps, i)
@@ -1063,6 +1071,10 @@ class CAutomation(Automation):
 
             # Prepare run script before post deps
             run_script_after_post_deps = meta.get('run_script_after_post_deps', False)
+
+            if print_env:
+                import json
+                print (json.dumps(env, indent=2, sort_keys=True))
 
             if not run_script_after_post_deps:
                 run_script_input['meta'] = meta
@@ -1874,8 +1886,8 @@ def clean_tmp_files(clean_files, recursion_spaces):
     Internal: clean tmp files
     """
 
-    print ('')
-    print (recursion_spaces+'  - cleaning files {} ...'.format(clean_files))
+#    print ('')
+#    print (recursion_spaces+'  - cleaning files {} ...'.format(clean_files))
 
     for tmp_file in clean_files:
         if os.path.isfile(tmp_file):
@@ -1984,7 +1996,7 @@ def update_state_from_meta(meta, env, state, deps, post_deps, i):
         r2 = update_deps(post_deps, add_deps_info, True)
         if r1['return']>0 and r2['return']>0: return r1
 
-    add_deps_recursive_info = i.get('add_deps_recursive', {})
+    add_deps_recursive_info = meta.get('add_deps_recursive', {})
     if add_deps_recursive_info:
         update_deps(deps, add_deps_recursive_info)
         update_deps(post_deps, add_deps_recursive_info)

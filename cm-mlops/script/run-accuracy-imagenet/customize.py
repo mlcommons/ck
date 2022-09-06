@@ -19,5 +19,8 @@ def preprocess(i):
                             "val.txt") + "' > '" + os.path.join(result_dir, "accuracy.txt") + "'"
         print(CMD)
         ret = os.system(CMD)
+        print("\n")
+        with open(os.path.join(result_dir, "accuracy.txt"), "r") as fp:
+            print(fp.read())
 
     return {'return':ret}

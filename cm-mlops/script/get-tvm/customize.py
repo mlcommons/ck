@@ -14,6 +14,7 @@ def postprocess(i):
 
     tvm_home = env['TVM_HOME']
 
-    env['+PYTHONPATH'] = [os.path.join(tvm_home,'python')]
+    if '+PYTHONPATH' not in env: env['+PYTHONPATH']=[]
+    env['+PYTHONPATH'].append(os.path.join(tvm_home,'python'))
 
     return {'return':0}
