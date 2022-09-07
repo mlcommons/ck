@@ -48,3 +48,4 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            python-is-python3 \
            sudo \
            libgl1
+python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
