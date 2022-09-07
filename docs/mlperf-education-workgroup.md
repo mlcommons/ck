@@ -2,12 +2,11 @@
 
 ## Mission
 
-* Develop an open-source educational toolkit to help the newcomers learn how to use, customize and extend the MLPerf benchmarking infrastructure. 
-* Work with the community to [modularize ML and AI Systems](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) and make it easier to plug in their real-world tasks, models, data sets, software and hardware from the cloud to the edge. 
-* Automatically manage all ML artifacts and scripts across diverse platforms (detect, download and install ML models, data sets, libraries, engines and tools).
-* Automatically test compatibility of different versions of all ML components.
-* Help volunteers participate in reproducible crowd-benchmarking and design space exploration of their ML Systems using the MLPerf methodology. 
+* Develop an open-source educational toolkit to make it easier to plug any real-world ML & AI tasks, models, data sets, software and hardware into the MLPerf benchmarking infrastructure.
+* Use this toolkit to help the newcomers learn how to customize and run MLPerf benchmarks across rapidly evolving software, hardware and data. 
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
+* Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
+* Help end-users reproduce MLPerf results and deploy the most suitable ML/SW/HW stacks in production.
 
 ## Purpose
 
@@ -25,22 +24,20 @@ to let companies benchmark and compare their new hardware in terms of accuracy, 
 in a reproducible way twice a year.
 
 The goal of this open education workgroup is to develop an MLPerf
-educational toolkit based on portable workflows with a human-friendly
-interface to make it easier for newcomers to start using MLPerf benchmarks,
-and lower the barrier of entry for their submissions.
+educational toolkit based on portable workflows with plug&play ML components
+to help newcomers start using MLPerf benchmarks and automatically plug in 
+their own ML tasks, models, data sets, engines, software and hardware.
 
-Another goal is to use this toolkit to learn with the community how to
-modularize complex ML and AI Systems, make it easier to plug in their own ML
-tasks, models, data sets, engines, software and hardware
-and support collaborative and reproducible research.
-
-The last but not the least goal is to help students, researchers,
-engineers and any volunteer participate in crowd-benchmarking and
-crowd-exploration of the design space tradeoffs (accuracy, latency,
-throughput, power, size, etc.) of diverse ML Systems from the cloud to the
+Another goal is to use this toolkit to help students, researchers and
+engineers participate in crowd-benchmarking and crowd-exploration of the design space tradeoffs 
+(accuracy, latency, throughput, energy, size, etc.) of their ML Systems from the cloud to the
 edge using the mature MLPerf methodology while automating the submission
-of their Pareto-efficient results to the open division of the MLPerf
+of their Pareto-efficient configurations to the open division of the MLPerf
 inference benchmark.
+
+The final goal is to help end-users reproduce MLPerf results 
+and deploy the most suitable ML/SW/HW stacks in production 
+based on their requirements and constraints.
 
 
 ## Technology
@@ -48,14 +45,13 @@ inference benchmark.
 ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-mlperf-edu-wg.png)
 
 As a starting point, we use the open-source and technology-neutral [MLCommons CM toolkit](https://github.com/mlcommons/ck/tree/master/cm)
-developed by this workgroup to modularize, crowd-benchmark and optimize diverse ML Systems across continuously changing software and hardware.
+developed by this workgroup to modularize, crowd-benchmark and optimize diverse ML Systems across continuously changing software, hardware and data.
 
-CM is the next generation of the [MLCommons CK workflow automation framework prototype v2.6.1](https://github.com/mlcommons/ck) 
-that was originally developed by [Grigori Fursin](https://www.linkedin.com/in/grigorifursin) 
-to make it easier to [reproduce research papers and validate them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
+CM is the next generation of the [MLCommons CK workflow automation framework](https://arxiv.org/pdf/2011.01149.pdf) 
+that was originally developed to make it easier to [reproduce research papers and validate them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
 After CK was successfully used by [multiple organizations]( https://cKnowledge.org/partners.html ) 
 including Qualcomm, HPE, Dell, Lenovo, dividiti, Krai, the cTuning foundation and OctoML to modularize MLPerf benchmarks and automate their submissions,
-Grigori donated the CK framework and [all MLPerf automation workflows](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation) 
+the author donated the [CK framework and all MLPerf automation workflows](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation) 
 to MLCommons to redesign, simplify and extend this technology as a community effort 
 within this workgroup. For example, it was then used and extended by [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) and several other engineers
 to automate the record-breaking MLPerf inference benchmark submission for Qualcomm AI 100 devices.

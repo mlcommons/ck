@@ -2,7 +2,7 @@
 
 Research, development and deployment of novel technologies 
 is becoming increasingly [challenging, time consuming and costly](https://www.mihaileric.com/posts/mlops-is-a-mess).
-We have to spend lots of time developing many ad-hoc automation scripts 
+We have to spend lots of time writing ad-hoc automation scripts 
 to connect many great but often incompatible tools to build, test, optimize and deploy complex applications and manage all related artifacts 
 across rapidly evolving software and hardware from the cloud to the edge.
 

@@ -34,20 +34,23 @@ software, hardware, user environments, settings and data.
 ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-ad-hoc-scripts.png)
 
 We have developed the [original CK framework](https://cKnowledge.org/partners.html) 
-and it's 2nd generation (the CM toolkit) to help researchers and engineers add and share [simple, human-readable  
-and platform-independent CLI and JSON API](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
+and it's 2nd generation (the CM toolkit) to help researchers and engineers add and share 
+[simple, human-friendly and platform-independent CLI and JSON API](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
 to their automation scripts and artifacts to make them more understandable, portable, reusable, interoperable, deterministic and reproducible
 across continuously changing hardware, software and data with minimal or no changes to existing projects.
+
+
+
 
 
 ### Portable CM scripts
 
 As the first step, we have noticed that most complex applications and experiments can be decomposed
-into common, simple, small and atomic automation recipes that can be reused across all projects.
+into common, simple, small and atomic automation recipes that can be reused in other projects.
 These actions take some files and environment variables as inputs, run some tools, produce new files 
 and update or produce new environment variables while trying to take host and target platform info into account.
 
-That is why we have developed the CM automation called ["script")]( https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/script )
+That is why we have developed the CM automation called ["script"]( https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/script )
 to wrap existing native user scripts and artifacts for DevOps and MLOps
 with a simple and unified Python API and CLI:
 
