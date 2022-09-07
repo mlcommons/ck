@@ -16,4 +16,4 @@ try:
 except ImportError as e:
     from sys import stderr
     print('CM module for python is not installed', file=stderr)
-    exit(-1)
+    exit(1)

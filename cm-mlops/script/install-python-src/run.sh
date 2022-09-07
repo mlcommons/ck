@@ -23,8 +23,10 @@ else
   EXTRA_FLAGS=""
 fi
 
+rm -rf src
 mkdir src
 
+rm -rf install
 mkdir install
 
 cd src
@@ -55,7 +57,7 @@ make -j${CM_MAKE_CORES} install
 if [ "${?}" != "0" ]; then exit 1; fi
 
 cd "${CUR_DIR}" && \
-rm -rf src
+#rm -rf src
 
 if [ "${?}" != "0" ]; then exit 1; fi
 
