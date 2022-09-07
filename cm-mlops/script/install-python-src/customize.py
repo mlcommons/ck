@@ -26,3 +26,15 @@ def preprocess(i):
     env['CM_TMP_FAIL_IF_NOT_FOUND'] = 'yes'
 
     return {'return':0}
+
+def postprocess(i):
+    inp = i['input']
+    env = i['env']
+    tags = inp['tags']
+    tag_list = tags.split(",")
+    if "_shared" in tag_list:
+        path_lib = os.path.join(os.getcwd(), 'install', 'lib')
+        if '+LD_LIBRARY_PATH' not in env:
+            env['+LD_LIBRARY_PATH'] = []
+        env['+LD_LIBRARY_PATH'].append(path_lib)
+    return {'return':0}
