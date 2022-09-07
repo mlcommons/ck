@@ -22,5 +22,12 @@
     "image",
     "dockerimage"
   ],
-  "uid": "2c3c4ba2413442e7"
+  "uid": "2c3c4ba2413442e7",
+  "variations": {
+    "cache": {
+      "env": {
+	"CM_DOCKER_CACHE": ""
+      }
+    }
+  }
 }

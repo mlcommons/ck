@@ -11,7 +11,8 @@
           "yes"
         ]
       },
-      "tags": "build,docker,image"
+      "tags": "build,docker,image",
+      "names": [ "build-coker-image" ]
     }
   ],
   "tags": [
