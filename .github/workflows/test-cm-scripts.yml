@@ -33,3 +33,4 @@ jobs:
       run: |
         python tests/script/test_install.py
         python tests/script/test_deps.py
+        python tests/script/test_docker.py
