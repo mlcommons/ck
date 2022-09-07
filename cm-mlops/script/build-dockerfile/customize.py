@@ -4,8 +4,11 @@ import os
 def preprocess(i):
 
     os_info = i['os_info']
-
     env = i['env']
+    if "CM_MLOPS_REPO" in env:
+        cm_mlops_repo = env["CM_MLOPS_REPO"]
+    else:
+        cm_mlops_repo = "mlcommons@ck"
     if 'CM_DOCKERFILE_WITH_PATH' not in env:
         env['CM_DOCKERFILE_WITH_PATH'] = os.path.join(os.getcwd(), "Dockerfile")
     if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
@@ -45,7 +48,7 @@ def preprocess(i):
         f.write('USER ' + env['CM_DOCKER_USER'] + ":" + env['CM_DOCKER_GROUP'] + EOL)
     if 'CM_DOCKER_WORKDIR' in env:
         f.write('WORKDIR ' + env['CM_DOCKER_WORKDIR'] + EOL)
-    f.write('RUN cm pull repo mlcommons@ck' + EOL)
+    f.write('RUN cm pull repo ' + cm_mlops_repo + EOL)
     #echo '${CM_DOCKER_IMAGE_ENV}'
 
     f.write('RUN cm run script --quiet --tags=get,sys-utils-cm' + EOL)

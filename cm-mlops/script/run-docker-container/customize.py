@@ -10,13 +10,15 @@ def preprocess(i):
     env = i['env']
     if 'CM_DOCKER_RUN_SCRIPT_TAGS' not in env:
         env['CM_DOCKER_RUN_SCRIPT_TAGS'] = "run,docker,container"
+        CM_RUN_CMD="cm version"
+    else:
+        CM_RUN_CMD="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
     if 'CM_DOCKER_IMAGE_REPO' not in env:
         env['CM_DOCKER_IMAGE_REPO'] = "local/run_docker_container"
     if 'CM_DOCKER_IMAGE_TAG' not in env:
         env['CM_DOCKER_IMAGE_TAG'] = "latest"
     if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
         env['CM_DOCKER_IMAGE_RUN_CMD'] = "cm version"
-    CM_RUN_CMD="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
     r = cm.access({'action':'search', 'automation':'script', 'tags': env['CM_DOCKER_RUN_SCRIPT_TAGS']})
     if len(r['list']) < 1:
         raise Exception('CM script with tags '+ env['CM_DOCKER_RUN_SCRIPT_TAGS'] + ' not found!')
