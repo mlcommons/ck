@@ -27,6 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install cmind
+        cm pull repo mlcommons@ck
     - name: Test CM Script
       run: |
         python tests/script/test_install.py
