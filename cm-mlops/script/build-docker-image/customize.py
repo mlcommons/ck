@@ -6,7 +6,7 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
-    if not exists(env['CM_DOCKERFILE_WITH_PATH']):
+    if 'CM_DOCKERFILE_WITH_PATH' not in env or not exists(env['CM_DOCKERFILE_WITH_PATH']):
         env['CM_BUILD_DOCKERFILE'] = "yes"
         env['CM_RUN_DOCKERFILE'] = "yes"
     else:

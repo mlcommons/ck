@@ -6,7 +6,10 @@ def preprocess(i):
     os_info = i['os_info']
 
     env = i['env']
-    
+    if 'CM_DOCKERFILE_WITH_PATH' not in env:
+        env['CM_DOCKERFILE_WITH_PATH'] = os.path.join(os.getcwd(), "Dockerfile")
+    if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
+        env['CM_DOCKER_IMAGE_RUN_CMD'] = "cm version"
     f = open(env['CM_DOCKERFILE_WITH_PATH'], "w")
     EOL = env['CM_DOCKER_IMAGE_EOL']
     f.write('FROM ' + env['CM_DOCKER_IMAGE_BASE'] + EOL)
