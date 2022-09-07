@@ -27,7 +27,7 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install cmind
-        cm pull repo mlcommons@ck
+        cm pull repo octoml@ck
         cm run script --quiet --tags=get,sys-utils-cm
     - name: Test CM Script
       run: |
