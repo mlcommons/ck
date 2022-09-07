@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ ${CM_IMAGENET_FULL} == "yes" ]; then
+if [ ${CM_IMAGENET_FULL:-no} == "yes" ]; then
   if [ -z ${IMAGENET_PATH} ]; then
     echo "Please set IMAGENET_PATH to the folder containing full imagenet images"
     exit 1
