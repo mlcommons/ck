@@ -8,6 +8,8 @@ try:
     r = cm.access({'action':'search', 'automation':'cache', 'tags': 'python,src,install,_shared,version-3.9.10'})
     if 'return' not in r:
         raise Exception('CM access function should always return key \'return\'!')
+    if 'list' not in r:
+        raise Exception('CM access function should always return a list for search action!')
     if len(r['list']) < 1:
         raise Exception('CM search failed for the cached installation!')
     
