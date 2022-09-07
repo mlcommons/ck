@@ -51,7 +51,8 @@ def preprocess(i):
             os.remove(filename)
 
         # Add to path
-        env['+PATH']=[os.path.join(path, 'bin')]
+        if "+PATH" not in env: env["+PATH"] = []
+        env['+PATH'].append(os.path.join(path, 'bin'))
 
     else:
         print ('')
