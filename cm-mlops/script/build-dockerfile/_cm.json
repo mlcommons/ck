@@ -18,7 +18,6 @@
     }
   ],
   "env": {
-    "CM_DOCKER_IMAGE_BASE": "ubuntu:20.04",
     "CM_DOCKER_IMAGE_ENTRYPOINT": "[\"/bin/bash\", \"-c\"]",
     "CM_DOCKER_USER": "cmuser",
     "CM_DOCKER_GROUP": "cm",
