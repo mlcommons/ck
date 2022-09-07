@@ -27,6 +27,6 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install cmind
-    - name: Test
+    - name: Test CM Script
       run: |
         python tests/script/test_install.py
