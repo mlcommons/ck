@@ -5,6 +5,8 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
+    if "CM_DOCKER_IMAGE_BASE" not in env:
+        env["CM_DOCKER_IMAGE_BASE"] = "ubuntu:20.04"
     if "CM_MLOPS_REPO" in env:
         cm_mlops_repo = env["CM_MLOPS_REPO"]
     else:

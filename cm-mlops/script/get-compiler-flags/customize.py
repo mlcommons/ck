@@ -32,8 +32,8 @@ def preprocess(i):
             if int(env['CM_CPUINFO_CPU_family']) >= 0:
                 env['+ CFLAGS'] += ["-ipo"]
     if env['CM_C_COMPILER_BIN'] == 'gcc':
-        if env['CM_CPUINFO_Vendor_ID'] == 'AMD':
-            if int(env['CM_CPUINFO_CPU_family']) >= 0:
+        if env['CM_HOST_CPU_VENDOR_ID'] == 'AMD':
+            if int(env['CM_HOST_CPU_FAMILY']) >= 0:
                 env['+ CFLAGS'] += ["-march=znver2", "-flto"]
 
     return {'return':0}

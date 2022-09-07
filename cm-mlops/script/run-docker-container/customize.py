@@ -28,15 +28,18 @@ def preprocess(i):
     DOCKER_CONTAINER = env['CM_DOCKER_IMAGE_REPO'] +  ":" + env['CM_DOCKER_IMAGE_TAG'] 
 
     CMD = "docker images -q " +  DOCKER_CONTAINER + " 2> /dev/null"
-    docker_image = subprocess.check_output(CMD, shell=True).decode("utf-8") 
+    docker_image = subprocess.check_output(CMD, shell=True).decode("utf-8")
+    recreate_image = env.get('CM_DOCKER_IMAGE_RECREATE', '')
 
-    if docker_image:
+    if docker_image and recreate_image != "yes":
         print("Docker image exists with ID: " + docker_image)
         CONTAINER="docker run -dt --rm " + env['CM_DOCKER_IMAGE_REPO'] + ":" + env['CM_DOCKER_IMAGE_TAG'] + " bash"
         CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + env['CM_DOCKER_IMAGE_RUN_CMD'] + "' && docker kill $ID >/dev/null"
         docker_out = subprocess.check_output(CMD, shell=True).decode("utf-8")
         print(docker_out)
-
         env['CM_DOCKER_IMAGE_EXISTS'] = "yes"
+
+    elif recreate_image == "yes":
+        env['CM_DOCKER_IMAGE_RECREATE'] = "no"
 
     return {'return':0}
