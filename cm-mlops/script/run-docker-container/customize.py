@@ -33,7 +33,10 @@ def preprocess(i):
     if docker_image:
         print("Docker image exists with ID: " + docker_image)
         CONTAINER="docker run -dt --rm " + env['CM_DOCKER_IMAGE_REPO'] + ":" + env['CM_DOCKER_IMAGE_TAG'] + " bash"
-        os.system("ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + env['CM_DOCKER_IMAGE_RUN_CMD'] + "' && docker kill $ID")
+        CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + env['CM_DOCKER_IMAGE_RUN_CMD'] + "' && docker kill $ID >/dev/null"
+        docker_out = subprocess.check_output(CMD, shell=True).decode("utf-8")
+        print(docker_out)
+
         env['CM_DOCKER_IMAGE_EXISTS'] = "yes"
 
     return {'return':0}
