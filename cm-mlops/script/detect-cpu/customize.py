@@ -30,14 +30,28 @@ def postprocess(i):
 
     print ('')
     # Unifying some CPU info across different platforms
-    unified_env = {'CM_CPUINFO_CPUs':'CM_HOST_TOTAL_CORES',
-            'CM_CPUINFO_hw.physicalcpu': 'CM_HOST_TOTAL_PHYSICAL_CORES',
-            'CM_CPUINFO_hw.logicalcpu': 'CM_HOST_TOTAL_CORES',
-            'CM_CPUINFO_hw.packages': 'CM_HOST_SOCKETS',
-            'CM_CPUINFO_hw.memsize': 'CM_HOST_MEMSIZE',
-            'CM_CPUINFO_hw.l1icachesize': 'CM_HOST_L1I_CACHE_SIZE',
-            'CM_CPUINFO_hw.l1dcachesize': 'CM_HOST_L1D_CACHE_SIZE',
-            'CM_CPUINFO_hw.l2cachesize': 'CM_HOST_L2_CACHE_SIZE'
+    unified_env = {
+            'CM_CPUINFO_CPUs':'CM_HOST_CPU_TOTAL_CORES',
+            'CM_CPUINFO_L1d_cache': 'CM_HOST_CPU_L1D_CACHE_SIZE',
+            'CM_CPUINFO_L1i_cache': 'CM_HOST_CPU_L1I_CACHE_SIZE',
+            'CM_CPUINFO_L2_cache': 'CM_HOST_CPU_L2_CACHE_SIZE',
+            'CM_CPUINFO_L3_cache': 'CM_HOST_CPU_L3_CACHE_SIZE',
+            'CM_CPUINFO_Sockets': 'CM_HOST_CPU_SOCKETS',
+            'CM_CPUINFO_NUMA_nodes': 'CM_HOST_CPU_NUMA_NODES',
+            'CM_CPUINFO_Threads_per_core': 'CM_HOST_CPU_THREADS_PER_CORE',
+            'CM_CPUINFO_Architecture': 'CM_HOST_CPU_ARCHITECTURE',
+            'CM_CPUINFO_CPU_family': 'CM_HOST_CPU_FAMILY',
+            'CM_CPUINFO_CPU_max_MHz': 'CM_HOST_CPU_MAX_MHZ',
+            'CM_CPUINFO_Model_name': 'CM_HOST_CPU_MODEL_NAME',
+            'CM_CPUINFO_On_line_CPUs_list': 'CM_HOST_CPU_ON_LINE_CPUS_LIST',
+            'CM_CPUINFO_Vendor_ID': 'CM_HOST_CPU_VENDOR_ID',
+            'CM_CPUINFO_hw.physicalcpu': 'CM_HOST_CPU_TOTAL_PHYSICAL_CORES',
+            'CM_CPUINFO_hw.logicalcpu': 'CM_HOST_CPU_TOTAL_CORES',
+            'CM_CPUINFO_hw.packages': 'CM_HOST_CPU_SOCKETS',
+            'CM_CPUINFO_hw.memsize': 'CM_HOST_CPU_MEMSIZE',
+            'CM_CPUINFO_hw.l1icachesize': 'CM_HOST_CPU_L1I_CACHE_SIZE',
+            'CM_CPUINFO_hw.l1dcachesize': 'CM_HOST_CPU_L1D_CACHE_SIZE',
+            'CM_CPUINFO_hw.l2cachesize': 'CM_HOST_CPU_L2_CACHE_SIZE'
             }
 
     if env['CM_HOST_OS_TYPE'] == 'linux':

@@ -53,13 +53,6 @@ def preprocess(i):
     if 'OUTPUT_BASE_DIR' not in env:
         env['OUTPUT_BASE_DIR'] = env['CM_MLC_INFERENCE_VISION_PATH']
 
-    if 'CM_NUM_THREADS' not in env:
-        if 'CM_MINIMIZE_THREADS' in env:
-            env['CM_NUM_THREADS'] = str(int(env['CM_CPUINFO_CPUs']) // (int(env['CM_CPUINFO_Sockets']) * int(env['CM_CPUINFO_Threads_per_core']) ))
-        else:
-            env['CM_NUM_THREADS'] = str(int(env['CM_CPUINFO_CPUs']))
-
-
     test_list = ["TEST01",  "TEST05"]
     if env['CM_MODEL']  in ["resnet50"]:
         test_list.append("TEST04")
