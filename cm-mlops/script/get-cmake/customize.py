@@ -56,5 +56,7 @@ def postprocess(i):
     print (i['recursion_spaces'] + '    Detected version: {}'.format(version))
 
     env['CM_CMAKE_CACHE_TAGS'] = 'version-'+version
+    if 'CM_HOST_CPU_TOTAL_CORES' in env:
+        env['CM_MAKE_CORES'] =  env['CM_HOST_CPU_TOTAL_CORES']
 
     return {'return':0, 'version':version}

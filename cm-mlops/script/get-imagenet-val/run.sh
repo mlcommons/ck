@@ -3,7 +3,7 @@
 if [ ${CM_IMAGENET_FULL} == "yes" ]; then
   if [ -z ${IMAGENET_PATH} ]; then
     echo "Please set IMAGENET_PATH to the folder containing full imagenet images"
-    exit -1
+    exit 1
   fi
   echo "CM_DATASET_PATH=${IMAGENET_PATH}" > tmp-run-env.out
   exit 0

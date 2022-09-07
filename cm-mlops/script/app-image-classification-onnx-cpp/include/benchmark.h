@@ -149,7 +149,7 @@ public:
     
     default:
       std::cout << "Unsupported MODEL_TYPE" << std::endl;
-      exit(-1);
+      exit(1);
       break;
     };
     _number_of_threads = std::thread::hardware_concurrency();

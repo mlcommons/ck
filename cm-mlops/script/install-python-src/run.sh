@@ -9,7 +9,7 @@ CM_WGET_URL="${CM_WGET_URL//"[PYTHON_VERSION]"/$PYTHON_VERSION}"
 echo "CM_WGET_URL=${CM_WGET_URL}" >> tmp-run-env.out
 echo "wget Python src from ${CM_WGET_URL} for version ${PYTHON_VERSION}..."
 
-CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_TOTAL_CORES}}
+CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES}}
 CM_MAKE_CORES=${CM_MAKE_CORES:-2}
 
 if [[ ${CM_SHARED_BUILD} == "yes" ]]; then

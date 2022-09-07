@@ -32,3 +32,4 @@ jobs:
     - name: Test CM Script
       run: |
         python tests/script/test_install.py
+        python tests/script/test_deps.py

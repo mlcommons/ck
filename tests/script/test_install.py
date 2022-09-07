@@ -1,3 +1,4 @@
+# This test covers script installation, version, shared library install
 try:
     import cmind as cm
 
