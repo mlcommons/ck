@@ -25,7 +25,7 @@ cd ../build
 if [ "${?}" != "0" ]; then exit 1; fi
 
 echo "******************************************************"
-CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_TOTAL_CORES}}
+CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES}}
 CM_MAKE_CORES=${CM_MAKE_CORES:-2}
 
 make -j${CM_MAKE_CORES}
