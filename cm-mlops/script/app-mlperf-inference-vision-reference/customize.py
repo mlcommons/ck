@@ -50,7 +50,7 @@ def preprocess(i):
     if 'CM_NUM_THREADS' not in env:
         if 'CM_MINIMIZE_THREADS' in env:
             env['CM_NUM_THREADS'] = str(int(env['CM_HOST_CPU_TOTAL_CORES']) // \
-                    (int(env.get('CM_HOST_CPU_SOCKETS', '1') * int(env.get('CM_HOST_CPU_TOTAL_CORES', '1'))))
+                    (int(env.get('CM_HOST_CPU_SOCKETS', '1')) * int(env.get('CM_HOST_CPU_TOTAL_CORES', '1'))))
         else:
             env['CM_NUM_THREADS'] = env.get('CM_HOST_CPU_TOTAL_CORES', '1')
 
