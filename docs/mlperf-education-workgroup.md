@@ -81,19 +81,21 @@ We use GitHub tickets to track the progress of these community developments:
 * Demonstrate CM-based automation to submit results to MLPerf inference:
   * **DONE - [showcased CM automation concept for MLPerf inference v2.1 submission](https://github.com/mlcommons/ck/blob/master/docs/mlperf-cm-automation-demo.md)**.
 * Prepare CM-based MLPerf modularization and automation tutorial:
-  * [On going](https://github.com/mlcommons/ck/issues/273)
+  * **DONE - [link](mlperf-cm-automation-demo.md)**
 * Add tests to cover critical functionality of portable CM scripts for MLPerf:
-  * [On going](https://github.com/mlcommons/ck/issues/275)
+  * [Ongoing](https://github.com/mlcommons/ck/issues/275)
 * Prototype CM-based automation for TinyMLPerf:
-  * [On going](https://github.com/mlcommons/ck/issues/268)
+  * [Ongoing](https://github.com/mlcommons/ck/issues/268)
 * Add basic TVM back-end to the latest MLPerf inference repo:
-  * [On going](https://github.com/mlcommons/ck/issues/267)
+  * [Ongoing](https://github.com/mlcommons/ck/issues/267)
+* Convert outdated CK components into the new CM format
+  * Ongoing
 * Prototype CM-based modularization of the MLPerf inference benchmark with C++ back-end and loadgen 
   to automatically plug in different ML models, data sets, engines and software 
   and automatically run it across different platforms and run-times:
-  * [On going internship of Thomas Zhu from Oxford University](https://github.com/mlcommons/ck/issues/265)
+  * [Ongoing internship of Thomas Zhu from Oxford University](https://github.com/mlcommons/ck/issues/265)
 * Develop a methodology to create modular containers and [MLCommons MLCubes](https://github.com/mlcommons/mlcube) that contain CM components to run the MLPerf inference benchmarks out of the box:
-  * on-going discussion
+  * Ongoing discussion
 * Prototype CM integration with power infrastructure (power WG) and logging infrastructure (infra WG):
   * TBD
 * Process feedback from the community about CM-based modularization and crowd-benchmarking of MLPerf:
