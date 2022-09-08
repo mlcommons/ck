@@ -14,7 +14,7 @@ some are convenient for researchers and some for engineers.
 The Collective Mind toolkit (CM) is [our community effort](../docs/mlperf-education-workgroup.md) 
 to develop a portable meta-framework that is convenient for both.
 
-CM helps researchers and engineers wrap ad-hoc DevOps and MLOps 
+The goal of the CM framework is to help researchers and engineers wrap ad-hoc DevOps and MLOps 
 automation scripts and artifacts with a simple, human-readable
 and platform-independent CLI, Python API and JSON/YAML meta description
 to make them more understandable, portable, reusable, interoperable, deterministic and reproducible
@@ -40,7 +40,8 @@ or using Python scripting:
 ```python
 import cmind
 r=cmind.access({'action':'run', 'automation':'script'
-                'tags':['app','image-classification','onnx','python'],
+                'tags':'app,image-classification,onnx,python,
+                'out':'con',
                 'quiet':True})
 print (r)
 ```

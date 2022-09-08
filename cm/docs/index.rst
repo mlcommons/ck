@@ -16,6 +16,7 @@ CM toolkit documentation
    :caption: User guide
 
    installation
+   example-modular-image-classification
    tutorial-scripts
    tutorial-concept
    tutorial-modular-mlperf

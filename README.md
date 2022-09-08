@@ -1,3 +1,29 @@
+[![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
+[![Downloads](https://pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
+[![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
+
+[![Documentation](https://img.shields.io/badge/Documentation-available%20online-green)](https://cKnowledge.org/docs/cm)
+[![CM(CK2) test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
+
+# Shortcuts
+
+* [Simple example to install and try our meta-framework for modular image classification](cm/docs/example-modular-image-classification.md)
+* [Open workgroup developing automation of MLPerf and modularization of ML&AI Systems](docs/mlperf-education-workgroup.md)
+* [Demo to modularize MLPerf inference benchmark and automate submissions](docs/mlperf-cm-automation-demo.md)
+* ["Getting Started" tutorial](cm/docs/tutorial-scripts.md)
+* [Meta-framework development page](#collective-mind-toolkit)
+* [Real-world use cases from 
+* Motivation and concept: [journal article](https://arxiv.org/pdf/2011.01149.pdf), [ACM TechTalk](https://learning.acm.org/techtalks/reproducibility)
+
+(C)opyright 2021-2022 [MLCommons](https://mlcommons.org)<br>
+(C)opyright 2014-2021 [Grigori Fursin](https://cKnowledge.io/@gfursin) and the [cTuning foundation](https://cTuning.org)
+
+*We are very glad that our technology has already helped different organizations automate their MLPerf inference benchmarking 
+ including Qualcomm, Krai, HPE, Dell, Alibaba and Lenovo - join our [open workgroup](docs/mlperf-education-workgroup.md) 
+ to get involved in further developments!*
+
+
 # Collective Knowledge concept
 
 Research, development and deployment of novel technologies 
@@ -37,7 +63,7 @@ print (r)
 ```
 
 
-It may take a few minutes to run this workflow for the first time and adapt it to your platform depending on the internet speed.
+It may take a few minutes to run this workflow for the first time and adapt it to your platform depending on the Internet speed.
 Note that all the subsequent runs will be much faster because CM automatically caches the output of all components to be quickly reused
 in this and other CM workflows.
 
@@ -72,14 +98,6 @@ from the cloud to the edge:
 * [CM development page](cm)
 * [CM motivation](cm/docs/motivation.md)
 * [CM tutorial](cm/docs/tutorial-scripts.md)
-
-[![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
-[![Downloads](https://pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
-[![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm)
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
-
-[![Documentation](https://img.shields.io/badge/Documentation-available%20online-green)](https://cKnowledge.org/docs/cm)
-[![CM(CK2) test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 
 (C)opyright 2022 [MLCommons](https://mlcommons.org)
 
