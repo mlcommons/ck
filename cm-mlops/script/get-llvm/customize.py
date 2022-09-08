@@ -69,7 +69,7 @@ def postprocess(i):
     print (i['recursion_spaces'] + '    Detected version: {}'.format(version))
 
     env['CM_LLVM_CLANG_CACHE_TAGS'] = 'version-'+version
-    env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version
+    env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version+',family-llvm'
     env['CM_COMPILER_FAMILY'] = 'LLVM'
     env['CM_COMPILER_VERSION'] = env['CM_LLVM_CLANG_VERSION']
 
