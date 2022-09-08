@@ -47,5 +47,6 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            libtinfo-dev \
            python-is-python3 \
            sudo \
-           libgl1
+           libgl1 \
+           libncurses5
 python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
