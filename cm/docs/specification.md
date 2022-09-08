@@ -73,34 +73,34 @@ cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
 Examples:
 
 ```bash
-$ cm 
-$ cm help
-$ cm {common automation action}
+cm 
+cm help
+cm {common automation action}
 ```
 
 ```bash
-$ cm {common automation action} --help
+cm {common automation action} --help
 ```
 
 ```bash
-$ cm {automation action} {automation}
+cm {automation action} {automation}
 ```
 
 ```bash
-$ cm {automation action} {automation} --help
+cm {automation action} {automation} --help
 
 ```
 
 ```bash
-$ cm {automation action} {automation} {artifact}
+cm {automation action} {automation} {artifact}
 ```
 
 ```bash
-$ cm {automation action} {automation} {artifact} {artifact2} {artifact3} ...
+cm {automation action} {automation} {artifact} {artifact2} {artifact3} ...
 ```
 
 ```bash
-$ cm {automation action} {automation} {artifact} --test --meta.a=b @input.json @input.yaml
+cm {automation action} {automation} {artifact} --test --meta.a=b @input.json @input.yaml
 ```
 
 The command line arguments are converted into a unified CM dictionary
@@ -197,23 +197,23 @@ CM automations are kept as CM artifacts in "automation" directories
 
 You can add a new automation as follows:
 ```bash
-$ cm add automation {new automation name}
+cm add automation {new automation name}
 ```
 
 A related CM artifact will be created in the "local" CM repository.
 You can create it in the other CM repository as follows:
 ```bash
-$ cm add automation {target CM repository}:{new automation name}
+cm add automation {target CM repository}:{new automation name}
 ```
 
 You can also move the new automation from local repository to the existing one as follows:
 ```bash
-$ cm move automation local:{new automation name} {target CM repository}:
+cm move automation local:{new automation name} {target CM repository}:
 ```
 
 The automation artifact has a Python *module.py* that implements automation actions:
 ```bash
-$ ls `cm find automation {new automation name}`
+ls `cm find automation {new automation name}`
 _cm.json
 module.py
 ```
@@ -224,11 +224,11 @@ from the CM CLI. It helps you understand the CM CLI and how it is converted into
 You can add a new function "new_action" in a similar way as "test" to make it a new automation action
 that can be invoked from the command line as follows:
 ```bash
-$ cm new_action {new automation name} ...
+cm new_action {new automation name} ...
 ```
  or
 ```bash
-$ cm new-action {new automation name} ...
+cm new-action {new automation name} ...
 ```
 
 
@@ -242,7 +242,7 @@ All CM automations inherit common database function from the
 Add new artifact:
 
 ```bash
-$ cm add automation (repo:)artifact
+cm add automation (repo:)artifact
 ```
 
 API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Automation.add)
@@ -252,15 +252,15 @@ API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Au
 Remove artifact:
 
 ```bash
-$ cm delete automation (repo:)artifact
+cm delete automation (repo:)artifact
 ```
 or
 ```bash
-$ cm rm automation (repo:)artifact
+cm rm automation (repo:)artifact
 ```
 or
 ```bash
-$ cm remove automation (repo:)artifact
+cm remove automation (repo:)artifact
 ```
 
 API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Automation.delete)
@@ -270,27 +270,27 @@ API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Au
 Find artifact(s):
 
 ```bash
-$ cm find automation (repo:)artifact(s) (--tags=tag1,tag2,...)
+cm find automation (repo:)artifact(s) (--tags=tag1,tag2,...)
 ```
 or
 ```bash
-$ cm search automation (repo:)artifact(s)
+cm search automation (repo:)artifact(s)
 ```
 or
 ```bash
-$ cm ls automation (repo:)artifact(s)
+cm ls automation (repo:)artifact(s)
 ```
 
 You can use wildcards.
 
 You can also list all available artifacts in all repositories as follows:
 ```bash
-$ cm find * *
+cm find * *
 ```
 
 You can find all artifact in the current repository as follows:
 ```bash
-$ cm find .
+cm find .
 ```
 
 API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Automation.search)
@@ -300,7 +300,7 @@ API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Au
 Load artifact meta description:
 
 ```bash
-$ cm load automation (repo:)artifact
+cm load automation (repo:)artifact
 ```
 API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Automation.load)
 
@@ -311,7 +311,7 @@ API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Au
 Load artifact meta description:
 
 ```bash
-$ cm update automation (repo:)artifact --meta.{key}={value} (@input.json) (@input.yaml)
+cm update automation (repo:)artifact --meta.{key}={value} (@input.json) (@input.yaml)
 ```
 
 API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Automation.update)
@@ -323,7 +323,7 @@ API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Au
 Rename or move artifacts:
 
 ```bash
-$ cm move automation src-artifact (new repo:)target-artifact
+cm move automation src-artifact (new repo:)target-artifact
 ```
 
 API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Automation.move)
@@ -336,12 +336,12 @@ API: [CM docs](https://cknowledge.org/docs/cm/api/cmind.html#cmind.automation.Au
 
 This automation deals with CM repositories. You can list available actions in this automation as follows:
 ```bash
-$ cm help repo
+cm help repo
 ```
 
 You can get an API/CLI for a specific automation as follows:
 ```bash
-$ cm init repo --help
+cm init repo --help
 ```
 
 
@@ -349,7 +349,7 @@ $ cm init repo --help
 
 This automation helps you to add new automations as follows:
 ```bash
-$ cm add automation {new-automation}
+cm add automation {new-automation}
 ```
 
 
@@ -357,10 +357,10 @@ $ cm add automation {new-automation}
 
 This automation has some common actions for the CM core including "test":
 ```bash
-$ cm help core
+cm help core
 ```
 
 For example, you can test the CM as follows:
 ```bash
-$ cm test core
+cm test core
 ```

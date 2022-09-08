@@ -19,7 +19,7 @@ It requires minimal dependencies (Python 3+, pip, pyyaml and a Git client)
 and should work with any OS including Linux, MacOS, CentOS, Debian, RedHat and Windows.
 
 ```bash
-$ pip3 install cmind
+pip3 install cmind
 ```
 
 You can find more details about the installation process [here](installation.md).
@@ -45,21 +45,21 @@ You will [likely](https://www.youtube.com/watch?v=7zpeIVwICa4),
 create some local directory "my-cool-project" in your $HOME directory to organize related artifacts:
 
 ```bash
-$ mkdir my-cool-project
-$ cd my-cool-project
+mkdir my-cool-project
+cd my-cool-project
 ```
  
 You will then create some ad-hoc directories to store your ML model, image and experimental data:
 
 ```bash
-$ mkdir images
-$ cp cool-cat.jpeg images
+mkdir images
+cp cool-cat.jpeg images
 
-$ mkdir models
-$ cp my-cool-model.onnx models
+mkdir models
+cp my-cool-model.onnx models
 
-$ mkdir experiments
-$ cp my-cool-result-20220404.json experiments
+mkdir experiments
+cp my-cool-result-20220404.json experiments
 ```
 
 You will then likely create a *README.md* describing the structure 
@@ -100,7 +100,7 @@ and make them findable, interoperable and reusable:
 You can initialize a CM repository in your working directory as follows:
 
 ```bash
-$ cm init repo
+cm init repo
 ```
 
 CM will create a *cmr.yaml* file with a global unique ID and will register 
@@ -111,17 +111,17 @@ in all CM-compatible directories on your machine and plug them into modular CM p
 
 However, if you forget the location, you can always find it using the following CM command:
 ```bash
-$ cm find repo my-cool-project
+cm find repo my-cool-project
 ```
 
 Note that CM will use the name of your current directory as an alias of this CM repository. 
 You can list already registered CM repositories as follows:
 ```bash
-$ cm ls repo
+cm ls repo
 ```
  or
 ```bash
-$ cm ls repo | sort
+cm ls repo | sort
 
 local = C:\Users\grigo\CM\repos\local
 internal = C:\!Progs\Python39\lib\site-packages\cmind-0.7.7-py3.9.egg\cmind\repo
@@ -131,8 +131,8 @@ my-cool-project = ...
 
 You can also create a repository with a specific name in $HOME/CM/repos directory as follows:
 ```bash
-$ cm init repo another-cool-project
-$ cm find repo *cool*
+cm init repo another-cool-project
+cm find repo *cool*
 ```
 
 #### Converting existing Git project to the CM repository
@@ -140,8 +140,8 @@ $ cm find repo *cool*
 If you already have a Git repository you can pull it via CM and make it a CM-compatible repository as follows:
 
 ```bash
-$ cm pull repo my-cool-project --url={Git repo URL} 
-$ cm find repo 
+cm pull repo my-cool-project --url={Git repo URL} 
+cm find repo 
 ```
 
 CM will pull this repository to *$HOME/CM/repos/my-cool-project*, 
@@ -169,18 +169,18 @@ but with some meta information in JSON and/or YAML format to describe your artif
 
 The format of the CM to add artifacts is the following:
 ```bash
-$ cm add {some artifact type} {artifact name} 
+cm add {some artifact type} {artifact name} 
 ```
 
 By default, CM will create new artifacts in the "local" CM repository (scratchpad).
 You can specify another CM repository as follows:
 ```bash
-$ cm add {some artifact type} {CM repo}:{artifact name}
+cm add {some artifact type} {CM repo}:{artifact name}
 ```
 
 You can also add some tags to describe a given artifact as follows:
 ```bash
-$ cm add {some artifact type} {CM repo}:{artifact name} --tags=tag1,tag2,tag3...
+cm add {some artifact type} {CM repo}:{artifact name} --tags=tag1,tag2,tag3...
 ```
 
 In our case, let's use "images" as our artifact type. Note that you can either use 
@@ -190,7 +190,7 @@ as described later in this tutorial.
 
 
 ```bash
-$ cm add images my-cool-project:cool-cat --tags=dataset,image,cool,cat
+cm add images my-cool-project:cool-cat --tags=dataset,image,cool,cat
 ```
 
 CM will create a directory *images/cool-cat* inside *my-cool-project* repository and added *_cm.json* with extensible meta description:
@@ -219,8 +219,8 @@ Also note that if you want to create another artifact in a CM repository, you ca
 current CM repository and artifact type using "." instead of tying the full names:
 
 ```bash
-$ cd automation
-$ cm add . cool-cat-v2 --tags=dataset,image,cool,cat-v2
+cd automation
+cm add . cool-cat-v2 --tags=dataset,image,cool,cat-v2
 ```
 
 CM will create *cool-cat-v2* in the current CM repository rather than in the "local" repository.
@@ -232,15 +232,15 @@ using its name (alias), UID or tags:
 
 
 ```bash
-$ cm find images cool-cat
-$ cm find images 780abfe6b8084327
-$ cm find images *cat*
-$ cm find images --tags=image,cat
+cm find images cool-cat
+cm find images 780abfe6b8084327
+cm find images *cat*
+cm find images --tags=image,cat
 ``` 
 
 Note that you can also reference your CM artifact by alias and UID at the same time:
 ```bash
-$ cm find images cool-cat,780abfe6b8084327
+cm find images cool-cat,780abfe6b8084327
 ```
 
 In such case, CM will ignore above alias and will search for an artifact by UID. 
@@ -250,7 +250,7 @@ If this name (alias) changes in the future, CM will still be able to find it usi
 You can now use this CM artifact directory as a findable placeholder for your raw artifacts.
 For example, you can You can now copy your cool-cat.jpeg and any related files to this directory:
 ```bash
-$ cp cool-cat.jpeg `cm find images cool-cat`
+cp cool-cat.jpeg `cm find images cool-cat`
 ```
 
 Now, we will be able to find any artifact on our own machines or in a cloud even years later!
@@ -263,7 +263,7 @@ in different READMEs thus providing a common artifact management language for pr
 
 You can now rename your artifact using CM to keep UID intact as follows:
 ```bash
-$ cm rename images cool-cat-v2 cool-cat-v3
+cm rename images cool-cat-v2 cool-cat-v3
 ```
 
 #### Moving artifacts to another CM repository
@@ -272,7 +272,7 @@ Unlike CK, you can move an artifact to any CM repository using standard OS comma
 However, you can also use CM CLI for your convenience:
 
 ```bash
-$ cm move images cool-cat-v3 local:
+cm move images cool-cat-v3 local:
 ```
 This command will move *images::cool-cat-v3* artifact to "local" repository.
 
@@ -284,7 +284,7 @@ Unlike CK, you can also delete your artifacts using standard OS commands.
 However, you can also use CM CLI for your convenience:
 
 ```bash
-$ cm rm images cool-*-v3
+cm rm images cool-*-v3
 ```
 This command will remove *images::cool-cat-v3* artifact.
 
@@ -296,7 +296,7 @@ You can copy an artifact to another one with a new alias (new UID will be genera
 as follows:
 
 ```bash
-$ cm copy images cool-cat-v3 .:cool-cat-v4
+cm copy images cool-cat-v3 .:cool-cat-v4
 ```
 This command will copy *images::cool-cat-v4* artifact to 
 *images::cool-cat-v4** in the same repository (specified by *.*)
@@ -309,7 +309,7 @@ This command will copy *images::cool-cat-v4* artifact to
 You can use the following CM command to view the meta description of a given artifact:
 
 ```bash
-$ cm load images cool-cat
+cm load images cool-cat
 
 {
   "alias": "cool-cat",
@@ -328,7 +328,7 @@ $ cm load images cool-cat
 
 or
 ```bash
-$ cm load images --tags=cool,cat
+cm load images --tags=cool,cat
 ```
 
 
@@ -338,13 +338,13 @@ $ cm load images --tags=cool,cat
 
 Similarly, you can create CM artifacts for your ML model
 ```bash
-$ cm add models my-cool-model --tags=model,ml,onnx,image-classification
+cm add models my-cool-model --tags=model,ml,onnx,image-classification
 
-$ cm find models my-cool-project:*
+cm find models my-cool-project:*
 
-$ cp my-cool-model.onnx `cm find models my-cool-model`/model.onnx
+cp my-cool-model.onnx `cm find models my-cool-model`/model.onnx
 
-$ ls `cm find models my-cool-model`
+ls `cm find models my-cool-model`
 
 _cm.json
 model.onnx
@@ -352,13 +352,13 @@ model.onnx
 ```
 
 ```bash
-$ cm add experiments cool-result --tags=experiment,inference,image-classification,cat,20220404
+cm add experiments cool-result --tags=experiment,inference,image-classification,cat,20220404
 
-$ cm ls experiments
+cm ls experiments
 
-$ cp my-cool-result-20220404.json `cm find experiments cool-result`
+cp my-cool-result-20220404.json `cm find experiments cool-result`
 
-$ ls `cm find experiments cool-result`
+ls `cm find experiments cool-result`
 
 _cm.json
 my-cool-result-20220404.json
@@ -396,9 +396,9 @@ integration with existing DevOps and MLOps platforms and tools.
 ### From command line
 
 ```bash
-$ cm pull repo my-cool-project --url={GitHub repo URL} 
-$ cm find experiments
-$ cm load experiments cool-result
+cm pull repo my-cool-project --url={GitHub repo URL} 
+cm find experiments
+cm load experiments cool-result
 ```
 
 ### From Python and Jupyter notebooks
@@ -487,7 +487,7 @@ RUN cm ...
 
 You can pack your CM repository to a zip file as follows:
 ```bash
-$ cm pack repo my-cool-project
+cm pack repo my-cool-project
 
 Packing repo from C:\Users\grigo\CM\repos\my-cool-project to cm.zip ...
 ```
@@ -495,10 +495,10 @@ Packing repo from C:\Users\grigo\CM\repos\my-cool-project to cm.zip ...
 You can then share *cm.zip* with your colleagues who can unpack it 
 and install on their system using the following CM command:
 ```bash
-$ cm unpack repo
+cm unpack repo
 
-$ cm find images
-$ cm find experiments
+cm find images
+cm find experiments
 
 ```
 
@@ -516,25 +516,25 @@ To be able to add automation actions to your artifact types and reuse them with 
 you need to add a *CM automation* for your artifact type as follows:
 
 ```bash
-$ cm add automation {artifact type}
+cm add automation {artifact type}
 ```
 
 For example, you can add the following automations for this tutorial:
 ```bash
-$ cm add automation images
-$ cm add automation experiments
-$ cm add automation models
+cm add automation images
+cm add automation experiments
+cm add automation models
 ```
 
 Note that CM will add those automations to the "local" CM repository.
 You can add them to another public or private repository as follows:
 ```bash
-$ cm add automation my-cool-project:images
+cm add automation my-cool-project:images
 ```
 
 Or you can move your existing automation to another CM repository as follows:
 ```bash
-$ cm move automation local:images my-cool-project:
+cm move automation local:images my-cool-project:
 ```
 
 Now, whenever you add a new artifact with an associated automation,
@@ -551,7 +551,7 @@ for similar artifact types.
 
 You can find a Python module for your automation as follows:
 ```bash
-$ cm find automation images
+cm find automation images
 ```
 
 This directory will include a meta description of this automation in *_cm.json*
@@ -562,7 +562,7 @@ in the CM package such as "add", "rm", "find", "rename", etc.
 
 It also includes a "test" automation action to help you understand the CM CLI:
 ```bash
-$ cm test images
+cm test images
 
 {
   "action": "test",
@@ -580,7 +580,7 @@ $ cm test images
 You can add your own functions to this module that will be immediately accessible 
 from the command line:
 ```bash
-$ cm {my-new-automation} images
+cm {my-new-automation} images
 ...
 ```
 Note that all '-' characters in the automation action from the CLI will be converted into '_'.
