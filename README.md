@@ -1,11 +1,3 @@
-[![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
-[![Downloads](https://pepy.tech/badge/cmind)](https://pepy.tech/project/cmind)
-[![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm)
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
-
-[![Documentation](https://img.shields.io/badge/Documentation-available%20online-green)](https://cKnowledge.org/docs/cm)
-[![CM(CK2) test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
-
 # Shortcuts
 
 * [Simple example to install and try our meta-framework for modular image classification](cm/docs/example-modular-image-classification.md)
