@@ -37,5 +37,8 @@ CFLAGS="-std=c++14 -O3" ${CM_PYTHON_BIN} setup.py bdist_wheel
 ${CM_PYTHON_BIN} -m pip install --force-reinstall `ls dist/mlperf_loadgen*.whl` --target="${MLC_INFERENCE_PYTHON_SITE_BASE}"
 if [ "${?}" != "0" ]; then exit 1; fi
 
+# Clean the built wheel
+find . -name 'mlperf_loadgen*.whl' | xargs rm
+
 echo "******************************************************"
 echo "Loadgen is built and installed to ${INSTALL_DIR} ..."

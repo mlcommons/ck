@@ -65,7 +65,7 @@ def postprocess(i):
     print (i['recursion_spaces'] + '    Detected version: {}'.format(version))
 
     env['CM_CL_CACHE_TAGS'] = 'version-'+version
-    env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version
+    env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version+',family-cuda'
     env['CM_COMPILER_FAMILY'] = 'CUDA'
     env['CM_COMPILER_VERSION'] = env['CM_CL_VERSION']
 
