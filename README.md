@@ -13,7 +13,6 @@
 * [Demo to modularize MLPerf inference benchmark and automate submissions](docs/mlperf-cm-automation-demo.md)
 * ["Getting Started" tutorial](cm/docs/tutorial-scripts.md)
 * [Meta-framework development page](#collective-mind-toolkit)
-* [Real-world use cases from 
 * Motivation and concept: [journal article](https://arxiv.org/pdf/2011.01149.pdf), [ACM TechTalk](https://learning.acm.org/techtalks/reproducibility)
 
 (C)opyright 2021-2022 [MLCommons](https://mlcommons.org)<br>
