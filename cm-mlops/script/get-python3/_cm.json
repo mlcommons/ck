@@ -19,7 +19,7 @@
   ],
   "new_env_only_keys_from_local_env_keys": true,
   "extra_cache_tags_from_env": [
-    {"env":"CM_PYTHON_CACHE_TAGS", "prefix":"python-"}
+    {"env":"CM_PYTHON_INSTALL_CACHE_TAGS", "prefix":"python-"}
   ],
   "tags": [
     "get",
