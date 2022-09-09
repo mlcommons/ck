@@ -1,6 +1,6 @@
 # MLPerf education workgroup
 
-Please use [this Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join!
+Please use [this Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join and stay informed about our activities!
 
 ## Mission
 
