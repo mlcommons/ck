@@ -1,5 +1,7 @@
 # MLPerf education workgroup
 
+Please use [this Google form](https://docs.google.com/forms/d/1eycpsc1nsJFcc7wSiFO4lBjr4UrtKQKGdGpC5I8YkCk/edit#responses) to join!
+
 ## Mission
 
 * Develop an open-source educational toolkit to make it easier to plug any real-world ML & AI tasks, models, data sets, software and hardware into the MLPerf benchmarking infrastructure.
