@@ -1609,6 +1609,27 @@ class CAutomation(Automation):
         return {'return':0, 'version':version, 'string':string}
 
 ##############################################################################
+    def update_deps(self, i):
+        """
+        Update deps from pre/post processing
+        Args:
+          (CM input dict):
+          deps (dict): deps dict
+          update_deps (dict): key matches "names" in deps
+        Returns:
+           (CM return dict):
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+        deps = i['deps']
+        add_deps = i['update_deps']
+        update_deps(deps, add_deps, False)
+
+        return {'return':0}
+
+
+
+##############################################################################
 def enable_or_skip_script(meta, env):
     """
     Internal: enable a dependency based on enable_if_env and skip_if_env meta information
@@ -1922,7 +1943,7 @@ def update_deps(deps, add_deps, fail_error=False):
         dep_found = False
         for dep in deps:
             names = dep.get('names',[])
-            if len(names)>0 and new_deps_name in names:
+            if new_deps_name in names:
                 update_dep_info(dep, add_deps[new_deps_name])
                 dep_found = True
         if not dep_found and fail_error:
