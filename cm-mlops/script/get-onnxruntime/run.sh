@@ -1,5 +1,6 @@
 #!/bin/bash
 
 CM_TMP_CURRENT_SCRIPT_PATH=${CM_TMP_CURRENT_SCRIPT_PATH:-$PWD}
+CM_PYTHON_BIN_WITH_PATH=${CM_PYTHON_BIN_WITH_PATH:-python3}
 
-${CM_PYTHON_BIN} ${CM_TMP_CURRENT_SCRIPT_PATH}/detect-version.py > tmp-ver.out
+${CM_PYTHON_BIN_WITH_PATH} ${CM_TMP_CURRENT_SCRIPT_PATH}/detect-version.py > tmp-ver.out
