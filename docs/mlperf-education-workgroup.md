@@ -9,7 +9,7 @@ Please use [this Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join and s
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 * Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
 * Help end-users reproduce MLPerf results and deploy the most suitable ML/SW/HW stacks in production.
-* Support reproducible research and accelerate technology transfer to industry.
+* Support collaborative and reproducible research.
 
 ## Purpose
 
@@ -51,7 +51,7 @@ As a starting point, we use the open-source and technology-neutral [MLCommons CM
 developed by this workgroup to modularize, crowd-benchmark and optimize diverse ML Systems across continuously changing software, hardware and data.
 
 CM is the next generation of the [MLCommons CK workflow automation framework](https://arxiv.org/pdf/2011.01149.pdf) 
-that was originally developed to make it easier to [reproduce research papers and validate them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
+that was originally developed by [Grigori Fursin]( https://cKnowledge.io/@gfursin ) to make it easier to [reproduce research papers and validate them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
 After CK was successfully used by [multiple organizations]( https://cKnowledge.org/partners.html ) 
 including Qualcomm, HPE, Dell, Lenovo, dividiti, Krai, the cTuning foundation and OctoML to modularize MLPerf benchmarks and automate their submissions,
 the author donated the [CK framework and all MLPerf automation workflows](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation) 
