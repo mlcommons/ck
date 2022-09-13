@@ -10,14 +10,14 @@
 
 ## Shortcuts
 
-* [Simple example to install and try our meta-framework for modular image classification](docs/example-modular-image-classification.md)
-* [Open workgroup developing automation of MLPerf and modularization of ML&AI Systems](../docs/mlperf-education-workgroup.md)
-* [Demo to modularize MLPerf inference benchmark and automate submissions](../docs/mlperf-cm-automation-demo.md)
-* ["Getting Started" tutorial](docs/tutorial-scripts.md)
+* [Simple example to install and try our meta-framework for modular image classification](https://github.com/mlcommons/ck/tree/master/cm/docs/example-modular-image-classification.md)
+* [Open workgroup developing automation of MLPerf and modularization of ML&AI Systems](https://github.com/mlcommons/ck/tree/master/docs/mlperf-education-workgroup.md)
+* [Demo to modularize MLPerf inference benchmark and automate submissions](https://github.com/mlcommons/ck/tree/master/docs/mlperf-cm-automation-demo.md)
+* ["Getting Started" tutorial](https://github.com/mlcommons/ck/tree/master/cm/docs/tutorial-scripts.md)
 * Motivation and concept: [journal article](https://arxiv.org/pdf/2011.01149.pdf), [ACM TechTalk](https://learning.acm.org/techtalks/reproducibility)
 
 *We are very glad that our technology has already helped different organizations automate their MLPerf inference benchmarking 
- including Qualcomm, Krai, HPE, Dell, Alibaba and Lenovo - join our [open workgroup](docs/mlperf-education-workgroup.md) 
+ including Qualcomm, Krai, HPE, Dell, Alibaba and Lenovo - join our [open workgroup](https://github.com/mlcommons/ck/tree/master/docs/mlperf-education-workgroup.md) 
  to get involved in further developments!*
 
 
@@ -25,7 +25,7 @@
 
 There are [many great automation tools and workflow management frameworks](https://www.mihaileric.com/posts/mlops-is-a-mess) - 
 some are convenient for researchers and some for engineers. 
-The Collective Mind toolkit (CM) is [our community effort](../docs/mlperf-education-workgroup.md) 
+The Collective Mind toolkit (CM) is [our community effort](https://github.com/mlcommons/ck/tree/master/docs/mlperf-education-workgroup.md) 
 to develop a portable meta-framework that is convenient for both.
 
 The goal of the CM framework is to help researchers and engineers wrap ad-hoc DevOps and MLOps 
@@ -121,11 +121,13 @@ across continuously changing software, hardware, user environments, settings, mo
 
 # News
 
-* **2022 September 9:** Subscribe to our [public workgroup](../docs/mlperf-education-workgroup.md) to participate in the development of automation workflows
+* **2022 September 9:** Subscribe to our [public workgroup](https://github.com/mlcommons/ck/tree/master/docs/mlperf-education-workgroup.md) 
+  to participate in the development of automation workflows
   to simplify, modularize and automate ML Systems benchmarking.
 
-* **2022 September 1:** We have developed a CM workflow to automate and modularize [MLPerf inference benchmark](docs/tutorial-modular-mlperf.md). 
-  We continue these developments within a public [MLPerf education workgroup](../docs/mlperf-education-workgroup.md).
+* **2022 September 1:** We have developed a CM workflow to automate and modularize 
+  [MLPerf inference benchmark](https://github.com/mlcommons/ck/blob/master/docs/mlperf-cm-automation-demo.md).
+  We continue these developments within a public [MLPerf education workgroup](https://github.com/mlcommons/ck/tree/master/docs/mlperf-education-workgroup.md).
 
 * **2022 July 25:** We updated tutorial about CM scripts: https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md .
 
@@ -182,18 +184,18 @@ We continue these discussions and developments within our [open workgroup](../do
 
 # Development meetings
 
-* [Public workgroup](../docs/mlperf-education-workgroup.md)
-* [Public notes](meetings/)
-* [Regular conf-calls](meetings/conf-calls.md)
+* [Public workgroup](https://github.com/mlcommons/ck/tree/master/docs/mlperf-education-workgroup.md)
+* [Public notes](https://github.com/mlcommons/ck/tree/master/cm/meetings/)
+* [Regular conf-calls](https://github.com/mlcommons/ck/tree/master/cm/meetings/conf-calls.md)
 
 
 # Related resources
 
-* [MLOps projects, articles and tools](docs/KB/MLOps.md)
+* [MLOps projects, articles and tools](https://github.com/mlcommons/ck/tree/master/cm/docs/KB/MLOps.md)
 
 # Contributing
 
-The best way to contribute to this project is to join our [open workgroup](docs/mlperf-education-workgroup.md)
+The best way to contribute to this project is to join our [open workgroup](https://github.com/mlcommons/ck/tree/master/cm/docs/mlperf-education-workgroup.md)
 to help the community modularize AI, ML and other complex systems, 
 share your ML artifacts and automations as [reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
 and improve the core CM functionality.

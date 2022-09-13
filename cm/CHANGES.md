@@ -1,3 +1,6 @@
+## V1.0.1
+   - fixed links in PYPI docs
+
 ## V1.0.0
    - Prepared [public workgroup](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
      to continue CM developments to modularize ML Systems and automate their benchmarking using the MLPerf methodology
