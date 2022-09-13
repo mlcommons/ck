@@ -8,6 +8,21 @@
 [![Documentation](https://img.shields.io/badge/Documentation-available%20online-green)](https://cKnowledge.org/docs/cm)
 [![CM(CK2) test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 
+## Shortcuts
+
+* [Simple example to install and try our meta-framework for modular image classification](cm/docs/example-modular-image-classification.md)
+* [Open workgroup developing automation of MLPerf and modularization of ML&AI Systems](docs/mlperf-education-workgroup.md)
+* [Demo to modularize MLPerf inference benchmark and automate submissions](docs/mlperf-cm-automation-demo.md)
+* ["Getting Started" tutorial](cm/docs/tutorial-scripts.md)
+* [Meta-framework development page](#collective-mind-toolkit)
+* Motivation and concept: [journal article](https://arxiv.org/pdf/2011.01149.pdf), [ACM TechTalk](https://learning.acm.org/techtalks/reproducibility)
+
+*We are very glad that our technology has already helped different organizations automate their MLPerf inference benchmarking 
+ including Qualcomm, Krai, HPE, Dell, Alibaba and Lenovo - join our [open workgroup](docs/mlperf-education-workgroup.md) 
+ to get involved in further developments!*
+
+
+## Motivation
 
 There are [many great automation tools and workflow management frameworks](https://www.mihaileric.com/posts/mlops-is-a-mess) - 
 some are convenient for researchers and some for engineers. 
@@ -107,7 +122,10 @@ across continuously changing software, hardware, user environments, settings, mo
 
 # News
 
-* **2022 September 1:** We developed a CM workflow to automate and modularize [MLPerf inference benchmark](docs/tutorial-modular-mlperf.md). 
+* **2022 September 9:** Subscribe to our [public workgroup](../docs/mlperf-education-workgroup.md) to participate in the development of automation workflows
+  to simplify, modularize and automate ML Systems benchmarking.
+
+* **2022 September 1:** We have developed a CM workflow to automate and modularize [MLPerf inference benchmark](docs/tutorial-modular-mlperf.md). 
   We continue these developments within a public [MLPerf education workgroup](../docs/mlperf-education-workgroup.md).
 
 * **2022 July 25:** We updated tutorial about CM scripts: https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md .
@@ -165,6 +183,7 @@ We continue these discussions and developments within our [open workgroup](../do
 
 # Development meetings
 
+* [Public workgroup](docs/mlperf-education-workgroup.md)
 * [Public notes](meetings/)
 * [Regular conf-calls](meetings/conf-calls.md)
 
@@ -196,6 +215,6 @@ and our [ACM TechTalk](https://www.youtube.com/watch?v=7zpeIVwICa4).
 
 # Maintainers
 
-* [Grigori Fursin](https://cKnowledge.io@gfursin)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+* [Grigori Fursin](https://cKnowledge.io@gfursin) (CK&CM author)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (author of CK and CM automation scripts for MLPerf)
 
