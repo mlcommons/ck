@@ -1,8 +1,10 @@
 # Prototyping phase
 
-## DEV
+## V1.0.0
+   - Added multiple tests for CM core, scripts and "automation" script features: https://github.com/mlcommons/ck/actions
    - Extended "cm info artifact"
    - Added support to copy CID of a given CM artifact to a clipboard (cm info {artifact})
+   - Updated docs and tutorials for V1.0.0 release!
 
 ## V0.7.24
    - added link to GitHub repo with CM automation scripts
