@@ -195,7 +195,7 @@ We continue these discussions and developments within our [open workgroup](../do
 
 # Contributing
 
-The best way to contribute to this project is to join our [open workgroup](https://github.com/mlcommons/ck/tree/master/cm/docs/mlperf-education-workgroup.md)
+The best way to contribute to this project is to join our [open workgroup](https://github.com/mlcommons/ck/tree/master/docs/mlperf-education-workgroup.md)
 to help the community modularize AI, ML and other complex systems, 
 share your ML artifacts and automations as [reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
 and improve the core CM functionality.
