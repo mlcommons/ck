@@ -10,11 +10,10 @@
 
 ## Shortcuts
 
-* [Simple example to install and try our meta-framework for modular image classification](cm/docs/example-modular-image-classification.md)
-* [Open workgroup developing automation of MLPerf and modularization of ML&AI Systems](docs/mlperf-education-workgroup.md)
-* [Demo to modularize MLPerf inference benchmark and automate submissions](docs/mlperf-cm-automation-demo.md)
-* ["Getting Started" tutorial](cm/docs/tutorial-scripts.md)
-* [Meta-framework development page](#collective-mind-toolkit)
+* [Simple example to install and try our meta-framework for modular image classification](docs/example-modular-image-classification.md)
+* [Open workgroup developing automation of MLPerf and modularization of ML&AI Systems](../docs/mlperf-education-workgroup.md)
+* [Demo to modularize MLPerf inference benchmark and automate submissions](../docs/mlperf-cm-automation-demo.md)
+* ["Getting Started" tutorial](docs/tutorial-scripts.md)
 * Motivation and concept: [journal article](https://arxiv.org/pdf/2011.01149.pdf), [ACM TechTalk](https://learning.acm.org/techtalks/reproducibility)
 
 *We are very glad that our technology has already helped different organizations automate their MLPerf inference benchmarking 
@@ -183,7 +182,7 @@ We continue these discussions and developments within our [open workgroup](../do
 
 # Development meetings
 
-* [Public workgroup](docs/mlperf-education-workgroup.md)
+* [Public workgroup](../docs/mlperf-education-workgroup.md)
 * [Public notes](meetings/)
 * [Regular conf-calls](meetings/conf-calls.md)
 
