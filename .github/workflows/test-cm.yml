@@ -8,13 +8,13 @@ on:
     branches: [ "master" ]
     paths:
       - cm/**
-      - actions/workflows/test-cm.yml
+      - .github/workflows/test-cm.yml
       - '!**.md'
   pull_request:
     branches: [ "master" ]
     paths:
       - cm/**
-      - actions/workflows/test-cm.yml
+      - .github/workflows/test-cm.yml
       - '!**.md'
 
 jobs:
