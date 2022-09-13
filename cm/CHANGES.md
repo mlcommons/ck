@@ -1,4 +1,7 @@
 ## V1.0.0
+   - Prepared [public workgroup](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
+     to continue CM developments to modularize ML Systems and automate their benchmarking using the MLPerf methodology
+     as a community effort!
    - Added multiple tests for CM core, scripts and "automation" script features: https://github.com/mlcommons/ck/actions
    - Extended "cm info artifact"
    - Added support to copy CID of a given CM artifact to a clipboard (cm info {artifact})
