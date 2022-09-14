@@ -26,7 +26,7 @@ You can find more details about the installation process [here](installation.md)
 ## Run modular image classification via CM
 
 Here is an example of a modular image classification [assembled](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.json#L9) 
-from ([portable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)) 
+from ([portable CM components that wrap ad-hoc scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)) 
 that will attempt to automatically detect, download, install and build all related artifacts 
 and tools to adapt this workflow to a user platform with Linux, Windows or MacOS:
 
