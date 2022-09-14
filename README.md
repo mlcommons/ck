@@ -171,7 +171,7 @@ in this and other CM workflows.
 
 
 
-# Contributing
+### Contributing
 
 You can share CM components in your Git repository for your own scripts and artifacts 
 to help the community reuse and build upon them (similar to this [CM repository](https://github.com/mlcommons/ck/tree/master/cm-mlops)).
