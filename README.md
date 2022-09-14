@@ -19,11 +19,11 @@ into portable workflows, applications and web-services
 that can run natively or inside containers while automatically 
 adapting to continuously changing software and hardware.
 
-After CK was successfully validated by Qualcomm, Arm, General Motors, OctoML, Krai, HPE, Dell, Lenovo
-and other organizations, we have donated CK to the [MLCommons foundation](https://mlcommons.org) 
-to benefit everyone.
+We have donated CK to the [MLCommons foundation](https://mlcommons.org) 
+to benefit everyone after it was successfully validated by Qualcomm, Arm, General Motors,
+OctoML, Krai, HPE, Dell, Lenovo and other organizations.
 
-We are improving and enhancing CK based on your feedback and requirements - 
+We continue improving and enhancing CK based on your feedback and requirements - 
 feel free to join our [open workgroup](docs/mlperf-education-workgroup.md) 
 to provide your feedback and participate in further developments!
 
