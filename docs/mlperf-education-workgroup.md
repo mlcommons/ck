@@ -8,7 +8,7 @@ Please use [this Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join and s
 * Use this toolkit to help the newcomers learn how to customize and run MLPerf benchmarks across rapidly evolving software, hardware and data. 
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 * Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
-* Help end-users reproduce MLPerf results and deploy the most suitable ML/SW/HW stacks in production.
+* Help end-users visualize all MLPerf results, reproduce them and deploy the most suitable ML/SW/HW stacks in production.
 * Support collaborative and reproducible research.
 
 ## Purpose
