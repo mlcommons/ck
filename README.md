@@ -203,7 +203,7 @@ to the new CM format - please open a [ticket](https://github.com/mlcommons/ck/is
 * [Artifact evaluation and reproducibility initiatives at conferences](https://cTuning.org/ae)
 
 
-# References
+# Resources and references
 
 * [Our motivation](cm/docs/motivation.md)
 * [Journal article describing our concept](https://arxiv.org/pdf/2011.01149.pdf)
