@@ -1,3 +1,6 @@
+## V1.0.2
+   - updated and simplified all docs
+
 ## V1.0.1
    - fixed links in PYPI docs
 
