@@ -177,7 +177,7 @@ You can share CM components in your Git repository for your own scripts and arti
 to help the community reuse and build upon them (similar to this [CM repository](https://github.com/mlcommons/ck/tree/master/cm-mlops)).
 
 You can join our [open workgroup](docs/https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
-and/or contribute your own CM components [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script).\
+and/or contribute your own CM components [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script).
 
 These components must automatically download, install, build and preprocess different applications, models,
 data sets, frameworks, compilers, SDKs and tools across different platforms and operating systems
