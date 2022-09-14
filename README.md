@@ -166,7 +166,7 @@ in this and other CM workflows.
 ### Documentation
 
 * [Internal diagram](cm/docs/structure.md)
-* [High-level specification](cm/docs/specification.md)
+* [High-level specification with common CM commands](cm/docs/specification.md)
 * [Conventions](cm/docs/conventions.md)
 
 
