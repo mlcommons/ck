@@ -16,14 +16,15 @@ from the community into their projects, build systems, CI/CD tools,
 containers, Jupyter/Colab notebooks and any other technology.
 
 CK runtime system also helps users interconnect any scripts and artifacts 
-into portable workflows, applications and web-services 
-that can run natively or inside containers while automatically 
-adapting to continuously changing software and hardware.
+into portable workflows, applications and web-services.
+They can run natively or inside containers while automatically 
+adapting to any given software and hardware.
 
-Any output of CK components and workflows including CSV/XLS/JSON/YAML files,
-pre-processed data set, notes and optimized code can be also stored 
-as CK components with all related CM dependencies to make it easier to re-run,
-reproduce and reuse research results by the community.
+Any output of CK components and workflows (CSV/XLS/JSON/YAML files,
+pre-processed data set, notes and optimized code) can be also stored 
+as CK components with all related CM dependencies.
+Such database-like organization of projects makes it easier
+for the community to re-run, reproduce and reuse research results.
 
 We have donated CK to the [MLCommons foundation](https://mlcommons.org) 
 to benefit everyone after it was successfully validated by Qualcomm, Arm, General Motors,
