@@ -2,6 +2,7 @@
  * treat alias as tags if spaces: 
    cm run script "get compiler" is converted to cm run script --tags=get,compiler
  * improved gcc detection
+ * refactored "cm run script" to skip deps in cache if needed
 
 # 20220906
  * added --print_env flag to "cm run script" to print aggregated env
