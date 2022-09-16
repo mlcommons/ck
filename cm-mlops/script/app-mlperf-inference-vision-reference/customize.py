@@ -113,7 +113,7 @@ def preprocess(i):
         user_conf += env['CM_MODEL'] + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
 
     if env['CM_RUN_STYLE'] == "test":
-        query_count = env['CM_TEST_QUERY_COUNT']
+        query_count = env.get('CM_TEST_QUERY_COUNT', "5")
         user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
         user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
         scenario_extra_options +=  " --count " + query_count
@@ -144,6 +144,10 @@ def preprocess(i):
 
     mode = env['CM_LOADGEN_MODE']
     mode_extra_options = ""
+    if 'CM_DATASET_PREPROCESSED_PATH' in env:
+        dataset_options = " --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']
+    else:
+        dataset_options = ''
     OUTPUT_DIR =  os.path.join(env['CM_MLC_RESULTS_DIR'], env['CM_BACKEND'] + "-" + env['CM_DEVICE'], \
             env['CM_MODEL'], scenario.lower(), mode)
     if mode == "accuracy":
@@ -162,7 +166,9 @@ def preprocess(i):
         audit_full_path = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "compliance", audit_path, "audit.config")
         mode_extra_options = " --audit '" + audit_full_path + "'"
 
-    cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + OUTPUT_DIR + "' ./run_local.sh " + env['CM_BACKEND'] + ' ' + env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options 
+    cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + OUTPUT_DIR + "' ./run_local.sh " + env['CM_BACKEND'] + ' ' + \
+    env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + \
+    scenario_extra_options + mode_extra_options + dataset_options
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
         RUN_CMD = cmd
         print("Output Dir: '" + OUTPUT_DIR + "'")
