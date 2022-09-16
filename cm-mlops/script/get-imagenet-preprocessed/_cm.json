@@ -17,6 +17,9 @@
       "names": [ "original-dataset" ]
     },
     {
+      "tags": "get,dataset-aux,image-classification,imagenet-aux"
+    },
+    {
       "tags": "mlperf,mlcommons,inference,source,src",
       "names": [ "inference-src" ]
     }
@@ -41,7 +44,7 @@
       },
       "add_deps": {
 	"original-dataset": {
-	  "tags": "_1"
+	  "tags": "_2012-1"
 	}
       }
     },
@@ -51,7 +54,7 @@
       },
       "add_deps": {
 	"original-dataset": {
-	  "tags": "_500"
+	  "tags": "_2012-500"
 	}
       }
     },

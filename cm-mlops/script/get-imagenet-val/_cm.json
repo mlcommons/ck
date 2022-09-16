@@ -31,6 +31,12 @@
         "CM_DATASET_VER": "2012"
       }
     },
+    "2012-1": {
+      "env": {
+        "CM_DATASET_SIZE": "1",
+        "CM_DATASET_VER": "2012"
+      }
+    },
     "full": {
       "env": {
 	"CM_DATASET_SIZE": "50000",
