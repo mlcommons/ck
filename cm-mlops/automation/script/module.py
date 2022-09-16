@@ -1504,6 +1504,12 @@ class CAutomation(Automation):
         # Check if forced to search in a specific path
         path = env.get('CM_TMP_PATH','')
 
+        # Check if forced path and file name from --input (CM_INPUT - local env - will not be visible for higher-level script)
+        forced_file = env.get('CM_INPUT','').strip()
+        if forced_file != '':
+            file_name = os.path.basename(forced_file)
+            path = os.path.dirname(forced_file)
+
         default_path_list = [] if default_path_env_key == '' else \
            os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
 
