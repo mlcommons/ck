@@ -9,7 +9,10 @@ def preprocess(i):
     if os_info['platform'] == 'windows':
         return {'return':1, 'error': 'Windows is not supported in this script yet'}
     env = i['env']
-    env['CM_TMP_CURRENT_SCRIPT_PATH'] = os.getcwd()
+    if 'CM_GIT_DEPTH' not in env:
+        env['CM_GIT_DEPTH'] = ''
+    if 'CM_GIT_RECURSE_SUBMODULES' not in env:
+        env['CM_GIT_RECURSE_SUBMODULES'] = ''
 
     return {'return':0}
 
@@ -20,6 +23,11 @@ def postprocess(i):
 
     env['CM_MLC_INFERENCE_SOURCE'] = os.path.join(os.getcwd(), 'inference')
     env['CM_MLC_INFERENCE_VISION_PATH'] = os.path.join(os.getcwd(), 'inference', 'vision', 'classification_and_detection')
+    if '+PYTHONPATH' not in env:
+        env['+PYTHONPATH'] = []
+    env['+PYTHONPATH'].insert(0, os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], 'python'))
+    env['+PYTHONPATH'].insert(0, os.path.join(env['CM_MLC_INFERENCE_SOURCE'], 'tools', 'submission'))
+
     valid_models = get_valid_models(env['CM_MLC_LAST_RELEASE'], env['CM_MLC_INFERENCE_SOURCE'])
     state['CM_MLPERF_INFERENCE_MODELS'] = valid_models
 

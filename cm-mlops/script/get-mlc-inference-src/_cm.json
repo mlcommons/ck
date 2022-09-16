@@ -15,11 +15,13 @@
     }
   ],
   "new_env_only_keys": [
-    "CM_MLC_INFERENCE_*"
+    "CM_MLC_INFERENCE_*",
+    "+PYTHONPATH"
   ],
   "env": {
     "CM_GIT_URL": "https://github.com/mlcommons/inference.git",
-    "CM_GIT_PATCH": "no"
+    "CM_GIT_PATCH": "no",
+    "CM_GIT_DEPTH": ""
   },
   "tags": [
     "get",
@@ -49,7 +51,8 @@
       "env": {
         "CM_GIT_URL": "https://github.com/mlcommons/inference.git",
         "CM_GIT_PATCH": "no"
-      }
+      },
+      "base": ["short-history"]
     },
     "patch": {
       "env": {
@@ -59,11 +62,27 @@
     "octoml": {
       "env": {
         "CM_GIT_URL": "https://github.com/octoml/inference"
-      }
+      },
+      "base": ["short-history"]
     },
     "tvm": {
       "env": {
         "CM_GIT_URL": "https://github.com/octoml/mlcommons-inference"
+      }
+    },
+    "short-history": {
+      "env": {
+        "CM_GIT_DEPTH": "--depth 10"
+      }
+    },
+    "full-history": {
+      "env": {
+        "CM_GIT_DEPTH": "--depth 10"
+      }
+    },
+    "recurse-submodules": {
+      "env": {
+        "CM_GIT_RECURSE_SUBMODULES": "--recurse-submodules"
       }
     }
   }
