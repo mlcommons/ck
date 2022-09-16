@@ -360,7 +360,10 @@ class CAutomation(Automation):
                 else:
                     script_tags.append(t)
 
-        # Find scripts (can be more than 1) - we will use them later (if more than 1)
+
+
+
+        # Find scripts to get their meta (can be more than 1) - we will use them later (if more than 1)
         ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
 
         script_tags_string = ','.join(script_tags)
@@ -396,6 +399,8 @@ class CAutomation(Automation):
                     break
 
 
+
+
         # Check if more than 1 script found and selection was not remembered!
         select_script = 0
 
@@ -403,13 +408,49 @@ class CAutomation(Automation):
             return {'return':16, 'error':'script not found'}
 
         elif len(list_of_found_scripts) > 1:
-            select_script = select_script_artifact(list_of_found_scripts, 'script', recursion_spaces, False)
+            # If only tags are used, check if there are no cached scripts with tags - then we will reuse them
+            # The use case: cm run script --tags=get,compiler
+            #  CM script will always ask to select gcc,llvm,etc even if any of them will be already cached
+            x_script_tags_string = '-tmp'
+            if script_tags_string!='':x_script_tags_string+=','+script_tags_string
+            search_cache = {'action':'search',
+                            'automation':'cache,541d6f712a6b464e',
+                            'tags':x_script_tags_string}
+            rc = self.cmind.access(search_cache)
+            if rc['return']>0: return rc
 
-            # Remember selection
-            if not skip_remembered_selections:
-                remembered_selections.append({'type': 'script',
-                                              'tags':script_tags_string,
-                                              'cached_script':list_of_found_scripts[select_script]})
+            cache_list = rc['list']
+
+            if len(cache_list) > 0:
+                list_of_found_scripts = []
+                tmp_list_of_script_artifacts = []
+
+                for cache_entry in cache_list:
+                    # Find associated script and add to the list_of_found_scripts
+                    associated_script_artifact = cache_entry.meta['associated_script_artifact']
+
+                    if associated_script_artifact not in tmp_list_of_script_artifacts:
+                        r = self.cmind.access({'action':'search',
+                                               'automation':self.meta['uid'],
+                                               'artifact': associated_script_artifact,
+                                               'common':True})
+                        if r['return'] >0: return r
+
+                        list_of_found_scripts += r['list']
+
+                        tmp_list_of_script_artifacts.append(associated_script_artifact)
+
+            # Select scripts
+            if len(list_of_found_scripts) > 1:
+                select_script = select_script_artifact(list_of_found_scripts, 'script', recursion_spaces, False)
+
+                # Remember selection
+                if not skip_remembered_selections:
+                    remembered_selections.append({'type': 'script',
+                                                  'tags':script_tags_string,
+                                                  'cached_script':list_of_found_scripts[select_script]})
+            else:
+                select_script = 0
 
         script_artifact = list_of_found_scripts[select_script]
 

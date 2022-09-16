@@ -308,7 +308,7 @@ class CM(object):
 
                 if len(automation_lst)==1:
                     automation = automation_lst[0]
-                    
+
                     automation_path = automation.path
                     automation_name = self.cfg['common_automation_module_name']
                     automation_meta = automation.meta
@@ -415,6 +415,7 @@ class CM(object):
             action = 'any'
 
         print_automation = automation_meta.get('alias','') + ',' + automation_meta.get('uid','')
+        initialized_automation.artfact = print_automation
 
         # Check if help about automation actions
         if action == 'help':
