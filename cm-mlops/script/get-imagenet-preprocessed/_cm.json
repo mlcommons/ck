@@ -13,7 +13,12 @@
       "tags": "get,python"
     },
     {
-      "tags": "get,dataset,image-classification,original"
+      "tags": "get,dataset,image-classification,original",
+      "names": [ "original-dataset" ]
+    },
+    {
+      "tags": "mlperf,mlcommons,inference,source,src",
+      "names": [ "inference-src" ]
     }
   ],
   "cache": true,
@@ -33,6 +38,41 @@
     "1": {
       "env": {
         "CM_DATASET_SIZE": "1"
+      },
+      "add_deps": {
+	"original-dataset": {
+	  "tags": "_1"
+	}
+      }
+    },
+    "500": {
+      "env": {
+        "CM_DATASET_SIZE": "500"
+      },
+      "add_deps": {
+	"original-dataset": {
+	  "tags": "_500"
+	}
+      }
+    },
+    "full": {
+      "env": {
+        "CM_DATASET_SIZE": "50000"
+      },
+      "add_deps": {
+	"original-dataset": {
+	  "tags": "_full"
+	}
+      }
+    },
+    "NHWC": {
+      "env": {
+        "ML_MODEL_DATA_LAYOUT": "NHWC"
+      }
+    },
+    "NCHW": {
+      "env": {
+        "ML_MODEL_DATA_LAYOUT": "NCHW"
       }
     }
   }
