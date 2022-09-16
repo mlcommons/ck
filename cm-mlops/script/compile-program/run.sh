@@ -32,7 +32,16 @@ test $? -eq 0 || exit 1
 IFS=';' read -ra FILES <<< "${CM_C_SOURCE_FILES}"
 for file in "${FILES[@]}"; do
   base_name=${file%.*}
-  CMD="${CM_C_COMPILER_WITH_PATH} -c ${CM_C_COMPILER_FLAGS} ${CM_C_INCLUDE_DIR} $file -o $base_name.o"
+  CMD="${CM_C_COMPILER_WITH_PATH} -c ${CM_C_COMPILER_FLAGS} ${CM_C_INCLUDE_PATH} $file -o $base_name.o"
+  echo $CMD
+  eval $CMD
+  test $? -eq 0 || exit 1
+done
+
+IFS=';' read -ra FILES <<< "${CM_CXX_SOURCE_FILES}"
+for file in "${FILES[@]}"; do
+  base_name=${file%.*}
+  CMD="${CM_CXX_COMPILER_WITH_PATH} -c ${CM_CXX_COMPILER_FLAGS} ${CM_CXX_INCLUDE_PATH} $file -o $base_name.o"
   echo $CMD
   eval $CMD
   test $? -eq 0 || exit 1
@@ -42,7 +51,7 @@ done
 echo ""
 echo "Linking ..."
 echo ""
-CMD="${CM_C_COMPILER_WITH_PATH} ${CM_C_COMPILER_FLAGS}  *.o -o ${RUN_DIR}/${BIN_NAME} ${CM_C_LINKER_FLAGS} ${CM_LD_LIBRARY_PATHS}"
+CMD="${CM_C_COMPILER_WITH_PATH} ${CM_C_COMPILER_FLAGS}  *.o -o ${RUN_DIR}/${BIN_NAME} ${CM_C_LINKER_FLAGS} ${CM_LD_LIBRARY_PATH}"
 echo $CMD
 eval $CMD
 
