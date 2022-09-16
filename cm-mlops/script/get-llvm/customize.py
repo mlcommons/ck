@@ -41,8 +41,8 @@ def preprocess(i):
     env['CM_C_COMPILER_BIN']=file_name
     env['CM_C_COMPILER_WITH_PATH']=os.path.join(found_path, file_name)
 
-    env['CM_CPP_COMPILER_BIN']=file_name
-    env['CM_CPP_COMPILER_WITH_PATH']=os.path.join(found_path, file_name)
+    env['CM_CXX_COMPILER_BIN']=file_name
+    env['CM_CXX_COMPILER_WITH_PATH']=os.path.join(found_path, file_name)
 
     env['FAST_COMPILER_FLAGS'] = "-O3"
     env['FAST_LINKER_FLAGS'] = "-O3 -flto"
