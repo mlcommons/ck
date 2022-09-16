@@ -1,3 +1,7 @@
+* 20220916:
+ * treat alias as tags if spaces: 
+   cm run script "get compiler" is converted to cm run script --tags=get,compiler
+
 # 20220906
  * added --print_env flag to "cm run script" to print aggregated env
    before running native scripts

@@ -224,6 +224,15 @@ class CAutomation(Automation):
         from cmind import utils
         import copy
 
+        # Check simplified CMD: cm run script "get compiler"
+        # If artifact has spaces, treat them as tags!
+        artifact = i.get('artifact','').strip()
+        if ' ' in artifact:
+            del(i['artifact'])
+            if 'parsed_artifact' in i: del(i['parsed_artifact'])
+            # Force substitute tags
+            i['tags']=artifact.replace(' ',',')
+
         # Recursion spaces needed to format log and print
         recursion_spaces = i.get('recursion_spaces', '')
         recursion = i.get('recursion', False)
