@@ -25,6 +25,7 @@
 #include <numeric>
 #include <regex>
 #include <vector>
+#include <cstring>
 
 // patch glog
 #include <iostream>

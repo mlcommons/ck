@@ -4,7 +4,8 @@
 
 BIN_NAME=${CM_BIN_NAME:-run.out}
 RUN_DIR=${CM_RUN_DIR:-.}
-rm -f ${BIN_NAME}
+echo "RUN_DIR=$RUN_DIR"
+rm -f ${RUN_DIR}/${BIN_NAME}
 
 if [ -z "${CM_SOURCE_FOLDER_PATH}" ]; then
   echo "No source directory (CM_SOURCE_FOLDER_PATH} specified"
@@ -51,7 +52,7 @@ done
 echo ""
 echo "Linking ..."
 echo ""
-CMD="${CM_C_COMPILER_WITH_PATH} ${CM_C_COMPILER_FLAGS}  *.o -o ${RUN_DIR}/${BIN_NAME} ${CM_C_LINKER_FLAGS} ${CM_LD_LIBRARY_PATH}"
+CMD="${CM_LINKER_WITH_PATH} ${CM_LINKER_COMPILE_FLAGS}  *.o -o ${RUN_DIR}/${BIN_NAME} ${CM_LD_LIBRARY_PATH} ${CM_LINKER_FLAGS}"
 echo $CMD
 eval $CMD
 

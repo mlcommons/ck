@@ -17,7 +17,7 @@ class SampleLibrary : public mlperf::QuerySampleLibrary {
 public:
     SampleLibrary(const std::string &name, std::shared_ptr<Backend> &backend, size_t num_inputs)
         : name(name), backend(backend), num_inputs(num_inputs) {}
-    const std::string &Name() const override { return name; }
+    const std::string &Name() override { return name; }
     size_t PerformanceSampleCount() override { return backend->PerformanceSampleCount(); }
 
     void LoadSamplesToRam(const std::vector<mlperf::QuerySampleIndex> &samples) override {

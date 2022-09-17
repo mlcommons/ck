@@ -13,6 +13,7 @@
     "CM_LLVM_*",
     "CM_C_COMPILER_*",
     "CM_CPP_COMPILER_*",
+    "CM_CXX_COMPILER_*",
     "CM_COMPILER_*",
     "FAST_COMPILER_FLAGS",
     "FAST_LINKER_FLAGS",
