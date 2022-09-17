@@ -27,6 +27,7 @@ def preprocess(i):
         env['+ LDCXXFLAGS'] = [ ]
     env['+ LDCXXFLAGS'] += [ "-lmlperf_loadgen", "-lonnxruntime" ]
     env['CM_LINKER_LANG'] = 'CXX'
+    env['CM_RUN_DIR'] = os.getcwd()
 
     return {'return':0}
 

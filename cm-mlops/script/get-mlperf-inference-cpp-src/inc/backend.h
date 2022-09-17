@@ -6,6 +6,7 @@
 #include <map>
 #include <memory>
 #include <vector>
+#include <cstring>
 
 #include "loadgen.h"
 #include "query_sample.h"

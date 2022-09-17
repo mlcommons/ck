@@ -6,6 +6,7 @@
 #include <mutex>
 #include <thread>
 #include <vector>
+#include <condition_variable>
 
 #include "system_under_test.h"
 

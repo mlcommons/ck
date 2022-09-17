@@ -3,6 +3,7 @@
 
 #include <memory>
 #include <vector>
+#include <cstring>
 
 #include "onnxruntime_cxx_api.h"
 

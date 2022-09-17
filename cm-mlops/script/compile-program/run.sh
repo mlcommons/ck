@@ -4,7 +4,8 @@
 
 BIN_NAME=${CM_BIN_NAME:-run.out}
 RUN_DIR=${CM_RUN_DIR:-.}
-rm -f ${BIN_NAME}
+echo "RUN_DIR=$RUN_DIR"
+rm -f ${RUN_DIR}/${BIN_NAME}
 
 if [ -z "${CM_SOURCE_FOLDER_PATH}" ]; then
   echo "No source directory (CM_SOURCE_FOLDER_PATH} specified"

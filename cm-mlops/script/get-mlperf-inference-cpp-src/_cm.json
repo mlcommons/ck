@@ -41,6 +41,9 @@
   "post_deps": [
     {
       "tags": "compile,program"
+    },
+    {
+      "tags": "benchmark,program"
     }
   ],
   "uid": "879ed32e47074033"
