@@ -24,7 +24,9 @@ def preprocess(i):
         env['+ CXXFLAGS'] = []
     env['+ CXXFLAGS'].append("-std=c++14")
     if '+ LDCXXFLAGS' not in env:
-        env['+ LDCXXFLAGS'] = [ "-lmlperf_loadgen", "-lonnxruntime" ]
+        env['+ LDCXXFLAGS'] = [ ]
+    env['+ LDCXXFLAGS'] += [ "-lmlperf_loadgen", "-lonnxruntime" ]
+    env['CM_LINKER_LANG'] = 'CXX'
 
     return {'return':0}
 

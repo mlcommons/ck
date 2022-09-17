@@ -22,6 +22,22 @@ def preprocess(i):
     env['CM_C_LINKER_FLAGS'] = " ".join(env.get('+ LDCFLAGS', []) + LDFLAGS)
     env['CM_CXX_LINKER_FLAGS'] = " ".join(env.get('+ LDCXXFLAGS', []) + LDFLAGS)
     env['CM_F_LINKER_FLAGS'] = " ".join(env.get('+ LDFFLAGS', []) + LDFLAGS)
+    if env.get('CM_LINKER_LANG', 'C') == "C":
+        env['CM_LINKER_BIN'] = env['CM_C_COMPILER_BIN']
+        env['CM_LINKER_WITH_PATH'] = env['CM_C_COMPILER_WITH_PATH']
+        env['CM_LINKER_COMPILE_FLAGS'] = env['CM_C_COMPILER_FLAGS']
+        env['CM_LINKER_FLAGS'] = env['CM_C_LINKER_FLAGS']
+    elif env.get('CM_LINKER_LANG', 'C') == "CXX":
+        env['CM_LINKER_BIN'] = env['CM_CXX_COMPILER_BIN']
+        env['CM_LINKER_WITH_PATH'] = env['CM_CXX_COMPILER_WITH_PATH']
+        env['CM_LINKER_COMPILE_FLAGS'] = env['CM_CXX_COMPILER_FLAGS']
+        env['CM_LINKER_FLAGS'] = env['CM_CXX_LINKER_FLAGS']
+    elif env.get('CM_LINKER_LANG', 'C') == "F":
+        env['CM_LINKER_BIN'] = env['CM_F_COMPILER_BIN']
+        env['CM_LINKER_WITH_PATH'] = env['CM_F_COMPILER_WITH_PATH']
+        env['CM_LINKER_COMPILE_FLAGS'] = env['CM_F_COMPILER_FLAGS']
+        env['CM_LINKER_FLAGS'] = env['CM_F_LINKER_FLAGS']
+
     env['CM_LD_LIBRARY_PATH'] = " -L".join([" " ] + env.get('+LD_LIBRARY_PATH', []))
     env['CM_SOURCE_FOLDER_PATH'] = env['CM_SOURCE_FOLDER_PATH'] if 'CM_SOURCE_FOLDER_PATH' in env else env['CM_TMP_CURRENT_SCRIPT_PATH'] if 'CM_TMP_CURRENT_SCRIPT_PATH' in env else ''
 
