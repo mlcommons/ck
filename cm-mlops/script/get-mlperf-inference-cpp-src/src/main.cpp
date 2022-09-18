@@ -47,7 +47,7 @@ public:
 	  MODE_NAME = "AccuracyOnly";
 	if (MODE_NAME == "performance")
 	  MODE_NAME = "PerformanceOnly";
-        PERFORMANCE_SAMPLE_COUNT = std::stol(getenv("CM_LOAGEN_PERFORMANCE_COUNT", "1024"));
+        PERFORMANCE_SAMPLE_COUNT = std::stol(getenv("CM_LOADGEN_PERFORMANCE_SAMPLE_COUNT", "1024"));
         BATCH_SIZE = std::stol(getenv("CM_BATCH_SIZE", "32"));
 	std::cout << "MLPerf Conf path: "<< MLPERF_CONF_PATH<<std::endl;
 	std::cout << "User Conf path: "<< USER_CONF_PATH<<std::endl;
