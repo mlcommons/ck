@@ -10,7 +10,8 @@
       "tags": "get,sys-utils-cm"
     },
     {
-      "tags": "get,python"
+      "tags": "get,python3",
+      "names": [ "python3", "python" ]
     },
     {
       "tags": "get,dataset,image-classification,original",
@@ -20,7 +21,7 @@
       "tags": "get,dataset-aux,image-classification,imagenet-aux"
     },
     {
-      "tags": "mlperf,mlcommons,inference,source,src",
+      "tags": "mlperf,mlcommons,inference,source,src,_octoml",
       "names": [ "inference-src" ]
     }
   ],

@@ -17,6 +17,9 @@
       "names": [ "loadgen" ]
     },
     {
+      "tags": "get,dataset,preprocessed,imagenet,_NCHW"
+    },
+    {
       "tags": "get,ml-model-onnx,resnet50"
     },
     {

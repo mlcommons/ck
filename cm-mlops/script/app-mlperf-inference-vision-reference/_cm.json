@@ -34,7 +34,7 @@
           "tvm-onnx"
         ]
       },
-      "tags": "get,onnxruntime"
+      "tags": "get,onnxruntime,python-lib"
     },
     {
       "enable_if_env": {
@@ -206,6 +206,11 @@
       "env": {
         "CM_BACKEND": "onnxruntime",
 	"CM_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
+      },
+      "add_deps_recursive": {
+	"imagenet-preprocessed": {
+	  "tags": "_NCHW"
+	}
       }
     },
     "pytorch": {
@@ -218,6 +223,11 @@
       "env": {
         "CM_BACKEND": "tf",
 	"CM_BACKEND_VERSION": "<<<CM_TENSORFLOW_VERSION>>>"
+      },
+      "add_deps_recursive": {
+	"imagenet-preprocessed": {
+	  "tags": "_NHWC"
+	}
       }
     },
     "tflite": {
@@ -303,6 +313,17 @@
 	  "version": "r2.1"
 	}
       }
+    },
+    "cpp": {
+      "env": {
+	"CM_MLPERF_CPP": "yes",
+	"CM_MLC_ACCURACY_RESULTS_DIR": ""
+      },
+      "post_deps": [
+        {
+	  "tags": "mlperf,cpp"
+        }
+      ]
     }
   }
 }
