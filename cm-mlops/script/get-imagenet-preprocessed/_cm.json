@@ -10,7 +10,8 @@
       "tags": "get,sys-utils-cm"
     },
     {
-      "tags": "get,python"
+      "tags": "get,python3",
+      "names": [ "python3", "python" ]
     },
     {
       "tags": "get,dataset,image-classification,original",

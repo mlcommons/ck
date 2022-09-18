@@ -49,5 +49,6 @@ def postprocess(i):
     print (i['recursion_spaces'] + '      Detected version: {}'.format(version))
 
     env['CM_ONNXRUNTIME_CACHE_TAGS'] = 'version-'+version
+    env['CM_ONNXRUNTIME_VERSION'] = version
 
     return {'return':0, 'version':version}

@@ -239,6 +239,9 @@ def postprocess(i):
     state = i['state']
     if env['CM_MLC_USER_CONF'] == '':
         return {'return': 0}
+    output_dir = env['CM_MLC_OUTPUT_DIR']
+    if not os.path.exists(output_dir):
+        return {'return': 0}
     accuracy_result_dir = ''
     model = env['CM_MODEL']
     if model == "resnet50":
@@ -258,7 +261,6 @@ def postprocess(i):
         measurements['input_data_types'] = env.get('MODEL_INPUT_DATA_TYPES', 'fp32')
         measurements['weight_data_types'] = env.get('MODEL_WEIGHT_DATA_TYPES', 'fp32')
         measurements['weight_transformations'] = env.get('MODEL_WEIGHT_TRANSFORMATIONS', 'none')
-        output_dir = env['CM_MLC_OUTPUT_DIR']
         os.chdir(output_dir)
         print("\n")
         with open("mlperf_log_summary.txt", "r") as fp:
