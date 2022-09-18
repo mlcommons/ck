@@ -20,7 +20,7 @@
       "tags": "get,dataset-aux,image-classification,imagenet-aux"
     },
     {
-      "tags": "mlperf,mlcommons,inference,source,src",
+      "tags": "mlperf,mlcommons,inference,source,src,_octoml",
       "names": [ "inference-src" ]
     }
   ],
