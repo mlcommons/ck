@@ -3,7 +3,7 @@
 ## Motivation
 
 This tutorial demonstrates how to use the [MLCommons Collective Mind toolkit (CM)](https://github.com/mlcommons/ck) 
-being developed by the [open education workgroup](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+being developed by the [open education and reproducibility workgroup](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
 to make it easier to run [MLPerf inference benchmark](https://github.com/mlcommons/inference)
 and automate submissions across diverse ML models, data sets, engines and platforms.
 
@@ -506,7 +506,7 @@ We suggest you to check the following [CM tutorial](../cm/docs/tutorial-scripts.
 to understand the concept of portable CM scripts and workflows.
 
 Feel free to follow the [MLCommons CM project](https://github.com/mlcommons/ck),
-and join our [open education workgroup](mlperf-education-workgroup.md) 
+and join our [open education and reproducibility workgroup](mlperf-education-workgroup.md) 
 to participate in this community project.
 
 Don't hesitate to open a [ticket](https://github.com/mlcommons/ck/issues) 

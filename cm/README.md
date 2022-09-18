@@ -26,7 +26,7 @@ Apache 2.0 license
 
 * **2022 September 1:** We have developed a CM workflow to automate and modularize 
   [MLPerf inference benchmark](https://github.com/mlcommons/ck/blob/master/docs/mlperf-cm-automation-demo.md).
-  We continue these developments within a public [MLPerf education workgroup](https://github.com/mlcommons/ck/tree/master/docs/mlperf-education-workgroup.md).
+  We continue these developments within a public [MLPerf education and reproducibility workgroup](https://github.com/mlcommons/ck/tree/master/docs/mlperf-education-workgroup.md).
 
 * **2022 July 25:** We updated tutorial about CM scripts: https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md .
 

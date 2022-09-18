@@ -1,4 +1,4 @@
-# MLPerf education workgroup
+# MLPerf education and reproducibility workgroup
 
 Please use [this Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join and stay informed about our activities!
 
@@ -9,7 +9,7 @@ Please use [this Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join and s
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 * Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
 * Help end-users visualize all MLPerf results, reproduce them and deploy the most suitable ML/SW/HW stacks in production.
-* Support collaborative and reproducible research.
+* Support reproducibility initiatives at ML and Systems conferences using rigorous MLPerf methodology and our educational toolkit.
 
 ## Purpose
 

@@ -12,7 +12,7 @@ making it possible to reuse them in different projects and chain them together
 into powerful, efficient and portable automation workflows, applications and web services
 adaptable to continuously changing software and hardware.
 
-We use and extend this repository in the [open education workgroup](../docs/mlperf-education-workgroup.md) 
+We use and extend this repository in the [MLPerf education and reproducibility workgroup](../docs/mlperf-education-workgroup.md) 
 as a common playground and a common language to help researchers and engineers
 learn how to modularize complex software systems (such as AI and ML) 
 and automate their benchmarking, optimization, co-design and deployment.
