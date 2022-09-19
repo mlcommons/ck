@@ -262,6 +262,8 @@ def postprocess(i):
         measurements['weight_data_types'] = env.get('MODEL_WEIGHT_DATA_TYPES', 'fp32')
         measurements['weight_transformations'] = env.get('MODEL_WEIGHT_TRANSFORMATIONS', 'none')
         os.chdir(output_dir)
+        if not os.path.exists("mlperf_log_summary.txt"):
+            return {'return': 0}
         print("\n")
         with open("mlperf_log_summary.txt", "r") as fp:
             print(fp.read())

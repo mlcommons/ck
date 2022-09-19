@@ -36,7 +36,7 @@ public:
     InputSettings() {
         MLPERF_CONF_PATH = getenv("CM_MLC_MLPERF_CONF", "../inference/mlperf.conf");
         USER_CONF_PATH = getenv("CM_MLC_USER_CONF", "../inference/vision/classification_and_detection/user.conf");
-        OUTPUT_DIR = getenv("CM_OUTPUT_DIR", ".");
+        OUTPUT_DIR = getenv("CM_MLC_OUTPUT_DIR", ".");
         MODEL_NAME = getenv("ML_MODEL_NAME", "resnet50");
         MODEL_PATH = getenv("CM_ML_MODEL_FILE_WITH_PATH", "");
         IMAGENET_PREPROCESSED_PATH = getenv("CM_DATASET_PREPROCESSED_PATH","") + "/preprocessed/imagenet/NCHW";
@@ -47,7 +47,7 @@ public:
 	  MODE_NAME = "AccuracyOnly";
 	if (MODE_NAME == "performance")
 	  MODE_NAME = "PerformanceOnly";
-        PERFORMANCE_SAMPLE_COUNT = std::stol(getenv("CM_LOAGEN_PERFORMANCE_COUNT", "1024"));
+        PERFORMANCE_SAMPLE_COUNT = std::stol(getenv("CM_LOADGEN_PERFORMANCE_SAMPLE_COUNT", "1024"));
         BATCH_SIZE = std::stol(getenv("CM_BATCH_SIZE", "32"));
 	std::cout << "MLPerf Conf path: "<< MLPERF_CONF_PATH<<std::endl;
 	std::cout << "User Conf path: "<< USER_CONF_PATH<<std::endl;
