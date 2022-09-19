@@ -60,7 +60,7 @@ def preprocess(i):
     variation_backend= "_" + env.get("CM_BACKEND", "tf")
     variation_device= "_" + env.get("CM_DEVICE", "cpu")
     variation_run_style= "_" + env.get("CM_RUN_STYLE", "test")
-    tags =  "app,mlperf,inference,python"+variation_model+","+variation_backend+","+variation_device+","+variation_run_style
+    tags =  "app,mlperf,inference,python,"+variation_model+","+variation_backend+","+variation_device+","+variation_run_style
 
     for scenario in env['CM_LOADGEN_SCENARIOS']:
         for mode in env['CM_LOADGEN_MODES']:
