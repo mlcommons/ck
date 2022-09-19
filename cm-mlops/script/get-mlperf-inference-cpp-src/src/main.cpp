@@ -42,6 +42,7 @@ public:
         std::cout << "Imagenet Preprocessed path: " << imagenet_preprocessed_path << std::endl;
         std::cout << "Scenario: " << scenario_name << std::endl;
         std::cout << "Mode: " << mode_name << std::endl;
+        std::cout << "Batch size: " << batch_size << std::endl;
     }
 
     std::string mlperf_conf_path;
