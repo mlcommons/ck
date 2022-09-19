@@ -9,10 +9,11 @@ def preprocess(i):
 
     recursion_spaces = i['recursion_spaces']
 
-    file_name = 'clang.exe' if os_info['platform'] == 'windows' else 'clang'
+    file_name_c = 'clang.exe' if os_info['platform'] == 'windows' else 'clang'
+    file_name_cpp = 'clang++.exe' if os_info['platform'] == 'windows' else 'clang++'
 
     # Will check env['CM_TMP_PATH'] if comes from installation script
-    r = i['automation'].find_artifact({'file_name': file_name,
+    r = i['automation'].find_artifact({'file_name': file_name_c,
                                        'env': env,
                                        'os_info':os_info,
                                        'default_path_env_key': 'PATH',
@@ -34,15 +35,15 @@ def preprocess(i):
 
     found_path = r['found_path']
 
-    env['CM_LLVM_CLANG_BIN']=file_name
-    env['CM_LLVM_CLANG_BIN_WITH_PATH']=os.path.join(found_path, file_name)
+    env['CM_LLVM_CLANG_BIN']=file_name_c
+    env['CM_LLVM_CLANG_BIN_WITH_PATH']=os.path.join(found_path, file_name_c)
 
     # General compiler for general program compilation
-    env['CM_C_COMPILER_BIN']=file_name
-    env['CM_C_COMPILER_WITH_PATH']=os.path.join(found_path, file_name)
+    env['CM_C_COMPILER_BIN']=file_name_c
+    env['CM_C_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_c)
 
-    env['CM_CXX_COMPILER_BIN']=file_name
-    env['CM_CXX_COMPILER_WITH_PATH']=os.path.join(found_path, file_name)
+    env['CM_CXX_COMPILER_BIN']=file_name_cpp
+    env['CM_CXX_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_cpp)
 
     env['FAST_COMPILER_FLAGS'] = "-O3"
     env['FAST_LINKER_FLAGS'] = "-O3 -flto"
