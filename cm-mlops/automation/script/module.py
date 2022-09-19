@@ -547,6 +547,8 @@ class CAutomation(Automation):
         # Get dependencies on other scripts
         deps = meta.get('deps',[])
         post_deps = meta.get('post_deps',[])
+        pre_hook_deps = meta.get('pre_hook_deps',[])
+        post_hook_deps = meta.get('post_hook_deps',[])
 
 
         # Update version only if in "versions" (not obligatory)
@@ -716,74 +718,9 @@ class CAutomation(Automation):
 
             if len(local_env_keys_from_meta)>0:
                 local_env_keys += local_env_keys_from_meta
-
-            # Preserve local env
-            local_env = {}
-
-            for k in local_env_keys:
-                if '?' in k or '*' in k:
-                    import fnmatch
-                    for kk in list(env.keys()):
-                        if fnmatch.fnmatch(kk, k):
-                            local_env[kk] = env[kk]
-                            del(env[kk])
-                elif k in env:
-                    local_env[k] = env[k]
-                    del(env[k])
-            import re
-            for key in list(env.keys()):
-                value = env[key]
-                tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
-                if tmp_values == []: continue
-                local_env[key] = env[key]
-                del(env[key])
-
-            # Go through dependencies list and run scripts
-            for d in deps:
-
-                if "enable_if_env" in d:
-                    if not enable_or_skip_script(d["enable_if_env"], env):
-                        continue
-
-                if "skip_if_env" in d:
-                    if enable_or_skip_script(d["skip_if_env"], env):
-                        continue;
-
-                if d.get("reuse_version", False):
-                    for k in local_env:
-                        if k.startswith('CM_VERSION'):
-                            env[k] = local_env[k]
-
-                # Run script via CM API:
-                # Not very efficient but allows logging - can be optimized later
-                ii = {
-                       'action':'run',
-                       'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
-                       'recursion_spaces':recursion_spaces + '      ',
-                       'recursion':True,
-                       'remembered_selections':remembered_selections,
-                       'env':env,
-                       'state':state,
-                       'const':const,
-                       'const_state':const_state,
-                       'add_deps_recursive':add_deps_recursive
-                     }
-
-                # Update input from dependency (extensible)
-                ii.update(d)
-
-                r = self.cmind.access(ii)
-                if r['return']>0: return r
-
-                for k in local_env_keys:
-                    if k in env:
-                        del(env[k])
-
-            # Restore local env
-            env.update(local_env)
-
-
-
+            
+            self.run_deps(deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                    remembered_selections)
 
 
         ############################################################################################################
@@ -803,10 +740,6 @@ class CAutomation(Automation):
                     return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
                 value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
             env[key] = value
-
-
-
-
 
 
 
@@ -1038,7 +971,7 @@ class CAutomation(Automation):
                 if skip:
                     print (recursion_spaces+'  - this script is skipped!')
 
-                    # Check if script asks to run other dependencies instead of the skiped one
+                    # Check if script asks to run other dependencies instead of the skipped one
                     another_script = r.get('script', {})
 
                     if len(another_script) == 0:
@@ -1120,52 +1053,8 @@ class CAutomation(Automation):
 
             # Check chain of post dependencies on other CM scripts
             clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
-
-            if len(post_deps)>0:
-                tmp_env={}
-
-                for key in clean_env_keys_post_deps:
-                    if key in env:
-                        tmp_env[key] = env[key]
-                        del env[key]
-
-                for d in post_deps:
-                    if "enable_if_env" in d:
-                        if not enable_or_skip_script(d["enable_if_env"], env):
-                            continue
-
-                    if "skip_if_env" in d:
-                        if enable_or_skip_script(d["skip_if_env"], env):
-                            continue;
-
-                    if d.get("reuse_version", False):
-                        for k in local_env:
-                            if k.startswith('CM_VERSION'):
-                                env[k] = local_env[k]
-
-                    # Run collective script via CM API:
-                    # Not very efficient but allows logging - can be optimized later
-                    ii = {
-                           'action':'run',
-                           'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
-                           'recursion_spaces':recursion_spaces + '  ',
-                           'recursion':True,
-                           'remembered_selections': remembered_selections,
-                           'env':env,
-                           'state':state,
-                           'const':const,
-                           'const_state':const_state,
-                           'add_deps_recursive':add_deps_recursive
-                         }
-
-                    ii.update(d)
-
-                    r = self.cmind.access(ii)
-                    if r['return']>0: return r
-
-                for key in tmp_env:
-                    env[key] = tmp_env[key]
-
+            self.run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
+                    remembered_selections)
 
             # Prepare run script after post deps
             if run_script_after_post_deps:
@@ -1254,6 +1143,70 @@ class CAutomation(Automation):
 
         ############################# RETURN
         return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
+
+    def run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
+                    remembered_selections):
+        if len(deps)>0:
+            # Preserve local env
+            tmp_env = {}
+
+            for key in clean_env_keys_deps:
+                if '?' in key or '*' in key:
+                    import fnmatch
+                    for kk in list(env.keys()):
+                        if fnmatch.fnmatch(kk, key):
+                            tmp_env[kk] = env[kk]
+                            del(env[kk])
+                elif key in env:
+                    tmp_env[key] = env[key]
+                    del(env[key])
+            import re
+            for key in list(env.keys()):
+                value = env[key]
+                tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
+                if tmp_values == []: continue
+                tmp_env[key] = env[key]
+                del(env[key])
+
+            for d in deps:
+                if "enable_if_env" in d:
+                    if not enable_or_skip_script(d["enable_if_env"], env):
+                        continue
+
+                if "skip_if_env" in d:
+                    if enable_or_skip_script(d["skip_if_env"], env):
+                        continue;
+
+                if d.get("reuse_version", False):
+                    for k in tmp_env:
+                        if k.startswith('CM_VERSION'):
+                            env[k] = tmp_env[k]
+
+                # Run collective script via CM API:
+                # Not very efficient but allows logging - can be optimized later
+                ii = {
+                        'action':'run',
+                        'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
+                        'recursion_spaces':recursion_spaces + '  ',
+                        'recursion':True,
+                        'remembered_selections': remembered_selections,
+                        'env':env,
+                        'state':state,
+                        'const':const,
+                        'const_state':const_state,
+                        'add_deps_recursive':add_deps_recursive
+                    }
+
+                ii.update(d)
+
+                r = self.cmind.access(ii)
+                if r['return']>0: return r
+                for k in clean_env_keys_deps:
+                    if k in env:
+                        del(env[k])
+
+            # Restore local env
+            env.update(tmp_env)
 
 
 
