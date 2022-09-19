@@ -36,7 +36,7 @@ public:
     InputSettings() {
         MLPERF_CONF_PATH = getenv("CM_MLC_MLPERF_CONF", "../inference/mlperf.conf");
         USER_CONF_PATH = getenv("CM_MLC_USER_CONF", "../inference/vision/classification_and_detection/user.conf");
-        OUTPUT_DIR = getenv("CM_OUTPUT_DIR", ".");
+        OUTPUT_DIR = getenv("CM_MLC_OUTPUT_DIR", ".");
         MODEL_NAME = getenv("ML_MODEL_NAME", "resnet50");
         MODEL_PATH = getenv("CM_ML_MODEL_FILE_WITH_PATH", "");
         IMAGENET_PREPROCESSED_PATH = getenv("CM_DATASET_PREPROCESSED_PATH","") + "/preprocessed/imagenet/NCHW";
