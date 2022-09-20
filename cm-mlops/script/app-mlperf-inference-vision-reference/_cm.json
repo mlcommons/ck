@@ -316,12 +316,11 @@
     },
     "cpp": {
       "env": {
-	"CM_MLPERF_CPP": "yes",
-	"CM_MLC_ACCURACY_RESULTS_DIR": ""
+	"CM_MLPERF_CPP": "yes"
       },
-      "post_deps": [
+      "posthook_deps": [
         {
-	  "tags": "mlperf,cpp"
+	  "tags": "mlperf,cpp,vision,inference"
         }
       ]
     }

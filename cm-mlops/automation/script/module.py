@@ -547,8 +547,8 @@ class CAutomation(Automation):
         # Get dependencies on other scripts
         deps = meta.get('deps',[])
         post_deps = meta.get('post_deps',[])
-        pre_hook_deps = meta.get('pre_hook_deps',[])
-        post_hook_deps = meta.get('post_hook_deps',[])
+        prehook_deps = meta.get('prehook_deps',[])
+        posthook_deps = meta.get('posthook_deps',[])
 
 
         # Update version only if in "versions" (not obligatory)
@@ -557,7 +557,7 @@ class CAutomation(Automation):
 
         if version!='' and version in versions:
             versions_meta = versions[version]
-            update_state_from_meta(versions_meta, env, state, deps, post_deps, i)
+            update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, i)
             if "add_deps_recursive" in versions_meta:
                 utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
 
@@ -653,7 +653,7 @@ class CAutomation(Automation):
 
                 variation_meta = variations[variation_tag]
 
-                update_state_from_meta(variation_meta, env, state, deps, post_deps, i)
+                update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, i)
                 if "add_deps_recursive" in variation_meta:
                     utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':variation_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
 
@@ -686,6 +686,8 @@ class CAutomation(Automation):
         ############################################################################################################
         # Check if script is cached if we need to skip deps from cached entries
         skip_deps_in_cache = False
+        skip_prehook_deps_in_cache = False
+        skip_posthook_deps_in_cache = False
         if not new_cache_entry and meta.get('skip_deps_in_cache', False):
             print (recursion_spaces + '  - Checking if script execution is already cached to skip deps ...')
 
@@ -1039,16 +1041,37 @@ class CAutomation(Automation):
                 import json
                 print (json.dumps(env, indent=2, sort_keys=True))
 
-            if not run_script_after_post_deps:
-                run_script_input['meta'] = meta
-                run_script_input['env'] = env
-                r = prepare_and_run_script_with_postprocessing(run_script_input)
-                if r['return']>0: return r
+            # Check chain of pre hook dependencies on other CM scripts
+            if len(prehook_deps)>0 and not skip_prehook_deps_in_cache:
+                # Get local env keys
+                local_env_keys = copy.deepcopy(self.local_env_keys)
 
-                # If return version
-                if cache and r.get('version','') != '':
-                    cached_tags = [x for x in cached_tags if not x.startswith('version-')]
-                    cached_tags.append('version-' + r['version'])
+                if len(local_env_keys_from_meta)>0:
+                    local_env_keys += local_env_keys_from_meta
+
+                self.run_deps(prehook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                    remembered_selections)
+
+            run_script_input['meta'] = meta
+            run_script_input['env'] = env
+            r = prepare_and_run_script_with_postprocessing(run_script_input)
+            if r['return']>0: return r
+
+            # Check chain of post hook dependencies on other CM scripts
+            if len(posthook_deps)>0 and not skip_posthook_deps_in_cache:
+                # Get local env keys
+                local_env_keys = copy.deepcopy(self.local_env_keys)
+
+                if len(local_env_keys_from_meta)>0:
+                    local_env_keys += local_env_keys_from_meta
+
+                self.run_deps(posthook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                    remembered_selections)
+
+            # If return version
+            if cache and r.get('version','') != '':
+                cached_tags = [x for x in cached_tags if not x.startswith('version-')]
+                cached_tags.append('version-' + r['version'])
 
 
             # Check chain of post dependencies on other CM scripts
@@ -1056,12 +1079,6 @@ class CAutomation(Automation):
             self.run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
                     remembered_selections)
 
-            # Prepare run script after post deps
-            if run_script_after_post_deps:
-                run_script_input['meta'] = meta
-                run_script_input['env'] = env
-                r = prepare_and_run_script_with_postprocessing(run_script_input)
-                if r['return']>0: return r
 
         ############################################################################################################
         ##################################### Finalize script
@@ -2118,7 +2135,7 @@ def update_deps_from_input(deps, post_deps, i):
 
 
 ##############################################################################
-def update_state_from_meta(meta, env, state, deps, post_deps, i):
+def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, posthook_deps, i):
     """
     Internal: update env and state from meta
     """
@@ -2136,16 +2153,28 @@ def update_state_from_meta(meta, env, state, deps, post_deps, i):
     if len(new_post_deps) > 0:
         append_deps(post_deps, new_post_deps)
 
+    new_prehook_deps = meta.get("prehook_deps", [])
+    if len(new_prehook_deps) > 0:
+        append_deps(prehook_deps, new_prehook_deps)
+
+    new_posthook_deps = meta.get("posthook_deps", [])
+    if len(new_posthook_deps) > 0:
+        append_deps(posthook_deps, new_posthook_deps)
+
     add_deps_info = meta.get('add_deps', {})
     if add_deps_info:
         r1 = update_deps(deps, add_deps_info, True)
         r2 = update_deps(post_deps, add_deps_info, True)
-        if r1['return']>0 and r2['return']>0: return r1
+        r3 = update_deps(prehook_deps, add_deps_info, True)
+        r4 = update_deps(posthook_deps, add_deps_info, True)
+        if r1['return']>0 and r2['return']>0 and r3['return'] > 0 and r4['return'] > 0: return r1
 
     add_deps_recursive_info = meta.get('add_deps_recursive', {})
     if add_deps_recursive_info:
         update_deps(deps, add_deps_recursive_info)
         update_deps(post_deps, add_deps_recursive_info)
+        update_deps(prehook_deps, add_deps_recursive_info)
+        update_deps(posthook_deps, add_deps_recursive_info)
  
     return {'return':0}
 
