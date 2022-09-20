@@ -36,7 +36,7 @@ public:
         if (mode_name == "performance")
             mode_name = "PerformanceOnly";
         performance_sample_count = std::stol(getenv("CM_LOADGEN_PERFORMANCE_SAMPLE_COUNT", "1024"));
-        batch_size = std::stol(getenv("CM_BATCH_SIZE", "32"));
+        batch_size = std::stol(getenv("CM_LOADGEN_MAX_BATCHSIZE", "1"));
         std::cout << "MLPerf Conf path: " << mlperf_conf_path << std::endl;
         std::cout << "User Conf path: " << user_conf_path << std::endl;
         std::cout << "Imagenet Preprocessed path: " << imagenet_preprocessed_path << std::endl;
