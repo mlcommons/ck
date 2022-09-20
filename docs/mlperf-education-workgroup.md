@@ -7,8 +7,8 @@
 
 ## Mission
 
-* Develop an open-source educational toolkit to make it easier to plug any real-world ML & AI tasks, models, data sets, software and hardware into the MLPerf benchmarking infrastructure.
-* Use this toolkit to help the newcomers learn how to customize and run MLPerf benchmarks across rapidly evolving software, hardware and data. 
+* Develop an open-source framework to make it easier to plug any real-world ML & AI tasks, models, data sets, software and hardware into the MLPerf benchmarking infrastructure.
+* Use this framework to help the newcomers learn how to customize and run MLPerf benchmarks across rapidly evolving software, hardware and data. 
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 * Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
 * Help end-users visualize all MLPerf results, reproduce them and deploy the most suitable ML/SW/HW stacks in production.
@@ -126,14 +126,13 @@ We use GitHub tickets to track the progress of these community developments:
   to MLPerf on behalf of MLCommons.
 * Share deployable MLPerf inference containers with Pareto-efficient ML/SW/HW stacks.
 
-## Tentative Meeting Schedule
-
-*Next meeting: Tuesday, September 6 - [contact us](mailto:grigori@octoml.ai;asuresh@octoml.ai) to be added to our conf-calls or suggest another time.*
+## Public conf-calls
 
 * Be-weekly on Tuesday at 2:00pm CET (EMEA-friendly)
 * Be-weekly on Thursday at 9:00am PST (North America-friendly)
 
-See our meeting notes from April 2022: https://github.com/mlcommons/ck/tree/master/cm/meetings
+* See Google Meet links and agenda [here](https://github.com/mlcommons/ck/issues/325)
+* See our meeting notes from April 2022: https://github.com/mlcommons/ck/tree/master/cm/meetings
 
 ## Mailing list
 
@@ -160,5 +159,3 @@ See our meeting notes from April 2022: https://github.com/mlcommons/ck/tree/mast
   * [Legacy CK automation for MLPerf](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation)
 
 * [Google Drive](https://drive.google.com/drive/folders/1CKewftoZ2VpBWheMCSxFG-pcIBgCu4Au?usp=sharing) (public access)
-
-
