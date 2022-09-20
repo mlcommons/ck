@@ -1160,8 +1160,12 @@ class CAutomation(Automation):
         ############################# RETURN
         return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 
+
     def run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
                     remembered_selections):
+    """
+    Runs all the enabled dependencies and pass them env minus local env
+    """
         if len(deps)>0:
             # Preserve local env
             tmp_env = {}
@@ -1192,6 +1196,16 @@ class CAutomation(Automation):
                 if "skip_if_env" in d:
                     if enable_or_skip_script(d["skip_if_env"], env):
                         continue;
+
+                force_env_keys_deps = d.get("force_env_keys")
+                for key in force_env_keys_deps:
+                    if '?' in key or '*' in key:
+                        import fnmatch
+                        for kk in list(tmp_env.keys()):
+                            if fnmatch.fnmatch(kk, key):
+                                env[kk] = tmp_env[kk]
+                    elif key in tmp_env:
+                        env[key] = tmp_env[key]
 
                 if d.get("reuse_version", False):
                     for k in tmp_env:
