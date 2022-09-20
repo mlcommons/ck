@@ -1,0 +1,19 @@
+#!/bin/bash
+
+CM_TMP_CURRENT_SCRIPT_PATH=${CM_TMP_CURRENT_SCRIPT_PATH:-$PWD}
+CM_PYTHON_BIN_WITH_PATH=${CM_PYTHON_BIN_WITH_PATH:-python3}
+CUR=`pwd`
+${CM_PYTHON_BIN_WITH_PATH} -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
+if [ "${?}" != "0" ]; then exit 1; fi
+
+west init --mr ${CM_ZEPHYR_VERSION}-branch $CUR
+if [ "${?}" != "0" ]; then exit 1; fi
+
+cd $CUR/zephyr
+west update --shallow
+if [ "${?}" != "0" ]; then exit 1; fi
+west zephyr-export
+if [ "${?}" != "0" ]; then exit 1; fi
+${CM_PYTHON_BIN_WITH_PATH} -m pip install -r $CUR/zephyr/scripts/requirements.txt
+if [ "${?}" != "0" ]; then exit 1; fi
+
