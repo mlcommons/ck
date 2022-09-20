@@ -1201,7 +1201,7 @@ class CAutomation(Automation):
                 if from_cache and d.get("skip_from_cache", False):
                     continue
 
-                force_env_keys_deps = d.get("force_env_keys")
+                force_env_keys_deps = d.get("force_env_keys", [])
                 for key in force_env_keys_deps:
                     if '?' in key or '*' in key:
                         import fnmatch
