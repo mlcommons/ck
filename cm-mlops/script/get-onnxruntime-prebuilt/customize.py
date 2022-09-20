@@ -15,8 +15,10 @@ def postprocess(i):
     if '+C_INCLUDE_PATH' not in env: env['+C_INCLUDE_PATH']=[]
     if '+CXX_INCLUDE_PATH' not in env: env['+CXX_INCLUDE_PATH']=[]
     if '+LD_LIBRARY_PATH' not in env: env['+LD_LIBRARY_PATH']=[]
+    if '+DYLD_FALLBACK_LIBRARY_PATH' not in env: env['+DYLD_FALLBACK_LIBRARY_PATH']=[]
     env['+C_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', install_folder, 'include'))
     env['+CXX_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', install_folder, 'include'))
     env['+LD_LIBRARY_PATH'].append(os.path.join(os.getcwd(), 'install', install_folder, 'lib'))
+    env['+DYLD_FALLBACK_LIBRARY_PATH'].append(os.path.join(os.getcwd(), 'install', install_folder, 'lib'))
 
     return {'return':0}
