@@ -183,6 +183,7 @@ def preprocess(i):
     else:
         print("Measure files exist, skipping regeneration...\n")
         env['CM_MLC_USER_CONF'] = ''
+    os.makedirs(OUTPUT_DIR)
     env['CM_MLC_OUTPUT_DIR'] = OUTPUT_DIR
     env['CM_MLC_RUN_CMD'] = RUN_CMD
 
