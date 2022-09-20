@@ -15,10 +15,16 @@
 
 class SampleLibrary : public mlperf::QuerySampleLibrary {
 public:
-    SampleLibrary(const std::string &name, std::shared_ptr<Backend> &backend, size_t num_inputs)
-        : name(name), backend(backend), num_inputs(num_inputs) {}
+    SampleLibrary(
+        const std::string &name, std::shared_ptr<Backend> &backend,
+        size_t max_sample_count, size_t num_inputs)
+            : name(name), backend(backend), max_sample_count(max_sample_count), num_inputs(num_inputs) {}
+
     const std::string &Name() override { return name; }
     size_t PerformanceSampleCount() override { return backend->PerformanceSampleCount(); }
+    size_t TotalSampleCount() override {
+        return max_sample_count != 0 ? std::min(max_sample_count, NumSamples()) : NumSamples();
+    }
 
     void LoadSamplesToRam(const std::vector<mlperf::QuerySampleIndex> &samples) override {
         std::cerr << "loading samples to ram" << std::endl;
@@ -40,6 +46,8 @@ public:
             backend->UnloadSampleFromRam(sample);
     }
 
+    virtual size_t NumSamples() = 0;
+
     virtual void GetSample(
         mlperf::QuerySampleIndex sample_index,
         size_t input_index,
@@ -49,6 +57,7 @@ public:
 
 protected:
     std::shared_ptr<Backend> backend;
+    size_t max_sample_count;
     size_t num_inputs;
 
 private:
@@ -57,8 +66,10 @@ private:
 
 class Imagenet : public SampleLibrary {
 public:
-    Imagenet(std::shared_ptr<Backend> &backend, std::string preprocessed_path, std::string val_map_path)
-            : SampleLibrary("ImageNet", backend, 1) {
+    Imagenet(
+        std::shared_ptr<Backend> &backend, size_t max_sample_count,
+        std::string preprocessed_path, std::string val_map_path)
+            : SampleLibrary("ImageNet", backend, max_sample_count, 1) {
         std::ifstream val_map(val_map_path);
         std::string line;
         std::regex val_map_regex("\\s*([\\.\\w]*)\\s+(\\d+)\\s*");
@@ -78,7 +89,7 @@ public:
         std::cerr << "loaded imagenet with " << TotalSampleCount() << " samples" << std::endl;
     }
 
-    size_t TotalSampleCount() override {
+    size_t NumSamples() override {
         return image_data_paths.size();
     }
 
