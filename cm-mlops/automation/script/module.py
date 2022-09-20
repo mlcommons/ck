@@ -722,7 +722,7 @@ class CAutomation(Automation):
                 local_env_keys += local_env_keys_from_meta
             
             self.run_deps(deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections)
+                    remembered_selections, found_cached)
 
 
         ############################################################################################################
@@ -1050,7 +1050,7 @@ class CAutomation(Automation):
                     local_env_keys += local_env_keys_from_meta
 
                 self.run_deps(prehook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections)
+                    remembered_selections, found_cached)
 
             run_script_input['meta'] = meta
             run_script_input['env'] = env
@@ -1071,12 +1071,12 @@ class CAutomation(Automation):
                     local_env_keys += local_env_keys_from_meta
 
                 self.run_deps(posthook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections)
+                    remembered_selections, found_cached)
 
             # Check chain of post dependencies on other CM scripts
             clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
             self.run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
-                    remembered_selections)
+                    remembered_selections, found_cached)
 
 
         ############################################################################################################
@@ -1161,8 +1161,9 @@ class CAutomation(Automation):
         return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 
 
+    ##############################################################################
     def run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
-                    remembered_selections):
+                    remembered_selections, from_cache=False):
     """
     Runs all the enabled dependencies and pass them env minus local env
     """
@@ -1195,7 +1196,10 @@ class CAutomation(Automation):
 
                 if "skip_if_env" in d:
                     if enable_or_skip_script(d["skip_if_env"], env):
-                        continue;
+                        continue
+
+                if from_cache and d.get("skip_from_cache", False):
+                    continue
 
                 force_env_keys_deps = d.get("force_env_keys")
                 for key in force_env_keys_deps:
