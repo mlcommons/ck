@@ -183,7 +183,7 @@ def preprocess(i):
     else:
         print("Measure files exist, skipping regeneration...\n")
         env['CM_MLC_USER_CONF'] = ''
-    os.makedirs(OUTPUT_DIR)
+    os.makedirs(OUTPUT_DIR, exist_ok=True)
     env['CM_MLC_OUTPUT_DIR'] = OUTPUT_DIR
     env['CM_MLC_RUN_CMD'] = RUN_CMD
 
@@ -241,8 +241,6 @@ def postprocess(i):
     if env['CM_MLC_USER_CONF'] == '':
         return {'return': 0}
     output_dir = env['CM_MLC_OUTPUT_DIR']
-    if not os.path.exists(output_dir):
-        return {'return': 0}
     accuracy_result_dir = ''
     model = env['CM_MODEL']
     if model == "resnet50":
