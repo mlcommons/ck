@@ -1,13 +1,13 @@
 # Simple example: modular image classification
 
-This simple example demonstrates how run image classification
+This simple example demonstrates how to run image classification
 while automatically managing all related artifacts and adapting
-them to your environment.
+them to your environment using the next generation of the CK framework (CM).
 
 ## Install CM
 
-CM toolkit is the next generation of the MLCommons Collective Knowledge framework
-implemented by the [open workgroup]() 
+CM automation meta-framework is the next generation of the MLCommons Collective Knowledge framework
+implemented by the [open workgroup](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
 as a small Python library with a unified CLI and a simple API.
 
 It requires minimal dependencies (Python 3+, pip, pyyaml and a Git client) 
@@ -26,8 +26,8 @@ You can find more details about the installation process [here](installation.md)
 ## Run modular image classification via CM
 
 Here is an example of a modular image classification [assembled](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.json#L9) 
-from ([portable CM components that wrap ad-hoc scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)) 
-that will attempt to automatically detect, download, install and build all related artifacts 
+from ([reusable and portable CM components that wrap native OS scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)).
+CM will attempt to automatically detect, download, install and build all related artifacts 
 and tools to adapt this workflow to a user platform with Linux, Windows or MacOS:
 
 ```bash
@@ -36,11 +36,11 @@ cm pull repo mlcommons@ck
 cm run script --tags=app,image-classification,onnx,python --quiet
 ```
 
-or using Python scripting:
+or using Python scripting as a reusable micro-service:
 ```python
 import cmind
 r=cmind.access({'action':'run', 'automation':'script'
-                'tags':'app,image-classification,onnx,python,
+                'tags':'app,image-classification,onnx,python',
                 'out':'con',
                 'quiet':True})
 print (r)

@@ -2,8 +2,9 @@
 
 ## News
 
-* Please use [this Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join and stay informed about our activities!
-* Please add your topics and feedback to our [weekly agenda](https://github.com/mlcommons/ck/issues/325)!
+* Please use [this Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join and stay informed about our activities.
+* Please add your topics and feedback to our [weekly agenda](https://github.com/mlcommons/ck/issues/325).
+* Check CK automation example for image classification [here](https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md).
 
 ## Mission
 
@@ -128,11 +129,12 @@ We use GitHub tickets to track the progress of these community developments:
 
 ## Public conf-calls
 
-* Be-weekly on Tuesday at 2:00pm CET (EMEA-friendly)
-* Be-weekly on Thursday at 9:00am PST (North America-friendly)
+* Be-weekly on Tuesday at 2:00pm CET (EMEA-friendly).
+* Be-weekly on Thursday at 9:00am PST (North America-friendly).
 
-* See Google Meet links and agenda [here](https://github.com/mlcommons/ck/issues/325)
-* See our meeting notes from April 2022: https://github.com/mlcommons/ck/tree/master/cm/meetings
+See Google Meet links and agenda [here](https://github.com/mlcommons/ck/issues/325).
+
+See our meeting notes from April 2022 [here](https://github.com/mlcommons/ck/tree/master/cm/meeting).
 
 ## Mailing list
 
