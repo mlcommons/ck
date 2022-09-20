@@ -25,5 +25,23 @@
     "imagenet",
     "accuracy-imagenet"
   ],
-  "uid": "766d5134dc314d9f"
+  "uid": "766d5134dc314d9f",
+  "default_variation": "float32",
+  "variations": {
+    "float32": {
+      "env": {
+	"CM_ACCURACY_DTYPE": "float32"
+      }
+    },
+    "int32": {
+      "env": {
+	"CM_ACCURACY_DTYPE": "intt32"
+      }
+    },
+    "int64": {
+      "env": {
+	"CM_ACCURACY_DTYPE": "int64"
+      }
+    }
+  }
 }

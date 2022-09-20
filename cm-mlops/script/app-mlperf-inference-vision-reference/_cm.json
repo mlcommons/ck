@@ -248,6 +248,7 @@
       "post_deps": [
         {
           "tags": "run,accuracy,imagenet",
+	  "names": [ "accuracy-script" ],
           "enable_if_env": {
 	    "CM_LOADGEN_MODE": [
 	      "accuracy", "all"
@@ -266,6 +267,7 @@
       "post_deps": [
         {
           "tags": "run,accuracy,openimages",
+	  "names": [ "accuracy-script" ],
           "enable_if_env": {
 	    "CM_LOADGEN_MODE": [
 	      "accuracy", "all"
@@ -322,7 +324,12 @@
         {
 	  "tags": "mlperf,cpp,vision,inference"
         }
-      ]
+      ],
+      "add_deps_recursive": {
+	"accuracy-script": {
+	  "tags": "_int64"
+	}
+      }
     }
   }
 }
