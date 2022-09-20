@@ -7,7 +7,7 @@
       "tags": "set,echo-off,win"
     }
   ],
-  "post_deps": [
+  "posthook_deps": [
     {
       "names": [
         "python-venv"
@@ -15,7 +15,6 @@
       "tags": "install,python-venv"
     }
   ],
-  "run_script_after_post_deps": true,
   "tags": [
     "activate",
     "python",
