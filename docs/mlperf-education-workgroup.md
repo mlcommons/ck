@@ -1,6 +1,9 @@
 # MLPerf education and reproducibility workgroup
 
-Please use [this Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join and stay informed about our activities!
+## News
+
+* Please use [this Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join and stay informed about our activities!
+* Please add your topics and feedback to our [weekly agenda](https://github.com/mlcommons/ck/issues/325)!
 
 ## Mission
 
@@ -86,17 +89,19 @@ We use GitHub tickets to track the progress of these community developments:
 * Prepare CM-based MLPerf modularization and automation tutorial:
   * **DONE - [link](mlperf-cm-automation-demo.md)**
 * Add tests to cover critical functionality of portable CM scripts for MLPerf:
-  * [Ongoing](https://github.com/mlcommons/ck/issues/275)
+  * **DONE - [link](https://github.com/mlcommons/ck/issues/275)**
+* Improve CM workflow/script automaton to modularize ML Systems:
+  * [Ongoing](https://github.com/mlcommons/ck/issues/321)
+* Prototype CM-based modularization of the MLPerf inference benchmark with C++ back-end and loadgen 
+  to automatically plug in different ML models, data sets, frameworks, SDKs, compilers and tools 
+  and automatically run it across different hardware and run-times:
+  * [Ongoing internship of Thomas Zhu from Oxford University](https://github.com/mlcommons/ck/issues/265)
 * Prototype CM-based automation for TinyMLPerf:
   * [Ongoing](https://github.com/mlcommons/ck/issues/268)
 * Add basic TVM back-end to the latest MLPerf inference repo:
   * [Ongoing](https://github.com/mlcommons/ck/issues/267)
-* Convert outdated CK components into the new CM format
+* Convert [outdated CK components for MLPerf and MLOps](https://github.com/mlcommons/ck-mlops) into the new CM format
   * Ongoing
-* Prototype CM-based modularization of the MLPerf inference benchmark with C++ back-end and loadgen 
-  to automatically plug in different ML models, data sets, engines and software 
-  and automatically run it across different platforms and run-times:
-  * [Ongoing internship of Thomas Zhu from Oxford University](https://github.com/mlcommons/ck/issues/265)
 * Develop a methodology to create modular containers and [MLCommons MLCubes](https://github.com/mlcommons/mlcube) that contain CM components to run the MLPerf inference benchmarks out of the box:
   * Ongoing discussion
 * Prototype CM integration with power infrastructure (power WG) and logging infrastructure (infra WG):
