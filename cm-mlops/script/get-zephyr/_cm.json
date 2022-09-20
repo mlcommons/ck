@@ -1,0 +1,32 @@
+{
+  "alias": "get-zephyr",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "clean_files": [],
+  "deps": [
+    {
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "tags": "set,echo-off,win"
+    }
+  ],
+  "tags": [
+    "get",
+    "zephyr"
+  ],
+  "uid": "d4105c2cdb044276",
+  "default_version": "v2.7",
+  "versions": {
+    "v2.7": {
+      "env": {
+	"CM_ZEPHYR_VERSION": "v2.7"
+      }
+    }
+  }
+}
