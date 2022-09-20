@@ -1,0 +1,53 @@
+{
+  "alias": "get-cmsis_5",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "deps": [
+    {
+      "tags": "detect,os,info"
+    }
+  ],
+  "env": {
+    "CM_GIT_DEPTH": "",
+    "CM_GIT_PATCH": "no",
+    "CM_GIT_URL": "https://github.com/ARM-software/CMSIS_5.git"
+  },
+  "new_env_only_keys": [
+    "CMSIS*"
+  ],
+  "tags": [
+    "get",
+    "cmsis",
+    "cmsis_5",
+    "arm-software"
+  ],
+  "uid": "2258c212b11443f5",
+  "variations": {
+    "recurse-submodules": {
+      "env": {
+        "CM_GIT_RECURSE_SUBMODULES": "--recurse-submodules"
+      }
+    },
+    "short-history": {
+      "env": {
+        "CM_GIT_DEPTH": "--depth 10"
+      }
+    }
+  },
+  "default_version": "develop",
+  "versions": {
+    "master": {
+      "env": {
+        "CM_GIT_CHECKOUT": "master"
+      }
+    },
+    "develop": {
+      "env": {
+        "CM_GIT_CHECKOUT": "develop"
+      }
+    },
+    "custom": {
+    }
+  }
+}
