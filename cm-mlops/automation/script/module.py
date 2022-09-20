@@ -1057,6 +1057,11 @@ class CAutomation(Automation):
             r = prepare_and_run_script_with_postprocessing(run_script_input)
             if r['return']>0: return r
 
+            # If return version
+            if cache and r.get('version','') != '':
+                cached_tags = [x for x in cached_tags if not x.startswith('version-')]
+                cached_tags.append('version-' + r['version'])
+
             # Check chain of post hook dependencies on other CM scripts
             if len(posthook_deps)>0 and not skip_posthook_deps_in_cache:
                 # Get local env keys
@@ -1067,12 +1072,6 @@ class CAutomation(Automation):
 
                 self.run_deps(posthook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
                     remembered_selections)
-
-            # If return version
-            if cache and r.get('version','') != '':
-                cached_tags = [x for x in cached_tags if not x.startswith('version-')]
-                cached_tags.append('version-' + r['version'])
-
 
             # Check chain of post dependencies on other CM scripts
             clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
