@@ -1164,9 +1164,9 @@ class CAutomation(Automation):
     ##############################################################################
     def run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
                     remembered_selections, from_cache=False):
-    """
-    Runs all the enabled dependencies and pass them env minus local env
-    """
+        """
+        Runs all the enabled dependencies and pass them env minus local env
+        """
         if len(deps)>0:
             # Preserve local env
             tmp_env = {}
