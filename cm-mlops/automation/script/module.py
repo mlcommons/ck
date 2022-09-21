@@ -660,7 +660,7 @@ class CAutomation(Automation):
                     utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':variation_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
 
 
-        r = update_deps_from_input(deps, post_deps, i)
+        r = update_deps_from_input(deps, post_deps, prehook_deps, posthook_deps, i)
         if r['return']>0: return r
 
 
@@ -2136,7 +2136,7 @@ def append_deps(deps, new_deps):
     return {'return':0}
 
 ##############################################################################
-def update_deps_from_input(deps, post_deps, i):
+def update_deps_from_input(deps, post_deps, prehook_deps, posthook_deps, i):
     """
     Internal: update deps from meta
     """
