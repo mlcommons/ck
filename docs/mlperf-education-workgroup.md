@@ -2,7 +2,7 @@
 
 ## News
 
-* Please use [this Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join and stay informed about our activities.
+* Please use [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to join and stay informed about our activities.
 * Please add your topics and feedback to our [weekly agenda](https://github.com/mlcommons/ck/issues/325).
 * Check CK automation example for image classification [here](https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md).
 
@@ -49,8 +49,6 @@ based on their requirements and constraints.
 
 ## Technology
 
-![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-mlperf-edu-wg.png)
-
 As a starting point, we use the open-source and technology-neutral [MLCommons CM toolkit](https://github.com/mlcommons/ck/tree/master/cm)
 developed by this workgroup to modularize, crowd-benchmark and optimize diverse ML Systems across continuously changing software, hardware and data.
 
@@ -63,6 +61,18 @@ to MLCommons to redesign, simplify and extend this technology as a community eff
 within this workgroup. For example, it was then used and extended by [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) and several other engineers
 to automate the record-breaking MLPerf inference benchmark submission for Qualcomm AI 100 devices.
 
+Our goal is to gradually move away from manual and error-prone preparation steps and ad-hoc READMEs
+to fully automated workflows that can adapt to a user environment and artifacts.
+
+Current manual MLPerf benchmark preparation workflows:
+
+![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-mlperf-edu-repro-wg1.png)
+
+CM-based automated workflows:
+
+![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-mlperf-edu-repro-wg2.png)
+
+
 We have finished prototyping the new CM toolkit in summer 2022 based on all the experience and feedback of CK users
 and successfully used it to modularize MLPerf and automate the submission of benchmarking results to the MLPerf inference v2.1: 
 see our [demo](mlperf-cm-automation-demo.md) for more details.
@@ -71,7 +81,7 @@ We continue developing CM as an open-source educational toolkit
 to help the community learn how to modularize, crowd-benchmark, optimize and deploy 
 Pareto-efficient ML Systems based on the mature MLPerf methodology and the [Collective Knowledge concept](https://arxiv.org/pdf/2011.01149.pdf) - 
 please check the [deliverables section](#deliverables) to keep track of our community developments
-and do not hesitate to [get in touch](#contacts) to join this community effort!
+and do not hesitate to [join this community effort](https://forms.gle/i5gCDtBC8gMtcvRw6)!
 
 ## Deliverables
 
