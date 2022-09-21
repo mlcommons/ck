@@ -26,6 +26,12 @@
     },
     {
       "names": [
+	"zephyr-sdk"
+      ],
+      "tags": "get,zephyr-sdk"
+    },
+    {
+      "names": [
         "cmsis"
       ],
       "tags": "get,cmsis"

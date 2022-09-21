@@ -14,10 +14,10 @@ fi
 
 file=zephyr-sdk-${version}-${os}-${platform}-setup.run
 url=https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${version}/$file
-wget "${url}"
+wget -nc "${url}"
 if [ "${?}" != "0" ]; then exit 1; fi
 chmod +x $file
-./file -- -d $CUR/zephyr-sdk-$version
+yes | ./$file -- -d $CUR/zephyr-sdk-$version
 
 if [ "${?}" != "0" ]; then exit 1; fi
 
