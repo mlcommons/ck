@@ -557,7 +557,8 @@ class CAutomation(Automation):
 
         if version!='' and version in versions:
             versions_meta = versions[version]
-            update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, i)
+            r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, i)
+            if r['return']>0: return r
             if "add_deps_recursive" in versions_meta:
                 utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
 
@@ -653,7 +654,8 @@ class CAutomation(Automation):
 
                 variation_meta = variations[variation_tag]
 
-                update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, i)
+                r = update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, i)
+                if r['return']>0: return r
                 if "add_deps_recursive" in variation_meta:
                     utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':variation_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
 
@@ -2142,11 +2144,15 @@ def update_deps_from_input(deps, post_deps, i):
     if add_deps_info_from_input:
         r1 = update_deps(deps, add_deps_info_from_input, True)
         r2 = update_deps(post_deps, add_deps_info_from_input, True)
-        if r1['return']>0 and r2['return']>0: return r1
+        r3 = update_deps(prehook_deps, add_deps_info_from_input, True)
+        r4 = update_deps(posthook_deps, add_deps_info_from_input, True)
+        if r1['return']>0 and r2['return']>0 and r3['return']>0 and r4['return']>0: return r1
     add_deps_recursive_info_from_input = i.get('add_deps_recursive', {})
     if add_deps_recursive_info_from_input:
         update_deps(deps, add_deps_recursive_info_from_input)
         update_deps(post_deps, add_deps_recursive_info_from_input)
+        update_deps(prehook_deps, add_deps_recursive_info_from_input)
+        update_deps(posthook_deps, add_deps_recursive_info_from_input)
 
     return {'return':0}
 
