@@ -7,7 +7,7 @@ model=${CM_TINY_MODEL:-ad}
 microtvm_variant=${CM_MICROTVM_VARIANT}
 source=${code}/${microtvm_variant}
 
-cd ${ZEPHYR_SDK_INSTALL_DIR}
+cd ${CM_ZEPHYR_DIR}
 west update
 west zephyr-export
 
