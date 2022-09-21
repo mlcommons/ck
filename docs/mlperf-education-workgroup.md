@@ -148,7 +148,7 @@ See our meeting notes from April 2022 [here](https://github.com/mlcommons/ck/tre
 
 ## Mailing list
 
-*We plan to move to a dedicated MLCommons mailing list. In the meantime, please [send us an email](mailto:grigori@octoml.ai;asuresh@octoml.ai) 
+*We plan to move to a dedicated MLCommons mailing list. In the meantime, please use this [Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) 
  to be added to our communication or open a ticket [here](https://github.com/mlcommons/ck/issues).*
 
 ## Contacts
