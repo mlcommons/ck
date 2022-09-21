@@ -1,5 +1,5 @@
 {
-  "alias": "install-mlc-inference-loadgen/",
+  "alias": "install-mlc-inference-loadgen",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
