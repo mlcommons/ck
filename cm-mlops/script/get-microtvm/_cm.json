@@ -1,0 +1,55 @@
+{
+  "alias": "get-microtvm",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_variation": "default",
+  "default_version": "main",
+  "deps": [
+    {
+      "tags": "detect,os,info"
+    }
+  ],
+  "env": {
+    "CM_GIT_DEPTH": "",
+    "CM_GIT_PATCH": "no",
+    "CM_GIT_URL": "https://github.com/octoml/microtvm"
+  },
+  "new_env_only_keys": [
+    "CM_MICROTVM_*"
+  ],
+  "tags": [
+    "get",
+    "src",
+    "source",
+    "microtvm",
+    "tiny"
+  ],
+  "uid": "a9cad70972a140b9",
+  "variations": {
+    "default": {
+      "env": {
+        "CM_GIT_PATCH": "no"
+      }
+    },
+    "full-history": {
+      "env": {
+        "CM_GIT_DEPTH": "--depth 10"
+      }
+    },
+    "short-history": {
+      "env": {
+        "CM_GIT_DEPTH": "--depth 10"
+      }
+    }
+  },
+  "versions": {
+    "main": {
+      "env": {
+        "CM_GIT_CHECKOUT": "main"
+      }
+    },
+    "custom": {
+    }
+  }
+}
