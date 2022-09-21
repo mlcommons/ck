@@ -26,6 +26,12 @@
     },
     {
       "names": [
+	"zephyr-sdk"
+      ],
+      "tags": "get,zephyr-sdk"
+    },
+    {
+      "names": [
         "cmsis"
       ],
       "tags": "get,cmsis"
@@ -35,6 +41,13 @@
 	"microtvm"
       ],
       "tags": "get,microtvm"
+    },
+    {
+      "names": [
+	"cmake"
+      ],
+      "tags": "get,cmake",
+      "version_min": "3.20.0"
     }
   ],
   "tags": [

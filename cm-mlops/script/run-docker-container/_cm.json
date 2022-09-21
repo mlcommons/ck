@@ -12,7 +12,7 @@
         ]
       },
       "tags": "build,docker,image",
-      "names": [ "build-coker-image" ]
+      "names": [ "build-docker-image" ]
     }
   ],
   "tags": [

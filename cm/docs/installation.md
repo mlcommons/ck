@@ -5,12 +5,18 @@
 
 The CM framework (aka CK2) requires minimal dependencies: Python 3.x, PIP and Git. 
 
-### Linux
+### Ubuntu
 
-You need to have the following packages installed (Ubuntu example):
+You need to have the following packages installed:
 
 ```bash
 sudo apt-get install python3 python3-pip git wget
+```
+
+### Red Hat
+
+```bash
+sudo dnf install python-pip git wget
 ```
 
 ### MacOS
@@ -114,14 +120,16 @@ You can use the following environment variables to customize CM installation:
 ## Platform support
 CM toolkit supports the following platforms:
 
-|               | As a host platform | As a target platform |
-|---------------|:------------------:|:--------------------:|
-| Generic Linux | ✓ | ✓ |
-| Linux (Arm)   | ✓ | ✓ |
-| Raspberry Pi  | ✓ | ✓ |
-| MacOS         | ✓ | ± |
-| Windows       | ✓ | ✓ |
-| Android       | Not required | TBD |
-| iOS           | Not required | TBD |
-| Bare-metal (edge devices)   | Not required | TBD |
+|                            | As a host platform | As a target platform |
+|----------------------------|:------------------:|:--------------------:|
+| Generic Linux (x8664)      | ✓ | ✓ |
+| Generic Linux (Arm64)      | ✓ | ✓ |
+| Ubuntu (x8664)             | ✓ | ✓ |
+| Red Hat Enterprise (x8664) | ✓ | ✓ |
+| MacOS                      | ✓ | ✓ |
+| Windows                    | ✓ | ± |
+| Raspberry Pi               | TBC | TBC |
+| Android                    | Not required | TBD |
+| iOS                        | Not required | TBD |
+| Bare-metal (edge devices)  | Not required | TBD |
 
