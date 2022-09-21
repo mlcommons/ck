@@ -1,0 +1,59 @@
+{
+  "alias": "reproduce_tiny_results",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_version": "r1.0",
+  "deps": [
+    {
+      "tags": "detect,os,info"
+    },
+    {
+      "tags": "detect,cpu,info"
+    },
+    {
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "names": [
+        "zephyr"
+      ],
+      "tags": "get,zephyr"
+    },
+    {
+      "names": [
+        "cmsis"
+      ],
+      "tags": "get,cmsis"
+    },
+    {
+      "names": [
+	"microtvm"
+      ],
+      "tags": "get,microtvm"
+    }
+  ],
+  "tags": [
+    "reproduce",
+    "tiny",
+    "results",
+    "mlcommons"
+  ],
+  "uid": "a63803a707d04332",
+  "versions": {
+    "r1.0": {
+      "env": {
+	"CM_MICROTVM_VARIANT": "microtvm_cmsis_nn"
+      },
+      "add_deps_recursive": {
+        "microtvm": {
+          "version": "main"
+        }
+      }
+    }
+  }
+}
