@@ -3,3 +3,4 @@
 *tmp-state.json
 Dockerfile
 .exists*
+*.out

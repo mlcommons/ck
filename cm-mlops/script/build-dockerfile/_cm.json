@@ -12,6 +12,7 @@
   "post_deps": [
     {
       "tags": "build,docker,image",
+      "names": [ "build-docker-image" ],
       "enable_if_env": {
 	"CM_BUILD_DOCKER_CONTAINER": [ "yes", "1" ]
       }
