@@ -45,5 +45,5 @@ cm run script "get imagenet original _2012-full" --env.IMAGENET_PATH=/mnt/extra-
 
 ## Examples
 
-See [this CM workflow]() to classify images.
+See this [CM workflow](https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md) to classify images.
 
