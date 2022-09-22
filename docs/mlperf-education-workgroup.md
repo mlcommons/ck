@@ -1,15 +1,15 @@
-# Preparing MLPerf education and reproducibility workgroup
+# MLPerf education and reproducibility workgroup
 
 ## News
 
 * Please use [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to join and stay informed about our activities.
 * Please add your topics and feedback to our [weekly agenda](https://github.com/mlcommons/ck/issues/325).
-* Check CK automation example for image classification [here](https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md).
+* Check our [portable image classification workflow example]( https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md ).
 
 ## Mission
 
-* Develop an open-source framework to make it easier to plug any real-world ML & AI tasks, models, data sets, software and hardware into the MLPerf benchmarking infrastructure.
-* Use this framework to help the newcomers learn how to customize and run MLPerf benchmarks across rapidly evolving software, hardware and data. 
+* Develop an automated open-source workflow to make it easier to plug any real-world ML & AI tasks, models, data sets, software and hardware into the MLPerf benchmarking infrastructure.
+* Use this workflow to help the newcomers learn how to customize and run MLPerf benchmarks across rapidly evolving software, hardware and data. 
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 * Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
 * Help end-users visualize all MLPerf results, reproduce them and deploy the most suitable ML/SW/HW stacks in production.
@@ -49,26 +49,28 @@ based on their requirements and constraints.
 
 ## Technology
 
-As a starting point, we use the open-source and technology-neutral [MLCommons CM toolkit](https://github.com/mlcommons/ck/tree/master/cm)
-developed by this workgroup to modularize, crowd-benchmark and optimize diverse ML Systems across continuously changing software, hardware and data.
+As a starting point, we use the open-source and technology-neutral [MLCommons Collective Mind meta-framework (CM)](https://github.com/mlcommons/ck/tree/master/cm)
+developed by this workgroup to modularize ML Systems and automate their benchmarking, optimization 
+and design space exploration across continuously changing software, hardware and data.
 
 CM is the next generation of the [MLCommons CK workflow automation framework](https://arxiv.org/pdf/2011.01149.pdf) 
-that was originally developed by [Grigori Fursin]( https://cKnowledge.io/@gfursin ) to make it easier to [reproduce research papers and validate them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
-After CK was successfully used by [multiple organizations]( https://cKnowledge.org/partners.html ) 
-including Qualcomm, HPE, Dell, Lenovo, dividiti, Krai, the cTuning foundation and OctoML to modularize MLPerf benchmarks and automate their submissions,
-the author donated the [CK framework and all MLPerf automation workflows](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation) 
-to MLCommons to redesign, simplify and extend this technology as a community effort 
-within this workgroup. For example, it was then used and extended by [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) and several other engineers
-to automate the record-breaking MLPerf inference benchmark submission for Qualcomm AI 100 devices.
+that was originally developed by [Grigori Fursin]( https://cKnowledge.io/@gfursin ) to make it easier to 
+[reproduce research papers and validate them in the real world](https://www.youtube.com/watch?v=7zpeIVwICa4).
 
-Our goal is to gradually move away from manual and error-prone preparation steps and ad-hoc READMEs
-to fully automated workflows that can adapt to a user environment and artifacts.
+As a proof-of-concept, this technology was successfully used to automate 
+[MLPerf benchmarking and submissions](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation)
+from Qualcomm, HPE, Dell, Lenovo, dividiti, Krai, the cTuning foundation and OctoML.
+For example, it was used and extended by [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
+with several other engineers to automate the record-breaking MLPerf inference benchmark submission for Qualcomm AI 100 devices.
 
-Current manual MLPerf benchmark preparation workflows:
+The goal ot this WG is to help users automate all the steps to prepare and run MLPerf benchmarks
+across any ML models, data sets, frameworks, compilers and hardware.
+
+Here is an example of current manual and error-prone MLPerf benchmark preparation steps:
 
 ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-mlperf-edu-repro-wg1.png)
 
-CM-based automated workflows:
+Here is the concept of CM-based automated workflows:
 
 ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-mlperf-edu-repro-wg2.png)
 

@@ -10,11 +10,11 @@ CM automation meta-framework is the next generation of the MLCommons Collective 
 implemented by the [open workgroup](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
 as a small Python library with a unified CLI and a simple API.
 
-It requires minimal dependencies (Python 3+, pip, pyyaml and a Git client) 
+It requires minimal dependencies (Python 3+, pip, pyyaml, Git and wget) 
 and should work with any OS including Linux, MacOS, CentOS, Debian, RedHat and Windows.
 
 ```bash
-pip install cmind
+pip3 install cmind
 ```
 or 
 ```bash
