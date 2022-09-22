@@ -1,7 +1,5 @@
 #!/bin/bash
-env
 CM_TMP_CURRENT_SCRIPT_PATH=${CM_TMP_CURRENT_SCRIPT_PATH:-$PWD}
-echo $PWD
 version=${CM_ZEPHYR_SDK_VERSION}
 os=${CM_HOST_OS_TYPE}
 if [ $os == "darwin" ]; then
@@ -17,7 +15,7 @@ url=https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${version}/$
 wget -nc "${url}"
 if [ "${?}" != "0" ]; then exit 1; fi
 chmod +x $file
-yes | ./$file -- -d $CUR/zephyr-sdk-$version
+yes | ./$file -- -d $PWD/zephyr-sdk-$version
 
 if [ "${?}" != "0" ]; then exit 1; fi
 
