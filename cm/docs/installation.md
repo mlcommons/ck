@@ -17,6 +17,7 @@ You can use the following commands if you need to upgrade your system:
 ```bash
 sudo apt update
 sudo apt upgrade 
+```
 
 ### Red Hat
 
