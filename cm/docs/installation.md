@@ -3,20 +3,25 @@
 
 ## Prerequisites
 
-The CM framework (aka CK2) requires minimal dependencies: Python 3.x, PIP and Git. 
+The CM framework (aka CK2) requires minimal dependencies: Python 3.x, PIP, Git and wget. 
 
-### Ubuntu
+### Ubuntu / Debian
 
 You need to have the following packages installed:
 
 ```bash
-sudo apt-get install python3 python3-pip git wget
+sudo apt install python3 python3-pip git wget
 ```
+
+You can use the following commands if you need to upgrade your system:
+```bash
+sudo apt update
+sudo apt upgrade 
 
 ### Red Hat
 
 ```bash
-sudo dnf install python-pip git wget
+sudo dnf install python python-pip git wget
 ```
 
 ### MacOS
@@ -49,6 +54,15 @@ These dependencies are needed to cross-compile for Android (tested on Ubuntu 18.
 You can install the Collective Mind framework on most platforms using PIP as follows:
 
 ```bash
+pip3 install cmind
+```
+or
+
+```bash
+python3 -m pip install cmind
+```
+or
+```bash
 pip install cmind
 ```
 
@@ -59,14 +73,7 @@ python3.9 -m pip install cmind
 
 *You may need to add flag "--user" to install the client in your user space:*
 ```bash
-pip install cmind --user
-python3.9 -m pip install cmind --user
-```
-
-You should now be able to run CM using one of the following alternative commands:
-```bash
-cmind
-python3 -m cmind
+pip3 install cmind --user
 ```
 
 If the installation is successful, you can run cm CLI as follows:
@@ -77,22 +84,25 @@ gfursin@cmind:~$ cm
 cm {action} {automation} {artifact(s)} {flags} @input.yaml @input.json
 ```
 
+*Note that you may need to relogin to your shell to update the PATH to the CM CLI!*
+
 You can also quickly test the installation and check the version as follows:
 ```bash
 gfursin@cmind:~$ cm test core
 
-CM version: 0.7.23
+CM version: 1.0.2
 
-Python executable used by CK: C:\!Progs\Python39\python.exe
+Python executable used by CK: /usr/bin/python3
 
-Path to CM package:         C:\!Progs\Python39\lib\site-packages\cmind
-Path to CM core:            C:\!Progs\Python39\lib\site-packages\cmind\core.py
-Path to CM internal repo:   C:\!Progs\Python39\lib\site-packages\cmind\repo
+Path to CM package:         /home/user/.local/lib/python3.9/site-packages/cmind
+Path to CM core module:     /home/user/.local/lib/python3.9/site-packages/cmind/core.py
+Path to CM internal repo:   /home/user/.local/lib/python3.9/site-packages/cmind/repo
 
-Path to CM repositories:    D:\Work1\CM\cm-repos
+Path to CM repositories:    /home/user/CM
 
-GitHub for CM development:  https://github.com/mlcommons/ck/tree/master/cm
-Reporting issues and ideas: https://github.com/mlcommons/ck/issues
+GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm
+GitHub for CM automation scripts:  https://github.com/mlcommons/ck/tree/master/cm-mlops
+Reporting issues and ideas:        https://github.com/mlcommons/ck/issues
 ```
 
 
@@ -117,19 +127,13 @@ You can use the following environment variables to customize CM installation:
   Useful to improve the default automations inside the CM package.
 
 
-## Platform support
-CM toolkit supports the following platforms:
 
-|                            | As a host platform | As a target platform |
-|----------------------------|:------------------:|:--------------------:|
-| Generic Linux (x8664)      | ✓ | ✓ |
-| Generic Linux (Arm64)      | ✓ | ✓ |
-| Ubuntu (x8664)             | ✓ | ✓ |
-| Red Hat Enterprise (x8664) | ✓ | ✓ |
-| MacOS                      | ✓ | ✓ |
-| Windows                    | ✓ | ± |
-| Raspberry Pi               | TBC | TBC |
-| Android                    | Not required | TBD |
-| iOS                        | Not required | TBD |
-| Bare-metal (edge devices)  | Not required | TBD |
+## Target platform support
+
+* x8664
+* Arm64
+* CUDA-based devices
+* Mobile devices with Arm64, GPU and DSP (*on-going development*)
+* Edge devices (*on-going development*)
+* Simulators (*on-going development*)
 
