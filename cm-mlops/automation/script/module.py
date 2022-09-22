@@ -1943,7 +1943,11 @@ def prepare_and_run_script_with_postprocessing(i):
         rc = os.system(cmd)
 
         if rc>0:
-            return {'return':2, 'error':'Component failed (return code = {})'.format(rc)}
+            note = '''Please help the community by reporting the CMD and the full log here:
+* https://bit.ly/mlperf-edu-wg
+* https://github.com/mlcommons/ck/issues '''
+            
+            return {'return':2, 'error':'Portable CM script failed (return code = {})\n\n{}'.format(rc, note)}
 
         # Load updated state if exists
         if tmp_file_run_state != '' and os.path.isfile(tmp_file_run_state):
