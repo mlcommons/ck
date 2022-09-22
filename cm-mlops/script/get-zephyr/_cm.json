@@ -14,6 +14,10 @@
     },
     {
       "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "get,cmake",
+      "version_min": "3.20.0"
     }
   ],
   "tags": [
