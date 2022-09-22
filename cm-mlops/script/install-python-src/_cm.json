@@ -19,7 +19,8 @@
   },
   "post_deps": [
     {
-      "tags": "get,python"
+      "tags": "get,python",
+      "inherit_variation_tags": "True"
     }
   ],
   "tags": [

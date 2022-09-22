@@ -28,5 +28,11 @@
     "get-python",
     "get-python3"
   ],
-  "uid": "d0b5dd74373f4a62"
+  "uid": "d0b5dd74373f4a62",
+  "variations": {
+    "shared": {
+    },
+    "with-ssl": {
+    }
+  }
 }
