@@ -1689,6 +1689,7 @@ def find_cached_script(i):
     skip_remembered_selections = i['skip_remembered_selections']
     remembered_selections = i['remembered_selections']
     quiet = i['quiet']
+    search_tags = ''
 
     found_cached_scripts = []
 
