@@ -51,5 +51,18 @@ After CM cached the dataset, you can get the environment with the paths to your 
 cm run script "get imagenet original _2012-full" --out=json
 ```
 
-See this [CM workflow](https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md) to classify images.
+You can find path to an automatically generated script with environment variables as follows:
+```bash
+cm find cache --tags=get,imagenet,original,_2012-full
+```
 
+Check this [CM workflow](https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md) to classify images.
+
+Note that you can also usethe  environment variables prepared by this script outside CM workflows as follows:
+```bash
+cm run script "get imagenet original _2012-full" --save-env && . ./tmp-env.sh && echo $CM_DATASET_PATH
+
+...
+
+/mnt/extra-disk/imagenet-2012-val
+```
