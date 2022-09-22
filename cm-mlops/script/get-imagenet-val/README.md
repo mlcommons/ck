@@ -4,7 +4,8 @@ Detecting and registering ImageNet validation datasets.
 
 ## Supported platforms
 
-* Any: Linux, Windows, MacOS
+* Linux, MacOS
+* Windows (only 500 images)
 
 ## Supported versions and variations
 
@@ -44,6 +45,11 @@ cm run script "get imagenet original _2012-full" --env.IMAGENET_PATH=/mnt/extra-
 ```
 
 ## Examples
+
+After CM cached the dataset, you can get the environment with the paths to your IMAGENET and extra meta information as follows:
+```bash
+cm run script "get imagenet original _2012-full" --out=json
+```
 
 See this [CM workflow](https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md) to classify images.
 
