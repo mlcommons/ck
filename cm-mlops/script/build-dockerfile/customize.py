@@ -53,7 +53,7 @@ def preprocess(i):
     f.write('RUN cm pull repo ' + cm_mlops_repo + EOL)
     #echo '${CM_DOCKER_IMAGE_ENV}'
 
-    f.write('RUN cm run script --quiet --tags=get,sys-utils-cm' + EOL)
+    f.write('RUN cm run script --quiet --tags=get,sys-utils-cm --fake_run' + EOL)
 
     f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + EOL)
 
