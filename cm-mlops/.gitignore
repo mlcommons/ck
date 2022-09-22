@@ -4,3 +4,4 @@
 Dockerfile
 .exists*
 *.out
+*.o

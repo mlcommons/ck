@@ -203,6 +203,8 @@ class CAutomation(Automation):
 
           (print_env) (bool): if True, print aggregated env before each run of a native script
 
+          (fake_run) (bool): if True, will run the dependent scripts but will skip the main run script
+
           ...
 
         Returns:
@@ -252,6 +254,8 @@ class CAutomation(Automation):
         save_env = i.get('save_env', False)
 
         print_env = i.get('print_env', False)
+
+        fake_run = i.get('fake_run', False)
 
         new_cache_entry = i.get('new', False)
 
@@ -1054,15 +1058,16 @@ class CAutomation(Automation):
                 self.run_deps(prehook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
                     remembered_selections, found_cached)
 
-            run_script_input['meta'] = meta
-            run_script_input['env'] = env
-            r = prepare_and_run_script_with_postprocessing(run_script_input)
-            if r['return']>0: return r
+            if not fake_run:
+                run_script_input['meta'] = meta
+                run_script_input['env'] = env
+                r = prepare_and_run_script_with_postprocessing(run_script_input)
+                if r['return']>0: return r
 
-            # If return version
-            if cache and r.get('version','') != '':
-                cached_tags = [x for x in cached_tags if not x.startswith('version-')]
-                cached_tags.append('version-' + r['version'])
+                # If return version
+                if cache and r.get('version','') != '':
+                    cached_tags = [x for x in cached_tags if not x.startswith('version-')]
+                    cached_tags.append('version-' + r['version'])
 
             # Check chain of post hook dependencies on other CM scripts
             if len(posthook_deps)>0 and not skip_posthook_deps_in_cache:
