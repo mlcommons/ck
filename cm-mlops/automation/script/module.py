@@ -630,9 +630,8 @@ class CAutomation(Automation):
                 if t not in variation_tags:
                     variation_tags.append('~' + t)
 
+        variation_tags_string = ''
         if len(variation_tags)>0:
-            variation_tags_string = ''
-
             for t in variation_tags:
                 if variation_tags_string != '': 
                     variation_tags_string += ','
@@ -676,6 +675,7 @@ class CAutomation(Automation):
         ############################################################################################################
         # Check if the output of a selected script should be cached
         cache = False if i.get('skip_cache', False) else meta.get('cache', False)
+        cache = False if i.get('fake_run', False) else cache
 
         cached_uid = ''
         cached_tags = []
@@ -727,8 +727,9 @@ class CAutomation(Automation):
             if len(local_env_keys_from_meta)>0:
                 local_env_keys += local_env_keys_from_meta
             
-            self.run_deps(deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections, found_cached)
+            r = self.run_deps(deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                    remembered_selections, variation_tags_string, found_cached)
+            if r['return']>0: return r
 
 
         ############################################################################################################
@@ -1055,8 +1056,9 @@ class CAutomation(Automation):
                 if len(local_env_keys_from_meta)>0:
                     local_env_keys += local_env_keys_from_meta
 
-                self.run_deps(prehook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections, found_cached)
+                r = self.run_deps(prehook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                    remembered_selections, variation_tags_string, found_cached)
+                if r['return']>0: return r
 
             if not fake_run:
                 run_script_input['meta'] = meta
@@ -1077,13 +1079,15 @@ class CAutomation(Automation):
                 if len(local_env_keys_from_meta)>0:
                     local_env_keys += local_env_keys_from_meta
 
-                self.run_deps(posthook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections, found_cached)
+                r = self.run_deps(posthook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                    remembered_selections, variation_tags_string, found_cached)
+                if r['return']>0: return r
 
             # Check chain of post dependencies on other CM scripts
             clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
-            self.run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
-                    remembered_selections, found_cached)
+            r = self.run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                    remembered_selections, variation_tags_string, found_cached)
+            if r['return']>0: return r
 
 
         ############################################################################################################
@@ -1170,7 +1174,7 @@ class CAutomation(Automation):
 
     ##############################################################################
     def run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
-                    remembered_selections, from_cache=False):
+                    remembered_selections, variation_tags_string='', from_cache=False):
         """
         Runs all the enabled dependencies and pass them env minus local env
         """
@@ -1223,6 +1227,10 @@ class CAutomation(Automation):
                         if k.startswith('CM_VERSION'):
                             env[k] = tmp_env[k]
 
+                inherit_variation_tags = d.get("inherit_variation_tags", False)
+                if inherit_variation_tags:
+                    d['tags']+=","+variation_tags_string #deps should have non-empty tags
+
                 # Run collective script via CM API:
                 # Not very efficient but allows logging - can be optimized later
                 ii = {
@@ -1248,6 +1256,7 @@ class CAutomation(Automation):
 
             # Restore local env
             env.update(tmp_env)
+        return {'return': 0}
 
 
 
@@ -1943,7 +1952,11 @@ def prepare_and_run_script_with_postprocessing(i):
         rc = os.system(cmd)
 
         if rc>0:
-            return {'return':2, 'error':'Component failed (return code = {})'.format(rc)}
+            note = '''Please help the community by reporting the CMD and the full log here:
+* https://bit.ly/mlperf-edu-wg
+* https://github.com/mlcommons/ck/issues '''
+            
+            return {'return':2, 'error':'Portable CM script failed (return code = {})\n\n{}'.format(rc, note)}
 
         # Load updated state if exists
         if tmp_file_run_state != '' and os.path.isfile(tmp_file_run_state):
