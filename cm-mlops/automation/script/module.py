@@ -227,7 +227,7 @@ class CAutomation(Automation):
         # Check simplified CMD: cm run script "get compiler"
         # If artifact has spaces, treat them as tags!
         artifact = i.get('artifact','').strip()
-        if ' ' in artifact:
+        if ' ' in artifact or ',' in artifact:
             del(i['artifact'])
             if 'parsed_artifact' in i: del(i['parsed_artifact'])
             # Force substitute tags
