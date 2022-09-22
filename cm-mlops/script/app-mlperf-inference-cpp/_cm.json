@@ -1,5 +1,5 @@
 {
-  "alias": "get-mlperf-inference-cpp",
+  "alias": "app-mlperf-inference-cpp",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "deps": [
@@ -13,8 +13,10 @@
       "tags": "get,sys-utils-cm"
     },
     {
-      "tags": "get,mlcommons,inference,loadgen",
-      "names": [ "loadgen" ]
+      "names": [
+        "loadgen"
+      ],
+      "tags": "get,mlcommons,inference,loadgen"
     },
     {
       "tags": "get,dataset,preprocessed,imagenet,_NCHW"
@@ -33,14 +35,6 @@
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1"
   },
-  "tags": [
-    "app",
-    "image-classification",
-    "vision",
-    "inference",
-    "mlperf",
-    "cpp"
-  ],
   "post_deps": [
     {
       "tags": "compile,program"
@@ -48,6 +42,14 @@
     {
       "tags": "benchmark,program"
     }
+  ],
+  "tags": [
+    "app",
+    "image-classification",
+    "vision",
+    "inference",
+    "mlperf",
+    "cpp"
   ],
   "uid": "879ed32e47074033"
 }
