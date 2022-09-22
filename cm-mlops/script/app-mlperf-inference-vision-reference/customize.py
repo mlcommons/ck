@@ -14,11 +14,11 @@ def preprocess(i):
     if env.get('CM_RUN_DOCKER_CONTAINER', '') == "yes": 
         return {'return':0}
 
-    if env.get('CM_SYSTEM_POWER','') == "yes" or i['input'].get('power', '') == "yes":
+    if env.get('CM_SYSTEM_POWER','') == "yes":
         power = "yes"
     else:
         power = "no"
-    rerun = env.get("CM_RERUN", "") or i['input'].get("rerun", False)
+    rerun = env.get("CM_RERUN", False)
     required_files = []
     required_files = get_checker_files(env['CM_MLC_INFERENCE_SOURCE'])
 

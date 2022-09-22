@@ -553,6 +553,9 @@ class CAutomation(Automation):
         post_deps = meta.get('post_deps',[])
         prehook_deps = meta.get('prehook_deps',[])
         posthook_deps = meta.get('posthook_deps',[])
+        input_mapping = meta.get('input_mapping', {})
+        if input_mapping:
+            update_env_from_input_mapping(env, i, input_mapping)
 
 
         # Update version only if in "versions" (not obligatory)
@@ -2177,6 +2180,15 @@ def update_deps_from_input(deps, post_deps, prehook_deps, posthook_deps, i):
 
 
 ##############################################################################
+def update_env_from_input_mapping(env, inp, input_mapping):
+    """
+    Internal: update env from input and input_mapping
+    """
+    for key in input_mapping:
+        if key in inp:
+            env[input_mapping[key]] = inp[key]
+
+##############################################################################
 def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, posthook_deps, i):
     """
     Internal: update env and state from meta
@@ -2218,6 +2230,10 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
         update_deps(prehook_deps, add_deps_recursive_info)
         update_deps(posthook_deps, add_deps_recursive_info)
  
+    input_mapping = meta.get('input_mapping', {})
+    if input_mapping:
+        update_env_from_input_mapping(env, i['input'], input_mapping)
+
     return {'return':0}
 
 ##############################################################################
