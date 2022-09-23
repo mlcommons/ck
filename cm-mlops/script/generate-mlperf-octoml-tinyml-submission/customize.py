@@ -8,7 +8,10 @@ def preprocess(i):
     env = i['env']
     state = i['state']
     inp = i['input']
-    script_tags =  "reproduce,tiny"
+    if ['CM_FLASH_BOARD'] in env:
+        script_tags =  "flash,tiny"
+    else:
+        script_tags =  "reproduce,tiny,mlperf,octoml"
     microtvm_variants = { "cmsis_nn": [ "ad", "ic", "vww", "kws" ], "native": [ "ic"] }
     for microtvm_variant in microtvm_variants:
         for model in microtvm_variants[microtvm_variant]:

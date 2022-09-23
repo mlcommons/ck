@@ -23,8 +23,8 @@
     {
       "tags": "reproduce,tiny,mlperf",
       "inherit_variation_tags": "True",
-      "enable_if_env": {
-	"CM_TINY_BUILD_DIR": [ "" ]
+      "skip_if_env": {
+	"CM_TINY_BUILD_DIR": [ "on" ]
       }
     }
   ],
