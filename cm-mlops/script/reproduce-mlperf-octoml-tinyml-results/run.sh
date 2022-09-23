@@ -15,6 +15,7 @@ west zephyr-export
 path_suffix="NUCLEO_L4R5ZI/${model}"
 cmake_src=${source}/${path_suffix}
 build_path=${CUR_DIR}/${path_suffix}
+mkdir -p ${build_path}
 cd ${build_path}
 binary_path=${build_path}/build/zephyr/zephyr.elf
 if [ -f ${binary_path} ] and [ ${CM_RECREATE_BINARY} != "yes" ];
