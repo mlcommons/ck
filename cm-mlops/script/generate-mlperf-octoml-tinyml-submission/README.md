@@ -6,7 +6,12 @@ which runs the script for the two microtvm variants and their supported models.
 cm run script --tags=generate,tiny,submission
 ```
 
-The above command should produce five elf binaries which can be located by 
+The above command should produce five elf binaries which can be located inside the respective cache entries given by the below command
 ```
-find `cm find cache --tags=microtvm,source` -name zephyr.elf
+cm find cache --tags=reproduce,tiny,octoml,mlperf
+```
+
+## Install and Flash
+```
+cm run script --tags=generate,tiny,submission --flash
 ```
