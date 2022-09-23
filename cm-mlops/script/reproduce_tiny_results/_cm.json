@@ -4,6 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "default_version": "r1.0",
+  "default_variations": [ "ic", "cmsis_nn" ],
   "deps": [
     {
       "tags": "detect,os,info"
@@ -65,13 +66,42 @@
   "uid": "a63803a707d04332",
   "versions": {
     "r1.0": {
-      "env": {
-	"CM_MICROTVM_VARIANT": "microtvm_cmsis_nn"
-      },
       "add_deps_recursive": {
         "microtvm": {
           "version": "main"
         }
+      }
+    }
+  },
+  "variations": {
+    "cmsis_nn": {
+      "env": {
+	"CM_MICROTVM_VARIANT": "microtvm_cmsis_nn"
+      }
+    },
+    "native": {
+      "env": {
+	"CM_MICROTVM_VARIANT": "microtvm_native"
+      }
+    },
+    "ad": {
+      "env": {
+	"CM_TINY_MODEL": "ad"
+      }
+    },
+    "ic": {
+      "env": {
+	"CM_TINY_MODEL": "ic"
+      }
+    },
+    "kws": {
+      "env": {
+	"CM_TINY_MODEL": "kws"
+      }
+    },
+    "vww": {
+      "env": {
+	"CM_TINY_MODEL": "vww"
       }
     }
   }
