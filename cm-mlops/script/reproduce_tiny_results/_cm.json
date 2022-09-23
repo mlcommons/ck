@@ -62,6 +62,7 @@
     "results",
     "mlcommons"
   ],
+  "local_env_keys": [ "CM_*" ],
   "uid": "a63803a707d04332",
   "versions": {
     "r1.0": {
