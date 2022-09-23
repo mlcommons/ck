@@ -6,7 +6,7 @@ def preprocess(i):
     os_info = i['os_info']
     env = i['env']
 
-    if 'CM_MICROTVM_VARIATION' not in env:
+    if 'CM_MICROTVM_VARIANT' not in env:
         env['CM_MICROTVM_VARIANT'] = 'microtvm_cmsis_nn'
     if 'CM_TINY_MODEL' not in env:
         env['CM_TINY_MODEL'] = 'ic'
