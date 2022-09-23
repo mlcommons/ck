@@ -18,7 +18,7 @@ build_path=${CUR_DIR}/${path_suffix}
 mkdir -p ${build_path}
 cd ${build_path}
 binary_path=${build_path}/build/zephyr/zephyr.elf
-if [ -f "${binary_path}" ] && [ "${CM_RECREATE_BINARY}" != "yes" ]; then
+if [ -f "${binary_path}" ] && [ "${CM_RECREATE_BINARY}" != "True" ]; then
   echo "ELF binary existing at ${binary_path}. Skipping regeneration."
   cd build
 else
@@ -33,7 +33,7 @@ else
   cd ../
   echo "ELF binary created at ${build_path}/build/zephyr/zephyr.elf"
 fi
-if [[ ${CM_FLASH_BOARD} == "yes" ]]; then
+if [[ ${CM_FLASH_BOARD} == "True" ]]; then
   west flash
   test $? -eq 0 || exit 1
 fi
