@@ -63,6 +63,8 @@
     "reproduce",
     "tiny",
     "results",
+    "mlperf",
+    "octoml",
     "mlcommons"
   ],
   "uid": "a63803a707d04332",
