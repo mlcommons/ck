@@ -18,7 +18,7 @@ build_path=${CUR_DIR}/${path_suffix}
 mkdir -p ${build_path}
 cd ${build_path}
 binary_path=${build_path}/build/zephyr/zephyr.elf
-if [ -f ${binary_path} ] and [ ${CM_RECREATE_BINARY} != "yes" ];
+if [ -f ${binary_path} ] and [ ${CM_RECREATE_BINARY} != "yes" ]; then
   echo "ELF binary existing at ${binary_path}. Skipping regeneration."
   cd build
 else
