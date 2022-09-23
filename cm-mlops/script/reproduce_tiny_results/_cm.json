@@ -48,6 +48,12 @@
       ],
       "tags": "get,cmake",
       "version_min": "3.20.0"
+    },
+    {
+      "tags": "get,gcc"
+    },
+    {
+      "tags": "get,sys-utils-cm"
     }
   ],
   "tags": [

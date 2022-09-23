@@ -27,8 +27,7 @@ def preprocess(i):
     if 'CM_LOADGEN_MODE' not in env:
         env['CM_LOADGEN_MODE'] = "accuracy"
     if 'CM_MODEL' not in env:
-        env['CM_MODEL'] = "resnet50"
-
+        return {'return': 1, 'error': "Please select a variation specifying the model to run"}
 
     if env['CM_MODEL'] == "resnet50":
         cmd = "cp " + os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt") + " " + os.path.join(env['CM_DATASET_PATH'],
