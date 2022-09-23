@@ -12,7 +12,7 @@ def preprocess(i):
         env['CM_TINY_MODEL'] = 'ic'
     if env['CM_MICROTVM_VARIANT'] == "microtvm_native":
         if env['CM_TINY_MODEL'] != 'ic':
-            print(env['CM_TINY_MODEL'] + " is not supported for " + env['CM_MICROTVM_VARIANT'])
+            return {'return':1, 'error': env['CM_TINY_MODEL'] + " is not supported for " + env['CM_MICROTVM_VARIANT']}
 
     if os_info['platform'] == 'windows':
         return {'return':1, 'error': 'Windows is not supported in this script yet'}
