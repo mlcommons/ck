@@ -32,6 +32,7 @@
     "r1.0": {}
   },
   "input_mapping": {
-    "flash": "CM_FLASH_BOARD"
+    "flash": "CM_FLASH_BOARD",
+    "recreate_binary": "CM_RECREATE_BINARY"
   }
 }
