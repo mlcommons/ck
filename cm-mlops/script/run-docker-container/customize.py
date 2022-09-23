@@ -13,10 +13,12 @@ def preprocess(i):
         CM_RUN_CMD="cm version"
     else:
         CM_RUN_CMD="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
+    if 'CM_DOCKER_IMAGE_BASE' not in env:
+        env['CM_DOCKER_IMAGE_BASE'] = "ubuntu:20.04"
     if 'CM_DOCKER_IMAGE_REPO' not in env:
-        env['CM_DOCKER_IMAGE_REPO'] = "local/run_docker_container"
+        env['CM_DOCKER_IMAGE_REPO'] = "local/" + env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-')
     if 'CM_DOCKER_IMAGE_TAG' not in env:
-        env['CM_DOCKER_IMAGE_TAG'] = "latest"
+        env['CM_DOCKER_IMAGE_TAG'] = env['CM_DOCKER_IMAGE_BASE'] + "/latest"
     if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
         env['CM_DOCKER_IMAGE_RUN_CMD'] = "cm version"
     r = cm.access({'action':'search', 'automation':'script', 'tags': env['CM_DOCKER_RUN_SCRIPT_TAGS']})
