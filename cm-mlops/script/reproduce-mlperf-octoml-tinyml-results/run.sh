@@ -10,7 +10,7 @@ source=${code}/${microtvm_variant}
 path_suffix="NUCLEO_L4R5ZI/${model}"
 cmake_src=${source}/${path_suffix}
 build_path=${CUR_DIR}/${path_suffix}
-echo "CM_TINY_BINARY_DIR=${build_path}/build" > tmp-run-env.out
+echo "CM_TINY_BUILD_DIR=${build_path}/build" > tmp-run-env.out
 mkdir -p ${build_path}
 cd ${build_path}
 binary_path=${build_path}/build/zephyr/zephyr.elf
