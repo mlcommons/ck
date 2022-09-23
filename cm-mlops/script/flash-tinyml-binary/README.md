@@ -5,7 +5,7 @@ cm run script --tags=flash,tiny,_[VARIANT],_[MODEL]
 ```
 where,
 * `[VARIANT]` is one of `cmsis_nn`,`native`
-* `[MODEL]` is one of `ad`, `ic, `kws`, `vww`
+* `[MODEL]` is one of `ad`, `ic`, `kws`, `vww`
 
 We can also pass a known build directory like here:
 
