@@ -12,6 +12,9 @@
       "tags": "detect,cpu,info"
     },
     {
+      "tags": "get,sys-utils-cm"
+    },
+    {
       "names": [
         "python3",
         "python"
@@ -51,9 +54,6 @@
     },
     {
       "tags": "get,gcc"
-    },
-    {
-      "tags": "get,sys-utils-cm"
     }
   ],
   "local_env_keys": [
@@ -69,14 +69,24 @@
   ],
   "uid": "a63803a707d04332",
   "variations": {
-    "ad": {
+    "flash": {
       "env": {
-        "CM_TINY_MODEL": "ad"
+        "CM_FLASH_BOARD": "yes"
       }
     },
     "cmsis_nn": {
       "env": {
         "CM_MICROTVM_VARIANT": "microtvm_cmsis_nn"
+      }
+    },
+    "native": {
+      "env": {
+        "CM_MICROTVM_VARIANT": "microtvm_native"
+      }
+    },
+    "ad": {
+      "env": {
+        "CM_TINY_MODEL": "ad"
       }
     },
     "ic": {
@@ -87,11 +97,6 @@
     "kws": {
       "env": {
         "CM_TINY_MODEL": "kws"
-      }
-    },
-    "native": {
-      "env": {
-        "CM_MICROTVM_VARIANT": "microtvm_native"
       }
     },
     "vww": {
@@ -108,5 +113,8 @@
         }
       }
     }
+  },
+  "input_mapping": {
+    "flash": "CM_FLASH_BOARD"
   }
 }
