@@ -30,5 +30,8 @@
     "mlperf",
     "mlcommons"
   ],
-  "uid": "98913babb43f4fcb"
+  "uid": "98913babb43f4fcb",
+  "input_mapping": {
+    "build_dir": "CM_TINY_BUILD_DIR"
+  }
 }
