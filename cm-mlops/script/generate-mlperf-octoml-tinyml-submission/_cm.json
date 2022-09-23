@@ -24,10 +24,14 @@
     "generate-tiny-submission",
     "results",
     "mlcommons",
-    "mlperf"
+    "mlperf",
+    "octoml"
   ],
   "uid": "b946001e289c4480",
   "version": {
     "r1.0": {}
+  },
+  "input_mapping": {
+    "flash": "CM_FLASH_BOARD"
   }
 }

@@ -18,3 +18,6 @@ cd build
 CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES:-2}}
 cmake ..
 make -j${CM_MAKE_CORES}
+if [ -n ${CM_FLASH_BOARD} ]; then
+  west flash
+fi
