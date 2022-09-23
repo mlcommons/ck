@@ -23,7 +23,7 @@ test $? -eq 0 || exit 1
 make -j${CM_MAKE_CORES}
 test $? -eq 0 || exit 1
 cd ../
-echo "ELF binary created at $CUR/build/zephyr/zephyr.elf"
+echo "ELF binary created at ${CUR_DIR}/build/zephyr/zephyr.elf"
 if [[ ${CM_FLASH_BOARD} == "yes" ]]; then
   west flash
   test $? -eq 0 || exit 1
