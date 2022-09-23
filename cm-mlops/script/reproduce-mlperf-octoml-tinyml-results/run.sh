@@ -7,17 +7,25 @@ model=${CM_TINY_MODEL:-ad}
 microtvm_variant=${CM_MICROTVM_VARIANT}
 source=${code}/${microtvm_variant}
 
-cd ${CM_ZEPHYR_DIR}
-west update
-west zephyr-export
-
-cd ${source}/NUCLEO_L4R5ZI/${model}
-rm -rf build
-mkdir -p build
-cd build
-CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES:-2}}
-cmake ..
-make -j${CM_MAKE_CORES}
-if [ -n ${CM_FLASH_BOARD} ]; then
-  west flash
+path_suffix="NUCLEO_L4R5ZI/${model}"
+cmake_src=${source}/${path_suffix}
+build_path=${CUR_DIR}/${path_suffix}
+echo "CM_TINY_BUILD_DIR=${build_path}/build" > tmp-run-env.out
+mkdir -p ${build_path}
+cd ${build_path}
+binary_path=${build_path}/build/zephyr/zephyr.elf
+if [ -f "${binary_path}" ] && [ "${CM_RECREATE_BINARY}" != "True" ]; then
+  echo "ELF binary existing at ${binary_path}. Skipping regeneration."
+  cd build
+else
+  rm -rf build
+  mkdir -p build
+  cd build
+  CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES:-2}}
+  cmake ${cmake_src}
+  test $? -eq 0 || exit 1
+  make -j${CM_MAKE_CORES}
+  test $? -eq 0 || exit 1
+  cd ../
+  echo "ELF binary created at ${build_path}/build/zephyr/zephyr.elf"
 fi

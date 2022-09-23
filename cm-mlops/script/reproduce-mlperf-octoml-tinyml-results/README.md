@@ -7,7 +7,7 @@ where,
 * `[VARIANT]` is one of `cmsis_nn`,`native`
 * `[MODEL]` is one of `ad`, `ic, `kws`, `vww`
 
-The generated binary can be located by
+The generated binary can be located inside
 ```bash
-find `cm find cache --tags=microtvm,source` -name zephyr.elf
+find `cm find cache --tags=reproduce,tiny,mlperf,octoml,_[VARIANT],_[MODEL]
 ```
