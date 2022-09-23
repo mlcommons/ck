@@ -5,7 +5,7 @@ cm run script --tags=reproduce,tiny,mlperf,octoml,_[VARIANT],_[MODEL]
 ```
 where,
 * `[VARIANT]` is one of `cmsis_nn`,`native`
-* `[MODEL]` is one of `ad`, `ic, `kws`, `vww`
+* `[MODEL]` is one of `ad`, `ic`, `kws`, `vww`
 
 The generated binary can be located inside
 ```bash
