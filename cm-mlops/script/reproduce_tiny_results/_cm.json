@@ -4,7 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "default_version": "r1.0",
-  "default_variations": [ "ic", "cmsis_nn" ],
   "deps": [
     {
       "tags": "detect,os,info"
