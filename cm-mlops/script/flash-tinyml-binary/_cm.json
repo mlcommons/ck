@@ -19,6 +19,13 @@
         "zephyr-sdk"
       ],
       "tags": "get,zephyr-sdk"
+    },
+    {
+      "tags": "reproduce,tiny,mlperf",
+      "inherit_variation_tags": "True",
+      "enable_if_env": {
+	"CM_TINY_BUILD_DIR": [ "" ]
+      }
     }
   ],
   "local_env_keys": [
@@ -33,5 +40,19 @@
   "uid": "98913babb43f4fcb",
   "input_mapping": {
     "build_dir": "CM_TINY_BUILD_DIR"
+  },
+  "variations": {
+    "cmsis_nn": {
+    },
+    "native": {
+    },
+    "ad": {
+    },
+    "ic": {
+    },
+    "kws": {
+    },
+    "vww": {
+    }
   }
 }
