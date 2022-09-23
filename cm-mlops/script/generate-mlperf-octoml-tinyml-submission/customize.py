@@ -8,7 +8,7 @@ def preprocess(i):
     env = i['env']
     state = i['state']
     inp = i['input']
-    if ['CM_FLASH_BOARD'] in env:
+    if 'CM_FLASH_BOARD' in env:
         script_tags =  "flash,tiny"
     else:
         script_tags =  "reproduce,tiny,mlperf,octoml"
