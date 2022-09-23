@@ -9,7 +9,7 @@ def preprocess(i):
 
     recursion_spaces = i['recursion_spaces']
 
-    file_name = 'bazel.exe' if os_info['platform'] == 'windows' else 'bazel'
+    file_name = 'gh.exe' if os_info['platform'] == 'windows' else 'gh'
 
     # Will check env['CM_TMP_PATH'] if comes from installation script
     r = i['automation'].find_artifact({'file_name': file_name,
@@ -17,7 +17,7 @@ def preprocess(i):
                                        'os_info':os_info,
                                        'default_path_env_key': 'PATH',
                                        'detect_version':True,
-                                       'env_path_key':'CM_BAZEL_BIN_WITH_PATH',
+                                       'env_path_key':'CM_GITHUBCLI_BIN_WITH_PATH',
                                        'run_script_input':i['run_script_input'],
                                        'recursion_spaces':recursion_spaces})
     if r['return'] >0 : 
@@ -28,7 +28,7 @@ def preprocess(i):
            print (recursion_spaces+'    # {}'.format(r['error']))
 
            # Attempt to run installer
-           r = {'return':0, 'skip':True, 'script':{'tags':'install,bazel'}}
+           r = {'return':0, 'skip':True, 'script':{'tags':'install,github-cli'}}
 
        return r
 
@@ -40,9 +40,9 @@ def preprocess(i):
 def postprocess(i):
     env = i['env']
 
-    r = i['automation'].parse_version({'match_text': r'bazel\s*([\d.]+)',
+    r = i['automation'].parse_version({'match_text': r'gh\s*version\s*([\d.]+)',
                                        'group_number': 1,
-                                       'env_key':'CM_BAZEL_VERSION',
+                                       'env_key':'CM_GITHUBCLI_VERSION',
                                        'which_env':i['env']})
     if r['return'] >0: return r
 
@@ -50,6 +50,5 @@ def postprocess(i):
 
     print (i['recursion_spaces'] + '    Detected version: {}'.format(version))
 
-    env['CM_BAZEL_CACHE_TAGS'] = 'version-'+version
 
     return {'return':0, 'version':version}
