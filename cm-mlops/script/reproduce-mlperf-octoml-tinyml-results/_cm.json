@@ -1,5 +1,5 @@
 {
-  "alias": "reproduce_tiny_results",
+  "alias": "reproduce-mlperf-octoml-tinyml-results",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": false,
@@ -26,7 +26,7 @@
     },
     {
       "names": [
-	"zephyr-sdk"
+        "zephyr-sdk"
       ],
       "tags": "get,zephyr-sdk"
     },
@@ -38,13 +38,13 @@
     },
     {
       "names": [
-	"microtvm"
+        "microtvm"
       ],
       "tags": "get,microtvm"
     },
     {
       "names": [
-	"cmake"
+        "cmake"
       ],
       "tags": "get,cmake",
       "version_min": "3.20.0"
@@ -56,52 +56,54 @@
       "tags": "get,sys-utils-cm"
     }
   ],
+  "local_env_keys": [
+    "CM_*"
+  ],
   "tags": [
     "reproduce",
     "tiny",
     "results",
     "mlcommons"
   ],
-  "local_env_keys": [ "CM_*" ],
   "uid": "a63803a707d04332",
+  "variations": {
+    "ad": {
+      "env": {
+        "CM_TINY_MODEL": "ad"
+      }
+    },
+    "cmsis_nn": {
+      "env": {
+        "CM_MICROTVM_VARIANT": "microtvm_cmsis_nn"
+      }
+    },
+    "ic": {
+      "env": {
+        "CM_TINY_MODEL": "ic"
+      }
+    },
+    "kws": {
+      "env": {
+        "CM_TINY_MODEL": "kws"
+      }
+    },
+    "native": {
+      "env": {
+        "CM_MICROTVM_VARIANT": "microtvm_native"
+      }
+    },
+    "vww": {
+      "env": {
+        "CM_TINY_MODEL": "vww"
+      }
+    }
+  },
   "versions": {
     "r1.0": {
       "add_deps_recursive": {
         "microtvm": {
           "version": "main"
         }
-      }
-    }
-  },
-  "variations": {
-    "cmsis_nn": {
-      "env": {
-	"CM_MICROTVM_VARIANT": "microtvm_cmsis_nn"
-      }
-    },
-    "native": {
-      "env": {
-	"CM_MICROTVM_VARIANT": "microtvm_native"
-      }
-    },
-    "ad": {
-      "env": {
-	"CM_TINY_MODEL": "ad"
-      }
-    },
-    "ic": {
-      "env": {
-	"CM_TINY_MODEL": "ic"
-      }
-    },
-    "kws": {
-      "env": {
-	"CM_TINY_MODEL": "kws"
-      }
-    },
-    "vww": {
-      "env": {
-	"CM_TINY_MODEL": "vww"
       }
     }
   }
