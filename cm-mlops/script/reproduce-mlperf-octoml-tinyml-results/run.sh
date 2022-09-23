@@ -12,18 +12,26 @@ west update
 test $? -eq 0 || exit 1
 west zephyr-export
 
-cmake_src=${source}/NUCLEO_L4R5ZI/${model}
-cd ${CUR_DIR}
-rm -rf build
-mkdir -p build
-cd build
-CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES:-2}}
-cmake ${cmake_src}
-test $? -eq 0 || exit 1
-make -j${CM_MAKE_CORES}
-test $? -eq 0 || exit 1
-cd ../
-echo "ELF binary created at ${CUR_DIR}/build/zephyr/zephyr.elf"
+path_suffix="NUCLEO_L4R5ZI/${model}"
+cmake_src=${source}/${path_suffix}
+build_path=${CUR_DIR}/${path_suffix}
+cd ${build_path}
+binary_path=${build_path}/build/zephyr/zephyr.elf
+if [ -f ${binary_path} ] and [ ${CM_RECREATE_BINARY} != "yes" ];
+  echo "ELF binary existing at ${binary_path}. Skipping regeneration."
+  cd build
+else
+  rm -rf build
+  mkdir -p build
+  cd build
+  CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES:-2}}
+  cmake ${cmake_src}
+  test $? -eq 0 || exit 1
+  make -j${CM_MAKE_CORES}
+  test $? -eq 0 || exit 1
+  cd ../
+  echo "ELF binary created at ${build_path}/build/zephyr/zephyr.elf"
+fi
 if [[ ${CM_FLASH_BOARD} == "yes" ]]; then
   west flash
   test $? -eq 0 || exit 1
