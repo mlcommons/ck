@@ -18,7 +18,7 @@ def preprocess(i):
     if 'CM_DOCKER_IMAGE_REPO' not in env:
         env['CM_DOCKER_IMAGE_REPO'] = "local/" + env['CM_DOCKER_RUN_SCRIPT_TAGS'].replace(',', '-')
     if 'CM_DOCKER_IMAGE_TAG' not in env:
-        env['CM_DOCKER_IMAGE_TAG'] = env['CM_DOCKER_IMAGE_BASE'].replace(':','-') + "/latest"
+        env['CM_DOCKER_IMAGE_TAG'] = env['CM_DOCKER_IMAGE_BASE'].replace(':','-') + "-latest"
     if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
         env['CM_DOCKER_IMAGE_RUN_CMD'] = "cm version"
     r = cm.access({'action':'search', 'automation':'script', 'tags': env['CM_DOCKER_RUN_SCRIPT_TAGS']})
