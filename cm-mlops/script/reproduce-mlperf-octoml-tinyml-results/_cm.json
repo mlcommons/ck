@@ -67,11 +67,19 @@
     "octoml",
     "mlcommons"
   ],
+  "post_deps": [
+    {
+      "tags": "flash,tiny,mlperf",
+      "enable_if_env": {
+	"CM_FLASH_BOARD": [ "True" ]
+      }
+    }
+  ],
   "uid": "a63803a707d04332",
   "variations": {
     "flash": {
       "env": {
-        "CM_FLASH_BOARD": "yes"
+        "CM_FLASH_BOARD": "True"
       }
     },
     "cmsis_nn": {
