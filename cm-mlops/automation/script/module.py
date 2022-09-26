@@ -2026,7 +2026,7 @@ def postprocess_script(customize_code, customize_common_input, recursion_spaces,
         ii['meta'] = meta
 
         r = customize_code.postprocess(ii)
-        if r['return']>0: return r
+        return r
 
     return {'return': 0}
 
