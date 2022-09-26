@@ -68,7 +68,7 @@ pip install cmind
 cm version
 ```
 ```
-1.0.1
+1.0.3
 
 ```
 

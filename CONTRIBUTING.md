@@ -29,6 +29,7 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 * Sven van Haastregt (Arm)
 * Michael Haidl
 * Stephen Herbein (LLNL)
+* Mehrdad Hessar (OctoML): support for TinyML automation
 * Patrick Hesse (College of Saint Benedict and Saint John's University)
 * Nikolay Istomin (Xored)
 * Kenan Kalajdzic
@@ -49,6 +50,7 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 * Alex Redshaw (Arm)
 * Vincent Rehm
 * Toomas Remmelg (University of Edinburgh)
+* Andrew Reusch (OctoML): support for TinyML automation
 * Jarrett Revels (MIT)
 * Jared Roesch (OctoML)
 * Dmitry Savenko (Xored)
