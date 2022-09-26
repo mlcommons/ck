@@ -839,6 +839,11 @@ class CAutomation(Automation):
 
                     found_cached = True
 
+                    # Check chain of post dependencies on other CM scripts
+                    clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
+                    r = self.call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                            remembered_selections, variation_tags_string, found_cached)
+
 
 
 
@@ -1219,7 +1224,7 @@ class CAutomation(Automation):
                     if enable_or_skip_script(d["skip_if_env"], env):
                         continue
 
-                if from_cache and d.get("skip_from_cache", False):
+                if from_cache and not d.get("dynamic", False):
                     continue
 
                 force_env_keys_deps = d.get("force_env_keys", [])
@@ -2003,13 +2008,13 @@ def prepare_and_run_script_with_postprocessing(i, postprocess=True):
         if r['return']>0: return r
 
     if postprocess and customize_code is not None and 'postprocess' in dir(customize_code):
-        rr = postprocess_script(customize_code, customize_common_input, recursion_spaces, env, state, const,
+        rr = run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const,
                 const_state, meta)
 
     return rr
 
   
-def postprocess_script(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta):
+def run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta):
 
     if customize_code is not None and 'postprocess' in dir(customize_code):
         import copy
