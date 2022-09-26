@@ -1223,7 +1223,7 @@ class CAutomation(Automation):
                     if enable_or_skip_script(d["skip_if_env"], env):
                         continue
 
-                if from_cache and d.get("dynamic", False):
+                if from_cache and not d.get("dynamic", False):
                     continue
 
                 force_env_keys_deps = d.get("force_env_keys", [])
