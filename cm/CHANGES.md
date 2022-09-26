@@ -1,3 +1,6 @@
+## V1.0.3
+   - minor fix to properly self-reference running automation script
+
 ## V1.0.2
    - updated and simplified all docs
 
