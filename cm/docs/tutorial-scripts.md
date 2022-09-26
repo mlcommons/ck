@@ -758,13 +758,13 @@ Related CM scripts under development:
 * https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-image-classification-onnx-py
 * https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-mlperf-vision-reference
 
-## Adding your own CM script
+## Adding new artifacts, scripts and workflows to CM
 
-One of the main goals of CM (aka CK2) is to make it easier to onboard new users 
-and add new CM components in comparison with the 1st version (CK2).
+One of the main goals of the CM meta-framework is to make it easier for the new users 
+to add their own artifacts, scripts and workflows in the CM format:
 
-You can now add your own working component with some tags and run it as a dummy filter 
-with a minimal effort as follows:
+For example, you can now add your own native script with some tags to CM 
+and run it with a minimal effort as follows:
 
 ```bash
 cm add script my-cool-component --tags=my,cool-component,prototype

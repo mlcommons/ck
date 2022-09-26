@@ -167,7 +167,7 @@ in this and other CM workflows.
 * [Understanding CM database and runtime interface](cm/docs/tutorial-concept.md)
 * [Understanding cross-platform CM scripts](cm/docs/tutorial-scripts.md)
 * [Running and reproducing MLPerf inference benchmarks](docs/mlperf-cm-automation-demo.md)
-
+* [Adding new artifacts, scripts and workflows to CM](cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
 
 ### Documentation
 
@@ -179,10 +179,13 @@ in this and other CM workflows.
 
 ### Contributing
 
-You can share CM components in your Git repository for your own scripts and artifacts 
+Please check this [guide](cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
+to plug your own artifacts, scripts and workflows into CM.
+
+You can then share CM components in your Git repository for your own scripts and artifacts 
 to help the community reuse and build upon them (similar to this [CM repository](https://github.com/mlcommons/ck/tree/master/cm-mlops)).
 
-You can join our [open workgroup](docs/https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+You can join our [open workgroup](docs/mlperf-education-workgroup.md)
 and/or contribute your own CM components [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script).
 
 These components must automatically download, install, build and preprocess different applications, models,
