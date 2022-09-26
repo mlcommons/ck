@@ -605,7 +605,7 @@ class CAutomation(Automation):
           # If there is only 1 default variation, then just use it or substitute from CMD
 
         default_variation = meta.get('default_variation', '')
-        default_variations = meta.get('default_variations', [])  
+        default_variations = meta.get('default_variations', [])
 
         if len(variation_tags) == 0:
             if default_variation != '':
@@ -731,7 +731,7 @@ class CAutomation(Automation):
 
             if len(local_env_keys_from_meta)>0:
                 local_env_keys += local_env_keys_from_meta
-            
+  
             r = self.run_deps(deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
                     remembered_selections, variation_tags_string, found_cached)
             if r['return']>0: return r
@@ -940,7 +940,15 @@ class CAutomation(Automation):
                    'tmp_file_run_state': self.tmp_file_run_state,
                    'tmp_file_run_env': self.tmp_file_run_env,
                    'tmp_file_state': self.tmp_file_state,
-                   'tmp_file_run': self.tmp_file_run
+                   'tmp_file_run': self.tmp_file_run,
+                   'local_env_keys': self.local_env_keys,
+                   'local_env_keys_from_meta': local_env_keys_from_meta,
+                   'posthook_deps': posthook_deps,
+                   'add_deps_recursive': add_deps_recursive,
+                   'remembered_selections': remembered_selections,
+                   'variation_tags_string': variation_tags_string,
+                   'found_cached': False,
+                   'self': self
             }
 
             if os.path.isfile(path_to_customize_py):
@@ -1046,22 +1054,13 @@ class CAutomation(Automation):
             if pip_version_string != '':
                 print (recursion_spaces+'  - potential PIP version string (if needed): '+pip_version_string)
 
-            # Prepare run script before post deps
-            run_script_after_post_deps = meta.get('run_script_after_post_deps', False)
-
             if print_env:
                 import json
                 print (json.dumps(env, indent=2, sort_keys=True))
 
             # Check chain of pre hook dependencies on other CM scripts
             if len(prehook_deps)>0 and not skip_prehook_deps_in_cache:
-                # Get local env keys
-                local_env_keys = copy.deepcopy(self.local_env_keys)
-
-                if len(local_env_keys_from_meta)>0:
-                    local_env_keys += local_env_keys_from_meta
-
-                r = self.run_deps(prehook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                r = self.call_run_deps(prehook_deps, local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, recursion_spaces,
                     remembered_selections, variation_tags_string, found_cached)
                 if r['return']>0: return r
 
@@ -1076,17 +1075,6 @@ class CAutomation(Automation):
                     cached_tags = [x for x in cached_tags if not x.startswith('version-')]
                     cached_tags.append('version-' + r['version'])
 
-            # Check chain of post hook dependencies on other CM scripts
-            if len(posthook_deps)>0 and not skip_posthook_deps_in_cache:
-                # Get local env keys
-                local_env_keys = copy.deepcopy(self.local_env_keys)
-
-                if len(local_env_keys_from_meta)>0:
-                    local_env_keys += local_env_keys_from_meta
-
-                r = self.run_deps(posthook_deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections, variation_tags_string, found_cached)
-                if r['return']>0: return r
 
             # Check chain of post dependencies on other CM scripts
             clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
@@ -1176,6 +1164,23 @@ class CAutomation(Automation):
         ############################# RETURN
         return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 
+    def call_run_deps(script, deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
+            add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached):
+        if len(deps) == 0:
+            return {'return': 0}
+        # Check chain of post hook dependencies on other CM scripts
+        import copy
+
+        # Get local env keys
+        local_env_keys = copy.deepcopy(local_env_keys)
+
+        if len(local_env_keys_from_meta)>0:
+            local_env_keys += local_env_keys_from_meta
+
+        r = script.run_deps(deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+            remembered_selections, variation_tags_string, found_cached)
+        if r['return']>0: return r
+        return {'return': 0}
 
     ##############################################################################
     def run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
@@ -1271,7 +1276,7 @@ class CAutomation(Automation):
         Find file name in a list of paths
 
         Args:
-          (CM input dict): 
+          (CM input dict):
 
           paths (list): list of paths
           file_name (str): filename to find
@@ -1350,11 +1355,11 @@ class CAutomation(Automation):
 
                     run_script_input['recursion_spaces'] = recursion_spaces
 
-                    if rx['return']>0: 
+                    if rx['return']>0:
                        if rx['return'] != 2:
                            return rx
                     else:
-                       # Version was detected 
+                       # Version was detected
                        detected_version = rx.get('version','')
 
                        if detected_version != '':
@@ -1871,7 +1876,7 @@ def check_version_constraints(i):
 
 
 ##############################################################################
-def prepare_and_run_script_with_postprocessing(i):
+def prepare_and_run_script_with_postprocessing(i, postprocess=True):
     """
     Internal: prepare and run script with postprocessing that can be reused for version check
     """
@@ -1880,6 +1885,7 @@ def prepare_and_run_script_with_postprocessing(i):
     bat_ext = i['bat_ext']
     os_info = i['os_info']
     customize_code = i.get('customize_code', None)
+    customize_common_input = i.get('customize_common_input',{})
 
     env = i.get('env', {})
     const = i.get('const', {})
@@ -1888,8 +1894,6 @@ def prepare_and_run_script_with_postprocessing(i):
 
     meta = i.get('meta',{})
 
-    customize_common_input = i.get('customize_common_input',{})
-
     reuse_cached = i.get('reused_cached', False)
     recursion_spaces = i.get('recursion_spaces', '')
 
@@ -1897,6 +1901,15 @@ def prepare_and_run_script_with_postprocessing(i):
     tmp_file_run_env = i.get('tmp_file_run_env', '')
     tmp_file_state = i.get('tmp_file_state', '')
     tmp_file_run = i['tmp_file_run']
+    local_env_keys = i['local_env_keys']
+    local_env_keys_from_meta = i['local_env_keys_from_meta']
+    posthook_deps = i['posthook_deps']
+    add_deps_recursive = i['add_deps_recursive']
+    recursion_spaces = i['recursion_spaces']
+    remembered_selections = i['remembered_selections']
+    variation_tags_string = i['variation_tags_string']
+    found_cached = i['found_cached']
+    script_automation = i['self']
 
     # Preapre script name
     if bat_ext == '.sh':
@@ -1960,7 +1973,7 @@ def prepare_and_run_script_with_postprocessing(i):
             note = '''Please help the community by reporting the CMD and the full log here:
 * https://bit.ly/mlperf-edu-wg
 * https://github.com/mlcommons/ck/issues '''
-            
+
             return {'return':2, 'error':'Portable CM script failed (return code = {})\n\n{}'.format(rc, note)}
 
         # Load updated state if exists
@@ -1983,28 +1996,39 @@ def prepare_and_run_script_with_postprocessing(i):
             updated_env = r['dict']
 
             utils.merge_dicts({'dict1':env, 'dict2':updated_env, 'append_lists':True, 'append_unique':True})
+ 
+    if len(posthook_deps)>0:
+        r = script_automation.call_run_deps(posthook_deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
+            add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached)
+        if r['return']>0: return r
 
-        # Check if post-process
-        if customize_code is not None and 'postprocess' in dir(customize_code):
-
-            print (recursion_spaces+'  - run postprocess ...')
-
-            # Update env and state with const
-            utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
-            utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
-
-            ii = copy.deepcopy(customize_common_input)
-            ii['env'] = env
-            ii['state'] = state
-            ii['meta'] = meta
-
-            r = customize_code.postprocess(ii)
-            if r['return']>0: return r
-
-            # can return detected "version"
-            rr = r
+    if postprocess and customize_code is not None and 'postprocess' in dir(customize_code):
+        rr = postprocess_script(customize_code, customize_common_input, recursion_spaces, env, state, const,
+                const_state, meta)
 
     return rr
+
+  
+def postprocess_script(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta):
+
+    if customize_code is not None and 'postprocess' in dir(customize_code):
+        import copy
+
+        print (recursion_spaces+'  - run postprocess ...')
+
+        # Update env and state with const
+        utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
+        utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
+
+        ii = copy.deepcopy(customize_common_input)
+        ii['env'] = env
+        ii['state'] = state
+        ii['meta'] = meta
+
+        r = customize_code.postprocess(ii)
+        if r['return']>0: return r
+
+    return {'return': 0}
 
 ##############################################################################
 def get_script_name(env, path):
