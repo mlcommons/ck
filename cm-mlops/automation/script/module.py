@@ -840,7 +840,8 @@ class CAutomation(Automation):
                     found_cached = True
 
                     # Check chain of post dependencies on other CM scripts
-                    r = self.call_run_deps(post_deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                    clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
+                    r = self.call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
                             remembered_selections, variation_tags_string, found_cached)
 
 
