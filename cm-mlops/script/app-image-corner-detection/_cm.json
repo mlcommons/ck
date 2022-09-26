@@ -5,30 +5,25 @@
   "deps": [
     {
       "tags": "set,echo-off,win"
-    },
-    {
-      "skip_if_env": {
-        "CM_SKIP_COMPILE": []
-      },
-      "tags": "get,compiler"
     }
   ],
-  "post_deps": [
+  "posthook_deps": [
     {
       "skip_if_env": {
-        "CM_SKIP_COMPILE": []
+        "CM_SKIP_COMPILE": [ "on" ]
       },
       "tags": "compile-program"
     },
     {
       "skip_if_env": {
-        "CM_SKIP_RUN": []
+        "CM_SKIP_RUN": [ "on" ]
       },
       "tags": "benchmark-program"
     }
   ],
   "tags": [
     "app",
+    "image",
     "corner-detection"
   ],
   "uid": "998ffee0bc534d0a"
