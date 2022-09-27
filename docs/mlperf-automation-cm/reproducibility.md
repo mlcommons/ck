@@ -19,8 +19,8 @@ x8664; Ubuntu 22.04, Python 3.9, PyTorch | &#10060; [report](reproducibility-rep
 
 ## New and universal C++ front-end for loadgen
 
-We are developing a new universal C++ front-end for loadgen with CM automation to make it easier
-to plug in any models, data sets, frameworks and hardware 
+We are developing a new [universal C++ front-end for loadgen](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation-cm/reproducibility.md#original-python-front-end-for-loadgen) 
+with CM automations to make it easier to plug in any models, data sets, frameworks and hardware 
 using the same [portable CM components](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
 as for the Python FE.
 
