@@ -1,0 +1,52 @@
+#! /bin/bash
+
+# Note that this script is not used anymore during PIP installation
+
+# Check path to this file
+CK_PATH1=`dirname $0`
+
+pushd $CK_PATH1/.. > /dev/null
+CK_PATH2=`pwd`
+popd > /dev/null
+
+# If CK_PYTHON and CK_ROOT are not set up by user, use the ones prepared during PIP installation 
+# or from current directory
+
+if [ "$CK_PYTHON" == "" ]; then
+   if [ -f "$CK_PATH1/ck-python.cfg" ]; then
+      CK_PYTHON_PIP=`cat $CK_PATH1/ck-python.cfg`
+      if [ -f "$CK_PYTHON_PIP" ]; then
+         CK_PYTHON=$CK_PYTHON_PIP
+      fi
+   fi
+
+   # If PIP didn't update above var during installation check which Python is available
+   if [ "$CK_PYTHON" == "" ]; then
+
+      # Set python3 as default and try to find the installed one
+      export CK_PYTHON=python3
+
+      X=`type -P python3`
+      if [ "$X" != "" ] ; then
+         export CK_PYTHON=$X
+      else
+         X=`type -P python`
+         if [ "$X" != "" ] ; then
+            export CK_PYTHON=$X
+         fi
+      fi
+   fi
+fi
+
+if [ "$CK_ROOT" == "" ]; then
+   if [ -f "$CK_PATH2/ck/kernel.py" ]; then
+      export CK_ROOT=$CK_PATH2
+   fi
+fi
+
+if [ -f "$CK_ROOT/ck/kernel.py" ]; then 
+   $CK_PYTHON -W ignore::DeprecationWarning $CK_ROOT/ck/kernel.py "$@"
+else
+   $CK_PYTHON -W ignore::RuntimeWarning -W ignore::RuntimeWarning -m ck.kernel "$@"
+fi
+

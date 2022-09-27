@@ -1,0 +1,106 @@
+{
+  "actions": {
+    "add": {
+      "desc": "process and add experiment",
+      "for_web": "yes"
+    },
+    "browse": {
+      "desc": "open browser and view experiment details"
+    },
+    "convert_table_to_csv": {
+      "desc": "Convert experiment table to CSV",
+      "for_web": "yes"
+    },
+    "crowdsource": {
+      "desc": "crowdsource experiments"
+    },
+    "delete_points": {
+      "desc": "delete multiple points from multiple entries"
+    },
+    "filter": {
+      "desc": "filter / pre-process data"
+    },
+    "get": {
+      "desc": "get points from multiple entries",
+      "for_web": "yes"
+    },
+    "get_all_meta": {
+      "desc": "get all meta information from all entries"
+    },
+    "get_and_cache_results": {
+      "desc": "get and cache experimental results"
+    },
+    "get_log_path": {
+      "desc": "get log path"
+    },
+    "get_unique_keys_from_list": {
+      "desc": "get unique keys from list of experiments"
+    },
+    "html_viewer": {
+      "desc": "view experiment as html",
+      "for_web": "yes"
+    },
+    "list_points": {
+      "desc": "list all points in a given entry"
+    },
+    "load_pipeline": {
+      "desc": "load pipeline info (id and dictionary contents)"
+    },
+    "load_point": {
+      "desc": "load all info about a given point (and subpoint)"
+    },
+    "log": {
+      "desc": "log experiments"
+    },
+    "multi_stat_analysis": {
+      "desc": "perform statistical analysis (with multiple points at the same time)"
+    },
+    "pack": {
+      "desc": "pack experiments"
+    },
+    "prepare_html_selector": {
+      "desc": "prepare HTML selector"
+    },
+    "prepare_selector": {
+      "desc": "prepare first level of experiments with pruning"
+    },
+    "replay": {
+      "desc": "replay experiment == the same as reproduce"
+    },
+    "reproduce": {
+      "desc": "reproduce/replay/rerun a given experiment"
+    },
+    "rerun": {
+      "desc": "rerun experiment == the same as reproduce"
+    },
+    "sort_table": {
+      "desc": "sort table, substitute index with a sequence (html)",
+      "for_web": "yes"
+    },
+    "stat_analysis": {
+      "desc": "process multiple experimental results and perform statistial analysis (including expected values)",
+      "for_web": "yes"
+    },
+    "substitute_x_with_loop": {
+      "desc": "substitute x axis in table with a sequence",
+      "for_web": "yes"
+    }
+  },
+  "author": "Grigori Fursin",
+  "author_email": "Grigori.Fursin@cTuning.org",
+  "author_webpage": "http://fursin.net",
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "crowdsource_path": "CK-CROWDSOURCING",
+  "desc": "universal experiment entries",
+  "env_key_crowdsource_path": "CK_CROWDSOURCE_PATH",
+  "license": "See CK LICENSE.txt for licensing details",
+  "log_file_generate": "log.generate.txt",
+  "module_deps": {
+    "experiment.view": "e7c9e42ba8edace0",
+    "math.variation": "d3b13388e6152da7",
+    "module": "032630d041b4fd8a",
+    "pipeline": "db25414b48b4ffb3",
+    "web": "c480461384765c78",
+    "wfe": "1e4e644996b7f2a0"
+  }
+}

@@ -1,0 +1,764 @@
+* Notes about the CK2 framework aka CM: https://github.com/mlcommons/ck/tree/master/cm/docs
+
+* V2.6.1:
+  * fixed convert_json_str_to_dict func to support Python 3.9+
+    (see the issue #184)
+
+* MLCommons CK V2.6.0
+  * stable release to automate MLCommons inference benchmark v2.0+ submissions.
+
+20210906:
+  * cTuning foundation and OctoML donated this repository to MLCommons
+    as a part of their MLPerf inference benchmark v1.1 submission.
+
+* v2.5.8.1
+  * minor enhancement of "ck display dashboard" automation module
+    to support the latest format of the MLPerf benchmark
+  * cmdgen changes to support groups (issue #180)
+  * CK kernel setting "package_quiet_install" 
+    to turn on --quiet automatically for all ck install commands
+    (issue #142)
+
+* v2.5.8
+  * fixed copyright note in the License file
+  * improved problem reporting in module:program
+  * important fix in "module:program" detected while preparing 
+    MLPerf inference out-of-the-box benchmarking:
+    clean tmp directory when running CK workflow
+    that doesn't have compilation!
+  * added --remove_deps flag to module:program and module:env
+    as suggested by CK users to be able to remove some dependencies 
+    from CK program workflows and thus use natively installed compilers, 
+    tools, libraries and other components - useful to debugging and testing.
+    This flag takes a list of keys from dependencies from a given
+    program workflows separated by comma.
+  * added the latest contributors to the CK project.
+
+* v2.5.7
+  * added 'ck_html_end_note' key to customize CK result dashboard
+  * fixed Pareto frontier filter
+  * added "ck filter_2d math.frontier" for MLPerf inference
+
+* v2.5.6
+  * added --j flag to "ck install package" to update CK_HOST_CPU_NUMBER_OF_PROCESSORS env 
+    and force number of processes in "make -j" if used by a given package
+  * added ck.cfg key "pip_user". If yes, add --user when to pip 
+    when installing CK repositories.
+    Turn it on as follows:
+    $ ck set kernel var.pip_user=yes
+    See ticket #157
+  * print path to the CK kernel when invoking "ck"
+  * extended "result" module to use meta.json as a base for all sub configurations
+    (to simplify configuration for multiple dashboards - useful for MLPerf)
+
+* v2.5.5
+  * added result.cfg to configure CK dashboards
+  * improved module:result to push results to CK dashboards
+  * improved module:dashboard to work with new CK dashboards
+  * improved module:wfe to work with new CK dashboards
+  * added module:ck-platform to work with cKnowledge.io platform
+    (moved cbench functionality from the CK incubator to the CK module
+     to work with cKnowledge.io dashboards directly)
+  * provided better support to work with CK modules
+    as standard Python packages (see module:ck-platform as example)
+
+* V2.5.4
+  * added support to automatically add simple packages from Git:
+    ck add package:my-git-repo --git={URL} --tags=my-repo --env_ext=MY_GIT_REPO
+  * added module:mlperf.result to abstract official MLPerf results
+  * added key "skip_global_deps" to program meta to skip global dependencies
+    for a given command line (for example, only to install python deps
+    for a given program)
+  * improved handling of a situation when CK environment has changed
+    and make it possible to continue running a workflow at user risk
+    (useful for debugging)
+
+* V2.5.3
+  * added "pull" function to module:docker
+  * if only 1 tag exists in Docker, select it automatically
+  * updated docs
+
+* V2.5.2
+  * fixed ck run docker --command="something" on Linux
+
+* V2.5.1
+  * added --min_run to module:program to avoid pre/post processing and just run a command.
+    Useful to install Python requirements for a given program CMD.
+    We use it in MLPerf automation.
+
+* V2.5.0
+  * auto-install Python requirements from pulled repositories
+  * added --bash to docker:module to run bash in a container
+  * removed outdated and unnecessary files
+  * added --command flag to "run docker" to run a specific command such as
+    ck run docker:xyz --command="ck show env"
+
+* V2.4.0
+  * added module "docker.template" to support adaptive CK containers
+  * added rebuild function to module:docker to rebuild images (#145)
+  * added support for multiple Docker tags in module:docker
+    See example: https://github.com/octoml/mlops/tree/main/docker/ck-template-mlperf
+  * added "default_org" key in Docker image to specify default organization
+  * added "outdated" and "aging" keys in Docker images to warn user
+    about a status of a given Docker image
+  * added main CK and MLPerf repositories to Zenodo
+    to ensure reproducibilty
+  * added common function "tested" to mark CK entries as tested,
+    i.e. "ck tested docker:mlperf-inference-v0.7.openvino"
+
+* V2.3.0
+  * improved "ck search" to search tags in entries with inheritance
+  * fixed function "ck status"
+
+* V2.2.0
+  * enhancement of the inheritance mechanism and a few bug fixes:
+    we keep original meta of a given entry when updating, copying or moving it
+    rather than expanding it with all the base entries.
+
+* V2.1.0
+  * added support for basic inheritance in CK entries via "_base_entry" key.
+    Useful to simplify program, package and soft modules.
+    See https://github.com/ctuning/ck/issues/143 .
+  * added program.template, soft.template and package.template modules
+    to describe base entries for inheritance.
+
+* V2.0.10
+  * fixed a bug in the new installation function
+
+* V2.0.9
+  * added missing requirements.txt to the distro
+
+* V2.0.8
+  * added requirements.txt file with pyyaml
+  * simplified setup.py script
+  * added incubating projects to simplify CK
+
+* V2.0.7
+  * fixed problem in module:program to return error when pre/post processing fails
+  * added more tests to catch bugs in program workflows
+  * fixed a new bug in the program workflow
+  * updated docs
+
+* V2.0.6
+  * improved module:program meta to be able to use global CMD run_time parameters
+    for all command lines (useful to run different MLPerf scenarios
+    with similar run time parameters)
+
+* V2.0.5
+  * added possibility to pull CK repositories from different GitHub organizations
+    as follows: "ck pull repo:{organization}@{repo}"
+  * removed old and not used meta "backup_data_uid" and "data_name" from program entries
+
+* V2.0.4
+  * fixed modules mlperf.inference and mlperf.mobilenets 
+    to cache results in local:tmp:{some cache}
+
+* V2.0.3
+  * fixed a minor bug in module:program
+
+* V2.0.2
+  * Added --print_skip_stats to "ck benchmark program" to reduce output for MLPerf benchmarks
+  * Added --print_files to "ck benchmark program" to print multiple files after MLPerf benchmarking
+  * Removed several data zips that are not required for the releases
+
+* V2.0.1
+  * Updated deprecated function in web server to support Python 3.8+
+  * We now use Python to generate ck and ck.bat scripts!
+    If you install CK for different python versions, 
+    you can use a specific one as follows:
+    python3.7 -m ck version
+
+* V2.0.0
+  * We now use Apache 2.0 license based on the feedback from the majority of users
+  * The code did not change from the last version 1.55.16.
+  * We plan to focus on incubating projects (see "incubator" directory)
+    to redesign CK and make it simpler, faster and more Pythonic - 
+    we plan to use version 3.x for the new design.
+    
+========================================================================================
+
+* V1.55.17
+  * fixed a bug in module:package when reinstalling existing package
+
+* V1.55.16
+  * fixed a bug in module:env.
+  * added more MLPerf tests from https://github.com/ctuning/ck-ml to find above bug.
+  * detect packages with problems and print notes how to solve them
+    (useful for ImageNet 2012 packages where direct download is no longer available)
+
+* V1.55.15
+  * added module:docs to be more compatible with standard repos
+  * added LICENSE.third-party.txt
+
+* V1.55.14
+  * improved error reporting in packages and programs
+
+* V1.55.13  
+  * print "Enter -1 to use CK packages" when detecting soft
+    to install CK packages instead of detecting 
+    already installed software
+
+* V1.55.12
+  * added module:doc to the distribution
+
+* V1.55.11
+  * Test environment variable "CK_SKIP_SAVING_PYTHON_BIN" during CK installation
+    to skip detecting and recording python binary to ck-python.cfg
+    to avoid mixing up virtual environments.
+  * When CK_PYTHON is defined during CK installation,
+    record it to ck-python.cfg to preserve the default version.
+
+* V1.55.10
+  * do not ask to select variations in "ck install package" 
+    when there are 2 or more variations!
+
+* V1.55.9
+  * added --force_version to "ck detect soft" to force version.
+    Useful to automate autodetection of imagenet, for example.
+
+* V1.55.8
+  * added --quiet flag to automatically enter default anser to most questions
+
+* V1.55.7
+  * added --default flag to ck install package to select 0 
+    when multiple packages and variations available.
+
+* V1.55.6
+  * extended module:package to ask a user to select a variation 
+    for a given package when there are multiple versions available.
+
+* V1.55.5
+  * added --tags to "ck find" action to be able to search for entries 
+    by tags and return their paths
+  * added module:doc to abstract documentation
+
+* V1.55.4
+  * [sztaylor] fix cpu & gpu set_freq commands
+
+* V1.55.3
+  * fixed minor API typo
+  * improvements from Arm to 2 CK modules: platform.cpu and platform.gpu:
+    https://github.com/ctuning/ck-env/pull/113
+
+* V1.55.2
+  * removed two outdated modules
+  * updated module:program
+  * added incubator projects
+  * prepared for release
+
+* V1.55.0
+  * Fixed missing CK modules
+  * Removed module/crowdnode/tests (binary files)
+  * Prepared new release
+
+========================================================================================
+
+* V1.50.1
+  * Fixed missing CK modules
+
+* V1.50.0 
+  * Added stable modules from different CK repositories (Issue #120)
+
+  * Added ck list_tags {CID} to list all tags from found entries (uses search function)
+  * Converted python files to PEP8 style using autopep8
+  * Fixed bug with "ck unzip repo" if ckr.zip if not present
+  * Added command "get_default_repo" to print the path to the default repo inside CK
+
+========================================================================================
+
+* V1.17.0
+  * Updated description of all CK APIs in Google format!
+  * Added support to load YAML files via CK CLI: ck action @file.yaml
+  * Fixed Yaml loader
+  * Added support to download components with depenendecies from cKnowledge.io
+  * Fixed issue when adding the "init" action to modules (this function always exists in CK modules).
+    We create "new_init" function in such case.
+  * Checking all function names in the CK module when adding a new action
+  * Added simplified "ck init repo" to create a CK repository in the current directory
+  * Added docs about "ck init repo"
+
+* V1.15.0
+  * Improved the integration with the open CK portal: https://cKnowledge.io
+  * Fixed installation in virtual env / pip for Linux/Windows
+  * Started working on a new Sphinx-based documentation
+  * Check missing modules at cKnowledge.io
+    (can be turned off by "ck set kernel --var.check_missing_modules=no")
+  * Fixed ck.bat for Windows when CK is used from GitHub
+  * Fixed ElasticSearch indexing error when index is empty
+  * Fixed remote repo access
+  * Added experimental mode to support multiple aliases for the same UID
+    to be able to push renamed components to the cKnowledge.io portal
+  * Started breaking CK kernel into sub modules:
+    https://github.com/ctuning/ck/issues/107
+  * Started improving ck scripts to automatically detect installation (Linux and Windows):
+    https://github.com/ctuning/ck/issues/106
+  * Added support to download missing components from cKnowledge.io
+
+* V1.12.3
+  * improved tests on Linux, MacOS and Windows
+  * prototyped testing of the status of repositories (stable and warning)
+
+* V1.12.2
+  * fixed UTF-8 problem with README.md in setup.py
+
+* V1.12.1
+  * added first draft of the docs in the Sphinx format
+  * fixed repo update
+  * added backward compatibility for the search via ElasticSearch
+  * do not ask for "web support" by default when adding actions
+  * ck webhelp now shows published components at the CodeReef portal
+  * ck webapi now shows module API at the CodeReef portal
+  * Added "ck codereef <CID>" to show information about published components
+    at the CodeReef portal
+  * Allowed ' character in names of CK entries
+  * Added 2020
+  * Simplified Readme
+
+* V1.11.4
+  * fixed problem when ck-python.cfg contains non-existent python
+  * fixed problem with allowed action_names 
+    (should not start with number but can have numbers in the middle)
+  * fixed problem with ElasticSearch when renaming entries
+  * Added key "use_git_instead_of_https" to kernel cfg 
+    to substitute https:// with git@ in repositories
+  * fixed problem with pip installation using Python 2.7
+    (thanks to Alex Redshaw from Arm)
+  * added possibility to log all used CK entries to find out all dependencies
+
+    turn on: ck set kernel --var.log_ck_entries={file}
+    turn off: ck set kernel --var.log_ck_entries=""
+
+* V1.11.3
+  * minor clean up of the API doc
+  * now copying default repo to $HOME/.ck/{version} to be able to always find it
+  * added possibility to split dirs for the whole repo 
+    (to be able to exchange repos with split directories)
+  * added commands "private", "recache", "split_all_dirs" to ck add/update repo
+  * added try/catch around encode/decode routines to better support non-UTF locale
+  * can use wildcards when searching for UIDs
+  * added repo_module_uoa to be able to execute module from a specific repository
+
+* V1.11.2
+  * fixed typo
+  * added possibility to force index data for specific repos via local kernel meta:
+    "index_repos":[list of repo UIDs and aliases]
+  * bug fix for split directories if UID is used for an entry with alias
+  * fixed link to CK slack channel
+  * added zip_safe=False
+
+* V1.11.1
+  * fixed ck.bat on Windows (if CK_ROOT has spaces)
+  * added possibility to add sub-directory for all entries of a given module based on first N characters of an entry name;
+    this is needed to handle millions of entries;
+    it can be configured via local kernel meta: "split_dirs":{"module UOA":N} 
+  * improved "ck help" function
+  * added support for the latest ElasticSearch via Python client
+  * improved CK search via ElasticSearch
+  * added possibility to auto convert all entry names to lower case;
+    it can be configured via local kernel meta: "force_lower":"yes"
+  * added check for allowed entry names;
+    it can be configured as RE via local kernel meta: 
+    "allowed_entry_names": "^[A-Za-z0-9_@. -]*$"
+  * added check for allowed action names in modules;
+    it can be configured as RE via local kernel meta: 
+    "allowed_action_names": "^[A-Za-z_-]*$"
+  * added possibility to index data for only specific modules via local kernel meta:
+    "index_modules":[list of module UIDs and aliases]
+  * removed AUTHORS.txt as non-standard (leaving CONTRIBUTIONS.txt)
+  * added possibility to skip SSL certificate check for remote repositories
+  * added CK kernel functions save_state(), restore_state, reinit
+    to let multiple CK instances co-exist
+
+* V1.10.3
+  * fixed major bug with kernel version checking
+
+* V1.10.2
+  * fixed mistake in PyPi release
+
+* V1.10.1
+  * added support for setuptools
+  * added report on Python executable used by CK
+  * recording python executable to ck-python.cfg during installation -
+    it can now be used by default when calling CK CLI
+  * added experimental functionality to automatically download 
+    missing components from cKnowledge.org.
+    It is turned off by default. 
+    To turn it on use "ck set kernel var.download_missing_components=yes"
+
+* V1.9.9
+  * fixed installation bug (non UTF-8 character)
+
+* V1.9.8
+  * improved OpenME to call CK in dynamic websites
+  * added passing of $_SESSION, $_POST, $_GET to CK via OpenME
+  * added "Access-Control-Allow-Origin=*" to module:web 
+    to be able to access CK from local web pages
+  * fixed CK execution with Anaconda python (Linux and MacOS) 
+    when installed via pip
+  * added possibility to change default repo 
+    using "CK_DEFAULT_REPO" env var
+  * added flag --module_version to use different Python module:
+    (module{.{module_version}}.py)
+
+* V1.9.7
+  * allowed local widget to fetch data from cKnowledge.org (or other) website:
+    https://github.com/ctuning/ck/pull/93
+  * automatically print API of redirected functions (ck <action> <module> --help)
+  * improved module API printing
+  * added pypi download stats
+  * fixed minor problem with "ck renew repo" - now takes already existing UID instead of generating a new one
+
+* V1.9.6
+  * fixed minor bug in "ck rm" when deleting entries only from allowed repos (for crowdsourcing)
+  * fixed problem with wrong repo UID when repo is installed from zip archive
+  * added flag --all to "ck zip" to archive all files including .git
+  * fixed "ck add repo --zip" if zip contains Git repository (making it shared)
+
+* V1.9.5
+  * added "debug":"yes" to kernel for GitHub versions
+  * fixed minor bug in detection of minimal CK kernel version
+    (important since current python3-ck in official Ubunutu 17.04 is quite outdated: v1.7.2)
+  * fixed tests to report the error detected by running ck.access() or equivalent
+  * testfix: stop testing 3.5dev and nightly Python, but add 3.6 which everyone uses
+  * improved auto-generation of a list of all modules and actions: 
+    http://cKnowledge.org/shared-modules.html
+  * made removal of \r in text files safer on Windows (across different Python versions)
+  * added TARGET remark to all CK kernel functions to show target audience (end users vs CK kernel developers).
+    Used in "ck list_kernel_functions misc".
+  * improved recaching of repos (taking latest updates from .ckr.json into account)
+  * blocked copying of repositories to avoid duplication of CK entries
+  * added "ck python_version" to print Python version used by CK
+  * now when calling ck without arguments, it will print just a short help
+
+* V1.9.4
+  * fixed minor bug when searching repo by UID when repo doesn't exist
+  * added CK internal var "debug". If set to "yes", print error when CK entries are broken or ignore them (now default)
+    See https://github.com/ctuning/ck-tensorflow/commit/c4ddfcde1baacf6bebb23f345735b38006be08d1#commitcomment-25230616
+
+* V1.9.3 
+  * fixed issue #80 (adding zip repo if starts with ~)
+  * fixed issue #81 (when renaming entry with data_name==data_alias, change it to the new alias)
+  * added flag --name (duplicate of --show_name) to "ck ls"
+  * fixed issue #82 (detecting name of repo from the zip filename)
+  * fixed repo renaming (now updates .ckr.json and recache repo properly)
+
+* V1.9.2
+  * added "ck cd {CK entry}" to open a new shell in a given CK entry
+  * added ck.compare_dicts examples
+  * fixed some self tests
+  * added safe recording of JSON (even if some keys are not serializable)
+  * printing user-friendly name (from info.json "data_name") when removing entries.
+    Useful when deleting env entries (ck rm env:*)
+  * added more user-friendly configuration of internal CK variables via
+    $ ck set kernel
+    $ ck set kernel var.install_to_env=yes
+  * added safe deletion of CK entries with Git files on Windows
+  * automated adding CK .zip repos without questions
+
+* V1.9.1
+  * added ck.debug_out(i) to print dict to console
+  * fixed strange warnings for Python 3.5+ on Windows and Linux (when installed via pip)
+  * fixed repo renewing on latest Windows (when access error to Git files)
+  * added ck show repo to show git status of all repos
+  * started highly experimental support for stable repos or different branches/checkouts
+    (particularly useful for Artifact Evaluation to check out only stable repos)
+
+* V1.8.7 
+  * fixed major bug with default license/author (to avoid crashing when adding new module)
+  * fixed minor bug in API when starting CK web service and viewing entry (wcid option)
+  * allow ~ in an archive name when archiving CK entries using 'ck zip ...'
+
+* V1.8.6
+  * added direct update of kernel vars via CMD similar to Git. For example:
+
+    $ ck setup kernel --var.default_license="See CK LICENSE.txt for licensing details"
+    $ ck setup kernel --var.default_copyright="See CK COPYRIGHT.txt for copyright details"
+    $ ck setup kernel --var.default_developer="cTuning foundation"
+    $ ck setup kernel --var.default_developer_email="admin@cTuning.org"
+    $ ck setup kernel --var.default_developer_webpage="http://cTuning.org"
+
+  * added -f flag to force removal of entries (i.e. ck rm x:y -f) to be compatible
+    with bash rm -f ...
+
+  * added JSON sorting when viewing entries from CMD (via ck load x:y)
+
+* V1.8.5 
+  * do not crash if renewing repo while staying inside it
+  * fixed bug in "system_with_timeout" (was always returning error) - required by ck-clsmith
+  * added "skip_sort" to "select" and "select_uoa" functions
+  * added cfg['internal_keys'] to be able to check them in input
+  * fixed minor bug when @file.json from CMD not found
+
+* V1.8.4
+  * fixed 'ck status' and version comparison
+  * minor fix when listing all modules in mediawiki format
+
+* V1.8.3dev
+  * fixed minor issue in ck.list_all_files() with 'limit' parameter
+
+* V1.8.2
+  * fixed bug in 'remove_action' in CK kernel
+  * fixed issue in "run_and_get_stdout" on Windows
+  * printing module UOA in square brackets when error (useful for debugging)
+  * added 'shell' parameter to kernel 'run_and_get_stdout' function
+    (needed for ck-crowdnode)
+  * added 'eout' function to kernel to print to stderr
+    (useful for ck-crowdnode-server)
+
+* V1.8.1
+  * added continuous integration via Travis (Linux) and AppVeyor (Windows)
+  * added CoverAlls to measure test coverage
+  * added possibility to skip listing of all modules from private repositories
+  * fixed error in 'ck edit'
+  * unitests added (we now support Python 2.7 and 3.3+)
+  * added 'dump_json' instead of 'dumps_json'
+
+* V1.7.4
+  * extended run_and_get_stdout kernel function 
+  * fixed problem in run_and_get_stdout (ValueError: I/O operation on closed file)
+  * fixed problem with --help or --get_api from kernel
+
+* V1.7.3
+  * fixed rare bug when 'return' is non-integer in remote CK access (such as during crowd-tuning and crowd-testing)
+  * fixed copying to clipboard on Windows
+  * fixed __init__.py when using CK from scripts/ipython/jupyter (calling init())
+  * added ck.jerr(r) - print error with raise KeyboardInterrupt for Jupyter Notebooks
+  * fixed major problem with using CK without CK_ROOT env, i.e. from python scripts or Jupyter Notebooks
+  * fixed minor problem with CK_ROOT env (when is not set but can be detected automatically)
+  * added run_and_get_stdout function and fixed various problems with crowdtuning on MacOS 
+
+* V1.7.2
+  * added the --wfe_host and --wfe_host flags to "ck start web".
+  * improved API when starting CK server and a browser at the same time ...
+  * added info about Docker support in CK
+  * simplified adding remote repo using --hostname --port --hostext
+  * added possibility to describe repository for Artifact Evaluation
+    using flag --describe (see http://cTuning.org/ae), i.e.
+    ck add repo:my-artifact-pack --describe
+  * return 16 when adding new entry (including repository) and it already exists
+  * added often used 'load_yaml_file' and 'save_yaml_to_file' functions to kernel
+  * changed yaml.dump to yaml.safe_dump
+  * added --install option to "ck pull all (--kernel)" to install CK kernel as python module
+
+* V1.7.1
+  * fixing detection of CK installation even when ck is soft linked
+  * changing remote-ck repo URL pointing to cknowledge.org 
+    (after moving personal CK server to Azure cloud)
+  * adding support for basic http authentication for remote repositories
+  * adding automatic recaching of repositories if has remote access ...
+  * adding support to automatically open web service and browser via
+    "ck browser" (or "ck browser --template=<template>" with a given web template)
+    similar to ipython notebook
+  * adding possibility to open a given entry in a browser via
+    "ck browser test:unicode" or browse entries via
+    "ck browser dataset:" ...
+  * fixing CK server vulnerability (action with ; can run various CMD commands)
+  * fixing above vulnerability both in php and python ...
+
+* V1.6.15
+  * adding mode to skip tmp files/directories when downloading entry
+  * fixing bug in entry downloader
+  * adding __version__ to CK kernel
+  * providing URLs where to download Git and Python for installation
+  * automatically extracting repo name from URL string when pulling repos from GitHub via --url
+  * added action 'show' to 'repo' module to be able to open browser 
+    with an URL of a shared repository. For example, 'ck show repo:ck-autotuning'
+  * Adding support function to get value from list without error if out of bounds (useful for sorting)
+  * Before updating kernel from GitHub, check that it's a Git installation (noticed by Abdul Memon)
+
+* V1.6.14
+  * forgot to add cfg module to setup.py (preferred to generate new version)
+
+* V1.6.13
+  * adding 'ck cmd test' to let users understand CK command line -
+    it will just print input as JSON ...
+  * adding input print when creating dummy module to help
+    users understand command line
+  * checking if CK directory exists when updating kernel
+  * can now generate new UID when renaming entires (--new_uid)
+    to avoid collecting experiments from multiple users 
+    with the same UID ...
+  * can now add UID to alias when renaming entries (--add_uid_to_alias)
+    to distinguish some shared entries with common alias ...
+  * if adding json via CMD (@@key) and string is empty,
+    convert it to {} (empty dict) rather than failing.
+    Also add missing {}.
+  * removing extra \n when entering JSON from CMD ...
+  * slightly improving Readme (adding our latest position paper 
+    about CK from DATE'16)
+  * fixing issue with 'read-only' files on Windows 
+    when removing a given repo completely
+  * fixing issue when installing repository manually downloaded
+    from GitHub (removing root directory), see issue #46
+  * checking if git command line client is installed 
+    when pulling shared repo 
+  * improving listing of all modules and actions
+  * now you can add tags from CMD when adding/updating entries (ck add dataset:xyz --tags=abc)
+  * improving ck.list_all_files (avoid recursive symbolic directories, add path if needed)
+  * added --quiet mode when creating new modules (to simplify procedure)
+  * fixing small buy when detecting latest CK version (works even if non-integer value)
+  * added support to pack files with multiple pattern (useful to transfer new solutions
+    via Internet when crowdsourcing experiments)
+  * adding unzip_file function (to pack and exchange solutions when crowdsourcing experiments)
+  * fixing a minor bug when updating entries (do not set data_name to default if already exists)
+  * adding function to create entry if doesn't exist when loading it
+  * improving CK kernel version check
+  * can now check minimal CK kernel version for any module (key "min_kernel_dep" in module cfg)
+  * fixing bug when loading new module (replacing old cfg)
+  * adding ck.type_long (set to long in Python 2.x and to int in Python 3.x) for compatibility
+  * adding ck.safe_float and ck.safe_int (for safe sorting - used when sorting crowdtuning results)
+  * fixing detection of a right Python version
+  * adding 'renew repo' function to completely remove polluted and shared repository,
+    and pull new one (Issue #12) 
+  * adding support to forbid deleting in specific repos
+    (useful only to aggregate information such as during crowdtuning)
+
+* V1.6.12
+  * adding CK_PYTHON env variable in ck script 
+    to let user select required python version (python or python3)
+  * automatically detecting python3 or python on Linux
+  * fixing license of a php OpenME code - now the same as CK
+    (tiny part to connect PHP-based web requests to CK)
+  * adding 'find' function to 'repo' module and changing
+    default behavior. Now "ck find repo:<name>" returns
+    path to repository rather than to meta. To return
+    path to meta, use "ck find repo:<name> --meta".
+    Closes ticket #45
+  * automatically detecting server host and port, if used!
+    Closes ticket #38
+  * adding zip action to CK kernel, to simplify archiving of entries, 
+    i.e. "$ ck zip (repo wildcards:)module wild cards:<data wild cards>"
+  * when copying entry, changing date and CK version (fixing #39)
+
+* V1.6.11
+  * improved installation documentation
+
+* V1.6.10
+  * fixing automatic detection of an installation directory
+    when using pip install --user
+  * adding ChangeLog file for backward compatibility with Debian
+  * adding TODO.txt with a link to CK GitHub tickets
+
+* V1.6.9
+  * fixing/improving command line help
+
+* V1.6.8
+  * moving ck and ck.bat to 'scripts' in setup.py
+  * moving condarecipe to external sources 
+    (to prepare conda packages externally)
+  * using $PYTHON on Linux
+
+* V1.6.7
+  * fixing 755 for bin/ck (for PIP installation)
+
+* V1.6.6
+  * Fixing PIP problem (when adding new modules to CK)
+  * Removing Debian description (will be separate to make non-native package)
+
+* V1.6.5
+  * fixing port selection from CMD for CK web service
+    (ck start web --port={PORT})
+  * fixing bug in Python 3 for 'ck status'
+  * improving help
+  * fixing bug with pip installation on Anaconda for Windows
+  * fixing bug with pip installation on Linux
+  * adding CK_PYTHON to change interpreter on Linux (for example python3)
+
+* V1.6.4
+  * Support ISO and human readable time during search
+  * Removed ckcd and added commands "ck cd" and "ck cdc" 
+  * fixing print of correct host and port when changed via 'ck setup kernel --wfe'
+  * adding support for 'pyperclip' to copy to clipboard
+  * warn if more than one entry found when using 'cd' and 'cdc' commands 
+  * improving execution procedure with timeout 
+  * fixing problem with latest version check in 'status' 
+    (also checking it via GitHub)
+
+* V1.6.3
+  * fixing Debian source package name to python-ck
+
+* V1.6.2 
+  * fixing length in Debian changelog
+
+* V1.6.1
+  * fixing bug when calling kernel actions while current path is in some CK entry
+
+* V1.6.0
+  * changing version standard
+
+* V1.5.0917
+  * proper support for DEBIAN packages
+
+* V1.5.0916
+  * major move of 'repo' directory to 'ck' to support standard Python packaging
+  * major improvement of setup.py to support standard Python packaging
+  * fixing web interface paths to support standard Python packaging
+  * supporting Conda packaging (Anaconda Scientific Python)
+  * adding alias 'ls' for 'list' command (suggested by Anton)
+
+* V1.4.0909
+  * fixing a few typos
+  * adding system function with timeout possibility
+     (useful for research in computer engineering where
+      generated code may be buggy and result in infinite loops,
+      i.e. during autotuning or compiler testing and bug detection)
+  * ck where repo:<name> will print URL for remote repositories
+     (suggested by Anton)
+  * making text to select UIDs less ambiguous (asked by Anton)
+  * fixing bug in flatten_dict while working with CLSmith
+  * changing COPYRIGHT to COPYRIGHT.txt and LICENSE to LICENSE.txt
+
+* v1.3.0824
+  * fixing bug with repository recaching (when pulling dependent repositories)
+
+* v1.3.0821
+  * added listing of all modules and their actions in user-friendly format
+  * added support to zip CK repositories in format suitable for BitTorrent
+    (to optimize exchange of large artifacts)
+  * improved functionality to update repo descriptions 
+    and manage dependencies on other shared repositories
+  * fixed a few tiny bugs
+  * added support to create an entry from a given directory (importing directories)
+  * added "input_json" function to kernel to input JSON from console ...
+  * added option "@@@" to CMD to add JSON from console to input
+  * exchanged "@@@" and "@@" in CMD for simplicity
+  * improved 'edit' function with the possibility to edit not only 
+      meta of an entry, but also description (via flag --edit_desc) -
+      for example, useful to edit compiler flag description via
+      $ ck pull repo:ck-autotuning
+      $ ck edit compiler:gcc-49x
+  * adding --min flag to ''load'' function to output 
+    only desc and dict to console 
+  * adding --without_files to avoid copying files 
+    when copying/moving CK entries (useful
+    to create templates for example for benchmarks
+    or data sets)
+
+# V1.2.0605, 2015-06-05 -- stable release
+  (several extra features to improve autotuning)
+
+  * save/load extra JSON files to/from entries
+  * adding desc.json into .cm (collective meta) to describe API in flat format
+  * adding dependencies to repos (automatically pull all related repos -
+      useful to distribute repos with all packed artifacts to reproduce experiments from papers)
+  * a few cosmetic fixes
+
+# V1.2.0513, 2015-05-13 -- stable release 
+  (no major problems found during past 2 months)
+
+  * A few extensions and small bug fixes
+
+# V1.1.0202, 2015-02-02 -- stable pre-release for collaborators
+
+  * A few bug fixes
+
+# V1.1.0201, 2015-02-01 -- stable pre-release for collaborators
+
+  * Adding many user-friendly functions
+  * Adding basic CK web browser. See demo: http://cknowledge.org/repo
+  * Small bug fixes
+
+# v1.0.1214.beta, 2014-12-14 -- stable pre-release for collaborators
+
+# v0.1.140810, 2014-11-05 -- starting point
+

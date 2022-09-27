@@ -1,0 +1,27 @@
+{
+  "actions": {
+    "build": {
+      "desc": "build predictive model"
+    },
+    "convert_to_csv": {
+      "desc": "convert table to CSV"
+    },
+    "use": {
+      "desc": "use existing model to predict values"
+    },
+    "validate": {
+      "desc": "validate predictive model (detect mispredictions, calculate RMSE, etc)",
+      "for_web": "yes"
+    }
+  },
+  "author": "Grigori Fursin",
+  "author_email": "Grigori.Fursin@cTuning.org",
+  "author_webpage": "http://fursin.net",
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "universal predictive modeling",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "experiment": "bc0409fb61f0aa82",
+    "graph": "2d41f89bcf32d4d4"
+  }
+}

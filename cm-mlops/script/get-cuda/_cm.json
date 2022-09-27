@@ -1,0 +1,33 @@
+{
+  "alias": "get-cuda",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "clean_files": [],
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "enable_if_env": {
+        "CM_WINDOWS": []
+      },
+      "tags": "get,cl"
+    }
+  ],
+  "local_env_keys": [
+    "CM_CUDA_*"
+  ],
+  "new_env_only_keys": [
+    "+PATH"
+  ],
+  "new_env_only_keys_from_local_env_keys": true,
+  "tags": [
+    "get",
+    "cuda",
+    "nvcc",
+    "get-nvcc",
+    "get-cuda"
+  ],
+  "uid": "46d133d9ef92422d"
+}

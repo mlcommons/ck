@@ -1,0 +1,11 @@
+{
+  "actions": {
+    "eval": {
+      "desc": "Evaluate model "
+    },
+    "train": {
+      "desc": "Train model"
+    }
+  },
+  "desc": "Tensorflow Model configured with Tensorflow Object Detection API"
+}

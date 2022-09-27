@@ -1,0 +1,235 @@
+{
+  "actions": {
+    "crowdsource": {
+      "desc": "crowdsource these experiments"
+    },
+    "html_viewer": {
+      "desc": "view solutions in html",
+      "for_web": "yes"
+    },
+    "prune": {
+      "desc": "prune compiler flags to find minimal set of choices"
+    },
+    "replay": {
+      "desc": "replay optimization"
+    }
+  },
+  "compiler_name": "GCC",
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "deps": {
+    "compiler": {
+      "local": "yes",
+      "sort": 10,
+      "tags": "compiler,lang-c,gcc"
+    },
+    "xopenme": {
+      "local": "yes",
+      "sort": 20,
+      "tags": "lib,xopenme"
+    }
+  },
+  "desc": "auto/crowd-tune GCC compiler flags (minimize execution time and code size)",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "experiment_0_pipeline_update": {
+    "features_keys_to_process": [
+      "##choices#*"
+    ],
+    "pipeline_update": {
+      "speed": "yes"
+    }
+  },
+  "experiment_1_pipeline_update": {
+    "choices_order": [
+      [
+        "##compiler_flags#*"
+      ]
+    ],
+    "choices_selection": [
+      {
+        "notags": "",
+        "omit_probability": "0.90",
+        "tags": "basic,optimization",
+        "type": "random"
+      }
+    ],
+    "features_keys_to_process": [
+      "##choices#*"
+    ],
+    "frontier_features_keys_to_ignore": [
+      "##choices#compiler_flags#*",
+      "##choices#no_state_check"
+    ],
+    "frontier_margins": [
+      1.0
+    ],
+    "pipeline_update": {
+      "best_base_flag": "yes"
+    },
+    "record_params": {
+      "search_point_by_features": "yes"
+    }
+  },
+  "file_solution_extension": "s-",
+  "frontier_keys": [
+    "##characteristics#run#execution_time_kernel_0#$#obj#$",
+    "##characteristics#compile#obj_size#$#obj#$_imp"
+  ],
+  "improvements_keys": [
+    "##characteristics#run#execution_time_kernel_0#$#obj#$_imp",
+    "##characteristics#compile#obj_size#$#obj#$_imp"
+  ],
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "env": "9b9b3208ac44b891",
+    "graph": "2d41f89bcf32d4d4",
+    "module": "032630d041b4fd8a",
+    "platform.cpu": "aa6b542a420b8db9",
+    "platform.os": "41e31cc4496b8a8e",
+    "program": "b0ac08fe1d3c2615",
+    "program.optimization": "27bc42ee449e880e",
+    "program.static.features": "92a02f0445148203",
+    "soft": "5e1100048ab875d7"
+  },
+  "original_keys": [
+    "##characteristics#run#execution_time_kernel_0#$#obj#$",
+    "##characteristics#compile#obj_size#$#obj#$"
+  ],
+  "plot": {
+    "add_x_loop": "no",
+    "axis_x_desc": "Experiments",
+    "axis_y_desc": "Kernel execution time (sec.)",
+    "bound_lines": "no",
+    "display_x_error_bar": "no",
+    "display_y_error_bar": "yes",
+    "flat_keys_list": [
+      "##characteristics#compile#obj_size#min",
+      "##characteristics#run#execution_time_kernel_0#center",
+      "##characteristics#run#execution_time_kernel_0#halfrange"
+    ],
+    "ignore_point_if_none": "yes",
+    "mpl_image_dpi": "100",
+    "mpl_image_size_x": "12",
+    "mpl_image_size_y": "6",
+    "plot_grid": "yes",
+    "plot_type": "mpl_2d_scatter",
+    "point_style": {
+      "0": {
+        "color": "#3366cc",
+        "size": 40
+      }
+    },
+    "separate_permanent_to_graphs": "yes",
+    "title": "Powered by Collective Knowledge"
+  },
+  "print_extra_keys": [
+    "##characteristics#run#execution_time_kernel_0#range_percent",
+    "##characteristics#compile#md5_sum#min",
+    "##characteristics#compile#joined_compiler_flags#min"
+  ],
+  "priority": -100,
+  "program_tags": "crowd-tuning,small",
+  "prune_autotune_pipeline": {
+    "prune_ignore_choices": [
+      "##compiler_flags#base_opt"
+    ],
+    "prune_md5": "yes",
+    "result_conditions": [
+      [
+        "##characteristics#run#execution_time_kernel_0$#objective#$",
+        "_imp",
+        ">",
+        0.99
+      ],
+      [
+        "##characteristics#run#execution_time_kernel_0$#objective#$",
+        "_imp",
+        "<",
+        20.0
+      ],
+      [
+        "##characteristics#compile#obj_size$#objective#$",
+        "_imp",
+        ">",
+        0.98
+      ],
+      [
+        "##characteristics#run#execution_time_kernel_0#range_percent",
+        "",
+        "<",
+        0.05
+      ]
+    ]
+  },
+  "prune_results": [
+    {
+      "desc": "Compiler",
+      "id": "compiler",
+      "ref_module_uoa": "36ebc331048475bb",
+      "ref_uid": "compiler_description_uoa",
+      "reverse": true
+    },
+    {
+      "desc": "CPU",
+      "id": "cpu_name",
+      "ref_module_uoa": "aa6b542a420b8db9",
+      "ref_uid": "cpu_uid"
+    }
+  ],
+  "record_keys": [
+    "##characteristics#*"
+  ],
+  "reference_threshold": 0.04,
+  "replay_desc": {
+    "desc_key": "pipeline_desc",
+    "module_uoa": "b0ac08fe1d3c2615"
+  },
+  "replay_keys": [
+    "##characteristics#run#execution_time_kernel_0#min",
+    "##characteristics#run#execution_time_kernel_0#exp",
+    "##characteristics#run#execution_time_kernel_0#max",
+    "##characteristics#compile#obj_size#min",
+    "##characteristics#compile#binary_size#min",
+    "##characteristics#compile#md5_sum#min"
+  ],
+  "solution_conditions": [
+    [
+      "##characteristics#run#execution_time_kernel_0$#objective#$",
+      "_imp",
+      ">",
+      1.09
+    ],
+    [
+      "##characteristics#run#execution_time_kernel_0$#objective#$",
+      "_imp",
+      "<",
+      10.0
+    ],
+    [
+      "##characteristics#compile#obj_size$#objective#$",
+      "_imp",
+      ">",
+      1.01
+    ],
+    [
+      "##characteristics#compile#md5_sum$#objective#$",
+      "_imp",
+      "==",
+      0
+    ],
+    [
+      "##characteristics#run#execution_time_kernel_0#range_percent",
+      "",
+      "<",
+      0.04
+    ]
+  ],
+  "subview_uoa": "fac96683718b0ba1",
+  "tags": [
+    "program optimization",
+    "autotuning",
+    "gcc"
+  ],
+  "workflow": "yes"
+}

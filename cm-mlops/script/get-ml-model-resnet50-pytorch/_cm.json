@@ -1,0 +1,42 @@
+{
+  "alias": "get-ml-model-resnet50-pytorch",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "env": {
+    "CM_ML_MODEL": "RESNET50",
+    "CM_PACKAGE_URL": "https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth",
+    "CM_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
+    "MLPERF_MODEL_NAME": "resnet50",
+    "MLPERF_PROFILE_EXT": "",
+    "ML_MODEL_DATA_LAYOUT": "NCHW",
+    "ML_MODEL_GIVEN_CHANNEL_MEANS": "?",
+    "ML_MODEL_INPUT_LAYERS": "input_tensor:0",
+    "ML_MODEL_INPUT_SHAPES": "(\\\"input_tensor:0\\\", [BATCH_SIZE, 3, 224, 224])",
+    "ML_MODEL_OUTPUT_LAYERS": "output",
+    "MODEL_DATASET": "imagenet2012-val",
+    "MODEL_FRAMEWORK": "pytorch",
+    "MODEL_IMAGE_HEIGHT": "224",
+    "MODEL_IMAGE_WIDTH": "224",
+    "MODEL_INPUT_LAYERS": "input",
+    "MODEL_INPUT_LAYER_NAME": "?",
+    "MODEL_NORMALIZE_DATA": "0",
+    "MODEL_ONNX_OPSET": "",
+    "MODEL_OUTPUT_LAYERS": "output",
+    "MODEL_OUTPUT_LAYER_NAME": "?",
+    "MODEL_RETRAINING": "no",
+    "MODEL_SUBTRACT_MEAN": "?",
+    "MODEL_VERSION": "1.5",
+    "MODEL_WEIGHT_TRANSFORMATIONS": "no"
+  },
+  "tags": [
+    "get",
+    "ml-model",
+    "resnet50",
+    "resnet50-pytorch",
+    "image-classification",
+    "ml-model-pytorch",
+    "fp32"
+  ],
+  "uid": "db401be874b14341"
+}

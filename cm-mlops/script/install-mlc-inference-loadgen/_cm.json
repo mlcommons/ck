@@ -1,0 +1,70 @@
+{
+  "alias": "install-mlc-inference-loadgen",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_version": "r2.1",
+  "deps": [
+    {
+      "tags": "detect,os,info"
+    },
+    {
+      "tags": "get,python3",
+      "names": ["python3", "python" ] 
+    },
+    {
+      "names": [ "inference-src-loadgen" ],
+      "tags": "get,mlcommons,inference,src,-_patch,_default"
+    },
+    {
+      "names": [ "compiler" ],
+      "tags": "get,compiler"
+    }
+  ],
+  "env": {
+    "CM_GIT_URL": "https://github.com/mlcommons/inference.git",
+    "CM_SHARED_BUILD": "no"
+  },
+  "extra_cache_tags_from_env": [
+    {
+      "env": "CM_PYTHON_CACHE_TAGS",
+      "prefix": "python-"
+    },
+    {
+      "env": "CM_COMPILER_CACHE_TAGS",
+      "prefix": "compiler-"
+    }
+  ],
+  "tags": [
+    "get",
+    "install",
+    "loadgen",
+    "inference",
+    "mlperf",
+    "mlcommons"
+  ],
+  "uid": "64c3d98d0ba04950",
+  "variations": {
+    "shared": {
+      "env": {
+        "CM_SHARED_BUILD": "yes"
+      }
+    }
+  },
+  "versions": {
+    "master": {
+      "add_deps": {
+        "inference-src-loadgen": {
+          "version": "master"
+        }
+      }
+    },
+    "r2.1": {
+      "add_deps": {
+        "inference-src-loadgen": {
+          "version": "r2.1"
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "alias": "get-openimages-original",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "tags": "mlperf,inference,source",
+      "names": [ "inference-src" ]
+    }
+  ],
+  "env": {
+    "CM_DATASET": "OPENIMAGES"
+  },
+  "tags": [
+    "get",
+    "dataset",
+    "openimages",
+    "open-images",
+    "object-detection",
+    "original"
+  ],
+  "uid": "0a9d49b644cf4142",
+  "default_variation": "validation",
+  "variations": {
+    "calibration": {
+      "env": {
+        "CM_CALIBRATION_DATASET_WGET_URL": "https://github.com/mlcommons/inference/blob/master/calibration/openimages/openimages_cal_images_list.txt",
+        "CM_DATASET_CALIBRATION": "yes"
+      }
+    },
+    "validation": {
+      "env": {
+        "CM_DATASET_CALIBRATION": "no"
+      }
+    }
+  }
+}

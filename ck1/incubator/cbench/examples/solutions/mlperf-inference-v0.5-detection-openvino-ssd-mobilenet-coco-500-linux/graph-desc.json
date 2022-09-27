@@ -1,0 +1,87 @@
+{
+    "default_key_x": "solution_duration", 
+    "default_key_y": "mAP", 
+    "default_sort_key": "solution_duration", 
+    "table_view": [
+      {
+        "json_and_pre": "yes", 
+        "key": "platform_info", 
+        "name": "Platform info", 
+        "skip_pre": "yes"
+      }, 
+      {
+        "json_and_pre": "yes", 
+        "key": "resolved_deps", 
+        "name": "Resolved deps", 
+        "skip_pre": "yes"
+      }, 
+      {
+        "format": "%.2f", 
+        "key": "solution_duration", 
+        "name": "Total time (sec)", 
+        "type": "float"
+      }, 
+      {
+        "format": "%.2f", 
+        "key": "mAP", 
+        "name": "mAP", 
+        "type": "float"
+      }, 
+      {
+        "key": "system",
+        "name": "System"
+      }, 
+      {
+        "key": "processor",
+        "name": "Processor"
+      }, 
+      {
+        "key": "program_workflow_uoa",
+        "name": "Program pipeline (workflow)",
+        "module_uoa":"program",
+        "type": "url3"
+      }, 
+      {
+        "key": "framework",
+        "name": "Framework"
+      }, 
+      {
+        "key": "benchmark",
+        "name": "Model"
+      }, 
+      {
+        "key": "benchmark_uoa",
+        "name": "Model package",
+        "module_uoa":"package",
+        "type": "url3"
+      }, 
+      {
+        "key": "dataset",
+        "name": "Dataset"
+      }, 
+      {
+        "key": "total", 
+        "name": "Total objects", 
+        "type": "int"
+      }, 
+      {
+        "key": "good", 
+        "name": "Predicted objects", 
+        "type": "int"
+      }, 
+      {
+        "key": "solution_uoa", 
+        "name": "Portable benchmarking solution",
+        "module_uoa":"solution",
+        "type":"url3"
+      },
+      {
+        "key": "solution_run_date", 
+        "name": "Run date" 
+      } ,
+      {
+        "key": "notes", 
+        "name": "Notes" 
+      } 
+    ]
+}

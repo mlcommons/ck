@@ -1,0 +1,158 @@
+{
+  "actions": {
+    "add": {
+      "desc": "add new machine description"
+    },
+    "browse": {
+      "desc": "browse machines (open browser)"
+    },
+    "check": {
+      "desc": "check machine status (online/offline)"
+    },
+    "init": {
+      "desc": "init machine and update input"
+    },
+    "show": {
+      "desc": "show available target machines and their status",
+      "for_web": "yes"
+    }
+  },
+  "actions_redirect": {
+    "init": "machine_init"
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "description of a given machine for crowd-benchmarking and crowd-tuning",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "env": "9b9b3208ac44b891",
+    "os": "0440cb72c2bc5cc6",
+    "platform": "707ccdfe444cafac",
+    "platform.cpu": "aa6b542a420b8db9",
+    "platform.os": "41e31cc4496b8a8e"
+  },
+  "target_access_types": {
+    "android": {
+      "detect_platform": "yes",
+      "name": "CK: Android machine accessed via adb",
+      "sort": 10,
+      "tags": [
+        "android-with-arch"
+      ]
+    },
+    "avro": {
+      "detect_platform": "no",
+      "name": "AVRO: multiple remote machines accessed via Apache AVRO",
+      "sort": 80,
+      "tags": [
+        "linux",
+        "windows"
+      ]
+    },
+    "ck_node": {
+      "detect_platform": "yes",
+      "name": "CK: remote Windows machine accessed via CK crowd node",
+      "sort": 55,
+      "tags": [
+        "windows",
+        "mingw"
+      ]
+    },
+    "cluster": {
+      "detect_platform": "no",
+      "name": "CLUSTER: generic configuration of multiple remote machines",
+      "sort": 85,
+      "tags": [
+        "linux",
+        "windows"
+      ]
+    },
+    "host": {
+      "detect_platform": "yes",
+      "name": "CK: this host machine as a target",
+      "sort": 5,
+      "tags": []
+    },
+    "quantum": {
+      "detect_platform": "no",
+      "name": "Quantum: remote quantum machine",
+      "sort": 90,
+      "tags": [
+        "linux",
+        "windows"
+      ],
+      "use_target_os_as_host": "yes"
+    },
+    "rpc": {
+      "detect_platform": "no",
+      "name": "RPC: remote machine accessed via RPC",
+      "sort": 70,
+      "tags": [
+        "linux",
+        "windows",
+        "mingw",
+        "rpc"
+      ]
+    },
+    "ssh": {
+      "detect_platform": "yes",
+      "name": "CK: remote Linux machine accessed via SSH",
+      "sort": 60,
+      "tags": [
+        "linux"
+      ]
+    },
+    "wa_android": {
+      "alias_prefix": "wa-",
+      "detect_platform": "yes",
+      "extra_check": {
+        "action": "configure",
+        "module_uoa": "wa",
+        "wa_device_default": "generic_android"
+      },
+      "extra_deps": {
+        "wa": {
+          "env_key": "WA",
+          "force_target_as_host": "yes",
+          "local": "yes",
+          "name": "ARM Workload Automation",
+          "sort": 10,
+          "tags": "tool,wa"
+        }
+      },
+      "name": "WA: Android machine accessed via ARM's workload automation framework",
+      "record_tags": "wa",
+      "sort": 20,
+      "tags": [
+        "android-with-arch"
+      ]
+    },
+    "wa_linux": {
+      "alias_prefix": "wa-",
+      "detect_platform": "yes",
+      "extra_check": {
+        "action": "configure",
+        "module_uoa": "wa",
+        "wa_device_default": "generic_linux"
+      },
+      "extra_deps": {
+        "wa": {
+          "env_key": "WA",
+          "force_target_as_host": "yes",
+          "local": "yes",
+          "name": "ARM Workload Automation",
+          "sort": 10,
+          "tags": "tool,wa"
+        }
+      },
+      "name": "WA: Linux machine accessed via ARM's workload automation",
+      "record_tags": "wa",
+      "sort": 30,
+      "tags": [
+        "linux"
+      ]
+    }
+  }
+}

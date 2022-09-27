@@ -1,0 +1,13 @@
+{
+  "auto_detect": "no",
+  "customize": {
+    "check_that_exists": "yes",
+    "env_prefix": "CK_ENV_",
+    "skip_file_check": "yes",
+    "skip_version": "yes"
+  },
+  "soft_name": "SOME name",
+  "tags": [
+    "git"
+  ]
+}

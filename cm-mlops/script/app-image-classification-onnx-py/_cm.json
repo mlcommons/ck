@@ -1,0 +1,42 @@
+{
+  "alias": "app-image-classification-onnx-py",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "env": {
+    "CM_BATCH_COUNT": "1",
+    "CM_BATCH_SIZE": "1"
+  },
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect,os,info"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "tags": "get,python"
+    },
+    {
+      "tags": "get,dataset,imagenet,image-classification,original"
+    },
+    {
+      "tags": "get,dataset-aux,imagenet-aux,image-classification"
+    },
+    {
+      "tags": "get,ml-model-onnx,resnet50,image-classification"
+    },
+    {
+      "tags": "get,onnxruntime,python-lib"
+    }
+  ],
+  "tags": [
+    "app",
+    "image-classification",
+    "onnx",
+    "python"
+  ],
+  "uid": "3d5e908e472b417e"
+}

@@ -1,0 +1,56 @@
+{
+  "actions": {
+    "crowdsource": {
+      "desc": "crowdsource nntest"
+    },
+    "dashboard": {
+      "desc": "start NN/SW/HW co-design dashboard"
+    },
+    "get_raw_config": {
+      "desc": "get raw config for repo widget",
+      "for_web": "yes"
+    },
+    "get_raw_data": {
+      "desc": "get raw data for repo-widget",
+      "for_web": "yes"
+    },
+    "run": {
+      "desc": "run tests"
+    },
+    "show": {
+      "desc": "show stats",
+      "for_web": "yes"
+    }
+  },
+  "data_deps": {
+    "experiment.view.nntest": "2f624734962d2523"
+  },
+  "default_exchange_repo_uoa": "remote-nntest",
+  "default_exchange_subrepo_uoa": "upload",
+  "desc": "nntest CK front end",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "dataset": "8a7141c59cd335f5",
+    "env": "9b9b3208ac44b891",
+    "experiment": "bc0409fb61f0aa82",
+    "graph": "2d41f89bcf32d4d4",
+    "platform": "707ccdfe444cafac",
+    "program": "b0ac08fe1d3c2615",
+    "program.optimization": "27bc42ee449e880e",
+    "program.species": "1702c3e426ca54c5",
+    "tmp": "bfc8fef73c233ce4",
+    "wfe": "1e4e644996b7f2a0"
+  },
+  "replay_desc": {
+    "desc_key": "pipeline_desc"
+  },
+  "replay_keys": [
+    "##characteristics#compile#compilation_success_bool#min",
+    "##characteristics#run#run_success_bool#min",
+    "##characteristics#run#output_check_failed_bool#min",
+    "##characteristics#run#execution_time#min",
+    "##characteristics#run#run_time_state#time_setup#min",
+    "##characteristics#run#run_time_state#time_test#min"
+  ],
+  "version": "0.5.2"
+}

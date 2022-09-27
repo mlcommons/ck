@@ -1,0 +1,344 @@
+{
+  "alias": "app-mlperf-inference-vision-reference",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "input_mapping": {
+    "count": "CM_LOADGEN_QUERY_COUNT",
+    "max_batchsize": "CM_LOADGEN_MAX_BATCHSIZE",
+    "rerun": "CM_RERUN",
+    "power": "CM_SYSTEM_POWER",
+    "docker": "CM_RUN_DOCKER_CONTAINER",
+    "test_query_count": "CM_TEST_QUERY_COUNT",
+    "output_dir": "OUTPUT_BASE_DIR"
+  },
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect,os,info"
+    },
+    {
+      "tags": "detect,cpu,info"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "tags": "get,python",
+      "names": [ "python3" ]
+    },
+    {
+      "tags": "get,loadgen",
+      "names": [ "loadgen" ]
+    },
+    {
+      "tags": "get,mlcommons,inference,src",
+      "names": [ "inference-src" ]
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "onnxruntime",
+          "tvm-onnx"
+        ]
+      },
+      "tags": "get,onnxruntime,python-lib"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "tf",
+          "tflite"
+        ]
+      },
+      "tags": "get,tensorflow,python-lib"
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "tags": "get,dataset,image-classification,imagenet,preprocessed",
+      "names": [ "imagenet-preprocessed" ]
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "tags": "get,dataset-aux,image-classification,imagenet-aux"
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "retinanet"
+        ]
+      },
+      "tags": "get,dataset,object-detection,open-images,original"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "tf",
+          "tflite"
+        ],
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "tags": "get,ml-model-tf,image-classification,resnet50"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "pytorch"
+        ],
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "tags": "get,ml-model-pytorch,image-classification,resnet50"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "onnxruntime",
+          "tvm-onnx"
+        ],
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "tags": "get,ml-model-onnx,image-classification,resnet50"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "pytorch"
+        ],
+        "CM_MODEL": [
+          "retinanet"
+        ]
+      },
+      "tags": "get,ml-model,object-detection,resnext50,fp32,_pytorch"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "onnxruntime"
+        ],
+        "CM_MODEL": [
+          "retinanet"
+        ]
+      },
+      "tags": "get,ml-model,object-detection,resnext50,fp32,_onnx"
+    },
+    {
+      "enable_if_env": {
+        "CM_DEVICE": [
+          "gpu"
+        ]
+      },
+      "tags": "get,cuda"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "tf"
+        ]
+      },
+      "tags": "get,tensorflow",
+      "names": [ "tensorflow" ]
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "tvm-onnx"
+        ]
+      },
+      "tags": "get,tvm,_llvm",
+      "names": [ "tvm" ]
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "onnxruntime"
+        ]
+      },
+      "tags": "get,pytorch"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "pytorch"
+        ]
+      },
+      "tags": "get,pytorch",
+      "version": "1.8.0"
+    },
+    {
+      "tags": "get,sut,configs"
+    }
+  ],
+  "env": {
+    "CM_BATCH_COUNT": "1",
+    "CM_BATCH_SIZE": "1",
+    "CM_OUTPUT_FOLDER_NAME": "test_results",
+    "CM_RUN_STYLE": "test"
+  },
+  "tags": [
+    "app",
+    "vision",
+    "mlcommons",
+    "mlperf",
+    "inference",
+    "reference",
+    "ref",
+    "python"
+  ],
+  "uid": "d775cac873ee4231",
+  "variations": {
+    "cpu": {
+      "env": {
+        "CM_DEVICE": "cpu"
+      }
+    },
+    "gpu": {
+      "env": {
+        "CM_DEVICE": "gpu"
+      }
+    },
+    "onnxruntime": {
+      "env": {
+        "CM_BACKEND": "onnxruntime",
+	"CM_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
+      },
+      "add_deps_recursive": {
+	"imagenet-preprocessed": {
+	  "tags": "_NCHW"
+	}
+      }
+    },
+    "pytorch": {
+      "env": {
+        "CM_BACKEND": "pytorch",
+	"CM_BACKEND_VERSION": "<<<CM_PYTORCH_VERSION>>>"
+      }
+    },
+    "tf": {
+      "env": {
+        "CM_BACKEND": "tf",
+	"CM_BACKEND_VERSION": "<<<CM_TENSORFLOW_VERSION>>>"
+      },
+      "add_deps_recursive": {
+	"imagenet-preprocessed": {
+	  "tags": "_NHWC"
+	}
+      }
+    },
+    "tflite": {
+      "env": {
+        "CM_BACKEND": "tflite"
+      }
+    },
+    "tvm-onnx": {
+      "env": {
+        "CM_BACKEND": "tvm-onnx",
+	"CM_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
+      }
+    },
+    "resnet50": {
+      "env": {
+        "CM_MODEL": "resnet50"
+      },
+      "post_deps": [
+        {
+          "tags": "run,accuracy,imagenet",
+	  "names": [ "accuracy-script" ],
+          "enable_if_env": {
+	    "CM_LOADGEN_MODE": [
+	      "accuracy", "all"
+	    ],
+	    "CM_MLC_ACCURACY_RESULTS_DIR": [
+	      "on"
+	    ]
+	  }
+	}
+      ]
+    },
+    "retinanet": {
+      "env": {
+        "CM_MODEL": "retinanet"
+      },
+      "post_deps": [
+        {
+          "tags": "run,accuracy,openimages",
+	  "names": [ "accuracy-script" ],
+          "enable_if_env": {
+	    "CM_LOADGEN_MODE": [
+	      "accuracy", "all"
+	    ],
+	    "CM_MLC_ACCURACY_RESULTS_DIR": [
+	      "on"
+	    ]
+	  }
+        }
+      ]
+    },
+    "valid": {
+      "env": {
+        "CM_OUTPUT_FOLDER_NAME": "valid_results",
+	"CM_RUN_STYLE": "valid"
+      }
+    },
+    "test": {
+      "env": {
+        "CM_OUTPUT_FOLDER_NAME": "test_results",
+	"CM_RUN_STYLE": "test"
+      }
+    },
+    "fast": {
+      "env": {
+        "CM_OUTPUT_FOLDER_NAME": "fast_results",
+	"CM_RUN_STYLE": "fast",
+	"CM_FAST_FACTOR": "5"
+      }
+    },
+    "r2.1_default": {
+      "env": {
+	"CM_SKIP_SYS_UTILS": "yes",
+	"CM_RERUN": "yes",
+        "CM_TEST_QUERY_COUNT": "100"
+      },
+      "add_deps_recursive": {
+	"compiler": {
+	  "tags": "llvm"
+	},
+	"inference-src": {
+	  "tags": "_octoml"
+	},
+	"loadgen": {
+	  "version": "r2.1"
+	}
+      }
+    },
+    "cpp": {
+      "env": {
+	"CM_MLPERF_CPP": "yes"
+      },
+      "posthook_deps": [
+        {
+	  "tags": "mlperf,cpp,vision,inference"
+        }
+      ],
+      "add_deps_recursive": {
+	"accuracy-script": {
+	  "tags": "_int64"
+	}
+      }
+    }
+  }
+}

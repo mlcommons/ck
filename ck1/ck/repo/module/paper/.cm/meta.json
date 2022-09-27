@@ -1,0 +1,16 @@
+{
+  "actions": {
+    "preprocess": {
+      "desc": "process article"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "CK wrapper for articles",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {},
+  "workflow": "yes",
+  "workflow_type": "workflow to preprocess interactive papers"
+}

@@ -1,0 +1,60 @@
+* 1.3.1
+  added "cb delete" action to delete non-permanent components from the portal (if owner)
+  added --permanent flag to cb publish to mark a given components as permanent (can't be deleted)
+
+* 1.2.11
+  added --extra_tags to cb publish
+
+* 1.2.10
+  considerably accelerated bootstrapping
+
+* 1.2.9
+  fixed bug in solution init with post cmd
+
+* 1.2.8
+  Added new flags to graph init
+  Added solution examples
+
+* 1.2.7
+  Improved graphs for crowd-benchmarking
+
+* 1.2.6
+  Fixed bug with extra CMD
+
+* 1.2.5
+  New fixes for solution/graph init to reflrect cKnowledge.io updates
+
+* 1.2.1
+  Stable release
+
+* 1.1.12 
+  Return graphs URLs during crowd-benchmarking to be able to visualize them at cKnowledge.io dashboards
+
+* 1.1.9
+  Fixed error in comm_min
+
+* 1.1.8
+  Added comm_min for minimal communication with the CK portal 
+  without extra deps to get the latest release notes
+
+* 1.1.7
+  Major change in solution
+
+...
+
+* 1.1.3
+  Changed API
+  Major name clean up
+
+...
+
+* 1.0.6
+  Minor fixes with logs
+
+* 1.0.5
+  Various fixes and improvements
+
+* 1.0.4
+  Fixing ReadMe
+
+* 1.0.0

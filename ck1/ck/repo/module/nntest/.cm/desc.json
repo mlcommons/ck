@@ -1,0 +1,76 @@
+{
+  "pipeline_desc": {
+    "##characteristics#compile#binary_size#min": {
+      "desc": "Total binary size (bytes)",
+      "type": "integer"
+    },
+    "##characteristics#compile#compilation_success_bool#min": {
+      "desc": "Compilation success",
+      "type": "boolean"
+    },
+    "##characteristics#compile#joined_compiler_flags#min": {
+      "desc": "Compiler flags",
+      "type": "string"
+    },
+    "##characteristics#compile#md5_sum#min": {
+      "desc": "Code MD5",
+      "type": "integer"
+    },
+    "##characteristics#compile#md5_sum#min_imp": {
+      "desc": "Code MD5 change (0 - changed)",
+      "type": "integer"
+    },
+    "##characteristics#compile#obj_size#min": {
+      "desc": "Code size (bytes)",
+      "type": "integer"
+    },
+    "##characteristics#compile#obj_size#min_imp": {
+      "desc": "Code size improvement",
+      "type": "float"
+    },
+    "##characteristics#run#execution_time#min": {
+      "desc": "Total execution time (sec.)",
+      "type": "float"
+    },
+    "##characteristics#run#execution_time_kernel_0#exp": {
+      "desc": "Main kernel execution time (sec.) [exp]",
+      "type": "float"
+    },
+    "##characteristics#run#execution_time_kernel_0#exp_imp": {
+      "desc": "Main kernel execution time speedup [exp]",
+      "type": "float"
+    },
+    "##characteristics#run#execution_time_kernel_0#max": {
+      "desc": "Main kernel execution time (sec.) [max]",
+      "type": "float"
+    },
+    "##characteristics#run#execution_time_kernel_0#min": {
+      "desc": "Main kernel execution time (sec.) [min]",
+      "type": "float"
+    },
+    "##characteristics#run#execution_time_kernel_0#min_imp": {
+      "desc": "Main kernel execution time speedup [min]",
+      "type": "float"
+    },
+    "##characteristics#run#execution_time_kernel_0#range_percent": {
+      "desc": "Main kernel execution time variation (%)",
+      "type": "float"
+    },
+    "##characteristics#run#output_check_failed_bool#min": {
+      "desc": "Output check failed?",
+      "type": "boolean"
+    },
+    "##characteristics#run#run_success_bool#min": {
+      "desc": "Execution success",
+      "type": "boolean"
+    },
+    "##characteristics#run#run_time_state#time_setup#min": {
+      "desc": "Setup execution time (sec.)",
+      "type": "float"
+    },
+    "##characteristics#run#run_time_state#time_test#min": {
+      "desc": "Test execution time (sec.)",
+      "type": "float"
+    }
+  }
+}

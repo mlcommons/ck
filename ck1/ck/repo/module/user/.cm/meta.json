@@ -1,0 +1,17 @@
+{
+  "actions": {
+    "auth": {
+      "desc": "authentication of a user",
+      "for_web": "yes"
+    },
+    "create": {
+      "desc": "create account",
+      "for_web": "yes"
+    },
+    "renew": {
+      "desc": "renew user",
+      "for_web": "yes"
+    }
+  },
+  "desc": "web-based user auth"
+}

@@ -1,0 +1,7 @@
+.dockerignore
+*tmp-run.sh
+*tmp-state.json
+Dockerfile
+.exists*
+*.out
+*.o

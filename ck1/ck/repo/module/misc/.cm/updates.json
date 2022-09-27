@@ -1,0 +1,210 @@
+{
+  "control": [
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2015-05-05T13:05:08.700000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "1",
+        "0205"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2015-05-12T10:08:21.641000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "1",
+        "0205"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2015-09-10T09:52:55.735000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "4",
+        "0909"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2016-02-05T19:43:21.881000",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "6",
+        "12x"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2017-09-08T09:03:57.821401",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "9",
+        "1",
+        "1"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2018-03-12T16:06:16.157166",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "9",
+        "4",
+        "1"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2018-05-24T11:32:20.273074",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "9",
+        "4",
+        "1"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2018-05-24T15:26:54.131698",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "9",
+        "4",
+        "1"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2018-06-17T21:53:09.438922",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "9",
+        "4",
+        "1"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2018-06-18T11:53:59.540324",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "9",
+        "4",
+        "1"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2018-07-17T19:11:52.092404",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "9",
+        "4",
+        "1"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2018-07-17T19:48:26.995161",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "9",
+        "4",
+        "1"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2018-07-21T13:02:10.775646",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "9",
+        "5",
+        "1"
+      ]
+    },
+    {
+      "author": "Grigori Fursin",
+      "author_email": "Grigori.Fursin@cTuning.org",
+      "author_webpage": "http://fursin.net",
+      "copyright": "See CK COPYRIGHT.txt for copyright details",
+      "engine": "CK",
+      "iso_datetime": "2019-09-05T19:09:24.656692",
+      "license": "See CK LICENSE.txt for licensing details",
+      "version": [
+        "1",
+        "10",
+        "3",
+        "1"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "alias": "get-imagenet-preprocessed",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "tags": "get,python3",
+      "names": [ "python3", "python" ]
+    },
+    {
+      "tags": "get,dataset,image-classification,original",
+      "names": [ "original-dataset" ]
+    },
+    {
+      "tags": "get,dataset-aux,image-classification,imagenet-aux"
+    },
+    {
+      "tags": "mlperf,mlcommons,inference,source,src,_octoml",
+      "names": [ "inference-src" ]
+    }
+  ],
+  "cache": true,
+  "env": {
+    "CM_DATASET": "IMAGENET"
+  },
+  "tags": [
+    "get",
+    "dataset",
+    "imagenet",
+    "ILSVRC",
+    "image-classification",
+    "preprocessed"
+  ],
+  "uid": "f259d490bbaf45f5",
+  "variations": {
+    "1": {
+      "env": {
+        "CM_DATASET_SIZE": "1"
+      },
+      "add_deps": {
+	"original-dataset": {
+	  "tags": "_2012-1"
+	}
+      }
+    },
+    "500": {
+      "env": {
+        "CM_DATASET_SIZE": "500"
+      },
+      "add_deps": {
+	"original-dataset": {
+	  "tags": "_2012-500"
+	}
+      }
+    },
+    "full": {
+      "env": {
+        "CM_DATASET_SIZE": "50000"
+      },
+      "add_deps": {
+	"original-dataset": {
+	  "tags": "_full"
+	}
+      }
+    },
+    "NHWC": {
+      "env": {
+        "ML_MODEL_DATA_LAYOUT": "NHWC"
+      }
+    },
+    "NCHW": {
+      "env": {
+        "ML_MODEL_DATA_LAYOUT": "NCHW"
+      }
+    }
+  }
+}

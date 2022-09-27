@@ -1,0 +1,33 @@
+{
+  "alias": "build-docker-image",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "clean_files": [],
+  "post_deps": [
+    {
+      "tags": "build,dockerfile",
+      "enable_if_env": {
+	"CM_BUILD_DOCKERFILE": [ "yes", "1" ]
+      }
+    }
+  ],
+  "env": {
+    "CM_BUILD_DOCKER_CONTAINER": "yes",
+    "CM_DOCKER_CACHE": "--no-cache"
+  },
+  "tags": [
+    "build",
+    "docker",
+    "image",
+    "dockerimage"
+  ],
+  "uid": "2c3c4ba2413442e7",
+  "variations": {
+    "cache": {
+      "env": {
+	"CM_DOCKER_CACHE": ""
+      }
+    }
+  }
+}

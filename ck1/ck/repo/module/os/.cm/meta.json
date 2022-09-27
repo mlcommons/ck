@@ -1,0 +1,39 @@
+{
+  "actions": {
+    "convert_to_cygwin_path": {
+      "desc": "convert win path to cygwin path"
+    },
+    "convert_to_cygwin_paths": {
+      "desc": "convert multiple paths to cygwin paths"
+    },
+    "convert_uid_to_alias": {
+      "desc": "convert UID to alias (UID) for user-friendly printing"
+    },
+    "find_close": {
+      "desc": "find the most close description for the host OS"
+    },
+    "find_file_above_path": {
+      "desc": "find file or directory in all above directories from a given path"
+    },
+    "lib_path_export_script": {
+      "desc": "generates shell script for exporting library path variables for the given platform"
+    },
+    "run_and_get_stdout": {
+      "desc": "run command and get stdout"
+    },
+    "shell": {
+      "desc": "shell in OS"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "description of operating systems (OS)",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "env": "9b9b3208ac44b891",
+    "machine": "84be34883a81b2a9",
+    "platform.os": "41e31cc4496b8a8e"
+  }
+}

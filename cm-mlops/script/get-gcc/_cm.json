@@ -1,0 +1,42 @@
+{
+  "alias": "get-gcc",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "clean_files": [],
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    }
+  ],
+  "local_env_keys": [
+    "CM_GCC_*",
+    "CM_C_COMPILER_*",
+    "CM_CXX_COMPILER_*",
+    "CM_COMPILER_*",
+    "FAST_COMPILER_FLAGS",
+    "FAST_LINKER_FLAGS",
+    "DEBUG_COMPILER_FLAGS",
+    "DEBUG_LINKER_FLAGS",
+    "DEFAULT_COMPILER_FLAGS",
+    "DEFAULT_LINKER_FLAGS"
+  ],
+  "new_env_only_keys": [
+    "PATH"
+  ],
+  "new_env_only_keys_from_local_env_keys": true,
+  "post_deps": [
+    {
+      "tags": "get,compiler-flags"
+    }
+  ],
+  "tags": [
+    "get",
+    "gcc",
+    "compiler",
+    "c-compiler",
+    "cpp-compiler",
+    "get-gcc"
+  ],
+  "uid": "dbf4ab5cbed74372"
+}

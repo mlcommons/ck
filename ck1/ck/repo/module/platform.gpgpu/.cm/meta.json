@@ -1,0 +1,45 @@
+{
+  "actions": {
+    "detect": {
+      "desc": "detect various properties (features) of a given GPGPU"
+    },
+    "set_freq": {
+      "desc": "set frequency of a given GPGPU (if supported)"
+    },
+    "show": {
+      "desc": "viewing entries as html",
+      "for_web": "yes"
+    }
+  },
+  "cfg_uoa": "program-crowdtuning",
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "describing and detecting platform's GPU",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "lcfg_uoa": "local-platform",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "cfg": "b34231a3467566f8",
+    "choice": "e4564d6f984400d7",
+    "env": "9b9b3208ac44b891",
+    "machine": "84be34883a81b2a9",
+    "platform": "707ccdfe444cafac",
+    "platform.cpu": "aa6b542a420b8db9",
+    "platform.init": "38a2f5438d8555b6",
+    "platform.os": "41e31cc4496b8a8e",
+    "program": "b0ac08fe1d3c2615"
+  },
+  "program": {
+    "cuda": "1cda86b1074513a7",
+    "opencl": "e34164a6a31352e2"
+  },
+  "tool_env_key": {
+    "cuda": "CK_ENV_TOOL_SHOW_CUDA_DEVICES_FULL",
+    "opencl": "CK_ENV_TOOL_SHOW_OPENCL_DEVICES_FULL"
+  },
+  "tool_tags": {
+    "cuda": "tool,show-cuda-devices",
+    "opencl": "tool,show-opencl-devices"
+  }
+}

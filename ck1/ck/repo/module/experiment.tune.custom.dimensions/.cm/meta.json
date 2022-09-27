@@ -1,0 +1,82 @@
+{
+  "actions": {
+    "crowdsource": {
+      "desc": "crowdsource these experiments"
+    },
+    "html_viewer": {
+      "desc": "view solutions in html",
+      "for_web": "yes"
+    },
+    "prune": {
+      "desc": "prune optimizations to find minimal set of choices"
+    },
+    "replay": {
+      "desc": "replay optimization"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "deps": {},
+  "desc": "autotune custom pipeline dimensions",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "file_solution_extension": "s-",
+  "frontier_keys": [],
+  "improvements_keys": [
+    "##characteristics#run#execution_time#$#obj#$_imp"
+  ],
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "env": "9b9b3208ac44b891",
+    "graph": "2d41f89bcf32d4d4",
+    "module": "032630d041b4fd8a",
+    "platform.cpu": "aa6b542a420b8db9",
+    "platform.os": "41e31cc4496b8a8e",
+    "program": "b0ac08fe1d3c2615",
+    "program.optimization": "27bc42ee449e880e",
+    "soft": "5e1100048ab875d7"
+  },
+  "original_keys": [
+    "##characteristics#run#execution_time#$#obj#$"
+  ],
+  "print_extra_keys": [
+    "##characteristics#run#execution_time_kernel_0#range_percent"
+  ],
+  "priority": 1000,
+  "program_tags": "crowd-tuning,small",
+  "prune_autotune_pipeline": {
+    "result_conditions": []
+  },
+  "prune_results": [
+    {
+      "desc": "CPU",
+      "id": "cpu_name",
+      "ref_module_uoa": "aa6b542a420b8db9",
+      "ref_uid": "cpu_uid"
+    }
+  ],
+  "record_keys": [
+    "##characteristics#*",
+    "##features#*",
+    "##choices#*"
+  ],
+  "reference_threshold": 0.03,
+  "replay_desc": {
+    "desc_key": "pipeline_desc",
+    "module_uoa": "b0ac08fe1d3c2615"
+  },
+  "replay_keys": [
+    "##characteristics#run#execution_time_kernel_0#min",
+    "##characteristics#run#execution_time_kernel_0#exp",
+    "##characteristics#run#execution_time_kernel_0#max"
+  ],
+  "solution_conditions": [],
+  "subview_uoa": "fac96683718b0ba1",
+  "tags": [
+    "program optimization",
+    "explore",
+    "autotuning",
+    "custom"
+  ],
+  "workflow": "yes"
+}

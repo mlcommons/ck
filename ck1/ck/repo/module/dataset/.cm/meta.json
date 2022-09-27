@@ -1,0 +1,26 @@
+{
+  "actions": {
+    "add": {
+      "desc": "add program with templates"
+    },
+    "add_file_to": {
+      "desc": "add file to a given dataset"
+    },
+    "check_size": {
+      "desc": "check size of all data sets and if less than threshold, add tag \"small\""
+    },
+    "generate": {
+      "desc": "TBD: generate new data sets to cover unseen behavior"
+    },
+    "import_all_files": {},
+    "prune": {
+      "desc": "prune data sets to find minimal representative data set covering behavior"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "datasets",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details"
+}

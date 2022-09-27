@@ -1,0 +1,33 @@
+{
+  "actions": {
+    "extract_opts": {
+      "desc": "extract optimization flags and parameters from a compiler for autotuning (currently from GCC sources)"
+    },
+    "extract_opts_new": {
+      "desc": "extract optimization flags and parameters from a compiler for autotuning (currently from GCC --help:optimizers and sources)"
+    },
+    "extract_to_pipeline": {
+      "desc": "prepare compiler flag choices for universal tuning via program pipeline (experimental workflow)"
+    },
+    "html_viewer": {
+      "desc": "viewing compiler description as HTML",
+      "for_web": "yes"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "describing compilers and their optimization choices",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "gcc_src_opt_file1": "gcc/doc/invoke.texi",
+  "gcc_src_opt_file2": "gcc/invoke.texi",
+  "gcc_src_params": "gcc/params.def",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "choice": "e4564d6f984400d7",
+    "env": "9b9b3208ac44b891",
+    "platform.os": "41e31cc4496b8a8e",
+    "soft": "5e1100048ab875d7"
+  },
+  "pipeline_template": "universal_autotuning_pipeline_template.json"
+}

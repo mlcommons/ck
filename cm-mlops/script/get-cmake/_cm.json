@@ -1,0 +1,27 @@
+{
+  "alias": "get-cmake",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect,cpu"
+    }
+  ],
+  "cache": true,
+  "local_env_keys": [
+    "CM_CMAKE_*"
+  ],
+  "new_env_only_keys": [
+    "+PATH"
+  ],
+  "new_env_only_keys_from_local_env_keys": true,
+  "tags": [
+    "get",
+    "cmake",
+    "get-cmake"
+  ],
+  "uid": "52bf974d791b4fc8"
+}

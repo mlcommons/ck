@@ -1,0 +1,92 @@
+{
+  "actions": {
+    "add": {
+      "desc": "register new repository in CK"
+    },
+    "browse": {
+      "desc": "show remote repo in a browser"
+    },
+    "copy": {
+      "desc": "copy repo (forbidden)"
+    },
+    "cp": {
+      "desc": "copy repo (forbidden)"
+    },
+    "create": {
+      "desc": "register new repository in CK"
+    },
+    "delete": {
+      "desc": "remove repository from CK"
+    },
+    "deps": {
+      "desc": "resolve dependencies on other repositories for a given repository"
+    },
+    "find": {
+      "desc": "find path to repo"
+    },
+    "get_and_unzip_archive": {
+      "desc": "(receive repository from web if needed in zip), unzip and register repository in CK"
+    },
+    "import": {
+      "desc": "register repository from current path in CK"
+    },
+    "init": {
+      "desc": "init CK repo in a given directory"
+    },
+    "print_deps": {
+      "desc": "print dependencies on other shared repositories"
+    },
+    "pull": {
+      "desc": "if a given repository is shared, pull it from GIT"
+    },
+    "push": {
+      "desc": "if a given repository is shared shared, push and commit it to GIT"
+    },
+    "recache": {
+      "desc": "recache all local repositories (to speed up search)"
+    },
+    "remove": {
+      "desc": "remove repository from CK"
+    },
+    "ren": {
+      "desc": "rename repo"
+    },
+    "rename": {
+      "desc": "rename repo"
+    },
+    "renew": {
+      "desc": "renew repository (remove fully and pull again)"
+    },
+    "reset": {
+      "desc": "reset git repos (default branch)"
+    },
+    "rm": {
+      "desc": "remove repository from CK"
+    },
+    "show": {
+      "desc": "show repositories and their status"
+    },
+    "unzip": {
+      "desc": "unzip entries from an archive to a given CK repository"
+    },
+    "update": {
+      "desc": "update repository description"
+    },
+    "where": {
+      "desc": "find local path to a given repository"
+    },
+    "zip": {
+      "desc": "archive repository to zip (can be shared with public, for Artifact Evaluation, etc)"
+    }
+  },
+  "actions_redirect": {
+    "import": "import_repo",
+    "init": "new_init"
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "CK repositories",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://cTuning.org/lab/people/gfursin",
+  "license": "See CK LICENSE.txt for licensing details"
+}

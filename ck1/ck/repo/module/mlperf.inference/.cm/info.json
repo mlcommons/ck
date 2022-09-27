@@ -1,0 +1,16 @@
+{
+  "backup_data_uid": "abeb3402c8c86f6f",
+  "backup_module_uid": "032630d041b4fd8a",
+  "backup_module_uoa": "module",
+  "control": {
+    "engine": "CK",
+    "iso_datetime": "2020-11-14T21:13:54.547174",
+    "version": [
+      "1",
+      "17",
+      "0",
+      "1"
+    ]
+  },
+  "data_name": "mlperf.inference"
+}

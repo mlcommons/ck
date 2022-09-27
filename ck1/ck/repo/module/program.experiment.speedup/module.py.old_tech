@@ -1,0 +1,287 @@
+#
+# Collective Knowledge (Check speedup of program versus various compiler flags and data sets)
+#
+# See CK LICENSE.txt for licensing details
+# See CK Copyright.txt for copyright details
+#
+# Developer: Grigori Fursin, Grigori.Fursin@cTuning.org, http://cTuning.org/lab/people/gfursin
+#
+
+cfg={}  # Will be updated by CK (meta description of this module)
+work={} # Will be updated by CK (temporal data)
+ck=None # Will be updated by CK (initialized CK kernel) 
+
+# Local settings
+sep='**********************************************************************'
+
+##############################################################################
+# Initialize module
+
+def init(i):
+    """
+
+    Input:  {}
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+    return {'return':0}
+
+##############################################################################
+# describe experiment
+
+def describe(i):
+    """
+    Input:  {
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    ck.out(cfg['full_desc'])
+
+    return {'return':0}
+
+##############################################################################
+# reproduce experiment
+
+def reproduce(i):
+    """
+    Input:  {
+              program_uoa      - program UOA to check
+
+              (cmd_key)        - cmd key
+              (dataset_uoas)   - check dataset UOA
+
+              (choices)        - dict['flags'] - list of combinations of compiler flags
+
+              (host_os)        - host OS (detect, if omitted)
+              (target_os)      - OS module to check (if omitted, analyze host)
+              (device_id)      - device id if remote (such as adb)
+
+              (stat_repeat)    - max statistical repetitions (4 by default)
+            }
+
+    Output: {
+              return       - return code =  0, if successful
+                                         >  0, if error
+              (error)      - error text if return > 0
+            }
+
+    """
+
+    puoa=i.get('program_uoa','')
+    if puoa=='':
+       return {'return':1, 'error':'program_uoa is not defined.\n\nUse "ck list program" to see available programs.\nUse "ck pull repo:ck-programs" and "ck pull repo:ck-datasets-min" to get a small set of our benchmarks and datasets.'}
+
+    choices=i.get('choices',{})
+    if len(choices)==0:
+       choices=cfg['choices']
+
+    cflags=choices.get('flags',[])
+    if len(cflags)==0:
+       return {'return':1, 'error':'choices dictionary doesn\'t have "flags" list'}
+
+    ###################################################
+    # Experiment table
+    table=[]  # Strings (for printing)
+    otable=[] # Original format
+
+    ###################################################
+    ck.out(sep)
+    ck.out('Loading program meta info ...')
+    
+    r=ck.access({'action':'load',
+                 'module_uoa':cfg['module_deps']['program'],
+                 'data_uoa':puoa})
+    if r['return']>0: return r
+    pd=r['dict']
+
+    cmd_key=i.get('cmd_key','')
+    if cmd_key=='': cmd_key='default'
+
+    ###################################################
+    ck.out(sep)
+    ck.out('Checking available data sets ...')
+
+    dsets=i.get('dataset_uoas',[])
+
+    dtags=pd.get('run_cmds',{}).get(cmd_key,{}).get('dataset_tags','')
+
+    ii={'action':'search',
+        'module_uoa':cfg['module_deps']['dataset']}
+    if len(dsets)>0:
+       ii['data_uoa_list']=dsets
+    else:
+       ii['tags']=dtags
+    r=ck.access(ii)
+    if r['return']>0: return r
+    dlist=r['lst']
+
+    # Prepare first and second line of table
+    t=[]
+    t.append('')
+    t.append('')
+    t.append('')
+    for ds in dlist:
+        t.append('Dataset '+ds['data_uoa']+':')
+    table.append(t)
+
+    t=[]
+    t.append('Optimization:')
+    t.append('Binary size:')
+    t.append('MD5SUM:')
+    for ds in dlist:
+        t.append('min time / max time:')
+    table.append(t)
+
+    # Iterate over flags
+    srepeat=i.get('stat_repeat',0)
+    if srepeat<1: srepeat=4
+
+    repeat=i.get('repeat',-1)
+    deps={}
+    
+    hos=i.get('host_os','')
+    tos=i.get('target_os','')
+    tdid=i.get('device_id','')
+
+    for cf in cflags:
+        ck.out(sep)
+        ck.out('Checking flags "'+cf+'" ...')
+
+        t=[]
+        ot=[]
+
+        t.append(cf)
+        ot.append(cf)
+
+        ii={'action':'compile',
+            'module_uoa':cfg['module_deps']['program'],
+            'data_uoa':puoa,
+            'host_os':hos,
+            'target_os':tos,
+            'device_id':tdid,
+            'clean':'yes',
+            'flags':cf,
+            'out':'con'}
+
+        if len(deps)>0: ii['deps']=deps
+
+        r=ck.access(ii)
+        if r['return']>0: return r
+            
+        deps=r['deps']
+
+        cmisc=r['misc']
+        cchar=r['characteristics']
+
+        cs=cmisc['compilation_success']
+
+        if cs!='yes':
+           return {'return':1, 'error':'compilation failed - check above output and possibly report to authors!'}
+
+        hos=cmisc['host_os_uoa']
+        tos=cmisc['target_os_uoa']
+        tdid=cmisc['device_id']
+
+        os=cchar.get('obj_size',0)
+        md5=cchar.get('md5_sum','')
+
+        t.append(os)
+        t.append(md5)
+
+        ot.append(str(os))
+        ot.append(str(md5))
+
+        # Iterate over datasets
+        for ds in dlist:
+            duoa=ds['data_uoa']
+            duid=ds['data_uid']
+
+            ck.out(sep)
+            ck.out('Running with dataset '+duoa+' ...')
+
+            # Try to run
+            tmin=-1
+            tmax=-1
+
+            for s in range(0, srepeat):
+                ck.out(sep)
+                ck.out('Statistical repetition '+str(s+1)+' out of '+str(srepeat)+' ...')               
+
+                ij={'action':'run',
+                    'module_uoa':cfg['module_deps']['program'],
+                    'data_uoa':puoa,
+                    'host_os':hos,
+                    'target_os':tos,
+                    'device_id':tdid,
+                    'cmd_key':cmd_key,
+                    'dataset_uoa':duid,
+                    'out':'con'}
+
+                if len(deps)>0: ij['deps']=deps
+
+                if repeat>0: ij['repeat']=repeat
+
+                r=ck.access(ij)
+                if r['return']>0: return r
+
+                rmisc=r['misc']
+                rchar=r['characteristics']
+
+                rs=rmisc['run_success']
+
+                if rs!='yes':
+                   return {'return':1, 'error':'execution failed - check above output and possibly report to authors!'}
+
+                repeat=rchar['repeat']
+                tt=rchar['total_execution_time']
+
+                if tmin==-1 or tt<tmin: tmin=tt
+                if tmax==-1 or tt>tmax: tmax=tt
+
+            t.append(('%3.3f' % tmin) + ' .. ' + ('%3.3f' % tmax))
+
+        table.append(t)
+
+    # Draw table
+    ii={'action':'draw',
+        'module_uoa':cfg['module_deps']['table'],
+        'table':table,
+        'out':'txt'}
+    r=ck.access(ii)
+    if r['return']>0: return r
+    s=r['string']
+
+    ck.out(sep)
+    ck.out('Results:')
+    ck.out('')
+    ck.out(s)
+
+    rf=cfg['report_file']
+    rft=rf+'.txt'
+    rfh=rf+'.html'
+    rfj=rf+'.json'
+
+    r=ck.save_text_file({'text_file':rft, 'string':s})
+    if r['return']>0: return r
+
+    ii['out']='html'
+    r=ck.access(ii)
+    if r['return']>0: return r
+    html=r['string']
+
+    r=ck.save_text_file({'text_file':rfh, 'string':html})
+    if r['return']>0: return r
+
+    return {'return':0}

@@ -1,0 +1,51 @@
+{
+  "actions": {
+    "add": {
+      "desc": "add package with template"
+    },
+    "distribute": {
+      "desc": "prepare distribution"
+    },
+    "install": {
+      "desc": "install CK package (download a tool if needed, install it, and register environment"
+    },
+    "prepare_install_path": {
+      "desc": "prepare install path for packages"
+    },
+    "rebuild_deps": {
+      "desc": "rebuild dependencies using packages"
+    },
+    "reinstall": {
+      "desc": "reinstall package if already installed"
+    },
+    "setup": {
+      "desc": "setup package (only register environment but do not install it)"
+    },
+    "show": {
+      "desc": "show packages",
+      "for_web": "yes"
+    }
+  },
+  "ck_install_file": "ck-install.json",
+  "ck_install_file_saved": "ck-install-saved.json",
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "custom_script_name": "custom",
+  "desc": "managing software packages (installing tools, registering in CK environments)",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "env_install_path": "CK_TOOLS",
+  "install_path": "CK-TOOLS",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "env": "9b9b3208ac44b891",
+    "machine": "84be34883a81b2a9",
+    "misc": "cddc5e04b0da610e",
+    "os": "0440cb72c2bc5cc6",
+    "platform.cpu": "aa6b542a420b8db9",
+    "platform.gpgpu": "192ed4e0bbdbe743",
+    "platform.os": "41e31cc4496b8a8e",
+    "repo": "befd7892b0d469e9",
+    "soft": "5e1100048ab875d7"
+  }
+}

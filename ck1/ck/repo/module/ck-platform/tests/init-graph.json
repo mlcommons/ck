@@ -1,0 +1,37 @@
+{
+     "meta":{
+       "info":"fgg test"
+     },
+    "default_key_x": "avg_time_ms",
+    "default_key_y": "mAP",
+    "default_sort_key": "avg_time_ms",
+    "table_view": [
+      {"key": "platform_info", "name": "Platform info", "json_and_pre": "yes", "skip_pre": "yes"},
+      {"key": "resolved_deps", "name": "Resolved deps", "json_and_pre": "yes", "skip_pre": "yes"},
+      {"key": "avg_fps", "type":"float", "format": "%.2f", "name": "Average FPS"},
+      {"key": "avg_time_ms", "type":"float", "format": "%.2f", "name": "Average time (ms.)"},
+      {"key": "detection_time_avg_s", "type":"float", "format": "%.2f", "name": "Detection time (average, sec.)"},
+      {"key": "detection_time_total_s", "type":"float", "format": "%.2f", "name": "Detection time (total, sec.)"},
+      {"key": "graph_load_time_s", "type":"float", "format": "%.2f", "name": "Graph load time (sec.)"},
+      {"key": "images_load_time_avg_s", "type":"float", "format": "%.2f", "name": "Images load time (average, sec.)"},
+      {"key": "images_load_time_total_s", "type":"float", "format": "%.2f", "name": "Images load time (total, sec.)"},
+      {"key": "mAP", "type":"float", "format": "%.2f", "name": "mAP"},
+      {"key": "metrics#DetectionBoxes_Precision/mAP", "type":"float", "format": "%.2f", "name": "Detection Boxes Precision mAP"},
+      {"key": "metrics#DetectionBoxes_Precision/mAP (large)", "type":"float", "format": "%.2f", "name": "Detection Boxes Precision mAP (large)"},
+      {"key": "metrics#DetectionBoxes_Precision/mAP (medium)", "type":"float", "format": "%.2f", "name": "Detection Boxes Precision mAP (medium)"},
+      {"key": "metrics#DetectionBoxes_Precision/mAP (small)", "type":"float", "format": "%.2f", "name": "Detection Boxes Precision mAP (small)"},
+      {"key": "metrics#DetectionBoxes_Precision/mAP@.50IOU", "type":"float", "format": "%.2f", "name": "Detection Boxes Precision mAP (.50 IOU)"},
+      {"key": "metrics#DetectionBoxes_Precision/mAP@.75IOU", "type":"float", "format": "%.2f", "name": "Detection Boxes Precision mAP (.75 IOU)"},
+      {"key": "metrics#DetectionBoxes_Recall/AR@1", "type":"float", "format": "%.2f", "name": "Detection Boxes Recall AR@1"},
+      {"key": "metrics#DetectionBoxes_Recall/AR@10", "type":"float", "format": "%.2f", "name": "Detection Boxes Recall AR@10"},
+      {"key": "metrics#DetectionBoxes_Recall/AR@100", "type":"float", "format": "%.2f", "name": "Detection Boxes Recall AR@100"},
+      {"key": "metrics#DetectionBoxes_Recall/AR@100 (large)", "type":"float", "format": "%.2f", "name": "Detection Boxes Recall AR@100 (large)"},
+      {"key": "metrics#DetectionBoxes_Recall/AR@100 (medium)", "type":"float", "format": "%.2f", "name": "Detection Boxes Recall AR@100 (medium)"},
+      {"key": "metrics#DetectionBoxes_Recall/AR@100 (small)", "type":"float", "format": "%.2f", "name": "Detection Boxes Recall AR@100 (small)"},
+      {"key": "recall", "type":"float", "format": "%.2f", "name": "Recall"},
+      {"key": "setup_time_s", "type":"float", "format": "%.2f", "name": "Setup time (sec.)"},
+      {"key": "test_time_s", "type":"float", "format": "%.2f", "name": "Test time (sec.)"},
+      {"key": "solution_run_date", "type":"string", "format": "%Y-%m-%dT%H:%M:%SZ", "name": "Start date"},
+      {"key": "solution_duration", "type":"float", "format": "%.2f", "name": "Total bechmark time (sec.)"}
+    ]
+}

@@ -1,0 +1,17 @@
+cBench uses the standard Apache2 license. 
+
+Contributions are very welcome. We suggest you to fork the code 
+on GitHub and then submit a pull request:
+
+* https://github.com/cknowledge/cbench/issues
+
+Thank you for supporting this community project!
+
+Contributors:
+
+N: Grigori Fursin
+E: Grigori.Fursin@cTuning.org
+H: https://fursin.net
+O: cTuning foundation and cKnowledge SAS
+C: author
+

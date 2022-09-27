@@ -1,0 +1,44 @@
+{
+  "alias": "prototype-lib-dnnl",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "default_version": "dev",
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect-cpu"
+    },
+    {
+      "tags": "cmake,get-cmake"
+    }
+  ],
+  "env": {
+    "CM_GIT_URL": "https://github.com/oneapi-src/oneDNN",
+    "CM_DNNL_CLEAN_BUILD": "yes",
+    "DNNL_BUILD_TESTS": "OFF",
+    "DNNL_BUILD_EXAMPLES": "OFF",
+    "DNNL_CPU_RUNTIME": "OMP"
+  },
+  "cache": true,
+  "tags": [
+    "get",
+    "lib-dnnl",
+    "lib",
+    "dnnl"
+  ],
+  "uid": "1cd35a6a3b0b4530",
+  "versions": {
+    "dev": {
+      "env": {
+        "CM_GIT_CHECKOUT": "master"
+      }
+    },
+    "2.2.4": {
+      "env": {
+        "CM_GIT_CHECKOUT": "v2.2.4"
+      }
+    }
+  }
+}

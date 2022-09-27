@@ -1,0 +1,50 @@
+{
+  "actions": {
+    "check": {
+      "desc": "check if crowd-pack is ready",
+      "for_web": "yes"
+    },
+    "crowdsource": {
+      "desc": "prepare experiments for crowdsourcing using mobile phones",
+      "for_web": "yes"
+    },
+    "request": {
+      "desc": "request experiment pack for mobile device",
+      "for_web": "yes"
+    },
+    "server": {
+      "desc": "start server to process tasks"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "collaborative program optimization using mobile devices (such as Android mobile phones and tables)",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "file-mobile-request": "mobile-request",
+  "license": "See CK LICENSE.txt for licensing details",
+  "log_file_results": "log.results.txt",
+  "module_deps": {
+    "dataset": "8a7141c59cd335f5",
+    "env": "9b9b3208ac44b891",
+    "experiment": "bc0409fb61f0aa82",
+    "math.conditions": "d5ac649c14325bca",
+    "module": "032630d041b4fd8a",
+    "platform.os": "41e31cc4496b8a8e",
+    "program": "b0ac08fe1d3c2615",
+    "program.optimization": "27bc42ee449e880e",
+    "tmp": "bfc8fef73c233ce4"
+  },
+  "scenarios": [
+    "experiment.tune.compiler.flags.gcc.e",
+    "experiment.tune.compiler.flags.llvm.e"
+  ],
+  "tags": [
+    "crowdsource-via-mobile",
+    "experiments",
+    "program optimization"
+  ],
+  "tmp-server": "mobile-crowdserver-queue",
+  "workflow": "yes",
+  "workflow_type": "program crowd-optimization front-end (workflow) across mobile devices"
+}

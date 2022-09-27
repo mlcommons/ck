@@ -1,0 +1,37 @@
+{"dict": 
+    {
+      "ID": [
+        "Inf-1.1-1111",
+        "Closed",
+        "Available",
+        "dividiti",
+        "Raspberry Pi 4 (rpi4)",
+        "resnet (224x224)"
+      ],
+      "Division": "Closed",
+      "Category": "Available",
+      "Submitter": "dividiti",
+      "System": "Raspberry Pi 4 (rpi4)",
+      "Task": "Image Classification",
+      "Benchmark": "resnet (224x224)",
+      "Scenario": "SingleStream",
+      "Processor": "Broadcom BCM2711B0",
+      "Processor #": 1,
+      "Accelerator": "-",
+      "Accelerator #": 0,
+      "FF_M": " ",
+      "FF_E": "x",
+      "FF_D": " ",
+      "FF_S": " ",
+      "Details": "<a href=\"https://github.com/mlperf/inference_results_v0.5/blob/master/closed/dividiti/systems/rpi4-tflite-v1.15.json\">Link</a>",
+      "Code": "<a href=\"https://github.com/mlperf/inference_results_v0.5/tree/master/closed/dividiti/code\">Link</a>",
+      "Notes": " ",
+      "Software": {
+        "title": "Software",
+        "cmd": "TFLite v1.15.0-rc2"
+      },
+      "Invalid?": 0,
+      "P_IC1": 1000,
+      "A_IC1": 50
+    }
+}

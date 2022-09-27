@@ -1,0 +1,60 @@
+{
+  "alias": "get-ml-model-resnet50-onnx",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_variation": "1.5-opset-8",
+  "env": {
+    "CM_ML_MODEL": "RESNET50",
+    "ML_MODEL_DATA_LAYOUT": "NCHW",
+    "ML_MODEL_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
+    "ML_MODEL_INPUT_LAYERS": "input_tensor:0",
+    "ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\": (BATCH_SIZE, 3, 224, 224)",
+    "ML_MODEL_OUTPUT_LAYERS": "softmax_tensor:0",
+    "MLPERF_MODEL_NAME": "resnet50",
+    "MLPERF_PROFILE_EXT": "",
+    "MODEL_IMAGE_HEIGHT": "224",
+    "MODEL_IMAGE_WIDTH": "224",
+    "MODEL_INPUT_LAYER_NAME": "input_tensor:0",
+    "MODEL_INPUT_LAYERS": "input_tensor:0",
+    "MODEL_NORMALIZE_DATA": "0",
+    "MODEL_OUTPUT_LAYER_NAME": "softmax_tensor:0",
+    "MODEL_OUTPUT_LAYERS": "softmax_tensor:0",
+    "MODEL_SUBTRACT_MEAN": "YES",
+    "MODEL_PRECISION": "fp32",
+    "MODEL_FRAMEWORK": "onnx",
+    "MODEL_ACCURACY":"76.456",
+    "MODEL_VERSION":"1.5",
+    "MODEL_DATASET":"imagenet2012-val",
+    "MODEL_INPUT_DATA_TYPES":"fp32",
+    "MODEL_RETRAINING":"no",
+    "MODEL_WEIGHT_DATA_TYPES":"fp32",
+    "MODEL_WEIGHT_TRANSFORMATIONS":"no"
+  },
+  "tags": [
+    "get",
+    "ml-model",
+    "resnet50",
+    "resnet50-onnx",
+    "image-classification",
+    "ml-model-onnx",
+    "fp32"
+  ],
+  "uid": "56203e4e998b4bc0",
+  "variations": {
+    "1.5-opset-11": {
+      "env": {
+        "CM_ML_MODEL_ONNX_OPSET": "11",
+        "CM_ML_MODEL_VER": "1.5",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/4735647/files/resnet50_v1.onnx"
+      }
+    },
+    "1.5-opset-8": {
+      "env": {
+        "CM_ML_MODEL_ONNX_OPSET": "8",
+        "CM_ML_MODEL_VER": "1.5",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/2592612/files/resnet50_v1.onnx"
+      }
+    }
+  }
+}

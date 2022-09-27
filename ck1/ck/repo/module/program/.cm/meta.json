@@ -1,0 +1,150 @@
+{
+  "actions": {
+    "add": {
+      "desc": "add program with templates"
+    },
+    "autotune": {
+      "desc": "universal, multi-objective, multi-dimensional software/hardware autotuning"
+    },
+    "benchmark": {
+      "desc": "benchmark program (run autotune with 1 iteration and full environment setup)"
+    },
+    "clean": {
+      "desc": "clean temporal files and directories of a given program"
+    },
+    "clean_tmp": {
+      "desc": "clean all tmp directories"
+    },
+    "compile": {
+      "desc": "compile a given program"
+    },
+    "copy": {
+      "desc": "copy program"
+    },
+    "cp": {
+      "desc": "copy program"
+    },
+    "crowdtune": {
+      "desc": "crowdtune program"
+    },
+    "find_output": {
+      "desc": "find program output entry"
+    },
+    "pipeline": {
+      "desc": "universal program compilation and execution pipeline (workflow)"
+    },
+    "prepare_table_with_results": {
+      "desc": "prepare HTML/TEX table with results"
+    },
+    "process_in_dir": {
+      "desc": "process program in a given directory (clean, compile or run)"
+    },
+    "run": {
+      "desc": "run a given program"
+    },
+    "select_uoa": {
+      "desc": "select program UOA in console mode"
+    },
+    "show": {
+      "desc": "show all programs (workflows)",
+      "for_web": "yes"
+    },
+    "substitute_some_ck_keys": {
+      "desc": "substitute some CK reserved keys"
+    },
+    "xcrowdtune": {
+      "desc": "crowdtune programs via list"
+    }
+  },
+  "calibration_max": "10",
+  "calibration_time": "4.0",
+  "clean_cmds": {
+    "linux": "rm -rf tmp* *.out *.exe *.manifest *.obj *.o *.lib *.a *.dll *.so *.s *.asm *.i *.I *.tmp *.bc *.ll *.class *.jar",
+    "win": "del /F /Q tmp* *.out *.exe *.manifest *.obj *.o *.lib *.a *.dll *.so *.s *.asm *.i *.I *.tmp *.bc *.ll *.class *.jar"
+  },
+  "clean_vars_in_output": [
+    "skip_device_init",
+    "skip_info_collection",
+    "static",
+    "dynamic",
+    "cid",
+    "cids",
+    "xcids",
+    "tmp",
+    "out",
+    "prepare",
+    "action",
+    "save_to_file",
+    "module_uoa"
+  ],
+  "compile_cmds": {
+    "default": {
+      "cmd": "$#compiler#$ $#flags_before#$ $#source_file#$ $#flags_after#$"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "data_deps": {
+    "mali_hwc": "4065ab1b40dbe027"
+  },
+  "deps_file": "tmp-deps.json",
+  "desc": "program compilation and execution workflow (pipeline)",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "gprof_file": "gmon.out",
+  "internal_keys": [
+    "action",
+    "repo_uoa",
+    "module_uoa",
+    "data_uoa",
+    "cid",
+    "cids",
+    "cid1",
+    "cid2",
+    "cid3",
+    "xcids",
+    "unparsed_cmd",
+    "con_encoding",
+    "ck_profile",
+    "out",
+    "out_file"
+  ],
+  "license": "See CK LICENSE.txt for licensing details",
+  "link_cmds": {
+    "default": {
+      "cmd": "$#linker#$ $#flags_before#$ $#obj_files#$ $#flags_after#$"
+    }
+  },
+  "module_deps": {
+    "apk": "eb4ec9907982260a",
+    "choice": "e4564d6f984400d7",
+    "compiler": "36ebc331048475bb",
+    "dataset": "8a7141c59cd335f5",
+    "dataset.features": "87b55c4f4a2482da",
+    "env": "9b9b3208ac44b891",
+    "experiment": "bc0409fb61f0aa82",
+    "machine": "84be34883a81b2a9",
+    "math.variation": "d3b13388e6152da7",
+    "misc": "cddc5e04b0da610e",
+    "module": "032630d041b4fd8a",
+    "pipeline": "db25414b48b4ffb3",
+    "platform": "707ccdfe444cafac",
+    "platform.cpu": "aa6b542a420b8db9",
+    "platform.gpgpu": "192ed4e0bbdbe743",
+    "platform.gpu": "55ec7775f4afaabd",
+    "platform.os": "41e31cc4496b8a8e",
+    "program.output": "e4c1d9d3f0acf094",
+    "repo": "befd7892b0d469e9",
+    "script": "84e27ad9dd12e734",
+    "soft": "5e1100048ab875d7",
+    "table": "2884ee69eaefe71e"
+  },
+  "module_program_optimization": "program.optimization",
+  "pipeline": "yes",
+  "repo_deps": {
+    "reproduce-milepost-project": "9482c22d7601b0df"
+  },
+  "target_file": "a",
+  "workflow": "yes",
+  "workflow_type": "program compilation, execution and validation pipeline (workflow)"
+}

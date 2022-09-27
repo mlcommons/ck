@@ -1,0 +1,19 @@
+{
+  "actions": {
+    "convert_raw_rgb_image": {
+      "desc": "convert raw RGB image to png (originally used for SLAM application tuning)"
+    },
+    "extract": {
+      "desc": "extract data set features"
+    }
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "desc": "dataset features",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "dataset": "8a7141c59cd335f5"
+  }
+}

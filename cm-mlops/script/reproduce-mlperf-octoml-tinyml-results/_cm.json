@@ -1,0 +1,124 @@
+{
+  "alias": "reproduce-mlperf-octoml-tinyml-results",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_version": "r1.0",
+  "deps": [
+    {
+      "tags": "detect,os,info"
+    },
+    {
+      "tags": "detect,cpu,info"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "names": [
+        "zephyr"
+      ],
+      "tags": "get,zephyr"
+    },
+    {
+      "names": [
+        "zephyr-sdk"
+      ],
+      "tags": "get,zephyr-sdk"
+    },
+    {
+      "names": [
+        "cmsis"
+      ],
+      "tags": "get,cmsis"
+    },
+    {
+      "names": [
+        "microtvm"
+      ],
+      "tags": "get,microtvm"
+    },
+    {
+      "names": [
+        "cmake"
+      ],
+      "tags": "get,cmake",
+      "version_min": "3.20.0"
+    },
+    {
+      "tags": "get,gcc"
+    }
+  ],
+  "local_env_keys": [
+    "CM_*"
+  ],
+  "tags": [
+    "reproduce",
+    "tiny",
+    "results",
+    "mlperf",
+    "octoml",
+    "mlcommons"
+  ],
+  "post_deps": [
+    {
+      "tags": "flash,tiny,mlperf",
+      "enable_if_env": {
+	"CM_FLASH_BOARD": [ "True" ]
+      }
+    }
+  ],
+  "uid": "a63803a707d04332",
+  "variations": {
+    "cmsis_nn": {
+      "env": {
+        "CM_MICROTVM_VARIANT": "microtvm_cmsis_nn"
+      }
+    },
+    "native": {
+      "env": {
+        "CM_MICROTVM_VARIANT": "microtvm_native"
+      }
+    },
+    "ad": {
+      "env": {
+        "CM_TINY_MODEL": "ad"
+      }
+    },
+    "ic": {
+      "env": {
+        "CM_TINY_MODEL": "ic"
+      }
+    },
+    "kws": {
+      "env": {
+        "CM_TINY_MODEL": "kws"
+      }
+    },
+    "vww": {
+      "env": {
+        "CM_TINY_MODEL": "vww"
+      }
+    }
+  },
+  "versions": {
+    "r1.0": {
+      "add_deps_recursive": {
+        "microtvm": {
+          "version": "main"
+        }
+      }
+    }
+  },
+  "input_mapping": {
+    "flash": "CM_FLASH_BOARD",
+    "recreate_binary": "CM_RECREATE_BINARY"
+  }
+}

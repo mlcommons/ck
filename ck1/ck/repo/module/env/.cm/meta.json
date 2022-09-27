@@ -1,0 +1,72 @@
+{
+  "actions": {
+    "cat": {
+      "desc": "show the shell script for setting up this env"
+    },
+    "clean": {
+      "desc": "remote env entry and installed package"
+    },
+    "delete": {
+      "desc": "delete env entry"
+    },
+    "deps_summary": {
+      "desc": "extracting summary of all deps"
+    },
+    "envsecute": {
+      "desc": "execute a shell command in the context of a given environment-setting prewrapper"
+    },
+    "get_all_versions_in_deps": {
+      "desc": "get all versions from deps (recursively)"
+    },
+    "locate": {
+      "desc": "return the install_location (if known)"
+    },
+    "prune_search_list": {
+      "desc": "prune search list by no_tags"
+    },
+    "refresh": {
+      "desc": "refresh environment setup (re-setup related software version)"
+    },
+    "remove": {
+      "desc": "delete env entry"
+    },
+    "resolve": {
+      "desc": "resolve all dependencies for a given software"
+    },
+    "rm": {
+      "desc": "delete env entries"
+    },
+    "rmtmp": {
+      "desc": "remove tmp entries (when installation to env entry failed)"
+    },
+    "set": {
+      "desc": "prepare and set environment for a given software"
+    },
+    "show": {
+      "desc": "show all installed software environments"
+    },
+    "virtual": {
+      "desc": "pre-load environment for the shell"
+    },
+    "xset": {
+      "desc": "set env for command line (pre-set various flags)"
+    }
+  },
+  "actions_redirect": {
+    "set": "env_set"
+  },
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "custom_script_name": "customize",
+  "default_bat_name": "env",
+  "desc": "software environments (to abstract multiple tools and their versions)",
+  "developer": "Grigori Fursin",
+  "developer_email": "Grigori.Fursin@cTuning.org",
+  "developer_webpage": "http://fursin.net",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "os": "0440cb72c2bc5cc6",
+    "package": "1dc07ee0f4742028",
+    "platform.os": "41e31cc4496b8a8e",
+    "soft": "5e1100048ab875d7"
+  }
+}

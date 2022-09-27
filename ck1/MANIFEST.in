@@ -1,0 +1,8 @@
+include CHANGES.txt
+include CONTRIBUTING.md
+include COPYRIGHT.txt
+include LICENSE.txt
+include LICENSE.third-party.txt
+include README.md
+include set-env.sh
+include requirements.txt

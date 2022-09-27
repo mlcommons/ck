@@ -1,0 +1,31 @@
+{
+  "actions": {
+    "build": {
+      "desc": "build predictive model",
+      "for_web": "yes"
+    },
+    "convert_categories_to_floats": {
+      "desc": "convert categories to floats"
+    },
+    "validate": {
+      "desc": "validate predictive model",
+      "for_web": "yes"
+    }
+  },
+  "author": "Grigori Fursin",
+  "author_email": "Grigori.Fursin@cTuning.org",
+  "author_webpage": "http://fursin.net",
+  "copyright": "See CK COPYRIGHT.txt for copyright details",
+  "data_deps": {
+    "soft_lib_tensorflow": "30db354f469bb178"
+  },
+  "desc": "predictive modeling via python-based scikit-learn",
+  "license": "See CK LICENSE.txt for licensing details",
+  "module_deps": {
+    "env": "9b9b3208ac44b891",
+    "experiment": "bc0409fb61f0aa82",
+    "graph.dot": "94a051a40018fcd3",
+    "os": "0440cb72c2bc5cc6",
+    "soft": "5e1100048ab875d7"
+  }
+}

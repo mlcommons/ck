@@ -1,0 +1,49 @@
+{
+  "alias": "install-python-src",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_version": "3.10.5",
+  "deps": [
+    {
+      "tags": "detect,os,info"
+    },
+    {
+      "tags": "detect,cpu,info"
+    }
+  ],
+  "env": {
+    "CM_WGET_URL": "https://www.python.org/ftp/python/[PYTHON_VERSION]/Python-[PYTHON_VERSION].tgz",
+    "CM_SHARED_BUILD": "no",
+    "CM_ENABLE_SSL": "no"
+  },
+  "post_deps": [
+    {
+      "tags": "get,python",
+      "inherit_variation_tags": "True"
+    }
+  ],
+  "tags": [
+    "install",
+    "src",
+    "python",
+    "python3",
+    "src-python3",
+    "src-python"
+  ],
+  "uid": "12d3a608afe14a1e",
+  "variations": {
+    "shared": {
+      "env": {
+        "CM_SHARED_BUILD": "yes",
+        "CM_PYTHON_INSTALL_CACHE_TAGS": "shared"
+      }
+    },
+    "with-ssl": {
+      "env": {
+        "CM_ENABLE_SSL": "yes",
+        "CM_PYTHON_INSTALL_CACHE_TAGS": "with-ssl"
+      }
+    }
+  }
+}
