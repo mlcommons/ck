@@ -696,10 +696,10 @@ class CAutomation(Automation):
 
         ############################################################################################################
         # Check if script is cached if we need to skip deps from cached entries
-        skip_deps_in_cache = False
+        deps_in_cache = False
         skip_prehook_deps_in_cache = False
         skip_posthook_deps_in_cache = False
-        if not new_cache_entry and meta.get('skip_deps_in_cache', False):
+        if not new_cache_entry:
             print (recursion_spaces + '  - Checking if script execution is already cached to skip deps ...')
 
             r = find_cached_script({'self':self,
@@ -721,19 +721,14 @@ class CAutomation(Automation):
             if r['return'] >0: return r
 
             if len(r['found_cached_scripts'])>0:
-                skip_deps_in_cache = True
+                deps_in_cache = True
 
         ############################################################################################################
         # Check chain of dependencies on other CM scripts
-        if len(deps)>0 and not skip_deps_in_cache:
-            # Get local env keys
-            local_env_keys = copy.deepcopy(self.local_env_keys)
-
-            if len(local_env_keys_from_meta)>0:
-                local_env_keys += local_env_keys_from_meta
+        if len(deps)>0:
   
-            r = self.run_deps(deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections, variation_tags_string, found_cached)
+            r = self.call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                    remembered_selections, variation_tags_string, deps_in_cache)
             if r['return']>0: return r
 
 
@@ -813,6 +808,12 @@ class CAutomation(Automation):
 
 
                 if num_found_cached_scripts > 0:
+                    # Check chain of prehook dependencies on other CM scripts. We consider them same as deps when
+                    # script is in cache
+                    r = self.call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                            remembered_selections, variation_tags_string, found_cached)
+                    if r['return']>0: return r
+
                     # Continue with the selected cached script
                     cached_script = found_cached_scripts[selection]
 
@@ -839,10 +840,16 @@ class CAutomation(Automation):
 
                     found_cached = True
 
-                    # Check chain of post dependencies on other CM scripts
+                    # Check chain of posthook dependencies on other CM scripts. We consider them same as postdeps when
+                    # script is in cache
                     clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
+                    r = self.call_run_deps(posthook_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                            remembered_selections, variation_tags_string, found_cached)
+                    if r['return']>0: return r
+                    # Check chain of post dependencies on other CM scripts
                     r = self.call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
                             remembered_selections, variation_tags_string, found_cached)
+                    if r['return']>0: return r
 
 
 
