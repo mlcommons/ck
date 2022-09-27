@@ -808,6 +808,12 @@ class CAutomation(Automation):
 
 
                 if num_found_cached_scripts > 0:
+                    # Check chain of prehook dependencies on other CM scripts. We consider them same as deps when
+                    # script is in cache
+                    r = self.call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                            remembered_selections, variation_tags_string, found_cached)
+                    if r['return']>0: return r
+
                     # Continue with the selected cached script
                     cached_script = found_cached_scripts[selection]
 
@@ -834,10 +840,16 @@ class CAutomation(Automation):
 
                     found_cached = True
 
-                    # Check chain of post dependencies on other CM scripts
+                    # Check chain of posthook dependencies on other CM scripts. We consider them same as postdeps when
+                    # script is in cache
                     clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
+                    r = self.call_run_deps(posthook_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                            remembered_selections, variation_tags_string, found_cached)
+                    if r['return']>0: return r
+                    # Check chain of post dependencies on other CM scripts
                     r = self.call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
                             remembered_selections, variation_tags_string, found_cached)
+                    if r['return']>0: return r
 
 
 
