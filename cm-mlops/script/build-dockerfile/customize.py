@@ -12,7 +12,8 @@ def preprocess(i):
         env["CM_DOCKER_OS"] = "ubuntu"
     if env["CM_DOCKER_OS"] not in [ "ubuntu", "rhel" ]:
         return {'return': 1, 'error': "Currently only ubuntu and rhel are supported in CM docker"}
-    with open("dockerinfo.json") as f:
+    path = i['run_script_input']['path']
+    with open(os.path.join(path, "dockerinfo.json")) as f:
         config = json.load(f)
 
     if "CM_DOCKER_OS_VERSION" not in env:
