@@ -14,7 +14,7 @@ fi
 CM_PACKAGE_TOOL=${CM_PACKAGE_TOOL:-dnf}
 
 ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
-    ${CM_SUDO} ${CM_PACKAGE_TOOL} install -y \
+    ${CM_SUDO} ${CM_PACKAGE_TOOL} --skip-broken install -y \
            acl autoconf \
            bzip2-devel \
            ca-certificates curl  cmake \

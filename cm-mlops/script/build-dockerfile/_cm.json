@@ -30,6 +30,7 @@
     "docker_os_version": "CM_DOCKER_OS_VERSION",
     "build": "CM_BUILD_DOCKER_CONTAINER",
     "image_repo": "CM_DOCKER_IMAGE_REPO",
-    "image_tag": "CM_DOCKER_IMAGE_TAG"
+    "image_tag": "CM_DOCKER_IMAGE_TAG",
+    "cm_repo": "CM_MLOPS_REPO"
   }
 }
