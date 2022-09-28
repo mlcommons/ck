@@ -2,6 +2,9 @@
   "python-packages": [
     "cmind", "requests"
   ],
+  "ARGS": [
+    "GH_TOKEN"
+  ],
   "ENTRYPOINT": "[\"/bin/bash\", \"-c\"]",
   "ENV": {
     "TZ": "US/Pacific"
