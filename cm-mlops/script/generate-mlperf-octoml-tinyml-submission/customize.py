@@ -16,6 +16,8 @@ def preprocess(i):
     microtvm_variants = { "cmsis_nn": [ "ad", "ic", "vww", "kws" ], "native": [ "ic"] }
     for board in boards:
         for microtvm_variant in microtvm_variants:
+            if board == "NRF" and microtvm_variant == "native":
+                continue
             for model in microtvm_variants[microtvm_variant]:
                 variation_tags_string="_"+board+",_"+microtvm_variant+",_"+model
                 tags = script_tags + "," + variation_tags_string
