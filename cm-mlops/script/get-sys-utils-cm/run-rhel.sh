@@ -16,7 +16,7 @@ CM_PACKAGE_TOOL=${CM_PACKAGE_TOOL:-dnf}
 ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
     ${CM_SUDO} ${CM_PACKAGE_TOOL} --skip-broken install -y \
            acl autoconf \
-           bzip2-devel \
+           bzip2-devel bzip2 \
            ca-certificates curl  cmake \
            gcc git g++ \
            libtool libffi-devel \
