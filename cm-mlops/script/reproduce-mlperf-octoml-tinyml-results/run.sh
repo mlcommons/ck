@@ -5,9 +5,10 @@ CUR_DIR=$PWD
 code=${CM_MICROTVM_SOURCE}/submissions/tiny_results_v1.0/closed/OctoML/code
 model=${CM_TINY_MODEL:-ad}
 microtvm_variant=${CM_MICROTVM_VARIANT}
+board=${CM_TINY_BOARD:-NUCLEO_L4R5ZI}
 source=${code}/${microtvm_variant}
 
-path_suffix="NUCLEO_L4R5ZI/${model}"
+path_suffix="${board}/${model}"
 cmake_src=${source}/${path_suffix}
 build_path=${CUR_DIR}/${path_suffix}
 echo "CM_TINY_BUILD_DIR=${build_path}/build" > tmp-run-env.out
