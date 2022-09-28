@@ -33,6 +33,7 @@
     "image_tag": "CM_DOCKER_IMAGE_TAG",
     "cm_repo": "CM_MLOPS_REPO",
     "gh_token": "CM_GH_TOKEN",
-    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS"
+    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
+    "cache": "CM_DOCKER_CACHE"
   }
 }

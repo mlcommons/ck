@@ -83,23 +83,23 @@ def preprocess(i):
     f.write('RUN cm pull repo ' + cm_mlops_repo + EOL)
 
     f.write('RUN cm run script --quiet --tags=get,sys-utils-cm' + EOL)
-
+    run_cmd_extra=''
     gh_token = get_value(env, config, "GH_TOKEN", "CM_GH_TOKEN")
     if gh_token:
-        pass
-        #f.write('RUN cm run script --quiet --tags=get,github,cli' + EOL)
-        #f.write('RUN echo "$GH_TOKEN" | gh auth login --with-token' + EOL)
+        run_cmd_extra = " --env.GH_TOKEN=$CM_GH_TOKEN"
+
     if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
         if 'CM_DOCKER_RUN_SCRIPT_TAGS' not in env:
             env['CM_DOCKER_IMAGE_RUN_CMD']="cm version"
         else:
             env['CM_DOCKER_IMAGE_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
-    print(env)
+
     if "run" in env['CM_DOCKER_IMAGE_RUN_CMD']:
         fake_run = " --fake_run"
     else:
         fake_run = ""
-    f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + EOL)
+
+    f.write('RUN echo $CM_GH_TOKEN && ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
 
     f.close()
 

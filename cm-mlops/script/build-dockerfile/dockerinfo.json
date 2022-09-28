@@ -3,7 +3,7 @@
     "cmind", "requests"
   ],
   "ARGS": [
-    "GH_TOKEN"
+    "CM_GH_TOKEN"
   ],
   "ENTRYPOINT": "[\"/bin/bash\", \"-c\"]",
   "ENV": {

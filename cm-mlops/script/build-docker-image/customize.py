@@ -8,7 +8,7 @@ def preprocess(i):
     env = i['env']
     CM_DOCKER_BUILD_ARGS = []
     if 'CM_GH_TOKEN' in env:
-        CM_DOCKER_BUILD_ARGS.append( "GH_TOKEN="+env['CM_GH_TOKEN'] )
+        CM_DOCKER_BUILD_ARGS.append( "CM_GH_TOKEN="+env['CM_GH_TOKEN'] )
     if CM_DOCKER_BUILD_ARGS:
         build_args = "--build-arg "+ "--build-arg".join(CM_DOCKER_BUILD_ARGS)
     else:
@@ -23,5 +23,7 @@ def preprocess(i):
         env['CM_DOCKER_IMAGE_REPO'] = "local"
     if "CM_DOCKER_IMAGE_TAG" not in env:
         env['CM_DOCKER_IMAGE_TAG'] = "latest"
+    if "CM_DOCKER_CACHE" not in env:
+        env["CM_DOCKER_CACHE"] = ""
 
     return {'return':0}

@@ -13,8 +13,7 @@
     }
   ],
   "env": {
-    "CM_BUILD_DOCKER_CONTAINER": "yes",
-    "CM_DOCKER_CACHE": "--no-cache"
+    "CM_BUILD_DOCKER_CONTAINER": "yes"
   },
   "tags": [
     "build",
@@ -24,9 +23,9 @@
   ],
   "uid": "2c3c4ba2413442e7",
   "variations": {
-    "cache": {
+    "no-cache": {
       "env": {
-	"CM_DOCKER_CACHE": ""
+	"CM_DOCKER_CACHE": "--no-cache"
       }
     }
   }
