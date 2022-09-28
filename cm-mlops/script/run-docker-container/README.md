@@ -7,7 +7,7 @@ cm run script \
 --tags=run,docker,container
 ```
 ### Options
-1. `--script_tags`: Script tags for the script to be run inside the docker container. 
+1. `--script_tags="get,gcc"`: Script tags for the CM script to be run inside the docker container. 
     If this is not set the cm command run inside the docker container is `cm version`
 2. `--cm_repo=octoml@ck`: To use a different repo for CM scripts like "octoml@ck". Default: `mlcommons@ck`
 3. `--base="ubuntu:22.04"`: Specify the base image for Dockerfile. Default: "ubuntu:20.04" 
