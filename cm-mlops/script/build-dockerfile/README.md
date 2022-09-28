@@ -18,7 +18,7 @@ where
 
 ## Sample dockerfiles
 1. [Ubuntu 18.04](dockerfiles/ubuntu_18.04.Dockerfile)
-2. [Ubuntu 20.04]()
-1. [Ubuntu 22.04]()
-1. [rhel9]()
+2. [Ubuntu 20.04](dockerfiles/ubuntu_20.04.Dockerfile)
+1. [Ubuntu 22.04](dockerfiles/ubuntu_22.04.Dockerfile)
+1. [rhel9](dockerfiles/rhel_9.Dockerfile)
 
