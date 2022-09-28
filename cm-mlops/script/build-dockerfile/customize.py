@@ -33,8 +33,6 @@ def preprocess(i):
 
     if 'CM_DOCKERFILE_WITH_PATH' not in env:
         env['CM_DOCKERFILE_WITH_PATH'] = os.path.join(os.getcwd(), "Dockerfile")
-    if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
-        env['CM_DOCKER_IMAGE_RUN_CMD'] = "cm version"
     f = open(env['CM_DOCKERFILE_WITH_PATH'], "w")
     EOL = env['CM_DOCKER_IMAGE_EOL']
     f.write('FROM ' + docker_image_base + EOL)
@@ -44,6 +42,8 @@ def preprocess(i):
     shell = get_value(env, config, 'SHELL', 'CM_DOCKER_IMAGE_SHELL')
     if shell:
         f.write('SHELL ' + shell + EOL)
+    for arg in config['ARGS']:
+        f.write('ARG '+ arg + EOL)
     f.write('RUN ' + get_value(env, config, 'package-manager-update-cmd') + EOL)
     f.write('RUN '+ get_value(env, config, 'package-manager-get-cmd') + " " + " ".join(get_value(env, config,
         'packages')) + EOL)
@@ -81,14 +81,26 @@ def preprocess(i):
     if workdir:
         f.write('WORKDIR ' + workdir + EOL)
     f.write('RUN cm pull repo ' + cm_mlops_repo + EOL)
-    #echo '${CM_DOCKER_IMAGE_ENV}'
 
     f.write('RUN cm run script --quiet --tags=get,sys-utils-cm' + EOL)
+    run_cmd_extra=''
+    gh_token = get_value(env, config, "GH_TOKEN", "CM_GH_TOKEN")
+    if gh_token:
+        run_cmd_extra = " --env.CM_GH_TOKEN=$CM_GH_TOKEN"
+
+    if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
+        if 'CM_DOCKER_RUN_SCRIPT_TAGS' not in env:
+            env['CM_DOCKER_IMAGE_RUN_CMD']="cm version"
+        else:
+            env['CM_DOCKER_IMAGE_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
+
     if "run" in env['CM_DOCKER_IMAGE_RUN_CMD']:
         fake_run = " --fake_run"
     else:
         fake_run = ""
-    f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + EOL)
+    fake_run = ""
+
+    f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
 
     f.close()
 

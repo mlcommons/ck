@@ -741,9 +741,20 @@ class CAutomation(Automation):
             # Check cases such as --env.CM_SKIP_COMPILE
             if type(value)==bool:
                 env[key] = str(value)
+                continue
 
             tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
-            if tmp_values == []: continue
+            if not tmp_values:
+                if key == 'CM_GIT_URL' and env.get('CM_GIT_AUTH', "no") == "yes":
+                    if 'CM_GH_TOKEN' in env and '@' not in env['CM_GIT_URL']:
+                        params = {}
+                        params["token"] = env['CM_GH_TOKEN']
+                        value = get_git_url("token", value, params)
+                    elif 'CM_GIT_SSH' in env:
+                        value = get_git_url("ssh", value)
+                    env[key] = value
+                continue
+
             for tmp_value in tmp_values:
                 if tmp_value not in env:
                     return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
@@ -2398,6 +2409,17 @@ def check_versions(cmind, cached_script_version, version_min, version_max):
                 skip_cached_script = True
 
     return skip_cached_script
+
+##############################################################################
+def get_git_url(get_type, url, params = {}):
+    from giturlparse import parse
+    p = parse(url)
+    if get_type == "ssh":
+        return p.url2ssh
+    elif get_type == "token":
+        token = params['token']
+        return "https://" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
+    return url
 
 ##############################################################################
 # Demo to show how to use CM components independently if needed

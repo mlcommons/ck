@@ -10,7 +10,8 @@
         "python3",
         "python"
       ],
-      "tags": "get,python3"
+      "tags": "get,python3",
+      "version_min": "3.7.0"
     },
     {
       "tags": "set,echo-off,win"
