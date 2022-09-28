@@ -24,5 +24,12 @@
     "build",
     "dockerfile"
   ],
-  "uid": "e66a7483230d4641"
+  "uid": "e66a7483230d4641",
+  "input_mapping": {
+    "docker_os": "CM_DOCKER_OS",
+    "docker_os_version": "CM_DOCKER_OS_VERSION",
+    "build": "CM_BUILD_DOCKER_CONTAINER",
+    "image_repo": "CM_DOCKER_IMAGE_REPO",
+    "image_tag": "CM_DOCKER_IMAGE_TAG"
+  }
 }

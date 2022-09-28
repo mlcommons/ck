@@ -71,7 +71,8 @@ def preprocess(i):
             DOCKER_USER_ID = "-u " + docker_userid
         else:
             DOCKER_USER_ID = ""
-        f.write('RUN useradd ' + DOCKER_USER_ID  + DOCKER_GROUP + ' --create-home --shell '+ config['SHELL'] + ' ' 
+        user_shell = json.loads(shell)
+        f.write('RUN useradd ' + DOCKER_USER_ID  + DOCKER_GROUP + ' --create-home --shell '+ user_shell[0] + ' '
                 + docker_user + EOL)
         f.write('RUN echo "' + docker_user + ' ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers' + EOL)
         f.write('USER ' + docker_user + ":" + docker_group + EOL)
