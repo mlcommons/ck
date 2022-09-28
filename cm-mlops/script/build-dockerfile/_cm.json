@@ -19,14 +19,6 @@
     }
   ],
   "env": {
-    "CM_DOCKER_IMAGE_ENTRYPOINT": "[\"/bin/bash\", \"-c\"]",
-    "CM_DOCKER_USER": "cmuser",
-    "CM_DOCKER_GROUP": "cm",
-    "CM_DOCKER_WORKDIR": "/home/cmuser",
-    "CM_DOCKER_IMAGE_LABEL": "",
-    "CM_DOCKER_IMAGE_SHELL": "[\"/bin/bash\", \"-c\"]",
-    "CM_DOCKER_IMAGE_TZ": "US/Pacific",
-    "CM_DOCKER_IMAGE_EOL": "\n"
   },
   "tags": [
     "build",
