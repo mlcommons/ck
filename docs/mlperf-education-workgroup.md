@@ -139,10 +139,9 @@ We use GitHub tickets to track the progress of these community developments:
   to MLPerf on behalf of MLCommons.
 * Share deployable MLPerf inference containers with Pareto-efficient ML/SW/HW stacks.
 
-## Public conf-calls
+## Public discussions
 
-* Be-weekly on Tuesday at 2:00pm CET (EMEA-friendly).
-* Be-weekly on Thursday at 9:00am PST (North America-friendly).
+* Weekly conf-calls on Thursday at 9:00am PST (North America-friendly).
 
 See Google Meet links and agenda [here](https://github.com/mlcommons/ck/issues/325).
 

@@ -2,11 +2,13 @@
 
 [Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
 provides a simple way to manage, connect and reuse any artifacts, scripts and workflows 
-on any platform with any software stack.
+on any platform with any software stack. It is motivated by our 
+[tedious experience](https://youtu.be/7zpeIVwICa4) reproducing research papers 
+on machine learning and systems and validating them in the real world.
 
 <details>
 
-<summary>Read more about the CK concept</summary>
+<summary>Read more about the CK concept:</summary>
 
 CK helps researchers and developers turn their scripts and artifacts
 into a database of [portable, reusable, customizable and deterministic components]()
@@ -48,8 +50,9 @@ to provide your feedback and participate in further developments!
 ### Collective Mind meta-framework
 
 Collective Mind workflow automation meta-framework (CM) is the implementation 
-of the [CK concept](https://arxiv.org/pdf/2011.01149.pdf)
-being developed by the [open workgroup](docs/mlperf-education-workgroup.md)
+of the [CK concept](https://arxiv.org/pdf/2011.01149.pdf).
+
+CM is being developed by the community within the [open MLPerf workgroup](docs/mlperf-education-workgroup.md)
 to modularize complex AI systems and automate their co-design, benchmarking, 
 optimization and deployment across continuously changing software, hardware and data.
 
