@@ -20,5 +20,11 @@
     "docker",
     "container"
   ],
-  "uid": "1e0c884107514b46"
+  "uid": "1e0c884107514b46",
+  "input_mapping": {
+    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
+    "cm_repo": "CM_MLOPS_REPO",
+    "base": "CM_DOCKER_IMAGE_BASE",
+    "recreate": "CM_DOCKER_IMAGE_RECREATE"
+  }
 }
