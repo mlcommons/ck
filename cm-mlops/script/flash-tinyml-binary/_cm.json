@@ -42,6 +42,10 @@
     "build_dir": "CM_TINY_BUILD_DIR"
   },
   "variations": {
+    "NRF": {
+    },
+    "NUCLEO": {
+    },
     "cmsis_nn": {
     },
     "native": {
