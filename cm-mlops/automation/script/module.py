@@ -753,7 +753,6 @@ class CAutomation(Automation):
                     elif 'CM_GIT_SSH' in env:
                         value = get_git_url("ssh", value)
                     env[key] = value
-                    print(value)
                 continue
 
             for tmp_value in tmp_values:

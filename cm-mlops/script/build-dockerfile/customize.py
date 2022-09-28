@@ -86,7 +86,7 @@ def preprocess(i):
     run_cmd_extra=''
     gh_token = get_value(env, config, "GH_TOKEN", "CM_GH_TOKEN")
     if gh_token:
-        run_cmd_extra = " --env.GH_TOKEN=$CM_GH_TOKEN"
+        run_cmd_extra = " --env.CM_GH_TOKEN=$CM_GH_TOKEN"
 
     if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
         if 'CM_DOCKER_RUN_SCRIPT_TAGS' not in env:
@@ -98,8 +98,9 @@ def preprocess(i):
         fake_run = " --fake_run"
     else:
         fake_run = ""
+    fake_run = ""
 
-    f.write('RUN echo $CM_GH_TOKEN && ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
+    f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
 
     f.close()
 
