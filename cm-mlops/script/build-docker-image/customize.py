@@ -16,14 +16,13 @@ def preprocess(i):
     env['CM_DOCKER_BUILD_ARGS'] = build_args
     if 'CM_DOCKERFILE_WITH_PATH' not in env or not exists(env['CM_DOCKERFILE_WITH_PATH']):
         env['CM_BUILD_DOCKERFILE'] = "yes"
-        env['CM_RUN_DOCKERFILE'] = "yes"
     else:
         env['CM_BUILD_DOCKERFILE'] = "no"
     if "CM_DOCKER_IMAGE_REPO" not in env:
         env['CM_DOCKER_IMAGE_REPO'] = "local"
     if "CM_DOCKER_IMAGE_TAG" not in env:
         env['CM_DOCKER_IMAGE_TAG'] = "latest"
-    if "CM_DOCKER_CACHE" not in env:
-        env["CM_DOCKER_CACHE"] = ""
+    if env.get("CM_DOCKER_CACHE", "yes") == "no":
+        env["CM_DOCKER_CACHE_ARG"] = "--no-cache"
 
     return {'return':0}
