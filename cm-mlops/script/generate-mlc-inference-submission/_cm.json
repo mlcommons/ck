@@ -18,9 +18,9 @@
   "post_deps": [
     {
       "enable_if_env": {
-	"CM_RUN_STYLE": [
-	  "valid"
-	]
+        "CM_RUN_STYLE": [
+	      "valid"
+	    ]
       },
       "skip_if_env": {
         "CM_SKIP_TRUNCATE_ACCURACY": [
@@ -50,11 +50,11 @@
     "mlcommons-inference-submission"
   ],
   "uid": "5f8ab2d0b5874d53",
-  "variations": {
-    "verify": {
-      "env": {
-	"CM_RUN_SUBMISSION_CHECKER": "yes"
-      }
-    }
+  "input_mapping": {
+    "run_checker": "CM_RUN_SUBMISSION_CHECKER",
+    "results_dir": "CM_MLC_RESULTS_DIR",
+    "submission_dir": "CM_MLC_SUBMISSION_DIR",
+    "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
+    "run_style": "CM_RUN_STYLE"
   }
 }

@@ -16,6 +16,8 @@ def generate_submission(i):
     env = i['env']
     state = i['state']
     inp=i['input']
+    if 'CM_MLC_RESULTS_DIR' not in env:
+        return {"return": 1, "error": "Please set --results_dir to the folder containing MLPerf inference results"}
     results_dir = env['CM_MLC_RESULTS_DIR']
 
     if 'CM_MLC_SUBMISSION_DIR' not in env:
