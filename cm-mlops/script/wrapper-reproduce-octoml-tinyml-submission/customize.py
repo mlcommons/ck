@@ -13,7 +13,7 @@ def preprocess(i):
     else:
         script_tags =  "reproduce,tiny,mlperf,octoml"
     boards = ["NUCLEO", "NRF" ]
-    microtvm_variants = { "cmsis_nn": [ "ad", "ic", "vww", "kws" ], "native": [ "ic"] }
+    microtvm_variants = { "cmsis_nn": [ "ad", "ic", "vww", "kws" ], "native": [ "ic", "ad", "vww", "kws"] }
     for board in boards:
         for microtvm_variant in microtvm_variants:
             if board == "NRF" and microtvm_variant == "native":
