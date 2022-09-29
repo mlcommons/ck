@@ -9,7 +9,12 @@
     "power": "CM_SYSTEM_POWER",
     "docker": "CM_RUN_DOCKER_CONTAINER",
     "test_query_count": "CM_TEST_QUERY_COUNT",
-    "output_dir": "OUTPUT_BASE_DIR"
+    "output_dir": "OUTPUT_BASE_DIR",
+    "imagenet_path": "IMAGENET_PATH",
+    "mode": "CM_LOADGEN_MODE",
+    "scenario": "CM_LOADGEN_SCENARIO",
+    "hw_name": "CM_HW_NAME",
+    "num_threads": "CM_NUM_THREADS"
   },
   "deps": [
     {
