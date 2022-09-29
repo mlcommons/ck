@@ -1083,7 +1083,7 @@ class CAutomation(Automation):
 
             # Check chain of pre hook dependencies on other CM scripts
             if len(prehook_deps)>0 and not skip_prehook_deps_in_cache:
-                r = self.call_run_deps(prehook_deps, local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                r = self.call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, recursion_spaces,
                     remembered_selections, variation_tags_string, found_cached)
                 if r['return']>0: return r
 
