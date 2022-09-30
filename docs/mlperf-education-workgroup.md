@@ -1,4 +1,4 @@
-# MLPerf education and reproducibility workgroup
+# MLPerf education and reproducibility taskforce
 
 ## News
 
