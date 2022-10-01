@@ -15,7 +15,7 @@ url=https://github.com/zephyrproject-rtos/sdk-ng/releases/download/v${version}/$
 wget -nc "${url}"
 if [ "${?}" != "0" ]; then exit 1; fi
 chmod +x $file
-yes | ./$file -- -d $PWD/zephyr-sdk-$version
+./$file -- -d $PWD/zephyr-sdk-$version -y
 
 if [ "${?}" != "0" ]; then exit 1; fi
 

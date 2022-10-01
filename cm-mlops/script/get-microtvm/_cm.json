@@ -13,8 +13,12 @@
   "env": {
     "CM_GIT_DEPTH": "",
     "CM_GIT_PATCH": "no",
+    "CM_GIT_AUTH": "yes",
     "CM_GIT_URL": "https://github.com/octoml/microtvm"
   },
+  "local_env_keys": [
+    "CM_GIT_*"
+  ],
   "new_env_only_keys": [
     "CM_MICROTVM_*"
   ],
@@ -51,5 +55,8 @@
     },
     "custom": {
     }
+  },
+  "input_mapping": {
+    "ssh": "CM_GIT_SSH"
   }
 }

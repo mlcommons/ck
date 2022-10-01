@@ -182,8 +182,8 @@ in this and other CM workflows.
 * [Digging into image classification CM workflow](cm/docs/example-modular-image-classification.md)
 * [Understanding CM database and runtime interface](cm/docs/tutorial-concept.md)
 * [Understanding cross-platform CM scripts](cm/docs/tutorial-scripts.md)
+    * [Adding new artifacts, scripts and workflows to CM](cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
 * [Running and reproducing MLPerf inference benchmarks](docs/mlperf-cm-automation-demo.md)
-* [Adding new artifacts, scripts and workflows to CM](cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
 
 ### Documentation
 

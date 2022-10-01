@@ -2,15 +2,6 @@
   "alias": "app-mlperf-inference-vision-reference",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "input_mapping": {
-    "count": "CM_LOADGEN_QUERY_COUNT",
-    "max_batchsize": "CM_LOADGEN_MAX_BATCHSIZE",
-    "rerun": "CM_RERUN",
-    "power": "CM_SYSTEM_POWER",
-    "docker": "CM_RUN_DOCKER_CONTAINER",
-    "test_query_count": "CM_TEST_QUERY_COUNT",
-    "output_dir": "OUTPUT_BASE_DIR"
-  },
   "deps": [
     {
       "tags": "set,echo-off,win"
@@ -340,5 +331,19 @@
 	}
       }
     }
+  },
+  "input_mapping": {
+    "count": "CM_LOADGEN_QUERY_COUNT",
+    "max_batchsize": "CM_LOADGEN_MAX_BATCHSIZE",
+    "rerun": "CM_RERUN",
+    "power": "CM_SYSTEM_POWER",
+    "docker": "CM_RUN_DOCKER_CONTAINER",
+    "test_query_count": "CM_TEST_QUERY_COUNT",
+    "output_dir": "OUTPUT_BASE_DIR",
+    "imagenet_path": "IMAGENET_PATH",
+    "mode": "CM_LOADGEN_MODE",
+    "scenario": "CM_LOADGEN_SCENARIO",
+    "hw_name": "CM_HW_NAME",
+    "num_threads": "CM_NUM_THREADS"
   }
 }

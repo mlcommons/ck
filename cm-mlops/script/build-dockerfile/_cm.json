@@ -14,7 +14,7 @@
       "tags": "build,docker,image",
       "names": [ "build-docker-image" ],
       "enable_if_env": {
-	"CM_BUILD_DOCKER_CONTAINER": [ "yes", "1" ]
+        "CM_BUILD_DOCKER_IMAGE": [ "yes", "1" ]
       }
     }
   ],
@@ -28,9 +28,12 @@
   "input_mapping": {
     "docker_os": "CM_DOCKER_OS",
     "docker_os_version": "CM_DOCKER_OS_VERSION",
-    "build": "CM_BUILD_DOCKER_CONTAINER",
+    "build": "CM_BUILD_DOCKER_IMAGE",
     "image_repo": "CM_DOCKER_IMAGE_REPO",
     "image_tag": "CM_DOCKER_IMAGE_TAG",
-    "cm_repo": "CM_MLOPS_REPO"
+    "cm_repo": "CM_MLOPS_REPO",
+    "gh_token": "CM_GH_TOKEN",
+    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
+    "cache": "CM_DOCKER_CACHE"
   }
 }

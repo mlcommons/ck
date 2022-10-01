@@ -79,5 +79,9 @@
         "ML_MODEL_DATA_LAYOUT": "NCHW"
       }
     }
+  },
+  "input_mapping": {
+    "dir": "CM_DATASET_PREPROCESSED_PATH",
+    "threads": "CM_NUM_PREPROCESS_THREADS"
   }
 }

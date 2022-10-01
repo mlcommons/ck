@@ -16,8 +16,6 @@ def generate_submission(i):
     env = i['env']
     state = i['state']
     inp=i['input']
-    if 'CM_MLC_RESULTS_DIR' not in env:
-        return {"return": 1, "error": "Please set --results_dir to the folder containing MLPerf inference results"}
     results_dir = env['CM_MLC_RESULTS_DIR']
 
     if 'CM_MLC_SUBMISSION_DIR' not in env:
@@ -26,11 +24,10 @@ def generate_submission(i):
     if not os.path.isdir(submission_dir):
         os.makedirs(submission_dir)
 
-    print('* MLPerf inference submission dir: {}'.format(submission_dir))
-    print('* MLPerf inference results dir: {}'.format(results_dir))
+    print('* MLPerf tiny submission dir: {}'.format(submission_dir))
+    print('* MLPerf tiny results dir: {}'.format(results_dir))
     results = [f for f in os.listdir(results_dir) if not os.path.isfile(os.path.join(results_dir, f))]
 
-    duplicate=(inp.get('duplicate_to_offline','')=='yes')
     division=inp.get('division','open')
 
     if division not in ['open','closed']:
@@ -38,7 +35,7 @@ def generate_submission(i):
     system_meta = state['CM_SUT_META']
     division = system_meta['division']
 
-    print('* MLPerf inference division: {}'.format(division))
+    print('* MLPerf tiny division: {}'.format(division))
 
     path_submission_root = submission_dir
     path_submission_division=os.path.join(path_submission_root, division)
@@ -49,7 +46,7 @@ def generate_submission(i):
     submitter = system_meta['submitter']
     env['CM_MLC_SUBMITTER'] = submitter
 
-    print('* MLPerf inference submitter: {}'.format(submitter))
+    print('* MLPerf tiny submitter: {}'.format(submitter))
 
     path_submission=os.path.join(path_submission_division, submitter)
     if not os.path.isdir(path_submission):
@@ -105,12 +102,6 @@ def generate_submission(i):
                 measurement_scenario_path = os.path.join(measurement_model_path, scenario)
                 compliance_scenario_path = os.path.join(compliance_model_path, scenario)
                 
-                if duplicate and scenario=='singlestream':
-                    print('Duplicating results from {} to offline:'.format(scenario))
-                    if not os.path.exists(os.path.join(result_model_path, "Offline")):
-                        shutil.copytree(result_scenario_path, os.path.join(result_model_path, "Offline"))
-                        scenarios += "Offline" 
-
                 modes = [f for f in os.listdir(result_scenario_path) if not os.path.isfile(os.path.join(result_scenario_path, f))]
                 for mode in modes:
                     result_mode_path = os.path.join(result_scenario_path, mode)

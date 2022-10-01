@@ -4,7 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "cache": false,
   "clean_files": [],
-  "post_deps": [
+  "prehook_deps": [
     {
       "tags": "build,dockerfile",
       "enable_if_env": {
@@ -13,8 +13,6 @@
     }
   ],
   "env": {
-    "CM_BUILD_DOCKER_CONTAINER": "yes",
-    "CM_DOCKER_CACHE": "--no-cache"
   },
   "tags": [
     "build",
@@ -23,11 +21,15 @@
     "dockerimage"
   ],
   "uid": "2c3c4ba2413442e7",
-  "variations": {
-    "cache": {
-      "env": {
-	"CM_DOCKER_CACHE": ""
-      }
-    }
+  "input_mapping": {
+    "dockerfile": "CM_DOCKERFILE_WITH_PATH",
+    "gh_token": "CM_GH_TOKEN",
+    "image_repo": "CM_DOCKER_IMAGE_REPO",
+    "image_tag": "CM_DOCKER_IMAGE_TAG",
+    "docker_os": "CM_DOCKER_OS",
+    "docker_os_version": "CM_DOCKER_OS_VERSION",
+    "cm_repo": "CM_MLOPS_REPO",
+    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
+    "cache": "CM_DOCKER_CACHE"
   }
 }
