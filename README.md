@@ -164,6 +164,16 @@ It may take a few minutes to run this workflow for the first time and adapt it t
 Note that all the subsequent runs will be much faster because CM automatically caches the output of all components to be quickly reused
 in this and other CM workflows.
 
+<details>
+ <summary>See reusable CM scripts for this workflow:</summary>
+
+ * [Get python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+ * [Get ONNX run-time](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime)
+ * [Get Resnet50 model (ONNX)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-onnx)
+ * [Get ImageNet validation set](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-imagenet-val)
+
+</details>
+
 
 
 ### Tutorials
@@ -177,9 +187,11 @@ in this and other CM workflows.
 
 ### Documentation
 
-* [Internal diagram](cm/docs/structure.md)
-* [High-level specification with common CM commands](cm/docs/specification.md)
-* [Conventions](cm/docs/conventions.md)
+* [Table of contents](https://github.com/mlcommons/ck/tree/master/cm/docs)
+
+  * [Internal diagram](cm/docs/structure.md)
+  * [High-level specification with common CM commands](cm/docs/specification.md)
+  * [Conventions](cm/docs/conventions.md)
 
 
 
@@ -220,8 +232,8 @@ to the new CM format - please open a [ticket](https://github.com/mlcommons/ck/is
 
 # Resources and references
 
-* [Our motivation](cm/docs/motivation.md)
-* [Journal article describing our concept](https://arxiv.org/pdf/2011.01149.pdf)
+* [CK and CM motivation](cm/docs/motivation.md)
+* [Journal article describing the CK concept](https://arxiv.org/pdf/2011.01149.pdf)
 * ["Reproducing 150 Research Papers and Testing Them in the Real World" (ACM TechTalk; Feb 2021)](https://learning.acm.org/techtalks/reproducibility)
 * ["MLOps Is a Mess But That's to be Expected" (March 2022)](https://www.mihaileric.com/posts/mlops-is-a-mess)
 * ["Automating MLPerf design space exploration and production deployment" (HPCA'22)](https://doi.org/10.5281/zenodo.6475385)

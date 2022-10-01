@@ -44,6 +44,7 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 * Thierry Moreau (OctoML)
 * Luigi Nardi 
 * Ivan Ospiov (Xored)
+* Lakshman Patel @Patel230
 * Egor Pasko (Google)
 * Ed Plowman (Arm)
 * Lahiru Rasnayake (NTNU)
@@ -57,7 +58,6 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 * Gavin Simpson (Arm)
 * Aaron Smith (Microsoft)
 * Michel Steuwer (University of Edinburgh)
-* Arjun Suresh (OctoML)
 * Abdul Wahid Memon &lt;engrwahidmemon@gmail.com&gt;
 * Cedric Nugteren &lt;web@cedricnugteren.nl&gt;
 * Lucas Nussbaum (Universite de Lorraine)
@@ -71,6 +71,7 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 
 See more acknowledgments at the end of this [journal article](https://arxiv.org/abs/2011.01149).
 
-## Author and coordinator
+## Maintainers
 
-* [Grigori Fursin](https://cknowledge.io/@gfursin)
+* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)

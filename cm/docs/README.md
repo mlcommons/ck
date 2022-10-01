@@ -43,4 +43,5 @@ Apache 2.0 license
 
 ## GitHub
 
-* [Public developments](https://github.com/mlcommons/ck)
+* [CM project page](https://github.com/mlcommons/ck)
+* [CM development tickets](https://github.com/mlcommons/ck/issues)
