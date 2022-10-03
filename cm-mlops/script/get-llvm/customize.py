@@ -34,10 +34,8 @@ def preprocess(i):
 
     return {'return':0}
 
+def detect_version(i):
 
-def postprocess(i):
-
-    env = i['env']
     r = i['automation'].parse_version({'match_text': r'clang version\s*([\d.]+)',
                                        'group_number': 1,
                                        'env_key':'CM_LLVM_CLANG_VERSION',
@@ -48,6 +46,14 @@ def postprocess(i):
 
     print (i['recursion_spaces'] + '    Detected version: {}'.format(version))
 
+    return {'return':0, 'version':version}
+
+def postprocess(i):
+
+    env = i['env']
+    r = detect_version(i)
+    if r['return'] >0: return r
+    version = env['CM_LLVM_CLANG_VERSION']
     env['CM_LLVM_CLANG_CACHE_TAGS'] = 'version-'+version
     env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version+',family-llvm'
     env['CM_COMPILER_FAMILY'] = 'LLVM'
@@ -73,4 +79,4 @@ def postprocess(i):
     env['DEFAULT_COMPILER_FLAGS'] = "-O2"
     env['DEFAULT_LINKER_FLAGS'] = "-O2"
 
-    return {'return':0, 'version':version}
+    return {'return':0}
