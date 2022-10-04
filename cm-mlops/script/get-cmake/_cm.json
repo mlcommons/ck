@@ -14,6 +14,15 @@
   "local_env_keys": [
     "CM_CMAKE_*"
   ],
+  "prehook_deps": [
+    {
+      "tags": "install,cmake,prebuilt",
+      "force_env_keys": [ "CM_" ],
+      "enable_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
+      }
+    }
+  ],
   "new_env_only_keys": [
     "+PATH"
   ],

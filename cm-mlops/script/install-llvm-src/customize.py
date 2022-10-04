@@ -22,7 +22,7 @@ def preprocess(i):
 
     env['CM_GIT_CHECKOUT'] = 'llvmorg-' + need_version
 
-    env['CM_TMP_PATH'] = os.path.join(os.getcwd(), 'install', 'bin')
+    env['CM_LLVM_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install', 'bin')
     env['CM_TMP_FAIL_IF_NOT_FOUND'] = 'yes'
 
     return {'return':0}

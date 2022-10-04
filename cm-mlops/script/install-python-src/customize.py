@@ -22,8 +22,7 @@ def preprocess(i):
 
     path_bin = os.path.join(os.getcwd(), 'install', 'bin')
 
-    env['CM_TMP_PATH'] = path_bin
-    env['CM_TMP_FAIL_IF_NOT_FOUND'] = 'yes'
+    env['CM_PYTHON_INSTALLED_PATH'] = path_bin
 
     return {'return':0}
 

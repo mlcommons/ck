@@ -9,6 +9,9 @@
       "tags": "set,echo-off,win"
     }
   ],
+  "env": {
+    "CM_TMP_REQUIRE_INSTALL": "yes"
+  },
   "local_env_keys": [
     "CM_LLVM_*",
     "CM_C_COMPILER_*",
@@ -24,6 +27,15 @@
   ],
   "new_env_only_keys": [
     "+PATH"
+  ],
+  "prehook_deps": [
+    {
+      "tags": "install,llvm,prebuilt",
+      "force_env_keys": [ "CM_" ],
+      "enable_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
+      }
+    }
   ],
   "new_env_only_keys_from_local_env_keys": true,
   "post_deps": [

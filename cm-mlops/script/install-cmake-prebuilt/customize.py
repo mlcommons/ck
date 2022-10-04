@@ -91,9 +91,6 @@ def preprocess(i):
 
     env['CM_CMAKE_PACKAGE'] = filename
 
-    # Needed to finalize detection of this package
-    # via another script and do not search again
-    env['CM_TMP_PATH'] = path_bin
-    env['CM_TMP_FAIL_IF_NOT_FOUND'] = 'yes'
+    env['CM_CMAKE_INSTALLED_PATH'] = path_bin
 
     return {'return':0}
