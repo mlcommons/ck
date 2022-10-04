@@ -1162,6 +1162,11 @@ class CAutomation(Automation):
                 if found_script_artifact != '':
                     cached_meta['associated_script_artifact'] = found_script_artifact
 
+                # Check if the cached entry is dependent on any other cached entry
+                dependent_cached_path = env.get('CM_TMP_GET_DEPENDENT_CACHED_PATH','')
+                if dependent_cached_path != '' and not os.path.samefile(cached_path, dependent_cached_path):
+                    cached_meta['dependent_cached_path'] = dependent_cached_path
+
                 ii = {'action': 'update',
                       'automation': self.meta['deps']['cache'],
                       'artifact': cached_uid,
@@ -1824,10 +1829,17 @@ def find_cached_script(i):
         new_found_cached_scripts = []
 
         for cached_script in found_cached_scripts:
+            skip_cached_script = False
+            dependent_cached_path = cached_script.meta.get('dependent_cached_path', '')
+            if dependent_cached_path:
+                if not os.path.exists(dependent_cached_path):
+                    #Need to rm this cache entry
+                    skip_cached_script = True
 
-            cached_script_version = cached_script.meta.get('version', '')
+            if not skip_cached_script:
+                cached_script_version = cached_script.meta.get('version', '')
 
-            skip_cached_script = check_versions(self_obj.cmind, cached_script_version, version_min, version_max)
+                skip_cached_script = check_versions(self_obj.cmind, cached_script_version, version_min, version_max)
 
             if not skip_cached_script:
                 new_found_cached_scripts.append(cached_script)

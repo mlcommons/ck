@@ -25,7 +25,7 @@ def preprocess(i):
         if r['return']>0:
             if r['return'] == 16 and os_info['platform'] != 'windows':
                 env['CM_TMP_REQUIRE_INSTALL'] = "yes"
-                    return {'return': 0}
+                return {'return': 0}
             else:
                 return r
 

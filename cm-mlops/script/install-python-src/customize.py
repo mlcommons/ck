@@ -36,4 +36,5 @@ def postprocess(i):
         if '+LD_LIBRARY_PATH' not in env:
             env['+LD_LIBRARY_PATH'] = []
         env['+LD_LIBRARY_PATH'].append(path_lib)
+    env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
     return {'return':0}

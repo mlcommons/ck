@@ -10,7 +10,7 @@
     }
   ],
   "env": {
-    "CM_TMP_REQUIRE_INSTALL": "yes"
+    "CM_TMP_REQUIRE_INSTALL": "no"
   },
   "local_env_keys": [
     "CM_LLVM_*",
@@ -32,6 +32,7 @@
     {
       "tags": "install,llvm,prebuilt",
       "force_env_keys": [ "CM_" ],
+      "reuse_version": true,
       "enable_if_env": {
         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
       }
