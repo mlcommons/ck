@@ -31,7 +31,10 @@
   "prehook_deps": [
     {
       "tags": "install,llvm,prebuilt",
-      "force_env_keys": [ "CM_" ]
+      "force_env_keys": [ "CM_" ],
+      "enable_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
+      }
     }
   ],
   "new_env_only_keys_from_local_env_keys": true,

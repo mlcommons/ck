@@ -12,6 +12,15 @@
   "local_env_keys": [
     "CM_PYTHON_*"
   ],
+  "prehook_deps": [
+    {
+      "tags": "install,python,src",
+      "force_env_keys": [ "CM_" ],
+      "enable_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
+      }
+    }
+  ],
   "new_env_only_keys": [
     "+LD_LIBRARY_PATH",
     "+C_INCLUDE_PATH",
