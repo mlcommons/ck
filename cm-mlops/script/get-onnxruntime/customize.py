@@ -16,15 +16,10 @@ def preprocess(i):
 
     if r['return'] >0:
         if r['return'] == 16:
-            if env.get('CM_TMP_FAIL_IF_NOT_FOUND','').lower() == 'yes':
-                return r
-
-            print (recursion_spaces+'    # {}'.format(r['error']))
-
-            # Attempt to run installer
-            r = {'return':0, 'skip':True, 'script':{'tags':'install,onnxruntime,python-lib'}}
-
-        return r
+            env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+            return {'return': 0}
+        else:
+            return r
 
 #    add_extra_cache_tags = []
 #    if 'CM_PYTHON_VERSION' in env:
@@ -33,11 +28,7 @@ def preprocess(i):
 
     return {'return':0} #, 'add_extra_cache_tags': add_extra_cache_tags}
 
-
-def postprocess(i):
-
-    env = i['env']
-
+def detect_version(i):
     r = i['automation'].parse_version({'match_text': r'\s*([\d.a-z\-]+)',
                                        'group_number': 1,
                                        'env_key':'CM_ONNXRUNTIME_VERSION',
@@ -47,8 +38,18 @@ def postprocess(i):
     version = r['version']
 
     print (i['recursion_spaces'] + '      Detected version: {}'.format(version))
+    return {'return':0, 'version':version}
+
+
+def postprocess(i):
+
+    env = i['env']
+    r = detect_version(i)
+    if r['return'] >0: return r
+
+    version = r['version']
 
     env['CM_ONNXRUNTIME_CACHE_TAGS'] = 'version-'+version
     env['CM_ONNXRUNTIME_VERSION'] = version
 
-    return {'return':0, 'version':version}
+    return {'return':0}

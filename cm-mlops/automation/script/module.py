@@ -1489,7 +1489,7 @@ class CAutomation(Automation):
         run_script_input['env'] = env
 
         # Prepare run script
-        rx = prepare_and_run_script_with_postprocessing(run_script_input)
+        rx = prepare_and_run_script_with_postprocessing(run_script_input, postprocess="detect_version")
 
         run_script_input['recursion_spaces'] = recursion_spaces
 
