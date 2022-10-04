@@ -77,6 +77,12 @@ python3.9 -m pip install cmind
 pip3 install cmind --user
 ```
 
+If installed in user space and `$HOME/.local/bin` is not in `$PATH` please do
+```bash
+echo "export PATH=$PATH:$HOME/.local/bin" >>~/.bashrc
+source ~/.bashrc
+```
+
 If the installation is successful, you can run cm CLI as follows:
 
 ```bash

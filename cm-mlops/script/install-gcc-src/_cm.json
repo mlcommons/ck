@@ -14,7 +14,10 @@
   },
   "post_deps": [
     {
-      "tags": "get,gcc"
+      "tags": "get,gcc",
+      "skip_if_env": {
+         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
+       }
     }
   ],
   "tags": [
@@ -26,7 +29,7 @@
   "versions": {
     "master": {
       "env": {
-	"CM_GIT_CHECKOUT": "master"
+        "CM_GIT_CHECKOUT": "master"
       }
     }
   },

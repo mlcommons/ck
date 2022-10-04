@@ -106,6 +106,16 @@
       "env": {
         "CM_TINY_MODEL": "vww"
       }
+    },
+    "NUCLEO": {
+      "env": {
+        "CM_TINY_BOARD": "NUCLEO_L4R5ZI"
+      }
+    },
+    "NRF": {
+      "env": {
+        "CM_TINY_BOARD": "NRF5340DK"
+      }
     }
   },
   "versions": {

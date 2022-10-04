@@ -14,23 +14,26 @@
       "tags": "build,docker,image",
       "names": [ "build-docker-image" ],
       "enable_if_env": {
-	"CM_BUILD_DOCKER_CONTAINER": [ "yes", "1" ]
+        "CM_BUILD_DOCKER_IMAGE": [ "yes", "1" ]
       }
     }
   ],
   "env": {
-    "CM_DOCKER_IMAGE_ENTRYPOINT": "[\"/bin/bash\", \"-c\"]",
-    "CM_DOCKER_USER": "cmuser",
-    "CM_DOCKER_GROUP": "cm",
-    "CM_DOCKER_WORKDIR": "/home/cmuser",
-    "CM_DOCKER_IMAGE_LABEL": "",
-    "CM_DOCKER_IMAGE_SHELL": "[\"/bin/bash\", \"-c\"]",
-    "CM_DOCKER_IMAGE_TZ": "US/Pacific",
-    "CM_DOCKER_IMAGE_EOL": "\n"
   },
   "tags": [
     "build",
     "dockerfile"
   ],
-  "uid": "e66a7483230d4641"
+  "uid": "e66a7483230d4641",
+  "input_mapping": {
+    "docker_os": "CM_DOCKER_OS",
+    "docker_os_version": "CM_DOCKER_OS_VERSION",
+    "build": "CM_BUILD_DOCKER_IMAGE",
+    "image_repo": "CM_DOCKER_IMAGE_REPO",
+    "image_tag": "CM_DOCKER_IMAGE_TAG",
+    "cm_repo": "CM_MLOPS_REPO",
+    "gh_token": "CM_GH_TOKEN",
+    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
+    "cache": "CM_DOCKER_CACHE"
+  }
 }

@@ -107,7 +107,6 @@ def preprocess(i):
 
     env['CM_LLVM_PACKAGE'] = filename
 
-    env['CM_TMP_PATH'] = os.path.join(os.getcwd(), 'bin')
-    env['CM_TMP_FAIL_IF_NOT_FOUND'] = 'yes'
+    env['CM_LLVM_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'bin')
 
     return {'return':0}

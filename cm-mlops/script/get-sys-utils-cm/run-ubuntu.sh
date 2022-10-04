@@ -11,7 +11,7 @@ if [[ "$CM_TMP_QUIET" != "yes" ]]; then
  if [[ "$DUMMY" == "skip" ]]; then exit 0; fi
 fi
 
-CM_APT_TOOL=${CM_APT_TOOL:-apt}
+CM_APT_TOOL=${CM_APT_TOOL:-apt-get}
 
 ${CM_SUDO} ${CM_APT_TOOL} update && \
     ${CM_SUDO} ${CM_APT_TOOL} install -y --no-install-recommends \

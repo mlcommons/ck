@@ -1,0 +1,53 @@
+{
+  "python-packages": [
+    "cmind", "requests"
+  ],
+  "ARGS": [
+    "CM_GH_TOKEN"
+  ],
+  "ENTRYPOINT": "[\"/bin/bash\", \"-c\"]",
+  "ENV": {
+    "TZ": "US/Pacific"
+  },
+  "RUN_CMDS": [
+    "ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ >/etc/timezone"
+  ],
+  "USERID": "",
+  "USER": "cmuser",
+  "GROUPID": "",
+  "GROUP": "cm",
+  "SHELL": "[\"/bin/bash\", \"-c\"]",
+  "WORKDIR": "/home/cmuser",
+  "distros": {
+    "ubuntu": {
+      "package-manager-update-cmd": "apt-get update -y",
+      "package-manager-get-cmd": "apt-get install -y", 
+      "packages": [
+        "python3", "python3-pip", "git", "sudo", "wget"
+      ],
+      "versions": {
+	"18.04": {
+	  "FROM": "ubuntu:18.04"
+	},
+	"20.04": {
+	  "FROM": "ubuntu:20.04"
+	},
+        "22.04": {
+	  "FROM": "ubuntu:22.04"
+        }
+      }
+    },
+    "rhel": {
+      "FROM": "registry.access.redhat.com/ubi9", 
+      "package-manager-update-cmd": "dnf update",
+      "package-manager-get-cmd": "dnf install -y", 
+      "packages": [
+        "python3", "python-pip", "git", "wget", "sudo"
+      ],
+      "versions": {
+	"9": {
+	}
+      }
+    }
+  }
+}

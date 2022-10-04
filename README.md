@@ -1,11 +1,17 @@
 # Collective Knowledge
 
-Collective Knowledge (CK) is an open-source meta-framework
-to manage, connect and reuse artifacts, scripts and workflows 
-on any platform with any software stack.
+[Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
+provides a simple way to manage, connect and reuse any artifacts, scripts and workflows 
+on any platform with any software stack. It is motivated by our 
+[tedious experience](https://youtu.be/7zpeIVwICa4) reproducing research papers 
+on machine learning and systems and validating them in the real world.
+
+<details>
+
+<summary>Read more about the CK concept:</summary>
 
 CK helps researchers and developers turn their scripts and artifacts
-into a database of [portable, reusable, customizable and deterministic components](https://arxiv.org/pdf/2011.01149.pdf)
+into a database of [portable, reusable, customizable and deterministic components]()
 with minimal effort and no changes to their projects.
 
 All such components have a simple, human-friendly and platform-independent CLI, Python API,
@@ -34,25 +40,25 @@ We continue improving and enhancing CK based on your feedback and requirements -
 feel free to join our [open workgroup](docs/mlperf-education-workgroup.md) 
 to provide your feedback and participate in further developments!
 
+</details>
 
 &copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
-
-Apache 2.0 license
-
 
 
 # Getting Started
 
 ### Collective Mind meta-framework
 
-Collective Mind (CM) is the second generation of the CK meta-framework
-being developed by the [open workgroup](docs/mlperf-education-workgroup.md)
+Collective Mind workflow automation meta-framework (CM) is the implementation 
+of the [CK concept](https://arxiv.org/pdf/2011.01149.pdf).
+
+CM is being developed by the community within the [open MLPerf workgroup](docs/mlperf-education-workgroup.md)
 to modularize complex AI systems and automate their co-design, benchmarking, 
 optimization and deployment across continuously changing software, hardware and data.
 
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 [![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm)
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 [![CM(CK2) test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 
 
@@ -166,8 +172,8 @@ in this and other CM workflows.
 * [Digging into image classification CM workflow](cm/docs/example-modular-image-classification.md)
 * [Understanding CM database and runtime interface](cm/docs/tutorial-concept.md)
 * [Understanding cross-platform CM scripts](cm/docs/tutorial-scripts.md)
+    * [Adding new artifacts, scripts and workflows to CM](cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
 * [Running and reproducing MLPerf inference benchmarks](docs/mlperf-cm-automation-demo.md)
-* [Adding new artifacts, scripts and workflows to CM](cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
 
 ### Documentation
 

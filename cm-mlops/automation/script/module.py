@@ -741,9 +741,20 @@ class CAutomation(Automation):
             # Check cases such as --env.CM_SKIP_COMPILE
             if type(value)==bool:
                 env[key] = str(value)
+                continue
 
             tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
-            if tmp_values == []: continue
+            if not tmp_values:
+                if key == 'CM_GIT_URL' and env.get('CM_GIT_AUTH', "no") == "yes":
+                    if 'CM_GH_TOKEN' in env and '@' not in env['CM_GIT_URL']:
+                        params = {}
+                        params["token"] = env['CM_GH_TOKEN']
+                        value = get_git_url("token", value, params)
+                    elif 'CM_GIT_SSH' in env:
+                        value = get_git_url("ssh", value)
+                    env[key] = value
+                continue
+
             for tmp_value in tmp_values:
                 if tmp_value not in env:
                     return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
@@ -811,7 +822,7 @@ class CAutomation(Automation):
                     # Check chain of prehook dependencies on other CM scripts. We consider them same as deps when
                     # script is in cache
                     r = self.call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                            remembered_selections, variation_tags_string, found_cached)
+                            remembered_selections, variation_tags_string, True)
                     if r['return']>0: return r
 
                     # Continue with the selected cached script
@@ -1072,7 +1083,7 @@ class CAutomation(Automation):
 
             # Check chain of pre hook dependencies on other CM scripts
             if len(prehook_deps)>0 and not skip_prehook_deps_in_cache:
-                r = self.call_run_deps(prehook_deps, local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                r = self.call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, recursion_spaces,
                     remembered_selections, variation_tags_string, found_cached)
                 if r['return']>0: return r
 
@@ -1231,7 +1242,7 @@ class CAutomation(Automation):
                     if enable_or_skip_script(d["skip_if_env"], env):
                         continue
 
-                if from_cache and not d.get("dynamic", False):
+                if from_cache and not d.get("dynamic", None):
                     continue
 
                 force_env_keys_deps = d.get("force_env_keys", [])
@@ -1363,7 +1374,7 @@ class CAutomation(Automation):
                     run_script_input['env'][env_path_key] = path_to_file
                     run_script_input['recursion_spaces'] = new_recursion_spaces
 
-                    rx = prepare_and_run_script_with_postprocessing(run_script_input)
+                    rx = prepare_and_run_script_with_postprocessing(run_script_input, postprocess="detect_version")
 
                     run_script_input['recursion_spaces'] = recursion_spaces
 
@@ -1888,7 +1899,7 @@ def check_version_constraints(i):
 
 
 ##############################################################################
-def prepare_and_run_script_with_postprocessing(i, postprocess=True):
+def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     """
     Internal: prepare and run script with postprocessing that can be reused for version check
     """
@@ -2009,17 +2020,40 @@ def prepare_and_run_script_with_postprocessing(i, postprocess=True):
 
             utils.merge_dicts({'dict1':env, 'dict2':updated_env, 'append_lists':True, 'append_unique':True})
  
-    if len(posthook_deps)>0:
+    if len(posthook_deps)>0 and (postprocess == "postprocess"):
         r = script_automation.call_run_deps(posthook_deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
             add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached)
         if r['return']>0: return r
 
-    if postprocess and customize_code is not None and 'postprocess' in dir(customize_code):
+    if (postprocess == "postprocess") and customize_code is not None and 'postprocess' in dir(customize_code):
         rr = run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const,
+                const_state, meta)
+    elif (postprocess == "detect_version") and customize_code is not None and 'detect_version' in dir(customize_code):
+        rr = run_detect_version(customize_code, customize_common_input, recursion_spaces, env, state, const,
                 const_state, meta)
 
     return rr
 
+def run_detect_version(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta):
+
+    if customize_code is not None and 'detect_version' in dir(customize_code):
+        import copy
+
+        print (recursion_spaces+'  - run postprocess ...')
+
+        # Update env and state with const
+        utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
+        utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
+
+        ii = copy.deepcopy(customize_common_input)
+        ii['env'] = env
+        ii['state'] = state
+        ii['meta'] = meta
+
+        r = customize_code.detect_version(ii)
+        return r
+
+    return {'return': 0}
   
 def run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta):
 
@@ -2398,6 +2432,17 @@ def check_versions(cmind, cached_script_version, version_min, version_max):
                 skip_cached_script = True
 
     return skip_cached_script
+
+##############################################################################
+def get_git_url(get_type, url, params = {}):
+    from giturlparse import parse
+    p = parse(url)
+    if get_type == "ssh":
+        return p.url2ssh
+    elif get_type == "token":
+        token = params['token']
+        return "https://" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
+    return url
 
 ##############################################################################
 # Demo to show how to use CM components independently if needed
