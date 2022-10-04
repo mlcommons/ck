@@ -92,5 +92,6 @@ def preprocess(i):
     env['CM_CMAKE_PACKAGE'] = filename
 
     env['CM_CMAKE_INSTALLED_PATH'] = path_bin
+    env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
 
     return {'return':0}

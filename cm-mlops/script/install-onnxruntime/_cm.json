@@ -22,10 +22,11 @@
   ],
   "post_deps": [
     {
-      "const": {
-        "CM_TMP_FAIL_IF_NOT_FOUND": "yes"
-      },
-      "tags": "get,onnxruntime,python-lib"
+      "tags": "get,onnxruntime,python-lib",
+      "reuse_version": true,
+      "skip_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
+      }
     }
   ],
   "tags": [

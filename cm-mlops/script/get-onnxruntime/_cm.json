@@ -22,6 +22,16 @@
   "new_env_only_keys": [
     "CM_ONNXRUNTIME_*"
   ],
+  "prehook_deps": [
+    {
+      "tags": "install,onnxruntime,python-lib",
+      "force_env_keys": [ "CM_" ],
+      "reuse_version": true,
+      "enable_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
+      }
+    }
+  ],
   "extra_cache_tags_from_env": [
     {"env":"CM_PYTHON_CACHE_TAGS", "prefix":"python-"}
   ],
