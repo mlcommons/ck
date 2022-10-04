@@ -71,6 +71,12 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
 
 - [CM toolkit](https://github.com/mlcommons/ck/tree/master/cm)
 
+
+# Load testing tools
+
+* [MLPerf loadgen](https://github.com/mlcommons/inference/tree/master/loadgen)
+* [Locust - scalable user load testing tool written in Python](https://locust.io/)
+
 # Misc tools
 
 - [rclone](https://rclone.org) - rclone is a command-line program to manage files on cloud storage. It is a feature-rich alternative to cloud vendors' web storage interfaces.
