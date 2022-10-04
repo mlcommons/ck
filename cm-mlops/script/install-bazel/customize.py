@@ -23,7 +23,6 @@ def preprocess(i):
     if 'CM_GIT_CHECKOUT' not in env:
         env['CM_GIT_CHECKOUT'] = 'releases/gcc-' + need_version
 
-    env['CM_TMP_PATH'] = os.path.join(os.getcwd(), 'install', 'bin')
-    env['CM_TMP_FAIL_IF_NOT_FOUND'] = 'yes'
+    env['CM_BAZEL_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install', 'bin')
 
     return {'return':0}

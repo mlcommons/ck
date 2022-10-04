@@ -1,7 +1,9 @@
 #!/bin/bash
+bazel_bin=${CM_BAZEL_INSTALLED_PATH}/${FILE_NAME}
+bazel_bin=${CM_BAZEL_BIN_WITH_PATH:-$bazel_bin}
 if [[ ${CM_VERSION} == "0.26.1" ]]; then
-  ${CM_BAZEL_BIN_WITH_PATH} version |grep "Build label" |sed 's/Build label:/bazel/' > tmp-ver.out
+  ${bazel_bin} version |grep "Build label" |sed 's/Build label:/bazel/' > tmp-ver.out
 else
-  ${CM_BAZEL_BIN_WITH_PATH} --version  > tmp-ver.out
+  ${bazel_bin} --version  > tmp-ver.out
 fi
 test $? -eq 0 || exit 1

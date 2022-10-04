@@ -11,6 +11,6 @@ def preprocess(i):
 
     recursion_spaces = i['recursion_spaces']
 
-    env['CM_TMP_FAIL_IF_NOT_FOUND'] = 'yes'
+    env['CM_CUDA_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install')
 
     return {'return':0}
