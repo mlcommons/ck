@@ -9,6 +9,12 @@
       "tags": "set,echo-off,win"
     }
   ],
+  "prehook_deps": [
+    {
+      "tags": "install,bazel",
+      "force_env_keys": [ "CM_" ]
+    }
+  ],
   "tags": [
     "get",
     "bazel",

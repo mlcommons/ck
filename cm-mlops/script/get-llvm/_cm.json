@@ -31,7 +31,6 @@
   "prehook_deps": [
     {
       "tags": "install,llvm,prebuilt",
-      "dynamic": true,
       "force_env_keys": [ "CM_" ]
     }
   ],

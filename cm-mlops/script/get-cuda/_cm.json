@@ -15,6 +15,12 @@
       "tags": "get,cl"
     }
   ],
+  "prehook_deps": [
+    {
+      "tags": "install,cuda,prebuilt",
+      "force_env_keys": [ "CM_" ]
+    }
+  ],
   "local_env_keys": [
     "CM_CUDA_*"
   ],

@@ -24,10 +24,10 @@ def preprocess(i):
                                        'recursion_spaces':i['recursion_spaces']})
         if r['return']>0:
             if r['return'] == 16 and os_info['platform'] != 'windows':
-                print (recursion_spaces+'    # {}'.format(r['error']))
-
-                # Attempt to run installer
-                r = {'return':0, 'skip':True, 'script':{'tags':'install,python,src'}}
+                env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+                    return {'return': 0}
+            else:
+                return r
 
         found_path = r['found_path']
 
