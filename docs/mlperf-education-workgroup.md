@@ -87,7 +87,8 @@ and do not hesitate to [join this community effort](https://forms.gle/i5gCDtBC8g
 
 ## Deliverables
 
-We use GitHub tickets to track the progress of these community developments:
+We use public meeting notes and GitHub tickets to track the progress of the community developments:
+* [Meeting notes](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
 * [All GitHub tickets](https://github.com/mlcommons/ck/issues)
 * [Current summary of on-going community developments](https://github.com/mlcommons/ck/issues/261)
 
@@ -139,24 +140,26 @@ We use GitHub tickets to track the progress of these community developments:
   to MLPerf on behalf of MLCommons.
 * Share deployable MLPerf inference containers with Pareto-efficient ML/SW/HW stacks.
 
-## Public discussions
 
-* Weekly conf-calls on Thursday at 9:00am PST (North America-friendly).
+## Conf-calls
 
-See Google Meet links and agenda [here](https://github.com/mlcommons/ck/issues/325).
+* Main weekly conf-call (general and tech) on Thursday at 11:00am PST: [Google meet link](https://meet.google.com/ize-yihq-kzu)
+* Extra tech. weekly conf-call (mostly tech) on Tuesday at 10:00am CET (Europe): [Google meet link](https://meet.google.com/gkz-hdsa-qri)
+* Extra tech. weekly conf-call (mostly tech) on Wednesday at 4:30pm CET (Europe): [Google meet link](https://meet.google.com/kws-jgjs-xcg)
 
-See our meeting notes from April 2022 [here](https://github.com/mlcommons/ck/tree/master/cm/meeting).
+Please add your topics for discussion in the [meeting notes](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
+or using this [GitHub ticket](https://github.com/mlcommons/ck/issues/325).
+
+## Meeting notes
+
+* Meeting notes: [Google doc](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
+* Older meeting notes: [GitHub](https://github.com/mlcommons/ck/tree/master/cm/meeting).
 
 ## Mailing list
 
-*We plan to move to a dedicated MLCommons mailing list. In the meantime, please use this [Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) 
- to be added to our communication or open a ticket [here](https://github.com/mlcommons/ck/issues).*
+Please use this [Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) 
+to be added to our communication or open a ticket [here](https://github.com/mlcommons/ck/issues).
 
-## Contacts
-
-### Current maintainers and moderators
-
-* [Grigori Fursin]( https://cKnowledge.io/@gfursin ) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) ([OctoML](https://octoml.ai))
 
 ## Working Group Resources
 
@@ -172,3 +175,8 @@ See our meeting notes from April 2022 [here](https://github.com/mlcommons/ck/tre
   * [Legacy CK automation for MLPerf](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation)
 
 * [Google Drive](https://drive.google.com/drive/folders/1CKewftoZ2VpBWheMCSxFG-pcIBgCu4Au?usp=sharing) (public access)
+
+## Contacts
+
+* OctoML: [Grigori Fursin]( https://cKnowledge.io/@gfursin ) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+
