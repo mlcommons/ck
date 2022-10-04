@@ -24,7 +24,7 @@
   ],
   "prehook_deps": [
     {
-      "tags": "install,onnxruntime",
+      "tags": "install,onnxruntime,python-lib",
       "force_env_keys": [ "CM_" ],
       "reuse_version": true,
       "enable_if_env": {
