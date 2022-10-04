@@ -27,11 +27,7 @@ def preprocess(i):
 
     return {'return':0}
 
-
-def postprocess(i):
-
-    env = i['env']
-
+def detect_version(i):
     r = i['automation'].parse_version({'match_text': r'\s*([\d.a-z\-]+)',
                                        'group_number': 1,
                                        'env_key':'CM_TRANSFORMERS_VERSION',
@@ -41,7 +37,17 @@ def postprocess(i):
     version = r['version']
 
     print (i['recursion_spaces'] + '      Detected version: {}'.format(version))
+    return {'return':0, 'version':version}
+
+
+def postprocess(i):
+
+    env = i['env']
+    r = detect_version(i)
+    if r['return'] >0: return r
+
+    version = r['version']
 
     env['CM_TRANSFORMERS_CACHE_TAGS'] = 'version-'+version
 
-    return {'return':0, 'version':version}
+    return {'return':0}
