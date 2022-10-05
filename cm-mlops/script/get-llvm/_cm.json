@@ -12,7 +12,7 @@
   "env": {
     "CM_TMP_REQUIRE_INSTALL": "no"
   },
-  "local_env_keys": [
+  "new_env_keys": [
     "CM_LLVM_*",
     "CM_C_COMPILER_*",
     "CM_CPP_COMPILER_*",
@@ -23,22 +23,18 @@
     "DEBUG_COMPILER_FLAGS",
     "DEBUG_LINKER_FLAGS",
     "DEFAULT_COMPILER_FLAGS",
-    "DEFAULT_LINKER_FLAGS"
-  ],
-  "new_env_only_keys": [
+    "DEFAULT_LINKER_FLAGS",
     "+PATH"
   ],
   "prehook_deps": [
     {
       "tags": "install,llvm,prebuilt",
-      "force_env_keys": [ "CM_" ],
       "reuse_version": true,
       "enable_if_env": {
         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
       }
     }
   ],
-  "new_env_only_keys_from_local_env_keys": true,
   "post_deps": [
     {
       "tags": "get,compiler-flags"

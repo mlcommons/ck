@@ -14,7 +14,7 @@
       "names": [ "python3" ]
     }
   ],
-  "new_env_only_keys": [
+  "new_env_keys": [
     "CM_MLC_INFERENCE_*",
     "+PYTHONPATH"
   ],
