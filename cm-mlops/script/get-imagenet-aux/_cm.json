@@ -19,6 +19,9 @@
     "image-classification",
     "imagenet-aux"
   ],
+  "new_env_keys": [
+    "CM_DATASET_AUX_*"
+  ],
   "uid": "bb2c6dd8c8c64217",
   "variations": {
     "2012": {
