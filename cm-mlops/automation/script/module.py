@@ -1187,7 +1187,6 @@ class CAutomation(Automation):
         if save_env:
             r = record_script(self.tmp_file_env + bat_ext, env_script, os_info)
             if r['return']>0: return r
-
         utils.merge_dicts({'dict1':saved_env, 'dict2':new_env, 'append_lists':True, 'append_unique':True})
 
         ############################# RETURN
@@ -1308,7 +1307,7 @@ class CAutomation(Automation):
           (CM input dict):
 
           paths (list): list of paths
-          file_name (str): filename to find
+          file_name (str): filename pattern to find
           (select) (bool): if True and more than 1 path found, select
           (select_default) (bool): if True, select the default one
           (recursion_spaces) (str): add space to print
@@ -1325,7 +1324,7 @@ class CAutomation(Automation):
            * return (int): return code == 0 if no error and >0 if error
            * (error) (str): error string if return>0
 
-           (found_paths) (list): paths to file when found
+           (found_files) (list): paths to files when found
 
         """
         import copy
