@@ -10,7 +10,7 @@
       "tags": "detect,os,info"
     }
   ],
-  "new_env_only_keys": [
+  "new_env_keys": [
     "CM_HOST_CPU_*"
   ],
   "tags": [
