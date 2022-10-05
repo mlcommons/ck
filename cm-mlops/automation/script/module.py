@@ -1188,9 +1188,10 @@ class CAutomation(Automation):
             r = record_script(self.tmp_file_env + bat_ext, env_script, os_info)
             if r['return']>0: return r
 
+        utils.merge_dicts({'dict1':saved_env, 'dict2':new_env, 'append_lists':True, 'append_unique':True})
 
         ############################# RETURN
-        return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
+        return {'return':0, 'env':saved_env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 
     def call_run_deps(script, deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
             add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached):
@@ -2339,7 +2340,7 @@ def detect_state_diff(env, saved_env, new_env_keys_only, state, saved_state):
     new_state = {}
 
     # Check if leave only specific keys or detect diff automatically
-    if len(new_env_keys_only)>0:
+    if len(new_env_keys_only)>0 or True:
         for k in new_env_keys_only:
             if '?' in k or '*' in k:
                 import fnmatch
