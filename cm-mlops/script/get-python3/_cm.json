@@ -15,6 +15,7 @@
   "prehook_deps": [
     {
       "tags": "install,python,src",
+      "reuse_version": true,
       "force_env_keys": [ "CM_" ],
       "enable_if_env": {
         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]

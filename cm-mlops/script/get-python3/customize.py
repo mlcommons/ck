@@ -25,11 +25,12 @@ def preprocess(i):
         if r['return']>0:
             if r['return'] == 16 and os_info['platform'] != 'windows':
                 env['CM_TMP_REQUIRE_INSTALL'] = "yes"
-                    return {'return': 0}
+                return {'return': 0}
             else:
                 return r
 
         found_path = r['found_path']
+        env['CM_PYTHON_INSTALLED_PATH'] = found_path
 
         if os_info['platform'] == 'windows':
             default_path_list = r['default_path_list']
@@ -54,8 +55,6 @@ def preprocess(i):
                 if path not in default_path and path+os.sep not in default_path:
                     env['+'+var] = [path]
 
-    env['CM_PYTHON_BIN']=file_name
-    env['CM_PYTHON_BIN_WITH_PATH']=os.path.join(found_path, file_name)
 
 
     add_extra_cache_tags = []
@@ -84,6 +83,9 @@ def postprocess(i):
     r = detect_version(i)
     if r['return'] >0: return r
     version = r['version']
+
+    env['CM_PYTHON_BIN']=env['FILE_NAME']
+    env['CM_PYTHON_BIN_WITH_PATH']=os.path.join(env['CM_PYTHON_INSTALLED_PATH'], env['FILE_NAME'])
 
     # Save tags that can be used to specialize further dependencies (such as python packages)
     tags = 'version-'+version

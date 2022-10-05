@@ -24,5 +24,6 @@ def preprocess(i):
         env['CM_GIT_CHECKOUT'] = 'releases/gcc-' + need_version
 
     env['CM_BAZEL_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install', 'bin')
+    env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
 
     return {'return':0}

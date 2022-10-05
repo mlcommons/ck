@@ -17,7 +17,10 @@ optimization and deployment across continuously changing software, hardware and 
 Apache 2.0 license
 
 
-*Go to the [project page](https://github.com/mlcommons/ck) for further info*. 
+# Links
+
+* [GitHub project page](https://github.com/mlcommons/ck)
+* [Documentation](https://github.com/mlcommons/ck/tree/master/cm/docs)
 
 
 # News
