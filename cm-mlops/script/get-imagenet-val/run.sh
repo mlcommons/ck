@@ -8,6 +8,7 @@ if [ ${CM_IMAGENET_FULL:-no} == "yes" ]; then
   echo "CM_DATASET_PATH=${IMAGENET_PATH}" > tmp-run-env.out
   exit 0
 fi
+
 test $? -eq 0 || exit 1
 
 if [ -f "ILSVRC2012_img_val_500.tar" ]; then

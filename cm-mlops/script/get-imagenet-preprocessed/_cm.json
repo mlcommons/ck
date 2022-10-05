@@ -29,6 +29,9 @@
   "env": {
     "CM_DATASET": "IMAGENET"
   },
+  "new_env_keys": {
+    "CM_DATASET_*"
+  },
   "tags": [
     "get",
     "dataset",
