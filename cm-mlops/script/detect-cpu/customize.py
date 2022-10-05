@@ -26,7 +26,7 @@ def postprocess(i):
 
     ss = r['string']
 
-    state['cpu_info_raw'] = ss
+    #state['cpu_info_raw'] = ss
 
     print ('')
     # Unifying some CPU info across different platforms

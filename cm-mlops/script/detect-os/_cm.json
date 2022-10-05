@@ -10,6 +10,11 @@
       "tags": "set,echo-off,win"
     }
   ],
+  "new_env_only_keys": [
+    "CM_HOST_OS_*",
+    "CM_HOST_PLATFORM_*",
+    "CM_HOST_PYTHON_*"
+  ],
   "tags": [
     "detect-os",
     "detect",
