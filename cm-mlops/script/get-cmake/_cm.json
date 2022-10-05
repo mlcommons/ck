@@ -11,23 +11,19 @@
     }
   ],
   "cache": true,
-  "local_env_keys": [
-    "CM_CMAKE_*"
+  "new_env_keys": [
+    "CM_CMAKE_*",
+    "+PATH"
   ],
   "prehook_deps": [
     {
       "tags": "install,cmake,prebuilt",
-      "force_env_keys": [ "CM_" ],
       "reuse_version": true,
       "enable_if_env": {
         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
       }
     }
   ],
-  "new_env_only_keys": [
-    "+PATH"
-  ],
-  "new_env_only_keys_from_local_env_keys": true,
   "tags": [
     "get",
     "cmake",

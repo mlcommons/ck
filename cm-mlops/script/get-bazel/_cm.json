@@ -12,7 +12,6 @@
   "prehook_deps": [
     {
       "tags": "install,bazel",
-      "force_env_keys": [ "CM_" ],
       "reuse_version": true,
       "enable_if_env": {
         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]

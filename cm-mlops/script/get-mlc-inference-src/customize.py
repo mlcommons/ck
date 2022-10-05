@@ -23,10 +23,9 @@ def postprocess(i):
 
     env['CM_MLC_INFERENCE_SOURCE'] = os.path.join(os.getcwd(), 'inference')
     env['CM_MLC_INFERENCE_VISION_PATH'] = os.path.join(os.getcwd(), 'inference', 'vision', 'classification_and_detection')
-    if '+PYTHONPATH' not in env:
-        env['+PYTHONPATH'] = []
-    env['+PYTHONPATH'].insert(0, os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], 'python'))
-    env['+PYTHONPATH'].insert(0, os.path.join(env['CM_MLC_INFERENCE_SOURCE'], 'tools', 'submission'))
+    env['+PYTHONPATH'] = []
+    env['+PYTHONPATH'].append(os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], 'python')
+    env['+PYTHONPATH'].append(os.path.join(env['CM_MLC_INFERENCE_SOURCE'], 'tools', 'submission')
 
     valid_models = get_valid_models(env['CM_MLC_LAST_RELEASE'], env['CM_MLC_INFERENCE_SOURCE'])
     state['CM_MLPERF_INFERENCE_MODELS'] = valid_models

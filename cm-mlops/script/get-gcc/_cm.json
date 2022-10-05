@@ -9,7 +9,7 @@
       "tags": "set,echo-off,win"
     }
   ],
-  "local_env_keys": [
+  "new_env_keys": [
     "CM_GCC_*",
     "CM_C_COMPILER_*",
     "CM_CXX_COMPILER_*",
@@ -19,12 +19,9 @@
     "DEBUG_COMPILER_FLAGS",
     "DEBUG_LINKER_FLAGS",
     "DEFAULT_COMPILER_FLAGS",
-    "DEFAULT_LINKER_FLAGS"
+    "DEFAULT_LINKER_FLAGS",
+    "+PATH"
   ],
-  "new_env_only_keys": [
-    "PATH"
-  ],
-  "new_env_only_keys_from_local_env_keys": true,
   "post_deps": [
     {
       "tags": "get,compiler-flags"

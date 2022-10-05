@@ -16,7 +16,7 @@
       "names": [ "python", "python3" ]
     }
   ],
-  "new_env_only_keys": [
+  "new_env_keys": [
     "CM_TORCH_*"
   ],
   "extra_cache_tags_from_env": [
