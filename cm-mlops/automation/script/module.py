@@ -1335,19 +1335,26 @@ class CAutomation(Automation):
         select_default = i.get('select_default', False)
         recursion_spaces = i.get('recursion_spaces','')
 
-        found_paths = []
-
+        found_files = []
+        import glob
         for path in paths:
             path_to_file = os.path.join(path, file_name)
-
-            if os.path.isfile(path_to_file):
-                if path not in found_paths:
-                    found_paths.append(path)
-
+            file_pattern_suffixes = ["", ".[0-9]", ".[0-9][0-9]", "-[0-9]", "-[0-9][0-9]", "[0-9]", "[0-9][0-9]", "[0-9].[0-9]", "[0-9][0-9].[0-9]", "[0-9][0-9].[0-9][0-9]"]
+            for suff in file_pattern_suffixes:
+                file_list = glob.glob(path_to_file + suff)
+                for file in file_list:
+                    duplicate = False
+                    for existing in found_files:
+                        if os.path.samefile(existing, file):
+                            duplicate = True
+                            break
+                    if not duplicate:
+                        found_files.append(file)
         if select:
             # Check and prune versions
             if i.get('detect_version', False):
                 found_paths_with_good_version = []
+                found_files_with_good_version = []
 
                 env = i.get('env', {})
 
@@ -1369,8 +1376,7 @@ class CAutomation(Automation):
                 new_recursion_spaces = recursion_spaces + '    '
 
 
-                for path in found_paths:
-                    path_to_file = os.path.join(path, file_name)
+                for path_to_file in found_files:
 
                     print ('')
                     print (recursion_spaces + '    * ' + path_to_file)
@@ -1399,15 +1405,15 @@ class CAutomation(Automation):
                            if ry['return']>0: return ry
 
                            if not ry['skip']:
-                               found_paths_with_good_version.append(path)
+                               found_files_with_good_version.append(path_to_file)
                            else:
                                print (recursion_spaces + '    SKIPPED due to version constraints ...')
 
-                found_paths = found_paths_with_good_version
+                found_files = found_files_with_good_version
 
             # Continue with selection
-            if len(found_paths)>1:
-                if len(found_paths) == 1 or select_default:
+            if len(found_files)>1:
+                if len(found_files) == 1 or select_default:
                     selection = 0
                 else:
                     # Select 1 and proceed
@@ -1416,8 +1422,8 @@ class CAutomation(Automation):
                     print ('')
                     num = 0
 
-                    for path in found_paths:
-                        print (recursion_spaces+'  {}) {}'.format(num, os.path.join(path, file_name)))
+                    for file in found_files:
+                        print (recursion_spaces+'  {}) {}'.format(num, file))
                         num += 1
 
                     print ('')
@@ -1432,11 +1438,11 @@ class CAutomation(Automation):
                         selection = 0
 
                 print ('')
-                print (recursion_spaces+'  Selected {}: {}'.format(selection, found_paths[selection]))
+                print (recursion_spaces+'  Selected {}: {}'.format(selection, found_files[selection]))
 
-                found_paths = [found_paths[selection]]
+                found_files = [found_files[selection]]
 
-        return {'return':0, 'found_paths':found_paths}
+        return {'return':0, 'found_files':found_files}
 
     ##############################################################################
     def detect_version_using_script(self, i):
@@ -1610,13 +1616,15 @@ class CAutomation(Automation):
 
         if r['return']>0: return r
 
-        found_paths = r['found_paths']
+        found_files = r['found_files']
 
-        if len(found_paths)==0:
+        if len(found_files)==0:
             return {'return':16, 'error':'{} not found'.format(file_name)}
 
         # Prepare env
-        found_path = found_paths[0]
+        file_path = found_files[0]
+        found_path = os.path.dirname(file_path)
+        env['FILE_NAME'] = os.path.basename(file_path)
 
         if found_path not in default_path_list:
             env_key = '+'+default_path_env_key
@@ -1626,11 +1634,10 @@ class CAutomation(Automation):
                 paths.insert(0, found_path)
                 env[env_key] = paths
 
-        full_path = os.path.join(found_path, file_name)
-        print (recursion_spaces + '    # Found object: {}'.format(full_path))
+        print (recursion_spaces + '    # Found object: {}'.format(file_path))
 
         return {'return':0, 'found_path':found_path, 
-                            'full_path':full_path,
+                            'full_path':file_path,
                             'default_path_list': default_path_list}
 
     ##############################################################################
