@@ -1574,8 +1574,9 @@ class CAutomation(Automation):
             file_name = os.path.basename(forced_file)
             path = os.path.dirname(forced_file)
 
-        default_path_list = [] if default_path_env_key == '' else \
-           os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
+        default_path_list = self.get_default_path_list(i)
+        #[] if default_path_env_key == '' else \
+        #   os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
 
         if path == '':
             path_list_tmp = default_path_list
@@ -1706,6 +1707,16 @@ class CAutomation(Automation):
         update_deps(deps, add_deps, False)
 
         return {'return':0}
+
+    ##############################################################################
+    def get_default_path_list(self, i):
+        default_path_env_key = i.get('default_path_env_key', '')
+        os_info = i['os_info']
+        default_path_list = [] if default_path_env_key == '' else \
+        os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
+
+        return default_path_list
+
 
 ##############################################################################
 def find_cached_script(i):
@@ -2440,7 +2451,7 @@ def get_git_url(get_type, url, params = {}):
         token = params['token']
         return "https://" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
     return url
-
+        
 ##############################################################################
 # Demo to show how to use CM components independently if needed
 if __name__ == "__main__":
