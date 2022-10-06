@@ -9,29 +9,24 @@ def preprocess(i):
 
     recursion_spaces = i['recursion_spaces']
 
-    file_name = 'python.exe' if os_info['platform'] == 'windows' else 'python3'
-    env['FILE_NAME'] = file_name
-    if 'CM_PYTHON_INSTALLED_PATH' in env:
-        found_path = env['CM_PYTHON_INSTALLED_PATH']
-    else:
+    if env.get('CM_PYTHON_INSTALLED_PATH','') == '':
+        file_name = 'python.exe' if os_info['platform'] == 'windows' else 'python3'
+
         r = i['automation'].find_artifact({'file_name': file_name,
-                                       'env': env,
-                                       'os_info':os_info,
-                                       'default_path_env_key': 'PATH',
-                                       'detect_version':True,
-                                       'env_path_key':'CM_PYTHON_BIN_WITH_PATH',
-                                       'run_script_input':i['run_script_input'],
-                                       'recursion_spaces':i['recursion_spaces']})
+                                           'env': env,
+                                           'os_info':os_info,
+                                           'default_path_env_key': 'PATH',
+                                           'detect_version':True,
+                                           'env_path_key':'CM_PYTHON_BIN_WITH_PATH',
+                                           'run_script_input':i['run_script_input'],
+                                           'recursion_spaces':i['recursion_spaces']})
         if r['return']>0:
             if r['return'] == 16 and os_info['platform'] != 'windows':
                 env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+                
                 return {'return': 0}
             else:
                 return r
-
-        found_path = r['found_path']
-        env['CM_PYTHON_INSTALLED_PATH'] = found_path
-
 
     return {'return':0}
 
@@ -54,9 +49,17 @@ def postprocess(i):
 
     r = detect_version(i)
     if r['return'] >0: return r
-    version = r['version']
-    found_path = env['CM_PYTHON_INSTALLED_PATH']
 
+    version = r['version']
+
+    # Depends if we come directly from install, or we use get first and then 
+    found_file_path = env['CM_PYTHON_BIN_WITH_PATH']
+
+    found_path = os.path.dirname(found_file_path)
+
+    env['CM_PYTHON_BIN'] = os.path.basename(found_file_path)
+
+    
     default_path_list = i['automation'].get_default_path_list(i)
 
     if os_info['platform'] == 'windows':
@@ -81,8 +84,6 @@ def postprocess(i):
             if path not in default_path and path+os.sep not in default_path:
                 env['+'+var] = [path]
 
-    env['CM_PYTHON_BIN']=env['FILE_NAME']
-    env['CM_PYTHON_BIN_WITH_PATH']=os.path.join(env['CM_PYTHON_INSTALLED_PATH'], env['FILE_NAME'])
 
     # Save tags that can be used to specialize further dependencies (such as python packages)
     tags = 'version-'+version
