@@ -1546,6 +1546,7 @@ class CAutomation(Automation):
            full_path (str): full path to a found artifact
            default_path_list (list): list of default paths 
 
+        
         """
 
         import copy
@@ -1556,6 +1557,8 @@ class CAutomation(Automation):
 
         env = i['env']
 
+        env_path_key = i.get('env_path_key', '')
+        
         run_script_input = i.get('run_script_input', {})
 
         # Create and work on a copy to avoid contamination
@@ -1605,7 +1608,7 @@ class CAutomation(Automation):
                                      'select': True,
                                      'select_default': select_default,
                                      'detect_version': i.get('detect_version', False),
-                                     'env_path_key': i.get('env_path_key', ''),
+                                     'env_path_key': env_path_key,
                                      'env':env_copy,
                                      'run_script_input': run_script_input,
                                      'recursion_spaces': recursion_spaces})
@@ -1622,7 +1625,7 @@ class CAutomation(Automation):
         # Prepare env
         file_path = found_files[0]
         found_path = os.path.dirname(file_path)
-        env['FILE_NAME'] = os.path.basename(file_path)
+#        env['FILE_NAME'] = os.path.basename(file_path)
 
         if found_path not in default_path_list:
             env_key = '+'+default_path_env_key
@@ -1634,8 +1637,12 @@ class CAutomation(Automation):
 
         print (recursion_spaces + '    # Found object: {}'.format(file_path))
 
+        if env_path_key != '':
+            env[env_path_key] = file_path
+
         return {'return':0, 'found_path':found_path, 
-                            'full_path':file_path,
+                            'found_file_path':file_path,
+                            'found_file_name':os.path.basename(file_path),
                             'default_path_list': default_path_list}
 
     ##############################################################################
