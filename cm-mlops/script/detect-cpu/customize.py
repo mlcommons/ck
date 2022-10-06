@@ -18,7 +18,10 @@ def postprocess(i):
     env = i['env']
 
     if not os.path.isfile(lscpu_out):
-        return {'return':1, 'error':'{} was not generated'.format(lscpu_out)}
+        print ('WARNING TBD: Add Windows support in detect-cpu ...')
+
+        return {'return':0}
+#        return {'return':1, 'error':'{} was not generated'.format(lscpu_out)}
 
     r = utils.load_txt(file_name=lscpu_out)
 
