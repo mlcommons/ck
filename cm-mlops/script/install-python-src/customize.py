@@ -33,8 +33,6 @@ def postprocess(i):
     tag_list = tags.split(",")
     if "_shared" in tag_list:
         path_lib = os.path.join(os.getcwd(), 'install', 'lib')
-        if '+LD_LIBRARY_PATH' not in env:
-            env['+LD_LIBRARY_PATH'] = []
-        env['+LD_LIBRARY_PATH'].append(path_lib)
+        env['+LD_LIBRARY_PATH'] = [ path_lib ]
     env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
     return {'return':0}

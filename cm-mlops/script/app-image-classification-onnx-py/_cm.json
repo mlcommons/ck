@@ -17,7 +17,8 @@
       "tags": "get,sys-utils-cm"
     },
     {
-      "tags": "get,python"
+      "tags": "get,python3",
+      "names": [ "python", "python3" ]
     },
     {
       "tags": "get,dataset,imagenet,image-classification,original"

@@ -21,6 +21,12 @@
     "DNNL_BUILD_EXAMPLES": "OFF",
     "DNNL_CPU_RUNTIME": "OMP"
   },
+  "new_env_keys": [
+    "CM_LIB_DNNL_*",
+    "+C_INCLUDE_PATH",
+    "+CXX_INCLUDE_PATH",
+    "+LD_LIBRARY_PATH"
+  ],
   "cache": true,
   "tags": [
     "get",

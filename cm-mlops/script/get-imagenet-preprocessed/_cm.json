@@ -29,6 +29,9 @@
   "env": {
     "CM_DATASET": "IMAGENET"
   },
+  "new_env_keys": [
+    "CM_DATASET_*"
+  ],
   "tags": [
     "get",
     "dataset",
@@ -44,19 +47,19 @@
         "CM_DATASET_SIZE": "1"
       },
       "add_deps": {
-	"original-dataset": {
-	  "tags": "_2012-1"
-	}
+        "original-dataset": {
+	      "tags": "_2012-1"
+	    }
       }
     },
     "500": {
       "env": {
         "CM_DATASET_SIZE": "500"
       },
-      "add_deps": {
-	"original-dataset": {
-	  "tags": "_2012-500"
-	}
+    "add_deps": {
+	  "original-dataset": {
+	    "tags": "_2012-500"
+	    }
       }
     },
     "full": {
@@ -64,19 +67,19 @@
         "CM_DATASET_SIZE": "50000"
       },
       "add_deps": {
-	"original-dataset": {
-	  "tags": "_full"
-	}
+	  "original-dataset": {
+	    "tags": "_full"
+	    }
       }
     },
     "NHWC": {
       "env": {
-        "ML_MODEL_DATA_LAYOUT": "NHWC"
+        "CM_ML_MODEL_DATA_LAYOUT": "NHWC"
       }
     },
     "NCHW": {
       "env": {
-        "ML_MODEL_DATA_LAYOUT": "NCHW"
+        "CM_ML_MODEL_DATA_LAYOUT": "NCHW"
       }
     }
   },

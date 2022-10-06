@@ -19,7 +19,7 @@
   "local_env_keys": [
     "CM_GIT_*"
   ],
-  "new_env_only_keys": [
+  "new_env_keys": [
     "CM_MICROTVM_*"
   ],
   "tags": [

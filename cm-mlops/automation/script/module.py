@@ -1113,14 +1113,10 @@ class CAutomation(Automation):
         utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
         utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
-        # Detect env and state diff
-        if meta.get('new_env_only_keys_from_local_env_keys', False) and len(local_env_keys_from_meta)>0:
-            new_env_keys_only_from_meta = copy.deepcopy(meta.get('new_env_only_keys', []))
-            new_env_keys_only_from_meta += local_env_keys_from_meta
-        else:
-            new_env_keys_only_from_meta = meta.get('new_env_only_keys', [])
+        new_env_keys_from_meta = meta.get('new_env_keys', [])
+        new_state_keys_from_meta = meta.get('new_state_keys', [])
 
-        r = detect_state_diff(env, saved_env, new_env_keys_only_from_meta, state, saved_state)
+        r = detect_state_diff(env, saved_env, new_env_keys_from_meta, new_state_keys_from_meta, state, saved_state)
         if r['return']>0: return r
 
         new_env = r['new_env']
@@ -1188,9 +1184,10 @@ class CAutomation(Automation):
             r = record_script(self.tmp_file_env + bat_ext, env_script, os_info)
             if r['return']>0: return r
         utils.merge_dicts({'dict1':saved_env, 'dict2':new_env, 'append_lists':True, 'append_unique':True})
+        utils.merge_dicts({'dict1':saved_state, 'dict2':new_state, 'append_lists':True, 'append_unique':True})
 
         ############################# RETURN
-        return {'return':0, 'env':saved_env, 'new_env':new_env, 'state':state, 'new_state':new_state}
+        return {'return':0, 'env':saved_env, 'new_env':new_env, 'state':saved_state, 'new_state':new_state}
 
     def call_run_deps(script, deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
             add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached):
@@ -1577,8 +1574,9 @@ class CAutomation(Automation):
             file_name = os.path.basename(forced_file)
             path = os.path.dirname(forced_file)
 
-        default_path_list = [] if default_path_env_key == '' else \
-           os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
+        default_path_list = self.get_default_path_list(i)
+        #[] if default_path_env_key == '' else \
+        #   os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
 
         if path == '':
             path_list_tmp = default_path_list
@@ -1709,6 +1707,16 @@ class CAutomation(Automation):
         update_deps(deps, add_deps, False)
 
         return {'return':0}
+
+    ##############################################################################
+    def get_default_path_list(self, i):
+        default_path_env_key = i.get('default_path_env_key', '')
+        os_info = i['os_info']
+        default_path_list = [] if default_path_env_key == '' else \
+        os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
+
+        return default_path_list
+
 
 ##############################################################################
 def find_cached_script(i):
@@ -2330,7 +2338,7 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     return {'return':0}
 
 ##############################################################################
-def detect_state_diff(env, saved_env, new_env_keys_only, state, saved_state):
+def detect_state_diff(env, saved_env, new_env_keys, new_state_keys, state, saved_state):
     """
     Internal: detect diff in env and state
     """
@@ -2339,42 +2347,23 @@ def detect_state_diff(env, saved_env, new_env_keys_only, state, saved_state):
     new_state = {}
 
     # Check if leave only specific keys or detect diff automatically
-    if len(new_env_keys_only)>0 or True:
-        for k in new_env_keys_only:
-            if '?' in k or '*' in k:
-                import fnmatch
-                for kk in env:
-                    if fnmatch.fnmatch(kk, k):
-                        new_env[kk] = env[kk]
-            elif k in env:
-                new_env[k] = env[k]
-    else:
-        # Env is flat so no recursion
-        for k in env:
-            if k.startswith('CM_TMP_'):
-                continue
+    for k in new_env_keys:
+        if '?' in k or '*' in k:
+            import fnmatch
+            for kk in env:
+                if fnmatch.fnmatch(kk, k):
+                    new_env[kk] = env[kk]
+        elif k in env:
+            new_env[k] = env[k]
 
-            v = env[k]
-
-            if k not in saved_env or v != saved_env[k]:
-               new_env[k] = v
-            elif type(v) == list:
-               if v not in saved_env[k]:
-                   diff_list = [e for e in v if e not in saved_env[k]]
-                   if len(diff_list)>0:
-                       new_env[k] = diff_list
-
-    # Temporal solution for state - need to add recursion
-    for k in state:
-        v = state[k]
-
-        if k not in saved_state or v != saved_state[k]:
-           new_state[k] = v
-        elif type(v) == list:
-           if v not in saved_state[k]:
-               diff_list = [e for e in v if e not in saved_state[k]]
-               if len(diff_list)>0:
-                   new_state[k] = diff_list
+    for k in new_state_keys:
+        if '?' in k or '*' in k:
+            import fnmatch
+            for kk in state:
+                if fnmatch.fnmatch(kk, k):
+                    new_state[kk] = state[kk]
+        elif k in state:
+            new_state[k] = state[k]
 
     return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 
@@ -2462,7 +2451,7 @@ def get_git_url(get_type, url, params = {}):
         token = params['token']
         return "https://" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
     return url
-
+        
 ##############################################################################
 # Demo to show how to use CM components independently if needed
 if __name__ == "__main__":

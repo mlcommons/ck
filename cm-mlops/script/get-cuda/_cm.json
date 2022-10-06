@@ -18,20 +18,16 @@
   "prehook_deps": [
     {
       "tags": "install,cuda,prebuilt",
-      "force_env_keys": [ "CM_" ],
       "reuse_version": true,
       "enable_if_env": {
         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
       }
     }
   ],
-  "local_env_keys": [
-    "CM_CUDA_*"
-  ],
-  "new_env_only_keys": [
+  "new_env_keys": [
+    "CM_CUDA_*",
     "+PATH"
   ],
-  "new_env_only_keys_from_local_env_keys": true,
   "tags": [
     "get",
     "cuda",
