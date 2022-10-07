@@ -46,6 +46,8 @@ def preprocess(i):
                                    {'extra_cache_tags':','.join(add_python_extra_cache_tags)}}})
     if r['return']>0: return r
 
+    env['CM_PYTHON_INSTALLED_PATH'] = env['CM_VIRTUAL_ENV_SCRIPTS_PATH']
+
     return {'return':0, 'add_extra_cache_tags':add_extra_cache_tags}
 
 def postprocess(i):
@@ -69,11 +71,13 @@ def postprocess(i):
     script_prefix.append(s)
     state['script_prefix'] = script_prefix
 
-    # clean PYTHON env from the first deps (get-python)
-    # otherwise not considered as new
+    env['CM_PYTHON_BIN_WITH_PATH'] = os.path.join(env['CM_PYTHON_INSTALLED_PATH'], 'python3')
 
-    for k in list(env.keys()):
-        if k.startswith('CM_PYTHON_'):
-            del(env[k])
+#    # clean PYTHON env from the first deps (get-python)
+#    # otherwise not considered as new
+#
+#    for k in list(env.keys()):
+#        if k.startswith('CM_PYTHON_'):
+#            del(env[k])
 
     return {'return':0}
