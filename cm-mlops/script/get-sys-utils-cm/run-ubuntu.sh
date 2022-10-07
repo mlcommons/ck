@@ -31,6 +31,7 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            tree \
            gcc \
            g++ \
+           tar \
            autoconf \
            autogen \
            libtool \

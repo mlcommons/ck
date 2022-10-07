@@ -1,3 +1,6 @@
+* 20221007:
+ * added script template (used when adding new scripts)
+
 * 20220916:
  * treat alias as tags if spaces: 
    cm run script "get compiler" is converted to cm run script --tags=get,compiler

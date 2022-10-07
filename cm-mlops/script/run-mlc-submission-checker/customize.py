@@ -10,8 +10,7 @@ def preprocess(i):
     env = i['env']
     submission_dir = env.get("CM_MLC_SUBMISSION_DIR", "")
     if submission_dir == "":
-        print("Please set CM_MLC_SUBMISSION_DIR")
-        return {'return': -1}
+        return {'return': 1, 'error': 'Please set CM_MLC_SUBMISSION_DIR'}
     submitter = env.get("CM_MLC_SUBMITTER", "default")
     if 'CM_MLC_SKIP_COMPLIANCE' in env: 
         skip_compliance = " --skip_compliance"

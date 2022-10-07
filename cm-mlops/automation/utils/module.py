@@ -218,7 +218,11 @@ class CAutomation(Automation):
                 size_string = download.headers.get('Content-Length')
 
                 if size_string is None:
-                    return {'return':1, 'error':'did not receive file'}
+                    transfer_encoding = download.headers.get('Transfer-Encoding', '')
+                    if transfer_encoding != 'chunked':
+                        return {'return':1, 'error':'did not receive file'}
+                    else:
+                        size_string = "0"
 
                 size = int(size_string)
 
@@ -227,7 +231,8 @@ class CAutomation(Automation):
 
                         if chunk:
                             output.write(chunk)
-
+                        if size == 0:
+                            continue
                         downloaded+=1
                         percent = downloaded * chunk_size * 100 / size
 
@@ -238,6 +243,9 @@ class CAutomation(Automation):
             return {'return':1, 'error':format(e)}
 
         print ('')
+        if size == 0:
+            file_stats=os.stat(path_to_file)
+            size = file_stats.st_size
 
         return {'return': 0, 'filename':file_name, 'path': path_to_file, 'size':size}
 
