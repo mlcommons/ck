@@ -71,13 +71,9 @@ def postprocess(i):
     script_prefix.append(s)
     state['script_prefix'] = script_prefix
 
-    env['CM_PYTHON_BIN_WITH_PATH'] = os.path.join(env['CM_PYTHON_INSTALLED_PATH'], 'python3')
-
-#    # clean PYTHON env from the first deps (get-python)
-#    # otherwise not considered as new
-#
-#    for k in list(env.keys()):
-#        if k.startswith('CM_PYTHON_'):
-#            del(env[k])
+    python_name = 'python.exe' if os_info['platform'] == 'windows' else 'python3'
+    
+    # Will be passed to get-python to finalize registering of the new python
+    env['CM_PYTHON_BIN_WITH_PATH'] = os.path.join(env['CM_PYTHON_INSTALLED_PATH'], python_name)
 
     return {'return':0}
