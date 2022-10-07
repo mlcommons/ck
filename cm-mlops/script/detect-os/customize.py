@@ -43,7 +43,7 @@ def postprocess(i):
             for _dir in dirs:
                 if _dir != '' and  _dir not in lib_dir:
                     lib_dir.append(_dir)
-            env['+CM_HOST_OS_DEFAULT_LIBRARY_DIR'] = ":".join(lib_dir)
+            env['+CM_HOST_OS_DEFAULT_LIBRARY_PATH'] = ":".join(lib_dir)
             sys_cmd = "cpp -v /dev/null -o /dev/null 2>&1"
             result = subprocess.check_output(sys_cmd, shell=True).decode("utf-8")
             start = False
@@ -58,7 +58,7 @@ def postprocess(i):
                     break
                 if 'gcc' not in out:
                     inc_dir.append(out.strip())
-            env['+CM_HOST_OS_DEFAULT_INCLUDE_DIR'] = ":".join(inc_dir)
+            env['+CM_HOST_OS_DEFAULT_INCLUDE_PATH'] = ":".join(inc_dir)
         r = utils.load_txt(file_name='tmp-run.out',
                            check_if_exists = True,
                            split = True)
