@@ -1,5 +1,6 @@
 * 20221007:
  * added script template (used when adding new scripts)
+ * major clean up of all scripts
 
 * 20220916:
  * treat alias as tags if spaces: 

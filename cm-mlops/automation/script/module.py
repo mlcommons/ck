@@ -1693,10 +1693,9 @@ class CAutomation(Automation):
         if len(found_files)==0:
             return {'return':16, 'error':'{} not found'.format(file_name)}
 
-        # Prepare env
+        # Finalize output
         file_path = found_files[0]
         found_path = os.path.dirname(file_path)
-#        env['FILE_NAME'] = os.path.basename(file_path)
 
         if found_path not in default_path_list:
             env_key = '+'+default_path_env_key
@@ -1706,7 +1705,8 @@ class CAutomation(Automation):
                 paths.insert(0, found_path)
                 env[env_key] = paths
 
-        print (recursion_spaces + '    # Found object: {}'.format(file_path))
+        print ()
+        print (recursion_spaces + '    # Found artifact in {}'.format(file_path))
 
         if env_path_key != '':
             env[env_path_key] = file_path
