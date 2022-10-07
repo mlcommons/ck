@@ -1697,13 +1697,13 @@ class CAutomation(Automation):
         file_path = found_files[0]
         found_path = os.path.dirname(file_path)
 
-#        if found_path not in default_path_list:
-#            env_key = '+'+default_path_env_key
-#
-#            paths = env.get(env_key, [])
-#            if found_path not in paths:
-#                paths.insert(0, found_path)
-#                env[env_key] = paths
+        if found_path not in default_path_list:
+            env_key = '+'+default_path_env_key
+
+            paths = env.get(env_key, [])
+            if found_path not in paths:
+                paths.insert(0, found_path)
+                env[env_key] = paths
 
         print ()
         print (recursion_spaces + '    # Found artifact in {}'.format(file_path))

@@ -18,10 +18,10 @@ def preprocess(i):
         file_name = 'python.exe' if os_info['platform'] == 'windows' else 'python3'
 
         r = i['automation'].find_artifact({'file_name': file_name,
+                                           'default_path_env_key': 'PATH',
                                            'env': env,
                                            'os_info':os_info,
                                            # this key defines env key with paths where to find an artifact
-                                           'default_path_env_key': 'PATH',
                                            'detect_version':True,
                                            # the next key is used in run.sh to detect python version
                                            'env_path_key':'CM_PYTHON_BIN_WITH_PATH',
@@ -74,7 +74,7 @@ def postprocess(i):
     # Check if need to add path, include and lib to env
     # (if not in default paths)
     found_path_root = os.path.dirname(found_path)
-    for x in [{'path': found_path, 'var':'PATH'},
+    for x in [
               {'path': os.path.join(found_path_root, 'lib'), 'var':'LD_LIBRARY_PATH'},
               {'path': os.path.join(found_path_root, 'include'), 'var':'C_INCLUDE_PATH'}]:
         path = x['path']
