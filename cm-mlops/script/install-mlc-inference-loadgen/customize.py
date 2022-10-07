@@ -15,11 +15,11 @@ def postprocess(i):
     env = i['env']
     env['+PYTHONPATH']=[]
     env['+C_INCLUDE_PATH']=[]
-    env['+CXX_INCLUDE_PATH']=[]
+    env['+CPLUS_INCLUDE_PATH']=[]
     env['+LD_LIBRARY_PATH']=[]
     env['+DYLD_FALLBACK_LIBRARY_PATH']=[]
     env['+C_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
-    env['+CXX_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
+    env['+CPLUS_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
     env['+LD_LIBRARY_PATH'].append(os.path.join(os.getcwd(), 'install', 'lib'))
     env['+DYLD_FALLBACK_LIBRARY_PATH'].append(os.path.join(os.getcwd(), 'install', 'lib'))
     env['+PYTHONPATH'].append(os.path.join(os.getcwd(), 'install', 'python'))
