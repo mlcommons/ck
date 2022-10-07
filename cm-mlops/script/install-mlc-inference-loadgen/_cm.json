@@ -55,13 +55,6 @@
     "mlcommons"
   ],
   "uid": "64c3d98d0ba04950",
-  "variations": {
-    "shared": {
-      "env": {
-        "CM_SHARED_BUILD": "yes"
-      }
-    }
-  },
   "versions": {
     "master": {
       "add_deps": {
