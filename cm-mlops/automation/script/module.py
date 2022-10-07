@@ -1708,8 +1708,8 @@ class CAutomation(Automation):
         print ()
         print (recursion_spaces + '    # Found artifact in {}'.format(file_path))
 
-#        if env_path_key != '':
-#            env[env_path_key] = file_path
+        if env_path_key != '':
+            env[env_path_key] = file_path
 
         return {'return':0, 'found_path':found_path, 
                             'found_file_path':file_path,
