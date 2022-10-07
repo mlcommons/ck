@@ -1631,6 +1631,7 @@ class CAutomation(Automation):
         env_path_key = i.get('env_path_key', '')
 
         run_script_input = i.get('run_script_input', {})
+        extra_paths = i.get('extra_paths', {})
 
         # Create and work on a copy to avoid contamination
         env_copy = copy.deepcopy(env)
@@ -1704,7 +1705,12 @@ class CAutomation(Automation):
             if found_path not in paths:
                 paths.insert(0, found_path)
                 env[env_key] = paths
-
+            for extra_path in extra_paths:
+                epath = os.path.normpath(os.path.join(found_path, "..", extra_path))
+                if os.path.exists(epath):
+                    if extra_paths[extra_path] not in env:
+                        env[extra_paths[extra_path]] = []
+                    env[extra_paths[extra_path]].append(epath)
         print ()
         print (recursion_spaces + '    # Found artifact in {}'.format(file_path))
 
