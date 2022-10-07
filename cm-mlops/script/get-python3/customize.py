@@ -9,7 +9,7 @@ def preprocess(i):
 
     recursion_spaces = i['recursion_spaces']
 
-    if env.get('CM_PYTHON_INSTALLED_PATH','') == '':
+    if 'CM_PYTHON_BIN_WITH_PATH' not in env:
         file_name = 'python.exe' if os_info['platform'] == 'windows' else 'python3'
 
         r = i['automation'].find_artifact({'file_name': file_name,
@@ -52,7 +52,6 @@ def postprocess(i):
 
     version = r['version']
 
-    # Depends if we come directly from install, or we use get first and then 
     found_file_path = env['CM_PYTHON_BIN_WITH_PATH']
 
     found_path = os.path.dirname(found_file_path)

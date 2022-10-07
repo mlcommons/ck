@@ -12,6 +12,7 @@ def preprocess(i):
     recursion_spaces = i['recursion_spaces']
 
     need_version = env.get('CM_VERSION','')
+    clang_file_name = "clang"
     if need_version == '':
         return {'return':1, 'error':'internal problem - CM_VERSION is not defined in env'}
 
@@ -28,6 +29,7 @@ def preprocess(i):
 
     elif os_info['platform'] == 'windows':
         package_name = 'LLVM-' + need_version + '-win' + host_os_bits + '.exe'
+        clang_file_name = "clang.exe"
 
         print('')
         print('WARNING: Please copy the following path and then paste it')
@@ -108,6 +110,7 @@ def preprocess(i):
     env['CM_LLVM_PACKAGE'] = filename
 
     env['CM_LLVM_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'bin')
+    env['CM_LLVM_CLANG_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'bin', clang_file_name)
     env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] = os.getcwd()
 
     return {'return':0}

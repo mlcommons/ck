@@ -19,10 +19,11 @@ def preprocess(i):
         return {'return':1, 'error':'internal problem - CM_VERSION is not defined in env'}
 
     print (recursion_spaces + '    # Requested version: {}'.format(need_version))
-
+    clang_file_name = "clang"
     env['CM_GIT_CHECKOUT'] = 'llvmorg-' + need_version
 
     env['CM_LLVM_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install', 'bin')
-    env['CM_TMP_FAIL_IF_NOT_FOUND'] = 'yes'
+    env['CM_LLVM_CLANG_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'bin', clang_file_name)
+    env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] = os.getcwd()
 
     return {'return':0}
