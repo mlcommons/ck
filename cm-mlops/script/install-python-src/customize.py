@@ -31,9 +31,8 @@ def postprocess(i):
     env = i['env']
     variation_tags = i['variation_tags']
 
-    if "shared" in variation_tags:
-        path_lib = os.path.join(os.getcwd(), 'install', 'lib')
-        env['+LD_LIBRARY_PATH'] = [ path_lib ]
+    path_lib = os.path.join(os.getcwd(), 'install', 'lib')
+    env['+LD_LIBRARY_PATH'] = [ path_lib ]
 
     env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
 
@@ -41,5 +40,7 @@ def postprocess(i):
 
     # We don't need to check default paths here because we force install to cache
     env['+PATH'] = [env['CM_PYTHON_INSTALLED_PATH']]
+    path_include = os.path.join(os.getcwd(), 'install', 'include')
+    env['+C_INCLUDE_PATH'] = [ path_include ]
 
     return {'return':0}
