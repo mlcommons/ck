@@ -1,9 +1,9 @@
-# Get GCC
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) detects the installed gcc on the system.
+# Get LLVM
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) detects the installed llvm on the system and if not found calls the [install script for llvm](../script/install-llvm-prebuilt).
 
 ## Exported Variables
-* `CM_GCC_BIN`
-* `CM_GCC_BIN_WITH_PATH` 
+* `CM_LLVM_CLANG_BIN`
+* `CM_LLVM_CLANG_BIN_WITH_PATH` 
 * `CM_C_COMPILER_BIN`
 * `CM_C_COMPILER_WITH_PATH`
 * `CM_CXX_COMPILER_BIN`

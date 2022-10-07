@@ -15,6 +15,12 @@
   "env": {
   },
   "post_deps": [
+    {
+      "tags": "get,openssl",
+      "skip_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
+      }
+    }
   ],
   "tags": [
     "install",

@@ -14,7 +14,7 @@ Full set of tags for the script can be seen [here](https://github.com/mlcommons/
 and the full set of dependencies can be seen [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/_cm.json#L5).
 `CM_HW_NAME` is used to pick the runtime configuration value of the system as spefified for a given SUT [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sut-mlc-configs)
  
-We can control run other variants using the following commands
+We can run other variants using the following commands
 
 ### Important options
 1. `--mode`. Valid values: {performance, accuracy}
