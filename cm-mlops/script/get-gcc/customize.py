@@ -32,14 +32,6 @@ def preprocess(i):
 
             return r
 
-    # G: changed next line to handle cases like gcc-8
-    # found_path = r['found_path']
-    full_path = r['full_path']
-
-    found_path = os.path.dirname(full_path)
-    env['FILE_NAME_C'] = os.path.basename(full_path)
-    env['FILE_NAME_CPP'] = env['FILE_NAME_C'].replace('gcc','g++')
-    env['CM_GCC_INSTALLED_PATH'] = found_path
     return {'return':0}
 
 def detect_version(i):
@@ -69,6 +61,8 @@ def postprocess(i):
     found_path = env['CM_GCC_INSTALLED_PATH']
 
     file_name_c = env['FILE_NAME_C']
+    # G: changed next line to handle cases like gcc-8
+    env['FILE_NAME_CPP'] = env['FILE_NAME_C'].replace('gcc','g++')
     file_name_cpp = env['FILE_NAME_CPP']
 
     env['CM_GCC_BIN']=file_name_c
