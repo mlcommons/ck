@@ -144,6 +144,76 @@ class CAutomation(Automation):
         return {'return':0, 'list': lst}
 
     ############################################################
+    def add(self, i):
+        """
+        Add CM script
+
+        Args:
+          (CM input dict): 
+
+          (out) (str): if 'con', output to console
+
+          parsed_artifact (list): prepared in CM CLI or CM access function
+                                    [ (artifact alias, artifact UID) ] or
+                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+          (tags) (str): tags to find an CM script (CM artifact)
+
+          ...
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        import shutil
+
+        console = i.get('out') == 'con'
+
+        parsed_artifact = i.get('parsed_artifact',[])
+
+        artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
+
+        # Move tags from input to meta of the newly created script artifact
+        tags_list = utils.convert_tags_to_list(i)
+        if 'tags' in i: del(i['tags'])
+
+        # Add placeholder (use common action)
+        i['out']='con'
+        i['common']=True # Avoid recursion - use internal CM add function to add the script artifact
+
+        i['meta']={'automation_alias':self.meta['alias'],
+                   'automation_uid':self.meta['uid'],
+                   'tags':tags_list}
+
+        r_obj=self.cmind.access(i)
+        if r_obj['return']>0: return r_obj
+
+        new_script_path = r_obj['path']
+
+        if console:
+            print ('Created script in {}'.format(new_script_path))
+
+        # Copy support files
+        template_path = os.path.join(self.path, 'template')
+
+        # Copy module files
+        for f in ['README.md', 'customize.py', 'run.bat', 'run.sh']:
+            f1 = os.path.join(template_path, f)
+            f2 = os.path.join(new_script_path, f)
+
+            if console:
+                print ('  * Copying {} to {}'.format(f1, f2))
+
+            shutil.copyfile(f1,f2)
+
+        return r_obj
+
+
+    ############################################################
     def run(self, i):
         """
         Run CM script
@@ -1546,7 +1616,6 @@ class CAutomation(Automation):
            full_path (str): full path to a found artifact
            default_path_list (list): list of default paths 
 
-        
         """
 
         import copy
@@ -1558,7 +1627,7 @@ class CAutomation(Automation):
         env = i['env']
 
         env_path_key = i.get('env_path_key', '')
-        
+
         run_script_input = i.get('run_script_input', {})
 
         # Create and work on a copy to avoid contamination
@@ -2458,7 +2527,8 @@ def get_git_url(get_type, url, params = {}):
         token = params['token']
         return "https://" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
     return url
-        
+
+
 ##############################################################################
 # Demo to show how to use CM components independently if needed
 if __name__ == "__main__":
