@@ -31,8 +31,13 @@ def postprocess(i):
     env = i['env']
     tags = inp['tags']
     tag_list = tags.split(",")
+
     if "_shared" in tag_list:
         path_lib = os.path.join(os.getcwd(), 'install', 'lib')
         env['+LD_LIBRARY_PATH'] = [ path_lib ]
+
     env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
+
+    env['CM_PYTHON_BIN_WITH_PATH'] = os.path.join(env['CM_PYTHON_INSTALLED_PATH'], 'python3')
+
     return {'return':0}
