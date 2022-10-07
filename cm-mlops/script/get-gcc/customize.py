@@ -10,8 +10,7 @@ def preprocess(i):
     recursion_spaces = i['recursion_spaces']
 
     file_name_c = 'gcc.exe' if os_info['platform'] == 'windows' else 'gcc'
-    file_name_cpp = 'g++.exe' if os_info['platform'] == 'windows' else 'g++'
-    if 'CM_GCC_INSTALLED_PATH' not in env:
+    if 'CM_GCC_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name_c,
                                        'env': env,
                                        'os_info':os_info,
