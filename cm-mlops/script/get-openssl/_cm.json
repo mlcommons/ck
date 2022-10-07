@@ -17,6 +17,9 @@
   "env": {
     "CM_TMP_REQUIRE_INSTALL": "no"
   },
+  "new_env_keys": [
+    "CM_OPENSSL_*"
+  ],
   "prehook_deps": [
     {
       "tags": "install,openssl",

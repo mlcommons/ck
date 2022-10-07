@@ -46,6 +46,10 @@ def postprocess(i):
     r = detect_version(i)
     if r['return'] >0: return r
     version = r['version']
+    found_file_path = env['CM_OPENSSL_BIN_WITH_PATH']
+
+    found_path = os.path.dirname(found_file_path)
+    env['CM_OPENSSL_INSTALLED_PATH'] = found_path
 
     # Save tags that can be used to specialize further dependencies (such as python packages)
     tags = 'version-'+version
