@@ -12,6 +12,7 @@
   ],
   "new_env_keys": [
     "CM_HOST_OS_*",
+    "+CM_HOST_OS_*",
     "CM_HOST_PLATFORM_*",
     "CM_HOST_PYTHON_*"
   ],

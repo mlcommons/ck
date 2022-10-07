@@ -40,6 +40,6 @@ def postprocess(i):
     env['CM_PYTHON_BIN_WITH_PATH'] = os.path.join(env['CM_PYTHON_INSTALLED_PATH'], 'python3')
 
     # We don't need to check default paths here because we force install to cache
-    env['+PATH'] = env['CM_PYTHON_INSTALLED_PATH']
+    env['+PATH'] = [env['CM_PYTHON_INSTALLED_PATH']]
 
     return {'return':0}

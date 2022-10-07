@@ -15,7 +15,7 @@ def preprocess(i):
 
     CPATH = env.get('+CPATH', [ ])
     env['CM_C_INCLUDE_PATH'] = " -I".join([" "] + env.get('+C_INCLUDE_PATH', []) + CPATH)
-    env['CM_CXX_INCLUDE_PATH'] = " -I".join([" "] + env.get('+CXX_INCLUDE_PATH', []) + CPATH)
+    env['CM_CPLUS_INCLUDE_PATH'] = " -I".join([" "] + env.get('+CPLUS_INCLUDE_PATH', []) + CPATH)
     env['CM_F_INCLUDE_PATH'] = " -I".join([" "] + env.get('+F_INCLUDE_PATH', []) + CPATH)
     
     LDFLAGS = env.get('+ LDFLAGS', [])
