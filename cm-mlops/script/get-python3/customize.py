@@ -16,6 +16,7 @@ def preprocess(i):
 
     if 'CM_PYTHON_BIN_WITH_PATH' not in env:
         file_name = 'python.exe' if os_info['platform'] == 'windows' else 'python3'
+        extra_paths = {"include" : "+C_INCLUDE_PATH", "lib" : "+LD_LIBRARY_PATH"}
 
         r = i['automation'].find_artifact({'file_name': file_name,
                                            'default_path_env_key': 'PATH',
@@ -26,7 +27,9 @@ def preprocess(i):
                                            # the next key is used in run.sh to detect python version
                                            'env_path_key':'CM_PYTHON_BIN_WITH_PATH',
                                            'run_script_input':i['run_script_input'],
-                                           'recursion_spaces':i['recursion_spaces']})
+                                           'recursion_spaces':i['recursion_spaces'],
+                                           'extra_paths': extra_paths
+                                           })
         if r['return']>0:
             if r['return'] == 16 and os_info['platform'] != 'windows':
                 # If artifact is not found and we are not on windows
@@ -86,34 +89,20 @@ def postprocess(i):
     # Check if need to add path, include and lib to env
     # (if not in default paths)
     default_path_list = i['automation'].get_default_path_list(i)
+    found_path_root = os.path.dirname(found_path)
 
     if os_info['platform'] == 'windows':
         # If not in virtual
         # Add extra dir to path on Windows
         if os_info['platform'] == 'windows':
 
-            extra_path = os.path.join(found_path, 'Scripts')
+            extra_path = os.path.join(os.path.dirname(found_path), 'Scripts')
 
             if extra_path not in default_path_list and extra_path+os.sep not in default_path_list:
                 paths = env.get('+PATH',[])
                 if extra_path not in paths:
                     paths.append(extra_path)
                     env['+PATH']=paths
-
-    else:
-        default_path_list = i['automation'].get_default_path_list(i)
-
-        found_path_root = os.path.dirname(found_path)
-        for x in [
-                  {'path': os.path.join(found_path_root, 'lib'), 'var':'LD_LIBRARY_PATH'},
-                  {'path': os.path.join(found_path_root, 'include'), 'var':'C_INCLUDE_PATH'}]:
-            path = x['path']
-            var = x['var']
-
-            if os.path.isdir(path):
-                default_path = os.environ.get(var, '').split(os_info['env_separator'])
-                if path not in default_path and path+os.sep not in default_path:
-                    env['+'+var] = [path]
 
     if from_virtual:
         # Clean PATH with original Python if from virtual
