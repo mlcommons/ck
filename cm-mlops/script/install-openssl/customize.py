@@ -20,11 +20,6 @@ def preprocess(i):
 
     print (recursion_spaces + '    # Requested version: {}'.format(need_version))
 
-    path_bin = os.path.join(os.getcwd(), 'install', 'bin')
-
-    env['CM_TMP_PATH'] = path_bin
-    env['CM_TMP_FAIL_IF_NOT_FOUND'] = 'yes'
-
     return {'return':0}
 
 def postprocess(i):
@@ -37,4 +32,8 @@ def postprocess(i):
         if '+LD_LIBRARY_PATH' not in env:
             env['+LD_LIBRARY_PATH'] = []
         env['+LD_LIBRARY_PATH'].append(path_lib)
+    bin_name = "openssl"
+    path_bin = os.path.join(os.getcwd(), 'install', 'bin')
+    env['CM_OPENSSL_INSTALLED_PATH'] = path_bin
+    env['CM_OPENSSL_BIN_WITH_PATH'] = os.path.join(path_bin, bin_name)
     return {'return':0}
