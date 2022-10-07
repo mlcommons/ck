@@ -23,6 +23,7 @@ ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
            make mesa-libGL \
            patch python3 python3-pip python3-devel \
            rsync \
+           tar \
            unzip \
            vim \
            wget which \

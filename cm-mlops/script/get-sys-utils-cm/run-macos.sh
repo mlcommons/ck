@@ -30,6 +30,7 @@ brew update && \
            openssl \
            readline \
            sqlite3 \
+           tar \
            xz \
            zlib \
            python3
