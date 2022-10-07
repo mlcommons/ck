@@ -16,9 +16,9 @@ def preprocess(i):
         if file.endswith(".c") or file.endswith(".cpp"):
             source_files.append(file)
     env['CM_CXX_SOURCE_FILES'] = ";".join(source_files)
-    if '+CXX_INCLUDE_PATH' not in env:
-        env['+CXX_INCLUDE_PATH']  = []
-    env['+CXX_INCLUDE_PATH'].append(os.path.join(script_path, "inc")) 
+    if '+CPLUS_INCLUDE_PATH' not in env:
+        env['+CPLUS_INCLUDE_PATH']  = []
+    env['+CPLUS_INCLUDE_PATH'].append(os.path.join(script_path, "inc")) 
     env['+C_INCLUDE_PATH'].append(os.path.join(script_path, "inc"))
     if '+ CXXFLAGS' not in env:
         env['+ CXXFLAGS'] = []
