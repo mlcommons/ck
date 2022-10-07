@@ -57,20 +57,23 @@ def postprocess(i):
     env['CM_COMPILER_VERSION'] = env['CM_GCC_VERSION']
     env['CM_GCC_CACHE_TAGS'] = 'version-'+version
     env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version+',family-gcc'
-    
-    found_path = env['CM_GCC_INSTALLED_PATH']
 
-    file_name_c = env['FILE_NAME_C']
+    found_file_path = env['CM_GCC_BIN_WITH_PATH']
+
+    found_path = os.path.dirname(found_file_path)
+    
+    env['CM_GCC_INSTALLED_PATH'] = found_path
+
+    file_name_c = os.path.basename(found_file_path)
     # G: changed next line to handle cases like gcc-8
-    env['FILE_NAME_CPP'] = env['FILE_NAME_C'].replace('gcc','g++')
-    file_name_cpp = env['FILE_NAME_CPP']
+    file_name_cpp = env['FILE_NAME_C'].replace('gcc','g++')
+    env['FILE_NAME_CPP'] = file_name_cpp
 
     env['CM_GCC_BIN']=file_name_c
-    env['CM_GCC_BIN_WITH_PATH']=os.path.join(found_path, file_name_c)
 
     # General compiler for general program compilation
     env['CM_C_COMPILER_BIN']=file_name_c
-    env['CM_C_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_c)
+    env['CM_C_COMPILER_WITH_PATH']=found_file_path
 
     env['CM_CXX_COMPILER_BIN']=file_name_cpp
     env['CM_CXX_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_cpp)
