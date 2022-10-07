@@ -1056,7 +1056,9 @@ class CAutomation(Automation):
                    'artifact':script_artifact,
                    'customize':script_artifact.meta.get('customize',{}),
                    'os_info':os_info,
-                   'recursion_spaces':recursion_spaces
+                   'recursion_spaces':recursion_spaces,
+                   'script_tags':script_tags,
+                   'variation_tags':variation_tags
                 }
 
                 run_script_input['customize_code'] = customize_code
@@ -2157,7 +2159,7 @@ def run_detect_version(customize_code, customize_common_input, recursion_spaces,
         return r
 
     return {'return': 0}
-  
+
 def run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta):
 
     if customize_code is not None and 'postprocess' in dir(customize_code):

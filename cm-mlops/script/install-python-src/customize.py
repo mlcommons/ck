@@ -27,12 +27,11 @@ def preprocess(i):
     return {'return':0}
 
 def postprocess(i):
-    inp = i['input']
-    env = i['env']
-    tags = inp['tags']
-    tag_list = tags.split(",")
 
-    if "_shared" in tag_list:
+    env = i['env']
+    variation_tags = i['variation_tags']
+
+    if "shared" in variation_tags:
         path_lib = os.path.join(os.getcwd(), 'install', 'lib')
         env['+LD_LIBRARY_PATH'] = [ path_lib ]
 
