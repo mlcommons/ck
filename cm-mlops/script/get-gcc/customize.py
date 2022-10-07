@@ -66,7 +66,7 @@ def postprocess(i):
 
     file_name_c = os.path.basename(found_file_path)
     # G: changed next line to handle cases like gcc-8
-    file_name_cpp = env['FILE_NAME_C'].replace('gcc','g++')
+    file_name_cpp = file_name_c.replace('gcc','g++')
     env['FILE_NAME_CPP'] = file_name_cpp
 
     env['CM_GCC_BIN']=file_name_c
