@@ -15,7 +15,7 @@
   "env": {
     "CM_DATASET": "IMAGENET"
   },
-  "new_env_only_keys": [
+  "new_env_keys": [
     "CM_DATASET_*"
   ],
   "tags": [

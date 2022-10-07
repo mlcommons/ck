@@ -9,25 +9,21 @@
       "tags": "set,echo-off,win"
     }
   ],
-  "local_env_keys": [
-    "CM_PYTHON_*"
+  "new_env_keys": [
+    "CM_PYTHON_*",
+    "+LD_LIBRARY_PATH",
+    "+C_INCLUDE_PATH",
+    "+PATH"
   ],
   "prehook_deps": [
     {
       "tags": "install,python,src",
       "reuse_version": true,
-      "force_env_keys": [ "CM_" ],
       "enable_if_env": {
         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
       }
     }
   ],
-  "new_env_only_keys": [
-    "+LD_LIBRARY_PATH",
-    "+C_INCLUDE_PATH",
-    "+PATH"
-  ],
-  "new_env_only_keys_from_local_env_keys": true,
   "extra_cache_tags_from_env": [
     {"env":"CM_PYTHON_INSTALL_CACHE_TAGS", "prefix":"python-"}
   ],

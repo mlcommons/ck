@@ -7,6 +7,9 @@
   "env": {
     "CM_ML_MODEL": "RESNEXT50"
   },
+  "new_env_keys": [
+    "CM_ML_MODEL_*"
+  ],
   "tags": [
     "get",
     "ml-model",

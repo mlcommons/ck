@@ -15,7 +15,7 @@
       "tags": "get,python"
     }
   ],
-  "new_env_only_keys": [
+  "new_env_keys": [
     "CM_TRANSFORMERS_*"
   ],
   "extra_cache_tags_from_env": [

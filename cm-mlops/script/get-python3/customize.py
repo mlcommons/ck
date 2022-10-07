@@ -32,37 +32,8 @@ def preprocess(i):
         found_path = r['found_path']
         env['CM_PYTHON_INSTALLED_PATH'] = found_path
 
-        if os_info['platform'] == 'windows':
-            default_path_list = r['default_path_list']
 
-            extra_path = os.path.join(os.path.dirname(found_path), 'Scripts')
-
-            if extra_path not in default_path_list and extra_path+os.sep not in default_path_list:
-                paths = env.get('+PATH',[])
-                if extra_path not in paths:
-                    paths.append(extra_path)
-                    env['+PATH']=paths
-
-        # Check if include and lib:
-        found_path_root = os.path.dirname(found_path)
-        for x in [{'path': os.path.join(found_path_root, 'lib'), 'var':'LD_LIBRARY_PATH'},
-                  {'path': os.path.join(found_path_root, 'include'), 'var':'C_INCLUDE_PATH'}]:
-            path = x['path']
-            var = x['var']
-
-            if os.path.isdir(path):
-                default_path = os.environ.get(var, '').split(os_info['env_separator'])
-                if path not in default_path and path+os.sep not in default_path:
-                    env['+'+var] = [path]
-
-
-
-    add_extra_cache_tags = []
-
-    if 'virtual' not in env.get('CM_EXTRA_CACHE_TAGS','').split(','):
-        add_extra_cache_tags.append('non-virtual')
-
-    return {'return':0, 'add_extra_cache_tags': add_extra_cache_tags}
+    return {'return':0}
 
 def detect_version(i):
     r = i['automation'].parse_version({'match_text': r'Python\s*([\d.]+)',
@@ -79,10 +50,36 @@ def detect_version(i):
 def postprocess(i):
 
     env = i['env']
+    os_info = i['os_info']
 
     r = detect_version(i)
     if r['return'] >0: return r
     version = r['version']
+    found_path = env['CM_PYTHON_INSTALLED_PATH']
+
+    default_path_list = i['automation'].get_default_path_list(i)
+
+    if os_info['platform'] == 'windows':
+
+        extra_path = os.path.join(os.path.dirname(found_path), 'Scripts')
+
+        if extra_path not in default_path_list and extra_path+os.sep not in default_path_list:
+            paths = env.get('+PATH',[])
+            if extra_path not in paths:
+                paths.append(extra_path)
+                env['+PATH']=paths
+
+    # Check if include and lib:
+    found_path_root = os.path.dirname(found_path)
+    for x in [{'path': os.path.join(found_path_root, 'lib'), 'var':'LD_LIBRARY_PATH'},
+                {'path': os.path.join(found_path_root, 'include'), 'var':'C_INCLUDE_PATH'}]:
+        path = x['path']
+        var = x['var']
+
+        if os.path.isdir(path):
+            default_path = os.environ.get(var, '').split(os_info['env_separator'])
+            if path not in default_path and path+os.sep not in default_path:
+                env['+'+var] = [path]
 
     env['CM_PYTHON_BIN']=env['FILE_NAME']
     env['CM_PYTHON_BIN_WITH_PATH']=os.path.join(env['CM_PYTHON_INSTALLED_PATH'], env['FILE_NAME'])

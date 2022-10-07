@@ -13,7 +13,7 @@
     "CM_GIT_PATCH": "no",
     "CM_GIT_URL": "https://github.com/ARM-software/CMSIS_5.git"
   },
-  "new_env_only_keys": [
+  "new_env_keys": [
     "CMSIS*"
   ],
   "tags": [

@@ -124,7 +124,7 @@ public:
   const int num_classes = 1000;
   const bool normalize_img = getenv_s("CK_ENV_TENSORFLOW_MODEL_NORMALIZE_DATA") == "YES";
   const bool subtract_mean = getenv_s("CK_ENV_TENSORFLOW_MODEL_SUBTRACT_MEAN") == "YES";
-  const char *given_channel_means_str = getenv("ML_MODEL_GIVEN_CHANNEL_MEANS");
+  const char *given_channel_means_str = getenv("CM_ML_MODEL_GIVEN_CHANNEL_MEANS");
 
   const bool full_report = getenv_i("CK_SILENT_MODE") == 0;
 

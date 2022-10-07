@@ -17,6 +17,10 @@
     "CM_SHARED_BUILD": "no",
     "CM_ENABLE_SSL": "no"
   },
+  "new_env_keys": [
+    "CM_PYTHON_INSTALLED_PATH",
+    "+LD_LIBRARY_PATH"
+  ],
   "post_deps": [
     {
       "tags": "get,python",

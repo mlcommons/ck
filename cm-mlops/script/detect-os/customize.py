@@ -14,7 +14,7 @@ def preprocess(i):
     env['CM_HOST_PYTHON_BITS'] = os_info['python_bits']
 
     # Update state (demo)
-    state['os_info'] = os_info
+    # state['os_info'] = os_info
 
     return {'return':0}
 
