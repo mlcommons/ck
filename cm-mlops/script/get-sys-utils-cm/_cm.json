@@ -3,6 +3,9 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
+  "new_env_keys": [
+    "+PATH"
+  ],
   "deps": [
     {
       "tags": "set,echo-off,win"

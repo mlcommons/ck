@@ -2458,7 +2458,14 @@ def select_script_artifact(lst, text, recursion_spaces, can_skip):
     num = 0
 
     for a in lst:
-        print (recursion_spaces+'      {}) {} ({})'.format(num, a.path, ','.join(a.meta['tags'])))
+        meta = a.meta
+        x = recursion_spaces+'      {}) {} ({})'.format(num, a.path, ','.join(meta['tags']))
+
+        version = meta.get('version','')
+        if version!='':
+            x+=' (Version {})'.format(version)
+        
+        print (x)
         num+=1
 
     print ('')
