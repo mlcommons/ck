@@ -5,10 +5,7 @@
   "cache": true,
   "clean_files": [],
   "new_env_keys": [
-    "CM_VIRTUAL_ENV_*",
-    "+LD_LIBRARY_PATH",
-    "+C_INCLUDE_PATH",
-    "+PATH"
+    "CM_VIRTUAL_ENV_*"
   ],
   "new_state_keys": [
     "script_prefix"

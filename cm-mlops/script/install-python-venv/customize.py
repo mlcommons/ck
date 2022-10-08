@@ -72,7 +72,7 @@ def postprocess(i):
     state['script_prefix'] = script_prefix
 
     python_name = 'python.exe' if os_info['platform'] == 'windows' else 'python3'
-    
+
     # Will be passed to get-python to finalize registering of the new python
     env['CM_PYTHON_BIN_WITH_PATH'] = os.path.join(env['CM_PYTHON_INSTALLED_PATH'], python_name)
 
