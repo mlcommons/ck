@@ -1,5 +1,5 @@
 {
-  "alias": "get-squad-dataset",
+  "alias": "get-dataset-squad",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
@@ -31,16 +31,16 @@
   "versions": {
     "1.1": {
       "env": {
-        "CM_WGET_URL": "https://data.deepai.org/squad1.1.zip",
         "CM_TRAIN_FILENAME": "train-v1.1.json",
-        "CM_VAL_FILENAME": "dev-v1.1.json"
+        "CM_VAL_FILENAME": "dev-v1.1.json",
+        "CM_WGET_URL": "https://data.deepai.org/squad1.1.zip"
       }
     },
     "2.0": {
       "env": {
-        "CM_WGET_URL": "https://data.deepai.org/squad2.0.zip",
         "CM_TRAIN_FILENAME": "train-v2.0.json",
-        "CM_VAL_FILENAME": "dev-v2.0.json"
+        "CM_VAL_FILENAME": "dev-v2.0.json",
+        "CM_WGET_URL": "https://data.deepai.org/squad2.0.zip"
       }
     }
   }
