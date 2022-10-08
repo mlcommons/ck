@@ -1,5 +1,5 @@
 {
-  "alias": "install-transformers",
+  "alias": "install-python-lib-tokenization",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
@@ -15,24 +15,29 @@
       "tags": "get,python"
     },
     {
-      "tags": "get,tensorflow,python-lib"
+      "tags": "get,tokenization,python-lib"
     }
   ],
   "extra_cache_tags_from_env": [
-    {"env":"CM_PYTHON_CACHE_TAGS", "prefix":"python-"}
+    {
+      "env": "CM_PYTHON_CACHE_TAGS",
+      "prefix": "python-"
+    }
   ],
   "post_deps": [
     {
-      "tags": "get,transformers,python-lib",
       "skip_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-      }
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "tags": "get,tokenization,python-lib"
     }
   ],
   "tags": [
     "install",
-    "transformers",
+    "tokenization",
     "python-lib"
   ],
-  "uid": "775caf3f84614fb4"
+  "uid": "5c8e1ba005ef4beb"
 }

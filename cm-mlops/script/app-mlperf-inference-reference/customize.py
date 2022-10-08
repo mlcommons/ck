@@ -71,7 +71,6 @@ def preprocess(i):
     env['DATA_DIR'] = env['CM_DATASET_PATH']
     env['MODEL_DIR'] = env['CM_ML_MODEL_PATH']
 
-    env['RUN_DIR'] = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "vision", "classification_and_detection")
     RUN_CMD = ""
     state['RUN'] = {}
     test_list = ["TEST01", "TEST04", "TEST05"]
@@ -88,8 +87,9 @@ def preprocess(i):
     if scenario == "MultiStream":
         if int(env['CM_NUM_THREADS']) > 8:
             NUM_THREADS = "8"
-    scenario_extra_options +=  " --threads " + NUM_THREADS
 
+    if "bert" not in env['CM_MODEL']:
+        scenario_extra_options +=  " --threads " + NUM_THREADS
     conf = i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']][scenario]
     user_conf = ''
     if ['CM_RUN_STYLE'] == "fast":
@@ -164,11 +164,10 @@ def preprocess(i):
 
         audit_full_path = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "compliance", audit_path, "audit.config")
         mode_extra_options = " --audit '" + audit_full_path + "'"
-
-    cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + OUTPUT_DIR + "' ./run_local.sh " + env['CM_BACKEND'] + ' ' + \
-    env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + scenario + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + \
-    scenario_extra_options + mode_extra_options + dataset_options
+    env['CM_MLC_OUTPUT_DIR'] = OUTPUT_DIR
+    
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
+        cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options)
         RUN_CMD = cmd
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
@@ -183,11 +182,25 @@ def preprocess(i):
         print("Measure files exist, skipping regeneration...\n")
         env['CM_MLC_USER_CONF'] = ''
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    env['CM_MLC_OUTPUT_DIR'] = OUTPUT_DIR
     env['CM_MLC_RUN_CMD'] = RUN_CMD
 
     return {'return':0}
-
+def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options):
+    if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
+        env['RUN_DIR'] = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "vision", "classification_and_detection")
+        cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLC_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_BACKEND'] + ' ' + \
+            env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + env['CM_LOADGEN_SCENARIO'] + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + \
+            scenario_extra_options + mode_extra_options + dataset_options
+    elif "bert" in env['CM_MODEL']:
+        env['RUN_DIR'] = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "language", "bert")
+        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_BACKEND'] + " --scenario="+env['CM_LOADGEN_SCENARIO'] + \
+            scenario_extra_options + mode_extra_options + dataset_options
+        cmd = cmd.replace("--count", "--max_examples")
+        env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
+        env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH'] 
+        env['DATASET_FILE'] = env['CM_DATASET_SQUAD_VAL_PATH']
+        env['SKIP_VERIFY_ACCURACY'] = True
+    return cmd
 def run_files_exist(mode, OUTPUT_DIR, run_files):
     file_loc = {"accuracy": 0, "performance": 1, "power": 2, "performance_power": 3, "measure": 4}
     for file in run_files[file_loc[mode]]:
@@ -254,11 +267,11 @@ def postprocess(i):
     mode = env['CM_LOADGEN_MODE']
     if mode in [ "performance", "accuracy" ]:
         measurements = {}
-        measurements['starting_weights_filename'] = env.get('CM_STARTING_WEIGHTS_FILENAME', 'none')
+        measurements['starting_weights_filename'] = env.get('CM_ML_MODEL_STARTING_WEIGHTS_FILENAME', 'none')
         measurements['retraining'] = env.get('MODEL_RETRAINING','')
-        measurements['input_data_types'] = env.get('MODEL_INPUT_DATA_TYPES', 'fp32')
-        measurements['weight_data_types'] = env.get('MODEL_WEIGHT_DATA_TYPES', 'fp32')
-        measurements['weight_transformations'] = env.get('MODEL_WEIGHT_TRANSFORMATIONS', 'none')
+        measurements['input_data_types'] = env.get('CM_ML_MODEL_INPUT_DATA_TYPES', 'fp32')
+        measurements['weight_data_types'] = env.get('CM_ML_MODEL_WEIGHT_DATA_TYPES', 'fp32')
+        measurements['weight_transformations'] = env.get('CM_ML_MODEL_WEIGHT_TRANSFORMATIONS', 'none')
         os.chdir(output_dir)
         if not os.path.exists("mlperf_log_summary.txt"):
             return {'return': 0}
