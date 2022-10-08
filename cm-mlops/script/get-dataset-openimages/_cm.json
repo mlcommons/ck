@@ -1,8 +1,9 @@
 {
-  "alias": "get-openimages-original",
+  "alias": "get-dataset-openimages",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
+  "default_variation": "validation",
   "deps": [
     {
       "tags": "set,echo-off,win"
@@ -11,8 +12,10 @@
       "tags": "get,sys-utils-cm"
     },
     {
-      "tags": "mlperf,inference,source",
-      "names": [ "inference-src" ]
+      "names": [
+        "inference-src"
+      ],
+      "tags": "mlperf,inference,source"
     }
   ],
   "env": {
@@ -27,7 +30,6 @@
     "original"
   ],
   "uid": "0a9d49b644cf4142",
-  "default_variation": "validation",
   "variations": {
     "calibration": {
       "env": {

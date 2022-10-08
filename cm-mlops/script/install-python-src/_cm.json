@@ -19,7 +19,9 @@
   },
   "new_env_keys": [
     "CM_PYTHON_INSTALLED_PATH",
-    "+LD_LIBRARY_PATH"
+    "+PATH",
+    "+LD_LIBRARY_PATH",
+    "+C_INCLUDE_PATH"
   ],
   "post_deps": [
     {
