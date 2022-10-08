@@ -199,6 +199,7 @@ def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options
         env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
         env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH'] 
         env['DATASET_FILE'] = env['CM_DATASET_SQUAD_VAL_PATH']
+        env['LOG_PATH'] = env['CM_MLC_OUTPUT_DIR']
         env['SKIP_VERIFY_ACCURACY'] = True
     return cmd
 def run_files_exist(mode, OUTPUT_DIR, run_files):

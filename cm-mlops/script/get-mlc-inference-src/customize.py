@@ -23,7 +23,7 @@ def postprocess(i):
 
     env['CM_MLC_INFERENCE_SOURCE'] = os.path.join(os.getcwd(), 'inference')
     env['CM_MLC_INFERENCE_VISION_PATH'] = os.path.join(os.getcwd(), 'inference', 'vision', 'classification_and_detection')
-    env['CM_MLC_INFERENCE_BERT_PATH'] = os.path.join(os.getcwd(), 'inference', 'vision', 'bert')
+    env['CM_MLC_INFERENCE_BERT_PATH'] = os.path.join(os.getcwd(), 'inference', 'language', 'bert')
     env['CM_MLC_INFERENCE_RNNT_PATH'] = os.path.join(os.getcwd(), 'inference', 'speech_recognition', 'rnnt')
     env['CM_MLC_INFERENCE_DLRM_PATH'] = os.path.join(os.getcwd(), 'inference', 'recommendation', 'dlrm')
     env['+PYTHONPATH'] = []
