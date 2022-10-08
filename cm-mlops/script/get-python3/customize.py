@@ -91,22 +91,19 @@ def postprocess(i):
     default_path_list = i['automation'].get_default_path_list(i)
     found_path_root = os.path.dirname(found_path)
 
-    if os_info['platform'] == 'windows':
-        # If not in virtual
-        # Add extra dir to path on Windows
-        if os_info['platform'] == 'windows':
-
-            extra_path = os.path.join(os.path.dirname(found_path), 'Scripts')
-
-            if extra_path not in default_path_list and extra_path+os.sep not in default_path_list:
-                paths = env.get('+PATH',[])
-                if extra_path not in paths:
-                    paths.append(extra_path)
-                    env['+PATH']=paths
-
     if from_virtual:
         # Clean PATH with original Python if from virtual
-        if '+PATH' in env: del(env['+PATH'])
+        if '+PATH' in env: 
+            del(env['+PATH'])
+
+    elif os_info['platform'] == 'windows':
+        extra_path = os.path.join(found_path, 'Scripts')
+
+        if extra_path not in default_path_list and extra_path+os.sep not in default_path_list:
+            paths = env.get('+PATH',[])
+            if extra_path not in paths:
+                paths.append(extra_path)
+                env['+PATH']=paths
 
 
     return {'return':0}

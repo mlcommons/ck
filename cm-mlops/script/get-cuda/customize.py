@@ -11,7 +11,7 @@ def preprocess(i):
 
     file_name = 'nvcc.exe' if os_info['platform'] == 'windows' else 'nvcc'
 
-    if 'CM_CUDA_INSTALLED_PATH' not in env:
+    if 'CM_NVCC_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name,
                                        'env': env,
                                        'os_info':os_info,

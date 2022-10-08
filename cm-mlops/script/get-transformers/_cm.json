@@ -12,11 +12,21 @@
       "tags": "detect-cpu"
     },
     {
-      "tags": "get,python"
+      "tags": "get,python3",
+      "names": [ "python", "python3" ]
     }
   ],
   "new_env_keys": [
     "CM_TRANSFORMERS_*"
+  ],
+  "prehook_deps": [
+    {
+      "tags": "install,python-lib,transformers",
+      "reuse_version": true,
+      "enable_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
+      }
+    }
   ],
   "extra_cache_tags_from_env": [
     {"env":"CM_PYTHON_CACHE_TAGS", "prefix":"python-"}

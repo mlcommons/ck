@@ -1,0 +1,53 @@
+{
+  "alias": "install-python-lib",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "clean_files": [],
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "detect-cpu"
+    },
+    {
+      "tags": "get,python"
+    }
+  ],
+  "extra_cache_tags_from_env": [
+    {
+      "env": "CM_PYTHON_CACHE_TAGS",
+      "prefix": "python-"
+    }
+  ],
+  "post_deps": [
+    {
+      "skip_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "names": [ "get-python-lib" ],
+      "tags": "get,python-lib,generic"
+    }
+  ],
+  "tags": [
+    "install",
+    "generic",
+    "python-lib"
+  ],
+  "uid": "f4f502b7b5d545c8",
+  "variations": {
+    "onnxruntime": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "onnxruntime"
+      },
+      "adr": {
+        "get-python-lib": {
+          "tags": "_onnxruntime"
+        }
+      }
+    }
+  }
+}

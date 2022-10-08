@@ -1,5 +1,19 @@
 # Detect or install python
 
+## New ENV
+
+* CM_PYTHON_BIN
+* CM_PYTHON_BIN_WITH_PATH
+* CM_PYTHON_VERSION
+* CM_PYTHON_CACHE_TAGS
+
+* PATH
+* LD_LIBRARY_PATH
+* C_INCLUDE_PATH
+
+## New state
+
+
 # CLI
 
 ## Default
@@ -47,3 +61,7 @@ cm run script "get python" --new
 ```bash
 cm run script "print python hello-world"
 ```
+
+## Reproducibility matrix
+
+*Test detection and installation on different platforms*

@@ -25,7 +25,7 @@ def preprocess(i):
 def detect_version(i):
     r = i['automation'].parse_version({'match_text': r'\s*([\d.a-z\-]+)',
                                        'group_number': 1,
-                                       'env_key':'CM_TRANSFORMERS_VERSION',
+                                       'env_key':'CM_TOKENIZATION_VERSION',
                                        'which_env':i['env']})
     if r['return'] >0: return r
 
@@ -43,6 +43,6 @@ def postprocess(i):
 
     version = r['version']
 
-    env['CM_TRANSFORMERS_CACHE_TAGS'] = 'version-'+version
+    env['CM_TOKENIZATION_CACHE_TAGS'] = 'version-'+version
 
     return {'return':0}
