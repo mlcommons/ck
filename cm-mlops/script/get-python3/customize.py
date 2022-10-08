@@ -80,7 +80,7 @@ def postprocess(i):
 
     # Check if called from virtual env installer
     from_virtual = True if 'virtual' in extra_tags.split(',') else False
-    
+
     if not from_virtual:
         tags += ',non-virtual'
 
@@ -92,9 +92,12 @@ def postprocess(i):
     found_path_root = os.path.dirname(found_path)
 
     if from_virtual:
-        # Clean PATH with original Python if from virtual
-        if '+PATH' in env: 
-            del(env['+PATH'])
+        # Clean PATH and other vars with original Python if from virtual
+        # since we use . activate to set these ...
+        # If we need them, we can add them later explicitly ...
+        for k in ['+PATH', '+LD_LIBRARY_PATH', '+C_INCLUDE_PATH']:
+            if k in env:
+                del(env[k])
 
     elif os_info['platform'] == 'windows':
         extra_path = os.path.join(found_path, 'Scripts')
