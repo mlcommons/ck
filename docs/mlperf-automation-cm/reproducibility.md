@@ -12,7 +12,7 @@ Here we keep track of CM automation and reproducibility for all reference MLPerf
 
 Reproducibility setup | Image classification | Object detection | Medical imaging | Language | Recommendation | Speech |
 --- | --- | --- | --- | --- | --- | --- |
-x8664; Ubuntu 22.04, Python 3.9, ONNX 1.11.1 | &#10003; [report](reproducibility-report--image-classification--f28ae623c84049dd.md) | | | | | |
+x8664; Ubuntu `[20.04,22.04]`, Python `[3.8,3.9]`, ONNX 1.11.1 | &#10003; [report](reproducibility-report--image-classification--f28ae623c84049dd.md) | | | | | |
 x8664; Ubuntu 22.04, Python 3.9, PyTorch | &#10060; [report](reproducibility-report--image-classification--0ff2cc95fc1a4f19.md) | | | | | |
 
 
