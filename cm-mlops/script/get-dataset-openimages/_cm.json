@@ -21,6 +21,10 @@
   "env": {
     "CM_DATASET": "OPENIMAGES"
   },
+  "new_env_keys": [
+    "CM_DATASET_PATH",
+    "CM_CALIBRATION_DATASET_PATH"
+  ],
   "tags": [
     "get",
     "dataset",
