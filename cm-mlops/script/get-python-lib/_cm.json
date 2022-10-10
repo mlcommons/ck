@@ -37,7 +37,7 @@
       },
       "names": [ "python-lib-install" ],
       "reuse_version": true,
-      "tags": "install,python-lib"
+      "tags": "install,python-lib,generic"
     }
   ],
   "tags": [

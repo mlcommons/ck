@@ -8,9 +8,7 @@
     {
       "tags": "get,python3",
       "names": [ "python3", "python" ],
-      "version_min": "3.7.0",
-      "version_max_usable": "3.9.12",
-      "version_max": "3.9.999"
+      "version_min": "3.7.0"
     },
     {
       "tags": "set,echo-off,win"

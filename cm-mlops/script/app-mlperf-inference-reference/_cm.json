@@ -40,7 +40,7 @@
           "tvm-onnx"
         ]
       },
-      "tags": "get,onnxruntime,python-lib"
+      "tags": "get,_onnxruntime,python-lib,generic"
     },
     {
       "enable_if_env": {

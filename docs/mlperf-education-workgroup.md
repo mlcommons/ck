@@ -8,7 +8,7 @@
 
 ## Mission
 
-* Help anyone to run, customize and reproduce MLPerf benchmarks across rapidly evolving software, hardware and data. 
+* Help anyone to run, reproduce, customize and optimize MLPerf benchmarks across rapidly evolving software, hardware and data. 
 * Develop an automated open-source workflow to make it easier to plug any real-world ML & AI tasks, models, data sets, software and hardware into the MLPerf benchmarking infrastructure.
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 * Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
