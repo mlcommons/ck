@@ -931,7 +931,6 @@ class CAutomation(Automation):
                     utils.merge_dicts({'dict1':new_state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
                     found_cached = True
-
                     # Check chain of posthook dependencies on other CM scripts. We consider them same as postdeps when
                     # script is in cache
                     clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
