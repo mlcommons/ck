@@ -60,7 +60,7 @@ def postprocess(i):
     found_file_path = env['CM_GCC_BIN_WITH_PATH']
 
     found_path = os.path.dirname(found_file_path)
-    
+
     env['CM_GCC_INSTALLED_PATH'] = found_path
 
     file_name_c = os.path.basename(found_file_path)

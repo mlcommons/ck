@@ -22,7 +22,6 @@ echo "Checking compiler version ..."
 echo ""
 
 ${CM_C_COMPILER_WITH_PATH} --version
-
 echo ""
 echo "Compiling source files ..."
 echo ""

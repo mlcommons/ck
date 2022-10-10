@@ -8,12 +8,12 @@
 
 ## Mission
 
+* Help anyone to run, customize and reproduce MLPerf benchmarks across rapidly evolving software, hardware and data. 
 * Develop an automated open-source workflow to make it easier to plug any real-world ML & AI tasks, models, data sets, software and hardware into the MLPerf benchmarking infrastructure.
-* Use this workflow to help the newcomers learn how to customize and run MLPerf benchmarks across rapidly evolving software, hardware and data. 
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 * Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
-* Help end-users visualize all MLPerf results, reproduce them and deploy the most suitable ML/SW/HW stacks in production.
-* Support reproducibility initiatives at ML and Systems conferences using rigorous MLPerf methodology and our educational toolkit.
+* Help end-users of ML Systems visualize all MLPerf results, reproduce them and deploy the most suitable ML/SW/HW stacks in production.
+* Support reproducibility initiatives and artifact evaluation at ML and Systems conferences using rigorous MLPerf methodology and our educational toolkit.
 
 ## Purpose
 
@@ -63,7 +63,7 @@ from Qualcomm, HPE, Dell, Lenovo, dividiti, Krai, the cTuning foundation and Oct
 For example, it was used and extended by [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
 with several other engineers to automate the record-breaking MLPerf inference benchmark submission for Qualcomm AI 100 devices.
 
-The goal ot this WG is to help users automate all the steps to prepare and run MLPerf benchmarks
+The goal of this group is to help users automate all the steps to prepare and run MLPerf benchmarks
 across any ML models, data sets, frameworks, compilers and hardware.
 
 Here is an example of current manual and error-prone MLPerf benchmark preparation steps:

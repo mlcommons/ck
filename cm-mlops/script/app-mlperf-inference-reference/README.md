@@ -17,13 +17,16 @@ and the full set of dependencies can be seen [here](https://github.com/mlcommons
 We can run other variants using the following commands
 
 ### Important options
-1. `--mode`. Valid values: {performance, accuracy}
-2. `--scenario`. Valid values: {Offline, Server, SingleStream, MultiStream}
-3. `--hw_name`. Valid value - any system description which has a config file (under same name) defined [here](https://github.com/arjunsuresh/ck/tree/master/cm-mlops/script/get-sutCM_LOADGEN_MAX_BATCHSIZE-mlc-configs/configs)
-4. `--imagenet_path`. Location of directory containing Imagenet which cannot be downloaded from a public URL
-5. `--output_dir`. Location where the outputs are produced.
-6. `--num_threads` - Number of CPU threads to launch the application with
-7. `--max_batchsize` - Maximum batchsize to be used
+* `--mode`. Valid values: {performance, accuracy}
+* `--scenario`. Valid values: {Offline, Server, SingleStream, MultiStream}
+* `--hw_name`. Valid value - any system description which has a config file (under same name) defined [here](https://github.com/arjunsuresh/ck/tree/master/cm-mlops/script/get-sutCM_LOADGEN_MAX_BATCHSIZE-mlc-configs/configs)
+* `--imagenet_path`. Location of directory containing Imagenet which cannot be downloaded from a public URL
+* `--output_dir`. Location where the outputs are produced.
+* `--num_threads` - Number of CPU threads to launch the application with
+* `--max_batchsize` - Maximum batchsize to be used
+* `--rerun` - Redo the run even if previous run files exist
+* `--regenerate_files` - Regenerates measurement files including accuracy.txt files even if a previous run exists. This option is redundant if `--rerun` is used
+* `--test_query_count` - Specifies the number of samples to be processed during a test run
 
 Full set of options and how they are being used can be seen [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/customize.py#L6)
 

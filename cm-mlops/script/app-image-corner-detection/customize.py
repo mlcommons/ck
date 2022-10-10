@@ -19,11 +19,11 @@ def preprocess(i):
     env['CM_RUN_SUFFIX']= env['CM_INPUT'] + ' ' + env['CM_OUTPUT'] + ' '
 
     env['+ LDCFLAGS'] = ["-lm"]
-    
+
     return {'return':0}
 
 def postprocess(i):
-    
+
     env = i['env']
     print(env['CM_OUTPUT'] + " generated in " + env['CM_RUN_DIR'])
 

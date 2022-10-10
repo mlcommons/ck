@@ -27,6 +27,11 @@ def preprocess(i):
     env['+ FFLAGS'] += DEFAULT_COMPILER_FLAGS.split(" ")
     env['+ LDFLAGS'] += DEFAULT_LINKER_FLAGS.split(" ")
 
+    env['+ CFLAGS'] = list(set(env['+ CFLAGS']))
+    env['+ CXXFLAGS'] = list(set(env['+ CFLAGS']))
+    env['+ FFLAGS'] = list(set(env['+ CFLAGS']))
+    env['+ LDFLAGS'] = list(set(env['+ CFLAGS']))
+
     if env['CM_C_COMPILER_BIN'] == 'icc':
         if env['CM_CPUINFO_Vendor_ID'] == 'GenuineIntel':
             if int(env['CM_CPUINFO_CPU_family']) >= 0:
