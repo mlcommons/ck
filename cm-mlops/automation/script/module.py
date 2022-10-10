@@ -262,6 +262,7 @@ class CAutomation(Automation):
           (dirty) (bool): if True, do not clean files
 
           (save_env) (bool): if True, save env and state to tmp-env.sh/bat and tmp-state.json
+          (shell) (bool): if True, save env with cmd/bash and run it
 
           (recursion) (bool): True if recursive call.
                               Useful when preparing the global bat file or Docker container
@@ -1267,9 +1268,25 @@ class CAutomation(Automation):
             clean_tmp_files(clean_files, recursion_spaces)
 
         # Record new env and new state in the current dir if needed
-        if save_env:
-            r = record_script(self.tmp_file_env + bat_ext, env_script, os_info)
+        shell = i.get('shell', False)
+        if save_env or shell:
+            if shell:
+                x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
+
+                env_script.append('\n')
+                env_script.append('echo "Running debug shell. Type exit to quit ..."\n')
+                env_script.append('\n')
+                env_script.append(x)
+
+            env_file = self.tmp_file_env + bat_ext
+
+            r = record_script(env_file, env_script, os_info)
             if r['return']>0: return r
+
+            if shell:
+                x = env_file if os_info['platform'] == 'windows' else '. ./'+env_file
+                os.system(x)
+
         utils.merge_dicts({'dict1':saved_env, 'dict2':new_env, 'append_lists':True, 'append_unique':True})
         utils.merge_dicts({'dict1':saved_state, 'dict2':new_state, 'append_lists':True, 'append_unique':True})
 
