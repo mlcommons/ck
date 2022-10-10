@@ -1278,9 +1278,10 @@ class CAutomation(Automation):
                 for x in reversed(script_prefix):
                      env_script.insert(0, x)
 
-            x = os_info['start_script']
-            if len(x)>0:
-                env_script.insert(0, x)
+            ss = os_info['start_script']
+            if len(ss)>0:
+                for x in reversed(ss):
+                    env_script.insert(0, x)
 
             if shell:
                 x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
