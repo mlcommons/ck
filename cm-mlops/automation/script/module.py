@@ -275,8 +275,10 @@ class CAutomation(Automation):
 
           (fake_run) (bool): if True, will run the dependent scripts but will skip the main run script
 
-          (debug_script_tags) (bool): if True, run cmd/bash before executing a native command 
+          (debug_script_tags) (str): if !='', run cmd/bash before executing a native command 
                                       inside a script specified by these tags
+
+          (debug_script) (bool): if True, debug current script (set debug_script_tags to the tags of a current script)
 
           ...
 
@@ -548,6 +550,9 @@ class CAutomation(Automation):
         found_script_artifact = utils.assemble_cm_object(meta['alias'], meta['uid'])
 
         found_script_tags = meta.get('tags',[])
+
+        if i.get('debug_script', False):
+            debug_script_tags=','.join(found_script_tags)
 
         print (recursion_spaces+'  - Found script::{} in {}'.format(found_script_artifact, path))
 
