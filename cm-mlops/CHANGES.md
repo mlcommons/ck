@@ -1,3 +1,6 @@
+* 20221010:
+ * added cm run script --debug-script-tags to run cmd/bash before native script
+
 * 20221007:
  * added script template (used when adding new scripts)
  * major clean up of all scripts
