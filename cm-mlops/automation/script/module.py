@@ -465,7 +465,8 @@ class CAutomation(Automation):
         r = self.search(ii)
         if r['return']>0: return r
 
-        list_of_found_scripts = r['list']
+        list_of_found_scripts = sorted(r['list'], key = lambda a: (a.meta.get('sort',0),
+                                                                   a.path))
 
         # Check if script selection is remembered
         if not skip_remembered_selections and len(list_of_found_scripts) > 1:
@@ -2465,12 +2466,18 @@ def select_script_artifact(lst, text, recursion_spaces, can_skip):
 
     for a in lst:
         meta = a.meta
-        x = recursion_spaces+'      {}) {} ({})'.format(num, a.path, ','.join(meta['tags']))
+
+        name = meta.get('name', '')
+
+        s = a.path
+        if name !='': s = '"'+name+'" '+s
+
+        x = recursion_spaces+'      {}) {} ({})'.format(num, s, ','.join(meta['tags']))
 
         version = meta.get('version','')
         if version!='':
             x+=' (Version {})'.format(version)
-        
+
         print (x)
         num+=1
 
