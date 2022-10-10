@@ -24,7 +24,8 @@
   ],
   "post_deps": [
     {
-      "tags": "get,compiler-flags"
+      "tags": "get,compiler-flags",
+      "dynamic": true
     }
   ],
   "name": "Detect GCC compiler",
