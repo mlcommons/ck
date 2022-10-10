@@ -9,6 +9,8 @@
       "tags": "set,echo-off,win"
     }
   ],
+  "name": "Detect Microsoft C compiler",
+  "sort": 1000,
   "tags": [
     "get",
     "cl",

@@ -27,6 +27,8 @@
       "tags": "get,compiler-flags"
     }
   ],
+  "name": "Detect GCC compiler",
+  "sort": 500,
   "tags": [
     "get",
     "gcc",

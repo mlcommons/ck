@@ -40,6 +40,8 @@
       "tags": "get,compiler-flags"
     }
   ],
+  "name": "Detect or install LLVM compiler",
+  "sort":100,
   "tags": [
     "get",
     "llvm",
