@@ -166,8 +166,8 @@ def preprocess(i):
         mode_extra_options = " --audit '" + audit_full_path + "'"
     env['CM_MLC_OUTPUT_DIR'] = OUTPUT_DIR
     
+    cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options)
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
-        cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options)
         RUN_CMD = cmd
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
@@ -176,7 +176,7 @@ def preprocess(i):
         RUN_CMD = ''
 
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
-                    required_files[4]) or env.get("CM_LOADGEN_COMPLIANCE", "") == "yes":
+                    required_files[4]) or env.get("CM_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
         env['CM_MLC_USER_CONF'] = user_conf_path
     else:
         print("Measure files exist, skipping regeneration...\n")
