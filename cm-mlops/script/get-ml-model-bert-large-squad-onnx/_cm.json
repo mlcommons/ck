@@ -24,8 +24,12 @@
   "tags": [
     "get",
     "ml-model",
+    "ml-model-onnx",
     "bert",
+    "bert-large",
+    "bert-onnx",
     "bert-squad",
+    "language",
     "language-processing"
   ],
   "uid": "5e865dbdc65949d2",
