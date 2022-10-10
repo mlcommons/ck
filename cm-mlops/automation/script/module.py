@@ -1270,6 +1270,18 @@ class CAutomation(Automation):
         # Record new env and new state in the current dir if needed
         shell = i.get('shell', False)
         if save_env or shell:
+            # Check if script_prefix in the state from other components
+            env_script.insert(0, '\n')
+
+            script_prefix = state.get('script_prefix',[])
+            if len(script_prefix)>0:
+                for x in reversed(script_prefix):
+                     env_script.insert(0, x)
+
+            x = os_info['start_script']
+            if len(x)>0:
+                env_script.insert(0, x)
+
             if shell:
                 x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
 
