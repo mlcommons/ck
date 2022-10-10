@@ -275,6 +275,9 @@ class CAutomation(Automation):
 
           (fake_run) (bool): if True, will run the dependent scripts but will skip the main run script
 
+          (debug_script_tags) (bool): if True, run cmd/bash before executing a native command 
+                                      inside a script specified by these tags
+
           ...
 
         Returns:
@@ -328,6 +331,8 @@ class CAutomation(Automation):
         print_env = i.get('print_env', False)
 
         fake_run = i.get('fake_run', False)
+
+        debug_script_tags = i.get('debug_script_tags', '')
 
         new_cache_entry = i.get('new', False)
 
@@ -796,10 +801,9 @@ class CAutomation(Automation):
 
         ############################################################################################################
         # Check chain of dependencies on other CM scripts
-        if len(deps)>0:
-  
-            r = self.call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections, variation_tags_string, deps_in_cache)
+        if len(deps)>0:  
+            r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                    remembered_selections, variation_tags_string, deps_in_cache, debug_script_tags)
             if r['return']>0: return r
 
 
@@ -892,8 +896,8 @@ class CAutomation(Automation):
                 if num_found_cached_scripts > 0:
                     # Check chain of prehook dependencies on other CM scripts. We consider them same as deps when
                     # script is in cache
-                    r = self.call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                            remembered_selections, variation_tags_string, True)
+                    r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                            remembered_selections, variation_tags_string, True, debug_script_tags)
                     if r['return']>0: return r
 
                     # Continue with the selected cached script
@@ -925,12 +929,12 @@ class CAutomation(Automation):
                     # Check chain of posthook dependencies on other CM scripts. We consider them same as postdeps when
                     # script is in cache
                     clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
-                    r = self.call_run_deps(posthook_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                            remembered_selections, variation_tags_string, found_cached)
+                    r = self._call_run_deps(posthook_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                            remembered_selections, variation_tags_string, found_cached, debug_script_tags)
                     if r['return']>0: return r
                     # Check chain of post dependencies on other CM scripts
-                    r = self.call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                            remembered_selections, variation_tags_string, found_cached)
+                    r = self._call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                            remembered_selections, variation_tags_string, found_cached, debug_script_tags)
                     if r['return']>0: return r
 
 
@@ -1029,6 +1033,7 @@ class CAutomation(Automation):
                    'state': state,
                    'const_state': const_state,
                    'reuse_cached': reuse_cached,
+                   'recursion': recursion,
                    'recursion_spaces': recursion_spaces,
                    'remembered_selections': remembered_selections,
                    'tmp_file_run_state': self.tmp_file_run_state,
@@ -1040,8 +1045,10 @@ class CAutomation(Automation):
                    'posthook_deps': posthook_deps,
                    'add_deps_recursive': add_deps_recursive,
                    'remembered_selections': remembered_selections,
+                   'found_script_tags': found_script_tags,
                    'variation_tags_string': variation_tags_string,
                    'found_cached': False,
+                   'debug_script_tags': debug_script_tags,
                    'self': self
             }
 
@@ -1148,7 +1155,7 @@ class CAutomation(Automation):
 
             env['CM_TMP_PIP_VERSION_STRING'] = pip_version_string
             if pip_version_string != '':
-                print (recursion_spaces+'  - potential PIP version string (if needed): '+pip_version_string)
+                print (recursion_spaces+'  # potential PIP version string (if needed): '+pip_version_string)
 
             if print_env:
                 import json
@@ -1156,13 +1163,15 @@ class CAutomation(Automation):
 
             # Check chain of pre hook dependencies on other CM scripts
             if len(prehook_deps)>0 and not skip_prehook_deps_in_cache:
-                r = self.call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections, variation_tags_string, found_cached)
+                r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                    remembered_selections, variation_tags_string, found_cached, debug_script_tags)
                 if r['return']>0: return r
 
             if not fake_run:
                 run_script_input['meta'] = meta
                 run_script_input['env'] = env
+                run_script_input['recursion'] = recursion
+
                 r = prepare_and_run_script_with_postprocessing(run_script_input)
                 if r['return']>0: return r
 
@@ -1174,7 +1183,7 @@ class CAutomation(Automation):
 
             # Check chain of post dependencies on other CM scripts
             clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
-            r = self.run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+            r = self._run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
                     remembered_selections, variation_tags_string, found_cached)
             if r['return']>0: return r
 
@@ -1262,8 +1271,9 @@ class CAutomation(Automation):
         ############################# RETURN
         return {'return':0, 'env':saved_env, 'new_env':new_env, 'state':saved_state, 'new_state':new_state}
 
-    def call_run_deps(script, deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
-            add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached):
+    ##############################################################################
+    def _call_run_deps(script, deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
+            add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags=''):
         if len(deps) == 0:
             return {'return': 0}
         # Check chain of post hook dependencies on other CM scripts
@@ -1275,14 +1285,15 @@ class CAutomation(Automation):
         if len(local_env_keys_from_meta)>0:
             local_env_keys += local_env_keys_from_meta
 
-        r = script.run_deps(deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-            remembered_selections, variation_tags_string, found_cached)
+        r = script._run_deps(deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+            remembered_selections, variation_tags_string, found_cached, debug_script_tags)
         if r['return']>0: return r
+
         return {'return': 0}
 
     ##############################################################################
-    def run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
-                    remembered_selections, variation_tags_string='', from_cache=False):
+    def _run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
+                    remembered_selections, variation_tags_string='', from_cache=False, debug_script_tags=''):
         """
         Runs all the enabled dependencies and pass them env minus local env
         """
@@ -1300,6 +1311,7 @@ class CAutomation(Automation):
                 elif key in env:
                     tmp_env[key] = env[key]
                     del(env[key])
+
             import re
             for key in list(env.keys()):
                 value = env[key]
@@ -1351,7 +1363,8 @@ class CAutomation(Automation):
                         'state':state,
                         'const':const,
                         'const_state':const_state,
-                        'add_deps_recursive':add_deps_recursive
+                        'add_deps_recursive':add_deps_recursive,
+                        'debug_script_tags':debug_script_tags
                     }
 
                 ii.update(d)
@@ -1364,6 +1377,7 @@ class CAutomation(Automation):
 
             # Restore local env
             env.update(tmp_env)
+
         return {'return': 0}
 
 
@@ -2027,6 +2041,10 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     state = i.get('state', {})
     const_state = i.get('const_state', {})
 
+    recursion = i.get('recursion', False)
+    found_script_tags = i.get('found_script_tags', [])
+    debug_script_tags = i.get('debug_script_tags', '')
+
     meta = i.get('meta',{})
 
     reuse_cached = i.get('reused_cached', False)
@@ -2089,6 +2107,15 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         script += convert_env_to_script(env, os_info)
 
+        # Check if run bash/cmd before running the command (for debugging)
+        if len(debug_script_tags)!='' and all(item in found_script_tags for item in debug_script_tags.split(',')):
+            x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
+
+            script.append('\n')
+            script.append('echo "Running debug shell. Type exit to quit ..."\n')
+            script.append('\n')
+            script.append(x)
+
         # Append batch file to the tmp script
         script.append('\n')
         script.append(os_info['run_bat'].replace('${bat_file}', path_to_run_script) + '\n')
@@ -2133,8 +2160,8 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
             utils.merge_dicts({'dict1':env, 'dict2':updated_env, 'append_lists':True, 'append_unique':True})
  
     if len(posthook_deps)>0 and (postprocess == "postprocess"):
-        r = script_automation.call_run_deps(posthook_deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
-            add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached)
+        r = script_automation._call_run_deps(posthook_deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
+            add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags)
         if r['return']>0: return r
 
     if (postprocess == "postprocess") and customize_code is not None and 'postprocess' in dir(customize_code):
