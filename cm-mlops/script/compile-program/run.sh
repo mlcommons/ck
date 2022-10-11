@@ -4,6 +4,7 @@
 
 BIN_NAME=${CM_BIN_NAME:-run.out}
 RUN_DIR=${CM_RUN_DIR:-.}
+
 echo "RUN_DIR=$RUN_DIR"
 rm -f ${RUN_DIR}/${BIN_NAME}
 
@@ -22,6 +23,7 @@ echo "Checking compiler version ..."
 echo ""
 
 ${CM_C_COMPILER_WITH_PATH} --version
+
 echo ""
 echo "Compiling source files ..."
 echo ""

@@ -3,15 +3,18 @@ import os
 
 def preprocess(i):
     os_info = i['os_info']
-    if os_info['platform'] == 'windows':
-        return {'return':1, 'error': 'Windows is not supported in this script yet'}
     
     env = i['env']
     env['+ CFLAGS'] = env.get('+ CFLAGS', [])
     env['+ CXXFLAGS'] = env.get('+ CXXFLAGS', [])
     env['+ FFLAGS'] = env.get('+ FFLAGS', [])
     env['+ LDFLAGS'] = env.get('+ LDFLAGS', [])
-    
+
+    # TBD: add unified flags for Windows
+    if os_info['platform'] == 'windows':
+        return {'return':0}
+
+
     if "FAST_COMPILATION" in env:
         DEFAULT_COMPILER_FLAGS = env.get("FAST_COMPILER_FLAGS", "-O3")
         DEFAULT_LINKER_FLAGS = env.get("FAST_LINKER_FLAGS", "-O3 -flto")

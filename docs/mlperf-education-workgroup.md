@@ -2,9 +2,9 @@
 
 ## News
 
-* Check the [notes](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing) from our weekly meetings.
+* Check the [notes about on-going projects](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing) from our weekly meetings.
 * Please use [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to join and stay informed about our activities.
-* Please add your topics and feedback to our [weekly agenda](https://github.com/mlcommons/ck/issues/325).
+* Check the [presentation about our mission and concept](https://doi.org/10.5281/zenodo.7143424).
 * Check our [portable image classification workflow example]( https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md ).
 
 ## Mission
