@@ -26,7 +26,8 @@
     }
   ],
   "new_env_keys": [
-    "CM_PYTHONLIB_*"
+    "CM_PYTHONLIB_*",
+    "CM_*_VERSION"
   ],
   "prehook_deps": [
     {
