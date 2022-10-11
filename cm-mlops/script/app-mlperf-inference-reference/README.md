@@ -49,3 +49,11 @@ cm run script --tags=app,mlperf,inference,reference,python,_retinanet,_onnxrunti
 --scenario=Offline
 ```
 Tensorflow backend is currently not supported by the reference implementation for retinanet.
+
+## Bert
+
+```
+cm run script --tags=app,mlperf,inference,reference,python,_bert-99.9,_onnxruntime,_cpu \
+--mode=performance \
+--scenario=Offline
+```

@@ -1,6 +1,6 @@
 # MLPerf automation and reproducibility report
 
-**Tags:** MLPerf inference v2.1; Object Detection; Resnet50; ONNX 1.12.1; Ubuntu 22.04; x8664
+**Tags:** MLPerf inference; Language Processing; Bert-Large; ONNX 1.12.1; Ubuntu 22.04; x8664
 
 [Back to MLPerf reproducibility studies](reproducibility.md)
 
@@ -15,14 +15,14 @@
 
 ## CM automation workflow
 
-* [README](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference#retinanet)
+* [README](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference#bert)
 
 ## Reusable CM components
 
 * [Python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-* [Retinanet model (ONNX)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
-* [Openimages validation set](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
-* [ONNX run-time](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime)
+* [Bert-Large model (ONNX)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad-onnx)
+* [SQUAD dataset](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)
+* [ONNX run-time python package](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python-lib)
 * [MLPerf inference benchmark workflow with Python FE](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)
 
 * [Other reusable CM components](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)*
