@@ -64,4 +64,7 @@ cm run script "print python hello-world"
 
 ## Reproducibility matrix
 
-*Test detection and installation on different platforms*
+*Test detection and installation on different platforms:*
+
+* Windows, Linux, MacOS
+
