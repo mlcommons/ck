@@ -44,6 +44,7 @@ def postprocess(i):
 
     version = r['version']
 
+    env['CM_'+env['CM_PYTHON_PACKAGE_NAME'].upper()+'_VERSION'] = version
     env['CM_PYTHONLIB_'+env['CM_PYTHON_PACKAGE_NAME'].upper()+'_CACHE_TAGS'] = 'version-'+version
 
     return {'return':0}
