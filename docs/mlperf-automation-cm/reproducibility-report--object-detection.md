@@ -15,7 +15,7 @@
 
 ## CM automation workflow
 
-* [README](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)
+* [README](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference#retinanet)
 
 ## Reusable CM components
 
