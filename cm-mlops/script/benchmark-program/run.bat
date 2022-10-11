@@ -1,0 +1,8 @@
+echo Run Directory: %CM_RUN_DIR%
+
+cd %CM_RUN_DIR%
+
+echo CMD: %CM_RUN_CMD%
+%CM_RUN_CMD%
+
+IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
