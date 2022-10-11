@@ -12,6 +12,7 @@
 
 * [System dependencies](../../cm/docs/installation.md#ubuntu--debian)
 * [CK installation](../../cm/docs/installation.md#cm-installation)
+* We are in the process of enabling CUDA support within CM. Until then please setup cuDNN as described [here](https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html)
 
 ## CM automation workflow
 
