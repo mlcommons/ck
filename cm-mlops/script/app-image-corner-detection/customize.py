@@ -16,7 +16,7 @@ def preprocess(i):
         env['CM_OUTPUT'] = 'output_image_with_corners.pgm'
     if 'CM_RUN_DIR' not in env:
         env['CM_RUN_DIR'] = os.path.join(script_path, "output")
-    env['CM_RUN_SUFFIX']= env['CM_INPUT'] + ' ' + env['CM_OUTPUT'] + ' '
+    env['CM_RUN_SUFFIX']= env['CM_INPUT'] + ' ' + env['CM_OUTPUT'] + ' -c'
 
     if os_info['platform'] == 'windows':
         env['CM_BIN_NAME']='image-corner.exe'
