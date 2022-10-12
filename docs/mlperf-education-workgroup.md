@@ -10,8 +10,8 @@
 ## Mission
 
 * Help anyone to run, reproduce, customize and optimize MLPerf benchmarks across rapidly evolving software, hardware and data. 
-* Develop a [light-weight and open-source automation meta-framework](https://github.com/mlcommons/ck) to make MLOps and DevOps [more interoperable, reusable, portable, deterministic and reproducible](). 
-* Use this meta-framework to develop [portable MLPerf workflows]() that can automatically plug in any real-world ML & AI tasks, models, data sets, software and hardware.
+* Develop a [light-weight and open-source automation meta-framework](https://github.com/mlcommons/ck) to make MLOps and DevOps [more interoperable, reusable, portable, deterministic and reproducible](https://github.com/mlcommons/ck/tree/master/cm-mlops/script#readme). 
+* Use this meta-framework to develop [portable MLPerf workflows](mlperf-automation-cm/reproducibility.md) that can automatically plug in any real-world ML & AI tasks, models, data sets, software and hardware.
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 * Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
 * Help end-users of ML Systems visualize all MLPerf results, reproduce them and deploy the most suitable ML/SW/HW stacks in production.
