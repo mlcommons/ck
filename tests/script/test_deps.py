@@ -16,3 +16,6 @@ checks.check_list(r, "inference,src,version-r2.1")
 
 r = cm.access({'action':'run', 'automation':'script', 'tags': 'app,mlperf,inference,python,_resnet50,_onnxruntime,_cpu,_r2.1_default', 'quiet': 'yes'})
 checks.check_return(r)
+
+r = cm.access({'action':'run', 'automation':'script', 'tags': 'app,mlperf,inference,python,_resnet50,_tf,_cpu,_r2.1_default', 'quiet': 'yes'})
+checks.check_return(r)

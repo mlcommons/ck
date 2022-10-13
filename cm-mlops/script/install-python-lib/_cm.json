@@ -48,6 +48,16 @@
           "tags": "_onnxruntime"
         }
       }
+    },
+    "tensorflow": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "tensorflow"
+      },
+      "adr": {
+        "get-python-lib": {
+          "tags": "_tensorflow"
+        }
+      }
     }
   }
 }
