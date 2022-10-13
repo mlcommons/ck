@@ -48,13 +48,13 @@ def postprocess(i):
             'CM_CPUINFO_Model_name': 'CM_HOST_CPU_MODEL_NAME',
             'CM_CPUINFO_On_line_CPUs_list': 'CM_HOST_CPU_ON_LINE_CPUS_LIST',
             'CM_CPUINFO_Vendor_ID': 'CM_HOST_CPU_VENDOR_ID',
-            'CM_CPUINFO_hw.physicalcpu': 'CM_HOST_CPU_TOTAL_PHYSICAL_CORES',
-            'CM_CPUINFO_hw.logicalcpu': 'CM_HOST_CPU_TOTAL_CORES',
-            'CM_CPUINFO_hw.packages': 'CM_HOST_CPU_SOCKETS',
-            'CM_CPUINFO_hw.memsize': 'CM_HOST_CPU_MEMSIZE',
-            'CM_CPUINFO_hw.l1icachesize': 'CM_HOST_CPU_L1I_CACHE_SIZE',
-            'CM_CPUINFO_hw.l1dcachesize': 'CM_HOST_CPU_L1D_CACHE_SIZE',
-            'CM_CPUINFO_hw.l2cachesize': 'CM_HOST_CPU_L2_CACHE_SIZE'
+            'CM_CPUINFO_hw_physicalcpu': 'CM_HOST_CPU_TOTAL_PHYSICAL_CORES',
+            'CM_CPUINFO_hw_logicalcpu': 'CM_HOST_CPU_TOTAL_CORES',
+            'CM_CPUINFO_hw_packages': 'CM_HOST_CPU_SOCKETS',
+            'CM_CPUINFO_hw_memsize': 'CM_HOST_CPU_MEMSIZE',
+            'CM_CPUINFO_hw_l1icachesize': 'CM_HOST_CPU_L1I_CACHE_SIZE',
+            'CM_CPUINFO_hw_l1dcachesize': 'CM_HOST_CPU_L1D_CACHE_SIZE',
+            'CM_CPUINFO_hw_l2cachesize': 'CM_HOST_CPU_L2_CACHE_SIZE'
             }
 
     if env['CM_HOST_OS_TYPE'] == 'linux':
@@ -74,5 +74,9 @@ def postprocess(i):
                     env[unified_env[env_key]]=v[1].strip()
                 else:
                     env[env_key] = v[1].strip()
-
+    if 'CM_HOST_CPU_TOTAL_CORES' in env and 'CM_HOST_CPU_TOTAL_LOGICAL_CORES' not in env:
+        env['CM_HOST_CPU_TOTAL_LOGICAL_CORES'] = env['CM_HOST_CPU_TOTAL_CORES']
+    if 'CM_HOST_CPU_TOTAL_LOGICAL_CORES' in env and 'CM_HOST_CPU_TOTAL_PHYSICAL_CORES' in env and 'CM_HOST_CPU_THREADS_PER_CORE' not in env:
+        env['CM_HOST_CPU_THREADS_PER_CORE'] = str(int(int(env['CM_HOST_CPU_TOTAL_LOGICAL_CORES']) /
+            int(env['CM_HOST_CPU_TOTAL_PHYSICAL_CORES'])))
     return {'return':0}

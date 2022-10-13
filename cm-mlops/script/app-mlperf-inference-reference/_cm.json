@@ -203,19 +203,10 @@
     {
       "enable_if_env": {
         "CM_BACKEND": [
-          "onnxruntime"
-        ]
-      },
-      "tags": "get,pytorch"
-    },
-    {
-      "enable_if_env": {
-        "CM_BACKEND": [
           "pytorch"
         ]
       },
-      "tags": "get,pytorch",
-      "version": "1.8.0"
+      "tags": "get,pytorch"
     },
     {
       "tags": "get,sut,configs"
