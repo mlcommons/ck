@@ -5,6 +5,7 @@
 #include <fstream>
 #include <iostream>
 #include <string>
+#include <sstream>
 #include <regex>
 #include <vector>
 
@@ -36,7 +37,7 @@ public:
             for (size_t j = 0; j < num_inputs; j++) {
                 GetSample(sample, j, input_datas[j], input_sizes[j], input_shapes[j]);
             }
-            backend->LoadSampleToRam(sample, i, input_datas, input_sizes, input_shapes);
+            backend->LoadSampleToRam(sample, input_datas, input_sizes, input_shapes);
         }
         backend->FinishLoading();
     }
@@ -64,33 +65,32 @@ private:
     std::string name{"SampleLibrary"};
 };
 
-class Imagenet : public SampleLibrary {
+class NumpyLibrary : public SampleLibrary {
 public:
-    Imagenet(
+    /**
+     * @brief Constructs a QSL with .npy files in a directory
+     * 
+     * @param backend backend to use
+     * @param max_sample_count maximum library size (use 0 for unlimited size)
+     * @param preprocessed_path path to directory containing .npy files
+     * @param filenames filenames of npy files: <preprocessed_path>/<filename>
+     */
+    NumpyLibrary(
         std::shared_ptr<Backend> &backend, size_t max_sample_count,
-        std::string preprocessed_path, std::string val_map_path)
-            : SampleLibrary("ImageNet", backend, max_sample_count, 1) {
-        std::ifstream val_map(val_map_path);
-        std::string line;
-        std::regex val_map_regex("\\s*([\\.\\w]*)\\s+(\\d+)\\s*");
-        while (std::getline(val_map, line)) {
-            std::smatch match;
-            std::regex_match(line, match, val_map_regex);
-            std::string image_data_file = match[1];
-            int64_t label = std::stoi(match[2]);
-            std::string image_data_path = preprocessed_path + "/" + image_data_file + ".npy";
+        std::string preprocessed_path,
+        const std::vector<std::string> &filenames)
+            : SampleLibrary("NumpyLibrary", backend, max_sample_count, 1) {
+        for (std::string filename : filenames) {
+            std::string file_path = preprocessed_path + "/" + filename;
 
-            std::ifstream f(image_data_path);
-            if (f.good()) {
-                image_data_paths.push_back(image_data_path);
-                labels.push_back(label);
-            }
+            std::ifstream f(file_path);
+            if (f.good())
+                file_paths.push_back(file_path);
         }
-        std::cerr << "loaded imagenet with " << TotalSampleCount() << " samples" << std::endl;
     }
 
     size_t NumSamples() override {
-        return image_data_paths.size();
+        return file_paths.size();
     }
 
     void GetSample(
@@ -99,21 +99,77 @@ public:
             std::vector<uint8_t> &data,
             size_t &size,
             std::vector<size_t> &shape) override {
-        npy::NpyFile image_file(image_data_paths[sample_index]);
+        npy::NpyFile data_file(file_paths[sample_index]);
         std::vector<char> data_char;
-        image_file.loadAll(data_char);
+        data_file.loadAll(data_char);
         data.assign(data_char.begin(), data_char.end());
-        size = image_file.getTensorSize();
-        shape = image_file.getDims();
-    }
-
-    int64_t GetLabel(mlperf::QuerySampleIndex sample_index) {
-        return labels[sample_index];
+        size = data_file.getTensorSize();
+        shape = data_file.getDims();
     }
 
 private:
-    std::vector<std::string> image_data_paths;
-    std::vector<int64_t> labels;
+    std::vector<std::string> file_paths;
+};
+
+class Imagenet : public NumpyLibrary {
+public:
+    Imagenet(
+        std::shared_ptr<Backend> &backend, size_t max_sample_count,
+        std::string preprocessed_path, std::string val_map_path)
+            : NumpyLibrary(
+                backend, max_sample_count, preprocessed_path,
+                ReadValMap(val_map_path)) {
+        std::cerr << "loaded imagenet with " << TotalSampleCount() << " samples" << std::endl;
+    }
+
+private:
+    static const std::vector<std::string> ReadValMap(std::string val_map_path) {
+        std::vector<std::string> filenames;
+        std::ifstream val_map(val_map_path);
+        std::string line;
+        std::regex val_map_regex(R"(\s*([\.\w]*)\s+(\d+)\s*)");
+        while (std::getline(val_map, line)) {
+            std::smatch match;
+            std::regex_match(line, match, val_map_regex);
+            std::string image_filename = match[1];
+            int64_t label = std::stoi(match[2]);
+
+            filenames.push_back(image_filename + ".npy");
+        }
+        return filenames;
+    }
+};
+
+class Openimages : public NumpyLibrary {
+public:
+    Openimages(
+        std::shared_ptr<Backend> &backend, size_t max_sample_count,
+        std::string preprocessed_path, std::string annotations_path)
+            : NumpyLibrary(
+                backend, max_sample_count, preprocessed_path,
+                ReadAnnotations(annotations_path, max_sample_count)) {
+        std::cerr << "loaded openimages with " << TotalSampleCount() << " samples" << std::endl;
+    }
+
+private:
+    static const std::vector<std::string> ReadAnnotations(
+            std::string annotations_path, size_t max_sample_count) {
+        std::vector<std::string> filenames;
+        std::ifstream val_map(annotations_path);
+        std::stringstream buffer;
+        buffer << val_map.rdbuf();
+        std::string annotations = buffer.str();
+
+        std::regex image_regex(R"(\"file_name\": \"([^\"]*)\")");
+        std::smatch match;
+        while (std::regex_search(annotations, match, image_regex) && filenames.size() < max_sample_count) {
+            std::string image_filename = match[1];
+
+            filenames.push_back(image_filename + ".npy");
+            annotations = match.suffix();
+        }
+        return filenames;
+    }
 };
 
 #endif // SAMPLE_LIBRARY_H_
