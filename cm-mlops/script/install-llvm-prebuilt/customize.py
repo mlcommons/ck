@@ -108,9 +108,14 @@ def preprocess(i):
     filename = r['filename'] # 'clang+llvm-12.0.0-x86_64-linux-gnu-ubuntu-20.04.tar.xz' # f['filename']
 
     env['CM_LLVM_PACKAGE'] = filename
-
     env['CM_LLVM_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'bin')
     env['CM_LLVM_CLANG_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'bin', clang_file_name)
     env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] = os.getcwd()
+
+    # We don't need to check default paths here because we force install to cache
+    env['+PATH'] = [env['CM_LLVM_INSTALLED_PATH']]
+    path_include = os.path.join(os.getcwd(), 'install', 'include')
+    env['+C_INCLUDE_PATH'] = [ path_include ]
+
 
     return {'return':0}
