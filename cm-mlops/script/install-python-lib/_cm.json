@@ -29,7 +29,9 @@
         ]
       },
       "names": [ "get-python-lib" ],
-      "tags": "get,python-lib,generic"
+      "tags": "get,python-lib,generic",
+      "inhert_variation_tags": true,
+      "reuse_version": true
     }
   ],
   "tags": [
@@ -42,21 +44,11 @@
     "onnxruntime": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "onnxruntime"
-      },
-      "adr": {
-        "get-python-lib": {
-          "tags": "_onnxruntime"
-        }
       }
     },
     "tensorflow": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "tensorflow"
-      },
-      "adr": {
-        "get-python-lib": {
-          "tags": "_tensorflow"
-        }
       }
     }
   }
