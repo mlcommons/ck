@@ -10,9 +10,6 @@
       "tags": "cmake,get-cmake"
     },
     {
-      "tags": "get,llvm"
-    },
-    {
       "tags": "detect,cpu"
     }
   ],
@@ -44,7 +41,12 @@
     "llvm": {
       "env": {
         "CM_TVM_USE_LLVM": "yes"
-      }
+      },
+      "deps": [
+        {
+          "tags": "get,llvm"
+        }
+      ]
     },
     "openmp": {
       "env": {
@@ -58,103 +60,8 @@
         "CM_GIT_CHECKOUT": "main",
         "CM_GIT_URL": "https://github.com/apache/tvm"
       }
-    },
-    "dev-0.8-dnnl-int8-v2-mlperf-1.1": {
-      "deps": [
-        {
-          "tags": "lib,dnnl"
-        }
-      ],
-      "env": {
-        "CM_GIT_CHECKOUT": "ap/dnnl-int8",
-        "CM_GIT_URL": "https://github.com/ctuning/tvm-mlperf-v1.1"
-      }
-    },
-    "dev-dnnl-int8": {
-      "deps": [
-        {
-          "tags": "lib,dnnl"
-        }
-      ],
-      "env": {
-        "CM_GIT_CHECKOUT": "ap/dnnl-int8",
-        "CM_GIT_URL": "https://github.com/apeskov/tvm"
-      }
-    },
-    "dev-dnnl-int8-v2": {
-      "deps": [
-        {
-          "tags": "lib,dnnl"
-        }
-      ],
-      "env": {
-        "CM_GIT_CHECKOUT": "ap/dnnl-int8-v2",
-        "CM_GIT_URL": "https://github.com/apeskov/tvm"
-      }
-    },
-    "masahi-onnx-combined-nms-c999a840cb5579c493f5b5e7f20bc619260dad08": {
-      "env": {
-        "CM_GIT_CHECKOUT": "onnx-combined-nms",
-        "CM_GIT_SHA": "c999a840cb5579c493f5b5e7f20bc619260dad08",
-        "CM_GIT_URL": "https://github.com/masahi/tvm"
-      }
-    },
-    "masahi-onnx-combined-nms-dev": {
-      "env": {
-        "CM_GIT_CHECKOUT": "onnx-combined-nms",
-        "CM_GIT_URL": "https://github.com/masahi/tvm"
-      }
-    },
-    "r-a1b4f0e8f2bfcc583f98f0f9272adcc0c12f70a5": {
-      "env": {
-        "CM_GIT_CHECKOUT": "main",
-        "CM_GIT_SHA": "a1b4f0e",
-        "CM_GIT_URL": "https://github.com/apache/tvm"
-      }
-    },
-    "r-d0791d3db971a111826d96201bd1e4c9c0d531da": {
-      "env": {
-        "CM_GIT_CHECKOUT": "main",
-        "CM_GIT_SHA": "d0791d3db971a111826d96201bd1e4c9c0d531da"
-      }
-    },
-    "tmoreau89_vlk_ci": {
-      "env": {
-        "CM_GIT_CHECKOUT": "vlk_ci",
-        "CM_GIT_URL": "https://github.com/tmoreau89/tvm"
-      }
-    },
-    "v0.5": {
-      "env": {
-        "CM_GIT_CHECKOUT": "v0.5",
-        "CM_GIT_URL": "https://github.com/apache/tvm"
-      }
-    },
-    "v0.6.0": {
-      "env": {
-        "CM_GIT_CHECKOUT": "v0.6.0",
-        "CM_GIT_URL": "https://github.com/apache/tvm"
-      }
-    },
-    "v0.6.1": {
-      "env": {
-        "CM_GIT_CHECKOUT": "v0.6.1",
-        "CM_GIT_URL": "https://github.com/apache/tvm"
-      }
-    },
-    "v0.7.0": {
-      "env": {
-        "CM_GIT_CHECKOUT": "v0.7.0",
-        "CM_GIT_URL": "https://github.com/apache/tvm"
-      }
-    },
-    "v0.8.0": {
-      "env": {
-        "CM_GIT_CHECKOUT": "v0.8.0",
-        "CM_GIT_URL": "https://github.com/apache/tvm"
-      }
-    },
-    "v0.9.0": {
+   },
+   "v0.9.0": {
       "env": {
         "CM_GIT_CHECKOUT": "v0.9.0",
         "CM_GIT_URL": "https://github.com/apache/tvm"
