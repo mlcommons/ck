@@ -7,7 +7,8 @@
       "tags": "set,echo-off,win"
     },
     {
-      "tags": "cmake,get-cmake"
+      "tags": "cmake,get-cmake",
+      "version_min": "3.18"
     },
     {
       "tags": "detect,cpu"
@@ -20,6 +21,10 @@
     "CM_GIT_CHECKOUT": "main",
     "CM_GIT_URL": "https://github.com/apache/tvm"
   },
+  "new_env_keys": [
+    "TVM_HOME",
+    "+PYTHONPATH"
+  ],
   "cache": true,
   "tags": [
     "get",
