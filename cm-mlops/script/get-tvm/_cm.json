@@ -153,6 +153,12 @@
         "CM_GIT_CHECKOUT": "v0.8.0",
         "CM_GIT_URL": "https://github.com/apache/tvm"
       }
+    },
+    "v0.9.0": {
+      "env": {
+        "CM_GIT_CHECKOUT": "v0.9.0",
+        "CM_GIT_URL": "https://github.com/apache/tvm"
+      }
     }
   }
 }

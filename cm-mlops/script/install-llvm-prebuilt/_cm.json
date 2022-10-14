@@ -12,6 +12,13 @@
     }
   ],
   "cache": true,
+  "new_env_keys": [
+    "CM_LLVM_*",
+    "CM_GET_DEPENDENT_CACHED_PATH",
+    "+PATH",
+    "+LD_LIBRARY_PATH",
+    "+C_INCLUDE_PATH"
+  ],
   "post_deps": [
     {
       "tags": "get,llvm",
