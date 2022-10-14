@@ -15,10 +15,9 @@ class OnnxRuntimeCPUBackend : public Backend {
 public:
     OnnxRuntimeCPUBackend(
             std::shared_ptr<Model> &model, std::shared_ptr<Device> &device,
-            size_t performance_sample_count, size_t batch_size,
-            const std::vector<ONNXTensorElementDataType> &input_types)
+            size_t performance_sample_count, size_t batch_size)
             : Backend(model, device, performance_sample_count, batch_size)
-            , env(ORT_LOGGING_LEVEL_WARNING, "env"), input_types(input_types)
+            , env(ORT_LOGGING_LEVEL_WARNING, "env")
             , info_cpu{Ort::MemoryInfo::CreateCpu(OrtAllocatorType::OrtArenaAllocator, OrtMemTypeDefault)} {
         Ort::SessionOptions session_options;
         session_options.SetIntraOpNumThreads(1);
@@ -39,8 +38,8 @@ public:
         Ort::Session &session = sessions[concurrency_index];
         Ort::IoBinding &binding = bindings[concurrency_index];
         for (size_t i = 0; i < model->num_inputs; i++) {
-            size_t size = batch.size() * model->input_sizes[i];
-            const std::vector<size_t> &shape = GetSampleShape(batch[0].index, i);
+            size_t size = batch.size() * GetSampleSize(batch.front().index, i);
+            const std::vector<size_t> &shape = GetSampleShape(batch.front().index, i);
             std::vector<int64_t> input_shape;
             input_shape.push_back(batch.size());
             for (size_t dim : shape)
@@ -48,7 +47,10 @@ public:
             ONNXTensorElementDataType input_type =
                 session.GetInputTypeInfo(i).GetTensorTypeAndShapeInfo().GetElementType();
             Ort::Value value = Ort::Value::CreateTensor(
-                info_cpu, batch_data[i], size, input_shape.data(), input_shape.size(), input_type);
+                info_cpu,
+                batch_data[i], size,
+                input_shape.data(), input_shape.size(),
+                input_type);
             binding.BindInput(model->input_names[i].c_str(), value);
         }
 
@@ -61,33 +63,30 @@ public:
         std::vector<mlperf::QuerySampleResponse> responses(batch.size());
         std::vector<std::vector<uint8_t>> response_buffers(batch.size());
         for (size_t i = 0; i < batch.size(); i++) {
-            void *response;
-            size_t output_size;
-            if (model->num_outputs == 1) {
-                response = outputs[0].GetTensorMutableData<uint8_t>() + i * model->output_sizes[0];
-                output_size = model->output_sizes[0];
-            } else {
-                output_size = std::accumulate(model->output_sizes.begin(), model->output_sizes.end(), 0);
-                response_buffers[i].resize(output_size);
-                size_t offset = 0;
-                for (size_t j = 0; j < model->num_outputs; j++) {
-                    std::memcpy(
-                        response_buffers[i].data() + offset,
-                        outputs[j].GetTensorData<uint8_t>() + i * model->output_sizes[i],
-                        model->output_sizes[j]);
-                    offset += model->output_sizes[j];
-                }
-                response = response_buffers[i].data();
+            // get output data and shapes
+            std::vector<void *> output_buffers(outputs.size());
+            std::vector<std::vector<size_t>> output_shapes(outputs.size());
+            for (size_t j = 0; j < outputs.size(); j++) {
+                // assume ith position in output is ith sample in batch
+                output_buffers[j] =
+                    static_cast<uint8_t *>(outputs[j].GetTensorMutableData<void>())
+                    + i * model->output_sizes[j];
+                size_t rank = outputs[j].GetTensorTypeAndShapeInfo().GetDimensionsCount();
+                std::vector<int64_t> output_shape(rank);
+                outputs[j].GetTensorTypeAndShapeInfo().GetDimensions(output_shape.data(), rank);
+                output_shapes[j].resize(rank);
+                for (size_t k = 0; k < rank; k++)
+                    output_shapes[j][k] = output_shape[k];
             }
 
-            if (model->postprocess)
-                model->postprocess(response);
-
-            responses[i].id = batch[i].id;
-            responses[i].data = reinterpret_cast<uintptr_t>(response);
-            responses[i].size = output_size;
+            model->AllocateOutputs(
+                responses[i], batch[i].index, batch[i].id, output_buffers, output_shapes);
         }
+
         mlperf::QuerySamplesComplete(responses.data(), responses.size());
+
+        for (mlperf::QuerySampleResponse &response : responses)
+            model->FreeOutputs(response);
 
         binding.ClearBoundInputs();
         binding.ClearBoundOutputs();
@@ -98,7 +97,6 @@ private:
     Ort::MemoryInfo info_cpu;
     std::vector<Ort::Session> sessions;
     std::vector<Ort::IoBinding> bindings;
-    std::vector<ONNXTensorElementDataType> input_types;
 };
 
 #endif // ONNXRUNTIME_BACKEND_H_

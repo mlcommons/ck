@@ -1,4 +1,5 @@
 #include <cstddef>
+#include <cstring>
 #include <string>
 
 #include "loadgen.h"
@@ -10,12 +11,10 @@
 #include "model.h"
 #include "sample_library.h"
 #include "system.h"
-#include <unistd.h>
-#include <cstring>
 
 class InputSettings {
 
-    std::string getenv(const std::string& name,const std::string& default_value) {
+    std::string getenv(const std::string& name, const std::string& default_value) {
         const char* value = std::getenv(name.c_str());
         return value ? value : default_value;
     }
@@ -25,9 +24,11 @@ public:
         mlperf_conf_path = getenv("CM_MLC_MLPERF_CONF", "../inference/mlperf.conf");
         user_conf_path = getenv("CM_MLC_USER_CONF", "../inference/vision/classification_and_detection/user.conf");
         output_dir = getenv("CM_MLC_OUTPUT_DIR", ".");
-        model_name = getenv("CM_ML_MODEL_NAME", "resnet50");
+        backend_name = getenv("CM_BACKEND", "onnxruntime");
+        model_name = getenv("CM_MODEL", "resnet50");
         model_path = getenv("CM_ML_MODEL_FILE_WITH_PATH", "");
-        imagenet_preprocessed_path = getenv("CM_DATASET_PREPROCESSED_PATH","") + "/preprocessed/imagenet/NCHW";
+        dataset_preprocessed_path = getenv("CM_DATASET_PREPROCESSED_PATH", "");
+        dataset_path = getenv("CM_DATASET_PATH", "");
         imagenet_val_path = getenv("CM_DATASET_AUX_PATH", "") + "/val.txt";
         scenario_name = getenv("CM_LOADGEN_SCENARIO", "Offline");
         mode_name = getenv("CM_LOADGEN_MODE", "PerformanceOnly");
@@ -35,11 +36,12 @@ public:
             mode_name = "AccuracyOnly";
         if (mode_name == "performance")
             mode_name = "PerformanceOnly";
+        query_count_override = std::stol(getenv("CM_LOADGEN_QUERY_COUNT", "0"));
         performance_sample_count = std::stol(getenv("CM_LOADGEN_PERFORMANCE_SAMPLE_COUNT", "1024"));
         batch_size = std::stol(getenv("CM_LOADGEN_MAX_BATCHSIZE", "1"));
         std::cout << "MLPerf Conf path: " << mlperf_conf_path << std::endl;
         std::cout << "User Conf path: " << user_conf_path << std::endl;
-        std::cout << "Imagenet Preprocessed path: " << imagenet_preprocessed_path << std::endl;
+        std::cout << "Dataset Preprocessed path: " << dataset_preprocessed_path << std::endl;
         std::cout << "Scenario: " << scenario_name << std::endl;
         std::cout << "Mode: " << mode_name << std::endl;
         std::cout << "Batch size: " << batch_size << std::endl;
@@ -48,14 +50,17 @@ public:
     std::string mlperf_conf_path;
     std::string user_conf_path;
     std::string output_dir;
+    std::string backend_name;
     std::string model_name;
     std::string model_path;
-    std::string imagenet_preprocessed_path;
+    std::string dataset_preprocessed_path;
+    std::string dataset_path;
     std::string imagenet_val_path;
     std::string scenario_name;
     std::string mode_name;
     size_t performance_sample_count;
     size_t batch_size;
+    size_t query_count_override;
 };
 
 int main(int argc, const char *argv[]) {
@@ -90,27 +95,32 @@ int main(int argc, const char *argv[]) {
     log_settings.log_output.outdir = input_settings.output_dir;
 
     // build model
-    std::shared_ptr<Model> resnet50 = std::make_shared<Model>();
-    resnet50->model_path = input_settings.model_path;
-    resnet50->num_inputs = 1;
-    resnet50->input_names = {"input_tensor:0"};
-    resnet50->input_shapes = {{3, 224, 224}};
-    resnet50->input_sizes = {3 * 224 * 224 * sizeof(float)};
-    resnet50->num_outputs = 1;
-    resnet50->output_names = {"ArgMax:0"};
-    resnet50->output_shapes = {{1}};
-    resnet50->output_sizes = {sizeof(uint64_t)};
-    resnet50->postprocess = [](void *response) {
-        int64_t *argmax_result = static_cast<int64_t *>(response);
-        (*argmax_result)--;
-    };
+    std::shared_ptr<Model> model;
+    if (input_settings.model_name == "resnet50") {
+        model.reset(new Resnet50(input_settings.model_path, -1));
+        // can change model params here
+        // e.g. if (backend == "torch") {
+        //          model.reset(new Resnet50(input_settings.model_path, 0));
+        //          model->input_names = {"image"};
+        //      }
+    } else if (input_settings.model_name == "retinanet") {
+        // onnx retinanet requires batch size 1
+        if (input_settings.backend_name == "onnxruntime" && input_settings.batch_size != 1)
+            std::cerr << "warning: onnx retinanet requires batch size 1"
+                      << " (current batch size: " << input_settings.batch_size << ")" << std::endl;
+        model.reset(new Retinanet(input_settings.model_path, 800, 800, 0.05f));
+    } else {
+        std::cerr << "model (" << input_settings.model_name << ") not supported" << std::endl;
+        return 1;
+    }
 
     // build device
     std::shared_ptr<Device> device = std::make_shared<CPUDevice>();
 
     // get counts
-    size_t max_sample_count =
-        test_settings.max_query_count;
+    if (input_settings.query_count_override != 0)
+        test_settings.max_query_count = input_settings.query_count_override;
+    size_t max_sample_count = test_settings.max_query_count;
     size_t performance_sample_count =
         test_settings.performance_sample_count_override != 0 ?
         test_settings.performance_sample_count_override :
@@ -121,12 +131,35 @@ int main(int argc, const char *argv[]) {
 
     // build backend
     std::shared_ptr<Backend> backend = std::make_shared<OnnxRuntimeCPUBackend>(
-        resnet50, device, performance_sample_count, input_settings.batch_size,
-        std::vector<ONNXTensorElementDataType>{ONNX_TENSOR_ELEMENT_DATA_TYPE_FLOAT});
+        model, device, performance_sample_count, input_settings.batch_size);
 
     // build QSL
-    std::shared_ptr<mlperf::QuerySampleLibrary> imagenet = std::make_shared<Imagenet>(
-        backend, max_sample_count, input_settings.imagenet_preprocessed_path, input_settings.imagenet_val_path);
+    std::shared_ptr<mlperf::QuerySampleLibrary> qsl;
+    if (input_settings.model_name == "resnet50") {
+        qsl.reset(new Imagenet(
+            backend, max_sample_count,
+            input_settings.dataset_preprocessed_path + "/preprocessed/imagenet/NCHW",
+            input_settings.imagenet_val_path));
+    } else if (input_settings.model_name == "retinanet") {
+        qsl.reset(new Openimages(
+            backend, max_sample_count,
+            input_settings.dataset_preprocessed_path + "/preprocessed/openimages-800-retinanet/NCHW/validation/data",
+            input_settings.dataset_path + "/annotations/openimages-mlperf.json"));
+    } else {
+        std::cerr << "dataset for model ("
+                  << input_settings.model_name << ") not supported" << std::endl;
+        return 1;
+    }
+
+    // sanity check: common problem in workflow
+    if (qsl->TotalSampleCount() == 0) {
+        std::cerr << "error: 0 samples found in dataset" << std::endl;
+        return 1;
+    }
+    if (qsl->PerformanceSampleCount() == 0) {
+        std::cerr << "error: performance sample count = 0" << std::endl;
+        return 1;
+    }
 
     // build SUT
     // recommend using QueueSUT for all scenarios except for StreamSUT for single-stream
@@ -134,5 +167,5 @@ int main(int argc, const char *argv[]) {
 
     // start benchmark
     std::cerr << "starting benchmark" << std::endl;
-    mlperf::StartTest(sut.get(), imagenet.get(), test_settings, log_settings);
+    mlperf::StartTest(sut.get(), qsl.get(), test_settings, log_settings);
 }
