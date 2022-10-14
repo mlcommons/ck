@@ -23,7 +23,7 @@
       "package-manager-update-cmd": "apt-get update -y",
       "package-manager-get-cmd": "apt-get install -y", 
       "packages": [
-        "python3", "python3-pip", "git", "sudo", "wget"
+        "python3", "python3-pip", "git", "sudo", "wget", "g++"
       ],
       "versions": {
 	"18.04": {
@@ -39,10 +39,10 @@
     },
     "rhel": {
       "FROM": "registry.access.redhat.com/ubi9", 
-      "package-manager-update-cmd": "dnf update",
+      "package-manager-update-cmd": "dnf update -y",
       "package-manager-get-cmd": "dnf install -y", 
       "packages": [
-        "python3", "python-pip", "git", "wget", "sudo"
+        "python3", "python-pip", "git", "wget", "sudo", "binutils", "g++"
       ],
       "versions": {
 	"9": {

@@ -2,7 +2,7 @@
 
 CUR_DIR=$PWD
 
-code=${CM_MICROTVM_SOURCE}/submissions/tiny_results_v1.0/closed/OctoML/code
+code=${CM_MICROTVM_SOURCE}/closed/OctoML/code
 model=${CM_TINY_MODEL:-ad}
 microtvm_variant=${CM_MICROTVM_VARIANT}
 board=${CM_TINY_BOARD:-NUCLEO_L4R5ZI}

@@ -209,6 +209,14 @@
       "tags": "get,pytorch"
     },
     {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "onnxruntime"
+        ]
+      },
+      "tags": "get,pytorch"
+    },
+    {
       "tags": "get,sut,configs"
     }
   ],
