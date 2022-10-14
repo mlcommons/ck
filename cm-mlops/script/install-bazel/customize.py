@@ -25,6 +25,6 @@ def preprocess(i):
     bazel_bin = "bazel"
     env['CM_BAZEL_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install', 'bin')
     env['CM_BAZEL_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'install', 'bin', bazel_bin)
-    env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
+    env['CM_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
 
     return {'return':0}

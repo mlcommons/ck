@@ -13,6 +13,6 @@ def preprocess(i):
     nvcc_bin = "nvcc"
     env['CM_CUDA_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install')
     env['CM_NVCC_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'install', nvcc_bin)
-    env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
+    env['CM_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
 
     return {'return':0}

@@ -92,7 +92,7 @@ def preprocess(i):
     env['CM_CMAKE_PACKAGE'] = filename
 
     env['CM_CMAKE_INSTALLED_PATH'] = path_bin
-    env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
+    env['CM_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
     bin_name = 'cmake.exe' if os_info['platform'] == 'windows' else 'cmake'
     env['CM_CMAKE_BIN_WITH_PATH'] = os.path.join(path_bin, bin_name)
 

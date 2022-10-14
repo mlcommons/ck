@@ -34,7 +34,7 @@ def postprocess(i):
     path_lib = os.path.join(os.getcwd(), 'install', 'lib')
     env['+LD_LIBRARY_PATH'] = [ path_lib ]
 
-    env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
+    env['CM_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
 
     env['CM_PYTHON_BIN_WITH_PATH'] = os.path.join(env['CM_PYTHON_INSTALLED_PATH'], 'python3')
 

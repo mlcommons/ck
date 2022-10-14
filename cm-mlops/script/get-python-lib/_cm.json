@@ -52,21 +52,11 @@
     "onnxruntime": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "onnxruntime"
-      },
-      "adr": {
-        "python-lib-install": {
-          "tags": "_onnxruntime"
-        }
       }
     },
     "tensorflow": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "tensorflow"
-      },
-      "adr": {
-        "python-lib-install": {
-          "tags": "_tensorflow"
-        }
       }
     }
   }
