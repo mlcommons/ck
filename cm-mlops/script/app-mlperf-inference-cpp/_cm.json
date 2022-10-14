@@ -81,10 +81,9 @@
   ],
   "tags": [
     "app",
-    "image-classification",
-    "vision",
-    "inference",
+    "mlcommons",
     "mlperf",
+    "inference",
     "cpp"
   ],
   "uid": "879ed32e47074033",
