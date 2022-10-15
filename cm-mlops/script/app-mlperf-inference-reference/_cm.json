@@ -49,7 +49,7 @@
           "tflite"
         ]
       },
-      "tags": "get,tensorflow,python-lib"
+      "tags": "get,generic-python-lib,_tensorflow"
     },
     {
       "enable_if_env": {
@@ -92,7 +92,7 @@
           "bert-99.9"
         ]
       },
-      "tags": "get,transformers,python-lib"
+      "tags": "get,generic-python-lib,_transformers"
     },
     {
       "enable_if_env": {
@@ -100,7 +100,7 @@
           "bert-99.9"
         ]
       },
-      "tags": "get,tokenization,python-lib"
+      "tags": "get,generic-python-lib,_tokenization"
     },
     {
       "enable_if_env": {
