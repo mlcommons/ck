@@ -267,20 +267,25 @@ class Repos:
             if prefix!='': meta['prefix']=prefix
 
             must_update_repo_desc = True
-        else:
-            # Load meta from the repository
-            r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)
-            if r['return']>0: return r
 
-            meta = r['meta']
 
-            # If alias forced by user is not the same as in meta, update it 
-            # https://github.com/mlcommons/ck/issues/196
-
-            if alias != meta.get('alias',''):
-                meta['alias']=alias
-
-                must_update_repo_desc = True
+# GF blocked the following code because if we create a fork of mlcommons@ck for example to octoml@ck
+# and then pull octoml@ck, it attempts to rewrite .cmr.yaml with the new alias which we do not want to do!
+# We want to keep whatever is in .cmr.yaml to avoid ambiguities ...
+#        else:
+#            # Load meta from the repository
+#            r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)
+#            if r['return']>0: return r
+#
+#            meta = r['meta']
+#
+#            # If alias forced by user is not the same as in meta, update it 
+#            # https://github.com/mlcommons/ck/issues/196
+#
+#            if alias != meta.get('alias',''):
+#                meta['alias']=alias
+#
+#                must_update_repo_desc = True
 
         if must_update_repo_desc:
             r=utils.save_yaml(path_to_repo_desc + '.yaml', meta=meta)

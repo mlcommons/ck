@@ -101,7 +101,7 @@ class Automation:
                     print ('')
                     print (notes)
         except Exception as e:
-            print ('error: {}'.format(e))
+            print ('Warning: {}'.format(e))
             pass
 
         x = sys.executable
