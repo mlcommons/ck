@@ -181,17 +181,6 @@
     {
       "enable_if_env": {
         "CM_BACKEND": [
-          "tf"
-        ]
-      },
-      "names": [
-        "tensorflow"
-      ],
-      "tags": "get,tensorflow"
-    },
-    {
-      "enable_if_env": {
-        "CM_BACKEND": [
           "tvm-onnx"
         ]
       },

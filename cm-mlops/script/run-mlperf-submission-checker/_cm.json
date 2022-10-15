@@ -1,5 +1,5 @@
 {
-  "alias": "run-mlc-submission-checker",
+  "alias": "run-mlperf-submission-checker",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": false,
@@ -9,10 +9,17 @@
       "tags": "get,python"
     },
     {
-      "tags": "get,mlcommons,inference,src",
-      "names": [ "inference-src" ]
+      "names": [
+        "inference-src"
+      ],
+      "tags": "get,mlcommons,inference,src"
     }
   ],
+  "input_mapping": {
+    "skip_compliance": "CM_MLC_SKIP_COMPLIANCE",
+    "submission_dir": "CM_MLC_SUBMISSION_DIR",
+    "submitter": "CM_MLC_SUBMITTER"
+  },
   "tags": [
     "run",
     "mlc",
@@ -25,10 +32,5 @@
     "submission-checker",
     "mlc-submission-checker"
   ],
-  "uid": "15d03ec2c1af4297",
-  "input_mapping": {
-    "submission_dir": "CM_MLC_SUBMISSION_DIR",
-    "submitter": "CM_MLC_SUBMITTER",
-    "skip_compliance": "CM_MLC_SKIP_COMPLIANCE"
-  }
+  "uid": "15d03ec2c1af4297"
 }
