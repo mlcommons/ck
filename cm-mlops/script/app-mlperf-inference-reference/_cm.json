@@ -40,7 +40,7 @@
           "tvm-onnx"
         ]
       },
-      "tags": "get,_onnxruntime,python-lib,generic"
+      "tags": "get,generic-python-lib,_onnxruntime"
     },
     {
       "enable_if_env": {
@@ -204,6 +204,14 @@
       "enable_if_env": {
         "CM_BACKEND": [
           "pytorch"
+        ]
+      },
+      "tags": "get,pytorch"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "onnxruntime"
         ]
       },
       "tags": "get,pytorch"

@@ -101,7 +101,7 @@ class Automation:
                     print ('')
                     print (notes)
         except Exception as e:
-            print ('error: {}'.format(e))
+            print ('Warning: {}'.format(e))
             pass
 
         x = sys.executable
@@ -164,6 +164,7 @@ class Automation:
 
         # Check tags
         tags = utils.get_list_from_cli(i, key='tags')
+        variation_tags = utils.get_list_from_cli(i, key='variation_tags')
 
         and_tags = []
         no_tags = []
@@ -300,6 +301,11 @@ class Automation:
 
                                     if len(and_tags)>0:
                                         if not all(t in tags_in_meta for t in and_tags):
+                                            continue
+                                    variations_in_meta = meta.get('variations',{})
+
+                                    if len(variation_tags)>0:
+                                        if not all(t in variations_in_meta for t in variation_tags):
                                             continue
 
                                     if len(no_tags)>0:

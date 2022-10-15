@@ -38,11 +38,14 @@ def detect_version(i):
                                        'group_number': 1,
                                        'env_key':'CM_GCC_VERSION',
                                        'which_env':i['env']})
+    if r['return'] >0:
+        if 'clang' in r['error']:
+            return {'return':0, 'version':-1}
+        return r
     version = r['version']
 
     print (i['recursion_spaces'] + '    Detected version: {}'.format(version))
 
-    if r['return'] >0: return r
     return {'return':0, 'version':version}
 
 def postprocess(i):
@@ -52,7 +55,7 @@ def postprocess(i):
     if r['return'] >0: return r
 
     env['CM_COMPILER_FAMILY'] = 'GCC'
-    version = env['CM_GCC_VERSION']
+    version = r['version']
     env['CM_COMPILER_VERSION'] = env['CM_GCC_VERSION']
     env['CM_GCC_CACHE_TAGS'] = 'version-'+version
     env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version+',family-gcc'
@@ -84,4 +87,4 @@ def postprocess(i):
     env['DEFAULT_COMPILER_FLAGS'] = "-O2"
     env['DEFAULT_LINKER_FLAGS'] = "-O2"
 
-    return {'return':0}
+    return {'return':0, 'version': version}
