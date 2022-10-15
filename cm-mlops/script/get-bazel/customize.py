@@ -56,4 +56,4 @@ def postprocess(i):
 
     env['CM_BAZEL_CACHE_TAGS'] = 'version-'+version
 
-    return {'return':0}
+    return {'return':0, 'version': version}
