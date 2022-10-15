@@ -50,6 +50,7 @@ def preprocess(i):
         'packages')) + EOL)
     f.write(EOL+'# Install python packages' + EOL)
     f.write('RUN python3 -m pip install ' + " ".join(get_value(env, config, 'python-packages')) + EOL)
+    f.write(EOL+'# Setup docker environment' + EOL)
     entry_point = get_value(env, config, 'ENTRYPOINT', 'CM_DOCKER_IMAGE_ENTRYPOINT')
     if entry_point:
         f.write('ENTRYPOINT ' + entry_point + EOL)
@@ -93,6 +94,7 @@ def preprocess(i):
     if gh_token:
         run_cmd_extra = " --env.CM_GH_TOKEN=$CM_GH_TOKEN"
 
+    f.write(EOL+'# Run command' + EOL)
     if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
         if 'CM_DOCKER_RUN_SCRIPT_TAGS' not in env:
             env['CM_DOCKER_IMAGE_RUN_CMD']="cm version"
