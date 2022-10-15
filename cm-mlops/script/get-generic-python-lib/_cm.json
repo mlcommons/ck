@@ -1,5 +1,5 @@
 {
-  "alias": "get-python-lib",
+  "alias": "get-generic-python-lib",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
@@ -36,16 +36,18 @@
           "yes"
         ]
       },
-      "names": [ "python-lib-install" ],
-      "reuse_version": true,
       "inherit_variation_tags": true,
-      "tags": "install,python-lib,generic"
+      "names": [
+        "python-lib-install"
+      ],
+      "reuse_version": true,
+      "tags": "install,generic-python-lib"
     }
   ],
   "tags": [
     "get",
     "generic",
-    "python-lib"
+    "generic-python-lib"
   ],
   "uid": "94b62a682bc44791",
   "variations": {

@@ -2,16 +2,6 @@
   "alias": "app-mlperf-inference-cpp",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "input_mapping": {
-    "mode": "CM_LOADGEN_MODE",
-    "scenario": "CM_LOADGEN_SCENARIO",
-    "output_dir": "CM_MLC_OUTPUT_DIR",
-    "mlperf_conf": "CM_MLC_MLPERF_CONF",
-    "user_conf": "CM_MLC_USER_CONF",
-    "count": "CM_LOADGEN_QUERY_COUNT",
-    "max_batchsize": "CM_LOADGEN_MAX_BATCHSIZE",
-    "performance_sample_count": "CM_LOADGEN_PERFORMANCE_SAMPLE_COUNT"
-  },
   "deps": [
     {
       "tags": "set,echo-off,win"
@@ -35,47 +25,71 @@
       "tags": "get,mlcommons,inference,src"
     },
     {
-      "tags": "get,dataset,preprocessed,imagenet,_NCHW",
       "enable_if_env": {
-        "CM_MODEL": [ "resnet50" ]
-      }
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "tags": "get,dataset,preprocessed,imagenet,_NCHW"
     },
     {
-      "tags": "get,ml-model-onnx,resnet50",
       "enable_if_env": {
-        "CM_MODEL": [ "resnet50" ]
-      }
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "tags": "get,ml-model-onnx,resnet50"
     },
     {
-      "tags": "get,dataset,preprocessed,openimages,_NCHW",
       "enable_if_env": {
-        "CM_MODEL": [ "retinanet" ]
-      }
+        "CM_MODEL": [
+          "retinanet"
+        ]
+      },
+      "tags": "get,dataset,preprocessed,openimages,_NCHW"
     },
     {
-      "tags": "get,ml-model,retinanet,_onnx",
       "enable_if_env": {
-        "CM_MODEL": [ "retinanet" ]
-      }
+        "CM_MODEL": [
+          "retinanet"
+        ]
+      },
+      "tags": "get,ml-model,retinanet,_onnx"
     },
     {
-      "tags": "get,lib,onnxruntime,lang-cpp",
       "enable_if_env": {
-        "CM_BACKEND": [ "onnxruntime" ]
-      }
+        "CM_BACKEND": [
+          "onnxruntime"
+        ]
+      },
+      "tags": "get,lib,onnxruntime,lang-cpp"
     }
   ],
   "env": {
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1"
   },
+  "input_mapping": {
+    "count": "CM_LOADGEN_QUERY_COUNT",
+    "max_batchsize": "CM_LOADGEN_MAX_BATCHSIZE",
+    "mlperf_conf": "CM_MLC_MLPERF_CONF",
+    "mode": "CM_LOADGEN_MODE",
+    "output_dir": "CM_MLC_OUTPUT_DIR",
+    "performance_sample_count": "CM_LOADGEN_PERFORMANCE_SAMPLE_COUNT",
+    "scenario": "CM_LOADGEN_SCENARIO",
+    "user_conf": "CM_MLC_USER_CONF"
+  },
   "post_deps": [
     {
-      "names": [ "compiler" ],
+      "names": [
+        "compiler"
+      ],
       "tags": "compile,program"
     },
     {
-      "names": [ "runner" ],
+      "names": [
+        "runner"
+      ],
       "tags": "benchmark,program"
     }
   ],
@@ -86,8 +100,18 @@
     "inference",
     "cpp"
   ],
-  "uid": "879ed32e47074033",
+  "uid": "bf62405e6c7a44bf",
   "variations": {
+    "onnxruntime": {
+      "env": {
+        "CM_BACKEND": "onnxruntime"
+      }
+    },
+    "pytorch": {
+      "env": {
+        "CM_BACKEND": "pytorch"
+      }
+    },
     "resnet50": {
       "env": {
         "CM_MODEL": "resnet50"
@@ -96,11 +120,6 @@
     "retinanet": {
       "env": {
         "CM_MODEL": "retinanet"
-      }
-    },
-    "onnxruntime": {
-      "env": {
-        "CM_BACKEND": "onnxruntime"
       }
     },
     "tf": {
@@ -116,11 +135,6 @@
     "tvm-onnx": {
       "env": {
         "CM_BACKEND": "tvm-onnx"
-      }
-    },
-    "pytorch": {
-      "env": {
-        "CM_BACKEND": "pytorch"
       }
     }
   }

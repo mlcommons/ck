@@ -110,7 +110,7 @@ class CM(object):
             if self.debug:
                 raise Exception(r['error'])
 
-            sys.stderr.write(self.cfg['error_prefix']+' '+r['error']+'!\n')
+            sys.stderr.write('\n'+self.cfg['error_prefix']+' '+r['error']+'!\n')
 
         return r
 
