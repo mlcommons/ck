@@ -44,9 +44,11 @@ def preprocess(i):
         f.write('SHELL ' + shell + EOL)
     for arg in config['ARGS']:
         f.write('ARG '+ arg + EOL)
+    f.write(EOL+'# Notes: https://runnable.com/blog/9-common-dockerfile-mistakes'+EOL+'# Install system dependencies' + EOL)
     f.write('RUN ' + get_value(env, config, 'package-manager-update-cmd') + EOL)
     f.write('RUN '+ get_value(env, config, 'package-manager-get-cmd') + " " + " ".join(get_value(env, config,
         'packages')) + EOL)
+    f.write(EOL+'# Install python packages' + EOL)
     f.write('RUN python3 -m pip install ' + " ".join(get_value(env, config, 'python-packages')) + EOL)
     entry_point = get_value(env, config, 'ENTRYPOINT', 'CM_DOCKER_IMAGE_ENTRYPOINT')
     if entry_point:
@@ -55,6 +57,7 @@ def preprocess(i):
         f.write('ENV '+ key + "=" + value + EOL)
     for cmd in config['RUN_CMDS']:
         f.write('RUN '+ cmd + EOL)
+    f.write(EOL+'# Setup docker user' + EOL)
     docker_user = get_value(env, config, 'USER', 'CM_DOCKER_USER')
     docker_userid = get_value(env, config, 'USERID', 'CM_DOCKER_USER_ID')
     docker_group = get_value(env, config, 'GROUP', 'CM_DOCKER_GROUP')
@@ -80,8 +83,10 @@ def preprocess(i):
     workdir = get_value(env, config, 'WORKDIR', 'CM_DOCKER_WORKDIR')
     if workdir:
         f.write('WORKDIR ' + workdir + EOL)
+    f.write(EOL+'# Download CM repo for scripts' + EOL)
     f.write('RUN cm pull repo ' + cm_mlops_repo + EOL)
 
+    f.write(EOL+'# Install all system dependencies' + EOL)
     f.write('RUN cm run script --quiet --tags=get,sys-utils-cm' + EOL)
     run_cmd_extra=''
     gh_token = get_value(env, config, "GH_TOKEN", "CM_GH_TOKEN")
