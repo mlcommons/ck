@@ -250,7 +250,13 @@ class Repos:
 
         must_update_repo_desc = False
 
-        if not r['is_file']:
+        if r['is_file']:
+            # Load meta from the repository
+            r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)
+            if r['return']>0: return r
+
+            meta = r['meta']
+        else:
             # Prepare meta
             r=utils.gen_uid()
             if r['return']>0: return r
