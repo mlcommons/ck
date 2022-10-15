@@ -44,21 +44,6 @@ def postprocess(i):
                 if _dir != '' and  _dir not in lib_dir:
                     lib_dir.append(_dir)
             env['+CM_HOST_OS_DEFAULT_LIBRARY_PATH'] = lib_dir
-            sys_cmd = "cpp -v /dev/null -o /dev/null 2>&1"
-            result = subprocess.check_output(sys_cmd, shell=True).decode("utf-8")
-            start = False
-            inc_dir = []
-            for out in result.split("\n"):
-                if "> search starts here" not in out and not start:
-                    continue
-                if not start:
-                    start = True
-                    continue
-                if "End of search list" in out:
-                    break
-                if 'gcc' not in out:
-                    inc_dir.append(out.strip())
-            env['+CM_HOST_OS_DEFAULT_INCLUDE_PATH'] = inc_dir
         r = utils.load_txt(file_name='tmp-run.out',
                            check_if_exists = True,
                            split = True)

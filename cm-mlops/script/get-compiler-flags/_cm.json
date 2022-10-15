@@ -21,7 +21,8 @@
     "+ CFLAGS",
     "+ CXXFLAGS",
     "+ FFLAGS",
-    "+ LDFLAGS"
+    "+ LDFLAGS",
+    "+CM_HOST_OS_DEFAULT_INCLUDE_PATH"
   ],
   "tags": [
     "get",
