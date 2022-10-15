@@ -1,0 +1,32 @@
+{
+  "alias": "install-aws-cli",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "deps": [
+    {
+      "tags": "detect,os,info"
+    }
+  ],
+  "env": {
+    "CM_CURL_URL": "https://awscli.amazonaws.com/awscli-exe-[OS]-[PLATFORM].zip"
+  },
+  "post_deps": [
+    {
+      "skip_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "tags": "get,aws-cli"
+    }
+  ],
+  "tags": [
+    "install",
+    "script",
+    "aws-cli",
+    "aws",
+    "cli"
+  ],
+  "uid": "4d3efd333c3f4d36"
+}
