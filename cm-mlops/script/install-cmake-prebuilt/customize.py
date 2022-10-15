@@ -92,6 +92,13 @@ def preprocess(i):
     env['CM_CMAKE_PACKAGE'] = filename
 
     env['CM_CMAKE_INSTALLED_PATH'] = path_bin
-    env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
+    env['CM_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
+    bin_name = 'cmake.exe' if os_info['platform'] == 'windows' else 'cmake'
+    env['CM_CMAKE_BIN_WITH_PATH'] = os.path.join(path_bin, bin_name)
+
+    # We don't need to check default paths here because we force install to cache
+    env['+PATH'] = [env['CM_CMAKE_INSTALLED_PATH']]
+    path_include = os.path.join(os.getcwd(), 'install', 'include')
+    env['+C_INCLUDE_PATH'] = [ path_include ]
 
     return {'return':0}

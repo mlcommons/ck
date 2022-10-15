@@ -1,6 +1,4 @@
 #!/bin/bash
 
-CM_PYTHON_BIN=${CM_PYTHON_BIN:-python3}
-
-${CM_PYTHON_BIN} -m pip install transformers${CM_TMP_PIP_VERSION_STRING}
+${CM_PYTHON_BIN_WITH_PATH} -m pip install transformers${CM_TMP_PIP_VERSION_STRING}
 test $? -eq 0 || exit 1

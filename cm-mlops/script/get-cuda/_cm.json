@@ -26,6 +26,7 @@
   ],
   "new_env_keys": [
     "CM_CUDA_*",
+    "CM_NVCC_*",
     "+PATH"
   ],
   "tags": [

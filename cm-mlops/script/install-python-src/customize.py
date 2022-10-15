@@ -27,12 +27,20 @@ def preprocess(i):
     return {'return':0}
 
 def postprocess(i):
-    inp = i['input']
+
     env = i['env']
-    tags = inp['tags']
-    tag_list = tags.split(",")
-    if "_shared" in tag_list:
-        path_lib = os.path.join(os.getcwd(), 'install', 'lib')
-        env['+LD_LIBRARY_PATH'] = [ path_lib ]
-    env['CM_TMP_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
+    variation_tags = i['variation_tags']
+
+    path_lib = os.path.join(os.getcwd(), 'install', 'lib')
+    env['+LD_LIBRARY_PATH'] = [ path_lib ]
+
+    env['CM_GET_DEPENDENT_CACHED_PATH'] =  os.getcwd()
+
+    env['CM_PYTHON_BIN_WITH_PATH'] = os.path.join(env['CM_PYTHON_INSTALLED_PATH'], 'python3')
+
+    # We don't need to check default paths here because we force install to cache
+    env['+PATH'] = [env['CM_PYTHON_INSTALLED_PATH']]
+    path_include = os.path.join(os.getcwd(), 'install', 'include')
+    env['+C_INCLUDE_PATH'] = [ path_include ]
+
     return {'return':0}

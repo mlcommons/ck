@@ -7,7 +7,7 @@
       "tags": "set,echo-off,win"
     }
   ],
-  "posthook_deps": [
+  "prehook_deps": [
     {
       "names": [
         "python-venv"

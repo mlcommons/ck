@@ -1,0 +1,58 @@
+{
+  "alias": "get-dataset-imagenet-val",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_variation": "2012-500",
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    }
+  ],
+  "env": {
+    "CM_DATASET": "IMAGENET"
+  },
+  "new_env_keys": [
+    "CM_DATASET_*"
+  ],
+  "tags": [
+    "get",
+    "dataset",
+    "imagenet",
+    "ILSVRC",
+    "image-classification",
+    "original"
+  ],
+  "uid": "7afd58d287fe4f11",
+  "variations": {
+    "2012-1": {
+      "env": {
+        "CM_DATASET_SIZE": "1",
+        "CM_DATASET_VER": "2012"
+      }
+    },
+    "2012-500": {
+      "env": {
+        "CM_DATASET_SIZE": "500",
+        "CM_DATASET_VER": "2012"
+      }
+    },
+    "2012-full": {
+      "env": {
+        "CM_DATASET_SIZE": "50000",
+        "CM_DATASET_VER": "2012",
+        "CM_IMAGENET_FULL": "yes"
+      }
+    },
+    "full": {
+      "env": {
+        "CM_DATASET_SIZE": "50000",
+        "CM_DATASET_VER": "2012",
+        "CM_IMAGENET_FULL": "yes"
+      }
+    }
+  }
+}

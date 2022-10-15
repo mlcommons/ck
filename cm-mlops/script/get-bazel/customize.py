@@ -11,9 +11,7 @@ def preprocess(i):
 
     file_name = 'bazel.exe' if os_info['platform'] == 'windows' else 'bazel'
     env['FILE_NAME'] = file_name
-    if 'CM_BAZEL_INSTALLED_PATH' in env:
-        found_path = env['CM_BAZEL_INSTALLED_PATH']
-    else:
+    if 'CM_BAZEL_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name,
                                        'env': env,
                                        'os_info':os_info,
@@ -28,8 +26,6 @@ def preprocess(i):
                 return {'return': 0}
             else:
                 return r
-
-        env['CM_LLVM_INSTALLED_PATH'] =  r['found_path']
 
     return {'return':0}
 
@@ -53,6 +49,10 @@ def postprocess(i):
     if r['return'] >0: return r
 
     version = r['version']
+    found_file_path = env['CM_BAZEL_BIN_WITH_PATH']
+
+    found_path = os.path.dirname(found_file_path)
+    env['CM_BAZEL_INSTALLED_PATH'] = found_path
 
     env['CM_BAZEL_CACHE_TAGS'] = 'version-'+version
 

@@ -1,0 +1,47 @@
+{
+  "alias": "get-dataset-squad",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_version": "1.1",
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    }
+  ],
+  "env": {
+    "CM_DATASET": "SQUAD"
+  },
+  "new_env_keys": [
+    "CM_DATASET_*"
+  ],
+  "tags": [
+    "get",
+    "dataset",
+    "squad",
+    "language-processing",
+    "validation",
+    "training",
+    "original"
+  ],
+  "uid": "6651c119c3ae49b3",
+  "versions": {
+    "1.1": {
+      "env": {
+        "CM_TRAIN_FILENAME": "train-v1.1.json",
+        "CM_VAL_FILENAME": "dev-v1.1.json",
+        "CM_WGET_URL": "https://data.deepai.org/squad1.1.zip"
+      }
+    },
+    "2.0": {
+      "env": {
+        "CM_TRAIN_FILENAME": "train-v2.0.json",
+        "CM_VAL_FILENAME": "dev-v2.0.json",
+        "CM_WGET_URL": "https://data.deepai.org/squad2.0.zip"
+      }
+    }
+  }
+}

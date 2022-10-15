@@ -14,16 +14,11 @@ def preprocess(i):
                'run_script_input':i['run_script_input'],
                'recursion_spaces':recursion_spaces})
     if r['return'] >0:
-       if r['return'] == 16:
-           if env.get('CM_TMP_FAIL_IF_NOT_FOUND','').lower() == 'yes':
-               return r
+        if r['return'] == 16:
+            env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+            return {'return':0}
 
-           print (recursion_spaces+'    # {}'.format(r['error']))
-
-           # Attempt to run installer
-           r = {'return':0, 'skip':True, 'script':{'tags':'install,transformers,python-lib'}}
-
-       return r
+        return r
 
     return {'return':0}
 

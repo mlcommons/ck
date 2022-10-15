@@ -1,0 +1,93 @@
+{
+  "alias": "get-preprocessed-dataset-openimages",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "deps": [
+    {
+      "tags": "set,echo-off,win"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "names": [
+        "original-dataset"
+      ],
+      "tags": "get,dataset,object-detection,openimages,original"
+    },
+    {
+      "names": [
+        "inference-src"
+      ],
+      "tags": "mlperf,mlcommons,inference,source,src,_octoml"
+    }
+  ],
+  "env": {
+    "CM_DATASET": "OPENIMAGES"
+  },
+  "input_mapping": {
+    "dir": "CM_DATASET_PREPROCESSED_PATH",
+    "threads": "CM_NUM_PREPROCESS_THREADS"
+  },
+  "new_env_keys": [
+    "CM_DATASET_*"
+  ],
+  "tags": [
+    "get",
+    "dataset",
+    "openimages",
+    "open-images",
+    "object-detection",
+    "preprocessed"
+  ],
+  "uid": "9842f1be8cba4c7b",
+  "variations": {
+    "1": {
+      "env": {
+        "CM_DATASET_SIZE": "1"
+      }
+    },
+    "500": {
+      "env": {
+        "CM_DATASET_SIZE": "500"
+      }
+    },
+    "full": {
+      "env": {
+        "CM_DATASET_SIZE": ""
+      }
+    },
+    "NCHW": {
+      "env": {
+        "CM_ML_MODEL_DATA_LAYOUT": "NCHW"
+      }
+    },
+    "NHWC": {
+      "env": {
+        "CM_ML_MODEL_DATA_LAYOUT": "NHWC"
+      }
+    },
+    "calibration": {
+      "add_deps": {
+        "original-dataset": {
+          "tags": "_calibration"
+        }
+      }
+    },
+    "validation": {
+      "add_deps": {
+        "original-dataset": {
+          "tags": "_validation"
+        }
+      }
+    }
+  }
+}

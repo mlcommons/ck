@@ -9,37 +9,25 @@ def preprocess(i):
 
     recursion_spaces = i['recursion_spaces']
 
-    file_name = 'openssl.exe' if os_info['platform'] == 'windows' else 'openssl'
+    file_name = 'openssl'
 
     r = i['automation'].find_artifact({'file_name': file_name,
                                        'env': env,
                                        'os_info':os_info,
                                        'default_path_env_key': 'PATH',
                                        'detect_version':True,
-                                       'env_path_key':'CM_PYTHON_BIN_WITH_PATH',
+                                       'env_path_key':'CM_OPENSSL_BIN_WITH_PATH',
                                        'run_script_input':i['run_script_input'],
                                        'recursion_spaces':i['recursion_spaces']})
     if r['return']>0:
-       if r['return'] == 16 and os_info['platform'] != 'windows':
-           if env.get('CM_TMP_FAIL_IF_NOT_FOUND','').lower() == 'yes':
-               return r
-
-           print (recursion_spaces+'    # {}'.format(r['error']))
-
-           # Attempt to run installer
-           r = {'return':0, 'skip':True, 'script':{'tags':'install,openssl'}}
-
-       return r
-
-    found_path = r['found_path']
+        if r['return'] == 16 and os_info['platform'] != 'windows':
+            env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+            return {'return': 0}
+        return r
 
     return {'return':0}
 
-
-def postprocess(i):
-
-    env = i['env']
-
+def detect_version(i):
     r = i['automation'].parse_version({'match_text': r'OpenSSL\s*([\d.]+)',
                                        'group_number': 1,
                                        'env_key':'CM_OPENSSL_VERSION',
@@ -49,8 +37,21 @@ def postprocess(i):
     version = r['version']
 
     print (i['recursion_spaces'] + '      Detected version: {}'.format(version))
+    return {'return':0, 'version':version}
+
+
+def postprocess(i):
+
+    env = i['env']
+    r = detect_version(i)
+    if r['return'] >0: return r
+    version = r['version']
+    found_file_path = env['CM_OPENSSL_BIN_WITH_PATH']
+
+    found_path = os.path.dirname(found_file_path)
+    env['CM_OPENSSL_INSTALLED_PATH'] = found_path
 
     # Save tags that can be used to specialize further dependencies (such as python packages)
     tags = 'version-'+version
 
-    return {'return':0, 'version':version}
+    return {'return':0}

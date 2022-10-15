@@ -3,7 +3,7 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
-  "default_version": "r2.1",
+  "default_version": "master",
   "deps": [
     {
       "tags": "detect,os,info"
@@ -32,7 +32,7 @@
   "new_env_keys": [
     "+PYTHONPATH",
     "+C_INCLUDE_PATH",
-    "+CXX_INCLUDE_PATH",
+    "+CPLUS_INCLUDE_PATH",
     "+LD_LIBRARY_PATH",
     "+DYLD_FALLBACK_LIBRARY_PATH"
   ],
@@ -55,13 +55,6 @@
     "mlcommons"
   ],
   "uid": "64c3d98d0ba04950",
-  "variations": {
-    "shared": {
-      "env": {
-        "CM_SHARED_BUILD": "yes"
-      }
-    }
-  },
   "versions": {
     "master": {
       "add_deps": {

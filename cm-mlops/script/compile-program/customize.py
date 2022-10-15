@@ -3,8 +3,6 @@ import os
 
 def preprocess(i):
     os_info = i['os_info']
-    if os_info['platform'] == 'windows':
-        return {'return':1, 'error': 'Windows is not supported in this script yet'}
 
     env = i['env']
     
@@ -15,9 +13,13 @@ def preprocess(i):
 
     CPATH = env.get('+CPATH', [ ])
     env['CM_C_INCLUDE_PATH'] = " -I".join([" "] + env.get('+C_INCLUDE_PATH', []) + CPATH)
-    env['CM_CXX_INCLUDE_PATH'] = " -I".join([" "] + env.get('+CXX_INCLUDE_PATH', []) + CPATH)
+    env['CM_CPLUS_INCLUDE_PATH'] = " -I".join([" "] + env.get('+CPLUS_INCLUDE_PATH', []) + CPATH)
     env['CM_F_INCLUDE_PATH'] = " -I".join([" "] + env.get('+F_INCLUDE_PATH', []) + CPATH)
-    
+
+    # If windows, need to extend it more ...
+    if os_info['platform'] == 'windows':
+        return {'return':0}
+
     LDFLAGS = env.get('+ LDFLAGS', [])
     env['CM_C_LINKER_FLAGS'] = " ".join(env.get('+ LDCFLAGS', []) + LDFLAGS)
     env['CM_CXX_LINKER_FLAGS'] = " ".join(env.get('+ LDCXXFLAGS', []) + LDFLAGS)

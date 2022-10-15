@@ -14,5 +14,20 @@
     "openssl",
     "lib-openssl"
   ],
+  "env": {
+    "CM_TMP_REQUIRE_INSTALL": "no"
+  },
+  "new_env_keys": [
+    "CM_OPENSSL_*"
+  ],
+  "prehook_deps": [
+    {
+      "tags": "install,openssl",
+      "reuse_version": true,
+      "enable_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
+      }
+    }
+  ],
   "uid": "febdae70e9e64e30"
 }

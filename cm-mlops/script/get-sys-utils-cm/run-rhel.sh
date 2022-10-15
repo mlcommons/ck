@@ -20,9 +20,11 @@ ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
            ca-certificates curl  cmake \
            gcc git g++ \
            libtool libffi-devel \
+           zlib-devel \
            make mesa-libGL \
            patch python3 python3-pip python3-devel \
            rsync \
+           tar \
            unzip \
            vim \
            wget which \

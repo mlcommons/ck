@@ -4,6 +4,7 @@
 
 BIN_NAME=${CM_BIN_NAME:-run.out}
 RUN_DIR=${CM_RUN_DIR:-.}
+
 echo "RUN_DIR=$RUN_DIR"
 rm -f ${RUN_DIR}/${BIN_NAME}
 
@@ -42,7 +43,7 @@ done
 IFS=';' read -ra FILES <<< "${CM_CXX_SOURCE_FILES}"
 for file in "${FILES[@]}"; do
   base_name=${file%.*}
-  CMD="${CM_CXX_COMPILER_WITH_PATH} -c ${CM_CXX_COMPILER_FLAGS} ${CM_CXX_INCLUDE_PATH} $file -o $base_name.o"
+  CMD="${CM_CXX_COMPILER_WITH_PATH} -c ${CM_CXX_COMPILER_FLAGS} ${CM_CPLUS_INCLUDE_PATH} $file -o $base_name.o"
   echo $CMD
   eval $CMD
   test $? -eq 0 || exit 1

@@ -16,8 +16,8 @@ set USE_LLVM=no
 set CK_BATCH_SIZE=%CM_BATCH_SIZE%
 set CK_BATCH_COUNT=%CM_BATCH_COUNT%
 
-%CM_PYTHON_BIN% -m pip install -r %CM_TMP_CURRENT_SCRIPT_PATH%\requirements.txt
+%CM_PYTHON_BIN_WITH_PATH% -m pip install -r %CM_TMP_CURRENT_SCRIPT_PATH%\requirements.txt
 IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%
 
-%CM_PYTHON_BIN% %CM_TMP_CURRENT_SCRIPT_PATH%\src\pytorch_classify_preprocessed.py
+%CM_PYTHON_BIN_WITH_PATH% %CM_TMP_CURRENT_SCRIPT_PATH%\src\pytorch_classify_preprocessed.py
 IF %ERRORLEVEL% NEQ 0 EXIT %ERRORLEVEL%

@@ -4,6 +4,12 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
+  "new_env_keys": [
+    "CM_VIRTUAL_ENV_*"
+  ],
+  "new_state_keys": [
+    "script_prefix"
+  ],
   "deps": [
     {
       "tags": "set,echo-off,win"
@@ -15,6 +21,7 @@
   ],
   "post_deps": [
     {
+      "inherit_variation_tags": "True",
       "names": [
         "register-python"
       ],

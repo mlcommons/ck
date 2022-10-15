@@ -10,8 +10,7 @@ def preprocess(i):
     recursion_spaces = i['recursion_spaces']
 
     file_name_c = 'gcc.exe' if os_info['platform'] == 'windows' else 'gcc'
-    file_name_cpp = 'g++.exe' if os_info['platform'] == 'windows' else 'g++'
-    if 'CM_GCC_INSTALLED_PATH' not in env:
+    if 'CM_GCC_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name_c,
                                        'env': env,
                                        'os_info':os_info,
@@ -32,14 +31,6 @@ def preprocess(i):
 
             return r
 
-    # G: changed next line to handle cases like gcc-8
-    # found_path = r['found_path']
-    full_path = r['full_path']
-
-    found_path = os.path.dirname(full_path)
-    env['FILE_NAME_C'] = os.path.basename(full_path)
-    env['FILE_NAME_CPP'] = env['FILE_NAME_C'].replace('gcc','g++')
-    env['CM_GCC_INSTALLED_PATH'] = found_path
     return {'return':0}
 
 def detect_version(i):
@@ -47,11 +38,14 @@ def detect_version(i):
                                        'group_number': 1,
                                        'env_key':'CM_GCC_VERSION',
                                        'which_env':i['env']})
+    if r['return'] >0:
+        if 'clang' in r['error']:
+            return {'return':0, 'version':-1}
+        return r
     version = r['version']
 
     print (i['recursion_spaces'] + '    Detected version: {}'.format(version))
 
-    if r['return'] >0: return r
     return {'return':0, 'version':version}
 
 def postprocess(i):
@@ -61,22 +55,27 @@ def postprocess(i):
     if r['return'] >0: return r
 
     env['CM_COMPILER_FAMILY'] = 'GCC'
-    version = env['CM_GCC_VERSION']
+    version = r['version']
     env['CM_COMPILER_VERSION'] = env['CM_GCC_VERSION']
     env['CM_GCC_CACHE_TAGS'] = 'version-'+version
     env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version+',family-gcc'
-    
-    found_path = env['CM_GCC_INSTALLED_PATH']
 
-    file_name_c = env['FILE_NAME_C']
-    file_name_cpp = env['FILE_NAME_CPP']
+    found_file_path = env['CM_GCC_BIN_WITH_PATH']
+
+    found_path = os.path.dirname(found_file_path)
+
+    env['CM_GCC_INSTALLED_PATH'] = found_path
+
+    file_name_c = os.path.basename(found_file_path)
+    # G: changed next line to handle cases like gcc-8
+    file_name_cpp = file_name_c.replace('gcc','g++')
+    env['FILE_NAME_CPP'] = file_name_cpp
 
     env['CM_GCC_BIN']=file_name_c
-    env['CM_GCC_BIN_WITH_PATH']=os.path.join(found_path, file_name_c)
 
     # General compiler for general program compilation
     env['CM_C_COMPILER_BIN']=file_name_c
-    env['CM_C_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_c)
+    env['CM_C_COMPILER_WITH_PATH']=found_file_path
 
     env['CM_CXX_COMPILER_BIN']=file_name_cpp
     env['CM_CXX_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_cpp)
@@ -88,4 +87,4 @@ def postprocess(i):
     env['DEFAULT_COMPILER_FLAGS'] = "-O2"
     env['DEFAULT_LINKER_FLAGS'] = "-O2"
 
-    return {'return':0}
+    return {'return':0, 'version': version}

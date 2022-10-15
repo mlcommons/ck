@@ -10,9 +10,8 @@ def preprocess(i):
     recursion_spaces = i['recursion_spaces']
 
     file_name = 'nvcc.exe' if os_info['platform'] == 'windows' else 'nvcc'
-    env['FILE_NAME'] = file_name
 
-    if 'CM_CUDA_INSTALLED_PATH' not in env:
+    if 'CM_NVCC_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name,
                                        'env': env,
                                        'os_info':os_info,
@@ -30,8 +29,6 @@ def preprocess(i):
                 return {'return': 0}
             else:
                 return r
-
-        env['CM_CUDA_INSTALLED_PATH'] =  r['found_path']
 
     return {'return':0}
 
@@ -53,6 +50,11 @@ def postprocess(i):
     env = i['env']
     r = detect_version(i)
     if r['return'] >0: return r
+    found_file_path = env['CM_NVCC_BIN_WITH_PATH']
+
+    found_path = os.path.dirname(found_file_path)
+    env['CM_CUDA_INSTALLED_PATH'] = found_path
+
 
     version = r['version']
 

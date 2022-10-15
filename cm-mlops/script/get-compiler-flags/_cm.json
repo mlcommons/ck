@@ -8,7 +8,20 @@
     },
     {
       "tags": "detect-cpu"
+    },
+    {
+      "tags": "get,compiler",
+      "skip_if_env": {
+        "CM_C_COMPILER_BIN": [ "on" ]
+      },
+      "names": [ "compiler" ]
     }
+  ],
+  "new_env_keys": [
+    "+ CFLAGS",
+    "+ CXXFLAGS",
+    "+ FFLAGS",
+    "+ LDFLAGS"
   ],
   "tags": [
     "get",

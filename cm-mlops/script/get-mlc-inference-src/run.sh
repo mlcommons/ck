@@ -13,6 +13,7 @@ if [ ! -d "inference" ]; then
     cd inference
     git submodule update --init third_party/pybind
     cd ..
+    if [ "${?}" != "0" ]; then exit 1; fi
   fi
 fi
 

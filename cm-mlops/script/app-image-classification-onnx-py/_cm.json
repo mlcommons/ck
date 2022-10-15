@@ -30,7 +30,7 @@
       "tags": "get,ml-model-onnx,resnet50,image-classification"
     },
     {
-      "tags": "get,onnxruntime,python-lib"
+      "tags": "get,generic-python-lib,_onnxruntime"
     }
   ],
   "tags": [

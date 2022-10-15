@@ -10,10 +10,8 @@ def preprocess(i):
     recursion_spaces = i['recursion_spaces']
 
     file_name_c = 'clang.exe' if os_info['platform'] == 'windows' else 'clang'
-    file_name_cpp = 'clang++.exe' if os_info['platform'] == 'windows' else 'clang++'
     env['FILE_NAME_C'] = file_name_c
-    env['FILE_NAME_CPP'] = file_name_cpp
-    if 'CM_LLVM_INSTALLED_PATH' not in env:
+    if 'CM_LLVM_CLANG_BIN_WITH_PATH' not in env:
 
         r = i['automation'].find_artifact({'file_name': file_name_c,
                                        'env': env,
@@ -29,8 +27,6 @@ def preprocess(i):
                 return {'return': 0}
             else:
                 return r
-
-        env['CM_LLVM_INSTALLED_PATH'] =  r['found_path']
 
     return {'return':0}
 
@@ -53,21 +49,25 @@ def postprocess(i):
     env = i['env']
     r = detect_version(i)
     if r['return'] >0: return r
+
     version = env['CM_LLVM_CLANG_VERSION']
     env['CM_LLVM_CLANG_CACHE_TAGS'] = 'version-'+version
     env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version+',family-llvm'
     env['CM_COMPILER_FAMILY'] = 'LLVM'
     env['CM_COMPILER_VERSION'] = env['CM_LLVM_CLANG_VERSION']
 
-    file_name_c = env['FILE_NAME_C']
-    file_name_cpp = env['FILE_NAME_CPP']
-    found_path = env['CM_LLVM_INSTALLED_PATH']
+    found_file_path = env['CM_LLVM_CLANG_BIN_WITH_PATH']
+
+    found_path = os.path.dirname(found_file_path)
+
+    file_name_c = os.path.basename(found_file_path)
+    file_name_cpp = file_name_c.replace("clang", "clang++")
+
     env['CM_LLVM_CLANG_BIN']=file_name_c
-    env['CM_LLVM_CLANG_BIN_WITH_PATH']=os.path.join(found_path, file_name_c)
 
     # General compiler for general program compilation
     env['CM_C_COMPILER_BIN']=file_name_c
-    env['CM_C_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_c)
+    env['CM_C_COMPILER_WITH_PATH']=found_file_path
 
     env['CM_CXX_COMPILER_BIN']=file_name_cpp
     env['CM_CXX_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_cpp)

@@ -12,9 +12,6 @@
       "tags": "detect-cpu"
     },
     {
-      "tags": "get,cuda"
-    },
-    {
       "tags": "get,python"
     },
     {
@@ -26,10 +23,10 @@
   ],
   "post_deps": [
     {
-      "const": {
-        "CM_TMP_FAIL_IF_NOT_FOUND": "yes"
-      },
-      "tags": "get,transformers,python-lib"
+      "tags": "get,transformers,python-lib",
+      "skip_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
+      }
     }
   ],
   "tags": [

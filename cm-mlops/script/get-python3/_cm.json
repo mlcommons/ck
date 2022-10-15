@@ -15,6 +15,9 @@
     "+C_INCLUDE_PATH",
     "+PATH"
   ],
+  "new_state_keys": [
+    "script_prefix"
+  ],
   "prehook_deps": [
     {
       "tags": "install,python,src",

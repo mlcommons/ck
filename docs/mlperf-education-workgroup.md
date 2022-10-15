@@ -2,18 +2,20 @@
 
 ## News
 
+* Check the [notes about on-going projects](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing) from our weekly meetings.
 * Please use [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to join and stay informed about our activities.
-* Please add your topics and feedback to our [weekly agenda](https://github.com/mlcommons/ck/issues/325).
+* Check the [presentation about our mission and concept](https://doi.org/10.5281/zenodo.7143424).
 * Check our [portable image classification workflow example]( https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md ).
 
 ## Mission
 
-* Develop an automated open-source workflow to make it easier to plug any real-world ML & AI tasks, models, data sets, software and hardware into the MLPerf benchmarking infrastructure.
-* Use this workflow to help the newcomers learn how to customize and run MLPerf benchmarks across rapidly evolving software, hardware and data. 
+* Help anyone to run, reproduce, customize and optimize MLPerf benchmarks across rapidly evolving software, hardware and data. 
+* Develop a [light-weight and open-source automation meta-framework](https://github.com/mlcommons/ck) to make MLOps and DevOps [more interoperable, reusable, portable, deterministic and reproducible](https://github.com/mlcommons/ck/tree/master/cm-mlops/script#readme). 
+* Use this meta-framework to develop [portable MLPerf workflows](mlperf-automation-cm/reproducibility.md) that can automatically plug in any real-world ML & AI tasks, models, data sets, software and hardware.
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 * Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
-* Help end-users visualize all MLPerf results, reproduce them and deploy the most suitable ML/SW/HW stacks in production.
-* Support reproducibility initiatives at ML and Systems conferences using rigorous MLPerf methodology and our educational toolkit.
+* Help end-users of ML Systems visualize all MLPerf results, reproduce them and deploy the most suitable ML/SW/HW stacks in production.
+* Support reproducibility initiatives and artifact evaluation at ML and Systems conferences using rigorous MLPerf methodology and our educational toolkit.
 
 ## Purpose
 
@@ -30,12 +32,16 @@ including vision, recommendation, language processing and speech recognition
 to let companies benchmark and compare their new hardware in terms of accuracy, latency, throughput and energy
 in a reproducible way twice a year.
 
-The goal of this open education workgroup is to develop an MLPerf
-educational toolkit based on portable workflows with plug&play ML components
+The first goal of this open education and reproducibility taskforce is to 
+develop a light-weight and open-source automation meta-framework
+that can make MLOps and DevOps more interoperable, reusable, portable,
+deterministic and reproducible. 
+
+We then use this automation meta-framework to develop plug&play MLPerf benchmark workflows
 to help newcomers start using MLPerf benchmarks and automatically plug in 
 their own ML tasks, models, data sets, engines, software and hardware.
 
-Another goal is to use this toolkit to help students, researchers and
+Another goal is to use these portable MLPerf worklows to help students, researchers and
 engineers participate in crowd-benchmarking and crowd-exploration of the design space tradeoffs 
 (accuracy, latency, throughput, energy, size, etc.) of their ML Systems from the cloud to the
 edge using the mature MLPerf methodology while automating the submission
@@ -63,7 +69,7 @@ from Qualcomm, HPE, Dell, Lenovo, dividiti, Krai, the cTuning foundation and Oct
 For example, it was used and extended by [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
 with several other engineers to automate the record-breaking MLPerf inference benchmark submission for Qualcomm AI 100 devices.
 
-The goal ot this WG is to help users automate all the steps to prepare and run MLPerf benchmarks
+The goal of this group is to help users automate all the steps to prepare and run MLPerf benchmarks
 across any ML models, data sets, frameworks, compilers and hardware.
 
 Here is an example of current manual and error-prone MLPerf benchmark preparation steps:

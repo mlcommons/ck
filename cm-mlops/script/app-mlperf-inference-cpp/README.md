@@ -8,15 +8,6 @@ This is a modularized C++ implementation of an MLPerf Inference SUT. Each file c
    1. `QueueSUT` enqueues queries and dequeues them to each backend thread (ideal for all scenarios except single-stream)
    2. `StreamSUT` calls the backend thread directly upon query (ideal for single-stream)
 
-## Building the `main.cpp` demo
-1. Build and install ONNX Runtime and MLCommons LoadGen
-2. Edit flags near the top of the `main.cpp` file
-3. Build command:
-```sh
-gcc++ -O3 -std=c++14 -I/path/to/loadgen/include -L/path/to/loadgen/lib -I/path/to/onnxruntime/include -L/path/to/onnxruntime/lib -lmlperf_loadgen -lonnxruntime -o main main.cpp
-```
-4. Run with `./main` and the outputs will be in `OUTPUT_DIR` set in `main.cpp` (default `./output`).
-
 ## Test results
 Under the same settings for ResNet50 on reduced ImageNet (Offline, 8 running threads, max batch size 32, Mac M1 CPU):
 * Reference implementation (Python) 38.3336 samples/second
