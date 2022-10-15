@@ -1,5 +1,5 @@
 {
-  "alias": "get-python-lib",
+  "alias": "install-generic-python-lib",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
@@ -12,11 +12,7 @@
       "tags": "detect-cpu"
     },
     {
-      "names": [
-        "python",
-        "python3"
-      ],
-      "tags": "get,python3"
+      "tags": "get,python"
     }
   ],
   "extra_cache_tags_from_env": [
@@ -25,29 +21,27 @@
       "prefix": "python-"
     }
   ],
-  "new_env_keys": [
-    "CM_PYTHONLIB_*",
-    "CM_*_VERSION"
-  ],
-  "prehook_deps": [
+  "post_deps": [
     {
-      "enable_if_env": {
+      "inhert_variation_tags": true,
+      "names": [
+        "get-python-lib"
+      ],
+      "reuse_version": true,
+      "skip_if_env": {
         "CM_TMP_REQUIRE_INSTALL": [
           "yes"
         ]
       },
-      "names": [ "python-lib-install" ],
-      "reuse_version": true,
-      "inherit_variation_tags": true,
-      "tags": "install,python-lib,generic"
+      "tags": "get,python-lib-generic"
     }
   ],
   "tags": [
-    "get",
+    "install",
     "generic",
-    "python-lib"
+    "generic-python-lib"
   ],
-  "uid": "94b62a682bc44791",
+  "uid": "f4f502b7b5d545c8",
   "variations": {
     "onnxruntime": {
       "env": {
