@@ -280,6 +280,7 @@ class CAutomation(Automation):
                                       inside a script specified by these tags
 
           (debug_script) (bool): if True, debug current script (set debug_script_tags to the tags of a current script)
+          (detected_versions) (dict): All the used scripts and their detected_versions
 
           ...
 
@@ -336,6 +337,8 @@ class CAutomation(Automation):
         fake_run = i.get('fake_run', False)
 
         debug_script_tags = i.get('debug_script_tags', '')
+
+        detected_versions = i.get('detected_version', {})
 
         new_cache_entry = i.get('new', False)
 
@@ -455,6 +458,7 @@ class CAutomation(Automation):
         script_tags_string = ','.join(script_tags)
 
         ii['tags'] = script_tags_string
+        ii['variation_tags'] = variation_tags
 
         cm_script_info = 'collective script(s)'
 
@@ -463,6 +467,9 @@ class CAutomation(Automation):
 
         if len(script_tags)>0:
             cm_script_info += ' with tags "{}"'.format(script_tags_string)
+
+        if len(variation_tags)>0:
+            cm_script_info += ' with variations "{}"'.format(",".join(variation_tags))
 
         print ('')
         print (recursion_spaces + '* Searching for ' + cm_script_info)
@@ -1218,9 +1225,11 @@ class CAutomation(Automation):
                 if r['return']>0: return r
 
                 # If return version
-                if cache and r.get('version','') != '':
-                    cached_tags = [x for x in cached_tags if not x.startswith('version-')]
-                    cached_tags.append('version-' + r['version'])
+                if r.get('version','') != '':
+                    version = r.get('version')
+                    if cache:
+                        cached_tags = [x for x in cached_tags if not x.startswith('version-')]
+                        cached_tags.append('version-' + r['version'])
 
 
             # Check chain of post dependencies on other CM scripts
@@ -1256,7 +1265,7 @@ class CAutomation(Automation):
             if remove_tmp_tag:
                 # Save state, env and deps for reuse
                 r =  utils.save_json(file_name = os.path.join(cached_path, self.file_with_cached_state), 
-                       meta={'new_state':new_state, 'new_env':new_env, 'deps':deps})
+                        meta={'new_state':new_state, 'new_env':new_env, 'deps':deps, 'version': version})
                 if r['return']>0: return r
 
                 # Save all env
@@ -1283,7 +1292,7 @@ class CAutomation(Automation):
                     cached_meta['associated_script_artifact'] = found_script_artifact
 
                 # Check if the cached entry is dependent on any other cached entry
-                dependent_cached_path = env.get('CM_TMP_GET_DEPENDENT_CACHED_PATH','')
+                dependent_cached_path = env.get('CM_GET_DEPENDENT_CACHED_PATH','')
                 if dependent_cached_path != '' and not os.path.samefile(cached_path, dependent_cached_path):
                     cached_meta['dependent_cached_path'] = dependent_cached_path
 
@@ -1339,6 +1348,12 @@ class CAutomation(Automation):
         utils.merge_dicts({'dict1':saved_env, 'dict2':new_env, 'append_lists':True, 'append_unique':True})
         utils.merge_dicts({'dict1':saved_state, 'dict2':new_state, 'append_lists':True, 'append_unique':True})
 
+        if version:
+            script_versions = detected_versions.get(meta['uid'], [])
+            if not script_versions:
+                detected_versions[meta['uid']] = [ version ]
+            else:
+                script_versions.append(version)
         ############################# RETURN
         return {'return':0, 'env':saved_env, 'new_env':new_env, 'state':saved_state, 'new_state':new_state}
 
@@ -1552,17 +1567,20 @@ class CAutomation(Automation):
                        detected_version = rx.get('version','')
 
                        if detected_version != '':
-                           ry = check_version_constraints({'detected_version': detected_version,
+                           if detected_version == -1:
+                               print (recursion_spaces + '    SKIPPED due to incompatibility ...')
+                           else:
+                               ry = check_version_constraints({'detected_version': detected_version,
                                                            'version': version,
                                                            'version_min': version_min,
                                                            'version_max': version_max,
                                                            'cmind':self.cmind})
-                           if ry['return']>0: return ry
+                               if ry['return']>0: return ry
 
-                           if not ry['skip']:
-                               found_files_with_good_version.append(path_to_file)
-                           else:
-                               print (recursion_spaces + '    SKIPPED due to version constraints ...')
+                               if not ry['skip']:
+                                   found_files_with_good_version.append(path_to_file)
+                               else:
+                                   print (recursion_spaces + '    SKIPPED due to version constraints ...')
 
                 found_files = found_files_with_good_version
 
