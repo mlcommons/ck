@@ -1729,9 +1729,15 @@ class CAutomation(Automation):
         # Check if forced to search in a specific path
         path = env.get('CM_TMP_PATH','')
 
+        if path!='' and not os.path.isdir(path):
+            return {'return':1, 'error':'path {} doesn\'t exist'.format(path)}
+
         # Check if forced path and file name from --input (CM_INPUT - local env - will not be visible for higher-level script)
         forced_file = env.get('CM_INPUT','').strip()
         if forced_file != '':
+            if not os.path.isfile(forced_file):
+                return {'return':1, 'error':'file {} doesn\'t exist'.format(forced_file)}
+
             file_name = os.path.basename(forced_file)
             path = os.path.dirname(forced_file)
 
