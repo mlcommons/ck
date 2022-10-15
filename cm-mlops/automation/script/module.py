@@ -634,6 +634,10 @@ class CAutomation(Automation):
         # Update version only if in "versions" (not obligatory)
         # can be useful when handling complex Git revisions
         versions = script_artifact.meta.get('versions', {})
+        if version == '':
+            default_version = meta.get('default_version', '')
+            if default_version != '':
+                version = default_version
 
         if version!='' and version in versions:
             versions_meta = versions[version]
