@@ -206,7 +206,7 @@
           "pytorch"
         ]
       },
-      "tags": "get,pytorch"
+      "tags": "get,generic-python-lib,_torch"
     },
     {
       "enable_if_env": {
