@@ -49,11 +49,7 @@ def preprocess(i):
 
     return {'return':0}
 
-
-def postprocess(i):
-
-    env = i['env']
-
+def detect_version(i):
     r = i['automation'].parse_version({'match_text': r'Version\s*([\d.]+)',
                                        'group_number': 1,
                                        'env_key':'CM_CL_VERSION',
@@ -64,9 +60,23 @@ def postprocess(i):
 
     print (i['recursion_spaces'] + '    Detected version: {}'.format(version))
 
+    return {'return':0, 'version':version}
+
+
+
+def postprocess(i):
+
+    env = i['env']
+
+    r = detect_version(i)
+
+    if r['return'] >0: return r
+
+    version = r['version']
+
     env['CM_CL_CACHE_TAGS'] = 'version-'+version
-    env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version+',family-cuda'
-    env['CM_COMPILER_FAMILY'] = 'CUDA'
+    env['CM_COMPILER_CACHE_TAGS'] = 'version-'+version+',family-msvc'
+    env['CM_COMPILER_FAMILY'] = 'MSVC'
     env['CM_COMPILER_VERSION'] = env['CM_CL_VERSION']
 
     return {'return':0, 'version':version}

@@ -109,4 +109,4 @@ def postprocess(i):
                 env['+PATH']=paths
 
 
-    return {'return':0}
+    return {'return':0, 'version': version}
