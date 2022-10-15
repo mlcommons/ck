@@ -591,45 +591,6 @@ class CAutomation(Automation):
             version_max = meta.get('version_max', '')
 
 
-        if version == '':
-            default_version = meta.get('default_version', '')
-
-            if default_version != '':
-                if version_min == '' and version_max == '':
-                    version = default_version
-                else:
-                    if version_min != '':
-                        # default_version = 3.9.6 < version_min = 3.10.1  -> USE version_min
-                        ry = self.cmind.access({'action':'compare_versions',
-                                                'automation':'utils,dc2743f8450541e3',
-                                                'version1':default_version,
-                                                'version2':version_min})
-                        if ry['return']>0: return ry
-
-                        if ry['comparison'] < 0:
-                            version = version_min
-
-                    if version == '' and version_max != '':
-                        # default_version = 3.10.5 > version_max = 3.9.99 (or 3.10.-1)   -> NEED version_default from CMD or ENV
-                        ry = self.cmind.access({'action':'compare_versions',
-                                                'automation':'utils,dc2743f8450541e3',
-                                                'version1':default_version,
-                                                'version2':version_max})
-                        if ry['return']>0: return ry
-
-                        if ry['comparison'] > 0:
-                            if version_max_usable == '':
-                                return {'return':1, 'error':'ambiguity: default_version > version_max and version_max_usable is not defined'}
-
-                            version = version_max_usable
-
-                    if version == '':
-                        # version_min <= default_version <= version_max
-                        version = default_version
-
-
-
-
         # Update env with resolved versions
         x = ''
         for versions in [(version, 'CM_VERSION', ' == {}'),
@@ -673,6 +634,10 @@ class CAutomation(Automation):
         # Update version only if in "versions" (not obligatory)
         # can be useful when handling complex Git revisions
         versions = script_artifact.meta.get('versions', {})
+        if version == '':
+            default_version = meta.get('default_version', '')
+            if default_version != '':
+                version = default_version
 
         if version!='' and version in versions:
             versions_meta = versions[version]
