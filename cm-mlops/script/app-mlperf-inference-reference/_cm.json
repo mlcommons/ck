@@ -49,7 +49,7 @@
           "tflite"
         ]
       },
-      "tags": "get,tensorflow,python-lib"
+      "tags": "get,generic-python-lib,_tensorflow"
     },
     {
       "enable_if_env": {
@@ -92,7 +92,7 @@
           "bert-99.9"
         ]
       },
-      "tags": "get,transformers,python-lib"
+      "tags": "get,generic-python-lib,_transformers"
     },
     {
       "enable_if_env": {
@@ -100,7 +100,7 @@
           "bert-99.9"
         ]
       },
-      "tags": "get,tokenization,python-lib"
+      "tags": "get,generic-python-lib,_tokenization"
     },
     {
       "enable_if_env": {
@@ -181,17 +181,6 @@
     {
       "enable_if_env": {
         "CM_BACKEND": [
-          "tf"
-        ]
-      },
-      "names": [
-        "tensorflow"
-      ],
-      "tags": "get,tensorflow"
-    },
-    {
-      "enable_if_env": {
-        "CM_BACKEND": [
           "tvm-onnx"
         ]
       },
@@ -206,7 +195,7 @@
           "pytorch"
         ]
       },
-      "tags": "get,pytorch"
+      "tags": "get,generic-python-lib,_torch"
     },
     {
       "enable_if_env": {
@@ -214,7 +203,7 @@
           "onnxruntime"
         ]
       },
-      "tags": "get,pytorch"
+      "tags": "get,generic-python-lib,_torch"
     },
     {
       "tags": "get,sut,configs"
