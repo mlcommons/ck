@@ -1,5 +1,5 @@
 {
-  "alias": "install-python-lib",
+  "alias": "install-generic-python-lib",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
@@ -23,21 +23,23 @@
   ],
   "post_deps": [
     {
+      "inhert_variation_tags": true,
+      "names": [
+        "get-python-lib"
+      ],
+      "reuse_version": true,
       "skip_if_env": {
         "CM_TMP_REQUIRE_INSTALL": [
           "yes"
         ]
       },
-      "names": [ "get-python-lib" ],
-      "tags": "get,python-lib,generic",
-      "inhert_variation_tags": true,
-      "reuse_version": true
+      "tags": "get,generic-python-lib"
     }
   ],
   "tags": [
     "install",
     "generic",
-    "python-lib"
+    "generic-python-lib"
   ],
   "uid": "f4f502b7b5d545c8",
   "variations": {
