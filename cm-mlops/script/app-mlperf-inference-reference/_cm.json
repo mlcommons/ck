@@ -214,7 +214,7 @@
           "onnxruntime"
         ]
       },
-      "tags": "get,pytorch"
+      "tags": "get,generic-python-lib,_torch"
     },
     {
       "tags": "get,sut,configs"
