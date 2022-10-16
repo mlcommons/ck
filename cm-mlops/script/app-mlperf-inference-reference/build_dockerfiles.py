@@ -3,40 +3,40 @@ import os
 import pathlib
 current_file_path = pathlib.Path(__file__).parent.resolve()
 docker_os = {
-        "ubuntu": ["18.04","20.04","22.04"], 
-        "rhel": ["9"] 
+        "ubuntu": ["18.04","20.04","22.04"],
+        "rhel": ["9"]
     }
-variations =  { 
+variations =  {
         "resnet50": {
             "tensorflow": {
-                "cpu": [ "python" ] 
+                "cpu": [ "python" ]
             },
             "onnxruntime": {
-                "cpu": [ "python", "cpp" ] 
+                "cpu": [ "python", "cpp" ]
             },
             "pytorch": {
-                "cpu": [ "python" ] 
+                "cpu": [ "python" ]
             }
         },
         "retinanet": {
-            "tensorflow": { 
+            "tensorflow": {
             },
             "onnxruntime": {
-                "cpu": [ "python", "cpp" ] 
+                "cpu": [ "python", "cpp" ]
             },
             "pytorch": {
-                "cpu": [ "python" ] 
+                "cpu": [ "python" ]
             }
         },
         "bert-99.9": {
             "tensorflow": {
-                "cpu": [] 
+                "cpu": []
             },
             "onnxruntime": {
-                "cpu": [ "python"] 
+                "cpu": [ "python" ]
             },
             "pytorch": {
-                "cpu": [] 
+                "cpu": []
             }
         }
     }
@@ -56,7 +56,7 @@ for _os in docker_os:
                             'docker_os': _os, 
                             'docker_os_version': version, 
                             'file_path': dockerfile_path,
-                            'run_cmd': 'cm run script --tags=app,mlperf,inference,reference'+variation_string+' --adr.compiler.tags=gcc',
+                            'run_cmd': 'cm run script --tags=app,mlperf,inference,generic,reference'+variation_string+' --adr.compiler.tags=gcc',
                             'real_run': True
                             })
                         if r['return'] > 0:

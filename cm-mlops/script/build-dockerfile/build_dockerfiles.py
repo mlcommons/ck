@@ -2,7 +2,10 @@ import cmind
 import os
 import pathlib
 current_file_path = pathlib.Path(__file__).parent.resolve()
-docker_os = {'ubuntu': ["18.04","20.04","22.04"], 'rhel': ["9"] }
+docker_os = {
+        'ubuntu': ["18.04","20.04","22.04"],
+        'rhel': ["9"]
+        }
 for _os in docker_os:
     for version in docker_os[_os]:
         dockerfile_path = os.path.join(current_file_path,'dockerfiles', _os +'_'+version+'.Dockerfile')
