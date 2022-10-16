@@ -29,4 +29,4 @@ RUN cm pull repo mlcommons@ck
 RUN cm run script --quiet --tags=get,sys-utils-cm
 
 # Run command
-RUN cm run script --quiet --tags=app,mlperf,inference,reference,_retinanet,_onnxruntime,_cpu,_python --fake_run
+RUN cm run script --tags=app,mlperf,inference,reference,_retinanet,_onnxruntime,_cpu,_python --adr.compiler.tags=gcc
