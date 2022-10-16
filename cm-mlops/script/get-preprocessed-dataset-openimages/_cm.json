@@ -55,6 +55,11 @@
         "CM_DATASET_SIZE": "1"
       }
     },
+    "50": {
+      "env": {
+        "CM_DATASET_SIZE": "50"
+      }
+    },
     "500": {
       "env": {
         "CM_DATASET_SIZE": "500"
