@@ -102,7 +102,7 @@ def preprocess(i):
         else:
             env['CM_DOCKER_IMAGE_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
 
-    if "run" in env['CM_DOCKER_IMAGE_RUN_CMD']:
+    if "run" in env['CM_DOCKER_IMAGE_RUN_CMD'] and not env['CM_REAL_RUN']:
         fake_run = " --fake_run"
     else:
         fake_run = ""

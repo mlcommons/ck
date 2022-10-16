@@ -35,6 +35,7 @@
     "gh_token": "CM_GH_TOKEN",
     "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
     "cache": "CM_DOCKER_CACHE",
-    "file_path": "CM_DOCKERFILE_WITH_PATH"
+    "file_path": "CM_DOCKERFILE_WITH_PATH",
+    "real_run": "CM_REAL_RUN"
   }
 }

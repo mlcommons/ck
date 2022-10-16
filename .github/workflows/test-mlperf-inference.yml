@@ -7,8 +7,8 @@ on:
   pull_request:
     branches: [ "master", "dev" ]
     paths:
-      - cm-mlops/**
-      - .github/workflows/test-cm-scripts.yml
+      - cm-mlops/scripts/app-mlperf-inference-reference/dockerfiles
+      - .github/workflows/test-mlperf-inference.yml
       - '!**.md'
 
 jobs:
@@ -28,9 +28,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python -m pip install cmind
+        apt-get install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+        python3 -m pip install cmind
         cm pull repo octoml@ck
-        cm run script --quiet --tags=get,sys-utils-cm
     - name: Test CM Script Automation
       run: |
-        python tests/script/test_deps.py
+        cd `cm find script --tags=app,mlperf,inference,generic,reference`/dockerfiles/retinanet &&  docker build -f onnxruntime_cpu_python_ubuntu_20.04.Dockerfile .

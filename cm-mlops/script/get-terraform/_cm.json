@@ -10,7 +10,8 @@
     }
   ],
   "new_env_keys": [
-    "CM_TERRAFORM_*"
+    "CM_TERRAFORM_*",
+    "+PATH"
   ],
   "prehook_deps": [
     {
