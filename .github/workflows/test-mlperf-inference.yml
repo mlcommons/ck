@@ -36,6 +36,6 @@ jobs:
         sudo apt-get update -y && sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
         python3 -m pip install cmind
         cm pull repo octoml@ck
-    - name: Test CM Script Automation
+    - name: Test CM Script for MLPerf Retinanet
       run: |
         cd `cm find script --tags=app,mlperf,inference,generic,reference`/dockerfiles/retinanet &&  docker build -f onnxruntime_cpu_python_ubuntu_20.04.Dockerfile .
