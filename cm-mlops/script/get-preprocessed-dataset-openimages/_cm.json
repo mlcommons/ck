@@ -8,9 +8,6 @@
       "tags": "set,echo-off,win"
     },
     {
-      "tags": "get,sys-utils-cm"
-    },
-    {
       "names": [
         "python3",
         "python"
