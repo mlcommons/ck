@@ -275,7 +275,7 @@
       },
       "posthook_deps": [
         {
-          "tags": "mlperf,cpp,vision,inference"
+          "tags": "app,mlperf,cpp,inference"
         }
       ]
     },
