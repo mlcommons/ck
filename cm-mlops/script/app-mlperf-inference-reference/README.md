@@ -1,7 +1,7 @@
 ## Commands
 To run the Python implementation of the MLPerf Reference Implementation we can do
 ``` 
-cm run script --tags=app,mlperf,inference,reference,python,_resnet50,_tf,_cpu \
+cm run script --tags=app,mlperf,inference,reference,_python,_resnet50,_tf,_cpu \
 --output_dir=$HOME/results \
 --add_deps.imagenet.tags=_full \
 --imagenet_path=$HOME/datasets/imagenet-2012-val \

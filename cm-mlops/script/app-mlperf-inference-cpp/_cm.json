@@ -136,6 +136,16 @@
       "env": {
         "CM_BACKEND": "tvm-onnx"
       }
+    },
+    "cpu": {
+      "env": {
+        "CM_DEVICE": "cpu"
+      }
+    },
+    "gpu": {
+      "env": {
+        "CM_DEVICE": "gpu"
+      }
     }
   }
 }
