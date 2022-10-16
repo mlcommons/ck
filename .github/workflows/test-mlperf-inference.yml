@@ -28,7 +28,7 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        sudo apt-get update -y && apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+        sudo apt-get update -y && sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
         python3 -m pip install cmind
         cm pull repo octoml@ck
     - name: Test CM Script Automation
