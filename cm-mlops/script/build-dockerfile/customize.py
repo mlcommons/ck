@@ -33,6 +33,7 @@ def preprocess(i):
 
     if 'CM_DOCKERFILE_WITH_PATH' not in env:
         env['CM_DOCKERFILE_WITH_PATH'] = os.path.join(os.getcwd(), "Dockerfile")
+    os.makedirs(os.path.dirname(env['CM_DOCKERFILE_WITH_PATH']), exist_ok=True)
     f = open(env['CM_DOCKERFILE_WITH_PATH'], "w")
     EOL = env['CM_DOCKER_IMAGE_EOL']
     f.write('FROM ' + docker_image_base + EOL)
@@ -105,7 +106,6 @@ def preprocess(i):
         fake_run = " --fake_run"
     else:
         fake_run = ""
-    fake_run = ""
 
     f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
 
