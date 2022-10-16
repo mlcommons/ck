@@ -8,9 +8,6 @@
       "tags": "set,echo-off,win"
     },
     {
-      "tags": "get,sys-utils-cm"
-    },
-    {
       "names": [
         "python3",
         "python"
@@ -53,6 +50,11 @@
     "1": {
       "env": {
         "CM_DATASET_SIZE": "1"
+      }
+    },
+    "50": {
+      "env": {
+        "CM_DATASET_SIZE": "50"
       }
     },
     "500": {
