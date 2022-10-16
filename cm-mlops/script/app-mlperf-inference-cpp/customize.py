@@ -34,7 +34,7 @@ def preprocess(i):
     if '+ LDCXXFLAGS' not in env:
         env['+ LDCXXFLAGS'] = [ ]
 
-    env['+ LDCXXFLAGS'] += [ "-lmlperf_loadgen", "-lonnxruntime" ]
+    env['+ LDCXXFLAGS'] += [ "-lmlperf_loadgen", "-lonnxruntime", "-lpthread" ]
     env['CM_LINKER_LANG'] = 'CXX'
     env['CM_RUN_DIR'] = os.getcwd()
 
