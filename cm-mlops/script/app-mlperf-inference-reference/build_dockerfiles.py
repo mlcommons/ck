@@ -56,8 +56,7 @@ for _os in docker_os:
                             'docker_os': _os, 
                             'docker_os_version': version, 
                             'file_path': dockerfile_path,
-                            'script_tags': 'app,mlperf,inference,reference'+variation_string,
-                            'adr': {'compiler.tags': 'gcc'},
+                            'run_cmd': 'cm run script --tags=app,mlperf,inference,reference'+variation_string+' --adr.compiler.tags=gcc',
                             'real_run': True
                             })
                         if r['return'] > 0:

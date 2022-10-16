@@ -36,6 +36,7 @@
     "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
     "cache": "CM_DOCKER_CACHE",
     "file_path": "CM_DOCKERFILE_WITH_PATH",
-    "real_run": "CM_REAL_RUN"
+    "real_run": "CM_REAL_RUN",
+    "run_cmd": "CM_DOCKER_IMAGE_RUN_CMD"
   }
 }
