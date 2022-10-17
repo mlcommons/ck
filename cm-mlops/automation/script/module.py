@@ -77,6 +77,25 @@ class CAutomation(Automation):
 
         return {'return':0, 'version':version}
 
+    def search(self, i):
+        """
+        Overriding the automation search function to filter out scripts not matching the given variation tags
+        """
+
+        variation_tags = i.get('variation_tags', [])
+        found = super(CAutomation,self).search(i)
+        if len(variation_tags)>0:
+            filtered = []
+            for script_artifact in found['list']:
+                meta = script_artifact.meta
+                variations = meta.get('variations', {})
+                if not all(t in variations for t in variation_tags):
+                    continue
+                filtered.append(script_artifact)
+            return {'return': 0, 'list': filtered}
+        else:
+            return found
+
 
     ############################################################
     def test(self, i):
