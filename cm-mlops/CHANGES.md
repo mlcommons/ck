@@ -1,3 +1,6 @@
+* 20221017:
+ * removed the need for echo-off script
+
 * 20221010:
  * added cm run script --debug-script-tags to run cmd/bash before native script
  * added cm run script --shell to set env and run shell after script execution

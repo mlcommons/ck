@@ -6,9 +6,6 @@
   "clean_files": [],
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "detect-cpu"
     },
     {

@@ -4,9 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "get,python"
     }
   ],

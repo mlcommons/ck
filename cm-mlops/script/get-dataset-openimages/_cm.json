@@ -6,9 +6,6 @@
   "default_variation": "validation",
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "get,sys-utils-cm"
     },
     {

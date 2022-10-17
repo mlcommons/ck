@@ -5,9 +5,6 @@
   "cache": true,
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "detect,os,info"
     }
   ],

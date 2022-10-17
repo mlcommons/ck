@@ -4,11 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
-  "deps": [
-    {
-      "tags": "set,echo-off,win"
-    }
-  ],
   "name": "Detect Microsoft C compiler",
   "sort": 1000,
   "tags": [

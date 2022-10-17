@@ -6,9 +6,6 @@
   "default_version": "dev-clean",
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "get,sys-utils-cm"
     }
   ],
