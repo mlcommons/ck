@@ -7,9 +7,6 @@
   "default_version": "1.12.1",
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "detect-os"
     }
   ],

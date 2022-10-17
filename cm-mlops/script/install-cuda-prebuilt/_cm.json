@@ -6,9 +6,6 @@
   "version_default": "11.7.0",
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "detect,os,info"
     }
   ],

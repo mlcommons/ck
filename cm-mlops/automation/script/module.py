@@ -77,6 +77,27 @@ class CAutomation(Automation):
 
         return {'return':0, 'version':version}
 
+    def search(self, i):
+        """
+        Overriding the automation search function to filter out scripts not matching the given variation tags
+        """
+
+        variation_tags_all = i.get('variation_tags', [])
+
+        found = super(CAutomation,self).search(i)
+        if variation_tags_all:
+            variation_tags = [t for t in variation_tags_all if not t.startswith('-')]
+            if variation_tags:
+                filtered = []
+                for script_artifact in found['list']:
+                    meta = script_artifact.meta
+                    variations = meta.get('variations', {})
+                    if not all(t in variations for t in variation_tags):
+                        continue
+                    filtered.append(script_artifact)
+                return {'return': 0, 'list': filtered}
+        return found
+
 
     ############################################################
     def test(self, i):
@@ -617,6 +638,10 @@ class CAutomation(Automation):
 
 
 
+        # Add default env from meta to new env if not empty
+        script_artifact_default_env = meta.get('default_env',{})
+        for key in script_artifact_default_env:
+            env.setdefault(key, script_artifact_default_env[key])
         # Add env from meta to new env if not empty
         script_artifact_env = meta.get('env',{})
         env.update(script_artifact_env)
@@ -2466,6 +2491,9 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     """
     Internal: update env and state from meta
     """
+    default_env = meta.get('default_env',{})
+    for key in default_env:
+        env.setdefault(key, default_env[key])
     update_env = meta.get('env', {})
     env.update(update_env)
 

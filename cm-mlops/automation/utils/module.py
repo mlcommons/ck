@@ -93,7 +93,7 @@ class CAutomation(Automation):
             info['run_local_bat']='call ${bat_file}'
             info['run_local_bat_from_python']='call ${bat_file}'
             info['run_bat']='call ${bat_file}'
-            info['start_script']=[]
+            info['start_script']=['@echo off', '']
             info['env']={
               "CM_WINDOWS":"yes"
             }

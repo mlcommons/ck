@@ -5,9 +5,6 @@
   "default_version": "3.21.1",
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "detect,os,info"
     }
   ],

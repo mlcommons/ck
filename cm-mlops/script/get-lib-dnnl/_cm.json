@@ -5,9 +5,6 @@
   "default_version": "dev",
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "detect-cpu"
     },
     {

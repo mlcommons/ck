@@ -7,9 +7,6 @@
   "default_version": "main",
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "detect-cpu"
     },
     {
