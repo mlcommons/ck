@@ -77,27 +77,85 @@ class CAutomation(Automation):
 
         return {'return':0, 'version':version}
 
+
+    ############################################################
     def search(self, i):
         """
         Overriding the automation search function to filter out scripts not matching the given variation tags
+
+        TBD: add input/output description
+        
         """
 
-        variation_tags_all = i.get('variation_tags', [])
+        console = i.get('out') == 'con'
+        
+        ############################################################################################################
+        # Process tags to find script(s) and separate variations 
+        # (not needed to find scripts)
+        tags_string = i.get('tags','').strip()
 
-        found = super(CAutomation,self).search(i)
-        if variation_tags_all:
-            variation_tags = [t for t in variation_tags_all if not t.startswith('-')]
-            if variation_tags:
-                filtered = []
-                for script_artifact in found['list']:
-                    meta = script_artifact.meta
-                    variations = meta.get('variations', {})
-                    if not all(t in variations for t in variation_tags):
-                        continue
-                    filtered.append(script_artifact)
-                return {'return': 0, 'list': filtered}
-        return found
+        tags = [] if tags_string == '' else tags_string.split(',')
 
+        script_tags = []
+        variation_tags = []
+
+        for t in tags:
+            t = t.strip()
+            if t != '':
+                if t.startswith('_'):
+                    tx = t[1:]
+                    if tx not in variation_tags:
+                        variation_tags.append(tx)
+                elif t.startswith('-_'):
+                    tx = '-' + t[2:]
+                    if tx not in variation_tags:
+                        variation_tags.append(tx)
+                else:
+                    script_tags.append(t)
+
+        ############################################################################################################
+        # Find CM script(s) based on thier tags to get their meta (can be more than 1)
+        # Then check if variations exists inside meta
+
+        i['tags'] = script_tags
+
+        i['out'] = None
+        i['common'] = True
+
+        r = super(CAutomation,self).search(i)
+        if r['return']>0: return r
+
+        lst = r['list']
+
+        r['unfiltered_list'] = lst
+
+        found_scripts = False if len(lst) == 0 else True
+
+        if len(variation_tags)>0:
+            filtered = []
+
+            for script_artifact in lst:
+                meta = script_artifact.meta
+                variations = meta.get('variations', {})
+
+                if not all(t in variations for t in variation_tags):
+                    continue
+
+                filtered.append(script_artifact)
+
+            r['list'] = filtered
+
+        # Print filtered paths if console
+        if console:
+            for script in r['list']:
+                print (script.path)
+        
+        # Finalize output
+        r['script_tags'] = script_tags
+        r['variation_tags'] = variation_tags
+        r['found_scripts'] = found_scripts
+        
+        return r
 
     ############################################################
     def test(self, i):
@@ -383,37 +441,9 @@ class CAutomation(Automation):
         parsed_script = i.get('parsed_artifact')
         parsed_script_alias = parsed_script[0][0] if parsed_script is not None else ''
 
-        ############################################################################################################
-        # Process tags to find script(s) and separate variations 
-        # (not needed to find scripts)
-        tags_string = i.get('tags','').strip()
 
-        tags = [] if tags_string == '' else tags_string.split(',')
-
-        script_tags = []
-        variation_tags = []
-
-        for t in tags:
-            t = t.strip()
-            if t != '':
-                if t.startswith('_'):
-                    tx = t[1:]
-                    if tx not in variation_tags:
-                        variation_tags.append(tx)
-                elif t.startswith('-_'):
-                    tx = '-' + t[2:]
-                    if tx not in variation_tags:
-                        variation_tags.append(tx)
-                else:
-                    script_tags.append(t)
-
-        # If neither artifact is specified nor tags, quit
-        if parsed_script == None and len(script_tags)==0:
-            return {'return':1, 'error': 'Script name and/or tags are not specified'}
-
-        script_tags_string = ','.join(script_tags)
-
-
+        
+        
         
         
         
@@ -484,16 +514,32 @@ class CAutomation(Automation):
 
 
 
+        # Search for script (
+
 
         ############################################################################################################
-        # Find CM script(s) based on thier tags to get their meta (can be more than 1) - we will use them later (if more than 1)
-        # Need meta to customize thi workflow
+        # Find CM script(s) based on their tags to get their meta (can be more than 1) - we will use them later (if more than 1)
+        # Need meta to customize this workflow
+        # Note: this local search function will separate tags and variations
+
+        tags_string = i.get('tags','').strip()
 
         ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
 
-        ii['tags'] = script_tags_string
-        ii['variation_tags'] = variation_tags
+        ii['tags'] = tags_string
+        ii['out'] = None
 
+        r = self.search(ii)
+        if r['return']>0: return r
+        
+        list_of_found_scripts = r['list']
+
+        script_tags = r['script_tags']
+        script_tags_string = ','.join(script_tags)
+
+        variation_tags = r['variation_tags']
+
+        # Print what was searched!
         cm_script_info = 'collective script(s)'
 
         if parsed_script_alias !='' :
@@ -510,14 +556,13 @@ class CAutomation(Automation):
         print ('')
         print (recursion_spaces + '* Searching for ' + cm_script_info)
 
-        ii['out'] = None
-        ii['common'] = True
+        #############################################################################
+        # Report if scripts were not found or there is an ambiguity with UIDs
+        if not r['found_scripts']:
+            return {'return':1, 'error': 'script was not found with above tags (when variations ignored)'}
 
-        r = self.search(ii)
-        if r['return']>0: return r
-
-        list_of_found_scripts = sorted(r['list'], key = lambda a: (a.meta.get('sort',0),
-                                                                   a.path))
+        if len(list_of_found_scripts) == 0:
+            return {'return':16, 'error':'script was not found'}
 
         # Sometimes there is an ambiguity when someone adds a script 
         # while duplicating a UID. In such case, we will return >1 script
@@ -529,6 +574,12 @@ class CAutomation(Automation):
                 x+=' * '+y.path+'\n'
 
             return {'return':1, 'error':x}
+
+        #############################################################################
+        # Sort scripts for better determinism
+        list_of_found_scripts = sorted(list_of_found_scripts, key = lambda a: (a.meta.get('sort',0),
+                                                                               a.path))
+        print (recursion_spaces + '  - Number of scripts found: {}'.format(len(list_of_found_scripts)))
 
         # Check if script selection is remembered
         if not skip_remembered_selections and len(list_of_found_scripts) > 1:
@@ -542,13 +593,54 @@ class CAutomation(Automation):
 
 
 
-        # Check if more than 1 script found and selection was not remembered!
+        # If more than one CM script found (example: "get compiler"), 
+        # first, check if selection was already remembered!
+        # second, check in cache to prune scripts
+
         select_script = 0
 
-        if len(list_of_found_scripts) == 0:
-            return {'return':16, 'error':'script not found'}
+        # If 1 script found and script_tags == '', pick them from the meta
+        if script_tags_string == '' and len(list_of_found_scripts) == 1:
+            script_tags_string = ','.join(list_of_found_scripts[0].meta.get('tags',[]))
 
-        elif len(list_of_found_scripts) > 1:
+        # Found 1 or more scripts. Scans cache tags to find at least 1 with cache==True
+        preload_cached_scripts = False
+        for script in list_of_found_scripts:
+            if script.meta.get('cache', False):
+                preload_cached_scripts = True
+                break
+
+        # If at least one script can be cached, preload cached entries
+        cache_list = []
+
+        if preload_cached_scripts:
+            cache_tags_without_tmp_string = '-tmp'
+            if script_tags_string!='':cache_tags_without_tmp_string+=','+script_tags_string
+
+            print (recursion_spaces + '  - Searching cached scripts with the following tags:')
+            print (recursion_spaces + '    {}'.format(cache_tags_without_tmp_string))
+
+            search_cache = {'action':'find',
+                            'automation':self.meta['deps']['cache'],
+                            'tags':cache_tags_without_tmp_string}
+            rc = self.cmind.access(search_cache)
+            if rc['return']>0: return rc
+
+            cache_list = rc['list']
+
+
+        
+        
+        # At this stage with have cache_list related to either 1 or more scripts (in case of get,compiler)
+        
+        
+        
+        
+        
+        
+        
+        
+        if len(list_of_found_scripts) > 1:
             # If only tags are used, check if there are no cached scripts with tags - then we will reuse them
             # The use case: cm run script --tags=get,compiler
             #  CM script will always ask to select gcc,llvm,etc even if any of them will be already cached
