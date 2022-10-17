@@ -59,6 +59,9 @@
   "local_env_keys": [
     "CM_*"
   ],
+  "new_env_keys": [
+    "CM_TINY_*"
+  ],
   "tags": [
     "reproduce",
     "tiny",
