@@ -381,6 +381,40 @@ class CAutomation(Automation):
         parsed_script = i.get('parsed_artifact')
         parsed_script_alias = parsed_script[0][0] if parsed_script is not None else ''
 
+        ############################################################################################################
+        # Process tags to find script(s) and separate variations 
+        # (not needed to find scripts)
+        tags_string = i.get('tags','').strip()
+
+        tags = [] if tags_string == '' else tags_string.split(',')
+
+        script_tags = []
+        variation_tags = []
+
+        for t in tags:
+            t = t.strip()
+            if t != '':
+                if t.startswith('_'):
+                    tx = t[1:]
+                    if tx not in variation_tags:
+                        variation_tags.append(tx)
+                elif t.startswith('-_'):
+                    tx = '-' + t[2:]
+                    if tx not in variation_tags:
+                        variation_tags.append(tx)
+                else:
+                    script_tags.append(t)
+
+        # If neither artifact is specified nor tags, quit
+        if parsed_script == None and len(script_tags)==0:
+            return {'return':1, 'error': 'Script name and/or tags are not specified'}
+
+        script_tags_string = ','.join(script_tags)
+
+
+        
+        
+        
         # Get and cache minimal host OS info to be able to run scripts and manage OS environment
         if len(self.os_info) == 0:
             r = self.cmind.access({'action':'get_host_os_info',
@@ -445,36 +479,15 @@ class CAutomation(Automation):
 
 
 
+
+
+
+
         ############################################################################################################
-        # Process tags to find script(s) and separate variations 
-        # (not needed to find scripts)
+        # Find CM script(s) based on thier tags to get their meta (can be more than 1) - we will use them later (if more than 1)
+        # Need meta to customize thi workflow
 
-        tags = i.get('tags','').strip().split(',')
-
-        script_tags = []
-        variation_tags = []
-
-        for t in tags:
-            t = t.strip()
-            if t != '':
-                if t.startswith('_'):
-                    tx = t[1:]
-                    if tx not in variation_tags:
-                        variation_tags.append(tx)
-                elif t.startswith('-_'):
-                    tx = '-' + t[2:]
-                    if tx not in variation_tags:
-                        variation_tags.append(tx)
-                else:
-                    script_tags.append(t)
-
-
-
-
-        # Find scripts to get their meta (can be more than 1) - we will use them later (if more than 1)
         ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
-
-        script_tags_string = ','.join(script_tags)
 
         ii['tags'] = script_tags_string
         ii['variation_tags'] = variation_tags
@@ -484,11 +497,13 @@ class CAutomation(Automation):
         if parsed_script_alias !='' :
             cm_script_info += ' "{}"'.format(parsed_script_alias)
 
+        x = 'with'
         if len(script_tags)>0:
             cm_script_info += ' with tags "{}"'.format(script_tags_string)
+            x = 'and'
 
         if len(variation_tags)>0:
-            cm_script_info += ' with variations "{}"'.format(",".join(variation_tags))
+            cm_script_info += ' '+x+' variations "{}"'.format(",".join(variation_tags))
 
         print ('')
         print (recursion_spaces + '* Searching for ' + cm_script_info)
@@ -506,7 +521,7 @@ class CAutomation(Automation):
         # while duplicating a UID. In such case, we will return >1 script
         # and will start searching in the cache ... 
         # We are detecing such cases here:
-        if len(list_of_found_scripts)>1 and script_tags_string=='' and '?' not in parsed_script and '*' not in parsed_script:
+        if len(list_of_found_scripts)>1 and script_tags_string=='' and parsed_script_alias!='' and '?' not in parsed_script_alias and '*' not in parsed_script_alias:
             x='Ambiguity in the following scripts have the same UID - please change that in _cm.json or _cm.yaml:\n'
             for y in list_of_found_scripts:
                 x+=' * '+y.path+'\n'
