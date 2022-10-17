@@ -769,15 +769,9 @@ class CAutomation(Automation):
             update_env_from_input_mapping(env, i, input_mapping)
 
 
-        
-        
         # Update version only if in "versions" (not obligatory)
         # can be useful when handling complex Git revisions
         versions = script_artifact.meta.get('versions', {})
-        if version == '':
-            default_version = meta.get('default_version', '')
-            if default_version != '':
-                version = default_version
 
         if version!='' and version in versions:
             versions_meta = versions[version]
@@ -785,7 +779,6 @@ class CAutomation(Automation):
             if r['return']>0: return r
             if "add_deps_recursive" in versions_meta:
                 utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
-
 
 
 
@@ -1102,6 +1095,17 @@ class CAutomation(Automation):
 
         ################################ 
         if not found_cached:
+            # Update default version meta if version is not set
+            if version == '':
+                default_version = meta.get('default_version', '')
+                if default_version != '' and default_version in versions:
+                    versions_meta = versions[default_version]
+                    r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
+                    if r['return']>0: return r
+                    if "add_deps_recursive" in versions_meta:
+                        utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
+
+
             # Check chain of dependencies on other CM scripts
             if len(deps)>0:
                 print (recursion_spaces + '  - Checking dependencies on other CM scripts:')
