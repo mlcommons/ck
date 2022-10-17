@@ -769,26 +769,9 @@ class CAutomation(Automation):
             update_env_from_input_mapping(env, i, input_mapping)
 
 
-
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
-        
-        
         # Update version only if in "versions" (not obligatory)
         # can be useful when handling complex Git revisions
         versions = script_artifact.meta.get('versions', {})
-        if version == '':
-            default_version = meta.get('default_version', '')
-            if default_version != '':
-                version = default_version
 
         if version!='' and version in versions:
             versions_meta = versions[version]
@@ -796,7 +779,6 @@ class CAutomation(Automation):
             if r['return']>0: return r
             if "add_deps_recursive" in versions_meta:
                 utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
-
 
 
 
@@ -929,77 +911,6 @@ class CAutomation(Automation):
         skip_prehook_when_this_script_cached = False
         skip_posthook_when_this_script_cached = False
 
-        if not new_cache_entry:
-            r = find_cached_script({'self':self,
-                                    'recursion_spaces':recursion_spaces,
-                                    'script_tags':script_tags,
-                                    'found_script_tags':found_script_tags,
-                                    'variation_tags':variation_tags,
-                                    'version':version,
-                                    'version_min':version_min,
-                                    'version_max':version_max,
-                                    'extra_cache_tags':extra_cache_tags,
-                                    'new_cache_entry':new_cache_entry,
-                                    'meta':meta,
-                                    'env':env,
-                                    'skip_remembered_selections':skip_remembered_selections,
-                                    'remembered_selections':remembered_selections,
-                                    'quiet':quiet
-                                   })
-            if r['return'] >0: return r
-
-            if len(r['found_cached_scripts'])>0:
-                this_script_cached = True
-
-
-
-                
-
-        
-        
-        ############################################################################################################
-        # Check chain of dependencies on other CM scripts
-        if len(deps)>0:  
-            print (recursion_spaces + '  - Checking dependencies on other CM scripts:')
-
-            r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
-                    remembered_selections, variation_tags_string, this_script_cached, debug_script_tags)
-            if r['return']>0: return r
-
-
-        ############################################################################################################
-        # Update any env key used as part of values in meta
-        print (recursion_spaces + '  - Processing env after dependencies ...')
-        import re
-        for key in env:
-            value = env[key]
-
-            # Check cases such as --env.CM_SKIP_COMPILE
-            if type(value)==bool:
-                env[key] = str(value)
-                continue
-
-            tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
-            if not tmp_values:
-                if key == 'CM_GIT_URL' and env.get('CM_GIT_AUTH', "no") == "yes":
-                    if 'CM_GH_TOKEN' in env and '@' not in env['CM_GIT_URL']:
-                        params = {}
-                        params["token"] = env['CM_GH_TOKEN']
-                        value = get_git_url("token", value, params)
-                    elif 'CM_GIT_SSH' in env:
-                        value = get_git_url("ssh", value)
-                    env[key] = value
-                continue
-
-            for tmp_value in tmp_values:
-                if tmp_value not in env:
-                    return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
-                value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
-            env[key] = value
-
-
-
-
         ############################################################################################################
         # Check if the output of a selected script should be cached
         if cache:
@@ -1055,8 +966,18 @@ class CAutomation(Automation):
                 if num_found_cached_scripts > 0:
                     found_cached = True
 
-                    # Check chain of prehook dependencies on other CM scripts. We consider them same as deps when
-                    # script is in cache
+                    # Check chain of dynamic dependencies on other CM scripts
+                    if len(deps)>0:
+                        print (recursion_spaces + '  - Checking dynamic dependencies on other CM scripts:')
+
+                        r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
+                            remembered_selections, variation_tags_string, True, debug_script_tags)
+                        if r['return']>0: return r
+                        print (recursion_spaces + '  - Processing env after dependencies ...')
+                        update_env_with_values(env)
+
+
+                    # Check chain of prehook dependencies on other CM scripts. (No execution of customize.py for cached scripts)
                     print (recursion_spaces + '    - Checking prehook dependencies on other CM scripts:')
 
                     r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
@@ -1102,12 +1023,6 @@ class CAutomation(Automation):
                     r = self._call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
                             remembered_selections, variation_tags_string, found_cached, debug_script_tags)
                     if r['return']>0: return r
-
-
-
-
-
-
 
 
             if not found_cached and num_found_cached_scripts == 0:
@@ -1166,9 +1081,6 @@ class CAutomation(Automation):
 
 
 
-
-
-
         # Prepare files to be cleaned
         clean_files = [self.tmp_file_run_state, 
                        self.tmp_file_run_env, 
@@ -1183,6 +1095,27 @@ class CAutomation(Automation):
 
         ################################ 
         if not found_cached:
+            # Update default version meta if version is not set
+            if version == '':
+                default_version = meta.get('default_version', '')
+                if default_version != '' and default_version in versions:
+                    versions_meta = versions[default_version]
+                    r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
+                    if r['return']>0: return r
+                    if "add_deps_recursive" in versions_meta:
+                        utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
+
+
+            # Check chain of dependencies on other CM scripts
+            if len(deps)>0:
+                print (recursion_spaces + '  - Checking dependencies on other CM scripts:')
+
+                r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
+                        remembered_selections, variation_tags_string, False, debug_script_tags)
+                if r['return']>0: return r
+                print (recursion_spaces + '  - Processing env after dependencies ...')
+                update_env_with_values(env)
+
             # Clean some output files
             clean_tmp_files(clean_files, recursion_spaces)
 
@@ -2200,6 +2133,38 @@ def enable_or_skip_script(meta, env):
                 continue
         return False
     return True
+
+############################################################################################################
+def update_env_with_values(env):
+    """
+    Update any env key used as part of values in meta
+    """
+    import re
+    for key in env:
+        value = env[key]
+
+        # Check cases such as --env.CM_SKIP_COMPILE
+        if type(value)==bool:
+            env[key] = str(value)
+            continue
+
+        tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
+        if not tmp_values:
+            if key == 'CM_GIT_URL' and env.get('CM_GIT_AUTH', "no") == "yes":
+                if 'CM_GH_TOKEN' in env and '@' not in env['CM_GIT_URL']:
+                    params = {}
+                    params["token"] = env['CM_GH_TOKEN']
+                    value = get_git_url("token", value, params)
+                elif 'CM_GIT_SSH' in env:
+                    value = get_git_url("ssh", value)
+                env[key] = value
+            continue
+
+        for tmp_value in tmp_values:
+            if tmp_value not in env:
+                return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
+            value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
+        env[key] = value
 
 
 ##############################################################################
