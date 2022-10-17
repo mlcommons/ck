@@ -138,7 +138,7 @@ class CAutomation(Automation):
                 meta = script_artifact.meta
                 variations = meta.get('variations', {})
 
-                if not all(t in variations for t in variation_tags):
+                if not all(t in variations for t in variation_tags if not t.startswith('-')):
                     continue
 
                 filtered.append(script_artifact)
