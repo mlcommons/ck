@@ -559,10 +559,10 @@ class CAutomation(Automation):
         #############################################################################
         # Report if scripts were not found or there is an ambiguity with UIDs
         if not r['found_scripts']:
-            return {'return':1, 'error': 'script was not found with above tags (when variations ignored)'}
+            return {'return':1, 'error': 'no scripts were found with above tags (when variations ignored)'}
 
         if len(list_of_found_scripts) == 0:
-            return {'return':16, 'error':'script was not found'}
+            return {'return':16, 'error':'no scripts were found with above tags and variations'}
 
         # Sometimes there is an ambiguity when someone adds a script 
         # while duplicating a UID. In such case, we will return >1 script
@@ -617,8 +617,7 @@ class CAutomation(Automation):
             cache_tags_without_tmp_string = '-tmp'
             if script_tags_string!='':cache_tags_without_tmp_string+=','+script_tags_string
 
-            print (recursion_spaces + '  - Searching cached scripts with the following tags:')
-            print (recursion_spaces + '    {}'.format(cache_tags_without_tmp_string))
+            print (recursion_spaces + '  - Searching for cached script outputs with the following tags: {}'.format(cache_tags_without_tmp_string))
 
             search_cache = {'action':'find',
                             'automation':self.meta['deps']['cache'],
@@ -628,53 +627,36 @@ class CAutomation(Automation):
 
             cache_list = rc['list']
 
+            print (recursion_spaces + '    - Number of cached script outputs found: {}'.format(len(cache_list)))
 
         
-        
         # At this stage with have cache_list related to either 1 or more scripts (in case of get,compiler)
-        
-        
-        
-        
-        
-        
-        
-        
-        if len(list_of_found_scripts) > 1:
+        # If more than 1: Check if in cache and reuse it or ask user to select
+        if len(list_of_found_scripts) > 0:
             # If only tags are used, check if there are no cached scripts with tags - then we will reuse them
             # The use case: cm run script --tags=get,compiler
             #  CM script will always ask to select gcc,llvm,etc even if any of them will be already cached
-            x_script_tags_string = '-tmp'
-            if script_tags_string!='':x_script_tags_string+=','+script_tags_string
-
-            print (recursion_spaces + '  - Searching in cache ...')
-
-            search_cache = {'action':'find',
-                            'automation':self.meta['deps']['cache'],
-                            'tags':x_script_tags_string}
-            rc = self.cmind.access(search_cache)
-            if rc['return']>0: return rc
-
-            cache_list = rc['list']
-
             if len(cache_list) > 0:
-                list_of_found_scripts = []
-                tmp_list_of_script_artifacts = []
+                list_of_found_script = []
 
                 for cache_entry in cache_list:
                     # Find associated script and add to the list_of_found_scripts
                     associated_script_artifact = cache_entry.meta['associated_script_artifact']
 
-                    if associated_script_artifact not in tmp_list_of_script_artifacts:
-                        r = self.cmind.access({'action':'search',
-                                               'automation':self.meta['uid'],
-                                               'artifact': associated_script_artifact,
-                                               'common':True})
-                        if r['return'] >0: return r
+                    x = associated_script_artifact.find(',')
+                    if x<0:
+                        return {'return':1, 'error':'CM artifact format is wrong "{}" - no comma found'.format(associated_script_artifact)}
 
-                        list_of_found_scripts += r['list']
+                    associated_script_artifact_uid = associated_script_artifact[x+1:]
 
-                        tmp_list_of_script_artifacts.append(associated_script_artifact)
+                    cache_entry.meta['associated_script_artifact_uid'] = associated_script_artifact_uid
+
+                    for script in list_of_found_scripts:
+                        script_uid = script.meta['uid']
+
+                        if associated_script_artifact_uid == script_uid:
+                            if script not in list_of_found_script:
+                                list_of_found_script.append(script)
 
             # Select scripts
             if len(list_of_found_scripts) > 1:
@@ -687,6 +669,18 @@ class CAutomation(Automation):
                                                   'cached_script':list_of_found_scripts[select_script]})
             else:
                 select_script = 0
+
+            # Prune cache list with the selected script
+            if len(cache_list) > 0:
+
+                 script_artifact_uid = list_of_found_scripts[select_script].meta['uid']
+
+                 new_cache_list = []
+                 for cache_entry in cache_list:
+                     if cache_entry.meta['associated_script_artifact_uid'] == script_artifact_uid:
+                         new_cache_list.append(cache_entry)
+                
+                 cache_list = new_cache_list
 
 
         
@@ -1387,6 +1381,13 @@ class CAutomation(Automation):
 
                 if found_script_artifact != '':
                     cached_meta['associated_script_artifact'] = found_script_artifact
+
+                    x = found_script_artifact.find(',')
+                    if x<0:
+                        return {'return':1, 'error':'CM artifact format is wrong "{}" - no comma found'.format(found_script_artifact)}
+
+                    cached_meta['associated_script_artifact_uid'] = found_script_artifact[x+1:]
+
 
                 # Check if the cached entry is dependent on any other cached entry
                 dependent_cached_path = env.get('CM_GET_DEPENDENT_CACHED_PATH','')
@@ -2102,7 +2103,7 @@ def find_cached_script(i):
         if len(cached_tags) >0 : 
             search_tags += ',' + ','.join(cached_tags)
 
-        print (recursion_spaces+'    - Prepared tags: {}'.format(search_tags))
+        print (recursion_spaces+'    - Searching for cached script outputs with the following tags: {}'.format(search_tags))
 
         r = self_obj.cmind.access({'action':'find',
                                    'automation':self_obj.meta['deps']['cache'],
