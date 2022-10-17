@@ -482,39 +482,10 @@ class CAutomation(Automation):
         extra_cache_tags = [] if x=='' else x.split(',')
 
 
-        # Check version from env (priority if passed from another script) or input (version)
-        # Version is local for a given script and is not passed further
-        # not to influence versions of dependencies
-        if 'CM_VERSION' in env: 
-            version = env['CM_VERSION']
-        else:
-            version = i.get('version', '').strip()
-
-        if 'CM_VERSION_MIN' in env: 
-            version_min = env['CM_VERSION_MIN']
-        else:
-            version_min = i.get('version_min', '').strip()
-
-        if 'CM_VERSION_MAX' in env: 
-            version_max = env['CM_VERSION_MAX']
-        else:
-            version_max = i.get('version_max', '').strip()
-
-        if 'CM_VERSION_MAX_USABLE' in env: 
-            version_max_usable = env['CM_VERSION_MAX_USABLE']
-        else:
-            version_max_usable = i.get('version_max_usable', '').strip()
 
 
 
 
-
-
-
-
-
-
-        # Search for script (
 
 
         ############################################################################################################
@@ -701,27 +672,64 @@ class CAutomation(Automation):
 
 
 
+
+
+
+
+
+
         
         
-        # Check version from env (priority if passed from another script) or input (version)
-        # Version is local for a given script and is not passed further
-        # not to influence versions of dependencies
+
+        
+        # Get version from env (priority if passed from another script), 
+        # then script input, then script meta
+        if 'CM_VERSION' in env: 
+            version = env['CM_VERSION']
+        else:
+            version = i.get('version', '').strip()
+
+        if 'CM_VERSION_MIN' in env: 
+            version_min = env['CM_VERSION_MIN']
+        else:
+            version_min = i.get('version_min', '').strip()
+
         if version_min == '': 
             version_min = meta.get('version_min', '')
+
+
+        if 'CM_VERSION_MAX' in env: 
+            version_max = env['CM_VERSION_MAX']
+        else:
+            version_max = i.get('version_max', '').strip()
+
+        if 'CM_VERSION_MAX_USABLE' in env: 
+            version_max_usable = env['CM_VERSION_MAX_USABLE']
+        else:
+            version_max_usable = i.get('version_max_usable', '').strip()
 
         if version_max == '': 
             version_max = meta.get('version_max', '')
 
 
+
+        
+        
+        
+        
+        
+        
+        
+        
         # Update env with resolved versions
         x = ''
-        for versions in [(version, 'CM_VERSION', ' == {}'),
+        for xversion in [(version, 'CM_VERSION', ' == {}'),
                          (version_min, 'CM_VERSION_MIN', ' >= {}'),
                          (version_max, 'CM_VERSION_MAX', ' <= {}'),
                          (version_max_usable, 'CM_VERSION_MAX_USABLE', '({})')]:
-            tmp_version = versions[0]
-            key = versions[1]
-            note = versions[2]
+            tmp_version = xversion[0]
+            key = xversion[1]
+            note = xversion[2]
 
             if tmp_version !='': 
                 env[key] = tmp_version
@@ -743,6 +751,7 @@ class CAutomation(Automation):
         script_artifact_default_env = meta.get('default_env',{})
         for key in script_artifact_default_env:
             env.setdefault(key, script_artifact_default_env[key])
+
         # Add env from meta to new env if not empty
         script_artifact_env = meta.get('env',{})
         env.update(script_artifact_env)
@@ -760,6 +769,19 @@ class CAutomation(Automation):
             update_env_from_input_mapping(env, i, input_mapping)
 
 
+
+        
+        
+        
+        
+        
+        
+        
+
+        
+        
+        
+        
         # Update version only if in "versions" (not obligatory)
         # can be useful when handling complex Git revisions
         versions = script_artifact.meta.get('versions', {})
@@ -903,9 +925,10 @@ class CAutomation(Automation):
         
         ############################################################################################################
         # Check if script is cached if we need to skip deps from cached entries
-        deps_in_cache = False
-        skip_prehook_deps_in_cache = False
-        skip_posthook_deps_in_cache = False
+        this_script_cached = False
+        skip_prehook_when_this_script_cached = False
+        skip_posthook_when_this_script_cached = False
+
         if not new_cache_entry:
             r = find_cached_script({'self':self,
                                     'recursion_spaces':recursion_spaces,
@@ -926,11 +949,12 @@ class CAutomation(Automation):
             if r['return'] >0: return r
 
             if len(r['found_cached_scripts'])>0:
-                deps_in_cache = True
+                this_script_cached = True
 
 
-        
-        
+
+                
+
         
         
         ############################################################################################################
@@ -939,7 +963,7 @@ class CAutomation(Automation):
             print (recursion_spaces + '  - Checking dependencies on other CM scripts:')
 
             r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
-                    remembered_selections, variation_tags_string, deps_in_cache, debug_script_tags)
+                    remembered_selections, variation_tags_string, this_script_cached, debug_script_tags)
             if r['return']>0: return r
 
 
@@ -1029,12 +1053,14 @@ class CAutomation(Automation):
 
 
                 if num_found_cached_scripts > 0:
+                    found_cached = True
+
                     # Check chain of prehook dependencies on other CM scripts. We consider them same as deps when
                     # script is in cache
-                    print (recursion_spaces + '  - Checking prehook dependencies on other CM scripts:')
+                    print (recursion_spaces + '    - Checking prehook dependencies on other CM scripts:')
 
                     r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
-                            remembered_selections, variation_tags_string, True, debug_script_tags)
+                            remembered_selections, variation_tags_string, found_cached, debug_script_tags)
                     if r['return']>0: return r
 
                     # Continue with the selected cached script
@@ -1061,10 +1087,9 @@ class CAutomation(Automation):
                     utils.merge_dicts({'dict1':new_env, 'dict2':const, 'append_lists':True, 'append_unique':True})
                     utils.merge_dicts({'dict1':new_state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
-                    found_cached = True
                     # Check chain of posthook dependencies on other CM scripts. We consider them same as postdeps when
                     # script is in cache
-                    print (recursion_spaces + '  - Checking posthook dependencies on other CM scripts:')
+                    print (recursion_spaces + '    - Checking posthook dependencies on other CM scripts:')
 
                     clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
 
@@ -1072,7 +1097,7 @@ class CAutomation(Automation):
                             remembered_selections, variation_tags_string, found_cached, debug_script_tags)
                     if r['return']>0: return r
 
-                    print (recursion_spaces + '  - Checking post dependencies on other CM scripts:')
+                    print (recursion_spaces + '    - Checking post dependencies on other CM scripts:')
                     # Check chain of post dependencies on other CM scripts
                     r = self._call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
                             remembered_selections, variation_tags_string, found_cached, debug_script_tags)
@@ -1303,7 +1328,7 @@ class CAutomation(Automation):
                 print (json.dumps(env, indent=2, sort_keys=True))
 
             # Check chain of pre hook dependencies on other CM scripts
-            if len(prehook_deps)>0 and not skip_prehook_deps_in_cache:
+            if len(prehook_deps)>0 and not skip_prehook_when_this_script_cached:
                 print (recursion_spaces + '  - Checking prehook dependencies on other CM scripts:')
 
                 r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
@@ -1460,6 +1485,7 @@ class CAutomation(Automation):
             add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags=''):
         if len(deps) == 0:
             return {'return': 0}
+
         # Check chain of post hook dependencies on other CM scripts
         import copy
 
@@ -1669,10 +1695,10 @@ class CAutomation(Automation):
                                print (recursion_spaces + '    SKIPPED due to incompatibility ...')
                            else:
                                ry = check_version_constraints({'detected_version': detected_version,
-                                                           'version': version,
-                                                           'version_min': version_min,
-                                                           'version_max': version_max,
-                                                           'cmind':self.cmind})
+                                                               'version': version,
+                                                               'version_min': version_min,
+                                                               'version_max': version_max,
+                                                               'cmind':self.cmind})
                                if ry['return']>0: return ry
 
                                if not ry['skip']:
@@ -2082,7 +2108,8 @@ def find_cached_script(i):
     # Add extra cache tags (such as "virtual" for python)
     if len(extra_cache_tags)>0:
         for t in extra_cache_tags:
-            if t not in cached_tags: cached_tags.append(t)
+            if t not in cached_tags: 
+                cached_tags.append(t)
 
     # Add tags from deps
     extra_cache_tags_from_env = meta.get('extra_cache_tags_from_env',[])
