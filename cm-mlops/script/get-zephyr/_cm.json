@@ -14,9 +14,6 @@
       "version_min": "3.7.0"
     },
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "get,cmake",
       "version_min": "3.20.0"
     }

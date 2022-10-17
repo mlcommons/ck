@@ -10,7 +10,7 @@
       "names": [ "python3", "python" ]
     },
     {
-      "tags": "get,dataset,object-detection,open-images"
+      "tags": "get,dataset,original,object-detection,open-images"
     },
     {
       "tags": "get,mlcommons,inference,src",

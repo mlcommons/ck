@@ -4,11 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
-  "deps": [
-    {
-      "tags": "set,echo-off,win"
-    }
-  ],
   "prehook_deps": [
     {
       "tags": "install,bazel",
@@ -17,6 +12,9 @@
         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
       }
     }
+  ],
+  "new_env_keys": [
+    "CM_BAZEL_*"
   ],
   "tags": [
     "get",

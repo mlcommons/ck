@@ -6,9 +6,6 @@
   "default_variation": "2012-500",
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "tags": "get,sys-utils-cm"
     }
   ],

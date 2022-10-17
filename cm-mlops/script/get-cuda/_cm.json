@@ -6,9 +6,6 @@
   "clean_files": [],
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
       "enable_if_env": {
         "CM_WINDOWS": []
       },

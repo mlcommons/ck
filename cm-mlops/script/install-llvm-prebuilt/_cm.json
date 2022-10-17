@@ -5,10 +5,7 @@
   "default_version": "14.0.0",
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
-      "tags": "detect,os,info"
+      "tags": "detect,os"
     }
   ],
   "cache": true,

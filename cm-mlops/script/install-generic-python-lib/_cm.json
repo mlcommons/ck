@@ -6,10 +6,7 @@
   "clean_files": [],
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
-      "tags": "detect-cpu"
+      "tags": "detect,cpu"
     },
     {
       "tags": "get,python"
@@ -51,6 +48,36 @@
     "tensorflow": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "tensorflow"
+      }
+    },
+    "transformers": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "transformers"
+      }
+    },
+    "torch": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "torch"
+      }
+    },
+    "tokenization": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "tokenization"
+      }
+    },
+    "numpy": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "numpy"
+      }
+    },
+    "onnx": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "onnx"
+      }
+    },
+    "protobuf": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "protobuf"
       }
     }
   }

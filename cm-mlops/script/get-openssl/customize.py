@@ -54,4 +54,4 @@ def postprocess(i):
     # Save tags that can be used to specialize further dependencies (such as python packages)
     tags = 'version-'+version
 
-    return {'return':0}
+    return {'return':0, 'version': version}

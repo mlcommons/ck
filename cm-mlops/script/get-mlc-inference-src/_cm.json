@@ -7,7 +7,7 @@
   "default_variation": "default",
   "deps": [
     {
-      "tags": "detect,os,info"
+      "tags": "detect,os"
     },
     {
       "tags": "get,python3",

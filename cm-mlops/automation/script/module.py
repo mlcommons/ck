@@ -79,6 +79,85 @@ class CAutomation(Automation):
 
 
     ############################################################
+    def search(self, i):
+        """
+        Overriding the automation search function to filter out scripts not matching the given variation tags
+
+        TBD: add input/output description
+        
+        """
+
+        console = i.get('out') == 'con'
+        
+        ############################################################################################################
+        # Process tags to find script(s) and separate variations 
+        # (not needed to find scripts)
+        tags_string = i.get('tags','').strip()
+
+        tags = [] if tags_string == '' else tags_string.split(',')
+
+        script_tags = []
+        variation_tags = []
+
+        for t in tags:
+            t = t.strip()
+            if t != '':
+                if t.startswith('_'):
+                    tx = t[1:]
+                    if tx not in variation_tags:
+                        variation_tags.append(tx)
+                elif t.startswith('-_'):
+                    tx = '-' + t[2:]
+                    if tx not in variation_tags:
+                        variation_tags.append(tx)
+                else:
+                    script_tags.append(t)
+
+        ############################################################################################################
+        # Find CM script(s) based on thier tags to get their meta (can be more than 1)
+        # Then check if variations exists inside meta
+
+        i['tags'] = script_tags
+
+        i['out'] = None
+        i['common'] = True
+
+        r = super(CAutomation,self).search(i)
+        if r['return']>0: return r
+
+        lst = r['list']
+
+        r['unfiltered_list'] = lst
+
+        found_scripts = False if len(lst) == 0 else True
+
+        if len(variation_tags)>0:
+            filtered = []
+
+            for script_artifact in lst:
+                meta = script_artifact.meta
+                variations = meta.get('variations', {})
+
+                if not all(t in variations for t in variation_tags if not t.startswith('-')):
+                    continue
+
+                filtered.append(script_artifact)
+
+            r['list'] = filtered
+
+        # Print filtered paths if console
+        if console:
+            for script in r['list']:
+                print (script.path)
+        
+        # Finalize output
+        r['script_tags'] = script_tags
+        r['variation_tags'] = variation_tags
+        r['found_scripts'] = found_scripts
+        
+        return r
+
+    ############################################################
     def test(self, i):
         """
         Test automation (TBD)
@@ -362,6 +441,12 @@ class CAutomation(Automation):
         parsed_script = i.get('parsed_artifact')
         parsed_script_alias = parsed_script[0][0] if parsed_script is not None else ''
 
+
+        
+        
+        
+        
+        
         # Get and cache minimal host OS info to be able to run scripts and manage OS environment
         if len(self.os_info) == 0:
             r = self.cmind.access({'action':'get_host_os_info',
@@ -397,29 +482,6 @@ class CAutomation(Automation):
         extra_cache_tags = [] if x=='' else x.split(',')
 
 
-        # Check version from env (priority if passed from another script) or input (version)
-        # Version is local for a given script and is not passed further
-        # not to influence versions of dependencies
-        if 'CM_VERSION' in env: 
-            version = env['CM_VERSION']
-        else:
-            version = i.get('version', '').strip()
-
-        if 'CM_VERSION_MIN' in env: 
-            version_min = env['CM_VERSION_MIN']
-        else:
-            version_min = i.get('version_min', '').strip()
-
-        if 'CM_VERSION_MAX' in env: 
-            version_max = env['CM_VERSION_MAX']
-        else:
-            version_max = i.get('version_max', '').strip()
-
-        if 'CM_VERSION_MAX_USABLE' in env: 
-            version_max_usable = env['CM_VERSION_MAX_USABLE']
-        else:
-            version_max_usable = i.get('version_max_usable', '').strip()
-
 
 
 
@@ -427,72 +489,68 @@ class CAutomation(Automation):
 
 
         ############################################################################################################
-        # Process tags to find script(s) and separate variations 
-        # (not needed to find scripts)
+        # Find CM script(s) based on their tags to get their meta (can be more than 1) - we will use them later (if more than 1)
+        # Need meta to customize this workflow
+        # Note: this local search function will separate tags and variations
 
-        tags = i.get('tags','').strip().split(',')
+        tags_string = i.get('tags','').strip()
 
-        script_tags = []
-        variation_tags = []
-
-        for t in tags:
-            t = t.strip()
-            if t != '':
-                if t.startswith('_'):
-                    tx = t[1:]
-                    if tx not in variation_tags:
-                        variation_tags.append(tx)
-                elif t.startswith('-_'):
-                    tx = '-' + t[2:]
-                    if tx not in variation_tags:
-                        variation_tags.append(tx)
-                else:
-                    script_tags.append(t)
-
-
-
-
-        # Find scripts to get their meta (can be more than 1) - we will use them later (if more than 1)
         ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
 
+        ii['tags'] = tags_string
+        ii['out'] = None
+
+        r = self.search(ii)
+        if r['return']>0: return r
+        
+        list_of_found_scripts = r['list']
+
+        script_tags = r['script_tags']
         script_tags_string = ','.join(script_tags)
 
-        ii['tags'] = script_tags_string
-        ii['variation_tags'] = variation_tags
+        variation_tags = r['variation_tags']
 
+        # Print what was searched!
         cm_script_info = 'collective script(s)'
 
         if parsed_script_alias !='' :
             cm_script_info += ' "{}"'.format(parsed_script_alias)
 
+        x = 'with'
         if len(script_tags)>0:
             cm_script_info += ' with tags "{}"'.format(script_tags_string)
+            x = 'and'
 
         if len(variation_tags)>0:
-            cm_script_info += ' with variations "{}"'.format(",".join(variation_tags))
+            cm_script_info += ' '+x+' variations "{}"'.format(",".join(variation_tags))
 
         print ('')
         print (recursion_spaces + '* Searching for ' + cm_script_info)
 
-        ii['out'] = None
-        ii['common'] = True
+        #############################################################################
+        # Report if scripts were not found or there is an ambiguity with UIDs
+        if not r['found_scripts']:
+            return {'return':1, 'error': 'no scripts were found with above tags (when variations ignored)'}
 
-        r = self.search(ii)
-        if r['return']>0: return r
-
-        list_of_found_scripts = sorted(r['list'], key = lambda a: (a.meta.get('sort',0),
-                                                                   a.path))
+        if len(list_of_found_scripts) == 0:
+            return {'return':16, 'error':'no scripts were found with above tags and variations'}
 
         # Sometimes there is an ambiguity when someone adds a script 
         # while duplicating a UID. In such case, we will return >1 script
         # and will start searching in the cache ... 
         # We are detecing such cases here:
-        if len(list_of_found_scripts)>1 and script_tags_string=='' and '?' not in parsed_script and '*' not in parsed_script:
+        if len(list_of_found_scripts)>1 and script_tags_string=='' and parsed_script_alias!='' and '?' not in parsed_script_alias and '*' not in parsed_script_alias:
             x='Ambiguity in the following scripts have the same UID - please change that in _cm.json or _cm.yaml:\n'
             for y in list_of_found_scripts:
                 x+=' * '+y.path+'\n'
 
             return {'return':1, 'error':x}
+
+        #############################################################################
+        # Sort scripts for better determinism
+        list_of_found_scripts = sorted(list_of_found_scripts, key = lambda a: (a.meta.get('sort',0),
+                                                                               a.path))
+        print (recursion_spaces + '  - Number of scripts found: {}'.format(len(list_of_found_scripts)))
 
         # Check if script selection is remembered
         if not skip_remembered_selections and len(list_of_found_scripts) > 1:
@@ -506,47 +564,70 @@ class CAutomation(Automation):
 
 
 
-        # Check if more than 1 script found and selection was not remembered!
+        # If more than one CM script found (example: "get compiler"), 
+        # first, check if selection was already remembered!
+        # second, check in cache to prune scripts
+
         select_script = 0
 
-        if len(list_of_found_scripts) == 0:
-            return {'return':16, 'error':'script not found'}
+        # If 1 script found and script_tags == '', pick them from the meta
+        if script_tags_string == '' and len(list_of_found_scripts) == 1:
+            script_tags_string = ','.join(list_of_found_scripts[0].meta.get('tags',[]))
 
-        elif len(list_of_found_scripts) > 1:
-            # If only tags are used, check if there are no cached scripts with tags - then we will reuse them
-            # The use case: cm run script --tags=get,compiler
-            #  CM script will always ask to select gcc,llvm,etc even if any of them will be already cached
-            x_script_tags_string = '-tmp'
-            if script_tags_string!='':x_script_tags_string+=','+script_tags_string
+        # Found 1 or more scripts. Scans cache tags to find at least 1 with cache==True
+        preload_cached_scripts = False
+        for script in list_of_found_scripts:
+            if script.meta.get('cache', False):
+                preload_cached_scripts = True
+                break
 
-            print (recursion_spaces + '  - Searching in cache ...')
+        # If at least one script can be cached, preload cached entries
+        cache_list = []
+
+        if preload_cached_scripts:
+            cache_tags_without_tmp_string = '-tmp'
+            if script_tags_string!='':cache_tags_without_tmp_string+=','+script_tags_string
+
+            print (recursion_spaces + '  - Searching for cached script outputs with the following tags: {}'.format(cache_tags_without_tmp_string))
 
             search_cache = {'action':'find',
                             'automation':self.meta['deps']['cache'],
-                            'tags':x_script_tags_string}
+                            'tags':cache_tags_without_tmp_string}
             rc = self.cmind.access(search_cache)
             if rc['return']>0: return rc
 
             cache_list = rc['list']
 
+            print (recursion_spaces + '    - Number of cached script outputs found: {}'.format(len(cache_list)))
+
+        
+        # At this stage with have cache_list related to either 1 or more scripts (in case of get,compiler)
+        # If more than 1: Check if in cache and reuse it or ask user to select
+        if len(list_of_found_scripts) > 0:
+            # If only tags are used, check if there are no cached scripts with tags - then we will reuse them
+            # The use case: cm run script --tags=get,compiler
+            #  CM script will always ask to select gcc,llvm,etc even if any of them will be already cached
             if len(cache_list) > 0:
-                list_of_found_scripts = []
-                tmp_list_of_script_artifacts = []
+                list_of_found_script = []
 
                 for cache_entry in cache_list:
                     # Find associated script and add to the list_of_found_scripts
                     associated_script_artifact = cache_entry.meta['associated_script_artifact']
 
-                    if associated_script_artifact not in tmp_list_of_script_artifacts:
-                        r = self.cmind.access({'action':'search',
-                                               'automation':self.meta['uid'],
-                                               'artifact': associated_script_artifact,
-                                               'common':True})
-                        if r['return'] >0: return r
+                    x = associated_script_artifact.find(',')
+                    if x<0:
+                        return {'return':1, 'error':'CM artifact format is wrong "{}" - no comma found'.format(associated_script_artifact)}
 
-                        list_of_found_scripts += r['list']
+                    associated_script_artifact_uid = associated_script_artifact[x+1:]
 
-                        tmp_list_of_script_artifacts.append(associated_script_artifact)
+                    cache_entry.meta['associated_script_artifact_uid'] = associated_script_artifact_uid
+
+                    for script in list_of_found_scripts:
+                        script_uid = script.meta['uid']
+
+                        if associated_script_artifact_uid == script_uid:
+                            if script not in list_of_found_script:
+                                list_of_found_script.append(script)
 
             # Select scripts
             if len(list_of_found_scripts) > 1:
@@ -559,6 +640,18 @@ class CAutomation(Automation):
                                                   'cached_script':list_of_found_scripts[select_script]})
             else:
                 select_script = 0
+
+            # Prune cache list with the selected script
+            if len(cache_list) > 0:
+
+                 script_artifact_uid = list_of_found_scripts[select_script].meta['uid']
+
+                 new_cache_list = []
+                 for cache_entry in cache_list:
+                     if cache_entry.meta['associated_script_artifact_uid'] == script_artifact_uid:
+                         new_cache_list.append(cache_entry)
+                
+                 cache_list = new_cache_list
 
 
         
@@ -579,27 +672,64 @@ class CAutomation(Automation):
 
 
 
+
+
+
+
+
+
         
         
-        # Check version from env (priority if passed from another script) or input (version)
-        # Version is local for a given script and is not passed further
-        # not to influence versions of dependencies
+
+        
+        # Get version from env (priority if passed from another script), 
+        # then script input, then script meta
+        if 'CM_VERSION' in env: 
+            version = env['CM_VERSION']
+        else:
+            version = i.get('version', '').strip()
+
+        if 'CM_VERSION_MIN' in env: 
+            version_min = env['CM_VERSION_MIN']
+        else:
+            version_min = i.get('version_min', '').strip()
+
         if version_min == '': 
             version_min = meta.get('version_min', '')
+
+
+        if 'CM_VERSION_MAX' in env: 
+            version_max = env['CM_VERSION_MAX']
+        else:
+            version_max = i.get('version_max', '').strip()
+
+        if 'CM_VERSION_MAX_USABLE' in env: 
+            version_max_usable = env['CM_VERSION_MAX_USABLE']
+        else:
+            version_max_usable = i.get('version_max_usable', '').strip()
 
         if version_max == '': 
             version_max = meta.get('version_max', '')
 
 
+
+        
+        
+        
+        
+        
+        
+        
+        
         # Update env with resolved versions
         x = ''
-        for versions in [(version, 'CM_VERSION', ' == {}'),
+        for xversion in [(version, 'CM_VERSION', ' == {}'),
                          (version_min, 'CM_VERSION_MIN', ' >= {}'),
                          (version_max, 'CM_VERSION_MAX', ' <= {}'),
                          (version_max_usable, 'CM_VERSION_MAX_USABLE', '({})')]:
-            tmp_version = versions[0]
-            key = versions[1]
-            note = versions[2]
+            tmp_version = xversion[0]
+            key = xversion[1]
+            note = xversion[2]
 
             if tmp_version !='': 
                 env[key] = tmp_version
@@ -617,6 +747,11 @@ class CAutomation(Automation):
 
 
 
+        # Add default env from meta to new env if not empty
+        script_artifact_default_env = meta.get('default_env',{})
+        for key in script_artifact_default_env:
+            env.setdefault(key, script_artifact_default_env[key])
+
         # Add env from meta to new env if not empty
         script_artifact_env = meta.get('env',{})
         env.update(script_artifact_env)
@@ -627,6 +762,9 @@ class CAutomation(Automation):
         prehook_deps = meta.get('prehook_deps',[])
         posthook_deps = meta.get('posthook_deps',[])
         input_mapping = meta.get('input_mapping', {})
+        new_env_keys_from_meta = meta.get('new_env_keys', [])
+        new_state_keys_from_meta = meta.get('new_state_keys', [])
+
         if input_mapping:
             update_env_from_input_mapping(env, i, input_mapping)
 
@@ -637,11 +775,10 @@ class CAutomation(Automation):
 
         if version!='' and version in versions:
             versions_meta = versions[version]
-            r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, i)
+            r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
             if r['return']>0: return r
             if "add_deps_recursive" in versions_meta:
                 utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
-
 
 
 
@@ -733,7 +870,7 @@ class CAutomation(Automation):
 
                 variation_meta = variations[variation_tag]
 
-                r = update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, i)
+                r = update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
                 if r['return']>0: return r
                 if "add_deps_recursive" in variation_meta:
                     utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':variation_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
@@ -770,78 +907,9 @@ class CAutomation(Automation):
         
         ############################################################################################################
         # Check if script is cached if we need to skip deps from cached entries
-        deps_in_cache = False
-        skip_prehook_deps_in_cache = False
-        skip_posthook_deps_in_cache = False
-        if not new_cache_entry:
-            r = find_cached_script({'self':self,
-                                    'recursion_spaces':recursion_spaces,
-                                    'script_tags':script_tags,
-                                    'found_script_tags':found_script_tags,
-                                    'variation_tags':variation_tags,
-                                    'version':version,
-                                    'version_min':version_min,
-                                    'version_max':version_max,
-                                    'extra_cache_tags':extra_cache_tags,
-                                    'new_cache_entry':new_cache_entry,
-                                    'meta':meta,
-                                    'env':env,
-                                    'skip_remembered_selections':skip_remembered_selections,
-                                    'remembered_selections':remembered_selections,
-                                    'quiet':quiet
-                                   })
-            if r['return'] >0: return r
-
-            if len(r['found_cached_scripts'])>0:
-                deps_in_cache = True
-
-
-        
-        
-        
-        
-        ############################################################################################################
-        # Check chain of dependencies on other CM scripts
-        if len(deps)>0:  
-            print (recursion_spaces + '  - Checking dependencies on other CM scripts:')
-
-            r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
-                    remembered_selections, variation_tags_string, deps_in_cache, debug_script_tags)
-            if r['return']>0: return r
-
-
-        ############################################################################################################
-        # Update any env key used as part of values in meta
-        print (recursion_spaces + '  - Processing env after dependencies ...')
-        import re
-        for key in env:
-            value = env[key]
-
-            # Check cases such as --env.CM_SKIP_COMPILE
-            if type(value)==bool:
-                env[key] = str(value)
-                continue
-
-            tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
-            if not tmp_values:
-                if key == 'CM_GIT_URL' and env.get('CM_GIT_AUTH', "no") == "yes":
-                    if 'CM_GH_TOKEN' in env and '@' not in env['CM_GIT_URL']:
-                        params = {}
-                        params["token"] = env['CM_GH_TOKEN']
-                        value = get_git_url("token", value, params)
-                    elif 'CM_GIT_SSH' in env:
-                        value = get_git_url("ssh", value)
-                    env[key] = value
-                continue
-
-            for tmp_value in tmp_values:
-                if tmp_value not in env:
-                    return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
-                value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
-            env[key] = value
-
-
-
+        this_script_cached = False
+        skip_prehook_when_this_script_cached = False
+        skip_posthook_when_this_script_cached = False
 
         ############################################################################################################
         # Check if the output of a selected script should be cached
@@ -896,12 +964,24 @@ class CAutomation(Automation):
 
 
                 if num_found_cached_scripts > 0:
-                    # Check chain of prehook dependencies on other CM scripts. We consider them same as deps when
-                    # script is in cache
-                    print (recursion_spaces + '  - Checking prehook dependencies on other CM scripts:')
+                    found_cached = True
+
+                    # Check chain of dynamic dependencies on other CM scripts
+                    if len(deps)>0:
+                        print (recursion_spaces + '  - Checking dynamic dependencies on other CM scripts:')
+
+                        r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
+                            remembered_selections, variation_tags_string, True, debug_script_tags)
+                        if r['return']>0: return r
+                        print (recursion_spaces + '  - Processing env after dependencies ...')
+                        update_env_with_values(env)
+
+
+                    # Check chain of prehook dependencies on other CM scripts. (No execution of customize.py for cached scripts)
+                    print (recursion_spaces + '    - Checking prehook dependencies on other CM scripts:')
 
                     r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
-                            remembered_selections, variation_tags_string, True, debug_script_tags)
+                            remembered_selections, variation_tags_string, found_cached, debug_script_tags)
                     if r['return']>0: return r
 
                     # Continue with the selected cached script
@@ -928,10 +1008,9 @@ class CAutomation(Automation):
                     utils.merge_dicts({'dict1':new_env, 'dict2':const, 'append_lists':True, 'append_unique':True})
                     utils.merge_dicts({'dict1':new_state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
 
-                    found_cached = True
                     # Check chain of posthook dependencies on other CM scripts. We consider them same as postdeps when
                     # script is in cache
-                    print (recursion_spaces + '  - Checking posthook dependencies on other CM scripts:')
+                    print (recursion_spaces + '    - Checking posthook dependencies on other CM scripts:')
 
                     clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
 
@@ -939,17 +1018,11 @@ class CAutomation(Automation):
                             remembered_selections, variation_tags_string, found_cached, debug_script_tags)
                     if r['return']>0: return r
 
-                    print (recursion_spaces + '  - Checking post dependencies on other CM scripts:')
+                    print (recursion_spaces + '    - Checking post dependencies on other CM scripts:')
                     # Check chain of post dependencies on other CM scripts
                     r = self._call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
                             remembered_selections, variation_tags_string, found_cached, debug_script_tags)
                     if r['return']>0: return r
-
-
-
-
-
-
 
 
             if not found_cached and num_found_cached_scripts == 0:
@@ -1008,9 +1081,6 @@ class CAutomation(Automation):
 
 
 
-
-
-
         # Prepare files to be cleaned
         clean_files = [self.tmp_file_run_state, 
                        self.tmp_file_run_env, 
@@ -1025,6 +1095,27 @@ class CAutomation(Automation):
 
         ################################ 
         if not found_cached:
+            # Update default version meta if version is not set
+            if version == '':
+                default_version = meta.get('default_version', '')
+                if default_version != '' and default_version in versions:
+                    versions_meta = versions[default_version]
+                    r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
+                    if r['return']>0: return r
+                    if "add_deps_recursive" in versions_meta:
+                        utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
+
+
+            # Check chain of dependencies on other CM scripts
+            if len(deps)>0:
+                print (recursion_spaces + '  - Checking dependencies on other CM scripts:')
+
+                r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
+                        remembered_selections, variation_tags_string, False, debug_script_tags)
+                if r['return']>0: return r
+                print (recursion_spaces + '  - Processing env after dependencies ...')
+                update_env_with_values(env)
+
             # Clean some output files
             clean_tmp_files(clean_files, recursion_spaces)
 
@@ -1170,7 +1261,7 @@ class CAutomation(Automation):
                 print (json.dumps(env, indent=2, sort_keys=True))
 
             # Check chain of pre hook dependencies on other CM scripts
-            if len(prehook_deps)>0 and not skip_prehook_deps_in_cache:
+            if len(prehook_deps)>0 and not skip_prehook_when_this_script_cached:
                 print (recursion_spaces + '  - Checking prehook dependencies on other CM scripts:')
 
                 r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
@@ -1206,9 +1297,6 @@ class CAutomation(Automation):
         # Force consts in the final new env and state
         utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
         utils.merge_dicts({'dict1':state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
-
-        new_env_keys_from_meta = meta.get('new_env_keys', [])
-        new_state_keys_from_meta = meta.get('new_state_keys', [])
 
         r = detect_state_diff(env, saved_env, new_env_keys_from_meta, new_state_keys_from_meta, state, saved_state)
         if r['return']>0: return r
@@ -1251,6 +1339,13 @@ class CAutomation(Automation):
 
                 if found_script_artifact != '':
                     cached_meta['associated_script_artifact'] = found_script_artifact
+
+                    x = found_script_artifact.find(',')
+                    if x<0:
+                        return {'return':1, 'error':'CM artifact format is wrong "{}" - no comma found'.format(found_script_artifact)}
+
+                    cached_meta['associated_script_artifact_uid'] = found_script_artifact[x+1:]
+
 
                 # Check if the cached entry is dependent on any other cached entry
                 dependent_cached_path = env.get('CM_GET_DEPENDENT_CACHED_PATH','')
@@ -1323,6 +1418,7 @@ class CAutomation(Automation):
             add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags=''):
         if len(deps) == 0:
             return {'return': 0}
+
         # Check chain of post hook dependencies on other CM scripts
         import copy
 
@@ -1532,10 +1628,10 @@ class CAutomation(Automation):
                                print (recursion_spaces + '    SKIPPED due to incompatibility ...')
                            else:
                                ry = check_version_constraints({'detected_version': detected_version,
-                                                           'version': version,
-                                                           'version_min': version_min,
-                                                           'version_max': version_max,
-                                                           'cmind':self.cmind})
+                                                               'version': version,
+                                                               'version_min': version_min,
+                                                               'version_max': version_max,
+                                                               'cmind':self.cmind})
                                if ry['return']>0: return ry
 
                                if not ry['skip']:
@@ -1945,7 +2041,8 @@ def find_cached_script(i):
     # Add extra cache tags (such as "virtual" for python)
     if len(extra_cache_tags)>0:
         for t in extra_cache_tags:
-            if t not in cached_tags: cached_tags.append(t)
+            if t not in cached_tags: 
+                cached_tags.append(t)
 
     # Add tags from deps
     extra_cache_tags_from_env = meta.get('extra_cache_tags_from_env',[])
@@ -1966,7 +2063,7 @@ def find_cached_script(i):
         if len(cached_tags) >0 : 
             search_tags += ',' + ','.join(cached_tags)
 
-        print (recursion_spaces+'    - Prepared tags: {}'.format(search_tags))
+        print (recursion_spaces+'    - Searching for cached script outputs with the following tags: {}'.format(search_tags))
 
         r = self_obj.cmind.access({'action':'find',
                                    'automation':self_obj.meta['deps']['cache'],
@@ -2036,6 +2133,38 @@ def enable_or_skip_script(meta, env):
                 continue
         return False
     return True
+
+############################################################################################################
+def update_env_with_values(env):
+    """
+    Update any env key used as part of values in meta
+    """
+    import re
+    for key in env:
+        value = env[key]
+
+        # Check cases such as --env.CM_SKIP_COMPILE
+        if type(value)==bool:
+            env[key] = str(value)
+            continue
+
+        tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
+        if not tmp_values:
+            if key == 'CM_GIT_URL' and env.get('CM_GIT_AUTH', "no") == "yes":
+                if 'CM_GH_TOKEN' in env and '@' not in env['CM_GIT_URL']:
+                    params = {}
+                    params["token"] = env['CM_GH_TOKEN']
+                    value = get_git_url("token", value, params)
+                elif 'CM_GIT_SSH' in env:
+                    value = get_git_url("ssh", value)
+                env[key] = value
+            continue
+
+        for tmp_value in tmp_values:
+            if tmp_value not in env:
+                return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
+            value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
+        env[key] = value
 
 
 ##############################################################################
@@ -2458,10 +2587,13 @@ def update_env_from_input_mapping(env, inp, input_mapping):
             env[input_mapping[key]] = inp[key]
 
 ##############################################################################
-def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, posthook_deps, i):
+def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys, new_state_keys, i):
     """
     Internal: update env and state from meta
     """
+    default_env = meta.get('default_env',{})
+    for key in default_env:
+        env.setdefault(key, default_env[key])
     update_env = meta.get('env', {})
     env.update(update_env)
 
@@ -2502,6 +2634,14 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     input_mapping = meta.get('input_mapping', {})
     if input_mapping:
         update_env_from_input_mapping(env, i['input'], input_mapping)
+
+    new_env_keys_from_meta = meta.get('new_env_keys', [])
+    if new_env_keys_from_meta:
+        new_env_keys += new_env_keys_from_meta
+
+    new_state_keys_from_meta = meta.get('new_state_keys', [])
+    if new_state_keys_from_meta:
+        new_state_keys += new_state_keys_from_meta
 
     return {'return':0}
 

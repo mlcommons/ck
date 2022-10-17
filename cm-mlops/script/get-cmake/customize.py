@@ -59,4 +59,4 @@ def postprocess(i):
     if 'CM_HOST_CPU_TOTAL_CORES' in env:
         env['CM_MAKE_CORES'] =  env['CM_HOST_CPU_TOTAL_CORES']
 
-    return {'return':0}
+    return {'return':0, 'version': version}

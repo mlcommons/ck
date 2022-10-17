@@ -5,4 +5,4 @@ try:
     version = pkg_resources.get_distribution(package_name).version
     print(version)
 except ImportError as e:
-    from sys import stderr
+    pass

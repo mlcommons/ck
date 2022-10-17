@@ -33,6 +33,7 @@ def preprocess(i):
 
     if 'CM_DOCKERFILE_WITH_PATH' not in env:
         env['CM_DOCKERFILE_WITH_PATH'] = os.path.join(os.getcwd(), "Dockerfile")
+    os.makedirs(os.path.dirname(env['CM_DOCKERFILE_WITH_PATH']), exist_ok=True)
     f = open(env['CM_DOCKERFILE_WITH_PATH'], "w")
     EOL = env['CM_DOCKER_IMAGE_EOL']
     f.write('FROM ' + docker_image_base + EOL)
@@ -44,10 +45,13 @@ def preprocess(i):
         f.write('SHELL ' + shell + EOL)
     for arg in config['ARGS']:
         f.write('ARG '+ arg + EOL)
+    f.write(EOL+'# Notes: https://runnable.com/blog/9-common-dockerfile-mistakes'+EOL+'# Install system dependencies' + EOL)
     f.write('RUN ' + get_value(env, config, 'package-manager-update-cmd') + EOL)
     f.write('RUN '+ get_value(env, config, 'package-manager-get-cmd') + " " + " ".join(get_value(env, config,
         'packages')) + EOL)
+    f.write(EOL+'# Install python packages' + EOL)
     f.write('RUN python3 -m pip install ' + " ".join(get_value(env, config, 'python-packages')) + EOL)
+    f.write(EOL+'# Setup docker environment' + EOL)
     entry_point = get_value(env, config, 'ENTRYPOINT', 'CM_DOCKER_IMAGE_ENTRYPOINT')
     if entry_point:
         f.write('ENTRYPOINT ' + entry_point + EOL)
@@ -55,6 +59,7 @@ def preprocess(i):
         f.write('ENV '+ key + "=" + value + EOL)
     for cmd in config['RUN_CMDS']:
         f.write('RUN '+ cmd + EOL)
+    f.write(EOL+'# Setup docker user' + EOL)
     docker_user = get_value(env, config, 'USER', 'CM_DOCKER_USER')
     docker_userid = get_value(env, config, 'USERID', 'CM_DOCKER_USER_ID')
     docker_group = get_value(env, config, 'GROUP', 'CM_DOCKER_GROUP')
@@ -80,25 +85,27 @@ def preprocess(i):
     workdir = get_value(env, config, 'WORKDIR', 'CM_DOCKER_WORKDIR')
     if workdir:
         f.write('WORKDIR ' + workdir + EOL)
+    f.write(EOL+'# Download CM repo for scripts' + EOL)
     f.write('RUN cm pull repo ' + cm_mlops_repo + EOL)
 
+    f.write(EOL+'# Install all system dependencies' + EOL)
     f.write('RUN cm run script --quiet --tags=get,sys-utils-cm' + EOL)
     run_cmd_extra=''
     gh_token = get_value(env, config, "GH_TOKEN", "CM_GH_TOKEN")
     if gh_token:
         run_cmd_extra = " --env.CM_GH_TOKEN=$CM_GH_TOKEN"
 
+    f.write(EOL+'# Run command' + EOL)
     if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
         if 'CM_DOCKER_RUN_SCRIPT_TAGS' not in env:
             env['CM_DOCKER_IMAGE_RUN_CMD']="cm version"
         else:
             env['CM_DOCKER_IMAGE_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
 
-    if "run" in env['CM_DOCKER_IMAGE_RUN_CMD']:
+    if "run" in env['CM_DOCKER_IMAGE_RUN_CMD'] and not env.get('CM_REAL_RUN', None):
         fake_run = " --fake_run"
     else:
         fake_run = ""
-    fake_run = ""
 
     f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
 

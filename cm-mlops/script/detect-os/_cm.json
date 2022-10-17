@@ -5,11 +5,6 @@
   "clean_files": [
     "tmp-run.out"
   ],
-  "deps": [
-    {
-      "tags": "set,echo-off,win"
-    }
-  ],
   "new_env_keys": [
     "CM_HOST_OS_*",
     "+CM_HOST_OS_*",

@@ -4,13 +4,10 @@
   "automation_uid": "5b4e0237da074764",
   "deps": [
     {
-      "tags": "set,echo-off,win"
+      "tags": "detect,os"
     },
     {
-      "tags": "detect,os,info"
-    },
-    {
-      "tags": "detect,cpu,info"
+      "tags": "detect,cpu"
     },
     {
       "tags": "get,sys-utils-cm"
@@ -49,7 +46,7 @@
           "tflite"
         ]
       },
-      "tags": "get,tensorflow,python-lib"
+      "tags": "get,generic-python-lib,_tensorflow"
     },
     {
       "enable_if_env": {
@@ -92,7 +89,7 @@
           "bert-99.9"
         ]
       },
-      "tags": "get,transformers,python-lib"
+      "tags": "get,generic-python-lib,_transformers"
     },
     {
       "enable_if_env": {
@@ -100,7 +97,7 @@
           "bert-99.9"
         ]
       },
-      "tags": "get,tokenization,python-lib"
+      "tags": "get,generic-python-lib,_tokenization"
     },
     {
       "enable_if_env": {
@@ -181,17 +178,6 @@
     {
       "enable_if_env": {
         "CM_BACKEND": [
-          "tf"
-        ]
-      },
-      "names": [
-        "tensorflow"
-      ],
-      "tags": "get,tensorflow"
-    },
-    {
-      "enable_if_env": {
-        "CM_BACKEND": [
           "tvm-onnx"
         ]
       },
@@ -206,7 +192,7 @@
           "pytorch"
         ]
       },
-      "tags": "get,pytorch"
+      "tags": "get,generic-python-lib,_torch"
     },
     {
       "enable_if_env": {
@@ -214,7 +200,7 @@
           "onnxruntime"
         ]
       },
-      "tags": "get,pytorch"
+      "tags": "get,generic-python-lib,_torch"
     },
     {
       "tags": "get,sut,configs"
@@ -244,12 +230,13 @@
   "tags": [
     "app",
     "vision",
+    "language",
     "mlcommons",
     "mlperf",
     "inference",
     "reference",
-    "ref",
-    "python"
+    "generic",
+    "ref"
   ],
   "uid": "d775cac873ee4231",
   "variations": {
@@ -269,15 +256,20 @@
             ]
           },
           "names": [
-            "accuracy-script"
+            "accuracy-script", "squad-accuracy-script"
           ],
           "tags": "run,accuracy,squad"
         }
       ]
     },
+    "python": {
+      "env": {
+        "CM_MLPERF_PYTHON": "yes"
+      }
+    },
     "cpp": {
       "add_deps_recursive": {
-        "accuracy-script": {
+        "imagenet-accuracy-script": {
           "tags": "_int64"
         }
       },
@@ -286,7 +278,7 @@
       },
       "posthook_deps": [
         {
-          "tags": "mlperf,cpp,vision,inference"
+          "tags": "app,mlperf,cpp,inference"
         }
       ]
     },
@@ -358,7 +350,7 @@
             ]
           },
           "names": [
-            "accuracy-script"
+            "accuracy-script", "imagenet-accuracy-script"
           ],
           "tags": "run,accuracy,imagenet"
         }
@@ -380,7 +372,7 @@
             ]
           },
           "names": [
-            "accuracy-script"
+            "accuracy-script", "openimages-accuracy-script"
           ],
           "tags": "run,accuracy,openimages"
         }

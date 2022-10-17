@@ -6,10 +6,7 @@
   "clean_files": [],
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
-      "tags": "detect-cpu"
+      "tags": "detect,cpu"
     },
     {
       "names": [
@@ -26,8 +23,7 @@
     }
   ],
   "new_env_keys": [
-    "CM_PYTHONLIB_*",
-    "CM_*_VERSION"
+    "CM_PYTHONLIB_*"
   ],
   "prehook_deps": [
     {
@@ -38,7 +34,7 @@
       },
       "inherit_variation_tags": true,
       "names": [
-        "python-lib-install"
+        "generic-python-lib-install"
       ],
       "reuse_version": true,
       "tags": "install,generic-python-lib"
@@ -54,12 +50,66 @@
     "onnxruntime": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "onnxruntime"
-      }
+      },
+      "new_env_keys": [
+        "CM_ONNXRUNTIME_VERSION"
+      ]
     },
     "tensorflow": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "tensorflow"
-      }
+      },
+      "new_env_keys": [
+        "CM_TENSORFLOW_VERSION"
+      ]
+    },
+    "transformers": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "transformers"
+      },
+      "new_env_keys": [
+        "CM_TRANSFORMERS_VERSION"
+      ]
+    },
+    "torch": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "torch"
+      },
+      "new_env_keys": [
+        "CM_TORCH_VERSION"
+      ]
+    },
+    "tokenization": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "tokenization"
+      },
+      "new_env_keys": [
+        "CM_TOKENIZATION_VERSION"
+      ]
+    },
+    "numpy": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "numpy"
+      },
+      "new_env_keys": [
+        "CM_NUMPY_VERSION"
+      ]
+    },
+    "onnx": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "onnx"
+      },
+      "new_env_keys": [
+        "CM_ONNX_VERSION"
+      ]
+    },
+    "protobuf": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "protobuf"
+      },
+      "new_env_keys": [
+        "CM_PROTOBUF_VERSION"
+      ]
     }
   }
 }

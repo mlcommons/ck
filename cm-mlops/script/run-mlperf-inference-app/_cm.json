@@ -4,13 +4,10 @@
   "automation_uid": "5b4e0237da074764",
   "deps": [
     {
-      "tags": "set,echo-off,win"
+      "tags": "detect,os"
     },
     {
-      "tags": "detect,os,info"
-    },
-    {
-      "tags": "detect,cpu,info"
+      "tags": "detect,cpu"
     },
     {
       "names": [

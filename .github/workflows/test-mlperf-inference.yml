@@ -1,0 +1,39 @@
+# This workflow will install Python dependencies, run tests and lint with a variety of Python versions
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
+
+name: CM script automation test for MLPerf inference retinanet
+
+on:
+  pull_request:
+    branches: [ "master", "dev" ]
+    paths:
+      - cm-mlops/scripts/app-mlperf-inference-reference/dockerfiles_stopped
+      - .github/workflows/test-mlperf-inference.yml
+      - '!**.md'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.9"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        sudo mkdir -p /etc/apt/keyrings
+        curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+        echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+        sudo apt-get update -y && sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
+        python3 -m pip install cmind
+        cm pull repo octoml@ck
+    - name: Test CM Script for MLPerf Retinanet
+      run: |
+        cd `cm find script --tags=app,mlperf,inference,generic,reference`/dockerfiles/retinanet &&  docker build -f onnxruntime_cpu_python_ubuntu_20.04.Dockerfile .

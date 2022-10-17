@@ -1,0 +1,28 @@
+{
+  "alias": "get-aws-cli",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "clean_files": [],
+  "prehook_deps": [
+    {
+      "enable_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "reuse_version": true,
+      "tags": "install,aws-cli"
+    }
+  ],
+  "new_env_keys": [
+    "CM_AWS_*"
+  ],
+  "tags": [
+    "get",
+    "aws-cli",
+    "aws",
+    "cli"
+  ],
+  "uid": "dad67944229942a3"
+}

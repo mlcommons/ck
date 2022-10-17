@@ -8,10 +8,7 @@
   ],
   "deps": [
     {
-      "tags": "set,echo-off,win"
-    },
-    {
-      "tags": "detect,os,info"
+      "tags": "detect,os"
     }
   ],
   "env": {
