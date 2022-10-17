@@ -769,17 +769,6 @@ class CAutomation(Automation):
             update_env_from_input_mapping(env, i, input_mapping)
 
 
-
-        
-        
-        
-        
-        
-        
-        
-
-        
-        
         
         
         # Update version only if in "versions" (not obligatory)
@@ -984,19 +973,18 @@ class CAutomation(Automation):
                 if num_found_cached_scripts > 0:
                     found_cached = True
 
-                    # Check chain of dependencies on other CM scripts
+                    # Check chain of dynamic dependencies on other CM scripts
                     if len(deps)>0:
-                        print (recursion_spaces + '  - Checking dependencies on other CM scripts:')
+                        print (recursion_spaces + '  - Checking dynamic dependencies on other CM scripts:')
 
-                    r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
+                        r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
                             remembered_selections, variation_tags_string, True, debug_script_tags)
-                    if r['return']>0: return r
-                    print (recursion_spaces + '  - Processing env after dependencies ...')
-                    update_env_with_values(env)
+                        if r['return']>0: return r
+                        print (recursion_spaces + '  - Processing env after dependencies ...')
+                        update_env_with_values(env)
 
 
-                    # Check chain of prehook dependencies on other CM scripts. We consider them same as deps when
-                    # script is in cache
+                    # Check chain of prehook dependencies on other CM scripts. (No execution of customize.py for cached scripts)
                     print (recursion_spaces + '    - Checking prehook dependencies on other CM scripts:')
 
                     r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
