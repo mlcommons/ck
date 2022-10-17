@@ -636,6 +636,10 @@ class CAutomation(Automation):
 
 
 
+        # Add default env from meta to new env if not empty
+        script_artifact_default_env = meta.get('default_env',{})
+        for key in script_artifact_default_env:
+            env.setdefault(key, script_artifact_default_env[key])
         # Add env from meta to new env if not empty
         script_artifact_env = meta.get('env',{})
         env.update(script_artifact_env)
@@ -2485,6 +2489,9 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     """
     Internal: update env and state from meta
     """
+    default_env = meta.get('default_env',{})
+    for key in default_env:
+        env.setdefault(key, default_env[key])
     update_env = meta.get('env', {})
     env.update(update_env)
 
