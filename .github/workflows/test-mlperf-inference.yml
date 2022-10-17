@@ -7,7 +7,7 @@ on:
   pull_request:
     branches: [ "master", "dev" ]
     paths:
-      - cm-mlops/scripts/app-mlperf-inference-reference/dockerfiles
+      - cm-mlops/scripts/app-mlperf-inference-reference/dockerfiles_stopped
       - .github/workflows/test-mlperf-inference.yml
       - '!**.md'
 
