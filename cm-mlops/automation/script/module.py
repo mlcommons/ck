@@ -769,17 +769,6 @@ class CAutomation(Automation):
             update_env_from_input_mapping(env, i, input_mapping)
 
 
-        # Update version only if in "versions" (not obligatory)
-        # can be useful when handling complex Git revisions
-        versions = script_artifact.meta.get('versions', {})
-
-        if version!='' and version in versions:
-            versions_meta = versions[version]
-            r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
-            if r['return']>0: return r
-            if "add_deps_recursive" in versions_meta:
-                utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
-
 
 
         # Get possible variations and versions from script meta
@@ -875,6 +864,17 @@ class CAutomation(Automation):
                 if "add_deps_recursive" in variation_meta:
                     utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':variation_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
 
+        # Update version only if in "versions" (not obligatory)
+        # can be useful when handling complex Git revisions
+        versions = script_artifact.meta.get('versions', {})
+
+        if version!='' and version in versions:
+            versions_meta = versions[version]
+            r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
+            if r['return']>0: return r
+            if "add_deps_recursive" in versions_meta:
+                utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
+
 
         r = update_deps_from_input(deps, post_deps, prehook_deps, posthook_deps, i)
         if r['return']>0: return r
@@ -908,8 +908,6 @@ class CAutomation(Automation):
         ############################################################################################################
         # Check if script is cached if we need to skip deps from cached entries
         this_script_cached = False
-        skip_prehook_when_this_script_cached = False
-        skip_posthook_when_this_script_cached = False
 
         ############################################################################################################
         # Check if the output of a selected script should be cached
@@ -1261,7 +1259,7 @@ class CAutomation(Automation):
                 print (json.dumps(env, indent=2, sort_keys=True))
 
             # Check chain of pre hook dependencies on other CM scripts
-            if len(prehook_deps)>0 and not skip_prehook_when_this_script_cached:
+            if len(prehook_deps)>0:
                 print (recursion_spaces + '  - Checking prehook dependencies on other CM scripts:')
 
                 r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
