@@ -6,10 +6,10 @@
   "default_version": "r1.0",
   "deps": [
     {
-      "tags": "detect,os,info"
+      "tags": "detect,os"
     },
     {
-      "tags": "detect,cpu,info"
+      "tags": "detect,cpu"
     },
     {
       "tags": "get,sys-utils-cm"

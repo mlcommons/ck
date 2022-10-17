@@ -8,7 +8,7 @@
   ],
   "deps": [
     {
-      "tags": "detect,os,info"
+      "tags": "detect,os"
     }
   ],
   "env": {

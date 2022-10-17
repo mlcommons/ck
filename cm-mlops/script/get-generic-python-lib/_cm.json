@@ -6,7 +6,7 @@
   "clean_files": [],
   "deps": [
     {
-      "tags": "detect-cpu"
+      "tags": "detect,cpu"
     },
     {
       "names": [

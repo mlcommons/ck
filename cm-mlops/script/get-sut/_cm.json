@@ -5,18 +5,18 @@
   "cache": false,
   "deps": [
     {
+      "tags": "detect,os"
+    },
+    {
+      "tags": "detect,cpu"
+    },
+    {
       "tags": "get,python3",
       "names": [ "python3", "python" ]
     },
     {
       "tags": "get,compiler",
       "names": [ "compiler" ]
-    },
-    {
-      "tags": "detect,os,info"
-    },
-    {
-      "tags": "detect,cpu,info"
     }
   ],
   "tags": [

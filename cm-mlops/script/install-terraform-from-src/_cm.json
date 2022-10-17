@@ -7,7 +7,7 @@
   "default_version": "main",
   "deps": [
     {
-      "tags": "detect-cpu"
+      "tags": "detect,cpu"
     },
     {
       "tags": "get,tool,go"

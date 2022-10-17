@@ -5,7 +5,7 @@
   "default_version": "3.21.1",
   "deps": [
     {
-      "tags": "detect,os,info"
+      "tags": "detect,os"
     }
   ],
   "cache": true,
