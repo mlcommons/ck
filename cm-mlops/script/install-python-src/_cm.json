@@ -6,10 +6,10 @@
   "default_version": "3.10.5",
   "deps": [
     {
-      "tags": "detect,os,info"
+      "tags": "detect,os"
     },
     {
-      "tags": "detect,cpu,info"
+      "tags": "detect,cpu"
     }
   ],
   "env": {

@@ -5,7 +5,7 @@
   "default_version": "dev",
   "deps": [
     {
-      "tags": "detect-cpu"
+      "tags": "detect,cpu"
     },
     {
       "tags": "cmake,get-cmake"

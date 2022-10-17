@@ -7,7 +7,7 @@
   "default_version": "1.12.1",
   "deps": [
     {
-      "tags": "detect-os"
+      "tags": "detect,os"
     }
   ],
   "new_env_keys": [

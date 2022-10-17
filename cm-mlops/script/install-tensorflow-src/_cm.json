@@ -7,7 +7,7 @@
   "default_version": "master",
   "deps": [
     {
-      "tags": "detect-cpu"
+      "tags": "detect,cpu"
     }
   ],
   "extra_cache_tags_from_env": [
