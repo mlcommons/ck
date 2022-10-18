@@ -15,6 +15,7 @@
     "CM_ENV2": "TEST2A",
     "CM_VERSION": "3.8"
   },
+  "new_env_keys":["CM_ENV*"],
   "post_deps": [],
   "tags": [
     "test",
