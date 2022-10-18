@@ -413,13 +413,13 @@ class CAutomation(Automation):
 
         print_env = i.get('print_env', False)
 
+        skip_cache = i.get('skip_cache', False)
         fake_run = i.get('fake_run', False)
+        new_cache_entry = i.get('new', False)
 
         debug_script_tags = i.get('debug_script_tags', '')
 
         detected_versions = i.get('detected_version', {})
-
-        new_cache_entry = i.get('new', False)
 
         # Get constant env and state
         const = i.get('const',{})
@@ -453,9 +453,9 @@ class CAutomation(Automation):
                                    'automation':'utils,dc2743f8450541e3'})
             if r['return']>0: return r
 
-            os_info = r['info']
-        else:
-            os_info = self.os_info
+            self.os_info = r['info']
+
+        os_info = self.os_info
 
         # Bat extension for this host OS
         bat_ext = os_info['bat_ext']
@@ -482,16 +482,20 @@ class CAutomation(Automation):
         extra_cache_tags = [] if x=='' else x.split(',')
 
 
-
-
-
-
+        ############################################################################################################
+        # Check if we want to skip cache (either by skip_cache or by fake_run)
+        force_skip_cache = True if skip_cache else False
+        force_skip_cache = True if fake_run else force_skip_cache
 
 
         ############################################################################################################
-        # Find CM script(s) based on their tags to get their meta (can be more than 1) - we will use them later (if more than 1)
-        # Need meta to customize this workflow
+        # Find CM script(s) based on their tags and variations to get their meta and customize this workflow.
+        # We will need to decide how to select if more than 1 (such as "get compiler")
+        #
         # Note: this local search function will separate tags and variations
+        #
+        # STEP 100 Input: Search sripts by i['tags'] (includes variations starting from _) and/or i['parsed_artifact']
+        #                 tags_string = i['tags']
 
         tags_string = i.get('tags','').strip()
 
@@ -502,7 +506,9 @@ class CAutomation(Automation):
 
         r = self.search(ii)
         if r['return']>0: return r
-        
+
+        # Search function will return 
+
         list_of_found_scripts = r['list']
 
         script_tags = r['script_tags']
@@ -546,6 +552,18 @@ class CAutomation(Automation):
 
             return {'return':1, 'error':x}
 
+        # STEP 100 Output: list_of_found_scripts based on tags (with variations) and/or parsed_artifact 
+        #                  script_tags [] - contains tags without variations (starting from _ such as _cuda)
+        #                  variation_tags [] - contains only variations tags (without _)
+        #                  string_tags_string [str] (joined script_tags)
+
+
+
+
+
+
+
+
         #############################################################################
         # Sort scripts for better determinism
         list_of_found_scripts = sorted(list_of_found_scripts, key = lambda a: (a.meta.get('sort',0),
@@ -558,15 +576,19 @@ class CAutomation(Automation):
                 if selection['type'] == 'script' and set(selection['tags'].split(',')) == set(script_tags_string.split(',')):
                     # Leave 1 entry in the found list
                     list_of_found_scripts = [selection['cached_script']]
-                    print (recursion_spaces + '  - Found remembered selection with tags "{}"!'.format(script_tags_string))
+                    print (recursion_spaces + '  - Found remembered selection with tags: {}'.format(script_tags_string))
                     break
 
 
+        # STEP 200 Output: potentially pruned list_of_found_scripts if selection of multple scripts was remembered
 
 
-        # If more than one CM script found (example: "get compiler"), 
+
+        # STEP 300: If more than one CM script found (example: "get compiler"), 
         # first, check if selection was already remembered!
         # second, check in cache to prune scripts
+
+        # STEP 300 input: lit_of_found_scripts
 
         select_script = 0
 
@@ -581,12 +603,18 @@ class CAutomation(Automation):
                 preload_cached_scripts = True
                 break
 
-        # If at least one script can be cached, preload cached entries
+        # STEP 300 Output: preload_cached_scripts = True if at least one of the list_of_found_scripts must be cached
+        
+        
+        # STEP 400: If not force_skip_cache and at least one script can be cached, find (preload) related cache entries for found scripts
+        # STEP 400 input:  script_tags and -tmp (to avoid unfinished scripts particularly when installation fails)
+
         cache_list = []
 
-        if preload_cached_scripts:
+        if not force_skip_cache and preload_cached_scripts:
             cache_tags_without_tmp_string = '-tmp'
-            if script_tags_string!='':cache_tags_without_tmp_string+=','+script_tags_string
+            if script_tags_string !='':
+                cache_tags_without_tmp_string += ',' + script_tags_string
 
             print (recursion_spaces + '  - Searching for cached script outputs with the following tags: {}'.format(cache_tags_without_tmp_string))
 
@@ -600,9 +628,14 @@ class CAutomation(Automation):
 
             print (recursion_spaces + '    - Number of cached script outputs found: {}'.format(len(cache_list)))
 
-        
-        # At this stage with have cache_list related to either 1 or more scripts (in case of get,compiler)
-        # If more than 1: Check if in cache and reuse it or ask user to select
+            # STEP 400 output: cache_list
+            
+
+
+        # STEP 500: At this stage with have cache_list related to either 1 or more scripts (in case of get,compiler)
+        #           If more than 1: Check if in cache and reuse it or ask user to select
+        # STEP 500 input: list_of_found_scripts
+
         if len(list_of_found_scripts) > 0:
             # If only tags are used, check if there are no cached scripts with tags - then we will reuse them
             # The use case: cm run script --tags=get,compiler
@@ -653,8 +686,6 @@ class CAutomation(Automation):
                 
                  cache_list = new_cache_list
 
-
-        
         # Here a specific script is found and meta obtained
         script_artifact = list_of_found_scripts[select_script]
 
@@ -669,6 +700,24 @@ class CAutomation(Automation):
             debug_script_tags=','.join(found_script_tags)
 
         print (recursion_spaces+'  - Found script::{} in {}'.format(found_script_artifact, path))
+
+
+        # STEP 500 output: script_artifact - unique selected script artifact
+        #                  (cache_list) pruned for the unique script if cache is used 
+        #                  meta - script meta
+        #                  path - script path
+        #                  found_script_tags [] - all tags of the found script
+
+
+
+
+
+
+
+
+
+
+
 
 
 
