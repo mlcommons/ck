@@ -915,10 +915,11 @@ class CAutomation(Automation):
         if version_max == '': version_max = env.get('CM_VERSION_MAX','')
         if version_max_usable == '': version_max_usable = env.get('CM_VERSION_MAX_USABLE','')
 
+
         # Third, take from meta
         if version == '': version = meta.get('version', '')
         if version_min == '': version_min = meta.get('version_min', '')
-        if version_max == '': version_min = meta.get('version_max', '')
+        if version_max == '': version_max = meta.get('version_max', '')
         if version_max_usable == '': version_max_usable = meta.get('version_max_usable', '')
 
         # Update env with resolved versions
