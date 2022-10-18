@@ -606,6 +606,9 @@ class CAutomation(Automation):
         # STEP 300 Output: preload_cached_scripts = True if at least one of the list_of_found_scripts must be cached
         
         
+
+        
+        
         # STEP 400: If not force_skip_cache and at least one script can be cached, find (preload) related cache entries for found scripts
         # STEP 400 input:  script_tags and -tmp (to avoid unfinished scripts particularly when installation fails)
 
@@ -632,6 +635,10 @@ class CAutomation(Automation):
             
 
 
+
+        
+        
+        
         # STEP 500: At this stage with have cache_list related to either 1 or more scripts (in case of get,compiler)
         #           If more than 1: Check if in cache and reuse it or ask user to select
         # STEP 500 input: list_of_found_scripts
@@ -687,10 +694,19 @@ class CAutomation(Automation):
                  cache_list = new_cache_list
 
         # Here a specific script is found and meta obtained
+        # Set some useful local variables
         script_artifact = list_of_found_scripts[select_script]
 
         meta = script_artifact.meta
         path = script_artifact.path
+
+        deps = meta.get('deps',[])
+        post_deps = meta.get('post_deps',[])
+        prehook_deps = meta.get('prehook_deps',[])
+        posthook_deps = meta.get('posthook_deps',[])
+        input_mapping = meta.get('input_mapping', {})
+        new_env_keys_from_meta = meta.get('new_env_keys', [])
+        new_state_keys_from_meta = meta.get('new_state_keys', [])
 
         found_script_artifact = utils.assemble_cm_object(meta['alias'], meta['uid'])
 
@@ -722,105 +738,64 @@ class CAutomation(Automation):
 
 
 
-
-
-
-
-
+       
         
         
+        # HERE WE HAVE ORIGINAL ENV
 
-        
-        # Get version from env (priority if passed from another script), 
-        # then script input, then script meta
-        if 'CM_VERSION' in env: 
-            version = env['CM_VERSION']
-        else:
-            version = i.get('version', '').strip()
-
-        if 'CM_VERSION_MIN' in env: 
-            version_min = env['CM_VERSION_MIN']
-        else:
-            version_min = i.get('version_min', '').strip()
-
-        if version_min == '': 
-            version_min = meta.get('version_min', '')
-
-
-        if 'CM_VERSION_MAX' in env: 
-            version_max = env['CM_VERSION_MAX']
-        else:
-            version_max = i.get('version_max', '').strip()
-
-        if 'CM_VERSION_MAX_USABLE' in env: 
-            version_max_usable = env['CM_VERSION_MAX_USABLE']
-        else:
-            version_max_usable = i.get('version_max_usable', '').strip()
-
-        if version_max == '': 
-            version_max = meta.get('version_max', '')
-
-
-
-        
-        
-        
-        
-        
-        
-        
-        
-        # Update env with resolved versions
-        x = ''
-        for xversion in [(version, 'CM_VERSION', ' == {}'),
-                         (version_min, 'CM_VERSION_MIN', ' >= {}'),
-                         (version_max, 'CM_VERSION_MAX', ' <= {}'),
-                         (version_max_usable, 'CM_VERSION_MAX_USABLE', '({})')]:
-            tmp_version = xversion[0]
-            key = xversion[1]
-            note = xversion[2]
-
-            if tmp_version !='': 
-                env[key] = tmp_version
-
-                if x != '': x+='  '
-                x += note.format(tmp_version)
-            elif key in env: del(env[key])
-
-        if x != '':
-            print (recursion_spaces+'    - Requested version: ' + x)
-        else:
-            print (recursion_spaces+'    - No version requested')
-
-
-
-
-
+        # STEP 600: Continue updating env  
         # Add default env from meta to new env if not empty
+        # (env NO OVERWRITE)
         script_artifact_default_env = meta.get('default_env',{})
         for key in script_artifact_default_env:
             env.setdefault(key, script_artifact_default_env[key])
 
-        # Add env from meta to new env if not empty
+
+        # Force env from meta['env'] as a CONST
+        # (env OVERWRITE)
         script_artifact_env = meta.get('env',{})
         env.update(script_artifact_env)
 
-        # Get dependencies on other scripts
-        deps = meta.get('deps',[])
-        post_deps = meta.get('post_deps',[])
-        prehook_deps = meta.get('prehook_deps',[])
-        posthook_deps = meta.get('posthook_deps',[])
-        input_mapping = meta.get('input_mapping', {})
-        new_env_keys_from_meta = meta.get('new_env_keys', [])
-        new_state_keys_from_meta = meta.get('new_state_keys', [])
+        
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        # STEP 700: Overwrite env with keys from the script input (to allow user friendly CLI)
+        #           IT HAS THE PRIORITY OVER meta['default_env'] and meta['env']
+        #           (env OVERWRITE - user enforces it from CLI)
+        #           (it becomes const)
         if input_mapping:
             update_env_from_input_mapping(env, i, input_mapping)
+            update_env_from_input_mapping(const, i, input_mapping)
+        
 
 
 
 
-        # Get possible variations and versions from script meta
+
+
+
+        # STEP 800: Process variations and update env (overwrite from env and update form default_env)
+        #           VARIATIONS HAS THE PRIORITY OVER 
+        # MULTIPLE VARIATIONS (THAT CAN BE TURNED ON AT THE SAME TIME) SHOULD NOT HAVE CONFLICTING ENV
+
+        # VARIATIONS OVERWRITE current ENV but not input keys (they become const)
+        
         variations = script_artifact.meta.get('variations', {})
 
         if len(variation_tags) > 0:
@@ -910,10 +885,84 @@ class CAutomation(Automation):
 
                 r = update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
                 if r['return']>0: return r
+
                 if "add_deps_recursive" in variation_meta:
                     utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':variation_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
 
-        # Update version only if in "versions" (not obligatory)
+
+
+
+
+
+        
+
+        
+        
+
+
+
+
+
+
+
+
+
+        
+        # USE CASE:
+        #  HERE we may have versions in script input and env['CM_VERSION_*']
+
+        # STEP 900: Get version, min, max, usable from env (priority if passed from another script to force version), 
+        #           then script input, then script meta
+
+        #           VERSIONS SHOULD NOT BE USED INSIDE VARIATIONS (in meta)!
+        
+        
+        # First, take version from input
+        version = i.get('version', '').strip()
+        version_min = i.get('version_min', '').strip()
+        version_max = i.get('version_max', '').strip()
+        version_max_usable = i.get('version_max_usable', '').strip()
+
+        # Second, take from env
+        if version == '': version = env.get('CM_VERSION','')
+        if version_min == '': version_min = env.get('CM_VERSION_MIN','')
+        if version_max == '': version_max = env.get('CM_VERSION_MAX','')
+        if version_max_usable == '': version_max_usable = env.get('CM_VERSION_MAX_USABLE','')
+
+        # Third, take from meta
+        if version == '': version = meta.get('version', '')
+        if version_min == '': version_min = meta.get('version_min', '')
+        if version_max == '': version_min = meta.get('version_max', '')
+        if version_max_usable == '': version_max_usable = meta.get('version_max_usable', '')
+
+        # Update env with resolved versions
+        notes = []
+        for version_index in [(version, 'CM_VERSION', ' == {}'),
+                              (version_min, 'CM_VERSION_MIN', ' >= {}'),
+                              (version_max, 'CM_VERSION_MAX', ' <= {}'),
+                              (version_max_usable, 'CM_VERSION_MAX_USABLE', '({})')]:
+            version_value = version_index[0]
+            key = version_index[1]
+            note = version_index[2]
+
+            if version_value !='': 
+                env[key] = version_value
+
+                notes.append(note.format(version_value))
+#            elif key in env: 
+#                # If version_X is "", remove related key from ENV ...
+#                del(env[key])
+
+        if len(notes)>0:
+            print (recursion_spaces+'    - Requested version: ' + '  '.join(notes))
+
+        # STEP 900 output: version* set
+        #                  env['CM_VERSION*] set
+
+
+
+        
+        # STEP 1000: Update version only if in "versions" (not obligatory)
         # can be useful when handling complex Git revisions
         versions = script_artifact.meta.get('versions', {})
 
@@ -925,6 +974,9 @@ class CAutomation(Automation):
                 utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
 
 
+ 
+        # STEP 1100: Update deps from input
+        
         r = update_deps_from_input(deps, post_deps, prehook_deps, posthook_deps, i)
         if r['return']>0: return r
 
@@ -1301,7 +1353,7 @@ class CAutomation(Automation):
 
             env['CM_TMP_PIP_VERSION_STRING'] = pip_version_string
             if pip_version_string != '':
-                print (recursion_spaces+'  # potential PIP version string (if needed): '+pip_version_string)
+                print (recursion_spaces+'    # potential PIP version string (if needed): '+pip_version_string)
 
             if print_env:
                 import json
@@ -1645,7 +1697,8 @@ class CAutomation(Automation):
                 if version_min != '': x += ' >= {}'.format(version_min)
                 if version_max != '': x += ' <= {}'.format(version_max)
 
-                print (recursion_spaces + '  - Detecting versions ({}) ...'.format(x))
+                if x!='':
+                    print (recursion_spaces + '  - Searching for versions ({}) ...'.format(x))
 
                 new_recursion_spaces = recursion_spaces + '    '
 
