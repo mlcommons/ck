@@ -1071,8 +1071,7 @@ class CAutomation(Automation):
                     # Continue with the selected cached script
                     cached_script = found_cached_scripts[selection]
 
-                    print ('')
-                    print (recursion_spaces+'      - Loading "cached" state ...')
+                    print (recursion_spaces+'      - Loading state from cached entry ...')
 
                     path_to_cached_state_file = os.path.join(cached_script.path,
                         self.file_with_cached_state)
@@ -1683,7 +1682,7 @@ class CAutomation(Automation):
                 if version_max != '': x += ' <= {}'.format(version_max)
 
                 if x!='':
-                    print (recursion_spaces + '  - Searching for versions ({}) ...'.format(x))
+                    print (recursion_spaces + '  - Searching for versions: {}'.format(x))
 
                 new_recursion_spaces = recursion_spaces + '    '
 
@@ -1802,7 +1801,8 @@ class CAutomation(Automation):
         if version_min != '': x += ' >= {}'.format(version_min)
         if version_max != '': x += ' <= {}'.format(version_max)
 
-        print (recursion_spaces + '  - Detecting versions ({}) ...'.format(x))
+        if x!='':
+            print (recursion_spaces + '  - Searching for versions: {}'.format(x))
 
         new_recursion_spaces = recursion_spaces + '    '
 
