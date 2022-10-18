@@ -4,15 +4,23 @@
   "automation_uid": "5b4e0237da074764",
   "cache": false,
   "clean_files": [],
+  "input_mapping": {
+    "base": "CM_DOCKER_IMAGE_BASE",
+    "cm_repo": "CM_MLOPS_REPO",
+    "recreate": "CM_DOCKER_IMAGE_RECREATE",
+    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS"
+  },
   "post_deps": [
     {
+      "names": [
+        "build-docker-image"
+      ],
       "skip_if_env": {
         "CM_DOCKER_IMAGE_EXISTS": [
           "yes"
         ]
       },
-      "tags": "build,docker,image",
-      "names": [ "build-docker-image" ]
+      "tags": "build,docker,image"
     }
   ],
   "tags": [
@@ -20,11 +28,5 @@
     "docker",
     "container"
   ],
-  "uid": "1e0c884107514b46",
-  "input_mapping": {
-    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
-    "cm_repo": "CM_MLOPS_REPO",
-    "base": "CM_DOCKER_IMAGE_BASE",
-    "recreate": "CM_DOCKER_IMAGE_RECREATE"
-  }
+  "uid": "1e0c884107514b46"
 }

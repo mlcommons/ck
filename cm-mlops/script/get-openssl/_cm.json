@@ -4,11 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
-  "tags": [
-    "get",
-    "openssl",
-    "lib-openssl"
-  ],
   "env": {
     "CM_TMP_REQUIRE_INSTALL": "no"
   },
@@ -17,12 +12,19 @@
   ],
   "prehook_deps": [
     {
-      "tags": "install,openssl",
-      "reuse_version": true,
       "enable_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-      }
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "reuse_version": true,
+      "tags": "install,openssl"
     }
+  ],
+  "tags": [
+    "get",
+    "openssl",
+    "lib-openssl"
   ],
   "uid": "febdae70e9e64e30"
 }

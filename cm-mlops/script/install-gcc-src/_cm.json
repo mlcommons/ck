@@ -14,10 +14,12 @@
   },
   "post_deps": [
     {
-      "tags": "get,gcc",
       "skip_if_env": {
-         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-       }
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "tags": "get,gcc"
     }
   ],
   "tags": [
@@ -26,12 +28,12 @@
     "gcc",
     "src-gcc"
   ],
+  "uid": "faae0ebd6e1242db",
   "versions": {
     "master": {
       "env": {
         "CM_GIT_CHECKOUT": "master"
       }
     }
-  },
-  "uid": "faae0ebd6e1242db"
+  }
 }

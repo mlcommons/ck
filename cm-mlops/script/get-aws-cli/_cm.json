@@ -4,6 +4,9 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
+  "new_env_keys": [
+    "CM_AWS_*"
+  ],
   "prehook_deps": [
     {
       "enable_if_env": {
@@ -14,9 +17,6 @@
       "reuse_version": true,
       "tags": "install,aws-cli"
     }
-  ],
-  "new_env_keys": [
-    "CM_AWS_*"
   ],
   "tags": [
     "get",

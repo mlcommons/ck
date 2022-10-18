@@ -4,6 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
+  "name": "Detect GCC compiler",
   "new_env_keys": [
     "CM_GCC_*",
     "CM_C_COMPILER_*",
@@ -19,11 +20,10 @@
   ],
   "post_deps": [
     {
-      "tags": "get,compiler-flags",
-      "dynamic": true
+      "dynamic": true,
+      "tags": "get,compiler-flags"
     }
   ],
-  "name": "Detect GCC compiler",
   "sort": 500,
   "tags": [
     "get",

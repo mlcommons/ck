@@ -6,15 +6,20 @@
   "clean_files": [],
   "deps": [
     {
-      "tags": "get,python",
-      "names": [ "python3", "python" ]
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python"
     },
     {
       "tags": "get,dataset,original,object-detection,open-images"
     },
     {
-      "tags": "get,mlcommons,inference,src",
-      "names": [ "inference-src" ]
+      "names": [
+        "inference-src"
+      ],
+      "tags": "get,mlcommons,inference,src"
     }
   ],
   "tags": [

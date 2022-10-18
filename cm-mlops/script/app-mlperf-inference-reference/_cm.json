@@ -2,6 +2,12 @@
   "alias": "app-mlperf-inference-reference",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "default_env": {
+    "CM_BATCH_COUNT": "1",
+    "CM_BATCH_SIZE": "1",
+    "CM_OUTPUT_FOLDER_NAME": "test_results",
+    "CM_RUN_STYLE": "test"
+  },
   "deps": [
     {
       "tags": "detect,os"
@@ -206,12 +212,6 @@
       "tags": "get,sut,configs"
     }
   ],
-  "env": {
-    "CM_BATCH_COUNT": "1",
-    "CM_BATCH_SIZE": "1",
-    "CM_OUTPUT_FOLDER_NAME": "test_results",
-    "CM_RUN_STYLE": "test"
-  },
   "input_mapping": {
     "count": "CM_LOADGEN_QUERY_COUNT",
     "docker": "CM_RUN_DOCKER_CONTAINER",
@@ -222,10 +222,10 @@
     "num_threads": "CM_NUM_THREADS",
     "output_dir": "OUTPUT_BASE_DIR",
     "power": "CM_SYSTEM_POWER",
+    "regenerate_files": "CM_REGENERATE_MEASURE_FILES",
     "rerun": "CM_RERUN",
     "scenario": "CM_LOADGEN_SCENARIO",
-    "test_query_count": "CM_TEST_QUERY_COUNT",
-    "regenerate_files": "CM_REGENERATE_MEASURE_FILES"
+    "test_query_count": "CM_TEST_QUERY_COUNT"
   },
   "tags": [
     "app",
@@ -256,16 +256,12 @@
             ]
           },
           "names": [
-            "accuracy-script", "squad-accuracy-script"
+            "accuracy-script",
+            "squad-accuracy-script"
           ],
           "tags": "run,accuracy,squad"
         }
       ]
-    },
-    "python": {
-      "env": {
-        "CM_MLPERF_PYTHON": "yes"
-      }
     },
     "cpp": {
       "add_deps_recursive": {
@@ -310,6 +306,11 @@
         "CM_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
       }
     },
+    "python": {
+      "env": {
+        "CM_MLPERF_PYTHON": "yes"
+      }
+    },
     "pytorch": {
       "env": {
         "CM_BACKEND": "pytorch",
@@ -350,7 +351,8 @@
             ]
           },
           "names": [
-            "accuracy-script", "imagenet-accuracy-script"
+            "accuracy-script",
+            "imagenet-accuracy-script"
           ],
           "tags": "run,accuracy,imagenet"
         }
@@ -372,7 +374,8 @@
             ]
           },
           "names": [
-            "accuracy-script", "openimages-accuracy-script"
+            "accuracy-script",
+            "openimages-accuracy-script"
           ],
           "tags": "run,accuracy,openimages"
         }

@@ -8,19 +8,28 @@
       "tags": "get,python"
     },
     {
-      "tags": "mlcommons,inference,src",
-      "names": [ "inference-src" ]
+      "names": [
+        "inference-src"
+      ],
+      "tags": "mlcommons,inference,src"
     },
     {
       "tags": "get,sut,system-description"
     }
   ],
+  "input_mapping": {
+    "results_dir": "CM_MLC_RESULTS_DIR",
+    "run_checker": "CM_RUN_SUBMISSION_CHECKER",
+    "run_style": "CM_RUN_STYLE",
+    "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
+    "submission_dir": "CM_MLC_SUBMISSION_DIR"
+  },
   "post_deps": [
     {
       "enable_if_env": {
         "CM_RUN_STYLE": [
-	      "valid"
-	    ]
+          "valid"
+        ]
       },
       "skip_if_env": {
         "CM_SKIP_TRUNCATE_ACCURACY": [
@@ -49,12 +58,5 @@
     "mlperf-inference-submission",
     "mlcommons-inference-submission"
   ],
-  "uid": "5f8ab2d0b5874d53",
-  "input_mapping": {
-    "run_checker": "CM_RUN_SUBMISSION_CHECKER",
-    "results_dir": "CM_MLC_RESULTS_DIR",
-    "submission_dir": "CM_MLC_SUBMISSION_DIR",
-    "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
-    "run_style": "CM_RUN_STYLE"
-  }
+  "uid": "5f8ab2d0b5874d53"
 }

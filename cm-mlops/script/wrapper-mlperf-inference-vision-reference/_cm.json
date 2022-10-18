@@ -2,6 +2,7 @@
   "alias": "wrapper-mlperf-inference-vision-reference",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "default_variation": "run",
   "deps": [
     {
       "tags": "detect,os"
@@ -25,7 +26,6 @@
     "reference"
   ],
   "uid": "989db87796e64ee8",
-  "default_variation": "run",
   "variations": {
     "docker": {
       "env": {
@@ -44,7 +44,9 @@
     "run": {
       "post_deps": [
         {
-          "names": [ "app-mlperf-inference-vision" ],
+          "names": [
+            "app-mlperf-inference-vision"
+          ],
           "tags": "app,mlperf,inference,vision,reference,python"
         }
       ]

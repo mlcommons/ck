@@ -56,11 +56,25 @@
       "tags": "get,gcc"
     }
   ],
+  "input_mapping": {
+    "flash": "CM_FLASH_BOARD",
+    "recreate_binary": "CM_RECREATE_BINARY"
+  },
   "local_env_keys": [
     "CM_*"
   ],
   "new_env_keys": [
     "CM_TINY_*"
+  ],
+  "post_deps": [
+    {
+      "enable_if_env": {
+        "CM_FLASH_BOARD": [
+          "True"
+        ]
+      },
+      "tags": "flash,tiny,mlperf"
+    }
   ],
   "tags": [
     "reproduce",
@@ -70,29 +84,26 @@
     "octoml",
     "mlcommons"
   ],
-  "post_deps": [
-    {
-      "tags": "flash,tiny,mlperf",
-      "enable_if_env": {
-	"CM_FLASH_BOARD": [ "True" ]
-      }
-    }
-  ],
   "uid": "a63803a707d04332",
   "variations": {
-    "cmsis_nn": {
+    "NRF": {
       "env": {
-        "CM_MICROTVM_VARIANT": "microtvm_cmsis_nn"
+        "CM_TINY_BOARD": "NRF5340DK"
       }
     },
-    "native": {
+    "NUCLEO": {
       "env": {
-        "CM_MICROTVM_VARIANT": "microtvm_native"
+        "CM_TINY_BOARD": "NUCLEO_L4R5ZI"
       }
     },
     "ad": {
       "env": {
         "CM_TINY_MODEL": "ad"
+      }
+    },
+    "cmsis_nn": {
+      "env": {
+        "CM_MICROTVM_VARIANT": "microtvm_cmsis_nn"
       }
     },
     "ic": {
@@ -105,19 +116,14 @@
         "CM_TINY_MODEL": "kws"
       }
     },
+    "native": {
+      "env": {
+        "CM_MICROTVM_VARIANT": "microtvm_native"
+      }
+    },
     "vww": {
       "env": {
         "CM_TINY_MODEL": "vww"
-      }
-    },
-    "NUCLEO": {
-      "env": {
-        "CM_TINY_BOARD": "NUCLEO_L4R5ZI"
-      }
-    },
-    "NRF": {
-      "env": {
-        "CM_TINY_BOARD": "NRF5340DK"
       }
     }
   },
@@ -129,9 +135,5 @@
         }
       }
     }
-  },
-  "input_mapping": {
-    "flash": "CM_FLASH_BOARD",
-    "recreate_binary": "CM_RECREATE_BINARY"
   }
 }

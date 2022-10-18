@@ -7,11 +7,15 @@
       "tags": "detect,cpu"
     },
     {
-      "tags": "get,compiler",
+      "names": [
+        "compiler"
+      ],
       "skip_if_env": {
-        "CM_C_COMPILER_BIN": [ "on" ]
+        "CM_C_COMPILER_BIN": [
+          "on"
+        ]
       },
-      "names": [ "compiler" ]
+      "tags": "get,compiler"
     }
   ],
   "new_env_keys": [

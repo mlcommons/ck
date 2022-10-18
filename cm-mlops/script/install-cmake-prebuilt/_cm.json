@@ -2,19 +2,21 @@
   "alias": "install-cmake-prebuilt",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "cache": true,
   "default_version": "3.21.1",
   "deps": [
     {
       "tags": "detect,os"
     }
   ],
-  "cache": true,
   "post_deps": [
     {
-      "tags": "get,cmake",
       "skip_if_env": {
-         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-       }
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "tags": "get,cmake"
     }
   ],
   "tags": [

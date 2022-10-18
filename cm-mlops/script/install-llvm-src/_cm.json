@@ -2,6 +2,7 @@
   "alias": "install-llvm-src",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "cache": true,
   "default_version": "12.0.0",
   "deps": [
     {
@@ -14,13 +15,14 @@
   "env": {
     "CM_GIT_URL": "https://github.com/llvm/llvm-project"
   },
-  "cache": true,
   "post_deps": [
     {
-      "tags": "get,llvm",
       "skip_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-      }
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "tags": "get,llvm"
     }
   ],
   "tags": [

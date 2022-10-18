@@ -4,6 +4,12 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
+  "extra_cache_tags_from_env": [
+    {
+      "env": "CM_PYTHON_INSTALL_CACHE_TAGS",
+      "prefix": "python-"
+    }
+  ],
   "new_env_keys": [
     "CM_PYTHON_*",
     "+LD_LIBRARY_PATH",
@@ -15,15 +21,14 @@
   ],
   "prehook_deps": [
     {
-      "tags": "install,python,src",
-      "reuse_version": true,
       "enable_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-      }
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "reuse_version": true,
+      "tags": "install,python,src"
     }
-  ],
-  "extra_cache_tags_from_env": [
-    {"env":"CM_PYTHON_INSTALL_CACHE_TAGS", "prefix":"python-"}
   ],
   "tags": [
     "get",
@@ -34,9 +39,7 @@
   ],
   "uid": "d0b5dd74373f4a62",
   "variations": {
-    "shared": {
-    },
-    "with-ssl": {
-    }
+    "shared": {},
+    "with-ssl": {}
   }
 }

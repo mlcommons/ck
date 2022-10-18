@@ -12,19 +12,21 @@
       "tags": "get,cl"
     }
   ],
-  "prehook_deps": [
-    {
-      "tags": "install,cuda,prebuilt",
-      "reuse_version": true,
-      "enable_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-      }
-    }
-  ],
   "new_env_keys": [
     "CM_CUDA_*",
     "CM_NVCC_*",
     "+PATH"
+  ],
+  "prehook_deps": [
+    {
+      "enable_if_env": {
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "reuse_version": true,
+      "tags": "install,cuda,prebuilt"
+    }
   ],
   "tags": [
     "get",

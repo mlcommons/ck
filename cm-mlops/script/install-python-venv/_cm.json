@@ -4,17 +4,17 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
+  "deps": [
+    {
+      "reuse_version": true,
+      "tags": "get,python,-virtual"
+    }
+  ],
   "new_env_keys": [
     "CM_VIRTUAL_ENV_*"
   ],
   "new_state_keys": [
     "script_prefix"
-  ],
-  "deps": [
-    {
-      "tags": "get,python,-virtual",
-      "reuse_version": true
-    }
   ],
   "post_deps": [
     {

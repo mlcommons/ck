@@ -11,12 +11,17 @@
       "tags": "detect,cpu"
     },
     {
-      "tags": "get,python3",
-      "names": [ "python3", "python" ]
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python3"
     },
     {
-      "tags": "get,compiler",
-      "names": [ "compiler" ]
+      "names": [
+        "compiler"
+      ],
+      "tags": "get,compiler"
     }
   ],
   "tags": [

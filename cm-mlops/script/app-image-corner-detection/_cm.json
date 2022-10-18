@@ -5,13 +5,17 @@
   "posthook_deps": [
     {
       "skip_if_env": {
-        "CM_SKIP_COMPILE": [ "on" ]
+        "CM_SKIP_COMPILE": [
+          "on"
+        ]
       },
       "tags": "compile-program"
     },
     {
       "skip_if_env": {
-        "CM_SKIP_RUN": [ "on" ]
+        "CM_SKIP_RUN": [
+          "on"
+        ]
       },
       "tags": "benchmark-program"
     }

@@ -3,9 +3,6 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
-  "new_env_keys": [
-    "+PATH"
-  ],
   "deps": [
     {
       "tags": "detect,os"
@@ -16,6 +13,9 @@
     "CM_PACKAGE_WIN_URL": "https://zenodo.org/record/6501550/files/cm-artifact-os-windows-32.zip",
     "CM_SUDO": "sudo"
   },
+  "new_env_keys": [
+    "+PATH"
+  ],
   "tags": [
     "get",
     "sys-utils-cm"
