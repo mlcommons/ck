@@ -999,6 +999,8 @@ class CAutomation(Automation):
         ############################################################################################################
         # Check if the output of a selected script should be cached
         if cache:
+            # TBD - need to reuse and prune cache_list instead of new search
+
             r = find_cached_script({'self':self,
                                     'recursion_spaces':recursion_spaces,
                                     'script_tags':script_tags,
@@ -1182,12 +1184,19 @@ class CAutomation(Automation):
             # Update default version meta if version is not set
             if version == '':
                 default_version = meta.get('default_version', '')
-                if default_version != '' and default_version in versions:
-                    versions_meta = versions[default_version]
-                    r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
-                    if r['return']>0: return r
-                    if "add_deps_recursive" in versions_meta:
-                        utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
+                if default_version != '':
+                    version = default_version
+                    env['CM_VERSION'] = version
+
+                    if 'version-'+version not in cached_tags: cached_tags.append('version-'+version)
+
+                    if default_version in versions:
+                        versions_meta = versions[default_version]
+                        r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
+                        if r['return']>0: return r
+
+                        if "add_deps_recursive" in versions_meta:
+                            utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
 
 
             # Check chain of dependencies on other CM scripts
