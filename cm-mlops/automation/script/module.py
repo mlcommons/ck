@@ -84,11 +84,10 @@ class CAutomation(Automation):
         Overriding the automation search function to filter out scripts not matching the given variation tags
 
         TBD: add input/output description
-        
         """
 
         console = i.get('out') == 'con'
-        
+
         ############################################################################################################
         # Process tags to find script(s) and separate variations 
         # (not needed to find scripts)
@@ -149,12 +148,12 @@ class CAutomation(Automation):
         if console:
             for script in r['list']:
                 print (script.path)
-        
+
         # Finalize output
         r['script_tags'] = script_tags
         r['variation_tags'] = variation_tags
         r['found_scripts'] = found_scripts
-        
+
         return r
 
     ############################################################
@@ -442,11 +441,10 @@ class CAutomation(Automation):
         parsed_script_alias = parsed_script[0][0] if parsed_script is not None else ''
 
 
-        
-        
-        
-        
-        
+
+
+
+
         # Get and cache minimal host OS info to be able to run scripts and manage OS environment
         if len(self.os_info) == 0:
             r = self.cmind.access({'action':'get_host_os_info',
@@ -584,6 +582,9 @@ class CAutomation(Automation):
 
 
 
+
+
+
         # STEP 300: If more than one CM script found (example: "get compiler"), 
         # first, check if selection was already remembered!
         # second, check in cache to prune scripts
@@ -604,11 +605,12 @@ class CAutomation(Automation):
                 break
 
         # STEP 300 Output: preload_cached_scripts = True if at least one of the list_of_found_scripts must be cached
-        
-        
 
-        
-        
+
+
+
+
+
         # STEP 400: If not force_skip_cache and at least one script can be cached, find (preload) related cache entries for found scripts
         # STEP 400 input:  script_tags and -tmp (to avoid unfinished scripts particularly when installation fails)
 
@@ -632,13 +634,12 @@ class CAutomation(Automation):
             print (recursion_spaces + '    - Number of cached script outputs found: {}'.format(len(cache_list)))
 
             # STEP 400 output: cache_list
-            
 
 
 
-        
-        
-        
+
+
+
         # STEP 500: At this stage with have cache_list related to either 1 or more scripts (in case of get,compiler)
         #           If more than 1: Check if in cache and reuse it or ask user to select
         # STEP 500 input: list_of_found_scripts
@@ -648,7 +649,7 @@ class CAutomation(Automation):
             # The use case: cm run script --tags=get,compiler
             #  CM script will always ask to select gcc,llvm,etc even if any of them will be already cached
             if len(cache_list) > 0:
-                list_of_found_script = []
+                new_list_of_found_scripts = []
 
                 for cache_entry in cache_list:
                     # Find associated script and add to the list_of_found_scripts
@@ -666,8 +667,10 @@ class CAutomation(Automation):
                         script_uid = script.meta['uid']
 
                         if associated_script_artifact_uid == script_uid:
-                            if script not in list_of_found_script:
-                                list_of_found_script.append(script)
+                            if script not in new_list_of_found_scripts:
+                                new_list_of_found_scripts.append(script)
+
+                list_of_found_scripts = new_list_of_found_scripts
 
             # Select scripts
             if len(list_of_found_scripts) > 1:
@@ -690,7 +693,7 @@ class CAutomation(Automation):
                  for cache_entry in cache_list:
                      if cache_entry.meta['associated_script_artifact_uid'] == script_artifact_uid:
                          new_cache_list.append(cache_entry)
-                
+
                  cache_list = new_cache_list
 
         # Here a specific script is found and meta obtained
@@ -738,9 +741,6 @@ class CAutomation(Automation):
 
 
 
-       
-        
-        
         # HERE WE HAVE ORIGINAL ENV
 
         # STEP 600: Continue updating env  
@@ -756,25 +756,20 @@ class CAutomation(Automation):
         script_artifact_env = meta.get('env',{})
         env.update(script_artifact_env)
 
-        
 
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
+
+
+
+
+
+
         # STEP 700: Overwrite env with keys from the script input (to allow user friendly CLI)
         #           IT HAS THE PRIORITY OVER meta['default_env'] and meta['env']
         #           (env OVERWRITE - user enforces it from CLI)
@@ -782,7 +777,6 @@ class CAutomation(Automation):
         if input_mapping:
             update_env_from_input_mapping(env, i, input_mapping)
             update_env_from_input_mapping(const, i, input_mapping)
-        
 
 
 
@@ -795,7 +789,7 @@ class CAutomation(Automation):
         # MULTIPLE VARIATIONS (THAT CAN BE TURNED ON AT THE SAME TIME) SHOULD NOT HAVE CONFLICTING ENV
 
         # VARIATIONS OVERWRITE current ENV but not input keys (they become const)
-        
+
         variations = script_artifact.meta.get('variations', {})
 
         if len(variation_tags) > 0:
@@ -894,10 +888,6 @@ class CAutomation(Automation):
 
 
 
-        
-
-        
-        
 
 
 
@@ -905,9 +895,6 @@ class CAutomation(Automation):
 
 
 
-
-
-        
         # USE CASE:
         #  HERE we may have versions in script input and env['CM_VERSION_*']
 
@@ -915,8 +902,7 @@ class CAutomation(Automation):
         #           then script input, then script meta
 
         #           VERSIONS SHOULD NOT BE USED INSIDE VARIATIONS (in meta)!
-        
-        
+
         # First, take version from input
         version = i.get('version', '').strip()
         version_min = i.get('version_min', '').strip()
@@ -961,7 +947,6 @@ class CAutomation(Automation):
 
 
 
-        
         # STEP 1000: Update version only if in "versions" (not obligatory)
         # can be useful when handling complex Git revisions
         versions = script_artifact.meta.get('versions', {})
@@ -976,7 +961,6 @@ class CAutomation(Automation):
 
  
         # STEP 1100: Update deps from input
-        
         r = update_deps_from_input(deps, post_deps, prehook_deps, posthook_deps, i)
         if r['return']>0: return r
 
@@ -1004,8 +988,9 @@ class CAutomation(Automation):
         local_env_keys_from_meta = meta.get('local_env_keys', [])
 
 
-        
-        
+
+
+
         ############################################################################################################
         # Check if script is cached if we need to skip deps from cached entries
         this_script_cached = False
