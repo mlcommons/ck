@@ -1186,6 +1186,32 @@ class CAutomation(Automation):
                 default_version = meta.get('default_version', '')
                 if default_version != '':
                     version = default_version
+
+                    if version_min != '':
+                        ry = self.cmind.access({'action':'compare_versions',
+                                                'automation':'utils,dc2743f8450541e3',
+                                                'version1':version,
+                                                'version2':version_min})
+                        if ry['return']>0: return ry
+
+                        if ry['comparison'] < 0:
+                            version = version_min
+
+                    if version_max != '':
+                        ry = self.cmind.access({'action':'compare_versions',
+                                                'automation':'utils,dc2743f8450541e3',
+                                                'version1':version,
+                                                'version2':version_max})
+                        if ry['return']>0: return ry
+
+                        if ry['comparison'] > 0:
+                            if version_max_usable!='': 
+                                version = version_max_usable
+                            else:
+                                version = version_max
+
+                    print (recursion_spaces+'  - Version is not specified - use either default_version from meta or min/max/usable: {}'.format(version))
+
                     env['CM_VERSION'] = version
 
                     if 'version-'+version not in cached_tags: cached_tags.append('version-'+version)
