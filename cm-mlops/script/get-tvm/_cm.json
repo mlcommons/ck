@@ -46,6 +46,7 @@
     "llvm": {
       "deps": [
         {
+          "names": [ "llvm" ],
           "tags": "get,llvm"
         }
       ],
@@ -78,6 +79,11 @@
     "v0.9.0": {
       "env": {
         "CM_GIT_CHECKOUT": "v0.9.0"
+      }
+    },
+    "v0.10.0": {
+      "env": {
+        "CM_GIT_CHECKOUT": "v0.10.0"
       }
     }
   }
