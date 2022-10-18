@@ -14,10 +14,12 @@
   },
   "post_deps": [
     {
-      "tags": "get,bazel",
       "skip_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-      }
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "tags": "get,bazel"
     }
   ],
   "tags": [

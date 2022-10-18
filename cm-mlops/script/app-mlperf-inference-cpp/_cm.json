@@ -2,6 +2,10 @@
   "alias": "app-mlperf-inference-cpp",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "default_env": {
+    "CM_BATCH_COUNT": "1",
+    "CM_BATCH_SIZE": "1"
+  },
   "deps": [
     {
       "tags": "detect,os"
@@ -62,10 +66,6 @@
       "tags": "get,lib,onnxruntime,lang-cpp"
     }
   ],
-  "env": {
-    "CM_BATCH_COUNT": "1",
-    "CM_BATCH_SIZE": "1"
-  },
   "input_mapping": {
     "count": "CM_LOADGEN_QUERY_COUNT",
     "max_batchsize": "CM_LOADGEN_MAX_BATCHSIZE",
@@ -99,6 +99,16 @@
   ],
   "uid": "bf62405e6c7a44bf",
   "variations": {
+    "cpu": {
+      "env": {
+        "CM_DEVICE": "cpu"
+      }
+    },
+    "gpu": {
+      "env": {
+        "CM_DEVICE": "gpu"
+      }
+    },
     "onnxruntime": {
       "env": {
         "CM_BACKEND": "onnxruntime"
@@ -132,16 +142,6 @@
     "tvm-onnx": {
       "env": {
         "CM_BACKEND": "tvm-onnx"
-      }
-    },
-    "cpu": {
-      "env": {
-        "CM_DEVICE": "cpu"
-      }
-    },
-    "gpu": {
-      "env": {
-        "CM_DEVICE": "gpu"
       }
     }
   }

@@ -6,17 +6,17 @@
   "default_variation": "fp32",
   "env": {
     "CM_ML_MODEL": "BERT",
-    "CM_ML_MODEL_NAME": "MLPERF BERT Large on SQuAD v1.1",
-    "CM_ML_MODEL_F1": "90.874",
-    "CM_ML_MODEL_VOCAB_TXT": "vocab.txt",
     "CM_ML_MODEL_DATASET": "squad-1.1",
+    "CM_ML_MODEL_F1": "90.874",
     "CM_ML_MODEL_FRAMEWORK": "onnx",
-    "CM_ML_MODEL_MAX_SEQ_LENGTH": "384",
-    "CM_ML_MODEL_OUTPUT_START_LOGITS_NAME": "output_start_logits",
-    "CM_ML_MODEL_OUTPUT_END_LOGITS_NAME": "output_end_logits",
     "CM_ML_MODEL_INPUT_IDS_NAME": "input_ids",
+    "CM_ML_MODEL_INPUT_MASK_NAME": "input_mask",
     "CM_ML_MODEL_INPUT_SEGMENTS_NAME": "segment_ids",
-    "CM_ML_MODEL_INPUT_MASK_NAME": "input_mask"
+    "CM_ML_MODEL_MAX_SEQ_LENGTH": "384",
+    "CM_ML_MODEL_NAME": "MLPERF BERT Large on SQuAD v1.1",
+    "CM_ML_MODEL_OUTPUT_END_LOGITS_NAME": "output_end_logits",
+    "CM_ML_MODEL_OUTPUT_START_LOGITS_NAME": "output_start_logits",
+    "CM_ML_MODEL_VOCAB_TXT": "vocab.txt"
   },
   "new_env_keys": [
     "CM_ML_MODEL*"

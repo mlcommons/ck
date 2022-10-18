@@ -2,6 +2,7 @@
   "alias": "get-tvm",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "cache": true,
   "deps": [
     {
       "tags": "cmake,get-cmake",
@@ -11,18 +12,20 @@
       "tags": "detect,cpu"
     }
   ],
-  "extra_cache_tags_from_env": [
-    {"env":"CM_LLVM_CACHE_TAGS", "prefix":"llvm-"}
-  ],
   "env": {
     "CM_GIT_CHECKOUT": "main",
     "CM_GIT_URL": "https://github.com/apache/tvm"
   },
+  "extra_cache_tags_from_env": [
+    {
+      "env": "CM_LLVM_CACHE_TAGS",
+      "prefix": "llvm-"
+    }
+  ],
   "new_env_keys": [
     "TVM_HOME",
     "+PYTHONPATH"
   ],
-  "cache": true,
   "tags": [
     "get",
     "tvm",
@@ -41,14 +44,15 @@
       }
     },
     "llvm": {
-      "env": {
-        "CM_TVM_USE_LLVM": "yes"
-      },
       "deps": [
         {
+          "names": [ "llvm" ],
           "tags": "get,llvm"
         }
-      ]
+      ],
+      "env": {
+        "CM_TVM_USE_LLVM": "yes"
+      }
     },
     "openmp": {
       "env": {
@@ -75,6 +79,11 @@
     "v0.9.0": {
       "env": {
         "CM_GIT_CHECKOUT": "v0.9.0"
+      }
+    },
+    "v0.10.0": {
+      "env": {
+        "CM_GIT_CHECKOUT": "v0.10.0"
       }
     }
   }

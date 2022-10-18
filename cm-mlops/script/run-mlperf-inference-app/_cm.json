@@ -25,7 +25,7 @@
       "tags": "get,sut,configs"
     }
   ],
-  "env": {
+  "default_env": {
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1",
     "CM_OUTPUT_FOLDER_NAME": "test_results",
@@ -103,7 +103,7 @@
       }
     }
   },
-  "version": {
+  "versions": {
     "master": {},
     "r2.1": {}
   }

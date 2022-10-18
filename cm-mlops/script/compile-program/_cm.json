@@ -7,6 +7,9 @@
       "tags": "detect,cpu"
     },
     {
+      "names": [
+        "compiler"
+      ],
       "tags": "get,compiler"
     }
   ],

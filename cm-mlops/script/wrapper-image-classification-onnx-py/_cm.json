@@ -2,6 +2,7 @@
   "alias": "wrapper-image-classification-onnx-py",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "default_variation": "run",
   "tags": [
     "wrapper",
     "image-classification",
@@ -9,7 +10,6 @@
     "python"
   ],
   "uid": "b9fb51b1bef949e3",
-  "default_variation": "run",
   "variations": {
     "docker": {
       "env": {

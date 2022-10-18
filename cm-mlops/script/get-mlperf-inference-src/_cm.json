@@ -1,0 +1,97 @@
+{
+  "alias": "get-mlperf-inference-src",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_variation": "default",
+  "default_version": "master",
+  "deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "names": [
+        "python3"
+      ],
+      "tags": "get,python3"
+    }
+  ],
+  "env": {
+    "CM_GIT_DEPTH": "",
+    "CM_GIT_PATCH": "no",
+    "CM_GIT_URL": "https://github.com/mlcommons/inference.git"
+  },
+  "new_env_keys": [
+    "CM_MLC_INFERENCE_*",
+    "+PYTHONPATH"
+  ],
+  "tags": [
+    "get",
+    "src",
+    "source",
+    "inference",
+    "mlperf",
+    "mlcommons"
+  ],
+  "uid": "4b57186581024797",
+  "variations": {
+    "default": {
+      "base": [
+        "short-history"
+      ],
+      "env": {
+        "CM_GIT_PATCH": "no",
+        "CM_GIT_URL": "https://github.com/mlcommons/inference.git"
+      }
+    },
+    "full-history": {
+      "env": {
+        "CM_GIT_DEPTH": "--depth 10"
+      }
+    },
+    "octoml": {
+      "base": [
+        "short-history"
+      ],
+      "env": {
+        "CM_GIT_URL": "https://github.com/octoml/inference"
+      }
+    },
+    "patch": {
+      "env": {
+        "CM_GIT_PATCH": "yes"
+      }
+    },
+    "recurse-submodules": {
+      "env": {
+        "CM_GIT_RECURSE_SUBMODULES": "--recurse-submodules"
+      }
+    },
+    "short-history": {
+      "env": {
+        "CM_GIT_DEPTH": "--depth 10"
+      }
+    }
+  },
+  "versions": {
+    "master": {
+      "env": {
+        "CM_GIT_CHECKOUT": "master",
+        "CM_MLC_LAST_RELEASE": "v2.1"
+      }
+    },
+    "r2.1": {
+      "env": {
+        "CM_GIT_CHECKOUT": "r2.1",
+        "CM_MLC_LAST_RELEASE": "v2.1"
+      }
+    },
+    "tvm": {
+      "env": {
+        "CM_GIT_URL": "https://github.com/octoml/inference",
+        "CM_GIT_CHECKOUT": "tvm",
+        "CM_MLC_LAST_RELEASE": "v2.1"
+      }
+    }
+  }
+}

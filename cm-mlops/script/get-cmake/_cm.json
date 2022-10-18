@@ -2,23 +2,25 @@
   "alias": "get-cmake",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "cache": true,
   "deps": [
     {
       "tags": "detect,cpu"
     }
   ],
-  "cache": true,
   "new_env_keys": [
     "CM_CMAKE_*",
     "+PATH"
   ],
   "prehook_deps": [
     {
-      "tags": "install,cmake,prebuilt",
-      "reuse_version": true,
       "enable_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-      }
+        "CM_TMP_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "reuse_version": true,
+      "tags": "install,cmake,prebuilt"
     }
   ],
   "tags": [

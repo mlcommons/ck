@@ -10,12 +10,15 @@
       "tags": "detect,cpu"
     }
   ],
-  "extra_cache_tags_from_env": [
-    {"env":"CM_PYTHON_CACHE_TAGS", "prefix":"python-"}
-  ],
   "env": {
     "CM_GIT_URL": "https://github.com/tensorflow/tensorflow"
   },
+  "extra_cache_tags_from_env": [
+    {
+      "env": "CM_PYTHON_CACHE_TAGS",
+      "prefix": "python-"
+    }
+  ],
   "tags": [
     "install",
     "tensorflow",

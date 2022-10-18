@@ -13,16 +13,16 @@
       "tags": "get,python3"
     },
     {
-      "tags": "get,dataset,squad,language-processing",
       "skip_if_env": {
         "CM_DATASET_SQUAD_VAL_PATH": []
-      }
+      },
+      "tags": "get,dataset,squad,language-processing"
     },
     {
-      "tags": "get,ml-model,bert-large",
       "skip_if_env": {
-        "CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": [ ]
-      }
+        "CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": []
+      },
+      "tags": "get,ml-model,bert-large"
     },
     {
       "names": [
@@ -41,9 +41,24 @@
   ],
   "uid": "d82625da2df34c69",
   "variations": {
+    "float16": {
+      "env": {
+        "CM_ACCURACY_DTYPE": "float16"
+      }
+    },
     "float32": {
       "env": {
         "CM_ACCURACY_DTYPE": "float32"
+      }
+    },
+    "float64": {
+      "env": {
+        "CM_ACCURACY_DTYPE": "float64"
+      }
+    },
+    "int16": {
+      "env": {
+        "CM_ACCURACY_DTYPE": "int16"
       }
     },
     "int32": {
@@ -54,21 +69,6 @@
     "int64": {
       "env": {
         "CM_ACCURACY_DTYPE": "int64"
-      }
-    },
-    "float64": {
-      "env": {
-        "CM_ACCURACY_DTYPE": "float64"
-      }
-    },
-    "float16": {
-      "env": {
-        "CM_ACCURACY_DTYPE": "float16"
-      }
-    },
-    "int16": {
-      "env": {
-        "CM_ACCURACY_DTYPE": "int16"
       }
     },
     "int8": {

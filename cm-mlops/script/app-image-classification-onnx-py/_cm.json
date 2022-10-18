@@ -2,7 +2,7 @@
   "alias": "app-image-classification-onnx-py",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "env": {
+  "default_env": {
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1"
   },
@@ -14,8 +14,11 @@
       "tags": "get,sys-utils-cm"
     },
     {
-      "tags": "get,python3",
-      "names": [ "python", "python3" ]
+      "names": [
+        "python",
+        "python3"
+      ],
+      "tags": "get,python3"
     },
     {
       "tags": "get,dataset,imagenet,image-classification,original"

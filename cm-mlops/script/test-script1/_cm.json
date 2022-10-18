@@ -3,14 +3,19 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "deps": [
-    {"tags":"test,script2"},
-    {"tags":"test,script3"}
+    {
+      "tags": "test,script2"
+    },
+    {
+      "tags": "test,script3"
+    }
   ],
   "env": {
     "CM_ENV1": "TEST1A",
     "CM_ENV2": "TEST2A",
-    "CM_VERSION":"3.8"
+    "CM_VERSION": "3.8"
   },
+  "new_env_keys":["CM_ENV*"],
   "post_deps": [],
   "tags": [
     "test",

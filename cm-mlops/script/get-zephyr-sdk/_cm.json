@@ -16,9 +16,9 @@
   ],
   "uid": "c70ae1a7567f4a7b",
   "versions": {
-    "0.15.0": {
+    "0.13.1": {
       "env": {
-        "CM_ZEPHYR_SDK_VERSION": "0.15.0"
+        "CM_ZEPHYR_SDK_VERSION": "0.13.1"
       }
     },
     "0.13.2": {
@@ -26,9 +26,9 @@
         "CM_ZEPHYR_SDK_VERSION": "0.13.2"
       }
     },
-    "0.13.1": {
+    "0.15.0": {
       "env": {
-        "CM_ZEPHYR_SDK_VERSION": "0.13.1"
+        "CM_ZEPHYR_SDK_VERSION": "0.15.0"
       }
     }
   }

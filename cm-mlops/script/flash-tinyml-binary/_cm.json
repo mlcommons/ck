@@ -21,13 +21,18 @@
       "tags": "get,zephyr-sdk"
     },
     {
-      "tags": "reproduce,tiny,mlperf",
       "inherit_variation_tags": "True",
       "skip_if_env": {
-	"CM_TINY_BUILD_DIR": [ "on" ]
-      }
+        "CM_TINY_BUILD_DIR": [
+          "on"
+        ]
+      },
+      "tags": "reproduce,tiny,mlperf"
     }
   ],
+  "input_mapping": {
+    "build_dir": "CM_TINY_BUILD_DIR"
+  },
   "local_env_keys": [
     "CM_*"
   ],
@@ -38,25 +43,14 @@
     "mlcommons"
   ],
   "uid": "98913babb43f4fcb",
-  "input_mapping": {
-    "build_dir": "CM_TINY_BUILD_DIR"
-  },
   "variations": {
-    "NRF": {
-    },
-    "NUCLEO": {
-    },
-    "cmsis_nn": {
-    },
-    "native": {
-    },
-    "ad": {
-    },
-    "ic": {
-    },
-    "kws": {
-    },
-    "vww": {
-    }
+    "NRF": {},
+    "NUCLEO": {},
+    "ad": {},
+    "cmsis_nn": {},
+    "ic": {},
+    "kws": {},
+    "native": {},
+    "vww": {}
   }
 }

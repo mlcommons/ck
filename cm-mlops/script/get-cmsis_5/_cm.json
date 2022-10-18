@@ -3,12 +3,13 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
+  "default_version": "develop",
   "deps": [
     {
       "tags": "detect,os"
     }
   ],
-  "env": {
+  "default_env": {
     "CM_GIT_DEPTH": "",
     "CM_GIT_PATCH": "no",
     "CM_GIT_URL": "https://github.com/ARM-software/CMSIS_5.git"
@@ -35,19 +36,17 @@
       }
     }
   },
-  "default_version": "develop",
   "versions": {
-    "master": {
-      "env": {
-        "CM_GIT_CHECKOUT": "master"
-      }
-    },
+    "custom": {},
     "develop": {
       "env": {
         "CM_GIT_CHECKOUT": "develop"
       }
     },
-    "custom": {
+    "master": {
+      "env": {
+        "CM_GIT_CHECKOUT": "master"
+      }
     }
   }
 }

@@ -47,46 +47,6 @@
   ],
   "uid": "94b62a682bc44791",
   "variations": {
-    "onnxruntime": {
-      "env": {
-        "CM_PYTHON_PACKAGE_NAME": "onnxruntime"
-      },
-      "new_env_keys": [
-        "CM_ONNXRUNTIME_VERSION"
-      ]
-    },
-    "tensorflow": {
-      "env": {
-        "CM_PYTHON_PACKAGE_NAME": "tensorflow"
-      },
-      "new_env_keys": [
-        "CM_TENSORFLOW_VERSION"
-      ]
-    },
-    "transformers": {
-      "env": {
-        "CM_PYTHON_PACKAGE_NAME": "transformers"
-      },
-      "new_env_keys": [
-        "CM_TRANSFORMERS_VERSION"
-      ]
-    },
-    "torch": {
-      "env": {
-        "CM_PYTHON_PACKAGE_NAME": "torch"
-      },
-      "new_env_keys": [
-        "CM_TORCH_VERSION"
-      ]
-    },
-    "tokenization": {
-      "env": {
-        "CM_PYTHON_PACKAGE_NAME": "tokenization"
-      },
-      "new_env_keys": [
-        "CM_TOKENIZATION_VERSION"
-      ]
-    },
     "numpy": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "numpy"
@@ -103,12 +63,52 @@
         "CM_ONNX_VERSION"
       ]
     },
+    "onnxruntime": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "onnxruntime"
+      },
+      "new_env_keys": [
+        "CM_ONNXRUNTIME_VERSION"
+      ]
+    },
     "protobuf": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "protobuf"
       },
       "new_env_keys": [
         "CM_PROTOBUF_VERSION"
+      ]
+    },
+    "tensorflow": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "tensorflow"
+      },
+      "new_env_keys": [
+        "CM_TENSORFLOW_VERSION"
+      ]
+    },
+    "tokenization": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "tokenization"
+      },
+      "new_env_keys": [
+        "CM_TOKENIZATION_VERSION"
+      ]
+    },
+    "torch": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "torch"
+      },
+      "new_env_keys": [
+        "CM_TORCH_VERSION"
+      ]
+    },
+    "transformers": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "transformers"
+      },
+      "new_env_keys": [
+        "CM_TRANSFORMERS_VERSION"
       ]
     }
   }

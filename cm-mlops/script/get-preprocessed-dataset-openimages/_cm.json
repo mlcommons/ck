@@ -59,11 +59,6 @@
         "CM_DATASET_SIZE": "500"
       }
     },
-    "full": {
-      "env": {
-        "CM_DATASET_SIZE": ""
-      }
-    },
     "NCHW": {
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW"
@@ -79,6 +74,11 @@
         "original-dataset": {
           "tags": "_calibration"
         }
+      }
+    },
+    "full": {
+      "env": {
+        "CM_DATASET_SIZE": ""
       }
     },
     "validation": {
