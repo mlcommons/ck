@@ -103,7 +103,7 @@
       }
     }
   },
-  "version": {
+  "versions": {
     "master": {},
     "r2.1": {}
   }

@@ -212,6 +212,9 @@
       "tags": "get,sut,configs"
     }
   ],
+  "env_key_mappings": {
+    "CM_ML_": "ML_"
+  },
   "input_mapping": {
     "count": "CM_LOADGEN_QUERY_COUNT",
     "docker": "CM_RUN_DOCKER_CONTAINER",

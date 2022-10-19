@@ -71,11 +71,6 @@
       "env": {
         "CM_GIT_DEPTH": "--depth 10"
       }
-    },
-    "tvm": {
-      "env": {
-        "CM_GIT_URL": "https://github.com/octoml/mlcommons-inference"
-      }
     }
   },
   "versions": {
@@ -88,6 +83,13 @@
     "r2.1": {
       "env": {
         "CM_GIT_CHECKOUT": "r2.1",
+        "CM_MLC_LAST_RELEASE": "v2.1"
+      }
+    },
+    "tvm": {
+      "env": {
+        "CM_GIT_URL": "https://github.com/octoml/inference",
+        "CM_GIT_CHECKOUT": "tvm",
         "CM_MLC_LAST_RELEASE": "v2.1"
       }
     }

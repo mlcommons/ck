@@ -1388,6 +1388,10 @@ class CAutomation(Automation):
                 if r['return']>0: return r
 
             if not fake_run:
+                env_key_mappings = meta.get("env_key_mappings", {})
+                if env_key_mappings:
+                    update_env_keys(env, env_key_mappings)
+
                 run_script_input['meta'] = meta
                 run_script_input['env'] = env
                 run_script_input['recursion'] = recursion
@@ -2544,6 +2548,19 @@ def get_script_name(env, path):
         return 'run-' + tmp_suff3 + '.sh'
     else:
         return 'run.sh';
+
+##############################################################################
+def update_env_keys(env, env_key_mappings):
+    """
+    Internal: convert env keys as per the given mapping
+    """
+
+    for key_prefix in env_key_mappings:
+        for key in list(env):
+            if key.startswith(key_prefix):
+                new_key = key.replace(key_prefix, env_key_mappings[key_prefix])
+                env[new_key] = env[key]
+                del(env[key])
 
 ##############################################################################
 def convert_env_to_script(env, os_info, start_script = []):
