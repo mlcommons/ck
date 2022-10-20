@@ -1,0 +1,1 @@
+docker push ckrepo/cm:ubuntu-22.04

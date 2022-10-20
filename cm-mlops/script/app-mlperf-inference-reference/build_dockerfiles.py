@@ -51,9 +51,12 @@ for _os in docker_os:
         for model in variations:
             for backend in variations[model]:
                 comments = []
+                comments.append("# Install/customize individual CM components for MLPerf")
                 comments.append("#RUN cm run script --tags=get,generic-python-lib,_"+backend)
                 comments.append("#RUN cm run script --tags=get-ml-model,"+model+",_"+backend)
                 comments.append("#RUN cm run script --tags=get,dataset,preprocessed,"+dataset[model])
+                comments.append("")
+                comments.append("# Run CM workflow for MLPerf inference")
                 for device in variations[model][backend]:
                     for lang in variations[model][backend][device]:
                         variation_string=",_"+model+",_"+backend+",_"+device+",_"+lang
@@ -67,6 +70,7 @@ for _os in docker_os:
                             'file_path': dockerfile_path,
                             'comments': comments,
                             'run_cmd': 'cm run script --tags=app,mlperf,inference,generic,reference'+variation_string+' --adr.compiler.tags=gcc',
+                            'script_tags': 'app,mlperf,inference,generic,reference',
                             'real_run': True
                             })
                         if r['return'] > 0:
