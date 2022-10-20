@@ -119,7 +119,7 @@ def preprocess(i):
     if gh_token:
         run_cmd_extra = " --env.CM_GH_TOKEN=$CM_GH_TOKEN"
 
-    f.write(EOL+'# Run command' + EOL)
+    f.write(EOL+'# Run commands' + EOL)
     for comment in env.get('CM_DOCKER_IMAGE_RUN_COMMENTS', []):
         f.write(comment + EOL)
 

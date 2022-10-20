@@ -31,8 +31,11 @@ RUN cm pull repo mlcommons@ck
 # Install all system dependencies
 RUN cm run script --quiet --tags=get,sys-utils-cm
 
-# Run command
+# Run commands
+# Install/customize individual CM components for MLPerf
 #RUN cm run script --tags=get,generic-python-lib,_onnxruntime
 #RUN cm run script --tags=get-ml-model,retinanet,_onnxruntime
 #RUN cm run script --tags=get,dataset,preprocessed,openimages
+
+# Run CM workflow for MLPerf inference
 RUN cm run script --tags=app,mlperf,inference,generic,reference,_retinanet,_onnxruntime,_cpu,_python --adr.compiler.tags=gcc --mode=$CM_LOADGEN_MODE --scenario=$CM_LOADGEN_SCENARIO --test_query_count=$CM_TEST_QUERY_COUNT
