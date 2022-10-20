@@ -22,7 +22,7 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            zip \
            unzip \
            bzip2 \
-           libz-dev \
+           zlib1g-dev \
            libbz2-dev \
            openssh-client \
            libssl-dev \
@@ -45,9 +45,7 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            python3 \
            python3-pip \
            python3-dev \
-           python3-venv \
            libtinfo-dev \
-           python-is-python3 \
            sudo \
            libgl1 \
            libncurses5

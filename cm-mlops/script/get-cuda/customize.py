@@ -55,6 +55,7 @@ def postprocess(i):
     found_path = os.path.dirname(found_file_path)
     env['CM_CUDA_INSTALLED_PATH'] = found_path
 
+    env['CM_NVCC_BIN'] = os.path.basename(found_file_path)
 
     version = r['version']
 

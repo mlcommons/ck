@@ -54,10 +54,13 @@ def preprocess(i):
 
               host_os_version = env['CM_HOST_OS_VERSION']
 
-              if 'debian' in host_os_flavor:
-                  return {'return':0, 'error':'debian is not supported yet'}
+#              if 'debian' in host_os_flavor:
+#                  return {'return':1, 'error':'debian is not supported yet'}
+#
+#              else:
+              # Treat all Linux flavours as Ubuntu for now ...
 
-              else:
+              if True:
                   default_os='18.04'
 
                   if need_version == '10.0.1':
