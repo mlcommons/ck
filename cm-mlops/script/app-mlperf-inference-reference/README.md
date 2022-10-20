@@ -1,4 +1,15 @@
 ## Commands
+
+### Docker Commands
+```
+docker build -f dockerfiles/resnet50/ubuntu_20.04_python_onnxruntime_cpu.Dockerfile -t resnet50_onnxruntime:ubuntu20.04 .
+```
+
+```
+docker run -it --rm resnet50_onnxruntime:ubuntu20.04 -c "cm run script --tags=app,mlperf,inference,reference,python_resnet50,_onnxruntime,_cpu --scenario=Offline --mode=accuracy"
+```
+
+### Native Commands
 To run the Python implementation of the MLPerf Reference Implementation we can do
 ``` 
 cm run script --tags=app,mlperf,inference,reference,_python,_resnet50,_tf,_cpu \
