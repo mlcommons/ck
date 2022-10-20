@@ -2,7 +2,7 @@ FROM ubuntu:18.04
 SHELL ["/bin/bash", "-c"]
 ARG CM_GH_TOKEN
 ARG CM_LOADGEN_MODE=accuracy
-ARG CM_LOADGEN_SCENARIO=offline
+ARG CM_LOADGEN_SCENARIO=Offline
 ARG CM_TEST_QUERY_COUNT=10
 
 # Notes: https://runnable.com/blog/9-common-dockerfile-mistakes
