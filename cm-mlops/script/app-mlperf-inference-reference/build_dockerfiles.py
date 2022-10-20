@@ -67,6 +67,7 @@ for _os in docker_os:
                             'file_path': dockerfile_path,
                             'comments': comments,
                             'run_cmd': 'cm run script --tags=app,mlperf,inference,generic,reference'+variation_string+' --adr.compiler.tags=gcc',
+                            'script_tags': 'app,mlperf,inference,generic,reference',
                             'real_run': True
                             })
                         if r['return'] > 0:

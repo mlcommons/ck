@@ -1,6 +1,9 @@
 FROM registry.access.redhat.com/ubi9
 SHELL ["/bin/bash", "-c"]
 ARG CM_GH_TOKEN
+ARG CM_LOADGEN_MODE=accuracy
+ARG CM_LOADGEN_SCENARIO=offline
+ARG CM_TEST_QUERY_COUNT=10
 
 # Notes: https://runnable.com/blog/9-common-dockerfile-mistakes
 # Install system dependencies
@@ -32,4 +35,4 @@ RUN cm run script --quiet --tags=get,sys-utils-cm
 #RUN cm run script --tags=get,generic-python-lib,_onnxruntime
 #RUN cm run script --tags=get-ml-model,bert-99.9,_onnxruntime
 #RUN cm run script --tags=get,dataset,preprocessed,squad
-RUN cm run script --tags=app,mlperf,inference,generic,reference,_bert-99.9,_onnxruntime,_cpu,_python --adr.compiler.tags=gcc
+RUN cm run script --tags=app,mlperf,inference,generic,reference,_bert-99.9,_onnxruntime,_cpu,_python --adr.compiler.tags=gcc --mode=$CM_LOADGEN_MODE --scenario=$CM_LOADGEN_SCENARIO --test_query_count=$CM_TEST_QUERY_COUNT
