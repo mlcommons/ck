@@ -4,11 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "default_variation": "2012-500",
-  "deps": [
-    {
-      "tags": "get,sys-utils-cm"
-    }
-  ],
   "env": {
     "CM_DATASET": "IMAGENET"
   },

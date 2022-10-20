@@ -38,4 +38,5 @@ RUN cm run script --quiet --tags=get,sys-utils-cm
 #RUN cm run script --tags=get,dataset,preprocessed,imagenet
 
 # Run CM workflow for MLPerf inference
-RUN cm run script --tags=app,mlperf,inference,generic,reference,_resnet50,_pytorch,_cpu,_python --adr.compiler.tags=gcc --mode=$CM_LOADGEN_MODE --scenario=$CM_LOADGEN_SCENARIO --test_query_count=$CM_TEST_QUERY_COUNT
+RUN cm run script --tags=app,mlperf,inference,generic,reference,_resnet50,_pytorch,_cpu,_python --adr.compiler.tags=gcc --adr.inference-src.tags=_octoml --fake_run
+RUN cm run script --tags=app,mlperf,inference,generic,reference,_resnet50,_pytorch,_cpu,_python --adr.compiler.tags=gcc --adr.inference-src.tags=_octoml
