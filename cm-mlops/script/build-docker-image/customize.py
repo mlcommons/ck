@@ -18,10 +18,16 @@ def preprocess(i):
         env['CM_BUILD_DOCKERFILE'] = "yes"
     else:
         env['CM_BUILD_DOCKERFILE'] = "no"
+
     if "CM_DOCKER_IMAGE_REPO" not in env:
         env['CM_DOCKER_IMAGE_REPO'] = "local"
+
+    if "CM_DOCKER_IMAGE_NAME" not in env:
+        env['CM_DOCKER_IMAGE_NAME'] = "cm-min"
+
     if "CM_DOCKER_IMAGE_TAG" not in env:
         env['CM_DOCKER_IMAGE_TAG'] = "latest"
+
     if env.get("CM_DOCKER_CACHE", "yes") == "no":
         env["CM_DOCKER_CACHE_ARG"] = "--no-cache"
 
