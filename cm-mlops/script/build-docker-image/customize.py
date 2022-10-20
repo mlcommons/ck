@@ -6,13 +6,13 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
-    CM_DOCKER_BUILD_ARGS = []
+    CM_DOCKER_BUILD_ARGS = env.get('+CM_DOCKER_BUILD_ARGS', [])
 
     if 'CM_GH_TOKEN' in env:
         CM_DOCKER_BUILD_ARGS.append( "CM_GH_TOKEN="+env['CM_GH_TOKEN'] )
 
     if CM_DOCKER_BUILD_ARGS:
-        build_args = "--build-arg "+ "--build-arg".join(CM_DOCKER_BUILD_ARGS)
+        build_args = "--build-arg "+ " --build-arg".join(CM_DOCKER_BUILD_ARGS)
     else:
         build_args = ""
 
