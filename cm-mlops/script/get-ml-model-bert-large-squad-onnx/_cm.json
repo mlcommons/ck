@@ -7,15 +7,8 @@
   "env": {
     "CM_ML_MODEL": "BERT",
     "CM_ML_MODEL_DATASET": "squad-1.1",
-    "CM_ML_MODEL_F1": "90.874",
-    "CM_ML_MODEL_FRAMEWORK": "onnx",
-    "CM_ML_MODEL_INPUT_IDS_NAME": "input_ids",
-    "CM_ML_MODEL_INPUT_MASK_NAME": "input_mask",
-    "CM_ML_MODEL_INPUT_SEGMENTS_NAME": "segment_ids",
     "CM_ML_MODEL_MAX_SEQ_LENGTH": "384",
     "CM_ML_MODEL_NAME": "MLPERF BERT Large on SQuAD v1.1",
-    "CM_ML_MODEL_OUTPUT_END_LOGITS_NAME": "output_end_logits",
-    "CM_ML_MODEL_OUTPUT_START_LOGITS_NAME": "output_start_logits",
     "CM_ML_MODEL_VOCAB_TXT": "vocab.txt"
   },
   "new_env_keys": [
@@ -24,10 +17,8 @@
   "tags": [
     "get",
     "ml-model",
-    "ml-model-onnx",
     "bert",
     "bert-large",
-    "bert-onnx",
     "bert-squad",
     "language",
     "language-processing"
@@ -46,6 +37,20 @@
         "CM_ML_MODEL_QUANTIZED": "yes",
         "CM_PACKAGE_URL": "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
       }
+    },
+    "onnx": {
+      "env": {
+        "CM_ML_MODEL_FRAMEWORK": "onnx",
+        "CM_ML_MODEL_F1": "90.874",
+        "CM_ML_MODEL_INPUT_IDS_NAME": "input_ids",
+        "CM_ML_MODEL_INPUT_MASK_NAME": "input_mask",
+        "CM_ML_MODEL_INPUT_SEGMENTS_NAME": "segment_ids",
+        "CM_ML_MODEL_OUTPUT_END_LOGITS_NAME": "output_end_logits",
+        "CM_ML_MODEL_OUTPUT_START_LOGITS_NAME": "output_start_logits"
+      }
+    },
+    "onnxruntime": {
+      "base": [ "onnx" ]
     }
   }
 }

@@ -96,6 +96,9 @@ def preprocess(i):
         run_cmd_extra = " --env.CM_GH_TOKEN=$CM_GH_TOKEN"
 
     f.write(EOL+'# Run command' + EOL)
+    for comment in env.get('CM_DOCKER_IMAGE_RUN_COMMENTS', []):
+        f.write(comment + EOL)
+
     if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
         if 'CM_DOCKER_RUN_SCRIPT_TAGS' not in env:
             env['CM_DOCKER_IMAGE_RUN_CMD']="cm version"

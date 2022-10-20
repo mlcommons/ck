@@ -39,7 +39,7 @@
           "resnet50"
         ]
       },
-      "tags": "get,ml-model-onnx,resnet50"
+      "tags": "get,ml-model,resnet50,_onnx"
     },
     {
       "enable_if_env": {
