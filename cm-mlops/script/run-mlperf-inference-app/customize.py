@@ -68,7 +68,7 @@ def preprocess(i):
             env['CM_LOADGEN_MODE'] = mode
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': inp.get('add_deps',{}), 'add_deps_recursive':
-                inp.get('add_deps_recursive', {})})
+                inp.get('add_deps_recursive', {}), 'adr': inp.get('adr', {})})
         if system_meta.get('division', '') == "open":
             env["CM_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
         if env.get("CM_LOADGEN_COMPLIANCE", "") == "yes":
@@ -76,7 +76,7 @@ def preprocess(i):
                 env['CM_LOADGEN_COMPLIANCE_TEST'] = test
                 r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                     'env': env, 'input': inp, 'state': state, 'add_deps': inp.get('add_deps', {}), 'add_deps_recursive':
-                    inp.get('add_deps_recursive', {})})
+                    inp.get('add_deps_recursive', {}), 'adr': inp.get('adr', {})})
 
     return {'return':0}
 
