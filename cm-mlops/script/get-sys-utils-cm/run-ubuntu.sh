@@ -45,6 +45,7 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            python3 \
            python3-pip \
            python3-dev \
+           python3-venv \
            libtinfo-dev \
            python-is-python3 \
            sudo \
