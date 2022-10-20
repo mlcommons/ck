@@ -401,8 +401,9 @@ class CAutomation(Automation):
         state = i.get('state',{})
         add_deps = i.get('ad',{})
         add_deps = i.get('add_deps',add_deps)
-        add_deps_recursive = i.get('adr',{})
-        add_deps_recursive = i.get('add_deps_recursive',add_deps_recursive)
+        add_deps_recursive = i.get('adr', {})
+        if not add_deps_recursive:
+            add_deps_recursive = i.get('add_deps_recursive', {})
 
         # Save current env and state to detect new env and state after running a given script
         saved_env = copy.deepcopy(env)
@@ -2700,8 +2701,9 @@ def update_deps_from_input(deps, post_deps, prehook_deps, posthook_deps, i):
     """
     add_deps = i.get('ad',{})
     add_deps_info_from_input = i.get('add_deps',add_deps)
-    add_deps_recursive = i.get('adr',{})
-    add_deps_recursive_info_from_input = i.get('add_deps_recursive',add_deps_recursive)
+    add_deps_recursive_info_from_input = i.get('adr', {})
+    if not add_deps_recursive_info_from_input:
+        add_deps_recursive_info_from_input = i.get('add_deps_recursive', {})
     if add_deps_info_from_input:
         r1 = update_deps(deps, add_deps_info_from_input, True)
         r2 = update_deps(post_deps, add_deps_info_from_input, True)

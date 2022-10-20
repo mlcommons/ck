@@ -35,8 +35,8 @@ def preprocess(i):
             arg=env_
             if env_ in default_env: #other inputs to be done later
                 arg=arg+"="+default_env[env_]
-                build_args.append(arg)
-                input_args.append("--"+input_+"="+"$"+env_)
+                #build_args.append(arg)
+                #input_args.append("--"+input_+"="+"$"+env_)
  
     if "CM_DOCKER_OS_VERSION" not in env:
         env["CM_DOCKER_OS_VERSION"] = "20.04"
@@ -129,12 +129,12 @@ def preprocess(i):
         else:
             env['CM_DOCKER_IMAGE_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
 
-    if "run" in env['CM_DOCKER_IMAGE_RUN_CMD'] and not env.get('CM_REAL_RUN', None):
-        fake_run = " --fake_run"
-    else:
+    fake_run = " --fake_run"
+    f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
+    if not "run" in env['CM_DOCKER_IMAGE_RUN_CMD'] or env.get('CM_REAL_RUN', None):
         fake_run = ""
+        f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
 
-    f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + " " + " ".join(input_args) + run_cmd_extra + EOL)
 
     f.close()
 

@@ -69,7 +69,7 @@ for _os in docker_os:
                             'docker_os_version': version, 
                             'file_path': dockerfile_path,
                             'comments': comments,
-                            'run_cmd': 'cm run script --tags=app,mlperf,inference,generic,reference'+variation_string+' --adr.compiler.tags=gcc',
+                            'run_cmd': 'cm run script --tags=app,mlperf,inference,generic,reference'+variation_string+' --adr.compiler.tags=gcc --adr.inference-src.tags=_octoml',
                             'script_tags': 'app,mlperf,inference,generic,reference',
                             'real_run': True
                             })
