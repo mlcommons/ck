@@ -30,3 +30,6 @@ RUN cm pull repo mlcommons@ck
 
 # Run command
 RUN cm version
+
+# Start bash
+CMD bash
