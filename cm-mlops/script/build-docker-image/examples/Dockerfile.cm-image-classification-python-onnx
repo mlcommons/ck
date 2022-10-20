@@ -31,5 +31,8 @@ RUN cm pull repo mlcommons@ck
 # Install all system dependencies
 RUN cm run script --quiet --tags=get,sys-utils-cm
 
-# Get CM version
-CMD cm version
+# Run image classification and install all related CM components automatically
+RUN cm run script --tags=python,app,image-classification,onnx --quiet
+
+# Start workflow
+CMD ["cm run script --tags=python,app,image-classification,onnx"]

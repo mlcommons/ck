@@ -1,0 +1,1 @@
+docker push ckrepo/cm-min:ubuntu-22.04
