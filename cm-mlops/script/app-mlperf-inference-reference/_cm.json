@@ -115,7 +115,7 @@
           "resnet50"
         ]
       },
-      "tags": "get,ml-model-tf,image-classification,resnet50"
+      "tags": "get,ml-model,image-classification,resnet50,_tensorflow"
     },
     {
       "enable_if_env": {
@@ -126,7 +126,7 @@
           "resnet50"
         ]
       },
-      "tags": "get,ml-model-pytorch,image-classification,resnet50"
+      "tags": "get,ml-model,image-classification,resnet50,_pytorch"
     },
     {
       "enable_if_env": {
@@ -138,7 +138,7 @@
           "resnet50"
         ]
       },
-      "tags": "get,ml-model-onnx,image-classification,resnet50"
+      "tags": "get,ml-model,image-classification,resnet50,_onnx"
     },
     {
       "enable_if_env": {
@@ -149,7 +149,7 @@
           "bert-99.9"
         ]
       },
-      "tags": "get,ml-model-onnx,language-processing,bert"
+      "tags": "get,ml-model,language-processing,bert,_onnx"
     },
     {
       "enable_if_env": {

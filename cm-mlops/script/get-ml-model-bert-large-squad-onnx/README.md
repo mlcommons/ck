@@ -1,12 +1,12 @@
-# Get ML Model Bert-Large Onnx
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) downloads the Bert-Large Onnx model and adds it to CM cache with relevant meta data. 
+# Get ML Model Bert-Large
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) downloads the Bert-Large model and adds it to CM cache with relevant meta data. 
 
 ## How To
 ```bash
 cm run script --tags=get,ml-model,bert,_[VARIATION]
 ```
 where,
-* `[VARIATION]` is one of `fp32` or `int8`.
+* `[VARIATION]` is one of `fp32`, `int8`, `onnxruntime` (alias `onnx`)
 
 ## Exported Variables
 * `CM_ML_MODEL_FILE:` Model filename
