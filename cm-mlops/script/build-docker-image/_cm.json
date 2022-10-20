@@ -11,6 +11,7 @@
     "dockerfile": "CM_DOCKERFILE_WITH_PATH",
     "gh_token": "CM_GH_TOKEN",
     "image_repo": "CM_DOCKER_IMAGE_REPO",
+    "image_name": "CM_DOCKER_IMAGE_NAME",
     "image_tag": "CM_DOCKER_IMAGE_TAG",
     "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS"
   },

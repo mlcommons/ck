@@ -15,7 +15,8 @@
     "image_tag": "CM_DOCKER_IMAGE_TAG",
     "real_run": "CM_REAL_RUN",
     "run_cmd": "CM_DOCKER_IMAGE_RUN_CMD",
-    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS"
+    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
+    "comments": "CM_DOCKER_IMAGE_RUN_COMMENTS"
   },
   "post_deps": [
     {
