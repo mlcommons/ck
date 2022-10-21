@@ -16,7 +16,15 @@
     "real_run": "CM_REAL_RUN",
     "run_cmd": "CM_DOCKER_IMAGE_RUN_CMD",
     "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
-    "comments": "CM_DOCKER_IMAGE_RUN_COMMENTS"
+    "comments": "CM_DOCKER_IMAGE_RUN_COMMENTS",
+    "run_cmd_extra": "CM_DOCKER_RUN_CMD_EXTRA",
+    "pre_run_cmds": "CM_DOCKER_PRE_RUN_COMMANDS",
+    "post_run_cmds": "CM_DOCKER_POST_RUN_COMMANDS"
+  },
+  "default_env": {
+    "CM_DOCKER_BUILD_SLIM": "no",
+    "CM_DOCKER_OS": "ubuntu",
+    "CM_DOCKER_IMAGE_EOL": "\n"
   },
   "post_deps": [
     {
@@ -36,5 +44,12 @@
     "build",
     "dockerfile"
   ],
-  "uid": "e66a7483230d4641"
+  "uid": "e66a7483230d4641",
+  "variations": {
+    "slim": {
+      "env": {
+        "CM_DOCKER_BUILD_SLIM": "yes"
+      }
+    }
+  }
 }
