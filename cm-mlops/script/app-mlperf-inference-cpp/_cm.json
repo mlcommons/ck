@@ -79,7 +79,7 @@
   "post_deps": [
     {
       "names": [
-        "compiler"
+        "compiler-program"
       ],
       "tags": "compile,program"
     },
