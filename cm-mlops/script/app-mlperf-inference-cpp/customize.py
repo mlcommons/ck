@@ -43,6 +43,9 @@ def preprocess(i):
     if 'CM_MLC_USER_CONF' not in env:
         env['CM_MLC_USER_CONF'] = os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], "user.conf")
 
+    if 'CM_MODEL' not in env:
+        return {'return': 1, 'error': 'Please select a variation specifying the model to run'}
+
     return {'return':0}
 
 def postprocess(i):
