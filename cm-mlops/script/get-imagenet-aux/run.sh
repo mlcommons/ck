@@ -1,6 +1,6 @@
 #!/bin/bash
 
-wget -nc http://dl.caffe.berkeleyvision.org//caffe_ilsvrc12.tar.gz --no-check-certificate
+wget -nc ${CM_WGET_URL} --no-check-certificate
 test $? -eq 0 || exit 1
 
 mkdir data
