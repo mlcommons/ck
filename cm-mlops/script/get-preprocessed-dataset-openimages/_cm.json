@@ -27,7 +27,7 @@
       "names": [
 	"pycocotools"
       ],
-      "tags": "get,generic-python-lib",_pycocotools"
+      "tags": "get,generic-python-lib,_pycocotools"
     }
   ],
   "env": {
