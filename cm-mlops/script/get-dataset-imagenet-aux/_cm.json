@@ -1,5 +1,5 @@
 {
-  "alias": "get-imagenet-aux",
+  "alias": "get-dataset-imagenet-aux",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
@@ -21,17 +21,21 @@
         "CM_DATASET_AUX_VER": "2012"
       }
     },
-    "from.dropbox": {
+    "from.berkeleyvision": {
+      "base": [
+        "2012"
+      ],
       "env": {
-	"CM_WGET_URL": "https://www.dropbox.com/s/92n2fyej3lzy3s3/caffe_ilsvrc12.tar.gz"
-      },
-      "base": [ "2012" ]
+        "CM_WGET_URL": "http://dl.caffe.berkeleyvision.org/caffe_ilsvrc12.tar.gz"
+      }
     },
-    "from.berkeleyvision":{
+    "from.dropbox": {
+      "base": [
+        "2012"
+      ],
       "env": {
-	"CM_WGET_URL": "http://dl.caffe.berkeleyvision.org/caffe_ilsvrc12.tar.gz"
-      },
-      "base": [ "2012" ]
+        "CM_WGET_URL": "https://www.dropbox.com/s/92n2fyej3lzy3s3/caffe_ilsvrc12.tar.gz"
+      }
     }
   }
 }
