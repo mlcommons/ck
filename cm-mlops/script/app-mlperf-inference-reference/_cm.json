@@ -208,7 +208,8 @@
     }
   ],
   "env_key_mappings": {
-    "CM_ML_": "ML_"
+    "CM_ML_": "ML_",
+    "CM_HOST_": "HOST_"
   },
   "input_mapping": {
     "count": "CM_LOADGEN_QUERY_COUNT",
