@@ -7,10 +7,6 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
-    if 'CM_DOCKER_IMAGE_EOL' not in env:
-        env['CM_DOCKER_IMAGE_EOL'] = "\n"
-    if "CM_DOCKER_OS" not in env:
-        env["CM_DOCKER_OS"] = "ubuntu"
     if env["CM_DOCKER_OS"] not in [ "ubuntu", "rhel" ]:
         return {'return': 1, 'error': "Currently only ubuntu and rhel are supported in CM docker"}
     path = i['run_script_input']['path']
@@ -114,10 +110,16 @@ def preprocess(i):
 
     f.write(EOL+'# Install all system dependencies' + EOL)
     f.write('RUN cm run script --quiet --tags=get,sys-utils-cm' + EOL)
-    run_cmd_extra=''
+
+    if 'CM_DOCKER_PRE_RUN_COMMANDS' in env:
+        for pre_run_cmd in env['CM_DOCKER_PRE_RUN_COMMANDS']:
+            f.write('RUN '+ pre_run_cmd + EOL)
+
+    run_cmd_extra=" "+env.get('CM_DOCKER_RUN_CMD_EXTRA', '').replace(":","=")
     gh_token = get_value(env, config, "GH_TOKEN", "CM_GH_TOKEN")
     if gh_token:
         run_cmd_extra = " --env.CM_GH_TOKEN=$CM_GH_TOKEN"
+
 
     f.write(EOL+'# Run commands' + EOL)
     for comment in env.get('CM_DOCKER_IMAGE_RUN_COMMENTS', []):
@@ -134,6 +136,10 @@ def preprocess(i):
     if not "run" in env['CM_DOCKER_IMAGE_RUN_CMD'] or env.get('CM_REAL_RUN', None):
         fake_run = ""
         f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
+
+    if 'CM_DOCKER_POST_RUN_COMMANDS' in env:
+        for post_run_cmd in env['CM_DOCKER_POST_RUN_COMMANDS']:
+            f.write('RUN '+ post_run_cmd + EOL)
 
 
     f.close()

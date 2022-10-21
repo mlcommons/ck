@@ -2704,8 +2704,9 @@ def update_deps_from_input(deps, post_deps, prehook_deps, posthook_deps, i):
     """
     Internal: update deps from meta
     """
-    add_deps = i.get('ad',{})
-    add_deps_info_from_input = i.get('add_deps',add_deps)
+    add_deps_info_from_input = i.get('ad',{})
+    if not add_deps_info_from_input:
+        add_deps_info_from_input = i.get('add_deps',{})
     add_deps_recursive_info_from_input = i.get('adr', {})
     if not add_deps_recursive_info_from_input:
         add_deps_recursive_info_from_input = i.get('add_deps_recursive', {})
