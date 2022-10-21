@@ -22,6 +22,12 @@
         "inference-src"
       ],
       "tags": "mlperf,mlcommons,inference,source,src,_octoml"
+    },
+    {
+      "names": [
+	"pycocotools"
+      ],
+      "tags": "get,generic-python-lib",_pycocotools"
     }
   ],
   "env": {

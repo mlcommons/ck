@@ -79,6 +79,11 @@
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "transformers"
       }
+    },
+    "pycocotools": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "pycocotools"
+      }
     }
   }
 }

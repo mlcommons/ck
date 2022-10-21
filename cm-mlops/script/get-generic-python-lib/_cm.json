@@ -110,6 +110,14 @@
       "new_env_keys": [
         "CM_TRANSFORMERS_VERSION"
       ]
+    },
+    "pycocotools": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "pycocotools"
+      },
+      "new_env_keys": [
+        "CM_PYCOCOTOOLS_VERSION"
+      ]
     }
   }
 }
