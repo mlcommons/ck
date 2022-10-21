@@ -9,7 +9,17 @@ def preprocess(i):
 
     recursion_spaces = i['recursion_spaces']
 
-    file_name = 'nvcc.exe' if os_info['platform'] == 'windows' else 'nvcc'
+    if os_info['platform'] == 'windows':
+        file_name = 'nvcc.exe'
+    else:
+        file_name = 'nvcc'
+
+        # paths to nvcc are not always in PATH - add a few typical locations to search for
+        # (unless forced by a user)
+
+        if env.get('CM_INPUT','').strip()=='' and env.get('CM_TMP_PATH','').strip()=='':
+            env['CM_TMP_PATH'] = '/usr/local/cuda/bin:/usr/cuda/bin'
+            env['CM_TMP_PATH_IGNORE_NON_EXISTANT'] = 'yes'
 
     if 'CM_NVCC_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name,

@@ -5,6 +5,20 @@
   "cache": true,
   "clean_files": [],
   "name": "Detect Microsoft C compiler",
+  "new_env_keys": [
+    "CM_CL_*",
+    "CM_C_COMPILER_*",
+    "CM_CPP_COMPILER_*",
+    "CM_CXX_COMPILER_*",
+    "CM_COMPILER_*",
+    "FAST_COMPILER_FLAGS",
+    "FAST_LINKER_FLAGS",
+    "DEBUG_COMPILER_FLAGS",
+    "DEBUG_LINKER_FLAGS",
+    "DEFAULT_COMPILER_FLAGS",
+    "DEFAULT_LINKER_FLAGS",
+    "+PATH"
+  ],
   "sort": 1000,
   "tags": [
     "get",

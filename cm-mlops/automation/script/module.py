@@ -1927,11 +1927,16 @@ class CAutomation(Automation):
         default_path_env_key = i.get('default_path_env_key', '')
         recursion_spaces = i.get('recursion_spaces', '')
 
-        # Check if forced to search in a specific path
+        # Check if forced to search in a specific path or multiple paths 
+        # separated by OS var separator (usually : or ;)
         path = env.get('CM_TMP_PATH','')
 
-        if path!='' and not os.path.isdir(path):
-            return {'return':1, 'error':'path {} doesn\'t exist'.format(path)}
+        if path!='' and env.get('CM_TMP_PATH_IGNORE_NON_EXISTANT','')!='yes':
+            # Can be a list of paths
+            path_list_tmp = path.split(os_info['env_separator'])
+            for path_tmp in path_list_tmp:
+                if path_tmp.strip()!='' and not os.path.isdir(path_tmp):
+                    return {'return':1, 'error':'path {} doesn\'t exist'.format(path_tmp)}
 
         # Check if forced path and file name from --input (CM_INPUT - local env - will not be visible for higher-level script)
         forced_file = env.get('CM_INPUT','').strip()
