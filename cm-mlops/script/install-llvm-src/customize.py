@@ -23,7 +23,7 @@ def preprocess(i):
     env['CM_GIT_CHECKOUT'] = 'llvmorg-' + need_version
 
     env['CM_LLVM_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install', 'bin')
-    env['CM_LLVM_CLANG_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'bin', clang_file_name)
+    env['CM_LLVM_CLANG_BIN_WITH_PATH'] = os.path.join(env['CM_LLVM_INSTALLED_PATH'], clang_file_name)
     env['CM_GET_DEPENDENT_CACHED_PATH'] = os.getcwd()
 
     return {'return':0}

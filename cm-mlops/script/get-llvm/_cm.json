@@ -7,7 +7,7 @@
   "env": {
     "CM_TMP_REQUIRE_INSTALL": "no"
   },
-  "name": "Detect or install LLVM compiler",
+  "name": "Use LLVM compiler",
   "new_env_keys": [
     "CM_LLVM_*",
     "CM_C_COMPILER_*",

@@ -4,7 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
-  "name": "Detect Microsoft C compiler",
+  "name": "Use Microsoft C compiler",
   "new_env_keys": [
     "CM_CL_*",
     "CM_C_COMPILER_*",
