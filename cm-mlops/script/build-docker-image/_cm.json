@@ -13,7 +13,10 @@
     "image_repo": "CM_DOCKER_IMAGE_REPO",
     "image_name": "CM_DOCKER_IMAGE_NAME",
     "image_tag": "CM_DOCKER_IMAGE_TAG",
-    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS"
+    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
+    "real_run": "CM_REAL_RUN",
+    "pre_run_cmds": "CM_DOCKER_PRE_RUN_COMMANDS",
+    "post_run_cmds": "CM_DOCKER_POST_RUN_COMMANDS"
   },
   "prehook_deps": [
     {
@@ -30,6 +33,7 @@
     "build",
     "docker",
     "image",
+    "docker-image",
     "dockerimage"
   ],
   "uid": "2c3c4ba2413442e7"

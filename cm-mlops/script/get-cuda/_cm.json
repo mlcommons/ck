@@ -12,6 +12,9 @@
       "tags": "get,cl"
     }
   ],
+  "env": {
+    "CM_TMP_REQUIRE_INSTALL": "no"
+  },
   "new_env_keys": [
     "CM_CUDA_*",
     "CM_NVCC_*",

@@ -8,3 +8,12 @@ This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-sc
 
 ## Supported and Tested OS
 1. Ubuntu 18.04, 20.04, 22.04
+2. Windows
+
+## Examples
+
+### Detect CUDA on Windows
+
+```bash
+cm run script "get cuda" --path="C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\bin"
+```

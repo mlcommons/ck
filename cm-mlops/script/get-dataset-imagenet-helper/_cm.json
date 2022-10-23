@@ -1,5 +1,5 @@
 {
-  "alias": "get-imagenet-helper",
+  "alias": "get-dataset-imagenet-helper",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,

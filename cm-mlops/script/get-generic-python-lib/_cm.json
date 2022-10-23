@@ -110,6 +110,20 @@
       "new_env_keys": [
         "CM_TRANSFORMERS_VERSION"
       ]
+    },
+    "pycocotools": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "pycocotools"
+      },
+      "new_env_keys": [
+        "CM_PYCOCOTOOLS_VERSION"
+      ]
+    },
+    "nvidia-pycocotools": {
+      "base": [ "pycocotools" ],
+      "env": {
+	"CM_PIP_URL": "pycocotools @ git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI"
+      }
     }
   }
 }
