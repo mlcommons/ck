@@ -61,9 +61,23 @@
       "enable_if_env": {
         "CM_BACKEND": [
           "onnxruntime"
+        ],
+        "CM_DEVICE": [
+          "cpu"
         ]
       },
-      "tags": "get,lib,onnxruntime,lang-cpp"
+      "tags": "get,lib,onnxruntime,lang-cpp,_cpu"
+    },
+    {
+      "enable_if_env": {
+        "CM_BACKEND": [
+          "onnxruntime"
+        ],
+        "CM_DEVICE": [
+          "gpu"
+        ]
+      },
+      "tags": "get,lib,onnxruntime,lang-cpp,_gpu"
     }
   ],
   "input_mapping": {
@@ -106,12 +120,14 @@
     },
     "gpu": {
       "env": {
-        "CM_DEVICE": "gpu"
+        "CM_DEVICE": "gpu",
+        "CM_DEVICE_LIB_NAMESPEC": "cudart"
       }
     },
     "onnxruntime": {
       "env": {
-        "CM_BACKEND": "onnxruntime"
+        "CM_BACKEND": "onnxruntime",
+        "CM_BACKEND_LIB_NAMESPEC": "onnxruntime"
       }
     },
     "pytorch": {

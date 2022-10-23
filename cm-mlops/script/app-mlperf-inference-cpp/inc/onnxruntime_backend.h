@@ -11,23 +11,45 @@
 
 #include "backend.h"
 
-class OnnxRuntimeCPUBackend : public Backend {
+class OnnxRuntimeBackend : public Backend {
 public:
-    OnnxRuntimeCPUBackend(
+    OnnxRuntimeBackend(
             std::shared_ptr<Model> &model, std::shared_ptr<Device> &device,
-            size_t performance_sample_count, size_t batch_size)
+            size_t performance_sample_count, size_t batch_size,
+            bool use_cuda)
             : Backend(model, device, performance_sample_count, batch_size)
-            , env(ORT_LOGGING_LEVEL_WARNING, "env")
-            , info_cpu{Ort::MemoryInfo::CreateCpu(OrtAllocatorType::OrtArenaAllocator, OrtMemTypeDefault)} {
-        Ort::SessionOptions session_options;
-        session_options.SetIntraOpNumThreads(1);
-        session_options.SetExecutionMode(ExecutionMode::ORT_SEQUENTIAL);
-        // FIXME: the resnet50 does not work with optimization level 3 (ORT_ENABLE_ALL)
-        session_options.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_EXTENDED);
+            , env(ORT_LOGGING_LEVEL_WARNING, "env") {
+        for (size_t i = 0; i < device->NumMemory(); i++) {
+            memory_infos.emplace_back(
+                use_cuda ? "Cuda" : "Cpu",
+                OrtAllocatorType::OrtArenaAllocator, i, OrtMemTypeDefault);
+        }
 
         for (size_t i = 0; i < device->NumConcurrency(); i++) {
+            Ort::SessionOptions session_options;
+            // arm64 does not work with optimization level 3 (ORT_ENABLE_ALL)
+            session_options.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_EXTENDED);
+
+            const auto &api = Ort::GetApi();
+
+            OrtCUDAProviderOptionsV2 *cuda_options = nullptr;
+            api.CreateCUDAProviderOptions(&cuda_options);
+
+            std::vector<const char *> keys{"device_id"};
+            std::vector<const char *> values{std::to_string(i).c_str()};
+
+            api.UpdateCUDAProviderOptions(cuda_options, keys.data(), values.data(), keys.size());
+
+            if (use_cuda) {
+                api.SessionOptionsAppendExecutionProvider_CUDA_V2(
+                    static_cast<OrtSessionOptions *>(session_options),
+                    cuda_options);
+            }
+
             sessions.emplace_back(env, model->model_path.c_str(), session_options);
             bindings.emplace_back(sessions[i]);
+
+            api.ReleaseCUDAProviderOptions(cuda_options);
         }
     }
 
@@ -37,6 +59,8 @@ public:
             std::vector<void *> &batch_data) override {
         Ort::Session &session = sessions[concurrency_index];
         Ort::IoBinding &binding = bindings[concurrency_index];
+        size_t memory_index = device->GetMemoryIndex(concurrency_index);
+
         for (size_t i = 0; i < model->num_inputs; i++) {
             size_t size = batch.size() * GetSampleSize(batch.front().index, i);
             const std::vector<size_t> &shape = GetSampleShape(batch.front().index, i);
@@ -47,7 +71,7 @@ public:
             ONNXTensorElementDataType input_type =
                 session.GetInputTypeInfo(i).GetTensorTypeAndShapeInfo().GetElementType();
             Ort::Value value = Ort::Value::CreateTensor(
-                info_cpu,
+                memory_infos[memory_index],
                 batch_data[i], size,
                 input_shape.data(), input_shape.size(),
                 input_type);
@@ -55,7 +79,7 @@ public:
         }
 
         for (std::string &output : model->output_names)
-            binding.BindOutput(output.c_str(), info_cpu);
+            binding.BindOutput(output.c_str(), memory_info_cpu);
 
         session.Run(Ort::RunOptions(), binding);
 
@@ -79,14 +103,15 @@ public:
                     output_shapes[j][k] = output_shape[k];
             }
 
-            model->AllocateOutputs(
-                responses[i], batch[i].index, batch[i].id, output_buffers, output_shapes);
+            model->PostProcess(
+                batch[i].index, output_buffers, output_shapes, response_buffers[i]);
+
+            responses[i].id = batch[i].id;
+            responses[i].data = reinterpret_cast<uintptr_t>(response_buffers[i].data());
+            responses[i].size = response_buffers[i].size();
         }
 
         mlperf::QuerySamplesComplete(responses.data(), responses.size());
-
-        for (mlperf::QuerySampleResponse &response : responses)
-            model->FreeOutputs(response);
 
         binding.ClearBoundInputs();
         binding.ClearBoundOutputs();
@@ -94,9 +119,11 @@ public:
 
 private:
     Ort::Env env;
-    Ort::MemoryInfo info_cpu;
     std::vector<Ort::Session> sessions;
     std::vector<Ort::IoBinding> bindings;
+    std::vector<Ort::MemoryInfo> memory_infos;
+    Ort::MemoryInfo memory_info_cpu{
+        Ort::MemoryInfo::CreateCpu(OrtAllocatorType::OrtArenaAllocator, OrtMemTypeDefault)};
 };
 
 #endif // ONNXRUNTIME_BACKEND_H_

@@ -12,6 +12,15 @@
 
 #include "backend.h"
 
+/**
+ * A System class represents the policy by which requests from LoadGen are handled.
+ *
+ * StreamSUT immediately takes any LoadGen requests to device concurrency 0
+ * (this is for single-stream).
+ *
+ * QueueSUT maintains a queue of LoadGen requests and dequeues requests to
+ * any available device concurrency.
+ */
 class System : public mlperf::SystemUnderTest {
 public:
     System(const std::string &name, std::shared_ptr<Backend> &backend)
@@ -25,7 +34,6 @@ private:
     std::string name;
 };
 
-/* From inference/loadgen repro.cpp */
 class StreamSUT : public System {
 public:
     StreamSUT(std::shared_ptr<Backend> &backend) : System("StreamSUT", backend) {}

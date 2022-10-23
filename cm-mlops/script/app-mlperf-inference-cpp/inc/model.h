@@ -36,22 +36,18 @@ public:
     std::vector<std::vector<size_t>> output_shapes;
 
     /**
-     * @brief Post-process raw output from model and store in response
+     * @brief Post-process raw output from model and store in LoadGen response
      *
-     * @param response target response to store in (response.data should persist after the call)
      * @param index query sample index
-     * @param id response id
      * @param raw raw outputs
      * @param raw_shapes shapes of corresponding outputs
+     * @param response_buffer response buffer to write to
      */
-    virtual void AllocateOutputs(
-        mlperf::QuerySampleResponse &response,
+    virtual void PostProcess(
         mlperf::QuerySampleIndex index,
-        mlperf::ResponseId id,
         const std::vector<void *> &raw,
-        const std::vector<std::vector<size_t>> &raw_shapes) = 0;
-    virtual void FreeOutputs(
-        mlperf::QuerySampleResponse &response) = 0;
+        const std::vector<std::vector<size_t>> &raw_shapes,
+        std::vector<uint8_t> &response_buffer) = 0;
 };
 
 class Resnet50 : public Model {
@@ -63,20 +59,14 @@ public:
             1, {"ArgMax:0"}, {sizeof(int64_t)}, {{1}}),
         argmax_shift(argmax_shift) {}
 
-    void AllocateOutputs(
-            mlperf::QuerySampleResponse &response,
+    void PostProcess(
             mlperf::QuerySampleIndex index,
-            mlperf::ResponseId id,
             const std::vector<void *> &raw,
-            const std::vector<std::vector<size_t>> &raw_shapes) override {
-        int64_t *label = new int64_t(*static_cast<int64_t *>(raw.front()) + argmax_shift);
-        response.id = id;
-        response.data = reinterpret_cast<uintptr_t>(label);
-        response.size = sizeof(int64_t);
-    }
-
-    void FreeOutputs(mlperf::QuerySampleResponse &response) override {
-        delete reinterpret_cast<int64_t *>(response.data);
+            const std::vector<std::vector<size_t>> &raw_shapes,
+            std::vector<uint8_t> &response_buffer) override {
+        response_buffer.resize(sizeof(int64_t));
+        int64_t *buffer = reinterpret_cast<int64_t *>(response_buffer.data());
+        buffer[0] = *static_cast<int64_t *>(raw.front()) + argmax_shift;
     }
 
 private:
@@ -94,14 +84,11 @@ public:
         width(width), height(height),
         score_threshold(score_threshold) {}
 
-    void AllocateOutputs(
-            mlperf::QuerySampleResponse &response,
+    void PostProcess(
             mlperf::QuerySampleIndex index,
-            mlperf::ResponseId id,
             const std::vector<void *> &raw,
-            const std::vector<std::vector<size_t>> &raw_shapes) override {
-        response.id = id;
-
+            const std::vector<std::vector<size_t>> &raw_shapes,
+            std::vector<uint8_t> &response_buffer) override {
         float *const boxes = static_cast<float *const>(raw.at(0));
         float *const scores = static_cast<float *const>(raw.at(1));
         int64_t *const labels = static_cast<int64_t *const>(raw.at(2));
@@ -113,24 +100,19 @@ public:
         while (keep < scores_shape[0] && scores[keep] >= score_threshold)
             keep++;
 
-        float *result = new float[7 * keep];
+        response_buffer.resize(7 * keep * sizeof(float));
+        float *buffer = reinterpret_cast<float *>(response_buffer.data());
         for (size_t i = 0; i < keep; i++) {
             int64_t label = labels[i];
             float *const box = &boxes[4 * i];
-            result[7 * i + 0] = static_cast<float>(index);
-            result[7 * i + 1] = box[1] / 800.0f;
-            result[7 * i + 2] = box[0] / 800.0f;
-            result[7 * i + 3] = box[3] / 800.0f;
-            result[7 * i + 4] = box[2] / 800.0f;
-            result[7 * i + 5] = scores[i];
-            result[7 * i + 6] = static_cast<float>(label);
+            buffer[7 * i + 0] = static_cast<float>(index);
+            buffer[7 * i + 1] = box[1] / 800.0f;
+            buffer[7 * i + 2] = box[0] / 800.0f;
+            buffer[7 * i + 3] = box[3] / 800.0f;
+            buffer[7 * i + 4] = box[2] / 800.0f;
+            buffer[7 * i + 5] = scores[i];
+            buffer[7 * i + 6] = static_cast<float>(label);
         }
-        response.data = reinterpret_cast<uintptr_t>(result);
-        response.size = 7 * keep * sizeof(float);
-    }
-
-    void FreeOutputs(mlperf::QuerySampleResponse &response) override {
-        delete[] reinterpret_cast<float *>(response.data);
     }
 
 private:

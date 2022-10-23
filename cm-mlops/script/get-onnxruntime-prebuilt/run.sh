@@ -11,6 +11,10 @@ hostos=${CM_HOST_OS_TYPE}
 if [[ $hostos == "darwin" ]]; then
   hostos=osx
 fi
+device=${CM_ONNXRUNTIME_DEVICE}
+if [[ $device != "" ]]; then
+  machine=$machine-$device
+fi
 
 FOLDER=onnxruntime-${hostos}-$machine-${CM_VERSION}
 FILENAME=$FOLDER".tgz"
