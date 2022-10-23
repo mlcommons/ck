@@ -16,6 +16,18 @@
 #include "device.h"
 #include "model.h"
 
+/**
+ * The Backend base class manages how samples are stored in memory,
+ * receives queries from SUT and issues them to derived classes via RunInference.
+ *
+ * For memory storage, on calls to LoadSampleFromRam() from the QSL, loaded samples are
+ * stored contiguously into each device memory. The Backend class retains the
+ * location of every sample in device memory.
+ *
+ * When SUT issues a batch to run on a device concurrency, the backend class retrieves
+ * the location in memory of this batch, and passes this to RunInference implemented by
+ * derived classes (e.g. OnnxRuntimeBackend).
+ */
 class Backend {
 public:
     Backend(std::shared_ptr<Model> &model, std::shared_ptr<Device> &device,
@@ -109,11 +121,15 @@ public:
     void FinishLoading() {
         // copy first batch to end of memory to form cycle
         for (size_t k = 0; k < batch_size - 1; k++) {
+            size_t index_in_memory = k % performance_sample_count;
             std::vector<std::vector<uint8_t>> data(num_inputs);
             for (size_t i = 0; i < num_inputs; i++)
-                device->Read(0, data[i], GetMemoryAddress(i, 0, k), samples[k].size[i]);
-            // LoadSampleToRam copies samples[k] to end of memory
-            LoadSampleToRam(samples[k].index, data, samples[k].size, samples[k].shape);
+                device->Read(
+                    0, data[i], GetMemoryAddress(i, 0, index_in_memory), samples[index_in_memory].size[i]);
+            // LoadSampleToRam copies samples[index_in_memory] to end of memory
+            LoadSampleToRam(
+                samples[index_in_memory].index, data,
+                samples[index_in_memory].size, samples[index_in_memory].shape);
         }
 
         // write substrings of samples vector to contiguity tree

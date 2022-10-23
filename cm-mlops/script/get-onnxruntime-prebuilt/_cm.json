@@ -5,6 +5,7 @@
   "cache": true,
   "clean_files": [],
   "default_version": "1.12.1",
+  "default_variation": "cpu",
   "deps": [
     {
       "tags": "detect,os"
@@ -25,5 +26,17 @@
     "lang-c",
     "lang-cpp"
   ],
-  "uid": "be02c84ff57c4244"
+  "uid": "be02c84ff57c4244",
+  "variations": {
+    "cpu": {
+      "env": {
+        "CM_ONNXRUNTIME_DEVICE": ""
+      }
+    },
+    "gpu": {
+      "env": {
+        "CM_ONNXRUNTIME_DEVICE": "gpu"
+      }
+    }
+  }
 }

@@ -14,6 +14,10 @@
 #include "backend.h"
 #include "npy.h"
 
+/**
+ * SampleLibrary reads stored samples on request of LoadGen and passes
+ * them to Backend. Derived classes specify how samples are read (e.g. from .npy files)
+ */
 class SampleLibrary : public mlperf::QuerySampleLibrary {
 public:
     SampleLibrary(
