@@ -27,10 +27,7 @@ def postprocess(i):
 
     os_info = i['os_info']
 
-    if os_info['platform'] == 'windows':
-        print ('Windows: TBD')
-
-    else:
+    if os_info['platform'] != 'windows':
         if os_info['platform'] == 'linux':
             sys_cmd = "ld --verbose | grep SEARCH_DIR "
             result = subprocess.check_output(sys_cmd, shell=True).decode("utf-8")
