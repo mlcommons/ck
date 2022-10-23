@@ -4,7 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
-  "name": "Detect GCC compiler",
+  "name": "Use GCC compiler",
   "new_env_keys": [
     "CM_GCC_*",
     "CM_C_COMPILER_*",
