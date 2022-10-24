@@ -1492,12 +1492,17 @@ class CAutomation(Automation):
         utils.merge_dicts({'dict1':saved_env, 'dict2':new_env, 'append_lists':True, 'append_unique':True})
         utils.merge_dicts({'dict1':saved_state, 'dict2':new_state, 'append_lists':True, 'append_unique':True})
 
-        # Restore original env/state and merge env/state
-        utils.merge_dicts({'dict1':env, 'dict2':saved_env, 'append_lists':False, 'append_unique':False})
-        utils.merge_dicts({'dict1':state, 'dict2':saved_state, 'append_lists':False, 'append_unique':False})
 
-        utils.merge_dicts({'dict1':env, 'dict2':new_env, 'append_lists':True, 'append_unique':True})
-        utils.merge_dicts({'dict1':state, 'dict2':new_state, 'append_lists':True, 'append_unique':True})
+        
+        
+        # Restore original env/state and merge env/state
+        for k in list(env.keys()):
+            del(env[k])
+        for k in list(state.keys()):
+            del(state[k])
+
+        env.update(saved_env)
+        state.update(saved_state)
 
 
 
@@ -1612,7 +1617,7 @@ class CAutomation(Automation):
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
 
 
-        return {'return':0, 'env':saved_env, 'new_env':new_env, 'state':saved_state, 'new_state':new_state}
+        return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 
 
 

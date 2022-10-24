@@ -17,7 +17,7 @@
     },
     {
       "names": [
-        "inference-src"
+        "inference-src-loadgen"
       ],
       "tags": "get,mlcommons,inference,src"
     },
