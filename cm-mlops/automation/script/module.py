@@ -814,29 +814,6 @@ class CAutomation(Automation):
 
         variations = script_artifact.meta.get('variations', {})
 
-        if len(variation_tags) > 0:
-            tmp_variations = {k: False for k in variation_tags}
-            while True:
-                for variation_name in variation_tags:
-
-                    if variation_name.startswith("-"):
-                        tmp_variations[variation_name] = True
-                        continue
-
-                    if "base" in variations[variation_name]:
-                        base_variations = variations[variation_name]["base"]
-                        for base_variation in base_variations:
-                            if base_variation not in variation_tags:
-                                variation_tags.append(base_variation)
-                                tmp_variations[base_variation] = False
-                    tmp_variations[variation_name] = True
-                all_base_processed = True
-                for variation_name in variation_tags:
-                    if tmp_variations[variation_name] == False:
-                        all_base_processed = False
-                        break
-                if all_base_processed:
-                    break
 
         # Add variation(s) if specified in the "tags" input prefixed by _
           # If there is only 1 default variation, then just use it or substitute from CMD
@@ -871,6 +848,31 @@ class CAutomation(Automation):
             for t in variations:
                 if t not in variation_tags:
                     variation_tags.append('~' + t)
+
+        # Recursively add any base variations specified
+        if len(variation_tags) > 0:
+            tmp_variations = {k: False for k in variation_tags}
+            while True:
+                for variation_name in variation_tags:
+
+                    if variation_name.startswith("~"):
+                        tmp_variations[variation_name] = True
+                        continue
+
+                    if "base" in variations[variation_name]:
+                        base_variations = variations[variation_name]["base"]
+                        for base_variation in base_variations:
+                            if base_variation not in variation_tags:
+                                variation_tags.append(base_variation)
+                                tmp_variations[base_variation] = False
+                    tmp_variations[variation_name] = True
+                all_base_processed = True
+                for variation_name in variation_tags:
+                    if tmp_variations[variation_name] == False:
+                        all_base_processed = False
+                        break
+                if all_base_processed:
+                    break
 
         variation_tags_string = ''
         if len(variation_tags)>0:
