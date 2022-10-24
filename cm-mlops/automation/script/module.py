@@ -2498,7 +2498,7 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
         script += convert_env_to_script(env, os_info)
 
         # Check if run bash/cmd before running the command (for debugging)
-        if len(debug_script_tags)!='' and all(item in found_script_tags for item in debug_script_tags.split(',')):
+        if debug_script_tags !='' and all(item in found_script_tags for item in debug_script_tags.split(',')):
             x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
 
             script.append('\n')
