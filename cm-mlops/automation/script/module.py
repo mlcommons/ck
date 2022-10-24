@@ -855,7 +855,7 @@ class CAutomation(Automation):
             while True:
                 for variation_name in variation_tags:
 
-                    if variation_name.startswith("~"):
+                    if variation_name.startswith("~") or variation_name.startswith("-"):
                         tmp_variations[variation_name] = True
                         continue
 
