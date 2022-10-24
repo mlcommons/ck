@@ -31,7 +31,6 @@ def postprocess(i):
 
     #state['cpu_info_raw'] = ss
 
-    print ('')
     # Unifying some CPU info across different platforms
     unified_env = {
             'CM_CPUINFO_CPUs':'CM_HOST_CPU_TOTAL_CORES',
@@ -76,7 +75,9 @@ def postprocess(i):
                     env[env_key] = v[1].strip()
     if 'CM_HOST_CPU_TOTAL_CORES' in env and 'CM_HOST_CPU_TOTAL_LOGICAL_CORES' not in env:
         env['CM_HOST_CPU_TOTAL_LOGICAL_CORES'] = env['CM_HOST_CPU_TOTAL_CORES']
+
     if 'CM_HOST_CPU_TOTAL_LOGICAL_CORES' in env and 'CM_HOST_CPU_TOTAL_PHYSICAL_CORES' in env and 'CM_HOST_CPU_THREADS_PER_CORE' not in env:
         env['CM_HOST_CPU_THREADS_PER_CORE'] = str(int(int(env['CM_HOST_CPU_TOTAL_LOGICAL_CORES']) /
             int(env['CM_HOST_CPU_TOTAL_PHYSICAL_CORES'])))
+
     return {'return':0}
