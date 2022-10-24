@@ -1,7 +1,10 @@
-* 20221017:
+# 20221024:
+ * added --verbose and --time to "cm run script"
+
+# 20221017:
  * removed the need for echo-off script
 
-* 20221010:
+# 20221010:
  * added cm run script --debug-script-tags to run cmd/bash before native script
  * added cm run script --shell to set env and run shell after script execution
 
@@ -9,7 +12,7 @@
  * added script template (used when adding new scripts)
  * major clean up of all scripts
 
-* 20220916:
+# 20220916:
  * treat alias as tags if spaces: 
    cm run script "get compiler" is converted to cm run script --tags=get,compiler
  * improved gcc detection

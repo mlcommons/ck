@@ -360,8 +360,10 @@ class CAutomation(Automation):
           (debug_script) (bool): if True, debug current script (set debug_script_tags to the tags of a current script)
           (detected_versions) (dict): All the used scripts and their detected_versions
 
-          (verbose) (bool): print all tech. info about script execution
+          (verbose) (bool): if True, print all tech. info about script execution
           (v) (bool): the same as verbose
+
+          (time) (bool): if True, print script execution time (on if verbose == True)
 
           ...
 
@@ -421,6 +423,10 @@ class CAutomation(Automation):
 
         verbose = i.get('verbose', False)
         if not verbose: verbose = i.get('v', False)
+
+        show_time = i.get('time', False)
+
+        extra_recursion_spaces = '  ' if verbose else ''
 
         skip_cache = i.get('skip_cache', False)
         fake_run = i.get('fake_run', False)
@@ -689,7 +695,7 @@ class CAutomation(Automation):
 
             # Select scripts
             if len(list_of_found_scripts) > 1:
-                select_script = select_script_artifact(list_of_found_scripts, 'script', recursion_spaces, False)
+                select_script = select_script_artifact(list_of_found_scripts, 'script', recursion_spaces, False, script_tags_string)
 
                 # Remember selection
                 if not skip_remembered_selections:
@@ -1052,7 +1058,7 @@ class CAutomation(Automation):
                         num_found_cached_scripts = 1
 
                 if num_found_cached_scripts > 1:
-                    selection = select_script_artifact(found_cached_scripts, 'cached script output', recursion_spaces, True)
+                    selection = select_script_artifact(found_cached_scripts, 'cached script output', recursion_spaces, True, script_tags_string)
 
                     if selection >= 0:
                         if not skip_remembered_selections:
@@ -1077,8 +1083,9 @@ class CAutomation(Automation):
                         if verbose:
                             print (recursion_spaces + '  - Checking dynamic dependencies on other CM scripts:')
 
-                        r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
-                            remembered_selections, variation_tags_string, True, debug_script_tags, verbose)
+                        r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, 
+                            recursion_spaces + extra_recursion_spaces,
+                            remembered_selections, variation_tags_string, True, debug_script_tags, verbose, show_time, extra_recursion_spaces)
                         if r['return']>0: return r
                         if verbose:
                             print (recursion_spaces + '  - Processing env after dependencies ...')
@@ -1089,8 +1096,9 @@ class CAutomation(Automation):
                     if verbose:
                         print (recursion_spaces + '    - Checking prehook dependencies on other CM scripts:')
 
-                    r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
-                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose)
+                    r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, 
+                            recursion_spaces + extra_recursion_spaces,
+                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces)
                     if r['return']>0: return r
 
                     # Continue with the selected cached script
@@ -1124,15 +1132,17 @@ class CAutomation(Automation):
 
                     clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
 
-                    r = self._call_run_deps(posthook_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
-                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose)
+                    r = self._call_run_deps(posthook_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, 
+                            recursion_spaces + extra_recursion_spaces,
+                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces)
                     if r['return']>0: return r
 
                     if verbose:
                         print (recursion_spaces + '    - Checking post dependencies on other CM scripts:')
                     # Check chain of post dependencies on other CM scripts
-                    r = self._call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
-                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose)
+                    r = self._call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, 
+                            recursion_spaces + extra_recursion_spaces,
+                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces)
                     if r['return']>0: return r
 
 
@@ -1258,8 +1268,9 @@ class CAutomation(Automation):
                 if verbose:
                     print (recursion_spaces + '  - Checking dependencies on other CM scripts:')
 
-                r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
-                        remembered_selections, variation_tags_string, False, debug_script_tags, verbose)
+                r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, 
+                        recursion_spaces + extra_recursion_spaces,
+                        remembered_selections, variation_tags_string, False, debug_script_tags, verbose, show_time, extra_recursion_spaces)
                 if r['return']>0: return r
                 if verbose:
                     print (recursion_spaces + '  - Processing env after dependencies ...')
@@ -1358,7 +1369,7 @@ class CAutomation(Automation):
                     ii = {
                            'action':'run',
                            'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
-                           'recursion_spaces':recursion_spaces + '  ',
+                           'recursion_spaces':recursion_spaces + extra_recursion_spaces,
                            'recursion':True,
                            'remembered_selections': remembered_selections,
                            'env':env,
@@ -1419,8 +1430,9 @@ class CAutomation(Automation):
                 if verbose:
                     print (recursion_spaces + '  - Checking prehook dependencies on other CM scripts:')
 
-                r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, recursion_spaces+'  ',
-                    remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose)
+                r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, 
+                    recursion_spaces + extra_recursion_spaces,
+                    remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces)
                 if r['return']>0: return r
 
             if not fake_run:
@@ -1446,7 +1458,7 @@ class CAutomation(Automation):
             # Check chain of post dependencies on other CM scripts
             clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
             r = self._run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections, variation_tags_string, found_cached)
+                    remembered_selections, variation_tags_string, found_cached, verbose, show_time, extra_recursion_spaces)
             if r['return']>0: return r
 
 
@@ -1573,14 +1585,16 @@ class CAutomation(Automation):
 
         ############################# RETURN
         elapsed_time = time.time() - start_time
-        if verbose:
-            print (recursion_spaces+'  - script running time: {:.2f} sec.'.format(elapsed_time))
+        if verbose or show_time:
+            print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
 
         return {'return':0, 'env':saved_env, 'new_env':new_env, 'state':saved_state, 'new_state':new_state}
 
     ##############################################################################
     def _call_run_deps(script, deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
-            add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags='', verbose=False):
+            add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags='', 
+            verbose=False, show_time=False, extra_recursion_spaces='  '):
+
         if len(deps) == 0:
             return {'return': 0}
 
@@ -1594,14 +1608,16 @@ class CAutomation(Automation):
             local_env_keys += local_env_keys_from_meta
 
         r = script._run_deps(deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose)
+            remembered_selections, variation_tags_string, found_cached, debug_script_tags, 
+            verbose, show_time, extra_recursion_spaces)
         if r['return']>0: return r
 
         return {'return': 0}
 
     ##############################################################################
     def _run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
-                    remembered_selections, variation_tags_string='', from_cache=False, debug_script_tags='', verbose=False):
+                    remembered_selections, variation_tags_string='', from_cache=False, debug_script_tags='', 
+                    verbose=False, show_time=False, extra_recursion_spaces='  '):
         """
         Runs all the enabled dependencies and pass them env minus local env
         """
@@ -1664,7 +1680,7 @@ class CAutomation(Automation):
                 ii = {
                         'action':'run',
                         'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
-                        'recursion_spaces':recursion_spaces + '  ',
+                        'recursion_spaces':recursion_spaces + extra_recursion_spaces,
                         'recursion':True,
                         'remembered_selections': remembered_selections,
                         'env':env,
@@ -1673,7 +1689,8 @@ class CAutomation(Automation):
                         'const_state':const_state,
                         'add_deps_recursive':add_deps_recursive,
                         'debug_script_tags':debug_script_tags,
-                        'verbose':verbose
+                        'verbose':verbose,
+                        'time':show_time
                     }
 
                 ii.update(d)
@@ -2881,13 +2898,13 @@ def detect_state_diff(env, saved_env, new_env_keys, new_state_keys, state, saved
     return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 
 ##############################################################################
-def select_script_artifact(lst, text, recursion_spaces, can_skip):
+def select_script_artifact(lst, text, recursion_spaces, can_skip, script_tags_string):
     """
     Internal: select script
     """
 
     # Select 1 and proceed
-    print (recursion_spaces+'    - More than 1 '+text+' found:')
+    print (recursion_spaces+'    - More than 1 {} found for "{}":'.format(text,script_tags_string))
 
     print ('')
     num = 0
