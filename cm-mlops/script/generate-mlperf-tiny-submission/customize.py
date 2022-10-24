@@ -16,11 +16,11 @@ def generate_submission(i):
     env = i['env']
     state = i['state']
     inp=i['input']
-    results_dir = env['CM_MLC_RESULTS_DIR']
+    results_dir = env['CM_MLPERF_RESULTS_DIR']
 
-    if 'CM_MLC_SUBMISSION_DIR' not in env:
-        env['CM_MLC_SUBMISSION_DIR'] = os.path.join(cur_dir, "results")
-    submission_dir = env['CM_MLC_SUBMISSION_DIR']
+    if 'CM_MLPERF_SUBMISSION_DIR' not in env:
+        env['CM_MLPERF_SUBMISSION_DIR'] = os.path.join(cur_dir, "results")
+    submission_dir = env['CM_MLPERF_SUBMISSION_DIR']
     if not os.path.isdir(submission_dir):
         os.makedirs(submission_dir)
 
@@ -44,7 +44,7 @@ def generate_submission(i):
 
     # Check submitter
     submitter = system_meta['submitter']
-    env['CM_MLC_SUBMITTER'] = submitter
+    env['CM_MLPERF_SUBMITTER'] = submitter
 
     print('* MLPerf tiny submitter: {}'.format(submitter))
 

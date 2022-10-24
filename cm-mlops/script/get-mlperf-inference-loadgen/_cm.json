@@ -19,7 +19,7 @@
       "names": [
         "inference-src-loadgen"
       ],
-      "tags": "get,mlcommons,inference,src,-_patch,_default"
+      "tags": "get,mlcommons,inference,src"
     },
     {
       "names": [
@@ -57,9 +57,9 @@
   ],
   "tags": [
     "get",
-    "install",
     "loadgen",
     "inference",
+    "inference-loadgen",
     "mlperf",
     "mlcommons"
   ],

@@ -69,10 +69,10 @@ def preprocess(i):
     env['CM_LINKER_LANG'] = 'CXX'
     env['CM_RUN_DIR'] = os.getcwd()
 
-    if 'CM_MLC_MLPERF_CONF' not in env:
-        env['CM_MLC_MLPERF_CONF'] = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "mlperf.conf")
-    if 'CM_MLC_USER_CONF' not in env:
-        env['CM_MLC_USER_CONF'] = os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], "user.conf")
+    if 'CM_MLPERF_CONF' not in env:
+        env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
+    if 'CM_MLPERF_USER_CONF' not in env:
+        env['CM_MLPERF_USER_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "user.conf")
 
     return {'return':0}
 

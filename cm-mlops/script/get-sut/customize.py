@@ -6,7 +6,7 @@ def preprocess(i):
     env = i['env']
     state = i['state']
 
-    submitter = env.get('CM_MLC_SUBMITTER', 'MLCommons')
+    submitter = env.get('CM_MLPERF_SUBMITTER', 'MLCommons')
     hw_name = env.get('CM_HW_NAME', "default")
     backend = env.get('CM_BACKEND', '')
     backend_version = env.get('CM_BACKEND_VERSION', '')

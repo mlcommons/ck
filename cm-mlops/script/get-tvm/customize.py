@@ -14,7 +14,9 @@ def postprocess(i):
 
     tvm_home = env['TVM_HOME']
 
-    if '+PYTHONPATH' not in env: env['+PYTHONPATH']=[]
+#        20221024: we save and restore env in the main script and can clean env here for determinism
+#    if '+PYTHONPATH' not in env: env['+PYTHONPATH']=[]
+    env['+PYTHONPATH']=[]
 
     env['+PYTHONPATH'].append(os.path.join(tvm_home,'python'))
 

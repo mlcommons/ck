@@ -19,8 +19,8 @@ where [VARIATION] is one of
 * `r2.1:`  Uses the release branch used for MLCommons inference 2.1 round
 
 ## Exported Variables
-* `CM_MLC_INFERENCE_SOURCE`: Directory path of the cloned inference repository
-* `CM_MLC_INFERENCE_VISION_PATH`: Directory path to the vision folder inside the inference repository
+* `CM_MLPERF_INFERENCE_SOURCE`: Directory path of the cloned inference repository
+* `CM_MLPERF_INFERENCE_VISION_PATH`: Directory path to the vision folder inside the inference repository
 * `PYTHONPATH`: Is appended with the paths to vision module and the submission tools module
 * `CM_MLPERF_INFERENCE_MODELS`: This `state` variable contains the configuration of the MLPerf models as per the selected version
 

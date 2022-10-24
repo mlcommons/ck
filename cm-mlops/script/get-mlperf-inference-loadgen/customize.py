@@ -15,8 +15,9 @@ def postprocess(i):
     env = i['env']
 
     for key in ['+PYTHONPATH', '+C_INCLUDE_PATH', '+CPLUS_INCLUDE_PATH', '+LD_LIBRARY_PATH', '+DYLD_FALLBACK_LIBRARY_PATH']:
-        if key not in env:
-            env[key] = []
+#        20221024: we save and restore env in the main script and can clean env here for determinism
+#        if key not in env:
+        env[key] = []
 
     env['+C_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
     env['+CPLUS_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))

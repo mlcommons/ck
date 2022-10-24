@@ -6,7 +6,7 @@ INSTALL_DIR=${CUR}/install
 
 ${CM_PYTHON_BIN} -m pip install fiftyone
 
-cd ${CM_MLC_INFERENCE_VISION_PATH}
+cd ${CM_MLPERF_INFERENCE_VISION_PATH}
 cd tools
 
 if [[ ${CM_DATASET_CALIBRATION} == "no" ]]; then

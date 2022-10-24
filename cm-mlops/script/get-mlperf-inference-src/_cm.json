@@ -17,12 +17,12 @@
     }
   ],
   "env": {
-    "CM_GIT_DEPTH": "",
+    "CM_GIT_DEPTH": "--depth 10",
     "CM_GIT_PATCH": "no",
     "CM_GIT_URL": "https://github.com/mlcommons/inference.git"
   },
   "new_env_keys": [
-    "CM_MLC_INFERENCE_*",
+    "CM_MLPERF_INFERENCE_*",
     "+PYTHONPATH"
   ],
   "tags": [
@@ -30,6 +30,8 @@
     "src",
     "source",
     "inference",
+    "inference-src",
+    "inference-source",
     "mlperf",
     "mlcommons"
   ],
@@ -46,7 +48,7 @@
     },
     "full-history": {
       "env": {
-        "CM_GIT_DEPTH": "--depth 10"
+        "CM_GIT_DEPTH": ""
       }
     },
     "octoml": {
@@ -77,20 +79,20 @@
     "master": {
       "env": {
         "CM_GIT_CHECKOUT": "master",
-        "CM_MLC_LAST_RELEASE": "v2.1"
+        "CM_MLPERF_LAST_RELEASE": "v2.1"
       }
     },
     "r2.1": {
       "env": {
         "CM_GIT_CHECKOUT": "r2.1",
-        "CM_MLC_LAST_RELEASE": "v2.1"
+        "CM_MLPERF_LAST_RELEASE": "v2.1"
       }
     },
     "tvm": {
       "env": {
         "CM_GIT_URL": "https://github.com/octoml/inference",
         "CM_GIT_CHECKOUT": "tvm",
-        "CM_MLC_LAST_RELEASE": "v2.1"
+        "CM_MLPERF_LAST_RELEASE": "v2.1"
       }
     }
   }

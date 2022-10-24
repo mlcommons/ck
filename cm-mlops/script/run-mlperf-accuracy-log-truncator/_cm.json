@@ -19,8 +19,8 @@
     }
   ],
   "input_mapping": {
-    "submission_dir": "CM_MLC_SUBMISSION_DIR",
-    "submitter": "CM_MLC_SUBMITTER"
+    "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
+    "submitter": "CM_MLPERF_SUBMITTER"
   },
   "tags": [
     "run",

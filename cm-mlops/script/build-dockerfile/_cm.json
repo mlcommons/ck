@@ -26,6 +26,9 @@
     "CM_DOCKER_OS": "ubuntu",
     "CM_DOCKER_IMAGE_EOL": "\n"
   },
+  "new_env_keys": [
+    "CM_DOCKERFILE_*"
+  ],
   "post_deps": [
     {
       "enable_if_env": {

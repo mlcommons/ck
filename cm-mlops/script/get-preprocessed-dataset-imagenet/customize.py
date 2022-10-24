@@ -11,6 +11,6 @@ def preprocess(i):
     shutil.copy(os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt"), os.path.join(env['CM_DATASET_PATH'],
         "val_map.txt"))
 
-    print("Using MLCommons Inference source from '" + env['CM_MLC_INFERENCE_SOURCE'] +"'")
+    print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
 
     return {'return': 0}

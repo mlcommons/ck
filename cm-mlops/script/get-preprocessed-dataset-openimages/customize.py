@@ -8,6 +8,6 @@ def preprocess(i):
     if 'CM_DATASET_PREPROCESSED_PATH' not in env:
         env['CM_DATASET_PREPROCESSED_PATH'] = os.getcwd()
 
-    print("Using MLCommons Inference source from '" + env['CM_MLC_INFERENCE_SOURCE'] +"'")
+    print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
 
     return {'return': 0}
