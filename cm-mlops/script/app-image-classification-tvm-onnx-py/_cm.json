@@ -15,9 +15,6 @@
       "tags": "detect,cpu"
     },
     {
-      "tags": "get,sys-utils-cm"
-    },
-    {
       "tags": "get,python"
     },
     {
@@ -41,7 +38,7 @@
   ],
   "uid": "63080407db4d4ac4",
   "variations": {
-    "tvm-python-pkg": {
+    "tvm-pip-install": {
       "deps": [
         {
           "names": [ "tvm" ],
