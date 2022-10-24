@@ -190,6 +190,10 @@
           "tvm-onnx"
         ]
       },
+      "skip_if_env": {
+        "CM_TVM_PIP_INSTALL": [
+        ]
+      },
       "names": [
         "tvm"
       ],
@@ -407,6 +411,19 @@
         "CM_BACKEND": "tvm-onnx",
         "CM_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
       }
+    },
+    "tvm-pip-install": {
+      "env": {
+        "CM_TVM_PIP_INSTALL": true
+      },
+      "deps": [
+        {
+          "names": [
+            "tvm"
+          ],
+          "tags": "get,generic-python-lib,_apache-tvm"
+        }
+      ]
     },
     "valid": {
       "env": {
