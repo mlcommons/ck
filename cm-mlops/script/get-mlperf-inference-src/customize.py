@@ -27,6 +27,7 @@ def postprocess(i):
     env['CM_MLC_INFERENCE_RNNT_PATH'] = os.path.join(os.getcwd(), 'inference', 'speech_recognition', 'rnnt')
     env['CM_MLC_INFERENCE_DLRM_PATH'] = os.path.join(os.getcwd(), 'inference', 'recommendation', 'dlrm')
 
+#        20221024: we save and restore env in the main script and can clean env here for determinism
 #    if '+PYTHONPATH' not in env: env['+PYTHONPATH'] = []
     env['+PYTHONPATH']=[]
     env['+PYTHONPATH'].append(os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], 'python'))
