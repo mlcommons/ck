@@ -28,9 +28,9 @@ class InputSettings {
 
 public:
     InputSettings() {
-        mlperf_conf_path = getenv("CM_MLC_MLPERF_CONF", "../inference/mlperf.conf");
-        user_conf_path = getenv("CM_MLC_USER_CONF", "../inference/vision/classification_and_detection/user.conf");
-        output_dir = getenv("CM_MLC_OUTPUT_DIR", ".");
+        mlperf_conf_path = getenv("CM_MLPERF_CONF", "../inference/mlperf.conf");
+        user_conf_path = getenv("CM_MLPERF_USER_CONF", "../inference/vision/classification_and_detection/user.conf");
+        output_dir = getenv("CM_MLPERF_OUTPUT_DIR", ".");
         backend_name = getenv("CM_BACKEND", "onnxruntime");
         device_name = getenv("CM_DEVICE", "cpu");
         model_name = getenv("CM_MODEL", "resnet50");

@@ -20,7 +20,7 @@ def preprocess(i):
         power = "no"
     rerun = env.get("CM_RERUN", False)
     required_files = []
-    required_files = get_checker_files(env['CM_MLC_INFERENCE_SOURCE'])
+    required_files = get_checker_files(env['CM_MLPERF_INFERENCE_SOURCE'])
 
     if 'CM_LOADGEN_SCENARIO' not in env:
         env['CM_LOADGEN_SCENARIO'] = "Offline"
@@ -44,7 +44,7 @@ def preprocess(i):
     env['CM_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_LOADGEN_QPS_OPT']
 
     if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = env['CM_MLC_INFERENCE_VISION_PATH']
+        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_VISION_PATH']
 
     if 'CM_NUM_THREADS' not in env:
         if 'CM_MINIMIZE_THREADS' in env:
@@ -60,13 +60,13 @@ def preprocess(i):
     if 'CM_LOADGEN_QUERY_COUNT' in env:
         env['CM_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_LOADGEN_QUERY_COUNT']
 
-    print("Using MLCommons Inference source from '" + env['CM_MLC_INFERENCE_SOURCE'] +"'")
+    print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
 
-    if 'CM_MLC_MLPERF_CONF' not in env:
-        env['CM_MLC_MLPERF_CONF'] = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "mlperf.conf")
+    if 'CM_MLPERF_CONF' not in env:
+        env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
 
 
-    env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLC_MLPERF_CONF'] + "'"
+    env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
 
     env['DATA_DIR'] = env['CM_DATASET_PATH']
     env['MODEL_DIR'] = env['CM_ML_MODEL_PATH']
@@ -139,7 +139,7 @@ def preprocess(i):
     user_conf_file.write_text(user_conf)
     scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
 
-    env['CM_MLC_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+    env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
     mode = env['CM_LOADGEN_MODE']
     mode_extra_options = ""
@@ -147,7 +147,7 @@ def preprocess(i):
         dataset_options = " --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']
     else:
         dataset_options = ''
-    OUTPUT_DIR =  os.path.join(env['CM_MLC_RESULTS_DIR'], env['CM_BACKEND'] + "-" + env['CM_DEVICE'], \
+    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], env['CM_BACKEND'] + "-" + env['CM_DEVICE'], \
             env['CM_MODEL'], scenario.lower(), mode)
     if mode == "accuracy":
         mode_extra_options += " --accuracy"
@@ -162,9 +162,9 @@ def preprocess(i):
         else:
             audit_path = test
 
-        audit_full_path = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "compliance", audit_path, "audit.config")
+        audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", audit_path, "audit.config")
         mode_extra_options = " --audit '" + audit_full_path + "'"
-    env['CM_MLC_OUTPUT_DIR'] = OUTPUT_DIR
+    env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
     
     cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options)
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
@@ -177,29 +177,29 @@ def preprocess(i):
 
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
                     required_files[4]) or env.get("CM_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
-        env['CM_MLC_USER_CONF'] = user_conf_path
+        env['CM_MLPERF_USER_CONF'] = user_conf_path
     else:
         print("Measure files exist, skipping regeneration...\n")
-        env['CM_MLC_USER_CONF'] = ''
+        env['CM_MLPERF_USER_CONF'] = ''
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    env['CM_MLC_RUN_CMD'] = RUN_CMD
+    env['CM_MLPERF_RUN_CMD'] = RUN_CMD
 
     return {'return':0}
 def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options):
     if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
-        env['RUN_DIR'] = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "vision", "classification_and_detection")
-        cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLC_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_BACKEND'] + ' ' + \
+        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
+        cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_BACKEND'] + ' ' + \
             env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + env['CM_LOADGEN_SCENARIO'] + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + \
             scenario_extra_options + mode_extra_options + dataset_options
     elif "bert" in env['CM_MODEL']:
-        env['RUN_DIR'] = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "language", "bert")
+        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "bert")
         cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_BACKEND'] + " --scenario="+env['CM_LOADGEN_SCENARIO'] + \
             scenario_extra_options + mode_extra_options + dataset_options
         cmd = cmd.replace("--count", "--max_examples")
         env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
         env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH'] 
         env['DATASET_FILE'] = env['CM_DATASET_SQUAD_VAL_PATH']
-        env['LOG_PATH'] = env['CM_MLC_OUTPUT_DIR']
+        env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
         env['SKIP_VERIFY_ACCURACY'] = True
     return cmd
 def run_files_exist(mode, OUTPUT_DIR, run_files):
@@ -251,9 +251,9 @@ def postprocess(i):
     env = i['env']
     inp = i['input']
     state = i['state']
-    if env['CM_MLC_USER_CONF'] == '':
+    if env['CM_MLPERF_USER_CONF'] == '':
         return {'return': 0}
-    output_dir = env['CM_MLC_OUTPUT_DIR']
+    output_dir = env['CM_MLPERF_OUTPUT_DIR']
     accuracy_result_dir = ''
     model = env['CM_MODEL']
     if model == "resnet50":
@@ -284,10 +284,10 @@ def postprocess(i):
             accuracy_result_dir = output_dir
         with open ("measurements.json", "w") as fp:
             json.dump(measurements, fp, indent=2)
-        if os.path.exists(env['CM_MLC_MLPERF_CONF']):
-            shutil.copy(env['CM_MLC_MLPERF_CONF'], 'mlperf.conf')
-        if os.path.exists(env['CM_MLC_USER_CONF']):
-            shutil.copy(env['CM_MLC_USER_CONF'], 'user.conf')
+        if os.path.exists(env['CM_MLPERF_CONF']):
+            shutil.copy(env['CM_MLPERF_CONF'], 'mlperf.conf')
+        if os.path.exists(env['CM_MLPERF_USER_CONF']):
+            shutil.copy(env['CM_MLPERF_USER_CONF'], 'user.conf')
         if "cmd" in inp:
             cmd = "cm run script \\\n\t"+" \\\n\t".join(inp['cmd'])
         else:
@@ -307,11 +307,11 @@ def postprocess(i):
         sut = split[1]
         split = os.path.split(split[0])
         OUTPUT_DIR = os.path.join(split[0], "compliance", sut, model, scenario)
-        SCRIPT_PATH = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "compliance", "nvidia", mode, "run_verification.py")
+        SCRIPT_PATH = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", mode, "run_verification.py")
         cmd = env['CM_PYTHON_BIN'] + " " + SCRIPT_PATH + " -r " + RESULT_DIR + " -c " + COMPLIANCE_DIR + " -o "+ OUTPUT_DIR
         os.system(cmd)
         if mode == "TEST01":
-            SCRIPT_PATH = os.path.join(env['CM_MLC_INFERENCE_SOURCE'], "compliance", "nvidia", mode,
+            SCRIPT_PATH = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", mode,
                     "create_accuracy_baseline.sh")
             ACCURACY_DIR = os.path.join(RESULT_DIR, "accuracy")
             if (os.path.exists(ACCURACY_DIR)):
@@ -328,13 +328,13 @@ def postprocess(i):
                 OUTPUT_DIR = os.path.join(OUTPUT_DIR, "TEST01", "accuracy")
                 if not os.path.exists(OUTPUT_DIR):
                     os.makedirs(OUTPUT_DIR)
-                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], "tools", \
+                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "tools", \
                         accuracy_filename) + " --mlperf-accuracy-file " + \
                         "mlperf_log_accuracy_baseline.json" + dataset_args + " > " + \
                         os.path.join(OUTPUT_DIR, "baseline_accuracy.txt")
                 print(CMD)
                 result  = subprocess.run(CMD, shell=True)
-                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLC_INFERENCE_VISION_PATH'], "tools", \
+                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "tools", \
                         accuracy_filename) + " --mlperf-accuracy-file " + \
                         "mlperf_log_accuracy.json" + dataset_args + " > " + \
                         os.path.join(OUTPUT_DIR, "compliance_accuracy.txt")
@@ -343,7 +343,8 @@ def postprocess(i):
 
     else:
         print(mode)
+
     if accuracy_result_dir != '':
-        env['CM_MLC_ACCURACY_RESULTS_DIR'] = accuracy_result_dir
+        env['CM_MLPERF_ACCURACY_RESULTS_DIR'] = accuracy_result_dir
 
     return {'return':0}

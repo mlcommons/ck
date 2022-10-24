@@ -16,9 +16,9 @@
     }
   ],
   "input_mapping": {
-    "skip_compliance": "CM_MLC_SKIP_COMPLIANCE",
-    "submission_dir": "CM_MLC_SUBMISSION_DIR",
-    "submitter": "CM_MLC_SUBMITTER"
+    "skip_compliance": "CM_MLPERF_SKIP_COMPLIANCE",
+    "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
+    "submitter": "CM_MLPERF_SUBMITTER"
   },
   "tags": [
     "run",

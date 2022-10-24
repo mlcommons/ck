@@ -18,11 +18,11 @@
     }
   ],
   "input_mapping": {
-    "results_dir": "CM_MLC_RESULTS_DIR",
+    "results_dir": "CM_MLPERF_RESULTS_DIR",
     "run_checker": "CM_RUN_SUBMISSION_CHECKER",
     "run_style": "CM_RUN_STYLE",
     "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
-    "submission_dir": "CM_MLC_SUBMISSION_DIR"
+    "submission_dir": "CM_MLPERF_SUBMISSION_DIR"
   },
   "post_deps": [
     {

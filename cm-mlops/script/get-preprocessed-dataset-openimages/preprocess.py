@@ -1,6 +1,6 @@
 import os
 import sys
-mlc_vision_path = os.environ['CM_MLC_INFERENCE_VISION_PATH']
+mlc_vision_path = os.environ['CM_MLPERF_INFERENCE_VISION_PATH']
 python_path = os.path.join(mlc_vision_path, "python")
 sys.path.insert(0, python_path)
 

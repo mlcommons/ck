@@ -23,7 +23,7 @@ def preprocess(i):
 
     env['CM_MODEL'] = env.get('CM_MODEL', 'resnet50')
 
-    print("Using MLCommons Inference source from " + env['CM_MLC_INFERENCE_SOURCE'])
+    print("Using MLCommons Inference source from " + env['CM_MLPERF_INFERENCE_SOURCE'])
 
 
     if 'CM_LOADGEN_EXTRA_OPTIONS' not in env:
@@ -39,7 +39,7 @@ def preprocess(i):
 
     if env.get('CM_LOADGEN_ALL_SCENARIOS', '') == "yes":
         system_meta = state['CM_SUT_META']
-        env['CM_LOADGEN_SCENARIOS'] = get_valid_scenarios(env['CM_MODEL'], system_meta['system_type'], env['CM_MLC_LAST_RELEASE'], env['CM_MLC_INFERENCE_SOURCE'])
+        env['CM_LOADGEN_SCENARIOS'] = get_valid_scenarios(env['CM_MODEL'], system_meta['system_type'], env['CM_MLPERF_LAST_RELEASE'], env['CM_MLPERF_INFERENCE_SOURCE'])
     else:
         system_meta = {}
         env['CM_LOADGEN_SCENARIOS'] = [ env['CM_LOADGEN_SCENARIO'] ]
@@ -51,7 +51,7 @@ def preprocess(i):
 
 
     if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = env['CM_MLC_INFERENCE_VISION_PATH']
+        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_VISION_PATH']
 
     test_list = ["TEST01",  "TEST05"]
     if env['CM_MODEL']  in ["resnet50"]:

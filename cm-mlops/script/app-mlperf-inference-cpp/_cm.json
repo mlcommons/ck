@@ -83,12 +83,12 @@
   "input_mapping": {
     "count": "CM_LOADGEN_QUERY_COUNT",
     "max_batchsize": "CM_LOADGEN_MAX_BATCHSIZE",
-    "mlperf_conf": "CM_MLC_MLPERF_CONF",
+    "mlperf_conf": "CM_MLPERF_CONF",
     "mode": "CM_LOADGEN_MODE",
-    "output_dir": "CM_MLC_OUTPUT_DIR",
+    "output_dir": "CM_MLPERF_OUTPUT_DIR",
     "performance_sample_count": "CM_LOADGEN_PERFORMANCE_SAMPLE_COUNT",
     "scenario": "CM_LOADGEN_SCENARIO",
-    "user_conf": "CM_MLC_USER_CONF"
+    "user_conf": "CM_MLPERF_USER_CONF"
   },
   "post_deps": [
     {

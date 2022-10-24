@@ -254,7 +254,7 @@
               "accuracy",
               "all"
             ],
-            "CM_MLC_ACCURACY_RESULTS_DIR": [
+            "CM_MLPERF_ACCURACY_RESULTS_DIR": [
               "on"
             ]
           },
@@ -349,7 +349,7 @@
               "accuracy",
               "all"
             ],
-            "CM_MLC_ACCURACY_RESULTS_DIR": [
+            "CM_MLPERF_ACCURACY_RESULTS_DIR": [
               "on"
             ]
           },
@@ -372,7 +372,7 @@
               "accuracy",
               "all"
             ],
-            "CM_MLC_ACCURACY_RESULTS_DIR": [
+            "CM_MLPERF_ACCURACY_RESULTS_DIR": [
               "on"
             ]
           },
