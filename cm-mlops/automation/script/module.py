@@ -1139,6 +1139,7 @@ class CAutomation(Automation):
 
                     if verbose:
                         print (recursion_spaces + '    - Checking post dependencies on other CM scripts:')
+
                     # Check chain of post dependencies on other CM scripts
                     r = self._call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, 
                             recursion_spaces + extra_recursion_spaces,
@@ -1272,8 +1273,10 @@ class CAutomation(Automation):
                         recursion_spaces + extra_recursion_spaces,
                         remembered_selections, variation_tags_string, False, debug_script_tags, verbose, show_time, extra_recursion_spaces)
                 if r['return']>0: return r
+
                 if verbose:
                     print (recursion_spaces + '  - Processing env after dependencies ...')
+
                 update_env_with_values(env)
 
             # Clean some output files
@@ -1457,8 +1460,9 @@ class CAutomation(Automation):
 
             # Check chain of post dependencies on other CM scripts
             clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
+
             r = self._run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections, variation_tags_string, found_cached, verbose, show_time, extra_recursion_spaces)
+                    remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces)
             if r['return']>0: return r
 
 
@@ -1621,6 +1625,7 @@ class CAutomation(Automation):
         """
         Runs all the enabled dependencies and pass them env minus local env
         """
+
         if len(deps)>0:
             # Preserve local env
             tmp_env = {}
@@ -2284,7 +2289,8 @@ def find_cached_script(i):
                         return {'return':2, 'error':'The version of the previously remembered selection for a given script ({}) mismatches the newly requested one'.format(tmp_version_in_cached_script)}
                     else:
                         found_cached_scripts = [selection['cached_script']]
-                        print (recursion_spaces + '  - Found remembered selection with tags "{}"!'.format(search_tags))
+                        if verbose:
+                            print (recursion_spaces + '  - Found remembered selection with tags "{}"!'.format(search_tags))
                         break
 
 
