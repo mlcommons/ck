@@ -67,14 +67,14 @@
   "versions": {
     "master": {
       "add_deps": {
-        "inference-src": {
+        "inference-src-loadgen": {
           "version": "master"
         }
       }
     },
     "r2.1": {
       "add_deps": {
-        "inference-src": {
+        "inference-src-loadgen": {
           "version": "r2.1"
         }
       }
