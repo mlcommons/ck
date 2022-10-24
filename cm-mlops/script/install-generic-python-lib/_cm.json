@@ -84,6 +84,11 @@
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "pycocotools"
       }
+    },
+    "apache-tvm": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "apache-tvm"
+      }
     }
   }
 }

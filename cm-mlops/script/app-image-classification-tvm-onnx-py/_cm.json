@@ -6,6 +6,7 @@
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1"
   },
+  "default_variation": "tvm-llvm",
   "deps": [
     {
       "tags": "detect,os"
@@ -23,13 +24,13 @@
       "tags": "get,dataset,image-classification,original"
     },
     {
-      "tags": "get,tvm,_llvm"
-    },
-    {
       "tags": "get,dataset-aux,image-classification"
     },
     {
       "tags": "get,ml-model,image-classification,resnet50,_onnx"
+    },
+    {
+      "tags": "get,generic-python-lib,_onnxruntime"
     }
   ],
   "tags": [
@@ -38,5 +39,31 @@
     "tvm-onnx",
     "python"
   ],
-  "uid": "63080407db4d4ac4"
+  "uid": "63080407db4d4ac4",
+  "variations": {
+    "tvm-python-pkg": {
+      "deps": [
+        {
+          "names": [ "tvm" ],
+          "tags": "get,generic-python-lib,_apache-tvm"
+        }
+      ]
+    },
+    "tvm": {
+      "deps": [
+        {
+          "names": [ "tvm" ],
+          "tags": "get,tvm"
+        }
+      ]
+    },
+    "tvm-llvm": {
+      "base": [ "tvm" ],
+      "add_deps_recursive": {
+        "tvm": {
+          "tags": "_llvm"
+        }
+      }
+    }
+  }
 }
