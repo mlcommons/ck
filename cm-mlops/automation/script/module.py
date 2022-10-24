@@ -14,6 +14,9 @@ class CAutomation(Automation):
         super().__init__(cmind, __file__)
 
         self.os_info = {}
+        self.run_state = {}
+        self.run_state['deps'] = []
+        self.run_state['fake_deps'] = False
 
         self.file_with_cached_state = 'cm-cached-state.json'
 
@@ -353,6 +356,9 @@ class CAutomation(Automation):
           (print_env) (bool): if True, print aggregated env before each run of a native script
 
           (fake_run) (bool): if True, will run the dependent scripts but will skip the main run script
+          (fake_deps) (bool): if True, will fake run the dependent scripts
+          (print_deps) (bool): if True, will print the CM run commands of the direct dependent scripts
+          (run_state) (dict): Internal run state
 
           (debug_script_tags) (str): if !='', run cmd/bash before executing a native command 
                                       inside a script specified by these tags
@@ -430,6 +436,13 @@ class CAutomation(Automation):
 
         skip_cache = i.get('skip_cache', False)
         fake_run = i.get('fake_run', False)
+        fake_deps = i.get('fake_deps', False)
+        run_state = i.get('run_state', self.run_state)
+        if fake_deps:
+            run_state['fake_deps'] = True
+        print_deps = i.get('print_deps', False)
+        print_readme = i.get('print_readme', False)
+
         new_cache_entry = i.get('new', False)
 
         debug_script_tags = i.get('debug_script_tags', '')
@@ -1085,7 +1098,7 @@ class CAutomation(Automation):
 
                         r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, 
                             recursion_spaces + extra_recursion_spaces,
-                            remembered_selections, variation_tags_string, True, debug_script_tags, verbose, show_time, extra_recursion_spaces)
+                            remembered_selections, variation_tags_string, True, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
                         if r['return']>0: return r
 
                         if verbose:
@@ -1100,7 +1113,7 @@ class CAutomation(Automation):
 
                     r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, 
                             recursion_spaces + extra_recursion_spaces,
-                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces)
+                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
                     if r['return']>0: return r
 
                     # Continue with the selected cached script
@@ -1144,7 +1157,7 @@ class CAutomation(Automation):
 
                     r = self._call_run_deps(posthook_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, 
                             recursion_spaces + extra_recursion_spaces,
-                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces)
+                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
                     if r['return']>0: return r
 
                     if verbose:
@@ -1153,7 +1166,7 @@ class CAutomation(Automation):
                     # Check chain of post dependencies on other CM scripts
                     r = self._call_run_deps(post_deps, self.local_env_keys, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, 
                             recursion_spaces + extra_recursion_spaces,
-                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces)
+                            remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
                     if r['return']>0: return r
 
 
@@ -1281,7 +1294,7 @@ class CAutomation(Automation):
 
                 r = self._call_run_deps(deps, self.local_env_keys, local_env_keys_from_meta, env, state, const, const_state, add_deps_recursive, 
                         recursion_spaces + extra_recursion_spaces,
-                        remembered_selections, variation_tags_string, False, debug_script_tags, verbose, show_time, extra_recursion_spaces)
+                        remembered_selections, variation_tags_string, False, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
                 if r['return']>0: return r
 
                 if verbose:
@@ -1345,7 +1358,7 @@ class CAutomation(Automation):
                 run_script_input['customize_common_input'] = customize_common_input
 
             # Check if pre-process and detect
-            if 'preprocess' in dir(customize_code):
+            if 'preprocess' in dir(customize_code) and not fake_run:
 
                 if verbose:
                     print (recursion_spaces+'  - Running preprocess ...')
@@ -1445,7 +1458,7 @@ class CAutomation(Automation):
 
                 r = self._call_run_deps(prehook_deps, self.local_env_keys, local_env_keys_from_meta,  env, state, const, const_state, add_deps_recursive, 
                     recursion_spaces + extra_recursion_spaces,
-                    remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces)
+                    remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
                 if r['return']>0: return r
 
             if not fake_run:
@@ -1472,7 +1485,7 @@ class CAutomation(Automation):
             clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
 
             r = self._run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
-                    remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces)
+                    remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
             if r['return']>0: return r
 
 
@@ -1615,9 +1628,14 @@ class CAutomation(Automation):
         elapsed_time = time.time() - start_time
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
+        if print_deps:
+            self._print_deps(run_state['deps'])
+        if print_readme:
+            readme = self._get_readme(i.get('cmd', ''), run_state['deps'])
+            with open('readme.md', 'w') as f:
+                f.write(readme)
 
-
-        return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
+        return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
 
 
 
@@ -1634,8 +1652,7 @@ class CAutomation(Automation):
     ##############################################################################
     def _call_run_deps(script, deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
             add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags='', 
-            verbose=False, show_time=False, extra_recursion_spaces='  '):
-
+            verbose=False, show_time=False, extra_recursion_spaces='  ', run_state={}):
         if len(deps) == 0:
             return {'return': 0}
 
@@ -1650,7 +1667,7 @@ class CAutomation(Automation):
 
         r = script._run_deps(deps, local_env_keys, env, state, const, const_state, add_deps_recursive, recursion_spaces,
             remembered_selections, variation_tags_string, found_cached, debug_script_tags, 
-            verbose, show_time, extra_recursion_spaces)
+            verbose, show_time, extra_recursion_spaces, run_state)
         if r['return']>0: return r
 
         return {'return': 0}
@@ -1658,7 +1675,7 @@ class CAutomation(Automation):
     ##############################################################################
     def _run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
                     remembered_selections, variation_tags_string='', from_cache=False, debug_script_tags='', 
-                    verbose=False, show_time=False, extra_recursion_spaces='  '):
+                    verbose=False, show_time=False, extra_recursion_spaces='  ', run_state={}):
         """
         Runs all the enabled dependencies and pass them env minus local env
         """
@@ -1716,40 +1733,101 @@ class CAutomation(Automation):
                 inherit_variation_tags = d.get("inherit_variation_tags", False)
                 if inherit_variation_tags:
                     d['tags']+=","+variation_tags_string #deps should have non-empty tags
+                run_state['deps'].append(d['tags'])
+                if not run_state['fake_deps']:
+                    import copy
+                    tmp_run_state_deps = copy.deepcopy(run_state['deps'])
+                    run_state['deps'] = []
+                    # Run collective script via CM API:
+                    # Not very efficient but allows logging - can be optimized later
+                    ii = {
+                            'action':'run',
+                            'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
+                            'recursion_spaces':recursion_spaces + extra_recursion_spaces,
+                            'recursion':True,
+                            'remembered_selections': remembered_selections,
+                            'env':env,
+                            'state':state,
+                            'const':const,
+                            'const_state':const_state,
+                            'add_deps_recursive':add_deps_recursive,
+                            'debug_script_tags':debug_script_tags,
+                            'verbose':verbose,
+                            'time':show_time,
+                            'run_state':run_state
+                        }
 
-                # Run collective script via CM API:
-                # Not very efficient but allows logging - can be optimized later
-                ii = {
-                        'action':'run',
-                        'automation':utils.assemble_cm_object(self.meta['alias'], self.meta['uid']),
-                        'recursion_spaces':recursion_spaces + extra_recursion_spaces,
-                        'recursion':True,
-                        'remembered_selections': remembered_selections,
-                        'env':env,
-                        'state':state,
-                        'const':const,
-                        'const_state':const_state,
-                        'add_deps_recursive':add_deps_recursive,
-                        'debug_script_tags':debug_script_tags,
-                        'verbose':verbose,
-                        'time':show_time
-                    }
+                    ii.update(d)
 
-                ii.update(d)
+                    r = self.cmind.access(ii)
+                    if r['return']>0: return r
+                    run_state['deps'] = tmp_run_state_deps
 
-                r = self.cmind.access(ii)
-                if r['return']>0: return r
-
-                # Force cleaning of env keys between deps in a given script if needed
-                for k in clean_env_keys_deps:
-                    if k in env:
-                        del(env[k])
+                    # Force cleaning of env keys between deps in a given script if needed
+                    for k in clean_env_keys_deps:
+                        if k in env:
+                            del(env[k])
 
             # Restore local env
             env.update(tmp_env)
 
         return {'return': 0}
 
+
+    ##############################################################################
+    def _get_readme(self, cmd_parts, deps):
+        """
+        Outputs a Markdown README file listing the CM run commands for the dependencies
+        """
+        pre = ''
+        content = pre
+        heading2 = "## Command to Run\n"
+        content += heading2
+        cmd="cm run script "
+        for cmd_part in cmd_parts:
+            cmd = cmd+ " "+cmd_part
+        content += "\n"
+        cmd = self._markdown_cmd(cmd)
+        content = content + cmd + "\n\n"
+        deps_heading = "## Dependent CM scripts\n"
+        deps_ = ""
+        run_cmds = self._get_deps_run_cmds(deps)
+        i = 1
+        for cmd in run_cmds:
+            deps_ = deps_+ str(i) + ". " + self._markdown_cmd(cmd)+"\n"
+            i = i+1
+        if deps_:
+            content += deps_heading
+            content += deps_
+        return content
+
+    ##############################################################################
+    def _markdown_cmd(self, cmd):
+        """
+        Returns a CM command in markdown format
+        """
+        return '```bash\n '+cmd+' \n ```'
+
+
+    ##############################################################################
+    def _print_deps(self, deps):
+        """
+        Prints the CM run commands for the list of CM script dependencies
+        """
+        run_cmds = self._get_deps_run_cmds(deps)
+        for cmd in run_cmds:
+            print(cmd)
+
+
+    ##############################################################################
+    def _get_deps_run_cmds(self, deps):
+        """
+        Returns the CM run commands for the list of CM script dependencies
+        """
+        run_cmds = []
+        for dep_tags in deps:
+            run_cmds.append("cm run script --tags="+dep_tags)
+        return run_cmds
 
 
 
