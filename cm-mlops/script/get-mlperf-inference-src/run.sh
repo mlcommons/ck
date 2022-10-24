@@ -21,6 +21,5 @@ if [ ${CM_GIT_PATCH} == "yes" ]; then
   echo "Applying patch ${SCRIPT_DIR}/patch/git.patch"
   cd inference
   git apply ${SCRIPT_DIR}/patch/git.patch
-  git commit -a -m "Change for overriding OUTPUT_DIR for reference implementation"
   if [ "${?}" != "0" ]; then exit 1; fi
 fi
