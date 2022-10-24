@@ -456,7 +456,6 @@ class CAutomation(Automation):
         parsed_script = i.get('parsed_artifact')
         parsed_script_alias = parsed_script[0][0] if parsed_script is not None else ''
 
-       
 
 
 
@@ -691,7 +690,9 @@ class CAutomation(Automation):
                             if script not in new_list_of_found_scripts:
                                 new_list_of_found_scripts.append(script)
 
-                list_of_found_scripts = new_list_of_found_scripts
+                # Avoid case when all scripts are pruned due to just 1 variation used
+                if len(new_list_of_found_scripts)>0:
+                    list_of_found_scripts = new_list_of_found_scripts
 
             # Select scripts
             if len(list_of_found_scripts) > 1:
@@ -706,8 +707,7 @@ class CAutomation(Automation):
                 select_script = 0
 
             # Prune cache list with the selected script
-            if len(cache_list) > 0:
-
+            if len(list_of_found_scripts) > 0:
                  script_artifact_uid = list_of_found_scripts[select_script].meta['uid']
 
                  new_cache_list = []
@@ -748,8 +748,6 @@ class CAutomation(Automation):
         #                  meta - script meta
         #                  path - script path
         #                  found_script_tags [] - all tags of the found script
-
-
 
 
 
@@ -1087,8 +1085,10 @@ class CAutomation(Automation):
                             recursion_spaces + extra_recursion_spaces,
                             remembered_selections, variation_tags_string, True, debug_script_tags, verbose, show_time, extra_recursion_spaces)
                         if r['return']>0: return r
+
                         if verbose:
                             print (recursion_spaces + '  - Processing env after dependencies ...')
+
                         update_env_with_values(env)
 
 
@@ -1113,7 +1113,10 @@ class CAutomation(Automation):
                     r =  utils.load_json(file_name = path_to_cached_state_file)
                     if r['return']>0: return r
 
-                    # Update env and state from cache!
+
+
+                    ################################################################################################
+                    # IF REUSE FROM CACHE - update env and state from cache!
                     cached_state = r['meta']
 
                     new_env = cached_state['new_env']
@@ -1124,6 +1127,11 @@ class CAutomation(Automation):
 
                     utils.merge_dicts({'dict1':new_env, 'dict2':const, 'append_lists':True, 'append_unique':True})
                     utils.merge_dicts({'dict1':new_state, 'dict2':const_state, 'append_lists':True, 'append_unique':True})
+
+
+
+
+
 
                     # Check chain of posthook dependencies on other CM scripts. We consider them same as postdeps when
                     # script is in cache
@@ -1479,9 +1487,20 @@ class CAutomation(Automation):
         new_env = r['new_env']
         new_state = r['new_state']
 
+        utils.merge_dicts({'dict1':saved_env, 'dict2':new_env, 'append_lists':True, 'append_unique':True})
+        utils.merge_dicts({'dict1':saved_state, 'dict2':new_state, 'append_lists':True, 'append_unique':True})
+
+        # Restore original env/state and merge env/state
+        utils.merge_dicts({'dict1':env, 'dict2':saved_env, 'append_lists':False, 'append_unique':False})
+        utils.merge_dicts({'dict1':state, 'dict2':saved_state, 'append_lists':False, 'append_unique':False})
+
+        utils.merge_dicts({'dict1':env, 'dict2':new_env, 'append_lists':True, 'append_unique':True})
+        utils.merge_dicts({'dict1':state, 'dict2':new_state, 'append_lists':True, 'append_unique':True})
+
+
+
         # Prepare env script content (to be saved in cache and in the current path if needed)
         env_script = convert_env_to_script(new_env, os_info, start_script = os_info['start_script'])
-
 
         # If using cached script artifact, return to default path and then update the cache script artifact
         if cache and cached_path!='':
@@ -1577,8 +1596,6 @@ class CAutomation(Automation):
                 x = env_file if os_info['platform'] == 'windows' else '. ./'+env_file
                 os.system(x)
 
-        utils.merge_dicts({'dict1':saved_env, 'dict2':new_env, 'append_lists':True, 'append_unique':True})
-        utils.merge_dicts({'dict1':saved_state, 'dict2':new_state, 'append_lists':True, 'append_unique':True})
 
         if version:
             script_versions = detected_versions.get(meta['uid'], [])
@@ -1592,7 +1609,20 @@ class CAutomation(Automation):
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
 
+
         return {'return':0, 'env':saved_env, 'new_env':new_env, 'state':saved_state, 'new_state':new_state}
+
+
+
+
+
+
+
+
+
+
+
+
 
     ##############################################################################
     def _call_run_deps(script, deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
@@ -1702,6 +1732,8 @@ class CAutomation(Automation):
 
                 r = self.cmind.access(ii)
                 if r['return']>0: return r
+
+                # Force cleaning of env keys between deps in a given script if needed
                 for k in clean_env_keys_deps:
                     if k in env:
                         del(env[k])
@@ -1710,6 +1742,9 @@ class CAutomation(Automation):
             env.update(tmp_env)
 
         return {'return': 0}
+
+
+
 
 
 
@@ -2329,7 +2364,7 @@ def enable_or_skip_script(meta, env):
     for key in meta:
         if key in env:
             value = str(env[key]).lower()
-            
+
             if value in ["yes", "on", "true", "1"]:
                 if value in (meta[key] + ["yes", "on", "true", "1"]):
                     continue
@@ -2356,6 +2391,7 @@ def update_env_with_values(env):
             continue
 
         tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
+
         if not tmp_values:
             if key == 'CM_GIT_URL' and env.get('CM_GIT_AUTH', "no") == "yes":
                 if 'CM_GH_TOKEN' in env and '@' not in env['CM_GIT_URL']:
@@ -2365,13 +2401,18 @@ def update_env_with_values(env):
                 elif 'CM_GIT_SSH' in env:
                     value = get_git_url("ssh", value)
                 env[key] = value
+
             continue
 
         for tmp_value in tmp_values:
             if tmp_value not in env:
                 return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
+
             value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
+
         env[key] = value
+
+    return
 
 
 ##############################################################################

@@ -17,9 +17,9 @@
     },
     {
       "names": [
-        "inference-src-loadgen"
+        "inference-src"
       ],
-      "tags": "get,mlcommons,inference,src,-_patch,_default"
+      "tags": "get,mlcommons,inference,src"
     },
     {
       "names": [
@@ -60,6 +60,7 @@
     "install",
     "loadgen",
     "inference",
+    "inference-loadgen",
     "mlperf",
     "mlcommons"
   ],
@@ -67,14 +68,14 @@
   "versions": {
     "master": {
       "add_deps": {
-        "inference-src-loadgen": {
+        "inference-src": {
           "version": "master"
         }
       }
     },
     "r2.1": {
       "add_deps": {
-        "inference-src-loadgen": {
+        "inference-src": {
           "version": "r2.1"
         }
       }

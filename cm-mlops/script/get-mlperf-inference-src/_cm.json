@@ -17,7 +17,7 @@
     }
   ],
   "env": {
-    "CM_GIT_DEPTH": "",
+    "CM_GIT_DEPTH": "--depth 10",
     "CM_GIT_PATCH": "no",
     "CM_GIT_URL": "https://github.com/mlcommons/inference.git"
   },
@@ -30,6 +30,8 @@
     "src",
     "source",
     "inference",
+    "inference-src",
+    "inference-source",
     "mlperf",
     "mlcommons"
   ],
@@ -46,7 +48,7 @@
     },
     "full-history": {
       "env": {
-        "CM_GIT_DEPTH": "--depth 10"
+        "CM_GIT_DEPTH": ""
       }
     },
     "octoml": {

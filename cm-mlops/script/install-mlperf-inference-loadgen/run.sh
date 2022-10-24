@@ -11,6 +11,11 @@ echo "******************************************************"
 
 cd build
 
+if [ -z "${CM_MLC_INFERENCE_SOURCE}" ]; then
+   echo "Error: env CM_MLC_INFERENCE_SOURCE is not defined - something is wrong with script automation!"
+   exit 1
+fi
+
 cmake \
     -DCMAKE_INSTALL_PREFIX="${INSTALL_DIR}" \
      "${CM_MLC_INFERENCE_SOURCE}/loadgen"
