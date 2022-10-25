@@ -1,6 +1,8 @@
 rem ubuntu [18.04 ; 20.04 ; 22.04]
 rem debian [9 ; 10]
 
+rem set CM_CACHE=--no-cache
+
 set CM_OS_NAME=ubuntu
 set CM_OS_VERSION=22.04
 
@@ -14,4 +16,4 @@ docker build -f cm-ubuntu-debian-cpu.Dockerfile ^
    --build-arg cm_version="" ^
    --build-arg cm_automation_repo="octoml@ck" ^
    --build-arg cm_automation_checkout="" ^
-   .
+   %CM_CACHE% .

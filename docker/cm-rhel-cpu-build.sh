@@ -1,5 +1,7 @@
 #! /bin/bash
 
+#export CM_CACHE="--no-cache"
+
 export CM_OS_NAME="rhel"
 export CM_OS_VERSION="9"
 
@@ -10,4 +12,5 @@ docker build -f cm-rhel-cpu.Dockerfile \
    --build-arg cm_version="" \
    --build-arg cm_automation_repo="octoml@ck" \
    --build-arg cm_automation_checkout="" \
-   .
+   --build-arg cm_python_version="3.10.7" \
+   ${CM_CACHE} .

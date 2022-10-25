@@ -1,3 +1,5 @@
+rem set CM_CACHE=--no-cache
+
 set CM_OS_NAME=rhel
 set CM_OS_VERSION=9
 
@@ -8,4 +10,4 @@ docker build -f cm-rhel-cpu.Dockerfile ^
    --build-arg cm_version="" ^
    --build-arg cm_automation_repo="octoml@ck" ^
    --build-arg cm_automation_checkout="" ^
-   .
+   %CM_CACHE% .
