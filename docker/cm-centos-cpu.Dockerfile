@@ -1,8 +1,8 @@
 # Modular container with the MLCommons CM automation meta-framework
 
 # OS version
-ARG cm_os_name="rhel"
-ARG cm_os_version="9"
+ARG cm_os_name="centos"
+ARG cm_os_version="8"
 
 FROM registry.access.redhat.com/ubi${cm_os_version}
 
@@ -22,7 +22,7 @@ ARG CM_GH_TOKEN
 # Install system dependencies
 # Notes: https://runnable.com/blog/9-common-dockerfile-mistakes
 RUN dnf update -y
-RUN dnf install -y python3 python-pip git wget sudo binutils
+RUN dnf install -y python3 python3-pip git wget sudo binutils
 
 # Extra python deps
 RUN python3 -m pip install requests
@@ -51,7 +51,7 @@ USER cmuser:cm
 WORKDIR /home/cmuser
 
 # Check CM installation
-#RUN hostnamectl > sys-version-os.log
+RUN cat /etc/os-release > sys-version-os.log
 RUN uname -a > sys-version-kernel.log
 RUN python3 --version > sys-version-python3.log
 RUN cm version > sys-version-cm.log
