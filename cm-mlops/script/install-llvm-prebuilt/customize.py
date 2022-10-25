@@ -121,8 +121,10 @@ def preprocess(i):
 
     # We don't need to check default paths here because we force install to cache
     env['+PATH'] = [env['CM_LLVM_INSTALLED_PATH']]
-    path_include = os.path.join(os.getcwd(), 'install', 'include')
-    env['+C_INCLUDE_PATH'] = [ path_include ]
+
+    path_include = os.path.join(os.getcwd(), 'include')
+    if os.path.isdir(path_include):
+        env['+C_INCLUDE_PATH'] = [ path_include ]
 
 
     return {'return':0}
