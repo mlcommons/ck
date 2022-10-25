@@ -23,6 +23,7 @@ ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
            zlib-devel \
            make mesa-libGL \
            patch python3 python3-pip python3-devel \
+           openssl-devel \
            rsync \
            tar \
            unzip \
