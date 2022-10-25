@@ -1,4 +1,4 @@
-## V1.0.3.1
+## V1.0.4
    - minor fix in reporting errors
    - we now do not overwrite repo alias in .cmr.yaml when pulling forks to avoid ambiguities
 

@@ -10,6 +10,8 @@ Here are typical installation procedures across different operating systems:
 * [MacOS]()
 * [Windows]()
 
+You can find Docker containers for CM [here](../../docker).
+
 
 ## Ubuntu, Debian
 
@@ -31,12 +33,14 @@ source .profile
 ```
 
 ```
-gfursin$mlcommons-ck-cm-dev:~$ cm
+gfursin@mlcommons-ck-cm-dev:~$ cm
 
 cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
 ```
 
 You are ready to use CM automation meta-framework.
+
+
 
 ### Red Hat, CentOS
 
