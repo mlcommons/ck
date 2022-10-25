@@ -25,6 +25,7 @@ ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
            openssh-client \
            make mesa-libGL \
            patch python3 python3-pip python3-devel \
+           openssl-devel \
            rsync \
            tar \
            unzip \
@@ -32,4 +33,5 @@ ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
            wget which \
            xz \
            zip 
-python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
+
+python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${CM_PIP_USER}

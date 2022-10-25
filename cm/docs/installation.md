@@ -1,6 +1,6 @@
 # CM installation
 
-Our goal is to keep CM automation meta-framework as simple and portable as possible
+Our goal is to keep the CM automation meta-framework as simple and portable as possible
 with minimal dependencies: python 3+, pip, git and wget.
 
 Here are typical installation procedures across different operating systems:
@@ -9,6 +9,8 @@ Here are typical installation procedures across different operating systems:
 * [Red Hat, CentOS]()
 * [MacOS]()
 * [Windows]()
+
+You can find Docker containers for CM [here](../../docker).
 
 
 ## Ubuntu, Debian
@@ -31,12 +33,14 @@ source .profile
 ```
 
 ```
-gfursin$mlcommons-ck-cm-dev:~$ cm
+gfursin@mlcommons-ck-cm-dev:~$ cm
 
 cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
 ```
 
 You are ready to use CM automation meta-framework.
+
+
 
 ### Red Hat, CentOS
 
