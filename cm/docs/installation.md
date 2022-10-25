@@ -6,7 +6,7 @@ with minimal dependencies: python 3+, pip, git and wget.
 Here are typical installation procedures across different operating systems:
 
 * [Ubuntu, Debian](#ubuntu-debian)
-* [Red Hat, CentOS](#red-hat-centos)
+* [Red Hat](#red-hat)
 * [MacOS](#macos)
 * [Windows](#windows)
 
@@ -43,7 +43,7 @@ You are ready to use CM automation meta-framework.
 
 
 
-## Red Hat, CentOS
+## Red Hat
 
 *We have successfully tested CM on Red Hat 9 and CentOS 8*
 
