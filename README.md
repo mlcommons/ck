@@ -65,18 +65,32 @@ optimization and deployment across continuously changing software, hardware and 
 
 ### Installation
 
-CM meta-framework is implemented as a small Python class with a CLI and minimal dependencies 
-(Python 3+, PIP and Git client). It can be installed on any platform using PIP:
+The CM automation meta-framework is implemented as a small Python class with a CLI and minimal dependencies 
+(python 3+ with pip, git and wget). It can be installed on any platform including Linux, Windows and MacOS
+using PIP.
+
+Here is a typical CM installation on Ubuntu 22.04:
 
 ```bash
-pip install cmind
+sudo apt install python3 python3-pip git wget
 
-cm version
+python3 -m pip install cmind
 ```
+
+Note that you may need to restart your shell to update PATH to the "cm" binary. 
+Alternatively you can run 
+
+```bash
+source .profile
 ```
-1.0.3
 
 ```
+gfursin@mlcommons-ck-cm-dev:~$ cm
+
+cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
+```
+
+You are ready to use CM automation meta-framework.
 
 Please check the [CM installation guide](cm/docs/installation.md) 
 to install system dependencies and CM on Linux, Windows, MacOS 

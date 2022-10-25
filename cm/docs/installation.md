@@ -1,87 +1,82 @@
-# Installation
+# CM installation
+
+Our goal is to keep the CM automation meta-framework as simple and portable as possible
+with minimal dependencies: python 3+, pip, git and wget.
+
+Here are typical installation procedures across different operating systems:
+
+* [Ubuntu, Debian](#ubuntu-debian)
+* [Red Hat](#red-hat)
+* [MacOS](#macos)
+* [Windows](#windows)
 
 
-## Prerequisites
+You can find Docker containers for CM [here](../../docker).
 
-The CM framework (aka CK2) requires minimal dependencies: Python 3.x, PIP, Git and wget. 
 
-### Ubuntu / Debian
+## Ubuntu, Debian
 
-You need to have the following packages installed:
+*We have successfully tested CM on Ubuntu 18.x, 20.x, 22.x:*
 
 ```bash
+sudo apt update && sudo apt upgrade
+
 sudo apt install python3 python3-pip git wget
+
+python3 -m pip install cmind
 ```
 
-You can use the following commands if you need to upgrade your system:
-```bash
-sudo apt update
-sudo apt upgrade 
-```
-
-### Red Hat
+Note that you may need to restart your shell to update PATH to the "cm" binary. 
+Alternatively you can run 
 
 ```bash
-sudo dnf install python python-pip git wget
+source .profile
 ```
 
-### MacOS
+```
+gfursin@mlcommons-ck-cm-dev:~$ cm
+
+cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
+```
+
+You are ready to use CM automation meta-framework.
+
+
+
+## Red Hat
+
+*We have successfully tested CM on Red Hat 9 and CentOS 8*
+
+```bash
+sudo dnf update
+
+sudo dnf install python3 python-pip git wget
+
+python3 -m pip install cmind --user
+
+```
+
+## MacOS
 
 ```bash
 brew install python3 python3-pip git wget
+
+python3 -m pip install cmind
 ```
 
-### Windows
+
+## Windows
 
 * Download and install Git from [git-for-windows.github.io](https://git-for-windows.github.io).
 * Download and install Python 3+ from [www.python.org/downloads/windows](https://www.python.org/downloads/windows).
 
-### Android (Linux host)
-
-These dependencies are needed to cross-compile for Android (tested on Ubuntu 18.04 including Docker and Windows 10 Subsystem for Linux). 
-
 ```bash
- sudo apt update
- sudo apt install git wget libz-dev curl cmake
- sudo apt install gcc g++ autoconf autogen libtool
- sudo apt install android-sdk
- sudo apt install google-android-ndk-installer
+python -m pip install cmind
 ```
 
 
 
-## CM installation
-
-You can install the Collective Mind framework on most platforms using PIP as follows:
-
-```bash
-pip3 install cmind
-```
-or
-
-```bash
-python3 -m pip install cmind
-```
-or
-```bash
-pip install cmind
-```
-
-You can also install CM using a specific Python version (for example, Python 3.9):
-```bash
-python3.9 -m pip install cmind
-```
-
-*You may need to add flag "--user" to install the client in your user space:*
-```bash
-pip3 install cmind --user
-```
-
-If installed in user space and `$HOME/.local/bin` is not in `$PATH` please do
-```bash
-echo "export PATH=$PATH:$HOME/.local/bin" >>~/.bashrc
-source ~/.bashrc
-```
+# CM testing
 
 If the installation is successful, you can run cm CLI as follows:
 
@@ -95,9 +90,9 @@ cm {action} {automation} {artifact(s)} {flags} @input.yaml @input.json
 
 You can also quickly test the installation and check the version as follows:
 ```bash
-gfursin@cmind:~$ cm test core
+gfursin@mlcommons-ck-cm-dev:~$ cm test core
 
-CM version: 1.0.2
+CM version: 1.0.3
 
 Python executable used by CK: /usr/bin/python3
 
@@ -110,10 +105,11 @@ Path to CM repositories:    /home/user/CM
 GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm
 GitHub for CM automation scripts:  https://github.com/mlcommons/ck/tree/master/cm-mlops
 Reporting issues and ideas:        https://github.com/mlcommons/ck/issues
+Joining the open MLPerf workgroup: http://bit.ly/mlperf-edu-wg
 ```
 
 
-## CM customization
+# CM customization
 
 You can use the following environment variables to customize CM installation:
 
@@ -135,7 +131,7 @@ You can use the following environment variables to customize CM installation:
 
 
 
-## Target platform support
+# Target platform support
 
 * x8664
 * Arm64

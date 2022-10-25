@@ -55,6 +55,22 @@
         "CM_NUMPY_VERSION"
       ]
     },
+    "pip": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "pip"
+      },
+      "new_env_keys": [
+        "CM_PIP_VERSION"
+      ]
+    },
+    "setuptools": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "setuptools"
+      },
+      "new_env_keys": [
+        "CM_SETUPTOOL_VERSION"
+      ]
+    },
     "onnx": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "onnx"

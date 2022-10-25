@@ -19,10 +19,13 @@ ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
            bzip2-devel bzip2 \
            ca-certificates curl  cmake \
            gcc git g++ \
-           libtool libffi-devel \
+           libtool libffi-devel libssl-devel\
            zlib-devel \
+           libbz2-devel \
+           openssh-client \
            make mesa-libGL \
            patch python3 python3-pip python3-devel \
+           openssl-devel \
            rsync \
            tar \
            unzip \
@@ -30,4 +33,5 @@ ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
            wget which \
            xz \
            zip 
-python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
+
+python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${CM_PYTHON_PIP_USER}

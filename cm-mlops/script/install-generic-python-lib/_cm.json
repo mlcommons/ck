@@ -45,6 +45,16 @@
         "CM_PYTHON_PACKAGE_NAME": "numpy"
       }
     },
+    "pip": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "pip"
+      }
+    },
+    "setuptools": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "setuptools"
+      }
+    },
     "onnx": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "onnx"

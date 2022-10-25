@@ -20,5 +20,12 @@
     "get",
     "sys-utils-cm"
   ],
-  "uid": "bc90993277e84b8e"
+  "uid": "bc90993277e84b8e",
+  "variations": {
+    "user": {
+      "env": {
+        "CM_PYTHON_PIP_USER": "--user"
+      }
+    }
+  }
 }

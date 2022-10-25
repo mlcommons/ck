@@ -1626,10 +1626,13 @@ class CAutomation(Automation):
 
         ############################# RETURN
         elapsed_time = time.time() - start_time
+
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
+
         if print_deps:
             self._print_deps(run_state['deps'])
+
         if print_readme:
             readme = self._get_readme(i.get('cmd', ''), run_state['deps'])
             with open('readme.md', 'w') as f:
@@ -1652,7 +1655,7 @@ class CAutomation(Automation):
     ##############################################################################
     def _call_run_deps(script, deps, local_env_keys, local_env_keys_from_meta, env, state, const, const_state,
             add_deps_recursive, recursion_spaces, remembered_selections, variation_tags_string, found_cached, debug_script_tags='', 
-            verbose=False, show_time=False, extra_recursion_spaces='  ', run_state={}):
+            verbose=False, show_time=False, extra_recursion_spaces='  ', run_state={'deps':[], 'fake_deps':[]}):
         if len(deps) == 0:
             return {'return': 0}
 
@@ -1675,7 +1678,7 @@ class CAutomation(Automation):
     ##############################################################################
     def _run_deps(self, deps, clean_env_keys_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces, 
                     remembered_selections, variation_tags_string='', from_cache=False, debug_script_tags='', 
-                    verbose=False, show_time=False, extra_recursion_spaces='  ', run_state={}):
+                    verbose=False, show_time=False, extra_recursion_spaces='  ', run_state={'deps':[], 'fake_deps':[]}):
         """
         Runs all the enabled dependencies and pass them env minus local env
         """
@@ -1733,7 +1736,9 @@ class CAutomation(Automation):
                 inherit_variation_tags = d.get("inherit_variation_tags", False)
                 if inherit_variation_tags:
                     d['tags']+=","+variation_tags_string #deps should have non-empty tags
+
                 run_state['deps'].append(d['tags'])
+
                 if not run_state['fake_deps']:
                     import copy
                     tmp_run_state_deps = copy.deepcopy(run_state['deps'])
