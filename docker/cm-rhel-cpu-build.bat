@@ -10,4 +10,5 @@ docker build -f cm-%CM_OS_NAME%-cpu.Dockerfile ^
    --build-arg cm_version="" ^
    --build-arg cm_automation_repo="octoml@ck" ^
    --build-arg cm_automation_checkout="" ^
+   --build-arg cm_python_version="3.10.7" ^
    %CM_CACHE% .
