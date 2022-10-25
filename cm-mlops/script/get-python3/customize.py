@@ -70,6 +70,7 @@ def postprocess(i):
     found_path = os.path.dirname(found_file_path)
 
     env['CM_PYTHON_BIN'] = os.path.basename(found_file_path)
+    env['CM_PYTHON_BIN_PATH'] = os.path.dirname(found_file_path)
 
     # Save tags that can be used to specialize further dependencies (such as python packages)
     tags = 'version-'+version
