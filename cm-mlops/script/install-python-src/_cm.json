@@ -18,7 +18,8 @@
     "CM_WGET_URL": "https://www.python.org/ftp/python/[PYTHON_VERSION]/Python-[PYTHON_VERSION].tgz"
   },
   "new_env_keys": [
-    "CM_PYTHON_INSTALLED_PATH",
+    "CM_PYTHON_INSTALL_PATH",
+    "CM_PYTHON_BIN_WITH_PATH",
     "+PATH",
     "+LD_LIBRARY_PATH",
     "+C_INCLUDE_PATH"
