@@ -19,8 +19,10 @@ ${CM_SUDO} ${CM_PACKAGE_TOOL} update && \
            bzip2-devel bzip2 \
            ca-certificates curl  cmake \
            gcc git g++ \
-           libtool libffi-devel \
+           libtool libffi-devel libssl-devel\
            zlib-devel \
+           libbz2-devel \
+           openssh-client \
            make mesa-libGL \
            patch python3 python3-pip python3-devel \
            openssl-devel \
