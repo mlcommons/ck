@@ -1,6 +1,6 @@
 # CM installation
 
-Our goal is to keep CM automation meta-framework as simple and portable as possible
+Our goal is to keep the CM automation meta-framework as simple and portable as possible
 with minimal dependencies: python 3+, pip, git and wget.
 
 Here are typical installation procedures across different operating systems:
