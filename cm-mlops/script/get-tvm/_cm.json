@@ -12,7 +12,7 @@
       "tags": "detect,cpu"
     }
   ],
-  "env": {
+  "default_env": {
     "CM_GIT_CHECKOUT": "main",
     "CM_GIT_URL": "https://github.com/apache/tvm"
   },
