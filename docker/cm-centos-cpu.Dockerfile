@@ -3,8 +3,11 @@
 # OS version
 ARG cm_os_name="centos"
 ARG cm_os_version="8"
+ARG cm_version=""
+ARG cm_automation_repo="mlcommons@ck"
+ARG cm_automation_repo_checkout=""
 
-FROM registry.access.redhat.com/ubi${cm_os_version}
+FROM ${cm_os_name}:${cm_os_version}
 
 ENV CM_OS_VERSION="${cm_os_version}"
 
@@ -21,14 +24,15 @@ ARG CM_GH_TOKEN
 
 # Install system dependencies
 # Notes: https://runnable.com/blog/9-common-dockerfile-mistakes
-RUN dnf update -y
-RUN dnf install -y python3 python3-pip git wget sudo binutils
+RUN yum upgrade -y \
+    && yum install -y
+
+RUN yum install -y python3 python3-pip git wget sudo binutils
 
 # Extra python deps
 RUN python3 -m pip install requests
 
 # CM version
-ARG cm_version
 ENV CM_VERSION=${cm_version}
 RUN if [ "${CM_VERSION}" != "" ] ; then \
       python3 -m pip install cmind==${CM_VERSION} ; \
@@ -55,6 +59,12 @@ RUN cat /etc/os-release > sys-version-os.log
 RUN uname -a > sys-version-kernel.log
 RUN python3 --version > sys-version-python3.log
 RUN cm version > sys-version-cm.log
+
+# Get CM automation repository
+RUN cm pull repo ${cm_automation_repo} --checkout=${cm_automation_repo_checkout}
+
+# Install CM system dependencies
+RUN cm run script "get sys-deps-cm _user"
 
 # CMD entry point
 CMD /bin/bash
