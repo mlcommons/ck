@@ -11,7 +11,8 @@
     }
   ],
   "new_env_keys": [
-    "CM_VIRTUAL_ENV_*"
+    "CM_VIRTUAL_ENV_*",
+    "CM_PYTHON_BIN_WITH_PATH"
   ],
   "new_state_keys": [
     "script_prefix"
