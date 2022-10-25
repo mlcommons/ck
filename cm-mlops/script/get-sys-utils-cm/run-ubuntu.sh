@@ -52,4 +52,4 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            libgl1 \
            libncurses5
 
-python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${CM_PIP_USER}
+python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${CM_PYTHON_PIP_USER}

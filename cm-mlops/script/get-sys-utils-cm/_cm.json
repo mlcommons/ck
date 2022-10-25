@@ -24,7 +24,7 @@
   "variations": {
     "user": {
       "env": {
-        "CM_PIP_USER": "--user"
+        "CM_PYTHON_PIP_USER": "--user"
       }
     }
   }
