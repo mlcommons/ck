@@ -52,7 +52,7 @@ USER cmuser:cm
 WORKDIR /home/cmuser
 
 # Check CM installation
-RUN lsb_release -a > sys-version-ubuntu.log
+RUN lsb_release -a > sys-version-os.log
 RUN uname -a > sys-version-kernel.log
 RUN python3 --version > sys-version-python3.log
 RUN cm version > sys-version-cm.log
