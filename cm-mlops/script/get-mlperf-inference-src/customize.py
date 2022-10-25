@@ -8,9 +8,12 @@ def preprocess(i):
 
     if os_info['platform'] == 'windows':
         return {'return':1, 'error': 'Windows is not supported in this script yet'}
+
     env = i['env']
+
     if 'CM_GIT_DEPTH' not in env:
         env['CM_GIT_DEPTH'] = ''
+    
     if 'CM_GIT_RECURSE_SUBMODULES' not in env:
         env['CM_GIT_RECURSE_SUBMODULES'] = ''
 
@@ -38,14 +41,14 @@ def postprocess(i):
 
     return {'return':0}
 
-def get_valid_models(mlc_version, mlc_path):
+def get_valid_models(mlperf_version, mlperf_path):
     import sys
-    submission_checker_dir = os.path.join(mlc_path, "tools", "submission")
+    submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
     sys.path.append(submission_checker_dir)
     if not os.path.exists(os.path.join(submission_checker_dir, "submission_checker.py")):
         shutil.copy(os.path.join(submission_checker_dir,"submission-checker.py"), os.path.join(submission_checker_dir,
         "submission_checker.py"))
     import submission_checker as checker
     config = checker.MODEL_CONFIG
-    valid_models = config[mlc_version]["models"]
+    valid_models = config[mlperf_version]["models"]
     return valid_models

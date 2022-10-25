@@ -81,17 +81,17 @@ def preprocess(i):
     return {'return':0}
 
 
-def get_valid_scenarios(model, category, mlc_version, mlc_path):
+def get_valid_scenarios(model, category, mlperf_version, mlperf_path):
     import sys
-    submission_checker_dir = os.path.join(mlc_path, "tools", "submission")
+    submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
     sys.path.append(submission_checker_dir)
     if not os.path.exists(os.path.join(submission_checker_dir, "submission_checker.py")):
         shutil.copy(os.path.join(submission_checker_dir,"submission-checker.py"), os.path.join(submission_checker_dir,
         "submission_checker.py"))
     import submission_checker as checker
     config = checker.MODEL_CONFIG
-    internal_model_name = config[mlc_version]["model_mapping"].get(model, model)
-    valid_scenarios = config[mlc_version]["required-scenarios-"+category][internal_model_name]
+    internal_model_name = config[mlperf_version]["model_mapping"].get(model, model)
+    valid_scenarios = config[mlperf_version]["required-scenarios-"+category][internal_model_name]
     print("Valid Scenarios for " + model + " in " + category + " category are :" +  str(valid_scenarios))
     return valid_scenarios
 
