@@ -3,6 +3,9 @@
 # OS version
 ARG cm_os_name="rhel"
 ARG cm_os_version="9"
+ARG cm_version=""
+ARG cm_automation_repo="mlcommons@ck"
+ARG cm_automation_repo_checkout=""
 
 FROM registry.access.redhat.com/ubi${cm_os_version}
 
@@ -28,7 +31,6 @@ RUN dnf install -y python3 python3-pip git wget sudo binutils
 RUN python3 -m pip install requests
 
 # CM version
-ARG cm_version
 ENV CM_VERSION=${cm_version}
 RUN if [ "${CM_VERSION}" != "" ] ; then \
       python3 -m pip install cmind==${CM_VERSION} ; \

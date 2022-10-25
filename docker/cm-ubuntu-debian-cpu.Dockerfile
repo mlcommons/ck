@@ -1,23 +1,21 @@
 # Modular container with the MLCommons CM automation meta-framework
 
-# OS version
+# Preparing OS
 ARG cm_os_name="ubuntu"
 ARG cm_os_version="22.04"
 
 FROM ${cm_os_name}:${cm_os_version}
 
-ENV CM_OS_VERSION="${cm_os_version}"
-
 # Maintained by the MLCommons taskforce on education and reproducibility
 LABEL github="https://github.com/mlcommons/ck"
 LABEL maintainer="https://bit.ly/mlperf-edu-wg"
 
+# Customization
+ARG CM_GH_TOKEN
+
 # Prepare shell and entry point
 SHELL ["/bin/bash", "-c"]
 ENTRYPOINT ["/bin/bash", "-c"]
-
-# Security for Git
-ARG CM_GH_TOKEN
 
 # Install system dependencies
 # Notes: https://runnable.com/blog/9-common-dockerfile-mistakes
@@ -29,8 +27,8 @@ RUN apt-get install -y python3 python3-pip git wget sudo
 RUN python3 -m pip install requests
 
 # CM version
-ARG cm_version
-ENV CM_VERSION=${cm_version}
+ARG cm_version=""
+ENV CM_VERSION="${cm_version}"
 RUN if [ "${CM_VERSION}" != "" ] ; then \
       python3 -m pip install cmind==${CM_VERSION} ; \
     else \
@@ -56,6 +54,22 @@ RUN lsb_release -a > sys-version-os.log
 RUN uname -a > sys-version-kernel.log
 RUN python3 --version > sys-version-python3.log
 RUN cm version > sys-version-cm.log
+
+# Get CM automation repository
+ARG cm_automation_repo="mlcommons@ck"
+ARG cm_automation_repo_checkout=""
+ENV CM_AUTOMATION_REPO=${cm_automation_repo}
+ENV CM_AUTOMATION_REPO_CHECKOUT=${cm_automation_repo_checkout}
+RUN echo ${CM_AUTOMATION_REPO}
+RUN cm pull repo ${CM_AUTOMATION_REPO} --checkout=${CM_AUTOMATION_REPO_CHECKOUT}
+
+# Install CM system dependencies
+RUN cm run script "get sys-utils-cm" --quiet
+
+# Detect/install python
+ARG cm_python_version=""
+ENV CM_PYTHON_VERSION=${cm_python_version}
+RUN cm run script "get python3" --version=${CM_PYTHON_VERSION}
 
 # CMD entry point
 CMD /bin/bash
