@@ -19,7 +19,7 @@ def preprocess(i):
             os.path.join(result_dir, "accuracy.txt") + "'"
         run_cmds.append(CMD)
 
-    env['RUN_CMDS'] = "??".join(run_cmds)
+    env['CM_RUN_CMDS'] = "??".join(run_cmds)
     return {'return':0}
 
 def postprocess(i):
