@@ -62,6 +62,7 @@ cd "${CUR_DIR}" && \
 if [ "${?}" != "0" ]; then exit 1; fi
 
 cd "${CUR_DIR}/install/bin" && ln -s python3 python
+cd "${CUR_DIR}/install/bin" && ln -s pip3 pip
 
 echo "********************************************************"
 echo "Python was built and installed to ${CUR_DIR}/install ..."
