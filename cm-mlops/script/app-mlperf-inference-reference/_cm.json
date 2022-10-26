@@ -82,6 +82,14 @@
           "retinanet"
         ]
       },
+      "tags": "get,generic-python-lib,_pycocotools"
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "retinanet"
+        ]
+      },
       "tags": "get,dataset,object-detection,open-images,original"
     },
     {
@@ -259,10 +267,10 @@
             ]
           },
           "names": [
-            "accuracy-script",
-            "squad-accuracy-script"
+            "squad-accuracy-script",
+            "mlperf-accuracy-script"
           ],
-          "tags": "run,accuracy,squad"
+          "tags": "run,accuracy,mlperf,_squad,_float32"
         }
       ]
     },
@@ -310,6 +318,11 @@
       }
     },
     "python": {
+      "add_deps_recursive": {
+        "imagenet-accuracy-script": {
+          "tags": "_float32"
+        }
+      },
       "env": {
         "CM_MLPERF_PYTHON": "yes"
       }
@@ -354,10 +367,10 @@
             ]
           },
           "names": [
-            "accuracy-script",
+            "mlperf-accuracy-script",
             "imagenet-accuracy-script"
           ],
-          "tags": "run,accuracy,imagenet"
+          "tags": "run,accuracy,mlperf,_imagenet"
         }
       ]
     },
@@ -377,10 +390,10 @@
             ]
           },
           "names": [
-            "accuracy-script",
+            "mlperf-accuracy-script",
             "openimages-accuracy-script"
           ],
-          "tags": "run,accuracy,openimages"
+          "tags": "run,accuracy,mlperf,_openimages"
         }
       ]
     },

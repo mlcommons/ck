@@ -143,7 +143,7 @@
     },
     "apache-tvm": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "apche_tvm"
+        "CM_PYTHON_PACKAGE_NAME": "apache_tvm"
       },
       "new_env_keys": [
         "CM_APACHE_TVM_VERSION"

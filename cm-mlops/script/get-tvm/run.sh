@@ -1,6 +1,10 @@
 #!/bin/bash
 
-pwd
+CUR_DIR=$PWD
+
+echo "******************************************************"
+echo "Path for TVM: ${CUR_DIR}"
+echo ""
 
 if [ ! -d "tvm" ]; then
   echo "git clone --recursive -b ${CM_GIT_CHECKOUT} ${CM_GIT_URL} tvm"
@@ -12,31 +16,41 @@ cd tvm
 if [ "${CM_GIT_SHA}" != "" ]; then
   echo "git checkout ${CM_GIT_SHA}"
   git checkout ${CM_GIT_SHA}
-  if [ "${?}" != "0" ]; then exit 1; fi
+  test $? -eq 0 || exit 1
 fi
 
-mkdir build
 
-cp cmake/config.cmake build
+if [ ! -d "${CUR_DIR}/tvm/build" ]; then
+    echo "******************************************************"
+    echo "Configuring TVM ..."
+    echo ""
 
-cd build
+    mkdir -p "${CUR_DIR}/tvm/build"
 
-if [[ ${CM_TVM_USE_LLVM} == "yes" ]]; then
-    sed -i.bak 's/set(USE_LLVM OFF)/set(USE_LLVM llvm-config)/' config.cmake
+    cp cmake/config.cmake ${CUR_DIR}/tvm/build
+
+    cd ${CUR_DIR}/tvm/build
+
+    if [[ ${CM_TVM_USE_LLVM} == "yes" ]]; then
+        sed -i.bak 's/set(USE_LLVM OFF)/set(USE_LLVM llvm-config)/' config.cmake
+    fi
+
+    if [[ ${CM_TVM_USE_OPENMP} == "yes" ]]; then
+        sed -i.bak 's/set(USE_OPENMP none)/set(USE_OPENMP gnu)/' config.cmake
+    fi
+
+    cmake ..
+    test $? -eq 0 || exit 1
 fi
 
-if [[ ${CM_TVM_USE_OPENMP} == "yes" ]]; then
-    sed -i.bak 's/set(USE_OPENMP none)/set(USE_OPENMP gnu)/' config.cmake
-fi
-
-echo "******************************************************"
 CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES}}
 CM_MAKE_CORES=${CM_MAKE_CORES:-2}
 
-echo $PATH
+echo "******************************************************"
+echo "Building  TVM using ${CM_MAKE_CORES} cores ..."
+echo ""
 
-cmake ..
-test $? -eq 0 || exit 1
+cd ${CUR_DIR}/tvm/build
 
 make -j${CM_MAKE_CORES}
 test $? -eq 0 || exit 1
@@ -46,6 +60,7 @@ INSTALL_DIR=$PWD
 cd ../../
 
 echo "TVM_HOME=$PWD/tvm" > tmp-run-env.out
+echo "CM_TVM_INSTALLED_PATH=$PWD/tvm" >> tmp-run-env.out
 
 echo "******************************************************"
 echo "TVM was built and installed to ${INSTALL_DIR} ..."
