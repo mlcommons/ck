@@ -6,7 +6,7 @@
 #export CM_CACHE="--no-cache"
 
 export CM_OS_NAME="ubuntu"
-export CM_OS_VERSION="20.04"
+export CM_OS_VERSION="22.04"
 
 #export CM_OS_NAME="debian"
 #export CM_OS_VERSION="10"

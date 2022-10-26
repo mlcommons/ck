@@ -3,10 +3,13 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
-  "default_version": "12.0.0",
+  "name": "Build LLVM compiler from sources (can take >30 min)",
   "deps": [
     {
       "tags": "detect,os"
+    },
+    {
+      "tags": "detect,cpu"
     },
     {
       "tags": "get,cmake"
@@ -25,6 +28,7 @@
       "tags": "get,llvm"
     }
   ],
+  "sort": 1000,
   "tags": [
     "install",
     "src",

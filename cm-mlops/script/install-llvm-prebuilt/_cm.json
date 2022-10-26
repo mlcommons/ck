@@ -9,6 +9,7 @@
       "tags": "detect,os"
     }
   ],
+  "name": "Install prebuilt LLVM compiler",
   "new_env_keys": [
     "CM_LLVM_*",
     "CM_GET_DEPENDENT_CACHED_PATH",
