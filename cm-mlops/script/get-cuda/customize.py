@@ -42,6 +42,8 @@ def preprocess(i):
 
     return {'return':0}
 
+
+
 def detect_version(i):
     r = i['automation'].parse_version({'match_text': r'release\s*([\d.]+)',
                                        'group_number': 1,
@@ -55,20 +57,72 @@ def detect_version(i):
 
     return {'return':0, 'version':version}
 
+
+
 def postprocess(i):
+
+    os_info = i['os_info']
 
     env = i['env']
     r = detect_version(i)
     if r['return'] >0: return r
     found_file_path = env['CM_NVCC_BIN_WITH_PATH']
 
-    found_path = os.path.dirname(found_file_path)
-    env['CM_CUDA_INSTALLED_PATH'] = found_path
+    cuda_path_bin = os.path.dirname(found_file_path)
+    env['CM_CUDA_PATH_BIN'] = cuda_path_bin
+
+    cuda_path = os.path.dirname(cuda_path_bin)
+    env['CM_CUDA_INSTALLED_PATH'] = cuda_path
 
     env['CM_NVCC_BIN'] = os.path.basename(found_file_path)
 
     version = r['version']
 
     env['CM_CUDA_CACHE_TAGS'] = 'version-'+version
+
+    # Check extra paths
+    for key in ['+C_INCLUDE_PATH', '+CPLUS_INCLUDE_PATH', '+LD_LIBRARY_PATH', '+DYLD_FALLBACK_LIBRARY_PATH']:
+         env[key] = []
+
+    ## Include
+    cuda_path_include = os.path.join(cuda_path, 'include')
+    if os.path.isdir(cuda_path_include):
+        if os_info['platform'] != 'windows':
+            env['+C_INCLUDE_PATH'].append(cuda_path_include)
+            env['+CPLUS_INCLUDE_PATH'].append(cuda_path_include)
+
+        env['CM_CUDA_PATH_INCLUDE'] = cuda_path_include
+
+    ## Lib
+    if os_info['platform'] == 'windows':
+        extra_dir='x64'
+        extra_pre=''
+        extra_ext='lib'
+    else:
+        extra_dir=''
+        extra_pre='lib'
+        extra_ext='so'
+
+    for d in ['lib64', 'lib']:
+        cuda_path_lib = os.path.join(cuda_path, d)
+
+        if extra_dir != '':
+            cuda_path_lib = os.path.join(cuda_path_lib, extra_dir)
+
+        if os.path.isdir(cuda_path):
+            if os_info['platform'] == 'windows':
+                env['+LD_LIBRARY_PATH'].append(cuda_path_lib)
+                env['+DYLD_FALLBACK_LIBRARY_PATH'].append(cuda_path_lib)
+
+            env['CM_CUDA_PATH_LIB'] = cuda_path_lib
+
+            ## Check sub libs
+            cuda_path_lib_cudnn = os.path.join(cuda_path_lib, extra_pre + 'cudnn.'+extra_ext)
+            if os.path.isfile(cuda_path_lib_cudnn):
+                env['CM_CUDA_PATH_LIB_CUDNN']=cuda_path_lib_cudnn
+                env['CM_CUDA_PATH_LIB_CUDNN_EXISTS']='yes'
+
+            break
+
 
     return {'return':0, 'version': version}
