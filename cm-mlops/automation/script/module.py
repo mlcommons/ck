@@ -41,6 +41,8 @@ class CAutomation(Automation):
                                'CM_NAME',
                                'CM_EXTRA_CACHE_TAGS',
                                'CM_TMP_FAIL_IF_NOT_FOUND',
+                               'CM_TMP_PATH',
+                               'CM_TMP_PATH_IGNORE_NON_EXISTANT',
                                'CM_RENEW_CACHE_ENTRY']
 
         self.input_flags_converted_to_tmp_env = ['path'] 
