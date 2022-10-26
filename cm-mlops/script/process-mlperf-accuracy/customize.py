@@ -11,7 +11,7 @@ def preprocess(i):
         print("Please set CM_MLPERF_ACCURACY_RESULTS_DIR")
         return {'return':-1}
     run_cmds = []
-     if 'CM_MAX_EXAMPLES' in env:
+    if 'CM_MAX_EXAMPLES' in env:
         max_examples_string = " --max_examples " + env['CM_MAX_EXAMPLES']
     else:
         max_examples_string = ""
