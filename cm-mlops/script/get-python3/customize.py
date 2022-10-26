@@ -53,6 +53,7 @@ def detect_version(i):
     version = r['version']
 
     print (i['recursion_spaces'] + '      Detected version: {}'.format(version))
+
     return {'return':0, 'version':version}
 
 def postprocess(i):
@@ -75,6 +76,8 @@ def postprocess(i):
     # Save tags that can be used to specialize further dependencies (such as python packages)
     tags = 'version-'+version
 
+    add_extra_cache_tags = []
+
     extra_tags = env.get('CM_EXTRA_CACHE_TAGS','')
     if extra_tags != '':
         tags += ',' + extra_tags
@@ -86,6 +89,8 @@ def postprocess(i):
         tags += ',non-virtual'
 
     env['CM_PYTHON_CACHE_TAGS'] = tags
+
+    add_extra_cache_tags = tags.split(',')
 
     # Check if need to add path, include and lib to env
     # (if not in default paths)
@@ -110,4 +115,4 @@ def postprocess(i):
                 env['+PATH']=paths
 
 
-    return {'return':0, 'version': version}
+    return {'return':0, 'version': version, 'add_extra_cache_tags':add_extra_cache_tags}

@@ -1511,6 +1511,10 @@ class CAutomation(Automation):
                         cached_tags = [x for x in cached_tags if not x.startswith('version-')]
                         cached_tags.append('version-' + r['version'])
 
+                if len(r.get('add_extra_cache_tags',[]))>0 and cache:
+                    for t in r['add_extra_cache_tags']:
+                        if t not in cached_tags:
+                            cached_tags.append(t) 
 
             # Check chain of post dependencies on other CM scripts
             clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
