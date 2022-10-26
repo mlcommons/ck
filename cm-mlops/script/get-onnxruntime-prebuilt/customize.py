@@ -22,6 +22,7 @@ def postprocess(i):
     env['+CPLUS_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', install_folder, 'include'))
 
     lib_path = os.path.join(os.getcwd(), 'install', install_folder, 'lib')
+
     env['+LD_LIBRARY_PATH'].append(lib_path)
     env['+DYLD_FALLBACK_LIBRARY_PATH'].append(lib_path)
 

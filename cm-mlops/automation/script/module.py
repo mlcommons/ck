@@ -40,7 +40,8 @@ class CAutomation(Automation):
                                'CM_OUTPUT',
                                'CM_NAME',
                                'CM_EXTRA_CACHE_TAGS',
-                               'CM_TMP_FAIL_IF_NOT_FOUND']
+                               'CM_TMP_FAIL_IF_NOT_FOUND',
+                               'CM_RENEW_CACHE_ENTRY']
 
         self.input_flags_converted_to_tmp_env = ['path'] 
 
@@ -339,6 +340,7 @@ class CAutomation(Automation):
                                                (uses or sets env.CM_TMP_SKIP_REMEMBERED_SELECTIONS to "yes")
 
           (new) (bool): if True, skip search for cached and run again
+          (renew) (bool): if True, rewrite cache entry if exists
 
           (dirty) (bool): if True, do not clean files
 
@@ -397,7 +399,7 @@ class CAutomation(Automation):
 
         # Check simplified CMD: cm run script "get compiler"
         # If artifact has spaces, treat them as tags!
-        artifact = i.get('artifact','').strip()
+        artifact = i.get('artifact','')
         if ' ' in artifact or ',' in artifact:
             del(i['artifact'])
             if 'parsed_artifact' in i: del(i['parsed_artifact'])
@@ -444,6 +446,7 @@ class CAutomation(Automation):
         print_readme = i.get('print_readme', False)
 
         new_cache_entry = i.get('new', False)
+        renew = i.get('renew', False)
 
         debug_script_tags = i.get('debug_script_tags', '')
 
@@ -709,7 +712,7 @@ class CAutomation(Automation):
 
             # Select scripts
             if len(list_of_found_scripts) > 1:
-                select_script = select_script_artifact(list_of_found_scripts, 'script', recursion_spaces, False, script_tags_string)
+                select_script = select_script_artifact(list_of_found_scripts, 'script', recursion_spaces, False, script_tags_string, quiet, verbose)
 
                 # Remember selection
                 if not skip_remembered_selections:
@@ -928,9 +931,6 @@ class CAutomation(Automation):
 
 
 
-
-
-
         # USE CASE:
         #  HERE we may have versions in script input and env['CM_VERSION_*']
 
@@ -1036,7 +1036,7 @@ class CAutomation(Automation):
         ############################################################################################################
         # Check if the output of a selected script should be cached
         if cache:
-            # TBD - need to reuse and prune cache_list instead of new search
+            # TBD - need to reuse and prune cache_list instead of a new CM search inside find_cached_script
 
             r = find_cached_script({'self':self,
                                     'recursion_spaces':recursion_spaces,
@@ -1071,7 +1071,7 @@ class CAutomation(Automation):
                         num_found_cached_scripts = 1
 
                 if num_found_cached_scripts > 1:
-                    selection = select_script_artifact(found_cached_scripts, 'cached script output', recursion_spaces, True, script_tags_string)
+                    selection = select_script_artifact(found_cached_scripts, 'cached script output', recursion_spaces, True, script_tags_string, quiet, verbose)
 
                     if selection >= 0:
                         if not skip_remembered_selections:
@@ -1170,28 +1170,36 @@ class CAutomation(Automation):
                     if r['return']>0: return r
 
 
+
+
+
+            if renew or (not found_cached and num_found_cached_scripts == 0):
+                # Add more tags to cached tags
+                # based on meta information of the found script
+                x = 'script-artifact-' + meta['uid']
+                if x not in cached_tags: 
+                    cached_tags.append(x)
+
+                # Add all tags from the original CM script
+                for x in meta.get('tags', []):
+                    if x not in cached_tags: 
+                        cached_tags.append(x)
+
+
             if not found_cached and num_found_cached_scripts == 0:
 
                 # If not cached, create cached script artifact and mark as tmp (remove if cache successful)
                 tmp_tags = ['tmp']
 
-                # Add more tags to cached tags
-                # based on meta information of the found script
-                x = 'script-artifact-' + meta['uid']
-                if x not in cached_tags: cached_tags.append(x)
-
-                # Add all tags from the original CM script
-                for x in meta.get('tags', []):
-                    if x not in cached_tags: cached_tags.append(x)
-
-                # Check variation tags
-                for t in variation_tags:
-                    x = '_' + t
-                    if x not in tmp_tags: tmp_tags.append(x)
-
                 # Finalize tmp tags
                 tmp_tags += cached_tags
 
+                # Check if some variations are missing 
+                # though it should not happen!
+                for t in variation_tags:
+                    x = '_' + t
+                    if x not in tmp_tags: 
+                        tmp_tags.append(x)
 
                 # Use update to update the tmp one if already exists
                 if verbose:
@@ -1224,9 +1232,30 @@ class CAutomation(Automation):
                 # to record data and files there
                 if verbose:
                     print (recursion_spaces+'  - Changing to {}'.format(cached_path))
+
                 os.chdir(cached_path)
 
 
+
+            # If found cached and we want to renew it
+            if found_cached and renew:
+                cached_path = cached_script.path
+                cached_meta = cached_script.meta
+
+                cached_uid = cached_meta['uid']
+
+                # Changing path to CM script artifact for cached output
+                # to record data and files there
+                if verbose:
+                    print (recursion_spaces+'  - Changing to {}'.format(cached_path))
+
+                os.chdir(cached_path)
+
+                # Force to finalize script inside cached entry
+                found_cached = False
+                remove_tmp_tag = True
+
+                env['CM_RENEW_CACHE_ENTRY']='yes'
 
         # Prepare files to be cleaned
         clean_files = [self.tmp_file_run_state, 
@@ -1506,8 +1535,7 @@ class CAutomation(Automation):
         utils.merge_dicts({'dict1':saved_state, 'dict2':new_state, 'append_lists':True, 'append_unique':True})
 
 
-        
-        
+
         # Restore original env/state and merge env/state
         for k in list(env.keys()):
             del(env[k])
@@ -3035,13 +3063,24 @@ def detect_state_diff(env, saved_env, new_env_keys, new_state_keys, state, saved
     return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 
 ##############################################################################
-def select_script_artifact(lst, text, recursion_spaces, can_skip, script_tags_string):
+def select_script_artifact(lst, text, recursion_spaces, can_skip, script_tags_string, quiet, verbose):
     """
     Internal: select script
     """
 
+    string1 = recursion_spaces+'    - More than 1 {} found for "{}":'.format(text,script_tags_string)
+
+    # If quiet, select 0 (can be sorted for determinism)
+    if quiet:
+        if verbose:
+            print (string1)
+            print ('')
+            print ('Selected default due to "quiet" mode')
+
+        return 0
+
     # Select 1 and proceed
-    print (recursion_spaces+'    - More than 1 {} found for "{}":'.format(text,script_tags_string))
+    print (string1)
 
     print ('')
     num = 0

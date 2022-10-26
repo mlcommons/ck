@@ -36,7 +36,7 @@
         ]
       },
       "reuse_version": true,
-      "tags": "install,llvm,prebuilt"
+      "tags": "install,llvm"
     }
   ],
   "sort": 100,

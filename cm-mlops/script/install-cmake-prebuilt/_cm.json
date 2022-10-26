@@ -4,6 +4,13 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "default_version": "3.21.1",
+  "new_env_keys": [
+    "CM_CMAKE_*",
+    "CM_GET_DEPENDENT_CACHED_PATH",
+    "+PATH",
+    "+LD_LIBRARY_PATH",
+    "+C_INCLUDE_PATH"
+  ],
   "deps": [
     {
       "tags": "detect,os"

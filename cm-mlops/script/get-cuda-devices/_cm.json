@@ -2,6 +2,15 @@
   "alias": "get-cuda-devices",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "clean_files": [
+    "tmp-run.out"
+  ],
+  "new_env_keys": [
+    "CM_CUDA_DEVICE_*"
+  ],
+  "new_state_keys": [
+    "cm_cuda_device_prop"
+  ],
   "deps": [
     {
       "tags": "get,cuda"
