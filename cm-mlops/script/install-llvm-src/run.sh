@@ -33,16 +33,19 @@ if [ ! -d "${INSTALL_DIR}" ]; then
     mkdir -p ${INSTALL_DIR}
 fi
 
-cd build
 
-echo "******************************************************"
-CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES}}
-CM_MAKE_CORES=${CM_MAKE_CORES:-2}
+if [ "${CM_RENEW_CACHE_ENTRY}" != "yes" ]; then
 
-echo "Using ${CM_MAKE_CORES} cores ..."
+    echo "******************************************************"
+    CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES}}
+    CM_MAKE_CORES=${CM_MAKE_CORES:-2}
 
-cmake --build . --target install -j${CM_MAKE_CORES}
-if [ "${?}" != "0" ]; then exit 1; fi
+    echo "Using ${CM_MAKE_CORES} cores ..."
+
+    cd build
+    cmake --build . --target install -j${CM_MAKE_CORES}
+    if [ "${?}" != "0" ]; then exit 1; fi
+fi
 
 # Clean build directory (too large)
 cd ${CUR_DIR}

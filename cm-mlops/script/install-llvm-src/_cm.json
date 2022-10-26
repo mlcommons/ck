@@ -3,7 +3,6 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
-  "name": "Build LLVM compiler from sources (can take >30 min)",
   "deps": [
     {
       "tags": "detect,os"
@@ -18,6 +17,11 @@
   "env": {
     "CM_GIT_URL": "https://github.com/llvm/llvm-project"
   },
+  "name": "Build LLVM compiler from sources (can take >30 min)",
+  "new_env_keys": [
+    "CM_LLVM_*",
+    "CM_GET_DEPENDENT_CACHED_PATH"
+  ],
   "post_deps": [
     {
       "skip_if_env": {
