@@ -82,6 +82,14 @@
           "retinanet"
         ]
       },
+      "tags": "get,generic-python-lib,_pycocotools"
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "retinanet"
+        ]
+      },
       "tags": "get,dataset,object-detection,open-images,original"
     },
     {
