@@ -27,6 +27,7 @@ def postprocess(i):
     os_info = i['os_info']
     env = i['env']
     results_dir = env.get("CM_MLPERF_ACCURACY_RESULTS_DIR", "")
+    results_dir_split = results_dir.split(":")
     for result_dir in results_dir_split:
         with open(os.path.join(result_dir, "accuracy.txt"), "r") as fp:
             print(fp.read())
