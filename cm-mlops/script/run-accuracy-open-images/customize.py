@@ -13,7 +13,7 @@ def preprocess(i):
 
     results_dir_split = results_dir.split(":")
     for result_dir in results_dir_split:
-        CMD = env['CM_PYTHON_BIN'] + " -m pip install --user pycoctools && " + env['CM_PYTHON_BIN'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "tools", \
+        CMD = env['CM_PYTHON_BIN'] + " -m pip install --user pycocotools && " + env['CM_PYTHON_BIN'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "tools", \
             "accuracy-openimages.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, \
                     "mlperf_log_accuracy.json") + "' --openimages-dir '" + env['CM_DATASET_PATH'] + "' > '" + \
             os.path.join(result_dir, "accuracy.txt") + "'"
