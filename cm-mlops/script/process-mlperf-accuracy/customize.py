@@ -27,7 +27,7 @@ def preprocess(i):
             CMD = env['CM_PYTHON_BIN'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "tools",
                 "accuracy-imagenet.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir,
                     "mlperf_log_accuracy.json") + "' --imagenet-val-file '" + os.path.join(env['CM_DATASET_AUX_PATH'],
-                            "val.txt") + "' --dtype " + env['CM_ACCURACY_DTYPE'] +  " > '" + os.path.join(result_dir, "accuracy.txt") + "'"
+                            "val.txt") + "' --dtype " + env.get('CM_ACCURACY_DTYPE', "float32") +  " > '" + os.path.join(result_dir, "accuracy.txt") + "'"
         elif dataset == "squad":
             CMD = env['CM_PYTHON_BIN'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_BERT_PATH'],
                 "accuracy-squad.py") + "' --val_data '" + env['CM_DATASET_SQUAD_VAL_PATH'] + \

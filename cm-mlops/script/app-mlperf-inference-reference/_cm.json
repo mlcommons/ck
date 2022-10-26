@@ -318,6 +318,11 @@
       }
     },
     "python": {
+      "add_deps_recursive": {
+        "imagenet-accuracy-script": {
+          "tags": "_float32"
+        }
+      },
       "env": {
         "CM_MLPERF_PYTHON": "yes"
       }
