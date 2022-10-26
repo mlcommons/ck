@@ -267,10 +267,10 @@
             ]
           },
           "names": [
-            "accuracy-script",
-            "squad-accuracy-script"
+            "squad-accuracy-script",
+            "mlperf-accuracy-script"
           ],
-          "tags": "run,accuracy,squad"
+          "tags": "run,accuracy,mlperf,_squad,_float32"
         }
       ]
     },
@@ -362,10 +362,10 @@
             ]
           },
           "names": [
-            "accuracy-script",
+            "mlperf-accuracy-script",
             "imagenet-accuracy-script"
           ],
-          "tags": "run,accuracy,imagenet"
+          "tags": "run,accuracy,mlperf,_imagenet"
         }
       ]
     },
@@ -385,10 +385,10 @@
             ]
           },
           "names": [
-            "accuracy-script",
+            "mlperf-accuracy-script",
             "openimages-accuracy-script"
           ],
-          "tags": "run,accuracy,openimages"
+          "tags": "run,accuracy,mlperf,_openimages"
         }
       ]
     },
