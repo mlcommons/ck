@@ -20,6 +20,9 @@
         "inference-src"
       ],
       "tags": "get,mlcommons,inference,src"
+    },
+    {
+      "tags": "get,generic-python-lib,_pycocotools"
     }
   ],
   "tags": [
