@@ -397,7 +397,7 @@ class CAutomation(Automation):
 
         # Check simplified CMD: cm run script "get compiler"
         # If artifact has spaces, treat them as tags!
-        artifact = i.get('artifact','').strip()
+        artifact = i.get('artifact','')
         if ' ' in artifact or ',' in artifact:
             del(i['artifact'])
             if 'parsed_artifact' in i: del(i['parsed_artifact'])
@@ -928,9 +928,6 @@ class CAutomation(Automation):
 
 
 
-
-
-
         # USE CASE:
         #  HERE we may have versions in script input and env['CM_VERSION_*']
 
@@ -1175,23 +1172,27 @@ class CAutomation(Automation):
                 # If not cached, create cached script artifact and mark as tmp (remove if cache successful)
                 tmp_tags = ['tmp']
 
+
                 # Add more tags to cached tags
                 # based on meta information of the found script
                 x = 'script-artifact-' + meta['uid']
-                if x not in cached_tags: cached_tags.append(x)
+                if x not in cached_tags: 
+                    cached_tags.append(x)
 
                 # Add all tags from the original CM script
                 for x in meta.get('tags', []):
-                    if x not in cached_tags: cached_tags.append(x)
-
-                # Check variation tags
-                for t in variation_tags:
-                    x = '_' + t
-                    if x not in tmp_tags: tmp_tags.append(x)
+                    if x not in cached_tags: 
+                        cached_tags.append(x)
 
                 # Finalize tmp tags
                 tmp_tags += cached_tags
 
+                # Check if some variations are missing 
+                # though it should not happen!
+                for t in variation_tags:
+                    x = '_' + t
+                    if x not in tmp_tags: 
+                        tmp_tags.append(x)
 
                 # Use update to update the tmp one if already exists
                 if verbose:

@@ -62,7 +62,6 @@ class CAutomation(Automation):
           (out) (str): if 'con', output to console
 
           (env) (bool): if True, show env from cm-cached-state.json
-          
           ...
 
         Returns:
@@ -75,7 +74,7 @@ class CAutomation(Automation):
 
         """
         import json
-        
+
         # Check parsed automation
         if 'parsed_automation' not in i:
            return {'return':1, 'error':'automation is not specified'}
@@ -83,6 +82,19 @@ class CAutomation(Automation):
         console = i.get('out') == 'con'
 
         show_env = i.get('env', False)
+
+        # Check simplified CMD: cm run script "get compiler"
+        # If artifact has spaces, treat them as tags!
+        artifact = i.get('artifact','')
+        tags = i.get('tags','').strip()
+        if ' ' in artifact or ',' in artifact:
+            del(i['artifact'])
+            if 'parsed_artifact' in i: del(i['parsed_artifact'])
+
+            new_tags = artifact.replace(' ',',')
+            tags = new_tags if tags=='' else new_tags+','+tags
+
+            i['tags'] = tags
 
         # Find CM artifact(s)
         i['out'] = None
@@ -99,7 +111,11 @@ class CAutomation(Automation):
             alias = meta.get('alias','')
             uid = meta.get('uid','')
 
-            tags = sorted(meta.get('tags',[]))
+            tags = meta.get('tags',[])
+            tags1 = sorted([x for x in tags if not x.startswith('_')])
+            tags2 = sorted([x for x in tags if x.startswith('_')])
+            tags = tags1 + tags2
+
             version = meta.get('version','')
 
             if console:
