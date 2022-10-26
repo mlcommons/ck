@@ -30,7 +30,7 @@ We can run other variants using the following commands
 ### Important options
 * `--mode`. Valid values: {performance, accuracy}
 * `--scenario`. Valid values: {Offline, Server, SingleStream, MultiStream}
-* `--hw_name`. Valid value - any system description which has a config file (under same name) defined [here](https://github.com/arjunsuresh/ck/tree/master/cm-mlops/script/get-sutCM_LOADGEN_MAX_BATCHSIZE-mlc-configs/configs)
+* `--hw_name`. Valid value - any system description which has a config file (under same name) defined [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/configs)
 * `--imagenet_path`. Location of directory containing Imagenet which cannot be downloaded from a public URL
 * `--output_dir`. Location where the outputs are produced.
 * `--num_threads` - Number of CPU threads to launch the application with
