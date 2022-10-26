@@ -712,7 +712,7 @@ class CAutomation(Automation):
 
             # Select scripts
             if len(list_of_found_scripts) > 1:
-                select_script = select_script_artifact(list_of_found_scripts, 'script', recursion_spaces, False, script_tags_string)
+                select_script = select_script_artifact(list_of_found_scripts, 'script', recursion_spaces, False, script_tags_string, quiet, verbose)
 
                 # Remember selection
                 if not skip_remembered_selections:
@@ -1071,7 +1071,7 @@ class CAutomation(Automation):
                         num_found_cached_scripts = 1
 
                 if num_found_cached_scripts > 1:
-                    selection = select_script_artifact(found_cached_scripts, 'cached script output', recursion_spaces, True, script_tags_string)
+                    selection = select_script_artifact(found_cached_scripts, 'cached script output', recursion_spaces, True, script_tags_string, quiet, verbose)
 
                     if selection >= 0:
                         if not skip_remembered_selections:
@@ -3063,13 +3063,24 @@ def detect_state_diff(env, saved_env, new_env_keys, new_state_keys, state, saved
     return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state}
 
 ##############################################################################
-def select_script_artifact(lst, text, recursion_spaces, can_skip, script_tags_string):
+def select_script_artifact(lst, text, recursion_spaces, can_skip, script_tags_string, quiet, verbose):
     """
     Internal: select script
     """
 
+    string1 = recursion_spaces+'    - More than 1 {} found for "{}":'.format(text,script_tags_string)
+
+    # If quiet, select 0 (can be sorted for determinism)
+    if quiet:
+        if verbose:
+            print (string1)
+            print ('')
+            print ('Selected default due to "quiet" mode')
+
+        return 0
+
     # Select 1 and proceed
-    print (recursion_spaces+'    - More than 1 {} found for "{}":'.format(text,script_tags_string))
+    print (string1)
 
     print ('')
     num = 0
