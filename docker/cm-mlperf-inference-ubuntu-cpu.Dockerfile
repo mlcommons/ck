@@ -70,45 +70,6 @@ RUN cm run script "get sys-utils-cm" --quiet
 ARG cm_python_version=""
 RUN cm run script "get python3" --version=${cm_python_version}
 
-# Detect/install cmake
-ARG cm_cmake_version=""
-RUN cm run script "get cmake" --version=${cm_cmake_version}
-
-# Install ML engine
-ARG cm_ml_engine=onnxruntime
-ARG cm_ml_engine_version=
-ARG cm_onnxruntime_version=
-
-RUN if [ "${cm_ml_engine}" == "onnxruntime" ] ; then \
-      cm run script "get generic-python-lib _onnxruntime" --version=${cm_ml_engine_version} ; \
-        \
-    elif [ "${cm_ml_engine}" == "pytorch" ] ; then \
-      cm run script "get generic-python-lib _pytorch" --version=${cm_ml_engine_version} ; \
-        \
-    elif [ "${cm_ml_engine}" == "transformers" ] ; then \
-      cm run script "get generic-python-lib _transformers" --version=${cm_ml_engine_version} ; \
-        \
-    elif [ "${cm_ml_engine}" == "tensorflow" ] ; then \
-      cm run script "get generic-python-lib _tf" --version=${cm_ml_engine_version} ; \
-        \
-    elif [ "${cm_ml_engine}" == "tvm-onnx" ] ; then \
-      cm run script "get llvm prebuilt" --version=${cm_llvm_version} ; \
-      cm run script "get tvm _llvm" --version=${cm_ml_engine_version} ; \
-      cm run script "get generic-python-lib _onnxruntime}" --version=${cm_onnxruntime_version} ; \
-        \
-    elif [ "${cm_ml_engine}" == "tvm-pip-install-onnx" ] ; then \
-      cm run script "get llvm prebuilt" --version=${cm_llvm_version} ; \
-      cm run script "get tvm _llvm" --version=${cm_ml_engine_version} ; \
-      cm run script "get generic-python-lib _onnxruntime}" --version=${cm_onnxruntime_version} ; \
-        \
-    elif [ "${cm_ml_engine}" == "qaic" ] ; then \
-      echo "TBD" ; \
-      exit 1 ; \
-        \
-    else \
-      exit 1 ; \
-    fi
-
 # Build MLPerf loadgen (official with correct seed for submission)
 ARG cm_mlperf_inference_loadgen_version=""
 RUN cm run script "get mlperf loadgen" --adr.compiler.tags=gcc --version=${cm_mlperf_inference_loadgen_version} --adr.inference-src-loadgen.version=${cm_mlperf_inference_loadgen_version} -v
@@ -118,11 +79,17 @@ ARG cm_mlperf_inference_src_tags=""
 ARG cm_mlperf_inference_src_version=""
 RUN cm run script "get mlperf inference src ${cm_mlperf_inference_src_tags}" --version=${cm_mlperf_inference_src_version} -v
 
+# Install ML engine
+ARG cm_ml_engine=onnxruntime
+ARG cm_ml_engine_version=
+ARG cm_ml_model=resnet50
+ARG cm_mlperf_implementation=python
+
 # Get MLPerf inference deps for model and a dataset
-RUN cm run script --tags=app,mlperf,inference,generic,reference,_retinanet,_${cm_ml_engine},_cpu,_python --adr.compiler.tags=gcc --fake_run -v
+RUN cm run script --tags=app,mlperf,inference,generic,reference,_${cm_mlperf_implementation},_${cm_ml_engine},_${cm_ml_model},_cpu, --adr.compiler.tags=gcc --fake_run --quiet -v
 
 # Test MLPerf inference
-RUN cm run script --tags=app,mlperf,inference,generic,reference,_retinanet,_${cm_ml_engine},_cpu,_python --adr.compiler.tags=gcc -v
+RUN cm run script --tags=app,mlperf,inference,generic,reference,_${cm_mlperf_implementation},_${cm_ml_engine},_${cm_ml_model},_cpu, --adr.compiler.tags=gcc -v
 
 # CMD entry point
 CMD /bin/bash
