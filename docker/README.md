@@ -230,8 +230,11 @@ cm rm cache -f
 
 You can use CM to automate submissions.
 
-Here is an example for ResNet50. We assume that you have an ImageNet validation data set installed in /datasets/imagenet-2012-val.
-You can run the following CM command to launch a full MLPerf inference run for Offline mode and prepare your submission:
+Here is an example for ResNet50. 
+
+Since it's not possible to automatically download ImageNet, we assume that you have it installed in /datasets/imagenet-2012-val.
+You can run the following CM command to launch a full MLPerf inference run for Offline mode and prepare your submission
+(CM will automatically pick up ImageNet and cache its' environment for further use):
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_valid,_submission  --model=resnet50 --backend=onnxruntime --device=cpu --lang=python \
