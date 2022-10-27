@@ -1,0 +1,1 @@
+docker run -it ckrepo/cm-mlperf-inference-retinanet-ubuntu-cpu:ubuntu-20.04 -c "cm run script --tags=app,mlperf,inference,generic,reference,_python,_retinanet,_onnxruntime,_cpu --rerun --scenario=Offline --mode=performance --test_query_count=10"
