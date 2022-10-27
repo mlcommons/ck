@@ -56,11 +56,12 @@ def preprocess(i):
     test_list = ["TEST01",  "TEST05"]
     if env['CM_MODEL']  in ["resnet50"]:
         test_list.append("TEST04")
-    variation_model= "_" + env.get("CM_MODEL", "resnet50")
-    variation_backend= "_" + env.get("CM_BACKEND", "tf")
-    variation_device= "_" + env.get("CM_DEVICE", "cpu")
-    variation_run_style= "_" + env.get("CM_RUN_STYLE", "test")
-    tags =  "app,mlperf,inference,generic,_python,"+variation_model+","+variation_backend+","+variation_device+","+variation_run_style
+    variation_lang= "_" + env.get("CM_MLPERF_LANG", "python")
+    variation_model= "_" + env.get("CM_MLPERF_MODEL", "resnet50")
+    variation_backend= "_" + env.get("CM_MLPERF_BACKEND", "tf")
+    variation_device= "_" + env.get("CM_MLPERF_DEVICE", "cpu")
+    variation_run_style= "_" + env.get("CM_MLPERF_RUN_STYLE", "test")
+    tags =  "app,mlperf,inference,generic,"+variation_lang+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style
 
     for scenario in env['CM_LOADGEN_SCENARIOS']:
         for mode in env['CM_LOADGEN_MODES']:
