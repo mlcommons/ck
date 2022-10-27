@@ -109,7 +109,7 @@
       },
       "post_deps": [
         {
-          "tags": "generate,mlperf,submission"
+          "tags": "generate,mlperf,inference,submission"
         }
       ]
     },
