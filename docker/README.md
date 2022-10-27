@@ -100,7 +100,7 @@ TestScenario.Offline qps=0.89, mean=8.6960, time=11.180, acc=31.661%, mAP=65.417
 
 ### Using native environment
 
-This demo showcases the use of the [CM (CK2) automation meta-framework](https://github.com/mlcommons/ck) 
+This demo showcases the use of the [MLCommons CM (CK2) automation meta-framework](https://github.com/mlcommons/ck) 
 being developed by the [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
 
 The goal of CM is to modularize ML Systems and automate their benchmarking, optimization and co-design across any software and hardware stack.
