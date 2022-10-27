@@ -98,6 +98,7 @@ TestScenario.Offline qps=0.89, mean=8.6960, time=11.180, acc=31.661%, mAP=65.417
 ```
 
 
+
 ### Using native environment
 
 This demo showcases the use of the [MLCommons CM (CK2) automation meta-framework](https://github.com/mlcommons/ck) 
@@ -227,5 +228,22 @@ cm rm cache -f
 
 ### Preparing end-to-end submission
 
-TBD
+You can use CM to automate submissions.
 
+Here is an example for ResNet50. We assume that you have an ImageNet validation data set installed in /datasets/imagenet-2012-val.
+You can run the following CM command to launch a full MLPerf inference run for Offline mode and prepare your submission:
+
+```bash
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_valid,_submission  --model=resnet50 --backend=onnxruntime --device=cpu --lang=python \
+     --verbose --adr.inference-src.tags=_octoml --adr.compiler.tags=gcc \
+     --imagenet_path=/datasets/imagenet-2012-val --adr.imagenet-preprocessed.tags=_full  
+     --output_dir=~/out/results \
+     --submission_dir=~/out/submission'
+```
+
+You can use Docker too:
+```bash
+docker build -f cm-mlperf-inference-ubuntu-cpu.Dockerfile -t mlcommons/cm-mlperf-inference-resnet50:ubuntu-20.04 .
+docker run -it --privileged -v /datasets/imagenet-2012-val:/datasets/imagenet-2012-val -v ~/out:/home/cmuser/out mlcommons/cm-mlperf-inference-resnet50:ubuntu-22.04  \
+  'cm run script --tags=run,mlperf,inference,generate-run-cmds,_valid,_submission  --model=resnet50 --backend=onnxruntime --device=cpu --lang=python --verbose --adr.inference-src.tags=_octoml --adr.compiler.tags=gcc --imagenet_path=/datasets/imagenet-2012-val --adr.imagenet-preprocessed.tags=_full  --output_dir=/home/cmuser/out/results --submission_dir=/home/cmuser/out/submission'
+```
