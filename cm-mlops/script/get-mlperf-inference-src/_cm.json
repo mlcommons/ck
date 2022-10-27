@@ -23,6 +23,7 @@
   },
   "new_env_keys": [
     "CM_MLPERF_INFERENCE_*",
+    "CM_MLPERF_LAST_RELEASE",
     "+PYTHONPATH"
   ],
   "tags": [
