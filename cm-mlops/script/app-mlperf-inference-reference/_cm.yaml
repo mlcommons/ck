@@ -48,6 +48,9 @@ env_key_mappings:
   CM_HOST_: HOST_
   CM_ML_: ML_
 
+# Env keys which are exposed to higher level scripts
+new_env_keys:
+  - CM_MLPERF_*
 
 
 # Dependencies on other CM scripts
