@@ -102,7 +102,6 @@
     },
     "submission": {
       "base": [
-        "all-scenarios",
         "all-modes"
       ],
       "env": {
@@ -110,7 +109,7 @@
       },
       "post_deps": [
         {
-          "tags": "generate,mlperf,submission,_verify"
+          "tags": "generate,mlperf,submission"
         }
       ]
     },
