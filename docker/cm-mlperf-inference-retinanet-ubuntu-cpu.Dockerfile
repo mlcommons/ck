@@ -77,9 +77,31 @@ RUN cm run script "get cmake" --version=${cm_cmake_version}
 # Install ML engine
 ARG cm_ml_engine=onnxruntime
 ARG cm_ml_engine_version=
+ARG cm_onnxruntime_version=
 
 RUN if [ "${cm_ml_engine}" == "onnxruntime" ] ; then \
       cm run script "get generic-python-lib _onnxruntime" --version=${cm_ml_engine_version} ; \
+        \
+    elif [ "${cm_ml_engine}" == "pytorch" ] ; then \
+      cm run script "get generic-python-lib _pytorch" --version=${cm_ml_engine_version} ; \
+        \
+    elif [ "${cm_ml_engine}" == "tensorflow" ] ; then \
+      cm run script "get generic-python-lib _tf" --version=${cm_ml_engine_version} ; \
+        \
+    elif [ "${cm_ml_engine}" == "tvm-onnx" ] ; then \
+      cm run script "get llvm prebuilt" --version=${cm_llvm_version} ; \
+      cm run script "get tvm _llvm" --version=${cm_ml_engine_version} ; \
+      cm run script "get generic-python-lib _onnxruntime}" --version=${cm_onnxruntime_version} ; \
+        \
+    elif [ "${cm_ml_engine}" == "tvm-pip-install-onnx" ] ; then \
+      cm run script "get llvm prebuilt" --version=${cm_llvm_version} ; \
+      cm run script "get tvm _llvm" --version=${cm_ml_engine_version} ; \
+      cm run script "get generic-python-lib _onnxruntime}" --version=${cm_onnxruntime_version} ; \
+        \
+    elif [ "${cm_ml_engine}" == "qaic" ] ; then \
+      echo "TBD" ; \
+      exit 1 ; \
+        \
     else \
       exit 1 ; \
     fi
