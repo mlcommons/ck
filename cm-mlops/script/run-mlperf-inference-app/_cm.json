@@ -45,6 +45,7 @@
     "mode": "CM_LOADGEN_MODE",
     "num_threads": "CM_NUM_THREADS",
     "output_dir": "OUTPUT_BASE_DIR",
+    "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
     "power": "CM_SYSTEM_POWER",
     "regenerate_files": "CM_REGENERATE_MEASURE_FILES",
     "scenario": "CM_LOADGEN_SCENARIO",
@@ -116,7 +117,7 @@
     "valid": {
       "env": {
         "CM_OUTPUT_FOLDER_NAME": "valid_results",
-        "CM_RUN_STYLE": "valid"
+        "CM_MLPERF_RUN_STYLE": "valid"
       }
     }
   },

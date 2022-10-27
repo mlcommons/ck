@@ -32,7 +32,8 @@
   },
   "input_mapping": {
     "dir": "CM_DATASET_PREPROCESSED_PATH",
-    "threads": "CM_NUM_PREPROCESS_THREADS"
+    "threads": "CM_NUM_PREPROCESS_THREADS",
+    "imagenet_path": "CM_IMAGENET_PATH"
   },
   "new_env_keys": [
     "CM_DATASET_*"
