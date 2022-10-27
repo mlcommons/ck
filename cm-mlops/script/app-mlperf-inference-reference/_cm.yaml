@@ -149,6 +149,8 @@ deps:
 
   ## ImageNet (small for tests)
   - tags: get,dataset,image-classification,imagenet,preprocessed
+    names: 
+    - imagenet-preprocessed
     enable_if_env:
       CM_MODEL:
       - resnet50
