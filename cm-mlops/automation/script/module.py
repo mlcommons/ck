@@ -922,19 +922,7 @@ class CAutomation(Automation):
                 if r['return']>0: return r
 
                 if "add_deps_recursive" in variation_meta:
-                    for dep in variation_meta['add_deps_recursive']:
-                        if 'tags' in variation_meta['add_deps_recursive'][dep]:
-                            variation_meta['add_deps_recursive'][dep]['tags_list'] = variation_meta['add_deps_recursive'][dep]['tags'].split(",")
-                    for dep in add_deps_recursive:
-                        if 'tags' in  add_deps_recursive[dep]:
-                            add_deps_recursive[dep]['tags_list'] = add_deps_recursive[dep]['tags'].split(",")
-                    utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':variation_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
-                    for dep in add_deps_recursive:
-                        if 'tags_list' in add_deps_recursive[dep]:
-                            add_deps_recursive[dep]['tags'] = ",".join(add_deps_recursive[dep]['tags_list'])
-
-
-
+                    self._merge_dicts_with_tags(add_deps_recursive, variation_meta['add_deps_recursive'])
 
 
 
@@ -1005,7 +993,7 @@ class CAutomation(Automation):
             r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
             if r['return']>0: return r
             if "add_deps_recursive" in versions_meta:
-                utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
+                self._merge_dicts_with_tags(add_deps_recursive, versions_meta['add_deps_recursive'])
 
 
  
@@ -1324,7 +1312,7 @@ class CAutomation(Automation):
                         if r['return']>0: return r
 
                         if "add_deps_recursive" in versions_meta:
-                            utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':versions_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
+                            self._merge_dicts_with_tags(add_deps_recursive, versions_meta['add_deps_recursive'])
 
 
             # Check chain of dependencies on other CM scripts
@@ -1821,6 +1809,25 @@ class CAutomation(Automation):
 
         return {'return': 0}
 
+    ##############################################################################
+    def _merge_dicts_with_tags(self, dict1, dict2):
+        """
+        Merges two dictionaries and append any tag strings in them
+        """
+        for dep in dict1:
+            if 'tags' in dict1[dep]:
+                dict1[dep]['tags_list'] = utils.convert_tags_to_list(dict1[dep])
+        for dep in dict2:
+            if 'tags' in dict2[dep]:
+                dict2[dep]['tags_list'] = utils.convert_tags_to_list(dict2[dep])
+        utils.merge_dicts({'dict1':dict1, 'dict2':dict2, 'append_lists':True, 'append_unique':True})
+        for dep in dict1:
+            if 'tags_list' in dict1[dep]:
+                dict1[dep]['tags'] = ",".join(dict1[dep]['tags_list'])
+                del(dict1[dep]['tags_list'])
+        for dep in dict2:
+            if 'tags_list' in dict2[dep]:
+                del(dict2[dep]['tags_list'])
 
     ##############################################################################
     def _get_readme(self, cmd_parts, deps):
