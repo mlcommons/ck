@@ -24,6 +24,14 @@
       "tags": "get,compiler"
     }
   ],
+   "new_env_keys": [
+    "CM_HW_*",
+    "CM_SUT_*"
+  ],
+  "new_state_keys": [
+    "CM_SUT_*",
+    "CM_HW_*"
+  ],
   "tags": [
     "get",
     "sut",

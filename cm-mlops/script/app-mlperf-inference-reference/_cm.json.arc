@@ -5,11 +5,11 @@
   "default_env": {
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1",
-    "CM_OUTPUT_FOLDER_NAME": "test_results",
-    "CM_LOADGEN_SCENARIO": "Offline",
     "CM_LOADGEN_MODE": "accuracy",
-    "CM_TEST_QUERY_COUNT": "10",
-    "CM_RUN_STYLE": "test"
+    "CM_LOADGEN_SCENARIO": "Offline",
+    "CM_OUTPUT_FOLDER_NAME": "test_results",
+    "CM_RUN_STYLE": "test",
+    "CM_TEST_QUERY_COUNT": "10"
   },
   "deps": [
     {
@@ -43,9 +43,13 @@
       "enable_if_env": {
         "CM_BACKEND": [
           "onnxruntime",
-          "tvm-onnx"
+          "tvm-onnx",
+          "tvm-pip-install-onnx"
         ]
       },
+      "names": [
+        "ml-engine-onnxruntime"
+      ],
       "tags": "get,generic-python-lib,_onnxruntime"
     },
     {
@@ -55,6 +59,9 @@
           "tflite"
         ]
       },
+      "names": [
+        "ml-engine-tensorflow"
+      ],
       "tags": "get,generic-python-lib,_tensorflow"
     },
     {
@@ -198,13 +205,12 @@
           "tvm-onnx"
         ]
       },
-      "skip_if_env": {
-        "CM_TVM_PIP_INSTALL": [
-        ]
-      },
       "names": [
-        "tvm"
+        "ml-engine-tvm"
       ],
+      "skip_if_env": {
+        "CM_TVM_PIP_INSTALL": []
+      },
       "tags": "get,tvm,_llvm"
     },
     {
@@ -213,6 +219,9 @@
           "pytorch"
         ]
       },
+      "names": [
+        "ml-engine-pytorch"
+      ],
       "tags": "get,generic-python-lib,_torch"
     },
     {
@@ -220,8 +229,8 @@
     }
   ],
   "env_key_mappings": {
-    "CM_ML_": "ML_",
-    "CM_HOST_": "HOST_"
+    "CM_HOST_": "HOST_",
+    "CM_ML_": "ML_"
   },
   "input_mapping": {
     "count": "CM_LOADGEN_QUERY_COUNT",
@@ -425,18 +434,20 @@
         "CM_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
       }
     },
-    "tvm-pip-install": {
-      "env": {
-        "CM_TVM_PIP_INSTALL": true
-      },
+    "tvm-pip-install-onnx": {
       "deps": [
         {
           "names": [
-            "tvm"
+            "tvm",
+            "ml-engine-tvm"
           ],
           "tags": "get,generic-python-lib,_apache-tvm"
         }
-      ]
+      ],
+      "env": {
+        "CM_BACKEND": "tvm",
+        "CM_TVM_PIP_INSTALL": true
+      }
     },
     "valid": {
       "env": {

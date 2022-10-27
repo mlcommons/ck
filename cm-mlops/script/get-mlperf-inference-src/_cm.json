@@ -16,13 +16,14 @@
       "tags": "get,python3"
     }
   ],
-  "default_env": {
+  "env": {
     "CM_GIT_DEPTH": "--depth 10",
     "CM_GIT_PATCH": "no",
     "CM_GIT_URL": "https://github.com/mlcommons/inference.git"
   },
   "new_env_keys": [
     "CM_MLPERF_INFERENCE_*",
+    "CM_MLPERF_LAST_RELEASE",
     "+PYTHONPATH"
   ],
   "tags": [
