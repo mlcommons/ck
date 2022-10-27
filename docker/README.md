@@ -247,6 +247,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_valid,_submission  
 You can use Docker too:
 ```bash
 docker build -f cm-mlperf-inference-ubuntu-cpu.Dockerfile -t mlcommons/cm-mlperf-inference-resnet50:ubuntu-20.04 .
+chmod -R 777 ~/out
 docker run -it --privileged -v /datasets/imagenet-2012-val:/datasets/imagenet-2012-val -v ~/out:/home/cmuser/out mlcommons/cm-mlperf-inference-resnet50:ubuntu-22.04  \
   'cm run script --tags=run,mlperf,inference,generate-run-cmds,_valid,_submission  --model=resnet50 --backend=onnxruntime --device=cpu --lang=python --verbose --adr.inference-src.tags=_octoml --adr.compiler.tags=gcc --imagenet_path=/datasets/imagenet-2012-val --adr.imagenet-preprocessed.tags=_full  --output_dir=/home/cmuser/out/results --submission_dir=/home/cmuser/out/submission'
 ```
