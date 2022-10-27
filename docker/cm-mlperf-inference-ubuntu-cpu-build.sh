@@ -18,7 +18,7 @@ export CM_ML_MODEL="resnet50"
 export CM_MLPERF_IMPLEMENTATION="python"
 
 time docker build -f cm-mlperf-inference-ubuntu-cpu.Dockerfile \
-   -t ckrepo/cm-mlperf-inference-retinanet-ubuntu-cpu:${CM_OS_NAME}-${CM_OS_VERSION} \
+   -t ckrepo/cm-mlperf-inference-ubuntu-cpu:${CM_OS_NAME}-${CM_OS_VERSION} \
    --build-arg cm_os_name=${CM_OS_NAME} \
    --build-arg cm_os_version=${CM_OS_VERSION} \
    --build-arg cm_version="" \
