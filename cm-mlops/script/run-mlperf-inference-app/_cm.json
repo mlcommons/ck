@@ -116,7 +116,7 @@
     "valid": {
       "env": {
         "CM_OUTPUT_FOLDER_NAME": "valid_results",
-        "CM_RUN_STYLE": "valid"
+        "CM_MLPERF_RUN_STYLE": "valid"
       }
     }
   },
