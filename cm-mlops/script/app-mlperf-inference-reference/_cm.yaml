@@ -181,13 +181,13 @@ deps:
   # Install ML models    
 
   ## ResNet50 (ONNX format, FP32)
-  - enable_if_env:
+  - tags: get,ml-model,image-classification,resnet50,_onnx
+    enable_if_env:
       CM_BACKEND:
       - onnxruntime
       - tvm-onnx
       CM_MODEL:
       - resnet50
-    tags: get,ml-model,image-classification,resnet50,_onnx
 
   ## ResNet50 (Tensorflow format, FP32)
   - tags: get,ml-model,image-classification,resnet50,_tensorflow

@@ -100,6 +100,130 @@ TestScenario.Offline qps=0.89, mean=8.6960, time=11.180, acc=31.661%, mAP=65.417
 
 ### Using native environment
 
+This demo showcases the use of the [CM (CK2) automation meta-framework](https://github.com/mlcommons/ck) 
+being developed by the [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+The goal of CM is to modularize ML Systems and automate their benchmarking, optimization and co-design across any software and hardware stack.
+
+You can run the above demo with MLPerf inference benchmark natively as follows (without Docker).
+
+First, you need to install the CM framework as desribed [here](https://github.com/mlcommons/ck#installation).
+
+Here is the typical installation on Ubuntu 22.04:
+
+```bash
+sudo apt install python3 python3-pip git wget
+python3 -m pip install cmind
+source .profile
+```
+
+Next you need to install a CM repository with [cross-platform automations (portable CM scripts)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) for ML Systems:
+
+```bash
+cm pull repo mlcommons@ck
+```
+
+Note that you can fork [this repository](https://github.com/mlcommons/ck) and use your own one instead of mlcommons@ck for public or private benchmarking.
+For example, we use OctoML fork to improve these automations:
+
+```bash
+cm pull repo octoml@ck
+```
+
+Now we suggest you to install a virtual python via CM to avoid mixing up your native Python installation:
+```bash
+cm run script "install python-venv" --name=mlperf --version=3.10.7
+```
+
+You can now test MLPerf inference benchmark with RetinaNet and ONNX runtime using just one CM command:
+```bash
+cm run script "app mlperf inference generic reference _python _retinanet _onnxruntime _cpu" \
+    --adr.compiler.tags=gcc -v --rerun \
+    --scenario=Offline --mode=accuracy --test_query_count=10
+```
+
+The first run can take around 25 minutes on our GCP instance with 16 cores and 64GB of memory because
+CM will automatically detect and install all the necessary ML components while adapting to your system.
+
+These dependencies are described in a simple YAML [here](https://github.com/octoml/ck/blob/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml).
+
+You should see the following output in the end:
+```txt
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.654
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.827
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.654
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.657
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.566
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.705
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.735
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = 0.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.738
+
+mAP=65.417%
+
+```
+
+Any other run will automatically pick up all dependencies from the CM cache while setting up all environment variable and files to launch the prepared MLPerf inference benchmark.
+For example, you can run these benchmark in performance mode as follows:
+```bash
+cm run script "app mlperf inference generic reference _python _retinanet _onnxruntime _cpu" \ 
+    --adr.compiler.tags=gcc -v --rerun \
+    --scenario=Offline --mode=performance --test_query_count=10
+```
+
+You should see the following output:
+```txt
+TestScenario.Offline qps=0.89, mean=8.6960, time=11.180, acc=31.661%, mAP=65.417%, queries=10, tiles=50.0:8.8280,80.0:9.0455,90.0:9.1450,95.0:9.2375,99.0:9.3114,99.9:9.3281
+```
+
+Note that before running MLPerf inference benchmark, you can also install any version of any ML component via CM.
+They will be cached and automatically picked up when you run MLPerf benchmark via CM.
+
+<details>
+
+Here are examples of CM automations (basic MLOps interoperability blocks) for typical ML components required by MLPerf:
+
+```bash
+cm run script "install python-venv" --version=3.9.6 --name=my-test
+
+cm run script "get cmake"
+cm run script "get llvm prebuilt" --version=14.0.0
+
+cm run script "get generic-python-lib _onnxruntime" --version=1.12.1
+cm run script "get generic-python-lib _pytorch"
+cm run script "get generic-python-lib _transformers"
+cm run script "get generic-python-lib _tf"
+cm run script "get tvm _llvm" --version=0.9.0
+
+cm run script "get mlperf loadgen" --adr.compiler.tags=gcc
+
+cm run script "get mlperf inference src _octoml"
+
+cm run script "get ml-model object-detection resnext50 fp32 _onnx"
+
+cm run script "get dataset object-detection open-images original"
+
+```
+
+</details>
+
+
+
+You can see the state of CM cache at any time as follows:
+```bash
+cm show cache
+cm show cache --tags=ml-model
+```
+
+You can clean the cache at any time as follows:
+```
+cm rm cache -f
+```
+
+
 
 ### Preparing end-to-end submission
 
