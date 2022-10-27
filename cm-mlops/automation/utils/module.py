@@ -368,3 +368,37 @@ class CAutomation(Automation):
                 break
 
         return {'return':0, 'comparison': comparison}
+
+    ##############################################################################
+    def json2yaml(self, i):
+        """
+        Convert JSON file to YAML
+
+        Args:    
+
+           input (str): input file (.json)
+           (output) (str): output file (.yaml)
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        input_file = i['input']
+        output_file = i.get('output','')
+
+        r = utils.load_json(input_file, check_if_exists = True)
+        if r['return']>0: return 
+
+        meta = r['meta']
+
+        if output_file=='':
+            output_file = input_file[:-5] if input_file.endswith('.json') else input_file
+            output_file+='.yaml'
+
+        r = utils.save_yaml(output_file, meta)
+        if r['return']>0: return 
+
+        return {'return':0}
