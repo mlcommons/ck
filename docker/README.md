@@ -56,7 +56,7 @@ time docker build -f cm-mlperf-inference-retinanet-ubuntu-cpu.Dockerfile \
 </details>
 
 
-#### Test Run (accuracy)
+#### Test Run (offline; accuracy)
 
 You can now test this benchmark with RetinaNet and a small data set in accuracy mode as follows:
 ```bash
@@ -84,7 +84,7 @@ mAP=65.417%
 
 
 
-#### Test Run (performance)
+#### Test Run (offline; performance)
 
 You can now test this benchmark with RetinaNet and a small data set in performance mode as follows:
 ```bash
