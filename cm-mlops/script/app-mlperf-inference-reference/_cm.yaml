@@ -27,7 +27,7 @@ default_env:
   CM_RUN_STYLE: test
   CM_TEST_QUERY_COUNT: '10'
 
-# Mapping script inputs to environment variables
+# Map script inputs to environment variables
 input_mapping:
   count: CM_LOADGEN_QUERY_COUNT
   docker: CM_RUN_DOCKER_CONTAINER
@@ -43,9 +43,12 @@ input_mapping:
   scenario: CM_LOADGEN_SCENARIO
   test_query_count: CM_TEST_QUERY_COUNT
 
+# Duplicate CM environment variables to the ones used in native apps
 env_key_mappings:
   CM_HOST_: HOST_
   CM_ML_: ML_
+
+
 
 # Dependencies on other CM scripts
 deps:
@@ -64,6 +67,16 @@ deps:
     names:
     - python3
     
+  # Detect CUDA if required
+  - tags: get,cuda
+    enable_if_env:
+      CM_DEVICE:
+      - gpu
+
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+  
   # Install MLPerf loadgen
   - tags: get,loadgen
     names:
@@ -74,76 +87,100 @@ deps:
     names:
     - inference-src
     
-  
-  - enable_if_env:
+  # Get SUT configs (System Under Test)
+  - tags: get,sut,configs
+
+
+
+  ########################################################################
+  # Install ML engines via CM
+
+  ## Onnx Runtime
+  - tags: get,generic-python-lib,_onnxruntime
+    names:
+    - ml-engine-onnxruntime
+    enable_if_env:
       CM_BACKEND:
       - onnxruntime
       - tvm-onnx
       - tvm-pip-install-onnx
+    
+  ## Pytorch
+  - tags: get,generic-python-lib,_torch
     names:
-    - ml-engine-onnxruntime
-    tags: get,generic-python-lib,_onnxruntime
-
-  - enable_if_env:
-      CM_BACKEND:
-      - tf
-      - tflite
-    names:
-    - ml-engine-tensorflow
-    tags: get,generic-python-lib,_tensorflow
-
-  - enable_if_env:
-      CM_MODEL:
-      - resnet50
-    names:
-    - imagenet-preprocessed
-    tags: get,dataset,image-classification,imagenet,preprocessed
-
-  - enable_if_env:
-      CM_MODEL:
-      - resnet50
-    tags: get,dataset-aux,image-classification,imagenet-aux
-
-  - enable_if_env:
-      CM_MODEL:
-      - retinanet
-    tags: get,generic-python-lib,_pycocotools
-
-  - enable_if_env:
-      CM_MODEL:
-      - retinanet
-    tags: get,dataset,object-detection,open-images,original
-
-  - enable_if_env:
-      CM_MODEL:
-      - bert-99.9
-    tags: get,dataset,squad,original
-
-  - enable_if_env:
-      CM_MODEL:
-      - bert-99.9
-    tags: get,generic-python-lib,_transformers
-
-  - enable_if_env:
-      CM_MODEL:
-      - bert-99.9
-    tags: get,generic-python-lib,_tokenization
-
-  - enable_if_env:
-      CM_BACKEND:
-      - tf
-      - tflite
-      CM_MODEL:
-      - resnet50
-    tags: get,ml-model,image-classification,resnet50,_tensorflow
-
-  - enable_if_env:
+    - ml-engine-pytorch
+    enable_if_env:
       CM_BACKEND:
       - pytorch
+
+  ## Transformers
+  - tags: get,generic-python-lib,_transformers
+    names:
+    - ml-engine-transformers
+    enable_if_env:
+      CM_MODEL:
+      - bert-99.9
+
+  ## Tensorflow
+  - tags: get,generic-python-lib,_tensorflow
+    names:
+    - ml-engine-tensorflow
+    enable_if_env:
+      CM_BACKEND:
+      - tf
+      - tflite
+
+  ## TVM with LLVM and ONNX models
+  - tags: get,tvm,_llvm
+    names:
+    - ml-engine-tvm
+    enable_if_env:
+      CM_BACKEND:
+      - tvm-onnx
+    skip_if_env:
+      CM_TVM_PIP_INSTALL: []
+    
+    
+      
+
+
+  ########################################################################
+  # Install datasets
+
+  ## ImageNet (small for tests)
+  - tags: get,dataset,image-classification,imagenet,preprocessed
+    enable_if_env:
       CM_MODEL:
       - resnet50
-    tags: get,ml-model,image-classification,resnet50,_pytorch
 
+  - tags: get,dataset-aux,image-classification,imagenet-aux
+    enable_if_env:
+      CM_MODEL:
+      - resnet50
+
+  ## Open Images (full) for RetinaNet
+  - tags: get,dataset,object-detection,open-images,original
+    enable_if_env:
+      CM_MODEL:
+      - retinanet
+    
+  - tags: get,generic-python-lib,_pycocotools
+    enable_if_env:
+      CM_MODEL:
+      - retinanet
+    
+  ## Squad for BERT
+  - tags: get,dataset,squad,original
+    enable_if_env:
+      CM_MODEL:
+      - bert-99.9
+    
+
+
+  ########################################################################
+  # Install ML models    
+
+  ## ResNet50 (ONNX format, FP32)
   - enable_if_env:
       CM_BACKEND:
       - onnxruntime
@@ -152,51 +189,61 @@ deps:
       - resnet50
     tags: get,ml-model,image-classification,resnet50,_onnx
 
-  - enable_if_env:
+  ## ResNet50 (Tensorflow format, FP32)
+  - tags: get,ml-model,image-classification,resnet50,_tensorflow
+    enable_if_env:
+      CM_BACKEND:
+      - tf
+      - tflite
+      CM_MODEL:
+      - resnet50
+
+  ## ResNet50 (PyTorch format, FP32)
+  - tags: get,ml-model,image-classification,resnet50,_pytorch
+    enable_if_env:
+      CM_BACKEND:
+      - pytorch
+      CM_MODEL:
+      - resnet50
+    
+  ## RetinaNet (ONNX format, FP32)
+  - tags: get,ml-model,object-detection,resnext50,fp32,_onnx
+    enable_if_env:
+      CM_BACKEND:
+      - onnxruntime
+      CM_MODEL:
+      - retinanet
+    
+  ## RetinaNet (PyTorch format, FP32)
+  - tags: get,ml-model,object-detection,resnext50,fp32,_pytorch
+    enable_if_env:
+      CM_BACKEND:
+      - pytorch
+      CM_MODEL:
+      - retinanet
+  
+  ## BERT (ONNX format)
+  - tags: get,ml-model,language-processing,bert,_onnx
+    enable_if_env:
       CM_BACKEND:
       - onnxruntime
       CM_MODEL:
       - bert-99.9
-    tags: get,ml-model,language-processing,bert,_onnx
-
-  - enable_if_env:
-      CM_BACKEND:
-      - pytorch
+    
+  - tags: get,generic-python-lib,_tokenization
+    enable_if_env:
       CM_MODEL:
-      - retinanet
-    tags: get,ml-model,object-detection,resnext50,fp32,_pytorch
-
-  - enable_if_env:
-      CM_BACKEND:
-      - onnxruntime
-      CM_MODEL:
-      - retinanet
-    tags: get,ml-model,object-detection,resnext50,fp32,_onnx
-
-  - enable_if_env:
-      CM_DEVICE:
-      - gpu
-    tags: get,cuda
-
-  - enable_if_env:
-      CM_BACKEND:
-      - tvm-onnx
-    names:
-    - ml-engine-tvm
-    skip_if_env:
-      CM_TVM_PIP_INSTALL: []
-    tags: get,tvm,_llvm
-
-  - enable_if_env:
-      CM_BACKEND:
-      - pytorch
-    names:
-    - ml-engine-pytorch
-    tags: get,generic-python-lib,_torch
-
-  - tags: get,sut,configs
+      - bert-99.9
+    
 
 
+
+
+
+
+
+
+# Variations to customize dependencies
 variations:
   # Implementation (CPP or Python)
   cpp:
