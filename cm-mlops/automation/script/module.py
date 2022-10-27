@@ -922,7 +922,16 @@ class CAutomation(Automation):
                 if r['return']>0: return r
 
                 if "add_deps_recursive" in variation_meta:
+                    for dep in variation_meta['add_deps_recursive']:
+                        if 'tags' in variation_meta['add_deps_recursive'][dep]:
+                            variation_meta['add_deps_recursive'][dep]['tags_list'] = variation_meta['add_deps_recursive'][dep]['tags'].split(",")
+                    for dep in add_deps_recursive:
+                        if 'tags' in  add_deps_recursive[dep]:
+                            add_deps_recursive[dep]['tags_list'] = add_deps_recursive[dep]['tags'].split(",")
                     utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':variation_meta['add_deps_recursive'], 'append_lists':True, 'append_unique':True})
+                    for dep in add_deps_recursive:
+                        if 'tag_list' in add_deps_recursive[dep]:
+                            add_deps_recursive[dep]['tags'] = ",".join(add_deps_recursive[dep]['tags_list'])
 
 
 
