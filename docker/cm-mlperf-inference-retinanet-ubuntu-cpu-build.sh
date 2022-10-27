@@ -3,7 +3,7 @@
 # ubuntu [18.04 ; 20.04 ; 22.04]
 # debian [9 ; 10]
 
-export CM_CACHE="--no-cache"
+#export CM_CACHE="--no-cache"
 
 #export CM_OS_NAME="debian"
 #export CM_OS_VERSION="10"
