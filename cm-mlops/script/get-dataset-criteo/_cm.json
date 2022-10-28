@@ -4,10 +4,10 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "env": {
-    "CM_DATASET": "CRITEO"
+    "CM_DATASET": "terabyte"
   },
   "new_env_keys": [
-    "CM_DATASET_*"
+    "CM_DATASET*"
   ],
   "tags": [
     "get",
