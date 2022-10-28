@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ -n ${CRITEO_PATH} ]; then
+if [ -n ${CM_CRITEO_PATH} ]; then
   echo "CM_DATASET_PATH=${CRITEO_PATH}" > tmp-run-env.out
   exit 0
 fi
