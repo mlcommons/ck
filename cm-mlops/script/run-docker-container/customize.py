@@ -43,9 +43,17 @@ def preprocess(i):
 def postprocess(i):
     env = i['env']
     run_cmds = []
+    mount_cmds = []
+    run_opts = ''
     if 'CM_DOCKER_PRE_RUN_COMMANDS' in env:
         for pre_run_cmd in env['CM_DOCKER_PRE_RUN_COMMANDS']:
             run_cmds.append(pre_run_cmd)
+    if 'CM_DOCKER_VOLUME_MOUNTS' in env:
+        for mounts in env['CM_DOCKER_VOLUME_MOUNTS']:
+            mount_cmds.append(mounts)
+    if 'CM_DOCKER_PASS_USER_GROUP' in env:
+        run_opts += " --group-add $(id -g $USER) "
+
     run_cmd = env['CM_DOCKER_IMAGE_RUN_CMD'] + " " +env.get('CM_DOCKER_RUN_CMD_EXTRA', '').replace(":","=")
     run_cmds.append(run_cmd)
     if 'CM_DOCKER_POST_RUN_COMMANDS' in env:
@@ -53,9 +61,13 @@ def postprocess(i):
             run_cmds.append(post_run_cmd)
 
     run_cmd = " && ".join(run_cmds)
-    print("Running "+run_cmd+" inside docker container")
-    CONTAINER="docker run -dt --rm " + env['CM_DOCKER_IMAGE_REPO'] + ":" + env['CM_DOCKER_IMAGE_TAG'] + " bash"
+    if mount_cmds:
+        mount_cmd_string = " -v " + "-v".join(mount_cmds)
+    run_opts += mount_cmd_string
+    CONTAINER="docker run -dt "+ run_opts + " --rm " + env['CM_DOCKER_IMAGE_REPO'] + ":" + env['CM_DOCKER_IMAGE_TAG'] + " bash"
     CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + run_cmd + "' && docker kill $ID >/dev/null"
+    print("Container launch command: " + CMD)
+    print("Running "+run_cmd+" inside docker container")
     docker_out = subprocess.check_output(CMD, shell=True).decode("utf-8")
     print(docker_out)
 
