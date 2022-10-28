@@ -10,8 +10,8 @@
         "python"
       ],
       "tags": "get,python3",
-      "enable_if_env": {
-        "CM_IMAGENET_PREPROCESSED_PATH": [ ]
+      "skip_if_env": {
+        "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
       }
     },
     {
@@ -19,14 +19,14 @@
         "original-dataset"
       ],
       "tags": "get,dataset,image-classification,original",
-      "enable_if_env": {
-        "CM_IMAGENET_PREPROCESSED_PATH": [ ]
+      "skip_if_env": {
+        "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
       }
     },
     {
       "tags": "get,dataset-aux,image-classification,imagenet-aux",
-      "enable_if_env": {
-        "CM_IMAGENET_PREPROCESSED_PATH": [ ]
+      "skip_if_env": {
+        "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
       }
     },
     {
@@ -34,8 +34,8 @@
         "inference-src"
       ],
       "tags": "mlperf,mlcommons,inference,source,src,_octoml",
-      "enable_if_env": {
-        "CM_IMAGENET_PREPROCESSED_PATH": [ ]
+      "skip_if_env": {
+        "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
       }
     }
   ],
