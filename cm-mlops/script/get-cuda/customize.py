@@ -35,7 +35,7 @@ def preprocess(i):
                 return r
 
             if r['return'] == 16:
-                env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+                env['CM_REQUIRE_INSTALL'] = "yes"
                 return {'return': 0}
             else:
                 return r

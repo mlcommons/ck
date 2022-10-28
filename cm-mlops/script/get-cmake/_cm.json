@@ -4,7 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "env": {
-    "CM_TMP_REQUIRE_INSTALL": "no"
+    "CM_REQUIRE_INSTALL": "no"
   },
   "deps": [
     {
@@ -18,7 +18,7 @@
   "prehook_deps": [
     {
       "enable_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [
+        "CM_REQUIRE_INSTALL": [
           "yes"
         ]
       },

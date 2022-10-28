@@ -35,7 +35,7 @@ def preprocess(i):
                 # If artifact is not found and we are not on windows
                 # we should try to install python from src
                 # in prehook_deps
-                env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+                env['CM_REQUIRE_INSTALL'] = "yes"
 
                 return {'return': 0}
             else:
