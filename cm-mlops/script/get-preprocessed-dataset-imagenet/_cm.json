@@ -9,31 +9,45 @@
         "python3",
         "python"
       ],
-      "tags": "get,python3"
+      "tags": "get,python3",
+      "enable_if_env": {
+        "CM_IMAGENET_PREPROCESSED_PATH": [ ]
+      }
     },
     {
       "names": [
         "original-dataset"
       ],
-      "tags": "get,dataset,image-classification,original"
+      "tags": "get,dataset,image-classification,original",
+      "enable_if_env": {
+        "CM_IMAGENET_PREPROCESSED_PATH": [ ]
+      }
     },
     {
-      "tags": "get,dataset-aux,image-classification,imagenet-aux"
+      "tags": "get,dataset-aux,image-classification,imagenet-aux",
+      "enable_if_env": {
+        "CM_IMAGENET_PREPROCESSED_PATH": [ ]
+      }
     },
     {
       "names": [
         "inference-src"
       ],
-      "tags": "mlperf,mlcommons,inference,source,src,_octoml"
+      "tags": "mlperf,mlcommons,inference,source,src,_octoml",
+      "enable_if_env": {
+        "CM_IMAGENET_PREPROCESSED_PATH": [ ]
+      }
     }
   ],
   "env": {
-    "CM_DATASET": "IMAGENET"
+    "CM_DATASET": "imagenet",
+    "CM_IMAGENET_PREPROCESSED_FILENAME": "ILSVRC2012_val_00050000.JPEG.npy" 
   },
   "input_mapping": {
     "dir": "CM_DATASET_PREPROCESSED_PATH",
     "threads": "CM_NUM_PREPROCESS_THREADS",
-    "imagenet_path": "CM_IMAGENET_PATH"
+    "imagenet_path": "CM_IMAGENET_PATH",
+    "imagenet_preprocessed_path": "CM_IMAGENET_PREPROCESSED_PATH"
   },
   "new_env_keys": [
     "CM_DATASET_*"
