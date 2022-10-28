@@ -359,10 +359,12 @@ variations:
   cpu:
     env:
       CM_DEVICE: cpu
+      USE_GPU: no
 
   gpu:
     env:
       CM_DEVICE: gpu
+      USE_GPU: yes
 
   # Execution modes
   fast:

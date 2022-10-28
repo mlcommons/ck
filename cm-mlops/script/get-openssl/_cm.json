@@ -5,7 +5,7 @@
   "cache": true,
   "clean_files": [],
   "env": {
-    "CM_TMP_REQUIRE_INSTALL": "no"
+    "CM_REQUIRE_INSTALL": "no"
   },
   "new_env_keys": [
     "CM_OPENSSL_*"
@@ -13,7 +13,7 @@
   "prehook_deps": [
     {
       "enable_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [
+        "CM_REQUIRE_INSTALL": [
           "yes"
         ]
       },

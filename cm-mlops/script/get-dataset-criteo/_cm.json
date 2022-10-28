@@ -15,6 +15,9 @@
     "criteo",
     "original"
   ],
+  "input_mapping": {
+    "criteo_path": "CM_CRITEO_PATH"
+  },
   "default_env": {
     "CM_BACKUP_ZIPS": "no"
   },

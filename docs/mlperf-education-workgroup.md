@@ -163,8 +163,7 @@ or using this [GitHub ticket](https://github.com/mlcommons/ck/issues/325).
 
 ## Mailing list
 
-Please use this [Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) 
-to be added to our communication or open a ticket [here](https://github.com/mlcommons/ck/issues).
+Please use this [Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join our mailing list.
 
 
 ## Working Group Resources
@@ -184,5 +183,10 @@ to be added to our communication or open a ticket [here](https://github.com/mlco
 
 ## Contacts
 
-* OctoML: [Grigori Fursin]( https://cKnowledge.io/@gfursin ) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+* [Grigori Fursin]( https://cKnowledge.io/@gfursin ) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) ([OctoML](https://octoml.ai))
+
+## Acknowledgments
+
+This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
+and many great [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 

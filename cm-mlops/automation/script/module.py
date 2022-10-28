@@ -40,9 +40,8 @@ class CAutomation(Automation):
                                'CM_OUTPUT',
                                'CM_NAME',
                                'CM_EXTRA_CACHE_TAGS',
-                               'CM_TMP_FAIL_IF_NOT_FOUND',
-                               'CM_TMP_PATH',
-                               'CM_TMP_PATH_IGNORE_NON_EXISTANT',
+                               'CM_TMP_*',
+                               'CM_GIT_*',
                                'CM_RENEW_CACHE_ENTRY']
 
         self.input_flags_converted_to_tmp_env = ['path'] 
@@ -333,7 +332,7 @@ class CAutomation(Automation):
 
           (extra_cache_tags) (str): converted to env.CM_EXTRA_CACHE_TAGS and used to add to caching (local env)
 
-          (quiet) (bool): if True, set env.CM_TMP_QUIET to "yes" and attempt to skip questions
+          (quiet) (bool): if True, set env.CM_QUIET to "yes" and attempt to skip questions
                           (the developers have to support it in pre/post processing and scripts)
 
           (skip_cache) (bool): if True, skip caching and run in current directory
@@ -370,8 +369,8 @@ class CAutomation(Automation):
           (debug_script) (bool): if True, debug current script (set debug_script_tags to the tags of a current script)
           (detected_versions) (dict): All the used scripts and their detected_versions
 
-          (verbose) (bool): if True, print all tech. info about script execution
-          (v) (bool): the same as verbose
+          (silent) (bool): if True, hides all tech. info about script execution (no verbose)
+          (s) (bool): the same as silent
 
           (time) (bool): if True, print script execution time (on if verbose == True)
 
@@ -431,8 +430,10 @@ class CAutomation(Automation):
 
         print_env = i.get('print_env', False)
 
-        verbose = i.get('verbose', False)
-        if not verbose: verbose = i.get('v', False)
+        #verbose = i.get('verbose', False)
+        #if not verbose: verbose = i.get('v', False)
+        verbose = not i.get('silent', False)
+        if verbose: verbose = not i.get('s', False)
 
         show_time = i.get('time', False)
 
@@ -463,8 +464,8 @@ class CAutomation(Automation):
         env['CM_TMP_CURRENT_PATH'] = current_path
 
         # Check if quiet mode
-        quiet = i.get('quiet', False) if 'quiet' in i else (env.get('CM_TMP_QUIET','').lower() == 'yes')
-        if quiet: env['CM_TMP_QUIET'] = 'yes'
+        quiet = i.get('quiet', False) if 'quiet' in i else (env.get('CM_QUIET','').lower() == 'yes')
+        if quiet: env['CM_QUIET'] = 'yes'
 
         skip_remembered_selections = i.get('skip_remembered_selections', False) if 'skip_remembered_selections' in i \
             else (env.get('CM_SKIP_REMEMBERED_SELECTIONS','').lower() == 'yes')
@@ -2212,7 +2213,7 @@ class CAutomation(Automation):
             path_list.append(os.path.dirname(path_tmp))
 
         # Check if quiet
-        select_default = True if env.get('CM_TMP_QUIET','') == 'yes' else False
+        select_default = True if env.get('CM_QUIET','') == 'yes' else False
 
         # Prepare paths to search
         r = self.find_file_in_paths({'paths': path_list,

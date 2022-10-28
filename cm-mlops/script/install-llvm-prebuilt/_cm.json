@@ -20,7 +20,7 @@
   "post_deps": [
     {
       "skip_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [
+        "CM_REQUIRE_INSTALL": [
           "yes"
         ]
       },

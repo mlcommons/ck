@@ -21,7 +21,7 @@ def preprocess(i):
                                        'recursion_spaces':i['recursion_spaces']})
     if r['return']>0:
         if r['return'] == 16 and os_info['platform'] != 'windows':
-            env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+            env['CM_REQUIRE_INSTALL'] = "yes"
             return {'return': 0}
         return r
 

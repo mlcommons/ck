@@ -260,3 +260,8 @@ to the new CM format - please open a [ticket](https://github.com/mlcommons/ck/is
 * [Grigori Fursin](https://cKnowledge.io@gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
   ([OctoML](https://octoml.ai) and [MLCommons](https://mlcommons.org))
 
+# Acknowledgments
+
+This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
+and many great [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+

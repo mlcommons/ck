@@ -12,7 +12,9 @@
     "run_cmd_extra": "CM_DOCKER_RUN_CMD_EXTRA",
     "real_run": "CM_REAL_RUN",
     "pre_run_cmds": "CM_DOCKER_PRE_RUN_COMMANDS",
-    "post_run_cmds": "CM_DOCKER_POST_RUN_COMMANDS"
+    "post_run_cmds": "CM_DOCKER_POST_RUN_COMMANDS",
+    "pass_user_group": "CM_DOCKER_PASS_USER_GROUP",
+    "mounts": "CM_DOCKER_VOLUME_MOUNTS"
   },
   "prehook_deps": [
     {
