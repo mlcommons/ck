@@ -1,7 +1,8 @@
 #!/bin/bash
 
-if [ -n ${CM_CRITEO_PATH} ]; then
-  echo "CM_DATASET_PATH=${CRITEO_PATH}" > tmp-run-env.out
+if [ ! -z ${CM_CRITEO_PATH+x} ]; then
+  echo "CM_DATASET_PATH=${CM_CRITEO_PATH}" > tmp-run-env.out
+  test $? -eq 0 || exit 1
   exit 0
 fi
 

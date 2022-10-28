@@ -15,7 +15,7 @@
     "criteo",
     "original"
   ],
-  "input_mappings": {
+  "input_mapping": {
     "criteo_path": "CM_CRITEO_PATH"
   },
   "default_env": {
