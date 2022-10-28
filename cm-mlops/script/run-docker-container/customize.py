@@ -63,6 +63,8 @@ def postprocess(i):
     run_cmd = " && ".join(run_cmds)
     if mount_cmds:
         mount_cmd_string = " -v " + "-v".join(mount_cmds)
+    else:
+        mount_cmd_string = ''
     run_opts += mount_cmd_string
     CONTAINER="docker run -dt "+ run_opts + " --rm " + env['CM_DOCKER_IMAGE_REPO'] + ":" + env['CM_DOCKER_IMAGE_TAG'] + " bash"
     CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + run_cmd + "' && docker kill $ID >/dev/null"
