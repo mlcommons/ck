@@ -136,10 +136,7 @@
       ]
     },
     "nvidia-pycocotools": {
-      "base": [ "pycocotools" ],
-      "env": {
-        "CM_PIP_URL": "pycocotools @ git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI"
-      }
+      "base": [ "pycocotools" ]
     },
     "apache-tvm": {
       "env": {

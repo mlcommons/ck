@@ -65,6 +65,14 @@
         "CM_GIT_PATCH": "yes"
       }
     },
+    "nvidia-pycocotools": {
+      "env": {
+        "CM_GIT_PATCH_FILENAME": "coco.patch"
+      },
+      "base": [
+        "patch"
+      ]
+    },
     "recurse-submodules": {
       "env": {
         "CM_GIT_RECURSE_SUBMODULES": "--recurse-submodules"

@@ -1,0 +1,51 @@
+{
+  "alias": "run-terraform",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "clean_files": [],
+  "deps": [
+    {
+      "tags": "get,terraform"
+    }
+  ],
+  "tags": [
+    "run",
+    "terraform"
+  ],
+  "new_env_keys": [
+    "CM_TERRAFORM_RUN_DIR",
+    "CM_TERRAFORM_CONFIG_DIR"
+  ],
+  "uid": "ec344bd44af144d7",
+  "post_deps": [
+    {
+      "names": [
+        "destroy-cmd"
+      ],
+      "tags": "destroy,terraform",
+      "enable_if_env": {
+        "CM_DESTROY_TERRAFORM": [ "on" ]
+      },
+      "dynamic": true
+    }
+  ],
+  "input_mapping": {
+    "destroy": "CM_DESTROY_TERRAFORM"
+  },
+  "variations": {
+    "aws": {
+      "env": {
+        "CM_TERRAFORM_CONFIG_DIR_NAME": "aws"
+      }
+    },
+    "t2.micro": {
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "t2.micro"
+      }
+    }
+  }
+}
