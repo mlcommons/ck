@@ -18,8 +18,9 @@ if [ ! -d "inference" ]; then
 fi
 
 if [ ${CM_GIT_PATCH} == "yes" ]; then
-  echo "Applying patch ${SCRIPT_DIR}/patch/git.patch"
+  patch_filename=${CM_GIT_PATCH_FILENAME:-git.patch}
+  echo "Applying patch ${SCRIPT_DIR}/patch/$patch_filename"
   cd inference
-  git apply ${SCRIPT_DIR}/patch/git.patch
+  git apply ${SCRIPT_DIR}/patch/"$patch_filename"
   if [ "${?}" != "0" ]; then exit 1; fi
 fi

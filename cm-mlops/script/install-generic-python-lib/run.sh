@@ -14,7 +14,9 @@ if [[ ${CM_PYTHON_PACKAGE_NAME}  == "tensorflow" ]]; then
 fi
 
 if [[ -n ${CM_PIP_URL} ]]; then
-    ${CM_PYTHON_BIN_WITH_PATH} -m pip install ${CM_PIP_URL}
+    cmd="${CM_PYTHON_BIN_WITH_PATH} -m pip install ${CM_PIP_URL}"
+    echo $cmd
+    eval $cmd
     test $? -eq 0 || exit 1
     exit 0
 fi
