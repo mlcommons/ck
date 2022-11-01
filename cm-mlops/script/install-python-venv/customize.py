@@ -9,7 +9,7 @@ def preprocess(i):
 
     meta = i['meta']
 
-    quiet = (env.get('CM_TMP_QUIET', False) == 'yes')
+    quiet = (env.get('CM_QUIET', False) == 'yes')
 
     automation = i['automation']
 

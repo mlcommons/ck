@@ -11,7 +11,7 @@ def preprocess(i):
 
     automation = i['automation']
 
-    quiet = (env.get('CM_TMP_QUIET', False) == 'yes')
+    quiet = (env.get('CM_QUIET', False) == 'yes')
 
     name = env.get('CM_NAME','')
     if name != '':

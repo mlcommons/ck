@@ -17,6 +17,9 @@
     "CM_TERRAFORM_RUN_DIR",
     "CM_TERRAFORM_CONFIG_DIR"
   ],
+  "new_state_keys": [
+    "CM_TF_NEW_INSTANCES_STATE"
+  ],
   "uid": "ec344bd44af144d7",
   "post_deps": [
     {
@@ -31,7 +34,12 @@
     }
   ],
   "input_mapping": {
-    "destroy": "CM_DESTROY_TERRAFORM"
+    "destroy": "CM_DESTROY_TERRAFORM",
+    "cminit": "CM_TERRAFORM_CM_INIT",
+    "key_file": "CM_SSH_KEY_FILE"
+  },
+  "default_env": {
+    "TF_VAR_SECURITY_GROUP_ID": "sg-0783752c97d2e011d"
   },
   "variations": {
     "aws": {
