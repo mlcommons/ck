@@ -4,7 +4,7 @@ echo "************************************************"
 echo "Installing some system dependencies via sudo apt"
 
 
-if [[ "$CM_TMP_QUIET" != "yes" ]]; then 
+if [[ "$CM_QUIET" != "yes" ]]; then 
  echo "Enter skip to skip this step or press enter to continue:"
  read DUMMY
 
