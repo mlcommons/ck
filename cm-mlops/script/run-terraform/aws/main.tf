@@ -14,6 +14,10 @@ variable INSTANCE_TYPE {
   type = string
   description = "AWS instance type"
 }
+variable SECURITY_GROUP_ID {
+  type = string
+  description = "AWS instance security group id"
+}
 terraform {
   required_providers {
     aws = {
@@ -22,7 +26,6 @@ terraform {
     }
   }
 }
-
 # Configure the AWS Provider
 provider "aws" {
   region = "us-west-2"
@@ -36,5 +39,8 @@ resource "aws_instance" "cm" {
   instance_initiated_shutdown_behavior = "terminate"
   instance_type           = var.INSTANCE_TYPE
   key_name = "cmuser"
+  vpc_security_group_ids = [
+    var.SECURITY_GROUP_ID
+  ]
 }
 
