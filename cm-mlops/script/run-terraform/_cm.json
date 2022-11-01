@@ -36,10 +36,13 @@
   "input_mapping": {
     "destroy": "CM_DESTROY_TERRAFORM",
     "cminit": "CM_TERRAFORM_CM_INIT",
-    "key_file": "CM_SSH_KEY_FILE"
+    "key_file": "CM_SSH_KEY_FILE",
+    "disk_size": "TF_VAR_DISK_GBS"
   },
   "default_env": {
-    "TF_VAR_SECURITY_GROUP_ID": "sg-0783752c97d2e011d"
+    "TF_VAR_SECURITY_GROUP_ID": "sg-0783752c97d2e011d",
+    "TF_VAR_CPU_COUNT": "1",
+    "TF_VAR_DISK_GBS": "8"
   },
   "variations": {
     "aws": {
@@ -53,6 +56,31 @@
       ],
       "env": {
         "TF_VAR_INSTANCE_TYPE": "t2.micro"
+      }
+    },
+    "c5.4xlarge": {
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "c5.4xlarge",
+        "TF_VAR_DISK_GBS": "80"
+      }
+    },
+    "c5.12xlarge": {
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "c5.12xlarge"
+      }
+    },
+    "c5d.9xlarge": {
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "c5d.9xlarge"
       }
     }
   }

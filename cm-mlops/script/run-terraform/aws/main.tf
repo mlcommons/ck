@@ -18,6 +18,15 @@ variable SECURITY_GROUP_ID {
   type = string
   description = "AWS instance security group id"
 }
+variable CPU_COUNT {
+  default = 1
+  description = "AWS CPU count"
+}
+variable DISK_GBS {
+  default = 8
+  description = "AWS Disk space in GBs"
+}
+
 terraform {
   required_providers {
     aws = {
@@ -42,5 +51,9 @@ resource "aws_instance" "cm" {
   vpc_security_group_ids = [
     var.SECURITY_GROUP_ID
   ]
+  root_block_device {
+    delete_on_termination = true
+    volume_size           = var.DISK_GBS
+  }
 }
 
