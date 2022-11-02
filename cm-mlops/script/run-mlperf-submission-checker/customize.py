@@ -18,7 +18,7 @@ def preprocess(i):
         skip_compliance = ""
 
     CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join('"'+env['CM_MLPERF_INFERENCE_SOURCE']+'"', "tools", "submission",
-            "submission-checker.py") + " --input " + submission_dir + " --submitter " + submitter + \
+            "submission_checker.py") + " --input " + submission_dir + " --submitter " + submitter + \
             skip_compliance
     ret = os.system(CMD)
 
