@@ -15,10 +15,13 @@ def preprocess(i):
     if output_dir == "":
         output_dir = os.getcwd()
     output_file = env.get("CM_TAR_OUTFILE", "")
+    input_dirname = os.path.basename(input_dir)
     if output_file == "":
-        output_file = os.path.basename(input_dir)+".gz"
-
-    CMD =  'tar -cvzf ' + os.path.join(output_dir, output_file) + ' ' + input_dir
+        output_file = input_dirname+".gz"
+    from pathlib import Path
+    input_path = Path(input_dir)
+    cd_dir = input_path.parent.absolute())
+    CMD =  'tar --directory '+cd_dir+' -cvzf ' + os.path.join(output_dir, output_file) + ' ' + input_dirname
     ret = os.system(CMD)
 
     return {'return':0}
