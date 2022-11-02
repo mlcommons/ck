@@ -23,6 +23,9 @@
       "tags": "get,openssl"
     }
   ],
+  "new_env_keys": [
+    "CM_OPENSSL_*"
+  ],
   "tags": [
     "install",
     "src",
