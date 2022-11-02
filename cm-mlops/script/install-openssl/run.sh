@@ -15,4 +15,3 @@ make -j${CM_MAKE_CORES}
 test $? -eq 0 || exit 1
 sudo make install
 sudo ln -sf /usr/local/bin/openssl /usr/bin/openssl
-test $? -eq 0 || exit 1
