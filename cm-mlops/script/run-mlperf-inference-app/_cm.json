@@ -83,21 +83,11 @@
         "CM_LOADGEN_COMPLIANCE": "yes"
       }
     },
-    "cpu": {
-      "env": {
-        "CM_DEVICE": "cpu"
-      }
-    },
     "fast": {
       "env": {
         "CM_FAST_FACTOR": "5",
         "CM_OUTPUT_FOLDER_NAME": "fast_results",
         "CM_RUN_STYLE": "fast"
-      }
-    },
-    "gpu": {
-      "env": {
-        "CM_DEVICE": "gpu"
       }
     },
     "submission": {
