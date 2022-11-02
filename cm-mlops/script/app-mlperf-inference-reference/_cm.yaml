@@ -228,13 +228,29 @@ deps:
       - retinanet
   
   ## BERT (ONNX format)
-  - tags: get,ml-model,language-processing,bert,_onnx
+  - tags: get,ml-model,language-processing,bert,_onnx-fp32
     enable_if_env:
       CM_BACKEND:
       - onnxruntime
       CM_MODEL:
       - bert-99.9
-    
+
+  ## BERT (TF format)
+  - tags: get,ml-model,language-processing,bert,_tf
+    enable_if_env:
+      CM_BACKEND:
+      - tf
+      CM_MODEL:
+      - bert-99.9
+ 
+  ## BERT (Pytorch format)
+  - tags: get,ml-model,language-processing,bert,_pytorch-fp32
+    enable_if_env:
+      CM_BACKEND:
+      - pytorch
+      CM_MODEL:
+      - bert-99.9
+
   - tags: get,generic-python-lib,_tokenization
     enable_if_env:
       CM_MODEL:
