@@ -6,9 +6,9 @@
   "clean_files": [],
   "deps": [],
   "input_mapping": {
-    "input_dir": "CM_INPUT_DIR",
-    "outfile": "CM_OUTFILE",
-    "output_dir": "CM_OUTPUT_DIR"
+    "input_dir": "CM_TAR_INPUT_DIR",
+    "outfile": "CM_TAR_OUTFILE",
+    "output_dir": "CM_TAR_OUTPUT_DIR"
   },
   "tags": [
     "run",

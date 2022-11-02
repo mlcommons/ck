@@ -105,7 +105,8 @@
         "all-modes"
       ],
       "env": {
-        "CM_MLPERF_SUBMISSION_RUN": "yes"
+        "CM_MLPERF_SUBMISSION_RUN": "yes",
+        "CM_TAR_SUBMISSION_DIR": "yes"
       },
       "post_deps": [
         {

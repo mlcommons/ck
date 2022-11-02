@@ -45,6 +45,14 @@
         ]
       },
       "tags": "submission,checker,mlc"
+    },
+    {
+      "enable_if_env": {
+        "CM_TAR_SUBMISSION_DIR": [
+          "yes"
+        ]
+      },
+      "tags": "run,tar"
     }
   ],
   "tags": [
