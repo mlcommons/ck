@@ -19,6 +19,10 @@
       "tags": "get,cuda"
     }
   ],
+  "new_env_keys": [
+    "CM_CUDA_*",
+    "CM_NVCC_*"
+  ],
   "tags": [
     "install",
     "prebuilt",
