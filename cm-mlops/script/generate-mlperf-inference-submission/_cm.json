@@ -20,14 +20,14 @@
   "input_mapping": {
     "results_dir": "CM_MLPERF_RESULTS_DIR",
     "run_checker": "CM_RUN_SUBMISSION_CHECKER",
-    "run_style": "CM_RUN_STYLE",
+    "run_style": "CM_MLPERF_RUN_STYLE",
     "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR"
   },
   "post_deps": [
     {
       "enable_if_env": {
-        "CM_RUN_STYLE": [
+        "CM_MLPERF_RUN_STYLE": [
           "valid"
         ]
       },
