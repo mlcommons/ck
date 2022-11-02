@@ -168,6 +168,4 @@ def postprocess(i):
         state = i['state']
         env['CM_TAR_INPUT_DIR'] = os.path.join(env.get('CM_MLPERF_SUBMISSION_DIR', '$HOME'), state.get('CM_SUT_META').get('division'))
 
-        env['CM_TAR_INPUT_DIR'] = env.get('CM_MLPERF_SUBMISSION_DIR', '$HOME')
-
     return {'return':0}
