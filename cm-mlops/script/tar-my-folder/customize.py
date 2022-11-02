@@ -20,7 +20,7 @@ def preprocess(i):
         output_file = input_dirname+".gz"
     from pathlib import Path
     input_path = Path(input_dir)
-    cd_dir = input_path.parent.absolute())
+    cd_dir = input_path.parent.absolute()
     CMD =  'tar --directory '+cd_dir+' -cvzf ' + os.path.join(output_dir, output_file) + ' ' + input_dirname
     ret = os.system(CMD)
 

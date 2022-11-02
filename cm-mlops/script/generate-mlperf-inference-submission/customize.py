@@ -21,7 +21,9 @@ def generate_submission(i):
     results_dir = env['CM_MLPERF_RESULTS_DIR']
 
     if 'CM_MLPERF_SUBMISSION_DIR' not in env:
-        env['CM_MLPERF_SUBMISSION_DIR'] = os.path.join(cur_dir, "results")
+        from pathlib import Path
+        user_home = str(Path.home())
+        env['CM_MLPERF_SUBMISSION_DIR'] = os.path.join(user_home, "results")
     submission_dir = env['CM_MLPERF_SUBMISSION_DIR']
     if not os.path.isdir(submission_dir):
         os.makedirs(submission_dir)
