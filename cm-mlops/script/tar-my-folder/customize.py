@@ -17,7 +17,7 @@ def preprocess(i):
     output_file = env.get("CM_TAR_OUTFILE", "")
     input_dirname = os.path.basename(input_dir)
     if output_file == "":
-        output_file = input_dirname+".gz"
+        output_file = input_dirname+".tar.gz"
     from pathlib import Path
     input_path = Path(input_dir)
     cd_dir = input_path.parent.absolute()
