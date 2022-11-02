@@ -258,7 +258,9 @@ variations:
     env:
       CM_MLPERF_CPP: 'yes'
     posthook_deps:
-    - tags: app,mlperf,cpp,inference
+      - name:
+         - cpp-mlperf-inference
+        tags: app,mlperf,cpp,inference
 
   python:
     add_deps_recursive:
@@ -272,6 +274,8 @@ variations:
     add_deps_recursive:
       imagenet-preprocessed:
         tags: _NCHW
+      cpp-mlperf-inference:
+        tags: "_onnxruntime"
     env:
       CM_BACKEND: onnxruntime
       CM_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
@@ -365,6 +369,9 @@ variations:
     env:
       CM_DEVICE: gpu
       USE_GPU: yes
+      add_deps_recursive:
+        cpp-mlperf-inference:
+          tags: _cpp
 
   # Execution modes
   fast:
