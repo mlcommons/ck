@@ -5,4 +5,5 @@ if [[ -z $CM_DESTROY_TERRAFORM ]]; then
   terraform init -input=false
   terraform plan -out=tfplan -input=false
   terraform apply  -input=false tfplan
+  test $? -eq 0 || exit 1
 fi
