@@ -163,8 +163,6 @@ def postprocess(i):
 
     env = i['env']
     if env.get('CM_TAR_SUBMISSION_DIR'):
-        env['CM_TAR_INPUT'] = env.get('CM_MLPERF_SUBMISSION_DIR', '$HOME')
-        env['CM_TAR_OUTPUT'] = '$HOME'
-        env['CM_TAR_OUTFILE'] = 'submission.tar'
+        env['CM_TAR_INPUT_DIR'] = env.get('CM_MLPERF_SUBMISSION_DIR', '$HOME')
 
     return {'return':0}
