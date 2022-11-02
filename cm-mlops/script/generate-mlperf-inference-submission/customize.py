@@ -127,7 +127,7 @@ def generate_submission(i):
                         os.makedirs(submission_results_path)
                     if not os.path.isdir(submission_measurement_path):
                         os.makedirs(submission_measurement_path)
-                    if not os.path.isdir(submission_compliance_path):
+                    if division == "closed" and not os.path.isdir(submission_compliance_path):
                         os.makedirs(submission_compliance_path)
                     mlperf_inference_conf_path = os.path.join(result_mode_path, "mlperf.conf")
                     if os.path.exists(mlperf_inference_conf_path):
