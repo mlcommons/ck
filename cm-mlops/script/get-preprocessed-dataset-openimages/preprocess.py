@@ -1,6 +1,6 @@
 import os
 import sys
-from os import exists
+import os.path
 mlperf_vision_path = os.environ['CM_MLPERF_INFERENCE_VISION_PATH']
 python_path = os.path.join(mlperf_vision_path, "python")
 sys.path.insert(0, python_path)
@@ -31,5 +31,5 @@ org_path = os.path.join(preprocessed_base_dir,"preprocessed", name)
 alternate_names = [ "openimages-" + str(image_width) + "-retinanet-onnx" ]
 for alt_name in alternate_names:
     alt_path = os.path.join(preprocessed_base_dir,"preprocessed", alt_name)
-    if not exists(alt_path):
+    if not os.path.exists(alt_path):
         os.symlink(org_path, alt_path)
