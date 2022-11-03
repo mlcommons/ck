@@ -11,7 +11,9 @@
     }
   ],
   "new_env_keys": [
-    "CM_HOST_CPU_*"
+    "CM_HOST_CPU_*",
+    "CM_HOST_MEMORY_CAPACITY",
+    "CM_HOST_DISK_CAPACITY"
   ],
   "tags": [
     "detect",

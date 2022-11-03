@@ -62,6 +62,10 @@ def preprocess(i):
                         ", L3 cache: " + env.get('CM_HOST_CPU_L3_CACHE_SIZE', ' ')
             if 'host_processor_frequency' not in state['CM_SUT_META']:
                 state['CM_SUT_META']['host_processor_frequency'] = env.get('CM_HOST_CPU_MAX_MHZ','')
+            if 'host_memory_capacity' not in state['CM_SUT_META']:
+                state['CM_SUT_META']['host_memory_capacity'] = env.get('CM_HOST_MEMORY_CAPACITY', '')
+            if 'host_disk_capacity' not in state['CM_SUT_META']:
+                state['CM_SUT_META']['host_disk_capacity'] = env.get('CM_HOST_DISK_CAPACITY', '')
             if 'CM_SUT_SW_NOTES' in env:
                 sw_notes = env['CM_SUT_SW_NOTES']
             else:
