@@ -1,3 +1,6 @@
+# 20221103:
+ * added "cm json2yaml utils" and "cm yaml2json utils"
+
 # 20221024:
  * added --verbose and --time to "cm run script"
 

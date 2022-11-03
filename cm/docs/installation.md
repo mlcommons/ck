@@ -13,6 +13,9 @@ Here are typical installation procedures across different operating systems:
 
 You can find Docker containers for CM [here](../../docker).
 
+You can customize CM installation using environment variables described [here](#cm-customization).
+
+You can reuse misc CM utils listed [here](#misc-cm-utils).
 
 ## Ubuntu, Debian
 
@@ -130,6 +133,50 @@ You can use the following environment variables to customize CM installation:
   Useful to improve the default automations inside the CM package.
 
 
+# Misc CM utils
+
+We implemented and shared the following misc CM utils:
+
+### CM UID generator
+
+```bash
+cm uid core
+```
+
+### json2yaml converter
+
+```bash
+cm pull repo mlcommons@ck
+
+cm json2yaml utils --input={json file}
+```
+
+### yaml2json converter
+
+```bash
+cm pull repo mlcommons@ck
+
+cm json2yaml utils --input={yaml file}
+```
+
+### sort json file
+
+```bash
+cm pull repo mlcommons@ck
+
+cm sort-json utils --input={json file}
+```
+
+### dos2unix
+
+Remove \r from txt files on Windows:
+
+```bash
+cm pull repo mlcommons@ck
+
+cm dos2unix utils --input={txt file}
+```
+
 
 # Target platform support
 
@@ -137,6 +184,6 @@ You can use the following environment variables to customize CM installation:
 * Arm64
 * CUDA-based devices
 * Mobile devices with Arm64, GPU and DSP (*on-going development*)
-* Edge devices (*on-going development*)
+* TinyML devices (*on-going development*)
 * Simulators (*on-going development*)
 
