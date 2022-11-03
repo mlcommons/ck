@@ -9,7 +9,7 @@ fi
 curl -O -C - https://storage.googleapis.com/criteo-cail-datasets/day_{`seq -s "," 0 23`}.gz
 test $? -eq 0 || exit 1
 
-if [ ${CM_COPY_ZIP_FILES} == "yes" ]; then
+if [ ${CM_BACKUP_ZIPS:-no} == "yes" ]; then
     mkdir backup
     cp -r *.gz backup/
 fi
