@@ -56,6 +56,7 @@ def preprocess(i):
     test_list = ["TEST01",  "TEST05"]
     if env['CM_MODEL']  in ["resnet50"]:
         test_list.append("TEST04")
+    env['CM_MLPERF_DEVICE'] = env.get('CM_MLPERF_DEVICE', 'cpu')
     env['CM_DEVICE'] = env['CM_MLPERF_DEVICE']
     variation_lang= "_" + env.get("CM_MLPERF_LANG", "python")
     variation_model= "_" + env.get("CM_MLPERF_MODEL", "resnet50")
@@ -63,14 +64,14 @@ def preprocess(i):
     variation_device= "_" + env.get("CM_MLPERF_DEVICE", "cpu")
     variation_run_style= "_" + env.get("CM_MLPERF_RUN_STYLE", "test")
     tags =  "app,mlperf,inference,generic,"+variation_lang+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style
-    verbose = inp.get('verbose', False)
+    silent = inp.get('silent', False)
     for scenario in env['CM_LOADGEN_SCENARIOS']:
         for mode in env['CM_LOADGEN_MODES']:
             env['CM_LOADGEN_SCENARIO'] = scenario
             env['CM_LOADGEN_MODE'] = mode
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': inp.get('add_deps',{}), 'add_deps_recursive':
-                inp.get('add_deps_recursive', {}), 'adr': inp.get('adr', {}), 'verbose': verbose})
+                inp.get('add_deps_recursive', {}), 'adr': inp.get('adr', {}), 'silent': silent})
         if system_meta.get('division', '') == "open":
             env["CM_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
         if env.get("CM_LOADGEN_COMPLIANCE", "") == "yes":

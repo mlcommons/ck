@@ -10,8 +10,8 @@ wget -nc ${CM_WGET_URL}
 test $? -eq 0 || exit 1
 tar -xzf openssl-${CM_VERSION}g.tar.gz && cd openssl-${CM_VERSION}g
 test $? -eq 0 || exit 1
-./config
+mkdir -p install
+./config --prefix=`pwd`/install
 make -j${CM_MAKE_CORES}
 test $? -eq 0 || exit 1
-sudo make install
-sudo ln -sf /usr/local/bin/openssl /usr/bin/openssl
+make install

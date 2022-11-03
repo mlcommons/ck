@@ -8,7 +8,8 @@
     "CM_REQUIRE_INSTALL": "no"
   },
   "new_env_keys": [
-    "CM_OPENSSL_*"
+    "CM_OPENSSL_*",
+    "+LD_LIBRARY_PATH"
   ],
   "prehook_deps": [
     {
