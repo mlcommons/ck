@@ -8,12 +8,12 @@ def preprocess(i):
 
     submitter = env.get('CM_MLPERF_SUBMITTER', 'MLCommons')
     hw_name = env.get('CM_HW_NAME', "default")
-    backend = env.get('CM_BACKEND', '')
-    backend_version = env.get('CM_BACKEND_VERSION', '')
+    backend = env.get('CM_MLPERF_BACKEND', '')
+    backend_version = env.get('CM_MLPERF_BACKEND_VERSION', '')
     sut_suffix = ''
     backend_name = ''
     if backend:
-        backend_name = env.get('CM_BACKEND_NAME', backend)
+        backend_name = env.get('CM_MLPERF_BACKEND_NAME', backend)
         sut_suffix = "-" + backend
         backend_desc = backend_name
         if backend_version:

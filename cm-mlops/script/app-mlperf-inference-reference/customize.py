@@ -147,7 +147,7 @@ def preprocess(i):
         dataset_options = " --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']
     else:
         dataset_options = ''
-    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], env['CM_BACKEND'] + "-" + env['CM_DEVICE'], \
+    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'], \
             env['CM_MODEL'], scenario.lower(), mode)
     if mode == "accuracy":
         mode_extra_options += " --accuracy"
@@ -155,8 +155,8 @@ def preprocess(i):
         OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
     elif mode == "compliance":
         test = env.get("CM_LOADGEN_COMPIANCE_TEST", "TEST01")
-        OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], env['CM_BACKEND'] \
-                + "-" + env['CM_DEVICE'], env['CM_MODEL'], scenario.lower(), test)
+        OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], env['CM_MLPERF_BACKEND'] \
+                + "-" + env['CM_MLPERF_DEVICE'], env['CM_MODEL'], scenario.lower(), test)
         if test == "TEST01":
             audit_path = os.path.join(test, env['CM_MODEL'])
         else:
@@ -188,12 +188,12 @@ def preprocess(i):
 def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options):
     if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
-        cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_BACKEND'] + ' ' + \
-            env['CM_MODEL'] + ' ' + env['CM_DEVICE'] + " --scenario " + env['CM_LOADGEN_SCENARIO'] + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + \
+        cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
+            env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_LOADGEN_SCENARIO'] + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + \
             scenario_extra_options + mode_extra_options + dataset_options
     elif "bert" in env['CM_MODEL']:
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "bert")
-        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_BACKEND'] + " --scenario="+env['CM_LOADGEN_SCENARIO'] + \
+        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_LOADGEN_SCENARIO'] + \
             scenario_extra_options + mode_extra_options + dataset_options
         cmd = cmd.replace("--count", "--max_examples")
         env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']

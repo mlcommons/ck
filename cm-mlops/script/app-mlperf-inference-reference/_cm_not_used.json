@@ -41,7 +41,7 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "onnxruntime",
           "tvm-onnx",
           "tvm-pip-install-onnx"
@@ -54,7 +54,7 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "tf",
           "tflite"
         ]
@@ -125,7 +125,7 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "tf",
           "tflite"
         ],
@@ -137,7 +137,7 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "pytorch"
         ],
         "CM_MODEL": [
@@ -148,7 +148,7 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "onnxruntime",
           "tvm-onnx"
         ],
@@ -160,7 +160,7 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "onnxruntime"
         ],
         "CM_MODEL": [
@@ -171,7 +171,7 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "pytorch"
         ],
         "CM_MODEL": [
@@ -182,7 +182,7 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "onnxruntime"
         ],
         "CM_MODEL": [
@@ -193,7 +193,7 @@
     },
     {
       "enable_if_env": {
-        "CM_DEVICE": [
+        "CM_MLPERF_DEVICE": [
           "gpu"
         ]
       },
@@ -201,7 +201,7 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "tvm-onnx"
         ]
       },
@@ -215,7 +215,7 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "pytorch"
         ]
       },
@@ -300,7 +300,7 @@
     },
     "cpu": {
       "env": {
-        "CM_DEVICE": "cpu"
+        "CM_MLPERF_DEVICE": "cpu"
       }
     },
     "fast": {
@@ -312,7 +312,7 @@
     },
     "gpu": {
       "env": {
-        "CM_DEVICE": "gpu"
+        "CM_MLPERF_DEVICE": "gpu"
       }
     },
     "onnxruntime": {
@@ -322,8 +322,8 @@
         }
       },
       "env": {
-        "CM_BACKEND": "onnxruntime",
-        "CM_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
+        "CM_MLPERF_BACKEND": "onnxruntime",
+        "CM_MLPERF_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
       }
     },
     "python": {
@@ -338,8 +338,8 @@
     },
     "pytorch": {
       "env": {
-        "CM_BACKEND": "pytorch",
-        "CM_BACKEND_VERSION": "<<<CM_PYTORCH_VERSION>>>"
+        "CM_MLPERF_BACKEND": "pytorch",
+        "CM_MLPERF_BACKEND_VERSION": "<<<CM_PYTORCH_VERSION>>>"
       }
     },
     "r2.1_default": {
@@ -419,19 +419,19 @@
         }
       },
       "env": {
-        "CM_BACKEND": "tf",
-        "CM_BACKEND_VERSION": "<<<CM_TENSORFLOW_VERSION>>>"
+        "CM_MLPERF_BACKEND": "tf",
+        "CM_MLPERF_BACKEND_VERSION": "<<<CM_TENSORFLOW_VERSION>>>"
       }
     },
     "tflite": {
       "env": {
-        "CM_BACKEND": "tflite"
+        "CM_MLPERF_BACKEND": "tflite"
       }
     },
     "tvm-onnx": {
       "env": {
-        "CM_BACKEND": "tvm-onnx",
-        "CM_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
+        "CM_MLPERF_BACKEND": "tvm-onnx",
+        "CM_MLPERF_BACKEND_VERSION": "<<<CM_ONNXRUNTIME_VERSION>>>"
       }
     },
     "tvm-pip-install-onnx": {
@@ -445,7 +445,7 @@
         }
       ],
       "env": {
-        "CM_BACKEND": "tvm",
+        "CM_MLPERF_BACKEND": "tvm",
         "CM_TVM_PIP_INSTALL": true
       }
     },

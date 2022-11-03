@@ -8,8 +8,8 @@ def preprocess(i):
     if 'CM_HW_NAME' not in env:
         env['CM_HW_NAME'] = "default"
 
-    backend = env.get('CM_BACKEND', 'default')
-    backend_version = "v" + env.get('CM_BACKEND_VERSION', 'default')
+    backend = env.get('CM_MLPERF_BACKEND', 'default')
+    backend_version = "v" + env.get('CM_MLPERF_BACKEND_VERSION', 'default')
 
     path = i['run_script_input']['path']
     if 'CM_SUT_CONFIG' not in state:
