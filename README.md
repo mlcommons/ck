@@ -47,8 +47,8 @@ to provide your feedback and participate in further developments!
 
 ## Collective Mind automation meta-framework 
 
-Collective Mind workflow automation meta-framework (CM) is the 2nd implementation 
-of the [CK concept](https://arxiv.org/pdf/2011.01149.pdf) developed
+Collective Mind workflow automation meta-framework (CM aka CK2) is the 2nd implementation 
+of the [CK concept](https://arxiv.org/pdf/2011.01149.pdf) being developed
 by the [open MLCommons taskforce on education and reproducibility](docs/mlperf-education-workgroup.md).
 CM is used to modularize ML and AI systems and automate their benchmarking, 
 optimization and deployment across continuously changing software, hardware and data.
@@ -58,6 +58,15 @@ optimization and deployment across continuously changing software, hardware and 
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm)
 [![CM(CK2) test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
 
+
+
+### Documentation
+
+* [Table of contents](https://github.com/mlcommons/ck/tree/master/cm/docs/README.md)
+* [Installation](cm/docs/installation.md)
+* [User guide and tutorials](cm/docs/README.md#user-guide-and-tutorials)
+* [Contributor guide](cm/docs/README.md##contributor-guide)
+* [Community projects](cm/docs/README.md##community-projects)
 
 
 ### Installation
@@ -98,7 +107,7 @@ and we will get back to you!
 
 
 
-### CM repositories with reusable and cross-platform components
+### Repositories with reusable and cross-platform CM components
 
 CM allows users to add simple database-like interface to their existing Git repositories
 to make it easier for the community to reuse their artifacts, scripts, tools and workflows.
@@ -148,7 +157,7 @@ Such a unified CM interface makes it possible to automatically interconnect any 
 and automation scripts into portable applications and workflows as demonstrated in the next example.
 
 
-### CM demo for portable and modular image classification
+### Demo
 
 Here we demonstrate how to run a modular image classification workflow using CM. 
 CM workflow is also a portable CM script that chains other [cross-platform CM scripts](https://github.com/mlcommons/ck/blob/master/cm-mlops/script) 
@@ -208,27 +217,8 @@ cm rm cache -f
 
 
 
-### CM tutorials
 
-
-* [Digging into image classification CM workflow](cm/docs/example-modular-image-classification.md)
-* [Understanding CM database and runtime interface](cm/docs/tutorial-concept.md)
-* [Understanding cross-platform CM scripts](cm/docs/tutorial-scripts.md)
-    * [Adding new artifacts, scripts and workflows to CM](cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
-* [Running and reproducing MLPerf inference benchmarks](docs/mlperf-cm-automation-demo.md)
-
-### CM projects
-
-* [Open MLCommons taskforce to automate co-design, benchmarking, optimization and deployment of ML Systems](docs/mlperf-education-workgroup.md)
-* [Artifact evaluation and reproducibility initiatives at conferences](https://cTuning.org/ae)
-
-### CM documentation
-
-* [Table of contents](https://github.com/mlcommons/ck/tree/master/cm/docs)
-* [Contributing to the MLCommons CM](CONTRIBUTING.md)
-
-
-### CM resources and references
+### Resources and references
 
 * [Motivation](cm/docs/motivation.md)
 * [Journal article describing the CK concept](https://arxiv.org/pdf/2011.01149.pdf)
