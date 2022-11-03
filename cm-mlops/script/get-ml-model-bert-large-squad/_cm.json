@@ -27,8 +27,7 @@
   "variations": {
     "fp32": {
       "env": {
-        "CM_ML_MODEL_PRECISION": "fp32",
-        "CM_PACKAGE_URL": "https://zenodo.org/record/3733910/files/model.onnx"
+        "CM_ML_MODEL_PRECISION": "fp32"
       }
     },
     "int8": {
@@ -38,9 +37,28 @@
         "CM_PACKAGE_URL": "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
       }
     },
-    "onnx": {
+    "onnx-fp32": {
+      "base": [
+        "fp32",
+        "onnx"
+      ],
       "env": {
         "CM_ML_MODEL_F1": "90.874",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/3733910/files/model.onnx"
+      }
+    },
+    "onnx-int8": {
+      "base": [
+        "int8",
+        "onnx"
+      ],
+      "env": {
+        "CM_ML_MODEL_F1": "90.067",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
+      }
+    },
+    "onnx": {
+      "env": {
         "CM_ML_MODEL_FRAMEWORK": "onnx",
         "CM_ML_MODEL_INPUT_IDS_NAME": "input_ids",
         "CM_ML_MODEL_INPUT_MASK_NAME": "input_mask",
@@ -49,9 +67,56 @@
         "CM_ML_MODEL_OUTPUT_START_LOGITS_NAME": "output_start_logits"
       }
     },
+    "tf": {
+      "env": {
+        "CM_ML_MODEL_F1": "90.874",
+        "CM_ML_MODEL_FRAMEWORK": "tf",
+        "CM_ML_MODEL_INPUT_IDS_NAME": "input_ids",
+        "CM_ML_MODEL_INPUT_MASK_NAME": "input_mask",
+        "CM_ML_MODEL_INPUT_SEGMENTS_NAME": "segment_ids",
+        "CM_ML_MODEL_OUTPUT_END_LOGITS_NAME": "output_end_logits",
+        "CM_ML_MODEL_OUTPUT_START_LOGITS_NAME": "output_start_logits",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/3733868/files/model.ckpt-5474.data-00000-of-00001"
+      }
+    },
+    "pytorch": {
+      "env": {
+        "CM_ML_MODEL_FRAMEWORK": "pytorch",
+        "CM_ML_MODEL_INPUT_IDS_NAME": "input_ids",
+        "CM_ML_MODEL_INPUT_MASK_NAME": "input_mask",
+        "CM_ML_MODEL_INPUT_SEGMENTS_NAME": "segment_ids",
+        "CM_ML_MODEL_OUTPUT_END_LOGITS_NAME": "output_end_logits",
+        "CM_ML_MODEL_OUTPUT_START_LOGITS_NAME": "output_start_logits"
+      }
+    },
+    "pytorch-fp32": {
+      "base": [
+        "fp32",
+        "pytorch"
+      ],
+      "env": {
+        "CM_ML_MODEL_F1": "90.874",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/3733896/files/model.pytorch"
+      }
+    },
+    "pytorch-int8": {
+      "base": [
+        "int8",
+        "pytorch"
+      ],
+      "env": {
+        "CM_ML_MODEL_F1": "90.633",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/4792496/files/pytorch_model.bin"
+      }
+    },
     "onnxruntime": {
       "base": [
         "onnx"
+      ]
+    },
+    "tensorflow": {
+      "base": [
+        "tf"
       ]
     }
   }

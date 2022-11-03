@@ -29,7 +29,7 @@
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1",
     "CM_OUTPUT_FOLDER_NAME": "test_results",
-    "CM_RUN_STYLE": "test",
+    "CM_MLPERF_RUN_STYLE": "test",
     "CM_TEST_QUERY_COUNT": "5"
   },
   "input_mapping": {
@@ -49,7 +49,9 @@
     "power": "CM_SYSTEM_POWER",
     "regenerate_files": "CM_REGENERATE_MEASURE_FILES",
     "scenario": "CM_LOADGEN_SCENARIO",
-    "test_query_count": "CM_TEST_QUERY_COUNT"
+    "test_query_count": "CM_TEST_QUERY_COUNT",
+    "run_checker": "CM_RUN_SUBMISSION_CHECKER",
+    "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY"
   },
   "tags": [
     "run",
@@ -83,21 +85,11 @@
         "CM_LOADGEN_COMPLIANCE": "yes"
       }
     },
-    "cpu": {
-      "env": {
-        "CM_DEVICE": "cpu"
-      }
-    },
     "fast": {
       "env": {
         "CM_FAST_FACTOR": "5",
         "CM_OUTPUT_FOLDER_NAME": "fast_results",
-        "CM_RUN_STYLE": "fast"
-      }
-    },
-    "gpu": {
-      "env": {
-        "CM_DEVICE": "gpu"
+        "CM_MLPERF_RUN_STYLE": "fast"
       }
     },
     "submission": {
@@ -105,7 +97,8 @@
         "all-modes"
       ],
       "env": {
-        "CM_MLPERF_SUBMISSION_RUN": "yes"
+        "CM_MLPERF_SUBMISSION_RUN": "yes",
+        "CM_TAR_SUBMISSION_DIR": "yes"
       },
       "post_deps": [
         {

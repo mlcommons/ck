@@ -37,7 +37,9 @@
     "destroy": "CM_DESTROY_TERRAFORM",
     "cminit": "CM_TERRAFORM_CM_INIT",
     "key_file": "CM_SSH_KEY_FILE",
-    "disk_size": "TF_VAR_DISK_GBS"
+    "disk_size": "TF_VAR_DISK_GBS",
+    "run_cmds": "CM_TERRAFORM_RUN_COMMANDS",
+    "ssh_key_file": "CM_SSH_KEY_FILE"
   },
   "default_env": {
     "TF_VAR_SECURITY_GROUP_ID": "sg-0783752c97d2e011d",
@@ -81,6 +83,14 @@
       ],
       "env": {
         "TF_VAR_INSTANCE_TYPE": "c5d.9xlarge"
+      }
+    },
+    "g4dn.xlarge": {
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "g4dn.xlarge"
       }
     }
   }

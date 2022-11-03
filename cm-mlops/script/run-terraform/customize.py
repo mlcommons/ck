@@ -39,7 +39,7 @@ def postprocess(i):
         state['CM_TF_NEW_INSTANCES_STATE'].append(instance_attributes)
         public_ip = instance_attributes['public_ip']
         if env.get('CM_TERRAFORM_CM_INIT'):
-            r = cm.access({
+            run_input = {
                 'automation': 'script',
                 'action': 'run',
                 'tags': 'remote,run,ssh',
@@ -53,13 +53,21 @@ def postprocess(i):
                 'silent': True,
                 'run_cmds': [
                     "sudo apt-get update",
+                    "sudo apt-get -y upgrade",
                     "sudo apt-get install -y python3-pip",
                     "python3 -m pip install cmind",
                     "source ~/.profile",
                     "cm pull repo octoml@ck",
                     "cm run script --tags=get,sys-utils-cm"
                     ]
-                })
+                }
+            if env.get('CM_TERRAFORM_RUN_COMMANDS'):
+                run_cmds = env.get('CM_TERRAFORM_RUN_COMMANDS')
+                for cmd in run_cmds:
+                    cmd=cmd.replace(":", "=")
+                    cmd=cmd.replace(";;", ",")
+                    run_input['run_cmds'].append(cmd)
+            r = cm.access(run_input)
             if r['return'] > 0:
                 return r
             #print(r)

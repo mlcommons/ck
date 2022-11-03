@@ -21,7 +21,9 @@ def generate_submission(i):
     results_dir = env['CM_MLPERF_RESULTS_DIR']
 
     if 'CM_MLPERF_SUBMISSION_DIR' not in env:
-        env['CM_MLPERF_SUBMISSION_DIR'] = os.path.join(cur_dir, "results")
+        from pathlib import Path
+        user_home = str(Path.home())
+        env['CM_MLPERF_SUBMISSION_DIR'] = os.path.join(user_home, "results")
     submission_dir = env['CM_MLPERF_SUBMISSION_DIR']
     if not os.path.isdir(submission_dir):
         os.makedirs(submission_dir)
@@ -125,7 +127,7 @@ def generate_submission(i):
                         os.makedirs(submission_results_path)
                     if not os.path.isdir(submission_measurement_path):
                         os.makedirs(submission_measurement_path)
-                    if not os.path.isdir(submission_compliance_path):
+                    if division == "closed" and not os.path.isdir(submission_compliance_path):
                         os.makedirs(submission_compliance_path)
                     mlperf_inference_conf_path = os.path.join(result_mode_path, "mlperf.conf")
                     if os.path.exists(mlperf_inference_conf_path):
@@ -162,5 +164,8 @@ def generate_submission(i):
 def postprocess(i):
 
     env = i['env']
+    if env.get('CM_TAR_SUBMISSION_DIR'):
+        state = i['state']
+        env['CM_TAR_INPUT_DIR'] = os.path.join(env.get('CM_MLPERF_SUBMISSION_DIR', '$HOME'), state.get('CM_SUT_META').get('division'))
 
     return {'return':0}

@@ -8,7 +8,7 @@
     "CM_LOADGEN_MODE": "accuracy",
     "CM_LOADGEN_SCENARIO": "Offline",
     "CM_OUTPUT_FOLDER_NAME": "test_results",
-    "CM_RUN_STYLE": "test",
+    "CM_MLPERF_RUN_STYLE": "test",
     "CM_TEST_QUERY_COUNT": "10"
   },
   "deps": [
@@ -307,7 +307,7 @@
       "env": {
         "CM_FAST_FACTOR": "5",
         "CM_OUTPUT_FOLDER_NAME": "fast_results",
-        "CM_RUN_STYLE": "fast"
+        "CM_MLPERF_RUN_STYLE": "fast"
       }
     },
     "gpu": {
@@ -409,7 +409,7 @@
     "test": {
       "env": {
         "CM_OUTPUT_FOLDER_NAME": "test_results",
-        "CM_RUN_STYLE": "test"
+        "CM_MLPERF_RUN_STYLE": "test"
       }
     },
     "tf": {
@@ -452,7 +452,7 @@
     "valid": {
       "env": {
         "CM_OUTPUT_FOLDER_NAME": "valid_results",
-        "CM_RUN_STYLE": "valid"
+        "CM_MLPERF_RUN_STYLE": "valid"
       }
     }
   }

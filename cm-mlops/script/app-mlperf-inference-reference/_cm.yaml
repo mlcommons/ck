@@ -24,7 +24,7 @@ default_env:
   CM_LOADGEN_MODE: accuracy
   CM_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results
-  CM_RUN_STYLE: test
+  CM_MLPERF_RUN_STYLE: test
   CM_TEST_QUERY_COUNT: '10'
 
 # Map script inputs to environment variables
@@ -164,7 +164,7 @@ deps:
       - resnet50
 
   ## Open Images (full) for RetinaNet
-  - tags: get,dataset,object-detection,open-images,original
+  - tags: get,dataset,object-detection,open-images,preprocessed
     enable_if_env:
       CM_MODEL:
       - retinanet
@@ -228,13 +228,29 @@ deps:
       - retinanet
   
   ## BERT (ONNX format)
-  - tags: get,ml-model,language-processing,bert,_onnx
+  - tags: get,ml-model,language-processing,bert,_onnx-fp32
     enable_if_env:
       CM_BACKEND:
       - onnxruntime
       CM_MODEL:
       - bert-99.9
-    
+
+  ## BERT (TF format)
+  - tags: get,ml-model,language-processing,bert,_tf
+    enable_if_env:
+      CM_BACKEND:
+      - tf
+      CM_MODEL:
+      - bert-99.9
+ 
+  ## BERT (Pytorch format)
+  - tags: get,ml-model,language-processing,bert,_pytorch-fp32
+    enable_if_env:
+      CM_BACKEND:
+      - pytorch
+      CM_MODEL:
+      - bert-99.9
+
   - tags: get,generic-python-lib,_tokenization
     enable_if_env:
       CM_MODEL:
@@ -258,7 +274,9 @@ variations:
     env:
       CM_MLPERF_CPP: 'yes'
     posthook_deps:
-    - tags: app,mlperf,cpp,inference
+      - names:
+         - cpp-mlperf-inference
+        tags: app,mlperf,cpp,inference
 
   python:
     add_deps_recursive:
@@ -272,6 +290,8 @@ variations:
     add_deps_recursive:
       imagenet-preprocessed:
         tags: _NCHW
+      cpp-mlperf-inference:
+        tags: _onnxruntime
     env:
       CM_BACKEND: onnxruntime
       CM_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
@@ -365,23 +385,26 @@ variations:
     env:
       CM_DEVICE: gpu
       USE_GPU: yes
+    add_deps_recursive:
+      cpp-mlperf-inference:
+        tags: _gpu
 
   # Execution modes
   fast:
     env:
       CM_FAST_FACTOR: '5'
       CM_OUTPUT_FOLDER_NAME: fast_results
-      CM_RUN_STYLE: fast
+      CM_MLPERF_RUN_STYLE: fast
 
   test:
     env:
       CM_OUTPUT_FOLDER_NAME: test_results
-      CM_RUN_STYLE: test
+      CM_MLPERF_RUN_STYLE: test
 
   valid:
     env:
       CM_OUTPUT_FOLDER_NAME: valid_results
-      CM_RUN_STYLE: valid
+      CM_MLPERF_RUN_STYLE: valid
 
 
   # Reproducibility (past submissions)

@@ -13,6 +13,14 @@
         "inference-src"
       ],
       "tags": "mlperf,inference,source"
+    },
+    {
+      "tags": "get,openssl",
+      "version": "1.1.1",
+      "enable_if_env": {
+        "CM_HOST_OS_FLAVOR": [ "ubuntu" ],
+        "CM_HOST_OS_VERSION": [ "22.04" ]
+      }
     }
   ],
   "env": {

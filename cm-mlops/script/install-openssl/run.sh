@@ -6,10 +6,12 @@ echo "***********************************************************"
 CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES}}
 CM_MAKE_CORES=${CM_MAKE_CORES:-2}
 CM_WGET_URL=https://www.openssl.org/source/openssl-${CM_VERSION}g.tar.gz
-wget ${CM_WGET_URL}
+wget -nc ${CM_WGET_URL}
+test $? -eq 0 || exit 1
 tar -xzf openssl-${CM_VERSION}g.tar.gz && cd openssl-${CM_VERSION}g
-./config
+test $? -eq 0 || exit 1
+mkdir -p install
+./config --prefix=`pwd`/install
 make -j${CM_MAKE_CORES}
-sudo make install
-sudo ln -s /usr/local/bin/openssl /usr/bin/openssl
-
+test $? -eq 0 || exit 1
+make install
