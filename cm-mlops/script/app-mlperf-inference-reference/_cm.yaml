@@ -164,7 +164,9 @@ deps:
       - resnet50
 
   ## Open Images (full) for RetinaNet
-  - tags: get,dataset,object-detection,open-images,preprocessed
+  - tags: get,dataset,object-detection,open-images,openimages,preprocessed
+    names:
+    - openimages-preprocessed
     enable_if_env:
       CM_MODEL:
       - retinanet
@@ -289,6 +291,8 @@ variations:
   onnxruntime:
     add_deps_recursive:
       imagenet-preprocessed:
+        tags: _NCHW
+      openimages-preprocessed:
         tags: _NCHW
       cpp-mlperf-inference:
         tags: _onnxruntime
