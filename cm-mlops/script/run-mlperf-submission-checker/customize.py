@@ -27,6 +27,6 @@ def preprocess(i):
 def postprocess(i):
     env = i['env']
     import pandas
-    if os.exists('summary.csv'):
+    if exists('summary.csv'):
         df = pandas.read_csv('summary.csv')
         print(df)
