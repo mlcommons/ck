@@ -80,6 +80,8 @@ def preprocess(i):
                 r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                     'env': env, 'input': inp, 'state': state, 'add_deps': inp.get('add_deps', {}), 'add_deps_recursive':
                     inp.get('add_deps_recursive', {}), 'adr': inp.get('adr', {}),'verbose': verbose})
+                if r['return'] > 0:
+                    return r
 
     return {'return':0}
 
