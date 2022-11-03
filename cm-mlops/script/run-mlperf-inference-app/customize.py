@@ -56,6 +56,7 @@ def preprocess(i):
     test_list = ["TEST01",  "TEST05"]
     if env['CM_MODEL']  in ["resnet50"]:
         test_list.append("TEST04")
+    env['CM_MLPERF_DEVICE'] = env.get('CM_MLPERF_DEVICE', 'cpu')
     env['CM_DEVICE'] = env['CM_MLPERF_DEVICE']
     variation_lang= "_" + env.get("CM_MLPERF_LANG", "python")
     variation_model= "_" + env.get("CM_MLPERF_MODEL", "resnet50")
