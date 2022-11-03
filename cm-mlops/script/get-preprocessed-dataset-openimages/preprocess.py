@@ -1,6 +1,6 @@
 import os
 import sys
-import os.exists
+from os import exists
 mlperf_vision_path = os.environ['CM_MLPERF_INFERENCE_VISION_PATH']
 python_path = os.path.join(mlperf_vision_path, "python")
 sys.path.insert(0, python_path)
