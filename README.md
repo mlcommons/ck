@@ -250,8 +250,8 @@ to the new CM format.*
 
 ## Maintainers
 
-* [Grigori Fursin](https://cKnowledge.io/cf@gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
-  ([OctoML](https://octoml.ai) and [MLCommons](https://mlcommons.org))
+* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
 
 ## Acknowledgments
 

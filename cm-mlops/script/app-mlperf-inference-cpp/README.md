@@ -1,4 +1,29 @@
+# Description
+
+This portable CM script and C++ code was developed by [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189) 
+to provide modular C++ implementations of the [MLPerf inference benchmark](https://github.com/mlcommons/inference) 
+using the [MLCommons CM automation meta-framework](https://github.com/mlcommons/ck).
+
+It is being extended by the [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+to make it easier to run, optimize and reproduce MLPerf benchmarks 
+across diverse platforms with continuously changing software and hardware.
+
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
+[![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck)
+
+&copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
+
+# Authors
+
+[Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), 
+[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+and [Grigori Fursin]( https://cKnowledge.io/@gfursin ).
+
+
+
+
 ## About
+
 This is a modularized C++ implementation of an MLPerf Inference SUT. Each file corresponds to a different class that can be changed independently of other ones:
 1. `Backend` runs the actual inference using a framework (ONNX Runtime, TF Lite, etc)
 2. `Device` manages devices and memory (CPU, GPU, etc)
