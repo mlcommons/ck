@@ -69,8 +69,7 @@ You can now test the MLPerf inference benchmark with RetinaNet and ONNX runtime 
 
 ```bash
 cm run script "app mlperf inference generic reference _python _retinanet _onnxruntime _cpu" \
-    --adr.compiler.tags=gcc -v --rerun \
-    --scenario=Offline --mode=accuracy --test_query_count=10 --quiet
+    --adr.compiler.tags=gcc --scenario=Offline --mode=accuracy --test_query_count=10 --quiet
 ```
 
 The first run of this CM script takes around 25 minutes on a GCP instance with 16 cores and 64GB of memory because
@@ -104,8 +103,7 @@ to launch the prepared MLPerf inference benchmark. For example, you can run thes
 
 ```bash
 cm run script "app mlperf inference generic reference _python _retinanet _onnxruntime _cpu" \ 
-    --adr.compiler.tags=gcc -v --rerun \
-    --scenario=Offline --mode=performance --test_query_count=10
+    --adr.compiler.tags=gcc --scenario=Offline --mode=performance --test_query_count=10 --rerun
 ```
 
 You should see the following output:
