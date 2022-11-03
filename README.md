@@ -104,7 +104,7 @@ CM allows users to add simple database-like interface to their existing Git repo
 to make it easier for the community to reuse their artifacts, scripts, tools and workflows.
 
 The [MLCommons taskforce on education and reproducibility](docs/mlperf-education-workgroup.md) 
-gradually turn existing artifacts and scripts from [reproduced ML and Systems papers](https://cknowledge.io/reproduced-papers) 
+gradually turns existing artifacts and scripts from [reproduced ML and Systems papers](https://cknowledge.io/reproduced-papers) 
 and [MLPerf benchmarks](https://github.com/mlcommons)
 into cross-platform CM components using so-called [CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script).
  
