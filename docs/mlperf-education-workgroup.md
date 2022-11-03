@@ -6,6 +6,11 @@
   * Use [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to join the taskforce and stay informed about our activities.
 * Check the [presentation about our mission](https://doi.org/10.5281/zenodo.7143424).
 * Check the [portable image classification workflow example]( https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md ).
+* Upcoming events:
+  * [Student Cluster Competition at SC22](https://sc22.supercomputing.org/program/studentssc/student-cluster-competition/): November 14-16, 2022
+  * MLPerf inference v3.0 submission: Feb 17, 2023; publication Apr 5, 2023
+  * MLperf inference V3.1 submission: Aug 4th, 2023; publication Aug 30, 2023
+
 
 ## Mission
 
