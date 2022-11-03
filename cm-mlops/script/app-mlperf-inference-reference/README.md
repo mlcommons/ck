@@ -21,11 +21,11 @@ and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRI
 
 * [All commands and options](README.commands.md)
 
-# Demos
+# Examples
 
 ## MLPerf object detection with python, RetinaNet, Open Images, ONNX runtime (CPU), Ubuntu
 
-This demo shows how to use this portable CM script to run the reference python implementation
+This example shows how to use this CM script to run the reference python implementation 
 of the MLPerf inference benchmark for object detection, RetinaNet, ONNX run-time (CPU) and Ubuntu.
 
 ### Using native environment
