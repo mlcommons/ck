@@ -329,7 +329,7 @@ variations:
       CM_TVM_PIP_INSTALL: true
 
  
-  # Models
+  # Reference MLPerf models
   bert-99.9:
     env:
       CM_MODEL: bert-99.9
