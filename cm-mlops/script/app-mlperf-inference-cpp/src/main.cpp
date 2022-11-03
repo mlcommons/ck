@@ -11,11 +11,11 @@
 #include "sample_library.h"
 #include "system.h"
 
-#ifdef CM_DEVICE_GPU
+#ifdef CM_MLPERF_DEVICE_GPU
     #include "gpu_device.h"
 #endif
 
-#ifdef CM_BACKEND_ONNXRUNTIME
+#ifdef CM_MLPERF_BACKEND_ONNXRUNTIME
     #include "onnxruntime_backend.h"
 #endif
 
@@ -31,8 +31,8 @@ public:
         mlperf_conf_path = getenv("CM_MLPERF_CONF", "../inference/mlperf.conf");
         user_conf_path = getenv("CM_MLPERF_USER_CONF", "../inference/vision/classification_and_detection/user.conf");
         output_dir = getenv("CM_MLPERF_OUTPUT_DIR", ".");
-        backend_name = getenv("CM_BACKEND", "onnxruntime");
-        device_name = getenv("CM_DEVICE", "cpu");
+        backend_name = getenv("CM_MLPERF_BACKEND", "onnxruntime");
+        device_name = getenv("CM_MLPERF_DEVICE", "cpu");
         model_name = getenv("CM_MODEL", "resnet50");
         model_path = getenv("CM_ML_MODEL_FILE_WITH_PATH", "");
         dataset_preprocessed_path = getenv("CM_DATASET_PREPROCESSED_PATH", "");
@@ -130,7 +130,7 @@ int main(int argc, const char *argv[]) {
     if (input_settings.device_name == "cpu") {
         device.reset(new CPUDevice());
     } else if (input_settings.device_name == "gpu") {
-#ifdef CM_DEVICE_GPU
+#ifdef CM_MLPERF_DEVICE_GPU
         device.reset(new GPUDevice());
 #endif
     } else {
@@ -153,7 +153,7 @@ int main(int argc, const char *argv[]) {
     // build backend
     std::shared_ptr<Backend> backend;
     if (input_settings.backend_name == "onnxruntime") {
-#ifdef CM_BACKEND_ONNXRUNTIME
+#ifdef CM_MLPERF_BACKEND_ONNXRUNTIME
         backend.reset(new OnnxRuntimeBackend(
             model, device, performance_sample_count, input_settings.batch_size,
             input_settings.device_name == "gpu"));

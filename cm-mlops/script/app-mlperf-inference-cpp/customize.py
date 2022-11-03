@@ -12,9 +12,9 @@ def preprocess(i):
 
     if 'CM_MODEL' not in env:
         return {'return': 1, 'error': 'Please select a variation specifying the model to run'}
-    if 'CM_BACKEND' not in env:
+    if 'CM_MLPERF_BACKEND' not in env:
         return {'return': 1, 'error': 'Please select a variation specifying the backend'}
-    if 'CM_DEVICE' not in env:
+    if 'CM_MLPERF_DEVICE' not in env:
         return {'return': 1, 'error': 'Please select a variation specifying the device to run on'}
 
     source_files = []
@@ -35,7 +35,7 @@ def preprocess(i):
     env['+C_INCLUDE_PATH'].append(os.path.join(script_path, "inc"))
 
     # TODO: get cuda path ugly fix
-    if env['CM_DEVICE'] == 'gpu':
+    if env['CM_MLPERF_DEVICE'] == 'gpu':
         env['+C_INCLUDE_PATH'].append('/usr/local/cuda/include')
         env['+CPLUS_INCLUDE_PATH'].append('/usr/local/cuda/include')
         env['+LD_LIBRARY_PATH'].append('/usr/local/cuda/lib64')
@@ -47,10 +47,10 @@ def preprocess(i):
 
     # add preprocessor flag like "#define CM_MODEL_RESNET50"
     env['+ CXXFLAGS'].append('-DCM_MODEL_' + env['CM_MODEL'].upper())
-    # add preprocessor flag like "#define CM_BACKEND_ONNXRUNTIME"
-    env['+ CXXFLAGS'].append('-DCM_BACKEND_' + env['CM_BACKEND'].upper())
-    # add preprocessor flag like "#define CM_DEVICE_CPU"
-    env['+ CXXFLAGS'].append('-DCM_DEVICE_' + env['CM_DEVICE'].upper())
+    # add preprocessor flag like "#define CM_MLPERF_BACKEND_ONNXRUNTIME"
+    env['+ CXXFLAGS'].append('-DCM_MLPERF_BACKEND_' + env['CM_MLPERF_BACKEND'].upper())
+    # add preprocessor flag like "#define CM_MLPERF_DEVICE_CPU"
+    env['+ CXXFLAGS'].append('-DCM_MLPERF_DEVICE_' + env['CM_MLPERF_DEVICE'].upper())
 
     if '+ LDCXXFLAGS' not in env:
         env['+ LDCXXFLAGS'] = [ ]
@@ -60,11 +60,11 @@ def preprocess(i):
         "-lpthread"
     ]
     # e.g. -lonnxruntime
-    if 'CM_BACKEND_LIB_NAMESPEC' in env:
-        env['+ LDCXXFLAGS'].append('-l' + env['CM_BACKEND_LIB_NAMESPEC'])
+    if 'CM_MLPERF_BACKEND_LIB_NAMESPEC' in env:
+        env['+ LDCXXFLAGS'].append('-l' + env['CM_MLPERF_BACKEND_LIB_NAMESPEC'])
     # e.g. -lcudart
-    if 'CM_DEVICE_LIB_NAMESPEC' in env:
-        env['+ LDCXXFLAGS'].append('-l' + env['CM_DEVICE_LIB_NAMESPEC'])
+    if 'CM_MLPERF_DEVICE_LIB_NAMESPEC' in env:
+        env['+ LDCXXFLAGS'].append('-l' + env['CM_MLPERF_DEVICE_LIB_NAMESPEC'])
 
     env['CM_LINKER_LANG'] = 'CXX'
     env['CM_RUN_DIR'] = os.getcwd()

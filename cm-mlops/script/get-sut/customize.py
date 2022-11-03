@@ -8,14 +8,14 @@ def preprocess(i):
 
     submitter = env.get('CM_MLPERF_SUBMITTER', 'MLCommons')
     hw_name = env.get('CM_HW_NAME', "default")
-    backend = env.get('CM_BACKEND', '')
-    backend_version = env.get('CM_BACKEND_VERSION', '')
+    backend = env.get('CM_MLPERF_BACKEND', '')
+    backend_version = env.get('CM_MLPERF_BACKEND_VERSION', '')
     sut_suffix = ''
     backend_name = ''
     if backend:
-        backend_name = env.get('CM_BACKEND_NAME', backend)
+        backend_name = env.get('CM_MLPERF_BACKEND_NAME', backend)
         sut_suffix = "-" + backend
-        backend_desc = backend
+        backend_desc = backend_name
         if backend_version:
             sut_suffix += "-" + backend_version
             backend_desc += ' v' + backend_version
@@ -30,7 +30,7 @@ def preprocess(i):
         if os.path.exists(hw_path):
             state['CM_HW_META'] = json.load(open(hw_path))
             state['CM_SUT_META'] = state['CM_HW_META']
-            state['CM_SUT_META']['framework'] = backend_name
+            state['CM_SUT_META']['framework'] = backend_desc
             os_name = env.get('CM_HOST_OS_FLAVOR', '').capitalize()
             os_version = env.get('CM_HOST_OS_VERSION', '')
             if os_name and os_version:
