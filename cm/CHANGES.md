@@ -1,3 +1,6 @@
+## V1.0.5
+   - '\r' is removed on Windows when writing files with meta information (json or yaml)
+
 ## V1.0.4
    - minor fix in reporting errors
    - we now do not overwrite repo alias in .cmr.yaml when pulling forks to avoid ambiguities

@@ -23,3 +23,11 @@ def preprocess(i):
     ret = os.system(CMD)
 
     return {'return':0}
+
+def postprocess(i):
+    env = i['env']
+    import pandas
+    if exists('summary.csv'):
+        df = pandas.read_csv('summary.csv')
+        print(df)
+    return {'return':0}

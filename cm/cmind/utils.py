@@ -200,7 +200,7 @@ def save_json(file_name, meta={}, indent=2, sort_keys=True, encoding = 'utf8'):
 
     import json
 
-    with open(file_name, 'w', encoding = encoding) as jf:
+    with open(file_name, 'w', encoding = encoding, newline='\n') as jf:
         jf.write(json.dumps(meta, indent=indent, sort_keys=sort_keys)+'\n')
 
     return {'return':0}
@@ -350,7 +350,7 @@ def save_yaml(file_name, meta={}, sort_keys=True, encoding = 'utf8'):
 
     import yaml
 
-    with open(file_name, 'w', encoding = encoding) as yf:
+    with open(file_name, 'w', encoding = encoding, newline='\n') as yf:
         meta = yaml.dump(meta, yf)
 
     return {'return':0}
@@ -375,7 +375,7 @@ def save_txt(file_name, string = '', encoding = 'utf8'):
 
     """
 
-    with open(file_name, 'wt', encoding = encoding) as tf:
+    with open(file_name, 'wt', encoding = encoding, newline='\n') as tf:
         tf.write(string)
 
     return {'return':0}

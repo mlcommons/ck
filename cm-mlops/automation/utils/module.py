@@ -386,11 +386,15 @@ class CAutomation(Automation):
            * (error) (str): error string if return>0
         """
 
-        input_file = i['input']
+        input_file = i.get('input','')
+
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={json file}'}
+
         output_file = i.get('output','')
 
         r = utils.load_json(input_file, check_if_exists = True)
-        if r['return']>0: return 
+        if r['return']>0: return r
 
         meta = r['meta']
 
@@ -399,6 +403,118 @@ class CAutomation(Automation):
             output_file+='.yaml'
 
         r = utils.save_yaml(output_file, meta)
-        if r['return']>0: return 
+        if r['return']>0: return r
+
+        return {'return':0}
+
+    ##############################################################################
+    def yaml2json(self, i):
+        """
+        Convert YAML file to JSON
+
+        Args:    
+
+           input (str): input file (.yaml)
+           (output) (str): output file (.json)
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        input_file = i.get('input','')
+
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={yaml file}'}
+
+        output_file = i.get('output','')
+
+        r = utils.load_yaml(input_file, check_if_exists = True)
+        if r['return']>0: return r
+
+        meta = r['meta']
+
+        if output_file=='':
+            output_file = input_file[:-5] if input_file.endswith('.yaml') else input_file
+            output_file+='.json'
+
+        r = utils.save_json(output_file, meta)
+        if r['return']>0: return r
+
+        return {'return':0}
+
+    ##############################################################################
+    def sort_json(self, i):
+        """
+        Sort JSON file
+
+        Args:    
+
+           input (str): input file (.json)
+           (output) (str): output file
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        input_file = i.get('input','')
+
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={json file}'}
+
+        r = utils.load_json(input_file, check_if_exists = True)
+        if r['return']>0: return r
+
+        meta = r['meta']
+
+        output_file = i.get('output','')
+
+        if output_file=='':
+            output_file = input_file
+
+        r = utils.save_json(output_file, meta, sort_keys=True)
+        if r['return']>0: return r
+
+        return {'return':0}
+
+    ##############################################################################
+    def dos2unix(self, i):
+        """
+        Convert DOS file to UNIX (remove \r)
+
+        Args:    
+
+           input (str): input file (.txt)
+           (output) (str): output file
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        input_file = i.get('input','')
+
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={txt file}'}
+
+        r = utils.load_txt(input_file, check_if_exists = True)
+        if r['return']>0: return r
+
+        s = r['string'].replace('\r','')
+
+        output_file = i.get('output','')
+
+        if output_file=='':
+            output_file = input_file
+
+        r = utils.save_txt(output_file, s)
+        if r['return']>0: return r
 
         return {'return':0}

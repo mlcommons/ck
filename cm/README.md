@@ -3,8 +3,9 @@
 Collective Mind (CM) is the second generation of the automation meta-framework 
 implementing the [Collective Knowledge concept](https://arxiv.org/abs/2011.01149).
 
-CM is being developed as a community effort within the [open MLPerf workgroup](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
-to modularize complex AI systems and automate their co-design, benchmarking, 
+CM is being developed as a community effort within the 
+[open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+to modularize ML and AI systems and automate their co-design, benchmarking, 
 optimization and deployment across continuously changing software, hardware and data.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)

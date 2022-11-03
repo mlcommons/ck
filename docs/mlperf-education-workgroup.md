@@ -3,19 +3,38 @@
 ## News
 
 * Check the [notes about on-going projects](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing) from our weekly meetings.
-* Please use [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to join and stay informed about our activities.
+* Use [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to stay informed about our activities and join our conf-calls.
 * Check the [presentation about our mission and concept](https://doi.org/10.5281/zenodo.7143424).
-* Check our [portable image classification workflow example]( https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md ).
+* Check the [portable image classification workflow example]( https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md ).
 
 ## Mission
 
-* Help anyone to run, reproduce, customize and optimize MLPerf benchmarks across rapidly evolving software, hardware and data. 
-* Develop a [light-weight and open-source automation meta-framework](https://github.com/mlcommons/ck) to make MLOps and DevOps [more interoperable, reusable, portable, deterministic and reproducible](https://github.com/mlcommons/ck/tree/master/cm-mlops/script#readme). 
+* Make it easier to run, reproduce, customize and optimize MLPerf benchmarks across rapidly evolving software, hardware and data. 
+* Develop an [open-source automation meta-framework](https://github.com/mlcommons/ck) to make MLOps and DevOps [more interoperable, reusable, portable, deterministic and reproducible](https://github.com/mlcommons/ck/tree/master/cm-mlops/script). 
 * Use this meta-framework to develop [portable MLPerf workflows](mlperf-automation-cm/reproducibility.md) that can automatically plug in any real-world ML & AI tasks, models, data sets, software and hardware.
 * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 * Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
 * Help end-users of ML Systems visualize all MLPerf results, reproduce them and deploy the most suitable ML/SW/HW stacks in production.
 * Support reproducibility initiatives and artifact evaluation at ML and Systems conferences using rigorous MLPerf methodology and our educational toolkit.
+
+## Conf-calls
+
+* Main weekly conf-call (general and tech) on Thursday at 11am PST: [Google meet link](https://meet.google.com/ize-yihq-kzu)
+* Extra tech. weekly conf-call (mostly tech and introductions) on Tuesday at 10am CET (Europe): [Google meet link](https://meet.google.com/gkz-hdsa-qri)
+* Extra tech. weekly conf-call (mostly tech and introductions) on Wednesday at 4:30pm CET (Europe): [Google meet link](https://meet.google.com/gkz-hdsa-qri)
+
+Please add your topics for discussion in the [meeting notes](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
+or using this [GitHub ticket](https://github.com/mlcommons/ck/issues/325).
+
+## Meeting notes
+
+* Meeting notes: [Google doc](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
+* Older meeting notes: [GitHub](https://github.com/mlcommons/ck/tree/master/cm/meeting).
+
+## Mailing list
+
+Please use this [Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join our mailing list.
+
 
 ## Purpose
 
@@ -146,24 +165,6 @@ We use public meeting notes and GitHub tickets to track the progress of the comm
   to MLPerf on behalf of MLCommons.
 * Share deployable MLPerf inference containers with Pareto-efficient ML/SW/HW stacks.
 
-
-## Conf-calls
-
-* Main weekly conf-call (general and tech) on Thursday at 11am PST: [Google meet link](https://meet.google.com/ize-yihq-kzu)
-* Extra tech. weekly conf-call (mostly tech and introductions) on Tuesday at 10am CET (Europe): [Google meet link](https://meet.google.com/gkz-hdsa-qri)
-* Extra tech. weekly conf-call (mostly tech and introductions) on Wednesday at 4:30pm CET (Europe): [Google meet link](https://meet.google.com/gkz-hdsa-qri)
-
-Please add your topics for discussion in the [meeting notes](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
-or using this [GitHub ticket](https://github.com/mlcommons/ck/issues/325).
-
-## Meeting notes
-
-* Meeting notes: [Google doc](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
-* Older meeting notes: [GitHub](https://github.com/mlcommons/ck/tree/master/cm/meeting).
-
-## Mailing list
-
-Please use this [Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join our mailing list.
 
 
 ## Working Group Resources

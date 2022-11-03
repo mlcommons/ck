@@ -1,4 +1,5 @@
-These portable and reusable CM scripts are being developed by the [MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
+These portable and reusable CM scripts are being developed by the 
+[MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
 to make MLOps and DevOps more interoperable, reusable, portable, deterministic and reproducible.
 
 ## Catalog
@@ -46,4 +47,4 @@ to make MLOps and DevOps more interoperable, reusable, portable, deterministic a
 
 
 
-(C)opyright 2022 [MLCommons](https://mlcommons.org)
+&copy; 2022 [MLCommons](https://mlcommons.org)<br>
