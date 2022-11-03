@@ -22,6 +22,7 @@ def preprocess(i):
     input_path = Path(input_dir)
     cd_dir = input_path.parent.absolute()
     CMD =  'tar --directory '+str(cd_dir)+' -czf ' + os.path.join(output_dir, output_file) + ' ' + input_dirname
+    print(CMD)
     ret = os.system(CMD)
     print("Tar file "+os.path.join(output_dir, output_file)+ " created")
 
