@@ -7,9 +7,14 @@ echo "******************************************************"
 echo "Cloning Mlcommons from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_GIT_DEPTH} ${CM_GIT_RECURSE_SUBMODULES}..."
 
 if [ ! -d "inference" ]; then
-  git clone ${CM_GIT_RECURSE_SUBMODULES}  ${CM_GIT_URL} ${CM_GIT_DEPTH} inference
-  cd inference
-  git checkout -b "${CM_GIT_CHECKOUT}"
+  if [ ${CM_GIT_CUSTOME_CHECKOUT} != "yes" ]; then
+    git clone ${CM_GIT_RECURSE_SUBMODULES} -b "${CM_GIT_CHECKOUT}" ${CM_GIT_URL} ${CM_GIT_DEPTH} inference
+    cd inference
+  else
+    git clone ${CM_GIT_RECURSE_SUBMODULES} ${CM_GIT_URL} ${CM_GIT_DEPTH} inference
+    cd inference
+    git checkout -b "${CM_GIT_CHECKOUT}"
+  fi
   if [ "${?}" != "0" ]; then exit 1; fi
   if [ -z ${CM_GIT_RECURSE_SUBMODULES} ]; then #needed to build loadgen
     git submodule update --init third_party/pybind
