@@ -20,10 +20,13 @@ optimization and deployment across continuously changing software, hardware and 
 
 * [Motivation](motivation.md)
 
-## User guide and tutorials
+## Getting started guide
 
 * [Installation](installation.md)
-* [Modular image classification example](example-modular-image-classification.md)
+* [Image classification example](example-modular-image-classification.md)
+
+## User tutorials
+
 * [Tutorial: portable CM scripts](tutorial-scripts.md)
 * [Tutorial: CM database concepts](tutorial-concept.md)
 * [Tutorial: modular MLPerf benchmark](https://github.com/mlcommons/ck/blob/master/docs/mlperf-cm-automation-demo.md)
