@@ -7,12 +7,12 @@ echo "******************************************************"
 echo "Cloning Mlcommons from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_GIT_DEPTH} ${CM_GIT_RECURSE_SUBMODULES}..."
 
 if [ ! -d "inference" ]; then
-  git clone ${CM_GIT_RECURSE_SUBMODULES} -b "${CM_GIT_CHECKOUT}" ${CM_GIT_URL} ${CM_GIT_DEPTH} inference
+  git clone ${CM_GIT_RECURSE_SUBMODULES}  ${CM_GIT_URL} ${CM_GIT_DEPTH} inference
+  cd inference
+  git checkout -b "${CM_GIT_CHECKOUT}"
   if [ "${?}" != "0" ]; then exit 1; fi
   if [ -z ${CM_GIT_RECURSE_SUBMODULES} ]; then #needed to build loadgen
-    cd inference
     git submodule update --init third_party/pybind
-    cd ..
     if [ "${?}" != "0" ]; then exit 1; fi
   fi
 fi
@@ -20,7 +20,7 @@ fi
 if [ ${CM_GIT_PATCH} == "yes" ]; then
   patch_filename=${CM_GIT_PATCH_FILENAME:-git.patch}
   echo "Applying patch ${SCRIPT_DIR}/patch/$patch_filename"
-  cd inference
   git apply ${SCRIPT_DIR}/patch/"$patch_filename"
   if [ "${?}" != "0" ]; then exit 1; fi
 fi
+cd "$CUR_DIR"

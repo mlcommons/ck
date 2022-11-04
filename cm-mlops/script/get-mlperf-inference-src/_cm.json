@@ -103,6 +103,11 @@
         "CM_GIT_CHECKOUT": "tvm",
         "CM_MLPERF_LAST_RELEASE": "v2.1"
       }
+    },
+    "custom": {
+      "env": {
+        "CM_MLPERF_LAST_RELEASE": "v2.1"
+      }
     }
   }
 }
