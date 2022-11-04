@@ -20,6 +20,10 @@
         "inference-src-loadgen"
       ],
       "tags": "get,mlcommons,inference,src"
+      "force_env_keys": [
+        "CM_GIT_URL",
+        "CM_GIT_CHECKOUT"
+      ]
     },
     {
       "names": [
