@@ -12,7 +12,10 @@
       "names": [
         "inference-src"
       ],
-      "tags": "mlperf,inference,source"
+      "tags": "mlperf,inference,source",
+      "force_env_keys": [
+        "CM_GIT_*"
+      ]
     },
     {
       "tags": "detect,os"

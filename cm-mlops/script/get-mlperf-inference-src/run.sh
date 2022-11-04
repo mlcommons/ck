@@ -7,7 +7,7 @@ echo "******************************************************"
 echo "Cloning Mlcommons from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_GIT_DEPTH} ${CM_GIT_RECURSE_SUBMODULES}..."
 
 if [ ! -d "inference" ]; then
-  if [ ${CM_GIT_CUSTOM_CHECKOUT} != "yes" ]; then
+  if [ -z ${CM_GIT_SHA} ]; then
     git clone ${CM_GIT_RECURSE_SUBMODULES} -b "${CM_GIT_CHECKOUT}" ${CM_GIT_URL} ${CM_GIT_DEPTH} inference
     cd inference
   else

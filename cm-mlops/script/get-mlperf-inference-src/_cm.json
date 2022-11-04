@@ -20,7 +20,6 @@
     "CM_GIT_DEPTH": "--depth 10",
     "CM_GIT_PATCH": "no",
     "CM_GIT_URL": "https://github.com/mlcommons/inference.git",
-    "CM_GIT_CUSTOM_CHECKOUT": "no",
     "CM_GIT_CHECKOUT": "master"
   },
   "new_env_keys": [
@@ -107,8 +106,7 @@
     },
     "custom": {
       "env": {
-        "CM_MLPERF_LAST_RELEASE": "v2.1",
-        "CM_GIT_CUSTOM_CHECKOUT": "yes"
+        "CM_MLPERF_LAST_RELEASE": "v2.1"
       }
     }
   }
