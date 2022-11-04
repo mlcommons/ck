@@ -106,7 +106,6 @@ deps:
       CM_MLPERF_BACKEND:
       - onnxruntime
       - tvm-onnx
-      - tvm-pip-install-onnx
     
   ## Pytorch
   - tags: get,generic-python-lib,_torch
@@ -115,6 +114,7 @@ deps:
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
+      - tvm-pytorch
 
   ## Transformers
   - tags: get,generic-python-lib,_transformers
@@ -140,8 +140,9 @@ deps:
     enable_if_env:
       CM_MLPERF_BACKEND:
       - tvm-onnx
+      - tvm-pytorch
     skip_if_env:
-      CM_TVM_PIP_INSTALL: []
+      CM_TVM_PIP_INSTALL: [ "on" ]
     
     
       
@@ -210,6 +211,7 @@ deps:
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
+      - tvm-pytorch
       CM_MODEL:
       - resnet50
     
@@ -218,6 +220,7 @@ deps:
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
+      - tvm-onnx
       CM_MODEL:
       - retinanet
     
@@ -226,6 +229,7 @@ deps:
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
+      - tvm-pytorch
       CM_MODEL:
       - retinanet
   
@@ -234,6 +238,7 @@ deps:
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
+      - tvm-onnx
       CM_MODEL:
       - bert-99.9
 
@@ -250,6 +255,7 @@ deps:
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
+      - tvm-pytorch
       CM_MODEL:
       - bert-99.9
 
