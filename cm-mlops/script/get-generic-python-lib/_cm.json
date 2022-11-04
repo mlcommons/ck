@@ -152,6 +152,7 @@
       },
       "new_env_keys": [
         "CM_SK_LEARN_VERSION"
+      ]
     },
     "tqdm": {
       "env": {
@@ -159,6 +160,7 @@
       },
       "new_env_keys": [
         "CM_TQDM_VERSION"
+      ]
     },
     "opencv-python": {
       "env": {
@@ -166,6 +168,7 @@
       },
       "new_env_keys": [
         "CM_OPENCV_PYTHON_VERSION"
+      ]
     }
   }
 }
