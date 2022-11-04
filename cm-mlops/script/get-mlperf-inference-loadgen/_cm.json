@@ -38,8 +38,7 @@
       "tags": "get,cmake"
     }
   ],
-  "env": {
-    "CM_GIT_URL": "https://github.com/mlcommons/inference.git",
+  "default_env": {
     "CM_SHARED_BUILD": "no"
   },
   "extra_cache_tags_from_env": [
