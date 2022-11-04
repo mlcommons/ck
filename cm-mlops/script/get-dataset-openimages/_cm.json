@@ -15,6 +15,9 @@
       "tags": "mlperf,inference,source"
     },
     {
+      "tags": "detect,os"
+    },
+    {
       "tags": "get,openssl",
       "version": "1.1.1",
       "enable_if_env": {

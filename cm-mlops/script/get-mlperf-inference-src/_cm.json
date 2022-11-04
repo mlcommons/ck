@@ -16,9 +16,10 @@
       "tags": "get,python3"
     }
   ],
-  "env": {
+  "default_env": {
     "CM_GIT_DEPTH": "--depth 10",
     "CM_GIT_PATCH": "no",
+    "CM_GIT_CUSTOME_CHECKOUT": "no",
     "CM_GIT_URL": "https://github.com/mlcommons/inference.git"
   },
   "new_env_keys": [
@@ -102,6 +103,12 @@
         "CM_GIT_URL": "https://github.com/octoml/inference",
         "CM_GIT_CHECKOUT": "tvm",
         "CM_MLPERF_LAST_RELEASE": "v2.1"
+      }
+    },
+    "custom": {
+      "env": {
+        "CM_MLPERF_LAST_RELEASE": "v2.1",
+        "CM_GIT_CUSTOM_CHECKOUT": "yes"
       }
     }
   }

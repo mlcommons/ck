@@ -25,7 +25,7 @@ CM toolkit documentation
    :maxdepth: 2
    :caption: Developer guide
 
-   structure
+   architecture
    api/cmind
 
 .. toctree::

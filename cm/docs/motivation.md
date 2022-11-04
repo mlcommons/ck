@@ -1,56 +1,52 @@
 # Motivation
 
-[Collective Knowledge concept](https://arxiv.org/pdf/2011.01149.pdf) is motivated by our tedious experience reproducing 
+[Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) is motivated by our tedious experience reproducing 
 [150+ Systems and Machine Learning papers](https://learning.acm.org/techtalks/reproducibility)
 and automating [MLPerf benchmarks](https://mlcommons.org).
 
-We and our colleagues have to spend many weeks and even months communicating with each other
-to understand numerous technical reports, README files, ad-hoc scripts, tools, command lines, APIs,
-specifications, dependencies, data formats, models and data sets of all shared projects 
-to be able to [reproduce experiments](https://cknowledge.io/?q=%22reproduced-papers%22) 
-across continuously changing software, hardware and data.
+We have spent many months communicating with researchers and developers
+to understand their technical reports, README files, ad-hoc scripts, tools, command lines, APIs,
+specifications, dependencies, data formats, models and data 
+to be able to [reproduce their experiments](https://cknowledge.io/?q=%22reproduced-papers%22) 
+and reuse their artifacts across continuously changing software, hardware and data.
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production.png?id=1)
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production2a.png)
 
-## Cross-platform meta-framework
+## The 1st generation of the CK automation meta-framework
 
-This experience motivated us to develop a simple and cross-platform meta-framework
-that can help researchers and engineers solve above problems with miminal effort.
+This experience motivated us to develop a simple and cross-platform meta-framework (Collective Knowledge)
+that can help researchers and engineers solve above problems by transforming their
+projects into a database of portable, reusable and customizable components.
 
-Such meta-framework provides a unified CLI, API and extensible meta descriptions to existing artifacts and automation scripts 
-to make them more portable, interoperable, deterministic, reusable, reproducible and understandable
-with minimal or no changes to existing projects!
-
-Our goal is help users gradually transform their existing projects, Git repositories, Docker containers,
-Jupyter notebooks and internal directories into an [open database of portable scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
-with a common API, extensible meta descriptions and a simple portability and interoperability layer
-written in Python or shell scripts.
-
-Such approach helps users to abstract and protect their applications and scripts 
-from continuously changing software and hardware.
+All such components provide a unified CLI, Python API and extensible JSON/YAML meta descriptions to existing artifacts, 
+native scripts and workflows to make them more interoperable, deterministic, reusable and reproducible 
+across continuously changing software and hardware.
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production3a.png)
 
-## The 2nd generation of the CK framework
+We have donated the CK framework to the [MLCommons foundation](https://mlcommons.org)
+to benefit everyone after it was successfully validated by Qualcomm, Arm, General Motors,
+OctoML, Krai, HPE, Dell, Lenovo and [other partners](https://cKnowledge.org/partners.html)  
+to enable collaborative and reproducible development, optimization and deployment
+of Pareto-efficient ML Systems in terms of accuracy, latency, throughput, energy, size and costs.
 
-Collective Mind automation meta-framework (CM) is the second and simplified implementation 
-of the [Collective Knowledge concept (CK)]( https://arxiv.org/abs/2011.01149 )
-that was [validated in several academia and industry]( https://cKnowledge.org/partners.html ) in the past years 
-to enable unified, interchangeable, collaborative and reproducible development, optimization and deployment
-of Pareto-efficient ML Systems in terms of accuracy, latency, throughput, energy, size and costs
-across continuously changing software and hardware.
 
-It helps to transform Git repositories, Docker containers, Jupyter notebooks, zip/tar files
-and any local directory into a collective database of reusable artifacts 
-and automation scripts with a unified interface and extensible meta descriptions.
 
-Please join the [open MLPerf workgroup](../../docs/mlperf-education-workgroup.md)
-to participate in this community effort to make it easier for researchers and engineers 
-to exchange their artifacts, knowledge, experience and best practices 
-in a more automated, reusable, portable and unified way 
-across rapidly evolving software, hardwware and data.
+After this approach was successfully validated by Qualcomm, Arm, General Motors,
+OctoML, Krai, HPE, Dell, Lenovo and other organizations to modularize and automate MLPerf benchmarks,
+we have donated our prototype to the [MLCommons foundation](https://mlcommons.org) 
+to continue developing it as a community effort.
+
+## The 2nd generation of the CK framework (aka CM)
+
+Collective Mind workflow automation meta-framework (CM aka CK2)  is the 2nd implementation 
+of the [CK concept](https://arxiv.org/pdf/2011.01149.pdf) being developed
+by the [open MLCommons taskforce on education and reproducibility](docs/mlperf-education-workgroup.md).
+
+This taskforce is using and enhancing CM to modularize ML and AI systems and automate their benchmarking, 
+optimization and deployment across continuously changing software, hardware and data.
 
 See related articles and videos:
 * ["MLOps Is a Mess But That's to be Expected" (March 2022)](https://www.mihaileric.com/posts/mlops-is-a-mess)

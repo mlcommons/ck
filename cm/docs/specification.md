@@ -1,4 +1,4 @@
-# Specification
+# CM specification
 
 ## CM repository
 

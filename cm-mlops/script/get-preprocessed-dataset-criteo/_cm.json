@@ -29,6 +29,18 @@
         "inference-src"
       ],
       "tags": "mlperf,mlcommons,inference,source,src,_octoml"
+    },
+    {
+      "tags": "get,generic-python-lib,_sklearn"
+    },
+    {
+      "tags": "get,generic-python-lib,_torch"
+    },
+    {
+      "tags": "get,generic-python-lib,_opencv-python"
+    },
+    {
+      "tags": "get,generic-python-lib,_tqdm"
     }
   ],
   "input_mapping": {

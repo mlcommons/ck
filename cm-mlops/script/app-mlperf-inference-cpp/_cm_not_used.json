@@ -59,10 +59,10 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "onnxruntime"
         ],
-        "CM_DEVICE": [
+        "CM_MLPERF_DEVICE": [
           "cpu"
         ]
       },
@@ -70,10 +70,10 @@
     },
     {
       "enable_if_env": {
-        "CM_BACKEND": [
+        "CM_MLPERF_BACKEND": [
           "onnxruntime"
         ],
-        "CM_DEVICE": [
+        "CM_MLPERF_DEVICE": [
           "gpu"
         ]
       },
@@ -115,24 +115,24 @@
   "variations": {
     "cpu": {
       "env": {
-        "CM_DEVICE": "cpu"
+        "CM_MLPERF_DEVICE": "cpu"
       }
     },
     "gpu": {
       "env": {
-        "CM_DEVICE": "gpu",
-        "CM_DEVICE_LIB_NAMESPEC": "cudart"
+        "CM_MLPERF_DEVICE": "gpu",
+        "CM_MLPERF_DEVICE_LIB_NAMESPEC": "cudart"
       }
     },
     "onnxruntime": {
       "env": {
-        "CM_BACKEND": "onnxruntime",
-        "CM_BACKEND_LIB_NAMESPEC": "onnxruntime"
+        "CM_MLPERF_BACKEND": "onnxruntime",
+        "CM_MLPERF_BACKEND_LIB_NAMESPEC": "onnxruntime"
       }
     },
     "pytorch": {
       "env": {
-        "CM_BACKEND": "pytorch"
+        "CM_MLPERF_BACKEND": "pytorch"
       }
     },
     "resnet50": {
@@ -147,17 +147,17 @@
     },
     "tf": {
       "env": {
-        "CM_BACKEND": "tf"
+        "CM_MLPERF_BACKEND": "tf"
       }
     },
     "tflite": {
       "env": {
-        "CM_BACKEND": "tflite"
+        "CM_MLPERF_BACKEND": "tflite"
       }
     },
     "tvm-onnx": {
       "env": {
-        "CM_BACKEND": "tvm-onnx"
+        "CM_MLPERF_BACKEND": "tvm-onnx"
       }
     }
   }

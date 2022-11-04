@@ -73,7 +73,7 @@ deps:
   # Detect CUDA if required
   - tags: get,cuda
     enable_if_env:
-      CM_DEVICE:
+      CM_MLPERF_DEVICE:
       - gpu
 
 
@@ -103,18 +103,18 @@ deps:
     names:
     - ml-engine-onnxruntime
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - onnxruntime
       - tvm-onnx
-      - tvm-pip-install-onnx
     
   ## Pytorch
   - tags: get,generic-python-lib,_torch
     names:
     - ml-engine-pytorch
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - pytorch
+      - tvm-pytorch
 
   ## Transformers
   - tags: get,generic-python-lib,_transformers
@@ -129,7 +129,7 @@ deps:
     names:
     - ml-engine-tensorflow
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - tf
       - tflite
 
@@ -138,10 +138,11 @@ deps:
     names:
     - ml-engine-tvm
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - tvm-onnx
+      - tvm-pytorch
     skip_if_env:
-      CM_TVM_PIP_INSTALL: []
+      CM_TVM_PIP_INSTALL: [ "on" ]
     
     
       
@@ -190,7 +191,7 @@ deps:
   ## ResNet50 (ONNX format, FP32)
   - tags: get,ml-model,image-classification,resnet50,_onnx
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - onnxruntime
       - tvm-onnx
       CM_MODEL:
@@ -199,7 +200,7 @@ deps:
   ## ResNet50 (Tensorflow format, FP32)
   - tags: get,ml-model,image-classification,resnet50,_tensorflow
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - tf
       - tflite
       CM_MODEL:
@@ -208,39 +209,43 @@ deps:
   ## ResNet50 (PyTorch format, FP32)
   - tags: get,ml-model,image-classification,resnet50,_pytorch
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - pytorch
+      - tvm-pytorch
       CM_MODEL:
       - resnet50
     
   ## RetinaNet (ONNX format, FP32)
   - tags: get,ml-model,object-detection,resnext50,fp32,_onnx
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - onnxruntime
+      - tvm-onnx
       CM_MODEL:
       - retinanet
     
   ## RetinaNet (PyTorch format, FP32)
   - tags: get,ml-model,object-detection,resnext50,fp32,_pytorch
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - pytorch
+      - tvm-pytorch
       CM_MODEL:
       - retinanet
   
   ## BERT (ONNX format)
   - tags: get,ml-model,language-processing,bert,_onnx-fp32
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - onnxruntime
+      - tvm-onnx
       CM_MODEL:
       - bert-99.9
 
   ## BERT (TF format)
   - tags: get,ml-model,language-processing,bert,_tf
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - tf
       CM_MODEL:
       - bert-99.9
@@ -248,8 +253,9 @@ deps:
   ## BERT (Pytorch format)
   - tags: get,ml-model,language-processing,bert,_pytorch-fp32
     enable_if_env:
-      CM_BACKEND:
+      CM_MLPERF_BACKEND:
       - pytorch
+      - tvm-pytorch
       CM_MODEL:
       - bert-99.9
 
@@ -297,30 +303,35 @@ variations:
       cpp-mlperf-inference:
         tags: _onnxruntime
     env:
-      CM_BACKEND: onnxruntime
-      CM_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
+      CM_MLPERF_BACKEND: onnxruntime
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
 
   pytorch:
     env:
-      CM_BACKEND: pytorch
-      CM_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+      CM_MLPERF_BACKEND: pytorch
+      CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
 
   tf:
     add_deps_recursive:
       imagenet-preprocessed:
         tags: _NHWC
     env:
-      CM_BACKEND: tf
-      CM_BACKEND_VERSION: <<<CM_TENSORFLOW_VERSION>>>
+      CM_MLPERF_BACKEND: tf
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TENSORFLOW_VERSION>>>
 
   tflite:
     env:
-      CM_BACKEND: tflite
+      CM_MLPERF_BACKEND: tflite
 
   tvm-onnx:
     env:
-      CM_BACKEND: tvm-onnx
-      CM_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
+      CM_MLPERF_BACKEND: tvm-onnx
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
+
+  tvm-pytorch:
+    env:
+      CM_MLPERF_BACKEND: tvm-pytorch
+      CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
 
   tvm-pip-install-onnx:
     deps:
@@ -329,7 +340,17 @@ variations:
       - ml-engine-tvm
       tags: get,generic-python-lib,_apache-tvm
     env:
-      CM_BACKEND: tvm
+      CM_MLPERF_BACKEND: tvm-onnx
+      CM_TVM_PIP_INSTALL: true
+
+  tvm-pip-install-pytorch:
+    deps:
+    - names:
+      - tvm
+      - ml-engine-tvm
+      tags: get,generic-python-lib,_apache-tvm
+    env:
+      CM_MLPERF_BACKEND: tvm-pytorch
       CM_TVM_PIP_INSTALL: true
 
  
@@ -382,12 +403,12 @@ variations:
   # Target devices
   cpu:
     env:
-      CM_DEVICE: cpu
+      CM_MLPERF_DEVICE: cpu
       USE_GPU: no
 
   gpu:
     env:
-      CM_DEVICE: gpu
+      CM_MLPERF_DEVICE: gpu
       USE_GPU: yes
     add_deps_recursive:
       cpp-mlperf-inference:

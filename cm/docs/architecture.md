@@ -1,4 +1,4 @@
-# Structure
+# CM internal structure
 
 Here is a diagram of the main CM classes, functions and automations (v0.7.24+):
 

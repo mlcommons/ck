@@ -78,6 +78,13 @@
           "version": "r2.1"
         }
       }
+    },
+    "custom": {
+      "add_deps": {
+        "inference-src-loadgen": {
+          "version": "custom"
+        }
+      }
     }
   }
 }

@@ -15,8 +15,6 @@ optimization and deployment across continuously changing software, hardware and 
 
 &copy; 2022 [MLCommons](https://mlcommons.org)<br>
 
-Apache 2.0 license
-
 
 # Links
 
@@ -25,6 +23,8 @@ Apache 2.0 license
 
 
 # News
+
+* We keep our news and weekly notes at this [public doc](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit).
 
 * **2022 September 9:** Subscribe to our [public workgroup](https://github.com/mlcommons/ck/tree/master/docs/mlperf-education-workgroup.md) 
   to participate in the development of automation workflows
