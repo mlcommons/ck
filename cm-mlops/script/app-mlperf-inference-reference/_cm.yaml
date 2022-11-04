@@ -322,6 +322,11 @@ variations:
       CM_MLPERF_BACKEND: tvm-onnx
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
 
+  tvm-pytorch:
+    env:
+      CM_MLPERF_BACKEND: tvm-pytorch
+      CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+
   tvm-pip-install-onnx:
     deps:
     - names:
@@ -329,7 +334,17 @@ variations:
       - ml-engine-tvm
       tags: get,generic-python-lib,_apache-tvm
     env:
-      CM_MLPERF_BACKEND: tvm
+      CM_MLPERF_BACKEND: tvm-onnx
+      CM_TVM_PIP_INSTALL: true
+
+  tvm-pip-install-pytorch:
+    deps:
+    - names:
+      - tvm
+      - ml-engine-tvm
+      tags: get,generic-python-lib,_apache-tvm
+    env:
+      CM_MLPERF_BACKEND: tvm-pytorch
       CM_TVM_PIP_INSTALL: true
 
  
