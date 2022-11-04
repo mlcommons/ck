@@ -140,11 +140,32 @@
     },
     "apache-tvm": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "apache_tvm"
+        "CM_PYTHON_PACKAGE_NAME": "apache-tvm"
       },
       "new_env_keys": [
         "CM_APACHE_TVM_VERSION"
       ]
+    },
+    "sk-learn": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "sk-learn"
+      },
+      "new_env_keys": [
+        "CM_SK_LEARN_VERSION"
+    },
+    "tqdm": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "tqdm"
+      },
+      "new_env_keys": [
+        "CM_TQDM_VERSION"
+    },
+    "opencv-python": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "opencv-python"
+      },
+      "new_env_keys": [
+        "CM_OPENCV_PYTHON_VERSION"
     }
   }
 }

@@ -104,6 +104,21 @@
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "apache-tvm"
       }
+    },
+    "sklearn": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "sklearn"
+      }
+    },
+    "tqdm": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "tqdm"
+      }
+    },
+    "opencv-python": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "opencv-python"
+      }
     }
   }
 }
