@@ -158,6 +158,8 @@ class Automation:
 
         """
 
+        import copy
+
         console = i.get('out') == 'con'
 
         lst = []
@@ -225,6 +227,8 @@ class Automation:
         for repo in pruned_repos:
             path_repo = repo.path_with_prefix
 
+            repo_meta = copy.deepcopy(repo.meta)
+
             automations = os.listdir(path_repo)
 
             for automation in automations:
@@ -254,6 +258,10 @@ class Automation:
                             if r['is_file']:
                                 # Load artifact class
                                 artifact_object = Artifact(cmind = self.cmind, path = path_artifact)
+
+                                # Add extra info to artifact about the repo
+                                artifact_object.repo_path = path_repo
+                                artifact_object.repo_meta = repo_meta
 
                                 # Force no inheritance if first artifact just to check automation UID and alias
                                 tmp_ignore_inheritance = True if first_artifact else ignore_inheritance

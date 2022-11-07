@@ -2,11 +2,13 @@
   "alias": "script",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
+  "deps": {
+    "cache": "cache,541d6f712a6b464e"
+  },
+  "desc": "Making native scripts more portable, interoperable and deterministic",
+  "sort": 1000,
   "tags": [
     "automation"
   ],
-  "deps": {
-    "cache":"cache,541d6f712a6b464e"
-  },
   "uid": "5b4e0237da074764"
 }

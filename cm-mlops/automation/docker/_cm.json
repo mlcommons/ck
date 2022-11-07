@@ -2,6 +2,7 @@
   "alias": "docker",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
+  "desc": "Managing modular docker containers (under development)",
   "tags": [
     "automation"
   ],

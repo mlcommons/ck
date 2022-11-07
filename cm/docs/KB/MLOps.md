@@ -7,7 +7,7 @@ Here we collect related notes about MLPerf, MLOps, DevOps, inference engines, co
 # News and articles
 
 - March 2022: [MLOps Is a Mess But That's to be Expected](https://www.mihaileric.com/posts/mlops-is-a-mess)
-- Jun 2022: [Making ML models more portable and reproducible with open APIs, reusable best practices and MLOps](https://arxiv.org/abs/2006.07161)
+- June 2022: [Making ML models more portable and reproducible with open APIs, reusable best practices and MLOps](https://arxiv.org/abs/2006.07161)
 
 
 # MLPerf inference benchmark

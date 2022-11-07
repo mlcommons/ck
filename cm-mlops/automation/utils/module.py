@@ -518,3 +518,53 @@ class CAutomation(Automation):
         if r['return']>0: return r
 
         return {'return':0}
+
+    ##############################################################################
+    def replace_string_in_file(self, i):
+        """
+        Convert DOS file to UNIX (remove \r)
+
+        Args:    
+
+           input (str): input file (.txt)
+           (output) (str): output file
+           string (str): string to replace
+           replacement (str): replacement string
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
+           (update) (bool): True if file was upated
+        """
+
+        input_file = i.get('input', '')
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={txt file}'}
+        
+        string = i.get('string', '')
+        if string == '':
+            return {'return':1, 'error':'please specify --string={string to replace}'}
+
+        replacement = i.get('replacement', '')
+        if replacement == '':
+            return {'return':1, 'error':'please specify --replacement={string to replace}'}
+        
+        output_file = i.get('output','')
+
+        if output_file=='':
+            output_file = input_file
+        
+        r = utils.load_txt(input_file, check_if_exists = True)
+        if r['return']>0: return r
+
+        s = r['string'].replace('\r','')
+
+        s = s.replace(string, replacement)
+
+        r = utils.save_txt(output_file, s)
+        if r['return']>0: return r
+
+        return {'return':0}

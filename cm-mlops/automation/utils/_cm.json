@@ -2,6 +2,8 @@
   "alias": "utils",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
+  "desc": "Accessing various CM utils",
+  "sort": 800,
   "tags": [
     "automation"
   ],

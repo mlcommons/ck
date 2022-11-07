@@ -38,6 +38,10 @@ class Artifact:
         self.original_meta = {} # without inheritance
         self.meta = {}          # with inheritance
 
+        # Filled in during search
+        self.repo_path = ''
+        self.repo_meta = {}
+
     ############################################################
     def load(self, ignore_inheritance = False, base_recursion = 0):
         """

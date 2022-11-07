@@ -1,10 +1,12 @@
 {
-  "uid":"55c3e27e8a140e48",
-  "alias":"repo",
-  "automation_uid": "bbeb15d8f0a944a4",
+  "alias": "repo",
   "automation_alias": "automation",
+  "automation_uid": "bbeb15d8f0a944a4",
+  "desc": "Managing CM repositories",
+  "sort": 2000,
   "tags": [
     "automation",
     "repo"
-  ]
+  ],
+  "uid": "55c3e27e8a140e48"
 }
