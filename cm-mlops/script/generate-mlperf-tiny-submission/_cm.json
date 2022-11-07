@@ -2,6 +2,8 @@
   "alias": "generate-mlperf-tiny-submission",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Modular MLPerf benchmarks",
+  "category_sort": 8500,
   "cache": false,
   "deps": [
     {

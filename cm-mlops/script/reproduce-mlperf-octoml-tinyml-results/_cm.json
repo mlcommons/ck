@@ -2,6 +2,7 @@
   "alias": "reproduce-mlperf-octoml-tinyml-results",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Modular MLPerf benchmarks",
   "cache": true,
   "default_version": "r1.0",
   "deps": [

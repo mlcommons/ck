@@ -1,6 +1,7 @@
 {
   "alias": "install-generic-python-lib",
   "automation_alias": "script",
+  "category": "Python automation",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],

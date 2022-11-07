@@ -11,7 +11,7 @@ across diverse platforms with continuously changing software and hardware.
 
 &copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
 
-# Authors
+# Developers
 
 [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), 
 [Grigori Fursin]( https://cKnowledge.io/@gfursin ) 

@@ -2,6 +2,7 @@
   "alias": "wrapper-image-classification-onnx-py",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Modular ML/AI applications",
   "default_variation": "run",
   "tags": [
     "wrapper",

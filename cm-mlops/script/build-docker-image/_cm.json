@@ -2,6 +2,8 @@
   "alias": "build-docker-image",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Docker automation",
+  "category_sort": 6500,
   "cache": false,
   "input_mapping": {
     "cache": "CM_DOCKER_CACHE",

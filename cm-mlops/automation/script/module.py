@@ -2414,6 +2414,7 @@ class CAutomation(Automation):
         
         toc_category = {}
         toc_category_sort = {}
+        script_meta = {}
 
         for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
             path = artifact.path
@@ -2425,17 +2426,30 @@ class CAutomation(Automation):
             alias = meta.get('alias','')
             uid = meta.get('uid','')
 
+            script_meta[alias]=meta
+
             name = meta.get('name','')
             developers = meta.get('developers','')
 
-            category = meta.get('category','').strip()
-            category_sort = meta.get('category_sort',0)
+            tags = sorted(meta.get('tags',[]))
 
+            variation_keys = sorted(list(meta.get('variations',{}).keys()))
+            version_keys = sorted(list(meta.get('versions',{}).keys()))
+
+            default_variation = meta.get('default_variation','')
+            default_version = meta.get('default_version','')
+
+
+
+            category = meta.get('category', '').strip()
+            category_sort = meta.get('category_sort', 0)
             if category != '':
                 if category not in toc_category:
                     toc_category[category]=[]
-                    toc_category_sort[category]=category_sort
 
+                if category not in toc_category_sort or category_sort>0:
+                    toc_category_sort[category]=category_sort
+                
                 if alias not in toc_category[category]:
                     toc_category[category].append(alias)
 
@@ -2444,6 +2458,7 @@ class CAutomation(Automation):
 
             repo_alias = repo_meta.get('alias','')
             repo_uid = repo_meta.get('uid','')
+
 
             # Check URL
             url = ''
@@ -2488,20 +2503,47 @@ class CAutomation(Automation):
 
             md.append('* CM script meta description: *[GitHub]({})*'.format(meta_url))
             md.append('* CM automation "script": *[Docs]({})*'.format('https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script'))
+            md.append('* CM script  tags: *cm run script --tags="{}"*'.format(','.join(tags)))
+
+            if len(variation_keys)>0:
+                md.append('* CM script variations: *{}*'.format(';&nbsp;'.join(variation_keys)))
+
+            if default_variation!='':
+                md.append('* CM script default variation: *{}*'.format(default_variation))
+
+            if len(version_keys)>0:
+                md.append('* CM script versions: *{}*'.format(';&nbsp;'.join(version_keys)))
+
+            if default_version!='':
+                md.append('* CM script default version: *{}*'.format(default_version))
+
+
+
+            
             md.append('\n')
+
+
+
 
         # Recreate TOC with categories
         toc2 = []
 
-        for category in sorted(toc_category, key = lambda x: toc_category_sort[x]):
+        for category in sorted(toc_category, key = lambda x: -toc_category_sort[x]):
             toc2.append('### '+category)
             toc2.append('\n')
 
-            for script in toc_category[category]:
-                toc2.append('* '+script)
-                toc2.append('\n')
-                
+            for script in sorted(toc_category[category]):
 
+                meta = script_meta[script]
+
+                name = meta.get('name','')
+                
+                x = '* [{}](#{})'.format(script, script)
+                if name !='': x+=' *('+name+')*'
+                
+                toc2.append(x)
+
+            toc2.append('\n')
             
         # Load template
         r = utils.load_txt(os.path.join(self.path, template_file))

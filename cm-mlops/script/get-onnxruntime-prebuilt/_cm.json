@@ -2,6 +2,8 @@
   "alias": "get-onnxruntime-prebuilt",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "ML/AI frameworks",
+  "category_sort": 8400,
   "cache": true,
   "clean_files": [],
   "default_version": "1.12.1",

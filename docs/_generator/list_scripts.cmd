@@ -1,1 +1,1 @@
-cm doc script --output_dir=.
+cm doc script --output_dir=..

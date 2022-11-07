@@ -2,6 +2,7 @@
   "alias": "get-zephyr-sdk",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "TinyML automation",
   "cache": true,
   "clean_files": [],
   "default_version": "0.13.2",

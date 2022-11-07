@@ -150,7 +150,7 @@ class CAutomation(Automation):
 
         md = []
         
-        for artifact in sorted(lst, key = lambda x: x.meta.get('sort',0), reverse=True):
+        for artifact in sorted(lst, key = lambda x: (-x.meta.get('sort',0), x.meta.get('alias',''))):
             path = artifact.path
             meta = artifact.meta
             original_meta = artifact.original_meta
