@@ -2,6 +2,10 @@
   "alias": "activate-python-venv",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Python",
+  "category_sort": 1000,
+  "developers": "[Grigori Fursin](https://cKnowledge.io/@gfursin)",
+  "name": "Activate python virtual environment",
   "prehook_deps": [
     {
       "names": [

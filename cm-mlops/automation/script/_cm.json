@@ -6,6 +6,7 @@
     "cache": "cache,541d6f712a6b464e"
   },
   "desc": "Making native scripts more portable, interoperable and deterministic",
+  "developers": "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.io/@gfursin)",
   "sort": 1000,
   "tags": [
     "automation"

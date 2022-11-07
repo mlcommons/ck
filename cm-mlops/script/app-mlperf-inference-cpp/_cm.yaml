@@ -5,6 +5,9 @@ uid: bf62405e6c7a44bf
 automation_alias: script
 automation_uid: 5b4e0237da074764
 
+category: "Modular ML/AI benchmarks"
+category_sort: 11000
+
 # User-friendly tags to find this CM script
 tags:
   - app

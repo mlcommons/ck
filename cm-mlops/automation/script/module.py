@@ -1510,7 +1510,7 @@ class CAutomation(Automation):
         # Find CM script(s) based on thier tags to get their meta (can be more than 1)
         # Then check if variations exists inside meta
 
-        i['tags'] = script_tags
+        i['tags'] = ','.join(script_tags)
 
         i['out'] = None
         i['common'] = True
@@ -2348,6 +2348,183 @@ class CAutomation(Automation):
         os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
 
         return default_path_list
+
+
+
+    ############################################################
+    def doc(self, i):
+        """
+        Add CM automation.
+
+        Args:
+          (CM input dict): 
+
+          (out) (str): if 'con', output to console
+
+          parsed_artifact (list): prepared in CM CLI or CM access function
+                                    [ (artifact alias, artifact UID) ] or
+                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+          (repos) (str): list of repositories to search for automations (internal & mlcommons@ck by default)
+
+          (output_dir) (str): output directory (../docs by default)
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        template_file = 'list_of_scripts.md'
+
+        console = i.get('out') == 'con'
+
+        repos = i.get('repos','')
+        if repos == '': repos='internal,a4705959af8e447a'
+
+        parsed_artifact = i.get('parsed_artifact',[])
+        
+        if len(parsed_artifact)<1:
+            parsed_artifact = [('',''), ('','')]
+        elif len(parsed_artifact)<2:
+            parsed_artifact.append(('',''))
+        else:
+            repos = parsed_artifact[1][0]
+
+        list_of_repos = repos.split(',') if ',' in repos else [repos]
+        
+        ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
+
+        ii['out'] = None
+
+        # Search for automations in repos
+        lst = []
+        for repo in list_of_repos:
+            parsed_artifact[1] = ('',repo) if utils.is_cm_uid(repo) else (repo,'')
+            ii['parsed_artifact'] = parsed_artifact
+            r = self.search(ii)
+            if r['return']>0: return r
+            lst += r['list']
+
+        md = []
+
+        toc = []
+        
+        toc_category = {}
+        toc_category_sort = {}
+
+        for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
+            path = artifact.path
+            meta = artifact.meta
+            original_meta = artifact.original_meta
+
+            print ('Documenting {}'.format(path))
+
+            alias = meta.get('alias','')
+            uid = meta.get('uid','')
+
+            name = meta.get('name','')
+            developers = meta.get('developers','')
+
+            category = meta.get('category','').strip()
+            category_sort = meta.get('category_sort',0)
+
+            if category != '':
+                if category not in toc_category:
+                    toc_category[category]=[]
+                    toc_category_sort[category]=category_sort
+
+                if alias not in toc_category[category]:
+                    toc_category[category].append(alias)
+
+            repo_path = artifact.repo_path
+            repo_meta = artifact.repo_meta
+
+            repo_alias = repo_meta.get('alias','')
+            repo_uid = repo_meta.get('uid','')
+
+            # Check URL
+            url = ''
+            url_repo = ''
+            if repo_alias == 'internal':
+                url_repo = 'https://github.com/mlcommons/ck/tree/master/cm/cmind/repo'
+                url = url_repo+'/script/'
+            elif '@' in repo_alias:
+                url_repo = 'https://github.com/'+repo_alias.replace('@','/')+'/tree/master'
+                if repo_meta.get('prefix','')!='': url_repo+='/'+repo_meta['prefix']
+                url = url_repo+ '/script/'
+
+            if url!='':
+                url+=alias
+
+            x = '* [{}](#{})'.format(alias, alias)
+            if name !='': x+=' *('+name+')*'
+
+            toc.append(x)
+
+            md.append('## '+alias)
+            md.append('\n')
+            
+            if name!='':
+                md.append('*'+name+'.*')
+                md.append('\n')
+
+            if developers!='':
+                md.append('Developers: '+developers)
+                md.append('\n')
+
+            md.append('* CM script GitHub repository: *[{}]({})*'.format(repo_alias, url_repo))
+            md.append('* CM script artifact (interoperability module, native scripts and meta): *[GitHub]({})*'.format(url))
+
+            # Check meta
+            meta_file = self.cmind.cfg['file_cmeta']
+            meta_path = os.path.join(path, meta_file)
+
+            meta_file += '.yaml' if os.path.isfile(meta_path+'.yaml') else '.json'
+            
+            meta_url = url+'/'+meta_file
+
+            md.append('* CM script meta description: *[GitHub]({})*'.format(meta_url))
+            md.append('* CM automation "script": *[Docs]({})*'.format('https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script'))
+            md.append('\n')
+
+        # Recreate TOC with categories
+        toc2 = []
+
+        for category in sorted(toc_category, key = lambda x: toc_category_sort[x]):
+            toc2.append('### '+category)
+            toc2.append('\n')
+
+            for script in toc_category[category]:
+                toc2.append('* '+script)
+                toc2.append('\n')
+                
+
+            
+        # Load template
+        r = utils.load_txt(os.path.join(self.path, template_file))
+        if r['return']>0: return r
+
+        s = r['string']
+
+        s = s.replace('{{CM_TOC2}}', '\n'.join(toc2))
+        s = s.replace('{{CM_TOC}}', '\n'.join(toc))
+        s = s.replace('{{CM_MAIN}}', '\n'.join(md))
+
+        # Output
+        output_dir = i.get('output_dir','')
+
+        if output_dir == '': output_dir = '..'
+
+        output_file = os.path.join(output_dir, template_file)
+
+        r = utils.save_txt(output_file, s)
+        if r['return']>0: return r
+
+        return {'return':0}
+
 
 
 ##############################################################################

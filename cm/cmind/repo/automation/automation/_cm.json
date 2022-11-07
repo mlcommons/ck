@@ -3,6 +3,7 @@
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
   "desc": "Managing CM automations",
+  "developers": "[Grigori Fursin](https://cKnowledge.io/@gfursin)",
   "sort": -2000,
   "tags": [
     "automation"

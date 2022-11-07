@@ -146,6 +146,8 @@ class CAutomation(Automation):
             lst += r['list']
 
         toc = []
+        toc2 = {}
+
         md = []
         
         for artifact in sorted(lst, key = lambda x: x.meta.get('sort',0), reverse=True):
@@ -153,12 +155,13 @@ class CAutomation(Automation):
             meta = artifact.meta
             original_meta = artifact.original_meta
 
-            print (path)
+            print ('Documenting {}'.format(path))
 
             alias = meta.get('alias','')
             uid = meta.get('uid','')
 
             desc = meta.get('desc','')
+            developers = meta.get('developers','')
 
             repo_path = artifact.repo_path
             repo_meta = artifact.repo_meta
@@ -171,10 +174,10 @@ class CAutomation(Automation):
             url_repo = ''
             if repo_alias == 'internal':
                 url_repo = 'https://github.com/mlcommons/ck/tree/master/cm/cmind/repo'
-                url = url_repo+'/automation/'
+                url = url_repo+ '/automation/'
             elif '@' in repo_alias:
                 url_repo = 'https://github.com/'+repo_alias.replace('@','/')+'/tree/master'
-                if repo_meta.get('prefix','')!='': url_repo+='/'+repo_meta['prefix']+'/'
+                if repo_meta.get('prefix','')!='': url_repo+='/'+repo_meta['prefix']
                 url = url_repo+ '/automation/'
 
             if url!='':
@@ -190,6 +193,10 @@ class CAutomation(Automation):
             
             if desc!='':
                 md.append('*'+desc+'.*')
+                md.append('\n')
+
+            if developers!='':
+                md.append('Developers: '+developers)
                 md.append('\n')
 
             md.append('* CM GitHub repository: *[{}]({})*'.format(repo_alias, url_repo))
@@ -214,7 +221,7 @@ class CAutomation(Automation):
                     action = line[8:j]
 
                     if not action.startswith('_'):
-                        x = '  * cm **'+action+'** '+alias+'   &nbsp;&nbsp;&nbsp;*( [See CM API and description]({}) )*'.format(module_url+'#L'+str(line_number))
+                        x = '  * cm **'+action+'** '+alias+'   &nbsp;&nbsp;&nbsp;*( [See CM API]({}) )*'.format(module_url+'#L'+str(line_number))
                         md.append(x)
 
                 line_number+=1
