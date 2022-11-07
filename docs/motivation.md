@@ -48,11 +48,14 @@ by the [open MLCommons taskforce on education and reproducibility](docs/mlperf-e
 This taskforce is using and enhancing CM to modularize ML and AI systems and automate their benchmarking, 
 optimization and deployment across continuously changing software, hardware and data.
 
-See related articles and videos:
-* ["MLOps Is a Mess But That's to be Expected" (March 2022)](https://www.mihaileric.com/posts/mlops-is-a-mess)
-* ["Reproducing 150 Research Papers and Testing Them in the Real World: Challenges and Solutions" (ACM TechTalk; Feb 2021)](https://learning.acm.org/techtalks/reproducibility)
+## Related resources and references
+
+* [Blog article about "MLOps Is a Mess But That's to be Expected" (March 2022)](https://www.mihaileric.com/posts/mlops-is-a-mess)
+* [Journal article describing the CK concept](https://arxiv.org/pdf/2011.01149.pdf)
+* ["Reproducing 150 Research Papers and Testing Them in the Real World" (ACM TechTalk; Feb 2021)](https://learning.acm.org/techtalks/reproducibility)
 * ["Automating MLPerf design space exploration and production deployment" (HPCA'22)](https://doi.org/10.5281/zenodo.6475385)
 * ["Collaboratively Benchmarking and Optimizing Deep Learning Implementations" (General Motors; Jun 2017)]( https://youtu.be/1ldgVZ64hEI )
+* [MLOps projects, articles and tools](https://github.com/mlcommons/ck/tree/master/cm/docs/KB/MLOps.md)
 
 
 ## Acknowledgments

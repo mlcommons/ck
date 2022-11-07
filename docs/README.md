@@ -1,4 +1,4 @@
-# About
+# CM (CK2) documentation
 
 [Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
 provides a simple way to unify, manage, connect and reuse any artifacts, scripts, tools and workflows 
@@ -20,9 +20,52 @@ optimization and deployment across continuously changing software, hardware and 
 
 &copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
 
-## Documentation
+## Introduction
 
-* [Table of contents](docs/README.md)
+* [Motivation](motivation.md)
+
+## Getting started guide
+
+* [Installation and customization](installation.md)
+* [Image classification example](../cm/docs/example-modular-image-classification.md)
+* [List of CM automations](list_of_automations.md)
+
+## User tutorials
+
+* [Tutorial: portable CM scripts](../cm/docs/tutorial-scripts.md)
+  * [List of CM scripts](list_of_scripts.md)
+* [Tutorial: CM database concepts](../cm/docs/tutorial-concept.md)
+* [Tutorial: modular MLPerf benchmark](mlperf-cm-automation-demo.md)
+
+## Contributor guide
+
+* [Intro](../CONTRIBUTING.md)
+* [CM architecture](../cm/docs/architecture.md)
+* [CM API](https://cknowledge.org/docs/cm/api/cmind.html)
+* [Adding new artifacts, scripts and workflows to CM](../cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
+
+## Community projects
+
+* [Open MLCommons taskforce to automate co-design, benchmarking, optimization and deployment of ML Systems](mlperf-education-workgroup.md)
+* [Artifact evaluation and reproducibility initiatives at conferences](https://cTuning.org/ae)
+
+
+## Knowledge base
+
+* [MLOps resources](../cm/docs/KB/MLOps.md)
+* [ML resources](../cm/docs/KB/ML.md)
+
+
+## Future work
+   
+* [Minutes from weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
+* [GitHub tickets](https://github.com/mlcommons/ck/issues)
+
+
+## Legacy MLCommons CK framework (CK1)
+
+* [GitHub project](ck1) - MLCommons CK was discontinued in summer 2022 after the stable release of the 2nd generation of this framework (CM aka CK2).
+
 
 ## Maintainers
 
@@ -34,3 +77,37 @@ optimization and deployment across continuously changing software, hardware and 
 This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
