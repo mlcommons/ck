@@ -11,7 +11,8 @@ of the CK concept being developed by the [open MLCommons taskforce on education 
 to make MLOps and DevOps more interoperable, portable, deterministic and reproducible.
 
 [MLCommons](https://mlcommons.org) uses CM to to modularize ML and AI systems and automate their benchmarking, 
-optimization and deployment across continuously changing software, hardware and data.
+optimization and deployment across diverse and continuously changing software, hardware and data
+from the cloud to embedded devices.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 [![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)

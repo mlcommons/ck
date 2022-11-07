@@ -2431,7 +2431,7 @@ class CAutomation(Automation):
             name = meta.get('name','')
             developers = meta.get('developers','')
 
-            tags = sorted(meta.get('tags',[]))
+            tags = meta.get('tags',[])
 
             variation_keys = sorted(list(meta.get('variations',{}).keys()))
             version_keys = sorted(list(meta.get('versions',{}).keys()))
@@ -2506,13 +2506,17 @@ class CAutomation(Automation):
             md.append('* CM script  tags: *cm run script --tags="{}"*'.format(','.join(tags)))
 
             if len(variation_keys)>0:
-                md.append('* CM script variations: *{}*'.format(';&nbsp;'.join(variation_keys)))
+                x=''
+                for variation in variation_keys:
+                    if x!='': x+=';&nbsp; '
+                    x+='_'+variation
+                md.append('* CM script variations: *{}*'.format(x))
 
             if default_variation!='':
                 md.append('* CM script default variation: *{}*'.format(default_variation))
 
             if len(version_keys)>0:
-                md.append('* CM script versions: *{}*'.format(';&nbsp;'.join(version_keys)))
+                md.append('* CM script versions: *{}*'.format(';&nbsp; '.join(version_keys)))
 
             if default_version!='':
                 md.append('* CM script default version: *{}*'.format(default_version))

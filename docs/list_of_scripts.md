@@ -319,7 +319,7 @@ Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="activate,activate-python-venv,python,python-venv"*
+* CM script  tags: *cm run script --tags="activate,python,activate-python-venv,python-venv"*
 
 
 ## app-image-classification-onnx-cpp
@@ -329,7 +329,7 @@ Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-cpp)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-cpp/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,cpp,image-classification,onnx"*
+* CM script  tags: *cm run script --tags="app,image-classification,onnx,cpp"*
 
 
 ## app-image-classification-onnx-py
@@ -359,7 +359,7 @@ Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-torch-py)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-torch-py/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,image-classification,python,torch"*
+* CM script  tags: *cm run script --tags="app,image-classification,torch,python"*
 
 
 ## app-image-classification-tvm-onnx-py
@@ -369,8 +369,8 @@ Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tvm-onnx-py)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tvm-onnx-py/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,image-classification,python,tvm-onnx"*
-* CM script variations: *tvm;&nbsp;tvm-llvm;&nbsp;tvm-pip-install*
+* CM script  tags: *cm run script --tags="app,image-classification,tvm-onnx,python"*
+* CM script variations: *_tvm;&nbsp; _tvm-llvm;&nbsp; _tvm-pip-install*
 * CM script default variation: *tvm-llvm*
 
 
@@ -381,7 +381,7 @@ Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,corner-detection,image"*
+* CM script  tags: *cm run script --tags="app,image,corner-detection"*
 
 
 ## app-image-corner-detection-old
@@ -404,8 +404,8 @@ Developers: [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Arj
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,cpp,inference,mlcommons,mlperf"*
-* CM script variations: *cpu;&nbsp;gpu;&nbsp;onnxruntime;&nbsp;pytorch;&nbsp;resnet50;&nbsp;retinanet;&nbsp;tf;&nbsp;tflite;&nbsp;tvm-onnx*
+* CM script  tags: *cm run script --tags="app,mlcommons,mlperf,inference,cpp"*
+* CM script variations: *_cpu;&nbsp; _gpu;&nbsp; _onnxruntime;&nbsp; _pytorch;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tvm-onnx*
 
 
 ## app-mlperf-inference-reference
@@ -418,8 +418,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,generic,inference,language,mlcommons,mlperf,ref,reference,vision"*
-* CM script variations: *bert-99.9;&nbsp;cpp;&nbsp;cpu;&nbsp;fast;&nbsp;gpu;&nbsp;onnxruntime;&nbsp;python;&nbsp;pytorch;&nbsp;r2.1_default;&nbsp;resnet50;&nbsp;retinanet;&nbsp;test;&nbsp;tf;&nbsp;tflite;&nbsp;tvm-onnx;&nbsp;tvm-pip-install-onnx;&nbsp;tvm-pip-install-pytorch;&nbsp;tvm-pytorch;&nbsp;valid*
+* CM script  tags: *cm run script --tags="app,vision,language,mlcommons,mlperf,inference,reference,generic,ref"*
+* CM script variations: *_bert-99.9;&nbsp; _cpp;&nbsp; _cpu;&nbsp; _fast;&nbsp; _gpu;&nbsp; _onnxruntime;&nbsp; _python;&nbsp; _pytorch;&nbsp; _r2.1_default;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _test;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tvm-onnx;&nbsp; _tvm-pip-install-onnx;&nbsp; _tvm-pip-install-pytorch;&nbsp; _tvm-pytorch;&nbsp; _valid*
 
 
 ## benchmark-program
@@ -429,8 +429,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="benchmark,benchmark-program,program"*
-* CM script variations: *numactl;&nbsp;numactl-interleave;&nbsp;profile*
+* CM script  tags: *cm run script --tags="program,benchmark,benchmark-program"*
+* CM script variations: *_numactl;&nbsp; _numactl-interleave;&nbsp; _profile*
 
 
 ## build-docker-image
@@ -440,7 +440,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="build,docker,docker-image,dockerimage,image"*
+* CM script  tags: *cm run script --tags="build,docker,image,docker-image,dockerimage"*
 
 
 ## build-dockerfile
@@ -451,7 +451,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-dockerfile/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="build,dockerfile"*
-* CM script variations: *slim*
+* CM script variations: *_slim*
 
 
 ## compile-program
@@ -461,7 +461,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="compile,compile-program,program"*
+* CM script  tags: *cm run script --tags="program,compile,compile-program"*
 
 
 ## destroy-terraform
@@ -471,7 +471,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/destroy-terraform)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/destroy-terraform/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cmd,destroy,terraform"*
+* CM script  tags: *cm run script --tags="destroy,terraform,cmd"*
 
 
 ## detect-cpu
@@ -481,7 +481,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cpu,detect,detect-cpu,info"*
+* CM script  tags: *cm run script --tags="detect,cpu,detect-cpu,info"*
 
 
 ## detect-os
@@ -491,7 +491,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="detect,detect-os,info,os"*
+* CM script  tags: *cm run script --tags="detect-os,detect,os,info"*
 
 
 ## flash-tinyml-binary
@@ -501,8 +501,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="flash,mlcommons,mlperf,tiny"*
-* CM script variations: *NRF;&nbsp;NUCLEO;&nbsp;ad;&nbsp;cmsis_nn;&nbsp;ic;&nbsp;kws;&nbsp;native;&nbsp;vww*
+* CM script  tags: *cm run script --tags="flash,tiny,mlperf,mlcommons"*
+* CM script variations: *_NRF;&nbsp; _NUCLEO;&nbsp; _ad;&nbsp; _cmsis_nn;&nbsp; _ic;&nbsp; _kws;&nbsp; _native;&nbsp; _vww*
 * CM script default version: *r1.0*
 
 
@@ -513,7 +513,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="generate,inference,inference-submission,mlcommons,mlcommons-inference-submission,mlperf,mlperf-inference,mlperf-inference-submission,submission"*
+* CM script  tags: *cm run script --tags="generate,submission,mlperf,mlperf-inference,inference,mlcommons,inference-submission,mlperf-inference-submission,mlcommons-inference-submission"*
 
 
 ## generate-mlperf-tiny-submission
@@ -523,7 +523,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="generate,mlcommons,mlcommons-tiny-submission,mlperf,mlperf-tiny,mlperf-tiny-submission,submission,tiny,tiny-submission"*
+* CM script  tags: *cm run script --tags="generate,submission,mlperf,mlperf-tiny,tiny,mlcommons,tiny-submission,mlperf-tiny-submission,mlcommons-tiny-submission"*
 
 
 ## get-aws-cli
@@ -533,7 +533,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aws-cli)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aws-cli/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="aws,aws-cli,cli,get"*
+* CM script  tags: *cm run script --tags="get,aws-cli,aws,cli"*
 
 
 ## get-bazel
@@ -543,7 +543,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bazel)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bazel/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="bazel,get,get-bazel"*
+* CM script  tags: *cm run script --tags="get,bazel,get-bazel"*
 
 
 ## get-ck
@@ -553,7 +553,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ck)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ck/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="ck,ck-framework,get"*
+* CM script  tags: *cm run script --tags="get,ck,ck-framework"*
 
 
 ## get-ck-repo-mlops
@@ -563,7 +563,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ck-repo-mlops)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ck-repo-mlops/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="ck-repo,ck-repo-mlops,get,mlops"*
+* CM script  tags: *cm run script --tags="get,ck-repo,mlops,ck-repo-mlops"*
 
 
 ## get-cl
@@ -576,7 +576,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="c-compiler,cl,compiler,cpp-compiler,get,get-cl"*
+* CM script  tags: *cm run script --tags="get,cl,compiler,c-compiler,cpp-compiler,get-cl"*
 
 
 ## get-cmake
@@ -586,7 +586,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cmake,get,get-cmake"*
+* CM script  tags: *cm run script --tags="get,cmake,get-cmake"*
 
 
 ## get-cmsis_5
@@ -596,9 +596,9 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmsis_5)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmsis_5/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="arm-software,cmsis,cmsis_5,get"*
-* CM script variations: *recurse-submodules;&nbsp;short-history*
-* CM script versions: *custom;&nbsp;develop;&nbsp;master*
+* CM script  tags: *cm run script --tags="get,cmsis,cmsis_5,arm-software"*
+* CM script variations: *_recurse-submodules;&nbsp; _short-history*
+* CM script versions: *custom;&nbsp; develop;&nbsp; master*
 * CM script default version: *develop*
 
 
@@ -609,7 +609,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="compiler-flags,get"*
+* CM script  tags: *cm run script --tags="get,compiler-flags"*
 
 
 ## get-configs-sut-mlperf-inference
@@ -619,7 +619,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="configs,get,mlc,sut,sut-configs,sut-mlc-configs"*
+* CM script  tags: *cm run script --tags="get,sut,mlc,configs,sut-configs,sut-mlc-configs"*
 
 
 ## get-cuda
@@ -629,7 +629,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cuda,get,get-cuda,get-nvcc,nvcc"*
+* CM script  tags: *cm run script --tags="get,cuda,nvcc,get-nvcc,get-cuda"*
 
 
 ## get-cuda-devices
@@ -639,7 +639,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cuda-devices,get"*
+* CM script  tags: *cm run script --tags="get,cuda-devices"*
 
 
 ## get-dataset-criteo
@@ -649,8 +649,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="criteo,dataset,get,original"*
-* CM script variations: *backup*
+* CM script  tags: *cm run script --tags="get,dataset,criteo,original"*
+* CM script variations: *_backup*
 
 
 ## get-dataset-imagenet-aux
@@ -660,8 +660,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="aux,dataset-aux,get,image-classification,imagenet-aux"*
-* CM script variations: *2012;&nbsp;from.berkeleyvision;&nbsp;from.dropbox*
+* CM script  tags: *cm run script --tags="get,aux,dataset-aux,image-classification,imagenet-aux"*
+* CM script variations: *_2012;&nbsp; _from.berkeleyvision;&nbsp; _from.dropbox*
 * CM script default variation: *from.dropbox*
 
 
@@ -672,7 +672,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-helper)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-helper/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,helper,imagenet,imagenet-helper"*
+* CM script  tags: *cm run script --tags="get,imagenet,helper,imagenet-helper"*
 
 
 ## get-dataset-imagenet-val
@@ -682,8 +682,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="ILSVRC,dataset,get,image-classification,imagenet,original"*
-* CM script variations: *2012-1;&nbsp;2012-500;&nbsp;2012-full;&nbsp;full*
+* CM script  tags: *cm run script --tags="get,dataset,imagenet,ILSVRC,image-classification,original"*
+* CM script variations: *_2012-1;&nbsp; _2012-500;&nbsp; _2012-full;&nbsp; _full*
 * CM script default variation: *2012-500*
 
 
@@ -694,8 +694,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="audio,dataset,get,librispeech,original,speech,speech-recognition,training,validation"*
-* CM script versions: *dev-clean;&nbsp;dev-other;&nbsp;test-clean;&nbsp;test-other;&nbsp;train-clean-100;&nbsp;train-clean-360;&nbsp;train-other-500*
+* CM script  tags: *cm run script --tags="get,dataset,speech,speech-recognition,librispeech,validation,audio,training,original"*
+* CM script versions: *dev-clean;&nbsp; dev-other;&nbsp; test-clean;&nbsp; test-other;&nbsp; train-clean-100;&nbsp; train-clean-360;&nbsp; train-other-500*
 * CM script default version: *dev-clean*
 
 
@@ -706,8 +706,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="dataset,get,object-detection,open-images,openimages,original"*
-* CM script variations: *calibration;&nbsp;validation*
+* CM script  tags: *cm run script --tags="get,dataset,openimages,open-images,object-detection,original"*
+* CM script variations: *_calibration;&nbsp; _validation*
 * CM script default variation: *validation*
 
 
@@ -718,8 +718,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="dataset,get,language-processing,original,squad,training,validation"*
-* CM script versions: *1.1;&nbsp;2.0*
+* CM script  tags: *cm run script --tags="get,dataset,squad,language-processing,validation,training,original"*
+* CM script versions: *1.1;&nbsp; 2.0*
 * CM script default version: *1.1*
 
 
@@ -730,8 +730,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dlrm)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dlrm/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="dlrm,get,src"*
-* CM script variations: *full-history*
+* CM script  tags: *cm run script --tags="get,src,dlrm"*
+* CM script variations: *_full-history*
 * CM script versions: *main*
 * CM script default version: *main*
 
@@ -746,7 +746,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="c-compiler,compiler,cpp-compiler,gcc,get,get-gcc"*
+* CM script  tags: *cm run script --tags="get,gcc,compiler,c-compiler,cpp-compiler,get-gcc"*
 
 
 ## get-generic-python-lib
@@ -756,8 +756,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="generic,generic-python-lib,get"*
-* CM script variations: *apache-tvm;&nbsp;numpy;&nbsp;nvidia-pycocotools;&nbsp;onnx;&nbsp;onnxruntime;&nbsp;opencv-python;&nbsp;pip;&nbsp;protobuf;&nbsp;pycocotools;&nbsp;setuptools;&nbsp;sk-learn;&nbsp;tensorflow;&nbsp;tokenization;&nbsp;torch;&nbsp;tqdm;&nbsp;transformers*
+* CM script  tags: *cm run script --tags="get,generic,generic-python-lib"*
+* CM script variations: *_apache-tvm;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _opencv-python;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sk-learn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _tqdm;&nbsp; _transformers*
 
 
 ## get-github-cli
@@ -767,7 +767,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-github-cli)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-github-cli/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cli,get,gh,github,github-cli"*
+* CM script  tags: *cm run script --tags="get,gh,github,cli,github-cli"*
 
 
 ## get-go
@@ -777,7 +777,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-go)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-go/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,get-go,go,tool"*
+* CM script  tags: *cm run script --tags="get,tool,go,get-go"*
 
 
 ## get-llvm
@@ -790,7 +790,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="c-compiler,compiler,cpp-compiler,get,get-llvm,llvm"*
+* CM script  tags: *cm run script --tags="get,llvm,compiler,c-compiler,cpp-compiler,get-llvm"*
 
 
 ## get-microtvm
@@ -800,10 +800,10 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,microtvm,source,src,tiny"*
-* CM script variations: *default;&nbsp;full-history;&nbsp;short-history*
+* CM script  tags: *cm run script --tags="get,src,source,microtvm,tiny"*
+* CM script variations: *_default;&nbsp; _full-history;&nbsp; _short-history*
 * CM script default variation: *default*
-* CM script versions: *custom;&nbsp;main*
+* CM script versions: *custom;&nbsp; main*
 * CM script default version: *main*
 
 
@@ -814,8 +814,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="bert,bert-large,bert-squad,get,language,language-processing,ml-model"*
-* CM script variations: *fp32;&nbsp;int8;&nbsp;onnx;&nbsp;onnx-fp32;&nbsp;onnx-int8;&nbsp;onnxruntime;&nbsp;pytorch;&nbsp;pytorch-fp32;&nbsp;pytorch-int8;&nbsp;tensorflow;&nbsp;tf*
+* CM script  tags: *cm run script --tags="get,ml-model,bert,bert-large,bert-squad,language,language-processing"*
+* CM script variations: *_fp32;&nbsp; _int8;&nbsp; _onnx;&nbsp; _onnx-fp32;&nbsp; _onnx-int8;&nbsp; _onnxruntime;&nbsp; _pytorch;&nbsp; _pytorch-fp32;&nbsp; _pytorch-int8;&nbsp; _tensorflow;&nbsp; _tf*
 * CM script default variation: *fp32*
 
 
@@ -826,8 +826,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,image-classification,ml-model,ml-model-resnet50,resnet50"*
-* CM script variations: *fp32;&nbsp;onnx;&nbsp;onnx-1.5-opset-11;&nbsp;onnx-1.5-opset-8;&nbsp;onnx_;&nbsp;onnxruntime;&nbsp;pytorch;&nbsp;tensorflow;&nbsp;tf;&nbsp;uint8*
+* CM script  tags: *cm run script --tags="get,ml-model,resnet50,ml-model-resnet50,image-classification"*
+* CM script variations: *_fp32;&nbsp; _onnx;&nbsp; _onnx-1.5-opset-11;&nbsp; _onnx-1.5-opset-8;&nbsp; _onnx_;&nbsp; _onnxruntime;&nbsp; _pytorch;&nbsp; _tensorflow;&nbsp; _tf;&nbsp; _uint8*
 * CM script default variation: *onnx*
 
 
@@ -838,8 +838,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="fp32,get,ml-model,object-detection,resnext50,retinanet"*
-* CM script variations: *onnx;&nbsp;pytorch*
+* CM script  tags: *cm run script --tags="get,ml-model,resnext50,retinanet,object-detection,fp32"*
+* CM script variations: *_onnx;&nbsp; _pytorch*
 * CM script default variation: *onnx*
 
 
@@ -850,8 +850,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,inference,inference-loadgen,loadgen,mlcommons,mlperf"*
-* CM script versions: *custom;&nbsp;master;&nbsp;r2.1*
+* CM script  tags: *cm run script --tags="get,loadgen,inference,inference-loadgen,mlperf,mlcommons"*
+* CM script versions: *custom;&nbsp; master;&nbsp; r2.1*
 * CM script default version: *master*
 
 
@@ -862,10 +862,10 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,inference,inference-source,inference-src,mlcommons,mlperf,source,src"*
-* CM script variations: *default;&nbsp;full-history;&nbsp;nvidia-pycocotools;&nbsp;octoml;&nbsp;patch;&nbsp;recurse-submodules;&nbsp;short-history*
+* CM script  tags: *cm run script --tags="get,src,source,inference,inference-src,inference-source,mlperf,mlcommons"*
+* CM script variations: *_default;&nbsp; _full-history;&nbsp; _nvidia-pycocotools;&nbsp; _octoml;&nbsp; _patch;&nbsp; _recurse-submodules;&nbsp; _short-history*
 * CM script default variation: *default*
-* CM script versions: *custom;&nbsp;master;&nbsp;r2.1;&nbsp;tvm*
+* CM script versions: *custom;&nbsp; master;&nbsp; r2.1;&nbsp; tvm*
 * CM script default version: *master*
 
 
@@ -876,8 +876,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,install,lang-c,lang-cpp,lib,onnxruntime,prebuilt"*
-* CM script variations: *cpu;&nbsp;gpu*
+* CM script  tags: *cm run script --tags="install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp"*
+* CM script variations: *_cpu;&nbsp; _gpu*
 * CM script default variation: *cpu*
 * CM script default version: *1.12.1*
 
@@ -889,7 +889,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,lib-openssl,openssl"*
+* CM script  tags: *cm run script --tags="get,openssl,lib-openssl"*
 
 
 ## get-preprocessed-dataset-criteo
@@ -899,8 +899,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="criteo,dataset,dlrm,get,preprocessed,recommendation"*
-* CM script variations: *1;&nbsp;50;&nbsp;full;&nbsp;validation*
+* CM script  tags: *cm run script --tags="get,dataset,criteo,recommendation,dlrm,preprocessed"*
+* CM script variations: *_1;&nbsp; _50;&nbsp; _full;&nbsp; _validation*
 
 
 ## get-preprocessed-dataset-imagenet
@@ -910,8 +910,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="ILSVRC,dataset,get,image-classification,imagenet,preprocessed"*
-* CM script variations: *1;&nbsp;500;&nbsp;NCHW;&nbsp;NHWC;&nbsp;full*
+* CM script  tags: *cm run script --tags="get,dataset,imagenet,ILSVRC,image-classification,preprocessed"*
+* CM script variations: *_1;&nbsp; _500;&nbsp; _NCHW;&nbsp; _NHWC;&nbsp; _full*
 
 
 ## get-preprocessed-dataset-openimages
@@ -921,8 +921,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="dataset,get,object-detection,open-images,openimages,preprocessed"*
-* CM script variations: *1;&nbsp;50;&nbsp;500;&nbsp;NCHW;&nbsp;NHWC;&nbsp;calibration;&nbsp;full;&nbsp;validation*
+* CM script  tags: *cm run script --tags="get,dataset,openimages,open-images,object-detection,preprocessed"*
+* CM script variations: *_1;&nbsp; _50;&nbsp; _500;&nbsp; _NCHW;&nbsp; _NHWC;&nbsp; _calibration;&nbsp; _full;&nbsp; _validation*
 
 
 ## get-python3
@@ -932,8 +932,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,get-python,get-python3,python,python3"*
-* CM script variations: *shared;&nbsp;with-ssl*
+* CM script  tags: *cm run script --tags="get,python,python3,get-python,get-python3"*
+* CM script variations: *_shared;&nbsp; _with-ssl*
 
 
 ## get-sut
@@ -943,7 +943,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sut)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sut/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="description,get,sut,system-description,system-under-test"*
+* CM script  tags: *cm run script --tags="get,sut,description,system-under-test,system-description"*
 
 
 ## get-sys-utils-cm
@@ -954,7 +954,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,sys-utils-cm"*
-* CM script variations: *user*
+* CM script variations: *_user*
 
 
 ## get-terraform
@@ -964,7 +964,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,get-terraform,terraform"*
+* CM script  tags: *cm run script --tags="get,terraform,get-terraform"*
 
 
 ## get-tvm
@@ -974,9 +974,9 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,get-tvm,tvm"*
-* CM script variations: *cuda;&nbsp;llvm;&nbsp;openmp*
-* CM script versions: *main;&nbsp;v0.10.0;&nbsp;v0.7.0;&nbsp;v0.8.0;&nbsp;v0.9.0*
+* CM script  tags: *cm run script --tags="get,tvm,get-tvm"*
+* CM script variations: *_cuda;&nbsp; _llvm;&nbsp; _openmp*
+* CM script versions: *main;&nbsp; v0.10.0;&nbsp; v0.7.0;&nbsp; v0.8.0;&nbsp; v0.9.0*
 
 
 ## get-zephyr
@@ -999,7 +999,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,zephyr-sdk"*
-* CM script versions: *0.13.1;&nbsp;0.13.2;&nbsp;0.15.0*
+* CM script versions: *0.13.1;&nbsp; 0.13.2;&nbsp; 0.15.0*
 * CM script default version: *0.13.2*
 
 
@@ -1010,7 +1010,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="aws,aws-cli,cli,install,script"*
+* CM script  tags: *cm run script --tags="install,script,aws-cli,aws,cli"*
 
 
 ## install-bazel
@@ -1020,7 +1020,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="bazel,install,script"*
+* CM script  tags: *cm run script --tags="install,script,bazel"*
 * CM script default version: *5.2.0*
 
 
@@ -1031,7 +1031,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cmake-prebuilt)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cmake-prebuilt/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cmake,install,install-prebuilt-cmake,prebuilt,prebuilt-cmake"*
+* CM script  tags: *cm run script --tags="install,prebuilt,cmake,prebuilt-cmake,install-prebuilt-cmake"*
 * CM script default version: *3.21.1*
 
 
@@ -1042,7 +1042,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-package-manager)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-package-manager/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cuda,install,install-pm-cuda,package-manager,package-manager-cuda"*
+* CM script  tags: *cm run script --tags="install,package-manager,cuda,package-manager-cuda,install-pm-cuda"*
 
 
 ## install-cuda-prebuilt
@@ -1052,8 +1052,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cuda,install,install-prebuilt-cuda,prebuilt,prebuilt-cuda"*
-* CM script versions: *11.7.0;&nbsp;11.8.0*
+* CM script  tags: *cm run script --tags="install,prebuilt,cuda,prebuilt-cuda,install-prebuilt-cuda"*
+* CM script versions: *11.7.0;&nbsp; 11.8.0*
 * CM script default version: *11.7.0*
 
 
@@ -1064,7 +1064,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-gcc-src)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-gcc-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="gcc,install,src,src-gcc"*
+* CM script  tags: *cm run script --tags="install,src,gcc,src-gcc"*
 * CM script versions: *master*
 * CM script default version: *12*
 
@@ -1076,8 +1076,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="generic,generic-python-lib,install"*
-* CM script variations: *apache-tvm;&nbsp;numpy;&nbsp;nvidia-pycocotools;&nbsp;onnx;&nbsp;onnxruntime;&nbsp;opencv-python;&nbsp;pip;&nbsp;protobuf;&nbsp;pycocotools;&nbsp;setuptools;&nbsp;sklearn;&nbsp;tensorflow;&nbsp;tokenization;&nbsp;torch;&nbsp;tqdm;&nbsp;transformers*
+* CM script  tags: *cm run script --tags="install,generic,generic-python-lib"*
+* CM script variations: *_apache-tvm;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _opencv-python;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _tqdm;&nbsp; _transformers*
 
 
 ## install-github-cli
@@ -1087,7 +1087,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-github-cli)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-github-cli/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cli,gh,github,github-cli,install"*
+* CM script  tags: *cm run script --tags="install,gh,github,cli,github-cli"*
 
 
 ## install-llvm-prebuilt
@@ -1100,7 +1100,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,install-prebuilt-llvm,llvm,prebuilt,prebuilt-llvm"*
+* CM script  tags: *cm run script --tags="install,prebuilt,llvm,prebuilt-llvm,install-prebuilt-llvm"*
 * CM script default version: *14.0.0*
 
 
@@ -1114,7 +1114,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,llvm,src,src-llvm"*
+* CM script  tags: *cm run script --tags="install,src,llvm,src-llvm"*
 
 
 ## install-openssl
@@ -1124,7 +1124,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,openssl,openssl-lib,src"*
+* CM script  tags: *cm run script --tags="install,src,openssl,openssl-lib"*
 * CM script versions: *1.1.1*
 * CM script default version: *1.1.1*
 
@@ -1136,8 +1136,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,python,python3,src,src-python,src-python3"*
-* CM script variations: *shared;&nbsp;with-ssl*
+* CM script  tags: *cm run script --tags="install,src,python,python3,src-python3,src-python"*
+* CM script variations: *_shared;&nbsp; _with-ssl*
 * CM script default version: *3.10.5*
 
 
@@ -1148,7 +1148,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get-python-venv,install,python,python-venv"*
+* CM script  tags: *cm run script --tags="install,python,get-python-venv,python-venv"*
 
 
 ## install-tensorflow-for-c
@@ -1158,7 +1158,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-for-c)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-for-c/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,lang-c,lib,tensorflow"*
+* CM script  tags: *cm run script --tags="install,tensorflow,lib,lang-c"*
 * CM script default version: *2.8.0*
 
 
@@ -1169,8 +1169,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-src)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="from-src,install,lib,tensorflow"*
-* CM script versions: *master;&nbsp;v1.15.0;&nbsp;v2.0.0;&nbsp;v2.1.0;&nbsp;v2.2.0;&nbsp;v2.3.0;&nbsp;v2.4.0;&nbsp;v2.5.0;&nbsp;v2.6.0;&nbsp;v2.7.0;&nbsp;v2.8.0;&nbsp;v2.9.0*
+* CM script  tags: *cm run script --tags="install,tensorflow,lib,from-src"*
+* CM script versions: *master;&nbsp; v1.15.0;&nbsp; v2.0.0;&nbsp; v2.1.0;&nbsp; v2.2.0;&nbsp; v2.3.0;&nbsp; v2.4.0;&nbsp; v2.5.0;&nbsp; v2.6.0;&nbsp; v2.7.0;&nbsp; v2.8.0;&nbsp; v2.9.0*
 * CM script default version: *master*
 
 
@@ -1181,7 +1181,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-terraform-from-src)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-terraform-from-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="from-src,install,terraform"*
+* CM script  tags: *cm run script --tags="install,terraform,from-src"*
 * CM script versions: *main*
 * CM script default version: *main*
 
@@ -1193,7 +1193,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="hello,hello world,hello-world,print,script,world"*
+* CM script  tags: *cm run script --tags="print,hello-world,hello world,hello,world,script"*
 
 
 ## print-hello-world-py
@@ -1203,7 +1203,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="hello,hello world,hello-world,print,python,world"*
+* CM script  tags: *cm run script --tags="print,hello world,hello-world,hello,world,python"*
 
 
 ## print-python-version
@@ -1213,7 +1213,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-python-version)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-python-version/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="print,python,python-version,version"*
+* CM script  tags: *cm run script --tags="print,python,version,python-version"*
 
 
 ## process-mlperf-accuracy
@@ -1223,8 +1223,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="accuracy,mlc,mlcommons,mlperf,process-accuracy,run"*
-* CM script variations: *float16;&nbsp;float32;&nbsp;float64;&nbsp;imagenet;&nbsp;int16;&nbsp;int32;&nbsp;int64;&nbsp;int8;&nbsp;openimages;&nbsp;squad*
+* CM script  tags: *cm run script --tags="run,mlperf,mlcommons,accuracy,mlc,process-accuracy"*
+* CM script variations: *_float16;&nbsp; _float32;&nbsp; _float64;&nbsp; _imagenet;&nbsp; _int16;&nbsp; _int32;&nbsp; _int64;&nbsp; _int8;&nbsp; _openimages;&nbsp; _squad*
 
 
 ## prototype-lib-dnnl
@@ -1234,8 +1234,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prototype-lib-dnnl)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prototype-lib-dnnl/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="dnnl,get,lib,lib-dnnl"*
-* CM script versions: *2.2.4;&nbsp;dev*
+* CM script  tags: *cm run script --tags="get,lib-dnnl,lib,dnnl"*
+* CM script versions: *2.2.4;&nbsp; dev*
 * CM script default version: *dev*
 
 
@@ -1246,7 +1246,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cmds,remote,remote-run,remote-run-cmds,run,ssh,ssh-run"*
+* CM script  tags: *cm run script --tags="remote,run,cmds,remote-run,remote-run-cmds,ssh-run,ssh"*
 
 
 ## reproduce-mlperf-octoml-tinyml-results
@@ -1256,8 +1256,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="mlcommons,mlperf,octoml,reproduce,results,tiny"*
-* CM script variations: *NRF;&nbsp;NUCLEO;&nbsp;ad;&nbsp;cmsis_nn;&nbsp;ic;&nbsp;kws;&nbsp;native;&nbsp;vww*
+* CM script  tags: *cm run script --tags="reproduce,tiny,results,mlperf,octoml,mlcommons"*
+* CM script variations: *_NRF;&nbsp; _NUCLEO;&nbsp; _ad;&nbsp; _cmsis_nn;&nbsp; _ic;&nbsp; _kws;&nbsp; _native;&nbsp; _vww*
 * CM script versions: *r1.0*
 * CM script default version: *r1.0*
 
@@ -1269,7 +1269,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="container,docker,run"*
+* CM script  tags: *cm run script --tags="run,docker,container"*
 
 
 ## run-mlperf-accuracy-log-truncator
@@ -1279,7 +1279,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-accuracy-log-truncator)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-accuracy-log-truncator/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="accuracy,accuracy-log,accuracy-log-trancation,accuracy-log-truncator,inference,mlc,mlc-accuracy-log-trancation,mlc-accuracy-log-truncator,mlcommons,mlperf,mlperf-inference,run,truncate,truncation,truncator"*
+* CM script  tags: *cm run script --tags="run,mlc,mlcommons,mlperf,inference,mlperf-inference,truncation,truncator,truncate,accuracy,accuracy-log,accuracy-log-trancation,accuracy-log-truncator,mlc-accuracy-log-trancation,mlc-accuracy-log-truncator"*
 
 
 ## run-mlperf-inference-app
@@ -1289,9 +1289,9 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="generate-run-cmds,inference,mlcommons,mlperf,reference,run,run-mlperf,vision"*
-* CM script variations: *all-modes;&nbsp;all-scenarios;&nbsp;compliance;&nbsp;fast;&nbsp;submission;&nbsp;valid*
-* CM script versions: *master;&nbsp;r2.1*
+* CM script  tags: *cm run script --tags="run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference"*
+* CM script variations: *_all-modes;&nbsp; _all-scenarios;&nbsp; _compliance;&nbsp; _fast;&nbsp; _submission;&nbsp; _valid*
+* CM script versions: *master;&nbsp; r2.1*
 
 
 ## run-mlperf-submission-checker
@@ -1301,7 +1301,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-submission-checker)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-submission-checker/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="checker,inference,mlc,mlc-submission-checker,mlcommons,mlperf,mlperf-inference,run,submission,submission-checker"*
+* CM script  tags: *cm run script --tags="run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker"*
 
 
 ## run-terraform
@@ -1312,7 +1312,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="run,terraform"*
-* CM script variations: *aws;&nbsp;c5.12xlarge;&nbsp;c5.4xlarge;&nbsp;c5d.9xlarge;&nbsp;g4dn.xlarge;&nbsp;t2.micro*
+* CM script variations: *_aws;&nbsp; _c5.12xlarge;&nbsp; _c5.4xlarge;&nbsp; _c5d.9xlarge;&nbsp; _g4dn.xlarge;&nbsp; _t2.micro*
 
 
 ## set-echo-off-win
@@ -1322,7 +1322,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-echo-off-win)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-echo-off-win/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="echo,echo-off,echo-off-win,off,set,win"*
+* CM script  tags: *cm run script --tags="set,echo,off,win,echo-off-win,echo-off"*
 
 
 ## tar-my-folder
@@ -1342,7 +1342,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-script1)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-script1/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="script1,test"*
+* CM script  tags: *cm run script --tags="test,script1"*
 
 
 ## test-script2
@@ -1352,7 +1352,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-script2)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-script2/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="script2,test"*
+* CM script  tags: *cm run script --tags="test,script2"*
 
 
 ## test-script3
@@ -1362,7 +1362,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-script3)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-script3/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="script3,test"*
+* CM script  tags: *cm run script --tags="test,script3"*
 
 
 ## test-script4
@@ -1372,7 +1372,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-script4)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-script4/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="script4,test"*
+* CM script  tags: *cm run script --tags="test,script4"*
 
 
 ## test-set-sys-user-cm
@@ -1382,7 +1382,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-set-sys-user-cm)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-set-sys-user-cm/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="cm,demo,set,sys-user,sys-user-cm"*
+* CM script  tags: *cm run script --tags="demo,set,sys-user,cm,sys-user-cm"*
 
 
 ## wrapper-image-classification-onnx-py
@@ -1392,8 +1392,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-image-classification-onnx-py)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-image-classification-onnx-py/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="image-classification,onnx,python,wrapper"*
-* CM script variations: *docker;&nbsp;run*
+* CM script  tags: *cm run script --tags="wrapper,image-classification,onnx,python"*
+* CM script variations: *_docker;&nbsp; _run*
 * CM script default variation: *run*
 
 
@@ -1404,8 +1404,8 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-mlperf-inference-vision-reference)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-mlperf-inference-vision-reference/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="inference,mlperf,python,reference,run,wrapper"*
-* CM script variations: *docker;&nbsp;run*
+* CM script  tags: *cm run script --tags="wrapper,run,mlperf,inference,python,reference"*
+* CM script variations: *_docker;&nbsp; _run*
 * CM script default variation: *run*
 
 
@@ -1416,7 +1416,7 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-reproduce-octoml-tinyml-submission)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-reproduce-octoml-tinyml-submission/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="generate,generate-tiny,generate-tiny-submission,mlcommons,mlperf,octoml,results,run,submission,tiny"*
+* CM script  tags: *cm run script --tags="run,generate-tiny,generate,submission,tiny,generate-tiny-submission,results,mlcommons,mlperf,octoml"*
 * CM script default version: *r1.0*
 
 
