@@ -1801,7 +1801,7 @@ class CAutomation(Automation):
                             'run_state':run_state
                         }
 
-                    ii.update(d)
+                    utils.merge_dicts({'dict1':ii, 'dict2':d, 'append_lists':True, 'append_unique':True})
 
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
