@@ -53,5 +53,7 @@ def postprocess(i):
         state['os_uname_all'] = s[1]
 
         env['CM_HOST_OS_MACHINE'] = state['os_uname_machine']
+    import platform
+    env['CM_HOST_SYSTEM_NAME'] = platform.node()
 
     return {'return':0}
