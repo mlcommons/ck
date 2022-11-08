@@ -16,7 +16,7 @@ def preprocess(i):
         skip_compliance = " --skip_compliance"
     else:
         skip_compliance = ""
-    submission_checker_file = os.path.join('"'+env['CM_MLPERF_INFERENCE_SOURCE']+'"', "tools", "submission",
+    submission_checker_file = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "tools", "submission",
             "submission_checker.py")
     if env['CM_MLPERF_SHORT_RUN'] == "yes":
         import shutil
