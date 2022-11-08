@@ -51,6 +51,11 @@ to provide your feedback and participate in further community developments!
 
 &copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
 
+## Resources
+
+* [MLOps resources](misc/MLOps.md)
+* [ML resources](misc/ML.md)
+
 # Maintainers
 
 * [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
