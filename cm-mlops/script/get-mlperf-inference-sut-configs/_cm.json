@@ -1,9 +1,9 @@
 {
-  "alias": "get-configs-sut-mlperf-inference",
+  "alias": "get-mlperf-inference-sut-configs",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "category": "Modular MLPerf benchmarks",
   "cache": false,
+  "category": "Modular MLPerf benchmarks",
   "new_env_keys": [
     "CM_HW_*",
     "CM_SUT_*"

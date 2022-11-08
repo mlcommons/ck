@@ -22,7 +22,7 @@
       "names": [
         "inference-src"
       ],
-      "tags": "mlperf,mlcommons,inference,source,src,_octoml"
+      "tags": "mlperf,mlcommons,inference,source,src"
     },
     {
       "names": [
