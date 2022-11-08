@@ -54,16 +54,41 @@
     "1": {
       "env": {
         "CM_DATASET_SIZE": "1"
+      },
+      "adr": {
+	"original-dataset": {
+	  "tags": "_1"
+	}
+      }
+    },
+    "5": {
+      "env": {
+        "CM_DATASET_SIZE": "5"
+      },
+      "adr": {
+	"original-dataset": {
+	  "tags": "_5"
+	}
       }
     },
     "50": {
       "env": {
         "CM_DATASET_SIZE": "50"
+      },
+      "adr": {
+	"original-dataset": {
+	  "tags": "_50"
+	}
       }
     },
     "500": {
       "env": {
         "CM_DATASET_SIZE": "500"
+      },
+      "adr": {
+	"original-dataset": {
+	  "tags": "_500"
+	}
       }
     },
     "NCHW": {

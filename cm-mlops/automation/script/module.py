@@ -1284,6 +1284,19 @@ class CAutomation(Automation):
                     remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
             if r['return']>0: return r
 
+            # Add extra tags from env updated by deps (such as python version and compiler version, etc)
+            extra_cache_tags_from_env = meta.get('extra_cache_tags_from_env',[])
+            for extra_cache_tags in extra_cache_tags_from_env:
+                key = extra_cache_tags['env']
+                prefix = extra_cache_tags.get('prefix','')
+
+                v = env.get(key,'').strip()
+                if v!='':
+                    for t in v.split(','):
+                        x = 'deps-' + prefix + t
+                        if x not in cached_tags: 
+                            cached_tags.append(x)
+
 
         ############################################################################################################
         ##################################### Finalize script
@@ -1439,11 +1452,6 @@ class CAutomation(Automation):
 
 
 
-    
-    
-    
-    
-    
     ############################################################
     def version(self, i):
         """
@@ -2385,7 +2393,7 @@ class CAutomation(Automation):
         if repos == '': repos='internal,a4705959af8e447a'
 
         parsed_artifact = i.get('parsed_artifact',[])
-        
+
         if len(parsed_artifact)<1:
             parsed_artifact = [('',''), ('','')]
         elif len(parsed_artifact)<2:
@@ -2394,7 +2402,7 @@ class CAutomation(Automation):
             repos = parsed_artifact[1][0]
 
         list_of_repos = repos.split(',') if ',' in repos else [repos]
-        
+
         ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
 
         ii['out'] = None
@@ -2449,7 +2457,7 @@ class CAutomation(Automation):
 
                 if category not in toc_category_sort or category_sort>0:
                     toc_category_sort[category]=category_sort
-                
+
                 if alias not in toc_category[category]:
                     toc_category[category].append(alias)
 
@@ -2481,7 +2489,7 @@ class CAutomation(Automation):
 
             md.append('## '+alias)
             md.append('\n')
-            
+
             if name!='':
                 md.append('*'+name+'.*')
                 md.append('\n')
@@ -2498,7 +2506,7 @@ class CAutomation(Automation):
             meta_path = os.path.join(path, meta_file)
 
             meta_file += '.yaml' if os.path.isfile(meta_path+'.yaml') else '.json'
-            
+
             meta_url = url+'/'+meta_file
 
             md.append('* CM script meta description: *[GitHub]({})*'.format(meta_url))
@@ -2523,7 +2531,7 @@ class CAutomation(Automation):
 
 
 
-            
+
             md.append('\n')
 
 
@@ -2653,7 +2661,7 @@ def find_cached_script(i):
             if t not in cached_tags: 
                 cached_tags.append(t)
 
-    # Add tags from deps
+    # Add tags from deps (will be also duplicated when creating new cache entry)
     extra_cache_tags_from_env = meta.get('extra_cache_tags_from_env',[])
     for extra_cache_tags in extra_cache_tags_from_env:
         key = extra_cache_tags['env']
