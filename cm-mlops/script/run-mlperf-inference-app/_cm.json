@@ -104,7 +104,10 @@
       },
       "post_deps": [
         {
-          "tags": "generate,mlperf,inference,submission"
+          "tags": "generate,mlperf,inference,submission",
+	  "names": [
+	    "submission-generator"
+	  ]
         }
       ]
     },
