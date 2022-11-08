@@ -1,6 +1,7 @@
 {
   "alias": "get-cmsis_5",
   "automation_alias": "script",
+  "category": "Detection or installation of tools and artifacts",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "default_version": "develop",

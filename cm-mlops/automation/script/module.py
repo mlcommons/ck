@@ -55,247 +55,10 @@ class CAutomation(Automation):
                                              'accept_license',
                                              'skip_system_deps']
 
-    ############################################################
-    def version(self, i):
-        """
-        Print version
 
-        Args:
-            (CM input dict):
-
-            (out) (str): if 'con', output to console
-
-        Returns: 
-            (CM return dict):
-
-            * return (int): return code == 0 if no error and >0 if error
-            * (error) (str): error string if return>0
-
-        """
-
-        console = i.get('out') == 'con'
-
-        version = self.__version__
-
-        if console:
-            print (version)
-
-        return {'return':0, 'version':version}
-
-
-    ############################################################
-    def search(self, i):
-        """
-        Overriding the automation search function to filter out scripts not matching the given variation tags
-
-        TBD: add input/output description
-        """
-
-        console = i.get('out') == 'con'
-
-        ############################################################################################################
-        # Process tags to find script(s) and separate variations 
-        # (not needed to find scripts)
-        tags_string = i.get('tags','').strip()
-
-        tags = [] if tags_string == '' else tags_string.split(',')
-
-        script_tags = []
-        variation_tags = []
-
-        for t in tags:
-            t = t.strip()
-            if t != '':
-                if t.startswith('_'):
-                    tx = t[1:]
-                    if tx not in variation_tags:
-                        variation_tags.append(tx)
-                elif t.startswith('-_'):
-                    tx = '-' + t[2:]
-                    if tx not in variation_tags:
-                        variation_tags.append(tx)
-                else:
-                    script_tags.append(t)
-
-        ############################################################################################################
-        # Find CM script(s) based on thier tags to get their meta (can be more than 1)
-        # Then check if variations exists inside meta
-
-        i['tags'] = script_tags
-
-        i['out'] = None
-        i['common'] = True
-
-        r = super(CAutomation,self).search(i)
-        if r['return']>0: return r
-
-        lst = r['list']
-
-        r['unfiltered_list'] = lst
-
-        found_scripts = False if len(lst) == 0 else True
-
-        if len(variation_tags)>0:
-            filtered = []
-
-            for script_artifact in lst:
-                meta = script_artifact.meta
-                variations = meta.get('variations', {})
-
-                if not all(t in variations for t in variation_tags if not t.startswith('-')):
-                    continue
-
-                filtered.append(script_artifact)
-
-            r['list'] = filtered
-
-        # Print filtered paths if console
-        if console:
-            for script in r['list']:
-                print (script.path)
-
-        # Finalize output
-        r['script_tags'] = script_tags
-        r['variation_tags'] = variation_tags
-        r['found_scripts'] = found_scripts
-
-        return r
-
-    ############################################################
-    def test(self, i):
-        """
-        Test automation (TBD)
-
-        Args:
-          (CM input dict): 
-
-          (out) (str): if 'con', output to console
-
-          automation (str): automation as CM string object
-
-          parsed_automation (list): prepared in CM CLI or CM access function
-                                    [ (automation alias, automation UID) ] or
-                                    [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
-
-          (artifact) (str): artifact as CM string object
-
-          (parsed_artifact) (list): prepared in CM CLI or CM access function
-                                    [ (artifact alias, artifact UID) ] or
-                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
-
-          ...
-
-        Returns:
-          (CM return dict):
-
-          * return (int): return code == 0 if no error and >0 if error
-          * (error) (str): error string if return>0
-
-          * Output from this automation action
-
-        """
-
-        import json
-
-        # Check parsed automation
-        if 'parsed_automation' not in i:
-           return {'return':1, 'error':'automation is not specified'}
-
-        console = i.get('out') == 'con'
-
-        # Find CM artifact(s)
-        i['out'] = None
-        r = self.search(i)
-
-        if r['return']>0: return r
-
-        lst = r['list']
-        for script_artifact in lst:
-            path = script_artifact.path
-            meta = script_artifact.meta
-            original_meta = script_artifact.original_meta
-
-            alias = meta.get('alias','')
-            uid = meta.get('uid','')
-
-            if console:
-                print ('')
-                print (path)
-                print ('  Test: TBD')
-
-
-        return {'return':0, 'list': lst}
-
-    ############################################################
-    def add(self, i):
-        """
-        Add CM script
-
-        Args:
-          (CM input dict): 
-
-          (out) (str): if 'con', output to console
-
-          parsed_artifact (list): prepared in CM CLI or CM access function
-                                    [ (artifact alias, artifact UID) ] or
-                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
-
-          (tags) (str): tags to find an CM script (CM artifact)
-
-          ...
-
-        Returns:
-          (CM return dict):
-
-          * return (int): return code == 0 if no error and >0 if error
-          * (error) (str): error string if return>0
-
-        """
-
-        import shutil
-
-        console = i.get('out') == 'con'
-
-        parsed_artifact = i.get('parsed_artifact',[])
-
-        artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
-
-        # Move tags from input to meta of the newly created script artifact
-        tags_list = utils.convert_tags_to_list(i)
-        if 'tags' in i: del(i['tags'])
-
-        # Add placeholder (use common action)
-        i['out']='con'
-        i['common']=True # Avoid recursion - use internal CM add function to add the script artifact
-
-        i['meta']={'automation_alias':self.meta['alias'],
-                   'automation_uid':self.meta['uid'],
-                   'tags':tags_list}
-
-        r_obj=self.cmind.access(i)
-        if r_obj['return']>0: return r_obj
-
-        new_script_path = r_obj['path']
-
-        if console:
-            print ('Created script in {}'.format(new_script_path))
-
-        # Copy support files
-        template_path = os.path.join(self.path, 'template')
-
-        # Copy module files
-        for f in ['README.md', 'customize.py', 'run.bat', 'run.sh']:
-            f1 = os.path.join(template_path, f)
-            f2 = os.path.join(new_script_path, f)
-
-            if console:
-                print ('  * Copying {} to {}'.format(f1, f2))
-
-            shutil.copyfile(f1,f2)
-
-        return r_obj
-
-
+    
+    
+    
     ############################################################
     def run(self, i):
         """
@@ -1676,6 +1439,250 @@ class CAutomation(Automation):
 
 
 
+    
+    
+    
+    
+    
+    ############################################################
+    def version(self, i):
+        """
+        Print version
+
+        Args:
+            (CM input dict):
+
+            (out) (str): if 'con', output to console
+
+        Returns: 
+            (CM return dict):
+
+            * return (int): return code == 0 if no error and >0 if error
+            * (error) (str): error string if return>0
+
+        """
+
+        console = i.get('out') == 'con'
+
+        version = self.__version__
+
+        if console:
+            print (version)
+
+        return {'return':0, 'version':version}
+
+
+    ############################################################
+    def search(self, i):
+        """
+        Overriding the automation search function to filter out scripts not matching the given variation tags
+
+        TBD: add input/output description
+        """
+
+        console = i.get('out') == 'con'
+
+        ############################################################################################################
+        # Process tags to find script(s) and separate variations 
+        # (not needed to find scripts)
+        tags_string = i.get('tags','').strip()
+
+        tags = [] if tags_string == '' else tags_string.split(',')
+
+        script_tags = []
+        variation_tags = []
+
+        for t in tags:
+            t = t.strip()
+            if t != '':
+                if t.startswith('_'):
+                    tx = t[1:]
+                    if tx not in variation_tags:
+                        variation_tags.append(tx)
+                elif t.startswith('-_'):
+                    tx = '-' + t[2:]
+                    if tx not in variation_tags:
+                        variation_tags.append(tx)
+                else:
+                    script_tags.append(t)
+
+        ############################################################################################################
+        # Find CM script(s) based on thier tags to get their meta (can be more than 1)
+        # Then check if variations exists inside meta
+
+        i['tags'] = ','.join(script_tags)
+
+        i['out'] = None
+        i['common'] = True
+
+        r = super(CAutomation,self).search(i)
+        if r['return']>0: return r
+
+        lst = r['list']
+
+        r['unfiltered_list'] = lst
+
+        found_scripts = False if len(lst) == 0 else True
+
+        if len(variation_tags)>0:
+            filtered = []
+
+            for script_artifact in lst:
+                meta = script_artifact.meta
+                variations = meta.get('variations', {})
+
+                if not all(t in variations for t in variation_tags if not t.startswith('-')):
+                    continue
+
+                filtered.append(script_artifact)
+
+            r['list'] = filtered
+
+        # Print filtered paths if console
+        if console:
+            for script in r['list']:
+                print (script.path)
+
+        # Finalize output
+        r['script_tags'] = script_tags
+        r['variation_tags'] = variation_tags
+        r['found_scripts'] = found_scripts
+
+        return r
+
+    ############################################################
+    def test(self, i):
+        """
+        Test automation (TBD)
+
+        Args:
+          (CM input dict): 
+
+          (out) (str): if 'con', output to console
+
+          automation (str): automation as CM string object
+
+          parsed_automation (list): prepared in CM CLI or CM access function
+                                    [ (automation alias, automation UID) ] or
+                                    [ (automation alias, automation UID), (automation repo alias, automation repo UID) ]
+
+          (artifact) (str): artifact as CM string object
+
+          (parsed_artifact) (list): prepared in CM CLI or CM access function
+                                    [ (artifact alias, artifact UID) ] or
+                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+          ...
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+          * Output from this automation action
+
+        """
+
+        import json
+
+        # Check parsed automation
+        if 'parsed_automation' not in i:
+           return {'return':1, 'error':'automation is not specified'}
+
+        console = i.get('out') == 'con'
+
+        # Find CM artifact(s)
+        i['out'] = None
+        r = self.search(i)
+
+        if r['return']>0: return r
+
+        lst = r['list']
+        for script_artifact in lst:
+            path = script_artifact.path
+            meta = script_artifact.meta
+            original_meta = script_artifact.original_meta
+
+            alias = meta.get('alias','')
+            uid = meta.get('uid','')
+
+            if console:
+                print ('')
+                print (path)
+                print ('  Test: TBD')
+
+
+        return {'return':0, 'list': lst}
+
+    ############################################################
+    def add(self, i):
+        """
+        Add CM script
+
+        Args:
+          (CM input dict): 
+
+          (out) (str): if 'con', output to console
+
+          parsed_artifact (list): prepared in CM CLI or CM access function
+                                    [ (artifact alias, artifact UID) ] or
+                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+          (tags) (str): tags to find an CM script (CM artifact)
+
+          ...
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        import shutil
+
+        console = i.get('out') == 'con'
+
+        parsed_artifact = i.get('parsed_artifact',[])
+
+        artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
+
+        # Move tags from input to meta of the newly created script artifact
+        tags_list = utils.convert_tags_to_list(i)
+        if 'tags' in i: del(i['tags'])
+
+        # Add placeholder (use common action)
+        i['out']='con'
+        i['common']=True # Avoid recursion - use internal CM add function to add the script artifact
+
+        i['meta']={'automation_alias':self.meta['alias'],
+                   'automation_uid':self.meta['uid'],
+                   'tags':tags_list}
+
+        r_obj=self.cmind.access(i)
+        if r_obj['return']>0: return r_obj
+
+        new_script_path = r_obj['path']
+
+        if console:
+            print ('Created script in {}'.format(new_script_path))
+
+        # Copy support files
+        template_path = os.path.join(self.path, 'template')
+
+        # Copy module files
+        for f in ['README.md', 'customize.py', 'run.bat', 'run.sh']:
+            f1 = os.path.join(template_path, f)
+            f2 = os.path.join(new_script_path, f)
+
+            if console:
+                print ('  * Copying {} to {}'.format(f1, f2))
+
+            shutil.copyfile(f1,f2)
+
+        return r_obj
 
 
 
@@ -2341,6 +2348,229 @@ class CAutomation(Automation):
         os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
 
         return default_path_list
+
+
+
+    ############################################################
+    def doc(self, i):
+        """
+        Add CM automation.
+
+        Args:
+          (CM input dict): 
+
+          (out) (str): if 'con', output to console
+
+          parsed_artifact (list): prepared in CM CLI or CM access function
+                                    [ (artifact alias, artifact UID) ] or
+                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+          (repos) (str): list of repositories to search for automations (internal & mlcommons@ck by default)
+
+          (output_dir) (str): output directory (../docs by default)
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        template_file = 'list_of_scripts.md'
+
+        console = i.get('out') == 'con'
+
+        repos = i.get('repos','')
+        if repos == '': repos='internal,a4705959af8e447a'
+
+        parsed_artifact = i.get('parsed_artifact',[])
+        
+        if len(parsed_artifact)<1:
+            parsed_artifact = [('',''), ('','')]
+        elif len(parsed_artifact)<2:
+            parsed_artifact.append(('',''))
+        else:
+            repos = parsed_artifact[1][0]
+
+        list_of_repos = repos.split(',') if ',' in repos else [repos]
+        
+        ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
+
+        ii['out'] = None
+
+        # Search for automations in repos
+        lst = []
+        for repo in list_of_repos:
+            parsed_artifact[1] = ('',repo) if utils.is_cm_uid(repo) else (repo,'')
+            ii['parsed_artifact'] = parsed_artifact
+            r = self.search(ii)
+            if r['return']>0: return r
+            lst += r['list']
+
+        md = []
+
+        toc = []
+        
+        toc_category = {}
+        toc_category_sort = {}
+        script_meta = {}
+
+        for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
+            path = artifact.path
+            meta = artifact.meta
+            original_meta = artifact.original_meta
+
+            print ('Documenting {}'.format(path))
+
+            alias = meta.get('alias','')
+            uid = meta.get('uid','')
+
+            script_meta[alias]=meta
+
+            name = meta.get('name','')
+            developers = meta.get('developers','')
+
+            tags = meta.get('tags',[])
+
+            variation_keys = sorted(list(meta.get('variations',{}).keys()))
+            version_keys = sorted(list(meta.get('versions',{}).keys()))
+
+            default_variation = meta.get('default_variation','')
+            default_version = meta.get('default_version','')
+
+
+
+            category = meta.get('category', '').strip()
+            category_sort = meta.get('category_sort', 0)
+            if category != '':
+                if category not in toc_category:
+                    toc_category[category]=[]
+
+                if category not in toc_category_sort or category_sort>0:
+                    toc_category_sort[category]=category_sort
+                
+                if alias not in toc_category[category]:
+                    toc_category[category].append(alias)
+
+            repo_path = artifact.repo_path
+            repo_meta = artifact.repo_meta
+
+            repo_alias = repo_meta.get('alias','')
+            repo_uid = repo_meta.get('uid','')
+
+
+            # Check URL
+            url = ''
+            url_repo = ''
+            if repo_alias == 'internal':
+                url_repo = 'https://github.com/mlcommons/ck/tree/master/cm/cmind/repo'
+                url = url_repo+'/script/'
+            elif '@' in repo_alias:
+                url_repo = 'https://github.com/'+repo_alias.replace('@','/')+'/tree/master'
+                if repo_meta.get('prefix','')!='': url_repo+='/'+repo_meta['prefix']
+                url = url_repo+ '/script/'
+
+            if url!='':
+                url+=alias
+
+            x = '* [{}](#{})'.format(alias, alias)
+            if name !='': x+=' *('+name+')*'
+
+            toc.append(x)
+
+            md.append('## '+alias)
+            md.append('\n')
+            
+            if name!='':
+                md.append('*'+name+'.*')
+                md.append('\n')
+
+#            if developers!='':
+#                md.append('Developers: '+developers)
+#                md.append('\n')
+
+            md.append('* CM script GitHub repository: *[{}]({})*'.format(repo_alias, url_repo))
+            md.append('* CM script artifact (interoperability module, native scripts and meta): *[GitHub]({})*'.format(url))
+
+            # Check meta
+            meta_file = self.cmind.cfg['file_cmeta']
+            meta_path = os.path.join(path, meta_file)
+
+            meta_file += '.yaml' if os.path.isfile(meta_path+'.yaml') else '.json'
+            
+            meta_url = url+'/'+meta_file
+
+            md.append('* CM script meta description: *[GitHub]({})*'.format(meta_url))
+            md.append('* CM automation "script": *[Docs]({})*'.format('https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script'))
+            md.append('* CM script  tags: *cm run script --tags="{}"*'.format(','.join(tags)))
+
+            if len(variation_keys)>0:
+                x=''
+                for variation in variation_keys:
+                    if x!='': x+=';&nbsp; '
+                    x+='_'+variation
+                md.append('* CM script variations: *{}*'.format(x))
+
+            if default_variation!='':
+                md.append('* CM script default variation: *{}*'.format(default_variation))
+
+            if len(version_keys)>0:
+                md.append('* CM script versions: *{}*'.format(';&nbsp; '.join(version_keys)))
+
+            if default_version!='':
+                md.append('* CM script default version: *{}*'.format(default_version))
+
+
+
+            
+            md.append('\n')
+
+
+
+
+        # Recreate TOC with categories
+        toc2 = []
+
+        for category in sorted(toc_category, key = lambda x: -toc_category_sort[x]):
+            toc2.append('### '+category)
+            toc2.append('\n')
+
+            for script in sorted(toc_category[category]):
+
+                meta = script_meta[script]
+
+                name = meta.get('name','')
+                
+                x = '* [{}](#{})'.format(script, script)
+                if name !='': x+=' *('+name+')*'
+                
+                toc2.append(x)
+
+            toc2.append('\n')
+            
+        # Load template
+        r = utils.load_txt(os.path.join(self.path, template_file))
+        if r['return']>0: return r
+
+        s = r['string']
+
+        s = s.replace('{{CM_TOC2}}', '\n'.join(toc2))
+        s = s.replace('{{CM_TOC}}', '\n'.join(toc))
+        s = s.replace('{{CM_MAIN}}', '\n'.join(md))
+
+        # Output
+        output_dir = i.get('output_dir','')
+
+        if output_dir == '': output_dir = '..'
+
+        output_file = os.path.join(output_dir, template_file)
+
+        r = utils.save_txt(output_file, s)
+        if r['return']>0: return r
+
+        return {'return':0}
+
 
 
 ##############################################################################

@@ -2,6 +2,7 @@
   "alias": "get-mlperf-inference-loadgen",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Modular MLPerf benchmarks",
   "cache": true,
   "default_version": "master",
   "deps": [

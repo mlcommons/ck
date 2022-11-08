@@ -4,6 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "cache": false,
   "clean_files": [],
+  "category": "Modular MLPerf benchmarks",
   "deps": [
     {
       "names": [

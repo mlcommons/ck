@@ -1,6 +1,7 @@
 {
   "alias": "install-llvm-prebuilt",
   "automation_alias": "script",
+  "category": "Compiler automation",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "default_version": "14.0.0",

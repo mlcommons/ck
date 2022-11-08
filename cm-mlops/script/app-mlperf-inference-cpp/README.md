@@ -13,7 +13,7 @@ across diverse platforms with continuously changing software and hardware.
 
 &copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
 
-# Authors
+# Developers
 
 [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), 
 [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)

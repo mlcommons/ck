@@ -4,6 +4,8 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "default_version": "main",
+  "category": "ML/AI models",
+  "category_sort":8400,
   "deps": [
     {
       "tags": "detect,os"

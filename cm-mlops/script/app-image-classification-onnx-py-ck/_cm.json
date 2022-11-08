@@ -2,6 +2,7 @@
   "alias": "app-image-classification-onnx-py-ck",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Modular ML/AI applications",
   "deps": [
     {
       "tags": "detect,os"

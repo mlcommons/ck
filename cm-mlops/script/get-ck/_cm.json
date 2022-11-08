@@ -2,6 +2,8 @@
   "alias": "get-ck",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Legacy CK support",
+  "category_sort": 1000,
   "cache": true,
   "tags": [
     "get",

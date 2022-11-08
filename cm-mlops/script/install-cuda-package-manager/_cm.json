@@ -1,6 +1,7 @@
 {
   "alias": "install-cuda-package-manager",
   "automation_alias": "script",
+  "category": "CUDA automation",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "deps": [
