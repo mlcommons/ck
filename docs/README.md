@@ -55,5 +55,3 @@ You can access this project [here](../ck1).
 
 This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
-
-

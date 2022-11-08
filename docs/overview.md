@@ -50,3 +50,18 @@ Feel free to join this [open taskforce](docs/mlperf-education-workgroup.md)
 to provide your feedback and participate in further community developments!
 
 &copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
+
+## Resources
+
+* [MLOps resources](misc/MLOps.md)
+* [ML resources](misc/ML.md)
+
+# Maintainers
+
+* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
+
+# Acknowledgments
+
+This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
+and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).

@@ -147,12 +147,12 @@
         "CM_APACHE_TVM_VERSION"
       ]
     },
-    "sk-learn": {
+    "sklearn": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "sk-learn"
+        "CM_PYTHON_PACKAGE_NAME": "sklearn"
       },
       "new_env_keys": [
-        "CM_SK_LEARN_VERSION"
+        "CM_SKLEARN_VERSION"
       ]
     },
     "tqdm": {
