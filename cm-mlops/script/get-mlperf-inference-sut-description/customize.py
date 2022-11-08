@@ -54,9 +54,9 @@ def preprocess(i):
                 if not system_name:
                     system_name = env.get('CM_HOST_SYSTEM_NAME')
                     if system_name:
-                        system_name+=" (auto detected) "
+                        system_name+=" (auto detected)"
                     else:
-                        system_name = " (generic) "
+                        system_name = " (generic)"
             state['CM_SUT_META']['system_name'] = system_name
             if 'host_processor_core_count' not in state['CM_SUT_META']:
                 state['CM_SUT_META']['host_processor_core_count'] = env.get('CM_HOST_CPU_TOTAL_CORES', '')
