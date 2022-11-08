@@ -1,7 +1,7 @@
 # CM documentation
 
 This is the documentation for the [Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
-and the Collective Mind automation meta-framework (CM)
+and the [Collective Mind automation meta-framework (CM)](https://github.com/mlcommons/ck)
 being developed by the [open MLCommons taskforce on education and reproducibility](mlperf-education-workgroup.md).
 
 
@@ -35,6 +35,16 @@ being developed by the [open MLCommons taskforce on education and reproducibilit
 * [CM conventions](dev/conventions.md)
 
 
+
+
+## Resources
+
+* [MLOps resources](misc/MLOps.md)
+* [ML resources](misc/ML.md)
+* [Legacy MLCommons CK framework (CK1)](../ck1)
+
+
+
 ## On-going work
 
 * [Modularizing ML&AI systems and automating their benchmarking, optimization and design space exploration](mlperf-education-workgroup.md)
@@ -42,29 +52,6 @@ being developed by the [open MLCommons taskforce on education and reproducibilit
   * [GitHub tickets](https://github.com/mlcommons/ck/issues)
 * [Helping with artifact evaluation and reproducibility initiatives at conferences](https://cTuning.org/ae)
 
-
-
-## Legacy MLCommons CK framework (CK1)
-
-The MLCommons CK (the 1st generation) was discontinued in summer 2022 after the stable release of the 2nd generation of this framework (Collective Mind aka CM or CK2).
-You can access this project [here](../ck1).
-
-
-## Resources
-
-* [MLOps resources](misc/MLOps.md)
-* [ML resources](misc/ML.md)
-
-
-## Maintainers
-
-* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
-
-## Acknowledgments
-
-This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
-and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
 
 
