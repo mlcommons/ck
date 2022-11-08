@@ -16,23 +16,19 @@ being developed by the [open MLCommons taskforce on education and reproducibilit
 * [Trying CM (modular image classification)](tutorials/modular-image-classification.md)
 * [List of CM automations](list_of_automations.md)
 
-## User guide
+## Tutorials
 
 * [Tutorial: portable CM scripts](tutorials/scripts.md)
   * [List of portable CM scripts](list_of_scripts.md)
 * [Tutorial: CM database concepts](tutorials/concept.md)
 * [Tutorial: modular MLPerf benchmark](mlperf-cm-automation-demo.md)
 
-## Contributor guide
-
-* [Intro](../CONTRIBUTING.md)
-* [Adding new artifacts, scripts and workflows to CM](../cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
-
 ## Developer guide
 
-* [CM architecture](dev/architecture.md)
+* [Contributing guidelines](../CONTRIBUTING.md)
+* [CM architecture and developer conventions](dev/README.md)
 * [CM core API](https://cknowledge.org/docs/cm/api/cmind.html)
-* [CM conventions](dev/conventions.md)
+* [Adding new artifacts, scripts and workflows to CM](../cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
 
 
 ## On-going work
@@ -50,12 +46,6 @@ The MLCommons CK (the 1st generation) was discontinued in summer 2022 after the 
 You can access this project [here](../ck1).
 
 
-## Resources
-
-* [MLOps resources](misc/MLOps.md)
-* [ML resources](misc/ML.md)
-
-
 ## Maintainers
 
 * [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
@@ -67,36 +57,3 @@ This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https:
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
 
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
