@@ -71,6 +71,10 @@ def preprocess(i):
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': inp.get('add_deps',{}), 'add_deps_recursive':
                 inp.get('add_deps_recursive', {}), 'adr': inp.get('adr', {}), 'silent': silent})
+            if r['return'] > 0:
+                return r
+            if 'CM_MLPERF_RESULTS_DIR' in r['new_env']:
+                env['CM_MLPERF_RESULTS_DIR'] = r['new_env']['CM_MLPERF_RESULTS_DIR']
         if system_meta.get('division', '') == "open":
             env["CM_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
         if env.get("CM_LOADGEN_COMPLIANCE", "") == "yes":

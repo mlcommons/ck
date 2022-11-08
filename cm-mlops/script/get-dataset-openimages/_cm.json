@@ -11,6 +11,13 @@
       "tags": "get,sys-utils-cm"
     },
     {
+      "tags": "get,python3",
+      "names": [
+	"python",
+	"python3"
+      ]
+    },
+    {
       "names": [
         "inference-src"
       ],

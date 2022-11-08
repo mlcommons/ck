@@ -45,7 +45,11 @@
           "yes"
         ]
       },
-      "tags": "submission,checker,mlc"
+      "tags": "submission,checker,mlc",
+      "names": [
+	"mlperf-inference-submission-checker",
+	"submission-checker"
+      ]
     },
     {
       "enable_if_env": {

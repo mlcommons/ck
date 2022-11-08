@@ -49,6 +49,15 @@ def preprocess(i):
             state['CM_SUT_META']['submitter'] = submitter
             state['CM_SUT_META']['operating_system'] = os_name_string
             state['CM_SUT_META']['other_software_stack'] = "Python: " + python_version + ", " + compiler + "-" + compiler_version
+            if 'system_name' not in state['CM_SUT_META']:
+                system_name = env.get('CM_MLPERF_SYSTEM_NAME')
+                if not system_name:
+                    system_name = env.get('CM_HOST_SYSTEM_NAME')
+                    if system_name:
+                        system_name+=" (auto detected)"
+                    else:
+                        system_name = " (generic)"
+            state['CM_SUT_META']['system_name'] = system_name
             if 'host_processor_core_count' not in state['CM_SUT_META']:
                 state['CM_SUT_META']['host_processor_core_count'] = env.get('CM_HOST_CPU_TOTAL_CORES', '')
             if 'host_processor_model_name' not in state['CM_SUT_META']:
@@ -64,8 +73,8 @@ def preprocess(i):
                 state['CM_SUT_META']['host_processor_frequency'] = env.get('CM_HOST_CPU_MAX_MHZ','')
             if 'host_memory_capacity' not in state['CM_SUT_META']:
                 state['CM_SUT_META']['host_memory_capacity'] = env.get('CM_HOST_MEMORY_CAPACITY', '')
-            if 'host_disk_capacity' not in state['CM_SUT_META']:
-                state['CM_SUT_META']['host_disk_capacity'] = env.get('CM_HOST_DISK_CAPACITY', '')
+            if 'host_storage_capacity' not in state['CM_SUT_META']:
+                state['CM_SUT_META']['host_storage_capacity'] = env.get('CM_HOST_DISK_CAPACITY', '')
             if 'CM_SUT_SW_NOTES' in env:
                 sw_notes = env['CM_SUT_SW_NOTES']
             else:

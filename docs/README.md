@@ -1,7 +1,7 @@
 # CM documentation
 
 This is the documentation for the [Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
-and the Collective Mind automation meta-framework (CM)
+and the [Collective Mind automation meta-framework (CM)](https://github.com/mlcommons/ck)
 being developed by the [open MLCommons taskforce on education and reproducibility](mlperf-education-workgroup.md).
 
 
@@ -26,7 +26,7 @@ being developed by the [open MLCommons taskforce on education and reproducibilit
 ## Developer guide
 
 * [Contributing guidelines](../CONTRIBUTING.md)
-* [CM architecture and developer conventions](dev/README.md)
+* [CM architecture and developer conventions](development.md)
 * [CM core API](https://cknowledge.org/docs/cm/api/cmind.html)
 * [Adding new artifacts, scripts and workflows to CM](../cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
 
@@ -40,16 +40,6 @@ being developed by the [open MLCommons taskforce on education and reproducibilit
 
 
 
-## Legacy MLCommons CK framework (CK1)
-
-The MLCommons CK (the 1st generation) was discontinued in summer 2022 after the stable release of the 2nd generation of this framework (Collective Mind aka CM or CK2).
-You can access this project [here](../ck1).
-
-
-## Maintainers
-
-* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
 
 ## Acknowledgments
 

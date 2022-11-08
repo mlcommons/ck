@@ -51,6 +51,11 @@ to provide your feedback and participate in further community developments!
 
 &copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
 
+## Legacy MLCommons CK framework (CK1)
+
+The MLCommons CK (the 1st generation) was discontinued in summer 2022 after the stable release of the 2nd generation of this framework (Collective Mind aka CM or CK2).
+You can access this project [here](../ck1).
+
 ## Resources
 
 * [MLOps resources](misc/MLOps.md)
@@ -60,8 +65,3 @@ to provide your feedback and participate in further community developments!
 
 * [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
-
-# Acknowledgments
-
-This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
-and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).

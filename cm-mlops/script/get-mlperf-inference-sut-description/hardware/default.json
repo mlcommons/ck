@@ -20,6 +20,5 @@
   "status": "available",
   "submitter": "OctoML",
   "sw_notes": "Powered by Collective Mind (CK2)",
-  "system_name": "AWS g4dn.4xlarge",
-  "system_type": "datacenter"
+  "system_type": "edge"
 }

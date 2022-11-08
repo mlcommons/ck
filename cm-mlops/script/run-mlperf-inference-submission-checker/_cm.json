@@ -1,9 +1,9 @@
 {
-  "alias": "run-mlperf-submission-checker",
+  "alias": "run-mlperf-inference-submission-checker",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "category": "Modular MLPerf benchmarks",
   "cache": false,
+  "category": "Modular MLPerf benchmarks",
   "clean_files": [],
   "deps": [
     {
@@ -21,6 +21,9 @@
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
     "submitter": "CM_MLPERF_SUBMITTER"
   },
+  "default_env": {
+    "CM_MLPERF_SHORT_RUN": "no"
+  },
   "tags": [
     "run",
     "mlc",
@@ -33,5 +36,12 @@
     "submission-checker",
     "mlc-submission-checker"
   ],
-  "uid": "15d03ec2c1af4297"
+  "uid": "15d03ec2c1af4297",
+  "variations": {
+    "short-run": {
+      "env": {
+	"CM_MLPERF_SHORT_RUN": "yes"
+      }
+    }
+  }
 }
