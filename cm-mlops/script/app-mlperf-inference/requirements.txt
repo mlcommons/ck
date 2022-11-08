@@ -1,0 +1,5 @@
+pycocotools
+numpy
+opencv-python
+protobuf
+future
