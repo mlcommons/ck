@@ -2902,7 +2902,7 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         if verbose:
             print ('')
-            print (recursion_spaces + '  - Running script ...')
+            print (recursion_spaces + '  - Running script in {} ...'.format(os.getcwd()))
 
         # Prepare env variables
         import copy
