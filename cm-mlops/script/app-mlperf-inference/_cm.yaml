@@ -1,5 +1,5 @@
 # Identification of this CM script
-alias: app-mlperf-inference-reference
+alias: app-mlperf-inference
 uid: d775cac873ee4231
 
 automation_alias: script
