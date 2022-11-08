@@ -21,6 +21,9 @@
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
     "submitter": "CM_MLPERF_SUBMITTER"
   },
+  "default_env": {
+    "CM_MLPERF_SHORT_RUN": "no"
+  },
   "tags": [
     "run",
     "mlc",
@@ -33,5 +36,12 @@
     "submission-checker",
     "mlc-submission-checker"
   ],
-  "uid": "15d03ec2c1af4297"
+  "uid": "15d03ec2c1af4297",
+  "variations": {
+    "short-run": {
+      "env": {
+	"CM_MLPERF_SHORT_RUN": "yes"
+      }
+    }
+  }
 }
