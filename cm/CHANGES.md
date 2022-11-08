@@ -1,4 +1,6 @@
-## V1.0.5
+## V1.1.0
+   - redesigned documentation
+   - added support utils to generate lists of all automations and scripts
    - '\r' is removed on Windows when writing files with meta information (json or yaml)
 
 ## V1.0.4

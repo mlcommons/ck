@@ -27,7 +27,7 @@ Nvidia GPU ?; Ubuntu `[20.04,22.04]`; Python `[3.8,3.9]`; MLPerf inference ?; CU
 
 ## C++ universal "plug&play" front-end for MLPerf loadgen
 
-We are developing a new [universal C++ front-end for loadgen](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation-cm/reproducibility.md#original-python-front-end-for-loadgen) 
+We are developing a new universal C++ front-end for loadgen
 with CM automations to make it easier to plug in any models, datasets, frameworks and hardware 
 using the same [portable CM components](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
 as for the Python FE.
