@@ -2486,9 +2486,9 @@ class CAutomation(Automation):
                 md.append('*'+name+'.*')
                 md.append('\n')
 
-            if developers!='':
-                md.append('Developers: '+developers)
-                md.append('\n')
+#            if developers!='':
+#                md.append('Developers: '+developers)
+#                md.append('\n')
 
             md.append('* CM script GitHub repository: *[{}]({})*'.format(repo_alias, url_repo))
             md.append('* CM script artifact (interoperability module, native scripts and meta): *[GitHub]({})*'.format(url))

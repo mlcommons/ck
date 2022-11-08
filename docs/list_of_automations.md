@@ -23,9 +23,6 @@ This file is generated automatically - don't edit!
 *Managing CM repositories.*
 
 
-Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
-
-
 * CM GitHub repository: *[internal](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo)*
 * CM artifact (module and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/repo)*
 * CM actions:
@@ -46,9 +43,6 @@ Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 
 
 *Making native scripts more portable, interoperable and deterministic.*
-
-
-Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.io/@gfursin)
 
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
@@ -74,9 +68,6 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 *Caching cross-platform CM scripts.*
 
 
-Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.io/@gfursin)
-
-
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * CM artifact (module and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/cache)*
 * CM actions:
@@ -88,9 +79,6 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 
 
 *Accessing various CM utils.*
-
-
-Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
@@ -114,9 +102,6 @@ Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 *Accessing some core CM functions.*
 
 
-Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
-
-
 * CM GitHub repository: *[internal](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo)*
 * CM artifact (module and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/core)*
 * CM actions:
@@ -129,9 +114,6 @@ Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 *Managing modular docker containers (under development).*
 
 
-Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.io/@gfursin)
-
-
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * CM artifact (module and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/docker)*
 * CM actions:
@@ -142,9 +124,6 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 
 
 *Managing and reproducing experiments (under development).*
-
-
-Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.io/@gfursin)
 
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
@@ -161,9 +140,6 @@ Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fu
 *Accessing legacy CK automations.*
 
 
-Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
-
-
 * CM GitHub repository: *[internal](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo)*
 * CM artifact (module and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation/ck)*
 * CM actions:
@@ -174,9 +150,6 @@ Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 
 
 *Managing CM automations.*
-
-
-Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 
 
 * CM GitHub repository: *[internal](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo)*

@@ -312,9 +312,6 @@ This file is generated automatically - don't edit!
 *Activate python virtual environment.*
 
 
-Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
-
-
 * CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv/_cm.json)*
@@ -397,9 +394,6 @@ Developers: [Grigori Fursin](https://cKnowledge.io/@gfursin)
 ## app-mlperf-inference-cpp
 
 
-Developers: [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.io/@gfursin)
-
-
 * CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)*
@@ -409,9 +403,6 @@ Developers: [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Arj
 
 
 ## app-mlperf-inference-reference
-
-
-Developers: [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.io/@gfursin)
 
 
 * CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
