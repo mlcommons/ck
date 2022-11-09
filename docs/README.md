@@ -26,6 +26,7 @@ being developed by the [open MLCommons taskforce on education and reproducibilit
 ## Developer guide
 
 * [Contributing guidelines](../CONTRIBUTING.md)
+* [CM specifications](specifications.md)
 * [CM architecture and developer conventions](development.md)
 * [CM core API](https://cknowledge.org/docs/cm/api/cmind.html)
 * [Adding new artifacts, scripts and workflows to CM](../cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 

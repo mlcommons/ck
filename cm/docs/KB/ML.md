@@ -1,3 +1,1 @@
-# Useful projects
-
-* [PlotNeuralNet](https://github.com/HarisIqbal88/PlotNeuralNet)
+Moved [here](../../../docs/misc/ML.md).

@@ -1,3 +1,5 @@
+[ [Back to index](README.md) ]
+
 # CM installation
 
 Our goal is to keep the CM automation meta-framework as simple and portable as possible

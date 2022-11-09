@@ -1,3 +1,5 @@
+[ [Back to index](README.md) ]
+
 # CM internal architecture
 
 Here is a diagram of the main CM classes, functions and automations (v1.0.5+):
