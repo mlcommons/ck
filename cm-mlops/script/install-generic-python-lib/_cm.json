@@ -120,6 +120,16 @@
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "opencv-python"
       }
+    },
+    "pandas": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "pandas"
+      }
+    },
+    "boto3": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "boto3"
+      }
     }
   }
 }

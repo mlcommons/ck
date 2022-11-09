@@ -25,6 +25,10 @@
       "tags": "get,compiler"
     }
   ],
+  "input_mapping": {
+    "name": "CM_HW_NAME",
+    "submitter": "CM_MLPERF_SUBMITTER"
+  },
   "new_env_keys": [
     "CM_HW_*",
     "CM_SUT_*"
@@ -35,6 +39,7 @@
   ],
   "tags": [
     "get",
+    "mlperf",
     "sut",
     "description",
     "system-under-test",

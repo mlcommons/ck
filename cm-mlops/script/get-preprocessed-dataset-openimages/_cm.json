@@ -91,6 +91,16 @@
 	}
       }
     },
+    "full": {
+      "env": {
+        "CM_DATASET_SIZE": ""
+      },
+      "adr": {
+	"original-dataset": {
+	  "tags": "_full"
+	}
+      }
+    },
     "NCHW": {
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW"

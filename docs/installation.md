@@ -1,3 +1,5 @@
+[ [Back to index](README.md) ]
+
 # CM installation
 
 Our goal is to keep the CM automation meta-framework as simple and portable as possible
@@ -24,7 +26,7 @@ You can reuse misc CM utils listed [here](#misc-cm-utils).
 ```bash
 sudo apt update && sudo apt upgrade
 
-sudo apt install python3 python3-pip git wget
+sudo apt install python3 python3-pip python3-venv git wget
 
 python3 -m pip install cmind
 ```

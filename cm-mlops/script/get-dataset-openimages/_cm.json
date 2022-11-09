@@ -27,17 +27,24 @@
       ]
     },
     {
-      "tags": "detect,os"
+      "tags": "get,generic-python-lib,_boto3"
     },
     {
-      "tags": "get,openssl",
-      "version": "1.1.1",
-      "enable_if_env": {
-        "CM_HOST_OS_FLAVOR": [ "ubuntu" ],
-        "CM_HOST_OS_VERSION": [ "22.04" ]
-      }
+      "tags": "get,generic-python-lib,_tqdm"
+    },
+    {
+      "tags": "get,generic-python-lib,_numpy"
+    },
+    {
+      "tags": "get,generic-python-lib,_opencv-python"
+    },
+    {
+      "tags": "get,generic-python-lib,_pandas"
     }
   ],
+  "default_env": {
+    "CM_DATASET_CALIBRATION": "no"
+  },
   "env": {
     "CM_DATASET": "OPENIMAGES"
   },
@@ -84,6 +91,11 @@
     "1": {
       "env": {
         "CM_DATASET_SIZE": "1"
+      }
+    },
+    "full": {
+      "env": {
+	"CM_DATASET_SIZE": ""
       }
     }
   }

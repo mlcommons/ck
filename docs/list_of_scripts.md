@@ -27,19 +27,19 @@ This file is generated automatically - don't edit!
 ### Modular MLPerf benchmarks
 
 
+* [app-mlperf-inference](#app-mlperf-inference)
 * [app-mlperf-inference-cpp](#app-mlperf-inference-cpp)
-* [app-mlperf-inference-reference](#app-mlperf-inference-reference)
 * [generate-mlperf-inference-submission](#generate-mlperf-inference-submission)
 * [generate-mlperf-tiny-submission](#generate-mlperf-tiny-submission)
-* [get-configs-sut-mlperf-inference](#get-configs-sut-mlperf-inference)
 * [get-mlperf-inference-loadgen](#get-mlperf-inference-loadgen)
 * [get-mlperf-inference-src](#get-mlperf-inference-src)
-* [get-sut](#get-sut)
+* [get-mlperf-inference-sut-configs](#get-mlperf-inference-sut-configs)
+* [get-mlperf-inference-sut-description](#get-mlperf-inference-sut-description)
 * [process-mlperf-accuracy](#process-mlperf-accuracy)
 * [reproduce-mlperf-octoml-tinyml-results](#reproduce-mlperf-octoml-tinyml-results)
 * [run-mlperf-accuracy-log-truncator](#run-mlperf-accuracy-log-truncator)
 * [run-mlperf-inference-app](#run-mlperf-inference-app)
-* [run-mlperf-submission-checker](#run-mlperf-submission-checker)
+* [run-mlperf-inference-submission-checker](#run-mlperf-inference-submission-checker)
 * [wrapper-mlperf-inference-vision-reference](#wrapper-mlperf-inference-vision-reference)
 * [wrapper-reproduce-octoml-tinyml-submission](#wrapper-reproduce-octoml-tinyml-submission)
 
@@ -212,8 +212,8 @@ This file is generated automatically - don't edit!
 * [app-image-classification-tvm-onnx-py](#app-image-classification-tvm-onnx-py)
 * [app-image-corner-detection](#app-image-corner-detection)
 * [app-image-corner-detection-old](#app-image-corner-detection-old)
+* [app-mlperf-inference](#app-mlperf-inference)
 * [app-mlperf-inference-cpp](#app-mlperf-inference-cpp)
-* [app-mlperf-inference-reference](#app-mlperf-inference-reference)
 * [benchmark-program](#benchmark-program)
 * [build-docker-image](#build-docker-image)
 * [build-dockerfile](#build-dockerfile)
@@ -232,7 +232,6 @@ This file is generated automatically - don't edit!
 * [get-cmake](#get-cmake)
 * [get-cmsis_5](#get-cmsis_5)
 * [get-compiler-flags](#get-compiler-flags)
-* [get-configs-sut-mlperf-inference](#get-configs-sut-mlperf-inference)
 * [get-cuda](#get-cuda)
 * [get-cuda-devices](#get-cuda-devices)
 * [get-dataset-criteo](#get-dataset-criteo)
@@ -254,13 +253,14 @@ This file is generated automatically - don't edit!
 * [get-ml-model-retinanet](#get-ml-model-retinanet)
 * [get-mlperf-inference-loadgen](#get-mlperf-inference-loadgen)
 * [get-mlperf-inference-src](#get-mlperf-inference-src)
+* [get-mlperf-inference-sut-configs](#get-mlperf-inference-sut-configs)
+* [get-mlperf-inference-sut-description](#get-mlperf-inference-sut-description)
 * [get-onnxruntime-prebuilt](#get-onnxruntime-prebuilt)
 * [get-openssl](#get-openssl)
 * [get-preprocessed-dataset-criteo](#get-preprocessed-dataset-criteo)
 * [get-preprocessed-dataset-imagenet](#get-preprocessed-dataset-imagenet)
 * [get-preprocessed-dataset-openimages](#get-preprocessed-dataset-openimages)
 * [get-python3](#get-python3)
-* [get-sut](#get-sut)
 * [get-sys-utils-cm](#get-sys-utils-cm)
 * [get-terraform](#get-terraform)
 * [get-tvm](#get-tvm)
@@ -292,7 +292,7 @@ This file is generated automatically - don't edit!
 * [run-docker-container](#run-docker-container)
 * [run-mlperf-accuracy-log-truncator](#run-mlperf-accuracy-log-truncator)
 * [run-mlperf-inference-app](#run-mlperf-inference-app)
-* [run-mlperf-submission-checker](#run-mlperf-submission-checker)
+* [run-mlperf-inference-submission-checker](#run-mlperf-inference-submission-checker)
 * [run-terraform](#run-terraform)
 * [set-echo-off-win](#set-echo-off-win)
 * [tar-my-folder](#tar-my-folder)
@@ -391,6 +391,17 @@ This file is generated automatically - don't edit!
 * CM script  tags: *cm run script --tags="app,corner-detection,old"*
 
 
+## app-mlperf-inference
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="app,vision,language,mlcommons,mlperf,inference,reference,generic,ref"*
+* CM script variations: *_bert-99.9;&nbsp; _cpp;&nbsp; _cpu;&nbsp; _fast;&nbsp; _gpu;&nbsp; _onnxruntime;&nbsp; _python;&nbsp; _pytorch;&nbsp; _r2.1_default;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _test;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tvm-onnx;&nbsp; _tvm-pip-install-onnx;&nbsp; _tvm-pip-install-pytorch;&nbsp; _tvm-pytorch;&nbsp; _valid*
+
+
 ## app-mlperf-inference-cpp
 
 
@@ -400,17 +411,6 @@ This file is generated automatically - don't edit!
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="app,mlcommons,mlperf,inference,cpp"*
 * CM script variations: *_cpu;&nbsp; _gpu;&nbsp; _onnxruntime;&nbsp; _pytorch;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tvm-onnx*
-
-
-## app-mlperf-inference-reference
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,vision,language,mlcommons,mlperf,inference,reference,generic,ref"*
-* CM script variations: *_bert-99.9;&nbsp; _cpp;&nbsp; _cpu;&nbsp; _fast;&nbsp; _gpu;&nbsp; _onnxruntime;&nbsp; _python;&nbsp; _pytorch;&nbsp; _r2.1_default;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _test;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tvm-onnx;&nbsp; _tvm-pip-install-onnx;&nbsp; _tvm-pip-install-pytorch;&nbsp; _tvm-pytorch;&nbsp; _valid*
 
 
 ## benchmark-program
@@ -603,16 +603,6 @@ This file is generated automatically - don't edit!
 * CM script  tags: *cm run script --tags="get,compiler-flags"*
 
 
-## get-configs-sut-mlperf-inference
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,sut,mlc,configs,sut-configs,sut-mlc-configs"*
-
-
 ## get-cuda
 
 
@@ -698,7 +688,7 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,dataset,openimages,open-images,object-detection,original"*
-* CM script variations: *_calibration;&nbsp; _validation*
+* CM script variations: *_1;&nbsp; _5;&nbsp; _50;&nbsp; _500;&nbsp; _calibration;&nbsp; _validation*
 * CM script default variation: *validation*
 
 
@@ -748,7 +738,7 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,generic,generic-python-lib"*
-* CM script variations: *_apache-tvm;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _opencv-python;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sk-learn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _tqdm;&nbsp; _transformers*
+* CM script variations: *_apache-tvm;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _opencv-python;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _tqdm;&nbsp; _transformers*
 
 
 ## get-github-cli
@@ -860,6 +850,26 @@ This file is generated automatically - don't edit!
 * CM script default version: *master*
 
 
+## get-mlperf-inference-sut-configs
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,sut,mlc,configs,sut-configs,sut-mlc-configs"*
+
+
+## get-mlperf-inference-sut-description
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,sut,description,system-under-test,system-description"*
+
+
 ## get-onnxruntime-prebuilt
 
 
@@ -913,7 +923,7 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,dataset,openimages,open-images,object-detection,preprocessed"*
-* CM script variations: *_1;&nbsp; _50;&nbsp; _500;&nbsp; _NCHW;&nbsp; _NHWC;&nbsp; _calibration;&nbsp; _full;&nbsp; _validation*
+* CM script variations: *_1;&nbsp; _5;&nbsp; _50;&nbsp; _500;&nbsp; _NCHW;&nbsp; _NHWC;&nbsp; _calibration;&nbsp; _full;&nbsp; _validation*
 
 
 ## get-python3
@@ -925,16 +935,6 @@ This file is generated automatically - don't edit!
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,python,python3,get-python,get-python3"*
 * CM script variations: *_shared;&nbsp; _with-ssl*
-
-
-## get-sut
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sut)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sut/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,sut,description,system-under-test,system-description"*
 
 
 ## get-sys-utils-cm
@@ -1285,14 +1285,15 @@ This file is generated automatically - don't edit!
 * CM script versions: *master;&nbsp; r2.1*
 
 
-## run-mlperf-submission-checker
+## run-mlperf-inference-submission-checker
 
 
 * CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-submission-checker)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-submission-checker/_cm.json)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker"*
+* CM script variations: *_short-run*
 
 
 ## run-terraform

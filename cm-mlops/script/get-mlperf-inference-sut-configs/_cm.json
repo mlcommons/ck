@@ -13,11 +13,10 @@
   ],
   "tags": [
     "get",
+    "mlperf",
     "sut",
-    "mlc",
     "configs",
-    "sut-configs",
-    "sut-mlc-configs"
+    "sut-configs"
   ],
   "uid": "c2fbf72009e2445b"
 }

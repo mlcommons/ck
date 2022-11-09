@@ -170,6 +170,22 @@
       "new_env_keys": [
         "CM_OPENCV_PYTHON_VERSION"
       ]
+    },
+    "pandas": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "pandas"
+      },
+      "new_env_keys": [
+        "CM_PANDAS_VERSION"
+      ]
+    },
+    "boto3": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "boto3"
+      },
+      "new_env_keys": [
+        "CM_BOTO3_VERSION"
+      ]
     }
   }
 }

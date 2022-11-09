@@ -18,7 +18,7 @@
   "hw_notes": "",
   "number_of_nodes": "1",
   "status": "available",
-  "submitter": "OctoML",
-  "sw_notes": "Powered by Collective Mind (CK2)",
+  "submitter": "MLCommons",
+  "sw_notes": "Powered by MLCommons CM (CK2)",
   "system_type": "edge"
 }

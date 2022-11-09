@@ -292,7 +292,7 @@ def postprocess(i):
             cmd = "cm run script \\\n\t"+" \\\n\t".join(inp['cmd'])
         else:
             cmd = ""
-        readme_init = ""
+        readme_init = "This experiment is generated using [MLCommons CM](https://github.com/mlcommons/ck)\n"
         readme_body = "## CM Run Command\n```\n" + cmd + "\n```"
         readme = readme_init + readme_body
         with open ("README.md", "w") as fp:
