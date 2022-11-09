@@ -334,7 +334,8 @@ Note that QPS is very low because we use an unoptimized reference implementation
 In the 2nd part of this tutorial, we will explain how to optimize this benchmark and/or run other implementations 
 such as the [universal C++ implementation of this benchmark](../list_of_scripts.md#app-mlperf-inference-cpp) 
 developed by [OctoML](https://octoml.ai) and the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
-as well as optimized implementation of MLPerf object detection with quantized models from [Nvidia](https://github.com/mlcommons/ck).
+as well as optimized implementation of MLPerf object detection with quantized models 
+from [Nvidia](https://github.com/mlcommons/inference_results_v2.1/tree/master/closed/NVIDIA/code/retinanet/tensorrt).
 
 ### Prepare MLPerf submission
 
