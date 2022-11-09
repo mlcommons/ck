@@ -24,7 +24,7 @@ You can reuse misc CM utils listed [here](#misc-cm-utils).
 ```bash
 sudo apt update && sudo apt upgrade
 
-sudo apt install python3 python3-pip git wget
+sudo apt install python3 python3-pip python3-venv git wget
 
 python3 -m pip install cmind
 ```

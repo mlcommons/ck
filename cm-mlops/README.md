@@ -7,7 +7,7 @@
 This MLCommons CM repository contains portable scripts
 in the [CM (CK2) format](https://github.com/mlcommons/ck) to unify and interconnect 
 different MLOps and DevOps tools acrossd diverse software and hardware stacks.
-**See the catalog [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script).**
+**See the automatically generated catalog [here](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).**
 
 All cross-platform СM scripts have a unified API, human readable CLI and extensible JSON/YAML meta description
 making it possible to reuse them in different projects and chain them together 
