@@ -28,8 +28,8 @@
   "post_deps": [
     {
       "enable_if_env": {
-        "CM_MLPERF_RUN_STYLE": [
-          "valid"
+        "CM_RUN_MLPERF_ACCURACY": [
+          "on"
         ]
       },
       "skip_if_env": {
