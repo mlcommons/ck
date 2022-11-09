@@ -3,7 +3,8 @@
 ## Tutorial: running the MLPerf inference benchmark
 
 This tutorial explains how to prepare and run the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
-using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck).
+using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck) 
+being developed by the [open MLCommons taskforce on education and reproducibility](mlperf-education-workgroup.md).
 
 There are 4 main goals:
 - Trying the MLCommons CM meta-framework for modular benchmarking.
