@@ -38,6 +38,7 @@ def postprocess(i):
     env = i['env']
     import pandas
     if exists('summary.csv'):
-        df = pandas.read_csv('summary.csv', index_col=0, header=None).T
+        df = pandas.read_csv('summary.csv').T
         print(df)
+        df.to_json('summary.json', orient='columns', indent=4)
     return {'return':0}
