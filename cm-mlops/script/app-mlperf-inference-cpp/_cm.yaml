@@ -102,7 +102,7 @@ deps:
   - enable_if_env:
       CM_MODEL:
       - retinanet
-    tags: get,dataset,preprocessed,openimages,_NCHW
+    tags: get,dataset,preprocessed,openimages,_validation,_NCHW
 
   - enable_if_env:
       CM_MODEL:

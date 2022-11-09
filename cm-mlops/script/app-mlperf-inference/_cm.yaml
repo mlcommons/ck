@@ -170,7 +170,7 @@ deps:
       - resnet50
 
   ## Open Images (full) for RetinaNet
-  - tags: get,dataset,object-detection,open-images,openimages,preprocessed
+  - tags: get,dataset,object-detection,open-images,openimages,preprocessed,_validation
     names:
     - openimages-preprocessed
     enable_if_env:
