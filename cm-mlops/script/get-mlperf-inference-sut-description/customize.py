@@ -35,6 +35,8 @@ def preprocess(i):
             os_version = env.get('CM_HOST_OS_VERSION', '')
             if os_name and os_version:
                 os_name_string = os_name + " " + os_version
+            else:
+                os_name_string = ''
             os_type = env.get('CM_HOST_OS_TYPE', '')
             kernel = env.get('CM_HOST_OS_KERNEL_VERSION', '')
             if os_type and kernel:
