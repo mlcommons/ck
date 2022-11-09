@@ -35,6 +35,7 @@
   ],
   "tags": [
     "get",
+    "mlperf",
     "sut",
     "description",
     "system-under-test",
