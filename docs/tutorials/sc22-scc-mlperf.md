@@ -243,16 +243,18 @@ Normally, you would need to go through this [README.md](https://github.com/mlcom
 and prepare all the dependencies and environment variables manually.
 
 The [CM "app-mlperf-inference" script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#app-mlperf-inference)
-allows you to run this benchmark while automatically loading all above cached dependencies
-described in its [CM meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml#L61) 
-as follows:
+allows you to run this benchmark as follows:
 
 ```bash
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
      --scenario=Offline --mode=accuracy --test_query_count=10 --rerun
 ```
 
-It can take a few minutes to run it and you should see the following accuracy:
+This CM script will automatically find or install all dependencies
+described in its [CM meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml#L61),
+aggregate all environment variables, preprocess all files and assemble the MLPerf benchmark CMD.
+
+It will take a few minutes to run it and you should see the following accuracy:
 
 ```txt
 loading annotations into memory...
@@ -423,6 +425,6 @@ optimize this benchmark and prepare competitive MLPerf inference submission.
 
 ## Authors
 
-This tutorial was prepared by [Grigori Fursin](https://cKnowledge.io/@gfursin) 
+[Grigori Fursin](https://cKnowledge.io/@gfursin) 
 and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
-from [OctoML](https://octoml.ai).
+([OctoML](https://octoml.ai) and the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md))
