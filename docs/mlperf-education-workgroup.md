@@ -4,6 +4,7 @@
 
 ## News
 
+* The first part of the tutorial for the Student Cluster Competition'22 to run MLPerf inference benchmark using MLCommons CM is available [here](tutorials/sc22-scc-mlperf.md).
 * Check the [notes from our weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing).
   * Use [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to join the taskforce and stay informed about our activities.
 * Check the [presentation about our mission](https://doi.org/10.5281/zenodo.7143424).
