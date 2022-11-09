@@ -21,7 +21,7 @@ being developed by the [open MLCommons taskforce on education and reproducibilit
 * [Tutorial: portable CM scripts](tutorials/scripts.md)
   * [List of portable CM scripts](list_of_scripts.md)
 * [Tutorial: CM database concepts](tutorials/concept.md)
-* [Tutorial: modular MLPerf benchmark](mlperf-cm-automation-demo.md)
+* [Tutorial: modular MLPerf benchmark](tutorials/sc22-scc-mlperf.md)
 
 ## Developer guide
 
