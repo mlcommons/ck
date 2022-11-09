@@ -36,6 +36,7 @@
   "input_mapping": {
     "lang": "CM_MLPERF_LANG",
     "device": "CM_MLPERF_DEVICE",
+    "submitter": "CM_MLPERF_SUBMITTER",
     "backend": "CM_MLPERF_BACKEND",
     "model": "CM_MLPERF_MODEL",
     "run_style": "CM_MLPERF_RUN_STYLE",
