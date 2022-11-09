@@ -38,6 +38,6 @@ def postprocess(i):
     env = i['env']
     import pandas
     if exists('summary.csv'):
-        df = pandas.read_csv('summary.csv')
+        df = pandas.read_csv('summary.csv', index_col=0, header=None).T
         print(df)
     return {'return':0}
