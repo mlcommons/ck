@@ -1,6 +1,0 @@
-/* adds scrollbar to sidenav */
-.wy-side-scroll {
-  width: auto;
-  scrollbar-width:thin;
-  overflow-y: auto;
-}
