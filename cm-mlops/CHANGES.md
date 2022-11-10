@@ -1,3 +1,6 @@
+# 20221110:
+ * added support to push MLPerf results to W&B dashboard
+
 # 20221103:
  * added "cm json2yaml utils" and "cm yaml2json utils"
 

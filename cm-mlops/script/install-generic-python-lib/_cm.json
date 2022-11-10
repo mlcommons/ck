@@ -130,6 +130,11 @@
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "boto3"
       }
+    },
+    "wandb": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "wandb"
+      }
     }
   }
 }

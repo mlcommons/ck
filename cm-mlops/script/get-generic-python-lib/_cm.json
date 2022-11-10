@@ -186,6 +186,14 @@
       "new_env_keys": [
         "CM_BOTO3_VERSION"
       ]
+    },
+    "wandb": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "wandb"
+      },
+      "new_env_keys": [
+        "CM_WANDB_VERSION"
+      ]
     }
   }
 }

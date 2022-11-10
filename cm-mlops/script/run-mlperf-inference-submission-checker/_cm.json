@@ -4,7 +4,11 @@
   "automation_uid": "5b4e0237da074764",
   "cache": false,
   "category": "Modular MLPerf benchmarks",
-  "clean_files": [],
+  "clean_files": [
+    "open.tar.gz",
+    "summary.csv",
+    "summary.json"
+  ],
   "deps": [
     {
       "tags": "get,python"
@@ -14,6 +18,16 @@
         "inference-src"
       ],
       "tags": "get,mlcommons,inference,src"
+    }
+  ],
+  "post_deps": [
+    {
+      "enable_if_env": {
+        "CM_MLPERF_DASHBOARD": [
+          "on"
+        ]
+      },
+      "tags": "publish-results,dashboard"
     }
   ],
   "input_mapping": {
@@ -40,7 +54,7 @@
   "variations": {
     "short-run": {
       "env": {
-	"CM_MLPERF_SHORT_RUN": "yes"
+        "CM_MLPERF_SHORT_RUN": "yes"
       }
     }
   }

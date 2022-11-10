@@ -3,6 +3,11 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "category": "Modular MLPerf benchmarks",
+  "clean_files": [
+    "open.tar.gz",
+    "summary.csv",
+    "summary.json"
+  ],
   "deps": [
     {
       "tags": "detect,os"
@@ -107,9 +112,9 @@
       "post_deps": [
         {
           "tags": "generate,mlperf,inference,submission",
-	  "names": [
-	    "submission-generator"
-	  ]
+          "names": [
+             "submission-generator"
+          ]
         }
       ]
     },
@@ -125,6 +130,11 @@
         "submission-checker": {
           "tags": "_short-run"
         }
+      }
+    },
+    "dashboard": {
+      "env": {
+        "CM_MLPERF_DASHBOARD": "on"
       }
     }
   },
