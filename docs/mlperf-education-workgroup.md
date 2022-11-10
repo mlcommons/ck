@@ -4,27 +4,26 @@
 
 ## News
 
-* The first part of the tutorial for the Student Cluster Competition'22 to run MLPerf inference benchmark using MLCommons CM is available [here](tutorials/sc22-scc-mlperf.md).
-* Check the [notes from our weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing).
+* The 1st part of the tutorial to run MLPerf inference benchmark at SCC'22 using MLCommons CM is available [here](tutorials/sc22-scc-mlperf.md) - 
+  please help us test it and feel free to provide your feedback using this [GitHub ticket](https://github.com/mlcommons/ck/issues/484).
+* [Notes from our weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing).
   * Use [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to join the taskforce and stay informed about our activities.
-* Check the [presentation about our mission](https://doi.org/10.5281/zenodo.7143424).
-* Check the [portable image classification workflow example]( https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md ).
+* [Presentation about our mission](https://doi.org/10.5281/zenodo.7143424).
+* [Portable image classification workflow example]( tutorials/modular-image-classification.md ).
 * Upcoming events:
   * [Student Cluster Competition at SC22](https://sc22.supercomputing.org/program/studentssc/student-cluster-competition/): November 14-16, 2022
   * MLPerf inference v3.0 submission: Feb 17, 2023; publication Apr 5, 2023
-  * MLperf inference V3.1 submission: Aug 4th, 2023; publication Aug 30, 2023
 
 
 ## Mission
 
-* Modularize MLPerf benchmarks and make them easier to run, optimize, customize and reproduce across rapidly evolving software, hardware and data 
-  using the [MLCommons CM automation meta-framework](https://github.com/mlcommons/ck). 
-* Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
-* Develop [portable and reusable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) to make MLOps and DevOps more interoperable, reusable, portable, deterministic and reproducible. 
-* Develop universal CM workflows to automatically plug in any real-world ML & AI tasks, models, data sets, software and hardware.
+* Modularize MLPerf benchmarks and make it easier to run, optimize, customize and reproduce them across rapidly evolving software, hardware and data. 
+  * Reuse and enhance [cross-platform CM scripts](list_of_scripts.md) intended to make MLOps and DevOps more interoperable, reusable, portable, deterministic and reproducible. 
+  * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
 * Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
 * Help end-users of ML Systems visualize all MLPerf results, reproduce them and deploy Pareto-optimal ML/SW/HW stacks in production.
-* Support reproducibility initiatives and artifact evaluation at ML and Systems conferences using the rigorous MLPerf methodology and the MLCommons CM automation meta-framework.
+* Support student competitions, reproducibility initiatives and artifact evaluation at ML and Systems conferences using the rigorous MLPerf methodology and the MLCommons CM automation meta-framework.
+  * Develop universal, modular and portable benchmarking workflow that can run on any software/hardware stack from the cloud to embedded devices.
 
 ## Conf-calls
 

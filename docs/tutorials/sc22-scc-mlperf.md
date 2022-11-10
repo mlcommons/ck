@@ -293,7 +293,7 @@ will automatically install all the necessary dependencies (you just need to spec
 that you use GCC and 500 images). 
 
 You can check it by cleaning the CM cache and executing this command again 
-(it will take around ~10 minutes depening on the speed of your system and the internet connection):
+(it will take around ~10 minutes depending on the speed of your system and the Internet connection):
 
 ```bash
 cm rm cache -f
@@ -467,6 +467,19 @@ optimize this benchmark and prepare competitive MLPerf inference submission.
 
 ## Authors
 
-[Grigori Fursin](https://cKnowledge.io/@gfursin) 
-and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
-([OctoML](https://octoml.ai) and the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)).
+* [Grigori Fursin](https://cKnowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
+
+
+## Acknowledgments
+
+This project is supported by [OctoML](https://octoml.ai) and the 
+[open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md).
+
+We thank 
+[Hai Ah Nam](https://www.nersc.gov/about/nersc-staff/advanced-technologies-group/hai-ah-nam/),
+[Steve Leak](https://www.linkedin.com/in/steve-leak),
+[Vijay Janappa Reddi](https://scholar.harvard.edu/vijay-janapa-reddi/home),
+[Tom Jablin](https://scholar.google.com/citations?user=L_1FmIMAAAAJ&hl=en),
+and [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189/)
+for their suggestions and contributions.
