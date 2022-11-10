@@ -110,13 +110,13 @@ Here is the concept of CM-based automated workflows:
 ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/cm-mlperf-edu-repro-wg2.png)
 
 
-We have finished prototyping the new CM framework in summer 2022 based on all the experience and feedback of CK users
-and successfully used it to modularize MLPerf and automate the submission of benchmarking results to the MLPerf inference v2.1 - 
-see our [demo](mlperf-cm-automation-demo.md) for more details.
+We have finished prototyping the new CM framework in summer 2022 based on the feedback of CK users
+and successfully used it to modularize MLPerf and automate the submission of benchmarking results to the MLPerf inference v2.1.
+See this [tutorial](tutorials/list_of_scripts.md) for more details.
 
 We continue developing CM as an open-source educational toolkit 
 to help the community learn how to modularize, crowd-benchmark, optimize and deploy 
-Pareto-efficient ML Systems based on the mature MLPerf methodology and [portable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) - 
+Pareto-efficient ML Systems based on the mature MLPerf methodology and [portable CM scripts](list_of_scripts.md) - 
 please check the [deliverables section](#deliverables) to keep track of our community developments
 and do not hesitate to [join this community effort](https://forms.gle/i5gCDtBC8gMtcvRw6)!
 

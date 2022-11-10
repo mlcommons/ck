@@ -25,7 +25,7 @@ to learn how to optimize this benchmark further (trying various run-time paramet
 changing ML frameworks and run-times, optimizing RetinaNet model, and trying different CPUs and GPUs) and submit Pareto-optimal results to MLPerf.
 
 *Note that both MLPerf and CM automation are evolving projects.
- If you encounter issues or have questions, please don't hesitate to open a ticket [here](https://github.com/mlcommons/ck/issues)
+ If you encounter issues or have questions, please submit them in [this GitHub ticket](https://github.com/mlcommons/ck/issues/484)
  and feel free to join our [weekly conf-calls](../mlperf-education-workgroup.md#conf-calls).*
 
 
@@ -243,16 +243,18 @@ Normally, you would need to go through this [README.md](https://github.com/mlcom
 and prepare all the dependencies and environment variables manually.
 
 The [CM "app-mlperf-inference" script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#app-mlperf-inference)
-allows you to run this benchmark while automatically loading all above cached dependencies
-described in its [CM meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml#L61) 
-as follows:
+allows you to run this benchmark as follows:
 
 ```bash
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
      --scenario=Offline --mode=accuracy --test_query_count=10 --rerun
 ```
 
-It can take a few minutes to run it and you should see the following accuracy:
+This CM script will automatically find or install all dependencies
+described in its [CM meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml#L61),
+aggregate all environment variables, preprocess all files and assemble the MLPerf benchmark CMD.
+
+It will take a few minutes to run it and you should see the following accuracy:
 
 ```txt
 loading annotations into memory...
@@ -411,6 +413,48 @@ summary.json
 
 You should submit these files to the organizing committee to get extra points in the Student Cluster Competition.
 
+## Summary
+
+Here is a compact list of CM commands to prepare and run the MLPerf object detection benchmark 
+with RetinaNet, Open Images, ONNX runtime (CPU) on Ubuntu 22.04:
+
+```bash
+
+sudo apt update && sudo apt upgrade
+sudo apt install python3 python3-pip python3-venv git wget
+
+python3 -m pip install cmind
+source .profile
+
+cm pull repo mlcommons@ck
+
+cm run script "get python" --version_min=3.8
+
+cm run script "get sys-utils-cm" --quiet
+
+cm run script "get mlperf inference src"
+
+cm run script "get mlperf loadgen" --adr.compiler.tags=gcc
+
+cm run script "get dataset object-detection open-images original _validation _500"
+
+cm run script "get preprocessed dataset object-detection open-images _validation _500 _NCHW"
+
+cm run script "get generic-python-lib _onnxruntime" --version_min=1.10.0
+
+cm run script "get ml-model object-detection retinanet resnext50 fp32 _onnx"
+
+cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
+     --scenario=Offline --mode=accuracy --test_query_count=10 --rerun
+
+cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
+     --scenario=Offline --mode=performance --rerun
+
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
+      --submitter="OctoML" --hw_name=default \
+      --model=retinanet --backend=onnxruntime --device=cpu \
+      --scenario=Offline --test_query_count=10 --rerun
+```
 
 ## The next steps
 
@@ -423,6 +467,6 @@ optimize this benchmark and prepare competitive MLPerf inference submission.
 
 ## Authors
 
-This tutorial was prepared by [Grigori Fursin](https://cKnowledge.io/@gfursin) 
+[Grigori Fursin](https://cKnowledge.io/@gfursin) 
 and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
-from [OctoML](https://octoml.ai).
+([OctoML](https://octoml.ai) and the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)).
