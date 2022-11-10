@@ -40,7 +40,7 @@
     "threads": "CM_NUM_PREPROCESS_THREADS"
   },
   "new_env_keys": [
-    "CM_DATASET_PREPROCESSED_*"
+    "CM_DATASET_*"
   ],
   "tags": [
     "get",
