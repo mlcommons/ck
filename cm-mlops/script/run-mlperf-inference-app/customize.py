@@ -28,7 +28,7 @@ def preprocess(i):
 
     if 'CM_LOADGEN_EXTRA_OPTIONS' not in env:
         env['CM_LOADGEN_EXTRA_OPTIONS'] = ""
-    
+
     if 'CM_LOADGEN_MODES' not in env:
         if 'CM_LOADGEN_MODE' not in env:
             env['CM_LOADGEN_MODE'] = "performance"
@@ -105,4 +105,5 @@ def get_valid_scenarios(model, category, mlperf_version, mlperf_path):
 
 
 def postprocess(i):
+
     return {'return':0}
