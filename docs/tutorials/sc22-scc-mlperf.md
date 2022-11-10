@@ -9,7 +9,8 @@ being developed by the [open MLCommons taskforce on education and reproducibilit
 There are 4 main goals:
 - Trying the MLCommons CM meta-framework for modular benchmarking.
 - Learning how to prepare and run the MLPerf inference benchmark using CM.
-- Obtaining and submitting benchmarking results (accuracy and performance) for MLPerf object detection with RetinaNet in offline mode on your platform.
+- Obtaining and submitting benchmarking results (accuracy and performance) for MLPerf object detection with RetinaNet in offline mode on your platform
+  (see [related slides](https://docs.google.com/presentation/d/1LFc0O6TF2tAdqFdrzV_X5dQEZEEdy8Eq6iQhXKLuFD4/edit#slide=id.g150357114ea_0_1154)).
 - Learning how to optimize this benchmark, submit your results to the MLPerf inference v3.0 (Feb 2023)
   and get them to the scoreboard similar to [v2.1](https://mlcommons.org/en/inference-edge-21).
 
@@ -18,7 +19,7 @@ You should submit it to the [SCC'22 organizers](https://sc22.supercomputing.org/
 to get extra points.
 
 During SCC, you will attempt to run a reference (unoptimized) Python implementation of the MLPerf object detection benchmark
-with RetinaNet model, Open Images dataset, ONNX runtime and CPU target.
+with RetinaNet model, Open Images dataset, ONNX runtime and CPU target. 
 
 After the SCC, you are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
 to learn how to optimize this benchmark further (trying various run-time parameters, trying different benchmark implementations (Nvidia, C++), 
@@ -293,7 +294,7 @@ will automatically install all the necessary dependencies (you just need to spec
 that you use GCC and 500 images). 
 
 You can check it by cleaning the CM cache and executing this command again 
-(it will take around ~10 minutes depening on the speed of your system and the internet connection):
+(it will take around ~10 minutes depending on the speed of your system and the Internet connection):
 
 ```bash
 cm rm cache -f
@@ -467,6 +468,20 @@ optimize this benchmark and prepare competitive MLPerf inference submission.
 
 ## Authors
 
-[Grigori Fursin](https://cKnowledge.io/@gfursin) 
-and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
-([OctoML](https://octoml.ai) and the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)).
+* [Grigori Fursin](https://cKnowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
+
+
+## Acknowledgments
+
+This project is supported by [OctoML](https://octoml.ai) and the 
+[open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md).
+
+We thank 
+[Hai Ah Nam](https://www.nersc.gov/about/nersc-staff/advanced-technologies-group/hai-ah-nam),
+[Steve Leak](https://www.linkedin.com/in/steve-leak),
+[Vijay Janappa Reddi](https://scholar.harvard.edu/vijay-janapa-reddi/home),
+[Tom Jablin](https://scholar.google.com/citations?user=L_1FmIMAAAAJ&hl=en),
+[Ramesh N Chukka](https://www.linkedin.com/in/ramesh-chukka-74b5b21),
+and [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189)
+for their suggestions and contributions.

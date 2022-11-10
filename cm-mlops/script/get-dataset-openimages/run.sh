@@ -1,5 +1,7 @@
 #!/bin/bash
 
+${CM_PYTHON_BIN} -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
+
 CUR=${PWD}
 mkdir -p install
 INSTALL_DIR=${CUR}/install
