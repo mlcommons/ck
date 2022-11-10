@@ -97,7 +97,7 @@ You can reuse these commands in your own projects thus providing a common interf
 
 In the end, we will also show you how to run MLPerf benchmark in one command from scratch.
 
-### Optional: update CM and repository 
+### Optional: update CM and repository to the latest version
 
 Note that if you already have CM and mlcommons@ck reposity installed on your system,
 you can update them to the latest version at any time as follows:
@@ -425,10 +425,10 @@ summary.json
 
 You should submit these files to the organizing committee to get extra points in the Student Cluster Competition.
 
-### Push results to Weights & Biases dashboard
+### Push results to the Weights & Biases dashboard
 
 You can attempt to push your results to public W&B dashboard for SCC'22.
-You need to rerun above command while adding _dashboard variation:
+You just need to rerun the above command with `_dashboard` variation:
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
