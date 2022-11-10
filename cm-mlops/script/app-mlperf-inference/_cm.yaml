@@ -6,9 +6,9 @@ automation_alias: script
 automation_uid: 5b4e0237da074764
 
 category: "Modular MLPerf benchmarks"
-category_sort: 11000
+category_sort: 20000
 
-developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.io/@gfursin)"
+developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Grigori Fursin](https://cKnowledge.io/@gfursin)"
 
 # User-friendly tags to find this CM script
 tags:
