@@ -13,8 +13,8 @@
     {
       "tags": "get,python3",
       "names": [
-	"python",
-	"python3"
+        "python",
+        "python3"
       ]
     },
     {
@@ -95,7 +95,7 @@
     },
     "full": {
       "env": {
-	"CM_DATASET_SIZE": ""
+        "CM_DATASET_SIZE": ""
       }
     }
   }

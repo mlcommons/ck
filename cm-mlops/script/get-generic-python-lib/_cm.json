@@ -179,6 +179,22 @@
         "CM_PANDAS_VERSION"
       ]
     },
+    "decorator": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "decorator"
+      },
+      "new_env_keys": [
+        "CM_DECORATOR_VERSION"
+      ]
+    },
+    "psutil": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "psutil"
+      },
+      "new_env_keys": [
+        "CM_PSUTIL_VERSION"
+      ]
+    },
     "boto3": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "boto3"

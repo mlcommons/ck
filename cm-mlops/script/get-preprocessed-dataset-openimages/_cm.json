@@ -26,20 +26,21 @@
     },
     {
       "names": [
-	"pycocotools"
+        "pycocotools"
       ],
       "tags": "get,generic-python-lib,_pycocotools"
     }
   ],
-  "env": {
-    "CM_DATASET": "OPENIMAGES"
+  "default_env": {
+    "CM_DATASET": "OPENIMAGES",
+    "CM_DATASET_DTYPE": "fp32"
   },
   "input_mapping": {
     "dir": "CM_DATASET_PREPROCESSED_PATH",
     "threads": "CM_NUM_PREPROCESS_THREADS"
   },
   "new_env_keys": [
-    "CM_DATASET_*"
+    "CM_DATASET_PREPROCESSED_*"
   ],
   "tags": [
     "get",
@@ -56,9 +57,9 @@
         "CM_DATASET_SIZE": "1"
       },
       "adr": {
-	"original-dataset": {
-	  "tags": "_1"
-	}
+        "original-dataset": {
+          "tags": "_1"
+        }
       }
     },
     "5": {
@@ -66,9 +67,9 @@
         "CM_DATASET_SIZE": "5"
       },
       "adr": {
-	"original-dataset": {
-	  "tags": "_5"
-	}
+        "original-dataset": {
+          "tags": "_5"
+        }
       }
     },
     "50": {
@@ -76,9 +77,9 @@
         "CM_DATASET_SIZE": "50"
       },
       "adr": {
-	"original-dataset": {
-	  "tags": "_50"
-	}
+        "original-dataset": {
+          "tags": "_50"
+        }
       }
     },
     "500": {
@@ -86,9 +87,9 @@
         "CM_DATASET_SIZE": "500"
       },
       "adr": {
-	"original-dataset": {
-	  "tags": "_500"
-	}
+        "original-dataset": {
+          "tags": "_500"
+        }
       }
     },
     "full": {
@@ -96,9 +97,9 @@
         "CM_DATASET_SIZE": ""
       },
       "adr": {
-	"original-dataset": {
-	  "tags": "_full"
-	}
+        "original-dataset": {
+          "tags": "_full"
+        }
       }
     },
     "NCHW": {
@@ -116,6 +117,9 @@
         "original-dataset": {
           "tags": "_calibration"
         }
+      },
+      "env": {
+        "CM_DATASET_PATH": "<<<CM_CALIBRATION_DATASET_PATH>>>"
       }
     },
     "full": {
@@ -128,6 +132,21 @@
         "original-dataset": {
           "tags": "_validation"
         }
+      }
+    },
+    "nvidia": {
+      "env": {
+        "CM_PREPROCESSING_BY_NVIDIA": "yes"
+      }
+    },
+    "fp32": {
+      "env": {
+        "CM_DATASET_DTYPE": "fp32"
+      }
+    },
+    "int8": {
+      "env": {
+        "CM_DATASET_DTYPE": "int8"
       }
     }
   }
