@@ -22,5 +22,8 @@ def preprocess(i):
             shutil.copy(os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt"), os.path.join(env['CM_DATASET_PATH'],
             "val_map.txt"))
 
+    if not exists(os.path.join(env['CM_DATASET_PREPROCESSED_PATH'], "val_map.txt")):
+        shutil.copy(os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt"), os.path.join(env['CM_DATASET_PREPROCESSED_PATH'],
+        "val_map.txt"))
 
     return {'return': 0}

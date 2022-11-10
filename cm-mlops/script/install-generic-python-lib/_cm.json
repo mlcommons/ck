@@ -126,9 +126,24 @@
         "CM_PYTHON_PACKAGE_NAME": "pandas"
       }
     },
+    "decorator": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "decorator"
+      }
+    },
+    "psutil": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "psutil"
+      }
+    },
     "boto3": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "boto3"
+      }
+    },
+    "wandb": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "wandb"
       }
     }
   }

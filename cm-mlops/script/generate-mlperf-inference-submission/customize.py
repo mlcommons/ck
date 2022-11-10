@@ -106,7 +106,7 @@ def generate_submission(i):
                 submission_scenario_path = os.path.join(submission_model_path, scenario)
                 measurement_scenario_path = os.path.join(measurement_model_path, scenario)
                 compliance_scenario_path = os.path.join(compliance_model_path, scenario)
-                
+
                 if duplicate and scenario=='singlestream':
                     print('Duplicating results from {} to offline:'.format(scenario))
                     if not os.path.exists(os.path.join(result_model_path, "Offline")):

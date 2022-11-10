@@ -41,6 +41,15 @@
       "tags": "get,generic-python-lib,_opencv-python"
     },
     {
+      "tags": "get,generic-python-lib,_decorator"
+    },
+    {
+      "tags": "get,generic-python-lib,_psutil"
+    },
+    {
+      "tags": "get,generic-python-lib,_onnx"
+    },
+    {
       "tags": "get,generic-python-lib,_tqdm"
     }
   ],

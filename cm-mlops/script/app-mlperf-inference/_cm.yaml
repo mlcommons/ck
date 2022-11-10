@@ -6,9 +6,9 @@ automation_alias: script
 automation_uid: 5b4e0237da074764
 
 category: "Modular MLPerf benchmarks"
-category_sort: 11000
+category_sort: 20000
 
-developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.io/@gfursin)"
+developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Grigori Fursin](https://cKnowledge.io/@gfursin)"
 
 # User-friendly tags to find this CM script
 tags:
@@ -219,7 +219,7 @@ deps:
       - tvm-pytorch
       CM_MODEL:
       - resnet50
-    
+
   ## RetinaNet (ONNX format, FP32)
   - tags: get,ml-model,object-detection,resnext50,fp32,_onnx
     enable_if_env:
@@ -228,7 +228,7 @@ deps:
       - tvm-onnx
       CM_MODEL:
       - retinanet
-    
+
   ## RetinaNet (PyTorch format, FP32)
   - tags: get,ml-model,object-detection,resnext50,fp32,_pytorch
     enable_if_env:
@@ -237,7 +237,7 @@ deps:
       - tvm-pytorch
       CM_MODEL:
       - retinanet
-  
+
   ## BERT (ONNX format)
   - tags: get,ml-model,language-processing,bert,_onnx-fp32
     enable_if_env:

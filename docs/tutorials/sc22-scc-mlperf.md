@@ -97,6 +97,17 @@ You can reuse these commands in your own projects thus providing a common interf
 
 In the end, we will also show you how to run MLPerf benchmark in one command from scratch.
 
+### Optional: update CM and repository to the latest version
+
+Note that if you already have CM and mlcommons@ck reposity installed on your system,
+you can update them to the latest version at any time as follows:
+
+```bash
+python3 -m pip install cmind -U
+cm pull repo mlcommons@ck
+```
+
+
 ### Use CM to detect or install Python 3.8+
 
 Since we use python reference implementation of the MLPerf inference benchmark (unoptimized),
@@ -414,6 +425,20 @@ summary.json
 
 You should submit these files to the organizing committee to get extra points in the Student Cluster Competition.
 
+### Push results to the Weights & Biases dashboard
+
+You can attempt to push your results to public W&B dashboard for SCC'22.
+You just need to rerun the above command with `_dashboard` variation:
+
+```bash
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
+      --submitter="OctoML" --hw_name=default \
+      --model=retinanet --backend=onnxruntime --device=cpu \
+      --scenario=Offline --test_query_count=10
+```
+
+You should normally see your results [here](https://wandb.ai/cmind/cm-mlperf-sc22-scc-retinanet-offline).
+
 ## Summary
 
 Here is a compact list of CM commands to prepare and run the MLPerf object detection benchmark 
@@ -454,7 +479,13 @@ cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
       --submitter="OctoML" --hw_name=default \
       --model=retinanet --backend=onnxruntime --device=cpu \
-      --scenario=Offline --test_query_count=10 --rerun
+      --scenario=Offline --test_query_count=10
+
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
+      --submitter="OctoML" --hw_name=default \
+      --model=retinanet --backend=onnxruntime --device=cpu \
+      --scenario=Offline --test_query_count=10
+
 ```
 
 ## The next steps

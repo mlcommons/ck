@@ -7,6 +7,7 @@ sys.path.insert(0, python_path)
 
 import openimages
 import dataset
+import shutil
 
 dataset_path = os.environ['CM_DATASET_PATH']
 dataset_list = os.environ.get('CM_DATASET_IMAGES_LIST', None)
@@ -33,3 +34,6 @@ for alt_name in alternate_names:
     alt_path = os.path.join(preprocessed_base_dir,"preprocessed", alt_name)
     if not os.path.exists(alt_path):
         os.symlink(org_path, alt_path)
+src_path=os.path.join(dataset_path, "annotations")
+dest_path=os.path.join(preprocessed_base_dir, "annotations")
+shutil.copytree(src_path, dest_path)

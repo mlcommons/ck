@@ -39,6 +39,11 @@ def postprocess(i):
     import pandas
     if exists('summary.csv'):
         df = pandas.read_csv('summary.csv').T
-        print(df)
+
+        print ('')
+        print (df)
+        print ('')
+
         df.to_json('summary.json', orient='columns', indent=4)
+
     return {'return':0}

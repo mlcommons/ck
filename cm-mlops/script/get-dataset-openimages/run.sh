@@ -32,4 +32,7 @@ else
   wget ${CM_CALIBRATION_DATASET_WGET_URL}
   test $? -eq 0 || exit 1
 fi
+cd ${INSTALL_DIR}
+ln -s ../ open-images-v6-mlperf
+test $? -eq 0 || exit 1
 
