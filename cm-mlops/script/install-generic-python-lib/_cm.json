@@ -10,6 +10,10 @@
       "tags": "detect,cpu"
     },
     {
+      "names": [
+        "python",
+        "python3"
+      ],
       "tags": "get,python"
     }
   ],

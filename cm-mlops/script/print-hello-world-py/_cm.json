@@ -12,6 +12,10 @@
       "tags": "get,sys-utils-cm"
     },
     {
+      "names": [
+        "python",
+        "python3"
+      ],
       "tags": "get,python"
     },
     {
