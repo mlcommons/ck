@@ -324,7 +324,8 @@ cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu
      --scenario=Offline --mode=performance --rerun
 ```
 
-It will run ~10 minutes and you should see the following output in the end:
+It will run ~10 minutes and you should see the output similar to the following one in the end
+(the QPS is the performance result of this benchmark that depends on the speed of your system):
 
 ```txt
 
@@ -350,6 +351,23 @@ such as the [universal C++ implementation of this benchmark](../list_of_scripts.
 developed by [OctoML](https://octoml.ai) and the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
 as well as optimized implementation of MLPerf object detection with quantized models 
 from [Nvidia](https://github.com/mlcommons/inference_results_v2.1/tree/master/closed/NVIDIA/code/retinanet/tensorrt).
+
+
+### Customize MLPerf inference benchmark
+
+The execution of the original MLPerf inference benchmark is customized by various flags and environment variables.
+
+We've provided a user-friendly mapping of the flags from the CK MLPerf script to the native MLPerf variables and flags
+in the [script meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml#L35).
+
+For example, you can specify a number of threads used by this benchmark as follows:
+
+```bash
+cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
+     --scenario=Offline --mode=performance --rerun --num_threads=4
+
+```
+
 
 ### Prepare MLPerf submission
 
@@ -454,9 +472,9 @@ source .profile
 
 cm pull repo mlcommons@ck
 
-cm run script "get python" --version_min=3.8
-
 cm run script "get sys-utils-cm" --quiet
+
+cm run script "get python" --version_min=3.8
 
 cm run script "get mlperf inference src"
 
