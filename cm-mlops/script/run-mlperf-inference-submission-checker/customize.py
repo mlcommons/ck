@@ -30,6 +30,7 @@ def preprocess(i):
         submission_checker_file = new_submission_checker_file
     CMD = env['CM_PYTHON_BIN'] + ' ' + submission_checker_file + " --input " + submission_dir + " --submitter " + submitter + \
             skip_compliance
+    print(CMD)
     ret = os.system(CMD)
 
     return {'return':0}
