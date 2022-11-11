@@ -108,12 +108,34 @@ cm pull repo mlcommons@ck
 ```
 
 
+### Install system dependencies for your platform
+
+First, you need to install various system dependencies required by the MLPerf inference benchmark.
+
+For this purpose, we have created a cross-platform CM script that will automatically install 
+such dependencies based on your OS (Ubuntu, Debian, Red Hat, MacOS ...). 
+
+In this case, CM script serves simply as a wrapper with a unified and cross-platform interface
+for native scripts that you can find and extend [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
+if some dependencies are missing on your machine - this is a collaborative way to make 
+CM scripts portable and interoperable.
+
+You can run this CM scripts as follows (note that you may be asked for a SUDO password on your platform):
+
+```bash
+cm run script "get sys-utils-cm" --quiet
+```
+
+If you think that you have all system dependencies installed,
+you can run this script without `--quiet` flag and type "skip" in the script prompt.
+
+
 ### Use CM to detect or install Python 3.8+
 
-Since we use python reference implementation of the MLPerf inference benchmark (unoptimized),
+Since we use Python reference implementation of the MLPerf inference benchmark (unoptimized),
 we need to detect or install Python 3.8+ (MLPerf requirement). 
 
-You need to install it using the following [CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-python3):
+You need to detect it using the following [CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-python3):
 
 ```bash
 cm run script "get python" --version_min=3.8
@@ -152,22 +174,6 @@ cm find cache --tags=install,python
 Note that if you run the same script again, CM will automatically find and reuse the cached output:
 ```bash
 cm run script "get python" --version_min=3.8 --out=json
-```
-
-### Install system dependencies for your platform
-
-Next, you need to install various system dependencies required by the MLPerf inference benchmark.
-
-For this purpose, we have created another cross-platform script that will automatically install 
-such dependencies based on your OS (Ubuntu, Debian, Red Hat, MacOS ...). 
-
-In this case, CM script serves simply as a wrapper with a unified and cross-platform interface
-for native scripts that you can find or add [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm).
-
-Note that you may need SUDO access on your platform to run this CM script:
-
-```bash
-cm run script "get sys-utils-cm" --quiet
 ```
 
 ### Pull MLPerf inference sources
@@ -311,7 +317,7 @@ You can check it by cleaning the CM cache and executing this command again
 cm rm cache -f
 
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
-     --adr.compiler.tags=gcc --adr.openimages-preprocessed.tags=_500 \
+     --adr.python.version_min=3.8 --adr.compiler.tags=gcc --adr.openimages-preprocessed.tags=_500 \
      --scenario=Offline --mode=accuracy --test_query_count=10 --quiet --rerun
 ```
 
@@ -462,6 +468,8 @@ You should normally see your results [here](https://wandb.ai/cmind/cm-mlperf-sc2
 Here is a compact list of CM commands to prepare and run the MLPerf object detection benchmark 
 with RetinaNet, Open Images, ONNX runtime (CPU) on Ubuntu 22.04:
 
+### With explicit dependencies first
+
 ```bash
 
 sudo apt update && sudo apt upgrade
@@ -505,6 +513,29 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --scenario=Offline --test_query_count=10
 
 ```
+
+### With 1 CM command that will install all deps automatically
+
+```bash
+
+sudo apt update && sudo apt upgrade
+sudo apt install python3 python3-pip python3-venv git wget
+
+python3 -m pip install cmind
+source .profile
+
+cm pull repo mlcommons@ck
+
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
+      --adr.python.version_min=3.8 \
+      --adr.compiler.tags=gcc \
+      --adr.openimages-preprocessed.tags=_500 \
+      --submitter="OctoML" --hw_name=default \
+      --model=retinanet --backend=onnxruntime --device=cpu \
+      --scenario=Offline --test_query_count=10 --rerun
+
+```
+
 
 ## The next steps
 
