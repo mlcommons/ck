@@ -32,7 +32,7 @@ changing ML frameworks and run-times, optimizing RetinaNet model, and trying dif
 
 ### Minimal system requirements
 
-* CPU: 1 node (x8664 or Arm64)
+* CPU: 1 node (x86-64 or Arm64)
 * OS: we have tested this automation on Ubuntu 20.04, Ubuntu 22.04, Debian 10, Red Hat 9 and MacOS 13
 * Disk space: 
   - with a minimal preprocessed dataset for test runs: ~5GB
