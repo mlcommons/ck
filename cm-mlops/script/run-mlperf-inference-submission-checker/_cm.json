@@ -5,9 +5,6 @@
   "cache": false,
   "category": "Modular MLPerf benchmarks",
   "clean_files": [
-    "open.tar.gz",
-    "summary.csv",
-    "summary.json"
   ],
   "deps": [
     {

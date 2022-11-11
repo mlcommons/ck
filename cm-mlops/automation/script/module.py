@@ -768,6 +768,15 @@ class CAutomation(Automation):
 
 
 
+        ############################################################################################################
+        # Check if need to clean output files
+        clean_output_files = meta.get('clean_output_files', [])
+
+        if len(clean_output_files)>0:
+            clean_tmp_files(clean_output_files, recursion_spaces)
+
+
+
 
 
 
@@ -2419,7 +2428,7 @@ class CAutomation(Automation):
         md = []
 
         toc = []
-        
+
         toc_category = {}
         toc_category_sort = {}
         script_meta = {}
@@ -2549,14 +2558,14 @@ class CAutomation(Automation):
                 meta = script_meta[script]
 
                 name = meta.get('name','')
-                
+
                 x = '* [{}](#{})'.format(script, script)
                 if name !='': x+=' *('+name+')*'
-                
+
                 toc2.append(x)
 
             toc2.append('\n')
-            
+
         # Load template
         r = utils.load_txt(os.path.join(self.path, template_file))
         if r['return']>0: return r
@@ -2855,7 +2864,7 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
     verbose = i.get('verbose', False)
     if not verbose: verbose = i.get('v', False)
-    
+
     recursion = i.get('recursion', False)
     found_script_tags = i.get('found_script_tags', [])
     debug_script_tags = i.get('debug_script_tags', '')
