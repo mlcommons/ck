@@ -1,3 +1,6 @@
+# 20221111:
+ * various fixes for Student Cluster Competition at SuperComputing'22
+
 # 20221110:
  * added support to push MLPerf results to W&B dashboard
 

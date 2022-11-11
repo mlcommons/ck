@@ -56,9 +56,8 @@ class CAutomation(Automation):
                                              'skip_system_deps']
 
 
-    
-    
-    
+
+
     ############################################################
     def run(self, i):
         """
@@ -136,6 +135,9 @@ class CAutomation(Automation):
           (s) (bool): the same as silent
 
           (time) (bool): if True, print script execution time (on if verbose == True)
+
+          (ignore_script_error) (bool): if True, ignore error code in native tools and scripts
+                                        and finish a given CM script. Useful to test/debug partial installations
 
           ...
 
@@ -217,6 +219,8 @@ class CAutomation(Automation):
         debug_script_tags = i.get('debug_script_tags', '')
 
         detected_versions = i.get('detected_version', {})
+
+        ignore_script_error = i.get('ignore_script_error', False)
 
         # Get constant env and state
         const = i.get('const',{})
@@ -1128,6 +1132,8 @@ class CAutomation(Automation):
                    'debug_script_tags': debug_script_tags,
                    'self': self
             }
+
+            if ignore_script_error: run_script_input['ignore_script_error']=True
 
             if os.path.isfile(path_to_customize_py):
                 r=utils.load_python_module({'path':path, 'name':'customize'})
@@ -2855,7 +2861,7 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
     verbose = i.get('verbose', False)
     if not verbose: verbose = i.get('v', False)
-    
+
     recursion = i.get('recursion', False)
     found_script_tags = i.get('found_script_tags', [])
     debug_script_tags = i.get('debug_script_tags', '')
@@ -2947,10 +2953,15 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         rc = os.system(cmd)
 
-        if rc>0:
-            note = '''Please help the community by reporting the CMD and the full log here:
+        if rc>0 and not i.get('ignore_script_error',False):
+            note = '''Note that it is often a portability problem of the third-party tool or native script that is wrapped and unified by this CM script.
+The CM concept is to collaboratively fix such issues inside portable CM scripts to make existing tools and native script more portable, interoperable, deterministic and reproducible.
+
+Please help the community by reporting the full log with the command line here:
+* https://github.com/mlcommons/ck/issues 
 * https://bit.ly/mlperf-edu-wg
-* https://github.com/mlcommons/ck/issues '''
+
+Thank you'''
 
             return {'return':2, 'error':'Portable CM script failed (return code = {})\n\n{}'.format(rc, note)}
 
