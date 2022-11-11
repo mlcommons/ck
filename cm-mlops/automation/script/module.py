@@ -280,6 +280,11 @@ class CAutomation(Automation):
         x = env.get('CM_EXTRA_CACHE_TAGS','').strip()
         extra_cache_tags = [] if x=='' else x.split(',')
 
+        if i.get('extra_cache_tags','')!='':
+            for x in i['extra_cache_tags'].strip().split(','):
+                if x!='' and x not in extra_cache_tags:
+                    extra_cache_tags.append(x)
+
 
         ############################################################################################################
         # Check if we want to skip cache (either by skip_cache or by fake_run)
