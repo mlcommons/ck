@@ -384,7 +384,7 @@ We have developed another script that runs the MLPerf inference benchmark in bot
 runs the submission checker, unifies output for a dashboard and creates a valid MLPerf submission pack in `open.tar.gz` 
 with all required MLPerf logs and stats.
 
-You can run this script as follows (just substitute OctoML with your organization):
+You can run this script as follows (just substitute OctoML with the name of your organization):
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
