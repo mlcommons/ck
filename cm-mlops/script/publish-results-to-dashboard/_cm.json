@@ -6,6 +6,10 @@
   "category_sort": 2000,
   "deps": [
     {
+      "names": [
+        "python3",
+        "python"
+      ],
       "tags": "get,python"
     },
     {
