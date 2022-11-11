@@ -137,7 +137,8 @@ You can use the following environment variables to customize CM installation:
 
 # Misc CM utils
 
-We implemented and shared the following misc CM utils:
+We implemented and shared the following misc CM utils 
+(see the list of all CM automations [here](list_of_automations.md)):
 
 ### CM UID generator
 
@@ -158,7 +159,7 @@ cm json2yaml utils --input={json file}
 ```bash
 cm pull repo mlcommons@ck
 
-cm json2yaml utils --input={yaml file}
+cm yaml2json utils --input={yaml file}
 ```
 
 ### sort json file

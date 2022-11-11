@@ -89,6 +89,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Cedric Nugteren &lt;web@cedricnugteren.nl&gt;
 * Lucas Nussbaum (Universite de Lorraine)
 * Flavio Vella (Free University of Bozen-Bolzano)
+* Gaurav Verma (Stony Brook University)
 * Emanuele Vitali
 * Dave Wilkinson (University of Pittsburgh)
 * Sergey Yakushkin (Synopsys)

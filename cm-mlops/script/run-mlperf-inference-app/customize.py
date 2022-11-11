@@ -105,5 +105,4 @@ def get_valid_scenarios(model, category, mlperf_version, mlperf_path):
 
 
 def postprocess(i):
-
     return {'return':0}

@@ -27,6 +27,10 @@
   ],
   "post_deps": [
     {
+      "names": [
+        "python",
+        "python3"
+      ],
       "inherit_variation_tags": "True",
       "reuse_version": true,
       "skip_if_env": {

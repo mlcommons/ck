@@ -514,5 +514,6 @@ We thank
 [Vijay Janappa Reddi](https://scholar.harvard.edu/vijay-janapa-reddi/home),
 [Tom Jablin](https://scholar.google.com/citations?user=L_1FmIMAAAAJ&hl=en),
 [Ramesh N Chukka](https://www.linkedin.com/in/ramesh-chukka-74b5b21),
-and [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189)
+[Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189)
+and [Gaurav Verma](https://www.linkedin.com/in/grverma)
 for their suggestions and contributions.

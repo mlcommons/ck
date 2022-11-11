@@ -63,7 +63,7 @@ deps:
 
   # Detect host OS features
   - tags: detect,os
-  
+
   # Detect host CPU features
   - tags: detect,cpu
 
@@ -73,8 +73,9 @@ deps:
   # Detect/install python
   - tags: get,python
     names:
+    - python
     - python3
-    
+
   # Detect CUDA if required
   - tags: get,cuda
     enable_if_env:
@@ -84,17 +85,17 @@ deps:
 
   ########################################################################
   # Install MLPerf inference dependencies
-  
+
   # Install MLPerf loadgen
   - tags: get,loadgen
     names:
     - loadgen
-    
+
   # Download MLPerf inference source
   - tags: get,mlcommons,inference,src
     names:
     - inference-src
-    
+
   # Get SUT configs (System Under Test)
   - tags: get,sut,configs
 
@@ -111,7 +112,7 @@ deps:
       CM_MLPERF_BACKEND:
       - onnxruntime
       - tvm-onnx
-    
+
   ## Pytorch
   - tags: get,generic-python-lib,_torch
     names:
@@ -148,9 +149,7 @@ deps:
       - tvm-pytorch
     skip_if_env:
       CM_TVM_PIP_INSTALL: [ "on" ]
-    
-    
-      
+
 
 
   ########################################################################
@@ -176,18 +175,17 @@ deps:
     enable_if_env:
       CM_MODEL:
       - retinanet
-    
+
   - tags: get,generic-python-lib,_pycocotools
     enable_if_env:
       CM_MODEL:
       - retinanet
-    
+
   ## Squad for BERT
   - tags: get,dataset,squad,original
     enable_if_env:
       CM_MODEL:
       - bert-99.9
-    
 
 
   ########################################################################
