@@ -34,4 +34,4 @@ jobs:
         cm run script --quiet --tags=get,sys-utils-cm
     - name: Test CM Script for MLPerf Inference Retinanet with pytorch backend
       run: |
-        cm run script --quiet --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default  --model=retinanet --backend=pytorch --device=cpu  --scenario=Offline --test_query_count=10 --quiet
+        cm run script --quiet --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default  --model=retinanet --backend=pytorch --device=cpu  --scenario=Offline --test_query_count=40 --adr.openimages-preprocessed.tags=_500  --quiet
