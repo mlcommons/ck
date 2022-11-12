@@ -4,7 +4,6 @@
 
 **Table of contents:**
 
-* [Tutorial: running the MLPerf inference benchmark](#tutorial-running-the-mlperf-inference-benchmark)
   * [MLPerf inference - RetinaNet - Open Images - ONNX - CPU](#mlperf-inference---retinanet---open-images---onnx---cpu)
     * [Minimal system requirements](#minimal-system-requirements)
     * [MLCommons CM automation meta-framework](#mlcommons-cm-automation-meta-framework)
