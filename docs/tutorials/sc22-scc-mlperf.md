@@ -619,9 +619,6 @@ optimize this benchmark and prepare competitive MLPerf inference submission v3.0
 
 ## Acknowledgments
 
-This project is supported by [OctoML](https://octoml.ai) and the 
-[open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md).
-
 We thank 
 [Hai Ah Nam](https://www.nersc.gov/about/nersc-staff/advanced-technologies-group/hai-ah-nam),
 [Steve Leak](https://www.linkedin.com/in/steve-leak),
