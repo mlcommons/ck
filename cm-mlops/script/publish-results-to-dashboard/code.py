@@ -46,11 +46,14 @@ def main():
         qps = result.get('Result', 0.0)
         accuracy = result.get('Accuracy', 0.0) / 100
 
+        result['performance']=qps
+        result['accuracy']=accuracy
+
         wandb.init(entity = dashboard_user, 
                    project = dashboard_project, 
                    name = label)
 
-        wandb.log({'performance':qps, 'accuracy':accuracy})
+        wandb.log(result)
 
         wandb.finish()
 
