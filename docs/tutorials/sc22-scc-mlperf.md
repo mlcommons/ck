@@ -2,6 +2,35 @@
 
 # Tutorial: running the MLPerf inference benchmark
 
+**Table of contents:**
+
+  * [MLPerf inference - RetinaNet - Open Images - ONNX - CPU](#mlperf-inference---retinanet---open-images---onnx---cpu)
+    * [Minimal system requirements](#minimal-system-requirements)
+    * [MLCommons CM automation meta-framework](#mlcommons-cm-automation-meta-framework)
+    * [CM installation](#cm-installation)
+    * [Pull CM repository with cross-platform MLOps and DevOps scripts](#pull-cm-repository-with-cross-platform-mlops-and-devops-scripts)
+    * [Optional: update CM and repository to the latest version](#optional-update-cm-and-repository-to-the-latest-version)
+    * [Install system dependencies for your platform](#install-system-dependencies-for-your-platform)
+    * [Use CM to detect or install Python 3.8+](#use-cm-to-detect-or-install-python-38)
+    * [Pull MLPerf inference sources](#pull-mlperf-inference-sources)
+    * [Compile MLPerf loadgen](#compile-mlperf-loadgen)
+    * [Download Open Images dataset](#download-open-images-dataset)
+    * [Preprocess Open Images dataset](#preprocess-open-images-dataset)
+    * [Install ONNX runtime for CPU](#install-onnx-runtime-for-cpu)
+    * [Download RetinaNet model (FP32, ONNX format)](#download-retinanet-model-fp32-onnx-format)
+    * [Run MLPerf inference benchmark (offline, accuracy)](#run-mlperf-inference-benchmark-offline-accuracy)
+    * [Run MLPerf inference benchmark (offline, performance)](#run-mlperf-inference-benchmark-offline-performance)
+    * [Customize MLPerf inference benchmark](#customize-mlperf-inference-benchmark)
+    * [Prepare MLPerf submission](#prepare-mlperf-submission)
+    * [Push results to a live dashboard](#push-results-to-a-live-dashboard)
+  * [Summary](#summary)
+    * [With explicit dependencies first](#with-explicit-dependencies-first)
+    * [With one CM command that will install all dependencies automatically](#with-one-cm-command-that-will-install-all-dependencies-automatically)
+  * [Use Python virtual environment with CM and MLPerf](#use-python-virtual-environment-with-cm-and-mlperf)
+  * [The next steps](#the-next-steps)
+  * [Authors](#authors)
+  * [Acknowledgments](#acknowledgments)
+
 ## MLPerf inference - RetinaNet - Open Images - ONNX - CPU
 
 This tutorial explains how to prepare and run the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
@@ -455,7 +484,7 @@ summary.json
 
 You should submit these files to the organizing committee to get extra points in the Student Cluster Competition.
 
-### Push results to the Weights & Biases dashboard
+### Push results to a live dashboard
 
 You can attempt to push your results to public W&B dashboard for SCC'22.
 You just need to rerun the above command with `_dashboard` variation:
@@ -548,7 +577,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
 If you prefer to avoid installing all above python packages to your native Python,
 you can install multiple virtual environments using the same CM interface.
 
-Here are the CM instructions to run our MLPerf benchmark in the python virtual
+Here are the CM instructions to run the MLPerf benchmark in the Python virtual
 environment called "mlperf":
 
 ```bash
@@ -557,7 +586,7 @@ cm run script "get sys-utils-cm" --quiet
 
 cm run script "install python-venv" --version=3.10.7 --name=mlperf
 
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard $CMX \
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
       --adr.python.extra_cache_tags=venv-mlperf \
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \

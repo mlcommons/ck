@@ -568,3 +568,62 @@ class CAutomation(Automation):
         if r['return']>0: return r
 
         return {'return':0}
+
+    ##############################################################################
+    def create_toc_from_md(self, i):
+        """
+        Convert DOS file to UNIX (remove \r)
+
+        Args:    
+
+           input (str): input file (.md)
+           (output) (str): output file (input+'.toc)
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        input_file = i.get('input', '')
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={txt file}'}
+        
+        output_file = i.get('output','')
+
+        if output_file=='':
+            output_file = input_file + '.toc'
+        
+        r = utils.load_txt(input_file, check_if_exists = True)
+        if r['return']>0: return r
+
+        lines = r['string'].split('\n')
+
+        toc = []
+
+        toc.append('**Table of contents:**')
+        toc.append('')
+
+
+        for line in lines:
+            line = line.strip()
+
+            if line.startswith('#'):
+                j = line.find(' ')
+                if j>=0:
+                    title = line[j:].strip()
+
+                    x = title.lower().replace(' ','-')
+
+                    for z in [':', '+', '.', '(', ')', ',']:
+                        x = x.replace(z, '')
+
+                    y = ' '*(2*(j-1)) + '* ['+title+'](#'+x+')'
+                    
+                    toc.append(y)
+
+        r = utils.save_txt(output_file, '\n'.join(toc)+'\n')
+        if r['return']>0: return r
+
+        return {'return':0}
