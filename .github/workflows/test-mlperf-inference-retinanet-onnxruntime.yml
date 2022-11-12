@@ -34,7 +34,4 @@ jobs:
         cm run script --quiet --tags=get,sys-utils-cm
     - name: Test CM Script for MLPerf Inference Retinanet using onnxruntime
       run: |
-        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
-      --submitter="OctoML" --hw_name=default \
-      --model=retinanet --backend=onnxruntime --device=cpu \
-      --scenario=Offline --test_query_count=10 --rerun --quiet
+        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default --model=retinanet --backend=onnxruntime --device=cpu --scenario=Offline --test_query_count=10 --quiet
