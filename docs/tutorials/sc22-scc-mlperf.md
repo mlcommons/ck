@@ -1,6 +1,8 @@
 [ [Back to index](../README.md) ]
 
-## Tutorial: running the MLPerf inference benchmark
+# Tutorial: running the MLPerf inference benchmark
+
+## MLPerf inference - RetinaNet - Open Images - ONNX - CPU
 
 This tutorial explains how to prepare and run the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
 using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck) 
@@ -50,7 +52,7 @@ and design space exploration across continuously changing software, hardware and
 CM is the second generation of the [MLCommons CK workflow automation framework](https://arxiv.org/pdf/2011.01149.pdf) 
 that was originally developed to make it easier to [reproduce research papers at ML and Systems conferences](https://learning.acm.org/techtalks/reproducibility).
 The goal is to help researchers unify and automate all the steps to prepare and run MLPerf and other benchmarks
-across diverse ML models, data sets, frameworks, compilers and hardware (see [HPCA'22 presentation](https://doi.org/10.5281/zenodo.6475385) about our motivation).
+across diverse ML models, datasets, frameworks, compilers and hardware (see [HPCA'22 presentation](https://doi.org/10.5281/zenodo.6475385) about our motivation).
 
 
 
@@ -82,7 +84,7 @@ cm find repo mlcommons@ck
 ```
 
 You can now use the unified CM CLI/API of [reusable and cross-platform CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md))
-to detect or install all artifacts (tools, models, data sets, libraries, etc) 
+to detect or install all artifacts (tools, models, datasets, libraries, etc) 
 required for a given software project (MLPerf inference benchmark with RetinaNet, Open Images and ONNX in our case).
 
 Conceptually, these scripts take some environment variables and files as an input, perform a cross-platform action (detect artifact, download files, install tools),
@@ -193,14 +195,15 @@ You need to compile loadgen from the above inference sources while forcing compi
 cm run script "get mlperf loadgen" --adr.compiler.tags=gcc
 ```
 
-The `--adr` flag will find all sub-dependencies on other CM scripts in loadgen script with the "compiler" name and will append a "gcc" tag 
-to force detection and usage of GCC for loadgen.
+The `--adr` flag stands for "Add to all Dependencies Recursively" and will find all sub-dependencies on other CM scripts 
+in the CM loadgen script with the "compiler" name and will append "gcc" tag 
+to enforce detection and usage of GCC to build loadgen.
 
 
 ### Download Open Images dataset
 
 You can now download the minimal [Open Images validation datasets v6](https://storage.googleapis.com/openimages/web/index.html) 
-with the first 500 images using the following CM script:
+with the first 500 images using the following [CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-dataset-openimages):
 
 ```bash
 cm run script "get dataset object-detection open-images original _validation _500"
@@ -224,7 +227,8 @@ ls `cm find cache --tags=get,dataset,open-images,original`/install/annotations
 ### Preprocess Open Images dataset
 
 You now need to preprocess this dataset to convert it into a format consumable by the MLPerf inference benchmark
-using the following CM script (converting each jpeg image to binary numpy format and NCHW):
+using the following [CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-preprocessed-dataset-openimages) 
+(converting each jpeg image from the above dataset to binary numpy format and NCHW):
 
 ```bash
 cm run script "get preprocessed dataset object-detection open-images _validation _500 _NCHW"
@@ -232,7 +236,8 @@ cm run script "get preprocessed dataset object-detection open-images _validation
 
 ### Install ONNX runtime for CPU
 
-Now detect or install ONNX Python runtime (targeting CPU) your system:
+Now detect or install ONNX Python runtime (targeting CPU) your system
+using a [generic CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-generic-python-lib) to install python package:
 
 ```bash
 cm run script "get generic-python-lib _onnxruntime" --version_min=1.10.0
@@ -240,7 +245,8 @@ cm run script "get generic-python-lib _onnxruntime" --version_min=1.10.0
 
 ### Download RetinaNet model (FP32, ONNX format)
 
-Download and cache this [reference model](https://paperswithcode.com/model/resnext?variant=resnext-50-32x4d) in the ONNX format (float32):
+Download and cache this [reference model](https://paperswithcode.com/model/resnext?variant=resnext-50-32x4d) in the ONNX format (float32)
+using the following [CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-ml-model-retinanet):
 
 ```bash
 cm run script "get ml-model object-detection retinanet resnext50 fp32 _onnx"
@@ -384,7 +390,7 @@ We have developed another script that runs the MLPerf inference benchmark in bot
 runs the submission checker, unifies output for a dashboard and creates a valid MLPerf submission pack in `open.tar.gz` 
 with all required MLPerf logs and stats.
 
-You can run this script as follows (just substitute OctoML with the name of your organization):
+You can run this script as follows (just substitute *OctoML* with the name of your organization):
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
@@ -514,7 +520,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
 
 ```
 
-### With 1 CM command that will install all deps automatically
+### With one CM command that will install all dependencies automatically
 
 ```bash
 
@@ -537,12 +543,42 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
 ```
 
 
+## Use Python virtual environment with CM and MLPerf
+
+If you prefer to avoid installing all above python packages to your native Python,
+you can install multiple virtual environments using the same CM interface.
+
+Here are the CM instructions to run our MLPerf benchmark in the python virtual
+environment called "mlperf":
+
+```bash
+
+cm run script "get sys-utils-cm" --quiet
+
+cm run script "install python-venv" --version=3.10.7 --name=mlperf
+
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard $CMX \
+      --adr.python.extra_cache_tags=venv-mlperf \
+      --adr.python.version_min=3.8 \
+      --adr.compiler.tags=gcc \
+      --adr.openimages-preprocessed.tags=_500 \
+      --submitter="OctoML" --hw_name=default \
+      --model=retinanet --backend=onnxruntime --device=cpu \
+      --scenario=Offline --test_query_count=10 --rerun
+
+```
+
+Note that you need to add a flag `--adr.python.extra_cache_tags=venv-{name of a virtual environment (mlperf)`.
+
+
+
+
 ## The next steps
 
 Please check the [second part of this tutorial](sc22-scc-mlperf2.md) (under preparation)
 to learn how to use other implementations of this benchmark with 
-different ML frameworks, quantized models and target hardware,
-optimize this benchmark and prepare competitive MLPerf inference submission.
+different ML frameworks (PyTorch, TF, TVM), quantized/pruned models and GPUs,
+optimize this benchmark and prepare competitive MLPerf inference submission v3.0 (Feb 2023).
 
 
 

@@ -14,6 +14,7 @@ This file is generated automatically - don't edit!
 * [generate-mlperf-inference-submission](#generate-mlperf-inference-submission)
 * [generate-mlperf-tiny-submission](#generate-mlperf-tiny-submission)
 * [get-mlperf-inference-loadgen](#get-mlperf-inference-loadgen)
+* [get-mlperf-inference-results](#get-mlperf-inference-results)
 * [get-mlperf-inference-src](#get-mlperf-inference-src)
 * [get-mlperf-inference-sut-configs](#get-mlperf-inference-sut-configs)
 * [get-mlperf-inference-sut-description](#get-mlperf-inference-sut-description)
@@ -170,6 +171,12 @@ This file is generated automatically - don't edit!
 * [compile-program](#compile-program)
 
 
+### Dashboards
+
+
+* [publish-results-to-dashboard](#publish-results-to-dashboard)
+
+
 ### Python automation
 
 
@@ -252,6 +259,8 @@ This file is generated automatically - don't edit!
 * [get-ml-model-resnet50](#get-ml-model-resnet50)
 * [get-ml-model-retinanet](#get-ml-model-retinanet)
 * [get-mlperf-inference-loadgen](#get-mlperf-inference-loadgen)
+* [get-mlperf-inference-nvidia-common-code](#get-mlperf-inference-nvidia-common-code)
+* [get-mlperf-inference-results](#get-mlperf-inference-results)
 * [get-mlperf-inference-src](#get-mlperf-inference-src)
 * [get-mlperf-inference-sut-configs](#get-mlperf-inference-sut-configs)
 * [get-mlperf-inference-sut-description](#get-mlperf-inference-sut-description)
@@ -287,6 +296,7 @@ This file is generated automatically - don't edit!
 * [print-python-version](#print-python-version)
 * [process-mlperf-accuracy](#process-mlperf-accuracy)
 * [prototype-lib-dnnl](#prototype-lib-dnnl)
+* [publish-results-to-dashboard](#publish-results-to-dashboard)
 * [remote-run-commands](#remote-run-commands)
 * [reproduce-mlperf-octoml-tinyml-results](#reproduce-mlperf-octoml-tinyml-results)
 * [run-docker-container](#run-docker-container)
@@ -738,7 +748,7 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,generic,generic-python-lib"*
-* CM script variations: *_apache-tvm;&nbsp; _boto3;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _tqdm;&nbsp; _transformers*
+* CM script variations: *_apache-tvm;&nbsp; _boto3;&nbsp; _decorator;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _wandb*
 
 
 ## get-github-cli
@@ -836,6 +846,28 @@ This file is generated automatically - don't edit!
 * CM script default version: *master*
 
 
+## get-mlperf-inference-nvidia-common-code
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,nvidia,mlperf,results,inference,common-code"*
+
+
+## get-mlperf-inference-results
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,results,inference,inference-results,mlcommons,mlperf"*
+* CM script versions: *v2.1*
+* CM script default version: *v2.1*
+
+
 ## get-mlperf-inference-src
 
 
@@ -923,7 +955,7 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,dataset,openimages,open-images,object-detection,preprocessed"*
-* CM script variations: *_1;&nbsp; _5;&nbsp; _50;&nbsp; _500;&nbsp; _NCHW;&nbsp; _NHWC;&nbsp; _calibration;&nbsp; _full;&nbsp; _validation*
+* CM script variations: *_1;&nbsp; _5;&nbsp; _50;&nbsp; _500;&nbsp; _NCHW;&nbsp; _NHWC;&nbsp; _calibration;&nbsp; _fp32;&nbsp; _full;&nbsp; _int8;&nbsp; _nvidia;&nbsp; _validation*
 
 
 ## get-python3
@@ -1068,7 +1100,7 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="install,generic,generic-python-lib"*
-* CM script variations: *_apache-tvm;&nbsp; _boto3;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _tqdm;&nbsp; _transformers*
+* CM script variations: *_apache-tvm;&nbsp; _boto3;&nbsp; _decorator;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _wandb*
 
 
 ## install-github-cli
@@ -1230,6 +1262,16 @@ This file is generated automatically - don't edit!
 * CM script default version: *dev*
 
 
+## publish-results-to-dashboard
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/publish-results-to-dashboard)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/publish-results-to-dashboard/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="publish-results,dashboard"*
+
+
 ## remote-run-commands
 
 
@@ -1281,7 +1323,7 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference"*
-* CM script variations: *_all-modes;&nbsp; _all-scenarios;&nbsp; _compliance;&nbsp; _fast;&nbsp; _short;&nbsp; _submission;&nbsp; _valid*
+* CM script variations: *_all-modes;&nbsp; _all-scenarios;&nbsp; _compliance;&nbsp; _dashboard;&nbsp; _fast;&nbsp; _short;&nbsp; _submission;&nbsp; _valid*
 * CM script versions: *master;&nbsp; r2.1*
 
 
