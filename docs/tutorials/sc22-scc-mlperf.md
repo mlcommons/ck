@@ -557,7 +557,7 @@ cm run script "get sys-utils-cm" --quiet
 
 cm run script "install python-venv" --version=3.10.7 --name=mlperf
 
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard $CMX \
+cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
       --adr.python.extra_cache_tags=venv-mlperf \
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
