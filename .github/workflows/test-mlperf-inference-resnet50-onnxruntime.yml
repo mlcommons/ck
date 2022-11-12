@@ -7,9 +7,9 @@ on:
   pull_request:
     branches: [ "master", "dev" ]
     paths:
-      - cm-mlops/scripts/*
-      - cm-mlops/automation/*
-      - .github/workflows/test-mlperf-inference-resnet50-onnxruntime.yml
+      - cm-mlops/scripts/off/*
+      - cm-mlops/automation/off/*
+      - .github/workflows/test-mlperf-inference-resnet50-onnxruntime.ymloff
       - '!**.md'
 
 jobs:
