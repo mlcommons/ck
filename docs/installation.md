@@ -140,13 +140,19 @@ You can use the following environment variables to customize CM installation:
 We implemented and shared the following misc CM utils 
 (see the list of all CM automations [here](list_of_automations.md)):
 
-### CM UID generator
+### generate CM UID
 
 ```bash
 cm uid core
 ```
 
-### json2yaml converter
+### create TOC from md file
+
+```bash
+cm create-toc-from-md utils --input=README.md
+```
+
+### json2yaml file converter
 
 ```bash
 cm pull repo mlcommons@ck
@@ -154,7 +160,7 @@ cm pull repo mlcommons@ck
 cm json2yaml utils --input={json file}
 ```
 
-### yaml2json converter
+### yaml2json file converter
 
 ```bash
 cm pull repo mlcommons@ck
@@ -170,7 +176,7 @@ cm pull repo mlcommons@ck
 cm sort-json utils --input={json file}
 ```
 
-### dos2unix
+### dos2unix file convertor
 
 Remove \r from txt files on Windows:
 
