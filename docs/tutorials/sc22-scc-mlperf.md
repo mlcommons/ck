@@ -400,9 +400,11 @@ from [Nvidia](https://github.com/mlcommons/inference_results_v2.1/tree/master/cl
 
 The execution of the original MLPerf inference benchmark is customized by various flags and environment variables.
 
-The CM automation concept is to gradually expose all optimization "knobs" via unified CM script interface.
+The "Collective Mind" concept is to gradually expose all optimization "knobs" via unified CM script interface
+to enable automated and reroducible design space exploration and optimization of the whole application/software/hardware stack
+(one of the goals of the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)).
 
-We've provided a user-friendly mapping of the flags from the CK MLPerf script CLI to the native MLPerf variables and flags
+That is why we have provided a user-friendly mapping of the flags from the CK MLPerf script CLI to the native MLPerf variables and flags
 using this [meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml#L35).
 
 For example, you can specify a number of threads used by this benchmark as follows:
