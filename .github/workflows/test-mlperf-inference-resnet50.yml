@@ -1,15 +1,15 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: CM script automation test for MLPerf inference resnet50 using onnxruntime
+name: CM script automation test for MLPerf inference resnet50
 
 on:
   pull_request:
     branches: [ "master", "dev" ]
     paths:
-      - cm-mlops/scripts/off/*
-      - cm-mlops/automation/off/*
-      - .github/workflows/test-mlperf-inference-resnet50-onnxruntime.ymloff
+      - cm-mlops/scripts/*
+      - cm-mlops/automation/*
+      - .github/workflows/test-mlperf-inference-resnet50.yml
       - '!**.md'
 
 jobs:
@@ -19,7 +19,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.8"]
+        python-version: [ "3.8" ]
+        backend: [ "onnxruntime", "tf" ]
 
     steps:
     - uses: actions/checkout@v3
@@ -32,6 +33,6 @@ jobs:
         python3 -m pip install cmind
         cm pull repo octoml@ck
         cm run script --quiet --tags=get,sys-utils-cm
-    - name: Test CM Script for MLPerf Inference ResNet50 using onnxruntime
+    - name: Test CM Script for MLPerf Inference ResNet50
       run: |
-        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default --model=resnet50 --backend=onnxruntime --device=cpu --scenario=Offline --test_query_count=10 --quiet
+        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default --model=resnet50 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=500 --quiet
