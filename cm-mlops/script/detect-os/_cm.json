@@ -2,6 +2,7 @@
   "alias": "detect-os",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Platform information",
   "clean_files": [
     "tmp-run.out"
   ],
@@ -9,7 +10,8 @@
     "CM_HOST_OS_*",
     "+CM_HOST_OS_*",
     "CM_HOST_PLATFORM_*",
-    "CM_HOST_PYTHON_*"
+    "CM_HOST_PYTHON_*",
+    "CM_HOST_SYSTEM_NAME"
   ],
   "new_state_keys": [
     "os_uname_*"

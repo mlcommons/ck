@@ -64,7 +64,7 @@ def run_case(dtype, image, target):
        STAT_REPEAT=10
     STAT_REPEAT=int(STAT_REPEAT)
 
-    # FGG: set model files via CK env
+    # FGG: set model files via CM env
     CATEG_FILE = 'synset.txt'
     synset = eval(open(os.path.join(CATEG_FILE)).read())
 
@@ -97,16 +97,19 @@ def run_case(dtype, image, target):
     plt.imshow(arr_)
 #    plt.show()
     plt.savefig('pre-processed-image.png')
-
     # Load model
-    model_path=os.environ.get('CK_ENV_ONNX_MODEL_ONNX_FILEPATH','')
+    model_path=os.environ.get('CM_ML_MODEL_FILE_WITH_PATH','')
     if model_path=='':
-        print ('Error: environment variable CK_ENV_ONNX_MODEL_ONNX_FILEPATH is not defined')
+        print ('Error: environment variable CM_ML_MODEL_FILE_WITH_PATH is not defined')
         exit(1)
 
     opt = rt.SessionOptions()
 
-    sess = rt.InferenceSession(model_path, opt)
+    if len(rt.get_all_providers()) > 1 and os.environ.get("USE_GPU", "yes").lower() not in [ "0", "false", "off", "no" ]:
+        #Currently considering only CUDAExecutionProvider
+        sess = rt.InferenceSession(model_path, opt, providers=['CUDAExecutionProvider'])
+    else:
+        sess = rt.InferenceSession(model_path, opt, providers=["CPUExecutionProvider"])
 
     inputs = [meta.name for meta in sess.get_inputs()]
     outputs = [meta.name for meta in sess.get_outputs()]
@@ -134,7 +137,7 @@ def run_case(dtype, image, target):
         # Init TVM
         # TBD: add tvm platform selector
         if os.environ.get('USE_CUDA','')=='yes':
-           # CK TVM package must be built with CUDA enabled
+           # TVM package must be built with CUDA enabled
            ctx = tvm.cuda(0)
         else:
            ctx = tvm.cpu(0)
@@ -143,8 +146,7 @@ def run_case(dtype, image, target):
         build_conf = {'relay.backend.use_auto_scheduler': False}
         opt_lvl = int(os.environ.get('TVM_OPT_LEVEL', 3))
         host = os.environ.get('CM_HOST_PLATFORM_FLAVOR')
-
-        if host == 'x86_64':
+        if host == 'x86_64' and 'AMD' in os.environ.get('CM_HOST_CPU_VENDOR_ID',''):
             target = os.environ.get('TVM_TARGET', 'llvm -mcpu=znver2')
         else:
             target = os.environ.get('TVM_TARGET', 'llvm')
@@ -271,7 +273,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
 
     if args.image.strip().lower()=='':
-        print ('Please specify path to an image using CK_IMAGE environment variable!')
+        print ('Please specify path to an image using CM_IMAGE environment variable!')
         exit(1)
 
     # set parameter
@@ -284,7 +286,7 @@ if __name__ == '__main__':
     out_shape = (batch_size, num_classes)
 
     dtype='float32'
-    if os.environ.get('CK_TVM_DTYPE','')!='':
-       dtype=os.environ['CK_TVM_DTYPE']
+    if os.environ.get('CM_TVM_DTYPE','')!='':
+       dtype=os.environ['CM_TVM_DTYPE']
 
     run_case(dtype, args.image, args.target)

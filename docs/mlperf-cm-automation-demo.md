@@ -1,3 +1,5 @@
+[ [Back to index](README.md) ]
+
 # CM demo: modularizing MLPerf benchmarks and automating submissions
 
 ## Motivation

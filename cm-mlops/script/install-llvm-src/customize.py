@@ -14,16 +14,15 @@ def preprocess(i):
 
     recursion_spaces = i['recursion_spaces']
 
-    need_version = env.get('CM_VERSION','')
-    if need_version == '':
-        return {'return':1, 'error':'internal problem - CM_VERSION is not defined in env'}
-
-    print (recursion_spaces + '    # Requested version: {}'.format(need_version))
     clang_file_name = "clang"
-    env['CM_GIT_CHECKOUT'] = 'llvmorg-' + need_version
+
+    need_version = env.get('CM_VERSION','')
+    cm_git_checkout = 'master' if need_version =='' else 'llvmorg-' + need_version
+    print (recursion_spaces + '    # Requested git checkout: {}'.format(cm_git_checkout))
+    env['CM_GIT_CHECKOUT'] = cm_git_checkout
 
     env['CM_LLVM_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install', 'bin')
-    env['CM_LLVM_CLANG_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'bin', clang_file_name)
+    env['CM_LLVM_CLANG_BIN_WITH_PATH'] = os.path.join(env['CM_LLVM_INSTALLED_PATH'], clang_file_name)
     env['CM_GET_DEPENDENT_CACHED_PATH'] = os.getcwd()
 
     return {'return':0}

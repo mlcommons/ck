@@ -1,0 +1,99 @@
+{
+  "alias": "run-terraform",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "Cloud automation",
+  "category_sort": 7000,
+  "clean_files": [],
+  "deps": [
+    {
+      "tags": "get,terraform"
+    }
+  ],
+  "tags": [
+    "run",
+    "terraform"
+  ],
+  "new_env_keys": [
+    "CM_TERRAFORM_RUN_DIR",
+    "CM_TERRAFORM_CONFIG_DIR"
+  ],
+  "new_state_keys": [
+    "CM_TF_NEW_INSTANCES_STATE"
+  ],
+  "uid": "ec344bd44af144d7",
+  "post_deps": [
+    {
+      "names": [
+        "destroy-cmd"
+      ],
+      "tags": "destroy,terraform",
+      "enable_if_env": {
+        "CM_DESTROY_TERRAFORM": [ "on" ]
+      },
+      "dynamic": true
+    }
+  ],
+  "input_mapping": {
+    "destroy": "CM_DESTROY_TERRAFORM",
+    "cminit": "CM_TERRAFORM_CM_INIT",
+    "key_file": "CM_SSH_KEY_FILE",
+    "disk_size": "TF_VAR_DISK_GBS",
+    "run_cmds": "CM_TERRAFORM_RUN_COMMANDS",
+    "ssh_key_file": "CM_SSH_KEY_FILE"
+  },
+  "default_env": {
+    "TF_VAR_SECURITY_GROUP_ID": "sg-0783752c97d2e011d",
+    "TF_VAR_CPU_COUNT": "1",
+    "TF_VAR_DISK_GBS": "8"
+  },
+  "variations": {
+    "aws": {
+      "env": {
+        "CM_TERRAFORM_CONFIG_DIR_NAME": "aws"
+      }
+    },
+    "t2.micro": {
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "t2.micro"
+      }
+    },
+    "c5.4xlarge": {
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "c5.4xlarge",
+        "TF_VAR_DISK_GBS": "80"
+      }
+    },
+    "c5.12xlarge": {
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "c5.12xlarge"
+      }
+    },
+    "c5d.9xlarge": {
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "c5d.9xlarge"
+      }
+    },
+    "g4dn.xlarge": {
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "g4dn.xlarge"
+      }
+    }
+  }
+}

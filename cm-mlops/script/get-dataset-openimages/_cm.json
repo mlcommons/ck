@@ -3,18 +3,48 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
+  "category": "ML/AI datasets",
+  "category_sort":8500,
   "default_variation": "validation",
   "deps": [
     {
       "tags": "get,sys-utils-cm"
     },
     {
+      "tags": "get,python3",
+      "names": [
+        "python",
+        "python3"
+      ]
+    },
+    {
       "names": [
         "inference-src"
       ],
-      "tags": "mlperf,inference,source"
+      "tags": "mlperf,inference,source",
+      "force_env_keys": [
+        "CM_GIT_*"
+      ]
+    },
+    {
+      "tags": "get,generic-python-lib,_boto3"
+    },
+    {
+      "tags": "get,generic-python-lib,_tqdm"
+    },
+    {
+      "tags": "get,generic-python-lib,_numpy"
+    },
+    {
+      "tags": "get,generic-python-lib,_opencv-python"
+    },
+    {
+      "tags": "get,generic-python-lib,_pandas"
     }
   ],
+  "default_env": {
+    "CM_DATASET_CALIBRATION": "no"
+  },
   "env": {
     "CM_DATASET": "OPENIMAGES"
   },
@@ -41,6 +71,31 @@
     "validation": {
       "env": {
         "CM_DATASET_CALIBRATION": "no"
+      }
+    },
+    "500": {
+      "env": {
+        "CM_DATASET_SIZE": "500"
+      }
+    },
+    "50": {
+      "env": {
+        "CM_DATASET_SIZE": "50"
+      }
+    },
+    "5": {
+      "env": {
+        "CM_DATASET_SIZE": "5"
+      }
+    },
+    "1": {
+      "env": {
+        "CM_DATASET_SIZE": "1"
+      }
+    },
+    "full": {
+      "env": {
+        "CM_DATASET_SIZE": ""
       }
     }
   }

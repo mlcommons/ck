@@ -1,6 +1,7 @@
 {
   "alias": "install-generic-python-lib",
   "automation_alias": "script",
+  "category": "Python automation",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
@@ -9,6 +10,10 @@
       "tags": "detect,cpu"
     },
     {
+      "names": [
+        "python",
+        "python3"
+      ],
       "tags": "get,python"
     }
   ],
@@ -26,7 +31,7 @@
       ],
       "reuse_version": true,
       "skip_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [
+        "CM_REQUIRE_INSTALL": [
           "yes"
         ]
       },
@@ -40,34 +45,19 @@
   ],
   "uid": "f4f502b7b5d545c8",
   "variations": {
-    "onnxruntime": {
-      "env": {
-        "CM_PYTHON_PACKAGE_NAME": "onnxruntime"
-      }
-    },
-    "tensorflow": {
-      "env": {
-        "CM_PYTHON_PACKAGE_NAME": "tensorflow"
-      }
-    },
-    "transformers": {
-      "env": {
-        "CM_PYTHON_PACKAGE_NAME": "transformers"
-      }
-    },
-    "torch": {
-      "env": {
-        "CM_PYTHON_PACKAGE_NAME": "torch"
-      }
-    },
-    "tokenization": {
-      "env": {
-        "CM_PYTHON_PACKAGE_NAME": "tokenization"
-      }
-    },
     "numpy": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "numpy"
+      }
+    },
+    "pip": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "pip"
+      }
+    },
+    "setuptools": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "setuptools"
       }
     },
     "onnx": {
@@ -75,9 +65,94 @@
         "CM_PYTHON_PACKAGE_NAME": "onnx"
       }
     },
+    "onnxruntime": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "onnxruntime"
+      }
+    },
     "protobuf": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "protobuf"
+      }
+    },
+    "tensorflow": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "tensorflow"
+      }
+    },
+    "tokenization": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "tokenization"
+      }
+    },
+    "torch": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "torch"
+      }
+    },
+    "torchvision": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "torchvision"
+      }
+    },
+    "transformers": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "transformers"
+      }
+    },
+    "pycocotools": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "pycocotools"
+      }
+    },
+    "nvidia-pycocotools": {
+      "env": {
+        "CM_PIP_URL": "pycocotools@git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI"
+      }
+    },
+    "apache-tvm": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "apache-tvm"
+      }
+    },
+    "sklearn": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "sklearn"
+      }
+    },
+    "tqdm": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "tqdm"
+      }
+    },
+    "opencv-python": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "opencv-python"
+      }
+    },
+    "pandas": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "pandas"
+      }
+    },
+    "decorator": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "decorator"
+      }
+    },
+    "psutil": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "psutil"
+      }
+    },
+    "boto3": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "boto3"
+      }
+    },
+    "wandb": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "wandb"
       }
     }
   }

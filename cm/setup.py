@@ -94,7 +94,7 @@ setup(
         'install': custom_install
     },
 
-    install_requires=['pyyaml'],
+    install_requires=['pyyaml', 'requests'],
 
     entry_points={"console_scripts": [
                       "cmind = cmind.cli:run",

@@ -4,6 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "clean_files": [],
+  "category": "Cloud automation",
   "new_env_keys": [
     "CM_TERRAFORM_*",
     "+PATH"
@@ -11,7 +12,7 @@
   "prehook_deps": [
     {
       "enable_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [
+        "CM_REQUIRE_INSTALL": [
           "yes"
         ]
       },

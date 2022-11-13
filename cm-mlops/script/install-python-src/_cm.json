@@ -2,6 +2,7 @@
   "alias": "install-python-src",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Python automation",
   "cache": true,
   "default_version": "3.10.5",
   "deps": [
@@ -13,24 +14,31 @@
     }
   ],
   "env": {
-    "CM_WGET_URL": "https://www.python.org/ftp/python/[PYTHON_VERSION]/Python-[PYTHON_VERSION].tgz",
+    "CM_ENABLE_SSL": "no",
     "CM_SHARED_BUILD": "no",
-    "CM_ENABLE_SSL": "no"
+    "CM_WGET_URL": "https://www.python.org/ftp/python/[PYTHON_VERSION]/Python-[PYTHON_VERSION].tgz"
   },
   "new_env_keys": [
-    "CM_PYTHON_INSTALLED_PATH",
+    "CM_PYTHON_INSTALL_PATH",
+    "CM_PYTHON_BIN_WITH_PATH",
     "+PATH",
     "+LD_LIBRARY_PATH",
     "+C_INCLUDE_PATH"
   ],
   "post_deps": [
     {
-      "tags": "get,python",
+      "names": [
+        "python",
+        "python3"
+      ],
       "inherit_variation_tags": "True",
       "reuse_version": true,
       "skip_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-      }
+        "CM_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "tags": "get,python"
     }
   ],
   "tags": [
@@ -45,8 +53,8 @@
   "variations": {
     "shared": {
       "env": {
-        "CM_SHARED_BUILD": "yes",
-        "CM_PYTHON_INSTALL_CACHE_TAGS": "shared"
+        "CM_PYTHON_INSTALL_CACHE_TAGS": "shared",
+        "CM_SHARED_BUILD": "yes"
       }
     },
     "with-ssl": {

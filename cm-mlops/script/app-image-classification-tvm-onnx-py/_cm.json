@@ -2,6 +2,12 @@
   "alias": "app-image-classification-tvm-onnx-py",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Modular ML/AI applications",
+  "default_env": {
+    "CM_BATCH_COUNT": "1",
+    "CM_BATCH_SIZE": "1"
+  },
+  "default_variation": "tvm-llvm",
   "deps": [
     {
       "tags": "detect,os"
@@ -10,33 +16,56 @@
       "tags": "detect,cpu"
     },
     {
-      "tags": "get,sys-utils-cm"
-    },
-    {
+      "names": [
+        "python",
+        "python3"
+      ],
       "tags": "get,python"
     },
     {
       "tags": "get,dataset,image-classification,original"
     },
     {
-      "tags": "get,tvm,_llvm"
-    },
-    {
       "tags": "get,dataset-aux,image-classification"
     },
     {
-      "tags": "get,ml-model-onnx,image-classification"
+      "tags": "get,ml-model,image-classification,resnet50,_onnx"
+    },
+    {
+      "tags": "get,generic-python-lib,_onnxruntime"
     }
   ],
-  "env": {
-    "CM_BATCH_COUNT": "1",
-    "CM_BATCH_SIZE": "1"
-  },
   "tags": [
     "app",
     "image-classification",
     "tvm-onnx",
     "python"
   ],
-  "uid": "63080407db4d4ac4"
+  "uid": "63080407db4d4ac4",
+  "variations": {
+    "tvm-pip-install": {
+      "deps": [
+        {
+          "names": [ "tvm" ],
+          "tags": "get,generic-python-lib,_apache-tvm"
+        }
+      ]
+    },
+    "tvm": {
+      "deps": [
+        {
+          "names": [ "tvm" ],
+          "tags": "get,tvm"
+        }
+      ]
+    },
+    "tvm-llvm": {
+      "base": [ "tvm" ],
+      "add_deps_recursive": {
+        "tvm": {
+          "tags": "_llvm"
+        }
+      }
+    }
+  }
 }

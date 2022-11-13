@@ -10,9 +10,10 @@ def preprocess(i):
     recursion_spaces = i['recursion_spaces']
 
     file_name_c = 'clang.exe' if os_info['platform'] == 'windows' else 'clang'
-    env['FILE_NAME_C'] = file_name_c
-    if 'CM_LLVM_CLANG_BIN_WITH_PATH' not in env:
 
+    env['FILE_NAME_C'] = file_name_c
+
+    if 'CM_LLVM_CLANG_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name_c,
                                        'env': env,
                                        'os_info':os_info,
@@ -23,7 +24,7 @@ def preprocess(i):
                                        'recursion_spaces':recursion_spaces})
         if r['return'] >0 : 
             if r['return'] == 16:
-                env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+                env['CM_REQUIRE_INSTALL'] = "yes"
                 return {'return': 0}
             else:
                 return r

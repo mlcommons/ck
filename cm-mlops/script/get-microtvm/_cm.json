@@ -3,6 +3,7 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
+  "category":"TinyML automation",
   "default_variation": "default",
   "default_version": "main",
   "deps": [
@@ -11,10 +12,13 @@
     }
   ],
   "env": {
+    "CM_GIT_AUTH": "yes",
     "CM_GIT_DEPTH": "",
     "CM_GIT_PATCH": "no",
-    "CM_GIT_AUTH": "yes",
     "CM_GIT_URL": "https://github.com/mlcommons/submissions_tiny_v1.0"
+  },
+  "input_mapping": {
+    "ssh": "CM_GIT_SSH"
   },
   "local_env_keys": [
     "CM_GIT_*"
@@ -48,15 +52,11 @@
     }
   },
   "versions": {
+    "custom": {},
     "main": {
       "env": {
         "CM_GIT_CHECKOUT": "main"
       }
-    },
-    "custom": {
     }
-  },
-  "input_mapping": {
-    "ssh": "CM_GIT_SSH"
   }
 }

@@ -12,15 +12,22 @@
       "tags": "detect,cpu"
     }
   ],
-  "env": {
-  },
+  "category": "Detection or installation of tools and artifacts",
+  "category_sort":7500,
+  "env": {},
   "post_deps": [
     {
-      "tags": "get,openssl",
       "skip_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-      }
+        "CM_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "tags": "get,openssl"
     }
+  ],
+  "new_env_keys": [
+    "CM_OPENSSL_*",
+    "+LD_LIBRARY_PATH"
   ],
   "tags": [
     "install",

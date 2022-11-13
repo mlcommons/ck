@@ -2,17 +2,33 @@
   "alias": "run-docker-container",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Docker automation",
+  "category_sort": 6500,
   "cache": false,
   "clean_files": [],
-  "post_deps": [
+  "input_mapping": {
+    "base": "CM_DOCKER_IMAGE_BASE",
+    "cm_repo": "CM_MLOPS_REPO",
+    "recreate": "CM_DOCKER_IMAGE_RECREATE",
+    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
+    "run_cmd_extra": "CM_DOCKER_RUN_CMD_EXTRA",
+    "real_run": "CM_REAL_RUN",
+    "pre_run_cmds": "CM_DOCKER_PRE_RUN_COMMANDS",
+    "post_run_cmds": "CM_DOCKER_POST_RUN_COMMANDS",
+    "pass_user_group": "CM_DOCKER_PASS_USER_GROUP",
+    "mounts": "CM_DOCKER_VOLUME_MOUNTS"
+  },
+  "prehook_deps": [
     {
+      "names": [
+        "build-docker-image"
+      ],
       "skip_if_env": {
         "CM_DOCKER_IMAGE_EXISTS": [
           "yes"
         ]
       },
-      "tags": "build,docker,image",
-      "names": [ "build-docker-image" ]
+      "tags": "build,docker,image"
     }
   ],
   "tags": [
@@ -20,11 +36,5 @@
     "docker",
     "container"
   ],
-  "uid": "1e0c884107514b46",
-  "input_mapping": {
-    "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
-    "cm_repo": "CM_MLOPS_REPO",
-    "base": "CM_DOCKER_IMAGE_BASE",
-    "recreate": "CM_DOCKER_IMAGE_RECREATE"
-  }
+  "uid": "1e0c884107514b46"
 }

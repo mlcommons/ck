@@ -1,0 +1,49 @@
+{
+  "alias": "get-mlperf-inference-sut-description",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "category": "Modular MLPerf benchmarks",
+  "deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "tags": "detect,cpu"
+    },
+    {
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "names": [
+        "compiler"
+      ],
+      "tags": "get,compiler"
+    }
+  ],
+  "input_mapping": {
+    "name": "CM_HW_NAME",
+    "submitter": "CM_MLPERF_SUBMITTER"
+  },
+  "new_env_keys": [
+    "CM_HW_*",
+    "CM_SUT_*"
+  ],
+  "new_state_keys": [
+    "CM_SUT_*",
+    "CM_HW_*"
+  ],
+  "tags": [
+    "get",
+    "mlperf",
+    "sut",
+    "description",
+    "system-under-test",
+    "system-description"
+  ],
+  "uid": "e49a3f758b2d4e7b"
+}

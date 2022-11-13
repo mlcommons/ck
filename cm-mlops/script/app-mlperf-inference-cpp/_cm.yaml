@@ -1,0 +1,168 @@
+# Identification of this CM script
+alias: app-mlperf-inference-cpp
+uid: bf62405e6c7a44bf
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf benchmarks"
+
+developers: "[Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Grigori Fursin](https://cKnowledge.io/@gfursin)"
+
+# User-friendly tags to find this CM script
+tags:
+  - app
+  - mlcommons
+  - mlperf
+  - inference
+  - cpp
+
+# Default environment
+default_env:
+  CM_BATCH_COUNT: '1'
+  CM_BATCH_SIZE: '1'
+
+# Map script inputs to environment variables
+input_mapping:
+  count: CM_LOADGEN_QUERY_COUNT
+  max_batchsize: CM_LOADGEN_MAX_BATCHSIZE
+  mlperf_conf: CM_MLPERF_CONF
+  mode: CM_LOADGEN_MODE
+  output_dir: CM_MLPERF_OUTPUT_DIR
+  performance_sample_count: CM_LOADGEN_PERFORMANCE_SAMPLE_COUNT
+  scenario: CM_LOADGEN_SCENARIO
+  user_conf: CM_MLPERF_USER_CONF
+
+# Dependencies on other CM scripts
+
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect CUDA if required
+  - tags: get,cuda
+    enable_if_env:
+      CM_MLPERF_DEVICE:
+      - gpu
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+  
+  # Install MLPerf loadgen
+  - tags: get,loadgen
+    names:
+    - loadgen
+    
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    names:
+    - inference-src
+
+  ########################################################################
+  # Install ML engines via CM
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - cpu
+    tags: get,lib,onnxruntime,lang-cpp,_cpu
+
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - gpu
+    tags: get,lib,onnxruntime,lang-cpp,_gpu
+
+
+  ########################################################################
+  # Install ResNet50 model (ONNX) and ImageNet
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    tags: get,dataset,preprocessed,imagenet,_NCHW
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    tags: get,ml-model,resnet50,_onnx
+
+
+  ########################################################################
+  # Install RetinaNet model (ONNX) and OpenImages
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    tags: get,dataset,preprocessed,openimages,_validation,_NCHW
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    tags: get,ml-model,retinanet,_onnx
+
+
+  
+
+# Post dependencies to compile and run this app
+post_deps:
+
+  - names:
+    - compiler-program
+    tags: compile,program
+
+  - names:
+    - runner
+    tags: benchmark,program
+
+
+# Variations to customize dependencies
+variations:
+  # Target devices
+  cpu:
+    env:
+      CM_MLPERF_DEVICE: cpu
+  gpu:
+    env:
+      CM_MLPERF_DEVICE: gpu
+      CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
+
+  # ML engine
+  onnxruntime:
+    env:
+      CM_MLPERF_BACKEND: onnxruntime
+      CM_MLPERF_BACKEND_LIB_NAMESPEC: onnxruntime
+
+  pytorch:
+    env:
+      CM_MLPERF_BACKEND: pytorch
+
+  tf:
+    env:
+      CM_MLPERF_BACKEND: tf
+
+  tflite:
+    env:
+      CM_MLPERF_BACKEND: tflite
+
+  tvm-onnx:
+    env:
+      CM_MLPERF_BACKEND: tvm-onnx
+
+  # Reference MLPerf models
+  resnet50:
+    env:
+      CM_MODEL: resnet50
+
+  retinanet:
+    env:
+      CM_MODEL: retinanet
+

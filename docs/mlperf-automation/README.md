@@ -1,6 +1,6 @@
 ***Note, that this documentation is outdated since we are developing the [2nd generaton of the CK framework (CK2 or CM)](https://github.com/mlcommons/ck/tree/master/cm)
    to decompose MLPerf benchmark into a [database of reusable, portable, customizable and deterministic scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
-   with a unified CLI, Python API and extensible JSON/YAML meta descriptions. The new documentation will be available [here](../mlperf-automation-cm)***.
+   with a unified CLI, Python API and extensible JSON/YAML meta descriptions. The new documentation will be available [here](../mlperf)***.
 
 
 # MLPerf&trade; inference benchmark automation

@@ -1,0 +1,18 @@
+{
+  "alias": "destroy-terraform",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "category": "Cloud automation",
+  "category_sort": 7000,
+  "tags": [
+    "destroy",
+    "terraform",
+    "cmd"
+  ],
+  "deps": [
+    {
+      "tags": "get,terraform"
+    }
+  ],
+  "uid": "3463458d03054856"
+}

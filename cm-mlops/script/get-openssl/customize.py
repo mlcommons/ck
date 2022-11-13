@@ -10,8 +10,8 @@ def preprocess(i):
     recursion_spaces = i['recursion_spaces']
 
     file_name = 'openssl'
-
-    r = i['automation'].find_artifact({'file_name': file_name,
+    if 'CM_OPENSSL_BIN_WITH_PATH' not in env:
+        r = i['automation'].find_artifact({'file_name': file_name,
                                        'env': env,
                                        'os_info':os_info,
                                        'default_path_env_key': 'PATH',
@@ -19,11 +19,11 @@ def preprocess(i):
                                        'env_path_key':'CM_OPENSSL_BIN_WITH_PATH',
                                        'run_script_input':i['run_script_input'],
                                        'recursion_spaces':i['recursion_spaces']})
-    if r['return']>0:
-        if r['return'] == 16 and os_info['platform'] != 'windows':
-            env['CM_TMP_REQUIRE_INSTALL'] = "yes"
-            return {'return': 0}
-        return r
+        if r['return']>0:
+            if r['return'] == 16 and os_info['platform'] != 'windows':
+                env['CM_REQUIRE_INSTALL'] = "yes"
+                return {'return': 0}
+            return r
 
     return {'return':0}
 

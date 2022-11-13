@@ -2,15 +2,17 @@
   "alias": "benchmark-program",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Application automation",
+  "category_sort": 5000,
+  "default_env": {
+    "CM_ENABLE_NUMACTL": "0",
+    "CM_ENABLE_PROFILING": "0"
+  },
   "deps": [
     {
       "tags": "detect,cpu"
     }
   ],
-  "env": {
-    "CM_ENABLE_NUMACTL":"0",
-    "CM_ENABLE_PROFILING":"0"
-  },
   "tags": [
     "program",
     "benchmark",
@@ -18,27 +20,27 @@
   ],
   "uid": "19f369ef47084895",
   "variations": {
-    "profile": {
-      "env": {
-	"CM_ENABLE_PROFILING": 1
-      },
-      "deps": [
-	{
-	  "tags": "get,profiler"
-	}
-      ]
-    },
     "numactl": {
-      "env": {
-	"CM_ENABLE_NUMACTL": 1,
-	"CM_NUMACTL_MEMBIND": "--localalloc"
+      "default_env": {
+        "CM_ENABLE_NUMACTL": 1,
+        "CM_NUMACTL_MEMBIND": "--localalloc"
       }
     },
     "numactl-interleave": {
-      "env": {
-	"CM_ENABLE_NUMACTL": 1,
-	"CM_NUMACTL_MEMBIND": "--interleave=all"
+      "default_env": {
+        "CM_ENABLE_NUMACTL": 1,
+        "CM_NUMACTL_MEMBIND": "--interleave=all"
       }
+    },
+    "profile": {
+      "default_env": {
+        "CM_ENABLE_PROFILING": 1
+      },
+      "deps": [
+        {
+          "tags": "get,profiler"
+        }
+      ]
     }
   }
 }

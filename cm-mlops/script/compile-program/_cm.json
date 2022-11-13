@@ -2,11 +2,16 @@
   "alias": "compile-program",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Application automation",
+  "category_sort": 5000,
   "deps": [
     {
       "tags": "detect,cpu"
     },
     {
+      "names": [
+        "compiler"
+      ],
       "tags": "get,compiler"
     }
   ],

@@ -1,0 +1,62 @@
+{
+  "alias": "run-mlperf-inference-submission-checker",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "category": "Modular MLPerf benchmarks",
+  "clean_files": [
+  ],
+  "deps": [
+    {
+      "names": [
+        "python",
+        "python3"
+      ],
+      "tags": "get,python"
+    },
+    {
+      "names": [
+        "inference-src"
+      ],
+      "tags": "get,mlcommons,inference,src"
+    }
+  ],
+  "post_deps": [
+    {
+      "enable_if_env": {
+        "CM_MLPERF_DASHBOARD": [
+          "on"
+        ]
+      },
+      "tags": "publish-results,dashboard"
+    }
+  ],
+  "input_mapping": {
+    "skip_compliance": "CM_MLPERF_SKIP_COMPLIANCE",
+    "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
+    "submitter": "CM_MLPERF_SUBMITTER"
+  },
+  "default_env": {
+    "CM_MLPERF_SHORT_RUN": "no"
+  },
+  "tags": [
+    "run",
+    "mlc",
+    "mlcommons",
+    "mlperf",
+    "inference",
+    "mlperf-inference",
+    "submission",
+    "checker",
+    "submission-checker",
+    "mlc-submission-checker"
+  ],
+  "uid": "15d03ec2c1af4297",
+  "variations": {
+    "short-run": {
+      "env": {
+        "CM_MLPERF_SHORT_RUN": "yes"
+      }
+    }
+  }
+}

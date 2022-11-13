@@ -3,7 +3,7 @@
 echo "***************************************************"
 echo "Installing some system dependencies via brew"
 
-if [[ "$CM_TMP_QUIET" != "yes" ]]; then 
+if [[ "$CM_QUIET" != "yes" ]]; then 
  echo "Enter skip to skip this step or press enter to continue:"
  read DUMMY
 
@@ -34,4 +34,5 @@ brew update && \
            xz \
            zlib \
            python3
-python3 -m pip install ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
+
+python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${CM_PYTHON_PIP_USER}

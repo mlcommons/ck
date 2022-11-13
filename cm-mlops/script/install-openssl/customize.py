@@ -27,13 +27,13 @@ def postprocess(i):
     env = i['env']
     tags = inp['tags']
     tag_list = tags.split(",")
-    if "_shared" in tag_list:
-        path_lib = os.path.join(os.getcwd(), 'install', 'lib')
-        if '+LD_LIBRARY_PATH' not in env:
-            env['+LD_LIBRARY_PATH'] = []
-        env['+LD_LIBRARY_PATH'].append(path_lib)
+    install_path = os.path.join(os.getcwd(), 'openssl-'+env['CM_VERSION']+'g', 'install')
+    path_lib = os.path.join(install_path, 'lib')
+    if '+LD_LIBRARY_PATH' not in env:
+        env['+LD_LIBRARY_PATH'] = []
+    env['+LD_LIBRARY_PATH'].append(path_lib)
     bin_name = "openssl"
-    path_bin = os.path.join(os.getcwd(), 'install', 'bin')
+    path_bin = os.path.join(install_path, 'bin')
     env['CM_OPENSSL_INSTALLED_PATH'] = path_bin
     env['CM_OPENSSL_BIN_WITH_PATH'] = os.path.join(path_bin, bin_name)
     return {'return':0}

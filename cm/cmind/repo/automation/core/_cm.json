@@ -1,10 +1,13 @@
 {
-  "uid":"60cb625a46b38610",
-  "alias":"core",
-  "automation_uid": "bbeb15d8f0a944a4",
+  "alias": "core",
   "automation_alias": "automation",
+  "automation_uid": "bbeb15d8f0a944a4",
+  "desc": "Accessing some core CM functions",
+  "developers": "[Grigori Fursin](https://cKnowledge.io/@gfursin)",
+  "sort": 500,
   "tags": [
     "automation",
     "repo"
-  ]
+  ],
+  "uid": "60cb625a46b38610"
 }

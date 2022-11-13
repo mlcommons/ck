@@ -368,3 +368,262 @@ class CAutomation(Automation):
                 break
 
         return {'return':0, 'comparison': comparison}
+
+    ##############################################################################
+    def json2yaml(self, i):
+        """
+        Convert JSON file to YAML
+
+        Args:    
+
+           input (str): input file (.json)
+           (output) (str): output file (.yaml)
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        input_file = i.get('input','')
+
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={json file}'}
+
+        output_file = i.get('output','')
+
+        r = utils.load_json(input_file, check_if_exists = True)
+        if r['return']>0: return r
+
+        meta = r['meta']
+
+        if output_file=='':
+            output_file = input_file[:-5] if input_file.endswith('.json') else input_file
+            output_file+='.yaml'
+
+        r = utils.save_yaml(output_file, meta)
+        if r['return']>0: return r
+
+        return {'return':0}
+
+    ##############################################################################
+    def yaml2json(self, i):
+        """
+        Convert YAML file to JSON
+
+        Args:    
+
+           input (str): input file (.yaml)
+           (output) (str): output file (.json)
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        input_file = i.get('input','')
+
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={yaml file}'}
+
+        output_file = i.get('output','')
+
+        r = utils.load_yaml(input_file, check_if_exists = True)
+        if r['return']>0: return r
+
+        meta = r['meta']
+
+        if output_file=='':
+            output_file = input_file[:-5] if input_file.endswith('.yaml') else input_file
+            output_file+='.json'
+
+        r = utils.save_json(output_file, meta)
+        if r['return']>0: return r
+
+        return {'return':0}
+
+    ##############################################################################
+    def sort_json(self, i):
+        """
+        Sort JSON file
+
+        Args:    
+
+           input (str): input file (.json)
+           (output) (str): output file
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        input_file = i.get('input','')
+
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={json file}'}
+
+        r = utils.load_json(input_file, check_if_exists = True)
+        if r['return']>0: return r
+
+        meta = r['meta']
+
+        output_file = i.get('output','')
+
+        if output_file=='':
+            output_file = input_file
+
+        r = utils.save_json(output_file, meta, sort_keys=True)
+        if r['return']>0: return r
+
+        return {'return':0}
+
+    ##############################################################################
+    def dos2unix(self, i):
+        """
+        Convert DOS file to UNIX (remove \r)
+
+        Args:    
+
+           input (str): input file (.txt)
+           (output) (str): output file
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        input_file = i.get('input','')
+
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={txt file}'}
+
+        r = utils.load_txt(input_file, check_if_exists = True)
+        if r['return']>0: return r
+
+        s = r['string'].replace('\r','')
+
+        output_file = i.get('output','')
+
+        if output_file=='':
+            output_file = input_file
+
+        r = utils.save_txt(output_file, s)
+        if r['return']>0: return r
+
+        return {'return':0}
+
+    ##############################################################################
+    def replace_string_in_file(self, i):
+        """
+        Convert DOS file to UNIX (remove \r)
+
+        Args:    
+
+           input (str): input file (.txt)
+           (output) (str): output file
+           string (str): string to replace
+           replacement (str): replacement string
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
+           (update) (bool): True if file was upated
+        """
+
+        input_file = i.get('input', '')
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={txt file}'}
+        
+        string = i.get('string', '')
+        if string == '':
+            return {'return':1, 'error':'please specify --string={string to replace}'}
+
+        replacement = i.get('replacement', '')
+        if replacement == '':
+            return {'return':1, 'error':'please specify --replacement={string to replace}'}
+        
+        output_file = i.get('output','')
+
+        if output_file=='':
+            output_file = input_file
+        
+        r = utils.load_txt(input_file, check_if_exists = True)
+        if r['return']>0: return r
+
+        s = r['string'].replace('\r','')
+
+        s = s.replace(string, replacement)
+
+        r = utils.save_txt(output_file, s)
+        if r['return']>0: return r
+
+        return {'return':0}
+
+    ##############################################################################
+    def create_toc_from_md(self, i):
+        """
+        Convert DOS file to UNIX (remove \r)
+
+        Args:    
+
+           input (str): input file (.md)
+           (output) (str): output file (input+'.toc)
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        input_file = i.get('input', '')
+        if input_file == '':
+            return {'return':1, 'error':'please specify --input={txt file}'}
+        
+        output_file = i.get('output','')
+
+        if output_file=='':
+            output_file = input_file + '.toc'
+        
+        r = utils.load_txt(input_file, check_if_exists = True)
+        if r['return']>0: return r
+
+        lines = r['string'].split('\n')
+
+        toc = []
+
+        toc.append('**Table of contents:**')
+        toc.append('')
+
+
+        for line in lines:
+            line = line.strip()
+
+            if line.startswith('#'):
+                j = line.find(' ')
+                if j>=0:
+                    title = line[j:].strip()
+
+                    x = title.lower().replace(' ','-')
+
+                    for z in [':', '+', '.', '(', ')', ',']:
+                        x = x.replace(z, '')
+
+                    y = ' '*(2*(j-1)) + '* ['+title+'](#'+x+')'
+                    
+                    toc.append(y)
+
+        r = utils.save_txt(output_file, '\n'.join(toc)+'\n')
+        if r['return']>0: return r
+
+        return {'return':0}

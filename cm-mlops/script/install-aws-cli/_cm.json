@@ -2,6 +2,7 @@
   "alias": "install-aws-cli",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Cloud automation",
   "cache": true,
   "deps": [
     {
@@ -14,7 +15,7 @@
   "post_deps": [
     {
       "skip_if_env": {
-        "CM_TMP_REQUIRE_INSTALL": [
+        "CM_REQUIRE_INSTALL": [
           "yes"
         ]
       },

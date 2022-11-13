@@ -12,11 +12,17 @@ def postprocess(i):
 
     env = i['env']
     env['CM_LIB_DNNL_INSTALL_DIR'] = os.getcwd()
-    env['+C_INCLUDE_PATH']=[]
-    env['+CPLUS_INCLUDE_PATH']=[]
-    env['+LD_LIBRARY_PATH']=[]
+
+    for key in ['+C_INCLUDE_PATH', '+CPLUS_INCLUDE_PATH', '+LD_LIBRARY_PATH', '+DYLD_FALLBACK_LIBRARY_PATH']:
+#        20221024: we save and restore env in the main script and can clean env here for determinism
+#        if key not in env:
+        env[key] = []
+
     env['+C_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
     env['+CPLUS_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
-    env['+LD_LIBRARY_PATH'].append(os.path.join(os.getcwd(), 'install', 'lib'))
+
+    lib_path = os.path.join(os.getcwd(), 'install', 'lib')
+    env['+LD_LIBRARY_PATH'].append(lib_path)
+    env['+DYLD_FALLBACK_LIBRARY_PATH'].append(lib_path)
 
     return {'return':0}

@@ -6,6 +6,7 @@ def preprocess(i):
     os_info = i['os_info']
 
     env = i['env']
+    env['CM_PYTHON_PACKAGE_NAME_ENV'] = env['CM_PYTHON_PACKAGE_NAME'].replace("-", "_")
 
     recursion_spaces = i['recursion_spaces']
 
@@ -15,7 +16,7 @@ def preprocess(i):
                'recursion_spaces':recursion_spaces})
     if r['return'] >0:
         if r['return'] == 16:
-            env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+            env['CM_REQUIRE_INSTALL'] = "yes"
             return {'return':0}
 
         return r
@@ -26,7 +27,7 @@ def detect_version(i):
     env = i['env']
     r = i['automation'].parse_version({'match_text': r'\s*([\d.a-z\-]+)',
                                        'group_number': 1,
-                                       'env_key':'CM_'+env['CM_PYTHON_PACKAGE_NAME'].upper()+'_VERSION',
+                                       'env_key':'CM_'+env['CM_PYTHON_PACKAGE_NAME_ENV'].upper()+'_VERSION',
                                        'which_env':i['env']})
     if r['return'] >0: return r
 
@@ -44,6 +45,6 @@ def postprocess(i):
 
     version = r['version']
 
-    env['CM_PYTHONLIB_'+env['CM_PYTHON_PACKAGE_NAME'].upper()+'_CACHE_TAGS'] = 'version-'+version
+    env['CM_PYTHONLIB_'+env['CM_PYTHON_PACKAGE_NAME_ENV'].upper()+'_CACHE_TAGS'] = 'version-'+version
 
     return {'return':0, 'version': version}

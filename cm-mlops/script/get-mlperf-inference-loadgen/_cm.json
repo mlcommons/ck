@@ -1,0 +1,94 @@
+{
+  "alias": "get-mlperf-inference-loadgen",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "category": "Modular MLPerf benchmarks",
+  "cache": true,
+  "default_version": "master",
+  "deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "names": [
+        "inference-src-loadgen"
+      ],
+      "tags": "get,mlcommons,inference,src",
+      "force_env_keys": [
+        "CM_GIT_URL",
+        "CM_GIT_CHECKOUT"
+      ]
+    },
+    {
+      "names": [
+        "compiler"
+      ],
+      "tags": "get,compiler"
+    },
+    {
+      "names": [
+        "cmake"
+      ],
+      "tags": "get,cmake"
+    }
+  ],
+  "default_env": {
+    "CM_SHARED_BUILD": "no"
+  },
+  "extra_cache_tags_from_env": [
+    {
+      "env": "CM_PYTHON_CACHE_TAGS",
+      "prefix": "python-"
+    },
+    {
+      "env": "CM_COMPILER_CACHE_TAGS",
+      "prefix": "compiler-"
+    }
+  ],
+  "new_env_keys": [
+    "+PYTHONPATH",
+    "+C_INCLUDE_PATH",
+    "+CPLUS_INCLUDE_PATH",
+    "+LD_LIBRARY_PATH",
+    "+DYLD_FALLBACK_LIBRARY_PATH"
+  ],
+  "tags": [
+    "get",
+    "loadgen",
+    "inference",
+    "inference-loadgen",
+    "mlperf",
+    "mlcommons"
+  ],
+  "uid": "64c3d98d0ba04950",
+  "versions": {
+    "master": {
+      "add_deps": {
+        "inference-src-loadgen": {
+          "version": "master"
+        }
+      }
+    },
+    "r2.1": {
+      "add_deps": {
+        "inference-src-loadgen": {
+          "version": "r2.1"
+        }
+      }
+    },
+    "custom": {
+      "add_deps": {
+        "inference-src-loadgen": {
+          "version": "custom"
+        }
+      }
+    }
+  }
+}

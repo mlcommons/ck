@@ -1,4 +1,9 @@
-## V1.0.3.1
+## V1.0.5
+   - redesigned documentation
+   - added support utils to generate lists of all automations and scripts
+   - '\r' is removed on Windows when writing files with meta information (json or yaml)
+
+## V1.0.4
    - minor fix in reporting errors
    - we now do not overwrite repo alias in .cmr.yaml when pulling forks to avoid ambiguities
 

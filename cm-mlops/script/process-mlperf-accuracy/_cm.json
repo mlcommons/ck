@@ -1,0 +1,141 @@
+{
+  "alias": "process-mlperf-accuracy",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "category": "Modular MLPerf benchmarks",
+  "clean_files": [],
+  "deps": [
+    {
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python"
+    },
+    {
+      "enable_if_env": {
+        "CM_DATASET": [
+          "openimages"
+        ]
+      },
+      "tags": "get,dataset,original,object-detection,open-images"
+    },
+    {
+      "names": [
+        "inference-src"
+      ],
+      "tags": "get,mlcommons,inference,src"
+    },
+    {
+      "tags": "get,generic-python-lib,_pycocotools"
+    },
+    {
+      "enable_if_env": {
+        "CM_DATASET": [
+          "squad"
+        ]
+      },
+      "skip_if_env": {
+        "CM_DATASET_SQUAD_VAL_PATH": []
+      },
+      "tags": "get,dataset,squad,language-processing"
+    },
+    {
+      "enable_if_env": {
+        "CM_DATASET": [
+          "squad"
+        ]
+      },
+      "skip_if_env": {
+        "CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": []
+      },
+      "tags": "get,ml-model,bert-large"
+    },
+    {
+      "enable_if_env": {
+        "CM_DATASET": [
+          "squad"
+        ]
+      },
+      "tags": "get,generic-python-lib,_torch"
+    },
+    {
+      "enable_if_env": {
+        "CM_DATASET": [
+          "squad"
+        ]
+      },
+      "tags": "get,generic-python-lib,_tokenization"
+    },
+    {
+      "enable_if_env": {
+        "CM_DATASET": [
+          "imagenet"
+        ]
+      },
+      "tags": "get,dataset-aux,image-classification,imagenet-aux"
+    }
+  ],
+  "tags": [
+    "run",
+    "mlperf",
+    "mlcommons",
+    "accuracy",
+    "mlc",
+    "process-accuracy"
+  ],
+  "uid": "6e809013816b42ea",
+  "variations": {
+    "float16": {
+      "env": {
+        "CM_ACCURACY_DTYPE": "float16"
+      }
+    },
+    "float32": {
+      "env": {
+        "CM_ACCURACY_DTYPE": "float32"
+      }
+    },
+    "float64": {
+      "env": {
+        "CM_ACCURACY_DTYPE": "float64"
+      }
+    },
+    "imagenet": {
+      "env": {
+        "CM_DATASET": "imagenet"
+      }
+    },
+    "int16": {
+      "env": {
+        "CM_ACCURACY_DTYPE": "int16"
+      }
+    },
+    "int32": {
+      "env": {
+        "CM_ACCURACY_DTYPE": "intt32"
+      }
+    },
+    "int64": {
+      "env": {
+        "CM_ACCURACY_DTYPE": "int64"
+      }
+    },
+    "int8": {
+      "env": {
+        "CM_ACCURACY_DTYPE": "int8"
+      }
+    },
+    "openimages": {
+      "env": {
+        "CM_DATASET": "openimages"
+      }
+    },
+    "squad": {
+      "env": {
+        "CM_DATASET": "squad"
+      }
+    }
+  }
+}

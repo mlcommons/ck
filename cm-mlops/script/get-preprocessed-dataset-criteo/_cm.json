@@ -1,0 +1,96 @@
+{
+  "alias": "get-preprocessed-dataset-criteo",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "category": "ML/AI datasets",
+  "cache": true,
+  "deps": [
+    {
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "names": [
+        "original-dataset",
+        "criteo-dataset"
+      ],
+      "tags": "get,dataset,criteo,original"
+    },
+    {
+      "names": [
+        "dlrm-src"
+      ],
+      "tags": "get,dlrm,src"
+    },
+    {
+      "names": [
+        "inference-src"
+      ],
+      "tags": "mlperf,mlcommons,inference,source,src,_octoml"
+    },
+    {
+      "tags": "get,generic-python-lib,_sklearn"
+    },
+    {
+      "tags": "get,generic-python-lib,_torch"
+    },
+    {
+      "tags": "get,generic-python-lib,_opencv-python"
+    },
+    {
+      "tags": "get,generic-python-lib,_decorator"
+    },
+    {
+      "tags": "get,generic-python-lib,_psutil"
+    },
+    {
+      "tags": "get,generic-python-lib,_onnx"
+    },
+    {
+      "tags": "get,generic-python-lib,_tqdm"
+    }
+  ],
+  "input_mapping": {
+    "dir": "CM_DATASET_PREPROCESSED_PATH",
+    "threads": "CM_NUM_PREPROCESS_THREADS"
+  },
+  "new_env_keys": [
+    "CM_DATASET_*"
+  ],
+  "tags": [
+    "get",
+    "dataset",
+    "criteo",
+    "recommendation",
+    "dlrm",
+    "preprocessed"
+  ],
+  "uid": "afa59956272a4ba4",
+  "variations": {
+    "1": {
+      "env": {
+        "CM_DATASET_SIZE": "1"
+      }
+    },
+    "50": {
+      "env": {
+        "CM_DATASET_SIZE": "50"
+      }
+    },
+    "full": {
+      "env": {
+        "CM_DATASET_SIZE": ""
+      }
+    },
+    "validation": {
+      "add_deps": {
+        "original-dataset": {
+          "tags": "_validation"
+        }
+      }
+    }
+  }
+}

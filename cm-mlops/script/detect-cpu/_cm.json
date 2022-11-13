@@ -2,6 +2,8 @@
   "alias": "detect-cpu",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "Platform information",
+  "category_sort": 8300,
   "clean_files": [
     "tmp-lscpu.out"
   ],
@@ -11,7 +13,9 @@
     }
   ],
   "new_env_keys": [
-    "CM_HOST_CPU_*"
+    "CM_HOST_CPU_*",
+    "CM_HOST_MEMORY_CAPACITY",
+    "CM_HOST_DISK_CAPACITY"
   ],
   "tags": [
     "detect",

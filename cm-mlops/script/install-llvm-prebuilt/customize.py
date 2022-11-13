@@ -54,10 +54,13 @@ def preprocess(i):
 
               host_os_version = env['CM_HOST_OS_VERSION']
 
-              if 'debian' in host_os_flavor:
-                  return {'return':0, 'error':'debian is not supported yet'}
+#              if 'debian' in host_os_flavor:
+#                  return {'return':1, 'error':'debian is not supported yet'}
+#
+#              else:
+              # Treat all Linux flavours as Ubuntu for now ...
 
-              else:
+              if True:
                   default_os='18.04'
 
                   if need_version == '10.0.1':
@@ -118,8 +121,10 @@ def preprocess(i):
 
     # We don't need to check default paths here because we force install to cache
     env['+PATH'] = [env['CM_LLVM_INSTALLED_PATH']]
-    path_include = os.path.join(os.getcwd(), 'install', 'include')
-    env['+C_INCLUDE_PATH'] = [ path_include ]
+
+    path_include = os.path.join(os.getcwd(), 'include')
+    if os.path.isdir(path_include):
+        env['+C_INCLUDE_PATH'] = [ path_include ]
 
 
     return {'return':0}

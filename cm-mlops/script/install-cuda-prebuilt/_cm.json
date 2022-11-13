@@ -2,6 +2,7 @@
   "alias": "install-cuda-prebuilt",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "category": "CUDA automation",
   "cache": true,
   "default_version": "11.7.0",
   "deps": [
@@ -11,11 +12,17 @@
   ],
   "post_deps": [
     {
-      "tags": "get,cuda",
-       "skip_if_env": {
-         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-       }
+      "skip_if_env": {
+        "CM_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "tags": "get,cuda"
     }
+  ],
+  "new_env_keys": [
+    "CM_CUDA_*",
+    "CM_NVCC_*"
   ],
   "tags": [
     "install",
@@ -24,5 +31,17 @@
     "prebuilt-cuda",
     "install-prebuilt-cuda"
   ],
-  "uid": "14eadcd42ba340c3"
+  "uid": "14eadcd42ba340c3",
+  "versions": {
+    "11.7.0": {
+      "env": {
+        "CM_CUDA_LINUX_FILENAME": "cuda_11.7.0_515.43.04_linux.run"
+      }
+    },
+    "11.8.0": {
+      "env": {
+        "CM_CUDA_LINUX_FILENAME": "cuda_11.8.0_520.61.05_linux.run"
+      }
+    }
+  }
 }

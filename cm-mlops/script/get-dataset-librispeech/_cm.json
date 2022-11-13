@@ -4,6 +4,8 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "default_version": "dev-clean",
+  "category": "ML/AI datasets",
+  "category_sort":8500,
   "deps": [
     {
       "tags": "get,sys-utils-cm"

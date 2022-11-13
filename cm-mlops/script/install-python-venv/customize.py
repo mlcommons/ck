@@ -9,7 +9,7 @@ def preprocess(i):
 
     meta = i['meta']
 
-    quiet = (env.get('CM_TMP_QUIET', False) == 'yes')
+    quiet = (env.get('CM_QUIET', False) == 'yes')
 
     automation = i['automation']
 
@@ -36,10 +36,10 @@ def preprocess(i):
         if x != '': name = x
 
     if name != '':
-        name_tag = name.lower()
+        name_tag = 'venv-'+name.lower()
 
-        add_extra_cache_tags.append(name)
-        add_python_extra_cache_tags.append(name)
+        add_extra_cache_tags.append(name_tag)
+        add_python_extra_cache_tags.append(name_tag)
 
     r = automation.update_deps({'deps':meta['post_deps'], 
                                 'update_deps':{'register-python':

@@ -3,7 +3,7 @@
 import cmind as cm
 import check as checks
 
-r = cm.access({'action':'run', 'automation':'script', 'tags': 'generate-run-cmds,mlperf', 'add_deps_recursive':
+r = cm.access({'action':'run', 'automation':'script', 'tags': 'generate-run-cmds,mlperf', 'adr':
     {'inference-src': {'tags': '_octoml'}, 'loadgen': {'version': 'r2.1'}, 'compiler': {'tags': "gcc"}}, 'env': {'CM_MODEL': 'resnet50',
         'CM_DEVICE': 'cpu', 'CM_BACKEND': 'onnxruntime'}, 'quiet': 'yes'})
 checks.check_return(r)
@@ -14,8 +14,8 @@ checks.check_list(r, "loadgen,version-r2.1,deps-python-non-virtual")
 r = cm.access({'action':'search', 'automation': 'cache', 'tags': 'inference,src,version-r2.1'})
 checks.check_list(r, "inference,src,version-r2.1")
 
-r = cm.access({'action':'run', 'automation':'script', 'tags': 'app,mlperf,inference,generic,_python,_resnet50,_onnxruntime,_cpu,_r2.1_default', 'quiet': 'yes'})
+r = cm.access({'action':'run', 'automation':'script', 'tags': 'app,mlperf,inference,generic,_python,_resnet50,_onnxruntime,_cpu,_r2.1_default', 'adr': {'inference-src': {'tags': '_octoml'}}, 'quiet': 'yes'})
 checks.check_return(r)
 
-r = cm.access({'action':'run', 'automation':'script', 'tags': 'app,mlperf,inference,generic,_python,_resnet50,_tf,_cpu,_r2.1_default', 'quiet': 'yes'})
+r = cm.access({'action':'run', 'automation':'script', 'tags': 'app,mlperf,inference,generic,_python,_resnet50,_tf,_cpu,_r2.1_default', 'quiet': 'yes', 'adr': {'inference-src': {'tags': '_octoml'}}})
 checks.check_return(r)

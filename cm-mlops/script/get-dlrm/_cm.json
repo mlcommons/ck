@@ -1,0 +1,42 @@
+{
+  "alias": "get-dlrm",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "default_version": "main",
+  "category": "ML/AI models",
+  "category_sort":8400,
+  "deps": [
+    {
+      "tags": "detect,os"
+    }
+  ],
+  "default_env": {
+    "CM_GIT_DEPTH": "--depth 10",
+    "CM_GIT_PATCH": "no",
+    "CM_GIT_URL": "https://github.com/facebookresearch/dlrm.git"
+  },
+  "new_env_keys": [
+    "DLRM_DIR"
+  ],
+  "tags": [
+    "get",
+    "src",
+    "dlrm"
+  ],
+  "uid": "63680ac2449a4241",
+  "variations": {
+    "full-history": {
+      "env": {
+        "CM_GIT_DEPTH": ""
+      }
+    }
+  },
+  "versions": {
+    "main": {
+      "env": {
+        "CM_GIT_CHECKOUT": "main"
+      }
+    }
+  }
+}

@@ -27,10 +27,7 @@ def postprocess(i):
 
     os_info = i['os_info']
 
-    if os_info['platform'] == 'windows':
-        print ('Windows: TBD')
-
-    else:
+    if os_info['platform'] != 'windows':
         if os_info['platform'] == 'linux':
             sys_cmd = "ld --verbose | grep SEARCH_DIR "
             result = subprocess.check_output(sys_cmd, shell=True).decode("utf-8")
@@ -44,6 +41,7 @@ def postprocess(i):
                 if _dir != '' and  _dir not in lib_dir:
                     lib_dir.append(_dir)
             env['+CM_HOST_OS_DEFAULT_LIBRARY_PATH'] = lib_dir
+
         r = utils.load_txt(file_name='tmp-run.out',
                            check_if_exists = True,
                            split = True)
@@ -55,5 +53,7 @@ def postprocess(i):
         state['os_uname_all'] = s[1]
 
         env['CM_HOST_OS_MACHINE'] = state['os_uname_machine']
+    import platform
+    env['CM_HOST_SYSTEM_NAME'] = platform.node()
 
     return {'return':0}

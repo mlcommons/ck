@@ -1,6 +1,7 @@
 {
   "alias": "install-cuda-package-manager",
   "automation_alias": "script",
+  "category": "CUDA automation",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "deps": [
@@ -10,10 +11,12 @@
   ],
   "post_deps": [
     {
-      "tags": "get,cuda",
-       "skip_if_env": {
-         "CM_TMP_REQUIRE_INSTALL": [ "yes" ]
-      }
+      "skip_if_env": {
+        "CM_REQUIRE_INSTALL": [
+          "yes"
+        ]
+      },
+      "tags": "get,cuda"
     }
   ],
   "tags": [

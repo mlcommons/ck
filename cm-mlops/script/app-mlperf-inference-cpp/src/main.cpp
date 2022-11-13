@@ -6,11 +6,18 @@
 #include "test_settings.h"
 
 #include "backend.h"
-#include "onnxruntime_backend.h"
 #include "device.h"
 #include "model.h"
 #include "sample_library.h"
 #include "system.h"
+
+#ifdef CM_MLPERF_DEVICE_GPU
+    #include "gpu_device.h"
+#endif
+
+#ifdef CM_MLPERF_BACKEND_ONNXRUNTIME
+    #include "onnxruntime_backend.h"
+#endif
 
 class InputSettings {
 
@@ -21,10 +28,11 @@ class InputSettings {
 
 public:
     InputSettings() {
-        mlperf_conf_path = getenv("CM_MLC_MLPERF_CONF", "../inference/mlperf.conf");
-        user_conf_path = getenv("CM_MLC_USER_CONF", "../inference/vision/classification_and_detection/user.conf");
-        output_dir = getenv("CM_MLC_OUTPUT_DIR", ".");
-        backend_name = getenv("CM_BACKEND", "onnxruntime");
+        mlperf_conf_path = getenv("CM_MLPERF_CONF", "../inference/mlperf.conf");
+        user_conf_path = getenv("CM_MLPERF_USER_CONF", "../inference/vision/classification_and_detection/user.conf");
+        output_dir = getenv("CM_MLPERF_OUTPUT_DIR", ".");
+        backend_name = getenv("CM_MLPERF_BACKEND", "onnxruntime");
+        device_name = getenv("CM_MLPERF_DEVICE", "cpu");
         model_name = getenv("CM_MODEL", "resnet50");
         model_path = getenv("CM_ML_MODEL_FILE_WITH_PATH", "");
         dataset_preprocessed_path = getenv("CM_DATASET_PREPROCESSED_PATH", "");
@@ -51,6 +59,7 @@ public:
     std::string user_conf_path;
     std::string output_dir;
     std::string backend_name;
+    std::string device_name;
     std::string model_name;
     std::string model_path;
     std::string dataset_preprocessed_path;
@@ -105,9 +114,11 @@ int main(int argc, const char *argv[]) {
         //      }
     } else if (input_settings.model_name == "retinanet") {
         // onnx retinanet requires batch size 1
-        if (input_settings.backend_name == "onnxruntime" && input_settings.batch_size != 1)
-            std::cerr << "warning: onnx retinanet requires batch size 1"
+        if (input_settings.backend_name == "onnxruntime" && input_settings.batch_size != 1) {
+            std::cerr << "onnx retinanet requires batch size 1"
                       << " (current batch size: " << input_settings.batch_size << ")" << std::endl;
+            return 1;
+        }
         model.reset(new Retinanet(input_settings.model_path, 800, 800, 0.05f));
     } else {
         std::cerr << "model (" << input_settings.model_name << ") not supported" << std::endl;
@@ -115,7 +126,17 @@ int main(int argc, const char *argv[]) {
     }
 
     // build device
-    std::shared_ptr<Device> device = std::make_shared<CPUDevice>();
+    std::shared_ptr<Device> device;
+    if (input_settings.device_name == "cpu") {
+        device.reset(new CPUDevice());
+    } else if (input_settings.device_name == "gpu") {
+#ifdef CM_MLPERF_DEVICE_GPU
+        device.reset(new GPUDevice());
+#endif
+    } else {
+        std::cerr << "device (" << input_settings.device_name << ") not supported" << std::endl;
+	return 1;
+    }
 
     // get counts
     if (input_settings.query_count_override != 0)
@@ -130,8 +151,17 @@ int main(int argc, const char *argv[]) {
             std::min(performance_sample_count, max_sample_count);
 
     // build backend
-    std::shared_ptr<Backend> backend = std::make_shared<OnnxRuntimeCPUBackend>(
-        model, device, performance_sample_count, input_settings.batch_size);
+    std::shared_ptr<Backend> backend;
+    if (input_settings.backend_name == "onnxruntime") {
+#ifdef CM_MLPERF_BACKEND_ONNXRUNTIME
+        backend.reset(new OnnxRuntimeBackend(
+            model, device, performance_sample_count, input_settings.batch_size,
+            input_settings.device_name == "gpu"));
+#endif
+    } else {
+        std::cerr << "backend (" << input_settings.backend_name << ") not supported" << std::endl;
+        return 1;
+    }
 
     // build QSL
     std::shared_ptr<mlperf::QuerySampleLibrary> qsl;
@@ -162,8 +192,13 @@ int main(int argc, const char *argv[]) {
     }
 
     // build SUT
-    // recommend using QueueSUT for all scenarios except for StreamSUT for single-stream
-    std::shared_ptr<mlperf::SystemUnderTest> sut = std::make_shared<QueueSUT>(backend);
+    // using QueueSUT for all scenarios except for StreamSUT for single-stream
+    std::shared_ptr<mlperf::SystemUnderTest> sut;
+    if (input_settings.scenario_name == "SingleStream") {
+        sut.reset(new StreamSUT(backend));
+    } else {
+        sut.reset(new QueueSUT(backend));
+    }
 
     // start benchmark
     std::cerr << "starting benchmark" << std::endl;

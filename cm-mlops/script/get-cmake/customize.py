@@ -10,6 +10,7 @@ def preprocess(i):
     recursion_spaces = i['recursion_spaces']
 
     file_name = 'cmake.exe' if os_info['platform'] == 'windows' else 'cmake'
+
     if 'CM_CMAKE_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name,
                                        'env':env,
@@ -21,7 +22,7 @@ def preprocess(i):
                                        'recursion_spaces':recursion_spaces})
         if r['return'] >0 : 
             if r['return'] == 16:
-                env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+                env['CM_REQUIRE_INSTALL'] = "yes"
                 return {'return': 0}
             else:
                 return r
@@ -43,9 +44,7 @@ def detect_version(i):
 def postprocess(i):
 
     env = i['env']
-
     r = detect_version(i)
-
     if r['return'] >0: return r
 
     version = r['version']
@@ -53,9 +52,8 @@ def postprocess(i):
 
     found_path = os.path.dirname(found_file_path)
 
-    env['CMAKE_INSTALLED_PATH'] = found_path
-
     env['CM_CMAKE_CACHE_TAGS'] = 'version-'+version
+
     if 'CM_HOST_CPU_TOTAL_CORES' in env:
         env['CM_MAKE_CORES'] =  env['CM_HOST_CPU_TOTAL_CORES']
 

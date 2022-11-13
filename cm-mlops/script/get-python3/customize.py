@@ -35,7 +35,7 @@ def preprocess(i):
                 # If artifact is not found and we are not on windows
                 # we should try to install python from src
                 # in prehook_deps
-                env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+                env['CM_REQUIRE_INSTALL'] = "yes"
 
                 return {'return': 0}
             else:
@@ -53,6 +53,7 @@ def detect_version(i):
     version = r['version']
 
     print (i['recursion_spaces'] + '      Detected version: {}'.format(version))
+
     return {'return':0, 'version':version}
 
 def postprocess(i):
@@ -70,9 +71,12 @@ def postprocess(i):
     found_path = os.path.dirname(found_file_path)
 
     env['CM_PYTHON_BIN'] = os.path.basename(found_file_path)
+    env['CM_PYTHON_BIN_PATH'] = os.path.dirname(found_file_path)
 
     # Save tags that can be used to specialize further dependencies (such as python packages)
     tags = 'version-'+version
+
+    add_extra_cache_tags = []
 
     extra_tags = env.get('CM_EXTRA_CACHE_TAGS','')
     if extra_tags != '':
@@ -85,6 +89,8 @@ def postprocess(i):
         tags += ',non-virtual'
 
     env['CM_PYTHON_CACHE_TAGS'] = tags
+
+    add_extra_cache_tags = tags.split(',')
 
     # Check if need to add path, include and lib to env
     # (if not in default paths)
@@ -109,4 +115,4 @@ def postprocess(i):
                 env['+PATH']=paths
 
 
-    return {'return':0, 'version': version}
+    return {'return':0, 'version': version, 'add_extra_cache_tags':add_extra_cache_tags}

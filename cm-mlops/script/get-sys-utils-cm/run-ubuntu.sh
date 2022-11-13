@@ -4,7 +4,7 @@ echo "************************************************"
 echo "Installing some system dependencies via sudo apt"
 
 
-if [[ "$CM_TMP_QUIET" != "yes" ]]; then 
+if [[ "$CM_QUIET" != "yes" ]]; then 
  echo "Enter skip to skip this step or press enter to continue:"
  read DUMMY
 
@@ -45,9 +45,11 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            python3 \
            python3-pip \
            python3-dev \
+           python3-venv \
            libtinfo-dev \
            python-is-python3 \
            sudo \
            libgl1 \
            libncurses5
-python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
+
+python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${CM_PYTHON_PIP_USER}
