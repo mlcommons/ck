@@ -5,10 +5,10 @@ name: CM script automation test for MLPerf inference retinanet
 
 on:
   pull_request:
-    branches: [ "master", "dev" ]
+    branches: [ "dev" ]
     paths:
-      - cm-mlops/scripts/*
-      - cm-mlops/automation/*
+      - cm-mlops/scripts/**
+      - cm-mlops/automation/**
       - .github/workflows/test-mlperf-inference-retinanet.yml
       - '!**.md'
 
