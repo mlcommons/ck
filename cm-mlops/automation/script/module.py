@@ -1765,13 +1765,6 @@ class CAutomation(Automation):
                     tmp_env[key] = env[key]
                     del(env[key])
 
-            import re
-            for key in list(env.keys()):
-                value = env[key]
-                tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
-                if tmp_values == []: continue
-                tmp_env[key] = env[key]
-                del(env[key])
 
             for d in deps:
                 if "enable_if_env" in d:
@@ -1784,6 +1777,13 @@ class CAutomation(Automation):
 
                 if from_cache and not d.get("dynamic", None):
                     continue
+                import re
+                for key in list(env.keys()):
+                    value = env[key]
+                    tmp_values = re.findall(r'<<<(.*?)>>>', str(value))
+                    if tmp_values == []: continue
+                    tmp_env[key] = env[key]
+                    del(env[key])
 
                 force_env_keys_deps = d.get("force_env_keys", [])
                 for key in force_env_keys_deps:
@@ -1835,13 +1835,10 @@ class CAutomation(Automation):
                     if r['return']>0: return r
                     run_state['deps'] = tmp_run_state_deps
 
-                    # Force cleaning of env keys between deps in a given script if needed
-                    for k in clean_env_keys_deps:
-                        if k in env:
-                            del(env[k])
+                    # Restore local env
+                    env.update(tmp_env)
+                    update_env_with_values(env)
 
-            # Restore local env
-            env.update(tmp_env)
 
         return {'return': 0}
 

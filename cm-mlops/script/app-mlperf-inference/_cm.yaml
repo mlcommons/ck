@@ -83,22 +83,6 @@ deps:
       - gpu
 
 
-  ########################################################################
-  # Install MLPerf inference dependencies
-
-  # Install MLPerf loadgen
-  - tags: get,loadgen
-    names:
-    - loadgen
-
-  # Download MLPerf inference source
-  - tags: get,mlcommons,inference,src
-    names:
-    - inference-src
-
-  # Get SUT configs (System Under Test)
-  - tags: get,sut,configs
-
 
 
   ########################################################################
@@ -159,6 +143,22 @@ deps:
     skip_if_env:
       CM_TVM_PIP_INSTALL: [ "on" ]
 
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+
+  # Install MLPerf loadgen
+  - tags: get,loadgen
+    names:
+    - loadgen
+
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    names:
+    - inference-src
+
+  # Get SUT configs (System Under Test)
+  - tags: get,sut,configs
 
 
   ########################################################################
@@ -276,6 +276,7 @@ deps:
       CM_MODEL:
       - bert-99.9
     
+
 
 
 
