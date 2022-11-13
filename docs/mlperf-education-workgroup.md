@@ -12,7 +12,7 @@
 * [Portable image classification workflow example]( tutorials/modular-image-classification.md ).
 * Upcoming events:
   * [Student Cluster Competition at SC22](https://sc22.supercomputing.org/program/studentssc/student-cluster-competition/): November 14-16, 2022
-  * MLPerf inference v3.0 submission: Feb 17, 2023; publication Apr 5, 2023
+  * MLPerf inference v3.0 submission: end of Feb 17, 2023 (TBC)
 
 
 ## Mission
@@ -20,10 +20,12 @@
 * Modularize MLPerf benchmarks and make it easier to run, optimize, customize and reproduce them across rapidly evolving software, hardware and data. 
   * Reuse and enhance [cross-platform CM scripts](list_of_scripts.md) intended to make MLOps and DevOps more interoperable, reusable, portable, deterministic and reproducible. 
   * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
-* Automate design space exploration of diverse ML/SW/HW stacks to trade off performance, accuracy, energy, size and costs; automate submission of Pareto-efficient configurations to MLPerf.
+  * Develop universal, modular and portable benchmarking workflow that can run on any software/hardware stack from the cloud to embedded devices.
+* Automate design space exploration and optimization of the whole ML/SW/HW stack to trade off performance, accuracy, energy, size and costs.
+  * Automate submission of Pareto-efficient configurations to MLPerf.
 * Help end-users of ML Systems visualize all MLPerf results, reproduce them and deploy Pareto-optimal ML/SW/HW stacks in production.
 * Support student competitions, reproducibility initiatives and artifact evaluation at ML and Systems conferences using the rigorous MLPerf methodology and the MLCommons CM automation meta-framework.
-  * Develop universal, modular and portable benchmarking workflow that can run on any software/hardware stack from the cloud to embedded devices.
+
 
 ## Conf-calls
 
@@ -69,7 +71,7 @@ across diverse hardware, software and data and automatically plug in
 their own ML tasks, models, data sets, engines, libraries and tools.
 
 Another goal is to use these portable MLPerf worklows to help students, researchers and
-engineers participate in crowd-benchmarking and crowd-exploration of the design space tradeoffs 
+engineers participate in crowd-benchmarking and exploration of the design space tradeoffs 
 (accuracy, latency, throughput, energy, size, etc.) of their ML Systems from the cloud to the
 edge using the mature MLPerf methodology while automating the submission
 of their Pareto-efficient configurations to the open division of the MLPerf

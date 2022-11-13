@@ -2,7 +2,8 @@
 
 # Tutorial: running the MLPerf inference benchmark
 
-**Table of contents:**
+<details>
+<summary>Click here to see the table of contents.</summary>
 
   * [MLPerf inference - RetinaNet - Open Images - ONNX - CPU](#mlperf-inference---retinanet---open-images---onnx---cpu)
     * [Minimal system requirements](#minimal-system-requirements)
@@ -30,6 +31,7 @@
   * [The next steps](#the-next-steps)
   * [Authors](#authors)
   * [Acknowledgments](#acknowledgments)
+</details>
 
 ## MLPerf inference - RetinaNet - Open Images - ONNX - CPU
 
@@ -398,8 +400,10 @@ from [Nvidia](https://github.com/mlcommons/inference_results_v2.1/tree/master/cl
 
 The execution of the original MLPerf inference benchmark is customized by various flags and environment variables.
 
-We've provided a user-friendly mapping of the flags from the CK MLPerf script to the native MLPerf variables and flags
-in the [script meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml#L35).
+The CM automation concept is to gradually expose all optimization "knobs" via unified CM script interface.
+
+We've provided a user-friendly mapping of the flags from the CK MLPerf script CLI to the native MLPerf variables and flags
+using this [meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml#L35).
 
 For example, you can specify a number of threads used by this benchmark as follows:
 
@@ -582,6 +586,8 @@ environment called "mlperf":
 
 ```bash
 
+cm pull repo mlcommons@ck
+
 cm run script "get sys-utils-cm" --quiet
 
 cm run script "install python-venv" --version=3.10.7 --name=mlperf
@@ -591,9 +597,14 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" --hw_name=default \
-      --model=retinanet --backend=onnxruntime --device=cpu \
-      --scenario=Offline --test_query_count=10 --rerun
+      --submitter="OctoML" \
+      --hw_name=default \
+      --model=retinanet \
+      --backend=onnxruntime \
+      --device=cpu \
+      --scenario=Offline \
+      --test_query_count=10 \
+      --rerun
 
 ```
 
@@ -605,10 +616,13 @@ Note that you need to add a flag `--adr.python.extra_cache_tags=venv-{name of a 
 ## The next steps
 
 Please check the [second part of this tutorial](sc22-scc-mlperf2.md) (under preparation)
-to learn how to use other implementations of this benchmark with 
-different ML frameworks (PyTorch, TF, TVM), quantized/pruned models and GPUs,
-optimize this benchmark and prepare competitive MLPerf inference submission v3.0 (Feb 2023).
+to learn how to test other MLPerf scenarios (single stream, multiple stream, server)
+and check different implementations of this benchmark (C++, Nvidia, etc)
+with other ML engines (PyTorch, TF, TVM), quantized/pruned models and GPUs.
 
+You are welcome to continue optimizing this benchmark with the help 
+of the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+and prepare official submission for MLPerf inference v3.0 (Feb 2023).
 
 
 ## Authors
