@@ -63,6 +63,14 @@
     {
       "enable_if_env": {
         "CM_DATASET": [
+          "squad"
+        ]
+      },
+      "tags": "get,generic-python-lib,_tokenization"
+    },
+    {
+      "enable_if_env": {
+        "CM_DATASET": [
           "imagenet"
         ]
       },

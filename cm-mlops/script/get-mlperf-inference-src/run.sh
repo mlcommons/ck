@@ -16,10 +16,6 @@ if [ ! -d "inference" ]; then
     git checkout -b "${CM_GIT_CHECKOUT}"
   fi
   if [ "${?}" != "0" ]; then exit 1; fi
-  if [ -z ${CM_GIT_RECURSE_SUBMODULES} ]; then #needed to build loadgen
-    git submodule update --init third_party/pybind
-    if [ "${?}" != "0" ]; then exit 1; fi
-  fi
 fi
 
 if [ ${CM_GIT_PATCH} == "yes" ]; then
