@@ -122,6 +122,15 @@ deps:
       - pytorch
       - tvm-pytorch
 
+  ## Torchvision
+  - tags: get,generic-python-lib,_torchvision
+    names:
+    - ml-engine-torchvision
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+
   ## Transformers
   - tags: get,generic-python-lib,_transformers
     names:

@@ -120,6 +120,14 @@
         "CM_TORCH_VERSION"
       ]
     },
+    "torchvision": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "torchvision"
+      },
+      "new_env_keys": [
+        "CM_TORCHVISION_VERSION"
+      ]
+    },
     "transformers": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "transformers"

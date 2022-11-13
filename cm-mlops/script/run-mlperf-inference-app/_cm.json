@@ -53,6 +53,7 @@
     "mode": "CM_LOADGEN_MODE",
     "num_threads": "CM_NUM_THREADS",
     "output_dir": "OUTPUT_BASE_DIR",
+    "results_dir": "OUTPUT_BASE_DIR",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
     "power": "CM_SYSTEM_POWER",
     "regenerate_files": "CM_REGENERATE_MEASURE_FILES",

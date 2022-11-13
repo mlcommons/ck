@@ -90,6 +90,11 @@
         "CM_PYTHON_PACKAGE_NAME": "torch"
       }
     },
+    "torchvision": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "torchvision"
+      }
+    },
     "transformers": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "transformers"
