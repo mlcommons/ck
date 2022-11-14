@@ -35,7 +35,7 @@ Note that you may need to restart your shell to update PATH to the "cm" binary.
 Alternatively you can run 
 
 ```bash
-source .profile
+source $HOME/.profile
 ```
 
 ```
