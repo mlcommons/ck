@@ -1318,6 +1318,7 @@ class CAutomation(Automation):
                             cached_tags.append(x)
 
 
+        detected_version = env.get('CM_DETECTED_VERSION','')
         ############################################################################################################
         ##################################### Finalize script
 
@@ -1376,7 +1377,6 @@ class CAutomation(Automation):
                     print (recursion_spaces+'  - Removing tmp tag in the script cached output {} ...'.format(cached_uid))
 
                 # Check if version was detected and record in meta)
-                detected_version = env.get('CM_DETECTED_VERSION','')
                 if detected_version != '':
                     cached_meta['version'] = detected_version
 
