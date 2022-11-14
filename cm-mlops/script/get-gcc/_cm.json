@@ -17,6 +17,11 @@
     "DEBUG_LINKER_FLAGS",
     "DEFAULT_COMPILER_FLAGS",
     "DEFAULT_LINKER_FLAGS",
+    "+ CFLAGS",
+    "+ CXXFLAGS",
+    "+ FFLAGS",
+    "+ LDFLAGS",
+    "+CM_HOST_OS_DEFAULT_INCLUDE_PATH",
     "+PATH"
   ],
   "post_deps": [

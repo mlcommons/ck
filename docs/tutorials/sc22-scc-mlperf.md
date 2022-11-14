@@ -5,7 +5,7 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-  * [MLPerf inference - RetinaNet - Open Images - ONNX - CPU](#mlperf-inference---retinanet---open-images---onnx---cpu)
+  * [MLPerf inference - Python - RetinaNet - Open Images - ONNX - CPU - Offline](#mlperf-inference---python---retinanet---open-images---onnx---cpu---offline)
     * [Minimal system requirements](#minimal-system-requirements)
     * [MLCommons CM automation meta-framework](#mlcommons-cm-automation-meta-framework)
     * [CM installation](#cm-installation)
@@ -31,9 +31,10 @@
   * [The next steps](#the-next-steps)
   * [Authors](#authors)
   * [Acknowledgments](#acknowledgments)
+
 </details>
 
-## MLPerf inference - RetinaNet - Open Images - ONNX - CPU
+## MLPerf inference - Python - RetinaNet - Open Images - ONNX - CPU - Offline
 
 This tutorial explains how to prepare and run the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
 using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck) 
@@ -429,9 +430,15 @@ You can run this script as follows (just substitute *OctoML* with the name of yo
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
-      --submitter="OctoML" --hw_name=default \
-      --model=retinanet --backend=onnxruntime --device=cpu \
-      --scenario=Offline --test_query_count=10 --rerun
+      --submitter="OctoML" \
+      --hw_name=default \
+      --lang=python \
+      --model=retinanet \
+      --backend=onnxruntime \
+      --device=cpu \
+      --scenario=Offline \
+      --test_query_count=10 \
+      --rerun
 ```      
 
 It will take around 15..30 minutes to run and you should see the following output in the end:
@@ -490,6 +497,14 @@ summary.json
 
 You should submit these files to the organizing committee to get extra points in the Student Cluster Competition.
 
+Note that by default, CM-MLPerf will store the raw results 
+in `$HOME/mlperf_submission` (with truncated accuracy logs) and in `$HOME/mlperf_submission_logs` 
+(with complete and very large accuracy logs).
+
+You can change this directory using the flag `--submission_dir={directory to store raw MLPerf results}`
+in the above script.
+
+
 ### Push results to a live dashboard
 
 You can attempt to push your results to public W&B dashboard for SCC'22.
@@ -497,9 +512,14 @@ You just need to rerun the above command with `_dashboard` variation:
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
-      --submitter="OctoML" --hw_name=default \
-      --model=retinanet --backend=onnxruntime --device=cpu \
-      --scenario=Offline --test_query_count=10
+      --submitter="OctoML" \
+      --hw_name=default \
+      --lang=python \
+      --model=retinanet \
+      --backend=onnxruntime \
+      --device=cpu \
+      --scenario=Offline \
+      --test_query_count=10
 ```
 
 You should normally see your results [here](https://wandb.ai/cmind/cm-mlperf-sc22-scc-retinanet-offline?workspace=user-gfursin).
@@ -517,7 +537,7 @@ sudo apt update && sudo apt upgrade
 sudo apt install python3 python3-pip python3-venv git wget
 
 python3 -m pip install cmind
-source .profile
+source $HOME/.profile
 
 cm pull repo mlcommons@ck
 
@@ -544,14 +564,24 @@ cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu
      --scenario=Offline --mode=performance --rerun
 
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
-      --submitter="OctoML" --hw_name=default \
-      --model=retinanet --backend=onnxruntime --device=cpu \
-      --scenario=Offline --test_query_count=10
+      --submitter="OctoML" \
+      --hw_name=default \
+      --lang=python \
+      --model=retinanet \
+      --backend=onnxruntime \
+      --device=cpu \
+      --scenario=Offline \
+      --test_query_count=10
 
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
-      --submitter="OctoML" --hw_name=default \
-      --model=retinanet --backend=onnxruntime --device=cpu \
-      --scenario=Offline --test_query_count=10
+      --submitter="OctoML" \
+      --hw_name=default \
+      --lang=python \
+      --model=retinanet \
+      --backend=onnxruntime \
+      --device=cpu \
+      --scenario=Offline \
+      --test_query_count=10
 
 ```
 
@@ -563,7 +593,7 @@ sudo apt update && sudo apt upgrade
 sudo apt install python3 python3-pip python3-venv git wget
 
 python3 -m pip install cmind
-source .profile
+source $HOME/.profile
 
 cm pull repo mlcommons@ck
 
@@ -571,9 +601,15 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" --hw_name=default \
-      --model=retinanet --backend=onnxruntime --device=cpu \
-      --scenario=Offline --test_query_count=10 --rerun
+      --submitter="OctoML" \
+      --hw_name=default \
+      --lang=python \
+      --model=retinanet \
+      --backend=onnxruntime \
+      --device=cpu \
+      --scenario=Offline \
+      --test_query_count=10 \
+      --rerun
 
 ```
 
@@ -622,9 +658,9 @@ to learn how to test other MLPerf scenarios (single stream, multiple stream, ser
 and check different implementations of this benchmark (C++, Nvidia, etc)
 with other ML engines (PyTorch, TF, TVM), quantized/pruned models and GPUs.
 
-You are welcome to continue optimizing this benchmark with the help 
-of the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
-and prepare official submission for MLPerf inference v3.0 (Feb 2023).
+You are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+to contribute to this project and continue optimizing this benchmark and prepare an official submission 
+for MLPerf inference v3.0 (Feb 2023) with the help of the community.
 
 
 ## Authors
