@@ -133,7 +133,7 @@ cm pull repo mlcommons@ck
 
 cm run script "get sys-utils-cm" --quiet
 
-cm run script "install python-venv" --version=3.10.7 --name=mlperf --new
+cm run script "install python-venv" --version=3.10.7 --name=mlperf-cuda --new
 ```
 
 ### Run MLPerf inference benchmark (offline, accuracy)
