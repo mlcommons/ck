@@ -71,6 +71,14 @@
     {
       "enable_if_env": {
         "CM_DATASET": [
+          "squad"
+        ]
+      },
+      "tags": "get,generic-python-lib,_boto3"
+    },
+    {
+      "enable_if_env": {
+        "CM_DATASET": [
           "imagenet"
         ]
       },
