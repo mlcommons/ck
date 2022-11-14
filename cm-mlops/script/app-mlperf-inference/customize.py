@@ -168,8 +168,8 @@ def preprocess(i):
         audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", audit_path, "audit.config")
         mode_extra_options = " --audit '" + audit_full_path + "'"
     env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
-    
-    cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options)
+    mlperf_implementation = env.get('CM_MLPERF_IMPLEMENTATION', 'reference') 
+    cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, mlperf_implementation)
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
         RUN_CMD = cmd
         print("Output Dir: '" + OUTPUT_DIR + "'")
@@ -188,7 +188,18 @@ def preprocess(i):
     env['CM_MLPERF_RUN_CMD'] = RUN_CMD
 
     return {'return':0}
-def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options):
+
+def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, implementation="reference"):
+    if implementation == "reference":
+        return get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options)
+    if implementation == "nvidia":
+        return get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_options)
+
+def get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_options):
+    cmd = ""
+    return cmd
+
+def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options):
     if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
         cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
