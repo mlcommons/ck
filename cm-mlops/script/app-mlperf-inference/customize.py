@@ -194,6 +194,7 @@ def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options
         return get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options)
     if implementation == "nvidia":
         return get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_options)
+    return ""
 
 def get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_options):
     cmd = ""
