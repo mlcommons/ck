@@ -88,7 +88,7 @@ deps:
   ########################################################################
   # Install ML engines via CM
 
-  ## Onnx Runtime
+  ## Onnx CPU Runtime
   - tags: get,generic-python-lib,_onnxruntime
     names:
     - ml-engine-onnxruntime
@@ -96,6 +96,18 @@ deps:
       CM_MLPERF_BACKEND:
       - onnxruntime
       - tvm-onnx
+      CM_MLPERF_DEVICE:
+      - cpu
+  ## Onnx GPU Runtime
+  - tags: get,generic-python-lib,_onnxruntime_gpu
+    names:
+    - ml-engine-onnxruntime-gpu
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      - tvm-onnx
+      CM_MLPERF_DEVICE:
+      - gpu
 
   ## Pytorch
   - tags: get,generic-python-lib,_torch

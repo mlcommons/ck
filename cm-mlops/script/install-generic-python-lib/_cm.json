@@ -70,6 +70,11 @@
         "CM_PYTHON_PACKAGE_NAME": "onnxruntime"
       }
     },
+    "onnxruntime_gpu": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "onnxruntime_gpu"
+      }
+    },
     "protobuf": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "protobuf"
