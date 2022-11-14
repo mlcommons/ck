@@ -141,7 +141,7 @@ def generate_submission(i):
                     files = []
                     readme = False
                     for f in os.listdir(result_mode_path):
-                        if f.startswith('mlperf_'):
+                        if f.startswith('mlperf_') and not f.endswith('trace.json'):
                             files.append(f)
                         if f == "README.md":
                             shutil.copy(os.path.join(result_mode_path, f), os.path.join(submission_measurement_path, f))
