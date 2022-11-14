@@ -5,10 +5,10 @@ name: CM script automation test for MLPerf inference retinanet
 
 on:
   pull_request:
-    branches: [ "master", "dev" ]
+    branches: [ "dev" ]
     paths:
-      - cm-mlops/scripts/*
-      - cm-mlops/automation/*
+      - cm-mlops/scripts/**
+      - cm-mlops/automation/**
       - .github/workflows/test-mlperf-inference-retinanet.yml
       - '!**.md'
 
@@ -21,6 +21,7 @@ jobs:
       matrix:
         python-version: [ "3.9" ]
         backend: [ "onnxruntime" ]
+        implementation: [ "python", "cpp" ]
 
     steps:
     - uses: actions/checkout@v3
@@ -35,4 +36,4 @@ jobs:
         cm run script --quiet --tags=get,sys-utils-cm
     - name: Test CM Script for MLPerf Inference Retinanet using ${{ matrix.backend }}
       run: |
-        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default --model=retinanet --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=50 --adr.compiler.tags=gcc --adr.openimages-preprocessed.tags=_500 --adr.ml-engine-torchvision.version=0.12.0 --quiet
+        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default --model=retinanet --lang=${{ matrix.implementation }} --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=50 --adr.compiler.tags=gcc --adr.openimages-preprocessed.tags=_500 --adr.ml-engine-torchvision.version=0.12.0 --quiet

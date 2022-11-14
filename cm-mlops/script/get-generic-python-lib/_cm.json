@@ -88,6 +88,14 @@
         "CM_ONNXRUNTIME_VERSION"
       ]
     },
+    "onnxruntime_gpu": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "onnxruntime_gpu"
+      },
+      "new_env_keys": [
+        "CM_ONNXRUNTIME_GPU_VERSION"
+      ]
+    },
     "protobuf": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "protobuf"

@@ -27,9 +27,6 @@
         "inference-src"
       ],
       "tags": "get,mlcommons,inference,src"
-    },
-    {
-      "tags": "get,sut,configs"
     }
   ],
   "default_env": {
@@ -112,6 +109,9 @@
         "CM_RUN_MLPERF_ACCURACY": "on"
       },
       "post_deps": [
+        {
+          "tags": "get,sut,description"
+        },
         {
           "tags": "generate,mlperf,inference,submission",
           "names": [

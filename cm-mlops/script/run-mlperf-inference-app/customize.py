@@ -75,6 +75,8 @@ def preprocess(i):
                 return r
             if 'CM_MLPERF_RESULTS_DIR' in r['new_env']:
                 env['CM_MLPERF_RESULTS_DIR'] = r['new_env']['CM_MLPERF_RESULTS_DIR']
+            if 'CM_MLPERF_BACKEND_VERSION' in r['new_env']:
+                env['CM_MLPERF_BACKEND_VERSION'] = r['new_env']['CM_MLPERF_BACKEND_VERSION']
         if system_meta.get('division', '') == "open":
             env["CM_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
         if env.get("CM_LOADGEN_COMPLIANCE", "") == "yes":
