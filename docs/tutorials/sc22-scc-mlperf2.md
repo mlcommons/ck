@@ -5,9 +5,12 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [Tutorial: customizing the MLPerf inference benchmark (part 2)](#tutorial-customizing-the-mlperf-inference-benchmark-part-2)
   * [Update CM framework and automation repository](#update-cm-framework-and-automation-repository)
   * [MLPerf inference - Python - RetinaNet - Open Images - ONNX - GPU - Offline](#mlperf-inference---python---retinanet---open-images---onnx---gpu---offline)
+    * [Prepare CUDA](#prepare-cuda)
+    * [Run MLPerf inference benchmark (offline, accuracy)](#run-mlperf-inference-benchmark-offline-accuracy)
+    * [Run MLPerf inference benchmark (offline, performance)](#run-mlperf-inference-benchmark-offline-performance)
+    * [Prepare MLPerf submission](#prepare-mlperf-submission)
   * [MLCommons taskforce on education and reproducibility](#mlcommons-taskforce-on-education-and-reproducibility)
   * [Authors](#authors)
   * [Acknowledgments](#acknowledgments)
@@ -48,6 +51,8 @@ rm -rf $HOME/mlperf_submission_logs
 ```
 
 ## MLPerf inference - Python - RetinaNet - Open Images - ONNX - GPU - Offline
+
+### Prepare CUDA
 
 If your system has an Nvidia GPU, you can run the MLPerf inference benchmark on this GPU
 using the CM automation.
@@ -120,16 +125,102 @@ You can obtain the information about your GPU using CM as follows:
 cm run script "get cuda-devices"
 ```
 
-You can now run MLPerf on GPU using the following CM command with Python virtual env
-(just substitute "OctoML" with your organization or any other identifier):
+### Prepare Python with virtual environment
 
+We suggest you to install Python virtual environment to avoid mixing up your local Python:
 ```bash
 cm pull repo mlcommons@ck
 
 cm run script "get sys-utils-cm" --quiet
 
-cm run script "install python-venv" --version=3.10.7 --name=mlperf
+cm run script "install python-venv" --version=3.10.7 --name=mlperf --new
+```
 
+### Run MLPerf inference benchmark (offline, accuracy)
+
+You are now ready to run the MLPerf object detection benchmark on GPU with Python virtual environment as folllows:
+
+```bash
+cm run script "app mlperf inference generic _python _retinanet _onnxruntime _gpu" \
+     --adr.python.extra_cache_tags=venv-mlperf-cuda \
+     --scenario=Offline --mode=accuracy --test_query_count=10 --rerun
+```
+
+This CM script will automatically find or install all dependencies
+described in its [CM meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml#L61),
+aggregate all environment variables, preprocess all files and assemble the MLPerf benchmark CMD.
+
+It will take a few minutes to run it and you should see the following accuracy:
+
+```txt
+loading annotations into memory...
+Done (t=0.02s)
+creating index...
+index created!
+Loading and preparing results...
+DONE (t=0.02s)
+creating index...
+index created!
+Running per image evaluation...
+Evaluate annotation type *bbox*
+DONE (t=0.09s).
+Accumulating evaluation results...
+DONE (t=0.11s).
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.548
+ Average Precision  (AP) @[ IoU=0.50      | area=   all | maxDets=100 ] = 0.787
+ Average Precision  (AP) @[ IoU=0.75      | area=   all | maxDets=100 ] = 0.714
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = -1.000
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.304
+ Average Precision  (AP) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.631
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=  1 ] = 0.433
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets= 10 ] = 0.648
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=   all | maxDets=100 ] = 0.663
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= small | maxDets=100 ] = -1.000
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area=medium | maxDets=100 ] = 0.343
+ Average Recall     (AR) @[ IoU=0.50:0.95 | area= large | maxDets=100 ] = 0.731
+
+mAP=54.814%
+```
+
+### Run MLPerf inference benchmark (offline, performance)
+
+Let's run the MLPerf object detection on GPU while measuring performance:
+
+```bash
+
+cm run script "app mlperf inference generic _python _retinanet _onnxruntime _gpu" \
+     --adr.python.extra_cache_tags=venv-mlperf-cuda \
+     --scenario=Offline --mode=performance --rerun
+```
+
+It will run ~10 minutes and you should see the output similar to the following one in the end
+(the QPS is the performance result of this benchmark that depends on the speed of your system):
+
+```txt
+
+TestScenario.Offline qps=8.44, mean=4.7238, time=78.230, queries=660, tiles=50.0:4.8531,80.0:5.0225,90.0:5.1124,95.0:5.1658,99.0:5.2730,99.9:5.3445
+
+
+================================================
+MLPerf Results Summary
+================================================
+...
+
+No warnings encountered during test.
+
+No errors encountered during test.
+
+  - running time of script "app,vision,language,mlcommons,mlperf,inference,reference,generic,ref": 86.90 sec.
+
+```
+
+### Prepare MLPerf submission
+
+
+You can now run MLPerf in the submission mode (accuracy and performance) on GPU using the following CM command with Python virtual env
+(just substitute "OctoML" with your organization or any other identifier):
+
+```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
       --adr.python.extra_cache_tags=venv-mlperf \
       --adr.python.version_min=3.8 \
@@ -154,6 +245,9 @@ If you want to reinstall all dependencies, you can clean the CM cache again and 
 cm rm cache -f
 ```
 
+cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
+      --adr.python.extra_cache_tags=venv-mlperf-cuda \
+     --scenario=Offline --mode=performance --rerun
 
 
 *To be continued ...*

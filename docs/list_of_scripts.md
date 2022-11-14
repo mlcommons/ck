@@ -205,6 +205,7 @@ This file is generated automatically - don't edit!
 * [test-script2](#test-script2)
 * [test-script3](#test-script3)
 * [test-script4](#test-script4)
+* [test-script5](#test-script5)
 * [test-set-sys-user-cm](#test-set-sys-user-cm)
 
 
@@ -310,6 +311,7 @@ This file is generated automatically - don't edit!
 * [test-script2](#test-script2)
 * [test-script3](#test-script3)
 * [test-script4](#test-script4)
+* [test-script5](#test-script5)
 * [test-set-sys-user-cm](#test-set-sys-user-cm)
 * [wrapper-image-classification-onnx-py](#wrapper-image-classification-onnx-py)
 * [wrapper-mlperf-inference-vision-reference](#wrapper-mlperf-inference-vision-reference)
@@ -748,7 +750,7 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,generic,generic-python-lib"*
-* CM script variations: *_apache-tvm;&nbsp; _boto3;&nbsp; _decorator;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _wandb*
+* CM script variations: *_apache-tvm;&nbsp; _boto3;&nbsp; _decorator;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _onnxruntime_gpu;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _torchvision;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _wandb*
 
 
 ## get-github-cli
@@ -876,7 +878,7 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,src,source,inference,inference-src,inference-source,mlperf,mlcommons"*
-* CM script variations: *_default;&nbsp; _full-history;&nbsp; _nvidia-pycocotools;&nbsp; _octoml;&nbsp; _patch;&nbsp; _recurse-submodules;&nbsp; _short-history*
+* CM script variations: *_default;&nbsp; _full-history;&nbsp; _no-recurse-submodules;&nbsp; _nvidia-pycocotools;&nbsp; _octoml;&nbsp; _patch;&nbsp; _short-history*
 * CM script default variation: *default*
 * CM script versions: *custom;&nbsp; master;&nbsp; r2.1;&nbsp; tvm*
 * CM script default version: *master*
@@ -1100,7 +1102,7 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="install,generic,generic-python-lib"*
-* CM script variations: *_apache-tvm;&nbsp; _boto3;&nbsp; _decorator;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _wandb*
+* CM script variations: *_apache-tvm;&nbsp; _boto3;&nbsp; _decorator;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _onnxruntime_gpu;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pip;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _torchvision;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _wandb*
 
 
 ## install-github-cli
@@ -1407,6 +1409,16 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-script4/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="test,script4"*
+
+
+## test-script5
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-script5)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-script5/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="test,script5"*
 
 
 ## test-set-sys-user-cm
