@@ -15,11 +15,10 @@ def preprocess(i):
     if os_info['platform'] == 'windows':
         return {'return':0}
 
-
-    if "FAST_COMPILATION" in env:
+    if env.get("CM_FAST_COMPILATION") in [ "yes", "on", "1" ]:
         DEFAULT_COMPILER_FLAGS = env.get("FAST_COMPILER_FLAGS", "-O3")
         DEFAULT_LINKER_FLAGS = env.get("FAST_LINKER_FLAGS", "-O3 -flto")
-    elif "DEBUG_COMPILATION" in env:
+    elif env.get("CM_DEBUG_COMPILATION") in ["yes", "on", "1" ]:
         DEFAULT_COMPILER_FLAGS = env.get("DEBUG_COMPILER_FLAGS", "-O0")
         DEFAULT_LINKER_FLAGS = env.get("DEBUG_LINKER_FLAGS", "-O0")
     else:
