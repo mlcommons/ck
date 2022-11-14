@@ -1754,17 +1754,6 @@ class CAutomation(Automation):
             # Preserve local env
             tmp_env = {}
 
-            for key in clean_env_keys_deps:
-                if '?' in key or '*' in key:
-                    import fnmatch
-                    for kk in list(env.keys()):
-                        if fnmatch.fnmatch(kk, key):
-                            tmp_env[kk] = env[kk]
-                            del(env[kk])
-                elif key in env:
-                    tmp_env[key] = env[key]
-                    del(env[key])
-
 
             for d in deps:
                 if "enable_if_env" in d:
@@ -1777,6 +1766,18 @@ class CAutomation(Automation):
 
                 if from_cache and not d.get("dynamic", None):
                     continue
+
+                for key in clean_env_keys_deps:
+                    if '?' in key or '*' in key:
+                        import fnmatch
+                        for kk in list(env.keys()):
+                            if fnmatch.fnmatch(kk, key):
+                                tmp_env[kk] = env[kk]
+                                del(env[kk])
+                    elif key in env:
+                        tmp_env[key] = env[key]
+                        del(env[key])
+
                 import re
                 for key in list(env.keys()):
                     value = env[key]
