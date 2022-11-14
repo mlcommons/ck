@@ -193,7 +193,7 @@ cm run script "app mlperf inference generic _python _retinanet _onnxruntime _gpu
      --scenario=Offline --mode=performance --rerun
 ```
 
-It will run ~10 minutes and you should see the output similar to the following one in the end
+It will run for 2-5 minutes and you should see the output similar to the following one in the end
 (the QPS is the performance result of this benchmark that depends on the speed of your system):
 
 ```txt
@@ -275,6 +275,7 @@ We thank
 [Vijay Janappa Reddi](https://scholar.harvard.edu/vijay-janapa-reddi/home),
 [Tom Jablin](https://scholar.google.com/citations?user=L_1FmIMAAAAJ&hl=en),
 [Ramesh N Chukka](https://www.linkedin.com/in/ramesh-chukka-74b5b21),
-[Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189)
+[Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189),
+[Thomas Schmid](https://www.linkedin.com/in/tschmid)
 and [Gaurav Verma](https://www.linkedin.com/in/grverma)
 for their suggestions and contributions.

@@ -82,6 +82,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Jarrett Revels (MIT)
 * Jared Roesch (OctoML)
 * Dmitry Savenko (Xored)
+* Thomas Schmid (OctoML)
 * Gavin Simpson (Arm)
 * Aaron Smith (Microsoft)
 * Michel Steuwer (University of Edinburgh)
