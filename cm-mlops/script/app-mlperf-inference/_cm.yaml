@@ -435,6 +435,7 @@ variations:
     env:
       CM_MLPERF_DEVICE: gpu
       USE_GPU: yes
+      CM_MLPERF_IMPLEMENTATION: nvidia
     add_deps_recursive:
       cpp-mlperf-inference:
         tags: _gpu
