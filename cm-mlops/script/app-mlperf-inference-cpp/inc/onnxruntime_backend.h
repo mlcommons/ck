@@ -28,7 +28,8 @@ public:
         for (size_t i = 0; i < device->NumConcurrency(); i++) {
             Ort::SessionOptions session_options;
             // arm64 does not work with optimization level 3 (ORT_ENABLE_ALL)
-            session_options.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_EXTENDED);
+            if (getenv("HOST_PLATFORM_FLAVOR", "") == "aarch64")
+                session_options.SetGraphOptimizationLevel(GraphOptimizationLevel::ORT_ENABLE_EXTENDED);
 
             const auto &api = Ort::GetApi();
 

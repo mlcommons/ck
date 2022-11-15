@@ -26,7 +26,7 @@ def preprocess(i):
                                        'env': env,
                                        'os_info':os_info,
                                        'default_path_env_key': 'PATH',
-                                       'detect_version':False,
+                                       'detect_version':True,
                                        'env_path_key':'CM_NVCC_BIN_WITH_PATH',
                                        'run_script_input':i['run_script_input'],
                                        'recursion_spaces':recursion_spaces})
