@@ -29,7 +29,7 @@ def main():
     if dashboard_user == '': dashboard_user = 'cmind'
 
     dashboard_project = env.get('CM_MLPERF_DASHBOARD_WANDB_PROJECT', '')
-    if dashboard_project == '': dashboard_project = 'cm-mlperf-sc22-scc-retinanet-offline'
+    if dashboard_project == '': dashboard_project = 'cm-mlperf-dse-testing'
 
     for k in results:
 
