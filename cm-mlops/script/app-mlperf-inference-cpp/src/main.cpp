@@ -4,7 +4,7 @@
 
 #include "loadgen.h"
 #include "test_settings.h"
-
+#include "common.h"
 #include "backend.h"
 #include "device.h"
 #include "model.h"
@@ -20,11 +20,6 @@
 #endif
 
 class InputSettings {
-
-    std::string getenv(const std::string& name, const std::string& default_value) {
-        const char* value = std::getenv(name.c_str());
-        return value ? value : default_value;
-    }
 
 public:
     InputSettings() {

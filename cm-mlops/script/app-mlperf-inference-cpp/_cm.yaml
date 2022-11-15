@@ -21,6 +21,7 @@ tags:
 default_env:
   CM_BATCH_COUNT: '1'
   CM_BATCH_SIZE: '1'
+  CM_FAST_COMPILATION: "yes"
 
 # Map script inputs to environment variables
 input_mapping:
