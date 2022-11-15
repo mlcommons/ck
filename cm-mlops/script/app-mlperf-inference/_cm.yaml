@@ -153,7 +153,8 @@ deps:
       - tvm-onnx
       - tvm-pytorch
     skip_if_env:
-      CM_TVM_PIP_INSTALL: [ "on" ]
+      CM_TVM_PIP_INSTALL:
+      - "on"
 
 
   ########################################################################
@@ -317,6 +318,23 @@ variations:
         tags: _float32
     env:
       CM_MLPERF_PYTHON: 'yes'
+      CM_MLPERF_IMPLEMENTATION: reference
+
+  nvidia:
+    add_deps_recursive:
+      imagenet-accuracy-script:
+        tags: _float32
+    env:
+      CM_MLPERF_IMPLEMENTATION: nvidia
+    deps:
+      ## Nvidia common code
+      - tags: get,mlperf,inference,nvidia,common-code
+      - tags: get,mlperf,training,src
+      - tags: get,generic-python-lib,_nvidia-pyindex
+      - tags: get,generic-python-lib,_nvidia-tensorrt
+      - tags: get,generic-python-lib,_numpy
+      - tags: get,generic-python-lib,_pycuda
+      - tags: get,generic-python-lib,_mlperf_logging
   
   # ML engine
   onnxruntime:

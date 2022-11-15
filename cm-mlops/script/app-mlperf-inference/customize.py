@@ -197,7 +197,9 @@ def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options
     return ""
 
 def get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_options):
-    cmd = ""
+    import pathlib
+    code_dir=pathlib.Path(__file__).parent.resolve()
+    cmd = env['CM_PYTHON_BIN_WITH_PATH']+ " " +os.path.join(code_dir, "nvidia", "retinanet.py") + " --pytorch --num_samples=1200 --batch_size=8 --training_repo_path="+env['CM_MLPERF_TRAINING_SOURCE']+" --pyt_ckpt_path="+env['CM_ML_MODEL_FILE_WITH_PATH']
     return cmd
 
 def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options):

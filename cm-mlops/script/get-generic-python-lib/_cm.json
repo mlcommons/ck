@@ -219,6 +219,38 @@
         "CM_BOTO3_VERSION"
       ]
     },
+    "nvidia-pyindex": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "nvidia-pyindex"
+      },
+      "new_env_keys": [
+        "CM_NVIDIA_PYINDEX_VERSION"
+      ]
+    },
+    "nvidia-tensorrt": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "nvidia-tensorrt"
+      },
+      "new_env_keys": [
+        "CM_NVIDIA_TENSORRT_VERSION"
+      ]
+    },
+    "pycuda": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "pycuda"
+      },
+      "new_env_keys": [
+        "CM_PYCUDA_VERSION"
+      ]
+    },
+    "mlperf_logging": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "mlperf_logging"
+      },
+      "new_env_keys": [
+        "CM_MLPERF_LOGGING_VERSION"
+      ]
+    },
     "wandb": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "wandb"
