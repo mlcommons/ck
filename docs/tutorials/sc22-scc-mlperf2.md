@@ -227,11 +227,11 @@ You can now run MLPerf in the submission mode (accuracy and performance) on GPU 
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
-      --adr.python.extra_cache_tags=venv-mlperf \
+      --adr.python.name=mlperf-cuda \
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" \
+      --submitter="Test3" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
