@@ -194,7 +194,7 @@ class Repos:
                         if alias != '' and existing_alias !='' and alias == existing_alias:
                             exist = True
 
-                        if not exist and uid !='' and existing_uid !='' and uid == existin_uid:
+                        if not exist and uid !='' and existing_uid !='' and uid == existing_uid:
                             exist = True
 
                         if exist:
