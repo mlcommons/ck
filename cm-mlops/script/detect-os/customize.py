@@ -32,6 +32,7 @@ def postprocess(i):
             sys_cmd = "ld --verbose | grep SEARCH_DIR "
             result = subprocess.check_output(sys_cmd, shell=True).decode("utf-8")
             result = result.replace("SEARCH_DIR(\"=", "")
+            result = result.replace("SEARCH_DIR(\"", "")
             result = result.replace("\")", "")
             result = result.replace(" ", "")
             result = result.replace("\n", "")

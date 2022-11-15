@@ -48,6 +48,18 @@
         "9": {
         }
       }
+    },
+    "arch": {
+      "FROM": "archlinux",
+      "package-manager-update-cmd": "pacman -Syu",
+      "package-manager-get-cmd": "pacman -Sy --noconfirm",
+      "packages": [
+        "python", "python-pip", "git", "wget", "sudo", "binutils"
+      ],
+      "versions": {
+        "latest": {
+        }
+      }
     }
   }
 }

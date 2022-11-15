@@ -11,6 +11,7 @@
       "names": [
         "python-venv"
       ],
+      "reuse_version": true,
       "tags": "install,python-venv"
     }
   ],

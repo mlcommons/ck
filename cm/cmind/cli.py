@@ -110,9 +110,10 @@ def parse(cmd):
                 artifacts.append(a)
         else:
             # flags
-            if '=' in a:
-               key,value = a.split('=')
-               value=value.strip()
+            j = a.find('=') # find first =
+            if j>0:
+               key = a[:j].strip()
+               value = a[j+1:].strip()
             else:
                key=a
                value=True
