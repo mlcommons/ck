@@ -19,6 +19,9 @@
         "inference-src"
       ],
       "tags": "get,mlcommons,inference,src"
+    },
+    {
+      "tags": "get,generic-python-lib,_pandas"
     }
   ],
   "post_deps": [

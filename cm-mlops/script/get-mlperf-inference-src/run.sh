@@ -17,6 +17,13 @@ if [ ! -d "inference" ]; then
   fi
   if [ "${?}" != "0" ]; then exit 1; fi
 fi
+IFS=',' read -r -a submodules <<< "${CM_GIT_SUBMODULES}"
+for submodule in "${submodules[@]}"
+do
+    echo "Initializing submodule ${submodule}"
+    git submodule update --init "${submodule}"
+    if [ "${?}" != "0" ]; then exit 1; fi
+done
 
 if [ ${CM_GIT_PATCH} == "yes" ]; then
   patch_filename=${CM_GIT_PATCH_FILENAME:-git.patch}

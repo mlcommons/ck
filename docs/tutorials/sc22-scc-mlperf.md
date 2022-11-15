@@ -5,7 +5,7 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-  * [MLPerf inference - Python - RetinaNet - Open Images - ONNX - CPU - Offline](#mlperf-inference---python---retinanet---open-images---onnx---cpu---offline)
+  * [MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - CPU - Offline](#mlperf-inference---python---retinanet-fp32---open-images---onnx---cpu---offline)
     * [Minimal system requirements](#minimal-system-requirements)
     * [MLCommons CM automation meta-framework](#mlcommons-cm-automation-meta-framework)
     * [CM installation](#cm-installation)
@@ -34,7 +34,7 @@
 
 </details>
 
-## MLPerf inference - Python - RetinaNet - Open Images - ONNX - CPU - Offline
+## MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - CPU - Offline
 
 This tutorial explains how to prepare and run the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
 using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck) 
@@ -100,9 +100,20 @@ $ cm
 cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
 ```
 
+*Note: we have prepared this tutorial using CM v1.1.1. You can enforce this version as follows:*
+```bash
+python3 -m pip install cmind==1.1.1
+
+cm --version
+```
+
+```txt
+1.1.1
+```
+
 ### Pull CM repository with cross-platform MLOps and DevOps scripts
 
-Pull MLCommons CM repository with [cross-platform CM scripts for modular ML Systems](../list_of_scripts.md):
+Pull stable MLCommons CM repository with [cross-platform CM scripts for modular ML Systems](../list_of_scripts.md):
 
 ```bash
 cm pull repo mlcommons@ck
@@ -113,6 +124,13 @@ You can find the location of a pulled repository as follows:
 
 ```bash
 cm find repo mlcommons@ck
+```
+
+You can also pull the stable version of this CM repository that we have used for this tutorial 
+using checkout *[f9abc76](https://github.com/mlcommons/ck/releases/tag/cm-v1.1.1)*:
+
+```bash
+cm pull repo mlcommons@ck --checkout=2982b9a
 ```
 
 You can now use the unified CM CLI/API of [reusable and cross-platform CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md))
@@ -134,11 +152,12 @@ In the end, we will also show you how to run MLPerf benchmark in one command fro
 ### Optional: update CM and repository to the latest version
 
 Note that if you already have CM and mlcommons@ck reposity installed on your system,
-you can update them to the latest version at any time as follows:
+you can update them to the latest version at any time and clean the CM cache as follows:
 
 ```bash
 python3 -m pip install cmind -U
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@ck --checkout=master
+cm rm cache -f
 ```
 
 
@@ -526,7 +545,8 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --test_query_count=10
 ```
 
-You should normally see your results [here](https://wandb.ai/cmind/cm-mlperf-sc22-scc-retinanet-offline?workspace=user-gfursin).
+You should normally see your results at this [live W&B dashboard](https://wandb.ai/cmind/cm-mlperf-sc22-scc-retinanet-offline/table?workspace=user-gfursin) 
+or at the [newer version](https://wandb.ai/cmind/cm-mlperf-dse-testing/table?workspace=user-gfursin).
 
 ## Summary
 
@@ -635,7 +655,7 @@ cm run script "get sys-utils-cm" --quiet
 cm run script "install python-venv" --version=3.10.7 --name=mlperf
 
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
-      --adr.python.extra_cache_tags=venv-mlperf \
+      --adr.python.name=mlperf \
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
@@ -650,7 +670,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
 
 ```
 
-Note that you need to add a flag `--adr.python.extra_cache_tags=venv-{name of a virtual environment (mlperf)`.
+Note that you need to add a flag `--adr.python.name={name of a virtual environment (mlperf)`.
 
 
 
@@ -681,6 +701,8 @@ We thank
 [Vijay Janappa Reddi](https://scholar.harvard.edu/vijay-janapa-reddi/home),
 [Tom Jablin](https://scholar.google.com/citations?user=L_1FmIMAAAAJ&hl=en),
 [Ramesh N Chukka](https://www.linkedin.com/in/ramesh-chukka-74b5b21),
+[Peter Mattson](https://www.linkedin.com/in/peter-mattson-33b8863/),
+[David Kanter](https://www.linkedin.com/in/kanterd),
 [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189),
 [Thomas Schmid](https://www.linkedin.com/in/tschmid)
 and [Gaurav Verma](https://www.linkedin.com/in/grverma)

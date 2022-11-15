@@ -6,8 +6,9 @@
 <summary>Click here to see the table of contents.</summary>
 
   * [Update CM framework and automation repository](#update-cm-framework-and-automation-repository)
-  * [MLPerf inference - Python - RetinaNet - Open Images - ONNX - GPU - Offline](#mlperf-inference---python---retinanet---open-images---onnx---gpu---offline)
+  * [MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - GPU - Offline](#mlperf-inference---python---retinanet-fp32---open-images---onnx---gpu---offline)
     * [Prepare CUDA](#prepare-cuda)
+    * [Prepare Python with virtual environment](#prepare-python-with-virtual-environment)
     * [Run MLPerf inference benchmark (offline, accuracy)](#run-mlperf-inference-benchmark-offline-accuracy)
     * [Run MLPerf inference benchmark (offline, performance)](#run-mlperf-inference-benchmark-offline-performance)
     * [Prepare MLPerf submission](#prepare-mlperf-submission)
@@ -36,12 +37,18 @@ and the [repository with automation scripts ](https://github.com/mlcommons/ck/tr
 are being continuously updated by the community to improve the portability and interoperability of 
 all reusable components for MLOps and DevOps.
 
-We suggest you to update your installation from time to time:
+You can install the stable versions used for this tutorial as follows:
+```bash
+python3 -m pip install cmind==1.1.1
+cm pull repo mlcommons@ck --checkout=2982b9a
+```
+
+You can also try to use the latest version of the CM framework and automation repository as follows
+(though be careful since CM CLI and APIs may change):
 
 ```bash
 python3 -m pip install cmind -U
-
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@ck --checkout=master
 ```
 
 You can also clean your raw MLPerf logs in the default place to avoid incompatibilities with  previous MLPerf and CM versions as follows:
@@ -50,7 +57,7 @@ rm -rf $HOME/mlperf_submission
 rm -rf $HOME/mlperf_submission_logs
 ```
 
-## MLPerf inference - Python - RetinaNet - Open Images - ONNX - GPU - Offline
+## MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - GPU - Offline
 
 ### Prepare CUDA
 
@@ -129,11 +136,9 @@ cm run script "get cuda-devices"
 
 We suggest you to install Python virtual environment to avoid mixing up your local Python:
 ```bash
-cm pull repo mlcommons@ck
-
 cm run script "get sys-utils-cm" --quiet
 
-cm run script "install python-venv" --version=3.10.7 --name=mlperf-cuda --new
+cm run script "install python-venv" --version=3.10.7 --name=mlperf-cuda
 ```
 
 ### Run MLPerf inference benchmark (offline, accuracy)
@@ -142,7 +147,7 @@ You are now ready to run the MLPerf object detection benchmark on GPU with Pytho
 
 ```bash
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _gpu" \
-     --adr.python.extra_cache_tags=venv-mlperf-cuda \
+     --adr.python.name=mlperf-cuda \
      --scenario=Offline --mode=accuracy --test_query_count=10 --rerun
 ```
 
@@ -189,7 +194,7 @@ Let's run the MLPerf object detection on GPU while measuring performance:
 ```bash
 
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _gpu" \
-     --adr.python.extra_cache_tags=venv-mlperf-cuda \
+     --adr.python.name=mlperf-cuda \
      --scenario=Offline --mode=performance --rerun
 ```
 
@@ -222,11 +227,11 @@ You can now run MLPerf in the submission mode (accuracy and performance) on GPU 
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
-      --adr.python.extra_cache_tags=venv-mlperf \
+      --adr.python.name=mlperf-cuda \
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" \
+      --submitter="Test3" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
@@ -246,8 +251,13 @@ cm rm cache -f
 ```
 
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
-      --adr.python.extra_cache_tags=venv-mlperf-cuda \
+     --adr.python.name=mlperf-cuda \
      --scenario=Offline --mode=performance --rerun
+
+
+
+
+
 
 
 *To be continued ...*
@@ -275,6 +285,8 @@ We thank
 [Vijay Janappa Reddi](https://scholar.harvard.edu/vijay-janapa-reddi/home),
 [Tom Jablin](https://scholar.google.com/citations?user=L_1FmIMAAAAJ&hl=en),
 [Ramesh N Chukka](https://www.linkedin.com/in/ramesh-chukka-74b5b21),
+[Peter Mattson](https://www.linkedin.com/in/peter-mattson-33b8863/),
+[David Kanter](https://www.linkedin.com/in/kanterd),
 [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189),
 [Thomas Schmid](https://www.linkedin.com/in/tschmid)
 and [Gaurav Verma](https://www.linkedin.com/in/grverma)
