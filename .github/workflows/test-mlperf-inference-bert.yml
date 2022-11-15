@@ -34,4 +34,4 @@ jobs:
         cm run script --quiet --tags=get,sys-utils-cm
     - name: Test CM Script for MLPerf Inference Bert
       run: |
-        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default --model=bert-99.9 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=10  --quiet
+        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default --model=bert-99.9 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5  --quiet
