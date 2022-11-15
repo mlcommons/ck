@@ -118,6 +118,7 @@ def preprocess(i):
         query_count = env.get('CM_TEST_QUERY_COUNT', "5")
         user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
         user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
+        user_conf += env['CM_MODEL'] + "." + scenario + ".min_duration = 0" + "\n"
         scenario_extra_options +=  " --count " + query_count
 
     elif env['CM_MLPERF_RUN_STYLE'] == "fast":
@@ -126,6 +127,7 @@ def preprocess(i):
             query_count = str((660/fast_factor)/(float(target_qps)))
             user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
             user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
+            user_conf += env['CM_MODEL'] + "." + scenario + ".min_duration = 0" + "\n"
             scenario_extra_options +=  " --count " + query_count
     else:
         if scenario == "MultiStream":
