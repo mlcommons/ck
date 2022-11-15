@@ -49,6 +49,29 @@ def main():
         result['performance']=qps
         result['accuracy']=accuracy
 
+        # Check extra env variables
+        x = {
+          "lang": "CM_MLPERF_LANG",
+          "device": "CM_MLPERF_DEVICE",
+          "submitter": "CM_MLPERF_SUBMITTER",
+          "backend": "CM_MLPERF_BACKEND",
+          "model": "CM_MLPERF_MODEL",
+          "run_style": "CM_MLPERF_RUN_STYLE",
+          "rerun": "CM_RERUN",
+          "hw_name": "CM_HW_NAME",
+          "max_batchsize": "CM_LOADGEN_MAX_BATCHSIZE",
+          "num_threads": "CM_NUM_THREADS",
+          "scenario": "CM_LOADGEN_SCENARIO",
+          "test_query_count": "CM_TEST_QUERY_COUNT",
+          "run_checker": "CM_RUN_SUBMISSION_CHECKER",
+          "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY"
+        }
+
+        for k in x:
+            env_key = x[k]
+            if os.environ.get(env_key,'')!='':
+               result['cm_misc_input_'+k]=os.environ[env_key]
+
         wandb.init(entity = dashboard_user, 
                    project = dashboard_project, 
                    name = label)
