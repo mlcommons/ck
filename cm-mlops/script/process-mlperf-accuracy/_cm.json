@@ -143,6 +143,11 @@
     "squad": {
       "env": {
         "CM_DATASET": "squad"
+      },
+      "add_deps_recursive": {
+        "inference-src": {
+          "tags": "_deeplearningexamples"
+        }
       }
     }
   }
