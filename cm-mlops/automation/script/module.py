@@ -2239,6 +2239,7 @@ class CAutomation(Automation):
         #[] if default_path_env_key == '' else \
         #   os.environ.get(default_path_env_key,'').split(os_info['env_separator'])
 
+
         if path == '':
             path_list_tmp = default_path_list
         else:
@@ -2248,7 +2249,11 @@ class CAutomation(Automation):
         # Check soft links
         path_list_tmp2 = []
         for path_tmp in path_list_tmp:
-            path_tmp_abs = os.path.realpath(os.path.join(path_tmp, file_name))
+#            path_tmp_abs = os.path.realpath(os.path.join(path_tmp, file_name))
+#            GF: I remarked above code because it doesn't work correcly
+#                for virtual python - it unsoftlinks virtual python and picks up
+#                native one from /usr/bin thus making workflows work incorrectly ...
+            path_tmp_abs = os.path.join(path_tmp, file_name)
 
             if not path_tmp_abs in path_list_tmp2:
                 path_list_tmp2.append(path_tmp_abs)
