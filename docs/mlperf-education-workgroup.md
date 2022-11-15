@@ -4,15 +4,15 @@
 
 ## News
 
-* The 1st part of the tutorial to run MLPerf inference benchmark at SCC'22 using MLCommons CM is available [here](tutorials/sc22-scc-mlperf.md) - 
-  please help us test it and feel free to provide your feedback using this [GitHub ticket](https://github.com/mlcommons/ck/issues/484).
-* [Notes from our weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing).
-  * Use [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to join the taskforce and stay informed about our activities.
+* See the [1st part of the tutorial to run MLPerf inference benchmark using MLCommons CM at SCC'22](tutorials/sc22-scc-mlperf.md) - 
+  please help us test it and report issues [here](https://github.com/mlcommons/ck/issues).
+* Join the taskforce using [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to stay informed about our activities.
+* See the [Notes from our weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing).
 * [Presentation about our mission](https://doi.org/10.5281/zenodo.7143424).
 * [Portable image classification workflow example]( tutorials/modular-image-classification.md ).
 * Upcoming events:
   * [Student Cluster Competition at SC22](https://sc22.supercomputing.org/program/studentssc/student-cluster-competition/): November 14-16, 2022
-  * MLPerf inference v3.0 submission: end of Feb 17, 2023 (TBC)
+  * MLPerf inference v3.0 submission: end of March 3, 2023 (publication date: April 5, 2023)
 
 
 ## Mission
@@ -39,11 +39,11 @@ or using [GitHub tickets](https://github.com/mlcommons/ck).
 ## Meeting notes
 
 * Meeting notes: [Google doc](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
-* Older meeting notes: [GitHub](https://github.com/mlcommons/ck/tree/master/cm/meeting).
 
 ## Mailing list
 
-Please use this [Google form](https://forms.gle/i5gCDtBC8gMtcvRw6) to join our mailing list.
+Please join our mailing list [here](https://groups.google.com/g/collective-knowledge).
+
 
 ## Purpose
 
@@ -143,7 +143,7 @@ We use public meeting notes and GitHub tickets to track the progress of the comm
 * Add tests to cover critical functionality of portable CM scripts for MLPerf:
   * **DONE - [link](https://github.com/mlcommons/ck/issues/275)**
 * Improve CM workflow/script automaton to modularize ML Systems:
-  * [Ongoing](https://github.com/mlcommons/ck/issues/321)
+  * **DONE - [link](tutorials/sc22-scc-mlperf.md)**
 * Prototype CM-based modularization of the MLPerf inference benchmark with C++ back-end and loadgen 
   to automatically plug in different ML models, data sets, frameworks, SDKs, compilers and tools 
   and automatically run it across different hardware and run-times:

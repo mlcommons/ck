@@ -40,7 +40,7 @@ all reusable components for MLOps and DevOps.
 You can install the stable versions used for this tutorial as follows:
 ```bash
 python3 -m pip install cmind==1.1.1
-cm pull repo mlcommons@ck --checkout=f9abc76
+cm pull repo mlcommons@ck --checkout=2982b9a
 ```
 
 You can also try to use the latest version of the CM framework and automation repository as follows
