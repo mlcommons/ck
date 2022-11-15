@@ -544,7 +544,8 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --test_query_count=10
 ```
 
-You should normally see your results [here](https://wandb.ai/cmind/cm-mlperf-sc22-scc-retinanet-offline?workspace=user-gfursin).
+You should normally see your results at this [live W&B dashboard](https://wandb.ai/cmind/cm-mlperf-sc22-scc-retinanet-offline?workspace=user-gfursin) 
+or at the [newer version](https://wandb.ai/cmind/cm-mlperf-dse-testing?workspace=user-gfursin).
 
 ## Summary
 

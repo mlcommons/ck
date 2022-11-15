@@ -97,6 +97,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Eiko Yoneki &lt;eiko.yoneki@cl.cam.ac.uk&gt;
 * Thomas Zhu (Oxford University) &lt;thomas.zhu.sh@gmail.com&gt;
 * @filven
+* @ValouBambou
 
 See more acknowledgments at the end of this [journal article](https://arxiv.org/abs/2011.01149).
 
