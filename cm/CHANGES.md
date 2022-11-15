@@ -1,3 +1,8 @@
+## V1.0.5.1
+   - added --checkout and --branch to "cm pull repo' for more determinism and reproducibility
+   - detect if repository and its forks already exist during "cm pull repo" (#397)
+   - support = inside argument of a key (--key="x=y") (#453)
+
 ## V1.0.5
    - redesigned documentation
    - added support utils to generate lists of all automations and scripts
