@@ -130,7 +130,7 @@ You can also pull the stable version of this CM repository that we have used for
 using checkout *[f9abc76](https://github.com/mlcommons/ck/releases/tag/cm-v1.1.1)*:
 
 ```bash
-cm pull repo mlcommons@ck --checkout=f9abc76
+cm pull repo mlcommons@ck --checkout=2982b9a
 ```
 
 You can now use the unified CM CLI/API of [reusable and cross-platform CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md))
