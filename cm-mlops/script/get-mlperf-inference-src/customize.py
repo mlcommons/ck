@@ -17,7 +17,20 @@ def preprocess(i):
 
     if 'CM_GIT_RECURSE_SUBMODULES' not in env:
         env['CM_GIT_RECURSE_SUBMODULES'] = ''
+    submodules = []
+    possible_submodules = {
+            "gn": "third_party/gn",
+            "pybind": "third_party/pybind",
+            "deeplearningexamples":"language/bert/DeepLearningExamples",
+            "3d-unet":"vision/medical_imaging/3d-unet-brats19/nnUnet",
+            "power-dev": "tools/submission/power-dev"
+            }
+    for submodule in possible_submodules:
+        env_name = submodule.upper().replace("-","_")
+        if env.get("CM_SUBMODULE_"+env_name) == "yes":
+            submodules.append(possible_submodules[submodule])
 
+    env['CM_GIT_SUBMODULES'] = ",".join(submodules)
     need_version = env.get('CM_VERSION','')
     versions = meta['versions']
 
