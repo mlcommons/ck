@@ -22,7 +22,7 @@
     "CM_GIT_DEPTH": "--depth 4",
     "CM_GIT_PATCH": "no",
     "CM_GIT_URL": "https://github.com/mlcommons/inference.git",
-    "CM_GIT_RECURSE_SUBMODULES": " --recurse-submodules",
+    "CM_GIT_RECURSE_SUBMODULES": "",
     "CM_GIT_CHECKOUT": "master"
   },
   "new_env_keys": [
@@ -81,9 +81,39 @@
         "CM_GIT_RECURSE_SUBMODULES": ""
       }
     },
+    "recurse-submodules": {
+      "env": {
+        "CM_GIT_RECURSE_SUBMODULES": " --recurse-submodules"
+      }
+    },
     "short-history": {
       "env": {
         "CM_GIT_DEPTH": "--depth 10"
+      }
+    },
+    "pybind": {
+      "env": {
+        "CM_SUBMODULE_PYBIND": "yes"
+      }
+    },
+    "deeplearningexamples": {
+      "env": {
+        "CM_SUBMODULE_DEEPLEARNINGEXAMPLES": "yes"
+      }
+    },
+    "power-dev": {
+      "env": {
+        "CM_SUBMODULE_POWER_DEV": "yes"
+      }
+    },
+    "3d-unet": {
+      "env": {
+        "CM_SUBMODULE_3D_UNET": "yes"
+      }
+    },
+    "gn": {
+      "env": {
+        "CM_SUBMODULE_GN": "yes"
       }
     }
   },
