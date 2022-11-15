@@ -152,11 +152,12 @@ In the end, we will also show you how to run MLPerf benchmark in one command fro
 ### Optional: update CM and repository to the latest version
 
 Note that if you already have CM and mlcommons@ck reposity installed on your system,
-you can update them to the latest version at any time as follows:
+you can update them to the latest version at any time and clean the CM cache as follows:
 
 ```bash
 python3 -m pip install cmind -U
 cm pull repo mlcommons@ck --checkout=master
+cm rm cache -f
 ```
 
 
@@ -544,8 +545,8 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --test_query_count=10
 ```
 
-You should normally see your results at this [live W&B dashboard](https://wandb.ai/cmind/cm-mlperf-sc22-scc-retinanet-offline?workspace=user-gfursin) 
-or at the [newer version](https://wandb.ai/cmind/cm-mlperf-dse-testing?workspace=user-gfursin).
+You should normally see your results at this [live W&B dashboard](https://wandb.ai/cmind/cm-mlperf-sc22-scc-retinanet-offline/table?workspace=user-gfursin) 
+or at the [newer version](https://wandb.ai/cmind/cm-mlperf-dse-testing/table?workspace=user-gfursin).
 
 ## Summary
 
