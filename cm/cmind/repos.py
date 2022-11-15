@@ -166,8 +166,44 @@ class Repos:
 
         if mode == 'add':
             if repo_path not in paths:
+                if len(paths)>0:
+                    # Load meta of the current repo
+                    path_to_repo_desc = os.path.join(repo_path, self.cfg['file_meta_repo'])
+                    r=utils.load_yaml_and_json(file_name_without_ext=path_to_repo_desc)
+                    if r['return']>0: return r
+
+                    meta = r['meta']
+
+                    alias = meta.get('alias', '')
+                    uid = meta.get('uid', '')
+
+                    # Check that no repos exist with the same alias and/or uid 
+                    # (to avoid adding forks and original repos)
+
+                    for path in paths:
+                        path_to_existing_repo_desc = os.path.join(path, self.cfg['file_meta_repo'])
+                        r=utils.load_yaml_and_json(file_name_without_ext=path_to_existing_repo_desc)
+                        if r['return']>0: return r
+
+                        existing_meta = r['meta']
+
+                        existing_alias = existing_meta.get('alias', '')
+                        existing_uid = existing_meta.get('uid', '')
+
+                        exist = False
+                        if alias != '' and existing_alias !='' and alias == existing_alias:
+                            exist = True
+
+                        if not exist and uid !='' and existing_uid !='' and uid == existin_uid:
+                            exist = True
+
+                        if exist:
+                            return {'return':1, 'error':'CM repository with the same alias "{}" and/or uid "{}" already exists in {}'.format(alias, uid, path)}
+
+
                 paths.append(repo_path)
                 modified = True
+
         elif mode == 'delete':
             new_paths = []
             for p in paths:
@@ -237,10 +273,32 @@ class Repos:
             print (cmd)
             print ('')
 
-        os.system(cmd)
+        r = os.system(cmd)
 
-        if console:
-            print ('')
+        if clone and not os.path.isdir(path_to_repo):
+            return {'return':1, 'error':'repository was not cloned'}
+
+        os.chdir(path_to_repo)
+
+        # Check if branch 
+        if branch != '' or checkout != '':
+            cmd = 'git checkout'
+
+            if branch != '':
+                cmd += ' -b ' + branch
+
+            if checkout!='':
+                cmd += ' ' + checkout
+
+            if console:
+                print ('')
+                print (cmd)
+                print ('')
+
+            r = os.system(cmd)
+
+            if r>0:
+                return {'return':1, 'error':'git checkout for repository failed'}
 
         # Check if repo description exists 
         path_to_repo_desc = os.path.join(path_to_repo, self.cfg['file_meta_repo'])
@@ -297,7 +355,7 @@ class Repos:
             r=utils.save_yaml(path_to_repo_desc + '.yaml', meta=meta)
             if r['return']>0: return r
 
-        # Check paht to repo with prefix
+        # Check path to repo with prefix
         path_to_repo_with_prefix = path_to_repo
 
         if prefix!='':
@@ -306,6 +364,9 @@ class Repos:
             if not os.path.isdir(path_to_repo_with_prefix):
                 os.makedirs(path_to_repo_with_prefix)
 
+        # Get final alias
+        alias = meta.get('alias', '')
+
         # Update repo list
         # TBD: make it more safe (reload and save)
         r = self.process(path_to_repo, 'add')
@@ -313,6 +374,10 @@ class Repos:
 
         # Go back to original directory
         os.chdir(cur_dir)
+
+        if console:
+            print ('')
+            print ('CM alias for this repository: {}'.format(alias))
 
         return {'return':0, 'meta':meta}
 
