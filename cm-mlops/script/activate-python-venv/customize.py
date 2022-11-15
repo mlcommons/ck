@@ -15,12 +15,12 @@ def preprocess(i):
 
     name = env.get('CM_NAME','')
     if name != '':
-        name_tag = name.lower()
+        name = name.strip().lower()
 
-        r = automation.update_deps({'deps':meta['post_deps'],
+        r = automation.update_deps({'deps':meta['prehook_deps'],
                                     'update_deps':{
                                       'python-venv':{
-                                        'extra_cache_tags':name
+                                        'name':name
                                         }
                                       }
                                    })

@@ -1,10 +1,10 @@
-# Get MLCommons Inference Source
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) git clones the [MLCommons Inference repository](https://github.com/mlcommons/inference).
+# Get MLCommons Training Source
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) git clones the [MLCommons Training repository](https://github.com/mlcommons/training).
 
 ## Commands
 To install
 ```
-cm run script --tags=get,mlperf,inference,src,[VARIATION] --version=[VERSION] 
+cm run script --tags=get,mlperf,training,src,[VARIATION] --version=[VERSION] 
 ```
 where [VARIATION] is one of
 * `default:` Works with the official MLCommons inference repository. Uses `short-history` variation
@@ -16,13 +16,11 @@ where [VARIATION] is one of
 
 [VERSION] is one of
 * `master:` Uses the master branch 
-* `r2.1:`  Uses the release branch used for MLCommons inference 2.1 round
+* `r2.1:`  Uses the release branch used for MLCommons training 2.1 round
 
 ## Exported Variables
-* `CM_MLPERF_INFERENCE_SOURCE`: Directory path of the cloned inference repository
-* `CM_MLPERF_INFERENCE_VISION_PATH`: Directory path to the vision folder inside the inference repository
+* `CM_MLPERF_TRAINING_SOURCE`: Directory path of the cloned inference repository
 * `PYTHONPATH`: Is appended with the paths to vision module and the submission tools module
-* `CM_MLPERF_INFERENCE_MODELS`: This `state` variable contains the configuration of the MLPerf models as per the selected version
 
 ## Supported and Tested OS
 1. Ubuntu 18.04, 20.04, 22.04

@@ -7,8 +7,8 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
-    if env["CM_DOCKER_OS"] not in [ "ubuntu", "rhel" ]:
-        return {'return': 1, 'error': "Currently only ubuntu and rhel are supported in CM docker"}
+    if env["CM_DOCKER_OS"] not in [ "ubuntu", "rhel", "arch" ]:
+        return {'return': 1, 'error': "Currently only ubuntu, rhel and arch are supported in CM docker"}
     path = i['run_script_input']['path']
     with open(os.path.join(path, "dockerinfo.json")) as f:
         config = json.load(f)

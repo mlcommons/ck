@@ -36,7 +36,7 @@ def preprocess(i):
         if x != '': name = x
 
     if name != '':
-        name_tag = 'venv-'+name.lower()
+        name_tag = 'name-'+name.strip().lower()
 
         add_extra_cache_tags.append(name_tag)
         add_python_extra_cache_tags.append(name_tag)
