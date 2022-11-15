@@ -5,7 +5,7 @@ name: CM script automation test for MLPerf inference resnet50
 
 on:
   pull_request:
-    branches: [ "dev" ]
+    branches: [ "master", "dev" ]
     paths:
       - cm-mlops/**
       - .github/workflows/test-mlperf-inference-resnet50.yml
@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [ "3.8" ]
-        backend: [ "onnxruntime", "tf" ]
+        backend: [ "onnxruntime", "tf", "tvm-onnx", "tvm-pytorch" ]
 
     steps:
     - uses: actions/checkout@v3
