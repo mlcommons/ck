@@ -23,6 +23,7 @@ ${CM_SUDO} ${CM_PACKAGE_TOOL} -Syu && \
            zlib \
            patch python python-pip \
            rsync \
+           sudo \
            tar \
            unzip \
            vim \
