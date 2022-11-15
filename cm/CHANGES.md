@@ -1,4 +1,4 @@
-## V1.0.5.1
+## V1.1.1
    - added --checkout and --branch to "cm pull repo' for more determinism and reproducibility
    - detect if repository and its forks already exist during "cm pull repo" (#397)
    - support = inside argument of a key (--key="x=y") (#453)
