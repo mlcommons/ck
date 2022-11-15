@@ -2,7 +2,6 @@ from cmind import utils
 import cmind as cm
 import os
 import subprocess
-from os.path import exists
 
 def preprocess(i):
 
@@ -46,17 +45,4 @@ def preprocess(i):
     return {'return':0}
 
 def postprocess(i):
-    import pandas
-
-    env = i['env']
-
-    if exists('summary.csv'):
-        df = pandas.read_csv('summary.csv').T
-
-        print ('')
-        print (df)
-        print ('')
-
-        df.to_json('summary.json', orient='columns', indent=4)
-
     return {'return':0}
