@@ -90,9 +90,12 @@ class CAutomation(Automation):
 
           (input) (str): converted to env.CM_INPUT  (local env)
           (output) (str): converted to env.CM_OUTPUT (local env)
-          (name) (str): converted to env.CM_NAME (local env)
 
           (extra_cache_tags) (str): converted to env.CM_EXTRA_CACHE_TAGS and used to add to caching (local env)
+
+          (name) (str): taken from env.CM_NAME and/or converted to env.CM_NAME (local env)
+                        Added to extra_cache_tags with "name-" prefix .
+                        Useful for python virtual env (to create multiple entries)
 
           (quiet) (bool): if True, set env.CM_QUIET to "yes" and attempt to skip questions
                           (the developers have to support it in pre/post processing and scripts)
@@ -284,6 +287,9 @@ class CAutomation(Automation):
             for x in i['extra_cache_tags'].strip().split(','):
                 if x!='' and x not in extra_cache_tags:
                     extra_cache_tags.append(x)
+
+        if env.get('CM_NAME','')!='':
+            extra_cache_tags.append('name-'+env['CM_NAME'].strip().lower())
 
 
         ############################################################################################################
@@ -1338,6 +1344,12 @@ class CAutomation(Automation):
 
 
         # Restore original env/state and merge env/state
+        # This is needed since we want to keep original env/state outside this script 
+        # If we delete env and create a new dict, the original one outside this script will be detached
+        # That's why we just clean all keys in original env/state (used oustide)
+        # And then copy saved_env (with new_env merged) and saved_state (with new_state merged)
+        # while getting rid of all temporal updates in env and state inside this script
+
         for k in list(env.keys()):
             del(env[k])
         for k in list(state.keys()):
