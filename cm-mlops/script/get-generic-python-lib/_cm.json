@@ -159,6 +159,14 @@
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "apache-tvm"
       },
+<<<<<<< Updated upstream
+=======
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_typing_extensions"
+        }
+      ],
+>>>>>>> Stashed changes
       "new_env_keys": [
         "CM_APACHE_TVM_VERSION"
       ]
