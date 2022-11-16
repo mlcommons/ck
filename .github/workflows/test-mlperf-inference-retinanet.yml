@@ -19,8 +19,11 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [ "3.9" ]
-        backend: [ "onnxruntime" ]
+        backend: [ "onnxruntime", "pytorch" ]
         implementation: [ "python", "cpp" ]
+        exclude:
+          - backend: pytorch
+            implementation: cpp
 
     steps:
     - uses: actions/checkout@v3
