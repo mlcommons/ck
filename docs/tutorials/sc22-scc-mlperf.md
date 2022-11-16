@@ -19,15 +19,15 @@
     * [Preprocess Open Images dataset](#preprocess-open-images-dataset)
     * [Install ONNX runtime for CPU](#install-onnx-runtime-for-cpu)
     * [Download RetinaNet model (FP32, ONNX format)](#download-retinanet-model-fp32-onnx-format)
-    * [Run MLPerf inference benchmark (offline, accuracy)](#run-mlperf-inference-benchmark-offline-accuracy)
+    * [Run reference MLPerf inference benchmark (offline, accuracy)](#run-reference-mlperf-inference-benchmark-offline-accuracy)
     * [Run MLPerf inference benchmark (offline, performance)](#run-mlperf-inference-benchmark-offline-performance)
     * [Customize MLPerf inference benchmark](#customize-mlperf-inference-benchmark)
     * [Prepare MLPerf submission](#prepare-mlperf-submission)
     * [Push results to a live dashboard](#push-results-to-a-live-dashboard)
-  * [Summary](#summary)
-    * [With explicit dependencies first](#with-explicit-dependencies-first)
-    * [With one CM command that will install all dependencies automatically](#with-one-cm-command-that-will-install-all-dependencies-automatically)
-  * [Use Python virtual environment with CM and MLPerf](#use-python-virtual-environment-with-cm-and-mlperf)
+    * [Summary](#summary)
+      * [With explicit dependencies first](#with-explicit-dependencies-first)
+      * [With one CM command that will install all dependencies automatically](#with-one-cm-command-that-will-install-all-dependencies-automatically)
+    * [Use Python virtual environment with CM and MLPerf](#use-python-virtual-environment-with-cm-and-mlperf)
   * [The next steps](#the-next-steps)
   * [Authors](#authors)
   * [Acknowledgments](#acknowledgments)
@@ -45,7 +45,7 @@ There are 4 main goals:
 - Learning how to prepare and run the MLPerf inference benchmark using CM.
 - Obtaining and submitting benchmarking results (accuracy and performance) for MLPerf object detection with RetinaNet in offline mode on your platform
   (see [related slides](https://docs.google.com/presentation/d/1LFc0O6TF2tAdqFdrzV_X5dQEZEEdy8Eq6iQhXKLuFD4/edit#slide=id.g150357114ea_0_1154)).
-- Learning how to optimize this benchmark, submit your results to the MLPerf inference v3.0 (Feb 2023)
+- Learning how to optimize this benchmark, submit your results to the MLPerf inference v3.0 (March 2023)
   and get them to the scoreboard similar to [v2.1](https://mlcommons.org/en/inference-edge-21).
 
 It should take less than an hour to complete this tutorial. In the end, you should obtain a tarball (open.tar.gz) with the MLPerf-compatible results.
@@ -130,7 +130,7 @@ You can also pull the stable version of this CM repository that we have used for
 using checkout *[f9abc76](https://github.com/mlcommons/ck/releases/tag/cm-v1.1.1)*:
 
 ```bash
-cm pull repo mlcommons@ck --checkout=2982b9a
+cm pull repo mlcommons@ck --checkout=5323508
 ```
 
 You can now use the unified CM CLI/API of [reusable and cross-platform CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md))
@@ -314,9 +314,10 @@ Output:
 resnext50_32x4d_fpn.onnx
 ```
 
-### Run MLPerf inference benchmark (offline, accuracy)
+### Run reference MLPerf inference benchmark (offline, accuracy)
 
-You are now ready to run the MLPerf object detection benchmark.
+You are now ready to run the [reference (unoptimized) Python implemnentaton](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection/python) 
+of the MLPerf vision benchmark with [ONNX backend](https://github.com/mlcommons/inference/blob/master/vision/classification_and_detection/python/backend_onnxruntime.py).
 
 Normally, you would need to go through this [README.md](https://github.com/mlcommons/inference/tree/master/vision/classification_and_detection)
 and prepare all the dependencies and environment variables manually.
@@ -326,7 +327,10 @@ allows you to run this benchmark as follows:
 
 ```bash
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
-     --scenario=Offline --mode=accuracy --test_query_count=10 --rerun
+     --scenario=Offline \
+     --mode=accuracy \
+     --test_query_count=10 \
+     --rerun
 ```
 
 This CM script will automatically find or install all dependencies
@@ -378,9 +382,16 @@ You can check it by cleaning the CM cache and executing this command again
 cm rm cache -f
 
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
-     --adr.python.version_min=3.8 --adr.compiler.tags=gcc --adr.openimages-preprocessed.tags=_500 \
-     --scenario=Offline --mode=accuracy --test_query_count=10 --quiet --rerun
+     --adr.python.version_min=3.8 \
+     --adr.compiler.tags=gcc \
+     --adr.openimages-preprocessed.tags=_500 \
+     --scenario=Offline \
+     --mode=accuracy \
+     --test_query_count=10 \
+     --quiet \
+     --rerun
 ```
+
 
 ### Run MLPerf inference benchmark (offline, performance)
 
@@ -388,7 +399,9 @@ Let's run the MLPerf object detection while measuring performance:
 
 ```bash
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
-     --scenario=Offline --mode=performance --rerun
+     --scenario=Offline \
+     --mode=performance \
+     --rerun
 ```
 
 It will run for ~10 minutes and you should see the output similar to the following one in the end
@@ -419,6 +432,16 @@ developed by [OctoML](https://octoml.ai) and the [MLCommons taskforce on educati
 as well as optimized implementation of MLPerf object detection with quantized models 
 from [Nvidia](https://github.com/mlcommons/inference_results_v2.1/tree/master/closed/NVIDIA/code/retinanet/tensorrt).
 
+You can also find the reference Python implementation of this benchmark in the CM cache
+as follows:
+
+```bash
+cd `cm show cache --tags=get,mlperf,src,_default`/inference/vision/classification_and_detection/python
+```
+
+You can then modify it and rerun the above command to see the effects of your changes
+on the accuracy and performance of the MLPerf benchmark. 
+
 
 ### Customize MLPerf inference benchmark
 
@@ -435,7 +458,10 @@ For example, you can specify a number of threads used by this benchmark as follo
 
 ```bash
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
-     --scenario=Offline --mode=performance --rerun --num_threads=4
+     --scenario=Offline \
+     --mode=performance \
+     --rerun \
+     --num_threads=4
 
 ```
 
@@ -461,7 +487,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
       --device=cpu \
       --scenario=Offline \
       --test_query_count=10 \
-      --rerun
+      --clean
 ```      
 
 It will take around 15-30 minutes to run and you should see the following output in the end:
@@ -509,6 +535,9 @@ Units                                                              Samples/s
 
 ```
 
+Note that `--clean` flag cleans all previous runs of MLPerf benchmark to make sure that 
+the MLPerf submission script picks up the latest results.
+
 You will also see the following 3 files in your current directory:
 ```
 ls -l
@@ -548,12 +577,12 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
 You should normally see your results at this [live W&B dashboard](https://wandb.ai/cmind/cm-mlperf-sc22-scc-retinanet-offline/table?workspace=user-gfursin) 
 or at the [newer version](https://wandb.ai/cmind/cm-mlperf-dse-testing/table?workspace=user-gfursin).
 
-## Summary
+### Summary
 
 Here is a compact list of CM commands to prepare and run the MLPerf object detection benchmark 
 with RetinaNet, Open Images, ONNX runtime (CPU) on Ubuntu 22.04:
 
-### With explicit dependencies first
+#### With explicit dependencies first
 
 ```bash
 
@@ -595,7 +624,8 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
       --backend=onnxruntime \
       --device=cpu \
       --scenario=Offline \
-      --test_query_count=10
+      --test_query_count=10 \
+      --clean
 
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
       --submitter="OctoML" \
@@ -605,11 +635,12 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --backend=onnxruntime \
       --device=cpu \
       --scenario=Offline \
-      --test_query_count=10
+      --test_query_count=10 \
+      --clean
 
 ```
 
-### With one CM command that will install all dependencies automatically
+#### With one CM command that will install all dependencies automatically
 
 ```bash
 
@@ -633,12 +664,12 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --device=cpu \
       --scenario=Offline \
       --test_query_count=10 \
-      --rerun
+      --clean
 
 ```
 
 
-## Use Python virtual environment with CM and MLPerf
+### Use Python virtual environment with CM and MLPerf
 
 If you prefer to avoid installing all above python packages to your native Python,
 you can install multiple virtual environments using the same CM interface.
@@ -652,7 +683,7 @@ cm pull repo mlcommons@ck
 
 cm run script "get sys-utils-cm" --quiet
 
-cm run script "install python-venv" --version=3.10.7 --name=mlperf
+cm run script "install python-venv" --version=3.10.8 --name=mlperf
 
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
       --adr.python.name=mlperf \
@@ -666,7 +697,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --device=cpu \
       --scenario=Offline \
       --test_query_count=10 \
-      --rerun
+      --clean
 
 ```
 
@@ -684,7 +715,7 @@ with other ML engines (PyTorch, TF, TVM), quantized/pruned models and GPUs.
 
 You are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
 to contribute to this project and continue optimizing this benchmark and prepare an official submission 
-for MLPerf inference v3.0 (Feb 2023) with the help of the community.
+for MLPerf inference v3.0 (March 2023) with the help of the community.
 
 
 ## Authors
@@ -703,6 +734,7 @@ We thank
 [Ramesh N Chukka](https://www.linkedin.com/in/ramesh-chukka-74b5b21),
 [Peter Mattson](https://www.linkedin.com/in/peter-mattson-33b8863/),
 [David Kanter](https://www.linkedin.com/in/kanterd),
+[Pablo Gonzalez Mesa](https://www.linkedin.com/in/pablo-gonzalez-mesa-952ab2207),
 [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189),
 [Thomas Schmid](https://www.linkedin.com/in/tschmid)
 and [Gaurav Verma](https://www.linkedin.com/in/grverma)
