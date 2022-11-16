@@ -171,6 +171,11 @@
         "CM_PIP_URL": "git+https://github.com/mlperf/logging.git@2.1.0"
       }
     },
+    "typing_extensions": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "typing_extensions"
+      }
+    },
     "pycuda": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "pycuda"

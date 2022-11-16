@@ -159,14 +159,11 @@
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "apache-tvm"
       },
-<<<<<<< Updated upstream
-=======
       "deps": [
         {
           "tags": "get,generic-python-lib,_typing_extensions"
         }
       ],
->>>>>>> Stashed changes
       "new_env_keys": [
         "CM_APACHE_TVM_VERSION"
       ]
@@ -249,6 +246,14 @@
       },
       "new_env_keys": [
         "CM_PYCUDA_VERSION"
+      ]
+    },
+    "typing_extensions": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "typing_extensions"
+      },
+      "new_env_keys": [
+        "CM_TYPING_EXTENSIONS_VERSION"
       ]
     },
     "mlperf_logging": {
