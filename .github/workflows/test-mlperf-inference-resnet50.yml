@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [ "3.8" ]
-        backend: [ "onnxruntime", "tf", "tvm-onnx", "tvm-pytorch" ]
+        backend: [ "onnxruntime", "tf" ]
 
     steps:
     - uses: actions/checkout@v3
