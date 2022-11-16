@@ -23,8 +23,6 @@ def preprocess(i):
             env['CM_MLPERF_CLEAN_SUBMISSION_DIR'] = "yes"
         if 'CM_RERUN' not in env:
             env['CM_RERUN'] = "yes"
-        if 'OUTPUT_BASE_DIR' in env:
-            shutil.rmtree(env['OUTPUT_BASE_DIR'], ignore_errors=True)
 
     if env.get('CM_SYSTEM_POWER','') == "yes":
         power = "yes"
@@ -80,13 +78,13 @@ def preprocess(i):
     if not add_deps:
         add_deps = i.get('add_deps')
 
-    env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+    if clean and 'OUTPUT_BASE_DIR' in env:
+        path_to_clean = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
-    if clean:
         print ('=========================================================')
-        print ('Cleaning results in {}'.format(env['CM_MLPERF_RESULTS_DIR']))
+        print ('Cleaning results in {}'.format(path_to_clean))
 
-        shutil.rmtree(env['CM_MLPERF_RESULTS_DIR'], ignore_errors=True)
+        shutil.rmtree(path_to_clean, ignore_errors=True)
 
         print ('=========================================================')
 
