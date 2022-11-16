@@ -5,6 +5,7 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
+* [Introduction](#introduction)
   * [MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - CPU - Offline](#mlperf-inference---python---retinanet-fp32---open-images---onnx---cpu---offline)
     * [Minimal system requirements](#minimal-system-requirements)
     * [MLCommons CM automation meta-framework](#mlcommons-cm-automation-meta-framework)
@@ -28,13 +29,13 @@
       * [With explicit dependencies first](#with-explicit-dependencies-first)
       * [With one CM command that will install all dependencies automatically](#with-one-cm-command-that-will-install-all-dependencies-automatically)
     * [Use Python virtual environment with CM and MLPerf](#use-python-virtual-environment-with-cm-and-mlperf)
-  * [The next steps](#the-next-steps)
-  * [Authors](#authors)
-  * [Acknowledgments](#acknowledgments)
+* [The next steps](#the-next-steps)
+* [Authors](#authors)
+* [Acknowledgments](#acknowledgments)
 
 </details>
 
-## MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - CPU - Offline
+# Introduction
 
 This tutorial explains how to prepare and run the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
 using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck) 
@@ -63,6 +64,8 @@ changing ML frameworks and run-times, optimizing RetinaNet model, and trying dif
  If you encounter issues or have questions, please submit them in [this GitHub ticket](https://github.com/mlcommons/ck/issues/484)
  and feel free to join our [weekly conf-calls](../mlperf-education-workgroup.md#conf-calls).*
 
+
+## MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - CPU - Offline
 
 ### Minimal system requirements
 
@@ -706,25 +709,30 @@ Note that you need to add a flag `--adr.python.name={name of a virtual environme
 
 
 
-## The next steps
+# The next steps
 
-Please check the [second part of this tutorial](sc22-scc-mlperf2.md) (under preparation)
-to learn how to test other MLPerf scenarios (single stream, multiple stream, server)
-and check different implementations of this benchmark (C++, Nvidia, etc)
-with other ML engines (PyTorch, TF, TVM), quantized/pruned models and GPUs.
+Please check other parts of this tutorial to learn how to 
+use other implementation of the MLPerf inference benchmark (C++, Nvidia, etc) 
+with other ML engines (PyTorch, TF, TVM), other MLPerf scenarios 
+(single stream, multiple stream, server), quantized/pruned models and GPUs:
+
+* [2nd part](sc22-scc-mlperf2.md): customize MLPerf inference (C++ implementation, CUDA, PyTorch)
+* [3rd part](sc22-scc-mlperf3.md): customize MLPerf inference (ResNet50 Int8, ImageNet, TVM)
+* *To be continued*
 
 You are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
 to contribute to this project and continue optimizing this benchmark and prepare an official submission 
 for MLPerf inference v3.0 (March 2023) with the help of the community.
 
+See the development roadmap [here](https://github.com/mlcommons/ck/issues/536).
 
-## Authors
+# Authors
 
 * [Grigori Fursin](https://cKnowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
 
 
-## Acknowledgments
+# Acknowledgments
 
 We thank 
 [Hai Ah Nam](https://www.nersc.gov/about/nersc-staff/advanced-technologies-group/hai-ah-nam),
