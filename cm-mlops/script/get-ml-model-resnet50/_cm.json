@@ -101,7 +101,7 @@
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
         "CM_ML_MODEL_FRAMEWORK": "pytorch",
-        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\", [BATCH_SIZE, 3, 224, 224])",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\", [BATCH_SIZE, 3, 224, 224]",
         "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "?",
         "CM_ML_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>"
       }
