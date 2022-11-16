@@ -11,6 +11,9 @@
     },
     {
       "tags": "detect,cpu"
+    },
+    {
+      "tags": "get,generic-python-lib,_decorator"
     }
   ],
   "default_env": {
