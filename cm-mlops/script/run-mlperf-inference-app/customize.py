@@ -23,6 +23,8 @@ def preprocess(i):
             env['CM_MLPERF_CLEAN_SUBMISSION_DIR'] = "yes"
         if 'CM_RERUN' not in env:
             env['CM_RERUN'] = "yes"
+        if 'OUTPUT_BASE_DIR' in env:
+            shutil.rmtree(env['OUTPUT_BASE_DIR'], ignore_errors=True)
 
     if env.get('CM_SYSTEM_POWER','') == "yes":
         power = "yes"
