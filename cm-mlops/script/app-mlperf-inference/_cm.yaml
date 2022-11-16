@@ -53,6 +53,7 @@ input_mapping:
 env_key_mappings:
   CM_HOST_: HOST_
   CM_ML_: ML_
+  CM_MLPERF_TVM: MLPERF_TVM
 
 # Env keys which are exposed to higher level scripts
 new_env_keys:
@@ -394,6 +395,7 @@ variations:
     env:
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+      CM_MLPERF_TVM_TORCH_QUANTIZED_ENGINE: True
 
   tvm-pip-install-onnx:
     deps:
