@@ -15,7 +15,10 @@ def preprocess(i):
 
     if env.get('CM_RUN_DOCKER_CONTAINER', '') == "yes": 
         return {'return':0}
+
+    clean = False
     if 'CM_MLPERF_CLEAN_ALL' in env:
+        clean = True
         if 'CM_MLPERF_CLEAN_SUBMISSION_DIR' not in env:
             env['CM_MLPERF_CLEAN_SUBMISSION_DIR'] = "yes"
         if 'CM_RERUN' not in env:
@@ -75,10 +78,9 @@ def preprocess(i):
     if not add_deps:
         add_deps = i.get('add_deps')
 
-    rerun = True if env.get("CM_RERUN","")!='' else False
-
     env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
-    if rerun:
+
+    if clean:
         print ('=========================================================')
         print ('Cleaning results in {}'.format(env['CM_MLPERF_RESULTS_DIR']))
 
