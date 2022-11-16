@@ -35,19 +35,20 @@ def main():
 
         result=results[k]
 
-        organization = result.get('Organization', '')
+        organization = str(result.get('Organization', ''))
         if organization == '': organization = 'anonymous'
 
         label = organization
 
-        system_name = result.get('SystemName','')
+        system_name = str(result.get('SystemName',''))
         if system_name != '': label += '(' + system_name + ')'
 
         qps = result.get('Result', 0.0)
         accuracy = result.get('Accuracy', 0.0) / 100
 
-        result['performance']=qps
-        result['accuracy']=accuracy
+        result['performance'] = qps
+        result['qps'] = qps
+        result['accuracy'] = accuracy
 
         # Check extra env variables
         x = {
