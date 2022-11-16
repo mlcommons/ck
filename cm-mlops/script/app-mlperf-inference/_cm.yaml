@@ -395,7 +395,6 @@ variations:
     env:
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
-      CM_MLPERF_TVM_TORCH_QUANTIZED_ENGINE: True
 
   tvm-pip-install-onnx:
     deps:
