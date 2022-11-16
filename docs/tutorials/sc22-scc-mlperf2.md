@@ -5,7 +5,7 @@
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [Tutorial: customizing the MLPerf inference benchmark (part 2)](#tutorial-customizing-the-mlperf-inference-benchmark-part-2)
+* [Introduction](#introduction)
   * [Update CM framework and automation repository](#update-cm-framework-and-automation-repository)
   * [MLPerf inference - C++ - RetinaNet FP32 - Open Images - ONNX - CPU - Offline](#mlperf-inference---c---retinanet-fp32---open-images---onnx---cpu---offline)
     * [Summary](#summary)
@@ -19,24 +19,20 @@
     * [Summary](#summary)
   * [MLPerf inference - Python - RetinaNet FP32 - Open Images - PyTorch - CPU - Offline](#mlperf-inference---python---retinanet-fp32---open-images---pytorch---cpu---offline)
     * [Summary](#summary)
-  * [MLCommons taskforce on education and reproducibility](#mlcommons-taskforce-on-education-and-reproducibility)
-  * [Authors](#authors)
-  * [Acknowledgments](#acknowledgments)
+* [The next steps](#the-next-steps)
+* [Authors](#authors)
+* [Acknowledgments](#acknowledgments)
 
 </details>
+
+# Introduction
 
 We expect that you have completed the [1st part](sc22-scc-mlperf.md) of this tutorial 
 and managed to run the MLPerf inference benchmark for object detection
 with RetinaNet FP32, Open Images and ONNX runtime on a CPU target.
 
 This tutorial shows you how to customize the MLPerf inference benchmark
-and run it with different implementations of this benchmark (C++, Nvidia, etc),
-on a GPU target, with other MLPerf scenarios (single stream, multiple stream, server),
-various ML engines (PyTorch, TF, TVM) and quantized/pruned/optimized models.
-
-*Note that this tutorial is under preparation and is gradually extended
- by the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md).*
-
+and run it with a C++ implementation, CUDA and PyTorch.
 
 ## Update CM framework and automation repository
 
@@ -45,24 +41,12 @@ and the [repository with automation scripts ](https://github.com/mlcommons/ck/tr
 are being continuously updated by the community to improve the portability and interoperability of 
 all reusable components for MLOps and DevOps.
 
-You can install the stable versions used for this tutorial as follows:
-```bash
-python3 -m pip install cmind==1.1.1
-cm pull repo mlcommons@ck --checkout=5323508
-```
-
-You can also try to use the latest version of the CM framework and automation repository as follows
+You can get the latest version of the CM framework and automation repository as follows
 (though be careful since CM CLI and APIs may change):
 
 ```bash
 python3 -m pip install cmind -U
 cm pull repo mlcommons@ck --checkout=master
-```
-
-You can also clean your raw MLPerf logs in the default place to avoid incompatibilities with  previous MLPerf and CM versions as follows:
-```bash
-rm -rf $HOME/mlperf_submission
-rm -rf $HOME/mlperf_submission_logs
 ```
 
 
@@ -522,26 +506,29 @@ sometimes fail with a high number of threads - this will be fixed by the MLCommo
 
 In case of a successfull run, you should see your crowd-testing results at this [live W&B dashboard](https://wandb.ai/cmind/cm-mlperf-dse-testing/table?workspace=user-gfursin).
 
+# The next steps
 
+Please check other parts of this tutorial to learn how to 
+customize and optimize MLPerf inference benchmark using MLCommons CM
+(under preparation):
 
-*To be continued ...*
-
-
-
-## MLCommons taskforce on education and reproducibility
+* [1st part](sc22-scc-mlperf.md): customize MLPerf inference (Python ref implementation, Open images, ONNX, CPU)
+* [3rd part](sc22-scc-mlperf3.md): customize MLPerf inference (ResNet50 Int8, ImageNet, TVM)
+* *To be continued*
 
 You are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
 to contribute to this project and continue optimizing this benchmark and prepare an official submission 
 for MLPerf inference v3.0 (March 2023) with the help of the community.
 
+See the development roadmap [here](https://github.com/mlcommons/ck/issues/536).
 
-## Authors
+# Authors
 
 * [Grigori Fursin](https://cKnowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
 
 
-## Acknowledgments
+# Acknowledgments
 
 We thank 
 [Hai Ah Nam](https://www.nersc.gov/about/nersc-staff/advanced-technologies-group/hai-ah-nam),

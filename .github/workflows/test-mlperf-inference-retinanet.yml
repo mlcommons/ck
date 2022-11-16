@@ -19,7 +19,7 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [ "3.9" ]
-        backend: [ "onnxruntime", "pytorch" ]
+        backend: [ "onnxruntime" ]
         implementation: [ "python", "cpp" ]
 
     steps:
