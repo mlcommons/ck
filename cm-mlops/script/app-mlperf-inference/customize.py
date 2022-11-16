@@ -6,6 +6,7 @@ import subprocess
 
 def preprocess(i):
 
+
     os_info = i['os_info']
     env = i['env']
     state = i['state']
@@ -18,14 +19,18 @@ def preprocess(i):
         power = "yes"
     else:
         power = "no"
-    rerun = env.get("CM_RERUN", False)
+
+    rerun = True if env.get("CM_RERUN","")!='' else False
+
     required_files = []
     required_files = get_checker_files(env['CM_MLPERF_INFERENCE_SOURCE'])
 
     if 'CM_LOADGEN_SCENARIO' not in env:
         env['CM_LOADGEN_SCENARIO'] = "Offline"
+
     if 'CM_LOADGEN_MODE' not in env:
         env['CM_LOADGEN_MODE'] = "accuracy"
+
     if 'CM_MODEL' not in env:
         return {'return': 1, 'error': "Please select a variation specifying the model to run"}
 
@@ -36,11 +41,12 @@ def preprocess(i):
 
     if 'CM_LOADGEN_EXTRA_OPTIONS' not in env:
         env['CM_LOADGEN_EXTRA_OPTIONS'] = ""
-    
+
     if 'CM_LOADGEN_QPS' not in env:
         env['CM_LOADGEN_QPS_OPT'] = ""
     else:
         env['CM_LOADGEN_QPS_OPT'] = " --qps " + env['CM_LOADGEN_QPS']
+
     env['CM_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_LOADGEN_QPS_OPT']
 
     if 'OUTPUT_BASE_DIR' not in env:

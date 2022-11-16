@@ -125,6 +125,16 @@
         "CM_PYTHON_PACKAGE_NAME": "sklearn"
       }
     },
+    "scipy": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "scipy"
+      }
+    },
+    "attrs": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "attrs"
+      }
+    },
     "tqdm": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "tqdm"
@@ -169,6 +179,16 @@
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "mlperf_logging",
         "CM_PIP_URL": "git+https://github.com/mlperf/logging.git@2.1.0"
+      }
+    },
+    "typing_extensions": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "typing_extensions"
+      }
+    },
+    "ujson": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "ujson"
       }
     },
     "pycuda": {

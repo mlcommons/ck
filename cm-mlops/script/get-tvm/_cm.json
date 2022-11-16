@@ -11,6 +11,18 @@
     },
     {
       "tags": "detect,cpu"
+    },
+    {
+      "tags": "get,generic-python-lib,_decorator"
+    },
+    {
+      "tags": "get,generic-python-lib,_scipy"
+    },
+    {
+      "tags": "get,generic-python-lib,_attrs"
+    },
+    {
+      "tags": "get,generic-python-lib,_psutil"
     }
   ],
   "default_env": {
@@ -51,7 +63,8 @@
       "deps": [
         {
           "names": [ "llvm" ],
-          "tags": "get,llvm"
+          "tags": "get,llvm",
+          "version_min": "14.0.0"
         }
       ],
       "env": {

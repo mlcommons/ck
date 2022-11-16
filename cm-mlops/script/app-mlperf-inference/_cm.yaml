@@ -47,11 +47,13 @@ input_mapping:
   rerun: CM_RERUN
   scenario: CM_LOADGEN_SCENARIO
   test_query_count: CM_TEST_QUERY_COUNT
+  clean: CM_MLPERF_CLEAN_SUBMISSION_DIR
 
 # Duplicate CM environment variables to the ones used in native apps
 env_key_mappings:
   CM_HOST_: HOST_
   CM_ML_: ML_
+  CM_MLPERF_TVM: MLPERF_TVM
 
 # Env keys which are exposed to higher level scripts
 new_env_keys:
@@ -232,10 +234,21 @@ deps:
       - resnet50
 
   ## ResNet50 (PyTorch format, FP32)
-  - tags: get,ml-model,image-classification,resnet50,_pytorch
+  - names:
+    - resnet50-model
+    tags: get,ml-model,image-classification,resnet50,_pytorch-fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
+      CM_MODEL:
+      - resnet50
+
+  ## ResNet50 (PyTorch format, INT8)
+  - names:
+    - resnet50-model
+    tags: get,ml-model,image-classification,resnet50,_pytorch-int8
+    enable_if_env:
+      CM_MLPERF_BACKEND:
       - tvm-pytorch
       CM_MODEL:
       - resnet50
@@ -350,6 +363,11 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
 
   pytorch:
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _NCHW
+      openimages-preprocessed:
+        tags: _NCHW
     env:
       CM_MLPERF_BACKEND: pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
@@ -370,11 +388,14 @@ variations:
     env:
       CM_MLPERF_BACKEND: tvm-onnx
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
+    deps:
+    - tags: get,generic-python-lib,_onnx
 
   tvm-pytorch:
     env:
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+      CM_MLPERF_TVM_TORCH_QUANTIZED_ENGINE: True
 
   tvm-pip-install-onnx:
     deps:
@@ -382,6 +403,7 @@ variations:
       - tvm
       - ml-engine-tvm
       tags: get,generic-python-lib,_apache-tvm
+    - tags: get,generic-python-lib,_onnx
     env:
       CM_MLPERF_BACKEND: tvm-onnx
       CM_TVM_PIP_INSTALL: true
