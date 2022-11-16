@@ -384,7 +384,19 @@ variations:
     env:
       CM_MLPERF_BACKEND: tflite
 
+  tvm:
+    env:
+      CM_MLPERF_TVM_TRANSFORM_LAYOUT: 'yes'
+      CM_MLPERF_TVM_USE_DNNL: 'no'
+      CM_MLPERF_TVM_OPT_LEVEL: '3'
+      CM_MLPERF_TVM_TARGET: 'llvm'
+      CM_MLPERF_TVM_EXECUTOR: 'graph'
+      CM_MLPERF_TVM_APPLY_HISTORY: ''
+      CM_MLPERF_DELETE_COMPILED_MODEL: 'yes'
+
   tvm-onnx:
+    base:
+    - tvm
     env:
       CM_MLPERF_BACKEND: tvm-onnx
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
@@ -392,11 +404,16 @@ variations:
     - tags: get,generic-python-lib,_onnx
 
   tvm-pytorch:
+    base:
+    - tvm
     env:
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+      MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
 
   tvm-pip-install-onnx:
+    base:
+    - tvm
     deps:
     - names:
       - tvm
@@ -408,6 +425,8 @@ variations:
       CM_TVM_PIP_INSTALL: true
 
   tvm-pip-install-pytorch:
+    base:
+    - tvm
     deps:
     - names:
       - tvm
