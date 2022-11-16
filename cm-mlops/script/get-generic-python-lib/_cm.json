@@ -159,6 +159,11 @@
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "apache-tvm"
       },
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_typing_extensions"
+        }
+      ],
       "new_env_keys": [
         "CM_APACHE_TVM_VERSION"
       ]
@@ -243,12 +248,28 @@
         "CM_PYCUDA_VERSION"
       ]
     },
+    "typing_extensions": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "typing_extensions"
+      },
+      "new_env_keys": [
+        "CM_TYPING_EXTENSIONS_VERSION"
+      ]
+    },
     "mlperf_logging": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "mlperf_logging"
       },
       "new_env_keys": [
         "CM_MLPERF_LOGGING_VERSION"
+      ]
+    },
+    "typing_extensions": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "typing_extensions"
+      },
+      "new_env_keys": [
+        "CM_TYPING_EXTENSIONS_VERSION"
       ]
     },
     "wandb": {

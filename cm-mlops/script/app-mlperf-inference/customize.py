@@ -145,6 +145,9 @@ def preprocess(i):
     scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
 
     env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+    if rerun == "yes":
+        shutil.rmtree(env['CM_MLPERF_RESULTS_DIR'], ignore_errors=True)
+
 
     mode = env['CM_LOADGEN_MODE']
     mode_extra_options = ""
