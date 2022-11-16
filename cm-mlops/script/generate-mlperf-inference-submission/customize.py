@@ -24,8 +24,14 @@ def generate_submission(i):
         from pathlib import Path
         user_home = str(Path.home())
         env['CM_MLPERF_SUBMISSION_DIR'] = os.path.join(user_home, "mlperf_submission")
-    if env.get('CM_MLPERF_CLEAN_SUBMISSION_DIR'):
+
+    input('xyz')
+    if env.get('CM_MLPERF_CLEAN_SUBMISSION_DIR','')!='':
+        print (env['CM_MLPERF_SUBMISSION_DIR'])
         shutil.rmtree(env['CM_MLPERF_SUBMISSION_DIR'], ignore_errors=True)
+        input('xyz2')
+    input('xyz3')
+
     submission_dir = env['CM_MLPERF_SUBMISSION_DIR']
     if not os.path.isdir(submission_dir):
         os.makedirs(submission_dir)
