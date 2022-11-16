@@ -185,11 +185,16 @@ class CAutomation(Automation):
         env = i.get('env',{})
         state = i.get('state',{})
         add_deps = i.get('ad',{})
-        add_deps = i.get('add_deps',add_deps)
+        if not add_deps:
+            add_deps = i.get('add_deps',{})
+        else:
+            utils.merge_dicts({'dict1':add_deps, 'dict2':i.get('add_deps', {}), 'append_lists':True, 'append_unique':True})
+
         add_deps_recursive = i.get('adr', {})
         if not add_deps_recursive:
             add_deps_recursive = i.get('add_deps_recursive', {})
-
+        else:
+            utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':i.get('add_deps_recursive', {}), 'append_lists':True, 'append_unique':True})
         # Save current env and state to detect new env and state after running a given script
         saved_env = copy.deepcopy(env)
         saved_state = copy.deepcopy(state)
@@ -3247,9 +3252,15 @@ def update_deps_from_input(deps, post_deps, prehook_deps, posthook_deps, i):
     add_deps_info_from_input = i.get('ad',{})
     if not add_deps_info_from_input:
         add_deps_info_from_input = i.get('add_deps',{})
+    else:
+        utils.merge_dicts({'dict1':add_deps_info_from_input, 'dict2':i.get('add_deps', {}), 'append_lists':True, 'append_unique':True})
+
     add_deps_recursive_info_from_input = i.get('adr', {})
     if not add_deps_recursive_info_from_input:
         add_deps_recursive_info_from_input = i.get('add_deps_recursive', {})
+    else:
+        utils.merge_dicts({'dict1':add_deps_recursive_info_from_input, 'dict2':i.get('add_deps_recursive', {}), 'append_lists':True, 'append_unique':True})
+
     if add_deps_info_from_input:
         r1 = update_deps(deps, add_deps_info_from_input, True)
         r2 = update_deps(post_deps, add_deps_info_from_input, True)
@@ -3304,7 +3315,11 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     if len(new_posthook_deps) > 0:
         append_deps(posthook_deps, new_posthook_deps)
 
-    add_deps_info = meta.get('add_deps', {})
+    add_deps_info = meta.get('ad', {})
+    if not add_deps_info:
+        add_deps_info = meta.get('add_deps',{})
+    else:
+        utils.merge_dicts({'dict1':add_deps_info, 'dict2':i.get('add_deps', {}), 'append_lists':True, 'append_unique':True})
     if add_deps_info:
         r1 = update_deps(deps, add_deps_info, True)
         r2 = update_deps(post_deps, add_deps_info, True)
@@ -3312,7 +3327,11 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
         r4 = update_deps(posthook_deps, add_deps_info, True)
         if r1['return']>0 and r2['return']>0 and r3['return'] > 0 and r4['return'] > 0: return r1
 
-    add_deps_recursive_info = meta.get('add_deps_recursive', {})
+    add_deps_recursive_info = meta.get('adr', {})
+    if not add_deps_recursive_info:
+        add_deps_recursive_info = meta.get('add_deps_recursive',{})
+    else:
+        utils.merge_dicts({'dict1':add_deps_recursive_info, 'dict2':i.get('add_deps_recursive', {}), 'append_lists':True, 'append_unique':True})
     if add_deps_recursive_info:
         update_deps(deps, add_deps_recursive_info)
         update_deps(post_deps, add_deps_recursive_info)

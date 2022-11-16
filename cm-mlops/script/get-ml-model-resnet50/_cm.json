@@ -10,7 +10,6 @@
     "CM_ML_MODEL_DATASET": "imagenet2012-val",
     "CM_ML_MODEL_IMAGE_HEIGHT": "224",
     "CM_ML_MODEL_IMAGE_WIDTH": "224",
-    "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\": (BATCH_SIZE, 3, 224, 224)",
     "CM_ML_MODEL_NORMALIZE_DATA": "0",
     "CM_ML_MODEL_RETRAINING": "no",
     "CM_ML_MODEL_SUBTRACT_MEAN": "YES",
@@ -33,6 +32,13 @@
         "CM_ML_MODEL_INPUT_DATA_TYPES": "fp32",
         "CM_ML_MODEL_PRECISION": "fp32",
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "fp32"
+      }
+    },
+    "int8": {
+      "env": {
+        "CM_ML_MODEL_INPUT_DATA_TYPES": "int8",
+        "CM_ML_MODEL_PRECISION": "int8",
+        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "int8"
       }
     },
     "onnx": {
@@ -63,6 +69,7 @@
         "CM_ML_MODEL_INPUT_LAYERS": "input_tensor:0",
         "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor:0",
         "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor:0",
+        "CM_ML_MODEL_INPUT_SHAPES": "\\\"input_tensor:0\\\": (BATCH_SIZE, 3, 224, 224)",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor:0",
         "CM_ML_MODEL_VER": "1.5"
       }
@@ -72,16 +79,31 @@
         "onnx"
       ]
     },
-    "pytorch": {
+    "pytorch-fp32": {
       "base": [
-        "fp32"
+        "fp32",
+        "pytorch"
       ],
+      "env": {
+        "CM_PACKAGE_URL": "https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth"
+      }
+    },
+    "pytorch-int8": {
+      "base": [
+        "int8",
+        "pytorch"
+      ],
+      "env": {
+        "CM_PACKAGE_URL": "https://zenodo.org/record/4589637/files/resnet50_INT8bit_quantized.pt"
+      }
+    },
+    "pytorch": {
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
         "CM_ML_MODEL_FRAMEWORK": "pytorch",
+        "CM_ML_MODEL_INPUT_SHAPES": "(\\\"input_tensor:0\\\", [BATCH_SIZE, 3, 224, 224])",
         "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "?",
-        "CM_ML_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
-        "CM_PACKAGE_URL": "https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth"
+        "CM_ML_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>"
       }
     },
     "tensorflow": {
