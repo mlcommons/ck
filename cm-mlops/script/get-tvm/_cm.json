@@ -51,7 +51,8 @@
       "deps": [
         {
           "names": [ "llvm" ],
-          "tags": "get,llvm"
+          "tags": "get,llvm",
+          "version_min": "14.0.0"
         }
       ],
       "env": {

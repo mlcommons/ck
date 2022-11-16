@@ -195,7 +195,6 @@ class CAutomation(Automation):
             add_deps_recursive = i.get('add_deps_recursive', {})
         else:
             utils.merge_dicts({'dict1':add_deps_recursive, 'dict2':i.get('add_deps_recursive', {}), 'append_lists':True, 'append_unique':True})
-
         # Save current env and state to detect new env and state after running a given script
         saved_env = copy.deepcopy(env)
         saved_state = copy.deepcopy(state)

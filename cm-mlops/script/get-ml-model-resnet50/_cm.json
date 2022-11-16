@@ -35,6 +35,13 @@
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "fp32"
       }
     },
+    "int8": {
+      "env": {
+        "CM_ML_MODEL_INPUT_DATA_TYPES": "int8",
+        "CM_ML_MODEL_PRECISION": "int8",
+        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "int8"
+      }
+    },
     "onnx": {
       "base": [
         "onnx-1.5-opset-11",
@@ -72,16 +79,30 @@
         "onnx"
       ]
     },
-    "pytorch": {
+    "pytorch-fp32": {
       "base": [
-        "fp32"
+        "fp32",
+        "pytorch"
       ],
+      "env": {
+        "CM_PACKAGE_URL": "https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth"
+      }
+    },
+    "pytorch-int8": {
+      "base": [
+        "int8",
+        "pytorch"
+      ],
+      "env": {
+        "CM_PACKAGE_URL": "https://zenodo.org/record/4589637/files/resnet50_INT8bit_quantized.pt"
+      }
+    },
+    "pytorch": {
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
         "CM_ML_MODEL_FRAMEWORK": "pytorch",
         "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "?",
-        "CM_ML_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
-        "CM_PACKAGE_URL": "https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth"
+        "CM_ML_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>"
       }
     },
     "tensorflow": {
