@@ -233,10 +233,21 @@ deps:
       - resnet50
 
   ## ResNet50 (PyTorch format, FP32)
-  - tags: get,ml-model,image-classification,resnet50,_pytorch
+  - names:
+    - resnet50-model
+    tags: get,ml-model,image-classification,resnet50,_pytorch-fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
+      CM_MODEL:
+      - resnet50
+
+  ## ResNet50 (PyTorch format, INT8)
+  - names:
+    - resnet50-model
+    tags: get,ml-model,image-classification,resnet50,_pytorch-int8
+    enable_if_env:
+      CM_MLPERF_BACKEND:
       - tvm-pytorch
       CM_MODEL:
       - resnet50
