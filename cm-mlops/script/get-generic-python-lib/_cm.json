@@ -272,6 +272,14 @@
         "CM_TYPING_EXTENSIONS_VERSION"
       ]
     },
+    "ujson": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "ujson"
+      },
+      "new_env_keys": [
+        "CM_UJSON_VERSION"
+      ]
+    },
     "wandb": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "wandb"

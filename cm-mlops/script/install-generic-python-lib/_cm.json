@@ -176,6 +176,11 @@
         "CM_PYTHON_PACKAGE_NAME": "typing_extensions"
       }
     },
+    "ujson": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "ujson"
+      }
+    },
     "pycuda": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "pycuda"
