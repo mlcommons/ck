@@ -216,6 +216,22 @@
         "CM_PSUTIL_VERSION"
       ]
     },
+    "scipy": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "scipy"
+      },
+      "new_env_keys": [
+        "CM_SCIPY_VERSION"
+      ]
+    },
+    "attrs": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "attrs"
+      },
+      "new_env_keys": [
+        "CM_ATTRS_VERSION"
+      ]
+    },
     "boto3": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "boto3"

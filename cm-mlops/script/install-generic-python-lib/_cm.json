@@ -125,6 +125,16 @@
         "CM_PYTHON_PACKAGE_NAME": "sklearn"
       }
     },
+    "scipy": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "scipy"
+      }
+    },
+    "attrs": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "attrs"
+      }
+    },
     "tqdm": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "tqdm"
