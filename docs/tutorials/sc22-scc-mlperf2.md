@@ -41,13 +41,7 @@ and the [repository with automation scripts ](https://github.com/mlcommons/ck/tr
 are being continuously updated by the community to improve the portability and interoperability of 
 all reusable components for MLOps and DevOps.
 
-You can install the stable versions used for this tutorial as follows:
-```bash
-python3 -m pip install cmind==1.1.1
-cm pull repo mlcommons@ck --checkout=5323508
-```
-
-You can also try to use the latest version of the CM framework and automation repository as follows
+You can get the latest version of the CM framework and automation repository as follows
 (though be careful since CM CLI and APIs may change):
 
 ```bash
