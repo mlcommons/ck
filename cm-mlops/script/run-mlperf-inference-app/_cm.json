@@ -132,6 +132,9 @@
       "add_deps_recursive": {
         "submission-checker": {
           "tags": "_short-run"
+        },
+        "openimages-preprocessed": {
+          "tags": "_500"
         }
       }
     },
