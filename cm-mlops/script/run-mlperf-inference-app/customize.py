@@ -17,9 +17,9 @@ def preprocess(i):
         return {'return':0}
     if 'CM_MLPERF_CLEAN_ALL' in env:
         if 'CM_MLPERF_CLEAN_SUBMISSION_DIR' not in env:
-            env['CM_MLPERF_CLEAN_SUBMISSION_DIR'] = env['CM_MLPERF_CLEAN_ALL']
+            env['CM_MLPERF_CLEAN_SUBMISSION_DIR'] = "yes"
         if 'CM_RERUN' not in env:
-            env['CM_RERUN'] = env['CM_MLPERF_CLEAN_ALL']
+            env['CM_RERUN'] = "yes"
 
     if env.get('CM_SYSTEM_POWER','') == "yes":
         power = "yes"
