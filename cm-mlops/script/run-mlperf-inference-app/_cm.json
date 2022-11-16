@@ -57,8 +57,7 @@
     "scenario": "CM_LOADGEN_SCENARIO",
     "test_query_count": "CM_TEST_QUERY_COUNT",
     "run_checker": "CM_RUN_SUBMISSION_CHECKER",
-    "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
-    "clean": "CM_MLPERF_CLEAN_ALL"
+    "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY"
   },
   "tags": [
     "run",

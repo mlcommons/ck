@@ -71,8 +71,22 @@ def preprocess(i):
     silent = inp.get('silent', False)
     add_deps_recursive = i['run_script_input']['add_deps_recursive']
     add_deps = i.get('ad', {})
+
     if not add_deps:
         add_deps = i.get('add_deps')
+
+    rerun = True if env.get("CM_RERUN","")!='' else False
+
+    env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
+    if rerun:
+        print ('=========================================================')
+        print ('Cleaning results in {}'.format(env['CM_MLPERF_RESULTS_DIR']))
+
+        shutil.rmtree(env['CM_MLPERF_RESULTS_DIR'], ignore_errors=True)
+
+        print ('=========================================================')
+
+
     for scenario in env['CM_LOADGEN_SCENARIOS']:
         for mode in env['CM_LOADGEN_MODES']:
             env['CM_LOADGEN_SCENARIO'] = scenario
@@ -86,8 +100,10 @@ def preprocess(i):
                 env['CM_MLPERF_RESULTS_DIR'] = r['new_env']['CM_MLPERF_RESULTS_DIR']
             if 'CM_MLPERF_BACKEND_VERSION' in r['new_env']:
                 env['CM_MLPERF_BACKEND_VERSION'] = r['new_env']['CM_MLPERF_BACKEND_VERSION']
+
         if system_meta.get('division', '') == "open":
             env["CM_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
+
         if env.get("CM_LOADGEN_COMPLIANCE", "") == "yes":
             for test in test_list:
                 env['CM_LOADGEN_COMPLIANCE_TEST'] = test
