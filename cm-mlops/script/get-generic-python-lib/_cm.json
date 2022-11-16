@@ -264,6 +264,14 @@
         "CM_MLPERF_LOGGING_VERSION"
       ]
     },
+    "typing_extensions": {
+      "env": {
+        "CM_PYTHON_PACKAGE_NAME": "typing_extensions"
+      },
+      "new_env_keys": [
+        "CM_TYPING_EXTENSIONS_VERSION"
+      ]
+    },
     "wandb": {
       "env": {
         "CM_PYTHON_PACKAGE_NAME": "wandb"
