@@ -4,14 +4,16 @@
 
 ## News
 
-* See the [1st part of the tutorial to run MLPerf inference benchmark using MLCommons CM at SCC'22](tutorials/sc22-scc-mlperf.md) - 
-  please help us test it and report issues [here](https://github.com/mlcommons/ck/issues).
+* See our new [R&D roadmap for Q4 2022 and Q1 2023](https://github.com/mlcommons/ck/issues/536).
+* Try our [tutorial to run the MLPerf inference benchmark using MLCommons CM automation](tutorials/sc22-scc-mlperf.md) 
+  that was [successfully validated](https://twitter.com/DrHaiAhNam/status/1592221106290688001) 
+  by ~10 teams at the Student Cluster Competition at SuperComputing'22.
 * Join the taskforce using [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to stay informed about our activities.
 * See the [Notes from our weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing).
 * [Presentation about our mission](https://doi.org/10.5281/zenodo.7143424).
 * [Portable image classification workflow example]( tutorials/modular-image-classification.md ).
 * Upcoming events:
-  * [Student Cluster Competition at SC22](https://sc22.supercomputing.org/program/studentssc/student-cluster-competition/): November 14-16, 2022
+  * ~[Student Cluster Competition at SC22](https://sc22.supercomputing.org/program/studentssc/student-cluster-competition/): November 14-16, 2022~ - [success](https://twitter.com/DrHaiAhNam/status/1592221106290688001).
   * MLPerf inference v3.0 submission: end of March 3, 2023 (publication date: April 5, 2023)
 
 
