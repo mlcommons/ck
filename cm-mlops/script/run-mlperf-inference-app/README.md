@@ -31,9 +31,10 @@ cm run script "get sys-utils-cm" --quiet
 
 cm run script "install python-venv" --version=3.10.8 --name=mlperf
 
-cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_dashboard${CM_MLPERF_CHOICE_SCRIPT} \
+cm run script --tags=run,mlperf,inference,generate-run-cmds,${CM_MLPERF_CHOICE_SCRIPT} \
          --adr.python.name=mlperf \
          --adr.python.version_min=3.8 \
+         --adr.compiler.tags=gcc \
          --submitter="${CM_MLPERF_CHOICE_SUBMITTER}" \
          --lang=${CM_MLPERF_CHOICE_IMPLEMENTATION} \
          --hw_name=${CM_MLPERF_CHOICE_HW_NAME} \
@@ -41,6 +42,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_dashboa
          --backend=${CM_MLPERF_CHOICE_BACKEND} \
          --device=${CM_MLPERF_CHOICE_DEVICE} \
          --scenario=${CM_MLPERF_CHOICE_SCENARIO} \
+         --mode=${CM_MLPERF_CHOICE_MODE} \
          --test_query_count=${CM_MLPERF_CHOICE_QUERY_COUNT} \
          --quiet \
          --clean
@@ -92,6 +94,10 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_dashboa
   * `SingleStream`
   * `MultiStream`
 
+* **CM_MLPERF_CHOICE_MODE** :
+  * `""`
+  * `accuracy`
+  * `performance`
 
 * **CM_MLPERF_CHOICE_QUERY_COUNT** :
   * any number (typically 5, 50, 100, 500)
