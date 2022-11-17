@@ -270,6 +270,19 @@ deps:
       - tvm-pytorch
       CM_MODEL:
       - retinanet
+    skip_if_env:
+      CM_MLPERF_IMPLEMENTATION:
+      - nvidia
+
+  ## RetinaNet (PyTorch weights, FP32)
+  - tags: get,ml-model,object-detection,resnext50,fp32,_pytorch-weights
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MLPERF_IMPLEMENTATION:
+      - nvidia
+      CM_MODEL:
+      - retinanet
 
   ## BERT (ONNX format)
   - tags: get,ml-model,language-processing,bert,_onnx-fp32
@@ -320,6 +333,7 @@ variations:
         tags: _int64
     env:
       CM_MLPERF_CPP: 'yes'
+      CM_MLPERF_IMPLEMENTATION: cpp
     posthook_deps:
       - names:
          - cpp-mlperf-inference
@@ -337,6 +351,8 @@ variations:
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _float32
+      python:
+        version-min: 3.8.0
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia
     deps:
@@ -348,6 +364,7 @@ variations:
       - tags: get,generic-python-lib,_numpy
       - tags: get,generic-python-lib,_pycuda
       - tags: get,generic-python-lib,_mlperf_logging
+      - tags: get,generic-python-lib,_onnx
   
   # ML engine
   onnxruntime:
@@ -384,7 +401,19 @@ variations:
     env:
       CM_MLPERF_BACKEND: tflite
 
+  tvm:
+    env:
+      CM_MLPERF_TVM_TRANSFORM_LAYOUT: 'yes'
+      CM_MLPERF_TVM_USE_DNNL: 'no'
+      CM_MLPERF_TVM_OPT_LEVEL: '3'
+      CM_MLPERF_TVM_TARGET: 'llvm'
+      CM_MLPERF_TVM_EXECUTOR: 'graph'
+      CM_MLPERF_TVM_APPLY_HISTORY: ''
+      CM_MLPERF_DELETE_COMPILED_MODEL: 'yes'
+
   tvm-onnx:
+    base:
+    - tvm
     env:
       CM_MLPERF_BACKEND: tvm-onnx
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
@@ -392,12 +421,16 @@ variations:
     - tags: get,generic-python-lib,_onnx
 
   tvm-pytorch:
+    base:
+    - tvm
     env:
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
-      CM_MLPERF_TVM_TORCH_QUANTIZED_ENGINE: True
+      MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
 
   tvm-pip-install-onnx:
+    base:
+    - tvm
     deps:
     - names:
       - tvm
@@ -409,6 +442,8 @@ variations:
       CM_TVM_PIP_INSTALL: true
 
   tvm-pip-install-pytorch:
+    base:
+    - tvm
     deps:
     - names:
       - tvm

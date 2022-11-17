@@ -1,7 +1,7 @@
 import pkg_resources
 import os
 
-package_name = os.environ.get('CM_PYTHON_PACKAGE_NAME','')
+package_name = os.environ.get('CM_GENERIC_PYTHON_PACKAGE_NAME','')
 
 if package_name != '':
     try:

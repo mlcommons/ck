@@ -50,7 +50,7 @@
   "variations": {
     "numpy": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "numpy"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "numpy"
       },
       "new_env_keys": [
         "CM_NUMPY_VERSION"
@@ -58,7 +58,7 @@
     },
     "pip": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "pip"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "pip"
       },
       "new_env_keys": [
         "CM_PIP_VERSION"
@@ -66,7 +66,7 @@
     },
     "setuptools": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "setuptools"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "setuptools"
       },
       "new_env_keys": [
         "CM_SETUPTOOL_VERSION"
@@ -74,7 +74,7 @@
     },
     "onnx": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "onnx"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnx"
       },
       "new_env_keys": [
         "CM_ONNX_VERSION"
@@ -82,7 +82,7 @@
     },
     "onnxruntime": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "onnxruntime"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime"
       },
       "new_env_keys": [
         "CM_ONNXRUNTIME_VERSION"
@@ -90,7 +90,7 @@
     },
     "onnxruntime_gpu": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "onnxruntime_gpu"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime_gpu"
       },
       "new_env_keys": [
         "CM_ONNXRUNTIME_GPU_VERSION"
@@ -98,7 +98,7 @@
     },
     "protobuf": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "protobuf"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "protobuf"
       },
       "new_env_keys": [
         "CM_PROTOBUF_VERSION"
@@ -106,7 +106,7 @@
     },
     "tensorflow": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "tensorflow"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorflow"
       },
       "new_env_keys": [
         "CM_TENSORFLOW_VERSION"
@@ -114,7 +114,7 @@
     },
     "tokenization": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "tokenization"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tokenization"
       },
       "new_env_keys": [
         "CM_TOKENIZATION_VERSION"
@@ -122,7 +122,7 @@
     },
     "torch": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "torch"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch"
       },
       "new_env_keys": [
         "CM_TORCH_VERSION"
@@ -130,7 +130,7 @@
     },
     "torchvision": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "torchvision"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision"
       },
       "new_env_keys": [
         "CM_TORCHVISION_VERSION"
@@ -138,7 +138,7 @@
     },
     "transformers": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "transformers"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "transformers"
       },
       "new_env_keys": [
         "CM_TRANSFORMERS_VERSION"
@@ -146,7 +146,7 @@
     },
     "pycocotools": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "pycocotools"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "pycocotools"
       },
       "new_env_keys": [
         "CM_PYCOCOTOOLS_VERSION"
@@ -157,7 +157,7 @@
     },
     "apache-tvm": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "apache-tvm"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apache-tvm"
       },
       "deps": [
         {
@@ -170,7 +170,7 @@
     },
     "sklearn": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "sklearn"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "sklearn"
       },
       "new_env_keys": [
         "CM_SKLEARN_VERSION"
@@ -178,7 +178,7 @@
     },
     "tqdm": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "tqdm"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tqdm"
       },
       "new_env_keys": [
         "CM_TQDM_VERSION"
@@ -186,7 +186,7 @@
     },
     "opencv-python": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "opencv-python"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "opencv-python"
       },
       "new_env_keys": [
         "CM_OPENCV_PYTHON_VERSION"
@@ -194,7 +194,7 @@
     },
     "pandas": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "pandas"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "pandas"
       },
       "new_env_keys": [
         "CM_PANDAS_VERSION"
@@ -202,7 +202,7 @@
     },
     "decorator": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "decorator"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "decorator"
       },
       "new_env_keys": [
         "CM_DECORATOR_VERSION"
@@ -210,7 +210,7 @@
     },
     "psutil": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "psutil"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "psutil"
       },
       "new_env_keys": [
         "CM_PSUTIL_VERSION"
@@ -218,7 +218,7 @@
     },
     "scipy": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "scipy"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "scipy"
       },
       "new_env_keys": [
         "CM_SCIPY_VERSION"
@@ -226,7 +226,7 @@
     },
     "attrs": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "attrs"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "attrs"
       },
       "new_env_keys": [
         "CM_ATTRS_VERSION"
@@ -234,7 +234,7 @@
     },
     "boto3": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "boto3"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "boto3"
       },
       "new_env_keys": [
         "CM_BOTO3_VERSION"
@@ -242,7 +242,7 @@
     },
     "nvidia-pyindex": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "nvidia-pyindex"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "nvidia-pyindex"
       },
       "new_env_keys": [
         "CM_NVIDIA_PYINDEX_VERSION"
@@ -250,7 +250,7 @@
     },
     "nvidia-tensorrt": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "nvidia-tensorrt"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "nvidia-tensorrt"
       },
       "new_env_keys": [
         "CM_NVIDIA_TENSORRT_VERSION"
@@ -258,7 +258,7 @@
     },
     "pycuda": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "pycuda"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "pycuda"
       },
       "new_env_keys": [
         "CM_PYCUDA_VERSION"
@@ -266,7 +266,7 @@
     },
     "typing_extensions": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "typing_extensions"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "typing_extensions"
       },
       "new_env_keys": [
         "CM_TYPING_EXTENSIONS_VERSION"
@@ -274,7 +274,7 @@
     },
     "mlperf_logging": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "mlperf_logging"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "mlperf_logging"
       },
       "new_env_keys": [
         "CM_MLPERF_LOGGING_VERSION"
@@ -282,7 +282,7 @@
     },
     "typing_extensions": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "typing_extensions"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "typing_extensions"
       },
       "new_env_keys": [
         "CM_TYPING_EXTENSIONS_VERSION"
@@ -290,7 +290,7 @@
     },
     "ujson": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "ujson"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "ujson"
       },
       "new_env_keys": [
         "CM_UJSON_VERSION"
@@ -298,7 +298,7 @@
     },
     "wandb": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "wandb"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "wandb"
       },
       "new_env_keys": [
         "CM_WANDB_VERSION"

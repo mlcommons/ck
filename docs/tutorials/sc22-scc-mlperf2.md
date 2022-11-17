@@ -6,7 +6,8 @@
 <summary>Click here to see the table of contents.</summary>
 
 * [Introduction](#introduction)
-  * [Update CM framework and automation repository](#update-cm-framework-and-automation-repository)
+* [Update CM framework and automation repository](#update-cm-framework-and-automation-repository)
+* [CM automation for the MLPerf benchmark](#cm-automation-for-the-mlperf-benchmark)
   * [MLPerf inference - C++ - RetinaNet FP32 - Open Images - ONNX - CPU - Offline](#mlperf-inference---c---retinanet-fp32---open-images---onnx---cpu---offline)
     * [Summary](#summary)
   * [MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - GPU - Offline](#mlperf-inference---python---retinanet-fp32---open-images---onnx---gpu---offline)
@@ -34,7 +35,7 @@ with RetinaNet FP32, Open Images and ONNX runtime on a CPU target.
 This tutorial shows you how to customize the MLPerf inference benchmark
 and run it with a C++ implementation, CUDA and PyTorch.
 
-## Update CM framework and automation repository
+# Update CM framework and automation repository
 
 Note that the [CM automation meta-framework](https://github.com/mlcommons/ck) 
 and the [repository with automation scripts ](https://github.com/mlcommons/ck/tree/master/cm-mlops)
@@ -48,7 +49,7 @@ You can get the latest version of the CM framework and automation repository as 
 python3 -m pip install cmind -U
 cm pull repo mlcommons@ck --checkout=master
 ```
-
+# CM automation for the MLPerf benchmark
 
 ## MLPerf inference - C++ - RetinaNet FP32 - Open Images - ONNX - CPU - Offline
 

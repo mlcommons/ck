@@ -13,6 +13,6 @@ def preprocess(i):
 def postprocess(i):
     env = i['env']
 
-    env['+PYTHONPATH'] = [ os.path.join(env['CM_MLPERF_INFERENCE_RESULTS_PATH'], "closed", "NVIDIA", "code", "common") ]
+    env['+PYTHONPATH'] = [ os.path.join(env['CM_MLPERF_INFERENCE_RESULTS_PATH'], "closed", "NVIDIA") ]
 
     return {'return':0}

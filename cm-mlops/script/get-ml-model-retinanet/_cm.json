@@ -30,6 +30,13 @@
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth"
       }
+    },
+    "pytorch-weights": {
+      "env": {
+        "CM_PACKAGE_URL": "https://zenodo.org/record/6605272/files/retinanet_model_10.zip?download=1",
+        "CM_UNZIP": "yes",
+        "CM_ML_MODEL_FILE": "retinanet_model_10.pth"
+      }
     }
   }
 }
