@@ -1,7 +1,6 @@
 # About
 
 This portable CM script generates the CM commands to run all the required MLPerf scenarios for a given MLPerf inference model, runtime, device and language.
-
 It is being extended by the [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
 to make it easier to run, optimize and reproduce MLPerf benchmarks 
 across diverse platforms with continuously changing software and hardware.
