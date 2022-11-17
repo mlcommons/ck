@@ -271,6 +271,16 @@ deps:
       CM_MODEL:
       - retinanet
 
+  ## RetinaNet (PyTorch weights, FP32)
+  - tags: get,ml-model,object-detection,resnext50,fp32,_pytorch-weights
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MLPERF_IMPLEMENTATION:
+      - nvidia
+      CM_MODEL:
+      - retinanet
+
   ## BERT (ONNX format)
   - tags: get,ml-model,language-processing,bert,_onnx-fp32
     enable_if_env:
@@ -320,6 +330,7 @@ variations:
         tags: _int64
     env:
       CM_MLPERF_CPP: 'yes'
+      CM_MLPERF_IMPLEMENTATION: cpp
     posthook_deps:
       - names:
          - cpp-mlperf-inference
