@@ -1,4 +1,4 @@
-# Description
+# About
 
 This portable CM script and C++ code was developed by [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189) 
 to provide modular C++ implementations of the [MLPerf inference benchmark](https://github.com/mlcommons/inference) 
