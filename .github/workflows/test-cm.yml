@@ -34,7 +34,7 @@ jobs:
         cd cm
         python setup.py install
         python -m cmind
-	cm pull repo mlcommons@ck
+        cm pull repo mlcommons@ck
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
