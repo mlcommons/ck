@@ -4,12 +4,6 @@
 name: CM(CK2) test
 
 on:
-  push:
-    branches: [ "master" ]
-    paths:
-      - cm/**
-      - .github/workflows/test-cm.yml
-      - '!**.md'
   pull_request:
     branches: [ "master" ]
     paths:
@@ -40,7 +34,7 @@ jobs:
         cd cm
         python setup.py install
         python -m cmind
-        cm pull repo mlcommons@ck
+        cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }} --checkout=${{ github.event.pull_request.head.ref }}
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
