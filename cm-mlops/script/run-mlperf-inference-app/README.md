@@ -133,6 +133,10 @@ in [these tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials/
 successfully validated at the Student Cluster Competition at SuperComputing'22.
 
 
+## Modular CM containers
+
+Check prototypes of modular CM containers for MLPerf [here](modular-cm-containers).
+
 
 # The next steps
 
