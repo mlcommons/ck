@@ -52,11 +52,11 @@
     "cuda": {
       "deps": [
         {
-          "tags": "lib,cuda"
+          "tags": "get,cuda"
         }
       ],
       "env": {
-        "CM_USE_CUDA": "yes"
+        "CM_TVM_USE_CUDA": "yes"
       }
     },
     "llvm": {
