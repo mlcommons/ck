@@ -4,6 +4,12 @@
 name: CM(CK2) test
 
 on:
+  push:
+    branches: [ "master" ]
+    paths:
+      - cm/**
+      - .github/workflows/test-cm.yml
+      - '!**.md'
   pull_request:
     branches: [ "master" ]
     paths:
