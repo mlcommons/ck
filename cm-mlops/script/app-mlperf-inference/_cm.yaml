@@ -351,6 +351,8 @@ variations:
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _float32
+      python:
+        version-min: 3.8.0
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia
     deps:
