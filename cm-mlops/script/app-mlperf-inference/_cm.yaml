@@ -270,6 +270,9 @@ deps:
       - tvm-pytorch
       CM_MODEL:
       - retinanet
+    skip_if_env:
+      CM_MLPERF_IMPLEMENTATION:
+      - nvidia
 
   ## RetinaNet (PyTorch weights, FP32)
   - tags: get,ml-model,object-detection,resnext50,fp32,_pytorch-weights
