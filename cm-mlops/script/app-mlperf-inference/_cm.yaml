@@ -351,6 +351,8 @@ variations:
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _float32
+      python:
+        version-min: 3.8.0
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia
     deps:
@@ -362,6 +364,7 @@ variations:
       - tags: get,generic-python-lib,_numpy
       - tags: get,generic-python-lib,_pycuda
       - tags: get,generic-python-lib,_mlperf_logging
+      - tags: get,generic-python-lib,_onnx
   
   # ML engine
   onnxruntime:
