@@ -364,6 +364,7 @@ variations:
       - tags: get,generic-python-lib,_numpy
       - tags: get,generic-python-lib,_pycuda
       - tags: get,generic-python-lib,_mlperf_logging
+      - tags: get,generic-python-lib,_onnx
   
   # ML engine
   onnxruntime:
