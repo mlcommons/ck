@@ -1,6 +1,6 @@
 [ [Back to index](../README.md) ]
 
-# Tutorial: customizing the MLPerf inference benchmark (part 2)
+# Tutorial: modularizing and automating MLPerf (part 2)
 
 <details>
 <summary>Click here to see the table of contents.</summary>
