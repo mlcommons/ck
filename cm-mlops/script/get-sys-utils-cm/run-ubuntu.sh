@@ -50,6 +50,9 @@ ${CM_SUDO} ${CM_APT_TOOL} update && \
            python-is-python3 \
            sudo \
            libgl1 \
-           libncurses5
+           libncurses5 \
+           libjpeg9-dev \
+           unzip
+           zlib1g-dev
 
 python3 -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt ${CM_PYTHON_PIP_USER}
