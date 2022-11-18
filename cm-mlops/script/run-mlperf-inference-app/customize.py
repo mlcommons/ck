@@ -83,8 +83,8 @@ def preprocess(i):
 
         print ('=========================================================')
         print ('Cleaning results in {}'.format(path_to_clean))
-
-        shutil.rmtree(path_to_clean, ignore_errors=True)
+        if os.path.exists(path_to_clean):
+            shutil.rmtree(path_to_clean)
 
         print ('=========================================================')
 

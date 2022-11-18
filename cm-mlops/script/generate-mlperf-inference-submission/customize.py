@@ -28,7 +28,8 @@ def generate_submission(i):
     if env.get('CM_MLPERF_CLEAN_SUBMISSION_DIR','')!='':
         print ('=================================================')
         print ('Cleaning {} ...'.format(env['CM_MLPERF_SUBMISSION_DIR']))
-        shutil.rmtree(env['CM_MLPERF_SUBMISSION_DIR'], ignore_errors=True)
+        if os.path.exists(env['CM_MLPERF_SUBMISSION_DIR']):
+            shutil.rmtree(env['CM_MLPERF_SUBMISSION_DIR'])
         print ('=================================================')
 
     submission_dir = env['CM_MLPERF_SUBMISSION_DIR']
