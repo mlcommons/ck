@@ -489,6 +489,9 @@ variations:
       - squad-accuracy-script
       - mlperf-accuracy-script
       tags: run,accuracy,mlperf,_squad,_float32
+    add_deps_recursive:
+      inference-src:
+        tags: _deeplearningexamples
 
   retinanet:
     deps:
