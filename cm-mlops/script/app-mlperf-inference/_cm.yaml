@@ -516,6 +516,7 @@ variations:
     deps:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
+    - tags: get,generic-python-lib,_pycocotools
     post_deps:
     - enable_if_env:
         CM_LOADGEN_MODE:
