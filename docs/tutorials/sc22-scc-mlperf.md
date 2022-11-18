@@ -1,6 +1,6 @@
 [ [Back to index](../README.md) ]
 
-# Tutorial: running the MLPerf inference benchmark
+# Tutorial: modularizing and automating MLPerf
 
 <details>
 <summary>Click here to see the table of contents.</summary>
@@ -39,10 +39,12 @@
 
 # Introduction
 
-This tutorial explains how to prepare and run the modular version of the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
-using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck) 
+This tutorial was prepared for the [Student Cluster Competition'22](https://studentclustercompetition.us/2022/index.html) 
+to explain how to prepare and run a modular version of the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
+using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck).
+It is assembled from reusable and interoperable [MLOps and DevOps scripts](../list_of_scripts.md)
 being developed by the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
-based on this [roadmap](https://github.com/mlcommons/ck/issues/536).
+based on this [roadmap]( https://github.com/mlcommons/ck/issues/536 ).
 
 There are 4 main goals:
 - Trying the MLCommons CM meta-framework for modular benchmarking.
@@ -64,7 +66,7 @@ to learn how to optimize this benchmark further (trying various run-time paramet
 changing ML frameworks and run-times, optimizing RetinaNet model, and trying different CPUs and GPUs) and submit Pareto-optimal results to MLPerf.
 
 *Note that both MLPerf and CM automation are evolving projects.
- If you encounter issues or have questions, please submit them in [this GitHub ticket](https://github.com/mlcommons/ck/issues/484)
+ If you encounter issues or have questions, please submit them [here](https://github.com/mlcommons/ck/issues)
  and feel free to join our [weekly conf-calls](../mlperf-education-workgroup.md#conf-calls).*
 
 # System preparation
