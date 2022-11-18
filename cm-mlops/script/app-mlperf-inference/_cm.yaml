@@ -147,6 +147,19 @@ deps:
       - tf
       - tflite
 
+  ## Tensorflow
+  - tags: get,generic-python-lib,_protobuf
+    version_max: "3.19"
+    names:
+    - protobuf
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - tf
+      - tflite
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+
   ## TVM with LLVM and ONNX models
   - tags: get,tvm,_llvm
     names:
@@ -520,6 +533,7 @@ variations:
   cpu:
     env:
       CM_MLPERF_DEVICE: cpu
+      CUDA_VISIBLE_DEVICES: ''
       USE_GPU: no
 
   gpu:

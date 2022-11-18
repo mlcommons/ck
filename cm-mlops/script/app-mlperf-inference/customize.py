@@ -141,6 +141,7 @@ def preprocess(i):
             user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
             user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
             scenario_extra_options +=  " --count " + query_count
+    env['CM_MAX_EXAMPLES'] = query_count #needed for squad accuracy checker
     import uuid
     key = uuid.uuid4().hex
     user_conf_path = os.path.join(script_path, "tmp", key+".conf")
