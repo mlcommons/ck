@@ -135,6 +135,7 @@ deps:
     - ml-engine-transformers
     enable_if_env:
       CM_MODEL:
+      - bert-99
       - bert-99.9
 
   ## Tensorflow
