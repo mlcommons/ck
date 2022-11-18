@@ -72,6 +72,7 @@ def preprocess(i):
     variation_run_style= "_" + env.get("CM_MLPERF_RUN_STYLE", "test")
     tags =  "app,mlperf,inference,generic,"+variation_lang+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style
     silent = inp.get('silent', False)
+    print_env = inp.get('print_env', False)
     add_deps_recursive = i['run_script_input']['add_deps_recursive']
     add_deps = i.get('ad', {})
 
@@ -95,7 +96,7 @@ def preprocess(i):
             env['CM_LOADGEN_MODE'] = mode
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
-                add_deps_recursive, 'silent': silent})
+                add_deps_recursive, 'silent': silent, 'print_env': print_env})
             if r['return'] > 0:
                 return r
             if 'CM_MLPERF_RESULTS_DIR' in r['new_env']:
@@ -111,7 +112,7 @@ def preprocess(i):
                 env['CM_LOADGEN_COMPLIANCE_TEST'] = test
                 r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                     'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
-                    add_deps_recursive,'silent': silent})
+                    add_deps_recursive,'silent': silent, 'print_env': print_env})
                 if r['return'] > 0:
                     return r
 

@@ -4,7 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "category": "ML/AI models",
-  "default_variation": "fp32",
   "env": {
     "CM_ML_MODEL": "BERT",
     "CM_ML_MODEL_DATASET": "squad-1.1",
@@ -77,7 +76,8 @@
         "CM_ML_MODEL_INPUT_SEGMENTS_NAME": "segment_ids",
         "CM_ML_MODEL_OUTPUT_END_LOGITS_NAME": "output_end_logits",
         "CM_ML_MODEL_OUTPUT_START_LOGITS_NAME": "output_start_logits",
-        "CM_PACKAGE_URL": "https://zenodo.org/record/3733868/files/model.ckpt-5474.data-00000-of-00001"
+        "CM_VOCAB_FILE_URL": "https://zenodo.org/record/3733868/files/vocab.txt",
+        "CM_PACKAGE_URL": "https://zenodo.org/record/3939747/files/model.pb"
       }
     },
     "pytorch": {

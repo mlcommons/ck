@@ -25,9 +25,11 @@ def preprocess(i):
     env['CM_ML_MODEL_FILE']=r['filename']
     env['CM_ML_MODEL_FILE_WITH_PATH']=r['path']
     env['CM_ML_MODEL_PATH']=path
-    
-    from urllib.parse import urljoin
-    vocab_url = urljoin(url, env['CM_ML_MODEL_VOCAB_TXT'])
+    if 'CM_VOCAB_FILE_URL' in env:
+        vocab_url = env['CM_VOCAB_FILE_URL']
+    else:
+        from urllib.parse import urljoin
+        vocab_url = urljoin(url, env['CM_ML_MODEL_VOCAB_TXT'])
     env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']=os.path.join(path, env['CM_ML_MODEL_VOCAB_TXT'])
     print ('Downloading vocab file from {}'.format(vocab_url))
     r = cm.access({'action':'download_file', 
