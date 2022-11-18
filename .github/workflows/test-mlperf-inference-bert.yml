@@ -20,6 +20,8 @@ jobs:
       matrix:
         python-version: [ "3.9" ]
         backend: [ "onnxruntime", "tf" ]
+        exclude:
+          - backend: tf
 
     steps:
     - uses: actions/checkout@v3
