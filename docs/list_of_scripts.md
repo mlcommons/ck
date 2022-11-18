@@ -4,6 +4,12 @@
 This file is generated automatically - don't edit!
 -->
 
+This is an automatically generated list of reusable CM scripts being developed
+by the [open taskforce on education and reproducibility](https://github.com/mlcommons/ck/issues/536) 
+to make MLOps and DevOps tools more interoperable, portable, deterministic and reproducible.
+These scripts suppport the community effort to modularize ML Systems and automate their bechmarking, optimization,
+design space exploration and deployment across continuously changing software and hardware. 
+
 # List of CM scripts by categories
 
 ### Modular MLPerf benchmarks
@@ -21,9 +27,9 @@ This file is generated automatically - don't edit!
 * [get-mlperf-training-src](#get-mlperf-training-src)
 * [process-mlperf-accuracy](#process-mlperf-accuracy)
 * [reproduce-mlperf-octoml-tinyml-results](#reproduce-mlperf-octoml-tinyml-results)
-* [run-mlperf-accuracy-log-truncator](#run-mlperf-accuracy-log-truncator)
 * [run-mlperf-inference-app](#run-mlperf-inference-app)
 * [run-mlperf-inference-submission-checker](#run-mlperf-inference-submission-checker)
+* [truncate-mlperf-inference-accuracy-log](#truncate-mlperf-inference-accuracy-log)
 * [wrapper-reproduce-octoml-tinyml-submission](#wrapper-reproduce-octoml-tinyml-submission)
 
 
@@ -301,7 +307,6 @@ This file is generated automatically - don't edit!
 * [remote-run-commands](#remote-run-commands)
 * [reproduce-mlperf-octoml-tinyml-results](#reproduce-mlperf-octoml-tinyml-results)
 * [run-docker-container](#run-docker-container)
-* [run-mlperf-accuracy-log-truncator](#run-mlperf-accuracy-log-truncator)
 * [run-mlperf-inference-app](#run-mlperf-inference-app)
 * [run-mlperf-inference-submission-checker](#run-mlperf-inference-submission-checker)
 * [run-terraform](#run-terraform)
@@ -313,6 +318,7 @@ This file is generated automatically - don't edit!
 * [test-script4](#test-script4)
 * [test-script5](#test-script5)
 * [test-set-sys-user-cm](#test-set-sys-user-cm)
+* [truncate-mlperf-inference-accuracy-log](#truncate-mlperf-inference-accuracy-log)
 * [wrapper-reproduce-octoml-tinyml-submission](#wrapper-reproduce-octoml-tinyml-submission)
 
 
@@ -408,7 +414,7 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="app,vision,language,mlcommons,mlperf,inference,reference,generic,ref"*
-* CM script variations: *_bert-99.9;&nbsp; _cpp;&nbsp; _cpu;&nbsp; _fast;&nbsp; _gpu;&nbsp; _nvidia;&nbsp; _onnxruntime;&nbsp; _python;&nbsp; _pytorch;&nbsp; _r2.1_default;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _test;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tvm;&nbsp; _tvm-onnx;&nbsp; _tvm-pip-install-onnx;&nbsp; _tvm-pip-install-pytorch;&nbsp; _tvm-pytorch;&nbsp; _valid*
+* CM script variations: *_bert;&nbsp; _bert-99;&nbsp; _bert-99.9;&nbsp; _cpp;&nbsp; _cpu;&nbsp; _fast;&nbsp; _gpu;&nbsp; _nvidia;&nbsp; _onnxruntime;&nbsp; _python;&nbsp; _pytorch;&nbsp; _r2.1_default;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _test;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tvm;&nbsp; _tvm-onnx;&nbsp; _tvm-pip-install-onnx;&nbsp; _tvm-pip-install-pytorch;&nbsp; _tvm-pytorch;&nbsp; _valid*
 
 
 ## app-mlperf-inference-cpp
@@ -1318,16 +1324,6 @@ This file is generated automatically - don't edit!
 * CM script  tags: *cm run script --tags="run,docker,container"*
 
 
-## run-mlperf-accuracy-log-truncator
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-accuracy-log-truncator)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-accuracy-log-truncator/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="run,mlc,mlcommons,mlperf,inference,mlperf-inference,truncation,truncator,truncate,accuracy,accuracy-log,accuracy-log-trancation,accuracy-log-truncator,mlc-accuracy-log-trancation,mlc-accuracy-log-truncator"*
-
-
 ## run-mlperf-inference-app
 
 
@@ -1440,6 +1436,16 @@ This file is generated automatically - don't edit!
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-set-sys-user-cm/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="demo,set,sys-user,cm,sys-user-cm"*
+
+
+## truncate-mlperf-inference-accuracy-log
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="run,mlc,mlcommons,mlperf,inference,mlperf-inference,truncation,truncator,truncate,accuracy,accuracy-log,accuracy-log-trancation,accuracy-log-truncator,mlc-accuracy-log-trancation,mlc-accuracy-log-truncator"*
 
 
 ## wrapper-reproduce-octoml-tinyml-submission

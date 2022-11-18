@@ -135,6 +135,7 @@ deps:
     - ml-engine-transformers
     enable_if_env:
       CM_MODEL:
+      - bert-99
       - bert-99.9
 
   ## Tensorflow
@@ -145,6 +146,19 @@ deps:
       CM_MLPERF_BACKEND:
       - tf
       - tflite
+
+  ## Tensorflow
+  - tags: get,generic-python-lib,_protobuf
+    version_max: "3.19"
+    names:
+    - protobuf
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - tf
+      - tflite
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
 
   ## TVM with LLVM and ONNX models
   - tags: get,tvm,_llvm
@@ -209,6 +223,7 @@ deps:
   - tags: get,dataset,squad,original
     enable_if_env:
       CM_MODEL:
+      - bert-99
       - bert-99.9
 
 
@@ -291,6 +306,7 @@ deps:
       - onnxruntime
       - tvm-onnx
       CM_MODEL:
+      - bert-99
       - bert-99.9
 
   ## BERT (TF format)
@@ -299,6 +315,7 @@ deps:
       CM_MLPERF_BACKEND:
       - tf
       CM_MODEL:
+      - bert-99
       - bert-99.9
  
   ## BERT (Pytorch format)
@@ -308,11 +325,13 @@ deps:
       - pytorch
       - tvm-pytorch
       CM_MODEL:
+      - bert-99
       - bert-99.9
 
   - tags: get,generic-python-lib,_tokenization
     enable_if_env:
       CM_MODEL:
+      - bert-99
       - bert-99.9
     
 
@@ -456,8 +475,18 @@ variations:
  
   # Reference MLPerf models
   bert-99.9:
+    base:
+    - bert
     env:
       CM_MODEL: bert-99.9
+
+  bert-99:
+    base:
+    - bert
+    env:
+      CM_MODEL: bert-99
+
+  bert:
     post_deps:
     - enable_if_env:
         CM_LOADGEN_MODE:
@@ -504,6 +533,7 @@ variations:
   cpu:
     env:
       CM_MLPERF_DEVICE: cpu
+      CUDA_VISIBLE_DEVICES: ''
       USE_GPU: no
 
   gpu:
