@@ -15,6 +15,7 @@ def preprocess(i):
     #   then we do not search for an artifact (python) but pick it up from the installation
 
     if 'CM_PYTHON_BIN_WITH_PATH' not in env:
+        #file_name = 'python.exe' if os_info['platform'] == 'windows' else 'python[0-9|\.]*$'
         file_name = 'python.exe' if os_info['platform'] == 'windows' else 'python3'
         extra_paths = {"include" : "+C_INCLUDE_PATH", "lib" : "+LD_LIBRARY_PATH"}
 
