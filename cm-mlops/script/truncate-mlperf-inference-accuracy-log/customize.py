@@ -6,8 +6,6 @@ from os.path import exists
 
 def preprocess(i):
 
-    #GF: this code is wrong - it should be moved to run.sh ...
-
     os_info = i['os_info']
     env = i['env']
     submission_dir = env.get("CM_MLPERF_SUBMISSION_DIR", "")
@@ -21,15 +19,7 @@ def preprocess(i):
     os.system("rm -rf " + submission_dir + "_logs")
 
     CMD = env['CM_PYTHON_BIN'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "tools", "submission",
-            "truncate_accuracy_log.py") + "' --input " + submission_dir + " --submitter " + submitter + " --backup " + submission_dir + "_logs"
-
-    print ('=================================================')
-    print (CMD)
-    print ('=================================================')
-
-    ret = os.system(CMD)
-
-    if ret > 0:
-       return {'return':1, 'error':'MLPerf accuracy log truncator failed with output code {}'.format(ret)}
+            "truncate_accuracy_log.py") + "' --input '" + submission_dir + "' --submitter '" + submitter + "' --backup '" + submission_dir + "_logs'"
+    env['CM_RUN_CMD'] = CMD
 
     return {'return':0}

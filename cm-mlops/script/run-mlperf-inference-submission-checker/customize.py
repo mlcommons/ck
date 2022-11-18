@@ -33,14 +33,9 @@ def preprocess(i):
             file.write(data)
         submission_checker_file = new_submission_checker_file
 
-    CMD = env['CM_PYTHON_BIN'] + ' ' + submission_checker_file + " --input " + submission_dir + " --submitter " + submitter + \
+    CMD = env['CM_PYTHON_BIN'] + ' ' + submission_checker_file + " --input '" + submission_dir + "' --submitter '" + submitter + "'" + \
             skip_compliance
-
-    print ('=================================================')
-    print (CMD)
-    print ('=================================================')
-
-    ret = os.system(CMD)
+    env['CM_RUN_CMD'] = CMD
 
     return {'return':0}
 
