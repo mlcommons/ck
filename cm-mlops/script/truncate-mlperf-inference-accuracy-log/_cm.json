@@ -1,0 +1,45 @@
+{
+  "alias": "truncate-mlperf-inference-accuracy-log",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "category": "Modular MLPerf benchmarks",
+  "clean_files": [],
+  "deps": [
+    {
+      "names": [
+        "python",
+        "python3"
+      ],
+      "tags": "get,python"
+    },
+    {
+      "names": [
+        "inference-src"
+      ],
+      "tags": "get,mlcommons,inference,src"
+    }
+  ],
+  "input_mapping": {
+    "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
+    "submitter": "CM_MLPERF_SUBMITTER"
+  },
+  "tags": [
+    "run",
+    "mlc",
+    "mlcommons",
+    "mlperf",
+    "inference",
+    "mlperf-inference",
+    "truncation",
+    "truncator",
+    "truncate",
+    "accuracy",
+    "accuracy-log",
+    "accuracy-log-trancation",
+    "accuracy-log-truncator",
+    "mlc-accuracy-log-trancation",
+    "mlc-accuracy-log-truncator"
+  ],
+  "uid": "9d5ec20434084d14"
+}
