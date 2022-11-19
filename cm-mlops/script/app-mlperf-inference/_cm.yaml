@@ -147,19 +147,6 @@ deps:
       - tf
       - tflite
 
-  ## Tensorflow
-  - tags: get,generic-python-lib,_protobuf
-    version_max: "3.19"
-    names:
-    - protobuf
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - tf
-      - tflite
-      CM_MODEL:
-      - bert-99
-      - bert-99.9
-
   ## TVM with LLVM and ONNX models
   - tags: get,tvm,_llvm
     names:
@@ -210,11 +197,6 @@ deps:
   - tags: get,dataset,object-detection,open-images,openimages,preprocessed,_validation
     names:
     - openimages-preprocessed
-    enable_if_env:
-      CM_MODEL:
-      - retinanet
-
-  - tags: get,generic-python-lib,_pycocotools
     enable_if_env:
       CM_MODEL:
       - retinanet
@@ -487,6 +469,15 @@ variations:
       CM_MODEL: bert-99
 
   bert:
+    deps:
+    - tags: get,generic-python-lib,_protobuf
+      names:
+      - protobuf
+      version_max: "3.19"
+      enable_if_env:
+        CM_MLPERF_BACKEND:
+        - tf
+        - tflite
     post_deps:
     - enable_if_env:
         CM_LOADGEN_MODE:
@@ -498,8 +489,16 @@ variations:
       - squad-accuracy-script
       - mlperf-accuracy-script
       tags: run,accuracy,mlperf,_squad,_float32
+    add_deps_recursive:
+      inference-src:
+        tags: _deeplearningexamples
 
   retinanet:
+    deps:
+    - tags: get,generic-python-lib,_opencv-python
+    - tags: get,generic-python-lib,_numpy
+    - tags: get,generic-python-lib,_pycocotools
+
     env:
       CM_MODEL: retinanet
     post_deps:
@@ -517,6 +516,10 @@ variations:
   resnet50:
     env:
       CM_MODEL: resnet50
+    deps:
+    - tags: get,generic-python-lib,_opencv-python
+    - tags: get,generic-python-lib,_numpy
+    - tags: get,generic-python-lib,_pycocotools
     post_deps:
     - enable_if_env:
         CM_LOADGEN_MODE:
