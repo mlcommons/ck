@@ -31,6 +31,7 @@ default_env:
   CM_OUTPUT_FOLDER_NAME: test_results
   CM_MLPERF_RUN_STYLE: test
   CM_TEST_QUERY_COUNT: '10'
+  CM_MLPERF_QUANTIZATION: off
 
 # Map script inputs to environment variables
 input_mapping:
@@ -281,7 +282,7 @@ deps:
       CM_MODEL:
       - retinanet
 
-  ## BERT (ONNX format)
+  ## BERT (ONNX format fp32)
   - tags: get,ml-model,language-processing,bert,_onnx-fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
@@ -290,6 +291,21 @@ deps:
       CM_MODEL:
       - bert-99
       - bert-99.9
+    skip_if_env:
+      CM_MLPERF_QUANTIZATION:
+      - on
+
+  ## BERT (ONNX format int8)
+  - tags: get,ml-model,language-processing,bert,_onnx-int8
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      - tvm-onnx
+      CM_MODEL:
+      - bert-99
+      CM_MLPERF_QUANTIZATION:
+      - on
+
 
   ## BERT (TF format)
   - tags: get,ml-model,language-processing,bert,_tf
@@ -564,6 +580,10 @@ variations:
       CM_OUTPUT_FOLDER_NAME: valid_results
       CM_MLPERF_RUN_STYLE: valid
 
+  # Turn on quantization
+  quantized:
+    env:
+      CM_MLPERF_QUANTIZATION: on
 
   # Reproducibility (past submissions)
   r2.1_default:

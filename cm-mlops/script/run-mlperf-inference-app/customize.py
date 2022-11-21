@@ -70,7 +70,12 @@ def preprocess(i):
     variation_backend= "_" + env.get("CM_MLPERF_BACKEND", "tf")
     variation_device= "_" + env.get("CM_MLPERF_DEVICE", "cpu")
     variation_run_style= "_" + env.get("CM_MLPERF_RUN_STYLE", "test")
-    tags =  "app,mlperf,inference,generic,"+variation_lang+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style
+    variation_quantization= "_" + "quantized" if env.get("CM_MLPERF_QUANTIZATION", False) else ""
+    if variation_quantization == "_":
+        variation_quantization_str=""
+    else:
+        variation_quantization_str=","+variation_quantization
+    tags =  "app,mlperf,inference,generic,"+variation_lang+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style+variation_quantization_str
     silent = inp.get('silent', False)
     print_env = inp.get('print_env', False)
     add_deps_recursive = i['run_script_input']['add_deps_recursive']

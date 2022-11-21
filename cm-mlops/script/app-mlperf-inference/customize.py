@@ -219,8 +219,12 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             scenario_extra_options + mode_extra_options + dataset_options
     elif "bert" in env['CM_MODEL']:
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "bert")
+        if env.get('CM_MLPERF_QUANTIZATION') in [ "on", True, "1", "True" ]:
+            quantization_options = " --quantized"
+        else:
+            quantization_options = ""
         cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_LOADGEN_SCENARIO'] + \
-            scenario_extra_options + mode_extra_options + dataset_options
+            env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
         cmd = cmd.replace("--count", "--max_examples")
         env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
         env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH'] 
