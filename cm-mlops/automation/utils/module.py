@@ -629,7 +629,7 @@ class CAutomation(Automation):
         return {'return':0}
 
     ##############################################################################
-    def copy_to_clipboard(self, i):  
+    def copy_to_clipboard(self, i):
         """
         Copy string to a clipboard
 
@@ -637,6 +637,7 @@ class CAutomation(Automation):
 
            string (str): string to copy to a clipboard
            (add_quotes) (bool): add quotes to the string in a clipboard
+           (skip_fail) (bool): if True, do not fail
 
         Returns:
            (CM return dict):
@@ -650,13 +651,13 @@ class CAutomation(Automation):
         if i.get('add_quotes',False): s='"'+s+'"'
 
         failed = False
-        ee = ''
+        warning = ''
 
         # Try to load pyperclip (seems to work fine on Windows)
         try:
             import pyperclip
         except Exception as e:
-            ee = format(e)
+            warning = format(e)
             failed = True
             pass
 
@@ -669,7 +670,7 @@ class CAutomation(Automation):
             try:
                 from Tkinter import Tk
             except ImportError as e:
-                ee = format(e)
+                warning = format(e)
                 failed = True
                 pass
 
@@ -678,23 +679,29 @@ class CAutomation(Automation):
                 try:
                     from tkinter import Tk
                 except ImportError as e:
-                    ee = format(e)
+                    warning = format(e)
                     failed = True
                     pass
 
-            if failed:
-                return {'return': 1, 'error': 'none of pyperclip/Tkinter/tkinter packages is installed'}
+            if not failed:
+                # Copy to clipboard
+                try:
+                    r = Tk()
+                    r.withdraw()
+                    r.clipboard_clear()
+                    r.clipboard_append(s)
+                    r.update()
+                    r.destroy()
+                except Exception as e:
+                    failed = True
+                    warning = format(e)
 
-            # Copy to clipboard
-            try:
-                r = Tk()
-                r.withdraw()
-                r.clipboard_clear()
-                r.clipboard_append(s)
-                r.update()
-                r.destroy()
-            except Exception as e:
-                return {'return': 1, 'error': 'problem copying string to clipboard ('+format(e)+')'}
+        rr = {'return':0}
+        
+        if failed:
+            if not i.get('skip_fail',False):
+                return {'return':1, 'error':warning}
 
-        return {'return': 0}
-
+            rr['warning']=warning 
+        
+        return rr
