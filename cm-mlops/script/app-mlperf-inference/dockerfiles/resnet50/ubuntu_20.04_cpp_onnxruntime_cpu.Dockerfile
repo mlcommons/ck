@@ -1,9 +1,6 @@
 FROM ubuntu:20.04
 SHELL ["/bin/bash", "-c"]
 ARG CM_GH_TOKEN
-ARG CM_LOADGEN_MODE=accuracy
-ARG CM_LOADGEN_SCENARIO=Offline
-ARG CM_TEST_QUERY_COUNT=10
 
 # Notes: https://runnable.com/blog/9-common-dockerfile-mistakes
 # Install system dependencies
@@ -32,11 +29,21 @@ RUN cm pull repo mlcommons@ck
 RUN cm run script --quiet --tags=get,sys-utils-cm
 
 # Run commands
-# Install/customize individual CM components for MLPerf
+#RUN cm run script --tags=detect,os
+#RUN cm run script --tags=detect,cpu
+#RUN cm run script --tags=get,sys-utils-cm
+#RUN cm run script --tags=get,python
 #RUN cm run script --tags=get,generic-python-lib,_onnxruntime
-#RUN cm run script --tags=get-ml-model,resnet50,_onnxruntime
-#RUN cm run script --tags=get,dataset,preprocessed,imagenet
+#RUN cm run script --tags=get,loadgen
+#RUN cm run script --tags=get,mlcommons,inference,src,_octoml
+#RUN cm run script --tags=get,sut,configs
+#RUN cm run script --tags=get,dataset,image-classification,imagenet,preprocessed,_NCHW
+#RUN cm run script --tags=get,dataset-aux,image-classification,imagenet-aux
+#RUN cm run script --tags=get,ml-model,image-classification,resnet50,_onnx
+#RUN cm run script --tags=get,generic-python-lib,_opencv-python
+#RUN cm run script --tags=get,generic-python-lib,_numpy
+#RUN cm run script --tags=get,generic-python-lib,_pycocotools
 
 # Run CM workflow for MLPerf inference
-RUN cm run script --tags=app,mlperf,inference,generic,reference,_resnet50,_onnxruntime,_cpu,_cpp --adr.compiler.tags=gcc --adr.inference-src.tags=_octoml --fake_run
-RUN cm run script --tags=app,mlperf,inference,generic,reference,_resnet50,_onnxruntime,_cpu,_cpp --adr.compiler.tags=gcc --adr.inference-src.tags=_octoml
+RUN cm run script --tags=app,mlperf,inference,generic,_resnet50,_onnxruntime,_cpu,_cpp --adr.compiler.tags=gcc --adr.inference-src.tags=_octoml --fake_run 
+RUN cm run script --tags=app,mlperf,inference,generic,_resnet50,_onnxruntime,_cpu,_cpp --adr.compiler.tags=gcc --adr.inference-src.tags=_octoml 

@@ -414,6 +414,10 @@ variations:
       CM_MLPERF_BACKEND: tf
       CM_MLPERF_BACKEND_VERSION: <<<CM_TENSORFLOW_VERSION>>>
 
+  tensorflow:
+    base:
+    - tf
+
   tflite:
     env:
       CM_MLPERF_BACKEND: tflite

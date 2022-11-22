@@ -1476,7 +1476,8 @@ class CAutomation(Automation):
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
 
         if print_deps:
-            self._print_deps(run_state['deps'])
+            print_deps_data = self._print_deps(run_state['deps'])
+            new_state['print_deps'] = print_deps_data
 
         if print_readme:
             readme = self._get_readme(i.get('cmd', ''), run_state['deps'])
@@ -1920,9 +1921,12 @@ class CAutomation(Automation):
         """
         Prints the CM run commands for the list of CM script dependencies
         """
+        print_deps_data = []
         run_cmds = self._get_deps_run_cmds(deps)
         for cmd in run_cmds:
+            print_deps_data.append(cmd)
             print(cmd)
+        return print_deps_data
 
 
     ##############################################################################

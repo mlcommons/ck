@@ -72,7 +72,7 @@ def preprocess(i):
         env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
 
 
-    env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
+    #env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
 
     '''
     env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
