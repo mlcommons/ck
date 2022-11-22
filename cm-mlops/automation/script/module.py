@@ -224,6 +224,12 @@ class CAutomation(Automation):
         new_cache_entry = i.get('new', False)
         renew = i.get('renew', False)
 
+        cmd = i.get('cmd', '')
+        # Capturing the input command if it is coming from an access function
+        if not cmd and 'cmd' in i.get('input',''):
+            i['cmd'] = i['input']['cmd']
+            cmd = i['cmd']
+
         debug_script_tags = i.get('debug_script_tags', '')
 
         detected_versions = i.get('detected_version', {})
