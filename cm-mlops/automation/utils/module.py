@@ -627,3 +627,74 @@ class CAutomation(Automation):
         if r['return']>0: return r
 
         return {'return':0}
+
+    ##############################################################################
+    def copy_to_clipboard(self, i):  
+        """
+        Copy string to a clipboard
+
+        Args:    
+
+           string (str): string to copy to a clipboard
+           (add_quotes) (bool): add quotes to the string in a clipboard
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        s = i.get('string','')
+
+        if i.get('add_quotes',False): s='"'+s+'"'
+
+        failed = False
+        ee = ''
+
+        # Try to load pyperclip (seems to work fine on Windows)
+        try:
+            import pyperclip
+        except Exception as e:
+            ee = format(e)
+            failed = True
+            pass
+
+        if not failed:
+            pyperclip.copy(s)
+        else:
+            failed = False
+
+            # Try to load Tkinter
+            try:
+                from Tkinter import Tk
+            except ImportError as e:
+                ee = format(e)
+                failed = True
+                pass
+
+            if failed:
+                failed = False
+                try:
+                    from tkinter import Tk
+                except ImportError as e:
+                    ee = format(e)
+                    failed = True
+                    pass
+
+            if failed:
+                return {'return': 1, 'error': 'none of pyperclip/Tkinter/tkinter packages is installed'}
+
+            # Copy to clipboard
+            try:
+                r = Tk()
+                r.withdraw()
+                r.clipboard_clear()
+                r.clipboard_append(s)
+                r.update()
+                r.destroy()
+            except Exception as e:
+                return {'return': 1, 'error': 'problem copying string to clipboard ('+format(e)+')'}
+
+        return {'return': 0}
+
