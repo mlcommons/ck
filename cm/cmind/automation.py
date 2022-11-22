@@ -1023,6 +1023,8 @@ class Automation:
         if len(lst)==0:
             return {'return':16, 'error':'artifact not found: {}'.format(i)}
 
+        cid1 = ''
+        
         for artifact in lst:
             if console and len(lst)>1:
                 print ('****************************************************')
@@ -1042,7 +1044,9 @@ class Automation:
             cid = utils.assemble_cm_object(automation_alias,automation_uid) + \
                   '::' + \
                   x
-            
+
+            cid1 = automation_uid+'::'+uid
+
 #            cid_user_friendly = automation_alias if automation_alias != '' else automation_uid
 #            cid_user_friendly += '::' + (alias if alias != '' else uid)
 #            cid_misc = automation_alias if automation_alias != '' else automation_uid
@@ -1053,6 +1057,7 @@ class Automation:
             full_cid = '(' + cid + ')'
             if console:
                 print ('CID = ' + cid)
+                print ('CID1 = ' + cid1)
                 print ('CID2 = ' + full_cid)
                 print ('Path = ' + path)
 
@@ -1062,6 +1067,11 @@ class Automation:
                 pyperclip.copy(' = ' + full_cid)
             except:
                 pass
+
+        # Attempt to copy to clipboard the last CID
+        if cid1 !='':
+            r = utils.copy_to_clipboard({'string':cid1, 'skip_fail':True})
+            # Skip output
 
 
         return {'return':0, 'list': lst}

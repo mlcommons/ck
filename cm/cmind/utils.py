@@ -1407,3 +1407,81 @@ def filter_tags(tags):
     filtered_tags = [t for t in tags if not t.startswith('-')]
 
     return filtered_tags
+
+##############################################################################
+def copy_to_clipboard(i):
+    """
+    Copy string to a clipboard
+
+    Args:    
+
+       string (str): string to copy to a clipboard
+       (add_quotes) (bool): add quotes to the string in a clipboard
+       (skip_fail) (bool): if True, do not fail
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+    """
+
+    s = i.get('string','')
+
+    if i.get('add_quotes',False): s='"'+s+'"'
+
+    failed = False
+    warning = ''
+
+    # Try to load pyperclip (seems to work fine on Windows)
+    try:
+        import pyperclip
+    except Exception as e:
+        warning = format(e)
+        failed = True
+        pass
+
+    if not failed:
+        pyperclip.copy(s)
+    else:
+        failed = False
+
+        # Try to load Tkinter
+        try:
+            from Tkinter import Tk
+        except ImportError as e:
+            warning = format(e)
+            failed = True
+            pass
+
+        if failed:
+            failed = False
+            try:
+                from tkinter import Tk
+            except ImportError as e:
+                warning = format(e)
+                failed = True
+                pass
+
+        if not failed:
+            # Copy to clipboard
+            try:
+                r = Tk()
+                r.withdraw()
+                r.clipboard_clear()
+                r.clipboard_append(s)
+                r.update()
+                r.destroy()
+            except Exception as e:
+                failed = True
+                warning = format(e)
+
+    rr = {'return':0}
+    
+    if failed:
+        if not i.get('skip_fail',False):
+            return {'return':1, 'error':warning}
+
+        rr['warning']=warning 
+    
+    return rr

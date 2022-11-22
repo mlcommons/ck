@@ -105,6 +105,11 @@ def preprocess(i):
         fast_factor = env['CM_FAST_FACTOR']
     else:
         fast_factor = 1
+    ml_model_name = env['CM_MODEL']
+    if 'bert' in ml_model_name:
+        ml_model_name = "bert"
+    if 'dlrm' in ml_model_name:
+        ml_model_name = "dlrm"
     for metric in conf:
         metric_value = conf[metric]
         if env['CM_MLPERF_RUN_STYLE'] == "fast":
@@ -118,28 +123,27 @@ def preprocess(i):
                 metric_value = 1
             if metric == "target_latency" and scenario in [ "SingleStream" ]:
                 metric_value = 1000
-        user_conf += env['CM_MODEL'] + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
-
+        user_conf += ml_model_name + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
     if env['CM_MLPERF_RUN_STYLE'] == "test":
         query_count = env.get('CM_TEST_QUERY_COUNT', "5")
-        user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
-        user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
-        user_conf += env['CM_MODEL'] + "." + scenario + ".min_duration = 0" + "\n"
+        user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
+        user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
+        user_conf += ml_model_name + "." + scenario + ".min_duration = 0" + "\n"
         scenario_extra_options +=  " --count " + query_count
 
     elif env['CM_MLPERF_RUN_STYLE'] == "fast":
         if scenario == "Server":
             target_qps = conf['target_qps']
             query_count = str((660/fast_factor)/(float(target_qps)))
-            user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
-            user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
-            user_conf += env['CM_MODEL'] + "." + scenario + ".min_duration = 0" + "\n"
+            user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
+            user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
+            user_conf += ml_model_name + "." + scenario + ".min_duration = 0" + "\n"
             scenario_extra_options +=  " --count " + query_count
     else:
         if scenario == "MultiStream":
             query_count = str(int((8000 / float(conf['target_latency'])) * 660))
-            user_conf += env['CM_MODEL'] + "." + scenario + ".max_query_count = " + query_count + "\n"
-            user_conf += env['CM_MODEL'] + "." + scenario + ".min_query_count = " + query_count + "\n"
+            user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
+            user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
             scenario_extra_options +=  " --count " + query_count
     env['CM_MAX_EXAMPLES'] = query_count #needed for squad accuracy checker
     import uuid
@@ -219,8 +223,12 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             scenario_extra_options + mode_extra_options + dataset_options
     elif "bert" in env['CM_MODEL']:
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "bert")
+        if env.get('CM_MLPERF_QUANTIZATION') in [ "on", True, "1", "True" ]:
+            quantization_options = " --quantized"
+        else:
+            quantization_options = ""
         cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_LOADGEN_SCENARIO'] + \
-            scenario_extra_options + mode_extra_options + dataset_options
+            env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
         cmd = cmd.replace("--count", "--max_examples")
         env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
         env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH'] 

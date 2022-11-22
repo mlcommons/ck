@@ -25,6 +25,9 @@
       "tags": "get,compiler"
     }
   ],
+  "default_env": {
+    "CM_SUT_DESC_CACHE": "yes"
+  },
   "input_mapping": {
     "name": "CM_HW_NAME",
     "submitter": "CM_MLPERF_SUBMITTER"
