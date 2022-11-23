@@ -14,7 +14,14 @@ This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-sc
 
 ### Detect CUDA on Windows
 
-Example (depends on your own installation of VC and CUDA SDK":
+First, install the dependencies described [here](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html).
+
+If Visual Studio and CUDA updated your PATH variable, you should just run the following:
+```bash
+cm run script "get cuda"
+```
+
+However, if PATH variable was not updated, you need to provide path to the cl.exe and nvcc.exe to help CM detect them:
 
 ```bash
 cm run script "get cl" --path="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64"

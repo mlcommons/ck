@@ -224,6 +224,12 @@ class CAutomation(Automation):
         new_cache_entry = i.get('new', False)
         renew = i.get('renew', False)
 
+        cmd = i.get('cmd', '')
+        # Capturing the input command if it is coming from an access function
+        if not cmd and 'cmd' in i.get('input',''):
+            i['cmd'] = i['input']['cmd']
+            cmd = i['cmd']
+
         debug_script_tags = i.get('debug_script_tags', '')
 
         detected_versions = i.get('detected_version', {})
@@ -1155,6 +1161,7 @@ class CAutomation(Automation):
                    'variation_tags_string': variation_tags_string,
                    'found_cached': False,
                    'debug_script_tags': debug_script_tags,
+                   'verbose': verbose,
                    'self': self
             }
 
@@ -1432,17 +1439,13 @@ class CAutomation(Automation):
         shell = i.get('shell', False)
         if save_env or shell:
             # Check if script_prefix in the state from other components
-            env_script.insert(0, '\n')
-
+            where_to_add = len(os_info['start_script'])
+            
             script_prefix = state.get('script_prefix',[])
             if len(script_prefix)>0:
+                env_script.insert(where_to_add, '\n')
                 for x in reversed(script_prefix):
-                     env_script.insert(0, x)
-
-            ss = os_info['start_script']
-            if len(ss)>0:
-                for x in reversed(ss):
-                    env_script.insert(0, x)
+                     env_script.insert(where_to_add, x)
 
             if shell:
                 x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
@@ -1975,7 +1978,6 @@ class CAutomation(Automation):
         import copy
 
         paths = i['paths']
-        file_name = i['file_name']
         select = i.get('select',False)
         select_default = i.get('select_default', False)
         recursion_spaces = i.get('recursion_spaces','')
@@ -1983,38 +1985,28 @@ class CAutomation(Automation):
         verbose = i.get('verbose', False)
         if not verbose: verbose = i.get('v', False)
 
-        file_is_re = any(not c.isalnum() for c in file_name)
+        file_name = i.get('file_name', '')
+        file_name_re = i.get('file_name_re', '')
+        file_is_re = False
+
+        if file_name_re != '':
+            file_name = file_name_re
+            file_is_re = True
+
+        if file_name == '':
+            raise Exception('file_name or file_name_re not specified in find_artifact')
+
         found_files = []
+        
         import glob
         import re
-        for path in paths:
-            if file_is_re:
-                file_list = [os.path.join(path,f)  for f in os.listdir(path) if re.match(file_name, f)]
-                for file in file_list:
-                    duplicate = False
-                    for existing in found_files:
-                        if os.path.samefile(existing, file):
-                            duplicate = True
-                            break
-                    if not duplicate:
-                        found_files.append(file)
 
-            else:
-                path_to_file = os.path.join(path, file_name)
-                file_pattern_suffixes = [
-                        "",
-                        ".[0-9]",
-                        ".[0-9][0-9]",
-                        "-[0-9]",
-                        "-[0-9][0-9]",
-                        "[0-9]",
-                        "[0-9][0-9]",
-                        "[0-9].[0-9]",
-                        "[0-9][0-9].[0-9]",
-                        "[0-9][0-9].[0-9][0-9]"
-                        ]
-                for suff in file_pattern_suffixes:
-                    file_list = glob.glob(path_to_file + suff)
+        for path in paths:
+            # May happen that path is in variable but it doesn't exist anymore
+            if os.path.isdir(path):
+                if file_is_re:
+                    file_list = [os.path.join(path,f)  for f in os.listdir(path) if re.match(file_name, f)]
+
                     for file in file_list:
                         duplicate = False
                         for existing in found_files:
@@ -2023,6 +2015,36 @@ class CAutomation(Automation):
                                 break
                         if not duplicate:
                             found_files.append(file)
+
+                else:
+                    path_to_file = os.path.join(path, file_name)
+
+                    file_pattern_suffixes = [
+                            "",
+                            ".[0-9]",
+                            ".[0-9][0-9]",
+                            "-[0-9]",
+                            "-[0-9][0-9]",
+                            "[0-9]",
+                            "[0-9][0-9]",
+                            "[0-9].[0-9]",
+                            "[0-9][0-9].[0-9]",
+                            "[0-9][0-9].[0-9][0-9]"
+                            ]
+
+                    for suff in file_pattern_suffixes:
+                        file_list = glob.glob(path_to_file + suff)
+                        for file in file_list:
+                            duplicate = False
+
+                            for existing in found_files:
+                                if os.path.samefile(existing, file):
+                                    duplicate = True
+                                    break
+
+                            if not duplicate:
+                                found_files.append(file)
+
         if select:
             # Check and prune versions
             if i.get('detect_version', False):
@@ -2649,6 +2671,30 @@ class CAutomation(Automation):
         return {'return':0}
 
 
+    ##############################################################################
+    def _available_variations(self, i):
+        """
+        return error with available variations
+
+        Args:
+          (CM input dict): 
+
+          meta (dict): meta of the script
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+                                             16 if not detected
+           * (error) (str): error string if return>0
+
+        """
+
+        meta = i['meta']
+
+        list_of_variations = sorted(['_'+v for v in list(meta.get('variations',{}.keys()))])
+
+        return {'return':1, 'error':'python package variation is not defined in "{}". Available: {}'.format(meta['alias'],' '.join(list_of_variations))}
 
 ##############################################################################
 def find_cached_script(i):
@@ -2977,9 +3023,11 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
         if tmp_file_run_env != '' and os.path.isfile(tmp_file_run_env):
             os.remove(tmp_file_run_env)
 
+        run_script = tmp_file_run + bat_ext
+
         if verbose:
             print ('')
-            print (recursion_spaces + '  - Running script in {} ...'.format(os.getcwd()))
+            print (recursion_spaces + '  - Running script {} in {} ...'.format(run_script, os.getcwd()))
 
         # Prepare env variables
         import copy
@@ -2988,7 +3036,8 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
         # Check if script_prefix in the state from other components
         script_prefix = state.get('script_prefix',[])
         if len(script_prefix)>0:
-            script = script_prefix + ['\n'] + script
+#            script = script_prefix + ['\n'] + script
+            script += script_prefix + ['\n']
 
         script += convert_env_to_script(env, os_info)
 
@@ -3006,8 +3055,6 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
         script.append(os_info['run_bat'].replace('${bat_file}', path_to_run_script) + '\n')
 
         # Prepare and run script
-        run_script = tmp_file_run + bat_ext
-
         r = record_script(run_script, script, os_info)
         if r['return']>0: return r
 
