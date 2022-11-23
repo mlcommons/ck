@@ -2674,6 +2674,30 @@ class CAutomation(Automation):
         return {'return':0}
 
 
+    ##############################################################################
+    def _available_variations(self, i):
+        """
+        return error with available variations
+
+        Args:
+          (CM input dict): 
+
+          meta (dict): meta of the script
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+                                             16 if not detected
+           * (error) (str): error string if return>0
+
+        """
+
+        meta = i['meta']
+
+        list_of_variations = sorted(['_'+v for v in list(meta.get('variations',{}.keys()))])
+
+        return {'return':1, 'error':'python package variation is not defined in "{}". Available: {}'.format(meta['alias'],' '.join(list_of_variations))}
 
 ##############################################################################
 def find_cached_script(i):

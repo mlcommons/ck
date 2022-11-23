@@ -1,4 +1,4 @@
-rem connect CM intelligent components with CK env
+rem connect CM portable scripts with CK env
 set ML_MODEL_IMAGE_HEIGHT=224
 set ML_MODEL_IMAGE_WIDTH=224
 set CK_BATCH_SIZE=1
