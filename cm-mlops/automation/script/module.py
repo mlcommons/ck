@@ -1990,37 +1990,18 @@ class CAutomation(Automation):
         if not verbose: verbose = i.get('v', False)
 
         file_is_re = any(not c.isalnum() for c in file_name)
+
         found_files = []
+        
         import glob
         import re
-        for path in paths:
-            if file_is_re:
-                file_list = [os.path.join(path,f)  for f in os.listdir(path) if re.match(file_name, f)]
-                for file in file_list:
-                    duplicate = False
-                    for existing in found_files:
-                        if os.path.samefile(existing, file):
-                            duplicate = True
-                            break
-                    if not duplicate:
-                        found_files.append(file)
 
-            else:
-                path_to_file = os.path.join(path, file_name)
-                file_pattern_suffixes = [
-                        "",
-                        ".[0-9]",
-                        ".[0-9][0-9]",
-                        "-[0-9]",
-                        "-[0-9][0-9]",
-                        "[0-9]",
-                        "[0-9][0-9]",
-                        "[0-9].[0-9]",
-                        "[0-9][0-9].[0-9]",
-                        "[0-9][0-9].[0-9][0-9]"
-                        ]
-                for suff in file_pattern_suffixes:
-                    file_list = glob.glob(path_to_file + suff)
+        for path in paths:
+            # May happen that path is in variable but it doesn't exist anymore
+            if os.path.isdir(path):
+                if file_is_re:
+                    file_list = [os.path.join(path,f)  for f in os.listdir(path) if re.match(file_name, f)]
+
                     for file in file_list:
                         duplicate = False
                         for existing in found_files:
@@ -2029,6 +2010,36 @@ class CAutomation(Automation):
                                 break
                         if not duplicate:
                             found_files.append(file)
+
+                else:
+                    path_to_file = os.path.join(path, file_name)
+
+                    file_pattern_suffixes = [
+                            "",
+                            ".[0-9]",
+                            ".[0-9][0-9]",
+                            "-[0-9]",
+                            "-[0-9][0-9]",
+                            "[0-9]",
+                            "[0-9][0-9]",
+                            "[0-9].[0-9]",
+                            "[0-9][0-9].[0-9]",
+                            "[0-9][0-9].[0-9][0-9]"
+                            ]
+
+                    for suff in file_pattern_suffixes:
+                        file_list = glob.glob(path_to_file + suff)
+                        for file in file_list:
+                            duplicate = False
+
+                            for existing in found_files:
+                                if os.path.samefile(existing, file):
+                                    duplicate = True
+                                    break
+
+                            if not duplicate:
+                                found_files.append(file)
+
         if select:
             # Check and prune versions
             if i.get('detect_version', False):
