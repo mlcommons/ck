@@ -1161,6 +1161,7 @@ class CAutomation(Automation):
                    'variation_tags_string': variation_tags_string,
                    'found_cached': False,
                    'debug_script_tags': debug_script_tags,
+                   'verbose': verbose,
                    'self': self
             }
 
