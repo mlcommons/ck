@@ -1161,6 +1161,7 @@ class CAutomation(Automation):
                    'variation_tags_string': variation_tags_string,
                    'found_cached': False,
                    'debug_script_tags': debug_script_tags,
+                   'verbose': verbose,
                    'self': self
             }
 
@@ -1438,17 +1439,13 @@ class CAutomation(Automation):
         shell = i.get('shell', False)
         if save_env or shell:
             # Check if script_prefix in the state from other components
-            env_script.insert(0, '\n')
-
+            where_to_add = len(os_info['start_script'])
+            
             script_prefix = state.get('script_prefix',[])
             if len(script_prefix)>0:
+                env_script.insert(where_to_add, '\n')
                 for x in reversed(script_prefix):
-                     env_script.insert(0, x)
-
-            ss = os_info['start_script']
-            if len(ss)>0:
-                for x in reversed(ss):
-                    env_script.insert(0, x)
+                     env_script.insert(where_to_add, x)
 
             if shell:
                 x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
@@ -3026,9 +3023,11 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
         if tmp_file_run_env != '' and os.path.isfile(tmp_file_run_env):
             os.remove(tmp_file_run_env)
 
+        run_script = tmp_file_run + bat_ext
+
         if verbose:
             print ('')
-            print (recursion_spaces + '  - Running script in {} ...'.format(os.getcwd()))
+            print (recursion_spaces + '  - Running script {} in {} ...'.format(run_script, os.getcwd()))
 
         # Prepare env variables
         import copy
@@ -3037,7 +3036,8 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
         # Check if script_prefix in the state from other components
         script_prefix = state.get('script_prefix',[])
         if len(script_prefix)>0:
-            script = script_prefix + ['\n'] + script
+#            script = script_prefix + ['\n'] + script
+            script += script_prefix + ['\n']
 
         script += convert_env_to_script(env, os_info)
 
@@ -3055,8 +3055,6 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
         script.append(os_info['run_bat'].replace('${bat_file}', path_to_run_script) + '\n')
 
         # Prepare and run script
-        run_script = tmp_file_run + bat_ext
-
         r = record_script(run_script, script, os_info)
         if r['return']>0: return r
 

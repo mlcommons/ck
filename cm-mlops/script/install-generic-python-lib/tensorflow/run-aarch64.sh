@@ -10,4 +10,4 @@ export PATH=$PATH:$HOME/.cargo/bin
 
 ${CM_PYTHON_BIN} -m pip install tensorflow-aarch64${CM_TMP_PIP_VERSION_STRING}  --user
 test $? -eq 0 || exit 1
-echo "CM_PYTHON_PACKAGE_NAME=tensorflow-aarch64" >> $PWD/tmp-run-env.out
+echo "CM_GENERIC_PYTHON_PACKAGE_NAME=tensorflow-aarch64" >> $PWD/tmp-run-env.out
