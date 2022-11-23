@@ -1981,7 +1981,6 @@ class CAutomation(Automation):
         import copy
 
         paths = i['paths']
-        file_name = i['file_name']
         select = i.get('select',False)
         select_default = i.get('select_default', False)
         recursion_spaces = i.get('recursion_spaces','')
@@ -1989,7 +1988,16 @@ class CAutomation(Automation):
         verbose = i.get('verbose', False)
         if not verbose: verbose = i.get('v', False)
 
-        file_is_re = any(not c.isalnum() for c in file_name)
+        file_name = i.get('file_name', '')
+        file_name_re = i.get('file_name_re', '')
+        file_is_re = False
+
+        if file_name_re != '':
+            file_name = file_name_re
+            file_is_re = True
+
+        if file_name == '':
+            raise Exception('file_name or file_name_re not specified in find_artifact')
 
         found_files = []
         

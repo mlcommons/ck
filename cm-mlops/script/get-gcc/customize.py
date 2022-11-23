@@ -12,13 +12,13 @@ def preprocess(i):
     file_name_c = 'gcc.exe' if os_info['platform'] == 'windows' else 'gcc'
     if 'CM_GCC_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name_c,
-                                       'env': env,
-                                       'os_info':os_info,
-                                       'default_path_env_key': 'PATH',
-                                       'detect_version':True,
-                                       'env_path_key':'CM_GCC_BIN_WITH_PATH',
-                                       'run_script_input':i['run_script_input'],
-                                       'recursion_spaces':recursion_spaces})
+                                           'env': env,
+                                           'os_info':os_info,
+                                           'default_path_env_key': 'PATH',
+                                           'detect_version':True,
+                                           'env_path_key':'CM_GCC_BIN_WITH_PATH',
+                                           'run_script_input':i['run_script_input'],
+                                           'recursion_spaces':recursion_spaces})
         if r['return'] >0 :
 #           if r['return'] == 16:
 #               if env.get('CM_TMP_FAIL_IF_NOT_FOUND','').lower() == 'yes':
