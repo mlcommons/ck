@@ -34,6 +34,9 @@
     },
     {
       "tags": "get,generic-python-lib,_mlperf_logging"
+    },
+    {
+      "tags": "get,cuda"
     }
   ],
   "tags": [
