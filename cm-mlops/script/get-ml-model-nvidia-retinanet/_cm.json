@@ -31,6 +31,9 @@
     },
     {
       "tags": "get,generic-python-lib,_torchvision"
+    },
+    {
+      "tags": "get,generic-python-lib,_mlperf_logging"
     }
   ],
   "tags": [
