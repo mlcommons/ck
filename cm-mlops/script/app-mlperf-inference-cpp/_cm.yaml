@@ -108,7 +108,7 @@ deps:
   - enable_if_env:
       CM_MODEL:
       - retinanet
-    tags: get,ml-model,retinanet,_onnx
+    tags: get,ml-model,retinanet,_onnx-fp32
 
 
   
