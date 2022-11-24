@@ -43,7 +43,7 @@ and C++ implementation
     <td>Pytorch</td>
     <td>N</td>
     <td>❌</td>
-    <td>Reference Implementation missing?</td>
+    <td><a href="https://github.com/mlcommons/inference/issues/828">Reference Implementation missing?</a></td>
   </tr>
   <tr>
     <td rowspan="3">CUDA</td>
@@ -62,7 +62,7 @@ and C++ implementation
     <td>Pytorch</td>
     <td>N</td>
     <td>❌</td>
-    <td>Reference Implementation missing?</td>
+    <td><a href="https://github.com/mlcommons/inference/issues/828">Reference Implementation missing?</a></td>
   </tr>
   <tr>
     <td rowspan="6">RetinaNet</td>
