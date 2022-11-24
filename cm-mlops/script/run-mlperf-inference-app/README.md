@@ -121,9 +121,7 @@ and C++ implementation
     <td>N</td>
     <td>✅</td>
     <td>
- 
-      Works with protobuf 3.19. Issue mentioned [here](https://github.com/mlcommons/inference/issues/1276)
-      
+Works with protobuf 3.19. Issue mentioned [here](https://github.com/mlcommons/inference/issues/1276)
     </td>
   </tr>
   <tr>
@@ -131,10 +129,8 @@ and C++ implementation
     <td>N</td>
     <td>✅</td>
     <td>
-      
-      Works but with [strict check disabled](https://github.com/mlcommons/inference/issues/1288)
-      
-    </td>
+Works but with [strict check disabled](https://github.com/mlcommons/inference/issues/1288)
+</td>
   </tr>
   <tr>
     <td rowspan="4">CUDA</td>
