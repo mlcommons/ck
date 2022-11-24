@@ -104,8 +104,8 @@ and C++ implementation
     <td>Works on all tested versions</td>
   </tr>
   <tr>
-    <td>Bert</td>
-    <td>CPU</td>
+    <td rowspan="8">Bert</td>
+    <td rowspan="4">CPU</td>
     <td>Onnxruntime</td>
     <td>N</td>
     <td>✅</td>
@@ -137,7 +137,7 @@ and C++ implementation
   </tr>
   <tr>
     <td></td>
-    <td>CUDA</td>
+    <td rowspan="4">CUDA</td>
     <td>Onnxruntime</td>
     <td>N</td>
     <td>?</td>
