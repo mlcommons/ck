@@ -129,7 +129,7 @@ Works with protobuf 3.19. Issue mentioned <a href="https://github.com/mlcommons/
     <td>N</td>
     <td>✅</td>
     <td>
-Works but with [strict check disabled](https://github.com/mlcommons/inference/issues/1288)
+Works but with <a href="https://github.com/mlcommons/inference/issues/1288">strict check disabled</a>
 </td>
   </tr>
   <tr>
