@@ -121,7 +121,7 @@ and C++ implementation
     <td>N</td>
     <td>✅</td>
     <td>
-Works with protobuf 3.19. Issue mentioned [here](https://github.com/mlcommons/inference/issues/1276)
+Works with protobuf 3.19. Issue mentioned <a href="https://github.com/mlcommons/inference/issues/1276">here</a>
     </td>
   </tr>
   <tr>
