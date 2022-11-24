@@ -12,6 +12,164 @@ It currently supports modular Python reference implementation
 and C++ implementation 
 ([CM meta description to connect all components](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)).
 
+## Current Coverage
+<table>
+<thead>
+  <tr>
+    <th>Model</th>
+    <th>Device</th>
+    <th>Backend</th>
+    <th>Qunatized</th>
+    <th>Status</th>
+    <th>Comments</th>
+  </tr>
+</thead>
+<tbody>
+  <tr>
+    <td rowspan="6">ResNet50</td>
+    <td rowspan="3">CPU</td>
+    <td>Onnxruntime</td>
+    <td>N</td>
+    <td>✓</td>
+    <td>Works on all tested versions</td>
+  </tr>
+  <tr>
+    <td>Tensorflow</td>
+    <td>N</td>
+    <td>✓</td>
+    <td>Works on all tested versions</td>
+  </tr>
+  <tr>
+    <td>Pytorch</td>
+    <td>N</td>
+    <td>❌</td>
+    <td>Reference Implementation missing?</td>
+  </tr>
+  <tr>
+    <td rowspan="3">CUDA</td>
+    <td>Onnxruntime</td>
+    <td>N</td>
+    <td>✓</td>
+    <td>Works on all tested versions</td>
+  </tr>
+  <tr>
+    <td>Tensorflow</td>
+    <td>N</td>
+    <td>?</td>
+    <td>Not tested</td>
+  </tr>
+  <tr>
+    <td>Pytorch</td>
+    <td>N</td>
+    <td>❌</td>
+    <td>Reference Implementation missing?</td>
+  </tr>
+  <tr>
+    <td rowspan="6">RetinaNet</td>
+    <td rowspan="3">CPU</td>
+    <td>Onnxruntime</td>
+    <td>N</td>
+    <td>✓</td>
+    <td>Works on all tested versions</td>
+  </tr>
+  <tr>
+    <td>Tensorflow</td>
+    <td>N</td>
+    <td>❌</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Pytorch</td>
+    <td>N</td>
+    <td>✓</td>
+    <td>Works on all tested versions</td>
+  </tr>
+  <tr>
+    <td rowspan="3">CUDA</td>
+    <td>Onnxruntime</td>
+    <td>N</td>
+    <td>✓</td>
+    <td>Works on all tested versions</td>
+  </tr>
+  <tr>
+    <td>Tensorflow</td>
+    <td>N</td>
+    <td>❌</td>
+    <td></td>
+  </tr>
+  <tr>
+    <td>Pytorch</td>
+    <td>N</td>
+    <td>✓</td>
+    <td>Works on all tested versions</td>
+  </tr>
+  <tr>
+    <td>Bert</td>
+    <td>CPU</td>
+    <td>Onnxruntime</td>
+    <td>N</td>
+    <td>✓</td>
+    <td>Works on all tested versions</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Onnxruntime</td>
+    <td>Y</td>
+    <td>✓</td>
+    <td>Works on all tested versions</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Tensorflow</td>
+    <td>N</td>
+    <td>✓</td>
+    <td>Works for torch&lt;=1.12</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Pytorch</td>
+    <td>N</td>
+    <td>✓</td>
+    <td>Works but with strict check disabled</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td>CUDA</td>
+    <td>Onnxruntime</td>
+    <td>N</td>
+    <td>?</td>
+    <td>Not tested</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Onnxruntime</td>
+    <td>Y</td>
+    <td>?</td>
+    <td>Not tested</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Tensorflow</td>
+    <td>N</td>
+    <td>?</td>
+    <td>Not tested</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Pytorch</td>
+    <td>N</td>
+    <td>?</td>
+    <td>Not tested</td>
+  </tr>
+</tbody>
+</table>
+
 Please follow our R&D roadmap [here](https://github.com/mlcommons/ck/issues/536).
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
