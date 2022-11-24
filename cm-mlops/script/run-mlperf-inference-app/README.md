@@ -26,7 +26,7 @@ and C++ implementation
 </thead>
 <tbody>
   <tr>
-    <td rowspan="6">ResNet50</td>
+    <td rowspan="6"><a href="https://github.com/mlcommons/inference/blob/master/.github/workflows/test-resnet50.yml">ResNet50</a></td>
     <td rowspan="3">CPU</td>
     <td>Onnxruntime</td>
     <td>N</td>
@@ -65,7 +65,7 @@ and C++ implementation
     <td><a href="https://github.com/mlcommons/inference/issues/828">Reference Implementation missing?</a></td>
   </tr>
   <tr>
-    <td rowspan="6">RetinaNet</td>
+    <td rowspan="6"><a href="https://github.com/mlcommons/inference/blob/master/.github/workflows/test-retinanet.yml">RetinaNet</a></td>
     <td rowspan="3">CPU</td>
     <td>Onnxruntime</td>
     <td>N</td>
