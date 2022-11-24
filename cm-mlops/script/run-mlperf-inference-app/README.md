@@ -76,7 +76,7 @@ and C++ implementation
     <td>Tensorflow</td>
     <td>N</td>
     <td>❌</td>
-    <td></td>
+    <td>Not Implementted</td>
   </tr>
   <tr>
     <td>Pytorch</td>
@@ -95,7 +95,7 @@ and C++ implementation
     <td>Tensorflow</td>
     <td>N</td>
     <td>❌</td>
-    <td></td>
+    <td>Not Implemented</td>
   </tr>
   <tr>
     <td>Pytorch</td>
@@ -106,62 +106,47 @@ and C++ implementation
   <tr>
     <td rowspan="8">Bert</td>
     <td rowspan="4">CPU</td>
-    <td>Onnxruntime</td>
+    <td rowspan="2">Onnxruntime</td>
     <td>N</td>
     <td>✅</td>
     <td>Works on all tested versions</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
-    <td>Onnxruntime</td>
     <td>Y</td>
     <td>✅</td>
     <td>Works on all tested versions</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
     <td>Tensorflow</td>
     <td>N</td>
     <td>✅</td>
     <td>Works for torch&lt;=1.12</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
     <td>Pytorch</td>
     <td>N</td>
     <td>✅</td>
     <td>Works but with strict check disabled</td>
   </tr>
   <tr>
-    <td></td>
     <td rowspan="4">CUDA</td>
-    <td>Onnxruntime</td>
+    <td rowspan="2">Onnxruntime</td>
     <td>N</td>
     <td>?</td>
     <td>Not tested</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
-    <td>Onnxruntime</td>
     <td>Y</td>
     <td>?</td>
     <td>Not tested</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
     <td>Tensorflow</td>
     <td>N</td>
     <td>?</td>
     <td>Not tested</td>
   </tr>
   <tr>
-    <td></td>
-    <td></td>
     <td>Pytorch</td>
     <td>N</td>
     <td>?</td>
