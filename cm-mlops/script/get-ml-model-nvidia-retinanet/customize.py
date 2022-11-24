@@ -10,7 +10,4 @@ def preprocess(i):
         env['+PYTHONPATH'] = []
     env['+PYTHONPATH'].append(os.path.join(env['CM_MLPERF_TRAINING_SOURCE'], "single_stage_detector", "ssd"))
 
-    print(env)
-
-
     return {'return':0}

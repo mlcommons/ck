@@ -24,7 +24,7 @@
       "tags": "get,mlperf,inference,src"
     },
     {
-      "tags": "get,ml-model,retinanet,_pytorch"
+      "tags": "get,ml-model,retinanet,_pytorch-weights"
     },
     {
       "tags": "get,generic-python-lib,_torch"
