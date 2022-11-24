@@ -36,7 +36,10 @@
       "tags": "get,generic-python-lib,_mlperf_logging"
     },
     {
-      "tags": "get,cuda"
+      "tags": "get,cuda",
+      "skip_if_env": {
+	"CM_HOST_OS_FLAVOR": "macos"
+      }
     }
   ],
   "tags": [
