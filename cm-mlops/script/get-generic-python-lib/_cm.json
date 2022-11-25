@@ -48,6 +48,23 @@
   ],
   "uid": "94b62a682bc44791",
   "variations": {
+    "jax": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax"
+      },
+      "new_env_keys": [
+        "CM_JAX_VERSION"
+      ]
+    },
+    "jax_gpu": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax[cuda]",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": "-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html"
+      },
+      "new_env_keys": [
+        "CM_JAX_GPU_VERSION"
+      ]
+    },
     "numpy": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "numpy"

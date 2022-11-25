@@ -13,13 +13,13 @@ if [[ ${CM_GENERIC_PYTHON_PACKAGE_NAME}  == "tensorflow" ]]; then
     fi
 fi
 
-if [[ -n ${CM_PIP_URL} ]]; then
-    cmd="${CM_PYTHON_BIN_WITH_PATH} -m pip install ${CM_PIP_URL}"
+if [[ -n ${CM_GENERIC_PYTHON_PIP_URL} ]]; then
+    cmd="${CM_PYTHON_BIN_WITH_PATH} -m pip install ${CM_GENERIC_PYTHON_PIP_URL} ${CM_GENERIC_PYTHON_PIP_EXTRA}"
     echo $cmd
     eval $cmd
     test $? -eq 0 || exit 1
     exit 0
 fi
 
-${CM_PYTHON_BIN_WITH_PATH} -m pip install ${CM_GENERIC_PYTHON_PACKAGE_NAME}${CM_TMP_PIP_VERSION_STRING}
+${CM_PYTHON_BIN_WITH_PATH} -m pip install ${CM_GENERIC_PYTHON_PACKAGE_NAME}${CM_TMP_PIP_VERSION_STRING} ${CM_GENERIC_PYTHON_PIP_EXTRA}
 test $? -eq 0 || exit 1

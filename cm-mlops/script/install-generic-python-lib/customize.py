@@ -11,5 +11,5 @@ def preprocess(i):
     package_name = env.get('CM_GENERIC_PYTHON_PACKAGE_NAME', '').strip()
     if package_name == '':
         return automation._available_variations({'meta':meta})
-    
+
     return {'return':0}

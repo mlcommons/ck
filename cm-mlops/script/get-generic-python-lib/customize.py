@@ -11,8 +11,12 @@ def preprocess(i):
     package_name = env.get('CM_GENERIC_PYTHON_PACKAGE_NAME', '').strip()
     if package_name == '':
         return automation._available_variations({'meta':meta})
-    
-    env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'] = env['CM_GENERIC_PYTHON_PACKAGE_NAME'].replace("-", "_")
+
+    prepare_env_key = env['CM_GENERIC_PYTHON_PACKAGE_NAME']
+    for x in ["-", "[", "]"]:
+        prepare_env_key = prepare_env_key.replace(x,"_")
+
+    env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'] = prepare_env_key.upper()
 
     recursion_spaces = i['recursion_spaces']
 
@@ -51,6 +55,6 @@ def postprocess(i):
 
     version = r['version']
 
-    env['CM_PYTHONLIB_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'].upper()+'_CACHE_TAGS'] = 'version-'+version
+    env['CM_PYTHONLIB_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV']+'_CACHE_TAGS'] = 'version-'+version
 
     return {'return':0, 'version': version}
