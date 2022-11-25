@@ -1162,6 +1162,7 @@ class CAutomation(Automation):
                    'found_cached': False,
                    'debug_script_tags': debug_script_tags,
                    'verbose': verbose,
+                   'meta':meta,
                    'self': self
             }
 
