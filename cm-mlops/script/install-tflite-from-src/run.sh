@@ -8,6 +8,7 @@ fi
 
 INSTALL_DIR="${CUR_DIR}"
 rm -rf ${INSTALL_DIR}/install
+rm -rf ${INSTALL_DIR}/build
 
 cd ${INSTALL_DIR}
 mkdir -p build
