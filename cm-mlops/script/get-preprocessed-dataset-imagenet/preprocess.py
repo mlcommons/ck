@@ -1,7 +1,7 @@
 import os
 import sys
 
-if os.environ.get('CM_IMAGENET_QUANTIZED', False):
+if os.environ.get('CM_IMAGENET_QUANTIZED', False) == "yes":
     import generic_preprocess
     generic_preprocess.preprocess()
 else:
