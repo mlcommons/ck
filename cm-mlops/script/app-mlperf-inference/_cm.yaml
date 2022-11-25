@@ -252,7 +252,7 @@ deps:
       - resnet50
 
   ## RetinaNet (ONNX format, FP32)
-  - tags: get,ml-model,object-detection,resnext50,fp32,_onnx
+  - tags: get,ml-model,object-detection,retinanet,_onnx-fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
@@ -261,7 +261,7 @@ deps:
       - retinanet
 
   ## RetinaNet (PyTorch format, FP32)
-  - tags: get,ml-model,object-detection,resnext50,fp32,_pytorch
+  - tags: get,ml-model,object-detection,retinanet,_pytorch-fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch

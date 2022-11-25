@@ -145,6 +145,11 @@
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "opencv-python"
       }
     },
+    "pillow": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "Pillow"
+      }
+    },
     "pandas": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "pandas"

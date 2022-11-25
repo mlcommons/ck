@@ -38,6 +38,12 @@
       "skip_if_env": {
         "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
       }
+    },
+    {
+      "tags": "get,generic-python-lib,_opencv"
+    },
+    {
+      "tags": "get,generic-python-lib,_pillow"
     }
   ],
   "env": {

@@ -192,6 +192,14 @@
         "CM_OPENCV_PYTHON_VERSION"
       ]
     },
+    "pillow": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "Pillow"
+      },
+      "new_env_keys": [
+        "CM_PILLOW_VERSION"
+      ]
+    },
     "pandas": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "pandas"

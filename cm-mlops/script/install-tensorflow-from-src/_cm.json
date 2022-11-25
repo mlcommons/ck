@@ -1,9 +1,9 @@
 {
-  "alias": "install-tensorflow-src",
+  "alias": "install-tensorflow-from-src",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "category": "ML/AI frameworks",
   "cache": true,
+  "category": "ML/AI frameworks",
   "clean_files": [],
   "default_version": "master",
   "deps": [

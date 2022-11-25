@@ -16,6 +16,8 @@ if [ ! -d "training" ]; then
     git checkout -b "${CM_GIT_CHECKOUT}"
   fi
   if [ "${?}" != "0" ]; then exit 1; fi
+else
+  cd training
 fi
 
 if [ ${CM_GIT_PATCH} == "yes" ]; then
