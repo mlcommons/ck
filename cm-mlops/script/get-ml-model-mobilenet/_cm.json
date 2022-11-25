@@ -60,6 +60,7 @@
       "env": {
         "CM_ML_MODEL_NORMALIZE_DATA": "no",
         "CM_ML_MODEL_SUBTRACT_MEAN": "yes",
+        "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "128.0 128.0 128.0",
         "CM_ML_MODEL_VER": "1_1.0_224_quant",
         "CM_ML_MODEL_INPUT_LAYER_NAME": "0",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "169",
