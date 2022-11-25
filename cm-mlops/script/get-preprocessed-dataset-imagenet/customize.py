@@ -25,5 +25,7 @@ def preprocess(i):
     if not exists(os.path.join(env['CM_DATASET_PREPROCESSED_PATH'], "val_map.txt")):
         shutil.copy(os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt"), os.path.join(env['CM_DATASET_PREPROCESSED_PATH'],
         "val_map.txt"))
+    if env.get('CM_IMAGENET_QUANTIZED', "no") == "yes":
+        env['CM_QUANTIZE'] = "1"
 
     return {'return': 0}

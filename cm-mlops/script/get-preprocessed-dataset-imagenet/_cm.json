@@ -35,20 +35,31 @@
         "inference-src"
       ],
       "tags": "mlperf,mlcommons,inference,source,src",
+      "enable_if_env": {
+        "CM_IMAGENET_QUANTIZED": [ "no" ]
+      },
       "skip_if_env": {
         "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
       }
     },
     {
-      "tags": "get,generic-python-lib,_opencv"
+      "tags": "get,generic-python-lib,_opencv-python"
     },
     {
       "tags": "get,generic-python-lib,_pillow"
     }
   ],
+  "default_env": {
+    "CM_IMAGENET_QUANTIZED": "no",
+    "CM_INPUT_SQUARE_SIDE": "224",
+    "CM_CROP_FACTOR": "87.5",
+    "CM_ML_MODEL_DATA_TYPE": "float32",
+    "CM_QUANT_SCALE": "1",
+    "CM_QUANT_OFFSET": "0",
+    "CM_CONVERT_TO_UNSIGNED": "0"
+  },
   "env": {
-    "CM_DATASET": "imagenet",
-    "CM_IMAGENET_PREPROCESSED_FILENAME": "ILSVRC2012_val_00050000.JPEG.npy" 
+    "CM_DATASET": "imagenet"
   },
   "input_mapping": {
     "dir": "CM_DATASET_PREPROCESSED_PATH",
@@ -107,6 +118,46 @@
       },
       "env": {
         "CM_DATASET_SIZE": "50000"
+      }
+    },
+    "for.resnet50-quantized": {
+      "prehook_deps": [
+        "get,generic,image-preprocessor"
+      ],
+      "env": {
+        "CM_IMAGENET_QUANTIZED": "yes",
+        "CM_MODEL": "resnet50",
+        "CM_NEW_EXTENSION": "rgb8",
+        "CM_NORMALIZE_DATA": "0",
+        "CM_SUBTRACT_MEAN": "YES",
+        "CM_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
+        "CM_INTERPOLATION_METHOD": "INTER_AREA",
+        "CM_QUANT_SCALE": "1.18944883",
+        "CM_QUANT_OFFSET": "0",
+        "CM_QUANTIZE": "1",
+        "CM_CONVERT_TO_UNSIGNED": "1"
+      }
+    },
+    "for.resnet50": {
+      "env": {
+        "CM_IMAGENET_QUANTIZED": "no",
+        "CM_MODEL": "resnet50"
+      }
+    },
+    "for.mobilenet-quantized": {
+      "prehook_deps": [
+        {
+          "tags": "get,generic,image-preprocessor"
+        }
+      ],
+      "env": {
+        "CM_IMAGENET_QUANTIZED": "yes"
+      }
+    },
+    "for.mobilenet": {
+      "env": {
+        "CM_IMAGENET_QUANTIZED": "no",
+        "CM_MODEL": "mobilenet"
       }
     }
   }
