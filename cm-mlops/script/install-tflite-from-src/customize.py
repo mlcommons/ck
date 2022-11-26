@@ -17,10 +17,10 @@ def postprocess(i):
 #        if key not in env:
         env[key] = []
 
-    env['+C_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
-    env['+CPLUS_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'install', 'include'))
+    env['+C_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'src'))
+    env['+CPLUS_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'src'))
 
-    lib_path = os.path.join(os.getcwd(), 'install', 'lib')
+    lib_path = os.path.join(os.getcwd(), 'build')
     env['+LD_LIBRARY_PATH'].append(lib_path)
     env['+DYLD_FALLBACK_LIBRARY_PATH'].append(lib_path)
 

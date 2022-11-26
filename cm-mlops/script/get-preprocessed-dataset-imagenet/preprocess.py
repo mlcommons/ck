@@ -18,7 +18,7 @@ else:
     count = int(os.environ.get('CM_DATASET_SIZE', 1))
     preprocessed_base_dir = os.environ.get('CM_DATASET_PREPROCESSED_PATH', os.getcwd())
     threads = os.environ.get('CM_NUM_THREADS', os.cpu_count())
-    threads = os.environ.get('CM_NUM_PREPROCESS_THREADS', threads)
+    threads = int(os.environ.get('CM_NUM_PREPROCESS_THREADS', threads))
 
     if os.environ.get('CM_MODEL', 'resnet50') == 'resnet50':
         pre_process = dataset.pre_process_vgg

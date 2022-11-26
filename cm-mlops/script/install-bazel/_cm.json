@@ -10,6 +10,9 @@
       "tags": "detect,os"
     }
   ],
+  "new_env_keys": [
+    "CM_BAZEL_*"
+  ],
   "env": {
     "CM_WGET_URL": "https://github.com/bazelbuild/bazel/releases/download/[VERSION]/bazel-[VERSION]-installer-[OS]-[PLATFORM].sh"
   },

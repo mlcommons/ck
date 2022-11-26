@@ -11,8 +11,10 @@
       "tags": "detect,cpu"
     }
   ],
-  "env": {
-    "CM_GIT_URL": "https://github.com/tensorflow/tensorflow"
+  "default_env": {
+    "CM_GIT_URL": "https://github.com/tensorflow/tensorflow",
+    "CM_GIT_DEPTH": "1",
+    "CM_TFLITE": "off"
   },
   "extra_cache_tags_from_env": [
     {
@@ -21,12 +23,28 @@
     }
   ],
   "tags": [
+    "get",
     "install",
     "tensorflow",
     "lib",
+    "source",
+    "from-source",
     "from-src"
   ],
+  "new_env_keys": [
+    "+C_INCLUDE_PATH",
+    "+CPLUS_INCLUDE_PATH",
+    "+LD_LIBRARY_PATH",
+    "+DYLD_FALLBACK_LIBRARY_PATH"
+  ],
   "uid": "a974533c4c854597",
+  "variations": {
+    "tflite": {
+      "env": {
+        "CM_TFLITE": "on"
+      }
+    }
+  },
   "versions": {
     "master": {
       "deps": [
@@ -37,11 +55,11 @@
         },
         {
           "tags": "gcc,get",
-          "version": "9.3"
+          "version_min": "9.3"
         },
         {
-          "tags": "gcc,bazel",
-          "version": "5.0.0"
+          "tags": "get,bazel",
+          "version": "5.3.0"
         }
       ],
       "env": {

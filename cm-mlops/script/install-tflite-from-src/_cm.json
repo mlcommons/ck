@@ -17,6 +17,9 @@
       "tags": "get,cmake"
     }
   ],
+  "default_env": {
+    "CM_GIT_DEPTH": "1"
+  },
   "env": {
     "CM_GIT_URL": "https://github.com/tensorflow/tensorflow"
   },
@@ -26,11 +29,17 @@
       "prefix": "python-"
     }
   ],
+  "new_env_keys": [
+    "+C_INCLUDE_PATH",
+    "+CPLUS_INCLUDE_PATH",
+    "+LD_LIBRARY_PATH",
+    "+DYLD_FALLBACK_LIBRARY_PATH"
+  ],
   "tags": [
+    "get",
     "install",
-    "tflite",
-    "tensorflow-lite",
-    "lib",
+    "tflite-cmake",
+    "tensorflow-lite-cmake",
     "from-src"
   ],
   "uid": "5c72dab5eb88407c",
