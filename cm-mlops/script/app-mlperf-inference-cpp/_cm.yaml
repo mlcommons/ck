@@ -93,6 +93,8 @@ deps:
   - enable_if_env:
       CM_MODEL:
       - resnet50
+    names:
+      - imagenet-preprocessed
     tags: get,dataset,preprocessed,imagenet,_NCHW
 
   - enable_if_env:
@@ -107,6 +109,8 @@ deps:
   - enable_if_env:
       CM_MODEL:
       - retinanet
+    names:
+      - openimages-preprocessed
     tags: get,dataset,preprocessed,openimages,_validation,_NCHW
 
   - enable_if_env:
