@@ -178,6 +178,18 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _resnet50
+    post_deps:
+    - enable_if_env:
+        CM_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - imagenet-accuracy-script
+      tags: run,accuracy,mlperf,_imagenet
+
   retinanet:
     env:
       CM_MODEL:
@@ -185,7 +197,36 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _retinanet
+    post_deps:
+    - enable_if_env:
+        CM_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - openimages-accuracy-script
+      tags: run,accuracy,mlperf,_openimages
+
+  bert:
+    post_deps:
+    - enable_if_env:
+        CM_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - squad-accuracy-script
+      - mlperf-accuracy-script
+      tags: run,accuracy,mlperf,_squad,_float32
+    add_deps_recursive:
+      inference-src:
+        tags: _deeplearningexamples
   bert-99:
+    base:
+    - bert
     env:
       CM_MODEL:
         bert-99
@@ -193,12 +234,16 @@ variations:
       mlperf-inference-implementation:
         tags: _bert-99
   bert-99.9:
+    base:
+    - bert
     env:
       CM_MODEL:
         bert-99.9
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _bert-99.9
+
+
   onnxruntime:
     env:
       CM_MLPERF_BACKEND:
@@ -209,7 +254,7 @@ variations:
   tf:
     env:
       CM_MLPERF_BACKEND:
-        tensorflow
+        tf
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _tf

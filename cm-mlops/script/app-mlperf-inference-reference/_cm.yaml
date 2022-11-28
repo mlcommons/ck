@@ -465,17 +465,6 @@ variations:
     - tags: get,generic-python-lib,_torch
       names:
       - ml-engine-pytorch
-    post_deps:
-    - enable_if_env:
-        CM_LOADGEN_MODE:
-        - accuracy
-        - all
-        CM_MLPERF_ACCURACY_RESULTS_DIR:
-        - 'on'
-      names:
-      - squad-accuracy-script
-      - mlperf-accuracy-script
-      tags: run,accuracy,mlperf,_squad,_float32
     add_deps_recursive:
       inference-src:
         tags: _deeplearningexamples
@@ -488,17 +477,6 @@ variations:
 
     env:
       CM_MODEL: retinanet
-    post_deps:
-    - enable_if_env:
-        CM_LOADGEN_MODE:
-        - accuracy
-        - all
-        CM_MLPERF_ACCURACY_RESULTS_DIR:
-        - 'on'
-      names:
-      - mlperf-accuracy-script
-      - openimages-accuracy-script
-      tags: run,accuracy,mlperf,_openimages
 
   resnet50:
     env:
@@ -507,17 +485,6 @@ variations:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
     - tags: get,generic-python-lib,_pycocotools
-    post_deps:
-    - enable_if_env:
-        CM_LOADGEN_MODE:
-        - accuracy
-        - all
-        CM_MLPERF_ACCURACY_RESULTS_DIR:
-        - 'on'
-      names:
-      - mlperf-accuracy-script
-      - imagenet-accuracy-script
-      tags: run,accuracy,mlperf,_imagenet
 
   # Target devices
   cpu:
