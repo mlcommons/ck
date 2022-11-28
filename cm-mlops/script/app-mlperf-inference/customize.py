@@ -31,14 +31,6 @@ def preprocess(i):
     if 'CM_LOADGEN_MODE' not in env:
         env['CM_LOADGEN_MODE'] = "accuracy"
 
-    if 'CM_MODEL' not in env:
-        return {'return': 1, 'error': "Please select a variation specifying the model to run"}
-
-    if env['CM_MODEL'] == "resnet50":
-        cmd = "cp " + os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt") + " " + os.path.join(env['CM_DATASET_PATH'],
-        "val_map.txt")
-        ret = os.system(cmd)
-
     if 'CM_LOADGEN_EXTRA_OPTIONS' not in env:
         env['CM_LOADGEN_EXTRA_OPTIONS'] = ""
 
@@ -74,11 +66,6 @@ def preprocess(i):
 
     env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
 
-    '''
-    env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
-    if not env['DATA_DIR']:'''
-    env['DATA_DIR'] = env.get('CM_DATASET_PATH')
-    env['MODEL_DIR'] = env['CM_ML_MODEL_PATH']
 
     RUN_CMD = ""
     state['RUN'] = {}
@@ -153,6 +140,9 @@ def preprocess(i):
     user_conf_file = Path(user_conf_path)
     user_conf_file.parent.mkdir(exist_ok=True, parents=True)
     user_conf_file.write_text(user_conf)
+    if 'CM_LOADGEN_QUERY_COUNT' not in env:
+        env['CM_LOADGEN_QUERY_COUNT'] = query_count
+
     scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
 
     env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
@@ -181,15 +171,13 @@ def preprocess(i):
         audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", audit_path, "audit.config")
         mode_extra_options = " --audit '" + audit_full_path + "'"
     env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
-    mlperf_implementation = env.get('CM_MLPERF_IMPLEMENTATION', 'reference') 
-    cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, mlperf_implementation)
+    
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
-        RUN_CMD = cmd
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
     else:
         print("Run files exist, skipping run...\n")
-        RUN_CMD = ''
+        env['CM_SKIP_RUN'] = "yes"
 
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
                     required_files[4]) or env.get("CM_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
@@ -198,44 +186,9 @@ def preprocess(i):
         print("Measure files exist, skipping regeneration...\n")
         env['CM_MLPERF_USER_CONF'] = ''
     os.makedirs(OUTPUT_DIR, exist_ok=True)
-    env['CM_MLPERF_RUN_CMD'] = RUN_CMD
 
     return {'return':0}
 
-def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, implementation="reference"):
-    if implementation == "reference":
-        return get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options)
-    if implementation == "nvidia":
-        return get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_options)
-    return ""
-
-def get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_options):
-    import pathlib
-    code_dir=pathlib.Path(__file__).parent.resolve()
-    cmd = env['CM_PYTHON_BIN_WITH_PATH']+ " " +os.path.join(code_dir, "nvidia", "retinanet.py") + " --pytorch --num_samples=1200 --batch_size=8 --training_repo_path="+env['CM_MLPERF_TRAINING_SOURCE']+" --pyt_ckpt_path="+env['CM_ML_MODEL_FILE_WITH_PATH']
-    return cmd
-
-def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options):
-    if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
-        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
-        cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
-            env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_LOADGEN_SCENARIO'] + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + \
-            scenario_extra_options + mode_extra_options + dataset_options
-    elif "bert" in env['CM_MODEL']:
-        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "bert")
-        if env.get('CM_MLPERF_QUANTIZATION') in [ "on", True, "1", "True" ]:
-            quantization_options = " --quantized"
-        else:
-            quantization_options = ""
-        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_LOADGEN_SCENARIO'] + \
-            env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
-        cmd = cmd.replace("--count", "--max_examples")
-        env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
-        env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH'] 
-        env['DATASET_FILE'] = env['CM_DATASET_SQUAD_VAL_PATH']
-        env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
-        env['SKIP_VERIFY_ACCURACY'] = True
-    return cmd
 def run_files_exist(mode, OUTPUT_DIR, run_files):
     file_loc = {"accuracy": 0, "performance": 1, "power": 2, "performance_power": 3, "measure": 4}
     for file in run_files[file_loc[mode]]:
