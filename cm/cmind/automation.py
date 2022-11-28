@@ -1061,16 +1061,9 @@ class Automation:
                 print ('CID2 = ' + full_cid)
                 print ('Path = ' + path)
 
-            # Attempt to copy to clipboard (if pacakge is installed)
-            try:
-                import pyperclip
-                pyperclip.copy(' = ' + full_cid)
-            except:
-                pass
-
         # Attempt to copy to clipboard the last CID
         if cid1 !='':
-            r = utils.copy_to_clipboard({'string':cid1, 'skip_fail':True})
+            r = utils.copy_to_clipboard({'string':full_cid, 'skip_fail':True})
             # Skip output
 
 

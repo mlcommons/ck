@@ -69,6 +69,14 @@
       "env": {
         "CM_GIT_DEPTH": "--depth 5"
       }
+    },
+    "nvidia-retinanet": {
+      "base": [
+        "patch"
+      ],
+      "env": {
+        "CM_GIT_PATCH_FILENAME": "nvidia-retinanet.patch"
+      }
     }
   },
   "versions": {
@@ -80,12 +88,6 @@
     "master": {
       "env": {
         "CM_GIT_CHECKOUT": "master",
-        "CM_MLPERF_LAST_RELEASE": "v2.1"
-      }
-    },
-    "r2.1": {
-      "env": {
-        "CM_GIT_CHECKOUT": "r2.1",
         "CM_MLPERF_LAST_RELEASE": "v2.1"
       }
     }

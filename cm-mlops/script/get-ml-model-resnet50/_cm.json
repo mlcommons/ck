@@ -109,6 +109,11 @@
         "CM_ML_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>"
       }
     },
+    "tflite": {
+      "base": [
+        "tf"
+      ]
+    },
     "tensorflow": {
       "base": [
         "tf"

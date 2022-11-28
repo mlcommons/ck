@@ -18,6 +18,7 @@ from the cloud to embedded devices.
 [![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm)
 [![CM(CK2) test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
+[![CM(CK2) script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 
 &copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
 

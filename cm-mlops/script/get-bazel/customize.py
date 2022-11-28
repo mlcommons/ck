@@ -53,6 +53,7 @@ def postprocess(i):
 
     found_path = os.path.dirname(found_file_path)
     env['CM_BAZEL_INSTALLED_PATH'] = found_path
+    env['+PATH'] = [ found_path ]
 
     env['CM_BAZEL_CACHE_TAGS'] = 'version-'+version
 

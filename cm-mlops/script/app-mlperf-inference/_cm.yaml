@@ -252,7 +252,7 @@ deps:
       - resnet50
 
   ## RetinaNet (ONNX format, FP32)
-  - tags: get,ml-model,object-detection,resnext50,fp32,_onnx
+  - tags: get,ml-model,object-detection,retinanet,_onnx-fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
@@ -261,7 +261,7 @@ deps:
       - retinanet
 
   ## RetinaNet (PyTorch format, FP32)
-  - tags: get,ml-model,object-detection,resnext50,fp32,_pytorch
+  - tags: get,ml-model,object-detection,retinanet,_pytorch-fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
@@ -343,7 +343,7 @@ deps:
 
 # Variations to customize dependencies
 variations:
-  # Implementation (CPP or Python)
+  # Implementation (cpp, python, nvidia, tflite-cpp)
   cpp:
     add_deps_recursive:
       imagenet-accuracy-script:
@@ -355,6 +355,19 @@ variations:
       - names:
          - cpp-mlperf-inference
         tags: app,mlperf,cpp,inference
+
+  tflite-cpp:
+    add_deps_recursive:
+      imagenet-accuracy-script:
+        tags: _int64
+    env:
+      CM_MLPERF_TFLITE_CPP: 'yes'
+      CM_MLPERF_CPP: 'yes'
+      CM_MLPERF_IMPLEMENTATION: tflite-cpp
+    posthook_deps:
+      - names:
+         - tflite-cpp-mlperf-inference
+        tags: app,mlperf,tflite-cpp,inference
 
   python:
     add_deps_recursive:

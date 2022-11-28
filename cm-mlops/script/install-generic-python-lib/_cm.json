@@ -45,6 +45,17 @@
   ],
   "uid": "f4f502b7b5d545c8",
   "variations": {
+    "jax": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax"
+      }
+    },
+    "jax_gpu": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax[cuda]",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": "-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html"
+      }
+    },
     "numpy": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "numpy"
@@ -112,7 +123,7 @@
     },
     "nvidia-pycocotools": {
       "env": {
-        "CM_PIP_URL": "pycocotools@git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI"
+        "CM_GENERIC_PYTHON_PIP_URL": "pycocotools@git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI"
       }
     },
     "apache-tvm": {
@@ -143,6 +154,11 @@
     "opencv-python": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "opencv-python"
+      }
+    },
+    "pillow": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "Pillow"
       }
     },
     "pandas": {
@@ -178,7 +194,7 @@
     "mlperf_logging": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "mlperf_logging",
-        "CM_PIP_URL": "git+https://github.com/mlperf/logging.git@2.1.0"
+        "CM_GENERIC_PYTHON_PIP_URL": "git+https://github.com/mlperf/logging.git@2.1.0"
       }
     },
     "typing_extensions": {

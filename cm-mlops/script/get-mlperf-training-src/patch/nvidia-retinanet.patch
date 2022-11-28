@@ -1,0 +1,170 @@
+diff --git a/single_stage_detector/ssd/model/retinanet.py b/single_stage_detector/ssd/model/retinanet.py
+index 2f10d96..cdba3be 100644
+--- a/single_stage_detector/ssd/model/retinanet.py
++++ b/single_stage_detector/ssd/model/retinanet.py
+@@ -12,6 +12,7 @@ from model.transform import GeneralizedRCNNTransform
+ from model.backbone_utils import resnet_fpn_backbone, _validate_trainable_layers
+ from model.feature_pyramid_network import LastLevelP6P7
+ from model.focal_loss import sigmoid_focal_loss
++from model.image_list import ImageList
+ from model.boxes import box_iou, clip_boxes_to_image, batched_nms
+ from model.utils import Matcher, overwrite_eps, BoxCoder
+ 
+@@ -510,7 +511,13 @@ class RetinaNet(nn.Module):
+             original_image_sizes.append((val[0], val[1]))
+ 
+         # transform the input
+-        images, targets = self.transform(images, targets)
++        # images, targets = self.transform(images, targets)
++        _image_sizes = [img.shape[-2:] for img in images]
++        for _size in _image_sizes:
++            assert len(_size) == 2 and _size[0] == 800 and _size[1] == 800
++        # print(type(images))
++        # images = ImageList(torch.stack(images), _image_sizes)
++        images = ImageList(images, _image_sizes)
+ 
+         # Check for degenerate boxes
+         # TODO: Move this to a function
+@@ -539,7 +546,11 @@ class RetinaNet(nn.Module):
+ 
+         # compute the retinanet heads outputs using the features
+         head_outputs = self.head(features)
++        for k, v in head_outputs.items():
++            print(f"{k}: {v.size()}")
++        return head_outputs
+ 
++        """
+         # create the set of anchors
+         anchors = self.anchor_generator(images, features)
+ 
+@@ -576,6 +587,7 @@ class RetinaNet(nn.Module):
+                 self._has_warned = True
+             return losses, detections
+         return self.eager_outputs(losses, detections)
++        """
+ 
+ 
+ model_urls = {
+diff --git a/single_stage_detector/scripts/pth_to_onnx.py b/single_stage_detector/ssd/pth_to_onnx.py
+similarity index 65%
+rename from single_stage_detector/scripts/pth_to_onnx.py
+rename to single_stage_detector/ssd/pth_to_onnx.py
+index 78945aa..93679cd 100755
+--- a/single_stage_detector/scripts/pth_to_onnx.py
++++ b/single_stage_detector/ssd/pth_to_onnx.py
+@@ -8,7 +8,7 @@ from torch.autograd import Variable
+ 
+ from model.retinanet import retinanet_from_backbone
+ 
+-def parse_args(add_help=True):
++def parse_args(add_help=True, custom_argv=None):
+     parser = argparse.ArgumentParser(description='Convert PyTorch detection file to onnx format', add_help=add_help)
+ 
+     parser.add_argument('--input', required=True, help='input pth file')
+@@ -30,11 +30,15 @@ def parse_args(add_help=True):
+                         help="Model data layout")
+     parser.add_argument('--device', default='cuda', help='device')
+ 
+-    args = parser.parse_args()
++    if custom_argv is None:
++        args = parser.parse_args()
++    else:
++        args = parser.parse_args(args=custom_argv)
+ 
+     args.output = args.output or ('retinanet_'+args.backbone+'.onnx')
+     return args
+ 
++
+ def main(args):
+     batch_size = args.batch_size or 1
+     image_size = args.image_size or [800, 800]
+@@ -51,6 +55,25 @@ def main(args):
+ 
+     print("Loading model")
+     checkpoint = torch.load(args.input)
++
++    # For some reason the batchnorms in the checkpoint do not have the same sizes as the module object. The checkpoint
++    # batchnorms have a size of [1, N, 1, 1], while the model batchnorms just have a size of [N].
++    # However, this is fine, since (assuming the README is correct), the batchnorms were frozen and were not modified
++    # during training.
++    target_state_dict = model.state_dict()
++    for k, v in target_state_dict.items():
++        ckpt_val = checkpoint["model"][k]
++        if v.size() == ckpt_val.size():
++            continue
++        target_size = torch.tensor(v.size())
++        actual_size = torch.tensor(ckpt_val.size())
++        flattened = torch.flatten(actual_size)
++        if all(target_size != flattened):
++            raise ValueError(f"Real size mismatch for {k}: {target_size} vs {actual_size}")
++        checkpoint["model"][k] = checkpoint["model"][k].view(target_size)
++    # Remove unexpected keys
++    for k in [k for k in checkpoint["model"] if k not in target_state_dict]:
++        del checkpoint["model"][k]
+     model.load_state_dict(checkpoint['model'])
+ 
+     print("Creating input tensor")
+@@ -60,20 +83,31 @@ def main(args):
+                        dtype=torch.float)
+     inputs = torch.autograd.Variable(rand)
+     # Output dynamic axes
++    """
+     dynamic_axes = {
+         'boxes': {0 : 'num_detections'},
+         'scores': {0 : 'num_detections'},
+         'labels': {0 : 'num_detections'},
+     }
++    """
++
+     # Input dynamic axes
++    """
+     if (args.batch_size is None) or (args.image_size is None):
+         dynamic_axes['images'] = {}
+         if args.batch_size is None:
+-            dynamic_axes['images'][0]: 'batch_size'
++            dynamic_axes['images'][0] = 'batch_size'
+         if args.image_size is None:
+             dynamic_axes['images'][2] = 'width'
+             dynamic_axes['images'][3] = 'height'
+-
++    """
++    # Force dynamic batch_size
++    dynamic_axes = {
++        "images": {0: "batch_size"},
++        "cls_logits": {0: "batch_size", 1: "num_regions", 2: "num_classes"},
++        "bbox_regression": {0: "batch_size", 1: "num_regions", 2: "bbox_coord_dim"},
++    }
++    print(dynamic_axes)
+ 
+     print("Exporting the model")
+     model.eval()
+@@ -81,10 +115,11 @@ def main(args):
+                       inputs,
+                       args.output,
+                       export_params=True,
+-                      opset_version=13,
+-                      do_constant_folding=False,
++                      opset_version=11,
++                      do_constant_folding=True,
+                       input_names=['images'],
+-                      output_names=['boxes', 'scores', 'labels'],
++                      # output_names=['boxes', 'scores', 'labels'],
++                      output_names=['cls_logits', 'bbox_regression'],
+                       dynamic_axes=dynamic_axes)
+ 
+ 
+diff --git a/single_stage_detector/ssd/run_pth_to_onnx.sh b/single_stage_detector/ssd/run_pth_to_onnx.sh
+new file mode 100644
+index 0000000..e244aed
+--- /dev/null
++++ b/single_stage_detector/ssd/run_pth_to_onnx.sh
+@@ -0,0 +1,9 @@
++docker build -t mlperf/single_stage_detector .
++docker run -v /home/mlperf_inference_data:/home/mlperf_inference_data \
++    -v /home/scratch.etcheng_sw/mlperf-training:/mnt/training \
++    --gpus=0 -e NVIDIA_VISIBLE_DEVICES=0 mlperf/single_stage_detector:latest \
++    python pth_to_onnx.py \
++        --num-classes 264 \
++        --image-size 800 800 \
++        --input /home/mlperf_inference_data/models/retinanet-resnext50-32x4d/new/retinanet_model_10.pth \
++        --output /mnt/training/resnext-retinanet-ckpts/onnx/retinanet_resnext50_32x4d_fpn.opset11.dyn_bs.800x800.onnx

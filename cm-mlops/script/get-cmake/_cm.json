@@ -14,6 +14,7 @@
   ],
   "new_env_keys": [
     "CM_CMAKE_*",
+    "CM_MAKE_CORES",
     "+PATH"
   ],
   "prehook_deps": [

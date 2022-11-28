@@ -1162,6 +1162,7 @@ class CAutomation(Automation):
                    'found_cached': False,
                    'debug_script_tags': debug_script_tags,
                    'verbose': verbose,
+                   'meta':meta,
                    'self': self
             }
 
@@ -3073,7 +3074,7 @@ Please help the community by reporting the full log with the command line here:
 
 Thank you'''
 
-            return {'return':2, 'error':'Portable CM script failed (return code = {})\n\n{}'.format(rc, note)}
+            return {'return':2, 'error':'Portable CM script failed (name = {}, return code = {})\n\n{}'.format(meta['alias'], rc, note)}
 
         # Load updated state if exists
         if tmp_file_run_state != '' and os.path.isfile(tmp_file_run_state):

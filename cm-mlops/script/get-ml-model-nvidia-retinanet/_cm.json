@@ -1,0 +1,52 @@
+{
+  "alias": "get-ml-model-nvidia-retinanet",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "category": "ML/AI models",
+  "cache": true,
+  "default_env": {
+  },
+  "deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "names": [
+        "python",
+        "python3"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "tags": "get,mlperf,training,src,_nvidia-retinanet"
+    },
+    {
+      "tags": "get,mlperf,inference,src"
+    },
+    {
+      "tags": "get,ml-model,retinanet,_pytorch-fp32-weights"
+    },
+    {
+      "tags": "get,generic-python-lib,_torch"
+    },
+    {
+      "tags": "get,generic-python-lib,_torchvision"
+    },
+    {
+      "tags": "get,generic-python-lib,_mlperf_logging"
+    },
+    {
+      "tags": "get,cuda",
+      "skip_if_env": {
+	"CM_HOST_OS_FLAVOR": "macos"
+      }
+    }
+  ],
+  "tags": [
+    "get",
+    "ml-model",
+    "nvidia-retinanet",
+    "nvidia"
+  ],
+  "uid": "f059d249fac843ba"
+}
