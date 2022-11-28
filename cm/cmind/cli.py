@@ -34,10 +34,16 @@ def run(argv = None):
 
     r = cm.access(argv, out='con')
 
+    # Check if save to json
+    if cm.save_to_json != '':
+        from cmind import utils
+        utils.save_json(cm.save_to_json, meta=r)
+    
     # Check if output to console
     if cm.output=='json':
         from cmind import utils
         utils.dump_safe_json(r)
+
     elif r['return']>0 and (cm.output is None or cm.output=='con'):
         cm.error(r)
 
