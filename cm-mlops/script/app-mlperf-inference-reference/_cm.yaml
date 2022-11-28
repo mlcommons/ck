@@ -58,7 +58,7 @@ env_key_mappings:
 # Env keys which are exposed to higher level scripts
 new_env_keys:
   - CM_MLPERF_*
-  - CM_DATASET_AUX_PATH
+  - CM_DATASET_*
 
 
 # Dependencies on other CM scripts

@@ -34,6 +34,10 @@ input_mapping:
   scenario: CM_LOADGEN_SCENARIO
   user_conf: CM_MLPERF_USER_CONF
 
+new_env_keys:
+  - CM_MLPERF_*
+  - CM_DATASET_*
+
 # Dependencies on other CM scripts
 
 deps:
