@@ -1,6 +1,6 @@
-*Note that this MLCommons CK framework (the 1st generation) was discontinued in summer 2022 
-after the [2nd generation of this framework (CM)](https://github.com/mlcommons/ck) 
-was released by the [MLCommons taskforce on education and reproducibility](../docs/mlperf-education-workgroup.md).*
+*Note that the 1st generation of the CK framework was discontinued in summer 2022 
+ after the [2nd generation of this framework (CM)](https://github.com/mlcommons/ck) 
+ was released by the [MLCommons taskforce on education and reproducibility](../docs/mlperf-education-workgroup.md).*
 
 
 # Collective Knowledge framework (CK)

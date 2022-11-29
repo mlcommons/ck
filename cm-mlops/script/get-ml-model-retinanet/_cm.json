@@ -34,13 +34,23 @@
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "fp32"
       }
     },
-    "onnx": {
+    "onnx_": {
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
         "CM_ML_MODEL_FRAMEWORK": "onnx"
       }
     },
+    "onnx": {
+      "base": [
+        "onnx-fp32"
+      ]
+    },
     "pytorch": {
+      "base": [
+        "pytorch-fp32"
+      ]
+    },
+    "pytorch_": {
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
         "CM_ML_MODEL_FRAMEWORK": "pytorch"
@@ -49,7 +59,7 @@
     "onnx-fp32": {
       "base": [
         "fp32",
-        "onnx"
+        "onnx_"
       ],
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/6617879/files/resnext50_32x4d_fpn.onnx",
@@ -59,7 +69,7 @@
     "pytorch-fp32": {
       "base": [
         "fp32",
-        "pytorch"
+        "pytorch_"
       ],
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth",

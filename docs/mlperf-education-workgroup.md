@@ -12,6 +12,9 @@ using our [interoperable and portable MLOps and DevOps scripts](list_of_scripts.
 * Try our [tutorial to run the MLPerf inference benchmark using MLCommons CM automation](tutorials/sc22-scc-mlperf.md) 
   that was [successfully validated](https://twitter.com/DrHaiAhNam/status/1592221106290688001) 
   by ~10 teams at the Student Cluster Competition at SuperComputing'22.
+* We have added GitHub actions to the [MLPerf inference repo](https://github.com/mlcommons/inference/blob/master/.github/workflows/test-retinanet.yml) 
+  to automatically test MLPerf inference benchmark with different models, data sets and frameworks using the [MLCommons CK2 (CM) framework](https://github.com/mlcommons/ck).
+* We have developed a prototype of the [modular MLperf container](https://github.com/octoml/ck/blob/master/cm-mlops/script/app-mlperf-inference/dockerfiles/resnet50/ubuntu_22.04_python_onnxruntime_cpu.Dockerfile) with portable CK2 (CM) scripts.
 * Join the taskforce using [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to stay informed about our activities.
 * See the [Notes from our weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing).
 * [Presentation about our mission](https://doi.org/10.5281/zenodo.7143424).
