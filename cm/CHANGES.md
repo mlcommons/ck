@@ -1,5 +1,6 @@
 ## V1.1.1.0
    - added --save_to_json to save output to JSON (useful for web services)
+   - extended "cm info {automation} {artifact}" (copy to clipboard)
 
 ## V1.1.1
    - added --checkout and --branch to "cm pull repo' for more determinism and reproducibility

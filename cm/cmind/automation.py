@@ -997,6 +997,9 @@ class Automation:
                                       [ (artifact alias, artifact UID) ] or
                                       [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
 
+            (uid) (bool): if True, copy CID in UID::UID format to clipboard
+            (md) (bool): if True, copy CID in [](UID::UID) format to clipboard
+
         Returns: 
             (CM return dict):
 
@@ -1063,7 +1066,11 @@ class Automation:
 
         # Attempt to copy to clipboard the last CID
         if cid1 !='':
-            r = utils.copy_to_clipboard({'string':full_cid, 'skip_fail':True})
+            clipboard = full_cid
+            if i.get('uid', False): clipboard = cid1
+            if i.get('md', False): clipboard = '[]'+full_cid
+
+            r = utils.copy_to_clipboard({'string':clipboard, 'skip_fail':True})
             # Skip output
 
 

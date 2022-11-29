@@ -1,6 +1,6 @@
 # About
 
-This portable CM script modularizes and automates the MLPerf inference benchmark using 
+This portable CM (CK2) script modularizes and automates the MLPerf inference benchmark using 
 [interoperable and portable CM scripts for MLOPs and DevOps](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
 being developed by the open [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
 
@@ -11,6 +11,9 @@ It currently supports modular Python reference implementation
 ([CM meta description to connect all components](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml))
 and C++ implementation 
 ([CM meta description to connect all components](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)).
+
+Check these [tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md) from the Student Cluster Competition
+at Supercomputing'22 to understand how to use this script to run the MLPerf inference vision benchmark and automate submissions.
 
 ## Current Coverage
 <table>
