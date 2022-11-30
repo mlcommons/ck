@@ -28,7 +28,7 @@
 
 
 # We use 3 digits for the main (released) version and 4th digit for development revision
-__version__ = "2.6.1"
+__version__ = "2.6.2"
 # Do not use characters (to detect outdated version)!
 
 # Import packages that are global for the whole kernel
@@ -12383,6 +12383,13 @@ def access(i):
     if rr['return'] == 0:
         # Check output mode
         o = i.get('out', '')
+
+        # Print message that this framework was discontinued
+        if o == 'con':
+            out('')
+            out('WARNING: this framework was discontinued in favor of the new CK2 framework aka CM being developed by the open taskforce on education and reproducibility at MLCommons:')
+            out('         https://bit.ly/mlperf-edu-wg')
+            out('')
 
         # If profile
         cp = i.get('ck_profile', '')
