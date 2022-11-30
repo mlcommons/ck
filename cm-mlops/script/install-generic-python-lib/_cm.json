@@ -156,6 +156,18 @@
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "opencv-python"
       }
     },
+    "colored": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "colored",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://pypi.ngc.nvidia.com"
+      }
+    },
+    "polygraphy": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "polygraphy",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://pypi.ngc.nvidia.com"
+      }
+    },
     "pillow": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "Pillow"

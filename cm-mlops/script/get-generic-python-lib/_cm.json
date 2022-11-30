@@ -289,6 +289,27 @@
         "CM_PYCUDA_VERSION"
       ]
     },
+    "colored": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "colored"
+      },
+      "new_env_keys": [
+        "CM_COLORED_VERSION"
+      ]
+    },
+    "polygraphy": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "polygraphy"
+      },
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_colored"
+        }
+      ],
+      "new_env_keys": [
+        "CM_POLYGRAPHY_VERSION"
+      ]
+    },
     "typing_extensions": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "typing_extensions"

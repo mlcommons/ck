@@ -38,7 +38,7 @@
     {
       "tags": "get,cuda",
       "skip_if_env": {
-	"CM_HOST_OS_FLAVOR": "macos"
+        "CM_HOST_OS_FLAVOR": "macos"
       }
     }
   ],
@@ -48,5 +48,17 @@
     "nvidia-retinanet",
     "nvidia"
   ],
-  "uid": "f059d249fac843ba"
+  "uid": "f059d249fac843ba",
+  "variations": {
+    "efficient_nms": {
+      "env": {
+        "CM_NVIDIA_EFFICIENT_NMS": "yes"
+      },
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_polygraphy"
+        }
+      ]
+    }
+  }
 }
