@@ -1,4 +1,10 @@
-* Notes about the CK2 framework aka CM: https://github.com/mlcommons/ck/tree/master/cm/docs
+* V2.6.3
+  * fixed broken link
+
+* V2.6.2
+  * printing note that this framework is discontinued and the next generation of this framework (CK2 aka CM)
+    is being developed by the open taskforce on education and reproducibility at MLCommons:
+    https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md
 
 * V2.6.1:
   * fixed convert_json_str_to_dict func to support Python 3.9+

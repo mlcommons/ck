@@ -1,0 +1,48 @@
+{
+  "alias": "run-mlperf-power-server",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": false,
+  "category": "Modular MLPerf benchmarks",
+  "clean_files": [],
+  "default_env": {
+    "CM_MLPERF_POWER_NTP_SERVER": "time.google.com",
+    "CM_MLPERF_POWER_SERVER_OUTDIR": "~/mlperf_power_logs",
+    "CM_MLPERF_POWER_LOG_FILE": "logs_ptdaemon.txt"
+  },
+  "deps": [
+    {
+      "names": [
+        "python",
+        "python3"
+      ],
+      "tags": "get,python"
+    },
+    {
+      "names": [
+        "power-src"
+      ],
+      "tags": "get,mlperf,power,src"
+    },
+    {
+      "names": [
+        "power-damenon"
+      ],
+      "tags": "get,mlperf,power,daemon"
+    }
+  ],
+  "input_mapping": {
+    "outdir": "CM_MLPERF_POWER_SERVER_OUTDIR",
+    "logfile": "CM_MLPERF_POWER_LOG_FILE"
+  },
+  "tags": [
+    "run",
+    "mlc",
+    "mlcommons",
+    "mlperf",
+    "power",
+    "server",
+    "power-server"
+  ],
+  "uid": "5bc68aaf389a40bd"
+}

@@ -331,13 +331,17 @@ using a [generic CM script](https://github.com/mlcommons/ck/blob/master/docs/lis
 cm run script "get generic-python-lib _onnxruntime" --version_min=1.10.0
 ```
 
+
+
+
+
 ### Download RetinaNet model (FP32, ONNX format)
 
 Download and cache this [reference model](https://paperswithcode.com/model/resnext?variant=resnext-50-32x4d) in the ONNX format (float32)
 using the following [CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-ml-model-retinanet):
 
 ```bash
-cm run script "get ml-model object-detection retinanet resnext50 fp32 _onnx"
+cm run script "get ml-model object-detection retinanet resnext50 _onnx"
 ```
 
 It takes around ~150MB of disk space. You can find it in the CM cache as follows:
@@ -658,7 +662,7 @@ cm run script "get preprocessed dataset object-detection open-images _validation
 
 cm run script "get generic-python-lib _onnxruntime" --version_min=1.10.0
 
-cm run script "get ml-model object-detection retinanet resnext50 fp32 _onnx"
+cm run script "get ml-model object-detection retinanet resnext50 _onnx"
 
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
      --scenario=Offline --mode=accuracy --test_query_count=10 --rerun

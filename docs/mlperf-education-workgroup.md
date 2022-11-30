@@ -1,10 +1,31 @@
-[ [Back to index](README.md) ]
+[ [Back to index](README.md) ]                                                                                                                                                                                     -
 
-# MLPerf taskforce on education and reproducibility
+# MLCommons taskforce on education and reproducibility
 
 Our mission is to modularize ML Systems, automate their benchmarking, design space exploration and optimization,
 and help the community reproduce benchmarking results and deploy Pareto-optimal systems in the real world
-using our [interoperable and portable MLOps and DevOps scripts](list_of_scripts.md).
+using the [MLCommons CK framework](https://github.com/mlcommons/ck) 
+with [portable and interoperable MLOps and DevOps scripts](list_of_scripts.md).
+
+<details>
+<summary><b>Click here to see the table of contents</b>.</summary>
+
+  * [News](#news)
+  * [Projects](#projects)
+  * [Conf-calls](#conf-calls)
+  * [Meeting notes](#meeting-notes)
+  * [Mailing list](#mailing-list)
+  * [Purpose](#purpose)
+  * [Technology](#technology)
+  * [Agenda](#agenda)
+    * [2022](#2022)
+    * [2023](#2023)
+  * [Resources](#resources)
+  * [Contacts](#contacts)
+  * [Acknowledgments](#acknowledgments)
+</details>
+
+
 
 ## News
 
@@ -189,7 +210,7 @@ We use public meeting notes and GitHub tickets to track the progress of the comm
 
 
 
-## Working Group Resources
+## Resources
 
 * Motivation:
   * [MLPerf Inference Benchmark (ArXiv paper)](https://arxiv.org/abs/1911.02549)
