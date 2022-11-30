@@ -1,61 +1,25 @@
-[ [Back to index](README.md) ]                                                                                                                                                                                     -
+[ [Back to index](README.md) ]
 
 # MLCommons taskforce on education and reproducibility
 
-Our mission is to modularize ML Systems, automate their benchmarking, design space exploration and optimization,
-and help the community reproduce benchmarking results and deploy Pareto-optimal systems in the real world
-using the [MLCommons CK framework](https://github.com/mlcommons/ck) 
-with [portable and interoperable MLOps and DevOps scripts](list_of_scripts.md).
+Our mission:
 
-<details>
-<summary><b>Click here to see the table of contents</b>.</summary>
+* help you automate and validate your MLPerf inference benchmark submission to the v3.0 round (deadline: March 3, 2023);
+* modularize AI and ML Systems by decomposing them into [portable, interoperable and deterministic MLOps and DevOps scripts](list_of_scripts.md)
+  using the [MLCommons CK automation meta-framework](https://github.com/mlcommons/ck);
+* automate benchmarking, design space exploration and optimization of AI and ML Systems;
+* help the community reproduce MLPerf benchmarks, prepare their own submissions and deploy Pareto-optimal ML/AI systems in the real world;
+* support student competitions, reproducibility initiatives and artifact evaluation at ML and Systems conferences using the rigorous MLPerf methodology and the MLCommons automation meta-framework.
 
-  * [News](#news)
-  * [Projects](#projects)
-  * [Conf-calls](#conf-calls)
-  * [Meeting notes](#meeting-notes)
-  * [Mailing list](#mailing-list)
-  * [Purpose](#purpose)
-  * [Technology](#technology)
-  * [Agenda](#agenda)
-    * [2022](#2022)
-    * [2023](#2023)
-  * [Resources](#resources)
-  * [Contacts](#contacts)
-  * [Acknowledgments](#acknowledgments)
-</details>
+## Moderators
+
+* [Grigori Fursin](https://cKnowledge.io/@gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 
+## Meeting notes and news
 
-## News
-
-* See our [R&D roadmap for Q4 2022 and Q1 2023](https://github.com/mlcommons/ck/issues/536).
-* Try our [tutorial to run the MLPerf inference benchmark using MLCommons CM automation](tutorials/sc22-scc-mlperf.md) 
-  that was [successfully validated](https://twitter.com/DrHaiAhNam/status/1592221106290688001) 
-  by ~10 teams at the Student Cluster Competition at SuperComputing'22.
-* We have added GitHub actions to the [MLPerf inference repo](https://github.com/mlcommons/inference/blob/master/.github/workflows/test-retinanet.yml) 
-  to automatically test MLPerf inference benchmark with different models, data sets and frameworks using the [MLCommons CK2 (CM) framework](https://github.com/mlcommons/ck).
-* We have developed a prototype of the [modular MLperf container](https://github.com/octoml/ck/blob/master/cm-mlops/script/app-mlperf-inference/dockerfiles/resnet50/ubuntu_22.04_python_onnxruntime_cpu.Dockerfile) with portable CK2 (CM) scripts.
-* Join the taskforce using [this Google form]( https://forms.gle/i5gCDtBC8gMtcvRw6 ) to stay informed about our activities.
-* See the [Notes from our weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing).
-* [Presentation about our mission](https://doi.org/10.5281/zenodo.7143424).
-* [Portable image classification workflow example]( tutorials/modular-image-classification.md ).
-* Upcoming events:
-  * ~[Student Cluster Competition at SC22](https://sc22.supercomputing.org/program/studentssc/student-cluster-competition/): November 14-16, 2022~ - [success](https://twitter.com/DrHaiAhNam/status/1592221106290688001).
-  * MLPerf inference v3.0 submission: end of March 3, 2023 (publication date: April 5, 2023)
-
-
-## Projects
-
-* Modularize MLPerf benchmarks and make it easier to run, optimize, customize and reproduce them across rapidly evolving software, hardware and data. 
-  * Implement and enhance [cross-platform CM scripts](list_of_scripts.md) to make MLOps and DevOps more interoperable, reusable, portable, deterministic and reproducible. 
-  * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
-  * Develop universal, modular and portable benchmarking workflow that can run on any software/hardware stack from the cloud to embedded devices.
-* Automate design space exploration and optimization of the whole ML/SW/HW stack to trade off performance, accuracy, energy, size and costs.
-  * Automate submission of Pareto-efficient configurations to MLPerf.
-* Help end-users of ML Systems visualize all MLPerf results, reproduce them and deploy Pareto-optimal ML/SW/HW stacks in production.
-* Support student competitions, reproducibility initiatives and artifact evaluation at ML and Systems conferences using the rigorous MLPerf methodology and the MLCommons CM automation meta-framework.
-
+* [Shared doc]( https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing )
 
 ## Conf-calls
 
@@ -64,15 +28,24 @@ with [portable and interoperable MLOps and DevOps scripts](list_of_scripts.md).
 * Extra tech. weekly conf-call (mostly tech and introductions) on Wednesday at 4:30pm CET (Europe): [Google meet link](https://meet.google.com/gkz-hdsa-qri)
 
 Please add your topics for discussion in the [meeting notes](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
-or using [GitHub tickets](https://github.com/mlcommons/ck).
-
-## Meeting notes
-
-* Meeting notes: [Google doc](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
+or via [GitHub tickets](https://github.com/mlcommons/ck).
 
 ## Mailing list
 
 Please join our mailing list [here](https://groups.google.com/g/collective-knowledge).
+
+
+## On-going projects
+
+See our [R&D roadmap for Q4 2022 and Q1 2023](https://github.com/mlcommons/ck/issues/536)
+
+* Modularize MLPerf benchmarks and make it easier to run, optimize, customize and reproduce them across rapidly evolving software, hardware and data. 
+  * Implement and enhance [cross-platform CM scripts](list_of_scripts.md) to make MLOps and DevOps more interoperable, reusable, portable, deterministic and reproducible. 
+  * Lower the barrier of entry for new MLPerf submitters and reduce their associated costs. 
+  * Develop universal, modular and portable benchmarking workflow that can run on any software/hardware stack from the cloud to embedded devices.
+* Automate design space exploration and optimization of the whole ML/SW/HW stack to trade off performance, accuracy, energy, size and costs.
+  * Automate submission of Pareto-efficient configurations to MLPerf.
+* Help end-users of ML Systems visualize all MLPerf results, reproduce them and deploy Pareto-optimal ML/SW/HW stacks in production.
 
 
 ## Purpose
@@ -100,7 +73,7 @@ for the MLPerf benchmarks to make it easier for the newcomers to run them
 across diverse hardware, software and data and automatically plug in 
 their own ML tasks, models, data sets, engines, libraries and tools.
 
-Another goal is to use these portable MLPerf worklows to help students, researchers and
+Another goal is to use these portable MLPerf workflows to help students, researchers and
 engineers participate in crowd-benchmarking and exploration of the design space tradeoffs 
 (accuracy, latency, throughput, energy, size, etc.) of their ML Systems from the cloud to the
 edge using the mature MLPerf methodology while automating the submission
@@ -154,11 +127,7 @@ and do not hesitate to [join this community effort](https://forms.gle/i5gCDtBC8g
 
 ## Agenda
 
-We use public meeting notes and GitHub tickets to track the progress of the community developments:
-* [Meeting notes](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
-* [All GitHub tickets](https://github.com/mlcommons/ck/issues)
-* [Current summary of on-going community developments](https://github.com/mlcommons/ck/issues/261)
-
+See our [R&D roadmap for Q4 2022 and Q1 2023](https://github.com/mlcommons/ck/issues/536)
 
 ### 2022
 
@@ -209,7 +178,6 @@ We use public meeting notes and GitHub tickets to track the progress of the comm
 * Share deployable MLPerf inference containers with Pareto-efficient ML/SW/HW stacks.
 
 
-
 ## Resources
 
 * Motivation:
@@ -226,11 +194,6 @@ We use public meeting notes and GitHub tickets to track the progress of the comm
 * [Google Drive](https://drive.google.com/drive/folders/1CKewftoZ2VpBWheMCSxFG-pcIBgCu4Au?usp=sharing) (public access)
 
 
-
-## Contacts
-
-* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
 
 
 
