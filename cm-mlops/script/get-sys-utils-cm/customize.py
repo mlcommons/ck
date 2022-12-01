@@ -30,25 +30,37 @@ def preprocess(i):
 
         url = env['CM_PACKAGE_WIN_URL']
 
-        print ('Downloading from {}'.format(url))
+        urls = [url] if ';' not in url else url.split(';')
+        
+        print ('')
+        print ('Current directory: {}'.format(os.getcwd()))
+        
+        for url in urls:
+            
+            url = url.strip()
 
-        r = cm.access({'action':'download_file', 
-                       'automation':'utils,dc2743f8450541e3', 
-                       'url':url})
-        if r['return']>0: return r
+            print ('')
+            print ('Downloading from {}'.format(url))
 
-        filename = r['filename']
+            r = cm.access({'action':'download_file', 
+                           'automation':'utils,dc2743f8450541e3', 
+                           'url':url})
+            if r['return']>0: return r
 
-        print ('Unzipping file {}'.format(filename))
+            filename = r['filename']
 
-        r = cm.access({'action':'unzip_file', 
-                       'automation':'utils,dc2743f8450541e3', 
-                       'filename':filename})
-        if r['return']>0: return r
+            print ('Unzipping file {}'.format(filename))
 
-        if os.path.isfile(filename):
-            print ('Removing file {}'.format(filename))
-            os.remove(filename)
+            r = cm.access({'action':'unzip_file', 
+                           'automation':'utils,dc2743f8450541e3', 
+                           'filename':filename})
+            if r['return']>0: return r
+
+            if os.path.isfile(filename):
+                print ('Removing file {}'.format(filename))
+                os.remove(filename)
+
+        print ('')
 
         # Add to path
         env['+PATH']=[os.path.join(path, 'bin')]
