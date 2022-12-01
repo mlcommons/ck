@@ -23,7 +23,23 @@ deps:
   - python
   - python3
   tags: get,python3
+- tags: get,cuda
+  enable_if_env:
+    USE_GPU:
+    - yes
 - tags: get,dataset,imagenet,image-classification,original
 - tags: get,dataset-aux,imagenet-aux,image-classification
 - tags: get,ml-model,resnet50,_onnx,image-classification
 - tags: get,generic-python-lib,_onnxruntime
+  skip_if_env:
+    USE_GPU:
+    - yes
+- tags: get,generic-python-lib,_onnxruntime_gpu
+  enable_if_env:
+    USE_GPU:
+    - yes
+
+variations:
+  gpu:
+    env:
+      USE_GPU: yes

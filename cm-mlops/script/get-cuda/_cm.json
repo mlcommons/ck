@@ -6,18 +6,12 @@
   "category_sort": 7000,
   "cache": true,
   "clean_files": [],
-  "deps": [
-    {
-      "enable_if_env": {
-        "CM_WINDOWS": []
-      },
-      "tags": "get,cl"
-    }
-  ],
   "env": {
     "CM_REQUIRE_INSTALL": "no"
   },
   "new_env_keys": [
+    "CUDA_HOME",
+    "CUDA_PATH",
     "CM_CUDA_*",
     "CM_NVCC_*",
     "+PATH",
@@ -37,6 +31,24 @@
       "tags": "install,cuda,prebuilt"
     }
   ],
+  "variations": {
+    "compiler": {
+      "prehook_deps": [
+        {
+          "enable_if_env": {
+            "CM_WINDOWS": []
+          },
+          "tags": "get,cl"
+        },
+        {
+          "skip_if_env": {
+            "CM_WINDOWS": []
+          },
+          "tags": "get,compiler,gcc"
+        }
+      ]
+    }
+  },
   "tags": [
     "get",
     "cuda",

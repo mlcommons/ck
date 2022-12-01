@@ -79,10 +79,16 @@ def load_a_batch(batch_filenames):
 #print("Device: " + rt.get_device())
 
 sess_options = rt.SessionOptions()
+
 if CPU_THREADS > 0:
     sess_options.enable_sequential_execution = False
     sess_options.session_thread_pool_size = CPU_THREADS
-sess = rt.InferenceSession(model_path, sess_options)
+
+if len(rt.get_all_providers()) > 1 and os.environ.get("USE_GPU", "yes").lower() not in [ "0", "false", "off", "no" ]:
+    #Currently considering only CUDAExecutionProvider
+    sess = rt.InferenceSession(model_path, sess_options, providers=['CUDAExecutionProvider'])
+else:
+    sess = rt.InferenceSession(model_path, sess_options, providers=["CPUExecutionProvider"])
 
 input_layer_names   = [ x.name for x in sess.get_inputs() ]     # FIXME: check that input_layer_name belongs to this list
 input_layer_name    = input_layer_name or input_layer_names[0]
