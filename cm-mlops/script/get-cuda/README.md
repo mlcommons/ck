@@ -36,8 +36,9 @@ cm run script "get cuda _compiler" --path="C:\Program Files\NVIDIA GPU Computing
 
 * Download [CUDA toolkit](https://developer.nvidia.com/cuda-toolkit).
 * Download [cuDNN](https://developer.nvidia.com/rdp/cudnn-download).
-* Download [TensorRT](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
+* (Download [TensorRT](https://developer.nvidia.com/nvidia-tensorrt-8x-download)).
 
 ## Windows
 
-* [Nvidia installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html)
+* ? Download [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
+* Check [Nvidia installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html)
