@@ -619,6 +619,14 @@ class CAutomation(Automation):
         # VARIATIONS OVERWRITE current ENV but not input keys (they become const)
 
         variations = script_artifact.meta.get('variations', {})
+        r = self._get_variation_groups(variations)
+        if r['return'] > 0:
+            return r
+        variation_groups = r['variation_groups']
+        r = self._process_variation_tags_in_groups(variation_tags, variation_groups)
+        if r['return'] > 0:
+            return r
+        variation_tags = r['variation_tags']
 
 
         # Add variation(s) if specified in the "tags" input prefixed by _
@@ -1735,6 +1743,39 @@ class CAutomation(Automation):
         return r_obj
 
 
+
+
+
+    ##############################################################################
+    def _get_variation_groups(script, variations):
+        groups = {}
+        for k in variations:
+            variation = variations[k]
+            if 'group' in variation:
+                if variation['group'] not in groups:
+                    groups[variation['group']] = {}
+                    groups[variation['group']]['variations'] = []
+                groups[variation['group']]['variations'].append(k)
+                if 'default' in variation:
+                    if 'default' in groups[variation['group']]:
+                        return {'return': 1, 'error': 'Multiple defaults specied for the variation group "{}": "{},{}" '.format(variation['group'], k, groups[variation['group']]['default'])}
+                    groups[variation['group']]['default'] = k
+
+        return {'return': 0, 'variation_groups': groups}
+
+    ##############################################################################
+    def _process_variation_tags_in_groups(script, variation_tags_list, groups):
+        import copy
+        tmp_variations = copy.deepcopy(variation_tags_list)
+        for k in groups:
+            group = groups[k]
+            unique_allowed_variations = group['variations']
+            if len(set(unique_allowed_variations) & set(variation_tags_list)) > 1:
+                return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(variation_tags_list)))}
+            if len(set(unique_allowed_variations) & set(variation_tags_list)) == 0:
+                if 'default' in group:
+                    tmp_variations.append(group['default'])
+        return {'return':0, 'variation_tags': tmp_variations}
 
 
 
