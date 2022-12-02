@@ -75,9 +75,9 @@ def preprocess(i):
     bat_file_name = 'VC\\Auxiliary\\Build\\vcvars64.bat'
     r = automation.find_file_back({'path':found_path, 'file_name':bat_file_name})
     if r['return']>0: return r
-    
+
     found_path_bat = r['found_path']
-    
+
     if found_path_bat!='':
         path_to_vcvars = os.path.join(found_path_bat, bat_file_name)
 
@@ -98,6 +98,7 @@ def preprocess(i):
     env['CM_CPP_COMPILER_WITH_PATH']=os.path.join(found_path, file_name)
 
     env['CM_C_COMPILER_FLAG_OUTPUT']='/Fe:'
+    env['CM_CXX_COMPILER_FLAG_OUTPUT']='/Fe:'
 
     return {'return':0}
 
