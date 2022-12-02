@@ -619,10 +619,12 @@ class CAutomation(Automation):
         # VARIATIONS OVERWRITE current ENV but not input keys (they become const)
 
         variations = script_artifact.meta.get('variations', {})
+        # Get a dictionary of variation groups
         r = self._get_variation_groups(variations)
         if r['return'] > 0:
             return r
         variation_groups = r['variation_groups']
+
         r = self._process_variation_tags_in_groups(variation_tags, variation_groups)
         if r['return'] > 0:
             return r
@@ -668,7 +670,7 @@ class CAutomation(Automation):
             tmp_variations = {k: False for k in variation_tags}
             while True:
                 for variation_name in variation_tags:
-
+                    tag_to_append = None
                     if variation_name.startswith("~") or variation_name.startswith("-"):
                         tmp_variations[variation_name] = True
                         continue
@@ -677,8 +679,21 @@ class CAutomation(Automation):
                         base_variations = variations[variation_name]["base"]
                         for base_variation in base_variations:
                             if base_variation not in variation_tags:
-                                variation_tags.append(base_variation)
-                                tmp_variations[base_variation] = False
+                                tag_to_append = base_variation
+                    if "default_base" in variations[variation_name]:
+                        default_base_variations = variations[variation_name]["default_base"]
+                        for default_base_variation in default_base_variations:
+                            if default_base_variation not in variation_groups:
+                                return {'return': 1, 'error': 'Default base variation "{}" is not a valid group '.format(default_base_variation)}
+                            if 'default' in variation_groups[default_base_variation]:
+                                return {'return': 1, 'error': 'Default base variation "{}" specified for the group "{}" with an already defined default variation "{}" '.format(default_base_variations[default_base_variation], default_base_variation, variation_groups[default_base_variation]['default'])}
+                            variation_groups[default_base_variation]['default'] = default_base_variations[default_base_variation]
+                            tag_to_append = default_base_variations[default_base_variation]
+                    if tag_to_append:
+                        if tag_to_append not in variations:
+                            return {'return': 1, 'error': 'In valid base variation "{}" specified for the variation "{}" '.format(tag_to_append, variation_name)}
+                        variation_tags.append(tag_to_append)
+                        tmp_variations[tag_to_append] = False
                     tmp_variations[variation_name] = True
                 all_base_processed = True
                 for variation_name in variation_tags:
@@ -722,6 +737,18 @@ class CAutomation(Automation):
                 if "add_deps_recursive" in variation_meta:
                     self._merge_dicts_with_tags(add_deps_recursive, variation_meta['add_deps_recursive'])
 
+                combined_variations = [ t for t in variations if ',' in t ]
+                for combined_variation in combined_variations:
+                    v = combined_variation.split(",")
+                    all_present = set(v).issubset(set(variation_tags))
+                    if all_present:
+                        combined_variation_meta = variations[combined_variation]
+
+                        r = update_state_from_meta(combined_variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
+                        if r['return']>0: return r
+
+                        if "add_deps_recursive" in combined_variation_meta:
+                            self._merge_dicts_with_tags(add_deps_recursive, combined_variation_meta['add_deps_recursive'])
 
 
 
@@ -1546,6 +1573,9 @@ class CAutomation(Automation):
         tags_string = i.get('tags','').strip()
 
         tags = [] if tags_string == '' else tags_string.split(',')
+        for tag in tags:
+            if tag.endswith("_"):
+                return {'return': 1, 'error': 'Tags ending with "_" is meant to be for internal use. Violating tag: "{}" '.format(tag)}
 
         script_tags = []
         variation_tags = []
@@ -2411,6 +2441,105 @@ class CAutomation(Automation):
                             'found_file_name':os.path.basename(file_path),
                             'default_path_list': default_path_list}
 
+    ##############################################################################
+    def find_file_deep(self, i):
+        """
+        Find file name in a list of paths
+
+        Args:
+          (CM input dict):
+
+            paths (list): list of paths
+            file_name (str): filename pattern to find
+            (restrict_paths) (list): restrict found paths to these combinations
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
+           (found_paths) (list): paths to files when found
+
+        """
+
+        paths = i['paths']
+        file_name = i['file_name']
+
+        restrict_paths = i.get('restrict_paths',[])
+
+        found_paths = []
+
+        for p in paths:
+            if os.path.isdir(p):
+                p1 = os.listdir(p)
+                for f in p1:
+                    p2 = os.path.join(p, f)
+
+                    if os.path.isdir(p2):
+                       r = self.find_file_deep({'paths':[p2], 'file_name': file_name, 'restrict_paths':restrict_paths})
+                       if r['return']>0: return r
+
+                       found_paths += r['found_paths']
+                    else:
+                       if f == file_name:
+                           found_paths.append(p)
+                           break
+
+        if len(found_paths) > 0 and len(restrict_paths) > 0:
+            filtered_found_paths = []
+
+            for p in found_paths:
+                for f in restrict_paths:
+                    if f in p:
+                        filtered_found_paths.append(p)
+                        break
+
+            found_paths = filtered_found_paths
+
+        return {'return':0, 'found_paths':found_paths}
+
+    ##############################################################################
+    def find_file_back(self, i):
+        """
+        Find file name backwards
+
+        Args:
+          (CM input dict):
+
+            path (str): path to start with
+            file_name (str): filename or directory to find
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
+           (found_path) (str): path if found or empty
+
+        """
+
+        path = i['path']
+        file_name = i['file_name']
+
+        found_path = ''
+
+        while path != '':
+            path_to_file = os.path.join(path, file_name)
+            if os.path.isfile(path_to_file):
+                break
+
+            path2 = os.path.dirname(path)
+
+            if path2 == path:
+                path = ''
+                break
+            else:
+                path = path2
+
+        return {'return':0, 'found_path':path}
+    
     ##############################################################################
     def parse_version(self, i):
         """

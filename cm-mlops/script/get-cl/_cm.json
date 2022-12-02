@@ -20,6 +20,9 @@
     "DEFAULT_LINKER_FLAGS",
     "+PATH"
   ],
+  "new_state_keys": [
+    "script_prefix"
+  ],
   "sort": 1000,
   "tags": [
     "get",
