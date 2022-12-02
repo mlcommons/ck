@@ -24,6 +24,7 @@ else:
         pre_process = dataset.pre_process_vgg
     elif os.environ.get('CM_MODEL') == 'mobilenet':
         pre_process = dataset.pre_process_mobilenet
+
     imagenet.Imagenet(data_path=dataset_path,
                         image_list=dataset_list,
                         name="imagenet",
