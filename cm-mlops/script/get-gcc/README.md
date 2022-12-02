@@ -8,12 +8,8 @@ This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-sc
 * `CM_C_COMPILER_WITH_PATH`
 * `CM_CXX_COMPILER_BIN`
 * `CM_CXX_COMPILER_WITH_PATH`
-* `FAST_COMPILER_FLAGS`
-* `FAST_LINKER_FLAGS`
-* `DEBUG_COMPILER_FLAGS`
-* `DEBUG_LINKER_FLAGS`
-* `DEFAULT_COMPILER_FLAGS`
-* `DEFAULT_LINKER_FLAGS`
+* `CM_COMPILER_*`
+
 ## Supported and Tested OS
 1. Ubuntu 18.04, 20.04, 22.04
 2. RHEL 9

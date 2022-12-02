@@ -80,12 +80,12 @@ def postprocess(i):
     env['CM_CXX_COMPILER_BIN']=file_name_cpp
     env['CM_CXX_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_cpp)
 
-    env['FAST_COMPILER_FLAGS'] = "-O3"
-    env['FAST_LINKER_FLAGS'] = "-O3"
-    env['DEBUG_COMPILER_FLAGS'] = "-O0"
-    env['DEBUG_LINKER_FLAGS'] = "-O0"
-    env['DEFAULT_COMPILER_FLAGS'] = "-O2"
-    env['DEFAULT_LINKER_FLAGS'] = "-O2"
+    env['CM_COMPILER_FLAGS_FAST'] = "-O3"
+    env['CM_LINKER_FLAGS_FAST'] = "-O3"
+    env['CM_COMPILER_FLAGS_DEBUG'] = "-O0"
+    env['CM_LINKER_FLAGS_DEBUG'] = "-O0"
+    env['CM_COMPILER_FLAGS_DEFAULT'] = "-O2"
+    env['CM_LINKER_FLAGS_DEFAULT'] = "-O2"
 
     env['CM_C_COMPILER_FLAG_OUTPUT']='-o '
     env['CM_CXX_COMPILER_FLAG_OUTPUT']='-o '

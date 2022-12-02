@@ -16,14 +16,14 @@ def preprocess(i):
         return {'return':0}
 
     if env.get("CM_FAST_COMPILATION") in [ "yes", "on", "1" ]:
-        DEFAULT_COMPILER_FLAGS = env.get("FAST_COMPILER_FLAGS", "-O3")
-        DEFAULT_LINKER_FLAGS = env.get("FAST_LINKER_FLAGS", "-O3 -flto")
+        DEFAULT_COMPILER_FLAGS = env.get("CM_COMPILER_FLAGS_FAST", "-O3")
+        DEFAULT_LINKER_FLAGS = env.get("CM_LINKER_FLAGS_FAST", "-O3 -flto")
     elif env.get("CM_DEBUG_COMPILATION") in ["yes", "on", "1" ]:
-        DEFAULT_COMPILER_FLAGS = env.get("DEBUG_COMPILER_FLAGS", "-O0")
-        DEFAULT_LINKER_FLAGS = env.get("DEBUG_LINKER_FLAGS", "-O0")
+        DEFAULT_COMPILER_FLAGS = env.get("CM_COMPILER_FLAGS_DEBUG", "-O0")
+        DEFAULT_LINKER_FLAGS = env.get("CM_LINKER_FLAGS_DEBUG", "-O0")
     else:
-        DEFAULT_COMPILER_FLAGS = env.get("DEFAULT_COMPILER_FLAGS", "-O2")
-        DEFAULT_LINKER_FLAGS = env.get("DEFAULT_LINKER_FLAGS", "-O2")
+        DEFAULT_COMPILER_FLAGS = env.get("CM_COMPILER_FLAGS_DEFAULT", "-O2")
+        DEFAULT_LINKER_FLAGS = env.get("CM_LINKER_FLAGS_DEFAULT", "-O2")
     
     env['+ CFLAGS'] += DEFAULT_COMPILER_FLAGS.split(" ")
     env['+ CXXFLAGS'] += DEFAULT_COMPILER_FLAGS.split(" ")
