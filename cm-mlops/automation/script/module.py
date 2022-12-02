@@ -2412,6 +2412,105 @@ class CAutomation(Automation):
                             'default_path_list': default_path_list}
 
     ##############################################################################
+    def find_file_deep(self, i):
+        """
+        Find file name in a list of paths
+
+        Args:
+          (CM input dict):
+
+            paths (list): list of paths
+            file_name (str): filename pattern to find
+            (restrict_paths) (list): restrict found paths to these combinations
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
+           (found_paths) (list): paths to files when found
+
+        """
+
+        paths = i['paths']
+        file_name = i['file_name']
+
+        restrict_paths = i.get('restrict_paths',[])
+
+        found_paths = []
+
+        for p in paths:
+            if os.path.isdir(p):
+                p1 = os.listdir(p)
+                for f in p1:
+                    p2 = os.path.join(p, f)
+
+                    if os.path.isdir(p2):
+                       r = self.find_file_deep({'paths':[p2], 'file_name': file_name, 'restrict_paths':restrict_paths})
+                       if r['return']>0: return r
+
+                       found_paths += r['found_paths']
+                    else:
+                       if f == file_name:
+                           found_paths.append(p)
+                           break
+
+        if len(found_paths) > 0 and len(restrict_paths) > 0:
+            filtered_found_paths = []
+
+            for p in found_paths:
+                for f in restrict_paths:
+                    if f in p:
+                        filtered_found_paths.append(p)
+                        break
+
+            found_paths = filtered_found_paths
+
+        return {'return':0, 'found_paths':found_paths}
+
+    ##############################################################################
+    def find_file_back(self, i):
+        """
+        Find file name backwards
+
+        Args:
+          (CM input dict):
+
+            path (str): path to start with
+            file_name (str): filename or directory to find
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
+           (found_path) (str): path if found or empty
+
+        """
+
+        path = i['path']
+        file_name = i['file_name']
+
+        found_path = ''
+
+        while path != '':
+            path_to_file = os.path.join(path, file_name)
+            if os.path.isfile(path_to_file):
+                break
+
+            path2 = os.path.dirname(path)
+
+            if path2 == path:
+                path = ''
+                break
+            else:
+                path = path2
+
+        return {'return':0, 'found_path':path}
+    
+    ##############################################################################
     def parse_version(self, i):
         """
         Parse version (used in post processing functions)

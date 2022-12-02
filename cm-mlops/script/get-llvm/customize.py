@@ -80,4 +80,6 @@ def postprocess(i):
     env['DEFAULT_COMPILER_FLAGS'] = "-O2"
     env['DEFAULT_LINKER_FLAGS'] = "-O2"
 
+    env['CM_C_COMPILER_FLAG_OUTPUT']='-o '
+
     return {'return':0, 'version': version}
