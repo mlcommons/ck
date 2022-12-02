@@ -619,17 +619,21 @@ class CAutomation(Automation):
         # VARIATIONS OVERWRITE current ENV but not input keys (they become const)
 
         variations = script_artifact.meta.get('variations', {})
+        # variation_tags get appended by any aliases
+        r = self._get_variations_with_aliases(variation_tags, variations)
+        if r['return'] > 0:
+            return r
+        variation_tags = r['variation_tags']
         # Get a dictionary of variation groups
         r = self._get_variation_groups(variations)
         if r['return'] > 0:
             return r
         variation_groups = r['variation_groups']
-
+        # variation_tags get appended by any default on variation in groups
         r = self._process_variation_tags_in_groups(variation_tags, variation_groups)
         if r['return'] > 0:
             return r
         variation_tags = r['variation_tags']
-
 
         # Add variation(s) if specified in the "tags" input prefixed by _
           # If there is only 1 default variation, then just use it or substitute from CMD
@@ -1775,6 +1779,22 @@ class CAutomation(Automation):
 
 
 
+    ##############################################################################
+    def _get_variations_with_aliases(script, variation_tags, variations):
+        '''
+        Automatically turn on variation tags which are aliased by any given tag
+        '''
+        import copy
+        tmp_variation_tags=copy.deepcopy(variation_tags)
+        for k in variation_tags:
+            variation = variations[k]
+            if 'alias' in variation:
+                if variation['alias'] not in variations:
+                    return {'return': 1, 'error': 'Alias "{}" specified for the variation "{}" is not existing '.format(variation['alias'], k)}
+                tmp_variation_tags.append(variation['alias'])
+        return {'return':0, 'variation_tags': tmp_variation_tags}
+
+
 
     ##############################################################################
     def _get_variation_groups(script, variations):
@@ -1794,18 +1814,19 @@ class CAutomation(Automation):
         return {'return': 0, 'variation_groups': groups}
 
     ##############################################################################
-    def _process_variation_tags_in_groups(script, variation_tags_list, groups):
+    def _process_variation_tags_in_groups(script, variation_tags, groups):
         import copy
-        tmp_variations = copy.deepcopy(variation_tags_list)
+        tmp_variation_tags= copy.deepcopy(variation_tags)
         for k in groups:
             group = groups[k]
             unique_allowed_variations = group['variations']
-            if len(set(unique_allowed_variations) & set(variation_tags_list)) > 1:
-                return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(variation_tags_list)))}
-            if len(set(unique_allowed_variations) & set(variation_tags_list)) == 0:
+            if len(set(unique_allowed_variations) & set(variation_tags)) > 1:
+                return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(variation_tags)))}
+            if len(set(unique_allowed_variations) & set(variation_tags)) == 0:
                 if 'default' in group:
-                    tmp_variations.append(group['default'])
-        return {'return':0, 'variation_tags': tmp_variations}
+                    tmp_variation_tags.append(group['default'])
+
+        return {'return':0, 'variation_tags': tmp_variation_tags}
 
 
 

@@ -116,14 +116,10 @@
       }
     },
     "tflite": {
-      "base": [
-        "tensorflow"
-      ]
+      "alias": "tensorflow"
     },
     "tf": {
-      "base": [
-        "tensorflow"
-      ]
+      "alias": "tensorflow"
     },
     "tensorflow": {
       "group": "framework",
