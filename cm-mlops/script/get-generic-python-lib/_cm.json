@@ -53,16 +53,17 @@
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax"
       },
       "new_env_keys": [
-        "CM_JAX_VERSION"
+        "CM_JAX_VERSION*"
       ]
     },
-    "jax_gpu": {
+    "jax_cuda": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax[cuda]",
-        "CM_GENERIC_PYTHON_PIP_EXTRA": "-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html"
+        "CM_GENERIC_PYTHON_PIP_EXTRA": "-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html",
+        "CM_JAX_VERSION_EXTRA":"CUDA"
       },
       "new_env_keys": [
-        "CM_JAX_GPU_VERSION"
+        "CM_JAX_VERSION*"
       ]
     },
     "numpy": {
@@ -107,10 +108,11 @@
     },
     "onnxruntime_gpu": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime_gpu"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime_gpu",
+        "CM_ONNXRUNTIME_VERSION_EXTRA":"GPU"
       },
       "new_env_keys": [
-        "CM_ONNXRUNTIME_GPU_VERSION"
+        "CM_ONNXRUNTIME_VERSION*"
       ]
     },
     "protobuf": {
@@ -142,15 +144,50 @@
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch"
       },
       "new_env_keys": [
-        "CM_TORCH_VERSION"
+        "CM_TORCH_VERSION*"
       ]
     },
+    "torch_cuda": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_TORCH_VERSION_EXTRA":"CUDA"
+      },
+      "new_env_keys": [
+        "CM_TORCH_VERSION*"
+      ]
+   },
     "torchvision": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision"
       },
       "new_env_keys": [
-        "CM_TORCHVISION_VERSION"
+        "CM_TORCHVISION_VERSION*"
+      ]
+    },
+    "torchvision_cuda": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision",
+        "CM_TORCHVISION_VERSION_EXTRA":"CUDA"
+      },
+      "new_env_keys": [
+        "CM_TORCHVISION_VERSION*"
+      ]
+    },
+    "torchaudio": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio"
+      },
+      "new_env_keys": [
+        "CM_TORCHAUDIO_VERSION*"
+      ]
+    },
+    "torchaudio_cuda": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
+         "CM_TORCHAUDIO_VERSION_EXTRA":"CUDA"
+     },
+      "new_env_keys": [
+        "CM_TORCHAUDIO_VERSION*"
       ]
     },
     "transformers": {

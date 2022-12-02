@@ -51,13 +51,13 @@ def preprocess(i):
             inc_dir.append(out.strip())
     env['+CM_HOST_OS_DEFAULT_INCLUDE_PATH'] = inc_dir
 
-    if env['CM_C_COMPILER_BIN'] == 'icc':
-        if env['CM_CPUINFO_Vendor_ID'] == 'GenuineIntel':
-            if int(env['CM_CPUINFO_CPU_family']) >= 0:
-                env['+ CFLAGS'] += ["-ipo"]
-    if env['CM_C_COMPILER_BIN'] == 'gcc':
-        if env['CM_HOST_CPU_VENDOR_ID'] == 'AMD':
-            if int(env['CM_HOST_CPU_FAMILY']) >= 0:
-                env['+ CFLAGS'] += ["-march=znver2", "-flto"]
+#    if env['CM_C_COMPILER_BIN'] == 'icc':
+#        if env['CM_CPUINFO_Vendor_ID'] == 'GenuineIntel':
+#            if int(env['CM_CPUINFO_CPU_family']) >= 0:
+#                env['+ CFLAGS'] += ["-ipo"]
+#    if env['CM_C_COMPILER_BIN'] == 'gcc':
+#        if env['CM_HOST_CPU_VENDOR_ID'] == 'AMD':
+#            if int(env['CM_HOST_CPU_FAMILY']) >= 0:
+#                env['+ CFLAGS'] += ["-march=znver2", "-flto"]
 
     return {'return':0}
