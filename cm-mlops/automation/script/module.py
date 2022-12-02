@@ -808,6 +808,7 @@ class CAutomation(Automation):
         if r['return']>0: return r
 
 
+        update_env_with_values(env)
 
 
         ############################################################################################################
