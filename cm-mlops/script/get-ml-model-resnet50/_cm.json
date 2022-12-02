@@ -117,15 +117,15 @@
     },
     "tflite": {
       "base": [
-        "tf"
-      ]
-    },
-    "tensorflow": {
-      "base": [
-        "tf"
+        "tensorflow"
       ]
     },
     "tf": {
+      "base": [
+        "tensorflow"
+      ]
+    },
+    "tensorflow": {
       "group": "framework",
       "env": {
         "CM_ML_MODEL_ACCURACY": "76.456",
