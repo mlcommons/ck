@@ -338,3 +338,25 @@ variations:
       CM_RERUN: 'yes'
       CM_SKIP_SYS_UTILS: 'yes'
       CM_TEST_QUERY_COUNT: '100'
+
+valid_variation_combinations:
+  -
+    - resnet50
+    - cpu
+  -
+    - resnet50
+    - cuda
+  -
+    - retinanet
+  -
+    - bert-99.9
+  -
+    - bert-99
+
+invalid_variation_combinations:
+  -
+    - resnet50
+    - pytorch
+  -
+    - retinanet
+    - tf
