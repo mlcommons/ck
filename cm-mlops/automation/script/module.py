@@ -639,35 +639,10 @@ class CAutomation(Automation):
           # If there is only 1 default variation, then just use it or substitute from CMD
 
         default_variation = meta.get('default_variation', '')
-        default_variations = meta.get('default_variations', [])
 
         if len(variation_tags) == 0:
             if default_variation != '':
                 variation_tags = [default_variation]
-            elif len(default_variations)>0:
-                variation_tags = default_variations
-        else:
-            if len(default_variations)>0:
-                tmp_variation_tags = copy.deepcopy(default_variations)
-
-                for t in variation_tags:
-                    if t.startswith('-'):
-                        t = t[1:]
-                        if t in tmp_variation_tags:
-                            del(tmp_variation_tags)
-                        else:
-                            return {'return':1, 'error':'tag {} is not in default tags {}'.format(t, tmp_variation_tags)}
-                    else:
-                        if t not in default_variations:
-                            tmp_variation_tags.append(t)
-
-                variation_tags = tmp_variation_tags
-
-        # Add the ones that are not on!
-        if len(default_variations)>0:
-            for t in variations:
-                if t not in variation_tags:
-                    variation_tags.append('~' + t)
 
         # Recursively add any base variations specified
         if len(variation_tags) > 0:
@@ -684,18 +659,20 @@ class CAutomation(Automation):
                         for base_variation in base_variations:
                             if base_variation not in variation_tags:
                                 tag_to_append = base_variation
-                    if "default_base" in variations[variation_name]:
-                        default_base_variations = variations[variation_name]["default_base"]
+                    if "default_variations" in variations[variation_name]:
+                        default_base_variations = variations[variation_name]["default_variations"]
                         for default_base_variation in default_base_variations:
                             if default_base_variation not in variation_groups:
-                                return {'return': 1, 'error': 'Default base variation "{}" is not a valid group '.format(default_base_variation)}
+                                return {'return': 1, 'error': 'Default variation "{}" is not a valid group '.format(default_base_variation)}
                             if 'default' in variation_groups[default_base_variation]:
-                                return {'return': 1, 'error': 'Default base variation "{}" specified for the group "{}" with an already defined default variation "{}" '.format(default_base_variations[default_base_variation], default_base_variation, variation_groups[default_base_variation]['default'])}
-                            variation_groups[default_base_variation]['default'] = default_base_variations[default_base_variation]
-                            tag_to_append = default_base_variations[default_base_variation]
+                                return {'return': 1, 'error': 'Default variation "{}" specified for the group "{}" with an already defined default variation "{}" '.format(default_base_variations[default_base_variation], default_base_variation, variation_groups[default_base_variation]['default'])}
+                            unique_allowed_variations = variation_groups[default_base_variation]['variations']
+                            # add the default only if none of the variations from the current group is selected
+                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0:
+                                tag_to_append = default_base_variations[default_base_variation]
                     if tag_to_append:
                         if tag_to_append not in variations:
-                            return {'return': 1, 'error': 'In valid base variation "{}" specified for the variation "{}" '.format(tag_to_append, variation_name)}
+                            return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
                         variation_tags.append(tag_to_append)
                         tmp_variations[tag_to_append] = False
                     tmp_variations[variation_name] = True
@@ -706,6 +683,14 @@ class CAutomation(Automation):
                         break
                 if all_base_processed:
                     break
+        valid_variation_combinations = meta.get('valid_variation_combinations', [])
+        if valid_variation_combinations:
+            if not any ( all(t in variation_tags for t in s) for s in valid_variation_combinations):
+                return {'return': 1, 'error': 'Invalid variation combination "{}" prepared. Valid combinations: "{}" '.format(variation_tags, valid_variation_combinations)}
+        invalid_variation_combinations = meta.get('invalid_variation_combinations', [])
+        if invalid_variation_combinations:
+            if any ( all(t in variation_tags for t in s) for s in invalid_variation_combinations):
+                return {'return': 1, 'error': 'Invalid variation combination "{}" prepared. Invalid combinations: "{}" '.format(variation_tags, invalid_variation_combinations)}
 
         variation_tags_string = ''
         if len(variation_tags)>0:
@@ -831,6 +816,7 @@ class CAutomation(Automation):
         if r['return']>0: return r
 
 
+        update_env_with_values(env)
 
 
         ############################################################################################################
@@ -1577,9 +1563,6 @@ class CAutomation(Automation):
         tags_string = i.get('tags','').strip()
 
         tags = [] if tags_string == '' else tags_string.split(',')
-        for tag in tags:
-            if tag.endswith("_"):
-                return {'return': 1, 'error': 'Tags ending with "_" is meant to be for internal use. Violating tag: "{}" '.format(tag)}
 
         script_tags = []
         variation_tags = []
@@ -1791,6 +1774,10 @@ class CAutomation(Automation):
             if 'alias' in variation:
                 if variation['alias'] not in variations:
                     return {'return': 1, 'error': 'Alias "{}" specified for the variation "{}" is not existing '.format(variation['alias'], k)}
+                if 'group' in variation:
+                    return {'return': 1, 'error': 'Incompatible combinations: (alias, group) specified for the variation "{}" '.format(k)}
+                if 'default' in variation:
+                    return {'return': 1, 'error': 'Incompatible combinations: (default, group) specified for the variation "{}" '.format(k)}
                 tmp_variation_tags.append(variation['alias'])
         return {'return':0, 'variation_tags': tmp_variation_tags}
 
