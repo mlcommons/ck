@@ -7,7 +7,7 @@
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1"
   },
-  "default_variations": ["tvm"],
+  "default_variation": "tvm",
   "deps": [
     {
       "tags": "detect,os"

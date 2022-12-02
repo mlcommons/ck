@@ -69,7 +69,7 @@
     "onnx": {
       "group": "framework",
       "default": true,
-      "default_base": {
+      "default_variations": {
         "opset-version": "opset-11" 
       },
       "env": {
