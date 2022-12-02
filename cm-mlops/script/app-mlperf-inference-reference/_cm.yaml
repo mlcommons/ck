@@ -101,10 +101,10 @@ deps:
       - tvm-onnx
       CM_MLPERF_DEVICE:
       - cpu
-  ## Onnx GPU Runtime
+  ## Onnx CUDA Runtime
   - tags: get,generic-python-lib,_onnxruntime_gpu
     names:
-    - ml-engine-onnxruntime-gpu
+    - ml-engine-onnxruntime-cuda
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
@@ -491,15 +491,15 @@ variations:
     env:
       CM_MLPERF_DEVICE: cpu
       CUDA_VISIBLE_DEVICES: ''
-      USE_GPU: no
+      USE_CUDA: no
 
-  gpu:
+  cuda:
     env:
       CM_MLPERF_DEVICE: gpu
-      USE_GPU: yes
+      USE_CUDA: yes
     add_deps_recursive:
       cpp-mlperf-inference:
-        tags: _gpu
+        tags: _cuda
 
   # Execution modes
   fast:

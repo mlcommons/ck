@@ -71,7 +71,7 @@ cm run script --tags=get,preprocessed,openimages,_500,_NCHW
 ```
 Run benchmark:
 ```sh
-cm run script "cpp mlperf _retinanet _onnxruntime _gpu" \
+cm run script "cpp mlperf _retinanet _onnxruntime _cuda" \
    --output_dir=<OUTPUT_DIR> \
    --count=500 \
    --max_batchsize=1 \

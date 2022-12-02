@@ -1,8 +1,8 @@
-﻿# GPU version
+﻿# CUDA version
 
 ```bash
-cm run script "python app image-classification onnx _gpu"
-cm run script "python app image-classification onnx _gpu" --input=src/computer_mouse.jpg
+cm run script "python app image-classification onnx _cuda"
+cm run script "python app image-classification onnx _cuda" --input=src/computer_mouse.jpg
 ```
 
 ## Tested on Windows 10

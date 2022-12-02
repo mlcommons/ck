@@ -84,7 +84,7 @@ if CPU_THREADS > 0:
     sess_options.enable_sequential_execution = False
     sess_options.session_thread_pool_size = CPU_THREADS
 
-if len(rt.get_all_providers()) > 1 and os.environ.get("USE_GPU", "yes").lower() not in [ "0", "false", "off", "no" ]:
+if len(rt.get_all_providers()) > 1 and os.environ.get("USE_CUDA", "yes").lower() not in [ "0", "false", "off", "no" ]:
     #Currently considering only CUDAExecutionProvider
     sess = rt.InferenceSession(model_path, sess_options, providers=['CUDAExecutionProvider'])
 else:

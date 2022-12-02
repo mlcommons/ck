@@ -84,7 +84,7 @@ deps:
       - onnxruntime
       CM_MLPERF_DEVICE:
       - gpu
-    tags: get,lib,onnxruntime,lang-cpp,_gpu
+    tags: get,lib,onnxruntime,lang-cpp,_cuda
 
 
   ########################################################################
@@ -139,7 +139,7 @@ variations:
   cpu:
     env:
       CM_MLPERF_DEVICE: cpu
-  gpu:
+  cuda:
     env:
       CM_MLPERF_DEVICE: gpu
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart

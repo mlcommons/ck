@@ -292,7 +292,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _cpu
-  gpu:
+  cuda:
     group:
       device
     env:
@@ -300,7 +300,7 @@ variations:
         gpu
     add_deps_recursive:
       mlperf-inference-implementation:
-        tags: _gpu
+        tags: _cuda
 
 
   # Execution modes
