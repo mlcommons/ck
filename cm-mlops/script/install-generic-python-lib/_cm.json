@@ -119,7 +119,8 @@
     },
     "torch": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
       }
     },
     "torch_cuda": {
@@ -138,7 +139,8 @@
     },
     "torchvision": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
       }
     },
     "torchvision_cuda": {
@@ -157,7 +159,8 @@
     },
     "torchaudio": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
       }
     },
     "torchaudio_cuda": {

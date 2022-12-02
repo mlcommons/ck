@@ -59,7 +59,6 @@
     "jax_cuda": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax[cuda]",
-        "CM_GENERIC_PYTHON_PIP_EXTRA": "-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html",
         "CM_JAX_VERSION_EXTRA":"CUDA"
       },
       "new_env_keys": [
