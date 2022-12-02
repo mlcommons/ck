@@ -22,10 +22,32 @@ def preprocess(i):
             shutil.copy(os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt"), os.path.join(env['CM_DATASET_PATH'],
             "val_map.txt"))
 
-    if not exists(os.path.join(env['CM_DATASET_PREPROCESSED_PATH'], "val_map.txt")):
-        shutil.copy(os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt"), os.path.join(env['CM_DATASET_PREPROCESSED_PATH'],
-        "val_map.txt"))
+    preprocessed_path = env['CM_DATASET_PREPROCESSED_PATH']
+    
+    if not exists(os.path.join(preprocessed_path, "val_map.txt")):
+        shutil.copy(os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt"), 
+                    os.path.join(preprocessed_path, "val_map.txt"))
+
     if env.get('CM_IMAGENET_QUANTIZED', "no") == "yes":
         env['CM_QUANTIZE'] = "1"
 
+
     return {'return': 0}
+
+def postprocess(i):
+
+    env = i['env']
+
+    # finalize path
+    preprocessed_path = env['CM_DATASET_PREPROCESSED_PATH']
+    img_format = os.environ.get('CM_ML_MODEL_DATA_LAYOUT', 'NHWC')
+
+    full_preprocessed_path = os.path.join(preprocessed_path, 
+                                          'preprocessed',
+                                          'imagenet',
+                                          img_format)
+
+    if os.path.isdir(full_preprocessed_path):
+        env['CM_DATASET_PREPROCESSED_FULL_PATH']=full_preprocessed_path
+
+    return {'return':0}

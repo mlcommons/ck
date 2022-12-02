@@ -62,10 +62,7 @@ LABELS_PATH             = os.environ['CM_CAFFE_IMAGENET_SYNSET_WORDS_TXT']
 ## Preprocessed input images' properties:
 #
 IMAGE_DIR               = os.getenv('CM_DATASET_IMAGENET_PREPROCESSED_DIR')
-IMAGE_LIST_FILE_NAME    = os.getenv('CM_DATASET_IMAGENET_PREPROCESSED_SUBSET_FOF')
-IMAGE_LIST_FILE         = os.path.join(IMAGE_DIR, IMAGE_LIST_FILE_NAME)
 IMAGE_DATA_TYPE         = os.getenv('CM_DATASET_IMAGENET_PREPROCESSED_DATA_TYPE', 'float32')
-IMAGE_DATA_TYPE         = "uint8"
 
 
 def load_labels(labels_filepath):
@@ -79,12 +76,16 @@ class_labels = load_labels(LABELS_PATH)
 
 
 # Load preprocessed image filenames:
-with open(IMAGE_LIST_FILE, 'r') as f:
-    image_list = [ s.strip() for s in f ]
-
+image_list = []
+all_images = os.listdir(IMAGE_DIR)
+for image_file in all_images:
+    if image_file.endswith('.npy'):
+        image_list.append(image_file)
 
 def load_image_by_index_and_normalize(image_index):
+
     img_file = os.path.join(IMAGE_DIR, image_list[image_index])
+
     img = np.fromfile(img_file, np.dtype(IMAGE_DATA_TYPE))
     #img = img.reshape((1,MODEL_IMAGE_HEIGHT, MODEL_IMAGE_WIDTH, 3))
     img.resize(224*224*3)

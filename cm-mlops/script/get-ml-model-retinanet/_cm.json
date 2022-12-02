@@ -28,55 +28,47 @@
   "uid": "427bc5665e4541c2",
   "variations": {
     "fp32": {
+      "group": "precision",
+      "default": true,
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "fp32",
         "CM_ML_MODEL_PRECISION": "fp32",
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "fp32"
       }
     },
-    "onnx_": {
+    "onnx": {
+      "group": "framework",
+      "default": true,
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
         "CM_ML_MODEL_FRAMEWORK": "onnx"
       }
     },
-    "onnx": {
-      "base": [
-        "onnx-fp32"
-      ]
-    },
     "pytorch": {
-      "base": [
-        "pytorch-fp32"
-      ]
-    },
-    "pytorch_": {
+      "group": "framework",
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
         "CM_ML_MODEL_FRAMEWORK": "pytorch"
       }
     },
-    "onnx-fp32": {
-      "base": [
-        "fp32",
-        "onnx_"
-      ],
+    "onnx,fp32": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/6617879/files/resnext50_32x4d_fpn.onnx",
         "CM_ML_MODEL_ACCURACY": "0.3757"
       }
     },
-    "pytorch-fp32": {
-      "base": [
-        "fp32",
-        "pytorch_"
-      ],
+    "pytorch,fp32": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth",
         "CM_ML_MODEL_ACCURACY": "0.3755"
       }
     },
-    "pytorch-fp32-weights": {
+    "weights": {
+      "env": {
+        "CM_MODEL_WEIGHTS_FILE": "yes"
+      }
+    },
+    "pytorch,fp32,weights": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/6605272/files/retinanet_model_10.zip?download=1",
         "CM_UNZIP": "yes",

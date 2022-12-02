@@ -22,16 +22,48 @@
       "tags": "get,python"
     },
     {
-      "tags": "get,dataset,preprocessed,image-classification"
+      "tags": "get,dataset,imagenet,image-classification,preprocessed"
     },
     {
-      "tags": "get,dataset-aux,image-classification"
+      "tags": "get,dataset-aux,imagenet-aux,image-classification"
     },
     {
       "tags": "get,imagenet-helper"
     },
     {
-      "tags": "get,generic-python-lib,_torch"
+      "tags": "get,ml-model,image-classification,resnet50,_pytorch,_fp32"
+    },
+    {
+      "tags": "get,generic-python-lib,_torch",
+      "skip_if_env": {
+        "USE_CUDA": [
+          "yes"
+        ]
+      }
+    },
+    {
+      "tags": "get,generic-python-lib,_torch_cuda",
+      "enable_if_env": {
+        "USE_CUDA": [
+          "yes"
+        ]
+      }
+    },
+    {
+      "tags": "get,generic-python-lib,_torchvision",
+      "skip_if_env": {
+        "USE_CUDA": [
+          "yes"
+        ]
+      }
+    },
+    {
+      "tags": "get,generic-python-lib,_torchvision_cuda",
+      "enable_if_env": {
+        "USE_CUDA": [
+          "yes"
+        ]
+      }
     }
   ],
   "tags": [
@@ -40,5 +72,17 @@
     "torch",
     "python"
   ],
+  "variations": {
+    "cuda": {
+      "env": {
+         "USE_CUDA": "yes"
+      },
+      "deps": [
+        {
+          "tags": "get,cuda"
+        }
+      ]
+    }
+  },
   "uid": "e3986ae887b84ca8"
 }

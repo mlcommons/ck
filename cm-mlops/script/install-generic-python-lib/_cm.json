@@ -23,6 +23,9 @@
       "prefix": "python-"
     }
   ],
+  "input_mapping": {
+    "update": "CM_GENERIC_PYTHON_PIP_UPDATE"
+  },
   "post_deps": [
     {
       "inhert_variation_tags": true,
@@ -50,11 +53,18 @@
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax"
       }
     },
-    "jax_gpu": {
+    "jax_cuda": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax[cuda]",
-        "CM_GENERIC_PYTHON_PIP_EXTRA": "-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html"
-      }
+        "CM_GENERIC_PYTHON_PIP_EXTRA": "-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html",
+        "CM_JAX_VERSION_EXTRA":"CUDA"
+      },
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
+      ]
     },
     "numpy": {
       "env": {
@@ -84,7 +94,13 @@
     "onnxruntime_gpu": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime_gpu"
-      }
+      },
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
+      ]
     },
     "protobuf": {
       "env": {
@@ -103,13 +119,63 @@
     },
     "torch": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
       }
+    },
+    "torch_cuda": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_TORCH_CUDA":"cu116",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_TORCH_VERSION_EXTRA":"CUDA"
+      },
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
+      ]
     },
     "torchvision": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
       }
+    },
+    "torchvision_cuda": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision",
+        "CM_TORCH_CUDA":"cu116",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_TORCH_VERSION_EXTRA":"CUDA"
+      },
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
+      ]
+    },
+    "torchaudio": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
+      }
+    },
+    "torchaudio_cuda": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
+        "CM_TORCH_CUDA":"cu116",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_TORCH_VERSION_EXTRA":"CUDA"
+      },
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
+      ]
     },
     "transformers": {
       "env": {

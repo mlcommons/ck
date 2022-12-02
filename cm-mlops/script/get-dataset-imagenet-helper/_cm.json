@@ -5,6 +5,10 @@
   "category": "ML/AI datasets",
   "category_sort":8500,
   "cache": true,
+  "new_env_keys": [
+    "+PYTHONPATH",
+    "CM_DATASET_IMAGENET_HELPER_PATH"
+  ],
   "tags": [
     "get",
     "imagenet",

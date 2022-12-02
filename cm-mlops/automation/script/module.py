@@ -619,48 +619,37 @@ class CAutomation(Automation):
         # VARIATIONS OVERWRITE current ENV but not input keys (they become const)
 
         variations = script_artifact.meta.get('variations', {})
-
+        # variation_tags get appended by any aliases
+        r = self._get_variations_with_aliases(variation_tags, variations)
+        if r['return'] > 0:
+            return r
+        variation_tags = r['variation_tags']
+        # Get a dictionary of variation groups
+        r = self._get_variation_groups(variations)
+        if r['return'] > 0:
+            return r
+        variation_groups = r['variation_groups']
+        # variation_tags get appended by any default on variation in groups
+        r = self._process_variation_tags_in_groups(variation_tags, variation_groups)
+        if r['return'] > 0:
+            return r
+        variation_tags = r['variation_tags']
 
         # Add variation(s) if specified in the "tags" input prefixed by _
           # If there is only 1 default variation, then just use it or substitute from CMD
 
         default_variation = meta.get('default_variation', '')
-        default_variations = meta.get('default_variations', [])
 
         if len(variation_tags) == 0:
             if default_variation != '':
                 variation_tags = [default_variation]
-            elif len(default_variations)>0:
-                variation_tags = default_variations
-        else:
-            if len(default_variations)>0:
-                tmp_variation_tags = copy.deepcopy(default_variations)
-
-                for t in variation_tags:
-                    if t.startswith('-'):
-                        t = t[1:]
-                        if t in tmp_variation_tags:
-                            del(tmp_variation_tags)
-                        else:
-                            return {'return':1, 'error':'tag {} is not in default tags {}'.format(t, tmp_variation_tags)}
-                    else:
-                        if t not in default_variations:
-                            tmp_variation_tags.append(t)
-
-                variation_tags = tmp_variation_tags
-
-        # Add the ones that are not on!
-        if len(default_variations)>0:
-            for t in variations:
-                if t not in variation_tags:
-                    variation_tags.append('~' + t)
 
         # Recursively add any base variations specified
         if len(variation_tags) > 0:
             tmp_variations = {k: False for k in variation_tags}
             while True:
                 for variation_name in variation_tags:
-
+                    tag_to_append = None
                     if variation_name.startswith("~") or variation_name.startswith("-"):
                         tmp_variations[variation_name] = True
                         continue
@@ -669,8 +658,23 @@ class CAutomation(Automation):
                         base_variations = variations[variation_name]["base"]
                         for base_variation in base_variations:
                             if base_variation not in variation_tags:
-                                variation_tags.append(base_variation)
-                                tmp_variations[base_variation] = False
+                                tag_to_append = base_variation
+                    if "default_variations" in variations[variation_name]:
+                        default_base_variations = variations[variation_name]["default_variations"]
+                        for default_base_variation in default_base_variations:
+                            if default_base_variation not in variation_groups:
+                                return {'return': 1, 'error': 'Default variation "{}" is not a valid group '.format(default_base_variation)}
+                            if 'default' in variation_groups[default_base_variation]:
+                                return {'return': 1, 'error': 'Default variation "{}" specified for the group "{}" with an already defined default variation "{}" '.format(default_base_variations[default_base_variation], default_base_variation, variation_groups[default_base_variation]['default'])}
+                            unique_allowed_variations = variation_groups[default_base_variation]['variations']
+                            # add the default only if none of the variations from the current group is selected
+                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0:
+                                tag_to_append = default_base_variations[default_base_variation]
+                    if tag_to_append:
+                        if tag_to_append not in variations:
+                            return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
+                        variation_tags.append(tag_to_append)
+                        tmp_variations[tag_to_append] = False
                     tmp_variations[variation_name] = True
                 all_base_processed = True
                 for variation_name in variation_tags:
@@ -679,6 +683,14 @@ class CAutomation(Automation):
                         break
                 if all_base_processed:
                     break
+        valid_variation_combinations = meta.get('valid_variation_combinations', [])
+        if valid_variation_combinations:
+            if not any ( all(t in variation_tags for t in s) for s in valid_variation_combinations):
+                return {'return': 1, 'error': 'Invalid variation combination "{}" prepared. Valid combinations: "{}" '.format(variation_tags, valid_variation_combinations)}
+        invalid_variation_combinations = meta.get('invalid_variation_combinations', [])
+        if invalid_variation_combinations:
+            if any ( all(t in variation_tags for t in s) for s in invalid_variation_combinations):
+                return {'return': 1, 'error': 'Invalid variation combination "{}" prepared. Invalid combinations: "{}" '.format(variation_tags, invalid_variation_combinations)}
 
         variation_tags_string = ''
         if len(variation_tags)>0:
@@ -714,6 +726,18 @@ class CAutomation(Automation):
                 if "add_deps_recursive" in variation_meta:
                     self._merge_dicts_with_tags(add_deps_recursive, variation_meta['add_deps_recursive'])
 
+                combined_variations = [ t for t in variations if ',' in t ]
+                for combined_variation in combined_variations:
+                    v = combined_variation.split(",")
+                    all_present = set(v).issubset(set(variation_tags))
+                    if all_present:
+                        combined_variation_meta = variations[combined_variation]
+
+                        r = update_state_from_meta(combined_variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
+                        if r['return']>0: return r
+
+                        if "add_deps_recursive" in combined_variation_meta:
+                            self._merge_dicts_with_tags(add_deps_recursive, combined_variation_meta['add_deps_recursive'])
 
 
 
@@ -792,6 +816,7 @@ class CAutomation(Automation):
         if r['return']>0: return r
 
 
+        update_env_with_values(env)
 
 
         ############################################################################################################
@@ -1737,6 +1762,60 @@ class CAutomation(Automation):
 
 
 
+    ##############################################################################
+    def _get_variations_with_aliases(script, variation_tags, variations):
+        '''
+        Automatically turn on variation tags which are aliased by any given tag
+        '''
+        import copy
+        tmp_variation_tags=copy.deepcopy(variation_tags)
+        for k in variation_tags:
+            variation = variations[k]
+            if 'alias' in variation:
+                if variation['alias'] not in variations:
+                    return {'return': 1, 'error': 'Alias "{}" specified for the variation "{}" is not existing '.format(variation['alias'], k)}
+                if 'group' in variation:
+                    return {'return': 1, 'error': 'Incompatible combinations: (alias, group) specified for the variation "{}" '.format(k)}
+                if 'default' in variation:
+                    return {'return': 1, 'error': 'Incompatible combinations: (default, group) specified for the variation "{}" '.format(k)}
+                tmp_variation_tags.append(variation['alias'])
+        return {'return':0, 'variation_tags': tmp_variation_tags}
+
+
+
+    ##############################################################################
+    def _get_variation_groups(script, variations):
+        groups = {}
+        for k in variations:
+            variation = variations[k]
+            if 'group' in variation:
+                if variation['group'] not in groups:
+                    groups[variation['group']] = {}
+                    groups[variation['group']]['variations'] = []
+                groups[variation['group']]['variations'].append(k)
+                if 'default' in variation:
+                    if 'default' in groups[variation['group']]:
+                        return {'return': 1, 'error': 'Multiple defaults specied for the variation group "{}": "{},{}" '.format(variation['group'], k, groups[variation['group']]['default'])}
+                    groups[variation['group']]['default'] = k
+
+        return {'return': 0, 'variation_groups': groups}
+
+    ##############################################################################
+    def _process_variation_tags_in_groups(script, variation_tags, groups):
+        import copy
+        tmp_variation_tags= copy.deepcopy(variation_tags)
+        for k in groups:
+            group = groups[k]
+            unique_allowed_variations = group['variations']
+            if len(set(unique_allowed_variations) & set(variation_tags)) > 1:
+                return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(variation_tags)))}
+            if len(set(unique_allowed_variations) & set(variation_tags)) == 0:
+                if 'default' in group:
+                    tmp_variation_tags.append(group['default'])
+
+        return {'return':0, 'variation_tags': tmp_variation_tags}
+
+
 
 
 
@@ -2370,6 +2449,105 @@ class CAutomation(Automation):
                             'found_file_name':os.path.basename(file_path),
                             'default_path_list': default_path_list}
 
+    ##############################################################################
+    def find_file_deep(self, i):
+        """
+        Find file name in a list of paths
+
+        Args:
+          (CM input dict):
+
+            paths (list): list of paths
+            file_name (str): filename pattern to find
+            (restrict_paths) (list): restrict found paths to these combinations
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
+           (found_paths) (list): paths to files when found
+
+        """
+
+        paths = i['paths']
+        file_name = i['file_name']
+
+        restrict_paths = i.get('restrict_paths',[])
+
+        found_paths = []
+
+        for p in paths:
+            if os.path.isdir(p):
+                p1 = os.listdir(p)
+                for f in p1:
+                    p2 = os.path.join(p, f)
+
+                    if os.path.isdir(p2):
+                       r = self.find_file_deep({'paths':[p2], 'file_name': file_name, 'restrict_paths':restrict_paths})
+                       if r['return']>0: return r
+
+                       found_paths += r['found_paths']
+                    else:
+                       if f == file_name:
+                           found_paths.append(p)
+                           break
+
+        if len(found_paths) > 0 and len(restrict_paths) > 0:
+            filtered_found_paths = []
+
+            for p in found_paths:
+                for f in restrict_paths:
+                    if f in p:
+                        filtered_found_paths.append(p)
+                        break
+
+            found_paths = filtered_found_paths
+
+        return {'return':0, 'found_paths':found_paths}
+
+    ##############################################################################
+    def find_file_back(self, i):
+        """
+        Find file name backwards
+
+        Args:
+          (CM input dict):
+
+            path (str): path to start with
+            file_name (str): filename or directory to find
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+
+           (found_path) (str): path if found or empty
+
+        """
+
+        path = i['path']
+        file_name = i['file_name']
+
+        found_path = ''
+
+        while path != '':
+            path_to_file = os.path.join(path, file_name)
+            if os.path.isfile(path_to_file):
+                break
+
+            path2 = os.path.dirname(path)
+
+            if path2 == path:
+                path = ''
+                break
+            else:
+                path = path2
+
+        return {'return':0, 'found_path':path}
+    
     ##############################################################################
     def parse_version(self, i):
         """

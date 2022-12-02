@@ -8,7 +8,7 @@
   "default_env": {
     "CM_MLPERF_POWER_LOG_DIR": "logs",
     "CM_MLPERF_RUN_CMD": "ls",
-    "CM_MLPERF_POWER_SERVER_ADDRESS": "192.168.0.100",
+    "CM_MLPERF_POWER_SERVER_ADDRESS": "localhost",
     "CM_MLPERF_LOADGEN_LOGS_DIR": "loadgen_logs",
     "CM_MLPERF_POWER_NTP_SERVER": "time.google.com",
     "CM_MLPERF_POWER_SERVER_OUTDIR": "~/mlperf_power_logs"

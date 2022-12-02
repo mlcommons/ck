@@ -27,7 +27,7 @@
     }
   ],
   "new_env_keys": [
-    "CM_MLPERF_POWER*",
+    "CM_MLPERF_POWER_SOURCE",
     "+PYTHONPATH"
   ],
   "tags": [

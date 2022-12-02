@@ -12,13 +12,11 @@
     "CM_CPP_COMPILER_*",
     "CM_CXX_COMPILER_*",
     "CM_COMPILER_*",
-    "FAST_COMPILER_FLAGS",
-    "FAST_LINKER_FLAGS",
-    "DEBUG_COMPILER_FLAGS",
-    "DEBUG_LINKER_FLAGS",
-    "DEFAULT_COMPILER_FLAGS",
-    "DEFAULT_LINKER_FLAGS",
+    "CM_LINKER_*",
     "+PATH"
+  ],
+  "new_state_keys": [
+    "script_prefix"
   ],
   "sort": 1000,
   "tags": [

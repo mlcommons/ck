@@ -1,3 +1,6 @@
+# 20221202:
+ * major updates for Windows (CL, CUDA, etc)
+
 # 20221111:
  * various fixes for Student Cluster Competition at SuperComputing'22
 

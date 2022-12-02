@@ -101,10 +101,10 @@ deps:
       - tvm-onnx
       CM_MLPERF_DEVICE:
       - cpu
-  ## Onnx GPU Runtime
+  ## Onnx CUDA Runtime
   - tags: get,generic-python-lib,_onnxruntime_gpu
     names:
-    - ml-engine-onnxruntime-gpu
+    - ml-engine-onnxruntime-cuda
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
@@ -234,7 +234,7 @@ deps:
   ## ResNet50 (PyTorch format, FP32)
   - names:
     - resnet50-model
-    tags: get,ml-model,image-classification,resnet50,_pytorch-fp32
+    tags: get,ml-model,image-classification,resnet50,_pytorch,_fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
@@ -244,7 +244,7 @@ deps:
   ## ResNet50 (PyTorch format, INT8)
   - names:
     - resnet50-model
-    tags: get,ml-model,image-classification,resnet50,_pytorch-int8
+    tags: get,ml-model,image-classification,resnet50,_pytorch,_int8
     enable_if_env:
       CM_MLPERF_BACKEND:
       - tvm-pytorch
@@ -252,7 +252,7 @@ deps:
       - resnet50
 
   ## RetinaNet (ONNX format, FP32)
-  - tags: get,ml-model,object-detection,retinanet,_onnx-fp32
+  - tags: get,ml-model,object-detection,retinanet,_onnx,_fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
@@ -261,7 +261,7 @@ deps:
       - retinanet
 
   ## RetinaNet (PyTorch format, FP32)
-  - tags: get,ml-model,object-detection,retinanet,_pytorch-fp32
+  - tags: get,ml-model,object-detection,retinanet,_pytorch,_fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
@@ -283,7 +283,7 @@ deps:
       - retinanet
 
   ## BERT (ONNX format fp32)
-  - tags: get,ml-model,language-processing,bert,_onnx-fp32
+  - tags: get,ml-model,language-processing,bert,_onnx,_fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
@@ -296,7 +296,7 @@ deps:
       - on
 
   ## BERT (ONNX format int8)
-  - tags: get,ml-model,language-processing,bert,_onnx-int8
+  - tags: get,ml-model,language-processing,bert,_onnx,_int8
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
@@ -317,7 +317,7 @@ deps:
       - bert-99.9
  
   ## BERT (Pytorch format)
-  - tags: get,ml-model,language-processing,bert,_pytorch-fp32
+  - tags: get,ml-model,language-processing,bert,_pytorch,_fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
@@ -491,15 +491,15 @@ variations:
     env:
       CM_MLPERF_DEVICE: cpu
       CUDA_VISIBLE_DEVICES: ''
-      USE_GPU: no
+      USE_CUDA: no
 
-  gpu:
+  cuda:
     env:
       CM_MLPERF_DEVICE: gpu
-      USE_GPU: yes
+      USE_CUDA: yes
     add_deps_recursive:
       cpp-mlperf-inference:
-        tags: _gpu
+        tags: _cuda
 
   # Execution modes
   fast:

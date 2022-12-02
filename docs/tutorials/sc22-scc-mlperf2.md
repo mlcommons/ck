@@ -315,7 +315,7 @@ cm run script "install python-venv" --version=3.10.8 --name=mlperf-cuda
 You are now ready to run the MLPerf object detection benchmark on GPU with Python virtual environment as folllows:
 
 ```bash
-cm run script "app mlperf inference generic _python _retinanet _onnxruntime _gpu" \
+cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cuda" \
      --adr.python.name=mlperf-cuda \
      --scenario=Offline \
      --mode=accuracy \
@@ -365,7 +365,7 @@ Let's run the MLPerf object detection on GPU while measuring performance:
 
 ```bash
 
-cm run script "app mlperf inference generic _python _retinanet _onnxruntime _gpu" \
+cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cuda" \
      --adr.python.name=mlperf-cuda \
      --scenario=Offline \
      --mode=performance \
