@@ -14,7 +14,7 @@
   ],
   "deps": [
     {
-      "tags": "get,cuda"
+      "tags": "get,cuda,_compiler"
     }
   ],
   "tags": [
