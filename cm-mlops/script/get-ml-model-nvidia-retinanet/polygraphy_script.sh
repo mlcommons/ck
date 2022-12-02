@@ -4,8 +4,8 @@ FOLDED_ONNX_PATH=$2
 BACKEND_ONNX_PATH=$3
 NMS_ONNX_PATH=$4
 
-bbox_concat_node="1775"
-classification_concat_node="1599"
+bbox_concat_node="bbox_regression"
+classification_concat_node="cls_logits"
 
 
 # Run once to install the dependencies. For some reason, this messes up Polygraphy's auto-fold loop, so we need to run a

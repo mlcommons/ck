@@ -36,6 +36,9 @@
       "tags": "get,generic-python-lib,_mlperf_logging"
     },
     {
+      "tags": "get,nvidia,mlperf,inference,common-code"
+    },
+    {
       "tags": "get,cuda",
       "skip_if_env": {
         "CM_HOST_OS_FLAVOR": "macos"
@@ -48,9 +51,13 @@
     "nvidia-retinanet",
     "nvidia"
   ],
+  "new_env_keys": [
+    "CM_NVIDIA_RETINANET_*",
+    "CM_ML_MODEL_*"
+  ],
   "uid": "f059d249fac843ba",
   "variations": {
-    "efficient_nms": {
+    "efficient-nms": {
       "env": {
         "CM_NVIDIA_EFFICIENT_NMS": "yes"
       },

@@ -25,7 +25,7 @@ import os
 
 # in_onnx = "/work/code/retinanet/tensorrt/onnx_retina/ref_fpn_transreshapeconcat.onnx"
 in_onnx = os.environ.get("CM_ML_MODEL_DYN_BATCHSIZE_PATH", "build/models/retinanet-resnext50-32x4d/new/retinanet_resnext50_32x4d_fpn.opset11.dyn_bs.800x800.onnx")
-out_onnx = os.environ.get("CM_ML_MODEL_PATCHED_PATH", "/work/code/retinanet/tensorrt/onnx_generator/test_fpn_efficientnms_concatall.onnx")
+out_onnx = os.environ.get("CM_NVIDIA_MODEL_PATCHED_PATH", "/work/code/retinanet/tensorrt/onnx_generator/test_fpn_efficientnms_concatall.onnx")
 # Anchor at [1, 1]
 anchor_xywh_1x1_npy = os.environ.get("CM_ML_MODEL_ANCHOR_PATH", "/work/code/retinanet/tensorrt/onnx_generator/retinanet_anchor_xywh_1x1.npy")
 
