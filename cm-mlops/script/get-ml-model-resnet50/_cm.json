@@ -28,6 +28,8 @@
   "uid": "56203e4e998b4bc0",
   "variations": {
     "fp32": {
+      "group": "precision",
+      "default": true,
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "fp32",
         "CM_ML_MODEL_PRECISION": "fp32",
@@ -35,34 +37,41 @@
       }
     },
     "int8": {
+      "group": "precision",
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "int8",
         "CM_ML_MODEL_PRECISION": "int8",
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "int8"
       }
     },
-    "onnx": {
-      "base": [
-        "onnx-1.5-opset-11",
-        "fp32"
-      ]
-    },
-    "onnx-1.5-opset-11": {
-      "base": [
-        "onnx_"
-      ],
+    "opset-11": {
+      "group": "opset-version",
       "env": {
-        "CM_ML_MODEL_ONNX_OPSET": "11",
+        "CM_ML_MODEL_ONNX_OPSET": "11"
+      }
+    },
+    "opset-8": {
+      "group": "opset-version",
+      "env": {
+        "CM_ML_MODEL_ONNX_OPSET": "8"
+      }
+    },
+    "onnx,opset-11": {
+      "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/4735647/files/resnet50_v1.onnx"
       }
     },
-    "onnx-1.5-opset-8": {
+    "onnx,opset-8": {
       "env": {
-        "CM_ML_MODEL_ONNX_OPSET": "8",
         "CM_PACKAGE_URL": "https://zenodo.org/record/2592612/files/resnet50_v1.onnx"
       }
     },
-    "onnx_": {
+    "onnx": {
+      "group": "framework",
+      "default": true,
+      "default_base": {
+        "opset-version": "opset-11" 
+      },
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
         "CM_ML_MODEL_FRAMEWORK": "onnx",
@@ -79,16 +88,12 @@
         "onnx"
       ]
     },
-    "pytorch-fp32": {
-      "base": [
-        "fp32",
-        "pytorch"
-      ],
+    "pytorch,fp32": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth"
       }
     },
-    "pytorch-int8": {
+    "pytorch,int8": {
       "base": [
         "int8",
         "pytorch"
@@ -98,6 +103,7 @@
       }
     },
     "pytorch": {
+      "group": "framework",
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
         "CM_ML_MODEL_FRAMEWORK": "pytorch",
@@ -120,9 +126,7 @@
       ]
     },
     "tf": {
-      "base": [
-        "fp32"
-      ],
+      "group": "framework",
       "env": {
         "CM_ML_MODEL_ACCURACY": "76.456",
         "CM_ML_MODEL_DATA_LAYOUT": "NHWC",
@@ -139,6 +143,7 @@
       }
     },
     "uint8": {
+      "group": "precision",
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "uint8",
         "CM_ML_MODEL_PRECISION": "uint8",
