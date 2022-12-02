@@ -643,8 +643,6 @@ class CAutomation(Automation):
         if len(variation_tags) == 0:
             if default_variation != '':
                 variation_tags = [default_variation]
-            elif len(default_variations)>0:
-                variation_tags = default_variations
 
         # Recursively add any base variations specified
         if len(variation_tags) > 0:
