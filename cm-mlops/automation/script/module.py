@@ -2556,11 +2556,12 @@ class CAutomation(Automation):
         Args:
           (CM input dict): 
 
-          (file_name) (str): filename to get version from (tmp-ver.out by default)
-          match_text (str): RE match text string
-          group_number (int): RE group number to get version from
-          env_key (str): which env key to update
-          which_env (dict): which env to update
+            (file_name) (str): filename to get version from (tmp-ver.out by default)
+            match_text (str): RE match text string
+            group_number (int): RE group number to get version from
+            env_key (str): which env key to update
+            which_env (dict): which env to update
+            (debug) (boolean): if True, print some debug info
 
         Returns:
            (CM return dict):
@@ -2580,6 +2581,7 @@ class CAutomation(Automation):
         group_number = i['group_number']
         env_key = i['env_key']
         which_env = i['which_env']
+        debug = i.get('debug', False)
 
         r = utils.load_txt(file_name = file_name,
                            check_if_exists = True, 
