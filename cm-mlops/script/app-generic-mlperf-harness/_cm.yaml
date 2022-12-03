@@ -1,0 +1,128 @@
+# Identification of this CM script
+alias: app-mlperf-inference-cpp
+uid: bf62405e6c7a44bf
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf benchmarks"
+
+
+# User-friendly tags to find this CM script
+tags:
+  - app
+  - mlcommons
+  - mlperf
+  - inference
+  - harness
+  - generic
+  - generic-harness
+
+# Default environment
+default_env:
+  CM_MLPER_EXECUTION_MODE: parallel
+
+# Map script inputs to environment variables
+input_mapping:
+  output_dir: CM_MLPERF_OUTPUT_DIR
+  scenario: CM_LOADGEN_SCENARIO
+  runner: CM_MLPERF_RUNNER
+  concurrency: CM_MLPERF_CONCURRENCY
+  ep: CM_MLPERF_EXECUTION_PROVIDER
+  intraop: CM_MLPERF_INTRAOP
+  interop: CM_MLPERF_INTEROP
+  execmode: CM_MLPERF_EXEC_MODE
+  modelpath: CM_ML_MODEL_FILE_WITH_PATH
+
+new_env_keys:
+  - CM_MLPERF_*
+  - CM_DATASET_*
+
+# Dependencies on other CM scripts
+
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Get Python
+  - tags: get,python3
+    names:
+      - python
+      - python3
+
+  # Detect CUDA if required
+  - tags: get,cuda
+    enable_if_env:
+      CM_MLPERF_DEVICE:
+      - gpu
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+  
+  # Install MLPerf loadgen
+  - tags: get,loadgen
+    names:
+    - loadgen
+    
+  ########################################################################
+  # Install ML engines via CM
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - cpu
+    tags: get,lib,onnxruntime,lang-cpp,_cpu
+
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - gpu
+    tags: get,lib,onnxruntime,lang-cpp,_cuda
+
+
+  ########################################################################
+  # Install ResNet50 model (ONNX) and ImageNet
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    names:
+      - imagenet-preprocessed
+    tags: get,dataset,preprocessed,imagenet,_NCHW
+
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    tags: get,ml-model,resnet50,_onnx
+
+
+  ########################################################################
+  # Install RetinaNet model (ONNX) and OpenImages
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    names:
+      - openimages-preprocessed
+    tags: get,dataset,preprocessed,openimages,_validation,_NCHW
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    tags: get,ml-model,retinanet,_onnx,_fp32
+
+variations:
+  resnet50:
+    env:
+      CM_MODEL: resnet50
+  retinanet:
+    env:
+      CM_MODEL: retinanet
+
+
+  
