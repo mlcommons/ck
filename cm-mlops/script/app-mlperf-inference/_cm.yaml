@@ -182,6 +182,8 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _resnet50
+    deps: 
+    - tags: get,dataset-aux,imagenet-aux
     post_deps:
     - enable_if_env:
         CM_LOADGEN_MODE:
@@ -255,6 +257,8 @@ variations:
 
 
   onnxruntime:
+    group: backend
+    default: true
     env:
       CM_MLPERF_BACKEND:
         onnxruntime
@@ -262,6 +266,7 @@ variations:
       mlperf-inference-implementation:
         tags: _onnxruntime
   tf:
+    group: backend
     env:
       CM_MLPERF_BACKEND:
         tf
@@ -269,6 +274,7 @@ variations:
       mlperf-inference-implementation:
         tags: _tf
   pytorch:
+    group: backend
     env:
       CM_MLPERF_BACKEND:
         pytorch
@@ -276,6 +282,7 @@ variations:
       mlperf-inference-implementation:
         tags: _pytorch
   tflite:
+    group: backend
     env:
       CM_MLPERF_BACKEND: tflite
     add_deps_recursive:
@@ -305,17 +312,21 @@ variations:
 
   # Execution modes
   fast:
+    group: execution-mode
     env:
       CM_FAST_FACTOR: '5'
       CM_OUTPUT_FOLDER_NAME: fast_results
       CM_MLPERF_RUN_STYLE: fast
 
   test:
+    group: execution-mode
+    default: true
     env:
       CM_OUTPUT_FOLDER_NAME: test_results
       CM_MLPERF_RUN_STYLE: test
 
   valid:
+    group: execution-mode
     env:
       CM_OUTPUT_FOLDER_NAME: valid_results
       CM_MLPERF_RUN_STYLE: valid
@@ -324,6 +335,14 @@ variations:
   quantized:
     env:
       CM_MLPERF_QUANTIZATION: on
+
+  power:
+    env:
+      CM_MLPERF_POWER: yes
+    add_deps_recursive:
+      runner:
+        tags:
+          _mlperf-power
 
   # Reproducibility (past submissions)
   r2.1_default:

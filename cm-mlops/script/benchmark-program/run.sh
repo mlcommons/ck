@@ -1,5 +1,7 @@
 #!/bin/bash
-
+if [[ ${CM_MLPERF_POWER} == "yes" && ${CM_LOADGEN_MODE} == "performance" ]]; then
+    exit 0
+fi
 # Run
 if [ -z ${CM_RUN_DIR} ]; then
   echo "CM_RUN_DIR is not set"

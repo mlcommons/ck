@@ -333,7 +333,10 @@ deps:
       - bert-99.9
     
 
-
+posthook_deps: 
+  - names:
+    - runner
+    tags: benchmark,program
 
 
 
@@ -344,6 +347,8 @@ deps:
 # Variations to customize dependencies
 variations:
   python:
+    group: implementation,
+    default: true,
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _float32
@@ -353,6 +358,8 @@ variations:
 
   # ML engine
   onnxruntime:
+    group: framework,
+    default: true,
     add_deps_recursive:
       imagenet-preprocessed:
         tags: _NCHW
@@ -365,6 +372,7 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
 
   pytorch:
+    group: framework,
     add_deps_recursive:
       imagenet-preprocessed:
         tags: _NCHW
@@ -375,6 +383,7 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
 
   tf:
+    group: framework,
     add_deps_recursive:
       imagenet-preprocessed:
         tags: _NHWC
@@ -383,10 +392,10 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_TENSORFLOW_VERSION>>>
 
   tensorflow:
-    base:
-    - tf
+    alias: tf
 
   tvm:
+    group: framework,
     env:
       CM_MLPERF_TVM_TRANSFORM_LAYOUT: 'yes'
       CM_MLPERF_TVM_USE_DNNL: 'no'
@@ -397,6 +406,7 @@ variations:
       CM_MLPERF_DELETE_COMPILED_MODEL: 'yes'
 
   tvm-onnx:
+    group: framework,
     base:
     - tvm
     env:
@@ -406,6 +416,7 @@ variations:
     - tags: get,generic-python-lib,_onnx
 
   tvm-pytorch:
+    group: framework,
     base:
     - tvm
     env:
@@ -414,6 +425,7 @@ variations:
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
 
   tvm-pip-install-onnx:
+    group: framework,
     base:
     - tvm
     deps:
@@ -427,6 +439,7 @@ variations:
       CM_TVM_PIP_INSTALL: true
 
   tvm-pip-install-pytorch:
+    group: framework,
     base:
     - tvm
     deps:
@@ -441,12 +454,14 @@ variations:
  
   # Reference MLPerf models
   bert-99.9:
+    group: models,
     base:
     - bert
     env:
       CM_MODEL: bert-99.9
 
   bert-99:
+    group: models,
     base:
     - bert
     env:
@@ -470,6 +485,7 @@ variations:
         tags: _deeplearningexamples
 
   retinanet:
+    group: models,
     deps:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
@@ -479,6 +495,8 @@ variations:
       CM_MODEL: retinanet
 
   resnet50:
+    group: models,
+    default: true,
     env:
       CM_MODEL: resnet50
     deps:
@@ -488,32 +506,41 @@ variations:
 
   # Target devices
   cpu:
+    group: device,
+    default: true,
     env:
       CM_MLPERF_DEVICE: cpu
       CUDA_VISIBLE_DEVICES: ''
       USE_CUDA: no
+      USE_GPU: no
 
   cuda:
+    group: device,
     env:
       CM_MLPERF_DEVICE: gpu
       USE_CUDA: yes
+      USE_GPU: yes
     add_deps_recursive:
       cpp-mlperf-inference:
         tags: _cuda
 
   # Execution modes
   fast:
+    group: execution-mode,
     env:
       CM_FAST_FACTOR: '5'
       CM_OUTPUT_FOLDER_NAME: fast_results
       CM_MLPERF_RUN_STYLE: fast
 
   test:
+    group: execution-mode,
+    default: true,
     env:
       CM_OUTPUT_FOLDER_NAME: test_results
       CM_MLPERF_RUN_STYLE: test
 
   valid:
+    group: execution-mode,
     env:
       CM_OUTPUT_FOLDER_NAME: valid_results
       CM_MLPERF_RUN_STYLE: valid

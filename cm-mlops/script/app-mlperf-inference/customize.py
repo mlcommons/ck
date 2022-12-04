@@ -171,6 +171,7 @@ def preprocess(i):
         audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", audit_path, "audit.config")
         mode_extra_options = " --audit '" + audit_full_path + "'"
     env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
+    env['CM_MLPERF_LOADGEN_LOGS_DIR'] = OUTPUT_DIR
     
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
         print("Output Dir: '" + OUTPUT_DIR + "'")

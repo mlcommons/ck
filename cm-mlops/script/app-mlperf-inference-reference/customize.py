@@ -130,6 +130,8 @@ def preprocess(i):
     cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, mlperf_implementation)
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     env['CM_MLPERF_RUN_CMD'] = cmd
+    env['CM_RUN_DIR'] = os.getcwd()
+    env['CM_RUN_CMD'] = cmd
 
     return {'return':0}
 
