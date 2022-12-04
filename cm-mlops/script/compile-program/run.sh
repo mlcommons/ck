@@ -22,7 +22,7 @@ echo ""
 echo "Checking compiler version ..."
 echo ""
 
-${CM_C_COMPILER_WITH_PATH} --version
+${CM_C_COMPILER_WITH_PATH} ${CM_C_COMPILER_FLAG_VERSION}
 
 echo ""
 echo "Compiling source files ..."

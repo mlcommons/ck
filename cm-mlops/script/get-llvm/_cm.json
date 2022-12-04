@@ -8,11 +8,10 @@
   "env": {
     "CM_REQUIRE_INSTALL": "no"
   },
-  "name": "Use LLVM compiler",
+  "name": "LLVM compiler",
   "new_env_keys": [
     "CM_LLVM_*",
     "CM_C_COMPILER_*",
-    "CM_CPP_COMPILER_*",
     "CM_CXX_COMPILER_*",
     "CM_COMPILER_*",
     "CM_LINKER_*",

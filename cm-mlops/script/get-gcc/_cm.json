@@ -5,7 +5,7 @@
   "category": "Compiler automation",
   "cache": true,
   "clean_files": [],
-  "name": "Use GCC compiler",
+  "name": "GCC compiler",
   "new_env_keys": [
     "CM_GCC_*",
     "CM_C_COMPILER_*",

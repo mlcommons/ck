@@ -69,9 +69,13 @@ def postprocess(i):
     # General compiler for general program compilation
     env['CM_C_COMPILER_BIN']=file_name_c
     env['CM_C_COMPILER_WITH_PATH']=found_file_path
+    env['CM_C_COMPILER_FLAG_OUTPUT']='-o '
+    env['CM_C_COMPILER_FLAG_VERSION']='--version'
 
     env['CM_CXX_COMPILER_BIN']=file_name_cpp
     env['CM_CXX_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_cpp)
+    env['CM_CXX_COMPILER_FLAG_OUTPUT']='-o '
+    env['CM_CXX_COMPILER_FLAG_VERSION']='--version'
 
     env['CM_COMPILER_FLAGS_FAST'] = "-O3"
     env['CM_LINKER_FLAGS_FAST'] = "-O3 -flto"
@@ -79,8 +83,5 @@ def postprocess(i):
     env['CM_LINKER_FLAGS_DEBUG'] = "-O0"
     env['CM_COMPILER_FLAGS_DEFAULT'] = "-O2"
     env['CM_LINKER_FLAGS_DEFAULT'] = "-O2"
-
-    env['CM_C_COMPILER_FLAG_OUTPUT']='-o '
-    env['CM_CXX_COMPILER_FLAG_OUTPUT']='-o '
 
     return {'return':0, 'version': version}

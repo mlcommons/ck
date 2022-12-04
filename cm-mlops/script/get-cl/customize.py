@@ -93,12 +93,13 @@ def preprocess(i):
     # General compiler for general program compilation
     env['CM_C_COMPILER_BIN']=file_name
     env['CM_C_COMPILER_WITH_PATH']=os.path.join(found_path, file_name)
-
-    env['CM_CPP_COMPILER_BIN']=file_name
-    env['CM_CPP_COMPILER_WITH_PATH']=os.path.join(found_path, file_name)
-
     env['CM_C_COMPILER_FLAG_OUTPUT']='/Fe:'
+    env['CM_C_COMPILER_FLAG_VERSION']=''
+
+    env['CM_CXX_COMPILER_BIN']=env['CM_C_COMPILER_BIN']
+    env['CM_CXX_COMPILER_WITH_PATH']=env['CM_C_COMPILER_WITH_PATH']
     env['CM_CXX_COMPILER_FLAG_OUTPUT']='/Fe:'
+    env['CM_CXX_COMPILER_FLAG_VERSION']=''
 
     return {'return':0}
 

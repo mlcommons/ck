@@ -5,11 +5,10 @@
   "category": "Compiler automation",
   "cache": true,
   "clean_files": [],
-  "name": "Use Microsoft C compiler",
+  "name": "Microsoft C compiler",
   "new_env_keys": [
     "CM_CL_*",
     "CM_C_COMPILER_*",
-    "CM_CPP_COMPILER_*",
     "CM_CXX_COMPILER_*",
     "CM_COMPILER_*",
     "CM_LINKER_*",

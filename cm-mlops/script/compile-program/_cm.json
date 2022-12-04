@@ -16,9 +16,13 @@
     }
   ],
   "tags": [
-    "program",
     "compile",
-    "compile-program"
+    "program",
+    "c-program",
+    "cpp-program",
+    "compile-program",
+    "compile-c-program",
+    "compile-cpp-program"
   ],
   "uid": "c05042ba005a4bfa"
 }

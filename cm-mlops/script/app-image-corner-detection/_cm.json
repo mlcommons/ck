@@ -11,7 +11,7 @@
           "on"
         ]
       },
-      "tags": "compile-program"
+      "tags": "compile,cpp-program"
     },
     {
       "skip_if_env": {
