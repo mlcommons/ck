@@ -2027,6 +2027,25 @@ class CAutomation(Automation):
 
 
     ##############################################################################
+    def run_native_script(self, i):
+
+        import copy
+
+        env = i['env']
+        run_script_input = i.get('run_script_input', {})
+
+        # Create and work on a copy to avoid contamination
+        env_copy = copy.deepcopy(env)
+        run_script_input_state_copy = copy.deepcopy(run_script_input.get('state',{}))
+
+        r = prepare_and_run_script_with_postprocessing(i)
+
+        run_script_input['state'] = run_script_input_state_copy
+        run_script_input['env'] = env_copy
+        
+        return r
+    
+    ##############################################################################
     def find_file_in_paths(self, i):
         """
         Find file name in a list of paths
@@ -2046,6 +2065,8 @@ class CAutomation(Automation):
           (run_script_input) (dict): use this input to run script to detect version
           (env) (dict): env to check/force version
 
+          (hook) (func): call this func to skip some artifacts
+
         Returns:
            (CM return dict):
 
@@ -2061,6 +2082,8 @@ class CAutomation(Automation):
         select = i.get('select',False)
         select_default = i.get('select_default', False)
         recursion_spaces = i.get('recursion_spaces','')
+
+        hook = i.get('hook', None)
 
         verbose = i.get('verbose', False)
         if not verbose: verbose = i.get('v', False)
@@ -2087,14 +2110,20 @@ class CAutomation(Automation):
                 if file_is_re:
                     file_list = [os.path.join(path,f)  for f in os.listdir(path) if re.match(file_name, f)]
 
-                    for file in file_list:
+                    for f in file_list:
                         duplicate = False
                         for existing in found_files:
-                            if os.path.samefile(existing, file):
+                            if os.path.samefile(existing, f):
                                 duplicate = True
                                 break
                         if not duplicate:
-                            found_files.append(file)
+                            skip = False
+                            if hook!=None:
+                               r=hook({'file':f})
+                               if r['return']>0: return r
+                               skip = r['skip']
+                            if not skip:
+                                found_files.append(f)
 
                 else:
                     path_to_file = os.path.join(path, file_name)
@@ -2114,16 +2143,23 @@ class CAutomation(Automation):
 
                     for suff in file_pattern_suffixes:
                         file_list = glob.glob(path_to_file + suff)
-                        for file in file_list:
+                        for f in file_list:
                             duplicate = False
 
                             for existing in found_files:
-                                if os.path.samefile(existing, file):
+                                if os.path.samefile(existing, f):
                                     duplicate = True
                                     break
 
                             if not duplicate:
-                                found_files.append(file)
+                                skip = False
+                                if hook!=None:
+                                   r=hook({'file':f})
+                                   if r['return']>0: return r
+                                   skip = r['skip']
+                                if not skip:
+                                    found_files.append(f)
+
 
         if select:
             # Check and prune versions
@@ -2318,6 +2354,8 @@ class CAutomation(Automation):
 
           (recursion_spaces) (str): add space to print
 
+          (hook) (func): call this func to skip some artifacts
+
         Returns:
            (CM return dict):
 
@@ -2350,6 +2388,8 @@ class CAutomation(Automation):
 
         default_path_env_key = i.get('default_path_env_key', '')
         recursion_spaces = i.get('recursion_spaces', '')
+
+        hook = i.get('hook', None)
 
         # Check if forced to search in a specific path or multiple paths 
         # separated by OS var separator (usually : or ;)
@@ -2409,6 +2449,7 @@ class CAutomation(Automation):
                                      'detect_version': i.get('detect_version', False),
                                      'env_path_key': env_path_key,
                                      'env':env_copy,
+                                     'hook':hook,
                                      'run_script_input': run_script_input,
                                      'recursion_spaces': recursion_spaces})
 
@@ -3176,10 +3217,12 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     script_automation = i['self']
 
     # Preapre script name
+    script_name = 'run' if i.get('script_name','')=='' else i['script_name']
+
     if bat_ext == '.sh':
-        run_script = get_script_name(env, path)
+        run_script = get_script_name(env, path, script_name)
     else:
-        run_script = 'run' + bat_ext
+        run_script = script_name + bat_ext
 
     path_to_run_script = os.path.join(path, run_script)
 
@@ -3336,7 +3379,7 @@ def run_postprocess(customize_code, customize_common_input, recursion_spaces, en
     return {'return': 0}
 
 ##############################################################################
-def get_script_name(env, path):
+def get_script_name(env, path, script_name = 'run'):
     """
     Internal: find the most appropriate run script name for the detected OS
     """
@@ -3346,18 +3389,19 @@ def get_script_name(env, path):
     tmp_suff1 = env['CM_HOST_OS_FLAVOR'] if 'CM_HOST_OS_FLAVOR' in env else ''
     tmp_suff2 = env['CM_HOST_OS_VERSION'] if 'CM_HOST_OS_VERSION' in env else ''
     tmp_suff3 = env['CM_HOST_PLATFORM_FLAVOR'] if 'CM_HOST_PLATFORM_FLAVOR' in env else ''
-    if exists(os.path.join(path, 'run-' + tmp_suff1 + '-'+ tmp_suff2 + '-' + tmp_suff3 + '.sh')):
-        return 'run-' + tmp_suff1 + '-' + tmp_suff2 + '-' + tmp_suff3 + '.sh'
-    elif exists(os.path.join(path, 'run-' + tmp_suff1 + '-' + tmp_suff3 + '.sh')):
-        return 'run-' + tmp_suff1 + '-' + tmp_suff3 + '.sh'
-    elif exists(os.path.join(path, 'run-' + tmp_suff1 + '-' + tmp_suff2 + '.sh')):
-        return 'run-' + tmp_suff1 + '-' + tmp_suff2 + '.sh'
-    elif exists(os.path.join(path, 'run-' + tmp_suff1 + '.sh')):
-        return 'run-' + tmp_suff1 + '.sh'
-    elif exists(os.path.join(path, 'run-' + tmp_suff3 + '.sh')):
-        return 'run-' + tmp_suff3 + '.sh'
+
+    if exists(os.path.join(path, script_name+'-' + tmp_suff1 + '-'+ tmp_suff2 + '-' + tmp_suff3 + '.sh')):
+        return script_name+'-' + tmp_suff1 + '-' + tmp_suff2 + '-' + tmp_suff3 + '.sh'
+    elif exists(os.path.join(path, script_name+'-' + tmp_suff1 + '-' + tmp_suff3 + '.sh')):
+        return script_name+'-' + tmp_suff1 + '-' + tmp_suff3 + '.sh'
+    elif exists(os.path.join(path, script_name+'-' + tmp_suff1 + '-' + tmp_suff2 + '.sh')):
+        return script_name+'-' + tmp_suff1 + '-' + tmp_suff2 + '.sh'
+    elif exists(os.path.join(path, script_name+'-' + tmp_suff1 + '.sh')):
+        return script_name+'-' + tmp_suff1 + '.sh'
+    elif exists(os.path.join(path, script_name+'-' + tmp_suff3 + '.sh')):
+        return script_name+'-' + tmp_suff3 + '.sh'
     else:
-        return 'run.sh';
+        return script_name+'.sh';
 
 ##############################################################################
 def update_env_keys(env, env_key_mappings):
