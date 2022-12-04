@@ -5,6 +5,7 @@
   "category": "ML/AI models",
   "cache": true,
   "default_env": {
+    "CM_TORCH_DEVICE": "cpu"
   },
   "deps": [
     {
@@ -24,10 +25,10 @@
       "tags": "get,mlperf,inference,src"
     },
     {
-      "tags": "get,ml-model,retinanet,_pytorch-fp32-weights"
+      "tags": "get,ml-model,retinanet,_pytorch,_fp32,_weights"
     },
     {
-      "tags": "get,generic-python-lib,_torch"
+      "tags": "get,generic-python-lib,_torch_cuda"
     },
     {
       "tags": "get,generic-python-lib,_torchvision"
@@ -36,13 +37,13 @@
       "tags": "get,generic-python-lib,_mlperf_logging"
     },
     {
-      "tags": "get,nvidia,mlperf,inference,common-code"
+      "tags": "get,cuda",
+      "enable_if_env": {
+        "CM_TORCH_DEVICE": "cuda"
+      }
     },
     {
-      "tags": "get,cuda",
-      "skip_if_env": {
-        "CM_HOST_OS_FLAVOR": "macos"
-      }
+      "tags": "get,nvidia,mlperf,inference,common-code"
     }
   ],
   "tags": [
