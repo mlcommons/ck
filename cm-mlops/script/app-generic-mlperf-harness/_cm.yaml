@@ -25,7 +25,7 @@ default_env:
 # Map script inputs to environment variables
 input_mapping:
   output_dir: CM_MLPERF_OUTPUT_DIR
-  scenario: CM_LOADGEN_SCENARIO
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
   runner: CM_MLPERF_RUNNER
   concurrency: CM_MLPERF_CONCURRENCY
   ep: CM_MLPERF_EXECUTION_PROVIDER

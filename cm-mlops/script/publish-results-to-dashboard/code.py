@@ -60,9 +60,9 @@ def main():
           "run_style": "CM_MLPERF_RUN_STYLE",
           "rerun": "CM_RERUN",
           "hw_name": "CM_HW_NAME",
-          "max_batchsize": "CM_LOADGEN_MAX_BATCHSIZE",
+          "max_batchsize": "CM_MLPERF_LOADGEN_MAX_BATCHSIZE",
           "num_threads": "CM_NUM_THREADS",
-          "scenario": "CM_LOADGEN_SCENARIO",
+          "scenario": "CM_MLPERF_LOADGEN_SCENARIO",
           "test_query_count": "CM_TEST_QUERY_COUNT",
           "run_checker": "CM_RUN_SUBMISSION_CHECKER",
           "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY"
