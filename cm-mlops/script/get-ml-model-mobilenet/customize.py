@@ -32,8 +32,11 @@ def preprocess(i):
         elif env.get('CM_UNTAR') == "yes":
             cmd="tar -xvzf "
         os.system(cmd+filename)
+
         filename = env['CM_ML_MODEL_FILE']
+
         extract_folder = env.get('CM_EXTRACT_FOLDER', '')
+
         if extract_folder:
             env['CM_ML_MODEL_FILE_WITH_PATH']=os.path.join(path, extract_folder, filename)
         else:
@@ -41,6 +44,7 @@ def preprocess(i):
     else:
         env['CM_ML_MODEL_FILE']=filename
         env['CM_ML_MODEL_FILE_WITH_PATH']=r['path']
+
     env['CM_ML_MODEL_PATH']=path
 
     return {'return':0}
