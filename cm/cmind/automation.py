@@ -527,7 +527,11 @@ class Automation:
             # Deleting artifact
             deleted_lst.append(artifact)
 
-            shutil.rmtree(path_to_artifact)
+            if os.name == 'nt':
+                # To be able to remove .git files
+                shutil.rmtree(path_to_artifact, ignore_errors = False, onerror = delete_helper)
+            else:
+                shutil.rmtree(path_to_artifact)
 
             if console:
                 print ('    Deleted!')
@@ -1075,3 +1079,16 @@ class Automation:
 
 
         return {'return':0, 'list': lst}
+
+############################################################
+def delete_helper(func, path, ret):
+    import stat, errno
+
+    if ret[1].errno != errno.EACCES:
+        raise
+    else:
+        clean_attr = stat.S_IRWXG | stat.S_IRWXO | stat.S_IRWXU
+        os.chmod(path, clean_attr)
+        func(path)
+
+    return
