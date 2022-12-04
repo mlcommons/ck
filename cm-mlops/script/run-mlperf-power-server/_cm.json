@@ -9,7 +9,7 @@
     "CM_MLPERF_POWER_NTP_SERVER": "time.google.com",
     "CM_MLPERF_POWER_SERVER_OUTDIR": "~/mlperf_power_logs",
     "CM_MLPERF_POWER_LOG_FILE": "logs_ptdaemon.txt",
-    "CM_MLPERF_POWER_INTERFACE_FLAG": "-y",
+    "CM_MLPERF_POWER_INTERFACE_FLAG": "",
     "CM_MLPERF_POWER_DEVICE_TYPE": "49",
     "CM_MLPERF_POWER_DEVICE_PORT": "/dev/usbtmc0"
   },

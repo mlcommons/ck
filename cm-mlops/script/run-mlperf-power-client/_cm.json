@@ -7,7 +7,7 @@
   "clean_files": [],
   "default_env": {
     "CM_MLPERF_POWER_LOG_DIR": "logs",
-    "CM_MLPERF_RUN_CMD": "ls",
+    "CM_MLPERF_RUN_CMD": "",
     "CM_MLPERF_POWER_SERVER_ADDRESS": "localhost",
     "CM_MLPERF_LOADGEN_LOGS_DIR": "loadgen_logs",
     "CM_MLPERF_POWER_NTP_SERVER": "time.google.com",
