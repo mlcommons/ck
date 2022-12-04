@@ -1,5 +1,5 @@
 #!/bin/bash
-if [[ ${CM_MLPERF_POWER} == "yes" && ${CM_LOADGEN_MODE} == "performance" ]]; then
+if [[ ${CM_MLPERF_POWER} == "yes" && ${CM_MLPERF_LOADGEN_MODE} == "performance" ]]; then
     exit 0
 fi
 # Run

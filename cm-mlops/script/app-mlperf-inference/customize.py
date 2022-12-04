@@ -25,21 +25,21 @@ def preprocess(i):
     required_files = []
     required_files = get_checker_files(env['CM_MLPERF_INFERENCE_SOURCE'])
 
-    if 'CM_LOADGEN_SCENARIO' not in env:
-        env['CM_LOADGEN_SCENARIO'] = "Offline"
+    if 'CM_MLPERF_LOADGEN_SCENARIO' not in env:
+        env['CM_MLPERF_LOADGEN_SCENARIO'] = "Offline"
 
-    if 'CM_LOADGEN_MODE' not in env:
-        env['CM_LOADGEN_MODE'] = "accuracy"
+    if 'CM_MLPERF_LOADGEN_MODE' not in env:
+        env['CM_MLPERF_LOADGEN_MODE'] = "accuracy"
 
-    if 'CM_LOADGEN_EXTRA_OPTIONS' not in env:
-        env['CM_LOADGEN_EXTRA_OPTIONS'] = ""
+    if 'CM_MLPERF_LOADGEN_EXTRA_OPTIONS' not in env:
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] = ""
 
-    if 'CM_LOADGEN_QPS' not in env:
-        env['CM_LOADGEN_QPS_OPT'] = ""
+    if 'CM_MLPERF_LOADGEN_QPS' not in env:
+        env['CM_MLPERF_LOADGEN_QPS_OPT'] = ""
     else:
-        env['CM_LOADGEN_QPS_OPT'] = " --qps " + env['CM_LOADGEN_QPS']
+        env['CM_MLPERF_LOADGEN_QPS_OPT'] = " --qps " + env['CM_MLPERF_LOADGEN_QPS']
 
-    env['CM_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_LOADGEN_QPS_OPT']
+    env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_MLPERF_LOADGEN_QPS_OPT']
 
     if 'OUTPUT_BASE_DIR' not in env:
         env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_VISION_PATH']
@@ -52,11 +52,11 @@ def preprocess(i):
             env['CM_NUM_THREADS'] = env.get('CM_HOST_CPU_TOTAL_CORES', '1')
 
 
-    if 'CM_LOADGEN_MAX_BATCHSIZE' in env:
-        env['CM_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_LOADGEN_MAX_BATCHSIZE']
+    if 'CM_MLPERF_LOADGEN_MAX_BATCHSIZE' in env:
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if 'CM_LOADGEN_QUERY_COUNT' in env:
-        env['CM_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_LOADGEN_QUERY_COUNT']
+    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env:
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
 
     print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
 
@@ -64,7 +64,7 @@ def preprocess(i):
         env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
 
 
-    env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
+    env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
 
 
     RUN_CMD = ""
@@ -73,7 +73,7 @@ def preprocess(i):
     if env['CM_MODEL'] in ["rnnt", "bert-99", "bert-99.9", "dlrm-99", "dlrm-99.9", "3d-unet-99", "3d-unet-99.9"]:
         test_list.remove("TEST04")
 
-    scenario = env['CM_LOADGEN_SCENARIO']
+    scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     state['RUN'][scenario] = {}
     scenario_extra_options = ''
 
@@ -140,14 +140,14 @@ def preprocess(i):
     user_conf_file = Path(user_conf_path)
     user_conf_file.parent.mkdir(exist_ok=True, parents=True)
     user_conf_file.write_text(user_conf)
-    if 'CM_LOADGEN_QUERY_COUNT' not in env:
-        env['CM_LOADGEN_QUERY_COUNT'] = query_count
+    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' not in env:
+        env['CM_MLPERF_LOADGEN_QUERY_COUNT'] = query_count
 
     scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
 
     env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
-    mode = env['CM_LOADGEN_MODE']
+    mode = env['CM_MLPERF_LOADGEN_MODE']
     mode_extra_options = ""
     if 'CM_DATASET_PREPROCESSED_PATH' in env:
         dataset_options = " --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']
@@ -160,7 +160,7 @@ def preprocess(i):
     elif mode == "performance":
         OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
     elif mode == "compliance":
-        test = env.get("CM_LOADGEN_COMPIANCE_TEST", "TEST01")
+        test = env.get("CM_MLPERF_LOADGEN_COMPIANCE_TEST", "TEST01")
         OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], env['CM_MLPERF_BACKEND'] \
                 + "-" + env['CM_MLPERF_DEVICE'], env['CM_MODEL'], scenario.lower(), test)
         if test == "TEST01":
@@ -181,7 +181,7 @@ def preprocess(i):
         env['CM_SKIP_RUN'] = "yes"
 
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
-                    required_files[4]) or env.get("CM_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
+                    required_files[4]) or env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
         env['CM_MLPERF_USER_CONF'] = user_conf_path
     else:
         print("Measure files exist, skipping regeneration...\n")
@@ -252,8 +252,8 @@ def postprocess(i):
         accuracy_filename = "accuracy-openimages.py"
         dataset_args = " --openimages-dir " + env['CM_DATASET_PATH']
 
-    scenario = env['CM_LOADGEN_SCENARIO']
-    mode = env['CM_LOADGEN_MODE']
+    scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
+    mode = env['CM_MLPERF_LOADGEN_MODE']
     if mode in [ "performance", "accuracy" ]:
         measurements = {}
         measurements['starting_weights_filename'] = env.get('CM_ML_MODEL_STARTING_WEIGHTS_FILENAME', 'none')

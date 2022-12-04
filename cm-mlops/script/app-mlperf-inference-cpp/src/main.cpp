@@ -33,15 +33,15 @@ public:
         dataset_preprocessed_path = getenv("CM_DATASET_PREPROCESSED_PATH", "");
         dataset_path = getenv("CM_DATASET_PATH", "");
         imagenet_val_path = getenv("CM_DATASET_AUX_PATH", "") + "/val.txt";
-        scenario_name = getenv("CM_LOADGEN_SCENARIO", "Offline");
-        mode_name = getenv("CM_LOADGEN_MODE", "PerformanceOnly");
+        scenario_name = getenv("CM_MLPERF_LOADGEN_SCENARIO", "Offline");
+        mode_name = getenv("CM_MLPERF_LOADGEN_MODE", "PerformanceOnly");
         if (mode_name == "accuracy")
             mode_name = "AccuracyOnly";
         if (mode_name == "performance")
             mode_name = "PerformanceOnly";
-        query_count_override = std::stol(getenv("CM_LOADGEN_QUERY_COUNT", "0"));
-        performance_sample_count = std::stol(getenv("CM_LOADGEN_PERFORMANCE_SAMPLE_COUNT", "1024"));
-        batch_size = std::stol(getenv("CM_LOADGEN_MAX_BATCHSIZE", "1"));
+        query_count_override = std::stol(getenv("CM_MLPERF_LOADGEN_QUERY_COUNT", "0"));
+        performance_sample_count = std::stol(getenv("CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT", "1024"));
+        batch_size = std::stol(getenv("CM_MLPERF_LOADGEN_MAX_BATCHSIZE", "1"));
         std::cout << "MLPerf Conf path: " << mlperf_conf_path << std::endl;
         std::cout << "User Conf path: " << user_conf_path << std::endl;
         std::cout << "Dataset Preprocessed path: " << dataset_preprocessed_path << std::endl;

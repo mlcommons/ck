@@ -52,7 +52,7 @@
       "post_deps": [
         {
           "enable_if_env": {
-            "CM_LOADGEN_MODE": [ "performance" ]
+            "CM_MLPERF_LOADGEN_MODE": [ "performance" ]
           },
           "tags": "run,mlperf,power,client"
         }
