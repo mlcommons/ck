@@ -54,7 +54,7 @@ def postprocess(i):
     if 'CM_DOCKER_PASS_USER_GROUP' in env:
         run_opts += " --group-add $(id -g $USER) "
 
-    run_cmd = env['CM_DOCKER_IMAGE_RUN_CMD'] + " " +env.get('CM_DOCKER_RUN_CMD_EXTRA', '').replace(":","=")
+    run_cmd = env['CM_DOCKER_RUN_CMD'] + " " +env.get('CM_DOCKER_RUN_CMD_EXTRA', '').replace(":","=")
     run_cmds.append(run_cmd)
     if 'CM_DOCKER_POST_RUN_COMMANDS' in env:
         for post_run_cmd in env['CM_DOCKER_POST_RUN_COMMANDS']:
