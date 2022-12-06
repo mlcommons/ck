@@ -1,5 +1,5 @@
 # Identification of this CM script
-alias: app-generic-mlperf-inference
+alias: app-loadgen-generic
 uid: bf62405e6c7a44bf
 
 automation_alias: script
