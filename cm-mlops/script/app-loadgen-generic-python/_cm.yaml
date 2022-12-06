@@ -1,5 +1,5 @@
 # Identification of this CM script
-alias: app-loadgen-generic
+alias: app-loadgen-generic-python
 uid: bf62405e6c7a44bf
 
 automation_alias: script
@@ -11,12 +11,10 @@ category: "Modular MLPerf benchmarks"
 # User-friendly tags to find this CM script
 tags:
   - app
-  - mlcommons
-  - mlperf
-  - inference
-  - harness
+  - loadgen
   - generic
-  - generic-harness
+  - loadgen-generic
+  - python
 
 # Default environment
 default_env:

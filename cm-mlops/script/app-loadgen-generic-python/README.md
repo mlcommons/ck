@@ -80,12 +80,12 @@ You can use CM variations prefixed by `_` to benchmark an official MLPerf model
 (_resnet50 or _retinanet):
 
 ```
-cm run script "app mlperf generic-harness _resnet50"
+cm run script "python app loadgen-generic _resnet50"
 ```
 
 You can also specify any custom onnx model file as follows:
 ```
-cm run script --tags=app,mlperf,generic-harness --modelpath=<CUSTOM_MODEL_FILE_PATH>
+cm run script --tags=python,app,loadgen-generic --modelpath=<CUSTOM_MODEL_FILE_PATH>
 ```
 
 ### Other Input Options:
