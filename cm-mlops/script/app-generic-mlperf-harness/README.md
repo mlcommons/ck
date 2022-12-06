@@ -1,7 +1,7 @@
 # About
 ## Run command
 ```
-cm run script --tags=app,mlperf,generic-harness_resnet50
+cm run script --tags=app,mlperf,generic-harness,_resnet50
 ```
 
 To use any custom onnx model file we can do 
