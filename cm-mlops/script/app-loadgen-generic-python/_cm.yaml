@@ -1,0 +1,149 @@
+# Identification of this CM script
+alias: app-loadgen-generic-python
+uid: d3d949cc361747a6
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf benchmarks"
+
+
+# User-friendly tags to find this CM script
+tags:
+  - app
+  - loadgen
+  - generic
+  - loadgen-generic
+  - python
+
+# Default environment
+default_env:
+  CM_MLPERF_EXECUTION_MODE: parallel
+  CM_MLPERF_BACKEND: onnxruntime
+
+# Map script inputs to environment variables
+input_mapping:
+  output_dir: CM_MLPERF_OUTPUT_DIR
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
+  runner: CM_MLPERF_RUNNER
+  concurrency: CM_MLPERF_CONCURRENCY
+  ep: CM_MLPERF_EXECUTION_PROVIDER
+  intraop: CM_MLPERF_INTRAOP
+  interop: CM_MLPERF_INTEROP
+  execmode: CM_MLPERF_EXEC_MODE
+  modelpath: CM_ML_MODEL_FILE_WITH_PATH
+
+new_env_keys:
+  - CM_MLPERF_*
+
+# Dependencies on other CM scripts
+
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Get Python
+  - tags: get,python3
+    names:
+      - python
+      - python3
+
+  # Extra package
+  - tags: get,generic-python-lib,_psutil
+
+  # Detect CUDA if required
+  - tags: get,cuda
+    enable_if_env:
+      CM_MLPERF_DEVICE:
+      - gpu
+
+  # Install loadgen
+  - tags: get,loadgen
+    names:
+    - loadgen
+
+  ########################################################################
+  # Install ML engines via CM
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - cpu
+    tags: get,generic-python-lib,_onnxruntime
+    names:
+    - onnxruntime
+
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - gpu
+    tags: get,generic-python-lib,_onnxruntime_gpu
+    names:
+    - onnxruntime
+
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+    tags: get,generic-python-lib,_onnx
+    names:
+    - onnx
+
+  ########################################################################
+  # Install MLPerf models
+  - enable_if_env:
+      CM_MODEL:
+      - resnet50
+    tags: get,ml-model,resnet50,_onnx
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    tags: get,ml-model,retinanet,_onnx,_fp32
+
+
+
+# Customize this CM script
+variations:
+
+  onnxruntime:
+    group: backend
+    default: true
+    env:
+      CM_MLPERF_BACKEND:
+        onnxruntime
+
+
+  cpu:
+    group:
+      device
+    default:
+      True
+    env:
+      CM_MLPERF_DEVICE:
+        cpu
+  cuda:
+    group:
+      device
+    env:
+      CM_MLPERF_DEVICE:
+        gpu
+  
+
+  resnet50:
+    group:
+      models
+    env:
+      CM_MODEL: resnet50
+
+  retinanet:
+    group:
+      models
+    env:
+      CM_MODEL: retinanet
+
+

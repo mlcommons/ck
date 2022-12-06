@@ -26,38 +26,35 @@
   "uid": "5e865dbdc65949d2",
   "variations": {
     "fp32": {
+      "group": "precision",
+      "default": true,
       "env": {
         "CM_ML_MODEL_PRECISION": "fp32"
       }
     },
     "int8": {
+      "group": "precision",
       "env": {
         "CM_ML_MODEL_PRECISION": "int8",
         "CM_ML_MODEL_QUANTIZED": "yes",
         "CM_PACKAGE_URL": "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
       }
     },
-    "onnx-fp32": {
-      "base": [
-        "fp32",
-        "onnx"
-      ],
+    "onnx,fp32": {
       "env": {
         "CM_ML_MODEL_F1": "90.874",
         "CM_PACKAGE_URL": "https://zenodo.org/record/3733910/files/model.onnx"
       }
     },
-    "onnx-int8": {
-      "base": [
-        "int8",
-        "onnx"
-      ],
+    "onnx,int8": {
       "env": {
         "CM_ML_MODEL_F1": "90.067",
         "CM_PACKAGE_URL": "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
       }
     },
     "onnx": {
+      "group": "framework",
+      "default": true,
       "env": {
         "CM_ML_MODEL_FRAMEWORK": "onnx",
         "CM_ML_MODEL_INPUT_IDS_NAME": "input_ids",
@@ -68,6 +65,7 @@
       }
     },
     "tf": {
+      "group": "framework",
       "env": {
         "CM_ML_MODEL_F1": "90.874",
         "CM_ML_MODEL_FRAMEWORK": "tf",
@@ -81,6 +79,7 @@
       }
     },
     "pytorch": {
+      "group": "framework",
       "env": {
         "CM_ML_MODEL_FRAMEWORK": "pytorch",
         "CM_ML_MODEL_INPUT_IDS_NAME": "input_ids",
@@ -90,21 +89,13 @@
         "CM_ML_MODEL_OUTPUT_START_LOGITS_NAME": "output_start_logits"
       }
     },
-    "pytorch-fp32": {
-      "base": [
-        "fp32",
-        "pytorch"
-      ],
+    "pytorch,fp32": {
       "env": {
         "CM_ML_MODEL_F1": "90.874",
         "CM_PACKAGE_URL": "https://zenodo.org/record/3733896/files/model.pytorch"
       }
     },
-    "pytorch-int8": {
-      "base": [
-        "int8",
-        "pytorch"
-      ],
+    "pytorch,int8": {
       "env": {
         "CM_ML_MODEL_F1": "90.633",
         "CM_PACKAGE_URL": "https://zenodo.org/record/4792496/files/pytorch_model.bin"

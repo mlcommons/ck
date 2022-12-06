@@ -239,6 +239,9 @@ class CAutomation(Automation):
                         sys.stdout.write("\r{}{:3.0f}%".format(text, percent))
                         sys.stdout.flush()
 
+                    sys.stdout.write("\r{}{:3.0f}%".format(text, 100))
+                    sys.stdout.flush()
+
         except Exception as e:
             return {'return':1, 'error':format(e)}
 

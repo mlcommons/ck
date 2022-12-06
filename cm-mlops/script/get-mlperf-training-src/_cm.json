@@ -75,7 +75,7 @@
         "patch"
       ],
       "env": {
-        "CM_GIT_PATCH_FILENAME": "nvidia-retinanet.patch"
+        "CM_GIT_PATCH_FILENAMES": "nvidia-retinanet.patch,cpu_load.patch"
       }
     }
   },

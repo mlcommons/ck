@@ -122,20 +122,20 @@ def preprocess(i):
 
 
     f.write(EOL+'# Run commands' + EOL)
-    for comment in env.get('CM_DOCKER_IMAGE_RUN_COMMENTS', []):
+    for comment in env.get('CM_DOCKER_RUN_COMMENTS', []):
         f.write(comment + EOL)
 
-    if 'CM_DOCKER_IMAGE_RUN_CMD' not in env:
+    if 'CM_DOCKER_RUN_CMD' not in env:
         if 'CM_DOCKER_RUN_SCRIPT_TAGS' not in env:
-            env['CM_DOCKER_IMAGE_RUN_CMD']="cm version"
+            env['CM_DOCKER_RUN_CMD']="cm version"
         else:
-            env['CM_DOCKER_IMAGE_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
+            env['CM_DOCKER_RUN_CMD']="cm run script --quiet --tags=" + env['CM_DOCKER_RUN_SCRIPT_TAGS']
 
     fake_run = " --fake_run"
-    f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
-    if not "run" in env['CM_DOCKER_IMAGE_RUN_CMD'] or env.get('CM_REAL_RUN', None):
+    f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
+    if not "run" in env['CM_DOCKER_RUN_CMD'] or env.get('CM_REAL_RUN', None):
         fake_run = ""
-        f.write('RUN ' + env['CM_DOCKER_IMAGE_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
+        f.write('RUN ' + env['CM_DOCKER_RUN_CMD'] + fake_run + run_cmd_extra + EOL)
 
     if 'CM_DOCKER_POST_RUN_COMMANDS' in env:
         for post_run_cmd in env['CM_DOCKER_POST_RUN_COMMANDS']:

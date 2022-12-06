@@ -34,28 +34,28 @@ def preprocess(i):
     print("Using MLCommons Inference source from " + env['CM_MLPERF_INFERENCE_SOURCE'])
 
 
-    if 'CM_LOADGEN_EXTRA_OPTIONS' not in env:
-        env['CM_LOADGEN_EXTRA_OPTIONS'] = ""
+    if 'CM_MLPERF_LOADGEN_EXTRA_OPTIONS' not in env:
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] = ""
 
-    if 'CM_LOADGEN_MODES' not in env:
-        if 'CM_LOADGEN_MODE' not in env:
-            env['CM_LOADGEN_MODE'] = "performance"
+    if 'CM_MLPERF_LOADGEN_MODES' not in env:
+        if 'CM_MLPERF_LOADGEN_MODE' not in env:
+            env['CM_MLPERF_LOADGEN_MODE'] = "performance"
 
-    if 'CM_LOADGEN_SCENARIOS' not in env:
-        if 'CM_LOADGEN_SCENARIO' not in env:
-            env['CM_LOADGEN_SCENARIO'] = "Offline"
+    if 'CM_MLPERF_LOADGEN_SCENARIOS' not in env:
+        if 'CM_MLPERF_LOADGEN_SCENARIO' not in env:
+            env['CM_MLPERF_LOADGEN_SCENARIO'] = "Offline"
 
-    if env.get('CM_LOADGEN_ALL_SCENARIOS', '') == "yes":
+    if env.get('CM_MLPERF_LOADGEN_ALL_SCENARIOS', '') == "yes":
         system_meta = state['CM_SUT_META']
-        env['CM_LOADGEN_SCENARIOS'] = get_valid_scenarios(env['CM_MODEL'], system_meta['system_type'], env['CM_MLPERF_LAST_RELEASE'], env['CM_MLPERF_INFERENCE_SOURCE'])
+        env['CM_MLPERF_LOADGEN_SCENARIOS'] = get_valid_scenarios(env['CM_MODEL'], system_meta['system_type'], env['CM_MLPERF_LAST_RELEASE'], env['CM_MLPERF_INFERENCE_SOURCE'])
     else:
         system_meta = {}
-        env['CM_LOADGEN_SCENARIOS'] = [ env['CM_LOADGEN_SCENARIO'] ]
+        env['CM_MLPERF_LOADGEN_SCENARIOS'] = [ env['CM_MLPERF_LOADGEN_SCENARIO'] ]
 
-    if env.get('CM_LOADGEN_ALL_MODES', '') == "yes":
-        env['CM_LOADGEN_MODES'] = [ "performance", "accuracy" ]
+    if env.get('CM_MLPERF_LOADGEN_ALL_MODES', '') == "yes":
+        env['CM_MLPERF_LOADGEN_MODES'] = [ "performance", "accuracy" ]
     else:
-        env['CM_LOADGEN_MODES'] = [ env['CM_LOADGEN_MODE'] ]
+        env['CM_MLPERF_LOADGEN_MODES'] = [ env['CM_MLPERF_LOADGEN_MODE'] ]
 
 
     if 'OUTPUT_BASE_DIR' not in env:
@@ -96,10 +96,10 @@ def preprocess(i):
         print ('=========================================================')
 
 
-    for scenario in env['CM_LOADGEN_SCENARIOS']:
-        for mode in env['CM_LOADGEN_MODES']:
-            env['CM_LOADGEN_SCENARIO'] = scenario
-            env['CM_LOADGEN_MODE'] = mode
+    for scenario in env['CM_MLPERF_LOADGEN_SCENARIOS']:
+        for mode in env['CM_MLPERF_LOADGEN_MODES']:
+            env['CM_MLPERF_LOADGEN_SCENARIO'] = scenario
+            env['CM_MLPERF_LOADGEN_MODE'] = mode
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
                 add_deps_recursive, 'silent': silent, 'print_env': print_env, 'print_deps': print_deps})
@@ -111,11 +111,11 @@ def preprocess(i):
                 env['CM_MLPERF_BACKEND_VERSION'] = r['new_env']['CM_MLPERF_BACKEND_VERSION']
 
         if system_meta.get('division', '') == "open":
-            env["CM_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
+            env["CM_MLPERF_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
 
-        if env.get("CM_LOADGEN_COMPLIANCE", "") == "yes":
+        if env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes":
             for test in test_list:
-                env['CM_LOADGEN_COMPLIANCE_TEST'] = test
+                env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST'] = test
                 r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                     'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
                     add_deps_recursive,'silent': silent, 'print_env': print_env, 'print_deps': print_deps})

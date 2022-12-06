@@ -155,18 +155,9 @@ for modular MLPerf [here](https://github.com/mlcommons/ck/tree/master/docker)
 
 
 
-# TBD
+# Future work
 
-* Specify versions of all deps from command line
-* Test CPP+Python for CPU+CUDA
-  * Resnet + RetinaNet
-* Add your own optimized model
-* Run iterative experiments
-  * Unify JSON output (ENV + state)
-  * Reproduce experiments
-  * Visualize experiments
-* Prepare end-to-end submissions from the best experiments
-* Add Docker examples
+* Roadmap: https://github.com/mlcommons/ck/issues/536
 
 # Developers
 

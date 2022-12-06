@@ -251,7 +251,7 @@ def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
 ###########################################################################
 def load_txt(file_name, encoding = 'utf8', remove_after_read = False, 
              check_if_exists = False, split = False,
-             match_text = '', fail_if_no_match = ''):
+             match_text = '', fail_if_no_match = '', debug = False):
     """
     Load text file.
 
@@ -293,6 +293,9 @@ def load_txt(file_name, encoding = 'utf8', remove_after_read = False,
     if match_text != '':
         import re
         match = re.search(match_text, s)
+
+        if debug:
+            print (match)
 
         if fail_if_no_match!='' and match is None:
             return {'return':1, 'error': fail_if_no_match, 'string':s}

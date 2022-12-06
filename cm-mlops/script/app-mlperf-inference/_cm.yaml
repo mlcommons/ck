@@ -24,8 +24,8 @@ tags:
 default_env:
   CM_BATCH_COUNT: '1'
   CM_BATCH_SIZE: '1'
-  CM_LOADGEN_MODE: accuracy
-  CM_LOADGEN_SCENARIO: Offline
+  CM_MLPERF_LOADGEN_MODE: accuracy
+  CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results
   CM_MLPERF_RUN_STYLE: test
   CM_TEST_QUERY_COUNT: '10'
@@ -33,19 +33,20 @@ default_env:
 
 # Map script inputs to environment variables
 input_mapping:
-  count: CM_LOADGEN_QUERY_COUNT
+  count: CM_MLPERF_LOADGEN_QUERY_COUNT
   docker: CM_RUN_DOCKER_CONTAINER
   hw_name: CM_HW_NAME
   imagenet_path: IMAGENET_PATH
-  max_batchsize: CM_LOADGEN_MAX_BATCHSIZE
-  mode: CM_LOADGEN_MODE
+  max_batchsize: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
+  mode: CM_MLPERF_LOADGEN_MODE
   num_threads: CM_NUM_THREADS
   output_dir: OUTPUT_BASE_DIR
   power: CM_SYSTEM_POWER
   regenerate_files: CM_REGENERATE_MEASURE_FILES
   rerun: CM_RERUN
-  scenario: CM_LOADGEN_SCENARIO
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
   test_query_count: CM_TEST_QUERY_COUNT
+  new_tvm_model: CM_MLPERF_DELETE_COMPILED_MODEL
   clean: CM_MLPERF_CLEAN_SUBMISSION_DIR
 
 # Duplicate CM environment variables to the ones used in native apps
@@ -136,7 +137,7 @@ variations:
           CM_SKIP_RUN:
             - yes
 
-  python:
+  reference:
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _float32
@@ -151,7 +152,8 @@ variations:
         skip_if_env:
           CM_SKIP_RUN:
             - yes
-
+  python:
+    alias: reference
   nvidia:
     add_deps_recursive:
       imagenet-accuracy-script:
@@ -172,15 +174,21 @@ variations:
       - tags: get,generic-python-lib,_onnx
   
   resnet50:
+    group:
+      models
+    default:
+      true
     env:
       CM_MODEL:
         resnet50
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _resnet50
+    deps: 
+    - tags: get,dataset-aux,imagenet-aux
     post_deps:
     - enable_if_env:
-        CM_LOADGEN_MODE:
+        CM_MLPERF_LOADGEN_MODE:
         - accuracy
         - all
         CM_MLPERF_ACCURACY_RESULTS_DIR:
@@ -191,6 +199,8 @@ variations:
       tags: run,accuracy,mlperf,_imagenet
 
   retinanet:
+    group:
+      models
     env:
       CM_MODEL:
         retinanet
@@ -199,7 +209,7 @@ variations:
         tags: _retinanet
     post_deps:
     - enable_if_env:
-        CM_LOADGEN_MODE:
+        CM_MLPERF_LOADGEN_MODE:
         - accuracy
         - all
         CM_MLPERF_ACCURACY_RESULTS_DIR:
@@ -209,10 +219,10 @@ variations:
       - openimages-accuracy-script
       tags: run,accuracy,mlperf,_openimages
 
-  bert:
+  bert_:
     post_deps:
     - enable_if_env:
-        CM_LOADGEN_MODE:
+        CM_MLPERF_LOADGEN_MODE:
         - accuracy
         - all
         CM_MLPERF_ACCURACY_RESULTS_DIR:
@@ -225,8 +235,10 @@ variations:
       inference-src:
         tags: _deeplearningexamples
   bert-99:
+    group:
+      models
     base:
-    - bert
+    - bert_
     env:
       CM_MODEL:
         bert-99
@@ -234,8 +246,10 @@ variations:
       mlperf-inference-implementation:
         tags: _bert-99
   bert-99.9:
+    group:
+      models
     base:
-    - bert
+    - bert_
     env:
       CM_MODEL:
         bert-99.9
@@ -245,6 +259,8 @@ variations:
 
 
   onnxruntime:
+    group: backend
+    default: true
     env:
       CM_MLPERF_BACKEND:
         onnxruntime
@@ -252,6 +268,7 @@ variations:
       mlperf-inference-implementation:
         tags: _onnxruntime
   tf:
+    group: backend
     env:
       CM_MLPERF_BACKEND:
         tf
@@ -259,6 +276,7 @@ variations:
       mlperf-inference-implementation:
         tags: _tf
   pytorch:
+    group: backend
     env:
       CM_MLPERF_BACKEND:
         pytorch
@@ -266,40 +284,80 @@ variations:
       mlperf-inference-implementation:
         tags: _pytorch
   tflite:
+    group: backend
     env:
       CM_MLPERF_BACKEND: tflite
     add_deps_recursive:
       mlperf-inference-implementation:
-        tags: _pytorch
+        tags: _tflite
+  tvm-onnx:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND: tvm-onnx
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tvm-onnx
+  tvm-pytorch:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND: tvm-pytorch
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tvm-pytorch
+  tvm-pip-install-onnx:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND: tvm-pip-install-onnx
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tvm-pip-install-onnx
+  tvm-pip-install-pytorch:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND: tvm-pip-install-pytorch
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tvm-pip-install-pytorch
+
   cpu:
+    group:
+      device
+    default:
+      True
     env:
       CM_MLPERF_DEVICE:
         cpu
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _cpu
-  gpu:
+  cuda:
+    group:
+      device
     env:
       CM_MLPERF_DEVICE:
         gpu
     add_deps_recursive:
       mlperf-inference-implementation:
-        tags: _gpu
+        tags: _cuda
 
 
   # Execution modes
   fast:
+    group: execution-mode
     env:
       CM_FAST_FACTOR: '5'
       CM_OUTPUT_FOLDER_NAME: fast_results
       CM_MLPERF_RUN_STYLE: fast
 
   test:
+    group: execution-mode
+    default: true
     env:
       CM_OUTPUT_FOLDER_NAME: test_results
       CM_MLPERF_RUN_STYLE: test
 
   valid:
+    group: execution-mode
     env:
       CM_OUTPUT_FOLDER_NAME: valid_results
       CM_MLPERF_RUN_STYLE: valid
@@ -308,6 +366,14 @@ variations:
   quantized:
     env:
       CM_MLPERF_QUANTIZATION: on
+
+  power:
+    env:
+      CM_MLPERF_POWER: yes
+    add_deps_recursive:
+      runner:
+        tags:
+          _mlperf-power
 
   # Reproducibility (past submissions)
   r2.1_default:
@@ -322,3 +388,25 @@ variations:
       CM_RERUN: 'yes'
       CM_SKIP_SYS_UTILS: 'yes'
       CM_TEST_QUERY_COUNT: '100'
+
+valid_variation_combinations:
+  -
+    - resnet50
+    - cpu
+  -
+    - resnet50
+    - cuda
+  -
+    - retinanet
+  -
+    - bert-99.9
+  -
+    - bert-99
+
+invalid_variation_combinations:
+  -
+    - resnet50
+    - pytorch
+  -
+    - retinanet
+    - tf

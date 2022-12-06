@@ -16,6 +16,16 @@
   "new_state_keys": [
     "os_uname_*"
   ],
+  "post_deps": [
+    {
+      "enable_if_env": {
+        "CM_HOST_OS_TYPE": [
+          "windows"
+        ]
+      },
+      "tags": "get,sys-utils-min"
+    }
+  ],
   "tags": [
     "detect-os",
     "detect",

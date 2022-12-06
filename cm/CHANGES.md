@@ -1,3 +1,6 @@
+## V1.1.2.1
+   - improved removal of CM entries on Windows
+
 ## V1.1.2
    - added --save_to_json to save output to JSON (useful for web services)
    - extended "cm info {automation} {artifact}" (copy to clipboard)

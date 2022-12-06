@@ -5,8 +5,8 @@
   "default_env": {
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1",
-    "CM_LOADGEN_MODE": "accuracy",
-    "CM_LOADGEN_SCENARIO": "Offline",
+    "CM_MLPERF_LOADGEN_MODE": "accuracy",
+    "CM_MLPERF_LOADGEN_SCENARIO": "Offline",
     "CM_OUTPUT_FOLDER_NAME": "test_results",
     "CM_MLPERF_RUN_STYLE": "test",
     "CM_TEST_QUERY_COUNT": "10"
@@ -233,18 +233,18 @@
     "CM_ML_": "ML_"
   },
   "input_mapping": {
-    "count": "CM_LOADGEN_QUERY_COUNT",
+    "count": "CM_MLPERF_LOADGEN_QUERY_COUNT",
     "docker": "CM_RUN_DOCKER_CONTAINER",
     "hw_name": "CM_HW_NAME",
     "imagenet_path": "IMAGENET_PATH",
-    "max_batchsize": "CM_LOADGEN_MAX_BATCHSIZE",
-    "mode": "CM_LOADGEN_MODE",
+    "max_batchsize": "CM_MLPERF_LOADGEN_MAX_BATCHSIZE",
+    "mode": "CM_MLPERF_LOADGEN_MODE",
     "num_threads": "CM_NUM_THREADS",
     "output_dir": "OUTPUT_BASE_DIR",
     "power": "CM_SYSTEM_POWER",
     "regenerate_files": "CM_REGENERATE_MEASURE_FILES",
     "rerun": "CM_RERUN",
-    "scenario": "CM_LOADGEN_SCENARIO",
+    "scenario": "CM_MLPERF_LOADGEN_SCENARIO",
     "test_query_count": "CM_TEST_QUERY_COUNT"
   },
   "tags": [
@@ -267,7 +267,7 @@
       "post_deps": [
         {
           "enable_if_env": {
-            "CM_LOADGEN_MODE": [
+            "CM_MLPERF_LOADGEN_MODE": [
               "accuracy",
               "all"
             ],
@@ -367,7 +367,7 @@
       "post_deps": [
         {
           "enable_if_env": {
-            "CM_LOADGEN_MODE": [
+            "CM_MLPERF_LOADGEN_MODE": [
               "accuracy",
               "all"
             ],
@@ -390,7 +390,7 @@
       "post_deps": [
         {
           "enable_if_env": {
-            "CM_LOADGEN_MODE": [
+            "CM_MLPERF_LOADGEN_MODE": [
               "accuracy",
               "all"
             ],

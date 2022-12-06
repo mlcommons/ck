@@ -9,11 +9,11 @@ if [ -f "${CM_DOCKERFILE_WITH_PATH}" ]; then
 
   if [ "${CM_RUN_DOCKER_CONTAINER}" == "yes" ]; then
     # TBD: THIS PART HAS TO BE CHECKED/CLEANED
-    echo "Running ${CM_DOCKER_IMAGE_RUN_CMD}"
+    echo "Running ${CM_DOCKER_RUN_CMD}"
 
     ID=`docker run -dt --rm "${CM_DOCKER_IMAGE_REPO}/${CM_DOCKER_IMAGE_NAME}:${CM_DOCKER_IMAGE_TAG}" bash`
 
-    CMD="docker exec $ID bash -c '${CM_DOCKER_IMAGE_RUN_CMD}'"
+    CMD="docker exec $ID bash -c '${CM_DOCKER_RUN_CMD}'"
 
     echo $CMD
     eval $CMD

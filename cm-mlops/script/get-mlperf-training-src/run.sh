@@ -21,9 +21,17 @@ else
 fi
 
 if [ ${CM_GIT_PATCH} == "yes" ]; then
-  patch_filename=${CM_GIT_PATCH_FILENAME:-git.patch}
-  echo "Applying patch ${SCRIPT_DIR}/patch/$patch_filename"
-  git apply ${SCRIPT_DIR}/patch/"$patch_filename"
-  if [ "${?}" != "0" ]; then exit 1; fi
+  patch_filename=${CM_GIT_PATCH_FILENAME}
+  if [ ! -n ${CM_GIT_PATCH_FILENAMES} ]; then
+    patchfile=${CM_GIT_PATCH_FILENAME:-"git.patch"}
+    CM_GIT_PATCH_FILENAMES=$patchfile
+  fi
+  IFS=', ' read -r -a patch_files <<< ${CM_GIT_PATCH_FILENAMES}
+  for patch_filename in "${patch_files[@]}"
+  do
+    echo "Applying patch ${SCRIPT_DIR}/patch/$patch_filename"
+    git apply ${SCRIPT_DIR}/patch/"$patch_filename"
+    if [ "${?}" != "0" ]; then exit 1; fi
+  done
 fi
 cd "$CUR_DIR"

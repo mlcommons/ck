@@ -22,11 +22,11 @@ def preprocess(i):
 
     rerun = True if env.get("CM_RERUN","")!='' else False
 
-    if 'CM_LOADGEN_SCENARIO' not in env:
-        env['CM_LOADGEN_SCENARIO'] = "Offline"
+    if 'CM_MLPERF_LOADGEN_SCENARIO' not in env:
+        env['CM_MLPERF_LOADGEN_SCENARIO'] = "Offline"
 
-    if 'CM_LOADGEN_MODE' not in env:
-        env['CM_LOADGEN_MODE'] = "accuracy"
+    if 'CM_MLPERF_LOADGEN_MODE' not in env:
+        env['CM_MLPERF_LOADGEN_MODE'] = "accuracy"
 
     if 'CM_MODEL' not in env:
         return {'return': 1, 'error': "Please select a variation specifying the model to run"}
@@ -36,15 +36,15 @@ def preprocess(i):
         "val_map.txt")
         ret = os.system(cmd)
 
-    if 'CM_LOADGEN_EXTRA_OPTIONS' not in env:
-        env['CM_LOADGEN_EXTRA_OPTIONS'] = ""
+    if 'CM_MLPERF_LOADGEN_EXTRA_OPTIONS' not in env:
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] = ""
 
-    if 'CM_LOADGEN_QPS' not in env:
-        env['CM_LOADGEN_QPS_OPT'] = ""
+    if 'CM_MLPERF_LOADGEN_QPS' not in env:
+        env['CM_MLPERF_LOADGEN_QPS_OPT'] = ""
     else:
-        env['CM_LOADGEN_QPS_OPT'] = " --qps " + env['CM_LOADGEN_QPS']
+        env['CM_MLPERF_LOADGEN_QPS_OPT'] = " --qps " + env['CM_MLPERF_LOADGEN_QPS']
 
-    env['CM_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_LOADGEN_QPS_OPT']
+    env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_MLPERF_LOADGEN_QPS_OPT']
 
     if 'OUTPUT_BASE_DIR' not in env:
         env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_VISION_PATH']
@@ -57,11 +57,11 @@ def preprocess(i):
             env['CM_NUM_THREADS'] = env.get('CM_HOST_CPU_TOTAL_CORES', '1')
 
 
-    if 'CM_LOADGEN_MAX_BATCHSIZE' in env:
-        env['CM_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_LOADGEN_MAX_BATCHSIZE']
+    if 'CM_MLPERF_LOADGEN_MAX_BATCHSIZE' in env:
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if 'CM_LOADGEN_QUERY_COUNT' in env:
-        env['CM_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_LOADGEN_QUERY_COUNT']
+    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env:
+        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
 
     print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
 
@@ -69,7 +69,7 @@ def preprocess(i):
         env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
 
 
-    env['CM_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
+    env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
 
     '''
     env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
@@ -83,7 +83,7 @@ def preprocess(i):
     if env['CM_MODEL'] in ["rnnt", "bert-99", "bert-99.9", "dlrm-99", "dlrm-99.9", "3d-unet-99", "3d-unet-99.9"]:
         test_list.remove("TEST04")
 
-    scenario = env['CM_LOADGEN_SCENARIO']
+    scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     state['RUN'][scenario] = {}
     scenario_extra_options = ''
 
@@ -102,7 +102,7 @@ def preprocess(i):
 
     env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
-    mode = env['CM_LOADGEN_MODE']
+    mode = env['CM_MLPERF_LOADGEN_MODE']
     mode_extra_options = ""
     if 'CM_DATASET_PREPROCESSED_PATH' in env:
         dataset_options = " --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']
@@ -115,7 +115,7 @@ def preprocess(i):
     elif mode == "performance":
         OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
     elif mode == "compliance":
-        test = env.get("CM_LOADGEN_COMPIANCE_TEST", "TEST01")
+        test = env.get("CM_MLPERF_LOADGEN_COMPIANCE_TEST", "TEST01")
         OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], env['CM_MLPERF_BACKEND'] \
                 + "-" + env['CM_MLPERF_DEVICE'], env['CM_MODEL'], scenario.lower(), test)
         if test == "TEST01":
@@ -130,6 +130,8 @@ def preprocess(i):
     cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, mlperf_implementation)
     os.makedirs(OUTPUT_DIR, exist_ok=True)
     env['CM_MLPERF_RUN_CMD'] = cmd
+    env['CM_RUN_DIR'] = os.getcwd()
+    env['CM_RUN_CMD'] = cmd
 
     return {'return':0}
 
@@ -150,7 +152,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
     if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
         cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
-            env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_LOADGEN_SCENARIO'] + " " + env['CM_LOADGEN_EXTRA_OPTIONS'] + \
+            env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             scenario_extra_options + mode_extra_options + dataset_options
     elif "bert" in env['CM_MODEL']:
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "bert")
@@ -158,8 +160,8 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             quantization_options = " --quantized"
         else:
             quantization_options = ""
-        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_LOADGEN_SCENARIO'] + \
-            env['CM_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
+        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+            env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
         cmd = cmd.replace("--count", "--max_examples")
         env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
         env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH'] 
