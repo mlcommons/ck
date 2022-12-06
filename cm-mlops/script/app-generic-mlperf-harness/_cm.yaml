@@ -105,6 +105,8 @@ deps:
   # Install Run Deps
 
   - tags: get,generic-python-lib,_psutil
+  - tags: get,generic-python-lib,_onnx
+  - tags: get,generic-python-lib,_onnxruntime
 
 
 
