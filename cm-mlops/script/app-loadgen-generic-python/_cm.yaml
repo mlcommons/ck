@@ -110,17 +110,12 @@ deps:
 # Customize this CM script
 variations:
 
-  resnet50:
-    group:
-      models
+  onnxruntime:
+    group: backend
+    default: true
     env:
-      CM_MODEL: resnet50
-
-  retinanet:
-    group:
-      models
-    env:
-      CM_MODEL: retinanet
+      CM_MLPERF_BACKEND:
+        onnxruntime
 
 
   cpu:
@@ -138,3 +133,17 @@ variations:
       CM_MLPERF_DEVICE:
         gpu
   
+
+  resnet50:
+    group:
+      models
+    env:
+      CM_MODEL: resnet50
+
+  retinanet:
+    group:
+      models
+    env:
+      CM_MODEL: retinanet
+
+
