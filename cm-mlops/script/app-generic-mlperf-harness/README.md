@@ -1,8 +1,8 @@
 # About
 
 This portable CM script provides a unified API and CLI to benchmark ONNX models using the MLPerf loadgen.
-It measures performance only. 
-If you need accuracy for MLPerf inference submission, please check [this CM script](../run-mlperf-inference-app).
+It measures performance only with randomly generated inputs. 
+If you need accuracy too, please check [this portable CM script](../run-mlperf-inference-app).
 
 ## Development status
 
