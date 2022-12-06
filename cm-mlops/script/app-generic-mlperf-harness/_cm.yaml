@@ -101,6 +101,13 @@ deps:
       - retinanet
     tags: get,ml-model,retinanet,_onnx,_fp32
 
+  ########################################################################
+  # Install Run Deps
+
+  - tags: get,generic-python-lib,_psutil
+
+
+
 variations:
   resnet50:
     env:
