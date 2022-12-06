@@ -1,3 +1,6 @@
+# 20221206:
+ * added CM_SCRIPT_EXTRA_CMD to force some flags to all scripts
+
 # 20221202:
  * major updates for Windows (CL, CUDA, etc)
 

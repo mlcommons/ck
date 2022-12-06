@@ -27,13 +27,24 @@ cm rm cache -f
 We suggest you to install a python virtual environment via CM though it's not strictly necessary 
 (CM can automatically detect and reuse your Python installation and environments):
 ```bash
-cm run script "install python-venv" --name=mlperf
+cm run script "install python-venv" --name=loadgen
 ```
 
 You can also install a specific version of Python on your system via:
 ```bash
-cm run script "install python-venv" --name=mlperf --version=3.10.7
+cm run script "install python-venv" --name=loadgen --version=3.10.7
 ```
+
+By default, CM will be asking users to select one from all detected and installed Python versions
+including the above one, any time a script with python dependency is run. To avoid that, you 
+can set up the following environment variable with the name of the current virtual environment:
+
+```bash
+export CM_SCRIPT_EXTRA_CMD="--adr.python.name=loadgen"
+```
+
+The `--adr` flag stands for "Add to all Dependencies Recursively" and will find all sub-dependencies on other CM scripts 
+
 
 ## Manual installation of dependencies via CM
 
@@ -43,8 +54,10 @@ version of ONNX runtime.
 
 ### MLPerf loadgen
 
+We can now install loadgen via CM while forcing compiler dependency to GCC:
+
 ```bash
-cm run script "get mlperf loadgen"
+cm run script "get mlperf loadgen" --adr.compiler.tags=gcc
 ```
 
 ### ONNX, CPU
@@ -65,14 +78,6 @@ or
 cm run script "get generic-python-lib _onnxruntime" --version_min=1.10.0
 ```
 
-### ONNX, CUDA
-
-We suggest you not to mix ONNX runtime for CPU and CUDA in the same python environment.
-
-```bash
-cm run script "get generic-python-lib _onnxruntime_gpu" --version=1.13.1
-```
-
 
 ## Run command
 
@@ -80,7 +85,7 @@ You can use CM variations prefixed by `_` to benchmark an official MLPerf model
 (_resnet50 or _retinanet):
 
 ```
-cm run script "python app loadgen-generic _resnet50"
+cm run script "python app loadgen-generic _onnxruntime _resnet50"
 ```
 
 Normally, you should see the following performance report from the loadgen:
@@ -170,6 +175,10 @@ cm run script --tags=python,app,loadgen-generic --modelpath=<CUSTOM_MODEL_FILE_P
 * `execmode`
 * `modelpath`
 
+
+# Open discussions and developments
+
+* [MLCommons taskforce on education and reproducibility](https://bit.ly/mlperf-edu-wg)
 
 # Developers
 

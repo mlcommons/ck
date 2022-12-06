@@ -18,7 +18,8 @@ tags:
 
 # Default environment
 default_env:
-  CM_MLPER_EXECUTION_MODE: parallel
+  CM_MLPERF_EXECUTION_MODE: parallel
+  CM_MLPERF_BACKEND: onnxruntime
 
 # Map script inputs to environment variables
 input_mapping:
@@ -51,6 +52,9 @@ deps:
       - python
       - python3
 
+  # Extra package
+  - tags: get,generic-python-lib,_psutil
+
   # Detect CUDA if required
   - tags: get,cuda
     enable_if_env:
@@ -61,7 +65,7 @@ deps:
   - tags: get,loadgen
     names:
     - loadgen
-    
+
   ########################################################################
   # Install ML engines via CM
   - enable_if_env:
@@ -70,6 +74,8 @@ deps:
       CM_MLPERF_DEVICE:
       - cpu
     tags: get,generic-python-lib,_onnxruntime
+    names:
+    - onnxruntime
 
   - enable_if_env:
       CM_MLPERF_BACKEND:
@@ -77,7 +83,15 @@ deps:
       CM_MLPERF_DEVICE:
       - gpu
     tags: get,generic-python-lib,_onnxruntime_gpu
+    names:
+    - onnxruntime
 
+  - enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+    tags: get,generic-python-lib,_onnx
+    names:
+    - onnx
 
   ########################################################################
   # Install MLPerf models
@@ -91,14 +105,9 @@ deps:
       - retinanet
     tags: get,ml-model,retinanet,_onnx,_fp32
 
-  ########################################################################
-  # Install Run Deps
-
-  - tags: get,generic-python-lib,_psutil
-#  - tags: get,generic-python-lib,_onnx
 
 
-
+# Customize this CM script
 variations:
 
   resnet50:

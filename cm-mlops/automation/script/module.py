@@ -166,6 +166,18 @@ class CAutomation(Automation):
 
         start_time = time.time()
 
+        # Check extra input from environment variable CM_SCRIPT_EXTRA_CMD
+        # Useful to set up default flags such as the name of virtual enviroment
+        extra_cli = os.environ.get('CM_SCRIPT_EXTRA_CMD', '').strip()
+        if extra_cli != '':
+            from cmind import cli
+            r = cli.parse(extra_cli)
+            if r['return']>0: return r
+
+            cm_input = r['cm_input']
+
+            utils.merge_dicts({'dict1':i, 'dict2':cm_input, 'append_lists':True, 'append_unique':True})
+
         # Check simplified CMD: cm run script "get compiler"
         # If artifact has spaces, treat them as tags!
         artifact = i.get('artifact','')
@@ -1466,7 +1478,7 @@ class CAutomation(Automation):
         if save_env or shell:
             # Check if script_prefix in the state from other components
             where_to_add = len(os_info['start_script'])
-            
+
             script_prefix = state.get('script_prefix',[])
             if len(script_prefix)>0:
                 env_script.insert(where_to_add, '\n')
@@ -2042,9 +2054,9 @@ class CAutomation(Automation):
 
         run_script_input['state'] = run_script_input_state_copy
         run_script_input['env'] = env_copy
-        
+
         return r
-    
+
     ##############################################################################
     def find_file_in_paths(self, i):
         """
@@ -2100,7 +2112,7 @@ class CAutomation(Automation):
             raise Exception('file_name or file_name_re not specified in find_artifact')
 
         found_files = []
-        
+
         import glob
         import re
 
@@ -2588,7 +2600,7 @@ class CAutomation(Automation):
                 path = path2
 
         return {'return':0, 'found_path':path}
-    
+
     ##############################################################################
     def parse_version(self, i):
         """
