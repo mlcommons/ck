@@ -36,7 +36,6 @@ input_mapping:
 
 new_env_keys:
   - CM_MLPERF_*
-  - CM_DATASET_*
 
 # Dependencies on other CM scripts
 
@@ -86,14 +85,7 @@ deps:
 
 
   ########################################################################
-  # Install ResNet50 model (ONNX) and ImageNet
-
-  - enable_if_env:
-      CM_MODEL:
-      - resnet50
-    names:
-      - imagenet-preprocessed
-    tags: get,dataset,preprocessed,imagenet,_NCHW
+  # Install ResNet50 model (ONNX)
 
   - enable_if_env:
       CM_MODEL:
@@ -102,14 +94,7 @@ deps:
 
 
   ########################################################################
-  # Install RetinaNet model (ONNX) and OpenImages
-
-  - enable_if_env:
-      CM_MODEL:
-      - retinanet
-    names:
-      - openimages-preprocessed
-    tags: get,dataset,preprocessed,openimages,_validation,_NCHW
+  # Install RetinaNet model (ONNX)
 
   - enable_if_env:
       CM_MODEL:
