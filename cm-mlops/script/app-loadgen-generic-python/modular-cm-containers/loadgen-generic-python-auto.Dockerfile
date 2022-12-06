@@ -30,4 +30,4 @@ RUN cm pull repo octoml@ck
 RUN cm run script --quiet --tags=get,sys-utils-cm
 
 # Run commands
-RUN cm run script --quiet --tags=app,generic-harness,_resnet50 --fake_run 
+RUN cm run script --quiet --tags=python,app,loadgen-generic,_onnxruntime,_resnet50 --fake_run 

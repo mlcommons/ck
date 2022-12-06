@@ -161,7 +161,7 @@ No errors encountered during test.
 
 You can also specify any custom onnx model file as follows:
 ```
-cm run script --tags=python,app,loadgen-generic --modelpath=<CUSTOM_MODEL_FILE_PATH>
+cm run script --tags=python,app,loadgen-generic,_onnxruntime --modelpath=<CUSTOM_MODEL_FILE_PATH>
 ```
 
 ### Other Input Options:
@@ -176,8 +176,38 @@ cm run script --tags=python,app,loadgen-generic --modelpath=<CUSTOM_MODEL_FILE_P
 * `modelpath`
 
 
+## Use modular Docker container with the CM API
+
+Check sources [here](https://github.com/octoml/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/modular-cm-containers).
+
+### Build
+
+```bash
+cd `cm find script --tags=python,app,loadgen-generic`/modular-cm-containers
+./build.sh
+```
+
+### Run
+```bash
+cd `cm find script --tags=python,app,loadgen-generic`/modular-cm-containers
+./run.sh
+
+cm run script --tags=python,app,loadgen-generic,_onnxruntime,_resnet50
+```
+
+If you want to use your own model, copy it to /tmp/cm-model.onnx and run docker as follows:
+```bash
+docker run -v /tmp:/tmp -it modularcm/loadgen-generic-python-cpu:ubuntu-22.04 -c \
+  "cm run script --tags=python,app,loadgen-generic,_onnxruntime,_resnet50 --modelpath=/tmp/cm-model.onnx"
+
+```
+
+
+
+
 # Open discussions and developments
 
+* [OctoML](https://octoml.ai)
 * [MLCommons taskforce on education and reproducibility](https://bit.ly/mlperf-edu-wg)
 
 # Developers

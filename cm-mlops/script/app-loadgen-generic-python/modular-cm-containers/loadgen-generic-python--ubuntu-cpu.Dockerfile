@@ -6,7 +6,7 @@ ARG cm_os_version="22.04"
 
 FROM ${cm_os_name}:${cm_os_version}
 
-# Maintained by the MLCommons taskforce on education and reproducibility
+# Maintained by the MLCommons taskforce on education and reproducibility and OctoML
 LABEL github="https://github.com/mlcommons/ck"
 LABEL maintainer="https://bit.ly/mlperf-edu-wg"
 
@@ -73,45 +73,23 @@ ARG cm_python_version=""
 RUN cm run script "get python3" --version=${cm_python_version}
 
 ################################################################################
-# Build MLPerf loadgen (official with correct seed for submission)
+# Build MLPerf loadgen
 ARG cm_mlperf_inference_loadgen_version=""
 RUN cm run script "get mlperf loadgen" --adr.compiler.tags=gcc --version=${cm_mlperf_inference_loadgen_version} --adr.inference-src-loadgen.version=${cm_mlperf_inference_loadgen_version} -v
 
-# Install MLPerf inference source (can be private development branch)
-ARG cm_mlperf_inference_src_tags=""
-ARG cm_mlperf_inference_src_version=""
-RUN cm run script "get mlperf inference src ${cm_mlperf_inference_src_tags}" --version=${cm_mlperf_inference_src_version} -v
-
 ################################################################################
-# Run CM automation workflow for MLPerf
-# https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app
+# Install ONNX runtime
+ARG CM_ONNXRUNTIME_VERSION=""
+RUN cm run script "get generic-python-lib _onnxruntime" --version=${CM_ONNXRUNTIME_VERSION}
 
-ARG CM_MLPERF_CHOICE_SCRIPT=
-ARG CM_MLPERF_CHOICE_SUBMITTER="Container"
-ARG CM_MLPERF_CHOICE_IMPLEMENTATION="python"
-ARG CM_MLPERF_CHOICE_HW_NAME="default"
-ARG CM_MLPERF_CHOICE_MODEL="resnet50"
 ARG CM_MLPERF_CHOICE_BACKEND="onnxruntime"
 ARG CM_MLPERF_CHOICE_DEVICE="cpu"
-ARG CM_MLPERF_CHOICE_SCENARIO="Offline"
-ARG CM_MLPERF_CHOICE_MODE="performance"
-ARG CM_MLPERF_CHOICE_QUERY_COUNT="10"
 
-RUN cm run script --tags=run,mlperf,inference,generate-run-cmds,${CM_MLPERF_CHOICE_SCRIPT} \
+RUN cm run script --tags=python,app,loadgen-generic,_onnxruntime,_resnet50 \
          --adr.compiler.tags=gcc \
          --adr.python.version_min=3.8 \
-         --adr.compiler.tags=gcc \
-         --submitter="${CM_MLPERF_CHOICE_SUBMITTER}" \
-         --lang=${CM_MLPERF_CHOICE_IMPLEMENTATION} \
-         --hw_name=${CM_MLPERF_CHOICE_HW_NAME} \
-         --model=${CM_MLPERF_CHOICE_MODEL} \
-         --backend=${CM_MLPERF_CHOICE_BACKEND} \
-         --device=${CM_MLPERF_CHOICE_DEVICE} \
-         --scenario=${CM_MLPERF_CHOICE_SCENARIO} \
-         --mode=${CM_MLPERF_CHOICE_MODE} \
-         --test_query_count=${CM_MLPERF_CHOICE_QUERY_COUNT} \
          --quiet \
-         --clean
+         --fake_run
 
 ################################################################################
 # CMD entry point
