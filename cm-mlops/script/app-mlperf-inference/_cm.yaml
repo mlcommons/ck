@@ -318,6 +318,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _tvm-pip-install-pytorch
+
   cpu:
     group:
       device

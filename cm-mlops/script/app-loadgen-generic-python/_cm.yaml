@@ -1,6 +1,6 @@
 # Identification of this CM script
 alias: app-loadgen-generic-python
-uid: bf62405e6c7a44bf
+uid: d3d949cc361747a6
 
 automation_alias: script
 automation_uid: 5b4e0237da074764
@@ -57,10 +57,7 @@ deps:
       CM_MLPERF_DEVICE:
       - gpu
 
-  ########################################################################
-  # Install MLPerf inference dependencies
-  
-  # Install MLPerf loadgen
+  # Install loadgen
   - tags: get,loadgen
     names:
     - loadgen
@@ -72,27 +69,22 @@ deps:
       - onnxruntime
       CM_MLPERF_DEVICE:
       - cpu
-    tags: get,lib,onnxruntime,lang-cpp,_cpu
+    tags: get,generic-python-lib,_onnxruntime
 
   - enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
       CM_MLPERF_DEVICE:
       - gpu
-    tags: get,lib,onnxruntime,lang-cpp,_cuda
+    tags: get,generic-python-lib,_onnxruntime_gpu
 
 
   ########################################################################
-  # Install ResNet50 model (ONNX)
-
+  # Install MLPerf models
   - enable_if_env:
       CM_MODEL:
       - resnet50
     tags: get,ml-model,resnet50,_onnx
-
-
-  ########################################################################
-  # Install RetinaNet model (ONNX)
 
   - enable_if_env:
       CM_MODEL:
@@ -103,18 +95,37 @@ deps:
   # Install Run Deps
 
   - tags: get,generic-python-lib,_psutil
-  - tags: get,generic-python-lib,_onnx
-  - tags: get,generic-python-lib,_onnxruntime
+#  - tags: get,generic-python-lib,_onnx
 
 
 
 variations:
+
   resnet50:
+    group:
+      models
     env:
       CM_MODEL: resnet50
+
   retinanet:
+    group:
+      models
     env:
       CM_MODEL: retinanet
 
 
+  cpu:
+    group:
+      device
+    default:
+      True
+    env:
+      CM_MLPERF_DEVICE:
+        cpu
+  cuda:
+    group:
+      device
+    env:
+      CM_MLPERF_DEVICE:
+        gpu
   
