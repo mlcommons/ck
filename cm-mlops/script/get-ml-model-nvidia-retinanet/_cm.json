@@ -28,7 +28,10 @@
       "tags": "get,ml-model,retinanet,_pytorch,_fp32,_weights"
     },
     {
-      "tags": "get,generic-python-lib,_torch_cuda"
+      "tags": "get,generic-python-lib,_torch",
+      "enable_if_env": {
+        "CM_TORCH_DEVICE": "cpu"
+      }
     },
     {
       "tags": "get,generic-python-lib,_torchvision"
@@ -38,6 +41,12 @@
     },
     {
       "tags": "get,cuda",
+      "enable_if_env": {
+        "CM_TORCH_DEVICE": "cuda"
+      }
+    },
+    {
+      "tags": "get,generic-python-lib,_torch_cuda",
       "enable_if_env": {
         "CM_TORCH_DEVICE": "cuda"
       }
