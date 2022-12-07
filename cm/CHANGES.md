@@ -1,5 +1,8 @@
-## V1.1.2.1
+## V1.1.3
    - improved removal of CM entries on Windows
+   - fixed https://github.com/mlcommons/ck/issues/574
+   - improved detection of CM entries with "."
+   - added --yaml option in "cm add" to save meta in YAML
 
 ## V1.1.2
    - added --save_to_json to save output to JSON (useful for web services)
