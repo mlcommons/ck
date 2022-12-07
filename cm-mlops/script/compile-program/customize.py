@@ -5,7 +5,6 @@ def preprocess(i):
     os_info = i['os_info']
 
     env = i['env']
-    
     CPPFLAGS = env.get('+ CPPFLAGS', [])
     env['CM_C_COMPILER_FLAGS'] = " ".join(env.get('+ CFLAGS', []) + CPPFLAGS)
     env['CM_CXX_COMPILER_FLAGS'] = " ".join(env.get('+ CXXFLAGS', []) + CPPFLAGS)

@@ -6,10 +6,10 @@ def preprocess(i):
     os_info = i['os_info']
     
     env = i['env']
-    env['+ CFLAGS'] = env.get('+ CFLAGS', [])
-    env['+ CXXFLAGS'] = env.get('+ CXXFLAGS', [])
-    env['+ FFLAGS'] = env.get('+ FFLAGS', [])
-    env['+ LDFLAGS'] = env.get('+ LDFLAGS', [])
+    env['+ CFLAGS'] = []
+    env['+ CXXFLAGS'] = []
+    env['+ FFLAGS'] = []
+    env['+ LDFLAGS'] = []
 
     # TBD: add unified flags for Windows
     if os_info['platform'] == 'windows':

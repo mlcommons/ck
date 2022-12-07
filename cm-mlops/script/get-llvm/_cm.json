@@ -24,7 +24,6 @@
   ],
   "post_deps": [
     {
-      "dynamic": true,
       "tags": "get,compiler-flags"
     }
   ],
