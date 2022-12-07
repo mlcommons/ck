@@ -1718,6 +1718,8 @@ class CAutomation(Automation):
 
           (tags) (str): tags to find an CM script (CM artifact)
 
+          (script_name) (str): name of script (it will be copied to the new entry and added to the meta)
+          
           ...
 
         Returns:
@@ -1736,6 +1738,14 @@ class CAutomation(Automation):
 
         artifact_obj = parsed_artifact[0] if len(parsed_artifact)>0 else ('','')
 
+        script_name = ''
+        if 'script_name' in i:
+           script_name = i.get('script_name','').strip()
+           del(i['script_name'])
+
+           if script_name != '' and not os.path.isfile(script_name):
+               return {'return':1, 'error':'file {} not found'.format(script_name)}
+
         # Move tags from input to meta of the newly created script artifact
         tags_list = utils.convert_tags_to_list(i)
         if 'tags' in i: del(i['tags'])
@@ -1748,6 +1758,18 @@ class CAutomation(Automation):
                    'automation_uid':self.meta['uid'],
                    'tags':tags_list}
 
+        script_name_base = script_name
+        script_name_ext = ''
+        if script_name!='':
+            # separate name and extension
+            j=script_name.rfind('.')
+            if j>=0:
+                script_name_base = script_name[:j]
+                script_name_ext = script_name[j:]
+
+            i['meta']['script_name'] = script_name_base
+        
+        
         r_obj=self.cmind.access(i)
         if r_obj['return']>0: return r_obj
 
@@ -1759,10 +1781,36 @@ class CAutomation(Automation):
         # Copy support files
         template_path = os.path.join(self.path, 'template')
 
-        # Copy module files
-        for f in ['README.md', 'customize.py', 'run.bat', 'run.sh']:
-            f1 = os.path.join(template_path, f)
-            f2 = os.path.join(new_script_path, f)
+        # Copy files
+        files = [(template_path, 'README.md', ''),
+                 (template_path, 'customize.py', '')]
+
+        if script_name == '':
+            files += [(template_path, 'run.bat', ''),
+                      (template_path, 'run.sh',  '')]
+        else:
+            if script_name_ext == '.bat':
+                files += [(template_path, 'run.sh', script_name_base+'.sh')]
+                files += [('', script_name, script_name)]
+
+            else:
+                files += [(template_path, 'run.bat', script_name_base+'.bat')]
+                files += [('', script_name, script_name_base+'.sh')]
+
+
+                
+        for x in files:
+            path = x[0]
+            f1 = x[1]
+            f2 = x[2]
+
+            if f2 == '':
+                f2 = f1
+
+            if path!='':
+                f1 = os.path.join(path, f1)
+            
+            f2 = os.path.join(new_script_path, f2)
 
             if console:
                 print ('  * Copying {} to {}'.format(f1, f2))
@@ -1770,7 +1818,6 @@ class CAutomation(Automation):
             shutil.copyfile(f1,f2)
 
         return r_obj
-
 
 
 
