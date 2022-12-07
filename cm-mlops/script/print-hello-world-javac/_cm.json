@@ -10,9 +10,9 @@
     },
     {
       "names": [
-        "java"
+        "javac"
       ],
-      "tags": "get,java"
+      "tags": "get,javac"
     }
   ],
   "tags": [
@@ -23,5 +23,5 @@
     "world",
     "java"
   ],
-  "uid": "62f30fe412494314"
+  "uid": "040fafd538104819"
 }

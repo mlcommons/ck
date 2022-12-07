@@ -5,7 +5,7 @@
 //Import libraries...
 import java.io.*;
 
-public class hello_world
+public class code
 {
   static int N=16;
   static double[][] A=new double [N][N];
