@@ -3295,7 +3295,7 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     found_cached = i['found_cached']
     script_automation = i['self']
 
-    # Preapre script name
+    # Prepare script name
     check_if_run_script_exists = False
     script_name = i.get('script_name','').strip()
     if script_name == '':
