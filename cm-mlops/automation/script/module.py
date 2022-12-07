@@ -3300,7 +3300,9 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     script_name = i.get('script_name','').strip()
     if script_name == '':
         script_name = meta.get('script_name','').strip()
-        check_if_run_script_exists = True
+        if script_name !='':
+            # Script name was added by user - we need to check that it really exists (on Linux or Windows)
+            check_if_run_script_exists = True
     if script_name == '':
         # Here is the default script name - if it doesn't exist, we skip it. 
         # However, if it's explicitly specified, we check it and report
