@@ -15,8 +15,10 @@ design space exploration and deployment across continuously changing software an
 ### Modular MLPerf benchmarks
 
 
+* [app-loadgen-generic-python](#app-loadgen-generic-python)
 * [app-mlperf-inference](#app-mlperf-inference)
 * [app-mlperf-inference-cpp](#app-mlperf-inference-cpp)
+* [app-mlperf-inference-nvidia-harness](#app-mlperf-inference-nvidia-harness)
 * [app-mlperf-inference-reference](#app-mlperf-inference-reference)
 * [generate-mlperf-inference-submission](#generate-mlperf-inference-submission)
 * [generate-mlperf-tiny-submission](#generate-mlperf-tiny-submission)
@@ -100,11 +102,11 @@ design space exploration and deployment across continuously changing software an
 ### Compiler automation
 
 
-* [get-cl](#get-cl) *(Use Microsoft C compiler)*
+* [get-cl](#get-cl) *(Microsoft C compiler)*
 * [get-compiler-flags](#get-compiler-flags)
-* [get-gcc](#get-gcc) *(Use GCC compiler)*
+* [get-gcc](#get-gcc) *(GCC compiler)*
 * [get-go](#get-go)
-* [get-llvm](#get-llvm) *(Use LLVM compiler)*
+* [get-llvm](#get-llvm) *(LLVM compiler)*
 * [install-gcc-src](#install-gcc-src)
 * [install-llvm-prebuilt](#install-llvm-prebuilt) *(Install prebuilt LLVM compiler)*
 * [install-llvm-src](#install-llvm-src) *(Build LLVM compiler from sources (can take >30 min))*
@@ -113,11 +115,15 @@ design space exploration and deployment across continuously changing software an
 ### Detection or installation of tools and artifacts
 
 
+* [get-android-sdk](#get-android-sdk)
 * [get-bazel](#get-bazel)
 * [get-cmake](#get-cmake)
 * [get-cmsis_5](#get-cmsis_5)
+* [get-java](#get-java)
+* [get-javac](#get-javac)
 * [get-openssl](#get-openssl)
 * [get-sys-utils-cm](#get-sys-utils-cm)
+* [get-sys-utils-min](#get-sys-utils-min)
 * [install-bazel](#install-bazel)
 * [install-cmake-prebuilt](#install-cmake-prebuilt)
 * [install-github-cli](#install-github-cli)
@@ -150,6 +156,7 @@ design space exploration and deployment across continuously changing software an
 
 * [get-cuda](#get-cuda)
 * [get-cuda-devices](#get-cuda-devices)
+* [get-tensorrt](#get-tensorrt)
 * [install-cuda-package-manager](#install-cuda-package-manager)
 * [install-cuda-prebuilt](#install-cuda-prebuilt)
 
@@ -211,6 +218,8 @@ design space exploration and deployment across continuously changing software an
 
 
 * [print-hello-world](#print-hello-world)
+* [print-hello-world-java](#print-hello-world-java)
+* [print-hello-world-json](#print-hello-world-json)
 * [print-hello-world-py](#print-hello-world-py)
 * [print-python-version](#print-python-version)
 * [test-set-sys-user-cm](#test-set-sys-user-cm)
@@ -225,8 +234,10 @@ design space exploration and deployment across continuously changing software an
 * [app-image-classification-torch-py](#app-image-classification-torch-py)
 * [app-image-classification-tvm-onnx-py](#app-image-classification-tvm-onnx-py)
 * [app-image-corner-detection](#app-image-corner-detection)
+* [app-loadgen-generic-python](#app-loadgen-generic-python)
 * [app-mlperf-inference](#app-mlperf-inference)
 * [app-mlperf-inference-cpp](#app-mlperf-inference-cpp)
+* [app-mlperf-inference-nvidia-harness](#app-mlperf-inference-nvidia-harness)
 * [app-mlperf-inference-reference](#app-mlperf-inference-reference)
 * [benchmark-program](#benchmark-program)
 * [build-docker-image](#build-docker-image)
@@ -238,11 +249,12 @@ design space exploration and deployment across continuously changing software an
 * [flash-tinyml-binary](#flash-tinyml-binary)
 * [generate-mlperf-inference-submission](#generate-mlperf-inference-submission)
 * [generate-mlperf-tiny-submission](#generate-mlperf-tiny-submission)
+* [get-android-sdk](#get-android-sdk)
 * [get-aws-cli](#get-aws-cli)
 * [get-bazel](#get-bazel)
 * [get-ck](#get-ck)
 * [get-ck-repo-mlops](#get-ck-repo-mlops)
-* [get-cl](#get-cl) *(Use Microsoft C compiler)*
+* [get-cl](#get-cl) *(Microsoft C compiler)*
 * [get-cmake](#get-cmake)
 * [get-cmsis_5](#get-cmsis_5)
 * [get-compiler-flags](#get-compiler-flags)
@@ -256,11 +268,13 @@ design space exploration and deployment across continuously changing software an
 * [get-dataset-openimages](#get-dataset-openimages)
 * [get-dataset-squad](#get-dataset-squad)
 * [get-dlrm](#get-dlrm)
-* [get-gcc](#get-gcc) *(Use GCC compiler)*
+* [get-gcc](#get-gcc) *(GCC compiler)*
 * [get-generic-python-lib](#get-generic-python-lib)
 * [get-github-cli](#get-github-cli)
 * [get-go](#get-go)
-* [get-llvm](#get-llvm) *(Use LLVM compiler)*
+* [get-java](#get-java)
+* [get-javac](#get-javac)
+* [get-llvm](#get-llvm) *(LLVM compiler)*
 * [get-microtvm](#get-microtvm)
 * [get-ml-model-bert-large-squad](#get-ml-model-bert-large-squad)
 * [get-ml-model-mobilenet](#get-ml-model-mobilenet)
@@ -284,6 +298,8 @@ design space exploration and deployment across continuously changing software an
 * [get-python3](#get-python3)
 * [get-spec-ptd](#get-spec-ptd)
 * [get-sys-utils-cm](#get-sys-utils-cm)
+* [get-sys-utils-min](#get-sys-utils-min)
+* [get-tensorrt](#get-tensorrt)
 * [get-terraform](#get-terraform)
 * [get-tvm](#get-tvm)
 * [get-zephyr](#get-zephyr)
@@ -306,6 +322,8 @@ design space exploration and deployment across continuously changing software an
 * [install-terraform-from-src](#install-terraform-from-src)
 * [install-tflite-from-src](#install-tflite-from-src)
 * [print-hello-world](#print-hello-world)
+* [print-hello-world-java](#print-hello-world-java)
+* [print-hello-world-json](#print-hello-world-json)
 * [print-hello-world-py](#print-hello-world-py)
 * [print-python-version](#print-python-version)
 * [process-mlperf-accuracy](#process-mlperf-accuracy)
@@ -357,7 +375,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="app,image-classification,onnx,python"*
-* CM script variations: *_gpu*
+* CM script variations: *_cuda*
 
 
 ## app-image-classification-torch-py
@@ -368,6 +386,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-torch-py/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="app,image-classification,torch,python"*
+* CM script variations: *_cuda*
 
 
 ## app-image-classification-tvm-onnx-py
@@ -379,6 +398,7 @@ design space exploration and deployment across continuously changing software an
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="app,image-classification,tvm-onnx,python"*
 * CM script variations: *_cuda;&nbsp; _llvm;&nbsp; _tvm;&nbsp; _tvm-pip-install*
+* CM script default variation: *tvm*
 
 
 ## app-image-corner-detection
@@ -391,6 +411,17 @@ design space exploration and deployment across continuously changing software an
 * CM script  tags: *cm run script --tags="app,image,corner-detection"*
 
 
+## app-loadgen-generic-python
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="app,loadgen,generic,loadgen-generic,python"*
+* CM script variations: *_cpu;&nbsp; _cuda;&nbsp; _onnxruntime;&nbsp; _resnet50;&nbsp; _retinanet*
+
+
 ## app-mlperf-inference
 
 
@@ -399,7 +430,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="app,vision,language,mlcommons,mlperf,inference,generic"*
-* CM script variations: *_bert;&nbsp; _bert-99;&nbsp; _bert-99.9;&nbsp; _cpp;&nbsp; _cpu;&nbsp; _fast;&nbsp; _gpu;&nbsp; _nvidia;&nbsp; _onnxruntime;&nbsp; _python;&nbsp; _pytorch;&nbsp; _quantized;&nbsp; _r2.1_default;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _test;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tflite-cpp;&nbsp; _valid*
+* CM script variations: *_bert-99;&nbsp; _bert-99.9;&nbsp; _bert_;&nbsp; _cpp;&nbsp; _cpu;&nbsp; _cuda;&nbsp; _fast;&nbsp; _nvidia;&nbsp; _onnxruntime;&nbsp; _power;&nbsp; _python;&nbsp; _pytorch;&nbsp; _quantized;&nbsp; _r2.1_default;&nbsp; _reference;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _test;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tflite-cpp;&nbsp; _tvm-onnx;&nbsp; _tvm-pip-install-onnx;&nbsp; _tvm-pip-install-pytorch;&nbsp; _tvm-pytorch;&nbsp; _valid*
 
 
 ## app-mlperf-inference-cpp
@@ -410,7 +441,18 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="app,mlcommons,mlperf,inference,cpp"*
-* CM script variations: *_cpu;&nbsp; _gpu;&nbsp; _onnxruntime;&nbsp; _pytorch;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tvm-onnx*
+* CM script variations: *_cpu;&nbsp; _cuda;&nbsp; _onnxruntime;&nbsp; _pytorch;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tvm-onnx*
+
+
+## app-mlperf-inference-nvidia-harness
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia-harness)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia-harness/_cm.yaml)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="app,mlcommons,mlperf,inference,nvidia-harness,nvidia"*
+* CM script variations: *_cpu;&nbsp; _cuda;&nbsp; _pytorch;&nbsp; _resnet50;&nbsp; _retinanet*
 
 
 ## app-mlperf-inference-reference
@@ -421,7 +463,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="app,vision,language,mlcommons,mlperf,inference,reference,ref"*
-* CM script variations: *_bert;&nbsp; _bert-99;&nbsp; _bert-99.9;&nbsp; _cpu;&nbsp; _fast;&nbsp; _gpu;&nbsp; _onnxruntime;&nbsp; _python;&nbsp; _pytorch;&nbsp; _quantized;&nbsp; _r2.1_default;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _tensorflow;&nbsp; _test;&nbsp; _tf;&nbsp; _tvm;&nbsp; _tvm-onnx;&nbsp; _tvm-pip-install-onnx;&nbsp; _tvm-pip-install-pytorch;&nbsp; _tvm-pytorch;&nbsp; _valid*
+* CM script variations: *_bert;&nbsp; _bert-99;&nbsp; _bert-99.9;&nbsp; _cpu;&nbsp; _cuda;&nbsp; _fast;&nbsp; _onnxruntime;&nbsp; _python;&nbsp; _pytorch;&nbsp; _quantized;&nbsp; _r2.1_default;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _tensorflow;&nbsp; _test;&nbsp; _tf;&nbsp; _tvm;&nbsp; _tvm-onnx;&nbsp; _tvm-pip-install-onnx;&nbsp; _tvm-pip-install-pytorch;&nbsp; _tvm-pytorch;&nbsp; _valid*
 
 
 ## benchmark-program
@@ -432,7 +474,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="program,benchmark,benchmark-program"*
-* CM script variations: *_numactl;&nbsp; _numactl-interleave;&nbsp; _profile*
+* CM script variations: *_mlperf-power;&nbsp; _numactl;&nbsp; _numactl-interleave;&nbsp; _profile*
 
 
 ## build-docker-image
@@ -463,7 +505,7 @@ design space exploration and deployment across continuously changing software an
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="program,compile,compile-program"*
+* CM script  tags: *cm run script --tags="compile,program,c-program,cpp-program,compile-program,compile-c-program,compile-cpp-program"*
 
 
 ## destroy-terraform
@@ -528,6 +570,16 @@ design space exploration and deployment across continuously changing software an
 * CM script  tags: *cm run script --tags="generate,submission,mlperf,mlperf-tiny,tiny,mlcommons,tiny-submission,mlperf-tiny-submission,mlcommons-tiny-submission"*
 
 
+## get-android-sdk
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-android-sdk)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-android-sdk/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,android,sdk,android-sdk"*
+
+
 ## get-aws-cli
 
 
@@ -571,7 +623,7 @@ design space exploration and deployment across continuously changing software an
 ## get-cl
 
 
-*Use Microsoft C compiler.*
+*Microsoft C compiler.*
 
 
 * CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
@@ -732,7 +784,7 @@ design space exploration and deployment across continuously changing software an
 ## get-gcc
 
 
-*Use GCC compiler.*
+*GCC compiler.*
 
 
 * CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
@@ -750,7 +802,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,generic,generic-python-lib"*
-* CM script variations: *_apache-tvm;&nbsp; _attrs;&nbsp; _boto3;&nbsp; _colored;&nbsp; _decorator;&nbsp; _jax;&nbsp; _jax_gpu;&nbsp; _mlperf_logging;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _nvidia-pyindex;&nbsp; _nvidia-tensorrt;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _onnxruntime_gpu;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pillow;&nbsp; _pip;&nbsp; _polygraphy;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _pycuda;&nbsp; _scipy;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _torchvision;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _typing_extensions;&nbsp; _ujson;&nbsp; _wandb*
+* CM script variations: *_apache-tvm;&nbsp; _attrs;&nbsp; _boto3;&nbsp; _colored;&nbsp; _decorator;&nbsp; _jax;&nbsp; _jax_cuda;&nbsp; _mlperf_logging;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _nvidia-pyindex;&nbsp; _nvidia-tensorrt;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _onnxruntime_gpu;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pillow;&nbsp; _pip;&nbsp; _polygraphy;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _pycuda;&nbsp; _scipy;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _torch_cuda;&nbsp; _torchaudio;&nbsp; _torchaudio_cuda;&nbsp; _torchvision;&nbsp; _torchvision_cuda;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _typing_extensions;&nbsp; _ujson;&nbsp; _wandb*
 
 
 ## get-github-cli
@@ -773,10 +825,32 @@ design space exploration and deployment across continuously changing software an
 * CM script  tags: *cm run script --tags="get,tool,go,get-go"*
 
 
+## get-java
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,java"*
+* CM script variations: *_install*
+
+
+## get-javac
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-javac)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-javac/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,javac"*
+* CM script variations: *_install*
+
+
 ## get-llvm
 
 
-*Use LLVM compiler.*
+*LLVM compiler.*
 
 
 * CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
@@ -808,7 +882,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,ml-model,bert,bert-large,bert-squad,language,language-processing"*
-* CM script variations: *_fp32;&nbsp; _int8;&nbsp; _onnx;&nbsp; _onnx-fp32;&nbsp; _onnx-int8;&nbsp; _onnxruntime;&nbsp; _pytorch;&nbsp; _pytorch-fp32;&nbsp; _pytorch-int8;&nbsp; _tensorflow;&nbsp; _tf*
+* CM script variations: *_fp32;&nbsp; _int8;&nbsp; _onnx;&nbsp; _onnx,fp32;&nbsp; _onnx,int8;&nbsp; _onnxruntime;&nbsp; _pytorch;&nbsp; _pytorch,fp32;&nbsp; _pytorch,int8;&nbsp; _tensorflow;&nbsp; _tf*
 
 
 ## get-ml-model-mobilenet
@@ -819,7 +893,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-mobilenet/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,ml-model,mobilenet,ml-model-mobilenet,image-classification"*
-* CM script variations: *_fp32;&nbsp; _int8;&nbsp; _onnx;&nbsp; _onnx-fp32;&nbsp; _onnx-int8;&nbsp; _onnx-v1-opset-11;&nbsp; _onnx-v1-opset-8;&nbsp; _onnx_;&nbsp; _tf;&nbsp; _tf-fp32;&nbsp; _tf-fp32-from.google;&nbsp; _tf-fp32-from.zenodo;&nbsp; _tf-fp32_;&nbsp; _tf-int8;&nbsp; _tflite-fp32;&nbsp; _tflite-fp32-from.google;&nbsp; _tflite-int8*
+* CM script variations: *_fp32;&nbsp; _from.google;&nbsp; _from.zenodo;&nbsp; _int8;&nbsp; _onnx;&nbsp; _onnx,fp32;&nbsp; _onnx,int8;&nbsp; _onnx,opset-11,fp32;&nbsp; _onnx,opset-8,fp32;&nbsp; _opset-11;&nbsp; _opset-8;&nbsp; _tf;&nbsp; _tf,fp32;&nbsp; _tf,fp32,from.google;&nbsp; _tf,fp32,from.zenodo;&nbsp; _tf,int8;&nbsp; _tflite*
 * CM script default variation: *onnx*
 
 
@@ -831,7 +905,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-nvidia-retinanet/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,ml-model,nvidia-retinanet,nvidia"*
-* CM script variations: *_efficient_nms*
+* CM script variations: *_efficient-nms*
 
 
 ## get-ml-model-resnet50
@@ -842,7 +916,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,ml-model,resnet50,ml-model-resnet50,image-classification"*
-* CM script variations: *_fp32;&nbsp; _int8;&nbsp; _onnx;&nbsp; _onnx-1.5-opset-11;&nbsp; _onnx-1.5-opset-8;&nbsp; _onnx_;&nbsp; _onnxruntime;&nbsp; _pytorch;&nbsp; _pytorch-fp32;&nbsp; _pytorch-int8;&nbsp; _tensorflow;&nbsp; _tf;&nbsp; _tflite;&nbsp; _uint8*
+* CM script variations: *_fp32;&nbsp; _int8;&nbsp; _onnx;&nbsp; _onnx,opset-11;&nbsp; _onnx,opset-8;&nbsp; _onnxruntime;&nbsp; _opset-11;&nbsp; _opset-8;&nbsp; _pytorch;&nbsp; _pytorch,fp32;&nbsp; _pytorch,int8;&nbsp; _tensorflow;&nbsp; _tf;&nbsp; _tflite;&nbsp; _uint8*
 * CM script default variation: *onnx*
 
 
@@ -854,7 +928,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,ml-model,resnext50,retinanet,object-detection"*
-* CM script variations: *_fp32;&nbsp; _onnx;&nbsp; _onnx-fp32;&nbsp; _onnx_;&nbsp; _pytorch;&nbsp; _pytorch-fp32;&nbsp; _pytorch-fp32-weights;&nbsp; _pytorch_*
+* CM script variations: *_fp32;&nbsp; _onnx;&nbsp; _onnx,fp32;&nbsp; _pytorch;&nbsp; _pytorch,fp32;&nbsp; _pytorch,fp32,weights;&nbsp; _weights*
 * CM script default variation: *onnx-fp32*
 
 
@@ -962,7 +1036,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp"*
-* CM script variations: *_cpu;&nbsp; _gpu*
+* CM script variations: *_cpu;&nbsp; _cuda*
 * CM script default variation: *cpu*
 * CM script default version: *1.12.1*
 
@@ -1052,6 +1126,26 @@ design space exploration and deployment across continuously changing software an
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,sys-utils-cm"*
 * CM script variations: *_user*
+
+
+## get-sys-utils-min
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-min)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-min/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,sys-utils-min"*
+
+
+## get-tensorrt
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,tensorrt,nvidia"*
 
 
 ## get-terraform
@@ -1174,7 +1268,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="install,generic,generic-python-lib"*
-* CM script variations: *_apache-tvm;&nbsp; _attrs;&nbsp; _boto3;&nbsp; _colored;&nbsp; _decorator;&nbsp; _jax;&nbsp; _jax_gpu;&nbsp; _mlperf_logging;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _nvidia-pyindex;&nbsp; _nvidia-tensorrt;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _onnxruntime_gpu;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pillow;&nbsp; _pip;&nbsp; _polygraphy;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _pycuda;&nbsp; _scipy;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _torchvision;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _typing_extensions;&nbsp; _ujson;&nbsp; _wandb*
+* CM script variations: *_apache-tvm;&nbsp; _attrs;&nbsp; _boto3;&nbsp; _colored;&nbsp; _decorator;&nbsp; _jax;&nbsp; _jax_cuda;&nbsp; _mlperf_logging;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _nvidia-pyindex;&nbsp; _nvidia-tensorrt;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _onnxruntime_gpu;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pillow;&nbsp; _pip;&nbsp; _polygraphy;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _pycuda;&nbsp; _scipy;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _torch_cuda;&nbsp; _torchaudio;&nbsp; _torchaudio_cuda;&nbsp; _torchvision;&nbsp; _torchvision_cuda;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _typing_extensions;&nbsp; _ujson;&nbsp; _wandb*
 
 
 ## install-github-cli
@@ -1304,6 +1398,26 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="print,hello-world,hello world,hello,world,script"*
+
+
+## print-hello-world-java
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-java)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-java/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="print,hello world,hello-world,hello,world,java"*
+
+
+## print-hello-world-json
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-json)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-json/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="print,hello world,hello-world,hello,world,java"*
 
 
 ## print-hello-world-py

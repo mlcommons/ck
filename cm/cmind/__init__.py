@@ -1,4 +1,4 @@
-__version__ = "1.1.3"
+__version__ = "1.1.3.1"
 
 from cmind.core import access
 from cmind.core import error
