@@ -2115,6 +2115,9 @@ class CAutomation(Automation):
         run_script_input_state_copy = copy.deepcopy(run_script_input.get('state',{}))
         script_name_copy = run_script_input.get('script_name','')
 
+        run_script_input['script_name'] = script_name
+        run_script_input['env'] = env
+
         r = prepare_and_run_script_with_postprocessing(run_script_input, postprocess="")
 
         run_script_input['state'] = run_script_input_state_copy
@@ -3344,7 +3347,8 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         if verbose:
             print ('')
-            print (recursion_spaces + '  - Running script {} in {} ...'.format(run_script, os.getcwd()))
+            print (recursion_spaces + '  - Running native script "{}" from temporal script "{}" in "{}" ...'.format(path_to_run_script, run_script, os.getcwd()))
+            print ('')
 
         # Prepare env variables
         import copy
