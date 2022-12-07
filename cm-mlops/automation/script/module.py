@@ -2040,20 +2040,39 @@ class CAutomation(Automation):
 
     ##############################################################################
     def run_native_script(self, i):
+        """
+        Run native script in a CM script entry
+        (wrapper around "prepare_and_run_script_with_postprocessing" function)
+
+        Args:
+          (dict):
+
+            run_script_input (dict): saved input for "prepare_and_run_script_with_postprocessing" function
+            env (dict): the latest environment for the script
+            script_name (str): native script name
+
+        Returns:
+          (dict): Output from "prepare_and_run_script_with_postprocessing" function
+
+
+        """
 
         import copy
 
-        env = i['env']
-        run_script_input = i.get('run_script_input', {})
+        run_script_input = i['run_script_input']
+        script_name = i['script_name']
+        env = i.get('env','')
 
         # Create and work on a copy to avoid contamination
         env_copy = copy.deepcopy(env)
         run_script_input_state_copy = copy.deepcopy(run_script_input.get('state',{}))
+        script_name_copy = run_script_input.get('script_name','')
 
-        r = prepare_and_run_script_with_postprocessing(i)
+        r = prepare_and_run_script_with_postprocessing(run_script_input, postprocess="")
 
         run_script_input['state'] = run_script_input_state_copy
         run_script_input['env'] = env_copy
+        run_script_input['script_name'] = script_name_copy
 
         return r
 
@@ -2642,7 +2661,8 @@ class CAutomation(Automation):
                            match_text = match_text,
                            fail_if_no_match = 'version was not detected')
         if r['return']>0: 
-           r['error'] += ' ({})'.format(r['string'])
+           if r.get('string','')!='':
+              r['error'] += ' ({})'.format(r['string'])
            return r
 
         string = r['string']
@@ -3229,7 +3249,16 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     script_automation = i['self']
 
     # Preapre script name
-    script_name = 'run' if i.get('script_name','')=='' else i['script_name']
+    check_if_run_script_exists = True
+    script_name = i.get('script_name','').strip()
+    if script_name == '':
+        script_name = meta.get('script_name','').strip()
+    if script_name == '':
+        # Here is the default script name - if it doesn't exist, we skip it. 
+        # However, if it's explicitly specified, we check it and report
+        # if it's missing ...
+        script_name = 'run'
+        check_if_run_script_exists = True
 
     if bat_ext == '.sh':
         run_script = get_script_name(env, path, script_name)
@@ -3237,6 +3266,9 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
         run_script = script_name + bat_ext
 
     path_to_run_script = os.path.join(path, run_script)
+
+    if check_if_run_script_exists and not os.path.isfile(path_to_run_script):
+        return {'return':16, 'error':'script {} not found - please add one'.format(path_to_run_script)}
 
     # Update env and state with const
     utils.merge_dicts({'dict1':env, 'dict2':const, 'append_lists':True, 'append_unique':True})
