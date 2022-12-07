@@ -267,7 +267,7 @@ class CM(object):
                     automation = r['cm_automation']
 
             # Check and make an artifact (only if artifacts are not specified)
-            if r.get('artifact_found_in_current_path', False) and artifact == '':
+            if r.get('cm_artifact','')!='' and artifact == '':
                 artifact = r['cm_artifact']
 
             if r.get('registered', False):

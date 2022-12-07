@@ -841,8 +841,19 @@ class Automation:
                 if console:
                     print ('- Updating meta in "{}"'.format(new_artifact_path))
 
-                r = artifact.update({})
-                if r['return'] >0: return r
+                # If only yaml, update yaml and not json
+                meta_path_yaml = os.path.join(new_artifact_path, self.cmind.cfg['file_cmeta']+'.yaml')
+                meta_path_json = os.path.join(new_artifact_path, self.cmind.cfg['file_cmeta']+'.json')
+                if os.path.isfile(meta_path_yaml) and not os.path.isfile(meta_path_json):
+                    update_meta={'alias':artifact_meta['alias'],
+                                 'uid':artifact_meta['uid']}
+                    
+                    r = utils.update_yaml(meta_path_yaml, update_meta)
+                    if r['return']>0: return r
+
+                else:
+                    r = artifact.update({})
+                    if r['return'] >0: return r
 
         return {'return':0, 'list':lst}
 
@@ -874,7 +885,7 @@ class Automation:
             * return (int): return code == 0 if no error and >0 if error
             * (error) (str): error string if return>0
 
-            * list (list): list of renamed/moved CM artifacts
+            * list (list): list of copied CM artifacts
 
         """
 
@@ -974,8 +985,19 @@ class Automation:
             if console:
                 print ('- Updating meta in "{}"'.format(new_artifact_path))
 
-            r = artifact.update({})
-            if r['return'] >0: return r
+            # If only yaml, update yaml and not json
+            meta_path_yaml = os.path.join(new_artifact_path, self.cmind.cfg['file_cmeta']+'.yaml')
+            meta_path_json = os.path.join(new_artifact_path, self.cmind.cfg['file_cmeta']+'.json')
+            if os.path.isfile(meta_path_yaml) and not os.path.isfile(meta_path_json):
+                update_meta={'alias':artifact_meta['alias'],
+                             'uid':artifact_meta['uid']}
+                
+                r = utils.update_yaml(meta_path_yaml, update_meta)
+                if r['return']>0: return r
+
+            else:
+                r = artifact.update({})
+                if r['return'] >0: return r
 
         return {'return':0, 'list':lst}
 
@@ -1010,7 +1032,7 @@ class Automation:
             * return (int): return code == 0 if no error and >0 if error
             * (error) (str): error string if return>0
 
-            * list (list): list of renamed/moved CM artifacts
+            * list (list): list of CM artifacts
 
         """
 

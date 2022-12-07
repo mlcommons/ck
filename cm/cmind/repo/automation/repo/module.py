@@ -740,7 +740,7 @@ class CAutomation(Automation):
             rr['found_in_current_path'] = r['found_in_current_path']
 
             # Load meta
-            r = utils.load_json_or_yaml(file_name = path_to_repo_desc)
+            r = utils.load_json_or_yaml(path_to_repo_desc)
             if r['return']>0: return r
 
             repo_meta = r['meta']
@@ -763,43 +763,51 @@ class CAutomation(Automation):
 
         rr['registered'] = registered
 
-        # If repository found, search for _cm.yaml or _cm.json in current directory and below
         artifact_found = False
         artifact_found_in_current_path = False
 
         if found:
-            r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_cmeta']+'.json', 
-                                                             self.cmind.cfg['file_cmeta']+'.yaml'],
-                                                             path_to_start = path,
-                                                             reverse = True)
-            if r['return']>0: return r
-
-            artifact_found = r['found']
-            artifact_found_in_current_path = r.get('found_in_current_path', False)
-
-            rr['artifact_found'] = artifact_found
-
-            if artifact_found:
-                path_to_artifact_desc = r['path_to_file']
-                path_to_artifact = r['path']
-
-                rr['path_to_artifact_desc'] = path_to_artifact_desc
-                rr['path_to_artifact'] = path_to_artifact
-
-                rr['artifact_found_in_current_path'] = artifact_found_in_current_path
-
-                # Load meta
-                r = utils.load_json_or_yaml(file_name = path_to_artifact_desc)
+            for reverse in [False, True]:
+                r=utils.find_file_in_current_directory_or_above([self.cmind.cfg['file_cmeta']+'.json', 
+                                                                 self.cmind.cfg['file_cmeta']+'.yaml'],
+                                                                 path_to_start = path,
+                                                                 reverse = reverse)
                 if r['return']>0: return r
 
-                artifact_meta = r['meta']
+                artifact_found = r['found']
+                artifact_found_in_current_path = r.get('found_in_current_path', False)
 
-                rr['artifact_meta'] = artifact_meta
+                rr['artifact_found'] = artifact_found
 
-                rr['cm_automation'] = utils.assemble_cm_object(artifact_meta['automation_alias'],artifact_meta['automation_uid'])
+                if artifact_found:
+                    path_to_artifact_desc = r['path_to_file']
+                    path_to_artifact = r['path']
 
-                if artifact_found_in_current_path:
-                    rr['cm_artifact'] = utils.assemble_cm_object(artifact_meta['alias'],artifact_meta['uid'])
+                    rr['path_to_artifact_desc'] = path_to_artifact_desc
+                    rr['path_to_artifact'] = path_to_artifact
+
+                    rr['artifact_found_in_current_path'] = artifact_found_in_current_path
+                    rr['artifact_reverse_search'] = reverse
+
+                    # Load meta
+                    path_to_artifact_desc_without_ext = path_to_artifact_desc
+                    j = path_to_artifact_desc.rfind('.')
+                    if j>=0:
+                        path_to_artifact_desc_without_ext=path_to_artifact_desc[:j]
+
+                    r = utils.load_yaml_and_json(path_to_artifact_desc_without_ext)
+                    if r['return']>0: return r
+
+                    artifact_meta = r['meta']
+
+                    rr['artifact_meta'] = artifact_meta
+
+                    rr['cm_automation'] = utils.assemble_cm_object(artifact_meta['automation_alias'],artifact_meta['automation_uid'])
+
+                    if not reverse or artifact_found_in_current_path:
+                        rr['cm_artifact'] = utils.assemble_cm_object(artifact_meta['alias'],artifact_meta['uid'])
+
+                    break
 
         # Print
         if console:
