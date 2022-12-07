@@ -286,7 +286,7 @@ class CAutomation(Automation):
         file_name_handle = open(file_name, 'rb')
         file_name_zip = zipfile.ZipFile(file_name_handle)
 
-        files=file_name_zip.namelist()
+        info_files=file_name_zip.infolist()
 
         path=i.get('path','')
         if path is None or path=='':
@@ -295,7 +295,10 @@ class CAutomation(Automation):
         strip_folders = i.get('strip_folders',0)
 
         # Unpacking zip
-        for f in files:
+        for info in info_files:
+            f = info.filename
+            permissions = info.external_attr
+
             if not f.startswith('..') and not f.startswith('/') and not f.startswith('\\'):
                 f_zip = f
 
@@ -318,6 +321,9 @@ class CAutomation(Automation):
                     file_out = open(file_path, 'wb')
                     file_out.write(file_name_zip.read(f_zip))
                     file_out.close()
+
+                    if permissions > 0xffff:
+                        os.chmod(file_path, permissions >> 16)
 
         file_name_zip.close()
         file_name_handle.close()

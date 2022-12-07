@@ -73,16 +73,20 @@ def preprocess(i):
        rr = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'install-prebuilt'})
        if rr['return']>0: return rr
 
-       target_file = os.path.join(cur_dir, 'jdk-'+javac_prebuilt_version, 'bin', file_name)
+       target_path = os.path.join(cur_dir, 'jdk-'+java_prebuilt_version, 'bin')
+       target_file = os.path.join(target_path, file_name)
 
        if not os.path.isfile(target_file):
            return {'return':1, 'error':'can\'t find target file {}'.format(target_file)}
-       
+
        print ('')
        print (recursion_spaces + '    Registering file {} ...'.format(target_file))
 
        env[env_path_key] = target_file
-    
+
+       if '+PATH' not in env: env['+PATH'] = []
+       env['+PATH'].append(target_path)
+
     return {'return':0}
 
 def skip_path(i):
