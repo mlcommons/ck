@@ -353,6 +353,7 @@ class Automation:
             meta (dict): meta description of this artifact
 
             (tags) (string or list): tags to be added to meta
+            (yaml) (bool): if True, record YAML instead of JSON
 
         Returns: 
             (CM return dict):
@@ -444,7 +445,10 @@ class Automation:
         meta['tags'] = utils.filter_tags(existing_tags)
 
         # Record meta
-        r = utils.save_json(meta_path_json, meta=meta)
+        if i.get('yaml', False):
+            r = utils.save_yaml(meta_path_yaml, meta=meta)
+        else:
+            r = utils.save_json(meta_path_json, meta=meta)
         if r['return']>0: return r
 
         if console:
