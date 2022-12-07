@@ -2107,7 +2107,6 @@ class CAutomation(Automation):
         import copy
 
         run_script_input = i['run_script_input']
-
         script_name = i['script_name']
         env = i.get('env','')
 
