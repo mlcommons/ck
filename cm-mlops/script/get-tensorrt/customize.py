@@ -27,6 +27,7 @@ def preprocess(i):
     version = version_match.group(1)
     env['CM_TENSORRT_VERSION'] = version
     env['CM_TMP_PATH'] = os.path.join(os.getcwd(), folder_name, "bin")
+    env['+CPLUS_INCLUDE_PATH'] = os.path.join(os.getcwd(), folder_name, "include")
     extra_paths = {"include" : "+C_INCLUDE_PATH", "lib" : "+LD_LIBRARY_PATH"}
     r = i['automation'].find_artifact({'file_name': file_name,
                                            'env': env,
