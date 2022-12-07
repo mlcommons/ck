@@ -1,4 +1,7 @@
 # 20221206:
+ * added "script_name" to the CM "script" meta to specify any native script name
+
+# 20221206:
  * added CM_SCRIPT_EXTRA_CMD to force some flags to all scripts
 
 # 20221202:
