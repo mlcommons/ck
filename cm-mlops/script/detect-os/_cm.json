@@ -11,7 +11,8 @@
     "+CM_HOST_OS_*",
     "CM_HOST_PLATFORM_*",
     "CM_HOST_PYTHON_*",
-    "CM_HOST_SYSTEM_NAME"
+    "CM_HOST_SYSTEM_NAME",
+    "+PATH"
   ],
   "new_state_keys": [
     "os_uname_*"

@@ -2107,11 +2107,12 @@ class CAutomation(Automation):
         import copy
 
         run_script_input = i['run_script_input']
+
         script_name = i['script_name']
         env = i.get('env','')
 
         # Create and work on a copy to avoid contamination
-        env_copy = copy.deepcopy(env)
+        env_copy = copy.deepcopy(run_script_input.get('env',{}))
         run_script_input_state_copy = copy.deepcopy(run_script_input.get('state',{}))
         script_name_copy = run_script_input.get('script_name','')
 
