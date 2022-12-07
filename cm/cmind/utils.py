@@ -1488,3 +1488,43 @@ def copy_to_clipboard(i):
         rr['warning']=warning 
     
     return rr
+
+###########################################################################
+def update_yaml(file_name, meta = {}, encoding = 'utf8'):
+    """
+    Updat yaml file directly (unsafe - only first keys)
+
+    Args:    
+       (CM input dict):
+
+         file_name (str): YAML file name 
+         meta (dict): keys to update
+         (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+    """
+
+    r = load_txt(file_name, encoding=encoding, split=True)
+    if r['return']>0: return r
+
+    yaml = r['list']
+
+    for k in meta:
+        # only simple string is supported
+        v = str(meta[k])
+
+        for j in range(0, len(yaml)):
+            s = yaml[j]
+
+            if s.startswith(k+':'):
+                yaml[j]=k+': '+v
+
+    r = save_txt(file_name, string = '\n'.join(yaml), encoding=encoding)
+    if r['return']>0: return r
+
+    return {'return':0}
