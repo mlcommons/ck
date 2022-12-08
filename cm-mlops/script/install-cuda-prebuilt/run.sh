@@ -8,5 +8,5 @@ INSTALL_DIR=${CUR}/install
 
 wget -nc ${WGET_URL}
 
-bash ${CM_CUDA_LINUX_FILENAME} --toolkitpath=${INSTALL_DIR} --defaultroot=${INSTALL_DIR}
+${CM_SUDO} bash ${CM_CUDA_LINUX_FILENAME} --toolkitpath=${INSTALL_DIR} --defaultroot=${INSTALL_DIR}
 
