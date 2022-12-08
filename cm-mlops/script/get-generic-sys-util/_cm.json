@@ -1,0 +1,51 @@
+{
+  "alias": "get-generic-sys-util",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "Detection or installation of tools and artifacts",
+  "deps": [
+    {
+      "tags": "detect,os"
+    }
+  ],
+  "default_env": {
+    "CM_CLEAN_DIRS": "bin",
+    "CM_SUDO": "sudo"
+  },
+  "new_env_keys": [
+  ],
+  "tags": [
+    "get",
+    "sys-util",
+    "generic",
+    "generic-sys-util"
+  ],
+  "uid": "bb0393afa8404a11",
+  "variations": {
+    "glog-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "glog-dev"
+      },
+      "state": {
+        "glog-dev": {
+          "apt": "libgoogle-glog-dev",
+          "dnf": "glog-devel",
+          "brew": "glog"
+        }
+      }
+    },
+    "gflags-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "gflags-dev"
+      },
+      "state": {
+        "gflags-dev": {
+          "apt": "libgflags-dev",
+          "dnf": "gflags-devel",
+          "brew": "gflags"
+        }
+      }
+    }
+  }
+}
