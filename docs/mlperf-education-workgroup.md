@@ -1,8 +1,9 @@
 [ [Back to index](README.md) ]
 
+
 # MLCommons taskforce on education and reproducibility
 
-Our mission:
+## Mission
 
 * help you automate and validate your MLPerf inference benchmark submissions to the v3.0 round for any hardware target (deadline: March 3, 2023);
 * modularize AI and ML Systems by decomposing them into [portable, interoperable and deterministic MLOps and DevOps scripts](list_of_scripts.md)
@@ -11,15 +12,14 @@ Our mission:
 * help the community reproduce MLPerf benchmarks, prepare their own submissions and deploy Pareto-optimal ML/AI systems in the real world;
 * support student competitions, reproducibility initiatives and artifact evaluation at ML and Systems conferences using the rigorous MLPerf methodology and the MLCommons automation meta-framework.
 
+## Meeting notes and news
+
+* [Shared doc]( https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing )
+
 ## Moderators
 
 * [Grigori Fursin](https://cKnowledge.io/@gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-
-
-## Meeting notes and news
-
-* [Shared doc]( https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing )
 
 ## Conf-calls
 
