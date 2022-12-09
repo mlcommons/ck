@@ -26,21 +26,6 @@
   "new_env_keys": [
     "CM_PYTHONLIB_*"
   ],
-  "prehook_deps": [
-    {
-      "enable_if_env": {
-        "CM_REQUIRE_INSTALL": [
-          "yes"
-        ]
-      },
-      "inherit_variation_tags": true,
-      "names": [
-        "generic-python-lib-install"
-      ],
-      "reuse_version": true,
-      "tags": "install,generic-python-lib"
-    }
-  ],
   "tags": [
     "get",
     "generic",

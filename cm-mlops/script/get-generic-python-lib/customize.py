@@ -7,6 +7,7 @@ def preprocess(i):
     env = i['env']
     meta = i['meta']
     automation = i['automation']
+    run_script_input = i['run_script_input']
 
     package_name = env.get('CM_GENERIC_PYTHON_PACKAGE_NAME', '').strip()
     if package_name == '':
@@ -26,10 +27,8 @@ def preprocess(i):
                'recursion_spaces':recursion_spaces})
     if r['return'] >0:
         if r['return'] == 16:
-            env['CM_REQUIRE_INSTALL'] = "yes"
-            return {'return':0}
-
-        return r
+            r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'install'})
+            if r['return']>0: return r
 
     return {'return':0}
 
