@@ -1,0 +1,83 @@
+{
+  "alias": "get-ml-model-tvm-resnet50",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "ML/AI models",
+  "default_variation": "onnx",
+  "env": {
+  },
+  "new_env_keys": [
+    "CM_ML_MODEL_*"
+  ],
+  "tags": [
+    "get",
+    "ml-model",
+    "tvm-model",
+    "resnet50",
+    "ml-model-resnet50",
+    "image-classification"
+  ],
+  "uid": "c1b7b656b6224307",
+  "variations": {
+    "fp32": {
+      "default": true,
+      "group": "precision",
+      "add_deps_recursive": {
+        "original-model": {
+          "tags": "_fp32"
+        }
+      }
+    },
+    "int8": {
+      "group": "precision",
+      "add_deps_recursive": {
+        "original-model": {
+          "tags": "_fp32"
+        }
+      }
+    },
+    "onnx": {
+      "default": true,
+      "group": "framework",
+      "deps": [
+        {
+          "names": [ "original-model" ],
+          "tags": "get,ml-model,resnet50,_onnx"
+        }
+      ]
+    },
+    "pytorch": {
+      "group": "framework",
+      "deps": [
+        {
+          "names": [ "original-model" ],
+          "tags": "get,ml-model,resnet50,_pytorch"
+        }
+      ]
+    },
+    "tensorflow": {
+      "group": "framework",
+      "deps": [
+        {
+          "names": [ "original-model" ],
+          "tags": "get,ml-model,resnet50,_pytorch"
+        }
+      ]
+    },
+    "tf": {
+      "alias": "tensorflow"
+    },
+    "tflite": {
+      "alias": "tensorflow"
+    },
+    "uint8": {
+      "group": "precision",
+      "add_deps_recursive": {
+        "original-model": {
+          "tags": "_fp32"
+        }
+      }
+    }
+  }
+}
