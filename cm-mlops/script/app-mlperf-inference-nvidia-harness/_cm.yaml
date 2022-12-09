@@ -51,11 +51,17 @@ deps:
   # Install system dependencies on a given host
   - tags: get,sys-utils-cm
 
-  # Detect CUDA if required
+  # Detect CUDA
   - tags: get,cuda
 
-  # Detect Tensorrt if required
+  # Detect Tensorrt
   - tags: get,tensorrt
+
+  # Detect Google Logger
+  - tags: get,generic,sys-util,_glog-dev
+
+  # Detect GFlags
+  - tags: get,generic,sys-util,_gflags-dev
 
   ########################################################################
   # Install MLPerf inference dependencies

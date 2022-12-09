@@ -64,12 +64,15 @@ def preprocess(i):
 
     env['CM_LINKER_LANG'] = 'CXX'
     env['CM_RUN_DIR'] = os.getcwd()
-
+    if env.get('CM_MLPERF_DEVICE', '') == "cpu":
+        env['+ CXXFLAGS'].append('-DUSE_CPU=1')
+    elif env.get('CM_MLPERF_DEVICE', '') == "inferentia":
+        env['+ CXXFLAGS'].append('-DUSE_INFERENTIA=1')
     if 'CM_MLPERF_CONF' not in env:
         env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
     if 'CM_MLPERF_USER_CONF' not in env:
         env['CM_MLPERF_USER_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "user.conf")
-
+    env['CM_RUN_SUFFIX'] = ''
     return {'return':0}
 
 def postprocess(i):
