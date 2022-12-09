@@ -10,9 +10,19 @@
   "new_env_keys": [
     "CM_ML_MODEL_*"
   ],
+  "deps": [
+    {
+      "names": [ "python, python3" ],
+      "tags": "get,python"
+    },
+    {
+      "tags": "get,tvm"
+    }
+  ],
   "tags": [
     "get",
     "ml-model",
+    "ml-model-tvm",
     "tvm-model",
     "resnet50",
     "ml-model-resnet50",
@@ -43,7 +53,7 @@
       "deps": [
         {
           "names": [ "original-model" ],
-          "tags": "get,ml-model,resnet50,_onnx"
+          "tags": "get,ml-model,raw,resnet50,_onnx"
         }
       ]
     },
@@ -52,7 +62,7 @@
       "deps": [
         {
           "names": [ "original-model" ],
-          "tags": "get,ml-model,resnet50,_pytorch"
+          "tags": "get,ml-model,raw,resnet50,_pytorch"
         }
       ]
     },
@@ -61,7 +71,7 @@
       "deps": [
         {
           "names": [ "original-model" ],
-          "tags": "get,ml-model,resnet50,_pytorch"
+          "tags": "get,ml-model,raw,resnet50,_tf"
         }
       ]
     },

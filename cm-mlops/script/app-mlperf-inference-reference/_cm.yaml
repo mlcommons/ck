@@ -216,7 +216,7 @@ deps:
   # Install ML models    
 
   ## ResNet50 (ONNX format, FP32)
-  - tags: get,ml-model,image-classification,resnet50,_onnx
+  - tags: get,ml-model,raw,image-classification,resnet50,_onnx
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
@@ -225,7 +225,7 @@ deps:
       - resnet50
 
   ## ResNet50 (Tensorflow format, FP32)
-  - tags: get,ml-model,image-classification,resnet50,_tensorflow
+  - tags: get,ml-model,raw,image-classification,resnet50,_tensorflow
     enable_if_env:
       CM_MLPERF_BACKEND:
       - tf
@@ -236,7 +236,7 @@ deps:
   ## ResNet50 (PyTorch format, FP32)
   - names:
     - resnet50-model
-    tags: get,ml-model,image-classification,resnet50,_pytorch,_fp32
+    tags: get,ml-model,raw,image-classification,resnet50,_pytorch,_fp32
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
@@ -246,7 +246,7 @@ deps:
   ## ResNet50 (PyTorch format, INT8)
   - names:
     - resnet50-model
-    tags: get,ml-model,image-classification,resnet50,_pytorch,_int8
+    tags: get,ml-model,raw,image-classification,resnet50,_pytorch,_int8
     enable_if_env:
       CM_MLPERF_BACKEND:
       - tvm-pytorch
