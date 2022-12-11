@@ -3722,7 +3722,7 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
     if not add_deps_info:
         add_deps_info = meta.get('add_deps',{})
     else:
-        utils.merge_dicts({'dict1':add_deps_info, 'dict2':i.get('add_deps', {}), 'append_lists':True, 'append_unique':True})
+        utils.merge_dicts({'dict1':add_deps_info, 'dict2':meta.get('add_deps', {}), 'append_lists':True, 'append_unique':True})
     if add_deps_info:
         r1 = update_deps(deps, add_deps_info, True)
         r2 = update_deps(post_deps, add_deps_info, True)
@@ -3763,7 +3763,7 @@ def get_adr(meta):
     if not add_deps_recursive_info:
         add_deps_recursive_info = meta.get('add_deps_recursive',{})
     else:
-        utils.merge_dicts({'dict1':add_deps_recursive_info, 'dict2':i.get('add_deps_recursive', {}), 'append_lists':True, 'append_unique':True})
+        utils.merge_dicts({'dict1':add_deps_recursive_info, 'dict2':meta.get('add_deps_recursive', {}), 'append_lists':True, 'append_unique':True})
     return add_deps_recursive_info
 
 ##############################################################################
