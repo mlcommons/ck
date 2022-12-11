@@ -735,8 +735,9 @@ class CAutomation(Automation):
                 r = update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
                 if r['return']>0: return r
 
-                if "add_deps_recursive" in variation_meta:
-                    self._merge_dicts_with_tags(add_deps_recursive, variation_meta['add_deps_recursive'])
+                adr=get_adr(variation_meta)
+                if adr:
+                    self._merge_dicts_with_tags(add_deps_recursive, adr)
 
                 combined_variations = [ t for t in variations if ',' in t ]
                 for combined_variation in combined_variations:
@@ -747,9 +748,12 @@ class CAutomation(Automation):
 
                         r = update_state_from_meta(combined_variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
                         if r['return']>0: return r
+                        adr=get_adr(combined_variation_meta)
+                        if adr:
+                            self._merge_dicts_with_tags(add_deps_recursive, adr)
+            #Processing them again using updated deps for add_deps_recursive
+            r = update_adr_from_meta(deps, post_deps, prehook_deps, posthook_deps, add_deps_recursive)
 
-                        if "add_deps_recursive" in combined_variation_meta:
-                            self._merge_dicts_with_tags(add_deps_recursive, combined_variation_meta['add_deps_recursive'])
 
 
 
@@ -1837,7 +1841,8 @@ class CAutomation(Automation):
                     return {'return': 1, 'error': 'Incompatible combinations: (alias, group) specified for the variation "{}" '.format(k)}
                 if 'default' in variation:
                     return {'return': 1, 'error': 'Incompatible combinations: (default, group) specified for the variation "{}" '.format(k)}
-                tmp_variation_tags.append(variation['alias'])
+                if variation['alias'] not in tmp_variation_tags:
+                    tmp_variation_tags.append(variation['alias'])
         return {'return':0, 'variation_tags': tmp_variation_tags}
 
 
@@ -3725,17 +3730,6 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
         r4 = update_deps(posthook_deps, add_deps_info, True)
         if r1['return']>0 and r2['return']>0 and r3['return'] > 0 and r4['return'] > 0: return r1
 
-    add_deps_recursive_info = meta.get('adr', {})
-    if not add_deps_recursive_info:
-        add_deps_recursive_info = meta.get('add_deps_recursive',{})
-    else:
-        utils.merge_dicts({'dict1':add_deps_recursive_info, 'dict2':i.get('add_deps_recursive', {}), 'append_lists':True, 'append_unique':True})
-    if add_deps_recursive_info:
-        update_deps(deps, add_deps_recursive_info)
-        update_deps(post_deps, add_deps_recursive_info)
-        update_deps(prehook_deps, add_deps_recursive_info)
-        update_deps(posthook_deps, add_deps_recursive_info)
- 
     input_mapping = meta.get('input_mapping', {})
     if input_mapping:
         update_env_from_input_mapping(env, i['input'], input_mapping)
@@ -3749,6 +3743,28 @@ def update_state_from_meta(meta, env, state, deps, post_deps, prehook_deps, post
         new_state_keys += new_state_keys_from_meta
 
     return {'return':0}
+
+##############################################################################
+def update_adr_from_meta(deps, post_deps, prehook_deps, posthook_deps, add_deps_recursive_info):
+    """
+    Internal: update add_deps_recursive from meta
+    """
+    if add_deps_recursive_info:
+        update_deps(deps, add_deps_recursive_info)
+        update_deps(post_deps, add_deps_recursive_info)
+        update_deps(prehook_deps, add_deps_recursive_info)
+        update_deps(posthook_deps, add_deps_recursive_info)
+
+    return {'return':0}
+
+##############################################################################
+def get_adr(meta):
+    add_deps_recursive_info = meta.get('adr', {})
+    if not add_deps_recursive_info:
+        add_deps_recursive_info = meta.get('add_deps_recursive',{})
+    else:
+        utils.merge_dicts({'dict1':add_deps_recursive_info, 'dict2':i.get('add_deps_recursive', {}), 'append_lists':True, 'append_unique':True})
+    return add_deps_recursive_info
 
 ##############################################################################
 def detect_state_diff(env, saved_env, new_env_keys, new_state_keys, state, saved_state):
