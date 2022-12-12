@@ -1,9 +1,9 @@
 {
-  "alias": "get-ml-model-nvidia-retinanet",
+  "alias": "get-ml-model-retinanet-nvidia",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "category": "ML/AI models",
   "cache": true,
+  "category": "ML/AI models",
   "default_env": {
     "CM_TORCH_DEVICE": "cpu"
   },
@@ -28,10 +28,10 @@
       "tags": "get,ml-model,retinanet,_pytorch,_fp32,_weights"
     },
     {
-      "tags": "get,generic-python-lib,_torch",
       "enable_if_env": {
         "CM_TORCH_DEVICE": "cpu"
-      }
+      },
+      "tags": "get,generic-python-lib,_torch"
     },
     {
       "tags": "get,generic-python-lib,_torchvision"
@@ -40,20 +40,24 @@
       "tags": "get,generic-python-lib,_mlperf_logging"
     },
     {
-      "tags": "get,cuda",
       "enable_if_env": {
         "CM_TORCH_DEVICE": "cuda"
-      }
+      },
+      "tags": "get,cuda"
     },
     {
-      "tags": "get,generic-python-lib,_torch_cuda",
       "enable_if_env": {
         "CM_TORCH_DEVICE": "cuda"
-      }
+      },
+      "tags": "get,generic-python-lib,_torch_cuda"
     },
     {
       "tags": "get,nvidia,mlperf,inference,common-code"
     }
+  ],
+  "new_env_keys": [
+    "CM_NVIDIA_RETINANET_*",
+    "CM_ML_MODEL_*"
   ],
   "tags": [
     "get",
@@ -61,21 +65,17 @@
     "nvidia-retinanet",
     "nvidia"
   ],
-  "new_env_keys": [
-    "CM_NVIDIA_RETINANET_*",
-    "CM_ML_MODEL_*"
-  ],
   "uid": "f059d249fac843ba",
   "variations": {
     "efficient-nms": {
-      "env": {
-        "CM_NVIDIA_EFFICIENT_NMS": "yes"
-      },
       "deps": [
         {
           "tags": "get,generic-python-lib,_polygraphy"
         }
-      ]
+      ],
+      "env": {
+        "CM_NVIDIA_EFFICIENT_NMS": "yes"
+      }
     }
   }
 }
