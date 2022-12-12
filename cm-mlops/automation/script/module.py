@@ -822,9 +822,11 @@ class CAutomation(Automation):
             versions_meta = versions[version]
             r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
             if r['return']>0: return r
-            if "add_deps_recursive" in versions_meta:
-                self._merge_dicts_with_tags(add_deps_recursive, versions_meta['add_deps_recursive'])
-
+            adr=get_adr(version_meta)
+            if adr:
+                self._merge_dicts_with_tags(add_deps_recursive, adr)
+                #Processing them again using updated deps for add_deps_recursive
+                r = update_adr_from_meta(deps, post_deps, prehook_deps, posthook_deps, add_deps_recursive)
 
  
         # STEP 1100: Update deps from input
