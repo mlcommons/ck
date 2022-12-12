@@ -822,7 +822,7 @@ class CAutomation(Automation):
             versions_meta = versions[version]
             r = update_state_from_meta(versions_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
             if r['return']>0: return r
-            adr=get_adr(version_meta)
+            adr=get_adr(versions_meta)
             if adr:
                 self._merge_dicts_with_tags(add_deps_recursive, adr)
                 #Processing them again using updated deps for add_deps_recursive
