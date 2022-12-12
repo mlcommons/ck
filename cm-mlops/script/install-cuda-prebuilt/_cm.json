@@ -10,6 +10,9 @@
       "tags": "detect,os"
     }
   ],
+  "default_env": {
+    "CM_SUDO": "sudo"
+  },
   "post_deps": [
     {
       "skip_if_env": {

@@ -27,7 +27,8 @@
   ],
   "default_env": {
     "CM_GIT_CHECKOUT": "main",
-    "CM_GIT_URL": "https://github.com/apache/tvm"
+    "CM_GIT_URL": "https://github.com/apache/tvm",
+    "CM_TVM_PIP_INSTALL": "no"
   },
   "extra_cache_tags_from_env": [
     {
@@ -49,6 +50,16 @@
   ],
   "uid": "93c89140e6224f4b",
   "variations": {
+    "pip-install": {
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_apache-tvm"
+        }
+      ],
+      "env": {
+	"CM_TVM_PIP_INSTALL": "yes"
+      }
+    },
     "cuda": {
       "deps": [
         {

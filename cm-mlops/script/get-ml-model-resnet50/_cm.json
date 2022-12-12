@@ -20,6 +20,7 @@
   ],
   "tags": [
     "get",
+    "raw",
     "ml-model",
     "resnet50",
     "ml-model-resnet50",

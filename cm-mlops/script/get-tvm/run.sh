@@ -2,6 +2,10 @@
 
 CUR_DIR=$PWD
 
+if [ "${CM_TVM_PIP_INSTALL}" != "no" ]; then
+  exit 0;
+fi
+
 echo "******************************************************"
 echo "Path for TVM: ${CUR_DIR}"
 echo ""

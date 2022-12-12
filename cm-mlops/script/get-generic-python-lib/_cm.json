@@ -26,21 +26,6 @@
   "new_env_keys": [
     "CM_PYTHONLIB_*"
   ],
-  "prehook_deps": [
-    {
-      "enable_if_env": {
-        "CM_REQUIRE_INSTALL": [
-          "yes"
-        ]
-      },
-      "inherit_variation_tags": true,
-      "names": [
-        "generic-python-lib-install"
-      ],
-      "reuse_version": true,
-      "tags": "install,generic-python-lib"
-    }
-  ],
   "tags": [
     "get",
     "generic",
@@ -59,10 +44,17 @@
     "jax_cuda": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax[cuda]",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": "-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html",
         "CM_JAX_VERSION_EXTRA":"CUDA"
       },
       "new_env_keys": [
         "CM_JAX_VERSION*"
+      ],
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
       ]
     },
     "numpy": {
@@ -112,6 +104,12 @@
       },
       "new_env_keys": [
         "CM_ONNXRUNTIME_VERSION*"
+      ],
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
       ]
     },
     "protobuf": {
@@ -140,7 +138,8 @@
     },
     "torch": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
       },
       "new_env_keys": [
         "CM_TORCH_VERSION*"
@@ -149,15 +148,24 @@
     "torch_cuda": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_TORCH_CUDA":"cu116",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
         "CM_TORCH_VERSION_EXTRA":"CUDA"
       },
       "new_env_keys": [
         "CM_TORCH_VERSION*"
+      ],
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
       ]
    },
     "torchvision": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
       },
       "new_env_keys": [
         "CM_TORCHVISION_VERSION*"
@@ -170,11 +178,18 @@
       },
       "new_env_keys": [
         "CM_TORCHVISION_VERSION*"
+      ],
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
       ]
     },
     "torchaudio": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
       },
       "new_env_keys": [
         "CM_TORCHAUDIO_VERSION*"
@@ -183,10 +198,18 @@
     "torchaudio_cuda": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
-         "CM_TORCHAUDIO_VERSION_EXTRA":"CUDA"
+        "CM_TORCHAUDIO_VERSION_EXTRA":"CUDA",
+        "CM_TORCH_CUDA":"cu116",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}"
      },
       "new_env_keys": [
         "CM_TORCHAUDIO_VERSION*"
+      ],
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
       ]
     },
     "transformers": {
@@ -206,7 +229,10 @@
       ]
     },
     "nvidia-pycocotools": {
-      "base": [ "pycocotools" ]
+      "base": [ "pycocotools" ],
+      "env": {
+          "CM_GENERIC_PYTHON_PIP_URL": "pycocotools@git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI"
+      }
     },
     "apache-tvm": {
       "env": {
@@ -323,11 +349,18 @@
       },
       "new_env_keys": [
         "CM_PYCUDA_VERSION"
+      ],
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
       ]
     },
     "colored": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "colored"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "colored",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://pypi.ngc.nvidia.com"
       },
       "new_env_keys": [
         "CM_COLORED_VERSION"
@@ -335,7 +368,8 @@
     },
     "polygraphy": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "polygraphy"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "polygraphy",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://pypi.ngc.nvidia.com"
       },
       "deps": [
         {
@@ -356,7 +390,8 @@
     },
     "mlperf_logging": {
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "mlperf_logging"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "mlperf_logging",
+        "CM_GENERIC_PYTHON_PIP_URL": "git+https://github.com/mlperf/logging.git@2.1.0"
       },
       "new_env_keys": [
         "CM_MLPERF_LOGGING_VERSION"
