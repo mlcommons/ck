@@ -46,7 +46,7 @@
     "int8": {
       "add_deps_recursive": {
         "original-model": {
-          "tags": "_fp32"
+          "tags": "_int8"
         }
       },
       "group": "precision"
