@@ -1,3 +1,14 @@
+# CM "script" automation that wraps native scripts with a unified CLI, Python API 
+# and JSON/YAML meta descriptions.
+#
+# It is a stable prototype being developed by Grigori Fursin and Arjun Suresh
+# 
+# We think to develop a cleaner and simpler version of this automation at some point
+# while keeping full backwards compatibility.
+#
+# Join the MLCommons taskforce on education and reproducibility
+# to discuss further developments: http://bit.ly/mlperf-edu-wg
+
 import os
 
 from cmind.automation import Automation
