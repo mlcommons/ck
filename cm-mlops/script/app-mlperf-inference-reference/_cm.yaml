@@ -224,7 +224,10 @@ deps:
       - resnet50
 
   ## ResNet50 (TVM ONNX format, FP32)
-  - tags: get,ml-model,tvm-model,resnet50,_onnx,_bs.32
+  - tags: get,ml-model,tvm-model,resnet50,_onnx
+    names:
+      - ml-model
+      - tvm-model
     enable_if_env:
       CM_MLPERF_BACKEND:
       - tvm-onnx
