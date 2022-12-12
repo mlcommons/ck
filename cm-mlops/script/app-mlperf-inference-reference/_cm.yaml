@@ -220,6 +220,13 @@ deps:
     enable_if_env:
       CM_MLPERF_BACKEND:
       - onnxruntime
+      CM_MODEL:
+      - resnet50
+
+  ## ResNet50 (TVM ONNX format, FP32)
+  - tags: get,ml-model,tvm-model,resnet50,_onnx,_bs.32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
       - tvm-onnx
       CM_MODEL:
       - resnet50
@@ -396,21 +403,8 @@ variations:
   tensorflow:
     alias: tf
 
-  tvm:
-    group: framework,
-    env:
-      CM_MLPERF_TVM_TRANSFORM_LAYOUT: 'yes'
-      CM_MLPERF_TVM_USE_DNNL: 'no'
-      CM_MLPERF_TVM_OPT_LEVEL: '3'
-      CM_MLPERF_TVM_TARGET: 'llvm'
-      CM_MLPERF_TVM_EXECUTOR: 'graph'
-      CM_MLPERF_TVM_APPLY_HISTORY: ''
-      CM_MLPERF_DELETE_COMPILED_MODEL: 'yes'
-
   tvm-onnx:
     group: framework,
-    base:
-    - tvm
     env:
       CM_MLPERF_BACKEND: tvm-onnx
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
@@ -419,41 +413,11 @@ variations:
 
   tvm-pytorch:
     group: framework,
-    base:
-    - tvm
     env:
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
 
-  tvm-pip-install-onnx:
-    group: framework,
-    base:
-    - tvm
-    deps:
-    - names:
-      - tvm
-      - ml-engine-tvm
-      tags: get,generic-python-lib,_apache-tvm
-    - tags: get,generic-python-lib,_onnx
-    env:
-      CM_MLPERF_BACKEND: tvm-onnx
-      CM_TVM_PIP_INSTALL: true
-
-  tvm-pip-install-pytorch:
-    group: framework,
-    base:
-    - tvm
-    deps:
-    - names:
-      - tvm
-      - ml-engine-tvm
-      tags: get,generic-python-lib,_apache-tvm
-    env:
-      CM_MLPERF_BACKEND: tvm-pytorch
-      CM_TVM_PIP_INSTALL: true
-
- 
   # Reference MLPerf models
   bert-99.9:
     group: models,

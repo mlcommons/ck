@@ -1,4 +1,5 @@
 import os
+import tvm
 # Import model to TVM
 from tvm import relay
 max_batchsize = os.environ.get('CM_ML_MODEL_MAX_BATCH_SIZE')
@@ -11,6 +12,15 @@ input_shapes = input_shapes.replace('BATCH_SIZE', str(max_batchsize))
 model_path = os.environ.get('CM_ML_MODEL_FILE_WITH_PATH')
 
 print ('TVM model: '+model_path)
+# Check if load precompiled model
+compiled_model = os.path.join(os.getcwd(), 'model-tvm.so')
+if model_path.endswith('.so') or model_path.endswith('.dylib'):
+    compiled_model = model_path
+
+    if not os.path.isfile(compiled_model):
+        print ('')
+        raise Exception("Error: Model file {} not found!".format(compiled_model))
+
 
 build_conf = {}
 params = {}
@@ -121,11 +131,11 @@ if tvm_history_json_file!='':
 
     with auto_scheduler.ApplyHistoryBest(tvm_history_json_file):
        with tvm.transform.PassContext(opt_level=opt_lvl, config=build_conf):
-           self.lib=relay.build(mod, target=tvm_target, params=params)
+           lib=relay.build(mod, target=tvm_target, params=params)
 else:
     with tvm.transform.PassContext(opt_level=opt_lvl, config=build_conf):
-        self.lib=relay.build(mod, target=tvm_target, params=params)
+        lib=relay.build(mod, target=tvm_target, params=params)
 
-self.lib.export_library(compiled_model)
+lib.export_library(compiled_model)
 
 print ('TVM compiled model: '+compiled_model)

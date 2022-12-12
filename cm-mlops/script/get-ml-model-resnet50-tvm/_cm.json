@@ -13,6 +13,9 @@
       "tags": "get,python"
     },
     {
+      "names": [
+        "tvm"
+      ],
       "tags": "get,tvm"
     }
   ],
@@ -95,6 +98,49 @@
         }
       },
       "group": "precision"
+    },
+    "bs.64": {
+      "group": "batchsize",
+      "env": {
+        "CM_ML_MODEL_MAX_BATCH_SIZE": "64"
+      }
+    },
+    "bs.32": {
+      "group": "batchsize",
+      "env": {
+        "CM_ML_MODEL_MAX_BATCH_SIZE": "32"
+      }
+    },
+    "bs.16": {
+      "group": "batchsize",
+      "env": {
+        "CM_ML_MODEL_MAX_BATCH_SIZE": "16"
+      }
+    },
+    "bs.8": {
+      "group": "batchsize",
+      "default": true,
+      "env": {
+        "CM_ML_MODEL_MAX_BATCH_SIZE": "8"
+      }
+    },
+    "bs.4": {
+      "group": "batchsize",
+      "env": {
+        "CM_ML_MODEL_MAX_BATCH_SIZE": "4"
+      }
+    },
+    "bs.2": {
+      "group": "batchsize",
+      "env": {
+        "CM_ML_MODEL_MAX_BATCH_SIZE": "2"
+      }
+    },
+    "bs.1": {
+      "group": "batchsize",
+      "env": {
+        "CM_ML_MODEL_MAX_BATCH_SIZE": "1"
+      }
     }
   }
 }

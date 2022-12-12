@@ -132,6 +132,7 @@ def preprocess(i):
     env['CM_MLPERF_RUN_CMD'] = cmd
     env['CM_RUN_DIR'] = os.getcwd()
     env['CM_RUN_CMD'] = cmd
+    env['CK_PROGRAM_TMP_DIR'] = env['CM_ML_MODEL_PATH'] #for tvm
 
     return {'return':0}
 

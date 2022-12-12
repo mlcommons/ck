@@ -57,7 +57,7 @@
         }
       ],
       "env": {
-	"CM_TVM_PIP_INSTALL": "yes"
+        "CM_TVM_PIP_INSTALL": "yes"
       }
     },
     "cuda": {
