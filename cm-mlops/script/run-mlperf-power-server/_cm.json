@@ -18,6 +18,7 @@
     "device_port": "CM_MLPERF_POWER_DEVICE_PORT",
     "device_type": "CM_MLPERF_POWER_DEVICE_TYPE",
     "outdir": "CM_MLPERF_POWER_SERVER_OUTDIR",
+    "ntp_server": "CM_MLPERF_POWER_NTP_SERVER",
     "logfile": "CM_MLPERF_POWER_LOG_FILE"
   },
   "deps": [

@@ -10,8 +10,7 @@
     "CM_MLPERF_RUN_CMD": "",
     "CM_MLPERF_POWER_SERVER_ADDRESS": "localhost",
     "CM_MLPERF_LOADGEN_LOGS_DIR": "loadgen_logs",
-    "CM_MLPERF_POWER_NTP_SERVER": "time.google.com",
-    "CM_MLPERF_POWER_SERVER_OUTDIR": "~/mlperf_power_logs"
+    "CM_MLPERF_POWER_NTP_SERVER": "time.google.com"
   },
   "deps": [
     {
@@ -29,8 +28,11 @@
     }
   ],
   "input_mapping": {
-    "logfile": "CM_MLPERF_POWER_LOG_FILE",
-    "outdir": "CM_MLPERF_POWER_SERVER_OUTDIR"
+    "log_dir": "CM_MLPERF_POWER_LOG_DIR",
+    "power_server": "CM_MLPERF_POWER_SERVER_ADDRESS",
+    "loadgen_logs_dir": "CM_MLPERF_LOADGEN_LOGS_DIR",
+    "ntp_server": "CM_MLPERF_POWER_NTP_SERVER",
+    "run_cmd": "CM_MLPERF_RUN_CMD"
   },
   "tags": [
     "run",
