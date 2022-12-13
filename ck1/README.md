@@ -1,6 +1,7 @@
-*Note that this MLCommons CK framework (the 1st generation) was discontinued in summer 2022 
-after the [2nd generation of this framework (CM)](https://github.com/mlcommons/ck) 
-was released by the [MLCommons taskforce on education and reproducibility](../docs/mlperf-education-workgroup.md).*
+*Note that the 1st generation of the CK framework was discontinued in summer 2022 
+ after the [2nd generation of this framework (CM)](https://github.com/mlcommons/ck) 
+ was released by the [open taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+ at [MLCommons](https://mlcommons.org).*
 
 
 # Collective Knowledge framework (CK)
@@ -24,7 +25,7 @@ was released by the [MLCommons taskforce on education and reproducibility](../do
 
 * **2022 July 17:** We have pre-released CK2-based MLOps and DevOps automation scripts at https://github.com/mlcommons/ck/tree/master/cm-mlops/script
 
-* **2022 May:** We started developing the 2nd generation of the CK framework (aka CM): https://github.com/mlcommons/ck/tree/master/cm
+* **2022 May:** We started developing the 2nd generation of the CK framework (aka CM)
 
 * **2022 April 3:** We presented the CK concept to bridge the growing gap between ML Systems research and production 
   at the HPCA'22 workshop on [benchmarking deep learning systems](https://sites.google.com/g.harvard.edu/mlperf-bench-hpca22/home).

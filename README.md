@@ -14,12 +14,15 @@ to make MLOps and DevOps more interoperable, portable, deterministic and reprodu
 optimization and deployment across diverse and continuously changing software, hardware and data
 from the cloud to embedded devices.
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
 [![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm)
-[![CM(CK2) test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
+[![Downloads](https://pepy.tech/badge/cmind/month)](https://pepy.tech/project/cmind)
 
-&copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
+[![CM(CK2) test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
+[![CM(CK2) script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
+
+&copy; 2021-2022 [MLCommons](https://mlcommons.org)
 
 ## Documentation
 

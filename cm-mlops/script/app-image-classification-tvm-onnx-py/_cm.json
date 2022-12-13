@@ -7,7 +7,7 @@
     "CM_BATCH_COUNT": "1",
     "CM_BATCH_SIZE": "1"
   },
-  "default_variation": "tvm-llvm",
+  "default_variation": "tvm",
   "deps": [
     {
       "tags": "detect,os"
@@ -59,13 +59,27 @@
         }
       ]
     },
-    "tvm-llvm": {
-      "base": [ "tvm" ],
+    "llvm": {
       "add_deps_recursive": {
         "tvm": {
           "tags": "_llvm"
         }
       }
+    },
+    "cuda": {
+      "add_deps_recursive": {
+        "tvm": {
+          "tags": "_cuda"
+        }
+      },
+      "env": {
+         "USE_CUDA": "yes"
+      },
+      "deps": [
+        {
+          "tags": "get,cuda"
+        }
+      ]
     }
   }
 }

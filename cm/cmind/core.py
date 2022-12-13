@@ -91,6 +91,9 @@ class CM(object):
         # Check Python version
         self.python_version = list(sys.version_info)
 
+        # Save output to json (only from CLI)
+        self.save_to_json = ''
+
     ############################################################
     def error(self, r):
         """
@@ -151,7 +154,7 @@ class CM(object):
 
             (ignore_inheritance) (bool): if True, ignore inheritance when searching for artifacts and automations
 
-            (out) (str): if 'out', tell automations and CM to output extra information to console
+            (out) (str): if 'con', tell automations and CM to output extra information to console
 
         Returns: 
             (CM return dict):
@@ -185,6 +188,10 @@ class CM(object):
             i['out'] = out
 
         output = i.get('out','')
+
+        # Check if save to json
+        if 'save_to_json' in i and i['save_to_json']!='':
+            self.save_to_json = i['save_to_json']
 
         # Set self.output to the output of the very first access 
         # to print error in the end if needed
@@ -260,7 +267,7 @@ class CM(object):
                     automation = r['cm_automation']
 
             # Check and make an artifact (only if artifacts are not specified)
-            if r.get('artifact_found_in_current_path', False) and artifact == '':
+            if r.get('cm_artifact','')!='' and artifact == '':
                 artifact = r['cm_artifact']
 
             if r.get('registered', False):

@@ -251,7 +251,7 @@ def load_yaml(file_name, check_if_exists = False, encoding = 'utf8'):
 ###########################################################################
 def load_txt(file_name, encoding = 'utf8', remove_after_read = False, 
              check_if_exists = False, split = False,
-             match_text = '', fail_if_no_match = ''):
+             match_text = '', fail_if_no_match = '', debug = False):
     """
     Load text file.
 
@@ -293,6 +293,9 @@ def load_txt(file_name, encoding = 'utf8', remove_after_read = False,
     if match_text != '':
         import re
         match = re.search(match_text, s)
+
+        if debug:
+            print (match)
 
         if fail_if_no_match!='' and match is None:
             return {'return':1, 'error': fail_if_no_match, 'string':s}
@@ -1407,3 +1410,121 @@ def filter_tags(tags):
     filtered_tags = [t for t in tags if not t.startswith('-')]
 
     return filtered_tags
+
+##############################################################################
+def copy_to_clipboard(i):
+    """
+    Copy string to a clipboard
+
+    Args:    
+
+       string (str): string to copy to a clipboard
+       (add_quotes) (bool): add quotes to the string in a clipboard
+       (skip_fail) (bool): if True, do not fail
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+    """
+
+    s = i.get('string','')
+
+    if i.get('add_quotes',False): s='"'+s+'"'
+
+    failed = False
+    warning = ''
+
+    # Try to load pyperclip (seems to work fine on Windows)
+    try:
+        import pyperclip
+    except Exception as e:
+        warning = format(e)
+        failed = True
+        pass
+
+    if not failed:
+        pyperclip.copy(s)
+    else:
+        failed = False
+
+        # Try to load Tkinter
+        try:
+            from Tkinter import Tk
+        except ImportError as e:
+            warning = format(e)
+            failed = True
+            pass
+
+        if failed:
+            failed = False
+            try:
+                from tkinter import Tk
+            except ImportError as e:
+                warning = format(e)
+                failed = True
+                pass
+
+        if not failed:
+            # Copy to clipboard
+            try:
+                r = Tk()
+                r.withdraw()
+                r.clipboard_clear()
+                r.clipboard_append(s)
+                r.update()
+                r.destroy()
+            except Exception as e:
+                failed = True
+                warning = format(e)
+
+    rr = {'return':0}
+    
+    if failed:
+        if not i.get('skip_fail',False):
+            return {'return':1, 'error':warning}
+
+        rr['warning']=warning 
+    
+    return rr
+
+###########################################################################
+def update_yaml(file_name, meta = {}, encoding = 'utf8'):
+    """
+    Updat yaml file directly (unsafe - only first keys)
+
+    Args:    
+       (CM input dict):
+
+         file_name (str): YAML file name 
+         meta (dict): keys to update
+         (encoding) (str): file encoding ('utf8' by default)
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+    """
+
+    r = load_txt(file_name, encoding=encoding, split=True)
+    if r['return']>0: return r
+
+    yaml = r['list']
+
+    for k in meta:
+        # only simple string is supported
+        v = str(meta[k])
+
+        for j in range(0, len(yaml)):
+            s = yaml[j]
+
+            if s.startswith(k+':'):
+                yaml[j]=k+': '+v
+
+    r = save_txt(file_name, string = '\n'.join(yaml), encoding=encoding)
+    if r['return']>0: return r
+
+    return {'return':0}

@@ -353,6 +353,7 @@ class Automation:
             meta (dict): meta description of this artifact
 
             (tags) (string or list): tags to be added to meta
+            (yaml) (bool): if True, record YAML instead of JSON
 
         Returns: 
             (CM return dict):
@@ -444,7 +445,10 @@ class Automation:
         meta['tags'] = utils.filter_tags(existing_tags)
 
         # Record meta
-        r = utils.save_json(meta_path_json, meta=meta)
+        if i.get('yaml', False):
+            r = utils.save_yaml(meta_path_yaml, meta=meta)
+        else:
+            r = utils.save_json(meta_path_json, meta=meta)
         if r['return']>0: return r
 
         if console:
@@ -527,7 +531,11 @@ class Automation:
             # Deleting artifact
             deleted_lst.append(artifact)
 
-            shutil.rmtree(path_to_artifact)
+            if os.name == 'nt':
+                # To be able to remove .git files
+                shutil.rmtree(path_to_artifact, ignore_errors = False, onerror = delete_helper)
+            else:
+                shutil.rmtree(path_to_artifact)
 
             if console:
                 print ('    Deleted!')
@@ -837,8 +845,19 @@ class Automation:
                 if console:
                     print ('- Updating meta in "{}"'.format(new_artifact_path))
 
-                r = artifact.update({})
-                if r['return'] >0: return r
+                # If only yaml, update yaml and not json
+                meta_path_yaml = os.path.join(new_artifact_path, self.cmind.cfg['file_cmeta']+'.yaml')
+                meta_path_json = os.path.join(new_artifact_path, self.cmind.cfg['file_cmeta']+'.json')
+                if os.path.isfile(meta_path_yaml) and not os.path.isfile(meta_path_json):
+                    update_meta={'alias':artifact_meta['alias'],
+                                 'uid':artifact_meta['uid']}
+                    
+                    r = utils.update_yaml(meta_path_yaml, update_meta)
+                    if r['return']>0: return r
+
+                else:
+                    r = artifact.update({})
+                    if r['return'] >0: return r
 
         return {'return':0, 'list':lst}
 
@@ -870,7 +889,7 @@ class Automation:
             * return (int): return code == 0 if no error and >0 if error
             * (error) (str): error string if return>0
 
-            * list (list): list of renamed/moved CM artifacts
+            * list (list): list of copied CM artifacts
 
         """
 
@@ -970,8 +989,19 @@ class Automation:
             if console:
                 print ('- Updating meta in "{}"'.format(new_artifact_path))
 
-            r = artifact.update({})
-            if r['return'] >0: return r
+            # If only yaml, update yaml and not json
+            meta_path_yaml = os.path.join(new_artifact_path, self.cmind.cfg['file_cmeta']+'.yaml')
+            meta_path_json = os.path.join(new_artifact_path, self.cmind.cfg['file_cmeta']+'.json')
+            if os.path.isfile(meta_path_yaml) and not os.path.isfile(meta_path_json):
+                update_meta={'alias':artifact_meta['alias'],
+                             'uid':artifact_meta['uid']}
+                
+                r = utils.update_yaml(meta_path_yaml, update_meta)
+                if r['return']>0: return r
+
+            else:
+                r = artifact.update({})
+                if r['return'] >0: return r
 
         return {'return':0, 'list':lst}
 
@@ -997,13 +1027,16 @@ class Automation:
                                       [ (artifact alias, artifact UID) ] or
                                       [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
 
+            (uid) (bool): if True, copy CID in UID::UID format to clipboard
+            (md) (bool): if True, copy CID in [](UID::UID) format to clipboard
+
         Returns: 
             (CM return dict):
 
             * return (int): return code == 0 if no error and >0 if error
             * (error) (str): error string if return>0
 
-            * list (list): list of renamed/moved CM artifacts
+            * list (list): list of CM artifacts
 
         """
 
@@ -1023,6 +1056,8 @@ class Automation:
         if len(lst)==0:
             return {'return':16, 'error':'artifact not found: {}'.format(i)}
 
+        cid1 = ''
+        
         for artifact in lst:
             if console and len(lst)>1:
                 print ('****************************************************')
@@ -1042,7 +1077,9 @@ class Automation:
             cid = utils.assemble_cm_object(automation_alias,automation_uid) + \
                   '::' + \
                   x
-            
+
+            cid1 = automation_uid+'::'+uid
+
 #            cid_user_friendly = automation_alias if automation_alias != '' else automation_uid
 #            cid_user_friendly += '::' + (alias if alias != '' else uid)
 #            cid_misc = automation_alias if automation_alias != '' else automation_uid
@@ -1053,15 +1090,31 @@ class Automation:
             full_cid = '(' + cid + ')'
             if console:
                 print ('CID = ' + cid)
+                print ('CID1 = ' + cid1)
                 print ('CID2 = ' + full_cid)
                 print ('Path = ' + path)
 
-            # Attempt to copy to clipboard (if pacakge is installed)
-            try:
-                import pyperclip
-                pyperclip.copy(' = ' + full_cid)
-            except:
-                pass
+        # Attempt to copy to clipboard the last CID
+        if cid1 !='':
+            clipboard = full_cid
+            if i.get('uid', False): clipboard = cid1
+            if i.get('md', False): clipboard = '[]'+full_cid
+
+            r = utils.copy_to_clipboard({'string':clipboard, 'skip_fail':True})
+            # Skip output
 
 
         return {'return':0, 'list': lst}
+
+############################################################
+def delete_helper(func, path, ret):
+    import stat, errno
+
+    if ret[1].errno != errno.EACCES:
+        raise
+    else:
+        clean_attr = stat.S_IRWXG | stat.S_IRWXO | stat.S_IRWXU
+        os.chmod(path, clean_attr)
+        func(path)
+
+    return

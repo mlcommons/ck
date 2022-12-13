@@ -23,6 +23,9 @@
       "prefix": "python-"
     }
   ],
+  "input_mapping": {
+    "update": "CM_GENERIC_PYTHON_PIP_UPDATE"
+  },
   "post_deps": [
     {
       "inhert_variation_tags": true,
@@ -45,155 +48,246 @@
   ],
   "uid": "f4f502b7b5d545c8",
   "variations": {
+    "jax": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax"
+      }
+    },
+    "jax_cuda": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "jax[cuda]",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": "-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html",
+        "CM_JAX_VERSION_EXTRA":"CUDA"
+      },
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
+      ]
+    },
     "numpy": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "numpy"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "numpy"
       }
     },
     "pip": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "pip"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "pip"
       }
     },
     "setuptools": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "setuptools"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "setuptools"
       }
     },
     "onnx": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "onnx"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnx"
       }
     },
     "onnxruntime": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "onnxruntime"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime"
       }
     },
     "onnxruntime_gpu": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "onnxruntime_gpu"
-      }
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime_gpu"
+      },
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
+      ]
     },
     "protobuf": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "protobuf"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "protobuf"
       }
     },
     "tensorflow": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "tensorflow"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorflow"
       }
     },
     "tokenization": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "tokenization"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tokenization"
       }
     },
     "torch": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "torch"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
       }
+    },
+    "torch_cuda": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_TORCH_CUDA":"cu116",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_TORCH_VERSION_EXTRA":"CUDA"
+      },
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
+      ]
     },
     "torchvision": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "torchvision"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
       }
+    },
+    "torchvision_cuda": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision",
+        "CM_TORCH_CUDA":"cu116",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_TORCH_VERSION_EXTRA":"CUDA"
+      },
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
+      ]
+    },
+    "torchaudio": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/cpu"
+      }
+    },
+    "torchaudio_cuda": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
+        "CM_TORCH_CUDA":"cu116",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_TORCH_VERSION_EXTRA":"CUDA"
+      },
+      "deps": [
+        {
+          "names": [ "cuda" ],
+          "tags": "get,cuda"
+        }
+      ]
     },
     "transformers": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "transformers"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "transformers"
       }
     },
     "pycocotools": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "pycocotools"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "pycocotools"
       }
     },
     "nvidia-pycocotools": {
       "env": {
-        "CM_PIP_URL": "pycocotools@git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI"
+        "CM_GENERIC_PYTHON_PIP_URL": "pycocotools@git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI"
       }
     },
     "apache-tvm": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "apache-tvm"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apache-tvm"
       }
     },
     "sklearn": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "sklearn"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "sklearn"
       }
     },
     "scipy": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "scipy"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "scipy"
       }
     },
     "attrs": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "attrs"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "attrs"
       }
     },
     "tqdm": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "tqdm"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tqdm"
       }
     },
     "opencv-python": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "opencv-python"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "opencv-python"
+      }
+    },
+    "colored": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "colored",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://pypi.ngc.nvidia.com"
+      }
+    },
+    "polygraphy": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "polygraphy",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://pypi.ngc.nvidia.com"
+      }
+    },
+    "pillow": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "Pillow"
       }
     },
     "pandas": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "pandas"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "pandas"
       }
     },
     "decorator": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "decorator"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "decorator"
       }
     },
     "psutil": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "psutil"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "psutil"
       }
     },
     "boto3": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "boto3"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "boto3"
       }
     },
     "nvidia-pyindex": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "nvidia-pyindex"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "nvidia-pyindex"
       }
     },
     "nvidia-tensorrt": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "nvidia-tensorrt"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "nvidia-tensorrt"
       }
     },
     "mlperf_logging": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "mlperf_logging",
-        "CM_PIP_URL": "git+https://github.com/mlperf/logging.git@2.1.0"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "mlperf_logging",
+        "CM_GENERIC_PYTHON_PIP_URL": "git+https://github.com/mlperf/logging.git@2.1.0"
       }
     },
     "typing_extensions": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "typing_extensions"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "typing_extensions"
       }
     },
     "ujson": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "ujson"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "ujson"
       }
     },
     "pycuda": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "pycuda"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "pycuda"
       },
       "deps": [
         {
@@ -204,7 +298,7 @@
     },
     "wandb": {
       "env": {
-        "CM_PYTHON_PACKAGE_NAME": "wandb"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "wandb"
       }
     }
   }

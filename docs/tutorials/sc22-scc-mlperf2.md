@@ -1,12 +1,13 @@
 [ [Back to index](../README.md) ]
 
-# Tutorial: customizing the MLPerf inference benchmark (part 2)
+# Tutorial: modularizing and automating MLPerf (part 2)
 
 <details>
 <summary>Click here to see the table of contents.</summary>
 
 * [Introduction](#introduction)
-  * [Update CM framework and automation repository](#update-cm-framework-and-automation-repository)
+* [Update CM framework and automation repository](#update-cm-framework-and-automation-repository)
+* [CM automation for the MLPerf benchmark](#cm-automation-for-the-mlperf-benchmark)
   * [MLPerf inference - C++ - RetinaNet FP32 - Open Images - ONNX - CPU - Offline](#mlperf-inference---c---retinanet-fp32---open-images---onnx---cpu---offline)
     * [Summary](#summary)
   * [MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - GPU - Offline](#mlperf-inference---python---retinanet-fp32---open-images---onnx---gpu---offline)
@@ -34,7 +35,7 @@ with RetinaNet FP32, Open Images and ONNX runtime on a CPU target.
 This tutorial shows you how to customize the MLPerf inference benchmark
 and run it with a C++ implementation, CUDA and PyTorch.
 
-## Update CM framework and automation repository
+# Update CM framework and automation repository
 
 Note that the [CM automation meta-framework](https://github.com/mlcommons/ck) 
 and the [repository with automation scripts ](https://github.com/mlcommons/ck/tree/master/cm-mlops)
@@ -48,7 +49,7 @@ You can get the latest version of the CM framework and automation repository as 
 python3 -m pip install cmind -U
 cm pull repo mlcommons@ck --checkout=master
 ```
-
+# CM automation for the MLPerf benchmark
 
 ## MLPerf inference - C++ - RetinaNet FP32 - Open Images - ONNX - CPU - Offline
 
@@ -314,7 +315,7 @@ cm run script "install python-venv" --version=3.10.8 --name=mlperf-cuda
 You are now ready to run the MLPerf object detection benchmark on GPU with Python virtual environment as folllows:
 
 ```bash
-cm run script "app mlperf inference generic _python _retinanet _onnxruntime _gpu" \
+cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cuda" \
      --adr.python.name=mlperf-cuda \
      --scenario=Offline \
      --mode=accuracy \
@@ -364,7 +365,7 @@ Let's run the MLPerf object detection on GPU while measuring performance:
 
 ```bash
 
-cm run script "app mlperf inference generic _python _retinanet _onnxruntime _gpu" \
+cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cuda" \
      --adr.python.name=mlperf-cuda \
      --scenario=Offline \
      --mode=performance \

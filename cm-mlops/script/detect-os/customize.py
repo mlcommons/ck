@@ -56,5 +56,26 @@ def postprocess(i):
         env['CM_HOST_OS_MACHINE'] = state['os_uname_machine']
     import platform
     env['CM_HOST_SYSTEM_NAME'] = platform.node()
+    if 'CM_HOST_OS_PACKAGE_MANAGER' not in env:
+        if env.get('CM_HOST_OS_FLAVOR','') == "ubuntu" or env.get('CM_HOST_OS_FLAVOR_LIKE','') == "debian":
+            env['CM_HOST_OS_PACKAGE_MANAGER'] = "apt"
+        if env.get('CM_HOST_OS_FLAVOR_LIKE','') == "rhel":
+            env['CM_HOST_OS_PACKAGE_MANAGER'] = "dnf"
+        if env.get('CM_HOST_OS_FLAVOR_LIKE','') == "arch":
+            env['CM_HOST_OS_PACKAGE_MANAGER'] = "arch"
+        if env.get('CM_HOST_OS_FLAVOR','') == "macos":
+            env['CM_HOST_OS_PACKAGE_MANAGER'] = "brew"
+    if env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "apt":
+        env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "apt-get install -y"
+        env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "apt-get update -y"
+    elif env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "dnf":
+        env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "dnf install -y"
+        env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "dnf update -y"
+    elif env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "pacman":
+        env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "pacman -Sy --noconfirm"
+        env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "pacman -Syu"
+    elif env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "brew":
+        env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "brew install"
+        env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "brew update"
 
     return {'return':0}

@@ -1,5 +1,39 @@
 [ [Back to index](README.md) ]
 
+
+<br>
+<br>
+<br>
+
+*This tutorial is outdated. Please check this [CM-MLPerf tutorial](tutorials/sc22-scc-mlperf.md)
+ successfully validated by 10 teams at the [Student Cluster Competition at SuperComputing'22](https://twitter.com/DrHaiAhNam/status/1592221106290688001)
+ on Nov 15, 2022!*
+
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 # CM demo: modularizing MLPerf benchmarks and automating submissions
 
 ## Motivation

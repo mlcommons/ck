@@ -2,6 +2,10 @@
 
 CUR_DIR=$PWD
 
+if [ "${CM_TVM_PIP_INSTALL}" != "no" ]; then
+  exit 0;
+fi
+
 echo "******************************************************"
 echo "Path for TVM: ${CUR_DIR}"
 echo ""
@@ -37,6 +41,11 @@ if [ ! -d "${CUR_DIR}/tvm/build" ]; then
 
     if [[ ${CM_TVM_USE_OPENMP} == "yes" ]]; then
         sed -i.bak 's/set(USE_OPENMP none)/set(USE_OPENMP gnu)/' config.cmake
+    fi
+
+    if [[ ${CM_TVM_USE_CUDA} == "yes" ]]; then
+        sed -i.bak 's/set(USE_CUDA OFF)/set(USE_OPENMP ON)/' config.cmake
+        echo 'set(USE_CUDA ON)' >> config.cmake
     fi
 
     cmake ..

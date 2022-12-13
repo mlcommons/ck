@@ -25,14 +25,18 @@ default_env:
 
 # Map script inputs to environment variables
 input_mapping:
-  count: CM_LOADGEN_QUERY_COUNT
-  max_batchsize: CM_LOADGEN_MAX_BATCHSIZE
+  count: CM_MLPERF_LOADGEN_QUERY_COUNT
+  max_batchsize: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
   mlperf_conf: CM_MLPERF_CONF
-  mode: CM_LOADGEN_MODE
+  mode: CM_MLPERF_LOADGEN_MODE
   output_dir: CM_MLPERF_OUTPUT_DIR
-  performance_sample_count: CM_LOADGEN_PERFORMANCE_SAMPLE_COUNT
-  scenario: CM_LOADGEN_SCENARIO
+  performance_sample_count: CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
   user_conf: CM_MLPERF_USER_CONF
+
+new_env_keys:
+  - CM_MLPERF_*
+  - CM_DATASET_*
 
 # Dependencies on other CM scripts
 
@@ -80,7 +84,7 @@ deps:
       - onnxruntime
       CM_MLPERF_DEVICE:
       - gpu
-    tags: get,lib,onnxruntime,lang-cpp,_gpu
+    tags: get,lib,onnxruntime,lang-cpp,_cuda
 
 
   ########################################################################
@@ -89,12 +93,14 @@ deps:
   - enable_if_env:
       CM_MODEL:
       - resnet50
+    names:
+      - imagenet-preprocessed
     tags: get,dataset,preprocessed,imagenet,_NCHW
 
   - enable_if_env:
       CM_MODEL:
       - resnet50
-    tags: get,ml-model,resnet50,_onnx
+    tags: get,ml-model,raw,resnet50,_onnx
 
 
   ########################################################################
@@ -103,12 +109,14 @@ deps:
   - enable_if_env:
       CM_MODEL:
       - retinanet
+    names:
+      - openimages-preprocessed
     tags: get,dataset,preprocessed,openimages,_validation,_NCHW
 
   - enable_if_env:
       CM_MODEL:
       - retinanet
-    tags: get,ml-model,retinanet,_onnx
+    tags: get,ml-model,retinanet,_onnx,_fp32
 
 
   
@@ -117,8 +125,8 @@ deps:
 post_deps:
 
   - names:
-    - compiler-program
-    tags: compile,program
+    - compile-program
+    tags: compile,cpp-program
 
   - names:
     - runner
@@ -129,41 +137,51 @@ post_deps:
 variations:
   # Target devices
   cpu:
+    group: device,
+    default: true,
     env:
       CM_MLPERF_DEVICE: cpu
-  gpu:
+  cuda:
     env:
       CM_MLPERF_DEVICE: gpu
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
 
   # ML engine
   onnxruntime:
+    group: framework,
+    default: true,
     env:
       CM_MLPERF_BACKEND: onnxruntime
       CM_MLPERF_BACKEND_LIB_NAMESPEC: onnxruntime
 
   pytorch:
+    group: framework,
     env:
       CM_MLPERF_BACKEND: pytorch
 
   tf:
+    group: framework,
     env:
       CM_MLPERF_BACKEND: tf
 
   tflite:
+    group: framework,
     env:
       CM_MLPERF_BACKEND: tflite
 
   tvm-onnx:
+    group: framework,
     env:
       CM_MLPERF_BACKEND: tvm-onnx
 
   # Reference MLPerf models
   resnet50:
+    group: model,
+    default: true,
     env:
       CM_MODEL: resnet50
 
   retinanet:
+    group: model,
     env:
       CM_MODEL: retinanet
-

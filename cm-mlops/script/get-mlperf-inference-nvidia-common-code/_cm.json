@@ -10,13 +10,13 @@
     }
   ],
   "new_env_keys": [
-    "+PYTHONPATH"
+    "+PYTHONPATH",
+    "CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH"
   ],
   "tags": [
     "get",
     "nvidia",
     "mlperf",
-    "results",
     "inference",
     "common-code"
   ],

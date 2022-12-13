@@ -41,6 +41,22 @@
           "tags": "get,profiler"
         }
       ]
+    },
+    "mlperf-power": {
+      "env": {
+        "CM_MLPERF_POWER": "yes"
+      },
+      "new_env_keys": [
+        "CM_MLPERF_*"
+      ],
+      "post_deps": [
+        {
+          "enable_if_env": {
+            "CM_MLPERF_LOADGEN_MODE": [ "performance" ]
+          },
+          "tags": "run,mlperf,power,client"
+        }
+      ]
     }
   }
 }

@@ -14,6 +14,9 @@ def postprocess(i):
     os_info = i['os_info']
 
     env = i['env']
+    if env.get('CM_TVM_PIP_INSTALL', '') == "yes":
+        return {'return':0}
+
 
     tvm_home = env['TVM_HOME']
 

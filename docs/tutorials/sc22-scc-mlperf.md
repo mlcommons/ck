@@ -1,21 +1,23 @@
 [ [Back to index](../README.md) ]
 
-# Tutorial: running the MLPerf inference benchmark
+# Tutorial: modularizing and automating MLPerf
 
 <details>
 <summary>Click here to see the table of contents.</summary>
 
 * [Introduction](#introduction)
+* [System preparation](#system-preparation)
+  * [Minimal system requirements](#minimal-system-requirements)
+  * [MLCommons CM automation meta-framework](#mlcommons-cm-automation-meta-framework)
+  * [CM installation](#cm-installation)
+  * [Pull CM repository with cross-platform MLOps and DevOps scripts](#pull-cm-repository-with-cross-platform-mlops-and-devops-scripts)
+  * [Optional: update CM and repository to the latest version](#optional-update-cm-and-repository-to-the-latest-version)
+  * [Install system dependencies for your platform](#install-system-dependencies-for-your-platform)
+  * [Use CM to detect or install Python 3.8+](#use-cm-to-detect-or-install-python-38)
+  * [Pull MLPerf inference sources](#pull-mlperf-inference-sources)
+  * [Compile MLPerf loadgen](#compile-mlperf-loadgen)
+* [CM automation for the MLPerf benchmark](#cm-automation-for-the-mlperf-benchmark)
   * [MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - CPU - Offline](#mlperf-inference---python---retinanet-fp32---open-images---onnx---cpu---offline)
-    * [Minimal system requirements](#minimal-system-requirements)
-    * [MLCommons CM automation meta-framework](#mlcommons-cm-automation-meta-framework)
-    * [CM installation](#cm-installation)
-    * [Pull CM repository with cross-platform MLOps and DevOps scripts](#pull-cm-repository-with-cross-platform-mlops-and-devops-scripts)
-    * [Optional: update CM and repository to the latest version](#optional-update-cm-and-repository-to-the-latest-version)
-    * [Install system dependencies for your platform](#install-system-dependencies-for-your-platform)
-    * [Use CM to detect or install Python 3.8+](#use-cm-to-detect-or-install-python-38)
-    * [Pull MLPerf inference sources](#pull-mlperf-inference-sources)
-    * [Compile MLPerf loadgen](#compile-mlperf-loadgen)
     * [Download Open Images dataset](#download-open-images-dataset)
     * [Preprocess Open Images dataset](#preprocess-open-images-dataset)
     * [Install ONNX runtime for CPU](#install-onnx-runtime-for-cpu)
@@ -37,9 +39,12 @@
 
 # Introduction
 
-This tutorial explains how to prepare and run the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
-using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck) 
-being developed by the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md).
+This tutorial was prepared for the [Student Cluster Competition'22](https://studentclustercompetition.us/2022/index.html) 
+to explain how to prepare and run a modular version of the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
+using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck).
+It is assembled from reusable and interoperable [MLOps and DevOps scripts](../list_of_scripts.md)
+being developed by the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+based on this [roadmap]( https://github.com/mlcommons/ck/issues/536 ).
 
 There are 4 main goals:
 - Trying the MLCommons CM meta-framework for modular benchmarking.
@@ -61,13 +66,12 @@ to learn how to optimize this benchmark further (trying various run-time paramet
 changing ML frameworks and run-times, optimizing RetinaNet model, and trying different CPUs and GPUs) and submit Pareto-optimal results to MLPerf.
 
 *Note that both MLPerf and CM automation are evolving projects.
- If you encounter issues or have questions, please submit them in [this GitHub ticket](https://github.com/mlcommons/ck/issues/484)
+ If you encounter issues or have questions, please submit them [here](https://github.com/mlcommons/ck/issues)
  and feel free to join our [weekly conf-calls](../mlperf-education-workgroup.md#conf-calls).*
 
+# System preparation
 
-## MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - CPU - Offline
-
-### Minimal system requirements
+## Minimal system requirements
 
 * CPU: 1 node (x86-64 or Arm64)
 * OS: we have tested this automation on Ubuntu 20.04, Ubuntu 22.04, Debian 10, Red Hat 9 and MacOS 13
@@ -77,7 +81,7 @@ changing ML frameworks and run-times, optimizing RetinaNet model, and trying dif
 * Python: 3.8+
 * All other dependencies (artifacts and tools) will be installed by the CM meta-framework
 
-### MLCommons CM automation meta-framework
+## MLCommons CM automation meta-framework
 
 The MLCommons is developing an open-source and technology-neutral 
 [Collective Mind meta-framework (CM)](https://github.com/mlcommons/ck)
@@ -91,7 +95,7 @@ across diverse ML models, datasets, frameworks, compilers and hardware (see [HPC
 
 
 
-### CM installation
+## CM installation
 
 Follow [this guide](../installation.md) to install the MLCommons CM framework on your system.
 
@@ -114,7 +118,7 @@ cm --version
 1.1.1
 ```
 
-### Pull CM repository with cross-platform MLOps and DevOps scripts
+## Pull CM repository with cross-platform MLOps and DevOps scripts
 
 Pull stable MLCommons CM repository with [cross-platform CM scripts for modular ML Systems](../list_of_scripts.md):
 
@@ -133,7 +137,7 @@ You can also pull the stable version of this CM repository that we have used for
 using checkout *[f9abc76](https://github.com/mlcommons/ck/releases/tag/cm-v1.1.1)*:
 
 ```bash
-cm pull repo mlcommons@ck --checkout=5323508
+cm pull repo mlcommons@ck --checkout=ac3fda5
 ```
 
 You can now use the unified CM CLI/API of [reusable and cross-platform CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md))
@@ -152,7 +156,7 @@ You can reuse these commands in your own projects thus providing a common interf
 
 In the end, we will also show you how to run MLPerf benchmark in one command from scratch.
 
-### Optional: update CM and repository to the latest version
+## Optional: update CM and repository to the latest version
 
 Note that if you already have CM and mlcommons@ck reposity installed on your system,
 you can update them to the latest version at any time and clean the CM cache as follows:
@@ -164,7 +168,7 @@ cm rm cache -f
 ```
 
 
-### Install system dependencies for your platform
+## Install system dependencies for your platform
 
 First, you need to install various system dependencies required by the MLPerf inference benchmark.
 
@@ -186,7 +190,7 @@ If you think that you have all system dependencies installed,
 you can run this script without `--quiet` flag and type "skip" in the script prompt.
 
 
-### Use CM to detect or install Python 3.8+
+## Use CM to detect or install Python 3.8+
 
 Since we use Python reference implementation of the MLPerf inference benchmark (unoptimized),
 we need to detect or install Python 3.8+ (MLPerf requirement). 
@@ -232,7 +236,7 @@ Note that if you run the same script again, CM will automatically find and reuse
 cm run script "get python" --version_min=3.8 --out=json
 ```
 
-### Pull MLPerf inference sources
+## Pull MLPerf inference sources
 
 You should now download and cache the MLPerf inference sources using the following command:
 
@@ -240,7 +244,7 @@ You should now download and cache the MLPerf inference sources using the followi
 cm run script "get mlperf inference src"
 ```
 
-### Compile MLPerf loadgen
+## Compile MLPerf loadgen
 
 You need to compile loadgen from the above inference sources while forcing compiler dependency to GCC:
 
@@ -253,6 +257,9 @@ The `--adr` flag stands for "Add to all Dependencies Recursively" and will find 
 in the CM loadgen script with the "compiler" name and will append "gcc" tag 
 to enforce detection and usage of GCC to build loadgen.
 
+# CM automation for the MLPerf benchmark
+
+## MLPerf inference - Python - RetinaNet FP32 - Open Images - ONNX - CPU - Offline
 
 ### Download Open Images dataset
 
@@ -271,6 +278,19 @@ The minimal set will download 500 images and will need ~200MB of disk space.
 
 
 After installing this dataset via CM, you can reuse it in your own projects or other CM scripts (including MLPerf benchmarks).
+You can check the CM cache as follows (the unique ID of the CM cache entry will be different on your machine):
+```bash
+cm show cache --tags=get,dataset,open-images,original
+```
+
+```txt
+
+* cache::67d2c092e64744e5
+    Tags: ['dataset', 'get', 'object-detection', 'open-images', 'openimages', 'original', 'script-artifact-0a9d49b644cf4142', '_500', '_validation']
+    Path: /home/fursin/CM/repos/local/cache/67d2c092e64744e5
+
+```
+
 You can find the images and annotations in the CM cache as follows:
 
 ```bash
@@ -288,6 +308,20 @@ using the following [CM script](https://github.com/mlcommons/ck/blob/master/docs
 cm run script "get preprocessed dataset object-detection open-images _validation _500 _NCHW"
 ```
 
+You can find them in the CM cache as follows:
+
+```bash
+cm show cache --tags=get,preprocessed,dataset,open-images
+```
+
+```txt
+
+* cache::6b13fc343a52499c
+    Tags: ['dataset', 'get', 'object-detection', 'open-images', 'openimages', 'preprocessed', 'script-artifact-9842f1be8cba4c7b', '_500', '_NCHW', '_validation']
+    Path: /home/fursin/CM/repos/local/cache/6b13fc343a52499c
+```
+
+
 ### Install ONNX runtime for CPU
 
 Now detect or install ONNX Python runtime (targeting CPU) your system
@@ -297,16 +331,33 @@ using a [generic CM script](https://github.com/mlcommons/ck/blob/master/docs/lis
 cm run script "get generic-python-lib _onnxruntime" --version_min=1.10.0
 ```
 
+
+
+
+
 ### Download RetinaNet model (FP32, ONNX format)
 
 Download and cache this [reference model](https://paperswithcode.com/model/resnext?variant=resnext-50-32x4d) in the ONNX format (float32)
 using the following [CM script](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md#get-ml-model-retinanet):
 
 ```bash
-cm run script "get ml-model object-detection retinanet resnext50 fp32 _onnx"
+cm run script "get ml-model object-detection retinanet resnext50 _onnx"
 ```
 
 It takes around ~150MB of disk space. You can find it in the CM cache as follows:
+
+```bash
+cm show cache --tags=get,ml-model,resnext50,_onnx
+```
+
+```txt
+
+* cache::7e1ca80c06154f22
+    Tags: ['fp32', 'get', 'ml-model', 'object-detection', 'resnext50', 'retinanet', 'script-artifact-427bc5665e4541c2', '_onnx']
+    Path: /home/fursin/CM/repos/local/cache/7e1ca80c06154f22
+```
+
+
 ```bash
 ls `cm find cache --tags=get,ml-model,resnext50,_onnx`/*.onnx -l
 ```
@@ -314,7 +365,7 @@ ls `cm find cache --tags=get,ml-model,resnext50,_onnx`/*.onnx -l
 Output:
 
 ```txt
-resnext50_32x4d_fpn.onnx
+148688824  resnext50_32x4d_fpn.onnx
 ```
 
 ### Run reference MLPerf inference benchmark (offline, accuracy)
@@ -611,7 +662,7 @@ cm run script "get preprocessed dataset object-detection open-images _validation
 
 cm run script "get generic-python-lib _onnxruntime" --version_min=1.10.0
 
-cm run script "get ml-model object-detection retinanet resnext50 fp32 _onnx"
+cm run script "get ml-model object-detection retinanet resnext50 _onnx"
 
 cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu" \
      --scenario=Offline --mode=accuracy --test_query_count=10 --rerun

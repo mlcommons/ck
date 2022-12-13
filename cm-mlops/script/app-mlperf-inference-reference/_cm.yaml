@@ -1,0 +1,521 @@
+# Identification of this CM script
+alias: app-mlperf-inference-reference
+uid: d775cac873ee4231
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf benchmarks"
+category_sort: 20000
+
+developers: "[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), [Grigori Fursin](https://cKnowledge.io/@gfursin)"
+
+# User-friendly tags to find this CM script
+tags:
+  - app
+  - vision
+  - language
+  - mlcommons
+  - mlperf
+  - inference
+  - reference
+  - ref
+
+# Default environment
+default_env:
+  CM_BATCH_COUNT: '1'
+  CM_BATCH_SIZE: '1'
+  CM_MLPERF_LOADGEN_MODE: accuracy
+  CM_MLPERF_LOADGEN_SCENARIO: Offline
+  CM_OUTPUT_FOLDER_NAME: test_results
+  CM_MLPERF_RUN_STYLE: test
+  CM_TEST_QUERY_COUNT: '10'
+  CM_MLPERF_QUANTIZATION: off
+
+# Map script inputs to environment variables
+input_mapping:
+  count: CM_MLPERF_LOADGEN_QUERY_COUNT
+  docker: CM_RUN_DOCKER_CONTAINER
+  hw_name: CM_HW_NAME
+  imagenet_path: IMAGENET_PATH
+  max_batchsize: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
+  mode: CM_MLPERF_LOADGEN_MODE
+  num_threads: CM_NUM_THREADS
+  output_dir: OUTPUT_BASE_DIR
+  power: CM_SYSTEM_POWER
+  regenerate_files: CM_REGENERATE_MEASURE_FILES
+  rerun: CM_RERUN
+  scenario: CM_MLPERF_LOADGEN_SCENARIO
+  test_query_count: CM_TEST_QUERY_COUNT
+  clean: CM_MLPERF_CLEAN_SUBMISSION_DIR
+
+# Duplicate CM environment variables to the ones used in native apps
+env_key_mappings:
+  CM_HOST_: HOST_
+  CM_ML_: ML_
+  CM_MLPERF_TVM: MLPERF_TVM
+  CM_MLPERF_DELETE: MLPERF_DELETE
+
+# Env keys which are exposed to higher level scripts
+new_env_keys:
+  - CM_MLPERF_*
+  - CM_DATASET_*
+
+
+# Dependencies on other CM scripts
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect/install python
+  - tags: get,python
+    names:
+    - python
+    - python3
+
+  # Detect CUDA if required
+  - tags: get,cuda
+    enable_if_env:
+      CM_MLPERF_DEVICE:
+      - gpu
+
+
+
+
+  ########################################################################
+  # Install ML engines via CM
+
+  ## Onnx CPU Runtime
+  - tags: get,generic-python-lib,_onnxruntime
+    names:
+    - ml-engine-onnxruntime
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      - tvm-onnx
+      CM_MLPERF_DEVICE:
+      - cpu
+  ## Onnx CUDA Runtime
+  - tags: get,generic-python-lib,_onnxruntime_gpu
+    names:
+    - ml-engine-onnxruntime-cuda
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      - tvm-onnx
+      CM_MLPERF_DEVICE:
+      - gpu
+
+  ## Pytorch
+  - tags: get,generic-python-lib,_torch
+    names:
+    - ml-engine-pytorch
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+
+  ## Torchvision
+  - tags: get,generic-python-lib,_torchvision
+    names:
+    - ml-engine-torchvision
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+
+  ## Transformers
+  - tags: get,generic-python-lib,_transformers
+    names:
+    - ml-engine-transformers
+    enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+
+  ## Tensorflow
+  - tags: get,generic-python-lib,_tensorflow
+    names:
+    - ml-engine-tensorflow
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - tf
+      - tflite
+
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+
+  # Install MLPerf loadgen
+  - tags: get,loadgen
+    names:
+    - loadgen
+
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    names:
+    - inference-src
+
+  # Get SUT configs (System Under Test)
+  - tags: get,sut,configs
+
+
+  ########################################################################
+  # Install datasets
+
+  ## ImageNet (small for tests)
+  - tags: get,dataset,image-classification,imagenet,preprocessed
+    names: 
+    - imagenet-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - resnet50
+
+  - tags: get,dataset-aux,image-classification,imagenet-aux
+    enable_if_env:
+      CM_MODEL:
+      - resnet50
+
+  ## Open Images (full) for RetinaNet
+  - tags: get,dataset,object-detection,open-images,openimages,preprocessed,_validation
+    names:
+    - openimages-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - retinanet
+
+  ## Squad for BERT
+  - tags: get,dataset,squad,original
+    enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+
+
+  ########################################################################
+  # Install ML models    
+
+  ## ResNet50 (ONNX format, FP32)
+  - tags: get,ml-model,raw,image-classification,resnet50,_onnx
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MODEL:
+      - resnet50
+
+  ## ResNet50 (TVM ONNX format, FP32)
+  - tags: get,ml-model,tvm-model,resnet50,_onnx
+    names:
+      - resnet50-model
+      - ml-model
+      - tvm-model
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - tvm-onnx
+      CM_MODEL:
+      - resnet50
+
+  ## ResNet50 (Tensorflow format, FP32)
+  - tags: get,ml-model,raw,image-classification,resnet50,_tensorflow
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - tf
+      - tflite
+      CM_MODEL:
+      - resnet50
+
+  ## ResNet50 (PyTorch format, FP32)
+  - names:
+    - resnet50-model
+    - ml-model
+    tags: get,ml-model,raw,image-classification,resnet50,_pytorch,_fp32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MODEL:
+      - resnet50
+
+  ## ResNet50 (TVM PyTorch format, int8)
+  - names:
+    - resnet50-model
+    - ml-model
+    - tvm-model
+    tags: get,ml-model,tvm-model,resnet50,_pytorch,_int8
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - tvm-pytorch
+      CM_MODEL:
+      - resnet50
+
+  ## RetinaNet (ONNX format, FP32)
+  - tags: get,ml-model,object-detection,retinanet,_onnx,_fp32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MODEL:
+      - retinanet
+
+  ## RetinaNet (PyTorch format, FP32)
+  - tags: get,ml-model,object-detection,retinanet,_pytorch,_fp32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MODEL:
+      - retinanet
+    skip_if_env:
+      CM_MLPERF_IMPLEMENTATION:
+      - nvidia
+
+  ## RetinaNet (PyTorch weights, FP32)
+  - tags: get,ml-model,object-detection,resnext50,fp32,_pytorch-weights
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MLPERF_IMPLEMENTATION:
+      - nvidia
+      CM_MODEL:
+      - retinanet
+
+  ## BERT (ONNX format fp32)
+  - tags: get,ml-model,language-processing,bert,_onnx,_fp32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    skip_if_env:
+      CM_MLPERF_QUANTIZATION:
+      - on
+
+  ## BERT (ONNX format int8)
+  - tags: get,ml-model,language-processing,bert,_onnx,_int8
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MODEL:
+      - bert-99
+      CM_MLPERF_QUANTIZATION:
+      - on
+
+
+  ## BERT (TF format)
+  - tags: get,ml-model,language-processing,bert,_tf
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - tf
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+ 
+  ## BERT (Pytorch format)
+  - tags: get,ml-model,language-processing,bert,_pytorch,_fp32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+
+  - tags: get,generic-python-lib,_tokenization
+    enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+    
+
+posthook_deps: 
+  - names:
+    - runner
+    tags: benchmark,program
+
+
+
+
+
+
+
+# Variations to customize dependencies
+variations:
+  python:
+    group: implementation,
+    default: true,
+    add_deps_recursive:
+      imagenet-accuracy-script:
+        tags: _float32
+    env:
+      CM_MLPERF_PYTHON: 'yes'
+      CM_MLPERF_IMPLEMENTATION: reference
+
+  # ML engine
+  onnxruntime:
+    group: framework,
+    default: true,
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _NCHW
+      openimages-preprocessed:
+        tags: _NCHW
+      cpp-mlperf-inference:
+        tags: _onnxruntime
+    env:
+      CM_MLPERF_BACKEND: onnxruntime
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
+
+  pytorch:
+    group: framework,
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _NCHW
+      openimages-preprocessed:
+        tags: _NCHW
+    env:
+      CM_MLPERF_BACKEND: pytorch
+      CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+
+  tf:
+    group: framework,
+    add_deps_recursive:
+      imagenet-preprocessed:
+        tags: _NHWC
+    env:
+      CM_MLPERF_BACKEND: tf
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TENSORFLOW_VERSION>>>
+
+  tensorflow:
+    alias: tf
+
+  tvm-onnx:
+    group: framework,
+    env:
+      CM_MLPERF_BACKEND: tvm-onnx
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
+    deps:
+    - tags: get,generic-python-lib,_onnx
+
+  tvm-pytorch:
+    group: framework,
+    env:
+      CM_MLPERF_BACKEND: tvm-pytorch
+      CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+      MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
+
+  # Reference MLPerf models
+  bert-99.9:
+    group: models,
+    base:
+    - bert
+    env:
+      CM_MODEL: bert-99.9
+
+  bert-99:
+    group: models,
+    base:
+    - bert
+    env:
+      CM_MODEL: bert-99
+
+  bert:
+    deps:
+    - tags: get,generic-python-lib,_protobuf
+      names:
+      - protobuf
+      version_max: "3.19"
+      enable_if_env:
+        CM_MLPERF_BACKEND:
+        - tf
+        - tflite
+    - tags: get,generic-python-lib,_torch
+      names:
+      - ml-engine-pytorch
+    add_deps_recursive:
+      inference-src:
+        tags: _deeplearningexamples
+
+  retinanet:
+    group: models,
+    deps:
+    - tags: get,generic-python-lib,_opencv-python
+    - tags: get,generic-python-lib,_numpy
+    - tags: get,generic-python-lib,_pycocotools
+
+    env:
+      CM_MODEL: retinanet
+
+  resnet50:
+    group: models,
+    default: true,
+    env:
+      CM_MODEL: resnet50
+    deps:
+    - tags: get,generic-python-lib,_opencv-python
+    - tags: get,generic-python-lib,_numpy
+    - tags: get,generic-python-lib,_pycocotools
+
+  # Target devices
+  cpu:
+    group: device,
+    default: true,
+    env:
+      CM_MLPERF_DEVICE: cpu
+      CUDA_VISIBLE_DEVICES: ''
+      USE_CUDA: no
+      USE_GPU: no
+
+  cuda:
+    group: device,
+    env:
+      CM_MLPERF_DEVICE: gpu
+      USE_CUDA: yes
+      USE_GPU: yes
+    add_deps_recursive:
+      cpp-mlperf-inference:
+        tags: _cuda
+
+  # Execution modes
+  fast:
+    group: execution-mode,
+    env:
+      CM_FAST_FACTOR: '5'
+      CM_OUTPUT_FOLDER_NAME: fast_results
+      CM_MLPERF_RUN_STYLE: fast
+
+  test:
+    group: execution-mode,
+    default: true,
+    env:
+      CM_OUTPUT_FOLDER_NAME: test_results
+      CM_MLPERF_RUN_STYLE: test
+
+  valid:
+    group: execution-mode,
+    env:
+      CM_OUTPUT_FOLDER_NAME: valid_results
+      CM_MLPERF_RUN_STYLE: valid
+
+  # Turn on quantization
+  quantized:
+    env:
+      CM_MLPERF_QUANTIZATION: on
+
+  # Reproducibility (past submissions)
+  r2.1_default:
+    add_deps_recursive:
+      compiler:
+        tags: llvm
+      inference-src:
+        tags: _octoml
+      loadgen:
+        version: r2.1
+    env:
+      CM_RERUN: 'yes'
+      CM_SKIP_SYS_UTILS: 'yes'
+      CM_TEST_QUERY_COUNT: '100'

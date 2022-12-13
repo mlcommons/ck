@@ -1,4 +1,4 @@
-# Description
+# About
 
 This portable CM script is being developed by the [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
 to modularize the *python reference implementations* of the [MLPerf inference benchmark](https://github.com/mlcommons/inference) 
@@ -11,11 +11,6 @@ across diverse platforms with continuously changing software and hardware.
 
 &copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
 
-# Developers
-
-[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), 
-[Grigori Fursin]( https://cKnowledge.io/@gfursin ) 
-and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
 
 # Command line interface
 
@@ -160,15 +155,12 @@ for modular MLPerf [here](https://github.com/mlcommons/ck/tree/master/docker)
 
 
 
-# TBD
+# Future work
 
-* Specify versions of all deps from command line
-* Test CPP+Python for CPU+CUDA
-  * Resnet + RetinaNet
-* Add your own optimized model
-* Run iterative experiments
-  * Unify JSON output (ENV + state)
-  * Reproduce experiments
-  * Visualize experiments
-* Prepare end-to-end submissions from the best experiments
-* Add Docker examples
+* Roadmap: https://github.com/mlcommons/ck/issues/536
+
+# Developers
+
+[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), 
+[Grigori Fursin]( https://cKnowledge.io/@gfursin ) 
+and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).

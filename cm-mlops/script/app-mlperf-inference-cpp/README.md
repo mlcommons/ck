@@ -1,4 +1,4 @@
-# Description
+# About
 
 This portable CM script and C++ code was developed by [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189) 
 to provide modular C++ implementations of the [MLPerf inference benchmark](https://github.com/mlcommons/inference) 
@@ -71,7 +71,7 @@ cm run script --tags=get,preprocessed,openimages,_500,_NCHW
 ```
 Run benchmark:
 ```sh
-cm run script "cpp mlperf _retinanet _onnxruntime _gpu" \
+cm run script "cpp mlperf _retinanet _onnxruntime _cuda" \
    --output_dir=<OUTPUT_DIR> \
    --count=500 \
    --max_batchsize=1 \

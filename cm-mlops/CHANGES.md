@@ -1,3 +1,13 @@
+# 20221206:
+ * added "script_name" to the CM "script" meta to specify any native script name
+ * added "--script_name" to "cm add script {alias} --script_name=my-native-script.sh"
+
+# 20221206:
+ * added CM_SCRIPT_EXTRA_CMD to force some flags to all scripts
+
+# 20221202:
+ * major updates for Windows (CL, CUDA, etc)
+
 # 20221111:
  * various fixes for Student Cluster Competition at SuperComputing'22
 

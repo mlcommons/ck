@@ -1,0 +1,301 @@
+{
+  "alias": "install-tensorflow-from-src",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "ML/AI frameworks",
+  "clean_files": [],
+  "default_version": "master",
+  "deps": [
+    {
+      "tags": "detect,cpu"
+    }
+  ],
+  "default_env": {
+    "CM_GIT_URL": "https://github.com/tensorflow/tensorflow",
+    "CM_GIT_DEPTH": "1",
+    "CM_TFLITE": "off"
+  },
+  "extra_cache_tags_from_env": [
+    {
+      "env": "CM_PYTHON_CACHE_TAGS",
+      "prefix": "python-"
+    }
+  ],
+  "tags": [
+    "get",
+    "install",
+    "tensorflow",
+    "lib",
+    "source",
+    "from-source",
+    "from-src"
+  ],
+  "new_env_keys": [
+    "+C_INCLUDE_PATH",
+    "+CPLUS_INCLUDE_PATH",
+    "+LD_LIBRARY_PATH",
+    "+DYLD_FALLBACK_LIBRARY_PATH"
+  ],
+  "uid": "a974533c4c854597",
+  "variations": {
+    "tflite": {
+      "env": {
+        "CM_TFLITE": "on"
+      }
+    }
+  },
+  "versions": {
+    "master": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.10.999",
+          "version_min": "3.7.0"
+        },
+        {
+          "tags": "gcc,get",
+          "version_min": "9.3"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "5.3.0"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "master"
+      }
+    },
+    "v1.15.0": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.7",
+          "version_min": "3.3"
+        },
+        {
+          "tags": "gcc,get",
+          "version_max": "7.3.1",
+          "version_min": "7"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "0.26.1"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "v1.15.0"
+      }
+    },
+    "v2.0.0": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.7.999",
+          "version_min": "3.3.0"
+        },
+        {
+          "tags": "gcc,get",
+          "version_max": "7.3.1",
+          "version_min": "7"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "0.26.1"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "v2.0.0"
+      }
+    },
+    "v2.1.0": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.7.999",
+          "version_min": "3.3.0"
+        },
+        {
+          "tags": "gcc,get",
+          "version_max": "7.3.1",
+          "version_min": "7"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "0.27.1"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "v2.1.0"
+      }
+    },
+    "v2.2.0": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.8.999",
+          "version_min": "3.5.0"
+        },
+        {
+          "tags": "gcc,get",
+          "version_max": "7.3.1",
+          "version_min": "7"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "2.0.0"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "v2.2.0"
+      }
+    },
+    "v2.3.0": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.8.999",
+          "version_min": "3.5.0"
+        },
+        {
+          "tags": "gcc,get",
+          "version_max": "7.3.1",
+          "version_min": "7"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "3.1.0"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "v2.3.0"
+      }
+    },
+    "v2.4.0": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.8.999",
+          "version_min": "3.6.0"
+        },
+        {
+          "tags": "gcc,get",
+          "version_max": "7.3.1",
+          "version_min": "7"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "3.1.0"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "v2.4.0"
+      }
+    },
+    "v2.5.0": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.9.999",
+          "version_min": "3.6.0"
+        },
+        {
+          "tags": "gcc,get",
+          "version_max": "7.3.1",
+          "version_min": "7"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "3.7.2"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "v2.5.0"
+      }
+    },
+    "v2.6.0": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.9.999",
+          "version_min": "3.6.0"
+        },
+        {
+          "tags": "gcc,get",
+          "version_max": "7.3.1",
+          "version_min": "7"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "3.7.2"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "v2.6.0"
+      }
+    },
+    "v2.7.0": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.9.999",
+          "version_min": "3.7.0"
+        },
+        {
+          "tags": "gcc,get",
+          "version_max": "7.3.1",
+          "version_min": "7"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "3.7.2"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "v2.7.0"
+      }
+    },
+    "v2.8.0": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.10.999",
+          "version_min": "3.7.0"
+        },
+        {
+          "tags": "gcc,get",
+          "version_max": "7.3.1",
+          "version_min": "7"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "4.2.1"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "v2.8.0"
+      }
+    },
+    "v2.9.0": {
+      "deps": [
+        {
+          "tags": "python,get",
+          "version_max": "3.10.999",
+          "version_min": "3.7.0"
+        },
+        {
+          "tags": "gcc,get",
+          "version_max": "10",
+          "version_min": "9"
+        },
+        {
+          "tags": "get,bazel",
+          "version": "5.0.0"
+        }
+      ],
+      "env": {
+        "CM_GIT_CHECKOUT": "v2.9.0"
+      }
+    }
+  }
+}

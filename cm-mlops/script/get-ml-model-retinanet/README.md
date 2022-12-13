@@ -6,7 +6,7 @@ This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-sc
 cm run script --tags=get,ml-model,retinanet,_[VARIATION]
 ```
 where,
-* `[VARIATION]` is one of `onnx` or `pytorch`.
+* `[VARIATION]` is one of `onnx-fp32`, `pytorch-fp32` or `pytorch-fp32-weights`.
 
 ## Exported Variables
 * `CM_ML_MODEL_FILE:` Model filename

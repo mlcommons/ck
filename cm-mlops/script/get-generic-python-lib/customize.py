@@ -4,22 +4,52 @@ import os
 def preprocess(i):
 
     os_info = i['os_info']
-
     env = i['env']
-    env['CM_PYTHON_PACKAGE_NAME_ENV'] = env['CM_PYTHON_PACKAGE_NAME'].replace("-", "_")
+    meta = i['meta']
+    automation = i['automation']
+    run_script_input = i['run_script_input']
+
+    package_name = env.get('CM_GENERIC_PYTHON_PACKAGE_NAME', '').strip()
+    if package_name == '':
+        return automation._available_variations({'meta':meta})
+
+    prepare_env_key = env['CM_GENERIC_PYTHON_PACKAGE_NAME']
+    for x in ["-", "[", "]"]:
+        prepare_env_key = prepare_env_key.replace(x,"_")
+
+    env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'] = prepare_env_key.upper()
 
     recursion_spaces = i['recursion_spaces']
 
-    r = i['automation'].detect_version_using_script({
+    r = automation.detect_version_using_script({
                'env': env,
                'run_script_input':i['run_script_input'],
                'recursion_spaces':recursion_spaces})
     if r['return'] >0:
         if r['return'] == 16:
-            env['CM_REQUIRE_INSTALL'] = "yes"
-            return {'return':0}
+            extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
 
-        return r
+            # Check extra index URL
+            extra_index_url = env.get('CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL','').strip()
+            if extra_index_url != '':
+                # Check special cases
+                if '${CM_TORCH_CUDA}' in extra_index_url:
+                    extra_index_url=extra_index_url.replace('${CM_TORCH_CUDA}', env.get('CM_TORCH_CUDA'))
+
+                extra += ' --extra-index-url '+extra_index_url
+
+            # Check update
+            if env.get('CM_GENERIC_PYTHON_PIP_UPDATE','') in [True,'true','yes','on']:
+                extra +=' -U'
+
+            env['CM_GENERIC_PYTHON_PIP_EXTRA'] = extra
+
+            package_name = env.get('CM_GENERIC_PYTHON_PACKAGE_NAME', '').strip()
+            if package_name == '':
+                return automation._available_variations({'meta':meta})
+
+            r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'install'})
+            if r['return']>0: return r
 
     return {'return':0}
 
@@ -27,7 +57,7 @@ def detect_version(i):
     env = i['env']
     r = i['automation'].parse_version({'match_text': r'\s*([\d.a-z\-]+)',
                                        'group_number': 1,
-                                       'env_key':'CM_'+env['CM_PYTHON_PACKAGE_NAME_ENV'].upper()+'_VERSION',
+                                       'env_key':'CM_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV'].upper()+'_VERSION',
                                        'which_env':i['env']})
     if r['return'] >0: return r
 
@@ -45,6 +75,6 @@ def postprocess(i):
 
     version = r['version']
 
-    env['CM_PYTHONLIB_'+env['CM_PYTHON_PACKAGE_NAME_ENV'].upper()+'_CACHE_TAGS'] = 'version-'+version
+    env['CM_PYTHONLIB_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV']+'_CACHE_TAGS'] = 'version-'+version
 
     return {'return':0, 'version': version}

@@ -239,6 +239,9 @@ class CAutomation(Automation):
                         sys.stdout.write("\r{}{:3.0f}%".format(text, percent))
                         sys.stdout.flush()
 
+                    sys.stdout.write("\r{}{:3.0f}%".format(text, 100))
+                    sys.stdout.flush()
+
         except Exception as e:
             return {'return':1, 'error':format(e)}
 
@@ -283,7 +286,7 @@ class CAutomation(Automation):
         file_name_handle = open(file_name, 'rb')
         file_name_zip = zipfile.ZipFile(file_name_handle)
 
-        files=file_name_zip.namelist()
+        info_files=file_name_zip.infolist()
 
         path=i.get('path','')
         if path is None or path=='':
@@ -292,7 +295,10 @@ class CAutomation(Automation):
         strip_folders = i.get('strip_folders',0)
 
         # Unpacking zip
-        for f in files:
+        for info in info_files:
+            f = info.filename
+            permissions = info.external_attr
+
             if not f.startswith('..') and not f.startswith('/') and not f.startswith('\\'):
                 f_zip = f
 
@@ -315,6 +321,9 @@ class CAutomation(Automation):
                     file_out = open(file_path, 'wb')
                     file_out.write(file_name_zip.read(f_zip))
                     file_out.close()
+
+                    if permissions > 0xffff:
+                        os.chmod(file_path, permissions >> 16)
 
         file_name_zip.close()
         file_name_handle.close()
@@ -627,3 +636,81 @@ class CAutomation(Automation):
         if r['return']>0: return r
 
         return {'return':0}
+
+    ##############################################################################
+    def copy_to_clipboard(self, i):
+        """
+        Copy string to a clipboard
+
+        Args:    
+
+           string (str): string to copy to a clipboard
+           (add_quotes) (bool): add quotes to the string in a clipboard
+           (skip_fail) (bool): if True, do not fail
+
+        Returns:
+           (CM return dict):
+
+           * return (int): return code == 0 if no error and >0 if error
+           * (error) (str): error string if return>0
+        """
+
+        s = i.get('string','')
+
+        if i.get('add_quotes',False): s='"'+s+'"'
+
+        failed = False
+        warning = ''
+
+        # Try to load pyperclip (seems to work fine on Windows)
+        try:
+            import pyperclip
+        except Exception as e:
+            warning = format(e)
+            failed = True
+            pass
+
+        if not failed:
+            pyperclip.copy(s)
+        else:
+            failed = False
+
+            # Try to load Tkinter
+            try:
+                from Tkinter import Tk
+            except ImportError as e:
+                warning = format(e)
+                failed = True
+                pass
+
+            if failed:
+                failed = False
+                try:
+                    from tkinter import Tk
+                except ImportError as e:
+                    warning = format(e)
+                    failed = True
+                    pass
+
+            if not failed:
+                # Copy to clipboard
+                try:
+                    r = Tk()
+                    r.withdraw()
+                    r.clipboard_clear()
+                    r.clipboard_append(s)
+                    r.update()
+                    r.destroy()
+                except Exception as e:
+                    failed = True
+                    warning = format(e)
+
+        rr = {'return':0}
+        
+        if failed:
+            if not i.get('skip_fail',False):
+                return {'return':1, 'error':warning}
+
+            rr['warning']=warning 
+        
+        return rr

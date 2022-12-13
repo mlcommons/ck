@@ -46,19 +46,21 @@
     "rerun": "CM_RERUN",
     "hw_name": "CM_HW_NAME",
     "imagenet_path": "IMAGENET_PATH",
-    "max_batchsize": "CM_LOADGEN_MAX_BATCHSIZE",
-    "mode": "CM_LOADGEN_MODE",
+    "max_batchsize": "CM_MLPERF_LOADGEN_MAX_BATCHSIZE",
+    "mode": "CM_MLPERF_LOADGEN_MODE",
     "num_threads": "CM_NUM_THREADS",
     "output_dir": "OUTPUT_BASE_DIR",
     "results_dir": "OUTPUT_BASE_DIR",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
     "power": "CM_SYSTEM_POWER",
     "regenerate_files": "CM_REGENERATE_MEASURE_FILES",
-    "scenario": "CM_LOADGEN_SCENARIO",
+    "scenario": "CM_MLPERF_LOADGEN_SCENARIO",
+    "quantized": "CM_MLPERF_QUANTIZATION",
     "test_query_count": "CM_TEST_QUERY_COUNT",
     "run_checker": "CM_RUN_SUBMISSION_CHECKER",
     "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
-    "clean": "CM_MLPERF_CLEAN_ALL"
+    "clean": "CM_MLPERF_CLEAN_ALL",
+    "new_tvm_model": "CM_MLPERF_DELETE_COMPILED_MODEL"
   },
   "tags": [
     "run",
@@ -74,7 +76,7 @@
   "variations": {
     "all-modes": {
       "env": {
-        "CM_LOADGEN_ALL_MODES": "yes"
+        "CM_MLPERF_LOADGEN_ALL_MODES": "yes"
       }
     },
     "all-scenarios": {
@@ -84,12 +86,12 @@
         }
       ],
       "env": {
-        "CM_LOADGEN_ALL_SCENARIOS": "yes"
+        "CM_MLPERF_LOADGEN_ALL_SCENARIOS": "yes"
       }
     },
     "compliance": {
       "env": {
-        "CM_LOADGEN_COMPLIANCE": "yes"
+        "CM_MLPERF_LOADGEN_COMPLIANCE": "yes"
       }
     },
     "fast": {

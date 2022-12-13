@@ -6,7 +6,8 @@
   "category": "Detection or installation of tools and artifacts",
   "clean_files": [],
   "new_env_keys": [
-    "CM_BAZEL_*"
+    "CM_BAZEL_*",
+    "+PATH"
   ],
   "prehook_deps": [
     {

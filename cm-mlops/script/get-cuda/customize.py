@@ -11,6 +11,25 @@ def preprocess(i):
 
     if os_info['platform'] == 'windows':
         file_name = 'nvcc.exe'
+
+        if env.get('CM_INPUT','').strip()=='' and env.get('CM_TMP_PATH','').strip()=='':
+            # Check in "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA"
+            paths = []
+            for path in ["C:\\Program Files\\NVIDIA GPU Computing Toolkit\\CUDA", "C:\\Program Files (x86)\\NVIDIA GPU Computing Toolkit\\CUDA"]:
+                if os.path.isdir(path):
+                    dirs = os.listdir(path)
+                    for dr in dirs:
+                        path2 = os.path.join(path, dr, 'bin')
+                        if os.path.isdir(path2):
+                            paths.append(path2)
+
+            if len(paths)>0:
+                tmp_paths = ';'.join(paths)
+                tmp_paths += ';'+os.environ.get('PATH','')
+            
+                env['CM_TMP_PATH'] = tmp_paths
+                env['CM_TMP_PATH_IGNORE_NON_EXISTANT'] = 'yes'
+    
     else:
         file_name = 'nvcc'
 
@@ -23,13 +42,13 @@ def preprocess(i):
 
     if 'CM_NVCC_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name,
-                                       'env': env,
-                                       'os_info':os_info,
-                                       'default_path_env_key': 'PATH',
-                                       'detect_version':True,
-                                       'env_path_key':'CM_NVCC_BIN_WITH_PATH',
-                                       'run_script_input':i['run_script_input'],
-                                       'recursion_spaces':recursion_spaces})
+                                           'env': env,
+                                           'os_info':os_info,
+                                           'default_path_env_key': 'PATH',
+                                           'detect_version':True,
+                                           'env_path_key':'CM_NVCC_BIN_WITH_PATH',
+                                           'run_script_input':i['run_script_input'],
+                                           'recursion_spaces':recursion_spaces})
         if r['return'] >0 : 
             if os_info['platform'] == 'windows':
                 return r
@@ -73,6 +92,9 @@ def postprocess(i):
 
     cuda_path = os.path.dirname(cuda_path_bin)
     env['CM_CUDA_INSTALLED_PATH'] = cuda_path
+
+    env['CUDA_HOME']=cuda_path
+    env['CUDA_PATH']=cuda_path
 
     env['CM_NVCC_BIN'] = os.path.basename(found_file_path)
 

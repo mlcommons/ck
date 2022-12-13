@@ -15,14 +15,6 @@ def preprocess(i):
 
     recursion_spaces = i['recursion_spaces']
 
-    env['CM_VIRTUAL_ENV_PATH'] = os.path.join(os.getcwd(), 'venv')
-
-    s = 'Scripts' if os_info['platform'] == 'windows' else 'bin'
-    env['CM_VIRTUAL_ENV_SCRIPTS_PATH'] = os.path.join(env['CM_VIRTUAL_ENV_PATH'], s)
-
-    env['CM_TMP_PATH'] = env['CM_VIRTUAL_ENV_SCRIPTS_PATH']
-    env['CM_TMP_FAIL_IF_NOT_FOUND'] = 'yes'
-
     # Add extra tags to python
     add_extra_cache_tags = [] # for this script
     add_python_extra_cache_tags = ['virtual'] # for get-python script
@@ -35,11 +27,23 @@ def preprocess(i):
 
         if x != '': name = x
 
+    directory_name = 'venv'
     if name != '':
-        name_tag = 'name-'+name.strip().lower()
+        directory_name = name.strip().lower()
+        name_tag = 'name-' + directory_name
 
         add_extra_cache_tags.append(name_tag)
         add_python_extra_cache_tags.append(name_tag)
+
+    env['CM_VIRTUAL_ENV_DIR'] = directory_name
+    env['CM_VIRTUAL_ENV_PATH'] = os.path.join(os.getcwd(), directory_name)
+
+    s = 'Scripts' if os_info['platform'] == 'windows' else 'bin'
+    env['CM_VIRTUAL_ENV_SCRIPTS_PATH'] = os.path.join(env['CM_VIRTUAL_ENV_PATH'], s)
+
+    env['CM_TMP_PATH'] = env['CM_VIRTUAL_ENV_SCRIPTS_PATH']
+    env['CM_TMP_FAIL_IF_NOT_FOUND'] = 'yes'
+
 
     r = automation.update_deps({'deps':meta['post_deps'], 
                                 'update_deps':{'register-python':

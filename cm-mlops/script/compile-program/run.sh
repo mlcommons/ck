@@ -22,7 +22,7 @@ echo ""
 echo "Checking compiler version ..."
 echo ""
 
-${CM_C_COMPILER_WITH_PATH} --version
+${CM_C_COMPILER_WITH_PATH} ${CM_C_COMPILER_FLAG_VERSION}
 
 echo ""
 echo "Compiling source files ..."
@@ -33,8 +33,11 @@ test $? -eq 0 || exit 1
 
 IFS=';' read -ra FILES <<< "${CM_C_SOURCE_FILES}"
 for file in "${FILES[@]}"; do
-  base_name=${file%.*}
-  CMD="${CM_C_COMPILER_WITH_PATH} -c ${CM_C_COMPILER_FLAGS} ${CM_C_INCLUDE_PATH} $file -o $base_name.o"
+  base="$(basename -- $file)"
+  base_name=${base%.*}
+  echo $base
+  echo $basename
+  CMD="${CM_C_COMPILER_WITH_PATH} -c ${CM_C_COMPILER_FLAGS} ${CM_C_INCLUDE_PATH} $file ${CM_C_COMPILER_FLAG_OUTPUT}$base_name.o"
   echo $CMD
   eval $CMD
   test $? -eq 0 || exit 1
@@ -42,8 +45,11 @@ done
 
 IFS=';' read -ra FILES <<< "${CM_CXX_SOURCE_FILES}"
 for file in "${FILES[@]}"; do
-  base_name=${file%.*}
-  CMD="${CM_CXX_COMPILER_WITH_PATH} -c ${CM_CXX_COMPILER_FLAGS} ${CM_CPLUS_INCLUDE_PATH} $file -o $base_name.o"
+  base="$(basename -- $file)"
+  base_name=${base%.*}
+  echo $base
+  echo $basename
+  CMD="${CM_CXX_COMPILER_WITH_PATH} -c ${CM_CXX_COMPILER_FLAGS} ${CM_CPLUS_INCLUDE_PATH} $file ${CM_CXX_COMPILER_FLAG_OUTPUT}$base_name.o"
   echo $CMD
   eval $CMD
   test $? -eq 0 || exit 1

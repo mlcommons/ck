@@ -1,3 +1,16 @@
+## V1.1.3.1
+   - starting development version
+
+## V1.1.3
+   - improved removal of CM entries on Windows
+   - fixed https://github.com/mlcommons/ck/issues/574
+   - improved detection of CM entries with "."
+   - added --yaml option in "cm add" to save meta in YAML
+
+## V1.1.2
+   - added --save_to_json to save output to JSON (useful for web services)
+   - extended "cm info {automation} {artifact}" (copy to clipboard)
+
 ## V1.1.1
    - added --checkout and --branch to "cm pull repo' for more determinism and reproducibility
    - detect if repository and its forks already exist during "cm pull repo" (#397)

@@ -35,7 +35,7 @@
         "CM_ONNXRUNTIME_DEVICE": ""
       }
     },
-    "gpu": {
+    "cuda": {
       "env": {
         "CM_ONNXRUNTIME_DEVICE": "gpu"
       }

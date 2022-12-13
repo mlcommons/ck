@@ -12,13 +12,13 @@ def preprocess(i):
     file_name_c = 'gcc.exe' if os_info['platform'] == 'windows' else 'gcc'
     if 'CM_GCC_BIN_WITH_PATH' not in env:
         r = i['automation'].find_artifact({'file_name': file_name_c,
-                                       'env': env,
-                                       'os_info':os_info,
-                                       'default_path_env_key': 'PATH',
-                                       'detect_version':True,
-                                       'env_path_key':'CM_GCC_BIN_WITH_PATH',
-                                       'run_script_input':i['run_script_input'],
-                                       'recursion_spaces':recursion_spaces})
+                                           'env': env,
+                                           'os_info':os_info,
+                                           'default_path_env_key': 'PATH',
+                                           'detect_version':True,
+                                           'env_path_key':'CM_GCC_BIN_WITH_PATH',
+                                           'run_script_input':i['run_script_input'],
+                                           'recursion_spaces':recursion_spaces})
         if r['return'] >0 :
 #           if r['return'] == 16:
 #               if env.get('CM_TMP_FAIL_IF_NOT_FOUND','').lower() == 'yes':
@@ -75,16 +75,21 @@ def postprocess(i):
 
     # General compiler for general program compilation
     env['CM_C_COMPILER_BIN']=file_name_c
+    env['CM_C_COMPILER_FLAG_OUTPUT']='-o '
     env['CM_C_COMPILER_WITH_PATH']=found_file_path
+    env['CM_C_COMPILER_FLAG_VERSION']='--version'
 
     env['CM_CXX_COMPILER_BIN']=file_name_cpp
     env['CM_CXX_COMPILER_WITH_PATH']=os.path.join(found_path, file_name_cpp)
+    env['CM_CXX_COMPILER_FLAG_OUTPUT']='-o '
+    env['CM_CXX_COMPILER_FLAG_VERSION']='--version'
 
-    env['FAST_COMPILER_FLAGS'] = "-O3"
-    env['FAST_LINKER_FLAGS'] = "-O3"
-    env['DEBUG_COMPILER_FLAGS'] = "-O0"
-    env['DEBUG_LINKER_FLAGS'] = "-O0"
-    env['DEFAULT_COMPILER_FLAGS'] = "-O2"
-    env['DEFAULT_LINKER_FLAGS'] = "-O2"
+    env['CM_COMPILER_FLAGS_FAST'] = "-O3"
+    env['CM_LINKER_FLAGS_FAST'] = "-O3"
+    env['CM_COMPILER_FLAGS_DEBUG'] = "-O0"
+    env['CM_LINKER_FLAGS_DEBUG'] = "-O0"
+    env['CM_COMPILER_FLAGS_DEFAULT'] = "-O2"
+    env['CM_LINKER_FLAGS_DEFAULT'] = "-O2"
+
 
     return {'return':0, 'version': version}
