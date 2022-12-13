@@ -3,7 +3,8 @@ This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-sc
 
 ## How To
 ```bash
-cm run script --tags=run,mlperf,power,client [--log_dir=<> --power_server=<> --loadgen_logs_dir=<> --ntp_server=<> --run_cmd=<>]
+cm run script --tags=run,mlperf,power,client [--log_dir=<> --power_server=<> \
+--loadgen_logs_dir=<> --ntp_server=<> --run_cmd=<>]
 ```
 
 ### Default Values
