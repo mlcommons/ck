@@ -1,8 +1,24 @@
-# CM documentation
+# CK and CM documentation
 
-This is the documentation for the [Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
-and the [Collective Mind automation meta-framework (CM)](https://github.com/mlcommons/ck)
-being developed by the [open MLCommons taskforce on education and reproducibility](mlperf-education-workgroup.md).
+**Collective Knowledge concept (CK)** provides a simple and non-intrusive way to share your software projects, 
+experiments, knowledge and READMEs as a database of [reusable, portable and interconnected scripts and files](docs/list_of_scripts.md)
+with a [human-readable CLI](docs/tutorials/sc22-scc-mlperf.md), Python API and JSON/YAML meta descriptions.
+
+Motivated by our [tedious experience reproducing 150+ ML and Systems papers](https://learning.acm.org/techtalks/reproducibility), 
+the goal is to provide a common and automated way to reproduce and reuse any experiment
+on any platform with any software, hardware and data.
+
+**Collective Mind framework (CM aka CK2)** is the second implementation 
+of the CK concept being developed by the [open MLCommons taskforce](docs/mlperf-education-workgroup.md) 
+as a [small Python library](https://github.com/mlcommons/ck/tree/master/cm/cmind) 
+with a unified CLI and minimal dependencies.
+
+CM helps you to assemble ML and AI Systems from [portable, reusable and interoperable CM scripts](docs/list_of_scripts.md)
+and automate their benchmarking, optimization and deployment across rapidly evolving software, hardware and data
+from the cloud to the edge.
+
+
+
 
 
 ## Introduction

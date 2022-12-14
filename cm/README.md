@@ -1,23 +1,24 @@
-# Collective Mind meta-framework
+# Collective Mind framework
 
-[Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
-provides a simple way to unify, manage, connect and reuse any artifacts, scripts, tools and workflows 
-on any platform with any software and hardware stack. It is motivated by our 
-[tedious experience](https://learning.acm.org/techtalks/reproducibility) 
-reproducing research papers on machine learning and systems and validating them in the real world.
+**Collective Knowledge concept (CK)** provides a simple and non-intrusive way to share your software projects, 
+experiments, knowledge and READMEs as a database of [reusable, portable and interconnected scripts and files](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
+with a [human-readable CLI](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md), Python API and JSON/YAML meta descriptions.
 
-Collective Mind workflow automation meta-framework (CM aka CK2) is the 2nd implementation 
-of the CK concept being developed by the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
-to make MLOps and DevOps more interoperable, portable, deterministic and reproducible.
+Motivated by our [tedious experience reproducing 150+ ML and Systems papers](https://learning.acm.org/techtalks/reproducibility), 
+the goal is to provide a common and automated way to reproduce and reuse any experiment
+on any platform with any software, hardware and data.
 
-[MLCommons](https://mlcommons.org) uses CM to to modularize ML and AI systems and automate their benchmarking, 
-optimization and deployment across diverse and continuously changing software, hardware and data
-from the cloud to embedded devices.
+**Collective Mind framework (CM aka CK2)** is the second implementation 
+of the CK concept being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
+as a [small Python library](https://github.com/mlcommons/ck/tree/master/cm/cmind) 
+with a unified CLI and minimal dependencies.
+
+CM helps you to assemble ML and AI Systems from [portable, reusable and interoperable CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
+and automate their benchmarking, optimization and deployment across rapidly evolving software, hardware and data
+from the cloud to the edge.
 
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck)
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck)
-
-&copy; 2022 [MLCommons](https://mlcommons.org)<br>
 
 ## Documentation
 
@@ -25,8 +26,12 @@ from the cloud to embedded devices.
 
 ## Maintainers
 
-* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
+* [Grigori Fursin](https://cknowledge.io/@gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+
+## Copyright
+
+2021-2022 [MLCommons](https://mlcommons.org)
 
 ## Acknowledgments
 
