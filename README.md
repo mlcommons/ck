@@ -11,7 +11,7 @@
 The Collective Knowledge project (CK) is motivated by our tedious experience reproducing experiments 
 from [150 research papers](https://learning.acm.org/techtalks/reproducibility)
 and validating them in the real world.
-We have created a cross-platform tool to transform software projects
+We have created a cross-platform "Collective Mind" tool (CM) to transform software projects
 into a [database of portable and reusable scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md) 
 adaptable to continuously changing software, hardware and data. 
 It's being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
