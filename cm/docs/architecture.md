@@ -1,1 +1,1 @@
-Moved [here](../../docs/development.md).
+Moved [here](../../docs/specs/cm-tool-architecture.md).

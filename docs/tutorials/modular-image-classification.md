@@ -27,7 +27,7 @@ You can find more details about the installation process [here](installation.md)
 
 ## Run modular image classification via CM
 
-Here is an example of a modular image classification [assembled](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.json#L9) 
+Here is an example of a modular image classification [assembled](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L19) 
 from ([reusable and portable CM components that wrap native OS scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)).
 CM will attempt to automatically detect, download, install and build all related artifacts 
 and tools to adapt this workflow to a user platform with Linux, Windows or MacOS:
@@ -72,12 +72,17 @@ cm show cache
 cm run script --tags=app,image-classification,onnx,python (--input=my-image.jpg)
 ```
 
-A few more examples to detect compilers and CUDA devices on Windows:
+## Run this script with CUDA
+
 ```bash
-cm run script --tags=get,cl --path="C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\bin"
-cm run script --tags=get,cuda --path="C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\bin"
+cm run script "get cuda"
+cm run script "get cuda-devices"
 
-cm show cache
-
-cm run script --tags=get,cuda-devices
+cm run script "python app image-classification onnx _cuda"
+cm run script "python app image-classification onnx _cuda" --input=my-image.jpg
 ```
+
+This script was tested on Windows 10 with
+* ONNX Runtime 1.13.1 with CUDA
+* CUDA 11.6
+* cuDNN 8.5.0.96

@@ -2,10 +2,9 @@
 
 # Tutorial: understanding CM database concepts
 
-Here we describe a few simple steps to let you try CM (aka CK2) and help you understand the CM [motivation](motivation.md)
-and concepts.
+Here we describe a few simple steps to let you try CM (aka CK2) and help you understand the CM concepts.
 
-You will install CM v0.7.24+, transform your local directory into a database of reusable artifacts, 
+You will install CM v1.1.3+, transform your local directory into a database of reusable artifacts, 
 share it with others, implement some common automation actions to reusable artifacts,
 run CM automations from Python and Jupyter Notebooks, and convert any Git repository 
 into the CM format.
