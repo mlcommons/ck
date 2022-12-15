@@ -163,12 +163,12 @@ int main(int argc, const char *argv[]) {
     if (input_settings.model_name == "resnet50") {
         qsl.reset(new Imagenet(
             backend, max_sample_count,
-            input_settings.dataset_preprocessed_path + "/preprocessed/imagenet/NCHW",
+            input_settings.dataset_preprocessed_path,
             input_settings.imagenet_val_path));
     } else if (input_settings.model_name == "retinanet") {
         qsl.reset(new Openimages(
             backend, max_sample_count,
-            input_settings.dataset_preprocessed_path + "/preprocessed/openimages-800-retinanet/NCHW/validation/data",
+            input_settings.dataset_preprocessed_path,
             input_settings.dataset_path + "/annotations/openimages-mlperf.json"));
     } else {
         std::cerr << "dataset for model ("
