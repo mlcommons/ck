@@ -10,12 +10,17 @@
 
 The Collective Knowledge project (CK) is motivated by our tedious experience reproducing experiments 
 from [150 research papers](https://learning.acm.org/techtalks/reproducibility)
-and validating them in the real world.
-We have created a cross-platform "Collective Mind" tool (CM) to transform software projects
-into a [database of portable and reusable scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md) 
-adaptable to continuously changing software, hardware and data. 
-It's being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
-to help the community reduce development, benchmarking, optimization and deployment time for ML and AI systems.
+and validating them in the real world - we decided to develop a universal and human-readable API to access any software project
+and run it on any platform with any software, hardware and data.
+
+The [Collective Mind tool (CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
+helps to add this universal interface to software projects and transform them into a 
+[database of portable and reusable components](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
+in a transparent and non-intrusive way.
+It is being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
+to reduce development, benchmarking, optimization and deployment time for ML and AI systems,
+and automate [reproducibility initiatives and artifact evaluation at conferences](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md).
+
 
 ### Documentation and Getting Started Guide
 

@@ -1,27 +1,25 @@
 # CK and CM documentation
 
-The goal of the [Collective Knowledge project (CK)](https://learning.acm.org/techtalks/reproducibility) 
-is to make software projects more portable, reproducible and reusable 
-across continuously changing software, hardware and data.
+The Collective Knowledge project (CK) is motivated by our tedious experience reproducing experiments 
+from [150 research papers](https://learning.acm.org/techtalks/reproducibility)
+and validating them in the real world - we decided to develop a universal and human-readable API to access any software project
+and run it on any platform with any software, hardware and data.
 
-The [Collective Mind tool (CM)](cm/cmind) 
-provides a simple and non-intrusive way to transform any software project
-into a database of [reusable, portable and interconnected scripts and files](list_of_scripts.md)
-with a [human-readable CLI](tutorials/sc22-scc-mlperf.md), 
-unified Python API and extensible JSON/YAML meta descriptions.
-
-It is being developed by the [open MLCommons taskforce](mlperf-education-workgroup.md) 
+The [Collective Mind tool (CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
+helps to add this universal interface to software projects and transform them into a 
+[database of portable and reusable components](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
+in a transparent and non-intrusive way.
+It is being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
 to reduce development, benchmarking, optimization and deployment time for ML and AI systems,
-and automate [reproducibility initiatives and artifact evaluation at conferences](tutorials/sc22-scc-mlperf.md).
-
+and automate [reproducibility initiatives and artifact evaluation at conferences](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md).
 
 
 ## Getting started guide
 
-* [Installing and customizing CM](installation.md).
-* [Using CM to run image classification on any platform](tutorials/modular-image-classification.md).
-* TBD: transforming your software project to the CM format.
-* TBD: adding new portable scripts reusable by the community ([notes](../cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm)).
+* [Installing and customizing CM](installation.md)
+* [Using CM to run image classification on any platform](tutorials/modular-image-classification.md)
+* TBD: transforming your software project to the CM format
+* TBD: adding new portable scripts reusable by the community ([notes](../cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm))
 
 ## Specification
 
@@ -41,8 +39,8 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 
 ## References
 
-* [List of reusable CM automations](list_of_automations.md).
-* [List of reusable CM scripts](list_of_scripts.md).
+* [List of reusable CM automations](list_of_automations.md)
+* [List of reusable CM scripts](list_of_scripts.md)
 
 ## Tutorials
 
