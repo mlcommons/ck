@@ -17,30 +17,28 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 ## Getting started guide
 
 * [Installing and customizing CM](installation.md)
-* [Using CM to run image classification on any platform](tutorials/modular-image-classification.md)
+* [Testing CM to run image classification on any platform](tutorials/modular-image-classification.md)
 * TBD: transforming your software project to the CM format
 * TBD: adding new portable scripts reusable by the community ([notes](../cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm))
 
 ## Specification
 
-* [CM repository structure](specs/cm-repository.md)
-* [CM command line](specs/cm-cli.md)
+* [CM format for software projects](specs/cm-repository.md)
+* [CM command line description](specs/cm-cli.md)
 * [CM Python interface](specs/cm-python-interface.md)
 * [CM tool architecture](specs/cm-tool-architecture.md)
-* [CM tool API](https://cknowledge.org/docs/cm/api/cmind.html)
-* [CM scripts](specs/cm-script.md)
 
-## On-going projects
-
-* [Modularizing ML and AI systems and reducing their development, benchmarking, optimization and deployment time and costs](mlperf-education-workgroup.md)
-  * [Minutes from weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
-  * [GitHub tickets](https://github.com/mlcommons/ck/issues)
-* [Supporting artifact evaluation and reproducibility initiatives at conferences](https://cTuning.org/ae)
-
-## References
+## Catalog of reusable components
 
 * [List of reusable CM automations](list_of_automations.md)
 * [List of reusable CM scripts](list_of_scripts.md)
+
+## On-going projects
+
+* [Modularizing MLPerf and automating benchmarking, optimization, design space exploration and submissions](mlperf-education-workgroup.md)
+  * [Minutes from weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
+  * [GitHub tickets](https://github.com/mlcommons/ck/issues)
+* [Supporting artifact evaluation and reproducibility initiatives at conferences](https://cTuning.org/ae)
 
 ## Tutorials
 

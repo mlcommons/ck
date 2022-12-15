@@ -277,3 +277,18 @@ For example, you can test the CM as follows:
 ```bash
 cm test core
 ```
+
+
+
+## CM script automation
+
+TBD
+
+* [Docs](specs/cm-automation-script.md)
+
+
+## CM cache automation
+
+TBD
+
+* [Docs](specs/cm-automation-cache.md)
