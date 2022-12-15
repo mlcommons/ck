@@ -1,34 +1,42 @@
-# Collective Mind meta-framework
+[![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
+[![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
+[![Downloads](https://pepy.tech/badge/cmind/month)](https://pepy.tech/project/cmind)
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE.md)
 
-[Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
-provides a simple way to unify, manage, connect and reuse any artifacts, scripts, tools and workflows 
-on any platform with any software and hardware stack. It is motivated by our 
-[tedious experience](https://learning.acm.org/techtalks/reproducibility) 
-reproducing research papers on machine learning and systems and validating them in the real world.
+[![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
+[![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 
-Collective Mind workflow automation meta-framework (CM aka CK2) is the 2nd implementation 
-of the CK concept being developed by the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
-to make MLOps and DevOps more interoperable, portable, deterministic and reproducible.
+### About
 
-[MLCommons](https://mlcommons.org) uses CM to to modularize ML and AI systems and automate their benchmarking, 
-optimization and deployment across diverse and continuously changing software, hardware and data
-from the cloud to embedded devices.
+The Collective Knowledge project (CK) is motivated by our tedious experience reproducing experiments 
+from [150 research papers](https://learning.acm.org/techtalks/reproducibility)
+and validating them in the real world - we decided to develop a universal and human-readable API to access any software project
+and run it on any platform with any software, hardware and data.
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck)
-[![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck)
+The [Collective Mind tool (CM)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
+helps to add this universal interface to software projects and transform them into a 
+[database of portable and reusable components](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
+in a transparent and non-intrusive way.
+It is being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
+to reduce development, benchmarking, optimization and deployment time for ML and AI systems,
+and automate [reproducibility initiatives and artifact evaluation at conferences](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md).
 
-&copy; 2022 [MLCommons](https://mlcommons.org)<br>
 
-## Documentation
+### Documentation and Getting Started Guide
 
-* [Table of contents](https://github.com/mlcommons/ck/blob/master/docs/README.md)
+* [Table of contents](https://github.com/mlcommons/ck/tree/master/docs/README.md)
 
-## Maintainers
+### Copyright
 
-* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
+2021-2022 [MLCommons](https://mlcommons.org)
 
-## Acknowledgments
+### Maintainers
+
+* [Grigori Fursin](https://cknowledge.io/@gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+
+
+### Acknowledgments
 
 This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).

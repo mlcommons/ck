@@ -3,7 +3,8 @@ This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-sc
 
 ## How To
 ```bash
-cm run script --tags=run,mlperf,power,server [--interface_flag=<> --device_port=<> --outdir=<> --logfile=<> --outdir=<> --device_type=<> ]
+cm run script --tags=run,mlperf,power,server [--interface_flag=<> \
+--device_port=<> --outdir=<> --logfile=<> --outdir=<> --device_type=<> ]
 ```
 
 ### Default Values

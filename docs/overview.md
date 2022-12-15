@@ -1,13 +1,13 @@
 [ [Back to index](README.md) ]
 
-# Overview
+## Overview
 
-[Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
-provides a simple way to unify, manage, connect and reuse any artifacts, scripts, tools and workflows 
-on any platform with any software and hardware stack. 
-
-It is motivated by our [tedious experience](https://learning.acm.org/techtalks/reproducibility) 
+This project is motivated by our [tedious experience](https://learning.acm.org/techtalks/reproducibility) 
 reproducing research papers on machine learning and systems and validating them in the real world.
+
+We have developed the [Collective Knowledge concept (CK)](https://arxiv.org/pdf/2011.01149.pdf) 
+to provide a simple way to unify, manage, connect and reuse any artifacts, scripts, tools and workflows 
+on any platform with any software and hardware stack. 
 
 We have developed CK to help researchers and developers turn their scripts, artifacts and workflow
 into a database of portable, reusable, customizable and deterministic components
@@ -60,8 +60,3 @@ You can access this project [here](../ck1).
 
 * [MLOps resources](misc/MLOps.md)
 * [ML resources](misc/ML.md)
-
-# Maintainers
-
-* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
