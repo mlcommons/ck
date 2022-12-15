@@ -1,60 +1,62 @@
 # CK and CM documentation
 
-**Collective Knowledge concept (CK)** provides a simple and non-intrusive way to share your software projects, 
-experiments, knowledge and READMEs as a database of [reusable, portable and interconnected scripts and files](docs/list_of_scripts.md)
-with a [human-readable CLI](docs/tutorials/sc22-scc-mlperf.md), Python API and JSON/YAML meta descriptions.
+The goal of the [Collective Knowledge project (CK)](https://learning.acm.org/techtalks/reproducibility) 
+is to make software projects more portable, reproducible and reusable 
+across continuously changing software, hardware and data.
 
-Motivated by our [tedious experience reproducing 150+ ML and Systems papers](https://learning.acm.org/techtalks/reproducibility), 
-the goal is to provide a common and automated way to reproduce and reuse any experiment
-on any platform with any software, hardware and data.
+The [Collective Mind tool (CM)](cm/cmind) 
+provides a simple and non-intrusive way to transform any software project
+into a database of [reusable, portable and interconnected scripts and files](list_of_scripts.md)
+with a [human-readable CLI](tutorials/sc22-scc-mlperf.md), 
+unified Python API and extensible JSON/YAML meta descriptions.
 
-**Collective Mind framework (CM aka CK2)** is the second implementation 
-of the CK concept being developed by the [open MLCommons taskforce](docs/mlperf-education-workgroup.md) 
-as a [small Python library](https://github.com/mlcommons/ck/tree/master/cm/cmind) 
-with a unified CLI and minimal dependencies.
-
-CM helps you to assemble ML and AI Systems from [portable, reusable and interoperable CM scripts](docs/list_of_scripts.md)
-and automate their benchmarking, optimization and deployment across rapidly evolving software, hardware and data
-from the cloud to the edge.
+It is being developed by the [open MLCommons taskforce](mlperf-education-workgroup.md) 
+to reduce development, benchmarking, optimization and deployment time for ML and AI systems,
+and automate [reproducibility initiatives and artifact evaluation at conferences](tutorials/sc22-scc-mlperf.md).
 
 
-
-
-
-## Introduction
-
-* [Overview](overview.md)
-* [Motivation](motivation.md)
 
 ## Getting started guide
 
-* [Installation and customization](installation.md)
-* [Trying CM (modular image classification)](tutorials/modular-image-classification.md)
-* [List of CM automations](list_of_automations.md)
+* [Installing and customizing CM](installation.md).
+* [Using CM to run image classification on any platform](tutorials/modular-image-classification.md).
+* TBD: transforming your software project to the CM format.
+* TBD: adding new portable scripts reusable by the community ([notes](../cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm)).
+
+## Specification
+
+* [CM repository structure](specs/cm-repository.md)
+* [CM command line](specs/cm-cli.md)
+* [CM Python interface](specs/cm-python-interface.md)
+* [CM tool architecture](specs/cm-tool-architecture.md)
+* [CM tool API](https://cknowledge.org/docs/cm/api/cmind.html)
+* [CM scripts](specs/cm-script.md)
+
+## On-going projects
+
+* [Modularizing ML and AI systems and reducing their development, benchmarking, optimization and deployment time and costs](mlperf-education-workgroup.md)
+  * [Minutes from weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
+  * [GitHub tickets](https://github.com/mlcommons/ck/issues)
+* [Supporting artifact evaluation and reproducibility initiatives at conferences](https://cTuning.org/ae)
+
+## References
+
+* [List of reusable CM automations](list_of_automations.md).
+* [List of reusable CM scripts](list_of_scripts.md).
 
 ## Tutorials
 
-* [Tutorial: portable CM scripts](tutorials/scripts.md)
-  * [List of portable CM scripts](list_of_scripts.md)
-* [Tutorial: CM database concepts](tutorials/concept.md)
-* [Tutorial: modular MLPerf benchmark](tutorials/sc22-scc-mlperf.md)
+We plan to update them soon.
 
-## Developer guide
-
-* [Contributing guidelines](../CONTRIBUTING.md)
-* [CM specification](specification.md)
-* [CM architecture and developer conventions](development.md)
-* [CM core API](https://cknowledge.org/docs/cm/api/cmind.html)
-* [Adding new artifacts, scripts and workflows to CM](../cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
+* [Tutorial: understanding portable CM scripts](tutorials/scripts.md)
+* [Tutorial: understanding CM database concepts](tutorials/concept.md)
+* [Tutorial: trying modular MLPerf benchmark via CM interface](tutorials/sc22-scc-mlperf.md)
 
 
-## On-going work
+## Misc
 
-* [Modularizing ML&AI systems and automating their benchmarking, optimization and design space exploration](mlperf-education-workgroup.md)
-  * [Minutes from weekly meetings](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit)
-  * [GitHub tickets](https://github.com/mlcommons/ck/issues)
-* [Helping with artifact evaluation and reproducibility initiatives at conferences](https://cTuning.org/ae)
-
+* [Project overview](overview.md)
+* [History](history.md)
 
 
 

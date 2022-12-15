@@ -1,74 +1,15 @@
 [ [Back to index](README.md) ]
 
-# CM specification
+# CM CLI
 
-## CM repository
+One of the main goals of CM is to provide a common, unified and human-readable CLI 
+to access all software repositories shared in the [CM format](cm-repository.md).
+The idea is to unify all numerous READMEs with CM commands to 
+to make it easier for the community to run software projects and reuse
+individual automations across continuously changing software, hardware and data.
 
-### Root directory
 
-* *cmr.yaml &| cmr.json* - CM repository description
-
-```json
-{
-  alias (str): CM name to find this repository
-  uid (str): unique ID to find this repository
-
-  (desc) (str): user-friendly description
-  (git) (bool): True, if it's a Git repository
-  (prefix) (str): sub-directory inside this repository to keep CM artifacts
-}
-```
-
-Examples: 
-
-* [Internal CM repository description](https://github.com/mlcommons/ck/blob/master/cm/cmind/repo/cmr.yaml) 
-* [octoml@cm-mlops repository description](https://github.com/octoml/cm-mlops/blob/main/cmr.yaml)
-
-### First level directories
-
-* CM automation names, i.e. artifact type (alias or UID)
-
-Examples: 
-
-* [Internal CM repository](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo) 
-* [CM repository for MLOps and DevOps](https://github.com/mlcommons/ck/tree/master/cm-mlops)
-
-### Second level directories
-
-* CM artifact names (alias or UID)
-
-Examples: 
-
-* [Internal CM repository](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation) 
-* [CM repository for MLOps and DevOps](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
-
-### Third level files
-
-* *_cm.yaml &| _cm.json* - CM artifact meta description
-
-```json
-{
-  alias (str): CM name to find this artifact
-  uid (str): unique ID to find this artifact
-
-  automation_alias (str): CM automation name for this artifact
-  automation_uid (str): unique ID for the automation for this artifact
-
-  (_base) (str): preload meta description from this base artifact in format "{automation}::{artifact}" 
-                 and then merge the current meta description with the base.
-                 This mechanism enables simple inheritance of artifact meta descriptions.
-
-  tags (list): list of tags to characterize and find this artifact
-
-  ... 
-}
-```
-
-## CM command line
-
-CM uses a unified CLI to access all automation actions and artifacts:
-
-``bash
+```bash
 cm {action} {automation} {artifact(s)} {--flags} @input.yaml @input.json
 ```
 
@@ -160,39 +101,9 @@ cm add . {some artifact}
 
 
 
-## CM Python JSON interface
-
-CM automations can be executed from a Python as follows:
-```python
-
-import cmind as cm
-
-r = cm.access({'action':'find', 'automation':'repo'})
-if r['return']>0: cm.halt(r)
-
-print (r)
- 
-r = cm.access('find repo --out=con')
-if r['return']>0: cm.halt(r)
-
-```
-
-or
-
-```python
-import cmind
-
-cm = cmind.CM()
-
-r = cm.access({'action':'find', 'automation':'repo'})
-if r['return']>0: cm.halt(r)
-
-print (r)
-
-```
 
 
-## CM automation
+## CM automations
 
 CM automations are kept as CM artifacts in "automation" directories 
 (see [this example](https://github.com/mlcommons/ck/tree/master/cm/cmind/repo/automation)).

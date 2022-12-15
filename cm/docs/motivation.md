@@ -1,1 +1,1 @@
-Moved [here](../../docs/motivation.md).
+Moved [here](../../docs/README.md).

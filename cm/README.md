@@ -1,39 +1,30 @@
-# Collective Mind framework
+# About
 
-**Collective Knowledge concept (CK)** provides a simple and non-intrusive way to share your software projects, 
-experiments, knowledge and READMEs as a database of [reusable, portable and interconnected scripts and files](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
-with a [human-readable CLI](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md), Python API and JSON/YAML meta descriptions.
+Collective Mind (CM) is a cross-platform tool that helps to make software projects more portable, modular, reusable, reproducible and adaptable 
+to continuously changing software, hardware and data. 
+It is being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
+to help the community reduce development, benchmarking, optimization and deployment time for ML and AI systems.
 
-Motivated by our [tedious experience reproducing 150+ ML and Systems papers](https://learning.acm.org/techtalks/reproducibility), 
-the goal is to provide a common and automated way to reproduce and reuse any experiment
-on any platform with any software, hardware and data.
+* [Documentation and the Getting Started Guide](https://github.com/mlcommons/ck/blob/master/docs/README.md).
 
-**Collective Mind framework (CM aka CK2)** is the second implementation 
-of the CK concept being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
-as a [small Python library](https://github.com/mlcommons/ck/tree/master/cm/cmind) 
-with a unified CLI and minimal dependencies.
+[![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE.md)
+[![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
+[![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
+[![Downloads](https://pepy.tech/badge/cmind/month)](https://pepy.tech/project/cmind)
 
-CM helps you to assemble ML and AI Systems from [portable, reusable and interoperable CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
-and automate their benchmarking, optimization and deployment across rapidly evolving software, hardware and data
-from the cloud to the edge.
+[![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
+[![CM script automation features test](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm-script-features.yml)
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck)
-[![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck)
+### Copyright
 
-## Documentation
+2021-2022 [MLCommons](https://mlcommons.org)
 
-* [Table of contents](https://github.com/mlcommons/ck/blob/master/docs/README.md)
-
-## Maintainers
+### Maintainers
 
 * [Grigori Fursin](https://cknowledge.io/@gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
-## Copyright
-
-2021-2022 [MLCommons](https://mlcommons.org)
-
-## Acknowledgments
+### Acknowledgments
 
 This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
