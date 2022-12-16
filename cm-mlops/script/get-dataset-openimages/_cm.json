@@ -18,6 +18,9 @@
       ]
     },
     {
+      "tags": "get,generic-python-lib,_requests"
+    },
+    {
       "names": [
         "inference-src"
       ],
@@ -50,6 +53,8 @@
   },
   "new_env_keys": [
     "CM_DATASET_PATH",
+    "CM_DATASET_ANNOTATIONS_DIR_PATH",
+    "CM_DATASET_ANNOTATIONS_FILE_PATH",
     "CM_CALIBRATION_DATASET_PATH"
   ],
   "tags": [

@@ -74,7 +74,6 @@ def preprocess(i):
     '''
     env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
     if not env['DATA_DIR']:'''
-    env['DATA_DIR'] = env.get('CM_DATASET_PATH')
     env['MODEL_DIR'] = env['CM_ML_MODEL_PATH']
 
     RUN_CMD = ""
@@ -97,16 +96,23 @@ def preprocess(i):
     if "bert" not in env['CM_MODEL']:
         scenario_extra_options +=  " --threads " + NUM_THREADS
     ml_model_name = env['CM_MODEL']
-    user_conf_path = env['CM_MLPERF_USER_CONF']
-    scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
+    if 'CM_MLPERF_USER_CONF' in env:
+        user_conf_path = env['CM_MLPERF_USER_CONF']
+        scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
 
     env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
     mode = env['CM_MLPERF_LOADGEN_MODE']
     mode_extra_options = ""
     if 'CM_DATASET_PREPROCESSED_PATH' in env:
-        dataset_options = " --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']
+        dataset_options = " --use_preprocessed_dataset --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']# +" --dataset-list "+os.path.join(env['CM_DATASET_PATH'], "val_map.txt")
+        if env['CM_MODEL'] == "retinanet":
+            dataset_options += " --dataset-list "+ env['CM_DATASET_ANNOTATIONS_FILE_PATH']
+        elif env['CM_MODEL'] == "resnet50":
+            dataset_options += " --dataset-list "+ os.path.join(env['CM_DATASET_PATH'], "val_map.txt")
+        env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
     else:
+        env['DATA_DIR'] = env.get('CM_DATASET_PATH')
         dataset_options = ''
     OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'], \
             env['CM_MODEL'], scenario.lower(), mode)

@@ -77,9 +77,10 @@ design space exploration and deployment across continuously changing software an
 * [get-dlrm](#get-dlrm)
 * [get-ml-model-bert-large-squad](#get-ml-model-bert-large-squad)
 * [get-ml-model-mobilenet](#get-ml-model-mobilenet)
-* [get-ml-model-nvidia-retinanet](#get-ml-model-nvidia-retinanet)
 * [get-ml-model-resnet50](#get-ml-model-resnet50)
+* [get-ml-model-resnet50-tvm](#get-ml-model-resnet50-tvm)
 * [get-ml-model-retinanet](#get-ml-model-retinanet)
+* [get-ml-model-retinanet-nvidia](#get-ml-model-retinanet-nvidia)
 
 
 ### ML/AI frameworks
@@ -119,6 +120,7 @@ design space exploration and deployment across continuously changing software an
 * [get-bazel](#get-bazel)
 * [get-cmake](#get-cmake)
 * [get-cmsis_5](#get-cmsis_5)
+* [get-generic-sys-util](#get-generic-sys-util)
 * [get-java](#get-java)
 * [get-javac](#get-javac)
 * [get-openssl](#get-openssl)
@@ -270,6 +272,7 @@ design space exploration and deployment across continuously changing software an
 * [get-dlrm](#get-dlrm)
 * [get-gcc](#get-gcc) *(GCC compiler)*
 * [get-generic-python-lib](#get-generic-python-lib)
+* [get-generic-sys-util](#get-generic-sys-util)
 * [get-github-cli](#get-github-cli)
 * [get-go](#get-go)
 * [get-java](#get-java)
@@ -278,9 +281,10 @@ design space exploration and deployment across continuously changing software an
 * [get-microtvm](#get-microtvm)
 * [get-ml-model-bert-large-squad](#get-ml-model-bert-large-squad)
 * [get-ml-model-mobilenet](#get-ml-model-mobilenet)
-* [get-ml-model-nvidia-retinanet](#get-ml-model-nvidia-retinanet)
 * [get-ml-model-resnet50](#get-ml-model-resnet50)
+* [get-ml-model-resnet50-tvm](#get-ml-model-resnet50-tvm)
 * [get-ml-model-retinanet](#get-ml-model-retinanet)
+* [get-ml-model-retinanet-nvidia](#get-ml-model-retinanet-nvidia)
 * [get-mlperf-inference-loadgen](#get-mlperf-inference-loadgen)
 * [get-mlperf-inference-nvidia-common-code](#get-mlperf-inference-nvidia-common-code)
 * [get-mlperf-inference-results](#get-mlperf-inference-results)
@@ -463,7 +467,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="app,vision,language,mlcommons,mlperf,inference,reference,ref"*
-* CM script variations: *_bert;&nbsp; _bert-99;&nbsp; _bert-99.9;&nbsp; _cpu;&nbsp; _cuda;&nbsp; _fast;&nbsp; _onnxruntime;&nbsp; _python;&nbsp; _pytorch;&nbsp; _quantized;&nbsp; _r2.1_default;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _tensorflow;&nbsp; _test;&nbsp; _tf;&nbsp; _tvm;&nbsp; _tvm-onnx;&nbsp; _tvm-pip-install-onnx;&nbsp; _tvm-pip-install-pytorch;&nbsp; _tvm-pytorch;&nbsp; _valid*
+* CM script variations: *_bert;&nbsp; _bert-99;&nbsp; _bert-99.9;&nbsp; _cpu;&nbsp; _cuda;&nbsp; _fast;&nbsp; _onnxruntime;&nbsp; _python;&nbsp; _pytorch;&nbsp; _quantized;&nbsp; _r2.1_default;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _tensorflow;&nbsp; _test;&nbsp; _tf;&nbsp; _tvm-onnx;&nbsp; _tvm-pytorch;&nbsp; _valid*
 
 
 ## benchmark-program
@@ -805,6 +809,17 @@ design space exploration and deployment across continuously changing software an
 * CM script variations: *_apache-tvm;&nbsp; _attrs;&nbsp; _boto3;&nbsp; _colored;&nbsp; _decorator;&nbsp; _jax;&nbsp; _jax_cuda;&nbsp; _mlperf_logging;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _nvidia-pyindex;&nbsp; _nvidia-tensorrt;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _onnxruntime_gpu;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pillow;&nbsp; _pip;&nbsp; _polygraphy;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _pycuda;&nbsp; _scipy;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _torch_cuda;&nbsp; _torchaudio;&nbsp; _torchaudio_cuda;&nbsp; _torchvision;&nbsp; _torchvision_cuda;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _typing_extensions;&nbsp; _ujson;&nbsp; _wandb*
 
 
+## get-generic-sys-util
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,sys-util,generic,generic-sys-util"*
+* CM script variations: *_gflags-dev;&nbsp; _glog-dev*
+
+
 ## get-github-cli
 
 
@@ -897,17 +912,6 @@ design space exploration and deployment across continuously changing software an
 * CM script default variation: *onnx*
 
 
-## get-ml-model-nvidia-retinanet
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-nvidia-retinanet)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-nvidia-retinanet/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,ml-model,nvidia-retinanet,nvidia"*
-* CM script variations: *_efficient-nms*
-
-
 ## get-ml-model-resnet50
 
 
@@ -915,8 +919,20 @@ design space exploration and deployment across continuously changing software an
 * CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)*
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,ml-model,resnet50,ml-model-resnet50,image-classification"*
+* CM script  tags: *cm run script --tags="get,raw,ml-model,resnet50,ml-model-resnet50,image-classification"*
 * CM script variations: *_fp32;&nbsp; _int8;&nbsp; _onnx;&nbsp; _onnx,opset-11;&nbsp; _onnx,opset-8;&nbsp; _onnxruntime;&nbsp; _opset-11;&nbsp; _opset-8;&nbsp; _pytorch;&nbsp; _pytorch,fp32;&nbsp; _pytorch,int8;&nbsp; _tensorflow;&nbsp; _tf;&nbsp; _tflite;&nbsp; _uint8*
+* CM script default variation: *onnx*
+
+
+## get-ml-model-resnet50-tvm
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification"*
+* CM script variations: *_bs.1;&nbsp; _bs.16;&nbsp; _bs.2;&nbsp; _bs.32;&nbsp; _bs.4;&nbsp; _bs.64;&nbsp; _bs.8;&nbsp; _fp32;&nbsp; _int8;&nbsp; _onnx;&nbsp; _pytorch;&nbsp; _tensorflow;&nbsp; _tf;&nbsp; _tflite;&nbsp; _uint8*
 * CM script default variation: *onnx*
 
 
@@ -930,6 +946,17 @@ design space exploration and deployment across continuously changing software an
 * CM script  tags: *cm run script --tags="get,ml-model,resnext50,retinanet,object-detection"*
 * CM script variations: *_fp32;&nbsp; _onnx;&nbsp; _onnx,fp32;&nbsp; _pytorch;&nbsp; _pytorch,fp32;&nbsp; _pytorch,fp32,weights;&nbsp; _weights*
 * CM script default variation: *onnx-fp32*
+
+
+## get-ml-model-retinanet-nvidia
+
+
+* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia)*
+* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia/_cm.json)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+* CM script  tags: *cm run script --tags="get,ml-model,nvidia-retinanet,nvidia"*
+* CM script variations: *_efficient-nms*
 
 
 ## get-mlperf-inference-loadgen
@@ -1166,7 +1193,7 @@ design space exploration and deployment across continuously changing software an
 * CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 * CM script  tags: *cm run script --tags="get,tvm,get-tvm"*
-* CM script variations: *_cuda;&nbsp; _llvm;&nbsp; _openmp*
+* CM script variations: *_cuda;&nbsp; _llvm;&nbsp; _openmp;&nbsp; _pip-install*
 * CM script versions: *main;&nbsp; v0.10.0;&nbsp; v0.7.0;&nbsp; v0.8.0;&nbsp; v0.9.0*
 
 

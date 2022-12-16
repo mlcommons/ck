@@ -1,7 +1,5 @@
 #!/bin/bash
 
-${CM_PYTHON_BIN} -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
-
 CUR=${PWD}
 mkdir -p install
 INSTALL_DIR=${CUR}/install
@@ -19,15 +17,11 @@ if [[ ${CM_DATASET_CALIBRATION} == "no" ]]; then
   echo $cmd
   eval $cmd
   test $? -eq 0 || exit 1
-  cd $CUR
-  echo "CM_DATASET_PATH=${INSTALL_DIR}" > tmp-run-env.out
 else
   cmd="./openimages_calibration_mlperf.sh -d ${INSTALL_DIR}"
   echo $cmd
   eval $cmd
   test $? -eq 0 || exit 1
-  cd $CUR
-  echo "CM_CALIBRATION_DATASET_PATH=${INSTALL_DIR}" > tmp-run-env.out
   cd $INSTALL_DR
   wget ${CM_CALIBRATION_DATASET_WGET_URL}
   test $? -eq 0 || exit 1
@@ -35,4 +29,3 @@ fi
 cd ${INSTALL_DIR}
 ln -s ../ open-images-v6-mlperf
 test $? -eq 0 || exit 1
-
