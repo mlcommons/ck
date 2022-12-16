@@ -22,6 +22,7 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 * [Understanding CM interface](tutorials/cm-interface.md)
 * [TBD: transforming your software project to the CM format](tutorials/transform-your-project-to-cm.md)
 * [TBD: adding new portable scripts reusable by the community](tutorials/add-new-script.md) ([misc notes](tutorials/scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm))
+* [TBD: FAQ](faq.md)
 
 ### Specification
 
