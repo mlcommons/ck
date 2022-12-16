@@ -29,5 +29,5 @@ openimages.OpenImages(data_path=dataset_path,
                         threads=threads,
                         preprocessed_dir=preprocessed_dir)
 src_path=os.path.join(dataset_path, "annotations")
-dest_path=os.path.join(preprocessed_dir, "validation", "data", "annotations")
+dest_path=os.path.join(preprocessed_dir, "annotations")
 shutil.copytree(src_path, dest_path)
