@@ -14,7 +14,7 @@ def preprocess(i):
 
 def postprocess(i):
     env = i['env']
-    env['CM_DATASET_ANNOTATIONS_PATH'] = os.path.join(os.getcwd(), "annotations")
     env['CM_DATASET_PREPROCESSED_PATH'] = os.path.join(env['CM_DATASET_PREPROCESSED_PATH'], "validation", "data")
+    env['CM_DATASET_ANNOTATIONS_PATH'] = os.path.join(env['CM_DATASET_PREPROCESSED_PATH'], "annotations")
 
     return {'return': 0}
