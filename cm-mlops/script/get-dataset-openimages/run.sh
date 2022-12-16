@@ -31,4 +31,4 @@ fi
 cd ${INSTALL_DIR}
 ln -s ../ open-images-v6-mlperf
 test $? -eq 0 || exit 1
-
+cd $CUR

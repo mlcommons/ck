@@ -29,6 +29,12 @@
         "pycocotools"
       ],
       "tags": "get,generic-python-lib,_pycocotools"
+    },
+    {
+      "tags": "get,generic-python-lib,_opencv-python"
+    },
+    {
+      "tags": "get,generic-python-lib,_Pillow"
     }
   ],
   "default_env": {

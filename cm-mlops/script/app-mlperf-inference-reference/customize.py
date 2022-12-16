@@ -106,6 +106,10 @@ def preprocess(i):
     mode_extra_options = ""
     if 'CM_DATASET_PREPROCESSED_PATH' in env:
         dataset_options = " --use_preprocessed_dataset --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']# +" --dataset-list "+os.path.join(env['CM_DATASET_PATH'], "val_map.txt")
+        if env['CM_MODEL'] == "retinanet":
+            dataset_options += " --dataset-list "+ env['CM_DATASET_ANNOTATIONS_FILE_PATH']
+        elif env['CM_MODEL'] == "resnet50":
+            dataset_options += " --dataset-list "+ os.path.join(env['CM_DATASET_PATH'], "val_map.txt")
         env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
     else:
         env['DATA_DIR'] = env.get('CM_DATASET_PATH')

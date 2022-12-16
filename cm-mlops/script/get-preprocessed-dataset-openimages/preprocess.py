@@ -10,7 +10,7 @@ import dataset
 import shutil
 
 dataset_path = os.environ['CM_DATASET_PATH']
-dataset_list = os.environ.get('CM_DATASET_IMAGES_LIST', None)
+dataset_list = os.environ.get('CM_DATASET_ANNOTATIONS_FILE_PATH', None)
 img_format = os.environ.get('CM_ML_MODEL_DATA_LAYOUT', 'NHWC')
 count = int(os.environ.get('CM_DATASET_SIZE', 0)) or None
 preprocessed_dir = os.environ.get('CM_DATASET_PREPROCESSED_PATH', os.getcwd())
@@ -28,6 +28,6 @@ openimages.OpenImages(data_path=dataset_path,
                         count=count,
                         threads=threads,
                         preprocessed_dir=preprocessed_dir)
-src_path=os.path.join(dataset_path, "annotations")
+src_path=os.environ.get('CM_DATASET_ANNOTATIONS_DIR_PATH', os.path.join(dataset_path, "annotations"))
 dest_path=os.path.join(preprocessed_dir, "annotations")
 shutil.copytree(src_path, dest_path)
