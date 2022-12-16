@@ -20,7 +20,7 @@ def preprocess(i):
     source_files = []
     script_path = i['run_script_input']['path']
     if env['CM_MODEL'] == "retinanet":
-        env['CM_DATASET_LIST'] = env['CM_DATASET_ANNOTATIONS_FILE']
+        env['CM_DATASET_LIST'] = env['CM_DATASET_ANNOTATIONS_FILE_PATH']
     env['CM_SOURCE_FOLDER_PATH'] = os.path.join(script_path, "src")
 
     for file in os.listdir(env['CM_SOURCE_FOLDER_PATH']):
