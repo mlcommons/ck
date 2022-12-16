@@ -34,7 +34,7 @@
       "tags": "get,generic-python-lib,_opencv-python"
     },
     {
-      "tags": "get,generic-python-lib,_Pillow"
+      "tags": "get,generic-python-lib,_pillow"
     }
   ],
   "default_env": {
