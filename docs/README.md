@@ -19,7 +19,7 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 
 * [Installing and customizing CM](installation.md)
 * [Testing CM to run image classification on any platform with CPU and GPU](tutorials/modular-image-classification.md)
-* [Understanding CM interface](tutorials/cm-interface.md)
+* [Understanding CM interface (CLI and Python API)](tutorials/cm-interface.md)
 * [TBD: transforming your software project to the CM format](tutorials/transform-your-project-to-cm.md)
 * [TBD: adding new portable scripts reusable by the community](tutorials/add-new-script.md) ([misc notes](tutorials/scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm))
 * [TBD: FAQ](faq.md)
@@ -27,14 +27,14 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 ### Specification
 
 * [CM format for software projects](specs/cm-repository.md)
-* [CM command line description](specs/cm-cli.md)
-* [CM Python interface](specs/cm-python-interface.md)
+* [CM CLI description](specs/cm-cli.md)
+* [CM Python API](specs/cm-python-interface.md)
 * [CM tool architecture](specs/cm-tool-architecture.md)
 
 ### Catalog of reusable components
 
 * [List of reusable CM automations](list_of_automations.md)
-* [List of reusable CM scripts](list_of_scripts.md)
+* [List of portable and reusable CM scripts](list_of_scripts.md)
 
 ### On-going projects
 
@@ -58,8 +58,14 @@ We plan to update them soon.
 * [History](history.md)
 
 
+## Contacts
+
+* [Open MLCommons taskforce](mlperf-education-workgroup.md)
+* [Maintainers of the CM tool](../README.md#maintainers)
+* [CK project mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
 
 ## Acknowledgments
 
 This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+
