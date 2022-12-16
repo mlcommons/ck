@@ -1,9 +1,21 @@
 [ [Back to index](README.md) ]
 
+<details>
+<summary>Click here to see the table of contents.</summary>
+
+* [CM installation](#cm-installation)
+  * [Ubuntu, Debian](#ubuntu-debian)
+  * [Red Hat](#red-hat)
+  * [MacOS](#macos)
+  * [Windows](#windows)
+* [CM testing](#cm-testing)
+* [CM customization](#cm-customization)
+
+</details>
+
 # CM installation
 
-Our goal is to keep the CM tool as simple and portable as possible
-with minimal dependencies: python 3+, pip, git and wget.
+The CM tool requires minimal dependencies to run on any platform: `python 3+, pip, git, wget`.
 
 Here are typical installation procedures across different operating systems:
 
@@ -11,7 +23,6 @@ Here are typical installation procedures across different operating systems:
 * [Red Hat](#red-hat)
 * [MacOS](#macos)
 * [Windows](#windows)
-
 
 You can find some Docker containers for CM [here](../docker).
 
@@ -133,66 +144,3 @@ You can use the following environment variables to customize CM installation:
 
 * 'CM_HOME' - change path to the CM python package with the default 'repo' directory.
   Useful to improve the default automations inside the CM package.
-
-
-# Misc CM utils
-
-We implemented and shared the following misc CM utils 
-(see the list of all CM automations [here](list_of_automations.md)):
-
-### generate CM UID
-
-```bash
-cm uid core
-```
-
-### create TOC from md file
-
-```bash
-cm create-toc-from-md utils --input=README.md
-```
-
-### json2yaml file converter
-
-```bash
-cm pull repo mlcommons@ck
-
-cm json2yaml utils --input={json file}
-```
-
-### yaml2json file converter
-
-```bash
-cm pull repo mlcommons@ck
-
-cm yaml2json utils --input={yaml file}
-```
-
-### sort json file
-
-```bash
-cm pull repo mlcommons@ck
-
-cm sort-json utils --input={json file}
-```
-
-### dos2unix file convertor
-
-Remove \r from txt files on Windows:
-
-```bash
-cm pull repo mlcommons@ck
-
-cm dos2unix utils --input={txt file}
-```
-
-
-# Target platform support
-
-* x8664
-* Arm64
-* CUDA-based devices
-* Mobile devices with Arm64, GPU and DSP (*on-going development*)
-* TinyML devices (*on-going development*)
-* Simulators (*on-going development*)
-

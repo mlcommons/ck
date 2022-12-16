@@ -199,9 +199,9 @@ class CAutomation(Automation):
 #                md.append('Developers: '+developers)
 #                md.append('\n')
 
-            md.append('* CM GitHub repository: *[{}]({})*'.format(repo_alias, url_repo))
-            md.append('* CM artifact (module and meta): *[GitHub]({})*'.format(url))
-            md.append('* CM actions:')
+            md.append('* CM GitHub repository installation: *cm pull [{}]({})*'.format(repo_alias, url_repo))
+            md.append('* CM automation sources and meta: *[GitHub]({})*'.format(url))
+            md.append('* CM automation actions:')
 
             # Load module
             module_path = os.path.join(path, 'module.py')
