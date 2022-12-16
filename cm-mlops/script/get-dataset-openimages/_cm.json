@@ -18,6 +18,9 @@
       ]
     },
     {
+      "tags": "get,generic-python-lib,_requests"
+    },
+    {
       "names": [
         "inference-src"
       ],

@@ -120,6 +120,14 @@
         "CM_PROTOBUF_VERSION"
       ]
     },
+    "requests": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "requests"
+      },
+      "new_env_keys": [
+        "CM_REQUESTS_VERSION"
+      ]
+    },
     "tensorflow": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorflow"
