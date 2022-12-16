@@ -2,7 +2,7 @@
 
 # CM installation
 
-Our goal is to keep the CM automation meta-framework as simple and portable as possible
+Our goal is to keep the CM tool as simple and portable as possible
 with minimal dependencies: python 3+, pip, git and wget.
 
 Here are typical installation procedures across different operating systems:
@@ -13,7 +13,7 @@ Here are typical installation procedures across different operating systems:
 * [Windows](#windows)
 
 
-You can find Docker containers for CM [here](../../docker).
+You can find some Docker containers for CM [here](../docker).
 
 You can customize CM installation using environment variables described [here](#cm-customization).
 
@@ -83,7 +83,7 @@ python -m pip install cmind
 
 # CM testing
 
-If the installation is successful, you can run cm CLI as follows:
+If the installation is successful, you can run the CM CLI as follows:
 
 ```bash
 gfursin@cmind:~$ cm

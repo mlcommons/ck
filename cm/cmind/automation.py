@@ -122,7 +122,7 @@ class Automation:
         print ('GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm')
         print ('GitHub for CM automation scripts:  https://github.com/mlcommons/ck/tree/master/cm-mlops')
         print ('Reporting issues and ideas:        https://github.com/mlcommons/ck/issues')
-        print ('Joining the open MLPerf workgroup: http://bit.ly/mlperf-edu-wg')
+        print ('Joining the open MLPerf workgroup: https://bit.ly/mlperf-edu-wg')
 
         return {'return':0}
 
