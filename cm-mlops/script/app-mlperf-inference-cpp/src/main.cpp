@@ -60,6 +60,7 @@ public:
     std::string model_path;
     std::string dataset_preprocessed_path;
     std::string dataset_path;
+    std::string dataset_list;
     std::string imagenet_val_path;
     std::string scenario_name;
     std::string mode_name;
