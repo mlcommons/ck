@@ -19,7 +19,7 @@ helps users to add this universal interface to their software projects and trans
 in a transparent and non-intrusive way.
 
 CM is being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
-to solve the "dependency hell" for ML and AI systems, reduce their development, benchmarking, optimization and deployment time,
+to solve the "dependency hell" for ML and AI systems, reduce their development, benchmarking, optimization and deployment time and costs,
 and automate [reproducibility initiatives and artifact evaluation at conferences](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md).
 
 
