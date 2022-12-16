@@ -18,7 +18,8 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 ### Getting started guide
 
 * [Installing and customizing CM](installation.md)
-* [Testing CM to run image classification on any platform](tutorials/modular-image-classification.md)
+* [Testing CM to run image classification on any platform with CPU and GPU](tutorials/modular-image-classification.md)
+* [Understanding CM interface](tutorials/cm-interface.md)
 * [TBD: transforming your software project to the CM format](tutorials/transform-your-project-to-cm.md)
 * [TBD: adding new portable scripts reusable by the community](tutorials/add-new-script.md) ([misc notes](tutorials/scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm))
 

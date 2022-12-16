@@ -8,7 +8,7 @@
   * [Red Hat](#red-hat)
   * [MacOS](#macos)
   * [Windows](#windows)
-* [CM testing](#cm-testing)
+* [CM CLI testing](#cm-cli-testing)
 * [CM customization](#cm-customization)
 
 </details>
@@ -92,7 +92,7 @@ python -m pip install cmind
 
 
 
-# CM testing
+# CM CLI testing
 
 If the installation is successful, you can run the CM CLI as follows:
 
@@ -132,7 +132,7 @@ You can use the following environment variables to customize CM installation:
 * 'CM_REPOS' - change path to the CM repositories and *repos.json* file.
 
   By default, CM will keep CM repositories in:
-  * *$HOME/CM* directory on Linux 
+  * *$HOME/CM* directory on Linux and MacOS
   * *%USERPROFILE%\CM* directory on Windows
 
 * 'CM_CONFIG' - provide full path to a JSON or YAML file with the CM configuration.
