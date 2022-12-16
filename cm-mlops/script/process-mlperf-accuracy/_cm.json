@@ -5,6 +5,9 @@
   "cache": false,
   "category": "Modular MLPerf benchmarks",
   "clean_files": [],
+  "env_key_mappings": {
+    "CM_DATASET_ANNOTATIONS_FILE": "DATASET_ANNOTATIONS_FILE"
+  },
   "deps": [
     {
       "names": [
