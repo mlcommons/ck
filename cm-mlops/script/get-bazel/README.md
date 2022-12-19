@@ -1,5 +1,5 @@
 # Get Bazel
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) detects the installed bazel on the system and if not found calls the [install script for bazel](../script/install-bazel).
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) detects the installed bazel on the system and if not found calls the [install script for bazel](../script/install-bazel).
 
 ## Exported Variables
 * `CM_BAZEL_BIN_WITH_PATH`

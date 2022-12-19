@@ -1,5 +1,5 @@
 # Get MLCommons Inference Results
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) git clones the [MLCommons Inference results repository](https://github.com/mlcommons/inference_v2.1).
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) git clones the [MLCommons Inference results repository](https://github.com/mlcommons/inference_v2.1).
 
 ## Commands
 To install

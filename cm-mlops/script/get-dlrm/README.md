@@ -1,5 +1,5 @@
 # Get DLRM
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) git clones the [DLRM repository](https://github.com/facebookdresearch/dlrm).
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) git clones the [DLRM repository](https://github.com/facebookdresearch/dlrm).
 
 ## Commands
 To install

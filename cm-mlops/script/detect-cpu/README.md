@@ -1,5 +1,5 @@
 # Detect CPU
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) detects the host CPU details and exports them in a unified list of environment variables to be reused across the supported operating systems.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) detects the host CPU details and exports them in a unified list of environment variables to be reused across the supported operating systems.
 
 ## Exported Variables
 * `CM_HOST_CPU_L1I_CACHE_SIZE`

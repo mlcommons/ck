@@ -1,5 +1,5 @@
 # Run MLPerf Inference Submission Checker
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) runs the [MLPerf Inference submission checker](https://github.com/mlcommons/inference/blob/master/tools/submission/submission-checker.py) on a given submission folder.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) runs the [MLPerf Inference submission checker](https://github.com/mlcommons/inference/blob/master/tools/submission/submission-checker.py) on a given submission folder.
 
 ## How To
 ```bash

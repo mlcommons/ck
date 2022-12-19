@@ -1,6 +1,6 @@
 # Get CUDA
 
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) detects the installed CUDA on the system 
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) detects the installed CUDA on the system 
 and if not found calls the [install script for CUDA](../script/install-cuda-prebuilt).
 
 ## Exported Variables

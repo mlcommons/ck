@@ -1,5 +1,5 @@
 # Get MLCommons Inference Loadgen
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) builds and installs the Loadgen library from [MLCommons Inference repository](https://github.com/mlcommons/inference).
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) builds and installs the Loadgen library from [MLCommons Inference repository](https://github.com/mlcommons/inference).
 
 ## Commands
 To install

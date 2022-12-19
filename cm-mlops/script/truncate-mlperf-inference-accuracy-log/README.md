@@ -1,5 +1,5 @@
 # MLPerf Inference Accuracy Log Truncator
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) runs the [MLPerf Inference accuracy log truncator](https://github.com/mlcommons/inference/blob/master/tools/submission/truncate_accuracy_log.py) on a given submission folder.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) runs the [MLPerf Inference accuracy log truncator](https://github.com/mlcommons/inference/blob/master/tools/submission/truncate_accuracy_log.py) on a given submission folder.
 
 ## How To
 ```bash

@@ -1,5 +1,5 @@
 # Downloads LibriSpeech Dataset
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) downloads the LibriSpeech dataset.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) downloads the LibriSpeech dataset.
 
 ## Usage
 

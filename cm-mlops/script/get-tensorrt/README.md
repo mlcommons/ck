@@ -1,6 +1,6 @@
 # Get TensorRT
 
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) installs TensorRT when the corrsponding [tar file](https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html#installing-tar) is provided as an input.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) installs TensorRT when the corrsponding [tar file](https://docs.nvidia.com/deeplearning/tensorrt/install-guide/index.html#installing-tar) is provided as an input.
 
 ## How to Use
 ```

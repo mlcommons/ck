@@ -1,5 +1,5 @@
 # Get MLCommons Power-dev Source
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) git clones the [MLCommons Power-dev repository](https://github.com/mlcommons/power-dev).
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) git clones the [MLCommons Power-dev repository](https://github.com/mlcommons/power-dev).
 
 ## Commands
 To install

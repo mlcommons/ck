@@ -1,5 +1,5 @@
 # GET-ZEPHYR-SDK
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) installs the [Zephyr-SDK](https://github.com/zephyrproject-rtos/sdk-ng/releases) from a prebuilt binary. 
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) installs the [Zephyr-SDK](https://github.com/zephyrproject-rtos/sdk-ng/releases) from a prebuilt binary. 
 
 ## Install
 ```bash

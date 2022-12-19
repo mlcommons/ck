@@ -1,5 +1,5 @@
 # Get Criteo Dataset
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) downloads the 24 days of Criteo dataset for MLPerf inference using DLRM.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) downloads the 24 days of Criteo dataset for MLPerf inference using DLRM.
 
 ## Exported Variables
 * `CM_DATASET_PATH`

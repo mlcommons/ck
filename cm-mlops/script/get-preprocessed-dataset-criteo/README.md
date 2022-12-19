@@ -1,5 +1,5 @@
 # Get Preprocessed Criteo Dataset
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) preprocesses the Criteo dataset.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) preprocesses the Criteo dataset.
 
 ## How To
 ```bash

@@ -1,5 +1,5 @@
 # Get ML Model Retinanet
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) downloads the Retinanet model and adds it to CM cache with relevant meta data. 
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) downloads the Retinanet model and adds it to CM cache with relevant meta data. 
 
 ## How To
 ```bash

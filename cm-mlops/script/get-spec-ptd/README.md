@@ -1,5 +1,5 @@
 # Get SPEC Power Daemon
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) git clones the [SPEC Power Daemon](https://github.com/mlcommons/power) used by MLPerf for power measurements.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) git clones the [SPEC Power Daemon](https://github.com/mlcommons/power) used by MLPerf for power measurements.
 
 ## Commands
 To install

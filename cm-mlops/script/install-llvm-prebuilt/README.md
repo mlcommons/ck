@@ -1,5 +1,5 @@
 # Get LLVM
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) detects the installed llvm on the system and if not found calls the [install script for llvm](../script/install-llvm-prebuilt).
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) detects the installed llvm on the system and if not found calls the [install script for llvm](../script/install-llvm-prebuilt).
 
 ## Exported Variables
 * `CM_LLVM_CLANG_BIN`

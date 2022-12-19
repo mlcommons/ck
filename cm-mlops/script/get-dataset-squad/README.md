@@ -1,5 +1,5 @@
 # Downloads SQUAD Dataset
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) downloads the SQUAD dataset.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) downloads the SQUAD dataset.
 
 ## Usage
 

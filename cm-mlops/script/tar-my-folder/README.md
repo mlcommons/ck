@@ -1,5 +1,5 @@
 # Compress using tar
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) compresses a given folder and generates a tar.gz file
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) compresses a given folder and generates a tar.gz file
 
 ## How To
 ```bash

@@ -1,5 +1,5 @@
 # Get GO Tool
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) detects the installed GO tool on the system.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) detects the installed GO tool on the system.
 
 ## Exported Variables
 * `CM_GO_BIN_WITH_PATH`

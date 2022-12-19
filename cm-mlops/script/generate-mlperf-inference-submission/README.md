@@ -1,5 +1,5 @@
 # Generate MLPerf Inference Submission Folder
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) takes in a MLPerf Inference results folder (same folder structure assumed as produced by MLPerf inference reference implementation) and produces a valid submission folder as required by the [MLPerf Inference submission checker](https://github.com/mlcommons/inference/blob/master/tools/submission/submission-checker.py).
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) takes in a MLPerf Inference results folder (same folder structure assumed as produced by MLPerf inference reference implementation) and produces a valid submission folder as required by the [MLPerf Inference submission checker](https://github.com/mlcommons/inference/blob/master/tools/submission/submission-checker.py).
 
 ## How To
 ```bash

@@ -1,5 +1,5 @@
 # Get MLCommons Training Source
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) git clones the [MLCommons Training repository](https://github.com/mlcommons/training).
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) git clones the [MLCommons Training repository](https://github.com/mlcommons/training).
 
 ## Commands
 To install

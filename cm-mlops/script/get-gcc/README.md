@@ -1,5 +1,5 @@
 # Get GCC
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) detects the installed gcc on the system.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) detects the installed gcc on the system.
 
 ## Exported Variables
 * `CM_GCC_BIN`

@@ -1,5 +1,5 @@
 # Get ML Model Resnet50 optimized by TVM
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) optimizes the Resnet50 model using TVM.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) optimizes the Resnet50 model using TVM.
 
 ## How To
 ```bash

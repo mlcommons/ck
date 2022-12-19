@@ -1,5 +1,5 @@
 # Get MLPerf Nvidia Common code
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) exports the PYTHONPATH to the common code used by Nvidia for MLPerf submissions
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) exports the PYTHONPATH to the common code used by Nvidia for MLPerf submissions
 
 ## Exported Variables
 * `+PYTHONPATH`

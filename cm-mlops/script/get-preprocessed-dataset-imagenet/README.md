@@ -1,5 +1,5 @@
 # Get Preprocessed Imagenet Dataset
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) preprocesses the Imagenet dataset.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) preprocesses the Imagenet dataset.
 
 ## How To
 ```bash

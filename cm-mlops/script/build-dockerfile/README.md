@@ -1,5 +1,5 @@
 # Build CM Dockerfile
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) builds a dockerfile with for using CM.
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) builds a dockerfile with for using CM.
 
 ## How to use
 ```bash

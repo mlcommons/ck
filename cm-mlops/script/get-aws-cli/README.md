@@ -1,5 +1,5 @@
 # Get AWS CLI
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) detects the installed aws-cli on the system and if not found calls the [install script for aws-cli](../script/install-aws-cli).
+This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) detects the installed aws-cli on the system and if not found calls the [install script for aws-cli](../script/install-aws-cli).
 
 ## Exported Variables
 * `CM_AWS_BIN_WITH_PATH`
