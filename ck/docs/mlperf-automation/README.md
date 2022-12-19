@@ -1,7 +1,15 @@
-***Note, that this documentation is outdated since we are developing the [2nd generaton of the CK framework (CK2 or CM)](https://github.com/mlcommons/ck/tree/master/cm)
-   to decompose MLPerf benchmark into a [database of reusable, portable, customizable and deterministic scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
-   with a unified CLI, Python API and extensible JSON/YAML meta descriptions. The new documentation will be available [here](../mlperf)***.
+<br>
+<br>
+<br>
 
+**Note, that this CK-MLPerf documentation is discontinued after the [open MLCommons taskforce](../../../docs/mlperf-education-workgroup.md)
+  has released the [2nd generaton of the CK framework (CK2 or CM)](https://github.com/mlcommons/ck/tree/master/cm)
+  to decompose MLPerf benchmark into a [database of reusable, portable, customizable and deterministic scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
+  with a unified CLI, Python API and extensible JSON/YAML meta descriptions.**
+
+<br>
+<br>
+<br>
 
 # MLPerf&trade; inference benchmark automation
 

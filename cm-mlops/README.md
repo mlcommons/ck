@@ -5,8 +5,8 @@
 [![CM artifact](https://img.shields.io/badge/Artifact-automated%20and%20reusable-blue)](https://github.com/mlcommons/ck)
 
 This MLCommons CM repository contains portable scripts
-in the [CM (CK2) format](https://github.com/mlcommons/ck) to unify and interconnect 
-different MLOps and DevOps tools acrossd diverse software and hardware stacks.
+in the [CM format](https://github.com/mlcommons/ck) to unify and interconnect 
+different MLOps and DevOps tools across continuously changing software, hardware and data.
 **See the automatically generated catalog [here](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).**
 
 All cross-platform СM scripts have a unified API, human readable CLI and extensible JSON/YAML meta description
@@ -14,22 +14,20 @@ making it possible to reuse them in different projects and chain them together
 into powerful, efficient and portable automation workflows, applications and web services
 adaptable to continuously changing software and hardware.
 
-Check [this page](https://github.com/mlcommons/ck) to read about the MLCommons CK concept,
-install MLCommons CM automation meta-framework (2nd implementation of the CK concept)
-and reuse portable CM scripts for MLOps and DevOps.
+Check the [CM docs](https://github.com/mlcommons/ck/tree/master/docs) to understand
+the CM concept, install the CM tool and reuse portable CM scripts for MLOps and DevOps.
 
 Join the [open MLCommons taskforce on education and reproducibility](../docs/mlperf-education-workgroup.md) 
-to learn how to run and optimize MLPerf benchmarks, modularize complex AI and ML systems 
-and automate their benchmarking, optimization, co-design and deployment using the MLCommons CM framework 
-and portable CM scripts.
-
+to learn how to make ML Systems more portable, reproducible and reusable 
+across rapidly evolving SW/HW stacks, and automate their benchmarking, optimization, 
+design space exploration and deployment.
 
 &copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
 
 # Maintainers
 
-* [Grigori Fursin](https://cKnowledge.io/cf@gfursin) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
-  ([OctoML](https://octoml.ai) and [MLCommons](https://mlcommons.org))
+* [Grigori Fursin](https://cKnowledge.io/cf@gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 # Acknowledgments
 
