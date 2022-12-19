@@ -1,20 +1,36 @@
-# Downloads SQUAD Dataset
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) downloads the SQUAD dataset.
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## Usage
+### About
 
-```
-cm run script --tags=get,dataset,squad --version=[VERSION]
-```
-where [VERSION] is one of 
-* `1.1`
-* `2.0`
+*TBD*
 
-## Exported Variables
-* `CM_DATASET_SQUAD_PATH:` Directory path to SQUAD dataset
-* `CM_DATASET_SQUAD_TRAIN_PATH:` JSON file path to SQUAD training dataset
-* `CM_DATASET_SQUAD_VAL_PATH:` JSON file path to SQUAD validation dataset
+### Category
 
-## Supported and Tested OS
-1. Ubuntu 18.04, 20.04, 22.04
-2. RHEL 9
+ML/AI datasets.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *get,dataset,squad,language-processing,validation,training,original*
+* CM CLI: *`cm run script --tags="get,dataset,squad,language-processing,validation,training,original"`*
+* CM CLI alternative: *`cm run script "get dataset squad language-processing validation training original"`*
+
+
+### Versions
+Default version: *1.1*
+
+* 1.1
+* 2.0

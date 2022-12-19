@@ -1,15 +1,29 @@
-This script runs a docker container and launces the given CM script inside it. 
-If the container image is not existing, corresponding build is initiated via CM dependencies.
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## How to Run
-```bash
-cm run script \
---tags=run,docker,container
-```
-### Options
-1. `--script_tags="get,gcc"`: Script tags for the CM script to be run inside the docker container. 
-    If this is not set the cm command run inside the docker container is `cm version`
-2. `--cm_repo=octoml@ck`: To use a different repo for CM scripts like "octoml@ck". Default: `mlcommons@ck`
-3. `--base="ubuntu:22.04"`: Specify the base image for Dockerfile. Default: "ubuntu:20.04" 
-4. `--recreate=yes`: To recreate docker image even when existing. Default: "no"
-5. `--adr.build-docker-image.tags=_cache`: To use build cache for docker image build. Default: "" (`nocache`)
+### About
+
+*TBD*
+
+### Category
+
+Docker automation.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *run,docker,container*
+* CM CLI: *`cm run script --tags="run,docker,container"`*
+* CM CLI alternative: *`cm run script "run docker container"`*

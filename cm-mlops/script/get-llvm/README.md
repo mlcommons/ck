@@ -1,96 +1,32 @@
-# Get LLVM
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) detects the installed llvm on the system and if not found calls the [install script for llvm](../script/install-llvm-prebuilt).
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## Exported Variables
-* `CM_LLVM_CLANG_BIN`
-* `CM_LLVM_CLANG_BIN_WITH_PATH` 
-* `CM_C_COMPILER_BIN`
-* `CM_C_COMPILER_WITH_PATH`
-* `CM_CXX_COMPILER_BIN`
-* `CM_CXX_COMPILER_WITH_PATH`
-* `CM_COMPILER_*`
-* `CM_LINKER_*`
+### About
 
-## Supported and Tested OS
-1. Ubuntu 18.04, 20.04, 22.04
-2. RHEL 9
+LLVM compiler.
 
-# CLI
+See [extra README](README-extra.md).
 
-## Default
-```bash
-cm run script "get llvm"
-```
-or
-```bash
-cm run script --tags=get,llvm
-```
 
-## Version
+### Category
 
-```bash
-cm run script "get llvm" --version=14.0.0
-```
+Compiler automation.
 
-## Version min
-```bash
-cm run script "get llvm" --version_min=12.0.0
-```
+### Maintainers
 
-## Version max
-```bash
-cm run script "get llvm" --version_max=13.999.999 --version_max_usable=13.0.0
-```
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
 
-## Detect llvm3 in non-standard path
-```bash
-cm run script "get llvm" --path={directory with llvm}
-```
+### Origin
 
-### Detect llvm with non-standard name
-```bash
-cm run script "get llvm" --input={full path to clang}
-```
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 
-## Force new detection even if llvm is already found and cached
-```bash
-cm run script "get llvm" --new
-```
 
-## Test
+### Meta description
+[_cm.json](_cm.json)
 
-```bash
-cm run script "app image corner-detection"
-```
 
-## Reproducibility matrix
-
-*Test detection and installation on different platforms*
-
-* Windows, Linux, MacOS
-
-### RHEL 9
-
-#### v14.0.0: &#10003; 
-
-```bash
-cm rm cache -f
-cm run script "get llvm" --version=14.0.0
-cm run script "app image corner-detection"
-```
-
-#### v13.0.0: Need special command
-
-```bash
-cm rm cache -f
-cm run script "get llvm" --version=13.0.0 --env.CM_LLVM_PACKAGE=clang+llvm-13.0.0-x86_64-linux-gnu-ubuntu-20.04.tar.xz
-cm run script "app image corner-detection"
-```
-
-#### v12.0.0: Need special command
-
-```bash
-cm rm cache -f
-cm run script "get llvm" --version=12.0.0 --env.CM_LLVM_PACKAGE=clang+llvm-12.0.0-x86_64-linux-gnu-ubuntu-20.04.tar.xz
-cm run script "app image corner-detection"
-```
+### Tags
+* All CM script tags: *get,llvm,compiler,c-compiler,cpp-compiler,get-llvm*
+* CM CLI: *`cm run script --tags="get,llvm,compiler,c-compiler,cpp-compiler,get-llvm"`*
+* CM CLI alternative: *`cm run script "get llvm compiler c-compiler cpp-compiler get-llvm"`*

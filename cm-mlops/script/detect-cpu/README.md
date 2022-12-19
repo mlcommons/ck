@@ -1,17 +1,29 @@
-# Detect CPU
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) detects the host CPU details and exports them in a unified list of environment variables to be reused across the supported operating systems.
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## Exported Variables
-* `CM_HOST_CPU_L1I_CACHE_SIZE`
-* `CM_HOST_CPU_L2_CACHE_SIZE`
-* `CM_HOST_CPU_MEMSIZE`
-* `CM_HOST_CPU_SOCKETS`
-* `CM_HOST_CPU_THREADS_PER_CORE`
-* `CM_HOST_CPU_TOTAL_CORES`
-* `CM_HOST_CPU_TOTAL_LOGICAL_CORES`
-* `CM_HOST_CPU_TOTAL_PHYSICAL_CORES`
+### About
 
-## Supported and Tested OS
-1. Ubuntu 18.04, 20.04, 22.04
-2. RHEL 9
-3. macOS 12.6
+*TBD*
+
+### Category
+
+Platform information.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *detect,cpu,detect-cpu,info*
+* CM CLI: *`cm run script --tags="detect,cpu,detect-cpu,info"`*
+* CM CLI alternative: *`cm run script "detect cpu detect-cpu info"`*

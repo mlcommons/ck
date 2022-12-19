@@ -1,44 +1,34 @@
-# Get CUDA
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) detects the installed CUDA on the system 
-and if not found calls the [install script for CUDA](../script/install-cuda-prebuilt).
+### About
 
-## Exported Variables
-* `CM_CUDA_INSTALLED_PATH`
-* `CM_CUDA_VERSION`
-* `CM_NVCC_BIN_WITH_PATH`
-* `CUDA_HOME`
-* `CUDA_PATH`
+*TBD*
 
-## Supported and Tested OS
-1. Ubuntu 18.04, 20.04, 22.04
-2. Windows
+### Category
 
-# Examples
+CUDA automation.
 
-## Detect CUDA on Windows
+### Maintainers
 
-You may want to install all system dependencies as described [here](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html).
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
 
-If Visual Studio and CUDA updated your PATH variable, you should just run the following:
-```bash
-cm run script "get cuda"
-```
+### Origin
 
-However, if the PATH variable was not updated, you need to provide path to the cl.exe and nvcc.exe to help CM detect them:
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 
-```bash
-cm run script "get cl" --path="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64"
-cm run script "get cuda _compiler" --path="C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\bin"
-```
 
-# System dependencies
+### Meta description
+[_cm.json](_cm.json)
 
-* Download [CUDA toolkit](https://developer.nvidia.com/cuda-toolkit).
-* Download [cuDNN](https://developer.nvidia.com/rdp/cudnn-download).
-* (Download [TensorRT](https://developer.nvidia.com/nvidia-tensorrt-8x-download)).
 
-## Windows
+### Tags
+* All CM script tags: *get,cuda,nvcc,get-nvcc,get-cuda*
+* CM CLI: *`cm run script --tags="get,cuda,nvcc,get-nvcc,get-cuda"`*
+* CM CLI alternative: *`cm run script "get cuda nvcc get-nvcc get-cuda"`*
 
-* ? Download [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
-* Check [Nvidia installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html)
+
+### Variations
+#### All variations
+* compiler

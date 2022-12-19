@@ -1,68 +1,37 @@
-# Portable CM script
+*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
 
-Detecting and registering ImageNet validation datasets.
+### About
 
-## Supported platforms
+*TBD*
 
-* Linux, MacOS
-* Windows (only 500 images)
+### Category
 
-## Supported versions and variations
+ML/AI datasets.
 
-### 2012, 500 images
+### Maintainers
 
-Use the following CM command to automatically download and register a reduced ImageNet with 500 images:
-```bash
-cm run script "get imagenet original _2012-500"
-```
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
 
-Alternative CMD:
-```bash
-cm run script --tags=get,imagenet,original,_2012-500
-```
+### Origin
 
-Check that it is correctly registered in CM:
-```bash
-cm show cache --tags=dataset,imagenet
-```
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 
-### 2012, 50000 images (full set)
 
-Note that ImageNet 2012 validation set is no longer available for download.
+### Meta description
+[_cm.json](_cm.json)
 
-However, you can still download it via Academic Torrents 
-[here](https://academictorrents.com/details/5d6d0df7ed81efd49ca99ea4737e0ae5e3a5f2e5)
-and register in the CM using the following command:
 
-```bash
-cm run script "get imagenet original _2012-full" \
-     --env.IMAGENET_PATH={PATH to a directory with ILSVRC2012_val_00000001.JPEG} 
-```
+### Tags
+* All CM script tags: *get,dataset,imagenet,ILSVRC,image-classification,original*
+* CM CLI: *`cm run script --tags="get,dataset,imagenet,ILSVRC,image-classification,original"`*
+* CM CLI alternative: *`cm run script "get dataset imagenet ILSVRC image-classification original"`*
 
-For example, 
-```bash
-cm run script "get imagenet original _2012-full" --env.IMAGENET_PATH=/mnt/extra-disk/imagenet-2012-val
-```
 
-## Examples
-
-After CM cached the dataset, you can get the environment with the paths to your IMAGENET and extra meta information as follows:
-```bash
-cm run script "get imagenet original _2012-full" --out=json
-```
-
-You can find path to an automatically generated script with environment variables as follows:
-```bash
-cm find cache --tags=get,imagenet,original,_2012-full
-```
-
-Check this [CM workflow](https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md) to classify images.
-
-Note that you can also usethe  environment variables prepared by this script outside CM workflows as follows:
-```bash
-cm run script "get imagenet original _2012-full" --save-env && . ./tmp-env.sh && echo $CM_DATASET_PATH
-
-...
-
-/mnt/extra-disk/imagenet-2012-val
-```
+### Variations
+#### All variations
+* 2012-1
+* 2012-500
+* 2012-full
+* full

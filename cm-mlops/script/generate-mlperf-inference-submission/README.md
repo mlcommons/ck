@@ -1,12 +1,29 @@
-# Generate MLPerf Inference Submission Folder
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) takes in a MLPerf Inference results folder (same folder structure assumed as produced by MLPerf inference reference implementation) and produces a valid submission folder as required by the [MLPerf Inference submission checker](https://github.com/mlcommons/inference/blob/master/tools/submission/submission-checker.py).
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## How To
-```bash
-cm run script --tags=generate,mlperf-inference-submission --results_dir=[MLPERF_RESULT_DIR] --submission_dir=[SUBMISSION_FOLDER]
-```
+### About
 
-### Additional Options
-* `[--run_checker]:` Runs the MLPerf Inference submission checker on the produced submission folder
-* `[--skip_truncation]:` If on will not run the truncation of the accuracy logs (useful for testing)
-* `[--run_style]:` If set to "valid" will indicate the result folder is from a full and valid MLPerf inference run and will trigget the accuracy truncation script unless `--skip_truncation` flag is set.
+*TBD*
+
+### Category
+
+Modular MLPerf benchmarks.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *generate,submission,mlperf,mlperf-inference,inference,mlcommons,inference-submission,mlperf-inference-submission,mlcommons-inference-submission*
+* CM CLI: *`cm run script --tags="generate,submission,mlperf,mlperf-inference,inference,mlcommons,inference-submission,mlperf-inference-submission,mlcommons-inference-submission"`*
+* CM CLI alternative: *`cm run script "generate submission mlperf mlperf-inference inference mlcommons inference-submission mlperf-inference-submission mlcommons-inference-submission"`*

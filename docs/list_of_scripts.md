@@ -14,7 +14,6 @@ design space exploration and deployment across continuously changing software an
 
 ### Modular MLPerf benchmarks
 
-
 * [app-loadgen-generic-python](#app-loadgen-generic-python)
 * [app-mlperf-inference](#app-mlperf-inference)
 * [app-mlperf-inference-cpp](#app-mlperf-inference-cpp)
@@ -39,24 +38,18 @@ design space exploration and deployment across continuously changing software an
 * [truncate-mlperf-inference-accuracy-log](#truncate-mlperf-inference-accuracy-log)
 * [wrapper-reproduce-octoml-tinyml-submission](#wrapper-reproduce-octoml-tinyml-submission)
 
-
 ### Modular ML/AI applications
-
 
 * [app-image-classification-onnx-cpp](#app-image-classification-onnx-cpp)
 * [app-image-classification-onnx-py](#app-image-classification-onnx-py)
 * [app-image-classification-torch-py](#app-image-classification-torch-py)
 * [app-image-classification-tvm-onnx-py](#app-image-classification-tvm-onnx-py)
 
-
 ### Modular applications
-
 
 * [app-image-corner-detection](#app-image-corner-detection)
 
-
 ### ML/AI datasets
-
 
 * [get-dataset-criteo](#get-dataset-criteo)
 * [get-dataset-imagenet-aux](#get-dataset-imagenet-aux)
@@ -70,9 +63,7 @@ design space exploration and deployment across continuously changing software an
 * [get-preprocessed-dataset-openimages](#get-preprocessed-dataset-openimages)
 * [get-preprocesser-script-generic](#get-preprocesser-script-generic)
 
-
 ### ML/AI models
-
 
 * [get-dlrm](#get-dlrm)
 * [get-ml-model-bert-large-squad](#get-ml-model-bert-large-squad)
@@ -82,9 +73,7 @@ design space exploration and deployment across continuously changing software an
 * [get-ml-model-retinanet](#get-ml-model-retinanet)
 * [get-ml-model-retinanet-nvidia](#get-ml-model-retinanet-nvidia)
 
-
 ### ML/AI frameworks
-
 
 * [get-onnxruntime-prebuilt](#get-onnxruntime-prebuilt)
 * [get-tvm](#get-tvm)
@@ -92,16 +81,12 @@ design space exploration and deployment across continuously changing software an
 * [install-tensorflow-from-src](#install-tensorflow-from-src)
 * [install-tflite-from-src](#install-tflite-from-src)
 
-
 ### Platform information
-
 
 * [detect-cpu](#detect-cpu)
 * [detect-os](#detect-os)
 
-
 ### Compiler automation
-
 
 * [get-cl](#get-cl) *(Microsoft C compiler)*
 * [get-compiler-flags](#get-compiler-flags)
@@ -112,9 +97,7 @@ design space exploration and deployment across continuously changing software an
 * [install-llvm-prebuilt](#install-llvm-prebuilt) *(Install prebuilt LLVM compiler)*
 * [install-llvm-src](#install-llvm-src) *(Build LLVM compiler from sources (can take >30 min))*
 
-
 ### Detection or installation of tools and artifacts
-
 
 * [get-android-sdk](#get-android-sdk)
 * [get-bazel](#get-bazel)
@@ -132,9 +115,7 @@ design space exploration and deployment across continuously changing software an
 * [install-openssl](#install-openssl)
 * [prototype-lib-dnnl](#prototype-lib-dnnl)
 
-
 ### Cloud automation
-
 
 * [destroy-terraform](#destroy-terraform)
 * [get-aws-cli](#get-aws-cli)
@@ -143,18 +124,14 @@ design space exploration and deployment across continuously changing software an
 * [install-terraform-from-src](#install-terraform-from-src)
 * [run-terraform](#run-terraform)
 
-
 ### TinyML automation
-
 
 * [flash-tinyml-binary](#flash-tinyml-binary)
 * [get-microtvm](#get-microtvm)
 * [get-zephyr](#get-zephyr)
 * [get-zephyr-sdk](#get-zephyr-sdk)
 
-
 ### CUDA automation
-
 
 * [get-cuda](#get-cuda)
 * [get-cuda-devices](#get-cuda-devices)
@@ -162,44 +139,32 @@ design space exploration and deployment across continuously changing software an
 * [install-cuda-package-manager](#install-cuda-package-manager)
 * [install-cuda-prebuilt](#install-cuda-prebuilt)
 
-
 ### Docker automation
-
 
 * [build-docker-image](#build-docker-image)
 * [build-dockerfile](#build-dockerfile)
 * [run-docker-container](#run-docker-container)
 
-
 ### Remote automation
-
 
 * [remote-run-commands](#remote-run-commands)
 
-
 ### Misc automation
-
 
 * [get-github-cli](#get-github-cli)
 * [set-echo-off-win](#set-echo-off-win)
 * [tar-my-folder](#tar-my-folder)
 
-
 ### Application automation
-
 
 * [benchmark-program](#benchmark-program)
 * [compile-program](#compile-program)
 
-
 ### Dashboards
-
 
 * [publish-results-to-dashboard](#publish-results-to-dashboard)
 
-
 ### Python automation
-
 
 * [activate-python-venv](#activate-python-venv) *(Activate python virtual environment)*
 * [get-generic-python-lib](#get-generic-python-lib)
@@ -208,16 +173,12 @@ design space exploration and deployment across continuously changing software an
 * [install-python-src](#install-python-src)
 * [install-python-venv](#install-python-venv)
 
-
 ### Legacy CK support
-
 
 * [get-ck](#get-ck)
 * [get-ck-repo-mlops](#get-ck-repo-mlops)
 
-
 ### Tests
-
 
 * [print-hello-world](#print-hello-world)
 * [print-hello-world-java](#print-hello-world-java)
@@ -225,7 +186,6 @@ design space exploration and deployment across continuously changing software an
 * [print-hello-world-py](#print-hello-world-py)
 * [print-python-version](#print-python-version)
 * [test-set-sys-user-cm](#test-set-sys-user-cm)
-
 
 
 # List of all sorted CM scripts 
@@ -348,1295 +308,676 @@ design space exploration and deployment across continuously changing software an
 * [wrapper-reproduce-octoml-tinyml-submission](#wrapper-reproduce-octoml-tinyml-submission)
 
 
-## activate-python-venv
-
-
-*Activate python virtual environment.*
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="activate,python,activate-python-venv,python-venv"*
-
-
-## app-image-classification-onnx-cpp
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-cpp)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-cpp/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,image-classification,onnx,cpp"*
-
-
-## app-image-classification-onnx-py
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,image-classification,onnx,python"*
-* CM script variations: *_cuda*
-
-
-## app-image-classification-torch-py
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-torch-py)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-torch-py/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,image-classification,torch,python"*
-* CM script variations: *_cuda*
-
-
-## app-image-classification-tvm-onnx-py
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tvm-onnx-py)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tvm-onnx-py/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,image-classification,tvm-onnx,python"*
-* CM script variations: *_cuda;&nbsp; _llvm;&nbsp; _tvm;&nbsp; _tvm-pip-install*
-* CM script default variation: *tvm*
-
-
-## app-image-corner-detection
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,image,corner-detection"*
-
-
-## app-loadgen-generic-python
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,loadgen,generic,loadgen-generic,python"*
-* CM script variations: *_cpu;&nbsp; _cuda;&nbsp; _onnxruntime;&nbsp; _resnet50;&nbsp; _retinanet*
-
-
-## app-mlperf-inference
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,vision,language,mlcommons,mlperf,inference,generic"*
-* CM script variations: *_bert-99;&nbsp; _bert-99.9;&nbsp; _bert_;&nbsp; _cpp;&nbsp; _cpu;&nbsp; _cuda;&nbsp; _fast;&nbsp; _nvidia;&nbsp; _onnxruntime;&nbsp; _power;&nbsp; _python;&nbsp; _pytorch;&nbsp; _quantized;&nbsp; _r2.1_default;&nbsp; _reference;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _test;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tflite-cpp;&nbsp; _tvm-onnx;&nbsp; _tvm-pip-install-onnx;&nbsp; _tvm-pip-install-pytorch;&nbsp; _tvm-pytorch;&nbsp; _valid*
-
-
-## app-mlperf-inference-cpp
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,mlcommons,mlperf,inference,cpp"*
-* CM script variations: *_cpu;&nbsp; _cuda;&nbsp; _onnxruntime;&nbsp; _pytorch;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _tf;&nbsp; _tflite;&nbsp; _tvm-onnx*
-
-
-## app-mlperf-inference-nvidia-harness
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia-harness)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia-harness/_cm.yaml)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,mlcommons,mlperf,inference,nvidia-harness,nvidia"*
-* CM script variations: *_cpu;&nbsp; _cuda;&nbsp; _pytorch;&nbsp; _resnet50;&nbsp; _retinanet*
-
-
-## app-mlperf-inference-reference
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="app,vision,language,mlcommons,mlperf,inference,reference,ref"*
-* CM script variations: *_bert;&nbsp; _bert-99;&nbsp; _bert-99.9;&nbsp; _cpu;&nbsp; _cuda;&nbsp; _fast;&nbsp; _onnxruntime;&nbsp; _python;&nbsp; _pytorch;&nbsp; _quantized;&nbsp; _r2.1_default;&nbsp; _resnet50;&nbsp; _retinanet;&nbsp; _tensorflow;&nbsp; _test;&nbsp; _tf;&nbsp; _tvm-onnx;&nbsp; _tvm-pytorch;&nbsp; _valid*
-
-
-## benchmark-program
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="program,benchmark,benchmark-program"*
-* CM script variations: *_mlperf-power;&nbsp; _numactl;&nbsp; _numactl-interleave;&nbsp; _profile*
-
-
-## build-docker-image
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="build,docker,image,docker-image,dockerimage"*
-
-
-## build-dockerfile
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-dockerfile)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-dockerfile/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="build,dockerfile"*
-* CM script variations: *_slim*
-
-
-## compile-program
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="compile,program,c-program,cpp-program,compile-program,compile-c-program,compile-cpp-program"*
-
-
-## destroy-terraform
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/destroy-terraform)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/destroy-terraform/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="destroy,terraform,cmd"*
-
-
-## detect-cpu
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="detect,cpu,detect-cpu,info"*
-
-
-## detect-os
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="detect-os,detect,os,info"*
-
-
-## flash-tinyml-binary
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="flash,tiny,mlperf,mlcommons"*
-* CM script variations: *_NRF;&nbsp; _NUCLEO;&nbsp; _ad;&nbsp; _cmsis_nn;&nbsp; _ic;&nbsp; _kws;&nbsp; _native;&nbsp; _vww*
-* CM script default version: *r1.0*
-
-
-## generate-mlperf-inference-submission
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="generate,submission,mlperf,mlperf-inference,inference,mlcommons,inference-submission,mlperf-inference-submission,mlcommons-inference-submission"*
-
-
-## generate-mlperf-tiny-submission
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-tiny-submission/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="generate,submission,mlperf,mlperf-tiny,tiny,mlcommons,tiny-submission,mlperf-tiny-submission,mlcommons-tiny-submission"*
-
-
-## get-android-sdk
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-android-sdk)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-android-sdk/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,android,sdk,android-sdk"*
-
-
-## get-aws-cli
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aws-cli)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aws-cli/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,aws-cli,aws,cli"*
-
-
-## get-bazel
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bazel)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bazel/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,bazel,get-bazel"*
-
-
-## get-ck
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ck)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ck/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,ck,ck-framework"*
-
-
-## get-ck-repo-mlops
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ck-repo-mlops)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ck-repo-mlops/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,ck-repo,mlops,ck-repo-mlops"*
-
-
-## get-cl
-
-
-*Microsoft C compiler.*
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,cl,compiler,c-compiler,cpp-compiler,get-cl"*
-
-
-## get-cmake
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,cmake,get-cmake"*
-
-
-## get-cmsis_5
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmsis_5)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmsis_5/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,cmsis,cmsis_5,arm-software"*
-* CM script variations: *_recurse-submodules;&nbsp; _short-history*
-* CM script versions: *custom;&nbsp; develop;&nbsp; master*
-* CM script default version: *develop*
-
-
-## get-compiler-flags
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,compiler-flags"*
-
-
-## get-cuda
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,cuda,nvcc,get-nvcc,get-cuda"*
-* CM script variations: *_compiler*
-
-
-## get-cuda-devices
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-devices/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,cuda-devices"*
-
-
-## get-dataset-criteo
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,dataset,criteo,original"*
-* CM script variations: *_backup*
-
-
-## get-dataset-imagenet-aux
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,aux,dataset-aux,image-classification,imagenet-aux"*
-* CM script variations: *_2012;&nbsp; _from.berkeleyvision;&nbsp; _from.dropbox*
-* CM script default variation: *from.dropbox*
-
-
-## get-dataset-imagenet-helper
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-helper)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-helper/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,imagenet,helper,imagenet-helper"*
-
-
-## get-dataset-imagenet-val
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,dataset,imagenet,ILSVRC,image-classification,original"*
-* CM script variations: *_2012-1;&nbsp; _2012-500;&nbsp; _2012-full;&nbsp; _full*
-* CM script default variation: *2012-500*
-
-
-## get-dataset-librispeech
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,dataset,speech,speech-recognition,librispeech,validation,audio,training,original"*
-* CM script versions: *dev-clean;&nbsp; dev-other;&nbsp; test-clean;&nbsp; test-other;&nbsp; train-clean-100;&nbsp; train-clean-360;&nbsp; train-other-500*
-* CM script default version: *dev-clean*
-
-
-## get-dataset-openimages
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,dataset,openimages,open-images,object-detection,original"*
-* CM script variations: *_1;&nbsp; _5;&nbsp; _50;&nbsp; _500;&nbsp; _calibration;&nbsp; _full;&nbsp; _validation*
-* CM script default variation: *validation*
-
-
-## get-dataset-squad
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,dataset,squad,language-processing,validation,training,original"*
-* CM script versions: *1.1;&nbsp; 2.0*
-* CM script default version: *1.1*
-
-
-## get-dlrm
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dlrm)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dlrm/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,src,dlrm"*
-* CM script variations: *_full-history*
-* CM script versions: *main*
-* CM script default version: *main*
-
-
-## get-gcc
-
-
-*GCC compiler.*
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,gcc,compiler,c-compiler,cpp-compiler,get-gcc"*
-
-
-## get-generic-python-lib
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,generic,generic-python-lib"*
-* CM script variations: *_apache-tvm;&nbsp; _attrs;&nbsp; _boto3;&nbsp; _colored;&nbsp; _decorator;&nbsp; _jax;&nbsp; _jax_cuda;&nbsp; _mlperf_logging;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _nvidia-pyindex;&nbsp; _nvidia-tensorrt;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _onnxruntime_gpu;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pillow;&nbsp; _pip;&nbsp; _polygraphy;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _pycuda;&nbsp; _requests;&nbsp; _scipy;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _torch_cuda;&nbsp; _torchaudio;&nbsp; _torchaudio_cuda;&nbsp; _torchvision;&nbsp; _torchvision_cuda;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _typing_extensions;&nbsp; _ujson;&nbsp; _wandb*
-
-
-## get-generic-sys-util
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,sys-util,generic,generic-sys-util"*
-* CM script variations: *_gflags-dev;&nbsp; _glog-dev*
-
-
-## get-github-cli
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-github-cli)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-github-cli/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,gh,github,cli,github-cli"*
-
-
-## get-go
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-go)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-go/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,tool,go,get-go"*
-
-
-## get-java
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,java"*
-* CM script variations: *_install*
-
-
-## get-javac
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-javac)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-javac/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,javac"*
-* CM script variations: *_install*
-
-
-## get-llvm
-
-
-*LLVM compiler.*
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,llvm,compiler,c-compiler,cpp-compiler,get-llvm"*
-
-
-## get-microtvm
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,src,source,microtvm,tiny"*
-* CM script variations: *_default;&nbsp; _full-history;&nbsp; _short-history*
-* CM script default variation: *default*
-* CM script versions: *custom;&nbsp; main*
-* CM script default version: *main*
-
-
-## get-ml-model-bert-large-squad
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,ml-model,bert,bert-large,bert-squad,language,language-processing"*
-* CM script variations: *_fp32;&nbsp; _int8;&nbsp; _onnx;&nbsp; _onnx,fp32;&nbsp; _onnx,int8;&nbsp; _onnxruntime;&nbsp; _pytorch;&nbsp; _pytorch,fp32;&nbsp; _pytorch,int8;&nbsp; _tensorflow;&nbsp; _tf*
-
-
-## get-ml-model-mobilenet
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-mobilenet)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-mobilenet/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,ml-model,mobilenet,ml-model-mobilenet,image-classification"*
-* CM script variations: *_fp32;&nbsp; _from.google;&nbsp; _from.zenodo;&nbsp; _int8;&nbsp; _onnx;&nbsp; _onnx,fp32;&nbsp; _onnx,int8;&nbsp; _onnx,opset-11,fp32;&nbsp; _onnx,opset-8,fp32;&nbsp; _opset-11;&nbsp; _opset-8;&nbsp; _tf;&nbsp; _tf,fp32;&nbsp; _tf,fp32,from.google;&nbsp; _tf,fp32,from.zenodo;&nbsp; _tf,int8;&nbsp; _tflite*
-* CM script default variation: *onnx*
-
-
-## get-ml-model-resnet50
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,raw,ml-model,resnet50,ml-model-resnet50,image-classification"*
-* CM script variations: *_fp32;&nbsp; _int8;&nbsp; _onnx;&nbsp; _onnx,opset-11;&nbsp; _onnx,opset-8;&nbsp; _onnxruntime;&nbsp; _opset-11;&nbsp; _opset-8;&nbsp; _pytorch;&nbsp; _pytorch,fp32;&nbsp; _pytorch,int8;&nbsp; _tensorflow;&nbsp; _tf;&nbsp; _tflite;&nbsp; _uint8*
-* CM script default variation: *onnx*
-
-
-## get-ml-model-resnet50-tvm
-
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/_cm.json)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification"*
-* CM script variations: *_bs.1;&nbsp; _bs.16;&nbsp; _bs.2;&nbsp; _bs.32;&nbsp; _bs.4;&nbsp; _bs.64;&nbsp; _bs.8;&nbsp; _fp32;&nbsp; _int8;&nbsp; _onnx;&nbsp; _pytorch;&nbsp; _tensorflow;&nbsp; _tf;&nbsp; _tflite;&nbsp; _uint8*
-* CM script default variation: *onnx*
-
-
+* **fp32** (default)
 ## get-ml-model-retinanet
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,ml-model,resnext50,retinanet,object-detection"*
-* CM script variations: *_fp32;&nbsp; _onnx;&nbsp; _onnx,fp32;&nbsp; _pytorch;&nbsp; _pytorch,fp32;&nbsp; _pytorch,fp32,weights;&nbsp; _weights*
-* CM script default variation: *onnx-fp32*
-
+* CM CLI with all tags: `cm run script --tags="get,ml-model,resnext50,retinanet,object-detection"`*
+* CM CLI alternative: `cm run script "get ml-model resnext50 retinanet object-detection"`*
+* Variations: *_fp32;&nbsp; _onnx;&nbsp; _onnx,fp32;&nbsp; _pytorch;&nbsp; _pytorch,fp32;&nbsp; _pytorch,fp32,weights;&nbsp; _weights*
+* Default variation: *onnx-fp32*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/README-extra.md)
 
 ## get-ml-model-retinanet-nvidia
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,ml-model,nvidia-retinanet,nvidia"*
-* CM script variations: *_efficient-nms*
-
+* CM CLI with all tags: `cm run script --tags="get,ml-model,nvidia-retinanet,nvidia"`*
+* CM CLI alternative: `cm run script "get ml-model nvidia-retinanet nvidia"`*
+* Variations: *_efficient-nms*
 
 ## get-mlperf-inference-loadgen
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,loadgen,inference,inference-loadgen,mlperf,mlcommons"*
-* CM script versions: *custom;&nbsp; master;&nbsp; r2.1*
-* CM script default version: *master*
-
+* CM CLI with all tags: `cm run script --tags="get,loadgen,inference,inference-loadgen,mlperf,mlcommons"`*
+* CM CLI alternative: `cm run script "get loadgen inference inference-loadgen mlperf mlcommons"`*
+* Versions: *custom;&nbsp; master;&nbsp; r2.1*
+* Default version: *master*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen/README-extra.md)
 
 ## get-mlperf-inference-nvidia-common-code
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,nvidia,mlperf,inference,common-code"*
-
+* CM CLI with all tags: `cm run script --tags="get,nvidia,mlperf,inference,common-code"`*
+* CM CLI alternative: `cm run script "get nvidia mlperf inference common-code"`*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/README-extra.md)
 
 ## get-mlperf-inference-results
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,results,inference,inference-results,mlcommons,mlperf"*
-* CM script versions: *v2.1*
-* CM script default version: *v2.1*
-
+* CM CLI with all tags: `cm run script --tags="get,results,inference,inference-results,mlcommons,mlperf"`*
+* CM CLI alternative: `cm run script "get results inference inference-results mlcommons mlperf"`*
+* Versions: *v2.1*
+* Default version: *v2.1*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results/README-extra.md)
 
 ## get-mlperf-inference-src
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,src,source,inference,inference-src,inference-source,mlperf,mlcommons"*
-* CM script variations: *_3d-unet;&nbsp; _deeplearningexamples;&nbsp; _default;&nbsp; _full-history;&nbsp; _gn;&nbsp; _no-recurse-submodules;&nbsp; _nvidia-pycocotools;&nbsp; _octoml;&nbsp; _patch;&nbsp; _power-dev;&nbsp; _pybind;&nbsp; _recurse-submodules;&nbsp; _short-history*
-* CM script default variation: *default*
-* CM script versions: *custom;&nbsp; master;&nbsp; r2.1;&nbsp; tvm*
-* CM script default version: *master*
-
+* CM CLI with all tags: `cm run script --tags="get,src,source,inference,inference-src,inference-source,mlperf,mlcommons"`*
+* CM CLI alternative: `cm run script "get src source inference inference-src inference-source mlperf mlcommons"`*
+* Variations: *_3d-unet;&nbsp; _deeplearningexamples;&nbsp; _default;&nbsp; _full-history;&nbsp; _gn;&nbsp; _no-recurse-submodules;&nbsp; _nvidia-pycocotools;&nbsp; _octoml;&nbsp; _patch;&nbsp; _power-dev;&nbsp; _pybind;&nbsp; _recurse-submodules;&nbsp; _short-history*
+* Default variation: *default*
+* Versions: *custom;&nbsp; master;&nbsp; r2.1;&nbsp; tvm*
+* Default version: *master*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/README-extra.md)
 
 ## get-mlperf-inference-sut-configs
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,mlperf,sut,configs,sut-configs"*
-
+* CM CLI with all tags: `cm run script --tags="get,mlperf,sut,configs,sut-configs"`*
+* CM CLI alternative: `cm run script "get mlperf sut configs sut-configs"`*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs/README-extra.md)
 
 ## get-mlperf-inference-sut-description
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,mlperf,sut,description,system-under-test,system-description"*
-
+* CM CLI with all tags: `cm run script --tags="get,mlperf,sut,description,system-under-test,system-description"`*
+* CM CLI alternative: `cm run script "get mlperf sut description system-under-test system-description"`*
 
 ## get-mlperf-power-dev
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,src,source,power,power-dev,mlperf,mlcommons"*
-* CM script variations: *_default;&nbsp; _full-history;&nbsp; _patch;&nbsp; _short-history*
-* CM script default variation: *default*
-* CM script versions: *custom;&nbsp; master*
-* CM script default version: *master*
-
+* CM CLI with all tags: `cm run script --tags="get,src,source,power,power-dev,mlperf,mlcommons"`*
+* CM CLI alternative: `cm run script "get src source power power-dev mlperf mlcommons"`*
+* Variations: *_default;&nbsp; _full-history;&nbsp; _patch;&nbsp; _short-history*
+* Default variation: *default*
+* Versions: *custom;&nbsp; master*
+* Default version: *master*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/README-extra.md)
 
 ## get-mlperf-training-src
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,src,source,training,training-src,training-source,mlperf,mlcommons"*
-* CM script variations: *_default;&nbsp; _full-history;&nbsp; _no-recurse-submodules;&nbsp; _nvidia-retinanet;&nbsp; _patch;&nbsp; _short-history*
-* CM script default variation: *default*
-* CM script versions: *custom;&nbsp; master*
-* CM script default version: *master*
-
+* CM CLI with all tags: `cm run script --tags="get,src,source,training,training-src,training-source,mlperf,mlcommons"`*
+* CM CLI alternative: `cm run script "get src source training training-src training-source mlperf mlcommons"`*
+* Variations: *_default;&nbsp; _full-history;&nbsp; _no-recurse-submodules;&nbsp; _nvidia-retinanet;&nbsp; _patch;&nbsp; _short-history*
+* Default variation: *default*
+* Versions: *custom;&nbsp; master*
+* Default version: *master*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/README-extra.md)
 
 ## get-onnxruntime-prebuilt
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp"*
-* CM script variations: *_cpu;&nbsp; _cuda*
-* CM script default variation: *cpu*
-* CM script default version: *1.12.1*
-
+* CM CLI with all tags: `cm run script --tags="install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp"`*
+* CM CLI alternative: `cm run script "install onnxruntime get prebuilt lib lang-c lang-cpp"`*
+* Variations: *_cpu;&nbsp; _cuda*
+* Default variation: *cpu*
+* Default version: *1.12.1*
 
 ## get-openssl
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,openssl,lib-openssl"*
-
+* CM CLI with all tags: `cm run script --tags="get,openssl,lib-openssl"`*
+* CM CLI alternative: `cm run script "get openssl lib-openssl"`*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl/README-extra.md)
 
 ## get-preprocessed-dataset-criteo
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,dataset,criteo,recommendation,dlrm,preprocessed"*
-* CM script variations: *_1;&nbsp; _50;&nbsp; _full;&nbsp; _validation*
-
+* CM CLI with all tags: `cm run script --tags="get,dataset,criteo,recommendation,dlrm,preprocessed"`*
+* CM CLI alternative: `cm run script "get dataset criteo recommendation dlrm preprocessed"`*
+* Variations: *_1;&nbsp; _50;&nbsp; _full;&nbsp; _validation*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/README-extra.md)
 
 ## get-preprocessed-dataset-imagenet
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,dataset,imagenet,ILSVRC,image-classification,preprocessed"*
-* CM script variations: *_1;&nbsp; _500;&nbsp; _NCHW;&nbsp; _NHWC;&nbsp; _for.mobilenet;&nbsp; _for.mobilenet-quantized;&nbsp; _for.resnet50;&nbsp; _for.resnet50-quantized;&nbsp; _full*
-
+* CM CLI with all tags: `cm run script --tags="get,dataset,imagenet,ILSVRC,image-classification,preprocessed"`*
+* CM CLI alternative: `cm run script "get dataset imagenet ILSVRC image-classification preprocessed"`*
+* Variations: *_1;&nbsp; _500;&nbsp; _NCHW;&nbsp; _NHWC;&nbsp; _for.mobilenet;&nbsp; _for.mobilenet-quantized;&nbsp; _for.resnet50;&nbsp; _for.resnet50-quantized;&nbsp; _full*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/README-extra.md)
 
 ## get-preprocessed-dataset-openimages
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,dataset,openimages,open-images,object-detection,preprocessed"*
-* CM script variations: *_1;&nbsp; _5;&nbsp; _50;&nbsp; _500;&nbsp; _NCHW;&nbsp; _NHWC;&nbsp; _calibration;&nbsp; _fp32;&nbsp; _full;&nbsp; _int8;&nbsp; _nvidia;&nbsp; _validation*
-
+* CM CLI with all tags: `cm run script --tags="get,dataset,openimages,open-images,object-detection,preprocessed"`*
+* CM CLI alternative: `cm run script "get dataset openimages open-images object-detection preprocessed"`*
+* Variations: *_1;&nbsp; _5;&nbsp; _50;&nbsp; _500;&nbsp; _NCHW;&nbsp; _NHWC;&nbsp; _calibration;&nbsp; _fp32;&nbsp; _full;&nbsp; _int8;&nbsp; _nvidia;&nbsp; _validation*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/README-extra.md)
 
 ## get-preprocesser-script-generic
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocesser-script-generic)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocesser-script-generic/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocesser-script-generic)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocesser-script-generic/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,preprocessor,generic,image-preprocessor,script"*
-
+* CM CLI with all tags: `cm run script --tags="get,preprocessor,generic,image-preprocessor,script"`*
+* CM CLI alternative: `cm run script "get preprocessor generic image-preprocessor script"`*
 
 ## get-python3
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,python,python3,get-python,get-python3"*
-* CM script variations: *_shared;&nbsp; _with-ssl*
-
+* CM CLI with all tags: `cm run script --tags="get,python,python3,get-python,get-python3"`*
+* CM CLI alternative: `cm run script "get python python3 get-python get-python3"`*
+* Variations: *_shared;&nbsp; _with-ssl*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3/README-extra.md)
 
 ## get-spec-ptd
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,spec,ptd,ptdaemon,power,daemon,power-daemon,mlperf,mlcommons"*
-* CM script versions: *custom;&nbsp; main*
-* CM script default version: *main*
-
+* CM CLI with all tags: `cm run script --tags="get,spec,ptd,ptdaemon,power,daemon,power-daemon,mlperf,mlcommons"`*
+* CM CLI alternative: `cm run script "get spec ptd ptdaemon power daemon power-daemon mlperf mlcommons"`*
+* Versions: *custom;&nbsp; main*
+* Default version: *main*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd/README-extra.md)
 
 ## get-sys-utils-cm
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,sys-utils-cm"*
-* CM script variations: *_user*
-
+* CM CLI with all tags: `cm run script --tags="get,sys-utils-cm"`*
+* CM CLI alternative: `cm run script "get sys-utils-cm"`*
+* Variations: *_user*
 
 ## get-sys-utils-min
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-min)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-min/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-min)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-min/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,sys-utils-min"*
-
+* CM CLI with all tags: `cm run script --tags="get,sys-utils-min"`*
+* CM CLI alternative: `cm run script "get sys-utils-min"`*
 
 ## get-tensorrt
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,tensorrt,nvidia"*
-
+* CM CLI with all tags: `cm run script --tags="get,tensorrt,nvidia"`*
+* CM CLI alternative: `cm run script "get tensorrt nvidia"`*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/README-extra.md)
 
 ## get-terraform
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,terraform,get-terraform"*
-
+* CM CLI with all tags: `cm run script --tags="get,terraform,get-terraform"`*
+* CM CLI alternative: `cm run script "get terraform get-terraform"`*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/README-extra.md)
 
 ## get-tvm
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,tvm,get-tvm"*
-* CM script variations: *_cuda;&nbsp; _llvm;&nbsp; _openmp;&nbsp; _pip-install*
-* CM script versions: *main;&nbsp; v0.10.0;&nbsp; v0.7.0;&nbsp; v0.8.0;&nbsp; v0.9.0*
-
+* CM CLI with all tags: `cm run script --tags="get,tvm,get-tvm"`*
+* CM CLI alternative: `cm run script "get tvm get-tvm"`*
+* Variations: *_cuda;&nbsp; _llvm;&nbsp; _openmp;&nbsp; _pip-install*
+* Versions: *main;&nbsp; v0.10.0;&nbsp; v0.7.0;&nbsp; v0.8.0;&nbsp; v0.9.0*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm/README-extra.md)
 
 ## get-zephyr
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,zephyr"*
-* CM script versions: *v2.7*
-* CM script default version: *v2.7*
-
+* CM CLI with all tags: `cm run script --tags="get,zephyr"`*
+* CM CLI alternative: `cm run script "get zephyr"`*
+* Versions: *v2.7*
+* Default version: *v2.7*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr/README-extra.md)
 
 ## get-zephyr-sdk
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,zephyr-sdk"*
-* CM script versions: *0.13.1;&nbsp; 0.13.2;&nbsp; 0.15.0*
-* CM script default version: *0.13.2*
-
+* CM CLI with all tags: `cm run script --tags="get,zephyr-sdk"`*
+* CM CLI alternative: `cm run script "get zephyr-sdk"`*
+* Versions: *0.13.1;&nbsp; 0.13.2;&nbsp; 0.15.0*
+* Default version: *0.13.2*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk/README-extra.md)
 
 ## install-aws-cli
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,script,aws-cli,aws,cli"*
-
+* CM CLI with all tags: `cm run script --tags="install,script,aws-cli,aws,cli"`*
+* CM CLI alternative: `cm run script "install script aws-cli aws cli"`*
 
 ## install-bazel
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,script,bazel"*
-* CM script default version: *5.2.0*
-
+* CM CLI with all tags: `cm run script --tags="install,script,bazel"`*
+* CM CLI alternative: `cm run script "install script bazel"`*
+* Default version: *5.2.0*
 
 ## install-cmake-prebuilt
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cmake-prebuilt)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cmake-prebuilt/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cmake-prebuilt)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cmake-prebuilt/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,prebuilt,cmake,prebuilt-cmake,install-prebuilt-cmake"*
-* CM script default version: *3.21.1*
-
+* CM CLI with all tags: `cm run script --tags="install,prebuilt,cmake,prebuilt-cmake,install-prebuilt-cmake"`*
+* CM CLI alternative: `cm run script "install prebuilt cmake prebuilt-cmake install-prebuilt-cmake"`*
+* Default version: *3.21.1*
 
 ## install-cuda-package-manager
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-package-manager)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-package-manager/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-package-manager)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-package-manager/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,package-manager,cuda,package-manager-cuda,install-pm-cuda"*
-
+* CM CLI with all tags: `cm run script --tags="install,package-manager,cuda,package-manager-cuda,install-pm-cuda"`*
+* CM CLI alternative: `cm run script "install package-manager cuda package-manager-cuda install-pm-cuda"`*
 
 ## install-cuda-prebuilt
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,prebuilt,cuda,prebuilt-cuda,install-prebuilt-cuda"*
-* CM script versions: *11.7.0;&nbsp; 11.8.0*
-* CM script default version: *11.7.0*
-
+* CM CLI with all tags: `cm run script --tags="install,prebuilt,cuda,prebuilt-cuda,install-prebuilt-cuda"`*
+* CM CLI alternative: `cm run script "install prebuilt cuda prebuilt-cuda install-prebuilt-cuda"`*
+* Versions: *11.7.0;&nbsp; 11.8.0*
+* Default version: *11.7.0*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/README-extra.md)
 
 ## install-gcc-src
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-gcc-src)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-gcc-src/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-gcc-src)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-gcc-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,src,gcc,src-gcc"*
-* CM script versions: *master*
-* CM script default version: *12*
-
+* CM CLI with all tags: `cm run script --tags="install,src,gcc,src-gcc"`*
+* CM CLI alternative: `cm run script "install src gcc src-gcc"`*
+* Versions: *master*
+* Default version: *12*
 
 ## install-generic-python-lib
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,generic,generic-python-lib"*
-* CM script variations: *_apache-tvm;&nbsp; _attrs;&nbsp; _boto3;&nbsp; _colored;&nbsp; _decorator;&nbsp; _jax;&nbsp; _jax_cuda;&nbsp; _mlperf_logging;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _nvidia-pyindex;&nbsp; _nvidia-tensorrt;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _onnxruntime_gpu;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pillow;&nbsp; _pip;&nbsp; _polygraphy;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _pycuda;&nbsp; _scipy;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _torch_cuda;&nbsp; _torchaudio;&nbsp; _torchaudio_cuda;&nbsp; _torchvision;&nbsp; _torchvision_cuda;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _typing_extensions;&nbsp; _ujson;&nbsp; _wandb*
-
+* CM CLI with all tags: `cm run script --tags="install,generic,generic-python-lib"`*
+* CM CLI alternative: `cm run script "install generic generic-python-lib"`*
+* Variations: *_apache-tvm;&nbsp; _attrs;&nbsp; _boto3;&nbsp; _colored;&nbsp; _decorator;&nbsp; _jax;&nbsp; _jax_cuda;&nbsp; _mlperf_logging;&nbsp; _numpy;&nbsp; _nvidia-pycocotools;&nbsp; _nvidia-pyindex;&nbsp; _nvidia-tensorrt;&nbsp; _onnx;&nbsp; _onnxruntime;&nbsp; _onnxruntime_gpu;&nbsp; _opencv-python;&nbsp; _pandas;&nbsp; _pillow;&nbsp; _pip;&nbsp; _polygraphy;&nbsp; _protobuf;&nbsp; _psutil;&nbsp; _pycocotools;&nbsp; _pycuda;&nbsp; _scipy;&nbsp; _setuptools;&nbsp; _sklearn;&nbsp; _tensorflow;&nbsp; _tokenization;&nbsp; _torch;&nbsp; _torch_cuda;&nbsp; _torchaudio;&nbsp; _torchaudio_cuda;&nbsp; _torchvision;&nbsp; _torchvision_cuda;&nbsp; _tqdm;&nbsp; _transformers;&nbsp; _typing_extensions;&nbsp; _ujson;&nbsp; _wandb*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib/README-extra.md)
 
 ## install-github-cli
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-github-cli)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-github-cli/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-github-cli)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-github-cli/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,gh,github,cli,github-cli"*
-
+* CM CLI with all tags: `cm run script --tags="install,gh,github,cli,github-cli"`*
+* CM CLI alternative: `cm run script "install gh github cli github-cli"`*
 
 ## install-llvm-prebuilt
 
-
 *Install prebuilt LLVM compiler.*
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,prebuilt,llvm,prebuilt-llvm,install-prebuilt-llvm"*
-* CM script default version: *14.0.0*
-
+* CM CLI with all tags: `cm run script --tags="install,prebuilt,llvm,prebuilt-llvm,install-prebuilt-llvm"`*
+* CM CLI alternative: `cm run script "install prebuilt llvm prebuilt-llvm install-prebuilt-llvm"`*
+* Default version: *14.0.0*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/README-extra.md)
 
 ## install-llvm-src
 
-
 *Build LLVM compiler from sources (can take >30 min).*
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,src,llvm,src-llvm"*
-
+* CM CLI with all tags: `cm run script --tags="install,src,llvm,src-llvm"`*
+* CM CLI alternative: `cm run script "install src llvm src-llvm"`*
 
 ## install-openssl
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,src,openssl,openssl-lib"*
-* CM script versions: *1.1.1*
-* CM script default version: *1.1.1*
-
+* CM CLI with all tags: `cm run script --tags="install,src,openssl,openssl-lib"`*
+* CM CLI alternative: `cm run script "install src openssl openssl-lib"`*
+* Versions: *1.1.1*
+* Default version: *1.1.1*
 
 ## install-python-src
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,src,python,python3,src-python3,src-python"*
-* CM script variations: *_shared;&nbsp; _with-ssl*
-* CM script default version: *3.10.5*
-
+* CM CLI with all tags: `cm run script --tags="install,src,python,python3,src-python3,src-python"`*
+* CM CLI alternative: `cm run script "install src python python3 src-python3 src-python"`*
+* Variations: *_shared;&nbsp; _with-ssl*
+* Default version: *3.10.5*
 
 ## install-python-venv
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,python,get-python-venv,python-venv"*
-
+* CM CLI with all tags: `cm run script --tags="install,python,get-python-venv,python-venv"`*
+* CM CLI alternative: `cm run script "install python get-python-venv python-venv"`*
 
 ## install-tensorflow-for-c
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-for-c)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-for-c/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-for-c)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-for-c/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,tensorflow,lib,lang-c"*
-* CM script default version: *2.8.0*
-
+* CM CLI with all tags: `cm run script --tags="install,tensorflow,lib,lang-c"`*
+* CM CLI alternative: `cm run script "install tensorflow lib lang-c"`*
+* Default version: *2.8.0*
 
 ## install-tensorflow-from-src
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,install,tensorflow,lib,source,from-source,from-src"*
-* CM script variations: *_tflite*
-* CM script versions: *master;&nbsp; v1.15.0;&nbsp; v2.0.0;&nbsp; v2.1.0;&nbsp; v2.2.0;&nbsp; v2.3.0;&nbsp; v2.4.0;&nbsp; v2.5.0;&nbsp; v2.6.0;&nbsp; v2.7.0;&nbsp; v2.8.0;&nbsp; v2.9.0*
-* CM script default version: *master*
-
+* CM CLI with all tags: `cm run script --tags="get,install,tensorflow,lib,source,from-source,from-src"`*
+* CM CLI alternative: `cm run script "get install tensorflow lib source from-source from-src"`*
+* Variations: *_tflite*
+* Versions: *master;&nbsp; v1.15.0;&nbsp; v2.0.0;&nbsp; v2.1.0;&nbsp; v2.2.0;&nbsp; v2.3.0;&nbsp; v2.4.0;&nbsp; v2.5.0;&nbsp; v2.6.0;&nbsp; v2.7.0;&nbsp; v2.8.0;&nbsp; v2.9.0*
+* Default version: *master*
 
 ## install-terraform-from-src
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-terraform-from-src)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-terraform-from-src/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-terraform-from-src)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-terraform-from-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="install,terraform,from-src"*
-* CM script versions: *main*
-* CM script default version: *main*
-
+* CM CLI with all tags: `cm run script --tags="install,terraform,from-src"`*
+* CM CLI alternative: `cm run script "install terraform from-src"`*
+* Versions: *main*
+* Default version: *main*
 
 ## install-tflite-from-src
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tflite-from-src)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tflite-from-src/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tflite-from-src)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tflite-from-src/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,install,tflite-cmake,tensorflow-lite-cmake,from-src"*
-* CM script versions: *master*
-* CM script default version: *master*
-
+* CM CLI with all tags: `cm run script --tags="get,install,tflite-cmake,tensorflow-lite-cmake,from-src"`*
+* CM CLI alternative: `cm run script "get install tflite-cmake tensorflow-lite-cmake from-src"`*
+* Versions: *master*
+* Default version: *master*
 
 ## print-hello-world
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="print,hello-world,hello world,hello,world,script"*
-
+* CM CLI with all tags: `cm run script --tags="print,hello-world,hello world,hello,world,script"`*
+* CM CLI alternative: `cm run script "print hello-world hello world hello world script"`*
 
 ## print-hello-world-java
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-java)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-java/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-java)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-java/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="print,hello world,hello-world,hello,world,java"*
-
+* CM CLI with all tags: `cm run script --tags="print,hello world,hello-world,hello,world,java"`*
+* CM CLI alternative: `cm run script "print hello world hello-world hello world java"`*
 
 ## print-hello-world-json
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-json)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-json/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-json)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-json/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="print,hello world,hello-world,hello,world,java"*
-
+* CM CLI with all tags: `cm run script --tags="print,hello world,hello-world,hello,world,java"`*
+* CM CLI alternative: `cm run script "print hello world hello-world hello world java"`*
 
 ## print-hello-world-py
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-py/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="print,hello world,hello-world,hello,world,python"*
-
+* CM CLI with all tags: `cm run script --tags="print,hello world,hello-world,hello,world,python"`*
+* CM CLI alternative: `cm run script "print hello world hello-world hello world python"`*
 
 ## print-python-version
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-python-version)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-python-version/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-python-version)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-python-version/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="print,python,version,python-version"*
-
+* CM CLI with all tags: `cm run script --tags="print,python,version,python-version"`*
+* CM CLI alternative: `cm run script "print python version python-version"`*
 
 ## process-mlperf-accuracy
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="run,mlperf,mlcommons,accuracy,mlc,process-accuracy"*
-* CM script variations: *_float16;&nbsp; _float32;&nbsp; _float64;&nbsp; _imagenet;&nbsp; _int16;&nbsp; _int32;&nbsp; _int64;&nbsp; _int8;&nbsp; _openimages;&nbsp; _squad*
-
+* CM CLI with all tags: `cm run script --tags="run,mlperf,mlcommons,accuracy,mlc,process-accuracy"`*
+* CM CLI alternative: `cm run script "run mlperf mlcommons accuracy mlc process-accuracy"`*
+* Variations: *_float16;&nbsp; _float32;&nbsp; _float64;&nbsp; _imagenet;&nbsp; _int16;&nbsp; _int32;&nbsp; _int64;&nbsp; _int8;&nbsp; _openimages;&nbsp; _squad*
 
 ## prototype-lib-dnnl
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prototype-lib-dnnl)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prototype-lib-dnnl/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prototype-lib-dnnl)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/prototype-lib-dnnl/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="get,lib-dnnl,lib,dnnl"*
-* CM script versions: *2.2.4;&nbsp; dev*
-* CM script default version: *dev*
-
+* CM CLI with all tags: `cm run script --tags="get,lib-dnnl,lib,dnnl"`*
+* CM CLI alternative: `cm run script "get lib-dnnl lib dnnl"`*
+* Versions: *2.2.4;&nbsp; dev*
+* Default version: *dev*
 
 ## publish-results-to-dashboard
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/publish-results-to-dashboard)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/publish-results-to-dashboard/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/publish-results-to-dashboard)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/publish-results-to-dashboard/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="publish-results,dashboard"*
-
+* CM CLI with all tags: `cm run script --tags="publish-results,dashboard"`*
+* CM CLI alternative: `cm run script "publish-results dashboard"`*
 
 ## remote-run-commands
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="remote,run,cmds,remote-run,remote-run-cmds,ssh-run,ssh"*
-
+* CM CLI with all tags: `cm run script --tags="remote,run,cmds,remote-run,remote-run-cmds,ssh-run,ssh"`*
+* CM CLI alternative: `cm run script "remote run cmds remote-run remote-run-cmds ssh-run ssh"`*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/README-extra.md)
 
 ## reproduce-mlperf-octoml-tinyml-results
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="reproduce,tiny,results,mlperf,octoml,mlcommons"*
-* CM script variations: *_NRF;&nbsp; _NUCLEO;&nbsp; _ad;&nbsp; _cmsis_nn;&nbsp; _ic;&nbsp; _kws;&nbsp; _native;&nbsp; _vww*
-* CM script versions: *r1.0*
-* CM script default version: *r1.0*
-
+* CM CLI with all tags: `cm run script --tags="reproduce,tiny,results,mlperf,octoml,mlcommons"`*
+* CM CLI alternative: `cm run script "reproduce tiny results mlperf octoml mlcommons"`*
+* Variations: *_NRF;&nbsp; _NUCLEO;&nbsp; _ad;&nbsp; _cmsis_nn;&nbsp; _ic;&nbsp; _kws;&nbsp; _native;&nbsp; _vww*
+* Versions: *r1.0*
+* Default version: *r1.0*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results/README-extra.md)
 
 ## run-docker-container
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="run,docker,container"*
-
+* CM CLI with all tags: `cm run script --tags="run,docker,container"`*
+* CM CLI alternative: `cm run script "run docker container"`*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/README-extra.md)
 
 ## run-mlperf-inference-app
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference"*
-* CM script variations: *_all-modes;&nbsp; _all-scenarios;&nbsp; _compliance;&nbsp; _dashboard;&nbsp; _fast;&nbsp; _short;&nbsp; _submission;&nbsp; _valid*
-* CM script versions: *master;&nbsp; r2.1*
-
+* CM CLI with all tags: `cm run script --tags="run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference"`*
+* CM CLI alternative: `cm run script "run generate-run-cmds run-mlperf vision mlcommons mlperf inference reference"`*
+* Variations: *_all-modes;&nbsp; _all-scenarios;&nbsp; _compliance;&nbsp; _dashboard;&nbsp; _fast;&nbsp; _short;&nbsp; _submission;&nbsp; _valid*
+* Versions: *master;&nbsp; r2.1*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/README-extra.md)
 
 ## run-mlperf-inference-submission-checker
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker"*
-* CM script variations: *_short-run*
-
+* CM CLI with all tags: `cm run script --tags="run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker"`*
+* CM CLI alternative: `cm run script "run mlc mlcommons mlperf inference mlperf-inference submission checker submission-checker mlc-submission-checker"`*
+* Variations: *_short-run*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/README-extra.md)
 
 ## run-mlperf-power-client
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="run,mlc,mlcommons,mlperf,power,client,power-client"*
-
+* CM CLI with all tags: `cm run script --tags="run,mlc,mlcommons,mlperf,power,client,power-client"`*
+* CM CLI alternative: `cm run script "run mlc mlcommons mlperf power client power-client"`*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/README-extra.md)
 
 ## run-mlperf-power-server
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="run,mlc,mlcommons,mlperf,power,server,power-server"*
-
+* CM CLI with all tags: `cm run script --tags="run,mlc,mlcommons,mlperf,power,server,power-server"`*
+* CM CLI alternative: `cm run script "run mlc mlcommons mlperf power server power-server"`*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/README-extra.md)
 
 ## run-terraform
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="run,terraform"*
-* CM script variations: *_aws;&nbsp; _c5.12xlarge;&nbsp; _c5.4xlarge;&nbsp; _c5d.9xlarge;&nbsp; _g4dn.xlarge;&nbsp; _t2.micro*
-
+* CM CLI with all tags: `cm run script --tags="run,terraform"`*
+* CM CLI alternative: `cm run script "run terraform"`*
+* Variations: *_aws;&nbsp; _c5.12xlarge;&nbsp; _c5.4xlarge;&nbsp; _c5d.9xlarge;&nbsp; _g4dn.xlarge;&nbsp; _t2.micro*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/README-extra.md)
 
 ## set-echo-off-win
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-echo-off-win)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-echo-off-win/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-echo-off-win)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/set-echo-off-win/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="set,echo,off,win,echo-off-win,echo-off"*
-
+* CM CLI with all tags: `cm run script --tags="set,echo,off,win,echo-off-win,echo-off"`*
+* CM CLI alternative: `cm run script "set echo off win echo-off-win echo-off"`*
 
 ## tar-my-folder
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="run,tar"*
-
+* CM CLI with all tags: `cm run script --tags="run,tar"`*
+* CM CLI alternative: `cm run script "run tar"`*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder/README-extra.md)
 
 ## test-set-sys-user-cm
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-set-sys-user-cm)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-set-sys-user-cm/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-set-sys-user-cm)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-set-sys-user-cm/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="demo,set,sys-user,cm,sys-user-cm"*
-
+* CM CLI with all tags: `cm run script --tags="demo,set,sys-user,cm,sys-user-cm"`*
+* CM CLI alternative: `cm run script "demo set sys-user cm sys-user-cm"`*
 
 ## truncate-mlperf-inference-accuracy-log
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="run,mlc,mlcommons,mlperf,inference,mlperf-inference,truncation,truncator,truncate,accuracy,accuracy-log,accuracy-log-trancation,accuracy-log-truncator,mlc-accuracy-log-trancation,mlc-accuracy-log-truncator"*
-
+* CM CLI with all tags: `cm run script --tags="run,mlc,mlcommons,mlperf,inference,mlperf-inference,truncation,truncator,truncate,accuracy,accuracy-log,accuracy-log-trancation,accuracy-log-truncator,mlc-accuracy-log-trancation,mlc-accuracy-log-truncator"`*
+* CM CLI alternative: `cm run script "run mlc mlcommons mlperf inference mlperf-inference truncation truncator truncate accuracy accuracy-log accuracy-log-trancation accuracy-log-truncator mlc-accuracy-log-trancation mlc-accuracy-log-truncator"`*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log/README-extra.md)
 
 ## wrapper-reproduce-octoml-tinyml-submission
 
-
-* CM script GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM script artifact (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-reproduce-octoml-tinyml-submission)*
-* CM script meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-reproduce-octoml-tinyml-submission/_cm.json)*
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-reproduce-octoml-tinyml-submission)*
+* Meta description: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-reproduce-octoml-tinyml-submission/_cm.json)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-* CM script  tags: *cm run script --tags="run,generate-tiny,generate,submission,tiny,generate-tiny-submission,results,mlcommons,mlperf,octoml"*
-* CM script default version: *r1.0*
-
+* CM CLI with all tags: `cm run script --tags="run,generate-tiny,generate,submission,tiny,generate-tiny-submission,results,mlcommons,mlperf,octoml"`*
+* CM CLI alternative: `cm run script "run generate-tiny generate submission tiny generate-tiny-submission results mlcommons mlperf octoml"`*
+* Default version: *r1.0*
+* Extra README: [*GitHub*](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/wrapper-reproduce-octoml-tinyml-submission/README-extra.md)
 
 
 <br>

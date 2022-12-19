@@ -1,12 +1,29 @@
-# Compress using tar
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) compresses a given folder and generates a tar.gz file
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## How To
-```bash
-cm run script --tags=run,tar --input_dir=[DIR_PATH]
-```
+### About
+
+*TBD*
+
+### Category
+
+Misc automation.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 
 
-### Additional Options
-* `--output_dir:` Directory in which to generate the output file. Default is current working directory
-* `--outfile:`: Output filename. Default is inputfoldername".gz"
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *run,tar*
+* CM CLI: *`cm run script --tags="run,tar"`*
+* CM CLI alternative: *`cm run script "run tar"`*

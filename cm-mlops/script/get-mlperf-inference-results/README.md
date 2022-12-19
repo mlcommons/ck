@@ -1,18 +1,35 @@
-# Get MLCommons Inference Results
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) git clones the [MLCommons Inference results repository](https://github.com/mlcommons/inference_v2.1).
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## Commands
-To install
-```
-cm run script --tags=get,mlperf,inference,results --version=[VERSION] 
-```
+### About
 
-[VERSION] is one of
-* `v2.1:` MLCommons inference 2.1 round results
+*TBD*
 
-## Exported Variables
-* `CM_MLPERF_INFERENCE_RESULTS_PATH`: Directory path to the inference results repository
+### Category
 
-## Supported and Tested OS
-1. Ubuntu 18.04, 20.04, 22.04
-2. RHEL 9
+Modular MLPerf benchmarks.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *get,results,inference,inference-results,mlcommons,mlperf*
+* CM CLI: *`cm run script --tags="get,results,inference,inference-results,mlcommons,mlperf"`*
+* CM CLI alternative: *`cm run script "get results inference inference-results mlcommons mlperf"`*
+
+
+### Versions
+Default version: *v2.1*
+
+* v2.1

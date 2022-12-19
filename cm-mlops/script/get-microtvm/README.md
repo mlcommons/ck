@@ -1,5 +1,42 @@
-# GET-MICROTVM
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) clones the git repository of [Microtvm](https://github.com/octoml/microtvm) and cache it in CM for reuse across other CM scripts.
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## Exported Variables
-1. [CN_MICROTVM_SOURCE](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-microtvm/customize.py#L24): Location in CM cache where microtvm git repository is cloned. 
+### About
+
+*TBD*
+
+### Category
+
+TinyML automation.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *get,src,source,microtvm,tiny*
+* CM CLI: *`cm run script --tags="get,src,source,microtvm,tiny"`*
+* CM CLI alternative: *`cm run script "get src source microtvm tiny"`*
+
+
+### Variations
+#### All variations
+* default
+* full-history
+* short-history
+
+### Versions
+Default version: *main*
+
+* custom
+* main

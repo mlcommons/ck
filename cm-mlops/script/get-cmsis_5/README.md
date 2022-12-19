@@ -1,5 +1,42 @@
-# GET-CMSIS_5
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) clones the git repository of [CMSIS Version 5](https://github.com/ARM-software/CMSIS_5) and cache it in CM for reuse across other CM scripts.
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## Exported Variables
-1. [CMSIS_PATH](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-cmsis_5/customize.py#L23): Location in CM cache where CMSIS_5 git repository is cloned. 
+### About
+
+*TBD*
+
+### Category
+
+Detection or installation of tools and artifacts.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmsis_5)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *get,cmsis,cmsis_5,arm-software*
+* CM CLI: *`cm run script --tags="get,cmsis,cmsis_5,arm-software"`*
+* CM CLI alternative: *`cm run script "get cmsis cmsis_5 arm-software"`*
+
+
+### Variations
+#### All variations
+* recurse-submodules
+* short-history
+
+### Versions
+Default version: *develop*
+
+* custom
+* develop
+* master

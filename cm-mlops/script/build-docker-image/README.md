@@ -1,16 +1,29 @@
-# Build CM Docker Image
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) builds a dockerfile with for using CM.
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## How to use
-```bash
-cm run script --tags=build,docker,image --dockerfile=[DOCKERFILEPATH] --gh_token=[GITHUB_AUTH_TOKEN] --image_repo=[IMAGE_REPO] --image_name=[IMAGE_NAME] --image_tag=[IMAGE_TAG] --cache=[yes,no]
-```
-where
-* `[DOCKERFILEPATH]` is the path to the dockerfile. If not given, the [dockerfile build script](../build-dockerfile) will be called.
-* `[GITHUB_AUTH_TOKEN]`: is passed as a build argument to docker build.
-* `[IMAGE_REPO]`: Repo name to add the docker image. Default is `local`.
-* `[IMAGE_NAME]`: Name to add the docker image. Default is `cm`.
-* `[IMAGE_TAG]`: Tag for the docker image. Default is `latest`.
-* `--cache`: If `no` turns off docker build caching. Default is cache on.
-* `[--docker_os, --docker_os_version, --cm_repo and --script_tags]` are additional options which are passed to the [dockerfile build script](../build-dockerfile) if needed.
+### About
 
+*TBD*
+
+### Category
+
+Docker automation.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *build,docker,image,docker-image,dockerimage*
+* CM CLI: *`cm run script --tags="build,docker,image,docker-image,dockerimage"`*
+* CM CLI alternative: *`cm run script "build docker image docker-image dockerimage"`*

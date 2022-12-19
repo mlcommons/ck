@@ -1,8 +1,35 @@
-# GET-ZEPHYR
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) installs the [Zephyr](https://github.com/zephyrproject-rtos/zephyr) real-time OS including all the needed system and python dependencies using its own command line tool [west](https://docs.zephyrproject.org/latest/develop/west/index.html).
-## Exported Variables
-1. [ZEPHYR_DIR](https://github.com/octoml/ck/blob/master/cm-mlops/script/get-zephyr/customize.py#L15): Location in CM cache where Zephyr is installed. 
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## Supported and Tested OS
-1. Ubuntu 18.04, 20.04, 22.04
-2. RHEL 9
+### About
+
+*TBD*
+
+### Category
+
+TinyML automation.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *get,zephyr*
+* CM CLI: *`cm run script --tags="get,zephyr"`*
+* CM CLI alternative: *`cm run script "get zephyr"`*
+
+
+### Versions
+Default version: *v2.7*
+
+* v2.7

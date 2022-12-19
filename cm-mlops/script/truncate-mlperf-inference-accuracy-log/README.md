@@ -1,7 +1,29 @@
-# MLPerf Inference Accuracy Log Truncator
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) runs the [MLPerf Inference accuracy log truncator](https://github.com/mlcommons/inference/blob/master/tools/submission/truncate_accuracy_log.py) on a given submission folder.
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## How To
-```bash
-cm run script --tags=run,mlperf,inference,accuracy,truncator --submitter=[SUBMITTER_NAME] --submission_dir=[SUBMISSION_FOLDER]
-```
+### About
+
+*TBD*
+
+### Category
+
+Modular MLPerf benchmarks.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *run,mlc,mlcommons,mlperf,inference,mlperf-inference,truncation,truncator,truncate,accuracy,accuracy-log,accuracy-log-trancation,accuracy-log-truncator,mlc-accuracy-log-trancation,mlc-accuracy-log-truncator*
+* CM CLI: *`cm run script --tags="run,mlc,mlcommons,mlperf,inference,mlperf-inference,truncation,truncator,truncate,accuracy,accuracy-log,accuracy-log-trancation,accuracy-log-truncator,mlc-accuracy-log-trancation,mlc-accuracy-log-truncator"`*
+* CM CLI alternative: *`cm run script "run mlc mlcommons mlperf inference mlperf-inference truncation truncator truncate accuracy accuracy-log accuracy-log-trancation accuracy-log-truncator mlc-accuracy-log-trancation mlc-accuracy-log-truncator"`*

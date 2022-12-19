@@ -1,26 +1,42 @@
-# Get Preprocessed Imagenet Dataset
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) preprocesses the Imagenet dataset.
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## How To
-```bash
-cm run script --tags=get,imagenet,preprocessed,_[VARIATION] --dir=[DIRECTORY] --threads=[NUM_THREADS]
-```
-where, 
-* `[DIRECTORY]:` is the folder to store the preprocessed dataset. Default is current work directory
-* `[NUM_THREADS:]` is the number of threads to do preprocessing. Default is number of host cpus. 
-and the supported [VARIATIONS] (comma separated and beginning with _) are
-*`[1]:` Preprocess only 1 image
-*`[500]:` Preprocess first 500 images
-*`[full]:` Preprocess the full dataset
-*`[NHWC]:` Preprocess the dataset with `Channel` component at end
-*`[NCHW]:` Preprocess the dataset with `Channel` component at beginning
+### About
 
-## Input Variables coming from Dependencies
-* `[CM_DATASET_PATH]:` Folder path to Imagenet dataset
-* `[CM_DATASET_AUX_PATH]:` Folder path to Imagenet auxiliary dataset (to get image list)
-* `[CM_DATASET_IMAGES_LIST]:` File path containing the image names
+*TBD*
 
-## Exported Variables
-* `[CM_DATASET_PREPROCESSED_PATH]:` Directory where the preprocessed images are stored
+### Category
+
+ML/AI datasets.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 
 
+### Meta description
+[_cm.json](_cm.json)
+
+
+### Tags
+* All CM script tags: *get,dataset,imagenet,ILSVRC,image-classification,preprocessed*
+* CM CLI: *`cm run script --tags="get,dataset,imagenet,ILSVRC,image-classification,preprocessed"`*
+* CM CLI alternative: *`cm run script "get dataset imagenet ILSVRC image-classification preprocessed"`*
+
+
+### Variations
+#### All variations
+* 1
+* 500
+* NCHW
+* NHWC
+* for.mobilenet
+* for.mobilenet-quantized
+* for.resnet50
+* for.resnet50-quantized
+* full

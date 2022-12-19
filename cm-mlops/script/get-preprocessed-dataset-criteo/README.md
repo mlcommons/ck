@@ -1,16 +1,37 @@
-# Get Preprocessed Criteo Dataset
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/script.md) preprocesses the Criteo dataset.
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-## How To
-```bash
-cm run script --tags=get,criteo,preprocessed --threads=[NUM_THREADS]
-```
-where, 
-* `[DIRECTORY]:` is the folder to store the preprocessed dataset. Default is current work directory
-* `[NUM_THREADS:]` is the number of threads to do preprocessing. Default is number of host cpus. 
+### About
+
+*TBD*
+
+### Category
+
+ML/AI datasets.
+
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 
 
-## Exported Variables
-* `[CM_DATASET_PREPROCESSED_PATH]:` Directory where the preprocessed images are stored
+### Meta description
+[_cm.json](_cm.json)
 
 
+### Tags
+* All CM script tags: *get,dataset,criteo,recommendation,dlrm,preprocessed*
+* CM CLI: *`cm run script --tags="get,dataset,criteo,recommendation,dlrm,preprocessed"`*
+* CM CLI alternative: *`cm run script "get dataset criteo recommendation dlrm preprocessed"`*
+
+
+### Variations
+#### All variations
+* 1
+* 50
+* full
+* validation

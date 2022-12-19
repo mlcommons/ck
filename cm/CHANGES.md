@@ -1,5 +1,5 @@
-## V1.1.3.1
-   - starting development version
+## V1.1.4
+   - added utils.call_internal_module to break automation modules into sub-modules
 
 ## V1.1.3
    - improved removal of CM entries on Windows
