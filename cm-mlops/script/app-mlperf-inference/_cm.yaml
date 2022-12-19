@@ -304,20 +304,6 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _tvm-pytorch
-  tvm-pip-install-onnx:
-    group: backend
-    env:
-      CM_MLPERF_BACKEND: tvm-pip-install-onnx
-    add_deps_recursive:
-      mlperf-inference-implementation:
-        tags: _tvm-pip-install-onnx
-  tvm-pip-install-pytorch:
-    group: backend
-    env:
-      CM_MLPERF_BACKEND: tvm-pip-install-pytorch
-    add_deps_recursive:
-      mlperf-inference-implementation:
-        tags: _tvm-pip-install-pytorch
 
   cpu:
     group:
