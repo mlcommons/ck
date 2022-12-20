@@ -7,13 +7,14 @@
   "category_sort": 7000,
   "clean_files": [],
   "default_env": {
-    "CM_SUDO": "sudo"
+    "CM_SUDO": "sudo",
+    "CM_INPUT": ""
   },
   "input_mapping": {
     "input": "CM_INPUT"
   },
   "input_description": {
-    "input": "Path to the Tar file downloaded from Nvidia site (https://developer.nvidia.com/nvidia-tensorrt-8x-download)"
+    "input": "Path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)"
   },
   "deps": [
     {
