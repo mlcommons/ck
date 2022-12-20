@@ -222,9 +222,6 @@ def doc(i):
         if os.path.isfile(path_readme_extra):
             readme_extra_url = url+'/README-extra.md'
 
-            x = '* Extra README: [*GitHub*]({})'.format(readme_extra_url)
-            md_script.append(x)
-
             cm_see_readme_extra = 'See [extra README](README-extra.md)'
             cm_readme_extra='\n'+cm_see_readme_extra+'.\n'
 
