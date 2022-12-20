@@ -79,6 +79,11 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_DOCKERFILE_WITH_PATH**
+* **CM_DOCKER_OS**
+* **CM_DOCKER_OS_VERSION**
+* **CM_DOCKER_RUN_CMD**
+* **CM_DOCKER_RUN_CMD**
 ___
 ### Usage
 

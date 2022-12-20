@@ -75,6 +75,8 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_MLPERF_POWER_RUN_CMD**
+* **CM_MLPERF_RUN_CMD**
 ___
 ### Usage
 

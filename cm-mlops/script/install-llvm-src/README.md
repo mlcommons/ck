@@ -76,6 +76,10 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_GET_DEPENDENT_CACHED_PATH**
+* **CM_GIT_CHECKOUT**
+* **CM_LLVM_CLANG_BIN_WITH_PATH**
+* **CM_LLVM_INSTALLED_PATH**
 ___
 ### Usage
 

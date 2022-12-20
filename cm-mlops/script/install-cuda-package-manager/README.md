@@ -70,6 +70,7 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_GET_DEPENDENT_CACHED_PATH**
 ___
 ### Usage
 

@@ -110,6 +110,7 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_RUN_CMDS**
 ___
 ### Usage
 

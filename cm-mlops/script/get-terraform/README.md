@@ -69,6 +69,7 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_REQUIRE_INSTALL**
 * **CM_TERRAFORM_CACHE_TAGS**
 * **CM_TERRAFORM_INSTALLED_PATH**
 ___

@@ -465,20 +465,21 @@ def doc(i):
             # Ugly attempt to get output env
             found_postprocess = False
             for l in customize_l:
-                if not found_postprocess:
-                    if 'def postprocess' in l:
-                        found_postprocess = True
-                else:
-                    j = l.find(' env[')
-                    if j>=0:
-                        j1 = l.find(']', j+4)
-                        if j1>=0:
-                            j2 = l.find('=',j1+1)
-                            if j2>=0:
-                                key2 = l[j+5:j1].strip()
-                                key=key2[1:-1]
+#                if not found_postprocess:
+#                    if 'def postprocess' in l:
+#                        found_postprocess = True
+#                else:
+                 j = l.find(' env[')
+                 if j>=0:
+                     j1 = l.find(']', j+4)
+                     if j1>=0:
+                         j2 = l.find('=',j1+1)
+                         if j2>=0:
+                             key2 = l[j+5:j1].strip()
+                             key=key2[1:-1]
 
-                                found_output_env.append(key)
+                             if key.startswith('CM_'):
+                                 found_output_env.append(key)
         # Meta deps
         def process_deps(self_module, meta, meta_url, md_script_readme, key):
 

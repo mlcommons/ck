@@ -66,7 +66,6 @@ ___
 ___
 ### New environment detected from customize
 
-* **+PYTHONPATH**
 * **CM_DATASET_IMAGENET_HELPER_PATH**
 ___
 ### Usage

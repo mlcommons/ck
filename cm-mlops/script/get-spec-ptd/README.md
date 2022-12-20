@@ -83,6 +83,9 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_GIT_CHECKOUT**
+* **CM_GIT_DEPTH**
+* **CM_GIT_RECURSE_SUBMODULES**
 * **CM_MLPERF_PTD_PATH**
 * **CM_SPEC_PTD_PATH**
 ___

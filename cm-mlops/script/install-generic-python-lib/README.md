@@ -175,6 +175,7 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_GENERIC_PYTHON_PIP_EXTRA**
 ___
 ### Usage
 

@@ -81,7 +81,15 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_BIN_NAME**
+* **CM_ENABLE_NUMACTL**
 * **CM_MLPERF_RUN_CMD**
+* **CM_RUN_CMD**
+* **CM_RUN_CMD**
+* **CM_RUN_CMD**
+* **CM_RUN_DIR**
+* **CM_RUN_PREFIX**
+* **CM_RUN_SUFFIX**
 ___
 ### Usage
 

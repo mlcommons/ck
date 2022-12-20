@@ -66,6 +66,8 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_HW_NAME**
+* **CM_SUT_NAME**
 ___
 ### Usage
 

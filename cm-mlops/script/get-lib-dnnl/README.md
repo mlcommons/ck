@@ -81,7 +81,6 @@ ___
 ### New environment detected from customize
 
 * **CM_LIB_DNNL_INSTALL_DIR**
-* **e**
 ___
 ### Usage
 

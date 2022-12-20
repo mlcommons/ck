@@ -69,6 +69,13 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_BUILD_DOCKERFILE**
+* **CM_BUILD_DOCKERFILE**
+* **CM_DOCKER_BUILD_ARGS**
+* **CM_DOCKER_CACHE_ARG**
+* **CM_DOCKER_IMAGE_NAME**
+* **CM_DOCKER_IMAGE_REPO**
+* **CM_DOCKER_IMAGE_TAG**
 ___
 ### Usage
 

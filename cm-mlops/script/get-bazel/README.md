@@ -69,9 +69,9 @@ ___
 ___
 ### New environment detected from customize
 
-* **+PATH**
 * **CM_BAZEL_CACHE_TAGS**
 * **CM_BAZEL_INSTALLED_PATH**
+* **CM_REQUIRE_INSTALL**
 ___
 ### Usage
 

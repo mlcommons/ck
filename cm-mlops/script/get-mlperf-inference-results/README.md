@@ -76,6 +76,9 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_GIT_CHECKOUT**
+* **CM_GIT_DEPTH**
+* **CM_GIT_RECURSE_SUBMODULES**
 * **CM_MLPERF_INFERENCE_RESULTS_PATH**
 ___
 ### Usage

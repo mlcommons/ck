@@ -70,6 +70,7 @@ ___
 ### New environment detected from customize
 
 * **CM_OPENSSL_INSTALLED_PATH**
+* **CM_REQUIRE_INSTALL**
 ___
 ### Usage
 

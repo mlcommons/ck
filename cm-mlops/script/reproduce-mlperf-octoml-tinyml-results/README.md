@@ -116,6 +116,8 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_MICROTVM_VARIANT**
+* **CM_TINY_MODEL**
 ___
 ### Usage
 

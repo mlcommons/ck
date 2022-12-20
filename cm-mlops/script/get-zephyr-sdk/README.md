@@ -75,8 +75,6 @@ ___
 ___
 ### New environment detected from customize
 
-* **ZEPHYR_SDK_INSTALL_DIR**
-* **ZEPHYR_TOOLCHAIN_VARIANT**
 ___
 ### Usage
 

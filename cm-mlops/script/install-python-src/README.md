@@ -92,11 +92,9 @@ ___
 ___
 ### New environment detected from customize
 
-* **+C_INCLUDE_PATH**
-* **+LD_LIBRARY_PATH**
-* **+PATH**
 * **CM_GET_DEPENDENT_CACHED_PATH**
 * **CM_PYTHON_BIN_WITH_PATH**
+* **CM_PYTHON_INSTALLED_PATH**
 ___
 ### Usage
 

@@ -75,6 +75,7 @@ ___
 
 * **CM_CMAKE_CACHE_TAGS**
 * **CM_MAKE_CORES**
+* **CM_REQUIRE_INSTALL**
 ___
 ### Usage
 

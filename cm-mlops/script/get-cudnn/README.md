@@ -73,6 +73,7 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_CUDNN_VERSION**
 ___
 ### Usage
 

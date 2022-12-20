@@ -88,7 +88,8 @@ ___
 ___
 ### New environment detected from customize
 
-* **CMSIS_PATH**
+* **CM_GIT_DEPTH**
+* **CM_GIT_RECURSE_SUBMODULES**
 ___
 ### Usage
 

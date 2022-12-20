@@ -79,6 +79,10 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_CMAKE_BIN_WITH_PATH**
+* **CM_CMAKE_INSTALLED_PATH**
+* **CM_CMAKE_PACKAGE**
+* **CM_GET_DEPENDENT_CACHED_PATH**
 ___
 ### Usage
 

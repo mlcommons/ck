@@ -101,8 +101,9 @@ ___
 ___
 ### New environment detected from customize
 
-* **+PYTHONPATH**
-* **+PYTHONPATH**
+* **CM_GIT_CHECKOUT**
+* **CM_GIT_DEPTH**
+* **CM_GIT_RECURSE_SUBMODULES**
 * **CM_MLPERF_TRAINING_SOURCE**
 ___
 ### Usage

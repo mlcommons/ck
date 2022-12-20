@@ -75,6 +75,10 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_BAZEL_BIN_WITH_PATH**
+* **CM_BAZEL_INSTALLED_PATH**
+* **CM_GET_DEPENDENT_CACHED_PATH**
+* **CM_GIT_CHECKOUT**
 ___
 ### Usage
 

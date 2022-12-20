@@ -79,6 +79,9 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_CUDA_INSTALLED_PATH**
+* **CM_GET_DEPENDENT_CACHED_PATH**
+* **CM_NVCC_BIN_WITH_PATH**
 ___
 ### Usage
 

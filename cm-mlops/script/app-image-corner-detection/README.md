@@ -69,6 +69,14 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_BIN_NAME**
+* **CM_BIN_NAME**
+* **CM_C_SOURCE_FILES**
+* **CM_INPUT**
+* **CM_OUTPUT**
+* **CM_RUN_DIR**
+* **CM_RUN_SUFFIX**
+* **CM_SOURCE_FOLDER_PATH**
 ___
 ### Usage
 

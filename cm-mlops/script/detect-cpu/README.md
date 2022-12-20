@@ -74,8 +74,6 @@ ___
 * **CM_HOST_CPU_TOTAL_LOGICAL_CORES**
 * **CM_HOST_OS_FLAVOR**
 * **CM_HOST_OS_TYPE**
-* **nified_env[env_ke**
-* **nv_ke**
 ___
 ### Usage
 

@@ -71,6 +71,7 @@ ___
 
 * **CM_GO_CACHE_TAGS**
 * **CM_GO_INSTALLED_PATH**
+* **CM_REQUIRE_INSTALL**
 ___
 ### Usage
 

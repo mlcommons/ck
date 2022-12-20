@@ -151,6 +151,10 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH**
+* **CM_ML_MODEL_FILE**
+* **CM_ML_MODEL_FILE_WITH_PATH**
+* **CM_ML_MODEL_PATH**
 ___
 ### Usage
 

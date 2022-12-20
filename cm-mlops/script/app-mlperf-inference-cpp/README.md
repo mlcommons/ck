@@ -150,6 +150,15 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_CXX_SOURCE_FILES**
+* **CM_DATASET_LIST**
+* **CM_LINKER_LANG**
+* **CM_MLPERF_CONF**
+* **CM_MLPERF_DEVICE**
+* **CM_MLPERF_USER_CONF**
+* **CM_MODEL**
+* **CM_RUN_DIR**
+* **CM_SOURCE_FOLDER_PATH**
 ___
 ### Usage
 

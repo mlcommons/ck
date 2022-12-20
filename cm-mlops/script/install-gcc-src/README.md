@@ -75,6 +75,8 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_GCC_INSTALLED_PATH**
+* **CM_GIT_CHECKOUT**
 ___
 ### Usage
 

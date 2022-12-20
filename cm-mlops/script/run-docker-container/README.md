@@ -67,7 +67,14 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_DOCKER_IMAGE_BASE**
+* **CM_DOCKER_IMAGE_EXISTS**
+* **CM_DOCKER_IMAGE_RECREATE**
+* **CM_DOCKER_IMAGE_REPO**
+* **CM_DOCKER_IMAGE_TAG**
 * **CM_DOCKER_RUN_CMD**
+* **CM_DOCKER_RUN_CMD**
+* **CM_DOCKER_RUN_SCRIPT_TAGS**
 ___
 ### Usage
 

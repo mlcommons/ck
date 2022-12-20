@@ -82,7 +82,6 @@ ___
 ___
 ### New environment detected from customize
 
-* **e**
 ___
 ### Usage
 

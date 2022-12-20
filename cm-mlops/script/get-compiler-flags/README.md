@@ -75,6 +75,10 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_CPUINFO_Vendor_ID**
+* **CM_C_COMPILER_BIN**
+* **CM_C_COMPILER_BIN**
+* **CM_HOST_CPU_VENDOR_ID**
 ___
 ### Usage
 

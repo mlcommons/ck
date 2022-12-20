@@ -106,11 +106,8 @@ ___
 ___
 ### New environment detected from customize
 
-* **+PYTHONPATH**
-* **+PYTHONPATH**
 * **CM_TVM_PATH_INCLUDE**
 * **CM_TVM_PATH_LIB**
-* **e**
 ___
 ### Usage
 

@@ -104,6 +104,7 @@ ___
 * **CM_LINKER_FLAGS_FAST**
 * **CM_LLVM_CLANG_BIN**
 * **CM_LLVM_CLANG_CACHE_TAGS**
+* **CM_REQUIRE_INSTALL**
 ___
 ### Usage
 

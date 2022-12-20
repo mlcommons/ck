@@ -78,6 +78,7 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_SYS_UTIL_INSTALL_CMD**
 ___
 ### Usage
 

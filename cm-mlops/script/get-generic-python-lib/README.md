@@ -174,7 +174,9 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_GENERIC_PYTHON_PIP_EXTRA**
 * **CM_PYTHONLIB_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV**
+* **CM_TMP_PYTHON_PACKAGE_NAME_ENV**
 ___
 ### Usage
 

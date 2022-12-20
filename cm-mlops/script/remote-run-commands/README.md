@@ -72,6 +72,7 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_SSH_CMD**
 ___
 ### Usage
 

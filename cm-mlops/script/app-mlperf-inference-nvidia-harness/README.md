@@ -136,6 +136,13 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_CXX_SOURCE_FILES**
+* **CM_LINKER_LANG**
+* **CM_MLPERF_CONF**
+* **CM_MLPERF_USER_CONF**
+* **CM_RUN_DIR**
+* **CM_RUN_SUFFIX**
+* **CM_SOURCE_FOLDER_PATH**
 ___
 ### Usage
 

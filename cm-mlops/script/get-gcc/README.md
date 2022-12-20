@@ -102,7 +102,6 @@ ___
 * **CM_LINKER_FLAGS_DEBUG**
 * **CM_LINKER_FLAGS_DEFAULT**
 * **CM_LINKER_FLAGS_FAST**
-* **FILE_NAME_CPP**
 ___
 ### Usage
 

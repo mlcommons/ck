@@ -79,7 +79,6 @@ ___
 ___
 ### New environment detected from customize
 
-* **+LD_LIBRARY_PATH**
 * **CM_OPENSSL_BIN_WITH_PATH**
 * **CM_OPENSSL_INSTALLED_PATH**
 ___

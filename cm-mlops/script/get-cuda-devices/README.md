@@ -69,7 +69,6 @@ ___
 ___
 ### New environment detected from customize
 
-* **ey_en**
 ___
 ### Usage
 

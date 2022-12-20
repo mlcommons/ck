@@ -78,6 +78,9 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_TENSORRT_INSTALL_PATH**
+* **CM_TENSORRT_VERSION**
+* **CM_TMP_PATH**
 ___
 ### Usage
 

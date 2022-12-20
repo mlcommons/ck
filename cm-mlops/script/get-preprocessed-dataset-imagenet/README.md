@@ -123,6 +123,9 @@ ___
 ### New environment detected from customize
 
 * **CM_DATASET_PREPROCESSED_FULL_PATH**
+* **CM_DATASET_PREPROCESSED_PATH**
+* **CM_DATASET_PREPROCESSED_PATH**
+* **CM_QUANTIZE**
 ___
 ### Usage
 

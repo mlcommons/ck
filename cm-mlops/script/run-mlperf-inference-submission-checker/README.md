@@ -83,6 +83,8 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_MLPERF_SHORT_RUN**
+* **CM_RUN_CMD**
 ___
 ### Usage
 

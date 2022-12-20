@@ -73,6 +73,12 @@ ___
 ### New environment detected from customize
 
 * **CM_PYTHON_BIN_WITH_PATH**
+* **CM_PYTHON_INSTALLED_PATH**
+* **CM_TMP_FAIL_IF_NOT_FOUND**
+* **CM_TMP_PATH**
+* **CM_VIRTUAL_ENV_DIR**
+* **CM_VIRTUAL_ENV_PATH**
+* **CM_VIRTUAL_ENV_SCRIPTS_PATH**
 ___
 ### Usage
 

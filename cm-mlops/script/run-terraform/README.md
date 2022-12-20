@@ -93,6 +93,8 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_TERRAFORM_CONFIG_DIR**
+* **CM_TERRAFORM_RUN_DIR**
 ___
 ### Usage
 

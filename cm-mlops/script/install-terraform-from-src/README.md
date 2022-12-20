@@ -77,7 +77,6 @@ ___
 ___
 ### New environment detected from customize
 
-* **+PATH**
 * **CM_TERRAFORM_BIN_WITH_PATH**
 * **CM_TERRAFORM_INSTALLED_PATH**
 ___

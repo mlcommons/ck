@@ -79,10 +79,10 @@ ___
 ___
 ### New environment detected from customize
 
-* **+PATH**
 * **CM_PYTHON_BIN**
 * **CM_PYTHON_BIN_PATH**
 * **CM_PYTHON_CACHE_TAGS**
+* **CM_REQUIRE_INSTALL**
 ___
 ### Usage
 

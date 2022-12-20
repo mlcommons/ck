@@ -63,7 +63,6 @@ ___
 ___
 ### New environment detected from customize
 
-* **+PYTHONPATH**
 * **CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH**
 ___
 ### Usage

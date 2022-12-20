@@ -70,6 +70,7 @@ ___
 
 * **CM_AWS_CACHE_TAGS**
 * **CM_AWS_INSTALLED_PATH**
+* **CM_REQUIRE_INSTALL**
 ___
 ### Usage
 

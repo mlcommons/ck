@@ -69,6 +69,8 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_TMP_FAIL_IF_NOT_FOUND**
+* **CM_TMP_PATH**
 ___
 ### Usage
 

@@ -77,6 +77,8 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_MLPERF_SUBMISSION_DIR**
+* **CM_MLPERF_SUBMITTER**
 * **CM_TAR_INPUT_DIR**
 ___
 ### Usage
