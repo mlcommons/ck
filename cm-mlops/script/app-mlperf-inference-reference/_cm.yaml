@@ -81,7 +81,12 @@ deps:
     - python3
 
   # Detect CUDA if required
-  - tags: get,cuda
+  - tags: get,cuda,_cudnn
+    enable_if_env:
+      CM_MLPERF_DEVICE:
+      - gpu
+  # Detect TensorRT if required
+  - tags: get,nvidia,tensorrt
     enable_if_env:
       CM_MLPERF_DEVICE:
       - gpu

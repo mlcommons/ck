@@ -55,7 +55,7 @@ deps:
   - tags: get,sys-utils-cm
 
   # Detect CUDA if required
-  - tags: get,cuda
+  - tags: get,cuda,_cudnn
     enable_if_env:
       CM_MLPERF_DEVICE:
       - gpu

@@ -144,7 +144,10 @@ def postprocess(i):
                 env['CM_CUDA_PATH_LIB_CUDNN']=cuda_path_lib_cudnn
                 env['CM_CUDA_PATH_LIB_CUDNN_EXISTS']='yes'
 
+
             break
+    if env.get('CM_CUDA_NEEDS_CUDNN','') == 'yes' and env['CM_CUDA_PATH_LIB_CUDNN_EXISTS'] !='yes':
+        return {'return': 1, 'error': 'Required CUDNN installation not found. Please install cudnn following the instructions at https://docs.nvidia.com/deeplearning/cudnn/install-guide/index.html'}
 
 
     return {'return':0, 'version': version}
