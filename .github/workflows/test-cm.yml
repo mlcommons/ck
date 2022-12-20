@@ -7,9 +7,9 @@ on:
   pull_request:
     branches: [ "master" ]
     paths:
-      - cm/**
-      - .github/workflows/test-cm.yml
-      - '!**.md'
+      - '.github/workflows/test-cm.yml'
+      - '!cm/**.md'
+      - 'cm/**'
 
 jobs:
   build:
