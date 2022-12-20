@@ -6,9 +6,14 @@
   "category": "CUDA automation",
   "category_sort": 7000,
   "clean_files": [],
-  "env": {},
+  "default_env": {
+    "CM_SUDO": "sudo"
+  },
   "input_mapping": {
-    "tar_file": "CM_CUDNN_TAR_FILE_WITH_PATH"
+    "input": "CM_INPUT"
+  },
+  "input_description": {
+    "input": "Path to the Tar file downloaded from Nvidia site (https://developer.nvidia.com/nvidia-tensorrt-8x-download)"
   },
   "deps": [
     {
