@@ -8,13 +8,17 @@
 * [Origin](#origin)
 * [Meta description](#meta-description)
 * [Tags](#tags)
-* [Script workflow](#script-workflow)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
 * [Usage](#usage)
-* [ CM installation](#-cm-installation)
-* [ CM script help](#-cm-script-help)
-* [ CM CLI](#-cm-cli)
-* [ CM Python API](#-cm-python-api)
-* [ CM modular Docker container](#-cm-modular-docker-container)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
 * [Maintainers](#maintainers)
 
 </details>
@@ -43,29 +47,44 @@ ___
 generate,submission,mlperf,mlperf-inference,inference,mlcommons,inference-submission,mlperf-inference-submission,mlcommons-inference-submission
 
 ___
-### Script workflow
+### Default environment
 
-  #### Meta: "deps" key
+___
+### CM script workflow
 
-  #### customize.py: "preprocess" function
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/_cm.json)***
+     * get,python
+       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * mlcommons,inference,src
+       - CM script [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+     * get,sut,system-description
+       - CM script [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/_cm.json)
+  1. ***Run native script if exists***
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/customize.py)***
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/_cm.json)***
+     * accuracy,truncate,mlc
+       - CM script [truncate-mlperf-inference-accuracy-log](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log)
+     * submission,checker,mlc
+       - CM script [run-mlperf-inference-submission-checker](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker)
+     * run,tar
+       - CM script [tar-my-folder](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder)
+___
+### New environment export
 
-  #### Meta: "prehook_deps" key
+___
+### New environment detected from customize
 
-  #### Native script (run.sh or run.bat)
-
-  #### Meta: "posthook_deps" key
-
-  #### customize.py: "postprocess" function
-
-  #### Meta: "post_deps" key
-
+* **CM_TAR_INPUT_DIR**
 ___
 ### Usage
 
 #### CM installation
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script help
+#### CM script automation help
 ```cm run script --help```
 
 #### CM CLI
@@ -95,6 +114,24 @@ if r['return']>0:
 
 #### CM modular Docker container
 *TBD*
+
+#### Script input flags mapped to environment
+
+* results_dir --> **CM_MLPERF_RESULTS_DIR**
+* run_checker --> **CM_RUN_SUBMISSION_CHECKER**
+* run_style --> **CM_MLPERF_RUN_STYLE**
+* skip_truncation --> **CM_SKIP_TRUNCATE_ACCURACY**
+* submission_dir --> **CM_MLPERF_SUBMISSION_DIR**
+* clean --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**
+
+Examples:
+
+```bash
+cm run script "generate submission mlperf mlperf-inference inference mlcommons inference-submission mlperf-inference-submission mlcommons-inference-submission" --results_dir=...
+```
+```python
+r=cm.access({... , "results_dir":"..."}
+```
 ___
 ### Maintainers
 

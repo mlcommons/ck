@@ -9,15 +9,18 @@
 * [Meta description](#meta-description)
 * [Tags](#tags)
 * [Variations](#variations)
-* [ All variations](#-all-variations)
-* [ Variations by groups](#-variations-by-groups)
-* [Script workflow](#script-workflow)
+  * [ All variations](#all-variations)
+  * [ Variations by groups](#variations-by-groups)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
 * [Usage](#usage)
-* [ CM installation](#-cm-installation)
-* [ CM script help](#-cm-script-help)
-* [ CM CLI](#-cm-cli)
-* [ CM Python API](#-cm-python-api)
-* [ CM modular Docker container](#-cm-modular-docker-container)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
 * [Maintainers](#maintainers)
 
 </details>
@@ -49,37 +52,63 @@ ___
 ### Variations
 #### All variations
 * **fp32** (default)
+  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: fp32*
+  - *ENV CM_ML_MODEL_PRECISION: fp32*
+  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32*
 * **onnx** (default)
+  - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
+  - *ENV CM_ML_MODEL_FRAMEWORK: onnx*
 * onnx,fp32
+  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/6617879/files/resnext50_32x4d_fpn.onnx*
+  - *ENV CM_ML_MODEL_ACCURACY: 0.3757*
 * pytorch
+  - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
+  - *ENV CM_ML_MODEL_FRAMEWORK: pytorch*
 * pytorch,fp32
+  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth*
+  - *ENV CM_ML_MODEL_ACCURACY: 0.3755*
 * pytorch,fp32,weights
+  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/6605272/files/retinanet_model_10.zip?download=1*
+  - *ENV CM_UNZIP: yes*
+  - *ENV CM_ML_MODEL_FILE: retinanet_model_10.pth*
+  - *ENV CM_ML_MODEL_ACCURACY: 0.3755*
 * weights
+  - *ENV CM_MODEL_WEIGHTS_FILE: yes*
 
 #### Variations by groups
 
   * framework
     * **onnx** (default)
+      - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
+      - *ENV CM_ML_MODEL_FRAMEWORK: onnx*
     * pytorch
+      - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
+      - *ENV CM_ML_MODEL_FRAMEWORK: pytorch*
 
   * precision
     * **fp32** (default)
+      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: fp32*
+      - *ENV CM_ML_MODEL_PRECISION: fp32*
+      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32*
 ___
-### Script workflow
+### Default environment
 
-  #### Meta: "deps" key
+___
+### CM script workflow
 
-  #### customize.py: "preprocess" function
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)
+  1. ***Run native script if exists***
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet/_cm.json)
+___
+### New environment export
 
-  #### Meta: "prehook_deps" key
-
-  #### Native script (run.sh or run.bat)
-
-  #### Meta: "posthook_deps" key
-
-  #### customize.py: "postprocess" function
-
-  #### Meta: "post_deps" key
+* **CM_ML_MODEL_***
+___
+### New environment detected from customize
 
 ___
 ### Usage
@@ -87,7 +116,7 @@ ___
 #### CM installation
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script help
+#### CM script automation help
 ```cm run script --help```
 
 #### CM CLI

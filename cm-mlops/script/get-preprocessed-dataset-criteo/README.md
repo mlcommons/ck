@@ -9,14 +9,18 @@
 * [Meta description](#meta-description)
 * [Tags](#tags)
 * [Variations](#variations)
-* [ All variations](#-all-variations)
-* [Script workflow](#script-workflow)
+  * [ All variations](#all-variations)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
 * [Usage](#usage)
-* [ CM installation](#-cm-installation)
-* [ CM script help](#-cm-script-help)
-* [ CM CLI](#-cm-cli)
-* [ CM Python API](#-cm-python-api)
-* [ CM modular Docker container](#-cm-modular-docker-container)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
 * [Maintainers](#maintainers)
 
 </details>
@@ -48,25 +52,54 @@ ___
 ### Variations
 #### All variations
 * 1
+  - *ENV CM_DATASET_SIZE: 1*
 * 50
+  - *ENV CM_DATASET_SIZE: 50*
 * full
+  - *ENV CM_DATASET_SIZE: *
 * validation
 ___
-### Script workflow
+### Default environment
 
-  #### Meta: "deps" key
+___
+### CM script workflow
 
-  #### customize.py: "preprocess" function
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)***
+     * get,python3
+       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,dataset,criteo,original
+       - CM script [get-dataset-criteo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo)
+     * get,dlrm,src
+       - CM script [get-dlrm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dlrm)
+     * mlperf,mlcommons,inference,source,src,_octoml
+       - CM script [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+     * get,generic-python-lib,_sklearn
+       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_torch
+       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_opencv-python
+       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_decorator
+       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_psutil
+       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_onnx
+       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_tqdm
+       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)
+  1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)
+___
+### New environment export
 
-  #### Meta: "prehook_deps" key
-
-  #### Native script (run.sh or run.bat)
-
-  #### Meta: "posthook_deps" key
-
-  #### customize.py: "postprocess" function
-
-  #### Meta: "post_deps" key
+* **CM_DATASET_***
+___
+### New environment detected from customize
 
 ___
 ### Usage
@@ -74,7 +107,7 @@ ___
 #### CM installation
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script help
+#### CM script automation help
 ```cm run script --help```
 
 #### CM CLI
@@ -104,6 +137,20 @@ if r['return']>0:
 
 #### CM modular Docker container
 *TBD*
+
+#### Script input flags mapped to environment
+
+* dir --> **CM_DATASET_PREPROCESSED_PATH**
+* threads --> **CM_NUM_PREPROCESS_THREADS**
+
+Examples:
+
+```bash
+cm run script "get dataset criteo recommendation dlrm preprocessed" --dir=...
+```
+```python
+r=cm.access({... , "dir":"..."}
+```
 ___
 ### Maintainers
 

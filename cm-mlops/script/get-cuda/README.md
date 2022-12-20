@@ -9,14 +9,17 @@
 * [Meta description](#meta-description)
 * [Tags](#tags)
 * [Variations](#variations)
-* [ All variations](#-all-variations)
-* [Script workflow](#script-workflow)
+  * [ All variations](#all-variations)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
 * [Usage](#usage)
-* [ CM installation](#-cm-installation)
-* [ CM script help](#-cm-script-help)
-* [ CM CLI](#-cm-cli)
-* [ CM Python API](#-cm-python-api)
-* [ CM modular Docker container](#-cm-modular-docker-container)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
 * [Maintainers](#maintainers)
 
 </details>
@@ -49,29 +52,55 @@ ___
 #### All variations
 * compiler
 ___
-### Script workflow
+### Default environment
 
-  #### Meta: "deps" key
+___
+### CM script workflow
 
-  #### customize.py: "preprocess" function
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)***
+     * install,cuda,prebuilt
+       - CM script [install-cuda-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)
+  1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
+___
+### New environment export
 
-  #### Meta: "prehook_deps" key
+* **+CPLUS_INCLUDE_PATH**
+* **+C_INCLUDE_PATH**
+* **+DYLD_FALLBACK_LIBRARY_PATH**
+* **+LD_LIBRARY_PATH**
+* **+PATH**
+* **CM_CUDA_***
+* **CM_NVCC_***
+* **CUDA_HOME**
+* **CUDA_PATH**
+___
+### New environment detected from customize
 
-  #### Native script (run.sh or run.bat)
-
-  #### Meta: "posthook_deps" key
-
-  #### customize.py: "postprocess" function
-
-  #### Meta: "post_deps" key
-
+* **CM_CUDA_CACHE_TAGS**
+* **CM_CUDA_INSTALLED_PATH**
+* **CM_CUDA_PATH_BIN**
+* **CM_CUDA_PATH_INCLUDE**
+* **CM_CUDA_PATH_LIB**
+* **CM_CUDA_PATH_LIB_CUDNN**
+* **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
+* **CM_NVCC_BIN**
+* **CUDA_HOME**
+* **CUDA_PATH**
+* **e**
 ___
 ### Usage
 
 #### CM installation
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script help
+#### CM script automation help
 ```cm run script --help```
 
 #### CM CLI

@@ -40,7 +40,7 @@ class CAutomation(Automation):
         self.tmp_file_run_env = 'tmp-run-env.out'
         self.tmp_file_ver = 'tmp-ver.out'
 
-        self.__version__ = "1.1.2"
+        self.__version__ = "1.1.4"
 
         self.local_env_keys = ['CM_VERSION',
                                'CM_VERSION_MIN',

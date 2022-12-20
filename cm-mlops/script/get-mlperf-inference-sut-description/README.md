@@ -8,13 +8,17 @@
 * [Origin](#origin)
 * [Meta description](#meta-description)
 * [Tags](#tags)
-* [Script workflow](#script-workflow)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
 * [Usage](#usage)
-* [ CM installation](#-cm-installation)
-* [ CM script help](#-cm-script-help)
-* [ CM CLI](#-cm-cli)
-* [ CM Python API](#-cm-python-api)
-* [ CM modular Docker container](#-cm-modular-docker-container)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
 * [Maintainers](#maintainers)
 
 </details>
@@ -43,21 +47,36 @@ ___
 get,mlperf,sut,description,system-under-test,system-description
 
 ___
-### Script workflow
+### Default environment
 
-  #### Meta: "deps" key
+* CM_SUT_DESC_CACHE: **yes**
+___
+### CM script workflow
 
-  #### customize.py: "preprocess" function
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)***
+     * detect,os
+       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * detect,cpu
+       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+     * get,python3
+       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,compiler
+       - CM script [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
+       - CM script [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
+       - CM script [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)
+  1. ***Run native script if exists***
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/_cm.json)
+___
+### New environment export
 
-  #### Meta: "prehook_deps" key
-
-  #### Native script (run.sh or run.bat)
-
-  #### Meta: "posthook_deps" key
-
-  #### customize.py: "postprocess" function
-
-  #### Meta: "post_deps" key
+* **CM_HW_***
+* **CM_SUT_***
+___
+### New environment detected from customize
 
 ___
 ### Usage
@@ -65,7 +84,7 @@ ___
 #### CM installation
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script help
+#### CM script automation help
 ```cm run script --help```
 
 #### CM CLI
@@ -95,6 +114,20 @@ if r['return']>0:
 
 #### CM modular Docker container
 *TBD*
+
+#### Script input flags mapped to environment
+
+* name --> **CM_HW_NAME**
+* submitter --> **CM_MLPERF_SUBMITTER**
+
+Examples:
+
+```bash
+cm run script "get mlperf sut description system-under-test system-description" --name=...
+```
+```python
+r=cm.access({... , "name":"..."}
+```
 ___
 ### Maintainers
 

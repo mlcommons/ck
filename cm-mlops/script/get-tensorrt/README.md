@@ -8,13 +8,17 @@
 * [Origin](#origin)
 * [Meta description](#meta-description)
 * [Tags](#tags)
-* [Script workflow](#script-workflow)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
 * [Usage](#usage)
-* [ CM installation](#-cm-installation)
-* [ CM script help](#-cm-script-help)
-* [ CM CLI](#-cm-cli)
-* [ CM Python API](#-cm-python-api)
-* [ CM modular Docker container](#-cm-modular-docker-container)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
 * [Maintainers](#maintainers)
 
 </details>
@@ -43,21 +47,29 @@ ___
 get,tensorrt,nvidia
 
 ___
-### Script workflow
+### Default environment
 
-  #### Meta: "deps" key
+___
+### CM script workflow
 
-  #### customize.py: "preprocess" function
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)
+  1. ***Run native script if exists***
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)
+___
+### New environment export
 
-  #### Meta: "prehook_deps" key
-
-  #### Native script (run.sh or run.bat)
-
-  #### Meta: "posthook_deps" key
-
-  #### customize.py: "postprocess" function
-
-  #### Meta: "post_deps" key
+* **+CPLUS_INCLUDE_PATH**
+* **+C_INCLUDE_PATH**
+* **+DYLD_FALLBACK_LIBRARY_PATH**
+* **+LD_LIBRARY_PATH**
+* **+PATH**
+* **CM_TENSORRT_***
+___
+### New environment detected from customize
 
 ___
 ### Usage
@@ -65,7 +77,7 @@ ___
 #### CM installation
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script help
+#### CM script automation help
 ```cm run script --help```
 
 #### CM CLI
@@ -95,6 +107,19 @@ if r['return']>0:
 
 #### CM modular Docker container
 *TBD*
+
+#### Script input flags mapped to environment
+
+* tar_file --> **CM_TENSORRT_TAR_FILE_WITH_PATH**
+
+Examples:
+
+```bash
+cm run script "get tensorrt nvidia" --tar_file=...
+```
+```python
+r=cm.access({... , "tar_file":"..."}
+```
 ___
 ### Maintainers
 

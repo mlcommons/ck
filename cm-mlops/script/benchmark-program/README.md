@@ -9,14 +9,17 @@
 * [Meta description](#meta-description)
 * [Tags](#tags)
 * [Variations](#variations)
-* [ All variations](#-all-variations)
-* [Script workflow](#script-workflow)
+  * [ All variations](#all-variations)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
 * [Usage](#usage)
-* [ CM installation](#-cm-installation)
-* [ CM script help](#-cm-script-help)
-* [ CM CLI](#-cm-cli)
-* [ CM Python API](#-cm-python-api)
-* [ CM modular Docker container](#-cm-modular-docker-container)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
 * [Maintainers](#maintainers)
 
 </details>
@@ -48,33 +51,44 @@ ___
 ### Variations
 #### All variations
 * mlperf-power
+  - *ENV CM_MLPERF_POWER: yes*
 * numactl
 * numactl-interleave
 * profile
 ___
-### Script workflow
+### Default environment
 
-  #### Meta: "deps" key
+* CM_ENABLE_NUMACTL: **0**
+* CM_ENABLE_PROFILING: **0**
+___
+### CM script workflow
 
-  #### customize.py: "preprocess" function
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)***
+     * detect,cpu
+       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)
+  1. ***Run native script if exists***
+     * [run-ubuntu.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/run-ubuntu.sh)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)
+___
+### New environment export
 
-  #### Meta: "prehook_deps" key
+___
+### New environment detected from customize
 
-  #### Native script (run.sh or run.bat)
-
-  #### Meta: "posthook_deps" key
-
-  #### customize.py: "postprocess" function
-
-  #### Meta: "post_deps" key
-
+* **CM_MLPERF_RUN_CMD**
 ___
 ### Usage
 
 #### CM installation
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script help
+#### CM script automation help
 ```cm run script --help```
 
 #### CM CLI

@@ -9,15 +9,18 @@
 * [Meta description](#meta-description)
 * [Tags](#tags)
 * [Variations](#variations)
-* [ All variations](#-all-variations)
+  * [ All variations](#all-variations)
 * [Versions](#versions)
-* [Script workflow](#script-workflow)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
 * [Usage](#usage)
-* [ CM installation](#-cm-installation)
-* [ CM script help](#-cm-script-help)
-* [ CM CLI](#-cm-cli)
-* [ CM Python API](#-cm-python-api)
-* [ CM modular Docker container](#-cm-modular-docker-container)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
 * [Maintainers](#maintainers)
 
 </details>
@@ -49,11 +52,17 @@ ___
 ### Variations
 #### All variations
 * **default** (default)
+  - *ENV CM_GIT_PATCH: no*
 * full-history
+  - *ENV CM_GIT_DEPTH: *
 * no-recurse-submodules
+  - *ENV CM_GIT_RECURSE_SUBMODULES: *
 * nvidia-retinanet
+  - *ENV CM_GIT_PATCH_FILENAMES: nvidia-retinanet.patch,cpu_load.patch*
 * patch
+  - *ENV CM_GIT_PATCH: yes*
 * short-history
+  - *ENV CM_GIT_DEPTH: --depth 5*
 ___
 ### Versions
 Default version: *master*
@@ -61,29 +70,47 @@ Default version: *master*
 * custom
 * master
 ___
-### Script workflow
+### Default environment
 
-  #### Meta: "deps" key
+* CM_GIT_CHECKOUT: **master**
+* CM_GIT_DEPTH: **--depth 4**
+* CM_GIT_PATCH: **no**
+* CM_GIT_RECURSE_SUBMODULES: ** --recurse-submodules**
+* CM_GIT_URL: **https://github.com/mlcommons/training.git**
+___
+### CM script workflow
 
-  #### customize.py: "preprocess" function
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)***
+     * detect,os
+       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * get,python3
+       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)
+  1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)
+___
+### New environment export
 
-  #### Meta: "prehook_deps" key
+* **+PYTHONPATH**
+* **CM_MLPERF_TRAINING_***
+* **CM_MLPERF_TRAINING_LAST_RELEASE**
+___
+### New environment detected from customize
 
-  #### Native script (run.sh or run.bat)
-
-  #### Meta: "posthook_deps" key
-
-  #### customize.py: "postprocess" function
-
-  #### Meta: "post_deps" key
-
+* **+PYTHONPATH**
+* **+PYTHONPATH**
+* **CM_MLPERF_TRAINING_SOURCE**
 ___
 ### Usage
 
 #### CM installation
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script help
+#### CM script automation help
 ```cm run script --help```
 
 #### CM CLI

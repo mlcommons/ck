@@ -8,13 +8,17 @@
 * [Origin](#origin)
 * [Meta description](#meta-description)
 * [Tags](#tags)
-* [Script workflow](#script-workflow)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
 * [Usage](#usage)
-* [ CM installation](#-cm-installation)
-* [ CM script help](#-cm-script-help)
-* [ CM CLI](#-cm-cli)
-* [ CM Python API](#-cm-python-api)
-* [ CM modular Docker container](#-cm-modular-docker-container)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
 * [Maintainers](#maintainers)
 
 </details>
@@ -43,21 +47,36 @@ ___
 run,mlc,mlcommons,mlperf,power,server,power-server
 
 ___
-### Script workflow
+### Default environment
 
-  #### Meta: "deps" key
+* CM_MLPERF_POWER_NTP_SERVER: **time.google.com**
+* CM_MLPERF_POWER_SERVER_OUTDIR: **~/mlperf_power_logs**
+* CM_MLPERF_POWER_LOG_FILE: **logs_ptdaemon.txt**
+* CM_MLPERF_POWER_INTERFACE_FLAG: ****
+* CM_MLPERF_POWER_DEVICE_TYPE: **49**
+* CM_MLPERF_POWER_DEVICE_PORT: **/dev/usbtmc0**
+___
+### CM script workflow
 
-  #### customize.py: "preprocess" function
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)***
+     * get,python
+       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,mlperf,power,src
+       - CM script [get-mlperf-power-dev](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)
+     * get,mlperf,power,daemon
+       - CM script [get-spec-ptd](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)
+  1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)
+___
+### New environment export
 
-  #### Meta: "prehook_deps" key
-
-  #### Native script (run.sh or run.bat)
-
-  #### Meta: "posthook_deps" key
-
-  #### customize.py: "postprocess" function
-
-  #### Meta: "post_deps" key
+___
+### New environment detected from customize
 
 ___
 ### Usage
@@ -65,7 +84,7 @@ ___
 #### CM installation
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script help
+#### CM script automation help
 ```cm run script --help```
 
 #### CM CLI
@@ -95,6 +114,24 @@ if r['return']>0:
 
 #### CM modular Docker container
 *TBD*
+
+#### Script input flags mapped to environment
+
+* interface_flag --> **CM_MLPERF_POWER_INTERFACE_FLAG**
+* device_port --> **CM_MLPERF_POWER_DEVICE_PORT**
+* device_type --> **CM_MLPERF_POWER_DEVICE_TYPE**
+* outdir --> **CM_MLPERF_POWER_SERVER_OUTDIR**
+* ntp_server --> **CM_MLPERF_POWER_NTP_SERVER**
+* logfile --> **CM_MLPERF_POWER_LOG_FILE**
+
+Examples:
+
+```bash
+cm run script "run mlc mlcommons mlperf power server power-server" --interface_flag=...
+```
+```python
+r=cm.access({... , "interface_flag":"..."}
+```
 ___
 ### Maintainers
 

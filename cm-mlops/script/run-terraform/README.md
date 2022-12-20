@@ -9,14 +9,18 @@
 * [Meta description](#meta-description)
 * [Tags](#tags)
 * [Variations](#variations)
-* [ All variations](#-all-variations)
-* [Script workflow](#script-workflow)
+  * [ All variations](#all-variations)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
 * [Usage](#usage)
-* [ CM installation](#-cm-installation)
-* [ CM script help](#-cm-script-help)
-* [ CM CLI](#-cm-cli)
-* [ CM Python API](#-cm-python-api)
-* [ CM modular Docker container](#-cm-modular-docker-container)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
 * [Maintainers](#maintainers)
 
 </details>
@@ -48,27 +52,46 @@ ___
 ### Variations
 #### All variations
 * aws
+  - *ENV CM_TERRAFORM_CONFIG_DIR_NAME: aws*
 * c5.12xlarge
+  - *ENV TF_VAR_INSTANCE_TYPE: c5.12xlarge*
 * c5.4xlarge
+  - *ENV TF_VAR_INSTANCE_TYPE: c5.4xlarge*
+  - *ENV TF_VAR_DISK_GBS: 80*
 * c5d.9xlarge
+  - *ENV TF_VAR_INSTANCE_TYPE: c5d.9xlarge*
 * g4dn.xlarge
+  - *ENV TF_VAR_INSTANCE_TYPE: g4dn.xlarge*
 * t2.micro
+  - *ENV TF_VAR_INSTANCE_TYPE: t2.micro*
 ___
-### Script workflow
+### Default environment
 
-  #### Meta: "deps" key
+* TF_VAR_SECURITY_GROUP_ID: **sg-0783752c97d2e011d**
+* TF_VAR_CPU_COUNT: **1**
+* TF_VAR_DISK_GBS: **8**
+___
+### CM script workflow
 
-  #### customize.py: "preprocess" function
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/_cm.json)***
+     * get,terraform
+       - CM script [get-terraform](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/_cm.json)
+  1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/customize.py)***
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/_cm.json)***
+     * destroy,terraform
+       - CM script [destroy-terraform](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/destroy-terraform)
+___
+### New environment export
 
-  #### Meta: "prehook_deps" key
-
-  #### Native script (run.sh or run.bat)
-
-  #### Meta: "posthook_deps" key
-
-  #### customize.py: "postprocess" function
-
-  #### Meta: "post_deps" key
+* **CM_TERRAFORM_CONFIG_DIR**
+* **CM_TERRAFORM_RUN_DIR**
+___
+### New environment detected from customize
 
 ___
 ### Usage
@@ -76,7 +99,7 @@ ___
 #### CM installation
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script help
+#### CM script automation help
 ```cm run script --help```
 
 #### CM CLI
@@ -106,6 +129,24 @@ if r['return']>0:
 
 #### CM modular Docker container
 *TBD*
+
+#### Script input flags mapped to environment
+
+* destroy --> **CM_DESTROY_TERRAFORM**
+* cminit --> **CM_TERRAFORM_CM_INIT**
+* key_file --> **CM_SSH_KEY_FILE**
+* disk_size --> **TF_VAR_DISK_GBS**
+* run_cmds --> **CM_TERRAFORM_RUN_COMMANDS**
+* ssh_key_file --> **CM_SSH_KEY_FILE**
+
+Examples:
+
+```bash
+cm run script "run terraform" --destroy=...
+```
+```python
+r=cm.access({... , "destroy":"..."}
+```
 ___
 ### Maintainers
 
