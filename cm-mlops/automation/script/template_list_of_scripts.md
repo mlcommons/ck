@@ -12,6 +12,13 @@ design space exploration and deployment across continuously changing software an
 
 # List of CM scripts by categories
 
+<details>
+<summary>Click here to see the table of contents.</summary>
+
+{{CM_TOC_CATEGORIES}}
+
+</details>
+
 {{CM_TOC2}}
 
 # List of all sorted CM scripts 
@@ -21,36 +28,6 @@ design space exploration and deployment across continuously changing software an
 
 {{CM_MAIN}}
 
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+# Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)'
