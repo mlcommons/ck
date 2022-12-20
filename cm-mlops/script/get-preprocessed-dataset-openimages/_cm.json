@@ -35,6 +35,10 @@
     },
     {
       "tags": "get,generic-python-lib,_pillow"
+    },
+    {
+      "names": [ "numpy" ],
+      "tags": "get,generic-python-lib,_numpy"
     }
   ],
   "default_env": {
