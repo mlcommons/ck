@@ -35,6 +35,10 @@
     },
     {
       "tags": "get,generic-python-lib,_pillow"
+    },
+    {
+      "names": [ "numpy" ],
+      "tags": "get,generic-python-lib,_numpy"
     }
   ],
   "default_env": {
@@ -59,6 +63,7 @@
   "uid": "9842f1be8cba4c7b",
   "variations": {
     "1": {
+      "group": "dataset-count",
       "env": {
         "CM_DATASET_SIZE": "1"
       },
@@ -69,6 +74,7 @@
       }
     },
     "5": {
+      "group": "dataset-count",
       "env": {
         "CM_DATASET_SIZE": "5"
       },
@@ -79,6 +85,8 @@
       }
     },
     "50": {
+      "group": "dataset-count",
+      "default": true,
       "env": {
         "CM_DATASET_SIZE": "50"
       },
@@ -89,6 +97,7 @@
       }
     },
     "500": {
+      "group": "dataset-count",
       "env": {
         "CM_DATASET_SIZE": "500"
       },
@@ -99,6 +108,7 @@
       }
     },
     "full": {
+      "group": "dataset-count",
       "env": {
         "CM_DATASET_SIZE": ""
       },
@@ -109,16 +119,20 @@
       }
     },
     "NCHW": {
+      "group": "dataset-layout",
+      "default": true,
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW"
       }
     },
     "NHWC": {
+      "group": "dataset-layout",
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NHWC"
       }
     },
     "calibration": {
+      "group": "dataset-type",
       "add_deps": {
         "original-dataset": {
           "tags": "_calibration"
@@ -128,12 +142,9 @@
         "CM_DATASET_PATH": "<<<CM_CALIBRATION_DATASET_PATH>>>"
       }
     },
-    "full": {
-      "env": {
-        "CM_DATASET_SIZE": ""
-      }
-    },
     "validation": {
+      "group": "dataset-type",
+      "default": true,
       "add_deps": {
         "original-dataset": {
           "tags": "_validation"
@@ -146,11 +157,14 @@
       }
     },
     "fp32": {
+      "group": "dataset-precision",
+      "default": true,
       "env": {
         "CM_DATASET_DTYPE": "fp32"
       }
     },
     "int8": {
+      "group": "dataset-precision",
       "env": {
         "CM_DATASET_DTYPE": "int8"
       }

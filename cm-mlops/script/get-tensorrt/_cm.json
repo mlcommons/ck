@@ -6,8 +6,21 @@
   "category": "CUDA automation",
   "category_sort": 7000,
   "clean_files": [],
-  "env": {
+  "default_env": {
   },
+  "deps": [
+    {
+      "names": [ "cuda" ],
+      "tags": "get,cuda,_cudnn"
+    },
+    {
+      "tags": "detect,os"
+    },
+    {
+      "names": [ "python", "python3" ],
+      "tags": "get,python3"
+    }
+  ],
   "input_mapping": {
     "tar_file": "CM_TENSORRT_TAR_FILE_WITH_PATH"
   },

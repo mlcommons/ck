@@ -6,8 +6,9 @@
   "category_sort": 7000,
   "cache": true,
   "clean_files": [],
-  "env": {
-    "CM_REQUIRE_INSTALL": "no"
+  "default_env": {
+    "CM_REQUIRE_INSTALL": "no",
+    "CM_CUDA_PATH_LIB_CUDNN_EXISTS": "no"
   },
   "new_env_keys": [
     "CUDA_HOME",
@@ -56,5 +57,17 @@
     "get-nvcc",
     "get-cuda"
   ],
-  "uid": "46d133d9ef92422d"
+  "uid": "46d133d9ef92422d",
+  "variations": {
+    "cudnn": {
+      "deps": [
+        {
+          "tags": "get,nvidia,cudnn"
+        }
+      ],
+      "env": {
+        "CM_CUDA_NEEDS_CUDNN": "yes"
+      }
+    }
+  }
 }

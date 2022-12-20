@@ -1,83 +1,221 @@
-# About
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-This portable CM script and C++ code was developed by [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189) 
-to provide modular C++ implementations of the [MLPerf inference benchmark](https://github.com/mlcommons/inference) 
-using the [MLCommons CM automation meta-framework](https://github.com/mlcommons/ck).
+<details>
+<summary>Click here to see the table of contents.</summary>
 
-It is being extended by the [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
-to make it easier to run, optimize and reproduce MLPerf benchmarks 
-across diverse platforms with continuously changing software and hardware.
+* [About](#about)
+* [Category](#category)
+* [Origin](#origin)
+* [Meta description](#meta-description)
+* [Tags](#tags)
+* [Variations](#variations)
+  * [ All variations](#all-variations)
+  * [ Variations by groups](#variations-by-groups)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Usage](#usage)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
+* [Maintainers](#maintainers)
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
-[![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck)
+</details>
 
-&copy; 2021-2022 [MLCommons](https://mlcommons.org)<br>
+___
+### About
 
-# Developers
+*TBD*
+___
+### Category
 
-[Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), 
-[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-and [Grigori Fursin]( https://cKnowledge.io/@gfursin ).
+Modular MLPerf benchmarks.
+___
+### Origin
 
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 
+___
+### Meta description
+[_cm.yaml](_cm.yaml)
 
+___
+### Tags
+app,mlcommons,mlperf,inference,cpp
 
-## About
+___
+### Variations
+#### All variations
+* **cpu** (default)
+  - *ENV CM_MLPERF_DEVICE: cpu*
+* cuda
+  - *ENV CM_MLPERF_DEVICE: gpu*
+  - *ENV CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart*
+* **onnxruntime** (default)
+  - *ENV CM_MLPERF_BACKEND: onnxruntime*
+  - *ENV CM_MLPERF_BACKEND_LIB_NAMESPEC: onnxruntime*
+* pytorch
+  - *ENV CM_MLPERF_BACKEND: pytorch*
+* **resnet50** (default)
+  - *ENV CM_MODEL: resnet50*
+* retinanet
+  - *ENV CM_MODEL: retinanet*
+* tf
+  - *ENV CM_MLPERF_BACKEND: tf*
+* tflite
+  - *ENV CM_MLPERF_BACKEND: tflite*
+* tvm-onnx
+  - *ENV CM_MLPERF_BACKEND: tvm-onnx*
 
-This is a modularized C++ implementation of an MLPerf Inference SUT. Each file corresponds to a different class that can be changed independently of other ones:
-1. `Backend` runs the actual inference using a framework (ONNX Runtime, TF Lite, etc)
-2. `Device` manages devices and memory (CPU, GPU, etc)
-3. `Model` is a struct representing a model file (ResNet50, etc)
-4. `SampleLibrary` is a dataset loader (ImageNet, COCO, etc)
-5. `System` is the SUT interface to LoadGen which manages how input queries are issued
+#### Variations by groups
 
-Data flow:
-* Init
-   1. All classes are initialized, e.g. `Backend` is initalized with selected `Model` and `Device`
-* Loading samples to memory
-   1. LoadGen calls `SampleLibrary->LoadSamplesFromRam()`
-   2. `SampleLibrary` reads sample (e.g. from .npy file) and calls `Backend->LoadSampleFromRam()`
-   3. `Backend` stores samples contiguously into each device memory, e.g. by `Device->Write()`
-* Running the model
-   1. LoadGen calls `System->IssueQuery()`
-   2. `System` gathers a batch of samples, selects a device concurrency (e.g. the 3rd CPU core) and calls `Backend->IssueBatch()`
-   3. `Backend` retrieves pointers to input data in device memory, and calls `RunInference()` implemented by a derived class, e.g. `OnnxRuntimeBackend->RunInference()`
-   4. in this example, `OnnxRuntimeBackend->RunInference()` calls the ONNX Runtime API with the retrieved pointers as input, packs the raw ONNX Runtime output to LoadGen format via `Model->PostProcess()`, and sends the response to LoadGen
-   5. LoadGen records the latency from 1 to 4
+  * device,
+    * **cpu** (default)
+      - *ENV CM_MLPERF_DEVICE: cpu*
 
-See comments in code for each class for details.
+  * framework,
+    * **onnxruntime** (default)
+      - *ENV CM_MLPERF_BACKEND: onnxruntime*
+      - *ENV CM_MLPERF_BACKEND_LIB_NAMESPEC: onnxruntime*
+    * pytorch
+      - *ENV CM_MLPERF_BACKEND: pytorch*
+    * tf
+      - *ENV CM_MLPERF_BACKEND: tf*
+    * tflite
+      - *ENV CM_MLPERF_BACKEND: tflite*
+    * tvm-onnx
+      - *ENV CM_MLPERF_BACKEND: tvm-onnx*
 
-## Examples
+  * model,
+    * **resnet50** (default)
+      - *ENV CM_MODEL: resnet50*
+    * retinanet
+      - *ENV CM_MODEL: retinanet*
+___
+### Default environment
 
-### ResNet50, ONNX Runtime, CPU, Accuracy
-```sh
-cm run script "cpp mlperf _resnet50 _onnxruntime _cpu" \
-   --output_dir=<OUTPUT_DIR> \
-   --count=500 \
-   --max_batchsize=32 \
-   --mode=accuracy
+* CM_BATCH_COUNT: **1**
+* CM_BATCH_SIZE: **1**
+* CM_FAST_COMPILATION: **yes**
+___
+### CM script workflow
 
-python \
-   /PATH/TO/inference/vision/classification_and_detection/tools/accuracy-imagenet.py \
-   --mlperf-accuracy-file=<OUTPUT_DIR>/mlperf_log_accuracy.json \
-   --imagenet-val-file `cm find cache --tags=imagenet-aux`/data/val.txt \
-   --dtype int64
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)***
+     * detect,os
+       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * detect,cpu
+       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+     * get,sys-utils-cm
+       - CM script [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
+     * get,cuda,_cudnn
+       - CM script [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+     * get,loadgen
+       - CM script [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
+     * get,mlcommons,inference,src
+       - CM script [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+     * get,lib,onnxruntime,lang-cpp,_cpu
+       - CM script [get-onnxruntime-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)
+     * get,lib,onnxruntime,lang-cpp,_cuda
+       - CM script [get-onnxruntime-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)
+     * get,dataset,preprocessed,imagenet,_NCHW
+       - CM script [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
+     * get,ml-model,raw,resnet50,_onnx
+       - CM script [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+     * get,dataset,preprocessed,openimages,_validation,_NCHW
+       - CM script [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
+     * get,ml-model,retinanet,_onnx,_fp32
+       - CM script [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)
+  1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/customize.py)***
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)***
+     * compile,cpp-program
+       - CM script [compile-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)
+     * benchmark,program
+       - CM script [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
+___
+### New environment export
+
+* **CM_DATASET_***
+* **CM_MLPERF_***
+___
+### New environment detected from customize
+
+* **CM_CXX_SOURCE_FILES**
+* **CM_DATASET_LIST**
+* **CM_LINKER_LANG**
+* **CM_MLPERF_CONF**
+* **CM_MLPERF_DEVICE**
+* **CM_MLPERF_USER_CONF**
+* **CM_MODEL**
+* **CM_RUN_DIR**
+* **CM_SOURCE_FOLDER_PATH**
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags="app,mlcommons,mlperf,inference,cpp"`
+
+*or*
+
+`cm run script "app mlcommons mlperf inference cpp"`
+
+*or*
+
+`cm run script bf62405e6c7a44bf`
+
+#### CM Python API
+
+```python
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'app,mlcommons,mlperf,inference,cpp'
+                  'out':'con'})
+
+if r['return']>0:
+    print (r['error'])
 ```
 
-### RetinaNet, ONNX Runtime, GPU, Accuracy
-Install dataset:
-```sh
-cm run script --tags=get,preprocessed,openimages,_500,_NCHW
-```
-Run benchmark:
-```sh
-cm run script "cpp mlperf _retinanet _onnxruntime _cuda" \
-   --output_dir=<OUTPUT_DIR> \
-   --count=500 \
-   --max_batchsize=1 \
-   --mode=accuracy
+#### CM modular Docker container
+*TBD*
 
-python /PATH/TO/inference/vision/classification_and_detection/tools/accuracy-openimages.py \
-    --mlperf-accuracy-file <OUTPUT_DIR>/mlperf_log_accuracy.json \
-    --openimages-dir `cm find cache --tags=openimages,original`/install
+#### Script input flags mapped to environment
+
+* count --> **CM_MLPERF_LOADGEN_QUERY_COUNT**
+* max_batchsize --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**
+* mlperf_conf --> **CM_MLPERF_CONF**
+* mode --> **CM_MLPERF_LOADGEN_MODE**
+* output_dir --> **CM_MLPERF_OUTPUT_DIR**
+* performance_sample_count --> **CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT**
+* scenario --> **CM_MLPERF_LOADGEN_SCENARIO**
+* user_conf --> **CM_MLPERF_USER_CONF**
+
+Examples:
+
+```bash
+cm run script "app mlcommons mlperf inference cpp" --count=...
 ```
+```python
+r=cm.access({... , "count":"..."}
+```
+___
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)

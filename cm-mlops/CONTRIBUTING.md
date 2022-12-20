@@ -14,7 +14,7 @@ We suggest you to join the [open MLCommons taskforce on education and reproducib
 to learn how to use the CM framework, enhance existing CM components for MLOps and DevOps, 
 run MLPerf benchmarks and contribute your own artifacts, scripts and workflows in the CM format.
 
-Please check this [guide](cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
+Please check this [guide](cm/docs/tutorials/scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
 to plug your own artifacts, scripts and workflows into CM.
 
 You can then share CM components in your own Git repository or in the [MLCommons CM repository](https://github.com/mlcommons/ck/tree/master/cm-mlops)

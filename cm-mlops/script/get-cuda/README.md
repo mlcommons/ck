@@ -1,44 +1,142 @@
-# Get CUDA
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) detects the installed CUDA on the system 
-and if not found calls the [install script for CUDA](../script/install-cuda-prebuilt).
+<details>
+<summary>Click here to see the table of contents.</summary>
 
-## Exported Variables
-* `CM_CUDA_INSTALLED_PATH`
-* `CM_CUDA_VERSION`
-* `CM_NVCC_BIN_WITH_PATH`
-* `CUDA_HOME`
-* `CUDA_PATH`
+* [About](#about)
+* [Category](#category)
+* [Origin](#origin)
+* [Meta description](#meta-description)
+* [Tags](#tags)
+* [Variations](#variations)
+  * [ All variations](#all-variations)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Usage](#usage)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+* [Maintainers](#maintainers)
 
-## Supported and Tested OS
-1. Ubuntu 18.04, 20.04, 22.04
-2. Windows
+</details>
 
-# Examples
+___
+### About
 
-## Detect CUDA on Windows
+*TBD*
+___
+### Category
 
-You may want to install all system dependencies as described [here](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html).
+CUDA automation.
+___
+### Origin
 
-If Visual Studio and CUDA updated your PATH variable, you should just run the following:
-```bash
-cm run script "get cuda"
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+___
+### Meta description
+[_cm.json](_cm.json)
+
+___
+### Tags
+get,cuda,nvcc,get-nvcc,get-cuda
+
+___
+### Variations
+#### All variations
+* cudnn
+  - *ENV CM_CUDA_NEEDS_CUDNN: yes*
+___
+### Default environment
+
+* CM_REQUIRE_INSTALL: **no**
+* CM_CUDA_PATH_LIB_CUDNN_EXISTS: **no**
+___
+### CM script workflow
+
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)***
+     * install,cuda,prebuilt
+       - CM script [install-cuda-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)
+  1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
+___
+### New environment export
+
+* **+CPLUS_INCLUDE_PATH**
+* **+C_INCLUDE_PATH**
+* **+DYLD_FALLBACK_LIBRARY_PATH**
+* **+LD_LIBRARY_PATH**
+* **+PATH**
+* **CM_CUDA_***
+* **CM_NVCC_***
+* **CUDA_HOME**
+* **CUDA_PATH**
+___
+### New environment detected from customize
+
+* **CM_CUDA_CACHE_TAGS**
+* **CM_CUDA_INSTALLED_PATH**
+* **CM_CUDA_PATH_BIN**
+* **CM_CUDA_PATH_INCLUDE**
+* **CM_CUDA_PATH_LIB**
+* **CM_CUDA_PATH_LIB_CUDNN**
+* **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
+* **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
+* **CM_NVCC_BIN**
+* **CM_REQUIRE_INSTALL**
+* **CM_TMP_PATH**
+* **CM_TMP_PATH**
+* **CM_TMP_PATH_IGNORE_NON_EXISTANT**
+* **CM_TMP_PATH_IGNORE_NON_EXISTANT**
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags="get,cuda,nvcc,get-nvcc,get-cuda"`
+
+*or*
+
+`cm run script "get cuda nvcc get-nvcc get-cuda"`
+
+*or*
+
+`cm run script 46d133d9ef92422d`
+
+#### CM Python API
+
+```python
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'get,cuda,nvcc,get-nvcc,get-cuda'
+                  'out':'con'})
+
+if r['return']>0:
+    print (r['error'])
 ```
 
-However, if the PATH variable was not updated, you need to provide path to the cl.exe and nvcc.exe to help CM detect them:
+#### CM modular Docker container
+*TBD*
+___
+### Maintainers
 
-```bash
-cm run script "get cl" --path="C:\Program Files (x86)\Microsoft Visual Studio\2019\Community\VC\Tools\MSVC\14.29.30133\bin\Hostx64\x64"
-cm run script "get cuda _compiler" --path="C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v11.7\bin"
-```
-
-# System dependencies
-
-* Download [CUDA toolkit](https://developer.nvidia.com/cuda-toolkit).
-* Download [cuDNN](https://developer.nvidia.com/rdp/cudnn-download).
-* (Download [TensorRT](https://developer.nvidia.com/nvidia-tensorrt-8x-download)).
-
-## Windows
-
-* ? Download [Microsoft Visual C++ Redistributable](https://learn.microsoft.com/en-us/cpp/windows/latest-supported-vc-redist)
-* Check [Nvidia installation guide](https://docs.nvidia.com/cuda/cuda-installation-guide-microsoft-windows/index.html)
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)

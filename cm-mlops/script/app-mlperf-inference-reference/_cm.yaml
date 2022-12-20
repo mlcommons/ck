@@ -1,6 +1,6 @@
 # Identification of this CM script
 alias: app-mlperf-inference-reference
-uid: d775cac873ee4231
+uid: ff149e9781fc4b65
 
 automation_alias: script
 automation_uid: 5b4e0237da074764
@@ -81,7 +81,12 @@ deps:
     - python3
 
   # Detect CUDA if required
-  - tags: get,cuda
+  - tags: get,cuda,_cudnn
+    enable_if_env:
+      CM_MLPERF_DEVICE:
+      - gpu
+  # Detect TensorRT if required
+  - tags: get,nvidia,tensorrt
     enable_if_env:
       CM_MLPERF_DEVICE:
       - gpu

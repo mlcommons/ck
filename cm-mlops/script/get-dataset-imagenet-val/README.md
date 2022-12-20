@@ -1,68 +1,128 @@
-# Portable CM script
+*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
 
-Detecting and registering ImageNet validation datasets.
+<details>
+<summary>Click here to see the table of contents.</summary>
 
-## Supported platforms
+* [About](#about)
+* [Category](#category)
+* [Origin](#origin)
+* [Meta description](#meta-description)
+* [Tags](#tags)
+* [Variations](#variations)
+  * [ All variations](#all-variations)
+* [Default environment](#default-environment)
+* [CM script workflow](#cm-script-workflow)
+* [New environment export](#new-environment-export)
+* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Usage](#usage)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+* [Maintainers](#maintainers)
 
-* Linux, MacOS
-* Windows (only 500 images)
+</details>
 
-## Supported versions and variations
+___
+### About
 
-### 2012, 500 images
+*TBD*
+___
+### Category
 
-Use the following CM command to automatically download and register a reduced ImageNet with 500 images:
-```bash
-cm run script "get imagenet original _2012-500"
+ML/AI datasets.
+___
+### Origin
+
+* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)*
+* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+
+___
+### Meta description
+[_cm.json](_cm.json)
+
+___
+### Tags
+get,dataset,imagenet,ILSVRC,image-classification,original
+
+___
+### Variations
+#### All variations
+* 2012-1
+  - *ENV CM_DATASET_SIZE: 1*
+  - *ENV CM_DATASET_VER: 2012*
+* **2012-500** (default)
+  - *ENV CM_DATASET_SIZE: 500*
+  - *ENV CM_DATASET_VER: 2012*
+* 2012-full
+  - *ENV CM_DATASET_SIZE: 50000*
+  - *ENV CM_DATASET_VER: 2012*
+  - *ENV CM_IMAGENET_FULL: yes*
+* full
+  - *ENV CM_DATASET_SIZE: 50000*
+  - *ENV CM_DATASET_VER: 2012*
+  - *ENV CM_IMAGENET_FULL: yes*
+___
+### Default environment
+
+___
+### CM script workflow
+
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
+  1. Run "preprocess" function from customize.py
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
+  1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
+___
+### New environment export
+
+* **CM_DATASET_***
+___
+### New environment detected from customize
+
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags="get,dataset,imagenet,ILSVRC,image-classification,original"`
+
+*or*
+
+`cm run script "get dataset imagenet ILSVRC image-classification original"`
+
+*or*
+
+`cm run script 7afd58d287fe4f11`
+
+#### CM Python API
+
+```python
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'get,dataset,imagenet,ILSVRC,image-classification,original'
+                  'out':'con'})
+
+if r['return']>0:
+    print (r['error'])
 ```
 
-Alternative CMD:
-```bash
-cm run script --tags=get,imagenet,original,_2012-500
-```
+#### CM modular Docker container
+*TBD*
+___
+### Maintainers
 
-Check that it is correctly registered in CM:
-```bash
-cm show cache --tags=dataset,imagenet
-```
-
-### 2012, 50000 images (full set)
-
-Note that ImageNet 2012 validation set is no longer available for download.
-
-However, you can still download it via Academic Torrents 
-[here](https://academictorrents.com/details/5d6d0df7ed81efd49ca99ea4737e0ae5e3a5f2e5)
-and register in the CM using the following command:
-
-```bash
-cm run script "get imagenet original _2012-full" \
-     --env.IMAGENET_PATH={PATH to a directory with ILSVRC2012_val_00000001.JPEG} 
-```
-
-For example, 
-```bash
-cm run script "get imagenet original _2012-full" --env.IMAGENET_PATH=/mnt/extra-disk/imagenet-2012-val
-```
-
-## Examples
-
-After CM cached the dataset, you can get the environment with the paths to your IMAGENET and extra meta information as follows:
-```bash
-cm run script "get imagenet original _2012-full" --out=json
-```
-
-You can find path to an automatically generated script with environment variables as follows:
-```bash
-cm find cache --tags=get,imagenet,original,_2012-full
-```
-
-Check this [CM workflow](https://github.com/mlcommons/ck/blob/master/cm/docs/example-modular-image-classification.md) to classify images.
-
-Note that you can also usethe  environment variables prepared by this script outside CM workflows as follows:
-```bash
-cm run script "get imagenet original _2012-full" --save-env && . ./tmp-env.sh && echo $CM_DATASET_PATH
-
-...
-
-/mnt/extra-disk/imagenet-2012-val
-```
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)

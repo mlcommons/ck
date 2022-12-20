@@ -5,9 +5,9 @@ from cmind import utils
 
 # This is just an example of how to import extra files from such a package
 # We need to make it unique!
-import sys
-sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from cm_60cb625a46b38610 import misc
+#import sys
+#sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+#from cm_60cb625a46b38610 import misc
 
 class CAutomation(Automation):
     """
@@ -36,4 +36,5 @@ class CAutomation(Automation):
           * uid (str): CM UID
         """
 
-        return misc.uid(i)
+        return utils.call_internal_module(self, __file__, 'module_misc', 'uid', i)
+

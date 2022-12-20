@@ -33,7 +33,7 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 
 ### Maintainers
 
-* [Grigori Fursin](https://cknowledge.io/@gfursin)
+* [Grigori Fursin](https://cKnowledge.io/cf@gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 
