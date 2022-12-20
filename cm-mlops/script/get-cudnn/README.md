@@ -1,4 +1,4 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
+*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
 
 <details>
 <summary>Click here to see the table of contents.</summary>
@@ -35,7 +35,7 @@ ___
 ### Origin
 
 * GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 
 ___
@@ -44,7 +44,7 @@ ___
 
 ___
 ### Tags
-get,tensorrt,nvidia
+get,cudnn,nvidia
 
 ___
 ### Default environment
@@ -52,20 +52,15 @@ ___
 ___
 ### CM script workflow
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)***
-     * get,cuda,_cudnn
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)***
+     * get,cuda
        - CM script [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
-     * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-     * get,python3
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)
 ___
 ### New environment export
 
@@ -74,7 +69,7 @@ ___
 * **+DYLD_FALLBACK_LIBRARY_PATH**
 * **+LD_LIBRARY_PATH**
 * **+PATH**
-* **CM_TENSORRT_***
+* **CM_CUDNN_***
 ___
 ### New environment detected from customize
 
@@ -88,15 +83,15 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="get,tensorrt,nvidia"`
+`cm run script --tags="get,cudnn,nvidia"`
 
 *or*
 
-`cm run script "get tensorrt nvidia"`
+`cm run script "get cudnn nvidia"`
 
 *or*
 
-`cm run script 2a84ca505e4c408d`
+`cm run script d73ee19baee14df8`
 
 #### CM Python API
 
@@ -105,7 +100,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,tensorrt,nvidia'
+                  'tags':'get,cudnn,nvidia'
                   'out':'con'})
 
 if r['return']>0:
@@ -117,12 +112,12 @@ if r['return']>0:
 
 #### Script input flags mapped to environment
 
-* tar_file --> **CM_TENSORRT_TAR_FILE_WITH_PATH**
+* tar_file --> **CM_CUDNN_TAR_FILE_WITH_PATH**
 
 Examples:
 
 ```bash
-cm run script "get tensorrt nvidia" --tar_file=...
+cm run script "get cudnn nvidia" --tar_file=...
 ```
 ```python
 r=cm.access({... , "tar_file":"..."}

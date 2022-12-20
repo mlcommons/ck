@@ -113,7 +113,7 @@ ___
        - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,sys-utils-cm
        - CM script [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
-     * get,cuda
+     * get,cuda,_cudnn
        - CM script [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,loadgen
        - CM script [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)

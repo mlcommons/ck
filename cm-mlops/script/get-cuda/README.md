@@ -50,10 +50,13 @@ get,cuda,nvcc,get-nvcc,get-cuda
 ___
 ### Variations
 #### All variations
-* compiler
+* cudnn
+  - *ENV CM_CUDA_NEEDS_CUDNN: yes*
 ___
 ### Default environment
 
+* CM_REQUIRE_INSTALL: **no**
+* CM_CUDA_PATH_LIB_CUDNN_EXISTS: **no**
 ___
 ### CM script workflow
 
@@ -89,6 +92,7 @@ ___
 * **CM_CUDA_PATH_INCLUDE**
 * **CM_CUDA_PATH_LIB**
 * **CM_CUDA_PATH_LIB_CUDNN**
+* **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
 * **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
 * **CM_NVCC_BIN**
 * **CUDA_HOME**

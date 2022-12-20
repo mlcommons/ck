@@ -187,8 +187,10 @@ ___
        - CM script [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
      * get,python
        - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * get,cuda
+     * get,cuda,_cudnn
        - CM script [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+     * get,nvidia,tensorrt
+       - CM script [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
      * get,generic-python-lib,_onnxruntime
        - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime_gpu
