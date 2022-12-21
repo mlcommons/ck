@@ -55,6 +55,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-go/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-go/_cm.json)***
      * install,go
+       * `if (CM_REQUIRE_INSTALL == ['yes'])`
        - *Warning: no scripts found*
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-go/run.sh)
@@ -100,7 +101,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,tool,go,get-go'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

@@ -56,7 +56,8 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/_cm.json)***
      * build,dockerfile
-       - CM script [build-dockerfile](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-dockerfile)
+       * `if (CM_BUILD_DOCKERFILE == ['yes', '1'])`
+       - CM script: [build-dockerfile](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-dockerfile)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/run.sh)
@@ -69,7 +70,6 @@ ___
 ___
 ### New environment detected from customize
 
-* **CM_BUILD_DOCKERFILE**
 * **CM_BUILD_DOCKERFILE**
 * **CM_DOCKER_BUILD_ARGS**
 * **CM_DOCKER_CACHE_ARG**
@@ -104,7 +104,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'build,docker,image,docker-image,dockerimage'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

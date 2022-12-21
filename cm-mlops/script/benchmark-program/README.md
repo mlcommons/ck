@@ -51,7 +51,7 @@ ___
 ### Variations
 #### All variations
 * mlperf-power
-  - *ENV CM_MLPERF_POWER: yes*
+  - *ENV CM_MLPERF_POWER*: `yes`
 * numactl
 * numactl-interleave
 * profile
@@ -65,7 +65,7 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)***
      * detect,cpu
-       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)
   1. ***Run native script if exists***
@@ -84,8 +84,6 @@ ___
 * **CM_BIN_NAME**
 * **CM_ENABLE_NUMACTL**
 * **CM_MLPERF_RUN_CMD**
-* **CM_RUN_CMD**
-* **CM_RUN_CMD**
 * **CM_RUN_CMD**
 * **CM_RUN_DIR**
 * **CM_RUN_PREFIX**
@@ -118,7 +116,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'program,benchmark,benchmark-program'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

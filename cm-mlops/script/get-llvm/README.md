@@ -58,8 +58,9 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm/_cm.json)***
      * install,llvm
-       - CM script [install-llvm-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt)
-       - CM script [install-llvm-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)
+       * `if (CM_REQUIRE_INSTALL == ['yes'])`
+       - CM script: [install-llvm-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt)
+       - CM script: [install-llvm-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm/run.sh)
@@ -67,7 +68,7 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm/_cm.json)***
      * get,compiler-flags
-       - CM script [get-compiler-flags](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags)
+       - CM script: [get-compiler-flags](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags)
 ___
 ### New environment export
 
@@ -133,7 +134,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,llvm,compiler,c-compiler,cpp-compiler,get-llvm'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

@@ -55,7 +55,8 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl/_cm.json)***
      * install,openssl
-       - CM script [install-openssl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl)
+       * `if (CM_REQUIRE_INSTALL == ['yes'])`
+       - CM script: [install-openssl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl)
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl/_cm.json)
@@ -99,7 +100,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,openssl,lib-openssl'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

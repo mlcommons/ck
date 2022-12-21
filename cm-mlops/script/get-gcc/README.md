@@ -64,7 +64,7 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc/_cm.json)***
      * get,compiler-flags
-       - CM script [get-compiler-flags](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags)
+       - CM script: [get-compiler-flags](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags)
 ___
 ### New environment export
 
@@ -130,7 +130,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,gcc,compiler,c-compiler,cpp-compiler,get-gcc'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

@@ -52,13 +52,13 @@ ___
 ### Variations
 #### All variations
 * **default** (default)
-  - *ENV CM_GIT_PATCH: no*
+  - *ENV CM_GIT_PATCH*: `no`
 * full-history
-  - *ENV CM_GIT_DEPTH: *
+  - *ENV CM_GIT_DEPTH*: ``
 * patch
-  - *ENV CM_GIT_PATCH: yes*
+  - *ENV CM_GIT_PATCH*: `yes`
 * short-history
-  - *ENV CM_GIT_DEPTH: --depth 5*
+  - *ENV CM_GIT_DEPTH*: `--depth 5`
 ___
 ### Versions
 Default version: *master*
@@ -79,9 +79,10 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)***
      * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,python3
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
   1. ***Run native script if exists***
@@ -129,7 +130,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,src,source,power,power-dev,mlperf,mlcommons'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

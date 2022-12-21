@@ -52,88 +52,88 @@ ___
 ### Variations
 #### All variations
 * fp32
-  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: fp32*
-  - *ENV CM_ML_MODEL_PRECISION: fp32*
-  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32*
+  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+  - *ENV CM_ML_MODEL_PRECISION*: `fp32`
+  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
 * from.google
-  - *ENV CM_DOWNLOAD_SOURCE: google*
+  - *ENV CM_DOWNLOAD_SOURCE*: `google`
 * from.zenodo
-  - *ENV CM_DOWNLOAD_SOURCE: zenodo*
+  - *ENV CM_DOWNLOAD_SOURCE*: `zenodo`
 * int8
-  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: int8*
-  - *ENV CM_ML_MODEL_PRECISION: int8*
-  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: int8*
+  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `int8`
+  - *ENV CM_ML_MODEL_PRECISION*: `int8`
+  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `int8`
 * **onnx** (default)
-  - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
-  - *ENV CM_ML_MODEL_FRAMEWORK: onnx*
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `onnx`
 * onnx,fp32
-  - *ENV CM_ML_MODEL_NORMALIZE_DATA: yes*
-  - *ENV CM_ML_MODEL_SUBTRACT_MEAN: no*
-  - *ENV CM_ML_MODEL_VER: 1_1.0_224*
-  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME: input:0*
-  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME: MobilenetV1/Predictions/Reshape_1:0*
+  - *ENV CM_ML_MODEL_NORMALIZE_DATA*: `yes`
+  - *ENV CM_ML_MODEL_SUBTRACT_MEAN*: `no`
+  - *ENV CM_ML_MODEL_VER*: `1_1.0_224`
+  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `input:0`
+  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME*: `MobilenetV1/Predictions/Reshape_1:0`
 * onnx,int8
-  - *ENV CM_ML_MODEL_NORMALIZE_DATA: no*
-  - *ENV CM_ML_MODEL_SUBTRACT_MEAN: yes*
-  - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS: 128.0 128.0 128.0*
-  - *ENV CM_ML_MODEL_VER: 1_1.0_224_quant*
-  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME: 0*
-  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME: 169*
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/3353417/files/Quantized%20MobileNet.zip*
-  - *ENV CM_ML_MODEL_FILE: mobilenet_sym_no_bn.onnx*
-  - *ENV CM_UNZIP: yes*
+  - *ENV CM_ML_MODEL_NORMALIZE_DATA*: `no`
+  - *ENV CM_ML_MODEL_SUBTRACT_MEAN*: `yes`
+  - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `128.0 128.0 128.0`
+  - *ENV CM_ML_MODEL_VER*: `1_1.0_224_quant`
+  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `0`
+  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME*: `169`
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/3353417/files/Quantized%20MobileNet.zip`
+  - *ENV CM_ML_MODEL_FILE*: `mobilenet_sym_no_bn.onnx`
+  - *ENV CM_UNZIP*: `yes`
 * onnx,opset-11,fp32
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/4735651/files/mobilenet_v1_1.0_224.onnx*
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/4735651/files/mobilenet_v1_1.0_224.onnx`
 * onnx,opset-8,fp32
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/3157894/files/mobilenet_v1_1.0_224.onnx*
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/3157894/files/mobilenet_v1_1.0_224.onnx`
 * opset-11
-  - *ENV CM_ML_MODEL_ONNX_OPSET: 11*
+  - *ENV CM_ML_MODEL_ONNX_OPSET*: `11`
 * opset-8
-  - *ENV CM_ML_MODEL_ONNX_OPSET: 8*
+  - *ENV CM_ML_MODEL_ONNX_OPSET*: `8`
 * tf
-  - *ENV CM_ML_MODEL_DATA_LAYOUT: NHWC*
-  - *ENV CM_ML_MODEL_NORMALIZE_DATA: yes*
-  - *ENV CM_ML_MODEL_SUBTRACT_MEAN: no*
-  - *ENV CM_ML_MODEL_VER: 1_1.0_224_2018_08_02*
-  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME: input*
-  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME: MobilenetV1/Predictions/Reshape_1*
-  - *ENV CM_ML_MODEL_WEIGHTS_FILE: mobilenet_v1_1.0_224.ckpt*
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
+  - *ENV CM_ML_MODEL_NORMALIZE_DATA*: `yes`
+  - *ENV CM_ML_MODEL_SUBTRACT_MEAN*: `no`
+  - *ENV CM_ML_MODEL_VER*: `1_1.0_224_2018_08_02`
+  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `input`
+  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME*: `MobilenetV1/Predictions/Reshape_1`
+  - *ENV CM_ML_MODEL_WEIGHTS_FILE*: `mobilenet_v1_1.0_224.ckpt`
 * tf,fp32
-  - *ENV CM_ML_MODEL_ACCURACY: 71.676*
-  - *ENV CM_ML_MODEL_FILE: mobilenet_v1_1.0_224.tflite*
-  - *ENV CM_UNTAR: yes*
+  - *ENV CM_ML_MODEL_ACCURACY*: `71.676`
+  - *ENV CM_ML_MODEL_FILE*: `mobilenet_v1_1.0_224.tflite`
+  - *ENV CM_UNTAR*: `yes`
 * tf,fp32,from.google
-  - *ENV CM_PACKAGE_URL: http://download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224.tgz*
+  - *ENV CM_PACKAGE_URL*: `http://download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224.tgz`
 * tf,fp32,from.zenodo
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/2269307/files/mobilenet_v1_1.0_224.tgz*
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/2269307/files/mobilenet_v1_1.0_224.tgz`
 * tf,int8
-  - *ENV CM_ML_MODEL_ACCURACY: 70.762*
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/2269307/files/mobilenet_v1_1.0_224_quant.tgz*
+  - *ENV CM_ML_MODEL_ACCURACY*: `70.762`
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/2269307/files/mobilenet_v1_1.0_224_quant.tgz`
 * tflite
 
 #### Variations by groups
 
   * opset-version
     * opset-11
-      - *ENV CM_ML_MODEL_ONNX_OPSET: 11*
+      - *ENV CM_ML_MODEL_ONNX_OPSET*: `11`
     * opset-8
-      - *ENV CM_ML_MODEL_ONNX_OPSET: 8*
+      - *ENV CM_ML_MODEL_ONNX_OPSET*: `8`
 
   * precision
     * fp32
-      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: fp32*
-      - *ENV CM_ML_MODEL_PRECISION: fp32*
-      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32*
+      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+      - *ENV CM_ML_MODEL_PRECISION*: `fp32`
+      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
     * int8
-      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: int8*
-      - *ENV CM_ML_MODEL_PRECISION: int8*
-      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: int8*
+      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `int8`
+      - *ENV CM_ML_MODEL_PRECISION*: `int8`
+      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `int8`
 
   * source
     * from.google
-      - *ENV CM_DOWNLOAD_SOURCE: google*
+      - *ENV CM_DOWNLOAD_SOURCE*: `google`
     * from.zenodo
-      - *ENV CM_DOWNLOAD_SOURCE: zenodo*
+      - *ENV CM_DOWNLOAD_SOURCE*: `zenodo`
 ___
 ### Default environment
 
@@ -155,8 +155,6 @@ ___
 ### New environment detected from customize
 
 * **CM_ML_MODEL_FILE**
-* **CM_ML_MODEL_FILE_WITH_PATH**
-* **CM_ML_MODEL_FILE_WITH_PATH**
 * **CM_ML_MODEL_FILE_WITH_PATH**
 * **CM_ML_MODEL_PATH**
 * **CM_STARTING_WEIGHTS_FILENAME**
@@ -188,7 +186,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,ml-model,mobilenet,ml-model-mobilenet,image-classification'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

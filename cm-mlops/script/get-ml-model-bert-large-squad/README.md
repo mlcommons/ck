@@ -52,85 +52,85 @@ ___
 ### Variations
 #### All variations
 * **fp32** (default)
-  - *ENV CM_ML_MODEL_PRECISION: fp32*
+  - *ENV CM_ML_MODEL_PRECISION*: `fp32`
 * int8
-  - *ENV CM_ML_MODEL_PRECISION: int8*
-  - *ENV CM_ML_MODEL_QUANTIZED: yes*
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx*
+  - *ENV CM_ML_MODEL_PRECISION*: `int8`
+  - *ENV CM_ML_MODEL_QUANTIZED*: `yes`
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx`
 * **onnx** (default)
-  - *ENV CM_ML_MODEL_FRAMEWORK: onnx*
-  - *ENV CM_ML_MODEL_INPUT_IDS_NAME: input_ids*
-  - *ENV CM_ML_MODEL_INPUT_MASK_NAME: input_mask*
-  - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME: segment_ids*
-  - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME: output_end_logits*
-  - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME: output_start_logits*
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `onnx`
+  - *ENV CM_ML_MODEL_INPUT_IDS_NAME*: `input_ids`
+  - *ENV CM_ML_MODEL_INPUT_MASK_NAME*: `input_mask`
+  - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME*: `segment_ids`
+  - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME*: `output_end_logits`
+  - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME*: `output_start_logits`
 * onnx,fp32
-  - *ENV CM_ML_MODEL_F1: 90.874*
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/3733910/files/model.onnx*
+  - *ENV CM_ML_MODEL_F1*: `90.874`
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/3733910/files/model.onnx`
 * onnx,int8
-  - *ENV CM_ML_MODEL_F1: 90.067*
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx*
+  - *ENV CM_ML_MODEL_F1*: `90.067`
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx`
 * onnxruntime
 * pytorch
-  - *ENV CM_ML_MODEL_FRAMEWORK: pytorch*
-  - *ENV CM_ML_MODEL_INPUT_IDS_NAME: input_ids*
-  - *ENV CM_ML_MODEL_INPUT_MASK_NAME: input_mask*
-  - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME: segment_ids*
-  - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME: output_end_logits*
-  - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME: output_start_logits*
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `pytorch`
+  - *ENV CM_ML_MODEL_INPUT_IDS_NAME*: `input_ids`
+  - *ENV CM_ML_MODEL_INPUT_MASK_NAME*: `input_mask`
+  - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME*: `segment_ids`
+  - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME*: `output_end_logits`
+  - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME*: `output_start_logits`
 * pytorch,fp32
-  - *ENV CM_ML_MODEL_F1: 90.874*
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/3733896/files/model.pytorch*
+  - *ENV CM_ML_MODEL_F1*: `90.874`
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/3733896/files/model.pytorch`
 * pytorch,int8
-  - *ENV CM_ML_MODEL_F1: 90.633*
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/4792496/files/pytorch_model.bin*
+  - *ENV CM_ML_MODEL_F1*: `90.633`
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/4792496/files/pytorch_model.bin`
 * tensorflow
 * tf
-  - *ENV CM_ML_MODEL_F1: 90.874*
-  - *ENV CM_ML_MODEL_FRAMEWORK: tf*
-  - *ENV CM_ML_MODEL_INPUT_IDS_NAME: input_ids*
-  - *ENV CM_ML_MODEL_INPUT_MASK_NAME: input_mask*
-  - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME: segment_ids*
-  - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME: output_end_logits*
-  - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME: output_start_logits*
-  - *ENV CM_VOCAB_FILE_URL: https://zenodo.org/record/3733868/files/vocab.txt*
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/3939747/files/model.pb*
+  - *ENV CM_ML_MODEL_F1*: `90.874`
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `tf`
+  - *ENV CM_ML_MODEL_INPUT_IDS_NAME*: `input_ids`
+  - *ENV CM_ML_MODEL_INPUT_MASK_NAME*: `input_mask`
+  - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME*: `segment_ids`
+  - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME*: `output_end_logits`
+  - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME*: `output_start_logits`
+  - *ENV CM_VOCAB_FILE_URL*: `https://zenodo.org/record/3733868/files/vocab.txt`
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/3939747/files/model.pb`
 
 #### Variations by groups
 
   * framework
     * **onnx** (default)
-      - *ENV CM_ML_MODEL_FRAMEWORK: onnx*
-      - *ENV CM_ML_MODEL_INPUT_IDS_NAME: input_ids*
-      - *ENV CM_ML_MODEL_INPUT_MASK_NAME: input_mask*
-      - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME: segment_ids*
-      - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME: output_end_logits*
-      - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME: output_start_logits*
+      - *ENV CM_ML_MODEL_FRAMEWORK*: `onnx`
+      - *ENV CM_ML_MODEL_INPUT_IDS_NAME*: `input_ids`
+      - *ENV CM_ML_MODEL_INPUT_MASK_NAME*: `input_mask`
+      - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME*: `segment_ids`
+      - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME*: `output_end_logits`
+      - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME*: `output_start_logits`
     * pytorch
-      - *ENV CM_ML_MODEL_FRAMEWORK: pytorch*
-      - *ENV CM_ML_MODEL_INPUT_IDS_NAME: input_ids*
-      - *ENV CM_ML_MODEL_INPUT_MASK_NAME: input_mask*
-      - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME: segment_ids*
-      - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME: output_end_logits*
-      - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME: output_start_logits*
+      - *ENV CM_ML_MODEL_FRAMEWORK*: `pytorch`
+      - *ENV CM_ML_MODEL_INPUT_IDS_NAME*: `input_ids`
+      - *ENV CM_ML_MODEL_INPUT_MASK_NAME*: `input_mask`
+      - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME*: `segment_ids`
+      - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME*: `output_end_logits`
+      - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME*: `output_start_logits`
     * tf
-      - *ENV CM_ML_MODEL_F1: 90.874*
-      - *ENV CM_ML_MODEL_FRAMEWORK: tf*
-      - *ENV CM_ML_MODEL_INPUT_IDS_NAME: input_ids*
-      - *ENV CM_ML_MODEL_INPUT_MASK_NAME: input_mask*
-      - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME: segment_ids*
-      - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME: output_end_logits*
-      - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME: output_start_logits*
-      - *ENV CM_VOCAB_FILE_URL: https://zenodo.org/record/3733868/files/vocab.txt*
-      - *ENV CM_PACKAGE_URL: https://zenodo.org/record/3939747/files/model.pb*
+      - *ENV CM_ML_MODEL_F1*: `90.874`
+      - *ENV CM_ML_MODEL_FRAMEWORK*: `tf`
+      - *ENV CM_ML_MODEL_INPUT_IDS_NAME*: `input_ids`
+      - *ENV CM_ML_MODEL_INPUT_MASK_NAME*: `input_mask`
+      - *ENV CM_ML_MODEL_INPUT_SEGMENTS_NAME*: `segment_ids`
+      - *ENV CM_ML_MODEL_OUTPUT_END_LOGITS_NAME*: `output_end_logits`
+      - *ENV CM_ML_MODEL_OUTPUT_START_LOGITS_NAME*: `output_start_logits`
+      - *ENV CM_VOCAB_FILE_URL*: `https://zenodo.org/record/3733868/files/vocab.txt`
+      - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/3939747/files/model.pb`
 
   * precision
     * **fp32** (default)
-      - *ENV CM_ML_MODEL_PRECISION: fp32*
+      - *ENV CM_ML_MODEL_PRECISION*: `fp32`
     * int8
-      - *ENV CM_ML_MODEL_PRECISION: int8*
-      - *ENV CM_ML_MODEL_QUANTIZED: yes*
-      - *ENV CM_PACKAGE_URL: https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx*
+      - *ENV CM_ML_MODEL_PRECISION*: `int8`
+      - *ENV CM_ML_MODEL_QUANTIZED*: `yes`
+      - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx`
 ___
 ### Default environment
 
@@ -183,7 +183,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,ml-model,bert,bert-large,bert-squad,language,language-processing'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

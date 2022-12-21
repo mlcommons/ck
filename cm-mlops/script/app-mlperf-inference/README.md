@@ -53,105 +53,105 @@ ___
 ### Variations
 #### All variations
 * bert-99
-  - *ENV CM_MODEL: bert-99*
+  - *ENV CM_MODEL*: `bert-99`
 * bert-99.9
-  - *ENV CM_MODEL: bert-99.9*
+  - *ENV CM_MODEL*: `bert-99.9`
 * bert_
 * cpp
-  - *ENV CM_MLPERF_CPP: yes*
-  - *ENV CM_MLPERF_IMPLEMENTATION: cpp*
+  - *ENV CM_MLPERF_CPP*: `yes`
+  - *ENV CM_MLPERF_IMPLEMENTATION*: `cpp`
 * **cpu** (default)
-  - *ENV CM_MLPERF_DEVICE: cpu*
+  - *ENV CM_MLPERF_DEVICE*: `cpu`
 * cuda
-  - *ENV CM_MLPERF_DEVICE: gpu*
+  - *ENV CM_MLPERF_DEVICE*: `gpu`
 * fast
-  - *ENV CM_FAST_FACTOR: 5*
-  - *ENV CM_OUTPUT_FOLDER_NAME: fast_results*
-  - *ENV CM_MLPERF_RUN_STYLE: fast*
+  - *ENV CM_FAST_FACTOR*: `5`
+  - *ENV CM_OUTPUT_FOLDER_NAME*: `fast_results`
+  - *ENV CM_MLPERF_RUN_STYLE*: `fast`
 * nvidia
-  - *ENV CM_MLPERF_IMPLEMENTATION: nvidia*
+  - *ENV CM_MLPERF_IMPLEMENTATION*: `nvidia`
 * **onnxruntime** (default)
-  - *ENV CM_MLPERF_BACKEND: onnxruntime*
+  - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
 * power
-  - *ENV CM_MLPERF_POWER: True*
+  - *ENV CM_MLPERF_POWER*: `True`
 * python
 * pytorch
-  - *ENV CM_MLPERF_BACKEND: pytorch*
+  - *ENV CM_MLPERF_BACKEND*: `pytorch`
 * quantized
-  - *ENV CM_MLPERF_QUANTIZATION: True*
+  - *ENV CM_MLPERF_QUANTIZATION*: `True`
 * r2.1_default
-  - *ENV CM_RERUN: yes*
-  - *ENV CM_SKIP_SYS_UTILS: yes*
-  - *ENV CM_TEST_QUERY_COUNT: 100*
+  - *ENV CM_RERUN*: `yes`
+  - *ENV CM_SKIP_SYS_UTILS*: `yes`
+  - *ENV CM_TEST_QUERY_COUNT*: `100`
 * reference
-  - *ENV CM_MLPERF_PYTHON: yes*
-  - *ENV CM_MLPERF_IMPLEMENTATION: reference*
+  - *ENV CM_MLPERF_PYTHON*: `yes`
+  - *ENV CM_MLPERF_IMPLEMENTATION*: `reference`
 * **resnet50** (default)
-  - *ENV CM_MODEL: resnet50*
+  - *ENV CM_MODEL*: `resnet50`
 * retinanet
-  - *ENV CM_MODEL: retinanet*
+  - *ENV CM_MODEL*: `retinanet`
 * **test** (default)
-  - *ENV CM_OUTPUT_FOLDER_NAME: test_results*
-  - *ENV CM_MLPERF_RUN_STYLE: test*
+  - *ENV CM_OUTPUT_FOLDER_NAME*: `test_results`
+  - *ENV CM_MLPERF_RUN_STYLE*: `test`
 * tf
-  - *ENV CM_MLPERF_BACKEND: tf*
+  - *ENV CM_MLPERF_BACKEND*: `tf`
 * tflite
-  - *ENV CM_MLPERF_BACKEND: tflite*
+  - *ENV CM_MLPERF_BACKEND*: `tflite`
 * tflite-cpp
-  - *ENV CM_MLPERF_TFLITE_CPP: yes*
-  - *ENV CM_MLPERF_CPP: yes*
-  - *ENV CM_MLPERF_IMPLEMENTATION: tflite-cpp*
+  - *ENV CM_MLPERF_TFLITE_CPP*: `yes`
+  - *ENV CM_MLPERF_CPP*: `yes`
+  - *ENV CM_MLPERF_IMPLEMENTATION*: `tflite-cpp`
 * tvm-onnx
-  - *ENV CM_MLPERF_BACKEND: tvm-onnx*
+  - *ENV CM_MLPERF_BACKEND*: `tvm-onnx`
 * tvm-pytorch
-  - *ENV CM_MLPERF_BACKEND: tvm-pytorch*
+  - *ENV CM_MLPERF_BACKEND*: `tvm-pytorch`
 * valid
-  - *ENV CM_OUTPUT_FOLDER_NAME: valid_results*
-  - *ENV CM_MLPERF_RUN_STYLE: valid*
+  - *ENV CM_OUTPUT_FOLDER_NAME*: `valid_results`
+  - *ENV CM_MLPERF_RUN_STYLE*: `valid`
 
 #### Variations by groups
 
   * backend
     * **onnxruntime** (default)
-      - *ENV CM_MLPERF_BACKEND: onnxruntime*
+      - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
     * pytorch
-      - *ENV CM_MLPERF_BACKEND: pytorch*
+      - *ENV CM_MLPERF_BACKEND*: `pytorch`
     * tf
-      - *ENV CM_MLPERF_BACKEND: tf*
+      - *ENV CM_MLPERF_BACKEND*: `tf`
     * tflite
-      - *ENV CM_MLPERF_BACKEND: tflite*
+      - *ENV CM_MLPERF_BACKEND*: `tflite`
     * tvm-onnx
-      - *ENV CM_MLPERF_BACKEND: tvm-onnx*
+      - *ENV CM_MLPERF_BACKEND*: `tvm-onnx`
     * tvm-pytorch
-      - *ENV CM_MLPERF_BACKEND: tvm-pytorch*
+      - *ENV CM_MLPERF_BACKEND*: `tvm-pytorch`
 
   * device
     * **cpu** (default)
-      - *ENV CM_MLPERF_DEVICE: cpu*
+      - *ENV CM_MLPERF_DEVICE*: `cpu`
     * cuda
-      - *ENV CM_MLPERF_DEVICE: gpu*
+      - *ENV CM_MLPERF_DEVICE*: `gpu`
 
   * execution-mode
     * fast
-      - *ENV CM_FAST_FACTOR: 5*
-      - *ENV CM_OUTPUT_FOLDER_NAME: fast_results*
-      - *ENV CM_MLPERF_RUN_STYLE: fast*
+      - *ENV CM_FAST_FACTOR*: `5`
+      - *ENV CM_OUTPUT_FOLDER_NAME*: `fast_results`
+      - *ENV CM_MLPERF_RUN_STYLE*: `fast`
     * **test** (default)
-      - *ENV CM_OUTPUT_FOLDER_NAME: test_results*
-      - *ENV CM_MLPERF_RUN_STYLE: test*
+      - *ENV CM_OUTPUT_FOLDER_NAME*: `test_results`
+      - *ENV CM_MLPERF_RUN_STYLE*: `test`
     * valid
-      - *ENV CM_OUTPUT_FOLDER_NAME: valid_results*
-      - *ENV CM_MLPERF_RUN_STYLE: valid*
+      - *ENV CM_OUTPUT_FOLDER_NAME*: `valid_results`
+      - *ENV CM_MLPERF_RUN_STYLE*: `valid`
 
   * models
     * bert-99
-      - *ENV CM_MODEL: bert-99*
+      - *ENV CM_MODEL*: `bert-99`
     * bert-99.9
-      - *ENV CM_MODEL: bert-99.9*
+      - *ENV CM_MODEL*: `bert-99.9`
     * **resnet50** (default)
-      - *ENV CM_MODEL: resnet50*
+      - *ENV CM_MODEL*: `resnet50`
     * retinanet
-      - *ENV CM_MODEL: retinanet*
+      - *ENV CM_MODEL*: `retinanet`
 ___
 ### Default environment
 
@@ -168,19 +168,22 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)***
      * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
-       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,sys-utils-cm
-       - CM script [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
+       - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
      * get,python
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,cuda
-       - CM script [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+       * `if (CM_MLPERF_DEVICE == ['gpu'])`
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,mlcommons,inference,src
-       - CM script [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+       * CM names: `--adr.['inference-src']...`
+       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,sut,configs
-       - CM script [get-mlperf-inference-sut-configs](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs)
+       - CM script: [get-mlperf-inference-sut-configs](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)
   1. ***Run native script if exists***
@@ -198,26 +201,15 @@ ___
 * **CM_MLPERF_ACCURACY_RESULTS_DIR**
 * **CM_MLPERF_CONF**
 * **CM_MLPERF_LOADGEN_EXTRA_OPTIONS**
-* **CM_MLPERF_LOADGEN_EXTRA_OPTIONS**
-* **CM_MLPERF_LOADGEN_EXTRA_OPTIONS**
-* **CM_MLPERF_LOADGEN_EXTRA_OPTIONS**
-* **CM_MLPERF_LOADGEN_EXTRA_OPTIONS**
 * **CM_MLPERF_LOADGEN_LOGS_DIR**
 * **CM_MLPERF_LOADGEN_MODE**
-* **CM_MLPERF_LOADGEN_QPS_OPT**
 * **CM_MLPERF_LOADGEN_QPS_OPT**
 * **CM_MLPERF_LOADGEN_QUERY_COUNT**
 * **CM_MLPERF_LOADGEN_SCENARIO**
 * **CM_MLPERF_OUTPUT_DIR**
 * **CM_MLPERF_RESULTS_DIR**
 * **CM_MLPERF_RUN_STYLE**
-* **CM_MLPERF_RUN_STYLE**
-* **CM_MLPERF_RUN_STYLE**
-* **CM_MLPERF_RUN_STYLE**
 * **CM_MLPERF_USER_CONF**
-* **CM_MLPERF_USER_CONF**
-* **CM_MLPERF_USER_CONF**
-* **CM_NUM_THREADS**
 * **CM_NUM_THREADS**
 * **CM_SKIP_RUN**
 ___
@@ -248,7 +240,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'app,vision,language,mlcommons,mlperf,inference,generic'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

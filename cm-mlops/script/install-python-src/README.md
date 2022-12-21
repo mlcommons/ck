@@ -52,11 +52,11 @@ ___
 ### Variations
 #### All variations
 * shared
-  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS: shared*
-  - *ENV CM_SHARED_BUILD: yes*
+  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `shared`
+  - *ENV CM_SHARED_BUILD*: `yes`
 * with-ssl
-  - *ENV CM_ENABLE_SSL: yes*
-  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS: with-ssl*
+  - *ENV CM_ENABLE_SSL*: `yes`
+  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `with-ssl`
 ___
 ### Versions
 Default version: *3.10.5*
@@ -69,9 +69,9 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/_cm.json)***
      * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
-       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/_cm.json)
   1. ***Run native script if exists***
@@ -80,7 +80,9 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/_cm.json)***
      * get,python
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * `if (CM_REQUIRE_INSTALL != ['yes'])`
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
 ___
 ### New environment export
 
@@ -123,7 +125,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'install,src,python,python3,src-python3,src-python'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

@@ -351,7 +351,7 @@ def doc(i):
 
                 if len(variation.get('env',{}))>0:
                     for key in variation['env']:
-                        md_var.append('  - *ENV {}: {}*'.format(key, variation['env'][key]))
+                        md_var.append('  - *ENV {}*: `{}`'.format(key, variation['env'][key]))
 
                 variation_md[variation_key] = md_var
 
@@ -478,8 +478,9 @@ def doc(i):
                              key2 = l[j+5:j1].strip()
                              key=key2[1:-1]
 
-                             if key.startswith('CM_'):
+                             if key.startswith('CM_') and 'TMP' not in key and key not in found_output_env:
                                  found_output_env.append(key)
+
         # Meta deps
         def process_deps(self_module, meta, meta_url, md_script_readme, key):
 
@@ -491,7 +492,44 @@ def doc(i):
                 for d in meta[key]:
                     d_tags = d.get('tags', '')
 
-                    y.append('     * '+d_tags)
+                    z = '     * '+d_tags
+
+                    names = d.get('names', [])
+                    enable_if_env = d.get('enable_if_env', {})
+                    skip_if_env = d.get('skip_if_env', {})
+
+                    q = ''
+                    
+                    q1 = ''
+                    for e in enable_if_env:
+                        if q1!='': q1 += ' AND '
+                        q1 += e+' == '+str(enable_if_env[e])
+                    if q1!='': q1 = '('+q1+')'
+
+                    q2 = ''
+                    for e in skip_if_env:
+                        if q2!='': q2 += ' OR '
+                        q2 += e+' != '+str(skip_if_env[e])
+                    if q2!='': q2 = '('+q2+')'
+
+                    if q1!='' or q2!='':
+                       q = 'if '
+
+                       if q1!='': q+=q1
+                       if q2!='':
+                          if q1!='': q+=' AND '
+                          q+=q2
+
+
+                    
+                    y.append(z)
+
+                    if q!='': 
+                       y.append('       * `'+q+'`')
+
+                    if len(names)>0:
+                       y.append('       * CM names: `--adr.'+str(names)+'...`')
+
 
                     # Attempt to find related CM scripts
                     r = self_module.cmind.access({'action':'find',
@@ -521,7 +559,7 @@ def doc(i):
                                     s_url = s_url_repo+ '/script/'
 
                                 s_alias = s.meta['alias']
-                                y.append('       - CM script [{}]({})'.format(s_alias, s_url+s_alias))
+                                y.append('       - CM script: [{}]({})'.format(s_alias, s_url+s_alias))
 
                         
 
@@ -624,7 +662,11 @@ def doc(i):
                              "r = cmind.access({'action':'run'",
                              "                  'automation':'script',",
                              "                  'tags':'{}'".format(','.join(tags)),
-                             "                  'out':'con'})",
+                             "                  'out':'con',",
+                             "                  ...",
+                             "                  (other input keys for this script)",
+                             "                  ...",
+                             "                 })",
                              "",
                              "if r['return']>0:",
                              "    print (r['error'])",

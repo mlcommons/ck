@@ -51,9 +51,9 @@ ___
 ### Variations
 #### All variations
 * gflags-dev
-  - *ENV CM_SYS_UTIL_NAME: gflags-dev*
+  - *ENV CM_SYS_UTIL_NAME*: `gflags-dev`
 * glog-dev
-  - *ENV CM_SYS_UTIL_NAME: glog-dev*
+  - *ENV CM_SYS_UTIL_NAME*: `glog-dev`
 ___
 ### Default environment
 
@@ -64,7 +64,7 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util/_cm.json)***
      * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util/_cm.json)
   1. ***Run native script if exists***
@@ -107,7 +107,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,sys-util,generic,generic-sys-util'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

@@ -52,19 +52,19 @@ ___
 ### Variations
 #### All variations
 * bs.1
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 1*
+  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `1`
 * bs.16
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 16*
+  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `16`
 * bs.2
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 2*
+  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `2`
 * bs.32
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 32*
+  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `32`
 * bs.4
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 4*
+  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `4`
 * bs.64
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 64*
+  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `64`
 * **bs.8** (default)
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 8*
+  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `8`
 * **fp32** (default)
 * int8
 * **onnx** (default)
@@ -78,19 +78,19 @@ ___
 
   * batchsize
     * bs.1
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 1*
+      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `1`
     * bs.16
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 16*
+      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `16`
     * bs.2
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 2*
+      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `2`
     * bs.32
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 32*
+      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `32`
     * bs.4
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 4*
+      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `4`
     * bs.64
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 64*
+      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `64`
     * **bs.8** (default)
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE: 8*
+      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `8`
 
   * framework
     * **onnx** (default)
@@ -109,9 +109,11 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/_cm.json)***
      * get,python
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * CM names: `--adr.['python, python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,tvm
-       - CM script [get-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)
+       * CM names: `--adr.['tvm']...`
+       - CM script: [get-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/_cm.json)
   1. ***Run native script if exists***
@@ -160,7 +162,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

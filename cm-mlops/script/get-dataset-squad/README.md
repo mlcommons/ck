@@ -60,7 +60,7 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad/_cm.json)***
      * get,sys-utils-cm
-       - CM script [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
+       - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad/_cm.json)
   1. ***Run native script if exists***
@@ -79,7 +79,6 @@ ___
 * **CM_DATASET_SQUAD_PATH**
 * **CM_DATASET_SQUAD_TRAIN_PATH**
 * **CM_DATASET_SQUAD_VAL_PATH**
-* **CM_TMP_ZIP_FILE_NAME**
 ___
 ### Usage
 
@@ -108,7 +107,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,dataset,squad,language-processing,validation,training,original'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

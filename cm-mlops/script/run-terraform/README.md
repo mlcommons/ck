@@ -52,18 +52,18 @@ ___
 ### Variations
 #### All variations
 * aws
-  - *ENV CM_TERRAFORM_CONFIG_DIR_NAME: aws*
+  - *ENV CM_TERRAFORM_CONFIG_DIR_NAME*: `aws`
 * c5.12xlarge
-  - *ENV TF_VAR_INSTANCE_TYPE: c5.12xlarge*
+  - *ENV TF_VAR_INSTANCE_TYPE*: `c5.12xlarge`
 * c5.4xlarge
-  - *ENV TF_VAR_INSTANCE_TYPE: c5.4xlarge*
-  - *ENV TF_VAR_DISK_GBS: 80*
+  - *ENV TF_VAR_INSTANCE_TYPE*: `c5.4xlarge`
+  - *ENV TF_VAR_DISK_GBS*: `80`
 * c5d.9xlarge
-  - *ENV TF_VAR_INSTANCE_TYPE: c5d.9xlarge*
+  - *ENV TF_VAR_INSTANCE_TYPE*: `c5d.9xlarge`
 * g4dn.xlarge
-  - *ENV TF_VAR_INSTANCE_TYPE: g4dn.xlarge*
+  - *ENV TF_VAR_INSTANCE_TYPE*: `g4dn.xlarge`
 * t2.micro
-  - *ENV TF_VAR_INSTANCE_TYPE: t2.micro*
+  - *ENV TF_VAR_INSTANCE_TYPE*: `t2.micro`
 ___
 ### Default environment
 
@@ -75,7 +75,7 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/_cm.json)***
      * get,terraform
-       - CM script [get-terraform](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform)
+       - CM script: [get-terraform](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/_cm.json)
   1. ***Run native script if exists***
@@ -84,7 +84,9 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/_cm.json)***
      * destroy,terraform
-       - CM script [destroy-terraform](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/destroy-terraform)
+       * `if (CM_DESTROY_TERRAFORM == ['on'])`
+       * CM names: `--adr.['destroy-cmd']...`
+       - CM script: [destroy-terraform](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/destroy-terraform)
 ___
 ### New environment export
 
@@ -123,7 +125,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'run,terraform'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

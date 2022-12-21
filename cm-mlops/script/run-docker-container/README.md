@@ -56,7 +56,9 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/_cm.json)***
      * build,docker,image
-       - CM script [build-docker-image](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image)
+       * `if (CM_DOCKER_IMAGE_EXISTS != ['yes'])`
+       * CM names: `--adr.['build-docker-image']...`
+       - CM script: [build-docker-image](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image)
   1. ***Run native script if exists***
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/customize.py)***
@@ -72,7 +74,6 @@ ___
 * **CM_DOCKER_IMAGE_RECREATE**
 * **CM_DOCKER_IMAGE_REPO**
 * **CM_DOCKER_IMAGE_TAG**
-* **CM_DOCKER_RUN_CMD**
 * **CM_DOCKER_RUN_CMD**
 * **CM_DOCKER_RUN_SCRIPT_TAGS**
 ___
@@ -103,7 +104,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'run,docker,container'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

@@ -52,7 +52,7 @@ ___
 ### Variations
 #### All variations
 * slim
-  - *ENV CM_DOCKER_BUILD_SLIM: yes*
+  - *ENV CM_DOCKER_BUILD_SLIM*: `yes`
 ___
 ### Default environment
 
@@ -71,7 +71,9 @@ ___
   1. Run "postrocess" function from customize.py
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-dockerfile/_cm.json)***
      * build,docker,image
-       - CM script [build-docker-image](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image)
+       * `if (CM_BUILD_DOCKER_IMAGE == ['yes', '1'])`
+       * CM names: `--adr.['build-docker-image']...`
+       - CM script: [build-docker-image](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image)
 ___
 ### New environment export
 
@@ -82,7 +84,6 @@ ___
 * **CM_DOCKERFILE_WITH_PATH**
 * **CM_DOCKER_OS**
 * **CM_DOCKER_OS_VERSION**
-* **CM_DOCKER_RUN_CMD**
 * **CM_DOCKER_RUN_CMD**
 ___
 ### Usage
@@ -112,7 +113,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'build,dockerfile'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])
