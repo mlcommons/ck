@@ -80,7 +80,7 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/_cm.json)***
      * get,python
-       * `if (CM_REQUIRE_INSTALL != ['yes'])`
+       * `if (CM_REQUIRE_INSTALL  != yes)`
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
 ___

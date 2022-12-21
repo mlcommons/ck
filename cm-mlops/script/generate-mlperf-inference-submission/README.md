@@ -68,14 +68,14 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/_cm.json)***
      * accuracy,truncate,mlc
-       * `if (CM_RUN_MLPERF_ACCURACY == ['on']) AND (CM_SKIP_TRUNCATE_ACCURACY != ['yes'])`
+       * `if (CM_RUN_MLPERF_ACCURACY  == on) AND (CM_SKIP_TRUNCATE_ACCURACY  != yes)`
        - CM script: [truncate-mlperf-inference-accuracy-log](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log)
      * submission,checker,mlc
-       * `if (CM_RUN_SUBMISSION_CHECKER == ['yes'])`
+       * `if (CM_RUN_SUBMISSION_CHECKER  == yes)`
        * CM names: `--adr.['mlperf-inference-submission-checker', 'submission-checker']...`
        - CM script: [run-mlperf-inference-submission-checker](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker)
      * run,tar
-       * `if (CM_TAR_SUBMISSION_DIR == ['yes'])`
+       * `if (CM_TAR_SUBMISSION_DIR  == yes)`
        - CM script: [tar-my-folder](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder)
 ___
 ### New environment export

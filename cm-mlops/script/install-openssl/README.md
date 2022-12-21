@@ -70,7 +70,7 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl/_cm.json)***
      * get,openssl
-       * `if (CM_REQUIRE_INSTALL != ['yes'])`
+       * `if (CM_REQUIRE_INSTALL  != yes)`
        - CM script: [get-openssl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl)
 ___
 ### New environment export

@@ -72,17 +72,17 @@ ___
      * get,ml-model,retinanet,_pytorch,_fp32,_weights
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
      * get,generic-python-lib,_torch
-       * `if (CM_TORCH_DEVICE == cpu)`
+       * `if (CM_TORCH_DEVICE in cpu)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torchvision
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_mlperf_logging
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,cuda
-       * `if (CM_TORCH_DEVICE == cuda)`
+       * `if (CM_TORCH_DEVICE in cuda)`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,generic-python-lib,_torch_cuda
-       * `if (CM_TORCH_DEVICE == cuda)`
+       * `if (CM_TORCH_DEVICE in cuda)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,nvidia,mlperf,inference,common-code
        - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)

@@ -57,7 +57,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake/_cm.json)***
      * install,cmake,prebuilt
-       * `if (CM_REQUIRE_INSTALL == ['yes'])`
+       * `if (CM_REQUIRE_INSTALL  == yes)`
        - CM script: [install-cmake-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cmake-prebuilt)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake/run.bat)

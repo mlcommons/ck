@@ -78,7 +78,7 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/_cm.json)***
      * publish-results,dashboard
-       * `if (CM_MLPERF_DASHBOARD == ['on'])`
+       * `if (CM_MLPERF_DASHBOARD  == on)`
        - CM script: [publish-results-to-dashboard](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/publish-results-to-dashboard)
 ___
 ### New environment export

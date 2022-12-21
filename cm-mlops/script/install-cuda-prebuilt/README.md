@@ -70,7 +70,7 @@ ___
   1. Run "postrocess" function from customize.py
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)***
      * get,cuda
-       * `if (CM_REQUIRE_INSTALL != ['yes'])`
+       * `if (CM_REQUIRE_INSTALL  != yes)`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
 ___
 ### New environment export

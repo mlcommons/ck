@@ -78,16 +78,16 @@ ___
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
        - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
      * get,generic-python-lib,_torch
-       * `if (USE_CUDA != ['yes'])`
+       * `if (USE_CUDA  != yes)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torch_cuda
-       * `if (USE_CUDA == ['yes'])`
+       * `if (USE_CUDA  == yes)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torchvision
-       * `if (USE_CUDA != ['yes'])`
+       * `if (USE_CUDA  != yes)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torchvision_cuda
-       * `if (USE_CUDA == ['yes'])`
+       * `if (USE_CUDA  == yes)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. Run "preprocess" function from customize.py
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-torch-py/_cm.json)

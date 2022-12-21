@@ -58,10 +58,10 @@ ___
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/run.sh)
   1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/_cm.json)***
      * compile,cpp-program
-       * `if (CM_SKIP_COMPILE != ['on'])`
+       * `if (CM_SKIP_COMPILE  != on)`
        - CM script: [compile-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)
      * benchmark-program
-       * `if (CM_SKIP_RUN != ['on'])`
+       * `if (CM_SKIP_RUN  != on)`
        - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection/_cm.json)

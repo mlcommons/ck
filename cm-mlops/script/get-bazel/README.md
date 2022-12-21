@@ -55,7 +55,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bazel/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bazel/_cm.json)***
      * install,bazel
-       * `if (CM_REQUIRE_INSTALL == ['yes'])`
+       * `if (CM_REQUIRE_INSTALL  == yes)`
        - CM script: [install-bazel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel)
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bazel/run.sh)

@@ -55,7 +55,7 @@ ___
      * detect,cpu
        - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,compiler
-       * `if (CM_C_COMPILER_BIN != ['on'])`
+       * `if (CM_C_COMPILER_BIN  != on)`
        * CM names: `--adr.['compiler']...`
        - CM script: [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
        - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)

@@ -69,7 +69,7 @@ ___
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,cuda
-       * `if (USE_CUDA == [True])`
+       * `if (USE_CUDA  == True)`
        * CM names: `--adr.['cuda']...`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,dataset,imagenet,image-classification,original
@@ -80,10 +80,10 @@ ___
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
        - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
      * get,generic-python-lib,_onnxruntime
-       * `if (USE_CUDA != [True])`
+       * `if (USE_CUDA  != True)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime_gpu
-       * `if (USE_CUDA == [True])`
+       * `if (USE_CUDA  == True)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. Run "preprocess" function from customize.py
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml)

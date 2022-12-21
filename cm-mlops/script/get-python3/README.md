@@ -62,7 +62,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3/_cm.json)***
      * install,python,src
-       * `if (CM_REQUIRE_INSTALL == ['yes'])`
+       * `if (CM_REQUIRE_INSTALL  == yes)`
        - CM script: [install-python-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3/run.bat)

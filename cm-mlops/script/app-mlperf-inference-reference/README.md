@@ -189,33 +189,33 @@ ___
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,cuda,_cudnn
-       * `if (CM_MLPERF_DEVICE == ['gpu'])`
+       * `if (CM_MLPERF_DEVICE  == gpu)`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,nvidia,tensorrt
-       * `if (CM_MLPERF_DEVICE == ['gpu'])`
+       * `if (CM_MLPERF_DEVICE  == gpu)`
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
      * get,generic-python-lib,_onnxruntime
-       * `if (CM_MLPERF_BACKEND == ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE == ['cpu'])`
+       * `if (CM_MLPERF_BACKEND in ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE  == cpu)`
        * CM names: `--adr.['ml-engine-onnxruntime']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime_gpu
-       * `if (CM_MLPERF_BACKEND == ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE == ['gpu'])`
+       * `if (CM_MLPERF_BACKEND in ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE  == gpu)`
        * CM names: `--adr.['ml-engine-onnxruntime-cuda']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torch
-       * `if (CM_MLPERF_BACKEND == ['pytorch', 'tvm-pytorch'])`
+       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'])`
        * CM names: `--adr.['ml-engine-pytorch']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torchvision
-       * `if (CM_MLPERF_BACKEND == ['pytorch', 'tvm-pytorch'])`
+       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'])`
        * CM names: `--adr.['ml-engine-torchvision']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_transformers
-       * `if (CM_MODEL == ['bert-99', 'bert-99.9'])`
+       * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        * CM names: `--adr.['ml-engine-transformers']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_tensorflow
-       * `if (CM_MLPERF_BACKEND == ['tf', 'tflite'])`
+       * `if (CM_MLPERF_BACKEND in ['tf', 'tflite'])`
        * CM names: `--adr.['ml-engine-tensorflow']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,loadgen
@@ -227,60 +227,60 @@ ___
      * get,sut,configs
        - CM script: [get-mlperf-inference-sut-configs](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs)
      * get,dataset,image-classification,imagenet,preprocessed
-       * `if (CM_MODEL == ['resnet50'])`
+       * `if (CM_MODEL  == resnet50)`
        * CM names: `--adr.['imagenet-preprocessed']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,dataset-aux,image-classification,imagenet-aux
-       * `if (CM_MODEL == ['resnet50'])`
+       * `if (CM_MODEL  == resnet50)`
        - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
      * get,dataset,object-detection,open-images,openimages,preprocessed,_validation
-       * `if (CM_MODEL == ['retinanet'])`
+       * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['openimages-preprocessed']...`
        - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
      * get,dataset,squad,original
-       * `if (CM_MODEL == ['bert-99', 'bert-99.9'])`
+       * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        - CM script: [get-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)
      * get,ml-model,raw,image-classification,resnet50,_onnx
-       * `if (CM_MLPERF_BACKEND == ['onnxruntime'] AND CM_MODEL == ['resnet50'])`
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MODEL  == resnet50)`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
      * get,ml-model,tvm-model,resnet50,_onnx
-       * `if (CM_MLPERF_BACKEND == ['tvm-onnx'] AND CM_MODEL == ['resnet50'])`
+       * `if (CM_MLPERF_BACKEND  == tvm-onnx AND CM_MODEL  == resnet50)`
        * CM names: `--adr.['resnet50-model', 'ml-model', 'tvm-model']...`
        - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
      * get,ml-model,raw,image-classification,resnet50,_tensorflow
-       * `if (CM_MLPERF_BACKEND == ['tf', 'tflite'] AND CM_MODEL == ['resnet50'])`
+       * `if (CM_MLPERF_BACKEND in ['tf', 'tflite'] AND CM_MODEL  == resnet50)`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
      * get,ml-model,raw,image-classification,resnet50,_pytorch,_fp32
-       * `if (CM_MLPERF_BACKEND == ['pytorch'] AND CM_MODEL == ['resnet50'])`
+       * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MODEL  == resnet50)`
        * CM names: `--adr.['resnet50-model', 'ml-model']...`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
      * get,ml-model,tvm-model,resnet50,_pytorch,_int8
-       * `if (CM_MLPERF_BACKEND == ['tvm-pytorch'] AND CM_MODEL == ['resnet50'])`
+       * `if (CM_MLPERF_BACKEND  == tvm-pytorch AND CM_MODEL  == resnet50)`
        * CM names: `--adr.['resnet50-model', 'ml-model', 'tvm-model']...`
        - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
      * get,ml-model,object-detection,retinanet,_onnx,_fp32
-       * `if (CM_MLPERF_BACKEND == ['onnxruntime'] AND CM_MODEL == ['retinanet'])`
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MODEL  == retinanet)`
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
      * get,ml-model,object-detection,retinanet,_pytorch,_fp32
-       * `if (CM_MLPERF_BACKEND == ['pytorch'] AND CM_MODEL == ['retinanet']) AND (CM_MLPERF_IMPLEMENTATION != ['nvidia'])`
+       * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MODEL  == retinanet) AND (CM_MLPERF_IMPLEMENTATION  != nvidia)`
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
      * get,ml-model,object-detection,resnext50,fp32,_pytorch-weights
-       * `if (CM_MLPERF_BACKEND == ['pytorch'] AND CM_MLPERF_IMPLEMENTATION == ['nvidia'] AND CM_MODEL == ['retinanet'])`
+       * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MLPERF_IMPLEMENTATION  == nvidia AND CM_MODEL  == retinanet)`
        - *Warning: no scripts found*
      * get,ml-model,language-processing,bert,_onnx,_fp32
-       * `if (CM_MLPERF_BACKEND == ['onnxruntime'] AND CM_MODEL == ['bert-99', 'bert-99.9']) AND (CM_MLPERF_QUANTIZATION != [True])`
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MODEL in ['bert-99', 'bert-99.9']) AND (CM_MLPERF_QUANTIZATION  != True)`
        - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
      * get,ml-model,language-processing,bert,_onnx,_int8
-       * `if (CM_MLPERF_BACKEND == ['onnxruntime'] AND CM_MODEL == ['bert-99'] AND CM_MLPERF_QUANTIZATION == [True])`
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MODEL  == bert-99 AND CM_MLPERF_QUANTIZATION  == True)`
        - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
      * get,ml-model,language-processing,bert,_tf
-       * `if (CM_MLPERF_BACKEND == ['tf'] AND CM_MODEL == ['bert-99', 'bert-99.9'])`
+       * `if (CM_MLPERF_BACKEND  == tf AND CM_MODEL in ['bert-99', 'bert-99.9'])`
        - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
      * get,ml-model,language-processing,bert,_pytorch,_fp32
-       * `if (CM_MLPERF_BACKEND == ['pytorch', 'tvm-pytorch'] AND CM_MODEL == ['bert-99', 'bert-99.9'])`
+       * `if (CM_MLPERF_BACKEND in ['pytorch', 'tvm-pytorch'] AND CM_MODEL in ['bert-99', 'bert-99.9'])`
        - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
      * get,generic-python-lib,_tokenization
-       * `if (CM_MODEL == ['bert-99', 'bert-99.9'])`
+       * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)

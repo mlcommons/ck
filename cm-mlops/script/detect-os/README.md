@@ -61,7 +61,7 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os/_cm.json)***
      * get,sys-utils-min
-       * `if (CM_HOST_OS_TYPE == ['windows'])`
+       * `if (CM_HOST_OS_TYPE  == windows)`
        - CM script: [get-sys-utils-min](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-min)
 ___
 ### New environment export

@@ -81,7 +81,7 @@ ___
        * CM names: `--adr.['python3', 'python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,dataset,original,object-detection,open-images
-       * `if (CM_DATASET == ['openimages'])`
+       * `if (CM_DATASET  == openimages)`
        - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
@@ -89,22 +89,22 @@ ___
      * get,generic-python-lib,_pycocotools
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,dataset,squad,language-processing
-       * `if (CM_DATASET == ['squad']) AND (CM_DATASET_SQUAD_VAL_PATH != [])`
+       * `if (CM_DATASET  == squad) AND (CM_DATASET_SQUAD_VAL_PATH not in [])`
        - CM script: [get-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)
      * get,ml-model,bert-large
-       * `if (CM_DATASET == ['squad']) AND (CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH != [])`
+       * `if (CM_DATASET  == squad) AND (CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH not in [])`
        - CM script: [get-ml-model-bert-large-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-bert-large-squad)
      * get,generic-python-lib,_torch
-       * `if (CM_DATASET == ['squad'])`
+       * `if (CM_DATASET  == squad)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_tokenization
-       * `if (CM_DATASET == ['squad'])`
+       * `if (CM_DATASET  == squad)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_boto3
-       * `if (CM_DATASET == ['squad'])`
+       * `if (CM_DATASET  == squad)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,dataset-aux,image-classification,imagenet-aux
-       * `if (CM_DATASET == ['imagenet'])`
+       * `if (CM_DATASET  == imagenet)`
        - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/_cm.json)

@@ -96,18 +96,18 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/_cm.json)***
      * get,python3
-       * `if (CM_IMAGENET_PREPROCESSED_PATH != ['on'])`
+       * `if (CM_IMAGENET_PREPROCESSED_PATH  != on)`
        * CM names: `--adr.['python3', 'python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,dataset,image-classification,original
-       * `if (CM_IMAGENET_PREPROCESSED_PATH != ['on'])`
+       * `if (CM_IMAGENET_PREPROCESSED_PATH  != on)`
        * CM names: `--adr.['original-dataset']...`
        - CM script: [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
      * get,dataset-aux,image-classification,imagenet-aux
-       * `if (CM_IMAGENET_PREPROCESSED_PATH != ['on'])`
+       * `if (CM_IMAGENET_PREPROCESSED_PATH  != on)`
        - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
      * mlperf,mlcommons,inference,source,src
-       * `if (CM_IMAGENET_QUANTIZED == ['no']) AND (CM_IMAGENET_PREPROCESSED_PATH != ['on'])`
+       * `if (CM_IMAGENET_QUANTIZED  == no) AND (CM_IMAGENET_PREPROCESSED_PATH  != on)`
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,generic-python-lib,_opencv-python

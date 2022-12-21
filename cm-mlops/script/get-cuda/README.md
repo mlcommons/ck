@@ -64,7 +64,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)***
      * install,cuda,prebuilt
-       * `if (CM_REQUIRE_INSTALL == ['yes'])`
+       * `if (CM_REQUIRE_INSTALL  == yes)`
        - CM script: [install-cuda-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/run.bat)

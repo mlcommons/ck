@@ -62,7 +62,7 @@ ___
   1. Run "postrocess" function from customize.py
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli/_cm.json)***
      * get,aws-cli
-       * `if (CM_REQUIRE_INSTALL != ['yes'])`
+       * `if (CM_REQUIRE_INSTALL  != yes)`
        - CM script: [get-aws-cli](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aws-cli)
 ___
 ### New environment export

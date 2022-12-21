@@ -71,7 +71,7 @@ ___
   1. Run "postrocess" function from customize.py
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-dockerfile/_cm.json)***
      * build,docker,image
-       * `if (CM_BUILD_DOCKER_IMAGE == ['yes', '1'])`
+       * `if (CM_BUILD_DOCKER_IMAGE in ['yes', '1'])`
        * CM names: `--adr.['build-docker-image']...`
        - CM script: [build-docker-image](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image)
 ___

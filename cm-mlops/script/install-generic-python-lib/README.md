@@ -169,7 +169,7 @@ ___
   1. Run "postrocess" function from customize.py
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib/_cm.json)***
      * get,generic-python-lib
-       * `if (CM_REQUIRE_INSTALL != ['yes'])`
+       * `if (CM_REQUIRE_INSTALL  != yes)`
        * CM names: `--adr.['get-python-lib']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 ___

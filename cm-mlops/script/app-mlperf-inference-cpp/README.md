@@ -114,7 +114,7 @@ ___
      * get,sys-utils-cm
        - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
      * get,cuda,_cudnn
-       * `if (CM_MLPERF_DEVICE == ['gpu'])`
+       * `if (CM_MLPERF_DEVICE  == gpu)`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,loadgen
        * CM names: `--adr.['loadgen']...`
@@ -123,24 +123,24 @@ ___
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,lib,onnxruntime,lang-cpp,_cpu
-       * `if (CM_MLPERF_BACKEND == ['onnxruntime'] AND CM_MLPERF_DEVICE == ['cpu'])`
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == cpu)`
        - CM script: [get-onnxruntime-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)
      * get,lib,onnxruntime,lang-cpp,_cuda
-       * `if (CM_MLPERF_BACKEND == ['onnxruntime'] AND CM_MLPERF_DEVICE == ['gpu'])`
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == gpu)`
        - CM script: [get-onnxruntime-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)
      * get,dataset,preprocessed,imagenet,_NCHW
-       * `if (CM_MODEL == ['resnet50'])`
+       * `if (CM_MODEL  == resnet50)`
        * CM names: `--adr.['imagenet-preprocessed']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,ml-model,raw,resnet50,_onnx
-       * `if (CM_MODEL == ['resnet50'])`
+       * `if (CM_MODEL  == resnet50)`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
      * get,dataset,preprocessed,openimages,_validation,_NCHW
-       * `if (CM_MODEL == ['retinanet'])`
+       * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['openimages-preprocessed']...`
        - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
      * get,ml-model,retinanet,_onnx,_fp32
-       * `if (CM_MODEL == ['retinanet'])`
+       * `if (CM_MODEL  == retinanet)`
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)

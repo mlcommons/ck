@@ -503,13 +503,18 @@ def doc(i):
                     q1 = ''
                     for e in enable_if_env:
                         if q1!='': q1 += ' AND '
-                        q1 += e+' == '+str(enable_if_env[e])
+                        q1 += e+' '
+                        v = enable_if_env[e]
+                        q1 += ' == '+str(v[0]) if len(v)==1 else 'in '+str(v)
                     if q1!='': q1 = '('+q1+')'
 
                     q2 = ''
                     for e in skip_if_env:
                         if q2!='': q2 += ' OR '
-                        q2 += e+' != '+str(skip_if_env[e])
+                        q2 += e+' '
+                        v = skip_if_env[e]
+                        q2 += ' != '+str(v[0]) if len(v)==1 else 'not in '+str(v)
+
                     if q2!='': q2 = '('+q2+')'
 
                     if q1!='' or q2!='':

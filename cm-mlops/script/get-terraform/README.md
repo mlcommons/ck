@@ -55,7 +55,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/_cm.json)***
      * install,terraform
-       * `if (CM_REQUIRE_INSTALL == ['yes'])`
+       * `if (CM_REQUIRE_INSTALL  == yes)`
        - CM script: [install-terraform-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-terraform-from-src)
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-terraform/run.sh)

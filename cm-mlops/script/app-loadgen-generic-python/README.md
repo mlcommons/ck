@@ -99,29 +99,29 @@ ___
      * get,generic-python-lib,_psutil
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,cuda
-       * `if (CM_MLPERF_DEVICE == ['gpu'])`
+       * `if (CM_MLPERF_DEVICE  == gpu)`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,loadgen
        * CM names: `--adr.['loadgen']...`
        - CM script: [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
      * get,generic-python-lib,_onnxruntime
-       * `if (CM_MLPERF_BACKEND == ['onnxruntime'] AND CM_MLPERF_DEVICE == ['cpu'])`
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == cpu)`
        * CM names: `--adr.['onnxruntime']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime_gpu
-       * `if (CM_MLPERF_BACKEND == ['onnxruntime'] AND CM_MLPERF_DEVICE == ['gpu'])`
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == gpu)`
        * CM names: `--adr.['onnxruntime']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnx
-       * `if (CM_MLPERF_BACKEND == ['onnxruntime'])`
+       * `if (CM_MLPERF_BACKEND  == onnxruntime)`
        * CM names: `--adr.['onnx']...`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,ml-model,resnet50,_onnx
-       * `if (CM_MODEL == ['resnet50'])`
+       * `if (CM_MODEL  == resnet50)`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
        - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
      * get,ml-model,retinanet,_onnx,_fp32
-       * `if (CM_MODEL == ['retinanet'])`
+       * `if (CM_MODEL  == retinanet)`
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)

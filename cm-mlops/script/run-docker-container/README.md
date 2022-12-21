@@ -56,7 +56,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/_cm.json)***
      * build,docker,image
-       * `if (CM_DOCKER_IMAGE_EXISTS != ['yes'])`
+       * `if (CM_DOCKER_IMAGE_EXISTS  != yes)`
        * CM names: `--adr.['build-docker-image']...`
        - CM script: [build-docker-image](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image)
   1. ***Run native script if exists***
