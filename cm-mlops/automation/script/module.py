@@ -677,6 +677,9 @@ class CAutomation(Automation):
                         tmp_variations[variation_name] = True
                         continue
 
+                    if variation_name not in variations:
+                        variation_name = self._get_name_for_dynamic_variation_tag(variation_name)
+
                     if "base" in variations[variation_name]:
                         base_variations = variations[variation_name]["base"]
                         for base_variation in base_variations:
@@ -701,6 +704,8 @@ class CAutomation(Automation):
                     tmp_variations[variation_name] = True
                 all_base_processed = True
                 for variation_name in variation_tags:
+                    if variation_name not in variations:
+                        variation_name = self._get_name_for_dynamic_variation_tag(variation_name)
                     if tmp_variations[variation_name] == False:
                         all_base_processed = False
                         break
@@ -738,10 +743,21 @@ class CAutomation(Automation):
                     # ignore such tag (needed for caching only to eliminate variations)
                     continue
 
+                variation_tag_dynamic_suffix = None
                 if variation_tag not in variations:
-                    return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
+                    if '.' in variation_tag:
+                        variation_tag_dynamic_suffix = variation_tag[variation_tag.rindex(".")+1:]
+                        variation_tag = self._get_name_for_dynamic_variation_tag(variation_tag)
+                    if variation_tag not in variations:
+                        return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
 
                 variation_meta = variations[variation_tag]
+                if variation_tag_dynamic_suffix and 'env' in variation_meta:
+                    for key in variation_meta['env']:
+                        if '#' in variation_meta['env'][key]:
+                            variation_meta['env'][key] = variation_meta['env'][key].replace("#", variation_tag_dynamic_suffix)
+
+
 
                 r = update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
                 if r['return']>0: return r
@@ -1636,7 +1652,19 @@ class CAutomation(Automation):
                 meta = script_artifact.meta
                 variations = meta.get('variations', {})
 
-                if not all(t in variations for t in variation_tags if not t.startswith('-')):
+                matched = True
+                for t in variation_tags:
+                    if t in variations or t.startswith('-'):
+                        continue
+                    matched = False
+                    for s in variations:
+                        if s.endswith('#'):
+                            if t.startswith(s[:-1]):
+                                matched = True
+                                break
+                    if not matched:
+                        break
+                if not matched:
                     continue
 
                 filtered.append(script_artifact)
@@ -1837,6 +1865,12 @@ class CAutomation(Automation):
 
         return r_obj
 
+    ##############################################################################
+    def _get_name_for_dynamic_variation_tag(script, variation_tag):
+        '''
+        Returns the variation name in meta for the dynamic_variation_tag
+        '''
+        return variation_tag[:variation_tag.rindex(".")+1]+"#"
 
 
     ##############################################################################
@@ -1847,7 +1881,10 @@ class CAutomation(Automation):
         import copy
         tmp_variation_tags=copy.deepcopy(variation_tags)
         for k in variation_tags:
-            variation = variations[k]
+            if k in variations:
+                variation = variations[k]
+            else:
+                variation = variations[script._get_name_for_dynamic_variation_tag(k)]
             if 'alias' in variation:
                 if variation['alias'] not in variations:
                     return {'return': 1, 'error': 'Alias "{}" specified for the variation "{}" is not existing '.format(variation['alias'], k)}
