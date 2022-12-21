@@ -381,10 +381,10 @@ class CAutomation(Automation):
         #############################################################################
         # Report if scripts were not found or there is an ambiguity with UIDs
         if not r['found_scripts']:
-            return {'return':1, 'error': 'No scripts were found with above tags (when variations ignored)'}
+            return {'return':1, 'error': 'no scripts were found with above tags (when variations ignored)'}
 
         if len(list_of_found_scripts) == 0:
-            return {'return':16, 'error':'No scripts were found with above tags and variations (scripts exist when variations are ignored)'}
+            return {'return':16, 'error':'no scripts were found with above tags and variations\n'+r.get('warning', '')}
 
         # Sometimes there is an ambiguity when someone adds a script 
         # while duplicating a UID. In such case, we will return >1 script
@@ -1671,6 +1671,12 @@ class CAutomation(Automation):
                     continue
 
                 filtered.append(script_artifact)
+
+            if len(lst) == 1 and not filtered:
+                script = lst[0]
+                meta = script_artifact.meta
+                variations = meta.get('variations', {})
+                r['warning'] = 'variation tags {} are not matching for the found script variations {}'.format(variation_tags, variations.keys())
 
             r['list'] = filtered
 
