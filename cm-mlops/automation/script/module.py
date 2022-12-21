@@ -381,10 +381,10 @@ class CAutomation(Automation):
         #############################################################################
         # Report if scripts were not found or there is an ambiguity with UIDs
         if not r['found_scripts']:
-            return {'return':1, 'error': 'no scripts were found with above tags (when variations ignored)'}
+            return {'return':1, 'error': 'No scripts were found with above tags (when variations ignored)'}
 
         if len(list_of_found_scripts) == 0:
-            return {'return':16, 'error':'no scripts were found with above tags and variations'}
+            return {'return':16, 'error':'No scripts were found with above tags and variations (scripts exist when variations are ignored)'}
 
         # Sometimes there is an ambiguity when someone adds a script 
         # while duplicating a UID. In such case, we will return >1 script
@@ -711,6 +711,7 @@ class CAutomation(Automation):
                         break
                 if all_base_processed:
                     break
+
         valid_variation_combinations = meta.get('valid_variation_combinations', [])
         if valid_variation_combinations:
             if not any ( all(t in variation_tags for t in s) for s in valid_variation_combinations):
@@ -745,8 +746,10 @@ class CAutomation(Automation):
 
                 variation_tag_dynamic_suffix = None
                 if variation_tag not in variations:
-                    if '.' in variation_tag:
+                    if '.' in variation_tag and variation_tag[-1] != '.':
                         variation_tag_dynamic_suffix = variation_tag[variation_tag.rindex(".")+1:]
+                        if not variation_tag_dynamic_suffix:
+                            return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
                         variation_tag = self._get_name_for_dynamic_variation_tag(variation_tag)
                     if variation_tag not in variations:
                         return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
@@ -754,7 +757,6 @@ class CAutomation(Automation):
                 variation_meta = variations[variation_tag]
                 if variation_tag_dynamic_suffix:
                     self._update_variation_meta_with_dynamic_suffix(variation_meta, variation_tag_dynamic_suffix)
-                    print(variation_meta)
 
 
 
@@ -1653,12 +1655,14 @@ class CAutomation(Automation):
 
                 matched = True
                 for t in variation_tags:
-                    if t in variations or t.startswith('-'):
+                    if t.startswith('-'):
+                        t = t[1:]
+                    if t in variations:
                         continue
                     matched = False
                     for s in variations:
-                        if s.endswith('#'):
-                            if t.startswith(s[:-1]):
+                        if s.endswith('.#'):
+                            if t.startswith(s[:-1]) and t[-1] != '.':
                                 matched = True
                                 break
                     if not matched:
@@ -1869,6 +1873,8 @@ class CAutomation(Automation):
         '''
         Returns the variation name in meta for the dynamic_variation_tag
         '''
+        if "." not in variation_tag or variation_tag[-1] == ".":
+            return None
         return variation_tag[:variation_tag.rindex(".")+1]+"#"
 
 
