@@ -130,7 +130,7 @@ There is no universal recipe how many times you should repeat your empirical exp
 since it heavily depends on the type of your experiments, platform and environment. 
 You should then analyze the distribution of execution times as shown in the figure below:
 
-![](image-994e7359d7760ab1-cropped.png)
+![](https://raw.githubusercontent.com/mlcommons/ck/master/docs/artifact-evaluation/image-994e7359d7760ab1-cropped.png)
 If you have more than one expected value (b), it means that you have several
 run-time states in your system (such as adaptive frequency scaling) 
 and you can not use average and reliably compare empirical results.
