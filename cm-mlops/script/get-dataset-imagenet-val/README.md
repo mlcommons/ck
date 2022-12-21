@@ -51,19 +51,19 @@ ___
 ### Variations
 #### All variations
 * 2012-1
-  - *ENV CM_DATASET_SIZE: 1*
-  - *ENV CM_DATASET_VER: 2012*
+  - *ENV CM_DATASET_SIZE*: `1`
+  - *ENV CM_DATASET_VER*: `2012`
 * **2012-500** (default)
-  - *ENV CM_DATASET_SIZE: 500*
-  - *ENV CM_DATASET_VER: 2012*
+  - *ENV CM_DATASET_SIZE*: `500`
+  - *ENV CM_DATASET_VER*: `2012`
 * 2012-full
-  - *ENV CM_DATASET_SIZE: 50000*
-  - *ENV CM_DATASET_VER: 2012*
-  - *ENV CM_IMAGENET_FULL: yes*
+  - *ENV CM_DATASET_SIZE*: `50000`
+  - *ENV CM_DATASET_VER*: `2012`
+  - *ENV CM_IMAGENET_FULL*: `yes`
 * full
-  - *ENV CM_DATASET_SIZE: 50000*
-  - *ENV CM_DATASET_VER: 2012*
-  - *ENV CM_IMAGENET_FULL: yes*
+  - *ENV CM_DATASET_SIZE*: `50000`
+  - *ENV CM_DATASET_VER*: `2012`
+  - *ENV CM_IMAGENET_FULL*: `yes`
 ___
 ### Default environment
 
@@ -114,7 +114,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,dataset,imagenet,ILSVRC,image-classification,original'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

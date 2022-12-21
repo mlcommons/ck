@@ -240,7 +240,6 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,${CM_MLPERF_CHOICE_S
   * `pytorch`
   * `tf`
   * `tvm-onnx`
-  * `tvm-pip-install-onnx`
 
 
 * **CM_MLPERF_CHOICE_DEVICE** :

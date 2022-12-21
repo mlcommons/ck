@@ -53,11 +53,12 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program/_cm.json)***
      * detect,cpu
-       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,compiler
-       - CM script [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
-       - CM script [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
-       - CM script [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
+       * CM names: `--adr.['compiler']...`
+       - CM script: [get-cl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cl)
+       - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
+       - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program/_cm.json)
   1. ***Run native script if exists***
@@ -83,16 +84,8 @@ ___
 * **CM_F_LINKER_FLAGS**
 * **CM_LD_LIBRARY_PATH**
 * **CM_LINKER_BIN**
-* **CM_LINKER_BIN**
-* **CM_LINKER_BIN**
-* **CM_LINKER_COMPILE_FLAGS**
-* **CM_LINKER_COMPILE_FLAGS**
 * **CM_LINKER_COMPILE_FLAGS**
 * **CM_LINKER_FLAGS**
-* **CM_LINKER_FLAGS**
-* **CM_LINKER_FLAGS**
-* **CM_LINKER_WITH_PATH**
-* **CM_LINKER_WITH_PATH**
 * **CM_LINKER_WITH_PATH**
 * **CM_SOURCE_FOLDER_PATH**
 ___
@@ -123,7 +116,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'compile,program,c-program,cpp-program,compile-program,compile-c-program,compile-cpp-program'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

@@ -88,8 +88,6 @@ ___
 * **CM_C_COMPILER_FLAG_OUTPUT**
 * **CM_C_COMPILER_FLAG_VERSION**
 * **CM_C_COMPILER_WITH_PATH**
-* **CM_TMP_PATH**
-* **CM_TMP_PATH_IGNORE_NON_EXISTANT**
 ___
 ### Usage
 
@@ -118,7 +116,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,cl,compiler,c-compiler,cpp-compiler,get-cl'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

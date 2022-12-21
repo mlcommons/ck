@@ -13,6 +13,8 @@ def preprocess(i):
         return {'return': 1, 'error': 'Please set CM_MLPERF_SUBMISSION_DIR'}
 
     submitter = env.get("CM_MLPERF_SUBMITTER", "default")
+    if ' ' in submitter:
+        return {'return': 1, 'error': 'CM_MLPERF_SUBMITTER cannot contain a space. Please provide a name without space using --submitter input. Given value: {}'.format(submitter)}
 
     if 'CM_MLPERF_SKIP_COMPLIANCE' in env: 
         skip_compliance = " --skip_compliance"

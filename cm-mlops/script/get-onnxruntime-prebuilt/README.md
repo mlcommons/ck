@@ -52,9 +52,9 @@ ___
 ### Variations
 #### All variations
 * **cpu** (default)
-  - *ENV CM_ONNXRUNTIME_DEVICE: *
+  - *ENV CM_ONNXRUNTIME_DEVICE*: ``
 * cuda
-  - *ENV CM_ONNXRUNTIME_DEVICE: gpu*
+  - *ENV CM_ONNXRUNTIME_DEVICE*: `gpu`
 ___
 ### Versions
 Default version: *1.12.1*
@@ -67,7 +67,7 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)***
      * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)
   1. ***Run native script if exists***
@@ -113,7 +113,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

@@ -53,50 +53,50 @@ ___
 ### Variations
 #### All variations
 * **cpu** (default)
-  - *ENV CM_MLPERF_DEVICE: cpu*
+  - *ENV CM_MLPERF_DEVICE*: `cpu`
 * cuda
-  - *ENV CM_MLPERF_DEVICE: gpu*
-  - *ENV CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart*
+  - *ENV CM_MLPERF_DEVICE*: `gpu`
+  - *ENV CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
 * **onnxruntime** (default)
-  - *ENV CM_MLPERF_BACKEND: onnxruntime*
-  - *ENV CM_MLPERF_BACKEND_LIB_NAMESPEC: onnxruntime*
+  - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
+  - *ENV CM_MLPERF_BACKEND_LIB_NAMESPEC*: `onnxruntime`
 * pytorch
-  - *ENV CM_MLPERF_BACKEND: pytorch*
+  - *ENV CM_MLPERF_BACKEND*: `pytorch`
 * **resnet50** (default)
-  - *ENV CM_MODEL: resnet50*
+  - *ENV CM_MODEL*: `resnet50`
 * retinanet
-  - *ENV CM_MODEL: retinanet*
+  - *ENV CM_MODEL*: `retinanet`
 * tf
-  - *ENV CM_MLPERF_BACKEND: tf*
+  - *ENV CM_MLPERF_BACKEND*: `tf`
 * tflite
-  - *ENV CM_MLPERF_BACKEND: tflite*
+  - *ENV CM_MLPERF_BACKEND*: `tflite`
 * tvm-onnx
-  - *ENV CM_MLPERF_BACKEND: tvm-onnx*
+  - *ENV CM_MLPERF_BACKEND*: `tvm-onnx`
 
 #### Variations by groups
 
   * device,
     * **cpu** (default)
-      - *ENV CM_MLPERF_DEVICE: cpu*
+      - *ENV CM_MLPERF_DEVICE*: `cpu`
 
   * framework,
     * **onnxruntime** (default)
-      - *ENV CM_MLPERF_BACKEND: onnxruntime*
-      - *ENV CM_MLPERF_BACKEND_LIB_NAMESPEC: onnxruntime*
+      - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
+      - *ENV CM_MLPERF_BACKEND_LIB_NAMESPEC*: `onnxruntime`
     * pytorch
-      - *ENV CM_MLPERF_BACKEND: pytorch*
+      - *ENV CM_MLPERF_BACKEND*: `pytorch`
     * tf
-      - *ENV CM_MLPERF_BACKEND: tf*
+      - *ENV CM_MLPERF_BACKEND*: `tf`
     * tflite
-      - *ENV CM_MLPERF_BACKEND: tflite*
+      - *ENV CM_MLPERF_BACKEND*: `tflite`
     * tvm-onnx
-      - *ENV CM_MLPERF_BACKEND: tvm-onnx*
+      - *ENV CM_MLPERF_BACKEND*: `tvm-onnx`
 
   * model,
     * **resnet50** (default)
-      - *ENV CM_MODEL: resnet50*
+      - *ENV CM_MODEL*: `resnet50`
     * retinanet
-      - *ENV CM_MODEL: retinanet*
+      - *ENV CM_MODEL*: `retinanet`
 ___
 ### Default environment
 
@@ -108,29 +108,40 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)***
      * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
-       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,sys-utils-cm
-       - CM script [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
+       - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
      * get,cuda,_cudnn
-       - CM script [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+       * `if (CM_MLPERF_DEVICE  == gpu)`
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,loadgen
-       - CM script [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
+       * CM names: `--adr.['loadgen']...`
+       - CM script: [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
      * get,mlcommons,inference,src
-       - CM script [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+       * CM names: `--adr.['inference-src']...`
+       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,lib,onnxruntime,lang-cpp,_cpu
-       - CM script [get-onnxruntime-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == cpu)`
+       - CM script: [get-onnxruntime-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)
      * get,lib,onnxruntime,lang-cpp,_cuda
-       - CM script [get-onnxruntime-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == gpu)`
+       - CM script: [get-onnxruntime-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt)
      * get,dataset,preprocessed,imagenet,_NCHW
-       - CM script [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
+       * `if (CM_MODEL  == resnet50)`
+       * CM names: `--adr.['imagenet-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,ml-model,raw,resnet50,_onnx
-       - CM script [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+       * `if (CM_MODEL  == resnet50)`
+       - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
      * get,dataset,preprocessed,openimages,_validation,_NCHW
-       - CM script [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
+       * `if (CM_MODEL  == retinanet)`
+       * CM names: `--adr.['openimages-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
      * get,ml-model,retinanet,_onnx,_fp32
-       - CM script [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
+       * `if (CM_MODEL  == retinanet)`
+       - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)
   1. ***Run native script if exists***
@@ -139,9 +150,11 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)***
      * compile,cpp-program
-       - CM script [compile-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)
+       * CM names: `--adr.['compile-program']...`
+       - CM script: [compile-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)
      * benchmark,program
-       - CM script [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
+       * CM names: `--adr.['runner']...`
+       - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
 ___
 ### New environment export
 
@@ -187,7 +200,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'app,mlcommons,mlperf,inference,cpp'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

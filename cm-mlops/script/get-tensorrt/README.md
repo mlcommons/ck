@@ -54,11 +54,13 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)***
      * get,cuda,_cudnn
-       - CM script [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+       * CM names: `--adr.['cuda']...`
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,python3
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)
   1. ***Run native script if exists***
@@ -80,7 +82,6 @@ ___
 
 * **CM_TENSORRT_INSTALL_PATH**
 * **CM_TENSORRT_VERSION**
-* **CM_TMP_PATH**
 ___
 ### Usage
 
@@ -109,7 +110,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,tensorrt,nvidia'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])
@@ -120,15 +125,15 @@ if r['return']>0:
 
 #### Script input flags mapped to environment
 
-* tar_file --> **CM_TENSORRT_TAR_FILE_WITH_PATH**
+* input --> **CM_INPUT**
 
 Examples:
 
 ```bash
-cm run script "get tensorrt nvidia" --tar_file=...
+cm run script "get tensorrt nvidia" --input=...
 ```
 ```python
-r=cm.access({... , "tar_file":"..."}
+r=cm.access({... , "input":"..."}
 ```
 ___
 ### Maintainers

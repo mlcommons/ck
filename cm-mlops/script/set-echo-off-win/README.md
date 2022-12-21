@@ -92,7 +92,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'set,echo,off,win,echo-off-win,echo-off'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

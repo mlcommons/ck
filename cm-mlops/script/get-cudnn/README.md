@@ -49,15 +49,19 @@ get,cudnn,nvidia
 ___
 ### Default environment
 
+* CM_SUDO: **sudo**
+* CM_INPUT: ****
 ___
 ### CM script workflow
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)***
      * get,cuda
-       - CM script [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+       * CM names: `--adr.['cuda']...`
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)
   1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)
@@ -102,7 +106,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,cudnn,nvidia'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])
@@ -113,15 +121,15 @@ if r['return']>0:
 
 #### Script input flags mapped to environment
 
-* tar_file --> **CM_CUDNN_TAR_FILE_WITH_PATH**
+* input --> **CM_INPUT**
 
 Examples:
 
 ```bash
-cm run script "get cudnn nvidia" --tar_file=...
+cm run script "get cudnn nvidia" --input=...
 ```
 ```python
-r=cm.access({... , "tar_file":"..."}
+r=cm.access({... , "input":"..."}
 ```
 ___
 ### Maintainers

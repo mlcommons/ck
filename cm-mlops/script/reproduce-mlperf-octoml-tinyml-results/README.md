@@ -53,21 +53,21 @@ ___
 ### Variations
 #### All variations
 * NRF
-  - *ENV CM_TINY_BOARD: NRF5340DK*
+  - *ENV CM_TINY_BOARD*: `NRF5340DK`
 * NUCLEO
-  - *ENV CM_TINY_BOARD: NUCLEO_L4R5ZI*
+  - *ENV CM_TINY_BOARD*: `NUCLEO_L4R5ZI`
 * ad
-  - *ENV CM_TINY_MODEL: ad*
+  - *ENV CM_TINY_MODEL*: `ad`
 * cmsis_nn
-  - *ENV CM_MICROTVM_VARIANT: microtvm_cmsis_nn*
+  - *ENV CM_MICROTVM_VARIANT*: `microtvm_cmsis_nn`
 * ic
-  - *ENV CM_TINY_MODEL: ic*
+  - *ENV CM_TINY_MODEL*: `ic`
 * kws
-  - *ENV CM_TINY_MODEL: kws*
+  - *ENV CM_TINY_MODEL*: `kws`
 * native
-  - *ENV CM_MICROTVM_VARIANT: microtvm_native*
+  - *ENV CM_MICROTVM_VARIANT*: `microtvm_native`
 * vww
-  - *ENV CM_TINY_MODEL: vww*
+  - *ENV CM_TINY_MODEL*: `vww`
 ___
 ### Versions
 Default version: *r1.0*
@@ -81,25 +81,31 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results/_cm.json)***
      * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
-       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,sys-utils-cm
-       - CM script [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
+       - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
      * get,python3
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * CM names: `--adr.['python3', 'python']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,zephyr
-       - CM script [get-zephyr](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr)
+       * CM names: `--adr.['zephyr']...`
+       - CM script: [get-zephyr](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr)
      * get,zephyr-sdk
-       - CM script [get-zephyr-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk)
+       * CM names: `--adr.['zephyr-sdk']...`
+       - CM script: [get-zephyr-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk)
      * get,cmsis
-       - CM script [get-cmsis_5](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmsis_5)
+       * CM names: `--adr.['cmsis']...`
+       - CM script: [get-cmsis_5](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmsis_5)
      * get,microtvm
-       - CM script [get-microtvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm)
+       * CM names: `--adr.['microtvm']...`
+       - CM script: [get-microtvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm)
      * get,cmake
-       - CM script [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
+       * CM names: `--adr.['cmake']...`
+       - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
      * get,gcc
-       - CM script [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
+       - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results/_cm.json)
   1. ***Run native script if exists***
@@ -108,7 +114,8 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results/_cm.json)***
      * flash,tiny,mlperf
-       - CM script [flash-tinyml-binary](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary)
+       * `if (CM_FLASH_BOARD  == True)`
+       - CM script: [flash-tinyml-binary](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary)
 ___
 ### New environment export
 
@@ -146,7 +153,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'reproduce,tiny,results,mlperf,octoml,mlcommons'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

@@ -47,6 +47,11 @@
         "CM_DATASET_VER": "2012",
         "CM_IMAGENET_FULL": "yes"
       }
+    },
+    "size.#": {
+      "env": {
+        "CM_DATASET_SIZE": "#"
+      }
     }
   }
 }

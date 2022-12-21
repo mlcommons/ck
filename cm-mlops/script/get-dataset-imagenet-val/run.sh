@@ -2,7 +2,7 @@
 
 if [ ${CM_IMAGENET_FULL:-no} == "yes" ]; then
   if [ -z ${IMAGENET_PATH} ]; then
-    echo "Please set IMAGENET_PATH to the folder containing full imagenet images"
+    echo "Please set IMAGENET_PATH to the folder containing full imagenet images. You can request access to it at https://image-net.org/download.php"
     exit 1
   fi
   echo "CM_DATASET_PATH=${IMAGENET_PATH}" > tmp-run-env.out

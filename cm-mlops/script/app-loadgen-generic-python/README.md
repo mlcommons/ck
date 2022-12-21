@@ -53,33 +53,33 @@ ___
 ### Variations
 #### All variations
 * **cpu** (default)
-  - *ENV CM_MLPERF_DEVICE: cpu*
+  - *ENV CM_MLPERF_DEVICE*: `cpu`
 * cuda
-  - *ENV CM_MLPERF_DEVICE: gpu*
+  - *ENV CM_MLPERF_DEVICE*: `gpu`
 * **onnxruntime** (default)
-  - *ENV CM_MLPERF_BACKEND: onnxruntime*
+  - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
 * resnet50
-  - *ENV CM_MODEL: resnet50*
+  - *ENV CM_MODEL*: `resnet50`
 * retinanet
-  - *ENV CM_MODEL: retinanet*
+  - *ENV CM_MODEL*: `retinanet`
 
 #### Variations by groups
 
   * backend
     * **onnxruntime** (default)
-      - *ENV CM_MLPERF_BACKEND: onnxruntime*
+      - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
 
   * device
     * **cpu** (default)
-      - *ENV CM_MLPERF_DEVICE: cpu*
+      - *ENV CM_MLPERF_DEVICE*: `cpu`
     * cuda
-      - *ENV CM_MLPERF_DEVICE: gpu*
+      - *ENV CM_MLPERF_DEVICE*: `gpu`
 
   * models
     * resnet50
-      - *ENV CM_MODEL: resnet50*
+      - *ENV CM_MODEL*: `resnet50`
     * retinanet
-      - *ENV CM_MODEL: retinanet*
+      - *ENV CM_MODEL*: `retinanet`
 ___
 ### Default environment
 
@@ -90,28 +90,39 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)***
      * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
-       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,python3
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,generic-python-lib,_psutil
-       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,cuda
-       - CM script [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+       * `if (CM_MLPERF_DEVICE  == gpu)`
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,loadgen
-       - CM script [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
+       * CM names: `--adr.['loadgen']...`
+       - CM script: [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
      * get,generic-python-lib,_onnxruntime
-       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == cpu)`
+       * CM names: `--adr.['onnxruntime']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnxruntime_gpu
-       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == gpu)`
+       * CM names: `--adr.['onnxruntime']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_onnx
-       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+       * `if (CM_MLPERF_BACKEND  == onnxruntime)`
+       * CM names: `--adr.['onnx']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,ml-model,resnet50,_onnx
-       - CM script [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
-       - CM script [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
+       * `if (CM_MODEL  == resnet50)`
+       - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+       - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
      * get,ml-model,retinanet,_onnx,_fp32
-       - CM script [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
+       * `if (CM_MODEL  == retinanet)`
+       - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
   1. ***Run native script if exists***
@@ -156,7 +167,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'app,loadgen,generic,loadgen-generic,python'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

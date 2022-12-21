@@ -6,9 +6,15 @@
   "category": "CUDA automation",
   "category_sort": 7000,
   "clean_files": [],
-  "env": {},
+  "default_env": {
+    "CM_SUDO": "sudo",
+    "CM_INPUT": ""
+  },
   "input_mapping": {
-    "tar_file": "CM_CUDNN_TAR_FILE_WITH_PATH"
+    "input": "CM_INPUT"
+  },
+  "input_description": {
+    "input": "Path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)"
   },
   "deps": [
     {

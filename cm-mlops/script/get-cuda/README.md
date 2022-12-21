@@ -51,7 +51,7 @@ ___
 ### Variations
 #### All variations
 * cudnn
-  - *ENV CM_CUDA_NEEDS_CUDNN: yes*
+  - *ENV CM_CUDA_NEEDS_CUDNN*: `yes`
 ___
 ### Default environment
 
@@ -64,7 +64,8 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)***
      * install,cuda,prebuilt
-       - CM script [install-cuda-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)
+       * `if (CM_REQUIRE_INSTALL  == yes)`
+       - CM script: [install-cuda-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/run.sh)
@@ -93,13 +94,8 @@ ___
 * **CM_CUDA_PATH_LIB**
 * **CM_CUDA_PATH_LIB_CUDNN**
 * **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
-* **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
 * **CM_NVCC_BIN**
 * **CM_REQUIRE_INSTALL**
-* **CM_TMP_PATH**
-* **CM_TMP_PATH**
-* **CM_TMP_PATH_IGNORE_NON_EXISTANT**
-* **CM_TMP_PATH_IGNORE_NON_EXISTANT**
 ___
 ### Usage
 
@@ -128,7 +124,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,cuda,nvcc,get-nvcc,get-cuda'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

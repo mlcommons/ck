@@ -52,118 +52,118 @@ ___
 ### Variations
 #### All variations
 * **fp32** (default)
-  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: fp32*
-  - *ENV CM_ML_MODEL_PRECISION: fp32*
-  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32*
+  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+  - *ENV CM_ML_MODEL_PRECISION*: `fp32`
+  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
 * int8
-  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: int8*
-  - *ENV CM_ML_MODEL_PRECISION: int8*
-  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: int8*
+  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `int8`
+  - *ENV CM_ML_MODEL_PRECISION*: `int8`
+  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `int8`
 * **onnx** (default)
-  - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
-  - *ENV CM_ML_MODEL_FRAMEWORK: onnx*
-  - *ENV CM_ML_MODEL_INPUT_LAYERS: input_tensor:0*
-  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME: input_tensor:0*
-  - *ENV CM_ML_MODEL_OUTPUT_LAYERS: softmax_tensor:0*
-  - *ENV CM_ML_MODEL_INPUT_SHAPES: \"input_tensor:0\": (BATCH_SIZE, 3, 224, 224)*
-  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME: softmax_tensor:0*
-  - *ENV CM_ML_MODEL_VER: 1.5*
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `onnx`
+  - *ENV CM_ML_MODEL_INPUT_LAYERS*: `input_tensor:0`
+  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor:0`
+  - *ENV CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor:0`
+  - *ENV CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor:0\": (BATCH_SIZE, 3, 224, 224)`
+  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor:0`
+  - *ENV CM_ML_MODEL_VER*: `1.5`
 * onnx,opset-11
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/4735647/files/resnet50_v1.onnx*
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/4735647/files/resnet50_v1.onnx`
 * onnx,opset-8
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/2592612/files/resnet50_v1.onnx*
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/2592612/files/resnet50_v1.onnx`
 * onnxruntime
 * opset-11
-  - *ENV CM_ML_MODEL_ONNX_OPSET: 11*
+  - *ENV CM_ML_MODEL_ONNX_OPSET*: `11`
 * opset-8
-  - *ENV CM_ML_MODEL_ONNX_OPSET: 8*
+  - *ENV CM_ML_MODEL_ONNX_OPSET*: `8`
 * pytorch
-  - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
-  - *ENV CM_ML_MODEL_FRAMEWORK: pytorch*
-  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME: ?*
-  - *ENV CM_ML_MODEL_OUTPUT_LAYERS: output*
-  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME: ?*
-  - *ENV CM_ML_MODEL_INPUT_SHAPES: (\"input_tensor:0\", [BATCH_SIZE, 3, 224, 224])*
-  - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS: ?*
-  - *ENV CM_ML_STARTING_WEIGHTS_FILENAME: <<<CM_PACKAGE_URL>>>*
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `pytorch`
+  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `?`
+  - *ENV CM_ML_MODEL_OUTPUT_LAYERS*: `output`
+  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME*: `?`
+  - *ENV CM_ML_MODEL_INPUT_SHAPES*: `(\"input_tensor:0\", [BATCH_SIZE, 3, 224, 224])`
+  - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `?`
+  - *ENV CM_ML_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
 * pytorch,fp32
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth*
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/4588417/files/resnet50-19c8e357.pth`
 * pytorch,int8
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/4589637/files/resnet50_INT8bit_quantized.pt*
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/4589637/files/resnet50_INT8bit_quantized.pt`
 * tensorflow
-  - *ENV CM_ML_MODEL_ACCURACY: 76.456*
-  - *ENV CM_ML_MODEL_DATA_LAYOUT: NHWC*
-  - *ENV CM_ML_MODEL_FRAMEWORK: tensorflow*
-  - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS: 123.68 116.78 103.94*
-  - *ENV CM_ML_MODEL_INPUT_LAYERS: input_tensor*
-  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME: input_tensor*
-  - *ENV CM_ML_MODEL_NORMALIZE_DATA: 0*
-  - *ENV CM_ML_MODEL_OUTPUT_LAYERS: softmax_tensor*
-  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME: softmax_tensor*
-  - *ENV CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: <<<CM_PACKAGE_URL>>>*
-  - *ENV CM_ML_MODEL_SUBTRACT_MEAN: YES*
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/2535873/files/resnet50_v1.pb*
+  - *ENV CM_ML_MODEL_ACCURACY*: `76.456`
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `tensorflow`
+  - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+  - *ENV CM_ML_MODEL_INPUT_LAYERS*: `input_tensor`
+  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor`
+  - *ENV CM_ML_MODEL_NORMALIZE_DATA*: `0`
+  - *ENV CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor`
+  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor`
+  - *ENV CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
+  - *ENV CM_ML_MODEL_SUBTRACT_MEAN*: `YES`
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/2535873/files/resnet50_v1.pb`
 * tf
 * tflite
 * uint8
-  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: uint8*
-  - *ENV CM_ML_MODEL_PRECISION: uint8*
-  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: uint8*
+  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `uint8`
+  - *ENV CM_ML_MODEL_PRECISION*: `uint8`
+  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `uint8`
 
 #### Variations by groups
 
   * framework
     * **onnx** (default)
-      - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
-      - *ENV CM_ML_MODEL_FRAMEWORK: onnx*
-      - *ENV CM_ML_MODEL_INPUT_LAYERS: input_tensor:0*
-      - *ENV CM_ML_MODEL_INPUT_LAYER_NAME: input_tensor:0*
-      - *ENV CM_ML_MODEL_OUTPUT_LAYERS: softmax_tensor:0*
-      - *ENV CM_ML_MODEL_INPUT_SHAPES: \"input_tensor:0\": (BATCH_SIZE, 3, 224, 224)*
-      - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME: softmax_tensor:0*
-      - *ENV CM_ML_MODEL_VER: 1.5*
+      - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
+      - *ENV CM_ML_MODEL_FRAMEWORK*: `onnx`
+      - *ENV CM_ML_MODEL_INPUT_LAYERS*: `input_tensor:0`
+      - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor:0`
+      - *ENV CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor:0`
+      - *ENV CM_ML_MODEL_INPUT_SHAPES*: `\"input_tensor:0\": (BATCH_SIZE, 3, 224, 224)`
+      - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor:0`
+      - *ENV CM_ML_MODEL_VER*: `1.5`
     * pytorch
-      - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
-      - *ENV CM_ML_MODEL_FRAMEWORK: pytorch*
-      - *ENV CM_ML_MODEL_INPUT_LAYER_NAME: ?*
-      - *ENV CM_ML_MODEL_OUTPUT_LAYERS: output*
-      - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME: ?*
-      - *ENV CM_ML_MODEL_INPUT_SHAPES: (\"input_tensor:0\", [BATCH_SIZE, 3, 224, 224])*
-      - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS: ?*
-      - *ENV CM_ML_STARTING_WEIGHTS_FILENAME: <<<CM_PACKAGE_URL>>>*
+      - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
+      - *ENV CM_ML_MODEL_FRAMEWORK*: `pytorch`
+      - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `?`
+      - *ENV CM_ML_MODEL_OUTPUT_LAYERS*: `output`
+      - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME*: `?`
+      - *ENV CM_ML_MODEL_INPUT_SHAPES*: `(\"input_tensor:0\", [BATCH_SIZE, 3, 224, 224])`
+      - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `?`
+      - *ENV CM_ML_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
     * tensorflow
-      - *ENV CM_ML_MODEL_ACCURACY: 76.456*
-      - *ENV CM_ML_MODEL_DATA_LAYOUT: NHWC*
-      - *ENV CM_ML_MODEL_FRAMEWORK: tensorflow*
-      - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS: 123.68 116.78 103.94*
-      - *ENV CM_ML_MODEL_INPUT_LAYERS: input_tensor*
-      - *ENV CM_ML_MODEL_INPUT_LAYER_NAME: input_tensor*
-      - *ENV CM_ML_MODEL_NORMALIZE_DATA: 0*
-      - *ENV CM_ML_MODEL_OUTPUT_LAYERS: softmax_tensor*
-      - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME: softmax_tensor*
-      - *ENV CM_ML_MODEL_STARTING_WEIGHTS_FILENAME: <<<CM_PACKAGE_URL>>>*
-      - *ENV CM_ML_MODEL_SUBTRACT_MEAN: YES*
-      - *ENV CM_PACKAGE_URL: https://zenodo.org/record/2535873/files/resnet50_v1.pb*
+      - *ENV CM_ML_MODEL_ACCURACY*: `76.456`
+      - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
+      - *ENV CM_ML_MODEL_FRAMEWORK*: `tensorflow`
+      - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+      - *ENV CM_ML_MODEL_INPUT_LAYERS*: `input_tensor`
+      - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor`
+      - *ENV CM_ML_MODEL_NORMALIZE_DATA*: `0`
+      - *ENV CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor`
+      - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor`
+      - *ENV CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
+      - *ENV CM_ML_MODEL_SUBTRACT_MEAN*: `YES`
+      - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/2535873/files/resnet50_v1.pb`
 
   * opset-version
     * opset-11
-      - *ENV CM_ML_MODEL_ONNX_OPSET: 11*
+      - *ENV CM_ML_MODEL_ONNX_OPSET*: `11`
     * opset-8
-      - *ENV CM_ML_MODEL_ONNX_OPSET: 8*
+      - *ENV CM_ML_MODEL_ONNX_OPSET*: `8`
 
   * precision
     * **fp32** (default)
-      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: fp32*
-      - *ENV CM_ML_MODEL_PRECISION: fp32*
-      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32*
+      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+      - *ENV CM_ML_MODEL_PRECISION*: `fp32`
+      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
     * int8
-      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: int8*
-      - *ENV CM_ML_MODEL_PRECISION: int8*
-      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: int8*
+      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `int8`
+      - *ENV CM_ML_MODEL_PRECISION*: `int8`
+      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `int8`
     * uint8
-      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: uint8*
-      - *ENV CM_ML_MODEL_PRECISION: uint8*
-      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: uint8*
+      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `uint8`
+      - *ENV CM_ML_MODEL_PRECISION*: `uint8`
+      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `uint8`
 ___
 ### Default environment
 
@@ -216,7 +216,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,raw,ml-model,resnet50,ml-model-resnet50,image-classification'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

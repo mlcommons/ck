@@ -52,7 +52,7 @@ ___
 ### Variations
 #### All variations
 * backup
-  - *ENV CM_BACKUP_ZIPS: yes*
+  - *ENV CM_BACKUP_ZIPS*: `yes`
 ___
 ### Default environment
 
@@ -103,7 +103,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,dataset,criteo,original'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

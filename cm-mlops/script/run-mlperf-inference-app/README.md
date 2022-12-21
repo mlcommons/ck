@@ -53,27 +53,27 @@ ___
 ### Variations
 #### All variations
 * all-modes
-  - *ENV CM_MLPERF_LOADGEN_ALL_MODES: yes*
+  - *ENV CM_MLPERF_LOADGEN_ALL_MODES*: `yes`
 * all-scenarios
-  - *ENV CM_MLPERF_LOADGEN_ALL_SCENARIOS: yes*
+  - *ENV CM_MLPERF_LOADGEN_ALL_SCENARIOS*: `yes`
 * compliance
-  - *ENV CM_MLPERF_LOADGEN_COMPLIANCE: yes*
+  - *ENV CM_MLPERF_LOADGEN_COMPLIANCE*: `yes`
 * dashboard
-  - *ENV CM_MLPERF_DASHBOARD: on*
+  - *ENV CM_MLPERF_DASHBOARD*: `on`
 * fast
-  - *ENV CM_FAST_FACTOR: 5*
-  - *ENV CM_OUTPUT_FOLDER_NAME: fast_results*
-  - *ENV CM_MLPERF_RUN_STYLE: fast*
+  - *ENV CM_FAST_FACTOR*: `5`
+  - *ENV CM_OUTPUT_FOLDER_NAME*: `fast_results`
+  - *ENV CM_MLPERF_RUN_STYLE*: `fast`
 * short
 * submission
-  - *ENV CM_MLPERF_SUBMISSION_RUN: yes*
-  - *ENV CM_RUN_SUBMISSION_CHECKER: yes*
-  - *ENV CM_TAR_SUBMISSION_DIR: yes*
-  - *ENV CM_RUN_MLPERF_ACCURACY: on*
+  - *ENV CM_MLPERF_SUBMISSION_RUN*: `yes`
+  - *ENV CM_RUN_SUBMISSION_CHECKER*: `yes`
+  - *ENV CM_TAR_SUBMISSION_DIR*: `yes`
+  - *ENV CM_RUN_MLPERF_ACCURACY*: `on`
 * valid
-  - *ENV CM_OUTPUT_FOLDER_NAME: valid_results*
-  - *ENV CM_MLPERF_RUN_STYLE: valid*
-  - *ENV CM_RUN_MLPERF_ACCURACY: on*
+  - *ENV CM_OUTPUT_FOLDER_NAME*: `valid_results`
+  - *ENV CM_MLPERF_RUN_STYLE*: `valid`
+  - *ENV CM_RUN_MLPERF_ACCURACY*: `on`
 ___
 ### Versions
 * master
@@ -91,13 +91,15 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)***
      * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
-       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,python
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,mlcommons,inference,src
-       - CM script [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+       * CM names: `--adr.['inference-src']...`
+       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)
   1. ***Run native script if exists***
@@ -117,12 +119,8 @@ ___
 * **CM_MLPERF_LOADGEN_COMPLIANCE_TEST**
 * **CM_MLPERF_LOADGEN_EXTRA_OPTIONS**
 * **CM_MLPERF_LOADGEN_MODE**
-* **CM_MLPERF_LOADGEN_MODE**
-* **CM_MLPERF_LOADGEN_MODES**
 * **CM_MLPERF_LOADGEN_MODES**
 * **CM_MLPERF_LOADGEN_SCENARIO**
-* **CM_MLPERF_LOADGEN_SCENARIO**
-* **CM_MLPERF_LOADGEN_SCENARIOS**
 * **CM_MLPERF_LOADGEN_SCENARIOS**
 * **CM_MLPERF_RESULTS_DIR**
 * **CM_MODEL**
@@ -155,7 +153,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

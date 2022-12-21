@@ -58,7 +58,8 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv/customize.py)***
   1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv/_cm.json)***
      * install,python-venv
-       - CM script [install-python-venv](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv)
+       * CM names: `--adr.['python-venv']...`
+       - CM script: [install-python-venv](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv/run.sh)
@@ -99,7 +100,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'activate,python,activate-python-venv,python-venv'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

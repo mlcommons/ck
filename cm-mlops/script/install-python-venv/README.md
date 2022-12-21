@@ -53,7 +53,7 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/_cm.json)***
      * get,python,-virtual
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/_cm.json)
   1. ***Run native script if exists***
@@ -63,7 +63,8 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/_cm.json)***
      * get,python
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * CM names: `--adr.['register-python']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
 ___
 ### New environment export
 
@@ -74,8 +75,6 @@ ___
 
 * **CM_PYTHON_BIN_WITH_PATH**
 * **CM_PYTHON_INSTALLED_PATH**
-* **CM_TMP_FAIL_IF_NOT_FOUND**
-* **CM_TMP_PATH**
 * **CM_VIRTUAL_ENV_DIR**
 * **CM_VIRTUAL_ENV_PATH**
 * **CM_VIRTUAL_ENV_SCRIPTS_PATH**
@@ -107,7 +106,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'install,python,get-python-venv,python-venv'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

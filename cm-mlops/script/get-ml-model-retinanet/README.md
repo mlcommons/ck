@@ -52,44 +52,44 @@ ___
 ### Variations
 #### All variations
 * **fp32** (default)
-  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: fp32*
-  - *ENV CM_ML_MODEL_PRECISION: fp32*
-  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32*
+  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+  - *ENV CM_ML_MODEL_PRECISION*: `fp32`
+  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
 * **onnx** (default)
-  - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
-  - *ENV CM_ML_MODEL_FRAMEWORK: onnx*
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `onnx`
 * onnx,fp32
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/6617879/files/resnext50_32x4d_fpn.onnx*
-  - *ENV CM_ML_MODEL_ACCURACY: 0.3757*
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/6617879/files/resnext50_32x4d_fpn.onnx`
+  - *ENV CM_ML_MODEL_ACCURACY*: `0.3757`
 * pytorch
-  - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
-  - *ENV CM_ML_MODEL_FRAMEWORK: pytorch*
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `pytorch`
 * pytorch,fp32
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth*
-  - *ENV CM_ML_MODEL_ACCURACY: 0.3755*
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/6617981/files/resnext50_32x4d_fpn.pth`
+  - *ENV CM_ML_MODEL_ACCURACY*: `0.3755`
 * pytorch,fp32,weights
-  - *ENV CM_PACKAGE_URL: https://zenodo.org/record/6605272/files/retinanet_model_10.zip?download=1*
-  - *ENV CM_UNZIP: yes*
-  - *ENV CM_ML_MODEL_FILE: retinanet_model_10.pth*
-  - *ENV CM_ML_MODEL_ACCURACY: 0.3755*
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/6605272/files/retinanet_model_10.zip?download=1`
+  - *ENV CM_UNZIP*: `yes`
+  - *ENV CM_ML_MODEL_FILE*: `retinanet_model_10.pth`
+  - *ENV CM_ML_MODEL_ACCURACY*: `0.3755`
 * weights
-  - *ENV CM_MODEL_WEIGHTS_FILE: yes*
+  - *ENV CM_MODEL_WEIGHTS_FILE*: `yes`
 
 #### Variations by groups
 
   * framework
     * **onnx** (default)
-      - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
-      - *ENV CM_ML_MODEL_FRAMEWORK: onnx*
+      - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
+      - *ENV CM_ML_MODEL_FRAMEWORK*: `onnx`
     * pytorch
-      - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
-      - *ENV CM_ML_MODEL_FRAMEWORK: pytorch*
+      - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
+      - *ENV CM_ML_MODEL_FRAMEWORK*: `pytorch`
 
   * precision
     * **fp32** (default)
-      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES: fp32*
-      - *ENV CM_ML_MODEL_PRECISION: fp32*
-      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES: fp32*
+      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+      - *ENV CM_ML_MODEL_PRECISION*: `fp32`
+      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
 ___
 ### Default environment
 
@@ -111,7 +111,6 @@ ___
 ### New environment detected from customize
 
 * **CM_ML_MODEL_FILE**
-* **CM_ML_MODEL_FILE_WITH_PATH**
 * **CM_ML_MODEL_FILE_WITH_PATH**
 * **CM_ML_MODEL_PATH**
 ___
@@ -142,7 +141,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,ml-model,resnext50,retinanet,object-detection'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

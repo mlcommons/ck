@@ -52,35 +52,35 @@ ___
 ### Variations
 #### All variations
 * 1
-  - *ENV CM_DATASET_SIZE: 1*
+  - *ENV CM_DATASET_SIZE*: `1`
 * 500
-  - *ENV CM_DATASET_SIZE: 500*
+  - *ENV CM_DATASET_SIZE*: `500`
 * NCHW
-  - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
 * NHWC
-  - *ENV CM_ML_MODEL_DATA_LAYOUT: NHWC*
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
 * for.mobilenet
-  - *ENV CM_IMAGENET_QUANTIZED: no*
-  - *ENV CM_MODEL: mobilenet*
+  - *ENV CM_IMAGENET_QUANTIZED*: `no`
+  - *ENV CM_MODEL*: `mobilenet`
 * for.mobilenet-quantized
-  - *ENV CM_IMAGENET_QUANTIZED: yes*
+  - *ENV CM_IMAGENET_QUANTIZED*: `yes`
 * for.resnet50
-  - *ENV CM_IMAGENET_QUANTIZED: no*
-  - *ENV CM_MODEL: resnet50*
+  - *ENV CM_IMAGENET_QUANTIZED*: `no`
+  - *ENV CM_MODEL*: `resnet50`
 * for.resnet50-quantized
-  - *ENV CM_IMAGENET_QUANTIZED: yes*
-  - *ENV CM_MODEL: resnet50*
-  - *ENV CM_NEW_EXTENSION: rgb8*
-  - *ENV CM_NORMALIZE_DATA: 0*
-  - *ENV CM_SUBTRACT_MEAN: YES*
-  - *ENV CM_GIVEN_CHANNEL_MEANS: 123.68 116.78 103.94*
-  - *ENV CM_INTERPOLATION_METHOD: INTER_AREA*
-  - *ENV CM_QUANT_SCALE: 1.18944883*
-  - *ENV CM_QUANT_OFFSET: 0*
-  - *ENV CM_QUANTIZE: 1*
-  - *ENV CM_CONVERT_TO_UNSIGNED: 1*
+  - *ENV CM_IMAGENET_QUANTIZED*: `yes`
+  - *ENV CM_MODEL*: `resnet50`
+  - *ENV CM_NEW_EXTENSION*: `rgb8`
+  - *ENV CM_NORMALIZE_DATA*: `0`
+  - *ENV CM_SUBTRACT_MEAN*: `YES`
+  - *ENV CM_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+  - *ENV CM_INTERPOLATION_METHOD*: `INTER_AREA`
+  - *ENV CM_QUANT_SCALE*: `1.18944883`
+  - *ENV CM_QUANT_OFFSET*: `0`
+  - *ENV CM_QUANTIZE*: `1`
+  - *ENV CM_CONVERT_TO_UNSIGNED*: `1`
 * full
-  - *ENV CM_DATASET_SIZE: 50000*
+  - *ENV CM_DATASET_SIZE*: `50000`
 ___
 ### Default environment
 
@@ -96,17 +96,24 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/_cm.json)***
      * get,python3
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * `if (CM_IMAGENET_PREPROCESSED_PATH  != on)`
+       * CM names: `--adr.['python3', 'python']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,dataset,image-classification,original
-       - CM script [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
+       * `if (CM_IMAGENET_PREPROCESSED_PATH  != on)`
+       * CM names: `--adr.['original-dataset']...`
+       - CM script: [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
      * get,dataset-aux,image-classification,imagenet-aux
-       - CM script [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
+       * `if (CM_IMAGENET_PREPROCESSED_PATH  != on)`
+       - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
      * mlperf,mlcommons,inference,source,src
-       - CM script [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+       * `if (CM_IMAGENET_QUANTIZED  == no) AND (CM_IMAGENET_PREPROCESSED_PATH  != on)`
+       * CM names: `--adr.['inference-src']...`
+       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,generic-python-lib,_opencv-python
-       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pillow
-       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/_cm.json)
   1. ***Run native script if exists***
@@ -123,7 +130,6 @@ ___
 ### New environment detected from customize
 
 * **CM_DATASET_PREPROCESSED_FULL_PATH**
-* **CM_DATASET_PREPROCESSED_PATH**
 * **CM_DATASET_PREPROCESSED_PATH**
 * **CM_QUANTIZE**
 ___
@@ -154,7 +160,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,dataset,imagenet,ILSVRC,image-classification,preprocessed'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

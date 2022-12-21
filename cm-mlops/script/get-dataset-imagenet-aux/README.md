@@ -51,11 +51,11 @@ ___
 ### Variations
 #### All variations
 * 2012
-  - *ENV CM_DATASET_AUX_VER: 2012*
+  - *ENV CM_DATASET_AUX_VER*: `2012`
 * from.berkeleyvision
-  - *ENV CM_WGET_URL: http://dl.caffe.berkeleyvision.org/caffe_ilsvrc12.tar.gz*
+  - *ENV CM_WGET_URL*: `http://dl.caffe.berkeleyvision.org/caffe_ilsvrc12.tar.gz`
 * **from.dropbox** (default)
-  - *ENV CM_WGET_URL: https://www.dropbox.com/s/92n2fyej3lzy3s3/caffe_ilsvrc12.tar.gz*
+  - *ENV CM_WGET_URL*: `https://www.dropbox.com/s/92n2fyej3lzy3s3/caffe_ilsvrc12.tar.gz`
 ___
 ### Default environment
 
@@ -106,7 +106,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,aux,dataset-aux,image-classification,imagenet-aux'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

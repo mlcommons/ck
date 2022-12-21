@@ -53,58 +53,58 @@ ___
 ### Variations
 #### All variations
 * 1
-  - *ENV CM_DATASET_SIZE: 1*
+  - *ENV CM_DATASET_SIZE*: `1`
 * 5
-  - *ENV CM_DATASET_SIZE: 5*
+  - *ENV CM_DATASET_SIZE*: `5`
 * **50** (default)
-  - *ENV CM_DATASET_SIZE: 50*
+  - *ENV CM_DATASET_SIZE*: `50`
 * 500
-  - *ENV CM_DATASET_SIZE: 500*
+  - *ENV CM_DATASET_SIZE*: `500`
 * **NCHW** (default)
-  - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
 * NHWC
-  - *ENV CM_ML_MODEL_DATA_LAYOUT: NHWC*
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
 * calibration
-  - *ENV CM_DATASET_PATH: <<<CM_CALIBRATION_DATASET_PATH>>>*
+  - *ENV CM_DATASET_PATH*: `<<<CM_CALIBRATION_DATASET_PATH>>>`
 * **fp32** (default)
-  - *ENV CM_DATASET_DTYPE: fp32*
+  - *ENV CM_DATASET_DTYPE*: `fp32`
 * full
-  - *ENV CM_DATASET_SIZE: *
+  - *ENV CM_DATASET_SIZE*: ``
 * int8
-  - *ENV CM_DATASET_DTYPE: int8*
+  - *ENV CM_DATASET_DTYPE*: `int8`
 * nvidia
-  - *ENV CM_PREPROCESSING_BY_NVIDIA: yes*
+  - *ENV CM_PREPROCESSING_BY_NVIDIA*: `yes`
 * **validation** (default)
 
 #### Variations by groups
 
   * dataset-count
     * 1
-      - *ENV CM_DATASET_SIZE: 1*
+      - *ENV CM_DATASET_SIZE*: `1`
     * 5
-      - *ENV CM_DATASET_SIZE: 5*
+      - *ENV CM_DATASET_SIZE*: `5`
     * **50** (default)
-      - *ENV CM_DATASET_SIZE: 50*
+      - *ENV CM_DATASET_SIZE*: `50`
     * 500
-      - *ENV CM_DATASET_SIZE: 500*
+      - *ENV CM_DATASET_SIZE*: `500`
     * full
-      - *ENV CM_DATASET_SIZE: *
+      - *ENV CM_DATASET_SIZE*: ``
 
   * dataset-layout
     * **NCHW** (default)
-      - *ENV CM_ML_MODEL_DATA_LAYOUT: NCHW*
+      - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
     * NHWC
-      - *ENV CM_ML_MODEL_DATA_LAYOUT: NHWC*
+      - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
 
   * dataset-precision
     * **fp32** (default)
-      - *ENV CM_DATASET_DTYPE: fp32*
+      - *ENV CM_DATASET_DTYPE*: `fp32`
     * int8
-      - *ENV CM_DATASET_DTYPE: int8*
+      - *ENV CM_DATASET_DTYPE*: `int8`
 
   * dataset-type
     * calibration
-      - *ENV CM_DATASET_PATH: <<<CM_CALIBRATION_DATASET_PATH>>>*
+      - *ENV CM_DATASET_PATH*: `<<<CM_CALIBRATION_DATASET_PATH>>>`
     * **validation** (default)
 ___
 ### Default environment
@@ -116,19 +116,24 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)***
      * get,python3
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * CM names: `--adr.['python3', 'python']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,dataset,object-detection,openimages,original
-       - CM script [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
+       * CM names: `--adr.['original-dataset']...`
+       - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
      * mlperf,mlcommons,inference,source,src
-       - CM script [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+       * CM names: `--adr.['inference-src']...`
+       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,generic-python-lib,_pycocotools
-       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+       * CM names: `--adr.['pycocotools']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_opencv-python
-       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pillow
-       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_numpy
-       - CM script [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+       * CM names: `--adr.['numpy']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)
   1. ***Run native script if exists***
@@ -174,7 +179,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,dataset,openimages,open-images,object-detection,preprocessed'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

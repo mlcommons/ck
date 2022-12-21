@@ -52,31 +52,31 @@ ___
 ### Variations
 #### All variations
 * 3d-unet
-  - *ENV CM_SUBMODULE_3D_UNET: yes*
+  - *ENV CM_SUBMODULE_3D_UNET*: `yes`
 * deeplearningexamples
-  - *ENV CM_SUBMODULE_DEEPLEARNINGEXAMPLES: yes*
+  - *ENV CM_SUBMODULE_DEEPLEARNINGEXAMPLES*: `yes`
 * **default** (default)
-  - *ENV CM_GIT_PATCH: no*
+  - *ENV CM_GIT_PATCH*: `no`
 * full-history
-  - *ENV CM_GIT_DEPTH: *
+  - *ENV CM_GIT_DEPTH*: ``
 * gn
-  - *ENV CM_SUBMODULE_GN: yes*
+  - *ENV CM_SUBMODULE_GN*: `yes`
 * no-recurse-submodules
-  - *ENV CM_GIT_RECURSE_SUBMODULES: *
+  - *ENV CM_GIT_RECURSE_SUBMODULES*: ``
 * nvidia-pycocotools
-  - *ENV CM_GIT_PATCH_FILENAME: coco.patch*
+  - *ENV CM_GIT_PATCH_FILENAME*: `coco.patch`
 * octoml
-  - *ENV CM_GIT_URL: https://github.com/octoml/inference*
+  - *ENV CM_GIT_URL*: `https://github.com/octoml/inference`
 * patch
-  - *ENV CM_GIT_PATCH: yes*
+  - *ENV CM_GIT_PATCH*: `yes`
 * power-dev
-  - *ENV CM_SUBMODULE_POWER_DEV: yes*
+  - *ENV CM_SUBMODULE_POWER_DEV*: `yes`
 * pybind
-  - *ENV CM_SUBMODULE_PYBIND: yes*
+  - *ENV CM_SUBMODULE_PYBIND*: `yes`
 * recurse-submodules
-  - *ENV CM_GIT_RECURSE_SUBMODULES:  --recurse-submodules*
+  - *ENV CM_GIT_RECURSE_SUBMODULES*: ` --recurse-submodules`
 * short-history
-  - *ENV CM_GIT_DEPTH: --depth 10*
+  - *ENV CM_GIT_DEPTH*: `--depth 10`
 ___
 ### Versions
 Default version: *master*
@@ -98,9 +98,10 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)***
      * detect,os
-       - CM script [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,python3
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src/_cm.json)
   1. ***Run native script if exists***
@@ -155,7 +156,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,src,source,inference,inference-src,inference-source,mlperf,mlcommons'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])

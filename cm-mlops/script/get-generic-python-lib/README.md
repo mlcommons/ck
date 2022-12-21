@@ -51,103 +51,103 @@ ___
 ### Variations
 #### All variations
 * apache-tvm
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: apache-tvm*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `apache-tvm`
 * attrs
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: attrs*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `attrs`
 * boto3
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: boto3*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `boto3`
 * colored
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: colored*
-  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL: https://pypi.ngc.nvidia.com*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `colored`
+  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://pypi.ngc.nvidia.com`
 * decorator
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: decorator*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `decorator`
 * jax
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: jax*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `jax`
 * jax_cuda
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: jax[cuda]*
-  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA: -f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html*
-  - *ENV CM_JAX_VERSION_EXTRA: CUDA*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `jax[cuda]`
+  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA*: `-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html`
+  - *ENV CM_JAX_VERSION_EXTRA*: `CUDA`
 * mlperf_logging
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: mlperf_logging*
-  - *ENV CM_GENERIC_PYTHON_PIP_URL: git+https://github.com/mlperf/logging.git@2.1.0*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `mlperf_logging`
+  - *ENV CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/mlperf/logging.git@2.1.0`
 * numpy
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: numpy*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `numpy`
 * nvidia-pycocotools
-  - *ENV CM_GENERIC_PYTHON_PIP_URL: pycocotools@git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI*
+  - *ENV CM_GENERIC_PYTHON_PIP_URL*: `pycocotools@git+https://github.com/NVIDIA/cocoapi#subdirectory=PythonAPI`
 * nvidia-pyindex
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: nvidia-pyindex*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `nvidia-pyindex`
 * nvidia-tensorrt
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: nvidia-tensorrt*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `nvidia-tensorrt`
 * onnx
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: onnx*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `onnx`
 * onnxruntime
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: onnxruntime*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `onnxruntime`
 * onnxruntime_gpu
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: onnxruntime_gpu*
-  - *ENV CM_ONNXRUNTIME_VERSION_EXTRA: GPU*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `onnxruntime_gpu`
+  - *ENV CM_ONNXRUNTIME_VERSION_EXTRA*: `GPU`
 * opencv-python
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: opencv-python*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `opencv-python`
 * pandas
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: pandas*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `pandas`
 * pillow
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: Pillow*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `Pillow`
 * pip
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: pip*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `pip`
 * polygraphy
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: polygraphy*
-  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL: https://pypi.ngc.nvidia.com*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `polygraphy`
+  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://pypi.ngc.nvidia.com`
 * protobuf
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: protobuf*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `protobuf`
 * psutil
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: psutil*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `psutil`
 * pycocotools
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: pycocotools*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `pycocotools`
 * pycuda
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: pycuda*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `pycuda`
 * requests
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: requests*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `requests`
 * scipy
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: scipy*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `scipy`
 * setuptools
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: setuptools*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `setuptools`
 * sklearn
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: sklearn*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `sklearn`
 * tensorflow
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: tensorflow*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `tensorflow`
 * tokenization
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: tokenization*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `tokenization`
 * torch
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: torch*
-  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL: https://download.pytorch.org/whl/cpu*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
+  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/cpu`
 * torch_cuda
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: torch*
-  - *ENV CM_TORCH_CUDA: cu116*
-  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL: https://download.pytorch.org/whl/${CM_TORCH_CUDA}*
-  - *ENV CM_TORCH_VERSION_EXTRA: CUDA*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
+  - *ENV CM_TORCH_CUDA*: `cu116`
+  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
+  - *ENV CM_TORCH_VERSION_EXTRA*: `CUDA`
 * torchaudio
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: torchaudio*
-  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL: https://download.pytorch.org/whl/cpu*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
+  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/cpu`
 * torchaudio_cuda
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: torchaudio*
-  - *ENV CM_TORCHAUDIO_VERSION_EXTRA: CUDA*
-  - *ENV CM_TORCH_CUDA: cu116*
-  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL: https://download.pytorch.org/whl/${CM_TORCH_CUDA}*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
+  - *ENV CM_TORCHAUDIO_VERSION_EXTRA*: `CUDA`
+  - *ENV CM_TORCH_CUDA*: `cu116`
+  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
 * torchvision
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: torchvision*
-  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL: https://download.pytorch.org/whl/cpu*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchvision`
+  - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/cpu`
 * torchvision_cuda
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: torchvision*
-  - *ENV CM_TORCHVISION_VERSION_EXTRA: CUDA*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchvision`
+  - *ENV CM_TORCHVISION_VERSION_EXTRA*: `CUDA`
 * tqdm
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: tqdm*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `tqdm`
 * transformers
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: transformers*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `transformers`
 * typing_extensions
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: typing_extensions*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `typing_extensions`
 * ujson
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: ujson*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `ujson`
 * wandb
-  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME: wandb*
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `wandb`
 ___
 ### Default environment
 
@@ -156,9 +156,10 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)***
      * detect,cpu
-       - CM script [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,python3
-       - CM script [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)
   1. ***Run native script if exists***
@@ -175,8 +176,6 @@ ___
 ### New environment detected from customize
 
 * **CM_GENERIC_PYTHON_PIP_EXTRA**
-* **CM_PYTHONLIB_'+env['CM_TMP_PYTHON_PACKAGE_NAME_ENV**
-* **CM_TMP_PYTHON_PACKAGE_NAME_ENV**
 ___
 ### Usage
 
@@ -205,7 +204,11 @@ import cmind
 r = cmind.access({'action':'run'
                   'automation':'script',
                   'tags':'get,generic,generic-python-lib'
-                  'out':'con'})
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
 if r['return']>0:
     print (r['error'])
