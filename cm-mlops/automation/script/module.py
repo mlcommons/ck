@@ -752,10 +752,9 @@ class CAutomation(Automation):
                         return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
 
                 variation_meta = variations[variation_tag]
-                if variation_tag_dynamic_suffix and 'env' in variation_meta:
-                    for key in variation_meta['env']:
-                        if '#' in variation_meta['env'][key]:
-                            variation_meta['env'][key] = variation_meta['env'][key].replace("#", variation_tag_dynamic_suffix)
+                if variation_tag_dynamic_suffix:
+                    self._update_variation_meta_with_dynamic_suffix(variation_meta, variation_tag_dynamic_suffix)
+                    print(variation_meta)
 
 
 
@@ -1871,6 +1870,43 @@ class CAutomation(Automation):
         Returns the variation name in meta for the dynamic_variation_tag
         '''
         return variation_tag[:variation_tag.rindex(".")+1]+"#"
+
+
+    ##############################################################################
+    def _update_variation_meta_with_dynamic_suffix(script, variation_meta, variation_tag_dynamic_suffix):
+        '''
+        Updates the variation meta with dynamic suffix
+        '''
+        for key in variation_meta:
+            value = variation_meta[key]
+
+            if type(value) is list: #deps,pre_deps...
+                for item in value:
+                    if type(item) is dict:
+                        for item_key in item:
+                            item_value = item[item_key]
+                            if type(item_value) is dict: #env,default_env inside deps
+                                for item_key2 in item_value:
+                                    item_value[item_key2] = item_value[item_key2].replace("#", variation_tag_dynamic_suffix)
+                            else:
+                                item[item_key] = item[item_key].replace("#", variation_tag_dynamic_suffix)
+
+            elif type(value) is dict: #add_deps, env, ..
+                for item in value:
+                    item_value = value[item]
+                    if type(item_value) is dict: #deps
+                        for item_key in item_value:
+                            item_value2 = item_value[item_key]
+                            if type(item_value2) is dict: #env,default_env inside deps
+                                for item_key2 in item_value2:
+                                    item_value2[item_key2] = item_value2[item_key2].replace("#", variation_tag_dynamic_suffix)
+                            else:
+                                item_value[item_key] = item_value[item_key].replace("#", variation_tag_dynamic_suffix)
+                    else:
+                        value[item] = value[item].replace("#", variation_tag_dynamic_suffix)
+
+            else: #scalar value
+                            pass #no dynamic update for now
 
 
     ##############################################################################
