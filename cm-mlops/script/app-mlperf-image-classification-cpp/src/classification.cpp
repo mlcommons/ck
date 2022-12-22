@@ -298,7 +298,7 @@ void TestSingleStream(Program *prg) {
   const std::string mlperf_conf_path = getenv_s("CM_MLPERF_CONF");
   const std::string user_conf_path = getenv_s("CM_MLPERF_USER_CONF");
 
-  std::string model_name = getenv_opt_s("ML_MODEL", "unknown_model");
+  std::string model_name = getenv_opt_s("CM_ML_MODEL", "unknown_model");
 
   const std::string scenario_string = getenv_s("CM_MLPERF_LOADGEN_SCENARIO");
   const std::string mode_string = getenv_s("CM_MLPERF_LOADGEN_MODE");

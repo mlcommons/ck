@@ -50,9 +50,23 @@
       "enable_if_env": {
         "CM_MODEL": [
           "resnet50"
+        ],
+        "CM_MLPERF_BACKEND": [
+          "tflite"
         ]
       },
       "tags": "get,ml-model,resnet50,raw,_tflite"
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "resnet50"
+        ],
+        "CM_MLPERF_BACKEND": [
+          "tf"
+        ]
+      },
+      "tags": "get,ml-model,resnet50,raw,_tf"
     },
     {
       "tags": "get,tensorflow,lib,_tflite"
