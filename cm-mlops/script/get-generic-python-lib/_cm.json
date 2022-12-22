@@ -295,6 +295,14 @@
         "CM_PANDAS_VERSION"
       ]
     },
+    "tflite-runtime": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tflite-runtime"
+      },
+      "new_env_keys": [
+        "CM_TFLITE_RUNTIME_VERSION"
+      ]
+    },
     "decorator": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "decorator"

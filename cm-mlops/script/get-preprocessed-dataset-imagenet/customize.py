@@ -41,13 +41,12 @@ def postprocess(i):
     # finalize path
     preprocessed_path = env['CM_DATASET_PREPROCESSED_PATH']
     img_format = os.environ.get('CM_ML_MODEL_DATA_LAYOUT', 'NHWC')
+    preprocessed_images_list = []
+    for filename in glob.glob(preprocessed_path+"/*.npy"):
+        preprocessed_images_list.append(filename)
+    with open("preprocessed_files.txt", "w") as f:
+        f.write("\n".join(preprocessed_images_list))
 
-    full_preprocessed_path = os.path.join(preprocessed_path, 
-                                          'preprocessed',
-                                          'imagenet',
-                                          img_format)
-
-    if os.path.isdir(full_preprocessed_path):
-        env['CM_DATASET_PREPROCESSED_FULL_PATH']=full_preprocessed_path
+    env['CM_DATASET_PREPROCESSED_IMAGES_LIST'] = os.path.join(os.getcwd(), "preprocessed_files.txt")
 
     return {'return':0}

@@ -23,7 +23,7 @@ for submission while avoiding common pitfalls.
  have appropriate competency and an access to the technology required to evaluate your artifact. 
  It can also be used as meta information to find your artifacts in Digital Libraries.
 
- ![](image-general-workflow1.png)
+ ![](https://raw.githubusercontent.com/mlcommons/ck/master/docs/artifact-evaluation/image-general-workflow1.png)
   
 
  Fill in whatever is applicable with some informal keywords and remove unrelated items 
@@ -200,7 +200,7 @@ and benchmarks - you will be informed in case of positive outcome.*
 
  
 
-![](image-pipelines2.png)  
+![](https://raw.githubusercontent.com/mlcommons/ck/master/docs/artifact-evaluation/image-pipelines2.png)  
   
 
 
