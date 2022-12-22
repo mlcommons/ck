@@ -29,7 +29,9 @@
     "lib",
     "source",
     "from-source",
-    "from-src"
+    "from-src",
+    "src",
+    "from.src"
   ],
   "new_env_keys": [
     "+C_INCLUDE_PATH",

@@ -19,8 +19,7 @@ def preprocess(i):
 
     source_files = []
     script_path = i['run_script_input']['path']
-    if env['CM_MODEL'] == "retinanet":
-        env['CM_DATASET_LIST'] = env['CM_DATASET_ANNOTATIONS_FILE_PATH']
+
     env['CM_SOURCE_FOLDER_PATH'] = os.path.join(script_path, "src")
 
     for file in os.listdir(env['CM_SOURCE_FOLDER_PATH']):
@@ -35,6 +34,7 @@ def preprocess(i):
     env['+CPLUS_INCLUDE_PATH'].append(os.path.join(script_path, "inc")) 
     env['+C_INCLUDE_PATH'].append(os.path.join(script_path, "inc"))
 
+    # TODO: get cuda path ugly fix
     if env['CM_MLPERF_DEVICE'] == 'gpu':
         env['+C_INCLUDE_PATH'].append(env['CM_CUDA_PATH_INCLUDE'])
         env['+CPLUS_INCLUDE_PATH'].append(env['CM_CUDA_PATH_INCLUDE'])
@@ -65,6 +65,7 @@ def preprocess(i):
     # e.g. -lcudart
     if 'CM_MLPERF_DEVICE_LIB_NAMESPEC' in env:
         env['+ LDCXXFLAGS'].append('-l' + env['CM_MLPERF_DEVICE_LIB_NAMESPEC'])
+    env['+ LDCXXFLAGS'].append(' -ltensorflowlite')
 
     env['CM_LINKER_LANG'] = 'CXX'
     env['CM_RUN_DIR'] = os.getcwd()

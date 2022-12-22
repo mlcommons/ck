@@ -10,11 +10,6 @@ ${CM_PYTHON_BIN} -m pip install numpy
 test $? -eq 0 || exit 1
 
 INSTALL_DIR="${CUR_DIR}"
-rm -rf ${INSTALL_DIR}/install
-
-cd ${INSTALL_DIR}
-mkdir -p build
-mkdir -p install
 
 echo "******************************************************"
 cd src
@@ -42,4 +37,4 @@ if [ "${CM_TENSORFLOW_CLEAN_BUILD}" != "no" ]; then
 fi
 
 echo "******************************************************"
-echo "Tensorflow is built and installed to ${INSTALL_DIR}/install ..."
+echo "Tensorflow is built and installed to ${INSTALL_DIR} ..."
