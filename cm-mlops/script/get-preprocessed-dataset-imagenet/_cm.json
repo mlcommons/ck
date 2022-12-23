@@ -122,7 +122,9 @@
     },
     "for.resnet50-quantized": {
       "prehook_deps": [
-        "get,generic,image-preprocessor"
+        {
+          "tags": "get,generic,image-preprocessor"
+        }
       ],
       "env": {
         "CM_IMAGENET_QUANTIZED": "yes",

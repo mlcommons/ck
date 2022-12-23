@@ -15,7 +15,7 @@ if [ ! -d "cmsis" ]; then
     git clone ${CM_GIT_RECURSE_SUBMODULES} ${CM_GIT_URL} ${CM_GIT_DEPTH} cmsis
     if [ "${?}" != "0" ]; then exit 1; fi
     cd cmsis
-    git checkout -b "${CM_GIT_CHECKOUT}"
+    git checkout "${CM_GIT_CHECKOUT}"
     if [ "${?}" != "0" ]; then exit 1; fi
   fi
 fi
