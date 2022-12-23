@@ -24,6 +24,9 @@
     "get",
     "zephyr"
   ],
+  "new_env_keys": [
+    "CM_ZEPHYR_*"
+  ],
   "uid": "d4105c2cdb044276",
   "versions": {
     "v2.7": {
