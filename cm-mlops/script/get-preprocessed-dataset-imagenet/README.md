@@ -129,7 +129,7 @@ ___
 ___
 ### New environment detected from customize
 
-* **CM_DATASET_PREPROCESSED_FULL_PATH**
+* **CM_DATASET_PREPROCESSED_IMAGES_LIST**
 * **CM_DATASET_PREPROCESSED_PATH**
 * **CM_QUANTIZE**
 ___

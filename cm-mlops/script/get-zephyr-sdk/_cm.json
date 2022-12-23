@@ -15,6 +15,9 @@
     "get",
     "zephyr-sdk"
   ],
+  "new_env_keys": [
+    "ZEPHYR_*"
+  ],
   "uid": "c70ae1a7567f4a7b",
   "versions": {
     "0.13.1": {

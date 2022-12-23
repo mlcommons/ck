@@ -4,7 +4,7 @@
   "category": "Detection or installation of tools and artifacts",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
-  "default_version": "develop",
+  "default_version": "custom",
   "deps": [
     {
       "tags": "detect,os"
@@ -38,7 +38,12 @@
     }
   },
   "versions": {
-    "custom": {},
+    "custom": {
+      "env": {
+        "CM_GIT_CHECKOUT": "e5dc19182f6084de32d8dc5a22c84e01210f4995",
+        "CM_GIT_SHA": "yes"
+      }
+    },
     "develop": {
       "env": {
         "CM_GIT_CHECKOUT": "develop"
