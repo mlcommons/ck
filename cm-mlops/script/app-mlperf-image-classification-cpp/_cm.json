@@ -3,11 +3,6 @@
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "category": "Modular MLPerf benchmarks",
-  "default_env": {
-    "CM_BATCH_COUNT": "1",
-    "CM_BATCH_SIZE": "1",
-    "CM_FAST_COMPILATION": "yes"
-  },
   "deps": [
     {
       "tags": "detect,os"
@@ -44,7 +39,7 @@
           "resnet50"
         ]
       },
-      "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_NCHW"
+      "tags": "get,dataset,preprocessed,imagenet,_for.resnet50-quantized,_NHWC"
     },
     {
       "enable_if_env": {
@@ -74,7 +69,6 @@
   ],
   "input_mapping": {
     "count": "CM_MLPERF_LOADGEN_QUERY_COUNT",
-    "max_batchsize": "CM_MLPERF_LOADGEN_MAX_BATCHSIZE",
     "mlperf_conf": "CM_MLPERF_CONF",
     "mode": "CM_MLPERF_LOADGEN_MODE",
     "output_dir": "CM_MLPERF_OUTPUT_DIR",
@@ -86,7 +80,7 @@
     "CM_MLPERF_OUTPUT_DIR": ".",
     "CM_MLPERF_LOADGEN_SCENARIO": "SingleStresm",
     "CM_MLPERF_LOADGEN_MODE": "accuracy",
-    "CM_MLPERF_LOADGEN_MAX_BATCHSIZE": "1"
+    "CM_FAST_COMPILATION": "yes"
   },
   "post_deps": [
     {
