@@ -51,6 +51,7 @@ ___
 ### Versions
 Default version: *r1.0*
 
+* r1.0
 ___
 ### Default environment
 

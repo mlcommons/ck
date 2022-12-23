@@ -105,6 +105,18 @@ ___
   - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/2535873/files/resnet50_v1.pb`
 * tf
 * tflite
+  - *ENV CM_ML_MODEL_ACCURACY*: `76.456`
+  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `tensorflow`
+  - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+  - *ENV CM_ML_MODEL_INPUT_LAYERS*: `input_tensor`
+  - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor`
+  - *ENV CM_ML_MODEL_NORMALIZE_DATA*: `0`
+  - *ENV CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor`
+  - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor`
+  - *ENV CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
+  - *ENV CM_ML_MODEL_SUBTRACT_MEAN*: `YES`
+  - *ENV CM_PACKAGE_URL*: `https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz`
 * uint8
   - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `uint8`
   - *ENV CM_ML_MODEL_PRECISION*: `uint8`
@@ -144,6 +156,19 @@ ___
       - *ENV CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
       - *ENV CM_ML_MODEL_SUBTRACT_MEAN*: `YES`
       - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/2535873/files/resnet50_v1.pb`
+    * tflite
+      - *ENV CM_ML_MODEL_ACCURACY*: `76.456`
+      - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
+      - *ENV CM_ML_MODEL_FRAMEWORK*: `tensorflow`
+      - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+      - *ENV CM_ML_MODEL_INPUT_LAYERS*: `input_tensor`
+      - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor`
+      - *ENV CM_ML_MODEL_NORMALIZE_DATA*: `0`
+      - *ENV CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor`
+      - *ENV CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor`
+      - *ENV CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
+      - *ENV CM_ML_MODEL_SUBTRACT_MEAN*: `YES`
+      - *ENV CM_PACKAGE_URL*: `https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz`
 
   * opset-version
     * opset-11
@@ -174,6 +199,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)
   1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)

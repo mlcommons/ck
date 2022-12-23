@@ -46,7 +46,7 @@ ___
 
 ___
 ### Tags
-get,install,tensorflow,lib,source,from-source,from-src
+get,install,tensorflow,lib,source,from-source,from-src,src,from.src
 
 ___
 ### Variations
@@ -108,11 +108,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="get,install,tensorflow,lib,source,from-source,from-src"`
+`cm run script --tags="get,install,tensorflow,lib,source,from-source,from-src,src,from.src"`
 
 *or*
 
-`cm run script "get install tensorflow lib source from-source from-src"`
+`cm run script "get install tensorflow lib source from-source from-src src from.src"`
 
 *or*
 
@@ -125,7 +125,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,install,tensorflow,lib,source,from-source,from-src'
+                  'tags':'get,install,tensorflow,lib,source,from-source,from-src,src,from.src'
                   'out':'con',
                   ...
                   (other input keys for this script)

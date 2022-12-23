@@ -42,6 +42,7 @@ design space exploration and deployment across continuously changing software an
 ### Modular MLPerf benchmarks
 
 * [app-loadgen-generic-python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)
+* [app-mlperf-image-classification-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-image-classification-cpp)
 * [app-mlperf-inference](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference)
 * [app-mlperf-inference-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
 * [app-mlperf-inference-nvidia-harness](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia-harness)
@@ -225,6 +226,7 @@ design space exploration and deployment across continuously changing software an
 * [app-image-classification-tvm-onnx-py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tvm-onnx-py)
 * [app-image-corner-detection](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection)
 * [app-loadgen-generic-python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)
+* [app-mlperf-image-classification-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-image-classification-cpp)
 * [app-mlperf-inference](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference)
 * [app-mlperf-inference-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
 * [app-mlperf-inference-nvidia-harness](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia-harness)

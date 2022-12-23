@@ -54,7 +54,6 @@ ___
   - *ENV USE_CUDA*: `yes`
 * llvm
 * **tvm** (default)
-* tvm-pip-install
 ___
 ### Default environment
 

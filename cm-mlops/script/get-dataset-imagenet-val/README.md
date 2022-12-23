@@ -1,4 +1,4 @@
-*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
+*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
 
 <details>
 <summary>Click here to see the table of contents.</summary>
@@ -45,7 +45,7 @@ ___
 
 ___
 ### Tags
-get,dataset,imagenet,ILSVRC,image-classification,original
+get,val,validation,dataset,imagenet,ILSVRC,image-classification,original
 
 ___
 ### Variations
@@ -64,6 +64,8 @@ ___
   - *ENV CM_DATASET_SIZE*: `50000`
   - *ENV CM_DATASET_VER*: `2012`
   - *ENV CM_IMAGENET_FULL*: `yes`
+* size.#
+  - *ENV CM_DATASET_SIZE*: `#`
 ___
 ### Default environment
 
@@ -71,7 +73,7 @@ ___
 ### CM script workflow
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
-  1. Run "preprocess" function from customize.py
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
   1. ***Run native script if exists***
      * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/run.bat)
@@ -86,6 +88,8 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_DATASET_IMAGENET_PATH**
+* **CM_DATASET_PATH**
 ___
 ### Usage
 
@@ -96,11 +100,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="get,dataset,imagenet,ILSVRC,image-classification,original"`
+`cm run script --tags="get,val,validation,dataset,imagenet,ILSVRC,image-classification,original"`
 
 *or*
 
-`cm run script "get dataset imagenet ILSVRC image-classification original"`
+`cm run script "get val validation dataset imagenet ILSVRC image-classification original"`
 
 *or*
 
@@ -113,7 +117,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,dataset,imagenet,ILSVRC,image-classification,original'
+                  'tags':'get,val,validation,dataset,imagenet,ILSVRC,image-classification,original'
                   'out':'con',
                   ...
                   (other input keys for this script)

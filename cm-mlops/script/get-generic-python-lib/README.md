@@ -114,6 +114,8 @@ ___
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `sklearn`
 * tensorflow
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `tensorflow`
+* tflite-runtime
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `tflite-runtime`
 * tokenization
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `tokenization`
 * torch

@@ -57,7 +57,7 @@ ___
   - *ENV CM_GIT_DEPTH*: `--depth 10`
 ___
 ### Versions
-Default version: *develop*
+Default version: *custom*
 
 * custom
 * develop
