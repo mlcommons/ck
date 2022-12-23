@@ -202,7 +202,6 @@ public:
     int i=0;
     for (auto s : samples) {
       int predicted_class = prg->InferenceOnce(s.index);
-      std::cout<<"  Predicted:  "<<predicted_class<<std::endl;
 
       if( vl > 1 ) {
         cout << "Query image index: " << s.index << " -> Predicted class: " << predicted_class << endl << endl;

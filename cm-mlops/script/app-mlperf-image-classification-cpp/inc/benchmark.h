@@ -272,12 +272,6 @@ public:
     std::ifstream file(path, std::ios::in | std::ios::binary);
     if (!file) throw "Failed to open image data " + path;
     file.read(reinterpret_cast<char*>(_buffer), _size);
-    for(int p = 10000; p < 11000; p++) {
-        std::cout<< (int) ((char*) _buffer)[p]<< " ";
-    }
-    std::cout<<std::endl;
-    std::cout<<std::endl;
-    std::cout<<std::endl;
     if( vl > 1) {
       std::cout << "Loaded file: " << path << std::endl;
     } else if ( vl ) {
@@ -355,7 +349,6 @@ public:
     for (auto image_file : image_filenames) {
       _in_batch[i].reset(new ImageData(_settings));
       _out_batch[i].reset(new ResultData(_settings));
-      std::cout<<image_file<<std::endl;
       _in_batch[i]->load(image_file, vl);
       i++;
     }
