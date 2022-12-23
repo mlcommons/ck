@@ -2139,11 +2139,17 @@ def view_page(i):
 
     # Load page
     ii={'text_file':p}
+
     if not (p.endswith('.txt') or p.endswith('.html') or p.endswith('.htm') or p.endswith('.json')):
        return {'return':1, 'error':'can view only pages'}
+
     r=ck.load_text_file(ii) 
     if r['return']>0: return r
+
     template=r['string']
+
+    if dd.get('raw','')=='yes':
+        return {'return':0, 'html':template}
 
     if p.endswith('.txt') or p.endswith('.txt'):
        # Process links
