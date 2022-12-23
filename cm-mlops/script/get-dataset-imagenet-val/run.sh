@@ -22,6 +22,6 @@ if [ "${CM_DATASET_PATH}" == "" ]; then
   rm -rf ILSVRC2012_img_val_500.tar
 
   echo "CM_DATASET_PATH=$PWD/images" > tmp-run-env.out
-  echo "CM_DATASET_IMAGENET_PATH=$PWD/images" > tmp-run-env.out
+  echo "CM_DATASET_IMAGENET_PATH=$PWD/images" >> tmp-run-env.out
 
 fi
