@@ -38,6 +38,7 @@ Thank you for your support and looking forward to collaborating with you!
 ## Contributors in alphabetical order
 
 * Sam Ainsworth (University of Cambridge, UK)
+* Saheli Bhattacharjee (@sahelib25)
 * Jiahao Chen (MIT)
 * Gianfranco Costamagna
 * Chris Cummins (Facebook)
