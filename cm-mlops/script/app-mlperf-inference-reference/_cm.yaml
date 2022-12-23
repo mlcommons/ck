@@ -164,7 +164,7 @@ deps:
     - loadgen
 
   # Download MLPerf inference source
-  - tags: get,mlcommons,inference,src,_octoml
+  - tags: get,mlcommons,inference,src
     names:
     - inference-src
 

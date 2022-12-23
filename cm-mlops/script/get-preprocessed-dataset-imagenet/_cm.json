@@ -34,7 +34,7 @@
       "names": [
         "inference-src"
       ],
-      "tags": "mlperf,mlcommons,inference,source,src,_octoml",
+      "tags": "mlperf,mlcommons,inference,source,src",
       "enable_if_env": {
         "CM_IMAGENET_QUANTIZED": [ "no" ]
       },
