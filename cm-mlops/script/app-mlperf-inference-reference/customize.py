@@ -105,7 +105,8 @@ def preprocess(i):
     mode = env['CM_MLPERF_LOADGEN_MODE']
     mode_extra_options = ""
     if 'CM_DATASET_PREPROCESSED_PATH' in env:
-        dataset_options = " --use_preprocessed_dataset --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
+        #dataset_options = " --use_preprocessed_dataset --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
+        dataset_options = " --use_preprocessed_dataset --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']
         if env['CM_MODEL'] == "retinanet":
             dataset_options += " --dataset-list "+ env['CM_DATASET_ANNOTATIONS_FILE_PATH']
         elif env['CM_MODEL'] == "resnet50":
