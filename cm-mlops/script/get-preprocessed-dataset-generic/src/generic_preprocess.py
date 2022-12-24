@@ -138,23 +138,23 @@ def preprocess():
     source_dir              = os.environ['CM_DATASET_PATH']
     destination_dir         = os.environ['CM_DATASET_PREPROCESSED_PATH']
 
-    square_side             = int( os.environ['CM_INPUT_SQUARE_SIDE'] )
-    crop_percentage         = float( os.environ['CM_CROP_FACTOR'] )
-    inter_size              = int( os.getenv('CM_INTERMEDIATE_SIZE', 0) )
-    convert_to_bgr          = os.getenv('CM_CONVERT_TO_BGR', '').lower() in ('yes', 'true', 'on', '1')
-    offset                  = int( os.getenv('CM_SUBSET_OFFSET', 0) )
+    square_side             = int( os.environ['CM_DATASET_INPUT_SQUARE_SIDE'] )
+    crop_percentage         = float( os.environ['CM_DATASET_CROP_FACTOR'] )
+    inter_size              = int( os.getenv('CM_DATASET_INTERMEDIATE_SIZE', 0) )
+    convert_to_bgr          = int( os.getenv('CM_DATASET_CONVERT_TO_BGR', 0) )
+    offset                  = int( os.getenv('CM_DATASET_SUBSET_OFFSET', 0) )
     volume                  = int( os.environ['CM_DATASET_SIZE'] )
-    fof_name                = os.getenv('CM_SUBSET_FOF', 'files.txt')
-    data_type               = os.getenv('CM_ML_MODEL_DATA_TYPE', '')
-    data_layout             = os.getenv('CM_ML_MODEL_DATA_LAYOUT', '').lower()
-    new_file_extension      = os.getenv('CM_NEW_EXTENSION', '')
-    normalize_data          = os.getenv('CM_NORMALIZE_DATA', '').lower() in ('yes', 'true', 'on', '1')
-    subtract_mean           = os.getenv('CM_SUBTRACT_MEAN', '').lower() in ('yes', 'true', 'on', '1')
-    given_channel_means     = os.getenv('CM_GIVEN_CHANNEL_MEANS', '')
-    quant_scale             = float( os.environ['CM_QUANT_SCALE'] )
-    quant_offset            = float( os.environ['CM_QUANT_OFFSET'] )
-    quantize                = int( os.environ['CM_QUANTIZE'] ) #1 for quantize to int8
-    convert_to_unsigned     = int( os.environ['CM_CONVERT_TO_UNSIGNED'] ) #1 for int8 to uint8
+    fof_name                = os.getenv('CM_DATASET_SUBSET_FOF', 'files.txt')
+    data_type               = os.getenv('CM_DATASET_DATA_TYPE', 'float32')
+    data_layout             = os.getenv('CM_DATASET_DATA_LAYOUT', '').lower()
+    new_file_extension      = os.getenv('CM_DATASET_NEW_EXTENSION', '')
+    normalize_data          = int(os.getenv('CM_DATASET_NORMALIZE_DATA', '0'))
+    subtract_mean           = int(os.getenv('CM_DATASET_SUBTRACT_MEANS', '0'))
+    given_channel_means     = os.getenv('CM_DATASET_GIVEN_CHANNEL_MEANS', '')
+    quant_scale             = float( os.environ['CM_DATASET_QUANT_SCALE'] )
+    quant_offset            = float( os.environ['CM_DATASET_QUANT_OFFSET'] )
+    quantize                = int( os.environ['CM_DATASET_QUANTIZE'] ) #1 for quantize to int8
+    convert_to_unsigned     = int( os.environ['CM_DATASET_CONVERT_TO_UNSIGNED'] ) #1 for int8 to uint8
     
     if given_channel_means:
         given_channel_means = [ float(x) for x in given_channel_means.split(' ') ]

@@ -28,9 +28,6 @@ def preprocess(i):
         shutil.copy(os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt"), 
                     os.path.join(preprocessed_path, "val_map.txt"))
 
-    if env.get('CM_IMAGENET_QUANTIZED', "no") == "yes":
-        env['CM_QUANTIZE'] = "1"
-
 
     return {'return': 0}
 
@@ -42,7 +39,7 @@ def postprocess(i):
     preprocessed_path = env['CM_DATASET_PREPROCESSED_PATH']
     img_format = os.environ.get('CM_ML_MODEL_DATA_LAYOUT', 'NHWC')
     preprocessed_images_list = []
-    for filename in glob.glob(preprocessed_path+"/*.npy"):
+    for filename in glob.glob(preprocessed_path+"/*."+env.get("CM_NEW_EXTENSION","*")):
         preprocessed_images_list.append(filename)
     with open("preprocessed_files.txt", "w") as f:
         f.write("\n".join(preprocessed_images_list))

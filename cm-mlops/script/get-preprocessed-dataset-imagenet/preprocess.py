@@ -1,7 +1,7 @@
 import os
 import sys
 
-if os.environ.get('CM_IMAGENET_QUANTIZED', '') == "yes":
+if os.environ.get('CM_DATASET_REFERENCE_PREPROCESSOR', '1') == "0":
     import generic_preprocess
     generic_preprocess.preprocess()
 else:
@@ -14,7 +14,7 @@ else:
 
     dataset_path = os.environ['CM_DATASET_PATH']
     dataset_list = os.environ.get('CM_DATASET_IMAGES_LIST', None)
-    img_format = os.environ.get('CM_ML_MODEL_DATA_LAYOUT', 'NHWC')
+    img_format = os.environ.get('CM_DATASET_DATA_LAYOUT', 'NHWC')
     count = int(os.environ.get('CM_DATASET_SIZE', 1))
     preprocessed_dir = os.environ.get('CM_DATASET_PREPROCESSED_PATH', os.getcwd())
     threads = os.environ.get('CM_NUM_THREADS', os.cpu_count())

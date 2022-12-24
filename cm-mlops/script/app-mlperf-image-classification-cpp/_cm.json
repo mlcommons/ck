@@ -39,7 +39,7 @@
           "resnet50"
         ]
       },
-      "tags": "get,dataset,preprocessed,imagenet,_for.resnet50-quantized,_NHWC"
+      "tags": "get,dataset,preprocessed,imagenet,_for.resnet50-rgb8,_NHWC"
     },
     {
       "enable_if_env": {
@@ -78,7 +78,8 @@
   },
   "default_env": {
     "CM_MLPERF_OUTPUT_DIR": ".",
-    "CM_MLPERF_LOADGEN_SCENARIO": "SingleStresm",
+    "CM_MLPERF_LOADGEN_SCENARIO": "SingleStream",
+    "CM_LOADGEN_BUFFER_SIZE": "1024",
     "CM_MLPERF_LOADGEN_MODE": "accuracy",
     "CM_FAST_COMPILATION": "yes"
   },
