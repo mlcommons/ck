@@ -28,7 +28,6 @@ def preprocess(i):
         shutil.copy(os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt"), 
                     os.path.join(preprocessed_path, "val_map.txt"))
 
-    print(env)
     return {'return': 0}
 
 def postprocess(i):
