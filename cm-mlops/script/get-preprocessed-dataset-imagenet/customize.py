@@ -37,7 +37,6 @@ def postprocess(i):
 
     # finalize path
     preprocessed_path = env['CM_DATASET_PREPROCESSED_PATH']
-    img_format = env.get['CM_DATASET_DATA_LAYOUT']
     preprocessed_images_list = []
     for filename in glob.glob(preprocessed_path+"/*."+env.get("CM_NEW_EXTENSION","*")):
         preprocessed_images_list.append(filename)
