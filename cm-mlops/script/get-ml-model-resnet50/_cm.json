@@ -85,9 +85,7 @@
       }
     },
     "onnxruntime": {
-      "base": [
-        "onnx"
-      ]
+      "alias": "onnx"
     },
     "pytorch,fp32": {
       "env": {

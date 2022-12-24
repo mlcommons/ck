@@ -42,6 +42,7 @@
     "CM_DATASET_CROP_FACTOR": "87.5",
     "CM_DATASET_DATA_TYPE": "float32",
     "CM_DATASET_QUANT_SCALE": "1",
+    "CM_DATASET_QUANTIZE": "0",
     "CM_DATASET_QUANT_OFFSET": "0",
     "CM_DATASET_NEW_EXTENSION": "npy",
     "CM_DATASET_CONVERT_TO_UNSIGNED": "0"
@@ -116,7 +117,7 @@
       }
     },
     "for.resnet50-quantized": {
-      "default_group": {
+      "default_variations": {
         "preprocessing-source": "generic-preprocessor"
       },
       "env": {
@@ -135,7 +136,7 @@
     },
     "for.resnet50": {
       "group": "model",
-      "default_group": {
+      "default_variations": {
         "preprocessing-source": "generic-preprocessor"
       },
       "env": {
@@ -150,7 +151,7 @@
     },
     "for.resnet50-rgb8": {
       "group": "model",
-      "default_group": {
+      "default_variations": {
         "preprocessing-source": "generic-preprocessor"
       },
       "env": {
@@ -165,7 +166,7 @@
     },
     "for.mobilenet-quantized": {
       "group": "model",
-      "default_group": {
+      "default_variations": {
         "preprocessing-source": "generic-preprocessor"
       },
       "env": {
@@ -174,7 +175,7 @@
     },
     "for.mobilenet": {
       "group": "model",
-      "default_group": {
+      "default_variations": {
         "preprocessing-source": "generic-preprocessor"
       },
       "env": {
