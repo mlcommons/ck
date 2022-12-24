@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ ${CM_TMP_EXTRACT} == "yes" ]; then
+if [[ ${CM_TMP_EXTRACT} == "yes" ]]; then
     wget -nc ${CM_PACKAGE_URL}
     cmd="gunzip ${CM_TMP_EXTRACT_FILE_NAME}" 
     echo $cmd
