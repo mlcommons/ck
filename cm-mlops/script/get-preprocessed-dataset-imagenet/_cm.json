@@ -31,8 +31,6 @@
       }
     },
     {
-    },
-    {
       "tags": "get,generic-python-lib,_opencv-python"
     },
     {
@@ -199,12 +197,14 @@
       "group": "preprocessing-source",
       "default": true,
       "deps": [
-        "names": [
-          "inference-src"
-        ],
-        "tags": "mlperf,mlcommons,inference,source,src",
-        "skip_if_env": {
-          "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
+        {
+          "names": [
+            "inference-src"
+          ],
+          "tags": "mlperf,mlcommons,inference,source,src",
+          "skip_if_env": {
+            "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
+          }
         }
       ],
       "env": {
