@@ -38,7 +38,7 @@ def postprocess(i):
     # finalize path
     preprocessed_path = env['CM_DATASET_PREPROCESSED_PATH']
     preprocessed_images_list = []
-    for filename in glob.glob(preprocessed_path+"/*."+env.get("CM_NEW_EXTENSION","*")):
+    for filename in sorted(glob.glob(preprocessed_path+"/*."+env.get("CM_NEW_EXTENSION","*"))):
         preprocessed_images_list.append(filename)
     with open("preprocessed_files.txt", "w") as f:
         f.write("\n".join(preprocessed_images_list))
