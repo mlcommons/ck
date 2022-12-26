@@ -694,7 +694,7 @@ class CAutomation(Automation):
                     if tag_to_append:
                         if tag_to_append not in variations:
                             return {'return': 1, 'error': 'Invalid variation "{}" specified as base variation for the variation "{}" '.format(tag_to_append, variation_name)}
-                        if tag_to_append in excluded_variations:
+                        if tag_to_append in excluded_variation_tags:
                             return {'return': 1, 'error': 'Variation "{}" specified as base variation for the variation is in the excluded list "{}" '.format(tag_to_append, variation_name)}
                         variation_tags.append(tag_to_append)
                         tmp_variations[tag_to_append] = False
