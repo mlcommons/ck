@@ -469,6 +469,8 @@ class CAutomation(Automation):
             cache_tags_without_tmp_string = '-tmp'
             if script_tags_string !='':
                 cache_tags_without_tmp_string += ',' + script_tags_string
+            if variation_tags:
+                cache_tags_without_tmp_string += ',_' + ",_".join(variation_tags)
 
             if verbose:
                 print (recursion_spaces + '  - Searching for cached script outputs with the following tags: {}'.format(cache_tags_without_tmp_string))
