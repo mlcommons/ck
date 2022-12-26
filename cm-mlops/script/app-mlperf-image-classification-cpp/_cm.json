@@ -50,7 +50,7 @@
           "tflite"
         ]
       },
-      "tags": "get,ml-model,resnet50,raw,_tflite"
+      "tags": "get,ml-model,resnet50,raw,_tflite,_no-argmax"
     },
     {
       "enable_if_env": {
