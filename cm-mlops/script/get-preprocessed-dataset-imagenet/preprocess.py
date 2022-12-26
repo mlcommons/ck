@@ -15,7 +15,6 @@ else:
     dataset_path = os.environ['CM_DATASET_PATH']
     dataset_list = os.environ.get('CM_DATASET_IMAGES_LIST', None)
     img_format = os.environ.get('CM_DATASET_DATA_LAYOUT', 'NHWC')
-    print(img_format)
     count = int(os.environ.get('CM_DATASET_SIZE', 1))
     preprocessed_dir = os.environ.get('CM_DATASET_PREPROCESSED_PATH', os.getcwd())
     threads = os.environ.get('CM_NUM_THREADS', os.cpu_count())
