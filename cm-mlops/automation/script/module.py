@@ -471,6 +471,7 @@ class CAutomation(Automation):
                 cache_tags_without_tmp_string += ',' + script_tags_string
             if variation_tags:
                 cache_tags_without_tmp_string += ',_' + ",_".join(variation_tags)
+            cache_tags_without_tmp_string = cache_tags_without_tmp_string.replace(",_-", ",-_")
 
             if verbose:
                 print (recursion_spaces + '  - Searching for cached script outputs with the following tags: {}'.format(cache_tags_without_tmp_string))
@@ -942,7 +943,8 @@ class CAutomation(Automation):
                                     'env':env,
                                     'skip_remembered_selections':skip_remembered_selections,
                                     'remembered_selections':remembered_selections,
-                                    'quiet':quiet
+                                    'quiet':quiet,
+                                    'verbose':verbose
                                    })
             if r['return'] >0: return r
 
@@ -1082,13 +1084,15 @@ class CAutomation(Automation):
                 tmp_tags = ['tmp']
 
                 # Finalize tmp tags
-                tmp_tags += cached_tags
+                tmp_tags += [ t for t in cached_tags if not t.startswith("-") ]
 
                 # Check if some variations are missing 
                 # though it should not happen!
                 for t in variation_tags:
+                    if t.startswith("-"):
+                        continue
                     x = '_' + t
-                    if x not in tmp_tags: 
+                    if x not in tmp_tags:
                         tmp_tags.append(x)
 
                 # Use update to update the tmp one if already exists
@@ -1960,7 +1964,7 @@ class CAutomation(Automation):
         import copy
         tmp_variation_tags=copy.deepcopy(variation_tags)
 
-        excluded_variations = [ k for k in variation_tags if k.startswith("-") ]
+        excluded_variations = [ k[1:] for k in variation_tags if k.startswith("-") ]
         for i,e in enumerate(excluded_variations):
             if e not in variations:
                 dynamic_tag = script._get_name_for_dynamic_variation_tag(e)
@@ -3025,7 +3029,10 @@ def find_cached_script(i):
         for t in variation_tags:
             if variation_tags_string != '': 
                 variation_tags_string += ','
-            x = '_' + t
+            if t.startswith("-"):
+                x = "-_" + t[1:]
+            else:
+                x = '_' + t
             variation_tags_string += x
 
             if x not in cached_tags: 
