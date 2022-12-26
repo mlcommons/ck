@@ -649,13 +649,16 @@ class CAutomation(Automation):
         if r['return'] > 0:
             return r
         variation_tags = r['variation_tags']
+        excluded_variation_tags = r['excluded_variation_tags']
+
         # Get a dictionary of variation groups
         r = self._get_variation_groups(variations)
         if r['return'] > 0:
             return r
+
         variation_groups = r['variation_groups']
         # variation_tags get appended by any default on variation in groups
-        r = self._process_variation_tags_in_groups(variation_tags, variation_groups)
+        r = self._process_variation_tags_in_groups(variation_tags, variation_groups, excluded_variation_tags)
         if r['return'] > 0:
             return r
         variation_tags = r['variation_tags']
@@ -687,6 +690,17 @@ class CAutomation(Automation):
                         for base_variation in base_variations:
                             if base_variation not in variation_tags:
                                 tag_to_append = base_variation
+
+                    if tag_to_append:
+                        if tag_to_append not in variations:
+                            return {'return': 1, 'error': 'Invalid variation "{}" specified as base variation for the variation "{}" '.format(tag_to_append, variation_name)}
+                        if tag_to_append in excluded_variations:
+                            return {'return': 1, 'error': 'Variation "{}" specified as base variation for the variation is in the excluded list "{}" '.format(tag_to_append, variation_name)}
+                        variation_tags.append(tag_to_append)
+                        tmp_variations[tag_to_append] = False
+
+                    tag_to_append = None
+
                     if "default_variations" in variations[variation_name]:
                         default_base_variations = variations[variation_name]["default_variations"]
                         for default_base_variation in default_base_variations:
@@ -695,17 +709,22 @@ class CAutomation(Automation):
                             if 'default' in variation_groups[default_base_variation]:
                                 return {'return': 1, 'error': 'Default variation "{}" specified for the group "{}" with an already defined default variation "{}" '.format(default_base_variations[default_base_variation], default_base_variation, variation_groups[default_base_variation]['default'])}
                             unique_allowed_variations = variation_groups[default_base_variation]['variations']
-                            # add the default only if none of the variations from the current group is selected
-                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0:
+                            # add the default only if none of the variations from the current group is selected and it is not being excluded with - prefix
+                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags:
                                 tag_to_append = default_base_variations[default_base_variation]
+
                     if tag_to_append:
                         if tag_to_append not in variations:
                             return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
                         variation_tags.append(tag_to_append)
                         tmp_variations[tag_to_append] = False
+
                     tmp_variations[variation_name] = True
+
                 all_base_processed = True
                 for variation_name in variation_tags:
+                    if variation_name.startswith("-"):
+                        continue
                     if variation_name not in variations:
                         variation_name = self._get_name_for_dynamic_variation_tag(variation_name)
                     if tmp_variations[variation_name] == False:
@@ -1630,6 +1649,16 @@ class CAutomation(Automation):
                 else:
                     script_tags.append(t)
 
+        excluded_tags =  [ v[1:] for v in script_tags if v.startswith("-") ]
+        common = set(script_tags).intersection(set(excluded_tags))
+        if common:
+            return {'return':1, 'error': f'There is common tags { common } in the included and excluded lists'}
+
+        excluded_variation_tags =  [ v[1:] for v in variation_tags if v.startswith("-") ]
+        common = set(variation_tags).intersection(set(excluded_variation_tags))
+        if common:
+            return {'return':1, 'error': f'There is common variation tags { common } in the included and excluded lists'}
+
         ############################################################################################################
         # Find CM script(s) based on thier tags to get their meta (can be more than 1)
         # Then check if variations exists inside meta
@@ -1930,27 +1959,47 @@ class CAutomation(Automation):
         '''
         import copy
         tmp_variation_tags=copy.deepcopy(variation_tags)
+
+        excluded_variations = [ k for k in variation_tags if k.startswith("-") ]
+        for i,e in enumerate(excluded_variations):
+            if e not in variations:
+                dynamic_tag = script._get_name_for_dynamic_variation_tag(e)
+                if dynamic_tag and dynamic_tag in variations:
+                    excluded_variations[i] = dynamic_tag
+
         for k in variation_tags:
+            if k.startswith("-"):
+                continue
             if k in variations:
                 variation = variations[k]
             else:
                 variation = variations[script._get_name_for_dynamic_variation_tag(k)]
             if 'alias' in variation:
+
+                if variation['alias'] in excluded_variations:
+                    return {'return': 1, 'error': 'Alias "{}" specified for the variation "{}" is conflicting with the excluded variation "-{}" '.format(variation['alias'], k, variation['alias'])}
+
                 if variation['alias'] not in variations:
                     return {'return': 1, 'error': 'Alias "{}" specified for the variation "{}" is not existing '.format(variation['alias'], k)}
+
                 if 'group' in variation:
                     return {'return': 1, 'error': 'Incompatible combinations: (alias, group) specified for the variation "{}" '.format(k)}
+
                 if 'default' in variation:
                     return {'return': 1, 'error': 'Incompatible combinations: (default, group) specified for the variation "{}" '.format(k)}
+
                 if variation['alias'] not in tmp_variation_tags:
                     tmp_variation_tags.append(variation['alias'])
-        return {'return':0, 'variation_tags': tmp_variation_tags}
+
+        return {'return':0, 'variation_tags': tmp_variation_tags, 'excluded_variation_tags': excluded_variations}
 
 
 
     ##############################################################################
     def _get_variation_groups(script, variations):
+
         groups = {}
+
         for k in variations:
             variation = variations[k]
             if 'group' in variation:
@@ -1965,8 +2014,9 @@ class CAutomation(Automation):
 
         return {'return': 0, 'variation_groups': groups}
 
+
     ##############################################################################
-    def _process_variation_tags_in_groups(script, variation_tags, groups):
+    def _process_variation_tags_in_groups(script, variation_tags, groups, excluded_variations):
         import copy
         tmp_variation_tags= copy.deepcopy(variation_tags)
         for k in groups:
@@ -1975,7 +2025,7 @@ class CAutomation(Automation):
             if len(set(unique_allowed_variations) & set(variation_tags)) > 1:
                 return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(variation_tags)))}
             if len(set(unique_allowed_variations) & set(variation_tags)) == 0:
-                if 'default' in group:
+                if 'default' in group and group['default'] not in excluded_variations:
                     tmp_variation_tags.append(group['default'])
 
         return {'return':0, 'variation_tags': tmp_variation_tags}
