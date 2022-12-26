@@ -669,7 +669,7 @@ class CAutomation(Automation):
         default_variation = meta.get('default_variation', '')
 
         if len(variation_tags) == 0:
-            if default_variation != '':
+            if default_variation != '' and default_variation not in excluded_variation_tags:
                 variation_tags = [default_variation]
 
         # Recursively add any base variations specified
