@@ -2,8 +2,9 @@
 
 CM_TMP_CURRENT_SCRIPT_PATH=${CM_TMP_CURRENT_SCRIPT_PATH:-$PWD}
 CM_PYTHON_BIN_WITH_PATH=${CM_PYTHON_BIN_WITH_PATH:-python3}
+
 CUR=`pwd`
-${CM_PYTHON_BIN_WITH_PATH} -m pip install -r ${CM_TMP_CURRENT_SCRIPT_PATH}/requirements.txt
+
 if [ "${?}" != "0" ]; then exit 1; fi
 
 if [ ! -d "zephyr" ]; then

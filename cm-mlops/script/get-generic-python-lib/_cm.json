@@ -303,6 +303,14 @@
         "CM_TFLITE_RUNTIME_VERSION"
       ]
     },
+    "west": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "west"
+      },
+      "new_env_keys": [
+        "CM_WEST_VERSION"
+      ]
+    },
     "decorator": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "decorator"
