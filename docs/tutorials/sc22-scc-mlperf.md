@@ -767,8 +767,8 @@ use other implementation of the MLPerf inference benchmark (C++, Nvidia, etc)
 with other ML engines (PyTorch, TF, TVM), other MLPerf scenarios 
 (single stream, multiple stream, server), quantized/pruned models and GPUs:
 
-* [2nd part](sc22-scc-mlperf2.md): customize MLPerf inference (C++ implementation, CUDA, PyTorch)
-* [3rd part](sc22-scc-mlperf3.md): customize MLPerf inference (ResNet50 Int8, ImageNet, TVM)
+* [2nd part](sc22-scc-mlperf-part2.md): customize MLPerf inference (C++ implementation, CUDA, PyTorch)
+* [3rd part](sc22-scc-mlperf-part3.md): customize MLPerf inference (ResNet50 Int8, ImageNet, TVM)
 * *To be continued*
 
 You are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
