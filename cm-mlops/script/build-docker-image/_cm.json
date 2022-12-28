@@ -20,6 +20,13 @@
     "pre_run_cmds": "CM_DOCKER_PRE_RUN_COMMANDS",
     "post_run_cmds": "CM_DOCKER_POST_RUN_COMMANDS"
   },
+  "default_env": {
+    "CM_DOCKER_IMAGE_REPO": "local",
+    "CM_DOCKER_IMAGE_TAG": "latest"
+  },
+  "new_env_keys": [
+    "CM_DOCKER_*"
+  ],
   "prehook_deps": [
     {
       "enable_if_env": {

@@ -12,8 +12,6 @@ def preprocess(i):
     config.read(server_config_file)
     config['server']['ntpServer'] = env['CM_MLPERF_POWER_NTP_SERVER']
     config['ptd']['ptd'] = env['CM_MLPERF_PTD_PATH']
-    config['server']['outDir'] = env['CM_MLPERF_POWER_SERVER_OUTDIR']
-    config['ptd']['logFile'] = env['CM_MLPERF_POWER_LOG_FILE']
     config['ptd']['interfaceFlag'] = env['CM_MLPERF_POWER_INTERFACE_FLAG']
     config['ptd']['deviceType'] = env['CM_MLPERF_POWER_DEVICE_TYPE']
     config['ptd']['devicePort'] = env['CM_MLPERF_POWER_DEVICE_PORT']

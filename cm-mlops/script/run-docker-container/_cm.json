@@ -13,6 +13,8 @@
     "gh_token": "CM_GH_TOKEN",
     "image_repo": "CM_DOCKER_IMAGE_REPO",
     "image_tag": "CM_DOCKER_IMAGE_TAG",
+    "docker_os": "CM_DOCKER_OS",
+    "docker_os_version": "CM_DOCKER_OS_VERSION",
     "script_tags": "CM_DOCKER_RUN_SCRIPT_TAGS",
     "run_cmd_extra": "CM_DOCKER_RUN_CMD_EXTRA",
     "real_run": "CM_REAL_RUN",
