@@ -22,7 +22,8 @@
     "pre_run_cmds": "CM_DOCKER_PRE_RUN_COMMANDS",
     "post_run_cmds": "CM_DOCKER_POST_RUN_COMMANDS",
     "pass_user_group": "CM_DOCKER_PASS_USER_GROUP",
-    "mounts": "CM_DOCKER_VOLUME_MOUNTS"
+    "mounts": "CM_DOCKER_VOLUME_MOUNTS",
+    "device": "CM_DOCKER_ADD_DEVICE"
   },
   "prehook_deps": [
     {

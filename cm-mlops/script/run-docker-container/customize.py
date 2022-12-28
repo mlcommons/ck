@@ -48,14 +48,20 @@ def postprocess(i):
     run_cmds = []
     mount_cmds = []
     run_opts = ''
+
     if 'CM_DOCKER_PRE_RUN_COMMANDS' in env:
         for pre_run_cmd in env['CM_DOCKER_PRE_RUN_COMMANDS']:
             run_cmds.append(pre_run_cmd)
+
     if 'CM_DOCKER_VOLUME_MOUNTS' in env:
         for mounts in env['CM_DOCKER_VOLUME_MOUNTS']:
             mount_cmds.append(mounts)
+
     if 'CM_DOCKER_PASS_USER_GROUP' in env:
         run_opts += " --group-add $(id -g $USER) "
+
+    if 'CM_DOCKER_ADD_DEVICE' in env:
+        run_opts += " --device="+env['CM_DOCKER_ADD_DEVICE']
 
     run_cmd = env['CM_DOCKER_RUN_CMD'] + " " +env.get('CM_DOCKER_RUN_CMD_EXTRA', '').replace(":","=")
     run_cmds.append(run_cmd)
@@ -69,6 +75,8 @@ def postprocess(i):
     else:
         mount_cmd_string = ''
     run_opts += mount_cmd_string
+
+
     CONTAINER="docker run -dt "+ run_opts + " --rm " + docker_image_repo + ":" + docker_image_tag + " bash"
     CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + run_cmd + "' && docker kill $ID >/dev/null"
     print("Container launch command: " + CMD)
