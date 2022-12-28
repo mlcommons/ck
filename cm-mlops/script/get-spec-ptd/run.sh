@@ -26,4 +26,6 @@ if [ ${CM_GIT_PATCH} == "yes" ]; then
   git apply ${SCRIPT_DIR}/patch/"$patch_filename"
   if [ "${?}" != "0" ]; then exit 1; fi
 fi
+chmod +x "${CUR_DIR}/power/PTD/binaries/ptd-linux-x86"
+chmod +x "${CUR_DIR}/power/PTD/binaries/ptd-windows-x86.exe"
 cd "$CUR_DIR"
