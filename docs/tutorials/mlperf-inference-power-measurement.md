@@ -5,8 +5,9 @@
 2. SPEC PTDaemon (can be downloaded from [here](https://github.com/mlcommons/power) after signing the EULA which can be requested by email from `support@mlcommons.org`)
 3. [MLCommons power-dev](https://github.com/mlcommons/power-dev) repository which has the `server.py` to be run on the director node and `client.py` to be run on the SUT node.
 
-We need to connect the power analyzer to a director machine (via USB or Ethernet and the machine running linux) and the power supply to the SUT is done through the power analyzer ([current in series and voltage in parallel](![image](https://user-images.githubusercontent.com/4791823/209864900-19d61cc8-e0c5-4b93-be1e-49ee0f91a1e9.png)
-). The director machine runs the `server.py` script and loads a server process. When a client connects to it (using `client.py`), it inturn connects to the SPEC PTDaemon and initiates a measurement run. Once the measurement ends, the power log files are transferred to the client. 
+We need to connect the power analyzer to a director machine (via USB or Ethernet and the machine running linux) and the power supply to the SUT is done through the power analyzer (current in series and voltage in parallel)
+(![image](https://user-images.githubusercontent.com/4791823/209864900-19d61cc8-e0c5-4b93-be1e-49ee0f91a1e9.png) 
+The director machine runs the `server.py` script and loads a server process. When a client connects to it (using `client.py`), it inturn connects to the SPEC PTDaemon and initiates a measurement run. Once the measurement ends, the power log files are transferred to the client. 
 
 ## Ranging mode and Testing mode
 Power analyzers usually have different current and voltage ranges it supports. But which one to be used depends on a given SUT and this needs some emperical data. We can do a ranging run where the current and voltage ranges are set to `Auto` and power analyzer automatically figures out the correct ranges needed. These ranges are then used for a proper testing mode run. Usage of 'auto' mode in a testing run is not allowed as it can mess up with the 
