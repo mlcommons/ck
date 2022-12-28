@@ -65,7 +65,9 @@
       }
     },
     "octoml": {
-      "CM_GIT_URL": "https://github.com/octoml/power-dev.git"
+      "env": {
+        "CM_GIT_URL": "https://github.com/octoml/power-dev.git"
+      }
     }
   },
   "versions": {
