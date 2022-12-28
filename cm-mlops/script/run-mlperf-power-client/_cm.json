@@ -26,7 +26,8 @@
       "names": [
         "power-src"
       ],
-      "tags": "get,mlperf,power,src"
+      "tags": "get,mlperf,power,src,_octoml",
+      "version": "master"
     }
   ],
   "input_mapping": {
