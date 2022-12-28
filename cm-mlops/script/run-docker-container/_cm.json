@@ -23,6 +23,7 @@
     "post_run_cmds": "CM_DOCKER_POST_RUN_COMMANDS",
     "pass_user_group": "CM_DOCKER_PASS_USER_GROUP",
     "mounts": "CM_DOCKER_VOLUME_MOUNTS",
+    "port_maps": "CM_DOCKER_PORT_MAPS",
     "device": "CM_DOCKER_ADD_DEVICE",
     "cache": "CM_DOCKER_CACHE"
   },

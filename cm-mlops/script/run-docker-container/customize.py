@@ -47,6 +47,7 @@ def postprocess(i):
     docker_image_tag = env.get('CM_DOCKER_IMAGE_TAG', docker_image_base.replace(':','-').replace('_','') + "-latest")
     run_cmds = []
     mount_cmds = []
+    port_map_cmds = []
     run_opts = ''
 
     if 'CM_DOCKER_PRE_RUN_COMMANDS' in env:
@@ -63,6 +64,10 @@ def postprocess(i):
     if 'CM_DOCKER_ADD_DEVICE' in env:
         run_opts += " --device="+env['CM_DOCKER_ADD_DEVICE']
 
+    if 'CM_DOCKER_PORT_MAPS' in env:
+        for ports in env['CM_DOCKER_PORT_MAPS']:
+            port_map_cmds.append(ports)
+
     run_cmd = env['CM_DOCKER_RUN_CMD'] + " " +env.get('CM_DOCKER_RUN_CMD_EXTRA', '').replace(":","=")
     run_cmds.append(run_cmd)
     if 'CM_DOCKER_POST_RUN_COMMANDS' in env:
@@ -70,12 +75,18 @@ def postprocess(i):
             run_cmds.append(post_run_cmd)
 
     run_cmd = " && ".join(run_cmds)
+
     if mount_cmds:
-        mount_cmd_string = " -v " + "-v".join(mount_cmds)
+        mount_cmd_string = " -v " + "-v ".join(mount_cmds)
     else:
         mount_cmd_string = ''
     run_opts += mount_cmd_string
 
+    if port_map_cmds:
+        port_map_cmd_string = " -p " + "-p ".join(port_map_cmds)
+    else:
+        port_map_cmd_string = ''
+    run_opts += port_map_cmd_string
 
     CONTAINER="docker run -dt "+ run_opts + " --rm " + docker_image_repo + ":" + docker_image_tag + " bash"
     CMD = "ID=`" + CONTAINER + "` && docker exec $ID bash -c '" + run_cmd + "' && docker kill $ID >/dev/null"
