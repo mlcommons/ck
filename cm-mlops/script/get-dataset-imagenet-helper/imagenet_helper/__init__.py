@@ -61,8 +61,8 @@ LABELS_PATH             = os.environ['CM_CAFFE_IMAGENET_SYNSET_WORDS_TXT']
 
 ## Preprocessed input images' properties:
 #
-IMAGE_DIR               = os.getenv('CM_DATASET_IMAGENET_PREPROCESSED_DIR')
-IMAGE_DATA_TYPE         = os.getenv('CM_DATASET_IMAGENET_PREPROCESSED_DATA_TYPE', 'float32')
+IMAGE_DIR               = os.getenv('CM_DATASET_PREPROCESSED_PATH')
+IMAGE_DATA_TYPE         = os.getenv('CM_DATASET_PREPROCESSED_DATA_TYPE', 'float32')
 
 
 def load_labels(labels_filepath):
