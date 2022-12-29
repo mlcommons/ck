@@ -35,15 +35,11 @@ def preprocess(i):
     env['+CPLUS_INCLUDE_PATH'].append(os.path.join(script_path, "inc")) 
     env['+C_INCLUDE_PATH'].append(os.path.join(script_path, "inc"))
 
-    if '+ LDCXXFLAGS' not in env:
-        env['+ LDCXXFLAGS'] = [ ]
- 
     if env['CM_MLPERF_DEVICE'] == 'gpu':
         env['+C_INCLUDE_PATH'].append(env['CM_CUDA_PATH_INCLUDE'])
         env['+CPLUS_INCLUDE_PATH'].append(env['CM_CUDA_PATH_INCLUDE'])
         env['+LD_LIBRARY_PATH'].append(env['CM_CUDA_PATH_LIB'])
-        env['+DYLD_FALLBACK_LIBRARY_PATH'].append(env['CM_CUDA_PATH_LIB'])
-        env['+ LDCXXFLAGS'].append("-L"+env['CM_CUDA_PATH_LIB'])
+        env['+DYLD_FALLBACK_LIBRARY_PATH'].append(env['CM_CUDA_PATH_INCLUDE'])
 
     if '+ CXXFLAGS' not in env:
         env['+ CXXFLAGS'] = []
@@ -56,6 +52,8 @@ def preprocess(i):
     # add preprocessor flag like "#define CM_MLPERF_DEVICE_CPU"
     env['+ CXXFLAGS'].append('-DCM_MLPERF_DEVICE_' + env['CM_MLPERF_DEVICE'].upper())
 
+    if '+ LDCXXFLAGS' not in env:
+        env['+ LDCXXFLAGS'] = [ ]
 
     env['+ LDCXXFLAGS'] += [
         "-lmlperf_loadgen",
