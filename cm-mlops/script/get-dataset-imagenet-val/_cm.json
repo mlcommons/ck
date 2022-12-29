@@ -10,7 +10,10 @@
     "CM_DATASET": "IMAGENET"
   },
   "new_env_keys": [
-    "CM_DATASET_*"
+    "CM_DATASET_PATH",
+    "CM_DATASET_IMAGENET_PATH",
+    "CM_DATASET_SIZE",
+    "CM_DATASET_VER"
   ],
   "tags": [
     "get",

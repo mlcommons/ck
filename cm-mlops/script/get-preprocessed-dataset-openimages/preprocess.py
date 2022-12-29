@@ -11,7 +11,7 @@ import shutil
 
 dataset_path = os.environ['CM_DATASET_PATH']
 dataset_list = os.environ.get('CM_DATASET_ANNOTATIONS_FILE_PATH', None)
-img_format = os.environ.get('CM_ML_MODEL_DATA_LAYOUT', 'NHWC')
+img_format = os.environ.get('CM_DATASET_DATA_LAYOUT', 'NHWC')
 count = int(os.environ.get('CM_DATASET_SIZE', 0)) or None
 preprocessed_dir = os.environ.get('CM_DATASET_PREPROCESSED_PATH', os.getcwd())
 image_width = int(os.environ.get('CM_DATASET_OPENIMAGES_RESIZE', 800))

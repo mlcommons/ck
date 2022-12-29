@@ -122,13 +122,13 @@
       "group": "dataset-layout",
       "default": true,
       "env": {
-        "CM_ML_MODEL_DATA_LAYOUT": "NCHW"
+        "CM_DATASET_DATA_LAYOUT": "NCHW"
       }
     },
     "NHWC": {
       "group": "dataset-layout",
       "env": {
-        "CM_ML_MODEL_DATA_LAYOUT": "NHWC"
+        "CM_DATASET_DATA_LAYOUT": "NHWC"
       }
     },
     "calibration": {

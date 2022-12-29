@@ -100,25 +100,24 @@ class BenchmarkSettings {
 public:
   const std::string images_dir = getenv_s("CM_DATASET_PREPROCESSED_PATH");
   const std::string available_images_file = getenv_s("CM_DATASET_PREPROCESSED_IMAGES_LIST");
-  const bool skip_internal_preprocessing = 1;//getenv("CM_ML_MODEL_INPUT_DATA_TYPES")
-                        //&& ( getenv_s("CK_ENV_DATASET_IMAGENET_PREPROCESSED_DATA_TYPE") == "float32" );
+  const bool skip_internal_preprocessing =  ( getenv_s("CM_DATASET_DATA_TYPE") == "float32" );
 
   const std::string result_dir = getenv_s("CM_MLPERF_OUTPUT_DIR");
   const std::string input_layer_name = getenv_s("CM_ML_MODEL_INPUT_LAYER_NAME");
   const std::string output_layer_name = getenv_s("CM_ML_MODEL_OUTPUT_LAYER_NAME");
-  const int images_in_memory_max = 1024;//getenv_i("CK_LOADGEN_BUFFER_SIZE");
-  const int image_size = getenv_i("CM_ML_MODEL_IMAGE_HEIGHT");
+  const int images_in_memory_max = getenv_i("CM_LOADGEN_BUFFER_SIZE");
+  const int image_size = getenv_i("CM_DATASET_INPUT_SQUARE_SIDE");
   const int batch_size = 1;
   const int num_channels = 3;
   const int num_classes = 1000;
-  const bool normalize_img = 0;//getenv_s("CK_ENV_TENSORFLOW_MODEL_NORMALIZE_DATA") == "YES";
+  const bool normalize_img = getenv_b("CM_DATASET_NORMALIZE_DATA",0);
 
-  const bool subtract_mean = 0;//getenv_opt_s("CK_ENV_TENSORFLOW_MODEL_SUBTRACT_MEAN", "0") == "YES";
-  const char *given_channel_means_str ="";// getenv("ML_MODEL_GIVEN_CHANNEL_MEANS");
+  const bool subtract_mean = getenv_b("CM_DATASET_SUBTRACT_MEANS", 0);
+  const char *given_channel_means_str getenv("CM_DATASET_GIVEN_CHANNEL_MEANS");
 
-  const bool trigger_cold_run = 0;//getenv_b("CM_MLPERF_LOADGEN_TRIGGER_COLD_RUN", 0);
+  const bool trigger_cold_run = getenv_b("CM_MLPERF_LOADGEN_TRIGGER_COLD_RUN", 0);
 
-  const int verbosity_level = 0;//getenv_i("CM_VERBOSE",0);
+  const int verbosity_level = getenv_i("CM_VERBOSE",0);
 
   BenchmarkSettings(enum MODEL_TYPE mode = MODEL_TYPE::LITE) {
 
