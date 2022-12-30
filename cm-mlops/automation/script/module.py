@@ -690,6 +690,8 @@ class CAutomation(Automation):
                         base_variations = variations[variation_name]["base"]
                         for base_variation in base_variations:
                             if base_variation not in variation_tags:
+                                if 'group' in variations[base_variation]:
+                                    return {'return': 1, 'error': 'A variation specified as a base variation should not have "group" specified. Violating base entry is "{}" specified as base variation of "{}" '.format(base_variation, variation_name)}
                                 tag_to_append = base_variation
 
                     if tag_to_append:
