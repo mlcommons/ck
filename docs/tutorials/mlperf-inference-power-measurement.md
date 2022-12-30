@@ -6,8 +6,7 @@
 3. [MLCommons power-dev](https://github.com/mlcommons/power-dev) repository which has the `server.py` to be run on the director node and `client.py` to be run on the SUT node.
 
 We need to connect the power analyzer to a director machine (via USB or Ethernet and the machine running linux) and the power supply to the SUT is done through the power analyzer (current in series and voltage in parallel)
-
-![image](https://user-images.githubusercontent.com/4791823/209864900-19d61cc8-e0c5-4b93-be1e-49ee0f91a1e9.png)
+![pages (14)](https://user-images.githubusercontent.com/4791823/210117283-82375460-5b3a-4e8a-bd85-9d33675a5843.png)
 
 The director machine runs the `server.py` script and loads a server process. When a client connects to it (using `client.py`), it inturn connects to the SPEC PTDaemon and initiates a measurement run. Once the measurement ends, the power log files are transferred to the client. 
 
