@@ -471,6 +471,8 @@ class CAutomation(Automation):
                 cache_tags_without_tmp_string += ',' + script_tags_string
             if variation_tags:
                 cache_tags_without_tmp_string += ',_' + ",_".join(variation_tags)
+            # variation_tags are prefixed with "_" but the CM search function knows only tags and so we need to change "_-" to "-_" for excluding any variations
+            # This change can later be moved to a search function specific to cache
             cache_tags_without_tmp_string = cache_tags_without_tmp_string.replace(",_-", ",-_")
 
             if verbose:
@@ -679,6 +681,8 @@ class CAutomation(Automation):
             while True:
                 for variation_name in variation_tags:
                     tag_to_append = None
+
+                    #ignore the excluded variations
                     if variation_name.startswith("~") or variation_name.startswith("-"):
                         tmp_variations[variation_name] = True
                         continue
@@ -686,6 +690,7 @@ class CAutomation(Automation):
                     if variation_name not in variations:
                         variation_name = self._get_name_for_dynamic_variation_tag(variation_name)
 
+                    # base variations are automatically turned on. Only variations outside of any variation group can be added as a base_variation
                     if "base" in variations[variation_name]:
                         base_variations = variations[variation_name]["base"]
                         for base_variation in base_variations:
@@ -704,6 +709,7 @@ class CAutomation(Automation):
 
                     tag_to_append = None
 
+                    # default_variations dictionary specifies the default_variation for each variation group. A default variation in a group is turned on if no other variation from that group is turned on and it is not excluded using the '-' prefix
                     if "default_variations" in variations[variation_name]:
                         default_base_variations = variations[variation_name]["default_variations"]
                         for default_base_variation in default_base_variations:
