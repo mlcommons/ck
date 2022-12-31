@@ -36,6 +36,18 @@
     },
     {
       "tags": "get,generic-python-lib,_pillow"
+    },
+    {
+      "names": [
+        "inference-src"
+      ],
+      "tags": "mlperf,mlcommons,inference,source,src",
+      "enable_if_env": {
+        "CM_DATASET_REFERENCE_PREPROCESSOR": [ "1" ]
+      },
+      "skip_if_env": {
+        "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
+      }
     }
   ],
   "default_env": {
@@ -47,7 +59,8 @@
     "CM_DATASET_QUANTIZE": "0",
     "CM_DATASET_QUANT_OFFSET": "0",
     "CM_DATASET_NEW_EXTENSION": "npy",
-    "CM_DATASET_CONVERT_TO_UNSIGNED": "0"
+    "CM_DATASET_CONVERT_TO_UNSIGNED": "0",
+    "CM_DATASET_REFERENCE_PREPROCESSOR": "1"
   },
   "env": {
     "CM_DATASET": "imagenet"
@@ -203,17 +216,6 @@
     },
     "mlcommons-reference-preprocessor": {
       "group": "preprocessing-source",
-      "deps": [
-        {
-          "names": [
-            "inference-src"
-          ],
-          "tags": "mlperf,mlcommons,inference,source,src",
-          "skip_if_env": {
-            "CM_IMAGENET_PREPROCESSED_PATH": [ "on" ]
-          }
-        }
-      ],
       "env": {
         "CM_DATASET_REFERENCE_PREPROCESSOR": "1"
       }

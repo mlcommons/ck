@@ -14,7 +14,8 @@ def preprocess(i):
         else:
             return {'return': 1, 'error': 'No preprocessed images found in '+env['CM_IMAGENET_PREPROCESSED_PATH']}
     else:
-        print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
+        if env.get('CM_DATASET_REFERENCE_PREPROCESSOR',"0") == "1":
+            print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
 
         if 'CM_DATASET_PREPROCESSED_PATH' not in env:
             env['CM_DATASET_PREPROCESSED_PATH'] = os.getcwd()
