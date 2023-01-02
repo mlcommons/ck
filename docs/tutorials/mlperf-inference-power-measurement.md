@@ -1,6 +1,6 @@
 # Tutorial: Automating Power Measurements for MLPerf inference using MLCommons CM (CK2)
 
-*Prepared by the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)*.
+*Prepared by the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md) and [OctoML](https://octoml.ai)*.
 
 ## Requirements
 
