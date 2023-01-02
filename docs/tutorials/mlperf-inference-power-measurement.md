@@ -2,7 +2,7 @@
 
 ## Requirements
 1. Power analyzer (any one [certified by SPEC PTDaemon](https://www.spec.org/power/docs/SPECpower-Device_List.html)). Yokogawa is the one which most submitters have submitted with and a new single channel model like 310E can cost around 3000$.
-2. SPEC PTDaemon (can be downloaded from [here](https://github.com/mlcommons/power) after signing the EULA which can be requested by sending an email to `support@mlcommons.org`)
+2. SPEC PTDaemon (can be downloaded from [here](https://github.com/mlcommons/power) after signing the EULA which can be requested by sending an email to `support@mlcommons.org`). Once you have GitHub acees to the MLCommons power repository then the CM workflow will automatically download and configure the SPEC PTDaemon tool. 
 3. [MLCommons power-dev](https://github.com/mlcommons/power-dev) repository which has the `server.py` to be run on the director node and `client.py` to be run on the SUT node.
 
 We need to connect the power analyzer to a director machine via USB  and the machine must be running linux (Ethernet mode is supported only on Windows which this workflow is not supporting yet). The power supply to the SUT is done through the power analyzer (current in series and voltage in parallel). An adapter like [this](https://www.conrad.com/p/voltcraft-sma-10-test-lead-adapter-pg-plug-4-mm-socket-pg-connector-scoop-proof-black-123980) can help avoid cutting the electrical wires.
