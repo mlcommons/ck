@@ -15,7 +15,8 @@
    will automatically download and configure the SPEC PTDaemon tool.
 
 3. Access to the [MLCommons power-dev](https://github.com/mlcommons/power-dev) repository 
-   which has the `server.py` to be run on the director node and `client.py` to be run on the SUT node.
+   which has the `server.py` to be run on the director node and `client.py` to be run on the SUT node. This repository being public will be 
+   automatically pulled by the CM workflow.
 
 ## Connecting power analyzer to the computer
 
@@ -53,7 +54,10 @@ PTDaemon should be automatically installed using the following CM command:
 cm run script --tags=mlperf,power,server --device_type=49 --device_port=/dev/usbtmc0
 ```
 
-`--device_type=49` corresponds to Yokogawa 310E and `ptd -h` should list the device_type for all supported devices. 
+`--device_type=49` corresponds to Yokogawa 310E and `ptd -h` should list the device_type for all supported devices. Location of `ptd` can be found using the below command
+```bash
+cat `cm find cache --tags=get,spec,ptdaemon`/cm-cached-state.json
+```
 
 More configuration options can be found [here](https://github.com/mlcommons/power-dev/tree/master/ptd_client_server).
 
