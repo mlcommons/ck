@@ -1,6 +1,5 @@
 [![PyPI version](https://badge.fury.io/py/cmind.svg)](https://pepy.tech/project/cmind)
 [![Python Version](https://img.shields.io/badge/python-3+-blue.svg)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
-[![Downloads](https://pepy.tech/badge/cmind/month)](https://pepy.tech/project/cmind)
 [![License](https://img.shields.io/badge/License-Apache%202.0-green)](LICENSE.md)
 
 [![CM test](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml/badge.svg)](https://github.com/mlcommons/ck/actions/workflows/test-cm.yml)
@@ -29,7 +28,7 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 
 ### Copyright
 
-2021-2022 [MLCommons](https://mlcommons.org)
+2021-2023 [MLCommons](https://mlcommons.org)
 
 ### Maintainers
 
