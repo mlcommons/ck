@@ -73,7 +73,7 @@ def preprocess(i):
     if 'CM_MLPERF_CONF' not in env:
         env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
     if 'CM_MLPERF_USER_CONF' not in env:
-        env['CM_MLPERF_USER_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "user.conf")
+        env['CM_MLPERF_USER_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "user.conf")
 
     return {'return':0}
 

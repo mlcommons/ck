@@ -25,6 +25,7 @@
     "dataset",
     "medical-imaging",
     "kits",
+    "original",
     "kits19"
   ],
   "uid": "79992bb221024ac5",
@@ -55,6 +56,16 @@
     "short-history": {
       "env": {
         "CM_GIT_DEPTH": "--depth 5"
+      }
+    },
+    "validation": {
+      "env": {
+        "CM_DATASET_VALIDATION": "yes"
+      }
+    },
+    "calibration": {
+      "env": {
+        "CM_DATASET_CALIBRATION": "yes"
       }
     }
   },

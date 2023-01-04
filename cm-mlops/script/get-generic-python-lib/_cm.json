@@ -319,6 +319,14 @@
         "CM_WEST_VERSION"
       ]
     },
+    "nibabel": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "nibabel"
+      },
+      "new_env_keys": [
+        "CM_NIBABEL_VERSION"
+      ]
+    },
     "decorator": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "decorator"

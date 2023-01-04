@@ -59,7 +59,7 @@ def preprocess(i):
 
 
     if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_VISION_PATH']
+        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
 
     test_list = ["TEST01",  "TEST05"]
     if env['CM_MODEL']  in ["resnet50"]:
