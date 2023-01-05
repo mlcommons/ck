@@ -219,6 +219,27 @@ variations:
       - openimages-accuracy-script
       tags: run,accuracy,mlperf,_openimages
 
+  3dunet:
+    group:
+      models
+    env:
+      CM_MODEL:
+        3dunet
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _3dunet
+    post_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - 3dunet-accuracy-script
+      tags: run,accuracy,mlperf,_3dunet
+
   bert_:
     post_deps:
     - enable_if_env:
