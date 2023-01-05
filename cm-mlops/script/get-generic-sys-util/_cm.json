@@ -46,6 +46,18 @@
           "brew": "gflags"
         }
       }
+    },
+    "sox": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "sox"
+      },
+      "state": {
+        "sox": {
+          "apt": "sox",
+          "dnf": "sox",
+          "brew": "sox"
+        }
+      }
     }
   }
 }
