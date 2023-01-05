@@ -210,6 +210,19 @@ deps:
       - 3d-unet-99
       - 3d-unet-99.9
 
+  ## Librispeech for rnnt
+  - tags: get,dataset,librispeech,preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - rnnt
+
+  ## Criteo for dlrm
+  - tags: get,dataset,criteo,preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - dlrm-99
+      - dlrm-99.9
+
 
   ########################################################################
   # Install ML models    
@@ -370,6 +383,13 @@ deps:
       - 3d-unet-99
       - 3d-unet-99.9
     
+  ## Rnnt (Pytorch format)
+  - tags: get,ml-model,speech-recognition,rnnt,_pytorch,_fp32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MODEL:
+      - rnnt
 
 posthook_deps: 
   - names:
@@ -498,6 +518,16 @@ variations:
     - tags: get,generic-python-lib,_torch
       names:
       - ml-engine-pytorch
+
+  rnnt:
+    group: models,
+    env:
+      CM_MODEL: rnnt
+    deps:
+    - tags: get,generic-python-lib,_librosa
+    - tags: get,generic-python-lib,_inflect
+    - tags: get,generic-python-lib,_unidecode
+    - tags: get,generic-python-lib,_toml
 
   retinanet:
     group: models,

@@ -29,10 +29,7 @@
       "tags": "mlperf,mlcommons,inference,source,src"
     },
     {
-      "names": [
-        "numpy"
-      ],
-      "tags": "get,generic-python-lib,_numpy"
+      "tags": "get,generic-python-lib,_sox"
     },
     {
       "tags": "get,sys-util,generic,_sox"

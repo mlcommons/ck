@@ -104,7 +104,8 @@ def preprocess(i):
 
     mode = env['CM_MLPERF_LOADGEN_MODE']
     mode_extra_options = ""
-    if 'CM_DATASET_PREPROCESSED_PATH' in env and env['CM_MODEL'] in  [ 'resnet50', 'retinanet', 'bert-99', 'bert-99.9' ]:
+
+    if 'CM_DATASET_PREPROCESSED_PATH' in env and env['CM_MODEL'] in  [ 'resnet50', 'retinanet' ]:
         #dataset_options = " --use_preprocessed_dataset --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
         dataset_options = " --use_preprocessed_dataset --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']
         if env['CM_MODEL'] == "retinanet":
@@ -179,20 +180,17 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
         env['SKIP_VERIFY_ACCURACY'] = True
 
-    elif "bert" in env['CM_MODEL']:
+    elif "rnnt" in env['CM_MODEL']:
 
-        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_BERT_PATH'])
-        if env.get('CM_MLPERF_QUANTIZATION') in [ "on", True, "1", "True" ]:
-            quantization_options = " --quantized"
-        else:
-            quantization_options = ""
-        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
-            env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
-        cmd = cmd.replace("--count", "--max_examples")
-        env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
-        env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH'] 
-        env['DATASET_FILE'] = env['CM_DATASET_SQUAD_VAL_PATH']
-        env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
+        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_RNNT_PATH'])
+        cmd = "cd '" + env['RUN_DIR'] + "' && " + env['CM_PYTHON_BIN_WITH_PATH'] + " run.py --backend " + env['CM_MLPERF_BACKEND'] + \
+                " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+                " --manifest " + env['CM_DATASET_PREPROCESSED_JSON'] + \
+                " --dataset_dir " + os.path.join(env['CM_DATASET_PREPROCESSED_PATH'], "..") + \
+                " --pytorch_config_toml " + os.path.join("pytorch", "configs", "rnnt.toml") + \
+                " --pytorch_checkpoint " + env['CM_ML_MODEL_FILE_WITH_PATH'] + \
+                " --log_dir " + env['CM_MLPERF_OUTPUT_DIR'] + \
+                env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options
         env['SKIP_VERIFY_ACCURACY'] = True
 
     elif "3d-unet" in env['CM_MODEL']:
