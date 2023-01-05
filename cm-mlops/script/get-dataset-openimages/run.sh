@@ -4,7 +4,7 @@ CUR=${PWD}
 mkdir -p install
 INSTALL_DIR=${CUR}/install
 
-cd ${CM_MLPERF_INFERENCE_VISION_PATH}
+cd ${CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH}
 cd tools
 
 if [[ ${CM_DATASET_CALIBRATION} == "no" ]]; then

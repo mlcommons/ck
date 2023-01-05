@@ -1,0 +1,88 @@
+{
+  "alias": "get-ml-model-dlrm-terabyte",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "ML/AI models",
+  "env": {
+    "CM_ML_MODEL": "dlrm",
+    "CM_ML_MODEL_DATASET": "criteo-terabyte",
+    "CM_ML_MODEL_RETRAINING": "no",
+    "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
+  },
+  "new_env_keys": [
+    "CM_ML_MODEL_*"
+  ],
+  "tags": [
+    "get",
+    "ml-model",
+    "dlrm",
+    "terabyte",
+    "criteo-terabyte",
+    "criteo",
+    "recommendation"
+  ],
+  "uid": "8fa7582c603a4db3",
+  "variations": {
+    "fp32": {
+      "default": true,
+      "env": {
+        "CM_ML_MODEL_INPUT_DATA_TYPES": "fp32",
+        "CM_ML_MODEL_PRECISION": "fp32",
+        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "fp32"
+      },
+      "group": "precision"
+    },
+    "onnx": {
+      "default": true,
+      "env": {
+        "CM_ML_MODEL_FRAMEWORK": "onnx"
+      },
+      "group": "framework"
+    },
+    "onnx,fp32": {
+      "env": {
+        "CM_ML_MODEL_ACCURACY": "0.8025",
+        "CM_PACKAGE_URL": "https://dlrm.s3-us-west-1.amazonaws.com/models/tb00_40M.onnx.tar",
+        "CM_UNTAR": "yes",
+        "CM_ML_MODEL_FILE": "tb00_40M.onnx",
+        "CM_ML_MODEL_DLRM_MAX_INDEX_RANGE": "40000000"
+      }
+    },
+    "pytorch": {
+      "env": {
+        "CM_ML_MODEL_FRAMEWORK": "pytorch"
+      },
+      "group": "framework",
+      "default": true
+    },
+    "pytorch,fp32": {
+      "env": {
+        "CM_ML_MODEL_ACCURACY": "0.8025",
+        "CM_PACKAGE_URL": "https://dlrm.s3-us-west-1.amazonaws.com/models/tb00_40M.pt",
+        "CM_ML_MODEL_DLRM_MAX_INDEX_RANGE": "40000000"
+      }
+    },
+    "debug": {
+      "env": {
+        "CM_ML_MODEL_DEBUG": "yes"
+      }
+    },
+    "pytorch,fp32,debug": {
+      "env": {
+        "CM_ML_MODEL_ACCURACY": "0.8107",
+        "CM_PACKAGE_URL": "https://dlrm.s3-us-west-1.amazonaws.com/models/tb0875_10M.pt",
+        "CM_ML_MODEL_DLRM_MAX_INDEX_RANGE": "10000000"
+      }
+    },
+    "onnx,fp32,debug": {
+      "env": {
+        "CM_ML_MODEL_ACCURACY": "0.8107",
+        "CM_PACKAGE_URL": "https://dlrm.s3-us-west-1.amazonaws.com/models/tb0875_10M.onnx.tar",
+        "CM_ML_MODEL_DLRM_MAX_INDEX_RANGE": "10000000",
+        "CM_UNTAR": "yes",
+        "CM_ML_MODEL_FILE": "tb0875_10M.onnx"
+      }
+    }
+  }
+}

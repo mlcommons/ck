@@ -15,7 +15,6 @@ samples_to_aggregate_min = os.environ.get('CM_DATASET_SAMPLES_TO_AGGREGATE_MIN',
 samples_to_aggregate_max = os.environ.get('CM_DATASET_SAMPLES_TO_AGGREGATE_MAX', None)
 count = int(os.environ.get('CM_DATASET_SIZE', 0)) or None
 max_ind_range = os.environ.get('CM_DATASET_MAX_IND_RANGE',-1)
-image_width = int(os.environ.get('CM_DATASET_OPENIMAGES_RESIZE', 800))
 threads = os.environ.get('CM_NUM_THREADS', os.cpu_count())
 threads = os.environ.get('CM_NUM_PREPROCESS_THREADS', threads)
 
@@ -28,5 +27,6 @@ criteo.Criteo(data_path=dataset_path,
                         samples_to_aggregate_max=samples_to_aggregate_max,
                         max_ind_range=max_ind_range,
                         count=count,
+                        mlperf_bin_loader=False,
                         test_num_workers=threads
                         )

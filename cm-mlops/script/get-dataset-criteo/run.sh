@@ -13,5 +13,5 @@ if [ ${CM_BACKUP_ZIPS:-no} == "yes" ]; then
     mkdir backup
     cp -r *.gz backup/
 fi
-gunzip day_{0..23}.gz
+yes n | gunzip -k day_{0..23}.gz
 echo "CM_DATASET_PATH=$PWD" > tmp-run-env.out

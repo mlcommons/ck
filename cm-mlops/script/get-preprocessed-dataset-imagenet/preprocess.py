@@ -5,8 +5,8 @@ if os.environ.get('CM_DATASET_REFERENCE_PREPROCESSOR', '1') == "0":
     import generic_preprocess
     generic_preprocess.preprocess()
 else:
-    mlperf_vision_path = os.environ['CM_MLPERF_INFERENCE_VISION_PATH']
-    python_path = os.path.join(mlperf_vision_path, "python")
+    mlperf_src_path = os.environ['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
+    python_path = os.path.join(mlperf_src_path, "python")
     sys.path.insert(0, python_path)
 
     import imagenet

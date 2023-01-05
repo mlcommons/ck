@@ -15,26 +15,24 @@ def preprocess(i):
 
     url = env['CM_PACKAGE_URL']
 
-    env['CM_STARTING_WEIGHTS_FILENAME'] = url
-
     print ('Downloading from {}'.format(url))
 
-    r = cm.access({'action':'download_file',
-                'automation':'utils,dc2743f8450541e3',
-                'url':url})
+    r = cm.access({'action':'download_file', 
+                   'automation':'utils,dc2743f8450541e3', 
+                   'url':url})
     if r['return']>0: return r
 
     filename = r['filename']
 
-    if env.get('CM_UNZIP') == "yes":
-        os.system("unzip "+filename)
+    if env.get('CM_UNTAR') == "yes":
+        os.system("untar "+filename)
         filename = env['CM_ML_MODEL_FILE']
         env['CM_ML_MODEL_FILE_WITH_PATH']=os.path.join(path, filename)
     else:
-        env['CM_ML_MODEL_FILE'] = filename
+        # Add to path
+        env['CM_ML_MODEL_FILE']=filename
         env['CM_ML_MODEL_FILE_WITH_PATH']=r['path']
 
-    # Add to path
     env['CM_ML_MODEL_PATH']=path
 
     return {'return':0}

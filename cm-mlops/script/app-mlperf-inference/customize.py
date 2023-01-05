@@ -42,7 +42,7 @@ def preprocess(i):
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_MLPERF_LOADGEN_QPS_OPT']
 
     if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_VISION_PATH']
+        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
 
     if 'CM_NUM_THREADS' not in env:
         if 'CM_MINIMIZE_THREADS' in env:
@@ -316,13 +316,13 @@ def postprocess(i):
                 OUTPUT_DIR = os.path.join(OUTPUT_DIR, "TEST01", "accuracy")
                 if not os.path.exists(OUTPUT_DIR):
                     os.makedirs(OUTPUT_DIR)
-                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "tools", \
+                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                         accuracy_filename) + " --mlperf-accuracy-file " + \
                         "mlperf_log_accuracy_baseline.json" + dataset_args + " > " + \
                         os.path.join(OUTPUT_DIR, "baseline_accuracy.txt")
                 print(CMD)
                 result  = subprocess.run(CMD, shell=True)
-                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "tools", \
+                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                         accuracy_filename) + " --mlperf-accuracy-file " + \
                         "mlperf_log_accuracy.json" + dataset_args + " > " + \
                         os.path.join(OUTPUT_DIR, "compliance_accuracy.txt")

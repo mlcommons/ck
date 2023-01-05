@@ -29,7 +29,7 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 * [CM format for software projects](specs/cm-repository.md)
 * [CM CLI description](specs/cm-cli.md)
 * [CM Python API](specs/cm-python-interface.md)
-* [CM tool architecture](specs/cm-tool-architecture.md)
+* [CM internal architecture](specs/cm-tool-architecture.md)
 
 ### Catalog of reusable components
 
