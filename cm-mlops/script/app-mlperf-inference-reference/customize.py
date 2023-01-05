@@ -198,13 +198,14 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
     elif "3d-unet" in env['CM_MODEL']:
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_3DUNET_PATH'])
-        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+        backend = env['CM_MLPERF_BACKEND'] if env['CM_MLPERF_BACKEND'] != 'tf' else 'tensorflow'
+        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + backend + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             " --model="+env['CM_ML_MODEL_FILE_WITH_PATH'] + \
             " --preprocessed_data_dir="+env['CM_DATASET_PREPROCESSED_PATH'] + \
             scenario_extra_options + mode_extra_options + dataset_options
 
-        #env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
+        env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
         env['SKIP_VERIFY_ACCURACY'] = True
     return cmd
 
