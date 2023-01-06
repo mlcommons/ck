@@ -203,6 +203,26 @@ deps:
       - bert-99
       - bert-99.9
 
+  ## Kits19 for 3d-unet
+  - tags: get,dataset,kits19,preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+
+  ## Librispeech for rnnt
+  - tags: get,dataset,librispeech,preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - rnnt
+
+  ## Criteo for dlrm
+  - tags: get,dataset,criteo,preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - dlrm-99
+      - dlrm-99.9
+
 
   ########################################################################
   # Install ML models    
@@ -335,7 +355,50 @@ deps:
       CM_MODEL:
       - bert-99
       - bert-99.9
+
+  ## 3d-unet (Pytorch format)
+  - tags: get,ml-model,medical-imaging,3d-unet,_pytorch,_fp32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+
+  ## 3d-unet (Tensorflow format)
+  - tags: get,ml-model,medical-imaging,3d-unet,_tf,_fp32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - tf
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+
+  ## 3d-unet (Onnx format)
+  - tags: get,ml-model,medical-imaging,3d-unet,_onnx,_fp32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
     
+  ## Rnnt (Pytorch format)
+  - tags: get,ml-model,speech-recognition,rnnt,_pytorch,_fp32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MODEL:
+      - rnnt
+
+  ## Dlrm (Pytorch format)
+  - tags: get,ml-model,recommendation,dlrm,_pytorch,_fp32
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      CM_MODEL:
+      - dlrm-99
+      - dlrm-99.9
 
 posthook_deps: 
   - names:
@@ -351,7 +414,7 @@ posthook_deps:
 # Variations to customize dependencies
 variations:
   python:
-    group: implementation,
+    group: implementation
     default: true,
     add_deps_recursive:
       imagenet-accuracy-script:
@@ -362,8 +425,8 @@ variations:
 
   # ML engine
   onnxruntime:
-    group: framework,
-    default: true,
+    group: framework
+    default: true
     add_deps_recursive:
       imagenet-preprocessed:
         tags: _NCHW
@@ -376,7 +439,7 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
 
   pytorch:
-    group: framework,
+    group: framework
     add_deps_recursive:
       imagenet-preprocessed:
         tags: _NCHW
@@ -387,7 +450,7 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
 
   tf:
-    group: framework,
+    group: framework
     add_deps_recursive:
       imagenet-preprocessed:
         tags: _NHWC
@@ -399,7 +462,7 @@ variations:
     alias: tf
 
   tvm-onnx:
-    group: framework,
+    group: framework
     env:
       CM_MLPERF_BACKEND: tvm-onnx
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
@@ -407,7 +470,7 @@ variations:
     - tags: get,generic-python-lib,_onnx
 
   tvm-pytorch:
-    group: framework,
+    group: framework
     env:
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
@@ -415,14 +478,14 @@ variations:
 
   # Reference MLPerf models
   bert-99.9:
-    group: models,
+    group: models
     base:
     - bert
     env:
       CM_MODEL: bert-99.9
 
   bert-99:
-    group: models,
+    group: models
     base:
     - bert
     env:
@@ -445,8 +508,59 @@ variations:
       inference-src:
         tags: _deeplearningexamples
 
+  3d-unet-99.9:
+    group: models
+    base:
+    - 3d-unet
+    env:
+      CM_MODEL: 3d-unet-99.9
+
+  3d-unet-99:
+    group: models
+    base:
+    - 3d-unet
+    env:
+      CM_MODEL: 3d-unet-99
+
+  3d-unet:
+    deps:
+    - tags: get,generic-python-lib,_torch
+      names:
+      - ml-engine-pytorch
+
+  dlrm-99.9:
+    group: models
+    base:
+    - dlrm
+    env:
+      CM_MODEL: dlrm-99.9
+
+  dlrm-99:
+    group: models
+    base:
+    - dlrm
+    env:
+      CM_MODEL: dlrm-99
+
+  dlrm:
+    deps:
+    - tags: get,dlrm,src
+      names:
+      - dlrm-src
+    - tags: get,generic-python-lib,_mlperf_logging
+
+  rnnt:
+    group: models
+    env:
+      CM_MODEL: rnnt
+    deps:
+    - tags: get,generic-python-lib,_librosa
+    - tags: get,generic-python-lib,_inflect
+    - tags: get,generic-python-lib,_unidecode
+    - tags: get,generic-python-lib,_toml
+
   retinanet:
-    group: models,
+    group: models
     deps:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy
@@ -456,8 +570,8 @@ variations:
       CM_MODEL: retinanet
 
   resnet50:
-    group: models,
-    default: true,
+    group: models
+    default: true
     env:
       CM_MODEL: resnet50
     deps:
@@ -467,8 +581,8 @@ variations:
 
   # Target devices
   cpu:
-    group: device,
-    default: true,
+    group: device
+    default: true
     env:
       CM_MLPERF_DEVICE: cpu
       CUDA_VISIBLE_DEVICES: ''
@@ -476,7 +590,7 @@ variations:
       USE_GPU: no
 
   cuda:
-    group: device,
+    group: device
     env:
       CM_MLPERF_DEVICE: gpu
       USE_CUDA: yes
@@ -487,21 +601,21 @@ variations:
 
   # Execution modes
   fast:
-    group: execution-mode,
+    group: execution-mode
     env:
       CM_FAST_FACTOR: '5'
       CM_OUTPUT_FOLDER_NAME: fast_results
       CM_MLPERF_RUN_STYLE: fast
 
   test:
-    group: execution-mode,
-    default: true,
+    group: execution-mode
+    default: true
     env:
       CM_OUTPUT_FOLDER_NAME: test_results
       CM_MLPERF_RUN_STYLE: test
 
   valid:
-    group: execution-mode,
+    group: execution-mode
     env:
       CM_OUTPUT_FOLDER_NAME: valid_results
       CM_MLPERF_RUN_STYLE: valid

@@ -287,6 +287,46 @@
         "CM_OPENCV_PYTHON_VERSION"
       ]
     },
+    "sox": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "sox"
+      },
+      "new_env_keys": [
+        "CM_SOX_VERSION"
+      ]
+    },
+    "toml": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "toml"
+      },
+      "new_env_keys": [
+        "CM_TOML_VERSION"
+      ]
+    },
+    "unidecode": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "unidecode"
+      },
+      "new_env_keys": [
+        "CM_UNIDECODE_VERSION"
+      ]
+    },
+    "inflect": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "inflect"
+      },
+      "new_env_keys": [
+        "CM_INFLECT_VERSION"
+      ]
+    },
+    "librosa": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "librosa"
+      },
+      "new_env_keys": [
+        "CM_LIBROSA_VERSION"
+      ]
+    },
     "pillow": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "Pillow"

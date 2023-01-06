@@ -34,7 +34,6 @@
       "group": "precision"
     },
     "onnx": {
-      "default": true,
       "env": {
         "CM_ML_MODEL_FRAMEWORK": "onnx"
       },

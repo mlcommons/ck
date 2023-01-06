@@ -714,7 +714,7 @@ class CAutomation(Automation):
                         default_base_variations = variations[variation_name]["default_variations"]
                         for default_base_variation in default_base_variations:
                             if default_base_variation not in variation_groups:
-                                return {'return': 1, 'error': 'Default variation "{}" is not a valid group '.format(default_base_variation)}
+                                return {'return': 1, 'error': 'Default variation "{}" is not a valid group. Valid groups are "{}" '.format(default_base_variation, variation_groups)}
                             if 'default' in variation_groups[default_base_variation]:
                                 return {'return': 1, 'error': 'Default variation "{}" specified for the group "{}" with an already defined default variation "{}" '.format(default_base_variations[default_base_variation], default_base_variation, variation_groups[default_base_variation]['default'])}
                             unique_allowed_variations = variation_groups[default_base_variation]['variations']
@@ -956,7 +956,9 @@ class CAutomation(Automation):
                                    })
             if r['return'] >0: return r
 
-            found_cached_scripts = r['found_cached_scripts']
+            # Sort by tags to ensure determinism in order (and later add versions)
+            found_cached_scripts = sorted(r['found_cached_scripts'], key = lambda x: sorted(x.meta['tags']))
+
             cached_tags = r['cached_tags']
             search_tags = r['search_tags']
 
@@ -1580,6 +1582,9 @@ class CAutomation(Automation):
 
         ############################# RETURN
         elapsed_time = time.time() - start_time
+
+        if verbose and cached_uid!='':
+            print (recursion_spaces+'  - cache UID: {}'.format(cached_uid))
 
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
