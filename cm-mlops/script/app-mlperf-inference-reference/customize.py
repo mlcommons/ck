@@ -165,7 +165,9 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
             env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             scenario_extra_options + mode_extra_options + dataset_options
+
     elif "bert" in env['CM_MODEL']:
+
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "bert")
         if env.get('CM_MLPERF_QUANTIZATION') in [ "on", True, "1", "True" ]:
             quantization_options = " --quantized"
@@ -182,7 +184,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
 
     elif "rnnt" in env['CM_MODEL']:
 
-        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_RNNT_PATH'])
+        env['RUN_DIR'] = env['CM_MLPERF_INFERENCE_RNNT_PATH']
         cmd = "cd '" + env['RUN_DIR'] + "' && " + env['CM_PYTHON_BIN_WITH_PATH'] + " run.py --backend " + env['CM_MLPERF_BACKEND'] + \
                 " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + \
                 " --manifest " + env['CM_DATASET_PREPROCESSED_JSON'] + \
@@ -195,7 +197,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
 
     elif "3d-unet" in env['CM_MODEL']:
 
-        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_3DUNET_PATH'])
+        env['RUN_DIR'] = env['CM_MLPERF_INFERENCE_3DUNET_PATH']
         backend = env['CM_MLPERF_BACKEND'] if env['CM_MLPERF_BACKEND'] != 'tf' else 'tensorflow'
         cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + backend + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
@@ -205,6 +207,20 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
 
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
         env['SKIP_VERIFY_ACCURACY'] = True
+
+    elif "dlrm" in env['CM_MODEL']:
+
+        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_DLRM_PATH'], "pytorch")
+        if 'terabyte' in env['CM_ML_MODEL_DATASET']:
+            dataset = "terabyte"
+        elif 'kaggle' in env['CM_ML_MODEL_DATASET']:
+            dataset = "kaggle"
+        cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + \
+            ' dlrm ' + dataset + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + \
+            env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
+            ' --max-ind-range=10000000 --data-sub-sample-rate=0.875 --test-num-workers=1 --mlperf-bin-loader --count-samples=10 ' + \
+            scenario_extra_options + mode_extra_options + dataset_options
+
     return cmd
 
 def postprocess(i):
