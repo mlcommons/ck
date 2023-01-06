@@ -13,9 +13,11 @@
       "tags": "detect,cpu"
     }
   ],
-  "env": {
+  "default_env": {
     "CM_ENABLE_SSL": "no",
     "CM_SHARED_BUILD": "no",
+    "CM_PYTHON_OPTIMIZATION_FLAG": "",
+    "CM_PYTHON_LTO_FLAG": "",
     "CM_WGET_URL": "https://www.python.org/ftp/python/[PYTHON_VERSION]/Python-[PYTHON_VERSION].tgz"
   },
   "new_env_keys": [
@@ -61,6 +63,18 @@
       "env": {
         "CM_ENABLE_SSL": "yes",
         "CM_PYTHON_INSTALL_CACHE_TAGS": "with-ssl"
+      }
+    },
+    "optimized": {
+      "env": {
+        "CM_PYTHON_OPTIMIZATION_FLAG": " --enable-optimizations",
+        "CM_PYTHON_INSTALL_CACHE_TAGS": "with-optimizations"
+      }
+    },
+    "lto": {
+      "env": {
+        "CM_PYTHON_LTO_FLAG": " --lto",
+        "CM_PYTHON_INSTALL_CACHE_TAGS": "with-lto"
       }
     }
   }

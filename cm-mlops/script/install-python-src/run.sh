@@ -13,7 +13,7 @@ CM_MAKE_CORES=${CM_MAKE_CORES:-${CM_HOST_CPU_TOTAL_CORES}}
 CM_MAKE_CORES=${CM_MAKE_CORES:-2}
 
 if [[ ${CM_SHARED_BUILD} == "yes" ]]; then
-  SHARED_BUILD_FLAGS=" --enable-shared --enable-ssl"
+  SHARED_BUILD_FLAGS=" --enable-shared"
 else
   SHARED_BUILD_FLAGS=""
 fi
@@ -31,13 +31,8 @@ mkdir install
 
 cd src
 
-
-if [ -f "Python-${PYTHON_VERSION}.tgz" ] ; then
- rm "Python-${PYTHON_VERSION}.tgz"
-fi
-
 pwd
-wget ${CM_WGET_URL}
+wget -nc ${CM_WGET_URL}
 
 if [ "${?}" != "0" ]; then exit 1; fi
 
@@ -50,14 +45,17 @@ if [ "${?}" != "0" ]; then exit 1; fi
 
 cd Python-${PYTHON_VERSION}
 
-./configure --enable-optimizations ${SHARED_BUILD_FLAGS} ${EXTRA_FLAGS} --with-ensurepip=install --prefix="${CUR_DIR}/install"
+./configure ${CM_PYTHON_OPTIMIZATION_FLAG} ${CM_PYTHON_LTO_FLAG} ${SHARED_BUILD_FLAGS} ${EXTRA_FLAGS} --with-ensurepip=install --prefix="${CUR_DIR}/install"
 if [ "${?}" != "0" ]; then exit 1; fi
 
 make -j${CM_MAKE_CORES} install
+make -j${CM_MAKE_CORES} install
+make -j${CM_MAKE_CORES} install
 if [ "${?}" != "0" ]; then exit 1; fi
 
+echo "Removing src files"
 cd "${CUR_DIR}" && \
-#rm -rf src
+rm -rf src
 
 if [ "${?}" != "0" ]; then exit 1; fi
 
