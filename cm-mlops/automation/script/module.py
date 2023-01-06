@@ -956,7 +956,9 @@ class CAutomation(Automation):
                                    })
             if r['return'] >0: return r
 
-            found_cached_scripts = r['found_cached_scripts']
+            # Sort by tags to ensure determinism in order (and later add versions)
+            found_cached_scripts = sorted(r['found_cached_scripts'], key = lambda x: sorted(x.meta['tags']))
+
             cached_tags = r['cached_tags']
             search_tags = r['search_tags']
 
@@ -3793,9 +3795,7 @@ def select_script_artifact(lst, text, recursion_spaces, can_skip, script_tags_st
     print ('')
     num = 0
 
-    # Sort by tags to ensure determinism in order (and later add versions)
-    for a in sorted(lst, key = lambda x: sorted(x.meta['tags'])):
-#    for a in lst:
+    for a in lst:
         meta = a.meta
 
         name = meta.get('name', '')
