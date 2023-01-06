@@ -41,8 +41,8 @@
   "uid": "d0b5dd74373f4a62",
   "variations": {
     "shared": {},
-    "with-ssl": {},
-    "optimized": {},
+    "with-custom-ssl": {},
+    "no-optimize": {},
     "lto": {}
   }
 }

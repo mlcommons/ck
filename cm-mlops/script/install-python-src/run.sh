@@ -17,8 +17,8 @@ if [[ ${CM_SHARED_BUILD} == "yes" ]]; then
 else
   SHARED_BUILD_FLAGS=""
 fi
-if [[ ${CM_ENABLE_SSL} == "yes" ]]; then
-  EXTRA_FLAGS=" --enable-ssl"
+if [[ ${CM_CUSTOM_SSL} == "yes" ]]; then
+  EXTRA_FLAGS=" --with-openssl=${CM_OPENSSL_INSTALLED_PATH} --with-openssl-rpath=auto"
 else
   EXTRA_FLAGS=""
 fi
