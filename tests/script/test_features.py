@@ -16,5 +16,6 @@ checks.check_return(r)
 
 r = cm.access({'action':'search', 'automation': 'cache', 'tags': 'get,dataset,preprocessed,imagenet,-_NCHW'})
 checks.check_list(r, "_NHWC")
+
 r = cm.access({'action':'search', 'automation': 'cache', 'tags': 'get,dataset,preprocessed,imagenet,-_NHWC'})
 checks.check_list(r, "_NHWC", False)
