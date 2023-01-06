@@ -102,7 +102,7 @@ def postprocess(i):
         # Clean PATH and other vars with original Python if from virtual
         # since we use . activate to set these ...
         # If we need them, we can add them later explicitly ...
-        for k in ['+PATH', '+LD_LIBRARY_PATH', '+C_INCLUDE_PATH']:
+        for k in ['+PATH']:#, '+LD_LIBRARY_PATH', '+C_INCLUDE_PATH']:
             if k in env:
                 del(env[k])
 

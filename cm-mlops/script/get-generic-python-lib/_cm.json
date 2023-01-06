@@ -14,7 +14,7 @@
         "python",
         "python3"
       ],
-      "tags": "get,python3"
+      "tags": "get,python"
     }
   ],
   "extra_cache_tags_from_env": [

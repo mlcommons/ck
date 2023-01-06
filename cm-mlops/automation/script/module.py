@@ -1583,6 +1583,9 @@ class CAutomation(Automation):
         ############################# RETURN
         elapsed_time = time.time() - start_time
 
+        if verbose and cached_uid!='':
+            print (recursion_spaces+'  - cache UID: {}'.format(cached_uid))
+
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
 
