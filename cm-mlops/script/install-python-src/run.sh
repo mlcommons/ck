@@ -48,8 +48,7 @@ cd Python-${PYTHON_VERSION}
 ./configure ${CM_PYTHON_OPTIMIZATION_FLAG} ${CM_PYTHON_LTO_FLAG} ${SHARED_BUILD_FLAGS} ${EXTRA_FLAGS} --with-ensurepip=install --prefix="${CUR_DIR}/install"
 if [ "${?}" != "0" ]; then exit 1; fi
 
-make -j${CM_MAKE_CORES} install
-make -j${CM_MAKE_CORES} install
+make -j${CM_MAKE_CORES}
 make -j${CM_MAKE_CORES} install
 if [ "${?}" != "0" ]; then exit 1; fi
 
