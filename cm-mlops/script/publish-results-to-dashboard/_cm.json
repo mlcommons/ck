@@ -10,7 +10,7 @@
         "python3",
         "python"
       ],
-      "tags": "get,python"
+      "tags": "get,python3"
     },
     {
       "tags": "get,generic-python-lib,_wandb"

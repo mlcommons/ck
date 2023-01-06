@@ -99,10 +99,9 @@ def postprocess(i):
     found_path_root = os.path.dirname(found_path)
 
     if from_virtual:
-        # Clean PATH and other vars with original Python if from virtual
-        # since we use . activate to set these ...
-        # If we need them, we can add them later explicitly ...
-        for k in ['+PATH']:#, '+LD_LIBRARY_PATH', '+C_INCLUDE_PATH']:
+        # Clean PATH (it will be in activate script) 
+        # but keep LD_LIBRARY_PATH and C_INCLUDE_PATH from the native python
+        for k in ['+PATH']:
             if k in env:
                 del(env[k])
 
