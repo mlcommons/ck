@@ -3793,7 +3793,9 @@ def select_script_artifact(lst, text, recursion_spaces, can_skip, script_tags_st
     print ('')
     num = 0
 
-    for a in lst:
+    # Sort by tags to ensure determinism in order (and later add versions)
+    for a in sorted(lst, key = lambda x: sorted(x.meta['tags'])):
+#    for a in lst:
         meta = a.meta
 
         name = meta.get('name', '')
