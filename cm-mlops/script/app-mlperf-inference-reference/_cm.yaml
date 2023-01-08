@@ -218,6 +218,8 @@ deps:
 
   ## Criteo for dlrm
   - tags: get,dataset,criteo,preprocessed
+    names:
+    - criteo-preprocessed
     enable_if_env:
       CM_MODEL:
       - dlrm-99
@@ -393,6 +395,8 @@ deps:
 
   ## Dlrm (Pytorch format)
   - tags: get,ml-model,recommendation,dlrm,_pytorch,_fp32
+    names:
+    - dlrm-model
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
