@@ -51,7 +51,8 @@ def preprocess(i):
             state['CM_SUT_META']['submitter'] = submitter
             state['CM_SUT_META']['operating_system'] = os_name_string
             state['CM_SUT_META']['other_software_stack'] = "Python: " + python_version + ", " + compiler + "-" + compiler_version
-            if state['CM_SUT_META'].get('system_name','') != '':
+
+            if not state['CM_SUT_META'].get('system_name'):
                 system_name = env.get('CM_MLPERF_SYSTEM_NAME')
                 if not system_name:
                     system_name = env.get('CM_HOST_SYSTEM_NAME')
@@ -59,7 +60,8 @@ def preprocess(i):
                         system_name+=" (auto detected)"
                     else:
                         system_name = " (generic)"
-            state['CM_SUT_META']['system_name'] = system_name
+                state['CM_SUT_META']['system_name'] = system_name
+
             if 'host_processor_core_count' not in state['CM_SUT_META']:
                 state['CM_SUT_META']['host_processor_core_count'] = env.get('CM_HOST_CPU_TOTAL_CORES', '')
             if 'host_processor_model_name' not in state['CM_SUT_META']:
