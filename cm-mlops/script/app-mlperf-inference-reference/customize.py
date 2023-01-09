@@ -227,7 +227,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             ' dlrm ' + dataset + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             config + mlperf_bin_loader_string + \
-            ' --max-batchsize=2048 --test-num-workers=1 --count-samples=10 --samples-to-aggregate-quantile-file=./tools/dist_quantile.txt ' + \
+            ' --max-batchsize=64 --test-num-workers=1 --count-samples=10 --samples-to-aggregate-quantile-file=./tools/dist_quantile.txt ' + \
             scenario_extra_options + mode_extra_options + dataset_options
 
     return cmd
