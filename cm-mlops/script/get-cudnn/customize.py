@@ -14,7 +14,7 @@ def preprocess(i):
     if os_info['platform'] == 'windows':
         return {'return': 1, 'error': 'Windows is currently not supported!'}
 
-    if 'CM_INPUT' not in env:
+    if not env.get('CM_INPUT',''):
         return {'return': 1, 'error': 'Please use --input option to point to the cudnn tar file'}
 
     my_tar = tarfile.open(os.path.expanduser(env['CM_INPUT']))
