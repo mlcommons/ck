@@ -599,9 +599,6 @@ variations:
       CM_MLPERF_DEVICE: gpu
       USE_CUDA: yes
       USE_GPU: yes
-    add_deps_recursive:
-      cpp-mlperf-inference:
-        tags: _cuda
 
   # Execution modes
   fast:
