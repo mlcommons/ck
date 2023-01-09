@@ -600,27 +600,6 @@ variations:
       USE_CUDA: yes
       USE_GPU: yes
 
-  # Execution modes
-  fast:
-    group: execution-mode
-    env:
-      CM_FAST_FACTOR: '5'
-      CM_OUTPUT_FOLDER_NAME: fast_results
-      CM_MLPERF_RUN_STYLE: fast
-
-  test:
-    group: execution-mode
-    default: true
-    env:
-      CM_OUTPUT_FOLDER_NAME: test_results
-      CM_MLPERF_RUN_STYLE: test
-
-  valid:
-    group: execution-mode
-    env:
-      CM_OUTPUT_FOLDER_NAME: valid_results
-      CM_MLPERF_RUN_STYLE: valid
-
   # Turn on quantization
   quantized:
     env:
