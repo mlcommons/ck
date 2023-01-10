@@ -16,7 +16,7 @@
   "default_env": {
     "CM_ENABLE_SSL": "no",
     "CM_SHARED_BUILD": "no",
-    "CM_PYTHON_OPTIMIZATION_FLAG": " --enable-optimizations",
+    "CM_PYTHON_OPTIMIZATION_FLAG": "",
     "CM_PYTHON_LTO_FLAG": "",
     "CM_WGET_URL": "https://www.python.org/ftp/python/[PYTHON_VERSION]/Python-[PYTHON_VERSION].tgz"
   },
@@ -70,10 +70,10 @@
         "CM_PYTHON_INSTALL_CACHE_TAGS": "with-custom-ssl"
       }
     },
-    "no-optimize": {
+    "optimized": {
       "env": {
-        "CM_PYTHON_OPTIMIZATION_FLAG": "",
-        "CM_PYTHON_INSTALL_CACHE_TAGS": "no-optimizations"
+        "CM_PYTHON_OPTIMIZATION_FLAG": " --enable-optimizations",
+        "CM_PYTHON_INSTALL_CACHE_TAGS": "optimized"
       }
     },
     "lto": {
