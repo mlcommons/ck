@@ -42,6 +42,10 @@ input_mapping:
   num_threads: CM_NUM_THREADS
   output_dir: OUTPUT_BASE_DIR
   power: CM_SYSTEM_POWER
+  power_server: CM_MLPERF_POWER_SERVER_ADDRESS
+  ntp_server: CM_MLPERF_POWER_NTP_SERVER
+  max_amps: CM_MLPERF_POWER_MAX_AMPS
+  max_volts: CM_MLPERF_POWER_MAX_VOLTS
   regenerate_files: CM_REGENERATE_MEASURE_FILES
   rerun: CM_RERUN
   scenario: CM_MLPERF_LOADGEN_SCENARIO
