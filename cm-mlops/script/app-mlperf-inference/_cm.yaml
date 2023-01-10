@@ -244,6 +244,27 @@ variations:
       - 3dunet-accuracy-script
       tags: run,accuracy,mlperf,_3dunet
 
+  rnnt:
+    group:
+      models
+    env:
+      CM_MODEL:
+        rnnt
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _rnnt
+    post_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - rnnt-accuracy-script
+      tags: run,accuracy,mlperf,_rnnt
+
   bert_:
     post_deps:
     - enable_if_env:
@@ -414,6 +435,10 @@ valid_variation_combinations:
     - bert-99.9
   -
     - bert-99
+  -
+    - rnnt
+  -
+    - 3d-unet
 
 invalid_variation_combinations:
   -
