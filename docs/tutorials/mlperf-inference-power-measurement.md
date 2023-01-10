@@ -83,17 +83,17 @@ cm run script --tags=run,docker,container --cm_repo=octoml@ck \
 --run_cmd="cm run script --tags==mlperf,power,client --power_server=<POWER_SERVER_IP>"
 ```
 
-## Running MLPerf Image Classification with power (on host machine)
+## Running MLPerf Image Classification with power
 
 ```bash
-cm run script --tags=app,mlperf,inference,_reference,_power,_resnet50,_onnxruntime,_cpu --mode=performance
+cm run script --tags=app,mlperf,inference,_reference,_power,_resnet50,_onnxruntime,_cpu --mode=performance --power_server=<POWER_SERVER_IP>
 ```
 
 ### Running MLPerf Image Classification with power inside a docker container
 ```bash
 cm run script --tags=run,docker,container --cm_repo=octoml@ck  \
 --docker_os=ubuntu --docker_os_version=22.04  \
---run_cmd="cm run script --tags=app,mlperf,inference,_reference,_power,_resnet50,_onnxruntime,_cpu --mode=performance"
+--run_cmd="cm run script --tags=app,mlperf,inference,_reference,_power,_resnet50,_onnxruntime,_cpu --mode=performance --power_server=<POWER_SERVER_IP>"
 ```
 
 
