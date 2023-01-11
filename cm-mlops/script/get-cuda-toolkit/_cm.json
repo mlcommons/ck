@@ -1,14 +1,14 @@
 {
-  "alias": "get-cuda",
+  "alias": "get-cuda-toolkit",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
+  "cache": true,
   "category": "CUDA automation",
   "category_sort": 7000,
-  "cache": true,
   "clean_files": [],
   "default_env": {
-    "CM_REQUIRE_INSTALL": "no",
-    "CM_CUDA_PATH_LIB_CUDNN_EXISTS": "no"
+    "CM_CUDA_PATH_LIB_CUDNN_EXISTS": "no",
+    "CM_REQUIRE_INSTALL": "no"
   },
   "new_env_keys": [
     "CUDA_HOME",
@@ -32,27 +32,12 @@
       "tags": "install,cuda,prebuilt"
     }
   ],
-  "variations": {
-    "compiler": {
-      "prehook_deps": [
-        {
-          "enable_if_env": {
-            "CM_WINDOWS": []
-          },
-          "tags": "get,cl"
-        },
-        {
-          "skip_if_env": {
-            "CM_WINDOWS": []
-          },
-          "tags": "get,compiler,gcc"
-        }
-      ]
-    }
-  },
   "tags": [
     "get",
     "cuda",
+    "toolkit",
+    "cuda-compiler",
+    "cuda-toolkit",
     "nvcc",
     "get-nvcc",
     "get-cuda"
@@ -60,14 +45,14 @@
   "uid": "46d133d9ef92422d",
   "variations": {
     "cudnn": {
-      "deps": [
+      "env": {
+        "CM_CUDA_NEEDS_CUDNN": "yes"
+      },
+      "post_deps": [
         {
           "tags": "get,nvidia,cudnn"
         }
-      ],
-      "env": {
-        "CM_CUDA_NEEDS_CUDNN": "yes"
-      }
+      ]
     }
   }
 }
