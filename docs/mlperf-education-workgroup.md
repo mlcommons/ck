@@ -19,7 +19,7 @@
 
 ## Discord server
 
-* [Invite link](https://discord.gg/7SmbHwuC)
+* [Invite link](https://discord.gg/JjWNWXKxwT)
 
 ## Meeting notes and news
 
