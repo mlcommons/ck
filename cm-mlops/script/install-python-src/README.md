@@ -51,9 +51,18 @@ install,src,python,python3,src-python3,src-python
 ___
 ### Variations
 #### All variations
+* lto
+  - *ENV CM_PYTHON_LTO_FLAG*: ` --lto`
+  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `with-lto`
+* optimized
+  - *ENV CM_PYTHON_OPTIMIZATION_FLAG*: ` --enable-optimizations`
+  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `optimized`
 * shared
   - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `shared`
   - *ENV CM_SHARED_BUILD*: `yes`
+* with-custom-ssl
+  - *ENV CM_CUSTOM_SSL*: `yes`
+  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `with-custom-ssl`
 * with-ssl
   - *ENV CM_ENABLE_SSL*: `yes`
   - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `with-ssl`
@@ -64,6 +73,12 @@ Default version: *3.10.5*
 ___
 ### Default environment
 
+* CM_ENABLE_SSL: **no**
+* CM_CUSTOM_SSL: **no**
+* CM_SHARED_BUILD: **no**
+* CM_PYTHON_OPTIMIZATION_FLAG: ****
+* CM_PYTHON_LTO_FLAG: ****
+* CM_WGET_URL: **https://www.python.org/ftp/python/[PYTHON_VERSION]/Python-[PYTHON_VERSION].tgz**
 ___
 ### CM script workflow
 
@@ -79,7 +94,7 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/_cm.json)***
-     * get,python
+     * get,python3
        * `if (CM_REQUIRE_INSTALL  != yes)`
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)

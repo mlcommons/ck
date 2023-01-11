@@ -10,6 +10,7 @@
 * [Tags](#tags)
 * [Variations](#variations)
   * [ All variations](#all-variations)
+  * [ Variations by groups](#variations-by-groups)
 * [Default environment](#default-environment)
 * [CM script workflow](#cm-script-workflow)
 * [New environment export](#new-environment-export)
@@ -53,44 +54,110 @@ ___
 #### All variations
 * 1
   - *ENV CM_DATASET_SIZE*: `1`
-* 500
+* **500** (default)
   - *ENV CM_DATASET_SIZE*: `500`
-* NCHW
+* **NCHW** (default)
   - *ENV CM_DATASET_DATA_LAYOUT*: `NCHW`
 * NHWC
   - *ENV CM_DATASET_DATA_LAYOUT*: `NHWC`
+* **default** (default)
 * for.mobilenet
-  - *ENV CM_IMAGENET_QUANTIZED*: `no`
+  - *ENV CM_DATASET_QUANTIZE*: `0`
   - *ENV CM_MODEL*: `mobilenet`
 * for.mobilenet-quantized
-  - *ENV CM_IMAGENET_QUANTIZED*: `yes`
+  - *ENV CM_DATASET_QUANTIZE*: `1`
 * for.resnet50
-  - *ENV CM_IMAGENET_QUANTIZED*: `no`
+  - *ENV CM_DATASET_NEW_EXTENSION*: `rgb32`
+  - *ENV CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+  - *ENV CM_DATASET_SUBTRACT_MEANS*: `1`
+  - *ENV CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+  - *ENV CM_DATASET_QUANTIZE*: `0`
+  - *ENV CM_DATASET_DATA_TYPE*: `float32`
   - *ENV CM_MODEL*: `resnet50`
 * for.resnet50-quantized
-  - *ENV CM_IMAGENET_QUANTIZED*: `yes`
   - *ENV CM_MODEL*: `resnet50`
-  - *ENV CM_NEW_EXTENSION*: `rgb8`
-  - *ENV CM_NORMALIZE_DATA*: `0`
-  - *ENV CM_SUBTRACT_MEAN*: `YES`
-  - *ENV CM_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
-  - *ENV CM_INTERPOLATION_METHOD*: `INTER_AREA`
-  - *ENV CM_QUANT_SCALE*: `1.18944883`
-  - *ENV CM_QUANT_OFFSET*: `0`
-  - *ENV CM_QUANTIZE*: `1`
-  - *ENV CM_CONVERT_TO_UNSIGNED*: `1`
+  - *ENV CM_DATASET_NEW_EXTENSION*: `rgb8`
+  - *ENV CM_DATASET_NORMALIZE_DATA*: `0`
+  - *ENV CM_DATASET_SUBTRACT_MEANS*: `1`
+  - *ENV CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+  - *ENV CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+  - *ENV CM_DATASET_DATA_TYPE*: `int8`
+  - *ENV CM_DATASET_QUANT_SCALE*: `1.18944883`
+  - *ENV CM_DATASET_QUANT_OFFSET*: `0`
+  - *ENV CM_DATASET_QUANTIZE*: `1`
+  - *ENV CM_DATASET_CONVERT_TO_UNSIGNED*: `1`
+* for.resnet50-rgb8
+  - *ENV CM_DATASET_NEW_EXTENSION*: `rgb8`
+  - *ENV CM_DATASET_GIVEN_CHANNEL_MEANS*: ``
+  - *ENV CM_DATASET_SUBTRACT_MEAN*: `0`
+  - *ENV CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+  - *ENV CM_DATASET_QUANTIZE*: `0`
+  - *ENV CM_DATASET_DATA_TYPE*: `int8`
+  - *ENV CM_MODEL*: `resnet50`
 * full
   - *ENV CM_DATASET_SIZE*: `50000`
+* generic-preprocessor
+  - *ENV CM_DATASET_REFERENCE_PREPROCESSOR*: `0`
+* mlcommons-reference-preprocessor
+  - *ENV CM_DATASET_REFERENCE_PREPROCESSOR*: `1`
+
+#### Variations by groups
+
+  * layout
+    * **NCHW** (default)
+      - *ENV CM_DATASET_DATA_LAYOUT*: `NCHW`
+    * NHWC
+      - *ENV CM_DATASET_DATA_LAYOUT*: `NHWC`
+
+  * model
+    * for.mobilenet
+      - *ENV CM_DATASET_QUANTIZE*: `0`
+      - *ENV CM_MODEL*: `mobilenet`
+    * for.mobilenet-quantized
+      - *ENV CM_DATASET_QUANTIZE*: `1`
+    * for.resnet50
+      - *ENV CM_DATASET_NEW_EXTENSION*: `rgb32`
+      - *ENV CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+      - *ENV CM_DATASET_SUBTRACT_MEANS*: `1`
+      - *ENV CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+      - *ENV CM_DATASET_QUANTIZE*: `0`
+      - *ENV CM_DATASET_DATA_TYPE*: `float32`
+      - *ENV CM_MODEL*: `resnet50`
+    * for.resnet50-rgb8
+      - *ENV CM_DATASET_NEW_EXTENSION*: `rgb8`
+      - *ENV CM_DATASET_GIVEN_CHANNEL_MEANS*: ``
+      - *ENV CM_DATASET_SUBTRACT_MEAN*: `0`
+      - *ENV CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+      - *ENV CM_DATASET_QUANTIZE*: `0`
+      - *ENV CM_DATASET_DATA_TYPE*: `int8`
+      - *ENV CM_MODEL*: `resnet50`
+
+  * preprocessing-source
+    * generic-preprocessor
+      - *ENV CM_DATASET_REFERENCE_PREPROCESSOR*: `0`
+    * mlcommons-reference-preprocessor
+      - *ENV CM_DATASET_REFERENCE_PREPROCESSOR*: `1`
+
+  * size
+    * 1
+      - *ENV CM_DATASET_SIZE*: `1`
+    * **500** (default)
+      - *ENV CM_DATASET_SIZE*: `500`
+    * full
+      - *ENV CM_DATASET_SIZE*: `50000`
 ___
 ### Default environment
 
-* CM_IMAGENET_QUANTIZED: **no**
-* CM_INPUT_SQUARE_SIDE: **224**
-* CM_CROP_FACTOR: **87.5**
-* CM_ML_MODEL_DATA_TYPE: **float32**
-* CM_QUANT_SCALE: **1**
-* CM_QUANT_OFFSET: **0**
-* CM_CONVERT_TO_UNSIGNED: **0**
+* CM_DATASET_INPUT_SQUARE_SIDE: **224**
+* CM_DATASET_CROP_FACTOR: **87.5**
+* CM_DATASET_DATA_TYPE: **float32**
+* CM_DATASET_DATA_LAYOUT: **NCHW**
+* CM_DATASET_QUANT_SCALE: **1**
+* CM_DATASET_QUANTIZE: **0**
+* CM_DATASET_QUANT_OFFSET: **0**
+* CM_DATASET_NEW_EXTENSION: **npy**
+* CM_DATASET_CONVERT_TO_UNSIGNED: **0**
+* CM_DATASET_REFERENCE_PREPROCESSOR: **1**
 ___
 ### CM script workflow
 
@@ -106,14 +173,14 @@ ___
      * get,dataset-aux,image-classification,imagenet-aux
        * `if (CM_IMAGENET_PREPROCESSED_PATH  != on)`
        - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
-     * mlperf,mlcommons,inference,source,src
-       * `if (CM_IMAGENET_QUANTIZED  == no) AND (CM_IMAGENET_PREPROCESSED_PATH  != on)`
-       * CM names: `--adr.['inference-src']...`
-       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,generic-python-lib,_opencv-python
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_pillow
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * mlperf,mlcommons,inference,source,src
+       * `if (CM_DATASET_REFERENCE_PREPROCESSOR  == 1) AND (CM_IMAGENET_PREPROCESSED_PATH  != on)`
+       * CM names: `--adr.['inference-src']...`
+       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/_cm.json)
   1. ***Run native script if exists***
@@ -131,7 +198,6 @@ ___
 
 * **CM_DATASET_PREPROCESSED_IMAGES_LIST**
 * **CM_DATASET_PREPROCESSED_PATH**
-* **CM_QUANTIZE**
 ___
 ### Usage
 

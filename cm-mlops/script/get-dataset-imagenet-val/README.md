@@ -84,7 +84,10 @@ ___
 ___
 ### New environment export
 
-* **CM_DATASET_***
+* **CM_DATASET_IMAGENET_PATH**
+* **CM_DATASET_PATH**
+* **CM_DATASET_SIZE**
+* **CM_DATASET_VER**
 ___
 ### New environment detected from customize
 

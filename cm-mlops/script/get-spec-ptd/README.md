@@ -58,6 +58,7 @@ ___
 * CM_GIT_CHECKOUT: **main**
 * CM_GIT_DEPTH: **--depth 1**
 * CM_GIT_PATCH: **no**
+* CM_GIT_AUTH: **yes**
 * CM_GIT_RECURSE_SUBMODULES: ** **
 * CM_GIT_URL: **https://github.com/mlcommons/power.git**
 ___

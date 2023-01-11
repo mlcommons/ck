@@ -1,4 +1,4 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
+*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
 
 <details>
 <summary>Click here to see the table of contents.</summary>
@@ -37,7 +37,7 @@ ___
 ### Origin
 
 * GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-kits19)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 
 ___
@@ -46,65 +46,63 @@ ___
 
 ___
 ### Tags
-get,src,source,power,power-dev,mlperf,mlcommons
+get,dataset,medical-imaging,kits,original,kits19
 
 ___
 ### Variations
 #### All variations
-* **default** (default)
+* calibration
+  - *ENV CM_DATASET_CALIBRATION*: `yes`
+* default
   - *ENV CM_GIT_PATCH*: `no`
 * full-history
   - *ENV CM_GIT_DEPTH*: ``
-* octoml
-  - *ENV CM_GIT_URL*: `https://github.com/octoml/power-dev.git`
+* no-recurse-submodules
+  - *ENV CM_GIT_RECURSE_SUBMODULES*: ``
 * patch
   - *ENV CM_GIT_PATCH*: `yes`
 * short-history
   - *ENV CM_GIT_DEPTH*: `--depth 5`
+* validation
+  - *ENV CM_DATASET_VALIDATION*: `yes`
 ___
 ### Versions
 Default version: *master*
 
 * custom
-* fix
 * master
 ___
 ### Default environment
 
 * CM_GIT_CHECKOUT: **master**
-* CM_GIT_DEPTH: **--depth 1**
+* CM_GIT_DEPTH: **--depth 4**
 * CM_GIT_PATCH: **no**
-* CM_GIT_REPO_FOLDER_NAME: **power-dev**
-* CM_GIT_RECURSE_SUBMODULES: ** **
-* CM_GIT_URL: **https://github.com/mlcommons/power-dev.git**
+* CM_GIT_RECURSE_SUBMODULES: ****
+* CM_GIT_URL: **https://github.com/neheller/kits19**
 ___
 ### CM script workflow
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-kits19/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-     * get,python3
-       * CM names: `--adr.['python', 'python3']...`
-       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-kits19/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-kits19/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-kits19/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-kits19/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-kits19/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-kits19/_cm.json)
 ___
 ### New environment export
 
-* **+PYTHONPATH**
-* **CM_MLPERF_POWER_SOURCE**
+* **CM_DATASET_***
 ___
 ### New environment detected from customize
 
+* **CM_DATASET_PATH**
 * **CM_GIT_CHECKOUT**
 * **CM_GIT_DEPTH**
 * **CM_GIT_RECURSE_SUBMODULES**
-* **CM_MLPERF_POWER_SOURCE**
 ___
 ### Usage
 
@@ -115,15 +113,15 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="get,src,source,power,power-dev,mlperf,mlcommons"`
+`cm run script --tags="get,dataset,medical-imaging,kits,original,kits19"`
 
 *or*
 
-`cm run script "get src source power power-dev mlperf mlcommons"`
+`cm run script "get dataset medical-imaging kits original kits19"`
 
 *or*
 
-`cm run script 72aa56768c994bcf`
+`cm run script 79992bb221024ac5`
 
 #### CM Python API
 
@@ -132,7 +130,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,src,source,power,power-dev,mlperf,mlcommons'
+                  'tags':'get,dataset,medical-imaging,kits,original,kits19'
                   'out':'con',
                   ...
                   (other input keys for this script)

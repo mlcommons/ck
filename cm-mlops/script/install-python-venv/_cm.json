@@ -2,12 +2,13 @@
   "alias": "install-python-venv",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "category": "Python automation",
   "cache": true,
+  "category": "Python automation",
   "clean_files": [],
   "deps": [
     {
       "reuse_version": true,
+      "inherit_variation_tags": true,
       "tags": "get,python,-virtual"
     }
   ],
@@ -20,7 +21,6 @@
   ],
   "post_deps": [
     {
-      "inherit_variation_tags": "True",
       "names": [
         "register-python"
       ],
@@ -33,5 +33,12 @@
     "get-python-venv",
     "python-venv"
   ],
-  "uid": "7633ebada4584c6c"
+  "uid": "7633ebada4584c6c",
+  "variations": {
+    "lto": {},
+    "optimized": {},
+    "shared": {},
+    "with-custom-ssl": {},
+    "with-ssl": {}
+  }
 }

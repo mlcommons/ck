@@ -94,7 +94,7 @@ ___
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * detect,cpu
        - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
-     * get,python
+     * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,mlcommons,inference,src

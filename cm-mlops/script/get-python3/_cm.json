@@ -27,6 +27,7 @@
           "yes"
         ]
       },
+      "inherit_variation_tags": true,
       "reuse_version": true,
       "tags": "install,python,src"
     }
@@ -40,9 +41,10 @@
   ],
   "uid": "d0b5dd74373f4a62",
   "variations": {
+    "lto": {},
+    "optimized": {},
     "shared": {},
-    "with-custom-ssl": {},
-    "no-optimize": {},
-    "lto": {}
+    "with-ssl": {},
+    "with-custom-ssl": {}
   }
 }

@@ -8,6 +8,8 @@
 * [Origin](#origin)
 * [Meta description](#meta-description)
 * [Tags](#tags)
+* [Variations](#variations)
+  * [ All variations](#all-variations)
 * [Default environment](#default-environment)
 * [CM script workflow](#cm-script-workflow)
 * [New environment export](#new-environment-export)
@@ -46,6 +48,14 @@ ___
 install,python,get-python-venv,python-venv
 
 ___
+### Variations
+#### All variations
+* lto
+* optimized
+* shared
+* with-custom-ssl
+* with-ssl
+___
 ### Default environment
 
 ___
@@ -62,7 +72,7 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/_cm.json)***
-     * get,python
+     * get,python3
        * CM names: `--adr.['register-python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
 ___

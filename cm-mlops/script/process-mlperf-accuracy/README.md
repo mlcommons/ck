@@ -77,7 +77,7 @@ ___
 ### CM script workflow
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy/_cm.json)***
-     * get,python
+     * get,python3
        * CM names: `--adr.['python3', 'python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,dataset,original,object-detection,open-images

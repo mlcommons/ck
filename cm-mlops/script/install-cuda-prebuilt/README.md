@@ -48,10 +48,11 @@ install,prebuilt,cuda,prebuilt-cuda,install-prebuilt-cuda
 
 ___
 ### Versions
-Default version: *11.7.0*
+Default version: *11.8.0*
 
 * 11.7.0
 * 11.8.0
+* 12.0.0
 ___
 ### Default environment
 

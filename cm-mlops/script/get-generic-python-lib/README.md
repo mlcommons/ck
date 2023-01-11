@@ -61,15 +61,21 @@ ___
   - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://pypi.ngc.nvidia.com`
 * decorator
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `decorator`
+* inflect
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `inflect`
 * jax
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `jax`
 * jax_cuda
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `jax[cuda]`
   - *ENV CM_GENERIC_PYTHON_PIP_EXTRA*: `-f https://storage.googleapis.com/jax-releases/jax_cuda_releases.html`
   - *ENV CM_JAX_VERSION_EXTRA*: `CUDA`
+* librosa
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `librosa`
 * mlperf_logging
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `mlperf_logging`
   - *ENV CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/mlperf/logging.git@2.1.0`
+* nibabel
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `nibabel`
 * numpy
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `numpy`
 * nvidia-pycocotools
@@ -106,18 +112,24 @@ ___
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `pycuda`
 * requests
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `requests`
+* scikit-learn
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `scikit-learn`
 * scipy
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `scipy`
 * setuptools
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `setuptools`
 * sklearn
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `sklearn`
+* sox
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `sox`
 * tensorflow
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `tensorflow`
 * tflite-runtime
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `tflite-runtime`
 * tokenization
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `tokenization`
+* toml
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `toml`
 * torch
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
   - *ENV CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/cpu`
@@ -148,8 +160,12 @@ ___
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `typing_extensions`
 * ujson
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `ujson`
+* unidecode
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `unidecode`
 * wandb
   - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `wandb`
+* west
+  - *ENV CM_GENERIC_PYTHON_PACKAGE_NAME*: `west`
 ___
 ### Default environment
 

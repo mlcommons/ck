@@ -53,6 +53,8 @@ ___
 #### All variations
 * backup
   - *ENV CM_BACKUP_ZIPS*: `yes`
+* fake
+  - *ENV CM_CRITEO_FAKE*: `yes`
 ___
 ### Default environment
 

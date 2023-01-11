@@ -10,6 +10,7 @@
 * [Tags](#tags)
 * [Variations](#variations)
   * [ All variations](#all-variations)
+  * [ Variations by groups](#variations-by-groups)
 * [Default environment](#default-environment)
 * [CM script workflow](#cm-script-workflow)
 * [New environment export](#new-environment-export)
@@ -31,12 +32,12 @@ ___
 ___
 ### Category
 
-Detection or installation of tools and artifacts.
+ML/AI models.
 ___
 ### Origin
 
 * GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 
 ___
@@ -45,42 +46,57 @@ ___
 
 ___
 ### Tags
-get,sys-util,generic,generic-sys-util
+get,ml-model,rnnt,librispeech,speech-recognition
 
 ___
 ### Variations
 #### All variations
-* gflags-dev
-  - *ENV CM_SYS_UTIL_NAME*: `gflags-dev`
-* glog-dev
-  - *ENV CM_SYS_UTIL_NAME*: `glog-dev`
-* sox
-  - *ENV CM_SYS_UTIL_NAME*: `sox`
+* **fp32** (default)
+  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+  - *ENV CM_ML_MODEL_PRECISION*: `fp32`
+  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
+* **pytorch** (default)
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `pytorch`
+* pytorch,fp32
+  - *ENV CM_ML_MODEL_ACCURACY*: `0.07452253714852645`
+  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/3662521/files/DistributedDataParallel_1576581068.9962234-epoch-100.pt?download=1`
+* weights
+  - *ENV CM_MODEL_WEIGHTS_FILE*: `yes`
+
+#### Variations by groups
+
+  * framework
+    * **pytorch** (default)
+      - *ENV CM_ML_MODEL_FRAMEWORK*: `pytorch`
+
+  * precision
+    * **fp32** (default)
+      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+      - *ENV CM_ML_MODEL_PRECISION*: `fp32`
+      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
 ___
 ### Default environment
 
-* CM_CLEAN_DIRS: **bin**
-* CM_SUDO: **sudo**
 ___
 ### CM script workflow
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util/_cm.json)
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
   1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util/_cm.json)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
 ___
 ### New environment export
 
+* **CM_ML_MODEL_***
 ___
 ### New environment detected from customize
 
-* **CM_SYS_UTIL_INSTALL_CMD**
+* **CM_ML_MODEL_FILE**
+* **CM_ML_MODEL_FILE_WITH_PATH**
+* **CM_ML_MODEL_PATH**
 ___
 ### Usage
 
@@ -91,15 +107,15 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="get,sys-util,generic,generic-sys-util"`
+`cm run script --tags="get,ml-model,rnnt,librispeech,speech-recognition"`
 
 *or*
 
-`cm run script "get sys-util generic generic-sys-util"`
+`cm run script "get ml-model rnnt librispeech speech-recognition"`
 
 *or*
 
-`cm run script bb0393afa8404a11`
+`cm run script 8858f18b89774d28`
 
 #### CM Python API
 
@@ -108,7 +124,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,sys-util,generic,generic-sys-util'
+                  'tags':'get,ml-model,rnnt,librispeech,speech-recognition'
                   'out':'con',
                   ...
                   (other input keys for this script)
