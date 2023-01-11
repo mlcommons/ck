@@ -45,11 +45,6 @@ if [ "${?}" != "0" ]; then exit 1; fi
 
 cd Python-${PYTHON_VERSION}
 
-echo "**********"
-echo "XYZ = ${CM_PYTHON_OPTIMIZATION_FLAG}"
-echo "XYZ2 = ${CM_PYTHON_OPTIMIZATION_FLAG2}"
-echo "**********"
-
 ./configure ${CM_PYTHON_OPTIMIZATION_FLAG} ${CM_PYTHON_LTO_FLAG} ${SHARED_BUILD_FLAGS} ${EXTRA_FLAGS} --with-ensurepip=install --prefix="${CUR_DIR}/install"
 if [ "${?}" != "0" ]; then exit 1; fi
 
