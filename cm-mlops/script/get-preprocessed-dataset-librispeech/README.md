@@ -1,4 +1,4 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
+*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
 
 <details>
 <summary>Click here to see the table of contents.</summary>
@@ -38,7 +38,7 @@ ___
 ### Origin
 
 * GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)*
+* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech)*
 * CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
 
 ___
@@ -47,7 +47,7 @@ ___
 
 ___
 ### Tags
-get,dataset,openimages,open-images,object-detection,preprocessed
+get,dataset,speech-recognition,librispeech,preprocessed
 
 ___
 ### Variations
@@ -56,14 +56,10 @@ ___
   - *ENV CM_DATASET_SIZE*: `1`
 * 5
   - *ENV CM_DATASET_SIZE*: `5`
-* **50** (default)
+* 50
   - *ENV CM_DATASET_SIZE*: `50`
 * 500
   - *ENV CM_DATASET_SIZE*: `500`
-* **NCHW** (default)
-  - *ENV CM_DATASET_DATA_LAYOUT*: `NCHW`
-* NHWC
-  - *ENV CM_DATASET_DATA_LAYOUT*: `NHWC`
 * calibration
   - *ENV CM_DATASET_PATH*: `<<<CM_CALIBRATION_DATASET_PATH>>>`
 * **fp32** (default)
@@ -83,18 +79,12 @@ ___
       - *ENV CM_DATASET_SIZE*: `1`
     * 5
       - *ENV CM_DATASET_SIZE*: `5`
-    * **50** (default)
+    * 50
       - *ENV CM_DATASET_SIZE*: `50`
     * 500
       - *ENV CM_DATASET_SIZE*: `500`
     * full
       - *ENV CM_DATASET_SIZE*: ``
-
-  * dataset-layout
-    * **NCHW** (default)
-      - *ENV CM_DATASET_DATA_LAYOUT*: `NCHW`
-    * NHWC
-      - *ENV CM_DATASET_DATA_LAYOUT*: `NHWC`
 
   * dataset-precision
     * **fp32** (default)
@@ -109,38 +99,32 @@ ___
 ___
 ### Default environment
 
-* CM_DATASET: **OPENIMAGES**
+* CM_DATASET: **kits19**
 * CM_DATASET_DTYPE: **fp32**
 ___
 ### CM script workflow
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech/_cm.json)***
      * get,python3
        * CM names: `--adr.['python3', 'python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * get,dataset,object-detection,openimages,original
+     * get,dataset,speech-recognition,librispeech,original
        * CM names: `--adr.['original-dataset']...`
-       - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
+       - CM script: [get-dataset-librispeech](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech)
      * mlperf,mlcommons,inference,source,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
-     * get,generic-python-lib,_pycocotools
-       * CM names: `--adr.['pycocotools']...`
+     * get,generic-python-lib,_sox
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-     * get,generic-python-lib,_opencv-python
-       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-     * get,generic-python-lib,_pillow
-       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-     * get,generic-python-lib,_numpy
-       * CM names: `--adr.['numpy']...`
-       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)
+     * get,sys-util,generic,_sox
+       - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech/_cm.json)
 ___
 ### New environment export
 
@@ -148,8 +132,7 @@ ___
 ___
 ### New environment detected from customize
 
-* **CM_DATASET_ANNOTATIONS_DIR_PATH**
-* **CM_DATASET_ANNOTATIONS_FILE_PATH**
+* **CM_DATASET_PREPROCESSED_JSON**
 * **CM_DATASET_PREPROCESSED_PATH**
 ___
 ### Usage
@@ -161,15 +144,15 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="get,dataset,openimages,open-images,object-detection,preprocessed"`
+`cm run script --tags="get,dataset,speech-recognition,librispeech,preprocessed"`
 
 *or*
 
-`cm run script "get dataset openimages open-images object-detection preprocessed"`
+`cm run script "get dataset speech-recognition librispeech preprocessed"`
 
 *or*
 
-`cm run script 9842f1be8cba4c7b`
+`cm run script e9f62fc969d5483a`
 
 #### CM Python API
 
@@ -178,7 +161,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,dataset,openimages,open-images,object-detection,preprocessed'
+                  'tags':'get,dataset,speech-recognition,librispeech,preprocessed'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -200,7 +183,7 @@ if r['return']>0:
 Examples:
 
 ```bash
-cm run script "get dataset openimages open-images object-detection preprocessed" --dir=...
+cm run script "get dataset speech-recognition librispeech preprocessed" --dir=...
 ```
 ```python
 r=cm.access({... , "dir":"..."}

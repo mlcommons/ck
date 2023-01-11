@@ -69,11 +69,8 @@ ___
 ___
 ### New environment detected from customize
 
-* **CM_DOCKER_IMAGE_BASE**
 * **CM_DOCKER_IMAGE_EXISTS**
 * **CM_DOCKER_IMAGE_RECREATE**
-* **CM_DOCKER_IMAGE_REPO**
-* **CM_DOCKER_IMAGE_TAG**
 * **CM_DOCKER_RUN_CMD**
 * **CM_DOCKER_RUN_SCRIPT_TAGS**
 ___
@@ -122,6 +119,11 @@ if r['return']>0:
 * base --> **CM_DOCKER_IMAGE_BASE**
 * cm_repo --> **CM_MLOPS_REPO**
 * recreate --> **CM_DOCKER_IMAGE_RECREATE**
+* gh_token --> **CM_GH_TOKEN**
+* image_repo --> **CM_DOCKER_IMAGE_REPO**
+* image_tag --> **CM_DOCKER_IMAGE_TAG**
+* docker_os --> **CM_DOCKER_OS**
+* docker_os_version --> **CM_DOCKER_OS_VERSION**
 * script_tags --> **CM_DOCKER_RUN_SCRIPT_TAGS**
 * run_cmd_extra --> **CM_DOCKER_RUN_CMD_EXTRA**
 * real_run --> **CM_REAL_RUN**
@@ -130,6 +132,9 @@ if r['return']>0:
 * post_run_cmds --> **CM_DOCKER_POST_RUN_COMMANDS**
 * pass_user_group --> **CM_DOCKER_PASS_USER_GROUP**
 * mounts --> **CM_DOCKER_VOLUME_MOUNTS**
+* port_maps --> **CM_DOCKER_PORT_MAPS**
+* device --> **CM_DOCKER_ADD_DEVICE**
+* cache --> **CM_DOCKER_CACHE**
 
 Examples:
 

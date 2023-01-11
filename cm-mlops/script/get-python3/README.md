@@ -50,7 +50,10 @@ get,python,python3,get-python,get-python3
 ___
 ### Variations
 #### All variations
+* lto
+* optimized
 * shared
+* with-custom-ssl
 * with-ssl
 ___
 ### Default environment

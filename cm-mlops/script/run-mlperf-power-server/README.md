@@ -50,16 +50,16 @@ ___
 ### Default environment
 
 * CM_MLPERF_POWER_NTP_SERVER: **time.google.com**
-* CM_MLPERF_POWER_SERVER_OUTDIR: **~/mlperf_power_logs**
-* CM_MLPERF_POWER_LOG_FILE: **logs_ptdaemon.txt**
 * CM_MLPERF_POWER_INTERFACE_FLAG: ****
 * CM_MLPERF_POWER_DEVICE_TYPE: **49**
+* CM_MLPERF_POWER_SERVER_ADDRESS: **0.0.0.0**
+* CM_MLPERF_POWER_SERVER_PORT: **4950**
 * CM_MLPERF_POWER_DEVICE_PORT: **/dev/usbtmc0**
 ___
 ### CM script workflow
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)***
-     * get,python
+     * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,mlperf,power,src
@@ -127,9 +127,7 @@ if r['return']>0:
 * interface_flag --> **CM_MLPERF_POWER_INTERFACE_FLAG**
 * device_port --> **CM_MLPERF_POWER_DEVICE_PORT**
 * device_type --> **CM_MLPERF_POWER_DEVICE_TYPE**
-* outdir --> **CM_MLPERF_POWER_SERVER_OUTDIR**
 * ntp_server --> **CM_MLPERF_POWER_NTP_SERVER**
-* logfile --> **CM_MLPERF_POWER_LOG_FILE**
 
 Examples:
 

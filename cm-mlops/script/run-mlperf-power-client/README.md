@@ -54,14 +54,16 @@ ___
 * CM_MLPERF_POWER_SERVER_ADDRESS: **localhost**
 * CM_MLPERF_LOADGEN_LOGS_DIR: **loadgen_logs**
 * CM_MLPERF_POWER_NTP_SERVER: **time.google.com**
+* CM_MLPERF_POWER_MAX_AMPS: **0**
+* CM_MLPERF_POWER_MAX_VOLTS: **0**
 ___
 ### CM script workflow
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/_cm.json)***
-     * get,python
+     * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * get,mlperf,power,src
+     * get,mlperf,power,src,_octoml
        * CM names: `--adr.['power-src']...`
        - CM script: [get-mlperf-power-dev](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/customize.py)***
@@ -127,6 +129,8 @@ if r['return']>0:
 * loadgen_logs_dir --> **CM_MLPERF_LOADGEN_LOGS_DIR**
 * ntp_server --> **CM_MLPERF_POWER_NTP_SERVER**
 * run_cmd --> **CM_MLPERF_RUN_CMD**
+* max_amps --> **CM_MLPERF_POWER_MAX_AMPS**
+* max_volts --> **CM_MLPERF_POWER_MAX_VOLTS**
 
 Examples:
 

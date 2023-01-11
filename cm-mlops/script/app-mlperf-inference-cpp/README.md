@@ -75,11 +75,14 @@ ___
 
 #### Variations by groups
 
-  * device,
+  * device
     * **cpu** (default)
       - *ENV CM_MLPERF_DEVICE*: `cpu`
+    * cuda
+      - *ENV CM_MLPERF_DEVICE*: `gpu`
+      - *ENV CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
 
-  * framework,
+  * framework
     * **onnxruntime** (default)
       - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
       - *ENV CM_MLPERF_BACKEND_LIB_NAMESPEC*: `onnxruntime`
@@ -92,7 +95,7 @@ ___
     * tvm-onnx
       - *ENV CM_MLPERF_BACKEND*: `tvm-onnx`
 
-  * model,
+  * model
     * **resnet50** (default)
       - *ENV CM_MODEL*: `resnet50`
     * retinanet

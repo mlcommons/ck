@@ -52,6 +52,8 @@ app,vision,language,mlcommons,mlperf,inference,generic
 ___
 ### Variations
 #### All variations
+* 3dunet
+  - *ENV CM_MODEL*: `3dunet`
 * bert-99
   - *ENV CM_MODEL*: `bert-99`
 * bert-99.9
@@ -74,6 +76,7 @@ ___
   - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
 * power
   - *ENV CM_MLPERF_POWER*: `True`
+  - *ENV CM_SYSTEM_POWER*: `True`
 * python
 * pytorch
   - *ENV CM_MLPERF_BACKEND*: `pytorch`
@@ -90,6 +93,8 @@ ___
   - *ENV CM_MODEL*: `resnet50`
 * retinanet
   - *ENV CM_MODEL*: `retinanet`
+* rnnt
+  - *ENV CM_MODEL*: `rnnt`
 * **test** (default)
   - *ENV CM_OUTPUT_FOLDER_NAME*: `test_results`
   - *ENV CM_MLPERF_RUN_STYLE*: `test`
@@ -144,6 +149,8 @@ ___
       - *ENV CM_MLPERF_RUN_STYLE*: `valid`
 
   * models
+    * 3dunet
+      - *ENV CM_MODEL*: `3dunet`
     * bert-99
       - *ENV CM_MODEL*: `bert-99`
     * bert-99.9
@@ -152,6 +159,8 @@ ___
       - *ENV CM_MODEL*: `resnet50`
     * retinanet
       - *ENV CM_MODEL*: `retinanet`
+    * rnnt
+      - *ENV CM_MODEL*: `rnnt`
 ___
 ### Default environment
 
@@ -264,6 +273,10 @@ if r['return']>0:
 * num_threads --> **CM_NUM_THREADS**
 * output_dir --> **OUTPUT_BASE_DIR**
 * power --> **CM_SYSTEM_POWER**
+* power_server --> **CM_MLPERF_POWER_SERVER_ADDRESS**
+* ntp_server --> **CM_MLPERF_POWER_NTP_SERVER**
+* max_amps --> **CM_MLPERF_POWER_MAX_AMPS**
+* max_volts --> **CM_MLPERF_POWER_MAX_VOLTS**
 * regenerate_files --> **CM_REGENERATE_MEASURE_FILES**
 * rerun --> **CM_RERUN**
 * scenario --> **CM_MLPERF_LOADGEN_SCENARIO**

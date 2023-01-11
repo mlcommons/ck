@@ -44,6 +44,7 @@
     "lto": {},
     "optimized": {},
     "shared": {},
+    "with-ssl": {},
     "with-custom-ssl": {}
   }
 }

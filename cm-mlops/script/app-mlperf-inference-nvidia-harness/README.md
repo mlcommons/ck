@@ -118,8 +118,8 @@ ___
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,ml-model,resnet50,_onnx
        * `if (CM_MODEL  == resnet50)`
-       - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
        - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
+       - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
      * get,dataset,preprocessed,openimages,_validation,_NCHW
        * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['openimages-preprocessed']...`

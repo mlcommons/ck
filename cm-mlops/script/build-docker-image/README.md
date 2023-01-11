@@ -49,6 +49,8 @@ build,docker,image,docker-image,dockerimage
 ___
 ### Default environment
 
+* CM_DOCKER_IMAGE_REPO: **local**
+* CM_DOCKER_IMAGE_TAG: **latest**
 ___
 ### CM script workflow
 
@@ -67,6 +69,7 @@ ___
 ___
 ### New environment export
 
+* **CM_DOCKER_***
 ___
 ### New environment detected from customize
 

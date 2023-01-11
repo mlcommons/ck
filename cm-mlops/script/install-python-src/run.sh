@@ -17,10 +17,16 @@ if [[ ${CM_SHARED_BUILD} == "yes" ]]; then
 else
   SHARED_BUILD_FLAGS=""
 fi
+
+EXTRA_FLAGS=""
+
+if [[ ${CM_ENABLE_SSL} == "yes" ]]; then
+  EXTRA_FLAGS="${EXTRA_FLAGS} --enable-ssl"
+fi
+
+
 if [[ ${CM_CUSTOM_SSL} == "yes" ]]; then
-  EXTRA_FLAGS=" --with-openssl=${CM_OPENSSL_INSTALLED_PATH} --with-openssl-rpath=auto"
-else
-  EXTRA_FLAGS=""
+  EXTRA_FLAGS="${EXTRA_FLAGS} --with-openssl=${CM_OPENSSL_INSTALLED_PATH} --with-openssl-rpath=auto"
 fi
 
 rm -rf src
@@ -44,11 +50,6 @@ rm -f Python-${PYTHON_VERSION}.tgz
 if [ "${?}" != "0" ]; then exit 1; fi
 
 cd Python-${PYTHON_VERSION}
-
-echo "**********"
-echo "XYZ = ${CM_PYTHON_OPTIMIZATION_FLAG}"
-echo "XYZ2 = ${CM_PYTHON_OPTIMIZATION_FLAG2}"
-echo "**********"
 
 ./configure ${CM_PYTHON_OPTIMIZATION_FLAG} ${CM_PYTHON_LTO_FLAG} ${SHARED_BUILD_FLAGS} ${EXTRA_FLAGS} --with-ensurepip=install --prefix="${CUR_DIR}/install"
 if [ "${?}" != "0" ]; then exit 1; fi

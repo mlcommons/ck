@@ -51,6 +51,8 @@ get,raw,ml-model,resnet50,ml-model-resnet50,image-classification
 ___
 ### Variations
 #### All variations
+* **argmax** (default)
+  - *ENV CM_ML_MODEL_OUTPUT_LAYER_ARGMAX*: `yes`
 * **fp32** (default)
   - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
   - *ENV CM_ML_MODEL_PRECISION*: `fp32`
@@ -59,6 +61,8 @@ ___
   - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `int8`
   - *ENV CM_ML_MODEL_PRECISION*: `int8`
   - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `int8`
+* no-argmax
+  - *ENV CM_ML_MODEL_OUTPUT_LAYER_ARGMAX*: `no`
 * **onnx** (default)
   - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
   - *ENV CM_ML_MODEL_FRAMEWORK*: `onnx`
@@ -107,7 +111,7 @@ ___
 * tflite
   - *ENV CM_ML_MODEL_ACCURACY*: `76.456`
   - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
-  - *ENV CM_ML_MODEL_FRAMEWORK*: `tensorflow`
+  - *ENV CM_ML_MODEL_FRAMEWORK*: `tflite`
   - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
   - *ENV CM_ML_MODEL_INPUT_LAYERS*: `input_tensor`
   - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor`
@@ -117,6 +121,13 @@ ___
   - *ENV CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
   - *ENV CM_ML_MODEL_SUBTRACT_MEAN*: `YES`
   - *ENV CM_PACKAGE_URL*: `https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz`
+* tflite,argmax
+  - *ENV CM_PACKAGE_URL*: `https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz?dl=1`
+  - *ENV CM_UNZIP*: `yes`
+  - *ENV CM_ML_MODEL_FILE*: `resnet50_v1.tflite`
+* tflite,no-argmax
+  - *ENV CM_PACKAGE_URL*: `https://www.dropbox.com/s/vhuqo0wc39lky0a/resnet50_v1.no-argmax.tflite?dl=1`
+  - *ENV CM_ML_MODEL_FILE*: `resnet50_v1.no-argmax.tflite`
 * uint8
   - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `uint8`
   - *ENV CM_ML_MODEL_PRECISION*: `uint8`
@@ -159,7 +170,7 @@ ___
     * tflite
       - *ENV CM_ML_MODEL_ACCURACY*: `76.456`
       - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
-      - *ENV CM_ML_MODEL_FRAMEWORK*: `tensorflow`
+      - *ENV CM_ML_MODEL_FRAMEWORK*: `tflite`
       - *ENV CM_ML_MODEL_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
       - *ENV CM_ML_MODEL_INPUT_LAYERS*: `input_tensor`
       - *ENV CM_ML_MODEL_INPUT_LAYER_NAME*: `input_tensor`
@@ -169,6 +180,12 @@ ___
       - *ENV CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
       - *ENV CM_ML_MODEL_SUBTRACT_MEAN*: `YES`
       - *ENV CM_PACKAGE_URL*: `https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz`
+
+  * model-output
+    * **argmax** (default)
+      - *ENV CM_ML_MODEL_OUTPUT_LAYER_ARGMAX*: `yes`
+    * no-argmax
+      - *ENV CM_ML_MODEL_OUTPUT_LAYER_ARGMAX*: `no`
 
   * opset-version
     * opset-11
@@ -199,7 +216,6 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50/_cm.json)

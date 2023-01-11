@@ -90,9 +90,10 @@ ___
 ### Default environment
 
 * CM_MLPERF_OUTPUT_DIR: **.**
-* CM_MLPERF_LOADGEN_SCENARIO: **SingleStresm**
+* CM_MLPERF_LOADGEN_SCENARIO: **SingleStream**
+* CM_LOADGEN_BUFFER_SIZE: **1024**
 * CM_MLPERF_LOADGEN_MODE: **accuracy**
-* CM_MLPERF_LOADGEN_MAX_BATCHSIZE: **1**
+* CM_FAST_COMPILATION: **yes**
 ___
 ### CM script workflow
 
@@ -112,10 +113,10 @@ ___
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
-     * get,dataset,preprocessed,imagenet,_for.resnet50,_NCHW
+     * get,dataset,preprocessed,imagenet,_for.resnet50-rgb8,_NHWC
        * `if (CM_MODEL  == resnet50)`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
-     * get,ml-model,resnet50,raw,_tflite
+     * get,ml-model,resnet50,raw,_tflite,_no-argmax
        * `if (CM_MODEL  == resnet50 AND CM_MLPERF_BACKEND  == tflite)`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
      * get,ml-model,resnet50,raw,_tf
@@ -192,7 +193,6 @@ if r['return']>0:
 #### Script input flags mapped to environment
 
 * count --> **CM_MLPERF_LOADGEN_QUERY_COUNT**
-* max_batchsize --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**
 * mlperf_conf --> **CM_MLPERF_CONF**
 * mode --> **CM_MLPERF_LOADGEN_MODE**
 * output_dir --> **CM_MLPERF_OUTPUT_DIR**
