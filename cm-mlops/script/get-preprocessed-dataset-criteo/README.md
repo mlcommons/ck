@@ -55,6 +55,8 @@ ___
   - *ENV CM_DATASET_SIZE*: `1`
 * 50
   - *ENV CM_DATASET_SIZE*: `50`
+* fake
+  - *ENV CM_CRITEO_FAKE*: `yes`
 * full
   - *ENV CM_DATASET_SIZE*: ``
 * validation
@@ -77,7 +79,7 @@ ___
      * mlperf,mlcommons,inference,source,src,_octoml
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
-     * get,generic-python-lib,_sklearn
+     * get,generic-python-lib,_scikit-learn
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_torch
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
@@ -90,6 +92,8 @@ ___
      * get,generic-python-lib,_onnx
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_tqdm
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_mlperf_logging
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo/_cm.json)

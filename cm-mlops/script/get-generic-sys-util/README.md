@@ -54,6 +54,8 @@ ___
   - *ENV CM_SYS_UTIL_NAME*: `gflags-dev`
 * glog-dev
   - *ENV CM_SYS_UTIL_NAME*: `glog-dev`
+* sox
+  - *ENV CM_SYS_UTIL_NAME*: `sox`
 ___
 ### Default environment
 

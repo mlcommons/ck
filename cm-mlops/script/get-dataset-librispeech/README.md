@@ -81,6 +81,7 @@ ___
 ### New environment detected from customize
 
 * **CM_DATASET_LIBRISPEECH_PATH**
+* **CM_DATASET_PATH**
 ___
 ### Usage
 

@@ -61,9 +61,9 @@ ___
 * 500
   - *ENV CM_DATASET_SIZE*: `500`
 * **NCHW** (default)
-  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
+  - *ENV CM_DATASET_DATA_LAYOUT*: `NCHW`
 * NHWC
-  - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
+  - *ENV CM_DATASET_DATA_LAYOUT*: `NHWC`
 * calibration
   - *ENV CM_DATASET_PATH*: `<<<CM_CALIBRATION_DATASET_PATH>>>`
 * **fp32** (default)
@@ -92,9 +92,9 @@ ___
 
   * dataset-layout
     * **NCHW** (default)
-      - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NCHW`
+      - *ENV CM_DATASET_DATA_LAYOUT*: `NCHW`
     * NHWC
-      - *ENV CM_ML_MODEL_DATA_LAYOUT*: `NHWC`
+      - *ENV CM_DATASET_DATA_LAYOUT*: `NHWC`
 
   * dataset-precision
     * **fp32** (default)

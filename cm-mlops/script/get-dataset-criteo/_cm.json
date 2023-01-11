@@ -29,6 +29,11 @@
       "env": {
         "CM_BACKUP_ZIPS": "yes"
       }
+    },
+    "fake": {
+      "env": {
+        "CM_CRITEO_FAKE": "yes"
+      }
     }
   }
 }

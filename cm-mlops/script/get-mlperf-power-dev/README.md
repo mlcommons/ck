@@ -55,6 +55,8 @@ ___
   - *ENV CM_GIT_PATCH*: `no`
 * full-history
   - *ENV CM_GIT_DEPTH*: ``
+* octoml
+  - *ENV CM_GIT_URL*: `https://github.com/octoml/power-dev.git`
 * patch
   - *ENV CM_GIT_PATCH*: `yes`
 * short-history
@@ -64,6 +66,7 @@ ___
 Default version: *master*
 
 * custom
+* fix
 * master
 ___
 ### Default environment

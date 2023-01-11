@@ -21,3 +21,14 @@ test $? -eq 0 || exit $?
 cd ${install_dir}/onnx_graphsurgeon
 ${CM_PYTHON_BIN_WITH_PATH} -m pip install onnx_graphsurgeon-0.3.12-py2.py3-none-any.whl
 test $? -eq 0 || exit $?
+
+#create softlinks for libnvinfer.so.7 and libnvinfer_plugin.so.7
+# https://forums.developer.nvidia.com/t/could-not-load-dynamic-library-libnvinfer-so-7/231606/5
+if [ ! -f "${install_dir}/lib/libnvinfer.so.7" ]; then
+  ln -s "${install_dir}/lib/libnvinfer.so" "${install_dir}/lib/libnvinfer.so.7"
+fi
+test $? -eq 0 || exit $?
+if [ ! -f "${install_dir}/lib/libnvinfer_plugin.so.7" ]; then
+  ln -s "${install_dir}/lib/libnvinfer_plugin.so" "${install_dir}/lib/libnvinfer_plugin.so.7"
+fi
+test $? -eq 0 || exit $?

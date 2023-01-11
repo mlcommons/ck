@@ -4,7 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "category": "CUDA automation",
   "cache": true,
-  "default_version": "11.7.0",
+  "default_version": "11.8.0",
   "deps": [
     {
       "tags": "detect,os"
@@ -44,6 +44,11 @@
     "11.8.0": {
       "env": {
         "CM_CUDA_LINUX_FILENAME": "cuda_11.8.0_520.61.05_linux.run"
+      }
+    },
+    "12.0.0": {
+      "env": {
+        "CM_CUDA_LINUX_FILENAME": "cuda_12.0.0_525.60.13_linux.run"
       }
     }
   }

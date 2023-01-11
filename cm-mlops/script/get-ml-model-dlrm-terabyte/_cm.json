@@ -50,7 +50,8 @@
     },
     "pytorch": {
       "env": {
-        "CM_ML_MODEL_FRAMEWORK": "pytorch"
+        "CM_ML_MODEL_FRAMEWORK": "pytorch",
+	"CM_TMP_MODEL_ADDITIONAL_NAME": "dlrm_terabyte.pytorch"
       },
       "group": "framework",
       "default": true

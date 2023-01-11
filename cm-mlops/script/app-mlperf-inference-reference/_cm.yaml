@@ -43,6 +43,10 @@ input_mapping:
   num_threads: CM_NUM_THREADS
   output_dir: OUTPUT_BASE_DIR
   power: CM_SYSTEM_POWER
+  power_server: CM_MLPERF_POWER_SERVER_ADDRESS
+  ntp_server: CM_MLPERF_POWER_NTP_SERVER
+  max_amps: CM_MLPERF_POWER_MAX_AMPS
+  max_volts: CM_MLPERF_POWER_MAX_VOLTS
   regenerate_files: CM_REGENERATE_MEASURE_FILES
   rerun: CM_RERUN
   scenario: CM_MLPERF_LOADGEN_SCENARIO
@@ -218,6 +222,8 @@ deps:
 
   ## Criteo for dlrm
   - tags: get,dataset,criteo,preprocessed
+    names:
+    - criteo-preprocessed
     enable_if_env:
       CM_MODEL:
       - dlrm-99
@@ -393,6 +399,8 @@ deps:
 
   ## Dlrm (Pytorch format)
   - tags: get,ml-model,recommendation,dlrm,_pytorch,_fp32
+    names:
+    - dlrm-model
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
@@ -595,30 +603,6 @@ variations:
       CM_MLPERF_DEVICE: gpu
       USE_CUDA: yes
       USE_GPU: yes
-    add_deps_recursive:
-      cpp-mlperf-inference:
-        tags: _cuda
-
-  # Execution modes
-  fast:
-    group: execution-mode
-    env:
-      CM_FAST_FACTOR: '5'
-      CM_OUTPUT_FOLDER_NAME: fast_results
-      CM_MLPERF_RUN_STYLE: fast
-
-  test:
-    group: execution-mode
-    default: true
-    env:
-      CM_OUTPUT_FOLDER_NAME: test_results
-      CM_MLPERF_RUN_STYLE: test
-
-  valid:
-    group: execution-mode
-    env:
-      CM_OUTPUT_FOLDER_NAME: valid_results
-      CM_MLPERF_RUN_STYLE: valid
 
   # Turn on quantization
   quantized:

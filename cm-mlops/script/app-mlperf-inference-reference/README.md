@@ -52,6 +52,11 @@ app,vision,language,mlcommons,mlperf,inference,reference,ref
 ___
 ### Variations
 #### All variations
+* 3d-unet
+* 3d-unet-99
+  - *ENV CM_MODEL*: `3d-unet-99`
+* 3d-unet-99.9
+  - *ENV CM_MODEL*: `3d-unet-99.9`
 * bert
 * bert-99
   - *ENV CM_MODEL*: `bert-99`
@@ -66,10 +71,11 @@ ___
   - *ENV CM_MLPERF_DEVICE*: `gpu`
   - *ENV USE_CUDA*: `True`
   - *ENV USE_GPU*: `True`
-* fast
-  - *ENV CM_FAST_FACTOR*: `5`
-  - *ENV CM_OUTPUT_FOLDER_NAME*: `fast_results`
-  - *ENV CM_MLPERF_RUN_STYLE*: `fast`
+* dlrm
+* dlrm-99
+  - *ENV CM_MODEL*: `dlrm-99`
+* dlrm-99.9
+  - *ENV CM_MODEL*: `dlrm-99.9`
 * **onnxruntime** (default)
   - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
   - *ENV CM_MLPERF_BACKEND_VERSION*: `<<<CM_ONNXRUNTIME_VERSION>>>`
@@ -89,10 +95,9 @@ ___
   - *ENV CM_MODEL*: `resnet50`
 * retinanet
   - *ENV CM_MODEL*: `retinanet`
+* rnnt
+  - *ENV CM_MODEL*: `rnnt`
 * tensorflow
-* **test** (default)
-  - *ENV CM_OUTPUT_FOLDER_NAME*: `test_results`
-  - *ENV CM_MLPERF_RUN_STYLE*: `test`
 * tf
   - *ENV CM_MLPERF_BACKEND*: `tf`
   - *ENV CM_MLPERF_BACKEND_VERSION*: `<<<CM_TENSORFLOW_VERSION>>>`
@@ -103,13 +108,10 @@ ___
   - *ENV CM_MLPERF_BACKEND*: `tvm-pytorch`
   - *ENV CM_MLPERF_BACKEND_VERSION*: `<<<CM_PYTORCH_VERSION>>>`
   - *ENV MLPERF_TVM_TORCH_QUANTIZED_ENGINE*: `qnnpack`
-* valid
-  - *ENV CM_OUTPUT_FOLDER_NAME*: `valid_results`
-  - *ENV CM_MLPERF_RUN_STYLE*: `valid`
 
 #### Variations by groups
 
-  * device,
+  * device
     * **cpu** (default)
       - *ENV CM_MLPERF_DEVICE*: `cpu`
       - *ENV CUDA_VISIBLE_DEVICES*: ``
@@ -120,19 +122,7 @@ ___
       - *ENV USE_CUDA*: `True`
       - *ENV USE_GPU*: `True`
 
-  * execution-mode,
-    * fast
-      - *ENV CM_FAST_FACTOR*: `5`
-      - *ENV CM_OUTPUT_FOLDER_NAME*: `fast_results`
-      - *ENV CM_MLPERF_RUN_STYLE*: `fast`
-    * **test** (default)
-      - *ENV CM_OUTPUT_FOLDER_NAME*: `test_results`
-      - *ENV CM_MLPERF_RUN_STYLE*: `test`
-    * valid
-      - *ENV CM_OUTPUT_FOLDER_NAME*: `valid_results`
-      - *ENV CM_MLPERF_RUN_STYLE*: `valid`
-
-  * framework,
+  * framework
     * **onnxruntime** (default)
       - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
       - *ENV CM_MLPERF_BACKEND_VERSION*: `<<<CM_ONNXRUNTIME_VERSION>>>`
@@ -150,20 +140,30 @@ ___
       - *ENV CM_MLPERF_BACKEND_VERSION*: `<<<CM_PYTORCH_VERSION>>>`
       - *ENV MLPERF_TVM_TORCH_QUANTIZED_ENGINE*: `qnnpack`
 
-  * implementation,
+  * implementation
     * **python** (default)
       - *ENV CM_MLPERF_PYTHON*: `yes`
       - *ENV CM_MLPERF_IMPLEMENTATION*: `reference`
 
-  * models,
+  * models
+    * 3d-unet-99
+      - *ENV CM_MODEL*: `3d-unet-99`
+    * 3d-unet-99.9
+      - *ENV CM_MODEL*: `3d-unet-99.9`
     * bert-99
       - *ENV CM_MODEL*: `bert-99`
     * bert-99.9
       - *ENV CM_MODEL*: `bert-99.9`
+    * dlrm-99
+      - *ENV CM_MODEL*: `dlrm-99`
+    * dlrm-99.9
+      - *ENV CM_MODEL*: `dlrm-99.9`
     * **resnet50** (default)
       - *ENV CM_MODEL*: `resnet50`
     * retinanet
       - *ENV CM_MODEL*: `retinanet`
+    * rnnt
+      - *ENV CM_MODEL*: `rnnt`
 ___
 ### Default environment
 
@@ -240,6 +240,16 @@ ___
      * get,dataset,squad,original
        * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        - CM script: [get-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)
+     * get,dataset,kits19,preprocessed
+       * `if (CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
+       - CM script: [get-preprocessed-dataset-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-kits19)
+     * get,dataset,librispeech,preprocessed
+       * `if (CM_MODEL  == rnnt)`
+       - CM script: [get-preprocessed-dataset-librispeech](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-librispeech)
+     * get,dataset,criteo,preprocessed
+       * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
+       * CM names: `--adr.['criteo-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-criteo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo)
      * get,ml-model,raw,image-classification,resnet50,_onnx
        * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MODEL  == resnet50)`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
@@ -282,6 +292,22 @@ ___
      * get,generic-python-lib,_tokenization
        * `if (CM_MODEL in ['bert-99', 'bert-99.9'])`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,ml-model,medical-imaging,3d-unet,_pytorch,_fp32
+       * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
+       - CM script: [get-ml-model-3d-unet-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-3d-unet-kits19)
+     * get,ml-model,medical-imaging,3d-unet,_tf,_fp32
+       * `if (CM_MLPERF_BACKEND  == tf AND CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
+       - CM script: [get-ml-model-3d-unet-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-3d-unet-kits19)
+     * get,ml-model,medical-imaging,3d-unet,_onnx,_fp32
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
+       - CM script: [get-ml-model-3d-unet-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-3d-unet-kits19)
+     * get,ml-model,speech-recognition,rnnt,_pytorch,_fp32
+       * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MODEL  == rnnt)`
+       - CM script: [get-ml-model-rnnt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt)
+     * get,ml-model,recommendation,dlrm,_pytorch,_fp32
+       * `if (CM_MLPERF_BACKEND  == pytorch AND CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
+       * CM names: `--adr.['dlrm-model']...`
+       - CM script: [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)
   1. ***Run native script if exists***
@@ -299,6 +325,7 @@ ___
 ___
 ### New environment detected from customize
 
+* **CM_MLPERF_BACKEND**
 * **CM_MLPERF_CONF**
 * **CM_MLPERF_LOADGEN_EXTRA_OPTIONS**
 * **CM_MLPERF_LOADGEN_MODE**
@@ -364,6 +391,10 @@ if r['return']>0:
 * num_threads --> **CM_NUM_THREADS**
 * output_dir --> **OUTPUT_BASE_DIR**
 * power --> **CM_SYSTEM_POWER**
+* power_server --> **CM_MLPERF_POWER_SERVER_ADDRESS**
+* ntp_server --> **CM_MLPERF_POWER_NTP_SERVER**
+* max_amps --> **CM_MLPERF_POWER_MAX_AMPS**
+* max_volts --> **CM_MLPERF_POWER_MAX_VOLTS**
 * regenerate_files --> **CM_REGENERATE_MEASURE_FILES**
 * rerun --> **CM_RERUN**
 * scenario --> **CM_MLPERF_LOADGEN_SCENARIO**

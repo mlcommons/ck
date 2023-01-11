@@ -97,6 +97,9 @@ def preprocess(i):
         ml_model_name = "bert"
     if 'dlrm' in ml_model_name:
         ml_model_name = "dlrm"
+
+    query_count = None
+
     for metric in conf:
         metric_value = conf[metric]
         if env['CM_MLPERF_RUN_STYLE'] == "fast":
@@ -132,7 +135,10 @@ def preprocess(i):
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
             user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
             scenario_extra_options +=  " --count " + query_count
-    env['CM_MAX_EXAMPLES'] = query_count #needed for squad accuracy checker
+
+    if query_count:
+        env['CM_MAX_EXAMPLES'] = query_count #needed for squad accuracy checker
+
     import uuid
     key = uuid.uuid4().hex
     user_conf_path = os.path.join(script_path, "tmp", key+".conf")
@@ -140,7 +146,7 @@ def preprocess(i):
     user_conf_file = Path(user_conf_path)
     user_conf_file.parent.mkdir(exist_ok=True, parents=True)
     user_conf_file.write_text(user_conf)
-    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' not in env:
+    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' not in env and query_count:
         env['CM_MLPERF_LOADGEN_QUERY_COUNT'] = query_count
 
     scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"

@@ -94,6 +94,16 @@
           "tags": "_validation"
         }
       }
+    },
+    "fake": {
+      "add_deps_recursive": {
+        "original-dataset": {
+          "tags": "_fake"
+        }
+      },
+      "env": {
+        "CM_CRITEO_FAKE": "yes"
+      }
     }
   }
 }

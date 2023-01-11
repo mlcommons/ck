@@ -215,10 +215,19 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             dataset = "terabyte"
         elif 'kaggle' in env['CM_ML_MODEL_DATASET']:
             dataset = "kaggle"
+        if env.get('CM_MLPERF_BIN_LOADER', '') == 'yes':
+            mlperf_bin_loader_string = " --mlperf-bin-loader"
+        else:
+            mlperf_bin_loader_string = ""
+        if env.get('CM_ML_MODEL_DEBUG','') == 'yes':
+            config = " --max-ind-range=10000000 --data-sub-sample-rate=0.875 "
+        else:
+            config = "  --max-ind-range=40000000 "
         cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + \
             ' dlrm ' + dataset + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
-            ' --max-ind-range=10000000 --data-sub-sample-rate=0.875 --test-num-workers=1 --mlperf-bin-loader --count-samples=10 ' + \
+            config + mlperf_bin_loader_string + \
+            ' --max-batchsize=64 --test-num-workers=1 --count-samples=10 --samples-to-aggregate-quantile-file=./tools/dist_quantile.txt ' + \
             scenario_extra_options + mode_extra_options + dataset_options
 
     return cmd
