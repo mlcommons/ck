@@ -60,7 +60,7 @@ def preprocess(i):
     if 'CM_MLPERF_LOADGEN_MAX_BATCHSIZE' in env:
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env:
+    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env and '3d-unet' not in env['CM_MODEL']:
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
 
     print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
