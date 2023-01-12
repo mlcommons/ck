@@ -295,6 +295,14 @@
         "CM_SOX_VERSION"
       ]
     },
+    "deepsparse": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "deepsparse"
+      },
+      "new_env_keys": [
+        "CM_DEEPSPARSE_VERSION"
+      ]
+    },
     "toml": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "toml"
