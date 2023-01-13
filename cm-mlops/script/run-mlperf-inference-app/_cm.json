@@ -60,7 +60,14 @@
     "run_checker": "CM_RUN_SUBMISSION_CHECKER",
     "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
     "clean": "CM_MLPERF_CLEAN_ALL",
-    "new_tvm_model": "CM_MLPERF_DELETE_COMPILED_MODEL"
+    "new_tvm_model": "CM_MLPERF_DELETE_COMPILED_MODEL",
+    "target_qps": "CM_MLPERF_LOADGEN_TARGET_QPS",
+    "offline_target_qps": "CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS",
+    "server_target_qps": "CM_MLPERF_LOADGEN_SERVER_TARGET_QPS",
+    "target_qps": "CM_MLPERF_LOADGEN_TARGET_QPS",
+    "target_latency": "CM_MLPERF_LOADGEN_TARGET_LATENCY",
+    "singlestream_target_latency": "CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY",
+    "multistream_target_latency": "CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY"
   },
   "tags": [
     "run",
