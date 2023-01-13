@@ -329,6 +329,14 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _pytorch
+  deepsparse:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        deepsparse
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _deepsparse
   tflite:
     group: backend
     env:
