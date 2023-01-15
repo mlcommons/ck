@@ -12,6 +12,7 @@ def preprocess(i):
     backend_version = env.get('CM_MLPERF_BACKEND_VERSION', '')
     sut_suffix = ''
     backend_name = ''
+    backend_desc = ''
     if backend:
         backend_name = env.get('CM_MLPERF_BACKEND_NAME', backend)
         sut_suffix = "-" + backend
@@ -19,10 +20,12 @@ def preprocess(i):
         if backend_version:
             sut_suffix += "-" + backend_version
             backend_desc += ' v' + backend_version
+
     sut = hw_name + sut_suffix
     path = i['run_script_input']['path']
     sut_path = os.path.join(path, "suts", sut + ".json")
     if os.path.exists(sut_path) and env.get('CM_SUT_DESC_CACHE', '') == "yes":
+        print(f"Reusing SUT description file {sut}")
         state['CM_SUT_META'] = json.load(open(sut_path))
     else:
         print("Generating SUT description file for " + sut)
@@ -63,16 +66,20 @@ def preprocess(i):
                 state['CM_SUT_META']['system_name'] = system_name
 
             if 'host_processor_core_count' not in state['CM_SUT_META']:
-                state['CM_SUT_META']['host_processor_core_count'] = env.get('CM_HOST_CPU_TOTAL_CORES', '')
+                physical_cores_per_node = env.get('CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET')
+                state['CM_SUT_META']['host_processor_core_count'] = physical_cores_per_node
+
             if 'host_processor_model_name' not in state['CM_SUT_META']:
                 state['CM_SUT_META']['host_processor_model_name'] = env.get('CM_HOST_CPU_MODEL_NAME', '')
             if 'host_processors_per_node' not in state['CM_SUT_META']:
                 state['CM_SUT_META']['host_processors_per_node'] = env.get('CM_HOST_CPU_SOCKETS', '')
+
             if 'host_processor_caches' not in state['CM_SUT_META']:
                 state['CM_SUT_META']['host_processor_caches'] = "L1d cache: " + env.get('CM_HOST_CPU_L1D_CACHE_SIZE', ' ') + \
                         ", L1i cache: " + env.get('CM_HOST_CPU_L1I_CACHE_SIZE', ' ') + ", L2 cache: " + \
                         env.get('CM_HOST_CPU_L2_CACHE_SIZE', ' ') + \
                         ", L3 cache: " + env.get('CM_HOST_CPU_L3_CACHE_SIZE', ' ')
+
             if 'host_processor_frequency' not in state['CM_SUT_META']:
                 state['CM_SUT_META']['host_processor_frequency'] = env.get('CM_HOST_CPU_MAX_MHZ','')
             if 'host_memory_capacity' not in state['CM_SUT_META']:
