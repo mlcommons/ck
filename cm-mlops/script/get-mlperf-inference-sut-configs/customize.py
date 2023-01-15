@@ -3,7 +3,7 @@ import os
 import yaml
 import shutil
 
-def preprocess(i):
+def postprocess(i):
     env = i['env']
     state = i['state']
     if 'CM_HW_NAME' not in env:
@@ -15,14 +15,20 @@ def preprocess(i):
     else:
         backend_version = 'default'
 
-    path = i['run_script_input']['path']
     if 'CM_SUT_CONFIG' not in state:
         state['CM_SUT_CONFIG'] = {}
 
     if 'CM_SUT_NAME' not in env:
         env['CM_SUT_NAME'] = env['CM_HW_NAME'] + "-" + backend + "-" + backend_version
 
-    config_path = os.path.join(path, "configs", env['CM_HW_NAME'], backend, backend_version + "-config.yaml")
+    if env.get('CM_SUT_CONFIGS_PATH',''):
+        path = env['CM_SUT_CONFIGS_PATH']
+    elif env.get('CM_SUT_USE_EXTERNAL_CONFIG_REPO', '') == "yes":
+        path = env.get('CM_GIT_CHECKOUT_PATH')
+    else:
+        path = os.path.join(env['CM_TMP_CURRENT_SCRIPT_PATH'], "configs")
+
+    config_path = os.path.join(path, env['CM_HW_NAME'], backend, backend_version + "-config.yaml")
     if not os.path.exists(config_path):
         config_path_default = os.path.join(path, "configs", env['CM_HW_NAME'], backend, "default-config.yaml")
         if os.path.exists(config_path_default):
@@ -35,11 +41,5 @@ def preprocess(i):
             shutil.copy(src_config, config_path_default)
 
     state['CM_SUT_CONFIG'][env['CM_SUT_NAME']] = yaml.load(open(config_path), Loader=yaml.SafeLoader)
-
-    return {'return':0}
-
-def postprocess(i):
-
-    env = i['env']
 
     return {'return':0}

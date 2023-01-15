@@ -11,12 +11,39 @@
   "new_state_keys": [
     "CM_SUT_*"
   ],
+  "default_env": {
+    "CM_SUT_CONFIGS_PATH": "",
+    "CM_GIT_URL": ""
+  },
+  "input_mapping": {
+    "repo_path": "CM_SUT_CONFIGS_PATH",
+    "configs_git_url": "CM_GIT_URL"
+  },
   "tags": [
     "get",
     "mlperf",
+    "inference",
     "sut",
     "configs",
     "sut-configs"
   ],
-  "uid": "c2fbf72009e2445b"
+  "uid": "c2fbf72009e2445b",
+  "variations": {
+    "octoml": {
+      "env": {
+        "CM_SUT_USE_EXTERNAL_CONFIG_REPO": "yes",
+        "CM_GIT_CHECKOUT_FOLDER": "configs",
+        "CM_GIT_URL": "https://github.com/arjunsuresh/mlperf-inference-configs"
+      },
+      "prehook_deps": [
+        {
+          "force_env_keys": [
+            "CM_GIT_URL",
+            "CM_GIT_CHECKOUT_*"
+          ],
+          "tags": "get,git,repo,_repo.mlperf_inference_configs_octoml"
+        }
+      ]
+    }
+  }
 }
