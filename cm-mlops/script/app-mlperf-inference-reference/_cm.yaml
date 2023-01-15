@@ -553,6 +553,8 @@ variations:
       CM_MODEL: 3d-unet-99
 
   3d-unet:
+    env:
+      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: yes
     deps:
     - tags: get,generic-python-lib,_torch
       names:

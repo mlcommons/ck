@@ -60,7 +60,7 @@ def preprocess(i):
     if 'CM_MLPERF_LOADGEN_MAX_BATCHSIZE' in env:
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env and '3d-unet' not in env['CM_MODEL']:
+    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env and env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', 'no') != "yes":
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
 
     print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
@@ -210,7 +210,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
         env['SKIP_VERIFY_ACCURACY'] = True
 
-    elif "dlrm" in env['CM_MODEL']:
+    elif "dlrm" in env['CM_MODEL']: # DLRM is in draft stage
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_DLRM_PATH'], "pytorch")
         if 'terabyte' in env['CM_ML_MODEL_DATASET']:
