@@ -40,6 +40,7 @@ def postprocess(i):
             'CM_CPUINFO_L3_cache': 'CM_HOST_CPU_L3_CACHE_SIZE',
             'CM_CPUINFO_Sockets': 'CM_HOST_CPU_SOCKETS',
             'CM_CPUINFO_NUMA_nodes': 'CM_HOST_CPU_NUMA_NODES',
+            'CM_CPUINFO_Cores_per_socket': 'CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET',
             'CM_CPUINFO_Threads_per_core': 'CM_HOST_CPU_THREADS_PER_CORE',
             'CM_CPUINFO_Architecture': 'CM_HOST_CPU_ARCHITECTURE',
             'CM_CPUINFO_CPU_family': 'CM_HOST_CPU_FAMILY',
@@ -58,7 +59,7 @@ def postprocess(i):
 
     if env['CM_HOST_OS_TYPE'] == 'linux':
         vkeys = [ 'Architecture', 'Model name', 'Vendor ID', 'CPU family', 'NUMA node(s)', 'CPU(s)', \
-                'On-line CPU(s) list', 'Socket(s)', 'Thread(s) per core', 'L1d cache', 'L1i cache', 'L2 cache', \
+                'On-line CPU(s) list', 'Socket(s)', 'Core(s) per socket', 'Thread(s) per core', 'L1d cache', 'L1i cache', 'L2 cache', \
                 'L3 cache', 'CPU max MHz' ]
     elif env['CM_HOST_OS_FLAVOR'] == 'macos':
         vkeys = [ 'hw.physicalcpu', 'hw.logicalcpu', 'hw.packages', 'hw.ncpu', 'hw.memsize', 'hw.l1icachesize', \
@@ -77,7 +78,10 @@ def postprocess(i):
         env['CM_HOST_CPU_TOTAL_LOGICAL_CORES'] = env['CM_HOST_CPU_TOTAL_CORES']
 
     if 'CM_HOST_CPU_TOTAL_LOGICAL_CORES' in env and 'CM_HOST_CPU_TOTAL_PHYSICAL_CORES' in env and 'CM_HOST_CPU_THREADS_PER_CORE' not in env:
-        env['CM_HOST_CPU_THREADS_PER_CORE'] = str(int(int(env['CM_HOST_CPU_TOTAL_LOGICAL_CORES']) /
+        env['CM_HOST_CPU_THREADS_PER_CORE'] = str(int(int(env['CM_HOST_CPU_TOTAL_LOGICAL_CORES']) //
             int(env['CM_HOST_CPU_TOTAL_PHYSICAL_CORES'])))
+
+    if 'CM_HOST_CPU_SOCKETS' in env and 'CM_HOST_CPU_TOTAL_PHYSICAL_CORES' in env and 'CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET' not in env:
+        env['CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET'] = env['CM_HOST_CPU_TOTAL_PHYSICAL_CORES'] // env['CM_HOST_CPU_SOCKETS']
 
     return {'return':0}

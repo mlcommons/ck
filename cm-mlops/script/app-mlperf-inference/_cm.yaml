@@ -52,6 +52,8 @@ input_mapping:
   test_query_count: CM_TEST_QUERY_COUNT
   new_tvm_model: CM_MLPERF_DELETE_COMPILED_MODEL
   clean: CM_MLPERF_CLEAN_SUBMISSION_DIR
+  target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
+  target_latency: CM_MLPERF_LOADGEN_TARGET_LATENCY
 
 # Duplicate CM environment variables to the ones used in native apps
 env_key_mappings:
@@ -223,15 +225,30 @@ variations:
       - openimages-accuracy-script
       tags: run,accuracy,mlperf,_openimages
 
-  3dunet:
+  3d-unet-99:
     group:
       models
+    base:
+    - 3d-unet_
     env:
       CM_MODEL:
-        3dunet
+        3d-unet-99
     add_deps_recursive:
       mlperf-inference-implementation:
-        tags: _3dunet
+        tags: _3d-unet-99
+  3d-unet-99.9:
+    group:
+      models
+    base:
+    - 3d-unet_
+    env:
+      CM_MODEL:
+        3d-unet-99.9
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _3d-unet-99.9
+
+  3d-unet_:
     post_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -446,7 +463,9 @@ valid_variation_combinations:
   -
     - rnnt
   -
-    - 3d-unet
+    - 3d-unet-99
+  -
+    - 3d-unet-99.9
 
 invalid_variation_combinations:
   -
