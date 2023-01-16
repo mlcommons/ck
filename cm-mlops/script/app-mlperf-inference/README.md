@@ -156,7 +156,6 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
   * Group "**implementation**"
 <details>
 <summary>Click here to expand this section.</summary>
-
     * `_cpp`
       - Environment variables:
         - *CM_MLPERF_CPP*: `yes`
