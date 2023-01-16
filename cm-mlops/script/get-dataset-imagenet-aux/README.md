@@ -1,83 +1,36 @@
-*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
-*TBD*
-___
-### Category
+### Description
 
-ML/AI datasets.
-___
-### Origin
+#### Information
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-
-___
-### Meta description
-[_cm.json](_cm.json)
-
-___
-### Tags
-get,aux,dataset-aux,image-classification,imagenet-aux
-
-___
-### Variations
-#### All variations
-* 2012
-  - *ENV CM_DATASET_AUX_VER*: `2012`
-* from.berkeleyvision
-  - *ENV CM_WGET_URL*: `http://dl.caffe.berkeleyvision.org/caffe_ilsvrc12.tar.gz`
-* **from.dropbox** (default)
-  - *ENV CM_WGET_URL*: `https://www.dropbox.com/s/92n2fyej3lzy3s3/caffe_ilsvrc12.tar.gz`
-___
-### Default environment
-
-___
-### CM script workflow
-
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/_cm.json)
-  1. Run "preprocess" function from customize.py
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/_cm.json)
-  1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/_cm.json)
-  1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/_cm.json)
-___
-### New environment export
-
-* **CM_DATASET_AUX_***
-___
-### New environment detected from customize
-
+* Category: *ML/AI datasets.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *get,aux,dataset-aux,image-classification,imagenet-aux*
 ___
 ### Usage
 
@@ -88,11 +41,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="get,aux,dataset-aux,image-classification,imagenet-aux"`
+`cm run script --tags=get,aux,dataset-aux,image-classification,imagenet-aux(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get aux dataset-aux image-classification imagenet-aux"`
+`cm run script "get aux dataset-aux image-classification imagenet-aux (variations from below)" (flags from below)`
 
 *or*
 
@@ -100,7 +53,11 @@ ___
 
 #### CM Python API
 
+<details>
+<summary>Click here to expand this section.</summary>
+
 ```python
+
 import cmind
 
 r = cmind.access({'action':'run'
@@ -114,10 +71,67 @@ r = cmind.access({'action':'run'
 
 if r['return']>0:
     print (r['error'])
+
 ```
+
+</details>
 
 #### CM modular Docker container
 *TBD*
+___
+### Customization
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+
+</details>
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_2012`
+      - Environment variables:
+        - *CM_DATASET_AUX_VER*: `2012`
+      - Workflow:
+    * `_from.berkeleyvision`
+      - Environment variables:
+        - *CM_WGET_URL*: `http://dl.caffe.berkeleyvision.org/caffe_ilsvrc12.tar.gz`
+      - Workflow:
+    * **`_from.dropbox`** (default)
+      - Environment variables:
+        - *CM_WGET_URL*: `https://www.dropbox.com/s/92n2fyej3lzy3s3/caffe_ilsvrc12.tar.gz`
+      - Workflow:
+
+</details>
+
+___
+### Script workflow, dependencies and native scripts
+
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/_cm.json)
+  1. Run "preprocess" function from customize.py
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/_cm.json)
+  1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux/_cm.json)
+___
+### Script output
+#### New environment keys
+
+* **CM_DATASET_AUX_***
+#### New environment keys auto-detected from customize
+
 ___
 ### Maintainers
 

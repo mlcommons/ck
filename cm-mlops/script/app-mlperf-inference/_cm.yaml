@@ -106,6 +106,16 @@ deps:
 
 
 
+# Order of variations for documentation
+variation_groups_order:
+  - implementation
+  - backend
+  - device
+  - models
+  - precision
+  - execution-mode
+  - reproducibility
+
 # Variations to customize dependencies
 variations:
   # Implementation (cpp, reference/python, nvidia, tflite-cpp)
@@ -248,6 +258,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _3d-unet-99
+
   3d-unet-99.9:
     group:
       models

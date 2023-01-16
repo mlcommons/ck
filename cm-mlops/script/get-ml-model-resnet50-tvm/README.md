@@ -1,111 +1,180 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-  * [ Variations by groups](#variations-by-groups)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
+### Description
+
+
+See [more info](README-extra.md).
+
+#### Information
+
+* Category: *ML/AI models.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification*
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "get ml-model ml-model-tvm tvm-model resnet50 ml-model-resnet50 image-classification (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script c1b7b656b6224307`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+```python
+
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
+```
+
+</details>
+
+#### CM modular Docker container
 *TBD*
 ___
-### Category
+### Customization
 
-ML/AI models.
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+
+</details>
+
+
+#### Variations
+
+  * Group "**batchsize**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_bs.1`
+      - Environment variables:
+        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `1`
+      - Workflow:
+    * `_bs.16`
+      - Environment variables:
+        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `16`
+      - Workflow:
+    * `_bs.2`
+      - Environment variables:
+        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `2`
+      - Workflow:
+    * `_bs.32`
+      - Environment variables:
+        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `32`
+      - Workflow:
+    * `_bs.4`
+      - Environment variables:
+        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `4`
+      - Workflow:
+    * `_bs.64`
+      - Environment variables:
+        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `64`
+      - Workflow:
+    * **`_bs.8`** (default)
+      - Environment variables:
+        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `8`
+      - Workflow:
+
+</details>
+
+
+  * Group "**framework**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * **`_onnx`** (default)
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,ml-model,raw,resnet50,_onnx
+             * CM names: `--adr.['original-model']...`
+             - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+    * `_pytorch`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,ml-model,raw,resnet50,_pytorch
+             * CM names: `--adr.['original-model']...`
+             - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+    * `_tensorflow`
+      - Aliases: `_tf,_tflite`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,ml-model,raw,resnet50,_tf
+             * CM names: `--adr.['original-model']...`
+             - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+
+</details>
+
+
+  * Group "**precision**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * **`_fp32`** (default)
+      - Workflow:
+    * `_int8`
+      - Workflow:
+    * `_uint8`
+      - Workflow:
+
+</details>
+
 ___
-### Origin
-
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-
-___
-### Meta description
-[_cm.json](_cm.json)
-
-___
-### Tags
-get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification
-
-___
-### Variations
-#### All variations
-* bs.1
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `1`
-* bs.16
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `16`
-* bs.2
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `2`
-* bs.32
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `32`
-* bs.4
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `4`
-* bs.64
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `64`
-* **bs.8** (default)
-  - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `8`
-* **fp32** (default)
-* int8
-* **onnx** (default)
-* pytorch
-* tensorflow
-* tf
-* tflite
-* uint8
-
-#### Variations by groups
-
-  * batchsize
-    * bs.1
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `1`
-    * bs.16
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `16`
-    * bs.2
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `2`
-    * bs.32
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `32`
-    * bs.4
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `4`
-    * bs.64
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `64`
-    * **bs.8** (default)
-      - *ENV CM_ML_MODEL_MAX_BATCH_SIZE*: `8`
-
-  * framework
-    * **onnx** (default)
-    * pytorch
-    * tensorflow
-
-  * precision
-    * **fp32** (default)
-    * int8
-    * uint8
-___
-### Default environment
-
-___
-### CM script workflow
+### Script workflow, dependencies and native scripts
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/_cm.json)***
      * get,python3
@@ -122,11 +191,11 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/_cm.json)
 ___
-### New environment export
+### Script output
+#### New environment keys
 
 * **CM_ML_MODEL_***
-___
-### New environment detected from customize
+#### New environment keys auto-detected from customize
 
 * **CM_ML_MODEL_FILE**
 * **CM_ML_MODEL_FILE_WITH_PATH**
@@ -134,46 +203,6 @@ ___
 * **CM_ML_MODEL_INPUT_SHAPES**
 * **CM_ML_MODEL_ORIGINAL_FILE_WITH_PATH**
 * **CM_ML_MODEL_PATH**
-___
-### Usage
-
-#### CM installation
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-
-#### CM script automation help
-```cm run script --help```
-
-#### CM CLI
-`cm run script --tags="get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification"`
-
-*or*
-
-`cm run script "get ml-model ml-model-tvm tvm-model resnet50 ml-model-resnet50 image-classification"`
-
-*or*
-
-`cm run script c1b7b656b6224307`
-
-#### CM Python API
-
-```python
-import cmind
-
-r = cmind.access({'action':'run'
-                  'automation':'script',
-                  'tags':'get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification'
-                  'out':'con',
-                  ...
-                  (other input keys for this script)
-                  ...
-                 })
-
-if r['return']>0:
-    print (r['error'])
-```
-
-#### CM modular Docker container
-*TBD*
 ___
 ### Maintainers
 

@@ -1,89 +1,39 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Versions](#versions)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Default environment](#default-environment)
+* [Versions](#versions)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
-*TBD*
-___
-### Category
+### Description
 
-CUDA automation.
-___
-### Origin
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+See [more info](README-extra.md).
 
-___
-### Meta description
-[_cm.json](_cm.json)
+#### Information
 
-___
-### Tags
-install,prebuilt,cuda,prebuilt-cuda,install-prebuilt-cuda
-
-___
-### Versions
-Default version: *11.8.0*
-
-* 11.7.0
-* 11.8.0
-* 12.0.0
-___
-### Default environment
-
-* CM_SUDO: **sudo**
-___
-### CM script workflow
-
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)
-  1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)
-  1. Run "postrocess" function from customize.py
-  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)***
-     * get,cuda
-       * `if (CM_REQUIRE_INSTALL  != yes)`
-       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
-___
-### New environment export
-
-* **CM_CUDA_***
-* **CM_NVCC_***
-___
-### New environment detected from customize
-
-* **CM_CUDA_INSTALLED_PATH**
-* **CM_GET_DEPENDENT_CACHED_PATH**
-* **CM_NVCC_BIN_WITH_PATH**
+* Category: *CUDA automation.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *install,prebuilt,cuda,prebuilt-cuda,install-prebuilt-cuda*
 ___
 ### Usage
 
@@ -94,11 +44,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="install,prebuilt,cuda,prebuilt-cuda,install-prebuilt-cuda"`
+`cm run script --tags=install,prebuilt,cuda,prebuilt-cuda,install-prebuilt-cuda(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "install prebuilt cuda prebuilt-cuda install-prebuilt-cuda"`
+`cm run script "install prebuilt cuda prebuilt-cuda install-prebuilt-cuda (variations from below)" (flags from below)`
 
 *or*
 
@@ -106,7 +56,11 @@ ___
 
 #### CM Python API
 
+<details>
+<summary>Click here to expand this section.</summary>
+
 ```python
+
 import cmind
 
 r = cmind.access({'action':'run'
@@ -120,10 +74,62 @@ r = cmind.access({'action':'run'
 
 if r['return']>0:
     print (r['error'])
+
 ```
+
+</details>
 
 #### CM modular Docker container
 *TBD*
+___
+### Customization
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* CM_SUDO: **sudo**
+
+</details>
+
+___
+### Versions
+Default version: *11.8.0*
+
+* 11.7.0
+* 11.8.0
+* 12.0.0
+___
+### Script workflow, dependencies and native scripts
+
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)
+  1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt/_cm.json)***
+     * get,cuda
+       * `if (CM_REQUIRE_INSTALL  != yes)`
+       - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
+       - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+___
+### Script output
+#### New environment keys
+
+* **CM_CUDA_***
+* **CM_NVCC_***
+#### New environment keys auto-detected from customize
+
+* **CM_CUDA_INSTALLED_PATH**
+* **CM_GET_DEPENDENT_CACHED_PATH**
+* **CM_NVCC_BIN_WITH_PATH**
 ___
 ### Maintainers
 

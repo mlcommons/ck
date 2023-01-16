@@ -1,102 +1,36 @@
-*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-  * [ Variations by groups](#variations-by-groups)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
-*TBD*
-___
-### Category
+### Description
 
-ML/AI models.
-___
-### Origin
+#### Information
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
-
-___
-### Meta description
-[_cm.json](_cm.json)
-
-___
-### Tags
-get,ml-model,rnnt,librispeech,speech-recognition
-
-___
-### Variations
-#### All variations
-* **fp32** (default)
-  - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
-  - *ENV CM_ML_MODEL_PRECISION*: `fp32`
-  - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
-* **pytorch** (default)
-  - *ENV CM_ML_MODEL_FRAMEWORK*: `pytorch`
-* pytorch,fp32
-  - *ENV CM_ML_MODEL_ACCURACY*: `0.07452253714852645`
-  - *ENV CM_PACKAGE_URL*: `https://zenodo.org/record/3662521/files/DistributedDataParallel_1576581068.9962234-epoch-100.pt?download=1`
-* weights
-  - *ENV CM_MODEL_WEIGHTS_FILE*: `yes`
-
-#### Variations by groups
-
-  * framework
-    * **pytorch** (default)
-      - *ENV CM_ML_MODEL_FRAMEWORK*: `pytorch`
-
-  * precision
-    * **fp32** (default)
-      - *ENV CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
-      - *ENV CM_ML_MODEL_PRECISION*: `fp32`
-      - *ENV CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
-___
-### Default environment
-
-___
-### CM script workflow
-
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
-  1. ***Run native script if exists***
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
-  1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
-___
-### New environment export
-
-* **CM_ML_MODEL_***
-___
-### New environment detected from customize
-
-* **CM_ML_MODEL_FILE**
-* **CM_ML_MODEL_FILE_WITH_PATH**
-* **CM_ML_MODEL_PATH**
+* Category: *ML/AI models.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *get,ml-model,rnnt,librispeech,speech-recognition*
 ___
 ### Usage
 
@@ -107,11 +41,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="get,ml-model,rnnt,librispeech,speech-recognition"`
+`cm run script --tags=get,ml-model,rnnt,librispeech,speech-recognition(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get ml-model rnnt librispeech speech-recognition"`
+`cm run script "get ml-model rnnt librispeech speech-recognition (variations from below)" (flags from below)`
 
 *or*
 
@@ -119,7 +53,11 @@ ___
 
 #### CM Python API
 
+<details>
+<summary>Click here to expand this section.</summary>
+
 ```python
+
 import cmind
 
 r = cmind.access({'action':'run'
@@ -133,10 +71,91 @@ r = cmind.access({'action':'run'
 
 if r['return']>0:
     print (r['error'])
+
 ```
+
+</details>
 
 #### CM modular Docker container
 *TBD*
+___
+### Customization
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+
+</details>
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_pytorch,fp32`
+      - Environment variables:
+        - *CM_ML_MODEL_ACCURACY*: `0.07452253714852645`
+        - *CM_PACKAGE_URL*: `https://zenodo.org/record/3662521/files/DistributedDataParallel_1576581068.9962234-epoch-100.pt?download=1`
+      - Workflow:
+    * `_weights`
+      - Environment variables:
+        - *CM_MODEL_WEIGHTS_FILE*: `yes`
+      - Workflow:
+
+</details>
+
+
+  * Group "**framework**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * **`_pytorch`** (default)
+      - Environment variables:
+        - *CM_ML_MODEL_FRAMEWORK*: `pytorch`
+      - Workflow:
+
+</details>
+
+
+  * Group "**precision**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * **`_fp32`** (default)
+      - Environment variables:
+        - *CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+        - *CM_ML_MODEL_PRECISION*: `fp32`
+        - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
+      - Workflow:
+
+</details>
+
+___
+### Script workflow, dependencies and native scripts
+
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
+  1. ***Run native script if exists***
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt/_cm.json)
+___
+### Script output
+#### New environment keys
+
+* **CM_ML_MODEL_***
+#### New environment keys auto-detected from customize
+
+* **CM_ML_MODEL_FILE**
+* **CM_ML_MODEL_FILE_WITH_PATH**
+* **CM_ML_MODEL_PATH**
 ___
 ### Maintainers
 

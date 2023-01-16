@@ -1,83 +1,166 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-* [Versions](#versions)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
-  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
+* [Customization](#customization)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Versions](#versions)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
+### Description
+
+
+See [more info](README-extra.md).
+
+#### Information
+
+* Category: *Modular MLPerf benchmarks.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *reproduce,tiny,results,mlperf,octoml,mlcommons*
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=reproduce,tiny,results,mlperf,octoml,mlcommons(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "reproduce tiny results mlperf octoml mlcommons (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script a63803a707d04332`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+```python
+
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'reproduce,tiny,results,mlperf,octoml,mlcommons'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
+```
+
+</details>
+
+#### CM modular Docker container
 *TBD*
 ___
-### Category
+### Customization
 
-Modular MLPerf benchmarks.
-___
-### Origin
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
 
-___
-### Meta description
-[_cm.json](_cm.json)
+* --**flash**=value --> **CM_FLASH_BOARD**=value
+* --**recreate_binary**=value --> **CM_RECREATE_BINARY**=value
 
-___
-### Tags
-reproduce,tiny,results,mlperf,octoml,mlcommons
+**Above CLI flags can be used in the Python CM API as follows:**
 
-___
-### Variations
-#### All variations
-* NRF
-  - *ENV CM_TINY_BOARD*: `NRF5340DK`
-* NUCLEO
-  - *ENV CM_TINY_BOARD*: `NUCLEO_L4R5ZI`
-* ad
-  - *ENV CM_TINY_MODEL*: `ad`
-* cmsis_nn
-  - *ENV CM_MICROTVM_VARIANT*: `microtvm_cmsis_nn`
-* ic
-  - *ENV CM_TINY_MODEL*: `ic`
-* kws
-  - *ENV CM_TINY_MODEL*: `kws`
-* native
-  - *ENV CM_MICROTVM_VARIANT*: `microtvm_native`
-* vww
-  - *ENV CM_TINY_MODEL*: `vww`
+```python
+r=cm.access({... , "flash":"..."}
+```
+
+</details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+
+</details>
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_NRF`
+      - Environment variables:
+        - *CM_TINY_BOARD*: `NRF5340DK`
+      - Workflow:
+    * `_NUCLEO`
+      - Environment variables:
+        - *CM_TINY_BOARD*: `NUCLEO_L4R5ZI`
+      - Workflow:
+    * `_ad`
+      - Environment variables:
+        - *CM_TINY_MODEL*: `ad`
+      - Workflow:
+    * `_cmsis_nn`
+      - Environment variables:
+        - *CM_MICROTVM_VARIANT*: `microtvm_cmsis_nn`
+      - Workflow:
+    * `_ic`
+      - Environment variables:
+        - *CM_TINY_MODEL*: `ic`
+      - Workflow:
+    * `_kws`
+      - Environment variables:
+        - *CM_TINY_MODEL*: `kws`
+      - Workflow:
+    * `_native`
+      - Environment variables:
+        - *CM_MICROTVM_VARIANT*: `microtvm_native`
+      - Workflow:
+    * `_vww`
+      - Environment variables:
+        - *CM_TINY_MODEL*: `vww`
+      - Workflow:
+
+</details>
+
 ___
 ### Versions
 Default version: *r1.0*
 
 * r1.0
 ___
-### Default environment
-
-___
-### CM script workflow
+### Script workflow, dependencies and native scripts
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results/_cm.json)***
      * detect,os
@@ -117,68 +200,14 @@ ___
        * `if (CM_FLASH_BOARD  == True)`
        - CM script: [flash-tinyml-binary](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary)
 ___
-### New environment export
+### Script output
+#### New environment keys
 
 * **CM_TINY_***
-___
-### New environment detected from customize
+#### New environment keys auto-detected from customize
 
 * **CM_MICROTVM_VARIANT**
 * **CM_TINY_MODEL**
-___
-### Usage
-
-#### CM installation
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-
-#### CM script automation help
-```cm run script --help```
-
-#### CM CLI
-`cm run script --tags="reproduce,tiny,results,mlperf,octoml,mlcommons"`
-
-*or*
-
-`cm run script "reproduce tiny results mlperf octoml mlcommons"`
-
-*or*
-
-`cm run script a63803a707d04332`
-
-#### CM Python API
-
-```python
-import cmind
-
-r = cmind.access({'action':'run'
-                  'automation':'script',
-                  'tags':'reproduce,tiny,results,mlperf,octoml,mlcommons'
-                  'out':'con',
-                  ...
-                  (other input keys for this script)
-                  ...
-                 })
-
-if r['return']>0:
-    print (r['error'])
-```
-
-#### CM modular Docker container
-*TBD*
-
-#### Script input flags mapped to environment
-
-* flash --> **CM_FLASH_BOARD**
-* recreate_binary --> **CM_RECREATE_BINARY**
-
-Examples:
-
-```bash
-cm run script "reproduce tiny results mlperf octoml mlcommons" --flash=...
-```
-```python
-r=cm.access({... , "flash":"..."}
-```
 ___
 ### Maintainers
 

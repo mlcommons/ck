@@ -1,62 +1,112 @@
-*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
+### Description
+
+#### Information
+
+* Category: *Detection or installation of tools and artifacts.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *get,sys-utils-cm*
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=get,sys-utils-cm(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "get sys-utils-cm (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script bc90993277e84b8e`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+```python
+
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'get,sys-utils-cm'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
+```
+
+</details>
+
+#### CM modular Docker container
 *TBD*
 ___
-### Category
+### Customization
 
-Detection or installation of tools and artifacts.
-___
-### Origin
+#### Default environment
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+
+</details>
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_user`
+      - Environment variables:
+        - *CM_PYTHON_PIP_USER*: `--user`
+      - Workflow:
+
+</details>
 
 ___
-### Meta description
-[_cm.json](_cm.json)
-
-___
-### Tags
-get,sys-utils-cm
-
-___
-### Variations
-#### All variations
-* user
-  - *ENV CM_PYTHON_PIP_USER*: `--user`
-___
-### Default environment
-
-___
-### CM script workflow
+### Script workflow, dependencies and native scripts
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/_cm.json)***
      * detect,os
@@ -73,52 +123,12 @@ ___
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/_cm.json)
 ___
-### New environment export
+### Script output
+#### New environment keys
 
 * **+PATH**
-___
-### New environment detected from customize
+#### New environment keys auto-detected from customize
 
-___
-### Usage
-
-#### CM installation
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-
-#### CM script automation help
-```cm run script --help```
-
-#### CM CLI
-`cm run script --tags="get,sys-utils-cm"`
-
-*or*
-
-`cm run script "get sys-utils-cm"`
-
-*or*
-
-`cm run script bc90993277e84b8e`
-
-#### CM Python API
-
-```python
-import cmind
-
-r = cmind.access({'action':'run'
-                  'automation':'script',
-                  'tags':'get,sys-utils-cm'
-                  'out':'con',
-                  ...
-                  (other input keys for this script)
-                  ...
-                 })
-
-if r['return']>0:
-    print (r['error'])
-```
-
-#### CM modular Docker container
-*TBD*
 ___
 ### Maintainers
 

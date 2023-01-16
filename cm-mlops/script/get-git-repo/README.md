@@ -10,10 +10,8 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
   * [ Variations](#variations)
-* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys](#new-environment-keys)
@@ -31,11 +29,11 @@ See [more info](README-extra.md).
 
 #### Information
 
-* Category: *TinyML automation.*
+* Category: *Modular MLPerf benchmarks.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,src,source,microtvm,tiny*
+* CM "database" tags to find this script: *get,git,repo,repository,clone*
 ___
 ### Usage
 
@@ -46,15 +44,15 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags=get,src,source,microtvm,tiny(,variations from below) (flags from below)`
+`cm run script --tags=get,git,repo,repository,clone(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get src source microtvm tiny (variations from below)" (flags from below)`
+`cm run script "get git repo repository clone (variations from below)" (flags from below)`
 
 *or*
 
-`cm run script a9cad70972a140b9`
+`cm run script ed603e7292974f10`
 
 #### CM Python API
 
@@ -67,7 +65,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,src,source,microtvm,tiny'
+                  'tags':'get,git,repo,repository,clone'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -86,21 +84,6 @@ if r['return']>0:
 ___
 ### Customization
 
-
-#### Script flags mapped to environment
-<details>
-<summary>Click here to expand this section.</summary>
-
-* --**ssh**=value --> **CM_GIT_SSH**=value
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "ssh":"..."}
-```
-
-</details>
-
 #### Default environment
 
 <details>
@@ -108,6 +91,12 @@ r=cm.access({... , "ssh":"..."}
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
+* CM_GIT_CHECKOUT: **main**
+* CM_GIT_DEPTH: **--depth 4**
+* CM_GIT_CHECKOUT_FOLDER: **repo**
+* CM_GIT_PATCH: **no**
+* CM_GIT_RECURSE_SUBMODULES: ** --recurse-submodules**
+* CM_GIT_URL: **https://github.com/mlcommons/ck.git**
 
 </details>
 
@@ -124,44 +113,57 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
       - Workflow:
     * `_full-history`
       - Environment variables:
-        - *CM_GIT_DEPTH*: `--depth 10`
+        - *CM_GIT_DEPTH*: ``
+      - Workflow:
+    * `_no-recurse-submodules`
+      - Environment variables:
+        - *CM_GIT_RECURSE_SUBMODULES*: ``
+      - Workflow:
+    * `_patch`
+      - Environment variables:
+        - *CM_GIT_PATCH*: `yes`
       - Workflow:
     * `_short-history`
       - Environment variables:
-        - *CM_GIT_DEPTH*: `--depth 10`
+        - *CM_GIT_DEPTH*: `--depth 5`
+      - Workflow:
+
+</details>
+
+
+  * Group "**repo**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_repo.#`
       - Workflow:
 
 </details>
 
 ___
-### Versions
-Default version: *main*
-
-* custom
-* main
-___
 ### Script workflow, dependencies and native scripts
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-microtvm/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)
 ___
 ### Script output
 #### New environment keys
 
-* **CM_MICROTVM_***
+* **CM_GIT_CHECKOUT_PATH**
 #### New environment keys auto-detected from customize
 
+* **CM_GIT_CHECKOUT_PATH**
 * **CM_GIT_DEPTH**
 * **CM_GIT_RECURSE_SUBMODULES**
-* **CM_MICROTVM_SOURCE**
+* **CM_GIT_REPO_NAME**
 ___
 ### Maintainers
 

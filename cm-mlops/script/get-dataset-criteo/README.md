@@ -1,82 +1,40 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
-  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
+* [Customization](#customization)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
-*TBD*
-___
-### Category
+### Description
 
-ML/AI datasets.
-___
-### Origin
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+See [more info](README-extra.md).
 
-___
-### Meta description
-[_cm.json](_cm.json)
+#### Information
 
-___
-### Tags
-get,dataset,criteo,original
-
-___
-### Variations
-#### All variations
-* backup
-  - *ENV CM_BACKUP_ZIPS*: `yes`
-* fake
-  - *ENV CM_CRITEO_FAKE*: `yes`
-___
-### Default environment
-
-* CM_BACKUP_ZIPS: **no**
-___
-### CM script workflow
-
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/_cm.json)
-  1. Run "preprocess" function from customize.py
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/_cm.json)
-  1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/_cm.json)
-  1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/_cm.json)
-___
-### New environment export
-
-* **CM_DATASET***
-___
-### New environment detected from customize
-
+* Category: *ML/AI datasets.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *get,dataset,criteo,original*
 ___
 ### Usage
 
@@ -87,11 +45,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="get,dataset,criteo,original"`
+`cm run script --tags=get,dataset,criteo,original(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get dataset criteo original"`
+`cm run script "get dataset criteo original (variations from below)" (flags from below)`
 
 *or*
 
@@ -99,7 +57,11 @@ ___
 
 #### CM Python API
 
+<details>
+<summary>Click here to expand this section.</summary>
+
 ```python
+
 import cmind
 
 r = cmind.access({'action':'run'
@@ -113,23 +75,78 @@ r = cmind.access({'action':'run'
 
 if r['return']>0:
     print (r['error'])
+
 ```
+
+</details>
 
 #### CM modular Docker container
 *TBD*
+___
+### Customization
 
-#### Script input flags mapped to environment
 
-* criteo_path --> **CM_CRITEO_PATH**
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
 
-Examples:
+* --**criteo_path**=value --> **CM_CRITEO_PATH**=value
 
-```bash
-cm run script "get dataset criteo original" --criteo_path=...
-```
+**Above CLI flags can be used in the Python CM API as follows:**
+
 ```python
 r=cm.access({... , "criteo_path":"..."}
 ```
+
+</details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* CM_BACKUP_ZIPS: **no**
+
+</details>
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_backup`
+      - Environment variables:
+        - *CM_BACKUP_ZIPS*: `yes`
+      - Workflow:
+    * `_fake`
+      - Environment variables:
+        - *CM_CRITEO_FAKE*: `yes`
+      - Workflow:
+
+</details>
+
+___
+### Script workflow, dependencies and native scripts
+
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/_cm.json)
+  1. Run "preprocess" function from customize.py
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/_cm.json)
+  1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo/_cm.json)
+___
+### Script output
+#### New environment keys
+
+* **CM_DATASET***
+#### New environment keys auto-detected from customize
+
 ___
 ### Maintainers
 
