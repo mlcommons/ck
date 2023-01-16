@@ -233,79 +233,30 @@ deps:
   ########################################################################
   # Install ML models    
 
-  ## ResNet50 (ONNX format, FP32)
-  - tags: get,ml-model,raw,image-classification,resnet50,_onnx
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - onnxruntime
-      CM_MODEL:
-      - resnet50
-
-  ## ResNet50 (TVM ONNX format, FP32)
-  - tags: get,ml-model,tvm-model,resnet50,_onnx
+  ## ResNet50
+  - tags: get,ml-model,raw,image-classification,resnet50
     names:
-      - resnet50-model
-      - ml-model
-      - tvm-model
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - tvm-onnx
-      CM_MODEL:
-      - resnet50
-
-  ## ResNet50 (Tensorflow format, FP32)
-  - tags: get,ml-model,raw,image-classification,resnet50,_tensorflow
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - tf
-      - tflite
-      CM_MODEL:
-      - resnet50
-
-  ## ResNet50 (PyTorch format, FP32)
-  - names:
-    - resnet50-model
     - ml-model
-    tags: get,ml-model,raw,image-classification,resnet50,_pytorch,_fp32
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - pytorch
-      CM_MODEL:
-      - resnet50
-
-  ## ResNet50 (TVM PyTorch format, int8)
-  - names:
     - resnet50-model
-    - ml-model
-    - tvm-model
-    tags: get,ml-model,tvm-model,resnet50,_pytorch,_int8
     enable_if_env:
-      CM_MLPERF_BACKEND:
-      - tvm-pytorch
       CM_MODEL:
       - resnet50
 
-  ## RetinaNet (ONNX format, FP32)
-  - tags: get,ml-model,object-detection,retinanet,_onnx,_fp32
+  ## RetinaNet
+  - tags: get,ml-model,object-detection,retinanet
+    names:
+    - ml-model
+    - retinanet-model
     enable_if_env:
-      CM_MLPERF_BACKEND:
-      - onnxruntime
       CM_MODEL:
       - retinanet
 
-  ## RetinaNet (PyTorch format, FP32)
-  - tags: get,ml-model,object-detection,retinanet,_pytorch,_fp32
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - pytorch
-      CM_MODEL:
-      - retinanet
-    skip_if_env:
-      CM_MLPERF_IMPLEMENTATION:
-      - nvidia
 
   ## RetinaNet (PyTorch weights, FP32)
   - tags: get,ml-model,object-detection,resnext50,fp32,_pytorch-weights
+    names:
+    - ml-model
+    - retinanet-model
     enable_if_env:
       CM_MLPERF_BACKEND:
       - pytorch
@@ -314,106 +265,42 @@ deps:
       CM_MODEL:
       - retinanet
 
-  ## BERT (ONNX format fp32)
-  - tags: get,ml-model,language-processing,bert,_onnx,_fp32
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - onnxruntime
-      CM_MODEL:
-      - bert-99
-      - bert-99.9
-    skip_if_env:
-      CM_MLPERF_QUANTIZATION:
-      - on
-
-  ## BERT (ONNX format int8)
-  - tags: get,ml-model,language-processing,bert,_onnx,_int8
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - onnxruntime
-      CM_MODEL:
-      - bert-99
-      CM_MLPERF_QUANTIZATION:
-      - on
-
-  ## BERT (Deep-sparse format int8)
-  - tags: get,ml-model,language-processing,bert,_deepsparse,_int8
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - deepsparse
-      CM_MODEL:
-      - bert-99
-      CM_MLPERF_QUANTIZATION:
-      - on
-
-
-  ## BERT (TF format)
-  - tags: get,ml-model,language-processing,bert,_tf
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - tf
-      CM_MODEL:
-      - bert-99
-      - bert-99.9
- 
-  ## BERT (Pytorch format)
-  - tags: get,ml-model,language-processing,bert,_pytorch,_fp32
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - pytorch
-      - tvm-pytorch
-      CM_MODEL:
-      - bert-99
-      - bert-99.9
-
-  - tags: get,generic-python-lib,_tokenization
+  ## BERT
+  - tags: get,ml-model,language-processing,bert
+    names:
+    - ml-model
+    - bert-model
     enable_if_env:
       CM_MODEL:
       - bert-99
       - bert-99.9
 
-  ## 3d-unet (Pytorch format)
-  - tags: get,ml-model,medical-imaging,3d-unet,_pytorch,_fp32
+
+  ## 3d-unet
+  - tags: get,ml-model,medical-imaging,3d-unet
+    names:
+    - ml-model
+    - 3d-unet-model
     enable_if_env:
-      CM_MLPERF_BACKEND:
-      - pytorch
       CM_MODEL:
       - 3d-unet-99
       - 3d-unet-99.9
 
-  ## 3d-unet (Tensorflow format)
-  - tags: get,ml-model,medical-imaging,3d-unet,_tf,_fp32
+  ## Rnnt
+  - tags: get,ml-model,speech-recognition,rnnt
+    names:
+    - ml-model
+    - rnnt-model
     enable_if_env:
-      CM_MLPERF_BACKEND:
-      - tf
-      CM_MODEL:
-      - 3d-unet-99
-      - 3d-unet-99.9
-
-  ## 3d-unet (Onnx format)
-  - tags: get,ml-model,medical-imaging,3d-unet,_onnx,_fp32
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - onnxruntime
-      CM_MODEL:
-      - 3d-unet-99
-      - 3d-unet-99.9
-    
-  ## Rnnt (Pytorch format)
-  - tags: get,ml-model,speech-recognition,rnnt,_pytorch,_fp32
-    enable_if_env:
-      CM_MLPERF_BACKEND:
-      - pytorch
       CM_MODEL:
       - rnnt
 
-  ## Dlrm (Pytorch format)
-  - tags: get,ml-model,recommendation,dlrm,_pytorch,_fp32
+  ## Dlrm
+  - tags: get,ml-model,recommendation,dlrm
     names:
+    - ml-model
     - dlrm-model
     enable_if_env:
-      CM_MLPERF_BACKEND:
-      - pytorch
       CM_MODEL:
       - dlrm-99
       - dlrm-99.9
@@ -450,8 +337,8 @@ variations:
         tags: _NCHW
       openimages-preprocessed:
         tags: _NCHW
-      cpp-mlperf-inference:
-        tags: _onnxruntime
+      ml-model:
+        tags: _onnx
     env:
       CM_MLPERF_BACKEND: onnxruntime
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
@@ -463,6 +350,8 @@ variations:
         tags: _NCHW
       openimages-preprocessed:
         tags: _NCHW
+      ml-model:
+        tags: _pytorch
     env:
       CM_MLPERF_BACKEND: pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
@@ -472,6 +361,8 @@ variations:
     add_deps_recursive:
       imagenet-preprocessed:
         tags: _NHWC
+      ml-model:
+        tags: _tf
     env:
       CM_MLPERF_BACKEND: tf
       CM_MLPERF_BACKEND_VERSION: <<<CM_TENSORFLOW_VERSION>>>
@@ -490,6 +381,8 @@ variations:
     add_deps_recursive:
       inference-src:
         version: deepsparse
+      ml-model:
+        tags: _deepsparse
 
   tvm-onnx:
     group: framework
@@ -498,6 +391,9 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
     deps:
     - tags: get,generic-python-lib,_onnx
+    add_deps_recursive:
+      ml-model:
+        tags: tvm-model,_onnx
 
   tvm-pytorch:
     group: framework
@@ -505,6 +401,9 @@ variations:
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
+    add_deps_recursive:
+      ml-model:
+        tags: tvm-model,_pytorch
 
   # Reference MLPerf models
   bert-99.9:
@@ -523,6 +422,7 @@ variations:
 
   bert:
     deps:
+    - tags: get,generic-python-lib,_tokenization
     - tags: get,generic-python-lib,_protobuf
       names:
       - protobuf
@@ -628,10 +528,30 @@ variations:
       USE_CUDA: yes
       USE_GPU: yes
 
-  # Turn on quantization
-  quantized:
+  # Model precision
+  fp32:
+    group: precision
+    default: true
+    add_deps_recursive:
+      ml-model:
+        tags:
+          _fp32
+    env:
+      CM_MLPERF_QUANTIZATION: off
+      CM_MLPERF_MODEL_PRECISION: float32
+
+  int8:
+    group: precision
     env:
       CM_MLPERF_QUANTIZATION: on
+      CM_MLPERF_MODEL_PRECISION: int8
+    add_deps_recursive:
+      ml-model:
+        tags:
+          _int8
+
+  quantized:
+    alias: int8
 
   # Reproducibility (past submissions)
   r2.1_default:

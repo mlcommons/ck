@@ -1,93 +1,212 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-* [Versions](#versions)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
-  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
+* [Customization](#customization)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Versions](#versions)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
+### Description
+
+
+See [more info](README-extra.md).
+
+#### Information
+
+* Category: *Modular MLPerf benchmarks.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference*
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "run generate-run-cmds run-mlperf vision mlcommons mlperf inference reference (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script 4a5d5b13fd7e4ac8`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+```python
+
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
+```
+
+</details>
+
+#### CM modular Docker container
 *TBD*
 ___
-### Category
+### Customization
 
-Modular MLPerf benchmarks.
-___
-### Origin
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
 
-___
-### Meta description
-[_cm.json](_cm.json)
+* --**lang**=value --> **CM_MLPERF_LANG**=value
+* --**device**=value --> **CM_MLPERF_DEVICE**=value
+* --**submitter**=value --> **CM_MLPERF_SUBMITTER**=value
+* --**backend**=value --> **CM_MLPERF_BACKEND**=value
+* --**model**=value --> **CM_MLPERF_MODEL**=value
+* --**run_style**=value --> **CM_MLPERF_RUN_STYLE**=value
+* --**rerun**=value --> **CM_RERUN**=value
+* --**hw_name**=value --> **CM_HW_NAME**=value
+* --**imagenet_path**=value --> **IMAGENET_PATH**=value
+* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
+* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
+* --**num_threads**=value --> **CM_NUM_THREADS**=value
+* --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
+* --**results_dir**=value --> **OUTPUT_BASE_DIR**=value
+* --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
+* --**power**=value --> **CM_SYSTEM_POWER**=value
+* --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
+* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
+* --**quantized**=value --> **CM_MLPERF_QUANTIZATION**=value
+* --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
+* --**run_checker**=value --> **CM_RUN_SUBMISSION_CHECKER**=value
+* --**skip_truncation**=value --> **CM_SKIP_TRUNCATE_ACCURACY**=value
+* --**clean**=value --> **CM_MLPERF_CLEAN_ALL**=value
+* --**new_tvm_model**=value --> **CM_MLPERF_DELETE_COMPILED_MODEL**=value
+* --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
+* --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
+* --**server_target_qps**=value --> **CM_MLPERF_LOADGEN_SERVER_TARGET_QPS**=value
+* --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
+* --**singlestream_target_latency**=value --> **CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY**=value
+* --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
 
-___
-### Tags
-run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference
+**Above CLI flags can be used in the Python CM API as follows:**
 
-___
-### Variations
-#### All variations
-* all-modes
-  - *ENV CM_MLPERF_LOADGEN_ALL_MODES*: `yes`
-* all-scenarios
-  - *ENV CM_MLPERF_LOADGEN_ALL_SCENARIOS*: `yes`
-* compliance
-  - *ENV CM_MLPERF_LOADGEN_COMPLIANCE*: `yes`
-* dashboard
-  - *ENV CM_MLPERF_DASHBOARD*: `on`
-* fast
-  - *ENV CM_FAST_FACTOR*: `5`
-  - *ENV CM_OUTPUT_FOLDER_NAME*: `fast_results`
-  - *ENV CM_MLPERF_RUN_STYLE*: `fast`
-* short
-* submission
-  - *ENV CM_MLPERF_SUBMISSION_RUN*: `yes`
-  - *ENV CM_RUN_SUBMISSION_CHECKER*: `yes`
-  - *ENV CM_TAR_SUBMISSION_DIR*: `yes`
-  - *ENV CM_RUN_MLPERF_ACCURACY*: `on`
-* valid
-  - *ENV CM_OUTPUT_FOLDER_NAME*: `valid_results`
-  - *ENV CM_MLPERF_RUN_STYLE*: `valid`
-  - *ENV CM_RUN_MLPERF_ACCURACY*: `on`
-___
-### Versions
-* master
-* r2.1
-___
-### Default environment
+```python
+r=cm.access({... , "lang":"..."}
+```
+
+</details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
 * CM_BATCH_COUNT: **1**
 * CM_BATCH_SIZE: **1**
 * CM_OUTPUT_FOLDER_NAME: **test_results**
 * CM_MLPERF_RUN_STYLE: **test**
 * CM_TEST_QUERY_COUNT: **5**
+
+</details>
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_all-modes`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_ALL_MODES*: `yes`
+      - Workflow:
+    * `_all-scenarios`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_ALL_SCENARIOS*: `yes`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,sut,description
+             - CM script: [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
+    * `_compliance`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_COMPLIANCE*: `yes`
+      - Workflow:
+    * `_dashboard`
+      - Environment variables:
+        - *CM_MLPERF_DASHBOARD*: `on`
+      - Workflow:
+    * `_fast`
+      - Environment variables:
+        - *CM_FAST_FACTOR*: `5`
+        - *CM_OUTPUT_FOLDER_NAME*: `fast_results`
+        - *CM_MLPERF_RUN_STYLE*: `fast`
+      - Workflow:
+    * `_short`
+      - Workflow:
+    * `_submission`
+      - Environment variables:
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
+        - *CM_RUN_SUBMISSION_CHECKER*: `yes`
+        - *CM_TAR_SUBMISSION_DIR*: `yes`
+        - *CM_RUN_MLPERF_ACCURACY*: `on`
+      - Workflow:
+        1. ***Read "post_deps" on other CM scripts***
+           * get,sut,description
+             - CM script: [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
+           * generate,mlperf,inference,submission
+             * CM names: `--adr.['submission-generator']...`
+             - CM script: [generate-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)
+    * `_valid`
+      - Environment variables:
+        - *CM_OUTPUT_FOLDER_NAME*: `valid_results`
+        - *CM_MLPERF_RUN_STYLE*: `valid`
+        - *CM_RUN_MLPERF_ACCURACY*: `on`
+      - Workflow:
+
+</details>
+
 ___
-### CM script workflow
+### Versions
+* master
+* r2.1
+___
+### Script workflow, dependencies and native scripts
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)***
      * detect,os
@@ -107,10 +226,10 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)
 ___
-### New environment export
+### Script output
+#### New environment keys
 
-___
-### New environment detected from customize
+#### New environment keys auto-detected from customize
 
 * **CM_MLPERF_BACKEND_VERSION**
 * **CM_MLPERF_CLEAN_SUBMISSION_DIR**
@@ -122,85 +241,11 @@ ___
 * **CM_MLPERF_LOADGEN_MODES**
 * **CM_MLPERF_LOADGEN_SCENARIO**
 * **CM_MLPERF_LOADGEN_SCENARIOS**
+* **CM_MLPERF_LOADGEN_TARGET_LATENCY**
+* **CM_MLPERF_LOADGEN_TARGET_QPS**
 * **CM_MLPERF_RESULTS_DIR**
 * **CM_MODEL**
 * **CM_RERUN**
-___
-### Usage
-
-#### CM installation
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-
-#### CM script automation help
-```cm run script --help```
-
-#### CM CLI
-`cm run script --tags="run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference"`
-
-*or*
-
-`cm run script "run generate-run-cmds run-mlperf vision mlcommons mlperf inference reference"`
-
-*or*
-
-`cm run script 4a5d5b13fd7e4ac8`
-
-#### CM Python API
-
-```python
-import cmind
-
-r = cmind.access({'action':'run'
-                  'automation':'script',
-                  'tags':'run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference'
-                  'out':'con',
-                  ...
-                  (other input keys for this script)
-                  ...
-                 })
-
-if r['return']>0:
-    print (r['error'])
-```
-
-#### CM modular Docker container
-*TBD*
-
-#### Script input flags mapped to environment
-
-* lang --> **CM_MLPERF_LANG**
-* device --> **CM_MLPERF_DEVICE**
-* submitter --> **CM_MLPERF_SUBMITTER**
-* backend --> **CM_MLPERF_BACKEND**
-* model --> **CM_MLPERF_MODEL**
-* run_style --> **CM_MLPERF_RUN_STYLE**
-* rerun --> **CM_RERUN**
-* hw_name --> **CM_HW_NAME**
-* imagenet_path --> **IMAGENET_PATH**
-* max_batchsize --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**
-* mode --> **CM_MLPERF_LOADGEN_MODE**
-* num_threads --> **CM_NUM_THREADS**
-* output_dir --> **OUTPUT_BASE_DIR**
-* results_dir --> **OUTPUT_BASE_DIR**
-* submission_dir --> **CM_MLPERF_SUBMISSION_DIR**
-* power --> **CM_SYSTEM_POWER**
-* regenerate_files --> **CM_REGENERATE_MEASURE_FILES**
-* scenario --> **CM_MLPERF_LOADGEN_SCENARIO**
-* quantized --> **CM_MLPERF_QUANTIZATION**
-* test_query_count --> **CM_TEST_QUERY_COUNT**
-* run_checker --> **CM_RUN_SUBMISSION_CHECKER**
-* skip_truncation --> **CM_SKIP_TRUNCATE_ACCURACY**
-* clean --> **CM_MLPERF_CLEAN_ALL**
-* new_tvm_model --> **CM_MLPERF_DELETE_COMPILED_MODEL**
-
-Examples:
-
-```bash
-cm run script "run generate-run-cmds run-mlperf vision mlcommons mlperf inference reference" --lang=...
-```
-```python
-r=cm.access({... , "lang":"..."}
-```
 ___
 ### Maintainers
 

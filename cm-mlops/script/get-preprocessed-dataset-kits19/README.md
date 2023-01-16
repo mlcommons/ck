@@ -1,108 +1,189 @@
-*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-  * [ Variations by groups](#variations-by-groups)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
-  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
+* [Customization](#customization)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
+### Description
+
+#### Information
+
+* Category: *ML/AI datasets.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-kits19)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *get,dataset,medical-imaging,kits19,preprocessed*
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=get,dataset,medical-imaging,kits19,preprocessed(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "get dataset medical-imaging kits19 preprocessed (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script 2094d9b9ab6c4c9e`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+```python
+
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'get,dataset,medical-imaging,kits19,preprocessed'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
+```
+
+</details>
+
+#### CM modular Docker container
 *TBD*
 ___
-### Category
+### Customization
 
-ML/AI datasets.
-___
-### Origin
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-kits19)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
 
-___
-### Meta description
-[_cm.json](_cm.json)
+* --**dir**=value --> **CM_DATASET_PREPROCESSED_PATH**=value
+* --**threads**=value --> **CM_NUM_PREPROCESS_THREADS**=value
 
-___
-### Tags
-get,dataset,medical-imaging,kits19,preprocessed
+**Above CLI flags can be used in the Python CM API as follows:**
 
-___
-### Variations
-#### All variations
-* 1
-  - *ENV CM_DATASET_SIZE*: `1`
-* 5
-  - *ENV CM_DATASET_SIZE*: `5`
-* 50
-  - *ENV CM_DATASET_SIZE*: `50`
-* 500
-  - *ENV CM_DATASET_SIZE*: `500`
-* calibration
-  - *ENV CM_DATASET_PATH*: `<<<CM_CALIBRATION_DATASET_PATH>>>`
-* **fp32** (default)
-  - *ENV CM_DATASET_DTYPE*: `fp32`
-* full
-  - *ENV CM_DATASET_SIZE*: ``
-* int8
-  - *ENV CM_DATASET_DTYPE*: `int8`
-* nvidia
-  - *ENV CM_PREPROCESSING_BY_NVIDIA*: `yes`
-* **validation** (default)
+```python
+r=cm.access({... , "dir":"..."}
+```
 
-#### Variations by groups
+</details>
 
-  * dataset-count
-    * 1
-      - *ENV CM_DATASET_SIZE*: `1`
-    * 5
-      - *ENV CM_DATASET_SIZE*: `5`
-    * 50
-      - *ENV CM_DATASET_SIZE*: `50`
-    * 500
-      - *ENV CM_DATASET_SIZE*: `500`
-    * full
-      - *ENV CM_DATASET_SIZE*: ``
+#### Default environment
 
-  * dataset-precision
-    * **fp32** (default)
-      - *ENV CM_DATASET_DTYPE*: `fp32`
-    * int8
-      - *ENV CM_DATASET_DTYPE*: `int8`
+<details>
+<summary>Click here to expand this section.</summary>
 
-  * dataset-type
-    * calibration
-      - *ENV CM_DATASET_PATH*: `<<<CM_CALIBRATION_DATASET_PATH>>>`
-    * **validation** (default)
-___
-### Default environment
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
 * CM_DATASET: **kits19**
 * CM_DATASET_DTYPE: **fp32**
+
+</details>
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_nvidia`
+      - Environment variables:
+        - *CM_PREPROCESSING_BY_NVIDIA*: `yes`
+      - Workflow:
+
+</details>
+
+
+  * Group "**dataset-count**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_1`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `1`
+      - Workflow:
+    * `_5`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `5`
+      - Workflow:
+    * `_50`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `50`
+      - Workflow:
+    * `_500`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `500`
+      - Workflow:
+    * `_full`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: ``
+      - Workflow:
+
+</details>
+
+
+  * Group "**dataset-precision**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * **`_fp32`** (default)
+      - Environment variables:
+        - *CM_DATASET_DTYPE*: `fp32`
+      - Workflow:
+    * `_int8`
+      - Environment variables:
+        - *CM_DATASET_DTYPE*: `int8`
+      - Workflow:
+
+</details>
+
+
+  * Group "**dataset-type**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_calibration`
+      - Environment variables:
+        - *CM_DATASET_PATH*: `<<<CM_CALIBRATION_DATASET_PATH>>>`
+      - Workflow:
+    * **`_validation`** (default)
+      - Workflow:
+
+</details>
+
 ___
-### CM script workflow
+### Script workflow, dependencies and native scripts
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-kits19/_cm.json)***
      * get,python3
@@ -129,67 +210,13 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-kits19/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-kits19/_cm.json)
 ___
-### New environment export
+### Script output
+#### New environment keys
 
 * **CM_DATASET_***
-___
-### New environment detected from customize
+#### New environment keys auto-detected from customize
 
 * **CM_DATASET_PREPROCESSED_PATH**
-___
-### Usage
-
-#### CM installation
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-
-#### CM script automation help
-```cm run script --help```
-
-#### CM CLI
-`cm run script --tags="get,dataset,medical-imaging,kits19,preprocessed"`
-
-*or*
-
-`cm run script "get dataset medical-imaging kits19 preprocessed"`
-
-*or*
-
-`cm run script 2094d9b9ab6c4c9e`
-
-#### CM Python API
-
-```python
-import cmind
-
-r = cmind.access({'action':'run'
-                  'automation':'script',
-                  'tags':'get,dataset,medical-imaging,kits19,preprocessed'
-                  'out':'con',
-                  ...
-                  (other input keys for this script)
-                  ...
-                 })
-
-if r['return']>0:
-    print (r['error'])
-```
-
-#### CM modular Docker container
-*TBD*
-
-#### Script input flags mapped to environment
-
-* dir --> **CM_DATASET_PREPROCESSED_PATH**
-* threads --> **CM_NUM_PREPROCESS_THREADS**
-
-Examples:
-
-```bash
-cm run script "get dataset medical-imaging kits19 preprocessed" --dir=...
-```
-```python
-r=cm.access({... , "dir":"..."}
-```
 ___
 ### Maintainers
 

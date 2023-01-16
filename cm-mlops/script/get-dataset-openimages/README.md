@@ -1,76 +1,138 @@
-*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
+### Description
+
+#### Information
+
+* Category: *ML/AI datasets.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *get,dataset,openimages,open-images,object-detection,original*
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=get,dataset,openimages,open-images,object-detection,original(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "get dataset openimages open-images object-detection original (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script 0a9d49b644cf4142`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+```python
+
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'get,dataset,openimages,open-images,object-detection,original'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
+```
+
+</details>
+
+#### CM modular Docker container
 *TBD*
 ___
-### Category
+### Customization
 
-ML/AI datasets.
-___
-### Origin
+#### Default environment
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+<details>
+<summary>Click here to expand this section.</summary>
 
-___
-### Meta description
-[_cm.json](_cm.json)
-
-___
-### Tags
-get,dataset,openimages,open-images,object-detection,original
-
-___
-### Variations
-#### All variations
-* 1
-  - *ENV CM_DATASET_SIZE*: `1`
-* 5
-  - *ENV CM_DATASET_SIZE*: `5`
-* 50
-  - *ENV CM_DATASET_SIZE*: `50`
-* 500
-  - *ENV CM_DATASET_SIZE*: `500`
-* calibration
-  - *ENV CM_CALIBRATION_DATASET_WGET_URL*: `https://github.com/mlcommons/inference/blob/master/calibration/openimages/openimages_cal_images_list.txt`
-  - *ENV CM_DATASET_CALIBRATION*: `yes`
-* full
-  - *ENV CM_DATASET_SIZE*: ``
-* **validation** (default)
-  - *ENV CM_DATASET_CALIBRATION*: `no`
-___
-### Default environment
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
 * CM_DATASET_CALIBRATION: **no**
+
+</details>
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_1`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `1`
+      - Workflow:
+    * `_5`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `5`
+      - Workflow:
+    * `_50`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `50`
+      - Workflow:
+    * `_500`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `500`
+      - Workflow:
+    * `_calibration`
+      - Environment variables:
+        - *CM_CALIBRATION_DATASET_WGET_URL*: `https://github.com/mlcommons/inference/blob/master/calibration/openimages/openimages_cal_images_list.txt`
+        - *CM_DATASET_CALIBRATION*: `yes`
+      - Workflow:
+    * `_full`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: ``
+      - Workflow:
+    * **`_validation`** (default)
+      - Environment variables:
+        - *CM_DATASET_CALIBRATION*: `no`
+      - Workflow:
+
+</details>
+
 ___
-### CM script workflow
+### Script workflow, dependencies and native scripts
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)***
      * get,sys-utils-cm
@@ -101,59 +163,19 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)
 ___
-### New environment export
+### Script output
+#### New environment keys
 
 * **CM_CALIBRATION_DATASET_PATH**
 * **CM_DATASET_ANNOTATIONS_DIR_PATH**
 * **CM_DATASET_ANNOTATIONS_FILE_PATH**
 * **CM_DATASET_PATH**
-___
-### New environment detected from customize
+#### New environment keys auto-detected from customize
 
 * **CM_CALIBRATION_DATASET_PATH**
 * **CM_DATASET_ANNOTATIONS_DIR_PATH**
 * **CM_DATASET_ANNOTATIONS_FILE_PATH**
 * **CM_DATASET_PATH**
-___
-### Usage
-
-#### CM installation
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-
-#### CM script automation help
-```cm run script --help```
-
-#### CM CLI
-`cm run script --tags="get,dataset,openimages,open-images,object-detection,original"`
-
-*or*
-
-`cm run script "get dataset openimages open-images object-detection original"`
-
-*or*
-
-`cm run script 0a9d49b644cf4142`
-
-#### CM Python API
-
-```python
-import cmind
-
-r = cmind.access({'action':'run'
-                  'automation':'script',
-                  'tags':'get,dataset,openimages,open-images,object-detection,original'
-                  'out':'con',
-                  ...
-                  (other input keys for this script)
-                  ...
-                 })
-
-if r['return']>0:
-    print (r['error'])
-```
-
-#### CM modular Docker container
-*TBD*
 ___
 ### Maintainers
 

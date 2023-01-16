@@ -1,152 +1,114 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-  * [ Variations by groups](#variations-by-groups)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
-  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
+* [Customization](#customization)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
+### Description
+
+
+See [more info](README-extra.md).
+
+#### Information
+
+* Category: *ML/AI datasets.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *get,dataset,imagenet,ILSVRC,image-classification,preprocessed*
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=get,dataset,imagenet,ILSVRC,image-classification,preprocessed(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "get dataset imagenet ILSVRC image-classification preprocessed (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script f259d490bbaf45f5`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+```python
+
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'get,dataset,imagenet,ILSVRC,image-classification,preprocessed'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
+```
+
+</details>
+
+#### CM modular Docker container
 *TBD*
 ___
-### Category
+### Customization
 
-ML/AI datasets.
-___
-### Origin
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
 
-___
-### Meta description
-[_cm.json](_cm.json)
+* --**dir**=value --> **CM_DATASET_PREPROCESSED_PATH**=value
+* --**threads**=value --> **CM_NUM_PREPROCESS_THREADS**=value
+* --**imagenet_path**=value --> **CM_IMAGENET_PATH**=value
+* --**imagenet_preprocessed_path**=value --> **CM_IMAGENET_PREPROCESSED_PATH**=value
 
-___
-### Tags
-get,dataset,imagenet,ILSVRC,image-classification,preprocessed
+**Above CLI flags can be used in the Python CM API as follows:**
 
-___
-### Variations
-#### All variations
-* 1
-  - *ENV CM_DATASET_SIZE*: `1`
-* **500** (default)
-  - *ENV CM_DATASET_SIZE*: `500`
-* **NCHW** (default)
-  - *ENV CM_DATASET_DATA_LAYOUT*: `NCHW`
-* NHWC
-  - *ENV CM_DATASET_DATA_LAYOUT*: `NHWC`
-* **default** (default)
-* for.mobilenet
-  - *ENV CM_DATASET_QUANTIZE*: `0`
-  - *ENV CM_MODEL*: `mobilenet`
-* for.mobilenet-quantized
-  - *ENV CM_DATASET_QUANTIZE*: `1`
-* for.resnet50
-  - *ENV CM_DATASET_NEW_EXTENSION*: `rgb32`
-  - *ENV CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
-  - *ENV CM_DATASET_SUBTRACT_MEANS*: `1`
-  - *ENV CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
-  - *ENV CM_DATASET_QUANTIZE*: `0`
-  - *ENV CM_DATASET_DATA_TYPE*: `float32`
-  - *ENV CM_MODEL*: `resnet50`
-* for.resnet50-quantized
-  - *ENV CM_MODEL*: `resnet50`
-  - *ENV CM_DATASET_NEW_EXTENSION*: `rgb8`
-  - *ENV CM_DATASET_NORMALIZE_DATA*: `0`
-  - *ENV CM_DATASET_SUBTRACT_MEANS*: `1`
-  - *ENV CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
-  - *ENV CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
-  - *ENV CM_DATASET_DATA_TYPE*: `int8`
-  - *ENV CM_DATASET_QUANT_SCALE*: `1.18944883`
-  - *ENV CM_DATASET_QUANT_OFFSET*: `0`
-  - *ENV CM_DATASET_QUANTIZE*: `1`
-  - *ENV CM_DATASET_CONVERT_TO_UNSIGNED*: `1`
-* for.resnet50-rgb8
-  - *ENV CM_DATASET_NEW_EXTENSION*: `rgb8`
-  - *ENV CM_DATASET_GIVEN_CHANNEL_MEANS*: ``
-  - *ENV CM_DATASET_SUBTRACT_MEAN*: `0`
-  - *ENV CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
-  - *ENV CM_DATASET_QUANTIZE*: `0`
-  - *ENV CM_DATASET_DATA_TYPE*: `int8`
-  - *ENV CM_MODEL*: `resnet50`
-* full
-  - *ENV CM_DATASET_SIZE*: `50000`
-* generic-preprocessor
-  - *ENV CM_DATASET_REFERENCE_PREPROCESSOR*: `0`
-* mlcommons-reference-preprocessor
-  - *ENV CM_DATASET_REFERENCE_PREPROCESSOR*: `1`
+```python
+r=cm.access({... , "dir":"..."}
+```
 
-#### Variations by groups
+</details>
 
-  * layout
-    * **NCHW** (default)
-      - *ENV CM_DATASET_DATA_LAYOUT*: `NCHW`
-    * NHWC
-      - *ENV CM_DATASET_DATA_LAYOUT*: `NHWC`
+#### Default environment
 
-  * model
-    * for.mobilenet
-      - *ENV CM_DATASET_QUANTIZE*: `0`
-      - *ENV CM_MODEL*: `mobilenet`
-    * for.mobilenet-quantized
-      - *ENV CM_DATASET_QUANTIZE*: `1`
-    * for.resnet50
-      - *ENV CM_DATASET_NEW_EXTENSION*: `rgb32`
-      - *ENV CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
-      - *ENV CM_DATASET_SUBTRACT_MEANS*: `1`
-      - *ENV CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
-      - *ENV CM_DATASET_QUANTIZE*: `0`
-      - *ENV CM_DATASET_DATA_TYPE*: `float32`
-      - *ENV CM_MODEL*: `resnet50`
-    * for.resnet50-rgb8
-      - *ENV CM_DATASET_NEW_EXTENSION*: `rgb8`
-      - *ENV CM_DATASET_GIVEN_CHANNEL_MEANS*: ``
-      - *ENV CM_DATASET_SUBTRACT_MEAN*: `0`
-      - *ENV CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
-      - *ENV CM_DATASET_QUANTIZE*: `0`
-      - *ENV CM_DATASET_DATA_TYPE*: `int8`
-      - *ENV CM_MODEL*: `resnet50`
+<details>
+<summary>Click here to expand this section.</summary>
 
-  * preprocessing-source
-    * generic-preprocessor
-      - *ENV CM_DATASET_REFERENCE_PREPROCESSOR*: `0`
-    * mlcommons-reference-preprocessor
-      - *ENV CM_DATASET_REFERENCE_PREPROCESSOR*: `1`
-
-  * size
-    * 1
-      - *ENV CM_DATASET_SIZE*: `1`
-    * **500** (default)
-      - *ENV CM_DATASET_SIZE*: `500`
-    * full
-      - *ENV CM_DATASET_SIZE*: `50000`
-___
-### Default environment
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
 * CM_DATASET_INPUT_SQUARE_SIDE: **224**
 * CM_DATASET_CROP_FACTOR: **87.5**
@@ -158,8 +120,129 @@ ___
 * CM_DATASET_NEW_EXTENSION: **npy**
 * CM_DATASET_CONVERT_TO_UNSIGNED: **0**
 * CM_DATASET_REFERENCE_PREPROCESSOR: **1**
+
+</details>
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * **`_default`** (default)
+      - Workflow:
+    * `_for.resnet50-quantized`
+      - Environment variables:
+        - *CM_MODEL*: `resnet50`
+        - *CM_DATASET_NEW_EXTENSION*: `rgb8`
+        - *CM_DATASET_NORMALIZE_DATA*: `0`
+        - *CM_DATASET_SUBTRACT_MEANS*: `1`
+        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+        - *CM_DATASET_DATA_TYPE*: `int8`
+        - *CM_DATASET_QUANT_SCALE*: `1.18944883`
+        - *CM_DATASET_QUANT_OFFSET*: `0`
+        - *CM_DATASET_QUANTIZE*: `1`
+        - *CM_DATASET_CONVERT_TO_UNSIGNED*: `1`
+      - Workflow:
+
+</details>
+
+
+  * Group "**layout**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * **`_NCHW`** (default)
+      - Environment variables:
+        - *CM_DATASET_DATA_LAYOUT*: `NCHW`
+      - Workflow:
+    * `_NHWC`
+      - Environment variables:
+        - *CM_DATASET_DATA_LAYOUT*: `NHWC`
+      - Workflow:
+
+</details>
+
+
+  * Group "**model**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_for.mobilenet`
+      - Environment variables:
+        - *CM_DATASET_QUANTIZE*: `0`
+        - *CM_MODEL*: `mobilenet`
+      - Workflow:
+    * `_for.mobilenet-quantized`
+      - Environment variables:
+        - *CM_DATASET_QUANTIZE*: `1`
+      - Workflow:
+    * `_for.resnet50`
+      - Environment variables:
+        - *CM_DATASET_NEW_EXTENSION*: `rgb32`
+        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+        - *CM_DATASET_SUBTRACT_MEANS*: `1`
+        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+        - *CM_DATASET_QUANTIZE*: `0`
+        - *CM_DATASET_DATA_TYPE*: `float32`
+        - *CM_MODEL*: `resnet50`
+      - Workflow:
+    * `_for.resnet50-rgb8`
+      - Environment variables:
+        - *CM_DATASET_NEW_EXTENSION*: `rgb8`
+        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: ``
+        - *CM_DATASET_SUBTRACT_MEAN*: `0`
+        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+        - *CM_DATASET_QUANTIZE*: `0`
+        - *CM_DATASET_DATA_TYPE*: `int8`
+        - *CM_MODEL*: `resnet50`
+      - Workflow:
+
+</details>
+
+
+  * Group "**preprocessing-source**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_generic-preprocessor`
+      - Environment variables:
+        - *CM_DATASET_REFERENCE_PREPROCESSOR*: `0`
+      - Workflow:
+        1. ***Read "prehook_deps" on other CM scripts***
+           * get,generic,image-preprocessor
+             - CM script: [get-preprocesser-script-generic](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocesser-script-generic)
+    * `_mlcommons-reference-preprocessor`
+      - Environment variables:
+        - *CM_DATASET_REFERENCE_PREPROCESSOR*: `1`
+      - Workflow:
+
+</details>
+
+
+  * Group "**size**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_1`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `1`
+      - Workflow:
+    * **`_500`** (default)
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `500`
+      - Workflow:
+    * `_full`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `50000`
+      - Workflow:
+
+</details>
+
 ___
-### CM script workflow
+### Script workflow, dependencies and native scripts
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/_cm.json)***
      * get,python3
@@ -190,70 +273,14 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/_cm.json)
 ___
-### New environment export
+### Script output
+#### New environment keys
 
 * **CM_DATASET_***
-___
-### New environment detected from customize
+#### New environment keys auto-detected from customize
 
 * **CM_DATASET_PREPROCESSED_IMAGES_LIST**
 * **CM_DATASET_PREPROCESSED_PATH**
-___
-### Usage
-
-#### CM installation
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-
-#### CM script automation help
-```cm run script --help```
-
-#### CM CLI
-`cm run script --tags="get,dataset,imagenet,ILSVRC,image-classification,preprocessed"`
-
-*or*
-
-`cm run script "get dataset imagenet ILSVRC image-classification preprocessed"`
-
-*or*
-
-`cm run script f259d490bbaf45f5`
-
-#### CM Python API
-
-```python
-import cmind
-
-r = cmind.access({'action':'run'
-                  'automation':'script',
-                  'tags':'get,dataset,imagenet,ILSVRC,image-classification,preprocessed'
-                  'out':'con',
-                  ...
-                  (other input keys for this script)
-                  ...
-                 })
-
-if r['return']>0:
-    print (r['error'])
-```
-
-#### CM modular Docker container
-*TBD*
-
-#### Script input flags mapped to environment
-
-* dir --> **CM_DATASET_PREPROCESSED_PATH**
-* threads --> **CM_NUM_PREPROCESS_THREADS**
-* imagenet_path --> **CM_IMAGENET_PATH**
-* imagenet_preprocessed_path --> **CM_IMAGENET_PREPROCESSED_PATH**
-
-Examples:
-
-```bash
-cm run script "get dataset imagenet ILSVRC image-classification preprocessed" --dir=...
-```
-```python
-r=cm.access({... , "dir":"..."}
-```
 ___
 ### Maintainers
 

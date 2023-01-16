@@ -106,10 +106,22 @@ deps:
 
 
 
+# Order of variations for documentation
+variation_groups_order:
+  - implementation
+  - backend
+  - device
+  - models
+  - precision
+  - execution-mode
+  - reproducibility
+
 # Variations to customize dependencies
 variations:
-  # Implementation (cpp, python, nvidia, tflite-cpp)
+  # Implementation (cpp, reference/python, nvidia, tflite-cpp)
   cpp:
+    group:
+      implementation
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _int64
@@ -127,6 +139,8 @@ variations:
 
 
   tflite-cpp:
+    group:
+      implementation
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _int64
@@ -144,6 +158,10 @@ variations:
             - yes
 
   reference:
+    group:
+      implementation
+    default:
+      true
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _float32
@@ -158,9 +176,13 @@ variations:
         skip_if_env:
           CM_SKIP_RUN:
             - yes
+
   python:
     alias: reference
+  
   nvidia:
+    group:
+      implementation
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _float32
@@ -236,6 +258,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _3d-unet-99
+
   3d-unet-99.9:
     group:
       models
@@ -297,6 +320,7 @@ variations:
     add_deps_recursive:
       inference-src:
         tags: _deeplearningexamples
+
   bert-99:
     group:
       models
@@ -308,6 +332,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _bert-99
+
   bert-99.9:
     group:
       models
@@ -320,7 +345,6 @@ variations:
       mlperf-inference-implementation:
         tags: _bert-99.9
 
-
   onnxruntime:
     group: backend
     default: true
@@ -330,6 +354,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _onnxruntime
+
   tf:
     group: backend
     env:
@@ -338,6 +363,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _tf
+
   pytorch:
     group: backend
     env:
@@ -346,6 +372,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _pytorch
+
   deepsparse:
     group: backend
     env:
@@ -354,6 +381,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _deepsparse
+
   tflite:
     group: backend
     env:
@@ -361,6 +389,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _tflite
+
   tvm-onnx:
     group: backend
     env:
@@ -368,6 +397,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _tvm-onnx
+
   tvm-pytorch:
     group: backend
     env:
@@ -397,7 +427,6 @@ variations:
       mlperf-inference-implementation:
         tags: _cuda
 
-
   # Execution modes
   fast:
     group: execution-mode
@@ -419,10 +448,27 @@ variations:
       CM_OUTPUT_FOLDER_NAME: valid_results
       CM_MLPERF_RUN_STYLE: valid
 
-  # Turn on quantization
+  # Model precision
   quantized:
+    alias: int8
+  fp32:
+    group:
+      precision
+    env:
+      CM_MLPERF_QUANTIZATION: off
+      CM_MLPERF_MODEL_PRECISION: float32
+    add_deps_recursive:
+      python-reference-mlperf-inference:
+        tags: _fp32
+  int8:
+    group:
+      precision
     env:
       CM_MLPERF_QUANTIZATION: on
+      CM_MLPERF_MODEL_PRECISION: int8
+    add_deps_recursive:
+      python-reference-mlperf-inference:
+        tags: _int8
 
   power:
     env:
@@ -435,6 +481,8 @@ variations:
 
   # Reproducibility (past submissions)
   r2.1_default:
+    group:
+      reproducibility
     add_deps_recursive:
       compiler:
         tags: llvm

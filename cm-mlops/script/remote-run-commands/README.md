@@ -1,78 +1,39 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
-  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
+* [Customization](#customization)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
+  * [ Default environment](#default-environment)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
-*TBD*
-___
-### Category
+### Description
 
-Remote automation.
-___
-### Origin
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+See [more info](README-extra.md).
 
-___
-### Meta description
-[_cm.json](_cm.json)
+#### Information
 
-___
-### Tags
-remote,run,cmds,remote-run,remote-run-cmds,ssh-run,ssh
-
-___
-### Default environment
-
-* CM_SSH_PORT: **22**
-* CM_SSH_HOST: **localhost**
-* CM_SSH_USER: **$USER**
-* CM_SSH_CLIENT_REFRESH: **10**
-* CM_SSH_KEY_FILE: **$HOME/.ssh/id_rsa**
-___
-### CM script workflow
-
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
-  1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
-___
-### New environment export
-
-___
-### New environment detected from customize
-
-* **CM_SSH_CMD**
+* Category: *Remote automation.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *remote,run,cmds,remote-run,remote-run-cmds,ssh-run,ssh*
 ___
 ### Usage
 
@@ -83,11 +44,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="remote,run,cmds,remote-run,remote-run-cmds,ssh-run,ssh"`
+`cm run script --tags=remote,run,cmds,remote-run,remote-run-cmds,ssh-run,ssh(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "remote run cmds remote-run remote-run-cmds ssh-run ssh"`
+`cm run script "remote run cmds remote-run remote-run-cmds ssh-run ssh (variations from below)" (flags from below)`
 
 *or*
 
@@ -95,7 +56,11 @@ ___
 
 #### CM Python API
 
+<details>
+<summary>Click here to expand this section.</summary>
+
 ```python
+
 import cmind
 
 r = cmind.access({'action':'run'
@@ -109,30 +74,72 @@ r = cmind.access({'action':'run'
 
 if r['return']>0:
     print (r['error'])
+
 ```
+
+</details>
 
 #### CM modular Docker container
 *TBD*
+___
+### Customization
 
-#### Script input flags mapped to environment
 
-* host --> **CM_SSH_HOST**
-* port --> **CM_SSH_PORT**
-* skip_host_verify --> **CM_SSH_SKIP_HOST_VERIFY**
-* client_refresh --> **CM_SSH_CLIENT_REFRESH**
-* run_cmds --> **CM_SSH_RUN_COMMANDS**
-* user --> **CM_SSH_USER**
-* password --> **CM_SSH_PASSWORD**
-* ssh_key_file --> **CM_SSH_KEY_FILE**
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
 
-Examples:
+* --**host**=value --> **CM_SSH_HOST**=value
+* --**port**=value --> **CM_SSH_PORT**=value
+* --**skip_host_verify**=value --> **CM_SSH_SKIP_HOST_VERIFY**=value
+* --**client_refresh**=value --> **CM_SSH_CLIENT_REFRESH**=value
+* --**run_cmds**=value --> **CM_SSH_RUN_COMMANDS**=value
+* --**user**=value --> **CM_SSH_USER**=value
+* --**password**=value --> **CM_SSH_PASSWORD**=value
+* --**ssh_key_file**=value --> **CM_SSH_KEY_FILE**=value
 
-```bash
-cm run script "remote run cmds remote-run remote-run-cmds ssh-run ssh" --host=...
-```
+**Above CLI flags can be used in the Python CM API as follows:**
+
 ```python
 r=cm.access({... , "host":"..."}
 ```
+
+</details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* CM_SSH_PORT: **22**
+* CM_SSH_HOST: **localhost**
+* CM_SSH_USER: **$USER**
+* CM_SSH_CLIENT_REFRESH: **10**
+* CM_SSH_KEY_FILE: **$HOME/.ssh/id_rsa**
+
+</details>
+
+___
+### Script workflow, dependencies and native scripts
+
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
+  1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
+___
+### Script output
+#### New environment keys
+
+#### New environment keys auto-detected from customize
+
+* **CM_SSH_CMD**
 ___
 ### Maintainers
 

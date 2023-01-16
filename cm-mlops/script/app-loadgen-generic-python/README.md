@@ -1,92 +1,173 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-  * [ Variations by groups](#variations-by-groups)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
-  * [ Script input flags mapped to environment](#script-input-flags-mapped-to-environment)
+* [Customization](#customization)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
+### Description
+
+
+See [more info](README-extra.md).
+
+#### Information
+
+* Category: *Modular MLPerf benchmarks.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *app,loadgen,generic,loadgen-generic,python*
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=app,loadgen,generic,loadgen-generic,python(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "app loadgen generic loadgen-generic python (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script d3d949cc361747a6`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+```python
+
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'app,loadgen,generic,loadgen-generic,python'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
+```
+
+</details>
+
+#### CM modular Docker container
 *TBD*
 ___
-### Category
+### Customization
 
-Modular MLPerf benchmarks.
-___
-### Origin
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
 
-___
-### Meta description
-[_cm.yaml](_cm.yaml)
+* --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
+* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
+* --**runner**=value --> **CM_MLPERF_RUNNER**=value
+* --**concurrency**=value --> **CM_MLPERF_CONCURRENCY**=value
+* --**ep**=value --> **CM_MLPERF_EXECUTION_PROVIDER**=value
+* --**intraop**=value --> **CM_MLPERF_INTRAOP**=value
+* --**interop**=value --> **CM_MLPERF_INTEROP**=value
+* --**execmode**=value --> **CM_MLPERF_EXEC_MODE**=value
+* --**modelpath**=value --> **CM_ML_MODEL_FILE_WITH_PATH**=value
 
-___
-### Tags
-app,loadgen,generic,loadgen-generic,python
+**Above CLI flags can be used in the Python CM API as follows:**
 
-___
-### Variations
-#### All variations
-* **cpu** (default)
-  - *ENV CM_MLPERF_DEVICE*: `cpu`
-* cuda
-  - *ENV CM_MLPERF_DEVICE*: `gpu`
-* **onnxruntime** (default)
-  - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
-* resnet50
-  - *ENV CM_MODEL*: `resnet50`
-* retinanet
-  - *ENV CM_MODEL*: `retinanet`
+```python
+r=cm.access({... , "output_dir":"..."}
+```
 
-#### Variations by groups
+</details>
 
-  * backend
-    * **onnxruntime** (default)
-      - *ENV CM_MLPERF_BACKEND*: `onnxruntime`
+#### Default environment
 
-  * device
-    * **cpu** (default)
-      - *ENV CM_MLPERF_DEVICE*: `cpu`
-    * cuda
-      - *ENV CM_MLPERF_DEVICE*: `gpu`
+<details>
+<summary>Click here to expand this section.</summary>
 
-  * models
-    * resnet50
-      - *ENV CM_MODEL*: `resnet50`
-    * retinanet
-      - *ENV CM_MODEL*: `retinanet`
-___
-### Default environment
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
 * CM_MLPERF_EXECUTION_MODE: **parallel**
 * CM_MLPERF_BACKEND: **onnxruntime**
+
+</details>
+
+
+#### Variations
+
+  * Group "**backend**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * **`_onnxruntime`** (default)
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `onnxruntime`
+      - Workflow:
+
+</details>
+
+
+  * Group "**device**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * **`_cpu`** (default)
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `cpu`
+      - Workflow:
+    * `_cuda`
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `gpu`
+      - Workflow:
+
+</details>
+
+
+  * Group "**models**"
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_resnet50`
+      - Environment variables:
+        - *CM_MODEL*: `resnet50`
+      - Workflow:
+    * `_retinanet`
+      - Environment variables:
+        - *CM_MODEL*: `retinanet`
+      - Workflow:
+
+</details>
+
 ___
-### CM script workflow
+### Script workflow, dependencies and native scripts
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)***
      * detect,os
@@ -100,7 +181,8 @@ ___
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,cuda
        * `if (CM_MLPERF_DEVICE  == gpu)`
-       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+       - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
+       - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
      * get,loadgen
        * CM names: `--adr.['loadgen']...`
        - CM script: [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
@@ -118,87 +200,27 @@ ___
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,ml-model,resnet50,_onnx
        * `if (CM_MODEL  == resnet50)`
-       - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+       - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
      * get,ml-model,retinanet,_onnx,_fp32
        * `if (CM_MODEL  == retinanet)`
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
   1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
 ___
-### New environment export
+### Script output
+#### New environment keys
 
 * **CM_MLPERF_***
-___
-### New environment detected from customize
+#### New environment keys auto-detected from customize
 
 * **CM_RUN_OPTS**
-___
-### Usage
-
-#### CM installation
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-
-#### CM script automation help
-```cm run script --help```
-
-#### CM CLI
-`cm run script --tags="app,loadgen,generic,loadgen-generic,python"`
-
-*or*
-
-`cm run script "app loadgen generic loadgen-generic python"`
-
-*or*
-
-`cm run script d3d949cc361747a6`
-
-#### CM Python API
-
-```python
-import cmind
-
-r = cmind.access({'action':'run'
-                  'automation':'script',
-                  'tags':'app,loadgen,generic,loadgen-generic,python'
-                  'out':'con',
-                  ...
-                  (other input keys for this script)
-                  ...
-                 })
-
-if r['return']>0:
-    print (r['error'])
-```
-
-#### CM modular Docker container
-*TBD*
-
-#### Script input flags mapped to environment
-
-* output_dir --> **CM_MLPERF_OUTPUT_DIR**
-* scenario --> **CM_MLPERF_LOADGEN_SCENARIO**
-* runner --> **CM_MLPERF_RUNNER**
-* concurrency --> **CM_MLPERF_CONCURRENCY**
-* ep --> **CM_MLPERF_EXECUTION_PROVIDER**
-* intraop --> **CM_MLPERF_INTRAOP**
-* interop --> **CM_MLPERF_INTEROP**
-* execmode --> **CM_MLPERF_EXEC_MODE**
-* modelpath --> **CM_ML_MODEL_FILE_WITH_PATH**
-
-Examples:
-
-```bash
-cm run script "app loadgen generic loadgen-generic python" --output_dir=...
-```
-```python
-r=cm.access({... , "output_dir":"..."}
-```
 ___
 ### Maintainers
 

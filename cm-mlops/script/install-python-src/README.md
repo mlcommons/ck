@@ -1,77 +1,93 @@
-*This README is automatically generated - don't edit! Use `README-extra.md` for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-* [Versions](#versions)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Versions](#versions)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
+### Description
+
+#### Information
+
+* Category: *Python automation.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *install,src,python,python3,src-python3,src-python*
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=install,src,python,python3,src-python3,src-python(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "install src python python3 src-python3 src-python (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script 12d3a608afe14a1e`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+```python
+
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'install,src,python,python3,src-python3,src-python'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
+```
+
+</details>
+
+#### CM modular Docker container
 *TBD*
 ___
-### Category
+### Customization
 
-Python automation.
-___
-### Origin
+#### Default environment
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+<details>
+<summary>Click here to expand this section.</summary>
 
-___
-### Meta description
-[_cm.json](_cm.json)
-
-___
-### Tags
-install,src,python,python3,src-python3,src-python
-
-___
-### Variations
-#### All variations
-* lto
-  - *ENV CM_PYTHON_LTO_FLAG*: ` --lto`
-  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `with-lto`
-* optimized
-  - *ENV CM_PYTHON_OPTIMIZATION_FLAG*: ` --enable-optimizations`
-  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `optimized`
-* shared
-  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `shared`
-  - *ENV CM_SHARED_BUILD*: `yes`
-* with-custom-ssl
-  - *ENV CM_CUSTOM_SSL*: `yes`
-  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `with-custom-ssl`
-* with-ssl
-  - *ENV CM_ENABLE_SSL*: `yes`
-  - *ENV CM_PYTHON_INSTALL_CACHE_TAGS*: `with-ssl`
-___
-### Versions
-Default version: *3.10.5*
-
-___
-### Default environment
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
 * CM_ENABLE_SSL: **no**
 * CM_CUSTOM_SSL: **no**
@@ -79,8 +95,53 @@ ___
 * CM_PYTHON_OPTIMIZATION_FLAG: ****
 * CM_PYTHON_LTO_FLAG: ****
 * CM_WGET_URL: **https://www.python.org/ftp/python/[PYTHON_VERSION]/Python-[PYTHON_VERSION].tgz**
+
+</details>
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_lto`
+      - Environment variables:
+        - *CM_PYTHON_LTO_FLAG*: ` --lto`
+        - *CM_PYTHON_INSTALL_CACHE_TAGS*: `with-lto`
+      - Workflow:
+    * `_optimized`
+      - Environment variables:
+        - *CM_PYTHON_OPTIMIZATION_FLAG*: ` --enable-optimizations`
+        - *CM_PYTHON_INSTALL_CACHE_TAGS*: `optimized`
+      - Workflow:
+    * `_shared`
+      - Environment variables:
+        - *CM_PYTHON_INSTALL_CACHE_TAGS*: `shared`
+        - *CM_SHARED_BUILD*: `yes`
+      - Workflow:
+    * `_with-custom-ssl`
+      - Environment variables:
+        - *CM_CUSTOM_SSL*: `yes`
+        - *CM_PYTHON_INSTALL_CACHE_TAGS*: `with-custom-ssl`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,openssl
+             - CM script: [get-openssl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl)
+    * `_with-ssl`
+      - Environment variables:
+        - *CM_ENABLE_SSL*: `yes`
+        - *CM_PYTHON_INSTALL_CACHE_TAGS*: `with-ssl`
+      - Workflow:
+
+</details>
+
 ___
-### CM script workflow
+### Versions
+Default version: *3.10.5*
+
+___
+### Script workflow, dependencies and native scripts
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src/_cm.json)***
      * detect,os
@@ -99,59 +160,19 @@ ___
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
 ___
-### New environment export
+### Script output
+#### New environment keys
 
 * **+C_INCLUDE_PATH**
 * **+LD_LIBRARY_PATH**
 * **+PATH**
 * **CM_PYTHON_BIN_WITH_PATH**
 * **CM_PYTHON_INSTALL_PATH**
-___
-### New environment detected from customize
+#### New environment keys auto-detected from customize
 
 * **CM_GET_DEPENDENT_CACHED_PATH**
 * **CM_PYTHON_BIN_WITH_PATH**
 * **CM_PYTHON_INSTALLED_PATH**
-___
-### Usage
-
-#### CM installation
-[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
-
-#### CM script automation help
-```cm run script --help```
-
-#### CM CLI
-`cm run script --tags="install,src,python,python3,src-python3,src-python"`
-
-*or*
-
-`cm run script "install src python python3 src-python3 src-python"`
-
-*or*
-
-`cm run script 12d3a608afe14a1e`
-
-#### CM Python API
-
-```python
-import cmind
-
-r = cmind.access({'action':'run'
-                  'automation':'script',
-                  'tags':'install,src,python,python3,src-python3,src-python'
-                  'out':'con',
-                  ...
-                  (other input keys for this script)
-                  ...
-                 })
-
-if r['return']>0:
-    print (r['error'])
-```
-
-#### CM modular Docker container
-*TBD*
 ___
 ### Maintainers
 

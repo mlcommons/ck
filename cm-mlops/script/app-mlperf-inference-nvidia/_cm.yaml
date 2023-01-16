@@ -1,5 +1,5 @@
 # Identification of this CM script
-alias: app-mlperf-inference-nvidia-harness
+alias: app-mlperf-inference-nvidia
 uid: bf62405e6c7a44bf
 
 automation_alias: script

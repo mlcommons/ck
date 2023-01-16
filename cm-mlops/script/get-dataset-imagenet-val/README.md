@@ -1,98 +1,39 @@
-*This README is automatically generated - don't edit! See [extra README](README-extra.md) for extra notes!*
-
 <details>
 <summary>Click here to see the table of contents.</summary>
 
-* [About](#about)
-* [Category](#category)
-* [Origin](#origin)
-* [Meta description](#meta-description)
-* [Tags](#tags)
-* [Variations](#variations)
-  * [ All variations](#all-variations)
-* [Default environment](#default-environment)
-* [CM script workflow](#cm-script-workflow)
-* [New environment export](#new-environment-export)
-* [New environment detected from customize](#new-environment-detected-from-customize)
+* [Description](#description)
+* [Information](#information)
 * [Usage](#usage)
   * [ CM installation](#cm-installation)
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Default environment](#default-environment)
+  * [ Variations](#variations)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys](#new-environment-keys)
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
 </details>
 
-___
-### About
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
-*TBD*
-___
-### Category
+### Description
 
-ML/AI datasets.
-___
-### Origin
 
-* GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* CM artifact for this script (interoperability module, native scripts and meta): *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)*
-* CM automation "script": *[Docs](https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script)*
+See [more info](README-extra.md).
 
-___
-### Meta description
-[_cm.json](_cm.json)
+#### Information
 
-___
-### Tags
-get,val,validation,dataset,imagenet,ILSVRC,image-classification,original
-
-___
-### Variations
-#### All variations
-* 2012-1
-  - *ENV CM_DATASET_SIZE*: `1`
-  - *ENV CM_DATASET_VER*: `2012`
-* **2012-500** (default)
-  - *ENV CM_DATASET_SIZE*: `500`
-  - *ENV CM_DATASET_VER*: `2012`
-* 2012-full
-  - *ENV CM_DATASET_SIZE*: `50000`
-  - *ENV CM_DATASET_VER*: `2012`
-  - *ENV CM_IMAGENET_FULL*: `yes`
-* full
-  - *ENV CM_DATASET_SIZE*: `50000`
-  - *ENV CM_DATASET_VER*: `2012`
-  - *ENV CM_IMAGENET_FULL*: `yes`
-* size.#
-  - *ENV CM_DATASET_SIZE*: `#`
-___
-### Default environment
-
-___
-### CM script workflow
-
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
-  1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
-  1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
-___
-### New environment export
-
-* **CM_DATASET_IMAGENET_PATH**
-* **CM_DATASET_PATH**
-* **CM_DATASET_SIZE**
-* **CM_DATASET_VER**
-___
-### New environment detected from customize
-
-* **CM_DATASET_IMAGENET_PATH**
-* **CM_DATASET_PATH**
+* Category: *ML/AI datasets.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *get,val,validation,dataset,imagenet,ILSVRC,image-classification,original*
 ___
 ### Usage
 
@@ -103,11 +44,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags="get,val,validation,dataset,imagenet,ILSVRC,image-classification,original"`
+`cm run script --tags=get,val,validation,dataset,imagenet,ILSVRC,image-classification,original(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get val validation dataset imagenet ILSVRC image-classification original"`
+`cm run script "get val validation dataset imagenet ILSVRC image-classification original (variations from below)" (flags from below)`
 
 *or*
 
@@ -115,7 +56,11 @@ ___
 
 #### CM Python API
 
+<details>
+<summary>Click here to expand this section.</summary>
+
 ```python
+
 import cmind
 
 r = cmind.access({'action':'run'
@@ -129,10 +74,86 @@ r = cmind.access({'action':'run'
 
 if r['return']>0:
     print (r['error'])
+
 ```
+
+</details>
 
 #### CM modular Docker container
 *TBD*
+___
+### Customization
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+
+</details>
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+<details>
+<summary>Click here to expand this section.</summary>
+
+    * `_2012-1`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `1`
+        - *CM_DATASET_VER*: `2012`
+      - Workflow:
+    * **`_2012-500`** (default)
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `500`
+        - *CM_DATASET_VER*: `2012`
+      - Workflow:
+    * `_2012-full`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `50000`
+        - *CM_DATASET_VER*: `2012`
+        - *CM_IMAGENET_FULL*: `yes`
+      - Workflow:
+    * `_full`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `50000`
+        - *CM_DATASET_VER*: `2012`
+        - *CM_IMAGENET_FULL*: `yes`
+      - Workflow:
+    * `_size.#`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `#`
+      - Workflow:
+
+</details>
+
+___
+### Script workflow, dependencies and native scripts
+
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
+  1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
+___
+### Script output
+#### New environment keys
+
+* **CM_DATASET_IMAGENET_PATH**
+* **CM_DATASET_PATH**
+* **CM_DATASET_SIZE**
+* **CM_DATASET_VER**
+#### New environment keys auto-detected from customize
+
+* **CM_DATASET_IMAGENET_PATH**
+* **CM_DATASET_PATH**
 ___
 ### Maintainers
 
