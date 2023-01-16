@@ -456,11 +456,19 @@ variations:
       precision
     env:
       CM_MLPERF_QUANTIZATION: off
+      CM_MLPERF_MODEL_PRECISION: float32
+    add_deps_recursive:
+      python-reference-mlperf-inference:
+        tags: _fp32
   int8:
     group:
       precision
     env:
       CM_MLPERF_QUANTIZATION: on
+      CM_MLPERF_MODEL_PRECISION: int8
+    add_deps_recursive:
+      python-reference-mlperf-inference:
+        tags: _int8
 
   power:
     env:
