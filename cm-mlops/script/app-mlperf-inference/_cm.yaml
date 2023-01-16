@@ -108,6 +108,8 @@ deps:
 variations:
   # Implementation (cpp, python, nvidia, tflite-cpp)
   cpp:
+    group:
+      implementation
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _int64
@@ -125,6 +127,8 @@ variations:
 
 
   tflite-cpp:
+    group:
+      implementation
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _int64
@@ -142,6 +146,10 @@ variations:
             - yes
 
   reference:
+    group:
+      implementation
+    default:
+      true
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _float32
@@ -156,9 +164,13 @@ variations:
         skip_if_env:
           CM_SKIP_RUN:
             - yes
+
   python:
     alias: reference
+  
   nvidia:
+    group:
+      implementation
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _float32
@@ -280,6 +292,7 @@ variations:
     add_deps_recursive:
       inference-src:
         tags: _deeplearningexamples
+
   bert-99:
     group:
       models
@@ -291,6 +304,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _bert-99
+
   bert-99.9:
     group:
       models
@@ -302,7 +316,6 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _bert-99.9
-
 
   onnxruntime:
     group: backend
@@ -372,7 +385,6 @@ variations:
       mlperf-inference-implementation:
         tags: _cuda
 
-
   # Execution modes
   fast:
     group: execution-mode
@@ -396,6 +408,8 @@ variations:
 
   # Turn on quantization
   quantized:
+    group:
+      precision
     env:
       CM_MLPERF_QUANTIZATION: on
 
@@ -410,6 +424,8 @@ variations:
 
   # Reproducibility (past submissions)
   r2.1_default:
+    group:
+      reproducibility
     add_deps_recursive:
       compiler:
         tags: llvm
