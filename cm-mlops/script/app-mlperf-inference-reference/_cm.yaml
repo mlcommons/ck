@@ -336,6 +336,16 @@ deps:
       CM_MLPERF_QUANTIZATION:
       - on
 
+  ## BERT (Deep-sparse format int8)
+  - tags: get,ml-model,language-processing,bert,_deepsparse,_int8
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - deepsparse
+      CM_MODEL:
+      - bert-99
+      CM_MLPERF_QUANTIZATION:
+      - on
+
 
   ## BERT (TF format)
   - tags: get,ml-model,language-processing,bert,_tf
@@ -469,6 +479,18 @@ variations:
   tensorflow:
     alias: tf
 
+  deepsparse:
+    group: framework
+    env:
+      CM_MLPERF_BACKEND: deepsparse
+      CM_MLPERF_BATCH_SIZE: "1"
+      CM_MLPERF_BACKEND_VERSION: <<<CM_DEEPSPARSE_VERSION>>>
+    deps:
+    - tags: get,generic-python-lib,_deepsparse
+    add_deps_recursive:
+      inference-src:
+        version: deepsparse
+
   tvm-onnx:
     group: framework
     env:
@@ -531,6 +553,8 @@ variations:
       CM_MODEL: 3d-unet-99
 
   3d-unet:
+    env:
+      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: yes
     deps:
     - tags: get,generic-python-lib,_torch
       names:

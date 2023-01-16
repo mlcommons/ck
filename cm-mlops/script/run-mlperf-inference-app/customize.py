@@ -101,6 +101,20 @@ def preprocess(i):
         for mode in env['CM_MLPERF_LOADGEN_MODES']:
             env['CM_MLPERF_LOADGEN_SCENARIO'] = scenario
             env['CM_MLPERF_LOADGEN_MODE'] = mode
+
+            if scenario == "Offline":
+                if env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS'):
+                    env['CM_MLPERF_LOADGEN_TARGET_QPS'] = env['CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS']
+            elif scenario == "Server":
+                if env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS'):
+                    env['CM_MLPERF_LOADGEN_TARGET_QPS'] = env['CM_MLPERF_LOADGEN_SERVER_TARGET_QPS']
+            elif scenario == "SingeStream":
+                if env.get('CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY'):
+                    env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = env['CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY']
+            elif scenario == "MultiStream":
+                if env.get('CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY'):
+                    env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = env['CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY']
+
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
                 add_deps_recursive, 'silent': silent, 'print_env': print_env, 'print_deps': print_deps})

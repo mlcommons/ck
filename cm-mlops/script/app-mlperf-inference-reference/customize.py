@@ -60,7 +60,7 @@ def preprocess(i):
     if 'CM_MLPERF_LOADGEN_MAX_BATCHSIZE' in env:
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env:
+    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env and env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', 'no') != "yes":
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
 
     print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
@@ -175,6 +175,8 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             quantization_options = ""
         cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
+        if env['CM_MLPERF_BACKEND'] == "deepsparse":
+            cmd += " --batch_size="+env['CM_MLPERF_BATCH_SIZE']+" --model_path=" + env['CM_ML_MODEL_FILE_WITH_PATH']
         cmd = cmd.replace("--count", "--max_examples")
         env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
         env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']
@@ -208,7 +210,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
         env['SKIP_VERIFY_ACCURACY'] = True
 
-    elif "dlrm" in env['CM_MODEL']:
+    elif "dlrm" in env['CM_MODEL']: # DLRM is in draft stage
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_DLRM_PATH'], "pytorch")
         if 'terabyte' in env['CM_ML_MODEL_DATASET']:
