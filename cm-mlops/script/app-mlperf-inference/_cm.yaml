@@ -437,12 +437,9 @@ variations:
       CM_OUTPUT_FOLDER_NAME: valid_results
       CM_MLPERF_RUN_STYLE: valid
 
-  # Turn on quantization
+  # Model precision
   quantized:
-    group:
-      precision
-    env:
-      CM_MLPERF_QUANTIZATION: on
+    alias: int8
   fp32:
     group:
       precision
