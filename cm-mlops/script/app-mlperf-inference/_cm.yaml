@@ -443,6 +443,16 @@ variations:
       precision
     env:
       CM_MLPERF_QUANTIZATION: on
+  fp32:
+    group:
+      precision
+    env:
+      CM_MLPERF_QUANTIZATION: off
+  int8:
+    group:
+      precision
+    env:
+      CM_MLPERF_QUANTIZATION: on
 
   power:
     env:
