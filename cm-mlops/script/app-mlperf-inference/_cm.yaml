@@ -108,7 +108,7 @@ deps:
 
 # Variations to customize dependencies
 variations:
-  # Implementation (cpp, python, nvidia, tflite-cpp)
+  # Implementation (cpp, reference/python, nvidia, tflite-cpp)
   cpp:
     group:
       implementation
@@ -343,6 +343,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _onnxruntime
+
   tf:
     group: backend
     env:
@@ -351,6 +352,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _tf
+
   pytorch:
     group: backend
     env:
@@ -359,6 +361,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _pytorch
+
   deepsparse:
     group: backend
     env:
@@ -367,6 +370,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _deepsparse
+
   tflite:
     group: backend
     env:
@@ -374,6 +378,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _tflite
+
   tvm-onnx:
     group: backend
     env:
@@ -381,6 +386,7 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _tvm-onnx
+
   tvm-pytorch:
     group: backend
     env:
