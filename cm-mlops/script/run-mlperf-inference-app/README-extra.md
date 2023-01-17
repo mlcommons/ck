@@ -394,7 +394,10 @@ summary.csv
 summary.json
 ```
 
+## Step by step Instructions (Alternative option to the above section)
+
 You can also install or detect all artifacts via CM step-by-step as follows:
+
 
 ### Download Open Images dataset
 
