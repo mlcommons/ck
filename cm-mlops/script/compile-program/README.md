@@ -13,7 +13,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -33,6 +33,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *compile,program,c-program,cpp-program,compile-program,compile-c-program,compile-cpp-program*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -114,25 +115,10 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 
-* **CM_CPLUS_INCLUDE_PATH**
-* **CM_CXX_COMPILER_FLAGS**
-* **CM_CXX_LINKER_FLAGS**
-* **CM_C_COMPILER_FLAGS**
-* **CM_C_INCLUDE_PATH**
-* **CM_C_LINKER_FLAGS**
-* **CM_F_COMPILER_FLAGS**
-* **CM_F_INCLUDE_PATH**
-* **CM_F_LINKER_FLAGS**
-* **CM_LD_LIBRARY_PATH**
-* **CM_LINKER_BIN**
-* **CM_LINKER_COMPILE_FLAGS**
-* **CM_LINKER_FLAGS**
-* **CM_LINKER_WITH_PATH**
-* **CM_SOURCE_FOLDER_PATH**
 ___
 ### Maintainers
 

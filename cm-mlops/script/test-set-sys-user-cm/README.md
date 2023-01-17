@@ -13,7 +13,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -30,6 +30,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-set-sys-user-cm)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *demo,set,sys-user,cm,sys-user-cm*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -104,7 +105,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-set-sys-user-cm/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 

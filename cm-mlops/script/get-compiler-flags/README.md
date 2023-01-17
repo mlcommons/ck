@@ -13,7 +13,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -30,6 +30,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,compiler-flags*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -110,7 +111,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-compiler-flags/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **+ CFLAGS**
 * **+ CXXFLAGS**
@@ -119,9 +120,6 @@ ___
 * **+CM_HOST_OS_DEFAULT_INCLUDE_PATH**
 #### New environment keys auto-detected from customize
 
-* **CM_CPUINFO_Vendor_ID**
-* **CM_C_COMPILER_BIN**
-* **CM_HOST_CPU_VENDOR_ID**
 ___
 ### Maintainers
 

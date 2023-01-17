@@ -533,7 +533,7 @@ You can run this script as follows (just substitute *OctoML* with the name of yo
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
@@ -618,7 +618,7 @@ You just need to rerun the above command with `_dashboard` variation:
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
@@ -671,7 +671,7 @@ cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu
      --scenario=Offline --mode=performance --rerun
 
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
@@ -682,7 +682,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
       --clean
 
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
@@ -710,7 +710,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
@@ -744,7 +744,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --model=retinanet \
       --backend=onnxruntime \

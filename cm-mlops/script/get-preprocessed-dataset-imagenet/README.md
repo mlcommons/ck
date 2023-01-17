@@ -10,12 +10,12 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
-  * [ Variations](#variations)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -35,6 +35,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,dataset,imagenet,ILSVRC,image-classification,preprocessed*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -86,49 +87,11 @@ ___
 ### Customization
 
 
-#### Script flags mapped to environment
-<details>
-<summary>Click here to expand this section.</summary>
-
-* --**dir**=value --> **CM_DATASET_PREPROCESSED_PATH**=value
-* --**threads**=value --> **CM_NUM_PREPROCESS_THREADS**=value
-* --**imagenet_path**=value --> **CM_IMAGENET_PATH**=value
-* --**imagenet_preprocessed_path**=value --> **CM_IMAGENET_PREPROCESSED_PATH**=value
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "dir":"..."}
-```
-
-</details>
-
-#### Default environment
-
-<details>
-<summary>Click here to expand this section.</summary>
-
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
-
-* CM_DATASET_INPUT_SQUARE_SIDE: **224**
-* CM_DATASET_CROP_FACTOR: **87.5**
-* CM_DATASET_DATA_TYPE: **float32**
-* CM_DATASET_DATA_LAYOUT: **NCHW**
-* CM_DATASET_QUANT_SCALE: **1**
-* CM_DATASET_QUANTIZE: **0**
-* CM_DATASET_QUANT_OFFSET: **0**
-* CM_DATASET_NEW_EXTENSION: **npy**
-* CM_DATASET_CONVERT_TO_UNSIGNED: **0**
-* CM_DATASET_REFERENCE_PREPROCESSOR: **1**
-
-</details>
-
-
 #### Variations
 
   * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * **`_default`** (default)
       - Workflow:
@@ -147,12 +110,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_DATASET_CONVERT_TO_UNSIGNED*: `1`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**layout**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * **`_NCHW`** (default)
       - Environment variables:
@@ -163,12 +126,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_DATASET_DATA_LAYOUT*: `NHWC`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**model**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_for.mobilenet`
       - Environment variables:
@@ -200,12 +163,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_MODEL*: `resnet50`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**preprocessing-source**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_generic-preprocessor`
       - Environment variables:
@@ -219,12 +182,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_DATASET_REFERENCE_PREPROCESSOR*: `1`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**size**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_1`
       - Environment variables:
@@ -238,6 +201,44 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
       - Environment variables:
         - *CM_DATASET_SIZE*: `50000`
       - Workflow:
+
+    </details>
+
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**dir**=value --> **CM_DATASET_PREPROCESSED_PATH**=value
+* --**imagenet_path**=value --> **CM_IMAGENET_PATH**=value
+* --**imagenet_preprocessed_path**=value --> **CM_IMAGENET_PREPROCESSED_PATH**=value
+* --**threads**=value --> **CM_NUM_PREPROCESS_THREADS**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "dir":...}
+```
+
+</details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* CM_DATASET_INPUT_SQUARE_SIDE: **224**
+* CM_DATASET_CROP_FACTOR: **87.5**
+* CM_DATASET_DATA_TYPE: **float32**
+* CM_DATASET_DATA_LAYOUT: **NCHW**
+* CM_DATASET_QUANT_SCALE: **1**
+* CM_DATASET_QUANTIZE: **0**
+* CM_DATASET_QUANT_OFFSET: **0**
+* CM_DATASET_NEW_EXTENSION: **npy**
+* CM_DATASET_CONVERT_TO_UNSIGNED: **0**
+* CM_DATASET_REFERENCE_PREPROCESSOR: **1**
 
 </details>
 
@@ -274,7 +275,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_DATASET_***
 #### New environment keys auto-detected from customize

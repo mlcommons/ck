@@ -10,12 +10,12 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Default environment](#default-environment)
   * [ Variations](#variations)
+  * [ Default environment](#default-environment)
 * [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -32,6 +32,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,install,tensorflow,lib,source,from-source,from-src,src,from.src*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -82,6 +83,20 @@ if r['return']>0:
 ___
 ### Customization
 
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_tflite`
+      - Environment variables:
+        - *CM_TFLITE*: `on`
+      - Workflow:
+
+    </details>
+
 #### Default environment
 
 <details>
@@ -95,22 +110,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 </details>
 
-
-#### Variations
-
-  * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
-
-    * `_tflite`
-      - Environment variables:
-        - *CM_TFLITE*: `on`
-      - Workflow:
-
-</details>
-
-___
-### Versions
+#### Versions
 Default version: *master*
 
 * master
@@ -140,7 +140,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **+CPLUS_INCLUDE_PATH**
 * **+C_INCLUDE_PATH**

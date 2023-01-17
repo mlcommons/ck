@@ -10,11 +10,11 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Default environment](#default-environment)
   * [ Variations](#variations)
+  * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,val,validation,dataset,imagenet,ILSVRC,image-classification,original*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -84,22 +85,12 @@ if r['return']>0:
 ___
 ### Customization
 
-#### Default environment
-
-<details>
-<summary>Click here to expand this section.</summary>
-
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
-
-
-</details>
-
 
 #### Variations
 
   * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_2012-1`
       - Environment variables:
@@ -128,6 +119,16 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_DATASET_SIZE*: `#`
       - Workflow:
 
+    </details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+
 </details>
 
 ___
@@ -144,7 +145,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_DATASET_IMAGENET_PATH**
 * **CM_DATASET_PATH**

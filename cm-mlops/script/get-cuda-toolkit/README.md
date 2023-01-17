@@ -10,11 +10,11 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Default environment](#default-environment)
   * [ Variations](#variations)
+  * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,cuda,toolkit,cuda-compiler,cuda-toolkit,nvcc,get-nvcc,get-cuda*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -84,6 +85,23 @@ if r['return']>0:
 ___
 ### Customization
 
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_cudnn`
+      - Environment variables:
+        - *CM_CUDA_NEEDS_CUDNN*: `yes`
+      - Workflow:
+        1. ***Read "post_deps" on other CM scripts***
+           * get,nvidia,cudnn
+             - CM script: [get-cudnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn)
+
+    </details>
+
 #### Default environment
 
 <details>
@@ -93,23 +111,6 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 * CM_CUDA_PATH_LIB_CUDNN_EXISTS: **no**
 * CM_REQUIRE_INSTALL: **no**
-
-</details>
-
-
-#### Variations
-
-  * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
-
-    * `_cudnn`
-      - Environment variables:
-        - *CM_CUDA_NEEDS_CUDNN*: `yes`
-      - Workflow:
-        1. ***Read "post_deps" on other CM scripts***
-           * get,nvidia,cudnn
-             - CM script: [get-cudnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn)
 
 </details>
 
@@ -130,7 +131,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **+CPLUS_INCLUDE_PATH**
 * **+C_INCLUDE_PATH**
@@ -151,7 +152,6 @@ ___
 * **CM_CUDA_PATH_LIB_CUDNN**
 * **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
 * **CM_NVCC_BIN**
-* **CM_REQUIRE_INSTALL**
 ___
 ### Maintainers
 

@@ -10,9 +10,9 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
-  * [ Variations](#variations)
 * [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -88,31 +88,6 @@ ___
 ### Customization
 
 
-#### Script flags mapped to environment
-<details>
-<summary>Click here to expand this section.</summary>
-
-* --**ssh**=value --> **CM_GIT_SSH**=value
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "ssh":"..."}
-```
-
-</details>
-
-#### Default environment
-
-<details>
-<summary>Click here to expand this section.</summary>
-
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
-
-
-</details>
-
-
 #### Variations
 
   * *No group (any variation can be selected)*
@@ -133,6 +108,31 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
       - Workflow:
 
     </details>
+
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**ssh**=value --> **CM_GIT_SSH**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "ssh":...}
+```
+
+</details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+
+</details>
 
 #### Versions
 Default version: *main*

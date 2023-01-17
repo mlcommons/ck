@@ -14,7 +14,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *run,docker,container*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -90,29 +91,29 @@ ___
 <summary>Click here to expand this section.</summary>
 
 * --**base**=value --> **CM_DOCKER_IMAGE_BASE**=value
+* --**cache**=value --> **CM_DOCKER_CACHE**=value
 * --**cm_repo**=value --> **CM_MLOPS_REPO**=value
-* --**recreate**=value --> **CM_DOCKER_IMAGE_RECREATE**=value
+* --**device**=value --> **CM_DOCKER_ADD_DEVICE**=value
+* --**docker_os**=value --> **CM_DOCKER_OS**=value
+* --**docker_os_version**=value --> **CM_DOCKER_OS_VERSION**=value
 * --**gh_token**=value --> **CM_GH_TOKEN**=value
 * --**image_repo**=value --> **CM_DOCKER_IMAGE_REPO**=value
 * --**image_tag**=value --> **CM_DOCKER_IMAGE_TAG**=value
-* --**docker_os**=value --> **CM_DOCKER_OS**=value
-* --**docker_os_version**=value --> **CM_DOCKER_OS_VERSION**=value
-* --**script_tags**=value --> **CM_DOCKER_RUN_SCRIPT_TAGS**=value
-* --**run_cmd_extra**=value --> **CM_DOCKER_RUN_CMD_EXTRA**=value
-* --**real_run**=value --> **CM_REAL_RUN**=value
-* --**run_cmd**=value --> **CM_DOCKER_RUN_CMD**=value
-* --**pre_run_cmds**=value --> **CM_DOCKER_PRE_RUN_COMMANDS**=value
-* --**post_run_cmds**=value --> **CM_DOCKER_POST_RUN_COMMANDS**=value
-* --**pass_user_group**=value --> **CM_DOCKER_PASS_USER_GROUP**=value
 * --**mounts**=value --> **CM_DOCKER_VOLUME_MOUNTS**=value
+* --**pass_user_group**=value --> **CM_DOCKER_PASS_USER_GROUP**=value
 * --**port_maps**=value --> **CM_DOCKER_PORT_MAPS**=value
-* --**device**=value --> **CM_DOCKER_ADD_DEVICE**=value
-* --**cache**=value --> **CM_DOCKER_CACHE**=value
+* --**post_run_cmds**=value --> **CM_DOCKER_POST_RUN_COMMANDS**=value
+* --**pre_run_cmds**=value --> **CM_DOCKER_PRE_RUN_COMMANDS**=value
+* --**real_run**=value --> **CM_REAL_RUN**=value
+* --**recreate**=value --> **CM_DOCKER_IMAGE_RECREATE**=value
+* --**run_cmd**=value --> **CM_DOCKER_RUN_CMD**=value
+* --**run_cmd_extra**=value --> **CM_DOCKER_RUN_CMD_EXTRA**=value
+* --**script_tags**=value --> **CM_DOCKER_RUN_SCRIPT_TAGS**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "base":"..."}
+r=cm.access({... , "base":...}
 ```
 
 </details>
@@ -143,14 +144,10 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 
-* **CM_DOCKER_IMAGE_EXISTS**
-* **CM_DOCKER_IMAGE_RECREATE**
-* **CM_DOCKER_RUN_CMD**
-* **CM_DOCKER_RUN_SCRIPT_TAGS**
 ___
 ### Maintainers
 

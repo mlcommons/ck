@@ -10,12 +10,12 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
-  * [ Variations](#variations)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -35,6 +35,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *run,terraform*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -86,44 +87,11 @@ ___
 ### Customization
 
 
-#### Script flags mapped to environment
-<details>
-<summary>Click here to expand this section.</summary>
-
-* --**destroy**=value --> **CM_DESTROY_TERRAFORM**=value
-* --**cminit**=value --> **CM_TERRAFORM_CM_INIT**=value
-* --**key_file**=value --> **CM_SSH_KEY_FILE**=value
-* --**disk_size**=value --> **TF_VAR_DISK_GBS**=value
-* --**run_cmds**=value --> **CM_TERRAFORM_RUN_COMMANDS**=value
-* --**ssh_key_file**=value --> **CM_SSH_KEY_FILE**=value
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "destroy":"..."}
-```
-
-</details>
-
-#### Default environment
-
-<details>
-<summary>Click here to expand this section.</summary>
-
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
-
-* TF_VAR_SECURITY_GROUP_ID: **sg-0783752c97d2e011d**
-* TF_VAR_CPU_COUNT: **1**
-* TF_VAR_DISK_GBS: **8**
-
-</details>
-
-
 #### Variations
 
   * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_aws`
       - Environment variables:
@@ -151,6 +119,39 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *TF_VAR_INSTANCE_TYPE*: `t2.micro`
       - Workflow:
 
+    </details>
+
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**cminit**=value --> **CM_TERRAFORM_CM_INIT**=value
+* --**destroy**=value --> **CM_DESTROY_TERRAFORM**=value
+* --**disk_size**=value --> **TF_VAR_DISK_GBS**=value
+* --**key_file**=value --> **CM_SSH_KEY_FILE**=value
+* --**run_cmds**=value --> **CM_TERRAFORM_RUN_COMMANDS**=value
+* --**ssh_key_file**=value --> **CM_SSH_KEY_FILE**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "cminit":...}
+```
+
+</details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* TF_VAR_SECURITY_GROUP_ID: **sg-0783752c97d2e011d**
+* TF_VAR_CPU_COUNT: **1**
+* TF_VAR_DISK_GBS: **8**
+
 </details>
 
 ___
@@ -172,7 +173,7 @@ ___
        - CM script: [destroy-terraform](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/destroy-terraform)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_TERRAFORM_CONFIG_DIR**
 * **CM_TERRAFORM_RUN_DIR**

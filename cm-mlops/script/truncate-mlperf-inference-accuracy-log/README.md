@@ -14,7 +14,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *run,mlc,mlcommons,mlperf,inference,mlperf-inference,truncation,truncator,truncate,accuracy,accuracy-log,accuracy-log-trancation,accuracy-log-truncator,mlc-accuracy-log-trancation,mlc-accuracy-log-truncator*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -95,7 +96,7 @@ ___
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "submission_dir":"..."}
+r=cm.access({... , "submission_dir":...}
 ```
 
 </details>
@@ -129,11 +130,10 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 
-* **CM_RUN_CMD**
 ___
 ### Maintainers
 

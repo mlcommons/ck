@@ -14,7 +14,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-android-sdk)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,android,sdk,android-sdk*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -98,7 +99,7 @@ ___
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "android_cmake_version":"..."}
+r=cm.access({... , "android_cmake_version":...}
 ```
 
 </details>
@@ -135,7 +136,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-android-sdk/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **+PATH**
 * **ANDROID_HOME**
@@ -143,21 +144,7 @@ ___
 * **CM_ANDROID_HOME**
 #### New environment keys auto-detected from customize
 
-* **CM_ANDROID_BUILD_TOOLS_PATH**
-* **CM_ANDROID_CMAKE_PATH**
-* **CM_ANDROID_CMDLINE_TOOLS_URL**
-* **CM_ANDROID_CMDLINE_TOOLS_VERSION**
-* **CM_ANDROID_EMULATOR_PATH**
 * **CM_ANDROID_HOME**
-* **CM_ANDROID_LLVM_CLANG_BIN_WITH_PATH**
-* **CM_ANDROID_LLVM_PATH**
-* **CM_ANDROID_NDK_PATH**
-* **CM_ANDROID_PLATFORMS_PATH**
-* **CM_ANDROID_PLATFORM_TOOLS_PATH**
-* **CM_ANDROID_SDK_MANAGER_BIN**
-* **CM_ANDROID_SDK_MANAGER_BIN_WITH_PATH**
-* **CM_ANDROID_TOOLS_PATH**
-* **CM_GET_DEPENDENT_CACHED_PATH**
 ___
 ### Maintainers
 

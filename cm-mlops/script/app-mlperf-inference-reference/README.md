@@ -10,12 +10,12 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
-  * [ Variations](#variations)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -35,6 +35,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
 * CM "database" tags to find this script: *app,vision,language,mlcommons,mlperf,inference,reference,ref*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -86,61 +87,11 @@ ___
 ### Customization
 
 
-#### Script flags mapped to environment
-<details>
-<summary>Click here to expand this section.</summary>
-
-* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
-* --**docker**=value --> **CM_RUN_DOCKER_CONTAINER**=value
-* --**hw_name**=value --> **CM_HW_NAME**=value
-* --**imagenet_path**=value --> **IMAGENET_PATH**=value
-* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
-* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**num_threads**=value --> **CM_NUM_THREADS**=value
-* --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
-* --**power**=value --> **CM_SYSTEM_POWER**=value
-* --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
-* --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
-* --**max_amps**=value --> **CM_MLPERF_POWER_MAX_AMPS**=value
-* --**max_volts**=value --> **CM_MLPERF_POWER_MAX_VOLTS**=value
-* --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
-* --**rerun**=value --> **CM_RERUN**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
-* --**clean**=value --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**=value
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "count":"..."}
-```
-
-</details>
-
-#### Default environment
-
-<details>
-<summary>Click here to expand this section.</summary>
-
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
-
-* CM_BATCH_COUNT: **1**
-* CM_BATCH_SIZE: **1**
-* CM_MLPERF_LOADGEN_MODE: **accuracy**
-* CM_MLPERF_LOADGEN_SCENARIO: **Offline**
-* CM_OUTPUT_FOLDER_NAME: **test_results**
-* CM_MLPERF_RUN_STYLE: **test**
-* CM_TEST_QUERY_COUNT: **10**
-* CM_MLPERF_QUANTIZATION: **False**
-
-</details>
-
-
 #### Variations
 
   * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_3d-unet`
       - Environment variables:
@@ -177,12 +128,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_TEST_QUERY_COUNT*: `100`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**device**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * **`_cpu`** (default)
       - Environment variables:
@@ -198,12 +149,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *USE_GPU*: `True`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**framework**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_deepsparse`
       - Environment variables:
@@ -245,12 +196,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *MLPERF_TVM_TORCH_QUANTIZED_ENGINE*: `qnnpack`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**implementation**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * **`_python`** (default)
       - Environment variables:
@@ -258,12 +209,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_MLPERF_IMPLEMENTATION*: `reference`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**models**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_3d-unet-99`
       - Environment variables:
@@ -325,22 +276,74 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
            * get,generic-python-lib,_toml
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
-</details>
+    </details>
 
 
   * Group "**precision**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * **`_fp32`** (default)
       - Environment variables:
         - *CM_MLPERF_QUANTIZATION*: `False`
+        - *CM_MLPERF_MODEL_PRECISION*: `float32`
       - Workflow:
     * `_int8`
       - Aliases: `_quantized`
       - Environment variables:
         - *CM_MLPERF_QUANTIZATION*: `True`
+        - *CM_MLPERF_MODEL_PRECISION*: `int8`
       - Workflow:
+
+    </details>
+
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**clean**=value --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**=value
+* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
+* --**docker**=value --> **CM_RUN_DOCKER_CONTAINER**=value
+* --**hw_name**=value --> **CM_HW_NAME**=value
+* --**imagenet_path**=value --> **IMAGENET_PATH**=value
+* --**max_amps**=value --> **CM_MLPERF_POWER_MAX_AMPS**=value
+* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
+* --**max_volts**=value --> **CM_MLPERF_POWER_MAX_VOLTS**=value
+* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
+* --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
+* --**num_threads**=value --> **CM_NUM_THREADS**=value
+* --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
+* --**power**=value --> **CM_SYSTEM_POWER**=value
+* --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
+* --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
+* --**rerun**=value --> **CM_RERUN**=value
+* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
+* --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "clean":...}
+```
+
+</details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* CM_BATCH_COUNT: **1**
+* CM_BATCH_SIZE: **1**
+* CM_MLPERF_LOADGEN_MODE: **accuracy**
+* CM_MLPERF_LOADGEN_SCENARIO: **Offline**
+* CM_OUTPUT_FOLDER_NAME: **test_results**
+* CM_MLPERF_RUN_STYLE: **test**
+* CM_TEST_QUERY_COUNT: **10**
+* CM_MLPERF_QUANTIZATION: **False**
 
 </details>
 
@@ -459,7 +462,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference/_cm.yaml)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_DATASET_***
 * **CM_MLPERF_***
@@ -474,11 +477,6 @@ ___
 * **CM_MLPERF_OUTPUT_DIR**
 * **CM_MLPERF_RESULTS_DIR**
 * **CM_MLPERF_RUN_CMD**
-* **CM_MODEL**
-* **CM_NUM_THREADS**
-* **CM_PYTHON_BIN_WITH_PATH**
-* **CM_RUN_CMD**
-* **CM_RUN_DIR**
 ___
 ### Maintainers
 

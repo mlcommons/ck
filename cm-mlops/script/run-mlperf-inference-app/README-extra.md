@@ -1,21 +1,4 @@
-# About
-
-This portable CM (CK2) script modularizes and automates the MLPerf inference benchmark using 
-[interoperable and portable CM scripts for MLOPs and DevOps](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
-being developed by the open [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
-
-It automatically generates the command line required to run MLPerf scenarios for a given ML task, model, runtime and device
-making it easier to run, optimize and reproduce MLPerf benchmarks across diverse platforms with continuously changing software and hardware.
-
-It currently supports modular Python reference implementation 
-([CM meta description to connect all components](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml))
-and C++ implementation 
-([CM meta description to connect all components](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)).
-
-Check these [tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md) from the Student Cluster Competition
-at Supercomputing'22 to understand how to use this script to run the MLPerf inference vision benchmark and automate submissions.
-
-## Current Coverage
+# Current Coverage
 <table>
 <thead>
   <tr>
@@ -164,16 +147,6 @@ Works but with <a href="https://github.com/mlcommons/inference/issues/1288">stri
 
 Please follow our R&D roadmap [here](https://github.com/mlcommons/ck/issues/536).
 
-[![License](https://img.shields.io/badge/License-Apache%202.0-green)](https://github.com/mlcommons/ck/tree/master/cm)
-[![CM repository](https://img.shields.io/badge/Collective%20Mind-compatible-blue)](https://github.com/mlcommons/ck)
-
-&copy; 2022 [MLCommons](https://mlcommons.org)<br>
-
-# Developers
-
-[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-and [Grigori Fursin]( https://cKnowledge.io/@gfursin ).
-
 
 # Command line interface
 
@@ -262,7 +235,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,${CM_MLPERF_CHOICE_S
 
 
 
-## Examples
+## Example
 
 Here is an example of CM CLI to run the MLPerf inference benchmark
 with object detection, RetinaNet FP32, small OpenImages, ONNX runtime and CPU:
@@ -273,7 +246,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --model=retinanet \
       --backend=onnxruntime \
@@ -291,14 +264,14 @@ in [these tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials/
 successfully validated at the Student Cluster Competition at SuperComputing'22.
 
 
-## Modular CM containers
+# Modular CM containers
 
 Check prototypes of modular CM containers for MLPerf [here](modular-cm-containers).
 
 
 # The next steps
 
-You are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+You are welcome to join the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
 to contribute to this project and continue optimizing this benchmark and prepare an official submission 
 for MLPerf inference v3.0 (March 2023) with the help of the community.
 

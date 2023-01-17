@@ -10,12 +10,12 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
-  * [ Variations](#variations)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -35,6 +35,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
 * CM "database" tags to find this script: *app,loadgen,generic,loadgen-generic,python*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -86,24 +87,70 @@ ___
 ### Customization
 
 
+#### Variations
+
+  * Group "**backend**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_onnxruntime`** (default)
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `onnxruntime`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**device**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_cpu`** (default)
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `cpu`
+      - Workflow:
+    * `_cuda`
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `gpu`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**models**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_resnet50`
+      - Environment variables:
+        - *CM_MODEL*: `resnet50`
+      - Workflow:
+    * `_retinanet`
+      - Environment variables:
+        - *CM_MODEL*: `retinanet`
+      - Workflow:
+
+    </details>
+
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**runner**=value --> **CM_MLPERF_RUNNER**=value
 * --**concurrency**=value --> **CM_MLPERF_CONCURRENCY**=value
 * --**ep**=value --> **CM_MLPERF_EXECUTION_PROVIDER**=value
-* --**intraop**=value --> **CM_MLPERF_INTRAOP**=value
-* --**interop**=value --> **CM_MLPERF_INTEROP**=value
 * --**execmode**=value --> **CM_MLPERF_EXEC_MODE**=value
+* --**interop**=value --> **CM_MLPERF_INTEROP**=value
+* --**intraop**=value --> **CM_MLPERF_INTRAOP**=value
 * --**modelpath**=value --> **CM_ML_MODEL_FILE_WITH_PATH**=value
+* --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
+* --**runner**=value --> **CM_MLPERF_RUNNER**=value
+* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "output_dir":"..."}
+r=cm.access({... , "concurrency":...}
 ```
 
 </details>
@@ -117,52 +164,6 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 * CM_MLPERF_EXECUTION_MODE: **parallel**
 * CM_MLPERF_BACKEND: **onnxruntime**
-
-</details>
-
-
-#### Variations
-
-  * Group "**backend**"
-<details>
-<summary>Click here to expand this section.</summary>
-
-    * **`_onnxruntime`** (default)
-      - Environment variables:
-        - *CM_MLPERF_BACKEND*: `onnxruntime`
-      - Workflow:
-
-</details>
-
-
-  * Group "**device**"
-<details>
-<summary>Click here to expand this section.</summary>
-
-    * **`_cpu`** (default)
-      - Environment variables:
-        - *CM_MLPERF_DEVICE*: `cpu`
-      - Workflow:
-    * `_cuda`
-      - Environment variables:
-        - *CM_MLPERF_DEVICE*: `gpu`
-      - Workflow:
-
-</details>
-
-
-  * Group "**models**"
-<details>
-<summary>Click here to expand this section.</summary>
-
-    * `_resnet50`
-      - Environment variables:
-        - *CM_MODEL*: `resnet50`
-      - Workflow:
-    * `_retinanet`
-      - Environment variables:
-        - *CM_MODEL*: `retinanet`
-      - Workflow:
 
 </details>
 
@@ -215,12 +216,11 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_MLPERF_***
 #### New environment keys auto-detected from customize
 
-* **CM_RUN_OPTS**
 ___
 ### Maintainers
 

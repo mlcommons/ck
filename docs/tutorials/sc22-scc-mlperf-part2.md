@@ -195,7 +195,7 @@ together with the community across different ML engines, models, data sets and s
 ### Summary
 
 You can now test the end-to-end benchmarking and submission with the C++ implementation and ONNX on CPU
-using Python virtual environment as follows (just substitute "OctoML" with your name or organization or anything else): 
+using Python virtual environment as follows (just substitute "Community" with your name or organization or anything else): 
 
 ```bash
 
@@ -210,7 +210,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --lang=cpp \
       --hw_name=default \
       --model=retinanet \
@@ -397,7 +397,7 @@ No errors encountered during test.
 
 
 You can now run MLPerf in the submission mode (accuracy and performance) on GPU using the following CM command with Python virtual env
-(just substitute "OctoML" with your organization or any other identifier):
+(just substitute "Community" with your organization or any other identifier):
 
 ```bash
 cm pull repo mlcommons@ck
@@ -411,7 +411,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --lang=python \
       --hw_name=default \
       --model=retinanet \
@@ -434,7 +434,7 @@ In case of a successfull run, you should see your crowd-testing results at this 
 
 After installing and detecting CUDA using CM in the previous section, you can also 
 run the C++ implementation of the MLPerf vision benchmark with CUDA as follows
-(just substitute "OctoML" with your organization or any other identifier):
+(just substitute "Community" with your organization or any other identifier):
 
 
 ```bash
@@ -450,7 +450,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --lang=cpp \
       --hw_name=default \
       --model=retinanet \
@@ -487,7 +487,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --adr.compiler.tags=gcc \
       --adr.ml-engine-torchvision.version_max=0.12.1 \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --lang=python \
       --hw_name=default \
       --model=retinanet \

@@ -31,13 +31,26 @@
 across diverse ML models, data sets, frameworks, libraries, run-time systems and platforms
 using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck).
 
-It is assembled from reusable and interoperable [MLOps and DevOps CM scripts](../list_of_scripts.md)
+It is assembled from reusable and interoperable [CM scripts for DevOps and MLOps](../list_of_scripts.md)
 being developed by the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md).
+
+It is a higher-level wrapper to several other CM scripts modularizing the MLPerf inference benchmark:
+* [Reference Python implementation](../app-mlperf-inference-reference)
+* [Universal C++ implementation](../app-mlperf-inference-cpp)
+* [TFLite C++ implementation](../app-mlperf-inference-tflite-cpp)
+* [NVidia optimized implementation](app-mlperf-inference-nvidia)
+
+See the current coverage of different models, devices and backends [here](README-extra.md#current-coverage).
 
 See [this SCC'23 tutorial](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md) 
 to use this script to run a reference (unoptimized) Python implementation of the MLPerf object detection benchmark 
 with RetinaNet model, Open Images dataset, ONNX runtime and CPU target.
 
+See this [CM script](../run-mlperf-inference-app) to automate and validate your MLPerf inference submission.
+
+Get in touch with the [open taskforce on education and reproducibility at MLCommons](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+if you need help with your submission or if you would like to participate in further modularization of MLPerf 
+and collaborative design space exploration and optimization of ML Systems.
 
 
 See [more info](README-extra.md).
@@ -372,7 +385,6 @@ ___
 #### Input description
 
 * --**hw_name** "Valid value - any system description which has a config file (under same name) defined [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/configs)"
-* --**imagenet_path** "Location of directory containing Imagenet which cannot be downloaded from a public URL"
 * --**max_batchsize** "Maximum batchsize to be used"
 * --**mode** "Valid values: {performance, accuracy}"
 * --**num_threads** "Number of CPU threads to launch the application with"

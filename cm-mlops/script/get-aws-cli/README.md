@@ -13,7 +13,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -33,6 +33,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aws-cli)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,aws-cli,aws,cli*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -109,14 +110,13 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aws-cli/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_AWS_***
 #### New environment keys auto-detected from customize
 
 * **CM_AWS_CACHE_TAGS**
 * **CM_AWS_INSTALLED_PATH**
-* **CM_REQUIRE_INSTALL**
 ___
 ### Maintainers
 

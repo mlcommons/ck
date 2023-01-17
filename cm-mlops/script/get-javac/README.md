@@ -10,12 +10,12 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
-  * [ Variations](#variations)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -35,6 +35,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-javac)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,javac*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -86,6 +87,20 @@ ___
 ### Customization
 
 
+#### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_install`
+      - Environment variables:
+        - *CM_JAVAC_PREBUILT_INSTALL*: `on`
+      - Workflow:
+
+    </details>
+
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
@@ -95,7 +110,7 @@ ___
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "install":"..."}
+r=cm.access({... , "install":...}
 ```
 
 </details>
@@ -111,20 +126,6 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 * CM_JAVAC_PREBUILT_BUILD: **36**
 * CM_JAVAC_PREBUILT_URL: **https://download.java.net/openjdk/jdk${CM_JAVAC_PREBUILT_VERSION}/ri/**
 * CM_JAVAC_PREBUILT_FILENAME: **openjdk-${CM_JAVAC_PREBUILT_VERSION}+${CM_JAVAC_PREBUILT_BUILD}_${CM_JAVAC_PREBUILT_HOST_OS}-x64_bin**
-
-</details>
-
-
-#### Variations
-
-  * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
-
-    * `_install`
-      - Environment variables:
-        - *CM_JAVAC_PREBUILT_INSTALL*: `on`
-      - Workflow:
 
 </details>
 
@@ -144,7 +145,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-javac/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **+PATH**
 * **CM_JAVAC_***

@@ -10,13 +10,13 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
-  * [ Variations](#variations)
 * [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -25,6 +25,16 @@
 *Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
 ### Description
+
+This portable CM (CK2) script provides a unified and portable interface to the MLPerf inference benchmark 
+modularized by other [portable CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
+being developed by the open [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+
+It is a higher-level wrapper that automatically generates the command line for the [universal MLPerf inference script](../app-mlperf-inference)
+to run MLPerf scenarios for a given ML task, model, runtime and device, and prepare and validate submissions.
+
+Check these [tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md) from the Student Cluster Competition
+at Supercomputing'22 to understand how to use this script to run the MLPerf inference benchmark and automate submissions.
 
 
 See [more info](README-extra.md).
@@ -36,6 +46,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -87,70 +98,11 @@ ___
 ### Customization
 
 
-#### Script flags mapped to environment
-<details>
-<summary>Click here to expand this section.</summary>
-
-* --**lang**=value --> **CM_MLPERF_LANG**=value
-* --**device**=value --> **CM_MLPERF_DEVICE**=value
-* --**submitter**=value --> **CM_MLPERF_SUBMITTER**=value
-* --**backend**=value --> **CM_MLPERF_BACKEND**=value
-* --**model**=value --> **CM_MLPERF_MODEL**=value
-* --**run_style**=value --> **CM_MLPERF_RUN_STYLE**=value
-* --**rerun**=value --> **CM_RERUN**=value
-* --**hw_name**=value --> **CM_HW_NAME**=value
-* --**imagenet_path**=value --> **IMAGENET_PATH**=value
-* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
-* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**num_threads**=value --> **CM_NUM_THREADS**=value
-* --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
-* --**results_dir**=value --> **OUTPUT_BASE_DIR**=value
-* --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
-* --**power**=value --> **CM_SYSTEM_POWER**=value
-* --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**quantized**=value --> **CM_MLPERF_QUANTIZATION**=value
-* --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
-* --**run_checker**=value --> **CM_RUN_SUBMISSION_CHECKER**=value
-* --**skip_truncation**=value --> **CM_SKIP_TRUNCATE_ACCURACY**=value
-* --**clean**=value --> **CM_MLPERF_CLEAN_ALL**=value
-* --**new_tvm_model**=value --> **CM_MLPERF_DELETE_COMPILED_MODEL**=value
-* --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
-* --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
-* --**server_target_qps**=value --> **CM_MLPERF_LOADGEN_SERVER_TARGET_QPS**=value
-* --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
-* --**singlestream_target_latency**=value --> **CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY**=value
-* --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "lang":"..."}
-```
-
-</details>
-
-#### Default environment
-
-<details>
-<summary>Click here to expand this section.</summary>
-
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
-
-* CM_BATCH_COUNT: **1**
-* CM_BATCH_SIZE: **1**
-* CM_OUTPUT_FOLDER_NAME: **test_results**
-* CM_MLPERF_RUN_STYLE: **test**
-* CM_TEST_QUERY_COUNT: **5**
-
-</details>
-
-
 #### Variations
 
   * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_all-modes`
       - Environment variables:
@@ -199,10 +151,70 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_RUN_MLPERF_ACCURACY*: `on`
       - Workflow:
 
+    </details>
+
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**backend**=value --> **CM_MLPERF_BACKEND**=value
+* --**clean**=value --> **CM_MLPERF_CLEAN_ALL**=value
+* --**device**=value --> **CM_MLPERF_DEVICE**=value
+* --**execution_mode**=value --> **CM_MLPERF_EXECUTION_MODE**=value
+* --**hw_name**=value --> **CM_HW_NAME**=value
+* --**imagenet_path**=value --> **IMAGENET_PATH**=value
+* --**implementation**=value --> **CM_MLPERF_IMPLEMENTATION**=value
+* --**lang**=value --> **CM_MLPERF_IMPLEMENTATION**=value
+* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
+* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
+* --**model**=value --> **CM_MLPERF_MODEL**=value
+* --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
+* --**new_tvm_model**=value --> **CM_MLPERF_DELETE_COMPILED_MODEL**=value
+* --**num_threads**=value --> **CM_NUM_THREADS**=value
+* --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
+* --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
+* --**power**=value --> **CM_SYSTEM_POWER**=value
+* --**precision**=value --> **CM_MLPERF_MODEL_PRECISION**=value
+* --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
+* --**rerun**=value --> **CM_RERUN**=value
+* --**results_dir**=value --> **OUTPUT_BASE_DIR**=value
+* --**run_checker**=value --> **CM_RUN_SUBMISSION_CHECKER**=value
+* --**run_style**=value --> **CM_MLPERF_EXECUTION_MODE**=value
+* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
+* --**server_target_qps**=value --> **CM_MLPERF_LOADGEN_SERVER_TARGET_QPS**=value
+* --**singlestream_target_latency**=value --> **CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY**=value
+* --**skip_truncation**=value --> **CM_SKIP_TRUNCATE_ACCURACY**=value
+* --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
+* --**submitter**=value --> **CM_MLPERF_SUBMITTER**=value
+* --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
+* --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
+* --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "backend":...}
+```
+
 </details>
 
-___
-### Versions
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* CM_BATCH_COUNT: **1**
+* CM_BATCH_SIZE: **1**
+* CM_OUTPUT_FOLDER_NAME: **test_results**
+* CM_MLPERF_RUN_STYLE: **test**
+* CM_TEST_QUERY_COUNT: **5**
+
+</details>
+
+#### Versions
 * master
 * r2.1
 ___
@@ -227,25 +239,10 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_BACKEND_VERSION**
-* **CM_MLPERF_CLEAN_SUBMISSION_DIR**
-* **CM_MLPERF_DEVICE**
-* **CM_MLPERF_LOADGEN_COMPLIANCE**
-* **CM_MLPERF_LOADGEN_COMPLIANCE_TEST**
-* **CM_MLPERF_LOADGEN_EXTRA_OPTIONS**
-* **CM_MLPERF_LOADGEN_MODE**
-* **CM_MLPERF_LOADGEN_MODES**
-* **CM_MLPERF_LOADGEN_SCENARIO**
-* **CM_MLPERF_LOADGEN_SCENARIOS**
-* **CM_MLPERF_LOADGEN_TARGET_LATENCY**
-* **CM_MLPERF_LOADGEN_TARGET_QPS**
-* **CM_MLPERF_RESULTS_DIR**
-* **CM_MODEL**
-* **CM_RERUN**
 ___
 ### Maintainers
 

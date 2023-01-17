@@ -14,7 +14,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *generate,submission,mlperf,mlperf-inference,inference,mlcommons,inference-submission,mlperf-inference-submission,mlcommons-inference-submission*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -89,17 +90,17 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* --**clean**=value --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**=value
 * --**results_dir**=value --> **CM_MLPERF_RESULTS_DIR**=value
 * --**run_checker**=value --> **CM_RUN_SUBMISSION_CHECKER**=value
 * --**run_style**=value --> **CM_MLPERF_RUN_STYLE**=value
 * --**skip_truncation**=value --> **CM_SKIP_TRUNCATE_ACCURACY**=value
 * --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
-* --**clean**=value --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "results_dir":"..."}
+r=cm.access({... , "clean":...}
 ```
 
 </details>
@@ -144,13 +145,10 @@ ___
        - CM script: [tar-my-folder](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_SUBMISSION_DIR**
-* **CM_MLPERF_SUBMITTER**
-* **CM_TAR_INPUT_DIR**
 ___
 ### Maintainers
 

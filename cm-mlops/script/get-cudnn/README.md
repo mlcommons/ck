@@ -10,11 +10,12 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Input description](#input-description)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -31,6 +32,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,cudnn,nvidia*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -82,6 +84,16 @@ ___
 ### Customization
 
 
+#### Input description
+
+* --**input** "Path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)"
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "input":...}
+```
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
@@ -91,7 +103,7 @@ ___
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "input":"..."}
+r=cm.access({... , "input":...}
 ```
 
 </details>
@@ -125,7 +137,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **+CPLUS_INCLUDE_PATH**
 * **+C_INCLUDE_PATH**

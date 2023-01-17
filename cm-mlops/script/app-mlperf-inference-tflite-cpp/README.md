@@ -10,12 +10,12 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
-  * [ Variations](#variations)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -32,6 +32,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *app,mlcommons,mlperf,inference,tflite-cpp*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -83,6 +84,57 @@ ___
 ### Customization
 
 
+#### Variations
+
+  * Group "**backend**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_tf`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `tf`
+      - Workflow:
+    * **`_tflite`** (default)
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `tflite`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**device**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_cpu`** (default)
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `cpu`
+      - Workflow:
+    * `_gpu`
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `gpu`
+        - *CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**model**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_mobilenet`
+      - Environment variables:
+        - *CM_MODEL*: `mobilenet`
+      - Workflow:
+    * **`_resnet50`** (default)
+      - Environment variables:
+        - *CM_MODEL*: `resnet50`
+      - Workflow:
+
+    </details>
+
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
@@ -98,7 +150,7 @@ ___
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "count":"..."}
+r=cm.access({... , "count":...}
 ```
 
 </details>
@@ -115,57 +167,6 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 * CM_LOADGEN_BUFFER_SIZE: **1024**
 * CM_MLPERF_LOADGEN_MODE: **accuracy**
 * CM_FAST_COMPILATION: **yes**
-
-</details>
-
-
-#### Variations
-
-  * Group "**backend**"
-<details>
-<summary>Click here to expand this section.</summary>
-
-    * `_tf`
-      - Environment variables:
-        - *CM_MLPERF_BACKEND*: `tf`
-      - Workflow:
-    * **`_tflite`** (default)
-      - Environment variables:
-        - *CM_MLPERF_BACKEND*: `tflite`
-      - Workflow:
-
-</details>
-
-
-  * Group "**device**"
-<details>
-<summary>Click here to expand this section.</summary>
-
-    * **`_cpu`** (default)
-      - Environment variables:
-        - *CM_MLPERF_DEVICE*: `cpu`
-      - Workflow:
-    * `_gpu`
-      - Environment variables:
-        - *CM_MLPERF_DEVICE*: `gpu`
-        - *CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
-      - Workflow:
-
-</details>
-
-
-  * Group "**model**"
-<details>
-<summary>Click here to expand this section.</summary>
-
-    * `_mobilenet`
-      - Environment variables:
-        - *CM_MODEL*: `mobilenet`
-      - Workflow:
-    * **`_resnet50`** (default)
-      - Environment variables:
-        - *CM_MODEL*: `resnet50`
-      - Workflow:
 
 </details>
 
@@ -214,17 +215,10 @@ ___
        - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 
-* **CM_CXX_SOURCE_FILES**
-* **CM_LINKER_LANG**
-* **CM_MLPERF_CONF**
-* **CM_MLPERF_DEVICE**
-* **CM_MLPERF_USER_CONF**
-* **CM_RUN_DIR**
-* **CM_SOURCE_FOLDER_PATH**
 ___
 ### Maintainers
 

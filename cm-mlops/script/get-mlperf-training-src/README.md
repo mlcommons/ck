@@ -10,12 +10,12 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Default environment](#default-environment)
   * [ Variations](#variations)
+  * [ Default environment](#default-environment)
 * [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -35,6 +35,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,src,source,training,training-src,training-source,mlperf,mlcommons*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -85,27 +86,12 @@ if r['return']>0:
 ___
 ### Customization
 
-#### Default environment
-
-<details>
-<summary>Click here to expand this section.</summary>
-
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
-
-* CM_GIT_CHECKOUT: **master**
-* CM_GIT_DEPTH: **--depth 4**
-* CM_GIT_PATCH: **no**
-* CM_GIT_RECURSE_SUBMODULES: ** --recurse-submodules**
-* CM_GIT_URL: **https://github.com/mlcommons/training.git**
-
-</details>
-
 
 #### Variations
 
   * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * **`_default`** (default)
       - Environment variables:
@@ -132,10 +118,24 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_GIT_DEPTH*: `--depth 5`
       - Workflow:
 
+    </details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* CM_GIT_CHECKOUT: **master**
+* CM_GIT_DEPTH: **--depth 4**
+* CM_GIT_PATCH: **no**
+* CM_GIT_RECURSE_SUBMODULES: ** --recurse-submodules**
+* CM_GIT_URL: **https://github.com/mlcommons/training.git**
+
 </details>
 
-___
-### Versions
+#### Versions
 Default version: *master*
 
 * custom
@@ -158,16 +158,13 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-training-src/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **+PYTHONPATH**
 * **CM_MLPERF_TRAINING_***
 * **CM_MLPERF_TRAINING_LAST_RELEASE**
 #### New environment keys auto-detected from customize
 
-* **CM_GIT_CHECKOUT**
-* **CM_GIT_DEPTH**
-* **CM_GIT_RECURSE_SUBMODULES**
 * **CM_MLPERF_TRAINING_SOURCE**
 ___
 ### Maintainers
