@@ -111,7 +111,7 @@ variation_groups_order:
   - implementation
   - backend
   - device
-  - models
+  - model
   - precision
   - execution-mode
   - reproducibility
@@ -203,7 +203,7 @@ variations:
   
   resnet50:
     group:
-      models
+      model
     default:
       true
     env:
@@ -228,7 +228,7 @@ variations:
 
   retinanet:
     group:
-      models
+      model
     env:
       CM_MODEL:
         retinanet
@@ -249,7 +249,7 @@ variations:
 
   3d-unet-99:
     group:
-      models
+      model
     base:
     - 3d-unet_
     env:
@@ -261,7 +261,7 @@ variations:
 
   3d-unet-99.9:
     group:
-      models
+      model
     base:
     - 3d-unet_
     env:
@@ -286,7 +286,7 @@ variations:
 
   rnnt:
     group:
-      models
+      model
     env:
       CM_MODEL:
         rnnt
@@ -323,7 +323,7 @@ variations:
 
   bert-99:
     group:
-      models
+      model
     base:
     - bert_
     env:
@@ -335,7 +335,7 @@ variations:
 
   bert-99.9:
     group:
-      models
+      model
     base:
     - bert_
     env:
@@ -494,26 +494,6 @@ variations:
       CM_RERUN: 'yes'
       CM_SKIP_SYS_UTILS: 'yes'
       CM_TEST_QUERY_COUNT: '100'
-
-valid_variation_combinations:
-  -
-    - resnet50
-    - cpu
-  -
-    - resnet50
-    - cuda
-  -
-    - retinanet
-  -
-    - bert-99.9
-  -
-    - bert-99
-  -
-    - rnnt
-  -
-    - 3d-unet-99
-  -
-    - 3d-unet-99.9
 
 invalid_variation_combinations:
   -

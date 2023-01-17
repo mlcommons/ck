@@ -13,9 +13,10 @@
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
   * [ Variations](#variations)
+  * [ Unsupported or invalid variation combinations](#unsupported-or-invalid-variation-combinations)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -267,7 +268,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
     </details>
 
 
-  * Group "**models**"
+  * Group "**model**"
     <details>
     <summary>Click here to expand this section.</summary>
 
@@ -412,6 +413,13 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
     </details>
 
+
+#### Unsupported or invalid variation combinations
+
+
+
+* `_resnet50,_pytorch`
+* `_retinanet,_tf`
 ___
 ### Script workflow, dependencies and native scripts
 
@@ -442,12 +450,11 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_MLPERF_***
 #### New environment keys auto-detected from customize
 
-* **CM_MAX_EXAMPLES**
 * **CM_MLPERF_ACCURACY_RESULTS_DIR**
 * **CM_MLPERF_CONF**
 * **CM_MLPERF_LOADGEN_EXTRA_OPTIONS**
@@ -460,8 +467,6 @@ ___
 * **CM_MLPERF_RESULTS_DIR**
 * **CM_MLPERF_RUN_STYLE**
 * **CM_MLPERF_USER_CONF**
-* **CM_NUM_THREADS**
-* **CM_SKIP_RUN**
 ___
 ### Maintainers
 

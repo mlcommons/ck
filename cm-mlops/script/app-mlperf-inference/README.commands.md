@@ -28,6 +28,10 @@ and the full set of dependencies can be seen [here](https://github.com/mlcommons
 We can run other variants using the following commands
 
 ### Important options
+
+input_description
+
+
 * `--mode`. Valid values: {performance, accuracy}
 * `--scenario`. Valid values: {Offline, Server, SingleStream, MultiStream}
 * `--hw_name`. Valid value - any system description which has a config file (under same name) defined [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/configs)

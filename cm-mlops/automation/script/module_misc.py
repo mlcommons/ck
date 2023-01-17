@@ -657,8 +657,8 @@ def doc(i):
 
 
                 md_script_readme += [
-                             '<details>',
-                             '<summary>Click here to expand this section.</summary>',
+                             '    <details>',
+                             '    <summary>Click here to expand this section.</summary>',
                              ''
                              ]
 
@@ -687,7 +687,7 @@ def doc(i):
                         md_script_readme.append('    '+x)
 
                 md_script_readme.append('')
-                md_script_readme.append('</details>')
+                md_script_readme.append('    </details>')
                 md_script_readme.append('')
 
 #            if len(default_variations)>0:
@@ -699,11 +699,45 @@ def doc(i):
 #                    md_script_readme.append('* {}'.format(variation_key))
 
 
+        # Check if has invalid_variation_combinations
+        vvc = meta.get('invalid_variation_combinations', [])
+        if len(vvc)>0:
+            x = 'Unsupported or invalid variation combinations'
+            md_script_readme.append('')
+            md_script_readme.append('#### '+x)
+            md_script_readme.append('')
+            md_script_readme.append('')
+            md_script_readme.append('')
+            toc_readme.append(' '+x)
+            
+            for v in vvc:
+                vv = ['_'+x for x in v]
+                md_script_readme.append('* `'+','.join(vv)+'`')
 
+
+        
+        # Check if has valid_variation_combinations
+        vvc = meta.get('valid_variation_combinations', [])
+        if len(vvc)>0:
+            x = 'Valid variation combinations checked by the community'
+            md_script_readme.append('')
+            md_script_readme.append('#### '+x)
+            md_script_readme.append('')
+            md_script_readme.append('')
+            md_script_readme.append('')
+            toc_readme.append(' '+x)
+            
+            for v in vvc:
+                vv = ['_'+x for x in v]
+                md_script_readme.append('* `'+','.join(vv)+'`')
+
+
+        
+        
         if len(version_keys)>0 or default_version!='':
             x = 'Versions'
-            md_script_readme.append('___')
-            md_script_readme.append('### '+x)
+#            md_script_readme.append('___')
+            md_script_readme.append('#### '+x)
             toc_readme.append(x)
 
             if default_version!='':
@@ -807,7 +841,7 @@ def doc(i):
         md_script_readme.append('### '+x)
         toc_readme.append(x)
         
-        x = 'New environment keys'
+        x = 'New environment keys (filter)'
         md_script_readme.append('#### '+x)
         toc_readme.append(x)
 
@@ -815,12 +849,28 @@ def doc(i):
         for key in sorted(new_env_keys):
             md_script_readme.append('* **{}**'.format(key))
 
+        # Pass found_output_env through above filter
+        found_output_env_filtered = []
+
+        import fnmatch
+
+        for key in found_output_env:
+            add = False
+
+            for f in new_env_keys:
+                if fnmatch.fnmatch(key, f):
+                    add = True
+                    break
+
+            if add:
+                found_output_env_filtered.append(key)
+                
         x = 'New environment keys auto-detected from customize'
         md_script_readme.append('#### '+x)
         toc_readme.append(x)
 
         md_script_readme.append('')
-        for key in sorted(found_output_env):
+        for key in sorted(found_output_env_filtered):
             md_script_readme.append('* **{}**'.format(key))
 
 

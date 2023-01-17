@@ -147,11 +147,38 @@ cm rm cache -f
 
 
 
+### Native commands
+To run the Python implementation of the MLPerf Reference Implementation we can do
+``` bash
+cm run script --tags=app,mlperf,inference,reference,_python,_resnet50,_tf,_cpu \
+--output_dir=$HOME/results \
+--add_deps.imagenet.tags=_full \
+--imagenet_path=$HOME/datasets/imagenet-2012-val \
+--mode=performance \
+--scenario=Offline \
+--hw_name=gcp-n2-standard-80
+```
+
+Full set of tags for the script can be seen [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/_cm.json#L191)
+and the full set of dependencies can be seen [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-vision-reference/_cm.json#L5).
+`CM_HW_NAME` is used to pick the runtime configuration value of the system as spefified for a given SUT [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sut-mlc-configs)
+ 
+
+
 ### Using Docker
 
 Please check the prototype of Docker containers with the CM automation meta-framework 
 for modular MLPerf [here](https://github.com/mlcommons/ck/tree/master/docker) 
 (on-going work).
+
+```bash
+docker build -f dockerfiles/resnet50/ubuntu_20.04_python_onnxruntime_cpu.Dockerfile -t resnet50_onnxruntime:ubuntu20.04 .
+```
+
+```bash
+docker run -it --rm resnet50_onnxruntime:ubuntu20.04 -c "cm run script --tags=app,mlperf,inference,reference,python_resnet50,_onnxruntime,_cpu --scenario=Offline --mode=accuracy"
+```
+
 
 
 
