@@ -10,11 +10,11 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Default environment](#default-environment)
   * [ Variations](#variations)
+  * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-mobilenet)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,ml-model,mobilenet,ml-model-mobilenet,image-classification*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -84,22 +85,12 @@ if r['return']>0:
 ___
 ### Customization
 
-#### Default environment
-
-<details>
-<summary>Click here to expand this section.</summary>
-
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
-
-
-</details>
-
 
 #### Variations
 
   * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * **`_onnx`** (default)
       - Environment variables:
@@ -166,12 +157,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
     * `_tflite`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**opset-version**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_opset-11`
       - Environment variables:
@@ -182,12 +173,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_ML_MODEL_ONNX_OPSET*: `8`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**precision**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_fp32`
       - Environment variables:
@@ -202,12 +193,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `int8`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**source**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_from.google`
       - Environment variables:
@@ -217,6 +208,20 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
       - Environment variables:
         - *CM_DOWNLOAD_SOURCE*: `zenodo`
       - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_onnx`
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
 
 </details>
 
@@ -232,7 +237,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-mobilenet/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_ML_MODEL_***
 #### New environment keys auto-detected from customize
@@ -240,7 +245,6 @@ ___
 * **CM_ML_MODEL_FILE**
 * **CM_ML_MODEL_FILE_WITH_PATH**
 * **CM_ML_MODEL_PATH**
-* **CM_STARTING_WEIGHTS_FILENAME**
 ___
 ### Maintainers
 

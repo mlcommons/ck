@@ -14,7 +14,7 @@
 * [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,spec,ptd,ptdaemon,power,daemon,power-daemon,mlperf,mlcommons*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -100,8 +101,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 </details>
 
-___
-### Versions
+#### Versions
 Default version: *main*
 
 * custom
@@ -124,15 +124,12 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_MLPERF_PTD_PATH**
 * **CM_SPEC_PTD_PATH**
 #### New environment keys auto-detected from customize
 
-* **CM_GIT_CHECKOUT**
-* **CM_GIT_DEPTH**
-* **CM_GIT_RECURSE_SUBMODULES**
 * **CM_MLPERF_PTD_PATH**
 * **CM_SPEC_PTD_PATH**
 ___

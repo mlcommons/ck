@@ -14,7 +14,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *remote,run,cmds,remote-run,remote-run-cmds,ssh-run,ssh*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -89,19 +90,19 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**host**=value --> **CM_SSH_HOST**=value
-* --**port**=value --> **CM_SSH_PORT**=value
-* --**skip_host_verify**=value --> **CM_SSH_SKIP_HOST_VERIFY**=value
 * --**client_refresh**=value --> **CM_SSH_CLIENT_REFRESH**=value
-* --**run_cmds**=value --> **CM_SSH_RUN_COMMANDS**=value
-* --**user**=value --> **CM_SSH_USER**=value
+* --**host**=value --> **CM_SSH_HOST**=value
 * --**password**=value --> **CM_SSH_PASSWORD**=value
+* --**port**=value --> **CM_SSH_PORT**=value
+* --**run_cmds**=value --> **CM_SSH_RUN_COMMANDS**=value
+* --**skip_host_verify**=value --> **CM_SSH_SKIP_HOST_VERIFY**=value
 * --**ssh_key_file**=value --> **CM_SSH_KEY_FILE**=value
+* --**user**=value --> **CM_SSH_USER**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "host":"..."}
+r=cm.access({... , "client_refresh":...}
 ```
 
 </details>
@@ -135,11 +136,10 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 
-* **CM_SSH_CMD**
 ___
 ### Maintainers
 

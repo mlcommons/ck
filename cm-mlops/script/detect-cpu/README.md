@@ -13,7 +13,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -33,6 +33,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *detect,cpu,detect-cpu,info*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -108,7 +109,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_HOST_CPU_***
 * **CM_HOST_DISK_CAPACITY**
@@ -118,8 +119,6 @@ ___
 * **CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET**
 * **CM_HOST_CPU_THREADS_PER_CORE**
 * **CM_HOST_CPU_TOTAL_LOGICAL_CORES**
-* **CM_HOST_OS_FLAVOR**
-* **CM_HOST_OS_TYPE**
 ___
 ### Maintainers
 

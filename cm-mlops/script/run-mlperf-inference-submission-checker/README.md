@@ -10,12 +10,12 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
-  * [ Variations](#variations)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -35,6 +35,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -86,6 +87,20 @@ ___
 ### Customization
 
 
+#### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_short-run`
+      - Environment variables:
+        - *CM_MLPERF_SHORT_RUN*: `yes`
+      - Workflow:
+
+    </details>
+
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
@@ -97,7 +112,7 @@ ___
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "skip_compliance":"..."}
+r=cm.access({... , "skip_compliance":...}
 ```
 
 </details>
@@ -110,20 +125,6 @@ r=cm.access({... , "skip_compliance":"..."}
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
 * CM_MLPERF_SHORT_RUN: **no**
-
-</details>
-
-
-#### Variations
-
-  * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
-
-    * `_short-run`
-      - Environment variables:
-        - *CM_MLPERF_SHORT_RUN*: `yes`
-      - Workflow:
 
 </details>
 
@@ -152,12 +153,10 @@ ___
        - CM script: [publish-results-to-dashboard](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/publish-results-to-dashboard)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_SHORT_RUN**
-* **CM_RUN_CMD**
 ___
 ### Maintainers
 

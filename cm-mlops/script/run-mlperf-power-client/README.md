@@ -14,7 +14,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *run,mlc,mlcommons,mlperf,power,client,power-client*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -89,18 +90,18 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**log_dir**=value --> **CM_MLPERF_POWER_LOG_DIR**=value
-* --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
 * --**loadgen_logs_dir**=value --> **CM_MLPERF_LOADGEN_LOGS_DIR**=value
-* --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
-* --**run_cmd**=value --> **CM_MLPERF_RUN_CMD**=value
+* --**log_dir**=value --> **CM_MLPERF_POWER_LOG_DIR**=value
 * --**max_amps**=value --> **CM_MLPERF_POWER_MAX_AMPS**=value
 * --**max_volts**=value --> **CM_MLPERF_POWER_MAX_VOLTS**=value
+* --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
+* --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
+* --**run_cmd**=value --> **CM_MLPERF_RUN_CMD**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "log_dir":"..."}
+r=cm.access({... , "loadgen_logs_dir":...}
 ```
 
 </details>
@@ -141,12 +142,10 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_POWER_RUN_CMD**
-* **CM_MLPERF_RUN_CMD**
 ___
 ### Maintainers
 

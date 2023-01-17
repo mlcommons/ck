@@ -14,7 +14,7 @@
 * [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -31,6 +31,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *install,src,openssl,openssl-lib*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -91,8 +92,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 </details>
 
-___
-### Versions
+#### Versions
 Default version: *1.1.1*
 
 * 1.1.1
@@ -116,7 +116,7 @@ ___
        - CM script: [get-openssl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **+LD_LIBRARY_PATH**
 * **CM_OPENSSL_***

@@ -10,11 +10,11 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Default environment](#default-environment)
   * [ Variations](#variations)
+  * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -31,6 +31,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *program,benchmark,benchmark-program*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -81,24 +82,12 @@ if r['return']>0:
 ___
 ### Customization
 
-#### Default environment
-
-<details>
-<summary>Click here to expand this section.</summary>
-
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
-
-* CM_ENABLE_NUMACTL: **0**
-* CM_ENABLE_PROFILING: **0**
-
-</details>
-
 
 #### Variations
 
   * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_mlperf-power`
       - Environment variables:
@@ -117,6 +106,18 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         1. ***Read "deps" on other CM scripts***
            * get,profiler
              - *Warning: no scripts found*
+
+    </details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* CM_ENABLE_NUMACTL: **0**
+* CM_ENABLE_PROFILING: **0**
 
 </details>
 
@@ -137,17 +138,10 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 
-* **CM_BIN_NAME**
-* **CM_ENABLE_NUMACTL**
-* **CM_MLPERF_RUN_CMD**
-* **CM_RUN_CMD**
-* **CM_RUN_DIR**
-* **CM_RUN_PREFIX**
-* **CM_RUN_SUFFIX**
 ___
 ### Maintainers
 

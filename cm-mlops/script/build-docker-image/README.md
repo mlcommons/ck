@@ -14,7 +14,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *build,docker,image,docker-image,dockerimage*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -95,18 +96,18 @@ ___
 * --**docker_os_version**=value --> **CM_DOCKER_OS_VERSION**=value
 * --**dockerfile**=value --> **CM_DOCKERFILE_WITH_PATH**=value
 * --**gh_token**=value --> **CM_GH_TOKEN**=value
-* --**image_repo**=value --> **CM_DOCKER_IMAGE_REPO**=value
 * --**image_name**=value --> **CM_DOCKER_IMAGE_NAME**=value
+* --**image_repo**=value --> **CM_DOCKER_IMAGE_REPO**=value
 * --**image_tag**=value --> **CM_DOCKER_IMAGE_TAG**=value
-* --**script_tags**=value --> **CM_DOCKER_RUN_SCRIPT_TAGS**=value
-* --**real_run**=value --> **CM_REAL_RUN**=value
-* --**pre_run_cmds**=value --> **CM_DOCKER_PRE_RUN_COMMANDS**=value
 * --**post_run_cmds**=value --> **CM_DOCKER_POST_RUN_COMMANDS**=value
+* --**pre_run_cmds**=value --> **CM_DOCKER_PRE_RUN_COMMANDS**=value
+* --**real_run**=value --> **CM_REAL_RUN**=value
+* --**script_tags**=value --> **CM_DOCKER_RUN_SCRIPT_TAGS**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "cache":"..."}
+r=cm.access({... , "cache":...}
 ```
 
 </details>
@@ -140,12 +141,11 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-docker-image/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_DOCKER_***
 #### New environment keys auto-detected from customize
 
-* **CM_BUILD_DOCKERFILE**
 * **CM_DOCKER_BUILD_ARGS**
 * **CM_DOCKER_CACHE_ARG**
 * **CM_DOCKER_IMAGE_NAME**

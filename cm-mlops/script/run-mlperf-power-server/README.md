@@ -14,7 +14,7 @@
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -34,6 +34,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *run,mlc,mlcommons,mlperf,power,server,power-server*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -89,15 +90,15 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**interface_flag**=value --> **CM_MLPERF_POWER_INTERFACE_FLAG**=value
 * --**device_port**=value --> **CM_MLPERF_POWER_DEVICE_PORT**=value
 * --**device_type**=value --> **CM_MLPERF_POWER_DEVICE_TYPE**=value
+* --**interface_flag**=value --> **CM_MLPERF_POWER_INTERFACE_FLAG**=value
 * --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "interface_flag":"..."}
+r=cm.access({... , "device_port":...}
 ```
 
 </details>
@@ -140,7 +141,7 @@ ___
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 #### New environment keys auto-detected from customize
 

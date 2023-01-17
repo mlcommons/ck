@@ -14,7 +14,7 @@
 * [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -31,6 +31,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *install,script,bazel*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -91,8 +92,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 </details>
 
-___
-### Versions
+#### Versions
 Default version: *5.2.0*
 
 ___
@@ -113,15 +113,13 @@ ___
        - CM script: [get-bazel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bazel)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_BAZEL_***
 #### New environment keys auto-detected from customize
 
 * **CM_BAZEL_BIN_WITH_PATH**
 * **CM_BAZEL_INSTALLED_PATH**
-* **CM_GET_DEPENDENT_CACHED_PATH**
-* **CM_GIT_CHECKOUT**
 ___
 ### Maintainers
 

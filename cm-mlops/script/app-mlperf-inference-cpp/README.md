@@ -10,12 +10,12 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
-  * [ Variations](#variations)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
-* [New environment keys](#new-environment-keys)
+* [New environment keys (filter)](#new-environment-keys-(filter))
 * [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
 * [Maintainers](#maintainers)
 
@@ -35,6 +35,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
 * CM "database" tags to find this script: *app,mlcommons,mlperf,inference,cpp*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -86,46 +87,11 @@ ___
 ### Customization
 
 
-#### Script flags mapped to environment
-<details>
-<summary>Click here to expand this section.</summary>
-
-* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
-* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
-* --**mlperf_conf**=value --> **CM_MLPERF_CONF**=value
-* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
-* --**performance_sample_count**=value --> **CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**user_conf**=value --> **CM_MLPERF_USER_CONF**=value
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "count":"..."}
-```
-
-</details>
-
-#### Default environment
-
-<details>
-<summary>Click here to expand this section.</summary>
-
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
-
-* CM_BATCH_COUNT: **1**
-* CM_BATCH_SIZE: **1**
-* CM_FAST_COMPILATION: **yes**
-
-</details>
-
-
 #### Variations
 
   * Group "**device**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * **`_cpu`** (default)
       - Environment variables:
@@ -137,12 +103,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**framework**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * **`_onnxruntime`** (default)
       - Environment variables:
@@ -166,12 +132,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_MLPERF_BACKEND*: `tvm-onnx`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**model**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * **`_resnet50`** (default)
       - Environment variables:
@@ -181,6 +147,45 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
       - Environment variables:
         - *CM_MODEL*: `retinanet`
       - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_cpu,_onnxruntime,_resnet50`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
+* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
+* --**mlperf_conf**=value --> **CM_MLPERF_CONF**=value
+* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
+* --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
+* --**performance_sample_count**=value --> **CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT**=value
+* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
+* --**user_conf**=value --> **CM_MLPERF_USER_CONF**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "count":...}
+```
+
+</details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* CM_BATCH_COUNT: **1**
+* CM_BATCH_SIZE: **1**
+* CM_FAST_COMPILATION: **yes**
 
 </details>
 
@@ -239,21 +244,16 @@ ___
        - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
 ___
 ### Script output
-#### New environment keys
+#### New environment keys (filter)
 
 * **CM_DATASET_***
 * **CM_MLPERF_***
 #### New environment keys auto-detected from customize
 
-* **CM_CXX_SOURCE_FILES**
 * **CM_DATASET_LIST**
-* **CM_LINKER_LANG**
 * **CM_MLPERF_CONF**
 * **CM_MLPERF_DEVICE**
 * **CM_MLPERF_USER_CONF**
-* **CM_MODEL**
-* **CM_RUN_DIR**
-* **CM_SOURCE_FOLDER_PATH**
 ___
 ### Maintainers
 

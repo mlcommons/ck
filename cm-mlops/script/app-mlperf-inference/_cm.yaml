@@ -111,7 +111,7 @@ variation_groups_order:
   - implementation
   - backend
   - device
-  - models
+  - model
   - precision
   - execution-mode
   - reproducibility
@@ -203,7 +203,7 @@ variations:
   
   resnet50:
     group:
-      models
+      model
     default:
       true
     env:
@@ -228,7 +228,7 @@ variations:
 
   retinanet:
     group:
-      models
+      model
     env:
       CM_MODEL:
         retinanet
@@ -249,7 +249,7 @@ variations:
 
   3d-unet-99:
     group:
-      models
+      model
     base:
     - 3d-unet_
     env:
@@ -261,7 +261,7 @@ variations:
 
   3d-unet-99.9:
     group:
-      models
+      model
     base:
     - 3d-unet_
     env:
@@ -286,7 +286,7 @@ variations:
 
   rnnt:
     group:
-      models
+      model
     env:
       CM_MODEL:
         rnnt
@@ -323,7 +323,7 @@ variations:
 
   bert-99:
     group:
-      models
+      model
     base:
     - bert_
     env:
@@ -335,7 +335,7 @@ variations:
 
   bert-99.9:
     group:
-      models
+      model
     base:
     - bert_
     env:
@@ -495,26 +495,6 @@ variations:
       CM_SKIP_SYS_UTILS: 'yes'
       CM_TEST_QUERY_COUNT: '100'
 
-valid_variation_combinations:
-  -
-    - resnet50
-    - cpu
-  -
-    - resnet50
-    - cuda
-  -
-    - retinanet
-  -
-    - bert-99.9
-  -
-    - bert-99
-  -
-    - rnnt
-  -
-    - 3d-unet-99
-  -
-    - 3d-unet-99.9
-
 invalid_variation_combinations:
   -
     - resnet50
@@ -522,3 +502,14 @@ invalid_variation_combinations:
   -
     - retinanet
     - tf
+
+input_description:
+  mode: "Valid values: {performance, accuracy}"
+  scenario: "Valid values: {Offline, Server, SingleStream, MultiStream}"
+  hw_name: "Valid value - any system description which has a config file (under same name) defined [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/configs)"
+  output_dir: "Location where the outputs are produced"
+  num_threads: "Number of CPU threads to launch the application with"
+  max_batchsize: "Maximum batchsize to be used"
+  rerun: "Redo the run even if previous run files exist"
+  regenerate_files: "Regenerates measurement files including accuracy.txt files even if a previous run exists. This option is redundant if `--rerun` is used"
+  test_query_count: "Specifies the number of samples to be processed during a test run"
