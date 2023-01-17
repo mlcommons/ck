@@ -39,7 +39,7 @@ def preprocess(i):
     env['CM_CXX_SOURCE_FILES'] = ";".join(source_files)
 
     #if '+ CXXFLAGS' not in env:
-    env['+ CXXFLAGS'] = []
+    env['+ CXXFLAGS'] = []#"-O1 -fsanitize=address -fsanitize=undefined " ]
     env['+ CXXFLAGS'].append("-std=c++17")
 
     # add preprocessor flag like "#define CM_MODEL_RESNET50"
@@ -72,7 +72,15 @@ def preprocess(i):
         env['CM_MLPERF_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "mlperf.conf")
     if 'CM_MLPERF_USER_CONF' not in env:
         env['CM_MLPERF_USER_CONF'] = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "user.conf")
-    env['CM_RUN_SUFFIX'] = ''
+
+    run_suffix = ''
+    run_suffix += " --mlperf_conf_path "+env['CM_MLPERF_CONF']+ ' --user_conf_path '+ env['CM_MLPERF_USER_CONF'] \
+            + ' --model '+env['CM_MODEL'] \
+            + ' --scenario '+env['CM_MLPERF_LOADGEN_SCENARIO'] \
+            + ' --map_path ' + '/home/arjun/CM/repos/local/cache/31abfba987c242a6/preprocessed_files.txt' \
+            + ' --gpu_batch_size 256 --gpu_engines /home/arjun/CM/repos/local/cache/3a3306a7be984b6b/inference_results_v2.1/closed/NVIDIA/build/engines/amd4090/resnet50/Offline/resnet50-Offline-gpu-b256-.lwis_k_99_MaxP.plan --gpu_copy_streams 1  --logfile_outdir=/tmp/a --test_mode PerformanceOnly'
+    env['CM_RUN_SUFFIX'] = run_suffix
+
     return {'return':0}
 
 def postprocess(i):

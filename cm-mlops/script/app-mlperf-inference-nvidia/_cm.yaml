@@ -22,6 +22,7 @@ default_env:
   CM_BATCH_COUNT: '1'
   CM_BATCH_SIZE: '1'
   CM_FAST_COMPILATION: "yes"
+  CM_MLPERF_LOADGEN_SCENARIO: Offline
 
 # Map script inputs to environment variables
 input_mapping:
@@ -52,7 +53,7 @@ deps:
   - tags: get,sys-utils-cm
 
   # Detect CUDA
-  - tags: get,cuda
+  - tags: get,cuda,_cudnn
 
   # Detect Tensorrt
   - tags: get,tensorrt
@@ -95,6 +96,9 @@ deps:
   - enable_if_env:
       CM_MODEL:
       - resnet50
+    names:
+      - ml-model
+      - resnet50-model
     tags: get,ml-model,resnet50,_onnx
 
 
@@ -111,7 +115,15 @@ deps:
   - enable_if_env:
       CM_MODEL:
       - retinanet
+    names:
+      - ml-model
+      - retinanet-model
     tags: get,ml-model,retinanet,_onnx,_fp32
+  - skip_if_env:
+    CM_MLPERF_DEVICE:
+      -  cpu
+    tags: generate,nvidia,engine
+    names: tensorrt-engine-generator
 
 
   
@@ -132,8 +144,8 @@ post_deps:
 variations:
   # Target devices
   cpu:
-    group: device,
-    default: true,
+    group: device
+    default: true
     env:
       CM_MLPERF_DEVICE: cpu
   cuda:
@@ -142,19 +154,23 @@ variations:
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
 
   pytorch:
-    group: framework,
+    group: framework
     env:
       CM_MLPERF_BACKEND: pytorch
 
 
   # Reference MLPerf models
   resnet50:
-    group: model,
-    default: true,
+    group: model
+    default: true
     env:
       CM_MODEL: resnet50
 
   retinanet:
-    group: model,
+    group: model
     env:
       CM_MODEL: retinanet
+
+  batch_size.#:
+    env:
+      CM_MODEL_BATCH_SIZE: #
