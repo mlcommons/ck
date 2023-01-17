@@ -516,60 +516,6 @@ def doc(i):
         toc_readme.append(x)
 
         
-        # Check input flags
-        input_mapping = meta.get('input_mapping', {})
-        if len(input_mapping)>0:
-            x = 'Script flags mapped to environment'
-            md_script_readme.append('')
-            md_script_readme.append('#### '+x)
-            toc_readme.append(' '+x)
-
-            md_script_readme.append('<details>')
-            md_script_readme.append('<summary>Click here to expand this section.</summary>')
-
-            md_script_readme.append('')
-            key0 = ''
-            for key in input_mapping:
-                if key0=='': key0=key
-                value = input_mapping[key]
-                md_script_readme.append('* --**{}**=value --> **{}**=value'.format(key,value))
-
-            md_script_readme.append('')
-            md_script_readme.append('**Above CLI flags can be used in the Python CM API as follows:**')
-            md_script_readme.append('')
-
-            x = '```python\nr=cm.access({... , "'+key0+'":"..."}\n```'
-            md_script_readme.append(x)
-
-            md_script_readme.append('')
-            md_script_readme.append('</details>')
-            md_script_readme.append('')
-        
-        
-        # Default environment
-        default_env = meta.get('default_env',{})
-
-        x = 'Default environment'
-#        md_script_readme.append('___')
-        md_script_readme.append('#### '+x)
-        toc_readme.append(' '+x)
-
-        md_script_readme.append('')
-        md_script_readme.append('<details>')
-        md_script_readme.append('<summary>Click here to expand this section.</summary>')
-        md_script_readme.append('')
-        md_script_readme.append('These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.')
-        md_script_readme.append('')
-
-        for key in default_env:
-            value = default_env[key]
-            md_script_readme.append('* {}: **{}**'.format(key,value))
-
-        md_script_readme.append('')
-        md_script_readme.append('</details>')
-        md_script_readme.append('')
-        
-        
         
         
         if len(variation_keys)>0:
@@ -732,7 +678,88 @@ def doc(i):
                 md_script_readme.append('* `'+','.join(vv)+'`')
 
 
+
+        input_description = meta.get('input_description', {})
+        if len(input_description)>0:
+            x = 'Input description'
+            md_script_readme.append('')
+            md_script_readme.append('#### '+x)
+            toc_readme.append(' '+x)
+
+            md_script_readme.append('')
+            key0 = ''
+            for key in sorted(input_description):
+                if key0=='': key0=key
+                value = input_description[key]
+                md_script_readme.append('* --**{}** "{}"'.format(key,value))
+
+            md_script_readme.append('')
+            md_script_readme.append('**Above CLI flags can be used in the Python CM API as follows:**')
+            md_script_readme.append('')
+
+            x = '```python\nr=cm.access({... , "'+key0+'":...}\n```'
+            md_script_readme.append(x)
+
         
+        
+        # Check input flags
+        input_mapping = meta.get('input_mapping', {})
+        if len(input_mapping)>0:
+            x = 'Script flags mapped to environment'
+            md_script_readme.append('')
+            md_script_readme.append('#### '+x)
+            toc_readme.append(' '+x)
+
+            md_script_readme.append('<details>')
+            md_script_readme.append('<summary>Click here to expand this section.</summary>')
+
+            md_script_readme.append('')
+            key0 = ''
+            for key in sorted(input_mapping):
+                if key0=='': key0=key
+                value = input_mapping[key]
+                md_script_readme.append('* --**{}**=value --> **{}**=value'.format(key,value))
+
+            md_script_readme.append('')
+            md_script_readme.append('**Above CLI flags can be used in the Python CM API as follows:**')
+            md_script_readme.append('')
+
+            x = '```python\nr=cm.access({... , "'+key0+'":...}\n```'
+            md_script_readme.append(x)
+
+            md_script_readme.append('')
+            md_script_readme.append('</details>')
+            md_script_readme.append('')
+        
+        
+        # Default environment
+        default_env = meta.get('default_env',{})
+
+        x = 'Default environment'
+#        md_script_readme.append('___')
+        md_script_readme.append('#### '+x)
+        toc_readme.append(' '+x)
+
+        md_script_readme.append('')
+        md_script_readme.append('<details>')
+        md_script_readme.append('<summary>Click here to expand this section.</summary>')
+        md_script_readme.append('')
+        md_script_readme.append('These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.')
+        md_script_readme.append('')
+
+        for key in default_env:
+            value = default_env[key]
+            md_script_readme.append('* {}: **{}**'.format(key,value))
+
+        md_script_readme.append('')
+        md_script_readme.append('</details>')
+        md_script_readme.append('')
+        
+        
+                
+
+
+
         
         if len(version_keys)>0 or default_version!='':
             x = 'Versions'

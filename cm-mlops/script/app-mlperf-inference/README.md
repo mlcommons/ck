@@ -10,10 +10,11 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
-  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
-  * [ Default environment](#default-environment)
   * [ Variations](#variations)
   * [ Unsupported or invalid variation combinations](#unsupported-or-invalid-variation-combinations)
+  * [ Input description](#input-description)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
+  * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -98,59 +99,6 @@ if r['return']>0:
 *TBD*
 ___
 ### Customization
-
-
-#### Script flags mapped to environment
-<details>
-<summary>Click here to expand this section.</summary>
-
-* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
-* --**docker**=value --> **CM_RUN_DOCKER_CONTAINER**=value
-* --**hw_name**=value --> **CM_HW_NAME**=value
-* --**imagenet_path**=value --> **IMAGENET_PATH**=value
-* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
-* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**num_threads**=value --> **CM_NUM_THREADS**=value
-* --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
-* --**power**=value --> **CM_SYSTEM_POWER**=value
-* --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
-* --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
-* --**max_amps**=value --> **CM_MLPERF_POWER_MAX_AMPS**=value
-* --**max_volts**=value --> **CM_MLPERF_POWER_MAX_VOLTS**=value
-* --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
-* --**rerun**=value --> **CM_RERUN**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
-* --**new_tvm_model**=value --> **CM_MLPERF_DELETE_COMPILED_MODEL**=value
-* --**clean**=value --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**=value
-* --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
-* --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "count":"..."}
-```
-
-</details>
-
-#### Default environment
-
-<details>
-<summary>Click here to expand this section.</summary>
-
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
-
-* CM_BATCH_COUNT: **1**
-* CM_BATCH_SIZE: **1**
-* CM_MLPERF_LOADGEN_MODE: **accuracy**
-* CM_MLPERF_LOADGEN_SCENARIO: **Offline**
-* CM_OUTPUT_FOLDER_NAME: **test_results**
-* CM_MLPERF_RUN_STYLE: **test**
-* CM_TEST_QUERY_COUNT: **10**
-* CM_MLPERF_QUANTIZATION: **False**
-
-</details>
 
 
 #### Variations
@@ -420,6 +368,78 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 * `_resnet50,_pytorch`
 * `_retinanet,_tf`
+
+#### Input description
+
+* --**hw_name** "Valid value - any system description which has a config file (under same name) defined [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/configs)"
+* --**imagenet_path** "Location of directory containing Imagenet which cannot be downloaded from a public URL"
+* --**max_batchsize** "Maximum batchsize to be used"
+* --**mode** "Valid values: {performance, accuracy}"
+* --**num_threads** "Number of CPU threads to launch the application with"
+* --**output_dir** "Location where the outputs are produced"
+* --**regenerate_files** "Regenerates measurement files including accuracy.txt files even if a previous run exists. This option is redundant if `--rerun` is used"
+* --**rerun** "Redo the run even if previous run files exist"
+* --**scenario** "Valid values: {Offline, Server, SingleStream, MultiStream}"
+* --**test_query_count** "Specifies the number of samples to be processed during a test run"
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "hw_name":...}
+```
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**clean**=value --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**=value
+* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
+* --**docker**=value --> **CM_RUN_DOCKER_CONTAINER**=value
+* --**hw_name**=value --> **CM_HW_NAME**=value
+* --**imagenet_path**=value --> **IMAGENET_PATH**=value
+* --**max_amps**=value --> **CM_MLPERF_POWER_MAX_AMPS**=value
+* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
+* --**max_volts**=value --> **CM_MLPERF_POWER_MAX_VOLTS**=value
+* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
+* --**new_tvm_model**=value --> **CM_MLPERF_DELETE_COMPILED_MODEL**=value
+* --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
+* --**num_threads**=value --> **CM_NUM_THREADS**=value
+* --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
+* --**power**=value --> **CM_SYSTEM_POWER**=value
+* --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
+* --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
+* --**rerun**=value --> **CM_RERUN**=value
+* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
+* --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
+* --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
+* --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "clean":...}
+```
+
+</details>
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* CM_BATCH_COUNT: **1**
+* CM_BATCH_SIZE: **1**
+* CM_MLPERF_LOADGEN_MODE: **accuracy**
+* CM_MLPERF_LOADGEN_SCENARIO: **Offline**
+* CM_OUTPUT_FOLDER_NAME: **test_results**
+* CM_MLPERF_RUN_STYLE: **test**
+* CM_TEST_QUERY_COUNT: **10**
+* CM_MLPERF_QUANTIZATION: **False**
+
+</details>
+
 ___
 ### Script workflow, dependencies and native scripts
 
