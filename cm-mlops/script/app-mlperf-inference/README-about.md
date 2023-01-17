@@ -13,6 +13,10 @@ It is a higher-level wrapper to several other CM scripts modularizing the MLPerf
 
 See the current coverage of different models, devices and backends [here](README-extra.md#current-coverage).
 
+See the development roadmap [here](https://github.com/mlcommons/ck/issues/536).
+
+See extension projects to enable collaborative benchmarking, design space exploration and optimization of ML and AI Systems [here](https://github.com/mlcommons/ck/issues/627).
+
 See [this SCC'23 tutorial](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md) 
 to use this script to run a reference (unoptimized) Python implementation of the MLPerf object detection benchmark 
 with RetinaNet model, Open Images dataset, ONNX runtime and CPU target.

@@ -155,6 +155,10 @@ ___
 
     </details>
 
+
+#### Default variations
+
+`_fp32,_onnx`
 #### Default environment
 
 <details>

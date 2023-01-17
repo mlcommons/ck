@@ -175,6 +175,10 @@ ___
     </details>
 
 
+#### Default variations
+
+`_50,_NCHW,_fp32,_validation`
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>

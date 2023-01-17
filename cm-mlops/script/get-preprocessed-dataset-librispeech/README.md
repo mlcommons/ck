@@ -156,6 +156,10 @@ ___
     </details>
 
 
+#### Default variations
+
+`_fp32,_validation`
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>

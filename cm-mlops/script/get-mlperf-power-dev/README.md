@@ -116,6 +116,10 @@ ___
 
     </details>
 
+
+#### Default variations
+
+`_default`
 #### Default environment
 
 <details>

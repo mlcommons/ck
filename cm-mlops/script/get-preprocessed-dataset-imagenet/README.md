@@ -205,6 +205,10 @@ ___
     </details>
 
 
+#### Default variations
+
+`_500,_NCHW,_default`
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>

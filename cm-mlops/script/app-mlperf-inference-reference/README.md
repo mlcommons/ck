@@ -306,6 +306,10 @@ ___
     </details>
 
 
+#### Default variations
+
+`_cpu,_fp32,_onnxruntime,_python,_resnet50`
+
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>

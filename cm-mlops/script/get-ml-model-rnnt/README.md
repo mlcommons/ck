@@ -127,6 +127,10 @@ ___
 
     </details>
 
+
+#### Default variations
+
+`_fp32,_pytorch`
 #### Default environment
 
 <details>

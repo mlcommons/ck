@@ -164,6 +164,10 @@ ___
 
     </details>
 
+
+#### Default variations
+
+`_bs.8,_fp32,_onnx`
 #### Default environment
 
 <details>

@@ -7,3 +7,7 @@ to run MLPerf scenarios for a given ML task, model, runtime and device, and prep
 
 Check these [tutorials](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md) from the Student Cluster Competition
 at Supercomputing'22 to understand how to use this script to run the MLPerf inference benchmark and automate submissions.
+
+See the development roadmap [here](https://github.com/mlcommons/ck/issues/536).
+
+See extension projects to enable collaborative benchmarking, design space exploration and optimization of ML and AI Systems [here](https://github.com/mlcommons/ck/issues/627).

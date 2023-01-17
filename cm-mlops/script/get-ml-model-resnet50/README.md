@@ -242,6 +242,10 @@ ___
 
     </details>
 
+
+#### Default variations
+
+`_argmax,_fp32,_onnx`
 #### Default environment
 
 <details>

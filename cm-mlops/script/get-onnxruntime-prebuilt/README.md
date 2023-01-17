@@ -101,6 +101,10 @@ ___
 
     </details>
 
+
+#### Default variations
+
+`_cpu`
 #### Default environment
 
 <details>

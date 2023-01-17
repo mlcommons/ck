@@ -636,30 +636,30 @@ def doc(i):
                 md_script_readme.append('    </details>')
                 md_script_readme.append('')
 
-#            if len(default_variations)>0:
-#                md_script_readme.append('')
-#                md_script_readme.append('#### Default variations')
-#                md_script_readme.append('')
-#
-#                for variation_key in sorted(default_variations):
-#                    md_script_readme.append('* {}'.format(variation_key))
+            # Check if has invalid_variation_combinations
+            vvc = meta.get('invalid_variation_combinations', [])
+            if len(vvc)>0:
+                x = 'Unsupported or invalid variation combinations'
+                md_script_readme.append('')
+                md_script_readme.append('#### '+x)
+                md_script_readme.append('')
+                md_script_readme.append('')
+                md_script_readme.append('')
+                toc_readme.append(' '+x)
+                
+                for v in vvc:
+                    vv = ['_'+x for x in v]
+                    md_script_readme.append('* `'+','.join(vv)+'`')
 
 
-        # Check if has invalid_variation_combinations
-        vvc = meta.get('invalid_variation_combinations', [])
-        if len(vvc)>0:
-            x = 'Unsupported or invalid variation combinations'
-            md_script_readme.append('')
-            md_script_readme.append('#### '+x)
-            md_script_readme.append('')
-            md_script_readme.append('')
-            md_script_readme.append('')
-            toc_readme.append(' '+x)
-            
-            for v in vvc:
-                vv = ['_'+x for x in v]
-                md_script_readme.append('* `'+','.join(vv)+'`')
+            if len(default_variations)>0:
+                md_script_readme.append('')
+                md_script_readme.append('#### Default variations')
+                md_script_readme.append('')
 
+                dv = ['_'+x for x in sorted(default_variations)]
+
+                md_script_readme.append('`{}`'.format(','.join(dv)))
 
         
         # Check if has valid_variation_combinations
