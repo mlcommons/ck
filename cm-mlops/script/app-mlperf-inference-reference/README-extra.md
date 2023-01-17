@@ -151,9 +151,9 @@ Works on all tested versions
     <td>Not tested</td>
   </tr>
   <tr>
-    <td rowspan="8">3d-unet</td>
-    <td rowspan="4">CPU</td>
-    <td rowspan="2">Onnxruntime</td>
+    <td rowspan="6">3d-unet</td>
+    <td rowspan="3">CPU</td>
+    <td>Onnxruntime</td>
     <td>fp32</td>
     <td>✅</td>
     <td>Works on all tested versions</td>
@@ -175,8 +175,8 @@ Works on all tested versions
 </td>
   </tr>
   <tr>
-    <td rowspan="4">CUDA</td>
-    <td rowspan="2">Onnxruntime</td>
+    <td rowspan="3">CUDA</td>
+    <td>Onnxruntime</td>
     <td>fp32</td>
     <td>?</td>
     <td>Not tested</td>
