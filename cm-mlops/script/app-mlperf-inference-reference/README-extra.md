@@ -130,25 +130,28 @@ Works on all tested versions
     <td rowspan="4">CUDA</td>
     <td rowspan="2">Onnxruntime</td>
     <td>fp32</td>
-    <td>?</td>
-    <td>Not tested</td>
+    <td>✅</td>
+    <td>Works on all tested versions
+</td>
   </tr>
   <tr>
     <td>int8</td>
-    <td>?</td>
-    <td>Not tested</td>
+    <td>✅</td>
+    <td>Works on all tested versions
+</td>
   </tr>
   <tr>
     <td>Tensorflow</td>
     <td>fp32</td>
-    <td>?</td>
+    <td>✅</td>
     <td>Not tested</td>
   </tr>
   <tr>
     <td>Pytorch</td>
     <td>fp32</td>
-    <td>?</td>
-    <td>Not tested</td>
+    <td>✅</td>
+    <td>Works on all tested versions
+</td>
   </tr>
   <tr>
     <td rowspan="6">3d-unet</td>
