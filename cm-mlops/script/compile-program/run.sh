@@ -4,8 +4,14 @@
 
 BIN_NAME=${CM_BIN_NAME:-run.out}
 RUN_DIR=${CM_RUN_DIR:-.}
-
 echo "RUN_DIR=$RUN_DIR"
+
+if [[ ${CM_SKIP_RECOMPILE} == "yes" ]]; then
+  if [ -f ${RUN_DIR}/${BIN_NAME} ]; then
+    exit 0
+  fi
+fi
+
 rm -f ${RUN_DIR}/${BIN_NAME}
 
 if [ -z "${CM_SOURCE_FOLDER_PATH}" ]; then
