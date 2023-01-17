@@ -433,6 +433,10 @@ def doc(i):
 #        toc_readme.append(x)
 
 
+        cache = meta.get('cache', False)
+        md_script_readme.append('* Output cached?: *{}*'.format(str(cache)))
+
+
         
         
         # Add usage

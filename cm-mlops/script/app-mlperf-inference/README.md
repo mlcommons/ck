@@ -47,6 +47,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
 * CM "database" tags to find this script: *app,vision,language,mlcommons,mlperf,inference,generic*
+* Output cached: *False*
 ___
 ### Usage
 
@@ -157,7 +158,6 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 <details>
 <summary>Click here to expand this section.</summary>
 
-*
     * `_cpp`
       - Environment variables:
         - *CM_MLPERF_CPP*: `yes`
@@ -328,11 +328,13 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
     * `_fp32`
       - Environment variables:
         - *CM_MLPERF_QUANTIZATION*: `False`
+        - *CM_MLPERF_MODEL_PRECISION*: `float32`
       - Workflow:
     * `_int8`
       - Aliases: `_quantized`
       - Environment variables:
         - *CM_MLPERF_QUANTIZATION*: `True`
+        - *CM_MLPERF_MODEL_PRECISION*: `int8`
       - Workflow:
 
 </details>
