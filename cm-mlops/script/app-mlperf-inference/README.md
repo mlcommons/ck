@@ -155,8 +155,9 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 #### Variations
 
   * Group "**implementation**"
-<details>
-<summary>Click here to expand this section.</summary>
+
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_cpp`
       - Environment variables:
@@ -212,7 +213,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
              * CM names: `--adr.['tflite-cpp-mlperf-inference', 'mlperf-inference-implementation']...`
              - CM script: [app-mlperf-inference-tflite-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp)
 
-</details>
+    </details>
 
 
   * Group "**backend**"
