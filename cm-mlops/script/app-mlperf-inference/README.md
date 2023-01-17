@@ -47,7 +47,7 @@ See [more info](README-extra.md).
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
 * CM "database" tags to find this script: *app,vision,language,mlcommons,mlperf,inference,generic*
-* Output cached: *False*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -155,7 +155,6 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 #### Variations
 
   * Group "**implementation**"
-
     <details>
     <summary>Click here to expand this section.</summary>
 
@@ -217,8 +216,8 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 
   * Group "**backend**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_deepsparse`
       - Environment variables:
@@ -249,12 +248,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_MLPERF_BACKEND*: `tvm-pytorch`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**device**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * **`_cpu`** (default)
       - Environment variables:
@@ -265,12 +264,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_MLPERF_DEVICE*: `gpu`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**models**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_3d-unet-99`
       - Environment variables:
@@ -319,12 +318,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
              * CM names: `--adr.['mlperf-accuracy-script', 'rnnt-accuracy-script']...`
              - *Warning: no scripts found*
 
-</details>
+    </details>
 
 
   * Group "**precision**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_fp32`
       - Environment variables:
@@ -338,12 +337,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_MLPERF_MODEL_PRECISION*: `int8`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**execution-mode**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_fast`
       - Environment variables:
@@ -362,12 +361,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_MLPERF_RUN_STYLE*: `valid`
       - Workflow:
 
-</details>
+    </details>
 
 
   * Group "**reproducibility**"
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_r2.1_default`
       - Environment variables:
@@ -376,12 +375,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_TEST_QUERY_COUNT*: `100`
       - Workflow:
 
-</details>
+    </details>
 
 
   * *Internal group (variations should not be selected manually)*
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_3d-unet_`
       - Workflow:
@@ -398,12 +397,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
              * CM names: `--adr.['squad-accuracy-script', 'mlperf-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
 
-</details>
+    </details>
 
 
   * *No group (any variation can be selected)*
-<details>
-<summary>Click here to expand this section.</summary>
+    <details>
+    <summary>Click here to expand this section.</summary>
 
     * `_power`
       - Environment variables:
@@ -411,7 +410,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
         - *CM_SYSTEM_POWER*: `True`
       - Workflow:
 
-</details>
+    </details>
 
 ___
 ### Script workflow, dependencies and native scripts
