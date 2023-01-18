@@ -36,7 +36,7 @@ if [ ! -d "${CUR_DIR}/tvm/build" ]; then
     cd ${CUR_DIR}/tvm/build
 
     if [[ ${CM_TVM_USE_LLVM} == "yes" ]]; then
-        sed -i.bak 's/set(USE_LLVM OFF)/set(USE_LLVM llvm-config)/' config.cmake
+        sed -i.bak "s|set(USE_LLVM OFF)|set(USE_LLVM ${CM_LLVM_INSTALLED_PATH}/llvm-config)|" config.cmake
     fi
 
     if [[ ${CM_TVM_USE_OPENMP} == "yes" ]]; then

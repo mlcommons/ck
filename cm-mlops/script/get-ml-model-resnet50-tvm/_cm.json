@@ -26,6 +26,7 @@
   ],
   "tags": [
     "get",
+    "raw",
     "ml-model",
     "ml-model-tvm",
     "tvm-model",
@@ -64,6 +65,9 @@
       "default": true,
       "deps": [
         {
+          "tags": "get,generic-python-lib,_onnx"
+        },
+        {
           "names": [
             "original-model"
           ],
@@ -80,6 +84,9 @@
     },
     "pytorch": {
       "deps": [
+        {
+          "tags": "get,generic-python-lib,_torch"
+        },
         {
           "names": [
             "original-model"
