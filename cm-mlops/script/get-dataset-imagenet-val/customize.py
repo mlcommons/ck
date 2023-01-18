@@ -16,10 +16,10 @@ def preprocess(i):
             # If full dataset but path to imagenet is not specified,
             # try IMAGENET_PATH
 
-            path = os.environ.get('IMAGENET_PATH', '')
+            path = env.get('IMAGENET_PATH', '')
 
         if path == '':
-            return {'return':1, 'error':'Please use --input or set IMAGENET_PATH to the folder containing full ImageNet images.'}
+            return {'return':1, 'error':'Please use --input (if calling this script directly) or set --env.IMAGENET_PATH to the folder containing full ImageNet images.'}
 
         if not os.path.isdir(path):
             return {'return':1, 'error':'Path {} doesn\'t exist'.format(path)}

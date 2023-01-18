@@ -14,6 +14,7 @@ tags:
   - mlcommons
   - mlperf
   - inference
+  - harness
   - nvidia-harness
   - nvidia
 
@@ -23,6 +24,8 @@ default_env:
   CM_BATCH_SIZE: '1'
   CM_FAST_COMPILATION: "yes"
   CM_MLPERF_LOADGEN_SCENARIO: Offline
+  CM_MLPERF_LOADGEN_MODE: performance
+  SKIP_POLICIES: '1'
 
 # Map script inputs to environment variables
 input_mapping:
@@ -57,6 +60,10 @@ deps:
 
   # Detect Tensorrt
   - tags: get,tensorrt
+
+  # Build nvidia inference server
+  - tags: build,nvidia,inference,server
+
 
 
   ########################################################################

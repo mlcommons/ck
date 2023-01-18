@@ -21,7 +21,7 @@ tags:
 
 
 new_env_keys:
-  - CM_MLPERF_NVIDIA_SCRATCH_PATH
+  - CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH
   - MLPERF_SCRATCH_PATH
 
 # Dependencies on other CM scripts
