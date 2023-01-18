@@ -37,8 +37,12 @@ deps:
   # Install system dependencies on a given host
   - tags: get,sys-utils-cm
 
+  # Detect python3
+  - tags: get,python3
+
   # Detect CUDA
   - tags: get,cuda,_cudnn
+    version_max: "11.11"
 
   # Detect Tensorrt
   - tags: get,tensorrt

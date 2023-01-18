@@ -47,7 +47,7 @@ def preprocess(i):
                                            'env': env,
                                            'os_info':os_info,
                                            'default_path_env_key': 'PATH',
-                                           'detect_version':False,
+                                           'detect_version':True,
                                            'env_path_key':'CM_CUDA_RT_WITH_PATH',
                                            'run_script_input':i['run_script_input'],
                                            'recursion_spaces':recursion_spaces})
@@ -56,27 +56,47 @@ def preprocess(i):
             return {'return':1, 'error': 'CUDA installation not found in default paths. Please set --input to the installed path'}
 
         found_path = r['found_path']
-        parent_path = Path(found_path).parent.absolute()
-        cuda_version = "version-missing"
 
-        version_json = os.path.join(parent_path, "version.json")
-        if os.path.exists(version_json):
-            with open(version_json) as f:
-                version_info = json.load(f)
-                cuda_version_info = version_info.get('cuda_cudart')
-                if cuda_version_info:
-                    cuda_version = cuda_version_info.get('version')
-
-        env['CM_CUDA_VERSION'] = cuda_version
         env['CM_CUDA_PATH_LIB'] = found_path
-        env['CM_CUDA_INSTALLED_PATH'] = os.path.dirname(found_path)
+        env['CM_CUDA_INSTALLED_PATH'] = os.path.abspath(os.path.join(found_path, os.pardir))
 
     return {'return':0}
+
+def detect_version(i):
+
+    env = i['env']
+
+    cuda_rt_file_path = env['CM_CUDA_RT_WITH_PATH']
+    cuda_lib_path=os.path.dirname(cuda_rt_file_path)
+    cuda_path = os.path.abspath(os.path.join(cuda_lib_path, os.pardir))
+
+    cuda_version = "version-missing"
+
+    version_json = os.path.join(cuda_path, "version.json")
+    if os.path.exists(version_json):
+        with open(version_json) as f:
+            version_info = json.load(f)
+            cuda_version_info = version_info.get('cuda_cudart')
+            if cuda_version_info:
+                cuda_version = cuda_version_info.get('version')
+
+
+    env['CM_CUDA_VERSION'] = cuda_version
+    version = cuda_version
+
+    print (i['recursion_spaces'] + '    Detected version: {}'.format(version))
+
+    return {'return':0, 'version':version}
 
 
 def postprocess(i):
 
     os_info = i['os_info']
+
+    r = detect_version(i)
+    if r['return'] > 0:
+        return r
+    version = r['version']
 
     env = i['env']
     
@@ -128,4 +148,4 @@ def postprocess(i):
 
             break
 
-    return {'return':0}
+    return {'return':0, 'version': version}
