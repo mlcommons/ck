@@ -28,8 +28,14 @@
   "versions": {
     "v2.1": {
       "env": {
-        "CM_GIT_URL": "https://github.com/mlcommons/inference_results_v2.1.git",
         "CM_MLPERF_INFERENCE_RESULTS_VERSION_NAME": "v2.1"
+      }
+    }
+  },
+  "variations": {
+    "custom": {
+      "env": {
+        "CM_GIT_URL": "https://github.com/arjunsuresh/inference_results_v2.1.git"
       }
     }
   }
