@@ -6,7 +6,11 @@
   "clean_files": [],
   "deps": [
     {
-      "tags": "get,mlperf,inference,results"
+      "names": [
+        "mlperf-inference-results"
+      ],
+      "tags": "get,mlperf,inference,results",
+      "inherit_variation_tags": true
     }
   ],
   "new_env_keys": [
@@ -20,5 +24,9 @@
     "inference",
     "common-code"
   ],
-  "uid": "26b78bf3ffdc4926"
+  "uid": "26b78bf3ffdc4926",
+  "variations": {
+    "custom": {
+    }
+  }
 }
