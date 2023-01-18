@@ -9,6 +9,13 @@ def preprocess(i):
 
     env = i['env']
 
+    env['CM_TMP_RUN_COPY_SCRIPT'] = "no"
+
+    cuda_path_lib = env.get('CM_CUDA_PATH_LIB')
+    if os.path.exists(os.path.join(cuda_path_lib, "libcudnn.so")):
+        env['CM_CUDNN_VERSION'] = 'vdetected'
+        return {'return': 0}
+
     recursion_spaces = i['recursion_spaces']
 
     if os_info['platform'] == 'windows':
