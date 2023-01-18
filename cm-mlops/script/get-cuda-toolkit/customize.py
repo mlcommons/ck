@@ -37,7 +37,7 @@ def preprocess(i):
         # (unless forced by a user)
 
         if env.get('CM_INPUT','').strip()=='' and env.get('CM_TMP_PATH','').strip()=='':
-            env['CM_TMP_PATH'] = '/usr/local/cuda/bin:/usr/cuda/bin:/usr/local/cuda-11/bin:/usr/cuda-11/bin:/usr/local/cuda-12/bin:/usr/cuda-12/bin'
+            env['CM_TMP_PATH'] = '/usr/local/cuda/bin:/usr/cuda/bin:/usr/local/cuda-11/bin:/usr/cuda-11/bin:/usr/local/cuda-12/bin:/usr/cuda-12/bin:/usr/local/packages/cuda'
             env['CM_TMP_PATH_IGNORE_NON_EXISTANT'] = 'yes'
 
     if 'CM_NVCC_BIN_WITH_PATH' not in env:
