@@ -1,0 +1,84 @@
+# Identification of this CM script
+alias: build-mlperf-inference-server-nvidia
+uid: f37403af5e9f4541
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf benchmarks"
+
+
+# User-friendly tags to find this CM script
+tags:
+  - build
+  - mlcommons
+  - mlperf
+  - inference
+  - inference-server
+  - server
+  - nvidia-harness
+  - nvidia
+
+
+new_env_keys:
+  - CM_MLPERF_NVIDIA_SCRATCH_PATH
+  - MLPERF_SCRATCH_PATH
+
+# Dependencies on other CM scripts
+
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect CUDA
+  - tags: get,cuda,_cudnn
+
+  # Detect Tensorrt
+  - tags: get,tensorrt
+
+  # Detect CMake
+  - tags: get,cmake
+
+  # Detect Google Logger
+  - tags: get,generic,sys-util,_glog-dev
+
+  # Detect GFlags
+  - tags: get,generic,sys-util,_gflags-dev
+
+  # Detect libre2-dev
+  - tags: get,generic,sys-util,_libre2-dev
+
+  # Detect libnuma-dev
+  - tags: get,generic,sys-util,_libnuma-dev
+
+  # Detect libboost-all-dev
+  - tags: get,generic,sys-util,_libboost-all-dev
+
+  # Detect rapidjson-dev
+  - tags: get,generic,sys-util,_rapidjson-dev
+
+
+  # Download Nvidia Submission Code
+  - tags: get,nvidia,mlperf,inference,common-code,_custom
+    names:
+    - nvidia-inference-common-code
+
+
+variations:
+  # Target devices
+  cpu:
+    group: device
+    default: true
+    env:
+      CM_MLPERF_DEVICE: cpu
+  cuda:
+    env:
+      CM_MLPERF_DEVICE: gpu
+      CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
