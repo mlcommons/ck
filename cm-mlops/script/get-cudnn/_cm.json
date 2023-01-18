@@ -2,7 +2,7 @@
   "alias": "get-cudnn",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
-  "cache": true,
+  "cache": false,
   "category": "CUDA automation",
   "category_sort": 7000,
   "clean_files": [],
@@ -19,7 +19,11 @@
   "deps": [
     {
       "names": [ "cuda" ],
-      "tags": "get,cuda"
+      "tags": "get,cuda",
+      "skip_if_env": {
+        "CM_CUDA_PATH_LIB": [ "on" ],
+        "CM_CUDA_PATH_INCLUDE": [ "on" ]
+      }
     }
   ],
   "new_env_keys": [

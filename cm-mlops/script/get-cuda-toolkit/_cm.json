@@ -10,6 +10,9 @@
     "CM_CUDA_PATH_LIB_CUDNN_EXISTS": "no",
     "CM_REQUIRE_INSTALL": "no"
   },
+  "input_mapping": {
+    "cudnn_tar_path": "CM_CUDNN_TAR_FILE_PATH"
+  },
   "new_env_keys": [
     "CUDA_HOME",
     "CUDA_PATH",
@@ -52,6 +55,9 @@
         {
           "tags": "get,nvidia,cudnn"
         }
+      ],
+      "force_env_keys": [
+        "CM_CUDNN_TAR_FILE_PATH"
       ]
     }
   }

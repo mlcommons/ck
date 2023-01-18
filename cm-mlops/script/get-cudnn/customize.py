@@ -15,7 +15,10 @@ def preprocess(i):
         return {'return': 1, 'error': 'Windows is currently not supported!'}
 
     if not env.get('CM_INPUT',''):
-        return {'return': 1, 'error': 'Please use --input option to point to the cudnn tar file'}
+        if env.get('CM_CUDNN_TAR_FILE_PATH'):
+            env['CM_INPUT'] = env.get('CM_CUDNN_TAR_FILE_PATH')
+        else:
+            return {'return': 1, 'error': 'Please use --input option to point to the cudnn tar file'}
 
     my_tar = tarfile.open(os.path.expanduser(env['CM_INPUT']))
     folder_name = my_tar.getnames()[0]
