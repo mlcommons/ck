@@ -10,15 +10,10 @@ def preprocess(i):
         return {'return':1, 'error': 'Windows is not supported in this script yet'}
     env = i['env']
 
-    if '+LIBRARY_PATH' not in env:
-        env['+LIBRARY_PATH'] = []
-    env['+LIBRARY_PATH'].append(os.path.join(env['CM_TENSORRT_INSTALL_PATH'], "lib"))
-
     return {'return':0}
 
 def postprocess(i):
 
     env = i['env']
-    env['MLPERF_SCRATCH_PATH'] = os.getcwd()
 
     return {'return':0}

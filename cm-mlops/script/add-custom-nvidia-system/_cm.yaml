@@ -1,6 +1,6 @@
 # Identification of this CM script
-alias: build-mlperf-inference-server-nvidia
-uid: f37403af5e9f4541
+alias: add-custom-nvidia-system
+uid: b2e6c46c6e8745a3
 cache: true
 automation_alias: script
 automation_uid: 5b4e0237da074764
@@ -10,19 +10,11 @@ category: "Modular MLPerf benchmarks"
 
 # User-friendly tags to find this CM script
 tags:
-  - build
-  - mlcommons
-  - mlperf
-  - inference
-  - inference-server
-  - server
-  - nvidia-harness
+  - add
+  - custom
+  - system
   - nvidia
 
-
-new_env_keys:
-  - CM_MLPERF_NVIDIA_SCRATCH_PATH
-  - MLPERF_SCRATCH_PATH
 
 # Dependencies on other CM scripts
 
@@ -77,24 +69,3 @@ deps:
   # Detect pycuda
   - tags: get,generic-python-lib,_pycuda
 
-  # Detect opencv-python
-  - tags: get,generic-python-lib,_opencv-python
-
-  # Detect nvidia-dali
-  - tags: get,generic-python-lib,_nvidia-dali
-
-  # Detect nvidia system
-  - tags: add,custom,system,nvidia
-
-
-variations:
-  # Target devices
-  cpu:
-    group: device
-    default: true
-    env:
-      CM_MLPERF_DEVICE: cpu
-  cuda:
-    env:
-      CM_MLPERF_DEVICE: gpu
-      CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
