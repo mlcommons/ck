@@ -175,6 +175,12 @@ class CAutomation(Automation):
         import copy
         import time
 
+        recursion = i.get('recursion', False)
+
+        # If first script run, check if can write to current directory
+        if not recursion and not can_write_to_current_directory():
+            return {'return':1, 'error':'Current directory "{}" is not writable - please change it'.format(os.getcwd())}
+
         start_time = time.time()
 
         # Check extra input from environment variable CM_SCRIPT_EXTRA_CMD
@@ -200,7 +206,6 @@ class CAutomation(Automation):
 
         # Recursion spaces needed to format log and print
         recursion_spaces = i.get('recursion_spaces', '')
-        recursion = i.get('recursion', False)
         # Caching selections to avoid asking users again
         remembered_selections = i.get('remembered_selections', [])
 
@@ -3884,6 +3889,19 @@ def get_git_url(get_type, url, params = {}):
         return "https://" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
     return url
 
+##############################################################################
+def can_write_to_current_directory():
+
+    import tempfile
+
+    cur_dir = os.getcwd()
+
+    try:
+        tmp_file = tempfile.NamedTemporaryFile(dir = cur_dir)
+    except Exception as e:
+        return False
+
+    return True
 
 ##############################################################################
 # Demo to show how to use CM components independently if needed
