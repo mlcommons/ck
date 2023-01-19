@@ -29,8 +29,8 @@ def preprocess(i):
         path = env.get('CM_TMP_PATH')
         if os.path.exists(os.path.join(path, extra_pre + 'libcudnn.' + extra_ext)):
             env['CM_CUDNN_VERSION'] = 'vdetected'
-        env['CM_CUDA_PATH_LIB_CUDNN'] = path
-        return {'return': 0}
+            env['CM_CUDA_PATH_LIB_CUDNN'] = path
+            return {'return': 0}
 
     recursion_spaces = i['recursion_spaces']
 
