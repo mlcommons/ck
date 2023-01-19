@@ -38,7 +38,7 @@ def preprocess(i):
         return {'return': 1, 'error': 'Windows is currently not supported for cudnn installation!'}
 
     if 'CM_TMP_PATH' in env:
-        tmp_path = env['CM_TMP_PATH']
+        tmp_path = env['CM_TMP_PATH'].split(":")
     else:
         tmp_path = []
     for lib_path in env.get('+CM_HOST_OS_DEFAULT_LIBRARY_PATH', []):
