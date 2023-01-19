@@ -14,6 +14,14 @@ def preprocess(i):
     cuda_path_lib = env.get('CM_CUDA_PATH_LIB')
     if os.path.exists(os.path.join(cuda_path_lib, "libcudnn.so")):
         env['CM_CUDNN_VERSION'] = 'vdetected'
+        env['CM_CUDA_PATH_LIB_CUDNN'] = env['CM_CUDA_PATH_LIB']
+        return {'return': 0}
+
+    if env.get('CM_TMP_PATH', '').strip() != '':
+        path = env.get('CM_TMP_PATH')
+        if os.path.exists(os.path.join(path, "libcudnn.so")):
+            env['CM_CUDNN_VERSION'] = 'vdetected'
+        env['CM_CUDA_PATH_LIB_CUDNN'] = path
         return {'return': 0}
 
     recursion_spaces = i['recursion_spaces']
@@ -44,6 +52,7 @@ def preprocess(i):
     lib_path = os.path.join(os.getcwd(), folder_name, "lib")
     cuda_inc_path = env['CM_CUDA_PATH_INCLUDE']
     cuda_lib_path = env['CM_CUDA_PATH_LIB']
+    env['CM_CUDA_PATH_LIB_CUDNN'] = env['CM_CUDA_PATH_LIB']
 
     try:
         print("Copying cudnn include files to {}(CUDA_INCLUDE_PATH)".format(cuda_inc_path))
@@ -64,5 +73,6 @@ def postprocess(i):
 
     env = i['env']
     version = env['CM_CUDNN_VERSION']
+    env['CM_CUDA_PATH_LIB_CUDNN_EXISTS']='yes'
 
     return {'return':0, 'version': version}
