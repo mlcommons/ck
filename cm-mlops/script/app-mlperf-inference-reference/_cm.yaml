@@ -234,7 +234,7 @@ deps:
   # Install ML models    
 
   ## ResNet50
-  - tags: get,ml-model,raw,image-classification,resnet50
+  - tags: get,ml-model,image-classification,resnet50
     names:
     - ml-model
     - resnet50-model
@@ -338,7 +338,7 @@ variations:
       openimages-preprocessed:
         tags: _NCHW
       ml-model:
-        tags: _onnx
+        tags: raw,_onnx
     env:
       CM_MLPERF_BACKEND: onnxruntime
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
@@ -351,7 +351,7 @@ variations:
       openimages-preprocessed:
         tags: _NCHW
       ml-model:
-        tags: _pytorch
+        tags: raw,_pytorch
     env:
       CM_MLPERF_BACKEND: pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
@@ -362,7 +362,7 @@ variations:
       imagenet-preprocessed:
         tags: _NHWC
       ml-model:
-        tags: _tf
+        tags: raw,_tf
     env:
       CM_MLPERF_BACKEND: tf
       CM_MLPERF_BACKEND_VERSION: <<<CM_TENSORFLOW_VERSION>>>
@@ -382,7 +382,7 @@ variations:
       inference-src:
         version: deepsparse
       ml-model:
-        tags: _deepsparse
+        tags: raw,_deepsparse
 
   tvm-onnx:
     group: framework

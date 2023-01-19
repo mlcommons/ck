@@ -17,6 +17,7 @@
     "get",
     "ml-model",
     "rnnt",
+    "raw",
     "librispeech",
     "speech-recognition"
   ],
