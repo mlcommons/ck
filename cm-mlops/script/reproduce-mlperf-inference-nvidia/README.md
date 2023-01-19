@@ -34,7 +34,7 @@ See [more info](README-extra.md).
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *reproduce,mlcommons,mlperf,inference,nvidia-harness,nvidia*
+* CM "database" tags to find this script: *reproduce,mlcommons,mlperf,inference,harness,nvidia-harness,nvidia*
 * Output cached?: *False*
 ___
 ### Usage
@@ -46,11 +46,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags=reproduce,mlcommons,mlperf,inference,nvidia-harness,nvidia(,variations from below) (flags from below)`
+`cm run script --tags=reproduce,mlcommons,mlperf,inference,harness,nvidia-harness,nvidia(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "reproduce mlcommons mlperf inference nvidia-harness nvidia (variations from below)" (flags from below)`
+`cm run script "reproduce mlcommons mlperf inference harness nvidia-harness nvidia (variations from below)" (flags from below)`
 
 *or*
 
@@ -67,7 +67,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'reproduce,mlcommons,mlperf,inference,nvidia-harness,nvidia'
+                  'tags':'reproduce,mlcommons,mlperf,inference,harness,nvidia-harness,nvidia'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -170,6 +170,8 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 * CM_BATCH_SIZE: **1**
 * CM_FAST_COMPILATION: **yes**
 * CM_MLPERF_LOADGEN_SCENARIO: **Offline**
+* CM_MLPERF_LOADGEN_MODE: **performance**
+* SKIP_POLICIES: **1**
 
 </details>
 
@@ -184,10 +186,11 @@ ___
      * get,sys-utils-cm
        - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
      * get,cuda,_cudnn
-       - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-       - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,tensorrt
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
+     * build,nvidia,inference,server
+       - CM script: [build-mlperf-inference-server-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia)
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
@@ -205,6 +208,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
   1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
@@ -216,6 +220,7 @@ ___
 * **CM_MLPERF_***
 #### New environment keys auto-detected from customize
 
+* **CM_MLPERF_LOADGEN_MODE**
 ___
 ### Maintainers
 

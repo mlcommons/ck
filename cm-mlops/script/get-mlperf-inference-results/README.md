@@ -10,6 +10,7 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Default environment](#default-environment)
 * [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
@@ -84,6 +85,20 @@ if r['return']>0:
 *TBD*
 ___
 ### Customization
+
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_custom`
+      - Environment variables:
+        - *CM_GIT_URL*: `https://github.com/arjunsuresh/inference_results_v2.1.git`
+      - Workflow:
+
+    </details>
 
 #### Default environment
 

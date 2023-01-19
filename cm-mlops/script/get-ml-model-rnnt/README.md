@@ -30,7 +30,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-rnnt)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,ml-model,rnnt,librispeech,speech-recognition*
+* CM "database" tags to find this script: *get,ml-model,rnnt,raw,librispeech,speech-recognition*
 * Output cached?: *True*
 ___
 ### Usage
@@ -42,11 +42,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags=get,ml-model,rnnt,librispeech,speech-recognition(,variations from below) (flags from below)`
+`cm run script --tags=get,ml-model,rnnt,raw,librispeech,speech-recognition(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get ml-model rnnt librispeech speech-recognition (variations from below)" (flags from below)`
+`cm run script "get ml-model rnnt raw librispeech speech-recognition (variations from below)" (flags from below)`
 
 *or*
 
@@ -63,7 +63,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,ml-model,rnnt,librispeech,speech-recognition'
+                  'tags':'get,ml-model,rnnt,raw,librispeech,speech-recognition'
                   'out':'con',
                   ...
                   (other input keys for this script)

@@ -33,7 +33,7 @@ See [more info](README-extra.md).
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,ml-model,resnext50,retinanet,object-detection*
+* CM "database" tags to find this script: *get,ml-model,raw,resnext50,retinanet,object-detection*
 * Output cached?: *True*
 ___
 ### Usage
@@ -45,11 +45,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags=get,ml-model,resnext50,retinanet,object-detection(,variations from below) (flags from below)`
+`cm run script --tags=get,ml-model,raw,resnext50,retinanet,object-detection(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get ml-model resnext50 retinanet object-detection (variations from below)" (flags from below)`
+`cm run script "get ml-model raw resnext50 retinanet object-detection (variations from below)" (flags from below)`
 
 *or*
 
@@ -66,7 +66,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,ml-model,resnext50,retinanet,object-detection'
+                  'tags':'get,ml-model,raw,resnext50,retinanet,object-detection'
                   'out':'con',
                   ...
                   (other input keys for this script)

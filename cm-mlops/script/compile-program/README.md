@@ -91,6 +91,7 @@ ___
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
+* SKIP_RECOMPILE: **no**
 
 </details>
 

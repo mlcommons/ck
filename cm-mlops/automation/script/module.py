@@ -153,6 +153,10 @@ class CAutomation(Automation):
           (ignore_script_error) (bool): if True, ignore error code in native tools and scripts
                                         and finish a given CM script. Useful to test/debug partial installations
 
+          (json) (bool): if True, print output as JSON
+          
+          (pause) (bool): if True, pause at the end of the main script (Press Enter to continue)
+          
           ...
 
         Returns:
@@ -1603,7 +1607,19 @@ class CAutomation(Automation):
             with open('readme.md', 'w') as f:
                 f.write(readme)
 
-        return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
+        rr = {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
+        
+        if i.get('json', False):
+            import json
+
+            print ('')
+            print (json.dumps(rr, indent=2))
+
+        if i.get('pause', False):
+            print ('')
+            input ('Press Enter to continue ...')
+        
+        return rr
 
 
 

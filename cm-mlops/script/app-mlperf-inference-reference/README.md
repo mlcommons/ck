@@ -374,8 +374,7 @@ ___
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,cuda,_cudnn
        * `if (CM_MLPERF_DEVICE  == gpu)`
-       - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-       - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,nvidia,tensorrt
        * `if (CM_MLPERF_DEVICE  == gpu)`
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
@@ -435,10 +434,11 @@ ___
        * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
        * CM names: `--adr.['criteo-preprocessed']...`
        - CM script: [get-preprocessed-dataset-criteo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-criteo)
-     * get,ml-model,raw,image-classification,resnet50
+     * get,ml-model,image-classification,resnet50
        * `if (CM_MODEL  == resnet50)`
        * CM names: `--adr.['ml-model', 'resnet50-model']...`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+       - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
      * get,ml-model,object-detection,retinanet
        * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['ml-model', 'retinanet-model']...`

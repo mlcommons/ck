@@ -32,7 +32,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,cudnn,nvidia*
-* Output cached?: *True*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -125,9 +125,9 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)***
      * get,cuda
+       * `if (CM_CUDA_PATH_LIB  != on OR CM_CUDA_PATH_INCLUDE  != on)`
        * CM names: `--adr.['cuda']...`
-       - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-       - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)
   1. ***Run native script if exists***
@@ -144,9 +144,13 @@ ___
 * **+DYLD_FALLBACK_LIBRARY_PATH**
 * **+LD_LIBRARY_PATH**
 * **+PATH**
+* **CM_CUDA_PATH_LIB_CUDNN**
+* **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
 * **CM_CUDNN_***
 #### New environment keys auto-detected from customize
 
+* **CM_CUDA_PATH_LIB_CUDNN**
+* **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
 * **CM_CUDNN_VERSION**
 ___
 ### Maintainers

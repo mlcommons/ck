@@ -40,12 +40,6 @@ It is a higher-level wrapper to several other CM scripts modularizing the MLPerf
 * [TFLite C++ implementation](../app-mlperf-inference-tflite-cpp)
 * [NVidia optimized implementation](app-mlperf-inference-nvidia)
 
-See the current coverage of different models, devices and backends [here](README-extra.md#current-coverage).
-
-See the development roadmap [here](https://github.com/mlcommons/ck/issues/536).
-
-See extension projects to enable collaborative benchmarking, design space exploration and optimization of ML and AI Systems [here](https://github.com/mlcommons/ck/issues/627).
-
 See [this SCC'23 tutorial](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md) 
 to use this script to run a reference (unoptimized) Python implementation of the MLPerf object detection benchmark 
 with RetinaNet model, Open Images dataset, ONNX runtime and CPU target.
@@ -475,8 +469,7 @@ ___
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,cuda
        * `if (CM_MLPERF_DEVICE  == gpu)`
-       - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-       - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)

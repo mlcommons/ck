@@ -10,6 +10,7 @@
   * [ CM Python API](#cm-python-api)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -83,6 +84,18 @@ if r['return']>0:
 ___
 ### Customization
 
+
+#### Variations
+
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_custom`
+      - Workflow:
+
+    </details>
+
 #### Default environment
 
 <details>
@@ -98,6 +111,7 @@ ___
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)***
      * get,mlperf,inference,results
+       * CM names: `--adr.['mlperf-inference-results']...`
        - CM script: [get-mlperf-inference-results](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-results)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code/_cm.json)

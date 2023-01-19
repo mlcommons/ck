@@ -54,7 +54,7 @@ ___
 
 *or*
 
-`cm run script bf62405e6c7a44bf`
+`cm run script 689e865b0059479b`
 
 #### CM Python API
 
@@ -93,6 +93,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_batch_size.#`
+      - Environment variables:
+        - *CM_MODEL_BATCH_SIZE*: `None`
+      - Workflow:
     * `_cuda`
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `gpu`
@@ -102,7 +106,7 @@ ___
     </details>
 
 
-  * Group "**device,**"
+  * Group "**device**"
     <details>
     <summary>Click here to expand this section.</summary>
 
@@ -114,7 +118,7 @@ ___
     </details>
 
 
-  * Group "**framework,**"
+  * Group "**framework**"
     <details>
     <summary>Click here to expand this section.</summary>
 
@@ -126,7 +130,7 @@ ___
     </details>
 
 
-  * Group "**model,**"
+  * Group "**model**"
     <details>
     <summary>Click here to expand this section.</summary>
 
@@ -177,6 +181,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 * CM_BATCH_COUNT: **1**
 * CM_BATCH_SIZE: **1**
 * CM_FAST_COMPILATION: **yes**
+* CM_MLPERF_LOADGEN_SCENARIO: **Offline**
 
 </details>
 
@@ -190,9 +195,8 @@ ___
        - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,sys-utils-cm
        - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
-     * get,cuda
-       - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-       - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+     * get,cuda,_cudnn
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,tensorrt
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
      * get,generic,sys-util,_glog-dev
@@ -214,6 +218,7 @@ ___
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,ml-model,resnet50,_onnx
        * `if (CM_MODEL  == resnet50)`
+       * CM names: `--adr.['ml-model', 'resnet50-model']...`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
        - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
      * get,dataset,preprocessed,openimages,_validation,_NCHW
@@ -222,7 +227,12 @@ ___
        - CM script: [get-preprocessed-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-openimages)
      * get,ml-model,retinanet,_onnx,_fp32
        * `if (CM_MODEL  == retinanet)`
+       * CM names: `--adr.['ml-model', 'retinanet-model']...`
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
+     * generate,nvidia,engine
+       * `if (CM_MLPERF_DEVICE  != cpu)`
+       * CM names: `--adr.tensorrt-engine-generator...`
+       - *Warning: no scripts found*
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia/_cm.yaml)
   1. ***Run native script if exists***

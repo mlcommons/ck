@@ -127,8 +127,7 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,cuda
              * CM names: `--adr.['cuda']...`
-             - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-             - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_mlperf_logging`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `mlperf_logging`
@@ -165,8 +164,7 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,cuda
              * CM names: `--adr.['cuda']...`
-             - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-             - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_opencv-python`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `opencv-python`
@@ -207,8 +205,7 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,cuda
              * CM names: `--adr.['cuda']...`
-             - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-             - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_scipy`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `scipy`
@@ -220,6 +217,10 @@ ___
     * `_sklearn`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `sklearn`
+      - Workflow:
+    * `_streamlit`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `streamlist`
       - Workflow:
     * `_tensorflow`
       - Environment variables:
@@ -237,15 +238,14 @@ ___
     * `_torch_cuda`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
-        - *CM_TORCH_CUDA*: `cu116`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
+        - *CM_TORCH_CUDA*: `cu116`
         - *CM_TORCH_VERSION_EXTRA*: `CUDA`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,cuda
              * CM names: `--adr.['cuda']...`
-             - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-             - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_torchaudio`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
@@ -254,15 +254,14 @@ ___
     * `_torchaudio_cuda`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
-        - *CM_TORCH_CUDA*: `cu116`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
+        - *CM_TORCH_CUDA*: `cu116`
         - *CM_TORCH_VERSION_EXTRA*: `CUDA`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,cuda
              * CM names: `--adr.['cuda']...`
-             - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-             - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_torchvision`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchvision`
@@ -271,15 +270,14 @@ ___
     * `_torchvision_cuda`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchvision`
-        - *CM_TORCH_CUDA*: `cu116`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
+        - *CM_TORCH_CUDA*: `cu116`
         - *CM_TORCH_VERSION_EXTRA*: `CUDA`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,cuda
              * CM names: `--adr.['cuda']...`
-             - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-             - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
     * `_tqdm`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tqdm`

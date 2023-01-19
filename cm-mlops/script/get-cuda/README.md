@@ -11,6 +11,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -24,6 +25,13 @@
 
 ### Description
 
+# System dependencies
+
+* Download [CUDA toolkit](https://developer.nvidia.com/cuda-toolkit).
+* Download [cuDNN](https://developer.nvidia.com/rdp/cudnn-download).
+* Download [TensorRT](https://developer.nvidia.com/nvidia-tensorrt-8x-download).
+
+
 
 See [more info](README-extra.md).
 
@@ -31,9 +39,9 @@ See [more info](README-extra.md).
 
 * Category: *CUDA automation.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,cuda,toolkit,cuda-compiler,cuda-toolkit,nvcc,get-nvcc,get-cuda*
+* CM "database" tags to find this script: *get,cuda,cuda-compiler,cuda-lib,toolkit,lib,nvcc,get-nvcc,get-cuda*
 * Output cached?: *True*
 ___
 ### Usage
@@ -45,11 +53,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags=get,cuda,toolkit,cuda-compiler,cuda-toolkit,nvcc,get-nvcc,get-cuda(,variations from below) (flags from below)`
+`cm run script --tags=get,cuda,cuda-compiler,cuda-lib,toolkit,lib,nvcc,get-nvcc,get-cuda(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get cuda toolkit cuda-compiler cuda-toolkit nvcc get-nvcc get-cuda (variations from below)" (flags from below)`
+`cm run script "get cuda cuda-compiler cuda-lib toolkit lib nvcc get-nvcc get-cuda (variations from below)" (flags from below)`
 
 *or*
 
@@ -66,7 +74,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,cuda,toolkit,cuda-compiler,cuda-toolkit,nvcc,get-nvcc,get-cuda'
+                  'tags':'get,cuda,cuda-compiler,cuda-lib,toolkit,lib,nvcc,get-nvcc,get-cuda'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -98,9 +106,49 @@ ___
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
            * get,nvidia,cudnn
+             * CM names: `--adr.['cudnn']...`
              - CM script: [get-cudnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn)
 
     </details>
+
+
+  * Group "**installation-mode**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_lib-only`
+      - Environment variables:
+        - *CM_CUDA_FULL_TOOLKIT_INSTALL*: `no`
+        - *CM_TMP_FILE_TO_CHECK_UNIX*: `libcudart.so`
+        - *CM_TMP_FILE_TO_CHECK_WINDOWS*: `libcudart.dll`
+      - Workflow:
+    * **`_toolkit`** (default)
+      - Environment variables:
+        - *CM_CUDA_FULL_TOOLKIT_INSTALL*: `yes`
+        - *CM_TMP_FILE_TO_CHECK_UNIX*: `nvcc`
+        - *CM_TMP_FILE_TO_CHECK_WINDOWS*: `nvcc.exe`
+      - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_toolkit`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**cudnn_tar_path**=value --> **CM_CUDNN_TAR_FILE_PATH**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "cudnn_tar_path":...}
+```
+
+</details>
 
 #### Default environment
 
@@ -117,18 +165,18 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 ___
 ### Script workflow, dependencies and native scripts
 
-  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit/_cm.json)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit/customize.py)***
-  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit/_cm.json)***
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/customize.py)***
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)***
      * install,cuda,prebuilt
        * `if (CM_REQUIRE_INSTALL  == yes)`
        - CM script: [install-cuda-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit/run.bat)
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit/_cm.json)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
 ___
 ### Script output
 #### New environment keys (filter)
@@ -145,12 +193,12 @@ ___
 #### New environment keys auto-detected from customize
 
 * **CM_CUDA_CACHE_TAGS**
+* **CM_CUDA_FULL_TOOLKIT_INSTALL**
 * **CM_CUDA_INSTALLED_PATH**
 * **CM_CUDA_PATH_BIN**
 * **CM_CUDA_PATH_INCLUDE**
 * **CM_CUDA_PATH_LIB**
-* **CM_CUDA_PATH_LIB_CUDNN**
-* **CM_CUDA_PATH_LIB_CUDNN_EXISTS**
+* **CM_CUDA_VERSION**
 * **CM_NVCC_BIN**
 ___
 ### Maintainers
