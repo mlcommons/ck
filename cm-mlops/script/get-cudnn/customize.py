@@ -37,6 +37,9 @@ def preprocess(i):
     if os_info['platform'] == 'windows':
         return {'return': 1, 'error': 'Windows is currently not supported for cudnn installation!'}
 
+    if env.get('CM_HOST_OS_MACHINE','') ==  "aarch64":
+        return {'return': 1, 'error': 'Tar file installation is not available for cudnn on aarch64. Please do a package manager install!'}
+
     if not env.get('CM_INPUT',''):
         if env.get('CM_CUDNN_TAR_FILE_PATH'):
             env['CM_INPUT'] = env.get('CM_CUDNN_TAR_FILE_PATH')
