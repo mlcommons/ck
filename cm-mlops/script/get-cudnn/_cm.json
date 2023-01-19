@@ -18,6 +18,9 @@
   },
   "deps": [
     {
+      "tags": "detect,os"
+    },
+    {
       "names": [ "cuda" ],
       "tags": "get,cuda",
       "skip_if_env": {

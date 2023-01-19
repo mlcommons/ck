@@ -21,15 +21,14 @@ def preprocess(i):
         extra_ext='so'
 
     libfilename = extra_pre + 'cudnn.' +extra_ext
+    env['CM_CUDNN_VERSION'] = 'vdetected'
     if os.path.exists(os.path.join(cuda_path_lib, libfilename)):
-        env['CM_CUDNN_VERSION'] = 'vdetected'
         env['CM_CUDA_PATH_LIB_CUDNN'] = env['CM_CUDA_PATH_LIB']
         return {'return': 0}
 
     if env.get('CM_TMP_PATH', '').strip() != '':
         path = env.get('CM_TMP_PATH')
         if os.path.exists(os.path.join(path, libfilename)):
-            env['CM_CUDNN_VERSION'] = 'vdetected'
             env['CM_CUDA_PATH_LIB_CUDNN'] = path
             return {'return': 0}
 
@@ -37,6 +36,34 @@ def preprocess(i):
 
     if os_info['platform'] == 'windows':
         return {'return': 1, 'error': 'Windows is currently not supported for cudnn installation!'}
+
+    if 'CM_TMP_PATH' in env:
+        tmp_path = env['CM_TMP_PATH']
+    else:
+        tmp_path = []
+    for lib_path in env.get('+CM_HOST_OS_DEFAULT_LIBRARY_PATH', []):
+        if(os.path.exists(lib_path)):
+            tmp_path.append(lib_path)
+    env['CM_TMP_PATH'] = ":".join(tmp_path)
+
+    r = i['automation'].find_artifact({'file_name': libfilename,
+                                           'env': env,
+                                           'os_info':os_info,
+                                           'default_path_env_key': 'LD_LIBRARY_PATH',
+                                           'detect_version':False,
+                                           'env_path_key':'CM_CUDA_PATH_LIB_CUDNN',
+                                           'run_script_input':i['run_script_input'],
+                                           'recursion_spaces':recursion_spaces})
+    if r['return'] >0 :
+        if os_info['platform'] == 'windows':
+            return r
+
+        if r['return'] == 16:
+            env['CM_TMP_REQUIRE_INSTALL'] = "yes"
+        else:
+            return r
+    else:
+        return {'return':0}
 
     if env.get('CM_HOST_OS_MACHINE','') ==  "aarch64":
         return {'return': 1, 'error': 'Tar file installation is not available for cudnn on aarch64. Please do a package manager install!'}
