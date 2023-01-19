@@ -17,6 +17,7 @@
     "get",
     "ml-model",
     "dlrm",
+    "raw",
     "terabyte",
     "criteo-terabyte",
     "criteo",

@@ -16,6 +16,7 @@
   "tags": [
     "get",
     "ml-model",
+    "raw",
     "3d-unet",
     "kits19",
     "medical-imaging"

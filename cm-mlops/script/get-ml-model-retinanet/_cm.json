@@ -21,6 +21,7 @@
   "tags": [
     "get",
     "ml-model",
+    "raw",
     "resnext50",
     "retinanet",
     "object-detection"
