@@ -12,14 +12,22 @@ def preprocess(i):
     env['CM_TMP_RUN_COPY_SCRIPT'] = "no"
 
     cuda_path_lib = env.get('CM_CUDA_PATH_LIB')
-    if os.path.exists(os.path.join(cuda_path_lib, "libcudnn.so")):
+ 
+    if os_info['platform'] == 'windows':
+        extra_pre=''
+        extra_ext='lib'
+    else:
+        extra_pre='lib'
+        extra_ext='so'
+
+    if os.path.exists(os.path.join(cuda_path_lib, extra_pre + 'cudnn.' +extra_ext)):
         env['CM_CUDNN_VERSION'] = 'vdetected'
         env['CM_CUDA_PATH_LIB_CUDNN'] = env['CM_CUDA_PATH_LIB']
         return {'return': 0}
 
     if env.get('CM_TMP_PATH', '').strip() != '':
         path = env.get('CM_TMP_PATH')
-        if os.path.exists(os.path.join(path, "libcudnn.so")):
+        if os.path.exists(os.path.join(path, extra_pre + 'libcudnn.' + extra_ext)):
             env['CM_CUDNN_VERSION'] = 'vdetected'
         env['CM_CUDA_PATH_LIB_CUDNN'] = path
         return {'return': 0}
@@ -27,7 +35,7 @@ def preprocess(i):
     recursion_spaces = i['recursion_spaces']
 
     if os_info['platform'] == 'windows':
-        return {'return': 1, 'error': 'Windows is currently not supported!'}
+        return {'return': 1, 'error': 'Windows is currently not supported for cudnn installation!'}
 
     if not env.get('CM_INPUT',''):
         if env.get('CM_CUDNN_TAR_FILE_PATH'):

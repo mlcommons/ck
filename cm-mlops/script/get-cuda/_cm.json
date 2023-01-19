@@ -1,5 +1,5 @@
 {
-  "alias": "get-cuda-toolkit",
+  "alias": "get-cuda",
   "automation_alias": "script",
   "automation_uid": "5b4e0237da074764",
   "cache": true,
@@ -38,9 +38,10 @@
   "tags": [
     "get",
     "cuda",
-    "toolkit",
     "cuda-compiler",
-    "cuda-toolkit",
+    "cuda-lib",
+    "toolkit",
+    "lib",
     "nvcc",
     "get-nvcc",
     "get-cuda"
@@ -53,12 +54,29 @@
       },
       "post_deps": [
         {
+          "names": [
+            "cudnn"
+          ],
           "tags": "get,nvidia,cudnn"
         }
-      ],
-      "force_env_keys": [
-        "CM_CUDNN_TAR_FILE_PATH"
       ]
+    },
+    "lib-only": {
+      "env": {
+        "CM_CUDA_FULL_TOOLKIT_INSTALL": "no",
+        "CM_TMP_FILE_TO_CHECK_UNIX": "libcudart.so",
+        "CM_TMP_FILE_TO_CHECK_WINDOWS": "libcudart.dll"
+      },
+      "group": "installation-mode"
+    },
+    "toolkit": {
+      "default": true,
+      "env": {
+        "CM_CUDA_FULL_TOOLKIT_INSTALL": "yes",
+        "CM_TMP_FILE_TO_CHECK_UNIX": "nvcc",
+        "CM_TMP_FILE_TO_CHECK_WINDOWS": "nvcc.exe"
+      },
+      "group": "installation-mode"
     }
   }
 }
