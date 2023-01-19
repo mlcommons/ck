@@ -23,15 +23,25 @@ def preprocess(i):
             cmds.append(f"ln -s {env['CM_DATASET_IMAGENET_PATH']} {target_data_path}")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'ResNet50', 'resnet50_v1.onnx')
-        if not os.path.exists(model_path):
-            cmds.append("make download_model BENCHMARKS='resnet50'")
-        cmds.append("make preprocess_data BENCHMARKS='resnet50'")
-        scenario=env['CM_MLPERF_LOADGEN_SCENARIO'].lower()
-        if env['CM_MLPERF_LOADGEN_MODE'] == "accuracy":
-            test_mode = "AccuracyOnly"
-        elif env['CM_MLPERF_LOADGEN_MODE'] == "performance":
-            test_mode = "PerformanceOnly"
-        cmds.append(f"make run RUN_ARGS=' --benchmarks=resnet50 --scenarios={scenario} --test_mode={test_mode}'")
+        model_name = "resnet50"
+
+    elif "bert" in env['CM_MODEL']:
+        target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'squad')
+        if not os.path.exists(target_data_path):
+            cmds.append("make download_data BENCHMARKS='bert'")
+
+        model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'bert_large_v1_1.onnx')
+        model_name = "bert"
+
+    if not os.path.exists(model_path):
+        cmds.append(f"make download_model BENCHMARKS='{model_name}'")
+    cmds.append(f"make preprocess_data BENCHMARKS='{model_name}'")
+    scenario=env['CM_MLPERF_LOADGEN_SCENARIO'].lower()
+    if env['CM_MLPERF_LOADGEN_MODE'] == "accuracy":
+        test_mode = "AccuracyOnly"
+    elif env['CM_MLPERF_LOADGEN_MODE'] == "performance":
+        test_mode = "PerformanceOnly"
+    cmds.append(f"make run RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} --test_mode={test_mode}'")
 
     env['RUN_CMD'] = " && ".join(cmds)
 #    print(env)
