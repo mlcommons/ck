@@ -22,10 +22,12 @@ tags:
 default_env:
   CM_BATCH_COUNT: '1'
   CM_BATCH_SIZE: '1'
-  CM_FAST_COMPILATION: "yes"
+  CM_FAST_COMPILATION: yes
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_MLPERF_LOADGEN_MODE: performance
   SKIP_POLICIES: '1'
+  CM_NO_PREPROCESS_DATASET: no
+  CM_SKIP_MODEL_DOWNLOAD: no
 
 # Map script inputs to environment variables
 input_mapping:
@@ -37,6 +39,7 @@ input_mapping:
   performance_sample_count: CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT
   scenario: CM_MLPERF_LOADGEN_SCENARIO
   user_conf: CM_MLPERF_USER_CONF
+  skip_preprocess: CM_SKIP_PREPROCESS_DATASET
 
 new_env_keys:
   - CM_MLPERF_*
@@ -101,6 +104,20 @@ deps:
       - openimages-original
     tags: get,dataset,original,openimages,_validation,_full
 
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    names:
+      - openimages-calibration
+    tags: get,dataset,original,openimages,_calibration
+
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    names:
+      - ml-model-retinanet
+    tags: get,ml-model,nvidia-retinanet,_efficient-nms
 
 # Variations to customize dependencies
 variations:
@@ -127,6 +144,7 @@ variations:
     group: model
     env:
       CM_MODEL: retinanet
+      CM_SKIP_MODEL_DOWNLOAD: yes
 
   bert-99:
     group: model

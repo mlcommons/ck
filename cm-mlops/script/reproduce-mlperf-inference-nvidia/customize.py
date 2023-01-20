@@ -33,9 +33,43 @@ def preprocess(i):
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'bert_large_v1_1.onnx')
         model_name = "bert"
 
-    if not os.path.exists(model_path):
+    elif env['CM_MODEL'] == "retinanet":
+#        print(env)
+        dataset_path = env['CM_DATASET_PATH']
+#        return {'return': 1, 'error': 'error'}
+
+        annotations_path = env['CM_DATASET_ANNOTATIONS_DIR_PATH']
+        target_data_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'open-images-v6-mlperf')
+        if not os.path.exists(target_data_path_dir):
+            cmds.append(f"mkdir -p {target_data_path_dir}")
+        target_data_path = os.path.join(target_data_path_dir, 'annotations')
+        if not os.path.exists(target_data_path):
+            cmds.append(f"ln -s {annotations_path} {target_data_path}")
+
+        target_data_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'open-images-v6-mlperf', 'validation')
+        if not os.path.exists(target_data_path_dir):
+            cmds.append(f"mkdir -p {target_data_path_dir}")
+        target_data_path = os.path.join(target_data_path_dir, 'data')
+        if not os.path.exists(target_data_path):
+            cmds.append(f"ln -s {dataset_path} {target_data_path}")
+
+        calibration_dataset_path=env['CM_CALIBRATION_DATASET_PATH']
+        target_data_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'open-images-v6-mlperf','calibration', 'train')
+        if not os.path.exists(target_data_path_dir):
+            cmds.append(f"mkdir -p {target_data_path_dir}")
+        target_data_path = os.path.join(target_data_path_dir, 'data')
+        if not os.path.exists(target_data_path):
+            cmds.append(f"ln -s {calibration_dataset_path} {target_data_path}")
+
+        preprocessed_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'preprocessed_data')
+
+        model_path = ''#os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'retinanet', 'bert_large_v1_1.onnx')
+        model_name = "retinanet"
+
+    if not env.get('CM_SKIP_MODEL_DOWNLOAD') and not os.path.exists(model_path):
         cmds.append(f"make download_model BENCHMARKS='{model_name}'")
-    cmds.append(f"make preprocess_data BENCHMARKS='{model_name}'")
+    if not env.get('CM_SKIP_PREPROCESS_DATASET', 'no') == "yes":
+        cmds.append(f"make preprocess_data BENCHMARKS='{model_name}'")
     scenario=env['CM_MLPERF_LOADGEN_SCENARIO'].lower()
     if env['CM_MLPERF_LOADGEN_MODE'] == "accuracy":
         test_mode = "AccuracyOnly"
