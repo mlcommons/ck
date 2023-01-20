@@ -62,6 +62,14 @@
         "CM_BOTO3_VERSION"
       ]
     },
+    "cmind": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "cmind"
+      },
+      "new_env_keys": [
+        "CM_CMIND_VERSION"
+      ]
+    },
     "colored": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "colored",

@@ -63,6 +63,11 @@
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "boto3"
       }
     },
+    "cmind": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "cmind"
+      }
+    },
     "colored": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "colored",
