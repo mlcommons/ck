@@ -71,7 +71,7 @@ def preprocess(i):
             cmds.append(f"ln -sf {model_path} {target_model_path}")
         model_name = "retinanet"
 
-    if not env.get('CM_SKIP_MODEL_DOWNLOAD') and not os.path.exists(model_path):
+    if not env.get('CM_SKIP_MODEL_DOWNLOAD', 'no') == "yes" and not os.path.exists(model_path):
         cmds.append(f"make download_model BENCHMARKS='{model_name}'")
     if not env.get('CM_SKIP_PREPROCESS_DATASET', 'no') == "yes":
         cmds.append(f"make preprocess_data BENCHMARKS='{model_name}'")
