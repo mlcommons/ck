@@ -34,9 +34,9 @@ def preprocess(i):
         model_name = "bert"
 
     elif env['CM_MODEL'] == "retinanet":
-#        print(env)
+        #print(env)
         dataset_path = env['CM_DATASET_PATH']
-#        return {'return': 1, 'error': 'error'}
+        #return {'return': 1, 'error': 'error'}
 
         annotations_path = env['CM_DATASET_ANNOTATIONS_DIR_PATH']
         target_data_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'open-images-v6-mlperf')
@@ -62,8 +62,13 @@ def preprocess(i):
             cmds.append(f"ln -s {calibration_dataset_path} {target_data_path}")
 
         preprocessed_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'preprocessed_data')
-
-        model_path = ''#os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'retinanet', 'bert_large_v1_1.onnx')
+        model_path = env['CM_NVIDIA_RETINANET_EFFICIENT_NMS_CONCAT_MODEL_WITH_PATH']
+        target_model_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'retinanet-resnext50-32x4d', 'submission')
+        if not os.path.exists(target_model_path_dir):
+            cmds.append(f"mkdir -p {target_model_path_dir}")
+        target_model_path = os.path.join(target_model_path_dir, 'retinanet_resnext50_32x4d_efficientNMS.800x800.onnx')
+        if not os.path.exists(target_model_path):
+            cmds.append(f"ln -sf {model_path} {target_model_path}")
         model_name = "retinanet"
 
     if not env.get('CM_SKIP_MODEL_DOWNLOAD') and not os.path.exists(model_path):
