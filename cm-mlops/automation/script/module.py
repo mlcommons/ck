@@ -1690,12 +1690,12 @@ class CAutomation(Automation):
         excluded_tags =  [ v[1:] for v in script_tags if v.startswith("-") ]
         common = set(script_tags).intersection(set(excluded_tags))
         if common:
-            return {'return':1, 'error': f'There is common tags { common } in the included and excluded lists'}
+            return {'return':1, 'error': 'There is common tags {} in the included and excluded lists'.format(common)}
 
         excluded_variation_tags =  [ v[1:] for v in variation_tags if v.startswith("-") ]
         common = set(variation_tags).intersection(set(excluded_variation_tags))
         if common:
-            return {'return':1, 'error': f'There is common variation tags { common } in the included and excluded lists'}
+            return {'return':1, 'error': 'There is common variation tags {} in the included and excluded lists'.format(common)}
 
         ############################################################################################################
         # Find CM script(s) based on thier tags to get their meta (can be more than 1)
