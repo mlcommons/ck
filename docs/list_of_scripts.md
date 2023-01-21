@@ -208,7 +208,6 @@ design space exploration and deployment across continuously changing software an
 * [activate-python-venv](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/activate-python-venv) *(Activate virtual Python environment)*
 * [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 * [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-* [install-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib)
 * [install-python-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-src)
 * [install-python-venv](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv)
 
@@ -324,7 +323,6 @@ design space exploration and deployment across continuously changing software an
 * [install-cuda-package-manager](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-package-manager)
 * [install-cuda-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cuda-prebuilt)
 * [install-gcc-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-gcc-src)
-* [install-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-generic-python-lib)
 * [install-github-cli](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-github-cli)
 * [install-llvm-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt) *(Install prebuilt LLVM compiler)*
 * [install-llvm-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-src) *(Build LLVM compiler from sources (can take >30 min))*

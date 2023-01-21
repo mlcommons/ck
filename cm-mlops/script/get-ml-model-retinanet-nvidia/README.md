@@ -138,7 +138,7 @@ ___
      * get,generic-python-lib,_torch_cuda
        * `if (CM_TORCH_DEVICE in cuda)`
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-     * get,nvidia,mlperf,inference,common-code
+     * get,nvidia,mlperf,inference,common-code,-_custom
        - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia/_cm.json)

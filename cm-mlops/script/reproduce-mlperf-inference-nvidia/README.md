@@ -122,6 +122,14 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_bert-99`
+      - Environment variables:
+        - *CM_MODEL*: `bert-99`
+      - Workflow:
+    * `_bert-99.9`
+      - Environment variables:
+        - *CM_MODEL*: `bert-99.9`
+      - Workflow:
     * **`_resnet50`** (default)
       - Environment variables:
         - *CM_MODEL*: `resnet50`
@@ -129,6 +137,7 @@ ___
     * `_retinanet`
       - Environment variables:
         - *CM_MODEL*: `retinanet`
+        - *CM_SKIP_MODEL_DOWNLOAD*: `True`
       - Workflow:
 
     </details>
@@ -149,6 +158,7 @@ ___
 * --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
 * --**performance_sample_count**=value --> **CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT**=value
 * --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
+* --**skip_preprocess**=value --> **CM_SKIP_PREPROCESS_DATASET**=value
 * --**user_conf**=value --> **CM_MLPERF_USER_CONF**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
@@ -168,10 +178,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 * CM_BATCH_COUNT: **1**
 * CM_BATCH_SIZE: **1**
-* CM_FAST_COMPILATION: **yes**
+* CM_FAST_COMPILATION: **True**
 * CM_MLPERF_LOADGEN_SCENARIO: **Offline**
 * CM_MLPERF_LOADGEN_MODE: **performance**
 * SKIP_POLICIES: **1**
+* CM_NO_PREPROCESS_DATASET: **False**
+* CM_SKIP_MODEL_DOWNLOAD: **False**
 
 </details>
 
@@ -205,6 +217,14 @@ ___
        * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['openimages-original']...`
        - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
+     * get,dataset,original,openimages,_calibration
+       * `if (CM_MODEL  == retinanet)`
+       * CM names: `--adr.['openimages-calibration']...`
+       - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
+     * get,ml-model,nvidia-retinanet,_efficient-nms
+       * `if (CM_MODEL  == retinanet)`
+       * CM names: `--adr.['ml-model-retinanet']...`
+       - CM script: [get-ml-model-retinanet-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
   1. ***Run native script if exists***

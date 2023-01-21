@@ -688,10 +688,24 @@ def doc(i):
 
             md_script_readme.append('')
             key0 = ''
-            for key in sorted(input_description):
+            for key in input_description:
                 if key0=='': key0=key
+
                 value = input_description[key]
-                md_script_readme.append('* --**{}** "{}"'.format(key,value))
+                desc = value
+
+                if type(value) == dict:
+                    desc = value['desc']
+
+                    choices = value.get('choices', [])
+                    if len(choices) > 0:
+                        desc+=' {'+','.join(choices)+'}'
+
+                    default = value.get('default','')
+                    if default!='':
+                        desc+=' (*'+str(default)+'*)'
+
+                md_script_readme.append('* --**{}** {}'.format(key,desc))
 
             md_script_readme.append('')
             md_script_readme.append('**Above CLI flags can be used in the Python CM API as follows:**')

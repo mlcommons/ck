@@ -105,14 +105,22 @@ ___
       - Environment variables:
         - *CM_DATASET_SIZE*: `500`
       - Workflow:
+    * `_full`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: ``
+      - Workflow:
+
+    </details>
+
+
+  * Group "**dataset-type**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
     * `_calibration`
       - Environment variables:
         - *CM_CALIBRATION_DATASET_WGET_URL*: `https://github.com/mlcommons/inference/blob/master/calibration/openimages/openimages_cal_images_list.txt`
         - *CM_DATASET_CALIBRATION*: `yes`
-      - Workflow:
-    * `_full`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: ``
       - Workflow:
     * **`_validation`** (default)
       - Environment variables:

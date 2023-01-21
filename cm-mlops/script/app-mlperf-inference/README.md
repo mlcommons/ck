@@ -386,20 +386,22 @@ ___
 
 #### Input description
 
-* --**hw_name** "Valid value - any system description which has a config file (under same name) defined [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/configs)"
-* --**max_batchsize** "Maximum batchsize to be used"
-* --**mode** "Valid values: {performance, accuracy}"
-* --**num_threads** "Number of CPU threads to launch the application with"
-* --**output_dir** "Location where the outputs are produced"
-* --**regenerate_files** "Regenerates measurement files including accuracy.txt files even if a previous run exists. This option is redundant if `--rerun` is used"
-* --**rerun** "Redo the run even if previous run files exist"
-* --**scenario** "Valid values: {Offline, Server, SingleStream, MultiStream}"
-* --**test_query_count** "Specifies the number of samples to be processed during a test run"
+* --**scenario** MLPerf inference scenario {Offline,Server,SingleStream,MultiStream} (*Offline*)
+* --**mode** MLPerf inference mode {performance,accuracy} (*accuracy*)
+* --**test_query_count** Specifies the number of samples to be processed during a test run
+* --**target_qps** Target QPS
+* --**target_latency** Target Latency
+* --**max_batchsize** Maximum batchsize to be used (*1*)
+* --**num_threads** Number of CPU threads to launch the application with
+* --**hw_name** Valid value - any system description which has a config file (under same name) defined [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/configs)
+* --**output_dir** Location where the outputs are produced
+* --**rerun** Redo the run even if previous run files exist (*True*)
+* --**regenerate_files** Regenerates measurement files including accuracy.txt files even if a previous run exists. This option is redundant if `--rerun` is used
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "hw_name":...}
+r=cm.access({... , "scenario":...}
 ```
 
 #### Script flags mapped to environment

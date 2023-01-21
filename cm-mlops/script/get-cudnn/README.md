@@ -32,7 +32,7 @@
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
 * CM "database" tags to find this script: *get,cudnn,nvidia*
-* Output cached?: *False*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -86,7 +86,7 @@ ___
 
 #### Input description
 
-* --**input** "Path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)"
+* --**input** Path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -124,6 +124,8 @@ ___
 ### Script workflow, dependencies and native scripts
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cudnn/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,cuda
        * `if (CM_CUDA_PATH_LIB  != on OR CM_CUDA_PATH_INCLUDE  != on)`
        * CM names: `--adr.['cuda']...`

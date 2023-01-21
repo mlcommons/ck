@@ -89,7 +89,7 @@ ___
 
 #### Input description
 
-* --**input** "Path to the TensorRT Tar file downloaded from the Nvidia website (https://developer.nvidia.com/tensorrt)"
+* --**input** Path to the TensorRT Tar file downloaded from the Nvidia website (https://developer.nvidia.com/tensorrt)
 
 **Above CLI flags can be used in the Python CM API as follows:**
 

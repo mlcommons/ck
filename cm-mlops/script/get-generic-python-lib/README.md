@@ -33,7 +33,7 @@ See [more info](README-extra.md).
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,generic,generic-python-lib*
+* CM "database" tags to find this script: *get,install,generic,generic-python-lib*
 * Output cached?: *True*
 ___
 ### Usage
@@ -45,11 +45,11 @@ ___
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags=get,generic,generic-python-lib(,variations from below) (flags from below)`
+`cm run script --tags=get,install,generic,generic-python-lib(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get generic generic-python-lib (variations from below)" (flags from below)`
+`cm run script "get install generic generic-python-lib (variations from below)" (flags from below)`
 
 *or*
 
@@ -66,7 +66,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,generic,generic-python-lib'
+                  'tags':'get,install,generic,generic-python-lib'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -106,6 +106,10 @@ ___
     * `_boto3`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `boto3`
+      - Workflow:
+    * `_cmind`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `cmind`
       - Workflow:
     * `_colored`
       - Environment variables:
