@@ -211,7 +211,7 @@ def main():
             flags+=' --'+key
             if type(value)!=bool:
                 flags+='='+str(value)
-    
+
     ########################################################
     # Extra CMD
     st.markdown("""---""")
@@ -225,7 +225,11 @@ def main():
 
     # Print CLI
     st.markdown("""---""")
-    cli = st.text_area('**Generated CM Command Line**', cli)
+
+    st.text_area('Get [CK2 (CM) framework](https://github.com/mlcommons/ck) and install automation repository:', 'python3 -m pip install cmind -U\ncm pull repo mlcommons@ck', height=10)
+
+    cli = st.text_area('**Run CM script:**', cli)
+
 
     # Add explicit button "Run"
     if no_run=='' and st.button("Run"):
