@@ -8,6 +8,7 @@
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
+  * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
@@ -40,12 +41,15 @@ ___
 ### Usage
 
 #### CM installation
+
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
 #### CM script automation help
+
 ```cm run script --help```
 
 #### CM CLI
+
 `cm run script --tags=run,generate-tiny,generate,submission,tiny,generate-tiny-submission,results,mlcommons,mlperf,octoml(,variations from below) (flags from below)`
 
 *or*
@@ -81,8 +85,17 @@ if r['return']>0:
 
 </details>
 
+
+#### CM GUI
+
+```cm run script --tags=gui --script="run,generate-tiny,generate,submission,tiny,generate-tiny-submission,results,mlcommons,mlperf,octoml"```
+
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,generate-tiny,generate,submission,tiny,generate-tiny-submission,results,mlcommons,mlperf,octoml) to generate CM CMD.
+
 #### CM modular Docker container
+
 *TBD*
+
 ___
 ### Customization
 

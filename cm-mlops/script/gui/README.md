@@ -8,6 +8,7 @@
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
+  * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Input description](#input-description)
@@ -25,7 +26,21 @@
 
 ### Description
 
-﻿This CM script provides a unified GUI to run CM scripts using [Streamlit library](https://streamlit.io).
+This CM script provides a unified GUI to run CM scripts using [Streamlit library](https://streamlit.io).
+
+If you want to run it in a cloud (Azure, AWS, GCP), you need to open some port and test that you can reach it from outside.
+
+By default, streamlit uses port 8501 but you can change it as follows:
+
+```bash
+cm run script "cm gui" --port 80
+```
+
+If you have troubles accessing this port, use this simple python module to test if your port is open:
+```bash
+python3 -m http.server 80
+```
+
 
 #### Information
 
@@ -33,23 +48,26 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui)*
 * CM meta description for this script: *[_cm.yaml](_cm.yaml)*
-* CM "database" tags to find this script: *gui,streamlit*
+* CM "database" tags to find this script: *cm,gui,cm-gui,script-gui,cm-script-gui,streamlit*
 * Output cached?: *False*
 ___
 ### Usage
 
 #### CM installation
+
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
 #### CM script automation help
+
 ```cm run script --help```
 
 #### CM CLI
-`cm run script --tags=gui,streamlit(,variations from below) (flags from below)`
+
+`cm run script --tags=cm,gui,cm-gui,script-gui,cm-script-gui,streamlit(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "gui streamlit (variations from below)" (flags from below)`
+`cm run script "cm gui cm-gui script-gui cm-script-gui streamlit (variations from below)" (flags from below)`
 
 *or*
 
@@ -66,7 +84,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'gui,streamlit'
+                  'tags':'cm,gui,cm-gui,script-gui,cm-script-gui,streamlit'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -80,15 +98,24 @@ if r['return']>0:
 
 </details>
 
+
+#### CM GUI
+
+```cm run script --tags=gui --script="cm,gui,cm-gui,script-gui,cm-script-gui,streamlit"```
+
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=cm,gui,cm-gui,script-gui,cm-script-gui,streamlit) to generate CM CMD.
+
 #### CM modular Docker container
+
 *TBD*
+
 ___
 ### Customization
 
 
 #### Input description
 
-* --**script** "script tags"
+* --**script** script tags
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -100,12 +127,18 @@ r=cm.access({... , "script":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
+* --**address**=value --> **CM_GUI_ADDRESS**=value
+* --**no_browser**=value --> **CM_GUI_NO_BROWSER**=value
+* --**no_run**=value --> **CM_GUI_NO_RUN**=value
+* --**port**=value --> **CM_GUI_PORT**=value
+* --**prefix**=value --> **CM_GUI_SCRIPT_PREFIX_LINUX**=value
 * --**script**=value --> **CM_GUI_SCRIPT_TAGS**=value
+* --**title**=value --> **CM_GUI_TITLE**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "script":...}
+r=cm.access({... , "address":...}
 ```
 
 </details>
@@ -117,6 +150,8 @@ r=cm.access({... , "script":...}
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
+* CM_GUI_EXTRA_CMD: ****
+* CM_GUI_SCRIPT_PREFIX_LINUX: **gnome-terminal --**
 
 </details>
 
@@ -133,6 +168,8 @@ ___
      * get,python
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,generic-python-lib,_cmind
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
      * get,generic-python-lib,_streamlit
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui/customize.py)***
