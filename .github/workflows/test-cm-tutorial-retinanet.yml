@@ -5,7 +5,7 @@ name: CM(CK2) tutorial retinanet
 
 on:
   pull_request:
-    branches: [ "test" ]
+    branches: [ "master", "dev" ]
     paths:
       - '.github/workflows/test-cm-tutorial-retinanet.yml'
       - '!cm-mlops/**.md'
