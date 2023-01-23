@@ -1,13 +1,13 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: CM(CK2) tutorials test
+name: CM(CK2) tutorial tvm
 
 on:
   pull_request:
-    branches: [ "master", "dev" ]
+    branches: [ "test" ]
     paths:
-      - '.github/workflows/test-cm-tutorials.yml'
+      - '.github/workflows/test-cm-tutorial-tvm.yml'
       - '!cm-mlops/**.md'
       - 'cm-mlops/**'
 
@@ -31,6 +31,6 @@ jobs:
         python -m pip install cmind
         cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }} --checkout=${{ github.event.pull_request.head.ref }}
         cm run script --quiet --tags=get,sys-utils-cm
-    - name: Test CM Tutorials
+    - name: Test CM Tutorial TVM
       run: |
-        python tests/script/test_tutorials.py
+        python tests/tutorials/test_tutorial_tvm.py
