@@ -66,7 +66,6 @@
     "target_qps": "CM_MLPERF_LOADGEN_TARGET_QPS",
     "offline_target_qps": "CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS",
     "server_target_qps": "CM_MLPERF_LOADGEN_SERVER_TARGET_QPS",
-    "target_qps": "CM_MLPERF_LOADGEN_TARGET_QPS",
     "target_latency": "CM_MLPERF_LOADGEN_TARGET_LATENCY",
     "singlestream_target_latency": "CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY",
     "multistream_target_latency": "CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY"
