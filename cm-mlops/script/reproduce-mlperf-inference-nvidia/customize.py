@@ -118,7 +118,7 @@ def preprocess(i):
 
     use_triton = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_TRITON')
     if use_triton:
-        run_config += f" --use_triton"
+        run_config += f" --use_triton --config_ver=triton"
 
     gpu_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS')
     if gpu_copy_streams:
@@ -156,8 +156,25 @@ def preprocess(i):
     if use_graphs:
         run_config += " --use_graphs"
 
+    run_infer_on_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_RUN_INFER_ON_COPY_STREAMS')
+    if run_infer_on_copy_streams:
+        run_config += " --run_infer_on_copy_streams"
 
-    cmds.append(f"make run RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} --test_mode={test_mode} {run_config}'")
+    start_from_device = env.get('CM_MLPERF_NVIDIA_HARNESS_START_FROM_DEVICE')
+    if start_from_device:
+        run_config += " --start_from_device"
+
+    end_on_device = env.get('CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE')
+    if end_on_device:
+        run_config += " --end_on_device"
+
+    max_dlas = env.get('CM_MLPERF_MAX_DLAS')
+    if max_dlas:
+        run_config += f" --max_dlas={max_dlas}"
+
+    make_command = env.get('CM_MLPERF_NVIDIA_RUN_COMMAND', 'run')
+
+    cmds.append(f"make {make_command} RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} --test_mode={test_mode} {run_config}'")
     #print(cmds)
     env['RUN_CMD'] = " && ".join(cmds)
 #    print(env)

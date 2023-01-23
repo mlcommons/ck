@@ -28,6 +28,7 @@ default_env:
   SKIP_POLICIES: '1'
   CM_NO_PREPROCESS_DATASET: no
   CM_SKIP_MODEL_DOWNLOAD: no
+  CM_MLPERF_NVIDIA_RUN_COMMAND: run
 
 # Map script inputs to environment variables
 input_mapping:
@@ -57,6 +58,11 @@ input_mapping:
   workspace_size: CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE
   log_dir: CM_MLPERF_NVIDIA_HARNESS_LOG_DIR
   use_graphs: CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS
+  run_infer_on_copy_streams: CM_MLPERF_NVIDIA_HARNESS_RUN_INFER_ON_COPY_STREAMS
+  start_from_device: CM_MLPERF_NVIDIA_HARNESS_START_FROM_DEVICE
+  end_on_device: CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE
+  max_dlas: CM_MLPERF_MAX_DLAS
+  make_cmd: CM_MLPERF_NVIDIA_RUN_COMMAND
 
 new_env_keys:
   - CM_MLPERF_*
