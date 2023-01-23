@@ -7,7 +7,7 @@ import cmind
 def main():
 
     query_params = st.experimental_get_query_params()
-    
+
     script_path = os.environ.get('CM_GUI_SCRIPT_PATH','')
     script_alias = os.environ.get('CM_GUI_SCRIPT_ALIAS','')
     title = os.environ.get('CM_GUI_TITLE', '')
@@ -17,6 +17,7 @@ def main():
     script_tags = ''
     script_tags_from_url = query_params.get('tags',[''])
 
+    meta = {}
     if len(script_tags_from_url)>0:
         script_tags = script_tags_from_url[0]
 
@@ -36,15 +37,15 @@ def main():
 
             if len(lst)==1:
                 script = lst[0]
+                meta = script.meta
                 script_path = script.path
-                script_alias = script.meta['alias']
+                script_alias = meta['alias']
 
     if script_tags == '':
         script_tags = os.environ.get('CM_GUI_SCRIPT_TAGS','')
 
     # Read meta
-    meta = {}
-    if script_path!='' and os.path.isdir(script_path):
+    if len(meta)==0 and script_path!='' and os.path.isdir(script_path):
         fn = os.path.join(script_path, '_cm')
         r = cmind.utils.load_yaml_and_json(fn)
         if r['return'] == 0:
