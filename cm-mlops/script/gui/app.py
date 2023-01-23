@@ -2,13 +2,43 @@
 
 import streamlit as st
 import os
-from cmind import utils
+import cmind
 
 def main():
 
-    script_tags = os.environ.get('CM_GUI_SCRIPT_TAGS','')
+    query_params = st.experimental_get_query_params()
+    
     script_path = os.environ.get('CM_GUI_SCRIPT_PATH','')
     script_alias = os.environ.get('CM_GUI_SCRIPT_ALIAS','')
+
+    script_tags = ''
+    script_tags_from_url = query_params.get('tags',[''])
+
+    if len(script_tags_from_url)>0:
+        script_tags = script_tags_from_url[0]
+
+        if script_tags !='':
+            # Check type of tags
+            if ' ' in script_tags:
+                script_tags = script_tags.replace(' ',',')
+
+            print ('Searching CM scripts using tags "{}"'.format(script_tags))
+
+            r = cmind.access({'action':'find', 
+                              'automation':'script', 
+                              'tags':script_tags})
+            if r['return']>0: return r
+
+            lst = r['list']
+
+            if len(lst)==1:
+                script = lst[0]
+                script_path = script.path
+                script_alias = script.meta['alias']
+
+    if script_tags == '':
+        script_tags = os.environ.get('CM_GUI_SCRIPT_TAGS','')
+
     title = os.environ.get('CM_GUI_TITLE', '')
     no_run = os.environ.get('CM_GUI_NO_RUN', '')
 
@@ -35,7 +65,7 @@ def main():
     meta = {}
     if script_path!='' and os.path.isdir(script_path):
         fn = os.path.join(script_path, '_cm')
-        r = utils.load_yaml_and_json(fn)
+        r = cmind.utils.load_yaml_and_json(fn)
         if r['return'] == 0:
             meta = r['meta']
 
