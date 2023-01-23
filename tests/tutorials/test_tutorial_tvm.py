@@ -1,6 +1,9 @@
 # This test covers version, variation, compilation from src, add_deps, add_deps_recursive, deps, post_deps
 
 import cmind as cm
+import sys
+
+sys.path.insert(1, "../script")
 import check as checks
 
 
