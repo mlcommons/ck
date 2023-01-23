@@ -7,6 +7,8 @@ Nvidia working directory is given by `CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH` vari
 cm run script --tags=get,nvidia,common-code,_custom --out=json
 ```
 
+Nvidia run configuration values for each model-sceraio for known systems are stored in `__init__.py` files under configs directory. For custom systems these are stored under `custom.py` files.
+
 <details>
 
 ```bash
