@@ -201,6 +201,23 @@ variations:
       - tags: get,generic-python-lib,_mlperf_logging
       - tags: get,generic-python-lib,_onnx
   
+  nvidia-original:
+    group:
+      implementation
+    env:
+      CM_MLPERF_IMPLEMENTATION: nvidia-original
+    deps:
+      ## Nvidia common code
+      - tags: get,mlperf,inference,nvidia,common-code
+    prehook_deps:
+      - names:
+         - nvidia-original-mlperf-inference
+         - mlperf-inference-implementation
+        tags: reproduce,mlperf,nvidia,inference
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+
   resnet50:
     group:
       model
@@ -354,6 +371,15 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _onnxruntime
+
+  tensorrt:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        tensorrt
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tensorrt
 
   tf:
     group: backend
