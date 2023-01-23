@@ -18,12 +18,21 @@
   },
   "deps": [
     {
+      "tags": "detect,os"
+    },
+    {
       "names": [ "cuda" ],
-      "tags": "get,cuda"
+      "tags": "get,cuda",
+      "skip_if_env": {
+        "CM_CUDA_PATH_LIB": [ "on" ],
+        "CM_CUDA_PATH_INCLUDE": [ "on" ]
+      }
     }
   ],
   "new_env_keys": [
     "CM_CUDNN_*",
+    "CM_CUDA_PATH_LIB_CUDNN",
+    "CM_CUDA_PATH_LIB_CUDNN_EXISTS",
     "+PATH",
     "+C_INCLUDE_PATH",
     "+CPLUS_INCLUDE_PATH",

@@ -26,7 +26,7 @@ design space exploration and deployment.
 
 # Maintainers
 
-* [Grigori Fursin](https://cKnowledge.io/cf@gfursin)
+* [Grigori Fursin](https://cKnowledge.io/@gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 # Acknowledgments

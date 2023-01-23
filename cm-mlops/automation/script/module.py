@@ -153,6 +153,10 @@ class CAutomation(Automation):
           (ignore_script_error) (bool): if True, ignore error code in native tools and scripts
                                         and finish a given CM script. Useful to test/debug partial installations
 
+          (json) (bool): if True, print output as JSON
+          
+          (pause) (bool): if True, pause at the end of the main script (Press Enter to continue)
+          
           ...
 
         Returns:
@@ -174,6 +178,12 @@ class CAutomation(Automation):
         from cmind import utils
         import copy
         import time
+
+        recursion = i.get('recursion', False)
+
+        # If first script run, check if can write to current directory
+        if not recursion and not can_write_to_current_directory():
+            return {'return':1, 'error':'Current directory "{}" is not writable - please change it'.format(os.getcwd())}
 
         start_time = time.time()
 
@@ -200,7 +210,6 @@ class CAutomation(Automation):
 
         # Recursion spaces needed to format log and print
         recursion_spaces = i.get('recursion_spaces', '')
-        recursion = i.get('recursion', False)
         # Caching selections to avoid asking users again
         remembered_selections = i.get('remembered_selections', [])
 
@@ -1598,7 +1607,19 @@ class CAutomation(Automation):
             with open('readme.md', 'w') as f:
                 f.write(readme)
 
-        return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
+        rr = {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
+        
+        if i.get('json', False):
+            import json
+
+            print ('')
+            print (json.dumps(rr, indent=2))
+
+        if i.get('pause', False):
+            print ('')
+            input ('Press Enter to continue ...')
+        
+        return rr
 
 
 
@@ -1669,12 +1690,12 @@ class CAutomation(Automation):
         excluded_tags =  [ v[1:] for v in script_tags if v.startswith("-") ]
         common = set(script_tags).intersection(set(excluded_tags))
         if common:
-            return {'return':1, 'error': f'There is common tags { common } in the included and excluded lists'}
+            return {'return':1, 'error': 'There is common tags {} in the included and excluded lists'.format(common)}
 
         excluded_variation_tags =  [ v[1:] for v in variation_tags if v.startswith("-") ]
         common = set(variation_tags).intersection(set(excluded_variation_tags))
         if common:
-            return {'return':1, 'error': f'There is common variation tags { common } in the included and excluded lists'}
+            return {'return':1, 'error': 'There is common variation tags {} in the included and excluded lists'.format(common)}
 
         ############################################################################################################
         # Find CM script(s) based on thier tags to get their meta (can be more than 1)
@@ -3884,6 +3905,19 @@ def get_git_url(get_type, url, params = {}):
         return "https://" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
     return url
 
+##############################################################################
+def can_write_to_current_directory():
+
+    import tempfile
+
+    cur_dir = os.getcwd()
+
+    try:
+        tmp_file = tempfile.NamedTemporaryFile(dir = cur_dir)
+    except Exception as e:
+        return False
+
+    return True
 
 ##############################################################################
 # Demo to show how to use CM components independently if needed

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-${CM_PYTHON_BIN_WITH_PATH} --version > tmp-ver.out
+${CM_PYTHON_BIN_WITH_PATH} --version > tmp-ver.out 2>&1
 test $? -eq 0 || exit 1
 
 #PYTHON_BIN_PATH="${python_bin%/*}"

@@ -125,8 +125,7 @@ ___
      * get,cuda
        * `if (USE_CUDA  == True)`
        * CM names: `--adr.['cuda']...`
-       - CM script: [get-cuda-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-lib)
-       - CM script: [get-cuda-toolkit](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda-toolkit)
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,dataset,imagenet,image-classification,original
        - CM script: [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
      * get,dataset-aux,imagenet-aux,image-classification

@@ -97,6 +97,22 @@ ___
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `glog-dev`
       - Workflow:
+    * `_libboost-all-dev`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `libboost-all-dev`
+      - Workflow:
+    * `_libnuma-dev`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `libnuma-dev`
+      - Workflow:
+    * `_libre2-dev`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `libre2-dev`
+      - Workflow:
+    * `_rapidjson-dev`
+      - Environment variables:
+        - *CM_SYS_UTIL_NAME*: `rapidjson-dev`
+      - Workflow:
     * `_sox`
       - Environment variables:
         - *CM_SYS_UTIL_NAME*: `sox`

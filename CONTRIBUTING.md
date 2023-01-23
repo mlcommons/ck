@@ -53,6 +53,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Dave Greasley (University of Bristol)
 * Herve Guillou
 * Vincent Grevendonk (Arm)
+* Michael Goin (Nerual Magic)
 * Christophe Guillon (STMicroelectronics)
 * Sven van Haastregt (Arm)
 * Michael Haidl

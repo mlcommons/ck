@@ -504,12 +504,39 @@ invalid_variation_combinations:
     - tf
 
 input_description:
-  mode: "Valid values: {performance, accuracy}"
-  scenario: "Valid values: {Offline, Server, SingleStream, MultiStream}"
-  hw_name: "Valid value - any system description which has a config file (under same name) defined [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/configs)"
-  output_dir: "Location where the outputs are produced"
-  num_threads: "Number of CPU threads to launch the application with"
-  max_batchsize: "Maximum batchsize to be used"
-  rerun: "Redo the run even if previous run files exist"
-  regenerate_files: "Regenerates measurement files including accuracy.txt files even if a previous run exists. This option is redundant if `--rerun` is used"
-  test_query_count: "Specifies the number of samples to be processed during a test run"
+  scenario: 
+    desc: "MLPerf inference scenario"
+    choices:
+      - Offline
+      - Server
+      - SingleStream
+      - MultiStream
+    default: Offline
+  mode: 
+    desc: "MLPerf inference mode"
+    choices: 
+      - performance
+      - accuracy
+    default: accuracy
+  test_query_count: 
+    desc: "Specifies the number of samples to be processed during a test run"
+  target_qps: 
+    desc: "Target QPS"
+  target_latency: 
+    desc: "Target Latency"
+  max_batchsize: 
+    desc: "Maximum batchsize to be used"
+    default: 1
+  num_threads: 
+    desc: "Number of CPU threads to launch the application with"
+  hw_name: 
+    desc: "Valid value - any system description which has a config file (under same name) defined [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/configs)"
+  output_dir: 
+    desc: "Location where the outputs are produced"
+  rerun: 
+    desc: "Redo the run even if previous run files exist"
+    boolean: true
+    default: true
+  regenerate_files: 
+    desc: "Regenerates measurement files including accuracy.txt files even if a previous run exists. This option is redundant if `--rerun` is used"
+    boolean: true

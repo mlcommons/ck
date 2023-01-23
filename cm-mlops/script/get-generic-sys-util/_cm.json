@@ -58,6 +58,54 @@
           "brew": "sox"
         }
       }
+    },
+    "libre2-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "libre2-dev"
+      },
+      "state": {
+        "libre2-dev": {
+          "apt": "libre2-dev",
+          "dnf": "",
+          "brew": ""
+        }
+      }
+    },
+    "libboost-all-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "libboost-all-dev"
+      },
+      "state": {
+        "libboost-all-dev": {
+          "apt": "libboost-all-dev",
+          "dnf": "",
+          "brew": ""
+        }
+      }
+    },
+    "libnuma-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "libnuma-dev"
+      },
+      "state": {
+        "libnuma-dev": {
+          "apt": "libnuma-dev",
+          "dnf": "",
+          "brew": ""
+        }
+      }
+    },
+    "rapidjson-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "rapidjson-dev"
+      },
+      "state": {
+        "rapidjson-dev": {
+          "apt": "rapidjson-dev",
+          "dnf": "",
+          "brew": ""
+        }
+      }
     }
   }
 }
