@@ -201,6 +201,23 @@ variations:
       - tags: get,generic-python-lib,_mlperf_logging
       - tags: get,generic-python-lib,_onnx
   
+  nvidia-original:
+    group:
+      implementation
+    env:
+      CM_MLPERF_IMPLEMENTATION: nvidia-original
+    deps:
+      ## Nvidia common code
+      - tags: get,mlperf,inference,nvidia,common-code
+    prehook_deps:
+      - names:
+         - nvidia-original-mlperf-inference
+         - mlperf-inference-implementation
+        tags: reproduce,mlperf,nvidia,inference
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+
   resnet50:
     group:
       model
@@ -355,6 +372,15 @@ variations:
       mlperf-inference-implementation:
         tags: _onnxruntime
 
+  tensorrt:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        tensorrt
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tensorrt
+
   tf:
     group: backend
     env:
@@ -451,18 +477,19 @@ variations:
   # Model precision
   quantized:
     alias: int8
+
   fp32:
-    group:
-      precision
+    group: precision
+    default: true
     env:
       CM_MLPERF_QUANTIZATION: off
       CM_MLPERF_MODEL_PRECISION: float32
     add_deps_recursive:
       python-reference-mlperf-inference:
         tags: _fp32
+
   int8:
-    group:
-      precision
+    group: precision
     env:
       CM_MLPERF_QUANTIZATION: on
       CM_MLPERF_MODEL_PRECISION: int8

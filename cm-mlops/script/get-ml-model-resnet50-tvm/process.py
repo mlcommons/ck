@@ -2,7 +2,7 @@ import os
 import tvm
 # Import model to TVM
 from tvm import relay
-max_batchsize = os.environ.get('CM_ML_MODEL_MAX_BATCH_SIZE')
+max_batchsize = os.environ['CM_ML_MODEL_MAX_BATCH_SIZE']
 input_shapes = os.environ.get('CM_ML_MODEL_INPUT_SHAPES','').strip()
 if input_shapes == '':
     print ('')

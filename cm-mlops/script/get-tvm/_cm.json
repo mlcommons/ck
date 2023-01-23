@@ -13,6 +13,9 @@
       "tags": "detect,cpu"
     },
     {
+      "tags": "get,generic-python-lib,_typing_extensions"
+    },
+    {
       "tags": "get,generic-python-lib,_decorator"
     },
     {

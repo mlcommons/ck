@@ -1,14 +1,14 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: CM script automation test for MLPerf inference resnet50 using TVM
+name: CM(CK2) tutorial retinanet
 
 on:
   pull_request:
-    branches: [ "tvm", "dev" ]
+    branches: [ "master", "dev" ]
     paths:
-      - '.github/workflows/test-mlperf-inference-tvm.yml'
-      - 'cm-mlops/!**.md'
+      - '.github/workflows/test-cm-tutorial-retinanet.yml'
+      - '!cm-mlops/**.md'
       - 'cm-mlops/**'
 
 jobs:
@@ -18,8 +18,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: [ "3.10" ]
-        backend: [ "tvm-onnx" ]
+        python-version: ["3.9"]
 
     steps:
     - uses: actions/checkout@v3
@@ -29,9 +28,9 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       run: |
-        python3 -m pip install cmind
+        python -m pip install cmind
         cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }} --checkout=${{ github.event.pull_request.head.ref }}
         cm run script --quiet --tags=get,sys-utils-cm
-    - name: Test CM Script for MLPerf Inference ResNet50 using TVM
+    - name: Test CM Tutorial Retinanet
       run: |
-        cm run script --tags=run,mlperf,inference,generate-run-cmds --hw_name=default --model=resnet50 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5 --quiet
+        python tests/tutorials/test_tutorial_retinanet.py
