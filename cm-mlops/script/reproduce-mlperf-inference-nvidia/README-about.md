@@ -8,9 +8,11 @@ cm run script --tags=get,nvidia,common-code,_custom --out=json
 ```
 
 <details>
+
 ```bash
 arjun@phoenix:~/CM/repos/local/cache/84cc898e307e466d/inference_results_v2.1/closed/NVIDIA$ tree configs
 ```
+
 ```
 configs
 ├── 3d-unet
