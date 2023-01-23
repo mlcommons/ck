@@ -548,6 +548,8 @@ invalid_variation_combinations:
     - nvidia
     - pytorch
 
+gui_title: "CM GUI for the MLPerf inference benchmark"
+
 input_description:
   scenario: 
     desc: "MLPerf inference scenario"
