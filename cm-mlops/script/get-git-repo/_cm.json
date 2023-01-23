@@ -1,0 +1,65 @@
+{
+  "alias": "get-git-repo",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "Modular MLPerf benchmarks",
+  "default_env": {
+    "CM_GIT_CHECKOUT": "main",
+    "CM_GIT_DEPTH": "--depth 4",
+    "CM_GIT_CHECKOUT_FOLDER": "repo",
+    "CM_GIT_PATCH": "no",
+    "CM_GIT_RECURSE_SUBMODULES": " --recurse-submodules",
+    "CM_GIT_URL": "https://github.com/mlcommons/ck.git"
+  },
+  "default_variation": "default",
+  "deps": [
+    {
+      "tags": "detect,os"
+    }
+  ],
+  "new_env_keys": [
+    "CM_GIT_CHECKOUT_PATH"
+  ],
+  "tags": [
+    "get",
+    "git",
+    "repo",
+    "repository",
+    "clone"
+  ],
+  "uid": "ed603e7292974f10",
+  "variations": {
+    "default": {
+      "base": [
+        "short-history"
+      ],
+      "env": {
+        "CM_GIT_PATCH": "no"
+      }
+    },
+    "full-history": {
+      "env": {
+        "CM_GIT_DEPTH": ""
+      }
+    },
+    "no-recurse-submodules": {
+      "env": {
+        "CM_GIT_RECURSE_SUBMODULES": ""
+      }
+    },
+    "patch": {
+      "env": {
+        "CM_GIT_PATCH": "yes"
+      }
+    },
+    "short-history": {
+      "env": {
+        "CM_GIT_DEPTH": "--depth 5"
+      }
+    },
+    "repo.#": {
+      "group": "repo"
+    }
+  }
+}

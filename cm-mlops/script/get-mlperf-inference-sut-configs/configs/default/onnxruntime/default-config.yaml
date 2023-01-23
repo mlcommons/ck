@@ -35,3 +35,29 @@
       target_latency: 1000
     MultiStream:
       target_latency: 8000
+  3d-unet-99:
+    Offline:
+      target_qps: 1.0
+    Server:
+      target_qps: 1.0
+    SingleStream:
+      target_latency: 1000
+    MultiStream:
+      target_latency: 8000
+  3d-unet-99.9:
+    Offline:
+      target_qps: 1.0
+    Server:
+      target_qps: 1.0
+    SingleStream:
+      target_latency: 1000
+    MultiStream:
+      target_latency: 8000
+  rnnt:
+    Offline:
+      target_qps: 1.0
+    Server:
+      target_qps: 1.0
+    SingleStream:
+      target_latency: 1000
+    MultiStream:

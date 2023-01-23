@@ -1,0 +1,150 @@
+{
+  "alias": "app-mlperf-inference-tflite-cpp",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "category": "Modular MLPerf benchmarks",
+  "deps": [
+    {
+      "tags": "detect,os"
+    },
+    {
+      "tags": "detect,cpu"
+    },
+    {
+      "tags": "get,sys-utils-cm"
+    },
+    {
+      "enable_if_env": {
+        "CM_MLPERF_DEVICE": [
+          "gpu"
+        ]
+      },
+      "tags": "get,cuda"
+    },
+    {
+      "names": [
+        "loadgen"
+      ],
+      "tags": "get,loadgen"
+    },
+    {
+      "names": [
+        "inference-src"
+      ],
+      "tags": "get,mlcommons,inference,src"
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "tags": "get,dataset,preprocessed,imagenet,_for.resnet50-rgb8,_NHWC"
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "resnet50"
+        ],
+        "CM_MLPERF_BACKEND": [
+          "tflite"
+        ]
+      },
+      "tags": "get,ml-model,resnet50,raw,_tflite,_no-argmax"
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "resnet50"
+        ],
+        "CM_MLPERF_BACKEND": [
+          "tf"
+        ]
+      },
+      "tags": "get,ml-model,resnet50,raw,_tf"
+    },
+    {
+      "tags": "get,tensorflow,lib,_tflite"
+    }
+  ],
+  "input_mapping": {
+    "count": "CM_MLPERF_LOADGEN_QUERY_COUNT",
+    "mlperf_conf": "CM_MLPERF_CONF",
+    "mode": "CM_MLPERF_LOADGEN_MODE",
+    "output_dir": "CM_MLPERF_OUTPUT_DIR",
+    "performance_sample_count": "CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT",
+    "scenario": "CM_MLPERF_LOADGEN_SCENARIO",
+    "user_conf": "CM_MLPERF_USER_CONF"
+  },
+  "default_env": {
+    "CM_MLPERF_OUTPUT_DIR": ".",
+    "CM_MLPERF_LOADGEN_SCENARIO": "SingleStream",
+    "CM_LOADGEN_BUFFER_SIZE": "1024",
+    "CM_MLPERF_LOADGEN_MODE": "accuracy",
+    "CM_FAST_COMPILATION": "yes"
+  },
+  "post_deps": [
+    {
+      "names": [
+        "compiler-program"
+      ],
+      "tags": "compile,program"
+    },
+    {
+      "names": [
+        "runner"
+      ],
+      "tags": "benchmark,program"
+    }
+  ],
+  "tags": [
+    "app",
+    "mlcommons",
+    "mlperf",
+    "inference",
+    "tflite-cpp"
+  ],
+  "uid": "415904407cca404a",
+  "variations": {
+    "cpu": {
+      "group": "device",
+      "default": true,
+      "env": {
+        "CM_MLPERF_DEVICE": "cpu"
+      }
+    },
+    "gpu": {
+      "group": "device",
+      "env": {
+        "CM_MLPERF_DEVICE": "gpu",
+        "CM_MLPERF_DEVICE_LIB_NAMESPEC": "cudart"
+      }
+    },
+    "resnet50": {
+      "group": "model",
+      "default": true,
+      "env": {
+        "CM_MODEL": "resnet50"
+      }
+    },
+    "mobilenet": {
+      "group": "model",
+      "env": {
+        "CM_MODEL": "mobilenet"
+      }
+    },
+    "tf": {
+      "group": "backend",
+      "env": {
+        "CM_MLPERF_BACKEND": "tf"
+      }
+    },
+    "tflite": {
+      "group": "backend",
+      "default": true,
+      "env": {
+        "CM_MLPERF_BACKEND": "tflite"
+      }
+    }
+  }
+}

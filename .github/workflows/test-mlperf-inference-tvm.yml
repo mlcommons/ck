@@ -7,9 +7,9 @@ on:
   pull_request:
     branches: [ "tvm", "dev" ]
     paths:
-      - cm-mlops/**
-      - .github/workflows/test-mlperf-inference-tvm.yml
-      - '!**.md'
+      - '.github/workflows/test-mlperf-inference-tvm.yml'
+      - 'cm-mlops/!**.md'
+      - 'cm-mlops/**'
 
 jobs:
   build:

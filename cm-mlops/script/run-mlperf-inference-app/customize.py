@@ -59,23 +59,21 @@ def preprocess(i):
 
 
     if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_VISION_PATH']
+        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
 
     test_list = ["TEST01",  "TEST05"]
     if env['CM_MODEL']  in ["resnet50"]:
         test_list.append("TEST04")
+
     env['CM_MLPERF_DEVICE'] = env.get('CM_MLPERF_DEVICE', 'cpu')
-    variation_lang= "_" + env.get("CM_MLPERF_LANG", "python")
+    variation_implementation= "_" + env.get("CM_MLPERF_IMPLEMENTATION", "python")
     variation_model= "_" + env.get("CM_MLPERF_MODEL", "resnet50")
     variation_backend= "_" + env.get("CM_MLPERF_BACKEND", "tf")
     variation_device= "_" + env.get("CM_MLPERF_DEVICE", "cpu")
-    variation_run_style= "_" + env.get("CM_MLPERF_RUN_STYLE", "test")
-    variation_quantization= "_" + "quantized" if env.get("CM_MLPERF_QUANTIZATION", False) else ""
-    if variation_quantization == "_":
-        variation_quantization_str=""
-    else:
-        variation_quantization_str=","+variation_quantization
-    tags =  "app,mlperf,inference,generic,"+variation_lang+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style+variation_quantization_str
+    variation_run_style= "_" + env.get("CM_MLPERF_EXECUTION_MODE", "test")
+    variation_quantization= "_" + env.get("CM_MLPERF_MODEL_PRECISION", "fp32")
+
+    tags =  "app,mlperf,inference,generic,"+variation_implementation+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style+","+variation_quantization
     silent = inp.get('silent', False)
     print_env = inp.get('print_env', False)
     print_deps = inp.get('print_deps', False)
@@ -100,6 +98,20 @@ def preprocess(i):
         for mode in env['CM_MLPERF_LOADGEN_MODES']:
             env['CM_MLPERF_LOADGEN_SCENARIO'] = scenario
             env['CM_MLPERF_LOADGEN_MODE'] = mode
+
+            if scenario == "Offline":
+                if env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS'):
+                    env['CM_MLPERF_LOADGEN_TARGET_QPS'] = env['CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS']
+            elif scenario == "Server":
+                if env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS'):
+                    env['CM_MLPERF_LOADGEN_TARGET_QPS'] = env['CM_MLPERF_LOADGEN_SERVER_TARGET_QPS']
+            elif scenario == "SingeStream":
+                if env.get('CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY'):
+                    env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = env['CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY']
+            elif scenario == "MultiStream":
+                if env.get('CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY'):
+                    env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = env['CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY']
+
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
                 add_deps_recursive, 'silent': silent, 'print_env': print_env, 'print_deps': print_deps})

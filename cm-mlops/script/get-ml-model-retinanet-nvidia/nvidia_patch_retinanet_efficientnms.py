@@ -42,6 +42,7 @@ node_name = 'efficientNMS'
 # (PluginField("box_coding", nullptr, PluginFieldType::kINT32, 1));
 
 node_attrs = { 
+    "background_class": -1,
     "score_threshold" : 0.05,
     "iou_threshold" :  0.5,
     "max_output_boxes" :  1000,

@@ -19,12 +19,12 @@ def preprocess(i):
     dataset = env['CM_DATASET']
     for result_dir in results_dir_split:
         if dataset == "openimages":
-            CMD = env['CM_PYTHON_BIN'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "tools", \
+            CMD = env['CM_PYTHON_BIN'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                 "accuracy-openimages.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir, \
                     "mlperf_log_accuracy.json") + "' --openimages-dir '" + env['CM_DATASET_PATH'] + "' > '" + \
                 os.path.join(result_dir, "accuracy.txt") + "'"
         elif dataset == "imagenet":
-            CMD = env['CM_PYTHON_BIN'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "tools",
+            CMD = env['CM_PYTHON_BIN'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools",
                 "accuracy-imagenet.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir,
                     "mlperf_log_accuracy.json") + "' --imagenet-val-file '" + os.path.join(env['CM_DATASET_AUX_PATH'],
                             "val.txt") + "' --dtype " + env.get('CM_ACCURACY_DTYPE', "float32") +  " > '" + os.path.join(result_dir, "accuracy.txt") + "'"

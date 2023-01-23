@@ -10,10 +10,15 @@
     "CM_DATASET": "IMAGENET"
   },
   "new_env_keys": [
-    "CM_DATASET_*"
+    "CM_DATASET_PATH",
+    "CM_DATASET_IMAGENET_PATH",
+    "CM_DATASET_SIZE",
+    "CM_DATASET_VER"
   ],
   "tags": [
     "get",
+    "val",
+    "validation",
     "dataset",
     "imagenet",
     "ILSVRC",
@@ -46,6 +51,11 @@
         "CM_DATASET_SIZE": "50000",
         "CM_DATASET_VER": "2012",
         "CM_IMAGENET_FULL": "yes"
+      }
+    },
+    "size.#": {
+      "env": {
+        "CM_DATASET_SIZE": "#"
       }
     }
   }

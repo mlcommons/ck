@@ -51,9 +51,9 @@ for _os in docker_os:
         for model in variations:
             for backend in variations[model]:
                 for device in variations[model][backend]:
-                    for lang in variations[model][backend][device]:
-                        variation_string=",_"+model+",_"+backend+",_"+device+",_"+lang
-                        file_name_ext = "_" + lang + "_" + backend+"_"+device
+                    for implementation in variations[model][backend][device]:
+                        variation_string=",_"+model+",_"+backend+",_"+device+",_"+implementation
+                        file_name_ext = "_" + implementation + "_" + backend+"_"+device
                         dockerfile_path = os.path.join(current_file_path,'dockerfiles', model, _os +'_'+version+ file_name_ext +'.Dockerfile')
                         cm_input = {'action': 'run', 
                             'automation': 'script',

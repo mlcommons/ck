@@ -63,6 +63,11 @@
       "env": {
         "CM_GIT_DEPTH": "--depth 5"
       }
+    },
+    "octoml": {
+      "env": {
+        "CM_GIT_URL": "https://github.com/octoml/power-dev.git"
+      }
     }
   },
   "versions": {
@@ -74,6 +79,11 @@
     "master": {
       "env": {
         "CM_GIT_CHECKOUT": "master"
+      }
+    },
+    "fix": {
+      "env": {
+        "CM_GIT_CHECKOUT": "fix"
       }
     }
   }

@@ -5,7 +5,7 @@
   "category": "Python automation",
   "category_sort": 1000,
   "developers": "[Grigori Fursin](https://cKnowledge.io/@gfursin)",
-  "name": "Activate python virtual environment",
+  "name": "Activate virtual Python environment",
   "prehook_deps": [
     {
       "names": [

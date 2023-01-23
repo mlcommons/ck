@@ -40,7 +40,7 @@ class CAutomation(Automation):
         self.tmp_file_run_env = 'tmp-run-env.out'
         self.tmp_file_ver = 'tmp-ver.out'
 
-        self.__version__ = "1.1.2"
+        self.__version__ = "1.1.4"
 
         self.local_env_keys = ['CM_VERSION',
                                'CM_VERSION_MIN',
@@ -153,6 +153,10 @@ class CAutomation(Automation):
           (ignore_script_error) (bool): if True, ignore error code in native tools and scripts
                                         and finish a given CM script. Useful to test/debug partial installations
 
+          (json) (bool): if True, print output as JSON
+          
+          (pause) (bool): if True, pause at the end of the main script (Press Enter to continue)
+          
           ...
 
         Returns:
@@ -174,6 +178,12 @@ class CAutomation(Automation):
         from cmind import utils
         import copy
         import time
+
+        recursion = i.get('recursion', False)
+
+        # If first script run, check if can write to current directory
+        if not recursion and not can_write_to_current_directory():
+            return {'return':1, 'error':'Current directory "{}" is not writable - please change it'.format(os.getcwd())}
 
         start_time = time.time()
 
@@ -200,7 +210,6 @@ class CAutomation(Automation):
 
         # Recursion spaces needed to format log and print
         recursion_spaces = i.get('recursion_spaces', '')
-        recursion = i.get('recursion', False)
         # Caching selections to avoid asking users again
         remembered_selections = i.get('remembered_selections', [])
 
@@ -384,7 +393,7 @@ class CAutomation(Automation):
             return {'return':1, 'error': 'no scripts were found with above tags (when variations ignored)'}
 
         if len(list_of_found_scripts) == 0:
-            return {'return':16, 'error':'no scripts were found with above tags and variations'}
+            return {'return':16, 'error':'no scripts were found with above tags and variations\n'+r.get('warning', '')}
 
         # Sometimes there is an ambiguity when someone adds a script 
         # while duplicating a UID. In such case, we will return >1 script
@@ -469,6 +478,11 @@ class CAutomation(Automation):
             cache_tags_without_tmp_string = '-tmp'
             if script_tags_string !='':
                 cache_tags_without_tmp_string += ',' + script_tags_string
+            if variation_tags:
+                cache_tags_without_tmp_string += ',_' + ",_".join(variation_tags)
+            # variation_tags are prefixed with "_" but the CM search function knows only tags and so we need to change "_-" to "-_" for excluding any variations
+            # This change can later be moved to a search function specific to cache
+            cache_tags_without_tmp_string = cache_tags_without_tmp_string.replace(",_-", ",-_")
 
             if verbose:
                 print (recursion_spaces + '  - Searching for cached script outputs with the following tags: {}'.format(cache_tags_without_tmp_string))
@@ -647,13 +661,16 @@ class CAutomation(Automation):
         if r['return'] > 0:
             return r
         variation_tags = r['variation_tags']
+        excluded_variation_tags = r['excluded_variation_tags']
+
         # Get a dictionary of variation groups
         r = self._get_variation_groups(variations)
         if r['return'] > 0:
             return r
+
         variation_groups = r['variation_groups']
         # variation_tags get appended by any default on variation in groups
-        r = self._process_variation_tags_in_groups(variation_tags, variation_groups)
+        r = self._process_variation_tags_in_groups(variation_tags, variation_groups, excluded_variation_tags)
         if r['return'] > 0:
             return r
         variation_tags = r['variation_tags']
@@ -664,7 +681,7 @@ class CAutomation(Automation):
         default_variation = meta.get('default_variation', '')
 
         if len(variation_tags) == 0:
-            if default_variation != '':
+            if default_variation != '' and default_variation not in excluded_variation_tags:
                 variation_tags = [default_variation]
 
         # Recursively add any base variations specified
@@ -673,39 +690,67 @@ class CAutomation(Automation):
             while True:
                 for variation_name in variation_tags:
                     tag_to_append = None
+
+                    #ignore the excluded variations
                     if variation_name.startswith("~") or variation_name.startswith("-"):
                         tmp_variations[variation_name] = True
                         continue
 
+                    if variation_name not in variations:
+                        variation_name = self._get_name_for_dynamic_variation_tag(variation_name)
+
+                    # base variations are automatically turned on. Only variations outside of any variation group can be added as a base_variation
                     if "base" in variations[variation_name]:
                         base_variations = variations[variation_name]["base"]
                         for base_variation in base_variations:
                             if base_variation not in variation_tags:
+                                if 'group' in variations[base_variation]:
+                                    return {'return': 1, 'error': 'A variation specified as a base variation should not have "group" specified. Violating base entry is "{}" specified as base variation of "{}" '.format(base_variation, variation_name)}
                                 tag_to_append = base_variation
+
+                    if tag_to_append:
+                        if tag_to_append not in variations:
+                            return {'return': 1, 'error': 'Invalid variation "{}" specified as base variation for the variation "{}" '.format(tag_to_append, variation_name)}
+                        if tag_to_append in excluded_variation_tags:
+                            return {'return': 1, 'error': 'Variation "{}" specified as base variation for the variation is in the excluded list "{}" '.format(tag_to_append, variation_name)}
+                        variation_tags.append(tag_to_append)
+                        tmp_variations[tag_to_append] = False
+
+                    tag_to_append = None
+
+                    # default_variations dictionary specifies the default_variation for each variation group. A default variation in a group is turned on if no other variation from that group is turned on and it is not excluded using the '-' prefix
                     if "default_variations" in variations[variation_name]:
                         default_base_variations = variations[variation_name]["default_variations"]
                         for default_base_variation in default_base_variations:
                             if default_base_variation not in variation_groups:
-                                return {'return': 1, 'error': 'Default variation "{}" is not a valid group '.format(default_base_variation)}
+                                return {'return': 1, 'error': 'Default variation "{}" is not a valid group. Valid groups are "{}" '.format(default_base_variation, variation_groups)}
                             if 'default' in variation_groups[default_base_variation]:
                                 return {'return': 1, 'error': 'Default variation "{}" specified for the group "{}" with an already defined default variation "{}" '.format(default_base_variations[default_base_variation], default_base_variation, variation_groups[default_base_variation]['default'])}
                             unique_allowed_variations = variation_groups[default_base_variation]['variations']
-                            # add the default only if none of the variations from the current group is selected
-                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0:
+                            # add the default only if none of the variations from the current group is selected and it is not being excluded with - prefix
+                            if len(set(unique_allowed_variations) & set(variation_tags)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags:
                                 tag_to_append = default_base_variations[default_base_variation]
+
                     if tag_to_append:
                         if tag_to_append not in variations:
                             return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
                         variation_tags.append(tag_to_append)
                         tmp_variations[tag_to_append] = False
+
                     tmp_variations[variation_name] = True
+
                 all_base_processed = True
                 for variation_name in variation_tags:
+                    if variation_name.startswith("-"):
+                        continue
+                    if variation_name not in variations:
+                        variation_name = self._get_name_for_dynamic_variation_tag(variation_name)
                     if tmp_variations[variation_name] == False:
                         all_base_processed = False
                         break
                 if all_base_processed:
                     break
+
         valid_variation_combinations = meta.get('valid_variation_combinations', [])
         if valid_variation_combinations:
             if not any ( all(t in variation_tags for t in s) for s in valid_variation_combinations):
@@ -738,10 +783,21 @@ class CAutomation(Automation):
                     # ignore such tag (needed for caching only to eliminate variations)
                     continue
 
+                variation_tag_dynamic_suffix = None
                 if variation_tag not in variations:
-                    return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
+                    if '.' in variation_tag and variation_tag[-1] != '.':
+                        variation_tag_dynamic_suffix = variation_tag[variation_tag.rindex(".")+1:]
+                        if not variation_tag_dynamic_suffix:
+                            return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
+                        variation_tag = self._get_name_for_dynamic_variation_tag(variation_tag)
+                    if variation_tag not in variations:
+                        return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
 
                 variation_meta = variations[variation_tag]
+                if variation_tag_dynamic_suffix:
+                    self._update_variation_meta_with_dynamic_suffix(variation_meta, variation_tag_dynamic_suffix)
+
+
 
                 r = update_state_from_meta(variation_meta, env, state, deps, post_deps, prehook_deps, posthook_deps, new_env_keys_from_meta, new_state_keys_from_meta, i)
                 if r['return']>0: return r
@@ -904,11 +960,14 @@ class CAutomation(Automation):
                                     'env':env,
                                     'skip_remembered_selections':skip_remembered_selections,
                                     'remembered_selections':remembered_selections,
-                                    'quiet':quiet
+                                    'quiet':quiet,
+                                    'verbose':verbose
                                    })
             if r['return'] >0: return r
 
-            found_cached_scripts = r['found_cached_scripts']
+            # Sort by tags to ensure determinism in order (and later add versions)
+            found_cached_scripts = sorted(r['found_cached_scripts'], key = lambda x: sorted(x.meta['tags']))
+
             cached_tags = r['cached_tags']
             search_tags = r['search_tags']
 
@@ -1044,13 +1103,15 @@ class CAutomation(Automation):
                 tmp_tags = ['tmp']
 
                 # Finalize tmp tags
-                tmp_tags += cached_tags
+                tmp_tags += [ t for t in cached_tags if not t.startswith("-") ]
 
                 # Check if some variations are missing 
                 # though it should not happen!
                 for t in variation_tags:
+                    if t.startswith("-"):
+                        continue
                     x = '_' + t
-                    if x not in tmp_tags: 
+                    if x not in tmp_tags:
                         tmp_tags.append(x)
 
                 # Use update to update the tmp one if already exists
@@ -1531,6 +1592,9 @@ class CAutomation(Automation):
         ############################# RETURN
         elapsed_time = time.time() - start_time
 
+        if verbose and cached_uid!='':
+            print (recursion_spaces+'  - cache UID: {}'.format(cached_uid))
+
         if verbose or show_time:
             print (recursion_spaces+'  - running time of script "{}": {:.2f} sec.'.format(','.join(found_script_tags), elapsed_time))
 
@@ -1543,7 +1607,19 @@ class CAutomation(Automation):
             with open('readme.md', 'w') as f:
                 f.write(readme)
 
-        return {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
+        rr = {'return':0, 'env':env, 'new_env':new_env, 'state':state, 'new_state':new_state, 'deps': run_state['deps']}
+        
+        if i.get('json', False):
+            import json
+
+            print ('')
+            print (json.dumps(rr, indent=2))
+
+        if i.get('pause', False):
+            print ('')
+            input ('Press Enter to continue ...')
+        
+        return rr
 
 
 
@@ -1611,6 +1687,16 @@ class CAutomation(Automation):
                 else:
                     script_tags.append(t)
 
+        excluded_tags =  [ v[1:] for v in script_tags if v.startswith("-") ]
+        common = set(script_tags).intersection(set(excluded_tags))
+        if common:
+            return {'return':1, 'error': 'There is common tags {} in the included and excluded lists'.format(common)}
+
+        excluded_variation_tags =  [ v[1:] for v in variation_tags if v.startswith("-") ]
+        common = set(variation_tags).intersection(set(excluded_variation_tags))
+        if common:
+            return {'return':1, 'error': 'There is common variation tags {} in the included and excluded lists'.format(common)}
+
         ############################################################################################################
         # Find CM script(s) based on thier tags to get their meta (can be more than 1)
         # Then check if variations exists inside meta
@@ -1636,10 +1722,30 @@ class CAutomation(Automation):
                 meta = script_artifact.meta
                 variations = meta.get('variations', {})
 
-                if not all(t in variations for t in variation_tags if not t.startswith('-')):
+                matched = True
+                for t in variation_tags:
+                    if t.startswith('-'):
+                        t = t[1:]
+                    if t in variations:
+                        continue
+                    matched = False
+                    for s in variations:
+                        if s.endswith('.#'):
+                            if t.startswith(s[:-1]) and t[-1] != '.':
+                                matched = True
+                                break
+                    if not matched:
+                        break
+                if not matched:
                     continue
 
                 filtered.append(script_artifact)
+
+            if len(lst) == 1 and not filtered:
+                script = lst[0]
+                meta = script_artifact.meta
+                variations = meta.get('variations', {})
+                r['warning'] = 'variation tags {} are not matching for the found script variations {}'.format(variation_tags, variations.keys())
 
             r['list'] = filtered
 
@@ -1837,6 +1943,51 @@ class CAutomation(Automation):
 
         return r_obj
 
+    ##############################################################################
+    def _get_name_for_dynamic_variation_tag(script, variation_tag):
+        '''
+        Returns the variation name in meta for the dynamic_variation_tag
+        '''
+        if "." not in variation_tag or variation_tag[-1] == ".":
+            return None
+        return variation_tag[:variation_tag.rindex(".")+1]+"#"
+
+
+    ##############################################################################
+    def _update_variation_meta_with_dynamic_suffix(script, variation_meta, variation_tag_dynamic_suffix):
+        '''
+        Updates the variation meta with dynamic suffix
+        '''
+        for key in variation_meta:
+            value = variation_meta[key]
+
+            if type(value) is list: #deps,pre_deps...
+                for item in value:
+                    if type(item) is dict:
+                        for item_key in item:
+                            item_value = item[item_key]
+                            if type(item_value) is dict: #env,default_env inside deps
+                                for item_key2 in item_value:
+                                    item_value[item_key2] = item_value[item_key2].replace("#", variation_tag_dynamic_suffix)
+                            else:
+                                item[item_key] = item[item_key].replace("#", variation_tag_dynamic_suffix)
+
+            elif type(value) is dict: #add_deps, env, ..
+                for item in value:
+                    item_value = value[item]
+                    if type(item_value) is dict: #deps
+                        for item_key in item_value:
+                            item_value2 = item_value[item_key]
+                            if type(item_value2) is dict: #env,default_env inside deps
+                                for item_key2 in item_value2:
+                                    item_value2[item_key2] = item_value2[item_key2].replace("#", variation_tag_dynamic_suffix)
+                            else:
+                                item_value[item_key] = item_value[item_key].replace("#", variation_tag_dynamic_suffix)
+                    else:
+                        value[item] = value[item].replace("#", variation_tag_dynamic_suffix)
+
+            else: #scalar value
+                            pass #no dynamic update for now
 
 
     ##############################################################################
@@ -1846,24 +1997,47 @@ class CAutomation(Automation):
         '''
         import copy
         tmp_variation_tags=copy.deepcopy(variation_tags)
+
+        excluded_variations = [ k[1:] for k in variation_tags if k.startswith("-") ]
+        for i,e in enumerate(excluded_variations):
+            if e not in variations:
+                dynamic_tag = script._get_name_for_dynamic_variation_tag(e)
+                if dynamic_tag and dynamic_tag in variations:
+                    excluded_variations[i] = dynamic_tag
+
         for k in variation_tags:
-            variation = variations[k]
+            if k.startswith("-"):
+                continue
+            if k in variations:
+                variation = variations[k]
+            else:
+                variation = variations[script._get_name_for_dynamic_variation_tag(k)]
             if 'alias' in variation:
+
+                if variation['alias'] in excluded_variations:
+                    return {'return': 1, 'error': 'Alias "{}" specified for the variation "{}" is conflicting with the excluded variation "-{}" '.format(variation['alias'], k, variation['alias'])}
+
                 if variation['alias'] not in variations:
                     return {'return': 1, 'error': 'Alias "{}" specified for the variation "{}" is not existing '.format(variation['alias'], k)}
+
                 if 'group' in variation:
                     return {'return': 1, 'error': 'Incompatible combinations: (alias, group) specified for the variation "{}" '.format(k)}
+
                 if 'default' in variation:
                     return {'return': 1, 'error': 'Incompatible combinations: (default, group) specified for the variation "{}" '.format(k)}
+
                 if variation['alias'] not in tmp_variation_tags:
                     tmp_variation_tags.append(variation['alias'])
-        return {'return':0, 'variation_tags': tmp_variation_tags}
+
+        return {'return':0, 'variation_tags': tmp_variation_tags, 'excluded_variation_tags': excluded_variations}
 
 
 
     ##############################################################################
     def _get_variation_groups(script, variations):
+
         groups = {}
+
         for k in variations:
             variation = variations[k]
             if 'group' in variation:
@@ -1878,8 +2052,9 @@ class CAutomation(Automation):
 
         return {'return': 0, 'variation_groups': groups}
 
+
     ##############################################################################
-    def _process_variation_tags_in_groups(script, variation_tags, groups):
+    def _process_variation_tags_in_groups(script, variation_tags, groups, excluded_variations):
         import copy
         tmp_variation_tags= copy.deepcopy(variation_tags)
         for k in groups:
@@ -1888,7 +2063,7 @@ class CAutomation(Automation):
             if len(set(unique_allowed_variations) & set(variation_tags)) > 1:
                 return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(variation_tags)))}
             if len(set(unique_allowed_variations) & set(variation_tags)) == 0:
-                if 'default' in group:
+                if 'default' in group and group['default'] not in excluded_variations:
                     tmp_variation_tags.append(group['default'])
 
         return {'return':0, 'variation_tags': tmp_variation_tags}
@@ -2799,199 +2974,7 @@ class CAutomation(Automation):
 
         """
 
-        template_file = 'list_of_scripts.md'
-
-        console = i.get('out') == 'con'
-
-        repos = i.get('repos','')
-        if repos == '': repos='internal,a4705959af8e447a'
-
-        parsed_artifact = i.get('parsed_artifact',[])
-
-        if len(parsed_artifact)<1:
-            parsed_artifact = [('',''), ('','')]
-        elif len(parsed_artifact)<2:
-            parsed_artifact.append(('',''))
-        else:
-            repos = parsed_artifact[1][0]
-
-        list_of_repos = repos.split(',') if ',' in repos else [repos]
-
-        ii = utils.sub_input(i, self.cmind.cfg['artifact_keys'])
-
-        ii['out'] = None
-
-        # Search for automations in repos
-        lst = []
-        for repo in list_of_repos:
-            parsed_artifact[1] = ('',repo) if utils.is_cm_uid(repo) else (repo,'')
-            ii['parsed_artifact'] = parsed_artifact
-            r = self.search(ii)
-            if r['return']>0: return r
-            lst += r['list']
-
-        md = []
-
-        toc = []
-
-        toc_category = {}
-        toc_category_sort = {}
-        script_meta = {}
-
-        for artifact in sorted(lst, key = lambda x: x.meta.get('alias','')):
-            path = artifact.path
-            meta = artifact.meta
-            original_meta = artifact.original_meta
-
-            print ('Documenting {}'.format(path))
-
-            alias = meta.get('alias','')
-            uid = meta.get('uid','')
-
-            script_meta[alias]=meta
-
-            name = meta.get('name','')
-            developers = meta.get('developers','')
-
-            tags = meta.get('tags',[])
-
-            variation_keys = sorted(list(meta.get('variations',{}).keys()))
-            version_keys = sorted(list(meta.get('versions',{}).keys()))
-
-            default_variation = meta.get('default_variation','')
-            default_version = meta.get('default_version','')
-
-
-
-            category = meta.get('category', '').strip()
-            category_sort = meta.get('category_sort', 0)
-            if category != '':
-                if category not in toc_category:
-                    toc_category[category]=[]
-
-                if category not in toc_category_sort or category_sort>0:
-                    toc_category_sort[category]=category_sort
-
-                if alias not in toc_category[category]:
-                    toc_category[category].append(alias)
-
-            repo_path = artifact.repo_path
-            repo_meta = artifact.repo_meta
-
-            repo_alias = repo_meta.get('alias','')
-            repo_uid = repo_meta.get('uid','')
-
-
-            # Check URL
-            url = ''
-            url_repo = ''
-            if repo_alias == 'internal':
-                url_repo = 'https://github.com/mlcommons/ck/tree/master/cm/cmind/repo'
-                url = url_repo+'/script/'
-            elif '@' in repo_alias:
-                url_repo = 'https://github.com/'+repo_alias.replace('@','/')+'/tree/master'
-                if repo_meta.get('prefix','')!='': url_repo+='/'+repo_meta['prefix']
-                url = url_repo+ '/script/'
-
-            if url!='':
-                url+=alias
-
-            x = '* [{}](#{})'.format(alias, alias)
-            if name !='': x+=' *('+name+')*'
-
-            toc.append(x)
-
-            md.append('## '+alias)
-            md.append('\n')
-
-            if name!='':
-                md.append('*'+name+'.*')
-                md.append('\n')
-
-#            if developers!='':
-#                md.append('Developers: '+developers)
-#                md.append('\n')
-
-            md.append('* CM script GitHub repository: *[{}]({})*'.format(repo_alias, url_repo))
-            md.append('* CM script artifact (interoperability module, native scripts and meta): *[GitHub]({})*'.format(url))
-
-            # Check meta
-            meta_file = self.cmind.cfg['file_cmeta']
-            meta_path = os.path.join(path, meta_file)
-
-            meta_file += '.yaml' if os.path.isfile(meta_path+'.yaml') else '.json'
-
-            meta_url = url+'/'+meta_file
-
-            md.append('* CM script meta description: *[GitHub]({})*'.format(meta_url))
-            md.append('* CM automation "script": *[Docs]({})*'.format('https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script'))
-            md.append('* CM script  tags: *cm run script --tags="{}"*'.format(','.join(tags)))
-
-            if len(variation_keys)>0:
-                x=''
-                for variation in variation_keys:
-                    if x!='': x+=';&nbsp; '
-                    x+='_'+variation
-                md.append('* CM script variations: *{}*'.format(x))
-
-            if default_variation!='':
-                md.append('* CM script default variation: *{}*'.format(default_variation))
-
-            if len(version_keys)>0:
-                md.append('* CM script versions: *{}*'.format(';&nbsp; '.join(version_keys)))
-
-            if default_version!='':
-                md.append('* CM script default version: *{}*'.format(default_version))
-
-
-
-
-            md.append('\n')
-
-
-
-
-        # Recreate TOC with categories
-        toc2 = []
-
-        for category in sorted(toc_category, key = lambda x: -toc_category_sort[x]):
-            toc2.append('### '+category)
-            toc2.append('\n')
-
-            for script in sorted(toc_category[category]):
-
-                meta = script_meta[script]
-
-                name = meta.get('name','')
-
-                x = '* [{}](#{})'.format(script, script)
-                if name !='': x+=' *('+name+')*'
-
-                toc2.append(x)
-
-            toc2.append('\n')
-
-        # Load template
-        r = utils.load_txt(os.path.join(self.path, template_file))
-        if r['return']>0: return r
-
-        s = r['string']
-
-        s = s.replace('{{CM_TOC2}}', '\n'.join(toc2))
-        s = s.replace('{{CM_TOC}}', '\n'.join(toc))
-        s = s.replace('{{CM_MAIN}}', '\n'.join(md))
-
-        # Output
-        output_dir = i.get('output_dir','')
-
-        if output_dir == '': output_dir = '..'
-
-        output_file = os.path.join(output_dir, template_file)
-
-        r = utils.save_txt(output_file, s)
-        if r['return']>0: return r
-
-        return {'return':0}
+        return utils.call_internal_module(self, __file__, 'module_misc', 'doc', i)
 
 
     ##############################################################################
@@ -3080,7 +3063,10 @@ def find_cached_script(i):
         for t in variation_tags:
             if variation_tags_string != '': 
                 variation_tags_string += ','
-            x = '_' + t
+            if t.startswith("-"):
+                x = "-_" + t[1:]
+            else:
+                x = '_' + t
             variation_tags_string += x
 
             if x not in cached_tags: 
@@ -3919,6 +3905,19 @@ def get_git_url(get_type, url, params = {}):
         return "https://" + token + "@" + p.host + "/" + p.owner + "/" + p.repo
     return url
 
+##############################################################################
+def can_write_to_current_directory():
+
+    import tempfile
+
+    cur_dir = os.getcwd()
+
+    try:
+        tmp_file = tempfile.NamedTemporaryFile(dir = cur_dir)
+    except Exception as e:
+        return False
+
+    return True
 
 ##############################################################################
 # Demo to show how to use CM components independently if needed

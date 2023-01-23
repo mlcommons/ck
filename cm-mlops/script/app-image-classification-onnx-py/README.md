@@ -1,72 +1,159 @@
-﻿# About
+<details>
+<summary>Click here to see the table of contents.</summary>
 
-This portable CM script runs image classification
-while automatically managing all related artifacts and adapting
-them to your environment using the next generation of the CK framework (CM).
+* [Description](#description)
+* [Information](#information)
+* [Usage](#usage)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Variations](#variations)
+  * [ Default environment](#default-environment)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys (filter)](#new-environment-keys-(filter))
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
+* [Maintainers](#maintainers)
 
-## Install CM
+</details>
 
-Please follow this [guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md).
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
-## Run this script on CPU
+### Description
 
-This modular image classification is [assembled](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml#L19) 
-from ([reusable and portable CM scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)).
 
-It helps CM to automatically detect, download, install and build all related artifacts 
-and tools to adapt this workflow to a user platform with Linux, Windows or MacOS:
+See [more info](README-extra.md).
 
-```bash
-cm pull repo mlcommons@ck
+#### Information
 
-cm run script --tags=app,image-classification,onnx,python --quiet
-```
+* Category: *Modular ML/AI applications.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *app,image-classification,onnx,python*
+* Output cached?: *False*
+___
+### Usage
 
-or using Python scripting as a reusable micro-service:
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=app,image-classification,onnx,python(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "app image-classification onnx python (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script 3d5e908e472b417e`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
 ```python
+
 import cmind
-r=cmind.access({'action':'run', 'automation':'script'
-                'tags':'app,image-classification,onnx,python',
-                'out':'con',
-                'quiet':True})
-print (r)
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'app,image-classification,onnx,python'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
 ```
 
-It may take a few minutes to run this workflow for the first time and adapt it to your platform (depending on the Internet speed).
-Note that all the subsequent runs will be much faster because CM automatically caches the output of all portable CM scripts to be quickly reused
-in this and other CM workflows.
+</details>
 
-## Manage individual tools and artifacts via CM
+#### CM modular Docker container
+*TBD*
+___
+### Customization
 
-You can also force to install specific versions of ML artifacts 
-(models, data sets, engines, libraries, tools, etc) 
-using individual CM scripts to automatically plug them into the above ML task 
-(see [image classification dependencies using CM database of scripts](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-image-classification-onnx-py/_cm.json#L9)):
 
-```bash
-cm run script --tags=detect,os --out=json
-cm run script --tags=get,python --version_min=3.9.1
-cm run script --tags=install,python-venv --name=my-virtual-env
-cm run script --tags=get,ml-model-onnx,resnet50
-cm run script --tags=get,dataset,imagenet,original,_2012-500
-cm run script --tags=get,onnxruntime,python-lib --version=1.12.0
+#### Variations
 
-cm show cache
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
 
-cm run script --tags=app,image-classification,onnx,python (--input=my-image.jpg)
-```
+    * `_cuda`
+      - Environment variables:
+        - *USE_CUDA*: `True`
+      - Workflow:
 
-## Run this script with CUDA
+    </details>
 
-```bash
-cm run script "get cuda"
-cm run script "get cuda-devices"
+#### Default environment
 
-cm run script "python app image-classification onnx _cuda"
-cm run script "python app image-classification onnx _cuda" --input=my-image.jpg
-```
+<details>
+<summary>Click here to expand this section.</summary>
 
-This script was tested on Windows 10 with
-* ONNX Runtime 1.13.1 with CUDA
-* CUDA 11.6
-* cuDNN 8.5.0.96
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+* CM_BATCH_COUNT: **1**
+* CM_BATCH_SIZE: **1**
+
+</details>
+
+___
+### Script workflow, dependencies and native scripts
+
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * get,sys-utils-cm
+       - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
+     * get,python3
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,cuda
+       * `if (USE_CUDA  == True)`
+       * CM names: `--adr.['cuda']...`
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+     * get,dataset,imagenet,image-classification,original
+       - CM script: [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
+     * get,dataset-aux,imagenet-aux,image-classification
+       - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
+     * get,ml-model,resnet50,_onnx,image-classification
+       - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+       - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
+     * get,generic-python-lib,_onnxruntime
+       * `if (USE_CUDA  != True)`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_onnxruntime_gpu
+       * `if (USE_CUDA  == True)`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+  1. Run "preprocess" function from customize.py
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml)
+  1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-onnx-py/_cm.yaml)
+___
+### Script output
+#### New environment keys (filter)
+
+#### New environment keys auto-detected from customize
+
+___
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)

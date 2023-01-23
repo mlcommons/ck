@@ -611,9 +611,9 @@ class CAutomation(Automation):
 
         toc = []
 
-        toc.append('**Table of contents:**')
+        toc.append('<details>')
+        toc.append('<summary>Click here to see the table of contents.</summary>')
         toc.append('')
-
 
         for line in lines:
             line = line.strip()
@@ -632,6 +632,9 @@ class CAutomation(Automation):
                     
                     toc.append(y)
 
+        toc.append('')
+        toc.append('</details>')
+        
         r = utils.save_txt(output_file, '\n'.join(toc)+'\n')
         if r['return']>0: return r
 

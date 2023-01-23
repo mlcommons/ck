@@ -85,9 +85,7 @@
       }
     },
     "onnxruntime": {
-      "base": [
-        "onnx"
-      ]
+      "alias": "onnx"
     },
     "pytorch,fp32": {
       "env": {
@@ -116,8 +114,48 @@
         "CM_ML_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>"
       }
     },
+    "argmax": {
+      "group": "model-output",
+      "default": true,
+      "env": {
+        "CM_ML_MODEL_OUTPUT_LAYER_ARGMAX": "yes"
+      }
+    },
+    "no-argmax": {
+      "group": "model-output",
+      "env": {
+        "CM_ML_MODEL_OUTPUT_LAYER_ARGMAX": "no"
+      }
+    },
+    "tflite,argmax": {
+      "env": {
+        "CM_PACKAGE_URL": "https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz?dl=1",
+        "CM_UNZIP": "yes",
+        "CM_ML_MODEL_FILE": "resnet50_v1.tflite"
+      }
+    },
+    "tflite,no-argmax": {
+      "env": {
+        "CM_PACKAGE_URL": "https://www.dropbox.com/s/vhuqo0wc39lky0a/resnet50_v1.no-argmax.tflite?dl=1",
+        "CM_ML_MODEL_FILE": "resnet50_v1.no-argmax.tflite"
+      }
+    },
     "tflite": {
-      "alias": "tensorflow"
+      "group": "framework",
+      "env": {
+        "CM_ML_MODEL_ACCURACY": "76.456",
+        "CM_ML_MODEL_DATA_LAYOUT": "NHWC",
+        "CM_ML_MODEL_FRAMEWORK": "tflite",
+        "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
+        "CM_ML_MODEL_INPUT_LAYERS": "input_tensor",
+        "CM_ML_MODEL_INPUT_LAYER_NAME": "input_tensor",
+        "CM_ML_MODEL_NORMALIZE_DATA": "0",
+        "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor",
+        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor",
+        "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
+        "CM_ML_MODEL_SUBTRACT_MEAN": "YES",
+        "CM_PACKAGE_URL": "https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz"
+      }
     },
     "tf": {
       "alias": "tensorflow"

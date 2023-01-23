@@ -1,217 +1,230 @@
-# About
+<details>
+<summary>Click here to see the table of contents.</summary>
 
-This portable CM script provides a unified API and CLI to benchmark ONNX models 
-using the [MLPerf loadgen](https://github.com/mlcommons/inference/tree/master/loadgen).
-It measures performance withou accuracy using randomly generated inputs. 
-If you need accuracy too, please check [this portable CM script](../run-mlperf-inference-app).
+* [Description](#description)
+* [Information](#information)
+* [Usage](#usage)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
+  * [ Default environment](#default-environment)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys (filter)](#new-environment-keys-(filter))
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
+* [Maintainers](#maintainers)
 
-## Development status
+</details>
 
-Prototyping stage:
-* ONNX runtime (CPU & GPU) is now supported and tested on Ubuntu
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
-## Prerequisites
-
-Install [MLCommons CM automation meta-framework (aka CK2)](https://github.com/mlcommons/ck/blob/master/docs/installation.md).
-
-Pull CM repository with portable automation scripts to benchmark ML Systems:
-```bash
-cm pull repo mlcommons@ck
-```
-
-If you want a "clean" environment, you may want to clean your CM cache as follows:
-```bash
-cm rm cache -f
-```
-
-We suggest you to install a python virtual environment via CM though it's not strictly necessary 
-(CM can automatically detect and reuse your Python installation and environments):
-```bash
-cm run script "install python-venv" --name=loadgen
-```
-
-You can also install a specific version of Python on your system via:
-```bash
-cm run script "install python-venv" --name=loadgen --version=3.10.7
-```
-
-By default, CM will be asking users to select one from all detected and installed Python versions
-including the above one, any time a script with python dependency is run. To avoid that, you 
-can set up the following environment variable with the name of the current virtual environment:
-
-```bash
-export CM_SCRIPT_EXTRA_CMD="--adr.python.name=loadgen"
-```
-
-The `--adr` flag stands for "Add to all Dependencies Recursively" and will find all sub-dependencies on other CM scripts 
+### Description
 
 
-## Manual installation of dependencies via CM
+See [more info](README-extra.md).
 
-You can skip this sub-section if you want CM to automatically detect already installed
-ONNX runtime on your system. Otherwise, follow the next steps to install the latest or specific
-version of ONNX runtime.
+#### Information
 
-### MLPerf loadgen
+* Category: *Modular MLPerf benchmarks.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *app,loadgen,generic,loadgen-generic,python*
+* Output cached?: *False*
+___
+### Usage
 
-We can now install loadgen via CM while forcing compiler dependency to GCC:
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-```bash
-cm run script "get mlperf loadgen" --adr.compiler.tags=gcc
-```
+#### CM script automation help
+```cm run script --help```
 
-### ONNX, CPU
+#### CM CLI
+`cm run script --tags=app,loadgen,generic,loadgen-generic,python(,variations from below) (flags from below)`
 
-```bash
-cm run script "get generic-python-lib _onnxruntime"
-```
+*or*
 
-or
+`cm run script "app loadgen generic loadgen-generic python (variations from below)" (flags from below)`
 
-```bash
-cm run script "get generic-python-lib _onnxruntime" --version=1.13.1
-```
+*or*
 
-or 
+`cm run script d3d949cc361747a6`
 
-```bash
-cm run script "get generic-python-lib _onnxruntime" --version_min=1.10.0
-```
+#### CM Python API
 
+<details>
+<summary>Click here to expand this section.</summary>
 
-## Run command
+```python
 
-You can use CM variations prefixed by `_` to benchmark an official MLPerf model 
-(_resnet50 or _retinanet):
+import cmind
 
-```
-cm run script "python app loadgen-generic _onnxruntime _resnet50"
-```
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'app,loadgen,generic,loadgen-generic,python'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
 
-Normally, you should see the following performance report from the loadgen:
-```bash
-
-2022-12-06 16:51:39,279 INFO MainThread - __main__ main: Model: /home/gfursin/CM/repos/local/cache/9c825a0a06fb48e2/resnet50_v1.onnx
-2022-12-06 16:51:39,279 INFO MainThread - __main__ main: Runner: inline, Concurrency: 4
-2022-12-06 16:51:39,279 INFO MainThread - __main__ main: Results: results/resnet50_v1.onnx/inline
-2022-12-06 16:51:39,279 INFO MainThread - __main__ main: Test Started
-2022-12-06 16:51:39,399 INFO MainThread - loadgen.harness load_query_samples: Loaded 100 samples
-2022-12-06 16:51:55,723 INFO MainThread - loadgen.harness issue_query: Queries issued 550
-2022-12-06 16:51:55,725 INFO MainThread - loadgen.harness flush_queries: Queries flushed
-2022-12-06 16:51:55,731 INFO MainThread - loadgen.harness unload_query_samples: Unloaded samples
-================================================
-MLPerf Results Summary
-================================================
-SUT name : PySUT
-Scenario : Offline
-Mode     : PerformanceOnly
-Samples per second: 33.6903
-Result is : VALID
-  Min duration satisfied : Yes
-  Min queries satisfied : Yes
-  Early stopping satisfied: Yes
-
-================================================
-Additional Stats
-================================================
-Min latency (ns)                : 16325180169
-Max latency (ns)                : 16325180169
-Mean latency (ns)               : 16325180169
-50.00 percentile latency (ns)   : 16325180169
-90.00 percentile latency (ns)   : 16325180169
-95.00 percentile latency (ns)   : 16325180169
-97.00 percentile latency (ns)   : 16325180169
-99.00 percentile latency (ns)   : 16325180169
-99.90 percentile latency (ns)   : 16325180169
-
-================================================
-Test Parameters Used
-================================================
-samples_per_query : 550
-target_qps : 50
-target_latency (ns): 0
-max_async_queries : 1
-min_duration (ms): 10000
-max_duration (ms): 0
-min_query_count : 1
-max_query_count : 0
-qsl_rng_seed : 0
-sample_index_rng_seed : 0
-schedule_rng_seed : 0
-accuracy_log_rng_seed : 0
-accuracy_log_probability : 0
-accuracy_log_sampling_target : 0
-print_timestamps : 0
-performance_issue_unique : 0
-performance_issue_same : 0
-performance_issue_same_index : 0
-performance_sample_count : 100
-
-No warnings encountered during test.
-
-No errors encountered during test.
-2022-12-06 16:51:55,753 INFO MainThread - __main__ main: Observed QPS: 33.6903
-2022-12-06 16:51:55,753 INFO MainThread - __main__ main: Result: VALID
-2022-12-06 16:51:55,753 INFO MainThread - __main__ main: Test Completed
-2022-12-06 16:51:55,753 INFO MainThread - loadgen.harness __exit__: <loadgen.runners.ModelRunnerInline object at 0x7f6c5c6a3580> : Exited
-  - Running postprocess ...
-  - running time of script "app,loadgen,generic,loadgen-generic,python": 370.87 sec.
+if r['return']>0:
+    print (r['error'])
 
 ```
 
-You can also specify any custom onnx model file as follows:
+</details>
+
+#### CM modular Docker container
+*TBD*
+___
+### Customization
+
+
+#### Variations
+
+  * Group "**backend**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_onnxruntime`** (default)
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `onnxruntime`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**device**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_cpu`** (default)
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `cpu`
+      - Workflow:
+    * `_cuda`
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `gpu`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**models**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_resnet50`
+      - Environment variables:
+        - *CM_MODEL*: `resnet50`
+      - Workflow:
+    * `_retinanet`
+      - Environment variables:
+        - *CM_MODEL*: `retinanet`
+      - Workflow:
+
+    </details>
+
+
+#### Default variations
+
+`_cpu,_onnxruntime`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**concurrency**=value --> **CM_MLPERF_CONCURRENCY**=value
+* --**ep**=value --> **CM_MLPERF_EXECUTION_PROVIDER**=value
+* --**execmode**=value --> **CM_MLPERF_EXEC_MODE**=value
+* --**interop**=value --> **CM_MLPERF_INTEROP**=value
+* --**intraop**=value --> **CM_MLPERF_INTRAOP**=value
+* --**modelpath**=value --> **CM_ML_MODEL_FILE_WITH_PATH**=value
+* --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
+* --**runner**=value --> **CM_MLPERF_RUNNER**=value
+* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "concurrency":...}
 ```
-cm run script --tags=python,app,loadgen-generic,_onnxruntime --modelpath=<CUSTOM_MODEL_FILE_PATH>
-```
 
-### Other Input Options:
-* `output_dir`
-* `scenario`
-* `runner`
-* `concurrency`
-* `ep`
-* `intraop`
-* `interop`
-* `execmode`
-* `modelpath`
+</details>
 
+#### Default environment
 
-## Use modular Docker container with the CM API
+<details>
+<summary>Click here to expand this section.</summary>
 
-Check sources [here](https://github.com/octoml/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/modular-cm-containers).
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
-### Build
+* CM_MLPERF_EXECUTION_MODE: **parallel**
+* CM_MLPERF_BACKEND: **onnxruntime**
 
-```bash
-cd `cm find script --tags=python,app,loadgen-generic`/modular-cm-containers
-./build.sh
-```
+</details>
 
-### Run
-```bash
-cd `cm find script --tags=python,app,loadgen-generic`/modular-cm-containers
-./run.sh
+___
+### Script workflow, dependencies and native scripts
 
-cm run script --tags=python,app,loadgen-generic,_onnxruntime,_resnet50
-```
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * detect,cpu
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+     * get,python3
+       * CM names: `--adr.['python', 'python3']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+     * get,generic-python-lib,_psutil
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,cuda
+       * `if (CM_MLPERF_DEVICE  == gpu)`
+       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+     * get,loadgen
+       * CM names: `--adr.['loadgen']...`
+       - CM script: [get-mlperf-inference-loadgen](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-loadgen)
+     * get,generic-python-lib,_onnxruntime
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == cpu)`
+       * CM names: `--adr.['onnxruntime']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_onnxruntime_gpu
+       * `if (CM_MLPERF_BACKEND  == onnxruntime AND CM_MLPERF_DEVICE  == gpu)`
+       * CM names: `--adr.['onnxruntime']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,generic-python-lib,_onnx
+       * `if (CM_MLPERF_BACKEND  == onnxruntime)`
+       * CM names: `--adr.['onnx']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+     * get,ml-model,resnet50,_onnx
+       * `if (CM_MODEL  == resnet50)`
+       - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+       - CM script: [get-ml-model-resnet50-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm)
+     * get,ml-model,retinanet,_onnx,_fp32
+       * `if (CM_MODEL  == retinanet)`
+       - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
+  1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python/_cm.yaml)
+___
+### Script output
+#### New environment keys (filter)
 
-If you want to use your own model, copy it to /tmp/cm-model.onnx and run docker as follows:
-```bash
-docker run -v /tmp:/tmp -it modularcm/loadgen-generic-python-cpu:ubuntu-22.04 -c \
-  "cm run script --tags=python,app,loadgen-generic,_onnxruntime,_resnet50 --modelpath=/tmp/cm-model.onnx"
+* **CM_MLPERF_***
+#### New environment keys auto-detected from customize
 
-```
+___
+### Maintainers
 
-
-
-
-# Open discussions and developments
-
-* [OctoML](https://octoml.ai)
-* [MLCommons taskforce on education and reproducibility](https://bit.ly/mlperf-edu-wg)
-
-# Developers
-
-* [Gaz Iqbal](https://www.linkedin.com/in/gaziqbal) (OctoML)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML)
-* [Grigori Fursin](https://cKnowledge.io/@gfursin) (OctoML)
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)

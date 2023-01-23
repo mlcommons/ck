@@ -18,6 +18,9 @@
       "tags": "get,compiler"
     }
   ],
+  "default_env": {
+    "SKIP_RECOMPILE": "no"
+  },
   "tags": [
     "compile",
     "program",

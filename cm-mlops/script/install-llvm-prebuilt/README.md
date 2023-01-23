@@ -1,85 +1,138 @@
-# Get LLVM
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) detects the installed llvm on the system and if not found calls the [install script for llvm](../script/install-llvm-prebuilt).
+<details>
+<summary>Click here to see the table of contents.</summary>
 
-## Exported Variables
-* `CM_LLVM_CLANG_BIN`
-* `CM_LLVM_CLANG_BIN_WITH_PATH` 
-* `CM_C_COMPILER_BIN`
-* `CM_C_COMPILER_WITH_PATH`
-* `CM_CXX_COMPILER_BIN`
-* `CM_CXX_COMPILER_WITH_PATH`
-* `CM_COMPILER_*`
+* [Description](#description)
+* [Information](#information)
+* [Usage](#usage)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Default environment](#default-environment)
+* [Versions](#versions)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys (filter)](#new-environment-keys-(filter))
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
+* [Maintainers](#maintainers)
 
-## Supported and Tested OS
-1. Ubuntu 18.04, 20.04, 22.04
-2. RHEL 9
+</details>
 
-# CLI
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
 
-## Default
-```bash
-cm run script "install llvm prebuilt"
+### Description
+
+*Install prebuilt LLVM compiler.*
+
+
+See [more info](README-extra.md).
+
+#### Information
+
+* Category: *Compiler automation.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *install,prebuilt,llvm,prebuilt-llvm,install-prebuilt-llvm*
+* Output cached?: *True*
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=install,prebuilt,llvm,prebuilt-llvm,install-prebuilt-llvm(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "install prebuilt llvm prebuilt-llvm install-prebuilt-llvm (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script cda9094971724a0a`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+```python
+
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'install,prebuilt,llvm,prebuilt-llvm,install-prebuilt-llvm'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
 ```
-or
-```bash
-cm run script --tags=get,llvm
-```
 
-## Version
+</details>
 
-```bash
-cm run script "install llvm prebuilt" --version=14.0.0
-```
+#### CM modular Docker container
+*TBD*
+___
+### Customization
 
-## Version min
-```bash
-cm run script "install llvm prebuilt" --version_min=12.0.0
-```
+#### Default environment
 
-## Version max
-```bash
-cm run script "install llvm prebuilt" --version_max=13.999.999 --version_max_usable=13.0.0
-```
+<details>
+<summary>Click here to expand this section.</summary>
 
-## Force new detection even if llvm is already found and cached
-```bash
-cm run script "install llvm prebuilt" --new
-```
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
-## Test
 
-```bash
-cm run script "app image corner-detection"
-```
+</details>
 
-## Reproducibility matrix
+#### Versions
+Default version: *14.0.0*
 
-*Test detection and installation on different platforms*
+___
+### Script workflow, dependencies and native scripts
 
-* Windows, Linux, MacOS
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/_cm.json)
+  1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/_cm.json)
+  1. Run "postrocess" function from customize.py
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-llvm-prebuilt/_cm.json)***
+     * get,llvm
+       * `if (CM_REQUIRE_INSTALL  != yes)`
+       - CM script: [get-llvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-llvm)
+___
+### Script output
+#### New environment keys (filter)
 
-### RHEL 9
+* **+C_INCLUDE_PATH**
+* **+LD_LIBRARY_PATH**
+* **+PATH**
+* **CM_GET_DEPENDENT_CACHED_PATH**
+* **CM_LLVM_***
+#### New environment keys auto-detected from customize
 
-#### v14.0.0: &#10003; 
+* **CM_GET_DEPENDENT_CACHED_PATH**
+* **CM_LLVM_CLANG_BIN_WITH_PATH**
+* **CM_LLVM_INSTALLED_PATH**
+* **CM_LLVM_PACKAGE**
+___
+### Maintainers
 
-```bash
-cm rm cache -f
-cm run script "install llvm prebuilt" --version=14.0.0
-cm run script "app image corner-detection"
-```
-
-#### v13.0.0: Need special command
-
-```bash
-cm rm cache -f
-cm run script "install llvm prebuilt" --version=13.0.0 --env.CM_LLVM_PACKAGE=clang+llvm-13.0.0-x86_64-linux-gnu-ubuntu-20.04.tar.xz
-cm run script "app image corner-detection"
-```
-
-#### v12.0.0: Need special command
-
-```bash
-cm rm cache -f
-cm run script "install llvm prebuilt" --version=12.0.0 --env.CM_LLVM_PACKAGE=clang+llvm-12.0.0-x86_64-linux-gnu-ubuntu-20.04.tar.xz
-cm run script "app image corner-detection"
-```
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)

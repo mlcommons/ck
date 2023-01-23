@@ -533,7 +533,7 @@ You can run this script as follows (just substitute *OctoML* with the name of yo
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
@@ -618,7 +618,7 @@ You just need to rerun the above command with `_dashboard` variation:
 
 ```bash
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
@@ -671,7 +671,7 @@ cm run script "app mlperf inference generic _python _retinanet _onnxruntime _cpu
      --scenario=Offline --mode=performance --rerun
 
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
@@ -682,7 +682,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short \
       --clean
 
 cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_dashboard \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
@@ -710,7 +710,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --lang=python \
       --model=retinanet \
@@ -744,7 +744,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
       --adr.python.version_min=3.8 \
       --adr.compiler.tags=gcc \
       --adr.openimages-preprocessed.tags=_500 \
-      --submitter="OctoML" \
+      --submitter="Community" \
       --hw_name=default \
       --model=retinanet \
       --backend=onnxruntime \
@@ -767,8 +767,8 @@ use other implementation of the MLPerf inference benchmark (C++, Nvidia, etc)
 with other ML engines (PyTorch, TF, TVM), other MLPerf scenarios 
 (single stream, multiple stream, server), quantized/pruned models and GPUs:
 
-* [2nd part](sc22-scc-mlperf2.md): customize MLPerf inference (C++ implementation, CUDA, PyTorch)
-* [3rd part](sc22-scc-mlperf3.md): customize MLPerf inference (ResNet50 Int8, ImageNet, TVM)
+* [2nd part](sc22-scc-mlperf-part2.md): customize MLPerf inference (C++ implementation, CUDA, PyTorch)
+* [3rd part](sc22-scc-mlperf-part3.md): customize MLPerf inference (ResNet50 Int8, ImageNet, TVM)
 * *To be continued*
 
 You are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)

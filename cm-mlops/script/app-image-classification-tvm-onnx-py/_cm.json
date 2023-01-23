@@ -20,7 +20,7 @@
         "python",
         "python3"
       ],
-      "tags": "get,python"
+      "tags": "get,python3"
     },
     {
       "tags": "get,dataset,image-classification,original"
@@ -43,14 +43,6 @@
   ],
   "uid": "63080407db4d4ac4",
   "variations": {
-    "tvm-pip-install": {
-      "deps": [
-        {
-          "names": [ "tvm" ],
-          "tags": "get,generic-python-lib,_apache-tvm"
-        }
-      ]
-    },
     "tvm": {
       "deps": [
         {

@@ -47,7 +47,7 @@ def preprocess(i):
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_MLPERF_LOADGEN_QPS_OPT']
 
     if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_VISION_PATH']
+        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
 
     if 'CM_NUM_THREADS' not in env:
         if 'CM_MINIMIZE_THREADS' in env:
@@ -60,7 +60,7 @@ def preprocess(i):
     if 'CM_MLPERF_LOADGEN_MAX_BATCHSIZE' in env:
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env:
+    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env and env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', 'no') != "yes":
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
 
     print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
@@ -74,7 +74,6 @@ def preprocess(i):
     '''
     env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
     if not env['DATA_DIR']:'''
-    env['DATA_DIR'] = env.get('CM_DATASET_PATH')
     env['MODEL_DIR'] = env['CM_ML_MODEL_PATH']
 
     RUN_CMD = ""
@@ -94,19 +93,28 @@ def preprocess(i):
         if int(env['CM_NUM_THREADS']) > 8:
             NUM_THREADS = "8"
 
-    if "bert" not in env['CM_MODEL']:
+    if env['CM_MODEL'] in  [ 'resnet50', 'retinanet'] :
         scenario_extra_options +=  " --threads " + NUM_THREADS
     ml_model_name = env['CM_MODEL']
-    user_conf_path = env['CM_MLPERF_USER_CONF']
-    scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
+    if 'CM_MLPERF_USER_CONF' in env:
+        user_conf_path = env['CM_MLPERF_USER_CONF']
+        scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
 
     env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
     mode = env['CM_MLPERF_LOADGEN_MODE']
     mode_extra_options = ""
-    if 'CM_DATASET_PREPROCESSED_PATH' in env:
-        dataset_options = " --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']
+
+    if 'CM_DATASET_PREPROCESSED_PATH' in env and env['CM_MODEL'] in  [ 'resnet50', 'retinanet' ]:
+        #dataset_options = " --use_preprocessed_dataset --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
+        dataset_options = " --use_preprocessed_dataset --cache_dir "+env['CM_DATASET_PREPROCESSED_PATH']
+        if env['CM_MODEL'] == "retinanet":
+            dataset_options += " --dataset-list "+ env['CM_DATASET_ANNOTATIONS_FILE_PATH']
+        elif env['CM_MODEL'] == "resnet50":
+            dataset_options += " --dataset-list "+ os.path.join(env['CM_DATASET_PATH'], "val_map.txt")
+        env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
     else:
+        env['DATA_DIR'] = env.get('CM_DATASET_PATH')
         dataset_options = ''
     OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'], \
             env['CM_MODEL'], scenario.lower(), mode)
@@ -150,12 +158,16 @@ def get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_
     return cmd
 
 def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options):
+
     if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
+
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
         cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
             env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             scenario_extra_options + mode_extra_options + dataset_options
+
     elif "bert" in env['CM_MODEL']:
+
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "bert")
         if env.get('CM_MLPERF_QUANTIZATION') in [ "on", True, "1", "True" ]:
             quantization_options = " --quantized"
@@ -163,12 +175,63 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             quantization_options = ""
         cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
+        if env['CM_MLPERF_BACKEND'] == "deepsparse":
+            cmd += " --batch_size="+env['CM_MLPERF_BATCH_SIZE']+" --model_path=" + env['CM_ML_MODEL_FILE_WITH_PATH']
         cmd = cmd.replace("--count", "--max_examples")
         env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
-        env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH'] 
+        env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']
         env['DATASET_FILE'] = env['CM_DATASET_SQUAD_VAL_PATH']
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
         env['SKIP_VERIFY_ACCURACY'] = True
+
+    elif "rnnt" in env['CM_MODEL']:
+
+        env['RUN_DIR'] = env['CM_MLPERF_INFERENCE_RNNT_PATH']
+        cmd = "cd '" + env['RUN_DIR'] + "' && " + env['CM_PYTHON_BIN_WITH_PATH'] + " run.py --backend " + env['CM_MLPERF_BACKEND'] + \
+                " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+                " --manifest " + env['CM_DATASET_PREPROCESSED_JSON'] + \
+                " --dataset_dir " + os.path.join(env['CM_DATASET_PREPROCESSED_PATH'], "..") + \
+                " --pytorch_config_toml " + os.path.join("pytorch", "configs", "rnnt.toml") + \
+                " --pytorch_checkpoint " + env['CM_ML_MODEL_FILE_WITH_PATH'] + \
+                " --log_dir " + env['CM_MLPERF_OUTPUT_DIR'] + \
+                env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options
+        env['SKIP_VERIFY_ACCURACY'] = True
+
+    elif "3d-unet" in env['CM_MODEL']:
+
+        env['RUN_DIR'] = env['CM_MLPERF_INFERENCE_3DUNET_PATH']
+        backend = env['CM_MLPERF_BACKEND'] if env['CM_MLPERF_BACKEND'] != 'tf' else 'tensorflow'
+        cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + backend + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+            env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
+            " --model="+env['CM_ML_MODEL_FILE_WITH_PATH'] + \
+            " --preprocessed_data_dir="+env['CM_DATASET_PREPROCESSED_PATH'] + \
+            scenario_extra_options + mode_extra_options + dataset_options
+
+        env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
+        env['SKIP_VERIFY_ACCURACY'] = True
+
+    elif "dlrm" in env['CM_MODEL']: # DLRM is in draft stage
+
+        env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_DLRM_PATH'], "pytorch")
+        if 'terabyte' in env['CM_ML_MODEL_DATASET']:
+            dataset = "terabyte"
+        elif 'kaggle' in env['CM_ML_MODEL_DATASET']:
+            dataset = "kaggle"
+        if env.get('CM_MLPERF_BIN_LOADER', '') == 'yes':
+            mlperf_bin_loader_string = " --mlperf-bin-loader"
+        else:
+            mlperf_bin_loader_string = ""
+        if env.get('CM_ML_MODEL_DEBUG','') == 'yes':
+            config = " --max-ind-range=10000000 --data-sub-sample-rate=0.875 "
+        else:
+            config = "  --max-ind-range=40000000 "
+        cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + \
+            ' dlrm ' + dataset + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + \
+            env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
+            config + mlperf_bin_loader_string + \
+            ' --max-batchsize=64 --test-num-workers=1 --count-samples=10 --samples-to-aggregate-quantile-file=./tools/dist_quantile.txt ' + \
+            scenario_extra_options + mode_extra_options + dataset_options
+
     return cmd
 
 def postprocess(i):

@@ -1492,7 +1492,7 @@ def copy_to_clipboard(i):
 ###########################################################################
 def update_yaml(file_name, meta = {}, encoding = 'utf8'):
     """
-    Updat yaml file directly (unsafe - only first keys)
+    Update yaml file directly (unsafe - only first keys)
 
     Args:    
        (CM input dict):
@@ -1528,3 +1528,35 @@ def update_yaml(file_name, meta = {}, encoding = 'utf8'):
     if r['return']>0: return r
 
     return {'return':0}
+
+###########################################################################
+def call_internal_module(module_self, path_to_current_module, module_name, module_func, i):
+    """
+    Call CM function from internal submodule
+
+    Args:    
+        path_to_current_module (obj): must be __file__
+        module_name (str): module name
+        module_func (str): module function
+        i (dict): CM input. Note that i['self_module'] = self from calling module will be added to the input
+
+    Returns:
+       (CM return dict):
+
+       * return (int): return code == 0 if no error and >0 if error
+       * (error) (str): error string if return>0
+
+    """
+
+    import sys
+    import importlib
+
+    sys.path.insert(0, os.path.dirname(os.path.abspath(path_to_current_module)))
+
+    tmp_module=importlib.import_module(module_name)
+
+    del(sys.path[0])
+
+    i['self_module'] = module_self
+    
+    return getattr(tmp_module, module_func)(i)

@@ -1,19 +1,127 @@
-# GET-ZEPHYR-SDK
-This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/tutorial-scripts.md) installs the [Zephyr-SDK](https://github.com/zephyrproject-rtos/sdk-ng/releases) from a prebuilt binary. 
+<details>
+<summary>Click here to see the table of contents.</summary>
 
-## Install
-```bash
-cm run script --tags=get,zephyr-sdk --version=0.13.2
+* [Description](#description)
+* [Information](#information)
+* [Usage](#usage)
+  * [ CM installation](#cm-installation)
+  * [ CM script automation help](#cm-script-automation-help)
+  * [ CM CLI](#cm-cli)
+  * [ CM Python API](#cm-python-api)
+  * [ CM modular Docker container](#cm-modular-docker-container)
+* [Customization](#customization)
+  * [ Default environment](#default-environment)
+* [Versions](#versions)
+* [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
+* [Script output](#script-output)
+* [New environment keys (filter)](#new-environment-keys-(filter))
+* [New environment keys auto-detected from customize](#new-environment-keys-auto-detected-from-customize)
+* [Maintainers](#maintainers)
+
+</details>
+
+*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
+
+### Description
+
+
+See [more info](README-extra.md).
+
+#### Information
+
+* Category: *TinyML automation.*
+* CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk)*
+* CM meta description for this script: *[_cm.json](_cm.json)*
+* CM "database" tags to find this script: *get,zephyr-sdk*
+* Output cached?: *True*
+___
+### Usage
+
+#### CM installation
+[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
+
+#### CM script automation help
+```cm run script --help```
+
+#### CM CLI
+`cm run script --tags=get,zephyr-sdk(,variations from below) (flags from below)`
+
+*or*
+
+`cm run script "get zephyr-sdk (variations from below)" (flags from below)`
+
+*or*
+
+`cm run script c70ae1a7567f4a7b`
+
+#### CM Python API
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+```python
+
+import cmind
+
+r = cmind.access({'action':'run'
+                  'automation':'script',
+                  'tags':'get,zephyr-sdk'
+                  'out':'con',
+                  ...
+                  (other input keys for this script)
+                  ...
+                 })
+
+if r['return']>0:
+    print (r['error'])
+
 ```
-## Exported Variables
-1. [ZEPHYR_SDK_INSTALL_DIR](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-zephyr-sdk/customize.py#L13): Location in CM cache where Zephyr SDK is installed. 
-2. [ZEPHYR_TOOLCHAIN_VARIANT](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-zephyr-sdk/customize.py#L12)
 
-## Supported Versions
-1. 0.13.1
-2. 0.13.2
-3. 0.15.0
+</details>
 
-## Supported and Tested OS
-1. Ubuntu 18.04, 20.04, 22.04
-2. RHEL 9
+#### CM modular Docker container
+*TBD*
+___
+### Customization
+
+#### Default environment
+
+<details>
+<summary>Click here to expand this section.</summary>
+
+These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+
+
+</details>
+
+#### Versions
+Default version: *0.13.2*
+
+* 0.13.1
+* 0.13.2
+* 0.15.0
+___
+### Script workflow, dependencies and native scripts
+
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk/_cm.json)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk/_cm.json)
+  1. ***Run native script if exists***
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk/_cm.json)
+___
+### Script output
+#### New environment keys (filter)
+
+* **ZEPHYR_***
+#### New environment keys auto-detected from customize
+
+___
+### Maintainers
+
+* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)

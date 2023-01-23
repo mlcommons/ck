@@ -33,6 +33,6 @@ def postprocess(i):
     state = i['state']
 
     env['CM_MLPERF_PTD_PATH'] = os.path.join(os.getcwd(), 'power', 'inference_v1.0', 'ptd-linux-x86')
-    env['CM_SPEC_PTD_PATH'] = os.path.join(os.getcwd(), 'power', 'inference_v1.0', 'ptd-linux-x86')
+    env['CM_SPEC_PTD_PATH'] = env['CM_MLPERF_PTD_PATH']
 
     return {'return':0}

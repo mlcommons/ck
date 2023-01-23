@@ -1,6 +1,8 @@
 [ [Back to index](README.md) ]
 
-## CM Python JSON interface
+
+
+## CM Python interface
 
 CM automations can be executed from a Python as follows:
 ```python

@@ -32,6 +32,7 @@ public:
         model_path = getenv("CM_ML_MODEL_FILE_WITH_PATH", "");
         dataset_preprocessed_path = getenv("CM_DATASET_PREPROCESSED_PATH", "");
         dataset_path = getenv("CM_DATASET_PATH", "");
+        dataset_list = getenv("CM_DATASET_LIST", "");
         imagenet_val_path = getenv("CM_DATASET_AUX_PATH", "") + "/val.txt";
         scenario_name = getenv("CM_MLPERF_LOADGEN_SCENARIO", "Offline");
         mode_name = getenv("CM_MLPERF_LOADGEN_MODE", "PerformanceOnly");
@@ -59,6 +60,7 @@ public:
     std::string model_path;
     std::string dataset_preprocessed_path;
     std::string dataset_path;
+    std::string dataset_list;
     std::string imagenet_val_path;
     std::string scenario_name;
     std::string mode_name;
@@ -163,13 +165,13 @@ int main(int argc, const char *argv[]) {
     if (input_settings.model_name == "resnet50") {
         qsl.reset(new Imagenet(
             backend, max_sample_count,
-            input_settings.dataset_preprocessed_path + "/preprocessed/imagenet/NCHW",
+            input_settings.dataset_preprocessed_path,
             input_settings.imagenet_val_path));
     } else if (input_settings.model_name == "retinanet") {
         qsl.reset(new Openimages(
             backend, max_sample_count,
-            input_settings.dataset_preprocessed_path + "/preprocessed/openimages-800-retinanet/NCHW/validation/data",
-            input_settings.dataset_path + "/annotations/openimages-mlperf.json"));
+            input_settings.dataset_preprocessed_path,
+            input_settings.dataset_list));
     } else {
         std::cerr << "dataset for model ("
                   << input_settings.model_name << ") not supported" << std::endl;

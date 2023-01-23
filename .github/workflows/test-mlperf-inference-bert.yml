@@ -7,9 +7,9 @@ on:
   pull_request:
     branches: [ "master", "dev" ]
     paths:
-      - cm-mlops/scripts/app-mlperf-inference/**
-      - .github/workflows/test-mlperf-inference-bert.yml
-      - '!**.md'
+      - '.github/workflows/test-mlperf-inference-bert.yml'
+      - '!cm-mlops/**.md'
+      - 'cm-mlops/scripts/app-mlperf-inference/**'
 
 jobs:
   build:

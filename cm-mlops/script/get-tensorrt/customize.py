@@ -12,34 +12,30 @@ def preprocess(i):
 
     if os_info['platform'] == 'windows':
         return {'return': 1, 'error': 'Windows is currently not supported!'}
+
+    if not env.get('CM_INPUT'):
+        return {'return': 1, 'error': 'Please use --input option to point to the tensorrt tar file downloaded from Nvidia website'}
+
     file_name = "trtexec"
-    if 'CM_TENSORRT_TAR_FILE_WITH_PATH' not in env:
-        return {'return': 1, 'error': 'Please use --tar_file option to point to the tensorrt tar file'}
-    my_tar = tarfile.open(os.path.expanduser(env['CM_TENSORRT_TAR_FILE_WITH_PATH']))
+    my_tar = tarfile.open(os.path.expanduser(env['CM_INPUT']))
     folder_name = my_tar.getnames()[0]
     if not os.path.exists(os.path.join(os.getcwd(), folder_name)):
         my_tar.extractall()
     my_tar.close()
+
     import re
     version_match = re.match(r'TensorRT-(\d.\d.\d.\d)', folder_name)
     if not version_match:
-        return {'return': 1, 'error': 'Extracted TensorRT folder does not seem proper - Version infor missing'}
+        return {'return': 1, 'error': 'Extracted TensorRT folder does not seem proper - Version information missing'}
     version = version_match.group(1)
+
     env['CM_TENSORRT_VERSION'] = version
+    env['CM_TENSORRT_INSTALL_PATH'] = os.path.join(os.getcwd(), folder_name)
     env['CM_TMP_PATH'] = os.path.join(os.getcwd(), folder_name, "bin")
-    env['+CPLUS_INCLUDE_PATH'] = os.path.join(os.getcwd(), folder_name, "include")
-    extra_paths = {"include" : "+C_INCLUDE_PATH", "lib" : "+LD_LIBRARY_PATH"}
-    r = i['automation'].find_artifact({'file_name': file_name,
-                                           'env': env,
-                                           'os_info':os_info,
-                                           'default_path_env_key': 'PATH',
-                                           'detect_version':False,
-                                           'env_path_key':'CM_TENSORRT_BIN_WITH_PATH',
-                                           'run_script_input':i['run_script_input'],
-                                           'extra_paths': extra_paths,
-                                           'recursion_spaces':recursion_spaces})
-    if r['return'] > 0:
-        return r
+    env['+CPLUS_INCLUDE_PATH'] = [ os.path.join(os.getcwd(), folder_name, "include") ]
+    env['+C_INCLUDE_PATH'] = [ os.path.join(os.getcwd(), folder_name, "include") ]
+    env['+LD_LIBRARY_PATH'] = [ os.path.join(os.getcwd(), folder_name, "lib") ]
+
     return {'return':0}
 
 def postprocess(i):

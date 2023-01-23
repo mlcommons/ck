@@ -7,19 +7,17 @@
   "clean_files": [],
   "default_env": {
     "CM_MLPERF_POWER_NTP_SERVER": "time.google.com",
-    "CM_MLPERF_POWER_SERVER_OUTDIR": "~/mlperf_power_logs",
-    "CM_MLPERF_POWER_LOG_FILE": "logs_ptdaemon.txt",
     "CM_MLPERF_POWER_INTERFACE_FLAG": "",
     "CM_MLPERF_POWER_DEVICE_TYPE": "49",
+    "CM_MLPERF_POWER_SERVER_ADDRESS": "0.0.0.0",
+    "CM_MLPERF_POWER_SERVER_PORT": "4950",
     "CM_MLPERF_POWER_DEVICE_PORT": "/dev/usbtmc0"
   },
   "input_mapping": {
     "interface_flag": "CM_MLPERF_POWER_INTERFACE_FLAG",
     "device_port": "CM_MLPERF_POWER_DEVICE_PORT",
     "device_type": "CM_MLPERF_POWER_DEVICE_TYPE",
-    "outdir": "CM_MLPERF_POWER_SERVER_OUTDIR",
-    "ntp_server": "CM_MLPERF_POWER_NTP_SERVER",
-    "logfile": "CM_MLPERF_POWER_LOG_FILE"
+    "ntp_server": "CM_MLPERF_POWER_NTP_SERVER"
   },
   "deps": [
     {
@@ -27,7 +25,7 @@
         "python",
         "python3"
       ],
-      "tags": "get,python"
+      "tags": "get,python3"
     },
     {
       "names": [

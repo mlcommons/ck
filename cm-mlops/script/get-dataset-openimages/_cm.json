@@ -18,6 +18,9 @@
       ]
     },
     {
+      "tags": "get,generic-python-lib,_requests"
+    },
+    {
       "names": [
         "inference-src"
       ],
@@ -50,6 +53,8 @@
   },
   "new_env_keys": [
     "CM_DATASET_PATH",
+    "CM_DATASET_ANNOTATIONS_DIR_PATH",
+    "CM_DATASET_ANNOTATIONS_FILE_PATH",
     "CM_CALIBRATION_DATASET_PATH"
   ],
   "tags": [
@@ -63,12 +68,15 @@
   "uid": "0a9d49b644cf4142",
   "variations": {
     "calibration": {
+      "group": "dataset-type",
       "env": {
         "CM_CALIBRATION_DATASET_WGET_URL": "https://github.com/mlcommons/inference/blob/master/calibration/openimages/openimages_cal_images_list.txt",
         "CM_DATASET_CALIBRATION": "yes"
       }
     },
     "validation": {
+      "group": "dataset-type",
+      "default": true,
       "env": {
         "CM_DATASET_CALIBRATION": "no"
       }

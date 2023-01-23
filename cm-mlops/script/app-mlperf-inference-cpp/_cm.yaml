@@ -17,11 +17,14 @@ tags:
   - inference
   - cpp
 
+
+
 # Default environment
 default_env:
   CM_BATCH_COUNT: '1'
   CM_BATCH_SIZE: '1'
   CM_FAST_COMPILATION: "yes"
+
 
 # Map script inputs to environment variables
 input_mapping:
@@ -52,7 +55,7 @@ deps:
   - tags: get,sys-utils-cm
 
   # Detect CUDA if required
-  - tags: get,cuda
+  - tags: get,cuda,_cudnn
     enable_if_env:
       CM_MLPERF_DEVICE:
       - gpu
@@ -137,51 +140,52 @@ post_deps:
 variations:
   # Target devices
   cpu:
-    group: device,
-    default: true,
+    group: device
+    default: true
     env:
       CM_MLPERF_DEVICE: cpu
   cuda:
+    group: device
     env:
       CM_MLPERF_DEVICE: gpu
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
 
   # ML engine
   onnxruntime:
-    group: framework,
-    default: true,
+    group: framework
+    default: true
     env:
       CM_MLPERF_BACKEND: onnxruntime
       CM_MLPERF_BACKEND_LIB_NAMESPEC: onnxruntime
 
   pytorch:
-    group: framework,
+    group: framework
     env:
       CM_MLPERF_BACKEND: pytorch
 
   tf:
-    group: framework,
+    group: framework
     env:
       CM_MLPERF_BACKEND: tf
 
   tflite:
-    group: framework,
+    group: framework
     env:
       CM_MLPERF_BACKEND: tflite
 
   tvm-onnx:
-    group: framework,
+    group: framework
     env:
       CM_MLPERF_BACKEND: tvm-onnx
 
   # Reference MLPerf models
   resnet50:
-    group: model,
-    default: true,
+    group: model
+    default: true
     env:
       CM_MODEL: resnet50
 
   retinanet:
-    group: model,
+    group: model
     env:
       CM_MODEL: retinanet

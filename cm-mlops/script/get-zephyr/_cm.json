@@ -18,11 +18,17 @@
     {
       "tags": "get,cmake",
       "version_min": "3.20.0"
+    },
+    {
+      "tags": "get,generic-python-lib,_west"
     }
   ],
   "tags": [
     "get",
     "zephyr"
+  ],
+  "new_env_keys": [
+    "CM_ZEPHYR_*"
   ],
   "uid": "d4105c2cdb044276",
   "versions": {

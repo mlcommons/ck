@@ -10,7 +10,9 @@
     "CM_MLPERF_RUN_CMD": "",
     "CM_MLPERF_POWER_SERVER_ADDRESS": "localhost",
     "CM_MLPERF_LOADGEN_LOGS_DIR": "loadgen_logs",
-    "CM_MLPERF_POWER_NTP_SERVER": "time.google.com"
+    "CM_MLPERF_POWER_NTP_SERVER": "time.google.com",
+    "CM_MLPERF_POWER_MAX_AMPS": "0",
+    "CM_MLPERF_POWER_MAX_VOLTS": "0"
   },
   "deps": [
     {
@@ -18,13 +20,14 @@
         "python",
         "python3"
       ],
-      "tags": "get,python"
+      "tags": "get,python3"
     },
     {
       "names": [
         "power-src"
       ],
-      "tags": "get,mlperf,power,src"
+      "tags": "get,mlperf,power,src,_octoml",
+      "version": "master"
     }
   ],
   "input_mapping": {
@@ -32,7 +35,9 @@
     "power_server": "CM_MLPERF_POWER_SERVER_ADDRESS",
     "loadgen_logs_dir": "CM_MLPERF_LOADGEN_LOGS_DIR",
     "ntp_server": "CM_MLPERF_POWER_NTP_SERVER",
-    "run_cmd": "CM_MLPERF_RUN_CMD"
+    "run_cmd": "CM_MLPERF_RUN_CMD",
+    "max_amps": "CM_MLPERF_POWER_MAX_AMPS",
+    "max_volts": "CM_MLPERF_POWER_MAX_VOLTS"
   },
   "tags": [
     "run",

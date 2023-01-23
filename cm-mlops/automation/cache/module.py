@@ -103,7 +103,8 @@ class CAutomation(Automation):
         if r['return']>0: return r
 
         lst = r['list']
-        for artifact in lst:
+        for artifact in sorted(lst, key = lambda x: sorted(x.meta['tags'])):
+#        for artifact in lst:
             path = artifact.path
             meta = artifact.meta
             original_meta = artifact.original_meta
@@ -120,11 +121,11 @@ class CAutomation(Automation):
 
             if console:
                 print ('')
-                print ('* cache::{}'.format(uid))
-                print ('    Tags: {}'.format(tags))
+#                print ('* UID: {}'.format(uid))
+                print ('* Tags: {}'.format(','.join(tags)))
+                print ('  Path: {}'.format(path))
                 if version!='':
-                    print ('    Version: {}'.format(version))
-                print ('    Path: {}'.format(path))
+                    print ('  Version: {}'.format(version))
 
             if show_env and console:
                 path_to_cached_state_file = os.path.join(path, 'cm-cached-state.json')

@@ -32,7 +32,7 @@
       "tags": "mlperf,mlcommons,inference,source,src,_octoml"
     },
     {
-      "tags": "get,generic-python-lib,_sklearn"
+      "tags": "get,generic-python-lib,_scikit-learn"
     },
     {
       "tags": "get,generic-python-lib,_torch"
@@ -51,6 +51,9 @@
     },
     {
       "tags": "get,generic-python-lib,_tqdm"
+    },
+    {
+      "tags": "get,generic-python-lib,_mlperf_logging"
     }
   ],
   "input_mapping": {
@@ -90,6 +93,16 @@
         "original-dataset": {
           "tags": "_validation"
         }
+      }
+    },
+    "fake": {
+      "add_deps_recursive": {
+        "original-dataset": {
+          "tags": "_fake"
+        }
+      },
+      "env": {
+        "CM_CRITEO_FAKE": "yes"
       }
     }
   }

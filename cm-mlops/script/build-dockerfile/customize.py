@@ -7,6 +7,7 @@ def preprocess(i):
 
     os_info = i['os_info']
     env = i['env']
+
     if env["CM_DOCKER_OS"] not in [ "ubuntu", "rhel", "arch" ]:
         return {'return': 1, 'error': "Currently only ubuntu, rhel and arch are supported in CM docker"}
     path = i['run_script_input']['path']
@@ -38,6 +39,7 @@ def preprocess(i):
         env["CM_DOCKER_OS_VERSION"] = "20.04"
 
     docker_image_base = get_value(env, config, 'FROM', 'CM_DOCKER_IMAGE_BASE')
+
     if not docker_image_base:
         if env["CM_DOCKER_OS"] == "ubuntu":
             docker_image_base = env["CM_DOCKER_OS"]+":"+env["CM_DOCKER_OS_VERSION"]

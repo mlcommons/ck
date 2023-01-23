@@ -76,6 +76,13 @@
         "patch"
       ]
     },
+    "deepsparse": {
+      "env": {
+        "CM_GIT_URL": "https://github.com/neuralmagic/inference",
+        "CM_GIT_CHECKOUT": "deepsparse",
+        "CM_MLPERF_LAST_RELEASE": "v2.1"
+      }
+    },
     "no-recurse-submodules": {
       "env": {
         "CM_GIT_RECURSE_SUBMODULES": ""
@@ -134,6 +141,13 @@
       "env": {
         "CM_GIT_URL": "https://github.com/octoml/inference",
         "CM_GIT_CHECKOUT": "tvm",
+        "CM_MLPERF_LAST_RELEASE": "v2.1"
+      }
+    },
+    "deepsparse": {
+      "env": {
+        "CM_GIT_URL": "https://github.com/neuralmagic/inference",
+        "CM_GIT_CHECKOUT": "deepsparse",
         "CM_MLPERF_LAST_RELEASE": "v2.1"
       }
     },

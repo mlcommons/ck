@@ -52,7 +52,7 @@
       "tags": "get,generic-python-lib,_torch_cuda"
     },
     {
-      "tags": "get,nvidia,mlperf,inference,common-code"
+      "tags": "get,nvidia,mlperf,inference,common-code,-_custom"
     }
   ],
   "new_env_keys": [

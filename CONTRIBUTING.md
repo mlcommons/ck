@@ -20,7 +20,7 @@ We suggest you to join the [open MLCommons taskforce on education and reproducib
 to learn how to use the CM framework, enhance existing CM components for MLOps and DevOps, 
 run MLPerf benchmarks and contribute your own artifacts, scripts and workflows in the CM format.
 
-Please check this [guide](cm/docs/tutorial-scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
+Please check this [guide](cm/docs/tutorials/scripts.md#adding-new-artifacts-scripts-and-workflows-to-cm) 
 to plug your own artifacts, scripts and workflows into CM.
 
 You can then share CM components in your own Git repository or in the [MLCommons CM repository](https://github.com/mlcommons/ck/tree/master/cm-mlops)
@@ -38,6 +38,7 @@ Thank you for your support and looking forward to collaborating with you!
 ## Contributors in alphabetical order
 
 * Sam Ainsworth (University of Cambridge, UK)
+* Saheli Bhattacharjee (@sahelib25)
 * Jiahao Chen (MIT)
 * Gianfranco Costamagna
 * Chris Cummins (Facebook)
@@ -52,6 +53,7 @@ Thank you for your support and looking forward to collaborating with you!
 * Dave Greasley (University of Bristol)
 * Herve Guillou
 * Vincent Grevendonk (Arm)
+* Michael Goin (Nerual Magic)
 * Christophe Guillon (STMicroelectronics)
 * Sven van Haastregt (Arm)
 * Michael Haidl

@@ -10,7 +10,7 @@
         "python",
         "python3"
       ],
-      "tags": "get,python"
+      "tags": "get,python3"
     }
   ],
   "env": {},
@@ -31,7 +31,8 @@
     "octoml"
   ],
   "uid": "b946001e289c4480",
-  "version": {
-    "r1.0": {}
+  "versions": {
+    "r1.0": {
+    }
   }
 }

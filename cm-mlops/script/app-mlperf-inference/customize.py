@@ -42,7 +42,7 @@ def preprocess(i):
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_MLPERF_LOADGEN_QPS_OPT']
 
     if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_VISION_PATH']
+        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
 
     if 'CM_NUM_THREADS' not in env:
         if 'CM_MINIMIZE_THREADS' in env:
@@ -86,6 +86,12 @@ def preprocess(i):
 
     if "bert" not in env['CM_MODEL']:
         scenario_extra_options +=  " --threads " + NUM_THREADS
+
+    if env['CM_MODEL'] not in i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']]:
+        i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']] = {}
+        i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']][scenario] = {}
+
+
     conf = i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']][scenario]
     user_conf = ''
     if ['CM_MLPERF_RUN_STYLE'] == "fast":
@@ -97,20 +103,42 @@ def preprocess(i):
         ml_model_name = "bert"
     if 'dlrm' in ml_model_name:
         ml_model_name = "dlrm"
-    for metric in conf:
-        metric_value = conf[metric]
-        if env['CM_MLPERF_RUN_STYLE'] == "fast":
-            if metric == "target_qps" and scenario == "Offline":
-                metric_value /= fast_factor
-            if metric == "target_latency" and scenario in [ "SingleStream", "MultiStream" ]:
-                metric_value *= fast_factor
-            conf[metric] = metric_value
-        elif env['CM_MLPERF_RUN_STYLE'] == "test":
-            if metric == "target_qps" and scenario == "Offline":
-                metric_value = 1
-            if metric == "target_latency" and scenario in [ "SingleStream" ]:
-                metric_value = 1000
-        user_conf += ml_model_name + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
+
+    query_count = None
+
+    value = None
+    if scenario in [ 'Offline', 'Server' ]:
+        metric = "target_qps"
+        #value = env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS') if scenario == "Server" else env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS')
+        if not value:
+            value = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
+    elif scenario in [ 'SingleStream', 'MultiStream' ]:
+        metric = "target_latency"
+        if not value:
+            value = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
+
+    if value:
+        metric_value = value
+        conf[metric] = value
+    else:
+        if metric in conf:
+            metric_value = conf[metric]
+        else:
+            return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
+
+    if env['CM_MLPERF_RUN_STYLE'] == "fast":
+        if scenario == "Offline":
+            metric_value /= fast_factor
+        if scenario in [ "SingleStream", "MultiStream" ]:
+            metric_value *= fast_factor
+    elif env['CM_MLPERF_RUN_STYLE'] == "test":
+        if scenario == "Offline":
+            metric_value = 1
+        if scenario in [ "SingleStream" ]:
+            metric_value = 1000
+    conf[metric] = metric_value
+    user_conf += ml_model_name + "." + scenario + "." + metric + " = " + str(metric_value) + "\n"
+
     if env['CM_MLPERF_RUN_STYLE'] == "test":
         query_count = env.get('CM_TEST_QUERY_COUNT', "5")
         user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
@@ -132,7 +160,10 @@ def preprocess(i):
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
             user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
             scenario_extra_options +=  " --count " + query_count
-    env['CM_MAX_EXAMPLES'] = query_count #needed for squad accuracy checker
+
+    if query_count:
+        env['CM_MAX_EXAMPLES'] = query_count #needed for squad accuracy checker
+
     import uuid
     key = uuid.uuid4().hex
     user_conf_path = os.path.join(script_path, "tmp", key+".conf")
@@ -140,7 +171,7 @@ def preprocess(i):
     user_conf_file = Path(user_conf_path)
     user_conf_file.parent.mkdir(exist_ok=True, parents=True)
     user_conf_file.write_text(user_conf)
-    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' not in env:
+    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' not in env and query_count:
         env['CM_MLPERF_LOADGEN_QUERY_COUNT'] = query_count
 
     scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
@@ -316,13 +347,13 @@ def postprocess(i):
                 OUTPUT_DIR = os.path.join(OUTPUT_DIR, "TEST01", "accuracy")
                 if not os.path.exists(OUTPUT_DIR):
                     os.makedirs(OUTPUT_DIR)
-                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "tools", \
+                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                         accuracy_filename) + " --mlperf-accuracy-file " + \
                         "mlperf_log_accuracy_baseline.json" + dataset_args + " > " + \
                         os.path.join(OUTPUT_DIR, "baseline_accuracy.txt")
                 print(CMD)
                 result  = subprocess.run(CMD, shell=True)
-                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_VISION_PATH'], "tools", \
+                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                         accuracy_filename) + " --mlperf-accuracy-file " + \
                         "mlperf_log_accuracy.json" + dataset_args + " > " + \
                         os.path.join(OUTPUT_DIR, "compliance_accuracy.txt")

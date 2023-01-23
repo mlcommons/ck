@@ -22,9 +22,18 @@ def preprocess(i):
                    'url':url})
     if r['return']>0: return r
 
-    # Add to path
-    env['CM_ML_MODEL_FILE']=r['filename']
-    env['CM_ML_MODEL_FILE_WITH_PATH']=r['path']
+    if env.get('CM_UNTAR') == "yes":
+        filename = r['filename']
+        r  = os.system("tar -xvf "+filename)
+        if r > 0:
+            return {'return': r, 'error': 'Untar failed'}
+
+        filename = env['CM_ML_MODEL_FILE']
+        env['CM_ML_MODEL_FILE_WITH_PATH']=os.path.join(path, filename)
+
+    else:
+        env['CM_ML_MODEL_FILE']=r['filename']
+        env['CM_ML_MODEL_FILE_WITH_PATH']=r['path']
     env['CM_ML_MODEL_PATH']=path
 
     if 'CM_VOCAB_FILE_URL' in env:
