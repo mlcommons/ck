@@ -16,6 +16,8 @@ def preprocess(i):
         return {'return': 1, 'error': 'Please select a variation specifying the device to run on'}
 
     cmds = []
+    scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
+    mode = env['CM_MLPERF_LOADGEN_MODE']
 
     if env['CM_MODEL'] == "resnet50":
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'imagenet')
@@ -80,8 +82,83 @@ def preprocess(i):
         test_mode = "AccuracyOnly"
     elif env['CM_MLPERF_LOADGEN_MODE'] == "performance":
         test_mode = "PerformanceOnly"
-    cmds.append(f"make run RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} --test_mode={test_mode}'")
 
+    run_config = ''
+
+    target_qps = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
+    offline_target_qps = env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS')
+    server_target_qps = env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS')
+    if target_qps:
+        if scenario == "offline" and not offline_target_qps:
+            run_config += f" --offline_expected_qps={target_qps}"
+        elif scenario == "server" and not server_target_qps:
+            run_config += f" --server_target_qps={target_qps}"
+
+    if offline_target_qps:
+        run_config += f" --offline_expected_qps={offline_target_qps}"
+    if server_target_qps:
+        run_config += f" --server_target_qps={server_target_qps}"
+
+    target_latency = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
+    singlestream_target_latency = env.get('CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY')
+    multistream_target_latency = env.get('CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY')
+    if target_latency:
+        target_latency_ns = int(target_latency) * 1000000
+        if scenario == "singlestream" and not singlestream_target_latency:
+            run_config += f" --single_stream_expected_latency_ns={target_latency_ns}"
+        elif scenario == "multistream" and not multistream_target_latency:
+            run_config += f" --multi_stream_expected_latency_ns={target_latency_ns}"
+
+    if singlestream_target_latency:
+        singlestream_target_latency_ns = int(singlestream_target_latency) * 1000000
+        run_config += f" --single_stream_expected_latency_ns={singlestream_target_latency_ns}"
+    if multistream_target_latency:
+        multistream_target_latency_ns = int(multistream_target_latency) * 1000000
+        run_config += f" --multi_stream_expected_latency_ns={multistream_target_latency_ns}"
+
+    use_triton = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_TRITON')
+    if use_triton:
+        run_config += f" --use_triton"
+
+    gpu_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS')
+    if gpu_copy_streams:
+        run_config += f" --gpu_copy_streams={gpu_copy_streams}"
+    gpu_inference_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS')
+    if gpu_inference_streams:
+        run_config += f" --gpu_inference_streams={gpu_inference_streams}"
+    dla_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_DLA_COPY_STREAMS')
+    if dla_copy_streams:
+        run_config += f" --dla_copy_streams={dla_copy_streams}"
+    dla_inference_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_DLA_INFERENCE_STREAMS')
+    if dla_inference_streams:
+        run_config += f" --dla_inference_streams={dla_inference_streams}"
+
+    gpu_batch_size = env.get('CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE')
+    if gpu_batch_size:
+        run_config += f" --gpu_batch_size={gpu_batch_size}"
+    dla_batch_size = env.get('CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE')
+    if dla_batch_size:
+        run_config += f" --dla_batch_size={dla_batch_size}"
+
+    input_format = env.get('CM_MLPERF_NVIDIA_HARNESS_INPUT_FORMAT')
+    if input_format:
+        run_config += f" --input_format={input_format}"
+
+    workspace_size = env.get('CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE')
+    if workspace_size:
+        run_config += f" --workspace_size={workspace_size}"
+
+    log_dir = env.get('CM_MLPERF_NVIDIA_HARNESS_LOG_DIR')
+    if log_dir:
+        run_config += f" --log_dir={log_dir}"
+
+    use_graphs = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS')
+    if use_graphs:
+        run_config += " --use_graphs"
+
+
+    cmds.append(f"make run RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} --test_mode={test_mode} {run_config}'")
+    #print(cmds)
     env['RUN_CMD'] = " && ".join(cmds)
 #    print(env)
 
