@@ -422,6 +422,8 @@ variations:
 
   tvm-onnx:
     group: backend
+    base:
+      - batch_size.32
     env:
       CM_MLPERF_BACKEND: tvm-onnx
     add_deps_recursive:
@@ -509,6 +511,13 @@ variations:
       runner:
         tags:
           _mlperf-power
+
+  batch_size.#:
+    env:
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '#'
+    add_deps_recursive:
+      tvm-model:
+        tags: _batch_size.#
 
   # Reproducibility (past submissions)
   r2.1_default:
