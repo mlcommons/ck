@@ -605,4 +605,4 @@ input_description:
   quiet:
     desc: "Quiet run (select default values for all questions)"
     boolean: true
-    default: true
+    default: false
