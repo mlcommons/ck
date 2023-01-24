@@ -27,9 +27,6 @@
     },
     {
       "tags": "get,generic-python-lib,_psutil"
-    },
-    {
-      "tags": "get,generic-python-lib,_typing_extensions"
     }
   ],
   "default_env": {
