@@ -1,0 +1,57 @@
+# Identification of this CM script
+alias: gui
+uid: 605cac42514a4c69
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "GUI"
+category_sort: 21000
+
+developers: "[Grigori Fursin](https://cKnowledge.io/@gfursin)"
+
+# User-friendly tags to find this CM script
+tags:
+  - cm
+  - gui
+  - cm-gui
+  - script-gui
+  - cm-script-gui
+  - streamlit
+
+# Map script inputs to environment variables
+input_mapping:
+  script: CM_GUI_SCRIPT_TAGS
+  prefix: CM_GUI_SCRIPT_PREFIX_LINUX
+  port: CM_GUI_PORT
+  address: CM_GUI_ADDRESS
+  title: CM_GUI_TITLE
+  no_browser: CM_GUI_NO_BROWSER
+  no_run: CM_GUI_NO_RUN
+
+default_env:
+  CM_GUI_EXTRA_CMD: ""
+  CM_GUI_SCRIPT_PREFIX_LINUX: "gnome-terminal --"
+
+# Dependencies on other CM scripts
+deps:
+  # Detect host OS features
+  - tags: detect,os
+
+  # Detect host CPU features
+  - tags: detect,cpu
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
+
+  # Detect/install python
+  - tags: get,python
+    names:
+    - python
+    - python3
+
+  - tags: get,generic-python-lib,_cmind
+  - tags: get,generic-python-lib,_streamlit
+
+input_description:
+  script: "script tags"
