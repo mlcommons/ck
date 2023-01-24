@@ -249,6 +249,8 @@ def main():
 
     st.markdown("""---""")
     st.markdown("*Join the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) and the public [Discord channel](https://discord.gg/JjWNWXKxwT) to participate in collaborative developments, benchmarking and design space exploration of ML Systems!*")
+    st.markdown("")
+    st.markdown("*Please report issues or suggest features [here](https://github.com/mlcommons/ck/issues).*")
 
 if __name__ == "__main__":
     main()
