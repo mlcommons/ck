@@ -27,10 +27,10 @@ def preprocess(i):
             if len(paths)>0:
                 tmp_paths = ';'.join(paths)
                 tmp_paths += ';'+os.environ.get('PATH','')
-            
+
                 env['CM_TMP_PATH'] = tmp_paths
                 env['CM_TMP_PATH_IGNORE_NON_EXISTANT'] = 'yes'
-    
+
     else:
         file_name = env['CM_TMP_FILE_TO_CHECK_UNIX']
 
