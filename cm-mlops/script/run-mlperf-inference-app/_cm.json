@@ -168,7 +168,7 @@
       "desc": "Force Python version (must have all system deps)"
     },
     "adr.compiler.tags": {
-      "desc": "Compiler for loadgen",
+      "desc": "Compiler for loadgen and any C/Cpp part of implementation",
       "default": "gcc"
     },
     "submitter": {
@@ -182,17 +182,17 @@
     "implementation": {
       "desc":"MLPerf implementation",
       "default":"reference",
-      "choices": ["reference"]
+      "choices": ["reference", "cpp", "nvidia-original"]
     },
     "model": {
       "desc":"MLPerf model",
       "default":"resnet50",
-      "choices": ["resnet50"]
+      "choices": ["resnet50", "retinanet", "bert-99", "bert-99.9", "3d-unet", "rnnt"]
     },
     "backend": {
       "desc": "MLPerf backend",
       "default": "onnxruntime",
-      "choices": ["onnxruntime"]
+      "choices": ["onnxruntime", "tf", "pytorch", "deepsparse", "tensorrt"]
     },
     "device": {
       "desc":"MLPerf device",
@@ -211,10 +211,11 @@
     },
     "run_style": {
        "desc": "Run style",
-       "default": ""
+       "default": "test",
+       "choices": ["test", "fast", "valid"]
     },
     "test_query_count": {
-      "desc": "Query count",
+      "desc": "Query count to be used when run_style is test",
       "default": ""
     },
     "max_batchsize": {
