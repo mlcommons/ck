@@ -228,7 +228,7 @@ def main():
 
     st.text_area('Get [CK2 (CM) framework](https://github.com/mlcommons/ck) and install automation repository:', 'python3 -m pip install cmind -U\ncm pull repo mlcommons@ck', height=10)
 
-    cli = st.text_area('**Run CM script:**', cli)
+    cli = st.text_area('**Run CM script:**', cli, height=200)
 
 
     # Add explicit button "Run"
@@ -246,6 +246,9 @@ def main():
         print ('Running command: {}'.format(cmd2))
 
         os.system(cmd2)
+
+    st.markdown("""---""")
+    st.markdown("*Join the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) and the public [Discord channel](https://discord.gg/JjWNWXKxwT) to participate in collaborative developments, benchmarking and design space exploration of ML Systems!*")
 
 if __name__ == "__main__":
     main()

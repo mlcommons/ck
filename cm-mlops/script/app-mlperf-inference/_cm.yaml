@@ -22,8 +22,7 @@ tags:
 
 # Default environment
 default_env:
-  CM_BATCH_COUNT: '1'
-  CM_BATCH_SIZE: '1'
+  CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
   CM_MLPERF_LOADGEN_MODE: accuracy
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results
@@ -423,6 +422,8 @@ variations:
 
   tvm-onnx:
     group: backend
+    base:
+      - batch_size.32
     env:
       CM_MLPERF_BACKEND: tvm-onnx
     add_deps_recursive:
@@ -511,6 +512,13 @@ variations:
         tags:
           _mlperf-power
 
+  batch_size.#:
+    env:
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '#'
+    add_deps_recursive:
+      tvm-model:
+        tags: _batch_size.#
+
   # Reproducibility (past submissions)
   r2.1_default:
     group:
@@ -592,3 +600,18 @@ input_description:
   regenerate_files: 
     desc: "Regenerates measurement files including accuracy.txt files even if a previous run exists. This option is redundant if `--rerun` is used"
     boolean: true
+  adr.python.name:
+    desc: "Python virtual environment name (optional)"
+    default: mlperf
+  adr.python.version_min:
+    desc: "Minimal Python version"
+    default: "3.8"
+  adr.python.version:
+    desc: "Force Python version (must have all system deps)"
+  adr.compiler.tags:
+    desc: "Compiler for loadgen"
+    default: gcc
+  quiet:
+    desc: "Quiet run (select default values for all questions)"
+    boolean: true
+    default: false
