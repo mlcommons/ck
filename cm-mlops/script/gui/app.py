@@ -226,7 +226,28 @@ def main():
     # Print CLI
     st.markdown("""---""")
 
-    st.text_area('Get [CK2 (CM) framework](https://github.com/mlcommons/ck) and install automation repository:', 'python3 -m pip install cmind -U\ncm pull repo mlcommons@ck', height=10)
+    x = 'python3 -m pip install cmind -U\n\ncm pull repo mlcommons@ck\n'
+
+    # Hack to detect python virtual environment and version
+    python_venv_name=st_inputs.get('adr.python.name', '')
+    python_ver=st_inputs.get('adr.python.version', '')
+
+    y = ''
+    if python_venv_name!='' or python_ver!='':
+        y = '\ncm run script "get sys-utils-cm" --quiet\n'
+
+        if python_venv_name!='':
+            y+='cm run script "install python-venv" --name='+str(python_venv_name)
+        else:
+            y+='cm run script "get python"'
+
+        if python_ver!='':
+            y+='  --version='+str(python_ver)
+
+    if y!='':
+        x+=y
+
+    st.text_area('**Install [CM (CK2) framework](https://github.com/mlcommons/ck) with a few dependencies:**', x, height=170)
 
     cli = st.text_area('**Run CM script:**', cli, height=200)
 
@@ -248,9 +269,8 @@ def main():
         os.system(cmd2)
 
     st.markdown("""---""")
-    st.markdown("*Join the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) and the public [Discord channel](https://discord.gg/JjWNWXKxwT) to participate in collaborative developments, benchmarking and design space exploration of ML Systems!*")
-    st.markdown("")
-    st.markdown("*Please report issues or suggest features [here](https://github.com/mlcommons/ck/issues).*")
+    st.markdown("*Join the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) and the public [Discord channel](https://discord.gg/JjWNWXKxwT) to participate in collaborative developments, benchmarking and design space exploration of ML Systems!"
+                " Please report issues or suggest features [here](https://github.com/mlcommons/ck/issues).*")
 
 if __name__ == "__main__":
     main()
