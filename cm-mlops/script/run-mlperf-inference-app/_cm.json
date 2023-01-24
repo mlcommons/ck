@@ -30,11 +30,12 @@
     }
   ],
   "default_env": {
-    "CM_BATCH_COUNT": "1",
-    "CM_BATCH_SIZE": "1",
     "CM_OUTPUT_FOLDER_NAME": "test_results",
     "CM_MLPERF_RUN_STYLE": "test",
-    "CM_TEST_QUERY_COUNT": "5"
+    "CM_MLPERF_MODEL": "resnet50",
+    "CM_MLPERF_IMPLEMENTATION": "reference",
+    "CM_MLPERF_BACKEND": "onnxruntime",
+    "CM_MLPERF_DEVICE": "cpu"
   },
   "input_mapping": {
     "lang": "CM_MLPERF_IMPLEMENTATION",
@@ -102,13 +103,6 @@
         "CM_MLPERF_LOADGEN_COMPLIANCE": "yes"
       }
     },
-    "fast": {
-      "env": {
-        "CM_FAST_FACTOR": "5",
-        "CM_OUTPUT_FOLDER_NAME": "fast_results",
-        "CM_MLPERF_RUN_STYLE": "fast"
-      }
-    },
     "submission": {
       "default_gui": true,
       "base": [
@@ -132,18 +126,22 @@
         }
       ]
     },
-    "valid": {
-      "env": {
-        "CM_OUTPUT_FOLDER_NAME": "valid_results",
-        "CM_MLPERF_RUN_STYLE": "valid",
-        "CM_RUN_MLPERF_ACCURACY": "on"
-      }
-    },
     "short": {
+      "group": "submission-generation-style",
+      "default": "true",
+      "env": {
+        "CM_MLPERF_SUBMISSION_GENERATION_STYLE": "short"
+      },
       "add_deps_recursive": {
         "submission-checker": {
           "tags": "_short-run"
         }
+      }
+    },
+    "full": {
+      "group": "submission-generation-style",
+      "env": {
+        "CM_MLPERF_SUBMISSION_GENERATION_STYLE": "full"
       }
     },
     "dashboard": {

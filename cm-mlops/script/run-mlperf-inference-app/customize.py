@@ -29,6 +29,9 @@ def preprocess(i):
     else:
         power = "no"
 
+    if env.get('CM_RUN_STYLE', '') == "valid" and 'CM_RUN_MLPERF_ACCURACY' not in env:
+        env['CM_RUN_MLPERF_ACCURACY'] = "on"
+
     env['CM_MODEL'] = env.get('CM_MODEL', 'resnet50')
 
     print("Using MLCommons Inference source from " + env['CM_MLPERF_INFERENCE_SOURCE'])
