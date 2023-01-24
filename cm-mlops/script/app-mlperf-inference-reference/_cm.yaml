@@ -23,8 +23,7 @@ tags:
 
 # Default environment
 default_env:
-  CM_BATCH_COUNT: '1'
-  CM_BATCH_SIZE: '1'
+  CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
   CM_MLPERF_LOADGEN_MODE: accuracy
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results
@@ -552,6 +551,10 @@ variations:
 
   quantized:
     alias: int8
+
+  batch_size.#:
+    env:
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: #
 
   # Reproducibility (past submissions)
   r2.1_default:
