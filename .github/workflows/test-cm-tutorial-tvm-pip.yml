@@ -33,4 +33,4 @@ jobs:
         cm run script --quiet --tags=get,sys-utils-cm
     - name: Test CM Tutorial TVM
       run: |
-        python tests/tutorials/test_tutorial_tvm-pip.py
+        python tests/tutorials/test_tutorial_tvm_pip.py
