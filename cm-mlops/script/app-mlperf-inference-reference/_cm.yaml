@@ -91,8 +91,8 @@ deps:
   # Detect TensorRT if required
   - tags: get,nvidia,tensorrt
     enable_if_env:
-      CM_MLPERF_DEVICE:
-      - gpu
+      CM_MLPERF_BACKEND:
+      - tensorrt
 
 
 
