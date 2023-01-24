@@ -95,7 +95,10 @@ def main():
                 # Do not continue this loop if alias
                 continue
 
-            default = variation.get('default', False)
+            if 'default_gui' in variation:
+                default = variation['default_gui']
+            else:
+                default = variation.get('default', False)
 
             if not default:
                 # Check outdated
@@ -147,7 +150,10 @@ def main():
                 st_variations[group_key] = st.selectbox(group_key_cap, sorted(y), index=selected_index, key=group_key)
             elif group_key == '*no-group*':
                 for variation_key in sorted(variation_groups[group_key]):
-                    st_variations[variation_key] = st.checkbox(variation_key.capitalize(), key=variation_key)
+                    x = False
+                    if variation_key in default_variations:
+                        x=True
+                    st_variations[variation_key] = st.checkbox(variation_key.capitalize(), key=variation_key, value=x)
 
 
         # Prepare inputs
@@ -208,9 +214,11 @@ def main():
         value = st_inputs[key]
 
         if value!='' and (type(value)!=bool or value==True):
-            flags+=' --'+key
+            flags+=' \ \n   --'+key
             if type(value)!=bool:
-                flags+='='+str(value)
+                x = str(value)
+                if ' ' in x: x='"'+x+'"'
+                flags+='='+x
 
     ########################################################
     # Extra CMD
@@ -249,7 +257,7 @@ def main():
 
     st.text_area('**Install [CM (CK2) framework](https://github.com/mlcommons/ck) with a few dependencies:**', x, height=170)
 
-    cli = st.text_area('**Run CM script:**', cli, height=200)
+    cli = st.text_area('**Run CM script:**', cli, height=400)
 
 
     # Add explicit button "Run"

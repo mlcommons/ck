@@ -173,6 +173,65 @@
       "desc": "Compiler for loadgen",
       "default": "gcc"
     },
+    "submitter": {
+      "desc":"Submitter name (without space)",
+      "default": "TheCommunity"
+    },
+    "hw_name": {
+      "desc": "MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))",
+      "default":"default"
+    },
+    "implementation": {
+      "desc":"MLPerf implementation",
+      "default":"reference",
+      "choices": ["reference"]
+    },
+    "model": {
+      "desc":"MLPerf model",
+      "default":"resnet50",
+      "choices": ["resnet50"]
+    },
+    "backend": {
+      "desc": "MLPerf backend",
+      "default": "onnxruntime",
+      "choices": ["onnxruntime"]
+    },
+    "device": {
+      "desc":"MLPerf device",
+      "default": "cpu",
+      "choices": ["cpu", "cuda"]
+    },
+    "scenario": {
+      "desc": "MLPerf scenario",
+      "default": "Offline",
+      "choices": ["Offline", "Server", "SingleStream", "MultiStream"]
+    },
+    "mode": {
+      "desc": "MLPerf mode",
+      "default": "",
+      "choices": ["", "accuracy", "performance"]
+    },
+    "run_style": {
+       "desc": "Run style",
+       "default": ""
+    },
+    "test_query_count": {
+      "desc": "Query count",
+      "default": ""
+    },
+    "max_batchsize": {
+      "desc": "Maximum batchsize to be used",
+      "default": "1"
+    },
+    "num_threads": { 
+      "desc": "Number of CPU threads to launch the application with",
+      "default": ""
+    },
+    "clean": {
+      "desc": "Clean run",
+      "boolean": true,
+      "default": true
+    },
     "quiet": {
       "desc": "Quiet run (select default values for all questions)",
       "boolean": true,
