@@ -110,6 +110,7 @@
       }
     },
     "submission": {
+      "default_gui": true,
       "base": [
         "all-modes"
       ],
@@ -146,6 +147,7 @@
       }
     },
     "dashboard": {
+      "default_gui": true,
       "env": {
         "CM_MLPERF_DASHBOARD": "on"
       }
@@ -154,5 +156,27 @@
   "versions": {
     "master": {},
     "r2.1": {}
+  },
+  "input_description": {
+    "adr.python.name" : {
+      "desc": "Python virtual environment name (optional)",
+      "default": "mlperf"
+    },
+    "adr.python.version_min": {
+      "desc": "Minimal Python version",
+      "default": "3.8"
+    },
+    "adr.python.version": {
+      "desc": "Force Python version (must have all system deps)"
+    },
+    "adr.compiler.tags": {
+      "desc": "Compiler for loadgen",
+      "default": "gcc"
+    },
+    "quiet": {
+      "desc": "Quiet run (select default values for all questions)",
+      "boolean": true,
+      "default": false
+    }
   }
 }
