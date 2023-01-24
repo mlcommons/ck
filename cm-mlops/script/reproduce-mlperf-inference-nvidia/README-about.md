@@ -7,7 +7,23 @@ Nvidia working directory is given by `CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH` vari
 cm run script --tags=get,nvidia,common-code,_custom --out=json
 ```
 
-Nvidia run configuration values for each model-sceraio for known systems are stored in `__init__.py` files under configs directory. For custom systems these are stored under `custom.py` files.
+
+Requirements: You need to have CUDA, cuDNN and TensorRT installed on your system. 
+
+If CUDA is not detected, CM should download and install it automatically when you run the workflow.
+
+For x86 machines, you can download the tar files for cuDNN and TensorRT and install them using the following commands
+```bash
+cm run script --tags=get,cudnn --input=<PATH_TO_CUDNN_TAR_FILE>
+```
+
+```bash
+cm run script --tags=get,tensorrt --input=<PATH_TO_TENSORRT_TAR_FILE>
+```
+
+On other systems you can do a package manager install and then CM should pick up the installation automatically during the workflow run.
+
+Nvidia run configuration values for each model-sceraio for known systems are stored in `__init__.py` files under configs directory. For custom systems these are stored under `custom.py` files. When custom config files are generated they override the default config values with empty ones (not desirable). So, you'll probably need to open the custom config file and comment out the overrides. Typically `gpu_batch_size` and `offline_expected_qps` are enough for an offline scenario run on a typical single GPU system.
 
 <details>
 
