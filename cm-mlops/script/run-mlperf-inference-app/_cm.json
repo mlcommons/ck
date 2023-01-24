@@ -214,6 +214,12 @@
       "desc": "Maximum batchsize to be used",
       "default": "1"
     },
+    "results_dir": {
+      "desc": "Folder path where run results should be stored (defaults to the current working directory)"
+    },
+    "submission_dir": {
+      "desc": "Folder path where submission tree (to be submitted) must be stored"
+    },
     "clean": {
       "desc": "Clean run",
       "boolean": true,

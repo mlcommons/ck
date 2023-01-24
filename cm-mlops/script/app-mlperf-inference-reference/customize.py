@@ -47,7 +47,18 @@ def preprocess(i):
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_MLPERF_LOADGEN_QPS_OPT']
 
     if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
+        if env['CM_MODEL'] in ['resnet50', 'retinanet']:
+            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
+        elif "bert" in env['CM_MODEL']:
+            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_BERT_PATH']
+        elif "3d-unet" in env['CM_MODEL']:
+            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_3DUNET_PATH']
+        elif "dlrm" in env['CM_MODEL']:
+            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_DLRM_PATH']
+        elif env['CM_MODEL'] == "rnnt":
+            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_RNNT_PATH']
+        else:
+            env['OUTPUT_BASE_DIR'] = os.getcwd()
 
     if 'CM_NUM_THREADS' not in env:
         if 'CM_MINIMIZE_THREADS' in env:
