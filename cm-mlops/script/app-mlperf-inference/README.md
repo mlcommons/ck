@@ -172,7 +172,7 @@ ___
         1. ***Read "prehook_deps" on other CM scripts***
            * reproduce,mlperf,nvidia,inference
              * `if (CM_SKIP_RUN  != True)`
-             * CM names: `--adr.['nvidia-original-mlperf-inference', 'mlperf-inference-implementation']...`
+             * CM names: `--adr.['nvidia-original-mlperf-inference', 'nvidia-harness', 'mlperf-inference-implementation']...`
              - CM script: [reproduce-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia)
     * **`_reference`** (default)
       - Aliases: `_python`
@@ -393,6 +393,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_batch_size.#`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `#`
+      - Workflow:
     * `_power`
       - Environment variables:
         - *CM_MLPERF_POWER*: `True`
@@ -432,6 +436,13 @@ ___
 * --**output_dir** Location where the outputs are produced
 * --**rerun** Redo the run even if previous run files exist (*True*)
 * --**regenerate_files** Regenerates measurement files including accuracy.txt files even if a previous run exists. This option is redundant if `--rerun` is used
+* --**adr.python.name** Python virtual environment name (optional) (*mlperf*)
+* --**adr.python.version_min** Minimal Python version (*3.8*)
+* --**adr.python.version** Force Python version (must have all system deps)
+* --**adr.compiler.tags** Compiler for loadgen (*gcc*)
+* --**adr.inference-src-loadgen.env.CM_GIT_URL** Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)
+* --**adr.inference-src.env.CM_GIT_URL** Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)
+* --**quiet** Quiet run (select default values for all questions) (*False*)
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -452,15 +463,18 @@ r=cm.access({... , "scenario":...}
 * --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
 * --**max_volts**=value --> **CM_MLPERF_POWER_MAX_VOLTS**=value
 * --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**new_tvm_model**=value --> **CM_MLPERF_DELETE_COMPILED_MODEL**=value
+* --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
 * --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
 * --**num_threads**=value --> **CM_NUM_THREADS**=value
+* --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
 * --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
 * --**power**=value --> **CM_SYSTEM_POWER**=value
 * --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
 * --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
 * --**rerun**=value --> **CM_RERUN**=value
 * --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
+* --**server_target_qps**=value --> **CM_MLPERF_LOADGEN_SERVER_TARGET_QPS**=value
+* --**singlestream_target_latency**=value --> **CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY**=value
 * --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
 * --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
 * --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
@@ -480,8 +494,7 @@ r=cm.access({... , "clean":...}
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
-* CM_BATCH_COUNT: **1**
-* CM_BATCH_SIZE: **1**
+* CM_MLPERF_LOADGEN_MAX_BATCHSIZE: **1**
 * CM_MLPERF_LOADGEN_MODE: **accuracy**
 * CM_MLPERF_LOADGEN_SCENARIO: **Offline**
 * CM_OUTPUT_FOLDER_NAME: **test_results**

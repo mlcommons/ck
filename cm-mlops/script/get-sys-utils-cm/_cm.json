@@ -14,6 +14,9 @@
     "CM_PACKAGE_WIN_URL": "https://zenodo.org/record/6501550/files/cm-artifact-os-windows-32.zip ; https://www.dropbox.com/s/2y9r2mvtu8tpexk/zlib123dllx64-bin.zip?dl=1",
     "CM_SUDO": "sudo"
   },
+  "input_mapping": {
+    "skip": "CM_SKIP_SYS_UTILS"
+  },
   "new_env_keys": [
     "+PATH"
   ],

@@ -41,7 +41,8 @@ Please join our mailing list [here](https://groups.google.com/g/collective-knowl
 
 ## GUI for MLPerf inference
 
-* [Online prototype](https://cknowledge.org/cm-gui/?tags=generic,app,mlperf,inference)
+* [Run MLPerf inference ](https://cknowledge.org/mlperf-inference-gui)
+* [Prepare submission](https://cknowledge.org/mlperf-inference-submission-gui)
 
 ## On-going projects
 

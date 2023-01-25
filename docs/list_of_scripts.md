@@ -22,6 +22,7 @@ design space exploration and deployment across continuously changing software an
 * [Dashboards](#dashboards)
 * [Detection or installation of tools and artifacts](#detection-or-installation-of-tools-and-artifacts)
 * [Docker automation](#docker-automation)
+* [GUI](#gui)
 * [Legacy CK support](#legacy-ck-support)
 * [ML/AI datasets](#mlai-datasets)
 * [ML/AI frameworks](#mlai-frameworks)
@@ -38,6 +39,10 @@ design space exploration and deployment across continuously changing software an
 
 
 </details>
+
+### GUI
+
+* [gui](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui)
 
 ### Modular MLPerf benchmarks
 
@@ -317,6 +322,7 @@ design space exploration and deployment across continuously changing software an
 * [get-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)
 * [get-zephyr](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr)
 * [get-zephyr-sdk](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zephyr-sdk)
+* [gui](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui)
 * [install-aws-cli](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli)
 * [install-bazel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel)
 * [install-cmake-prebuilt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-cmake-prebuilt)
