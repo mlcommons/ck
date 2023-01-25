@@ -257,7 +257,7 @@ def main():
 
     st.text_area('**Install [CM (CK2) framework](https://github.com/mlcommons/ck) with a few dependencies:**', x, height=170)
 
-    cli = st.text_area('**Run CM script:**', cli, height=400)
+    cli = st.text_area('**Run CM script:**', cli, height=500)
 
 
     # Add explicit button "Run"
