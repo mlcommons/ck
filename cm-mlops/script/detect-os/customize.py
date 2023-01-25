@@ -59,7 +59,7 @@ def postprocess(i):
     if 'CM_HOST_OS_PACKAGE_MANAGER' not in env:
         if env.get('CM_HOST_OS_FLAVOR','') == "ubuntu" or env.get('CM_HOST_OS_FLAVOR_LIKE','') == "debian":
             env['CM_HOST_OS_PACKAGE_MANAGER'] = "apt"
-        if env.get('CM_HOST_OS_FLAVOR_LIKE','') == "rhel":
+        if env.get('CM_HOST_OS_FLAVOR','') == "rhel":
             env['CM_HOST_OS_PACKAGE_MANAGER'] = "dnf"
         if env.get('CM_HOST_OS_FLAVOR_LIKE','') == "arch":
             env['CM_HOST_OS_PACKAGE_MANAGER'] = "arch"
