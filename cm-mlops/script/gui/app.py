@@ -214,10 +214,11 @@ def main():
         value = st_inputs[key]
 
         if value!='' and (type(value)!=bool or value==True):
-            flags+=' \ \n   --'+key
+            flags+=' \\\n   --'+key
             if type(value)!=bool:
                 x = str(value)
-                if ' ' in x: x='"'+x+'"'
+                if ' ' in x or ':' in x or '/' in x or '\\' in x: 
+                    x='"'+x+'"'
                 flags+='='+x
 
     ########################################################

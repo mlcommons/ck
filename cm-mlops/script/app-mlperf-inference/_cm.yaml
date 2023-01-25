@@ -611,6 +611,10 @@ input_description:
   adr.compiler.tags:
     desc: "Compiler for loadgen"
     default: gcc
+  adr.inference-src-loadgen.env.CM_GIT_URL:
+    desc: "Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)"
+  adr.inference-src.env.CM_GIT_URL:
+    desc: "Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)"
   quiet:
     desc: "Quiet run (select default values for all questions)"
     boolean: true

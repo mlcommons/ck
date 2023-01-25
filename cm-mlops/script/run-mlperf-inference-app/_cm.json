@@ -168,8 +168,16 @@
       "desc": "Force Python version (must have all system deps)"
     },
     "adr.compiler.tags": {
-      "desc": "Compiler for loadgen and any C/Cpp part of implementation",
+      "desc": "Compiler for loadgen and any C/C++ part of implementation",
       "default": "gcc"
+    },
+    "adr.inference-src-loadgen.env.CM_GIT_URL": {
+      "desc": "Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)",
+      "default": ""
+    },
+    "adr.inference-src.env.CM_GIT_URL": {
+      "desc": "Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)",
+      "default": ""
     },
     "submitter": {
       "desc":"Submitter name (without space)",
