@@ -10,6 +10,7 @@ def preprocess(i):
         return {'return':1, 'error': 'Windows is not supported in this script yet'}
 
     env = i['env']
+    meta = i['meta']
 
     if env.get('CM_INPUT') and not env.get('CM_MLPERF_PTD_PATH'):
         env['CM_MLPERF_PTD_PATH'] = env['CM_INPUT']
