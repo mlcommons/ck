@@ -15,11 +15,6 @@ def preprocess(i):
     if env.get('CM_RUN_DOCKER_CONTAINER', '') == "yes": 
         return {'return':0}
 
-    if env.get('CM_SYSTEM_POWER','') == "yes":
-        power = "yes"
-    else:
-        power = "no"
-
     rerun = True if env.get("CM_RERUN","")!='' else False
 
     required_files = []
