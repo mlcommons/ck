@@ -13,6 +13,12 @@
     "CM_GIT_URL": "https://github.com/mlcommons/power.git"
   },
   "default_version": "main",
+  "input_mapping": {
+    "input": "CM_INPUT"
+  },
+  "input_description": {
+    "input": "Path to SPEC PTDaemon (Optional)"
+  },
   "deps": [
     {
       "tags": "detect,os"
