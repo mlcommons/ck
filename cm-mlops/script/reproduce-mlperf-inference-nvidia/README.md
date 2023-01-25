@@ -8,6 +8,7 @@
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
+  * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
@@ -21,12 +22,147 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
 ### Description
 
+This script is a CM wrapper to the official [Nvidia submission code](https://github.com/mlcommons/inference_results_v2.1/tree/master/closed/NVIDIA) used for 2.1 MLPerf inference round. 
 
-See [more info](README-extra.md).
+This script will automatically call the Nvidia script to [add a custom system](https://github.com/mlcommons/inference_results_v2.1/tree/master/closed/NVIDIA#adding-a-new-or-custom-system).
+
+Nvidia working directory is given by `CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH` variable which can be seen by running 
+```bash
+cm run script --tags=get,nvidia,common-code,_custom --out=json
+```
+
+Nvidia run configuration values for each model-sceraio for known systems are stored in `__init__.py` files under configs directory. For custom systems these are stored under `custom.py` files.
+
+<details>
+
+```bash
+arjun@phoenix:~/CM/repos/local/cache/84cc898e307e466d/inference_results_v2.1/closed/NVIDIA$ tree configs
+```
+
+```
+configs
+├── 3d-unet
+│   ├── __init__.py
+│   ├── Offline
+│   │   ├── custom.py
+│   │   └── __init__.py
+│   └── SingleStream
+│       ├── custom.py
+│       └── __init__.py
+├── bert
+│   ├── __init__.py
+│   ├── Offline
+│   │   ├── custom.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       ├── custom.cpython-310.pyc
+│   │       └── __init__.cpython-310.pyc
+│   ├── __pycache__
+│   │   └── __init__.cpython-310.pyc
+│   ├── Server
+│   │   ├── custom.py
+│   │   └── __init__.py
+│   └── SingleStream
+│       ├── custom.py
+│       └── __init__.py
+├── configuration.py
+├── dlrm
+│   ├── __init__.py
+│   ├── Offline
+│   │   ├── custom.py
+│   │   └── __init__.py
+│   └── Server
+│       ├── custom.py
+│       └── __init__.py
+├── error.py
+├── __pycache__
+│   ├── configuration.cpython-310.pyc
+│   └── error.cpython-310.pyc
+├── resnet50
+│   ├── __init__.py
+│   ├── MultiStream
+│   │   ├── custom.py
+│   │   └── __init__.py
+│   ├── Offline
+│   │   ├── custom.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       ├── custom.cpython-310.pyc
+│   │       └── __init__.cpython-310.pyc
+│   ├── __pycache__
+│   │   └── __init__.cpython-310.pyc
+│   ├── Server
+│   │   ├── custom.py
+│   │   └── __init__.py
+│   └── SingleStream
+│       ├── custom.py
+│       ├── __init__.py
+│       └── __pycache__
+│           ├── custom.cpython-310.pyc
+│           └── __init__.cpython-310.pyc
+├── retinanet
+│   ├── __init__.py
+│   ├── MultiStream
+│   │   ├── custom.py
+│   │   └── __init__.py
+│   ├── Offline
+│   │   ├── custom.py
+│   │   ├── __init__.py
+│   │   └── __pycache__
+│   │       ├── custom.cpython-310.pyc
+│   │       └── __init__.cpython-310.pyc
+│   ├── __pycache__
+│   │   └── __init__.cpython-310.pyc
+│   ├── Server
+│   │   ├── custom.py
+│   │   └── __init__.py
+│   └── SingleStream
+│       ├── custom.py
+│       └── __init__.py
+├── rnnt
+│   ├── __init__.py
+│   ├── Offline
+│   │   ├── custom.py
+│   │   └── __init__.py
+│   ├── Server
+│   │   ├── custom.py
+│   │   └── __init__.py
+│   └── SingleStream
+│       ├── custom.py
+│       └── __init__.py
+├── ssd-mobilenet
+│   ├── __init__.py
+│   ├── MultiStream
+│   │   ├── custom.py
+│   │   └── __init__.py
+│   ├── Offline
+│   │   ├── custom.py
+│   │   └── __init__.py
+│   └── SingleStream
+│       ├── custom.py
+│       └── __init__.py
+└── ssd-resnet34
+    ├── __init__.py
+    ├── MultiStream
+    │   ├── custom.py
+    │   └── __init__.py
+    ├── Offline
+    │   ├── custom.py
+    │   └── __init__.py
+    ├── Server
+    │   ├── custom.py
+    │   └── __init__.py
+    └── SingleStream
+        ├── custom.py
+        └── __init__.py
+
+    
+```
+</details>
 
 #### Information
 
@@ -40,12 +176,15 @@ ___
 ### Usage
 
 #### CM installation
+
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
 #### CM script automation help
+
 ```cm run script --help```
 
 #### CM CLI
+
 `cm run script --tags=reproduce,mlcommons,mlperf,inference,harness,nvidia-harness,nvidia(,variations from below) (flags from below)`
 
 *or*
@@ -81,8 +220,17 @@ if r['return']>0:
 
 </details>
 
+
+#### CM GUI
+
+```cm run script --tags=gui --script="reproduce,mlcommons,mlperf,inference,harness,nvidia-harness,nvidia"```
+
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=reproduce,mlcommons,mlperf,inference,harness,nvidia-harness,nvidia) to generate CM CMD.
+
 #### CM modular Docker container
+
 *TBD*
+
 ___
 ### Customization
 
@@ -96,11 +244,23 @@ ___
     * `_batch_size.#`
       - Environment variables:
         - *CM_MODEL_BATCH_SIZE*: `None`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `None`
       - Workflow:
-    * `_cuda`
+    * `_dla_batch_size.#`
       - Environment variables:
-        - *CM_MLPERF_DEVICE*: `gpu`
-        - *CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
+        - *CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE*: `None`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**backend**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_tensorrt`** (default)
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `tensorrt`
       - Workflow:
 
     </details>
@@ -113,6 +273,11 @@ ___
     * **`_cpu`** (default)
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `cpu`
+      - Workflow:
+    * `_cuda`
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `gpu`
+        - *CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
       - Workflow:
 
     </details>
@@ -145,21 +310,43 @@ ___
 
 #### Default variations
 
-`_cpu,_resnet50`
+`_cpu,_resnet50,_tensorrt`
 
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
 
 * --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
+* --**dla_batch_size**=value --> **CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE**=value
+* --**dla_copy_streams**=value --> **CM_MLPERF_NVIDIA_HARNESS_DLA_COPY_STREAMS**=value
+* --**dla_inference_streams**=value --> **CM_MLPERF_NVIDIA_HARNESS_DLA_INFERENCE_STREAMS**=value
+* --**end_on_device**=value --> **CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE**=value
+* --**gpu_batch_size**=value --> **CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE**=value
+* --**gpu_copy_streams**=value --> **CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS**=value
+* --**gpu_inference_streams**=value --> **CM_MLPERF_NVIDIA_HARNESS_GPU_INFERENCE_STREAMS**=value
+* --**input_format**=value --> **CM_MLPERF_NVIDIA_HARNESS_INPUT_FORMAT**=value
+* --**log_dir**=value --> **CM_MLPERF_NVIDIA_HARNESS_LOG_DIR**=value
+* --**make_cmd**=value --> **CM_MLPERF_NVIDIA_RUN_COMMAND**=value
 * --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
+* --**max_dlas**=value --> **CM_MLPERF_MAX_DLAS**=value
 * --**mlperf_conf**=value --> **CM_MLPERF_CONF**=value
 * --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
+* --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
+* --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
 * --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
 * --**performance_sample_count**=value --> **CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT**=value
+* --**run_infer_on_copy_streams**=value --> **CM_MLPERF_NVIDIA_HARNESS_RUN_INFER_ON_COPY_STREAMS**=value
 * --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
+* --**server_target_qps**=value --> **CM_MLPERF_LOADGEN_SERVER_TARGET_QPS**=value
+* --**singlestream_target_latency**=value --> **CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY**=value
 * --**skip_preprocess**=value --> **CM_SKIP_PREPROCESS_DATASET**=value
+* --**start_from_device**=value --> **CM_MLPERF_NVIDIA_HARNESS_START_FROM_DEVICE**=value
+* --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
+* --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
+* --**use_graphs**=value --> **CM_MLPERF_NVIDIA_HARNESS_USE_GRAPHS**=value
+* --**use_triton**=value --> **CM_MLPERF_NVIDIA_HARNESS_USE_TRITON**=value
 * --**user_conf**=value --> **CM_MLPERF_USER_CONF**=value
+* --**workspace_size**=value --> **CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -184,6 +371,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 * SKIP_POLICIES: **1**
 * CM_NO_PREPROCESS_DATASET: **False**
 * CM_SKIP_MODEL_DOWNLOAD: **False**
+* CM_MLPERF_NVIDIA_RUN_COMMAND: **run**
 
 </details>
 

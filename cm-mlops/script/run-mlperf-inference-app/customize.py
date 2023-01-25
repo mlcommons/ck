@@ -29,6 +29,9 @@ def preprocess(i):
     else:
         power = "no"
 
+    if env.get('CM_RUN_STYLE', '') == "valid" and 'CM_RUN_MLPERF_ACCURACY' not in env:
+        env['CM_RUN_MLPERF_ACCURACY'] = "on"
+
     env['CM_MODEL'] = env.get('CM_MODEL', 'resnet50')
 
     print("Using MLCommons Inference source from " + env['CM_MLPERF_INFERENCE_SOURCE'])
@@ -59,7 +62,7 @@ def preprocess(i):
 
 
     if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
+        env['OUTPUT_BASE_DIR'] = os.getcwd()
 
     test_list = ["TEST01",  "TEST05"]
     if env['CM_MODEL']  in ["resnet50"]:
@@ -138,19 +141,25 @@ def preprocess(i):
 
 
 def get_valid_scenarios(model, category, mlperf_version, mlperf_path):
+
     import sys
+    
     submission_checker_dir = os.path.join(mlperf_path, "tools", "submission")
+
     sys.path.append(submission_checker_dir)
     if not os.path.exists(os.path.join(submission_checker_dir, "submission_checker.py")):
         shutil.copy(os.path.join(submission_checker_dir,"submission-checker.py"), os.path.join(submission_checker_dir,
         "submission_checker.py"))
+
     import submission_checker as checker
+
     config = checker.MODEL_CONFIG
     internal_model_name = config[mlperf_version]["model_mapping"].get(model, model)
     valid_scenarios = config[mlperf_version]["required-scenarios-"+category][internal_model_name]
-    print("Valid Scenarios for " + model + " in " + category + " category are :" +  str(valid_scenarios))
-    return valid_scenarios
 
+    print("Valid Scenarios for " + model + " in " + category + " category are :" +  str(valid_scenarios))
+
+    return valid_scenarios
 
 def postprocess(i):
     return {'return':0}

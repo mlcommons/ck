@@ -1,4 +1,9 @@
 #!/bin/bash
+
+if [[ ${CM_TENSORRT_VERSION} == 'vdetected' ]]; then
+  exit 0;
+fi
+
 version=${CM_TENSORRT_VERSION}
 install_dir=${CM_TENSORRT_INSTALL_PATH}
 python_version=${CM_PYTHON_VERSION}

@@ -703,21 +703,33 @@ class CAutomation(Automation):
                     if "base" in variations[variation_name]:
                         base_variations = variations[variation_name]["base"]
                         for base_variation in base_variations:
-                            if base_variation not in variation_tags:
-                                if 'group' in variations[base_variation]:
-                                    return {'return': 1, 'error': 'A variation specified as a base variation should not have "group" specified. Violating base entry is "{}" specified as base variation of "{}" '.format(base_variation, variation_name)}
+                            dynamic_base_variation = False
+                            dynamic_base_variation_already_added = False
+                            if base_variation not in variations:
+                                base_variation_dynamic = self._get_name_for_dynamic_variation_tag(base_variation)
+                                if not base_variation_dynamic:
+                                    return {'return': 1, 'error': 'Variation "{}" specified as base variation of "{}" is not existing'.format(base_variation, variation_name)}
+                                else:
+                                    dynamic_base_variation = True
+                                    base_prefix = base_variation_dynamic.split(".")[0]+"."
+                                    for x in variation_tags:
+                                        if x.startswith(base_prefix):
+                                            dynamic_base_variation_already_added = True
+
+                            if base_variation not in variation_tags and not dynamic_base_variation_already_added:
+                                if (not dynamic_base_variation and 'group' in variations[base_variation]) or (dynamic_base_variation and 'group' in variations[base_variation_dynamic]):
+                                    return {'return': 1, 'error': 'A variation specified as a base variation should not have "group" specified. Violating base entry is "{}" which is specified as base variation of "{}" '.format(base_variation, variation_name)}
                                 tag_to_append = base_variation
 
-                    if tag_to_append:
-                        if tag_to_append not in variations:
-                            return {'return': 1, 'error': 'Invalid variation "{}" specified as base variation for the variation "{}" '.format(tag_to_append, variation_name)}
-                        if tag_to_append in excluded_variation_tags:
-                            return {'return': 1, 'error': 'Variation "{}" specified as base variation for the variation is in the excluded list "{}" '.format(tag_to_append, variation_name)}
-                        variation_tags.append(tag_to_append)
-                        tmp_variations[tag_to_append] = False
+                            if tag_to_append:
+                                if tag_to_append in excluded_variation_tags:
+                                    return {'return': 1, 'error': 'Variation "{}" specified as base variation for the variation is in the excluded list "{}" '.format(tag_to_append, variation_name)}
+                                variation_tags.append(tag_to_append)
+                                tmp_variations[tag_to_append] = False
+
+                            tag_to_append = None
 
                     tag_to_append = None
-
                     # default_variations dictionary specifies the default_variation for each variation group. A default variation in a group is turned on if no other variation from that group is turned on and it is not excluded using the '-' prefix
                     if "default_variations" in variations[variation_name]:
                         default_base_variations = variations[variation_name]["default_variations"]

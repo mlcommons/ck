@@ -47,7 +47,18 @@ def preprocess(i):
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_MLPERF_LOADGEN_QPS_OPT']
 
     if 'OUTPUT_BASE_DIR' not in env:
-        env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
+        if env['CM_MODEL'] in ['resnet50', 'retinanet']:
+            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
+        elif "bert" in env['CM_MODEL']:
+            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_BERT_PATH']
+        elif "3d-unet" in env['CM_MODEL']:
+            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_3DUNET_PATH']
+        elif "dlrm" in env['CM_MODEL']:
+            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_DLRM_PATH']
+        elif env['CM_MODEL'] == "rnnt":
+            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_RNNT_PATH']
+        else:
+            env['OUTPUT_BASE_DIR'] = os.getcwd()
 
     if 'CM_NUM_THREADS' not in env:
         if 'CM_MINIMIZE_THREADS' in env:
@@ -151,11 +162,6 @@ def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options
         return get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_options)
     return ""
 
-def get_run_cmd_nvidia(env, scenario_extra_options, mode_extra_options, dataset_options):
-    import pathlib
-    code_dir=pathlib.Path(__file__).parent.resolve()
-    cmd = env['CM_PYTHON_BIN_WITH_PATH']+ " " +os.path.join(code_dir, "nvidia", "retinanet.py") + " --pytorch --num_samples=1200 --batch_size=8 --training_repo_path="+env['CM_MLPERF_TRAINING_SOURCE']+" --pyt_ckpt_path="+env['CM_ML_MODEL_FILE_WITH_PATH']
-    return cmd
 
 def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, dataset_options):
 

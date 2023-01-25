@@ -8,6 +8,7 @@
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
+  * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
@@ -65,12 +66,15 @@ ___
 ### Usage
 
 #### CM installation
+
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
 #### CM script automation help
+
 ```cm run script --help```
 
 #### CM CLI
+
 `cm run script --tags=app,vision,language,mlcommons,mlperf,inference,generic(,variations from below) (flags from below)`
 
 *or*
@@ -106,8 +110,17 @@ if r['return']>0:
 
 </details>
 
+
+#### CM GUI
+
+```cm run script --tags=gui --script="app,vision,language,mlcommons,mlperf,inference,generic"```
+
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=app,vision,language,mlcommons,mlperf,inference,generic) to generate CM CMD.
+
 #### CM modular Docker container
+
 *TBD*
+
 ___
 ### Customization
 
@@ -149,6 +162,18 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_onnx
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_nvidia-original`
+      - Environment variables:
+        - *CM_MLPERF_IMPLEMENTATION*: `nvidia-original`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,mlperf,inference,nvidia,common-code
+             - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
+        1. ***Read "prehook_deps" on other CM scripts***
+           * reproduce,mlperf,nvidia,inference
+             * `if (CM_SKIP_RUN  != True)`
+             * CM names: `--adr.['nvidia-original-mlperf-inference', 'mlperf-inference-implementation']...`
+             - CM script: [reproduce-mlperf-inference-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia)
     * **`_reference`** (default)
       - Aliases: `_python`
       - Environment variables:
@@ -190,6 +215,10 @@ ___
     * `_pytorch`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `pytorch`
+      - Workflow:
+    * `_tensorrt`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `tensorrt`
       - Workflow:
     * `_tf`
       - Environment variables:
@@ -285,7 +314,7 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_fp32`
+    * **`_fp32`** (default)
       - Environment variables:
         - *CM_MLPERF_QUANTIZATION*: `False`
         - *CM_MLPERF_MODEL_PRECISION*: `float32`
@@ -379,10 +408,16 @@ ___
 
 * `_resnet50,_pytorch`
 * `_retinanet,_tf`
+* `_nvidia-original,_tf`
+* `_nvidia-original,_onnxruntime`
+* `_nvidia-original,_pytorch`
+* `_nvidia,_tf`
+* `_nvidia,_onnxruntime`
+* `_nvidia,_pytorch`
 
 #### Default variations
 
-`_cpu,_onnxruntime,_reference,_resnet50,_test`
+`_cpu,_fp32,_onnxruntime,_reference,_resnet50,_test`
 
 #### Input description
 
