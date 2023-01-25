@@ -4,7 +4,7 @@ This [CM script](https://github.com/mlcommons/ck/blob/master/cm/docs/specs/scrip
 
 ## How to Use
 ```
-cm rn script --tags=get,tensorrt --tar_file=<PATH_TO_DOWNLOADED_FILE>
+cm run script --tags=get,tensorrt --tar_file=<PATH_TO_DOWNLOADED_FILE>
 ```
 
 ## Supported and Tested OS

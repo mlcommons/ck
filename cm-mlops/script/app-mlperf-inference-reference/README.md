@@ -122,6 +122,10 @@ ___
            * get,generic-python-lib,_torch
              * CM names: `--adr.['ml-engine-pytorch']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_batch_size.#`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `None`
+      - Workflow:
     * `_bert`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -361,8 +365,7 @@ r=cm.access({... , "clean":...}
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
-* CM_BATCH_COUNT: **1**
-* CM_BATCH_SIZE: **1**
+* CM_MLPERF_LOADGEN_MAX_BATCHSIZE: **1**
 * CM_MLPERF_LOADGEN_MODE: **accuracy**
 * CM_MLPERF_LOADGEN_SCENARIO: **Offline**
 * CM_OUTPUT_FOLDER_NAME: **test_results**
@@ -389,7 +392,7 @@ ___
        * `if (CM_MLPERF_DEVICE  == gpu)`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,nvidia,tensorrt
-       * `if (CM_MLPERF_DEVICE  == gpu)`
+       * `if (CM_MLPERF_BACKEND  == tensorrt)`
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
      * get,generic-python-lib,_onnxruntime
        * `if (CM_MLPERF_BACKEND in ['onnxruntime', 'tvm-onnx'] AND CM_MLPERF_DEVICE  == cpu)`

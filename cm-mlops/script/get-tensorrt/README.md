@@ -138,9 +138,6 @@ ___
 ### Script workflow, dependencies and native scripts
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)***
-     * get,cuda,_cudnn
-       * CM names: `--adr.['cuda']...`
-       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,python3
@@ -166,6 +163,7 @@ ___
 #### New environment keys auto-detected from customize
 
 * **CM_TENSORRT_INSTALL_PATH**
+* **CM_TENSORRT_LIB_PATH**
 * **CM_TENSORRT_VERSION**
 ___
 ### Maintainers
