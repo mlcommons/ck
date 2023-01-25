@@ -57,7 +57,7 @@ and [Discord discussions](https://discord.gg/JjWNWXKxwT).*
 * OS: we have tested CM automations on Ubuntu 20.04, Ubuntu 22.04, Debian 10, Red Hat 9 and MacOS 13
 * Disk space: 
   - test runs: minimal preprocessed datasets < ~5GB
-  - otherwise depends on a task and a dataset. Sometimes require 0.2 .. 2TB
+  - otherwise depends on a task and a dataset. Sometimes require 0.3 .. 3TB
 * Python: 3.8+
 * All other dependencies (artifacts and tools) will be installed by the CM meta-framework
 
@@ -175,13 +175,14 @@ frameworks and parameters and then copy/paste the final commands to your shell t
 
 Alternatively, you can use your own local GUI to run this benchmark as follows:
 ```bash
-cm run script --tags=gui --script="app generic mlperf inference" --prefix="gnome-terminal --"
+cm run script --tags=gui \
+     --script="app generic mlperf inference" \
+     --prefix="gnome-terminal --"
 ```
 
 You may just need to substitute `gnome-terminal --` with a command line that opens a new shell on your OS.
 
 CM will attempt to automatically detect or download and install the default versions of all required ML components.
-You can also force installation of specific components via CM before running above commands as follows:
 
 ## Customize MLPerf benchmark
 
@@ -192,25 +193,20 @@ The community provided a unified CM API for the following implementations of the
 * [Universal C++ implementation (CPU and CUDA)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
 * [TFLite C++ implementation (CPU)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp)
 * [Nvidia's implementation (CPU and CUDA)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)
-* [Neural Magic's Deepsparse BERT](https://github.com/mlcommons/ck/pull/619)
 
 We are also working on a [light-weight universal script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python) 
 to benchmark performance of any ML model with MLPerf loadgen without accuracy.
 
-If you want to add your own implementation, the simplest solution is to create a fork of the 
+If you want to add your own implementation or backend, the simplest solution is to create a fork of the 
 [MLPerf inference GitHub repo](https://github.com/mlcommons/inference),
 specify this repo in the above GUI in the fields `Git URL for MLPerf inference sources to build LoadGen` and `Git URL for MLPerf inference sources to run benchmarks`
 and update the [CM meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml) of our MLPerf wrapper.
 
-See [this PR](https://github.com/mlcommons/ck/pull/619) prepared by the 
-[open taskforce](../mlperf-education-workgroup.md) 
-during the public hackathon to add Neural Magic's Deepsparse BERT implementation to the CM automation.
-
-Please feel free to get in touch with [this taksforce](../mlperf-education-workgroup.md)
+Don't hesitate to get in touch with [this taksforce](../mlperf-education-workgroup.md)
 to get free help from the community to add your implementation and prepare the submission.
 
 
-### Backends
+### Device
 
 #### CPU
 
@@ -219,28 +215,96 @@ as well as Arm64-based machines from RPi4 to AWS Graviton.
 
 #### CUDA
 
-You may need to run a few simple CM automations to prepare your Nvidia-based GPU to run the MLPerf inference benchmark:
-
+As a minimum requirement, you should have CUDA installed. It can be detected using CM as follows:
 ```bash
+cm run script "get cuda"
 ```
 
+We suggest you to install cuDNN and TensorRT too.
 
-### Frameworks
+If it's not installed, you can use CM scripts to install them as follows:
 
-#### ONNX run-time
+```bash
+cm run script --tags=get,cudnn --input=<PATH_TO_CUDNN_TAR_FILE>
+```
 
-#### PyTorch
+```bash
+cm run script --tags=get,tensorrt --input=<PATH_TO_TENSORRT_TAR_FILE>
+```
 
-#### TensorFlow
+### Backend (ML framework)
+
+You can install specific versions of various backends using CM as follows (optional):
+
+#### Deepsparse
+
+See [this PR](https://github.com/mlcommons/ck/pull/619) prepared by the [open taskforce](../mlperf-education-workgroup.md) 
+during the public hackathon to add Neural Magic's Deepsparse BERT backend for MLPerf to the CM automation.
+
+
+#### ONNX runtime CPU
+
+```bash
+cm run script "get generic-python-lib _onnxruntime" (--version=...)
+```
+
+#### ONNX runtime CUDA
+
+```bash
+cm run script "get generic-python-lib _onnxruntime_gpu" (--version=...)
+```
+
+#### PyTorch CPU
+
+```bash
+cm run script "get generic-python-lib _torch" (--version=...)
+```
+
+#### PyTorch CUDA
+
+```bash
+cm run script "get generic-python-lib _torch_cuda" (--version=...)
+```
+
+#### TensorFlow (Python)
+
+```bash
+cm run script "get generic-python-lib _tensorflow" (--version=...)
+```
+
+#### TensorFlow from source
+
+```bash
+cm run script "get tensorflow from-src" (--version=...)
+```
 
 #### TensorFlow Lite
 
-#### TVM
+```bash
+cm run script "get tensorflow from-src _tflite" (--version=...)
+```
+
+#### TensorRT
+
+```bash
+cm run script --tags=get,tensorrt (--tar_file=<PATH_TO_DOWNLOADED_TENSORRT_PACKAGE_FILE>)
+```
+
+#### TVM ONNX (Python)
+
+```bash
+cm run script "get generic-python-lib _apache-tvm" (--version=...)
+```
 
 
 ### Datasets
 
-
+* [ImageNet](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-dataset-imagenet-val/README-extra.md)
+* [Open Images](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
+* [Squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
+* [Criteo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo)
+* [Kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-kits19)
+* [Libris Speech](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech)
 
 
 ### Power measurements
@@ -255,7 +319,9 @@ to run the MLPerf inference benchmark, generate your submission and add your res
 
 Alternatively, you can use your own local GUI to run this benchmark as follows:
 ```bash
-cm run script --tags=gui --script="run mlperf inference generate-run-cmds" --prefix="gnome-terminal --"
+cm run script --tags=gui \
+     --script="run mlperf inference generate-run-cmds" \
+     --prefix="gnome-terminal --"
 ```
 
 
