@@ -163,7 +163,7 @@ def main():
             st.markdown("""---""")
             st.subheader('Script flags')
             
-            for key in input_desc:
+            for key in sorted(input_desc, key = lambda x: input_desc[x].get('sort',0)):
                 value = input_desc[key]
 
                 if type(value) == dict:

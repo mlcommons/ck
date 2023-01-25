@@ -8,6 +8,7 @@
     "summary.csv",
     "summary.json"
   ],
+  "gui_title": "CM GUI to run the MLPerf inference benchmark and prepare submissions",
   "deps": [
     {
       "tags": "detect,os"
@@ -172,10 +173,6 @@
       "desc":"Submitter name (without space)",
       "default": "TheCommunity"
     },
-    "hw_name": {
-      "desc": "MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))",
-      "default":"default"
-    },
     "implementation": {
       "desc":"MLPerf implementation",
       "default":"reference",
@@ -186,10 +183,19 @@
       "default":"resnet50",
       "choices": ["resnet50", "retinanet", "bert-99", "bert-99.9", "3d-unet", "rnnt"]
     },
+    "precision": {
+      "desc":"MLPerf model precision",
+      "default":"fp32",
+      "choices": ["fp32", "int8"]
+    },
     "backend": {
       "desc": "MLPerf backend",
       "default": "onnxruntime",
       "choices": ["onnxruntime", "tf", "pytorch", "deepsparse", "tensorrt", "tvm-onnx"]
+    },
+    "hw_name": {
+      "desc": "MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware))",
+      "default":"default"
     },
     "device": {
       "desc":"MLPerf device",
@@ -214,6 +220,24 @@
     "max_batchsize": {
       "desc": "Maximum batchsize to be used",
       "default": "1"
+    },
+    "target_qps": {
+      "desc": "Set LoadGen target QPS"
+    },
+    "offline_target_qps": {
+      "desc": "Set LoadGen Offline target QPS"
+    },
+    "server_target_qps": {
+      "desc": "Set Server target QPS"
+    },
+    "target_latency": {
+      "desc": "Set Target latency"
+    },
+    "singlestream_target_latency": {
+      "desc": "Set SingleStream target latency"
+    },
+    "multistream_target_latency": {
+      "desc": "Set MultiStream target latency"
     },
     "results_dir": {
       "desc": "Folder path where run results should be stored (defaults to the current working directory)"
