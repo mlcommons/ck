@@ -8,6 +8,7 @@
   * [ CM script automation help](#cm-script-automation-help)
   * [ CM CLI](#cm-cli)
   * [ CM Python API](#cm-python-api)
+  * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
@@ -39,12 +40,15 @@ ___
 ### Usage
 
 #### CM installation
+
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
 #### CM script automation help
+
 ```cm run script --help```
 
 #### CM CLI
+
 `cm run script --tags=get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification(,variations from below) (flags from below)`
 
 *or*
@@ -80,8 +84,17 @@ if r['return']>0:
 
 </details>
 
+
+#### CM GUI
+
+```cm run script --tags=gui --script="get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification"```
+
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification) to generate CM CMD.
+
 #### CM modular Docker container
+
 *TBD*
+
 ___
 ### Customization
 
@@ -92,33 +105,9 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_bs.1`
+    * `_bs.#`
       - Environment variables:
-        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `1`
-      - Workflow:
-    * `_bs.16`
-      - Environment variables:
-        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `16`
-      - Workflow:
-    * `_bs.2`
-      - Environment variables:
-        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `2`
-      - Workflow:
-    * `_bs.32`
-      - Environment variables:
-        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `32`
-      - Workflow:
-    * `_bs.4`
-      - Environment variables:
-        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `4`
-      - Workflow:
-    * `_bs.64`
-      - Environment variables:
-        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `64`
-      - Workflow:
-    * **`_bs.8`** (default)
-      - Environment variables:
-        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `8`
+        - *CM_ML_MODEL_MAX_BATCH_SIZE*: `#`
       - Workflow:
 
     </details>
@@ -134,12 +123,18 @@ ___
            * get,ml-model,raw,resnet50,_onnx
              * CM names: `--adr.['original-model']...`
              - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+           * get,generic-python-lib,_onnx
+             * CM names: `--adr.['onnx']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_pytorch`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,ml-model,raw,resnet50,_pytorch
              * CM names: `--adr.['original-model']...`
              - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+           * get,generic-python-lib,_torch
+             * CM names: `--adr.['pytorch', 'torch']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_tensorflow`
       - Aliases: `_tf,_tflite`
       - Workflow:
@@ -147,6 +142,9 @@ ___
            * get,ml-model,raw,resnet50,_tf
              * CM names: `--adr.['original-model']...`
              - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+           * get,generic-python-lib,_tensorflow
+             * CM names: `--adr.['tensorflow']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
     </details>
 
@@ -167,7 +165,7 @@ ___
 
 #### Default variations
 
-`_bs.8,_fp32,_onnx`
+`_fp32,_onnx`
 #### Default environment
 
 <details>
@@ -175,6 +173,7 @@ ___
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
+* CM_ML_MODEL_MAX_BATCH_SIZE: **1**
 
 </details>
 

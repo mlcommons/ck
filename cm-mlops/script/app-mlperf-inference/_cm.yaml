@@ -22,8 +22,7 @@ tags:
 
 # Default environment
 default_env:
-  CM_BATCH_COUNT: '1'
-  CM_BATCH_SIZE: '1'
+  CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
   CM_MLPERF_LOADGEN_MODE: accuracy
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results
@@ -50,10 +49,14 @@ input_mapping:
   rerun: CM_RERUN
   scenario: CM_MLPERF_LOADGEN_SCENARIO
   test_query_count: CM_TEST_QUERY_COUNT
-  new_tvm_model: CM_MLPERF_DELETE_COMPILED_MODEL
   clean: CM_MLPERF_CLEAN_SUBMISSION_DIR
   target_qps: CM_MLPERF_LOADGEN_TARGET_QPS
   target_latency: CM_MLPERF_LOADGEN_TARGET_LATENCY
+  offline_target_qps: CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS
+  server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
+  singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
+  multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
+
 
 # Duplicate CM environment variables to the ones used in native apps
 env_key_mappings:
@@ -201,6 +204,24 @@ variations:
       - tags: get,generic-python-lib,_mlperf_logging
       - tags: get,generic-python-lib,_onnx
   
+  nvidia-original:
+    group:
+      implementation
+    env:
+      CM_MLPERF_IMPLEMENTATION: nvidia-original
+    deps:
+      ## Nvidia common code
+      - tags: get,mlperf,inference,nvidia,common-code
+    prehook_deps:
+      - names:
+         - nvidia-original-mlperf-inference
+         - nvidia-harness
+         - mlperf-inference-implementation
+        tags: reproduce,mlperf,nvidia,inference
+        skip_if_env:
+          CM_SKIP_RUN:
+            - yes
+
   resnet50:
     group:
       model
@@ -355,6 +376,15 @@ variations:
       mlperf-inference-implementation:
         tags: _onnxruntime
 
+  tensorrt:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND:
+        tensorrt
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tensorrt
+
   tf:
     group: backend
     env:
@@ -392,6 +422,8 @@ variations:
 
   tvm-onnx:
     group: backend
+    base:
+      - batch_size.32
     env:
       CM_MLPERF_BACKEND: tvm-onnx
     add_deps_recursive:
@@ -451,18 +483,19 @@ variations:
   # Model precision
   quantized:
     alias: int8
+
   fp32:
-    group:
-      precision
+    group: precision
+    default: true
     env:
       CM_MLPERF_QUANTIZATION: off
       CM_MLPERF_MODEL_PRECISION: float32
     add_deps_recursive:
       python-reference-mlperf-inference:
         tags: _fp32
+
   int8:
-    group:
-      precision
+    group: precision
     env:
       CM_MLPERF_QUANTIZATION: on
       CM_MLPERF_MODEL_PRECISION: int8
@@ -478,6 +511,13 @@ variations:
       runner:
         tags:
           _mlperf-power
+
+  batch_size.#:
+    env:
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '#'
+    add_deps_recursive:
+      tvm-model:
+        tags: _batch_size.#
 
   # Reproducibility (past submissions)
   r2.1_default:
@@ -502,6 +542,26 @@ invalid_variation_combinations:
   -
     - retinanet
     - tf
+  -
+    - nvidia-original
+    - tf
+  -
+    - nvidia-original
+    - onnxruntime
+  -
+    - nvidia-original
+    - pytorch
+  -
+    - nvidia
+    - tf
+  -
+    - nvidia
+    - onnxruntime
+  -
+    - nvidia
+    - pytorch
+
+gui_title: "CM GUI for the MLPerf inference benchmark"
 
 input_description:
   scenario: 
@@ -540,3 +600,22 @@ input_description:
   regenerate_files: 
     desc: "Regenerates measurement files including accuracy.txt files even if a previous run exists. This option is redundant if `--rerun` is used"
     boolean: true
+  adr.python.name:
+    desc: "Python virtual environment name (optional)"
+    default: mlperf
+  adr.python.version_min:
+    desc: "Minimal Python version"
+    default: "3.8"
+  adr.python.version:
+    desc: "Force Python version (must have all system deps)"
+  adr.compiler.tags:
+    desc: "Compiler for loadgen"
+    default: gcc
+  adr.inference-src-loadgen.env.CM_GIT_URL:
+    desc: "Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)"
+  adr.inference-src.env.CM_GIT_URL:
+    desc: "Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)"
+  quiet:
+    desc: "Quiet run (select default values for all questions)"
+    boolean: true
+    default: false

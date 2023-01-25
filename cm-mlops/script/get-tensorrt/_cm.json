@@ -10,10 +10,6 @@
   },
   "deps": [
     {
-      "names": [ "cuda" ],
-      "tags": "get,cuda,_cudnn"
-    },
-    {
       "tags": "detect,os"
     },
     {

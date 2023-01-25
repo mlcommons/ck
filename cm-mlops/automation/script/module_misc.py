@@ -445,20 +445,21 @@ def doc(i):
         x1b = 'CM script automation help'
         x2 = 'CM CLI'
         x3 = 'CM Python API'
+        x3a = 'CM GUI'
         x4 = 'CM modular Docker container'
         md_script_readme += ['___',
                              '### '+x1,
                              '',
                              '#### '+x1a,
-                             ''
+                             '',
                              '[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)',
                              '',
                              '#### '+x1b,
-                             ''
+                             '',
                              '```cm run script --help```',
                              '',
                              '#### '+x2,
-                             ''
+                             '',
                              '{}'.format(cli_all_tags),
                              '',
                              '*or*',
@@ -496,10 +497,16 @@ def doc(i):
                              '</details>',
                              '',
 
-                             ''
+                             '',
+                             '#### '+x3a,
+                             '',
+                             '```cm run script --tags=gui --script="'+','.join(tags)+'"```',
+                             '',
+                             'Use this [online GUI](https://cKnowledge.org/cm-gui/?tags={}) to generate CM CMD.'.format(','.join(tags)),
+                             '',
                              '#### '+x4,
-                             ''
-                             '*TBD*'
+                             '',
+                             '*TBD*',
                              ''
                             ]
         toc_readme.append(x1)
@@ -507,6 +514,7 @@ def doc(i):
         toc_readme.append(' '+x1b)
         toc_readme.append(' '+x2)
         toc_readme.append(' '+x3)
+        toc_readme.append(' '+x3a)
         toc_readme.append(' '+x4)
                    
         x = 'Customization'

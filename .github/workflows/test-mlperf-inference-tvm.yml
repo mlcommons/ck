@@ -1,11 +1,12 @@
 # This workflow will install Python dependencies, run tests and lint with a variety of Python versions
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-python-with-github-actions
 
-name: CM script automation test for MLPerf inference resnet50 using TVM
+# We are doing similar test on our tvm tutorial test.
+name: CM script automation test for MLPerf inference resnet50 using TVM. So, this test is not necessary
 
 on:
   pull_request:
-    branches: [ "tvm", "dev" ]
+    branches: [ "tvm-more" ]
     paths:
       - '.github/workflows/test-mlperf-inference-tvm.yml'
       - 'cm-mlops/!**.md'

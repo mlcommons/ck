@@ -39,6 +39,10 @@ or via [GitHub tickets](https://github.com/mlcommons/ck).
 Please join our mailing list [here](https://groups.google.com/g/collective-knowledge).
 
 
+## GUI for MLPerf inference
+
+* [Online prototype](https://cknowledge.org/cm-gui/?tags=generic,app,mlperf,inference)
+
 ## On-going projects
 
 See our [R&D roadmap for Q4 2022 and Q1 2023](https://github.com/mlcommons/ck/issues/536)
