@@ -35,6 +35,10 @@ def preprocess(i):
 
     env['CM_MODEL'] = env.get('CM_MODEL', 'resnet50')
 
+    if env.get('CM_MLPERF_SUBMISSION_GENERATION_STYLE', '') == "short":
+        if env.get('CM_MODEL', '') == "resnet50":
+            env['CM_TEST_QUERY_COUNT'] = "500" #so that accuracy script doesn't complain
+
     print("Using MLCommons Inference source from " + env['CM_MLPERF_INFERENCE_SOURCE'])
 
 
