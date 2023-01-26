@@ -470,6 +470,7 @@
       ],
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL": "torchaudio",
         "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
         "CM_TORCHAUDIO_VERSION_EXTRA": "CUDA",
         "CM_TORCH_CUDA": "cu116"
@@ -498,6 +499,7 @@
       ],
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision",
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL": "torchvision",
         "CM_TORCHVISION_VERSION_EXTRA": "CUDA"
       },
       "new_env_keys": [

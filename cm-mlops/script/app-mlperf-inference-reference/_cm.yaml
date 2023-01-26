@@ -523,7 +523,7 @@ variations:
       version_max: "3.8.999"
       version_max_usable: "3.8.12"
     adr:
-      ml-engine-torch:
+      ml-engine-pytorch:
         version: "1.10.1"
       ml-engine-torchvision:
         version: "0.11.2"
