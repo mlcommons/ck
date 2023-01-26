@@ -55,6 +55,14 @@
         "CM_ATTRS_VERSION"
       ]
     },
+    "tensorboard": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorboard"
+      },
+      "new_env_keys": [
+        "CM_TENSORBOARD_VERSION"
+      ]
+    },
     "boto3": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "boto3"

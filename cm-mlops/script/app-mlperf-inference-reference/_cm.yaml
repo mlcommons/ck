@@ -479,6 +479,20 @@ variations:
       names:
       - dlrm-src
     - tags: get,generic-python-lib,_mlperf_logging
+    - tags: get,generic-python-lib,_opencv-python
+    - tags: get,generic-python-lib,_tensorboard
+    - tags: get,generic-python-lib,_scikit-learn
+    - tags: get,generic-python-lib,_tqdm
+    - tags: get,generic-python-lib,_onnx
+    - tags: get,generic-python-lib,_torch
+      version_max: "1.10.1"
+    - tags: get,generic-python-lib,_torchvision
+      version_max: "0.11.2"
+    - tags: get,generic-python-lib,_numpy
+      version: "1.19"
+    - tags: get,python3
+      version_max: "3.8.999"
+      version_max_usable: "3.8.12"
 
   rnnt:
     group: models
