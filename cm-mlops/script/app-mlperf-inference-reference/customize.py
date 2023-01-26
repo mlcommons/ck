@@ -233,7 +233,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             config = "  --max-ind-range=40000000 "
 
         if env['CM_MLPERF_DEVICE'] == "gpu":
-            gpu_options = " --use-gpu"
+            gpu_options = ""
             env['CUDA_VISIBLE_DEVICES'] = "0"
         else:
             gpu_options = ""

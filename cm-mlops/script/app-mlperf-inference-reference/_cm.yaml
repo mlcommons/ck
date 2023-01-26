@@ -122,7 +122,7 @@ deps:
       CM_MLPERF_DEVICE:
       - gpu
 
-  ## Pytorch
+  ## Pytorch (CPU)
   - tags: get,generic-python-lib,_torch
     names:
     - ml-engine-pytorch
@@ -130,8 +130,21 @@ deps:
       CM_MLPERF_BACKEND:
       - pytorch
       - tvm-pytorch
+      CM_MLPERF_DEVICE:
+      - cpu
 
-  ## Torchvision
+  ## Pytorch (CUDA)
+  - tags: get,generic-python-lib,_torch_cuda
+    names:
+    - ml-engine-pytorch
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+      CM_MLPERF_DEVICE:
+      - gpu
+
+  ## Torchvision (CPU)
   - tags: get,generic-python-lib,_torchvision
     names:
     - ml-engine-torchvision
@@ -139,6 +152,19 @@ deps:
       CM_MLPERF_BACKEND:
       - pytorch
       - tvm-pytorch
+      CM_MLPERF_DEVICE:
+      - cpu
+
+  ## Torchvision (CUDA)
+  - tags: get,generic-python-lib,_torchvision_cuda
+    names:
+    - ml-engine-torchvision
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - pytorch
+      - tvm-pytorch
+      CM_MLPERF_DEVICE:
+      - gpu
 
   ## Transformers
   - tags: get,generic-python-lib,_transformers
@@ -491,15 +517,16 @@ variations:
     - tags: get,generic-python-lib,_scikit-learn
     - tags: get,generic-python-lib,_tqdm
     - tags: get,generic-python-lib,_onnx
-    - tags: get,generic-python-lib,_torch
-      version: "1.10.1"
-    - tags: get,generic-python-lib,_torchvision
-      version: "0.11.2"
     - tags: get,generic-python-lib,_numpy
       version: "1.19.5"
     - tags: get,python3
       version_max: "3.8.999"
       version_max_usable: "3.8.12"
+    adr:
+      ml-engine-torch:
+        version: "1.10.1"
+      ml-engine-torchvision:
+        version: "0.11.2"
 
   rnnt:
     group: models
