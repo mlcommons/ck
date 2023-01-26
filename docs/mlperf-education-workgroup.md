@@ -29,7 +29,6 @@
 
 * Main weekly conf-call (general and tech) on Thursday at 11am PST: [Google meet link](https://meet.google.com/ize-yihq-kzu)
 * Extra tech. weekly conf-call (mostly tech and introductions) on Tuesday at 10am CET (Europe): [Google meet link](https://meet.google.com/gkz-hdsa-qri)
-* Extra tech. weekly conf-call (mostly tech and introductions) on Wednesday at 4:30pm CET (Europe): [Google meet link](https://meet.google.com/gkz-hdsa-qri)
 
 Please add your topics for discussion in the [meeting notes](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
 or via [GitHub tickets](https://github.com/mlcommons/ck).
