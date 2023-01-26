@@ -57,7 +57,9 @@ def postprocess(i):
     import platform
     env['CM_HOST_SYSTEM_NAME'] = platform.node()
     if 'CM_HOST_OS_PACKAGE_MANAGER' not in env:
-        if env.get('CM_HOST_OS_FLAVOR','') == "ubuntu" or env.get('CM_HOST_OS_FLAVOR_LIKE','') == "debian":
+        if env.get('CM_HOST_OS_FLAVOR','') == "ubuntu" or \
+           env.get('CM_HOST_OS_FLAVOR_LIKE','') == "debian" or \
+           env.get('CM_HOST_OS_FLAVOR','') == "debian":
             env['CM_HOST_OS_PACKAGE_MANAGER'] = "apt"
         if env.get('CM_HOST_OS_FLAVOR','') == "rhel":
             env['CM_HOST_OS_PACKAGE_MANAGER'] = "dnf"
