@@ -190,7 +190,10 @@ CM will attempt to automatically detect or download and install the default vers
 
 The community provided a unified CM API for the following implementations of the MLPerf inference benchmark:
 * [Python reference implementation (CPU and CUDA)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-reference)
+  * See the current coverage [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference-reference/README-extra.md) 
+    and please help us test different combinations of models, frameworks and platforms (i.e. collaborative design space exploration)!
 * [Universal C++ implementation (CPU and CUDA)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
+  * Check our [community projects](https://github.com/mlcommons/ck/issues/627) to extend this and other implementations.
 * [TFLite C++ implementation (CPU)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp)
 * [Nvidia's implementation (CPU and CUDA)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia)
 
