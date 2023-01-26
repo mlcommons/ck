@@ -49,6 +49,7 @@ deps:
 
   # Detect CMake
   - tags: get,cmake
+    version_min: "3.18"
 
   # Detect Google Logger
   - tags: get,generic,sys-util,_glog-dev
