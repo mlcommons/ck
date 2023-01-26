@@ -240,6 +240,7 @@
       ],
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime_gpu",
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL": "onnxruntime",
         "CM_ONNXRUNTIME_VERSION_EXTRA": "GPU"
       },
       "new_env_keys": [
@@ -440,6 +441,7 @@
       ],
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL": "torch",
         "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
         "CM_TORCH_CUDA": "cu116",
         "CM_TORCH_VERSION_EXTRA": "CUDA"
