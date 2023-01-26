@@ -36,8 +36,7 @@ def preprocess(i):
         "val_map.txt")
         ret = os.system(cmd)
 
-    if 'CM_MLPERF_LOADGEN_EXTRA_OPTIONS' not in env:
-        env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] = ""
+    env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] = ""
 
     if 'CM_MLPERF_LOADGEN_QPS' not in env:
         env['CM_MLPERF_LOADGEN_QPS_OPT'] = ""
@@ -66,7 +65,6 @@ def preprocess(i):
                     (int(env.get('CM_HOST_CPU_SOCKETS', '1')) * int(env.get('CM_HOST_CPU_TOTAL_CORES', '1'))))
         else:
             env['CM_NUM_THREADS'] = env.get('CM_HOST_CPU_TOTAL_CORES', '1')
-
 
     if 'CM_MLPERF_LOADGEN_MAX_BATCHSIZE' in env and env.get('CM_MLPERF_MODEL_SKIP_BATCHING', 'no') != "yes" :
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
@@ -182,7 +180,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
         if env['CM_MLPERF_BACKEND'] == "deepsparse":
-            cmd += " --batch_size="+env['CM_MLPERF_BATCH_SIZE']+" --model_path=" + env['CM_ML_MODEL_FILE_WITH_PATH']
+            cmd += " --batch_size="+env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']+" --model_path=" + env['CM_ML_MODEL_FILE_WITH_PATH']
         cmd = cmd.replace("--count", "--max_examples")
         env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
         env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']
