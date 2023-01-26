@@ -1962,7 +1962,7 @@ class CAutomation(Automation):
         '''
         if "." not in variation_tag or variation_tag[-1] == ".":
             return None
-        return variation_tag[:variation_tag.rindex(".")+1]+"#"
+        return variation_tag[:variation_tag.index(".")+1]+"#"
 
 
     ##############################################################################
