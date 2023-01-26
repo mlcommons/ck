@@ -68,7 +68,7 @@ def preprocess(i):
             env['CM_NUM_THREADS'] = env.get('CM_HOST_CPU_TOTAL_CORES', '1')
 
 
-    if 'CM_MLPERF_LOADGEN_MAX_BATCHSIZE' in env:
+    if 'CM_MLPERF_LOADGEN_MAX_BATCHSIZE' in env and env.get('CM_MLPERF_MODEL_SKIP_BATCHING', 'no') != "yes" :
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
     if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env and env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', 'no') != "yes":
@@ -231,12 +231,20 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             config = " --max-ind-range=10000000 --data-sub-sample-rate=0.875 "
         else:
             config = "  --max-ind-range=40000000 "
+
+        if env['CM_MLPERF_DEVICE'] == "gpu":
+            gpu_options = " --use-gpu"
+            env['CUDA_VISIBLE_DEVICES'] = "0"
+        else:
+            gpu_options = ""
+
+        #cmd = cmd.replace("--count", "--count-samples")
         cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + \
             ' dlrm ' + dataset + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             config + mlperf_bin_loader_string + \
-            ' --max-batchsize=64 --test-num-workers=1 --count-samples=10 --samples-to-aggregate-quantile-file=./tools/dist_quantile.txt ' + \
-            scenario_extra_options + mode_extra_options + dataset_options
+            ' --test-num-workers=1 --samples-to-aggregate-quantile-file=./tools/dist_quantile.txt ' + \
+            scenario_extra_options + mode_extra_options + dataset_options + gpu_options
 
     return cmd
 
