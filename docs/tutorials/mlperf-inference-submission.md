@@ -244,6 +244,8 @@ You can install specific versions of various backends using CM as follows (optio
 See [this PR](https://github.com/mlcommons/ck/pull/619) prepared by the [open taskforce](../mlperf-education-workgroup.md) 
 during the public hackathon to add Neural Magic's Deepsparse BERT backend for MLPerf to the CM automation.
 
+*We currently support BERT large model int 8 targetting CPU only. CUDA may come soon...*
+
 
 #### ONNX runtime CPU
 
