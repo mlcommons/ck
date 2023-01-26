@@ -238,6 +238,9 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         else:
             gpu_options = ""
 
+        if env['CM_MLPERF_LOADGEN_MODE'] == "accuracy" and env['CM_MLPERF_LOADGEN_SCENARIO'] == "Offline":
+            mode_extra_options += " --samples-per-query-offline=1"
+
         #cmd = cmd.replace("--count", "--count-samples")
         cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + \
             ' dlrm ' + dataset + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + \
