@@ -56,8 +56,12 @@ def generate_submission(i):
         os.makedirs(path_submission_division)
 
     # Check submitter
-    submitter = system_meta['submitter']
-    env['CM_MLPERF_SUBMITTER'] = submitter
+    if env.get('CM_MLPERF_SUBMITTER'):
+        submitter = env['CM_MLPERF_SUBMITTER']
+        system_meta['submitter'] = submitter
+    else:
+        submitter = system_meta['submitter']
+        env['CM_MLPERF_SUBMITTER'] = submitter
 
     print('* MLPerf inference submitter: {}'.format(submitter))
 
