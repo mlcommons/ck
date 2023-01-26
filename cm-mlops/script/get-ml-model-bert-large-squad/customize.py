@@ -14,6 +14,8 @@ def preprocess(i):
     path = os.getcwd()
 
     url = env['CM_PACKAGE_URL']
+    if not url:
+        return {'return':1, 'error': 'No valid URL to download the model. Probably an unsupported model variation chosen'}
 
     print ('Downloading from {}'.format(url))
 
