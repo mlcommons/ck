@@ -11,10 +11,11 @@
     "CM_INPUT": ""
   },
   "input_mapping": {
-    "input": "CM_INPUT"
+    "input": "CM_INPUT",
+    "tar_file": "CM_CUDNN_TAR_FILE_PATH"
   },
   "input_description": {
-    "input": "Path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)"
+    "tar_file": "Path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)"
   },
   "deps": [
     {

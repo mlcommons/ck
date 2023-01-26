@@ -18,10 +18,11 @@
     }
   ],
   "input_mapping": {
-    "input": "CM_INPUT"
+    "input": "CM_INPUT",
+    "tar_file": "CM_TENSORRT_TAR_FILE_PATH"
   },
   "input_description": {
-    "input": "Path to the TensorRT Tar file downloaded from the Nvidia website (https://developer.nvidia.com/tensorrt)"
+    "tar_file": "Path to the TensorRT Tar file downloaded from the Nvidia website (https://developer.nvidia.com/tensorrt)"
   },
   "new_env_keys": [
     "CM_TENSORRT_*",

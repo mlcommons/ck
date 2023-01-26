@@ -82,11 +82,14 @@ def preprocess(i):
     if os_info['platform'] == 'windows':
         return {'return': 1, 'error': 'Windows is currently not supported!'}
 
-    if not env.get('CM_INPUT'):
-        return {'return': 1, 'error': 'Please use --input option to point to the tensorrt tar file downloaded from Nvidia website'}
+    if env.get('CM_TENSORRT_TAR_FILE_PATH','')=='':
+        return {'return': 1, 'error': 'Please envoke cm run script "get tensorrt" --tar_file={full path to the TensorRT tar file}'}
+
+
+    print ('Untaring file - can take some time ...')
 
     file_name = "trtexec"
-    my_tar = tarfile.open(os.path.expanduser(env['CM_INPUT']))
+    my_tar = tarfile.open(os.path.expanduser(env['CM_TENSORRT_TAR_FILE_PATH']))
     folder_name = my_tar.getnames()[0]
     if not os.path.exists(os.path.join(os.getcwd(), folder_name)):
         my_tar.extractall()

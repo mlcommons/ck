@@ -101,13 +101,12 @@ def preprocess(i):
     if env.get('CM_HOST_OS_MACHINE','') ==  "aarch64":
         return {'return': 1, 'error': 'Tar file installation is not available for cudnn on aarch64. Please do a package manager install!'}
 
-    if not env.get('CM_INPUT',''):
-        if env.get('CM_CUDNN_TAR_FILE_PATH'):
-            env['CM_INPUT'] = env.get('CM_CUDNN_TAR_FILE_PATH')
-        else:
-            return {'return': 1, 'error': 'Please use --input option to point to the cudnn tar file'}
+    if env.get('CM_CUDNN_TAR_FILE_PATH','')=='':
+        return {'return': 1, 'error': 'Please envoke cm run script "get cudnn" --tar_file={full path to the cuDNN tar file}'}
 
-    my_tar = tarfile.open(os.path.expanduser(env['CM_INPUT']))
+    print ('Untaring file - can take some time ...')
+
+    my_tar = tarfile.open(os.path.expanduser(env['CM_CUDNN_TAR_FILE_PATH']))
     folder_name = my_tar.getnames()[0]
     if not os.path.exists(os.path.join(os.getcwd(), folder_name)):
         my_tar.extractall()
