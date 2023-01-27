@@ -2133,12 +2133,6 @@ class CAutomation(Automation):
                 if from_cache and not d.get("dynamic", None):
                     continue
 
-                if "env" in d: #passing env of d and saving any key which is getting overwritten
-                    for key in list(d['env'].keys()):
-                        if key in env:
-                            tmp_env[key] = env[key]
-                        env[key] = d['env'][key]
-
                 for key in clean_env_keys_deps:
                     if '?' in key or '*' in key:
                         import fnmatch
@@ -2207,10 +2201,6 @@ class CAutomation(Automation):
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
                     run_state['deps'] = tmp_run_state_deps
-
-                    if "env" in d: #Removing any key which is added by meta specific to d
-                        for key in list(d['env'].keys()):
-                            del(env[key])
 
                     # Restore local env
                     env.update(tmp_env)
