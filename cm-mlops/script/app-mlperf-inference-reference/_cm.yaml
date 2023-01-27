@@ -121,6 +121,10 @@ deps:
       - tvm-onnx
       CM_MLPERF_DEVICE:
       - gpu
+    skip_if_env:
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
 
   ## Pytorch (CPU)
   - tags: get,generic-python-lib,_torch
@@ -482,11 +486,18 @@ variations:
 
   3d-unet:
     env:
-      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: yes
+      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: "yes"
+      CM_MLPERF_MODEL_SKIP_BATCHING: "yes"
     deps:
-    - tags: get,generic-python-lib,_torch
-      names:
-      - ml-engine-pytorch
+    - tags: get,generic-python-lib,_onnxruntime
+    - tags: get,generic-python-lib,_onnxruntime_gpu
+      env:
+        CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS: ""
+      enable_if_env:
+        CM_MLPERF_BACKEND:
+        - onnxruntime
+        CM_MLPERF_DEVICE:
+        - gpu
 
   dlrm-99.9:
     group: models
