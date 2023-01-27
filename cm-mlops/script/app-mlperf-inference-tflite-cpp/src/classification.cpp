@@ -298,7 +298,8 @@ void TestSingleStream(Program *prg) {
   const std::string mlperf_conf_path = getenv_s("CM_MLPERF_CONF");
   const std::string user_conf_path = getenv_s("CM_MLPERF_USER_CONF");
 
-  std::string model_name = getenv_opt_s("CM_ML_MODEL", "unknown_model");
+  std::string model_name = getenv_opt_s("CM_MODEL", "unknown_model");
+  std::string logs_dir = getenv_opt_s("CM_MLPERF_LOADGEN_LOGS_DIR", "");
 
   const std::string scenario_string = getenv_s("CM_MLPERF_LOADGEN_SCENARIO");
   const std::string mode_string = getenv_s("CM_MLPERF_LOADGEN_MODE");
@@ -319,9 +320,9 @@ void TestSingleStream(Program *prg) {
 
   if( mode_string != "")
     ts.mode   = ( mode_string == "SubmissionRun")       ? mlperf::TestMode::SubmissionRun
-              : ( mode_string == "AccuracyOnly")        ? mlperf::TestMode::AccuracyOnly
-              : ( mode_string == "PerformanceOnly")     ? mlperf::TestMode::PerformanceOnly
-              : ( mode_string == "FindPeakPerformance") ? mlperf::TestMode::FindPeakPerformance : mlperf::TestMode::SubmissionRun;
+              : ( mode_string == "accuracy")        ? mlperf::TestMode::AccuracyOnly
+              : ( mode_string == "performance")     ? mlperf::TestMode::PerformanceOnly
+              : ( mode_string == "findpeakperformance") ? mlperf::TestMode::FindPeakPerformance : mlperf::TestMode::SubmissionRun;
 
   if (ts.FromConfig(mlperf_conf_path, model_name, scenario_string)) {
     std::cout << "Issue with mlperf.conf file at " << mlperf_conf_path << std::endl;
@@ -334,8 +335,10 @@ void TestSingleStream(Program *prg) {
   }
 
   mlperf::LogSettings log_settings;
+  log_settings.log_output.outdir = logs_dir;
   log_settings.log_output.prefix_with_datetime = false;
   log_settings.enable_trace = false;
+
 
   if (prg->settings->trigger_cold_run) {
     prg->ColdRun();

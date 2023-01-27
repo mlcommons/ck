@@ -146,7 +146,7 @@ variations:
       implementation
     add_deps_recursive:
       imagenet-accuracy-script:
-        tags: _int64
+        tags: _float32
     env:
       CM_MLPERF_TFLITE_CPP: 'yes'
       CM_MLPERF_CPP: 'yes'
