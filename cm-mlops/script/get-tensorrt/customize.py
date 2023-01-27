@@ -119,10 +119,14 @@ def postprocess(i):
     if '+LD_LIBRARY_PATH'  not in env:
         env['+LD_LIBRARY_PATH'] = []
 
+    if '+ LDFLAGS' not in env:
+        env['+ LDFLAGS'] = []
+
     #if 'CM_TENSORRT_LIB_WITH_PATH' in env:
     #    tensorrt_lib_path = os.path.dirname(env['CM_TENSORRT_LIB_WITH_PATH'])
     if 'CM_TENSORRT_LIB_PATH' in env:
         env['+LD_LIBRARY_PATH'].append(env['CM_TENSORRT_LIB_PATH'])
+        env['+ LDFLAGS'].append("-L"+env['CM_TENSORRT_LIB_PATH'])
 
     version = env['CM_TENSORRT_VERSION']
 
