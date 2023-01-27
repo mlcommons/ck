@@ -88,6 +88,22 @@
         "CM_COLORED_VERSION"
       ]
     },
+    "attr": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "attr"
+      },
+      "new_env_keys": [
+        "CM_ATTR_VERSION"
+      ]
+    },
+    "attrs": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "attrs"
+      },
+      "new_env_keys": [
+        "CM_ATTRS_VERSION"
+      ]
+    },
     "decorator": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "decorator"

@@ -421,6 +421,9 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
     deps:
     - tags: get,generic-python-lib,_onnx
+    - tags: get,tvm
+      names:
+        tvm
     add_deps_recursive:
       ml-model:
         tags: tvm-model,_onnx
@@ -431,6 +434,10 @@ variations:
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
+    deps:
+    - tags: get,tvm
+      names:
+        tvm
     add_deps_recursive:
       ml-model:
         tags: tvm-model,_pytorch

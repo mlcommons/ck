@@ -4,6 +4,7 @@ import os
 def preprocess(i):
     os_info = i['os_info']
     env = i['env']
+
     if 'CM_RUN_CMD' in env:
         return {'return':0}
 

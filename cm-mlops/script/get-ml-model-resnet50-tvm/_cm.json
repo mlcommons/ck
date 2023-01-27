@@ -16,6 +16,18 @@
         "tvm"
       ],
       "tags": "get,tvm"
+    },
+    {
+      "tags": "get,generic-python-lib,_decorator"
+    },
+    {
+      "tags": "get,generic-python-lib,_psutil"
+    },
+    {
+      "tags": "get,generic-python-lib,_scipy"
+    },
+    {
+      "tags": "get,generic-python-lib,_attrs"
     }
   ],
   "default_env": {
