@@ -2134,7 +2134,6 @@ class CAutomation(Automation):
                     continue
 
                 if "env" in d: #passing env of d and saving any key which is getting overwritten
-                    print(d['env'])
                     for key in list(d['env'].keys()):
                         if key in env:
                             tmp_env[key] = env[key]
