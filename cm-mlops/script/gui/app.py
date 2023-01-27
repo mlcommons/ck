@@ -162,7 +162,7 @@ def main():
         if len(input_desc)>0:
             st.markdown("""---""")
             st.subheader('Script flags')
-            
+
             for key in sorted(input_desc, key = lambda x: input_desc[x].get('sort',0)):
                 value = input_desc[key]
 
@@ -180,7 +180,7 @@ def main():
                         st_inputs[key] = st.selectbox(desc, choices, index=selected_index, key=key)
                     else:
                         st_inputs[key] = st.text_input(desc, value=default, key=key)
-                        
+
                 else:
                     desc = value
                     st_inputs[key] = st.text_input(desc)
@@ -240,6 +240,7 @@ def main():
     # Hack to detect python virtual environment and version
     python_venv_name=st_inputs.get('adr.python.name', '')
     python_ver=st_inputs.get('adr.python.version', '')
+    python_ver_min=st_inputs.get('adr.python.version_min', '')
 
     y = ''
     if python_venv_name!='' or python_ver!='':
@@ -251,7 +252,10 @@ def main():
             y+='cm run script "get python"'
 
         if python_ver!='':
-            y+='  --version='+str(python_ver)
+            y+=' --version='+str(python_ver)
+
+        if python_ver_min!='':
+            y+=' --version_min='+str(python_ver_min)
 
     if y!='':
         x+=y

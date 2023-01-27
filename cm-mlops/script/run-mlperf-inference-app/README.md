@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Input description](#input-description)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Versions](#versions)
@@ -140,14 +141,6 @@ ___
       - Environment variables:
         - *CM_MLPERF_DASHBOARD*: `on`
       - Workflow:
-    * `_fast`
-      - Environment variables:
-        - *CM_FAST_FACTOR*: `5`
-        - *CM_OUTPUT_FOLDER_NAME*: `fast_results`
-        - *CM_MLPERF_RUN_STYLE*: `fast`
-      - Workflow:
-    * `_short`
-      - Workflow:
     * `_submission`
       - Environment variables:
         - *CM_MLPERF_SUBMISSION_RUN*: `yes`
@@ -161,15 +154,67 @@ ___
            * generate,mlperf,inference,submission
              * CM names: `--adr.['submission-generator']...`
              - CM script: [generate-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)
-    * `_valid`
+
+    </details>
+
+
+  * Group "**submission-generation-style**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_full`
       - Environment variables:
-        - *CM_OUTPUT_FOLDER_NAME*: `valid_results`
-        - *CM_MLPERF_RUN_STYLE*: `valid`
-        - *CM_RUN_MLPERF_ACCURACY*: `on`
+        - *CM_MLPERF_SUBMISSION_GENERATION_STYLE*: `full`
+      - Workflow:
+    * **`_short`** (default)
+      - Environment variables:
+        - *CM_MLPERF_SUBMISSION_GENERATION_STYLE*: `short`
       - Workflow:
 
     </details>
 
+
+#### Default variations
+
+`_short`
+
+#### Input description
+
+* --**adr.python.name** Python virtual environment name (optional) (*mlperf*)
+* --**adr.python.version_min** Minimal Python version (*3.8*)
+* --**adr.python.version** Force Python version (must have all system deps)
+* --**adr.compiler.tags** Compiler for loadgen and any C/C++ part of implementation (*gcc*)
+* --**adr.inference-src-loadgen.env.CM_GIT_URL** Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)
+* --**adr.inference-src.env.CM_GIT_URL** Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)
+* --**submitter** Submitter name (without space) (*TheCommunity*)
+* --**implementation** MLPerf implementation {reference,cpp,nvidia-original} (*reference*)
+* --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet,rnnt} (*resnet50*)
+* --**precision** MLPerf model precision {fp32,int8} (*fp32*)
+* --**backend** MLPerf backend {onnxruntime,tf,pytorch,deepsparse,tensorrt,tvm-onnx} (*onnxruntime*)
+* --**hw_name** MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware)) (*default*)
+* --**device** MLPerf device {cpu,cuda} (*cpu*)
+* --**scenario** MLPerf scenario {Offline,Server,SingleStream,MultiStream} (*Offline*)
+* --**mode** MLPerf mode {,accuracy,performance}
+* --**execution_mode** Execution mode {test,fast,valid} (*test*)
+* --**max_batchsize** Maximum batchsize to be used (*1*)
+* --**target_qps** Set LoadGen target QPS
+* --**offline_target_qps** Set LoadGen Offline target QPS
+* --**server_target_qps** Set Server target QPS
+* --**target_latency** Set Target latency
+* --**singlestream_target_latency** Set SingleStream target latency
+* --**multistream_target_latency** Set MultiStream target latency
+* --**results_dir** Folder path where run results should be stored (defaults to the current working directory)
+* --**submission_dir** Folder path where submission tree (to be submitted) must be stored
+* --**dashboard_wb_user** W&B dashboard user (*cmind*)
+* --**dashboard_wb_project** W&B dashboard project (*cm-mlperf-dse-testing*)
+* --**clean** Clean run (*True*)
+* --**quiet** Quiet run (select default values for all questions) (*False*)
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "adr.python.name":...}
+```
 
 #### Script flags mapped to environment
 <details>
@@ -177,18 +222,17 @@ ___
 
 * --**backend**=value --> **CM_MLPERF_BACKEND**=value
 * --**clean**=value --> **CM_MLPERF_CLEAN_ALL**=value
+* --**dashboard_wb_project**=value --> **CM_MLPERF_DASHBOARD_WANDB_PROJECT**=value
+* --**dashboard_wb_user**=value --> **CM_MLPERF_DASHBOARD_WANDB_USER**=value
 * --**device**=value --> **CM_MLPERF_DEVICE**=value
 * --**execution_mode**=value --> **CM_MLPERF_EXECUTION_MODE**=value
 * --**hw_name**=value --> **CM_HW_NAME**=value
-* --**imagenet_path**=value --> **IMAGENET_PATH**=value
 * --**implementation**=value --> **CM_MLPERF_IMPLEMENTATION**=value
 * --**lang**=value --> **CM_MLPERF_IMPLEMENTATION**=value
 * --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
 * --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
 * --**model**=value --> **CM_MLPERF_MODEL**=value
 * --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
-* --**new_tvm_model**=value --> **CM_MLPERF_DELETE_COMPILED_MODEL**=value
-* --**num_threads**=value --> **CM_NUM_THREADS**=value
 * --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
 * --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
 * --**power**=value --> **CM_SYSTEM_POWER**=value
@@ -223,11 +267,12 @@ r=cm.access({... , "backend":...}
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
-* CM_BATCH_COUNT: **1**
-* CM_BATCH_SIZE: **1**
 * CM_OUTPUT_FOLDER_NAME: **test_results**
 * CM_MLPERF_RUN_STYLE: **test**
-* CM_TEST_QUERY_COUNT: **5**
+* CM_MLPERF_MODEL: **resnet50**
+* CM_MLPERF_IMPLEMENTATION: **reference**
+* CM_MLPERF_BACKEND: **onnxruntime**
+* CM_MLPERF_DEVICE: **cpu**
 
 </details>
 

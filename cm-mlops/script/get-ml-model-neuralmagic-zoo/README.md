@@ -12,7 +12,6 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
-  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -28,11 +27,11 @@
 
 #### Information
 
-* Category: *Detection or installation of tools and artifacts.*
+* Category: *ML/AI models.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,sys-utils-cm*
+* CM "database" tags to find this script: *get,ml-model,model,zoo,deepsparse,model-zoo,sparse-zoo,neural-magic*
 * Output cached?: *True*
 ___
 ### Usage
@@ -47,15 +46,15 @@ ___
 
 #### CM CLI
 
-`cm run script --tags=get,sys-utils-cm(,variations from below) (flags from below)`
+`cm run script --tags=get,ml-model,model,zoo,deepsparse,model-zoo,sparse-zoo,neural-magic(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get sys-utils-cm (variations from below)" (flags from below)`
+`cm run script "get ml-model model zoo deepsparse model-zoo sparse-zoo neural-magic (variations from below)" (flags from below)`
 
 *or*
 
-`cm run script bc90993277e84b8e`
+`cm run script adbb3f2525a14f97`
 
 #### CM Python API
 
@@ -68,7 +67,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,sys-utils-cm'
+                  'tags':'get,ml-model,model,zoo,deepsparse,model-zoo,sparse-zoo,neural-magic'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -85,9 +84,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,sys-utils-cm"```
+```cm run script --tags=gui --script="get,ml-model,model,zoo,deepsparse,model-zoo,sparse-zoo,neural-magic"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,sys-utils-cm) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,ml-model,model,zoo,deepsparse,model-zoo,sparse-zoo,neural-magic) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -103,27 +102,16 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_user`
+    * `_model-stub.#`
       - Environment variables:
-        - *CM_PYTHON_PIP_USER*: `--user`
+        - *CM_MODEL_ZOO_STUB*: `#`
+      - Workflow:
+    * `_pruned95_obs_quant-none`
+      - Environment variables:
+        - *CM_MODEL_ZOO_STUB*: `zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned95_obs_quant-none`
       - Workflow:
 
     </details>
-
-
-#### Script flags mapped to environment
-<details>
-<summary>Click here to expand this section.</summary>
-
-* --**skip**=value --> **CM_SKIP_SYS_UTILS**=value
-
-**Above CLI flags can be used in the Python CM API as follows:**
-
-```python
-r=cm.access({... , "skip":...}
-```
-
-</details>
 
 #### Default environment
 
@@ -138,25 +126,23 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 ___
 ### Script workflow, dependencies and native scripts
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo/_cm.json)***
+     * get,python3
+       * CM names: `--adr.['python3', 'python']...`
+       - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo/_cm.json)
   1. ***Run native script if exists***
-     * [run-arch.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/run-arch.sh)
-     * [run-debian.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/run-debian.sh)
-     * [run-macos.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/run-macos.sh)
-     * [run-rhel.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/run-rhel.sh)
-     * [run-ubuntu.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/run-ubuntu.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/_cm.json)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo/_cm.json)
   1. Run "postrocess" function from customize.py
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm/_cm.json)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-neuralmagic-zoo/_cm.json)
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+PATH**
+* **CM_ML_MODEL***
+* **CM_MODEL_ZOO_STUB**
 #### New environment keys auto-detected from customize
 
 ___

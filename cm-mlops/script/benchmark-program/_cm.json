@@ -54,7 +54,10 @@
           "enable_if_env": {
             "CM_MLPERF_LOADGEN_MODE": [ "performance" ]
           },
-          "tags": "run,mlperf,power,client"
+          "tags": "run,mlperf,power,client",
+          "names": [
+            "mlperf-power-client"
+          ]
         }
       ]
     }

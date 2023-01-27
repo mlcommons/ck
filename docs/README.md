@@ -50,6 +50,8 @@ We plan to update them soon.
 * [Tutorial: understanding portable CM scripts](tutorials/scripts.md)
 * [Tutorial: understanding CM database concepts](tutorials/concept.md)
 * [Tutorial: trying modular MLPerf benchmark via CM interface](tutorials/sc22-scc-mlperf.md)
+* [Tutorial: customizing MLPerf inference benchmark and preparing submission](tutorials/mlperf-inference-submission.md)
+* [Tutorial: measuring power during MLPerf inference benchmarks](tutorials/mlperf-inference-power-measurement.md)
 
 
 ### Misc

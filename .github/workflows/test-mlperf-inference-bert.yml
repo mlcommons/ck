@@ -19,11 +19,13 @@ jobs:
       fail-fast: false
       matrix:
         python-version: [ "3.9" ]
-        backend: [ "onnxruntime", "tf", "pytorch" ]
-        quantized: [ "", "--quantized" ]
+        backend: [ "deepsparse", "tf", "onnxruntime", "pytorch" ]
+        precision: [ "int8", "fp32" ]
         exclude:
           - backend: tf
           - backend: pytorch
+          - backend: onnxruntime
+          - precision: fp32
 
     steps:
     - uses: actions/checkout@v3
@@ -38,4 +40,4 @@ jobs:
         cm run script --quiet --tags=get,sys-utils-cm
     - name: Test CM Script for MLPerf Inference Bert
       run: |
-        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default --model=bert-99 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5  --quiet ${{ matrix.quantized }}
+        cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short --submitter="OctoML" --hw_name=default --model=bert-99 --backend=${{ matrix.backend }} --device=cpu --scenario=Offline --test_query_count=5 --precision=${{ matrix.precision }} --quiet ${{ matrix.quantized }}

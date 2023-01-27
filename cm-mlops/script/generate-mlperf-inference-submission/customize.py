@@ -40,13 +40,19 @@ def generate_submission(i):
     print('* MLPerf inference results dir: {}'.format(results_dir))
     results = [f for f in os.listdir(results_dir) if not os.path.isfile(os.path.join(results_dir, f))]
 
+    system_meta = state['CM_SUT_META']
+
     duplicate=(inp.get('duplicate_to_offline','')=='yes')
-    division=inp.get('division','open')
+
+    division=inp.get('division')
+    if division:
+        if division != system_meta['division']:
+            system_meta['division'] = division
+    else:
+        division = system_meta['division']
 
     if division not in ['open','closed']:
         return {'return':1, 'error':'"division" must be "open" or "closed"'}
-    system_meta = state['CM_SUT_META']
-    division = system_meta['division']
 
     print('* MLPerf inference division: {}'.format(division))
 
@@ -56,8 +62,12 @@ def generate_submission(i):
         os.makedirs(path_submission_division)
 
     # Check submitter
-    submitter = system_meta['submitter']
-    env['CM_MLPERF_SUBMITTER'] = submitter
+    if env.get('CM_MLPERF_SUBMITTER'):
+        submitter = env['CM_MLPERF_SUBMITTER']
+        system_meta['submitter'] = submitter
+    else:
+        submitter = system_meta['submitter']
+        env['CM_MLPERF_SUBMITTER'] = submitter
 
     print('* MLPerf inference submitter: {}'.format(submitter))
 

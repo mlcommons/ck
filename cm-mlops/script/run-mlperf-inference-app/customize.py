@@ -24,15 +24,20 @@ def preprocess(i):
         if 'CM_RERUN' not in env:
             env['CM_RERUN'] = "yes"
 
-    if env.get('CM_SYSTEM_POWER','') == "yes":
-        power = "yes"
+    if str(env.get('CM_SYSTEM_POWER','no')).lower() != "no":
+        power_variation = ",_power"
+        env['CM_SYSTEM_POWER'] = "yes"
     else:
-        power = "no"
+        power_variation = ""
 
     if env.get('CM_RUN_STYLE', '') == "valid" and 'CM_RUN_MLPERF_ACCURACY' not in env:
         env['CM_RUN_MLPERF_ACCURACY'] = "on"
 
     env['CM_MODEL'] = env.get('CM_MODEL', 'resnet50')
+
+    if env.get('CM_MLPERF_SUBMISSION_GENERATION_STYLE', '') == "short":
+        if env.get('CM_MODEL', '') == "resnet50":
+            env['CM_TEST_QUERY_COUNT'] = "500" #so that accuracy script doesn't complain
 
     print("Using MLCommons Inference source from " + env['CM_MLPERF_INFERENCE_SOURCE'])
 
@@ -76,7 +81,7 @@ def preprocess(i):
     variation_run_style= "_" + env.get("CM_MLPERF_EXECUTION_MODE", "test")
     variation_quantization= "_" + env.get("CM_MLPERF_MODEL_PRECISION", "fp32")
 
-    tags =  "app,mlperf,inference,generic,"+variation_implementation+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style+","+variation_quantization
+    tags =  "app,mlperf,inference,generic,"+variation_implementation+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style+","+variation_quantization+power_variation
     silent = inp.get('silent', False)
     print_env = inp.get('print_env', False)
     print_deps = inp.get('print_deps', False)

@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [[ -n "${CM_INPUT}" ]]; then
+  exit 0
+fi
+
 CUR_DIR=$PWD
 SCRIPT_DIR=${CM_TMP_CURRENT_SCRIPT_PATH}
 CM_GIT_REPO_FOLDER_NAME=${CM_GIT_REPO_FOLDER_NAME:-${CM_GIT_URL##*/}}

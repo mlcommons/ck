@@ -37,8 +37,7 @@
       "group": "precision",
       "env": {
         "CM_ML_MODEL_PRECISION": "int8",
-        "CM_ML_MODEL_QUANTIZED": "yes",
-        "CM_PACKAGE_URL": "https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx"
+        "CM_ML_MODEL_QUANTIZED": "yes"
       }
     },
     "onnx,fp32": {
@@ -126,8 +125,8 @@
     "deepsparse,int8": {
       "env": {
         "CM_ML_MODEL_F1": "90.21282641816266",
-	"CM_ML_MODEL_FILE": "oBERT-Large_95sparse_block4_qat.onnx",
-	"CM_UNTAR": "yes",
+        "CM_ML_MODEL_FILE": "oBERT-Large_95sparse_block4_qat.onnx",
+        "CM_UNTAR": "yes",
         "CM_PACKAGE_URL": "https://github.com/mlcommons/inference_results_v2.1/raw/master/open/NeuralMagic/code/bert/deepsparse/models/oBERT-Large_95sparse_block4_qat.onnx.tar.xz",
         "CM_VOCAB_FILE_URL": "https://zenodo.org/record/3733868/files/vocab.txt"
       }

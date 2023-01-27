@@ -228,8 +228,7 @@
        "choices": ["test", "fast", "valid"]
     },
     "max_batchsize": {
-      "desc": "Maximum batchsize to be used",
-      "default": "1"
+      "desc": "Maximum batchsize to be used"
     },
     "target_qps": {
       "desc": "Set LoadGen target QPS"

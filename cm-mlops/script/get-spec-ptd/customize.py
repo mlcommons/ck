@@ -12,6 +12,9 @@ def preprocess(i):
     env = i['env']
     meta = i['meta']
 
+    if env.get('CM_INPUT') and not env.get('CM_MLPERF_PTD_PATH'):
+        env['CM_MLPERF_PTD_PATH'] = env['CM_INPUT']
+
     if 'CM_GIT_DEPTH' not in env:
         env['CM_GIT_DEPTH'] = ''
 
@@ -32,7 +35,8 @@ def postprocess(i):
     env = i['env']
     state = i['state']
 
-    env['CM_MLPERF_PTD_PATH'] = os.path.join(os.getcwd(), 'power', 'inference_v1.0', 'ptd-linux-x86')
+    if 'CM_MLPERF_PTD_PATH' not in env:
+        env['CM_MLPERF_PTD_PATH'] = os.path.join(os.getcwd(), 'power', 'inference_v1.0', 'ptd-linux-x86')
     env['CM_SPEC_PTD_PATH'] = env['CM_MLPERF_PTD_PATH']
 
     return {'return':0}

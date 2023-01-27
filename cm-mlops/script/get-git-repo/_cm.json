@@ -12,6 +12,9 @@
     "CM_GIT_RECURSE_SUBMODULES": " --recurse-submodules",
     "CM_GIT_URL": "https://github.com/mlcommons/ck.git"
   },
+  "input_mapping": {
+    "branch": "CM_GIT_CHECKOUT"
+  },
   "default_variation": "default",
   "deps": [
     {

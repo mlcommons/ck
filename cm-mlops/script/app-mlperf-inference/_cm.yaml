@@ -586,7 +586,6 @@ input_description:
     desc: "Target Latency"
   max_batchsize: 
     desc: "Maximum batchsize to be used"
-    default: 1
   num_threads: 
     desc: "Number of CPU threads to launch the application with"
   hw_name: 
