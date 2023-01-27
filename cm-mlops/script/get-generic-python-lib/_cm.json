@@ -63,6 +63,14 @@
         "CM_TENSORBOARD_VERSION"
       ]
     },
+    "Pillow": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "Pillow"
+      },
+      "new_env_keys": [
+        "CM_PILLOW_VERSION"
+      ]
+    },
     "boto3": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "boto3"
