@@ -7,7 +7,7 @@
   "deps": [
     {
       "names": [
-        "python, python3"
+        "python", "python3"
       ],
       "tags": "get,python3"
     },
