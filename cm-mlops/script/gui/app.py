@@ -227,7 +227,7 @@ def main():
     cmd_extension = st.text_input("CM Command Line extension")
 
     # Prepare CLI
-    cli = 'cm run script {} {} {}'.format(tags, flags, cmd_extension)
+    cli = 'cm run script {} {} {}\n'.format(tags, flags, cmd_extension)
 
     if no_run=='':
         cli+=' --pause'
