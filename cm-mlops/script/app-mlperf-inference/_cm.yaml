@@ -329,7 +329,7 @@ variations:
       names:
       - mlperf-accuracy-script
       - rnnt-accuracy-script
-      tags: run,accuracy,mlperf,_librispeech
+      tags: run,accuracy,mlperf,_librispeech,_int32
 
   bert_:
     post_deps:

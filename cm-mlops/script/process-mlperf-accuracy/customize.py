@@ -53,7 +53,6 @@ def preprocess(i):
                 "accuracy_eval.py") + \
                 "' --dataset_dir '" + os.path.join(env['CM_DATASET_PREPROCESSED_PATH'], "..") +\
                 "' --manifest '" + env['CM_DATASET_PREPROCESSED_JSON'] +\
-                "' --postprocessed_data_dir '" + result_dir +\
                 "' --log_dir '" + result_dir + \
                 "' --output_dtype " + env['CM_ACCURACY_DTYPE'] +" > '" + os.path.join(result_dir, "accuracy.txt") + "'"
 

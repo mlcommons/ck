@@ -148,7 +148,7 @@ def preprocess(i):
     if workspace_size:
         run_config += f" --workspace_size={workspace_size}"
 
-    log_dir = env.get('CM_MLPERF_NVIDIA_HARNESS_LOG_DIR')
+    log_dir = env.get('CM_MLPERF_NVIDIA_HARNESS_LOG_DIR', env.get('CM_MLPERF_LOADGEN_LOGS_DIR'))
     if log_dir:
         run_config += f" --log_dir={log_dir}"
 

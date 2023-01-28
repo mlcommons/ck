@@ -136,11 +136,6 @@
       },
       "group": "dataset-precision"
     },
-    "nvidia": {
-      "env": {
-        "CM_PREPROCESSING_BY_NVIDIA": "yes"
-      }
-    },
     "validation": {
       "add_deps": {
         "original-dataset": {
