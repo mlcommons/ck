@@ -61,7 +61,7 @@
     "int32": {
       "group": "precision",
       "env": {
-        "CM_ACCURACY_DTYPE": "intt32"
+        "CM_ACCURACY_DTYPE": "int32"
       }
     },
     "int64": {
