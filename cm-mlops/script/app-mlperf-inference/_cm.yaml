@@ -93,6 +93,11 @@ deps:
       CM_MLPERF_DEVICE:
       - gpu
 
+  # Detect CUDA info if required
+  - tags: get,cuda-devices
+    enable_if_env:
+      CM_MLPERF_DEVICE:
+      - gpu
 
 
 
