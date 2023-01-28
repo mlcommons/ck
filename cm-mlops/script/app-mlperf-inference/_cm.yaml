@@ -329,7 +329,7 @@ variations:
       names:
       - mlperf-accuracy-script
       - rnnt-accuracy-script
-      tags: run,accuracy,mlperf,_rnnt
+      tags: run,accuracy,mlperf,_librispeech
 
   bert_:
     post_deps:
@@ -370,6 +370,43 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _bert-99.9
+
+  dlrm_:
+    post_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - terabyte-accuracy-script
+      - mlperf-accuracy-script
+      tags: run,accuracy,mlperf,_terabyte,_float32
+
+  dlrm-99:
+    group:
+      model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL:
+        dlrm-99
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _dlrm-99
+
+  dlrm-99.9:
+    group:
+      model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL:
+        dlrm-99.9
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _dlrm-99.9
 
   onnxruntime:
     group: backend

@@ -157,6 +157,23 @@
           "tags": "_deeplearningexamples"
         }
       }
+    },
+    "terabyte": {
+      "group": "dataset",
+      "env": {
+        "CM_DATASET": "squad"
+      },
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_ujson"
+        },
+        {
+          "tags": "get,generic-python-lib,_scikit-learn"
+        },
+        {
+          "tags": "get,generic-python-lib,_numpy"
+        }
+      ]
     }
   }
 }

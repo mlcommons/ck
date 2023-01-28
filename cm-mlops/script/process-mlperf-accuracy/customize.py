@@ -57,6 +57,12 @@ def preprocess(i):
                 "' --log_dir '" + result_dir + \
                 "' --output_dtype " + env['CM_ACCURACY_DTYPE'] +" > '" + os.path.join(result_dir, "accuracy.txt") + "'"
 
+        elif dataset == "terabyte":
+            CMD = env['CM_PYTHON_BIN'] + " '" + os.path.join(env['CM_MLPERF_INFERENCE_DLRM_PATH'], "tools",
+                "accuracy-dlrm.py") + "' --mlperf-accuracy-file '" + os.path.join(result_dir,
+                    "mlperf_log_accuracy.json") + \
+                    "' --dtype " + env.get('CM_ACCURACY_DTYPE', "float32") +  " > '" + os.path.join(result_dir, "accuracy.txt") + "'"
+
         else:
             return {'return': 1, 'error': 'Unsupported dataset'}
    
