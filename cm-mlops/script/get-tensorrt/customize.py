@@ -103,6 +103,7 @@ def preprocess(i):
 
     env['CM_TENSORRT_VERSION'] = version
     env['CM_TENSORRT_INSTALL_PATH'] = os.path.join(os.getcwd(), folder_name)
+    env['CM_TENSORRT_LIB_PATH'] = os.path.join(os.getcwd(), folder_name, "lib")
     env['CM_TMP_PATH'] = os.path.join(os.getcwd(), folder_name, "bin")
     env['+CPLUS_INCLUDE_PATH'] = [ os.path.join(os.getcwd(), folder_name, "include") ]
     env['+C_INCLUDE_PATH'] = [ os.path.join(os.getcwd(), folder_name, "include") ]
