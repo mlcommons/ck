@@ -302,8 +302,8 @@ variations:
         - 'on'
       names:
       - mlperf-accuracy-script
-      - 3dunet-accuracy-script
-      tags: run,accuracy,mlperf,_3dunet
+      - 3d-unet-accuracy-script
+      tags: run,accuracy,mlperf,_kits19,_int8
 
   rnnt:
     group:
