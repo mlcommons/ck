@@ -45,6 +45,12 @@ deps:
   # Detect CMake
   - tags: get,cmake
 
+  # Detect tensorrt python package
+  - tags: get,generic-python-lib,_nvidia-tensorrt
+
+  # Detect requests
+  - tags: get,generic-python-lib,_requests
+
   # Detect Google Logger
   - tags: get,generic,sys-util,_glog-dev
 
@@ -62,7 +68,6 @@ deps:
 
   # Detect rapidjson-dev
   - tags: get,generic,sys-util,_rapidjson-dev
-
 
   # Download Nvidia Submission Code
   - tags: get,nvidia,mlperf,inference,common-code,_custom

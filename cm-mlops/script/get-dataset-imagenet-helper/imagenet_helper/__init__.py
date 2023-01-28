@@ -39,7 +39,7 @@ INTERMEDIATE_DATA_TYPE  = np.float32    # default for internal conversion
 MODEL_NORMALIZE_DATA    = os.getenv('CM_ML_MODEL_NORMALIZE_DATA') in ('YES', 'yes', 'ON', 'on', '1')
 MODEL_NORMALIZE_LOWER   = float(os.getenv('CM_ML_MODEL_NORMALIZE_LOWER', -1.0))
 MODEL_NORMALIZE_UPPER   = float(os.getenv('CM_ML_MODEL_NORMALIZE_UPPER',  1.0))
-SUBTRACT_MEAN           = os.getenv('CM_ML_MODEL_SUBTRACT_MEAN', 'YES') in ('YES', 'yes', 'ON', 'on', '1')
+SUBTRACT_MEAN           = os.getenv('CM_ML_MODEL_SUBTRACT_MEANS', 'YES') in ('YES', 'yes', 'ON', 'on', '1')
 GIVEN_CHANNEL_MEANS     = os.getenv('CM_ML_MODEL_GIVEN_CHANNEL_MEANS', '')
 if GIVEN_CHANNEL_MEANS:
     GIVEN_CHANNEL_MEANS = np.fromstring(GIVEN_CHANNEL_MEANS, dtype=np.float32, sep=' ').astype(INTERMEDIATE_DATA_TYPE)

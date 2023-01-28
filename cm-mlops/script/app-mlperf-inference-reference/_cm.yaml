@@ -550,6 +550,8 @@ variations:
     group: models
     env:
       CM_MODEL: rnnt
+      CM_MLPERF_MODEL_SKIP_BATCHING: "yes"
+      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: "yes"
     deps:
     - tags: get,generic-python-lib,_librosa
     - tags: get,generic-python-lib,_inflect
