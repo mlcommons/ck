@@ -90,6 +90,12 @@ deps:
   # Build nvidia inference server
   - tags: build,nvidia,inference,server
 
+# Post dependencies to run this app including for power measurement
+post_deps:
+
+  - names:
+    - runner
+    tags: benchmark,program
 
 
   ########################################################################

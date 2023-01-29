@@ -176,7 +176,11 @@ def preprocess(i):
 
     cmds.append(f"make {make_command} RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} --test_mode={test_mode} {run_config}'")
     #print(cmds)
-    env['RUN_CMD'] = " && ".join(cmds)
+    run_cmd = " && ".join(cmds)
+    env['CM_MLPERF_RUN_CMD'] = run_cmd
+    env['CM_RUN_CMD'] = run_cmd
+    env['CM_RUN_DIR'] = env['CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH']
+
 #    print(env)
 
     return {'return':0}
