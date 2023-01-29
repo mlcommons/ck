@@ -37,7 +37,8 @@
     "ntp_server": "CM_MLPERF_POWER_NTP_SERVER",
     "run_cmd": "CM_MLPERF_RUN_CMD",
     "max_amps": "CM_MLPERF_POWER_MAX_AMPS",
-    "max_volts": "CM_MLPERF_POWER_MAX_VOLTS"
+    "max_volts": "CM_MLPERF_POWER_MAX_VOLTS",
+    "timestamp": "CM_MLPERF_POWER_TIMESTAMP"
   },
   "tags": [
     "run",

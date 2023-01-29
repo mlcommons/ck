@@ -181,6 +181,10 @@ def preprocess(i):
         dataset_options = ''
     OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'], \
             env['CM_MODEL'], scenario.lower(), mode)
+
+    if 'CM_MLPERF_POWER' in env:
+        env['CM_MLPERF_POWER_LOG_DIR'] = os.path.join(OUTPUT_DIR, "tmp_power")
+
     if mode == "accuracy":
         mode_extra_options += " --accuracy"
     elif mode == "performance":
@@ -198,10 +202,15 @@ def preprocess(i):
         mode_extra_options = " --audit '" + audit_full_path + "'"
     env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
     env['CM_MLPERF_LOADGEN_LOGS_DIR'] = OUTPUT_DIR
+    log_mode = mode
+    if 'CM_MLPERF_POWER' in env and mode == "performance":
+        log_mode = "performance_power"
     
     if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
+        if 'CM_MLPERF_POWER' in env and os.path.exists(env['CM_MLPERF_POWER_LOG_DIR']):
+            shutil.rmtree(env['CM_MLPERF_POWER_LOG_DIR'])
     else:
         print("Run files exist, skipping run...\n")
         env['CM_SKIP_RUN'] = "yes"
@@ -268,6 +277,14 @@ def postprocess(i):
     if env['CM_MLPERF_USER_CONF'] == '':
         return {'return': 0}
     output_dir = env['CM_MLPERF_OUTPUT_DIR']
+    mode = env['CM_MLPERF_LOADGEN_MODE']
+
+    #in power mode copy the log files from tmp_power directory
+    if 'CM_MLPERF_POWER' in env and mode == "performance":
+        shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "power"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "power"))
+        shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "ranging"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "ranging"))
+        shutil.copyfile(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "run_1", "spl.txt"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "spl.txt"))
+
     accuracy_result_dir = ''
     model = env['CM_MODEL']
     if model == "resnet50":
@@ -279,7 +296,6 @@ def postprocess(i):
         dataset_args = " --openimages-dir " + env['CM_DATASET_PATH']
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
-    mode = env['CM_MLPERF_LOADGEN_MODE']
     if mode in [ "performance", "accuracy" ]:
         measurements = {}
         measurements['starting_weights_filename'] = env.get('CM_ML_MODEL_STARTING_WEIGHTS_FILENAME', 'none')
