@@ -16,10 +16,12 @@ def preprocess(i):
     else:
         timestamp = " --no-timestamp-path"
 
+    run_cmd = env['CM_MLPERF_RUN_CMD'].replace("'", '"')
+    run_cmd = run_cmd.replace('"', '\\"')
     cmd = env['CM_PYTHON_BIN_WITH_PATH'] + ' ' +\
             os.path.join(env['CM_MLPERF_POWER_SOURCE'], 'ptd_client_server', 'client.py') + \
             " -a " + env['CM_MLPERF_POWER_SERVER_ADDRESS'] + \
-            " -w '" + env['CM_MLPERF_RUN_CMD'].replace("'", "\"") + \
+            " -w '" + run_cmd + \
             "' -L " + env['CM_MLPERF_LOADGEN_LOGS_DIR'] + \
             " -o " + env['CM_MLPERF_POWER_LOG_DIR'] + \
             " -n " + env['CM_MLPERF_POWER_NTP_SERVER'] + \
