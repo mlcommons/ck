@@ -1,5 +1,6 @@
 from cmind import utils
 import os
+import cmind as cm
 
 def preprocess(i):
 
@@ -9,13 +10,13 @@ def preprocess(i):
     automation = i['automation']
     run_script_input = i['run_script_input']
 
-    if env.get('CM_GENERIC_PYTHON_PIP_UNINSTALL'):
-        r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'uninstall'})
-        if r['return']>0: return r
-
     package_name = env.get('CM_GENERIC_PYTHON_PACKAGE_NAME', '').strip()
     if package_name == '':
         return automation._available_variations({'meta':meta})
+
+    if env.get('CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS'):
+        r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'uninstall_deps'})
+        if r['return']>0: return r
 
     prepare_env_key = env['CM_GENERIC_PYTHON_PACKAGE_NAME']
     for x in ["-", "[", "]"]:

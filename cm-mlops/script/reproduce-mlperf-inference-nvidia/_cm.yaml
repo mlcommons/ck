@@ -26,7 +26,7 @@ default_env:
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_MLPERF_LOADGEN_MODE: performance
   SKIP_POLICIES: '1'
-  CM_NO_PREPROCESS_DATASET: no
+  CM_SKIP_PREPROCESS_DATASET: no
   CM_SKIP_MODEL_DOWNLOAD: no
   CM_MLPERF_NVIDIA_RUN_COMMAND: run
 
@@ -90,6 +90,12 @@ deps:
   # Build nvidia inference server
   - tags: build,nvidia,inference,server
 
+# Post dependencies to run this app including for power measurement
+post_deps:
+
+  - names:
+    - runner
+    tags: benchmark,program
 
 
   ########################################################################
@@ -174,6 +180,11 @@ variations:
     env:
       CM_MODEL: retinanet
       CM_SKIP_MODEL_DOWNLOAD: yes
+    deps:
+    - tags: get,generic-python-lib,_Pillow
+    - tags: get,generic-python-lib,_torch
+    - tags: get,generic-python-lib,_torchvision
+    - tags: get,generic-python-lib,_opencv-python
 
   bert-99:
     group: model

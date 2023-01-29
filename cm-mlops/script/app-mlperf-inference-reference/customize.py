@@ -142,7 +142,10 @@ def preprocess(i):
 
         audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", audit_path, "audit.config")
         mode_extra_options = " --audit '" + audit_full_path + "'"
-    env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
+
+    if not env.get('CM_MLPERF_OUTPUT_DIR'):
+        env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
+
     mlperf_implementation = env.get('CM_MLPERF_IMPLEMENTATION', 'reference') 
     cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, mlperf_implementation)
     os.makedirs(OUTPUT_DIR, exist_ok=True)

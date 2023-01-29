@@ -63,6 +63,14 @@
         "CM_TENSORBOARD_VERSION"
       ]
     },
+    "Pillow": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "Pillow"
+      },
+      "new_env_keys": [
+        "CM_PILLOW_VERSION"
+      ]
+    },
     "boto3": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "boto3"
@@ -86,6 +94,22 @@
       },
       "new_env_keys": [
         "CM_COLORED_VERSION"
+      ]
+    },
+    "attr": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "attr"
+      },
+      "new_env_keys": [
+        "CM_ATTR_VERSION"
+      ]
+    },
+    "attrs": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "attrs"
+      },
+      "new_env_keys": [
+        "CM_ATTRS_VERSION"
       ]
     },
     "decorator": {
@@ -238,9 +262,11 @@
           "tags": "get,cuda"
         }
       ],
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "onnxruntime"
+      },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime_gpu",
-        "CM_GENERIC_PYTHON_PIP_UNINSTALL": "onnxruntime",
         "CM_ONNXRUNTIME_VERSION_EXTRA": "GPU"
       },
       "new_env_keys": [
@@ -439,9 +465,11 @@
           "tags": "get,cuda"
         }
       ],
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch"
+      },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
-        "CM_GENERIC_PYTHON_PIP_UNINSTALL": "torch",
         "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
         "CM_TORCH_CUDA": "cu116",
         "CM_TORCH_VERSION_EXTRA": "CUDA"
@@ -468,9 +496,11 @@
           "tags": "get,cuda"
         }
       ],
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torchaudio"
+      },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchaudio",
-        "CM_GENERIC_PYTHON_PIP_UNINSTALL": "torchaudio",
         "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
         "CM_TORCHAUDIO_VERSION_EXTRA": "CUDA",
         "CM_TORCH_CUDA": "cu116"
@@ -497,9 +527,11 @@
           "tags": "get,cuda"
         }
       ],
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torchvision"
+      },
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torchvision",
-        "CM_GENERIC_PYTHON_PIP_UNINSTALL": "torchvision",
         "CM_TORCHVISION_VERSION_EXTRA": "CUDA"
       },
       "new_env_keys": [

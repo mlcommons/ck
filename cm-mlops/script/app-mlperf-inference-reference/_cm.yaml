@@ -121,6 +121,10 @@ deps:
       - tvm-onnx
       CM_MLPERF_DEVICE:
       - gpu
+    skip_if_env:
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
 
   ## Pytorch (CPU)
   - tags: get,generic-python-lib,_torch
@@ -417,6 +421,9 @@ variations:
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
     deps:
     - tags: get,generic-python-lib,_onnx
+    - tags: get,tvm
+      names:
+        tvm
     add_deps_recursive:
       ml-model:
         tags: tvm-model,_onnx
@@ -427,6 +434,10 @@ variations:
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
+    deps:
+    - tags: get,tvm
+      names:
+        tvm
     add_deps_recursive:
       ml-model:
         tags: tvm-model,_pytorch
@@ -482,11 +493,18 @@ variations:
 
   3d-unet:
     env:
-      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: yes
+      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: "yes"
+      CM_MLPERF_MODEL_SKIP_BATCHING: "yes"
     deps:
-    - tags: get,generic-python-lib,_torch
-      names:
-      - ml-engine-pytorch
+    - tags: get,generic-python-lib,_onnxruntime
+    - tags: get,generic-python-lib,_onnxruntime_gpu
+      env:
+        CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS: ""
+      enable_if_env:
+        CM_MLPERF_BACKEND:
+        - onnxruntime
+        CM_MLPERF_DEVICE:
+        - gpu
 
   dlrm-99.9:
     group: models
@@ -532,6 +550,8 @@ variations:
     group: models
     env:
       CM_MODEL: rnnt
+      CM_MLPERF_MODEL_SKIP_BATCHING: "yes"
+      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: "yes"
     deps:
     - tags: get,generic-python-lib,_librosa
     - tags: get,generic-python-lib,_inflect

@@ -147,7 +147,7 @@ def preprocess():
     fof_name                = os.getenv('CM_DATASET_SUBSET_FOF', 'files.txt')
     data_type               = os.getenv('CM_DATASET_DATA_TYPE', 'float32')
     data_layout             = os.getenv('CM_DATASET_DATA_LAYOUT', '').lower()
-    new_file_extension      = os.getenv('CM_DATASET_NEW_EXTENSION', '')
+    new_file_extension      = os.getenv('CM_DATASET_PREPROCESSED_EXTENSION', '')
     normalize_data          = int(os.getenv('CM_DATASET_NORMALIZE_DATA', '0'))
     subtract_mean           = int(os.getenv('CM_DATASET_SUBTRACT_MEANS', '0'))
     given_channel_means     = os.getenv('CM_DATASET_GIVEN_CHANNEL_MEANS', '')

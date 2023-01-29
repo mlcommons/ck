@@ -12,7 +12,7 @@
     "CM_ML_MODEL_IMAGE_WIDTH": "224",
     "CM_ML_MODEL_NORMALIZE_DATA": "0",
     "CM_ML_MODEL_RETRAINING": "no",
-    "CM_ML_MODEL_SUBTRACT_MEAN": "YES",
+    "CM_ML_MODEL_SUBTRACT_MEANS": "YES",
     "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
   },
   "new_env_keys": [
@@ -153,7 +153,7 @@
         "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor",
         "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
-        "CM_ML_MODEL_SUBTRACT_MEAN": "YES",
+        "CM_ML_MODEL_SUBTRACT_MEANS": "YES",
         "CM_PACKAGE_URL": "https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz"
       }
     },
@@ -173,7 +173,7 @@
         "CM_ML_MODEL_OUTPUT_LAYERS": "softmax_tensor",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "softmax_tensor",
         "CM_ML_MODEL_STARTING_WEIGHTS_FILENAME": "<<<CM_PACKAGE_URL>>>",
-        "CM_ML_MODEL_SUBTRACT_MEAN": "YES",
+        "CM_ML_MODEL_SUBTRACT_MEANS": "YES",
         "CM_PACKAGE_URL": "https://zenodo.org/record/2535873/files/resnet50_v1.pb"
       }
     },

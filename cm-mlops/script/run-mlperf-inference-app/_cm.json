@@ -49,7 +49,6 @@
     "execution_mode": "CM_MLPERF_EXECUTION_MODE",
     "rerun": "CM_RERUN",
     "hw_name": "CM_HW_NAME",
-    "max_batchsize": "CM_MLPERF_LOADGEN_MAX_BATCHSIZE",
     "mode": "CM_MLPERF_LOADGEN_MODE",
     "output_dir": "OUTPUT_BASE_DIR",
     "results_dir": "OUTPUT_BASE_DIR",
@@ -227,8 +226,11 @@
        "default": "test",
        "choices": ["test", "fast", "valid"]
     },
-    "max_batchsize": {
+    "adr.mlperf-inference-implementation.max_batchsize": {
       "desc": "Maximum batchsize to be used"
+    },
+    "adr.mlperf-inference-implementation.num_threads": {
+      "desc": "Number of threads (reference&C++ implementation only)"
     },
     "target_qps": {
       "desc": "Set LoadGen target QPS"

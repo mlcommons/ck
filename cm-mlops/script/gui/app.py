@@ -227,7 +227,7 @@ def main():
     cmd_extension = st.text_input("CM Command Line extension")
 
     # Prepare CLI
-    cli = 'cm run script {} {} {}'.format(tags, flags, cmd_extension)
+    cli = 'cm run script {} {} {}\n'.format(tags, flags, cmd_extension)
 
     if no_run=='':
         cli+=' --pause'
@@ -244,7 +244,7 @@ def main():
 
     y = ''
     if python_venv_name!='' or python_ver!='':
-        y = '\ncm run script "get sys-utils-cm" --quiet\n'
+        y = '\ncm run script "get sys-utils-cm"\n'
 
         if python_venv_name!='':
             y+='cm run script "install python-venv" --name='+str(python_venv_name)

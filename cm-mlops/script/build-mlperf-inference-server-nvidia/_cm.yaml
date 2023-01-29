@@ -39,6 +39,9 @@ deps:
 
   # Detect python3
   - tags: get,python3
+    names:
+    - python
+    - python3
 
   # Detect CUDA
   - tags: get,cuda,_cudnn
@@ -84,6 +87,7 @@ deps:
   # Detect nvidia-dali
   - tags: get,generic-python-lib,_nvidia-dali
 
+post_deps:
   # Detect nvidia system
   - tags: add,custom,system,nvidia
 

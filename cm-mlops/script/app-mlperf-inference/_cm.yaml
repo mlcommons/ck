@@ -40,7 +40,7 @@ input_mapping:
   mode: CM_MLPERF_LOADGEN_MODE
   num_threads: CM_NUM_THREADS
   output_dir: OUTPUT_BASE_DIR
-  power: CM_SYSTEM_POWER
+  power: CM_MLPERF_POWER
   power_server: CM_MLPERF_POWER_SERVER_ADDRESS
   ntp_server: CM_MLPERF_POWER_NTP_SERVER
   max_amps: CM_MLPERF_POWER_MAX_AMPS
@@ -93,6 +93,11 @@ deps:
       CM_MLPERF_DEVICE:
       - gpu
 
+  # Detect CUDA info if required
+  - tags: get,cuda-devices
+    enable_if_env:
+      CM_MLPERF_DEVICE:
+      - gpu
 
 
 
@@ -146,7 +151,7 @@ variations:
       implementation
     add_deps_recursive:
       imagenet-accuracy-script:
-        tags: _int64
+        tags: _float32
     env:
       CM_MLPERF_TFLITE_CPP: 'yes'
       CM_MLPERF_CPP: 'yes'
@@ -302,8 +307,8 @@ variations:
         - 'on'
       names:
       - mlperf-accuracy-script
-      - 3dunet-accuracy-script
-      tags: run,accuracy,mlperf,_3dunet
+      - 3d-unet-accuracy-script
+      tags: run,accuracy,mlperf,_kits19,_int8
 
   rnnt:
     group:
@@ -324,7 +329,7 @@ variations:
       names:
       - mlperf-accuracy-script
       - rnnt-accuracy-script
-      tags: run,accuracy,mlperf,_rnnt
+      tags: run,accuracy,mlperf,_librispeech,_int32
 
   bert_:
     post_deps:
@@ -365,6 +370,43 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _bert-99.9
+
+  dlrm_:
+    post_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - terabyte-accuracy-script
+      - mlperf-accuracy-script
+      tags: run,accuracy,mlperf,_terabyte,_float32
+
+  dlrm-99:
+    group:
+      model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL:
+        dlrm-99
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _dlrm-99
+
+  dlrm-99.9:
+    group:
+      model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL:
+        dlrm-99.9
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _dlrm-99.9
 
   onnxruntime:
     group: backend

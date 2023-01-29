@@ -138,15 +138,41 @@ def generate_submission(i):
                     submission_results_path = submission_mode_path
                     submission_measurement_path = measurement_scenario_path
                     submission_compliance_path = os.path.join(compliance_scenario_path, mode)
+
                     if mode=='performance':
+                        power_run = False
+
+                        if os.path.exists(os.path.join(result_mode_path, "power")):
+                            power_run = True
+                            result_power_path=os.path.join(result_mode_path, 'power')
+                            submission_power_path=os.path.join(submission_mode_path, 'power')
+                            os.makedirs(submission_power_path)
+                            power_files = []
+                            for f in os.listdir(result_power_path):
+                                power_files.append(f) #Todo add required check from submission_checker
+                            for f in power_files:
+                                shutil.copy(os.path.join(result_power_path, f), os.path.join(submission_power_path, f))
+
+                            result_ranging_path=os.path.join(result_mode_path, 'ranging')
+                            submission_ranging_path=os.path.join(submission_mode_path, 'ranging')
+                            os.makedirs(submission_ranging_path)
+                            ranging_files = []
+                            for f in os.listdir(result_ranging_path):
+                                ranging_files.append(f) #Todo add required check from submission_checker
+                            for f in ranging_files:
+                                shutil.copy(os.path.join(result_ranging_path, f), os.path.join(submission_ranging_path, f))
+
                         result_mode_path=os.path.join(result_mode_path, 'run_1')
                         submission_results_path=os.path.join(submission_mode_path, 'run_1')
+
                     if not os.path.isdir(submission_results_path):
                         os.makedirs(submission_results_path)
                     if not os.path.isdir(submission_measurement_path):
                         os.makedirs(submission_measurement_path)
+
                     if division == "closed" and not os.path.isdir(submission_compliance_path):
                         os.makedirs(submission_compliance_path)
+
                     mlperf_inference_conf_path = os.path.join(result_mode_path, "mlperf.conf")
                     if os.path.exists(mlperf_inference_conf_path):
                         shutil.copy(mlperf_inference_conf_path, os.path.join(submission_measurement_path, 'mlperf.conf'))
@@ -160,6 +186,8 @@ def generate_submission(i):
                     readme = False
                     for f in os.listdir(result_mode_path):
                         if f.startswith('mlperf_') and not f.endswith('trace.json'):
+                            files.append(f)
+                        if f == "spl.txt":
                             files.append(f)
                         if f == "README.md":
                             shutil.copy(os.path.join(result_mode_path, f), os.path.join(submission_measurement_path, f))

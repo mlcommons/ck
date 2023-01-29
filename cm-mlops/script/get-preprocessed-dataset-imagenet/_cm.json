@@ -58,7 +58,7 @@
     "CM_DATASET_QUANT_SCALE": "1",
     "CM_DATASET_QUANTIZE": "0",
     "CM_DATASET_QUANT_OFFSET": "0",
-    "CM_DATASET_NEW_EXTENSION": "npy",
+    "CM_DATASET_PREPROCESSED_EXTENSION": "npy",
     "CM_DATASET_CONVERT_TO_UNSIGNED": "0",
     "CM_DATASET_REFERENCE_PREPROCESSOR": "1"
   },
@@ -142,7 +142,7 @@
       },
       "env": {
         "CM_MODEL": "resnet50",
-        "CM_DATASET_NEW_EXTENSION": "rgb8",
+        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb8",
         "CM_DATASET_NORMALIZE_DATA": "0",
         "CM_DATASET_SUBTRACT_MEANS": "1",
         "CM_DATASET_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
@@ -160,7 +160,7 @@
         "preprocessing-source": "generic-preprocessor"
       },
       "env": {
-        "CM_DATASET_NEW_EXTENSION": "rgb32",
+        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb32",
         "CM_DATASET_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
         "CM_DATASET_SUBTRACT_MEANS": "1",
         "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA",
@@ -175,7 +175,7 @@
         "preprocessing-source": "generic-preprocessor"
       },
       "env": {
-        "CM_DATASET_NEW_EXTENSION": "rgb8",
+        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb8",
         "CM_DATASET_GIVEN_CHANNEL_MEANS": "",
         "CM_DATASET_SUBTRACT_MEAN": "0",
         "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA",

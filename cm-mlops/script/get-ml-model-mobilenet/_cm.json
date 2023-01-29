@@ -45,7 +45,7 @@
     "onnx,fp32": {
       "env": {
         "CM_ML_MODEL_NORMALIZE_DATA": "yes",
-        "CM_ML_MODEL_SUBTRACT_MEAN": "no",
+        "CM_ML_MODEL_SUBTRACT_MEANS": "no",
         "CM_ML_MODEL_VER": "1_1.0_224",
         "CM_ML_MODEL_INPUT_LAYER_NAME": "input:0",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV1/Predictions/Reshape_1:0"
@@ -54,7 +54,7 @@
     "onnx,int8": {
       "env": {
         "CM_ML_MODEL_NORMALIZE_DATA": "no",
-        "CM_ML_MODEL_SUBTRACT_MEAN": "yes",
+        "CM_ML_MODEL_SUBTRACT_MEANS": "yes",
         "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "128.0 128.0 128.0",
         "CM_ML_MODEL_VER": "1_1.0_224_quant",
         "CM_ML_MODEL_INPUT_LAYER_NAME": "0",
@@ -96,7 +96,7 @@
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NHWC",
         "CM_ML_MODEL_NORMALIZE_DATA": "yes",
-        "CM_ML_MODEL_SUBTRACT_MEAN": "no",
+        "CM_ML_MODEL_SUBTRACT_MEANS": "no",
         "CM_ML_MODEL_VER": "1_1.0_224_2018_08_02",
         "CM_ML_MODEL_INPUT_LAYER_NAME": "input",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV1/Predictions/Reshape_1",
