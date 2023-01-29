@@ -19,7 +19,7 @@ def preprocess(i):
             path = env.get('IMAGENET_PATH', '')
 
         if path == '':
-            return {'return':1, 'error':'Please use --input (if calling this script directly) or set --env.IMAGENET_PATH to the folder containing full ImageNet images.'}
+            return {'return':1, 'error':'Please rerun the last CM command with --env.IMAGENET_PATH={path the folder containing full ImageNet images} or envoke cm run script "get val dataset imagenet" --input={path to the folder containing ImageNet images}'}
 
         if not os.path.isdir(path):
             return {'return':1, 'error':'Path {} doesn\'t exist'.format(path)}
