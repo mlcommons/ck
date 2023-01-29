@@ -31,5 +31,11 @@ def preprocess(i):
 
         env['CM_DATASET_PATH'] = path
         env['CM_DATASET_IMAGENET_PATH'] = path
+    elif path!='':
+        if not os.path.isdir(path):
+            return {'return':1, 'error':'Path {} doesn\'t exist'.format(path)}
+
+        env['CM_DATASET_PATH'] = path
+        env['CM_DATASET_IMAGENET_PATH'] = path
 
     return {'return':0}
