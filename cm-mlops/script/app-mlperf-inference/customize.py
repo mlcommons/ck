@@ -281,8 +281,8 @@ def postprocess(i):
 
     #in power mode copy the log files from tmp_power directory
     if 'CM_MLPERF_POWER' in env and mode == "performance":
-        shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "power"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "power"))
-        shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "ranging"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "ranging"))
+        shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "power"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "power"))
+        shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "ranging"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "ranging"))
         shutil.copyfile(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "run_1", "spl.txt"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "spl.txt"))
 
     accuracy_result_dir = ''
