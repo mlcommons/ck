@@ -62,7 +62,10 @@
       }
     },
     "repo.#": {
-      "group": "repo"
+      "group": "repo",
+      "env": {
+        "CM_GIT_URL": "#"
+      }
     }
   }
 }
