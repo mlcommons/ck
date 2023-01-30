@@ -419,6 +419,7 @@ variations:
     env:
       CM_MLPERF_BACKEND: tvm-onnx
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
+      CM_ML_MODEL_MAX_BATCH_SIZE: <<<CM_MLPERF_LOADGEN_MAX_BATCHSIZE>>>
     deps:
     - tags: get,generic-python-lib,_onnx
     - tags: get,tvm
