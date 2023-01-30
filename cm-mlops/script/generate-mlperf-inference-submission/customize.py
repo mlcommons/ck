@@ -16,8 +16,10 @@ def generate_submission(i):
     env = i['env']
     state = i['state']
     inp=i['input']
+
     if 'CM_MLPERF_RESULTS_DIR' not in env:
         return {"return": 1, "error": "Please set --results_dir to the folder containing MLPerf inference results"}
+
     results_dir = env['CM_MLPERF_RESULTS_DIR']
 
     if 'CM_MLPERF_SUBMISSION_DIR' not in env:
@@ -42,14 +44,15 @@ def generate_submission(i):
 
     system_meta = state['CM_SUT_META']
 
+    if 'CM_MLPERF_SUBMISSION_SYSTEM_TYPE' in env:
+        system_meta['system_type'] = env['CM_MLPERF_SUBMISSION_SYSTEM_TYPE']
+
+    if 'CM_MLPERF_SUBMISSION_DIVISION' in env:
+        system_meta['division'] = env['CM_MLPERF_SUBMISSION_DIVISION']
+
     duplicate=(inp.get('duplicate_to_offline','')=='yes')
 
-    division=inp.get('division')
-    if division:
-        if division != system_meta['division']:
-            system_meta['division'] = division
-    else:
-        division = system_meta['division']
+    division = system_meta['division']
 
     if division not in ['open','closed']:
         return {'return':1, 'error':'"division" must be "open" or "closed"'}
@@ -135,9 +138,14 @@ def generate_submission(i):
                 for mode in modes:
                     result_mode_path = os.path.join(result_scenario_path, mode)
                     submission_mode_path = os.path.join(submission_scenario_path, mode)
-                    submission_results_path = submission_mode_path
                     submission_measurement_path = measurement_scenario_path
                     submission_compliance_path = os.path.join(compliance_scenario_path, mode)
+                    if mode.startswith("TEST"):
+                        submission_results_path = submission_compliance_path
+                    else:
+                        submission_results_path = submission_mode_path
+                    if os.path.exists(submission_results_path):
+                        shutil.rmtree(submission_results_path)
 
                     if mode=='performance':
                         power_run = False
@@ -170,8 +178,8 @@ def generate_submission(i):
                     if not os.path.isdir(submission_measurement_path):
                         os.makedirs(submission_measurement_path)
 
-                    if division == "closed" and not os.path.isdir(submission_compliance_path):
-                        os.makedirs(submission_compliance_path)
+                    #if division == "closed" and not os.path.isdir(submission_compliance_path):
+                    #    os.makedirs(submission_compliance_path)
 
                     mlperf_inference_conf_path = os.path.join(result_mode_path, "mlperf.conf")
                     if os.path.exists(mlperf_inference_conf_path):
@@ -184,14 +192,35 @@ def generate_submission(i):
                         shutil.copy(measurements_json_path, os.path.join(submission_measurement_path, sub_res+'.json'))
                     files = []
                     readme = False
+
                     for f in os.listdir(result_mode_path):
-                        if f.startswith('mlperf_') and not f.endswith('trace.json'):
-                            files.append(f)
-                        if f == "spl.txt":
-                            files.append(f)
-                        if f == "README.md":
-                            shutil.copy(os.path.join(result_mode_path, f), os.path.join(submission_measurement_path, f))
-                            readme = True
+                        if mode.startswith("TEST"):
+                            if f.startswith('verify_'):
+                                files.append(f)
+                            elif f == "performance":
+                                compliance_performance_run_path = os.path.join(result_mode_path, f, "run_1")
+                                if os.path.exists(compliance_performance_run_path):
+                                    target = os.path.join(submission_results_path, "performance", "run_1")
+                                    os.makedirs(target)
+                                    for log_file in os.listdir(compliance_performance_run_path):
+                                        if log_file.startswith("mlperf_"):
+                                            shutil.copy(os.path.join(compliance_performance_run_path, log_file), os.path.join(target, log_file))
+                            elif f == "accuracy":
+                                compliance_accuracy_run_path = os.path.join(result_mode_path, f)
+                                if os.path.exists(compliance_accuracy_run_path):
+                                    target = os.path.join(submission_results_path, "accuracy")
+                                    os.makedirs(target)
+                                    for log_file in os.listdir(compliance_accuracy_run_path):
+                                        if log_file.startswith("mlperf_"):
+                                            shutil.copy(os.path.join(compliance_accuracy_run_path, log_file), os.path.join(target, log_file))
+                        else:
+                            if f.startswith('mlperf_') and not f.endswith('trace.json'):
+                                files.append(f)
+                            if f == "spl.txt":
+                                files.append(f)
+                            if f == "README.md":
+                                shutil.copy(os.path.join(result_mode_path, f), os.path.join(submission_measurement_path, f))
+                                readme = True
 
                     if mode == "accuracy":
                         if os.path.exists(os.path.join(result_mode_path, "accuracy.txt")):

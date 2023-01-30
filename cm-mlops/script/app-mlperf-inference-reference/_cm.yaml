@@ -222,7 +222,7 @@ deps:
       CM_MODEL:
       - resnet50
 
-  ## Open Images (full) for RetinaNet
+  ## Open Images for RetinaNet
   - tags: get,dataset,object-detection,open-images,openimages,preprocessed,_validation
     names:
     - openimages-preprocessed
