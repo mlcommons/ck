@@ -62,25 +62,13 @@
   ],
   "uid": "9842f1be8cba4c7b",
   "variations": {
-    "1": {
-      "group": "dataset-count",
+    "size.#": {
       "env": {
-        "CM_DATASET_SIZE": "1"
+        "CM_DATASET_SIZE": "#"
       },
       "adr": {
         "original-dataset": {
-          "tags": "_1"
-        }
-      }
-    },
-    "5": {
-      "group": "dataset-count",
-      "env": {
-        "CM_DATASET_SIZE": "5"
-      },
-      "adr": {
-        "original-dataset": {
-          "tags": "_5"
+          "tags": "_#"
         }
       }
     },
@@ -110,7 +98,7 @@
     "full": {
       "group": "dataset-count",
       "env": {
-        "CM_DATASET_SIZE": ""
+        "CM_DATASET_SIZE": "0"
       },
       "adr": {
         "original-dataset": {
