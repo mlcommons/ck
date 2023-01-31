@@ -329,12 +329,13 @@ def postprocess(i):
         readme_init = "This experiment is generated using [MLCommons CM](https://github.com/mlcommons/ck)\n"
         readme_body = "## CM Run Command\n```\n" + cmd + "\n```"
 
-        readme_body += "\n## Dependent CM scripts \n"
+        if env.get('CM_MLPERF_README', 'no') == 'yes':
+            readme_body += "\n## Dependent CM scripts \n"
 
-        script_tags = inp['tags']
-        script_adr = inp['adr']
+            script_tags = inp['tags']
+            script_adr = inp['adr']
 
-        cm_input = {'action': 'run',
+            cm_input = {'action': 'run',
                     'automation': 'script',
                     'tags': script_tags,
                     'adr': script_adr,
@@ -343,21 +344,24 @@ def postprocess(i):
                     'silent': True,
                     'fake_run': True
                     }
-        r = cm.access(cm_input)
-        print_deps = r['new_state']['print_deps']
-        for dep in print_deps:
-            readme_body += "\n" + "`"+dep+"`"
+            r = cm.access(cm_input)
+            if r['return'] > 0:
+                return r
 
-        if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('print_deps'):
-
-            readme_body += "\n## Dependent CM scripts for the MLPerf Inference Implementation\n"
-
-            print_deps = state['mlperf-inference-implementation']['print_deps']
+            print_deps = r['new_state']['print_deps']
             for dep in print_deps:
                 readme_body += "\n" + "`"+dep+"`"
-            readme = readme_init + readme_body
-            with open ("README.md", "w") as fp:
-                fp.write(readme)
+
+            if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('print_deps'):
+
+                readme_body += "\n## Dependent CM scripts for the MLPerf Inference Implementation\n"
+
+                print_deps = state['mlperf-inference-implementation']['print_deps']
+                for dep in print_deps:
+                    readme_body += "\n" + "`"+dep+"`"
+                readme = readme_init + readme_body
+                with open ("README.md", "w") as fp:
+                    fp.write(readme)
 
     elif mode == "compliance":
 

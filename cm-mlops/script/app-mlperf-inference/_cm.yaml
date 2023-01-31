@@ -136,7 +136,7 @@ variations:
     env:
       CM_MLPERF_CPP: 'yes'
       CM_MLPERF_IMPLEMENTATION: cpp
-    prehook_deps:
+    posthook_deps:
       - names:
          - cpp-mlperf-inference
          - mlperf-inference-implementation
@@ -156,7 +156,7 @@ variations:
       CM_MLPERF_TFLITE_CPP: 'yes'
       CM_MLPERF_CPP: 'yes'
       CM_MLPERF_IMPLEMENTATION: tflite-cpp
-    prehook_deps:
+    posthook_deps:
       - names:
          - tflite-cpp-mlperf-inference
          - mlperf-inference-implementation
@@ -176,7 +176,7 @@ variations:
     env:
       CM_MLPERF_PYTHON: 'yes'
       CM_MLPERF_IMPLEMENTATION: reference
-    prehook_deps:
+    posthook_deps:
       - names:
          - python-reference-mlperf-inference
          - mlperf-inference-implementation
@@ -220,7 +220,7 @@ variations:
     deps:
       ## Nvidia common code
       - tags: get,mlperf,inference,nvidia,common-code
-    prehook_deps:
+    posthook_deps:
       - names:
          - nvidia-original-mlperf-inference
          - nvidia-harness
@@ -410,6 +410,29 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _dlrm-99.9
+
+  mobilenet:
+    group:
+      model
+    env:
+      CM_MODEL:
+        mobilenet
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _mobilenet
+    deps:
+    - tags: get,dataset-aux,imagenet-aux
+    post_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - imagenet-accuracy-script
+      tags: run,accuracy,mlperf,_imagenet
 
   onnxruntime:
     group: backend

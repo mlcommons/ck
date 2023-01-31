@@ -274,6 +274,8 @@ def postprocess(i):
                 'fake_run': True
                 }
         r = cm.access(cm_input)
+        if r['return'] > 0:
+            return r
 
         state['mlperf-inference-implementation'] = {}
         state['mlperf-inference-implementation']['print_deps'] = r['new_state']['print_deps']

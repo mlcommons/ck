@@ -1444,12 +1444,12 @@ class CAutomation(Automation):
                         if t not in cached_tags:
                             cached_tags.append(t) 
 
-            # Check chain of post dependencies on other CM scripts
-            clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
+                # Check chain of post dependencies on other CM scripts
+                clean_env_keys_post_deps = meta.get('clean_env_keys_post_deps',[])
 
-            r = self._run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
+                r = self._run_deps(post_deps, clean_env_keys_post_deps, env, state, const, const_state, add_deps_recursive, recursion_spaces,
                     remembered_selections, variation_tags_string, found_cached, debug_script_tags, verbose, show_time, extra_recursion_spaces, run_state)
-            if r['return']>0: return r
+                if r['return']>0: return r
 
             # Add extra tags from env updated by deps (such as python version and compiler version, etc)
             extra_cache_tags_from_env = meta.get('extra_cache_tags_from_env',[])
