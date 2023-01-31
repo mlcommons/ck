@@ -212,6 +212,9 @@ variations:
   nvidia-original:
     group:
       implementation
+    add_deps_recursive:
+      imagenet-accuracy-script:
+        tags: _int32
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia-original
     deps:

@@ -798,7 +798,7 @@ class CAutomation(Automation):
                 variation_tag_dynamic_suffix = None
                 if variation_tag not in variations:
                     if '.' in variation_tag and variation_tag[-1] != '.':
-                        variation_tag_dynamic_suffix = variation_tag[variation_tag.rindex(".")+1:]
+                        variation_tag_dynamic_suffix = variation_tag[variation_tag.index(".")+1:]
                         if not variation_tag_dynamic_suffix:
                             return {'return':1, 'error':'tag {} is not in variations {}'.format(variation_tag, variations.keys())}
                         variation_tag = self._get_name_for_dynamic_variation_tag(variation_tag)
