@@ -3,6 +3,7 @@ import os
 import json
 import shutil
 import subprocess
+import cmind as cm
 
 def preprocess(i):
 
@@ -318,6 +319,8 @@ def postprocess(i):
             shutil.copy(env['CM_MLPERF_CONF'], 'mlperf.conf')
         if os.path.exists(env['CM_MLPERF_USER_CONF']):
             shutil.copy(env['CM_MLPERF_USER_CONF'], 'user.conf')
+
+
         if "cmd" in inp:
             cmd = "cm run script \\\n\t"+" \\\n\t".join(inp['cmd'])
         else:
@@ -325,9 +328,36 @@ def postprocess(i):
 
         readme_init = "This experiment is generated using [MLCommons CM](https://github.com/mlcommons/ck)\n"
         readme_body = "## CM Run Command\n```\n" + cmd + "\n```"
-        readme = readme_init + readme_body
-        with open ("README.md", "w") as fp:
-            fp.write(readme)
+
+        readme_body += "\n## Dependent CM scripts \n"
+
+        script_tags = inp['tags']
+        script_adr = inp['adr']
+
+        cm_input = {'action': 'run',
+                    'automation': 'script',
+                    'tags': script_tags,
+                    'adr': script_adr,
+                    'print_deps': True,
+                    'quiet': True,
+                    'silent': True,
+                    'fake_run': True
+                    }
+        r = cm.access(cm_input)
+        print_deps = r['new_state']['print_deps']
+        for dep in print_deps:
+            readme_body += "\n" + "`"+dep+"`"
+
+        if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('print_deps'):
+
+            readme_body += "\n## Dependent CM scripts for the MLPerf Inference Implementation\n"
+
+            print_deps = state['mlperf-inference-implementation']['print_deps']
+            for dep in print_deps:
+                readme_body += "\n" + "`"+dep+"`"
+            readme = readme_init + readme_body
+            with open ("README.md", "w") as fp:
+                fp.write(readme)
 
     elif mode == "compliance":
 
