@@ -729,11 +729,11 @@ class CAutomation(Automation):
 
                             tag_to_append = None
 
-                    tag_to_append = None
                     # default_variations dictionary specifies the default_variation for each variation group. A default variation in a group is turned on if no other variation from that group is turned on and it is not excluded using the '-' prefix
                     if "default_variations" in variations[variation_name]:
                         default_base_variations = variations[variation_name]["default_variations"]
                         for default_base_variation in default_base_variations:
+                            tag_to_append = None
                             if default_base_variation not in variation_groups:
                                 return {'return': 1, 'error': 'Default variation "{}" is not a valid group. Valid groups are "{}" '.format(default_base_variation, variation_groups)}
                             if 'default' in variation_groups[default_base_variation]:
@@ -743,11 +743,11 @@ class CAutomation(Automation):
                             if len(set(unique_allowed_variations) & set(variation_tags)) == 0 and default_base_variations[default_base_variation] not in excluded_variation_tags:
                                 tag_to_append = default_base_variations[default_base_variation]
 
-                    if tag_to_append:
-                        if tag_to_append not in variations:
-                            return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
-                        variation_tags.append(tag_to_append)
-                        tmp_variations[tag_to_append] = False
+                            if tag_to_append:
+                                if tag_to_append not in variations:
+                                    return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
+                                variation_tags.append(tag_to_append)
+                                tmp_variations[tag_to_append] = False
 
                     tmp_variations[variation_name] = True
 
