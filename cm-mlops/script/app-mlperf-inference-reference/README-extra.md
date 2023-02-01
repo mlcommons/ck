@@ -48,9 +48,9 @@ across diverse platforms with continuously changing software and hardware.
   </tr>
   <tr>
     <td>Tensorflow</td>
-    <td>N</td>
-    <td>?</td>
-    <td>Not tested</td>
+    <td>fp32</td>
+    <td>✅</td>
+    <td>Works on all tested versions</td>
   </tr>
   <tr>
     <td>Pytorch</td>
