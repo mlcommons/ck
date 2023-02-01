@@ -47,4 +47,7 @@ def preprocess(i):
 
     env['CM_ML_MODEL_PATH']=path
 
+    if not os.path.exists(env['CM_ML_MODEL_FILE_WITH_PATH']):
+        return {'return':1, 'error': f"Model file path {env['CM_ML_MODEL_FILE_WITH_PATH']} not existing. Probably the model name {env['CM_ML_MODEL_FILE']} in model meta is wrong"}
+
     return {'return':0}

@@ -112,6 +112,16 @@
         "CM_DATASET_SIZE": "500"
       }
     },
+    "size.#": {
+      "add_deps": {
+        "original-dataset": {
+          "tags": "_#"
+        }
+      },
+      "env": {
+        "CM_DATASET_SIZE": "#"
+      }
+    },
     "full": {
       "group": "size",
       "add_deps": {
@@ -142,7 +152,9 @@
       },
       "default_variations": {
         "preprocessing-source": "generic-preprocessor",
-        "interpolation-method": "inter.area"
+        "interpolation-method": "inter.area",
+        "extension": "rgb32",
+        "precision": "float32"
       }
     },
     "mobilenet_": {
@@ -151,76 +163,96 @@
       },
       "default_variations": {
         "preprocessing-source": "generic-preprocessor",
-        "interpolation-method": "inter.linear"
+        "interpolation-method": "inter.linear",
+        "extension": "rgb32",
+        "precision": "int8"
       }
     },
-    "for.resnet50-quantized": {
-      "base": [ "resnet50_" ],
+    "float32": {
+      "group": "precision",
       "env": {
-        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb8",
-        "CM_DATASET_NORMALIZE_DATA": "0",
-        "CM_DATASET_SUBTRACT_MEANS": "1",
-        "CM_DATASET_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
-        "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA",
-        "CM_DATASET_DATA_TYPE": "int8",
-        "CM_DATASET_QUANT_SCALE": "1.18944883",
-        "CM_DATASET_QUANT_OFFSET": "0",
+        "CM_DATASET_DATA_TYPE": "float32",
+        "CM_DATASET_QUANTIZE": "0"
+      }
+    },
+    "uint8": {
+      "group": "precision",
+      "env": {
+        "CM_DATASET_DATA_TYPE": "uint8",
         "CM_DATASET_QUANTIZE": "1",
         "CM_DATASET_CONVERT_TO_UNSIGNED": "1"
+      }
+    },
+    "int8": {
+      "group": "precision",
+      "env": {
+        "CM_DATASET_DATA_TYPE": "int8",
+        "CM_DATASET_QUANTIZE": "1",
+        "CM_DATASET_CONVERT_TO_UNSIGNED": "0"
       }
     },
     "for.resnet50": {
       "base": [ "resnet50_" ],
       "group": "model",
       "env": {
-        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb32",
+      }
+    },
+    "for.resnet50,uint8": {
+      "env": {
+        "CM_DATASET_NORMALIZE_DATA": "0",
+        "CM_DATASET_SUBTRACT_MEANS": "1",
+        "CM_DATASET_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
+        "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA",
+        "CM_DATASET_QUANT_SCALE": "1.18944883",
+        "CM_DATASET_QUANT_OFFSET": "0"
+      }
+    },
+    "for.resnet50,float32": {
+      "env": {
         "CM_DATASET_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
         "CM_DATASET_SUBTRACT_MEANS": "1",
-        "CM_DATASET_NORMALIZE_DATA": "0",
-        "CM_DATASET_QUANTIZE": "0",
-        "CM_DATASET_DATA_TYPE": "float32"
+        "CM_DATASET_NORMALIZE_DATA": "0"
       }
     },
-    "for.resnet50-rgb8": {
-      "base": [ "resnet50_" ],
-      "group": "model",
+    "for.resnet50,rgb8": {
       "env": {
-        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb8",
         "CM_DATASET_GIVEN_CHANNEL_MEANS": "",
-        "CM_DATASET_SUBTRACT_MEAN": "0",
+        "CM_DATASET_SUBTRACT_MEANS": "0",
         "CM_DATASET_NORMALIZE_DATA": "0",
-        "CM_DATASET_QUANTIZE": "0",
-        "CM_DATASET_DATA_TYPE": "int8"
-      }
-    },
-    "for.mobilenet-quantized": {
-      "base": [ "mobilenet_" ],
-      "group": "model",
-      "env": {
-        "CM_DATASET_QUANTIZE": "1"
+        "CM_DATASET_QUANTIZE": "0"
       }
     },
     "for.mobilenet": {
       "base": [ "mobilenet_" ],
       "group": "model",
       "env": {
-        "CM_DATASET_QUANTIZE": "0",
-        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb32",
-        "CM_DATASET_GIVEN_CHANNEL_MEANS": "",
-        "CM_DATASET_NORMALIZE_DATA": "1",
-        "CM_DATASET_SUBTRACT_MEANS": "0",
-        "CM_DATASET_QUANTIZE": "0",
-        "CM_DATASET_DATA_TYPE": "float32"
       }
     },
-    "for.mobilenet-rgb8": {
-      "base": [ "mobilenet_" ],
-      "group": "model",
+    "for.mobilenet,float32": {
       "env": {
-        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb8",
-        "CM_DATASET_SUBTRACT_MEAN": "0",
         "CM_DATASET_QUANTIZE": "0",
-        "CM_DATASET_DATA_TYPE": "int8"
+        "CM_DATASET_GIVEN_CHANNEL_MEANS": "",
+        "CM_DATASET_NORMALIZE_DATA": "1",
+        "CM_DATASET_SUBTRACT_MEANS": "0"
+      }
+    },
+    "for.mobilenet,rgb8": {
+      "env": {
+        "CM_DATASET_SUBTRACT_MEANS": "0",
+        "CM_DATASET_QUANTIZE": "0",
+        "CM_DATASET_NORMALIZE_DATA": "1"
+      }
+    },
+    "rgb8": {
+      "group": "extension",
+      "env": {
+        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb8"
+      }
+    },
+    "rgb32": {
+      "group": "extension",
+      "env": {
+        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb32"
       }
     },
     "inter.linear": {
@@ -250,6 +282,11 @@
       "group": "preprocessing-source",
       "env": {
         "CM_DATASET_REFERENCE_PREPROCESSOR": "1"
+      }
+    },
+    "resolution.#": {
+      "env": {
+        "CM_DATASET_INPUT_SQUARE_SIDE": "#"
       }
     }
   }

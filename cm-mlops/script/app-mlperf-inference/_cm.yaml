@@ -434,6 +434,29 @@ variations:
       - imagenet-accuracy-script
       tags: run,accuracy,mlperf,_imagenet
 
+  efficientnet:
+    group:
+      model
+    env:
+      CM_MODEL:
+        efficientnet
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _efficientnet
+    deps:
+    - tags: get,dataset-aux,imagenet-aux
+    post_deps:
+    - enable_if_env:
+        CM_MLPERF_LOADGEN_MODE:
+        - accuracy
+        - all
+        CM_MLPERF_ACCURACY_RESULTS_DIR:
+        - 'on'
+      names:
+      - mlperf-accuracy-script
+      - imagenet-accuracy-script
+      tags: run,accuracy,mlperf,_imagenet
+
   onnxruntime:
     group: backend
     default: true
@@ -568,8 +591,17 @@ variations:
       CM_MLPERF_QUANTIZATION: on
       CM_MLPERF_MODEL_PRECISION: int8
     add_deps_recursive:
-      python-reference-mlperf-inference:
+      mlperf-inference-implementation:
         tags: _int8
+
+  uint8:
+    group: precision
+    env:
+      CM_MLPERF_QUANTIZATION: on
+      CM_MLPERF_MODEL_PRECISION: uint8
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _uint8
 
   power:
     env:
