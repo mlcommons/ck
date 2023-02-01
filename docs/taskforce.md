@@ -31,8 +31,8 @@
 
 ## Conf-calls
 
-* Main weekly conf-call on Thursday at 10:30am PST: [Google meet link](meet.google.com/jtk-zzbb-apx)
-* Extra weekly conf-call on Tuesday at 10am CET (Europe): [Google meet link](https://meet.google.com/gkz-hdsa-qri)
+* Main weekly conf-call on Thursday at 10:30am PST: [Google meet link](https://meet.google.com/jtk-zzbb-apx)
+* Extra weekly conf-call on Tuesday at 10am CET (Europe): [Google meet link](https://meet.google.com/feo-gypn-rao)
 
 Please add your topics for discussion in the [meeting notes](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw/edit?usp=sharing)
 or via [GitHub tickets](https://github.com/mlcommons/ck).
