@@ -219,7 +219,6 @@ Works on all tested versions
     <td>Works with torch 1.10 and numpy 1.19</td>
   </tr>
   <tr>
-    
     <td>CUDA</td>
     <td>Pytorch</td>
     <td>fp32</td>
