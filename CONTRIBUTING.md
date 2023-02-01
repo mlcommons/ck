@@ -16,7 +16,7 @@ Ensure that cla-bot and other checks pass for your Pull requests.
 
 ## Contributing to the MLCommons Collective Mind
 
-We suggest you to join the [open MLCommons taskforce on education and reproducibility](docs/mlperf-education-workgroup.md)
+We suggest you to join the [open MLCommons Collective Knowledge taskforce](docs/taskforce.md)
 to learn how to use the CM framework, enhance existing CM components for MLOps and DevOps, 
 run MLPerf benchmarks and contribute your own artifacts, scripts and workflows in the CM format.
 

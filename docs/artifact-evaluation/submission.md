@@ -129,7 +129,7 @@ using the AE submission website provided by the event.
  If you have questions or suggestions, 
  do not hesitate to get in touch with the the AE chairs or the community using 
  the [Artifact Evaluation google group](https://groups.google.com/forum/#!forum/artifact-evaluation)
- or weekly conf-calls of the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).
+ or weekly conf-calls of the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
 
 
 ## Preparing your camera-ready paper

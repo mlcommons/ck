@@ -7,5 +7,5 @@ cm create-toc-from-md utils --input=mlperf-inference-submission.md
 
 cd ../
 
-cm create-toc-from-md utils --input=mlperf-education-workgroup.md
+cm create-toc-from-md utils --input=taksforce.md
 cm create-toc-from-md utils --input=installation.md

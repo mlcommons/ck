@@ -6,7 +6,7 @@ This example demonstrates our unified and human-readable CM interface to run
 image classification on any platform while automatically detecting or installing 
 all related artifacts and adapting them to your environment.
 
-This interface is being developed by the [open taskforce](../mlperf-education-workgroup.md) 
+This interface is being developed by the [open taskforce](../taksforce.md) 
 to solve the dependency hell and make it easier for the community to run, customize and reuse 
 any software projects in native environments or containers in a unified way.
 

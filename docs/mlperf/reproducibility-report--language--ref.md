@@ -32,7 +32,7 @@
 # Reproducibility reports by the community
 
 If you encounter issues, please open a [GitHub issue](https://github.com/mlcommons/ck/issues)
-and/or feel free to join our [weekly conf-calls](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
+and/or feel free to join our [weekly conf-calls](https://github.com/mlcommons/ck/blob/master/docs/taksforce.md) 
 to discuss your issues and provide feedback!
 
 ## 491fe590c3d24bcd
