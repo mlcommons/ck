@@ -46,7 +46,7 @@ and prepare your submission.
 Please follow [this CM tutorial from the Student Cluster Competition](sc22-scc-mlperf.md) for more details.
 
 If you have questions, encounter issues or have feature requests, please submit them [here](https://github.com/mlcommons/ck/issues)
-and feel free to join our [open taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+and feel free to join our [open taskforce on education and reproducibility](../taksforce.md)
 and [Discord discussions](https://discord.gg/JjWNWXKxwT).*
 
 # System preparation
@@ -205,7 +205,7 @@ If you want to add your own implementation or backend, the simplest solution is 
 specify this repo in the above GUI in the fields `Git URL for MLPerf inference sources to build LoadGen` and `Git URL for MLPerf inference sources to run benchmarks`
 and update the [CM meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml) of our MLPerf wrapper.
 
-Don't hesitate to get in touch with [this taksforce](../mlperf-education-workgroup.md)
+Don't hesitate to get in touch with [this taksforce](../taksforce.md)
 to get free help from the community to add your implementation and prepare the submission.
 
 
@@ -241,7 +241,7 @@ You can install specific versions of various backends using CM as follows (optio
 
 #### Deepsparse
 
-See [this PR](https://github.com/mlcommons/ck/pull/619) prepared by the [open taskforce](../mlperf-education-workgroup.md) 
+See [this PR](https://github.com/mlcommons/ck/pull/619) prepared by the [open taskforce](../taksforce.md) 
 during the public hackathon to add Neural Magic's Deepsparse BERT backend for MLPerf to the CM automation.
 
 *We currently support BERT large model int 8 targetting CPU only. CUDA may come soon...*
@@ -332,7 +332,7 @@ cm run script --tags=gui \
 
 # The next steps
 
-You are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+You are welcome to join the [open MLCommons taskforce on education and reproducibility](../taksforce.md)
 to contribute to this project and continue optimizing this benchmark and prepare an official submission 
 for MLPerf inference benchmarks with the free help of the community.
 

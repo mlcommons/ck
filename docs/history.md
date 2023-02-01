@@ -45,7 +45,7 @@ to continue developing it as a community effort.
 
 Collective Mind workflow automation meta-framework (CM aka CK2)  is the 2nd implementation 
 of the [CK concept](https://arxiv.org/pdf/2011.01149.pdf) being developed
-by the [open MLCommons taskforce on education and reproducibility](docs/mlperf-education-workgroup.md).
+by the [open MLCommons taskforce on education and reproducibility](docs/taskforce.md).
 
 This taskforce is using and enhancing CM to modularize ML and AI systems and automate their benchmarking, 
 optimization and deployment across continuously changing software, hardware and data.

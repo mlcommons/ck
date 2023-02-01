@@ -1,12 +1,12 @@
 # Tutorial: Automating Power Measurements for MLPerf inference using MLCommons CM (CK2)
 
-*Prepared by the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md) and [OctoML](https://octoml.ai)*.
+*Prepared by the [MLCommons taskforce on education and reproducibility](../taksforce.md) and [OctoML](https://octoml.ai)*.
 
 ## Requirements
 
 1. Power analyzer (any one [certified by SPEC PTDaemon](https://www.spec.org/power/docs/SPECpower-Device_List.html)). 
    Yokogawa is the one which most submitters have submitted with and a new single channel model like 310E can cost around 3000$.
-   The [MLCommons taskforce on education and reproducibility ](../mlperf-education-workgroup.md) 
+   The [MLCommons taskforce on education and reproducibility ](../taksforce.md) 
    is also using the [Yokogawa 310E](https://tmi.yokogawa.com/solutions/products/power-analyzers/digital-power-meter-wt300e/) 
    to automate and simplify MLPerf submissions.
 
@@ -100,4 +100,4 @@ cm run script --tags=run,docker,container --cm_repo=octoml@ck  \
 ## Further questions?
 
 If you have further questions, interested in our development roadmap or need help to automate, optimize and validate your MLPerf submission,
-feel free to get in touch with the [MLCommons taskforce on education and reproducibilty](../mlperf-education-workgroup.md).
+feel free to get in touch with the [MLCommons taskforce on education and reproducibilty](../taksforce.md).

@@ -65,6 +65,8 @@ new_env_keys:
   - CM_MLPERF_*
   - CM_DATASET_*
 
+new_state_keys:
+  - mlperf-inference-implementation
 
 # Dependencies on other CM scripts
 deps:
