@@ -181,21 +181,52 @@ Works on all tested versions
     <td rowspan="3">CUDA</td>
     <td>Onnxruntime</td>
     <td>fp32</td>
-    <td>?</td>
-    <td>Not tested</td>
-  </tr>
+   <td>✅</td>
+    <td>
+Works on all tested versions
+</td>  </tr>
   <tr>
     <td>Tensorflow</td>
     <td>fp32</td>
-    <td>?</td>
-    <td>Not tested</td>
-  </tr>
+   <td>✅</td>
+    <td>
+Works on all tested versions
+</td>  </tr>
   <tr>
     <td>Pytorch</td>
     <td>fp32</td>
-    <td>?</td>
-    <td>Not tested</td>
+   <td>✅</td>
+    <td>
+Works on all tested versions
+</td>  </tr>
+  
+  
+   <tr>
+    <td rowspan="1">Rnnt</td>
+    <td rowspan="1">CPU</td>
+    <td>Pytorch</td>
+    <td>fp32</td>
+    <td>✅</td>
+    <td>Works on all tested versions</td>
   </tr>
+  
+  <tr>
+    <td rowspan="2">DLRM</td>
+    <td>CPU</td>
+    <td>Pytorch</td>
+    <td>fp32</td>
+    <td>✅</td>
+    <td>Works with torch 1.10 and numpy 1.19</td>
+  </tr>
+  <tr>
+    
+    <td>CUDA</td>
+    <td>Pytorch</td>
+    <td>fp32</td>
+    <td>?</td>
+    <td>Needs GPU with high memory capacity</td>
+  </tr>
+
 </tbody>
 </table>
 
