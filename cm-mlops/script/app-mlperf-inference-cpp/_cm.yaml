@@ -24,6 +24,7 @@ default_env:
   CM_BATCH_COUNT: '1'
   CM_BATCH_SIZE: '1'
   CM_FAST_COMPILATION: "yes"
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: cpp
 
 
 # Map script inputs to environment variables
@@ -121,7 +122,10 @@ deps:
       - retinanet
     tags: get,ml-model,retinanet,_onnx,_fp32
 
-
+  # Creates user conf for given SUT
+  - tags: generate,user-conf,mlperf,inference
+    names:
+    - user-conf-generator
   
 
 # Post dependencies to compile and run this app
@@ -130,10 +134,16 @@ post_deps:
   - names:
     - compile-program
     tags: compile,cpp-program
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
 
   - names:
     - runner
     tags: benchmark,program
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
 
 
 # Variations to customize dependencies

@@ -4,6 +4,9 @@ import shutil
 
 def preprocess(i):
 
+    if env.get('CM_MLPERF_SKIP_RUN', '') == "yes"
+        return {'return':0}
+
     os_info = i['os_info']
 
     if os_info['platform'] == 'windows':

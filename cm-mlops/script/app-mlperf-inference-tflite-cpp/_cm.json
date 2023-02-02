@@ -122,6 +122,10 @@
     },
     {
       "tags": "get,tensorflow,lib,_tflite"
+    },
+    {
+      "tags": "generate,user-conf,mlperf,inference",
+      "names": [ "user-conf-generator" ]
     }
   ],
   "input_mapping": {
@@ -146,20 +150,31 @@
     "CM_ML_MODEL_SUBTRACT_MEANS": "1",
     "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
     "CM_MLPERF_LOADGEN_TRIGGER_COLD_RUN": "0",
-    "CM_VERBOSE": "0"
+    "CM_VERBOSE": "0",
+    "CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX": "tflite_cpp"
   },
   "post_deps": [
     {
       "names": [
         "compiler-program"
       ],
-      "tags": "compile,program"
+      "tags": "compile,program",
+      "skip_if_env": {
+        "CM_MLPERF_SKIP_RUN": [
+          "yes"
+        ]
+      }
     },
     {
       "names": [
         "runner"
       ],
-      "tags": "benchmark,program"
+      "tags": "benchmark,program",
+      "skip_if_env": {
+        "CM_MLPERF_SKIP_RUN": [
+          "yes"
+        ]
+      }
     }
   ],
   "tags": [

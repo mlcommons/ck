@@ -82,14 +82,22 @@ def generate_submission(i):
     system=i.get('system','default')
 
     code_path = os.path.join(path_submission, "code")
+
     for res in results:
         parts = res.split("-")
-        backend = parts[0]
-        target = parts[1]
-        framework = backend
+        if len(parts) > 4:
+            system = parts[0]
+            implementation = parts[1]
+            framework = parts[2]
+            framework_version = parts[3]
+            run_config = parts[4]
 
-        print('* Target: {}'.format(target))
-        print('* Framework: {}'.format(framework))
+            print('* System: {}'.format(system))
+            print('* Implementation: {}'.format(implementation))
+            print('* Framework: {}'.format(framework))
+            print('* Framework Version: {}'.format(framework_version))
+            print('* Run Config: {}'.format(run_config))
+
         result_path = os.path.join(results_dir, res)
         platform_prefix = inp.get('platform_prefix', '')
         if platform_prefix:
@@ -104,6 +112,7 @@ def generate_submission(i):
         if not os.path.isdir(submission_system_path):
             os.makedirs(submission_system_path)
         system_file = os.path.join(submission_system_path, sub_res+".json")
+
         with open(system_file, "w") as fp:
             json.dump(system_meta, fp, indent=2)
 

@@ -31,6 +31,8 @@ default_env:
   CM_MLPERF_RUN_STYLE: test
   CM_TEST_QUERY_COUNT: '10'
   CM_MLPERF_QUANTIZATION: off
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: reference
+  CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX: ''
 
 # Map script inputs to environment variables
 input_mapping:
@@ -113,6 +115,7 @@ deps:
       - tvm-onnx
       CM_MLPERF_DEVICE:
       - cpu
+
   ## Onnx CUDA Runtime
   - tags: get,generic-python-lib,_onnxruntime_gpu
     names:
@@ -127,6 +130,31 @@ deps:
       CM_MODEL:
       - 3d-unet-99
       - 3d-unet-99.9
+      - resnet50
+
+  ## resnet50 and 3d-unet need both onnxruntime and onnxruntime_gpu on cuda
+  - tags: get,generic-python-lib,_onnxruntime
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - gpu
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+      - resnet50
+  - tags: get,generic-python-lib,_onnxruntime_gpu
+    env:
+      CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS: ""
+    enable_if_env:
+      CM_MLPERF_BACKEND:
+      - onnxruntime
+      CM_MLPERF_DEVICE:
+      - gpu
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+      - resnet50
 
   ## Pytorch (CPU)
   - tags: get,generic-python-lib,_torch
@@ -189,77 +217,6 @@ deps:
       CM_MLPERF_BACKEND:
       - tf
       - tflite
-
-
-  ########################################################################
-  # Install MLPerf inference dependencies
-
-  # Install MLPerf loadgen
-  - tags: get,loadgen
-    names:
-    - loadgen
-
-  # Download MLPerf inference source
-  - tags: get,mlcommons,inference,src
-    names:
-    - inference-src
-
-  # Get SUT configs (System Under Test)
-  - tags: get,sut,configs
-
-
-  ########################################################################
-  # Install datasets
-
-  ## ImageNet (small for tests)
-  - tags: get,dataset,image-classification,imagenet,preprocessed
-    names: 
-    - imagenet-preprocessed
-    enable_if_env:
-      CM_MODEL:
-      - resnet50
-
-  - tags: get,dataset-aux,image-classification,imagenet-aux
-    enable_if_env:
-      CM_MODEL:
-      - resnet50
-
-  ## Open Images for RetinaNet
-  - tags: get,dataset,object-detection,open-images,openimages,preprocessed,_validation
-    names:
-    - openimages-preprocessed
-    enable_if_env:
-      CM_MODEL:
-      - retinanet
-
-  ## Squad for BERT
-  - tags: get,dataset,squad,original
-    enable_if_env:
-      CM_MODEL:
-      - bert-99
-      - bert-99.9
-
-  ## Kits19 for 3d-unet
-  - tags: get,dataset,kits19,preprocessed
-    enable_if_env:
-      CM_MODEL:
-      - 3d-unet-99
-      - 3d-unet-99.9
-
-  ## Librispeech for rnnt
-  - tags: get,dataset,librispeech,preprocessed
-    enable_if_env:
-      CM_MODEL:
-      - rnnt
-
-  ## Criteo for dlrm
-  - tags: get,dataset,criteo,preprocessed
-    names:
-    - criteo-preprocessed
-    enable_if_env:
-      CM_MODEL:
-      - dlrm-99
-      - dlrm-99.9
 
 
   ########################################################################
@@ -337,6 +294,79 @@ deps:
       - dlrm-99
       - dlrm-99.9
 
+  ########################################################################
+  # Install datasets
+
+  ## ImageNet (small for tests)
+  - tags: get,dataset,image-classification,imagenet,preprocessed
+    names:
+    - imagenet-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - resnet50
+
+  - tags: get,dataset-aux,image-classification,imagenet-aux
+    enable_if_env:
+      CM_MODEL:
+      - resnet50
+
+  ## Open Images for RetinaNet
+  - tags: get,dataset,object-detection,open-images,openimages,preprocessed,_validation
+    names:
+    - openimages-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - retinanet
+
+  ## Squad for BERT
+  - tags: get,dataset,squad,original
+    enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+
+  ## Kits19 for 3d-unet
+  - tags: get,dataset,kits19,preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+
+  ## Librispeech for rnnt
+  - tags: get,dataset,librispeech,preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - rnnt
+
+  ## Criteo for dlrm
+  - tags: get,dataset,criteo,preprocessed
+    names:
+    - criteo-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - dlrm-99
+      - dlrm-99.9
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+
+  # Creates user conf for given SUT
+  - tags: generate,user-conf,mlperf,inference
+    names:
+    - user-conf-generator
+
+  # Install MLPerf loadgen
+  - tags: get,loadgen
+    names:
+    - loadgen
+    - mlperf-inference-loadgen
+
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
+    names:
+    - inference-src
+
+
 posthook_deps: 
   - names:
     - runner
@@ -373,7 +403,14 @@ variations:
         tags: raw,_onnx
     env:
       CM_MLPERF_BACKEND: onnxruntime
+
+  onnxruntime,cpu:
+    env:
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
+
+  onnxruntime,cuda:
+    env:
+      CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_GPU_VERSION>>>
 
   pytorch:
     group: framework
@@ -497,16 +534,6 @@ variations:
     env:
       CM_TMP_IGNORE_MLPERF_QUERY_COUNT: "yes"
       CM_MLPERF_MODEL_SKIP_BATCHING: "yes"
-    deps:
-    - tags: get,generic-python-lib,_onnxruntime
-    - tags: get,generic-python-lib,_onnxruntime_gpu
-      env:
-        CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS: ""
-      enable_if_env:
-        CM_MLPERF_BACKEND:
-        - onnxruntime
-        CM_MLPERF_DEVICE:
-        - gpu
 
   dlrm-99.9:
     group: models

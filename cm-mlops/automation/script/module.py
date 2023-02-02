@@ -3209,7 +3209,7 @@ def enable_or_skip_script(meta, env):
     return True
 
 ############################################################################################################
-def update_env_with_values(env):
+def update_env_with_values(env, fail_on_not_found=False):
     """
     Update any env key used as part of values in meta
     """
@@ -3237,10 +3237,10 @@ def update_env_with_values(env):
             continue
 
         for tmp_value in tmp_values:
-            if tmp_value not in env:
+            if tmp_value not in env and fail_on_not_found:
                 return {'return':1, 'error':'variable {} is not in env'.format(tmp_value)}
-
-            value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
+            if tmp_value in env:
+                value = value.replace("<<<"+tmp_value+">>>", str(env[tmp_value]))
 
         env[key] = value
 

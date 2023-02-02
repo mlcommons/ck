@@ -29,6 +29,7 @@ default_env:
   CM_SKIP_PREPROCESS_DATASET: no
   CM_SKIP_MODEL_DOWNLOAD: no
   CM_MLPERF_NVIDIA_RUN_COMMAND: run
+  CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: nvidia_original
 
 # Map script inputs to environment variables
 input_mapping:
@@ -90,27 +91,6 @@ deps:
   # Build nvidia inference server
   - tags: build,nvidia,inference,server
 
-# Post dependencies to run this app including for power measurement
-post_deps:
-
-  - names:
-    - runner
-    tags: benchmark,program
-
-
-  ########################################################################
-  # Install MLPerf inference dependencies
-  
-  # Download MLPerf inference source
-  - tags: get,mlcommons,inference,src
-    names:
-    - inference-src
-
-  # Download Nvidia Submission Code
-  - tags: get,nvidia,mlperf,inference,common-code,_custom
-    names:
-    - nvidia-inference-common-code
-
 
   ########################################################################
   # Install ResNet50 model (ONNX) and ImageNet
@@ -130,6 +110,13 @@ post_deps:
       CM_MODEL:
       - retinanet
     names:
+      - ml-model-retinanet
+    tags: get,ml-model,nvidia-retinanet,_efficient-nms
+
+  - enable_if_env:
+      CM_MODEL:
+      - retinanet
+    names:
       - openimages-original
     tags: get,dataset,original,openimages,_validation,_full
 
@@ -141,12 +128,35 @@ post_deps:
     tags: get,dataset,original,openimages,_calibration
 
 
-  - enable_if_env:
-      CM_MODEL:
-      - retinanet
+
+  ########################################################################
+  # Install MLPerf inference dependencies
+
+  # Download MLPerf inference source
+  - tags: get,mlcommons,inference,src
     names:
-      - ml-model-retinanet
-    tags: get,ml-model,nvidia-retinanet,_efficient-nms
+    - inference-src
+
+  # Download Nvidia Submission Code
+  - tags: get,nvidia,mlperf,inference,common-code,_custom
+    names:
+    - nvidia-inference-common-code
+
+  # Creates user conf for given SUT
+  - tags: generate,user-conf,mlperf,inference
+    names:
+    - user-conf-generator
+
+# Post dependencies to run this app including for power measurement
+post_deps:
+
+  - names:
+    - runner
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+        - yes
+    tags: benchmark,program
+
 
 # Variations to customize dependencies
 variations:

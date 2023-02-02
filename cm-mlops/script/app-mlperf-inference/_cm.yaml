@@ -109,11 +109,6 @@ deps:
     names:
     - inference-src
 
-  # Get SUT configs (System Under Test)
-  - tags: get,sut,configs
-
-
-
 # Order of variations for documentation
 variation_groups_order:
   - implementation

@@ -45,20 +45,6 @@ def preprocess(i):
 
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  env['CM_MLPERF_LOADGEN_QPS_OPT']
 
-    if 'OUTPUT_BASE_DIR' not in env:
-        if env['CM_MODEL'] in ['resnet50', 'retinanet']:
-            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH']
-        elif "bert" in env['CM_MODEL']:
-            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_BERT_PATH']
-        elif "3d-unet" in env['CM_MODEL']:
-            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_3DUNET_PATH']
-        elif "dlrm" in env['CM_MODEL']:
-            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_DLRM_PATH']
-        elif env['CM_MODEL'] == "rnnt":
-            env['OUTPUT_BASE_DIR'] = env['CM_MLPERF_INFERENCE_RNNT_PATH']
-        else:
-            env['OUTPUT_BASE_DIR'] = os.getcwd()
-
     if 'CM_NUM_THREADS' not in env:
         if 'CM_MINIMIZE_THREADS' in env:
             env['CM_NUM_THREADS'] = str(int(env['CM_HOST_CPU_TOTAL_CORES']) // \
@@ -80,9 +66,6 @@ def preprocess(i):
 
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
 
-    '''
-    env['DATA_DIR'] = env.get('CM_DATASET_PREPROCESSED_PATH')
-    if not env['DATA_DIR']:'''
     env['MODEL_DIR'] = env['CM_ML_MODEL_PATH']
 
     RUN_CMD = ""
@@ -96,14 +79,10 @@ def preprocess(i):
     scenario_extra_options = ''
 
     NUM_THREADS = env['CM_NUM_THREADS']
-    if scenario == "SingleStream":
-        NUM_THREADS = "1"
-    if scenario == "MultiStream":
-        if int(env['CM_NUM_THREADS']) > 8:
-            NUM_THREADS = "8"
 
     if env['CM_MODEL'] in  [ 'resnet50', 'retinanet'] :
         scenario_extra_options +=  " --threads " + NUM_THREADS
+
     ml_model_name = env['CM_MODEL']
     if 'CM_MLPERF_USER_CONF' in env:
         user_conf_path = env['CM_MLPERF_USER_CONF']
@@ -126,30 +105,23 @@ def preprocess(i):
         env['DATA_DIR'] = env.get('CM_DATASET_PATH')
         dataset_options = ''
 
-    OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'], \
-            env['CM_MODEL'], scenario.lower(), mode)
     if mode == "accuracy":
         mode_extra_options += " --accuracy"
-    elif mode == "performance":
-        OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
-    elif mode == "compliance":
-        test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
-        OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], env['CM_MLPERF_BACKEND'] \
-                + "-" + env['CM_MLPERF_DEVICE'], env['CM_MODEL'], scenario.lower(), test)
-        if test == "TEST01":
-            audit_path = os.path.join(test, env['CM_MODEL'])
-        else:
-            audit_path = test
 
-        audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", audit_path, "audit.config")
+    elif mode == "performance":
+        pass
+
+    elif mode == "compliance":
+
+        audit_full_path = env['CM_MLPERF_INFERENCE_AUDIT_PATH']
         mode_extra_options = " --audit '" + audit_full_path + "'"
 
-    if not env.get('CM_MLPERF_OUTPUT_DIR'):
-        env['CM_MLPERF_OUTPUT_DIR'] = OUTPUT_DIR
+    if env.get('CM_MLPERF_OUTPUT_DIR', '') == '':
+        env['CM_MLPERF_OUTPUT_DIR'] = os.getcwd()
 
     mlperf_implementation = env.get('CM_MLPERF_IMPLEMENTATION', 'reference') 
     cmd = get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, mlperf_implementation)
-    os.makedirs(OUTPUT_DIR, exist_ok=True)
+
     env['CM_MLPERF_RUN_CMD'] = cmd
     env['CM_RUN_DIR'] = os.getcwd()
     env['CM_RUN_CMD'] = cmd
