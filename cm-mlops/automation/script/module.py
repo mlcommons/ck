@@ -2172,6 +2172,11 @@ class CAutomation(Automation):
                 if inherit_variation_tags:
                     d['tags']+=","+variation_tags_string #deps should have non-empty tags
 
+                update_tags_from_env = d.get("update_tags_from_env", [])
+                for t in update_tags_from_env:
+                    if t in env:
+                        d['tags']+=","+env[t]
+
                 run_state['deps'].append(d['tags'])
 
                 if not run_state['fake_deps']:

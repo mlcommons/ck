@@ -25,7 +25,8 @@
     "CM_EXTRACT_FOLDER": "efficientnet-<<<CM_ML_MODEL_EFFICIENTNET_LITE_KIND>>>"
   },
   "new_env_keys": [
-    "CM_ML_MODEL_*"
+    "CM_ML_MODEL_*",
+    "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
   ],
   "tags": [
     "get",
@@ -90,7 +91,8 @@
       "env": {
         "CM_ML_MODEL_IMAGE_HEIGHT": "300",
         "CM_ML_MODEL_IMAGE_WIDTH": "300",
-        "CM_ML_MODEL_MOBILENET_RESOLUTION": "300"
+        "CM_ML_MODEL_MOBILENET_RESOLUTION": "300",
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS": "_resolution.300"
       },
       "group": "resolution"
     },
@@ -98,7 +100,8 @@
       "env": {
         "CM_ML_MODEL_IMAGE_HEIGHT": "280",
         "CM_ML_MODEL_IMAGE_WIDTH": "280",
-        "CM_ML_MODEL_MOBILENET_RESOLUTION": "280"
+        "CM_ML_MODEL_MOBILENET_RESOLUTION": "280",
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS": "_resolution.280"
       },
       "group": "resolution"
     },
@@ -106,7 +109,8 @@
       "env": {
         "CM_ML_MODEL_IMAGE_HEIGHT": "260",
         "CM_ML_MODEL_IMAGE_WIDTH": "260",
-        "CM_ML_MODEL_MOBILENET_RESOLUTION": "260"
+        "CM_ML_MODEL_MOBILENET_RESOLUTION": "260",
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS": "_resolution.260"
       },
       "group": "resolution"
     },
@@ -114,7 +118,8 @@
       "env": {
         "CM_ML_MODEL_IMAGE_HEIGHT": "240",
         "CM_ML_MODEL_IMAGE_WIDTH": "240",
-        "CM_ML_MODEL_MOBILENET_RESOLUTION": "240"
+        "CM_ML_MODEL_MOBILENET_RESOLUTION": "240",
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS": "_resolution.240"
       },
       "group": "resolution"
     },
@@ -123,7 +128,8 @@
       "env": {
         "CM_ML_MODEL_IMAGE_HEIGHT": "224",
         "CM_ML_MODEL_IMAGE_WIDTH": "224",
-        "CM_ML_MODEL_MOBILENET_RESOLUTION": "224"
+        "CM_ML_MODEL_MOBILENET_RESOLUTION": "224",
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS": "_resolution.224"
       },
       "group": "resolution"
     }
