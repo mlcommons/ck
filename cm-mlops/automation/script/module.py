@@ -767,6 +767,7 @@ class CAutomation(Automation):
         if valid_variation_combinations:
             if not any ( all(t in variation_tags for t in s) for s in valid_variation_combinations):
                 return {'return': 1, 'error': 'Invalid variation combination "{}" prepared. Valid combinations: "{}" '.format(variation_tags, valid_variation_combinations)}
+
         invalid_variation_combinations = meta.get('invalid_variation_combinations', [])
         if invalid_variation_combinations:
             if any ( all(t in variation_tags for t in s) for s in invalid_variation_combinations):

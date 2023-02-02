@@ -133,18 +133,16 @@
     },
     "tf,v1": {
       "env": {
-        "CM_ML_MODEL_VER": "1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_2018_08_02",
+        "CM_ML_MODEL_VER": "1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>_2018_08_02",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV1/Predictions/Reshape_1",
-        "CM_ML_MODEL_WEIGHTS_FILE": "mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.ckpt",
-        "CM_ML_MODEL_FILE": "mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.tflite"
+        "CM_ML_MODEL_WEIGHTS_FILE": "mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>.ckpt.data-00000-of-00001",
+        "CM_ML_MODEL_FILE": "mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>.tflite"
       }
     },
     "tf,v2": {
       "env": {
         "CM_ML_MODEL_VER": "12_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>",
-        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV2/Predictions/Reshape_1",
-        "CM_ML_MODEL_WEIGHTS_FILE": "mobilenet_v2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.ckpt.data-00000-of-00001",
-        "CM_ML_MODEL_FILE": "mobilenet_v2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.tflite"
+        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV2/Predictions/Reshape_1"
       }
     },
     "tf,v3": {
@@ -280,12 +278,16 @@
     "tf,from.google,v2,quantized_": {
       "env": {
         "CM_PACKAGE_URL": "https://storage.googleapis.com/mobilenet_v2/checkpoints/<<<CM_ML_MODEL_MOBILENET_NAME_PREFIX>>>_v2_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE>>>.tgz",
+        "CM_ML_MODEL_WEIGHTS_FILE": "<<<CM_ML_MODEL_MOBILENET_NAME_PREFIX>>>_v2_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE>>>.ckpt.data-00000-of-00001",
+        "CM_ML_MODEL_FILE": "<<<CM_ML_MODEL_MOBILENET_NAME_PREFIX>>>_v2_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE>>>.tflite",
         "CM_UNTAR": "yes"
       }
     },
     "tf,from.google,v2,fp32": {
       "env": {
         "CM_PACKAGE_URL": "https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.tgz",
+        "CM_ML_MODEL_WEIGHTS_FILE": "mobilenet_v2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.ckpt.data-00000-of-00001",
+        "CM_ML_MODEL_FILE": "mobilenet_v2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.tflite",
         "CM_UNTAR": "yes"
       }
     },
