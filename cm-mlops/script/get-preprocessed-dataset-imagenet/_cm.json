@@ -113,6 +113,7 @@
       }
     },
     "size.#": {
+      "group": "size",
       "add_deps": {
         "original-dataset": {
           "tags": "_#"
