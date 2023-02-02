@@ -558,7 +558,7 @@ variations:
     env:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '#'
     add_deps_recursive:
-      tvm-model:
+      mlperf-inference-implementation:
         tags: _batch_size.#
 
   # Reproducibility (past submissions)
