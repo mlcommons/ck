@@ -58,30 +58,35 @@
     },
     "lite0": {
       "default": true,
+      "base": [ "resolution-224" ],
       "env": {
         "CM_ML_MODEL_EFFICIENTNET_LITE_KIND": "lite0"
       },
       "group": "kind"
     },
     "lite1": {
+      "base": [ "resolution-240" ],
       "env": {
         "CM_ML_MODEL_EFFICIENTNET_LITE_KIND": "lite1"
       },
       "group": "kind"
     },
     "lite2": {
+      "base": [ "resolution-260" ],
       "env": {
         "CM_ML_MODEL_EFFICIENTNET_LITE_KIND": "lite2"
       },
       "group": "kind"
     },
     "lite3": {
+      "base": [ "resolution-280" ],
       "env": {
         "CM_ML_MODEL_EFFICIENTNET_LITE_KIND": "lite3"
       },
       "group": "kind"
     },
     "lite4": {
+      "base": [ "resolution-300" ],
       "env": {
         "CM_ML_MODEL_EFFICIENTNET_LITE_KIND": "lite4"
       },
