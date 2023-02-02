@@ -2185,7 +2185,7 @@ class CAutomation(Automation):
 
                 update_tags_from_env = d.get("update_tags_from_env", [])
                 for t in update_tags_from_env:
-                    if t in env:
+                    if env.get(t, '').strip() != '':
                         d['tags']+=","+env[t]
 
                 run_state['deps'].append(d['tags'])
