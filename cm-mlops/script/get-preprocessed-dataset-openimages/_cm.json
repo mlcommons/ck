@@ -63,6 +63,7 @@
   "uid": "9842f1be8cba4c7b",
   "variations": {
     "size.#": {
+      "group": "dataset-count",
       "env": {
         "CM_DATASET_SIZE": "#"
       },
