@@ -85,15 +85,17 @@ def generate_submission(i):
 
     for res in results:
         parts = res.split("-")
-        if len(parts) > 4:
+        if len(parts) > 5: #result folder structure using by CM script
             system = parts[0]
             implementation = parts[1]
-            framework = parts[2]
-            framework_version = parts[3]
-            run_config = parts[4]
+            device = parts[2]
+            framework = parts[3]
+            framework_version = parts[4]
+            run_config = parts[5]
 
             print('* System: {}'.format(system))
             print('* Implementation: {}'.format(implementation))
+            print('* Device: {}'.format(device))
             print('* Framework: {}'.format(framework))
             print('* Framework Version: {}'.format(framework_version))
             print('* Run Config: {}'.format(run_config))
