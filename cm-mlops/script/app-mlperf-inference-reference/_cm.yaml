@@ -625,6 +625,10 @@ variations:
   batch_size.#:
     env:
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: "#"
+    add_deps_recursive:
+      ml-model:
+        tags:
+          _batch_size.#
 
   # Reproducibility (past submissions)
   r2.1_default:
