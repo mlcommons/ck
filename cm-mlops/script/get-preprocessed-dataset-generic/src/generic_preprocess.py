@@ -159,7 +159,7 @@ def preprocess():
     if given_channel_means:
         given_channel_means = [ float(x) for x in given_channel_means.split(' ') ]
 
-    interpolation_method    = os.getenv('CM_INTERPOLATION_METHOD', '')
+    interpolation_method    = os.getenv('CM_DATASET_INTERPOLATION_METHOD', '')
 
     print(("From: {}, To: {}, Size: {}, Crop: {}, InterSize: {}, 2BGR: {}, OFF: {}, VOL: '{}', FOF: {},"+
         " DTYPE: {}, DLAYOUT: {}, EXT: {}, NORM: {}, SMEAN: {}, GCM: {}, QUANTIZE: {}, QUANT_SCALE: {}, QUANT_OFFSET: {}, CONV_UNSIGNED: {}, INTER: {}").format(

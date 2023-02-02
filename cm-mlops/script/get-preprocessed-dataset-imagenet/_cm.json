@@ -112,6 +112,17 @@
         "CM_DATASET_SIZE": "500"
       }
     },
+    "size.#": {
+      "group": "size",
+      "add_deps": {
+        "original-dataset": {
+          "tags": "_#"
+        }
+      },
+      "env": {
+        "CM_DATASET_SIZE": "#"
+      }
+    },
     "full": {
       "group": "size",
       "add_deps": {
@@ -136,71 +147,125 @@
         "CM_DATASET_DATA_LAYOUT": "NHWC"
       }
     },
-    "for.resnet50-quantized": {
-      "default_variations": {
-        "preprocessing-source": "generic-preprocessor"
-      },
+    "resnet50_": {
       "env": {
-        "CM_MODEL": "resnet50",
-        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb8",
-        "CM_DATASET_NORMALIZE_DATA": "0",
-        "CM_DATASET_SUBTRACT_MEANS": "1",
-        "CM_DATASET_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
-        "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA",
-        "CM_DATASET_DATA_TYPE": "int8",
-        "CM_DATASET_QUANT_SCALE": "1.18944883",
-        "CM_DATASET_QUANT_OFFSET": "0",
+        "CM_MODEL": "resnet50"
+      },
+      "default_variations": {
+        "preprocessing-source": "generic-preprocessor",
+        "interpolation-method": "inter.area",
+        "extension": "rgb32",
+        "precision": "float32"
+      }
+    },
+    "mobilenet_": {
+      "env": {
+        "CM_MODEL": "mobilenet"
+      },
+      "default_variations": {
+        "preprocessing-source": "generic-preprocessor",
+        "interpolation-method": "inter.linear",
+        "extension": "rgb32",
+        "precision": "int8"
+      }
+    },
+    "float32": {
+      "group": "precision",
+      "env": {
+        "CM_DATASET_DATA_TYPE": "float32",
+        "CM_DATASET_QUANTIZE": "0"
+      }
+    },
+    "uint8": {
+      "group": "precision",
+      "env": {
+        "CM_DATASET_DATA_TYPE": "uint8",
         "CM_DATASET_QUANTIZE": "1",
         "CM_DATASET_CONVERT_TO_UNSIGNED": "1"
       }
     },
-    "for.resnet50": {
-      "group": "model",
-      "default_variations": {
-        "preprocessing-source": "generic-preprocessor"
-      },
+    "int8": {
+      "group": "precision",
       "env": {
-        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb32",
+        "CM_DATASET_DATA_TYPE": "int8",
+        "CM_DATASET_QUANTIZE": "1",
+        "CM_DATASET_CONVERT_TO_UNSIGNED": "0"
+      }
+    },
+    "for.resnet50": {
+      "base": [ "resnet50_" ],
+      "group": "model",
+      "env": {
+      }
+    },
+    "for.resnet50,uint8": {
+      "env": {
+        "CM_DATASET_NORMALIZE_DATA": "0",
+        "CM_DATASET_SUBTRACT_MEANS": "1",
+        "CM_DATASET_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
+        "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA",
+        "CM_DATASET_QUANT_SCALE": "1.18944883",
+        "CM_DATASET_QUANT_OFFSET": "0"
+      }
+    },
+    "for.resnet50,float32": {
+      "env": {
         "CM_DATASET_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
         "CM_DATASET_SUBTRACT_MEANS": "1",
-        "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA",
-        "CM_DATASET_QUANTIZE": "0",
-        "CM_DATASET_DATA_TYPE": "float32",
-        "CM_MODEL": "resnet50"
+        "CM_DATASET_NORMALIZE_DATA": "0"
       }
     },
-    "for.resnet50-rgb8": {
-      "group": "model",
-      "default_variations": {
-        "preprocessing-source": "generic-preprocessor"
-      },
+    "for.resnet50,rgb8": {
       "env": {
-        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb8",
         "CM_DATASET_GIVEN_CHANNEL_MEANS": "",
-        "CM_DATASET_SUBTRACT_MEAN": "0",
-        "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA",
-        "CM_DATASET_QUANTIZE": "0",
-        "CM_DATASET_DATA_TYPE": "int8",
-        "CM_MODEL": "resnet50"
-      }
-    },
-    "for.mobilenet-quantized": {
-      "group": "model",
-      "default_variations": {
-        "preprocessing-source": "generic-preprocessor"
-      },
-      "env": {
-        "CM_DATASET_QUANTIZE": "1"
+        "CM_DATASET_SUBTRACT_MEANS": "0",
+        "CM_DATASET_NORMALIZE_DATA": "0",
+        "CM_DATASET_QUANTIZE": "0"
       }
     },
     "for.mobilenet": {
+      "base": [ "mobilenet_" ],
       "group": "model",
-      "default_variations": {
-        "preprocessing-source": "generic-preprocessor"
-      },
+      "env": {
+      }
+    },
+    "for.mobilenet,float32": {
       "env": {
         "CM_DATASET_QUANTIZE": "0",
-        "CM_MODEL": "mobilenet"
+        "CM_DATASET_GIVEN_CHANNEL_MEANS": "",
+        "CM_DATASET_NORMALIZE_DATA": "1",
+        "CM_DATASET_SUBTRACT_MEANS": "0"
+      }
+    },
+    "for.mobilenet,rgb8": {
+      "env": {
+        "CM_DATASET_SUBTRACT_MEANS": "0",
+        "CM_DATASET_QUANTIZE": "0",
+        "CM_DATASET_NORMALIZE_DATA": "1"
+      }
+    },
+    "rgb8": {
+      "group": "extension",
+      "env": {
+        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb8"
+      }
+    },
+    "rgb32": {
+      "group": "extension",
+      "env": {
+        "CM_DATASET_PREPROCESSED_EXTENSION": "rgb32"
+      }
+    },
+    "inter.linear": {
+      "group": "interpolation-method",
+      "env": {
+        "CM_DATASET_INTERPOLATION_METHOD": "INTER_LINEAR"
+      }
+    },
+    "inter.area": {
+      "group": "interpolation-method",
+      "env": {
+        "CM_DATASET_INTERPOLATION_METHOD": "INTER_AREA"
       }
     },
     "generic-preprocessor": {
@@ -218,6 +283,11 @@
       "group": "preprocessing-source",
       "env": {
         "CM_DATASET_REFERENCE_PREPROCESSOR": "1"
+      }
+    },
+    "resolution.#": {
+      "env": {
+        "CM_DATASET_INPUT_SQUARE_SIDE": "#"
       }
     }
   }

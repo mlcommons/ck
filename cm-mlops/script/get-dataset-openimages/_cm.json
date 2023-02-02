@@ -81,6 +81,11 @@
         "CM_DATASET_CALIBRATION": "no"
       }
     },
+    "size.#": {
+      "env": {
+        "CM_DATASET_SIZE": "#"
+      }
+    },
     "500": {
       "env": {
         "CM_DATASET_SIZE": "500"
@@ -89,16 +94,6 @@
     "50": {
       "env": {
         "CM_DATASET_SIZE": "50"
-      }
-    },
-    "5": {
-      "env": {
-        "CM_DATASET_SIZE": "5"
-      }
-    },
-    "1": {
-      "env": {
-        "CM_DATASET_SIZE": "1"
       }
     },
     "full": {

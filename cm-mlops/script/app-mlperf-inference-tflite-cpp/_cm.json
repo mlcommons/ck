@@ -36,26 +36,14 @@
     {
       "enable_if_env": {
         "CM_MODEL": [
-          "resnet50"
-        ]
-      },
-      "skip_if_env": {
-        "CM_DATASET_COMPRESSED": [
-          "on"
-        ]
-      },
-      "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_NHWC"
-    },
-    {
-      "enable_if_env": {
-        "CM_MODEL": [
-          "resnet50"
+          "mobilenet"
         ],
-        "CM_DATASET_COMPRESSED": [
-          "on"
+        "CM_MLPERF_BACKEND": [
+          "tflite"
         ]
       },
-      "tags": "get,dataset,preprocessed,imagenet,_for.resnet50-rgb8,_NHWC"
+      "tags": "get,ml-model,mobilenet,raw,_tflite",
+      "names": [ "ml-model", "tflite-model", "mobilenet-model" ]
     },
     {
       "enable_if_env": {
@@ -66,7 +54,8 @@
           "tflite"
         ]
       },
-      "tags": "get,ml-model,resnet50,raw,_tflite,_no-argmax"
+      "tags": "get,ml-model,resnet50,raw,_tflite,_no-argmax",
+      "names": [ "ml-model", "tflite-model", "resnet50-model" ]
     },
     {
       "enable_if_env": {
@@ -77,7 +66,59 @@
           "tf"
         ]
       },
-      "tags": "get,ml-model,resnet50,raw,_tf"
+      "tags": "get,ml-model,resnet50,raw,_tf",
+      "names": [ "ml-model", "tflite-model", "resnet50-model" ]
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "efficientnet"
+        ],
+        "CM_MLPERF_BACKEND": [
+          "tflite"
+        ]
+      },
+      "tags": "get,ml-model,efficientnet,raw,_tflite",
+      "names": [ "ml-model", "tflite-model", "efficientnet-model" ]
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "resnet50"
+        ]
+      },
+      "skip_if_env": {
+        "CM_DATASET_COMPRESSED": [
+          "on"
+        ]
+      },
+      "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb32,_NHWC",
+      "names": [ "imagenet-preprocessed" ]
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "mobilenet",
+          "efficientnet"
+        ]
+      },
+      "update_tags_from_env": [
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
+      ],
+      "tags": "get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb32,_NHWC",
+      "names": [ "imagenet-preprocessed" ]
+    },
+    {
+      "enable_if_env": {
+        "CM_MODEL": [
+          "resnet50"
+        ],
+        "CM_DATASET_COMPRESSED": [
+          "on"
+        ]
+      },
+      "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb8,_NHWC",
+      "names": [ "imagenet-preprocessed" ]
     },
     {
       "tags": "get,tensorflow,lib,_tflite"
@@ -157,6 +198,12 @@
         "CM_MODEL": "mobilenet"
       }
     },
+    "efficientnet": {
+      "group": "model",
+      "env": {
+        "CM_MODEL": "efficientnet"
+      }
+    },
     "tf": {
       "group": "backend",
       "env": {
@@ -168,6 +215,49 @@
       "default": true,
       "env": {
         "CM_MLPERF_BACKEND": "tflite"
+      }
+    },
+    "fp32": {
+      "group": "precision",
+      "default": true,
+      "env": {
+        "CM_MLPERF_MODEL_PRECISION": "float32"
+      },
+      "adr": {
+        "ml-model": {
+          "tags": "_fp32"
+        },
+        "preprocessed-dataset": {
+          "tags": "_fp32"
+        }
+      }
+    },
+    "uint8": {
+      "group": "precision",
+      "env": {
+        "CM_MLPERF_MODEL_PRECISION": "uint8"
+      },
+      "adr": {
+        "ml-model": {
+          "tags": "_uint8"
+        },
+        "preprocessed-dataset": {
+          "tags": "_int8"
+        }
+      }
+    },
+    "int8": {
+      "group": "precision",
+      "env": {
+        "CM_MLPERF_MODEL_PRECISION": "int8"
+      },
+      "adr": {
+        "ml-model": {
+          "tags": "_int8"
+        },
+        "preprocessed-dataset": {
+          "tags": "_int8"
+        }
       }
     }
   }

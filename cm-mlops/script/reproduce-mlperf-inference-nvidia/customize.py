@@ -78,10 +78,17 @@ def preprocess(i):
     if not env.get('CM_SKIP_PREPROCESS_DATASET', 'no') == "yes":
         cmds.append(f"make preprocess_data BENCHMARKS='{model_name}'")
     scenario=env['CM_MLPERF_LOADGEN_SCENARIO'].lower()
+
     if env['CM_MLPERF_LOADGEN_MODE'] == "accuracy":
         test_mode = "AccuracyOnly"
     elif env['CM_MLPERF_LOADGEN_MODE'] == "performance":
         test_mode = "PerformanceOnly"
+    elif env['CM_MLPERF_LOADGEN_MODE'] == "compliance":
+        test_mode = ""
+        test_name = env.get('CM_MLPERF_LOADGEN_COMPLIANCE_TEST', 'test01').lower()
+        env['CM_MLPERF_NVIDIA_RUN_COMMAND'] = "run_audit_{}_once".format(test_name)
+    else:
+        return {'return': 1, 'error': 'Unsupported mode: {}'.format(env['CM_MLPERF_LOADGEN_MODE'])}
 
     run_config = ''
 
@@ -177,7 +184,12 @@ def preprocess(i):
 
     make_command = env.get('CM_MLPERF_NVIDIA_RUN_COMMAND', 'run')
 
-    cmds.append(f"make {make_command} RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} --test_mode={test_mode} {run_config}'")
+    if test_mode:
+        test_mode_string = " --test_mode={}".format(test_mode)
+    else:
+        test_mode_string = ""
+
+    cmds.append(f"make {make_command} RUN_ARGS=' --benchmarks={model_name} --scenarios={scenario} {test_mode_string} {run_config}'")
     #print(cmds)
     run_cmd = " && ".join(cmds)
     env['CM_MLPERF_RUN_CMD'] = run_cmd

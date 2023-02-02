@@ -125,6 +125,7 @@ def preprocess(i):
     else:
         env['DATA_DIR'] = env.get('CM_DATASET_PATH')
         dataset_options = ''
+
     OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'], \
             env['CM_MODEL'], scenario.lower(), mode)
     if mode == "accuracy":
@@ -132,7 +133,7 @@ def preprocess(i):
     elif mode == "performance":
         OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
     elif mode == "compliance":
-        test = env.get("CM_MLPERF_LOADGEN_COMPIANCE_TEST", "TEST01")
+        test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
         OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], env['CM_MLPERF_BACKEND'] \
                 + "-" + env['CM_MLPERF_DEVICE'], env['CM_MODEL'], scenario.lower(), test)
         if test == "TEST01":
@@ -140,7 +141,7 @@ def preprocess(i):
         else:
             audit_path = test
 
-        audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", audit_path, "audit.config")
+        audit_full_path = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", audit_path, "audit.config")
         mode_extra_options = " --audit '" + audit_full_path + "'"
 
     if not env.get('CM_MLPERF_OUTPUT_DIR'):
@@ -253,4 +254,30 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
     return cmd
 
 def postprocess(i):
+
+    env = i['env']
+
+    if env.get('CM_MLPERF_README', 'no') == "yes":
+        import cmind as cm
+        inp = i['input']
+        state = i['state']
+        script_tags = inp['tags']
+        script_adr = inp.get('add_deps_recursive', inp.get('adr', {}))
+
+        cm_input = {'action': 'run',
+                'automation': 'script',
+                'tags': script_tags,
+                'adr': script_adr,
+                'print_deps': True,
+                'quiet': True,
+                'silent': True,
+                'fake_run': True
+                }
+        r = cm.access(cm_input)
+        if r['return'] > 0:
+            return r
+
+        state['mlperf-inference-implementation'] = {}
+        state['mlperf-inference-implementation']['print_deps'] = r['new_state']['print_deps']
+
     return {'return':0}

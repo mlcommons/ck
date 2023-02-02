@@ -4,7 +4,7 @@
 * V2.6.2
   * printing note that this framework is discontinued and the next generation of this framework (CK2 aka CM)
     is being developed by the open taskforce on education and reproducibility at MLCommons:
-    https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md
+    https://github.com/mlcommons/ck/blob/master/docs/taskforce.md
 
 * V2.6.1:
   * fixed convert_json_str_to_dict func to support Python 3.9+

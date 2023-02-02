@@ -28,6 +28,9 @@
         "inference-src"
       ],
       "tags": "get,mlcommons,inference,src"
+    },
+    {
+      "tags": "get,sut,description"
     }
   ],
   "default_env": {
@@ -45,11 +48,14 @@
     "submitter": "CM_MLPERF_SUBMITTER",
     "backend": "CM_MLPERF_BACKEND",
     "model": "CM_MLPERF_MODEL",
+    "compliance": "CM_MLPERF_LOADGEN_COMPLIANCE",
     "run_style": "CM_MLPERF_EXECUTION_MODE",
     "execution_mode": "CM_MLPERF_EXECUTION_MODE",
     "rerun": "CM_RERUN",
     "hw_name": "CM_HW_NAME",
     "mode": "CM_MLPERF_LOADGEN_MODE",
+    "system_type": "CM_MLPERF_SUBMISSION_SYSTEM_TYPE",
+    "division": "CM_MLPERF_SUBMISSION_DIVISION",
     "output_dir": "OUTPUT_BASE_DIR",
     "results_dir": "OUTPUT_BASE_DIR",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
@@ -88,11 +94,6 @@
       }
     },
     "all-scenarios": {
-      "deps": [
-        {
-          "tags": "get,sut,description"
-        }
-      ],
       "env": {
         "CM_MLPERF_LOADGEN_ALL_SCENARIOS": "yes"
       }
@@ -114,9 +115,6 @@
         "CM_RUN_MLPERF_ACCURACY": "on"
       },
       "post_deps": [
-        {
-          "tags": "get,sut,description"
-        },
         {
           "tags": "generate,mlperf,inference,submission",
           "names": [
@@ -141,6 +139,14 @@
       "group": "submission-generation-style",
       "env": {
         "CM_MLPERF_SUBMISSION_GENERATION_STYLE": "full"
+      },
+      "add_deps_recursive": {
+        "openimages-preprocessed": {
+          "tags": "_full"
+        },
+        "imagenet-preprocessed": {
+          "tags": "_full"
+        }
       }
     },
     "dashboard": {

@@ -2,7 +2,7 @@
 <br>
 <br>
 
-**Note, that this CK-MLPerf documentation is discontinued after the [open MLCommons taskforce](../../../docs/mlperf-education-workgroup.md)
+**Note, that this CK-MLPerf documentation is discontinued after the [open MLCommons taskforce](../../../docs/taskforce.md)
   has released the [2nd generaton of the CK framework (CK2 or CM)](https://github.com/mlcommons/ck/tree/master/cm)
   to decompose MLPerf benchmark into a [database of reusable, portable, customizable and deterministic scripts](https://github.com/mlcommons/ck/tree/master/cm-mlops/script) 
   with a unified CLI, Python API and extensible JSON/YAML meta descriptions.**

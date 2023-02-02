@@ -5,13 +5,12 @@
   "cache": true,
   "category": "ML/AI models",
   "default_variation": "onnx",
-  "env": {
+  "default_env": {
     "CM_ML_MODEL": "mobilenet",
     "CM_ML_MODEL_DATASET": "imagenet2012-val",
-    "CM_ML_MODEL_IMAGE_HEIGHT": "224",
-    "CM_ML_MODEL_IMAGE_WIDTH": "224",
     "CM_ML_MODEL_RETRAINING": "no",
-    "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no"
+    "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no",
+    "CM_ML_MODEL_MOBILENET_NAME_SUFFIX": ""
   },
   "new_env_keys": [
     "CM_ML_MODEL_*"
@@ -28,21 +27,40 @@
   "variations": {
     "fp32": {
       "group": "precision",
+      "default": true,
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "fp32",
         "CM_ML_MODEL_PRECISION": "fp32",
-        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "fp32"
+        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "fp32",
+        "CM_ML_MODEL_MOBILENET_PRECISION": "float"
+      }
+    },
+    "uint8": {
+      "group": "precision",
+      "base": [ "quantized_" ],
+      "env": {
+        "CM_ML_MODEL_INPUT_DATA_TYPES": "uint8",
+        "CM_ML_MODEL_PRECISION": "uint8",
+        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "uint8",
+        "CM_ML_MODEL_MOBILENET_PRECISION": "uint8"
       }
     },
     "int8": {
       "group": "precision",
+      "base": [ "quantized_" ],
       "env": {
         "CM_ML_MODEL_INPUT_DATA_TYPES": "int8",
         "CM_ML_MODEL_PRECISION": "int8",
-        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "int8"
+        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "int8",
+        "CM_ML_MODEL_MOBILENET_PRECISION": "int8"
       }
     },
-    "onnx,fp32": {
+    "quantized_": {
+      "env": {
+        "CM_ML_MODEL_MOBILENET_NAME_SUFFIX": "_quant"
+      }
+    },
+    "onnx,fp32,v1": {
       "env": {
         "CM_ML_MODEL_NORMALIZE_DATA": "yes",
         "CM_ML_MODEL_SUBTRACT_MEANS": "no",
@@ -51,7 +69,7 @@
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV1/Predictions/Reshape_1:0"
       }
     },
-    "onnx,int8": {
+    "onnx,int8,v1": {
       "env": {
         "CM_ML_MODEL_NORMALIZE_DATA": "no",
         "CM_ML_MODEL_SUBTRACT_MEANS": "yes",
@@ -65,6 +83,7 @@
       }
     },
     "onnx": {
+      "group": "framework",
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NCHW",
         "CM_ML_MODEL_FRAMEWORK": "onnx"
@@ -82,32 +101,154 @@
         "CM_ML_MODEL_ONNX_OPSET": "8"
       }
     },
-    "onnx,opset-11,fp32": {
+    "onnx,opset-11,fp32,v1": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/4735651/files/mobilenet_v1_1.0_224.onnx"
       }
     },
-    "onnx,opset-8,fp32": {
+    "onnx,opset-8,fp32,v1": {
       "env": {
         "CM_PACKAGE_URL": "https://zenodo.org/record/3157894/files/mobilenet_v1_1.0_224.onnx"
       }
     },
+    "v1": {
+      "group": "version",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_VERSION": "1"
+      }
+    },
+    "v2": {
+      "group": "version",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_VERSION": "2",
+        "CM_ML_MODEL_VER": "2"
+      }
+    },
+    "v3": {
+      "group": "version",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_VERSION": "3",
+        "CM_ML_MODEL_VER": "3"
+      }
+    },
+    "tf,v1": {
+      "env": {
+        "CM_ML_MODEL_VER": "1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>_2018_08_02",
+        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV1/Predictions/Reshape_1",
+        "CM_ML_MODEL_WEIGHTS_FILE": "mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>.ckpt.data-00000-of-00001",
+        "CM_ML_MODEL_FILE": "mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>.tflite"
+      }
+    },
+    "tf,v2": {
+      "env": {
+        "CM_ML_MODEL_VER": "12_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>",
+        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV2/Predictions/Reshape_1"
+      }
+    },
+    "tf,v3": {
+      "env": {
+        "CM_ML_MODEL_VER": "3_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>",
+        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV3/Predictions/Softmax"
+      }
+    },
+    "resolution-128": {
+      "group": "resolution",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_RESOLUTION": "128",
+        "CM_ML_MODEL_IMAGE_HEIGHT": "128",
+        "CM_ML_MODEL_IMAGE_WIDTH": "128"
+      }
+    },
+    "resolution-160": {
+      "group": "resolution",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_RESOLUTION": "160",
+        "CM_ML_MODEL_IMAGE_HEIGHT": "160",
+        "CM_ML_MODEL_IMAGE_WIDTH": "160"
+      }
+    },
+    "resolution-192": {
+      "group": "resolution",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_RESOLUTION": "192",
+        "CM_ML_MODEL_IMAGE_HEIGHT": "192",
+        "CM_ML_MODEL_IMAGE_WIDTH": "192"
+      }
+    },
+    "resolution-224": {
+      "group": "resolution",
+      "default": true,
+      "env": {
+        "CM_ML_MODEL_MOBILENET_RESOLUTION": "224",
+        "CM_ML_MODEL_IMAGE_HEIGHT": "224",
+        "CM_ML_MODEL_IMAGE_WIDTH": "224"
+      }
+    },
+    "multiplier-1.0": {
+      "group": "multiplier",
+      "default": true,
+      "env": {
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER": "1.0",
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE": "100"
+      }
+    },
+    "multiplier-0.75": {
+      "group": "multiplier",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER": "0.75",
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE": "75"
+      }
+    },
+    "multiplier-0.5": {
+      "group": "multiplier",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER": "0.5",
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE": "50"
+      }
+    },
+    "multiplier-0.25": {
+      "group": "multiplier",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER": "0.25",
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE": "25"
+      }
+    },
+    "large-minimalistic": {
+      "group": "kind",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_KIND": "large-minimalistic"
+      }
+    },
+    "large": {
+      "group": "kind",
+      "default": true,
+      "env": {
+        "CM_ML_MODEL_MOBILENET_KIND": "large"
+      }
+    },
+    "small-minimalistic": {
+      "group": "kind",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_KIND": "small-minimalistic"
+      }
+    },
+    "small": {
+      "group": "kind",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_KIND": "small"
+      }
+    },
     "tf": {
+      "group": "framework",
+      "default": true,
+      "default_variations": {
+        "source": "from.google"
+      },
       "env": {
         "CM_ML_MODEL_DATA_LAYOUT": "NHWC",
         "CM_ML_MODEL_NORMALIZE_DATA": "yes",
         "CM_ML_MODEL_SUBTRACT_MEANS": "no",
-        "CM_ML_MODEL_VER": "1_1.0_224_2018_08_02",
-        "CM_ML_MODEL_INPUT_LAYER_NAME": "input",
-        "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV1/Predictions/Reshape_1",
-        "CM_ML_MODEL_WEIGHTS_FILE": "mobilenet_v1_1.0_224.ckpt"
-      }
-    },
-    "tf,fp32": {
-      "env": {
-        "CM_ML_MODEL_ACCURACY": "71.676",
-        "CM_ML_MODEL_FILE": "mobilenet_v1_1.0_224.tflite",
-        "CM_UNTAR": "yes"
+        "CM_ML_MODEL_INPUT_LAYER_NAME": "input"
       }
     },
     "from.zenodo": {
@@ -122,20 +263,80 @@
         "CM_DOWNLOAD_SOURCE": "google"
       }
     },
-    "tf,fp32,from.zenodo": {
+    "tf,from.zenodo,v1": {
       "env": {
-        "CM_PACKAGE_URL": "https://zenodo.org/record/2269307/files/mobilenet_v1_1.0_224.tgz"
+        "CM_PACKAGE_URL": "https://zenodo.org/record/2269307/files/mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>.tgz",
+        "CM_UNTAR": "yes"
       }
     },
-    "tf,fp32,from.google": {
+    "tf,from.google,v1": {
       "env": {
-        "CM_PACKAGE_URL": "http://download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_1.0_224.tgz"
+        "CM_PACKAGE_URL": "http://download.tensorflow.org/models/mobilenet_v1_2018_08_02/mobilenet_v1_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>><<<CM_ML_MODEL_MOBILENET_NAME_SUFFIX>>>.tgz",
+        "CM_UNTAR": "yes"
       }
     },
-    "tf,int8": {
+    "tf,from.google,v2,quantized_": {
       "env": {
-        "CM_ML_MODEL_ACCURACY": "70.762",
-        "CM_PACKAGE_URL": "https://zenodo.org/record/2269307/files/mobilenet_v1_1.0_224_quant.tgz"
+        "CM_PACKAGE_URL": "https://storage.googleapis.com/mobilenet_v2/checkpoints/<<<CM_ML_MODEL_MOBILENET_NAME_PREFIX>>>_v2_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE>>>.tgz",
+        "CM_ML_MODEL_WEIGHTS_FILE": "<<<CM_ML_MODEL_MOBILENET_NAME_PREFIX>>>_v2_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE>>>.ckpt.data-00000-of-00001",
+        "CM_ML_MODEL_FILE": "<<<CM_ML_MODEL_MOBILENET_NAME_PREFIX>>>_v2_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE>>>.tflite",
+        "CM_UNTAR": "yes"
+      }
+    },
+    "tf,from.google,v2,fp32": {
+      "env": {
+        "CM_PACKAGE_URL": "https://storage.googleapis.com/mobilenet_v2/checkpoints/mobilenet_v2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.tgz",
+        "CM_ML_MODEL_WEIGHTS_FILE": "mobilenet_v2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.ckpt.data-00000-of-00001",
+        "CM_ML_MODEL_FILE": "mobilenet_v2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>.tflite",
+        "CM_UNTAR": "yes"
+      }
+    },
+    "tf,from.google,v3": {
+      "env": {
+        "CM_PACKAGE_URL": "https://storage.googleapis.com/mobilenet_v3/checkpoints/v3-<<<CM_ML_MODEL_MOBILENET_KIND>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>.tgz",
+        "CM_EXTRACT_FOLDER": "v3-<<<CM_ML_MODEL_MOBILENET_KIND>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>",
+        "CM_ML_MODEL_FILE": "v3-<<<CM_ML_MODEL_MOBILENET_KIND>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>.tflite",
+        "CM_UNTAR": "yes"
+      }
+    },
+    "tf,v2,int8": {
+      "env": {
+        "CM_ML_MODEL_MOBILENET_NAME_PREFIX": "quantized"
+      }
+    },
+    "tf,v2,uint8": {
+      "env": {
+        "CM_ML_MODEL_MOBILENET_NAME_PREFIX": "quantized"
+      }
+    },
+    "tf,v2,fp32": {
+      "env": {
+        "CM_ML_MODEL_MOBILENET_NAME_PREFIX": ""
+      }
+    },
+    "tf,v1,int8": {
+      "env": {
+        "CM_ML_MODEL_MOBILENET_NAME_SUFFIX": "_quant"
+      }
+    },
+    "tf,v1,uint8": {
+      "env": {
+        "CM_ML_MODEL_MOBILENET_NAME_SUFFIX": "_quant"
+      }
+    },
+    "tf,v1,fp32": {
+      "env": {
+        "CM_ML_MODEL_MOBILENET_NAME_PREFIX": ""
+      }
+    },
+    "tf,int8,v1,resolution-224,multiplier-1.0": {
+      "env": {
+        "CM_ML_MODEL_ACCURACY": "70.762"
+      }
+    },
+    "tf,fp32,v1,resolution-224,multiplier-1.0": {
+      "env": {
+        "CM_ML_MODEL_ACCURACY": "71.676"
       }
     },
     "tflite": {

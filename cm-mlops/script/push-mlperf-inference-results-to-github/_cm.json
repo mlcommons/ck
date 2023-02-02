@@ -1,0 +1,36 @@
+{
+  "alias": "push-mlperf-inference-results-to-github",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "category": "Modular MLPerf benchmarks",
+  "category_sort": 2000,
+  "deps": [
+    {
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python3"
+    }
+  ],
+  "prehook_deps": [
+    {
+      "names": [ "get-git-repo" ],
+      "tags": "get,git,repo"
+    }
+  ],
+  "default_env": {
+    "CM_GIT_REPO_URL": "https://github.com/arjunsuresh/mlperf_inference_submissions_v3.0"
+  },
+  "input_mapping": {
+    "repo_url": "CM_GIT_REPO_URL",
+    "submission_dir": "CM_MLPERF_INFERENCE_SUBMISSION_DIR"
+  },
+  "tags": [
+    "push",
+    "mlperf-inference-results",
+    "publish-results",
+    "github"
+  ],
+  "uid": "36c2ffd5df5d453a"
+}

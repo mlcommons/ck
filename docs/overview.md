@@ -35,7 +35,7 @@ We have donated CK to the [MLCommons foundation](https://mlcommons.org)
 to benefit everyone after it was successfully validated by Qualcomm, Arm, General Motors,
 OctoML, Krai, HPE, Dell, Lenovo and other organizations.
 
-The MLCommons has establshed an open [open taskforce on education and reproducibility](mlperf-education-workgroup.md)
+The MLCommons has establshed an open [open taskforce on education and reproducibility](taskforce.md)
 to develop the 2nd generation of the CK framework (aka Collective Mind or CM).
 
 Here is the list of reusable CM components developed and shared by this taskforce:

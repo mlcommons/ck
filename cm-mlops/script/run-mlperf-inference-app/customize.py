@@ -16,6 +16,17 @@ def preprocess(i):
     if env.get('CM_RUN_DOCKER_CONTAINER', '') == "yes": 
         return {'return':0}
 
+    system_meta = state['CM_SUT_META']
+    env['CM_SUT_META_EXISTS'] = "yes"
+
+    if env.get('CM_MLPERF_SUBMISSION_SYSTEM_TYPE'):
+        system_type = env['CM_MLPERF_SUBMISSION_SYSTEM_TYPE']
+        system_meta['system_type'] = system_type
+
+    if env.get('CM_MLPERF_SUBMISSION_DIVISION'):
+        division = env['CM_MLPERF_SUBMISSION_DIVISION']
+        system_meta['division'] = division
+
     clean = False
     if 'CM_MLPERF_CLEAN_ALL' in env:
         clean = True
@@ -54,7 +65,6 @@ def preprocess(i):
             env['CM_MLPERF_LOADGEN_SCENARIO'] = "Offline"
 
     if env.get('CM_MLPERF_LOADGEN_ALL_SCENARIOS', '') == "yes":
-        system_meta = state['CM_SUT_META']
         env['CM_MLPERF_LOADGEN_SCENARIOS'] = get_valid_scenarios(env['CM_MODEL'], system_meta['system_type'], env['CM_MLPERF_LAST_RELEASE'], env['CM_MLPERF_INFERENCE_SOURCE'])
     else:
         system_meta = {}
@@ -113,7 +123,7 @@ def preprocess(i):
             elif scenario == "Server":
                 if env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS'):
                     env['CM_MLPERF_LOADGEN_TARGET_QPS'] = env['CM_MLPERF_LOADGEN_SERVER_TARGET_QPS']
-            elif scenario == "SingeStream":
+            elif scenario == "SingleStream":
                 if env.get('CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY'):
                     env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = env['CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY']
             elif scenario == "MultiStream":
@@ -136,6 +146,7 @@ def preprocess(i):
         if env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes":
             for test in test_list:
                 env['CM_MLPERF_LOADGEN_COMPLIANCE_TEST'] = test
+                env['CM_MLPERF_LOADGEN_MODE'] = "compliance"
                 r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                     'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
                     add_deps_recursive,'silent': silent, 'print_env': print_env, 'print_deps': print_deps})

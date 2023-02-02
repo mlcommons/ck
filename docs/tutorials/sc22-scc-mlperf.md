@@ -43,7 +43,7 @@ This tutorial was prepared for the [Student Cluster Competition'22](https://stud
 to explain how to prepare and run a modular version of the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
 using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck).
 It is assembled from reusable and interoperable [MLOps and DevOps scripts](../list_of_scripts.md)
-being developed by the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+being developed by the [open MLCommons taskforce on education and reproducibility](../taksforce.md)
 based on this [roadmap]( https://github.com/mlcommons/ck/issues/536 ).
 
 There are 4 main goals:
@@ -61,13 +61,13 @@ to get extra points.
 During SCC, you will attempt to run a reference (unoptimized) Python implementation of the MLPerf object detection benchmark
 with RetinaNet model, Open Images dataset, ONNX runtime and CPU target. 
 
-After the SCC, you are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+After the SCC, you are welcome to join the [open MLCommons taskforce on education and reproducibility](../taksforce.md)
 to learn how to optimize this benchmark further (trying various run-time parameters, trying different benchmark implementations (Nvidia, C++), 
 changing ML frameworks and run-times, optimizing RetinaNet model, and trying different CPUs and GPUs) and submit Pareto-optimal results to MLPerf.
 
 *Note that both MLPerf and CM automation are evolving projects.
  If you encounter issues or have questions, please submit them [here](https://github.com/mlcommons/ck/issues)
- and feel free to join our [weekly conf-calls](../mlperf-education-workgroup.md#conf-calls).*
+ and feel free to join our [weekly conf-calls](../taksforce.md#conf-calls).*
 
 # System preparation
 
@@ -482,7 +482,7 @@ No errors encountered during test.
 Note that QPS is very low because we use an unoptimized reference implementation of this benchmark on CPU.
 In the 2nd part of this tutorial, we will explain how to optimize this benchmark and/or run other implementations 
 such as the [universal C++ implementation of this benchmark](../list_of_scripts.md#app-mlperf-inference-cpp) 
-developed by [OctoML](https://octoml.ai) and the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+developed by [OctoML](https://octoml.ai) and the [MLCommons taskforce on education and reproducibility](../taksforce.md)
 as well as optimized implementation of MLPerf object detection with quantized models 
 from [Nvidia](https://github.com/mlcommons/inference_results_v2.1/tree/master/closed/NVIDIA/code/retinanet/tensorrt).
 
@@ -503,7 +503,7 @@ The execution of the original MLPerf inference benchmark is customized by variou
 
 The "Collective Mind" concept is to gradually expose all optimization "knobs" via unified CM script interface
 to enable automated and reroducible design space exploration and optimization of the whole application/software/hardware stack
-(one of the goals of the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)).
+(one of the goals of the [MLCommons taskforce on education and reproducibility](../taksforce.md)).
 
 That is why we have provided a user-friendly mapping of the flags from the CK MLPerf script CLI to the native MLPerf variables and flags
 using this [meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml#L35).
@@ -771,7 +771,7 @@ with other ML engines (PyTorch, TF, TVM), other MLPerf scenarios
 * [3rd part](sc22-scc-mlperf-part3.md): customize MLPerf inference (ResNet50 Int8, ImageNet, TVM)
 * *To be continued*
 
-You are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+You are welcome to join the [open MLCommons taskforce on education and reproducibility](../taksforce.md)
 to contribute to this project and continue optimizing this benchmark and prepare an official submission 
 for MLPerf inference v3.0 (March 2023) with the help of the community.
 

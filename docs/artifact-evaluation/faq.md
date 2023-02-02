@@ -5,7 +5,7 @@
 
 **If you have questions or suggestions which are not addressed here, please feel free 
 to post them to the dedicated [AE google group](https://groups.google.com/forum/#!forum/artifact-evaluation)
-or contact the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).**
+or contact the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).**
 
 ### Do I have to open source my software artifacts?
 
