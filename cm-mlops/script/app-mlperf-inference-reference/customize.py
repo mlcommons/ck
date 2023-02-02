@@ -88,8 +88,6 @@ def preprocess(i):
         user_conf_path = env['CM_MLPERF_USER_CONF']
         scenario_extra_options +=  " --user_conf '" + user_conf_path + "'"
 
-    env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
-
     mode = env['CM_MLPERF_LOADGEN_MODE']
     mode_extra_options = ""
 
