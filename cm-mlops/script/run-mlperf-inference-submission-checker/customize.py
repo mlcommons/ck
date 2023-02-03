@@ -36,7 +36,7 @@ def preprocess(i):
         submission_checker_file = new_submission_checker_file
 
     if env.get('CM_MLPERF_EXTRA_MODEL_MAPPING', '') != '':
-        extra_map = " --extra_model_benchmark_map "+env['CM_MLPERF_EXTRA_MODEL_MAPPING']
+        extra_map = " --extra_model_benchmark_map '"+env['CM_MLPERF_EXTRA_MODEL_MAPPING']+"'"
     else:
         extra_map = ""
 
