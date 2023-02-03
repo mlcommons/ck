@@ -40,7 +40,46 @@ def postprocess(i):
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
 
-    if mode in [ "performance", "accuracy" ]:
+    if env.get("CM_MLPERF_FIND_PERFORMANCE", "no") == "yes" and mode == "performance" and scenario != "Server":
+        os.chdir(output_dir)
+        if not os.path.exists("mlperf_log_summary.txt"):
+            return {'return': 0}
+
+        if scenario in [ "Offline", "Server" ]:
+            metric = "target_qps"
+        elif scenario.endswith("Stream"):
+            metric = "target_latency"
+        else:
+            return {'return': 1, 'error': 'Unsupported scenario: {}'.format(scenario)}
+
+        import re
+        import yaml
+        pattern = {}
+        pattern["Offline"] = "Samples per second: (.*)\n"
+        pattern["SingleStream"] = "90th percentile latency \(ns\)\s*:(.*)"
+        pattern["MultiStream"] = "99th percentile latency \(ns\)\s*:(.*)"
+        print("\n")
+        with open("mlperf_log_summary.txt", "r") as fp:
+            summary = fp.read()
+        print(summary)
+        result = re.findall(pattern[scenario], summary)
+
+        if not result:
+            return {'return': 1, 'error': f'No {metric} found in performance summary. Pattern checked "{pattern[metric]}"'}
+
+        value = result[0].strip()
+        sut_name = state['CM_SUT_CONFIG_NAME']
+        sut_config = state['CM_SUT_CONFIG'][sut_name]
+        sut_config_path = state['CM_SUT_CONFIG_PATH'][sut_name]
+        sut_config[model][scenario][metric] = value
+
+        print(f"SUT: {sut_name}, model: {model}, scenario: {scenario}, {metric} updates as {value}")
+        print(f"New config stored in {sut_config_path}")
+        with open(sut_config_path, "w") as f:
+            yaml.dump(sut_config, f)
+
+
+    elif mode in [ "performance", "accuracy" ]:
         measurements = {}
         measurements['starting_weights_filename'] = env.get('CM_ML_MODEL_STARTING_WEIGHTS_FILENAME', 'none')
         measurements['retraining'] = env.get('MODEL_RETRAINING','')

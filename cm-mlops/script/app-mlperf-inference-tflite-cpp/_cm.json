@@ -153,6 +153,12 @@
     "CM_VERBOSE": "0",
     "CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX": "tflite_cpp"
   },
+  "new_env_keys": [
+    "CM_MLPERF_*"
+  ],
+  "new_state_keys": [
+    "CM_SUT_*"
+  ],
   "post_deps": [
     {
       "names": [

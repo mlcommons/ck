@@ -21,6 +21,8 @@ def postprocess(i):
 
     if 'CM_SUT_CONFIG' not in state:
         state['CM_SUT_CONFIG'] = {}
+    if 'CM_SUT_CONFIG_PATH' not in state:
+        state['CM_SUT_CONFIG_PATH'] = {}
 
     implementation_string = env['CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX'] if env.get('CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX', '') != '' else env.get('CM_MLPERF_IMPLEMENTATION', 'default')
     run_config_string = env['CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX'] if env.get('CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX', '') != '' else 'default'
@@ -48,5 +50,7 @@ def postprocess(i):
             shutil.copy(src_config, config_path_default)
 
     state['CM_SUT_CONFIG'][env['CM_SUT_NAME']] = yaml.load(open(config_path), Loader=yaml.SafeLoader)
+    state['CM_SUT_CONFIG_NAME'] = env['CM_SUT_NAME']
+    state['CM_SUT_CONFIG_PATH'][env['CM_SUT_NAME']] = config_path
 
     return {'return':0}

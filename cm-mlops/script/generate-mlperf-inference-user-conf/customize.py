@@ -59,6 +59,8 @@ def preprocess(i):
 
     conf = i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']][scenario]
 
+    mode = env['CM_MLPERF_LOADGEN_MODE']
+
     user_conf = ''
     if ['CM_MLPERF_RUN_STYLE'] == "fast":
         fast_factor = env['CM_FAST_FACTOR']
@@ -90,7 +92,15 @@ def preprocess(i):
         if metric in conf:
             metric_value = conf[metric]
         else:
-            return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
+            if env.get("CM_MLPERF_FIND_PERFORMANCE", "no") == "yes":
+                if metric == "target_qps":
+                    print("In find performance mode: using 1 as target_qps")
+                    conf[metric] = 1
+                if metric == "target_latency":
+                    print("In find performance mode: using 1000 as target_latency")
+                    conf[metric] = 1000
+            else:
+                return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
 
     if env['CM_MLPERF_RUN_STYLE'] == "fast":
         if scenario == "Offline":
@@ -141,8 +151,6 @@ def preprocess(i):
         env['CM_MLPERF_LOADGEN_QUERY_COUNT'] = query_count
 
     env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
-
-    mode = env['CM_MLPERF_LOADGEN_MODE']
 
     sut_name = env.get('CM_SUT_NAME', env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'])
     OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], sut_name, \

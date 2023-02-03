@@ -69,6 +69,8 @@ new_env_keys:
   - CM_MLPERF_*
   - CM_DATASET_*
 
+new_state_keys:
+  - CM_SUT_*
 # Dependencies on other CM scripts
 
 deps:
