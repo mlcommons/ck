@@ -216,7 +216,7 @@
     },
     "precision": {
       "desc":"MLPerf model precision",
-      "default":"fp32",
+      "default":"",
       "choices": ["fp32", "int8"]
     },
     "backend": {

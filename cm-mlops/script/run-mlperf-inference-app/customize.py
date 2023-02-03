@@ -92,9 +92,13 @@ def preprocess(i):
     variation_backend= "_" + env.get("CM_MLPERF_BACKEND", "tf")
     variation_device= "_" + env.get("CM_MLPERF_DEVICE", "cpu")
     variation_run_style= "_" + env.get("CM_MLPERF_EXECUTION_MODE", "test")
-    variation_quantization= "_" + env.get("CM_MLPERF_MODEL_PRECISION", "fp32")
 
-    tags =  "app,mlperf,inference,generic,"+variation_implementation+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style+","+variation_quantization+power_variation
+    if env.get("CM_MLPERF_MODEL_PRECISION", '') != '':
+        variation_quantization_string= ",_" + env["CM_MLPERF_MODEL_PRECISION"]
+    else:
+        variation_quantization_string = ""
+
+    tags =  "app,mlperf,inference,generic,"+variation_implementation+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style+variation_quantization_string+power_variation
     silent = inp.get('silent', False)
     print_env = inp.get('print_env', False)
     print_deps = inp.get('print_deps', False)

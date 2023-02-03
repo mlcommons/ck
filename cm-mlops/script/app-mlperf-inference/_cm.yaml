@@ -491,6 +491,8 @@ variations:
 
   deepsparse:
     group: backend
+    default_variations:
+      precision: int8
     env:
       CM_MLPERF_BACKEND:
         deepsparse
