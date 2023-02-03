@@ -102,6 +102,14 @@ def preprocess(i):
             else:
                 return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
 
+    #Pass the modified performance metrics to the implementation
+    if env.get("CM_MLPERF_FIND_PERFORMANCE", "no") == "yes":
+        if metric == "target_latency": and env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY', '') == '':
+            env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = conf[metric]
+        elif metric == "target_qps": and env.get('CM_MLPERF_LOADGEN_TARGET_QPS', '') == '':
+            env['CM_MLPERF_LOADGEN_TARGET_QPS'] = conf[metric]
+
+
     if env['CM_MLPERF_RUN_STYLE'] == "fast":
         if scenario == "Offline":
             metric_value /= fast_factor
