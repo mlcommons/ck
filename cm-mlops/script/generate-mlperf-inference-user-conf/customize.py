@@ -104,9 +104,9 @@ def preprocess(i):
 
     #Pass the modified performance metrics to the implementation
     if env.get("CM_MLPERF_FIND_PERFORMANCE", "no") == "yes":
-        if metric == "target_latency": and env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY', '') == '':
+        if metric == "target_latency" and env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY', '') == '':
             env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = conf[metric]
-        elif metric == "target_qps": and env.get('CM_MLPERF_LOADGEN_TARGET_QPS', '') == '':
+        elif metric == "target_qps" and env.get('CM_MLPERF_LOADGEN_TARGET_QPS', '') == '':
             env['CM_MLPERF_LOADGEN_TARGET_QPS'] = conf[metric]
 
 
