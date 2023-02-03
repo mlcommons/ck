@@ -1,0 +1,54 @@
+3d-unet-99:
+  MultiStream:
+    target_latency: 80
+  Offline:
+    target_qps: 1.0
+  Server:
+    target_qps: 1.0
+  SingleStream:
+    target_latency: 10
+3d-unet-99.9:
+  MultiStream:
+    target_latency: 80
+  Offline:
+    target_qps: 1.0
+  Server:
+    target_qps: 1.0
+  SingleStream:
+    target_latency: 10
+bert-99:
+  MultiStream:
+    target_latency: 80
+  Offline:
+    target_qps: 1.0
+  Server:
+    target_qps: 1.0
+  SingleStream:
+    target_latency: 10
+bert-99.9:
+  MultiStream:
+    target_latency: 80
+  Offline:
+    target_qps: 1.0
+  Server:
+    target_qps: 1.0
+  SingleStream:
+    target_latency: 10
+resnet50:
+  MultiStream:
+    target_latency: '432111'
+  Offline:
+    target_qps: '37959.4'
+  Server:
+    target_qps: 1.0
+  SingleStream:
+    target_latency: '226895'
+retinanet:
+  MultiStream:
+    target_latency: 80
+  Offline:
+    target_qps: 1.0
+  Server:
+    target_qps: 1.0
+  SingleStream:
+    target_latency: 10
