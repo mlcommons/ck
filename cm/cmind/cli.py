@@ -96,8 +96,15 @@ def parse(cmd):
     artifact=''
     artifacts=[] # Only added if more than 1 artifact!
 
-    for a in argv:
-        if a.startswith('@'):
+    for index in range(0, len(argv)):
+        a=argv[index]
+
+        if a=='--':
+            unparsed = [] if index>len(argv) else argv[index+1:]
+            cm_input['unparsed_cmd']=unparsed
+            break
+
+        elif a.startswith('@'):
             # Load JSON or YAML file
             from cmind import utils
             r = utils.load_json_or_yaml(file_name = a[1:], check_if_exists=True)

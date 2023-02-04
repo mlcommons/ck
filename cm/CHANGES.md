@@ -1,3 +1,9 @@
+## V1.1.4.1
+   - added support for CLI with -- {something} . Everything after -- will be available 
+     in the CM input dictionary under "unparsed_cmd" key (list).
+     We need it to support universal experiments in CM:
+     cm run experiment -- {any script with any command line}
+
 ## V1.1.4
    - added utils.call_internal_module to break automation modules into sub-modules
 
