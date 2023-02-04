@@ -77,7 +77,8 @@
     "dashboard_wb_user":"CM_MLPERF_DASHBOARD_WANDB_USER",
     "dashboard_wb_project":"CM_MLPERF_DASHBOARD_WANDB_PROJECT",
     "find_performance": "CM_MLPERF_FIND_PERFORMANCE",
-    "push_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB"
+    "push_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB",
+    "results_git_url": "CM_MLPERF_RESULTS_GIT_REPO_URL"
   },
   "tags": [
     "run",
