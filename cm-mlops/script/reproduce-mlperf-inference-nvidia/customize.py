@@ -15,6 +15,9 @@ def preprocess(i):
     if 'CM_MLPERF_DEVICE' not in env:
         return {'return': 1, 'error': 'Please select a variation specifying the device to run on'}
 
+    if env.get('CM_MLPERF_SKIP_RUN', '') == "yes":
+        return {'return': 0}
+
     cmds = []
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     mode = env['CM_MLPERF_LOADGEN_MODE']
@@ -203,4 +206,5 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
+
     return {'return':0}

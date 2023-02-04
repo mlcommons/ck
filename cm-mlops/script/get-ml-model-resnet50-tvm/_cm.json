@@ -131,7 +131,7 @@
     "tflite": {
       "alias": "tensorflow"
     },
-    "bs.#": {
+    "batch_size.#": {
       "group": "batchsize",
       "env": {
         "CM_ML_MODEL_MAX_BATCH_SIZE": "#"

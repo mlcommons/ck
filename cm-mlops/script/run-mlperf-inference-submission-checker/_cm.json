@@ -46,7 +46,9 @@
     "skip_compliance": "CM_MLPERF_SKIP_COMPLIANCE",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
     "submitter": "CM_MLPERF_SUBMITTER",
-    "submit_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB"
+    "push_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB",
+    "extra_model_benchmark_map": "CM_MLPERF_EXTRA_MODEL_MAPPING",
+    "power": "CM_MLPERF_POWER"
   },
   "default_env": {
     "CM_MLPERF_SHORT_RUN": "no"

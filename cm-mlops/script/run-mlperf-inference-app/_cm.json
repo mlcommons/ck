@@ -39,6 +39,7 @@
     "CM_MLPERF_MODEL": "resnet50",
     "CM_MLPERF_IMPLEMENTATION": "reference",
     "CM_MLPERF_BACKEND": "onnxruntime",
+    "CM_MLPERF_LOADGEN_COMPLIANCE": "yes",
     "CM_MLPERF_DEVICE": "cpu"
   },
   "input_mapping": {
@@ -74,7 +75,8 @@
     "singlestream_target_latency": "CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY",
     "multistream_target_latency": "CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY",
     "dashboard_wb_user":"CM_MLPERF_DASHBOARD_WANDB_USER",
-    "dashboard_wb_project":"CM_MLPERF_DASHBOARD_WANDB_PROJECT"
+    "dashboard_wb_project":"CM_MLPERF_DASHBOARD_WANDB_PROJECT",
+    "find_performance": "CM_MLPERF_FIND_PERFORMANCE"
   },
   "tags": [
     "run",
@@ -89,8 +91,17 @@
   "uid": "4a5d5b13fd7e4ac8",
   "variations": {
     "all-modes": {
+      "group": "mode",
       "env": {
         "CM_MLPERF_LOADGEN_ALL_MODES": "yes"
+      }
+    },
+    "find-performance": {
+      "group": "mode",
+      "env": {
+        "CM_MLPERF_LOADGEN_ALL_MODES": "no",
+        "CM_MLPERF_LOADGEN_MODE": "performance",
+        "CM_MLPERF_FIND_PERFORMANCE": "yes"
       }
     },
     "all-scenarios": {
@@ -191,7 +202,12 @@
     "implementation": {
       "desc":"MLPerf implementation",
       "default":"reference",
-      "choices": ["reference", "cpp", "nvidia-original"]
+      "choices": ["reference", "cpp", "nvidia-original", "tflite-cpp"]
+    },
+    "compliance": {
+      "desc":"Whether to run compliance tests (applicable only for closed division)",
+      "default":"yes",
+      "choices": ["yes", "no"]
     },
     "model": {
       "desc":"MLPerf model",
@@ -200,7 +216,7 @@
     },
     "precision": {
       "desc":"MLPerf model precision",
-      "default":"fp32",
+      "default":"",
       "choices": ["fp32", "int8"]
     },
     "backend": {
