@@ -39,6 +39,7 @@
           "on"
         ]
       },
+      "names": [ "push-to-github" ],
       "tags": "publish-results,github"
     }
   ],

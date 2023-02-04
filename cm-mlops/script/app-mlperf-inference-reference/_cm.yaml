@@ -372,6 +372,9 @@ posthook_deps:
   - names:
     - runner
     tags: benchmark,program
+    skip_if_env:
+      CM_MLPERF_SKIP_RUN:
+      - on
 
 
 

@@ -8,7 +8,7 @@ def postprocess(i):
     state = i['state']
 
     if env.get('CM_HW_NAME', '') == '':
-        host_name =  env.get('CM_HOST_SYSTEM_NAME', 'default')
+        host_name =  env.get('CM_HOST_SYSTEM_NAME', 'default').replace("-", "_")
         env['CM_HW_NAME'] = host_name
 
     device = env.get('CM_MLPERF_DEVICE', 'cpu')
