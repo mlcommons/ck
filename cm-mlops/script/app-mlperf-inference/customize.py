@@ -131,16 +131,20 @@ def postprocess(i):
                 return r
 
             print_deps = r['new_state']['print_deps']
+            count = 1
             for dep in print_deps:
-                readme_body += "\n`" +dep+ "`\n"
+                readme_body += "\n\n" + str(count) +".  `" +dep+ "`\n"
+                count = count+1
 
             if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('print_deps'):
 
                 readme_body += "\n## Dependent CM scripts for the MLPerf Inference Implementation\n"
 
                 print_deps = state['mlperf-inference-implementation']['print_deps']
+                count = 1
                 for dep in print_deps:
-                    readme_body += "\n`" +dep+"`\n"
+                    readme_body += "\n\n" + str(count) +". `" +dep+"`\n"
+                    count = count+1
 
             readme = readme_init + readme_body
             with open ("README.md", "w") as fp:

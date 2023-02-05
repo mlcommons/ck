@@ -76,9 +76,6 @@ deps:
   # Detect host OS features
   - tags: detect,os
 
-  # Detect host CPU features
-  - tags: detect,cpu
-
   # Install system dependencies on a given host
   - tags: get,sys-utils-cm
 
@@ -87,19 +84,6 @@ deps:
     names:
     - python
     - python3
-
-  # Detect CUDA if required
-  - tags: get,cuda
-    enable_if_env:
-      CM_MLPERF_DEVICE:
-      - gpu
-
-  # Detect CUDA info if required
-  - tags: get,cuda-devices
-    enable_if_env:
-      CM_MLPERF_DEVICE:
-      - gpu
-
 
 
   ########################################################################
@@ -219,9 +203,6 @@ variations:
         tags: _float16
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia-original
-    deps:
-      ## Nvidia common code
-      - tags: get,mlperf,inference,nvidia,common-code
     posthook_deps:
       - names:
          - nvidia-original-mlperf-inference
