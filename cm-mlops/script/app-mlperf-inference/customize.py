@@ -111,7 +111,7 @@ def postprocess(i):
         readme_init = "This experiment is generated using [MLCommons CM](https://github.com/mlcommons/ck)\n"
         readme_body = "## CM Run Command\n```\n" + cmd + "\n```"
 
-        if env.get('CM_MLPERF_README', 'no') == 'yes':
+        if env.get('CM_MLPERF_README', False):
             readme_body += "\n## Dependent CM scripts \n"
 
             script_tags = inp['tags']
