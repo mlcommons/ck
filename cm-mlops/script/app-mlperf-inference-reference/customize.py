@@ -55,10 +55,10 @@ def preprocess(i):
         else:
             env['CM_NUM_THREADS'] = env.get('CM_HOST_CPU_TOTAL_CORES', '1')
 
-    if env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE','') != '' and env.get('CM_MLPERF_MODEL_SKIP_BATCHING', False) :
+    if env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE','') != '' and not env.get('CM_MLPERF_MODEL_SKIP_BATCHING', False) :
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') != '' and env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', False):
+    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') != '' and not env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', False):
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
 
     print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")

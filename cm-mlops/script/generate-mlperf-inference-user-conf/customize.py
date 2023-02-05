@@ -163,7 +163,8 @@ def preprocess(i):
     user_conf_file = Path(user_conf_path)
     user_conf_file.parent.mkdir(exist_ok=True, parents=True)
     user_conf_file.write_text(user_conf)
-    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' not in env and query_count:
+
+    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') == ''  and query_count:
         env['CM_MLPERF_LOADGEN_QUERY_COUNT'] = query_count
 
     env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
