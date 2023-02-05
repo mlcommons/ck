@@ -9,7 +9,10 @@ def preprocess(i):
     meta = i['meta']
     automation = i['automation']
 
-    repo = env.get('CM_GIT_REPO_URL')
+    repo = env.get('CM_MLPERF_RESULTS_GIT_REPO_URL', '')
+    if repo.strip() == '':
+        return {'return': 1, 'error': 'Invalid GIT_REPO_URL for MLPERF results'}
+
     r = automation.update_deps({'deps':meta['prehook_deps'],
                                 'update_deps':{
                                     'get-git-repo':{

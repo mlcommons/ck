@@ -35,8 +35,18 @@ def preprocess(i):
             file.write(data)
         submission_checker_file = new_submission_checker_file
 
+    if env.get('CM_MLPERF_EXTRA_MODEL_MAPPING', '') != '':
+        extra_map = " --extra_model_benchmark_map '"+env['CM_MLPERF_EXTRA_MODEL_MAPPING']+"'"
+    else:
+        extra_map = ""
+
+    if env.get('CM_MLPERF_POWER', 'no') == "yes":
+        power_check = " --more_power_check"
+    else:
+        power_check = ""
+
     CMD = env['CM_PYTHON_BIN'] + ' ' + submission_checker_file + " --input '" + submission_dir + "' --submitter '" + submitter + "'" + \
-            skip_compliance
+            skip_compliance + extra_map + power_check
     env['CM_RUN_CMD'] = CMD
 
     return {'return':0}

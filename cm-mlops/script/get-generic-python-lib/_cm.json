@@ -270,7 +270,7 @@
         "CM_ONNXRUNTIME_VERSION_EXTRA": "GPU"
       },
       "new_env_keys": [
-        "CM_ONNXRUNTIME_VERSION*"
+        "CM_ONNXRUNTIME_GPU_VERSION*"
       ]
     },
     "opencv-python": {

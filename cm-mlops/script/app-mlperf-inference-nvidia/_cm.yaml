@@ -125,6 +125,10 @@ deps:
     tags: generate,nvidia,engine
     names: tensorrt-engine-generator
 
+  # Creates user conf for given SUT
+  - tags: generate,user-conf,mlperf,inference
+    names:
+    - user-conf-generator
 
   
 

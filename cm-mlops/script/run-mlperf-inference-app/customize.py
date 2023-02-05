@@ -19,13 +19,16 @@ def preprocess(i):
     system_meta = state['CM_SUT_META']
     env['CM_SUT_META_EXISTS'] = "yes"
 
-    if env.get('CM_MLPERF_SUBMISSION_SYSTEM_TYPE'):
+    if env.get('CM_MLPERF_SUBMISSION_SYSTEM_TYPE', '') != '':
         system_type = env['CM_MLPERF_SUBMISSION_SYSTEM_TYPE']
         system_meta['system_type'] = system_type
 
-    if env.get('CM_MLPERF_SUBMISSION_DIVISION'):
+    if env.get('CM_MLPERF_SUBMISSION_DIVISION', '') != '':
         division = env['CM_MLPERF_SUBMISSION_DIVISION']
         system_meta['division'] = division
+
+    if system_meta.get('division', '') != "closed":
+        env["CM_MLPERF_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
 
     clean = False
     if 'CM_MLPERF_CLEAN_ALL' in env:
@@ -89,9 +92,13 @@ def preprocess(i):
     variation_backend= "_" + env.get("CM_MLPERF_BACKEND", "tf")
     variation_device= "_" + env.get("CM_MLPERF_DEVICE", "cpu")
     variation_run_style= "_" + env.get("CM_MLPERF_EXECUTION_MODE", "test")
-    variation_quantization= "_" + env.get("CM_MLPERF_MODEL_PRECISION", "fp32")
 
-    tags =  "app,mlperf,inference,generic,"+variation_implementation+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style+","+variation_quantization+power_variation
+    if env.get("CM_MLPERF_MODEL_PRECISION", '') != '':
+        variation_quantization_string= ",_" + env["CM_MLPERF_MODEL_PRECISION"]
+    else:
+        variation_quantization_string = ""
+
+    tags =  "app,mlperf,inference,generic,"+variation_implementation+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style+variation_quantization_string+power_variation
     silent = inp.get('silent', False)
     print_env = inp.get('print_env', False)
     print_deps = inp.get('print_deps', False)
@@ -139,9 +146,6 @@ def preprocess(i):
                 env['CM_MLPERF_RESULTS_DIR'] = r['new_env']['CM_MLPERF_RESULTS_DIR']
             if 'CM_MLPERF_BACKEND_VERSION' in r['new_env']:
                 env['CM_MLPERF_BACKEND_VERSION'] = r['new_env']['CM_MLPERF_BACKEND_VERSION']
-
-        if system_meta.get('division', '') == "open":
-            env["CM_MLPERF_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
 
         if env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes":
             for test in test_list:

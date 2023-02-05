@@ -10,6 +10,9 @@ def preprocess(i):
         return {'return':1, 'error': 'Windows is not supported in this script yet'}
     env = i['env']
 
+    if env.get('CM_MLPERF_SKIP_RUN', '') == "yes"
+        return {'return':0}
+
     if 'CM_MODEL' not in env:
         return {'return': 1, 'error': 'Please select a variation specifying the model to run'}
     if 'CM_MLPERF_BACKEND' not in env:
