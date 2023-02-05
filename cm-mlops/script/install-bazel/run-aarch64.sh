@@ -16,6 +16,8 @@ rm -rf ${INSTALL_DIR}/bin
 wget -c ${CM_WGET_URL}
 if [ "${?}" != "0" ]; then exit 1; fi
 chmod +x ${BAZEL_SCRIPT}
+ln -s ${BAZEL_SCRIPT} bazel
+if [ "${?}" != "0" ]; then exit 1; fi
 
 echo "CM_BAZEL_INSTALLED_PATH=${INSTALL_DIR}" >>tmp-run-env.out
 echo "CM_BAZEL_BIN_WITH_PATH=${INSTALL_DIR}/${BAZEL_SCRIPT}" >>tmp-run-env.out

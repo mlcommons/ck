@@ -52,14 +52,14 @@ def preprocess(i):
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     state['RUN'][scenario] = {}
 
-    model_full_name = env.get('CM_ML_MODEL_FULL_NAME', env['CM_MODEL')
+    model_full_name = env.get('CM_ML_MODEL_FULL_NAME', env['CM_MODEL'])
 
-    if model_name not in i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']]:
+    if model_full_name not in i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']]:
         i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name] = {}
         i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name][scenario] = {}
 
 
-    conf = i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_name][scenario]
+    conf = i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name][scenario]
 
     mode = env['CM_MLPERF_LOADGEN_MODE']
 
