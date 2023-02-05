@@ -17,7 +17,7 @@ def postprocess(i):
     if env.get('CM_MLPERF_BACKEND_VERSION', '') != '':
         backend_version = "v" + env.get('CM_MLPERF_BACKEND_VERSION') if not env.get('CM_MLPERF_BACKEND_VERSION').startswith("v") else env.get('CM_MLPERF_BACKEND_VERSION')
     else:
-        backend_version = 'default'
+        backend_version = 'vdefault'
 
     if 'CM_SUT_CONFIG' not in state:
         state['CM_SUT_CONFIG'] = {}
