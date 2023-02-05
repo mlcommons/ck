@@ -52,12 +52,14 @@ def preprocess(i):
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     state['RUN'][scenario] = {}
 
-    if env['CM_MODEL'] not in i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']]:
-        i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']] = {}
-        i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']][scenario] = {}
+    model_full_name = env.get('CM_ML_MODEL_FULL_NAME', env['CM_MODEL')
+
+    if model_name not in i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']]:
+        i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name] = {}
+        i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name][scenario] = {}
 
 
-    conf = i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']][scenario]
+    conf = i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_name][scenario]
 
     mode = env['CM_MLPERF_LOADGEN_MODE']
 
@@ -66,7 +68,7 @@ def preprocess(i):
         fast_factor = env['CM_FAST_FACTOR']
     else:
         fast_factor = 1
-    ml_model_name = env['CM_MODEL']
+    ml_model_name = model_full_name
     if 'bert' in ml_model_name:
         ml_model_name = "bert"
     if 'dlrm' in ml_model_name:
@@ -162,7 +164,7 @@ def preprocess(i):
 
     sut_name = env.get('CM_SUT_NAME', env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'])
     OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], sut_name, \
-            env['CM_MODEL'], scenario.lower(), mode)
+            model_full_name, scenario.lower(), mode)
 
     if 'CM_MLPERF_POWER' in env:
         env['CM_MLPERF_POWER_LOG_DIR'] = os.path.join(OUTPUT_DIR, "tmp_power")
@@ -173,7 +175,7 @@ def preprocess(i):
         OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
     elif mode == "compliance":
         test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
-        OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], sut_name, env['CM_MODEL'], scenario.lower(), test)
+        OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], sut_name, model_full_name, scenario.lower(), test)
         if test == "TEST01":
             audit_path = os.path.join(test, env['CM_MODEL'])
         else:

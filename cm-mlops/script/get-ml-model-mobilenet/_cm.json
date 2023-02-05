@@ -114,21 +114,25 @@
     "v1": {
       "group": "version",
       "env": {
-        "CM_ML_MODEL_MOBILENET_VERSION": "1"
+        "CM_ML_MODEL_MOBILENET_VERSION": "1",
+        "CM_ML_MODEL_FULL_NAME": "mobilenet-v1-precision_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>-<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>-<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>"
       }
     },
     "v2": {
       "group": "version",
       "env": {
         "CM_ML_MODEL_MOBILENET_VERSION": "2",
-        "CM_ML_MODEL_VER": "2"
+        "CM_ML_MODEL_VER": "2",
+        "CM_ML_MODEL_FULL_NAME": "mobilenet-v2-precision_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>-<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>-<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>"
       }
     },
     "v3": {
       "group": "version",
+      "default": true,
       "env": {
         "CM_ML_MODEL_MOBILENET_VERSION": "3",
-        "CM_ML_MODEL_VER": "3"
+        "CM_ML_MODEL_VER": "3",
+        "CM_ML_MODEL_FULL_NAME": "mobilenet-v3-precision_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>-<<<CM_ML_MODEL_MOBILENET_KIND>>>-<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>"
       }
     },
     "tf,v1": {
@@ -141,7 +145,7 @@
     },
     "tf,v2": {
       "env": {
-        "CM_ML_MODEL_VER": "12_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>",
+        "CM_ML_MODEL_VER": "2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV2/Predictions/Reshape_1"
       }
     },
