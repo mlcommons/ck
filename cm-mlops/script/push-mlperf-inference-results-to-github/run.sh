@@ -5,6 +5,7 @@ if [[ -n ${CM_MLPERF_SUBMISSION_DIR} ]]; then
 fi
 test $? -eq 0 || exit $?
 cd "${CM_GIT_CHECKOUT_PATH}"
+git pull
 git add *
 git commit -m "Added new results"
 git push
