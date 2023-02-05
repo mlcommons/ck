@@ -446,7 +446,7 @@ variations:
     group: framework
     env:
       CM_MLPERF_BACKEND: deepsparse
-      CM_MLPERF_BATCH_SIZE: "1"
+      CM_MLPERF_DEEPSPARSE_BATCHSIZE: "1"
       CM_MLPERF_BACKEND_VERSION: <<<CM_DEEPSPARSE_VERSION>>>
     deps:
     - tags: get,generic-python-lib,_deepsparse
