@@ -54,6 +54,11 @@ def preprocess(i):
 
     model_full_name = env.get('CM_ML_MODEL_FULL_NAME', env['CM_MODEL'])
 
+    if model_full_name != env['CM_MODEL']:
+        if 'model_mapping' not in state['CM_SUT_CONFIG']:
+            state['CM_SUT_CONFIG']['model_mappings'] = {}
+        state['CM_SUT_CONFIG']['model_mappings'][model_full_name] = env['CM_MODEL']
+
     if model_full_name not in i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']]:
         i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name] = {}
         i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name][scenario] = {}
@@ -68,7 +73,8 @@ def preprocess(i):
         fast_factor = env['CM_FAST_FACTOR']
     else:
         fast_factor = 1
-    ml_model_name = model_full_name
+
+    ml_model_name = env['CM_MODEL']
     if 'bert' in ml_model_name:
         ml_model_name = "bert"
     if 'dlrm' in ml_model_name:

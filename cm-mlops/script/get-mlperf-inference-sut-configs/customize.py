@@ -25,7 +25,7 @@ def postprocess(i):
         state['CM_SUT_CONFIG_PATH'] = {}
 
     implementation_string = env['CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX'] if env.get('CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX', '') != '' else env.get('CM_MLPERF_IMPLEMENTATION', 'default')
-    run_config_string = env['CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX'] if env.get('CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX', '') != '' else 'default'
+    run_config_string = env['CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX'] if env.get('CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX', '') != '' else 'default_config'
     if env.get('CM_SUT_NAME', '') == '':
         env['CM_SUT_NAME'] = env['CM_HW_NAME'] + "-" + implementation_string + "-" + device + "-" + backend + "-" + backend_version + "-" + run_config_string
 

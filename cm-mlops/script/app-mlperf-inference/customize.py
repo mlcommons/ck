@@ -28,6 +28,7 @@ def postprocess(i):
 
     accuracy_result_dir = ''
     model = env['CM_MODEL']
+    model_full_name = env.get('CM_ML_MODEL_FULL_NAME', model)
 
     if model == "resnet50":
         accuracy_filename = "accuracy-imagenet.py"
@@ -68,12 +69,15 @@ def postprocess(i):
             return {'return': 1, 'error': f'No {metric} found in performance summary. Pattern checked "{pattern[metric]}"'}
 
         value = result[0].strip()
+        if "\(ns\)" in pattern[scenario]:
+            value = str(float(value)/1000000) #convert to milliseconds
+
         sut_name = state['CM_SUT_CONFIG_NAME']
         sut_config = state['CM_SUT_CONFIG'][sut_name]
         sut_config_path = state['CM_SUT_CONFIG_PATH'][sut_name]
-        sut_config[model][scenario][metric] = value
+        sut_config[model_full_name][scenario][metric] = value
 
-        print(f"SUT: {sut_name}, model: {model}, scenario: {scenario}, {metric} updates as {value}")
+        print(f"SUT: {sut_name}, model: {model}, scenario: {scenario}, {metric} updated as {value}")
         print(f"New config stored in {sut_config_path}")
         with open(sut_config_path, "w") as f:
             yaml.dump(sut_config, f)
