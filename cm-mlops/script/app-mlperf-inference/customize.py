@@ -132,7 +132,7 @@ def postprocess(i):
 
             print_deps = r['new_state']['print_deps']
             for dep in print_deps:
-                readme_body += "\n" + "`"+dep+"`"
+                readme_body += "\n`" +dep+ "`\n"
 
             if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('print_deps'):
 
@@ -140,10 +140,11 @@ def postprocess(i):
 
                 print_deps = state['mlperf-inference-implementation']['print_deps']
                 for dep in print_deps:
-                    readme_body += "\n" + "`"+dep+"`"
-                readme = readme_init + readme_body
-                with open ("README.md", "w") as fp:
-                    fp.write(readme)
+                    readme_body += "\n`" +dep+"`\n"
+
+            readme = readme_init + readme_body
+            with open ("README.md", "w") as fp:
+                fp.write(readme)
 
     elif mode == "compliance":
 

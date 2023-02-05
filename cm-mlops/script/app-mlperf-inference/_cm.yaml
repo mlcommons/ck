@@ -56,6 +56,7 @@ input_mapping:
   server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
   singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
   multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
+  readme: CM_MLPERF_README
 
 
 # Duplicate CM environment variables to the ones used in native apps
@@ -168,6 +169,8 @@ variations:
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _float32
+      squad-accuracy-script:
+        tags: _float32
     env:
       CM_MLPERF_PYTHON: 'yes'
       CM_MLPERF_IMPLEMENTATION: reference
@@ -188,7 +191,9 @@ variations:
       implementation
     add_deps_recursive:
       imagenet-accuracy-script:
-        tags: _float32
+        tags: _int32
+      squad-accuracy-script:
+        tags: _float16
       python:
         version-min: 3.8.0
     env:
@@ -210,6 +215,8 @@ variations:
     add_deps_recursive:
       imagenet-accuracy-script:
         tags: _int32
+      squad-accuracy-script:
+        tags: _float16
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia-original
     deps:
@@ -340,7 +347,7 @@ variations:
       names:
       - squad-accuracy-script
       - mlperf-accuracy-script
-      tags: run,accuracy,mlperf,_squad,_float32
+      tags: run,accuracy,mlperf,_squad
     add_deps_recursive:
       inference-src:
         tags: _deeplearningexamples

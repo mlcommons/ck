@@ -70,7 +70,9 @@ new_env_keys:
   - CM_DATASET_*
 
 new_state_keys:
+  - mlperf-inference-implementation
   - CM_SUT_*
+
 # Dependencies on other CM scripts
 
 deps:
