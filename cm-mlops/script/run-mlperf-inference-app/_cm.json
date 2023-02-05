@@ -104,7 +104,8 @@
       "env": {
         "CM_MLPERF_LOADGEN_ALL_MODES": "no",
         "CM_MLPERF_LOADGEN_MODE": "performance",
-        "CM_MLPERF_FIND_PERFORMANCE": "yes"
+        "CM_MLPERF_FIND_PERFORMANCE": true,
+	"CM_MLPERF_RESULT_PUSH_TO_GITHUB": false
       }
     },
     "all-scenarios": {

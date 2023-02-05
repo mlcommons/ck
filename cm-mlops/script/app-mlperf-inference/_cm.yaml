@@ -22,7 +22,6 @@ tags:
 
 # Default environment
 default_env:
-  CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
   CM_MLPERF_LOADGEN_MODE: accuracy
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results
