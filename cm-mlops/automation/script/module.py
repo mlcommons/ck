@@ -1850,6 +1850,81 @@ class CAutomation(Automation):
 
         return {'return':0, 'list': lst}
 
+
+    ############################################################
+    def native_run(self, i):
+        """
+        Add CM script
+
+        Args:
+          (CM input dict): 
+
+          env (dict): environment
+          cmd (str): string
+          
+          ...
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        env = i.get('env', {})
+        cmd = i.get('cmd', '')
+
+        script = i.get('script',[])
+
+        # Create temporary script name
+        script_name = i.get('script_name','')
+        if script_name=='': 
+            script_name='tmp-run.'
+
+            if os.name == 'nt':
+                script_name+='bat'
+            else:
+                script_name+='sh'
+        
+        if os.name == 'nt':
+            xcmd = 'call '+script_name
+
+            if len(script)==0:
+                script.append('@echo off')
+                script.append('')
+        else:
+            xcmd = 'chmod 755 '+script_name+' ; ./'+script_name
+
+            if len(script)==0:
+                script.append('#!/bin/bash')
+                script.append('')
+
+        # Assemble env
+        if len(env)>0:
+            for k in env:
+                v=env[k]
+
+                if os.name == 'nt':
+                    script.append('set '+k+'='+v)
+                else:
+                    if ' ' in v: v='"'+v+'"'
+                    script.append('export '+k+'='+v)
+
+            script.append('')
+
+        # Add CMD        
+        script.append(cmd)
+
+        # Record script
+        r = utils.save_txt(file_name=script_name, string='\n'.join(script))
+        if r['return']>0: return r
+
+        # Run script
+        rc = os.system(xcmd)
+
+        return {'return':0, 'return_code':rc}
+    
     ############################################################
     def add(self, i):
         """

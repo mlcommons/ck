@@ -86,62 +86,152 @@ class CAutomation(Automation):
         # Update/create experiment entry
         ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags'])
 
-        ii['action']='update'
+        artifact = ii.get('artifact','')
+        artifact_without_repo = artifact
+        j = artifact.find(':')
+        if j>=0:
+           artifact_without_repo = artifact[j+1:]
+
+        tags = ii.get('tags','').strip()
+
+        # Check if need to add a new UID experiment or find if exists
+        action = 'add' if artifact_without_repo=='' and tags=='' else 'find'
+
+        ii['action']=action
         r=self.cmind.access(ii)
         if r['return']>0: return r
 
-        experiment = r['list'][0]
+        if action == 'add':
+            experiment_path = r['path']
+        else:
+           lst = r['list']
 
-        experiment_path = experiment.path
+           if len(lst)==0:
+               ii['action']='add'
+               r=self.cmind.access(ii)
+               if r['return']>0: return r
+               experiment_path = r['path']
+           elif len(lst)==1:
+               experiment = r['list'][0]
+               experiment_path = experiment.path
+           else:
+               # Select 1 and proceed
+               print ('More than 1 experiment artifact found:')
 
-        print ('Experiment artifact: {}'.format(experiment_path))
+               print ('')
 
-        # Get current date and time
-        r = utils.get_current_date_time({})
-        if r['return']>0: return r
+               lst = sorted(lst, key=lambda x: x.path)
+               
+               num = 0
+               for e in lst:
+                   print ('{}) {}'.format(num, e.path))
+                   num += 1
 
-        date_time = r['iso_datetime'].replace(':','_')
+               print ('')
+               x=input('Make your selection or press Enter for 0: ')
+
+               x=x.strip()
+               if x=='': x='0'
+
+               selection = int(x)
+
+               if selection < 0 or selection >= num:
+                   selection = 0
+
+               experiment = lst[selection]
+               experiment_path = experiment.path
+
+               print ('')
+
+        # Get directory with datetime
+        num = 0
+        found = False
+
+        while not found:
+            r = utils.get_current_date_time({})
+            if r['return']>0: return r
+
+            date_time = r['iso_datetime'].replace(':','-').replace('T','.')
+
+            if num>0:
+                date_time+='.'+str(num)
+
+            experiment_path2 = os.path.join(experiment_path, date_time)
+
+            if not os.path.isdir(experiment_path2):
+                found = True
+                break
+
+            num+=1
 
         # Check/create directory with date_time
-        experiment_path2 = os.path.join(experiment_path, date_time)
-
-        if not os.path.isdir(experiment_path2):
-            os.makedirs(experiment_path2)
+        os.makedirs(experiment_path2)
 
         # Change current path
+        print ('Path to experiment: {}'.format(experiment_path2))
+
         os.chdir(experiment_path2)
 
 
+        
+        
+        # Prepare run command
+        cmd = ''
+        ii = {}
+        
+        unparsed = i.get('unparsed_cmd', [])
+        if len(unparsed)>0:
+            for u in unparsed:
+                if ' ' in u: u='"'+u+'"'
+                cmd+=' '+u
+
+            cmd=cmd.strip()
+
+            ii = {'action':'native-run',
+                  'cmd':cmd}
+        
+        else:
+            ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags', 'cmd', 'action'], reverse=True)
+            ii['action']='run'
+
+            stags = ii.get('stags','').strip()
+            if stags!='':
+                ii['tags']=stags
+                del(ii['stags'])
+
+        ii['automation']='script,5b4e0237da074764'
+
+        env = i.get('env', {})
+        env['CM_EXPERIMENT_PATH'] = experiment_path
+        env['CM_EXPERIMENT_PATH2'] = experiment_path2
+
+        ii['env'] = env
+
+        # Record input
+        experiment_input_file = os.path.join(experiment_path2, 'cm-input.json')
+
+        r = utils.save_json(file_name=experiment_input_file, meta={'cm_raw_input':i, 
+                                                                   'cm_input':ii})
+        if r['return']>0: return r
+        
+        # Prepare and clean output
+        experiment_output_file = os.path.join(experiment_path2, 'cm-output.json')
+
+        if os.path.isfile(experiment_output_file):
+            os.delete(experiment_output_file)
+        
         # Prepare and clean output
         experiment_output_file = os.path.join(experiment_path2, 'cm-output.json')
 
         if os.path.isfile(experiment_output_file):
             os.delete(experiment_output_file)
 
-        # Prepare input for CM artifact with a script
-        ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags'], reverse=True)
-
-        ii['action']='run'
-        ii['automation']='script,bbeb15d8f0a944a4'
-
-        if ii.get('script','')!='':
-           ii['artifact']=ii['script']
-           del(ii['script'])
-
-        if ii.get('script_tags','')!='':
-           ii['tags']=ii['script_tags']
-           del(ii['script_tags'])
-
-        # Record input
-        experiment_input_file = os.path.join(experiment_path2, 'cm-input.json')
-
-        r = utils.save_json(file_name=experiment_input_file, meta=ii)
-        if r['return']>0: return r
 
         # Run CM script
         print ('')
         rr=self.cmind.access(ii)
         if rr['return']>0: return rr
+
 
         # Record output
         r = utils.save_json(file_name=experiment_output_file, meta=rr)
