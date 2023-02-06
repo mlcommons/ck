@@ -56,12 +56,16 @@ for t1 in models:
                         variation_list.append("_"+k3)
                     variation_strings[t1].append(",".join(variation_list))
 
+precisions = [ "fp32", "uint8" ]
 for model in variation_strings:
     for v in variation_strings[model]:
-        for precision in [ "fp32", "uint8" ]:
+        for precision in precisions:
             if "small-minimalistic" in v and precision == "uint8":
                 continue;
-            cm_input = {'action': 'run', 
+            if model == "efficientnet" and precision == "uint8":
+                precision = "int8"
+            cm_input = {
+                    'action': 'run',
                     'automation': 'script',
                     'tags': 'generate-run-cmds,mlperf,inference,_find-performance',
                     'quiet': True,
@@ -74,11 +78,11 @@ for model in variation_strings:
                             }
                         }
                     }
-        print(cm_input)
-        r = cmind.access(cm_input)
-        if r['return'] > 0:
-            print(r)
-            exit(1)
+            print(cm_input)
+            r = cmind.access(cm_input)
+            if r['return'] > 0:
+                print(r)
+                exit(1)
 
 
 
