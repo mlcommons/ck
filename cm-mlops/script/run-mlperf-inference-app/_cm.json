@@ -127,8 +127,7 @@
         "CM_MLPERF_SUBMISSION_RUN": "yes",
         "CM_RUN_SUBMISSION_CHECKER": "yes",
         "CM_TAR_SUBMISSION_DIR": "yes",
-        "CM_RUN_MLPERF_ACCURACY": "on",
-        "CM_MLPERF_README": true
+        "CM_RUN_MLPERF_ACCURACY": "on"
       },
       "post_deps": [
         {
