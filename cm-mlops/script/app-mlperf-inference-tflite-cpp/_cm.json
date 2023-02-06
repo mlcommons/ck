@@ -155,7 +155,8 @@
   },
   "new_env_keys": [
     "CM_MLPERF_*",
-    "CM_ML_MODEL_FULL_NAME"
+    "CM_ML_MODEL_FULL_NAME",
+    "CM_HW_NAME"
   ],
   "new_state_keys": [
     "CM_SUT_*"
