@@ -1,8 +1,6 @@
 import cmind
 import os
-import pathlib
-import json
-current_file_path = pathlib.Path(__file__).parent.resolve()
+import sys
 
 models = {
         "mobilenet": {
@@ -55,6 +53,17 @@ for t1 in models:
                     if k3.strip():
                         variation_list.append("_"+k3)
                     variation_strings[t1].append(",".join(variation_list))
+args = sys.argv
+
+opt=None
+if len(args) > 1:
+    opt = args[1]
+if opt=="submission":
+    var="_submission"
+    execution_mode="valid"
+else:
+    var="_find-performance"
+    execution_mode="test"
 
 precisions = [ "fp32", "uint8" ]
 for model in variation_strings:
@@ -67,11 +76,13 @@ for model in variation_strings:
             cm_input = {
                     'action': 'run',
                     'automation': 'script',
-                    'tags': 'generate-run-cmds,mlperf,inference,_find-performance',
+                    'tags': f'generate-run-cmds,mlperf,inference,{var}',
                     'quiet': True,
                     'implementation': 'tflite-cpp',
                     'precision': precision,
                     'model': model,
+                    'scenario': 'SingleStream',
+                    'execution_mode': execution_mode,
                     'adr': {
                         'tflite-model': {
                             'tags': v

@@ -61,6 +61,8 @@ def preprocess(i):
 
     if model_full_name not in i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']]:
         i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name] = {}
+
+    if scenario not in i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name]:
         i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name][scenario] = {}
 
 

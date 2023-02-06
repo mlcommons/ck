@@ -117,6 +117,9 @@
       }
     },
     "submission": {
+      "default_variations": {
+        "submission-generation-style": "full"
+      },
       "default_gui": true,
       "base": [
         "all-modes"
