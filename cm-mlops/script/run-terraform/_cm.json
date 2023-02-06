@@ -45,16 +45,21 @@
   },
   "default_env": {
     "TF_VAR_SECURITY_GROUP_ID": "sg-0783752c97d2e011d",
-    "TF_VAR_CPU_COUNT": "1",
-    "TF_VAR_DISK_GBS": "8"
+    "TF_VAR_CPU_COUNT": "1"
   },
   "variations": {
     "aws": {
+      "group": "cloud-provider",
+      "default": true,
+      "default_variations": {
+        "aws-instance-type": "t2.micro"
+      },
       "env": {
         "CM_TERRAFORM_CONFIG_DIR_NAME": "aws"
       }
     },
     "t2.micro": {
+      "group": "aws-instance-type",
       "base": [
         "aws"
       ],
@@ -63,15 +68,16 @@
       }
     },
     "c5.4xlarge": {
+      "group": "aws-instance-type",
       "base": [
         "aws"
       ],
       "env": {
-        "TF_VAR_INSTANCE_TYPE": "c5.4xlarge",
-        "TF_VAR_DISK_GBS": "80"
+        "TF_VAR_INSTANCE_TYPE": "c5.4xlarge"
       }
     },
     "c5.12xlarge": {
+      "group": "aws-instance-type",
       "base": [
         "aws"
       ],
@@ -80,6 +86,7 @@
       }
     },
     "c5d.9xlarge": {
+      "group": "aws-instance-type",
       "base": [
         "aws"
       ],
@@ -88,11 +95,25 @@
       }
     },
     "g4dn.xlarge": {
+      "group": "aws-instance-type",
       "base": [
         "aws"
       ],
       "env": {
         "TF_VAR_INSTANCE_TYPE": "g4dn.xlarge"
+      }
+    },
+    "storage_size.8": {
+      "group": "storage-size",
+      "default": true,
+      "env": {
+        "TF_VAR_DISK_GBS": "8"
+      }
+    },
+    "storage_size.#": {
+      "group": "storage-size",
+      "env": {
+        "TF_VAR_DISK_GBS": "#"
       }
     }
   }
