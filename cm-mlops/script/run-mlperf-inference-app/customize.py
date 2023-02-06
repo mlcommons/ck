@@ -19,6 +19,8 @@ def preprocess(i):
     system_meta = state['CM_SUT_META']
     env['CM_SUT_META_EXISTS'] = "yes"
 
+    env['CM_MODEL'] = env['CM_MLPERF_MODEL']
+
     if env.get('CM_MLPERF_SUBMISSION_SYSTEM_TYPE', '') != '':
         system_type = env['CM_MLPERF_SUBMISSION_SYSTEM_TYPE']
         system_meta['system_type'] = system_type
@@ -82,7 +84,7 @@ def preprocess(i):
 
     env['CM_MLPERF_DEVICE'] = env.get('CM_MLPERF_DEVICE', 'cpu')
     variation_implementation= "_" + env.get("CM_MLPERF_IMPLEMENTATION", "reference")
-    variation_model= ",_" + env.get("CM_MLPERF_MODEL") if env.get("CM_MLPERF_MODEL","") != "" else ""
+    variation_model= ",_" + env["CM_MLPERF_MODEL"]
     variation_backend= ",_" + env.get("CM_MLPERF_BACKEND") if env.get("CM_MLPERF_BACKEND","") != "" else ""
     variation_device= ",_" + env.get("CM_MLPERF_DEVICE", "cpu") if env.get("CM_MLPERF_DEVICE","") != "" else ""
     variation_run_style= ",_" + env.get("CM_MLPERF_EXECUTION_MODE", "test")

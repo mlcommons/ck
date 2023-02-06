@@ -83,7 +83,7 @@ def postprocess(i):
         sut_config_path = state['CM_SUT_CONFIG_PATH'][sut_name]
         sut_config[model_full_name][scenario][metric] = value
 
-        print(f"SUT: {sut_name}, model: {model}, scenario: {scenario}, {metric} updated as {value}")
+        print(f"SUT: {sut_name}, model: {model_full_name}, scenario: {scenario}, {metric} updated as {value}")
         print(f"New config stored in {sut_config_path}")
         with open(sut_config_path, "w") as f:
             yaml.dump(sut_config, f)

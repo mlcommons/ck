@@ -4,7 +4,6 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "category": "ML/AI models",
-  "default_variation": "onnx",
   "default_env": {
     "CM_ML_MODEL": "mobilenet",
     "CM_ML_MODEL_DATASET": "imagenet2012-val",
@@ -114,6 +113,10 @@
     },
     "v1": {
       "group": "version",
+      "default_variations": {
+        "resolution": "resolution-224",
+        "multiplier": "multiplier-1.0"
+      },
       "env": {
         "CM_ML_MODEL_MOBILENET_VERSION": "1",
         "CM_ML_MODEL_FULL_NAME": "mobilenet-v1-precision_<<<CM_ML_MODEL_MOBILENET_PRECISION>>>-<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>-<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>"
@@ -121,6 +124,10 @@
     },
     "v2": {
       "group": "version",
+      "default_variations": {
+        "resolution": "resolution-224",
+        "multiplier": "multiplier-1.0"
+      },
       "env": {
         "CM_ML_MODEL_MOBILENET_VERSION": "2",
         "CM_ML_MODEL_VER": "2",
@@ -130,6 +137,10 @@
     "v3": {
       "group": "version",
       "default": true,
+      "default_variations": {
+        "resolution": "resolution-224",
+        "multiplier": "multiplier-1.0"
+      },
       "env": {
         "CM_ML_MODEL_MOBILENET_VERSION": "3",
         "CM_ML_MODEL_VER": "3",
@@ -152,7 +163,7 @@
     },
     "tf,v3": {
       "env": {
-        "CM_ML_MODEL_VER": "3_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>",
+        "CM_ML_MODEL_VER": "3_<<<CM_ML_MODEL_MOBILENET_KIND>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV3/Predictions/Softmax"
       }
     },
@@ -185,7 +196,6 @@
     },
     "resolution-224": {
       "group": "resolution",
-      "default": true,
       "env": {
         "CM_ML_MODEL_MOBILENET_RESOLUTION": "224",
         "CM_ML_MODEL_IMAGE_HEIGHT": "224",
@@ -195,7 +205,6 @@
     },
     "multiplier-1.0": {
       "group": "multiplier",
-      "default": true,
       "env": {
         "CM_ML_MODEL_MOBILENET_MULTIPLIER": "1.0",
         "CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE": "100"
@@ -215,6 +224,13 @@
         "CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE": "50"
       }
     },
+    "multiplier-0.35": {
+      "group": "multiplier",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER": "0.35",
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE": "35"
+      }
+    },
     "multiplier-0.25": {
       "group": "multiplier",
       "env": {
@@ -230,13 +246,15 @@
     },
     "large": {
       "group": "kind",
-      "default": true,
       "env": {
         "CM_ML_MODEL_MOBILENET_KIND": "large"
       }
     },
     "small-minimalistic": {
       "group": "kind",
+      "default_variations": {
+        "precision": "fp32"
+      },
       "env": {
         "CM_ML_MODEL_MOBILENET_KIND": "small-minimalistic"
       }
