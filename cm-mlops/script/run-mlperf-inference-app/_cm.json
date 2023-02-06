@@ -36,11 +36,8 @@
   "default_env": {
     "CM_OUTPUT_FOLDER_NAME": "test_results",
     "CM_MLPERF_RUN_STYLE": "test",
-    "CM_MLPERF_MODEL": "resnet50",
     "CM_MLPERF_IMPLEMENTATION": "reference",
-    "CM_MLPERF_BACKEND": "onnxruntime",
-    "CM_MLPERF_LOADGEN_COMPLIANCE": "yes",
-    "CM_MLPERF_DEVICE": "cpu"
+    "CM_MLPERF_LOADGEN_COMPLIANCE": "yes"
   },
   "input_mapping": {
     "lang": "CM_MLPERF_IMPLEMENTATION",

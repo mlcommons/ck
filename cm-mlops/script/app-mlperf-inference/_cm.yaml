@@ -126,6 +126,9 @@ variations:
 
 
   tflite-cpp:
+    default_variations:
+      backend: tflite
+      device: cpu
     group:
       implementation
     add_deps_recursive:
@@ -170,6 +173,9 @@ variations:
     alias: reference
   
   nvidia:
+    default_variations:
+      backend: tensorrt
+      device: cuda
     group:
       implementation
     add_deps_recursive:
@@ -193,6 +199,9 @@ variations:
       - tags: get,generic-python-lib,_onnx
   
   nvidia-original:
+    default_variations:
+      backend: tensorrt
+      device: cuda
     group:
       implementation
     add_deps_recursive:

@@ -87,18 +87,18 @@ def preprocess(i):
         test_list.append("TEST04")
 
     env['CM_MLPERF_DEVICE'] = env.get('CM_MLPERF_DEVICE', 'cpu')
-    variation_implementation= "_" + env.get("CM_MLPERF_IMPLEMENTATION", "python")
-    variation_model= "_" + env.get("CM_MLPERF_MODEL", "resnet50")
-    variation_backend= "_" + env.get("CM_MLPERF_BACKEND", "tf")
-    variation_device= "_" + env.get("CM_MLPERF_DEVICE", "cpu")
-    variation_run_style= "_" + env.get("CM_MLPERF_EXECUTION_MODE", "test")
+    variation_implementation= "_" + env.get("CM_MLPERF_IMPLEMENTATION", "reference")
+    variation_model= ",_" + env.get("CM_MLPERF_MODEL") if env.get("CM_MLPERF_MODEL","") != "" else ""
+    variation_backend= ",_" + env.get("CM_MLPERF_BACKEND") if env.get("CM_MLPERF_BACKEND","") != "" else ""
+    variation_device= ",_" + env.get("CM_MLPERF_DEVICE", "cpu") if env.get("CM_MLPERF_DEVICE","") != "" else ""
+    variation_run_style= ",_" + env.get("CM_MLPERF_EXECUTION_MODE", "test")
 
     if env.get("CM_MLPERF_MODEL_PRECISION", '') != '':
         variation_quantization_string= ",_" + env["CM_MLPERF_MODEL_PRECISION"]
     else:
         variation_quantization_string = ""
 
-    tags =  "app,mlperf,inference,generic,"+variation_implementation+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style+variation_quantization_string+power_variation
+    tags =  "app,mlperf,inference,generic,"+variation_implementation+variation_model+variation_backend+variation_device+variation_run_style+variation_quantization_string+power_variation
     silent = inp.get('silent', False)
     print_env = inp.get('print_env', False)
     print_deps = inp.get('print_deps', False)
