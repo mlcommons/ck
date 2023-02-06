@@ -1592,7 +1592,7 @@ class CAutomation(Automation):
                             dynamic_base_variation_already_added = False
                             if base_variation not in variations:
                                 base_variation_dynamic = self._get_name_for_dynamic_variation_tag(base_variation)
-                                if not base_variation_dynamic or base_variation_dynamic not in variations::
+                                if not base_variation_dynamic or base_variation_dynamic not in variations:
                                     return {'return': 1, 'error': 'Variation "{}" specified as base variation of "{}" is not existing'.format(base_variation, variation_name)}
                                 else:
                                     dynamic_base_variation = True
