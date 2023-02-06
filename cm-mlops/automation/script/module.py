@@ -684,7 +684,7 @@ class CAutomation(Automation):
             return r
 
         # variation_tags get appended by any default on variation in groups
-        r = self._process_variation_tags_in_groups(variation_tags, variation_groups, excluded_variation_tags)
+        r = self._process_variation_tags_in_groups(variation_tags, variation_groups, excluded_variation_tags, variations)
         if r['return'] > 0:
             return r
         if variation_tags != r['variation_tags']:
@@ -2078,15 +2078,22 @@ class CAutomation(Automation):
 
 
     ##############################################################################
-    def _process_variation_tags_in_groups(script, variation_tags, groups, excluded_variations):
+    def _process_variation_tags_in_groups(script, variation_tags, groups, excluded_variations, variations):
         import copy
         tmp_variation_tags= copy.deepcopy(variation_tags)
+        tmp_variation_tags_static= copy.deepcopy(variation_tags)
+        for v in tmp_variation_tags_static:
+            if v not in variations:
+                v_static = script._get_name_for_dynamic_variation_tag(v)
+                tmp_variation_tags_static.remove(v)
+                tmp_variation_tags_static.append(v_static)
+
         for k in groups:
             group = groups[k]
             unique_allowed_variations = group['variations']
-            if len(set(unique_allowed_variations) & set(variation_tags)) > 1:
+            if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) > 1:
                 return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(variation_tags)))}
-            if len(set(unique_allowed_variations) & set(variation_tags)) == 0:
+            if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) == 0:
                 if 'default' in group and group['default'] not in excluded_variations:
                     tmp_variation_tags.append(group['default'])
 
