@@ -22,7 +22,8 @@
     "CM_ML_MODEL_WEIGHTS_FILE": "model.ckpt.data-00000-of-00001",
     "CM_ML_MODEL_FILE": "efficientnet-<<<CM_ML_MODEL_EFFICIENTNET_LITE_KIND>>>-<<<CM_ML_MODEL_EFFICIENTNET_LITE_PRECISION>>>.tflite",
     "CM_UNTAR": "yes",
-    "CM_EXTRACT_FOLDER": "efficientnet-<<<CM_ML_MODEL_EFFICIENTNET_LITE_KIND>>>"
+    "CM_EXTRACT_FOLDER": "efficientnet-<<<CM_ML_MODEL_EFFICIENTNET_LITE_KIND>>>",
+    "CM_ML_MODEL_FULL_NAME": "efficientnet-<<<CM_ML_MODEL_EFFICIENTNET_LITE_KIND>>>"
   },
   "new_env_keys": [
     "CM_ML_MODEL_*",
