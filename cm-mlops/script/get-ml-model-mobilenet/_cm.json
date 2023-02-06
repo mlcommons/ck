@@ -13,7 +13,8 @@
     "CM_ML_MODEL_MOBILENET_NAME_SUFFIX": ""
   },
   "new_env_keys": [
-    "CM_ML_MODEL_*"
+    "CM_ML_MODEL_*",
+    "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
   ],
   "tags": [
     "get",
@@ -160,7 +161,8 @@
       "env": {
         "CM_ML_MODEL_MOBILENET_RESOLUTION": "128",
         "CM_ML_MODEL_IMAGE_HEIGHT": "128",
-        "CM_ML_MODEL_IMAGE_WIDTH": "128"
+        "CM_ML_MODEL_IMAGE_WIDTH": "128",
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS": "_resolution.128"
       }
     },
     "resolution-160": {
@@ -168,7 +170,8 @@
       "env": {
         "CM_ML_MODEL_MOBILENET_RESOLUTION": "160",
         "CM_ML_MODEL_IMAGE_HEIGHT": "160",
-        "CM_ML_MODEL_IMAGE_WIDTH": "160"
+        "CM_ML_MODEL_IMAGE_WIDTH": "160",
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS": "_resolution.160"
       }
     },
     "resolution-192": {
@@ -176,7 +179,8 @@
       "env": {
         "CM_ML_MODEL_MOBILENET_RESOLUTION": "192",
         "CM_ML_MODEL_IMAGE_HEIGHT": "192",
-        "CM_ML_MODEL_IMAGE_WIDTH": "192"
+        "CM_ML_MODEL_IMAGE_WIDTH": "192",
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS": "_resolution.192"
       }
     },
     "resolution-224": {
@@ -185,7 +189,8 @@
       "env": {
         "CM_ML_MODEL_MOBILENET_RESOLUTION": "224",
         "CM_ML_MODEL_IMAGE_HEIGHT": "224",
-        "CM_ML_MODEL_IMAGE_WIDTH": "224"
+        "CM_ML_MODEL_IMAGE_WIDTH": "224",
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS": "_resolution.224"
       }
     },
     "multiplier-1.0": {
