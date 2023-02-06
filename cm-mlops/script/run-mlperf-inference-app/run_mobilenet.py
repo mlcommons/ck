@@ -59,6 +59,8 @@ for t1 in models:
 for model in variation_strings:
     for v in variation_strings[model]:
         for precision in [ "fp32", "uint8" ]:
+            if "small-minimalistic" in v and precision == "uint8":
+                continue;
             cm_input = {'action': 'run', 
                     'automation': 'script',
                     'tags': 'generate-run-cmds,mlperf,inference,_find-performance',

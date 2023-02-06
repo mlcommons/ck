@@ -137,6 +137,10 @@
     "v3": {
       "group": "version",
       "default": true,
+      "default_variations": {
+        "resolution": "resolution-224",
+        "multiplier": "multiplier-1.0"
+      },
       "env": {
         "CM_ML_MODEL_MOBILENET_VERSION": "3",
         "CM_ML_MODEL_VER": "3",
@@ -159,7 +163,7 @@
     },
     "tf,v3": {
       "env": {
-        "CM_ML_MODEL_VER": "3_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>",
+        "CM_ML_MODEL_VER": "3_<<<CM_ML_MODEL_MOBILENET_KIND>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>",
         "CM_ML_MODEL_OUTPUT_LAYER_NAME": "MobilenetV3/Predictions/Softmax"
       }
     },
@@ -248,6 +252,9 @@
     },
     "small-minimalistic": {
       "group": "kind",
+      "default_variations": {
+        "precision": "fp32"
+      },
       "env": {
         "CM_ML_MODEL_MOBILENET_KIND": "small-minimalistic"
       }
