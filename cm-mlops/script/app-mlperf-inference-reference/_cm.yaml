@@ -23,7 +23,6 @@ tags:
 
 # Default environment
 default_env:
-  CM_MLPERF_MODEL_SKIP_BATCHING: false
   CM_MLPERF_LOADGEN_MODE: accuracy
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results

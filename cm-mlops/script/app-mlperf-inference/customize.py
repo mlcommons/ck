@@ -7,6 +7,12 @@ import cmind as cm
 
 def preprocess(i):
 
+    env = i['env']
+
+    if env.get('CM_MLPERF_SUBMISSION_GENERATION_STYLE', '') == "short":
+        if env.get('CM_MODEL', '') == "resnet50":
+            env['CM_TEST_QUERY_COUNT'] = "500" #so that accuracy script doesn't complain
+
     return {'return':0}
 
 def postprocess(i):

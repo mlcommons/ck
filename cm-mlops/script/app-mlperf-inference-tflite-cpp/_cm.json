@@ -92,6 +92,9 @@
           "on"
         ]
       },
+      "update_tags_from_env": [
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
+      ],
       "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb32,_NHWC",
       "names": [ "imagenet-preprocessed" ]
     },
@@ -117,6 +120,9 @@
           "on"
         ]
       },
+      "update_tags_from_env": [
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
+      ],
       "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb8,_NHWC",
       "names": [ "imagenet-preprocessed" ]
     },

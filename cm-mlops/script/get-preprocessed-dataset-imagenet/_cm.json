@@ -51,7 +51,6 @@
     }
   ],
   "default_env": {
-    "CM_DATASET_INPUT_SQUARE_SIDE": "224",
     "CM_DATASET_CROP_FACTOR": "87.5",
     "CM_DATASET_DATA_TYPE": "float32",
     "CM_DATASET_DATA_LAYOUT": "NCHW",
