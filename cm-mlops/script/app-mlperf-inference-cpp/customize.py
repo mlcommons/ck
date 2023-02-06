@@ -94,6 +94,7 @@ def postprocess(i):
                 'tags': script_tags,
                 'adr': script_adr,
                 'print_deps': True,
+                'env': env,
                 'quiet': True,
                 'silent': True,
                 'fake_run': True

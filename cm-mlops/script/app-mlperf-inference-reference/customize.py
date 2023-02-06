@@ -241,6 +241,7 @@ def postprocess(i):
                 'automation': 'script',
                 'tags': script_tags,
                 'adr': script_adr,
+                'env': env,
                 'print_deps': True,
                 'quiet': True,
                 'silent': True,
