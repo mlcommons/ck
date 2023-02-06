@@ -1592,7 +1592,7 @@ class CAutomation(Automation):
                             dynamic_base_variation_already_added = False
                             if base_variation not in variations:
                                 base_variation_dynamic = self._get_name_for_dynamic_variation_tag(base_variation)
-                                if not base_variation_dynamic:
+                                if not base_variation_dynamic or base_variation_dynamic not in variations::
                                     return {'return': 1, 'error': 'Variation "{}" specified as base variation of "{}" is not existing'.format(base_variation, variation_name)}
                                 else:
                                     dynamic_base_variation = True
@@ -1628,7 +1628,9 @@ class CAutomation(Automation):
 
                             if tag_to_append:
                                 if tag_to_append not in variations:
-                                    return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
+                                    variation_tag_static = self._get_name_for_dynamic_variation_tag(tag_to_append)
+                                    if not variation_tag_static or variation_tag_static not in variations:
+                                        return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
                                 variation_tags.append(tag_to_append)
                                 tmp_variations[tag_to_append] = False
 
