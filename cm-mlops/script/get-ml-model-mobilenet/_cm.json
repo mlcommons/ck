@@ -215,6 +215,13 @@
         "CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE": "50"
       }
     },
+    "multiplier-0.235": {
+      "group": "multiplier",
+      "env": {
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER": "0.35",
+        "CM_ML_MODEL_MOBILENET_MULTIPLIER_PERCENTAGE": "35"
+      }
+    },
     "multiplier-0.25": {
       "group": "multiplier",
       "env": {

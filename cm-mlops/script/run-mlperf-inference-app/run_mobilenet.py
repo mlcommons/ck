@@ -12,7 +12,7 @@ models = {
                 "kind": [""]
                 },
             "v2": {
-                "multiplier": [ "multiplier-1.0", "multiplier-0.75", "multiplier-0.5", "multiplier-0.25" ],
+                "multiplier": [ "multiplier-1.0", "multiplier-0.75", "multiplier-0.5", "multiplier-0.35" ],
                 "resolution": [ "resolution-224", "resolution-192", "resolution-160", "resolution-128" ],
                 "kind": [""]
                 },
