@@ -141,7 +141,7 @@
         },
         {
           "skip_if_env": {
-            "CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": []
+            "CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": [ "on" ]
           },
           "tags": "get,ml-model,bert-large"
         },

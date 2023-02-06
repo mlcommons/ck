@@ -39,7 +39,6 @@
     "destroy": "CM_DESTROY_TERRAFORM",
     "cminit": "CM_TERRAFORM_CM_INIT",
     "key_file": "CM_SSH_KEY_FILE",
-    "disk_size": "TF_VAR_DISK_GBS",
     "run_cmds": "CM_TERRAFORM_RUN_COMMANDS",
     "ssh_key_file": "CM_SSH_KEY_FILE"
   },
