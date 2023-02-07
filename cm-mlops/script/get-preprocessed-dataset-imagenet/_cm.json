@@ -88,7 +88,7 @@
         "preprocessing-source": "mlcommons-reference-preprocessor"
       },
       "env": {
-	"CM_PREPROCESS_VGG": true,
+	"CM_PREPROCESS_VGG": "yes",
 	"CM_MODEL": "resnet50"
       }
     },
@@ -97,7 +97,7 @@
         "preprocessing-source": "mlcommons-reference-preprocessor"
       },
       "env": {
-	"CM_PREPROCESS_PYTORCH": true,
+	"CM_PREPROCESS_PYTORCH": "yes",
 	"CM_MODEL": "resnet50"
       },
       "deps": [
