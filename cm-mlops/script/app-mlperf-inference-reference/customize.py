@@ -131,6 +131,9 @@ def preprocess(i):
     env['CM_RUN_CMD'] = cmd
     env['CK_PROGRAM_TMP_DIR'] = env['CM_ML_MODEL_PATH'] #for tvm
 
+    if env.get('CM_HOST_PLATFORM_FLAVOR','') == "arm64":
+        env['CM_HOST_PLATFORM_FLAVOR'] = "aarch64"
+
     return {'return':0}
 
 def get_run_cmd(env, scenario_extra_options, mode_extra_options, dataset_options, implementation="reference"):
