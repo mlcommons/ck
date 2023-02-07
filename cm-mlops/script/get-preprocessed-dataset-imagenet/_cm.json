@@ -86,7 +86,26 @@
     "default": {
       "default_variations": {
         "preprocessing-source": "mlcommons-reference-preprocessor"
+      },
+      "env": {
+	"CM_PREPROCESS_VGG": true,
+	"CM_MODEL": "resnet50"
       }
+    },
+    "pytorch": {
+      "default_variations": {
+        "preprocessing-source": "mlcommons-reference-preprocessor"
+      },
+      "env": {
+	"CM_PREPROCESS_PYTORCH": true,
+	"CM_MODEL": "resnet50"
+      },
+      "deps": [
+        {
+          "names": [ "torchvision" ],
+          "tags": "get,generic-python-lib,_torchvision"
+        }
+      ]
     },
     "1": {
       "group": "size",
