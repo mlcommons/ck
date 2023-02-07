@@ -106,6 +106,9 @@ def preprocess(i):
         env['DATA_DIR'] = env.get('CM_DATASET_PATH')
         dataset_options = ''
 
+    if env.get('CM_MLPERF_EXTRA_DATASET_ARGS','') != '':
+        dataset_options += " " + env['CM_MLPERF_EXTRA_DATASET_ARGS']
+
     if mode == "accuracy":
         mode_extra_options += " --accuracy"
 
