@@ -33,6 +33,7 @@ def preprocess(i):
         env["CM_MLPERF_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
 
     clean = False
+
     if 'CM_MLPERF_CLEAN_ALL' in env:
         clean = True
         if 'CM_MLPERF_CLEAN_SUBMISSION_DIR' not in env:
@@ -40,9 +41,9 @@ def preprocess(i):
         if 'CM_RERUN' not in env:
             env['CM_RERUN'] = "yes"
 
-    if str(env.get('CM_SYSTEM_POWER','no')).lower() != "no":
+    if str(env.get('CM_SYSTEM_POWER','no')).lower() != "no" or env.get('CM_MLPERF_POWER', '') == "yes":
         power_variation = ",_power"
-        env['CM_SYSTEM_POWER'] = "yes"
+        env['CM_MLPERF_POWER'] = "yes"
     else:
         power_variation = ""
 

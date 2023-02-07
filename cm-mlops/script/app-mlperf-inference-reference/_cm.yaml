@@ -42,7 +42,7 @@ input_mapping:
   mode: CM_MLPERF_LOADGEN_MODE
   num_threads: CM_NUM_THREADS
   output_dir: OUTPUT_BASE_DIR
-  power: CM_SYSTEM_POWER
+  power: CM_MLPERF_POWER
   power_server: CM_MLPERF_POWER_SERVER_ADDRESS
   ntp_server: CM_MLPERF_POWER_NTP_SERVER
   max_amps: CM_MLPERF_POWER_MAX_AMPS

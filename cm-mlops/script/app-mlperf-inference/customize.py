@@ -27,7 +27,7 @@ def postprocess(i):
     mode = env['CM_MLPERF_LOADGEN_MODE']
 
     #in power mode copy the log files from tmp_power directory
-    if 'CM_MLPERF_POWER' in env and mode == "performance":
+    if env.get('CM_MLPERF_POWER', '') == "yes" and mode == "performance":
         mlperf_power_logs_dir = os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "power")
         mlperf_ranging_logs_dir = os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "ranging")
 
