@@ -18,7 +18,7 @@ def preprocess(i):
     if env.get('CM_RUN_DOCKER_CONTAINER', '') == "yes": 
         return {'return':0}
 
-    if env.get('CM_SYSTEM_POWER','') == "yes":
+    if env.get('CM_MLPERF_POWER','') == "yes":
         power = "yes"
     else:
         power = "no"
