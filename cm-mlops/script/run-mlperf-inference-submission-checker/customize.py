@@ -41,7 +41,7 @@ def preprocess(i):
         extra_map = ""
 
     if env.get('CM_MLPERF_POWER', 'no') == "yes":
-        power_check = " --more_power_check"
+        power_check = " --more-power-check"
     else:
         power_check = ""
 
