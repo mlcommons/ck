@@ -28,9 +28,21 @@ def postprocess(i):
 
     #in power mode copy the log files from tmp_power directory
     if 'CM_MLPERF_POWER' in env and mode == "performance":
-        shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "power"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "power"))
-        shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "ranging"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "ranging"))
-        shutil.copyfile(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "run_1", "spl.txt"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "spl.txt"))
+        mlperf_power_logs_dir = os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "power")
+        mlperf_ranging_logs_dir = os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "ranging")
+
+        if os.path.exists(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "power")):
+            if os.path.exists(mlperf_power_logs_dir):
+                shutil.rmtree(mlperf_power_logs_dir)
+            shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "power"), mlperf_power_logs_dir)
+
+        if os.path.exists(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "ranging")):
+            if os.path.exists(mlperf_ranging_logs_dir):
+                shutil.rmtree(mlperf_ranging_logs_dir)
+            shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "ranging"), mlperf_ranging_logs_dir)
+
+        if os.path.exists(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "run_1", "spl.txt")):
+            shutil.copyfile(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "run_1", "spl.txt"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "spl.txt"))
 
     accuracy_result_dir = ''
     model = env['CM_MODEL']
@@ -121,7 +133,7 @@ def postprocess(i):
         readme_init = "This experiment is generated using [MLCommons CM](https://github.com/mlcommons/ck)\n"
         readme_body = "## CM Run Command\n```\n" + cmd + "\n```"
 
-        if env.get('CM_MLPERF_README', False):
+        if env.get('CM_MLPERF_README', '') == "yes":
             readme_body += "\n## Dependent CM scripts \n"
 
             script_tags = inp['tags']
