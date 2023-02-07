@@ -20,12 +20,12 @@ else:
     threads = os.environ.get('CM_NUM_THREADS', os.cpu_count())
     threads = int(os.environ.get('CM_NUM_PREPROCESS_THREADS', threads))
 
-    if os.environ.get('CM_MODEL', 'resnet50') == 'resnet50' and os.environ.get('CM_PREPROCESS_VGG', '') == "yes":
-        pre_process = dataset.pre_process_vgg
-    elif os.environ.get('CM_MODEL') == 'mobilenet':
+    if os.environ.get('CM_MODEL') == 'mobilenet':
         pre_process = dataset.pre_process_mobilenet
     elif os.environ.get('CM_MODEL', 'resnet50') == 'resnet50' and os.environ.get('CM_PREPROCESS_PYTORCH', '') == "yes":
         pre_process = dataset.pre_process_imagenet_pytorch
+    else:
+        pre_process = dataset.pre_process_vgg
 
     imagenet.Imagenet(data_path=dataset_path,
                         image_list=dataset_list,
