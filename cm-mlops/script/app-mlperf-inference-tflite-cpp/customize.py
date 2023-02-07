@@ -10,7 +10,7 @@ def preprocess(i):
         return {'return':1, 'error': 'Windows is not supported in this script yet'}
     env = i['env']
 
-    if env.get('CM_MLPERF_SKIP_RUN', '') == "yes"
+    if env.get('CM_MLPERF_SKIP_RUN', '') == "yes":
         return {'return':0}
 
     if 'CM_MODEL' not in env:
@@ -83,7 +83,7 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
-    if env.get('CM_MLPERF_README', 'no') == "yes":
+    if env.get('CM_MLPERF_README', '') == "yes":
         import cmind as cm
         inp = i['input']
         state = i['state']
@@ -94,6 +94,7 @@ def postprocess(i):
                 'automation': 'script',
                 'tags': script_tags,
                 'adr': script_adr,
+                'env': env,
                 'print_deps': True,
                 'quiet': True,
                 'silent': True,

@@ -1,3 +1,6 @@
+# 20230206:
+ * started prototyping cm run experiment
+
 # 20230123:
  * added simple GUI to CM scripts
 

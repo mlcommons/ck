@@ -55,10 +55,10 @@ def preprocess(i):
         else:
             env['CM_NUM_THREADS'] = env.get('CM_HOST_CPU_TOTAL_CORES', '1')
 
-    if 'CM_MLPERF_LOADGEN_MAX_BATCHSIZE' in env and env.get('CM_MLPERF_MODEL_SKIP_BATCHING', 'no') != "yes" :
+    if env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE','') != '' and not env.get('CM_MLPERF_MODEL_SKIP_BATCHING', False) :
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env and env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', 'no') != "yes":
+    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') != '' and not env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', False):
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
 
     print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
@@ -157,7 +157,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
         if env['CM_MLPERF_BACKEND'] == "deepsparse":
-            cmd += " --batch_size="+env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']+" --model_path=" + env['CM_ML_MODEL_FILE_WITH_PATH']
+            cmd += " --batch_size="+env['CM_MLPERF_DEEPSPARSE_BATCHSIZE']+" --model_path=" + env['CM_ML_MODEL_FILE_WITH_PATH']
         cmd = cmd.replace("--count", "--max_examples")
         env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
         env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']
@@ -230,7 +230,7 @@ def postprocess(i):
 
     env = i['env']
 
-    if env.get('CM_MLPERF_README', 'no') == "yes":
+    if env.get('CM_MLPERF_README', "") == "yes":
         import cmind as cm
         inp = i['input']
         state = i['state']
@@ -241,6 +241,7 @@ def postprocess(i):
                 'automation': 'script',
                 'tags': script_tags,
                 'adr': script_adr,
+                'env': env,
                 'print_deps': True,
                 'quiet': True,
                 'silent': True,

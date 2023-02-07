@@ -23,8 +23,6 @@ tags:
 
 # Default environment
 default_env:
-  CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
-  CM_MLPERF_MODEL_SKIP_BATCHING: no
   CM_MLPERF_LOADGEN_MODE: accuracy
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results
@@ -66,6 +64,7 @@ env_key_mappings:
 new_env_keys:
   - CM_MLPERF_*
   - CM_DATASET_*
+  - CM_HW_NAME
 
 new_state_keys:
   - mlperf-inference-implementation
@@ -447,7 +446,7 @@ variations:
     group: framework
     env:
       CM_MLPERF_BACKEND: deepsparse
-      CM_MLPERF_BATCH_SIZE: "1"
+      CM_MLPERF_DEEPSPARSE_BATCHSIZE: "1"
       CM_MLPERF_BACKEND_VERSION: <<<CM_DEEPSPARSE_VERSION>>>
     deps:
     - tags: get,generic-python-lib,_deepsparse
@@ -460,6 +459,7 @@ variations:
   tvm-onnx:
     group: framework
     env:
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
       CM_MLPERF_BACKEND: tvm-onnx
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
     deps:
@@ -474,6 +474,7 @@ variations:
   tvm-pytorch:
     group: framework
     env:
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
@@ -502,7 +503,7 @@ variations:
 
   bert:
     env:
-      CM_MLPERF_MODEL_SKIP_BATCHING: "yes"
+      CM_MLPERF_MODEL_SKIP_BATCHING: true
     deps:
     - tags: get,generic-python-lib,_tokenization
     - tags: get,generic-python-lib,_protobuf
@@ -536,8 +537,8 @@ variations:
 
   3d-unet:
     env:
-      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: "yes"
-      CM_MLPERF_MODEL_SKIP_BATCHING: "yes"
+      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: true
+      CM_MLPERF_MODEL_SKIP_BATCHING: true
 
   dlrm-99.9:
     group: models
@@ -555,7 +556,7 @@ variations:
 
   dlrm:
     env:
-      CM_MLPERF_MODEL_SKIP_BATCHING: "no"
+      CM_MLPERF_MODEL_SKIP_BATCHING: true
     deps:
     - tags: get,dlrm,src
       names:
@@ -583,8 +584,8 @@ variations:
     group: models
     env:
       CM_MODEL: rnnt
-      CM_MLPERF_MODEL_SKIP_BATCHING: "yes"
-      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: "yes"
+      CM_MLPERF_MODEL_SKIP_BATCHING: true
+      CM_TMP_IGNORE_MLPERF_QUERY_COUNT: true
     deps:
     - tags: get,generic-python-lib,_librosa
     - tags: get,generic-python-lib,_inflect
@@ -600,6 +601,7 @@ variations:
 
     env:
       CM_MODEL: retinanet
+      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
 
   resnet50:
     group: models

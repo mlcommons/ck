@@ -22,7 +22,6 @@ tags:
 
 # Default environment
 default_env:
-  CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
   CM_MLPERF_LOADGEN_MODE: accuracy
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results
@@ -76,9 +75,6 @@ deps:
   # Detect host OS features
   - tags: detect,os
 
-  # Detect host CPU features
-  - tags: detect,cpu
-
   # Install system dependencies on a given host
   - tags: get,sys-utils-cm
 
@@ -87,19 +83,6 @@ deps:
     names:
     - python
     - python3
-
-  # Detect CUDA if required
-  - tags: get,cuda
-    enable_if_env:
-      CM_MLPERF_DEVICE:
-      - gpu
-
-  # Detect CUDA info if required
-  - tags: get,cuda-devices
-    enable_if_env:
-      CM_MLPERF_DEVICE:
-      - gpu
-
 
 
   ########################################################################
@@ -143,6 +126,9 @@ variations:
 
 
   tflite-cpp:
+    default_variations:
+      backend: tflite
+      device: cpu
     group:
       implementation
     add_deps_recursive:
@@ -187,6 +173,9 @@ variations:
     alias: reference
   
   nvidia:
+    default_variations:
+      backend: tensorrt
+      device: cuda
     group:
       implementation
     add_deps_recursive:
@@ -210,6 +199,9 @@ variations:
       - tags: get,generic-python-lib,_onnx
   
   nvidia-original:
+    default_variations:
+      backend: tensorrt
+      device: cuda
     group:
       implementation
     add_deps_recursive:
@@ -219,9 +211,6 @@ variations:
         tags: _float16
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia-original
-    deps:
-      ## Nvidia common code
-      - tags: get,mlperf,inference,nvidia,common-code
     posthook_deps:
       - names:
          - nvidia-original-mlperf-inference

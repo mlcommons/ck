@@ -92,6 +92,9 @@
           "on"
         ]
       },
+      "update_tags_from_env": [
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
+      ],
       "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb32,_NHWC",
       "names": [ "imagenet-preprocessed" ]
     },
@@ -117,6 +120,9 @@
           "on"
         ]
       },
+      "update_tags_from_env": [
+        "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
+      ],
       "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb8,_NHWC",
       "names": [ "imagenet-preprocessed" ]
     },
@@ -154,7 +160,9 @@
     "CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX": "tflite_cpp"
   },
   "new_env_keys": [
-    "CM_MLPERF_*"
+    "CM_MLPERF_*",
+    "CM_ML_MODEL_FULL_NAME",
+    "CM_HW_NAME"
   ],
   "new_state_keys": [
     "CM_SUT_*"

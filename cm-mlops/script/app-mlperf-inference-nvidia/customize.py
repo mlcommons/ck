@@ -86,7 +86,7 @@ def preprocess(i):
 def postprocess(i):
 
     env = i['env']
-    if env.get('CM_MLPERF_README', 'no') == "yes":
+    if env.get('CM_MLPERF_README'):
         import cmind as cm
         inp = i['input']
         state = i['state']
