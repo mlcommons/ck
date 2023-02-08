@@ -106,6 +106,9 @@ def preprocess(i):
         env['DATA_DIR'] = env.get('CM_DATASET_PATH')
         dataset_options = ''
 
+    if env.get('CM_MLPERF_EXTRA_DATASET_ARGS','') != '':
+        dataset_options += " " + env['CM_MLPERF_EXTRA_DATASET_ARGS']
+
     if mode == "accuracy":
         mode_extra_options += " --accuracy"
 
@@ -127,6 +130,9 @@ def preprocess(i):
     env['CM_RUN_DIR'] = os.getcwd()
     env['CM_RUN_CMD'] = cmd
     env['CK_PROGRAM_TMP_DIR'] = env['CM_ML_MODEL_PATH'] #for tvm
+
+    if env.get('CM_HOST_PLATFORM_FLAVOR','') == "arm64":
+        env['CM_HOST_PLATFORM_FLAVOR'] = "aarch64"
 
     return {'return':0}
 
