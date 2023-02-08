@@ -23,6 +23,7 @@ def preprocess(i):
         env['CM_MLPERF_LOADGEN_SCENARIO'] = "Offline"
 
     if 'CM_MLPERF_LOADGEN_MODE' not in env:
+        print("\nNo mode given. Using accuracy as default\n")
         env['CM_MLPERF_LOADGEN_MODE'] = "accuracy"
 
 
@@ -212,7 +213,7 @@ def preprocess(i):
                     required_files[4]) or env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
         env['CM_MLPERF_USER_CONF'] = user_conf_path
     else:
-        print("Measure files exist, skipping regeneration...\n")
+        print(f"Measure files exist at {OUTPUT_DIR}. Skipping regeneration...\n")
         env['CM_MLPERF_USER_CONF'] = ''
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)

@@ -93,7 +93,7 @@ for model in variation_strings:
             r = cmind.access(cm_input)
             if r['return'] > 0:
                 print(r)
-                exit(1)
+                #exit(1)
 
 
 
