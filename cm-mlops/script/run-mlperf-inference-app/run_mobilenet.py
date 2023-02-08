@@ -83,6 +83,8 @@ for model in variation_strings:
                     'model': model,
                     'scenario': 'SingleStream',
                     'execution_mode': execution_mode,
+                    'test_query_count': '50',
+                    'rerun': True,
                     'adr': {
                         'tflite-model': {
                             'tags': v
