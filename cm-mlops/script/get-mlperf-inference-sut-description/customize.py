@@ -1,6 +1,7 @@
 from cmind import utils
 import os
 import json
+import shutil
 
 def preprocess(i):
     env = i['env']
@@ -35,7 +36,11 @@ def preprocess(i):
     else:
         print("Generating SUT description file for " + sut)
         hw_path = os.path.join(path, "hardware", hw_name + ".json")
-        if os.path.exists(hw_path):
+        if not os.path.exists(hw_path):
+            default_hw_path = os.path.join(path, "hardware", "default.json")
+            print("HW description file for " + hw_name + " not found. Copying from default!!!")
+            shutil.copy(default_hw_path, hw_path)
+        else:
             state['CM_HW_META'] = json.load(open(hw_path))
             state['CM_SUT_META'] = state['CM_HW_META']
             state['CM_SUT_META']['framework'] = backend_desc
@@ -102,9 +107,6 @@ def preprocess(i):
             sut_file = open(sut_path, "w")
             json.dump(state['CM_SUT_META'], sut_file, indent = 4)
             sut_file.close()
-        else:
-            print("HW description file for " + hw_name + " not found")
-            return {'return':1, 'error': "HW description file not found"}
 
     return {'return':0}
 
