@@ -56,10 +56,10 @@ class Program {
 public:
   Program () : runtime( armnn::IRuntime::Create(options) ) {
 
-    bool use_neon                   = getenv_b("USE_NEON");
-    bool use_opencl                 = getenv_b("USE_OPENCL");
-    string input_layer_name         = getenv_s("CK_ENV_TENSORFLOW_MODEL_INPUT_LAYER_NAME");
-    string output_layer_name        = getenv_s("CK_ENV_TENSORFLOW_MODEL_OUTPUT_LAYER_NAME");
+    bool use_neon                   = getenv_b("CM_MLPERF_TFLITE_USE_NEON");
+    bool use_opencl                 = getenv_b("CM_MLPERF_TFLITE_USE_OPENCL");
+    string input_layer_name         = getenv_s("CM_ML_MODEL_INPUT_LAYER_NAME");
+    string output_layer_name        = getenv_s("CM_ML_MODEL_OUTPUT_LAYER_NAME");
 
     settings = new BenchmarkSettings(MODEL_TYPE::LITE);
 
@@ -118,14 +118,14 @@ public:
             }
             break;
 
-        case armnn::DataType::QuantisedAsymm8:
+        case armnn::DataType::QAsymmU8:
             benchmark.reset(new ArmNNBenchmark<uint8_t, InCopy, OutDequantize>(settings, (uint8_t*)input, (uint8_t*)output));
             break;
 
         default:
             throw format("Unsupported type of graph's input: %d. "
                          "Supported types are: Float32 (%d), UInt8 (%d)",
-                         int(input_type), int(armnn::DataType::Float32), int(armnn::DataType::QuantisedAsymm8));
+                         int(input_type), int(armnn::DataType::Float32), int(armnn::DataType::QAsymmU8));
     }
 
     int out_num = outShape[0];

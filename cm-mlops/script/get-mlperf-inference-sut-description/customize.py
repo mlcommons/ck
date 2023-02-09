@@ -7,7 +7,12 @@ def preprocess(i):
     state = i['state']
 
     submitter = env.get('CM_MLPERF_SUBMITTER', 'MLCommons')
-    hw_name = env.get('CM_HW_NAME', "default")
+
+    if env.get('CM_HW_NAME', '') == '':
+        host_name =  env.get('CM_HOST_SYSTEM_NAME', 'default').replace("-", "_")
+        env['CM_HW_NAME'] = host_name
+
+    hw_name = env['CM_HW_NAME']
     backend = env.get('CM_MLPERF_BACKEND', '')
     backend_version = env.get('CM_MLPERF_BACKEND_VERSION', '')
     sut_suffix = ''
