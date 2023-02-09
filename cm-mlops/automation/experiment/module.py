@@ -67,8 +67,12 @@ class CAutomation(Automation):
           (tags) (str): experiment tags separated by comma
 
           (script) (str): find and run CM script by name
+          (s)
 
           (script_tags) (str): find and run CM script by tags
+          (stags)
+
+          (explore) (dict): exploration dictionary
 
           ...
 
@@ -82,6 +86,8 @@ class CAutomation(Automation):
         """
 
         from cmind import utils
+        import itertools
+        import copy
 
         # Update/create experiment entry
         ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags'])
@@ -143,6 +149,11 @@ class CAutomation(Automation):
 
                print ('')
 
+
+        
+        
+        
+        
         # Get directory with datetime
         num = 0
         found = False
@@ -174,7 +185,12 @@ class CAutomation(Automation):
 
 
         
-        
+        # Check if exploration is in the input
+        explore = i.get('explore', {})
+        if len(explore)>0:
+            del(i['explore'])
+
+
         # Prepare run command
         cmd = ''
         ii = {}
@@ -191,55 +207,197 @@ class CAutomation(Automation):
                   'cmd':cmd}
         
         else:
-            ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags', 'cmd', 'action'], reverse=True)
+            ii=utils.sub_input(i, self.cmind.cfg['artifact_keys'] + ['tags', 'cmd', 'action', 'explore'], reverse=True)
             ii['action']='run'
 
-            stags = ii.get('stags','').strip()
-            if stags!='':
-                ii['tags']=stags
-                del(ii['stags'])
+            for x in [('tags', ['script_tags', 'stags']), ('artifact', ['s', 'script'])]:
+                for k in x[1]:
+                    v = ii.get(k,'').strip()
+                    if v!='':
+                        ii[x[0]]=v
+                        del(ii[k])
+
 
         ii['automation']='script,5b4e0237da074764'
 
         env = i.get('env', {})
-        env['CM_EXPERIMENT_PATH'] = experiment_path
-        env['CM_EXPERIMENT_PATH2'] = experiment_path2
-
-        ii['env'] = env
-
-        # Record input
-        experiment_input_file = os.path.join(experiment_path2, 'cm-input.json')
-
-        r = utils.save_json(file_name=experiment_input_file, meta={'cm_raw_input':i, 
-                                                                   'cm_input':ii})
-        if r['return']>0: return r
         
-        # Prepare and clean output
-        experiment_output_file = os.path.join(experiment_path2, 'cm-output.json')
+        # Extract exploration expressions from {{VAR{expression}}}
 
-        if os.path.isfile(experiment_output_file):
-            os.delete(experiment_output_file)
+        for key in ii:
+            v = ii[key]
+
+            if type(v)==str:
+                
+                j = 1
+                k = 0
+                while j>=0:
+                   j = v.find('}}}', k)
+                   if j>=0:
+                       k = j+1
+
+                       l = v.rfind('{{',0, j)
+
+                       if l>=0:
+                           l2 = v.find('{', l+2, j)
+                           if l2>=0:
+                               k = l2+1
+
+                               var = v[l+2:l2]
+                               expr = v[l2+1:j]
+
+                               explore[var] = expr
+
+                               v = v[:l2]+ v[j+1:]
+
+                ii[key] = v
+
+        # Prepare exploration
+        # Note that from Python 3.7, dictionaries are ordered so we can define order for exploration in json/yaml
+        # ${{XYZ}} ${{ABC(range(1,2,3))}}
         
-        # Prepare and clean output
-        experiment_output_file = os.path.join(experiment_path2, 'cm-output.json')
+        # separate dse into var and range
+        explore_keys=[]
+        explore_dimensions=[]
 
-        if os.path.isfile(experiment_output_file):
-            os.delete(experiment_output_file)
+        for k in explore:
+            v=explore[k]
+
+            explore_keys.append(k)
+
+            if type(v)!=list:
+                v=eval(v)
+
+            explore_dimensions.append(v)
 
 
-        # Run CM script
-        print ('')
-        rr=self.cmind.access(ii)
-        if rr['return']>0: return rr
+        step = 0
+
+        steps = itertools.product(*explore_dimensions)
+
+        # Next command will run all iterations so we need to redo above command once again
+        num_steps = len(list(steps))
+
+        steps = itertools.product(*explore_dimensions)
 
 
-        # Record output
-        r = utils.save_json(file_name=experiment_output_file, meta=rr)
-        if r['return']>0: return r
+        ii_copy = copy.deepcopy(ii)
 
-        rr['experiment_path']=experiment_path
-        rr['experiment_path2']=experiment_path2
+        for dimensions in steps:
+            
+            step += 1
+            
+            print ('================================================================')
+            print ('Experiment step: {} out of {}'.format(step, num_steps))
 
+            print ('')
+
+            ii = copy.deepcopy(ii_copy)
+
+            l_dimensions=len(dimensions)
+            if l_dimensions>0:
+                print ('  Updating variables during exploration:')
+
+                print ('')
+                for j in range(l_dimensions):
+                    v = dimensions[j]
+                    k = explore_keys[j]
+                    print ('    - Dimension {}: "{}" = {}'.format(j, k, v))
+
+                    env[k] = str(v)
+
+                print ('')
+
+            # Prepare extra directory if num_steps > 1
+            if num_steps==1:
+                experiment_path3 = experiment_path2
+            else:
+                x = len(str(num_steps))
+
+                y = len(str(step))
+
+                extra_path = 'step-' + '0'*(x-y) + str(step)
+
+                experiment_path3 = os.path.join(experiment_path2, extra_path)
+
+                if not os.path.isdir(experiment_path3):
+                    os.makedirs(experiment_path3)
+
+                    # Change current path
+                    print ('Path to experiment step: {}'.format(experiment_path3))
+                    print ('')
+
+            # Prepare and run experiment in a given placeholder directory
+            os.chdir(experiment_path3)
+                    
+            env['CM_EXPERIMENT_PATH'] = experiment_path
+            env['CM_EXPERIMENT_PATH2'] = experiment_path2
+            env['CM_EXPERIMENT_PATH3'] = experiment_path3
+
+            ii['env'] = env
+            
+            # Update {{}} in all inputs
+            for key in ii:
+                v = ii[key]
+
+                if type(v)==str:
+                    
+                    j = 1
+                    k = 0
+                    while j>=0:
+                       j = v.find('{{', k)
+                       if j>=0:
+                           k = j
+                           l = v.find('}}',j+2)
+                           if l>=0:
+                               
+                               var = v[j+2:l]
+
+                               # Such vars must be in env
+                               if var not in env:
+                                   return {'return':1, 'error':'key "{}" is not in env during exploration'.format(var)}
+
+                               v = v[:j] + env[var] + v[l+2:]
+
+                    ii[key] = v
+
+
+            # Record input
+            experiment_input_file = os.path.join(experiment_path3, 'cm-input.json')
+
+            r = utils.save_json(file_name=experiment_input_file, meta={'cm_raw_input':i, 
+                                                                       'cm_input':ii})
+            if r['return']>0: return r
+            
+            # Prepare and clean output
+            experiment_output_file = os.path.join(experiment_path3, 'cm-output.json')
+
+            if os.path.isfile(experiment_output_file):
+                os.delete(experiment_output_file)
+            
+            # Prepare and clean output
+            experiment_output_file = os.path.join(experiment_path3, 'cm-output.json')
+
+            if os.path.isfile(experiment_output_file):
+                os.delete(experiment_output_file)
+
+
+            # Run script (CM or native)
+            rr=self.cmind.access(ii)
+            if rr['return']>0: return rr
+
+
+            # Record output
+            r = utils.save_json(file_name=experiment_output_file, meta=rr)
+            if r['return']>0: return r
+
+
+
+
+        rr = {'return':0,
+              'experiment_path':experiment_path,
+              'experiment_path2':experiment_path2}
+        
         return rr
 
     ############################################################
