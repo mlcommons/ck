@@ -244,7 +244,15 @@
       "group": "backend",
       "default": true,
       "env": {
-        "CM_MLPERF_BACKEND": "tflite"
+        "CM_MLPERF_BACKEND": "tflite",
+        "CM_TMP_SRC_FOLDER": "src"
+      }
+    },
+    "armnn-tflite": {
+      "group": "backend",
+      "env": {
+        "CM_MLPERF_BACKEND": "armnn-tflite",
+        "CM_TMP_SRC_FOLDER": "armnn"
       }
     },
     "fp32": {

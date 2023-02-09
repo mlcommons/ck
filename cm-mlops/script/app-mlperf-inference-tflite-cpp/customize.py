@@ -23,7 +23,7 @@ def preprocess(i):
     source_files = []
     script_path = i['run_script_input']['path']
 
-    env['CM_SOURCE_FOLDER_PATH'] = os.path.join(script_path, "src")
+    env['CM_SOURCE_FOLDER_PATH'] = os.path.join(script_path, env['CM_TMP_SRC_FOLDER'])
 
     for file in os.listdir(env['CM_SOURCE_FOLDER_PATH']):
         if file.endswith(".c") or file.endswith(".cpp"):
