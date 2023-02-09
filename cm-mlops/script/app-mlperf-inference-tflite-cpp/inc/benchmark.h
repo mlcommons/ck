@@ -148,7 +148,9 @@ public:
     _number_of_threads = !getenv("CM_HOST_CPU_TOTAL_CORES")
                          ? _number_of_threads
                          : getenv_i("CM_HOST_CPU_TOTAL_CORES");
-
+    if (getenv_i("CM_HOST_CPU_TOTAL_CORES") && getenv_i("CM_HOST_CPU_THREADS_PER_CORE")) {
+        _number_of_threads = getenv_i("CM_HOST_CPU_TOTAL_CORES") / getenv_i("CM_HOST_CPU_THREADS_PER_CORE");
+    }
     // Print settings
     std::cout << "Graph file: " << _graph_file << std::endl;
     std::cout << "Image dir: " << images_dir << std::endl;
@@ -161,6 +163,7 @@ public:
     std::cout << "Normalize: " << normalize_img << std::endl;
     std::cout << "Subtract mean: " << subtract_mean << std::endl;
     std::cout << "Run time preprocessing: " << !skip_internal_preprocessing << std::endl;
+    std::cout << "Number of Threads: " << _number_of_threads << std::endl;
     if(subtract_mean && given_channel_means_str)
         std::cout << "Per-channel means to subtract: " << given_channel_means[0]
             << ", " << given_channel_means[1]

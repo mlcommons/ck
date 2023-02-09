@@ -297,6 +297,14 @@
         "CM_PILLOW_VERSION"
       ]
     },
+    "sparsezoo": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "sparsezoo"
+      },
+      "new_env_keys": [
+        "CM_SPARSEZOO_VERSION"
+      ]
+    },
     "pip": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "pip"

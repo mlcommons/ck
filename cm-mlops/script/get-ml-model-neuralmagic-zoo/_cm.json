@@ -24,6 +24,9 @@
     {
       "tags": "get,python3",
       "names": [ "python3", "python" ]
+    },
+    {
+      "tags": "get,generic-python-lib,_sparsezoo"
     }
   ],
   "uid": "adbb3f2525a14f97",

@@ -83,9 +83,14 @@ for model in variation_strings:
                     'model': model,
                     'scenario': 'SingleStream',
                     'execution_mode': execution_mode,
+                    'test_query_count': '50',
+                    'rerun': True,
                     'adr': {
                         'tflite-model': {
                             'tags': v
+                            },
+                        'compiler': {
+                            'tags': 'gcc'
                             }
                         }
                     }
@@ -93,7 +98,7 @@ for model in variation_strings:
             r = cmind.access(cm_input)
             if r['return'] > 0:
                 print(r)
-                exit(1)
+                #exit(1)
 
 
 

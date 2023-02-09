@@ -184,6 +184,11 @@
         "CM_ML_MODEL_PRECISION": "uint8",
         "CM_ML_MODEL_WEIGHT_DATA_TYPES": "uint8"
       }
+    },
+    "batch_size.1": {
+      "env": {
+        "CM_ML_MODEL_BATCH_SIZE": "1"
+      }
     }
   }
 }

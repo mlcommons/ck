@@ -134,6 +134,7 @@ def preprocess(i):
                 if env.get('CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY'):
                     env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = env['CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY']
 
+            print(f"\nRunning loadgen scenario: {scenario} and mode: {mode}")
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
                 add_deps_recursive, 'silent': silent, 'print_env': print_env, 'print_deps': print_deps})

@@ -602,6 +602,7 @@ variations:
 
     env:
       CM_MODEL: retinanet
+      CM_MLPERF_USE_MLCOMMONS_RUN_SCRIPT: 'yes'
       CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
 
   resnet50:
@@ -609,6 +610,7 @@ variations:
     default: true
     env:
       CM_MODEL: resnet50
+      CM_MLPERF_USE_MLCOMMONS_RUN_SCRIPT: 'yes'
     deps:
     - tags: get,generic-python-lib,_opencv-python
     - tags: get,generic-python-lib,_numpy

@@ -142,7 +142,8 @@
     "performance_sample_count": "CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT",
     "scenario": "CM_MLPERF_LOADGEN_SCENARIO",
     "user_conf": "CM_MLPERF_USER_CONF",
-    "compressed_dataset": "CM_DATASET_COMPRESSED"
+    "compressed_dataset": "CM_DATASET_COMPRESSED",
+    "verbose": "CM_VERBOSE"
   },
   "default_env": {
     "CM_MLPERF_OUTPUT_DIR": ".",
@@ -243,7 +244,15 @@
       "group": "backend",
       "default": true,
       "env": {
-        "CM_MLPERF_BACKEND": "tflite"
+        "CM_MLPERF_BACKEND": "tflite",
+        "CM_TMP_SRC_FOLDER": "src"
+      }
+    },
+    "armnn-tflite": {
+      "group": "backend",
+      "env": {
+        "CM_MLPERF_BACKEND": "armnn-tflite",
+        "CM_TMP_SRC_FOLDER": "armnn"
       }
     },
     "fp32": {
