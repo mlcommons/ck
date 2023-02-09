@@ -149,9 +149,19 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
     if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
-        cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
+        if env.get('CM_MLPERF_USE_MLCOMMONS_RUN_SCRIPT','' == "yes"):
+            cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
             env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             scenario_extra_options + mode_extra_options + dataset_options
+            return cmd
+
+        env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
+        env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
+        extra_options = " --dataset imagenet --model-name resnet50 --dataset-path "+env['CM_DATASET_PREPROCESSED_PATH']+" --model "+env['MODEL_FILE'] + " --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
+        cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
+        "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+            env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
+        env['SKIP_VERIFY_ACCURACY'] = True
 
     elif "bert" in env['CM_MODEL']:
 
