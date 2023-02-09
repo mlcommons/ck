@@ -88,6 +88,9 @@ for model in variation_strings:
                     'adr': {
                         'tflite-model': {
                             'tags': v
+                            },
+                        'compiler': {
+                            'tags': 'gcc'
                             }
                         }
                     }
