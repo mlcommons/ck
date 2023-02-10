@@ -46,7 +46,7 @@ def preprocess(i):
 
     if '+ CXXFLAGS' not in env:
         env['+ CXXFLAGS'] = []
-    env['+ CXXFLAGS'].append("-std=c++14")
+    env['+ CXXFLAGS'].append("-std=c++17")
 
     # add preprocessor flag like "#define CM_MODEL_RESNET50"
     env['+ CXXFLAGS'].append('-DCM_MODEL_' + env['CM_MODEL'].upper())

@@ -10,7 +10,7 @@ def preprocess(i):
     version = env['CM_LIB_ARMNN_VERSION']
     if env.get('CM_HOST_PLATFORM_FLAVOR','') == 'x86_64':
         url = f"https://github.com/ARM-software/armnn/releases/download/{version}/ArmNN-linux-x86_64.tar.gz"
-    elif env.get('CM_HOST_PLATFORM_FLAVOR','') == 'arm64':
+    elif env.get('CM_HOST_PLATFORM_FLAVOR','') == 'aarch64':
         url = f"https://github.com/ARM-software/armnn/releases/download/{version}/ArmNN-linux-aarch64.tar.gz"
 
     env['CM_LIB_ARMNN_PREBUILT_BINARY_URL'] = url
