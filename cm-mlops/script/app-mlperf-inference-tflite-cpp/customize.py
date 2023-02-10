@@ -68,7 +68,11 @@ def preprocess(i):
     # e.g. -lcudart
     if 'CM_MLPERF_DEVICE_LIB_NAMESPEC' in env:
         env['+ LDCXXFLAGS'].append('-l' + env['CM_MLPERF_DEVICE_LIB_NAMESPEC'])
-    env['+ LDCXXFLAGS'].append(' -ltensorflowlite')
+
+    if env.get('CM_TMP_LINK_LIBS', []):
+        libs = env['CM_TMP_LINK_LIBS'].split(",")
+        for lib in libs:
+            env['+ LDCXXFLAGS'].append(' -l'+lib)
 
     env['CM_LINKER_LANG'] = 'CXX'
     env['CM_RUN_DIR'] = os.getcwd()

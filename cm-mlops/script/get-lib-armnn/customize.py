@@ -16,6 +16,8 @@ def preprocess(i):
     env['CM_LIB_ARMNN_PREBUILT_BINARY_URL'] = url
     env['CM_LIB_ARMNN_EXTRACT_FILENAME'] = os.path.basename(url)
 
+    env['CM_GIT_CHECKOUT'] = env['CM_TMP_GIT_BRANCH_NAME']
+
     return {'return':0}
 
 def postprocess(i):
@@ -32,8 +34,15 @@ def postprocess(i):
     for key in paths:
         env[key] = []
 
-    env['+C_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'include'))
-    env['+CPLUS_INCLUDE_PATH'].append(os.path.join(os.getcwd(), 'include'))
+    include_paths = []
+    armnn_src_path = env['CM_GIT_CHECKOUT_PATH']
+    include_paths.append(os.path.join(os.getcwd(), 'include'))
+    include_paths.append(os.path.join(armnn_src_path, 'include'))
+    include_paths.append(os.path.join(armnn_src_path, 'profiling'))
+
+    for inc_path in include_paths:
+        env['+C_INCLUDE_PATH'].append(inc_path)
+        env['+CPLUS_INCLUDE_PATH'].append(inc_path)
 
     lib_path = os.path.join(os.getcwd())
     env['+LD_LIBRARY_PATH'].append(lib_path)
