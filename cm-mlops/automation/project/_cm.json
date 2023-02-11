@@ -1,11 +1,10 @@
 {
-  "alias": "experiment",
+  "alias": "project",
   "automation_alias": "automation",
   "automation_uid": "bbeb15d8f0a944a4",
-  "desc": "Managing and reproducing experiments (under development)",
   "developers": "[Grigori Fursin](https://cKnowledge.io/@gfursin)",
   "tags": [
     "automation"
   ],
-  "uid": "a0a2d123ef064bcb"
+  "uid": "6882553224164c56"
 }
