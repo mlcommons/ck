@@ -92,6 +92,9 @@ for model in variation_strings:
                         'compiler': {
                             'tags': 'gcc'
                             }
+                        },
+                        'mlperf-inference-implementation': {
+                            'tags': '_armnn,_use-neon'
                         }
                     }
             print(cm_input)

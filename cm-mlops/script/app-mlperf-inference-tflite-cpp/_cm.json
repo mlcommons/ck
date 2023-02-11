@@ -253,6 +253,7 @@
       "default": true,
       "env": {
         "CM_MLPERF_BACKEND": "tflite",
+        "CM_MLPERF_BACKEND_VERSION": "master",
         "CM_TMP_SRC_FOLDER": "src",
         "CM_TMP_LINK_LIBS": "tensorflowlite,armnn"
       }
@@ -264,7 +265,8 @@
     },
     "armnn,tflite": {
       "env": {
-        "CM_MLPERF_BACKEND": "armnn-tflite",
+        "CM_MLPERF_BACKEND": "armnn_tflite",
+        "CM_MLPERF_BACKEND_VERSION": "22.11",
         "CM_TMP_SRC_FOLDER": "armnn",
         "CM_TMP_LINK_LIBS": "tensorflowlite,armnn,armnnTfLiteParser"
       }
