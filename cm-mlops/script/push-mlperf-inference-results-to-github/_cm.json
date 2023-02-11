@@ -24,7 +24,7 @@
   },
   "input_mapping": {
     "repo_url": "CM_MLPERF_RESULTS_GIT_REPO_URL",
-    "submission_dir": "CM_MLPERF_INFERENCE_SUBMISSION_DIR"
+    "submission_dir": "CM_MLPERF_SUBMISSION_DIR"
   },
   "tags": [
     "push",

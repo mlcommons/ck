@@ -23,7 +23,7 @@ def preprocess(i):
     source_files = []
     script_path = i['run_script_input']['path']
 
-    env['CM_SOURCE_FOLDER_PATH'] = os.path.join(script_path, "src")
+    env['CM_SOURCE_FOLDER_PATH'] = os.path.join(script_path, env['CM_TMP_SRC_FOLDER'])
 
     for file in os.listdir(env['CM_SOURCE_FOLDER_PATH']):
         if file.endswith(".c") or file.endswith(".cpp"):
@@ -46,7 +46,7 @@ def preprocess(i):
 
     if '+ CXXFLAGS' not in env:
         env['+ CXXFLAGS'] = []
-    env['+ CXXFLAGS'].append("-std=c++14")
+    env['+ CXXFLAGS'].append("-std=c++17")
 
     # add preprocessor flag like "#define CM_MODEL_RESNET50"
     env['+ CXXFLAGS'].append('-DCM_MODEL_' + env['CM_MODEL'].upper())
@@ -68,7 +68,11 @@ def preprocess(i):
     # e.g. -lcudart
     if 'CM_MLPERF_DEVICE_LIB_NAMESPEC' in env:
         env['+ LDCXXFLAGS'].append('-l' + env['CM_MLPERF_DEVICE_LIB_NAMESPEC'])
-    env['+ LDCXXFLAGS'].append(' -ltensorflowlite')
+
+    if env.get('CM_TMP_LINK_LIBS', []):
+        libs = env['CM_TMP_LINK_LIBS'].split(",")
+        for lib in libs:
+            env['+ LDCXXFLAGS'].append(' -l'+lib)
 
     env['CM_LINKER_LANG'] = 'CXX'
     env['CM_RUN_DIR'] = os.getcwd()

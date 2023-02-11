@@ -14,6 +14,14 @@ variable INSTANCE_TYPE {
   type = string
   description = "AWS instance type"
 }
+variable INSTANCE_REGION {
+  type = string
+  description = "AWS instance region"
+}
+variable INSTANCE_IMAGE {
+  type = string
+  description = "AWS instance image"
+}
 variable SECURITY_GROUP_ID {
   type = string
   description = "AWS instance security group id"
@@ -37,14 +45,14 @@ terraform {
 }
 # Configure the AWS Provider
 provider "aws" {
-  region = "us-west-2"
+  region = var.INSTANCE_REGION
   access_key=var.ACCESS_KEY
   secret_key=var.SECRET_KEY
   token=var.TOKEN
 }
 
 resource "aws_instance" "cm" {
-  ami                       = "ami-017fecd1353bcc96e"
+  ami                       = var.INSTANCE_IMAGE
   instance_initiated_shutdown_behavior = "terminate"
   instance_type           = var.INSTANCE_TYPE
   key_name = "cmuser"

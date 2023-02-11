@@ -39,7 +39,8 @@
           "mobilenet"
         ],
         "CM_MLPERF_BACKEND": [
-          "tflite"
+          "tflite",
+          "armnn-tflite"
         ]
       },
       "tags": "get,ml-model,mobilenet,raw,_tflite",
@@ -51,7 +52,8 @@
           "resnet50"
         ],
         "CM_MLPERF_BACKEND": [
-          "tflite"
+          "tflite",
+          "armnn-tflite"
         ]
       },
       "tags": "get,ml-model,resnet50,raw,_tflite,_no-argmax",
@@ -75,7 +77,8 @@
           "efficientnet"
         ],
         "CM_MLPERF_BACKEND": [
-          "tflite"
+          "tflite",
+          "armnn-tflite"
         ]
       },
       "tags": "get,ml-model,efficientnet,raw,_tflite",
@@ -130,6 +133,9 @@
       "tags": "get,tensorflow,lib,_tflite"
     },
     {
+      "tags": "get,lib,armnn"
+    },
+    {
       "tags": "generate,user-conf,mlperf,inference",
       "names": [ "user-conf-generator" ]
     }
@@ -142,7 +148,8 @@
     "performance_sample_count": "CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT",
     "scenario": "CM_MLPERF_LOADGEN_SCENARIO",
     "user_conf": "CM_MLPERF_USER_CONF",
-    "compressed_dataset": "CM_DATASET_COMPRESSED"
+    "compressed_dataset": "CM_DATASET_COMPRESSED",
+    "verbose": "CM_VERBOSE"
   },
   "default_env": {
     "CM_MLPERF_OUTPUT_DIR": ".",
@@ -157,6 +164,8 @@
     "CM_ML_MODEL_GIVEN_CHANNEL_MEANS": "123.68 116.78 103.94",
     "CM_MLPERF_LOADGEN_TRIGGER_COLD_RUN": "0",
     "CM_VERBOSE": "0",
+    "CM_MLPERF_TFLITE_USE_NEON": "0",
+    "CM_MLPERF_TFLITE_USE_OPENCL": "0",
     "CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX": "tflite_cpp"
   },
   "new_env_keys": [
@@ -243,7 +252,31 @@
       "group": "backend",
       "default": true,
       "env": {
-        "CM_MLPERF_BACKEND": "tflite"
+        "CM_MLPERF_BACKEND": "tflite",
+        "CM_TMP_SRC_FOLDER": "src",
+        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn"
+      }
+    },
+    "armnn": {
+      "env": {
+        "CM_MLPERF_TFLITE_USE_ARMNN": "yes"
+      }
+    },
+    "armnn,tflite": {
+      "env": {
+        "CM_MLPERF_BACKEND": "armnn-tflite",
+        "CM_TMP_SRC_FOLDER": "armnn",
+        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn,armnnTfLiteParser"
+      }
+    },
+    "use-neon": {
+      "env": {
+        "CM_MLPERF_TFLITE_USE_NEON": "1"
+      }
+    },
+    "use-opencl": {
+      "env": {
+        "CM_MLPERF_TFLITE_USE_OPENCL": "1"
       }
     },
     "fp32": {

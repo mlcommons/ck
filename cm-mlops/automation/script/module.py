@@ -2070,6 +2070,10 @@ class CAutomation(Automation):
                             if type(item_value) is dict: #env,default_env inside deps
                                 for item_key2 in item_value:
                                     item_value[item_key2] = item_value[item_key2].replace("#", variation_tag_dynamic_suffix)
+                            elif type(item_value) is list: #names for example
+                                for i,l_item in enumerate(item_value):
+                                    if type(l_item) is str:
+                                        item_value[i] = l_item.replace("#", variation_tag_dynamic_suffix)
                             else:
                                 item[item_key] = item[item_key].replace("#", variation_tag_dynamic_suffix)
 
