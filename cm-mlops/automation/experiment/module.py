@@ -316,7 +316,7 @@ class CAutomation(Automation):
 
                 y = len(str(step))
 
-                extra_path = 'step-' + '0'*(x-y) + str(step)
+                extra_path = 'result-' + '0'*(x-y) + str(step)
 
                 experiment_path3 = os.path.join(experiment_path2, extra_path)
 
