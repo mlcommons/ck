@@ -149,15 +149,19 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
     if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
-        if env.get('CM_MLPERF_USE_MLCOMMONS_RUN_SCRIPT','') == "yes":
+        if env.get('CM_MLPERF_VISION_DATASET_OPTION','') == '':
             cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
             env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             scenario_extra_options + mode_extra_options + dataset_options
             return cmd
 
-        env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
+        env['MODEL_FILE'] = env.get('CM_MLPERF_CUSTOM_MODEL_PATH', env.get('CM_ML_MODEL_FILE_WITH_PATH'))
+        if not env['MODEL_FILE']:
+            return {'return': 1, 'error': 'No valid model file found!'}
+
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
-        extra_options = " --dataset imagenet --max-batchsize 1 --model-name resnet50 --dataset-path "+env['CM_DATASET_PREPROCESSED_PATH']+" --model "+env['MODEL_FILE'] + " --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
+        extra_options = " --dataset " + env['CM_MLPERF_VISION_DATASET_OPTION'] + ' --max-batchsize ' +
+        env['CM_MLPERF_MAX_BATCH_SIZE'] + --dataset-path "+env['CM_DATASET_PREPROCESSED_PATH']+" --model "+env['MODEL_FILE'] + " --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
         cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
         "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
