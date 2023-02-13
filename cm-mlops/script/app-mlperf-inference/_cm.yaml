@@ -533,6 +533,14 @@ variations:
       mlperf-inference-implementation:
         tags: _tvm-pytorch
 
+  tvm-tflite:
+    group: backend
+    env:
+      CM_MLPERF_BACKEND: tvm-tflite
+    add_deps_recursive:
+      mlperf-inference-implementation:
+        tags: _tvm-tflite
+
   cpu:
     group:
       device

@@ -470,6 +470,19 @@ variations:
     add_deps_recursive:
       ml-model:
         tags: tvm-model,_onnx
+  
+  tvm-tflite:
+    group: framework
+    env:
+      CM_MLPERF_BACKEND: tvm-tflite
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TVM-TFLITE_VERSION>>>
+    deps:
+    - tags: get,tvm
+      names:
+        tvm
+    add_deps_recursive:
+      ml-model:
+        tags: tvm-model,_onnx
 
   tvm-pytorch:
     group: framework
