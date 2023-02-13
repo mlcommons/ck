@@ -40,7 +40,7 @@
         ],
         "CM_MLPERF_BACKEND": [
           "tflite",
-          "armnn-tflite"
+          "armnn_tflite"
         ]
       },
       "tags": "get,ml-model,mobilenet,raw,_tflite",
@@ -53,7 +53,7 @@
         ],
         "CM_MLPERF_BACKEND": [
           "tflite",
-          "armnn-tflite"
+          "armnn_tflite"
         ]
       },
       "tags": "get,ml-model,resnet50,raw,_tflite,_no-argmax",
@@ -78,7 +78,7 @@
         ],
         "CM_MLPERF_BACKEND": [
           "tflite",
-          "armnn-tflite"
+          "armnn_tflite"
         ]
       },
       "tags": "get,ml-model,efficientnet,raw,_tflite",

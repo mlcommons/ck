@@ -84,17 +84,16 @@ for model in variation_strings:
                     'scenario': 'SingleStream',
                     'execution_mode': execution_mode,
                     'test_query_count': '50',
-                    'rerun': True,
                     'adr': {
                         'tflite-model': {
                             'tags': v
                             },
                         'compiler': {
                             'tags': 'gcc'
-                            }
-                        },
+                            },
                         'mlperf-inference-implementation': {
                             'tags': '_armnn,_use-neon'
+                            }
                         }
                     }
             print(cm_input)
