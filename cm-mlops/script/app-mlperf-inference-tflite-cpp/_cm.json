@@ -40,7 +40,7 @@
         ],
         "CM_MLPERF_BACKEND": [
           "tflite",
-          "armnn-tflite"
+          "armnn_tflite"
         ]
       },
       "tags": "get,ml-model,mobilenet,raw,_tflite",
@@ -53,7 +53,7 @@
         ],
         "CM_MLPERF_BACKEND": [
           "tflite",
-          "armnn-tflite"
+          "armnn_tflite"
         ]
       },
       "tags": "get,ml-model,resnet50,raw,_tflite,_no-argmax",
@@ -78,7 +78,7 @@
         ],
         "CM_MLPERF_BACKEND": [
           "tflite",
-          "armnn-tflite"
+          "armnn_tflite"
         ]
       },
       "tags": "get,ml-model,efficientnet,raw,_tflite",
@@ -253,6 +253,7 @@
       "default": true,
       "env": {
         "CM_MLPERF_BACKEND": "tflite",
+        "CM_MLPERF_BACKEND_VERSION": "master",
         "CM_TMP_SRC_FOLDER": "src",
         "CM_TMP_LINK_LIBS": "tensorflowlite,armnn"
       }
@@ -264,7 +265,8 @@
     },
     "armnn,tflite": {
       "env": {
-        "CM_MLPERF_BACKEND": "armnn-tflite",
+        "CM_MLPERF_BACKEND": "armnn_tflite",
+        "CM_MLPERF_BACKEND_VERSION": "22.11",
         "CM_TMP_SRC_FOLDER": "armnn",
         "CM_TMP_LINK_LIBS": "tensorflowlite,armnn,armnnTfLiteParser"
       }

@@ -31,7 +31,8 @@
       "names": [
         "power-src"
       ],
-      "tags": "get,mlperf,power,src"
+      "tags": "get,mlperf,power,src",
+      "version": "v3.0"
     },
     {
       "names": [

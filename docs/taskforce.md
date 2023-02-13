@@ -1,6 +1,6 @@
 [ [Back to index](README.md) ]
 
-# MLCommons Collective Knowledge Taskforce
+# MLCommons Taskforce on Education and Reproducibility
 
 ## Mission
 

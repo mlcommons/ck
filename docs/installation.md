@@ -84,7 +84,10 @@ python3 -m pip install cmind
 ## Windows
 
 * Download and install Git from [git-for-windows.github.io](https://git-for-windows.github.io).
+  * Configure Git to accept long file names: `git config --system core.longpaths true`
 * Download and install Python 3+ from [www.python.org/downloads/windows](https://www.python.org/downloads/windows).
+  * Configure Windows to accept long fie names during Python installation!
+* Install CM via PIP:
 
 ```bash
 python -m pip install cmind
