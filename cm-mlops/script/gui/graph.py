@@ -153,14 +153,16 @@ def main():
             axis_key_x = q_axis_key_x[0]
         i_axis_key_x = 0
         if axis_key_x != '' and axis_key_x in keys: i_axis_key_x = keys.index(axis_key_x)
-        axis_key_x = st.selectbox('Select X key', keys, index=i_axis_key_x, key='axis_key_x')
+        if axis_key_x == '' and 'Result' in keys: i_axis_key_x = keys.index('Result')
+        axis_key_x = st.selectbox('Select X key', keys, index=i_axis_key_x, key='x')
 
         q_axis_key_y = query_params.get('y',[''])
         if len(q_axis_key_y)>0:
             axis_key_y = q_axis_key_y[0]
         i_axis_key_y = 0
         if axis_key_y != '' and axis_key_y in keys: i_axis_key_y = keys.index(axis_key_y)
-        axis_key_y = st.selectbox('Select Y key', keys, index=i_axis_key_y, key='axis_key_y')
+        if axis_key_y == '' and 'Accuracy' in keys: i_axis_key_y = keys.index('Accuracy')
+        axis_key_y = st.selectbox('Select Y key', keys, index=i_axis_key_y, key='y')
 
     # Select values
     values = []
