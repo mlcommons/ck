@@ -37,7 +37,7 @@ class OpenBrowserOnClick(mpld3.plugins.PluginBase):
        var targets = this.props.targets;
        obj.elements()
            .on("mousedown", function(d, i){
-                              window.open(targets[i]);
+                              window.open().document.write(targets[i]);
                                });
     };
 
@@ -63,7 +63,12 @@ def main():
     experiment_tags = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_TAGS','')
     experiment_name = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_NAME','')
 
-    v_experiment_tags = st.text_input('CM experiment tags', value='', key='v_experiment_tags').strip()
+
+    v_experiment_tags = ''
+    q_experiment_tags = query_params.get('tags',[''])
+    if len(q_experiment_tags)>0:
+        v_experiment_tags = q_experiment_tags[0]
+    v_experiment_tags = st.text_input('CM experiment tags', value=v_experiment_tags, key='v_experiment_tags').strip()
 
     # Get all experiment names
     ii = {'action':'find', 
@@ -81,7 +86,7 @@ def main():
     for l in lst_all:
         experiments_all.append(l.meta['alias'])
 
-    v_experiment_name = st.selectbox('CM experiment name', sorted(experiments_all), index=0, key='v_experiment_name').strip()
+    v_experiment_name = st.selectbox('CM experiment name', experiments_all, index=0, key='v_experiment_name').strip()
 
     lst = []
     if v_experiment_tags!='' or v_experiment_name!='':
@@ -92,7 +97,7 @@ def main():
             ii['tags']=v_experiment_tags
         if v_experiment_name!='':
             ii['artifact']=v_experiment_name
-
+              
         r = cmind.access(ii)
         if r['return']>0: return r
 
@@ -104,7 +109,7 @@ def main():
     st.markdown('Found CM experiment(s): {}'.format(len(lst)))
 
     results = []
-
+    
     for experiment in lst:
         path = experiment.path
 
@@ -140,11 +145,22 @@ def main():
 
     if len(keys)>0:
         keys = [''] + keys
-
+        
         st.markdown("""---""")
 
-        axis_key_x = st.selectbox('Select X key', keys, index=0, key='axis_key_x')
-        axis_key_y = st.selectbox('Select Y key', keys, index=0, key='axis_key_y')
+        q_axis_key_x = query_params.get('x',[''])
+        if len(q_axis_key_x)>0:
+            axis_key_x = q_axis_key_x[0]
+        i_axis_key_x = 0
+        if axis_key_x != '' and axis_key_x in keys: i_axis_key_x = keys.index(axis_key_x)
+        axis_key_x = st.selectbox('Select X key', keys, index=i_axis_key_x, key='axis_key_x')
+
+        q_axis_key_y = query_params.get('y',[''])
+        if len(q_axis_key_y)>0:
+            axis_key_y = q_axis_key_y[0]
+        i_axis_key_y = 0
+        if axis_key_y != '' and axis_key_y in keys: i_axis_key_y = keys.index(axis_key_y)
+        axis_key_y = st.selectbox('Select Y key', keys, index=i_axis_key_y, key='axis_key_y')
 
     # Select values
     values = []
@@ -154,8 +170,9 @@ def main():
             x = v.get(axis_key_x, None)
             y = v.get(axis_key_y, None)
 
-            if x!=None and y!=None:
-               values.append(v)
+            values.append([x,y])
+
+
 
     if len(values)>0:
         #fig, ax = plt.subplots(figsize=(12,6))
@@ -169,31 +186,21 @@ def main():
         ax.grid(linestyle = 'dotted')
 
         #https://matplotlib.org/stable/api/markers_api.html
-
+        
         k=0
         for v in values:
             k+=1
 
-            x = v[axis_key_x]
-            y = v[axis_key_y]
-
-            url = v.get('url','')
+            x = v[0]
+            y = v[1]
 
             graph = ax.scatter(x, y, color='blue', marker='o')
 
-            x=''
-            for key in v:
-                value = v[key]
-
-                x+='<b>'+str(key)+'</b> : '+str(value)+'<br>'
-
-            label = ['<div style="padding:10px;background-color:#FFFFE0;"><small>'+x+'</small></div>']
-
+            label = ['<div style="padding:10px;background-color:#FFFFE0;"><b>Point:</b><br>{}<br>{}<br>{}<br></div>'.format(k,x,y)]
             plugins.connect(fig, plugins.PointHTMLTooltip(graph, label))
 
-            if url!='':
-                targets = [url]
-                plugins.connect(fig, OpenBrowserOnClick(graph, targets = targets)) 
+            targets = ["http://example.com/#{}".format(k)]
+            plugins.connect(fig, OpenBrowserOnClick(graph, targets = targets)) 
 
 
         fig_html = mpld3.fig_to_html(fig)
@@ -209,6 +216,6 @@ if __name__ == "__main__":
     r = main()
 
     if r['return']>0: 
-
+       
         st.markdown("""---""")
         st.markdown('**Error detected by CM:** {}'.format(r['error']))
