@@ -1,0 +1,30 @@
+# Identification of this CM script
+alias: import-mlperf-inference-to-experiment
+uid: 72099fa962ea499c
+
+automation_alias: script
+automation_uid: 5b4e0237da074764
+
+category: "Modular MLPerf benchmarks"
+category_sort: 20000
+
+developers: "[Grigori Fursin](https://cKnowledge.io/@gfursin)"
+
+# User-friendly tags to find this CM script
+tags:
+  - import
+  - mlperf
+  - inference
+  - mlperf-inference
+  - experiment
+  - 2experiment
+  - to-experiment
+
+# Dependencies on other CM scripts
+deps:
+
+  # Detect host OS features
+  - tags: detect,os
+
+  # Install system dependencies on a given host
+  - tags: get,sys-utils-cm
