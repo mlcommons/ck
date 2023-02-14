@@ -269,6 +269,9 @@ deps:
       CM_MODEL:
       - bert-99
       - bert-99.9
+    skip_if_env:
+      CM_MLPERF_CUSTOM_MODEL_PATH:
+      - "on"
 
 
   ## 3d-unet

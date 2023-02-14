@@ -29,7 +29,7 @@ def main():
             print ('Searching CM scripts using tags "{}"'.format(script_tags))
 
             r = cmind.access({'action':'find', 
-                              'automation':'script', 
+                              'automation':'script,5b4e0237da074764', 
                               'tags':script_tags})
             if r['return']>0: return r
 
