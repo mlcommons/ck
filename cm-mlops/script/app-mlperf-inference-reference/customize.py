@@ -160,7 +160,7 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             return {'return': 1, 'error': 'No valid model file found!'}
 
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
-        extra_options = " --model-name resnet50  --dataset " + env['CM_MLPERF_VISION_DATASET_OPTION'] + ' --max-batchsize ' + env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE', '1') + \
+        extra_options = " --output "+ env['CM_MLPERF_OUTPUT_DIR'] +" --model-name resnet50  --dataset " + env['CM_MLPERF_VISION_DATASET_OPTION'] + ' --max-batchsize ' + env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE', '1') + \
                 " --dataset-path "+env['CM_DATASET_PREPROCESSED_PATH']+" --model "+env['MODEL_FILE'] + \
                 " --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
         cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
@@ -171,6 +171,9 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
     elif "bert" in env['CM_MODEL']:
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "bert")
+        env['MODEL_FILE'] = env.get('CM_MLPERF_CUSTOM_MODEL_PATH', env.get('CM_ML_MODEL_FILE_WITH_PATH'))
+        if not env['MODEL_FILE']:
+            return {'return': 1, 'error': 'No valid model file found!'}
         if env.get('CM_MLPERF_QUANTIZATION') in [ "on", True, "1", "True" ]:
             quantization_options = " --quantized"
         else:
@@ -178,9 +181,8 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
         if env['CM_MLPERF_BACKEND'] == "deepsparse":
-            cmd += " --batch_size="+env['CM_MLPERF_DEEPSPARSE_BATCHSIZE']+" --model_path=" + env['CM_ML_MODEL_FILE_WITH_PATH']
+            cmd += " --batch_size="+env['CM_MLPERF_DEEPSPARSE_BATCHSIZE']+" --model_path=" + env['MODEL_FILE']
         cmd = cmd.replace("--count", "--max_examples")
-        env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
         env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']
         env['DATASET_FILE'] = env['CM_DATASET_SQUAD_VAL_PATH']
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
