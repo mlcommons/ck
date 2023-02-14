@@ -9,6 +9,8 @@ import streamlit as st
 
 import matplotlib
 import matplotlib.pyplot as plt
+import matplotlib.colors as mcolors
+
 import numpy as np
 import pandas as pd
 
@@ -142,6 +144,7 @@ def main():
     # Select 2D keys
     axis_key_x=''
     axis_key_y=''
+    axis_key_c=''
 
     if len(keys)>0:
         keys = [''] + keys
@@ -163,6 +166,17 @@ def main():
         if axis_key_y != '' and axis_key_y in keys: i_axis_key_y = keys.index(axis_key_y)
         if axis_key_y == '' and 'Accuracy' in keys: i_axis_key_y = keys.index('Accuracy')
         axis_key_y = st.selectbox('Select Y key', keys, index=i_axis_key_y, key='y')
+
+        q_axis_key_c = query_params.get('c',[''])
+        if len(q_axis_key_c)>0:
+            axis_key_c = q_axis_key_c[0]
+        i_axis_key_c = 0
+        if axis_key_c != '' and axis_key_c in keys: i_axis_key_c = keys.index(axis_key_c)
+        if axis_key_c == '' and 'version' in keys: i_axis_key_c = keys.index('version')
+        axis_key_c = st.selectbox('Select Color key', keys, index=i_axis_key_c, key='c')
+
+        axis_key_s = st.selectbox('Select Style key', keys, index=0, key='s')
+
 
     # Select values
     values = []
@@ -188,13 +202,47 @@ def main():
 
         #https://matplotlib.org/stable/api/markers_api.html
         
+        unique_color_values = {}
+#        unique_colors = list(mcolors.CSS4_COLORS.keys())
+        unique_colors = list(mcolors.TABLEAU_COLORS.keys())
+        i_unique_color_values = 0
+
+        unique_style_values = {}
+        unique_styles = ['o','v','^','<','>','1','2','3','4','8','s','p','P','*','+','D']
+        i_unique_style_values = 0
+
+
         for v in values:
             x = v.get(axis_key_x, None)
             y = v.get(axis_key_y, None)
 
             url = v.get('url','')
 
-            graph = ax.scatter(x, y, color='blue', marker='o')
+            color = 'blue'
+            if axis_key_c!='':
+                c = v.get(axis_key_c, None)
+                if c!=None:
+                    if c in unique_color_values:
+                        color = unique_color_values[c]
+                    else:
+                        color = unique_colors[i_unique_color_values]
+                        unique_color_values[c] = color
+                        if i_unique_color_values<(len(unique_colors)-1):
+                            i_unique_color_values+=1
+                          
+            style = 'o'
+            if axis_key_s!='':
+                s = v.get(axis_key_s, None)
+                if s!=None:
+                    if s in unique_style_values:
+                        style = unique_style_values[s]
+                    else:
+                        style = unique_styles[i_unique_style_values]
+                        unique_style_values[s] = style
+                        if i_unique_style_values<(len(unique_styles)-1):
+                            i_unique_style_values+=1
+            
+            graph = ax.scatter(x, y, color=color, marker=style)
 
             info=''
             for key in sorted(v):
