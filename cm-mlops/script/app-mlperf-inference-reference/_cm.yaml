@@ -41,6 +41,8 @@ input_mapping:
   max_batchsize: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
   mode: CM_MLPERF_LOADGEN_MODE
   num_threads: CM_NUM_THREADS
+  dataset: CM_MLPERF_VISION_DATASET_OPTION
+  model: CM_MLPERF_CUSTOM_MODEL_PATH
   output_dir: OUTPUT_BASE_DIR
   power: CM_MLPERF_POWER
   power_server: CM_MLPERF_POWER_SERVER_ADDRESS
@@ -231,6 +233,9 @@ deps:
     enable_if_env:
       CM_MODEL:
       - resnet50
+    skip_if_env:
+      CM_MLPERF_CUSTOM_MODEL_PATH:
+      - "on"
 
   ## RetinaNet
   - tags: get,ml-model,object-detection,retinanet
@@ -305,6 +310,18 @@ deps:
     enable_if_env:
       CM_MODEL:
       - resnet50
+    skip_if_env:
+      CM_MLPERF_VISION_DATASET_OPTION
+      - "on"
+
+  - tags: get,dataset,image-classification,imagenet,preprocessed,_pytorch
+    names:
+    - imagenet-preprocessed
+    enable_if_env:
+      CM_MODEL:
+      - resnet50
+      CM_MLPERF_VISION_DATASET_OPTION:
+      - imagenet_pytorch
 
   - tags: get,dataset-aux,image-classification,imagenet-aux
     enable_if_env:
