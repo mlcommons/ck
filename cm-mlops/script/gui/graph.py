@@ -81,7 +81,7 @@ def main():
     for l in lst_all:
         experiments_all.append(l.meta['alias'])
 
-    v_experiment_name = st.selectbox('CM experiment name', experiments_all, index=0, key='v_experiment_name').strip()
+    v_experiment_name = st.selectbox('CM experiment name', sorted(experiments_all), index=0, key='v_experiment_name').strip()
 
     lst = []
     if v_experiment_tags!='' or v_experiment_name!='':
@@ -92,7 +92,7 @@ def main():
             ii['tags']=v_experiment_tags
         if v_experiment_name!='':
             ii['artifact']=v_experiment_name
-              
+
         r = cmind.access(ii)
         if r['return']>0: return r
 
@@ -104,7 +104,7 @@ def main():
     st.markdown('Found CM experiment(s): {}'.format(len(lst)))
 
     results = []
-    
+
     for experiment in lst:
         path = experiment.path
 
@@ -140,7 +140,7 @@ def main():
 
     if len(keys)>0:
         keys = [''] + keys
-        
+
         st.markdown("""---""")
 
         axis_key_x = st.selectbox('Select X key', keys, index=0, key='axis_key_x')
@@ -169,7 +169,7 @@ def main():
         ax.grid(linestyle = 'dotted')
 
         #https://matplotlib.org/stable/api/markers_api.html
-        
+
         k=0
         for v in values:
             k+=1
@@ -186,7 +186,7 @@ def main():
                 value = v[key]
 
                 x+='<b>'+str(key)+'</b> : '+str(value)+'<br>'
-            
+
             label = ['<div style="padding:10px;background-color:#FFFFE0;"><small>'+x+'</small></div>']
 
             plugins.connect(fig, plugins.PointHTMLTooltip(graph, label))
@@ -209,6 +209,6 @@ if __name__ == "__main__":
     r = main()
 
     if r['return']>0: 
-       
+
         st.markdown("""---""")
         st.markdown('**Error detected by CM:** {}'.format(r['error']))
