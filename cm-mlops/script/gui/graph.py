@@ -37,7 +37,7 @@ class OpenBrowserOnClick(mpld3.plugins.PluginBase):
        var targets = this.props.targets;
        obj.elements()
            .on("mousedown", function(d, i){
-                              window.open().document.write(targets[i]);
+                              window.open(targets[i]);
                                });
     };
 
@@ -172,9 +172,8 @@ def main():
             x = v.get(axis_key_x, None)
             y = v.get(axis_key_y, None)
 
-            values.append([x,y])
-
-
+            if x!=None and y!=None:
+                values.append(v)
 
     if len(values)>0:
         #fig, ax = plt.subplots(figsize=(12,6))
@@ -189,20 +188,26 @@ def main():
 
         #https://matplotlib.org/stable/api/markers_api.html
         
-        k=0
         for v in values:
-            k+=1
+            x = v.get(axis_key_x, None)
+            y = v.get(axis_key_y, None)
 
-            x = v[0]
-            y = v[1]
+            url = v.get('url','')
 
             graph = ax.scatter(x, y, color='blue', marker='o')
 
-            label = ['<div style="padding:10px;background-color:#FFFFE0;"><b>Point:</b><br>{}<br>{}<br>{}<br></div>'.format(k,x,y)]
+            info=''
+            for key in sorted(v):
+                value = v[key]
+                info+='<b>'+str(key)+': </b>'+str(value)+'<br>\n'
+            info2 = '<div style="padding:10px;background-color:#FFFFE0;"><small>'+info+'</small></div>'
+            
+            label = [info2]
             plugins.connect(fig, plugins.PointHTMLTooltip(graph, label))
 
-            targets = ["http://example.com/#{}".format(k)]
-            plugins.connect(fig, OpenBrowserOnClick(graph, targets = targets)) 
+            if url!='':
+                targets = [url]
+                plugins.connect(fig, OpenBrowserOnClick(graph, targets = targets)) 
 
 
         fig_html = mpld3.fig_to_html(fig)
@@ -210,7 +215,7 @@ def main():
         #fig_html = '<div style="padding:10px;background-color:#F0F0F0;">'+fig_html+'</div>'
 
         #components.html(fig_html, width=1000, height=800)
-        components.html(fig_html, height=600)
+        components.html(fig_html, width=1100, height=900)
 
     return {'return':0}
 
