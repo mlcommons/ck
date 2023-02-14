@@ -63,7 +63,7 @@ def main():
     experiment_tags = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_TAGS','')
     experiment_name = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_NAME','')
 
-    v_experiment_tags = st.text_input('CM experiment tags', value='', key='v_experiment_alias').strip()
+    v_experiment_tags = st.text_input('CM experiment tags', value='', key='v_experiment_tags').strip()
 
     # Get all experiment names
     ii = {'action':'find', 
