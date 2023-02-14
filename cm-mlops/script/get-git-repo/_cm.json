@@ -13,7 +13,11 @@
     "CM_GIT_URL": "https://github.com/mlcommons/ck.git"
   },
   "input_mapping": {
-    "branch": "CM_GIT_CHECKOUT"
+    "branch": "CM_GIT_CHECKOUT",
+    "depth": "CM_GIT_DEPTH",
+    "folder": "CM_GIT_CHECKOUT_FOLDER",
+    "patch": "CM_GIT_PATCH",
+    "submodules": "CM_GIT_RECURSE_SUBMODULES"
   },
   "default_variation": "default",
   "deps": [
@@ -22,7 +26,8 @@
     }
   ],
   "new_env_keys": [
-    "CM_GIT_CHECKOUT_PATH"
+    "CM_GIT_CHECKOUT_PATH",
+    "CM_GIT_REPO_*"
   ],
   "tags": [
     "get",
