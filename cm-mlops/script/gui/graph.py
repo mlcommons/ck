@@ -60,7 +60,7 @@ def main():
 
     # Set title
     st.title('CM (CK2) experiment visualization')
-    
+
     # Query experiment
     experiment_tags = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_TAGS','')
     experiment_name = os.environ.get('CM_GUI_GRAPH_EXPERIMENT_NAME','')
@@ -88,6 +88,8 @@ def main():
     for l in lst_all:
         experiments_all.append(l.meta['alias'])
 
+    experiments_all=sorted(experiments_all)
+
     v_experiment_name = st.selectbox('CM experiment name', experiments_all, index=0, key='v_experiment_name').strip()
 
     lst = []
@@ -99,7 +101,7 @@ def main():
             ii['tags']=v_experiment_tags
         if v_experiment_name!='':
             ii['artifact']=v_experiment_name
-              
+
         r = cmind.access(ii)
         if r['return']>0: return r
 
