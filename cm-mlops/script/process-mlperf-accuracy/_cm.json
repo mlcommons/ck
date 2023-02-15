@@ -143,7 +143,7 @@
           "skip_if_env": {
             "CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": [ "on" ]
           },
-          "tags": "get,ml-model,bert-large"
+          "tags": "get,dataset-aux,squad-vocab"
         },
         {
           "tags": "get,generic-python-lib,_torch"

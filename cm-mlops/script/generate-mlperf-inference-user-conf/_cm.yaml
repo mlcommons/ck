@@ -52,6 +52,7 @@ new_env_keys:
   - CM_MLPERF_*
   - CM_HW_*
   - CM_SUT_*
+  - CM_MAX_EXAMPLES
 
 new_state_keys:
   - CM_SUT_*

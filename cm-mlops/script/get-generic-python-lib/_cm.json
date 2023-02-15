@@ -79,6 +79,14 @@
         "CM_BOTO3_VERSION"
       ]
     },
+    "fiftyone": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "fiftyone"
+      },
+      "new_env_keys": [
+        "CM_FIFTYONE_VERSION"
+      ]
+    },
     "cmind": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "cmind"

@@ -69,6 +69,7 @@ new_env_keys:
   - CM_DATASET_*
   - CM_HW_NAME
   - CM_ML_MODEL_*
+  - CM_MAX_EXAMPLES
 
 new_state_keys:
   - mlperf-inference-implementation
@@ -346,6 +347,13 @@ deps:
       CM_MODEL:
       - bert-99
       - bert-99.9
+
+  - tags: get,dataset-aux,squad-vocab
+    enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+
 
   ## Kits19 for 3d-unet
   - tags: get,dataset,kits19,preprocessed
