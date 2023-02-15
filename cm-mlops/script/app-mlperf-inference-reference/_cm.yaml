@@ -347,6 +347,13 @@ deps:
       - bert-99
       - bert-99.9
 
+  - tags: get,dataset-aux,squad-vocab
+    enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+
+
   ## Kits19 for 3d-unet
   - tags: get,dataset,kits19,preprocessed
     enable_if_env:
