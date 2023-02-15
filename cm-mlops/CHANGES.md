@@ -1,3 +1,6 @@
+# 20230214
+ * experiment and graph gui are working now
+
 # 20230206:
  * started prototyping cm run experiment
 

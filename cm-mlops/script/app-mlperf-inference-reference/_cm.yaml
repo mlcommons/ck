@@ -68,6 +68,8 @@ new_env_keys:
   - CM_MLPERF_*
   - CM_DATASET_*
   - CM_HW_NAME
+  - CM_ML_MODEL_*
+  - CM_MAX_EXAMPLES
 
 new_state_keys:
   - mlperf-inference-implementation
@@ -346,6 +348,13 @@ deps:
       - bert-99
       - bert-99.9
 
+  - tags: get,dataset-aux,squad-vocab
+    enable_if_env:
+      CM_MODEL:
+      - bert-99
+      - bert-99.9
+
+
   ## Kits19 for 3d-unet
   - tags: get,dataset,kits19,preprocessed
     enable_if_env:
@@ -467,7 +476,6 @@ variations:
     group: framework
     env:
       CM_MLPERF_BACKEND: deepsparse
-      CM_MLPERF_DEEPSPARSE_BATCHSIZE: "1"
       CM_MLPERF_BACKEND_VERSION: <<<CM_DEEPSPARSE_VERSION>>>
     deps:
     - tags: get,generic-python-lib,_deepsparse
