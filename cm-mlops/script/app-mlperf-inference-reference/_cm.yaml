@@ -69,6 +69,7 @@ new_env_keys:
   - CM_DATASET_*
   - CM_HW_NAME
   - CM_ML_MODEL_*
+  - CM_MAX_EXAMPLES
 
 new_state_keys:
   - mlperf-inference-implementation
