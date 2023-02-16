@@ -245,7 +245,10 @@ ___
      * generate,nvidia,engine
        * `if (CM_MLPERF_DEVICE  != cpu)`
        * CM names: `--adr.tensorrt-engine-generator...`
-       - *Warning: no scripts found*
+       - CM script: [generate-nvidia-engine](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-nvidia-engine)
+     * generate,user-conf,mlperf,inference
+       * CM names: `--adr.['user-conf-generator']...`
+       - CM script: [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia/_cm.yaml)
   1. ***Run native script if exists***
@@ -263,6 +266,7 @@ ___
 #### New environment keys (filter)
 
 * **CM_DATASET_***
+* **CM_HW_NAME**
 * **CM_MLPERF_***
 #### New environment keys auto-detected from customize
 

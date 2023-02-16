@@ -102,14 +102,6 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_1`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `1`
-      - Workflow:
-    * `_5`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `5`
-      - Workflow:
     * `_50`
       - Environment variables:
         - *CM_DATASET_SIZE*: `50`
@@ -122,6 +114,17 @@ ___
       - Environment variables:
         - *CM_DATASET_SIZE*: ``
       - Workflow:
+    * `_size.#`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `#`
+      - Workflow:
+    * `_using-fiftyone`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_fiftyone
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,openssl,lib
+             - CM script: [get-openssl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl)
 
     </details>
 

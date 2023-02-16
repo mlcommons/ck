@@ -199,6 +199,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 * CM_BATCH_COUNT: **1**
 * CM_BATCH_SIZE: **1**
 * CM_FAST_COMPILATION: **yes**
+* CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: **cpp**
 
 </details>
 
@@ -241,17 +242,21 @@ ___
      * get,ml-model,retinanet,_onnx,_fp32
        * `if (CM_MODEL  == retinanet)`
        - CM script: [get-ml-model-retinanet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet)
+     * generate,user-conf,mlperf,inference
+       * CM names: `--adr.['user-conf-generator']...`
+       - CM script: [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp/_cm.yaml)***
      * compile,cpp-program
+       * `if (CM_MLPERF_SKIP_RUN  != True)`
        * CM names: `--adr.['compile-program']...`
        - CM script: [compile-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)
      * benchmark,program
+       * `if (CM_MLPERF_SKIP_RUN  != True)`
        * CM names: `--adr.['runner']...`
        - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
 ___
@@ -259,6 +264,7 @@ ___
 #### New environment keys (filter)
 
 * **CM_DATASET_***
+* **CM_HW_NAME**
 * **CM_MLPERF_***
 #### New environment keys auto-detected from customize
 

@@ -118,14 +118,18 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* --**extra_model_benchmark_map**=value --> **CM_MLPERF_EXTRA_MODEL_MAPPING**=value
+* --**power**=value --> **CM_MLPERF_POWER**=value
+* --**push_to_github**=value --> **CM_MLPERF_RESULT_PUSH_TO_GITHUB**=value
 * --**skip_compliance**=value --> **CM_MLPERF_SKIP_COMPLIANCE**=value
 * --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
 * --**submitter**=value --> **CM_MLPERF_SUBMITTER**=value
+* --**version**=value --> **CM_MLPERF_VERSION**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "skip_compliance":...}
+r=cm.access({... , "extra_model_benchmark_map":...}
 ```
 
 </details>
@@ -164,6 +168,10 @@ ___
      * publish-results,dashboard
        * `if (CM_MLPERF_DASHBOARD  == on)`
        - CM script: [publish-results-to-dashboard](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/publish-results-to-dashboard)
+     * publish-results,github
+       * `if (CM_MLPERF_RESULT_PUSH_TO_GITHUB  == on)`
+       * CM names: `--adr.['push-to-github']...`
+       - CM script: [push-mlperf-inference-results-to-github](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/push-mlperf-inference-results-to-github)
 ___
 ### Script output
 #### New environment keys (filter)

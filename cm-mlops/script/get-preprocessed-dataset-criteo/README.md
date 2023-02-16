@@ -119,8 +119,6 @@ ___
         - *CM_CRITEO_FAKE*: `yes`
       - Workflow:
     * `_full`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: ``
       - Workflow:
     * `_validation`
       - Workflow:

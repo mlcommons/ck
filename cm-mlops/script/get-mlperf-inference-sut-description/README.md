@@ -152,6 +152,7 @@ ___
 * **CM_SUT_***
 #### New environment keys auto-detected from customize
 
+* **CM_HW_NAME**
 ___
 ### Maintainers
 

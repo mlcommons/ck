@@ -100,8 +100,8 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**repo_url**=value --> **CM_GIT_REPO_URL**=value
-* --**submission_dir**=value --> **CM_MLPERF_INFERENCE_SUBMISSION_DIR**=value
+* --**repo_url**=value --> **CM_MLPERF_RESULTS_GIT_REPO_URL**=value
+* --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -118,7 +118,7 @@ r=cm.access({... , "repo_url":...}
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
-* CM_GIT_REPO_URL: **https://github.com/arjunsuresh/mlperf_inference_submissions_v3.0**
+* CM_MLPERF_RESULTS_GIT_REPO_URL: **https://github.com/ctuning/mlperf_inference_submissions_v3.0**
 
 </details>
 

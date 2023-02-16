@@ -320,6 +320,15 @@ ___
         - *CM_MODEL*: `retinanet`
         - *CM_SKIP_MODEL_DOWNLOAD*: `True`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_Pillow
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_torch
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_torchvision
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_opencv-python
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
     </details>
 
@@ -385,9 +394,10 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 * CM_MLPERF_LOADGEN_SCENARIO: **Offline**
 * CM_MLPERF_LOADGEN_MODE: **performance**
 * SKIP_POLICIES: **1**
-* CM_NO_PREPROCESS_DATASET: **False**
+* CM_SKIP_PREPROCESS_DATASET: **False**
 * CM_SKIP_MODEL_DOWNLOAD: **False**
 * CM_MLPERF_NVIDIA_RUN_COMMAND: **run**
+* CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: **nvidia_original**
 
 </details>
 
@@ -407,16 +417,14 @@ ___
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
      * build,nvidia,inference,server
        - CM script: [build-mlperf-inference-server-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/build-mlperf-inference-server-nvidia)
-     * get,mlcommons,inference,src
-       * CM names: `--adr.['inference-src']...`
-       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
-     * get,nvidia,mlperf,inference,common-code,_custom
-       * CM names: `--adr.['nvidia-inference-common-code']...`
-       - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
      * get,dataset,original,imagenet,_full
        * `if (CM_MODEL  == resnet50)`
        * CM names: `--adr.['imagenet-original']...`
        - CM script: [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
+     * get,ml-model,nvidia-retinanet,_efficient-nms
+       * `if (CM_MODEL  == retinanet)`
+       * CM names: `--adr.['ml-model-retinanet']...`
+       - CM script: [get-ml-model-retinanet-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia)
      * get,dataset,original,openimages,_validation,_full
        * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['openimages-original']...`
@@ -425,26 +433,38 @@ ___
        * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['openimages-calibration']...`
        - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
-     * get,ml-model,nvidia-retinanet,_efficient-nms
-       * `if (CM_MODEL  == retinanet)`
-       * CM names: `--adr.['ml-model-retinanet']...`
-       - CM script: [get-ml-model-retinanet-nvidia](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-retinanet-nvidia)
+     * get,mlcommons,inference,src
+       * CM names: `--adr.['inference-src']...`
+       - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+     * get,nvidia,mlperf,inference,common-code,_custom
+       * CM names: `--adr.['nvidia-inference-common-code']...`
+       - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
+     * generate,user-conf,mlperf,inference
+       * CM names: `--adr.['user-conf-generator']...`
+       - CM script: [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)
+  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-inference-nvidia/_cm.yaml)***
+     * benchmark,program
+       * `if (CM_MLPERF_SKIP_RUN  != True)`
+       * CM names: `--adr.['runner']...`
+       - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
 ___
 ### Script output
 #### New environment keys (filter)
 
 * **CM_DATASET_***
+* **CM_HW_NAME**
+* **CM_MAX_EXAMPLES**
 * **CM_MLPERF_***
 #### New environment keys auto-detected from customize
 
 * **CM_MLPERF_LOADGEN_MODE**
+* **CM_MLPERF_NVIDIA_RUN_COMMAND**
+* **CM_MLPERF_RUN_CMD**
 ___
 ### Maintainers
 

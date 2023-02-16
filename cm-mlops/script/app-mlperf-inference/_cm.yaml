@@ -711,3 +711,7 @@ input_description:
     desc: "Quiet run (select default values for all questions)"
     boolean: true
     default: false
+  readme: 
+    desc: "Generate README with the reproducibility report"
+  debug: 
+    desc: "Debug MLPerf script"

@@ -99,6 +99,33 @@ ___
 
 #### Variations
 
+  * *No group (any variation can be selected)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_armnn`
+      - Environment variables:
+        - *CM_MLPERF_TFLITE_USE_ARMNN*: `yes`
+      - Workflow:
+    * `_armnn,tflite`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `armnn_tflite`
+        - *CM_MLPERF_BACKEND_VERSION*: `22.11`
+        - *CM_TMP_SRC_FOLDER*: `armnn`
+        - *CM_TMP_LINK_LIBS*: `tensorflowlite,armnn,armnnTfLiteParser`
+      - Workflow:
+    * `_use-neon`
+      - Environment variables:
+        - *CM_MLPERF_TFLITE_USE_NEON*: `1`
+      - Workflow:
+    * `_use-opencl`
+      - Environment variables:
+        - *CM_MLPERF_TFLITE_USE_OPENCL*: `1`
+      - Workflow:
+
+    </details>
+
+
   * Group "**backend**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -110,6 +137,9 @@ ___
     * **`_tflite`** (default)
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `tflite`
+        - *CM_MLPERF_BACKEND_VERSION*: `master`
+        - *CM_TMP_SRC_FOLDER*: `src`
+        - *CM_TMP_LINK_LIBS*: `tensorflowlite,armnn`
       - Workflow:
 
     </details>
@@ -136,6 +166,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_efficientnet`
+      - Environment variables:
+        - *CM_MODEL*: `efficientnet`
+      - Workflow:
     * `_mobilenet`
       - Environment variables:
         - *CM_MODEL*: `mobilenet`
@@ -148,14 +182,35 @@ ___
     </details>
 
 
+  * Group "**precision**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_fp32`** (default)
+      - Environment variables:
+        - *CM_MLPERF_MODEL_PRECISION*: `float32`
+      - Workflow:
+    * `_int8`
+      - Environment variables:
+        - *CM_MLPERF_MODEL_PRECISION*: `int8`
+      - Workflow:
+    * `_uint8`
+      - Environment variables:
+        - *CM_MLPERF_MODEL_PRECISION*: `uint8`
+      - Workflow:
+
+    </details>
+
+
 #### Default variations
 
-`_cpu,_resnet50,_tflite`
+`_cpu,_fp32,_resnet50,_tflite`
 
 #### Script flags mapped to environment
 <details>
 <summary>Click here to expand this section.</summary>
 
+* --**compressed_dataset**=value --> **CM_DATASET_COMPRESSED**=value
 * --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
 * --**mlperf_conf**=value --> **CM_MLPERF_CONF**=value
 * --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
@@ -163,11 +218,12 @@ ___
 * --**performance_sample_count**=value --> **CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT**=value
 * --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
 * --**user_conf**=value --> **CM_MLPERF_USER_CONF**=value
+* --**verbose**=value --> **CM_VERBOSE**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "count":...}
+r=cm.access({... , "compressed_dataset":...}
 ```
 
 </details>
@@ -184,6 +240,16 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 * CM_LOADGEN_BUFFER_SIZE: **1024**
 * CM_MLPERF_LOADGEN_MODE: **accuracy**
 * CM_FAST_COMPILATION: **yes**
+* CM_DATASET_INPUT_SQUARE_SIDE: **224**
+* CM_DATASET_COMPRESSED: **off**
+* CM_ML_MODEL_NORMALIZE_DATA: **0**
+* CM_ML_MODEL_SUBTRACT_MEANS: **1**
+* CM_ML_MODEL_GIVEN_CHANNEL_MEANS: **123.68 116.78 103.94**
+* CM_MLPERF_LOADGEN_TRIGGER_COLD_RUN: **0**
+* CM_VERBOSE: **0**
+* CM_MLPERF_TFLITE_USE_NEON: **0**
+* CM_MLPERF_TFLITE_USE_OPENCL: **0**
+* CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: **tflite_cpp**
 
 </details>
 
@@ -206,17 +272,41 @@ ___
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
-     * get,dataset,preprocessed,imagenet,_for.resnet50-rgb8,_NHWC
-       * `if (CM_MODEL  == resnet50)`
-       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
+     * get,ml-model,mobilenet,raw,_tflite
+       * `if (CM_MODEL  == mobilenet AND CM_MLPERF_BACKEND in ['tflite', 'armnn_tflite'])`
+       * CM names: `--adr.['ml-model', 'tflite-model', 'mobilenet-model']...`
+       - CM script: [get-ml-model-mobilenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-mobilenet)
      * get,ml-model,resnet50,raw,_tflite,_no-argmax
-       * `if (CM_MODEL  == resnet50 AND CM_MLPERF_BACKEND  == tflite)`
+       * `if (CM_MODEL  == resnet50 AND CM_MLPERF_BACKEND in ['tflite', 'armnn_tflite'])`
+       * CM names: `--adr.['ml-model', 'tflite-model', 'resnet50-model']...`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
      * get,ml-model,resnet50,raw,_tf
        * `if (CM_MODEL  == resnet50 AND CM_MLPERF_BACKEND  == tf)`
+       * CM names: `--adr.['ml-model', 'tflite-model', 'resnet50-model']...`
        - CM script: [get-ml-model-resnet50](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50)
+     * get,ml-model,efficientnet,raw,_tflite
+       * `if (CM_MODEL  == efficientnet AND CM_MLPERF_BACKEND in ['tflite', 'armnn_tflite'])`
+       * CM names: `--adr.['ml-model', 'tflite-model', 'efficientnet-model']...`
+       - CM script: [get-ml-model-efficientnet-lite](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-efficientnet-lite)
+     * get,dataset,preprocessed,imagenet,_for.resnet50,_rgb32,_NHWC
+       * `if (CM_MODEL  == resnet50) AND (CM_DATASET_COMPRESSED  != on)`
+       * CM names: `--adr.['imagenet-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
+     * get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb32,_NHWC
+       * `if (CM_MODEL in ['mobilenet', 'efficientnet'])`
+       * CM names: `--adr.['imagenet-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
+     * get,dataset,preprocessed,imagenet,_for.resnet50,_rgb8,_NHWC
+       * `if (CM_MODEL  == resnet50 AND CM_DATASET_COMPRESSED  == on)`
+       * CM names: `--adr.['imagenet-preprocessed']...`
+       - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
      * get,tensorflow,lib,_tflite
        - CM script: [install-tensorflow-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)
+     * get,lib,armnn
+       - CM script: [get-lib-armnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn)
+     * generate,user-conf,mlperf,inference
+       * CM names: `--adr.['user-conf-generator']...`
+       - CM script: [generate-mlperf-inference-user-conf](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/_cm.json)
   1. ***Run native script if exists***
@@ -224,17 +314,25 @@ ___
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/customize.py)***
   1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/_cm.json)***
      * compile,program
+       * `if (CM_MLPERF_SKIP_RUN  != yes)`
        * CM names: `--adr.['compiler-program']...`
        - CM script: [compile-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/compile-program)
      * benchmark,program
+       * `if (CM_MLPERF_SKIP_RUN  != yes)`
        * CM names: `--adr.['runner']...`
        - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
 ___
 ### Script output
 #### New environment keys (filter)
 
+* **CM_HW_NAME**
+* **CM_MLPERF_***
+* **CM_ML_MODEL_FULL_NAME**
 #### New environment keys auto-detected from customize
 
+* **CM_MLPERF_CONF**
+* **CM_MLPERF_DEVICE**
+* **CM_MLPERF_USER_CONF**
 ___
 ### Maintainers
 
