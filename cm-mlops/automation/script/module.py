@@ -1493,6 +1493,7 @@ class CAutomation(Automation):
                 if r['return']>0: return r
 
         # Clean tmp files only in current path (do not touch cache - we keep all info there)
+        script_path = os.getcwd()
         os.chdir(current_path)
 
         if not i.get('dirty', False) and not cache:
@@ -1514,6 +1515,7 @@ class CAutomation(Automation):
                 x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
 
                 env_script.append('\n')
+                env_script.append('echo "Working path: {}"'.format(script_path))
                 env_script.append('echo "Running debug shell. Type exit to quit ..."\n')
                 env_script.append('\n')
                 env_script.append(x)
@@ -1863,7 +1865,6 @@ class CAutomation(Automation):
 
           env (dict): environment
           cmd (str): string
-          
           ...
 
         Returns:
@@ -1888,7 +1889,7 @@ class CAutomation(Automation):
                 script_name+='bat'
             else:
                 script_name+='sh'
-        
+
         if os.name == 'nt':
             xcmd = 'call '+script_name
 
@@ -1993,8 +1994,8 @@ class CAutomation(Automation):
                 script_name_ext = script_name[j:]
 
             i['meta']['script_name'] = script_name_base
-        
-        
+
+
         r_obj=self.cmind.access(i)
         if r_obj['return']>0: return r_obj
 
@@ -2023,7 +2024,6 @@ class CAutomation(Automation):
                 files += [('', script_name, script_name_base+'.sh')]
 
 
-                
         for x in files:
             path = x[0]
             f1 = x[1]
@@ -2034,7 +2034,7 @@ class CAutomation(Automation):
 
             if path!='':
                 f1 = os.path.join(path, f1)
-            
+
             f2 = os.path.join(new_script_path, f2)
 
             if console:

@@ -56,7 +56,7 @@ input_mapping:
   singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
   multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
   readme: CM_MLPERF_README
-
+  debug: CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM
 
 # Duplicate CM environment variables to the ones used in native apps
 env_key_mappings:

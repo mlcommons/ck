@@ -6,7 +6,6 @@ import subprocess
 
 def preprocess(i):
 
-
     os_info = i['os_info']
     env = i['env']
     state = i['state']
