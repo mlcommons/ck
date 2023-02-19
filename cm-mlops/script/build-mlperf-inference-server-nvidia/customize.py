@@ -18,13 +18,13 @@ def preprocess(i):
 
     if env.get('CM_GCC_VERSION', '') != '':
         gcc_major_version = env['CM_GCC_VERSION'].split(".")[0]
-        if int(gcc_major_version) < 10:
+        if int(gcc_major_version) >= 10:
             cxxflags.append("-Wno-error=range-loop-construct")
 
-    if '+CXXFLAGS' not in env:
-        env['+CXXFLAGS'] = []
+    if '+ CXXFLAGS' not in env:
+        env['+ CXXFLAGS'] = []
 
-    env['+CXXFLAGS'] += " ".join(cxxflags)
+    env['+ CXXFLAGS'] += cxxflags
 
     return {'return':0}
 
