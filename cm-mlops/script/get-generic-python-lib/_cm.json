@@ -41,7 +41,8 @@
         }
       ],
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apache-tvm"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apache-tvm",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": "--pre"
       },
       "new_env_keys": [
         "CM_APACHE_TVM_VERSION"
@@ -739,6 +740,30 @@
       },
       "new_env_keys": [
         "CM_XLSXWRITER_VERSION"
+      ]
+    },
+    "xgboost": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "xgboost"
+      },
+      "new_env_keys": [
+        "CM_XGBOOST_VERSION"
+      ]
+    },
+    "cloudpickle": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "cloudpickle"
+      },
+      "new_env_keys": [
+        "CM_CLOUDPICKLE_VERSION"
+      ]
+    },
+    "tornado": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tornado"
+      },
+      "new_env_keys": [
+        "CM_TORNADO_VERSION"
       ]
     }
   }
