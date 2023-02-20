@@ -1,0 +1,110 @@
+{
+  "alias": "run-mlperf-inference-mobilenet-models",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "tags": [
+		"run",
+		"mobilenet",
+		"image-classification",
+		"mobilenet-models",
+		"mlperf",
+		"inference"
+	],
+	"default_env": {
+		"CM_MLPERF_RUN_MOBILENETS": "no",
+		"CM_MLPERF_RUN_EFFICIENTNETS": "no",
+		"CM_MLPERF_RUN_FP32": "yes",
+		"CM_MLPERF_RUN_INT8": "yes",
+		"CM_MLPERF_FIND_PERFORMANCE_MODE": "yes"
+	},
+	"input_mapping": {
+		"find-performance": "CM_MLPERF_FIND_PERFORMANCE_MODE",
+		"submission": "CM_MLPERF_SUBMISSION_MODE",
+    "results_dir": "CM_MLPERF_RESULTS_DIR"
+	},
+  "uid": "f21cc993a8b14a58",
+	"variations": {
+		"find-performance": {
+			"group": "run-mode",
+			"default": true,
+			"env": {
+				"CM_MLPERF_FIND_PERFORMANCE_MODE": "yes",
+				"CM_MLPERF_SUBMISSION_MODE": "no"
+			}
+		},
+		"submission": {
+			"group": "run-mode",
+			"env": {
+				"CM_MLPERF_FIND_PERFORMANCE_MODE": "no",
+				"CM_MLPERF_SUBMISSION_MODE": "yes"
+			}
+		},
+		"all-models": {
+			"group": "model-selection",
+			"default": true,
+			"env": {
+				"CM_MLPERF_RUN_MOBILENETS": "yes",
+				"CM_MLPERF_RUN_EFFICIENTNETS": "yes"
+			}
+		},
+		"mobilenet": {
+			"group": "model-selection",
+			"env": {
+				"CM_MLPERF_RUN_MOBILENETS": "yes"
+			}
+		},
+		"efficientnet": {
+			"group": "model-selection",
+			"env": {
+				"CM_MLPERF_RUN_EFFICIENTNETS": "yes"
+			}
+		},
+		"only-fp32": {
+			"env": {
+				"CM_MLPERF_RUN_INT8": "no"
+			}
+		},
+		"only-int8": {
+			"env": {
+				"CM_MLPERF_RUN_FP32": "no"
+			}
+		},
+		"tflite-default": {
+			"group": "optimization",
+			"default": true,
+			"env": {
+				"CM_MLPERF_TFLITE_DEFAULT_MODE": "yes"
+			}
+		},
+		"armnn": {
+			"env": {
+				"CM_MLPERF_USE_ARMNN_LIBRARY": "yes"
+			}
+		},
+		"neon": {
+			"env": {
+				"CM_MLPERF_USE_NEON": "yes"
+			}
+		},
+		"opencl": {
+			"env": {
+				"CM_MLPERF_USE_OPENCL": "yes"
+			}
+		},
+		"tflite,armnn": {
+			"env": {
+				"CM_MLPERF_TFLITE_ARMNN": "yes"
+			}
+		},
+		"tflite,armnn,neon": {
+			"env": {
+				"CM_MLPERF_TFLITE_ARMNN_NEON": "yes"
+			}
+		},
+		"tflite,armnn,opencl": {
+			"env": {
+				"CM_MLPERF_TFLITE_ARMNN_OPENCL": "yes"
+			}
+		}
+	}
+}
