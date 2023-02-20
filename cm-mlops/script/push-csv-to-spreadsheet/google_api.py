@@ -2,6 +2,7 @@ from __future__ import print_function
 
 import os.path
 import os
+import csv
 from google.auth.transport.requests import Request
 from google.oauth2.credentials import Credentials
 from google_auth_oauthlib.flow import InstalledAppFlow
@@ -9,7 +10,7 @@ from googleapiclient.discovery import build
 from googleapiclient.errors import HttpError
 
 # If modifying these scopes, delete the file token.json.
-SCOPES = ['https://www.googleapis.com/auth/documents.readonly']
+SCOPES = ['https://www.googleapis.com/auth/spreadsheets']
 
 # The ID of a sample document.
 DOCUMENT_ID = os.environ['CM_GOOGLE_SPREADSHEET_ID']
@@ -40,7 +41,7 @@ def main():
     try:
         service = build("sheets", "v4", credentials=creds)
         sheet_name = os.environ.get('CM_GOOGLE_SHEET_NAME', 'Sheet1')
-        csv_file = os.environ.get['CM_CSV_FILE_PATH']
+        csv_file = os.environ['CM_CSV_FILE_PATH']
 
         f = open(csv_file, "r")
         values = [r for r in csv.reader(f)]
