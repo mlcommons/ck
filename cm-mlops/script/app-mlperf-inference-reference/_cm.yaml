@@ -488,7 +488,6 @@ variations:
   tvm-onnx:
     group: framework
     env:
-      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
       CM_MLPERF_BACKEND: tvm-onnx
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
     deps:
@@ -503,7 +502,6 @@ variations:
   tvm-pytorch:
     group: framework
     env:
-      CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
       CM_MLPERF_BACKEND: tvm-pytorch
       CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
