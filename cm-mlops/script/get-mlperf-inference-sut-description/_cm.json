@@ -23,6 +23,15 @@
         "compiler"
       ],
       "tags": "get,compiler"
+    },
+    {
+      "tags": "get,cuda-devices",
+      "enable_if_env": {
+        "CM_MLPERF_DEVICE": [
+          "gpu",
+          "cuda"
+        ]
+      }
     }
   ],
   "default_env": {

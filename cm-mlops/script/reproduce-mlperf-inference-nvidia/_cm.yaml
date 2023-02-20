@@ -170,11 +170,11 @@ variations:
   # Target devices
   cpu:
     group: device
-    default: true
     env:
       CM_MLPERF_DEVICE: cpu
   cuda:
     group: device
+    default: true
     env:
       CM_MLPERF_DEVICE: gpu
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
@@ -184,6 +184,7 @@ variations:
     default: true
     env:
       CM_MLPERF_BACKEND: tensorrt
+      CM_MLPERF_BACKEND_NAME: TensorRT
 
   # Reference MLPerf models
   resnet50:

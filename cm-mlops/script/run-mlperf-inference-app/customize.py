@@ -83,7 +83,6 @@ def preprocess(i):
     if env['CM_MODEL']  in ["resnet50"]:
         test_list.append("TEST04")
 
-    env['CM_MLPERF_DEVICE'] = env.get('CM_MLPERF_DEVICE', 'cpu')
     variation_implementation= "_" + env.get("CM_MLPERF_IMPLEMENTATION", "reference")
     variation_model= ",_" + env["CM_MLPERF_MODEL"]
     variation_backend= ",_" + env.get("CM_MLPERF_BACKEND") if env.get("CM_MLPERF_BACKEND","") != "" else ""
@@ -142,8 +141,12 @@ def preprocess(i):
                 return r
             if 'CM_MLPERF_RESULTS_DIR' in r['new_env']:
                 env['CM_MLPERF_RESULTS_DIR'] = r['new_env']['CM_MLPERF_RESULTS_DIR']
+            if 'CM_MLPERF_BACKEND' in r['new_env']:
+                env['CM_MLPERF_BACKEND'] = r['new_env']['CM_MLPERF_BACKEND']
             if 'CM_MLPERF_BACKEND_VERSION' in r['new_env']:
                 env['CM_MLPERF_BACKEND_VERSION'] = r['new_env']['CM_MLPERF_BACKEND_VERSION']
+            if 'CM_MLPERF_DEVICE' in r['new_env']:
+                env['CM_MLPERF_DEVICE'] = r['new_env']['CM_MLPERF_DEVICE']
 
         if env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes":
             for test in test_list:

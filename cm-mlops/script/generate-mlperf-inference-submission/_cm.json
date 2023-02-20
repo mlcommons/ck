@@ -19,10 +19,7 @@
       "tags": "mlcommons,inference,src"
     },
     {
-      "tags": "get,sut,system-description",
-      "skip_if_env": {
-        "CM_SUT_META_EXISTS": [ "yes" ]
-      }
+      "tags": "get,sut,system-description"
     }
   ],
   "input_mapping": {
