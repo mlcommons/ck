@@ -46,11 +46,11 @@ ___
 
 #### CM CLI
 
-`cm run script --tags=get,ml-model,model,zoo,deepsparse,model-zoo,sparse-zoo,neural-magic(,variations from below) (flags from below)`
+`cm run script --tags=get,ml-model,model,zoo,deepsparse,model-zoo,sparse-zoo,huggingface(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get ml-model model zoo deepsparse model-zoo sparse-zoo neural-magic (variations from below)" (flags from below)`
+`cm run script "get ml-model model zoo deepsparse model-zoo sparse-zoo huggingface (variations from below)" (flags from below)`
 
 *or*
 
@@ -106,9 +106,9 @@ ___
       - Environment variables:
         - *CM_MODEL_ZOO_STUB*: `#`
       - Workflow:
-    * `_pruned95_obs_quant-none`
+    * `_pierreguillou_bert_base_cased_squad_v1.1_portuguese`
       - Environment variables:
-        - *CM_MODEL_ZOO_STUB*: `zoo:nlp/question_answering/bert-base/pytorch/huggingface/squad/pruned95_obs_quant-none`
+        - *CM_MODEL_ZOO_STUB*: `pierreguillou/bert-base-cased-squad-v1.1-portuguese`
       - Workflow:
 
     </details>
