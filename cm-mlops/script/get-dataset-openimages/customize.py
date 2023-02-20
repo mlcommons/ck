@@ -15,7 +15,11 @@ def postprocess(i):
     if env.get('CM_DATASET_CALIBRATION','') == "no":
         env['CM_DATASET_PATH'] = os.path.join(os.getcwd(), 'install', 'validation', 'data')
         env['CM_DATASET_ANNOTATIONS_DIR_PATH'] = os.path.join(os.getcwd(), 'install', 'annotations')
-        env['CM_DATASET_ANNOTATIONS_FILE_PATH'] = os.path.join(env['CM_DATASET_ANNOTATIONS_DIR_PATH'], "openimages-mlperf.json")
+        annotations_file_path = os.path.join(env['CM_DATASET_ANNOTATIONS_DIR_PATH'], "openimages-mlperf.json")
+        if env.get("CM_DATASET_OPENIMAGES_CUSTOM_ANNOTATIONS",'') == "yes":
+            annotations_file_src = env['CM_DATASET_OPENIMAGES_ANNOTATIONS_FILE_PATH']
+            shutil.copy(annotations_file_src, env['CM_DATASET_ANNOTATIONS_DIR_PATH'])
+        env['CM_DATASET_ANNOTATIONS_FILE_PATH'] = annotations_file_path
     else:
         env['CM_CALIBRATION_DATASET_PATH'] = os.path.join(os.getcwd(), 'install', 'calibration', 'data')
 

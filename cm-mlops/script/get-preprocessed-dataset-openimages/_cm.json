@@ -145,6 +145,13 @@
         "CM_PREPROCESSING_BY_NVIDIA": "yes"
       }
     },
+    "custom-annotations": {
+      "add_deps_recursive": {
+        "original-dataset": {
+          "tags": "_custom-annotations"
+        }
+      }
+    },
     "fp32": {
       "group": "dataset-precision",
       "default": true,

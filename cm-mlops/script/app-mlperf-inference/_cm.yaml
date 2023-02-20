@@ -232,8 +232,6 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _resnet50
-    deps: 
-    - tags: get,dataset-aux,imagenet-aux
     post_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
