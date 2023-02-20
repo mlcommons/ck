@@ -113,7 +113,7 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,cuda
              - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
-    * `_llvm`
+    * **`_llvm`** (default)
       - Environment variables:
         - *CM_TVM_USE_LLVM*: `yes`
       - Workflow:
@@ -135,6 +135,10 @@ ___
 
     </details>
 
+
+#### Default variations
+
+`_llvm`
 #### Default environment
 
 <details>

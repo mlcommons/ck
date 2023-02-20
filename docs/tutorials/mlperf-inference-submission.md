@@ -16,17 +16,23 @@
   * [Use CM to detect or install Python 3.8+](#use-cm-to-detect-or-install-python-38)
   * [Install Python virtual environment with above Python](#install-python-virtual-environment-with-above-python)
   * [Customize and run the MLPerf inference benchmark](#customize-and-run-the-mlperf-inference-benchmark)
+  * [Debug the MLPerf benchmark](#debug-the-mlperf-benchmark)
   * [Customize MLPerf benchmark](#customize-mlperf-benchmark)
     * [Implementations](#implementations)
-    * [Backends](#backends)
+    * [Device](#device)
       * [CPU](#cpu)
       * [CUDA](#cuda)
-    * [Frameworks](#frameworks)
-      * [ONNX run-time](#onnx-run-time)
-      * [PyTorch](#pytorch)
-      * [TensorFlow](#tensorflow)
+    * [Backend (ML framework)](#backend-ml-framework)
+      * [Deepsparse](#deepsparse)
+      * [ONNX runtime CPU](#onnx-runtime-cpu)
+      * [ONNX runtime CUDA](#onnx-runtime-cuda)
+      * [PyTorch CPU](#pytorch-cpu)
+      * [PyTorch CUDA](#pytorch-cuda)
+      * [TensorFlow (Python)](#tensorflow-python)
+      * [TensorFlow from source](#tensorflow-from-source)
       * [TensorFlow Lite](#tensorflow-lite)
-      * [TVM](#tvm)
+      * [TensorRT](#tensorrt)
+      * [TVM ONNX (Python)](#tvm-onnx-python)
     * [Datasets](#datasets)
     * [Power measurements](#power-measurements)
   * [Prepare submission](#prepare-submission)
@@ -184,6 +190,11 @@ You may just need to substitute `gnome-terminal --` with a command line that ope
 
 CM will attempt to automatically detect or download and install the default versions of all required ML components.
 
+## Debug the MLPerf benchmark
+
+You can add flag `--debug` to CM command to let CM stop just before running a given MLPerf benchmark, open a shell
+and let you run/customize benchmark manually from command line while reusing environment variables and tools prepared by CM.
+
 ## Customize MLPerf benchmark
 
 ### Implementations
@@ -244,7 +255,7 @@ You can install specific versions of various backends using CM as follows (optio
 See [this PR](https://github.com/mlcommons/ck/pull/619) prepared by the [open taskforce](../taksforce.md) 
 during the public hackathon to add Neural Magic's Deepsparse BERT backend for MLPerf to the CM automation.
 
-*We currently support BERT large model int 8 targetting CPU only. CUDA may come soon...*
+*We currently support BERT large model int 8 targeting CPU only. CUDA may come soon...*
 
 
 #### ONNX runtime CPU

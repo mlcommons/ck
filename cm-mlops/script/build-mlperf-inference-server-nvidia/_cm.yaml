@@ -50,6 +50,9 @@ deps:
   # Detect Tensorrt
   - tags: get,tensorrt
 
+  # Detect gcc
+  - tags: get,gcc
+
   # Detect CMake
   - tags: get,cmake
     version_min: "3.18"

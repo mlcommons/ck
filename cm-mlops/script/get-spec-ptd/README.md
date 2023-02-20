@@ -11,6 +11,8 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Input description](#input-description)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
@@ -97,6 +99,31 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,spec,ptd,ptdaemon,
 
 ___
 ### Customization
+
+
+#### Input description
+
+* --**input** Path to SPEC PTDaemon (Optional)
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "input":...}
+```
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**input**=value --> **CM_INPUT**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "input":...}
+```
+
+</details>
 
 #### Default environment
 

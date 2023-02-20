@@ -105,6 +105,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_Pillow`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `Pillow`
+      - Workflow:
     * `_apache-tvm`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `apache-tvm`
@@ -112,6 +116,10 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_typing_extensions
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_attr`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `attr`
+      - Workflow:
     * `_attrs`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `attrs`
@@ -137,6 +145,10 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `deepsparse`
       - Workflow:
+    * `_fiftyone`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `fiftyone`
+      - Workflow:
     * `_inflect`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `inflect`
@@ -159,10 +171,18 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `librosa`
       - Workflow:
+    * `_matplotlib`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `matplotlib`
+      - Workflow:
     * `_mlperf_logging`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `mlperf_logging`
         - *CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/mlperf/logging.git@2.1.0`
+      - Workflow:
+    * `_mpld3`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `mpld3`
       - Workflow:
     * `_nibabel`
       - Environment variables:
@@ -279,9 +299,17 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `sox`
       - Workflow:
+    * `_sparsezoo`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `sparsezoo`
+      - Workflow:
     * `_streamlit`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `streamlit`
+      - Workflow:
+    * `_tensorboard`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tensorboard`
       - Workflow:
     * `_tensorflow`
       - Environment variables:

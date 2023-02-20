@@ -316,8 +316,8 @@ deps:
       CM_MODEL:
       - resnet50
     skip_if_env:
-      CM_MLPERF_VISION_DATASET_OPTION
-      - "on"
+      CM_MLPERF_VISION_DATASET_OPTION:
+      - on
 
   - tags: get,dataset,image-classification,imagenet,preprocessed,_pytorch
     names:

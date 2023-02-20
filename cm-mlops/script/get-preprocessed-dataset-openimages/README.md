@@ -118,14 +118,6 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_1`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `1`
-      - Workflow:
-    * `_5`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `5`
-      - Workflow:
     * **`_50`** (default)
       - Environment variables:
         - *CM_DATASET_SIZE*: `50`
@@ -136,7 +128,11 @@ ___
       - Workflow:
     * `_full`
       - Environment variables:
-        - *CM_DATASET_SIZE*: ``
+        - *CM_DATASET_SIZE*: `0`
+      - Workflow:
+    * `_size.#`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `#`
       - Workflow:
 
     </details>

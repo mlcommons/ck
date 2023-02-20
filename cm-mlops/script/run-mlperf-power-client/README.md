@@ -110,6 +110,7 @@ ___
 * --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
 * --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
 * --**run_cmd**=value --> **CM_MLPERF_RUN_CMD**=value
+* --**timestamp**=value --> **CM_MLPERF_POWER_TIMESTAMP**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -143,7 +144,7 @@ ___
      * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * get,mlperf,power,src,_octoml
+     * get,mlperf,power,src
        * CM names: `--adr.['power-src']...`
        - CM script: [get-mlperf-power-dev](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client/customize.py)***

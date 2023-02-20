@@ -229,11 +229,11 @@ variations:
     env:
       CM_MODEL:
         resnet50
+    deps:
+    - tags: get,dataset-aux,imagenet-aux
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _resnet50
-    deps: 
-    - tags: get,dataset-aux,imagenet-aux
     post_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -711,3 +711,7 @@ input_description:
     desc: "Quiet run (select default values for all questions)"
     boolean: true
     default: false
+  readme: 
+    desc: "Generate README with the reproducibility report"
+  debug: 
+    desc: "Debug MLPerf script"

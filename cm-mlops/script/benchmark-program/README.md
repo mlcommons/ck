@@ -109,6 +109,7 @@ ___
         1. ***Read "post_deps" on other CM scripts***
            * run,mlperf,power,client
              * `if (CM_MLPERF_LOADGEN_MODE  == performance)`
+             * CM names: `--adr.['mlperf-power-client']...`
              - CM script: [run-mlperf-power-client](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-client)
     * `_numactl`
       - Workflow:

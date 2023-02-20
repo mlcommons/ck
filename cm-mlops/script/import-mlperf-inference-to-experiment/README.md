@@ -12,7 +12,6 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Default environment](#default-environment)
-* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -27,12 +26,12 @@
 
 #### Information
 
-* Category: *Detection or installation of tools and artifacts.*
+* Category: *Modular MLPerf benchmarks.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-dnnl)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,lib-dnnl,lib,dnnl*
-* Output cached?: *True*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment*
+* Output cached?: *False*
 ___
 ### Usage
 
@@ -46,15 +45,15 @@ ___
 
 #### CM CLI
 
-`cm run script --tags=get,lib-dnnl,lib,dnnl(,variations from below) (flags from below)`
+`cm run script --tags=import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get lib-dnnl lib dnnl (variations from below)" (flags from below)`
+`cm run script "import mlperf inference mlperf-inference experiment 2experiment to-experiment (variations from below)" (flags from below)`
 
 *or*
 
-`cm run script 1cd35a6a3b0b4530`
+`cm run script 72099fa962ea499c`
 
 #### CM Python API
 
@@ -67,7 +66,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,lib-dnnl,lib,dnnl'
+                  'tags':'import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -84,9 +83,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,lib-dnnl,lib,dnnl"```
+```cm run script --tags=gui --script="import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,lib-dnnl,lib,dnnl) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=import,mlperf,inference,mlperf-inference,experiment,2experiment,to-experiment) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -105,37 +104,26 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 </details>
 
-#### Versions
-Default version: *dev*
-
-* 2.2.4
-* dev
 ___
 ### Script workflow, dependencies and native scripts
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-dnnl/_cm.json)***
-     * detect,cpu
-       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
-     * cmake,get-cmake
-       - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-dnnl/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-dnnl/_cm.json)
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
+     * get,sys-utils-cm
+       - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-dnnl/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-dnnl/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-dnnl/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-dnnl/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)
+  1. Run "postrocess" function from customize.py
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/import-mlperf-inference-to-experiment/_cm.yaml)
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+CPLUS_INCLUDE_PATH**
-* **+C_INCLUDE_PATH**
-* **+LD_LIBRARY_PATH**
-* **CM_LIB_DNNL_***
 #### New environment keys auto-detected from customize
 
-* **CM_LIB_DNNL_INSTALL_DIR**
 ___
 ### Maintainers
 

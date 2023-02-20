@@ -106,7 +106,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 </details>
 
 #### Versions
-Default version: *5.2.0*
+Default version: *5.3.0*
 
 ___
 ### Script workflow, dependencies and native scripts
@@ -117,6 +117,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/_cm.json)
   1. ***Run native script if exists***
+     * [run-aarch64.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/run-aarch64.sh)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/_cm.json)
   1. Run "postrocess" function from customize.py

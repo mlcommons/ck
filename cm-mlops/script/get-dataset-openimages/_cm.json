@@ -45,6 +45,16 @@
       "tags": "get,generic-python-lib,_pandas"
     }
   ],
+  "posthook_deps": [
+    {
+      "tags": "get,openimages,annotations",
+      "enable_if_env": {
+        "CM_DATASET_OPENIMAGES_CUSTOM_ANNOTATIONS": [
+          "on"
+        ]
+      }
+    }
+  ],
   "default_env": {
     "CM_DATASET_CALIBRATION": "no"
   },
@@ -98,23 +108,33 @@
       }
     },
     "size.#": {
+      "group": "size",
       "env": {
         "CM_DATASET_SIZE": "#"
       }
     },
     "500": {
+      "group": "size",
       "env": {
         "CM_DATASET_SIZE": "500"
       }
     },
     "50": {
+      "group": "size",
+      "default": true,
       "env": {
         "CM_DATASET_SIZE": "50"
       }
     },
     "full": {
+      "group": "size",
       "env": {
         "CM_DATASET_SIZE": ""
+      }
+    },
+    "custom-annotations": {
+      "env": {
+        "CM_DATASET_OPENIMAGES_CUSTOM_ANNOTATIONS": "yes"
       }
     }
   }
