@@ -74,6 +74,17 @@ def generate_submission(i):
 
     print('* MLPerf inference submitter: {}'.format(submitter))
 
+    if 'Collective' not in system_meta.get('sw_notes'):
+        system_meta['sw_notes'] = system_meta['sw_notes'] + " " + "Powered by MLCommons Collective Knowledge Framework."
+
+    if env.get('CM_MLPERF_SUT_SW_NOTES_EXTRA','') != '':
+        sw_notes = f"{system_meta['sw_notes']} {env['CM_MLPERF_SUT_SW_NOTES_EXTRA']}"
+        system_meta['sw_notes'] = sw_notes
+
+    if env.get('CM_MLPERF_SUT_HW_NOTES_EXTRA','') != '':
+        hw_notes = f"{system_meta['hw_notes']} {env['CM_MLPERF_SUT_HW_NOTES_EXTRA']}"
+        system_meta['hw_notes'] = hw_notes
+
     path_submission=os.path.join(path_submission_division, submitter)
     if not os.path.isdir(path_submission):
         os.makedirs(path_submission)
@@ -85,7 +96,7 @@ def generate_submission(i):
 
     for res in results:
         parts = res.split("-")
-        if len(parts) > 5: #result folder structure using by CM script
+        if len(parts) > 5: #result folder structure used by CM script
             system = parts[0]
             implementation = parts[1]
             device = parts[2]
