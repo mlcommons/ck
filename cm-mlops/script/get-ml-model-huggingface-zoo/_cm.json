@@ -1,0 +1,47 @@
+{
+  "alias": "get-ml-model-huggingface-zoo",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": true,
+  "category": "ML/AI models",
+  "deps": [
+    {
+      "names": [
+        "python3",
+        "python"
+      ],
+      "tags": "get,python3"
+    },
+    {
+      "tags": "get,generic-python-lib,_sparsezoo"
+    }
+  ],
+  "env": {},
+  "new_env_keys": [
+    "CM_ML_MODEL*",
+    "CM_MODEL_ZOO_STUB"
+  ],
+  "tags": [
+    "get",
+    "ml-model",
+    "model",
+    "zoo",
+    "deepsparse",
+    "model-zoo",
+    "sparse-zoo",
+    "huggingface"
+  ],
+  "uid": "53cf8252a443446a",
+  "variations": {
+    "model-stub.#": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "#"
+      }
+    },
+    "pierreguillou_bert_base_cased_squad_v1.1_portuguese": {
+      "env": {
+        "CM_MODEL_ZOO_STUB": "pierreguillou/bert-base-cased-squad-v1.1-portuguese"
+      }
+    }
+  }
+}
