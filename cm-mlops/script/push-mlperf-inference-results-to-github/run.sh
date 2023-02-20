@@ -8,6 +8,7 @@ if [[ -n ${CM_MLPERF_SUBMISSION_DIR} ]]; then
     git add *
 fi
 test $? -eq 0 || exit $?
-git commit -a -m "Added new results"
+
+git commit -a -m "${CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE}"
 git push
 test $? -eq 0 || exit $?
