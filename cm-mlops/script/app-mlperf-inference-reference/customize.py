@@ -6,7 +6,6 @@ import subprocess
 
 def preprocess(i):
 
-
     os_info = i['os_info']
     env = i['env']
     state = i['state']
@@ -18,7 +17,7 @@ def preprocess(i):
     if env.get('CM_RUN_DOCKER_CONTAINER', '') == "yes": 
         return {'return':0}
 
-    if env.get('CM_SYSTEM_POWER','') == "yes":
+    if env.get('CM_MLPERF_POWER','') == "yes":
         power = "yes"
     else:
         power = "no"
@@ -55,10 +54,10 @@ def preprocess(i):
         else:
             env['CM_NUM_THREADS'] = env.get('CM_HOST_CPU_TOTAL_CORES', '1')
 
-    if 'CM_MLPERF_LOADGEN_MAX_BATCHSIZE' in env and env.get('CM_MLPERF_MODEL_SKIP_BATCHING', 'no') != "yes" :
+    if env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE','') != '' and not env.get('CM_MLPERF_MODEL_SKIP_BATCHING', False) :
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' in env and env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', 'no') != "yes":
+    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') != '' and not env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', False):
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
 
     print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
@@ -69,7 +68,7 @@ def preprocess(i):
 
     env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] +=  " --mlperf_conf '" + env['CM_MLPERF_CONF'] + "'"
 
-    env['MODEL_DIR'] = env['CM_ML_MODEL_PATH']
+    env['MODEL_DIR'] = env.get('CM_ML_MODEL_PATH')
 
     RUN_CMD = ""
     state['RUN'] = {}
@@ -106,6 +105,9 @@ def preprocess(i):
         env['DATA_DIR'] = env.get('CM_DATASET_PATH')
         dataset_options = ''
 
+    if env.get('CM_MLPERF_EXTRA_DATASET_ARGS','') != '':
+        dataset_options += " " + env['CM_MLPERF_EXTRA_DATASET_ARGS']
+
     if mode == "accuracy":
         mode_extra_options += " --accuracy"
 
@@ -126,7 +128,10 @@ def preprocess(i):
     env['CM_MLPERF_RUN_CMD'] = cmd
     env['CM_RUN_DIR'] = os.getcwd()
     env['CM_RUN_CMD'] = cmd
-    env['CK_PROGRAM_TMP_DIR'] = env['CM_ML_MODEL_PATH'] #for tvm
+    env['CK_PROGRAM_TMP_DIR'] = env.get('CM_ML_MODEL_PATH') #for tvm
+
+    if env.get('CM_HOST_PLATFORM_FLAVOR','') == "arm64":
+        env['CM_HOST_PLATFORM_FLAVOR'] = "aarch64"
 
     return {'return':0}
 
@@ -143,13 +148,33 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
     if env['CM_MODEL'] in [ "resnet50", "retinanet" ]:
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "vision", "classification_and_detection")
-        cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
+        if env.get('CM_MLPERF_VISION_DATASET_OPTION','') == '':
+            cmd =  "cd '"+ env['RUN_DIR'] + "' && OUTPUT_DIR='" + env['CM_MLPERF_OUTPUT_DIR'] + "' ./run_local.sh " + env['CM_MLPERF_BACKEND'] + ' ' + \
             env['CM_MODEL'] + ' ' + env['CM_MLPERF_DEVICE'] + " --scenario " + env['CM_MLPERF_LOADGEN_SCENARIO'] + " " + env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + \
             scenario_extra_options + mode_extra_options + dataset_options
+            return cmd
+
+        env['MODEL_FILE'] = env.get('CM_MLPERF_CUSTOM_MODEL_PATH', env.get('CM_ML_MODEL_FILE_WITH_PATH'))
+        if not env['MODEL_FILE']:
+            return {'return': 1, 'error': 'No valid model file found!'}
+
+        env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
+        
+        extra_options = " --output "+ env['CM_MLPERF_OUTPUT_DIR'] +" --model-name resnet50  --dataset " + env['CM_MLPERF_VISION_DATASET_OPTION'] + ' --max-batchsize ' + env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE', '1') + \
+                " --dataset-path "+env['CM_DATASET_PREPROCESSED_PATH']+" --model "+env['MODEL_FILE'] + \
+                " --preprocessed_dir "+env['CM_DATASET_PREPROCESSED_PATH']
+
+        cmd = "cd '" + os.path.join(env['RUN_DIR'],"python") + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " main.py "+\
+        "--backend "+env['CM_MLPERF_BACKEND']+ " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
+            env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + extra_options
+        env['SKIP_VERIFY_ACCURACY'] = True
 
     elif "bert" in env['CM_MODEL']:
 
         env['RUN_DIR'] = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "language", "bert")
+        env['MODEL_FILE'] = env.get('CM_MLPERF_CUSTOM_MODEL_PATH', env.get('CM_ML_MODEL_FILE_WITH_PATH'))
+        if not env['MODEL_FILE']:
+            return {'return': 1, 'error': 'No valid model file found!'}
         if env.get('CM_MLPERF_QUANTIZATION') in [ "on", True, "1", "True" ]:
             quantization_options = " --quantized"
         else:
@@ -157,9 +182,8 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
         cmd = "cd '" + env['RUN_DIR'] + "' && "+env['CM_PYTHON_BIN_WITH_PATH']+ " run.py --backend=" + env['CM_MLPERF_BACKEND'] + " --scenario="+env['CM_MLPERF_LOADGEN_SCENARIO'] + \
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
         if env['CM_MLPERF_BACKEND'] == "deepsparse":
-            cmd += " --batch_size="+env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']+" --model_path=" + env['CM_ML_MODEL_FILE_WITH_PATH']
+            cmd += " --batch_size=" + env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE', '1') + " --model_path=" + env['MODEL_FILE']
         cmd = cmd.replace("--count", "--max_examples")
-        env['MODEL_FILE'] = env['CM_ML_MODEL_FILE_WITH_PATH']
         env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']
         env['DATASET_FILE'] = env['CM_DATASET_SQUAD_VAL_PATH']
         env['LOG_PATH'] = env['CM_MLPERF_OUTPUT_DIR']
@@ -230,7 +254,7 @@ def postprocess(i):
 
     env = i['env']
 
-    if env.get('CM_MLPERF_README', 'no') == "yes":
+    if env.get('CM_MLPERF_README', "") == "yes":
         import cmind as cm
         inp = i['input']
         state = i['state']
@@ -241,6 +265,7 @@ def postprocess(i):
                 'automation': 'script',
                 'tags': script_tags,
                 'adr': script_adr,
+                'env': env,
                 'print_deps': True,
                 'quiet': True,
                 'silent': True,

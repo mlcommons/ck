@@ -36,11 +36,9 @@
   "default_env": {
     "CM_OUTPUT_FOLDER_NAME": "test_results",
     "CM_MLPERF_RUN_STYLE": "test",
-    "CM_MLPERF_MODEL": "resnet50",
     "CM_MLPERF_IMPLEMENTATION": "reference",
-    "CM_MLPERF_BACKEND": "onnxruntime",
-    "CM_MLPERF_LOADGEN_COMPLIANCE": "yes",
-    "CM_MLPERF_DEVICE": "cpu"
+    "CM_MLPERF_MODEL": "resnet50",
+    "CM_MLPERF_LOADGEN_COMPLIANCE": "yes"
   },
   "input_mapping": {
     "lang": "CM_MLPERF_IMPLEMENTATION",
@@ -104,7 +102,8 @@
       "env": {
         "CM_MLPERF_LOADGEN_ALL_MODES": "no",
         "CM_MLPERF_LOADGEN_MODE": "performance",
-        "CM_MLPERF_FIND_PERFORMANCE": "yes"
+        "CM_MLPERF_FIND_PERFORMANCE": true,
+        "CM_MLPERF_RESULT_PUSH_TO_GITHUB": false
       }
     },
     "all-scenarios": {
@@ -118,6 +117,9 @@
       }
     },
     "submission": {
+      "default_variations": {
+        "submission-generation-style": "full"
+      },
       "default_gui": true,
       "base": [
         "all-modes"

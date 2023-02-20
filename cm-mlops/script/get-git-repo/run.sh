@@ -3,11 +3,11 @@
 CUR_DIR=$PWD
 SCRIPT_DIR=${CM_TMP_CURRENT_SCRIPT_PATH}
 
-echo "******************************************************"
-echo "Cloning ${CM_GIT_REPO_NAME} from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_GIT_DEPTH} ${CM_GIT_RECURSE_SUBMODULES}..."
-
 folder=${CM_GIT_CHECKOUT_FOLDER}
 if [ ! -d ${folder} ]; then
+  echo "******************************************************"
+  echo "Cloning ${CM_GIT_REPO_NAME} from ${CM_GIT_URL} with branch ${CM_GIT_CHECKOUT} ${CM_GIT_DEPTH} ${CM_GIT_RECURSE_SUBMODULES}..."
+
   if [ -z ${CM_GIT_SHA} ]; then
     git clone ${CM_GIT_RECURSE_SUBMODULES} -b "${CM_GIT_CHECKOUT}" ${CM_GIT_URL} ${CM_GIT_DEPTH} ${folder}
     cd ${folder}

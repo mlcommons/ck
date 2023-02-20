@@ -1,4 +1,4 @@
-## V1.1.4.1
+## V1.1.5
    - added support for CLI with -- {something} . Everything after -- will be available 
      in the CM input dictionary under "unparsed_cmd" key (list).
      We need it to support universal experiments in CM:

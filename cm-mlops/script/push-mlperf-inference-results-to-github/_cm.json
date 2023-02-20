@@ -20,11 +20,11 @@
     }
   ],
   "default_env": {
-    "CM_MLPERF_RESULTS_GIT_REPO_URL": "https://github.com/arjunsuresh/mlperf_inference_submissions_v3.0"
+    "CM_MLPERF_RESULTS_GIT_REPO_URL": "https://github.com/ctuning/mlperf_inference_submissions_v3.0"
   },
   "input_mapping": {
     "repo_url": "CM_MLPERF_RESULTS_GIT_REPO_URL",
-    "submission_dir": "CM_MLPERF_INFERENCE_SUBMISSION_DIR"
+    "submission_dir": "CM_MLPERF_SUBMISSION_DIR"
   },
   "tags": [
     "push",

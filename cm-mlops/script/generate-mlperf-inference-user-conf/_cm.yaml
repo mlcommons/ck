@@ -20,7 +20,6 @@ tags:
 
 # Default environment
 default_env:
-  CM_MLPERF_LOADGEN_MAX_BATCHSIZE: '1'
   CM_MLPERF_LOADGEN_MODE: accuracy
   CM_MLPERF_LOADGEN_SCENARIO: Offline
   CM_OUTPUT_FOLDER_NAME: test_results
@@ -32,7 +31,6 @@ default_env:
 input_mapping:
   count: CM_MLPERF_LOADGEN_QUERY_COUNT
   hw_name: CM_HW_NAME
-  max_batchsize: CM_MLPERF_LOADGEN_MAX_BATCHSIZE
   mode: CM_MLPERF_LOADGEN_MODE
   num_threads: CM_NUM_THREADS
   output_dir: OUTPUT_BASE_DIR
@@ -54,6 +52,7 @@ new_env_keys:
   - CM_MLPERF_*
   - CM_HW_*
   - CM_SUT_*
+  - CM_MAX_EXAMPLES
 
 new_state_keys:
   - CM_SUT_*

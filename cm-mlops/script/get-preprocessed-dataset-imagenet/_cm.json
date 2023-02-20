@@ -51,7 +51,6 @@
     }
   ],
   "default_env": {
-    "CM_DATASET_INPUT_SQUARE_SIDE": "224",
     "CM_DATASET_CROP_FACTOR": "87.5",
     "CM_DATASET_DATA_TYPE": "float32",
     "CM_DATASET_DATA_LAYOUT": "NCHW",
@@ -87,7 +86,26 @@
     "default": {
       "default_variations": {
         "preprocessing-source": "mlcommons-reference-preprocessor"
+      },
+      "env": {
+	"CM_PREPROCESS_VGG": "yes",
+	"CM_MODEL": "resnet50"
       }
+    },
+    "pytorch": {
+      "default_variations": {
+        "preprocessing-source": "mlcommons-reference-preprocessor"
+      },
+      "env": {
+	"CM_PREPROCESS_PYTORCH": "yes",
+	"CM_MODEL": "resnet50"
+      },
+      "deps": [
+        {
+          "names": [ "torchvision" ],
+          "tags": "get,generic-python-lib,_torchvision"
+        }
+      ]
     },
     "1": {
       "group": "size",
@@ -285,7 +303,15 @@
         "CM_DATASET_REFERENCE_PREPROCESSOR": "1"
       }
     },
+    "resolution.224": {
+      "group": "resolution",
+      "default": true,
+      "env": {
+        "CM_DATASET_INPUT_SQUARE_SIDE": "224"
+      }
+    },
     "resolution.#": {
+      "group": "resolution",
       "env": {
         "CM_DATASET_INPUT_SQUARE_SIDE": "#"
       }

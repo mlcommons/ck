@@ -28,4 +28,4 @@ if [ ${CM_GIT_PATCH} == "yes" ]; then
 fi
 cd "$CUR_DIR"
 cd ${CM_GIT_REPO_FOLDER_NAME}
-./setup.py install --user
+#./setup.py install --user

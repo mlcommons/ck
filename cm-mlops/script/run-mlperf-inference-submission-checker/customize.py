@@ -9,10 +9,12 @@ def preprocess(i):
     env = i['env']
     submission_dir = env.get("CM_MLPERF_SUBMISSION_DIR", "")
 
+    version = env.get('CM_MLPERF_VERSION','')
+    
     if submission_dir == "":
         return {'return': 1, 'error': 'Please set CM_MLPERF_SUBMISSION_DIR'}
 
-    submitter = env.get("CM_MLPERF_SUBMITTER", "default")
+    submitter = env.get("CM_MLPERF_SUBMITTER", "") #"default")
     if ' ' in submitter:
         return {'return': 1, 'error': 'CM_MLPERF_SUBMITTER cannot contain a space. Please provide a name without space using --submitter input. Given value: {}'.format(submitter)}
 
@@ -36,17 +38,25 @@ def preprocess(i):
         submission_checker_file = new_submission_checker_file
 
     if env.get('CM_MLPERF_EXTRA_MODEL_MAPPING', '') != '':
-        extra_map = " --extra_model_benchmark_map '"+env['CM_MLPERF_EXTRA_MODEL_MAPPING']+"'"
+        extra_map = ' --extra_model_benchmark_map "'+env['CM_MLPERF_EXTRA_MODEL_MAPPING']+'"'
     else:
         extra_map = ""
 
     if env.get('CM_MLPERF_POWER', 'no') == "yes":
-        power_check = " --more_power_check"
+        power_check = " --more-power-check"
     else:
         power_check = ""
 
-    CMD = env['CM_PYTHON_BIN'] + ' ' + submission_checker_file + " --input '" + submission_dir + "' --submitter '" + submitter + "'" + \
+
+    x_submitter = ' --submitter "' + submitter + '" ' if submitter!='' else ''
+
+    x_version = ' --version ' + version +' ' if version!='' else ''
+
+    CMD = env['CM_PYTHON_BIN'] + ' ' + submission_checker_file + ' --input "' + submission_dir + '"' + \
+            x_submitter + \
+            x_version + \
             skip_compliance + extra_map + power_check
+
     env['CM_RUN_CMD'] = CMD
 
     return {'return':0}

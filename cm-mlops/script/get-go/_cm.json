@@ -9,6 +9,9 @@
     "CM_GO_*",
     "+PATH"
   ],
+  "env": {
+    "CM_REQUIRE_INSTALL": "no"
+  },
   "prehook_deps": [
     {
       "enable_if_env": {

@@ -19,6 +19,8 @@ def preprocess(i):
     system_meta = state['CM_SUT_META']
     env['CM_SUT_META_EXISTS'] = "yes"
 
+    env['CM_MODEL'] = env['CM_MLPERF_MODEL']
+
     if env.get('CM_MLPERF_SUBMISSION_SYSTEM_TYPE', '') != '':
         system_type = env['CM_MLPERF_SUBMISSION_SYSTEM_TYPE']
         system_meta['system_type'] = system_type
@@ -31,6 +33,7 @@ def preprocess(i):
         env["CM_MLPERF_LOADGEN_COMPLIANCE"] = "no" #no compliance runs needed for open division
 
     clean = False
+
     if 'CM_MLPERF_CLEAN_ALL' in env:
         clean = True
         if 'CM_MLPERF_CLEAN_SUBMISSION_DIR' not in env:
@@ -38,20 +41,14 @@ def preprocess(i):
         if 'CM_RERUN' not in env:
             env['CM_RERUN'] = "yes"
 
-    if str(env.get('CM_SYSTEM_POWER','no')).lower() != "no":
+    if str(env.get('CM_SYSTEM_POWER','no')).lower() != "no" or env.get('CM_MLPERF_POWER', '') == "yes":
         power_variation = ",_power"
-        env['CM_SYSTEM_POWER'] = "yes"
+        env['CM_MLPERF_POWER'] = "yes"
     else:
         power_variation = ""
 
     if env.get('CM_RUN_STYLE', '') == "valid" and 'CM_RUN_MLPERF_ACCURACY' not in env:
         env['CM_RUN_MLPERF_ACCURACY'] = "on"
-
-    env['CM_MODEL'] = env.get('CM_MODEL', 'resnet50')
-
-    if env.get('CM_MLPERF_SUBMISSION_GENERATION_STYLE', '') == "short":
-        if env.get('CM_MODEL', '') == "resnet50":
-            env['CM_TEST_QUERY_COUNT'] = "500" #so that accuracy script doesn't complain
 
     print("Using MLCommons Inference source from " + env['CM_MLPERF_INFERENCE_SOURCE'])
 
@@ -87,18 +84,18 @@ def preprocess(i):
         test_list.append("TEST04")
 
     env['CM_MLPERF_DEVICE'] = env.get('CM_MLPERF_DEVICE', 'cpu')
-    variation_implementation= "_" + env.get("CM_MLPERF_IMPLEMENTATION", "python")
-    variation_model= "_" + env.get("CM_MLPERF_MODEL", "resnet50")
-    variation_backend= "_" + env.get("CM_MLPERF_BACKEND", "tf")
-    variation_device= "_" + env.get("CM_MLPERF_DEVICE", "cpu")
-    variation_run_style= "_" + env.get("CM_MLPERF_EXECUTION_MODE", "test")
+    variation_implementation= "_" + env.get("CM_MLPERF_IMPLEMENTATION", "reference")
+    variation_model= ",_" + env["CM_MLPERF_MODEL"]
+    variation_backend= ",_" + env.get("CM_MLPERF_BACKEND") if env.get("CM_MLPERF_BACKEND","") != "" else ""
+    variation_device= ",_" + env.get("CM_MLPERF_DEVICE", "cpu") if env.get("CM_MLPERF_DEVICE","") != "" else ""
+    variation_run_style= ",_" + env.get("CM_MLPERF_EXECUTION_MODE", "test")
 
     if env.get("CM_MLPERF_MODEL_PRECISION", '') != '':
         variation_quantization_string= ",_" + env["CM_MLPERF_MODEL_PRECISION"]
     else:
         variation_quantization_string = ""
 
-    tags =  "app,mlperf,inference,generic,"+variation_implementation+","+variation_model+","+variation_backend+","+variation_device+","+variation_run_style+variation_quantization_string+power_variation
+    tags =  "app,mlperf,inference,generic,"+variation_implementation+variation_model+variation_backend+variation_device+variation_run_style+variation_quantization_string+power_variation
     silent = inp.get('silent', False)
     print_env = inp.get('print_env', False)
     print_deps = inp.get('print_deps', False)
@@ -137,6 +134,7 @@ def preprocess(i):
                 if env.get('CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY'):
                     env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = env['CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY']
 
+            print(f"\nRunning loadgen scenario: {scenario} and mode: {mode}")
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
                 add_deps_recursive, 'silent': silent, 'print_env': print_env, 'print_deps': print_deps})

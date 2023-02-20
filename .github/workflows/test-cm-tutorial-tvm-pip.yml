@@ -5,7 +5,7 @@ name: CM(CK2) tutorial tvm pip install
 
 on:
   pull_request:
-    branches: [ "test" ]
+    branches: [ "master", "test" ]
     paths:
       - '.github/workflows/test-cm-tutorial-tvm-pip.yml'
       - '!cm-mlops/**.md'

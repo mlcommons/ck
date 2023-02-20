@@ -79,6 +79,14 @@
         "CM_BOTO3_VERSION"
       ]
     },
+    "fiftyone": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "fiftyone"
+      },
+      "new_env_keys": [
+        "CM_FIFTYONE_VERSION"
+      ]
+    },
     "cmind": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "cmind"
@@ -170,6 +178,14 @@
         "CM_LIBROSA_VERSION"
       ]
     },
+    "matplotlib": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "matplotlib"
+      },
+      "new_env_keys": [
+        "CM_MATPLOTLIB_VERSION"
+      ]
+    },
     "mlperf_logging": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "mlperf_logging",
@@ -177,6 +193,14 @@
       },
       "new_env_keys": [
         "CM_MLPERF_LOGGING_VERSION"
+      ]
+    },
+    "mpld3": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "mpld3"
+      },
+      "new_env_keys": [
+        "CM_MPLD3_VERSION"
       ]
     },
     "nibabel": {
@@ -295,6 +319,14 @@
       },
       "new_env_keys": [
         "CM_PILLOW_VERSION"
+      ]
+    },
+    "sparsezoo": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "sparsezoo"
+      },
+      "new_env_keys": [
+        "CM_SPARSEZOO_VERSION"
       ]
     },
     "pip": {

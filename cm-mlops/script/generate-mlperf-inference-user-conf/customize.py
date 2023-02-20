@@ -23,6 +23,7 @@ def preprocess(i):
         env['CM_MLPERF_LOADGEN_SCENARIO'] = "Offline"
 
     if 'CM_MLPERF_LOADGEN_MODE' not in env:
+        print("\nNo mode given. Using accuracy as default\n")
         env['CM_MLPERF_LOADGEN_MODE'] = "accuracy"
 
 
@@ -52,12 +53,21 @@ def preprocess(i):
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     state['RUN'][scenario] = {}
 
-    if env['CM_MODEL'] not in i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']]:
-        i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']] = {}
-        i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']][scenario] = {}
+    model_full_name = env.get('CM_ML_MODEL_FULL_NAME', env['CM_MODEL'])
+
+    if model_full_name != env['CM_MODEL']:
+        if 'model_mapping' not in state['CM_SUT_CONFIG']:
+            state['CM_SUT_CONFIG']['model_mappings'] = {}
+        state['CM_SUT_CONFIG']['model_mappings'][model_full_name] = env['CM_MODEL']
+
+    if model_full_name not in i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']]:
+        i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name] = {}
+
+    if scenario not in i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name]:
+        i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name][scenario] = {}
 
 
-    conf = i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][env['CM_MODEL']][scenario]
+    conf = i['state']['CM_SUT_CONFIG'][env['CM_SUT_NAME']][model_full_name][scenario]
 
     mode = env['CM_MLPERF_LOADGEN_MODE']
 
@@ -66,6 +76,7 @@ def preprocess(i):
         fast_factor = env['CM_FAST_FACTOR']
     else:
         fast_factor = 1
+
     ml_model_name = env['CM_MODEL']
     if 'bert' in ml_model_name:
         ml_model_name = "bert"
@@ -92,7 +103,7 @@ def preprocess(i):
         if metric in conf:
             metric_value = conf[metric]
         else:
-            if env.get("CM_MLPERF_FIND_PERFORMANCE", "no") == "yes":
+            if env.get("CM_MLPERF_FIND_PERFORMANCE", False):
                 if metric == "target_qps":
                     print("In find performance mode: using 1 as target_qps")
                     conf[metric] = 1
@@ -103,7 +114,7 @@ def preprocess(i):
                 return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
 
     #Pass the modified performance metrics to the implementation
-    if env.get("CM_MLPERF_FIND_PERFORMANCE", "no") == "yes":
+    if env.get("CM_MLPERF_FIND_PERFORMANCE", False):
         if metric == "target_latency" and env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY', '') == '':
             env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = conf[metric]
         elif metric == "target_qps" and env.get('CM_MLPERF_LOADGEN_TARGET_QPS', '') == '':
@@ -155,14 +166,15 @@ def preprocess(i):
     user_conf_file = Path(user_conf_path)
     user_conf_file.parent.mkdir(exist_ok=True, parents=True)
     user_conf_file.write_text(user_conf)
-    if 'CM_MLPERF_LOADGEN_QUERY_COUNT' not in env and query_count:
+
+    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') == ''  and query_count:
         env['CM_MLPERF_LOADGEN_QUERY_COUNT'] = query_count
 
     env['CM_MLPERF_RESULTS_DIR'] = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
 
     sut_name = env.get('CM_SUT_NAME', env['CM_MLPERF_BACKEND'] + "-" + env['CM_MLPERF_DEVICE'])
     OUTPUT_DIR =  os.path.join(env['CM_MLPERF_RESULTS_DIR'], sut_name, \
-            env['CM_MODEL'], scenario.lower(), mode)
+            model_full_name, scenario.lower(), mode)
 
     if 'CM_MLPERF_POWER' in env:
         env['CM_MLPERF_POWER_LOG_DIR'] = os.path.join(OUTPUT_DIR, "tmp_power")
@@ -173,7 +185,7 @@ def preprocess(i):
         OUTPUT_DIR = os.path.join(OUTPUT_DIR, "run_1")
     elif mode == "compliance":
         test = env.get("CM_MLPERF_LOADGEN_COMPLIANCE_TEST", "TEST01")
-        OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], sut_name, env['CM_MODEL'], scenario.lower(), test)
+        OUTPUT_DIR =  os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'], sut_name, model_full_name, scenario.lower(), test)
         if test == "TEST01":
             audit_path = os.path.join(test, env['CM_MODEL'])
         else:
@@ -201,7 +213,7 @@ def preprocess(i):
                     required_files[4]) or env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
         env['CM_MLPERF_USER_CONF'] = user_conf_path
     else:
-        print("Measure files exist, skipping regeneration...\n")
+        print(f"Measure files exist at {OUTPUT_DIR}. Skipping regeneration...\n")
         env['CM_MLPERF_USER_CONF'] = ''
 
     os.makedirs(OUTPUT_DIR, exist_ok=True)

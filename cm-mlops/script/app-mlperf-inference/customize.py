@@ -7,6 +7,12 @@ import cmind as cm
 
 def preprocess(i):
 
+    env = i['env']
+
+    if env.get('CM_MLPERF_SUBMISSION_GENERATION_STYLE', '') == "short":
+        if env.get('CM_MODEL', '') == "resnet50":
+            env['CM_TEST_QUERY_COUNT'] = "500" #so that accuracy script doesn't complain
+
     return {'return':0}
 
 def postprocess(i):
@@ -21,13 +27,26 @@ def postprocess(i):
     mode = env['CM_MLPERF_LOADGEN_MODE']
 
     #in power mode copy the log files from tmp_power directory
-    if 'CM_MLPERF_POWER' in env and mode == "performance":
-        shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "power"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "power"))
-        shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "ranging"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "ranging"))
-        shutil.copyfile(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "run_1", "spl.txt"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "spl.txt"))
+    if env.get('CM_MLPERF_POWER', '') == "yes" and mode == "performance":
+        mlperf_power_logs_dir = os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "power")
+        mlperf_ranging_logs_dir = os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "..", "ranging")
+
+        if os.path.exists(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "power")):
+            if os.path.exists(mlperf_power_logs_dir):
+                shutil.rmtree(mlperf_power_logs_dir)
+            shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "power"), mlperf_power_logs_dir)
+
+        if os.path.exists(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "ranging")):
+            if os.path.exists(mlperf_ranging_logs_dir):
+                shutil.rmtree(mlperf_ranging_logs_dir)
+            shutil.copytree(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "ranging"), mlperf_ranging_logs_dir)
+
+        if os.path.exists(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "run_1", "spl.txt")):
+            shutil.copyfile(os.path.join(env['CM_MLPERF_POWER_LOG_DIR'], "run_1", "spl.txt"), os.path.join(env['CM_MLPERF_OUTPUT_DIR'], "spl.txt"))
 
     accuracy_result_dir = ''
     model = env['CM_MODEL']
+    model_full_name = env.get('CM_ML_MODEL_FULL_NAME', model)
 
     if model == "resnet50":
         accuracy_filename = "accuracy-imagenet.py"
@@ -40,7 +59,7 @@ def postprocess(i):
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
 
-    if env.get("CM_MLPERF_FIND_PERFORMANCE", "no") == "yes" and mode == "performance" and scenario != "Server":
+    if env.get("CM_MLPERF_FIND_PERFORMANCE", False) and mode == "performance" and scenario != "Server":
         os.chdir(output_dir)
         if not os.path.exists("mlperf_log_summary.txt"):
             return {'return': 0}
@@ -68,12 +87,15 @@ def postprocess(i):
             return {'return': 1, 'error': f'No {metric} found in performance summary. Pattern checked "{pattern[metric]}"'}
 
         value = result[0].strip()
+        if "\(ns\)" in pattern[scenario]:
+            value = str(float(value)/1000000) #convert to milliseconds
+
         sut_name = state['CM_SUT_CONFIG_NAME']
         sut_config = state['CM_SUT_CONFIG'][sut_name]
         sut_config_path = state['CM_SUT_CONFIG_PATH'][sut_name]
-        sut_config[model][scenario][metric] = value
+        sut_config[model_full_name][scenario][metric] = value
 
-        print(f"SUT: {sut_name}, model: {model}, scenario: {scenario}, {metric} updates as {value}")
+        print(f"SUT: {sut_name}, model: {model_full_name}, scenario: {scenario}, {metric} updated as {value}")
         print(f"New config stored in {sut_config_path}")
         with open(sut_config_path, "w") as f:
             yaml.dump(sut_config, f)
@@ -111,7 +133,7 @@ def postprocess(i):
         readme_init = "This experiment is generated using [MLCommons CM](https://github.com/mlcommons/ck)\n"
         readme_body = "## CM Run Command\n```\n" + cmd + "\n```"
 
-        if env.get('CM_MLPERF_README', 'no') == 'yes':
+        if env.get('CM_MLPERF_README', '') == "yes":
             readme_body += "\n## Dependent CM scripts \n"
 
             script_tags = inp['tags']
@@ -122,6 +144,7 @@ def postprocess(i):
                     'tags': script_tags,
                     'adr': script_adr,
                     'print_deps': True,
+                    'env': env,
                     'quiet': True,
                     'silent': True,
                     'fake_run': True
@@ -131,16 +154,20 @@ def postprocess(i):
                 return r
 
             print_deps = r['new_state']['print_deps']
+            count = 1
             for dep in print_deps:
-                readme_body += "\n`" +dep+ "`\n"
+                readme_body += "\n\n" + str(count) +".  `" +dep+ "`\n"
+                count = count+1
 
             if state.get('mlperf-inference-implementation') and state['mlperf-inference-implementation'].get('print_deps'):
 
                 readme_body += "\n## Dependent CM scripts for the MLPerf Inference Implementation\n"
 
                 print_deps = state['mlperf-inference-implementation']['print_deps']
+                count = 1
                 for dep in print_deps:
-                    readme_body += "\n`" +dep+"`\n"
+                    readme_body += "\n\n" + str(count) +". `" +dep+"`\n"
+                    count = count+1
 
             readme = readme_init + readme_body
             with open ("README.md", "w") as fp:

@@ -67,6 +67,22 @@
   ],
   "uid": "0a9d49b644cf4142",
   "variations": {
+    "using-fiftyone": {
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_fiftyone"
+        },
+        {
+          "tags": "get,openssl,lib",
+          "version": "1.1.1"
+        }
+      ],
+      "add_deps_recursive": {
+        "inference-src": {
+          "version": "r2.1"
+        }
+      }
+    },
     "calibration": {
       "group": "dataset-type",
       "env": {

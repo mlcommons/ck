@@ -22,6 +22,7 @@ def preprocess(i):
 
     if 'CM_GIT_CHECKOUT' not in env:
         env['CM_GIT_CHECKOUT'] = 'releases/gcc-' + need_version
+
     bazel_bin = "bazel"
     env['CM_BAZEL_INSTALLED_PATH'] = os.path.join(os.getcwd(), 'install', 'bin')
     env['CM_BAZEL_BIN_WITH_PATH'] = os.path.join(os.getcwd(), 'install', 'bin', bazel_bin)

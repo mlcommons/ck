@@ -684,7 +684,7 @@ class CAutomation(Automation):
             return r
 
         # variation_tags get appended by any default on variation in groups
-        r = self._process_variation_tags_in_groups(variation_tags, variation_groups, excluded_variation_tags)
+        r = self._process_variation_tags_in_groups(variation_tags, variation_groups, excluded_variation_tags, variations)
         if r['return'] > 0:
             return r
         if variation_tags != r['variation_tags']:
@@ -1493,6 +1493,7 @@ class CAutomation(Automation):
                 if r['return']>0: return r
 
         # Clean tmp files only in current path (do not touch cache - we keep all info there)
+        script_path = os.getcwd()
         os.chdir(current_path)
 
         if not i.get('dirty', False) and not cache:
@@ -1514,6 +1515,7 @@ class CAutomation(Automation):
                 x = 'cmd' if os_info['platform'] == 'windows' else 'bash'
 
                 env_script.append('\n')
+                env_script.append('echo "Working path: {}"'.format(script_path))
                 env_script.append('echo "Running debug shell. Type exit to quit ..."\n')
                 env_script.append('\n')
                 env_script.append(x)
@@ -1592,7 +1594,7 @@ class CAutomation(Automation):
                             dynamic_base_variation_already_added = False
                             if base_variation not in variations:
                                 base_variation_dynamic = self._get_name_for_dynamic_variation_tag(base_variation)
-                                if not base_variation_dynamic:
+                                if not base_variation_dynamic or base_variation_dynamic not in variations:
                                     return {'return': 1, 'error': 'Variation "{}" specified as base variation of "{}" is not existing'.format(base_variation, variation_name)}
                                 else:
                                     dynamic_base_variation = True
@@ -1628,7 +1630,9 @@ class CAutomation(Automation):
 
                             if tag_to_append:
                                 if tag_to_append not in variations:
-                                    return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
+                                    variation_tag_static = self._get_name_for_dynamic_variation_tag(tag_to_append)
+                                    if not variation_tag_static or variation_tag_static not in variations:
+                                        return {'return': 1, 'error': 'Invalid variation "{}" specified in default variations for the variation "{}" '.format(tag_to_append, variation_name)}
                                 variation_tags.append(tag_to_append)
                                 tmp_variations[tag_to_append] = False
 
@@ -1850,6 +1854,80 @@ class CAutomation(Automation):
 
         return {'return':0, 'list': lst}
 
+
+    ############################################################
+    def native_run(self, i):
+        """
+        Add CM script
+
+        Args:
+          (CM input dict): 
+
+          env (dict): environment
+          cmd (str): string
+          ...
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        env = i.get('env', {})
+        cmd = i.get('cmd', '')
+
+        script = i.get('script',[])
+
+        # Create temporary script name
+        script_name = i.get('script_name','')
+        if script_name=='': 
+            script_name='tmp-run.'
+
+            if os.name == 'nt':
+                script_name+='bat'
+            else:
+                script_name+='sh'
+
+        if os.name == 'nt':
+            xcmd = 'call '+script_name
+
+            if len(script)==0:
+                script.append('@echo off')
+                script.append('')
+        else:
+            xcmd = 'chmod 755 '+script_name+' ; ./'+script_name
+
+            if len(script)==0:
+                script.append('#!/bin/bash')
+                script.append('')
+
+        # Assemble env
+        if len(env)>0:
+            for k in env:
+                v=env[k]
+
+                if os.name == 'nt':
+                    script.append('set '+k+'='+v)
+                else:
+                    if ' ' in v: v='"'+v+'"'
+                    script.append('export '+k+'='+v)
+
+            script.append('')
+
+        # Add CMD        
+        script.append(cmd)
+
+        # Record script
+        r = utils.save_txt(file_name=script_name, string='\n'.join(script))
+        if r['return']>0: return r
+
+        # Run script
+        rc = os.system(xcmd)
+
+        return {'return':0, 'return_code':rc}
+    
     ############################################################
     def add(self, i):
         """
@@ -1916,8 +1994,8 @@ class CAutomation(Automation):
                 script_name_ext = script_name[j:]
 
             i['meta']['script_name'] = script_name_base
-        
-        
+
+
         r_obj=self.cmind.access(i)
         if r_obj['return']>0: return r_obj
 
@@ -1946,7 +2024,6 @@ class CAutomation(Automation):
                 files += [('', script_name, script_name_base+'.sh')]
 
 
-                
         for x in files:
             path = x[0]
             f1 = x[1]
@@ -1957,7 +2034,7 @@ class CAutomation(Automation):
 
             if path!='':
                 f1 = os.path.join(path, f1)
-            
+
             f2 = os.path.join(new_script_path, f2)
 
             if console:
@@ -1993,6 +2070,10 @@ class CAutomation(Automation):
                             if type(item_value) is dict: #env,default_env inside deps
                                 for item_key2 in item_value:
                                     item_value[item_key2] = item_value[item_key2].replace("#", variation_tag_dynamic_suffix)
+                            elif type(item_value) is list: #names for example
+                                for i,l_item in enumerate(item_value):
+                                    if type(l_item) is str:
+                                        item_value[i] = l_item.replace("#", variation_tag_dynamic_suffix)
                             else:
                                 item[item_key] = item[item_key].replace("#", variation_tag_dynamic_suffix)
 
@@ -2078,15 +2159,22 @@ class CAutomation(Automation):
 
 
     ##############################################################################
-    def _process_variation_tags_in_groups(script, variation_tags, groups, excluded_variations):
+    def _process_variation_tags_in_groups(script, variation_tags, groups, excluded_variations, variations):
         import copy
         tmp_variation_tags= copy.deepcopy(variation_tags)
+        tmp_variation_tags_static= copy.deepcopy(variation_tags)
+        for v in tmp_variation_tags_static:
+            if v not in variations:
+                v_static = script._get_name_for_dynamic_variation_tag(v)
+                tmp_variation_tags_static.remove(v)
+                tmp_variation_tags_static.append(v_static)
+
         for k in groups:
             group = groups[k]
             unique_allowed_variations = group['variations']
-            if len(set(unique_allowed_variations) & set(variation_tags)) > 1:
+            if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) > 1:
                 return {'return': 1, 'error': 'Multiple variation tags selected for the variation group "{}": {} '.format(k, str(set(unique_allowed_variations) & set(variation_tags)))}
-            if len(set(unique_allowed_variations) & set(variation_tags)) == 0:
+            if len(set(unique_allowed_variations) & set(tmp_variation_tags_static)) == 0:
                 if 'default' in group and group['default'] not in excluded_variations:
                     tmp_variation_tags.append(group['default'])
 

@@ -39,22 +39,55 @@
     "destroy": "CM_DESTROY_TERRAFORM",
     "cminit": "CM_TERRAFORM_CM_INIT",
     "key_file": "CM_SSH_KEY_FILE",
-    "disk_size": "TF_VAR_DISK_GBS",
     "run_cmds": "CM_TERRAFORM_RUN_COMMANDS",
     "ssh_key_file": "CM_SSH_KEY_FILE"
   },
   "default_env": {
     "TF_VAR_SECURITY_GROUP_ID": "sg-0783752c97d2e011d",
-    "TF_VAR_CPU_COUNT": "1",
-    "TF_VAR_DISK_GBS": "8"
+    "TF_VAR_CPU_COUNT": "1"
   },
   "variations": {
     "aws": {
+      "group": "cloud-provider",
+      "default": true,
+      "default_variations": {
+        "aws-instance-type": "t2.micro",
+        "aws-instance-image": "aws_instance_image.ami-0735c191cf914754d",
+        "region": "us-west-2"
+      },
       "env": {
         "CM_TERRAFORM_CONFIG_DIR_NAME": "aws"
       }
     },
+    "gcp": {
+      "group": "cloud-provider",
+      "default_variations": {
+        "gcp-instance-type": "f1-micro",
+        "gcp-instance-image": "ubuntu-2204-jammy-v20230114",
+        "region": "region.us-west1",
+        "zone": "zone.us-west1-a",
+        "storage-size": "storage_size.120",
+        "instance-name": "instance_name.microubuntu2204"
+      },
+      "default_env": {
+        "TF_VAR_SSH_PUB_KEY_FILE": "$HOME/.ssh/id_rsa.pub",
+        "TF_VAR_SSH_USER": "asuresh"
+      },
+      "env": {
+        "CM_TERRAFORM_CONFIG_DIR_NAME": "gcp"
+      }
+    },
+    "f1-micro": {
+      "base": [
+        "gcp"
+      ],
+      "group": "gcp-instance-type",
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "f1-micro"
+      }
+    },
     "t2.micro": {
+      "group": "aws-instance-type",
       "base": [
         "aws"
       ],
@@ -63,15 +96,16 @@
       }
     },
     "c5.4xlarge": {
+      "group": "aws-instance-type",
       "base": [
         "aws"
       ],
       "env": {
-        "TF_VAR_INSTANCE_TYPE": "c5.4xlarge",
-        "TF_VAR_DISK_GBS": "80"
+        "TF_VAR_INSTANCE_TYPE": "c5.4xlarge"
       }
     },
     "c5.12xlarge": {
+      "group": "aws-instance-type",
       "base": [
         "aws"
       ],
@@ -80,6 +114,7 @@
       }
     },
     "c5d.9xlarge": {
+      "group": "aws-instance-type",
       "base": [
         "aws"
       ],
@@ -88,11 +123,157 @@
       }
     },
     "g4dn.xlarge": {
+      "group": "aws-instance-type",
       "base": [
         "aws"
       ],
       "env": {
         "TF_VAR_INSTANCE_TYPE": "g4dn.xlarge"
+      }
+    },
+    "x86": {
+      "group": "platform",
+      "default": true,
+      "env": {
+        "CM_INSTANCE_PLATFORM": "x86"
+      }
+    },
+    "arm64": {
+      "group": "platform",
+      "env": {
+        "CM_INSTANCE_PLATFORM": "arm64"
+      }
+    },
+    "a1.2xlarge": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws",
+        "arm64"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "a1.2xlarge"
+      }
+    },
+    "a1.xlarge": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws",
+        "arm64"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "a1.xlarge"
+      }
+    },
+    "a1.metal": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws",
+        "arm64"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "a1.metal"
+      }
+    },
+    "storage_size.8": {
+      "group": "storage-size",
+      "default": true,
+      "env": {
+        "TF_VAR_DISK_GBS": "8"
+      }
+    },
+    "storage_size.#": {
+      "group": "storage-size",
+      "env": {
+        "TF_VAR_DISK_GBS": "#"
+      }
+    },
+    "us-west-2": {
+      "group": "region",
+      "env": {
+        "TF_VAR_INSTANCE_REGION": "us-west-2"
+      }
+    },
+    "region.#": {
+      "group": "region",
+      "env": {
+        "TF_VAR_INSTANCE_REGION": "#"
+      }
+    },
+    "zone.#": {
+      "group": "zone",
+      "env": {
+        "TF_VAR_INSTANCE_ZONE": "#"
+      }
+    },
+    "gcp_instance_type.#": {
+      "group": "gcp-instance-type",
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "#"
+      }
+    },
+    "aws_instance_type.#": {
+      "group": "aws-instance-type",
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "#"
+      }
+    },
+    "gcp_project.#": {
+      "group": "gcp-project",
+      "env": {
+        "TF_VAR_GCP_PROJECT": "#"
+      }
+    },
+    "aws_instance_image.ami-0735c191cf914754d": {
+      "group": "aws-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "ami-0735c191cf914754d"
+      }
+    },
+    "ubuntu.#": {
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE_OS": "ubuntu.#"
+      }
+    },
+    "ubuntu.2204,x86,us-west-2": {
+      "group": "aws-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "ami-0735c191cf914754d"
+      }
+    },
+    "ubuntu.2204,arm64,us-west-2": {
+      "group": "aws-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "ami-079f51a7bcca65b92"
+      }
+    },
+    "aws_instance_image.#": {
+      "group": "aws-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "#"
+      }
+    },
+    "gcp_instance_image.#": {
+      "group": "gcp-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "#"
+      }
+    },
+    "debian-cloud/debian-11": {
+      "group": "gcp-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "debian-cloud/debian-11"
+      }
+    },
+    "ubuntu-2204-jammy-v20230114": {
+      "group": "gcp-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "ubuntu-2204-jammy-v20230114"
+      }
+    },
+    "instance_name.#": {
+      "group": "instance-name",
+      "env": {
+        "TF_VAR_INSTANCE_NAME": "#"
       }
     }
   }
