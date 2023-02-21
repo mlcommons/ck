@@ -259,6 +259,9 @@
       }
     },
     "armnn": {
+      "default_variations": {
+        "optimization-target": "use-neon"
+      },
       "env": {
         "CM_MLPERF_TFLITE_USE_ARMNN": "yes"
       }
@@ -273,12 +276,14 @@
       }
     },
     "use-neon": {
+      "group": "optimization-target",
       "env": {
         "CM_MLPERF_TFLITE_USE_NEON": "1",
         "CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1": "using_neon"
       }
     },
     "use-opencl": {
+      "group": "optimization-target",
       "env": {
         "CM_MLPERF_TFLITE_USE_OPENCL": "1",
         "CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1": "using_opencl"
