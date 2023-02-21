@@ -268,17 +268,20 @@
         "CM_MLPERF_BACKEND": "armnn_tflite",
         "CM_MLPERF_BACKEND_VERSION": "22.11",
         "CM_TMP_SRC_FOLDER": "armnn",
-        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn,armnnTfLiteParser"
+        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn,armnnTfLiteParser",
+        "CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX": "tflite_armnn_cpp"
       }
     },
     "use-neon": {
       "env": {
-        "CM_MLPERF_TFLITE_USE_NEON": "1"
+        "CM_MLPERF_TFLITE_USE_NEON": "1",
+        "CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1": "using_neon"
       }
     },
     "use-opencl": {
       "env": {
-        "CM_MLPERF_TFLITE_USE_OPENCL": "1"
+        "CM_MLPERF_TFLITE_USE_OPENCL": "1",
+        "CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1": "using_opencl"
       }
     },
     "fp32": {

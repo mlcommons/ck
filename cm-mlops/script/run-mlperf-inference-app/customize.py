@@ -100,12 +100,8 @@ def preprocess(i):
     print_deps = inp.get('print_deps', False)
     add_deps_recursive = inp.get('add_deps_recursive', {})
     add_deps = inp.get('add_deps', {})
-
-    if not add_deps:
-        add_deps = inp.get('ad', {})
-
-    if not add_deps_recursive:
-        add_deps_recursive = inp.get('adr', {})
+    ad = inp.get('ad', {})
+    adr = inp.get('adr', {})
 
     if clean and 'OUTPUT_BASE_DIR' in env:
         path_to_clean = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
@@ -139,7 +135,7 @@ def preprocess(i):
             print(f"\nRunning loadgen scenario: {scenario} and mode: {mode}")
             r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                 'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
-                add_deps_recursive, 'silent': silent, 'print_env': print_env, 'print_deps': print_deps})
+                add_deps_recursive, 'ad': ad, 'adr': adr, 'silent': silent, 'print_env': print_env, 'print_deps': print_deps})
             if r['return'] > 0:
                 return r
             if 'CM_MLPERF_RESULTS_DIR' in r['new_env']:
@@ -157,7 +153,7 @@ def preprocess(i):
                 env['CM_MLPERF_LOADGEN_MODE'] = "compliance"
                 r = cm.access({'action':'run', 'automation':'script', 'tags': tags, 'quiet': 'true',
                     'env': env, 'input': inp, 'state': state, 'add_deps': add_deps, 'add_deps_recursive':
-                    add_deps_recursive,'silent': silent, 'print_env': print_env, 'print_deps': print_deps})
+                    add_deps_recursive, 'adr': adr, 'ad': ad, 'silent': silent, 'print_env': print_env, 'print_deps': print_deps})
                 if r['return'] > 0:
                     return r
 
