@@ -159,6 +159,11 @@ def preprocess(i):
     if query_count:
         env['CM_MAX_EXAMPLES'] = query_count #needed for squad accuracy checker
 
+    if env.get('CM_MLPERF_PERFORMANCE_SAMPLE_COUNT', '') != '':
+        performance_sample_count = env['CM_MLPERF_PERFORMANCE_SAMPLE_COUNT']
+        user_conf += ml_model_name + ".*.performance_sample_count_override = " + performance_sample_count + "\n"
+
+
     import uuid
     key = uuid.uuid4().hex
     user_conf_path = os.path.join(script_path, "tmp", key+".conf")
