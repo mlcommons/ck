@@ -20,7 +20,8 @@
 	"input_mapping": {
 		"find-performance": "CM_MLPERF_FIND_PERFORMANCE_MODE",
 		"submission": "CM_MLPERF_SUBMISSION_MODE",
-    "results_dir": "CM_MLPERF_RESULTS_DIR"
+    "results_dir": "CM_MLPERF_RESULTS_DIR",
+    "submission_dir": "CM_MLPERF_SUBMISSION_DIR"
 	},
   "uid": "f21cc993a8b14a58",
 	"variations": {
@@ -37,6 +38,13 @@
 			"env": {
 				"CM_MLPERF_FIND_PERFORMANCE_MODE": "no",
 				"CM_MLPERF_SUBMISSION_MODE": "yes"
+			}
+		},
+		"populate-readme": {
+			"group": "run-mode",
+			"env": {
+				"CM_MLPERF_FIND_PERFORMANCE_MODE": "no",
+				"CM_MLPERF_POPULATE_README": "yes"
 			}
 		},
 		"all-models": {

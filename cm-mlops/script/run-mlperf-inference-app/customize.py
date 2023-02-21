@@ -98,11 +98,14 @@ def preprocess(i):
     silent = inp.get('silent', False)
     print_env = inp.get('print_env', False)
     print_deps = inp.get('print_deps', False)
-    add_deps_recursive = i['run_script_input']['add_deps_recursive']
-    add_deps = i.get('ad', {})
+    add_deps_recursive = inp.get('add_deps_recursive', {})
+    add_deps = inp.get('add_deps', {})
 
     if not add_deps:
-        add_deps = i.get('add_deps')
+        add_deps = inp.get('ad', {})
+
+    if not add_deps_recursive:
+        add_deps_recursive = inp.get('adr', {})
 
     if clean and 'OUTPUT_BASE_DIR' in env:
         path_to_clean = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
