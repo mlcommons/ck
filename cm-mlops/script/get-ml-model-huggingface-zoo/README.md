@@ -46,11 +46,11 @@ ___
 
 #### CM CLI
 
-`cm run script --tags=get,ml-model,model,zoo,deepsparse,model-zoo,sparse-zoo,huggingface(,variations from below) (flags from below)`
+`cm run script --tags=get,ml-model,model,zoo,model-zoo,huggingface(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get ml-model model zoo deepsparse model-zoo sparse-zoo huggingface (variations from below)" (flags from below)`
+`cm run script "get ml-model model zoo model-zoo huggingface (variations from below)" (flags from below)`
 
 *or*
 
@@ -112,6 +112,11 @@ ___
       - Workflow:
 
     </details>
+
+#### Some example stub's
+  * *salti/bert-base-multilingual-cased-finetuned-squad
+  * *csarron/bert-base-uncased-squad-v1
+  * *huggingface-course/bert-finetuned-squad
 
 #### Default environment
 
