@@ -9,4 +9,4 @@ model = SetFitModel.from_pretrained(stub, cache_dir=os.getcwd())
 model._save_pretrained(stub)
 
 with open('tmp-run-env.out', 'w') as f:
-    f.write(f"CM_ML_MODEL_FILE_WITH_PATH={os.path.join(os.getcwd(),'/',stub)}")
+    f.write(f"CM_ML_MODEL_FILE_WITH_PATH={os.path.join(os.getcwd(),stub)}")
