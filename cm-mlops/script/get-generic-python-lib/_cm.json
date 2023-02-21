@@ -329,6 +329,14 @@
         "CM_SPARSEZOO_VERSION"
       ]
     },
+    "setfit": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "setfit"
+      },
+      "new_env_keys": [
+        "CM_SETFIT_VERSION"
+      ]
+    },
     "pip": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "pip"
