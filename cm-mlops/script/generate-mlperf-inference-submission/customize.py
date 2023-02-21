@@ -75,7 +75,7 @@ def generate_submission(i):
     print('* MLPerf inference submitter: {}'.format(submitter))
 
     if 'Collective' not in system_meta.get('sw_notes'):
-        system_meta['sw_notes'] = system_meta['sw_notes'] + " " + "Powered by MLCommons Collective Knowledge Framework."
+        system_meta['sw_notes'] =  "Powered by MLCommons Collective Mind framework (CK2). " + system_meta['sw_notes']
 
     if env.get('CM_MLPERF_SUT_SW_NOTES_EXTRA','') != '':
         sw_notes = f"{system_meta['sw_notes']} {env['CM_MLPERF_SUT_SW_NOTES_EXTRA']}"
