@@ -13,7 +13,7 @@
       "tags": "get,python3"
     },
     {
-      "tags": "get,generic-python-lib,_sparsezoo"
+      "tags": "get,generic-python-lib,_setfit"
     }
   ],
   "env": {},
@@ -26,9 +26,7 @@
     "ml-model",
     "model",
     "zoo",
-    "deepsparse",
     "model-zoo",
-    "sparse-zoo",
     "huggingface"
   ],
   "uid": "53cf8252a443446a",
@@ -45,3 +43,4 @@
     }
   }
 }
+
