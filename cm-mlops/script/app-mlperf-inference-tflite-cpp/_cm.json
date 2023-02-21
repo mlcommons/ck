@@ -15,83 +15,141 @@
         },
         {
             "enable_if_env": {
-                "CM_MLPERF_DEVICE": ["gpu"]
+                "CM_MLPERF_DEVICE": [
+                    "gpu"
+                ]
             },
             "tags": "get,cuda"
         },
         {
-            "names": ["loadgen"],
+            "names": [
+                "loadgen"
+            ],
             "tags": "get,loadgen"
         },
         {
-            "names": ["inference-src"],
+            "names": [
+                "inference-src"
+            ],
             "tags": "get,mlcommons,inference,src"
         },
         {
             "enable_if_env": {
-                "CM_MODEL": ["mobilenet"],
-                "CM_MLPERF_BACKEND": ["tflite", "armnn_tflite"]
+                "CM_MODEL": [
+                    "mobilenet"
+                ],
+                "CM_MLPERF_BACKEND": [
+                    "tflite",
+                    "armnn_tflite"
+                ]
             },
             "tags": "get,ml-model,mobilenet,raw,_tflite",
-            "names": ["ml-model", "tflite-model", "mobilenet-model"]
+            "names": [
+                "ml-model",
+                "tflite-model",
+                "mobilenet-model"
+            ]
         },
         {
             "enable_if_env": {
-                "CM_MODEL": ["resnet50"],
-                "CM_MLPERF_BACKEND": ["tflite", "armnn_tflite"]
+                "CM_MODEL": [
+                    "resnet50"
+                ],
+                "CM_MLPERF_BACKEND": [
+                    "tflite",
+                    "armnn_tflite"
+                ]
             },
             "tags": "get,ml-model,resnet50,raw,_tflite,_no-argmax",
-            "names": ["ml-model", "tflite-model", "resnet50-model"]
+            "names": [
+                "ml-model",
+                "tflite-model",
+                "resnet50-model"
+            ]
         },
         {
             "enable_if_env": {
-                "CM_MODEL": ["resnet50"],
-                "CM_MLPERF_BACKEND": ["tf"]
+                "CM_MODEL": [
+                    "resnet50"
+                ],
+                "CM_MLPERF_BACKEND": [
+                    "tf"
+                ]
             },
             "tags": "get,ml-model,resnet50,raw,_tf",
-            "names": ["ml-model", "tflite-model", "resnet50-model"]
+            "names": [
+                "ml-model",
+                "tflite-model",
+                "resnet50-model"
+            ]
         },
         {
             "enable_if_env": {
-                "CM_MODEL": ["efficientnet"],
-                "CM_MLPERF_BACKEND": ["tflite", "armnn_tflite"]
+                "CM_MODEL": [
+                    "efficientnet"
+                ],
+                "CM_MLPERF_BACKEND": [
+                    "tflite",
+                    "armnn_tflite"
+                ]
             },
             "tags": "get,ml-model,efficientnet,raw,_tflite",
-            "names": ["ml-model", "tflite-model", "efficientnet-model"]
+            "names": [
+                "ml-model",
+                "tflite-model",
+                "efficientnet-model"
+            ]
         },
         {
             "enable_if_env": {
-                "CM_MODEL": ["resnet50"]
+                "CM_MODEL": [
+                    "resnet50"
+                ]
             },
             "skip_if_env": {
-                "CM_DATASET_COMPRESSED": ["on"]
+                "CM_DATASET_COMPRESSED": [
+                    "on"
+                ]
             },
             "update_tags_from_env": [
                 "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
             ],
             "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb32,_NHWC",
-            "names": ["imagenet-preprocessed"]
+            "names": [
+                "imagenet-preprocessed"
+            ]
         },
         {
             "enable_if_env": {
-                "CM_MODEL": ["mobilenet", "efficientnet"]
+                "CM_MODEL": [
+                    "mobilenet",
+                    "efficientnet"
+                ]
             },
             "update_tags_from_env": [
                 "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
             ],
             "tags": "get,dataset,preprocessed,imagenet,_for.mobilenet,_rgb32,_NHWC",
-            "names": ["imagenet-preprocessed"]
+            "names": [
+                "imagenet-preprocessed"
+            ]
         },
         {
             "enable_if_env": {
-                "CM_MODEL": ["resnet50"],
-                "CM_DATASET_COMPRESSED": ["on"]
+                "CM_MODEL": [
+                    "resnet50"
+                ],
+                "CM_DATASET_COMPRESSED": [
+                    "on"
+                ]
             },
             "update_tags_from_env": [
                 "CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS"
             ],
             "tags": "get,dataset,preprocessed,imagenet,_for.resnet50,_rgb8,_NHWC",
-            "names": ["imagenet-preprocessed"]
+            "names": [
+                "imagenet-preprocessed"
+            ]
         },
         {
             "tags": "get,tensorflow,lib,_tflite"
@@ -99,12 +157,16 @@
         {
             "tags": "get,lib,armnn",
             "enable_if_env": {
-                "CM_MLPERF_TFLITE_USE_ARMNN": ["yes"]
+                "CM_MLPERF_TFLITE_USE_ARMNN": [
+                    "yes"
+                ]
             }
         },
         {
             "tags": "generate,user-conf,mlperf,inference",
-            "names": ["user-conf-generator"]
+            "names": [
+                "user-conf-generator"
+            ]
         }
     ],
     "input_mapping": {
@@ -135,25 +197,45 @@
         "CM_MLPERF_TFLITE_USE_OPENCL": "0",
         "CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX": "tflite_cpp"
     },
-    "new_env_keys": ["CM_MLPERF_*", "CM_ML_MODEL_FULL_NAME", "CM_HW_NAME"],
-    "new_state_keys": ["CM_SUT_*"],
+    "new_env_keys": [
+        "CM_MLPERF_*",
+        "CM_ML_MODEL_FULL_NAME",
+        "CM_HW_NAME"
+    ],
+    "new_state_keys": [
+        "CM_SUT_*"
+    ],
     "post_deps": [
         {
-            "names": ["compiler-program"],
+            "names": [
+                "compiler-program"
+            ],
             "tags": "compile,program",
             "skip_if_env": {
-                "CM_MLPERF_SKIP_RUN": ["yes"]
+                "CM_MLPERF_SKIP_RUN": [
+                    "yes"
+                ]
             }
         },
         {
-            "names": ["runner"],
+            "names": [
+                "runner"
+            ],
             "tags": "benchmark,program",
             "skip_if_env": {
-                "CM_MLPERF_SKIP_RUN": ["yes"]
+                "CM_MLPERF_SKIP_RUN": [
+                    "yes"
+                ]
             }
         }
     ],
-    "tags": ["app", "mlcommons", "mlperf", "inference", "tflite-cpp"],
+    "tags": [
+        "app",
+        "mlcommons",
+        "mlperf",
+        "inference",
+        "tflite-cpp"
+    ],
     "uid": "415904407cca404a",
     "variations": {
         "cpu": {
