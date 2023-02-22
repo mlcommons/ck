@@ -306,7 +306,8 @@
            "tags": "_fp32"
           }
         }
-      } 
+      }
+    },
     "uint8": {
       "group": "precision",
       "env": {
@@ -317,7 +318,7 @@
           "tags": "_uint8"
         },
         "preprocessed-dataset": {
-           "tags": "_int8"
+          "tags": "_int8"
         }
       }
     },
