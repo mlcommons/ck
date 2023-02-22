@@ -133,8 +133,16 @@
       }
     },
     "custom-annotations": {
+      "group": "annotations",
       "env": {
         "CM_DATASET_OPENIMAGES_CUSTOM_ANNOTATIONS": "yes"
+      }
+    },
+    "default-annotations": {
+      "group": "annotations",
+      "default": true,
+      "env": {
+        "CM_DATASET_OPENIMAGES_CUSTOM_ANNOTATIONS": "no"
       }
     }
   }

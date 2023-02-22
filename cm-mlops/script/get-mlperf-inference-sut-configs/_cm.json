@@ -17,7 +17,8 @@
   },
   "input_mapping": {
     "repo_path": "CM_SUT_CONFIGS_PATH",
-    "configs_git_url": "CM_GIT_URL"
+    "configs_git_url": "CM_GIT_URL",
+    "run_config": "CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX"
   },
   "tags": [
     "get",

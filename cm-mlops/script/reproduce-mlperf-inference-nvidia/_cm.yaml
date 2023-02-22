@@ -170,11 +170,11 @@ variations:
   # Target devices
   cpu:
     group: device
-    default: true
     env:
       CM_MLPERF_DEVICE: cpu
   cuda:
     group: device
+    default: true
     env:
       CM_MLPERF_DEVICE: gpu
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
@@ -184,6 +184,7 @@ variations:
     default: true
     env:
       CM_MLPERF_BACKEND: tensorrt
+      CM_MLPERF_BACKEND_NAME: TensorRT
 
   # Reference MLPerf models
   resnet50:
@@ -215,9 +216,16 @@ variations:
 
   batch_size.#:
     env:
-      CM_MODEL_BATCH_SIZE: #
-      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: #
+      CM_MODEL_BATCH_SIZE: "#"
+      CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE: "#"
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1: "gpu_batch_size.#"
 
   dla_batch_size.#:
     env:
-      CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE: #
+      CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE: "#"
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2: "dla_batch_size.#"
+
+  use_triton:
+    env:
+      CM_MLPERF_NVIDIA_HARNESS_USE_TRITON: "yes"
+      CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX3: "using_triton"
