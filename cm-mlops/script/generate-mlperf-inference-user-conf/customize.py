@@ -105,7 +105,7 @@ def preprocess(i):
         if metric in conf:
             metric_value = conf[metric]
         else:
-            if env.get("CM_MLPERF_FIND_PERFORMANCE", False):
+            if env.get("CM_MLPERF_FIND_PERFORMANCE", '') == "yes":
                 if metric == "target_qps":
                     print("In find performance mode: using 1 as target_qps")
                     conf[metric] = 1

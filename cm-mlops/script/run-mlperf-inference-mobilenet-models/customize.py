@@ -147,6 +147,9 @@ def preprocess(i):
                 if env.get('CM_MLPERF_ACCURACY_MODE','') == "yes":
                     cm_input['mode'] = 'accuracy'
 
+                if env.get('CM_MLPERF_FIND_PERFORMANCE_MODE','') == "yes":
+                    cm_input['rerun'] = 'true'
+
                 print(cm_input)
                 r = cmind.access(cm_input)
                 if r['return'] > 0:

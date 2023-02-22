@@ -37,6 +37,7 @@
     "accuracy-only": {
       "group": "run-mode",
       "env": {
+        "CM_MLPERF_FIND_PERFORMANCE_MODE": "no",
         "CM_MLPERF_ACCURACY_MODE": "yes",
         "CM_MLPERF_SUBMISSION_MODE": "no"
       }
