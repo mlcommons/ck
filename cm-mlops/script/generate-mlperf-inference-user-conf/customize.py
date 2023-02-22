@@ -82,6 +82,8 @@ def preprocess(i):
         ml_model_name = "bert"
     if 'dlrm' in ml_model_name:
         ml_model_name = "dlrm"
+    if '3d-unet' in ml_model_name:
+        ml_model_name = "3d-unet"
 
     query_count = None
 
