@@ -649,6 +649,14 @@
       "new_env_keys": [
         "CM_WEST_VERSION"
       ]
+    },
+    "xlsxwriter": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "xlsxwriter"
+      },
+      "new_env_keys": [
+        "CM_XLSXWRITER_VERSION"
+      ]
     }
   }
 }
