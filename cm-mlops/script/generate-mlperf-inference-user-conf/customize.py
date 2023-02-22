@@ -159,6 +159,11 @@ def preprocess(i):
     if query_count:
         env['CM_MAX_EXAMPLES'] = query_count #needed for squad accuracy checker
 
+    if env.get('CM_MLPERF_PERFORMANCE_SAMPLE_COUNT', '') != '':
+        performance_sample_count = env['CM_MLPERF_PERFORMANCE_SAMPLE_COUNT']
+        user_conf += ml_model_name + ".*.performance_sample_count_override = " + performance_sample_count + "\n"
+
+
     import uuid
     key = uuid.uuid4().hex
     user_conf_path = os.path.join(script_path, "tmp", key+".conf")
@@ -224,7 +229,7 @@ def run_files_exist(mode, OUTPUT_DIR, run_files):
     file_loc = {"accuracy": 0, "performance": 1, "power": 2, "performance_power": 3, "measure": 4, "compliance": 1}
     for file in run_files[file_loc[mode]]:
         file_path = os.path.join(OUTPUT_DIR, file)
-        if not os.path.exists(file_path) and file != "accuracy.txt":
+        if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0)  and file != "accuracy.txt":
             return False
 
     return True

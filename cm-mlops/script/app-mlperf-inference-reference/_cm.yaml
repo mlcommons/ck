@@ -309,7 +309,7 @@ deps:
   # Install datasets
 
   ## ImageNet (small for tests)
-  - tags: get,dataset,image-classification,imagenet,preprocessed
+  - tags: get,dataset,image-classification,imagenet,preprocessed,_default
     names:
     - imagenet-preprocessed
     enable_if_env:

@@ -12,6 +12,11 @@ def preprocess(i):
 
     meta = i['meta']
 
+    add_deps_recursive = i['input'].get('add_deps_recursive')
+
+    if not add_deps_recursive:
+        add_deps_recursive = i['input'].get('adr')
+
     automation = i['automation']
 
     quiet = (env.get('CM_QUIET', False) == 'yes')
@@ -68,7 +73,10 @@ def preprocess(i):
                             variation_list.append("_"+k3)
                         variation_strings[t1].append(",".join(variation_list))
 
-    if env.get('CM_MLPERF_SUBMISSION_MODE','') == "yes":
+    if env.get('CM_MLPERF_POPULATE_README','') == "yes":
+        var="_populate-readme"
+        execution_mode="valid"
+    elif env.get('CM_MLPERF_SUBMISSION_MODE','') == "yes":
         var="_submission"
         execution_mode="valid"
     else:
@@ -93,10 +101,13 @@ def preprocess(i):
     for model in variation_strings:
         for v in variation_strings[model]:
             for precision in precisions:
+
                 if "small-minimalistic" in v and precision == "uint8":
                     continue;
+
                 if model == "efficientnet" and precision == "uint8":
                     precision = "int8"
+
                 cm_input = {
                     'action': 'run',
                     'automation': 'script',
@@ -107,7 +118,7 @@ def preprocess(i):
                     'model': model,
                     'scenario': 'SingleStream',
                     'execution_mode': execution_mode,
-                    'test_query_count': '50',
+                    'test_query_count': '100',
                     'adr': {
                         'tflite-model': {
                             'tags': v
@@ -118,16 +129,22 @@ def preprocess(i):
                         'mlperf-inference-implementation': {
                             'tags': implementation_tags_string
                             }
-                        }
+                        },
                     }
+                if add_deps_recursive:
+                    cm_input['add_deps_recursive'] = add_deps_recursive #script automation will merge adr and add_deps_recursive
+
                 if env.get('CM_MLPERF_RESULTS_DIR', '') != '':
                     cm_input['results_dir'] = env['CM_MLPERF_RESULTS_DIR']
+
+                if env.get('CM_MLPERF_SUBMISSION_DIR', '') != '':
+                    cm_input['submission_dir'] = env['CM_MLPERF_SUBMISSION_DIR']
 
                 print(cm_input)
                 r = cmind.access(cm_input)
                 if r['return'] > 0:
                     print(r)
-                #exit(1)
+                    #sys.exit(1)
 
     return {'return':0}
 
