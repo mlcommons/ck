@@ -204,13 +204,21 @@ variations:
     - tags: get,generic-python-lib,_torchvision
     - tags: get,generic-python-lib,_opencv-python
 
+  bert_:
+    deps:
+    - tags: get,generic-python-lib,_transformers
+
   bert-99:
     group: model
+    base:
+    - bert_
     env:
       CM_MODEL: bert-99
 
   bert-99.9:
     group: model
+    base:
+    - bert_
     env:
       CM_MODEL: bert-99.9
 
