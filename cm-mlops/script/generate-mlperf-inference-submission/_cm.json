@@ -19,10 +19,7 @@
       "tags": "mlcommons,inference,src"
     },
     {
-      "tags": "get,sut,system-description",
-      "skip_if_env": {
-        "CM_SUT_META_EXISTS": [ "yes" ]
-      }
+      "tags": "get,sut,system-description"
     }
   ],
   "input_mapping": {
@@ -31,7 +28,10 @@
     "run_style": "CM_MLPERF_RUN_STYLE",
     "skip_truncation": "CM_SKIP_TRUNCATE_ACCURACY",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR",
-    "clean": "CM_MLPERF_CLEAN_SUBMISSION_DIR"
+    "clean": "CM_MLPERF_CLEAN_SUBMISSION_DIR",
+    "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
+    "hw_notes_extra": "CM_MLPERF_SUT_HW_NOTES_EXTRA",
+    "submitter": "CM_MLPERF_SUBMITTER"
   },
   "post_deps": [
     {

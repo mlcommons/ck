@@ -55,6 +55,22 @@
         "CM_ATTRS_VERSION"
       ]
     },
+    "google-api-python-client": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "google_api_python_client"
+      },
+      "new_env_keys": [
+        "CM_GOOGLE_API_PYTHON_CLIENT_VERSION"
+      ]
+    },
+    "google-auth-oauthlib": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "google_auth_oauthlib"
+      },
+      "new_env_keys": [
+        "CM_GOOGLE_AUTH_OAUTHLIB_VERSION"
+      ]
+    },
     "tensorboard": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorboard"
@@ -632,6 +648,14 @@
       },
       "new_env_keys": [
         "CM_WEST_VERSION"
+      ]
+    },
+    "xlsxwriter": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "xlsxwriter"
+      },
+      "new_env_keys": [
+        "CM_XLSXWRITER_VERSION"
       ]
     }
   }

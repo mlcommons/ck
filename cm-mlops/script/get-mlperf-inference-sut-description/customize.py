@@ -75,6 +75,13 @@ def preprocess(i):
                     system_name = " (generic)"
             state['CM_SUT_META']['system_name'] = system_name
 
+        # Add GPU info
+        if 'cm_cuda_device_prop' in state:
+            state['CM_SUT_META']['accelerator_frequency'] = state['cm_cuda_device_prop']['Max clock rate']
+            state['CM_SUT_META']['accelerator_memory_capacity'] = str(int(state['cm_cuda_device_prop']['Global memory'])/(1024*1024.0*1024)) + " GB"
+            state['CM_SUT_META']['accelerator_model_name'] = state['cm_cuda_device_prop']['GPU Name']
+            state['CM_SUT_META']['accelerators_per_node'] = "1"
+
         if 'host_processor_core_count' not in state['CM_SUT_META']:
             physical_cores_per_node = env.get('CM_HOST_CPU_PHYSICAL_CORES_PER_SOCKET')
             state['CM_SUT_META']['host_processor_core_count'] = physical_cores_per_node

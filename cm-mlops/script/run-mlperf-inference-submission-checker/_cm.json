@@ -21,6 +21,9 @@
       "tags": "get,mlcommons,inference,src"
     },
     {
+      "tags": "get,generic-python-lib,_xlsxwriter"
+    },
+    {
       "tags": "get,generic-python-lib,_pandas"
     }
   ],

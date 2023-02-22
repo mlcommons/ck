@@ -45,7 +45,7 @@ input_mapping:
   server_target_qps: CM_MLPERF_LOADGEN_SERVER_TARGET_QPS
   singlestream_target_latency: CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY
   multistream_target_latency: CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY
-
+  performance_sample_count: CM_MLPERF_PERFORMANCE_SAMPLE_COUNT
 
 # Env keys which are exposed to higher level scripts
 new_env_keys:
