@@ -258,7 +258,7 @@
         "CM_MLPERF_BACKEND": "tflite",
         "CM_MLPERF_BACKEND_VERSION": "master",
         "CM_TMP_SRC_FOLDER": "src",
-        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn"
+        "CM_TMP_LINK_LIBS": "tensorflowlite"
       }
     },
     "armnn": {
@@ -266,7 +266,8 @@
         "optimization-target": "use-neon"
       },
       "env": {
-        "CM_MLPERF_TFLITE_USE_ARMNN": "yes"
+        "CM_MLPERF_TFLITE_USE_ARMNN": "yes",
+        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn"
       }
     },
     "armnn,tflite": {
