@@ -23,6 +23,4 @@ def postprocess(i):
 
     env = i['env']
     env['HUGGINGFACE_ONNX_FILE_PATH'] = os.path.join(os.getcwd(),"model.onnx")
-    with open('tmp-run-env.out', 'w') as f:
-        f.write(f"HUGGINGFACE_ONNX_FILE_PATH={env['HUGGINGFACE_ONNX_FILE_PATH']}")
     return {'return':0}
