@@ -301,10 +301,9 @@
       "adr": {
         "ml-model": {
           "tags": "_fp32"
-          },
-          "preprocessed-dataset": {
-           "tags": "_fp32"
-          }
+        },
+        "preprocessed-dataset": {
+          "tags": "_fp32"
         }
       }
     },
