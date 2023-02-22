@@ -110,7 +110,7 @@ ___
     </details>
 
 #### NOTE
-  * *The path to the folder that contains pytorch_model.bin should be provided along with variation.
+  * The path to the folder that contains pytorch_model.bin should be provided along with variation.
 
 #### Default environment
 
