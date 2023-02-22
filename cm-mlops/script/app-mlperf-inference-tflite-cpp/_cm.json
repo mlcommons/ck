@@ -133,7 +133,10 @@
       "tags": "get,tensorflow,lib,_tflite"
     },
     {
-      "tags": "get,lib,armnn"
+      "tags": "get,lib,armnn",
+      "enable_if_env": {
+        "CM_MLPERF_TFLITE_USE_ARMNN": ["yes"]
+      }
     },
     {
       "tags": "generate,user-conf,mlperf,inference",
