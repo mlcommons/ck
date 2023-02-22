@@ -99,31 +99,34 @@ def preprocess(i):
     offline_target_qps = env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS')
     server_target_qps = env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS')
     if target_qps:
+        target_qps = int(target_qps)
         if scenario == "offline" and not offline_target_qps:
             run_config += f" --offline_expected_qps={target_qps}"
         elif scenario == "server" and not server_target_qps:
             run_config += f" --server_target_qps={target_qps}"
 
     if offline_target_qps:
+        offline_target_qps = int(offline_target_qps)
         run_config += f" --offline_expected_qps={offline_target_qps}"
     if server_target_qps:
+        server_target_qps = int(server_target_qps)
         run_config += f" --server_target_qps={server_target_qps}"
 
     target_latency = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
     singlestream_target_latency = env.get('CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY')
     multistream_target_latency = env.get('CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY')
     if target_latency:
-        target_latency_ns = int(target_latency) * 1000000
+        target_latency_ns = int(float(target_latency) * 1000000)
         if scenario == "singlestream" and not singlestream_target_latency:
             run_config += f" --single_stream_expected_latency_ns={target_latency_ns}"
         elif scenario == "multistream" and not multistream_target_latency:
             run_config += f" --multi_stream_expected_latency_ns={target_latency_ns}"
 
     if singlestream_target_latency:
-        singlestream_target_latency_ns = int(singlestream_target_latency) * 1000000
+        singlestream_target_latency_ns = int(float(singlestream_target_latency) * 1000000)
         run_config += f" --single_stream_expected_latency_ns={singlestream_target_latency_ns}"
     if multistream_target_latency:
-        multistream_target_latency_ns = int(multistream_target_latency) * 1000000
+        multistream_target_latency_ns = int(float(multistream_target_latency) * 1000000)
         run_config += f" --multi_stream_expected_latency_ns={multistream_target_latency_ns}"
 
     use_triton = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_TRITON')

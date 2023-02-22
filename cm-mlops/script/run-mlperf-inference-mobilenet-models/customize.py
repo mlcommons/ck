@@ -79,6 +79,9 @@ def preprocess(i):
     elif env.get('CM_MLPERF_SUBMISSION_MODE','') == "yes":
         var="_submission"
         execution_mode="valid"
+    elif env.get('CM_MLPERF_ACCURACY_MODE','') == "yes":
+        var="_full"
+        execution_mode="valid"
     else:
         var="_find-performance"
         execution_mode="test"
@@ -119,6 +122,7 @@ def preprocess(i):
                     'scenario': 'SingleStream',
                     'execution_mode': execution_mode,
                     'test_query_count': '100',
+                    'env': env,
                     'adr': {
                         'tflite-model': {
                             'tags': v
@@ -129,7 +133,7 @@ def preprocess(i):
                         'mlperf-inference-implementation': {
                             'tags': implementation_tags_string
                             }
-                        },
+                        }
                     }
                 if add_deps_recursive:
                     cm_input['add_deps_recursive'] = add_deps_recursive #script automation will merge adr and add_deps_recursive
@@ -139,6 +143,9 @@ def preprocess(i):
 
                 if env.get('CM_MLPERF_SUBMISSION_DIR', '') != '':
                     cm_input['submission_dir'] = env['CM_MLPERF_SUBMISSION_DIR']
+
+                if env.get('CM_MLPERF_ACCURACY_MODE','') == "yes":
+                    cm_input['mode'] = 'accuracy'
 
                 print(cm_input)
                 r = cmind.access(cm_input)
