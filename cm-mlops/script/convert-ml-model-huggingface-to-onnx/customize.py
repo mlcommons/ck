@@ -6,7 +6,7 @@ def preprocess(i):
     os_info = i['os_info']
 
     env = i['env']
-    
+
     if env.get("CM_MODEL_HUGG_PATH","") == "":
         return {'return': 1, 'error': 'CM_MODEL_HUGG_PATH is not set'}
     
@@ -16,4 +16,13 @@ def preprocess(i):
 
     path = os.getcwd()
 
+    return {'return':0}
+
+def postprocess(i):
+    os_info = i['os_info']
+
+    env = i['env']
+    env['HUGGINGFACE_ONNX_FILE_PATH'] = os.path.join(os.getcwd(),"model.onnx")
+    with open('tmp-run-env.out', 'w') as f:
+        f.write(f"HUGGINGFACE_ONNX_FILE_PATH={env['HUGGINGFACE_ONNX_FILE_PATH']}")
     return {'return':0}

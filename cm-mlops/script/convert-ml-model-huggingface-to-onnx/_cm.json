@@ -23,7 +23,8 @@
   "input":"CM_MODEL_HUGG_PATH",
   "new_env_keys": [
     "CM_ML_MODEL*",
-    "CM_MODEL_HUGG_PATH"
+    "CM_MODEL_HUGG_PATH",
+    "HUGGINGFACE_ONNX_FILE_PATH"
   ],
   "tags": [
     "ml-model",
