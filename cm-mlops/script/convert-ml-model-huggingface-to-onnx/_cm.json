@@ -13,10 +13,14 @@
       "tags": "get,python3"
     },
     {
-      "tags": "get,generic-python-lib,_transformers,_onnxruntime"
+      "tags": "get,generic-python-lib,_transformers"
+    },
+    {
+      "tags": "get,generic-python-lib,_onnxruntime"
     }
   ],
   "env": {},
+  "input":"CM_MODEL_HUGG_PATH",
   "new_env_keys": [
     "CM_ML_MODEL*",
     "CM_MODEL_HUGG_PATH"
