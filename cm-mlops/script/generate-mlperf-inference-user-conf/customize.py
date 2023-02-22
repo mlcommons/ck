@@ -82,6 +82,8 @@ def preprocess(i):
         ml_model_name = "bert"
     if 'dlrm' in ml_model_name:
         ml_model_name = "dlrm"
+    if '3d-unet' in ml_model_name:
+        ml_model_name = "3d-unet"
 
     query_count = None
 
@@ -152,8 +154,12 @@ def preprocess(i):
 
     else:
         if scenario == "MultiStream":
-            query_count = str(int((8000 / float(conf['target_latency'])) * 660))
+            query_count = str(max(int((8000 / float(conf['target_latency'])) * 660), 662))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
+            user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
+        elif scenario == "SingleStream":
+            query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 662))
+            user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
             user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
 
     if query_count:
