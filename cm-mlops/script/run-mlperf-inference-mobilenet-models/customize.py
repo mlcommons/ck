@@ -138,7 +138,7 @@ def preprocess(i):
 
                 if adr:
                     for key in adr:
-                        cm_input['adr'][key] = adr['key']
+                        cm_input['adr'][key] = adr[key]
 
                 if env.get('CM_MLPERF_RESULTS_DIR', '') != '':
                     cm_input['results_dir'] = env['CM_MLPERF_RESULTS_DIR']
