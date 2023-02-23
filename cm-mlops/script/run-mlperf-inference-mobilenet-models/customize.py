@@ -81,6 +81,9 @@ def preprocess(i):
     elif env.get('CM_MLPERF_ACCURACY_MODE','') == "yes":
         var="_full"
         execution_mode="valid"
+    elif env.get('CM_MLPERF_PERFORMANCE_MODE','') == "yes":
+        var="_full"
+        execution_mode="valid"
     else:
         var="_find-performance"
         execution_mode="test"
@@ -145,6 +148,9 @@ def preprocess(i):
 
                 if env.get('CM_MLPERF_ACCURACY_MODE','') == "yes":
                     cm_input['mode'] = 'accuracy'
+
+                if env.get('CM_MLPERF_PERFORMANCE_MODE','') == "yes":
+                    cm_input['mode'] = 'performance'
 
                 if env.get('CM_MLPERF_FIND_PERFORMANCE_MODE','') == "yes":
                     cm_input['rerun'] = 'true'

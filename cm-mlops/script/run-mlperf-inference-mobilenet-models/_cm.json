@@ -42,6 +42,14 @@
         "CM_MLPERF_SUBMISSION_MODE": "no"
       }
     },
+    "performance-only": {
+      "group": "run-mode",
+      "env": {
+        "CM_MLPERF_FIND_PERFORMANCE_MODE": "no",
+        "CM_MLPERF_PERFORMANCE_MODE": "yes",
+        "CM_MLPERF_SUBMISSION_MODE": "no"
+      }
+    },
     "submission": {
       "group": "run-mode",
       "env": {
