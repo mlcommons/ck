@@ -309,7 +309,7 @@ deps:
   # Install datasets
 
   ## ImageNet (small for tests)
-  - tags: get,dataset,image-classification,imagenet,preprocessed,_default
+  - tags: get,dataset,image-classification,imagenet,preprocessed
     names:
     - imagenet-preprocessed
     enable_if_env:
@@ -462,7 +462,7 @@ variations:
     group: framework
     add_deps_recursive:
       imagenet-preprocessed:
-        tags: _NHWC
+        tags: _NHWC,_default
       ml-model:
         tags: raw,_tf
     env:
