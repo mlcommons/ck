@@ -5,6 +5,7 @@
   "tags": [
     "run",
     "mobilenet",
+    "models",
     "image-classification",
     "mobilenet-models",
     "mlperf",
@@ -14,13 +15,13 @@
     "CM_MLPERF_RUN_MOBILENETS": "no",
     "CM_MLPERF_RUN_EFFICIENTNETS": "no",
     "CM_MLPERF_RUN_FP32": "yes",
-    "CM_MLPERF_RUN_INT8": "yes",
-    "CM_MLPERF_FIND_PERFORMANCE_MODE": "yes"
+    "CM_MLPERF_RUN_INT8": "yes"
   },
   "input_mapping": {
     "find-performance": "CM_MLPERF_FIND_PERFORMANCE_MODE",
     "submission": "CM_MLPERF_SUBMISSION_MODE",
     "results_dir": "CM_MLPERF_RESULTS_DIR",
+    "power": "CM_MLPERF_POWER",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR"
   },
   "uid": "f21cc993a8b14a58",
@@ -30,6 +31,22 @@
       "default": true,
       "env": {
         "CM_MLPERF_FIND_PERFORMANCE_MODE": "yes",
+        "CM_MLPERF_SUBMISSION_MODE": "no"
+      }
+    },
+    "accuracy-only": {
+      "group": "run-mode",
+      "env": {
+        "CM_MLPERF_FIND_PERFORMANCE_MODE": "no",
+        "CM_MLPERF_ACCURACY_MODE": "yes",
+        "CM_MLPERF_SUBMISSION_MODE": "no"
+      }
+    },
+    "performance-only": {
+      "group": "run-mode",
+      "env": {
+        "CM_MLPERF_FIND_PERFORMANCE_MODE": "no",
+        "CM_MLPERF_PERFORMANCE_MODE": "yes",
         "CM_MLPERF_SUBMISSION_MODE": "no"
       }
     },

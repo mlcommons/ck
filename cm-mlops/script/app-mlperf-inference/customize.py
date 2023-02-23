@@ -208,8 +208,10 @@ def postprocess(i):
             result  = subprocess.run(cmd, shell=True)
 
             CMD = "cat verify_accuracy.txt | grep 'TEST PASS'"
-            result  = subprocess.check_output(CMD, shell=True).decode("utf-8")
-            if not result: #Normal test failed, trying the check with non-determinism
+            try:
+                result  = subprocess.check_output(CMD, shell=True).decode("utf-8")
+            except subprocess.CalledProcessError as e:
+            #if not result: #Normal test failed, trying the check with non-determinism
 
                 OUTPUT_DIR = os.path.join(OUTPUT_DIR, "TEST01", "accuracy")
                 if not os.path.exists(OUTPUT_DIR):

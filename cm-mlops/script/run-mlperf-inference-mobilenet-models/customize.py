@@ -14,8 +14,7 @@ def preprocess(i):
 
     add_deps_recursive = i['input'].get('add_deps_recursive')
 
-    if not add_deps_recursive:
-        add_deps_recursive = i['input'].get('adr')
+    adr = i['input'].get('adr')
 
     automation = i['automation']
 
@@ -79,6 +78,12 @@ def preprocess(i):
     elif env.get('CM_MLPERF_SUBMISSION_MODE','') == "yes":
         var="_submission"
         execution_mode="valid"
+    elif env.get('CM_MLPERF_ACCURACY_MODE','') == "yes":
+        var="_full"
+        execution_mode="valid"
+    elif env.get('CM_MLPERF_PERFORMANCE_MODE','') == "yes":
+        var="_full"
+        execution_mode="valid"
     else:
         var="_find-performance"
         execution_mode="test"
@@ -122,23 +127,36 @@ def preprocess(i):
                     'adr': {
                         'tflite-model': {
                             'tags': v
-                            },
-                        'compiler': {
-                            'tags': 'gcc'
-                            },
+                        },
                         'mlperf-inference-implementation': {
                             'tags': implementation_tags_string
-                            }
-                        },
+                        }
                     }
+                }
                 if add_deps_recursive:
                     cm_input['add_deps_recursive'] = add_deps_recursive #script automation will merge adr and add_deps_recursive
+
+                if adr:
+                    for key in adr:
+                        cm_input['adr'][key] = adr[key]
 
                 if env.get('CM_MLPERF_RESULTS_DIR', '') != '':
                     cm_input['results_dir'] = env['CM_MLPERF_RESULTS_DIR']
 
                 if env.get('CM_MLPERF_SUBMISSION_DIR', '') != '':
                     cm_input['submission_dir'] = env['CM_MLPERF_SUBMISSION_DIR']
+
+                if env.get('CM_MLPERF_ACCURACY_MODE','') == "yes":
+                    cm_input['mode'] = 'accuracy'
+
+                if env.get('CM_MLPERF_PERFORMANCE_MODE','') == "yes":
+                    cm_input['mode'] = 'performance'
+
+                if env.get('CM_MLPERF_FIND_PERFORMANCE_MODE','') == "yes":
+                    cm_input['rerun'] = 'true'
+
+                if env.get('CM_MLPERF_POWER','') == "yes":
+                    cm_input['power'] = 'yes'
 
                 print(cm_input)
                 r = cmind.access(cm_input)
