@@ -65,6 +65,7 @@ input_mapping:
   end_on_device: CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE
   max_dlas: CM_MLPERF_MAX_DLAS
   make_cmd: CM_MLPERF_NVIDIA_RUN_COMMAND
+  rerun: CM_RERUN
 
 new_env_keys:
   - CM_MLPERF_*
@@ -120,6 +121,27 @@ deps:
       - kits19-original
     tags: get,dataset,original,kits19
 
+
+  ########################################################################
+  # Install librispeech dataset
+
+  - enable_if_env:
+      CM_MODEL:
+      - rnnt
+    names:
+      - librispeech-original
+    tags: get,dataset,original,librispeech
+
+  ########################################################################
+  # Install criteo dataset
+
+  - enable_if_env:
+      CM_MODEL:
+      - dlrm-99
+      - dlrm-99.9
+    names:
+      - criteo-original
+    tags: get,dataset,original,criteo
 
   ########################################################################
   # Install RetinaNet model (ONNX) and OpenImages
