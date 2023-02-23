@@ -59,9 +59,11 @@ def preprocess(i):
     elif "dlrm" in env['CM_MODEL']:
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'criteo')
         if not os.path.exists(target_data_path):
-            cmds.append("make download_data BENCHMARKS='criteo'")
+            cmds.append(f"ln -s {env['CM_DATASET_PATH']} {target_data_path}")
 
-        model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'dlrm', 'model.onnx')
+        model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'dlrm', 'tb00_40M.pt')
+        if not os.path.exists(model_path):
+            cmds.append(f"ln -s {env['CM_ML_MODEL_FILE_WITH_PATH']} {model_path}")
         model_name = "dlrm"
 
     elif env['CM_MODEL'] == "retinanet":

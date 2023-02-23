@@ -144,6 +144,16 @@ deps:
     tags: get,dataset,original,criteo
 
   ########################################################################
+  # Install dlrm model
+  - enable_if_env:
+      CM_MODEL:
+      - dlrm-99
+      - dlrm-99.9
+    names:
+      - dlrm-model
+    tags: get,ml-model,dlrm,_pytorch
+
+  ########################################################################
   # Install RetinaNet model (ONNX) and OpenImages
 
   - enable_if_env:
