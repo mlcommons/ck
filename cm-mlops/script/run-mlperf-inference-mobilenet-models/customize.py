@@ -122,7 +122,6 @@ def preprocess(i):
                     'scenario': 'SingleStream',
                     'execution_mode': execution_mode,
                     'test_query_count': '100',
-                    'env': env,
                     'adr': {
                         'tflite-model': {
                             'tags': v
@@ -149,6 +148,9 @@ def preprocess(i):
 
                 if env.get('CM_MLPERF_FIND_PERFORMANCE_MODE','') == "yes":
                     cm_input['rerun'] = 'true'
+
+                if env.get('CM_MLPERF_POWER','') == "yes":
+                    cm_input['power'] = 'yes'
 
                 print(cm_input)
                 r = cmind.access(cm_input)
