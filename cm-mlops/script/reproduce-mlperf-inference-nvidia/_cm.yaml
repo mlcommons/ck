@@ -109,6 +109,17 @@ deps:
       - imagenet-original
     tags: get,dataset,original,imagenet,_full
 
+  ########################################################################
+  # Install kits19 dataset
+
+  - enable_if_env:
+      CM_MODEL:
+      - 3d-unet-99
+      - 3d-unet-99.9
+    names:
+      - kits19-original
+    tags: get,dataset,original,kits19
+
 
   ########################################################################
   # Install RetinaNet model (ONNX) and OpenImages
@@ -221,6 +232,47 @@ variations:
     - bert_
     env:
       CM_MODEL: bert-99.9
+
+  3d-unet_:
+    deps:
+    - tags: get,generic-python-lib,_transformers
+
+  3d-unet-99:
+    group: model
+    base:
+    - 3d-unet_
+    env:
+      CM_MODEL: 3d-unet-99
+
+  3d-unet-99.9:
+    group: model
+    base:
+    - 3d-unet_
+    env:
+      CM_MODEL: 3d-unet-99.9
+
+  rnnt:
+    group: model
+    env:
+      CM_MODEL: rnnt
+
+  dlrm_:
+    deps:
+    - tags: get,generic-python-lib,_torch
+
+  dlrm-99:
+    group: model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL: dlrm-99
+
+  dlrm-99.9:
+    group: model
+    base:
+    - dlrm_
+    env:
+      CM_MODEL: dlrm-99.9
 
   batch_size.#:
     env:
