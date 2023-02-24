@@ -147,10 +147,9 @@ else:
             tasks=tasks,
             task_weights=task_weights,
             work_dir=work_dir,
-            # max_trials_global=20000,
-            max_trials_global=200,
-            num_trials_per_iter=10,
-            max_trials_per_task=10,
+            max_trials_global=20000,
+            num_trials_per_iter=64,
+            max_trials_per_task=256,
             builder=ms.builder.LocalBuilder(),
             runner=ms.runner.LocalRunner(evaluator_config=evaluator_config),
         )
@@ -158,8 +157,10 @@ else:
         database = ms.database.JSONDatabase(f"{work_dir}/database_workload.json",
                                             f"{work_dir}/database_tuning_record.json",
                                             allow_missing=False)
+        
+        build_conf["relay.backend.use_meta_schedule"] = True
 
-        with tvm.transform.PassContext(opt_level=opt_lvl):
+        with tvm.transform.PassContext(opt_level=opt_lvl, config=build_conf):
             lib = ms.relay_integration.compile_relay(
                 database, mod, tvm_target, params)
 
