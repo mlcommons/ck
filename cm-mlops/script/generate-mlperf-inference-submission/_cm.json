@@ -32,6 +32,7 @@
     "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
     "hw_notes_extra": "CM_MLPERF_SUT_HW_NOTES_EXTRA",
     "duplicate": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
+    "infer_scenario_results": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
     "submitter": "CM_MLPERF_SUBMITTER"
   },
   "default_env": {
