@@ -29,8 +29,11 @@
   },
   "tags": [
     "push",
+    "mlperf",
     "mlperf-inference-results",
     "publish-results",
+    "inference",
+    "submission",
     "github"
   ],
   "uid": "36c2ffd5df5d453a"

@@ -75,6 +75,7 @@ def detect_version(i):
 def postprocess(i):
 
     env = i['env']
+
     r = detect_version(i)
     if r['return'] >0: return r
 

@@ -50,7 +50,7 @@ def generate_submission(i):
     if 'CM_MLPERF_SUBMISSION_DIVISION' in env:
         system_meta['division'] = env['CM_MLPERF_SUBMISSION_DIVISION']
 
-    duplicate=(inp.get('duplicate_to_offline','')=='yes')
+    duplicate=env.get('CM_MLPERF_DUPLICATE_SCENARIO_RESULTS', 'no')
 
     division = system_meta['division']
 
@@ -151,10 +151,14 @@ def generate_submission(i):
                 compliance_scenario_path = os.path.join(compliance_model_path, scenario)
 
                 if duplicate and scenario=='singlestream':
-                    print('Duplicating results from {} to offline:'.format(scenario))
-                    if not os.path.exists(os.path.join(result_model_path, "Offline")):
-                        shutil.copytree(result_scenario_path, os.path.join(result_model_path, "Offline"))
-                        scenarios += "Offline" 
+                    if not os.path.exists(os.path.join(result_model_path, "offline")):
+                        print('Duplicating results from {} to offline:'.format(scenario))
+                        shutil.copytree(result_scenario_path, os.path.join(result_model_path, "offline"))
+                        scenarios.append("offline")
+                    if not os.path.exists(os.path.join(result_model_path, "multistream")):
+                        print('Duplicating results from {} to multistream:'.format(scenario))
+                        shutil.copytree(result_scenario_path, os.path.join(result_model_path, "multistream"))
+                        scenarios.append("multistream")
 
                 modes = [f for f in os.listdir(result_scenario_path) if not os.path.isfile(os.path.join(result_scenario_path, f))]
                 for mode in modes:

@@ -211,7 +211,7 @@ def preprocess(i):
     if 'CM_MLPERF_POWER' in env and mode == "performance":
         log_mode = "performance_power"
     
-    if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
+    if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun:
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
         if 'CM_MLPERF_POWER' in env and os.path.exists(env['CM_MLPERF_POWER_LOG_DIR']):
@@ -220,7 +220,7 @@ def preprocess(i):
         print("Run files exist, skipping run...\n")
         env['CM_MLPERF_SKIP_RUN'] = "yes"
 
-    if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
+    if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
                     required_files[4]) or env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
         env['CM_MLPERF_USER_CONF'] = user_conf_path
     else:
