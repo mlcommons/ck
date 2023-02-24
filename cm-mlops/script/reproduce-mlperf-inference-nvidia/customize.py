@@ -38,6 +38,34 @@ def preprocess(i):
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'bert_large_v1_1.onnx')
         model_name = "bert"
 
+    elif "3d-unet" in env['CM_MODEL']:
+        target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'KiTS19', 'kits19', 'data')
+        if not os.path.exists(target_data_path):
+            cmds.append(f"ln -s {env['CM_DATASET_PATH']} {target_data_path}")
+            #cmds.append("make download_data BENCHMARKS='3d-unet'")
+
+        model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', '3d-unet-kits19', '3dUNetKiTS19.onnx')
+        model_name = "3d-unet"
+
+    elif "rnnt" in env['CM_MODEL']:
+        target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'LibriSpeech', 'dev-clean')
+        if not os.path.exists(target_data_path):
+            cmds.append(f"ln -s {env['CM_DATASET_LIBRISPEECH_PATH']} {target_data_path}")
+            cmds.append("make download_data BENCHMARKS='rnnt'")
+
+        model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'rnn-t', 'DistributedDataParallel_1576581068.9962234-epoch-100.pt')
+        model_name = "rnnt"
+
+    elif "dlrm" in env['CM_MODEL']:
+        target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'criteo')
+        if not os.path.exists(target_data_path):
+            cmds.append(f"ln -s {env['CM_DATASET_PATH']} {target_data_path}")
+
+        model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'dlrm', 'tb00_40M.pt')
+        if not os.path.exists(model_path):
+            cmds.append(f"ln -s {env['CM_ML_MODEL_FILE_WITH_PATH']} {model_path}")
+        model_name = "dlrm"
+
     elif env['CM_MODEL'] == "retinanet":
         #print(env)
         dataset_path = env['CM_DATASET_PATH']
