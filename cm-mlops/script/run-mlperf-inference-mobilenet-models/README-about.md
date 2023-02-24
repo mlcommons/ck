@@ -20,10 +20,12 @@ cm run script --tags=run,mobilenet-models,_tflite,_performance-only --results_di
 ```
 
 #### Generate actual submission tree
+
+We should use the master branch of MLCommons inference repo for the submission checker
 ```
-cm run script --tags=generate,inference,submission --results_dir=$HOME/mobilenet_results \
+cm run script --tags=generate,inference,submission --results_dir=$HOME/mobilenet_results/valid_results \
 --submission_dir=$HOME/mobilenet_submission_tree --clean --infer-scenario_results \
---run-checker --submitter=cTuning
+--run-checker --submitter=cTuning --adr.inference-src.version=master
 ```
 
 #### Push the results to GitHub repo
