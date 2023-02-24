@@ -164,6 +164,48 @@
         "TF_VAR_INSTANCE_TYPE": "a1.xlarge"
       }
     },
+    "m7g.xlarge": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws",
+        "arm64",
+        "graviton"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "m7g.xlarge"
+      }
+    },
+    "m7g.2xlarge": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws",
+        "arm64",
+        "graviton"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "m7g.2xlarge"
+      }
+    },
+    "inf1.xlarge": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws",
+        "inferentia"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "inf1.xlarge"
+      }
+    },
+    "inf1.2xlarge": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws",
+        "inferentia"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "inf1.2xlarge"
+      }
+    },
     "a1.metal": {
       "group": "aws-instance-type",
       "base": [
@@ -274,6 +316,16 @@
       "group": "instance-name",
       "env": {
         "TF_VAR_INSTANCE_NAME": "#"
+      }
+    },
+    "graviton": {
+      "env": {
+        "CM_TERRAFORM_AWS_GRAVITON_INSTANCE": "yes"
+      }
+    },
+    "inferentia": {
+      "env": {
+        "CM_TERRAFORM_AWS_INFERENTIA_INSTANCE": "yes"
       }
     }
   }
