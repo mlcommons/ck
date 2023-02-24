@@ -21,14 +21,18 @@ cm run script --tags=run,mobilenet-models,_tflite,_performance-only --results_di
 
 #### Generate actual submission tree
 ```
-cm run script --tags=generate,inference,submission --results_dir=$HOME/mobilenet_results --submission_dir=$HOME/mobilenet_submission_tree --clean --infer-scenario_results --run-checker --submitter=cTuning
+cm run script --tags=generate,inference,submission --results_dir=$HOME/mobilenet_results \
+--submission_dir=$HOME/mobilenet_submission_tree --clean --infer-scenario_results \
+--run-checker --submitter=cTuning
 ```
 
 #### Push the results to GitHub repo
 
 First create a fork of [this repo](https://github.com/ctuning/mlperf_inference_submissions_v3.0/) say https://github.com/arjunsuresh/mlperf_inference_submissions_v3.0/
 ```
-cm run script --tags=push,github,mlperf,inference,submission --submission_dir=$HOME/mobilenet_submission_tree --repo_url=https://github.com/arjunsuresh/mlperf_inference_submissions_v3.0/ --commit_message="Mobilenet results added"
+cm run script --tags=push,github,mlperf,inference,submission --submission_dir=$HOME/mobilenet_submission_tree \
+--repo_url=https://github.com/arjunsuresh/mlperf_inference_submissions_v3.0/ \
+--commit_message="Mobilenet results added"
 ```
 
 Create a PR to [cTuning repo](https://github.com/ctuning/mlperf_inference_submissions_v3.0/)
