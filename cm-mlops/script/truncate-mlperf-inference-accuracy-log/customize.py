@@ -14,7 +14,7 @@ def preprocess(i):
         print("Please set CM_MLPERF_SUBMISSION_DIR")
         return {'return': 1, 'error':'CM_MLPERF_SUBMISSION_DIR is not specified in env in run-mlperf-accuracy-log-truncator'}
 
-    submitter = env.get("CM_MLPERF_SUBMITTER", "default")
+    submitter = env.get("CM_MLPERF_SUBMITTER", "cTuning")
 
     os.system("rm -rf " + submission_dir + "_logs")
 
