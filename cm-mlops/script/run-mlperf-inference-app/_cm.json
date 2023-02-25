@@ -119,6 +119,27 @@
         "CM_MLPERF_RESULT_PUSH_TO_GITHUB": false
       }
     },
+    "performance-only": {
+      "group": "submission-generation",
+      "default_variations": {
+        "submission-generation-style": "full"
+      },
+      "env": {
+        "CM_MLPERF_SUBMISSION_RUN": "yes",
+        "CM_RUN_SUBMISSION_CHECKER": "no"
+      }
+    },
+    "accuracy-only": {
+      "group": "submission-generation",
+      "default_variations": {
+        "submission-generation-style": "full"
+      },
+      "env": {
+        "CM_MLPERF_SUBMISSION_RUN": "yes",
+        "CM_RUN_SUBMISSION_CHECKER": "no",
+        "CM_RUN_MLPERF_ACCURACY": "on"
+      }
+    },
     "submission": {
       "group": "submission-generation",
       "default_variations": {

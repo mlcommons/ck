@@ -79,10 +79,10 @@ def preprocess(i):
         var="_submission"
         execution_mode="valid"
     elif env.get('CM_MLPERF_ACCURACY_MODE','') == "yes":
-        var="_full"
+        var="_full,_accuracy-only"
         execution_mode="valid"
     elif env.get('CM_MLPERF_PERFORMANCE_MODE','') == "yes":
-        var="_full"
+        var="_full,_performance-only"
         execution_mode="valid"
     else:
         var="_find-performance"
