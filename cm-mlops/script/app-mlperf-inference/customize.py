@@ -59,7 +59,7 @@ def postprocess(i):
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
 
-    if env.get("CM_MLPERF_FIND_PERFORMANCE", False) and mode == "performance" and scenario != "Server":
+    if env.get("CM_MLPERF_FIND_PERFORMANCE", '') == "yes" and mode == "performance" and scenario != "Server":
         os.chdir(output_dir)
         if not os.path.exists("mlperf_log_summary.txt"):
             return {'return': 0}
