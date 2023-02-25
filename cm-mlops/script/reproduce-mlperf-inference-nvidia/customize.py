@@ -25,7 +25,7 @@ def preprocess(i):
     if env['CM_MODEL'] == "resnet50":
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'imagenet')
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -s {env['CM_DATASET_IMAGENET_PATH']} {target_data_path}")
+            cmds.append(f"ln -sf {env['CM_DATASET_IMAGENET_PATH']} {target_data_path}")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'ResNet50', 'resnet50_v1.onnx')
         model_name = "resnet50"
@@ -41,7 +41,7 @@ def preprocess(i):
     elif "3d-unet" in env['CM_MODEL']:
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'KiTS19', 'kits19', 'data')
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -s {env['CM_DATASET_PATH']} {target_data_path}")
+            cmds.append(f"ln -sf {env['CM_DATASET_PATH']} {target_data_path}")
             #cmds.append("make download_data BENCHMARKS='3d-unet'")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', '3d-unet-kits19', '3dUNetKiTS19.onnx')
@@ -50,7 +50,7 @@ def preprocess(i):
     elif "rnnt" in env['CM_MODEL']:
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'LibriSpeech', 'dev-clean')
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -s {env['CM_DATASET_LIBRISPEECH_PATH']} {target_data_path}")
+            cmds.append(f"ln -sf {env['CM_DATASET_LIBRISPEECH_PATH']} {target_data_path}")
             cmds.append("make download_data BENCHMARKS='rnnt'")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'rnn-t', 'DistributedDataParallel_1576581068.9962234-epoch-100.pt')

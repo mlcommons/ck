@@ -75,8 +75,8 @@ def postprocess(i):
         import yaml
         pattern = {}
         pattern["Offline"] = "Samples per second: (.*)\n"
-        pattern["SingleStream"] = "90th percentile latency \(ns\)\s*:(.*)"
-        pattern["MultiStream"] = "99th percentile latency \(ns\)\s*:(.*)"
+        pattern["SingleStream"] = "Mean latency \(ns\)\s*:(.*)"
+        pattern["MultiStream"] = "Mean latency \(ns\)\s*:(.*)"
         print("\n")
         with open("mlperf_log_summary.txt", "r") as fp:
             summary = fp.read()
