@@ -11,7 +11,8 @@ cp credentials.example credentials.sh
 Update `credentials.sh` with your AWS Key, Secret and Token
 
 ```
-cm run script --tags=run,terraform,_m7g.xlarge,_storage_size.500,_ubuntu.2204,_us-west-2 --cminit --key_file=$HOME/cmuser.pem
+cm run script --tags=run,terraform,_m7g.xlarge,_storage_size.500,_ubuntu.2204,_us-west-2 \
+--cminit --key_file=$HOME/cmuser.pem
 ```
 
 The above command will output the IP of the created instance which will be having CM setup already done
