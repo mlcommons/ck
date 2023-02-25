@@ -14,6 +14,7 @@
   "default_env": {
     "CM_MLPERF_RUN_MOBILENETS": "no",
     "CM_MLPERF_RUN_EFFICIENTNETS": "no",
+    "CM_MLPERF_NO_RERUN": "no",
     "CM_MLPERF_RUN_FP32": "yes",
     "CM_MLPERF_RUN_INT8": "yes"
   },
@@ -22,6 +23,7 @@
     "submission": "CM_MLPERF_SUBMISSION_MODE",
     "results_dir": "CM_MLPERF_RESULTS_DIR",
     "power": "CM_MLPERF_POWER",
+    "no-rerun": "CM_MLPERF_NO_RERUN",
     "submission_dir": "CM_MLPERF_SUBMISSION_DIR"
   },
   "uid": "f21cc993a8b14a58",

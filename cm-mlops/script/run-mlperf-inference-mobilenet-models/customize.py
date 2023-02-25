@@ -152,8 +152,8 @@ def preprocess(i):
                 if env.get('CM_MLPERF_PERFORMANCE_MODE','') == "yes":
                     cm_input['mode'] = 'performance'
 
-                if env.get('CM_MLPERF_FIND_PERFORMANCE_MODE','') == "yes":
-                    cm_input['rerun'] = 'true'
+                if env.get('CM_MLPERF_FIND_PERFORMANCE_MODE','') == "yes" and env.get('CM_MLPERF_NO_RERUN','') != 'yes':
+                    cm_input['rerun'] = True
 
                 if env.get('CM_MLPERF_POWER','') == "yes":
                     cm_input['power'] = 'yes'
