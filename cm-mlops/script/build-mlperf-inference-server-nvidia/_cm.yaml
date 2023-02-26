@@ -24,6 +24,13 @@ new_env_keys:
   - CM_MLPERF_INFERENCE_NVIDIA_CODE_PATH
   - MLPERF_SCRATCH_PATH
 
+default_env:
+  CM_MAKE_BUILD_COMMAND: build
+  CM_MAKE_CLEAN: "no"
+
+input_mapping:
+  clean: CM_MAKE_CLEAN
+
 # Dependencies on other CM scripts
 
 deps:
@@ -46,9 +53,17 @@ deps:
   # Detect CUDA
   - tags: get,cuda,_cudnn
     version_max: "11.11"
+    enable_if_env:
+      CM_MLPERF_DEVICE:
+        - cuda
+        - inferentia
 
   # Detect Tensorrt
   - tags: get,tensorrt
+    enable_if_env:
+      CM_MLPERF_DEVICE:
+        - cuda
+        - inferentia
 
   # Detect gcc
   - tags: get,gcc
@@ -99,10 +114,15 @@ variations:
   # Target devices
   cpu:
     group: device
-    default: true
     env:
       CM_MLPERF_DEVICE: cpu
-  cuda:
+  inferentia:
+    group: device
     env:
-      CM_MLPERF_DEVICE: gpu
+      CM_MLPERF_DEVICE: inferentia
+  cuda:
+    group: device
+    default: true
+    env:
+      CM_MLPERF_DEVICE: cuda
       CM_MLPERF_DEVICE_LIB_NAMESPEC: cudart
