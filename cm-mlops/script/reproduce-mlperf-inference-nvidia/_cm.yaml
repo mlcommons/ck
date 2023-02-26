@@ -287,6 +287,17 @@ variations:
     group: model
     env:
       CM_MODEL: rnnt
+    deps:
+    - tags: get,generic-python-lib,_toml
+    - tags: get,generic-python-lib,_torchvision
+      names:
+      - torchvision
+    - tags: get,generic-python-lib,_nvidia-apex
+    - tags: get,generic-python-lib,_unidecode
+    - tags: get,generic-python-lib,_inflect
+    - tags: get,generic-python-lib,_librosa
+    - tags: get,generic-python-lib,_sox
+    - tags: get,generic-sys-util,_sox
 
   dlrm_:
     deps:

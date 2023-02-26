@@ -55,6 +55,29 @@
         "CM_ATTRS_VERSION"
       ]
     },
+    "apex": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apex"
+      },
+      "new_env_keys": [
+        "CM_APEX_VERSION"
+      ]
+    },
+    "nvidia-apex": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apex",
+        "CM_GENERIC_PYTHON_PACKAGE_VARIANT": "nvidia-apex"
+      },
+      "new_env_keys": [
+        "CM_NVIDIA_APEX_VERSION"
+      ],
+      "deps": [
+        {
+          "names": [ "torch" ],
+	  "tags": "get,generic-python-lib,_torch_cuda"
+        }
+      ]
+    },
     "google-api-python-client": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "google_api_python_client"
