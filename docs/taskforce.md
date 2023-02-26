@@ -46,6 +46,7 @@ Please join our mailing list [here](https://groups.google.com/g/collective-knowl
 
 * [Run MLPerf inference ](https://cknowledge.org/mlperf-inference-gui)
 * [Prepare submission](https://cknowledge.org/mlperf-inference-submission-gui)
+* [Visualize past and on-going results](https://cKnowledge.org/cm-gui-graph)
 
 ## On-going projects
 
