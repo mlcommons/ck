@@ -157,6 +157,8 @@ variations:
         tags: _float32
       squad-accuracy-script:
         tags: _float32
+      librispeech-accuracy-script:
+        tags: _int32
     env:
       CM_MLPERF_PYTHON: 'yes'
       CM_MLPERF_IMPLEMENTATION: reference
@@ -209,6 +211,8 @@ variations:
         tags: _int32
       squad-accuracy-script:
         tags: _float16
+      librispeech-accuracy-script:
+        tags: _int8
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia-original
     posthook_deps:
@@ -322,8 +326,8 @@ variations:
         - 'on'
       names:
       - mlperf-accuracy-script
-      - rnnt-accuracy-script
-      tags: run,accuracy,mlperf,_librispeech,_int32
+      - librispeech-accuracy-script
+      tags: run,accuracy,mlperf,_librispeech
 
   bert_:
     post_deps:

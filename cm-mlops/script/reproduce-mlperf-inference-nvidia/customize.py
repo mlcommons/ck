@@ -49,8 +49,11 @@ def preprocess(i):
 
     elif "rnnt" in env['CM_MODEL']:
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'LibriSpeech', 'dev-clean')
+        target_data_path_base_dir = os.path.dirname(target_data_path)
+        if not os.path.exists(target_data_path_base_dir):
+            cmds.append(f"mkdir -p {target_data_path_base_dir}")
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -sf {env['CM_DATASET_LIBRISPEECH_PATH']} {target_data_path}")
+            #cmds.append(f"ln -sf {env['CM_DATASET_LIBRISPEECH_PATH']} {target_data_path}")
             cmds.append("make download_data BENCHMARKS='rnnt'")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'rnn-t', 'DistributedDataParallel_1576581068.9962234-epoch-100.pt')
