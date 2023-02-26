@@ -296,6 +296,9 @@ variations:
     - tags: get,generic-python-lib,_unidecode
     - tags: get,generic-python-lib,_inflect
     - tags: get,generic-python-lib,_librosa
+      version_max: 0.8.1
+      names:
+        - librosa
     - tags: get,generic-python-lib,_sox
     - tags: get,generic-sys-util,_sox
 
