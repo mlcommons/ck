@@ -102,6 +102,10 @@ def preprocess(i):
     add_deps = inp.get('add_deps', {})
     ad = inp.get('ad', {})
     adr = inp.get('adr', {})
+    adr_from_meta = i['run_script_input'].get('add_deps_recursive')
+
+    for key in adr_from_meta:
+        add_deps_recursive[key] = adr_from_meta[key]
 
     if clean and 'OUTPUT_BASE_DIR' in env:
         path_to_clean = os.path.join(env['OUTPUT_BASE_DIR'], env['CM_OUTPUT_FOLDER_NAME'])
