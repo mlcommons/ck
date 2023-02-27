@@ -50,7 +50,7 @@ def generate_submission(i):
     if 'CM_MLPERF_SUBMISSION_DIVISION' in env:
         system_meta['division'] = env['CM_MLPERF_SUBMISSION_DIVISION']
 
-    duplicate=env.get('CM_MLPERF_DUPLICATE_SCENARIO_RESULTS', 'no')
+    duplicate= (env.get('CM_MLPERF_DUPLICATE_SCENARIO_RESULTS', 'no') in ["yes", "True"])
 
     division = system_meta['division']
 

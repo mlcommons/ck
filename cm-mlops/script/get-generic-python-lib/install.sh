@@ -1,5 +1,13 @@
 #!/bin/bash
 
+if [[ ${CM_GENERIC_PYTHON_PACKAGE_VARIANT} == "nvidia-apex" ]]; then
+  git clone https://github.com/NVIDIA/apex
+  cd apex
+  ${CM_PYTHON_BIN_WITH_PATH} -m pip install -v --disable-pip-version-check --global-option="--cpp_ext" --global-option="--cuda_ext" ./
+  test $? -eq 0 || exit $?
+  exit 0
+fi
+
 if [[ ${CM_GENERIC_PYTHON_PACKAGE_NAME}  == "tensorflow" ]]; then
     if [[ ${CM_HOST_OS_FLAVOR} == "macos" ]]; then
         . ${CM_TMP_CURRENT_SCRIPT_PATH}/tensorflow/run-macos.sh

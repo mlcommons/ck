@@ -74,7 +74,7 @@
     "multistream_target_latency": "CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY",
     "dashboard_wb_user":"CM_MLPERF_DASHBOARD_WANDB_USER",
     "dashboard_wb_project":"CM_MLPERF_DASHBOARD_WANDB_PROJECT",
-    "find_performance": "CM_MLPERF_FIND_PERFORMANCE",
+    "find_performance": "CM_MLPERF_FIND_PERFORMANCE_MODE",
     "push_to_github": "CM_MLPERF_RESULT_PUSH_TO_GITHUB",
     "results_git_url": "CM_MLPERF_RESULTS_GIT_REPO_URL",
     "readme": "CM_MLPERF_README",
@@ -115,8 +115,29 @@
       "env": {
         "CM_MLPERF_LOADGEN_ALL_MODES": "no",
         "CM_MLPERF_LOADGEN_MODE": "performance",
-        "CM_MLPERF_FIND_PERFORMANCE": "yes",
+        "CM_MLPERF_FIND_PERFORMANCE_MODE": "yes",
         "CM_MLPERF_RESULT_PUSH_TO_GITHUB": false
+      }
+    },
+    "performance-only": {
+      "group": "submission-generation",
+      "default_variations": {
+        "submission-generation-style": "full"
+      },
+      "env": {
+        "CM_MLPERF_SUBMISSION_RUN": "yes",
+        "CM_RUN_SUBMISSION_CHECKER": "no"
+      }
+    },
+    "accuracy-only": {
+      "group": "submission-generation",
+      "default_variations": {
+        "submission-generation-style": "full"
+      },
+      "env": {
+        "CM_MLPERF_SUBMISSION_RUN": "yes",
+        "CM_RUN_SUBMISSION_CHECKER": "no",
+        "CM_RUN_MLPERF_ACCURACY": "on"
       }
     },
     "submission": {

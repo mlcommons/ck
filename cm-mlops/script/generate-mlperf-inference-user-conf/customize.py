@@ -105,7 +105,7 @@ def preprocess(i):
         if metric in conf:
             metric_value = conf[metric]
         else:
-            if env.get("CM_MLPERF_FIND_PERFORMANCE", '') == "yes":
+            if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
                 if metric == "target_qps":
                     print("In find performance mode: using 1 as target_qps")
                     conf[metric] = 1
@@ -116,7 +116,7 @@ def preprocess(i):
                 return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
 
     #Pass the modified performance metrics to the implementation
-    if env.get("CM_MLPERF_FIND_PERFORMANCE", False):
+    if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
         if metric == "target_latency" and env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY', '') == '':
             env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = conf[metric]
         elif metric == "target_qps" and env.get('CM_MLPERF_LOADGEN_TARGET_QPS', '') == '':

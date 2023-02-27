@@ -63,6 +63,8 @@ def postprocess(i):
             env['CM_HOST_OS_PACKAGE_MANAGER'] = "apt"
         if env.get('CM_HOST_OS_FLAVOR','') == "rhel":
             env['CM_HOST_OS_PACKAGE_MANAGER'] = "dnf"
+        if env.get('CM_HOST_OS_FLAVOR','') == "amzn":
+            env['CM_HOST_OS_PACKAGE_MANAGER'] = "yum"
         if env.get('CM_HOST_OS_FLAVOR_LIKE','') == "arch":
             env['CM_HOST_OS_PACKAGE_MANAGER'] = "arch"
         if env.get('CM_HOST_OS_FLAVOR','') == "macos":
@@ -79,5 +81,8 @@ def postprocess(i):
     elif env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "brew":
         env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "brew install"
         env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "brew update"
+    elif env.get('CM_HOST_OS_PACKAGE_MANAGER', '') == "yum":
+        env['CM_HOST_OS_PACKAGE_MANAGER_INSTALL_CMD'] = "yum install -y --skip-broken"
+        env['CM_HOST_OS_PACKAGE_MANAGER_UPDATE_CMD'] = "yum update -y"
 
     return {'return':0}

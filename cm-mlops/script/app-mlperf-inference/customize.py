@@ -59,7 +59,7 @@ def postprocess(i):
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
 
-    if env.get("CM_MLPERF_FIND_PERFORMANCE", False) and mode == "performance" and scenario != "Server":
+    if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes" and mode == "performance" and scenario != "Server":
         os.chdir(output_dir)
         if not os.path.exists("mlperf_log_summary.txt"):
             return {'return': 0}
@@ -75,8 +75,8 @@ def postprocess(i):
         import yaml
         pattern = {}
         pattern["Offline"] = "Samples per second: (.*)\n"
-        pattern["SingleStream"] = "90th percentile latency \(ns\)\s*:(.*)"
-        pattern["MultiStream"] = "99th percentile latency \(ns\)\s*:(.*)"
+        pattern["SingleStream"] = "Mean latency \(ns\)\s*:(.*)"
+        pattern["MultiStream"] = "Mean latency \(ns\)\s*:(.*)"
         print("\n")
         with open("mlperf_log_summary.txt", "r") as fp:
             summary = fp.read()
