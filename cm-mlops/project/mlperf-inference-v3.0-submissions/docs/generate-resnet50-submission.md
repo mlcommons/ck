@@ -19,13 +19,19 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_full,_all-sc
 #### Do a full accuracy run for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only,_full,_all-scenarios --model=resnet50 --device=cpu \
+cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios --model=resnet50 --device=cpu \
 --backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
 #### Do a full performance run for all the scenarios
 ```
-cm run script --tags=generate-run-cmds,inference,_performance-only,_full,_all-scenarios --model=resnet50 --device=cpu \
+cm run script --tags=generate-run-cmds,inference,_performance-only,_all-scenarios --model=resnet50 --device=cpu \
+--backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+```
+
+#### Populate the README files
+```
+cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios --model=resnet50 --device=cpu \
 --backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
@@ -54,7 +60,7 @@ Create a PR to [cTuning repo](https://github.com/ctuning/mlperf_inference_submis
 Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime` with `--backend=tf`. For example,
 
 ```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only,_full,_all-scenarios --model=resnet50 --device=cpu \
+cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios --model=resnet50 --device=cpu \
 --backend=tf --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
@@ -63,6 +69,6 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only,_full,_all-scena
 Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime` with `--backend=tvm-onnx`. (Only `--device=cpu` is currently supported for TVM) For example,
 
 ```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only,_full,_all-scenarios --model=resnet50 --device=cpu \
+cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios --model=resnet50 --device=cpu \
 --backend=tvm-onnx --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
