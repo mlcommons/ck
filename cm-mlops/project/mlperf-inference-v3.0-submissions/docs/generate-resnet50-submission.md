@@ -2,7 +2,7 @@
 
 We need to get imagenet full dataset to make image-classification submissions for MLPerf inference. Since this dataset is not publicly available via a URL please follow the instructions given [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-dataset-imagenet-val/README-extra.md) to download the dataset and register in CM.
 
-On edge category ResNet50 has Offline, SingleStream and MultiStream scenarios and in datacenter category it has Offline and Server scenarios. The below commands are assuming an edge category system.
+On edge category ResNet50 has Offline, SingleStream and MultiStream scenarios and in datacenter category it has Offline and Server scenarios. The below commands are assuming an edge category system. 
 
 ### Onnxruntime backend
 
@@ -12,7 +12,9 @@ On edge category ResNet50 has Offline, SingleStream and MultiStream scenarios an
 cm run script --tags=generate-run-cmds,inference,_find-performance,_full,_all-scenarios --model=resnet50 \
 --device=cpu --backend=onnxruntime --quiet
 ```
-* Use `device=cuda` to run the inference on Nvidia GPU.
+* Use `--device=cuda` to run the inference on Nvidia GPU
+* Use `--division=closed` to run all scenarios for a closed division including the compliance tests
+* Use `--category=datacenter` to run datacenter scenarios
 
 #### Do a full accuracy run for all the scenarios
 
