@@ -11,6 +11,11 @@
     "mlperf",
     "inference"
   ],
+  "deps": [
+    {
+      "tags": "get,sys-utils-cm"
+    }
+  ],
   "default_env": {
     "CM_MLPERF_RUN_MOBILENETS": "no",
     "CM_MLPERF_RUN_EFFICIENTNETS": "no",
