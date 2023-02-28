@@ -25,10 +25,12 @@ if model_path.endswith('.so') or model_path.endswith('.dylib'):
 build_conf = {}
 params = {}
 
-if model_path.endswith('.pt'):
+if model_path.endswith('.pt') or model_path.endswith('.pth'):
    import torch
    from tvm.relay.build_module import bind_params_by_name
-
+  
+   from torchvision.models import resnet50
+   
    shape_list = eval('[' + input_shapes + ']')
 
    print ('TVM shape list: '+str(shape_list))
@@ -36,8 +38,14 @@ if model_path.endswith('.pt'):
    x=os.environ.get('CM_MLPERF_TVM_TORCH_QUANTIZED_ENGINE','')
    if x!='':
        torch.backends.quantized.engine = x
-   pytorch_model = torch.jit.load(model_path)
-   pytorch_model.eval()
+   
+   if model_path.endswith('.pt'):  
+       pytorch_model = torch.jit.load(model_path)
+       pytorch_model.eval()
+   elif model_path.endswith('.pth'):
+       model.resnet50.load_state_dict
+       pytorch_model = torch.load(model_path)
+       pytorch_model.eval()
 
    mod, params = relay.frontend.from_pytorch(pytorch_model, shape_list)
 
