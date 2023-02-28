@@ -356,6 +356,10 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _bert-99
+    deps:
+    - skip_if_env:
+        CM_DATASET_SQUAD_VAL_PATH: "on"
+      tags: get,dataset,squad,language-processing
 
   bert-99.9:
     group:

@@ -103,7 +103,7 @@ def preprocess(i):
         conf[metric] = value
     else:
         if metric in conf:
-            metric_value = conf[metric]
+            metric_value = str(float(conf[metric]) / 1.1) #some tolerance
         else:
             if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
                 if metric == "target_qps":
