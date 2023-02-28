@@ -1,6 +1,6 @@
 ## Run Commands
 
-Bert has two variants - `bert-99` and `bert-99.9` where the 99 and 99.9 specifies the required accuracy constraint with respect to the reference floating point model. `bert-99.9` model is applicable only on a datacenter system.
+Bert has two variants - `bert-99` and `bert-99.9` where the `99` and `99.9` specifies the required accuracy constraint with respect to the reference floating point model. `bert-99.9` model is applicable only on a datacenter system.
 
 On edge category `bert-99` has Offline and SingleStream scenarios and in datacenter category both `bert-99` and `bert-99.9` have Offline and Server scenarios. The below commands are assuming an edge category system. 
 
@@ -9,8 +9,8 @@ On edge category `bert-99` has Offline and SingleStream scenarios and in datacen
 #### Do a test run to detect and record the system performance
 
 ```
-cm run script --tags=generate-run-cmds,inference,_find-performance,_full,_all-scenarios --model=bert-99 \
---device=cpu --backend=onnxruntime --quiet
+cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios --model=bert-99 \
+--implementation=reference --device=cpu --backend=onnxruntime --quiet
 ```
 * Use `--device=cuda` to run the inference on Nvidia GPU
 * Use `--division=closed` to run all scenarios for a closed division including the compliance tests
@@ -20,19 +20,19 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_full,_all-sc
 
 ```
 cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios --model=bert-99 --device=cpu \
---backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--implementation=reference --backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
 #### Do a full performance run for all the scenarios
 ```
 cm run script --tags=generate-run-cmds,inference,_performance-only,_all-scenarios --model=bert-99 --device=cpu \
---backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--implementation=reference --backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
 #### Populate the README files
 ```
 cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios --model=bert-99 --device=cpu \
---backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--implementation=reference --backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
 #### Generate actual submission tree
@@ -61,7 +61,7 @@ Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime
 
 ```
 cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios --model=bert-99 --device=cpu \
---backend=tf --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--implementation=reference --backend=tf --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
 ## Pytorch backend
@@ -70,5 +70,6 @@ Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime
 
 ```
 cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios --model=bert-99 --device=cpu \
---backend=pytorch --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--implementation=reference --backend=pytorch --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
+
