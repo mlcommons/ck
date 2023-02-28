@@ -20,19 +20,19 @@ cm run script --tags=generate-run-cmds,inference,_find-performance,_full,_all-sc
 
 ```
 cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios --model=resnet50 --device=cpu \
---backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--implementation=reference --backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
 #### Do a full performance run for all the scenarios
 ```
 cm run script --tags=generate-run-cmds,inference,_performance-only,_all-scenarios --model=resnet50 --device=cpu \
---backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--implementation=reference --backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
 #### Populate the README files
 ```
 cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios --model=resnet50 --device=cpu \
---backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--implementation=reference --backend=onnxruntime --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
 #### Generate actual submission tree
@@ -61,7 +61,7 @@ Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime
 
 ```
 cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios --model=resnet50 --device=cpu \
---backend=tf --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--implementation=reference --backend=tf --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
 ## TVM backend
@@ -70,5 +70,5 @@ Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime
 
 ```
 cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios --model=resnet50 --device=cpu \
---backend=tvm-onnx --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--implementation=reference --backend=tvm-onnx --execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
 ```
