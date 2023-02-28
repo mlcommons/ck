@@ -52,7 +52,6 @@
       "default": true,
       "default_variations": {
         "aws-instance-type": "t2.micro",
-        "aws-instance-image": "aws_instance_image.ami-0735c191cf914754d",
         "region": "us-west-2"
       },
       "env": {
@@ -93,6 +92,69 @@
       ],
       "env": {
         "TF_VAR_INSTANCE_TYPE": "t2.micro"
+      }
+    },
+    "t2.small": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "t2.small"
+      }
+    },
+    "t2.medium": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "t2.medium"
+      }
+    },
+    "t2.large": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "t2.large"
+      }
+    },
+    "t2.xlarge": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "t2.xlarge"
+      }
+    },
+    "t2.2xlarge": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "t2.2xlarge"
+      }
+    },
+    "t2.nano": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "t2.nano"
+      }
+    },
+    "t2.#": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "t2.#"
       }
     },
     "c5.4xlarge": {
@@ -206,6 +268,26 @@
         "TF_VAR_INSTANCE_TYPE": "inf1.2xlarge"
       }
     },
+    "inf2.xlarge": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws",
+        "inferentia"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "inf2.xlarge"
+      }
+    },
+    "inf2.8xlarge": {
+      "group": "aws-instance-type",
+      "base": [
+        "aws",
+        "inferentia"
+      ],
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "inf2.8xlarge"
+      }
+    },
     "a1.metal": {
       "group": "aws-instance-type",
       "base": [
@@ -218,7 +300,6 @@
     },
     "storage_size.8": {
       "group": "storage-size",
-      "default": true,
       "env": {
         "TF_VAR_DISK_GBS": "8"
       }
@@ -271,9 +352,32 @@
         "TF_VAR_INSTANCE_IMAGE": "ami-0735c191cf914754d"
       }
     },
+    "aws_instance_image.ami-0a0d8589b597d65b3": {
+      "group": "aws-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "ami-0a0d8589b597d65b3"
+      }
+    },
     "ubuntu.#": {
       "env": {
         "TF_VAR_INSTANCE_IMAGE_OS": "ubuntu.#"
+      }
+    },
+    "amazon-linux-2-kernel.#": {
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE_OS": "amazon-linux-2-kernel.#"
+      }
+    },
+    "amazon-linux-2-kernel.510,arm64,us-west-2": {
+      "group": "aws-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "ami-0f1a5f5ada0e7da53"
+      }
+    },
+    "ubuntu.2204,arm64,us-west-2": {
+      "group": "aws-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "ami-079f51a7bcca65b92"
       }
     },
     "ubuntu.2204,x86,us-west-2": {
@@ -282,10 +386,9 @@
         "TF_VAR_INSTANCE_IMAGE": "ami-0735c191cf914754d"
       }
     },
-    "ubuntu.2204,arm64,us-west-2": {
-      "group": "aws-instance-image",
-      "env": {
-        "TF_VAR_INSTANCE_IMAGE": "ami-079f51a7bcca65b92"
+    "inferentia,amazon-linux-2-kernel.510": {
+      "default_variations": {
+        "aws-instance-image": "amazon-linux-2-kernel.510,arm64,us-west-2"
       }
     },
     "aws_instance_image.#": {
@@ -319,11 +422,17 @@
       }
     },
     "graviton": {
+      "default_variations": {
+	"platform": "arm64"
+      },
       "env": {
         "CM_TERRAFORM_AWS_GRAVITON_INSTANCE": "yes"
       }
     },
     "inferentia": {
+      "default_variations": {
+	"platform": "arm64"
+      },
       "env": {
         "CM_TERRAFORM_AWS_INFERENTIA_INSTANCE": "yes"
       }
