@@ -76,6 +76,15 @@
         "CM_TERRAFORM_CONFIG_DIR_NAME": "gcp"
       }
     },
+    "n1-standard-8": {
+      "base": [
+        "gcp"
+      ],
+      "group": "gcp-instance-type",
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "n1-standard-8"
+      }
+    },
     "f1-micro": {
       "base": [
         "gcp"
