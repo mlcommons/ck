@@ -3546,7 +3546,7 @@ Thank you'''
 
     if (postprocess == "postprocess") and customize_code is not None and 'postprocess' in dir(customize_code):
         rr = run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const,
-                const_state, meta, verbose)
+                const_state, meta, verbose, i) # i as run_script_input
     elif (postprocess == "detect_version") and customize_code is not None and 'detect_version' in dir(customize_code):
         rr = run_detect_version(customize_code, customize_common_input, recursion_spaces, env, state, const,
                 const_state, meta, verbose)
@@ -3575,7 +3575,7 @@ def run_detect_version(customize_code, customize_common_input, recursion_spaces,
 
     return {'return': 0}
 
-def run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta, verbose=False):
+def run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta, verbose=False, run_script_input=None):
 
     if customize_code is not None and 'postprocess' in dir(customize_code):
         import copy
@@ -3591,6 +3591,9 @@ def run_postprocess(customize_code, customize_common_input, recursion_spaces, en
         ii['env'] = env
         ii['state'] = state
         ii['meta'] = meta
+
+        if run_script_input != None:
+            ii['run_script_input'] = run_script_input 
 
         r = customize_code.postprocess(ii)
         return r
