@@ -41,7 +41,7 @@ We should use the master branch of MLCommons inference repo for the submission c
 ```
 cm run script --tags=generate,inference,submission --results_dir=$HOME/inference_3.0_results/valid_results \
 --submission_dir=$HOME/inference_submission_tree --clean  \
---run-checker --submitter=cTuning --adr.inference-src.version=master --hw_notes_extra="Result taken by NAME --quiet"
+--run-checker --submitter=cTuning --adr.inference-src.version=master --hw_notes_extra="Result taken by NAME" --quiet
 ```
 
 #### Push the results to GitHub repo
