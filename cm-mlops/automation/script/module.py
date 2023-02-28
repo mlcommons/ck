@@ -3410,14 +3410,14 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     tmp_file_run_env = i.get('tmp_file_run_env', '')
     tmp_file_state = i.get('tmp_file_state', '')
     tmp_file_run = i['tmp_file_run']
-    local_env_keys = i['local_env_keys']
-    local_env_keys_from_meta = i['local_env_keys_from_meta']
-    posthook_deps = i['posthook_deps']
-    add_deps_recursive = i['add_deps_recursive']
+    local_env_keys = i.get('local_env_keys', [])
+    local_env_keys_from_meta = i.get('local_env_keys_from_meta', [])
+    posthook_deps = i.get('posthook_deps', [])
+    add_deps_recursive = i.get('add_deps_recursive', {})
     recursion_spaces = i['recursion_spaces']
-    remembered_selections = i['remembered_selections']
-    variation_tags_string = i['variation_tags_string']
-    found_cached = i['found_cached']
+    remembered_selections = i.get('remembered_selections', {})
+    variation_tags_string = i.get('variation_tags_string', '')
+    found_cached = i.get('found_cached', False)
     script_automation = i['self']
 
     # Prepare script name
