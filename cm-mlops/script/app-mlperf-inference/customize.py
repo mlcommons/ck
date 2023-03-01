@@ -50,12 +50,21 @@ def postprocess(i):
 
     if model == "resnet50":
         accuracy_filename = "accuracy-imagenet.py"
+        accuracy_filepath = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
+                        accuracy_filename)
         dataset_args = " --imagenet-val-file " + \
         os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt")
 
     elif model == "retinanet":
         accuracy_filename = "accuracy-openimages.py"
+        accuracy_filepath = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
+                        accuracy_filename)
         dataset_args = " --openimages-dir " + env['CM_DATASET_PATH']
+
+    elif 'bert' in model:
+        accuracy_filename = "accuracy-squad.py"
+        accuracy_filepath = os.path.join(env['CM_MLPERF_INFERENCE_BERT_PATH'], accuracy_filename)
+        dataset_args = " --val_data " + env['CM_DATASET_SQUAD_VAL_PATH']
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
 
@@ -195,6 +204,10 @@ def postprocess(i):
         os.system(cmd)
 
         if test == "TEST01":
+
+            run_script_input = i['run_script_input']
+            automation = i['automation']
+
             SCRIPT_PATH = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", test,
                     "create_accuracy_baseline.sh")
             ACCURACY_DIR = os.path.join(RESULT_DIR, "accuracy")
@@ -204,31 +217,42 @@ def postprocess(i):
 
             cmd = "bash " + SCRIPT_PATH + " " + os.path.join(ACCURACY_DIR, "mlperf_log_accuracy.json") + " " + \
                     os.path.join(COMPLIANCE_DIR, "mlperf_log_accuracy.json")
-            print(cmd)
-            result  = subprocess.run(cmd, shell=True)
+            #print(cmd)
+            #result  = subprocess.run(cmd, shell=True)
+            env['CMD'] = cmd
+            r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'verify_accuracy'})
+            if r['return']>0:
+                return r
 
             CMD = "cat verify_accuracy.txt | grep 'TEST PASS'"
-            try:
-                result  = subprocess.check_output(CMD, shell=True).decode("utf-8")
-            except subprocess.CalledProcessError as e:
+            #try:
+                #result  = subprocess.check_output(CMD, shell=True).decode("utf-8")
+            env['CMD'] = CMD
+            r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'verify_accuracy'})
+            if r['return']>0:
+            #except subprocess.CalledProcessError as e:
             #if not result: #Normal test failed, trying the check with non-determinism
 
                 OUTPUT_DIR = os.path.join(OUTPUT_DIR, "TEST01", "accuracy")
                 if not os.path.exists(OUTPUT_DIR):
                     os.makedirs(OUTPUT_DIR)
-                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
-                        accuracy_filename) + " --mlperf-accuracy-file " + \
+                CMD = env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + " --mlperf-accuracy-file " + \
                         "mlperf_log_accuracy_baseline.json" + dataset_args + " > " + \
                         os.path.join(OUTPUT_DIR, "baseline_accuracy.txt")
-                print(CMD)
-                result  = subprocess.run(CMD, shell=True)
+                #print(CMD)
+                env['CMD'] = CMD
+                r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'verify_accuracy'})
+                if r['return']>0: return r
+                #result  = subprocess.run(CMD, shell=True)
 
-                CMD = env['CM_PYTHON_BIN'] + ' ' + os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
-                        accuracy_filename) + " --mlperf-accuracy-file " + \
+                CMD = env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + " --mlperf-accuracy-file " + \
                         "mlperf_log_accuracy.json" + dataset_args + " > " + \
                         os.path.join(OUTPUT_DIR, "compliance_accuracy.txt")
-                print(CMD)
-                result  = subprocess.run(CMD, shell=True)
+                #print(CMD)
+                env['CMD'] = CMD
+                r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'verify_accuracy'})
+                if r['return']>0: return r
+                #result  = subprocess.run(CMD, shell=True)
 
     else:
         print(test)

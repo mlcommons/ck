@@ -52,7 +52,11 @@ def generate_submission(i):
 
     duplicate= (env.get('CM_MLPERF_DUPLICATE_SCENARIO_RESULTS', 'no') in ["yes", "True"])
 
-    division = system_meta['division']
+    if env.get('CM_MLPERF_SUBMISSION_DIVISION', '') != '':
+        division = env['CM_MLPERF_SUBMISSION_DIVISION']
+        system_meta['division'] = division
+    else:
+        division = system_meta['division']
 
     if division not in ['open','closed']:
         return {'return':1, 'error':'"division" must be "open" or "closed"'}

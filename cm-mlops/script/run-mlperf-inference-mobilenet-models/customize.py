@@ -108,7 +108,7 @@ def preprocess(i):
             for precision in precisions:
 
                 if "small-minimalistic" in v and precision == "uint8":
-                    continue;
+                    continue
 
                 if model == "efficientnet" and precision == "uint8":
                     precision = "int8"

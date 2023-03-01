@@ -90,20 +90,24 @@ def preprocess(i):
     value = None
     if scenario in [ 'Offline', 'Server' ]:
         metric = "target_qps"
+        tolerance = 1.01
         #value = env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS') if scenario == "Server" else env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS')
         if not value:
             value = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
     elif scenario in [ 'SingleStream', 'MultiStream' ]:
         metric = "target_latency"
+        tolerance = 0.95
         if not value:
             value = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
+    else:
+        return {'return': 1, 'error': 'Invalid scenario: {}'.format(scenario)}
 
     if value:
         metric_value = value
         conf[metric] = value
     else:
         if metric in conf:
-            metric_value = conf[metric]
+            metric_value = str(float(conf[metric]) * tolerance) #some tolerance
         else:
             if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
                 if metric == "target_qps":

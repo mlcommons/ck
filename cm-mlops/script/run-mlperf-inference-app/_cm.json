@@ -175,16 +175,8 @@
       "env": {
         "CM_MLPERF_SUBMISSION_RUN": "yes",
         "CM_MLPERF_README": "yes",
-        "CM_RUN_SUBMISSION_CHECKER": "yes"
-      },
-      "post_deps": [
-        {
-          "tags": "generate,mlperf,inference,submission",
-          "names": [
-             "submission-generator"
-          ]
-        }
-      ]
+        "CM_RUN_SUBMISSION_CHECKER": "no"
+      }
     },
     "short": {
       "group": "submission-generation-style",

@@ -16,6 +16,8 @@ if [ ! -d "inference" ]; then
     git checkout -b "${CM_GIT_CHECKOUT}"
   fi
   if [ "${?}" != "0" ]; then exit 1; fi
+else
+    cd inference
 fi
 IFS=',' read -r -a submodules <<< "${CM_GIT_SUBMODULES}"
 for submodule in "${submodules[@]}"
