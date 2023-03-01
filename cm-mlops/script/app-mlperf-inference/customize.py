@@ -55,7 +55,7 @@ def postprocess(i):
         dataset_args = " --imagenet-val-file " + \
         os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt")
         accuracy_log_file_option_name = " --mlperf-accuracy-file "
-        datatype_option = ""
+        datatype_option = " --dtype "+env['CM_IMAGENET_ACCURACY_DTYPE']
 
     elif model == "retinanet":
         accuracy_filename = "accuracy-openimages.py"
@@ -230,11 +230,11 @@ def postprocess(i):
                 data = file.read().replace('\n', '\t')
 
             if 'TEST PASS' not in data:
-                print("Deterministic TEST01 failed... Trying with non-determinism.")
+                print("\nDeterministic TEST01 failed... Trying with non-determinism.\n")
             # #Normal test failed, trying the check with non-determinism
 
                 CMD = "cd "+ ACCURACY_DIR+" && "+  env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + accuracy_log_file_option_name + \
-                        os.path.join(OUTPUT_DIR, "mlperf_log_accuracy_baseline.json") + dataset_args + datatype_option + " > " + \
+                        os.path.join(TEST01_DIR, "mlperf_log_accuracy_baseline.json") + dataset_args + datatype_option + " > " + \
                         os.path.join(OUTPUT_DIR, "baseline_accuracy.txt")
 
                 env['CMD'] = CMD
