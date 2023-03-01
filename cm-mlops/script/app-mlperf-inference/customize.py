@@ -230,6 +230,7 @@ def postprocess(i):
                 data = file.read().replace('\n', '\t')
 
             if 'TEST PASS' not in data:
+                print("Deterministic TEST01 failed... Trying with non-determinism.")
             # #Normal test failed, trying the check with non-determinism
 
                 CMD = "cd "+ ACCURACY_DIR+" && "+  env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + accuracy_log_file_option_name + \
