@@ -50,6 +50,9 @@ def generate_submission(i):
     if 'CM_MLPERF_SUBMISSION_DIVISION' in env:
         system_meta['division'] = env['CM_MLPERF_SUBMISSION_DIVISION']
 
+    if 'CM_MLPERF_SUBMISSION_CATEGORY' in env:
+        system_meta['system_type'] = env['CM_MLPERF_SUBMISSION_CATEGORY']
+
     duplicate= (env.get('CM_MLPERF_DUPLICATE_SCENARIO_RESULTS', 'no') in ["yes", "True"])
 
     if env.get('CM_MLPERF_SUBMISSION_DIVISION', '') != '':
