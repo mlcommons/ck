@@ -5,37 +5,39 @@ import shutil
 
 def preprocess(i):
 
+    recursion_spaces = i['recursion_spaces']
+
     os_info = i['os_info']
 
     env = i['env']
 
     env['CM_TMP_RUN_COPY_SCRIPT'] = "no"
 
-    cuda_path_lib = env.get('CM_CUDA_PATH_LIB')
- 
-    if os_info['platform'] == 'windows':
-        extra_pre=''
-        extra_ext='lib'
-    else:
-        extra_pre='lib'
-        extra_ext='so'
-
-    libfilename = extra_pre + 'cudnn.' +extra_ext
-    env['CM_CUDNN_VERSION'] = 'vdetected'
-    if os.path.exists(os.path.join(cuda_path_lib, libfilename)):
-        env['CM_CUDA_PATH_LIB_CUDNN'] = env['CM_CUDA_PATH_LIB']
-        return {'return': 0}
-
-    if env.get('CM_TMP_PATH', '').strip() != '':
-        path = env.get('CM_TMP_PATH')
-        if os.path.exists(os.path.join(path, libfilename)):
-            env['CM_CUDA_PATH_LIB_CUDNN'] = path
-            return {'return': 0}
-
-    recursion_spaces = i['recursion_spaces']
 
     # If TAR file is not explicitly specified, search
     if env.get('CM_CUDNN_TAR_FILE_PATH','')=='':
+
+       cuda_path_lib = env.get('CM_CUDA_PATH_LIB')
+ 
+       if os_info['platform'] == 'windows':
+           extra_pre=''
+           extra_ext='lib'
+       else:
+           extra_pre='lib'
+           extra_ext='so'
+
+       libfilename = extra_pre + 'cudnn.' +extra_ext
+       env['CM_CUDNN_VERSION'] = 'vdetected'
+       if os.path.exists(os.path.join(cuda_path_lib, libfilename)):
+           env['CM_CUDA_PATH_LIB_CUDNN'] = env['CM_CUDA_PATH_LIB']
+           return {'return': 0}
+
+       if env.get('CM_TMP_PATH', '').strip() != '':
+           path = env.get('CM_TMP_PATH')
+           if os.path.exists(os.path.join(path, libfilename)):
+               env['CM_CUDA_PATH_LIB_CUDNN'] = path
+               return {'return': 0}
+
        if env.get('CM_INPUT','').strip()=='':
            if os_info['platform'] == 'windows':
               if env.get('CM_TMP_PATH','').strip()=='':
