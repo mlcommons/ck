@@ -126,6 +126,7 @@
       },
       "env": {
         "CM_MLPERF_SUBMISSION_RUN": "yes",
+        "CM_MLPERF_LOADGEN_MODE": "performance",
         "CM_RUN_SUBMISSION_CHECKER": "no"
       }
     },
@@ -136,6 +137,7 @@
       },
       "env": {
         "CM_MLPERF_SUBMISSION_RUN": "yes",
+        "CM_MLPERF_LOADGEN_MODE": "accuracy",
         "CM_RUN_SUBMISSION_CHECKER": "no",
         "CM_RUN_MLPERF_ACCURACY": "on"
       }
