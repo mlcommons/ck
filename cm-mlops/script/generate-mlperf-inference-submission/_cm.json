@@ -33,6 +33,7 @@
     "hw_notes_extra": "CM_MLPERF_SUT_HW_NOTES_EXTRA",
     "duplicate": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
     "division": "CM_MLPERF_SUBMISSION_DIVISION",
+    "category": "CM_MLPERF_SUBMISSION_CATEGORY",
     "infer_scenario_results": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
     "submitter": "CM_MLPERF_SUBMITTER"
   },
