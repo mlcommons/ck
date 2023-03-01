@@ -518,6 +518,14 @@
         "CM_TOKENIZATION_VERSION"
       ]
     },
+    "six": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "six"
+      },
+      "new_env_keys": [
+        "CM_SIX_VERSION"
+      ]
+    },
     "toml": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "toml"
