@@ -239,11 +239,11 @@ We suggest you to install cuDNN and TensorRT too.
 If it's not installed, you can use CM scripts to install them as follows:
 
 ```bash
-cm run script --tags=get,cudnn --input=<PATH_TO_CUDNN_TAR_FILE>
+cm run script --tags=get,cudnn --tar_file=<PATH_TO_CUDNN_TAR_FILE>
 ```
 
 ```bash
-cm run script --tags=get,tensorrt --input=<PATH_TO_TENSORRT_TAR_FILE>
+cm run script --tags=get,tensorrt --tar_file=<PATH_TO_TENSORRT_TAR_FILE>
 ```
 
 ### Backend (ML framework)

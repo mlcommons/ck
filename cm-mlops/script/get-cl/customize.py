@@ -25,7 +25,7 @@ def preprocess(i):
           'env_path_key':'CM_CL_BIN_WITH_PATH',
           'run_script_input':i['run_script_input'],
           'recursion_spaces':recursion_spaces}
-    
+
     rr = automation.find_artifact(ii)
     if rr['return'] >0 : 
         # If not found in PATH, try a longer search
