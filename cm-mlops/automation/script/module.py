@@ -3506,7 +3506,20 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         rc = os.system(cmd)
 
-        if rc>0 and not i.get('ignore_script_error',False):
+        if rc>0 and not i.get('ignore_script_error', False):
+            # Check if print files when error
+            print_files = meta.get('print_files_if_script_error', [])
+            if len(print_files)>0:
+               for pr in print_files:
+                   if os.path.isfile(pr):
+                       r = utils.load_txt(file_name = pr)
+                       if r['return'] == 0:
+                           print ("========================================================")
+                           print ("Print file {}:".format(pr))
+                           print ("")
+                           print (r['string'])
+                           print ("")
+
             note = '''Note that it is often a portability problem of the third-party tool or native script that is wrapped and unified by this CM script.
 The CM concept is to collaboratively fix such issues inside portable CM scripts to make existing tools and native script more portable, interoperable, deterministic and reproducible.
 

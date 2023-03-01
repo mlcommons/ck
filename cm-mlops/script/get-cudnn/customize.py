@@ -70,9 +70,11 @@ def preprocess(i):
         # (unless forced by a user)
 
         if env.get('CM_INPUT','').strip()=='':
-            if env.get('CM_TMP_PATH','').strip()!='':
-               env['CM_TMP_PATH']+=':'
-            env['CM_TMP_PATH'] = '/usr/local/cuda/lib64:/usr/cuda/lib64:/usr/local/cuda/lib:/usr/cuda/lib:/usr/local/cuda-11/lib64:/usr/cuda-11/lib:/usr/local/cuda-12/lib:/usr/cuda-12/lib:/usr/local/packages/cuda/lib'
+            cm_tmp_path = env.get('CM_TMP_PATH','').strip()
+            if cm_tmp_path!='':
+               cm_tmp_path+=':'
+            cm_tmp_path+='/usr/local/cuda/lib64:/usr/cuda/lib64:/usr/local/cuda/lib:/usr/cuda/lib:/usr/local/cuda-11/lib64:/usr/cuda-11/lib:/usr/local/cuda-12/lib:/usr/cuda-12/lib:/usr/local/packages/cuda/lib'
+            env['CM_TMP_PATH'] = cm_tmp_path
             env['CM_TMP_PATH_IGNORE_NON_EXISTANT'] = 'yes'
 
             for lib_path in env.get('+CM_HOST_OS_DEFAULT_LIBRARY_PATH', []):

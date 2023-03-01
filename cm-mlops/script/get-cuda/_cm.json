@@ -36,6 +36,9 @@
       "tags": "install,cuda,prebuilt"
     }
   ],
+  "print_files_if_script_error": [
+    "tmp-ver.out"
+  ],
   "tags": [
     "get",
     "cuda",
