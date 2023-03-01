@@ -32,7 +32,6 @@ def postprocess(i):
            key_env = 'CM_CUDA_DEVICE_PROP_'+key.upper().replace(' ','_')
            env[key_env] = val
 
-
     state['cm_cuda_device_prop'] = p
 
     return {'return':0}

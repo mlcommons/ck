@@ -162,6 +162,9 @@ variations:
     env:
       CM_MLPERF_PYTHON: 'yes'
       CM_MLPERF_IMPLEMENTATION: reference
+      CM_SQUAD_ACCURACY_DTYPE: float32
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+      CM_LIBRISPEECH_ACCURACY_DTYPE: float32
     posthook_deps:
       - names:
          - python-reference-mlperf-inference
@@ -189,6 +192,8 @@ variations:
         version-min: 3.8.0
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia
+      CM_SQUAD_ACCURACY_DTYPE: float16
+      CM_IMAGENET_ACCURACY_DTYPE: int32
     deps:
       ## Nvidia common code
       - tags: get,mlperf,inference,nvidia,common-code
@@ -215,6 +220,9 @@ variations:
         tags: _int8
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia-original
+      CM_SQUAD_ACCURACY_DTYPE: float16
+      CM_IMAGENET_ACCURACY_DTYPE: int32
+      CM_LIBRISPEECH_ACCURACY_DTYPE: int8
     posthook_deps:
       - names:
          - nvidia-original-mlperf-inference
@@ -330,6 +338,14 @@ variations:
       tags: run,accuracy,mlperf,_librispeech
 
   bert_:
+    deps:
+    - skip_if_env:
+        CM_DATASET_SQUAD_VAL_PATH: "on"
+      tags: get,dataset,squad,language-processing
+    - skip_if_env:
+        CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": "on"
+      tags: get,dataset-aux,squad-vocab
+
     post_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -356,10 +372,6 @@ variations:
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _bert-99
-    deps:
-    - skip_if_env:
-        CM_DATASET_SQUAD_VAL_PATH: "on"
-      tags: get,dataset,squad,language-processing
 
   bert-99.9:
     group:

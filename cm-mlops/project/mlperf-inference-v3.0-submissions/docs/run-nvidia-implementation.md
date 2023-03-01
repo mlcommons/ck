@@ -9,11 +9,11 @@ If CUDA is not detected, CM should download and install it automatically when yo
 
 For x86 machines, you can download the tar files for cuDNN and TensorRT and install them using the following commands
 ```bash
-cm run script --tags=get,cudnn --input=<PATH_TO_CUDNN_TAR_FILE>
+cm run script --tags=get,cudnn --tar_file=<PATH_TO_CUDNN_TAR_FILE>
 ```
 
 ```bash
-cm run script --tags=get,tensorrt --input=<PATH_TO_TENSORRT_TAR_FILE>
+cm run script --tags=get,tensorrt --tar_file=<PATH_TO_TENSORRT_TAR_FILE>
 ```
 
 On other systems you can do a package manager install and then CM should pick up the installation automatically during the workflow run.

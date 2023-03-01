@@ -54,17 +54,23 @@ def postprocess(i):
                         accuracy_filename)
         dataset_args = " --imagenet-val-file " + \
         os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt")
+        accuracy_log_file_option_name = " --mlperf-accuracy-file "
+        datatype_option = ""
 
     elif model == "retinanet":
         accuracy_filename = "accuracy-openimages.py"
         accuracy_filepath = os.path.join(env['CM_MLPERF_INFERENCE_CLASSIFICATION_AND_DETECTION_PATH'], "tools", \
                         accuracy_filename)
         dataset_args = " --openimages-dir " + env['CM_DATASET_PATH']
+        accuracy_log_file_option_name = " --mlperf-accuracy-file "
+        datatype_option = ""
 
     elif 'bert' in model:
         accuracy_filename = "accuracy-squad.py"
         accuracy_filepath = os.path.join(env['CM_MLPERF_INFERENCE_BERT_PATH'], accuracy_filename)
-        dataset_args = " --val_data " + env['CM_DATASET_SQUAD_VAL_PATH']
+        dataset_args = " --val_data '" + env['CM_DATASET_SQUAD_VAL_PATH'] + "' --vocab_file '" + env['CM_DATASET_SQUAD_VOCAB_PATH'] + "' --out_file predictions.json "
+        accuracy_log_file_option_name = " --log_file "
+        datatype_option = " --output_dtype "+env['CM_SQUAD_ACCURACY_DTYPE']
 
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
 
@@ -210,12 +216,17 @@ def postprocess(i):
 
             SCRIPT_PATH = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", test,
                     "create_accuracy_baseline.sh")
+            TEST01_DIR = os.path.join(OUTPUT_DIR, "TEST01")
+            OUTPUT_DIR = os.path.join(OUTPUT_DIR, "TEST01", "accuracy")
+            if not os.path.exists(OUTPUT_DIR):
+                os.makedirs(OUTPUT_DIR)
+
             ACCURACY_DIR = os.path.join(RESULT_DIR, "accuracy")
             if not os.path.exists(ACCURACY_DIR):
                 print("Accuracy run not yet completed")
                 return {'return':1, 'error': 'TEST01 needs accuracy run to be completed first'}
 
-            cmd = "bash " + SCRIPT_PATH + " " + os.path.join(ACCURACY_DIR, "mlperf_log_accuracy.json") + " " + \
+            cmd = "cd "+OUTPUT_DIR+" &&  bash " + SCRIPT_PATH + " " + os.path.join(ACCURACY_DIR, "mlperf_log_accuracy.json") + " " + \
                     os.path.join(COMPLIANCE_DIR, "mlperf_log_accuracy.json")
             #print(cmd)
             #result  = subprocess.run(cmd, shell=True)
@@ -233,11 +244,8 @@ def postprocess(i):
             #except subprocess.CalledProcessError as e:
             #if not result: #Normal test failed, trying the check with non-determinism
 
-                OUTPUT_DIR = os.path.join(OUTPUT_DIR, "TEST01", "accuracy")
-                if not os.path.exists(OUTPUT_DIR):
-                    os.makedirs(OUTPUT_DIR)
-                CMD = env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + " --mlperf-accuracy-file " + \
-                        "mlperf_log_accuracy_baseline.json" + dataset_args + " > " + \
+                CMD = "cd "+ ACCURACY_DIR+" && "+  env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + accuracy_log_file_option_name + \
+                        os.path.join(OUTPUT_DIR, "mlperf_log_accuracy_baseline.json") + dataset_args + datatype_option + " > " + \
                         os.path.join(OUTPUT_DIR, "baseline_accuracy.txt")
                 #print(CMD)
                 env['CMD'] = CMD
@@ -245,8 +253,8 @@ def postprocess(i):
                 if r['return']>0: return r
                 #result  = subprocess.run(CMD, shell=True)
 
-                CMD = env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + " --mlperf-accuracy-file " + \
-                        "mlperf_log_accuracy.json" + dataset_args + " > " + \
+                CMD = "cd " + ACCURACY_DIR + " &&  "+env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + accuracy_log_file_option_name + \
+                        os.path.join(TEST01_DIR, "mlperf_log_accuracy.json") + dataset_args + datatype_option + " > " + \
                         os.path.join(OUTPUT_DIR, "compliance_accuracy.txt")
                 #print(CMD)
                 env['CMD'] = CMD

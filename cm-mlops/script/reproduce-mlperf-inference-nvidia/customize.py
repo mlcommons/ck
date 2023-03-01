@@ -40,9 +40,13 @@ def preprocess(i):
 
     elif "3d-unet" in env['CM_MODEL']:
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'KiTS19', 'kits19', 'data')
+        target_data_path_base_dir = os.path.dirname(target_data_path)
+        if not os.path.exists(target_data_path_base_dir):
+            cmds.append(f"mkdir -p {target_data_path_base_dir}")
+ 
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -sf {env['CM_DATASET_PATH']} {target_data_path}")
-            #cmds.append("make download_data BENCHMARKS='3d-unet'")
+            #cmds.append(f"ln -sf {env['CM_DATASET_PATH']} {target_data_path}")
+            cmds.append("make download_data BENCHMARKS='3d-unet'")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', '3d-unet-kits19', '3dUNetKiTS19.onnx')
         model_name = "3d-unet"
