@@ -48,7 +48,7 @@ cm run script --tags=generate,inference,submission --results_dir=$HOME/inference
 
 First create a fork of [this repo](https://github.com/ctuning/mlperf_inference_submissions_v3.0/). Then run the following command after replacing `--repo_url` with your fork URL.
 ```
-cm run script --tags=push,github,mlperf,inference,submission --submission_dir=$HOME/mobilenet_submission_tree \
+cm run script --tags=push,github,mlperf,inference,submission --submission_dir=$HOME/inference_submission_tree \
 --repo_url=https://github.com/ctuning/mlperf_inference_submissions_v3.0/ \
 --commit_message="ResNet50 results added"
 ```
