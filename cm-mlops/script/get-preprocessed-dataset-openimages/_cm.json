@@ -147,6 +147,7 @@
     },
     "custom-annotations": {
       "group": "annotations",
+      "default": true,
       "add_deps_recursive": {
         "original-dataset": {
           "tags": "_custom-annotations"
@@ -155,7 +156,6 @@
     },
     "default-annotations": {
       "group": "annotations",
-      "default": true,
       "add_deps_recursive": {
         "original-dataset": {
           "tags": "_default-annotations"

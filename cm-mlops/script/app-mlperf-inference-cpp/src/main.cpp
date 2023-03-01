@@ -46,6 +46,7 @@ public:
         std::cout << "MLPerf Conf path: " << mlperf_conf_path << std::endl;
         std::cout << "User Conf path: " << user_conf_path << std::endl;
         std::cout << "Dataset Preprocessed path: " << dataset_preprocessed_path << std::endl;
+        std::cout << "Dataset List filepath: " << dataset_list << std::endl;
         std::cout << "Scenario: " << scenario_name << std::endl;
         std::cout << "Mode: " << mode_name << std::endl;
         std::cout << "Batch size: " << batch_size << std::endl;
@@ -147,6 +148,8 @@ int main(int argc, const char *argv[]) {
         performance_sample_count =
             std::min(performance_sample_count, max_sample_count);
 
+    if (max_sample_count == 0)
+      max_sample_count = INT_MAX;
     // build backend
     std::shared_ptr<Backend> backend;
     if (input_settings.backend_name == "onnxruntime") {
