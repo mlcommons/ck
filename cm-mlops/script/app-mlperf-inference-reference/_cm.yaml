@@ -533,6 +533,7 @@ variations:
       CM_MLPERF_MODEL_SKIP_BATCHING: true
     deps:
     - tags: get,generic-python-lib,_tokenization
+    - tags: get,generic-python-lib,_six
     - tags: get,generic-python-lib,_protobuf
       names:
       - protobuf

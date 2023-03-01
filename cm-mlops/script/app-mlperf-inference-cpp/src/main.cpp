@@ -1,6 +1,7 @@
 #include <cstddef>
 #include <cstring>
 #include <string>
+#include <climits>
 
 #include "loadgen.h"
 #include "test_settings.h"
@@ -10,7 +11,6 @@
 #include "model.h"
 #include "sample_library.h"
 #include "system.h"
-
 #ifdef CM_MLPERF_DEVICE_GPU
     #include "gpu_device.h"
 #endif
