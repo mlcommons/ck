@@ -241,7 +241,7 @@ def generate_submission(i):
                                     target = os.path.join(submission_results_path, "accuracy")
                                     os.makedirs(target)
                                     for log_file in os.listdir(compliance_accuracy_run_path):
-                                        if log_file.startswith("mlperf_"):
+                                        if log_file.startswith("mlperf_log_accuracy.json") or log_file.endswith("accuracy.txt"):
                                             shutil.copy(os.path.join(compliance_accuracy_run_path, log_file), os.path.join(target, log_file))
                         else:
                             if f.startswith('mlperf_') and not f.endswith('trace.json'):

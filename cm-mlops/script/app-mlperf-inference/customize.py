@@ -226,7 +226,7 @@ def postprocess(i):
                 print("Accuracy run not yet completed")
                 return {'return':1, 'error': 'TEST01 needs accuracy run to be completed first'}
 
-            cmd = "cd "+OUTPUT_DIR+" &&  bash " + SCRIPT_PATH + " " + os.path.join(ACCURACY_DIR, "mlperf_log_accuracy.json") + " " + \
+            cmd = "cd " + TEST01_DIR + " &&  bash " + SCRIPT_PATH + " " + os.path.join(ACCURACY_DIR, "mlperf_log_accuracy.json") + " " + \
                     os.path.join(COMPLIANCE_DIR, "mlperf_log_accuracy.json")
             #print(cmd)
             #result  = subprocess.run(cmd, shell=True)
@@ -235,7 +235,7 @@ def postprocess(i):
             if r['return']>0:
                 return r
 
-            CMD = "cat verify_accuracy.txt | grep 'TEST PASS'"
+            CMD = "cd " + TEST01_DIR + " && cat verify_accuracy.txt | grep 'TEST PASS'"
             #try:
                 #result  = subprocess.check_output(CMD, shell=True).decode("utf-8")
             env['CMD'] = CMD
