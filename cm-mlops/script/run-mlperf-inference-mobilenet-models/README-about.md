@@ -49,7 +49,7 @@ cm run script --tags=run,mobilenet-models,_tflite,_populate-readme --results_dir
 We should use the master branch of MLCommons inference repo for the submission checker. You can use `--hw_note_extra` option to add your name to the notes.
 ```
 cm run script --tags=generate,inference,submission --results_dir=$HOME/mobilenet_results/valid_results \
---submission_dir=$HOME/mobilenet_submission_tree --clean --infer-scenario_results \
+--submission_dir=$HOME/mobilenet_submission_tree --clean --infer_scenario_results=yes \
 --run-checker --submitter=cTuning --adr.inference-src.version=master --hw_notes_extra="Result taken by NAME"
 ```
 
