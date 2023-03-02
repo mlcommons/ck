@@ -542,6 +542,10 @@ variations:
         CM_MLPERF_BACKEND:
         - tf
         - tflite
+    - tags: get,generic-python-lib,_boto3
+      enable_if_env:
+        CM_MLPERF_BACKEND:
+        - pytorch
     - tags: get,generic-python-lib,_torch
       names:
       - ml-engine-pytorch
