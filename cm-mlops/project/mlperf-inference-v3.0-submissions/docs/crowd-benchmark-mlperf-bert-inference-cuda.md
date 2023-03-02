@@ -271,3 +271,5 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
 
 Feel free to join our [open taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 and the public [Discord server](https://discord.gg/JjWNWXKxwT) to learn about our roadmap and related community projects.
+
+*Prepared by [Grigori Fursin](https://fursin.net) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).*
