@@ -456,7 +456,7 @@ variations:
         tags: raw,_pytorch
     env:
       CM_MLPERF_BACKEND: pytorch
-      CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
 
   tf:
     group: framework
