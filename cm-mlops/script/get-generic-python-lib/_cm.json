@@ -42,7 +42,7 @@
       ],
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "apache-tvm",
-        "CM_GENERIC_PYTHON_PIP_EXTRA": "--pre"
+        "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre"
       },
       "new_env_keys": [
         "CM_APACHE_TVM_VERSION"
@@ -150,14 +150,6 @@
       },
       "new_env_keys": [
         "CM_ATTR_VERSION"
-      ]
-    },
-    "attrs": {
-      "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "attrs"
-      },
-      "new_env_keys": [
-        "CM_ATTRS_VERSION"
       ]
     },
     "decorator": {

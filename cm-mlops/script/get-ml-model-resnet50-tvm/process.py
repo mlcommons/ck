@@ -14,6 +14,7 @@ input_shapes = input_shapes.replace('BATCH_SIZE', str(max_batchsize))
 model_path = os.environ.get('CM_ML_MODEL_FILE_WITH_PATH')
 
 print('TVM model: ' + model_path)
+
 # Check if load precompiled model
 compiled_model = os.path.join(os.getcwd(), 'model-tvm.so')
 if model_path.endswith('.so') or model_path.endswith('.dylib'):
@@ -21,7 +22,8 @@ if model_path.endswith('.so') or model_path.endswith('.dylib'):
 
     if not os.path.isfile(compiled_model):
         print('')
-        raise Exception("Error: Model file {} not found!".format(compiled_model))
+        raise Exception(
+            "Error: Model file {} not found!".format(compiled_model))
 else:
 
     build_conf = {}
@@ -127,37 +129,52 @@ else:
     if os.environ.get('CM_TUNE_TVM_MODEL', 'no') == 'yes':
         from tvm import meta_schedule as ms
 
-        work_dir = os.path.join(os.getcwd(), "metaschedule_workdir")
-        if not os.path.exists(work_dir):
-            os.mkdir(work_dir)
+        work_dir = os.environ.get('CM_TUNE_TVM_MODEL_WORKDIR', '')
+        if work_dir == '':
+            work_dir = os.path.join(os.getcwd(), "metaschedule_workdir")
+            if not os.path.exists(work_dir):
+                os.mkdir(work_dir)
 
-        print("Extracting tasks...")
-        extracted_tasks = ms.relay_integration.extract_tasks(
-            mod, tvm_target, params
-        )
-        tasks, task_weights = ms.relay_integration.extracted_tasks_to_tune_contexts(
-            extracted_tasks, work_dir, strategy="evolutionary"
-        )
+            print("Extracting tasks...")
+            extracted_tasks = ms.relay_integration.extract_tasks(
+                mod, tvm_target, params
+            )
+            tasks, task_weights = ms.relay_integration.extracted_tasks_to_tune_contexts(
+                extracted_tasks, work_dir, strategy="evolutionary"
+            )
 
-        print("Begin tuning...")
-        evaluator_config = ms.runner.config.EvaluatorConfig(
-            number=1, repeat=10, enable_cpu_cache_flush=True
-        )
-        database = ms.tune.tune_tasks(
-            tasks=tasks,
-            task_weights=task_weights,
-            work_dir=work_dir,
-            max_trials_global=20000,
-            num_trials_per_iter=64,
-            max_trials_per_task=256,
-            builder=ms.builder.LocalBuilder(),
-            runner=ms.runner.LocalRunner(evaluator_config=evaluator_config),
-        )
+            print("Begin tuning...")
+            evaluator_config = ms.runner.config.EvaluatorConfig(
+                number=1, repeat=10, enable_cpu_cache_flush=True
+            )
+            database = ms.tune.tune_tasks(
+                tasks=tasks,
+                task_weights=task_weights,
+                work_dir=work_dir,
+                max_trials_global=20000,
+                num_trials_per_iter=64,
+                max_trials_per_task=512,
+                builder=ms.builder.LocalBuilder(),
+                runner=ms.runner.LocalRunner(
+                    evaluator_config=evaluator_config),
+            )
+        else:
+            if not os.path.exists(work_dir):
+                raise Exception(
+                    f"Error: the specified path \"{work_dir}\"does not exist")
+
+            if not os.path.exists(f"{work_dir}/database_workload.json"):
+                raise Exception(
+                    "Found workdir does not contain database_workload.json")
+
+            if not os.path.exists(f"{work_dir}/database_tuning_record.json"):
+                raise Exception(
+                    "Found workdir does not contain database_tuning_record.json")
 
         database = ms.database.JSONDatabase(f"{work_dir}/database_workload.json",
                                             f"{work_dir}/database_tuning_record.json",
                                             allow_missing=False)
-        
+
         build_conf["relay.backend.use_meta_schedule"] = True
 
         with tvm.transform.PassContext(opt_level=opt_lvl, config=build_conf):
