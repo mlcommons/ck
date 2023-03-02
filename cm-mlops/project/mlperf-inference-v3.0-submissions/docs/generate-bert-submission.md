@@ -39,7 +39,7 @@ cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios
 
 We should use the master branch of MLCommons inference repo for the submission checker. You can use `--hw_note_extra` option to add your name to the notes.
 ```
-cm run script --tags=generate,inference,submission --results_dir=$HOME/inference_3.0_results/valid_results \
+cm run script --tags=generate,inference,submission --results_dir=$HOME/inference_3.0_results/valid_results --device=cpu \
 --submission_dir=$HOME/inference_submission_tree --clean  \
 --run-checker --submitter=cTuning --adr.inference-src.version=master --hw_notes_extra="Result taken by NAME" --quiet
 ```
