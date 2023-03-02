@@ -534,6 +534,45 @@
         "CM_TOML_VERSION"
       ]
     },
+    "torch_pre": {
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch"
+      },
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/inightly/cpu"
+      },
+      "new_env_keys": [
+        "CM_TORCH_VERSION*"
+      ]
+    },
+    "torch_cuda_pre": {
+      "deps": [
+        {
+          "names": [
+            "cuda"
+          ],
+          "tags": "get,cuda"
+        },
+	{
+          "tags": "get,generic-python-lib,_numpy"
+	}
+      ],
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch_cuda"
+      },
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre",
+        "CM_TORCH_CUDA": "cu117",
+        "CM_TORCH_VERSION_EXTRA": "CUDA"
+      },
+      "new_env_keys": [
+        "CM_TORCH_VERSION*"
+      ]
+    },
     "torch": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
