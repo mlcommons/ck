@@ -115,6 +115,8 @@ variations:
     env:
       CM_MLPERF_CPP: 'yes'
       CM_MLPERF_IMPLEMENTATION: cpp
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+      CM_OPENIMAGES_ACCURACY_DTYPE: float32
     posthook_deps:
       - names:
          - cpp-mlperf-inference
@@ -138,6 +140,7 @@ variations:
       CM_MLPERF_TFLITE_CPP: 'yes'
       CM_MLPERF_CPP: 'yes'
       CM_MLPERF_IMPLEMENTATION: tflite-cpp
+      CM_IMAGENET_ACCURACY_DTYPE: float32
     posthook_deps:
       - names:
          - tflite-cpp-mlperf-inference
@@ -164,6 +167,7 @@ variations:
       CM_MLPERF_IMPLEMENTATION: reference
       CM_SQUAD_ACCURACY_DTYPE: float32
       CM_IMAGENET_ACCURACY_DTYPE: float32
+      CM_OPENIMAGES_ACCURACY_DTYPE: float32
       CM_LIBRISPEECH_ACCURACY_DTYPE: float32
     posthook_deps:
       - names:
