@@ -44,8 +44,8 @@
 
 #### replay
 
-  * CM CLI: ```cm replay experiment``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/experiment/module.py#L155))
-  * CM CLI with UID: ```cm replay experiment,a0a2d123ef064bcb``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/experiment/module.py#L155))
+  * CM CLI: ```cm replay experiment``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/experiment/module.py#L403))
+  * CM CLI with UID: ```cm replay experiment,a0a2d123ef064bcb``` ([add flags (dict keys) from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/experiment/module.py#L403))
   * CM Python API:
     ```python
     import cmind
@@ -55,7 +55,7 @@
                  'automation':'experiment,a0a2d123ef064bcb'
                  'out':'con'
     ```
-    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/experiment/module.py#L155)
+    [add keys from this API](https://github.com/mlcommons/ck/tree/master/cm-mlops/automation/experiment/module.py#L403)
     ```python
                 })
     if r['return']>0:

@@ -107,6 +107,7 @@ ___
 * --**num_threads**=value --> **CM_NUM_THREADS**=value
 * --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
 * --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
+* --**performance_sample_count**=value --> **CM_MLPERF_PERFORMANCE_SAMPLE_COUNT**=value
 * --**power**=value --> **CM_MLPERF_POWER**=value
 * --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
 * --**rerun**=value --> **CM_RERUN**=value

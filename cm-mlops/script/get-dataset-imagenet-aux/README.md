@@ -106,6 +106,14 @@ ___
       - Environment variables:
         - *CM_DATASET_AUX_VER*: `2012`
       - Workflow:
+
+    </details>
+
+
+  * Group "**download-source**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
     * `_from.berkeleyvision`
       - Environment variables:
         - *CM_WGET_URL*: `http://dl.caffe.berkeleyvision.org/caffe_ilsvrc12.tar.gz`

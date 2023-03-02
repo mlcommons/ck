@@ -125,6 +125,7 @@ ___
 
 * --**configs_git_url**=value --> **CM_GIT_URL**=value
 * --**repo_path**=value --> **CM_SUT_CONFIGS_PATH**=value
+* --**run_config**=value --> **CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 

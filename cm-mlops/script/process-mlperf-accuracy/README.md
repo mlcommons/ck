@@ -128,7 +128,8 @@ ___
         - *CM_DATASET*: `openimages`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
-           * get,dataset,original,object-detection,open-images
+           * get,dataset,openimages,original
+             * CM names: `--adr.['openimages-dataset']...`
              - CM script: [get-dataset-openimages](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages)
            * get,generic-python-lib,_pycocotools
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)

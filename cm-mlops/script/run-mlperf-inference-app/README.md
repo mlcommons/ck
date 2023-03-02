@@ -134,17 +134,6 @@ ___
       - Environment variables:
         - *CM_MLPERF_DASHBOARD*: `on`
       - Workflow:
-    * `_submission`
-      - Environment variables:
-        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
-        - *CM_RUN_SUBMISSION_CHECKER*: `yes`
-        - *CM_TAR_SUBMISSION_DIR*: `yes`
-        - *CM_RUN_MLPERF_ACCURACY*: `on`
-      - Workflow:
-        1. ***Read "post_deps" on other CM scripts***
-           * generate,mlperf,inference,submission
-             * CM names: `--adr.['submission-generator']...`
-             - CM script: [generate-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)
 
     </details>
 
@@ -157,13 +146,51 @@ ___
       - Environment variables:
         - *CM_MLPERF_LOADGEN_ALL_MODES*: `yes`
       - Workflow:
-    * `_find-performance`
+
+    </details>
+
+
+  * Group "**submission-generation**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_accuracy-only`
+      - Environment variables:
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
+        - *CM_MLPERF_LOADGEN_MODE*: `accuracy`
+        - *CM_RUN_SUBMISSION_CHECKER*: `no`
+        - *CM_RUN_MLPERF_ACCURACY*: `on`
+      - Workflow:
+    * **`_find-performance`** (default)
       - Environment variables:
         - *CM_MLPERF_LOADGEN_ALL_MODES*: `no`
         - *CM_MLPERF_LOADGEN_MODE*: `performance`
-        - *CM_MLPERF_FIND_PERFORMANCE*: `True`
+        - *CM_MLPERF_FIND_PERFORMANCE_MODE*: `yes`
         - *CM_MLPERF_RESULT_PUSH_TO_GITHUB*: `False`
       - Workflow:
+    * `_performance-only`
+      - Environment variables:
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
+        - *CM_MLPERF_LOADGEN_MODE*: `performance`
+        - *CM_RUN_SUBMISSION_CHECKER*: `no`
+      - Workflow:
+    * `_populate-readme`
+      - Environment variables:
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
+        - *CM_MLPERF_README*: `yes`
+        - *CM_RUN_SUBMISSION_CHECKER*: `no`
+      - Workflow:
+    * `_submission`
+      - Environment variables:
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
+        - *CM_RUN_SUBMISSION_CHECKER*: `yes`
+        - *CM_TAR_SUBMISSION_DIR*: `yes`
+        - *CM_RUN_MLPERF_ACCURACY*: `on`
+      - Workflow:
+        1. ***Read "post_deps" on other CM scripts***
+           * generate,mlperf,inference,submission
+             * CM names: `--adr.['submission-generator']...`
+             - CM script: [generate-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)
 
     </details>
 
@@ -186,7 +213,7 @@ ___
 
 #### Default variations
 
-`_short`
+`_find-performance,_short`
 
 #### Input description
 
@@ -240,8 +267,9 @@ r=cm.access({... , "adr.python.name":...}
 * --**device**=value --> **CM_MLPERF_DEVICE**=value
 * --**division**=value --> **CM_MLPERF_SUBMISSION_DIVISION**=value
 * --**execution_mode**=value --> **CM_MLPERF_EXECUTION_MODE**=value
-* --**find_performance**=value --> **CM_MLPERF_FIND_PERFORMANCE**=value
+* --**find_performance**=value --> **CM_MLPERF_FIND_PERFORMANCE_MODE**=value
 * --**hw_name**=value --> **CM_HW_NAME**=value
+* --**hw_notes_extra**=value --> **CM_MLPERF_SUT_SW_NOTES_EXTRA**=value
 * --**implementation**=value --> **CM_MLPERF_IMPLEMENTATION**=value
 * --**lang**=value --> **CM_MLPERF_IMPLEMENTATION**=value
 * --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
@@ -265,6 +293,7 @@ r=cm.access({... , "adr.python.name":...}
 * --**skip_truncation**=value --> **CM_SKIP_TRUNCATE_ACCURACY**=value
 * --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
 * --**submitter**=value --> **CM_MLPERF_SUBMITTER**=value
+* --**sw_notes_extra**=value --> **CM_MLPERF_SUT_SW_NOTES_EXTRA**=value
 * --**system_type**=value --> **CM_MLPERF_SUBMISSION_SYSTEM_TYPE**=value
 * --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
 * --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
