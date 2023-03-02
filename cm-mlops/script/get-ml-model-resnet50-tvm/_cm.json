@@ -114,13 +114,19 @@
           "names": [
             "original-model"
           ],
-          "tags": "get,ml-model,raw,resnet50,_tf"
+          "tags": "get,ml-model,raw,resnet50,_tflite"
         },
         {
           "names": [
             "tensorflow"
           ],
           "tags": "get,generic-python-lib,_tensorflow"
+        },
+        {
+          "names": [
+            "tflite"
+          ],
+          "tags": "get,generic-python-lib,_tflite"
         }
       ],
       "group": "framework"

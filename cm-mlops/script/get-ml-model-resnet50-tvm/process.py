@@ -59,6 +59,9 @@ if model_path.endswith('.pt'):
 elif model_path.endswith('.onnx'):
    import onnx
 
+   print ('')
+   raise Exception("ONNX-format")
+
    shape_dict = eval('{' + input_shapes + '}')
 
    print ('TVM shape dict: '+str(shape_dict))

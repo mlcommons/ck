@@ -625,6 +625,14 @@
       "new_env_keys": [
         "CM_WEST_VERSION"
       ]
+    },
+    "tflite": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tflite"
+      },
+      "new_env_keys": [
+        "CM_TFLITE_VERSION"
+      ]
     }
   }
 }

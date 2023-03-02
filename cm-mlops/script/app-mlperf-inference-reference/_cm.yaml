@@ -487,6 +487,8 @@ variations:
 
   tvm-onnx:
     group: framework
+    base:
+      - batch_size.32
     env:
       CM_MLPERF_BACKEND: tvm-onnx
       CM_MLPERF_BACKEND_VERSION: <<<CM_ONNXRUNTIME_VERSION>>>
@@ -501,6 +503,8 @@ variations:
   
   tvm-tflite:
     group: framework
+    base:
+      - batch_size.32
     env:
       CM_MLPERF_BACKEND: tvm-tflite
       CM_MLPERF_BACKEND_VERSION: <<<CM_TVM-TFLITE_VERSION>>>
@@ -510,7 +514,7 @@ variations:
         tvm
     add_deps_recursive:
       ml-model:
-        tags: tvm-model,_onnx
+        tags: tvm-model,_tflite
 
   tvm-pytorch:
     group: framework
