@@ -38,7 +38,7 @@ developed by [MLCommons taskforce on education and reproducibility](https://gith
 to modularize complex AI and ML Systems and automate their benchmarking, design space exploration, optimization and deployment
 across continuously evolving software, hardware, models and data.
 
-*If you submit your results before 9pm on Friday 3rd, 2023, 
+*If you submit your results before 1pm PST on Friday 3rd, 2023, 
  they will be accepted for the official MLPerf inference v3.0 submission round
  and your name acknowledged in the notes!*
 
