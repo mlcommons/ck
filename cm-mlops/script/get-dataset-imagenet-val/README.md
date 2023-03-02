@@ -105,26 +105,26 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_2012`
+      - Environment variables:
+        - *CM_DATASET_VER*: `2012`
+      - Workflow:
     * `_2012-1`
       - Environment variables:
         - *CM_DATASET_SIZE*: `1`
-        - *CM_DATASET_VER*: `2012`
       - Workflow:
     * **`_2012-500`** (default)
       - Environment variables:
         - *CM_DATASET_SIZE*: `500`
-        - *CM_DATASET_VER*: `2012`
       - Workflow:
     * `_2012-full`
       - Environment variables:
         - *CM_DATASET_SIZE*: `50000`
-        - *CM_DATASET_VER*: `2012`
         - *CM_IMAGENET_FULL*: `yes`
       - Workflow:
     * `_full`
       - Environment variables:
         - *CM_DATASET_SIZE*: `50000`
-        - *CM_DATASET_VER*: `2012`
         - *CM_IMAGENET_FULL*: `yes`
       - Workflow:
     * `_size.#`

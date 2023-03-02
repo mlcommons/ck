@@ -99,12 +99,13 @@ ___
 
 #### Input description
 
-* --**tar_file** Path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)
+* --**input** Full path to the installed cuDNN library
+* --**tar_file** Full path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "tar_file":...}
+r=cm.access({... , "input":...}
 ```
 
 #### Script flags mapped to environment

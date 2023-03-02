@@ -204,22 +204,23 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_MOBILENET_NAME_SUFFIX*: `_quant`
       - Workflow:
-    * `_tf,v2`
-      - Environment variables:
-        - *CM_ML_MODEL_VER*: `2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>`
-        - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `MobilenetV2/Predictions/Reshape_1`
-      - Workflow:
     * `_tf,v2,fp32`
       - Environment variables:
         - *CM_ML_MODEL_MOBILENET_NAME_PREFIX*: ``
+        - *CM_ML_MODEL_VER*: `2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>`
+        - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `MobilenetV2/Predictions/Reshape_1`
       - Workflow:
     * `_tf,v2,int8`
       - Environment variables:
         - *CM_ML_MODEL_MOBILENET_NAME_PREFIX*: `quantized`
+        - *CM_ML_MODEL_VER*: `2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>`
+        - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `MobilenetV2/Predictions/Softmax`
       - Workflow:
     * `_tf,v2,uint8`
       - Environment variables:
         - *CM_ML_MODEL_MOBILENET_NAME_PREFIX*: `quantized`
+        - *CM_ML_MODEL_VER*: `2_<<<CM_ML_MODEL_MOBILENET_MULTIPLIER>>>_<<<CM_ML_MODEL_MOBILENET_RESOLUTION>>>`
+        - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `MobilenetV2/Predictions/Softmax`
       - Workflow:
     * `_tf,v3`
       - Environment variables:

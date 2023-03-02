@@ -114,6 +114,18 @@ ___
     </details>
 
 
+  * Group "**annotations**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_custom-annotations`
+      - Workflow:
+    * **`_default-annotations`** (default)
+      - Workflow:
+
+    </details>
+
+
   * Group "**dataset-count**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -186,7 +198,7 @@ ___
 
 #### Default variations
 
-`_50,_NCHW,_fp32,_validation`
+`_50,_NCHW,_default-annotations,_fp32,_validation`
 
 #### Script flags mapped to environment
 <details>

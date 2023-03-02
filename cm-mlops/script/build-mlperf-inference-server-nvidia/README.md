@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -101,26 +102,22 @@ ___
 
 #### Variations
 
-  * *No group (any variation can be selected)*
-    <details>
-    <summary>Click here to expand this section.</summary>
-
-    * `_cuda`
-      - Environment variables:
-        - *CM_MLPERF_DEVICE*: `gpu`
-        - *CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
-      - Workflow:
-
-    </details>
-
-
   * Group "**device**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * **`_cpu`** (default)
+    * `_cpu`
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `cpu`
+      - Workflow:
+    * **`_cuda`** (default)
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `cuda`
+        - *CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
+      - Workflow:
+    * `_inferentia`
+      - Environment variables:
+        - *CM_MLPERF_DEVICE*: `inferentia`
       - Workflow:
 
     </details>
@@ -128,7 +125,22 @@ ___
 
 #### Default variations
 
-`_cpu`
+`_cuda`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**clean**=value --> **CM_MAKE_CLEAN**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "clean":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -136,6 +148,8 @@ ___
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
+* CM_MAKE_BUILD_COMMAND: **build**
+* CM_MAKE_CLEAN: **no**
 
 </details>
 
@@ -153,9 +167,13 @@ ___
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
      * get,cuda,_cudnn
+       * `if (CM_MLPERF_DEVICE in ['cuda', 'inferentia'])`
        - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,tensorrt
+       * `if (CM_MLPERF_DEVICE in ['cuda', 'inferentia'])`
        - CM script: [get-tensorrt](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt)
+     * get,gcc
+       - CM script: [get-gcc](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-gcc)
      * get,cmake
        - CM script: [get-cmake](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cmake)
      * get,generic,sys-util,_glog-dev
