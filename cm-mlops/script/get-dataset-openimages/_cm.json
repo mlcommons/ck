@@ -50,7 +50,7 @@
       "tags": "get,openimages,annotations",
       "enable_if_env": {
         "CM_DATASET_OPENIMAGES_CUSTOM_ANNOTATIONS": [
-          "on"
+          "yes"
         ]
       }
     }
