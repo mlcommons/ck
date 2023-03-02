@@ -55,7 +55,7 @@ def postprocess(i):
         dataset_args = " --imagenet-val-file " + \
         os.path.join(env['CM_DATASET_AUX_PATH'], "val.txt")
         accuracy_log_file_option_name = " --mlperf-accuracy-file "
-        datatype_option = ""
+        datatype_option = " --dtype "+env['CM_IMAGENET_ACCURACY_DTYPE']
 
     elif model == "retinanet":
         accuracy_filename = "accuracy-openimages.py"
@@ -194,14 +194,6 @@ def postprocess(i):
 
         RESULT_DIR = os.path.split(output_dir)[0]
         COMPLIANCE_DIR = output_dir
-        '''split = os.path.split(RESULT_DIR)
-        split = os.path.split(split[0])
-        model = split[1]
-        split = os.path.split(split[0])
-        sut = split[1]
-        split = os.path.split(split[0])
-        OUTPUT_DIR = os.path.join(split[0], "compliance", sut, model, scenario)
-        '''
         OUTPUT_DIR = os.path.dirname(COMPLIANCE_DIR)
 
         SCRIPT_PATH = os.path.join(env['CM_MLPERF_INFERENCE_SOURCE'], "compliance", "nvidia", test, "run_verification.py")
@@ -226,41 +218,36 @@ def postprocess(i):
                 print("Accuracy run not yet completed")
                 return {'return':1, 'error': 'TEST01 needs accuracy run to be completed first'}
 
-            cmd = "cd "+OUTPUT_DIR+" &&  bash " + SCRIPT_PATH + " " + os.path.join(ACCURACY_DIR, "mlperf_log_accuracy.json") + " " + \
+            cmd = "cd " + TEST01_DIR + " &&  bash " + SCRIPT_PATH + " " + os.path.join(ACCURACY_DIR, "mlperf_log_accuracy.json") + " " + \
                     os.path.join(COMPLIANCE_DIR, "mlperf_log_accuracy.json")
-            #print(cmd)
-            #result  = subprocess.run(cmd, shell=True)
             env['CMD'] = cmd
             r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'verify_accuracy'})
             if r['return']>0:
                 return r
 
-            CMD = "cat verify_accuracy.txt | grep 'TEST PASS'"
-            #try:
-                #result  = subprocess.check_output(CMD, shell=True).decode("utf-8")
-            env['CMD'] = CMD
-            r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'verify_accuracy'})
-            if r['return']>0:
-            #except subprocess.CalledProcessError as e:
-            #if not result: #Normal test failed, trying the check with non-determinism
+            verify_accuracy_file = os.path.join(TEST01_DIR, "verify_accuracy.txt")
+            with open(verify_accuracy_file, 'r') as file:
+                data = file.read().replace('\n', '\t')
+
+            if 'TEST PASS' not in data:
+                print("\nDeterministic TEST01 failed... Trying with non-determinism.\n")
+            # #Normal test failed, trying the check with non-determinism
 
                 CMD = "cd "+ ACCURACY_DIR+" && "+  env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + accuracy_log_file_option_name + \
-                        os.path.join(OUTPUT_DIR, "mlperf_log_accuracy_baseline.json") + dataset_args + datatype_option + " > " + \
+                        os.path.join(TEST01_DIR, "mlperf_log_accuracy_baseline.json") + dataset_args + datatype_option + " > " + \
                         os.path.join(OUTPUT_DIR, "baseline_accuracy.txt")
-                #print(CMD)
+
                 env['CMD'] = CMD
                 r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'verify_accuracy'})
                 if r['return']>0: return r
-                #result  = subprocess.run(CMD, shell=True)
 
                 CMD = "cd " + ACCURACY_DIR + " &&  "+env['CM_PYTHON_BIN'] + ' ' + accuracy_filepath + accuracy_log_file_option_name + \
                         os.path.join(TEST01_DIR, "mlperf_log_accuracy.json") + dataset_args + datatype_option + " > " + \
                         os.path.join(OUTPUT_DIR, "compliance_accuracy.txt")
-                #print(CMD)
+
                 env['CMD'] = CMD
                 r = automation.run_native_script({'run_script_input':run_script_input, 'env':env, 'script_name':'verify_accuracy'})
                 if r['return']>0: return r
-                #result  = subprocess.run(CMD, shell=True)
 
     else:
         print(test)

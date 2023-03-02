@@ -4,32 +4,34 @@ import tarfile
 
 def preprocess(i):
 
+    recursion_spaces = i['recursion_spaces']
+
     os_info = i['os_info']
 
     env = i['env']
 
-    if os_info['platform'] == 'windows':
-        extra_pre=''
-        extra_ext='lib'
-    else:
-        extra_pre='lib'
-        extra_ext='so'
-
-    libfilename = extra_pre + 'nvinfer.' +extra_ext
-    env['CM_TENSORRT_VERSION'] = 'vdetected'
-
-    if env.get('CM_TMP_PATH', '').strip() != '':
-        path = env.get('CM_TMP_PATH')
-        if os.path.exists(os.path.join(path, libfilename)):
-            env['CM_TENSORRT_LIB_PATH'] = path
-            return {'return': 0}
-
-    recursion_spaces = i['recursion_spaces']
-
-    if not env.get('CM_TMP_PATH'):
-        env['CM_TMP_PATH'] = ''
 
     if env.get('CM_TENSORRT_TAR_FILE_PATH','')=='':
+
+       if os_info['platform'] == 'windows':
+           extra_pre=''
+           extra_ext='lib'
+       else:
+           extra_pre='lib'
+           extra_ext='so'
+
+       libfilename = extra_pre + 'nvinfer.' +extra_ext
+       env['CM_TENSORRT_VERSION'] = 'vdetected'
+
+       if env.get('CM_TMP_PATH', '').strip() != '':
+           path = env.get('CM_TMP_PATH')
+           if os.path.exists(os.path.join(path, libfilename)):
+               env['CM_TENSORRT_LIB_PATH'] = path
+               return {'return': 0}
+
+       if not env.get('CM_TMP_PATH'):
+           env['CM_TMP_PATH'] = ''
+
        if os_info['platform'] == 'windows':
            if env.get('CM_INPUT','').strip()=='' and env.get('CM_TMP_PATH','').strip()=='':
                # Check in "C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA"
