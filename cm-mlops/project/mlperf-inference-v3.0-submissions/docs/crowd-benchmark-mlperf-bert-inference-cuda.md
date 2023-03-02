@@ -56,7 +56,7 @@ across continuously evolving software, hardware, models and data.
 
 ## Install CM (CK2) automation meta-framework
 
-Follow [this guide](../installation.md) to install the [MLCommons CM framework](https://github.com/mlcommons/ck)
+Follow [this guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) to install the [MLCommons CM framework](https://github.com/mlcommons/ck)
 (the 2nd generation on the Collective Mind framework) on your system.
 
 ## Pull CM repository with portable automation recipes
