@@ -14,14 +14,15 @@
   * [Detect or install cuDNN](#detect-or-install-cudnn)
   * [Detect or install TensorRT](#detect-or-install-tensorrt)
   * [Run MLPerf inference benchmark with BERT](#run-mlperf-inference-benchmark-with-bert)
-    * [ONNX runtime backend](#onnx-runtime-backend)
+    * [Try ONNX runtime backend](#try-onnx-runtime-backend)
       * [Do a test run to detect and record the system performance](#do-a-test-run-to-detect-and-record-the-system-performance)
       * [Do a full accuracy run for all the scenarios](#do-a-full-accuracy-run-for-all-the-scenarios)
       * [Do a full performance run for all the scenarios](#do-a-full-performance-run-for-all-the-scenarios)
       * [Populate the README files](#populate-the-readme-files)
       * [Generate MLPerf submission tree](#generate-mlperf-submission-tree)
       * [Push the results to GitHub repo](#push-the-results-to-github-repo)
-  * [PyTorch backend](#pytorch-backend)
+    * [Try PyTorch backend](#try-pytorch-backend)
+  * [Test composable ML benchmark with other models, data sets, frameworks and platforms](#test-composable-ml-benchmark-with-other-models-data-sets-frameworks-and-platforms)
 * [The next steps](#the-next-steps)
 
 </details>
@@ -186,7 +187,7 @@ We have tested this project with the following tar file `TensorRT-8.5.1.7.Linux.
 
 ## Run MLPerf inference benchmark with BERT
 
-### ONNX runtime backend
+### Try ONNX runtime backend
 
 #### Do a test run to detect and record the system performance
 
@@ -254,7 +255,7 @@ Create a PR to the [GitHub repo with aggregated results](https://github.com/ctun
 
 
 
-## PyTorch backend
+### Try PyTorch backend
 
 You can run the same commands with PyTorch by rerunning all above commands and replacing `--backend=onnxruntime` with `--backend=pytorch`. 
 
@@ -267,9 +268,19 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
     --results_dir=$HOME/inference_3.0_results --quiet
 ```
 
+
+## Test composable ML benchmark with other models, data sets, frameworks and platforms
+
+* [GUI to prepare CM command line and run benchmark](https://cknowledge.org/mlperf-inference-gui)
+* [GUI to compare performance, accuracy, power and costs of ML/SW/HW combinations](https://cKnowledge.org/cm-gui-graph)
+ 
+
 # The next steps
 
 Feel free to join our [open taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 and the public [Discord server](https://discord.gg/JjWNWXKxwT) to learn about our roadmap and related community projects.
 
-*Prepared by [Grigori Fursin](https://fursin.net) and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).*
+Our ultimate goal is to help anyone automatically find or generate the optimal software/hardware stack from the cloud to the edge
+for their AI/ML tasks based on their requrements and constraints (accuracy, performance, power consumption, costs, etc).
+
+*Prepared by [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) and [Grigori Fursin](https://fursin.net) (OctoML, MLCommons, cTuning foundation)*
