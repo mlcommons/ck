@@ -43,11 +43,9 @@ if model_path.endswith('.pt') or model_path.endswith('.pth'):
        pytorch_model.eval()
    elif model_path.endswith('.pth'):
        pytorch_model = resnet50()
-       #checkpoint = torch.load(model_path)
-       #checkpoint = torch.load(model_path, map_location = 'cpu')
-       #pytorch_model = pytorch_model.load_state_dict(checkpoint)
-       pytorch_model.load_state_dict(torch.load(model_path))
-       #print(pytorch_model)
+       p
+ytorch_model = pytorch_model.load_state_dict(torch.load(model_path))
+       #print('H_______________________________________________H', pytorch_model)
        pytorch_model.eval()
 
    mod, params = relay.frontend.from_pytorch(pytorch_model, shape_list)

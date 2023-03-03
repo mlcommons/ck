@@ -43,12 +43,25 @@ if model_path.endswith('.pt') or model_path.endswith('.pth'):
        pytorch_model.eval()
    elif model_path.endswith('.pth'):
        pytorch_model = resnet50()
-       #checkpoint = torch.load(model_path)
-       #checkpoint = torch.load(model_path, map_location = 'cpu')
-       #pytorch_model = pytorch_model.load_state_dict(checkpoint)
-       pytorch_model.load_state_dict(torch.load(model_path))
        #print(pytorch_model)
-       pytorch_model.eval()
+       pytorch_model = pytorch_model.load_state_dict(torch.load(model_path))
+      cm run script --tags=run,mlperf,inference,generate-run-cmds \
+         --adr.python.name=mlperf \
+         --adr.python.version_min=3.8 \
+         --adr.tvm.tags=_pip-install \
+         --submitter="Community" \
+         --implementation=python \
+         --hw_name=default \
+         --model=resnet50 \
+         --backend=tvm-pytorch \
+         --device=cpu \
+         --scenario=Offline \
+         --mode=accuracy \
+         --test_query_count=5 \
+         --quiet \
+         --clean       
+#print('H_______________________________________________H', pytorch_model)
+       #pytorch_model.eval()
 
    mod, params = relay.frontend.from_pytorch(pytorch_model, shape_list)
 
