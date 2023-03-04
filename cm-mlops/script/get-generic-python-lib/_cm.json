@@ -308,6 +308,14 @@
         "CM_ONNX_VERSION"
       ]
     },
+    "huggingface_hub": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "huggingface_hub"
+      },
+      "new_env_keys": [
+        "CM_HUGGINGFACE_HUB_VERSION"
+      ]
+    },
     "onnxruntime": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "onnxruntime"

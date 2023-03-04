@@ -158,7 +158,7 @@ def preprocess(i):
 
     else:
         if scenario == "MultiStream":
-            query_count = str(max(int((8000 / float(conf['target_latency'])) * 660), 662))
+            query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 662))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
             user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
         elif scenario == "SingleStream":

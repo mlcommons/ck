@@ -13,9 +13,12 @@
       "tags": "get,python3"
     },
     {
-      "tags": "get,generic-python-lib,_setfit"
+      "tags": "get,generic-python-lib,_huggingface_hub"
     }
   ],
+  "input_mapping": {
+    "model_filename": "CM_MODEL_ZOO_FILENAME"
+  },
   "env": {},
   "new_env_keys": [
     "CM_ML_MODEL*",
