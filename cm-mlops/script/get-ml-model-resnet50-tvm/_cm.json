@@ -36,7 +36,8 @@
     "CM_TUNE_TVM_MODEL": "no"
   },
   "new_env_keys": [
-    "CM_ML_MODEL_*"
+    "CM_ML_MODEL_*",
+    "CM_TUNE_TVM_*"
   ],
   "tags": [
     "get",

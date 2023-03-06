@@ -74,8 +74,10 @@
       ],
       "deps": [
         {
-          "names": [ "torch" ],
-	  "tags": "get,generic-python-lib,_torch_cuda"
+          "names": [
+            "torch"
+          ],
+          "tags": "get,generic-python-lib,_torch_cuda"
         }
       ]
     },
@@ -537,7 +539,7 @@
     },
     "pre": {
       "env": {
-	"CM_GENERIC_PYTHON_DEV_VERSION": "yes"
+        "CM_GENERIC_PYTHON_DEV_VERSION": "yes"
       }
     },
     "torch,pre": {
@@ -561,9 +563,9 @@
           ],
           "tags": "get,cuda"
         },
-	{
+        {
           "tags": "get,generic-python-lib,_numpy"
-	}
+        }
       ],
       "default_env": {
         "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch_cuda"

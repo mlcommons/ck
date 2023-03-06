@@ -126,51 +126,45 @@ else:
     # New target API
     tvm_target = tvm.target.Target(target, host=target_host)
 
-    if os.environ.get('CM_TUNE_TVM_MODEL', 'no') == 'yes':
+    tune_model = os.environ.get('CM_TUNE_TVM_MODEL', 'no') == 'yes'
+
+    work_dir = ''
+
+    if tune_model:
         from tvm import meta_schedule as ms
 
+        work_dir = os.path.join(os.getcwd(), "metaschedule_workdir")
+        if not os.path.exists(work_dir):
+            os.mkdir(work_dir)
+
+        print("Extracting tasks...")
+        extracted_tasks = ms.relay_integration.extract_tasks(
+            mod, tvm_target, params
+        )
+        tasks, task_weights = ms.relay_integration.extracted_tasks_to_tune_contexts(
+            extracted_tasks, work_dir, strategy="evolutionary"
+        )
+
+        print("Begin tuning...")
+        evaluator_config = ms.runner.config.EvaluatorConfig(
+            number=1, repeat=10, enable_cpu_cache_flush=True
+        )
+        database = ms.tune.tune_tasks(
+            tasks=tasks,
+            task_weights=task_weights,
+            work_dir=work_dir,
+            max_trials_global=10,
+            num_trials_per_iter=64,
+            max_trials_per_task=512,
+            builder=ms.builder.LocalBuilder(),
+            runner=ms.runner.LocalRunner(
+                evaluator_config=evaluator_config),
+        )
+
+    if work_dir == '':
         work_dir = os.environ.get('CM_TUNE_TVM_MODEL_WORKDIR', '')
-        if work_dir == '':
-            work_dir = os.path.join(os.getcwd(), "metaschedule_workdir")
-            if not os.path.exists(work_dir):
-                os.mkdir(work_dir)
 
-            print("Extracting tasks...")
-            extracted_tasks = ms.relay_integration.extract_tasks(
-                mod, tvm_target, params
-            )
-            tasks, task_weights = ms.relay_integration.extracted_tasks_to_tune_contexts(
-                extracted_tasks, work_dir, strategy="evolutionary"
-            )
-
-            print("Begin tuning...")
-            evaluator_config = ms.runner.config.EvaluatorConfig(
-                number=1, repeat=10, enable_cpu_cache_flush=True
-            )
-            database = ms.tune.tune_tasks(
-                tasks=tasks,
-                task_weights=task_weights,
-                work_dir=work_dir,
-                max_trials_global=20000,
-                num_trials_per_iter=64,
-                max_trials_per_task=512,
-                builder=ms.builder.LocalBuilder(),
-                runner=ms.runner.LocalRunner(
-                    evaluator_config=evaluator_config),
-            )
-        else:
-            if not os.path.exists(work_dir):
-                raise Exception(
-                    f"Error: the specified path \"{work_dir}\"does not exist")
-
-            if not os.path.exists(f"{work_dir}/database_workload.json"):
-                raise Exception(
-                    "Found workdir does not contain database_workload.json")
-
-            if not os.path.exists(f"{work_dir}/database_tuning_record.json"):
-                raise Exception(
-                    "Found workdir does not contain database_tuning_record.json")
-
+    if work_dir != '':
         database = ms.database.JSONDatabase(f"{work_dir}/database_workload.json",
                                             f"{work_dir}/database_tuning_record.json",
                                             allow_missing=False)
