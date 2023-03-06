@@ -41,7 +41,8 @@
         }
       ],
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apache-tvm"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apache-tvm",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre"
       },
       "new_env_keys": [
         "CM_APACHE_TVM_VERSION"
@@ -73,8 +74,10 @@
       ],
       "deps": [
         {
-          "names": [ "torch" ],
-	  "tags": "get,generic-python-lib,_torch_cuda"
+          "names": [
+            "torch"
+          ],
+          "tags": "get,generic-python-lib,_torch_cuda"
         }
       ]
     },
@@ -149,14 +152,6 @@
       },
       "new_env_keys": [
         "CM_ATTR_VERSION"
-      ]
-    },
-    "attrs": {
-      "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "attrs"
-      },
-      "new_env_keys": [
-        "CM_ATTRS_VERSION"
       ]
     },
     "decorator": {
@@ -544,7 +539,7 @@
     },
     "pre": {
       "env": {
-	"CM_GENERIC_PYTHON_DEV_VERSION": "yes"
+        "CM_GENERIC_PYTHON_DEV_VERSION": "yes"
       }
     },
     "torch,pre": {
@@ -568,9 +563,9 @@
           ],
           "tags": "get,cuda"
         },
-	{
+        {
           "tags": "get,generic-python-lib,_numpy"
-	}
+        }
       ],
       "default_env": {
         "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch_cuda"
@@ -739,6 +734,30 @@
       },
       "new_env_keys": [
         "CM_XLSXWRITER_VERSION"
+      ]
+    },
+    "xgboost": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "xgboost"
+      },
+      "new_env_keys": [
+        "CM_XGBOOST_VERSION"
+      ]
+    },
+    "cloudpickle": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "cloudpickle"
+      },
+      "new_env_keys": [
+        "CM_CLOUDPICKLE_VERSION"
+      ]
+    },
+    "tornado": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tornado"
+      },
+      "new_env_keys": [
+        "CM_TORNADO_VERSION"
       ]
     }
   }
