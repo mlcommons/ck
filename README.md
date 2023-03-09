@@ -38,5 +38,6 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 
 ### Acknowledgments
 
-This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
+This project is supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
+[OctoML](https://octoml.ai), [cKnowledge.org](https://cKnowledge.org) 
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
