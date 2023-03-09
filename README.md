@@ -30,7 +30,7 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 
 2021-2023 [MLCommons](https://mlcommons.org)
 
-### Maintainers
+### Authors and maintainers
 
 * [Grigori Fursin](https://cKnowledge.io/@gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
