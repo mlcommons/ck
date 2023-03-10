@@ -5,7 +5,7 @@
   "category": "Modular MLPerf benchmarks",
   "cache": true,
   "default_variation": "default",
-  "default_version": "master",
+  "default_version": "custom",
   "deps": [
     {
       "tags": "detect,os"
