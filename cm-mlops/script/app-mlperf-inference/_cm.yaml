@@ -525,7 +525,7 @@ variations:
   tvm-tflite:
     group: backend
     base:
-      - batch_size.32
+      - batch_size.1
     env:
       CM_MLPERF_BACKEND: tvm-tflite
     add_deps_recursive:

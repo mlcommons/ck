@@ -98,7 +98,7 @@ elif model_path.endswith('.tflite'):
    # Grigori used https://tvm.apache.org/docs/tutorials/frontend/deploy_prequantized_tflite.html
 
    import tflite
-
+    
    shape_dict = eval('{' + input_shapes + '}')
 
    print ('TVM shape dict: '+str(shape_dict))
