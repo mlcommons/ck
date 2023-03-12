@@ -40,15 +40,13 @@ if model_path.endswith('.pt') or model_path.endswith('.pth'):
 
    if model_path.endswith('.pt'):
        pytorch_model = torch.jit.load(model_path)
-       pytorch_model.eval()
    elif model_path.endswith('.pth'):
        pytorch_model = resnet50()
-       #checkpoint = torch.load(model_path)
-       #checkpoint = torch.load(model_path, map_location = 'cpu')
-       #pytorch_model = pytorch_model.load_state_dict(checkpoint)
        pytorch_model.load_state_dict(torch.load(model_path))
-       #print(pytorch_model)
-       pytorch_model.eval()
+   pytorch_model.eval()
+
+   input_data = torch.randn(shape_list[0][1])
+   pytorch_model = torch.jit.trace(pytorch_model, input_data)
 
    mod, params = relay.frontend.from_pytorch(pytorch_model, shape_list)
 
