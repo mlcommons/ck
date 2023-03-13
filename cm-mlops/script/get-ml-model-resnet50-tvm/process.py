@@ -1,6 +1,6 @@
 import os
-import tvm
 import tempfile
+import tvm
 from tvm import relay
 
 max_batchsize = os.environ['CM_ML_MODEL_MAX_BATCH_SIZE']
@@ -8,7 +8,7 @@ input_shapes = os.environ.get('CM_ML_MODEL_INPUT_SHAPES', '').strip()
 
 if input_shapes == '':
     print('')
-    raise Exception(
+    raise RuntimeError(
         "Error: CM_ML_MODEL_INPUT_SHAPES environment variable is not defined!")
 
 input_shapes = input_shapes.replace('BATCH_SIZE', str(max_batchsize))
@@ -23,8 +23,8 @@ if model_path.endswith('.so') or model_path.endswith('.dylib'):
 
     if not os.path.isfile(compiled_model):
         print('')
-        raise Exception(
-            "Error: Model file {} not found!".format(compiled_model))
+        raise RuntimeError(
+            f"Error: Model file {compiled_model} not found!")
 else:
 
     build_conf = {}
@@ -72,11 +72,6 @@ else:
 
         mod, params = relay.frontend.from_onnx(
             onnx_model, shape_dict, freeze_params=True)
-        # mod, params = utils_common.get_mod_params(onnx_model)
-        
-        # Some optimizations
-        # mod = relay.transform.DynamicToStatic()(mod)
-        # mod = relay.transform.FoldExplicitPadding()(mod)
 
         if os.environ.get('CM_MLPERF_TVM_TRANSFORM_LAYOUT', '').strip().lower() == 'yes':
             kernel_layout = 'NHWC'
@@ -115,8 +110,8 @@ else:
 
     else:
         print('')
-        raise Exception(
-            "Error: model extension is not supported in TVM backend ({})!".format(model_path))
+        raise RuntimeError(
+            f"Error: model extension is not supported in TVM backend ({model_path})!")
 
     opt_lvl = int(os.environ.get('CM_MLPERF_TVM_OPT_LEVEL', 3))
 
@@ -149,8 +144,8 @@ else:
 
         print("Begin tuning...")
         evaluator_config = ms.runner.config.EvaluatorConfig(
-            number=1, 
-            repeat=10, 
+            number=1,
+            repeat=10,
             enable_cpu_cache_flush=True
         )
         database = ms.tune.tune_tasks(
@@ -178,9 +173,9 @@ else:
 
         with tvm.transform.PassContext(opt_level=opt_lvl, config=build_conf):
             vm_exec = ms.relay_integration.compile_relay(
-                database=database, 
-                mod=mod, 
-                target=tvm_target, 
+                database=database,
+                mod=mod,
+                target=tvm_target,
                 params=params,
                 backend="vm"
             )
@@ -188,16 +183,16 @@ else:
     else:
         with tvm.transform.PassContext(opt_level=opt_lvl, config=build_conf):
             vm_exec = tvm.relay.backend.vm.compile(mod, target, params=params)
-    
+
     temp_directory = tempfile.mkdtemp(dir=os.getcwd(), suffix="-tvm-tmp")
     path_consts = os.path.join(temp_directory, "consts")
     code_path = os.path.join(os.getcwd(), "vm_exec_code.ro")
-    
+
     vm_exec.move_late_bound_consts(path_consts, byte_limit=256)
-    
+
     code, lib = vm_exec.save()
-    lib.export_library(compiled_model)    
+    lib.export_library(compiled_model)
     print('TVM compiled model: ' + compiled_model)
-    
+
     with open(code_path, "wb") as fo:
         fo.write(code)
