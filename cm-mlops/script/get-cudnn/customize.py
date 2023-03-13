@@ -92,9 +92,6 @@ def preprocess(i):
        else:
           return {'return':0}
 
-    if env.get('CM_HOST_OS_MACHINE','') ==  "aarch64":
-        return {'return': 1, 'error': 'Tar file installation is not available for cudnn on aarch64. Please do a package manager install!'}
-
     if env.get('CM_CUDNN_TAR_FILE_PATH','')=='':
         return {'return': 1, 'error': 'Please envoke cm run script "get cudnn" --tar_file={full path to the cuDNN tar file}'}
 
