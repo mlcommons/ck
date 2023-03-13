@@ -192,6 +192,10 @@ def preprocess(i):
     if input_format:
         run_config += f" --input_format={input_format}"
 
+    performance_sample_count = env.get('CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT')
+    if performance_sample_count:
+        run_config += f" --performance_sample_count={performance_sample_count}"
+
     workspace_size = env.get('CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE')
     if workspace_size:
         run_config += f" --workspace_size={workspace_size}"
@@ -219,7 +223,7 @@ def preprocess(i):
     if end_on_device:
         run_config += " --end_on_device"
 
-    max_dlas = env.get('CM_MLPERF_MAX_DLAS')
+    max_dlas = env.get('CM_MLPERF_NVIDIA_HARNESS_MAX_DLAS')
     if max_dlas:
         run_config += f" --max_dlas={max_dlas}"
 
