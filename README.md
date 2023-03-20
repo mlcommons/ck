@@ -27,12 +27,16 @@ with any data on any software/hardware stack from the cloud to the edge at any g
 
 It automatically generates the most suitable, reproducible and deployable solution
 to run AI, ML and other emerging applications based on user requirements and constraints 
-including costs, performance, power consumption, accuracy, target devices (cloud/edge/mobile/tiny),
+including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny),
 environment and data sets.
 
-Our goal is to help users focus on innovation by automating all their tedious and repetitive tasks
-and reducing their research, development, benchmarking, optimization and deployment costs
-across continuously changing software, hardware and data.
+This technology is successfully used by the community and companies 
+including Qualcomm, Neural Magic, Krai, DELL, HPE and Lenovo
+to automate their MLPerf inference submissions and make them more reproducible and reusable.
+
+Our goal is to help everyone focus on innovation by automating all their tedious and repetitive tasks
+and slashing their research, development, benchmarking, optimization and deployment time and costs
+by 10..100 times across continuously changing software, hardware and data.
 
 ### Discussions
 

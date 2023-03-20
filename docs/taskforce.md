@@ -8,20 +8,23 @@ This public taskforce is developing a [free and open-source platform](https://gi
 to automatically find the most efficient and reproducible way to run AI, ML and any other application 
 with any data on any software/hardware stack from the cloud to the edge at any given time.
 
-This platform will help users automatically generate the most suitable, reproducible and deployable solution
+This platform will help users automatically generate the most suitable and deployable solution
+(ML framework, math library, inference engine and any related dependency) 
 to run emerging applications based on their requirements and constraints 
-including costs, performance, power consumption, accuracy, target devices (cloud/edge/mobile/tiny),
+including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny),
 environment and data sets.
 
 It is powered by the [rigorous MLPerf benchmark methodology](https://arxiv.org/abs/1911.02549) 
 and the technology-agnostic [MLCommons CK/CM workflow automation framework](https://github.com/mlcommons/ck).
-The CM/CK framework simply adds a universal CLI and Python API to any software project in a transparent and non-intrusive way 
+This framework provides a universal CLI and Python API to any software project in a transparent and non-intrusive way 
 by reusing [portable CM scripts from the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
 that solve the "dependency hell" across rapidly evolving software, hardware and data.
+It is successfully used by the community and companies including Qualcomm, Neural Magic, Krai, DELL, HPE and Lenovo
+to automate their MLPerf inference submissions and make them more reproducible and reusable.
 
-Our ultimate goal is to help users focus on innovation by automating all their tedious and repetitive tasks
-and reducing their research, development, benchmarking, optimization and deployment costs
-in the rapidly evolving world.
+Our ultimate goal is to accelerate innovation by automating all tedious and repetitive tasks
+and slashing research, development, benchmarking, optimization and deployment time and costs
+for novel technology by 10..100 times in the rapidly evolving world.
 
 ## Discussions
 
