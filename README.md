@@ -17,8 +17,9 @@ to access any software project and run it on any platform with any software, har
 The [Collective Mind workflow automation framework (CM aka CK2)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
 is the 2nd version of the CK technology being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
 It helps users to add this universal CLI and Python API to their software projects in a transparent and non-intrusive way 
-by reusing [portable CM scripts from the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
-that solve the "dependency hell" across rapidly evolving software, hardware and data.
+by reusing [portable CM scripts developed by the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
+that solve the "dependency hell" across rapidly evolving software and hardware from any company including 
+Nvidia, Intel, Qualcomm, AMD, Microsoft, Amazon and Google.
 
 The CM framework is powering a [free and open-source automation platform](https://github.com/mlcommons/ck/tree/master/platform) 
 also being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
@@ -30,9 +31,9 @@ to run AI, ML and other emerging applications based on user requirements and con
 including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny),
 environment and data sets.
 
-This technology is successfully used by the community and companies 
+As a proof-of-concept, our technology helped the community and several companies 
 including Qualcomm, Neural Magic, Krai, DELL, HPE and Lenovo
-to automate their MLPerf inference submissions and make them more reproducible and reusable.
+automate 98% of all MLPerf inference submissions and make them more reproducible and reusable.
 
 Our goal is to help everyone focus on innovation by automating all their tedious and repetitive tasks
 and slashing their research, development, benchmarking, optimization and deployment time and costs

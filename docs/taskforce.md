@@ -17,10 +17,13 @@ environment and data sets.
 It is powered by the [rigorous MLPerf benchmark methodology](https://arxiv.org/abs/1911.02549) 
 and the technology-agnostic [MLCommons CK/CM workflow automation framework](https://github.com/mlcommons/ck).
 This framework provides a universal CLI and Python API to any software project in a transparent and non-intrusive way 
-by reusing [portable CM scripts from the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
-that solve the "dependency hell" across rapidly evolving software, hardware and data.
-It is successfully used by the community and companies including Qualcomm, Neural Magic, Krai, DELL, HPE and Lenovo
-to automate their MLPerf inference submissions and make them more reproducible and reusable.
+by reusing [portable CM scripts  developed by the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
+that solve the "dependency hell" across rapidly evolving software and hardware from any company including 
+Nvidia, Intel, Qualcomm, AMD, Microsoft, Amazon and Google.
+
+As a proof-of-concept, our technology helped the community and several companies 
+including Qualcomm, Neural Magic, Krai, DELL, HPE and Lenovo
+automate 98% of all MLPerf inference submissions and make them more reproducible and reusable.
 
 Our ultimate goal is to accelerate innovation by automating all tedious and repetitive tasks
 and slashing research, development, benchmarking, optimization and deployment time and costs
