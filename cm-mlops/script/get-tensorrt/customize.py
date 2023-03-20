@@ -79,9 +79,6 @@ def preprocess(i):
        else:
            return {'return':0}
 
-    if env.get('CM_HOST_OS_MACHINE','') ==  "aarch64":
-        return {'return': 1, 'error': 'Tar file installation is not available for cudnn on aarch64. Please do a package manager install!'}
-
     if os_info['platform'] == 'windows':
         return {'return': 1, 'error': 'Windows is currently not supported!'}
 

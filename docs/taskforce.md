@@ -41,6 +41,7 @@ and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 ## Development plan
 
+
 ### 2022
 
 - [x] DONE: [Prototype of the 2nd version of the MLCommons CK framework to solve the dependency hell and run any application on any hardware/software stack](https://github.com/mlcommons/ck).
