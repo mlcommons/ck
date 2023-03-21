@@ -9,25 +9,28 @@ to automatically find the most efficient and reproducible way to run AI, ML and 
 with any data on any software/hardware stack from the cloud to the edge at any given time.
 
 This platform will help users automatically generate the most suitable and deployable solution
-(ML framework, math library, inference engine and any related dependency) 
+(ML framework, math library, inference engine and any other related dependency) 
 to run emerging applications based on their requirements and constraints 
 including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny),
 environment and data sets.
 
 It is powered by the [rigorous MLPerf benchmark methodology](https://arxiv.org/abs/1911.02549) 
 and the technology-agnostic [MLCommons CK/CM workflow automation framework](https://github.com/mlcommons/ck).
-This framework provides a universal CLI and Python API to any software project in a transparent and non-intrusive way 
-by reusing [portable CM scripts  developed by the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
-that solve the "dependency hell" across rapidly evolving software and hardware from any company including 
-Nvidia, Intel, Qualcomm, AMD, Microsoft, Amazon and Google.
+Our taskforce has developed this framework to solve the "dependency hell" 
+and interconnect diverse and rapidly evolving software and hardware
+from any company including Nvidia, Intel, Qualcomm, AMD, Microsoft, Amazon, Google, 
+Neural Magic, Meta, OctoML, Krai and Hugging Face in a transparent and non-intrusive way
+using  [portable CM scripts  developed by the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).
 
-As a proof-of-concept, our technology helped the community and several companies 
+As a proof-of-concept, our technology helped the community and multiple companies 
 including Qualcomm, Neural Magic, Krai, DELL, HPE and Lenovo
-automate 98% of all MLPerf inference submissions and make them more reproducible and reusable.
+automate 98% of all MLPerf inference submissions, make them more reproducible and reusable,
+and obtain record inference performance on the latest Qualcomm and Nvidia devices.
 
-Our ultimate goal is to accelerate innovation by automating all tedious and repetitive tasks
-and slashing research, development, benchmarking, optimization and deployment time and costs
-for novel technology by 10..100 times in the rapidly evolving world.
+The ultimate goal of our taskforce is to help everyone accelerate innovation by automating 
+all tedious and repetitive tasks and slashing research, development, benchmarking, 
+optimization and deployment time and costs for novel technology by 10..100 times 
+in the rapidly evolving world.
 
 ## Discussions
 
