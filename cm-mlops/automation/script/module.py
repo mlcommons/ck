@@ -3410,14 +3410,14 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
     tmp_file_run_env = i.get('tmp_file_run_env', '')
     tmp_file_state = i.get('tmp_file_state', '')
     tmp_file_run = i['tmp_file_run']
-    local_env_keys = i['local_env_keys']
-    local_env_keys_from_meta = i['local_env_keys_from_meta']
-    posthook_deps = i['posthook_deps']
-    add_deps_recursive = i['add_deps_recursive']
+    local_env_keys = i.get('local_env_keys', [])
+    local_env_keys_from_meta = i.get('local_env_keys_from_meta', [])
+    posthook_deps = i.get('posthook_deps', [])
+    add_deps_recursive = i.get('add_deps_recursive', {})
     recursion_spaces = i['recursion_spaces']
-    remembered_selections = i['remembered_selections']
-    variation_tags_string = i['variation_tags_string']
-    found_cached = i['found_cached']
+    remembered_selections = i.get('remembered_selections', {})
+    variation_tags_string = i.get('variation_tags_string', '')
+    found_cached = i.get('found_cached', False)
     script_automation = i['self']
 
     # Prepare script name
@@ -3506,7 +3506,20 @@ def prepare_and_run_script_with_postprocessing(i, postprocess="postprocess"):
 
         rc = os.system(cmd)
 
-        if rc>0 and not i.get('ignore_script_error',False):
+        if rc>0 and not i.get('ignore_script_error', False):
+            # Check if print files when error
+            print_files = meta.get('print_files_if_script_error', [])
+            if len(print_files)>0:
+               for pr in print_files:
+                   if os.path.isfile(pr):
+                       r = utils.load_txt(file_name = pr)
+                       if r['return'] == 0:
+                           print ("========================================================")
+                           print ("Print file {}:".format(pr))
+                           print ("")
+                           print (r['string'])
+                           print ("")
+
             note = '''Note that it is often a portability problem of the third-party tool or native script that is wrapped and unified by this CM script.
 The CM concept is to collaboratively fix such issues inside portable CM scripts to make existing tools and native script more portable, interoperable, deterministic and reproducible.
 
@@ -3546,7 +3559,7 @@ Thank you'''
 
     if (postprocess == "postprocess") and customize_code is not None and 'postprocess' in dir(customize_code):
         rr = run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const,
-                const_state, meta, verbose)
+                const_state, meta, verbose, i) # i as run_script_input
     elif (postprocess == "detect_version") and customize_code is not None and 'detect_version' in dir(customize_code):
         rr = run_detect_version(customize_code, customize_common_input, recursion_spaces, env, state, const,
                 const_state, meta, verbose)
@@ -3575,7 +3588,7 @@ def run_detect_version(customize_code, customize_common_input, recursion_spaces,
 
     return {'return': 0}
 
-def run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta, verbose=False):
+def run_postprocess(customize_code, customize_common_input, recursion_spaces, env, state, const, const_state, meta, verbose=False, run_script_input=None):
 
     if customize_code is not None and 'postprocess' in dir(customize_code):
         import copy
@@ -3591,6 +3604,9 @@ def run_postprocess(customize_code, customize_common_input, recursion_spaces, en
         ii['env'] = env
         ii['state'] = state
         ii['meta'] = meta
+
+        if run_script_input != None:
+            ii['run_script_input'] = run_script_input 
 
         r = customize_code.postprocess(ii)
         return r

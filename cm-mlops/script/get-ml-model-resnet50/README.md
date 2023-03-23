@@ -105,6 +105,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_batch_size.#`
+      - Environment variables:
+        - *CM_ML_MODEL_BATCH_SIZE*: `#`
+      - Workflow:
     * `_batch_size.1`
       - Environment variables:
         - *CM_ML_MODEL_BATCH_SIZE*: `1`

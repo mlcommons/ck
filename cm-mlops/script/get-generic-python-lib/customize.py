@@ -34,6 +34,15 @@ def preprocess(i):
         if r['return'] == 16:
             extra = env.get('CM_GENERIC_PYTHON_PIP_EXTRA','')
 
+            # Check index URL
+            index_url = env.get('CM_GENERIC_PYTHON_PIP_INDEX_URL','').strip()
+            if index_url != '':
+                # Check special cases
+                if '${CM_TORCH_CUDA}' in index_url:
+                    index_url=index_url.replace('${CM_TORCH_CUDA}', env.get('CM_TORCH_CUDA'))
+
+                extra += ' --index-url '+index_url
+
             # Check extra index URL
             extra_index_url = env.get('CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL','').strip()
             if extra_index_url != '':

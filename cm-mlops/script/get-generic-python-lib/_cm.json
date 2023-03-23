@@ -41,7 +41,8 @@
         }
       ],
       "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apache-tvm"
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "apache-tvm",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre"
       },
       "new_env_keys": [
         "CM_APACHE_TVM_VERSION"
@@ -73,8 +74,10 @@
       ],
       "deps": [
         {
-          "names": [ "torch" ],
-	  "tags": "get,generic-python-lib,_torch_cuda"
+          "names": [
+            "torch"
+          ],
+          "tags": "get,generic-python-lib,_torch_cuda"
         }
       ]
     },
@@ -149,14 +152,6 @@
       },
       "new_env_keys": [
         "CM_ATTR_VERSION"
-      ]
-    },
-    "attrs": {
-      "env": {
-        "CM_GENERIC_PYTHON_PACKAGE_NAME": "attrs"
-      },
-      "new_env_keys": [
-        "CM_ATTRS_VERSION"
       ]
     },
     "decorator": {
@@ -306,6 +301,14 @@
       },
       "new_env_keys": [
         "CM_ONNX_VERSION"
+      ]
+    },
+    "huggingface_hub": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "huggingface_hub"
+      },
+      "new_env_keys": [
+        "CM_HUGGINGFACE_HUB_VERSION"
       ]
     },
     "onnxruntime": {
@@ -518,12 +521,64 @@
         "CM_TOKENIZATION_VERSION"
       ]
     },
+    "six": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "six"
+      },
+      "new_env_keys": [
+        "CM_SIX_VERSION"
+      ]
+    },
     "toml": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "toml"
       },
       "new_env_keys": [
         "CM_TOML_VERSION"
+      ]
+    },
+    "pre": {
+      "env": {
+        "CM_GENERIC_PYTHON_DEV_VERSION": "yes"
+      }
+    },
+    "torch,pre": {
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch"
+      },
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre",
+        "CM_GENERIC_PYTHON_PIP_INDEX_URL": "https://download.pytorch.org/whl/nightly/cpu"
+      },
+      "new_env_keys": [
+        "CM_TORCH_VERSION*"
+      ]
+    },
+    "torch_cuda,pre": {
+      "deps": [
+        {
+          "names": [
+            "cuda"
+          ],
+          "tags": "get,cuda"
+        },
+        {
+          "tags": "get,generic-python-lib,_numpy"
+        }
+      ],
+      "default_env": {
+        "CM_GENERIC_PYTHON_PIP_UNINSTALL_DEPS": "torch_cuda"
+      },
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "torch",
+        "CM_GENERIC_PYTHON_PIP_INDEX_URL": "https://download.pytorch.org/whl/${CM_TORCH_CUDA}",
+        "CM_GENERIC_PYTHON_PIP_EXTRA": " --pre",
+        "CM_TORCH_CUDA": "cu117",
+        "CM_TORCH_VERSION_EXTRA": "CUDA"
+      },
+      "new_env_keys": [
+        "CM_TORCH_VERSION*"
       ]
     },
     "torch": {
@@ -679,6 +734,30 @@
       },
       "new_env_keys": [
         "CM_XLSXWRITER_VERSION"
+      ]
+    },
+    "xgboost": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "xgboost"
+      },
+      "new_env_keys": [
+        "CM_XGBOOST_VERSION"
+      ]
+    },
+    "cloudpickle": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "cloudpickle"
+      },
+      "new_env_keys": [
+        "CM_CLOUDPICKLE_VERSION"
+      ]
+    },
+    "tornado": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "tornado"
+      },
+      "new_env_keys": [
+        "CM_TORNADO_VERSION"
       ]
     }
   }

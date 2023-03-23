@@ -50,9 +50,16 @@ def generate_submission(i):
     if 'CM_MLPERF_SUBMISSION_DIVISION' in env:
         system_meta['division'] = env['CM_MLPERF_SUBMISSION_DIVISION']
 
+    if 'CM_MLPERF_SUBMISSION_CATEGORY' in env:
+        system_meta['system_type'] = env['CM_MLPERF_SUBMISSION_CATEGORY']
+
     duplicate= (env.get('CM_MLPERF_DUPLICATE_SCENARIO_RESULTS', 'no') in ["yes", "True"])
 
-    division = system_meta['division']
+    if env.get('CM_MLPERF_SUBMISSION_DIVISION', '') != '':
+        division = env['CM_MLPERF_SUBMISSION_DIVISION']
+        system_meta['division'] = division
+    else:
+        division = system_meta['division']
 
     if division not in ['open','closed']:
         return {'return':1, 'error':'"division" must be "open" or "closed"'}
@@ -237,7 +244,7 @@ def generate_submission(i):
                                     target = os.path.join(submission_results_path, "accuracy")
                                     os.makedirs(target)
                                     for log_file in os.listdir(compliance_accuracy_run_path):
-                                        if log_file.startswith("mlperf_"):
+                                        if log_file.startswith("mlperf_log_accuracy.json") or log_file.endswith("accuracy.txt"):
                                             shutil.copy(os.path.join(compliance_accuracy_run_path, log_file), os.path.join(target, log_file))
                         else:
                             if f.startswith('mlperf_') and not f.endswith('trace.json'):

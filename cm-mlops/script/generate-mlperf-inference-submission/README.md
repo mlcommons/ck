@@ -103,17 +103,25 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
+* --**category**=value --> **CM_MLPERF_SUBMISSION_CATEGORY**=value
 * --**clean**=value --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**=value
+* --**device**=value --> **CM_MLPERF_DEVICE**=value
+* --**division**=value --> **CM_MLPERF_SUBMISSION_DIVISION**=value
+* --**duplicate**=value --> **CM_MLPERF_DUPLICATE_SCENARIO_RESULTS**=value
+* --**hw_notes_extra**=value --> **CM_MLPERF_SUT_HW_NOTES_EXTRA**=value
+* --**infer_scenario_results**=value --> **CM_MLPERF_DUPLICATE_SCENARIO_RESULTS**=value
 * --**results_dir**=value --> **CM_MLPERF_RESULTS_DIR**=value
 * --**run_checker**=value --> **CM_RUN_SUBMISSION_CHECKER**=value
 * --**run_style**=value --> **CM_MLPERF_RUN_STYLE**=value
 * --**skip_truncation**=value --> **CM_SKIP_TRUNCATE_ACCURACY**=value
 * --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
+* --**submitter**=value --> **CM_MLPERF_SUBMITTER**=value
+* --**sw_notes_extra**=value --> **CM_MLPERF_SUT_SW_NOTES_EXTRA**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "clean":...}
+r=cm.access({... , "category":...}
 ```
 
 </details>
@@ -125,6 +133,7 @@ r=cm.access({... , "clean":...}
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
+* CM_RUN_MLPERF_ACCURACY: **on**
 
 </details>
 
@@ -139,7 +148,6 @@ ___
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
      * get,sut,system-description
-       * `if (CM_SUT_META_EXISTS  != yes)`
        - CM script: [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/_cm.json)

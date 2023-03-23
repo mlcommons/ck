@@ -456,7 +456,7 @@ variations:
         tags: raw,_pytorch
     env:
       CM_MLPERF_BACKEND: pytorch
-      CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
 
   tf:
     group: framework
@@ -503,7 +503,7 @@ variations:
     group: framework
     env:
       CM_MLPERF_BACKEND: tvm-pytorch
-      CM_MLPERF_BACKEND_VERSION: <<<CM_PYTORCH_VERSION>>>
+      CM_MLPERF_BACKEND_VERSION: <<<CM_TORCH_VERSION>>>
       MLPERF_TVM_TORCH_QUANTIZED_ENGINE: qnnpack
     deps:
     - tags: get,tvm
@@ -533,6 +533,7 @@ variations:
       CM_MLPERF_MODEL_SKIP_BATCHING: true
     deps:
     - tags: get,generic-python-lib,_tokenization
+    - tags: get,generic-python-lib,_six
     - tags: get,generic-python-lib,_protobuf
       names:
       - protobuf
@@ -541,6 +542,10 @@ variations:
         CM_MLPERF_BACKEND:
         - tf
         - tflite
+    - tags: get,generic-python-lib,_boto3
+      enable_if_env:
+        CM_MLPERF_BACKEND:
+        - pytorch
     - tags: get,generic-python-lib,_torch
       names:
       - ml-engine-pytorch

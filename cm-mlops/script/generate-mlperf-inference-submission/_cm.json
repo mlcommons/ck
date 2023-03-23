@@ -23,6 +23,7 @@
     }
   ],
   "input_mapping": {
+    "device": "CM_MLPERF_DEVICE",
     "results_dir": "CM_MLPERF_RESULTS_DIR",
     "run_checker": "CM_RUN_SUBMISSION_CHECKER",
     "run_style": "CM_MLPERF_RUN_STYLE",
@@ -32,6 +33,8 @@
     "sw_notes_extra": "CM_MLPERF_SUT_SW_NOTES_EXTRA",
     "hw_notes_extra": "CM_MLPERF_SUT_HW_NOTES_EXTRA",
     "duplicate": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
+    "division": "CM_MLPERF_SUBMISSION_DIVISION",
+    "category": "CM_MLPERF_SUBMISSION_CATEGORY",
     "infer_scenario_results": "CM_MLPERF_DUPLICATE_SCENARIO_RESULTS",
     "submitter": "CM_MLPERF_SUBMITTER"
   },

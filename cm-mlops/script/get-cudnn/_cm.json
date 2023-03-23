@@ -15,7 +15,8 @@
     "tar_file": "CM_CUDNN_TAR_FILE_PATH"
   },
   "input_description": {
-    "tar_file": "Path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)"
+    "input": "Full path to the installed cuDNN library",
+    "tar_file": "Full path to the cuDNN Tar file downloaded from Nvidia website (https://developer.nvidia.com/cudnn)"
   },
   "deps": [
     {

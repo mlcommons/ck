@@ -253,18 +253,48 @@ ___
 
 #### Variations
 
+  * *Internal group (variations should not be selected manually)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_3d-unet_`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_transformers
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_bert_`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_transformers
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_dlrm_`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_torch
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+
+    </details>
+
+
   * *No group (any variation can be selected)*
     <details>
     <summary>Click here to expand this section.</summary>
 
     * `_batch_size.#`
       - Environment variables:
-        - *CM_MODEL_BATCH_SIZE*: `None`
-        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `None`
+        - *CM_MODEL_BATCH_SIZE*: `#`
+        - *CM_MLPERF_NVIDIA_HARNESS_GPU_BATCH_SIZE*: `#`
+        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1*: `gpu_batch_size.#`
       - Workflow:
     * `_dla_batch_size.#`
       - Environment variables:
-        - *CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE*: `None`
+        - *CM_MLPERF_NVIDIA_HARNESS_DLA_BATCH_SIZE*: `#`
+        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX2*: `dla_batch_size.#`
+      - Workflow:
+    * `_use_triton`
+      - Environment variables:
+        - *CM_MLPERF_NVIDIA_HARNESS_USE_TRITON*: `yes`
+        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX3*: `using_triton`
       - Workflow:
 
     </details>
@@ -277,6 +307,7 @@ ___
     * **`_tensorrt`** (default)
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `tensorrt`
+        - *CM_MLPERF_BACKEND_NAME*: `TensorRT`
       - Workflow:
 
     </details>
@@ -286,11 +317,11 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * **`_cpu`** (default)
+    * `_cpu`
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `cpu`
       - Workflow:
-    * `_cuda`
+    * **`_cuda`** (default)
       - Environment variables:
         - *CM_MLPERF_DEVICE*: `gpu`
         - *CM_MLPERF_DEVICE_LIB_NAMESPEC*: `cudart`
@@ -303,6 +334,14 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_3d-unet-99`
+      - Environment variables:
+        - *CM_MODEL*: `3d-unet-99`
+      - Workflow:
+    * `_3d-unet-99.9`
+      - Environment variables:
+        - *CM_MODEL*: `3d-unet-99.9`
+      - Workflow:
     * `_bert-99`
       - Environment variables:
         - *CM_MODEL*: `bert-99`
@@ -310,6 +349,14 @@ ___
     * `_bert-99.9`
       - Environment variables:
         - *CM_MODEL*: `bert-99.9`
+      - Workflow:
+    * `_dlrm-99`
+      - Environment variables:
+        - *CM_MODEL*: `dlrm-99`
+      - Workflow:
+    * `_dlrm-99.9`
+      - Environment variables:
+        - *CM_MODEL*: `dlrm-99.9`
       - Workflow:
     * **`_resnet50`** (default)
       - Environment variables:
@@ -329,13 +376,36 @@ ___
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_opencv-python
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_rnnt`
+      - Environment variables:
+        - *CM_MODEL*: `rnnt`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_toml
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_torchvision
+             * CM names: `--adr.['torchvision']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_nvidia-apex
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_unidecode
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_inflect
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_librosa
+             * CM names: `--adr.['librosa']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_sox
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-sys-util,_sox
+             - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
 
     </details>
 
 
 #### Default variations
 
-`_cpu,_resnet50,_tensorrt`
+`_cuda,_resnet50,_tensorrt`
 
 #### Script flags mapped to environment
 <details>
@@ -360,11 +430,13 @@ ___
 * --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
 * --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
 * --**performance_sample_count**=value --> **CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT**=value
+* --**rerun**=value --> **CM_RERUN**=value
 * --**run_infer_on_copy_streams**=value --> **CM_MLPERF_NVIDIA_HARNESS_RUN_INFER_ON_COPY_STREAMS**=value
 * --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
 * --**server_target_qps**=value --> **CM_MLPERF_LOADGEN_SERVER_TARGET_QPS**=value
 * --**singlestream_target_latency**=value --> **CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY**=value
 * --**skip_preprocess**=value --> **CM_SKIP_PREPROCESS_DATASET**=value
+* --**skip_preprocessing**=value --> **CM_SKIP_PREPROCESS_DATASET**=value
 * --**start_from_device**=value --> **CM_MLPERF_NVIDIA_HARNESS_START_FROM_DEVICE**=value
 * --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
 * --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
@@ -421,6 +493,22 @@ ___
        * `if (CM_MODEL  == resnet50)`
        * CM names: `--adr.['imagenet-original']...`
        - CM script: [get-dataset-imagenet-val](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-val)
+     * get,dataset,original,kits19
+       * `if (CM_MODEL in ['3d-unet-99', '3d-unet-99.9'])`
+       * CM names: `--adr.['kits19-original']...`
+       - CM script: [get-dataset-kits19](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-kits19)
+     * get,dataset,original,librispeech
+       * `if (CM_MODEL  == rnnt)`
+       * CM names: `--adr.['librispeech-original']...`
+       - CM script: [get-dataset-librispeech](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech)
+     * get,dataset,original,criteo
+       * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
+       * CM names: `--adr.['criteo-original']...`
+       - CM script: [get-dataset-criteo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-criteo)
+     * get,ml-model,dlrm,_pytorch
+       * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
+       * CM names: `--adr.['dlrm-model']...`
+       - CM script: [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte)
      * get,ml-model,nvidia-retinanet,_efficient-nms
        * `if (CM_MODEL  == retinanet)`
        * CM names: `--adr.['ml-model-retinanet']...`

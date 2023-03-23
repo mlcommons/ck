@@ -135,6 +135,8 @@ ___
       - Environment variables:
         - *CM_MLPERF_CPP*: `yes`
         - *CM_MLPERF_IMPLEMENTATION*: `cpp`
+        - *CM_IMAGENET_ACCURACY_DTYPE*: `float32`
+        - *CM_OPENIMAGES_ACCURACY_DTYPE*: `float32`
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * app,mlperf,cpp,inference
@@ -144,6 +146,8 @@ ___
     * `_nvidia`
       - Environment variables:
         - *CM_MLPERF_IMPLEMENTATION*: `nvidia`
+        - *CM_SQUAD_ACCURACY_DTYPE*: `float16`
+        - *CM_IMAGENET_ACCURACY_DTYPE*: `int32`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,mlperf,inference,nvidia,common-code
@@ -165,6 +169,9 @@ ___
     * `_nvidia-original`
       - Environment variables:
         - *CM_MLPERF_IMPLEMENTATION*: `nvidia-original`
+        - *CM_SQUAD_ACCURACY_DTYPE*: `float16`
+        - *CM_IMAGENET_ACCURACY_DTYPE*: `int32`
+        - *CM_LIBRISPEECH_ACCURACY_DTYPE*: `int8`
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * reproduce,mlperf,nvidia,inference
@@ -176,6 +183,10 @@ ___
       - Environment variables:
         - *CM_MLPERF_PYTHON*: `yes`
         - *CM_MLPERF_IMPLEMENTATION*: `reference`
+        - *CM_SQUAD_ACCURACY_DTYPE*: `float32`
+        - *CM_IMAGENET_ACCURACY_DTYPE*: `float32`
+        - *CM_OPENIMAGES_ACCURACY_DTYPE*: `float32`
+        - *CM_LIBRISPEECH_ACCURACY_DTYPE*: `float32`
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * app,mlperf,reference,inference
@@ -187,6 +198,7 @@ ___
         - *CM_MLPERF_TFLITE_CPP*: `yes`
         - *CM_MLPERF_CPP*: `yes`
         - *CM_MLPERF_IMPLEMENTATION*: `tflite-cpp`
+        - *CM_IMAGENET_ACCURACY_DTYPE*: `float32`
       - Workflow:
         1. ***Read "posthook_deps" on other CM scripts***
            * app,mlperf,tflite-cpp,inference
@@ -331,9 +343,9 @@ ___
         - *CM_MODEL*: `rnnt`
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
-           * run,accuracy,mlperf,_librispeech,_int32
+           * run,accuracy,mlperf,_librispeech
              * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
-             * CM names: `--adr.['mlperf-accuracy-script', 'rnnt-accuracy-script']...`
+             * CM names: `--adr.['mlperf-accuracy-script', 'librispeech-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
 
     </details>
@@ -414,6 +426,13 @@ ___
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_bert_`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,dataset,squad,language-processing
+             * `if (CM_DATASET_SQUAD_VAL_PATH not in on)`
+             - CM script: [get-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)
+           * get,dataset-aux,squad-vocab
+             * `if (CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH" not in on)`
+             - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
         1. ***Read "post_deps" on other CM scripts***
            * run,accuracy,mlperf,_squad
              * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`

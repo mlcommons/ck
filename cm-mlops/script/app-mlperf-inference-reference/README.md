@@ -130,9 +130,14 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_tokenization
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_six
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_protobuf
              * `if (CM_MLPERF_BACKEND in ['tf', 'tflite'])`
              * CM names: `--adr.['protobuf']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_boto3
+             * `if (CM_MLPERF_BACKEND  == pytorch)`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
            * get,generic-python-lib,_torch
              * CM names: `--adr.['ml-engine-pytorch']...`
@@ -221,7 +226,7 @@ ___
     * `_pytorch`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `pytorch`
-        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_PYTORCH_VERSION>>>`
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_TORCH_VERSION>>>`
       - Workflow:
     * `_tf`
       - Aliases: `_tensorflow`
@@ -231,7 +236,6 @@ ___
       - Workflow:
     * `_tvm-onnx`
       - Environment variables:
-        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `1`
         - *CM_MLPERF_BACKEND*: `tvm-onnx`
         - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_ONNXRUNTIME_VERSION>>>`
       - Workflow:
@@ -243,9 +247,8 @@ ___
              - CM script: [get-tvm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tvm)
     * `_tvm-pytorch`
       - Environment variables:
-        - *CM_MLPERF_LOADGEN_MAX_BATCHSIZE*: `1`
         - *CM_MLPERF_BACKEND*: `tvm-pytorch`
-        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_PYTORCH_VERSION>>>`
+        - *CM_MLPERF_BACKEND_VERSION*: `<<<CM_TORCH_VERSION>>>`
         - *MLPERF_TVM_TORCH_QUANTIZED_ENGINE*: `qnnpack`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
@@ -502,7 +505,7 @@ ___
        * `if (CM_MODEL in ['dlrm-99', 'dlrm-99.9'])`
        * CM names: `--adr.['ml-model', 'dlrm-model']...`
        - CM script: [get-ml-model-dlrm-terabyte](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-dlrm-terabyte)
-     * get,dataset,image-classification,imagenet,preprocessed
+     * get,dataset,image-classification,imagenet,preprocessed,_default
        * `if (CM_MODEL  == resnet50) AND (CM_MLPERF_VISION_DATASET_OPTION  != True)`
        * CM names: `--adr.['imagenet-preprocessed']...`
        - CM script: [get-preprocessed-dataset-imagenet](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-preprocessed-dataset-imagenet)
@@ -572,6 +575,7 @@ ___
 * **CM_MLPERF_LOADGEN_SCENARIO**
 * **CM_MLPERF_OUTPUT_DIR**
 * **CM_MLPERF_RUN_CMD**
+* **CM_ML_MODEL_FILE_WITH_PATH**
 ___
 ### Maintainers
 

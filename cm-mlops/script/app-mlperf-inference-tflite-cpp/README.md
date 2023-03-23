@@ -106,6 +106,7 @@ ___
     * `_armnn`
       - Environment variables:
         - *CM_MLPERF_TFLITE_USE_ARMNN*: `yes`
+        - *CM_TMP_LINK_LIBS*: `tensorflowlite,armnn`
       - Workflow:
     * `_armnn,tflite`
       - Environment variables:
@@ -113,14 +114,7 @@ ___
         - *CM_MLPERF_BACKEND_VERSION*: `22.11`
         - *CM_TMP_SRC_FOLDER*: `armnn`
         - *CM_TMP_LINK_LIBS*: `tensorflowlite,armnn,armnnTfLiteParser`
-      - Workflow:
-    * `_use-neon`
-      - Environment variables:
-        - *CM_MLPERF_TFLITE_USE_NEON*: `1`
-      - Workflow:
-    * `_use-opencl`
-      - Environment variables:
-        - *CM_MLPERF_TFLITE_USE_OPENCL*: `1`
+        - *CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX*: `tflite_armnn_cpp`
       - Workflow:
 
     </details>
@@ -139,7 +133,7 @@ ___
         - *CM_MLPERF_BACKEND*: `tflite`
         - *CM_MLPERF_BACKEND_VERSION*: `master`
         - *CM_TMP_SRC_FOLDER*: `src`
-        - *CM_TMP_LINK_LIBS*: `tensorflowlite,armnn`
+        - *CM_TMP_LINK_LIBS*: `tensorflowlite`
       - Workflow:
 
     </details>
@@ -177,6 +171,24 @@ ___
     * **`_resnet50`** (default)
       - Environment variables:
         - *CM_MODEL*: `resnet50`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**optimization-target**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_use-neon`
+      - Environment variables:
+        - *CM_MLPERF_TFLITE_USE_NEON*: `1`
+        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1*: `using_neon`
+      - Workflow:
+    * `_use-opencl`
+      - Environment variables:
+        - *CM_MLPERF_TFLITE_USE_OPENCL*: `1`
+        - *CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1*: `using_opencl`
       - Workflow:
 
     </details>
@@ -303,6 +315,7 @@ ___
      * get,tensorflow,lib,_tflite
        - CM script: [install-tensorflow-from-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-tensorflow-from-src)
      * get,lib,armnn
+       * `if (CM_MLPERF_TFLITE_USE_ARMNN  == yes)`
        - CM script: [get-lib-armnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn)
      * generate,user-conf,mlperf,inference
        * CM names: `--adr.['user-conf-generator']...`

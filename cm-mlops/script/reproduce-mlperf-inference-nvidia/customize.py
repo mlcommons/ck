@@ -40,9 +40,13 @@ def preprocess(i):
 
     elif "3d-unet" in env['CM_MODEL']:
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'KiTS19', 'kits19', 'data')
+        target_data_path_base_dir = os.path.dirname(target_data_path)
+        if not os.path.exists(target_data_path_base_dir):
+            cmds.append(f"mkdir -p {target_data_path_base_dir}")
+ 
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -sf {env['CM_DATASET_PATH']} {target_data_path}")
-            #cmds.append("make download_data BENCHMARKS='3d-unet'")
+            #cmds.append(f"ln -sf {env['CM_DATASET_PATH']} {target_data_path}")
+            cmds.append("make download_data BENCHMARKS='3d-unet'")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', '3d-unet-kits19', '3dUNetKiTS19.onnx')
         model_name = "3d-unet"
@@ -188,6 +192,10 @@ def preprocess(i):
     if input_format:
         run_config += f" --input_format={input_format}"
 
+    performance_sample_count = env.get('CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT')
+    if performance_sample_count:
+        run_config += f" --performance_sample_count={performance_sample_count}"
+
     workspace_size = env.get('CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE')
     if workspace_size:
         run_config += f" --workspace_size={workspace_size}"
@@ -215,7 +223,7 @@ def preprocess(i):
     if end_on_device:
         run_config += " --end_on_device"
 
-    max_dlas = env.get('CM_MLPERF_MAX_DLAS')
+    max_dlas = env.get('CM_MLPERF_NVIDIA_HARNESS_MAX_DLAS')
     if max_dlas:
         run_config += f" --max_dlas={max_dlas}"
 

@@ -106,6 +106,20 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_amazon-linux-2-kernel.#`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_IMAGE_OS*: `amazon-linux-2-kernel.#`
+      - Workflow:
+    * `_graviton`
+      - Environment variables:
+        - *CM_TERRAFORM_AWS_GRAVITON_INSTANCE*: `yes`
+      - Workflow:
+    * `_inferentia`
+      - Environment variables:
+        - *CM_TERRAFORM_AWS_INFERENTIA_INSTANCE*: `yes`
+      - Workflow:
+    * `_inferentia,amazon-linux-2-kernel.510`
+      - Workflow:
     * `_ubuntu.#`
       - Environment variables:
         - *TF_VAR_INSTANCE_IMAGE_OS*: `ubuntu.#`
@@ -118,6 +132,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_amazon-linux-2-kernel.510,arm64,us-west-2`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_IMAGE*: `ami-0f1a5f5ada0e7da53`
+      - Workflow:
     * `_aws_instance_image.#`
       - Environment variables:
         - *TF_VAR_INSTANCE_IMAGE*: `#`
@@ -125,6 +143,10 @@ ___
     * `_aws_instance_image.ami-0735c191cf914754d`
       - Environment variables:
         - *TF_VAR_INSTANCE_IMAGE*: `ami-0735c191cf914754d`
+      - Workflow:
+    * `_aws_instance_image.ami-0a0d8589b597d65b3`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_IMAGE*: `ami-0a0d8589b597d65b3`
       - Workflow:
     * `_ubuntu.2204,arm64,us-west-2`
       - Environment variables:
@@ -174,9 +196,61 @@ ___
       - Environment variables:
         - *TF_VAR_INSTANCE_TYPE*: `g4dn.xlarge`
       - Workflow:
+    * `_inf1.2xlarge`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `inf1.2xlarge`
+      - Workflow:
+    * `_inf1.xlarge`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `inf1.xlarge`
+      - Workflow:
+    * `_inf2.8xlarge`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `inf2.8xlarge`
+      - Workflow:
+    * `_inf2.xlarge`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `inf2.xlarge`
+      - Workflow:
+    * `_m7g.2xlarge`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `m7g.2xlarge`
+      - Workflow:
+    * `_m7g.xlarge`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `m7g.xlarge`
+      - Workflow:
+    * `_t2.#`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `t2.#`
+      - Workflow:
+    * `_t2.2xlarge`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `t2.2xlarge`
+      - Workflow:
+    * `_t2.large`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `t2.large`
+      - Workflow:
+    * `_t2.medium`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `t2.medium`
+      - Workflow:
     * `_t2.micro`
       - Environment variables:
         - *TF_VAR_INSTANCE_TYPE*: `t2.micro`
+      - Workflow:
+    * `_t2.nano`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `t2.nano`
+      - Workflow:
+    * `_t2.small`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `t2.small`
+      - Workflow:
+    * `_t2.xlarge`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `t2.xlarge`
       - Workflow:
 
     </details>
@@ -229,6 +303,10 @@ ___
     * `_gcp_instance_type.#`
       - Environment variables:
         - *TF_VAR_INSTANCE_TYPE*: `#`
+      - Workflow:
+    * `_n1-standard-8`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `n1-standard-8`
       - Workflow:
 
     </details>
@@ -298,7 +376,7 @@ ___
       - Environment variables:
         - *TF_VAR_DISK_GBS*: `#`
       - Workflow:
-    * **`_storage_size.8`** (default)
+    * `_storage_size.8`
       - Environment variables:
         - *TF_VAR_DISK_GBS*: `8`
       - Workflow:
@@ -320,7 +398,7 @@ ___
 
 #### Default variations
 
-`_aws,_storage_size.8,_x86`
+`_aws,_x86`
 
 #### Script flags mapped to environment
 <details>

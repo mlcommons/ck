@@ -66,8 +66,10 @@ def preprocess(i):
 
         else:
             return {'return': 1, 'error': 'Unsupported dataset'}
-   
-        run_cmds.append(CMD)
+
+        outfile = os.path.join(result_dir, "accuracy.txt")
+        if not os.path.exists(outfile) or os.stat(outfile).st_size == 0 or env.get("CM_REGENERATE_MEASURE_FILES", False):
+            run_cmds.append(CMD)
 
     env['CM_RUN_CMDS'] = "??".join(run_cmds)
     return {'return':0}
