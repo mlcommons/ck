@@ -193,6 +193,11 @@
       "env": {
         "CM_ML_MODEL_BATCH_SIZE": "1"
       }
+    },
+    "batch_size.#": {
+      "env": {
+        "CM_ML_MODEL_BATCH_SIZE": "#"
+      }
     }
   }
 }

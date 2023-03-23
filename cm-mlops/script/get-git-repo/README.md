@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -134,6 +135,8 @@ ___
     <summary>Click here to expand this section.</summary>
 
     * `_repo.#`
+      - Environment variables:
+        - *CM_GIT_URL*: `#`
       - Workflow:
 
     </details>
@@ -142,6 +145,25 @@ ___
 #### Default variations
 
 `_default`
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* --**branch**=value --> **CM_GIT_CHECKOUT**=value
+* --**depth**=value --> **CM_GIT_DEPTH**=value
+* --**folder**=value --> **CM_GIT_CHECKOUT_FOLDER**=value
+* --**patch**=value --> **CM_GIT_PATCH**=value
+* --**submodules**=value --> **CM_GIT_RECURSE_SUBMODULES**=value
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "branch":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
@@ -167,6 +189,7 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)
   1. ***Run native script if exists***
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo/customize.py)***
@@ -176,9 +199,18 @@ ___
 #### New environment keys (filter)
 
 * **CM_GIT_CHECKOUT_PATH**
+* **CM_GIT_REPO_***
 #### New environment keys auto-detected from customize
 
 * **CM_GIT_CHECKOUT_PATH**
+* **CM_GIT_REPO_CHECKOUT**
+* **CM_GIT_REPO_CHECKOUT_FOLDER**
+* **CM_GIT_REPO_CHECKOUT_PATH**
+* **CM_GIT_REPO_DEPTH**
+* **CM_GIT_REPO_NAME**
+* **CM_GIT_REPO_PATCH**
+* **CM_GIT_REPO_RECURSE_SUBMODULES**
+* **CM_GIT_REPO_URL**
 ___
 ### Maintainers
 

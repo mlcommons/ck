@@ -102,12 +102,12 @@ ___
 
 * --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
 * --**hw_name**=value --> **CM_HW_NAME**=value
-* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
 * --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
 * --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
 * --**num_threads**=value --> **CM_NUM_THREADS**=value
 * --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
 * --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
+* --**performance_sample_count**=value --> **CM_MLPERF_PERFORMANCE_SAMPLE_COUNT**=value
 * --**power**=value --> **CM_MLPERF_POWER**=value
 * --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
 * --**rerun**=value --> **CM_RERUN**=value
@@ -133,7 +133,6 @@ r=cm.access({... , "count":...}
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
-* CM_MLPERF_LOADGEN_MAX_BATCHSIZE: **1**
 * CM_MLPERF_LOADGEN_MODE: **accuracy**
 * CM_MLPERF_LOADGEN_SCENARIO: **Offline**
 * CM_OUTPUT_FOLDER_NAME: **test_results**
@@ -170,16 +169,20 @@ ___
 #### New environment keys (filter)
 
 * **CM_HW_***
+* **CM_MAX_EXAMPLES**
 * **CM_MLPERF_***
 * **CM_SUT_***
 #### New environment keys auto-detected from customize
 
+* **CM_MAX_EXAMPLES**
 * **CM_MLPERF_CONF**
 * **CM_MLPERF_INFERENCE_AUDIT_PATH**
 * **CM_MLPERF_LOADGEN_LOGS_DIR**
 * **CM_MLPERF_LOADGEN_MODE**
 * **CM_MLPERF_LOADGEN_QUERY_COUNT**
 * **CM_MLPERF_LOADGEN_SCENARIO**
+* **CM_MLPERF_LOADGEN_TARGET_LATENCY**
+* **CM_MLPERF_LOADGEN_TARGET_QPS**
 * **CM_MLPERF_OUTPUT_DIR**
 * **CM_MLPERF_POWER_LOG_DIR**
 * **CM_MLPERF_RESULTS_DIR**

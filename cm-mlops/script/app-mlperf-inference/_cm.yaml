@@ -115,6 +115,8 @@ variations:
     env:
       CM_MLPERF_CPP: 'yes'
       CM_MLPERF_IMPLEMENTATION: cpp
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+      CM_OPENIMAGES_ACCURACY_DTYPE: float32
     posthook_deps:
       - names:
          - cpp-mlperf-inference
@@ -138,6 +140,7 @@ variations:
       CM_MLPERF_TFLITE_CPP: 'yes'
       CM_MLPERF_CPP: 'yes'
       CM_MLPERF_IMPLEMENTATION: tflite-cpp
+      CM_IMAGENET_ACCURACY_DTYPE: float32
     posthook_deps:
       - names:
          - tflite-cpp-mlperf-inference
@@ -157,9 +160,15 @@ variations:
         tags: _float32
       squad-accuracy-script:
         tags: _float32
+      librispeech-accuracy-script:
+        tags: _int32
     env:
       CM_MLPERF_PYTHON: 'yes'
       CM_MLPERF_IMPLEMENTATION: reference
+      CM_SQUAD_ACCURACY_DTYPE: float32
+      CM_IMAGENET_ACCURACY_DTYPE: float32
+      CM_OPENIMAGES_ACCURACY_DTYPE: float32
+      CM_LIBRISPEECH_ACCURACY_DTYPE: float32
     posthook_deps:
       - names:
          - python-reference-mlperf-inference
@@ -187,6 +196,8 @@ variations:
         version-min: 3.8.0
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia
+      CM_SQUAD_ACCURACY_DTYPE: float16
+      CM_IMAGENET_ACCURACY_DTYPE: int32
     deps:
       ## Nvidia common code
       - tags: get,mlperf,inference,nvidia,common-code
@@ -209,8 +220,13 @@ variations:
         tags: _int32
       squad-accuracy-script:
         tags: _float16
+      librispeech-accuracy-script:
+        tags: _int8
     env:
       CM_MLPERF_IMPLEMENTATION: nvidia-original
+      CM_SQUAD_ACCURACY_DTYPE: float16
+      CM_IMAGENET_ACCURACY_DTYPE: int32
+      CM_LIBRISPEECH_ACCURACY_DTYPE: int8
     posthook_deps:
       - names:
          - nvidia-original-mlperf-inference
@@ -229,11 +245,11 @@ variations:
     env:
       CM_MODEL:
         resnet50
+    deps:
+    - tags: get,dataset-aux,imagenet-aux
     add_deps_recursive:
       mlperf-inference-implementation:
         tags: _resnet50
-    deps: 
-    - tags: get,dataset-aux,imagenet-aux
     post_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -322,10 +338,18 @@ variations:
         - 'on'
       names:
       - mlperf-accuracy-script
-      - rnnt-accuracy-script
-      tags: run,accuracy,mlperf,_librispeech,_int32
+      - librispeech-accuracy-script
+      tags: run,accuracy,mlperf,_librispeech
 
   bert_:
+    deps:
+    - skip_if_env:
+        CM_DATASET_SQUAD_VAL_PATH: "on"
+      tags: get,dataset,squad,language-processing
+    - skip_if_env:
+        CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH": "on"
+      tags: get,dataset-aux,squad-vocab
+
     post_deps:
     - enable_if_env:
         CM_MLPERF_LOADGEN_MODE:
@@ -721,3 +745,7 @@ input_description:
     desc: "Quiet run (select default values for all questions)"
     boolean: true
     default: false
+  readme: 
+    desc: "Generate README with the reproducibility report"
+  debug: 
+    desc: "Debug MLPerf script"

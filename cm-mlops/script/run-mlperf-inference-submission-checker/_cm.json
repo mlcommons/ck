@@ -18,7 +18,10 @@
       "names": [
         "inference-src"
       ],
-      "tags": "get,mlcommons,inference,src"
+      "tags": "get,mlcommons,inference,src,_power-dev"
+    },
+    {
+      "tags": "get,generic-python-lib,_xlsxwriter"
     },
     {
       "tags": "get,generic-python-lib,_pandas"

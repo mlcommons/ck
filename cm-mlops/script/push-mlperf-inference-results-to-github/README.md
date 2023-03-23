@@ -31,7 +31,7 @@
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/push-mlperf-inference-results-to-github)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *push,mlperf-inference-results,publish-results,github*
+* CM "database" tags to find this script: *push,mlperf,mlperf-inference-results,publish-results,inference,submission,github*
 * Output cached?: *False*
 ___
 ### Usage
@@ -46,11 +46,11 @@ ___
 
 #### CM CLI
 
-`cm run script --tags=push,mlperf-inference-results,publish-results,github(,variations from below) (flags from below)`
+`cm run script --tags=push,mlperf,mlperf-inference-results,publish-results,inference,submission,github(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "push mlperf-inference-results publish-results github (variations from below)" (flags from below)`
+`cm run script "push mlperf mlperf-inference-results publish-results inference submission github (variations from below)" (flags from below)`
 
 *or*
 
@@ -67,7 +67,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'push,mlperf-inference-results,publish-results,github'
+                  'tags':'push,mlperf,mlperf-inference-results,publish-results,inference,submission,github'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -84,9 +84,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="push,mlperf-inference-results,publish-results,github"```
+```cm run script --tags=gui --script="push,mlperf,mlperf-inference-results,publish-results,inference,submission,github"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=push,mlperf-inference-results,publish-results,github) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=push,mlperf,mlperf-inference-results,publish-results,inference,submission,github) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -100,13 +100,14 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**repo_url**=value --> **CM_GIT_REPO_URL**=value
-* --**submission_dir**=value --> **CM_MLPERF_INFERENCE_SUBMISSION_DIR**=value
+* --**commit_message**=value --> **CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE**=value
+* --**repo_url**=value --> **CM_MLPERF_RESULTS_GIT_REPO_URL**=value
+* --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "repo_url":...}
+r=cm.access({... , "commit_message":...}
 ```
 
 </details>
@@ -118,7 +119,7 @@ r=cm.access({... , "repo_url":...}
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
-* CM_GIT_REPO_URL: **https://github.com/arjunsuresh/mlperf_inference_submissions_v3.0**
+* CM_MLPERF_RESULTS_GIT_REPO_URL: **https://github.com/ctuning/mlperf_inference_submissions_v3.0**
 
 </details>
 

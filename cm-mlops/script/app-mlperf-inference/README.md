@@ -135,8 +135,10 @@ ___
       - Environment variables:
         - *CM_MLPERF_CPP*: `yes`
         - *CM_MLPERF_IMPLEMENTATION*: `cpp`
+        - *CM_IMAGENET_ACCURACY_DTYPE*: `float32`
+        - *CM_OPENIMAGES_ACCURACY_DTYPE*: `float32`
       - Workflow:
-        1. ***Read "prehook_deps" on other CM scripts***
+        1. ***Read "posthook_deps" on other CM scripts***
            * app,mlperf,cpp,inference
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['cpp-mlperf-inference', 'mlperf-inference-implementation']...`
@@ -144,6 +146,8 @@ ___
     * `_nvidia`
       - Environment variables:
         - *CM_MLPERF_IMPLEMENTATION*: `nvidia`
+        - *CM_SQUAD_ACCURACY_DTYPE*: `float16`
+        - *CM_IMAGENET_ACCURACY_DTYPE*: `int32`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,mlperf,inference,nvidia,common-code
@@ -165,11 +169,11 @@ ___
     * `_nvidia-original`
       - Environment variables:
         - *CM_MLPERF_IMPLEMENTATION*: `nvidia-original`
+        - *CM_SQUAD_ACCURACY_DTYPE*: `float16`
+        - *CM_IMAGENET_ACCURACY_DTYPE*: `int32`
+        - *CM_LIBRISPEECH_ACCURACY_DTYPE*: `int8`
       - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,mlperf,inference,nvidia,common-code
-             - CM script: [get-mlperf-inference-nvidia-common-code](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-nvidia-common-code)
-        1. ***Read "prehook_deps" on other CM scripts***
+        1. ***Read "posthook_deps" on other CM scripts***
            * reproduce,mlperf,nvidia,inference
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['nvidia-original-mlperf-inference', 'nvidia-harness', 'mlperf-inference-implementation']...`
@@ -179,8 +183,12 @@ ___
       - Environment variables:
         - *CM_MLPERF_PYTHON*: `yes`
         - *CM_MLPERF_IMPLEMENTATION*: `reference`
+        - *CM_SQUAD_ACCURACY_DTYPE*: `float32`
+        - *CM_IMAGENET_ACCURACY_DTYPE*: `float32`
+        - *CM_OPENIMAGES_ACCURACY_DTYPE*: `float32`
+        - *CM_LIBRISPEECH_ACCURACY_DTYPE*: `float32`
       - Workflow:
-        1. ***Read "prehook_deps" on other CM scripts***
+        1. ***Read "posthook_deps" on other CM scripts***
            * app,mlperf,reference,inference
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['python-reference-mlperf-inference', 'mlperf-inference-implementation']...`
@@ -190,8 +198,9 @@ ___
         - *CM_MLPERF_TFLITE_CPP*: `yes`
         - *CM_MLPERF_CPP*: `yes`
         - *CM_MLPERF_IMPLEMENTATION*: `tflite-cpp`
+        - *CM_IMAGENET_ACCURACY_DTYPE*: `float32`
       - Workflow:
-        1. ***Read "prehook_deps" on other CM scripts***
+        1. ***Read "posthook_deps" on other CM scripts***
            * app,mlperf,tflite-cpp,inference
              * `if (CM_SKIP_RUN  != True)`
              * CM names: `--adr.['tflite-cpp-mlperf-inference', 'mlperf-inference-implementation']...`
@@ -276,6 +285,38 @@ ___
       - Environment variables:
         - *CM_MODEL*: `bert-99.9`
       - Workflow:
+    * `_dlrm-99`
+      - Environment variables:
+        - *CM_MODEL*: `dlrm-99`
+      - Workflow:
+    * `_dlrm-99.9`
+      - Environment variables:
+        - *CM_MODEL*: `dlrm-99.9`
+      - Workflow:
+    * `_efficientnet`
+      - Environment variables:
+        - *CM_MODEL*: `efficientnet`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,dataset-aux,imagenet-aux
+             - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
+        1. ***Read "post_deps" on other CM scripts***
+           * run,accuracy,mlperf,_imagenet
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
+             * CM names: `--adr.['mlperf-accuracy-script', 'imagenet-accuracy-script']...`
+             - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
+    * `_mobilenet`
+      - Environment variables:
+        - *CM_MODEL*: `mobilenet`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,dataset-aux,imagenet-aux
+             - CM script: [get-dataset-imagenet-aux](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-imagenet-aux)
+        1. ***Read "post_deps" on other CM scripts***
+           * run,accuracy,mlperf,_imagenet
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
+             * CM names: `--adr.['mlperf-accuracy-script', 'imagenet-accuracy-script']...`
+             - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * **`_resnet50`** (default)
       - Environment variables:
         - *CM_MODEL*: `resnet50`
@@ -302,10 +343,10 @@ ___
         - *CM_MODEL*: `rnnt`
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
-           * run,accuracy,mlperf,_rnnt
+           * run,accuracy,mlperf,_librispeech
              * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
-             * CM names: `--adr.['mlperf-accuracy-script', 'rnnt-accuracy-script']...`
-             - *Warning: no scripts found*
+             * CM names: `--adr.['mlperf-accuracy-script', 'librispeech-accuracy-script']...`
+             - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
 
     </details>
 
@@ -324,6 +365,11 @@ ___
       - Environment variables:
         - *CM_MLPERF_QUANTIZATION*: `True`
         - *CM_MLPERF_MODEL_PRECISION*: `int8`
+      - Workflow:
+    * `_uint8`
+      - Environment variables:
+        - *CM_MLPERF_QUANTIZATION*: `True`
+        - *CM_MLPERF_MODEL_PRECISION*: `uint8`
       - Workflow:
 
     </details>
@@ -374,16 +420,30 @@ ___
     * `_3d-unet_`
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
-           * run,accuracy,mlperf,_3dunet
+           * run,accuracy,mlperf,_kits19,_int8
              * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
-             * CM names: `--adr.['mlperf-accuracy-script', '3dunet-accuracy-script']...`
-             - *Warning: no scripts found*
+             * CM names: `--adr.['mlperf-accuracy-script', '3d-unet-accuracy-script']...`
+             - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
     * `_bert_`
       - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,dataset,squad,language-processing
+             * `if (CM_DATASET_SQUAD_VAL_PATH not in on)`
+             - CM script: [get-dataset-squad](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad)
+           * get,dataset-aux,squad-vocab
+             * `if (CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH" not in on)`
+             - CM script: [get-dataset-squad-vocab](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-squad-vocab)
         1. ***Read "post_deps" on other CM scripts***
-           * run,accuracy,mlperf,_squad,_float32
+           * run,accuracy,mlperf,_squad
              * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
              * CM names: `--adr.['squad-accuracy-script', 'mlperf-accuracy-script']...`
+             - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
+    * `_dlrm_`
+      - Workflow:
+        1. ***Read "post_deps" on other CM scripts***
+           * run,accuracy,mlperf,_terabyte,_float32
+             * `if (CM_MLPERF_LOADGEN_MODE in ['accuracy', 'all'] AND CM_MLPERF_ACCURACY_RESULTS_DIR  == on)`
+             * CM names: `--adr.['terabyte-accuracy-script', 'mlperf-accuracy-script']...`
              - CM script: [process-mlperf-accuracy](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/process-mlperf-accuracy)
 
     </details>
@@ -399,8 +459,8 @@ ___
       - Workflow:
     * `_power`
       - Environment variables:
-        - *CM_MLPERF_POWER*: `True`
-        - *CM_SYSTEM_POWER*: `True`
+        - *CM_MLPERF_POWER*: `yes`
+        - *CM_SYSTEM_POWER*: `yes`
       - Workflow:
 
     </details>
@@ -430,7 +490,7 @@ ___
 * --**test_query_count** Specifies the number of samples to be processed during a test run
 * --**target_qps** Target QPS
 * --**target_latency** Target Latency
-* --**max_batchsize** Maximum batchsize to be used (*1*)
+* --**max_batchsize** Maximum batchsize to be used
 * --**num_threads** Number of CPU threads to launch the application with
 * --**hw_name** Valid value - any system description which has a config file (under same name) defined [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-configs-sut-mlperf-inference/configs)
 * --**output_dir** Location where the outputs are produced
@@ -443,6 +503,8 @@ ___
 * --**adr.inference-src-loadgen.env.CM_GIT_URL** Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)
 * --**adr.inference-src.env.CM_GIT_URL** Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)
 * --**quiet** Quiet run (select default values for all questions) (*False*)
+* --**readme** Generate README with the reproducibility report
+* --**debug** Debug MLPerf script
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -456,6 +518,7 @@ r=cm.access({... , "scenario":...}
 
 * --**clean**=value --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**=value
 * --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
+* --**debug**=value --> **CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM**=value
 * --**docker**=value --> **CM_RUN_DOCKER_CONTAINER**=value
 * --**hw_name**=value --> **CM_HW_NAME**=value
 * --**imagenet_path**=value --> **IMAGENET_PATH**=value
@@ -468,8 +531,9 @@ r=cm.access({... , "scenario":...}
 * --**num_threads**=value --> **CM_NUM_THREADS**=value
 * --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
 * --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
-* --**power**=value --> **CM_SYSTEM_POWER**=value
+* --**power**=value --> **CM_MLPERF_POWER**=value
 * --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
+* --**readme**=value --> **CM_MLPERF_README**=value
 * --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
 * --**rerun**=value --> **CM_RERUN**=value
 * --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
@@ -494,7 +558,6 @@ r=cm.access({... , "clean":...}
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
-* CM_MLPERF_LOADGEN_MAX_BATCHSIZE: **1**
 * CM_MLPERF_LOADGEN_MODE: **accuracy**
 * CM_MLPERF_LOADGEN_SCENARIO: **Offline**
 * CM_OUTPUT_FOLDER_NAME: **test_results**
@@ -510,21 +573,14 @@ ___
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)***
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-     * detect,cpu
-       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
      * get,sys-utils-cm
        - CM script: [get-sys-utils-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-sys-utils-cm)
      * get,python
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * get,cuda
-       * `if (CM_MLPERF_DEVICE  == gpu)`
-       - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
-     * get,sut,configs
-       - CM script: [get-mlperf-inference-sut-configs](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-configs)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)
   1. ***Run native script if exists***
@@ -539,17 +595,6 @@ ___
 #### New environment keys auto-detected from customize
 
 * **CM_MLPERF_ACCURACY_RESULTS_DIR**
-* **CM_MLPERF_CONF**
-* **CM_MLPERF_LOADGEN_EXTRA_OPTIONS**
-* **CM_MLPERF_LOADGEN_LOGS_DIR**
-* **CM_MLPERF_LOADGEN_MODE**
-* **CM_MLPERF_LOADGEN_QPS_OPT**
-* **CM_MLPERF_LOADGEN_QUERY_COUNT**
-* **CM_MLPERF_LOADGEN_SCENARIO**
-* **CM_MLPERF_OUTPUT_DIR**
-* **CM_MLPERF_RESULTS_DIR**
-* **CM_MLPERF_RUN_STYLE**
-* **CM_MLPERF_USER_CONF**
 ___
 ### Maintainers
 

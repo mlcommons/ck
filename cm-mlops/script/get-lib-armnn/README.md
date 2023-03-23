@@ -21,12 +21,9 @@
 
 </details>
 
-*Note that this README is automatically generated - don't edit! See [more info](README-extra.md).*
+*Note that this README is automatically generated - don't edit! Use `README-extra.md` to add more info.*
 
 ### Description
-
-
-See [more info](README-extra.md).
 
 #### Information
 
@@ -109,9 +106,9 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 </details>
 
 #### Versions
-Default version: *22.08*
+Default version: *22.11*
 
-* 22.08
+* 22.11
 ___
 ### Script workflow, dependencies and native scripts
 
@@ -119,7 +116,9 @@ ___
      * detect,os
        - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn/_cm.json)
+  1. ***Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn/_cm.json)***
+     * get,git,repo,_repo.https://github.com/ARM-software/armnn
+       - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn/_cm.json)

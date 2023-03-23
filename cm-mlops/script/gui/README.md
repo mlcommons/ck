@@ -11,6 +11,7 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Variations](#variations)
   * [ Input description](#input-description)
   * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
@@ -113,9 +114,33 @@ ___
 ### Customization
 
 
+#### Variations
+
+  * Group "**app**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_graph`
+      - Environment variables:
+        - *CM_GUI_APP*: `graph`
+      - Workflow:
+        1. ***Read "prehook_deps" on other CM scripts***
+           * get,generic-python-lib,_matplotlib
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_mpld3
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_main`
+      - Environment variables:
+        - *CM_GUI_APP*: `app`
+      - Workflow:
+
+    </details>
+
+
 #### Input description
 
 * --**script** script tags
+* --**app** gui app
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -128,6 +153,7 @@ r=cm.access({... , "script":...}
 <summary>Click here to expand this section.</summary>
 
 * --**address**=value --> **CM_GUI_ADDRESS**=value
+* --**app**=value --> **CM_GUI_APP**=value
 * --**no_browser**=value --> **CM_GUI_NO_BROWSER**=value
 * --**no_run**=value --> **CM_GUI_NO_RUN**=value
 * --**port**=value --> **CM_GUI_PORT**=value
@@ -152,6 +178,7 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 * CM_GUI_EXTRA_CMD: ****
 * CM_GUI_SCRIPT_PREFIX_LINUX: **gnome-terminal --**
+* CM_GUI_APP: **app**
 
 </details>
 

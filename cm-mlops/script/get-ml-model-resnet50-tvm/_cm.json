@@ -7,7 +7,8 @@
   "deps": [
     {
       "names": [
-        "python", "python3"
+        "python",
+        "python3"
       ],
       "tags": "get,python3"
     },
@@ -31,10 +32,12 @@
     }
   ],
   "default_env": {
-    "CM_ML_MODEL_MAX_BATCH_SIZE": "1"
+    "CM_ML_MODEL_MAX_BATCH_SIZE": "1",
+    "CM_TUNE_TVM_MODEL": "no"
   },
   "new_env_keys": [
-    "CM_ML_MODEL_*"
+    "CM_ML_MODEL_*",
+    "CM_TUNE_TVM_*"
   ],
   "tags": [
     "get",
@@ -136,6 +139,22 @@
     },
     "tflite": {
       "alias": "tensorflow"
+    },
+    "tune-model": {
+      "env": {
+        "CM_TUNE_TVM_MODEL": "yes"
+      },
+      "deps": [
+        {
+          "tags": "get,generic-python-lib,_xgboost"
+        },
+        {
+          "tags": "get,generic-python-lib,_pandas"
+        },
+        {
+          "tags": "get,generic-python-lib,_tornado"
+        }
+      ]
     },
     "batch_size.#": {
       "group": "batchsize",

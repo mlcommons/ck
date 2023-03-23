@@ -162,30 +162,35 @@ ___
         - *CM_ML_MODEL_IMAGE_HEIGHT*: `224`
         - *CM_ML_MODEL_IMAGE_WIDTH*: `224`
         - *CM_ML_MODEL_MOBILENET_RESOLUTION*: `224`
+        - *CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS*: `_resolution.224`
       - Workflow:
     * `_resolution-240`
       - Environment variables:
         - *CM_ML_MODEL_IMAGE_HEIGHT*: `240`
         - *CM_ML_MODEL_IMAGE_WIDTH*: `240`
         - *CM_ML_MODEL_MOBILENET_RESOLUTION*: `240`
+        - *CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS*: `_resolution.240`
       - Workflow:
     * `_resolution-260`
       - Environment variables:
         - *CM_ML_MODEL_IMAGE_HEIGHT*: `260`
         - *CM_ML_MODEL_IMAGE_WIDTH*: `260`
         - *CM_ML_MODEL_MOBILENET_RESOLUTION*: `260`
+        - *CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS*: `_resolution.260`
       - Workflow:
     * `_resolution-280`
       - Environment variables:
         - *CM_ML_MODEL_IMAGE_HEIGHT*: `280`
         - *CM_ML_MODEL_IMAGE_WIDTH*: `280`
         - *CM_ML_MODEL_MOBILENET_RESOLUTION*: `280`
+        - *CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS*: `_resolution.280`
       - Workflow:
     * `_resolution-300`
       - Environment variables:
         - *CM_ML_MODEL_IMAGE_HEIGHT*: `300`
         - *CM_ML_MODEL_IMAGE_WIDTH*: `300`
         - *CM_ML_MODEL_MOBILENET_RESOLUTION*: `300`
+        - *CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS*: `_resolution.300`
       - Workflow:
 
     </details>
@@ -228,6 +233,7 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* **CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS**
 * **CM_ML_MODEL_***
 #### New environment keys auto-detected from customize
 

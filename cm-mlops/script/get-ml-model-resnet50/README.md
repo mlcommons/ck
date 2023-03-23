@@ -105,6 +105,14 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_batch_size.#`
+      - Environment variables:
+        - *CM_ML_MODEL_BATCH_SIZE*: `#`
+      - Workflow:
+    * `_batch_size.1`
+      - Environment variables:
+        - *CM_ML_MODEL_BATCH_SIZE*: `1`
+      - Workflow:
     * `_onnx,opset-11`
       - Environment variables:
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/4735647/files/resnet50_v1.onnx`
@@ -176,7 +184,7 @@ ___
         - *CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor`
         - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor`
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
-        - *CM_ML_MODEL_SUBTRACT_MEAN*: `YES`
+        - *CM_ML_MODEL_SUBTRACT_MEANS*: `YES`
         - *CM_PACKAGE_URL*: `https://zenodo.org/record/2535873/files/resnet50_v1.pb`
       - Workflow:
     * `_tflite`
@@ -191,7 +199,7 @@ ___
         - *CM_ML_MODEL_OUTPUT_LAYERS*: `softmax_tensor`
         - *CM_ML_MODEL_OUTPUT_LAYER_NAME*: `softmax_tensor`
         - *CM_ML_MODEL_STARTING_WEIGHTS_FILENAME*: `<<<CM_PACKAGE_URL>>>`
-        - *CM_ML_MODEL_SUBTRACT_MEAN*: `YES`
+        - *CM_ML_MODEL_SUBTRACT_MEANS*: `YES`
         - *CM_PACKAGE_URL*: `https://www.dropbox.com/s/cvv2zlfo80h54uz/resnet50_v1.tflite.gz`
       - Workflow:
 

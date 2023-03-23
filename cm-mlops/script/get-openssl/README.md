@@ -33,7 +33,7 @@ See [more info](README-extra.md).
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,openssl,lib-openssl*
+* CM "database" tags to find this script: *get,openssl,lib,lib-openssl*
 * Output cached?: *True*
 ___
 ### Usage
@@ -48,11 +48,11 @@ ___
 
 #### CM CLI
 
-`cm run script --tags=get,openssl,lib-openssl(,variations from below) (flags from below)`
+`cm run script --tags=get,openssl,lib,lib-openssl(,variations from below) (flags from below)`
 
 *or*
 
-`cm run script "get openssl lib-openssl (variations from below)" (flags from below)`
+`cm run script "get openssl lib lib-openssl (variations from below)" (flags from below)`
 
 *or*
 
@@ -69,7 +69,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,openssl,lib-openssl'
+                  'tags':'get,openssl,lib,lib-openssl'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -86,9 +86,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,openssl,lib-openssl"```
+```cm run script --tags=gui --script="get,openssl,lib,lib-openssl"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,openssl,lib-openssl) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,openssl,lib,lib-openssl) to generate CM CMD.
 
 #### CM modular Docker container
 

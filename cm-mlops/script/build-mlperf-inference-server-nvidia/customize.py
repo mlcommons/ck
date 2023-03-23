@@ -12,19 +12,26 @@ def preprocess(i):
 
     if '+LIBRARY_PATH' not in env:
         env['+LIBRARY_PATH'] = []
-    env['+LIBRARY_PATH'].append(os.path.join(env['CM_TENSORRT_INSTALL_PATH'], "lib"))
 
-    cxxflags = [ "-Wno-error=switch",  "-DDALI_1_15=1", "-Wno-error=maybe-uninitialized" ]
+    if 'CM_TENSORRT_INSTALL_PATH' in env:
+        env['+LIBRARY_PATH'].append(os.path.join(env['CM_TENSORRT_INSTALL_PATH'], "lib"))
+
+    cxxflags = [ "-Wno-error=switch", "-DDALI_1_15=1", "-Wno-error=maybe-uninitialized" ]
 
     if env.get('CM_GCC_VERSION', '') != '':
         gcc_major_version = env['CM_GCC_VERSION'].split(".")[0]
-        if int(gcc_major_version) < 10:
+        if int(gcc_major_version) > 10:
             cxxflags.append("-Wno-error=range-loop-construct")
 
-    if '+CXXFLAGS' not in env:
-        env['+CXXFLAGS'] = []
+    if env.get('CM_MLPERF_DEVICE','') == "inferentia":
+        env['USE_INFERENTIA'] = "1"
+        env['USE_NIGHTLY'] = "0"
+        env['CM_MAKE_BUILD_COMMAND'] = "build"
 
-    env['+CXXFLAGS'] += " ".join(cxxflags)
+    if '+ CXXFLAGS' not in env:
+        env['+ CXXFLAGS'] = []
+
+    env['+ CXXFLAGS'] += cxxflags
 
     return {'return':0}
 

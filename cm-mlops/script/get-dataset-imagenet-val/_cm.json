@@ -27,29 +27,42 @@
   ],
   "uid": "7afd58d287fe4f11",
   "variations": {
-    "2012-1": {
+    "2012": {
       "env": {
-        "CM_DATASET_SIZE": "1",
         "CM_DATASET_VER": "2012"
+      }
+    },
+    "2012-1": {
+      "base": [
+	"size.1",
+	"2012"
+      ],
+      "env": {
+        "CM_DATASET_SIZE": "1"
       }
     },
     "2012-500": {
+      "base": [
+	"size.500",
+	"2012"
+      ],
       "env": {
-        "CM_DATASET_SIZE": "500",
-        "CM_DATASET_VER": "2012"
+        "CM_DATASET_SIZE": "500"
       }
     },
     "2012-full": {
+      "base": [
+	"full",
+	"2012"
+      ],
       "env": {
         "CM_DATASET_SIZE": "50000",
-        "CM_DATASET_VER": "2012",
         "CM_IMAGENET_FULL": "yes"
       }
     },
     "full": {
       "env": {
         "CM_DATASET_SIZE": "50000",
-        "CM_DATASET_VER": "2012",
         "CM_IMAGENET_FULL": "yes"
       }
     },

@@ -194,6 +194,7 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* **+ LDFLAGS**
 * **+CPLUS_INCLUDE_PATH**
 * **+C_INCLUDE_PATH**
 * **+DYLD_FALLBACK_LIBRARY_PATH**

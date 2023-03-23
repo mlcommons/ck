@@ -122,17 +122,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_all-modes`
-      - Environment variables:
-        - *CM_MLPERF_LOADGEN_ALL_MODES*: `yes`
-      - Workflow:
     * `_all-scenarios`
       - Environment variables:
         - *CM_MLPERF_LOADGEN_ALL_SCENARIOS*: `yes`
       - Workflow:
-        1. ***Read "deps" on other CM scripts***
-           * get,sut,description
-             - CM script: [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
     * `_compliance`
       - Environment variables:
         - *CM_MLPERF_LOADGEN_COMPLIANCE*: `yes`
@@ -140,6 +133,52 @@ ___
     * `_dashboard`
       - Environment variables:
         - *CM_MLPERF_DASHBOARD*: `on`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**mode**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_all-modes`
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_ALL_MODES*: `yes`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**submission-generation**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_accuracy-only`
+      - Environment variables:
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
+        - *CM_MLPERF_LOADGEN_MODE*: `accuracy`
+        - *CM_RUN_SUBMISSION_CHECKER*: `no`
+        - *CM_RUN_MLPERF_ACCURACY*: `on`
+      - Workflow:
+    * **`_find-performance`** (default)
+      - Environment variables:
+        - *CM_MLPERF_LOADGEN_ALL_MODES*: `no`
+        - *CM_MLPERF_LOADGEN_MODE*: `performance`
+        - *CM_MLPERF_FIND_PERFORMANCE_MODE*: `yes`
+        - *CM_MLPERF_RESULT_PUSH_TO_GITHUB*: `False`
+      - Workflow:
+    * `_performance-only`
+      - Environment variables:
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
+        - *CM_MLPERF_LOADGEN_MODE*: `performance`
+        - *CM_RUN_SUBMISSION_CHECKER*: `no`
+      - Workflow:
+    * `_populate-readme`
+      - Environment variables:
+        - *CM_MLPERF_SUBMISSION_RUN*: `yes`
+        - *CM_MLPERF_README*: `yes`
+        - *CM_RUN_SUBMISSION_CHECKER*: `no`
       - Workflow:
     * `_submission`
       - Environment variables:
@@ -149,8 +188,6 @@ ___
         - *CM_RUN_MLPERF_ACCURACY*: `on`
       - Workflow:
         1. ***Read "post_deps" on other CM scripts***
-           * get,sut,description
-             - CM script: [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
            * generate,mlperf,inference,submission
              * CM names: `--adr.['submission-generator']...`
              - CM script: [generate-mlperf-inference-submission](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission)
@@ -176,7 +213,7 @@ ___
 
 #### Default variations
 
-`_short`
+`_find-performance,_short`
 
 #### Input description
 
@@ -187,16 +224,18 @@ ___
 * --**adr.inference-src-loadgen.env.CM_GIT_URL** Git URL for MLPerf inference sources to build LoadGen (to enable non-reference implementations)
 * --**adr.inference-src.env.CM_GIT_URL** Git URL for MLPerf inference sources to run benchmarks (to enable non-reference implementations)
 * --**submitter** Submitter name (without space) (*TheCommunity*)
-* --**implementation** MLPerf implementation {reference,cpp,nvidia-original} (*reference*)
+* --**implementation** MLPerf implementation {reference,cpp,nvidia-original,tflite-cpp} (*reference*)
+* --**compliance** Whether to run compliance tests (applicable only for closed division) {yes,no} (*yes*)
 * --**model** MLPerf model {resnet50,retinanet,bert-99,bert-99.9,3d-unet,rnnt} (*resnet50*)
-* --**precision** MLPerf model precision {fp32,int8} (*fp32*)
+* --**precision** MLPerf model precision {fp32,int8}
 * --**backend** MLPerf backend {onnxruntime,tf,pytorch,deepsparse,tensorrt,tvm-onnx} (*onnxruntime*)
 * --**hw_name** MLPerf hardware name (from [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description/hardware)) (*default*)
 * --**device** MLPerf device {cpu,cuda} (*cpu*)
 * --**scenario** MLPerf scenario {Offline,Server,SingleStream,MultiStream} (*Offline*)
 * --**mode** MLPerf mode {,accuracy,performance}
 * --**execution_mode** Execution mode {test,fast,valid} (*test*)
-* --**max_batchsize** Maximum batchsize to be used (*1*)
+* --**adr.mlperf-inference-implementation.max_batchsize** Maximum batchsize to be used
+* --**adr.mlperf-inference-implementation.num_threads** Number of threads (reference&C++ implementation only)
 * --**target_qps** Set LoadGen target QPS
 * --**offline_target_qps** Set LoadGen Offline target QPS
 * --**server_target_qps** Set Server target QPS
@@ -222,14 +261,17 @@ r=cm.access({... , "adr.python.name":...}
 
 * --**backend**=value --> **CM_MLPERF_BACKEND**=value
 * --**clean**=value --> **CM_MLPERF_CLEAN_ALL**=value
+* --**compliance**=value --> **CM_MLPERF_LOADGEN_COMPLIANCE**=value
 * --**dashboard_wb_project**=value --> **CM_MLPERF_DASHBOARD_WANDB_PROJECT**=value
 * --**dashboard_wb_user**=value --> **CM_MLPERF_DASHBOARD_WANDB_USER**=value
 * --**device**=value --> **CM_MLPERF_DEVICE**=value
+* --**division**=value --> **CM_MLPERF_SUBMISSION_DIVISION**=value
 * --**execution_mode**=value --> **CM_MLPERF_EXECUTION_MODE**=value
+* --**find_performance**=value --> **CM_MLPERF_FIND_PERFORMANCE_MODE**=value
 * --**hw_name**=value --> **CM_HW_NAME**=value
+* --**hw_notes_extra**=value --> **CM_MLPERF_SUT_SW_NOTES_EXTRA**=value
 * --**implementation**=value --> **CM_MLPERF_IMPLEMENTATION**=value
 * --**lang**=value --> **CM_MLPERF_IMPLEMENTATION**=value
-* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
 * --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
 * --**model**=value --> **CM_MLPERF_MODEL**=value
 * --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
@@ -237,9 +279,12 @@ r=cm.access({... , "adr.python.name":...}
 * --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
 * --**power**=value --> **CM_SYSTEM_POWER**=value
 * --**precision**=value --> **CM_MLPERF_MODEL_PRECISION**=value
+* --**push_to_github**=value --> **CM_MLPERF_RESULT_PUSH_TO_GITHUB**=value
+* --**readme**=value --> **CM_MLPERF_README**=value
 * --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
 * --**rerun**=value --> **CM_RERUN**=value
 * --**results_dir**=value --> **OUTPUT_BASE_DIR**=value
+* --**results_git_url**=value --> **CM_MLPERF_RESULTS_GIT_REPO_URL**=value
 * --**run_checker**=value --> **CM_RUN_SUBMISSION_CHECKER**=value
 * --**run_style**=value --> **CM_MLPERF_EXECUTION_MODE**=value
 * --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
@@ -248,6 +293,8 @@ r=cm.access({... , "adr.python.name":...}
 * --**skip_truncation**=value --> **CM_SKIP_TRUNCATE_ACCURACY**=value
 * --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
 * --**submitter**=value --> **CM_MLPERF_SUBMITTER**=value
+* --**sw_notes_extra**=value --> **CM_MLPERF_SUT_SW_NOTES_EXTRA**=value
+* --**system_type**=value --> **CM_MLPERF_SUBMISSION_SYSTEM_TYPE**=value
 * --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
 * --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
 * --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
@@ -269,10 +316,9 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 
 * CM_OUTPUT_FOLDER_NAME: **test_results**
 * CM_MLPERF_RUN_STYLE: **test**
-* CM_MLPERF_MODEL: **resnet50**
 * CM_MLPERF_IMPLEMENTATION: **reference**
-* CM_MLPERF_BACKEND: **onnxruntime**
-* CM_MLPERF_DEVICE: **cpu**
+* CM_MLPERF_MODEL: **resnet50**
+* CM_MLPERF_LOADGEN_COMPLIANCE: **yes**
 
 </details>
 
@@ -293,6 +339,8 @@ ___
      * get,mlcommons,inference,src
        * CM names: `--adr.['inference-src']...`
        - CM script: [get-mlperf-inference-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-src)
+     * get,sut,description
+       - CM script: [get-mlperf-inference-sut-description](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-inference-sut-description)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)
   1. ***Run native script if exists***

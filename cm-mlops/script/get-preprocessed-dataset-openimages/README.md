@@ -114,18 +114,22 @@ ___
     </details>
 
 
+  * Group "**annotations**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_custom-annotations`
+      - Workflow:
+    * **`_default-annotations`** (default)
+      - Workflow:
+
+    </details>
+
+
   * Group "**dataset-count**"
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_1`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `1`
-      - Workflow:
-    * `_5`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `5`
-      - Workflow:
     * **`_50`** (default)
       - Environment variables:
         - *CM_DATASET_SIZE*: `50`
@@ -136,7 +140,11 @@ ___
       - Workflow:
     * `_full`
       - Environment variables:
-        - *CM_DATASET_SIZE*: ``
+        - *CM_DATASET_SIZE*: `0`
+      - Workflow:
+    * `_size.#`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `#`
       - Workflow:
 
     </details>
@@ -190,7 +198,7 @@ ___
 
 #### Default variations
 
-`_50,_NCHW,_fp32,_validation`
+`_50,_NCHW,_default-annotations,_fp32,_validation`
 
 #### Script flags mapped to environment
 <details>

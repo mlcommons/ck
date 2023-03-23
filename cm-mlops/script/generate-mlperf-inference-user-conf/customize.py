@@ -82,28 +82,34 @@ def preprocess(i):
         ml_model_name = "bert"
     if 'dlrm' in ml_model_name:
         ml_model_name = "dlrm"
+    if '3d-unet' in ml_model_name:
+        ml_model_name = "3d-unet"
 
     query_count = None
 
     value = None
     if scenario in [ 'Offline', 'Server' ]:
         metric = "target_qps"
+        tolerance = 1.01
         #value = env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS') if scenario == "Server" else env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS')
         if not value:
             value = env.get('CM_MLPERF_LOADGEN_TARGET_QPS')
     elif scenario in [ 'SingleStream', 'MultiStream' ]:
         metric = "target_latency"
+        tolerance = 0.95
         if not value:
             value = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
+    else:
+        return {'return': 1, 'error': 'Invalid scenario: {}'.format(scenario)}
 
     if value:
         metric_value = value
         conf[metric] = value
     else:
         if metric in conf:
-            metric_value = conf[metric]
+            metric_value = str(float(conf[metric]) * tolerance) #some tolerance
         else:
-            if env.get("CM_MLPERF_FIND_PERFORMANCE", False):
+            if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
                 if metric == "target_qps":
                     print("In find performance mode: using 1 as target_qps")
                     conf[metric] = 1
@@ -114,7 +120,7 @@ def preprocess(i):
                 return {'return': 1, 'error': f"Config details missing for SUT:{env['CM_SUT_NAME']}, Model:{env['CM_MODEL']}, Scenario: {scenario}. Please input {metric} value"}
 
     #Pass the modified performance metrics to the implementation
-    if env.get("CM_MLPERF_FIND_PERFORMANCE", False):
+    if env.get("CM_MLPERF_FIND_PERFORMANCE_MODE", '') == "yes":
         if metric == "target_latency" and env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY', '') == '':
             env['CM_MLPERF_LOADGEN_TARGET_LATENCY'] = conf[metric]
         elif metric == "target_qps" and env.get('CM_MLPERF_LOADGEN_TARGET_QPS', '') == '':
@@ -152,12 +158,21 @@ def preprocess(i):
 
     else:
         if scenario == "MultiStream":
-            query_count = str(int((8000 / float(conf['target_latency'])) * 660))
+            query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 662))
             user_conf += ml_model_name + "." + scenario + ".max_query_count = " + query_count + "\n"
+            user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
+        elif scenario == "SingleStream":
+            query_count = str(max(int((1000 / float(conf['target_latency'])) * 660), 662))
+            user_conf += ml_model_name + "." + scenario + ".max_query_count = " + str(int(query_count)+40) + "\n"
             user_conf += ml_model_name + "." + scenario + ".min_query_count = " + query_count + "\n"
 
     if query_count:
         env['CM_MAX_EXAMPLES'] = query_count #needed for squad accuracy checker
+
+    if env.get('CM_MLPERF_PERFORMANCE_SAMPLE_COUNT', '') != '':
+        performance_sample_count = env['CM_MLPERF_PERFORMANCE_SAMPLE_COUNT']
+        user_conf += ml_model_name + ".*.performance_sample_count_override = " + performance_sample_count + "\n"
+
 
     import uuid
     key = uuid.uuid4().hex
@@ -200,7 +215,7 @@ def preprocess(i):
     if 'CM_MLPERF_POWER' in env and mode == "performance":
         log_mode = "performance_power"
     
-    if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun:
+    if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun:
         print("Output Dir: '" + OUTPUT_DIR + "'")
         print(user_conf)
         if 'CM_MLPERF_POWER' in env and os.path.exists(env['CM_MLPERF_POWER_LOG_DIR']):
@@ -209,7 +224,7 @@ def preprocess(i):
         print("Run files exist, skipping run...\n")
         env['CM_MLPERF_SKIP_RUN'] = "yes"
 
-    if not run_files_exist(mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
+    if not run_files_exist(log_mode, OUTPUT_DIR, required_files) or rerun or not measure_files_exist(OUTPUT_DIR, \
                     required_files[4]) or env.get("CM_MLPERF_LOADGEN_COMPLIANCE", "") == "yes" or env.get("CM_REGENERATE_MEASURE_FILES", False):
         env['CM_MLPERF_USER_CONF'] = user_conf_path
     else:
@@ -224,7 +239,7 @@ def run_files_exist(mode, OUTPUT_DIR, run_files):
     file_loc = {"accuracy": 0, "performance": 1, "power": 2, "performance_power": 3, "measure": 4, "compliance": 1}
     for file in run_files[file_loc[mode]]:
         file_path = os.path.join(OUTPUT_DIR, file)
-        if not os.path.exists(file_path) and file != "accuracy.txt":
+        if (not os.path.exists(file_path) or os.stat(file_path).st_size == 0)  and file != "accuracy.txt":
             return False
 
     return True

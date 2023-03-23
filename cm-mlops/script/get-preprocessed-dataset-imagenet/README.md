@@ -102,25 +102,106 @@ ___
 
 #### Variations
 
+  * *Internal group (variations should not be selected manually)*
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_mobilenet_`
+      - Environment variables:
+        - *CM_MODEL*: `mobilenet`
+      - Workflow:
+    * `_resnet50_`
+      - Environment variables:
+        - *CM_MODEL*: `resnet50`
+      - Workflow:
+
+    </details>
+
+
   * *No group (any variation can be selected)*
     <details>
     <summary>Click here to expand this section.</summary>
 
     * **`_default`** (default)
-      - Workflow:
-    * `_for.resnet50-quantized`
       - Environment variables:
+        - *CM_PREPROCESS_VGG*: `yes`
         - *CM_MODEL*: `resnet50`
-        - *CM_DATASET_NEW_EXTENSION*: `rgb8`
+      - Workflow:
+    * `_for.mobilenet,float32`
+      - Environment variables:
+        - *CM_DATASET_QUANTIZE*: `0`
+        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: ``
+        - *CM_DATASET_NORMALIZE_DATA*: `1`
+        - *CM_DATASET_SUBTRACT_MEANS*: `0`
+      - Workflow:
+    * `_for.mobilenet,rgb8`
+      - Environment variables:
+        - *CM_DATASET_SUBTRACT_MEANS*: `0`
+        - *CM_DATASET_QUANTIZE*: `0`
+        - *CM_DATASET_NORMALIZE_DATA*: `1`
+      - Workflow:
+    * `_for.resnet50,float32`
+      - Environment variables:
+        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
+        - *CM_DATASET_SUBTRACT_MEANS*: `1`
+        - *CM_DATASET_NORMALIZE_DATA*: `0`
+      - Workflow:
+    * `_for.resnet50,rgb8`
+      - Environment variables:
+        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: ``
+        - *CM_DATASET_SUBTRACT_MEANS*: `0`
+        - *CM_DATASET_NORMALIZE_DATA*: `0`
+        - *CM_DATASET_QUANTIZE*: `0`
+      - Workflow:
+    * `_for.resnet50,uint8`
+      - Environment variables:
         - *CM_DATASET_NORMALIZE_DATA*: `0`
         - *CM_DATASET_SUBTRACT_MEANS*: `1`
         - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
         - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
-        - *CM_DATASET_DATA_TYPE*: `int8`
         - *CM_DATASET_QUANT_SCALE*: `1.18944883`
         - *CM_DATASET_QUANT_OFFSET*: `0`
-        - *CM_DATASET_QUANTIZE*: `1`
-        - *CM_DATASET_CONVERT_TO_UNSIGNED*: `1`
+      - Workflow:
+    * `_pytorch`
+      - Environment variables:
+        - *CM_PREPROCESS_PYTORCH*: `yes`
+        - *CM_MODEL*: `resnet50`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_torchvision
+             * CM names: `--adr.['torchvision']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+
+    </details>
+
+
+  * Group "**extension**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_rgb32`
+      - Environment variables:
+        - *CM_DATASET_PREPROCESSED_EXTENSION*: `rgb32`
+      - Workflow:
+    * `_rgb8`
+      - Environment variables:
+        - *CM_DATASET_PREPROCESSED_EXTENSION*: `rgb8`
+      - Workflow:
+
+    </details>
+
+
+  * Group "**interpolation-method**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_inter.area`
+      - Environment variables:
+        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+      - Workflow:
+    * `_inter.linear`
+      - Environment variables:
+        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_LINEAR`
       - Workflow:
 
     </details>
@@ -147,33 +228,33 @@ ___
     <summary>Click here to expand this section.</summary>
 
     * `_for.mobilenet`
-      - Environment variables:
-        - *CM_DATASET_QUANTIZE*: `0`
-        - *CM_MODEL*: `mobilenet`
-      - Workflow:
-    * `_for.mobilenet-quantized`
-      - Environment variables:
-        - *CM_DATASET_QUANTIZE*: `1`
       - Workflow:
     * `_for.resnet50`
-      - Environment variables:
-        - *CM_DATASET_NEW_EXTENSION*: `rgb32`
-        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: `123.68 116.78 103.94`
-        - *CM_DATASET_SUBTRACT_MEANS*: `1`
-        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
-        - *CM_DATASET_QUANTIZE*: `0`
-        - *CM_DATASET_DATA_TYPE*: `float32`
-        - *CM_MODEL*: `resnet50`
       - Workflow:
-    * `_for.resnet50-rgb8`
+
+    </details>
+
+
+  * Group "**precision**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_float32`
       - Environment variables:
-        - *CM_DATASET_NEW_EXTENSION*: `rgb8`
-        - *CM_DATASET_GIVEN_CHANNEL_MEANS*: ``
-        - *CM_DATASET_SUBTRACT_MEAN*: `0`
-        - *CM_DATASET_INTERPOLATION_METHOD*: `INTER_AREA`
+        - *CM_DATASET_DATA_TYPE*: `float32`
         - *CM_DATASET_QUANTIZE*: `0`
+      - Workflow:
+    * `_int8`
+      - Environment variables:
         - *CM_DATASET_DATA_TYPE*: `int8`
-        - *CM_MODEL*: `resnet50`
+        - *CM_DATASET_QUANTIZE*: `1`
+        - *CM_DATASET_CONVERT_TO_UNSIGNED*: `0`
+      - Workflow:
+    * `_uint8`
+      - Environment variables:
+        - *CM_DATASET_DATA_TYPE*: `uint8`
+        - *CM_DATASET_QUANTIZE*: `1`
+        - *CM_DATASET_CONVERT_TO_UNSIGNED*: `1`
       - Workflow:
 
     </details>
@@ -198,6 +279,22 @@ ___
     </details>
 
 
+  * Group "**resolution**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_resolution.#`
+      - Environment variables:
+        - *CM_DATASET_INPUT_SQUARE_SIDE*: `#`
+      - Workflow:
+    * **`_resolution.224`** (default)
+      - Environment variables:
+        - *CM_DATASET_INPUT_SQUARE_SIDE*: `224`
+      - Workflow:
+
+    </details>
+
+
   * Group "**size**"
     <details>
     <summary>Click here to expand this section.</summary>
@@ -214,13 +311,17 @@ ___
       - Environment variables:
         - *CM_DATASET_SIZE*: `50000`
       - Workflow:
+    * `_size.#`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `#`
+      - Workflow:
 
     </details>
 
 
 #### Default variations
 
-`_500,_NCHW,_default`
+`_500,_NCHW,_default,_resolution.224`
 
 #### Script flags mapped to environment
 <details>
@@ -246,14 +347,13 @@ r=cm.access({... , "dir":...}
 
 These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
 
-* CM_DATASET_INPUT_SQUARE_SIDE: **224**
 * CM_DATASET_CROP_FACTOR: **87.5**
 * CM_DATASET_DATA_TYPE: **float32**
 * CM_DATASET_DATA_LAYOUT: **NCHW**
 * CM_DATASET_QUANT_SCALE: **1**
 * CM_DATASET_QUANTIZE: **0**
 * CM_DATASET_QUANT_OFFSET: **0**
-* CM_DATASET_NEW_EXTENSION: **npy**
+* CM_DATASET_PREPROCESSED_EXTENSION: **npy**
 * CM_DATASET_CONVERT_TO_UNSIGNED: **0**
 * CM_DATASET_REFERENCE_PREPROCESSOR: **1**
 

@@ -150,11 +150,12 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 </details>
 
 #### Versions
-Default version: *master*
+Default version: *v3.0*
 
 * custom
 * fix
 * master
+* v3.0
 ___
 ### Script workflow, dependencies and native scripts
 

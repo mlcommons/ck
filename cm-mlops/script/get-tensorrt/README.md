@@ -102,7 +102,8 @@ ___
 
 #### Input description
 
-* --**input** Path to the TensorRT Tar file downloaded from the Nvidia website (https://developer.nvidia.com/tensorrt)
+* --**input** Full path to the installed TensorRT library (nvinfer)
+* --**tar_file** Full path to the TensorRT Tar file downloaded from the Nvidia website (https://developer.nvidia.com/tensorrt)
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -115,6 +116,7 @@ r=cm.access({... , "input":...}
 <summary>Click here to expand this section.</summary>
 
 * --**input**=value --> **CM_INPUT**=value
+* --**tar_file**=value --> **CM_TENSORRT_TAR_FILE_PATH**=value
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -154,6 +156,7 @@ ___
 ### Script output
 #### New environment keys (filter)
 
+* **+ LDFLAGS**
 * **+CPLUS_INCLUDE_PATH**
 * **+C_INCLUDE_PATH**
 * **+DYLD_FALLBACK_LIBRARY_PATH**

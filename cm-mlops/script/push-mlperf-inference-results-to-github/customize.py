@@ -21,6 +21,7 @@ def preprocess(i):
                                     }
                                 })
     if r['return']>0: return r
+    env['CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE'] = env.get('CM_MLPERF_RESULTS_REPO_COMMIT_MESSAGE', 'Added new results')
 
     return {'return':0}
 

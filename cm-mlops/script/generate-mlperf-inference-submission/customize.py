@@ -50,9 +50,16 @@ def generate_submission(i):
     if 'CM_MLPERF_SUBMISSION_DIVISION' in env:
         system_meta['division'] = env['CM_MLPERF_SUBMISSION_DIVISION']
 
-    duplicate=(inp.get('duplicate_to_offline','')=='yes')
+    if 'CM_MLPERF_SUBMISSION_CATEGORY' in env:
+        system_meta['system_type'] = env['CM_MLPERF_SUBMISSION_CATEGORY']
 
-    division = system_meta['division']
+    duplicate= (env.get('CM_MLPERF_DUPLICATE_SCENARIO_RESULTS', 'no') in ["yes", "True"])
+
+    if env.get('CM_MLPERF_SUBMISSION_DIVISION', '') != '':
+        division = env['CM_MLPERF_SUBMISSION_DIVISION']
+        system_meta['division'] = division
+    else:
+        division = system_meta['division']
 
     if division not in ['open','closed']:
         return {'return':1, 'error':'"division" must be "open" or "closed"'}
@@ -74,6 +81,17 @@ def generate_submission(i):
 
     print('* MLPerf inference submitter: {}'.format(submitter))
 
+    if 'Collective' not in system_meta.get('sw_notes'):
+        system_meta['sw_notes'] =  "Powered by MLCommons Collective Mind framework (CK2). " + system_meta['sw_notes']
+
+    if env.get('CM_MLPERF_SUT_SW_NOTES_EXTRA','') != '':
+        sw_notes = f"{system_meta['sw_notes']} {env['CM_MLPERF_SUT_SW_NOTES_EXTRA']}"
+        system_meta['sw_notes'] = sw_notes
+
+    if env.get('CM_MLPERF_SUT_HW_NOTES_EXTRA','') != '':
+        hw_notes = f"{system_meta['hw_notes']} {env['CM_MLPERF_SUT_HW_NOTES_EXTRA']}"
+        system_meta['hw_notes'] = hw_notes
+
     path_submission=os.path.join(path_submission_division, submitter)
     if not os.path.isdir(path_submission):
         os.makedirs(path_submission)
@@ -85,7 +103,7 @@ def generate_submission(i):
 
     for res in results:
         parts = res.split("-")
-        if len(parts) > 5: #result folder structure using by CM script
+        if len(parts) > 5: #result folder structure used by CM script
             system = parts[0]
             implementation = parts[1]
             device = parts[2]
@@ -140,10 +158,14 @@ def generate_submission(i):
                 compliance_scenario_path = os.path.join(compliance_model_path, scenario)
 
                 if duplicate and scenario=='singlestream':
-                    print('Duplicating results from {} to offline:'.format(scenario))
-                    if not os.path.exists(os.path.join(result_model_path, "Offline")):
-                        shutil.copytree(result_scenario_path, os.path.join(result_model_path, "Offline"))
-                        scenarios += "Offline" 
+                    if not os.path.exists(os.path.join(result_model_path, "offline")):
+                        print('Duplicating results from {} to offline:'.format(scenario))
+                        shutil.copytree(result_scenario_path, os.path.join(result_model_path, "offline"))
+                        scenarios.append("offline")
+                    if not os.path.exists(os.path.join(result_model_path, "multistream")):
+                        print('Duplicating results from {} to multistream:'.format(scenario))
+                        shutil.copytree(result_scenario_path, os.path.join(result_model_path, "multistream"))
+                        scenarios.append("multistream")
 
                 modes = [f for f in os.listdir(result_scenario_path) if not os.path.isfile(os.path.join(result_scenario_path, f))]
                 for mode in modes:
@@ -222,7 +244,7 @@ def generate_submission(i):
                                     target = os.path.join(submission_results_path, "accuracy")
                                     os.makedirs(target)
                                     for log_file in os.listdir(compliance_accuracy_run_path):
-                                        if log_file.startswith("mlperf_"):
+                                        if log_file.startswith("mlperf_log_accuracy.json") or log_file.endswith("accuracy.txt"):
                                             shutil.copy(os.path.join(compliance_accuracy_run_path, log_file), os.path.join(target, log_file))
                         else:
                             if f.startswith('mlperf_') and not f.endswith('trace.json'):

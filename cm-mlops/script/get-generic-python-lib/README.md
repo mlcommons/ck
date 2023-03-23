@@ -105,6 +105,10 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
+    * `_Pillow`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `Pillow`
+      - Workflow:
     * `_apache-tvm`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `apache-tvm`
@@ -112,6 +116,14 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_typing_extensions
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_apex`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `apex`
+      - Workflow:
+    * `_attr`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `attr`
+      - Workflow:
     * `_attrs`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `attrs`
@@ -137,6 +149,18 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `deepsparse`
       - Workflow:
+    * `_fiftyone`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `fiftyone`
+      - Workflow:
+    * `_google-api-python-client`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `google_api_python_client`
+      - Workflow:
+    * `_google-auth-oauthlib`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `google_auth_oauthlib`
+      - Workflow:
     * `_inflect`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `inflect`
@@ -159,10 +183,18 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `librosa`
       - Workflow:
+    * `_matplotlib`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `matplotlib`
+      - Workflow:
     * `_mlperf_logging`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `mlperf_logging`
         - *CM_GENERIC_PYTHON_PIP_URL*: `git+https://github.com/mlperf/logging.git@2.1.0`
+      - Workflow:
+    * `_mpld3`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `mpld3`
       - Workflow:
     * `_nibabel`
       - Environment variables:
@@ -172,6 +204,15 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `numpy`
       - Workflow:
+    * `_nvidia-apex`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `apex`
+        - *CM_GENERIC_PYTHON_PACKAGE_VARIANT*: `nvidia-apex`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_torch_cuda
+             * CM names: `--adr.['torch']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_nvidia-dali`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `nvidia-dali-cuda110`
@@ -235,6 +276,10 @@ ___
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_colored
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+    * `_pre`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_DEV_VERSION*: `yes`
+      - Workflow:
     * `_protobuf`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `protobuf`
@@ -267,9 +312,17 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `scipy`
       - Workflow:
+    * `_setfit`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `setfit`
+      - Workflow:
     * `_setuptools`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `setuptools`
+      - Workflow:
+    * `_six`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `six`
       - Workflow:
     * `_sklearn`
       - Environment variables:
@@ -279,9 +332,17 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `sox`
       - Workflow:
+    * `_sparsezoo`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `sparsezoo`
+      - Workflow:
     * `_streamlit`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `streamlit`
+      - Workflow:
+    * `_tensorboard`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tensorboard`
       - Workflow:
     * `_tensorflow`
       - Environment variables:
@@ -304,17 +365,37 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/cpu`
       - Workflow:
+    * `_torch,pre`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
+        - *CM_GENERIC_PYTHON_PIP_EXTRA*: ` --pre`
+        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/nightly/cpu`
+      - Workflow:
     * `_torch_cuda`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
-        - *CM_TORCH_CUDA*: `cu116`
+        - *CM_TORCH_CUDA*: `cu117`
         - *CM_TORCH_VERSION_EXTRA*: `CUDA`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,cuda
              * CM names: `--adr.['cuda']...`
              - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+    * `_torch_cuda,pre`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torch`
+        - *CM_GENERIC_PYTHON_PIP_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
+        - *CM_GENERIC_PYTHON_PIP_EXTRA*: ` --pre`
+        - *CM_TORCH_CUDA*: `cu117`
+        - *CM_TORCH_VERSION_EXTRA*: `CUDA`
+      - Workflow:
+        1. ***Read "deps" on other CM scripts***
+           * get,cuda
+             * CM names: `--adr.['cuda']...`
+             - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+           * get,generic-python-lib,_numpy
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
     * `_torchaudio`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
@@ -325,7 +406,7 @@ ___
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `torchaudio`
         - *CM_GENERIC_PYTHON_PIP_EXTRA_INDEX_URL*: `https://download.pytorch.org/whl/${CM_TORCH_CUDA}`
         - *CM_TORCHAUDIO_VERSION_EXTRA*: `CUDA`
-        - *CM_TORCH_CUDA*: `cu116`
+        - *CM_TORCH_CUDA*: `cu117`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,cuda
@@ -372,6 +453,10 @@ ___
     * `_west`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `west`
+      - Workflow:
+    * `_xlsxwriter`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `xlsxwriter`
       - Workflow:
 
     </details>

@@ -6,7 +6,7 @@ However, it seems that you can still download it via [Academic Torrents](https:/
 You can then register in the MLCommons CM using this portable CM script as follows:
 
 ```bash
-cm pull mlcommons@ck
+cm pull repo mlcommons@ck
 
 cm run script "get validation dataset imagenet _2012-full" --input={directory with ILSVRC2012_val_00000001.JPEG}
 ```

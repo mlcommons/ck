@@ -200,7 +200,6 @@ ___
       - Environment variables:
         - *CM_ML_MODEL_PRECISION*: `int8`
         - *CM_ML_MODEL_QUANTIZED*: `yes`
-        - *CM_PACKAGE_URL*: `https://zenodo.org/record/3750364/files/bert_large_v1_1_fake_quant.onnx`
       - Workflow:
 
     </details>

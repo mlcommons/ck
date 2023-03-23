@@ -25,7 +25,7 @@ def preprocess(i):
     if env['CM_MODEL'] == "resnet50":
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'imagenet')
         if not os.path.exists(target_data_path):
-            cmds.append(f"ln -s {env['CM_DATASET_IMAGENET_PATH']} {target_data_path}")
+            cmds.append(f"ln -sf {env['CM_DATASET_IMAGENET_PATH']} {target_data_path}")
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'ResNet50', 'resnet50_v1.onnx')
         model_name = "resnet50"
@@ -37,6 +37,41 @@ def preprocess(i):
 
         model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'bert', 'bert_large_v1_1.onnx')
         model_name = "bert"
+
+    elif "3d-unet" in env['CM_MODEL']:
+        target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'KiTS19', 'kits19', 'data')
+        target_data_path_base_dir = os.path.dirname(target_data_path)
+        if not os.path.exists(target_data_path_base_dir):
+            cmds.append(f"mkdir -p {target_data_path_base_dir}")
+ 
+        if not os.path.exists(target_data_path):
+            #cmds.append(f"ln -sf {env['CM_DATASET_PATH']} {target_data_path}")
+            cmds.append("make download_data BENCHMARKS='3d-unet'")
+
+        model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', '3d-unet-kits19', '3dUNetKiTS19.onnx')
+        model_name = "3d-unet"
+
+    elif "rnnt" in env['CM_MODEL']:
+        target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'LibriSpeech', 'dev-clean')
+        target_data_path_base_dir = os.path.dirname(target_data_path)
+        if not os.path.exists(target_data_path_base_dir):
+            cmds.append(f"mkdir -p {target_data_path_base_dir}")
+        if not os.path.exists(target_data_path):
+            #cmds.append(f"ln -sf {env['CM_DATASET_LIBRISPEECH_PATH']} {target_data_path}")
+            cmds.append("make download_data BENCHMARKS='rnnt'")
+
+        model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'rnn-t', 'DistributedDataParallel_1576581068.9962234-epoch-100.pt')
+        model_name = "rnnt"
+
+    elif "dlrm" in env['CM_MODEL']:
+        target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'criteo')
+        if not os.path.exists(target_data_path):
+            cmds.append(f"ln -s {env['CM_DATASET_PATH']} {target_data_path}")
+
+        model_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'dlrm', 'tb00_40M.pt')
+        if not os.path.exists(model_path):
+            cmds.append(f"ln -s {env['CM_ML_MODEL_FILE_WITH_PATH']} {model_path}")
+        model_name = "dlrm"
 
     elif env['CM_MODEL'] == "retinanet":
         #print(env)
@@ -99,31 +134,34 @@ def preprocess(i):
     offline_target_qps = env.get('CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS')
     server_target_qps = env.get('CM_MLPERF_LOADGEN_SERVER_TARGET_QPS')
     if target_qps:
+        target_qps = int(target_qps)
         if scenario == "offline" and not offline_target_qps:
             run_config += f" --offline_expected_qps={target_qps}"
         elif scenario == "server" and not server_target_qps:
             run_config += f" --server_target_qps={target_qps}"
 
     if offline_target_qps:
+        offline_target_qps = int(offline_target_qps)
         run_config += f" --offline_expected_qps={offline_target_qps}"
     if server_target_qps:
+        server_target_qps = int(server_target_qps)
         run_config += f" --server_target_qps={server_target_qps}"
 
     target_latency = env.get('CM_MLPERF_LOADGEN_TARGET_LATENCY')
     singlestream_target_latency = env.get('CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY')
     multistream_target_latency = env.get('CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY')
     if target_latency:
-        target_latency_ns = int(target_latency) * 1000000
+        target_latency_ns = int(float(target_latency) * 1000000)
         if scenario == "singlestream" and not singlestream_target_latency:
             run_config += f" --single_stream_expected_latency_ns={target_latency_ns}"
         elif scenario == "multistream" and not multistream_target_latency:
             run_config += f" --multi_stream_expected_latency_ns={target_latency_ns}"
 
     if singlestream_target_latency:
-        singlestream_target_latency_ns = int(singlestream_target_latency) * 1000000
+        singlestream_target_latency_ns = int(float(singlestream_target_latency) * 1000000)
         run_config += f" --single_stream_expected_latency_ns={singlestream_target_latency_ns}"
     if multistream_target_latency:
-        multistream_target_latency_ns = int(multistream_target_latency) * 1000000
+        multistream_target_latency_ns = int(float(multistream_target_latency) * 1000000)
         run_config += f" --multi_stream_expected_latency_ns={multistream_target_latency_ns}"
 
     use_triton = env.get('CM_MLPERF_NVIDIA_HARNESS_USE_TRITON')
@@ -154,6 +192,10 @@ def preprocess(i):
     if input_format:
         run_config += f" --input_format={input_format}"
 
+    performance_sample_count = env.get('CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT')
+    if performance_sample_count:
+        run_config += f" --performance_sample_count={performance_sample_count}"
+
     workspace_size = env.get('CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE')
     if workspace_size:
         run_config += f" --workspace_size={workspace_size}"
@@ -181,7 +223,7 @@ def preprocess(i):
     if end_on_device:
         run_config += " --end_on_device"
 
-    max_dlas = env.get('CM_MLPERF_MAX_DLAS')
+    max_dlas = env.get('CM_MLPERF_NVIDIA_HARNESS_MAX_DLAS')
     if max_dlas:
         run_config += f" --max_dlas={max_dlas}"
 

@@ -102,25 +102,28 @@ ___
     <details>
     <summary>Click here to expand this section.</summary>
 
-    * `_1`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `1`
+    * `_using-fiftyone`
       - Workflow:
-    * `_5`
+        1. ***Read "deps" on other CM scripts***
+           * get,generic-python-lib,_fiftyone
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,openssl,lib
+             - CM script: [get-openssl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl)
+
+    </details>
+
+
+  * Group "**annotations**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * `_custom-annotations`
       - Environment variables:
-        - *CM_DATASET_SIZE*: `5`
+        - *CM_DATASET_OPENIMAGES_CUSTOM_ANNOTATIONS*: `yes`
       - Workflow:
-    * `_50`
+    * **`_default-annotations`** (default)
       - Environment variables:
-        - *CM_DATASET_SIZE*: `50`
-      - Workflow:
-    * `_500`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: `500`
-      - Workflow:
-    * `_full`
-      - Environment variables:
-        - *CM_DATASET_SIZE*: ``
+        - *CM_DATASET_OPENIMAGES_CUSTOM_ANNOTATIONS*: `no`
       - Workflow:
 
     </details>
@@ -143,9 +146,33 @@ ___
     </details>
 
 
+  * Group "**size**"
+    <details>
+    <summary>Click here to expand this section.</summary>
+
+    * **`_50`** (default)
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `50`
+      - Workflow:
+    * `_500`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `500`
+      - Workflow:
+    * `_full`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: ``
+      - Workflow:
+    * `_size.#`
+      - Environment variables:
+        - *CM_DATASET_SIZE*: `#`
+      - Workflow:
+
+    </details>
+
+
 #### Default variations
 
-`_validation`
+`_50,_default-annotations,_validation`
 #### Default environment
 
 <details>
@@ -185,7 +212,10 @@ ___
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)
   1. ***Run native script if exists***
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)
+  1. ***Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)***
+     * get,openimages,annotations
+       * `if (CM_DATASET_OPENIMAGES_CUSTOM_ANNOTATIONS  == yes)`
+       - CM script: [get-dataset-openimages-annotations](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-annotations)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)
 ___

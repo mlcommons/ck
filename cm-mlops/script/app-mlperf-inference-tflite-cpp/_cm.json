@@ -133,7 +133,10 @@
       "tags": "get,tensorflow,lib,_tflite"
     },
     {
-      "tags": "get,lib,armnn"
+      "tags": "get,lib,armnn",
+      "enable_if_env": {
+        "CM_MLPERF_TFLITE_USE_ARMNN": ["yes"]
+      }
     },
     {
       "tags": "generate,user-conf,mlperf,inference",
@@ -255,12 +258,16 @@
         "CM_MLPERF_BACKEND": "tflite",
         "CM_MLPERF_BACKEND_VERSION": "master",
         "CM_TMP_SRC_FOLDER": "src",
-        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn"
+        "CM_TMP_LINK_LIBS": "tensorflowlite"
       }
     },
     "armnn": {
+      "default_variations": {
+        "optimization-target": "use-neon"
+      },
       "env": {
-        "CM_MLPERF_TFLITE_USE_ARMNN": "yes"
+        "CM_MLPERF_TFLITE_USE_ARMNN": "yes",
+        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn"
       }
     },
     "armnn,tflite": {
@@ -268,17 +275,22 @@
         "CM_MLPERF_BACKEND": "armnn_tflite",
         "CM_MLPERF_BACKEND_VERSION": "22.11",
         "CM_TMP_SRC_FOLDER": "armnn",
-        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn,armnnTfLiteParser"
+        "CM_TMP_LINK_LIBS": "tensorflowlite,armnn,armnnTfLiteParser",
+        "CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX": "tflite_armnn_cpp"
       }
     },
     "use-neon": {
+      "group": "optimization-target",
       "env": {
-        "CM_MLPERF_TFLITE_USE_NEON": "1"
+        "CM_MLPERF_TFLITE_USE_NEON": "1",
+        "CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1": "using_neon"
       }
     },
     "use-opencl": {
+      "group": "optimization-target",
       "env": {
-        "CM_MLPERF_TFLITE_USE_OPENCL": "1"
+        "CM_MLPERF_TFLITE_USE_OPENCL": "1",
+        "CM_MLPERF_SUT_NAME_RUN_CONFIG_SUFFIX1": "using_opencl"
       }
     },
     "fp32": {

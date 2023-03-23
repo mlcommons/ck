@@ -57,7 +57,7 @@ def preprocess(i):
     if env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE','') != '' and not env.get('CM_MLPERF_MODEL_SKIP_BATCHING', False) :
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --max-batchsize " + env['CM_MLPERF_LOADGEN_MAX_BATCHSIZE']
 
-    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') != '' and not env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', False):
+    if env.get('CM_MLPERF_LOADGEN_QUERY_COUNT','') != '' and not env.get('CM_TMP_IGNORE_MLPERF_QUERY_COUNT', False) and env['CM_MLPERF_LOADGEN_MODE'] == 'accuracy' and env.get('CM_MLPERF_RUN_STYLE','') != "valid":
         env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] += " --count " + env['CM_MLPERF_LOADGEN_QUERY_COUNT']
 
     print("Using MLCommons Inference source from '" + env['CM_MLPERF_INFERENCE_SOURCE'] +"'")
@@ -183,6 +183,10 @@ def get_run_cmd_reference(env, scenario_extra_options, mode_extra_options, datas
             env['CM_MLPERF_LOADGEN_EXTRA_OPTIONS'] + scenario_extra_options + mode_extra_options + dataset_options + quantization_options
         if env['CM_MLPERF_BACKEND'] == "deepsparse":
             cmd += " --batch_size=" + env.get('CM_MLPERF_LOADGEN_MAX_BATCHSIZE', '1') + " --model_path=" + env['MODEL_FILE']
+
+        if env.get('CM_MLPERF_CUSTOM_MODEL_PATH', '') != '':
+            env['CM_ML_MODEL_FILE_WITH_PATH'] = env['MODEL_FILE']
+
         cmd = cmd.replace("--count", "--max_examples")
         env['VOCAB_FILE'] = env['CM_ML_MODEL_BERT_VOCAB_FILE_WITH_PATH']
         env['DATASET_FILE'] = env['CM_DATASET_SQUAD_VAL_PATH']
