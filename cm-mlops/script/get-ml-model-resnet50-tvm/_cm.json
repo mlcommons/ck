@@ -117,7 +117,7 @@
           "names": [
             "original-model"
           ],
-          "tags": "get,ml-model,raw,resnet50,_tflite"
+          "tags": "get,ml-model,raw,resnet50,_tf"
         },
         {
           "names": [
