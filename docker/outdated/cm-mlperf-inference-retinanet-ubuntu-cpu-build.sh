@@ -26,7 +26,7 @@ time docker build -f cm-mlperf-inference-retinanet-ubuntu-cpu.Dockerfile \
    --build-arg cm_os_name=${CM_OS_NAME} \
    --build-arg cm_os_version=${CM_OS_VERSION} \
    --build-arg cm_version="" \
-   --build-arg cm_automation_repo="ctuning@ck" \
+   --build-arg cm_automation_repo="ctuning@mlcommons-ck" \
    --build-arg cm_automation_checkout="" \
    --build-arg cm_python_version="3.10.7" \
    --build-arg cm_cmake_version="3.24.2" \

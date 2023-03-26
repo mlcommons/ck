@@ -41,7 +41,7 @@ time docker build -f cm-mlperf-inference-retinanet-ubuntu-cpu.Dockerfile \
    --build-arg cm_os_name="ubuntu" \
    --build-arg cm_os_version="20.04" \
    --build-arg cm_version="1.0.3" \
-   --build-arg cm_automation_repo="ctuning@ck" \
+   --build-arg cm_automation_repo="ctuning@mlcommons-ck" \
    --build-arg cm_automation_checkout="" \
    --build-arg cm_python_version="3.10.7" \
    --build-arg cm_cmake_version="3.24.2" \
@@ -128,7 +128,7 @@ Note that you can fork [this repository](https://github.com/mlcommons/ck) and us
 For example, we use [cTuning](https://cTuning.org) fork to improve these automations:
 
 ```bash
-cm pull repo ctuning@ck
+cm pull repo ctuning@mlcommons-ck
 ```
 
 Now we suggest you to install a virtual python via CM to avoid mixing up your native Python installation:
