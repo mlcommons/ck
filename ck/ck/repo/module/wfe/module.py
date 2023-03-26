@@ -5,7 +5,7 @@
 # See CK COPYRIGHT.txt for copyright details
 #
 # Developer(s): 
-#   * Grigori Fursin, https://fursin.net
+#   * Grigori Fursin, https://cKnowledge.org/gfursin
 #
 
 cfg={}  # Will be updated by CK (meta description of this module)

@@ -60,7 +60,7 @@ Apache 2.0
 
 ### Authors and maintainers
 
-* [Grigori Fursin](https://cKnowledge.io/@gfursin)
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 ### Acknowledgments

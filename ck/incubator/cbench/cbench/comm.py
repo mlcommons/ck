@@ -2,7 +2,7 @@
 # Communication with the cK server
 # Based on "perform_remote_action" function from the CK kernel
 #
-# Developer(s): Grigori Fursin, https://fursin.net
+# Developer(s): Grigori Fursin, https://cKnowledge.org/gfursin
 #
 
 
