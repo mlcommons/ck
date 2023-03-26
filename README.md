@@ -18,7 +18,7 @@ The [Collective Mind workflow automation framework (CM aka CK2)](https://github.
 is the 2nd version of the CK technology being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
 It helps users to solve the "dependency hell" and interconnect diverse and rapidly evolving software and hardware
 from any company including Nvidia, Intel, Qualcomm, AMD, Microsoft, Amazon, Google, 
-Neural Magic, Meta, OctoML, Krai and Hugging Face in a transparent and non-intrusive way
+Neural Magic, Meta, OctoML, Krai, cKnowledge and Hugging Face in a transparent and non-intrusive way
 using  [portable CM scripts  developed by the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).
 
 The CM framework is powering a [free and open-source automation platform](https://github.com/mlcommons/ck/tree/master/platform) 

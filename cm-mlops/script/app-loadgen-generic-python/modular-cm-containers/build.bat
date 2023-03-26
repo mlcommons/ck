@@ -6,7 +6,7 @@ docker build -f %CM_DOCKER_NAME%--%CM_OS_NAME%-%CM_HW_TARGET%.Dockerfile ^
    --build-arg cm_hw_target=%CM_HW_TARGET% ^
    --build-arg cm_os_version=%CM_OS_VERSION% ^
    --build-arg cm_version="" ^
-   --build-arg cm_automation_repo="octoml@ck" ^
+   --build-arg cm_automation_repo="ctuning@ck" ^
    --build-arg cm_automation_checkout="" ^
    --build-arg cm_python_version="3.10.8" ^
    --build-arg cm_mlperf_inference_loadgen_version="" ^

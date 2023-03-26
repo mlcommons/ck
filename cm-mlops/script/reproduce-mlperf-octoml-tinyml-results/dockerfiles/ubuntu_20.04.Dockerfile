@@ -12,6 +12,6 @@ RUN useradd  -g cm --create-home --shell /bin/bash cmuser
 RUN echo "cmuser ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER cmuser:cm
 WORKDIR /home/cmuser
-RUN cm pull repo octoml@ck
+RUN cm pull repo ctuning@ck
 RUN cm run script --quiet --tags=get,sys-utils-cm
 RUN cm run script --quiet --tags=reproduce,tiny,octoml --env.CM_GH_TOKEN=$CM_GH_TOKEN

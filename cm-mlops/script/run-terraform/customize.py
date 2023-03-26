@@ -60,7 +60,7 @@ def postprocess(i):
                     "sudo apt-get install -y python3-pip",
                     "python3 -m pip install cmind",
                     "source ~/.profile",
-                    "cm pull repo octoml@ck",
+                    "cm pull repo ctuning@ck",
                     "cm run script --tags=get,sys-utils-cm"
                     ]
                 }
