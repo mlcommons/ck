@@ -11,7 +11,7 @@ Contributors:
 
 N: Grigori Fursin
 E: Grigori.Fursin@cTuning.org
-H: https://fursin.net
+H: https://cKnowledge.org/gfursin
 O: cTuning foundation and cKnowledge SAS
 C: author
 

@@ -157,4 +157,4 @@ Thank you!
 
 # Coordinators
 
-* [Grigori Fursin](https://cKnowledge.io/@gfursin)
+* [Grigori Fursin](https://cKnowledge.org/gfursin)

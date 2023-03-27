@@ -38,7 +38,7 @@ Join our [Discord server](https://discord.gg/JjWNWXKxwT)
 to learn more about our platform, participate in public developments and discussions,
 and request platform features and support for your technology.
 
-Don't hesitate to get in touch with [Grigori Fursin](https://fursin.net)
+Don't hesitate to get in touch with [Grigori Fursin](https://cKnowledge.org/gfursin)
 and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
 (taskforce founders) if you have any questions and suggestions.
 
