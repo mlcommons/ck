@@ -1,0 +1,17 @@
+{
+  "alias": "repro-ppopp2018",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20180226",
+  "date_print": "February 26, 2018",
+  "reproduced_papers_tags": "papers-ppopp-2018",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-ppopp2018"
+  ],
+  "title": "Reproducing papers at PPoPP'18 (artifact evaluation)",
+  "uid": "9e7a882972a949c4",
+  "url": "https://cTuning.org/ae/ppopp2018.html"
+}

@@ -1,0 +1,17 @@
+{
+  "alias": "repro-sysml2019",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20190331",
+  "date_print": "March 31, 2019",
+  "reproduced_papers_tags": "papers-sysml-2019",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-sysml2019"
+  ],
+  "title": "Reproducing papers at SysML'19 (artifact evaluation)",
+  "uid": "884ad874d38649d6",
+  "url": "https://cTuning.org/ae/sysml2019.html"
+}

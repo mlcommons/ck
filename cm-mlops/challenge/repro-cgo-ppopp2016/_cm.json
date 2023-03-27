@@ -1,0 +1,20 @@
+{
+  "alias": "repro-cgo-ppopp2016",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20160314",
+  "date_print": "March 14, 2016",
+  "reproduced_papers_tags": "papers-ppopp-2016",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-cgo-ppopp2016"
+  ],
+  "title": "Reproducing papers at ACM/IEEE CGO'16 and PPoPP'16 (artifact evaluation)",
+  "uid": "a3839cc927d541d9",
+  "urls": [
+    "https://cTuning.org/ae/ppopp2016.html",
+    "https://cTuning.org/ae/cgo2016.html"
+  ]
+}

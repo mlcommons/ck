@@ -24,7 +24,7 @@ USER cmuser:cm
 WORKDIR /home/cmuser
 
 # Download CM repo for scripts
-RUN cm pull repo octoml@ck
+RUN cm pull repo ctuning@mlcommons-ck
 
 # Install all system dependencies
 RUN cm run script --quiet --tags=get,sys-utils-cm

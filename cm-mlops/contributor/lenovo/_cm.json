@@ -1,0 +1,13 @@
+{
+  "alias": "lenovo",
+  "automation_alias": "contributor",
+  "automation_uid": "68eae17b590d4f8f",
+  "challenges": [
+    "mlperf-inference-v3.0-2023",
+    "mlperf-inference-v2.1-2022"
+  ],
+  "last_participation_date": "20230323",
+  "organization": "Lenovo",
+  "tags": [],
+  "uid": "c22134f3cae04bc0"
+}
