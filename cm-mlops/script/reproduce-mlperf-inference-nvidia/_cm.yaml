@@ -65,6 +65,7 @@ input_mapping:
   start_from_device: CM_MLPERF_NVIDIA_HARNESS_START_FROM_DEVICE
   end_on_device: CM_MLPERF_NVIDIA_HARNESS_END_ON_DEVICE
   max_dlas: CM_MLPERF_NVIDIA_HARNESS_MAX_DLAS
+  power_setting: CM_MLPERF_NVIDIA_HARNESS_POWER_SETTING
   make_cmd: CM_MLPERF_NVIDIA_RUN_COMMAND
   rerun: CM_RERUN
 
@@ -169,7 +170,7 @@ deps:
       - retinanet
     names:
       - openimages-original
-    tags: get,dataset,original,openimages,_validation,_full
+    tags: get,dataset,original,openimages,_validation,_full,_custom-annotations
 
   - enable_if_env:
       CM_MODEL:
