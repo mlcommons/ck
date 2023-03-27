@@ -1,0 +1,15 @@
+{
+  "alias": "octoml",
+  "automation_alias": "contributor",
+  "automation_uid": "68eae17b590d4f8f",
+  "challenges": [
+    "mlperf-inference-v2.1-2022"
+  ],
+  "last_participation_date": "20220901",
+  "organization": "OctoML",
+  "tags": [],
+  "uid": "ce2dae9877a542e0",
+  "urls": [
+    "https://octoml.ai"
+  ]
+}

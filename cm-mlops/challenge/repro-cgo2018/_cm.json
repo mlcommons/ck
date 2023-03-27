@@ -1,0 +1,17 @@
+{
+  "alias": "repro-cgo2018",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20180226",
+  "date_print": "February 26, 2018",
+  "reproduced_papers_tags": "papers-cgo-2018",
+  "tags": [
+    "news-and-events",
+    "events",
+    "events-conferences",
+    "ae-cgo-2018"
+  ],
+  "title": "Reproduce papers at ACM/IEEE CGO'18 (artifact evaluation)",
+  "uid": "c46e132261064a90",
+  "url": "https://cTuning.org/ae/cgo2018.html"
+}

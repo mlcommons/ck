@@ -1,0 +1,16 @@
+{
+  "alias": "repro-rtss2016",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20161130",
+  "date_print": "November 30, 2016",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-rtss2016"
+  ],
+  "title": "Reproducing papers at RTSS'16 (artifact evaluation)",
+  "uid": "0d051e138b10466c",
+  "url": "http://2016.rtss.org/artifact-evaluation-for-rtss"
+}

@@ -18,9 +18,9 @@ helps users to add this universal interface to their software projects and trans
 [database of portable and reusable components](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
 in a transparent and non-intrusive way.
 
-CM is being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md) 
+CM is being developed by the [open MLCommons taskforce](https://cKnowledge.org/mlcommons-taskforce) 
 to solve the "dependency hell" for ML and AI systems, reduce their development, benchmarking, optimization and deployment time and costs,
-and automate [reproducibility initiatives and artifact evaluation at conferences](https://github.com/mlcommons/ck/blob/master/docs/tutorials/sc22-scc-mlperf.md).
+and automate [reproducibility initiatives and artifact evaluation at conferences](https://cTuning.org/ae).
 
 
 ### Documentation and the Getting Started Guide
@@ -31,13 +31,13 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 
 2021-2022 [MLCommons](https://mlcommons.org)
 
-### Maintainers
+### Authors and maintainers
 
-* [Grigori Fursin](https://cknowledge.io/@gfursin)
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 
 ### Acknowledgments
 
-This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
-and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+This project is supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
+[cKnowledge](https://cKnowledge.org) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).

@@ -16,3 +16,4 @@ wheels/
 htmlcov
 *tmp/
 *tmp-ck-*/
+cache/

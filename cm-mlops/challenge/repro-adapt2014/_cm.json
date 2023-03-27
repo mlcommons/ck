@@ -1,0 +1,17 @@
+{
+  "alias": "repro-adapt2014",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20140122",
+  "date_print": "January 22, 2014",
+  "reproduced_papers_tags": "papers-adapt-2014",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-adapt2014"
+  ],
+  "title": "Reproduce papers at ADAPT'14 (artifact evaluation)",
+  "uid": "4bd1c8e607af4951",
+  "url": "http://adapt-workshop.org/2014"
+}

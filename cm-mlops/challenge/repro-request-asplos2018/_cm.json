@@ -1,0 +1,20 @@
+{
+  "alias": "repro-request-asplos2018",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20180324",
+  "date_print": "March 24, 2018",
+  "digital_library_url": "https://doi.org/10.1145/3229762",
+  "reproduced_papers_tags": "papers-request-asplos-2018",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-request",
+    "ae-request18",
+    "ae-request-asplos18",
+    "ae-request-asplos2018"
+  ],
+  "title": "Reproducing papers at ACM REQUEST-ASPLOS'18 (artifact evaluation)",
+  "uid": "872e88e0fb8b4af1"
+}

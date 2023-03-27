@@ -1,0 +1,18 @@
+{
+  "alias": "repro-asplos2020",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20200316",
+  "date_print": "March 16, 2020",
+  "deadline": "20191204",
+  "deadline_print": "December 4, 2019",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-asplos2020"
+  ],
+  "title": "Reproduce papers at ACM ASPLOS'20 (artifact evaluation)",
+  "uid": "17740a4e1c0942ec",
+  "use_self_url": "yes"
+}

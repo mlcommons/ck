@@ -333,8 +333,8 @@ class Repos:
             must_update_repo_desc = True
 
 
-# GF blocked the following code because if we create a fork of mlcommons@ck for example to octoml@ck
-# and then pull octoml@ck, it attempts to rewrite .cmr.yaml with the new alias which we do not want to do!
+# GF blocked the following code because if we create a fork of mlcommons@ck for example to ctuning@mlcommons-ck
+# and then pull ctuning@mlcommons-ck, it attempts to rewrite .cmr.yaml with the new alias which we do not want to do!
 # We want to keep whatever is in .cmr.yaml to avoid ambiguities ...
 #        else:
 #            # Load meta from the repository

@@ -19,7 +19,7 @@ and the technology-agnostic [MLCommons CK/CM workflow automation framework](http
 Our taskforce has developed this framework to solve the "dependency hell" 
 and interconnect diverse and rapidly evolving software and hardware
 from any company including Nvidia, Intel, Qualcomm, AMD, Microsoft, Amazon, Google, 
-Neural Magic, Meta, OctoML, Krai and Hugging Face in a transparent and non-intrusive way
+Neural Magic, Meta, OctoML, Krai, cKnowledge and Hugging Face in a transparent and non-intrusive way
 using  [portable CM scripts  developed by the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).
 
 As a proof-of-concept, our technology helped the community and multiple companies 
@@ -38,7 +38,7 @@ Join our [Discord server](https://discord.gg/JjWNWXKxwT)
 to learn more about our platform, participate in public developments and discussions,
 and request platform features and support for your technology.
 
-Don't hesitate to get in touch with [Grigori Fursin](https://fursin.net)
+Don't hesitate to get in touch with [Grigori Fursin](https://cKnowledge.org/gfursin)
 and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
 (taskforce founders) if you have any questions and suggestions.
 

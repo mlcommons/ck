@@ -167,7 +167,7 @@ def main():
                 value = input_desc[key]
 
                 key2 = '@'+key
-                
+
                 if type(value) == dict:
                     desc = value['desc']
 

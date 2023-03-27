@@ -124,6 +124,12 @@
             "tensorflow"
           ],
           "tags": "get,generic-python-lib,_tensorflow"
+        },
+        {
+          "names": [
+            "tflite"
+          ],
+          "tags": "get,generic-python-lib,_tflite"
         }
       ],
       "group": "framework"

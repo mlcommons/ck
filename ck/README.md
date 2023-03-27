@@ -293,7 +293,7 @@ Please contact [Grigori Fursin](mailto:grigori@octoml.ai) to join this community
 
 ## Contacts
 
-* [Grigori Fursin](https://fursin.net) - author
+* [Grigori Fursin](https://cKnowledge.org/gfursin) - author
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) - maintainer
 
 ## Acknowledgments
