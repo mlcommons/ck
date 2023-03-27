@@ -72,6 +72,14 @@ variations:
       - tags: get,generic-python-lib,_matplotlib
       - tags: get,generic-python-lib,_mpld3
 
+  playground:
+    group:
+      app
+    env:
+      CM_GUI_APP: 'playground'
+    prehook_deps:
+      - tags: get,generic-python-lib,_matplotlib
+      - tags: get,generic-python-lib,_mpld3
 
 input_description:
   script: "script tags"
