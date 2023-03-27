@@ -27,7 +27,7 @@ def preprocess(i):
     filename = r['filename']
 
     if env.get('CM_UNZIP') == "yes":
-        os.system("unzip "+filename)
+        os.system("gzip -d "+filename)
         filename = env['CM_ML_MODEL_FILE']
         env['CM_ML_MODEL_FILE_WITH_PATH']=os.path.join(path, filename)
     else:
