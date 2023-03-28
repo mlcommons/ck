@@ -1,3 +1,9 @@
+## Setup
+Please follow the MLCommons CK [installation guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md) to install CM.
+Download the ck repo to get the CM script for MLPerf submission
+```
+cm pull repo mlcommons@ck
+```
 ## Run Commands
 
 Bert has two variants - `bert-99` and `bert-99.9` where the `99` and `99.9` specifies the required accuracy constraint with respect to the reference floating point model. `bert-99.9` model is applicable only on a datacenter system.
