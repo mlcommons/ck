@@ -3,7 +3,7 @@
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
   "date": "20230405",
-  "date_print": "April 04, 2023",
+  "date_print": "April 5, 2023",
   "experiments": [
     {
       "tags": "mlperf-inference,v3.0"

@@ -1,0 +1,20 @@
+{
+  "alias": "optimize-tinymlperf-inference-v3.0-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20230430",
+  "date_print": "April 30, 2023",
+  "experiments": [],
+  "tags": [
+    "optimize",
+    "reproduce",
+    "benchmark",
+    "tinymlperf",
+    "tinymlperf-inference",
+    "tinymlperf-inference-tvm-v3.0",
+    "tinymlperf-inference-tvm-v3.0-2023",
+    "v3.0"
+  ],
+  "title": "Prepare, optimize and reproduce TinyMLPerf inference v3.1 benchmarks",
+  "uid": "d98cd66e0e5641f7"
+}
