@@ -15,6 +15,6 @@
     "mlperf-inference-v3.1-2023",
     "v3.1"
   ],
-  "title": "Prepare, optimize and reproduce MLPerf inference v3.1 benchmarks",
+  "title": "Prepare, optimize, reproduce and submit results for MLPerf inference v3.1 benchmarks",
   "uid": "3e971d8089014d1f"
 }
