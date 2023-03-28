@@ -56,6 +56,7 @@ def page(st, params, parent):
             meta = artifact.meta
 
             name = meta.get('title', meta['alias'])
+            uid = meta['uid']
 
             st.write('''
              <center>
@@ -66,6 +67,31 @@ def page(st, params, parent):
              )
 
             end_html='<center><small><i><a href="{}">Self link</a></i></small></center>'.format(parent.make_url(meta['alias'], action='challenges', md=False))
+
+
+            # Check basic password
+            password_hash = meta.get('password_hash','')
+            view = True
+            if password_hash!='':
+                view = False
+
+                password = st.text_input("Enter password", type="password", key="password")
+
+                if password!='':
+                    import bcrypt
+                    # TBD: temporal hack to demo password protection for experiments
+                    password_salt = b'$2b$12$ionIRWe5Ft7jkn4y/7C6/e'
+                    password_hash2 = bcrypt.hashpw(password.encode('utf-8'), password_salt)
+
+                    if password_hash.encode('utf-8')==password_hash2:
+                        view=True
+                    else:
+                        st.markdown('**Warning:** wrong password')
+
+            if not view:
+                return {'return':0, 'end_html':end_html}
+
+
 
             date_print = meta.get('date_print','')
             if date_print!='':
@@ -133,5 +159,37 @@ def page(st, params, parent):
                         st.markdown(s)
 
                     break
+
+            # Check associated reports
+            r=cmind.access({'action':'find',
+                            'automation':'report,6462ecdba2054467',
+                            'tags':'challenge-{}'.format(uid)})
+            if r['return']>0: return r
+
+            lst = r['list']
+
+            for l in lst:
+                report_path = l.path
+
+                f1 = os.path.join(report_path, 'README.md')
+                if os.path.isfile(f1):
+                    report_meta = l.meta
+
+                    report_alias = report_meta['alias']
+                    report_title = report_meta.get('title','')
+
+                    report_name = report_title if report_title!='' else report_alias
+
+                    r = cmind.utils.load_txt(f1)
+                    if r['return']>0: return r
+
+                    s = r['string']
+
+                    st.markdown('---')
+                    st.markdown('### '+report_name)
+
+                    st.markdown(s, unsafe_allow_html=True)
+
+
 
     return {'return':0, 'end_html':end_html}

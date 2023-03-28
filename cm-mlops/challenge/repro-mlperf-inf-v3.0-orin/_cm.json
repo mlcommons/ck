@@ -1,0 +1,21 @@
+{
+  "alias": "repro-mlperf-inf-v3.0-orin",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20230406",
+  "date_print": "April 6, 2023",
+  "experiments": [
+    {
+      "tags": "mlperf-inference,v3.0"
+    }
+  ],
+  "tags": [
+    "reproduce",
+    "orin",
+    "nvidia",
+    "mlperf-inference-v3.0-orin"
+  ],
+  "title": "Reproduce MLPerf inference v3.0 results for Nvidia Jetson Orin",
+  "password_hash":"$2b$12$ionIRWe5Ft7jkn4y/7C6/eYoo6uBBMkGy/9SxwtKhaDRqZ1w2s3dO",
+  "uid": "6d377c1a1b224636"
+}
