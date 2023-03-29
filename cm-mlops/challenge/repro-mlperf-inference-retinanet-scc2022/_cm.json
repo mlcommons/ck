@@ -2,8 +2,8 @@
   "alias": "repro-mlperf-inference-retinanet-scc2022",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20231201",
-  "date_print": "December 01, 2023",
+  "date": "20221201",
+  "date_print": "December 01, 2022",
   "tags": [
     "reproduce",
     "benchmark",
@@ -13,6 +13,6 @@
     "mlperf-inference-v3.1-2023",
     "v3.1"
   ],
-  "title": "Reproduce and optimize MLPerf inference benchmarks during Student Cluster Competition at SuperComputing'23",
+  "title": "Reproduce MLPerf RetinaNet benchmark at SCC (SuperComputing'22)",
   "uid": "e71fa8b396874e68"
 }
