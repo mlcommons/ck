@@ -29,7 +29,8 @@ using  [portable CM scripts  developed by the community](https://github.com/mlco
 
 For example, [CK has already helped](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023) 
 the community, cTuning foundation, Qualcomm, Neural Magic, Krai, DELL, HPE and Lenovo
-automate 98% of all recent MLPerf inference benchmark submissions, make them more reproducible and reusable,
+automate more than 80% of all recent MLPerf inference benchmark submissions (and 98% of all power results), 
+make them more reproducible and reusable,
 and obtain record inference performance on the latest Qualcomm and Nvidia devices.
 
 The long-term goal for our Collective Knowledge platform is to help everyone automatically generate the most efficient, reproducible and deployable 
