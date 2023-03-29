@@ -3,7 +3,7 @@
 The [Collective Knowledge Playground (CK)](https://x.cknowledge.org) is a free, open-source and technology-agnostic platform
 being developed by the [MLCommons taskforce on education and reproducibility](https://cKnowledge.org/mlcommons-taskforce).
 
-Our goal is to let everyone reproduce any novel technology including new ML models 
+Our goal is to help the community reproduce any novel technology including new ML models 
 and end-to-end AI applications and optimize them in a fully automated way
 in terms of costs, accuracy, performance, power consumption and other metrics
 across any rapidly evolving software, hardware and data via 
@@ -34,27 +34,27 @@ and [article](https://arxiv.org/abs/2011.01149) to learn more about our motivati
  and participate in developments and collaborative 
  benchmarking and optimization of AI/ML Systems.*
 
-# License
+## License
 
 Apache 2.0
 
-# Copyright
+## Copyright
 
 2023 MLCommons
 
-# Source code
+## Source code
 
 This platform is implemented as a portable automation recipe using the MLCommons CM (CK2) workflow automation framework: 
 https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui
 
-# Use cases
+## Use cases
 
-## Public challenges
+### Public challenges
 
 Discuss your challenge in Discord, add your challenge [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge)
 and create a PR.
 
-## Private challenges
+### Private challenges
 
 You can use this platform to organize private challenges between your internal teams and external partners.
 
@@ -74,7 +74,7 @@ Check [this script](scripts/2-run-in-a-cloud.sh) If you want to run the CK playg
 as a public or private server to run optimization experiments
 with your colleagues, external teams and users.
 
-# Tech leads
+## Tech leads
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
