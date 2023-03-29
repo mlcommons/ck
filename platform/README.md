@@ -21,7 +21,8 @@ that we have developed to help the the community solve the "dependency hell" and
 their diverse and continuously changing models, software, hardware, data sets, best practices and optimization techniques 
 in a transparent and non-intrusive way. 
 
-Our ultimate goal is to use the Collective Knowledge to let anyone automatically generate the most efficient, reproducible and deployable 
+The ultimate goal for our Collective Knowledge platform is to accelerate deep-tech innovation and make it available to anyone
+by automatically generating the most efficient, reproducible and deployable 
 full-stack AI/ML solutions using the most suitable SW/HW stack at any given time (model, framework, inference engine and any other related dependency) 
 based on their requirements and constraints including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny), 
 environment and data. See this [ACM tech talk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
@@ -33,8 +34,29 @@ and [article](https://arxiv.org/abs/2011.01149) to learn more about our motivati
  and participate in developments and collaborative 
  benchmarking and optimization of AI/ML Systems.*
 
+# License
 
-## Private (in-house) use
+Apache 2.0
+
+# Copyright
+
+2023 MLCommons
+
+# Source code
+
+This platform is implemented as a portable automation recipe using the MLCommons CM (CK2) workflow automation framework: 
+https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui
+
+# Use cases
+
+## Public challenges
+
+Discuss your challenge in Discord, add your challenge [here](https://github.com/mlcommons/ck/tree/master/cm-mlops/challenge)
+and create a PR.
+
+## Private challenges
+
+You can use this platform to organize private challenges between your internal teams and external partners.
 
 Install the MLCommons CK2 (CM) framework as described [here](https://github.com/mlcommons/ck/blob/master/docs/installation.md).
 
@@ -52,8 +74,7 @@ Check [this script](scripts/2-run-in-a-cloud.sh) If you want to run the CK playg
 as a public or private server to run optimization experiments
 with your colleagues, external teams and users.
 
-## Source code
+# Tech leads
 
-This platform is implemented as a portable automation recipe using the MLCommons CM (CK2) workflow automation framework: 
-https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui
-
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
