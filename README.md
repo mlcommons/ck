@@ -7,38 +7,42 @@
 
 ### About
 
-The [Collective Knowledge project (CK)](https://arxiv.org/abs/2011.01149) 
+The [Collective Knowledge project](https://arxiv.org/abs/2011.01149)
 is motivated by our tedious experience reproducing experiments 
 from [150 research papers](https://learning.acm.org/techtalks/reproducibility)
-and validating them in the real world - we decided to collaborate with the community 
-to develop a universal, human-readable and technology-agnostic interface 
-to access any software project and run it on any platform with any software, hardware and data.
+and validating them in the real world. 
+We decided to collaborate with the community and [MLCommons](https://mlcommons.org)
+to develop a [free, open-source and technology-agnostic platform](platform)
+that can help everyone reproduce, optimize and compare any novel technology 
+across any rapidly evolving AI models, software, hardware and data(sets)
+from different vendors in an automated way via [collaborative challenges](https://x.cKnowledge.org/playground/?action=challenges)
+and [reproducible experiments](https://x.cKnowledge.org/playground/?action=experiments).
 
-The [Collective Mind workflow automation framework (CM aka CK2)](https://github.com/mlcommons/ck/tree/master/cm/cmind)
-is the 2nd version of the CK technology being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
-It helps users to solve the "dependency hell" and interconnect diverse and rapidly evolving software and hardware
+This platform is powered by the [Collective Mind workflow automation framework (CM aka CK2)](https://github.com/mlcommons/ck/tree/master/cm/cmind) -
+the 2nd version of the [CK framework](https://arxiv.org/abs/2011.01149) 
+originally designed by the [cTuning foundation](https://cTuning.org) and donated to MLCommons in 2022.
+It is being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+to help users of the [CK platform](https://x.cKnowledge.org) solve the "dependency hell" and interconnect diverse and rapidly evolving software and hardware
 from any company including Nvidia, Intel, Qualcomm, AMD, Microsoft, Amazon, Google, 
 Neural Magic, Meta, OctoML, Krai, cKnowledge and Hugging Face in a transparent and non-intrusive way
 using  [portable CM scripts  developed by the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).
 
-The CM framework is powering a [free and open-source automation platform](https://github.com/mlcommons/ck/tree/master/platform) 
-also being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
-to help users find the most efficient and reproducible way to run their applications
-with any data on any software/hardware stack from the cloud to the edge at any given time.
-
-It automatically generates the most suitable, reproducible and deployable solution
-to run AI, ML and other emerging applications based on user requirements and constraints 
-including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny),
-environment and data sets.
-
-As a proof-of-concept, our technology helped the community and multiple companies 
-including Qualcomm, Neural Magic, Krai, DELL, HPE and Lenovo
-automate 98% of all MLPerf inference submissions, make them more reproducible and reusable,
+For example, [CK has already helped](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023) 
+the community, cTuning foundation, Qualcomm, Neural Magic, Krai, DELL, HPE and Lenovo
+automate 98% of all recent MLPerf inference benchmark submissions, make them more reproducible and reusable,
 and obtain record inference performance on the latest Qualcomm and Nvidia devices.
 
-Our goal is to help researchers and practitioners focus on innovation by automating all their tedious and repetitive tasks
-and slashing their research, development, benchmarking, optimization and deployment time and costs
-by 10..100 times across continuously changing software, hardware and data.
+The long-term goal for our Collective Knowledge platform is to help everyone automatically generate the most efficient, reproducible and deployable 
+solutions for their applications using the most suitable software and hardware stack at any given time (model, framework, inference engine and any other related dependency) 
+based on their requirements and constraints including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny), 
+environment and data. 
+
+Our ultimate dream is to accelerate deep-tech innovation 
+and help AI, ML and systems developers by automating all their 
+tedious and repetitive tasks and slashing development, benchmarking, 
+optimization and deployment costs for any novel technology by 10..100 times 
+in the rapidly evolving world.
+
 
 ### Discussions
 
