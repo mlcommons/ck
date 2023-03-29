@@ -27,7 +27,8 @@ We thank [the community](https://access.cknowledge.org/playground/?action=contri
 during the [1st successful collaborative challenge to run MLPerf inference v3.0 benchmark](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023)
 across diverse models, software and hardware from Neural Magic, Qualcomm, Nvidia, Intel, AMD, Microsoft, Amazon, Google,
 Krai, cKnowledge, cTuning foundation, DELL, HPE, Lenovo, Hugging Face and Apple - 
-CK has helped to automate 98% of all MLPerf inference submissions, make them more reproducible and reusable,
+CK has helped automate more than 80% of all recent MLPerf inference benchmark submissions 
+(and 98% of all power results), make them more reproducible and reusable,
 and obtain record inference performance on the latest Qualcomm and Nvidia devices.
 
 The ultimate goal of our taskforce is to accelerate deep-tech innovation 
