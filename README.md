@@ -14,9 +14,9 @@ and validating them in the real world.
 We decided to collaborate with the community and [MLCommons](https://mlcommons.org)
 to develop a [free, open-source and technology-agnostic platform](platform)
 that can help everyone reproduce, optimize and compare any novel technology 
-including new ML models and end-to-end AI applications 
-across any rapidly evolving software, hardware and data
-in a fully automated way via public or private challenges.
+across any rapidly evolving AI models, software, hardware and data(sets)
+from different vendors in an automated way via [collaborative challenges](https://x.cKnowledge.org/playground/?action=challenges)
+and [reproducible experiments](https://x.cKnowledge.org/playground/?action=experiments).
 
 This platform is powered by the [Collective Mind workflow automation framework (CM aka CK2)](https://github.com/mlcommons/ck/tree/master/cm/cmind) -
 the 2nd version of the [CK framework](https://arxiv.org/abs/2011.01149) 
@@ -32,15 +32,16 @@ the community, cTuning foundation, Qualcomm, Neural Magic, Krai, DELL, HPE and L
 automate 98% of all recent MLPerf inference benchmark submissions, make them more reproducible and reusable,
 and obtain record inference performance on the latest Qualcomm and Nvidia devices.
 
-We continue improving the MLCommons CK/CM technology to help AI, ML and systems developers focus on innovation 
-by automating all their tedious and repetitive tasks
-and slashing their research, development, benchmarking, optimization, reproducibility and deployment time and costs
-by 10..100 times across continuously changing software, hardware and data.
-
-The ultimate goal for our Collective Knowledge platform is to help everyone automatically generate the most efficient, reproducible and deployable 
+The long-term goal for our Collective Knowledge platform is to help everyone automatically generate the most efficient, reproducible and deployable 
 solutions for their applications using the most suitable software and hardware stack at any given time (model, framework, inference engine and any other related dependency) 
 based on their requirements and constraints including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny), 
 environment and data. 
+
+Our ultimate dream is to accelerate deep-tech innovation 
+and help AI, ML and systems developers by automating all their 
+tedious and repetitive tasks and slashing development, benchmarking, 
+optimization and deployment costs for any novel technology by 10..100 times 
+in the rapidly evolving world.
 
 
 ### Discussions
