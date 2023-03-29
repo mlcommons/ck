@@ -21,7 +21,7 @@ and [reproducible experiments](https://x.cKnowledge.org/playground/?action=exper
 This platform is powered by the [Collective Mind workflow automation framework (CM aka CK2)](https://github.com/mlcommons/ck/tree/master/cm/cmind) -
 the 2nd version of the [CK framework](https://arxiv.org/abs/2011.01149) 
 originally designed by the [cTuning foundation](https://cTuning.org) and donated to MLCommons in 2022.
-It is being developed by the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+It is being developed by the [open MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 to help users of the [CK platform](https://x.cKnowledge.org) solve the "dependency hell" and interconnect diverse and rapidly evolving software and hardware
 from any company including Nvidia, Intel, Qualcomm, AMD, Microsoft, Amazon, Google, 
 Neural Magic, Meta, OctoML, Krai, cKnowledge and Hugging Face in a transparent and non-intrusive way

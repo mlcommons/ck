@@ -1,7 +1,7 @@
 # Collective Knowledge Platform
 
 The [Collective Knowledge Playground (CK)](https://x.cknowledge.org) is a free, open-source and technology-agnostic on-prem platform
-being developed by the [MLCommons taskforce on education and reproducibility](https://cKnowledge.org/mlcommons-taskforce).
+being developed by the [MLCommons taskforce on education, automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce).
 
 Our goal is to help the community try, reproduce, optimize and compare any novel technology 
 including new ML models and end-to-end AI applications across any rapidly evolving software, hardware and data(sets)
