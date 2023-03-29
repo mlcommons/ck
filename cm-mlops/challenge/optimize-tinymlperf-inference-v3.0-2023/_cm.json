@@ -15,6 +15,6 @@
     "tinymlperf-inference-tvm-v3.0-2023",
     "v3.0"
   ],
-  "title": "Prepare, optimize and reproduce TinyMLPerf inference v3.1 benchmarks",
+  "title": "Prepare, optimize, reproduce and submit results for TinyMLPerf inference v3.1 benchmarks",
   "uid": "d98cd66e0e5641f7"
 }
