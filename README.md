@@ -13,11 +13,10 @@ from [150 research papers](https://learning.acm.org/techtalks/reproducibility)
 and validating them in the real world. 
 We decided to collaborate with the community and [MLCommons](https://mlcommons.org)
 to develop a [free, open-source and technology-agnostic platform](platform)
-that can help everyone reproduce any novel technology including new ML models 
-and end-to-end AI applications and optimize them in a fully automated way
-in terms of costs, accuracy, performance, power consumption and other metrics
-across any rapidly evolving software, hardware and data via 
-public or private challenges.
+that can help everyone reproduce, optimize and compare any novel technology 
+including new ML models and end-to-end AI applications 
+across any rapidly evolving software, hardware and data
+in a fully automated way via public or private challenges.
 
 This platform is powered by the [Collective Mind workflow automation framework (CM aka CK2)](https://github.com/mlcommons/ck/tree/master/cm/cmind) -
 the 2nd version of the [CK framework](https://arxiv.org/abs/2011.01149) 
