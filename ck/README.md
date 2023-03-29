@@ -4,7 +4,7 @@
 
 **Note that the 1st generation of the CK framework was discontinued in summer 2022 
   after the [2nd generation of this framework (CM)](https://github.com/mlcommons/ck/tree/master/cm) 
-  was released by the [open taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+  was released by the [open taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
   at [MLCommons](https://mlcommons.org).**
 
 <br>

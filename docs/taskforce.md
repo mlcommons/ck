@@ -1,6 +1,6 @@
 [ [Back to index](README.md) ]
 
-# MLCommons Taskforce on Education, Automation and Reproducibility
+# MLCommons Taskforce on Automation and Reproducibility
 
 ## Mission
 
