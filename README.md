@@ -41,7 +41,7 @@ environment and data.
 Our ultimate dream is to accelerate deep-tech innovation 
 and help AI, ML and systems developers by automating all their 
 tedious and repetitive tasks and slashing development, benchmarking, 
-optimization and deployment costs for any novel technology by 10..100 times 
+optimization, deployment and operational costs for any novel technology by 10..100 times 
 in the rapidly evolving world.
 
 

@@ -21,7 +21,7 @@ developed and shared by the community.
 The CK platform will help users automatically generate CM workflows and containers 
 to connect any given application with any ML model, framework, math library, inference engine 
 and all other related dependencies to run and analyze it on any given hardware target (cloud/edge/mobile/tiny) 
-in terms of accuracy, performance, power consumption, memory usage, and various costs.
+in terms of accuracy, performance, power consumption, memory usage, and operational costs.
 
 We thank [the community](https://access.cknowledge.org/playground/?action=contributors) for helping us to validate the CK technology 
 during the [1st successful collaborative challenge to run MLPerf inference v3.0 benchmark](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023)
@@ -34,7 +34,7 @@ and obtain record inference performance on the latest Qualcomm and Nvidia device
 The ultimate goal of our taskforce is to accelerate deep-tech innovation 
 and help AI, ML and systems developers by automating all their 
 tedious and repetitive tasks and slashing development, benchmarking, 
-optimization and deployment costs for any novel technology by 10..100 times 
+optimization, deployment and operational costs for any novel technology
 in the rapidly evolving world.
 
 ## Discussions
