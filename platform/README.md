@@ -9,9 +9,9 @@ in a fully automated way via collaborative challenges.
 
 For example, [the community](https://access.cknowledge.org/playground/?action=contributors) 
 has successfully used CK to run and reproduce [MLPerf inference](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-inference,v3.0,community-submission,open,edge,image-classification,singlestream) 
-using very diverse technology from Neural Magic, Qualcomm, Krai, DELL, HPE, Lenovo, Hugging Face, Nvidia and Apple across diverse CPUs, GPUs and DSPs with PyTorch, 
+using very diverse technology from Neural Magic, Qualcomm, Krai, cKnowledge, OctoML, Deelvin, DELL, HPE, Lenovo, Hugging Face, Nvidia and Apple across diverse CPUs, GPUs and DSPs with PyTorch, 
 ONNX, QAIC, TF/TFLite, TVM and TensorRT using popular cloud providers (GCP, AWS, Azure) and individual servers and edge devices provided by volunteers
-via our recent [public challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023).
+via our recent [open optimization challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023).
 
 This platform is powered by the technology-agnostic and portable [MLCommons Collective Mind workflow automation framework (CM or CK2)](https://github.com/mlcommons/ck)
 with [portable and reusable automation recipes](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)

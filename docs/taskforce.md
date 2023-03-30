@@ -26,7 +26,7 @@ in terms of accuracy, performance, power consumption, memory usage, and operatio
 We thank [the community](https://access.cknowledge.org/playground/?action=contributors) for helping us to validate the CK technology 
 during the [1st successful collaborative challenge to run MLPerf inference v3.0 benchmark](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023)
 across diverse models, software and hardware from Neural Magic, Qualcomm, Nvidia, Intel, AMD, Microsoft, Amazon, Google,
-Krai, cKnowledge, cTuning foundation, DELL, HPE, Lenovo, Hugging Face and Apple - 
+Krai, cKnowledge, cTuning foundation, OctoML, Deelvin, DELL, HPE, Lenovo, Hugging Face and Apple - 
 CK has helped automate more than 80% of all recent MLPerf inference benchmark submissions 
 (and 98% of all power results), make them more reproducible and reusable,
 and obtain record inference performance on the latest Qualcomm and Nvidia devices.
