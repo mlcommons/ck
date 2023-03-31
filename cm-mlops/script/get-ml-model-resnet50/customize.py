@@ -14,8 +14,8 @@ def preprocess(i):
     path = os.getcwd()
 
     url = env['CM_PACKAGE_URL']
-
-    env['CM_STARTING_WEIGHTS_FILENAME'] = url
+    if 'CM_ML_MODEL_STARTING_WEIGHTS_FILENAME' not in env:
+        env['CM_ML_MODEL_STARTING_WEIGHTS_FILENAME'] = url
 
     print ('Downloading from {}'.format(url))
 
