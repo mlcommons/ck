@@ -2,8 +2,8 @@
   "alias": "optimize-mlperf-inference-v3.1-tvm-2023",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20230701",
-  "date_print": "July 1, 2023",
+  "date": "20230702",
+  "date_print": "July 2, 2023",
   "experiments": [],
   "tags": [
     "optimize",
@@ -17,6 +17,6 @@
     "mlperf-inference-tvm-v3.1-2023",
     "v3.1"
   ],
-  "title": "Prepare, optimize and reproduce MLPerf inference v3.1 benchmarks with TVM",
+  "title": "Prepare, optimize, reproduce and submit results for MLPerf inference v3.1 benchmarks with Apache TVM",
   "uid": "29c416e245884746"
 }

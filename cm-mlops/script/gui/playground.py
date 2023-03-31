@@ -36,7 +36,7 @@ def main():
     # Set title
     st.write('''
         <center>
-        <h2 style="color:#2f6fb3">Collective Mind Playground</h2>
+        <h2 style="color:#2f6fb3">Collective Knowledge Playground</h2>
         <img src="https://cknowledge.org/images/logo-ck-tr.png" width="150">
         <br><br>
         </center>
@@ -97,7 +97,7 @@ def main():
 
     st.write("""
              <center>
-             <a href="https://github.com/mlcommons/ck/tree/master/platform">Read about this free open-source platform</a>
+             <a href="https://github.com/mlcommons/ck/tree/master/platform">Read about this free and open-source platform</a>
              </center>
              """,  
              unsafe_allow_html=True)

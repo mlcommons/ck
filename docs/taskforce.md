@@ -1,35 +1,40 @@
 [ [Back to index](README.md) ]
 
-# MLCommons Taskforce on Education and Reproducibility
+# MLCommons Taskforce on Automation and Reproducibility
 
 ## Mission
 
-This public taskforce is developing a [free and open-source platform](https://github.com/mlcommons/ck/tree/master/platform) 
-to automatically find the most efficient and reproducible way to run AI, ML and any other application 
-with any data on any software/hardware stack from the cloud to the edge at any given time.
+This public taskforce is developing *Collective Knowledge Playground (aka MLCommons CK)* - 
+a [free, open-source and technology-agnostic on-prem platform](https://github.com/mlcommons/ck/tree/master/platform)
+to automate and unify benchmarking, optimization, comparison and deployment
+of any novel technology across continuously changing AI models, software, hardware and data from different vendors
+via [collaborative challenges](https://access.cknowledge.org/playground/?action=challenges) 
+and [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments).
 
-This platform will help users automatically generate the most suitable and deployable solution
-(ML framework, math library, inference engine and any other related dependency) 
-to run emerging applications based on their requirements and constraints 
-including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny),
-environment and data sets.
+It is powered by the [rigorous MLPerf benchmarking methodology](https://arxiv.org/abs/1911.02549) 
+and portable [Collective Mind workflow automation framework (aka MLCommons CM)](https://github.com/mlcommons/ck)
+that we have developed to solve the "dependency hell".
+CM automatically interconnects diverse software, hardware and data from any vendor in a transparent and non-intrusive way
+using  [portable CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
+developed and shared by the community.
 
-It is powered by the [rigorous MLPerf benchmark methodology](https://arxiv.org/abs/1911.02549) 
-and the technology-agnostic [MLCommons CK/CM workflow automation framework](https://github.com/mlcommons/ck).
-Our taskforce has developed this framework to solve the "dependency hell" 
-and interconnect diverse and rapidly evolving software and hardware
-from any company including Nvidia, Intel, Qualcomm, AMD, Microsoft, Amazon, Google, 
-Neural Magic, Meta, OctoML, Krai, cKnowledge and Hugging Face in a transparent and non-intrusive way
-using  [portable CM scripts  developed by the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).
+The CK platform will help users automatically generate CM workflows and containers 
+to connect any given application with any ML model, framework, math library, inference engine 
+and all other related dependencies to run and analyze it on any given hardware target (cloud/edge/mobile/tiny) 
+in terms of accuracy, performance, power consumption, memory usage, and various costs.
 
-As a proof-of-concept, our technology helped the community and multiple companies 
-including Qualcomm, Neural Magic, Krai, DELL, HPE and Lenovo
-automate 98% of all MLPerf inference submissions, make them more reproducible and reusable,
+We thank [the community](https://access.cknowledge.org/playground/?action=contributors) for helping us to validate the CK technology 
+during the [1st successful collaborative challenge to run MLPerf inference v3.0 benchmark](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023)
+across diverse models, software and hardware from Neural Magic, Qualcomm, Nvidia, Intel, AMD, Microsoft, Amazon, Google,
+Krai, cKnowledge, cTuning foundation, DELL, HPE, Lenovo, Hugging Face and Apple - 
+CK has helped automate more than 80% of all recent MLPerf inference benchmark submissions 
+(and 98% of all power results), make them more reproducible and reusable,
 and obtain record inference performance on the latest Qualcomm and Nvidia devices.
 
-The ultimate goal of our taskforce is to help everyone accelerate innovation by automating 
-all tedious and repetitive tasks and slashing research, development, benchmarking, 
-optimization and deployment time and costs for novel technology by 10..100 times 
+The ultimate goal of our taskforce is to accelerate deep-tech innovation 
+and help AI, ML and systems developers by automating all their 
+tedious and repetitive tasks and slashing development, benchmarking, 
+optimization and deployment costs for any novel technology by 10..100 times 
 in the rapidly evolving world.
 
 ## Discussions
@@ -38,11 +43,33 @@ Join our [Discord server](https://discord.gg/JjWNWXKxwT)
 to learn more about our platform, participate in public developments and discussions,
 and request platform features and support for your technology.
 
+## Tech. leaders
+
 Don't hesitate to get in touch with [Grigori Fursin](https://cKnowledge.org/gfursin)
 and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
 (taskforce founders) if you have any questions and suggestions.
 
 ## Development plan
+
+### 2023
+
+- [x] DONE: prototype the CM (CK2) automation to let the community submit MLPerf inference v3.0 results across any software and hardware stack 
+      (our technology powered 4K+ results (!) across diverse cloud and edge platforms with different versions of PyTorch, ONNX, TFLite, TF, TVM targeting diverse CPUs and GPUs 
+      that will be announced at the beginning of April)!
+- [x] Prototype an [open-source on-prem CK platform](https://github.com/mlcommons/ck/tree/master/platform) 
+      with a public API to automate SW/HW co-design for AI, ML and other emerging workloads based on user requirements and constraints.
+- [x] [Collaborative CK challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023) 
+      for the community to reproduce, optimize and submit results to MLPerf inference v3.0
+      - 98% of all results were automated by the MLCommons CK technology!
+- [ ] [New CK challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.1-2023) 
+      to help MLCommons organizations and the community use our platform to prepare, optimize and compare their MLPerf inference v3.1 submissions on any SW/HW stack
+- [ ] Enhance the MLCommons CK2/CM automation meta-framework to support our platform across any SW/HW stacks from MLCommons members and the community.
+- [ ] Enhance the [MLPerf C++ inference template library (MITL)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
+      to run and optimize MLPerf inference across any AI/ML/SW/HW stack.
+- [ ] Enhance the [light MLPerf inference application](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
+      to benchmark any ML model on any SW/HW stack without data sets and accuracy.
+- [ ] Enhance our platform and automation framework to support [reproducibility initiatives and studies](https://cTuning.org/ae) at conferences and journals 
+      across rapidly evolving software, hardware and data (collaboration with the [cTuning foundation](https://cTuning.org), ACM, IEEE and NeurIPS).
 
 
 ### 2022
@@ -53,23 +80,6 @@ and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 - [x] DONE: [GUI prototype to visualize AI/ML benchmarking results](https://cKnowledge.org/cm-gui-graph).
 
 [*Archive of 2022 tasks*](archive/taskforce-2022.md).
-
-### 2023
-
-- [x] DONE: prototype the CM (CK2) automation to let the community submit MLPerf inference v3.0 results across any software and hardware stack 
-      (our technology powered 4K+ results (!) across diverse cloud and edge platforms with different versions of PyTorch, ONNX, TFLite, TF, TVM targeting diverse CPUs and GPUs 
-      that will be announced at the beginning of April)!
-- [ ] Prototype an [open-source on-prem CK platform](https://github.com/mlcommons/ck/tree/master/platform) 
-      with a public API to automate SW/HW co-design for AI, ML and other emerging workloads based on user requirements and constraints.
-- [ ] Help MLCommons organizations and the community use our platform to prepare, optimize and compare their MLPerf inference v3.1 submissions on any SW/HW stack
-- [ ] Enhance the MLCommons CK2/CM automation meta-framework to support our platform across diverse SW/HW stacks.
-- [ ] Enhance the [MLCommons C++ inference template library](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
-      to run and optimize MLPerf inference across any AI/ML/SW/HW stack.
-- [ ] Enhance the [light MLPerf inference application](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp) 
-      to benchmark any ML model on any SW/HW stack without data sets and accuracy.
-- [ ] Enhance our platform and automation framework to support [reproducibility initiatives and studies](https://cTuning.org/ae) at conferences and journals 
-      across rapidly evolving software, hardware and data (collaboration with the [cTuning foundation](https://cTuning.org), ACM, IEEE and NeurIPS).
-
 
 
 ## Resources
