@@ -72,6 +72,7 @@ input_mapping:
 new_env_keys:
   - CM_MLPERF_*
   - CM_DATASET_*
+  - CM_ML_MODEL_*
   - CM_HW_NAME
   - CM_MAX_EXAMPLES
 
