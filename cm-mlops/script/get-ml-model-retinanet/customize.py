@@ -15,6 +15,9 @@ def preprocess(i):
 
     url = env['CM_PACKAGE_URL']
 
+    if 'CM_STARTING_WEIGHTS_FILENAME' not in env:
+        env['CM_STARTING_WEIGHTS_FILENAME'] = url
+
     print ('Downloading from {}'.format(url))
 
     r = cm.access({'action':'download_file', 

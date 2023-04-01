@@ -1,7 +1,7 @@
 #
 # Minimal communication with the cK server
 #
-# Developer(s): Grigori Fursin, https://fursin.net
+# Developer(s): Grigori Fursin, https://cKnowledge.org/gfursin
 #
 
 import json

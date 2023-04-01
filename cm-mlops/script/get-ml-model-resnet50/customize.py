@@ -14,8 +14,8 @@ def preprocess(i):
     path = os.getcwd()
 
     url = env['CM_PACKAGE_URL']
-
-    env['CM_STARTING_WEIGHTS_FILENAME'] = url
+    if 'CM_ML_MODEL_STARTING_WEIGHTS_FILENAME' not in env:
+        env['CM_ML_MODEL_STARTING_WEIGHTS_FILENAME'] = url
 
     print ('Downloading from {}'.format(url))
 
@@ -27,7 +27,7 @@ def preprocess(i):
     filename = r['filename']
 
     if env.get('CM_UNZIP') == "yes":
-        os.system("unzip "+filename)
+        os.system("gzip -d "+filename)
         filename = env['CM_ML_MODEL_FILE']
         env['CM_ML_MODEL_FILE_WITH_PATH']=os.path.join(path, filename)
     else:

@@ -1,4 +1,4 @@
-#!/bin/bash
+ #!/bin/bash
 
 if [ "${CM_DATASET_PATH}" == "" ]; then
 
@@ -8,6 +8,7 @@ if [ "${CM_DATASET_PATH}" == "" ]; then
   test $? -eq 0 || exit 1
 
   wget -4 -nc https://www.dropbox.com/s/57s11df6pts3z69/ILSVRC2012_img_val_500.tar --no-check-certificate
+  
   test $? -eq 0 || exit 1
 
   if [ -d "images" ]; then

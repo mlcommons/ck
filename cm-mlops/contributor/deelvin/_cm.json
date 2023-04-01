@@ -1,0 +1,15 @@
+{
+  "alias": "deelvin",
+  "automation_alias": "contributor",
+  "automation_uid": "68eae17b590d4f8f",
+  "challenges": [
+    "mlperf-inference-tvm-v3.1-2023"
+  ],
+  "last_participation_date": "20230323",
+  "organization": "Deelvin",
+  "tags": [],
+  "urls": [
+    "https://deelvin.com"
+  ],
+  "uid": "e201410540ed4295"
+}

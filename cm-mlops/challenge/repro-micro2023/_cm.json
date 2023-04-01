@@ -1,0 +1,14 @@
+{
+  "alias": "repro-micro2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20230701",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-micro2023"
+  ],
+  "title": "Reproduce papers at ACM/IEEE MICRO'23 (artifact evaluation)",
+  "uid": "f1c3037bf09b4262"
+}

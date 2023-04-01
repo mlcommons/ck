@@ -30,19 +30,28 @@ else:
     build_conf = {}
     params = {}
 
-    if model_path.endswith('.pt'):
+    if model_path.endswith('.pt') or model_path.endswith('.pth'):
         import torch
         from tvm.relay.build_module import bind_params_by_name
+        from torchvision.models import resnet50
 
         shape_list = eval('[' + input_shapes + ']')
 
         print('TVM shape list: '+str(shape_list))
 
-        x = os.environ.get('CM_MLPERF_TVM_TORCH_QUANTIZED_ENGINE', '')
-        if x != '':
+        x=os.environ.get('CM_MLPERF_TVM_TORCH_QUANTIZED_ENGINE','')
+        if x!='':
             torch.backends.quantized.engine = x
-        pytorch_model = torch.jit.load(model_path)
+
+        if model_path.endswith('.pt'):
+            pytorch_model = torch.jit.load(model_path)
+        elif model_path.endswith('.pth'):
+            pytorch_model = resnet50()
+            pytorch_model.load_state_dict(torch.load(model_path))
         pytorch_model.eval()
+
+        input_data = torch.randn(shape_list[0][1])
+        pytorch_model = torch.jit.trace(pytorch_model, input_data)
 
         mod, params = relay.frontend.from_pytorch(pytorch_model, shape_list)
 

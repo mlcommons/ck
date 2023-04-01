@@ -21,6 +21,7 @@ def preprocess(i):
     cmds = []
     scenario = env['CM_MLPERF_LOADGEN_SCENARIO']
     mode = env['CM_MLPERF_LOADGEN_MODE']
+    #cmds.append(f"make prebuild")
 
     if env['CM_MODEL'] == "resnet50":
         target_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'data', 'imagenet')
@@ -102,17 +103,20 @@ def preprocess(i):
             cmds.append(f"ln -s {calibration_dataset_path} {target_data_path}")
 
         preprocessed_data_path = os.path.join(env['MLPERF_SCRATCH_PATH'], 'preprocessed_data')
-        model_path = env['CM_NVIDIA_RETINANET_EFFICIENT_NMS_CONCAT_MODEL_WITH_PATH']
+        model_path = env.get('CM_NVIDIA_RETINANET_EFFICIENT_NMS_CONCAT_MODEL_WITH_PATH','')
         target_model_path_dir = os.path.join(env['MLPERF_SCRATCH_PATH'], 'models', 'retinanet-resnext50-32x4d', 'submission')
-        if not os.path.exists(target_model_path_dir):
+        '''if not os.path.exists(target_model_path_dir):
             cmds.append(f"mkdir -p {target_model_path_dir}")
         target_model_path = os.path.join(target_model_path_dir, 'retinanet_resnext50_32x4d_efficientNMS.800x800.onnx')
         if not os.path.exists(target_model_path):
             cmds.append(f"ln -sf {model_path} {target_model_path}")
+        '''
         model_name = "retinanet"
 
+    #cmds.append(f"make prebuild")
     if not env.get('CM_SKIP_MODEL_DOWNLOAD', 'no') == "yes" and not os.path.exists(model_path):
         cmds.append(f"make download_model BENCHMARKS='{model_name}'")
+
     if not env.get('CM_SKIP_PREPROCESS_DATASET', 'no') == "yes":
         cmds.append(f"make preprocess_data BENCHMARKS='{model_name}'")
     scenario=env['CM_MLPERF_LOADGEN_SCENARIO'].lower()
@@ -168,6 +172,10 @@ def preprocess(i):
     if use_triton:
         run_config += f" --use_triton --config_ver=triton"
 
+    power_setting = env.get('CM_MLPERF_NVIDIA_HARNESS_POWER_SETTING')
+    if power_setting:
+        run_config += f" --power_setting={power_setting}"
+
     gpu_copy_streams = env.get('CM_MLPERF_NVIDIA_HARNESS_GPU_COPY_STREAMS')
     if gpu_copy_streams:
         run_config += f" --gpu_copy_streams={gpu_copy_streams}"
@@ -191,6 +199,10 @@ def preprocess(i):
     input_format = env.get('CM_MLPERF_NVIDIA_HARNESS_INPUT_FORMAT')
     if input_format:
         run_config += f" --input_format={input_format}"
+
+    performance_sample_count = env.get('CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT')
+    if performance_sample_count:
+        run_config += f" --performance_sample_count={performance_sample_count}"
 
     workspace_size = env.get('CM_MLPERF_NVIDIA_HARNESS_WORKSPACE_SIZE')
     if workspace_size:
@@ -219,7 +231,7 @@ def preprocess(i):
     if end_on_device:
         run_config += " --end_on_device"
 
-    max_dlas = env.get('CM_MLPERF_MAX_DLAS')
+    max_dlas = env.get('CM_MLPERF_NVIDIA_HARNESS_MAX_DLAS')
     if max_dlas:
         run_config += f" --max_dlas={max_dlas}"
 

@@ -1,0 +1,20 @@
+{
+  "alias": "repro-cgo-ppopp2015",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20150209",
+  "date_print": "February 9, 2015",
+  "reproduced_papers_tags": "papers-ppopp-2015",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-cgo-ppopp2015"
+  ],
+  "title": "Reproducing papers at ACM/IEEE CGO'15 and PPoPP'15 (artifact evaluation)",
+  "uid": "1c4d3c1f1e3549e1",
+  "urls": [
+    "https://cTuning.org/cm/wiki/index.php?title=Reproducibility:AE:PPoPP2015",
+    "https://cTuning.org/cm/wiki/index.php?title=Reproducibility:AE:CGO2015"
+  ]
+}

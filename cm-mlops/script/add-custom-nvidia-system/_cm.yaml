@@ -45,9 +45,6 @@ deps:
   # Detect CMake
   - tags: get,cmake
 
-  # Detect tensorrt python package
-  - tags: get,generic-python-lib,_nvidia-tensorrt
-
   # Detect requests
   - tags: get,generic-python-lib,_requests
 

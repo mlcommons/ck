@@ -1,5 +1,5 @@
 #
-# Developer(s): Grigori Fursin, https://fursin.net
+# Developer(s): Grigori Fursin, https://cKnowledge.org/gfursin
 #
 
 from . import main

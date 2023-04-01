@@ -1,0 +1,17 @@
+{
+  "alias": "repro-sml2020",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date": "20200302",
+  "date_print": "March 2, 2020",
+  "deadline": "20200110",
+  "deadline_print": "January 10, 2020",
+  "tags": [
+    "reproduce",
+    "papers",
+    "reproduce-papers",
+    "ae-sml2020"
+  ],
+  "title": "Reproducing papers at SML'20 (artifact evaluation)",
+  "uid": "af101b34243541f8"
+}

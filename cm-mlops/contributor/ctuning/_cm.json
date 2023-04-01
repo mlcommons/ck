@@ -1,0 +1,16 @@
+{
+  "alias": "ctuning",
+  "automation_alias": "contributor",
+  "automation_uid": "68eae17b590d4f8f",
+  "challenges": [
+    "mlperf-inference-v3.0-2023",
+    "mlperf-inference-v2.1-2022"
+  ],
+  "last_participation_date": "20230323",
+  "organization": "cTuning foundation",
+  "tags": [],
+  "uid": "7539648909f84dfb",
+  "urls": [
+    "https://cTuning.org"
+  ]
+}
