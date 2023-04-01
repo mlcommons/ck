@@ -120,12 +120,13 @@ else:
 
     target_host = None
 
-    # New target API
     tvm_target = tvm.target.Target(target, host=target_host)
 
     tune_model = os.environ.get('CM_TUNE_TVM_MODEL', 'no') == 'yes'
 
     work_dir = ''
+
+    use_vm = os.environ.get('CM_TVM_USE_VM', 'no') == 'yes'
 
     if tune_model:
         from tvm import meta_schedule as ms
@@ -172,27 +173,37 @@ else:
         build_conf["relay.backend.use_meta_schedule"] = True
 
         with tvm.transform.PassContext(opt_level=opt_lvl, config=build_conf):
-            vm_exec = ms.relay_integration.compile_relay(
-                database=database,
-                mod=mod,
-                target=tvm_target,
-                params=params,
-                backend="vm"
-            )
+            if use_vm:
+                vm_exec = ms.relay_integration.compile_relay(
+                    database=database,
+                    mod=mod,
+                    target=tvm_target,
+                    params=params,
+                    backend="vm"
+                )
+            else:
+                lib = ms.relay_integration.compile_relay(
+                    database, mod, tvm_target, params)
 
     else:
         with tvm.transform.PassContext(opt_level=opt_lvl, config=build_conf):
-            vm_exec = tvm.relay.backend.vm.compile(mod, target, params=params)
+            if use_vm:
+                vm_exec = tvm.relay.backend.vm.compile(
+                    mod, target, params=params)
+            else:
+                lib = relay.build(mod, target=tvm_target, params=params)
 
-    temp_directory = tempfile.mkdtemp(dir=os.getcwd(), suffix="-tvm-tmp")
-    path_consts = os.path.join(temp_directory, "consts")
-    code_path = os.path.join(os.getcwd(), "vm_exec_code.ro")
+    if use_vm:
+        temp_directory = tempfile.mkdtemp(dir=os.getcwd(), suffix="-tvm-tmp")
+        path_consts = os.path.join(temp_directory, "consts")
+        code_path = os.path.join(os.getcwd(), "vm_exec_code.ro")
 
-    vm_exec.move_late_bound_consts(path_consts, byte_limit=256)
+        vm_exec.move_late_bound_consts(path_consts, byte_limit=256)
 
-    code, lib = vm_exec.save()
+        code, lib = vm_exec.save()
+
+        with open(code_path, "wb") as file:
+            file.write(code)
+
     lib.export_library(compiled_model)
     print('TVM compiled model: ' + compiled_model)
-
-    with open(code_path, "wb") as fo:
-        fo.write(code)
