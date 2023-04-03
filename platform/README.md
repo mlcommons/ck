@@ -3,9 +3,8 @@
 The [Collective Knowledge Playground (CK)](https://x.cknowledge.org) is a free, open-source and technology-agnostic on-prem platform
 being developed by the [MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce).
 
-Our goal is to help the community try, reproduce, optimize and compare any novel technology 
-including new ML models and end-to-end AI applications across any rapidly evolving software, hardware and data(sets)
-in a fully automated way via collaborative challenges.
+Our goal is to let the community collaboratively benchmark, optimize and compare AI and ML Systems (or any other end-to-end application) 
+in terms of cost, performance, power consumption, accuracy, size and other metrics via open and reproducible challenges.
 
 For example, [the community](https://access.cknowledge.org/playground/?action=contributors) 
 has successfully used CK to run and reproduce [MLPerf inference](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-inference,v3.0,community-submission,open,edge,image-classification,singlestream) 
@@ -19,8 +18,7 @@ that we have developed to help the the community solve the "dependency hell" and
 their diverse and continuously changing models, software, hardware, data sets, best practices and optimization techniques 
 in a transparent and non-intrusive way. 
 
-The ultimate goal for our Collective Knowledge platform is to accelerate deep-tech innovation and make it available to anyone
-by automatically generating the most efficient, reproducible and deployable 
+The ultimate goal for our Collective Knowledge platform is to accelerate deep-tech innovation by automatically generating the most efficient, reproducible and deployable 
 full-stack AI/ML solutions using the most suitable SW/HW stack at any given time (model, framework, inference engine and any other related dependency) 
 based on their requirements and constraints including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny), 
 environment and data. See this [ACM tech talk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
