@@ -1,3 +1,6 @@
+## V1.1.5.1
+   - updated link to the MLCommons taskforce on automation and reproducibility
+
 ## V1.1.5
    - added support for CLI with -- {something} . Everything after -- will be available 
      in the CM input dictionary under "unparsed_cmd" key (list).

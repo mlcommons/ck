@@ -8,7 +8,7 @@ FROM ${cm_os_name}:${cm_os_version}
 
 # Maintained by the MLCommons taskforce on education and reproducibility and OctoML
 LABEL github="https://github.com/mlcommons/ck"
-LABEL maintainer="https://bit.ly/mlperf-edu-wg"
+LABEL maintainer="https://cKnowledge.org/mlcommons-taskforce"
 
 # Customization
 ARG CM_GH_TOKEN

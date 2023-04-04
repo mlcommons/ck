@@ -124,7 +124,7 @@ Path to CM repositories:    /home/user/CM
 GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm
 GitHub for CM automation scripts:  https://github.com/mlcommons/ck/tree/master/cm-mlops
 Reporting issues and ideas:        https://github.com/mlcommons/ck/issues
-Joining the open MLPerf workgroup: http://bit.ly/mlperf-edu-wg
+Joining the open MLPerf workgroup: https://cKnowledge.org/mlcommons-taskforce
 ```
 
 

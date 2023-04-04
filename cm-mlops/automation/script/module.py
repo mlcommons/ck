@@ -7,7 +7,7 @@
 # while keeping full backwards compatibility.
 #
 # Join the MLCommons taskforce on education and reproducibility
-# to discuss further developments: http://bit.ly/mlperf-edu-wg
+# to discuss further developments: https://cKnowledge.org/mlcommons-taskforce
 
 import os
 
@@ -3525,7 +3525,7 @@ The CM concept is to collaboratively fix such issues inside portable CM scripts 
 
 Please help the community by reporting the full log with the command line here:
 * https://github.com/mlcommons/ck/issues 
-* https://bit.ly/mlperf-edu-wg
+* https://cKnowledge.org/mlcommons-taskforce
 
 Thank you'''
 
