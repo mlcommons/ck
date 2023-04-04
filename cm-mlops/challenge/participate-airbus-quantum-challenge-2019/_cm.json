@@ -2,8 +2,8 @@
   "alias": "participate-airbus-quantum-challenge-2019",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20191031",
-  "date_print": "October 31, 2019",
+  "date_close": "20191031",
+  "date_open": "20191031",
   "tags": [
     "participate",
     "airbus",

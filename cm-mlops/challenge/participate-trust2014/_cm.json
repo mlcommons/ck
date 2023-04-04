@@ -2,8 +2,8 @@
   "alias": "participate-trust2014",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20140612",
-  "date_print": "June 12, 2014",
+  "date_close": "20140612",
+  "date_open": "20140612",
   "tags": [
     "participate",
     "event",

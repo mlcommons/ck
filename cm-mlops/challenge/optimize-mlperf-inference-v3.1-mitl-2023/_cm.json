@@ -2,8 +2,8 @@
   "alias": "optimize-mlperf-inference-v3.1-mitl-2023",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20230702",
-  "date_print": "July 2, 2023",
+  "date_close": "20230701",
+  "date_open": "20230501",
   "tags": [
     "optimize",
     "reproduce",
@@ -16,6 +16,7 @@
     "mlperf-inference-mitl-v3.1-2023",
     "v3.1"
   ],
-  "title": "Prepare, optimize, reproduce and submit results for MLPerf inference v3.1 benchmarks with MLPerf C++ inference template library (MITL)",
-  "uid": "612e91f45af64cec"
+  "title": "Run and optimize MLPerf inference v3.1 benchmarks with MLPerf C++ inference template library (MITL)",
+  "uid": "612e91f45af64cec",
+  "under_preparation": true
 }

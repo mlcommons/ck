@@ -102,6 +102,7 @@ def main():
              """,  
              unsafe_allow_html=True)
 
+
 def make_url(name, alias='', action='contributors', key='name', md=True):
 
     import urllib
@@ -116,6 +117,21 @@ def make_url(name, alias='', action='contributors', key='name', md=True):
         md = url
 
     return md
+
+
+def convert_date(date):
+    # date: format YYYYMMDD to YYYY month day
+
+    import calendar
+
+    try:
+        year = date[0:4]
+        month = calendar.month_abbr[int(date[4:6])]
+        day = str(int(date[6:8]))
+    except Exception as e:
+        return {'return':1, 'error':'date "{}" is not of format YYYYMMDD: {}'.format(date, format(e))}
+
+    return {'return':0, 'string':year+' '+month+' '+day}
 
 
 if __name__ == "__main__":

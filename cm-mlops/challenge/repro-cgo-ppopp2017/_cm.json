@@ -2,8 +2,8 @@
   "alias": "repro-cgo-ppopp2017",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20170206",
-  "date_print": "February 06, 2017",
+  "date_close": "20170206",
+  "date_open": "20170206",
   "reproduced_papers_tags": "papers-ppopp-2017",
   "tags": [
     "reproduce",

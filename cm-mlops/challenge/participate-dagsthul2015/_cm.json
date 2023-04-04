@@ -2,8 +2,8 @@
   "alias": "participate-dagsthul2015",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20151101",
-  "date_print": "November 1, 2015",
+  "date_close": "20151101",
+  "date_open": "20151101",
   "tags": [
     "participate",
     "events",

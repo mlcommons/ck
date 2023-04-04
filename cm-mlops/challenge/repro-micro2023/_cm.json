@@ -2,7 +2,8 @@
   "alias": "repro-micro2023",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20230701",
+  "date_close": "20230801",
+  "date_open": "20230601",
   "tags": [
     "reproduce",
     "papers",
@@ -10,5 +11,6 @@
     "ae-micro2023"
   ],
   "title": "Reproduce papers at ACM/IEEE MICRO'23 (artifact evaluation)",
-  "uid": "f1c3037bf09b4262"
+  "uid": "f1c3037bf09b4262",
+  "under_preparation": true
 }
