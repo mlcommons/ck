@@ -118,10 +118,10 @@ def postprocess(i):
 
     elif mode in [ "performance", "accuracy" ]:
         measurements = {}
-        measurements['starting_weights_filename'] = env.get('CM_ML_MODEL_STARTING_WEIGHTS_FILENAME', 'none')
-        measurements['retraining'] = env.get('MODEL_RETRAINING','')
-        measurements['input_data_types'] = env.get('CM_ML_MODEL_INPUT_DATA_TYPES', 'fp32')
-        measurements['weight_data_types'] = env.get('CM_ML_MODEL_WEIGHT_DATA_TYPES', 'fp32')
+        measurements['starting_weights_filename'] = env.get('CM_ML_MODEL_STARTING_WEIGHTS_FILENAME', env.get('CM_ML_MODEL_FILE', ''))
+        measurements['retraining'] = env.get('CM_ML_MODEL_RETRAINING','no')
+        measurements['input_data_types'] = env.get('CM_ML_MODEL_INPUTS_DATA_TYPE', 'fp32')
+        measurements['weight_data_types'] = env.get('CM_ML_MODEL_WEIGHTS_DATA_TYPE', 'fp32')
         measurements['weight_transformations'] = env.get('CM_ML_MODEL_WEIGHT_TRANSFORMATIONS', 'none')
         os.chdir(output_dir)
         if not os.path.exists("mlperf_log_summary.txt"):

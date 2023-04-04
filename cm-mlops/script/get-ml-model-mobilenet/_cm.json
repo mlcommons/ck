@@ -9,6 +9,8 @@
     "CM_ML_MODEL_DATASET": "imagenet2012-val",
     "CM_ML_MODEL_RETRAINING": "no",
     "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "no",
+    "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
+    "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
     "CM_ML_MODEL_MOBILENET_NAME_SUFFIX": ""
   },
   "new_env_keys": [
@@ -29,9 +31,9 @@
       "group": "precision",
       "default": true,
       "env": {
-        "CM_ML_MODEL_INPUT_DATA_TYPES": "fp32",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
         "CM_ML_MODEL_PRECISION": "fp32",
-        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "fp32",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32",
         "CM_ML_MODEL_MOBILENET_PRECISION": "float"
       }
     },
@@ -39,9 +41,9 @@
       "group": "precision",
       "base": [ "quantized_" ],
       "env": {
-        "CM_ML_MODEL_INPUT_DATA_TYPES": "uint8",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "uint8",
         "CM_ML_MODEL_PRECISION": "uint8",
-        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "uint8",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "uint8",
         "CM_ML_MODEL_MOBILENET_PRECISION": "uint8"
       }
     },
@@ -49,15 +51,16 @@
       "group": "precision",
       "base": [ "quantized_" ],
       "env": {
-        "CM_ML_MODEL_INPUT_DATA_TYPES": "int8",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "int8",
         "CM_ML_MODEL_PRECISION": "int8",
-        "CM_ML_MODEL_WEIGHT_DATA_TYPES": "int8",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "int8",
         "CM_ML_MODEL_MOBILENET_PRECISION": "int8"
       }
     },
     "quantized_": {
       "env": {
-        "CM_ML_MODEL_MOBILENET_NAME_SUFFIX": "_quant"
+        "CM_ML_MODEL_MOBILENET_NAME_SUFFIX": "_quant",
+        "CM_ML_MODEL_WEIGHT_TRANSFORMATIONS": "yes"
       }
     },
     "onnx,fp32,v1": {

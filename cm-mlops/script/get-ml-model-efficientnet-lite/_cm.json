@@ -4,6 +4,11 @@
   "automation_uid": "5b4e0237da074764",
   "cache": true,
   "category": "ML/AI models",
+  "default_env": {
+    "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
+    "CM_ML_MODEL_PRECISION": "fp32",
+    "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32"
+  },
   "env": {
     "CM_ML_MODEL": "efficientnet-lite",
     "CM_ML_MODEL_DATASET": "imagenet2012-val",
@@ -48,13 +53,22 @@
       "group": "precision",
       "default": true,
       "env": {
-        "CM_ML_MODEL_EFFICIENTNET_LITE_PRECISION": "fp32"
+        "CM_ML_MODEL_EFFICIENTNET_LITE_PRECISION": "fp32",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "fp32",
+        "CM_ML_MODEL_PRECISION": "fp32",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "fp32"
       }
     },
     "int8": {
+      "alias": "uint8"
+    },
+    "uint8": {
       "group": "precision",
       "env": {
-        "CM_ML_MODEL_EFFICIENTNET_LITE_PRECISION": "int8"
+        "CM_ML_MODEL_EFFICIENTNET_LITE_PRECISION": "int8",
+        "CM_ML_MODEL_INPUTS_DATA_TYPE": "uint8",
+        "CM_ML_MODEL_PRECISION": "uint8",
+        "CM_ML_MODEL_WEIGHTS_DATA_TYPE": "uint8"
       }
     },
     "lite0": {

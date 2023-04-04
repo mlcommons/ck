@@ -17,6 +17,9 @@ def preprocess(i):
     if not url:
         return {'return':1, 'error': 'No valid URL to download the model. Probably an unsupported model variation chosen'}
 
+    if 'CM_STARTING_WEIGHTS_FILENAME' not in env:
+        env['CM_STARTING_WEIGHTS_FILENAME'] = url
+
     print ('Downloading from {}'.format(url))
 
     r = cm.access({'action':'download_file', 
