@@ -2,8 +2,8 @@
   "alias": "repro-sysml2019",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20190331",
-  "date_print": "March 31, 2019",
+  "date_close": "20190331",
+  "date_open": "20190331",
   "reproduced_papers_tags": "papers-sysml-2019",
   "tags": [
     "reproduce",

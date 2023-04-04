@@ -2,8 +2,8 @@
   "alias": "optimize-mlperf-inference-v2.1-2022",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20220901",
-  "date_print": "September 01, 2022",
+  "date_close": "20220901",
+  "date_open": "20220701",
   "experiments": [
     {
       "tags": "mlperf-inference,v2.1"
@@ -19,6 +19,6 @@
     "mlperf-inference-v2.1-2022",
     "v2.1"
   ],
-  "title": "Prepare, optimize and reproduce MLPerf inference v2.1 benchmarks",
+  "title": "Run and optimize MLPerf inference v2.1 benchmarks",
   "uid": "2e13154b7fbb412d"
 }

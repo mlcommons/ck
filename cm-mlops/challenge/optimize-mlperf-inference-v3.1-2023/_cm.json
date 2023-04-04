@@ -2,8 +2,8 @@
   "alias": "optimize-mlperf-inference-v3.1-2023",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20230702",
-  "date_print": "July 2, 2023",
+  "date_close": "20230701",
+  "date_open": "20230501",
   "experiments": [],
   "tags": [
     "optimize",
@@ -15,6 +15,7 @@
     "mlperf-inference-v3.1-2023",
     "v3.1"
   ],
-  "title": "Prepare, optimize, reproduce and submit results for MLPerf inference v3.1 benchmarks",
-  "uid": "3e971d8089014d1f"
+  "title": "Run and optimize MLPerf inference v3.1 benchmarks",
+  "uid": "3e971d8089014d1f",
+  "under_preparation": true
 }

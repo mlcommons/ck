@@ -33,7 +33,7 @@ def page(st, params, parent, experiment):
          <center>
           <small><a href="{}"><i>Self link</i></a></small>
          </center>
-         '''.format(parent.make_url(meta['alias'], action='experiments', md=False))
+         '''.format(parent.make_url(meta['uid'], action='experiments', md=False))
 
     name = meta.get('title', meta['alias'].replace('--',','))
 

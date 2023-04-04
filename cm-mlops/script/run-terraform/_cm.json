@@ -372,6 +372,11 @@
         "TF_VAR_INSTANCE_IMAGE_OS": "ubuntu.#"
       }
     },
+    "rhel.#": {
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE_OS": "rhel.#"
+      }
+    },
     "amazon-linux-2-kernel.#": {
       "env": {
         "TF_VAR_INSTANCE_IMAGE_OS": "amazon-linux-2-kernel.#"
@@ -381,6 +386,12 @@
       "group": "aws-instance-image",
       "env": {
         "TF_VAR_INSTANCE_IMAGE": "ami-0f1a5f5ada0e7da53"
+      }
+    },
+    "rhel.9,x86,us-west-2": {
+      "group": "aws-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "ami-0dda7e535b65b6469"
       }
     },
     "ubuntu.2204,arm64,us-west-2": {

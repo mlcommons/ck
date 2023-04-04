@@ -2,8 +2,8 @@
   "alias": "participate-fosdem-2019",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20190203",
-  "date_print": "February 3, 2019",
+  "date_close": "20190203",
+  "date_open": "20190203",
   "tags": [
     "participate",
     "events",

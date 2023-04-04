@@ -28,7 +28,7 @@ def page(st, params, parent):
                  <center>
                   <small><a href="{}"><i>Self link</i></a></small>
                  </center>
-                 '''.format(parent.make_url(meta['alias'], action='contributors', md=False))
+                 '''.format(parent.make_url(meta['uid'], action='contributors', md=False))
 
                 org = meta.get('organization','')
                 if org!='':
@@ -95,7 +95,7 @@ def page_list(st, params, parent):
             org = l.meta.get('organization', '')
 
             if name!='':
-                md_people += '* '+parent.make_url(name, alias=alias)+'\n'
+                md_people += '* '+parent.make_url(name, alias=uid)+'\n'
             elif org!='':
                 md_org += '* '+parent.make_url(org, alias=alias)+'\n'
 

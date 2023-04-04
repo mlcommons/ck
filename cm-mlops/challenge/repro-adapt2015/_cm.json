@@ -2,8 +2,8 @@
   "alias": "repro-adapt2015",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20150121",
-  "date_print": "January 18, 2015",
+  "date_close": "20150121",
+  "date_open": "20150121",
   "reproduced_papers_tags": "papers-adapt-2015",
   "tags": [
     "reproduce",

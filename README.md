@@ -27,11 +27,8 @@ from any company including Nvidia, Intel, Qualcomm, AMD, Microsoft, Amazon, Goog
 Neural Magic, Meta, OctoML, Krai, cKnowledge and Hugging Face in a transparent and non-intrusive way
 using  [portable CM scripts  developed by the community](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md).
 
-For example, [CK has already helped](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023) 
-the community, cTuning foundation, Qualcomm, Neural Magic, Krai, DELL, HPE and Lenovo
-automate more than 80% of all recent MLPerf inference benchmark submissions (and 98% of all power results), 
-make them more reproducible and reusable,
-and obtain record inference performance on the latest Qualcomm and Nvidia devices.
+For example, CK has already helped to automate more than 80% of all recent MLPerf inference benchmark submissions (and 98% of all power results), 
+make them more reproducible and reusable, and obtain record inference performance on the latest Qualcomm and Nvidia devices.
 
 The long-term goal for our Collective Knowledge platform is to help everyone automatically generate the most efficient, reproducible and deployable 
 solutions for their applications using the most suitable software and hardware stack at any given time (model, framework, inference engine and any other related dependency) 
@@ -41,7 +38,7 @@ environment and data.
 Our ultimate dream is to accelerate deep-tech innovation 
 and help AI, ML and systems developers by automating all their 
 tedious and repetitive tasks and slashing development, benchmarking, 
-optimization and deployment costs for any novel technology by 10..100 times 
+optimization, deployment and operational costs for any novel technology by 10..100 times 
 in the rapidly evolving world.
 
 

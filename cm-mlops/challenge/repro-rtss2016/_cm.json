@@ -2,8 +2,8 @@
   "alias": "repro-rtss2016",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20161130",
-  "date_print": "November 30, 2016",
+  "date_close": "20161130",
+  "date_open": "20161130",
   "tags": [
     "reproduce",
     "papers",

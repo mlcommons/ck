@@ -2,14 +2,8 @@
   "alias": "repro-pact2016",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20160914",
-  "date_print": "September 14, 2016",
-  "tags": [
-    "news-and-events",
-    "events",
-    "events-conferences",
-    "ae-pact2016"
-  ],
+  "date_close": "20160914",
+  "date_open": "20160914",
   "tags": [
     "reproduce",
     "papers",
