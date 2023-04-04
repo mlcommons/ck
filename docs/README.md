@@ -66,8 +66,7 @@ We plan to update them soon.
 * [Maintainers of the CM tool](../README.md#maintainers)
 * [CK project mailing list](https://groups.google.com/forum/#!forum/collective-knowledge)
 
-## Acknowledgments
+### Acknowledgments
 
-This project is supported by [MLCommons](https://mlcommons.org), [OctoML](https://octoml.ai) 
-and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
-
+This project is supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
+[cKnowledge](https://cKnowledge.org) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).

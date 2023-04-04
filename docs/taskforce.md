@@ -2,52 +2,56 @@
 
 # MLCommons Taskforce on Automation and Reproducibility
 
+*Note that this is on-going and heavily evolving project - please join our public
+ [Discord server](https://discord.gg/JjWNWXKxwT) 
+ or contact [Grigori Fursin and Arjun Suresh](mailto:gfursin@cKnowledge.org;asuresh@cTuning.org)
+ to prepare the 1st open MLPerf inference optimization tournament in spring/summer 2023,
+ brainstorm ideas,  request new features, add support for your software and hardware,
+ and participate in developments and collaborative 
+ benchmarking and optimization of AI/ML Systems.*
+
+
 ## Mission
 
-This public taskforce is developing *Collective Knowledge Playground (aka MLCommons CK)* - 
-a [free, open-source and technology-agnostic on-prem platform](https://github.com/mlcommons/ck/tree/master/platform)
-to automate and unify benchmarking, optimization, comparison and deployment
-of any novel technology across continuously changing AI models, software, hardware and data from different vendors
-via [collaborative challenges](https://access.cknowledge.org/playground/?action=challenges) 
-and [reproducible experiments](https://access.cknowledge.org/playground/?action=experiments).
+This public taskforce is developing a free, open-source and technology-agnostic on-prem platform 
+[*(Collective Knowledge Playground aka MLCommons CK)*](https://github.com/mlcommons/ck/tree/master/platform)
+powered by the portable [*MLCommons Collective Mind automation framework (MLCommons CM)*](https://github.com/mlcommons/ck/tree/master/cm).
 
-It is powered by the [rigorous MLPerf benchmarking methodology](https://arxiv.org/abs/1911.02549) 
-and portable [Collective Mind workflow automation framework (aka MLCommons CM)](https://github.com/mlcommons/ck)
-that we have developed to solve the "dependency hell".
-CM automatically interconnects diverse software, hardware and data from any vendor in a transparent and non-intrusive way
-using  [portable CM scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
-developed and shared by the community.
-
-The CK platform will help users automatically generate CM workflows and containers 
-to connect any given application with any ML model, framework, math library, inference engine 
-and all other related dependencies to run and analyze it on any given hardware target (cloud/edge/mobile/tiny) 
-in terms of accuracy, performance, power consumption, memory usage, and operational costs.
+Our goal is to help the community and MLCommons members 
+benchmark, optimize and compare AI, ML and other emerging applications
+across diverse and rapidly evolving models, software, hardware and data from different vendors
+in terms of cost, performance, power consumption, accuracy, size 
+and other metrics in a collaborative, automated and reproducible way.
 
 We thank [the community](https://access.cknowledge.org/playground/?action=contributors) for helping us to validate the CK technology 
-during the [1st successful collaborative challenge to run MLPerf inference v3.0 benchmark](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023)
+during the [1st collaborative challenge to run MLPerf inference v3.0 benchmark](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023)
 across diverse models, software and hardware from Neural Magic, Qualcomm, Nvidia, Intel, AMD, Microsoft, Amazon, Google,
 Krai, cKnowledge, cTuning foundation, OctoML, Deelvin, DELL, HPE, Lenovo, Hugging Face and Apple - 
 CK has helped automate more than 80% of all recent MLPerf inference benchmark submissions 
 (and 98% of all power results), make them more reproducible and reusable,
 and obtain record inference performance on the latest Qualcomm and Nvidia devices.
 
-The ultimate goal of our taskforce is to accelerate deep-tech innovation 
-and help AI, ML and systems developers by automating all their 
-tedious and repetitive tasks and slashing development, benchmarking, 
-optimization, deployment and operational costs for any novel technology
-in the rapidly evolving world.
+Our ultimate motivation for our CK technology is to help researchers, engineers and entrepreneurs 
+accelerate innovation by automatically generating the most efficient, reproducible and deployable 
+full-stack AI/ML applications using the most suitable software/hardware stack 
+at any given time (model, framework, inference engine and any other related dependency) 
+based on their requirements and constraints including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny), 
+environment and data while slashing their development and operational costs by 10..100 times.
+
+See this [ACM tech talk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
+and [journal article](https://arxiv.org/abs/2011.01149) to learn more about our motivation.
 
 ## Discussions
 
 Join our [Discord server](https://discord.gg/JjWNWXKxwT) 
+or contact [Grigori Fursin and Arjun Suresh](mailto:gfursin@cKnowledge.org;asuresh@cTuning.org)
 to learn more about our platform, participate in public developments and discussions,
 and request platform features and support for your technology.
 
-## Tech. leaders
+## Tech Leads
 
-Don't hesitate to get in touch with [Grigori Fursin](https://cKnowledge.org/gfursin)
-and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
-(taskforce founders) if you have any questions and suggestions.
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
+* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
 
 ## Development plan
 
@@ -96,9 +100,7 @@ and [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
   * [MLPerf universal C++ inference template library](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
   * [Portable, reusable and customizable CM scripts for technology-agnostic AI/ML/SW/HW co-design  (Apache 2.0 license)](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
 
-
-
-## Acknowledgments
+### Acknowledgments
 
 This project is supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
-[cKnowledge](https://cKnowledge.org) and our fantastic [contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+[cKnowledge](https://cKnowledge.org) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
