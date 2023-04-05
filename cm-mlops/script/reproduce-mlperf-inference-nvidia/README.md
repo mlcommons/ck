@@ -40,7 +40,7 @@ Requirements: You need to have CUDA, cuDNN and TensorRT installed on your system
 
 If CUDA is not detected, CM should download and install it automatically when you run the workflow.
 
-For x86 machines, you can download the tar files for cuDNN and TensorRT from NVIDIA website([cuDNN](https://developer.nvidia.com/cudnn), [TensorRT](https://developer.nvidia.com/nvidia-tensorrt-download)) and install them using the following commands
+For x86 machines, you can download the tar files for cuDNN and TensorRT from NVIDIA website ([cuDNN](https://developer.nvidia.com/cudnn), [TensorRT](https://developer.nvidia.com/nvidia-tensorrt-download)) and install them using the following commands
 ```bash
 cm run script --tags=get,cudnn --input=<PATH_TO_CUDNN_TAR_FILE>
 ```
