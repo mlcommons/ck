@@ -8,9 +8,6 @@ cm pull repo mlcommons@ck --checkout=681547519f4d9a8991d992d1300c90cfde06e9b9
 
 ## Run Commands
 
-Bert has two variants - `bert-99` and `bert-99.9` where the `99` and `99.9` specifies the required accuracy constraint with respect to the reference floating point model. `bert-99.9` model is applicable only on a datacenter system.
-
-On edge category `bert-99` has Offline and SingleStream scenarios and in datacenter category both `bert-99` and `bert-99.9` have Offline and Server scenarios. The below commands are assuming an edge category system. 
 
 ### Onnxruntime backend
 
@@ -18,30 +15,30 @@ On edge category `bert-99` has Offline and SingleStream scenarios and in datacen
 
 ```
 cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
---model=bert-99 --implementation=reference --device=cpu --backend=onnxruntime \
+--model=retinanet --implementation=reference --device=cpu --backend=onnxruntime \
 --category=edge --division=open --quiet
 ```
 * Use `--device=cuda` to run the inference on Nvidia GPU
-* Use `--division=closed` to run all scenarios for the closed division including the compliance tests
+* Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=datacenter` to run datacenter scenarios
 
 #### Do a full accuracy and performance runs for all the scenarios
 
 ```
 cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=onnxruntime \
+--model=retinanet --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/inference_3.0_results \
 --category=edge --division=open --quiet
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
 * Use `--division=closed` to run all scenarios for the closed division including the compliance tests
-* `--offline_target_qps`, `--server_target_qps` and `--singlestream_target_latency` can be used to override the determined performance numbers
+* `--offline_target_qps`, `--server_target_qps`, `--singlestream_target_latency` and `multistream_target_latency` can be used to override the determined performance numbers
 
 #### Populate the README files
 ```
 cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=onnxruntime \
+--model=retinanet --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/inference_3.0_results \
 --category=edge --division=open --quiet
 ```
@@ -58,23 +55,13 @@ cm run script --tags=generate,inference,submission --results_dir=$HOME/inference
 ```
 
 
-## Tensorflow backend
-
-Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime` with `--backend=tf`. For example,
-
-```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=tf --execution-mode=valid \
---results_dir=$HOME/inference_3.0_results --quiet
-```
-
 ## Pytorch backend
 
 Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime` with `--backend=pytorch`. For example,
 
 ```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=pytorch \
---execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios \
+--model=retinanet --device=cpu --implementation=reference --backend=pytorch \
+--execution-mode=valid --results_dir=$HOME/inference_3.0_results \
+--category=edge --division=open --quiet
 ```
-
