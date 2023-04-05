@@ -5,6 +5,7 @@ import os
 import subprocess
 import csv
 import json
+import copy
 
 
 file_summary = 'summary.csv'
@@ -257,16 +258,30 @@ def convert_summary_csv_to_experiment(path, version):
                             break
 
                     if not found:
-                        # Generate UID
-                        if 'uid' not in result:
-                            r=utils.gen_uid()
-                            if r['return']>0: return r
-
-                            result['uid'] = r['uid']
-
                         results.append(result)
 
-            # Write
+            # Check extra keys
+            final_results=[]
+            for result in results:
+                # Generate UID
+                if 'uid' not in result:
+                    r=utils.gen_uid()
+                    if r['return']>0: return r
+
+                    result['uid'] = r['uid']
+
+                # Get Result and Units together
+                if 'Result' in result and 'Units' in result:
+                    result['Result_Units']=result['Units']
+
+                # Temporal hack for Power to separate power from the graph
+                units = result.get('Units','')
+                if units == 'Watts' or 'joules' in units:
+                    if 'Result_Power' not in result:
+                        result['Result_Power']=result['Result']
+                        result['Result']=None
+
+            # Write results
             r=utils.save_json(fresult, results)
             if r['return']>0: return r
 
