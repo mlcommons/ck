@@ -66,7 +66,7 @@ Pull MLCommons CM repository with [cross-platform CM scripts](https://github.com
 supporting portable MLOps and DevOps:
 
 ```bash
-cm pull repo mlcommons@ck --checkout=329eeedbacd2a5a9f9b5c5badf10a4253a0a2a79
+cm pull repo mlcommons@ck --checkout=681547519f4d9a8991d992d1300c90cfde06e9b9
 ```
 
 CM pulls all such repositories into the `$HOME/CM` directory to search for portable CM automation recipes and artifacts.
