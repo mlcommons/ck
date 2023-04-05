@@ -41,13 +41,11 @@
     "key_file": "CM_SSH_KEY_FILE",
     "run_cmds": "CM_TERRAFORM_RUN_COMMANDS",
     "gcp_credentials_json_file": "CM_GCP_CREDENTIALS_JSON_PATH",
-    "gcp_project": "TF_VAR_GCP_PROJECT",
     "ssh_key_file": "CM_SSH_KEY_FILE"
   },
   "default_env": {
     "TF_VAR_SECURITY_GROUP_ID": "sg-0783752c97d2e011d",
-    "TF_VAR_CPU_COUNT": "1",
-    "TF_VAR_GCP_PROJECT": "mlperf-inference-tests"
+    "TF_VAR_CPU_COUNT": "1"
   },
   "variations": {
     "aws": {
@@ -79,13 +77,22 @@
         "CM_TERRAFORM_CONFIG_DIR_NAME": "gcp"
       }
     },
-    "n1-standard-8": {
+    "n1-standard.#": {
       "base": [
         "gcp"
       ],
       "group": "gcp-instance-type",
       "env": {
-        "TF_VAR_INSTANCE_TYPE": "n1-standard-8"
+        "TF_VAR_INSTANCE_TYPE": "n1-highmem-#"
+      }
+    },
+    "n1-highmem.#": {
+      "base": [
+        "gcp"
+      ],
+      "group": "gcp-instance-type",
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "n1-highmem-#"
       }
     },
     "f1-micro": {
