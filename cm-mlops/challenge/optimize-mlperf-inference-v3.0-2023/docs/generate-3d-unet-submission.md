@@ -8,28 +8,29 @@ cm pull repo mlcommons@ck --checkout=329eeedbacd2a5a9f9b5c5badf10a4253a0a2a79
 
 ## Run Commands
 
-Bert has two variants - `bert-99` and `bert-99.9` where the `99` and `99.9` specifies the required accuracy constraint with respect to the reference floating point model. `bert-99.9` model is applicable only on a datacenter system.
+3d-unet has two variants - `3d-unet-99` and `3d-unet-99.9` where the `99` and `99.9` specifies the required accuracy constraint with respect to the reference floating point model. Both models can be submitter under edge as well as datacenter category.
 
-On edge category `bert-99` has Offline and SingleStream scenarios and in datacenter category both `bert-99` and `bert-99.9` have Offline and Server scenarios. The below commands are assuming an edge category system. 
+Since 3d-unet is one of the slowest running model, we are only running it using nvidia-implementation where the model is quantized and run on TensorRT backend on Nvidia GPU.
 
-### Onnxruntime backend
+For `3d-unet-99.9` runs, simply replace `3d-unet-99` with `3d-unet-99.9`.
+
+### TensorRT backend
 
 #### Do a test run to detect and record the system performance
 
 ```
 cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
---model=bert-99 --implementation=reference --device=cpu --backend=onnxruntime \
+--model=3d-unet-99 --implementation=nvidia-original --device=cuda --backend=tensorrt \
 --category=edge --division=open --quiet
 ```
-* Use `--device=cuda` to run the inference on Nvidia GPU
-* Use `--division=closed` to run all scenarios for a closed division including the compliance tests
 * Use `--category=datacenter` to run datacenter scenarios
+* Use `--division=closed` to run all scenarios for a closed division (compliance tests are skipped for `_find-performance` mode)
 
 #### Do a full accuracy and performance runs for all the scenarios
 
 ```
 cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=onnxruntime \
+--model=3d-unet-99 --device=cuda --implementation=nvidia-original --backend=tensorrt \
 --execution-mode=valid --results_dir=$HOME/inference_3.0_results \
 --category=edge --division=open --quiet
 ```
@@ -41,7 +42,7 @@ cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios \
 #### Populate the README files
 ```
 cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=onnxruntime \
+--model=3d-unet-99 --device=cuda --implementation=nvidia-original --backend=tensorrt \
 --execution-mode=valid --results_dir=$HOME/inference_3.0_results \
 --category=edge --division=open --quiet
 ```
@@ -56,25 +57,3 @@ cm run script --tags=generate,inference,submission --results_dir=$HOME/inference
 --device=cpu --submission_dir=$HOME/inference_submission_tree --clean --run-checker --submitter=cTuning 
 --adr.inference-src.version=master --hw_notes_extra="Result taken by NAME" --quiet
 ```
-
-
-## Tensorflow backend
-
-Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime` with `--backend=tf`. For example,
-
-```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=tf --execution-mode=valid \
---results_dir=$HOME/inference_3.0_results --quiet
-```
-
-## Pytorch backend
-
-Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime` with `--backend=pytorch`. For example,
-
-```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=pytorch \
---execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
-```
-

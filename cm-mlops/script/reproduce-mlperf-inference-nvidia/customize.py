@@ -172,6 +172,14 @@ def preprocess(i):
     if use_triton:
         run_config += f" --use_triton --config_ver=triton"
 
+    user_conf_path = env.get('CM_MLPERF_USER_CONF')
+    if user_conf_path:
+        run_config += f" --user_conf_path={user_conf_path}"
+
+    mlperf_conf_path = env.get('CM_MLPERF_CONF')
+    if mlperf_conf_path:
+        run_config += f" --mlperf_conf_path={mlperf_conf_path}"
+
     power_setting = env.get('CM_MLPERF_NVIDIA_HARNESS_POWER_SETTING')
     if power_setting:
         run_config += f" --power_setting={power_setting}"

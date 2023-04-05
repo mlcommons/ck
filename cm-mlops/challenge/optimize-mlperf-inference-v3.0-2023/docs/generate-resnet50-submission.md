@@ -8,9 +8,9 @@ cm pull repo mlcommons@ck --checkout=329eeedbacd2a5a9f9b5c5badf10a4253a0a2a79
 
 ## Run Commands
 
-Bert has two variants - `bert-99` and `bert-99.9` where the `99` and `99.9` specifies the required accuracy constraint with respect to the reference floating point model. `bert-99.9` model is applicable only on a datacenter system.
+We need to get imagenet full dataset to make image-classification submissions for MLPerf inference. Since this dataset is not publicly available via a URL please follow the instructions given [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/get-dataset-imagenet-val/README-extra.md) to download the dataset and register in CM.
 
-On edge category `bert-99` has Offline and SingleStream scenarios and in datacenter category both `bert-99` and `bert-99.9` have Offline and Server scenarios. The below commands are assuming an edge category system. 
+On edge category ResNet50 has Offline, SingleStream and MultiStream scenarios and in datacenter category it has Offline and Server scenarios. The below commands are assuming an edge category system. 
 
 ### Onnxruntime backend
 
@@ -18,30 +18,30 @@ On edge category `bert-99` has Offline and SingleStream scenarios and in datacen
 
 ```
 cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
---model=bert-99 --implementation=reference --device=cpu --backend=onnxruntime \
+--model=resnet50 --implementation=reference --device=cpu --backend=onnxruntime \
 --category=edge --division=open --quiet
 ```
 * Use `--device=cuda` to run the inference on Nvidia GPU
-* Use `--division=closed` to run all scenarios for a closed division including the compliance tests
+* Use `--division=closed` to run all scenarios for the closed division (compliance tests are skipped for `_find-performance` mode)
 * Use `--category=datacenter` to run datacenter scenarios
 
 #### Do a full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=onnxruntime \
+cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios --model=resnet50 \
+--device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/inference_3.0_results \
 --category=edge --division=open --quiet
 ```
 
 * Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
 * Use `--division=closed` to run all scenarios for a closed division including the compliance tests
-* `--offline_target_qps`, `--server_target_qps` and `--singlestream_target_latency` can be used to override the determined performance numbers
+* `--offline_target_qps`, `--server_target_qps`, `--singlestream_target_latency` and `multistream_target_latency` can be used to override the determined performance numbers
 
 #### Populate the README files
 ```
 cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=onnxruntime \
+--model=resnet50 --device=cpu --implementation=reference --backend=onnxruntime \
 --execution-mode=valid --results_dir=$HOME/inference_3.0_results \
 --category=edge --division=open --quiet
 ```
@@ -53,8 +53,9 @@ Here, we are copying the performance and accuracy log files (compliance logs als
 We should use the master branch of MLCommons inference repo for the submission checker. You can use `--hw_note_extra` option to add your name to the notes.
 ```
 cm run script --tags=generate,inference,submission --results_dir=$HOME/inference_3.0_results/valid_results \
---device=cpu --submission_dir=$HOME/inference_submission_tree --clean --run-checker --submitter=cTuning 
---adr.inference-src.version=master --hw_notes_extra="Result taken by NAME" --quiet
+--submission_dir=$HOME/inference_submission_tree --clean  \
+--run-checker --submitter=cTuning --adr.inference-src.version=master \
+--hw_notes_extra="Result taken by NAME" --quiet
 ```
 
 
@@ -63,18 +64,19 @@ cm run script --tags=generate,inference,submission --results_dir=$HOME/inference
 Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime` with `--backend=tf`. For example,
 
 ```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=tf --execution-mode=valid \
---results_dir=$HOME/inference_3.0_results --quiet
+cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios \
+--model=resnet50 --device=cpu --implementation=reference --backend=tf \
+--execution-mode=valid --results_dir=$HOME/inference_3.0_results \
+--category=edge --division=open --quiet
 ```
 
-## Pytorch backend
+## TVM backend
 
-Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime` with `--backend=pytorch`. For example,
+Same commands as for `onnxruntime` should work by replacing `backend=onnxruntime` with `--backend=tvm-onnx`. (Only `--device=cpu` is currently supported for TVM) For example,
 
 ```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=pytorch \
---execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios \
+--model=resnet50 --device=cpu --implementation=reference --backend=tvm-onnx \
+--execution-mode=valid --results_dir=$HOME/inference_3.0_results \
+--category=edge --division=open --quiet
 ```
-
