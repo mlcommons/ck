@@ -36,11 +36,13 @@ The above command will output the IP of the created instance which will be havin
 * `_inf1.2xlarge,_storage_size.500,_amazon-linux-2-kernel.510`
 * `_t2.medium,_storage_size.200,_rhel.9`
 
-### Copy the needed files
+### Copy the needed files from the local machine
 
 Copy the imagenet dataset to the created instance. For example,
 
 ```
 rsync -avz -e 'ssh -i $HOME/cmuser.pem' $HOME/imagenet-2012-val/ ubuntu@54.189.93.134:
 ```
+For using [nvidia-original implementation](https://github.com/mlcommons/ck/tree/main/cm-mlops/script/reproduce-mlperf-inference-nvidia) tar files for cuDNN and TensorRT are needed to be downloaded locally from Nvidia website and copied to the AWS instance similar to the above command.
 
+Once all the required files are copied over, login to the instance and follow the individual benchmark instructions from the README files fiven [here](./)
