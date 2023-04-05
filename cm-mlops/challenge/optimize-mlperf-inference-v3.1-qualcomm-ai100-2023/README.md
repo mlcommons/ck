@@ -1,16 +1,18 @@
 ### Challenge
 
-Prepare, optimize and reproduce MLPerf inference v3.1 benchmarks across diverse implementations, models, software and hardware.
+Prepare and optimize MLPerf inference v3.1 submission for Qualcomm AI100-based platforms.
 
 Join this public [Discord server](https://discord.gg/JjWNWXKxwT) to discuss with the community and organizers
-how to use and enhance CK to run and optimize MLPerf inference benchmarks.
+how to use and enhance CK to benchmark and optimize ML Systems.
 
 ## Organizers
 
 * [MLCommons taskforce on education and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
 * [cTuning foundation](https://cTuning.org)
-* [cKnowledge Ltd](https://cKnowledge.org)
 
 ### Status
 
-This challenge is under preparation.
+Under preparation.
+
+### Results
+

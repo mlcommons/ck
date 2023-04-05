@@ -1,0 +1,22 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-hugging-face-models-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230701",
+  "date_open": "20230501",
+  "tags": [
+    "optimize",
+    "reproduce",
+    "benchmark",
+    "kilt",
+    "mlperf-inference",
+    "mlperf-inference-kilt",
+    "mlperf-inference-kilt",
+    "mlperf-inference-kilt-v3.1",
+    "mlperf-inference-kilt-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Run and optimize MLPerf inference v3.1 benchmarks using Hugging Face models",
+  "uid": "72b95d08a9e04698",
+  "under_preparation": true
+}
