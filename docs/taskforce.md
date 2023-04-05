@@ -48,7 +48,7 @@ or contact [Grigori Fursin and Arjun Suresh](mailto:gfursin@cKnowledge.org;asure
 to learn more about our platform, participate in public developments and discussions,
 and request platform features and support for your technology.
 
-## Tech Leads
+## Chairs and Tech Leads
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) 
