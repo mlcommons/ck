@@ -40,6 +40,12 @@ environment and data while slashing their development and operational costs by 1
 See this [ACM tech talk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
 and [journal article](https://arxiv.org/abs/2011.01149) to learn more about our motivation.
 
+## Links
+
+* [Platform preview](https://x.cKnowledge.org)
+* [GUI to run MLPerf inference benchmarks](http://cknowledge.org/mlperf-inference-gui)
+* [GUI to prepare MLPerf inference submissions](https://cknowledge.org/mlperf-inference-submission-gui)
+
 ## License
 
 Apache 2.0
@@ -47,10 +53,6 @@ Apache 2.0
 ## Copyright
 
 2023 MLCommons
-
-## Public access
-
-* [x.cKnowledge.org](https://x.cKnowledge.org)
 
 ## Source code for on-prem use
 
@@ -84,7 +86,7 @@ Check [this script](scripts/2-run-in-a-cloud.sh) If you want to run the CK playg
 as a public or private server to run optimization experiments
 with your colleagues, external teams and users.
 
-## Tech Leads
+## Authors and Tech Leads
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
