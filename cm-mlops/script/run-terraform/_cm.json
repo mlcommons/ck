@@ -40,6 +40,7 @@
     "cminit": "CM_TERRAFORM_CM_INIT",
     "key_file": "CM_SSH_KEY_FILE",
     "run_cmds": "CM_TERRAFORM_RUN_COMMANDS",
+    "gcp_credentials_json_file": "CM_GCP_CREDENTIALS_JSON_PATH",
     "ssh_key_file": "CM_SSH_KEY_FILE"
   },
   "default_env": {
@@ -76,13 +77,22 @@
         "CM_TERRAFORM_CONFIG_DIR_NAME": "gcp"
       }
     },
-    "n1-standard-8": {
+    "n1-standard.#": {
       "base": [
         "gcp"
       ],
       "group": "gcp-instance-type",
       "env": {
-        "TF_VAR_INSTANCE_TYPE": "n1-standard-8"
+        "TF_VAR_INSTANCE_TYPE": "n1-highmem-#"
+      }
+    },
+    "n1-highmem.#": {
+      "base": [
+        "gcp"
+      ],
+      "group": "gcp-instance-type",
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "n1-highmem-#"
       }
     },
     "f1-micro": {

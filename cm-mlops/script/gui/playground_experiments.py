@@ -8,7 +8,7 @@ def page(st, params, parent):
     tags = params.get('tags',[''])[0].lower().replace(',',' ')
 
     if tags=='' and name=='': 
-        tags='mlperf-inference open edge image-classification singlestream'
+        tags='mlperf-inference all'
 
     if name=='':
         tags = st.text_input('Search for reproducibility and optimization experiments by tags:', value=tags, key='tags').strip()

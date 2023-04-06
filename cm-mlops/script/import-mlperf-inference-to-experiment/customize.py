@@ -5,6 +5,7 @@ import os
 import subprocess
 import csv
 import json
+import copy
 
 
 file_summary = 'summary.csv'
@@ -75,14 +76,15 @@ def preprocess(i):
 
             r = convert_summary_csv_to_experiment(path, version)
             if r['return']>0: return r
-            
+
     return {'return':0}
+
 
 def convert_summary_csv_to_experiment(path, version):
     print ('* Processing MLPerf repo in cache path: {}'.format(path))
 
     cur_dir = os.getcwd()
-    
+
     # Get Git URL
     os.chdir(path)
 
@@ -101,7 +103,7 @@ def convert_summary_csv_to_experiment(path, version):
 
             for rows in csv_reader:
                 result = {}
-                
+
                 keys = rows.keys()
 
                 for k in keys:
@@ -132,7 +134,7 @@ def convert_summary_csv_to_experiment(path, version):
 
                 if result.get('Accuracy',0)>0:
                     result['Accuracy_div_100'] = float('{:.5f}'.format(result['Accuracy']/100))
-                
+
                 # Add ratios
 
 
@@ -146,7 +148,7 @@ def convert_summary_csv_to_experiment(path, version):
         experiment = {}
 
         for result in summary:
-            
+
             # Create name
             mlperfmodel = result['MlperfModel']
             task = model2task[mlperfmodel]
@@ -227,7 +229,6 @@ def convert_summary_csv_to_experiment(path, version):
                 path2 = os.path.join(path, date_time)
 
                 os.makedirs(path2)
-            
 
             # Check if cm-result.json
             fresult = os.path.join(path2, file_result)
@@ -242,20 +243,45 @@ def convert_summary_csv_to_experiment(path, version):
                 for result in existing_results:
                     found = False
 
+                    # New results
                     for result2 in results:
                         matched = True
-                        for k in result:
-                            if k not in result2 or result[k]!=result2[k]:
+
+                        # Need to iterate over keys in the new results since old results can have more keys (derivates, etc)
+                        for k in result2:
+                            if k not in result or result2[k]!=result[k]:
                                 matched = False
                                 break
+
                         if matched:
                             found = True
                             break
-                        
+
                     if not found:
                         results.append(result)
 
-            # Write
+            # Check extra keys
+            final_results=[]
+            for result in results:
+                # Generate UID
+                if 'uid' not in result:
+                    r=utils.gen_uid()
+                    if r['return']>0: return r
+
+                    result['uid'] = r['uid']
+
+                # Get Result and Units together
+                if 'Result' in result and 'Units' in result:
+                    result['Result_Units']=result['Units']
+
+                # Temporal hack for Power to separate power from the graph
+                units = result.get('Units','')
+                if units == 'Watts' or 'joules' in units:
+                    if 'Result_Power' not in result:
+                        result['Result_Power']=result['Result']
+                        result['Result']=None
+
+            # Write results
             r=utils.save_json(fresult, results)
             if r['return']>0: return r
 
