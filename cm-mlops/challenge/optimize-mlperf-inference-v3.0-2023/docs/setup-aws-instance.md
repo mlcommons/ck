@@ -45,4 +45,4 @@ rsync -avz -e 'ssh -i $HOME/cmuser.pem' $HOME/imagenet-2012-val/ ubuntu@54.189.9
 ```
 For using [nvidia-original implementation](https://github.com/mlcommons/ck/tree/main/cm-mlops/script/reproduce-mlperf-inference-nvidia) tar files for cuDNN and TensorRT are needed to be downloaded locally from Nvidia website and copied to the AWS instance similar to the above command.
 
-Once all the required files are copied over, login to the instance and follow the individual benchmark instructions from the README files fiven [here](./)
+Once all the required files are copied over, login to the instance and follow the individual benchmark instructions from the README files given [here](./)
