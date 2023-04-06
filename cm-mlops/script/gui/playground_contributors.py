@@ -90,6 +90,7 @@ def page_list(st, params, parent):
             continue
 
         if lpd!='':
+            uid = l.meta['uid']
             alias = l.meta['alias']
             name = l.meta.get('name', '')
             org = l.meta.get('organization', '')
