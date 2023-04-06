@@ -35,7 +35,7 @@ After our submission we followed the instructions from Nvidia in the inference v
 
 The below table shows the performance comparison of our results under different settings and the Nvidia submission for MLPerf inference 3.0. We'll be updating our instructions for easier reproducibility of these numbers.
 
-```
+
 | Workload  | Results | L4T   | PAGESIZE | Power Mode | FAN Dynamic Speed control | Offline Accuracy | Offline Performance | SingleStream Accuracy | SingleStream Performance | MultiStream Accuracy | MultiStream Performance |
 | --------- | --------------------------------- | ----- | -------- | ---------- | ------------------------- | ---------------- | ------------------- | --------------------- | ------------------------ | -------------------- | ----------------------- |
 | ResNet50  |  Nvidia Submitted                         | r35.3 | 64k      | MaxN       | active                    | 75.934           | 6438.1              | 76.032                | 0.633479                 | 76.032               | 2.187731                |
@@ -51,5 +51,4 @@ The below table shows the performance comparison of our results under different 
 | BERT      | MLCommons taskforce on reproducibility (no docker)              | r35.2.1     | 4k       | MaxN          | active                    | 90.562           | 527 (128 batchsize)                 | 90.311                | 6.636                    | NA                   | NA                      |
 | BERT      | MLCommons taskforce on reproducibility (no docker)              | r35.3     | 64k       | MaxN          | active                    | 90.552          | 539                 | 90.344                | 6.31                    | NA                   | NA                      |
 
-```
 
