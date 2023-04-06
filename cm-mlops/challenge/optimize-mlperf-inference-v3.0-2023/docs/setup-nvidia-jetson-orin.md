@@ -33,7 +33,7 @@ After our submission we followed the instructions from Nvidia in the inference v
 
 ### Performance results MaxN
 
-The below table shows the performance comparison of our results under different settings and the Nvidia submission for MLPerf inference 3.0. We'll be updating our instructions for easier reproducibility of these numbers.
+The below table shows the performance comparison of our results under different settings and the Nvidia submission for MLPerf inference 3.0. We'll be updating our instructions for easier reproducibility of these numbers including CM scripts for flashing the L4T image and rebuilding the kernel for 64k pagesize.
 
 
 | Workload  | Results | L4T   | PAGESIZE | Power Mode | FAN Dynamic Speed control | Offline Accuracy | Offline Performance | SingleStream Accuracy | SingleStream Performance | MultiStream Accuracy | MultiStream Performance |
