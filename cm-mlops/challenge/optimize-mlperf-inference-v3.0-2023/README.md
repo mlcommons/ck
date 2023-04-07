@@ -21,4 +21,5 @@ This challenge has been successfully completed.
 
 ### Results
 
-All results will be published on April 5, 2023.
+All results are available in this [GitHub repo](https://github.com/ctuning/cm_inference_results)
+and can be visualized and compared using the [MLCommons Collective Knowledge Playground](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-inference,v3.0).
