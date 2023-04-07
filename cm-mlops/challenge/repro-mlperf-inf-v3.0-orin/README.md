@@ -11,10 +11,9 @@ how to use and enhance CK to benchmark and optimize ML Systems.
 
 * [MLCommons taskforce on education and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
 * [cTuning foundation](https://cTuning.org)
-* [Krai](https://krai.ai)
 * [cKnowledge](https://cKnowledge.org)
 
 ### Status
 
-Finished. Preliminary results are available [here](../optimize-mlperf-inference-v3.0-2023/docs/setup-nvidia-jetson-orin.md).
+Finished. Preliminary results are available [here](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.0-2023/docs/setup-nvidia-jetson-orin.md).
 
