@@ -124,7 +124,7 @@ def page(st, params, parent, experiment):
             continue
 
         data = []
-        for k in sorted(keys):
+        for k in sorted(keys, key=lambda s: s.lower()):
             data.append(result.get(k))
 
         all_data.append(data)
@@ -207,7 +207,7 @@ def page(st, params, parent, experiment):
     axis_key_c=''
 
     if len(keys)>0:
-        keys = [''] + keys
+        keys = [''] + sorted(keys, key=lambda s: s.lower())
 
         q_axis_key_x = params.get('x',[''])
         if len(q_axis_key_x)>0:
@@ -348,7 +348,7 @@ def page(st, params, parent, experiment):
 
         df = pd.DataFrame(
           all_data,
-          columns=(k for k in sorted(keys) if k!='')
+          columns=(k for k in sorted(keys, key=lambda s: s.lower()) if k!='')
         )
 
         st.markdown('---')
