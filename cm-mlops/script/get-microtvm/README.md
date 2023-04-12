@@ -55,15 +55,15 @@ ___
 
 #### CM CLI
 
-1.`cm run script --tags=get,src,source,microtvm,tiny[,variations] [--input_flags]`
+1. `cm run script --tags=get,src,source,microtvm,tiny[,variations] [--input_flags]`
 
-2.`cm run script "get src source microtvm tiny[,variations]" [--input_flags]`
+2. `cm run script "get src source microtvm tiny[,variations]" [--input_flags]`
 
-3.`cm run script a9cad70972a140b9 [--input_flags]`
+3. `cm run script a9cad70972a140b9 [--input_flags]`
 
-variations can be seen [here](#variations)
+* `variations` can be seen [here](#variations)
 
-input_flags can be seen [here](#script-flags-mapped-to-environment)
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -150,16 +150,16 @@ r=cm.access({... , "ssh":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 #### Versions
-Default version: *main*
+Default version: `main`
 
-* custom
-* main
+* `custom`
+* `main`
 ___
 ### Script workflow, dependencies and native scripts
 

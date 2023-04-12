@@ -476,16 +476,16 @@ def doc(i):
                              '',
                              '#### '+x2,
                              '',
-                             '1.{}'.format(cli_all_tags),
+                             '1. {}'.format(cli_all_tags),
                              '',
-                             '2.{}'.format(cli_all_tags_alternative),
+                             '2. {}'.format(cli_all_tags_alternative),
                              '',
-                             '3.{}'.format(cli_uid),
+                             '3. {}'.format(cli_uid),
                              '']
-        md_script_readme += ['variations can be seen [here](#variations)',
+        md_script_readme += ['* `variations` can be seen [here](#variations)',
                              ''
                              ]
-        md_script_readme += ['input_flags can be seen [here](#script-flags-mapped-to-environment)',
+        md_script_readme += ['* `input_flags` can be seen [here](#script-flags-mapped-to-environment)',
                              ''
                              ]
         md_script_readme += ['#### '+x3,
@@ -781,7 +781,7 @@ def doc(i):
         md_script_readme.append('<details>')
         md_script_readme.append('<summary>Click here to expand this section.</summary>')
         md_script_readme.append('')
-        md_script_readme.append('These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.')
+        md_script_readme.append('These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.')
         md_script_readme.append('')
 
         for key in default_env:
@@ -805,12 +805,12 @@ def doc(i):
             toc_readme.append(x)
 
             if default_version!='':
-                md_script_readme.append('Default version: *{}*'.format(default_version))
+                md_script_readme.append('Default version: `{}`'.format(default_version))
                 md_script_readme.append('')
 
             if len(version_keys)>0:
                 for version in version_keys:
-                    md_script_readme.append('* {}'.format(version))
+                    md_script_readme.append('* `{}`'.format(version))
 
 
         
