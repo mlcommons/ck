@@ -466,7 +466,7 @@ def doc(i):
                              '',
                              '[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)',
                              '',
-                             '#### '+x1aa,
+                             '##### '+x1aa,
                              '',
                              '```cm pull repo {}```'.format(repo_alias),
                              '',
