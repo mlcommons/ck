@@ -1,0 +1,7 @@
+jupyter
+numpy
+imageio
+torch
+torchvision
+IPython
+scikit-image
