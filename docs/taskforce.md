@@ -48,6 +48,11 @@ or contact [Grigori Fursin and Arjun Suresh](mailto:gfursin@cKnowledge.org;asure
 to learn more about our platform, participate in public developments and discussions,
 and request platform features and support for your technology.
 
+### Weekly conf-calls
+
+Feel free to join our weekly conf-call where you can provide your feedback, ask questions or participate in discussions:
+* Each Thursday at 10-11am PT (19-20pm CET): https://meet.google.com/tnt-zscc-aeb ([Shared notes](https://docs.google.com/document/d/1zMNK1m_LhWm6jimZK6YE05hu4VH9usdbKJ3nBy-ZPAw)).
+
 ## Chairs and Tech Leads
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin)

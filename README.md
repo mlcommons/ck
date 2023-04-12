@@ -60,12 +60,15 @@ and request platform features and support for your technology.
 
 Apache 2.0
 
-### Authors and maintainers
+### Authors and Tech Leads
 
-* [Grigori Fursin](https://cKnowledge.org/gfursin)
-* [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
+This open-source technology is being developed by the open
+[MLCommons taskforce](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+led by [Grigori Fursin](https://cKnowledge.org/gfursin) and
+[Arjun Suresh](https://www.linkedin.com/in/arjunsuresh).
 
 ### Acknowledgments
 
-This project is supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
+This project is currently supported by [MLCommons](https://mlcommons.org), [cTuning foundation](https://cTuning.org),
 [cKnowledge](https://cKnowledge.org) and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).
+We thank [HiPEAC](https://hipeac.net) and [OctoML](https://octoml.ai) for sponsoring initial development.
