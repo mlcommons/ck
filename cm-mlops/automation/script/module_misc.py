@@ -209,7 +209,8 @@ def doc(i):
         default_variation = meta.get('default_variation','')
         default_version = meta.get('default_version','')
 
-
+        input_mapping = meta.get('input_mapping', {})
+        input_description = meta.get('input_description', {})
 
         category = meta.get('category', '').strip()
         category_sort = meta.get('category_sort', 0)
@@ -369,16 +370,26 @@ def doc(i):
 #        x = '* CM automation "script": *[Docs]({})*'.format('https://github.com/octoml/ck/blob/master/docs/list_of_automations.md#script')
 #        md_script.append(x)
 #        md_script_readme.append(x)
+
+        if len(variation_keys)>0:
+            variation_pointer="[,variations]"
+        else:
+            variation_pointer=''
+
+        if len(input_mapping)>0:
+            input_mapping_pointer="[--input_flags]"
+        else:
+            input_mapping_pointer=''
         
-        cli_all_tags = '`cm run script --tags={}(,variations from below) (flags from below)`'.format(','.join(tags))
+        cli_all_tags = '`cm run script --tags={}{} {}`'.format(','.join(tags), variation_pointer, input_mapping_pointer)
         x = '* CM CLI with all tags: {}*'.format(cli_all_tags)
         md_script.append(x)
 
-        cli_all_tags_alternative = '`cm run script "{} (variations from below)" (flags from below)`'.format(' '.join(tags))
+        cli_all_tags_alternative = '`cm run script "{}{}" {}`'.format(' '.join(tags), variation_pointer, input_mapping_pointer)
         x = '* CM CLI alternative: {}*'.format(cli_all_tags_alternative)
         md_script.append(x)
 
-        cli_uid = '`cm run script {}`'.format(meta['uid'])
+        cli_uid = '`cm run script {} {}`'.format(meta['uid'], input_mapping_pointer)
         x = '* CM CLI with alias and UID: {}*'.format(cli_uid)
         md_script.append(x)
 
@@ -442,6 +453,7 @@ def doc(i):
         # Add usage
         x1 = 'Usage'
         x1a = 'CM installation'
+        x1aa = 'CM pull repository'
         x1b = 'CM script automation help'
         x2 = 'CM CLI'
         x3 = 'CM Python API'
@@ -454,24 +466,29 @@ def doc(i):
                              '',
                              '[Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)',
                              '',
-                             '#### '+x1b,
+                             '#### '+x1aa,
+                             '',
+                             '```cm pull repo {}```'.format(repo_alias),
+                             '',
+                             '##### '+x1b,
                              '',
                              '```cm run script --help```',
                              '',
                              '#### '+x2,
                              '',
-                             '{}'.format(cli_all_tags),
+                             '1.{}'.format(cli_all_tags),
                              '',
-                             '*or*',
+                             '2.{}'.format(cli_all_tags_alternative),
                              '',
-                             '{}'.format(cli_all_tags_alternative),
-                             '',
-                             '*or*',
-                             '',
-                             '{}'.format(cli_uid),
-
-                             '',
-                             '#### '+x3,
+                             '3.{}'.format(cli_uid),
+                             '']
+        md_script_readme += ['variations can be seen [here](#variations)',
+                             ''
+                             ]
+        md_script_readme += ['input_flags can be seen [here](#script-flags-mapped-to-environment)',
+                             ''
+                             ]
+        md_script_readme += ['#### '+x3,
                              '',
                              '<details>',
                              '<summary>Click here to expand this section.</summary>',
@@ -687,7 +704,6 @@ def doc(i):
 
 
 
-        input_description = meta.get('input_description', {})
         if len(input_description)>0:
             x = 'Input description'
             md_script_readme.append('')
@@ -725,7 +741,6 @@ def doc(i):
         
         
         # Check input flags
-        input_mapping = meta.get('input_mapping', {})
         if len(input_mapping)>0:
             x = 'Script flags mapped to environment'
             md_script_readme.append('')
@@ -740,7 +755,7 @@ def doc(i):
             for key in sorted(input_mapping):
                 if key0=='': key0=key
                 value = input_mapping[key]
-                md_script_readme.append('* --**{}**=value --> **{}**=value'.format(key,value))
+                md_script_readme.append('* `--{}=value`  &rarr;  `{}=value`'.format(key,value))
 
             md_script_readme.append('')
             md_script_readme.append('**Above CLI flags can be used in the Python CM API as follows:**')
@@ -771,7 +786,7 @@ def doc(i):
 
         for key in default_env:
             value = default_env[key]
-            md_script_readme.append('* {}: **{}**'.format(key,value))
+            md_script_readme.append('* {}: `{}`'.format(key,value))
 
         md_script_readme.append('')
         md_script_readme.append('</details>')
@@ -805,6 +820,11 @@ def doc(i):
                              '### '+x,
                              '']
         toc_readme.append(x)
+
+        md_script_readme.append('<details>')
+        md_script_readme.append('<summary>Click here to expand this section.</summary>')
+
+        md_script_readme.append('')
 
         # Check customize.py file
         path_customize = os.path.join(path, 'customize.py')
@@ -881,6 +901,8 @@ def doc(i):
         md_script_readme.append(('  1. '+x+'Run "postrocess" function from {}'+x).format(y))
 
         process_deps(self_module, meta, meta_url, md_script_readme, 'post_deps')
+        md_script_readme.append('</details>')
+        md_script_readme.append('')
                     
         # New environment
         new_env_keys = meta.get('new_env_keys',[])
@@ -896,7 +918,7 @@ def doc(i):
 
         md_script_readme.append('')
         for key in sorted(new_env_keys):
-            md_script_readme.append('* **{}**'.format(key))
+            md_script_readme.append('* `{}`'.format(key))
 
         # Pass found_output_env through above filter
         found_output_env_filtered = []
@@ -920,7 +942,7 @@ def doc(i):
 
         md_script_readme.append('')
         for key in sorted(found_output_env_filtered):
-            md_script_readme.append('* **{}**'.format(key))
+            md_script_readme.append('* `{}`'.format(key))
 
 
 
@@ -929,7 +951,7 @@ def doc(i):
         md_script_readme.append('___')
         md_script_readme.append('### '+x)
         md_script_readme.append('')
-        md_script_readme.append('* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)')
+        md_script_readme.append('* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)')
         toc_readme.append(x)
 
         # Process TOC
