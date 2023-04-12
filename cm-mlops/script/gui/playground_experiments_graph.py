@@ -67,6 +67,8 @@ def page(st, params, parent, experiment):
 
     x = 'experiment set(s)' if result_uid=='' else 'result'
 
+    show_optional = True if result_uid=='' and len(results)>1 else False
+
     st.write('''
              <center>
               <i>Visualizing {} {} from the community</i>
@@ -76,8 +78,10 @@ def page(st, params, parent, experiment):
              unsafe_allow_html=True
              )
 
-    derived_metrics = params.get('derived_metrics',[''])[0].strip()
-    derived_metrics_value = st.text_input("Optional: add derived metrics in Python (example: result['Accuracy2']=result['Acuracy']*2):", value = derived_metrics).strip()
+    derived_metrics_value = ''
+    if show_optional:
+        derived_metrics = params.get('derived_metrics',[''])[0].strip()
+        derived_metrics_value = st.text_input("Optional: add derived metrics in Python (example: result['Accuracy2']=result['Acuracy']*2):", value = derived_metrics).strip()
 
     error_shown2 = False
     for path_to_result in results:
@@ -101,10 +105,12 @@ def page(st, params, parent, experiment):
                 if k not in keys:
                     keys.append(k)
 
-    filter_value = params.get('filter',[''])[0].strip()
-    filter_value = st.text_input("Optional: add result filter in Python (example: result['Accuracy']>75):", value = filter_value).strip()
+    filter_value = ''
+    if show_optional:
+        filter_value = params.get('filter',[''])[0].strip()
+        filter_value = st.text_input("Optional: add result filter in Python (example: result['Accuracy']>75):", value = filter_value).strip()
 
-    st.markdown('---')
+        st.markdown('---')
 
     # all_values is a list of dictionaries with all keys
     error_shown=False
@@ -148,7 +154,7 @@ def page(st, params, parent, experiment):
         result = {}
 
         j=0
-        for k in sorted(keys):
+        for k in sorted(keys, key=lambda x: x.lower()):
             result[k] = data[j]
             j+=1
 
