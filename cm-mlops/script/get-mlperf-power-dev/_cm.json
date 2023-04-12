@@ -13,7 +13,7 @@
     "CM_GIT_URL": "https://github.com/mlcommons/power-dev.git"
   },
   "default_variation": "default",
-  "default_version": "v3.0",
+  "default_version": "master",
   "deps": [
     {
       "tags": "detect,os"
