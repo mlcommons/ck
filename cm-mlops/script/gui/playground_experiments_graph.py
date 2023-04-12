@@ -78,10 +78,10 @@ def page(st, params, parent, experiment):
              unsafe_allow_html=True
              )
 
-    derived_metrics_value = ''
-    if show_optional:
-        derived_metrics = params.get('derived_metrics',[''])[0].strip()
-        derived_metrics_value = st.text_input("Optional: add derived metrics in Python (example: result['Accuracy2']=result['Acuracy']*2):", value = derived_metrics).strip()
+    derived_metrics_value = params.get('derived_metrics',[''])[0].strip()
+    if derived_metrics_value!='' or show_optional:
+        derived_metrics_value = st.text_input("Optional: add derived metrics in Python (example: result['Accuracy2']=result['Acuracy']*2):", 
+                                              value = derived_metrics_value).strip()
 
     error_shown2 = False
     for path_to_result in results:
@@ -105,9 +105,8 @@ def page(st, params, parent, experiment):
                 if k not in keys:
                     keys.append(k)
 
-    filter_value = ''
-    if show_optional:
-        filter_value = params.get('filter',[''])[0].strip()
+    filter_value = params.get('filter',[''])[0].strip()
+    if filter_value!='' or show_optional:
         filter_value = st.text_input("Optional: add result filter in Python (example: result['Accuracy']>75):", value = filter_value).strip()
 
         st.markdown('---')
