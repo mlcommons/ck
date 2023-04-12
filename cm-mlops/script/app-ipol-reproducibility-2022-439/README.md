@@ -30,11 +30,11 @@ See [more info](README-extra.md).
 
 #### Information
 
-* Category: *Modular MLPerf benchmarks.*
+* Category: *IPOL reproducibility.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server)*
-* CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *run,mlc,mlcommons,mlperf,power,server,power-server*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439)*
+* CM meta description for this script: *[_cm.yaml](_cm.yaml)*
+* CM "database" tags to find this script: *app,python,reproduce,ipol,journal,repro,reproducibility,pytorch,2022-439*
 * Output cached?: *False*
 ___
 ### Usage
@@ -53,11 +53,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=run,mlc,mlcommons,mlperf,power,server,power-server [--input_flags]`
+1. `cm run script --tags=app,python,reproduce,ipol,journal,repro,reproducibility,pytorch,2022-439 [--input_flags]`
 
-2. `cm run script "run mlc mlcommons mlperf power server power-server" [--input_flags]`
+2. `cm run script "app python reproduce ipol journal repro reproducibility pytorch 2022-439" [--input_flags]`
 
-3. `cm run script 5bc68aaf389a40bd [--input_flags]`
+3. `cm run script f9b9e5bd65e34e4f [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -74,7 +74,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'run,mlc,mlcommons,mlperf,power,server,power-server'
+                  'tags':'app,python,reproduce,ipol,journal,repro,reproducibility,pytorch,2022-439'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -91,9 +91,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="run,mlc,mlcommons,mlperf,power,server,power-server"```
+```cm run script --tags=gui --script="app,python,reproduce,ipol,journal,repro,reproducibility,pytorch,2022-439"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=run,mlc,mlcommons,mlperf,power,server,power-server) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=app,python,reproduce,ipol,journal,repro,reproducibility,pytorch,2022-439) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -107,15 +107,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* `--device_port=value`  &rarr;  `CM_MLPERF_POWER_DEVICE_PORT=value`
-* `--device_type=value`  &rarr;  `CM_MLPERF_POWER_DEVICE_TYPE=value`
-* `--interface_flag=value`  &rarr;  `CM_MLPERF_POWER_INTERFACE_FLAG=value`
-* `--ntp_server=value`  &rarr;  `CM_MLPERF_POWER_NTP_SERVER=value`
+* `--image1=value`  &rarr;  `CM_IMAGE_1=value`
+* `--image2=value`  &rarr;  `CM_IMAGE_2=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
 ```python
-r=cm.access({... , "device_port":...}
+r=cm.access({... , "image1":...}
 ```
 
 </details>
@@ -127,12 +125,6 @@ r=cm.access({... , "device_port":...}
 
 These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_MLPERF_POWER_NTP_SERVER: `time.google.com`
-* CM_MLPERF_POWER_INTERFACE_FLAG: ``
-* CM_MLPERF_POWER_DEVICE_TYPE: `49`
-* CM_MLPERF_POWER_SERVER_ADDRESS: `0.0.0.0`
-* CM_MLPERF_POWER_SERVER_PORT: `4950`
-* CM_MLPERF_POWER_DEVICE_PORT: `/dev/usbtmc0`
 
 </details>
 
@@ -142,23 +134,26 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)***
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/_cm.yaml)***
+     * detect,os
+       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
      * get,python3
        * CM names: `--adr.['python', 'python3']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * get,mlperf,power,src
-       * CM names: `--adr.['power-src']...`
-       - CM script: [get-mlperf-power-dev](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev)
-     * get,mlperf,power,daemon
-       * CM names: `--adr.['power-damenon']...`
-       - CM script: [get-spec-ptd](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-spec-ptd)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)
+     * get,ipol,src
+       * CM names: `--adr.['ipol-src']...`
+       - CM script: [get-ipol-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src)
+     * get,generic-python-lib,_torch
+       * CM names: `--adr.['torch']...`
+       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/_cm.yaml)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-power-server/_cm.json)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/_cm.yaml)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439/_cm.yaml)
 </details>
 
 ___

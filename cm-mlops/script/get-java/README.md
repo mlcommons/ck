@@ -44,21 +44,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,java(,variations from below) (flags from below)`
+1. `cm run script --tags=get,java[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "get java[,variations]" [--input_flags]`
 
-`cm run script "get java (variations from below)" (flags from below)`
+3. `cm run script 9399d0e785704f8c [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 9399d0e785704f8c`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -118,7 +122,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**install**=value --> **CM_JAVA_PREBUILT_INSTALL**=value
+* `--install=value`  &rarr;  `CM_JAVA_PREBUILT_INSTALL=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -133,17 +137,20 @@ r=cm.access({... , "install":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_JAVA_PREBUILT_VERSION: **19**
-* CM_JAVA_PREBUILT_BUILD: **36**
-* CM_JAVA_PREBUILT_URL: **https://download.java.net/openjdk/jdk${CM_JAVA_PREBUILT_VERSION}/ri/**
-* CM_JAVA_PREBUILT_FILENAME: **openjdk-${CM_JAVA_PREBUILT_VERSION}+${CM_JAVA_PREBUILT_BUILD}_${CM_JAVA_PREBUILT_HOST_OS}-x64_bin**
+* CM_JAVA_PREBUILT_VERSION: `19`
+* CM_JAVA_PREBUILT_BUILD: `36`
+* CM_JAVA_PREBUILT_URL: `https://download.java.net/openjdk/jdk${CM_JAVA_PREBUILT_VERSION}/ri/`
+* CM_JAVA_PREBUILT_FILENAME: `openjdk-${CM_JAVA_PREBUILT_VERSION}+${CM_JAVA_PREBUILT_BUILD}_${CM_JAVA_PREBUILT_HOST_OS}-x64_bin`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java/_cm.json)***
      * detect,os
@@ -156,22 +163,24 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+PATH**
-* **CM_JAVA_***
-* **JAVA_HOME**
+* `+PATH`
+* `CM_JAVA_*`
+* `JAVA_HOME`
 #### New environment keys auto-detected from customize
 
-* **CM_JAVA_BIN**
-* **CM_JAVA_CACHE_TAGS**
-* **CM_JAVA_PREBUILT_EXT**
-* **CM_JAVA_PREBUILT_FILENAME**
-* **CM_JAVA_PREBUILT_HOST_OS**
-* **CM_JAVA_PREBUILT_URL**
+* `CM_JAVA_BIN`
+* `CM_JAVA_CACHE_TAGS`
+* `CM_JAVA_PREBUILT_EXT`
+* `CM_JAVA_PREBUILT_FILENAME`
+* `CM_JAVA_PREBUILT_HOST_OS`
+* `CM_JAVA_PREBUILT_URL`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

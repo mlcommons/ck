@@ -44,21 +44,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=app,mlcommons,mlperf,inference,nvidia-harness,nvidia(,variations from below) (flags from below)`
+1. `cm run script --tags=app,mlcommons,mlperf,inference,nvidia-harness,nvidia[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "app mlcommons mlperf inference nvidia-harness nvidia[,variations]" [--input_flags]`
 
-`cm run script "app mlcommons mlperf inference nvidia-harness nvidia (variations from below)" (flags from below)`
+3. `cm run script 689e865b0059479b [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 689e865b0059479b`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -167,14 +171,14 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
-* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
-* --**mlperf_conf**=value --> **CM_MLPERF_CONF**=value
-* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
-* --**performance_sample_count**=value --> **CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**user_conf**=value --> **CM_MLPERF_USER_CONF**=value
+* `--count=value`  &rarr;  `CM_MLPERF_LOADGEN_QUERY_COUNT=value`
+* `--max_batchsize=value`  &rarr;  `CM_MLPERF_LOADGEN_MAX_BATCHSIZE=value`
+* `--mlperf_conf=value`  &rarr;  `CM_MLPERF_CONF=value`
+* `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`
+* `--output_dir=value`  &rarr;  `CM_MLPERF_OUTPUT_DIR=value`
+* `--performance_sample_count=value`  &rarr;  `CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT=value`
+* `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
+* `--user_conf=value`  &rarr;  `CM_MLPERF_USER_CONF=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -189,17 +193,20 @@ r=cm.access({... , "count":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_BATCH_COUNT: **1**
-* CM_BATCH_SIZE: **1**
-* CM_FAST_COMPILATION: **yes**
-* CM_MLPERF_LOADGEN_SCENARIO: **Offline**
+* CM_BATCH_COUNT: `1`
+* CM_BATCH_SIZE: `1`
+* CM_FAST_COMPILATION: `yes`
+* CM_MLPERF_LOADGEN_SCENARIO: `Offline`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-nvidia/_cm.yaml)***
      * detect,os
@@ -261,18 +268,20 @@ ___
      * benchmark,program
        * CM names: `--adr.['runner']...`
        - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_DATASET_***
-* **CM_HW_NAME**
-* **CM_MLPERF_***
+* `CM_DATASET_*`
+* `CM_HW_NAME`
+* `CM_MLPERF_*`
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_CONF**
-* **CM_MLPERF_USER_CONF**
+* `CM_MLPERF_CONF`
+* `CM_MLPERF_USER_CONF`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

@@ -40,21 +40,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=install,src,openssl,openssl-lib(,variations from below) (flags from below)`
+1. `cm run script --tags=install,src,openssl,openssl-lib `
 
-*or*
+2. `cm run script "install src openssl openssl-lib" `
 
-`cm run script "install src openssl openssl-lib (variations from below)" (flags from below)`
+3. `cm run script be472d3b1d014169 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script be472d3b1d014169`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -100,17 +104,20 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 #### Versions
-Default version: *1.1.1*
+Default version: `1.1.1`
 
-* 1.1.1
+* `1.1.1`
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-openssl/_cm.json)***
      * detect,os
@@ -127,17 +134,19 @@ ___
      * get,openssl
        * `if (CM_REQUIRE_INSTALL  != yes)`
        - CM script: [get-openssl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-openssl)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+LD_LIBRARY_PATH**
-* **CM_OPENSSL_***
+* `+LD_LIBRARY_PATH`
+* `CM_OPENSSL_*`
 #### New environment keys auto-detected from customize
 
-* **CM_OPENSSL_BIN_WITH_PATH**
-* **CM_OPENSSL_INSTALLED_PATH**
+* `CM_OPENSSL_BIN_WITH_PATH`
+* `CM_OPENSSL_INSTALLED_PATH`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

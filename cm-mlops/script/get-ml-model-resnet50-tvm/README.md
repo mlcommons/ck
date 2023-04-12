@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification(,variations from below) (flags from below)`
+1. `cm run script --tags=get,ml-model,ml-model-tvm,tvm-model,resnet50,ml-model-resnet50,image-classification[,variations] `
 
-*or*
+2. `cm run script "get ml-model ml-model-tvm tvm-model resnet50 ml-model-resnet50 image-classification[,variations]" `
 
-`cm run script "get ml-model ml-model-tvm tvm-model resnet50 ml-model-resnet50 image-classification (variations from below)" (flags from below)`
+3. `cm run script c1b7b656b6224307 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script c1b7b656b6224307`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -164,6 +168,9 @@ ___
            * get,generic-python-lib,_tensorflow
              * CM names: `--adr.['tensorflow']...`
              - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
+           * get,generic-python-lib,_tflite
+             * CM names: `--adr.['tflite']...`
+             - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
 
     </details>
 
@@ -190,15 +197,18 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_ML_MODEL_MAX_BATCH_SIZE: **1**
-* CM_TUNE_TVM_MODEL: **no**
+* CM_ML_MODEL_MAX_BATCH_SIZE: `1`
+* CM_TUNE_TVM_MODEL: `no`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/_cm.json)***
      * get,python3
@@ -222,20 +232,24 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-resnet50-tvm/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_ML_MODEL_***
+* `CM_ML_MODEL_*`
+* `CM_TUNE_TVM_*`
 #### New environment keys auto-detected from customize
 
-* **CM_ML_MODEL_FILE**
-* **CM_ML_MODEL_FILE_WITH_PATH**
-* **CM_ML_MODEL_FRAMEWORK**
-* **CM_ML_MODEL_INPUT_SHAPES**
-* **CM_ML_MODEL_ORIGINAL_FILE_WITH_PATH**
-* **CM_ML_MODEL_PATH**
+* `CM_ML_MODEL_FILE`
+* `CM_ML_MODEL_FILE_WITH_PATH`
+* `CM_ML_MODEL_FRAMEWORK`
+* `CM_ML_MODEL_INPUT_SHAPES`
+* `CM_ML_MODEL_ORIGINAL_FILE_WITH_PATH`
+* `CM_ML_MODEL_PATH`
+* `CM_TUNE_TVM_MODEL`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

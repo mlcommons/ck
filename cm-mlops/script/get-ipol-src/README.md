@@ -11,6 +11,8 @@
   * [ CM GUI](#cm-gui)
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
+  * [ Input description](#input-description)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -26,11 +28,11 @@
 
 #### Information
 
-* Category: *Cloud automation.*
+* Category: *Reproducible papers.*
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *install,script,aws-cli,aws,cli*
+* CM "database" tags to find this script: *get,ipol,src,ipol-src*
 * Output cached?: *True*
 ___
 ### Usage
@@ -49,11 +51,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=install,script,aws-cli,aws,cli `
+1. `cm run script --tags=get,ipol,src,ipol-src [--input_flags]`
 
-2. `cm run script "install script aws-cli aws cli" `
+2. `cm run script "get ipol src ipol-src" [--input_flags]`
 
-3. `cm run script 4d3efd333c3f4d36 `
+3. `cm run script b6fd8213d03d4aa4 [--input_flags]`
 
 * `variations` can be seen [here](#variations)
 
@@ -70,7 +72,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'install,script,aws-cli,aws,cli'
+                  'tags':'get,ipol,src,ipol-src'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -87,9 +89,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="install,script,aws-cli,aws,cli"```
+```cm run script --tags=gui --script="get,ipol,src,ipol-src"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,script,aws-cli,aws,cli) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,ipol,src,ipol-src) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -97,6 +99,33 @@ Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=install,script,aws-cli
 
 ___
 ### Customization
+
+
+#### Input description
+
+* --**number** IPOL publication number
+* --**year** IPOL publication year
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "number":...}
+```
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--number=value`  &rarr;  `CM_IPOL_NUMBER=value`
+* `--year=value`  &rarr;  `CM_IPOL_YEAR=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "number":...}
+```
+
+</details>
 
 #### Default environment
 
@@ -114,27 +143,23 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli/_cm.json)***
-     * detect,os
-       - CM script: [detect-os](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-os)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli/_cm.json)
+  1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli/_cm.json)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src/_cm.json)
   1. Run "postrocess" function from customize.py
-  1. ***Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-aws-cli/_cm.json)***
-     * get,aws-cli
-       * `if (CM_REQUIRE_INSTALL  != yes)`
-       - CM script: [get-aws-cli](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aws-cli)
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src/_cm.json)
 </details>
 
 ___
 ### Script output
 #### New environment keys (filter)
 
+* `CM_IPOL_*`
 #### New environment keys auto-detected from customize
 
+* `CM_IPOL_PATH`
 ___
 ### Maintainers
 

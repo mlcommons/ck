@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,install,generic,generic-python-lib(,variations from below) (flags from below)`
+1. `cm run script --tags=get,install,generic,generic-python-lib[,variations] `
 
-*or*
+2. `cm run script "get install generic generic-python-lib[,variations]" `
 
-`cm run script "get install generic generic-python-lib (variations from below)" (flags from below)`
+3. `cm run script 94b62a682bc44791 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 94b62a682bc44791`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -112,6 +116,7 @@ ___
     * `_apache-tvm`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `apache-tvm`
+        - *CM_GENERIC_PYTHON_PIP_EXTRA*: ` --pre`
       - Workflow:
         1. ***Read "deps" on other CM scripts***
            * get,generic-python-lib,_typing_extensions
@@ -131,6 +136,10 @@ ___
     * `_boto3`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `boto3`
+      - Workflow:
+    * `_cloudpickle`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `cloudpickle`
       - Workflow:
     * `_cmind`
       - Environment variables:
@@ -160,6 +169,10 @@ ___
     * `_google-auth-oauthlib`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `google_auth_oauthlib`
+      - Workflow:
+    * `_huggingface_hub`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `huggingface_hub`
       - Workflow:
     * `_inflect`
       - Environment variables:
@@ -340,6 +353,10 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `streamlit`
       - Workflow:
+    * `_streamlit_option_menu`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `streamlit_option_menu`
+      - Workflow:
     * `_tensorboard`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tensorboard`
@@ -347,6 +364,10 @@ ___
     * `_tensorflow`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tensorflow`
+      - Workflow:
+    * `_tflite`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tflite`
       - Workflow:
     * `_tflite-runtime`
       - Environment variables:
@@ -426,6 +447,10 @@ ___
            * get,cuda
              * CM names: `--adr.['cuda']...`
              - CM script: [get-cuda](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda)
+    * `_tornado`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tornado`
+      - Workflow:
     * `_tqdm`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `tqdm`
@@ -454,6 +479,10 @@ ___
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `west`
       - Workflow:
+    * `_xgboost`
+      - Environment variables:
+        - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `xgboost`
+      - Workflow:
     * `_xlsxwriter`
       - Environment variables:
         - *CM_GENERIC_PYTHON_PACKAGE_NAME*: `xlsxwriter`
@@ -466,13 +495,16 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)***
      * detect,cpu
@@ -488,14 +520,16 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_PYTHONLIB_***
+* `CM_PYTHONLIB_*`
 #### New environment keys auto-detected from customize
 
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

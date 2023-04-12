@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,ml-model,mobilenet,raw,ml-model-mobilenet,image-classification(,variations from below) (flags from below)`
+1. `cm run script --tags=get,ml-model,mobilenet,raw,ml-model-mobilenet,image-classification[,variations] `
 
-*or*
+2. `cm run script "get ml-model mobilenet raw ml-model-mobilenet image-classification[,variations]" `
 
-`cm run script "get ml-model mobilenet raw ml-model-mobilenet image-classification (variations from below)" (flags from below)`
+3. `cm run script ce46675a3ab249e4 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script ce46675a3ab249e4`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -108,6 +112,7 @@ ___
     * `_quantized_`
       - Environment variables:
         - *CM_ML_MODEL_MOBILENET_NAME_SUFFIX*: `_quant`
+        - *CM_ML_MODEL_WEIGHT_TRANSFORMATIONS*: `yes`
       - Workflow:
     * `_tf,from.google,v2,quantized_`
       - Environment variables:
@@ -332,23 +337,23 @@ ___
 
     * **`_fp32`** (default)
       - Environment variables:
-        - *CM_ML_MODEL_INPUT_DATA_TYPES*: `fp32`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `fp32`
         - *CM_ML_MODEL_PRECISION*: `fp32`
-        - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `fp32`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `fp32`
         - *CM_ML_MODEL_MOBILENET_PRECISION*: `float`
       - Workflow:
     * `_int8`
       - Environment variables:
-        - *CM_ML_MODEL_INPUT_DATA_TYPES*: `int8`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `int8`
         - *CM_ML_MODEL_PRECISION*: `int8`
-        - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `int8`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `int8`
         - *CM_ML_MODEL_MOBILENET_PRECISION*: `int8`
       - Workflow:
     * `_uint8`
       - Environment variables:
-        - *CM_ML_MODEL_INPUT_DATA_TYPES*: `uint8`
+        - *CM_ML_MODEL_INPUTS_DATA_TYPE*: `uint8`
         - *CM_ML_MODEL_PRECISION*: `uint8`
-        - *CM_ML_MODEL_WEIGHT_DATA_TYPES*: `uint8`
+        - *CM_ML_MODEL_WEIGHTS_DATA_TYPE*: `uint8`
         - *CM_ML_MODEL_MOBILENET_PRECISION*: `uint8`
       - Workflow:
 
@@ -440,18 +445,23 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_ML_MODEL: **mobilenet**
-* CM_ML_MODEL_DATASET: **imagenet2012-val**
-* CM_ML_MODEL_RETRAINING: **no**
-* CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: **no**
-* CM_ML_MODEL_MOBILENET_NAME_SUFFIX: ****
+* CM_ML_MODEL: `mobilenet`
+* CM_ML_MODEL_DATASET: `imagenet2012-val`
+* CM_ML_MODEL_RETRAINING: `no`
+* CM_ML_MODEL_WEIGHT_TRANSFORMATIONS: `no`
+* CM_ML_MODEL_INPUTS_DATA_TYPE: `fp32`
+* CM_ML_MODEL_WEIGHTS_DATA_TYPE: `fp32`
+* CM_ML_MODEL_MOBILENET_NAME_SUFFIX: ``
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-mobilenet/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-mobilenet/customize.py)***
@@ -460,18 +470,21 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-mobilenet/_cm.json)
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-mobilenet/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS**
-* **CM_ML_MODEL_***
+* `CM_DATASET_PREPROCESSED_IMAGENET_DEP_TAGS`
+* `CM_ML_MODEL_*`
 #### New environment keys auto-detected from customize
 
-* **CM_ML_MODEL_FILE**
-* **CM_ML_MODEL_FILE_WITH_PATH**
-* **CM_ML_MODEL_PATH**
+* `CM_ML_MODEL_FILE`
+* `CM_ML_MODEL_FILE_WITH_PATH`
+* `CM_ML_MODEL_PATH`
+* `CM_ML_MODEL_STARTING_WEIGHTS_FILENAME`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

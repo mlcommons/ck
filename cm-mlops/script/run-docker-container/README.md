@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=run,docker,container(,variations from below) (flags from below)`
+1. `cm run script --tags=run,docker,container [--input_flags]`
 
-*or*
+2. `cm run script "run docker container" [--input_flags]`
 
-`cm run script "run docker container (variations from below)" (flags from below)`
+3. `cm run script 1e0c884107514b46 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 1e0c884107514b46`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -103,25 +107,25 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**base**=value --> **CM_DOCKER_IMAGE_BASE**=value
-* --**cache**=value --> **CM_DOCKER_CACHE**=value
-* --**cm_repo**=value --> **CM_MLOPS_REPO**=value
-* --**device**=value --> **CM_DOCKER_ADD_DEVICE**=value
-* --**docker_os**=value --> **CM_DOCKER_OS**=value
-* --**docker_os_version**=value --> **CM_DOCKER_OS_VERSION**=value
-* --**gh_token**=value --> **CM_GH_TOKEN**=value
-* --**image_repo**=value --> **CM_DOCKER_IMAGE_REPO**=value
-* --**image_tag**=value --> **CM_DOCKER_IMAGE_TAG**=value
-* --**mounts**=value --> **CM_DOCKER_VOLUME_MOUNTS**=value
-* --**pass_user_group**=value --> **CM_DOCKER_PASS_USER_GROUP**=value
-* --**port_maps**=value --> **CM_DOCKER_PORT_MAPS**=value
-* --**post_run_cmds**=value --> **CM_DOCKER_POST_RUN_COMMANDS**=value
-* --**pre_run_cmds**=value --> **CM_DOCKER_PRE_RUN_COMMANDS**=value
-* --**real_run**=value --> **CM_REAL_RUN**=value
-* --**recreate**=value --> **CM_DOCKER_IMAGE_RECREATE**=value
-* --**run_cmd**=value --> **CM_DOCKER_RUN_CMD**=value
-* --**run_cmd_extra**=value --> **CM_DOCKER_RUN_CMD_EXTRA**=value
-* --**script_tags**=value --> **CM_DOCKER_RUN_SCRIPT_TAGS**=value
+* `--base=value`  &rarr;  `CM_DOCKER_IMAGE_BASE=value`
+* `--cache=value`  &rarr;  `CM_DOCKER_CACHE=value`
+* `--cm_repo=value`  &rarr;  `CM_MLOPS_REPO=value`
+* `--device=value`  &rarr;  `CM_DOCKER_ADD_DEVICE=value`
+* `--docker_os=value`  &rarr;  `CM_DOCKER_OS=value`
+* `--docker_os_version=value`  &rarr;  `CM_DOCKER_OS_VERSION=value`
+* `--gh_token=value`  &rarr;  `CM_GH_TOKEN=value`
+* `--image_repo=value`  &rarr;  `CM_DOCKER_IMAGE_REPO=value`
+* `--image_tag=value`  &rarr;  `CM_DOCKER_IMAGE_TAG=value`
+* `--mounts=value`  &rarr;  `CM_DOCKER_VOLUME_MOUNTS=value`
+* `--pass_user_group=value`  &rarr;  `CM_DOCKER_PASS_USER_GROUP=value`
+* `--port_maps=value`  &rarr;  `CM_DOCKER_PORT_MAPS=value`
+* `--post_run_cmds=value`  &rarr;  `CM_DOCKER_POST_RUN_COMMANDS=value`
+* `--pre_run_cmds=value`  &rarr;  `CM_DOCKER_PRE_RUN_COMMANDS=value`
+* `--real_run=value`  &rarr;  `CM_REAL_RUN=value`
+* `--recreate=value`  &rarr;  `CM_DOCKER_IMAGE_RECREATE=value`
+* `--run_cmd=value`  &rarr;  `CM_DOCKER_RUN_CMD=value`
+* `--run_cmd_extra=value`  &rarr;  `CM_DOCKER_RUN_CMD_EXTRA=value`
+* `--script_tags=value`  &rarr;  `CM_DOCKER_RUN_SCRIPT_TAGS=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -136,13 +140,16 @@ r=cm.access({... , "base":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/customize.py)***
@@ -155,6 +162,8 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-docker-container/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
@@ -164,4 +173,4 @@ ___
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

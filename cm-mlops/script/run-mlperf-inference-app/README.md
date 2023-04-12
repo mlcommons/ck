@@ -60,21 +60,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference(,variations from below) (flags from below)`
+1. `cm run script --tags=run,generate-run-cmds,run-mlperf,vision,mlcommons,mlperf,inference,reference[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "run generate-run-cmds run-mlperf vision mlcommons mlperf inference reference[,variations]" [--input_flags]`
 
-`cm run script "run generate-run-cmds run-mlperf vision mlcommons mlperf inference reference (variations from below)" (flags from below)`
+3. `cm run script 4a5d5b13fd7e4ac8 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 4a5d5b13fd7e4ac8`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -259,45 +263,45 @@ r=cm.access({... , "adr.python.name":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**backend**=value --> **CM_MLPERF_BACKEND**=value
-* --**clean**=value --> **CM_MLPERF_CLEAN_ALL**=value
-* --**compliance**=value --> **CM_MLPERF_LOADGEN_COMPLIANCE**=value
-* --**dashboard_wb_project**=value --> **CM_MLPERF_DASHBOARD_WANDB_PROJECT**=value
-* --**dashboard_wb_user**=value --> **CM_MLPERF_DASHBOARD_WANDB_USER**=value
-* --**device**=value --> **CM_MLPERF_DEVICE**=value
-* --**division**=value --> **CM_MLPERF_SUBMISSION_DIVISION**=value
-* --**execution_mode**=value --> **CM_MLPERF_EXECUTION_MODE**=value
-* --**find_performance**=value --> **CM_MLPERF_FIND_PERFORMANCE_MODE**=value
-* --**hw_name**=value --> **CM_HW_NAME**=value
-* --**hw_notes_extra**=value --> **CM_MLPERF_SUT_SW_NOTES_EXTRA**=value
-* --**implementation**=value --> **CM_MLPERF_IMPLEMENTATION**=value
-* --**lang**=value --> **CM_MLPERF_IMPLEMENTATION**=value
-* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**model**=value --> **CM_MLPERF_MODEL**=value
-* --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
-* --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
-* --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
-* --**power**=value --> **CM_SYSTEM_POWER**=value
-* --**precision**=value --> **CM_MLPERF_MODEL_PRECISION**=value
-* --**push_to_github**=value --> **CM_MLPERF_RESULT_PUSH_TO_GITHUB**=value
-* --**readme**=value --> **CM_MLPERF_README**=value
-* --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
-* --**rerun**=value --> **CM_RERUN**=value
-* --**results_dir**=value --> **OUTPUT_BASE_DIR**=value
-* --**results_git_url**=value --> **CM_MLPERF_RESULTS_GIT_REPO_URL**=value
-* --**run_checker**=value --> **CM_RUN_SUBMISSION_CHECKER**=value
-* --**run_style**=value --> **CM_MLPERF_EXECUTION_MODE**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**server_target_qps**=value --> **CM_MLPERF_LOADGEN_SERVER_TARGET_QPS**=value
-* --**singlestream_target_latency**=value --> **CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY**=value
-* --**skip_truncation**=value --> **CM_SKIP_TRUNCATE_ACCURACY**=value
-* --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
-* --**submitter**=value --> **CM_MLPERF_SUBMITTER**=value
-* --**sw_notes_extra**=value --> **CM_MLPERF_SUT_SW_NOTES_EXTRA**=value
-* --**system_type**=value --> **CM_MLPERF_SUBMISSION_SYSTEM_TYPE**=value
-* --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
-* --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
-* --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
+* `--backend=value`  &rarr;  `CM_MLPERF_BACKEND=value`
+* `--clean=value`  &rarr;  `CM_MLPERF_CLEAN_ALL=value`
+* `--compliance=value`  &rarr;  `CM_MLPERF_LOADGEN_COMPLIANCE=value`
+* `--dashboard_wb_project=value`  &rarr;  `CM_MLPERF_DASHBOARD_WANDB_PROJECT=value`
+* `--dashboard_wb_user=value`  &rarr;  `CM_MLPERF_DASHBOARD_WANDB_USER=value`
+* `--device=value`  &rarr;  `CM_MLPERF_DEVICE=value`
+* `--division=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIVISION=value`
+* `--execution_mode=value`  &rarr;  `CM_MLPERF_EXECUTION_MODE=value`
+* `--find_performance=value`  &rarr;  `CM_MLPERF_FIND_PERFORMANCE_MODE=value`
+* `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
+* `--hw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_SW_NOTES_EXTRA=value`
+* `--implementation=value`  &rarr;  `CM_MLPERF_IMPLEMENTATION=value`
+* `--lang=value`  &rarr;  `CM_MLPERF_IMPLEMENTATION=value`
+* `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`
+* `--model=value`  &rarr;  `CM_MLPERF_MODEL=value`
+* `--multistream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY=value`
+* `--offline_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS=value`
+* `--output_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
+* `--power=value`  &rarr;  `CM_SYSTEM_POWER=value`
+* `--precision=value`  &rarr;  `CM_MLPERF_MODEL_PRECISION=value`
+* `--push_to_github=value`  &rarr;  `CM_MLPERF_RESULT_PUSH_TO_GITHUB=value`
+* `--readme=value`  &rarr;  `CM_MLPERF_README=value`
+* `--regenerate_files=value`  &rarr;  `CM_REGENERATE_MEASURE_FILES=value`
+* `--rerun=value`  &rarr;  `CM_RERUN=value`
+* `--results_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
+* `--results_git_url=value`  &rarr;  `CM_MLPERF_RESULTS_GIT_REPO_URL=value`
+* `--run_checker=value`  &rarr;  `CM_RUN_SUBMISSION_CHECKER=value`
+* `--run_style=value`  &rarr;  `CM_MLPERF_EXECUTION_MODE=value`
+* `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
+* `--server_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_SERVER_TARGET_QPS=value`
+* `--singlestream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY=value`
+* `--skip_truncation=value`  &rarr;  `CM_SKIP_TRUNCATE_ACCURACY=value`
+* `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
+* `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
+* `--sw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_SW_NOTES_EXTRA=value`
+* `--system_type=value`  &rarr;  `CM_MLPERF_SUBMISSION_SYSTEM_TYPE=value`
+* `--target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_LATENCY=value`
+* `--target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_QPS=value`
+* `--test_query_count=value`  &rarr;  `CM_TEST_QUERY_COUNT=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -312,21 +316,24 @@ r=cm.access({... , "backend":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_OUTPUT_FOLDER_NAME: **test_results**
-* CM_MLPERF_RUN_STYLE: **test**
-* CM_MLPERF_IMPLEMENTATION: **reference**
-* CM_MLPERF_MODEL: **resnet50**
-* CM_MLPERF_LOADGEN_COMPLIANCE: **yes**
+* CM_OUTPUT_FOLDER_NAME: `test_results`
+* CM_MLPERF_RUN_STYLE: `test`
+* CM_MLPERF_IMPLEMENTATION: `reference`
+* CM_MLPERF_MODEL: `resnet50`
+* CM_MLPERF_LOADGEN_COMPLIANCE: `yes`
 
 </details>
 
 #### Versions
-* master
-* r2.1
+* `master`
+* `r2.1`
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)***
      * detect,os
@@ -347,6 +354,8 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-app/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
@@ -356,4 +365,4 @@ ___
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

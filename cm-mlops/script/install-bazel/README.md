@@ -40,21 +40,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=install,script,bazel(,variations from below) (flags from below)`
+1. `cm run script --tags=install,script,bazel `
 
-*or*
+2. `cm run script "install script bazel" `
 
-`cm run script "install script bazel (variations from below)" (flags from below)`
+3. `cm run script dfd3d2bf5b764175 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script dfd3d2bf5b764175`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -100,16 +104,19 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 #### Versions
-Default version: *5.3.0*
+Default version: `5.3.0`
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-bazel/_cm.json)***
      * detect,os
@@ -125,16 +132,18 @@ ___
      * get,bazel
        * `if (CM_REQUIRE_INSTALL  != yes)`
        - CM script: [get-bazel](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-bazel)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_BAZEL_***
+* `CM_BAZEL_*`
 #### New environment keys auto-detected from customize
 
-* **CM_BAZEL_BIN_WITH_PATH**
-* **CM_BAZEL_INSTALLED_PATH**
+* `CM_BAZEL_BIN_WITH_PATH`
+* `CM_BAZEL_INSTALLED_PATH`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

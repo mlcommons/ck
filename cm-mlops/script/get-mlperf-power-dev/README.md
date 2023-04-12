@@ -44,21 +44,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,src,source,power,power-dev,mlperf,mlcommons(,variations from below) (flags from below)`
+1. `cm run script --tags=get,src,source,power,power-dev,mlperf,mlcommons[,variations] `
 
-*or*
+2. `cm run script "get src source power power-dev mlperf mlcommons[,variations]" `
 
-`cm run script "get src source power power-dev mlperf mlcommons (variations from below)" (flags from below)`
+3. `cm run script 72aa56768c994bcf `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 72aa56768c994bcf`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -138,26 +142,29 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_GIT_CHECKOUT: **master**
-* CM_GIT_DEPTH: **--depth 1**
-* CM_GIT_PATCH: **no**
-* CM_GIT_REPO_FOLDER_NAME: **power-dev**
-* CM_GIT_RECURSE_SUBMODULES: ** **
-* CM_GIT_URL: **https://github.com/mlcommons/power-dev.git**
+* CM_GIT_CHECKOUT: `master`
+* CM_GIT_DEPTH: `--depth 1`
+* CM_GIT_PATCH: `no`
+* CM_GIT_REPO_FOLDER_NAME: `power-dev`
+* CM_GIT_RECURSE_SUBMODULES: ` `
+* CM_GIT_URL: `https://github.com/mlcommons/power-dev.git`
 
 </details>
 
 #### Versions
-Default version: *v3.0*
+Default version: `master`
 
-* custom
-* fix
-* master
-* v3.0
+* `custom`
+* `fix`
+* `master`
+* `v3.0`
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)***
      * detect,os
@@ -172,16 +179,18 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-mlperf-power-dev/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+PYTHONPATH**
-* **CM_MLPERF_POWER_SOURCE**
+* `+PYTHONPATH`
+* `CM_MLPERF_POWER_SOURCE`
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_POWER_SOURCE**
+* `CM_MLPERF_POWER_SOURCE`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

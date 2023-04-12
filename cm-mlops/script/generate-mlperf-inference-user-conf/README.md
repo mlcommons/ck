@@ -40,21 +40,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=generate,mlperf,inference,user-conf,inference-user-conf(,variations from below) (flags from below)`
+1. `cm run script --tags=generate,mlperf,inference,user-conf,inference-user-conf [--input_flags]`
 
-*or*
+2. `cm run script "generate mlperf inference user-conf inference-user-conf" [--input_flags]`
 
-`cm run script "generate mlperf inference user-conf inference-user-conf (variations from below)" (flags from below)`
+3. `cm run script 3af4475745964b93 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 3af4475745964b93`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -100,23 +104,23 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
-* --**hw_name**=value --> **CM_HW_NAME**=value
-* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
-* --**num_threads**=value --> **CM_NUM_THREADS**=value
-* --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
-* --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
-* --**performance_sample_count**=value --> **CM_MLPERF_PERFORMANCE_SAMPLE_COUNT**=value
-* --**power**=value --> **CM_MLPERF_POWER**=value
-* --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
-* --**rerun**=value --> **CM_RERUN**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**server_target_qps**=value --> **CM_MLPERF_LOADGEN_SERVER_TARGET_QPS**=value
-* --**singlestream_target_latency**=value --> **CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY**=value
-* --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
-* --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
-* --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
+* `--count=value`  &rarr;  `CM_MLPERF_LOADGEN_QUERY_COUNT=value`
+* `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
+* `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`
+* `--multistream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY=value`
+* `--num_threads=value`  &rarr;  `CM_NUM_THREADS=value`
+* `--offline_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS=value`
+* `--output_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
+* `--performance_sample_count=value`  &rarr;  `CM_MLPERF_PERFORMANCE_SAMPLE_COUNT=value`
+* `--power=value`  &rarr;  `CM_MLPERF_POWER=value`
+* `--regenerate_files=value`  &rarr;  `CM_REGENERATE_MEASURE_FILES=value`
+* `--rerun=value`  &rarr;  `CM_RERUN=value`
+* `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
+* `--server_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_SERVER_TARGET_QPS=value`
+* `--singlestream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY=value`
+* `--target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_LATENCY=value`
+* `--target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_QPS=value`
+* `--test_query_count=value`  &rarr;  `CM_TEST_QUERY_COUNT=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -131,19 +135,22 @@ r=cm.access({... , "count":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_MLPERF_LOADGEN_MODE: **accuracy**
-* CM_MLPERF_LOADGEN_SCENARIO: **Offline**
-* CM_OUTPUT_FOLDER_NAME: **test_results**
-* CM_MLPERF_RUN_STYLE: **test**
-* CM_TEST_QUERY_COUNT: **10**
-* CM_MLPERF_QUANTIZATION: **False**
+* CM_MLPERF_LOADGEN_MODE: `accuracy`
+* CM_MLPERF_LOADGEN_SCENARIO: `Offline`
+* CM_OUTPUT_FOLDER_NAME: `test_results`
+* CM_MLPERF_RUN_STYLE: `test`
+* CM_TEST_QUERY_COUNT: `10`
+* CM_MLPERF_QUANTIZATION: `False`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf/_cm.yaml)***
      * detect,os
@@ -164,32 +171,34 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf/_cm.yaml)
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-user-conf/_cm.yaml)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_HW_***
-* **CM_MAX_EXAMPLES**
-* **CM_MLPERF_***
-* **CM_SUT_***
+* `CM_HW_*`
+* `CM_MAX_EXAMPLES`
+* `CM_MLPERF_*`
+* `CM_SUT_*`
 #### New environment keys auto-detected from customize
 
-* **CM_MAX_EXAMPLES**
-* **CM_MLPERF_CONF**
-* **CM_MLPERF_INFERENCE_AUDIT_PATH**
-* **CM_MLPERF_LOADGEN_LOGS_DIR**
-* **CM_MLPERF_LOADGEN_MODE**
-* **CM_MLPERF_LOADGEN_QUERY_COUNT**
-* **CM_MLPERF_LOADGEN_SCENARIO**
-* **CM_MLPERF_LOADGEN_TARGET_LATENCY**
-* **CM_MLPERF_LOADGEN_TARGET_QPS**
-* **CM_MLPERF_OUTPUT_DIR**
-* **CM_MLPERF_POWER_LOG_DIR**
-* **CM_MLPERF_RESULTS_DIR**
-* **CM_MLPERF_RUN_STYLE**
-* **CM_MLPERF_SKIP_RUN**
-* **CM_MLPERF_USER_CONF**
+* `CM_MAX_EXAMPLES`
+* `CM_MLPERF_CONF`
+* `CM_MLPERF_INFERENCE_AUDIT_PATH`
+* `CM_MLPERF_LOADGEN_LOGS_DIR`
+* `CM_MLPERF_LOADGEN_MODE`
+* `CM_MLPERF_LOADGEN_QUERY_COUNT`
+* `CM_MLPERF_LOADGEN_SCENARIO`
+* `CM_MLPERF_LOADGEN_TARGET_LATENCY`
+* `CM_MLPERF_LOADGEN_TARGET_QPS`
+* `CM_MLPERF_OUTPUT_DIR`
+* `CM_MLPERF_POWER_LOG_DIR`
+* `CM_MLPERF_RESULTS_DIR`
+* `CM_MLPERF_RUN_STYLE`
+* `CM_MLPERF_SKIP_RUN`
+* `CM_MLPERF_USER_CONF`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

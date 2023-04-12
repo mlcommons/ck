@@ -41,21 +41,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=app,mlcommons,mlperf,inference,tflite-cpp(,variations from below) (flags from below)`
+1. `cm run script --tags=app,mlcommons,mlperf,inference,tflite-cpp[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "app mlcommons mlperf inference tflite-cpp[,variations]" [--input_flags]`
 
-`cm run script "app mlcommons mlperf inference tflite-cpp (variations from below)" (flags from below)`
+3. `cm run script 415904407cca404a [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 415904407cca404a`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -222,15 +226,15 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**compressed_dataset**=value --> **CM_DATASET_COMPRESSED**=value
-* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
-* --**mlperf_conf**=value --> **CM_MLPERF_CONF**=value
-* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
-* --**performance_sample_count**=value --> **CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**user_conf**=value --> **CM_MLPERF_USER_CONF**=value
-* --**verbose**=value --> **CM_VERBOSE**=value
+* `--compressed_dataset=value`  &rarr;  `CM_DATASET_COMPRESSED=value`
+* `--count=value`  &rarr;  `CM_MLPERF_LOADGEN_QUERY_COUNT=value`
+* `--mlperf_conf=value`  &rarr;  `CM_MLPERF_CONF=value`
+* `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`
+* `--output_dir=value`  &rarr;  `CM_MLPERF_OUTPUT_DIR=value`
+* `--performance_sample_count=value`  &rarr;  `CM_MLPERF_LOADGEN_PERFORMANCE_SAMPLE_COUNT=value`
+* `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
+* `--user_conf=value`  &rarr;  `CM_MLPERF_USER_CONF=value`
+* `--verbose=value`  &rarr;  `CM_VERBOSE=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -245,28 +249,31 @@ r=cm.access({... , "compressed_dataset":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_MLPERF_OUTPUT_DIR: **.**
-* CM_MLPERF_LOADGEN_SCENARIO: **SingleStream**
-* CM_LOADGEN_BUFFER_SIZE: **1024**
-* CM_MLPERF_LOADGEN_MODE: **accuracy**
-* CM_FAST_COMPILATION: **yes**
-* CM_DATASET_INPUT_SQUARE_SIDE: **224**
-* CM_DATASET_COMPRESSED: **off**
-* CM_ML_MODEL_NORMALIZE_DATA: **0**
-* CM_ML_MODEL_SUBTRACT_MEANS: **1**
-* CM_ML_MODEL_GIVEN_CHANNEL_MEANS: **123.68 116.78 103.94**
-* CM_MLPERF_LOADGEN_TRIGGER_COLD_RUN: **0**
-* CM_VERBOSE: **0**
-* CM_MLPERF_TFLITE_USE_NEON: **0**
-* CM_MLPERF_TFLITE_USE_OPENCL: **0**
-* CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: **tflite_cpp**
+* CM_MLPERF_OUTPUT_DIR: `.`
+* CM_MLPERF_LOADGEN_SCENARIO: `SingleStream`
+* CM_LOADGEN_BUFFER_SIZE: `1024`
+* CM_MLPERF_LOADGEN_MODE: `accuracy`
+* CM_FAST_COMPILATION: `yes`
+* CM_DATASET_INPUT_SQUARE_SIDE: `224`
+* CM_DATASET_COMPRESSED: `off`
+* CM_ML_MODEL_NORMALIZE_DATA: `0`
+* CM_ML_MODEL_SUBTRACT_MEANS: `1`
+* CM_ML_MODEL_GIVEN_CHANNEL_MEANS: `123.68 116.78 103.94`
+* CM_MLPERF_LOADGEN_TRIGGER_COLD_RUN: `0`
+* CM_VERBOSE: `0`
+* CM_MLPERF_TFLITE_USE_NEON: `0`
+* CM_MLPERF_TFLITE_USE_OPENCL: `0`
+* CM_MLPERF_SUT_NAME_IMPLEMENTATION_PREFIX: `tflite_cpp`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-tflite-cpp/_cm.json)***
      * detect,os
@@ -334,19 +341,21 @@ ___
        * `if (CM_MLPERF_SKIP_RUN  != yes)`
        * CM names: `--adr.['runner']...`
        - CM script: [benchmark-program](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/benchmark-program)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_HW_NAME**
-* **CM_MLPERF_***
-* **CM_ML_MODEL_FULL_NAME**
+* `CM_HW_NAME`
+* `CM_MLPERF_*`
+* `CM_ML_MODEL_*`
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_CONF**
-* **CM_MLPERF_DEVICE**
-* **CM_MLPERF_USER_CONF**
+* `CM_MLPERF_CONF`
+* `CM_MLPERF_DEVICE`
+* `CM_MLPERF_USER_CONF`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
