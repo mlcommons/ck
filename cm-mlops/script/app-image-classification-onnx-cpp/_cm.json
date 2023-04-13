@@ -25,11 +25,7 @@
       "tags": "get,dataset-aux,image-classification"
     },
     {
-      "tags": "get,ml-model,image-classification,resnet50,_onnx-1.5-opset-11"
-    },
-    {
-      "tags": "get,mlcommons,loadgen",
-      "version": "r2.1"
+      "tags": "get,ml-model,raw,image-classification,resnet50,_onnx,_opset-11"
     },
     {
       "tags": "tensorflow,from-src",
