@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=generate,submission,mlperf,mlperf-inference,inference,mlcommons,inference-submission,mlperf-inference-submission,mlcommons-inference-submission(,variations from below) (flags from below)`
+1. `cm run script --tags=generate,submission,mlperf,mlperf-inference,inference,mlcommons,inference-submission,mlperf-inference-submission,mlcommons-inference-submission [--input_flags]`
 
-*or*
+2. `cm run script "generate submission mlperf mlperf-inference inference mlcommons inference-submission mlperf-inference-submission mlcommons-inference-submission" [--input_flags]`
 
-`cm run script "generate submission mlperf mlperf-inference inference mlcommons inference-submission mlperf-inference-submission mlcommons-inference-submission (variations from below)" (flags from below)`
+3. `cm run script 5f8ab2d0b5874d53 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 5f8ab2d0b5874d53`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -103,20 +107,20 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**category**=value --> **CM_MLPERF_SUBMISSION_CATEGORY**=value
-* --**clean**=value --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**=value
-* --**device**=value --> **CM_MLPERF_DEVICE**=value
-* --**division**=value --> **CM_MLPERF_SUBMISSION_DIVISION**=value
-* --**duplicate**=value --> **CM_MLPERF_DUPLICATE_SCENARIO_RESULTS**=value
-* --**hw_notes_extra**=value --> **CM_MLPERF_SUT_HW_NOTES_EXTRA**=value
-* --**infer_scenario_results**=value --> **CM_MLPERF_DUPLICATE_SCENARIO_RESULTS**=value
-* --**results_dir**=value --> **CM_MLPERF_RESULTS_DIR**=value
-* --**run_checker**=value --> **CM_RUN_SUBMISSION_CHECKER**=value
-* --**run_style**=value --> **CM_MLPERF_RUN_STYLE**=value
-* --**skip_truncation**=value --> **CM_SKIP_TRUNCATE_ACCURACY**=value
-* --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
-* --**submitter**=value --> **CM_MLPERF_SUBMITTER**=value
-* --**sw_notes_extra**=value --> **CM_MLPERF_SUT_SW_NOTES_EXTRA**=value
+* `--category=value`  &rarr;  `CM_MLPERF_SUBMISSION_CATEGORY=value`
+* `--clean=value`  &rarr;  `CM_MLPERF_CLEAN_SUBMISSION_DIR=value`
+* `--device=value`  &rarr;  `CM_MLPERF_DEVICE=value`
+* `--division=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIVISION=value`
+* `--duplicate=value`  &rarr;  `CM_MLPERF_DUPLICATE_SCENARIO_RESULTS=value`
+* `--hw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_HW_NOTES_EXTRA=value`
+* `--infer_scenario_results=value`  &rarr;  `CM_MLPERF_DUPLICATE_SCENARIO_RESULTS=value`
+* `--results_dir=value`  &rarr;  `CM_MLPERF_RESULTS_DIR=value`
+* `--run_checker=value`  &rarr;  `CM_RUN_SUBMISSION_CHECKER=value`
+* `--run_style=value`  &rarr;  `CM_MLPERF_RUN_STYLE=value`
+* `--skip_truncation=value`  &rarr;  `CM_SKIP_TRUNCATE_ACCURACY=value`
+* `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
+* `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
+* `--sw_notes_extra=value`  &rarr;  `CM_MLPERF_SUT_SW_NOTES_EXTRA=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -131,14 +135,17 @@ r=cm.access({... , "category":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_RUN_MLPERF_ACCURACY: **on**
+* CM_RUN_MLPERF_ACCURACY: `on`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-mlperf-inference-submission/_cm.json)***
      * get,python3
@@ -165,6 +172,8 @@ ___
      * run,tar
        * `if (CM_TAR_SUBMISSION_DIR  == yes)`
        - CM script: [tar-my-folder](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/tar-my-folder)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
@@ -174,4 +183,4 @@ ___
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

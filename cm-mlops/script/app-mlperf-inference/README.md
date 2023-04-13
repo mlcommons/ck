@@ -69,21 +69,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=app,vision,language,mlcommons,mlperf,inference,generic(,variations from below) (flags from below)`
+1. `cm run script --tags=app,vision,language,mlcommons,mlperf,inference,generic[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "app vision language mlcommons mlperf inference generic[,variations]" [--input_flags]`
 
-`cm run script "app vision language mlcommons mlperf inference generic (variations from below)" (flags from below)`
+3. `cm run script d775cac873ee4231 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script d775cac873ee4231`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -244,6 +248,10 @@ ___
     * `_tvm-pytorch`
       - Environment variables:
         - *CM_MLPERF_BACKEND*: `tvm-pytorch`
+      - Workflow:
+    * `_tvm-tflite`
+      - Environment variables:
+        - *CM_MLPERF_BACKEND*: `tvm-tflite`
       - Workflow:
 
     </details>
@@ -516,32 +524,32 @@ r=cm.access({... , "scenario":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**clean**=value --> **CM_MLPERF_CLEAN_SUBMISSION_DIR**=value
-* --**count**=value --> **CM_MLPERF_LOADGEN_QUERY_COUNT**=value
-* --**debug**=value --> **CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM**=value
-* --**docker**=value --> **CM_RUN_DOCKER_CONTAINER**=value
-* --**hw_name**=value --> **CM_HW_NAME**=value
-* --**imagenet_path**=value --> **IMAGENET_PATH**=value
-* --**max_amps**=value --> **CM_MLPERF_POWER_MAX_AMPS**=value
-* --**max_batchsize**=value --> **CM_MLPERF_LOADGEN_MAX_BATCHSIZE**=value
-* --**max_volts**=value --> **CM_MLPERF_POWER_MAX_VOLTS**=value
-* --**mode**=value --> **CM_MLPERF_LOADGEN_MODE**=value
-* --**multistream_target_latency**=value --> **CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY**=value
-* --**ntp_server**=value --> **CM_MLPERF_POWER_NTP_SERVER**=value
-* --**num_threads**=value --> **CM_NUM_THREADS**=value
-* --**offline_target_qps**=value --> **CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS**=value
-* --**output_dir**=value --> **OUTPUT_BASE_DIR**=value
-* --**power**=value --> **CM_MLPERF_POWER**=value
-* --**power_server**=value --> **CM_MLPERF_POWER_SERVER_ADDRESS**=value
-* --**readme**=value --> **CM_MLPERF_README**=value
-* --**regenerate_files**=value --> **CM_REGENERATE_MEASURE_FILES**=value
-* --**rerun**=value --> **CM_RERUN**=value
-* --**scenario**=value --> **CM_MLPERF_LOADGEN_SCENARIO**=value
-* --**server_target_qps**=value --> **CM_MLPERF_LOADGEN_SERVER_TARGET_QPS**=value
-* --**singlestream_target_latency**=value --> **CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY**=value
-* --**target_latency**=value --> **CM_MLPERF_LOADGEN_TARGET_LATENCY**=value
-* --**target_qps**=value --> **CM_MLPERF_LOADGEN_TARGET_QPS**=value
-* --**test_query_count**=value --> **CM_TEST_QUERY_COUNT**=value
+* `--clean=value`  &rarr;  `CM_MLPERF_CLEAN_SUBMISSION_DIR=value`
+* `--count=value`  &rarr;  `CM_MLPERF_LOADGEN_QUERY_COUNT=value`
+* `--debug=value`  &rarr;  `CM_DEBUG_SCRIPT_BENCHMARK_PROGRAM=value`
+* `--docker=value`  &rarr;  `CM_RUN_DOCKER_CONTAINER=value`
+* `--hw_name=value`  &rarr;  `CM_HW_NAME=value`
+* `--imagenet_path=value`  &rarr;  `IMAGENET_PATH=value`
+* `--max_amps=value`  &rarr;  `CM_MLPERF_POWER_MAX_AMPS=value`
+* `--max_batchsize=value`  &rarr;  `CM_MLPERF_LOADGEN_MAX_BATCHSIZE=value`
+* `--max_volts=value`  &rarr;  `CM_MLPERF_POWER_MAX_VOLTS=value`
+* `--mode=value`  &rarr;  `CM_MLPERF_LOADGEN_MODE=value`
+* `--multistream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_MULTISTREAM_TARGET_LATENCY=value`
+* `--ntp_server=value`  &rarr;  `CM_MLPERF_POWER_NTP_SERVER=value`
+* `--num_threads=value`  &rarr;  `CM_NUM_THREADS=value`
+* `--offline_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_OFFLINE_TARGET_QPS=value`
+* `--output_dir=value`  &rarr;  `OUTPUT_BASE_DIR=value`
+* `--power=value`  &rarr;  `CM_MLPERF_POWER=value`
+* `--power_server=value`  &rarr;  `CM_MLPERF_POWER_SERVER_ADDRESS=value`
+* `--readme=value`  &rarr;  `CM_MLPERF_README=value`
+* `--regenerate_files=value`  &rarr;  `CM_REGENERATE_MEASURE_FILES=value`
+* `--rerun=value`  &rarr;  `CM_RERUN=value`
+* `--scenario=value`  &rarr;  `CM_MLPERF_LOADGEN_SCENARIO=value`
+* `--server_target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_SERVER_TARGET_QPS=value`
+* `--singlestream_target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_SINGLESTREAM_TARGET_LATENCY=value`
+* `--target_latency=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_LATENCY=value`
+* `--target_qps=value`  &rarr;  `CM_MLPERF_LOADGEN_TARGET_QPS=value`
+* `--test_query_count=value`  &rarr;  `CM_TEST_QUERY_COUNT=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -556,19 +564,22 @@ r=cm.access({... , "clean":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_MLPERF_LOADGEN_MODE: **accuracy**
-* CM_MLPERF_LOADGEN_SCENARIO: **Offline**
-* CM_OUTPUT_FOLDER_NAME: **test_results**
-* CM_MLPERF_RUN_STYLE: **test**
-* CM_TEST_QUERY_COUNT: **10**
-* CM_MLPERF_QUANTIZATION: **False**
+* CM_MLPERF_LOADGEN_MODE: `accuracy`
+* CM_MLPERF_LOADGEN_SCENARIO: `Offline`
+* CM_OUTPUT_FOLDER_NAME: `test_results`
+* CM_MLPERF_RUN_STYLE: `test`
+* CM_TEST_QUERY_COUNT: `10`
+* CM_MLPERF_QUANTIZATION: `False`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)***
      * detect,os
@@ -587,15 +598,17 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference/_cm.yaml)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_MLPERF_***
+* `CM_MLPERF_*`
 #### New environment keys auto-detected from customize
 
-* **CM_MLPERF_ACCURACY_RESULTS_DIR**
+* `CM_MLPERF_ACCURACY_RESULTS_DIR`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

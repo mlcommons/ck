@@ -41,21 +41,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp(,variations from below) (flags from below)`
+1. `cm run script --tags=install,onnxruntime,get,prebuilt,lib,lang-c,lang-cpp[,variations] `
 
-*or*
+2. `cm run script "install onnxruntime get prebuilt lib lang-c lang-cpp[,variations]" `
 
-`cm run script "install onnxruntime get prebuilt lib lang-c lang-cpp (variations from below)" (flags from below)`
+3. `cm run script be02c84ff57c4244 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script be02c84ff57c4244`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -123,16 +127,19 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 #### Versions
-Default version: *1.12.1*
+Default version: `1.12.1`
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)***
      * detect,os
@@ -144,17 +151,19 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-onnxruntime-prebuilt/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+CPLUS_INCLUDE_PATH**
-* **+C_INCLUDE_PATH**
-* **+DYLD_FALLBACK_LIBRARY_PATH**
-* **+LD_LIBRARY_PATH**
+* `+CPLUS_INCLUDE_PATH`
+* `+C_INCLUDE_PATH`
+* `+DYLD_FALLBACK_LIBRARY_PATH`
+* `+LD_LIBRARY_PATH`
 #### New environment keys auto-detected from customize
 
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

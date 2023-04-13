@@ -51,21 +51,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,cuda,cuda-compiler,cuda-lib,toolkit,lib,nvcc,get-nvcc,get-cuda(,variations from below) (flags from below)`
+1. `cm run script --tags=get,cuda,cuda-compiler,cuda-lib,toolkit,lib,nvcc,get-nvcc,get-cuda[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "get cuda cuda-compiler cuda-lib toolkit lib nvcc get-nvcc get-cuda[,variations]" [--input_flags]`
 
-`cm run script "get cuda cuda-compiler cuda-lib toolkit lib nvcc get-nvcc get-cuda (variations from below)" (flags from below)`
+3. `cm run script 46d133d9ef92422d [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 46d133d9ef92422d`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -153,7 +157,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**cudnn_tar_path**=value --> **CM_CUDNN_TAR_FILE_PATH**=value
+* `--cudnn_tar_path=value`  &rarr;  `CM_CUDNN_TAR_FILE_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -168,15 +172,18 @@ r=cm.access({... , "cudnn_tar_path":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_CUDA_PATH_LIB_CUDNN_EXISTS: **no**
-* CM_REQUIRE_INSTALL: **no**
+* CM_CUDA_PATH_LIB_CUDNN_EXISTS: `no`
+* CM_REQUIRE_INSTALL: `no`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/customize.py)***
@@ -190,31 +197,33 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-cuda/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+ LDFLAGS**
-* **+CPLUS_INCLUDE_PATH**
-* **+C_INCLUDE_PATH**
-* **+DYLD_FALLBACK_LIBRARY_PATH**
-* **+LD_LIBRARY_PATH**
-* **+PATH**
-* **CM_CUDA_***
-* **CM_NVCC_***
-* **CUDA_HOME**
-* **CUDA_PATH**
+* `+ LDFLAGS`
+* `+CPLUS_INCLUDE_PATH`
+* `+C_INCLUDE_PATH`
+* `+DYLD_FALLBACK_LIBRARY_PATH`
+* `+LD_LIBRARY_PATH`
+* `+PATH`
+* `CM_CUDA_*`
+* `CM_NVCC_*`
+* `CUDA_HOME`
+* `CUDA_PATH`
 #### New environment keys auto-detected from customize
 
-* **CM_CUDA_CACHE_TAGS**
-* **CM_CUDA_FULL_TOOLKIT_INSTALL**
-* **CM_CUDA_INSTALLED_PATH**
-* **CM_CUDA_PATH_BIN**
-* **CM_CUDA_PATH_INCLUDE**
-* **CM_CUDA_PATH_LIB**
-* **CM_CUDA_VERSION**
-* **CM_NVCC_BIN**
+* `CM_CUDA_CACHE_TAGS`
+* `CM_CUDA_FULL_TOOLKIT_INSTALL`
+* `CM_CUDA_INSTALLED_PATH`
+* `CM_CUDA_PATH_BIN`
+* `CM_CUDA_PATH_INCLUDE`
+* `CM_CUDA_PATH_LIB`
+* `CM_CUDA_VERSION`
+* `CM_NVCC_BIN`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

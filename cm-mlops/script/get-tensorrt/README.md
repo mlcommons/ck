@@ -44,21 +44,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,tensorrt,nvidia(,variations from below) (flags from below)`
+1. `cm run script --tags=get,tensorrt,nvidia [--input_flags]`
 
-*or*
+2. `cm run script "get tensorrt nvidia" [--input_flags]`
 
-`cm run script "get tensorrt nvidia (variations from below)" (flags from below)`
+3. `cm run script 2a84ca505e4c408d [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 2a84ca505e4c408d`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -115,8 +119,8 @@ r=cm.access({... , "input":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**input**=value --> **CM_INPUT**=value
-* --**tar_file**=value --> **CM_TENSORRT_TAR_FILE_PATH**=value
+* `--input=value`  &rarr;  `CM_INPUT=value`
+* `--tar_file=value`  &rarr;  `CM_TENSORRT_TAR_FILE_PATH=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -131,13 +135,16 @@ r=cm.access({... , "input":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)***
      * detect,os
@@ -152,23 +159,25 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-tensorrt/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **+ LDFLAGS**
-* **+CPLUS_INCLUDE_PATH**
-* **+C_INCLUDE_PATH**
-* **+DYLD_FALLBACK_LIBRARY_PATH**
-* **+LD_LIBRARY_PATH**
-* **+PATH**
-* **CM_TENSORRT_***
+* `+ LDFLAGS`
+* `+CPLUS_INCLUDE_PATH`
+* `+C_INCLUDE_PATH`
+* `+DYLD_FALLBACK_LIBRARY_PATH`
+* `+LD_LIBRARY_PATH`
+* `+PATH`
+* `CM_TENSORRT_*`
 #### New environment keys auto-detected from customize
 
-* **CM_TENSORRT_INSTALL_PATH**
-* **CM_TENSORRT_LIB_PATH**
-* **CM_TENSORRT_VERSION**
+* `CM_TENSORRT_INSTALL_PATH`
+* `CM_TENSORRT_LIB_PATH`
+* `CM_TENSORRT_VERSION`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

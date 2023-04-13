@@ -96,6 +96,7 @@
         {
           "tags": "get,python",
           "version_max": "3.7.999",
+          "version_max_usable": "3.7.12",
           "version_min": "3.3.0",
           "names":["python","python3"]
         },
@@ -118,6 +119,7 @@
         {
           "tags": "get,python",
           "version_max": "3.7.999",
+          "version_max_usable": "3.7.12",
           "version_min": "3.3.0",
           "names":["python","python3"]
         },
@@ -140,6 +142,7 @@
         {
           "tags": "get,python",
           "version_max": "3.8.999",
+          "version_max_usable": "3.8.12",
           "version_min": "3.5.0",
           "names":["python","python3"]
         },
@@ -162,6 +165,7 @@
         {
           "tags": "get,python",
           "version_max": "3.8.999",
+          "version_max_usable": "3.8.12",
           "version_min": "3.5.0",
           "names":["python","python3"]
         },
@@ -184,6 +188,7 @@
         {
           "tags": "get,python",
           "version_max": "3.8.999",
+          "version_max_usable": "3.8.12",
           "version_min": "3.6.0",
           "names":["python","python3"]
         },
@@ -206,6 +211,7 @@
         {
           "tags": "get,python",
           "version_max": "3.9.999",
+          "version_max_usable": "3.9.12",
           "version_min": "3.6.0",
           "names":["python","python3"]
         },
@@ -228,6 +234,7 @@
         {
           "tags": "get,python",
           "version_max": "3.9.999",
+          "version_max_usable": "3.9.12",
           "version_min": "3.6.0",
           "names":["python","python3"]
         },
@@ -250,6 +257,7 @@
         {
           "tags": "get,python",
           "version_max": "3.9.999",
+          "version_max_usable": "3.9.12",
           "version_min": "3.7.0",
           "names":["python","python3"]
         },
@@ -272,6 +280,7 @@
         {
           "tags": "get,python",
           "version_max": "3.10.999",
+          "version_max_usable": "3.10.12",
           "version_min": "3.7.0",
           "names":["python","python3"]
         },
@@ -294,6 +303,7 @@
         {
           "tags": "get,python",
           "version_max": "3.10.999",
+          "version_max_usable": "3.10.12",
           "version_min": "3.7.0",
           "names":["python","python3"]
         },

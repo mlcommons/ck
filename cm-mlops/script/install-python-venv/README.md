@@ -40,21 +40,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=install,python,get-python-venv,python-venv(,variations from below) (flags from below)`
+1. `cm run script --tags=install,python,get-python-venv,python-venv[,variations] `
 
-*or*
+2. `cm run script "install python get-python-venv python-venv[,variations]" `
 
-`cm run script "install python get-python-venv python-venv (variations from below)" (flags from below)`
+3. `cm run script 7633ebada4584c6c `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 7633ebada4584c6c`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -120,13 +124,16 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/install-python-venv/_cm.json)***
      * get,python,-virtual
@@ -142,19 +149,21 @@ ___
      * get,python3
        * CM names: `--adr.['register-python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_PYTHON_BIN_WITH_PATH**
-* **CM_VIRTUAL_ENV_***
+* `CM_PYTHON_BIN_WITH_PATH`
+* `CM_VIRTUAL_ENV_*`
 #### New environment keys auto-detected from customize
 
-* **CM_PYTHON_BIN_WITH_PATH**
-* **CM_VIRTUAL_ENV_DIR**
-* **CM_VIRTUAL_ENV_PATH**
-* **CM_VIRTUAL_ENV_SCRIPTS_PATH**
+* `CM_PYTHON_BIN_WITH_PATH`
+* `CM_VIRTUAL_ENV_DIR`
+* `CM_VIRTUAL_ENV_PATH`
+* `CM_VIRTUAL_ENV_SCRIPTS_PATH`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

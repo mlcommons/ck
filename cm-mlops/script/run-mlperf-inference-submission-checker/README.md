@@ -44,21 +44,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker(,variations from below) (flags from below)`
+1. `cm run script --tags=run,mlc,mlcommons,mlperf,inference,mlperf-inference,submission,checker,submission-checker,mlc-submission-checker[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "run mlc mlcommons mlperf inference mlperf-inference submission checker submission-checker mlc-submission-checker[,variations]" [--input_flags]`
 
-`cm run script "run mlc mlcommons mlperf inference mlperf-inference submission checker submission-checker mlc-submission-checker (variations from below)" (flags from below)`
+3. `cm run script 15d03ec2c1af4297 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 15d03ec2c1af4297`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -118,13 +122,13 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**extra_model_benchmark_map**=value --> **CM_MLPERF_EXTRA_MODEL_MAPPING**=value
-* --**power**=value --> **CM_MLPERF_POWER**=value
-* --**push_to_github**=value --> **CM_MLPERF_RESULT_PUSH_TO_GITHUB**=value
-* --**skip_compliance**=value --> **CM_MLPERF_SKIP_COMPLIANCE**=value
-* --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
-* --**submitter**=value --> **CM_MLPERF_SUBMITTER**=value
-* --**version**=value --> **CM_MLPERF_VERSION**=value
+* `--extra_model_benchmark_map=value`  &rarr;  `CM_MLPERF_EXTRA_MODEL_MAPPING=value`
+* `--power=value`  &rarr;  `CM_MLPERF_POWER=value`
+* `--push_to_github=value`  &rarr;  `CM_MLPERF_RESULT_PUSH_TO_GITHUB=value`
+* `--skip_compliance=value`  &rarr;  `CM_MLPERF_SKIP_COMPLIANCE=value`
+* `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
+* `--submitter=value`  &rarr;  `CM_MLPERF_SUBMITTER=value`
+* `--version=value`  &rarr;  `CM_MLPERF_VERSION=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -139,14 +143,17 @@ r=cm.access({... , "extra_model_benchmark_map":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_MLPERF_SHORT_RUN: **no**
+* CM_MLPERF_SHORT_RUN: `no`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker/_cm.json)***
      * get,python3
@@ -174,6 +181,8 @@ ___
        * `if (CM_MLPERF_RESULT_PUSH_TO_GITHUB  == on)`
        * CM names: `--adr.['push-to-github']...`
        - CM script: [push-mlperf-inference-results-to-github](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/push-mlperf-inference-results-to-github)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
@@ -183,4 +192,4 @@ ___
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

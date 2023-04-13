@@ -1743,7 +1743,7 @@ class CAutomation(Automation):
 
         found_scripts = False if len(lst) == 0 else True
 
-        if len(variation_tags)>0:
+        if found_scripts and len(variation_tags)>0:
             filtered = []
 
             for script_artifact in lst:
@@ -1769,11 +1769,13 @@ class CAutomation(Automation):
 
                 filtered.append(script_artifact)
 
-            if len(lst) == 1 and not filtered:
-                script = lst[0]
-                meta = script_artifact.meta
-                variations = meta.get('variations', {})
-                r['warning'] = 'variation tags {} are not matching for the found script variations {}'.format(variation_tags, variations.keys())
+            if len(lst) > 0 and not filtered:
+                warning = [""]
+                for script in lst:
+                    meta = script.meta
+                    variations = meta.get('variations', {})
+                    warning.append('variation tags {} are not matching for the found script {} with variations {}\n'.format(variation_tags, meta.get('alias'), variations.keys()))
+                r['warning'] = "\n".join(warning)
 
             r['list'] = filtered
 
@@ -2305,6 +2307,7 @@ class CAutomation(Automation):
 
                     r = self.cmind.access(ii)
                     if r['return']>0: return r
+
                     run_state['deps'] = tmp_run_state_deps
 
                     # Restore local env

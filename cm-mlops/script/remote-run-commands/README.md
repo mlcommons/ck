@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=remote,run,cmds,remote-run,remote-run-cmds,ssh-run,ssh(,variations from below) (flags from below)`
+1. `cm run script --tags=remote,run,cmds,remote-run,remote-run-cmds,ssh-run,ssh [--input_flags]`
 
-*or*
+2. `cm run script "remote run cmds remote-run remote-run-cmds ssh-run ssh" [--input_flags]`
 
-`cm run script "remote run cmds remote-run remote-run-cmds ssh-run ssh (variations from below)" (flags from below)`
+3. `cm run script b71e24b03c9d49cd [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script b71e24b03c9d49cd`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -103,14 +107,14 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**client_refresh**=value --> **CM_SSH_CLIENT_REFRESH**=value
-* --**host**=value --> **CM_SSH_HOST**=value
-* --**password**=value --> **CM_SSH_PASSWORD**=value
-* --**port**=value --> **CM_SSH_PORT**=value
-* --**run_cmds**=value --> **CM_SSH_RUN_COMMANDS**=value
-* --**skip_host_verify**=value --> **CM_SSH_SKIP_HOST_VERIFY**=value
-* --**ssh_key_file**=value --> **CM_SSH_KEY_FILE**=value
-* --**user**=value --> **CM_SSH_USER**=value
+* `--client_refresh=value`  &rarr;  `CM_SSH_CLIENT_REFRESH=value`
+* `--host=value`  &rarr;  `CM_SSH_HOST=value`
+* `--password=value`  &rarr;  `CM_SSH_PASSWORD=value`
+* `--port=value`  &rarr;  `CM_SSH_PORT=value`
+* `--run_cmds=value`  &rarr;  `CM_SSH_RUN_COMMANDS=value`
+* `--skip_host_verify=value`  &rarr;  `CM_SSH_SKIP_HOST_VERIFY=value`
+* `--ssh_key_file=value`  &rarr;  `CM_SSH_KEY_FILE=value`
+* `--user=value`  &rarr;  `CM_SSH_USER=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -125,18 +129,21 @@ r=cm.access({... , "client_refresh":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_SSH_PORT: **22**
-* CM_SSH_HOST: **localhost**
-* CM_SSH_USER: **$USER**
-* CM_SSH_CLIENT_REFRESH: **10**
-* CM_SSH_KEY_FILE: **$HOME/.ssh/id_rsa**
+* CM_SSH_PORT: `22`
+* CM_SSH_HOST: `localhost`
+* CM_SSH_USER: `$USER`
+* CM_SSH_CLIENT_REFRESH: `10`
+* CM_SSH_KEY_FILE: `$HOME/.ssh/id_rsa`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/customize.py)***
@@ -147,6 +154,8 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/remote-run-commands/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
@@ -156,4 +165,4 @@ ___
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

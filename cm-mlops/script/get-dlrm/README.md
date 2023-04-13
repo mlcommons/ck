@@ -44,21 +44,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,src,dlrm(,variations from below) (flags from below)`
+1. `cm run script --tags=get,src,dlrm[,variations] `
 
-*or*
+2. `cm run script "get src dlrm[,variations]" `
 
-`cm run script "get src dlrm (variations from below)" (flags from below)`
+3. `cm run script 63680ac2449a4241 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 63680ac2449a4241`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -118,20 +122,23 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_GIT_DEPTH: **--depth 10**
-* CM_GIT_PATCH: **no**
-* CM_GIT_URL: **https://github.com/facebookresearch/dlrm.git**
+* CM_GIT_DEPTH: `--depth 10`
+* CM_GIT_PATCH: `no`
+* CM_GIT_URL: `https://github.com/facebookresearch/dlrm.git`
 
 </details>
 
 #### Versions
-Default version: *main*
+Default version: `main`
 
-* main
+* `main`
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dlrm/_cm.json)***
      * detect,os
@@ -143,14 +150,16 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dlrm/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dlrm/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dlrm/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **DLRM_DIR**
+* `DLRM_DIR`
 #### New environment keys auto-detected from customize
 
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
