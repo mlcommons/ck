@@ -2,7 +2,8 @@
   "alias": "participate-ck-quantum-hackathons",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20191031",
+  "date_close": "20191031",
+  "date_open": "20191031",
   "tags": [
     "participate",
     "events",

@@ -40,21 +40,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,dataset,openimages,open-images,object-detection,original(,variations from below) (flags from below)`
+1. `cm run script --tags=get,dataset,openimages,open-images,object-detection,original[,variations] `
 
-*or*
+2. `cm run script "get dataset openimages open-images object-detection original[,variations]" `
 
-`cm run script "get dataset openimages open-images object-detection original (variations from below)" (flags from below)`
+3. `cm run script 0a9d49b644cf4142 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 0a9d49b644cf4142`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -178,14 +182,17 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_DATASET_CALIBRATION: **no**
+* CM_DATASET_CALIBRATION: `no`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)***
      * get,sys-utils-cm
@@ -218,21 +225,23 @@ ___
        - CM script: [get-dataset-openimages-annotations](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages-annotations)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-openimages/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_CALIBRATION_DATASET_PATH**
-* **CM_DATASET_ANNOTATIONS_DIR_PATH**
-* **CM_DATASET_ANNOTATIONS_FILE_PATH**
-* **CM_DATASET_PATH**
+* `CM_CALIBRATION_DATASET_PATH`
+* `CM_DATASET_ANNOTATIONS_DIR_PATH`
+* `CM_DATASET_ANNOTATIONS_FILE_PATH`
+* `CM_DATASET_PATH`
 #### New environment keys auto-detected from customize
 
-* **CM_CALIBRATION_DATASET_PATH**
-* **CM_DATASET_ANNOTATIONS_DIR_PATH**
-* **CM_DATASET_ANNOTATIONS_FILE_PATH**
-* **CM_DATASET_PATH**
+* `CM_CALIBRATION_DATASET_PATH`
+* `CM_DATASET_ANNOTATIONS_DIR_PATH`
+* `CM_DATASET_ANNOTATIONS_FILE_PATH`
+* `CM_DATASET_PATH`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

@@ -2,8 +2,7 @@
   "alias": "reproduce-and-automate-ipol-paper",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20230430",
-  "date_print": "April 30, 2023",
+  "date_open": "20230301",
   "experiments": [],
   "tags": [
     "reproduce",

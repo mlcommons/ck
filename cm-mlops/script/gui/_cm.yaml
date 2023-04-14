@@ -80,6 +80,9 @@ variations:
     prehook_deps:
       - tags: get,generic-python-lib,_matplotlib
       - tags: get,generic-python-lib,_mpld3
+      - tags: get,generic-python-lib,_streamlit_option_menu
+      - tags: get,generic-python-lib,_numpy
+      - tags: get,generic-python-lib,_pandas
 
 input_description:
   script: "script tags"

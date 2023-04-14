@@ -2,8 +2,8 @@
   "alias": "repro-asplos2021",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20210401",
-  "date_print": "April 1, 2021",
+  "date_close": "20210401",
+  "date_open": "20210401",
   "tags": [
     "reproduce",
     "papers",
@@ -17,6 +17,6 @@
   ],
   "title": "Reproduce papers at ACM ASPLOS'21 (artifact evaluation)",
   "uid": "a5b6d00aa0024834",
-  "use_self_url": "yes",
-  "url":"https://ctuning.org/ae/asplos2021.html"
+  "url": "https://ctuning.org/ae/asplos2021.html",
+  "use_self_url": "yes"
 }

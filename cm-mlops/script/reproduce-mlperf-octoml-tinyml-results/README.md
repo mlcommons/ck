@@ -45,21 +45,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=reproduce,tiny,results,mlperf,octoml,mlcommons(,variations from below) (flags from below)`
+1. `cm run script --tags=reproduce,tiny,results,mlperf,octoml,mlcommons[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "reproduce tiny results mlperf octoml mlcommons[,variations]" [--input_flags]`
 
-`cm run script "reproduce tiny results mlperf octoml mlcommons (variations from below)" (flags from below)`
+3. `cm run script a63803a707d04332 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script a63803a707d04332`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -147,8 +151,8 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**flash**=value --> **CM_FLASH_BOARD**=value
-* --**recreate_binary**=value --> **CM_RECREATE_BINARY**=value
+* `--flash=value`  &rarr;  `CM_FLASH_BOARD=value`
+* `--recreate_binary=value`  &rarr;  `CM_RECREATE_BINARY=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -163,17 +167,20 @@ r=cm.access({... , "flash":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 #### Versions
-Default version: *r1.0*
+Default version: `r1.0`
 
-* r1.0
+* `r1.0`
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/reproduce-mlperf-octoml-tinyml-results/_cm.json)***
      * detect,os
@@ -212,15 +219,17 @@ ___
      * flash,tiny,mlperf
        * `if (CM_FLASH_BOARD  == True)`
        - CM script: [flash-tinyml-binary](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/flash-tinyml-binary)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_TINY_***
+* `CM_TINY_*`
 #### New environment keys auto-detected from customize
 
-* **CM_TINY_MODEL**
+* `CM_TINY_MODEL`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

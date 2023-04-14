@@ -40,6 +40,7 @@
     "cminit": "CM_TERRAFORM_CM_INIT",
     "key_file": "CM_SSH_KEY_FILE",
     "run_cmds": "CM_TERRAFORM_RUN_COMMANDS",
+    "gcp_credentials_json_file": "CM_GCP_CREDENTIALS_JSON_PATH",
     "ssh_key_file": "CM_SSH_KEY_FILE"
   },
   "default_env": {
@@ -76,13 +77,22 @@
         "CM_TERRAFORM_CONFIG_DIR_NAME": "gcp"
       }
     },
-    "n1-standard-8": {
+    "n1-standard.#": {
       "base": [
         "gcp"
       ],
       "group": "gcp-instance-type",
       "env": {
-        "TF_VAR_INSTANCE_TYPE": "n1-standard-8"
+        "TF_VAR_INSTANCE_TYPE": "n1-highmem-#"
+      }
+    },
+    "n1-highmem.#": {
+      "base": [
+        "gcp"
+      ],
+      "group": "gcp-instance-type",
+      "env": {
+        "TF_VAR_INSTANCE_TYPE": "n1-highmem-#"
       }
     },
     "f1-micro": {
@@ -372,6 +382,11 @@
         "TF_VAR_INSTANCE_IMAGE_OS": "ubuntu.#"
       }
     },
+    "rhel.#": {
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE_OS": "rhel.#"
+      }
+    },
     "amazon-linux-2-kernel.#": {
       "env": {
         "TF_VAR_INSTANCE_IMAGE_OS": "amazon-linux-2-kernel.#"
@@ -381,6 +396,12 @@
       "group": "aws-instance-image",
       "env": {
         "TF_VAR_INSTANCE_IMAGE": "ami-0f1a5f5ada0e7da53"
+      }
+    },
+    "rhel.9,x86,us-west-2": {
+      "group": "aws-instance-image",
+      "env": {
+        "TF_VAR_INSTANCE_IMAGE": "ami-0dda7e535b65b6469"
       }
     },
     "ubuntu.2204,arm64,us-west-2": {

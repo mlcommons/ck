@@ -9,7 +9,7 @@ how to use and enhance CK to run and optimize MLPerf inference benchmarks.
 
 * [MLCommons taskforce on education and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
 * [cTuning foundation](https://cTuning.org)
-* [cKnowledge](https://cKnowledge.org)
+* [cKnowledge Ltd](https://cKnowledge.org)
 
 ### Status
 

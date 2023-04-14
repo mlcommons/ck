@@ -55,7 +55,7 @@ def main():
     st.write('''
         <center>
         <a target="_self" href="?action=challenges"><button style="{}">Challenges</button></a>
-        <a target="_self" href="?action=experiments"><button style="{}">Experiments</button></a>
+        <a target="_self" href="?action=experiments"><button style="{}">Experiments and results</button></a>
         <a target="_self" href="?action=contributors"><button style="{}">Contributors</button></a>
         <a target="_self" href="https://github.com/mlcommons/ck"><button>GitHub</button></a>
         <a target="_self" href="https://discord.gg/JjWNWXKxwT"><button>Discord</button></a>
@@ -97,10 +97,11 @@ def main():
 
     st.write("""
              <center>
-             <a href="https://github.com/mlcommons/ck/tree/master/platform">Read about this free and open-source platform</a>
+             <a href="https://github.com/mlcommons/ck/tree/master/platform">Read about this free, open-source and technology-agnostic platform</a>
              </center>
              """,  
              unsafe_allow_html=True)
+
 
 def make_url(name, alias='', action='contributors', key='name', md=True):
 
@@ -116,6 +117,21 @@ def make_url(name, alias='', action='contributors', key='name', md=True):
         md = url
 
     return md
+
+
+def convert_date(date):
+    # date: format YYYYMMDD to YYYY month day
+
+    import calendar
+
+    try:
+        year = date[0:4]
+        month = calendar.month_abbr[int(date[4:6])]
+        day = str(int(date[6:8]))
+    except Exception as e:
+        return {'return':1, 'error':'date "{}" is not of format YYYYMMDD: {}'.format(date, format(e))}
+
+    return {'return':0, 'string':year+' '+month+' '+day}
 
 
 if __name__ == "__main__":

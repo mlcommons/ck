@@ -3,8 +3,9 @@ Please follow the MLCommons CK [installation guide](https://github.com/mlcommons
 Download the ck repo to get the CM script for MLPerf submission
 
 ```
-cm pull repo mlcommons@ck
+cm pull repo mlcommons@ck --checkout=681547519f4d9a8991d992d1300c90cfde06e9b9
 ```
+
 ## Run Commands
 
 Bert has two variants - `bert-99` and `bert-99.9` where the `99` and `99.9` specifies the required accuracy constraint with respect to the reference floating point model. `bert-99.9` model is applicable only on a datacenter system.
@@ -17,35 +18,37 @@ On edge category `bert-99` has Offline and SingleStream scenarios and in datacen
 
 ```
 cm run script --tags=generate-run-cmds,inference,_find-performance,_all-scenarios \
---model=bert-99 --implementation=reference --device=cpu --backend=onnxruntime --quiet
+--model=bert-99 --implementation=reference --device=cpu --backend=onnxruntime \
+--category=edge --division=open --quiet
 ```
 * Use `--device=cuda` to run the inference on Nvidia GPU
-* Use `--division=closed` to run all scenarios for a closed division including the compliance tests
+* Use `--division=closed` to run all scenarios for the closed division including the compliance tests
 * Use `--category=datacenter` to run datacenter scenarios
 
-#### Do a full accuracy run for all the scenarios
+#### Do a full accuracy and performance runs for all the scenarios
 
 ```
-cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
+cm run script --tags=generate-run-cmds,inference,_all-modes,_all-scenarios \
 --model=bert-99 --device=cpu --implementation=reference --backend=onnxruntime \
---execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--execution-mode=valid --results_dir=$HOME/inference_3.0_results \
+--category=edge --division=open --quiet
 ```
 
-#### Do a full performance run for all the scenarios
-```
-cm run script --tags=generate-run-cmds,inference,_performance-only,_all-scenarios \
---model=bert-99 --device=cpu --implementation=reference --backend=onnxruntime \
---execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
-```
+* Use `--power=yes` for measuring power. It is ignored for accuracy and compliance runs
+* Use `--division=closed` to run all scenarios for the closed division including the compliance tests
+* `--offline_target_qps`, `--server_target_qps` and `--singlestream_target_latency` can be used to override the determined performance numbers
 
 #### Populate the README files
 ```
 cm run script --tags=generate-run-cmds,inference,_populate-readme,_all-scenarios \
 --model=bert-99 --device=cpu --implementation=reference --backend=onnxruntime \
---execution-mode=valid --results_dir=$HOME/inference_3.0_results --quiet
+--execution-mode=valid --results_dir=$HOME/inference_3.0_results \
+--category=edge --division=open --quiet
 ```
 
 #### Generate actual submission tree
+
+Here, we are copying the performance and accuracy log files (compliance logs also in the case of closed division) from the results directory to the submission tree following the [directory structure required by MLCommons Inference](https://github.com/mlcommons/policies/blob/master/submission_rules.adoc#inference-1). After the submission tree is generated, [accuracy truncate script](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/truncate-mlperf-inference-accuracy-log) is called to truncate accuracy logs and then the [submission checker](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-submission-checker) is called to validate the generated submission tree.
 
 We should use the master branch of MLCommons inference repo for the submission checker. You can use `--hw_note_extra` option to add your name to the notes.
 ```
@@ -54,17 +57,6 @@ cm run script --tags=generate,inference,submission --results_dir=$HOME/inference
 --adr.inference-src.version=master --hw_notes_extra="Result taken by NAME" --quiet
 ```
 
-#### Push the results to GitHub repo
-
-First create a fork of [this repo](https://github.com/ctuning/mlperf_inference_submissions_v3.0/). Then run the following command after replacing `--repo_url` with your fork URL.
-```
-cm run script --tags=push,github,mlperf,inference,submission \
---submission_dir=$HOME/inference_submission_tree \
---repo_url=https://github.com/ctuning/mlperf_inference_submissions_v3.0/ \
---commit_message="Bert results added"
-```
-
-Create a PR to [cTuning repo](https://github.com/ctuning/mlperf_inference_submissions_v3.0/)
 
 ## Tensorflow backend
 

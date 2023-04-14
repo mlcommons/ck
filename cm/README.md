@@ -29,7 +29,7 @@ and automate [reproducibility initiatives and artifact evaluation at conferences
 
 ### Copyright
 
-2021-2022 [MLCommons](https://mlcommons.org)
+2021-2023 [MLCommons](https://mlcommons.org)
 
 ### Authors and maintainers
 

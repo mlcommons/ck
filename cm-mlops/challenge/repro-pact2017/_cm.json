@@ -2,8 +2,8 @@
   "alias": "repro-pact2017",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20170914",
-  "date_print": "September 14, 2017",
+  "date_close": "20170914",
+  "date_open": "20170914",
   "tags": [
     "reproduce",
     "papers",

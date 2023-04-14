@@ -2,8 +2,8 @@
   "alias": "repro-ia3-sc2017",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20171113",
-  "date_print": "November 13, 2017",
+  "date_close": "20171113",
+  "date_open": "20171113",
   "reproduced_papers_tags": "papers-ia3",
   "tags": [
     "reproduce",

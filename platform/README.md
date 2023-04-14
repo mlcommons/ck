@@ -1,36 +1,50 @@
 # Collective Knowledge Platform
 
+*Note that this is on-going and heavily evolving project - please join our public
+ [Discord server](https://discord.gg/JjWNWXKxwT) 
+ or contact [Grigori Fursin and Arjun Suresh](mailto:gfursin@cKnowledge.org;asuresh@cTuning.org)
+ to prepare the 1st open MLPerf inference optimization tournament in spring/summer 2023,
+ brainstorm ideas,  request new features, add support for your software and hardware,
+ and participate in developments and collaborative 
+ benchmarking and optimization of AI/ML Systems.*
+
 The [Collective Knowledge Playground (CK)](https://x.cknowledge.org) is a free, open-source and technology-agnostic on-prem platform
 being developed by the [MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce).
 
-Our goal is to help the community try, reproduce, optimize and compare any novel technology 
-including new ML models and end-to-end AI applications across any rapidly evolving software, hardware and data(sets)
-in a fully automated way via collaborative challenges.
+Our goal is to help the community benchmark, optimize and compare AI, ML and other emerging applications
+across diverse and rapidly evolving models, software, hardware and data from different vendors
+in terms of cost, performance, power consumption, accuracy, size 
+and other metrics in a collaborative, automated and reproducible way.
 
-For example, [the community](https://access.cknowledge.org/playground/?action=contributors) 
-has successfully used CK to run and reproduce [MLPerf inference](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-inference,v3.0,community-submission,open,edge,image-classification,singlestream) 
-using very diverse technology from Neural Magic, Qualcomm, Krai, DELL, HPE, Lenovo, Hugging Face, Nvidia and Apple across diverse CPUs, GPUs and DSPs with PyTorch, 
-ONNX, QAIC, TF/TFLite, TVM and TensorRT using popular cloud providers (GCP, AWS, Azure) and individual servers and edge devices provided by volunteers
-via our recent [public challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023).
-
-This platform is powered by the technology-agnostic and portable [MLCommons Collective Mind workflow automation framework (CM or CK2)](https://github.com/mlcommons/ck)
+This platform is powered by the portable and technology-agnostic [MLCommons Collective Mind automation framework (CM aka CK2)](https://github.com/mlcommons/ck)
 with [portable and reusable automation recipes](https://github.com/mlcommons/ck/tree/master/cm-mlops/script)
-that we have developed to help the the community solve the "dependency hell" and automatically connect and unify 
-their diverse and continuously changing models, software, hardware, data sets, best practices and optimization techniques 
-in a transparent and non-intrusive way. 
+developed by the community to solve the "AI/ML dependency hell" and automatically connect 
+diverse and continuously changing models, software, hardware, data sets, best practices and optimization techniques 
+into end-to-end applications in a transparent and non-intrusive way. 
 
-The ultimate goal for our Collective Knowledge platform is to accelerate deep-tech innovation and make it available to anyone
-by automatically generating the most efficient, reproducible and deployable 
-full-stack AI/ML solutions using the most suitable SW/HW stack at any given time (model, framework, inference engine and any other related dependency) 
+We thank [the community](https://access.cknowledge.org/playground/?action=contributors) 
+for helping us to validate our prototype by running and reproducing 
+[MLPerf inference v3.0 benchmarks](https://access.cknowledge.org/playground/?action=experiments&tags=mlperf-inference,v3.0,community-submission,open,edge,image-classification,singlestream).
+CK has helped to automatically interconnect very diverse technology from Neural Magic, Qualcomm, Krai, cKnowledge, OctoML, Deelvin, DELL, HPE, Lenovo, Hugging Face, Nvidia and Apple 
+and run it across diverse CPUs, GPUs and DSPs with PyTorch, 
+ONNX, QAIC, TF/TFLite, TVM and TensorRT using popular cloud providers (GCP, AWS, Azure) and individual servers and edge devices 
+via our recent [open optimization challenge](https://access.cknowledge.org/playground/?action=challenges&name=optimize-mlperf-inference-v3.0-2023).
+
+Our vision for the CK platform is to help researchers, engineers and entrepreneurs 
+accelerate innovation by automatically generating the most efficient, reproducible and deployable 
+full-stack AI/ML applications using the most suitable software/hardware stack 
+at any given time (model, framework, inference engine and any other related dependency) 
 based on their requirements and constraints including costs, throughput, latency, power consumption, accuracy, target devices (cloud/edge/mobile/tiny), 
-environment and data. See this [ACM tech talk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
-and [article](https://arxiv.org/abs/2011.01149) to learn more about our motivation.
+environment and data while slashing their development and operational costs by 10..100 times.
 
-*Note that this is on-going and heavily evolving project - please join our public
- [Discord server](https://discord.gg/JjWNWXKxwT) to brainstorm ideas,
- request new features, add support for your software and hardware,
- and participate in developments and collaborative 
- benchmarking and optimization of AI/ML Systems.*
+See this [ACM tech talk](https://www.youtube.com/watch?v=7zpeIVwICa4) 
+and [journal article](https://arxiv.org/abs/2011.01149) to learn more about our motivation.
+
+## Links
+
+* [Platform preview](https://x.cKnowledge.org)
+* [GUI to run MLPerf inference benchmarks](http://cknowledge.org/mlperf-inference-gui)
+* [GUI to prepare MLPerf inference submissions](https://cknowledge.org/mlperf-inference-submission-gui)
 
 ## License
 
@@ -40,7 +54,7 @@ Apache 2.0
 
 2023 MLCommons
 
-## Source code
+## Source code for on-prem use
 
 This platform is implemented as a portable automation recipe using the MLCommons CM (CK2) workflow automation framework: 
 https://github.com/mlcommons/ck/tree/master/cm-mlops/script/gui
@@ -72,7 +86,7 @@ Check [this script](scripts/2-run-in-a-cloud.sh) If you want to run the CK playg
 as a public or private server to run optimization experiments
 with your colleagues, external teams and users.
 
-## Tech leads
+## Authors and Tech Leads
 
 * [Grigori Fursin](https://cKnowledge.org/gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)

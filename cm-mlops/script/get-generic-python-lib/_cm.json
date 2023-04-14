@@ -497,6 +497,14 @@
         "CM_STREAMLIT_VERSION"
       ]
     },
+    "streamlit_option_menu": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "streamlit_option_menu"
+      },
+      "new_env_keys": [
+        "CM_STREAMLIT_OPTION_MENU_VERSION"
+      ]
+    },
     "tensorflow": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "tensorflow"

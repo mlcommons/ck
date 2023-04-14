@@ -26,6 +26,19 @@
 
 ### Description
 
+## Setup for Google Cloud Instances
+```
+sudo snap install google-cloud-cli --classic
+gcloud auth application-default login
+```
+
+The above two commands will install google-cloud-cli and authorizes the user to access it. Once done, you can start creating gcp instance using CM commands like below. To destroy an instance just repeat the same command with `--destroy` option.
+
+```
+cm run script --tags=run,terraform,_gcp,_gcp_project.mlperf-inference-tests --cminit
+```
+Here, `mlperf-inference-tests` is the name of the google project as created in [Google cloud console](https://console.cloud.google.com/apis/dashboard)
+
 
 See [more info](README-extra.md).
 
@@ -44,21 +57,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=run,terraform(,variations from below) (flags from below)`
+1. `cm run script --tags=run,terraform[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "run terraform[,variations]" [--input_flags]`
 
-`cm run script "run terraform (variations from below)" (flags from below)`
+3. `cm run script ec344bd44af144d7 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script ec344bd44af144d7`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -120,6 +137,10 @@ ___
       - Workflow:
     * `_inferentia,amazon-linux-2-kernel.510`
       - Workflow:
+    * `_rhel.#`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_IMAGE_OS*: `rhel.#`
+      - Workflow:
     * `_ubuntu.#`
       - Environment variables:
         - *TF_VAR_INSTANCE_IMAGE_OS*: `ubuntu.#`
@@ -147,6 +168,10 @@ ___
     * `_aws_instance_image.ami-0a0d8589b597d65b3`
       - Environment variables:
         - *TF_VAR_INSTANCE_IMAGE*: `ami-0a0d8589b597d65b3`
+      - Workflow:
+    * `_rhel.9,x86,us-west-2`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_IMAGE*: `ami-0dda7e535b65b6469`
       - Workflow:
     * `_ubuntu.2204,arm64,us-west-2`
       - Environment variables:
@@ -304,9 +329,13 @@ ___
       - Environment variables:
         - *TF_VAR_INSTANCE_TYPE*: `#`
       - Workflow:
-    * `_n1-standard-8`
+    * `_n1-highmem.#`
       - Environment variables:
-        - *TF_VAR_INSTANCE_TYPE*: `n1-standard-8`
+        - *TF_VAR_INSTANCE_TYPE*: `n1-highmem-#`
+      - Workflow:
+    * `_n1-standard.#`
+      - Environment variables:
+        - *TF_VAR_INSTANCE_TYPE*: `n1-highmem-#`
       - Workflow:
 
     </details>
@@ -404,11 +433,12 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**cminit**=value --> **CM_TERRAFORM_CM_INIT**=value
-* --**destroy**=value --> **CM_DESTROY_TERRAFORM**=value
-* --**key_file**=value --> **CM_SSH_KEY_FILE**=value
-* --**run_cmds**=value --> **CM_TERRAFORM_RUN_COMMANDS**=value
-* --**ssh_key_file**=value --> **CM_SSH_KEY_FILE**=value
+* `--cminit=value`  &rarr;  `CM_TERRAFORM_CM_INIT=value`
+* `--destroy=value`  &rarr;  `CM_DESTROY_TERRAFORM=value`
+* `--gcp_credentials_json_file=value`  &rarr;  `CM_GCP_CREDENTIALS_JSON_PATH=value`
+* `--key_file=value`  &rarr;  `CM_SSH_KEY_FILE=value`
+* `--run_cmds=value`  &rarr;  `CM_TERRAFORM_RUN_COMMANDS=value`
+* `--ssh_key_file=value`  &rarr;  `CM_SSH_KEY_FILE=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -423,15 +453,18 @@ r=cm.access({... , "cminit":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* TF_VAR_SECURITY_GROUP_ID: **sg-0783752c97d2e011d**
-* TF_VAR_CPU_COUNT: **1**
+* TF_VAR_SECURITY_GROUP_ID: `sg-0783752c97d2e011d`
+* TF_VAR_CPU_COUNT: `1`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-terraform/_cm.json)***
      * get,terraform
@@ -447,17 +480,19 @@ ___
        * `if (CM_DESTROY_TERRAFORM  == on)`
        * CM names: `--adr.['destroy-cmd']...`
        - CM script: [destroy-terraform](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/destroy-terraform)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_TERRAFORM_CONFIG_DIR**
-* **CM_TERRAFORM_RUN_DIR**
+* `CM_TERRAFORM_CONFIG_DIR`
+* `CM_TERRAFORM_RUN_DIR`
 #### New environment keys auto-detected from customize
 
-* **CM_TERRAFORM_CONFIG_DIR**
-* **CM_TERRAFORM_RUN_DIR**
+* `CM_TERRAFORM_CONFIG_DIR`
+* `CM_TERRAFORM_RUN_DIR`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

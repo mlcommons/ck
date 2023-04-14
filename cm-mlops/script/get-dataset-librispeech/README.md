@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,dataset,speech,speech-recognition,librispeech,validation,audio,training,original(,variations from below) (flags from below)`
+1. `cm run script --tags=get,dataset,speech,speech-recognition,librispeech,validation,audio,training,original `
 
-*or*
+2. `cm run script "get dataset speech speech-recognition librispeech validation audio training original" `
 
-`cm run script "get dataset speech speech-recognition librispeech validation audio training original (variations from below)" (flags from below)`
+3. `cm run script 09f29df607e0415d `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 09f29df607e0415d`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -103,23 +107,26 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 #### Versions
-Default version: *dev-clean*
+Default version: `dev-clean`
 
-* dev-clean
-* dev-other
-* test-clean
-* test-other
-* train-clean-100
-* train-clean-360
-* train-other-500
+* `dev-clean`
+* `dev-other`
+* `test-clean`
+* `test-other`
+* `train-clean-100`
+* `train-clean-360`
+* `train-other-500`
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech/_cm.json)***
      * get,sys-utils-cm
@@ -131,16 +138,18 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-dataset-librispeech/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_DATASET_***
+* `CM_DATASET_*`
 #### New environment keys auto-detected from customize
 
-* **CM_DATASET_LIBRISPEECH_PATH**
-* **CM_DATASET_PATH**
+* `CM_DATASET_LIBRISPEECH_PATH`
+* `CM_DATASET_PATH`
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

@@ -2,8 +2,8 @@
   "alias": "repro-ppopp2018",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20180226",
-  "date_print": "February 26, 2018",
+  "date_close": "20180226",
+  "date_open": "20180226",
   "reproduced_papers_tags": "papers-ppopp-2018",
   "tags": [
     "reproduce",

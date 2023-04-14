@@ -2,6 +2,7 @@
 
 import cmind
 import os
+import datetime
 
 def page(st, params, parent):
 
@@ -34,13 +35,60 @@ def page(st, params, parent):
             challenges = ['']
             artifacts = [None]
 
-            for l in sorted(lst, key=lambda x: (-int(x.meta.get('date','0')),
-                                                x.meta.get('title',''))):
+            date_now = datetime.datetime.now().isoformat()
+            date_now2 = int(date_now[0:4]+date_now[5:7]+date_now[8:10])
+
+            for l in sorted(lst, key=lambda x: (
+                                                -int(x.meta.get('date_open','0')),
+                                                -int(x.meta.get('date_close','0')),
+                                                x.meta.get('title','')
+                                               )):
 
                 meta = l.meta
                 name = meta.get('title', meta['alias'])
 
-                challenges.append(name)
+                under_preparation = meta.get('under_preparation', False)
+
+                date_open = meta.get('date_open','')
+                date_close = meta.get('date_close','')
+
+                s_date_open = ''
+                if date_open!='':
+                    r = parent.convert_date(date_open)
+                    s_date_open = r['string'] if r['return']==0 else ''
+
+                s_date_close = ''
+                if date_close!='':
+                    r = parent.convert_date(date_close)
+                    s_date_close = r['string'] if r['return']==0 else ''
+
+                diff1 = 0
+                diff2 = 0
+
+                if date_open!='':
+                    diff1 = int(date_open)-int(date_now2)
+
+                if date_close!='':
+                    diff2 = int(date_close)-int(date_now2)
+
+
+                prefix = ''
+                if under_preparation:
+                    prefix = 'Under preparation: '
+                else:
+                    if date_open!='' and diff1>=0:
+                        prefix = 'Opens on {}: '.format(s_date_open)
+                    else:
+                        if date_close!='':
+                            if diff2<0:
+                                prefix = 'Finished on {}: '.format(s_date_close)
+                            else:
+                                prefix = 'Open and finishes on {}: '.format(s_date_close)
+                        else:
+                            prefix = 'Open: '.format(s_date_close)
+
+
+                challenges.append(prefix + name)
                 artifacts.append(l)
 
             challenge = st.selectbox('Select your optimization and reproducibility challenge', 
@@ -66,7 +114,7 @@ def page(st, params, parent):
              unsafe_allow_html=True
              )
 
-            end_html='<center><small><i><a href="{}">Self link</a></i></small></center>'.format(parent.make_url(meta['alias'], action='challenges', md=False))
+            end_html='<center><small><i><a href="{}">Self link</a></i></small></center>'.format(parent.make_url(meta['uid'], action='challenges', md=False))
 
 
             # Check basic password
@@ -93,13 +141,19 @@ def page(st, params, parent):
 
 
 
-            date_print = meta.get('date_print','')
-            if date_print!='':
-                st.markdown('* **Publication date:** {}'.format(date_print))
+            date_open = meta.get('date_open','')
+            if date_open!='':
+                # Format YYYYMMDD
+                r = parent.convert_date(date_open)
+                if r['return']>0: return r
+                st.markdown('* **Open date:** {}'.format(r['string']))
 
-            deadline_print = meta.get('deadline_print','')
-            if deadline_print!='':
-                st.markdown('* **Deadline:** {}'.format(deadline_print))
+            date_close = meta.get('date_close','')
+            if date_close!='':
+                # Format YYYYMMDD
+                r = parent.convert_date(date_close)
+                if r['return']>0: return r
+                st.markdown('* **Close date:** {}'.format(r['string']))
 
             urls = meta.get('urls',[])
             url = meta.get('url', '')

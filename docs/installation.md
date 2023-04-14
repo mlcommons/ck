@@ -124,7 +124,7 @@ Path to CM repositories:    /home/user/CM
 GitHub for CM developments:        https://github.com/mlcommons/ck/tree/master/cm
 GitHub for CM automation scripts:  https://github.com/mlcommons/ck/tree/master/cm-mlops
 Reporting issues and ideas:        https://github.com/mlcommons/ck/issues
-Joining the open MLPerf workgroup: http://bit.ly/mlperf-edu-wg
+Joining the open MLPerf workgroup: https://cKnowledge.org/mlcommons-taskforce
 ```
 
 
@@ -135,8 +135,8 @@ You can use the following environment variables to customize CM installation:
 * `'CM_REPOS'` - change path to the CM repositories and *repos.json* file.
 
   By default, CM will keep CM repositories in:
-  * *$HOME/CM* directory on Linux and MacOS
-  * *%USERPROFILE%\CM* directory on Windows
+  * `$HOME/CM` directory on Linux and MacOS
+  * `%USERPROFILE%\CM` directory on Windows
 
 * `'CM_CONFIG'` - provide full path to a JSON or YAML file with the CM configuration.
   The content of this file will be merged with the ["cfg" dictionary](https://github.com/mlcommons/ck/blob/master/cm/cmind/config.py#L23)

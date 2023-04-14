@@ -2,8 +2,8 @@
   "alias": "optimize-mlperf-inference-v3.1-kilt-2023",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20230701",
-  "date_print": "July 1, 2023",
+  "date_close": "20230701",
+  "date_open": "20230501",
   "tags": [
     "optimize",
     "reproduce",
@@ -16,6 +16,7 @@
     "mlperf-inference-kilt-v3.1-2023",
     "v3.1"
   ],
-  "title": "Prepare, optimize, reproduce and submit results for MLPerf inference v3.1 benchmarks with KILT and compare with MLCommons MITL",
-  "uid": "518420b0e6dd4fed"
+  "title": "Run and optimize MLPerf inference v3.1 benchmarks with KILT and compare with MLCommons MITL",
+  "uid": "518420b0e6dd4fed",
+  "under_preparation": true
 }

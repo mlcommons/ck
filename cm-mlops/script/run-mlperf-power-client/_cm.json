@@ -26,8 +26,7 @@
       "names": [
         "power-src"
       ],
-      "tags": "get,mlperf,power,src",
-      "version": "v3.0"
+      "tags": "get,mlperf,power,src"
     }
   ],
   "input_mapping": {

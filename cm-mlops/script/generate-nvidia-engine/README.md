@@ -43,21 +43,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=generate,engine,mlperf,inference,nvidia(,variations from below) (flags from below)`
+1. `cm run script --tags=generate,engine,mlperf,inference,nvidia[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "generate engine mlperf inference nvidia[,variations]" [--input_flags]`
 
-`cm run script "generate engine mlperf inference nvidia (variations from below)" (flags from below)`
+3. `cm run script 0eef9f05b272401f [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 0eef9f05b272401f`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -158,7 +162,7 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**output_dir**=value --> **CM_MLPERF_OUTPUT_DIR**=value
+* `--output_dir=value`  &rarr;  `CM_MLPERF_OUTPUT_DIR=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -173,18 +177,21 @@ r=cm.access({... , "output_dir":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_BATCH_COUNT: **1**
-* CM_BATCH_SIZE: **1**
-* CM_LOADGEN_SCENARIO: **Offline**
-* CM_GPU_COPY_STREAMS: **1**
-* CM_TENSORRT_WORKSPACE_SIZE: **4194304**
+* CM_BATCH_COUNT: `1`
+* CM_BATCH_SIZE: `1`
+* CM_LOADGEN_SCENARIO: `Offline`
+* CM_GPU_COPY_STREAMS: `1`
+* CM_TENSORRT_WORKSPACE_SIZE: `4194304`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-nvidia-engine/_cm.yaml)***
      * detect,os
@@ -234,15 +241,17 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-nvidia-engine/_cm.yaml)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-nvidia-engine/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/generate-nvidia-engine/_cm.yaml)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_DATASET_***
-* **CM_MLPERF_***
+* `CM_DATASET_*`
+* `CM_MLPERF_*`
 #### New environment keys auto-detected from customize
 
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

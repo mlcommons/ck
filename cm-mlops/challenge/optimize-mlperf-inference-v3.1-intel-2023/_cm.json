@@ -1,0 +1,22 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1-intel-2023",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230701",
+  "date_open": "20230501",
+  "tags": [
+    "optimize",
+    "reproduce",
+    "benchmark",
+    "intel",
+    "mlperf-inference",
+    "mlperf-inference-intel",
+    "mlperf-inference-intel",
+    "mlperf-inference-intel-v3.1",
+    "mlperf-inference-intel-v3.1-2023",
+    "v3.1"
+  ],
+  "title": "Run and optimize MLPerf inference v3.1 benchmarks on Intel-based platforms",
+  "uid": "ffefa5622bf34d36",
+  "under_preparation": true
+}

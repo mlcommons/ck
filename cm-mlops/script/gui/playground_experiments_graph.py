@@ -33,7 +33,7 @@ def page(st, params, parent, experiment):
          <center>
           <small><a href="{}"><i>Self link</i></a></small>
          </center>
-         '''.format(parent.make_url(meta['alias'], action='experiments', md=False))
+         '''.format(parent.make_url(meta['uid'], action='experiments', md=False))
 
     name = meta.get('title', meta['alias'].replace('--',','))
 
@@ -67,6 +67,8 @@ def page(st, params, parent, experiment):
 
     x = 'experiment set(s)' if result_uid=='' else 'result'
 
+    show_optional = True if result_uid=='' and len(results)>1 else False
+
     st.write('''
              <center>
               <i>Visualizing {} {} from the community</i>
@@ -76,8 +78,10 @@ def page(st, params, parent, experiment):
              unsafe_allow_html=True
              )
 
-#    derived_metrics = params.get('derived_metrics',[''])[0].strip()
-#    derived_metrics_value = st.text_input("Optional: add derived metrics in Python (example: result['Accuracy2']=result['Acuracy']*2):", value = derived_metrics).strip()
+    derived_metrics_value = params.get('derived_metrics',[''])[0].strip()
+    if derived_metrics_value!='' or show_optional:
+        derived_metrics_value = st.text_input("Optional: add derived metrics in Python (example: result['Accuracy2']=result['Acuracy']*2):", 
+                                              value = derived_metrics_value).strip()
 
     error_shown2 = False
     for path_to_result in results:
@@ -87,13 +91,13 @@ def page(st, params, parent, experiment):
         result_meta = r['meta']
 
         for result in result_meta:
-#            if derived_metrics_value!='':
-#                try:
-#                   exec(derived_metrics_value)
-#                except Exception as e:
-#                   if not error_shown2:
-#                       st.markdown('*Syntax error in derived metrics: {}*'.format(e))
-#                       error_shown2 = True
+            if derived_metrics_value!='':
+                try:
+                   exec(derived_metrics_value)
+                except Exception as e:
+                   if not error_shown2:
+                       st.markdown('*Syntax error in derived metrics: {}*'.format(e))
+                       error_shown2 = True
 
             all_values.append(result)
 
@@ -101,30 +105,31 @@ def page(st, params, parent, experiment):
                 if k not in keys:
                     keys.append(k)
 
-#    filter_value = params.get('filter',[''])[0].strip()
-#    filter_value = st.text_input("Optional: add result filter in Python (example: result['Accuracy']>75):", value = filter_value).strip()
-#
-#    st.markdown('---')
+    filter_value = params.get('filter',[''])[0].strip()
+    if filter_value!='' or show_optional:
+        filter_value = st.text_input("Optional: add result filter in Python (example: result['Accuracy']>75):", value = filter_value).strip()
+
+        st.markdown('---')
 
     # all_values is a list of dictionaries with all keys
     error_shown=False
     for result in all_values:
 
-#        if filter_value!='':
-#            try:
-#               if not eval(filter_value):
-#                   continue
-#            except Exception as e:
-#               if not error_shown:
-#                   st.markdown('*Syntax error in filter: {}*'.format(e))
-#                   error_shown = True
+        if filter_value!='':
+            try:
+               if not eval(filter_value):
+                   continue
+            except Exception as e:
+               if not error_shown:
+                   st.markdown('*Syntax error in filter: {}*'.format(e))
+                   error_shown = True
 
         # Check if 1 result UID is selected
         if result_uid!='' and result.get('uid','')!=result_uid:
             continue
 
         data = []
-        for k in sorted(keys):
+        for k in sorted(keys, key=lambda s: s.lower()):
             data.append(result.get(k))
 
         all_data.append(data)
@@ -148,7 +153,7 @@ def page(st, params, parent, experiment):
         result = {}
 
         j=0
-        for k in sorted(keys):
+        for k in sorted(keys, key=lambda x: x.lower()):
             result[k] = data[j]
             j+=1
 
@@ -207,7 +212,7 @@ def page(st, params, parent, experiment):
     axis_key_c=''
 
     if len(keys)>0:
-        keys = [''] + keys
+        keys = [''] + sorted(keys, key=lambda s: s.lower())
 
         q_axis_key_x = params.get('x',[''])
         if len(q_axis_key_x)>0:
@@ -273,14 +278,14 @@ def page(st, params, parent, experiment):
 
         t = 0
         for result in values:
-#            if filter_value!='':
-#                try:
-#                   if not eval(filter_value):
-#                       continue
-#                except Exception as e:
-#                   if not error_shown:
-#                       st.markdown('*Syntax error in filter: {}*'.format(e))
-#                       error_shown = True
+            if filter_value!='':
+                try:
+                   if not eval(filter_value):
+                       continue
+                except Exception as e:
+                   if not error_shown:
+                       st.markdown('*Syntax error in filter: {}*'.format(e))
+                       error_shown = True
 
             v = result
 
@@ -348,7 +353,7 @@ def page(st, params, parent, experiment):
 
         df = pd.DataFrame(
           all_data,
-          columns=(k for k in sorted(keys) if k!='')
+          columns=(k for k in sorted(keys, key=lambda s: s.lower()) if k!='')
         )
 
         st.markdown('---')

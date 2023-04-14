@@ -23,6 +23,7 @@ design space exploration and deployment across continuously changing software an
 * [Detection or installation of tools and artifacts](#detection-or-installation-of-tools-and-artifacts)
 * [Docker automation](#docker-automation)
 * [GUI](#gui)
+* [IPOL reproducibility](#ipol-reproducibility)
 * [Legacy CK support](#legacy-ck-support)
 * [ML/AI datasets](#mlai-datasets)
 * [ML/AI frameworks](#mlai-frameworks)
@@ -34,6 +35,7 @@ design space exploration and deployment across continuously changing software an
 * [Platform information](#platform-information)
 * [Python automation](#python-automation)
 * [Remote automation](#remote-automation)
+* [Reproducible papers](#reproducible-papers)
 * [Tests](#tests)
 * [TinyML automation](#tinyml-automation)
 
@@ -245,6 +247,14 @@ design space exploration and deployment across continuously changing software an
 * [print-python-version](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-python-version)
 * [test-set-sys-user-cm](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/test-set-sys-user-cm)
 
+### IPOL reproducibility
+
+* [app-ipol-reproducibility-2022-439](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439)
+
+### Reproducible papers
+
+* [get-ipol-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src)
+
 
 # List of all sorted CM scripts 
 
@@ -255,6 +265,7 @@ design space exploration and deployment across continuously changing software an
 * [app-image-classification-torch-py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-torch-py)
 * [app-image-classification-tvm-onnx-py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-classification-tvm-onnx-py)
 * [app-image-corner-detection](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-image-corner-detection)
+* [app-ipol-reproducibility-2022-439](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-ipol-reproducibility-2022-439)
 * [app-loadgen-generic-python](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-loadgen-generic-python)
 * [app-mlperf-inference](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference)
 * [app-mlperf-inference-cpp](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/app-mlperf-inference-cpp)
@@ -304,6 +315,7 @@ design space exploration and deployment across continuously changing software an
 * [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
 * [get-github-cli](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-github-cli)
 * [get-go](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-go)
+* [get-ipol-src](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ipol-src)
 * [get-java](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-java)
 * [get-javac](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-javac)
 * [get-lib-armnn](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-lib-armnn)
@@ -398,4 +410,4 @@ design space exploration and deployment across continuously changing software an
 
 # Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)'
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)'

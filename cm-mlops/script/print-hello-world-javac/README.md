@@ -39,21 +39,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=print,hello world,hello-world,hello,world,java(,variations from below) (flags from below)`
+1. `cm run script --tags=print,hello world,hello-world,hello,world,java `
 
-*or*
+2. `cm run script "print hello world hello-world hello world java" `
 
-`cm run script "print hello world hello-world hello world java (variations from below)" (flags from below)`
+3. `cm run script 040fafd538104819 `
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 040fafd538104819`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -99,13 +103,16 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-json/_cm.json)***
      * detect,os
@@ -121,6 +128,8 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-json/_cm.json)
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/print-hello-world-json/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
@@ -130,4 +139,4 @@ ___
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

@@ -187,7 +187,7 @@ def doc(i):
         # Add maintainers
         md_script_readme.append('### Maintainers')
         md_script_readme.append('')
-        md_script_readme.append('* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)')
+        md_script_readme.append('* [Open MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce)')
 
 
         # Check README and if it's already automatically generated

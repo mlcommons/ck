@@ -12,6 +12,7 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Variations](#variations)
+  * [ Script flags mapped to environment](#script-flags-mapped-to-environment)
   * [ Default environment](#default-environment)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
@@ -40,21 +41,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=get,ml-model,model,zoo,model-zoo,huggingface(,variations from below) (flags from below)`
+1. `cm run script --tags=get,ml-model,model,zoo,model-zoo,huggingface[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "get ml-model model zoo model-zoo huggingface[,variations]" [--input_flags]`
 
-`cm run script "get ml-model model zoo model-zoo huggingface (variations from below)" (flags from below)`
+3. `cm run script 53cf8252a443446a [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script 53cf8252a443446a`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -113,12 +118,27 @@ ___
 
     </details>
 
+
+#### Script flags mapped to environment
+<details>
+<summary>Click here to expand this section.</summary>
+
+* `--model_filename=value`  &rarr;  `CM_MODEL_ZOO_FILENAME=value`
+
+**Above CLI flags can be used in the Python CM API as follows:**
+
+```python
+r=cm.access({... , "model_filename":...}
+```
+
+</details>
+
 #### Default environment
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
 
 </details>
@@ -126,11 +146,14 @@ These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json
 ___
 ### Script workflow, dependencies and native scripts
 
+<details>
+<summary>Click here to expand this section.</summary>
+
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)***
      * get,python3
        * CM names: `--adr.['python3', 'python']...`
        - CM script: [get-python3](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-python3)
-     * get,generic-python-lib,_setfit
+     * get,generic-python-lib,_huggingface_hub
        - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
@@ -139,15 +162,17 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
   1. Run "postrocess" function from customize.py
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-ml-model-huggingface-zoo/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
 
-* **CM_ML_MODEL***
-* **CM_MODEL_ZOO_STUB**
+* `CM_ML_MODEL*`
+* `CM_MODEL_ZOO_STUB`
 #### New environment keys auto-detected from customize
 
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)

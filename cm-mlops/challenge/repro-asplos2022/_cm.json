@@ -2,8 +2,8 @@
   "alias": "repro-asplos2022",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date": "20220401",
-  "date_print": "April 1, 2022",
+  "date_close": "20220401",
+  "date_open": "20220401",
   "tags": [
     "reproduce",
     "papers",

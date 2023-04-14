@@ -123,21 +123,25 @@ ___
 
 [Guide](https://github.com/mlcommons/ck/blob/master/docs/installation.md)
 
-#### CM script automation help
+##### CM pull repository
+
+```cm pull repo mlcommons@ck```
+
+##### CM script automation help
 
 ```cm run script --help```
 
 #### CM CLI
 
-`cm run script --tags=run,mobilenet,models,image-classification,mobilenet-models,mlperf,inference(,variations from below) (flags from below)`
+1. `cm run script --tags=run,mobilenet,models,image-classification,mobilenet-models,mlperf,inference[,variations] [--input_flags]`
 
-*or*
+2. `cm run script "run mobilenet models image-classification mobilenet-models mlperf inference[,variations]" [--input_flags]`
 
-`cm run script "run mobilenet models image-classification mobilenet-models mlperf inference (variations from below)" (flags from below)`
+3. `cm run script f21cc993a8b14a58 [--input_flags]`
 
-*or*
+* `variations` can be seen [here](#variations)
 
-`cm run script f21cc993a8b14a58`
+* `input_flags` can be seen [here](#script-flags-mapped-to-environment)
 
 #### CM Python API
 
@@ -307,12 +311,12 @@ ___
 <details>
 <summary>Click here to expand this section.</summary>
 
-* --**find-performance**=value --> **CM_MLPERF_FIND_PERFORMANCE_MODE**=value
-* --**no-rerun**=value --> **CM_MLPERF_NO_RERUN**=value
-* --**power**=value --> **CM_MLPERF_POWER**=value
-* --**results_dir**=value --> **CM_MLPERF_RESULTS_DIR**=value
-* --**submission**=value --> **CM_MLPERF_SUBMISSION_MODE**=value
-* --**submission_dir**=value --> **CM_MLPERF_SUBMISSION_DIR**=value
+* `--find-performance=value`  &rarr;  `CM_MLPERF_FIND_PERFORMANCE_MODE=value`
+* `--no-rerun=value`  &rarr;  `CM_MLPERF_NO_RERUN=value`
+* `--power=value`  &rarr;  `CM_MLPERF_POWER=value`
+* `--results_dir=value`  &rarr;  `CM_MLPERF_RESULTS_DIR=value`
+* `--submission=value`  &rarr;  `CM_MLPERF_SUBMISSION_MODE=value`
+* `--submission_dir=value`  &rarr;  `CM_MLPERF_SUBMISSION_DIR=value`
 
 **Above CLI flags can be used in the Python CM API as follows:**
 
@@ -327,18 +331,21 @@ r=cm.access({... , "find-performance":...}
 <details>
 <summary>Click here to expand this section.</summary>
 
-These keys can be updated via --env.KEY=VALUE or "env" dictionary in @input.json or using script flags.
+These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.json` or using script flags.
 
-* CM_MLPERF_RUN_MOBILENETS: **no**
-* CM_MLPERF_RUN_EFFICIENTNETS: **no**
-* CM_MLPERF_NO_RERUN: **no**
-* CM_MLPERF_RUN_FP32: **yes**
-* CM_MLPERF_RUN_INT8: **yes**
+* CM_MLPERF_RUN_MOBILENETS: `no`
+* CM_MLPERF_RUN_EFFICIENTNETS: `no`
+* CM_MLPERF_NO_RERUN: `no`
+* CM_MLPERF_RUN_FP32: `yes`
+* CM_MLPERF_RUN_INT8: `yes`
 
 </details>
 
 ___
 ### Script workflow, dependencies and native scripts
+
+<details>
+<summary>Click here to expand this section.</summary>
 
   1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-mobilenet-models/_cm.json)***
      * get,sys-utils-cm
@@ -350,6 +357,8 @@ ___
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-mobilenet-models/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-mobilenet-models/customize.py)***
   1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/run-mlperf-inference-mobilenet-models/_cm.json)
+</details>
+
 ___
 ### Script output
 #### New environment keys (filter)
@@ -359,4 +368,4 @@ ___
 ___
 ### Maintainers
 
-* [Open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+* [Open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
