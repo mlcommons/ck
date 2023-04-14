@@ -39,8 +39,8 @@ else:
 
         print('TVM shape list: '+str(shape_list))
 
-        x=os.environ.get('CM_MLPERF_TVM_TORCH_QUANTIZED_ENGINE','')
-        if x!='':
+        x = os.environ.get('CM_MLPERF_TVM_TORCH_QUANTIZED_ENGINE', '')
+        if x != '':
             torch.backends.quantized.engine = x
 
         if model_path.endswith('.pt'):
@@ -203,8 +203,8 @@ else:
                 lib = relay.build(mod, target=tvm_target, params=params)
 
     if use_vm:
-        temp_directory = tempfile.mkdtemp(dir=os.getcwd(), suffix="-tvm-tmp")
-        path_consts = os.path.join(temp_directory, "consts")
+        path_consts = os.path.join(tempfile.mkdtemp(
+            dir=os.getcwd(), suffix="-tvm-tmp"), "consts")
         code_path = os.path.join(os.getcwd(), "vm_exec_code.ro")
 
         vm_exec.move_late_bound_consts(path_consts, byte_limit=256)
