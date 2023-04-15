@@ -29,7 +29,7 @@ When organizing [artifact evaluation at ML and Systems conferences](https://cTun
 we have noticed that researchers and engineers spent most of the time 
 trying to understand numerous technical reports, README files, specifications, dependencies, 
 ad-hoc scripts, tools, APIs, models and data sets of all shared projects 
-to be able to [validate experimental, benchmarking and optimization results](https://cknowledge.io/?q=%22reproduced-papers%22) 
+to be able to [validate experimental, benchmarking and optimization results](https://cknow.io/?q=%22reproduced-papers%22) 
 and adapt ad-hoc projects to the real world with very diverse 
 software, hardware, user environments, settings and data.
 

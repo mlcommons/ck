@@ -873,7 +873,7 @@ See extension projects to enable collaborative benchmarking, design space explor
 
 # Authors
 
-* [Grigori Fursin](https://cKnowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (OctoML, MLCommons, cTuning foundation)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
 
 

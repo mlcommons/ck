@@ -34,9 +34,9 @@ Speech               | [CK &#177;](tasks/task-speech-pytorch.md) |  |  |  |  |  
 * [Notes about datasets](../datasets/README.md)
 * [Notes about models (issues, quantization, etc)](../models/notes.md)
 
-* DLRM: [notes](dlrm.md), [CK packages](https://cknowledge.io/?q=module_uoa%3A%22program%22+AND+dlrm), [CK workflows](https://cknowledge.io/?q=module_uoa%3A%22program%22+AND+dlrm)
-* [Search for CK program workflows with "mlperf"](https://cknowledge.io/?q=module_uoa%3A%22program%22+AND+mlperf)
-* [Search for CK program workflows with "loadgen"](https://cknowledge.io/?q=module_uoa%3A%22program%22+AND+loadgen)
+* DLRM: [notes](dlrm.md), [CK packages](https://cknow.io/?q=module_uoa%3A%22program%22+AND+dlrm), [CK workflows](https://cknow.io/?q=module_uoa%3A%22program%22+AND+dlrm)
+* [Search for CK program workflows with "mlperf"](https://cknow.io/?q=module_uoa%3A%22program%22+AND+mlperf)
+* [Search for CK program workflows with "loadgen"](https://cknow.io/?q=module_uoa%3A%22program%22+AND+loadgen)
 
 # Feedback
 * Contact: grigori@octoml.ai

@@ -7,12 +7,12 @@
 # CK based object detection DSE 
 
 * [Jupyter notebook](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb)
-* [CK dashboard](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
+* [CK dashboard](https://cknow.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
 
 # ACM ASPLOS REQUEST DSE tournament
 
-* [event and report](https://cknowledge.io/c/event/repro-request-asplos2018)
-* [CK dashboard](https://cknowledge.io/c/result/pareto-efficient-ai-co-design-tournament-request-acm-asplos-2018)
+* [event and report](https://cknow.io/c/event/repro-request-asplos2018)
+* [CK dashboard](https://cknow.io/c/result/pareto-efficient-ai-co-design-tournament-request-acm-asplos-2018)
 
 To run locally:
 ```

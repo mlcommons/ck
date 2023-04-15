@@ -4,7 +4,7 @@
   "automation_uid": "5b4e0237da074764",
   "category": "Python automation",
   "category_sort": 1000,
-  "developers": "[Grigori Fursin](https://cKnowledge.io/@gfursin)",
+  "developers": "[Grigori Fursin](https://cKnowledge.org/gfursin)",
   "name": "Activate virtual Python environment",
   "prehook_deps": [
     {

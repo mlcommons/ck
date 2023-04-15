@@ -127,5 +127,5 @@ docker run -it --rm resnet50_onnxruntime:ubuntu20.04 -c "cm run script --tags=ap
 # Developers
 
 [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh), 
-[Grigori Fursin]( https://cKnowledge.io/@gfursin ) 
+[Grigori Fursin]( https://cKnowledge.org/gfursin ) 
 and [individual contributors](https://github.com/mlcommons/ck/blob/master/CONTRIBUTING.md).

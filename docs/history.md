@@ -9,7 +9,7 @@ and automating [MLPerf benchmarks](https://mlcommons.org).
 We have spent many months communicating with researchers and developers
 to understand their technical reports, README files, ad-hoc scripts, tools, command lines, APIs,
 specifications, dependencies, data formats, models and data 
-to be able to [reproduce their experiments](https://cknowledge.io/?q=%22reproduced-papers%22) 
+to be able to [reproduce their experiments](https://cknow.io/?q=%22reproduced-papers%22) 
 and reuse their artifacts across continuously changing software, hardware and data.
 
 ![](https://cKnowledge.org/images/cm-gap-beween-mlsys-research-and-production.png?id=1)

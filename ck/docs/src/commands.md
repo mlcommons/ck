@@ -1,8 +1,8 @@
 # CK CLI and API
 
-Most of the CK functionality is implemented using [CK modules](https://cKnowledge.io/modules) 
-with [automation actions]( https://cKnowledge.io/actions ) and associated 
-[CK entries (components)]( https://cKnowledge.io/browse ).
+Most of the CK functionality is implemented using [CK modules](https://cknow.io/modules) 
+with [automation actions]( https://cknow.io/actions ) and associated 
+[CK entries (components)]( https://cknow.io/browse ).
 
 Here we describe the main CK functionality to manage repositories, modules, and actions.
 Remember that you can see all flags for a given automation action from the command line as follows:
@@ -28,8 +28,8 @@ ck {action} ... @input.yaml
 
 ## CLI to manage CK repositories
 
-* Automation actions are implemented using the internal CK module [*repo*]( https://cknowledge.io/c/module/repo ).
-* See the list of all automation actions and their API at [cKnowledge.io platform]( https://cknowledge.io/c/module/repo/#api ).
+* Automation actions are implemented using the internal CK module [*repo*]( https://cknow.io/c/module/repo ).
+* See the list of all automation actions and their API at [cKnowledge.io platform]( https://cknow.io/c/module/repo/#api ).
 
 ### Init new CK repository in the current path
 ```bash
@@ -275,7 +275,7 @@ ck search {CK module} --search_string={string with wildcards}
 ```
 
 Note that CK supports transparent indexing of all CK JSON meta descriptions by [ElasticSearch](https://www.elastic.co) 
-to enable fast search and powerful queries. This mode is used in our [cKnowledge.io platform](https://cKnowledge.io).
+to enable fast search and powerful queries. This mode is used in our [cKnowledge.io platform](https://cknow.io).
 Please check these pages to know how to configure your CK installation with ES:
 * https://github.com/mlcommons/ck/wiki/Customization
 * https://github.com/mlcommons/ck/wiki/Indexing-entries
@@ -524,7 +524,7 @@ For non-internal actions, you can check their API as follows:
  ck {action name} {module name} --help
 ```
 
-You can also check them at the [cKnowledge.io platform](https://cKnowledge.io/modules).
+You can also check them at the [cKnowledge.io platform](https://cknow.io/modules).
 
 When executing the following command
 
@@ -562,7 +562,7 @@ using the *module_deps* key. See an example in the CK module *program*:
 * [how it is used in the CK module program](https://github.com/ctuning/ck-autotuning/blob/master/module/program/module.py#L479)
 
 Such approach also allows us to visualize the growing knowledge graph:
-[interactive graph]( https://cKnowledge.io/kg1 ), 
+[interactive graph]( https://cknow.io/kg1 ), 
 [video](https://youtu.be/nabXHyot5is).
 
 Finally, a given CK module has an access to the 3 dictionaries:

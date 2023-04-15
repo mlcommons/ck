@@ -27,7 +27,7 @@ python -m pip install cbench
 
 ## Initialize demo solution
 
-This is a prototype of [CK-based ML solutions](https://cknowledge.io/docs/intro/introduction.html#portable-ck-solution)
+This is a prototype of [CK-based ML solutions](https://cknow.io/docs/intro/introduction.html#portable-ck-solution)
 to simplify ML deployment.
 
 
@@ -56,7 +56,7 @@ cb start
 
 ## Go the cKnowledge.io webpage with camera
 
-https://cknowledge.io/c/solution/demo-webcam-mlperf-obj-detection-coco-tf-cpu-linux
+https://cknow.io/c/solution/demo-webcam-mlperf-obj-detection-coco-tf-cpu-linux
 
 Click on "Start webcam"
 

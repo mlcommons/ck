@@ -80,7 +80,7 @@ Speech               | [CK &#177;](tasks/task-speech-pytorch.md) |  |  |  |  |  
 
 See other CK packages with open source datasets shared by the community 
 (to be standardized and connected with the new submission system):
-[View](https://cknowledge.io/?q=%22package%3Adataset-*%22)
+[View](https://cknow.io/?q=%22package%3Adataset-*%22)
 
 ## CK packages with ML models used for MLPerf submissions
 
@@ -96,7 +96,7 @@ See other CK packages with open source datasets shared by the community
 
 ## Customizable dashboards
 
-* [All aggregated MLPerf inference benchmark results](https://cknowledge.io/?q=%22mlperf-inference-all%22)
+* [All aggregated MLPerf inference benchmark results](https://cknow.io/?q=%22mlperf-inference-all%22)
 
 # Table of contents
 
@@ -122,8 +122,8 @@ See other CK packages with open source datasets shared by the community
 * [MLPerf&trade; object detection workflow](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/tasks/task-object-detection.md)
 * [Docker image for MLPerf&trade; with OpenVINO]( https://github.com/mlcommons/ck-mlops/tree/main/docker/mlperf-inference-v0.7.openvino)
 * [Jupyter notebook for ML DSE](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/f28u9epifr0nn09/ck-dse-demo-object-detection.ipynb)
-* [Webcam test of the MLPerf object detection model with TFLite](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-webcam-linux-azure#test)
-* [Public scoreboard with MLPerf DSE](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
+* [Webcam test of the MLPerf object detection model with TFLite](https://cknow.io/solution/demo-obj-detection-coco-tf-cpu-webcam-linux-azure#test)
+* [Public scoreboard with MLPerf DSE](https://cknow.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
 
 
 # Further improvements

@@ -36,4 +36,4 @@ See the full list [here](https://github.com/mlcommons/ck/blob/master/CONTRIBUTIN
 ## Maintainers
 
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
-* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (OctoML, MLCommons, cTuning foundation)
