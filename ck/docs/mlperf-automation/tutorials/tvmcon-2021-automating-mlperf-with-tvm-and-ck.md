@@ -41,8 +41,8 @@ hardware.
       [ArXiv](https://arxiv.org/abs/2011.01149),
       [automation actions](https://github.com/mlcommons/ck/tree/master/ck/repo/module),
       [MLOps components](https://github.com/mlcommons/ck-mlops)
-    * [ACM REQUEST-ASPLOS'18: the 1st Reproducible Tournament on Pareto-efficient Image Classification](https://cknowledge.io/c/event/repro-request-asplos2018)
-      * [Live scoreboard](https://cknowledge.io/c/result/pareto-efficient-ai-co-design-tournament-request-acm-asplos-2018)
+    * [ACM REQUEST-ASPLOS'18: the 1st Reproducible Tournament on Pareto-efficient Image Classification](https://cknow.io/c/event/repro-request-asplos2018)
+      * [Live scoreboard](https://cknow.io/c/result/pareto-efficient-ai-co-design-tournament-request-acm-asplos-2018)
     * [CK-based MLPerf automation](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation)
 
     ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/mlperf-ck-automation.png)
@@ -50,7 +50,7 @@ hardware.
     ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/mlperf-ck-dse.png)
     ![](https://raw.githubusercontent.com/ctuning/ck-guide-images/master/mlperf-ck-dse-pareto.png)
 
-    * [cKnowledge.io dashboard with reproducible results](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
+    * [cKnowledge.io dashboard with reproducible results](https://cknow.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
 
 * OctoML's MLPerf inference submission v1.1:
 

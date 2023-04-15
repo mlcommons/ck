@@ -21,7 +21,7 @@ that are based on our portable and customizable CK workflow:
 
 ## Initialize a new CK repository in the current directory (can be existing Git repo)
 
-If you plan to contribute to already [existing CK repositories]( http://cKnowledge.io/repos )
+If you plan to contribute to already [existing CK repositories]( http://cknow.io/repos )
 you can skip this subsection. Otherwise, you need to manually create a new CK repository.
 
 You need to choose some user friendly name such as "my-new-repo" 
@@ -124,7 +124,7 @@ Whenever someones pull your repository, CK will automatically pull all other req
 You are now ready to add a new CK workflow to compile and run some algorithm or a benchmark in a unified way.
 
 Since CK concept is about reusing and extending existing components with a common API similar to Wikipedia,
-we suggest you to look at [this index]( https://cKnowledge.io/programs ) of shared CK programs
+we suggest you to look at [this index]( https://cknow.io/programs ) of shared CK programs
 in case someone have already shared a CK workflows for the same or similar program!
 
 If you found a similar program, for example "image-corner-detection" 
@@ -359,7 +359,7 @@ from the Student Cluster Competition'18.
 ## Update software dependencies
 
 If you new program rely on extra software dependencies (compilers, libraries, models, datasets)
-you must first find the ones you need in this [online index](https://cKnowledge.io/soft)
+you must first find the ones you need in this [online index](https://cknow.io/soft)
 of software detection plugins. You can then specify the tags and versions either using 
 *compile_deps* or *run_deps* keys in the *meta.json* of your new program as follows:
 
@@ -431,7 +431,7 @@ to a user environment.
 
 We have developed a simple mechanism in the CK workflow to reuse basic (small) datasets such a individual images. 
 
-You can find already shared datasets using this [online index]( https://cknowledge.io/c/dataset ).
+You can find already shared datasets using this [online index]( https://cknow.io/c/dataset ).
 
 If you want to reuse them in your program workflow, you can find the related one,
 check its tags (see the [meta.json](https://github.com/ctuning/ck-autotuning/blob/master/dataset/image-jpeg-fgg/.cm/meta.json) 
@@ -485,10 +485,10 @@ For example one may need a different procedure when using TensorFlow or PyTorch 
 ## Add new CK software detection plugins
 
 If CK software plugin doesn't exist for a given code, data, or models, 
-you can add a new one either in your own repository or in [already existing ones](https://cKnowledge.io/repos).
+you can add a new one either in your own repository or in [already existing ones](https://cknow.io/repos).
 
 We suggest you to find the most close software detection plugin using 
-[this online index](http://cKnowledge.io/soft),
+[this online index](http://cknow.io/soft),
 pull this repository, and make a copy in your repository as follows:
 
 ```bash
@@ -643,7 +643,7 @@ Whenever a required software is not found, CK will automatically search
 for existing packages with the same tags for a given target 
 in all installed CK repositories.
 
-[CK package module]( https://cKnowledge.io/c/module/package ) provides a unified JSON API 
+[CK package module]( https://cknow.io/c/module/package ) provides a unified JSON API 
 to automatically download, install, and potentially rebuild a given package
 (software, datasets, models, etc) in a portable way across Linux, Windows, MacOS, Android,
 and other supported platforms. It is also a unified front-end for other
@@ -658,9 +658,9 @@ In such case, you may be interested to provide a new CK package to be reused eit
 or by the broad community to automate the installation.
 
 Similar to adding CK software detection plugins, you must first find the most close package 
-from this [online index](https://cKnowledge.io/packages), download it,
+from this [online index](https://cknow.io/packages), download it,
 and make a new copy in your repository unless you want to share it immediately with the community
-in already [existing CK repositories]( https://cKnowledge.io/repos ).
+in already [existing CK repositories]( https://cknow.io/repos ).
 
 For example, let's copy a CK protobuf package that downloads a given protobuf version in a tgz archive 
 and uses cmake to build it:
@@ -779,7 +779,7 @@ as example:
 Note that we described only a small part of all available functions of
 the CK package manager that we have developed in collaboration with our [http://cKnowledge.org/partners.html partners and users].
 We continue documenting them and started working on a user-friendly GUI
-to add new software and packages via web. You can try it [here](https://cknowledge.io/add-artifact).
+to add new software and packages via web. You can try it [here](https://cknow.io/add-artifact).
 
 
 
@@ -849,7 +849,7 @@ One of the CK goals is to be a plug&play connector between non-portable workflow
 CK can work both in native environments and containers. While portable CK workflows can fail
 in the latest environment, they will work fine inside a container with a stable environment.
 
-We have added the CK module [*docker*]( https://cKnowledge.io/c/module/docker ) 
+We have added the CK module [*docker*]( https://cknow.io/c/module/docker ) 
 to make it easier to build, share, and run Docker descriptions.
 Please follow the Readme in the [ck-docker]( https://github.com/ctuning/ck-docker ) for more details.
 
@@ -995,7 +995,7 @@ where results can be automatically updated by the community. The stable snapshot
 can still be published as a [traditional PDF paper](https://arxiv.org/abs/1801.08024).
 
 However, it is still a complex process. We have started documenting this functionality [here](https://github.com/ctuning/ck/wiki/Interactive-articles)
-and plan to gradually improve it. When we have more resources, we plan to add a web-based GUI to the [cKnowledge.io platform](https://cKnowledge.io)
+and plan to gradually improve it. When we have more resources, we plan to add a web-based GUI to the [cknow.io platform](https://cknow.io)
 to make it easier to create such live, reproducible, and interactive articles.
 
 
@@ -1006,9 +1006,9 @@ to make it easier to create such live, reproducible, and interactive articles.
 
 ## Publish CK repositories, workflows, and components
 
-We are developing an open [cKnowledge.io platform](https://cKnowledge.io) to let users
+We are developing an open [cKnowledge.io platform](https://cknow.io) to let users
 share and reuse CK repositories, workflows, and components similar to PyPI.
-Please follow [this guide]( https://cKnowledge.io/docs ) to know more.
+Please follow [this guide]( https://cknow.io/docs ) to know more.
 
 
 

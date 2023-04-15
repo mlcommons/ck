@@ -214,4 +214,4 @@ docker run -v /tmp:/tmp -it modularcm/loadgen-generic-python-cpu:ubuntu-22.04 -c
 
 * [Gaz Iqbal](https://www.linkedin.com/in/gaziqbal) (OctoML)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML)
-* [Grigori Fursin](https://cKnowledge.io/@gfursin) (OctoML)
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (OctoML)

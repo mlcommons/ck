@@ -17,7 +17,7 @@ across diverse platforms with continuously changing software and hardware.
 
 [Thomas Zhu](https://www.linkedin.com/in/hanwen-zhu-483614189), 
 [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
-and [Grigori Fursin]( https://cKnowledge.io/@gfursin ).
+and [Grigori Fursin]( https://cKnowledge.org/gfursin ).
 
 
 

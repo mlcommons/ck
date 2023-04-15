@@ -61,9 +61,9 @@ CK repositories are human-readable databases of reusable CK components that can 
 in any local directory and inside containers, pulled from GitHub and similar services, 
 and shared as standard archive files.
 CK components simply wrap user artifacts and provide an extensible JSON meta description
-with [***common automation actions***](https://cKnowledge.io/actions) for related artifacts.
+with [***common automation actions***](https://cknow.io/actions) for related artifacts.
 
-***Automation actions*** are implemented using [***CK modules***]( https://cKnowledge.io/modules ) - Python modules 
+***Automation actions*** are implemented using [***CK modules***]( https://cknow.io/modules ) - Python modules 
 with functions exposed in a unified way via CK API and CLI 
 and using extensible dictionaries for input/output (I/O).
 The use of dictionaries makes it easier to support continuous integration tools
@@ -151,7 +151,7 @@ ck replay experiment:my-test
 
 ```
 
-The [CK program module](https://cKnowledge.io/c/module/program) describes dependencies on software detection plugins 
+The [CK program module](https://cknow.io/c/module/program) describes dependencies on software detection plugins 
 and meta packages using simple tags with version ranges that the community has agreed on:
 
 ```json
@@ -196,10 +196,10 @@ print (r)
 
 Based on the feedback from our users, we have recently developed an open ***CK platform***
 to help the community share CK components, create live scoreboards,
-and participate in collaborative experiments: [https://cKnowledge.io](cKnowledge.io).
+and participate in collaborative experiments: [cKnowledge.io](https://cknow.io).
 
 * We suggest you to read this [nice blog post](https://michel.steuwer.info/About-CK/) from Michel Steuwer about CK basics!
-* You can find a partial list of CK-compatible repositories at [cKnowledge.io/repos](https://cKnowledge.io/repos).
+* You can find a partial list of CK-compatible repositories at [cKnowledge.io/repos](https://cknow.io/repos).
 
 
 
@@ -213,43 +213,43 @@ due to continuously changing software, hardware, models, data sets, and research
 
 The first reason why we have developed CK was to connect our colleagues, students, researchers, and engineers
 from different workgroups to collaboratively solve these problems and decompose complex systems and research projects
-into [reusable, portable, customizable, and non-virtualized CK components](https://cKnowledge.io/browse)
-with unified [automation actions, Python APIs, CLI, and JSON meta description](https://cKnowledge.io/actions).
+into [reusable, portable, customizable, and non-virtualized CK components](https://cknow.io/browse)
+with unified [automation actions, Python APIs, CLI, and JSON meta description](https://cknow.io/actions).
 
 We used CK as a common playground to prototype and test different abstractions and automations of many ML&systems tasks
-in collaboration with our great [academic and industrial partners](https://cKnowledge.io/partners)
+in collaboration with our great [academic and industrial partners](https://cknow.io/partners)
 while agreeing on APIs and meta descriptions of all components.
 Over years the project grew from several core CK modules and abstractions 
-to [150+ CK modules](https://cKnowledge.io/modules) with [600+ actions](https://cknowledge.io/actions)
+to [150+ CK modules](https://cknow.io/modules) with [600+ actions](https://cknow.io/actions)
 automating typical, repetitive, and tedious tasks from ML&systems R&D.
 See this [fun video](https://youtu.be/nabXHyot5is) 
-and the [knowledge graph](https://cKnowledge.io/kg1) 
+and the [knowledge graph](https://cknow.io/kg1) 
 showing the evolution of CK over time.
 
 ![CK evolution](../static/evolution2.png)
 
 For example, CK now features actions for 
-[software detection](https://cKnowledge.io/soft), 
-[package installation](https://cKnowledge.io/packages) 
-and [platform/OS detection](https://cKnowledge.io/c/os)
-to automate the detection and installation of [all the dependencies](https://cknowledge.io/c/solution/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/#dependencies) 
+[software detection](https://cknow.io/soft), 
+[package installation](https://cknow.io/packages) 
+and [platform/OS detection](https://cknow.io/c/os)
+to automate the detection and installation of [all the dependencies](https://cknow.io/c/solution/mlperf-inference-v0.5-detection-openvino-ssd-mobilenet-coco-500-linux/#dependencies) 
 including data sets and models required by different research projects.
 
 Thanks to unified automation actions, APIs, and JSON meta descriptions of such components,
 we could apply the DevOps methodology to connect them
 into platform-agnostic, portable, customizable, and reproducible
-[program pipelines (workflows)](https://cKnowledge.io/programs).
+[program pipelines (workflows)](https://cknow.io/programs).
 Such workflows can automatically adapt to evolving environments, models, data sets, and non-virtualized platforms
 by automatically detecting the properties of a target platform,
-finding all required components on a user platform using [CK software detection plugins](https://cKnowledge.io/soft)
-based on the list of [all dependencies](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies),
-installing missing components using [portable CK meta packages](https://cKnowledge.io/packages),
+finding all required components on a user platform using [CK software detection plugins](https://cknow.io/soft)
+based on the list of [all dependencies](https://cknow.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies),
+installing missing components using [portable CK meta packages](https://cknow.io/packages),
 building and running code, and unifying and testing outputs.
 
 Eventually, CK helped to connect researchers and practitioners to collaboratively co-design, benchmark, optimize, and validate 
-novel AI, ML, and quantum techniques using the [open repository of knowledge](https://cKnowledge.io)
-with [live SOTA scoreboards](https://cKnowledge.io/sota)
-and [reproducible papers](https://cKnowledge.io/reproduced-papers).
+novel AI, ML, and quantum techniques using the [open repository of knowledge](https://cknow.io)
+with [live SOTA scoreboards](https://cknow.io/sota)
+and [reproducible papers](https://cknow.io/reproduced-papers).
 Such scoreboards can be used to find and rebuild the most efficient AI/ML/SW/HW stacks
 on a [Pareto frontier](https://cKnowledge.org/request)
 across diverse platforms from supercomputers to edge devices
@@ -261,10 +261,10 @@ to simplify the integration and adoption of innovative technology in production.
 
 Our goal is to use the CK technology to bring DevOps principles to ML&systems R&D,
 make it more collaborative, reproducible, and reusable, 
-enable portable MLOps, and make it possible to understand [what happens]( https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies ) 
+enable portable MLOps, and make it possible to understand [what happens]( https://cknow.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies ) 
 inside complex and "black box" computational systems.
 
-Our dream is to see portable workflows shared along with new systems, algorithms, and [published research techniques](https://cKnowledge.io/events)
+Our dream is to see portable workflows shared along with new systems, algorithms, and [published research techniques](https://cknow.io/events)
 to be able to quickly test, reuse and compare them across different data sets, models, software, and hardware!
 That is why we support related reproducibility and benchmarking initiatives
 including [artifact evaluation](https://cTuning.org/ae), 
@@ -281,12 +281,12 @@ and [ACM artifact review and badging](https://www.acm.org/publications/policies/
 ## CK platform
 
 
-* [cKnowledge.io](https://cKnowledge.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for complex computational systems (AI,ML,quantum,IoT):
-  * [**Browse all CK ML&systems components**](https://cknowledge.io/?q=mlsystems)
-  * [Browse CK compatible repositories]( https://cknowledge.io/repos )
-  * [Browse SOTA scoreboards powered by CK workflows](https://cKnowledge.io/reproduced-results)
-  * [Browse all shared CK components](https://cKnowledge.io/browse)
-* [Check documentation](https://cKnowledge.io/docs)
+* [cKnowledge.io](https://cknow.io): the open portal with stable CK components, workflows, reproduced papers, and SOTA scoreboards for complex computational systems (AI,ML,quantum,IoT):
+  * [**Browse all CK ML&systems components**](https://cknow.io/?q=mlsystems)
+  * [Browse CK compatible repositories]( https://cknow.io/repos )
+  * [Browse SOTA scoreboards powered by CK workflows](https://cknow.io/reproduced-results)
+  * [Browse all shared CK components](https://cknow.io/browse)
+* [Check documentation](https://cknow.io/docs)
 * [Our reproducibility initiatives for systems and ML conferences](https://cTuning.org/ae)
 
 
@@ -299,28 +299,28 @@ and [ACM artifact review and badging](https://www.acm.org/publications/policies/
 ### CK-powered workflows, automation actions, and reusable artifacts for ML&systems R&D
 
 * [Real-world use-cases](https://cKnowledge.org/partners)
-* Reproducibility initiatives: [[methodology](https://cTuning.org/ae)], [[events](https://cKnowledge.io/events)]
+* Reproducibility initiatives: [[methodology](https://cTuning.org/ae)], [[events](https://cknow.io/events)]
 * Showroom (public projects powered by CK):
   * [MLPerf&trade; automation suite](https://github.com/mlcommons/ck-mlops)
   * Student Cluster Competition automation: [SCC18](https://github.com/ctuning/ck-scc18), [digital artifacts](https://github.com/ctuning/ck-scc)
-  * ML-based autotuning project: [reproducible paper demo](https://cKnowledge.io/report/rpi3-crowd-tuning-2017-interactive),  [MILEPOST]( https://github.com/ctuning/reproduce-milepost-project )
+  * ML-based autotuning project: [reproducible paper demo](https://cknow.io/report/rpi3-crowd-tuning-2017-interactive),  [MILEPOST]( https://github.com/ctuning/reproduce-milepost-project )
   * [Quantum hackathons](https://cKnowledge.org/quantum)
   * [ACM SW/HW co-design tournaments for Pareto-efficient deep learning](https://cKnowledge.org/request)
   * Portable CK workflows and components for ML Systems: https://github.com/mlcommons/ck-mlops
-  * [GUI to automate  ML/SW/HW benchmarking with MLPerf example (under development)](https://cKnowledge.io/test)
-  * [Reproduced papers]( https://cKnowledge.io/reproduced-papers )
-  * [Live scoreboards for reproduced papers]( https://cKnowledge.io/reproduced-results )
+  * [GUI to automate  ML/SW/HW benchmarking with MLPerf example (under development)](https://cknow.io/test)
+  * [Reproduced papers]( https://cknow.io/reproduced-papers )
+  * [Live scoreboards for reproduced papers]( https://cknow.io/reproduced-results )
 * Examples of CK components (automations, API, meta descriptions):
-    * *program : image-classification-tflite-loadgen* [[cKnowledge.io]( https://cKnowledge.io/c/program/image-classification-tflite-loadgen )] [[GitHub]( https://github.com/ctuning/ck-mlops/tree/master/program/image-classification-tflite-loadgen )]
+    * *program : image-classification-tflite-loadgen* [[cKnowledge.io]( https://cknow.io/c/program/image-classification-tflite-loadgen )] [[GitHub]( https://github.com/ctuning/ck-mlops/tree/master/program/image-classification-tflite-loadgen )]
     * *program : image-classification-tflite* [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/program/image-classification-tflite )]
     * *soft : lib.mlperf.loadgen.static* [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/soft/lib.mlperf.loadgen.static )]
     * *package : lib-mlperf-loadgen-static* [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/package/lib-mlperf-loadgen-static )]
     * *package : model-onnx-mlperf-mobilenet* [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/package/model-onnx-mlperf-mobilenet/.cm )]
-    * *package : lib-tflite* [[cKnowledge.io]( https://cKnowledge.io/c/package/lib-tflite )] [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/package/lib-tflite )]
+    * *package : lib-tflite* [[cKnowledge.io]( https://cknow.io/c/package/lib-tflite )] [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/package/lib-tflite )]
     * *docker : ** [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/docker )]
     * *docker : speech-recognition.rnnt* [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/main/docker/mlperf-inference-speech-recognition-rnnt )]
     * *package : model-tf-** [[GitHub]( https://github.com/mlcommons/ck-mlops/tree/master/package )]
-    * *script : mlperf-inference-v0.7.image-classification* [[cKnowledge.io]( https://cknowledge.io/c/script/mlperf-inference-v0.7.image-classification )]
+    * *script : mlperf-inference-v0.7.image-classification* [[cKnowledge.io]( https://cknow.io/c/script/mlperf-inference-v0.7.image-classification )]
     * *jnotebook : object-detection* [[GitHub](https://nbviewer.jupyter.org/urls/dl.dropbox.com/s/5yqb6fy1nbywi7x/medium-object-detection.20190923.ipynb)]
 
 [<img src="https://img.youtube.com/vi/DIkZxraTmGM/0.jpg" width="320">](https://www.youtube.com/watch?v=DIkZxraTmGM)

@@ -93,7 +93,7 @@ and implement the following reusable automation recipes in the CK format:
       [Datacenter results](https://mlcommons.org/en/inference-datacenter-11), 
       [Edge results](https://mlcommons.org/en/inference-edge-11)
   - [Reproducibility studies for MLPerf inference benchmark v1.1 automated by CK](https://github.com/mlcommons/ck/tree/master/docs/mlperf-automation/reproduce#reproducibility-reports-mlperf-inference-benchmark-v11)
-  - [Design space exploration of ML/SW/HW stacks and customizable visualization](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
+  - [Design space exploration of ML/SW/HW stacks and customizable visualization](https://cknow.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all)
 
 
 Please contact [Grigori Fursin](https://www.linkedin.com/in/grigorifursin) if you are interested to join this community effort!
@@ -123,7 +123,7 @@ The latest version of the CK automation suite supported by MLCommons&trade;:
 
 ## Current projects
 * [Automating MLPerf(tm) inference benchmark and packing ML models, data sets and frameworks as CK components with a unified API and meta description](https://github.com/mlcommons/ck/blob/master/docs/mlperf-automation/README.md)
-* Developing customizable dashboards for MLPerf&trade; to help end-users select ML/SW/HW stacks on a Pareto frontier: [aggregated MLPerf&trade; results]( https://cknowledge.io/?q="mlperf-inference-all" )
+* Developing customizable dashboards for MLPerf&trade; to help end-users select ML/SW/HW stacks on a Pareto frontier: [aggregated MLPerf&trade; results]( https://cknow.io/?q="mlperf-inference-all" )
 * Providing a common format to share artifacts at ML, systems and other conferences: [video](https://youtu.be/DIkZxraTmGM), [Artifact Evaluation](https://cTuning.org/ae)
 * Redesigning CK together with the community based on user feedback: [incubator](https://github.com/mlcommons/ck/tree/master/incubator)
 * [Other real-world use cases](https://cKnowledge.org/partners.html) from MLPerf&trade;, Qualcomm, Arm, General Motors, IBM, the Raspberry Pi foundation, ACM and other great partners;
@@ -255,13 +255,13 @@ to make it easier to integrate them with web services and CI platforms as descri
 
 ## CK portal 
 
-We have developed the [cKnowledge.io portal](https://cKnowledge.io) to help the community
+We have developed the [cKnowledge.io portal](https://cknow.io) to help the community
 organize and find all the CK workflows and components similar to PyPI:
 
-* [Search CK components](https://cKnowledge.io)
-* [Browse CK components](https://cKnowledge.io/browse)
-* [Find reproduced results from papers]( https://cKnowledge.io/reproduced-results )
-* [Test CK workflows to benchmark and optimize ML Systems]( https://cKnowledge.io/demo )
+* [Search CK components](https://cknow.io)
+* [Browse CK components](https://cknow.io/browse)
+* [Find reproduced results from papers]( https://cknow.io/reproduced-results )
+* [Test CK workflows to benchmark and optimize ML Systems]( https://cknow.io/demo )
 
 
 
@@ -277,7 +277,7 @@ The community provides Docker containers to test CK and components using differe
 ## Contributions
 
 Users can extend the CK functionality via [CK modules](https://github.com/mlcommons/ck/tree/master/ck/repo/module) 
-or external [GitHub reposities](https://cKnowledge.io/repos) in the CK format
+or external [GitHub reposities](https://cknow.io/repos) in the CK format
 as described [here](https://ck.readthedocs.io/en/latest/src/typical-usage.html).
 
 Please check [this documentation](https://ck.readthedocs.io/en/latest/src/how-to-contribute.html)

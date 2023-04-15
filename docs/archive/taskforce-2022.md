@@ -18,7 +18,7 @@
 
 ## Moderators
 
-* [Grigori Fursin](https://cKnowledge.io/@gfursin)
+* [Grigori Fursin](https://cKnowledge.org/gfursin)
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh)
 
 ## Discord server
@@ -178,15 +178,15 @@ See our [R&D roadmap for Q4 2022 and Q1 2023](https://github.com/mlcommons/ck/is
 * Upload all stable CM components for MLPerf to Zenodo or any other permanent archive to ensure the stability of all CM workflows for MLPerf and modular ML Systems.
 * Develop CM automation for community crowd-benchmarking of the MLPerf benchmarks across different models, data sets, frameworks, compilers, run-times and platforms.
 * Develop a customizable dashboard to visualize and analyze all MLPerf crowd-benchmarking results based on these examples from the legacy CK prototype: 
-  [1](https://cknowledge.io/c/result/mlperf-inference-all-image-classification-edge-singlestream), 
-  [2](https://cknowledge.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all).
+  [1](https://cknow.io/c/result/mlperf-inference-all-image-classification-edge-singlestream), 
+  [2](https://cknow.io/result/crowd-benchmarking-mlperf-inference-classification-mobilenets-all).
 * Share MLPerf benchmarking results in a database compatible with FAIR principles (mandated by the funding agencies in the USA and Europe) -- 
   ideally, eventually, the MLCommons general datastore.
 * Connect CM-based MLPerf inference submission system with our [reproducibility initiatives at ML and Systems conferences](https://cTuning.org/ae). 
   Organize open ML/SW/HW optimization and co-design tournaments using CM and the MLPerf methodology 
-  based on our [ACM ASPLOS-REQUEST'18 proof-of-concept](https://cknowledge.io/c/event/repro-request-asplos2018/).
+  based on our [ACM ASPLOS-REQUEST'18 proof-of-concept](https://cknow.io/c/event/repro-request-asplos2018/).
 * Enable automatic submission of the Pareto-efficient crowd-benchmarking results (performance/accuracy/energy/size trade-off - 
-  see [this example from the legacy CK prototype](https://cknowledge.io/c/result/mlperf-inference-all-image-classification-edge-singlestream-pareto))
+  see [this example from the legacy CK prototype](https://cknow.io/c/result/mlperf-inference-all-image-classification-edge-singlestream-pareto))
   to MLPerf on behalf of MLCommons.
 * Share deployable MLPerf inference containers with Pareto-efficient ML/SW/HW stacks.
 

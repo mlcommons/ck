@@ -85,7 +85,7 @@ Path to CK repositories:  /mnt/CK
 Documentation:        https://github.com/mlcommons/ck/wiki
 CK Google group:      https://bit.ly/ck-google-group
 CK Slack channel:     https://cKnowledge.org/join-slack
-Stable CK components: https://cKnowledge.io
+Stable CK components: https://cknow.io
 
 ```
 

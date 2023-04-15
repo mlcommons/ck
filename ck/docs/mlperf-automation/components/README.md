@@ -52,4 +52,4 @@ Feel free to help and/or provide your feedback [here](https://github.com/mlcommo
 
 # Coordinator
 
-* [Grigori Fursin](https://cKnowledge.io/@gfursin)
+* [Grigori Fursin](https://cKnowledge.org/gfursin)

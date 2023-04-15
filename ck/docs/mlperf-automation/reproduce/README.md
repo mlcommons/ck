@@ -43,10 +43,10 @@ if you are interested to join this community effort!
 
 ## Using CK adaptive containers (to be tested!)
 
-* [MLPerf&trade; workflows](https://cknowledge.io/?q=module_uoa%3A%22docker%22+AND+%22mlperf%22)
+* [MLPerf&trade; workflows](https://cknow.io/?q=module_uoa%3A%22docker%22+AND+%22mlperf%22)
 
-* [CK image classification](https://cknowledge.io/?q=module_uoa%3A%22docker%22+AND+%22image-classification%22)
-* [CK object detection](https://cknowledge.io/?q=module_uoa%3A%22docker%22+AND+%22object-detection%22)
+* [CK image classification](https://cknow.io/?q=module_uoa%3A%22docker%22+AND+%22image-classification%22)
+* [CK object detection](https://cknow.io/?q=module_uoa%3A%22docker%22+AND+%22object-detection%22)
 
 
 # Other reproducibility studies

@@ -138,7 +138,7 @@ and you can not use average and reliably compare empirical results.
 However, if there is only one expected value for a given experiment (a), 
 then you can use it to compare multiple experiments. This is particularly
 useful when running experiments across different platforms from different
-users as described in this [article](https://cknowledge.io/c/report/rpi3-crowd-tuning-2017-interactive).
+users as described in this [article](https://cknow.io/c/report/rpi3-crowd-tuning-2017-interactive).
  
 
 You should also report the variation of empirical results together with all expected values.

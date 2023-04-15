@@ -48,7 +48,7 @@ Path to CK repositories:  /home/fursin/CK/local/venv/ck-octoml-amd/CK
 Documentation:        https://github.com/mlcommons/ck/wiki
 CK Google group:      https://bit.ly/ck-google-group
 CK Slack channel:     https://cKnowledge.org/join-slack
-Stable CK components: https://cKnowledge.io
+Stable CK components: https://cknow.io
 ```
 
 Sometimes you may need to add "~.local/bin/ck" to your PATH or restart your shell.

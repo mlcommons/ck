@@ -79,4 +79,4 @@ ck export mlperf.result
 
 # Coordinator
 
-* [Grigori Fursin](https://cKnowledge.io/@gfursin)
+* [Grigori Fursin](https://cKnowledge.org/gfursin)

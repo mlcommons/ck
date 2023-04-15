@@ -37,7 +37,7 @@ This allows one to use CK automation actions and workflows as web services or co
 # Examples
 
 Python-based CK integration with web platforms:
-* [cKnowledge.io platform](https://cKnowledge.io) uses CK framework as a database of CK objects and micro-services.
+* [cKnowledge.io platform](https://cknow.io) uses CK framework as a database of CK objects and micro-services.
 
 CMD-based CK integration with CLI platforms:
 

@@ -11,27 +11,27 @@ Windows: [![Windows Build status](https://ci.appveyor.com/api/projects/status/yj
 We have successfully completed the prototyping phase of the Collective Knowledge technology
 to make it easier to reproduce AI&ML and deploy it in production with the help of portable CK workflows, reusable artifacts and MLOps
 as described in this [white paper](https://arxiv.org/abs/2006.07161)
-and the [CK presentation](https://cKnowledge.io/presentation/ck).
+and the [CK presentation](https://cknow.io/presentation/ck).
 We are now preparing the second phase of this project to make CK simpler to use, more stable and more user friendly - 
-don't hesitate to get in touch with the [CK author](https://cKnowledge.io/@gfursin) to know more!
+don't hesitate to get in touch with the [CK author](https://cKnowledge.org/gfursin) to know more!
 
 
 
 ## Introduction
 
 cBench is a small and cross-platform framework 
-connected with the [open Collective Knowledge portal](https://cKnowledge.io)
+connected with the [open Collective Knowledge portal](https://cknow.io)
 to help researchers and practitioners 
-[reproduce ML&systems research](https://cKnowledge.io/reproduced-papers)
+[reproduce ML&systems research](https://cknow.io/reproduced-papers)
 on their own bare-metal platforms, participate in collaborative
 benchmarking and optimization, 
-and share results on [live scoreobards](https://cKnowledge.io/reproduced-results).
+and share results on [live scoreobards](https://cknow.io/reproduced-results).
 
-You can try to reproduce MLPerf&trade; inference benchmark on your machine using [this solution](https://cKnowledge.io/test)
-and see public results from the community on this [scoreboard](https://cknowledge.io/c/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking).
+You can try to reproduce MLPerf&trade; inference benchmark on your machine using [this solution](https://cknow.io/test)
+and see public results from the community on this [scoreboard](https://cknow.io/c/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking).
 
 cBench is a part of the [Collective Knowledge project (CK)](https://cKnowledge.org)
-and uses [portable CK solutions](https://cknowledge.io/docs/intro/introduction.html#portable-ck-solution)
+and uses [portable CK solutions](https://cknow.io/docs/intro/introduction.html#portable-ck-solution)
 to describe how to download, build, benchmark and optimize applications
 across different hardware, software, models and data sets.
 
@@ -67,7 +67,7 @@ Install cbench:
 python3 -m pip install cbench
 ```
 
-Initialize the [CK solution for MLPerf&trade;](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows):
+Initialize the [CK solution for MLPerf&trade;](https://cknow.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows):
 
 ```
 cb init demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows
@@ -79,7 +79,7 @@ Participate in crowd-benchmarking:
 cb benchmark demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows
 ```
 
-See your results on a public [SOTA dashboard](https://cknowledge.io/c/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking).
+See your results on a public [SOTA dashboard](https://cknow.io/c/result/sota-mlperf-object-detection-v0.5-crowd-benchmarking).
 
 You can also use the stable Docker image to participate in crowd-benchmarking:
 
@@ -87,13 +87,13 @@ You can also use the stable Docker image to participate in crowd-benchmarking:
 sudo docker run ctuning/cbench-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows /bin/bash -c "cb benchmark demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows"
 ```
 
-You can also check [all dependencies for this solution](https://cknowledge.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies).
+You can also check [all dependencies for this solution](https://cknow.io/solution/demo-obj-detection-coco-tf-cpu-benchmark-linux-portable-workflows/#dependencies).
 
 
 
 ## Documentation
 
-* [Online docs for the Collective Knowledge technology](https://cKnowledge.io/docs)
+* [Online docs for the Collective Knowledge technology](https://cknow.io/docs)
 
 ## Feedback
 

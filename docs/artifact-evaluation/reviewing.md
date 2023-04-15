@@ -117,7 +117,7 @@ and the [NeurIPS reproducibility checklist](https://www.cs.mcgill.ca/~jpineau/Re
  artifacts are functional before the camera ready paper deadline, and then
  use a separate AE with the full validation of all experimental results 
  with open reviewing and without strict deadlines. We successfully validated
- a similar approach at the [ACM ASPLOS-ReQuEST'18 tournament (SW/HW co-design of Pareto-efficient deep learning)](https://cknowledge.io/c/event/request-reproducible-benchmarking-tournament)
+ a similar approach at the [ACM ASPLOS-ReQuEST'18 tournament (SW/HW co-design of Pareto-efficient deep learning)](https://cknow.io/c/event/request-reproducible-benchmarking-tournament)
  and we saw similar initiatives at the [NeurIPS conference](https://openreview.net/group?id=NeurIPS.cc/2019/Reproducibility_Challenge).*
 
 
@@ -127,7 +127,7 @@ When arranged by the event, an artifact can receive a distinguished artifact awa
 
 ----
 
-*This document was prepared by [Grigori Fursin](https://cKnowledge.io/@gfursin "https://cKnowledge.io/@gfursin")
+*This document was prepared by [Grigori Fursin](https://cKnowledge.org/gfursin "https://cKnowledge.org/gfursin")
  with contributions from [Bruce Childers](https://people.cs.pitt.edu/~childers "https://people.cs.pitt.edu/~childers"), 
  [Michael Heroux](https://www.sandia.gov/~maherou "https://www.sandia.gov/~maherou"), 
  [Michela Taufer](https://gcl.cis.udel.edu/personal/taufer/ "https://gcl.cis.udel.edu/personal/taufer/") and others.
