@@ -82,7 +82,7 @@
         "libboost-all-dev": {
           "apt": "libboost-all-dev",
           "dnf": "boost-devel",
-	  "yum": "boost-devel",
+          "yum": "boost-devel",
           "brew": ""
         }
       }
@@ -94,9 +94,23 @@
       "state": {
         "libnuma-dev": {
           "apt": "libnuma-dev",
-	  "yum": "numactl-libs",
+          "yum": "numactl-libs",
           "dnf": "numactl-libs",
           "brew": ""
+        }
+      }
+    },
+    "libmpfr-dev": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "libmpfr-dev"
+      },
+      "state": {
+        "libmpfr-dev": {
+          "apt": "libmpfr-dev",
+          "yum": "mpfr-devel.x86_64",
+          "dnf": "mpfr-devel.x86_64",
+          "brew": "",
+          "zypper": "mpfr-devel"
         }
       }
     },
