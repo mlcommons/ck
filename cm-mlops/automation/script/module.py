@@ -6,7 +6,7 @@
 # We think to develop a simpler version of this automation at some point
 # while keeping full backwards compatibility.
 #
-# Join the MLCommons taskforce on education and reproducibility
+# Join the MLCommons taskforce on automation and reproducibility
 # to discuss further developments: https://cKnowledge.org/mlcommons-taskforce
 
 import os

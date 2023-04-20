@@ -129,7 +129,7 @@ using the AE submission website provided by the event.
  If you have questions or suggestions, 
  do not hesitate to get in touch with the the AE chairs or the community using 
  the [Artifact Evaluation google group](https://groups.google.com/forum/#!forum/artifact-evaluation)
- or weekly conf-calls of the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
+ or weekly conf-calls of the [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).
 
 
 ## Preparing your camera-ready paper
@@ -176,4 +176,4 @@ In other cases, AE chairs will tell you how to add stamps to the first page of y
  [Michael Heroux](https://www.sandia.gov/~maherou "https://www.sandia.gov/~maherou"), 
  [Michela Taufer](https://gcl.cis.udel.edu/personal/taufer/ "https://gcl.cis.udel.edu/personal/taufer/") and others.
  It is maintained by the [cTuning foundation](https://cTuning.org/ae) and the 
- [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).*
+ [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).*

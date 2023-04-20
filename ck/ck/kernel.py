@@ -12387,7 +12387,7 @@ def access(i):
         # Print message that this framework was discontinued
         if o == 'con':
             out('')
-            out('WARNING: this framework was discontinued in favor of the new CK2 framework aka CM being developed by the open taskforce on education and reproducibility at MLCommons:')
+            out('WARNING: this framework was discontinued in favor of the new CK2 framework aka CM being developed by the open taskforce on automation and reproducibility at MLCommons:')
             out('         https://bit.ly/mlperf-edu-wg')
             out('')
 

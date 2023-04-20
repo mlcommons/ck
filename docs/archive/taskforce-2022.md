@@ -76,7 +76,7 @@ for vision, recommendation, language processing and speech recognition
 to let companies benchmark and compare their new hardware in terms of accuracy, latency, throughput and energy
 in a reproducible way twice a year.
 
-The first goal of this open education and reproducibility taskforce is to 
+The first goal of this open automation and reproducibility taskforce is to 
 develop a light-weight and open-source automation meta-framework
 that can make MLOps and DevOps more interoperable, reusable, portable,
 deterministic and reproducible. 
