@@ -11,8 +11,8 @@
     "benchmark",
     "tinymlperf",
     "tinymlperf-inference",
-    "tinymlperf-inference-tvm-v3.0",
-    "tinymlperf-inference-tvm-v3.0-2023",
+    "tinymlperf-inference-v3.0",
+    "tinymlperf-inference-v3.0-2023",
     "v3.0"
   ],
   "title": "Run and optimize TinyMLPerf inference v3.1 benchmarks",
