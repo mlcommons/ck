@@ -29,18 +29,31 @@
       "tags": "mlperf,mlcommons,inference,source,src"
     },
     {
-      "tags": "get,generic-python-lib,_sox"
+      "names": [
+        "sox"
+      ],
+      "tags": "get,sys-util,generic,_sox"
     },
     {
+      "names": [
+        "pandas"
+      ],
       "tags": "get,generic-python-lib,_pandas"
     },
     {
+      "names": [
+        "tqdm"
+      ],
       "tags": "get,generic-python-lib,_tqdm"
     },
     {
-      "tags": "get,sys-util,generic,_sox"
+      "names": [
+        "scikit-learn"
+      ],
+      "tags": "get,generic-python-lib,_sklearn"
     }
   ],
+
   "input_mapping": {
     "dir": "CM_DATASET_PREPROCESSED_PATH",
     "threads": "CM_NUM_PREPROCESS_THREADS"
