@@ -97,7 +97,7 @@ def main():
 
     st.write("""
              <center>
-             <a href="https://github.com/ctuning/mlcommons-ck/blob/master/platform/get-started.md">Gettings Started</a>
+             <a href="https://github.com/mlcommons/ck/blob/master/platform/get-started.md">Gettings Started</a>
              &nbsp;&nbsp;&nbsp;
              <a href="https://github.com/mlcommons/ck/tree/master/platform">About</a>
              </center>
