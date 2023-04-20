@@ -208,7 +208,7 @@ docker run -v /tmp:/tmp -it modularcm/loadgen-generic-python-cpu:ubuntu-22.04 -c
 # Open discussions and developments
 
 * [OctoML](https://octoml.ai)
-* [MLCommons taskforce on education and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
+* [MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
 
 # Developers
 

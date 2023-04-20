@@ -1,0 +1,45 @@
+{
+  "alias": "get-aocl",
+  "automation_alias": "script",
+  "automation_uid": "5b4e0237da074764",
+  "cache": "true",
+  "tags": [
+    "get",
+    "aocl"
+  ],
+  "new_env_keys": [
+    "CM_AOCL_PATH",
+    "+LD_LIBRARY_PATH",
+    "+LIBRARY_PATH"
+  ],
+  "default_version": "4.0",
+  "uid": "a65d3088f57d413d",
+  "deps": [
+    {
+      "tags": "get,generic,sys-util,_libmpfr-dev"
+    },
+    {
+      "tags": "get,generic-python-lib,_scons"
+    },
+    {
+      "tags": "get,git,_repo.https://github.com/amd/aocl-libm-ose",
+      "force_env_keys": [
+        "CM_GIT_CHECKOUT"
+      ]
+    }
+  ],
+  "versions": {
+    "master": {
+      "env": {
+        "CM_GIT_CHECKOUT": "master"
+      }
+    },
+    "4.0": {
+      "env": {
+        "CM_GIT_CHECKOUT": "aocl-4.0"
+      }
+    }
+  },
+  "variations": {
+  }
+}

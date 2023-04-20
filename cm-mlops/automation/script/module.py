@@ -6,7 +6,7 @@
 # We think to develop a simpler version of this automation at some point
 # while keeping full backwards compatibility.
 #
-# Join the MLCommons taskforce on education and reproducibility
+# Join the MLCommons taskforce on automation and reproducibility
 # to discuss further developments: https://cKnowledge.org/mlcommons-taskforce
 
 import os
@@ -1997,6 +1997,17 @@ class CAutomation(Automation):
 
             i['meta']['script_name'] = script_name_base
 
+        i['meta']['deps'] = []
+        i['meta']['prehook_deps'] = []
+        i['meta']['posthook_deps'] = []
+        i['meta']['post_deps'] = []
+        i['meta']['cache'] = False
+        i['meta']['new_env_keys'] = []
+        i['meta']['new_state_keys'] = []
+        i['meta']['input_mapping'] = {}
+        i['meta']['versions'] = {}
+        i['meta']['variations'] = {}
+        i['meta']['input_description'] = {}
 
         r_obj=self.cmind.access(i)
         if r_obj['return']>0: return r_obj

@@ -89,6 +89,14 @@
         "CM_GOOGLE_API_PYTHON_CLIENT_VERSION"
       ]
     },
+    "scons": {
+      "env": {
+        "CM_GENERIC_PYTHON_PACKAGE_NAME": "scons"
+      },
+      "new_env_keys": [
+        "CM_SCONS_VERSION"
+      ]
+    },
     "google-auth-oauthlib": {
       "env": {
         "CM_GENERIC_PYTHON_PACKAGE_NAME": "google_auth_oauthlib"

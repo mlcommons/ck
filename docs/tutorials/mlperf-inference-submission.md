@@ -52,7 +52,7 @@ and prepare your submission.
 Please follow [this CM tutorial from the Student Cluster Competition](sc22-scc-mlperf.md) for more details.
 
 If you have questions, encounter issues or have feature requests, please submit them [here](https://github.com/mlcommons/ck/issues)
-and feel free to join our [open taskforce on education and reproducibility](../taksforce.md)
+and feel free to join our [open taskforce on automation and reproducibility](../taksforce.md)
 and [Discord discussions](https://discord.gg/JjWNWXKxwT).*
 
 # System preparation
@@ -343,7 +343,7 @@ cm run script --tags=gui \
 
 # The next steps
 
-You are welcome to join the [open MLCommons taskforce on education and reproducibility](../taksforce.md)
+You are welcome to join the [open MLCommons taskforce on automation and reproducibility](../taksforce.md)
 to contribute to this project and continue optimizing this benchmark and prepare an official submission 
 for MLPerf inference benchmarks with the free help of the community.
 

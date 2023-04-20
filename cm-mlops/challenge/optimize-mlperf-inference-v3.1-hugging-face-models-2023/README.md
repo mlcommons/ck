@@ -13,7 +13,7 @@ how to use and enhance CK to benchmark and optimize ML Systems.
 
 ## Organizers
 
-* [MLCommons taskforce on education and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
+* [MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
 * [cTuning foundation](https://cTuning.org)
 
 ### Status

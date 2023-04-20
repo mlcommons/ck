@@ -3,7 +3,7 @@
 This tutorial explains how to prepare and run the [MLPerf inference benchmark](https://arxiv.org/abs/1911.02549)
 using the [cross-platform automation meta-framework (MLCommons CM aka CK2)](https://github.com/mlcommons/ck).
 It is assembled from [reusable and interoperable scripts](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
-being developed by the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+being developed by the [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
 based on this [roadmap]( https://github.com/mlcommons/ck/issues/536 ).
 
 There are 4 main goals:
@@ -11,7 +11,7 @@ There are 4 main goals:
 - Learning how to prepare and run the MLPerf inference benchmark using CM.
 - Obtaining and submitting benchmarking results (accuracy and performance) for MLPerf object detection with RetinaNet in offline mode on your platform
   (see [related slides](https://docs.google.com/presentation/d/1LFc0O6TF2tAdqFdrzV_X5dQEZEEdy8Eq6iQhXKLuFD4/edit#slide=id.g150357114ea_0_1154)).
-- Working with the [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+- Working with the [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
   to enhance CM (CK2) workflows and support your own implementations of the MLPerf benchmark with different models, libraries, backends and platforms.
 
 It should take less than an hour to complete this tutorial. In the end, you should obtain a tarball (open.tar.gz) with the MLPerf-compatible results.
@@ -620,7 +620,7 @@ No errors encountered during test.
 Note that QPS is very low because we use an unoptimized reference implementation of this benchmark on CPU.
 In the 2nd part of this tutorial, we will explain how to optimize this benchmark and/or run other implementations 
 such as the [universal C++ implementation of this benchmark](../list_of_scripts.md#app-mlperf-inference-cpp) 
-developed by [OctoML](https://octoml.ai) and the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+developed by [OctoML](https://octoml.ai) and the [MLCommons taskforce on automation and reproducibility](../mlperf-education-workgroup.md)
 as well as optimized implementation of MLPerf object detection with quantized models 
 from [Nvidia](https://github.com/mlcommons/inference_results_v2.1/tree/master/closed/NVIDIA/code/retinanet/tensorrt).
 
@@ -641,7 +641,7 @@ The execution of the original MLPerf inference benchmark is customized by variou
 
 The "Collective Mind" concept is to gradually expose all optimization "knobs" via unified CM script interface
 to enable automated and reroducible design space exploration and optimization of the whole application/software/hardware stack
-(one of the goals of the [MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)).
+(one of the goals of the [MLCommons taskforce on automation and reproducibility](../mlperf-education-workgroup.md)).
 
 That is why we have provided a user-friendly mapping of the flags from the CK MLPerf script CLI to the native MLPerf variables and flags
 using this [meta description](https://github.com/mlcommons/ck/blob/master/cm-mlops/script/app-mlperf-inference/_cm.yaml#L35).
@@ -863,7 +863,7 @@ cm run script --tags=run,mlperf,inference,generate-run-cmds,_submission,_short,_
 
 # The next steps
 
-You are welcome to join the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md)
+You are welcome to join the [open MLCommons taskforce on automation and reproducibility](../mlperf-education-workgroup.md)
 to contribute to this project and continue enhancing our CM interface to the MLPerf inference benchmark
 and prepare an official submission for the MLPerf inference v3.0 (March 2023).
 

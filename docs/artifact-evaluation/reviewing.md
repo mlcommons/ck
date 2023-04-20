@@ -132,4 +132,4 @@ When arranged by the event, an artifact can receive a distinguished artifact awa
  [Michael Heroux](https://www.sandia.gov/~maherou "https://www.sandia.gov/~maherou"), 
  [Michela Taufer](https://gcl.cis.udel.edu/personal/taufer/ "https://gcl.cis.udel.edu/personal/taufer/") and others.
  It is maintained by the [cTuning foundation](https://cTuning.org/ae) and the 
- [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).*
+ [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).*
