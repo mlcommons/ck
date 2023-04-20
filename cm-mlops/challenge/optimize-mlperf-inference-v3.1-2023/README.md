@@ -18,7 +18,7 @@ For MLPerf inference 3.1 we have the following benchmark tasks
 2. [Object Detection](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-retinanet-submission.md) using Retinanet model and OpenImages dataset
 3. [Language processing](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-bert-submission.md) using Bert-Large model and Squadv1.1 dataset
 4. [Speech Recognition](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-rnnt-submission.md) using RNNT model and LibriSpeech dataset
-5. [Medical Imaging using 3d-unet model and KiTS19 dataset](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-3d-unet-submission.md)
+5. [Medical Imaging](https://github.com/mlcommons/ck/blob/master/cm-mlops/challenge/optimize-mlperf-inference-v3.1-2023/docs/generate-3d-unet-submission.md)  using 3d-unet model and KiTS19 dataset
 6. Recommendation using DLRM model and Criteo dataset
 7. Large Language Model (Pending)
 
