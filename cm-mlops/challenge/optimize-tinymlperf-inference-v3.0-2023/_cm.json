@@ -2,8 +2,8 @@
   "alias": "optimize-tinymlperf-inference-v3.0-2023",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date_close": "20230501",
-  "date_open": "20230415",
+  "date_close": "20230519",
+  "date_open": "20230501",
   "experiments": [],
   "tags": [
     "optimize",
