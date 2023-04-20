@@ -2,8 +2,8 @@
   "alias": "optimize-mlperf-inference-v3.1-create-end-to-end-app",
   "automation_alias": "challenge",
   "automation_uid": "3d84abd768f34e08",
-  "date_close": "20230701",
-  "date_open": "20230501",
+  "date_close": "20230804",
+  "date_open": "20230615",
   "tags": [
     "optimize",
     "reproduce",
