@@ -3108,6 +3108,34 @@ class CAutomation(Automation):
         return utils.call_internal_module(self, __file__, 'module_misc', 'doc', i)
 
 
+    ############################################################
+    def dockerfile(self, i):
+        """
+        Add CM automation.
+
+        Args:
+          (CM input dict):
+
+          (out) (str): if 'con', output to console
+
+          parsed_artifact (list): prepared in CM CLI or CM access function
+                                    [ (artifact alias, artifact UID) ] or
+                                    [ (artifact alias, artifact UID), (artifact repo alias, artifact repo UID) ]
+
+          (repos) (str): list of repositories to search for automations (internal & mlcommons@ck by default)
+
+          (output_dir) (str): output directory (./ by default)
+
+        Returns:
+          (CM return dict):
+
+          * return (int): return code == 0 if no error and >0 if error
+          * (error) (str): error string if return>0
+
+        """
+
+        return utils.call_internal_module(self, __file__, 'module_misc', 'dockerfile', i)
+
     ##############################################################################
     def _available_variations(self, i):
         """

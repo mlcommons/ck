@@ -33,7 +33,7 @@ See [more info](README-extra.md).
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
 * GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,aocl*
+* CM "database" tags to find this script: *get,lib,aocl,amd*
 * Output cached?: *true*
 ___
 ### Usage
@@ -52,9 +52,9 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,aocl `
+1. `cm run script --tags=get,lib,aocl,amd `
 
-2. `cm run script "get aocl" `
+2. `cm run script "get lib aocl amd" `
 
 3. `cm run script a65d3088f57d413d `
 
@@ -73,7 +73,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,aocl'
+                  'tags':'get,lib,aocl,amd'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -90,9 +90,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,aocl"```
+```cm run script --tags=gui --script="get,lib,aocl,amd"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,aocl) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,lib,aocl,amd) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -132,7 +132,6 @@ ___
   1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/customize.py)***
   1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/_cm.json)
   1. ***Run native script if exists***
-     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/run.bat)
      * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/run.sh)
   1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/_cm.json)
   1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/customize.py)***
@@ -145,10 +144,14 @@ ___
 
 * `+LD_LIBRARY_PATH`
 * `+LIBRARY_PATH`
-* `CM_AOCL_PATH`
+* `CM_AOCL_BUILD_PATH`
+* `CM_AOCL_LIB_PATH`
+* `CM_AOCL_SRC_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_AOCL_PATH`
+* `CM_AOCL_BUILD_PATH`
+* `CM_AOCL_LIB_PATH`
+* `CM_AOCL_SRC_PATH`
 ___
 ### Maintainers
 
