@@ -4,5 +4,6 @@ if [[ -z ${CM_GIT_REPO_CHECKOUT_PATH} ]]; then
     exit 1
 fi
 cd ${CM_GIT_REPO_CHECKOUT_PATH}
-scons 
+scons
+test $? -eq 0 || exit $?
 

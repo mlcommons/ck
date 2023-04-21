@@ -1997,14 +1997,14 @@ class CAutomation(Automation):
 
             i['meta']['script_name'] = script_name_base
 
-        i['meta']['deps'] = []
-        i['meta']['prehook_deps'] = []
-        i['meta']['posthook_deps'] = []
-        i['meta']['post_deps'] = []
         i['meta']['cache'] = False
         i['meta']['new_env_keys'] = []
         i['meta']['new_state_keys'] = []
         i['meta']['input_mapping'] = {}
+        i['meta']['deps'] = []
+        i['meta']['prehook_deps'] = []
+        i['meta']['posthook_deps'] = []
+        i['meta']['post_deps'] = []
         i['meta']['versions'] = {}
         i['meta']['variations'] = {}
         i['meta']['input_description'] = {}
