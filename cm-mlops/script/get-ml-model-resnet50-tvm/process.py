@@ -80,7 +80,8 @@ else:
         onnx_model = onnx.load(model_path)
 
         mod, params = relay.frontend.from_onnx(
-            onnx_model, shape_dict, freeze_params=True)
+            onnx_model, shape_dict, freeze_params=True
+        )
 
         if os.environ.get('CM_MLPERF_TVM_TRANSFORM_LAYOUT', '').strip().lower() == 'yes':
             kernel_layout = 'NHWC'
