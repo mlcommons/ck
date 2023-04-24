@@ -1,0 +1,20 @@
+{
+  "alias": "optimize-mlperf-inference-v3.1--tournament",
+  "automation_alias": "challenge",
+  "automation_uid": "3d84abd768f34e08",
+  "date_close": "20230804",
+  "date_open": "20230615",
+  "experiments": [],
+  "tags": [
+    "mlperf",
+    "mlperf-inference",
+    "mlperf-inference-v3.1",
+    "mlperf-inference-v3.1-2023",
+    "mlperf-inference-v3.1-tournament",
+    "mlperf-inference-v3.1-tournament-2023",
+    "v3.1"
+  ],
+  "title": "1st public tournament to run and optimize MLPerf inference v3.1 benchmarks",
+  "uid": "f4b9321ac48c4de6",
+  "under_preparation": true
+}

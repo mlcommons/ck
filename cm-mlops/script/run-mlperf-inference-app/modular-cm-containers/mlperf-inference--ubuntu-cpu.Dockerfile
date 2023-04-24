@@ -6,7 +6,7 @@ ARG cm_os_version="22.04"
 
 FROM ${cm_os_name}:${cm_os_version}
 
-# Maintained by the MLCommons taskforce on education and reproducibility
+# Maintained by the MLCommons taskforce on automation and reproducibility
 LABEL github="https://github.com/mlcommons/ck"
 LABEL maintainer="https://cKnowledge.org/mlcommons-taskforce"
 

@@ -33,7 +33,7 @@ across diverse ML models, data sets, frameworks, libraries, run-time systems and
 using the [cross-platform automation meta-framework (MLCommons CM)](https://github.com/mlcommons/ck).
 
 It is assembled from reusable and interoperable [CM scripts for DevOps and MLOps](../list_of_scripts.md)
-being developed by the [open MLCommons taskforce on education and reproducibility](../mlperf-education-workgroup.md).
+being developed by the [open MLCommons taskforce on automation and reproducibility](../mlperf-education-workgroup.md).
 
 It is a higher-level wrapper to several other CM scripts modularizing the MLPerf inference benchmark:
 * [Reference Python implementation](../app-mlperf-inference-reference)
@@ -47,7 +47,7 @@ with RetinaNet model, Open Images dataset, ONNX runtime and CPU target.
 
 See this [CM script](../run-mlperf-inference-app) to automate and validate your MLPerf inference submission.
 
-Get in touch with the [open taskforce on education and reproducibility at MLCommons](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
+Get in touch with the [open taskforce on automation and reproducibility at MLCommons](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md)
 if you need help with your submission or if you would like to participate in further modularization of MLPerf 
 and collaborative design space exploration and optimization of ML Systems.
 

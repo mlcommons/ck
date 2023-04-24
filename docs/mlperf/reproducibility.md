@@ -1,6 +1,6 @@
 # MLPerf automation and reproducibility initiative
 
-One of the goals of the [MLCommons education and reproducibility taskforce](../taksforce.md) 
+One of the goals of the [MLCommons automation and reproducibility taskforce](../taksforce.md) 
 is to make it easier to run MLPerf benchmark with any model, data, software and hardware using 
 a common workflow automation meta-framework [(Collective Mind aka CM)](https://github.com/mlcommons/ck)
 and [reusable CM components](https://github.com/mlcommons/ck/tree/master/cm-mlops/script#readme) for interoperable MLOps and DevOps.

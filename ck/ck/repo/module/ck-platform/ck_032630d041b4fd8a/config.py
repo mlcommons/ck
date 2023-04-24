@@ -12,7 +12,7 @@ CK_CFG_MODULE_UID="b34231a3467566f8" # ck info module:cfg
 
 CK_CFG_MODULE_REPO_UOA="befd7892b0d469e9" # CK module UOA for REPO
 
-CR_DEFAULT_SERVER="https://cKnowledge.io"
+CR_DEFAULT_SERVER="https://cknow.io"
 CR_DEFAULT_SERVER_URL=CR_DEFAULT_SERVER+"/api/v1/?"
 CR_DEFAULT_SERVER_USER="crowd-user"
 CR_DEFAULT_SERVER_API_KEY="43fa84787ff65c2c00bf740e3853c90da8081680fe1025e8314e260888265033"
@@ -142,7 +142,7 @@ def update(i):
 
     # Check release notes 
     server_url=cfg.get('server_url','')
-    if server_url=='': server_url='https://cKnowledge.io/api/v1/?'
+    if server_url=='': server_url='https://cknow.io/api/v1/?'
 
     from . import comm_min
     r=comm_min.send({'url':server_url,

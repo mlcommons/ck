@@ -1,6 +1,6 @@
 # Notes
 
-Users extend the CK functionality via external [GitHub reposities](https://cKnowledge.io/repos) in the CK format. 
+Users extend the CK functionality via external [GitHub reposities](https://cknow.io/repos) in the CK format. 
 See [docs](https://ck.readthedocs.io/en/latest/src/typical-usage.html) for more details.
 
 If you want to extend the CK core, please note that we plan to completely rewrite it based on the OO principles

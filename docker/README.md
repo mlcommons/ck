@@ -1,6 +1,6 @@
 # Modular CM containers
 
-*This is work in progress within [MLPerf taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).*
+*This is work in progress within [MLPerf taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/mlperf-education-workgroup.md).*
 
 This directory contains prototypes of modular CM containers.
 

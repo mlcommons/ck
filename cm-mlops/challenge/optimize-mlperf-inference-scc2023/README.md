@@ -6,7 +6,7 @@ See our [related challange from 2022](https://access.cknowledge.org/playground/?
 
 ## Organizers
 
-* [MLCommons taskforce on education and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
+* [MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
 * [cKnowledge](https://cKnowledge.org)
 
 ### Status

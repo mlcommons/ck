@@ -35,7 +35,7 @@ searching for optimal software/hardware combination to run various AI and ML wor
 in terms of performance, accuracy, power and costs ...
 
 This benchmark is composed from [portable and reusable automation recipes](https://github.com/mlcommons/ck/blob/master/docs/list_of_scripts.md)
-developed by [MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
+developed by [MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md) 
 to modularize complex AI and ML Systems and automate their benchmarking, design space exploration, optimization and deployment
 across continuously evolving software, hardware, models and data.
 
@@ -277,7 +277,7 @@ cm run script --tags=generate-run-cmds,inference,_accuracy-only,_all-scenarios \
 
 # The next steps
 
-Feel free to join our [open taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
+Feel free to join our [open taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md)
 and the public [Discord server](https://discord.gg/JjWNWXKxwT) to learn about our roadmap and related community projects.
 
 Our ultimate goal is to help anyone automatically find or generate the optimal software/hardware stack from the cloud to the edge

@@ -5,7 +5,7 @@ using the [MLCommons CK framework](https://github.com/mlcommons/ck).
 
 ## Organizers
 
-* [MLCommons taskforce on education and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
+* [MLCommons taskforce on automation and reproducibility](https://cKnowledge.org/mlcommons-taskforce)
 * [cTuning foundation](https://cTuning.org)
 * [OctoML](https://octoml.ai)
 

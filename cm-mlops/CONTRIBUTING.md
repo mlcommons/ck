@@ -10,7 +10,7 @@ MLCommons project work is tracked with issue trackers and pull requests. Modify 
 
 ## Contributing to the MLCommons Collective Mind
 
-We suggest you to join the [open MLCommons taskforce on education and reproducibility](docs/mlperf-education-workgroup.md)
+We suggest you to join the [open MLCommons taskforce on automation and reproducibility](docs/mlperf-education-workgroup.md)
 to learn how to use the CM framework, enhance existing CM components for MLOps and DevOps, 
 run MLPerf benchmarks and contribute your own artifacts, scripts and workflows in the CM format.
 
@@ -36,4 +36,4 @@ See the full list [here](https://github.com/mlcommons/ck/blob/master/CONTRIBUTIN
 ## Maintainers
 
 * [Arjun Suresh](https://www.linkedin.com/in/arjunsuresh) (OctoML, MLCommons)
-* [Grigori Fursin](https://cknowledge.io/@gfursin) (OctoML, MLCommons, cTuning foundation)
+* [Grigori Fursin](https://cKnowledge.org/gfursin) (OctoML, MLCommons, cTuning foundation)

@@ -194,7 +194,7 @@ and benchmarks - you will be informed in case of positive outcome.*
  [IPython/Jupyter notebook](https://jupyter.org "https://jupyter.org"), 
  [portable workflow](https://github.com/mlcommons/ck/tree/master/docs), etc.
 
- See [past reproduced papers](https://cKnowledge.io/reproduced-papers "https://cKnowledge.io/reproduced-papers")
+ See [past reproduced papers](https://cknow.io/reproduced-papers "https://cknow.io/reproduced-papers")
  and an example of the experimental workflow 
  for multi-objective and machine-learning based autotuning:
 
@@ -245,9 +245,9 @@ and benchmarks - you will be informed in case of positive outcome.*
 
 ----
 
-*This document was prepared by [Grigori Fursin](https://cKnowledge.io/@gfursin "https://cKnowledge.io/@gfursin")
+*This document was prepared by [Grigori Fursin](https://cKnowledge.org/gfursin "https://cKnowledge.org/gfursin")
  with contributions from [Bruce Childers](https://people.cs.pitt.edu/~childers "https://people.cs.pitt.edu/~childers"), 
  [Michael Heroux](https://www.sandia.gov/~maherou "https://www.sandia.gov/~maherou"), 
  [Michela Taufer](https://gcl.cis.udel.edu/personal/taufer/ "https://gcl.cis.udel.edu/personal/taufer/") and others.
  It is maintained by the [cTuning foundation](https://cTuning.org/ae) and the 
- [open MLCommons taskforce on education and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).*
+ [open MLCommons taskforce on automation and reproducibility](https://github.com/mlcommons/ck/blob/master/docs/taskforce.md).*

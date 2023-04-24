@@ -97,7 +97,9 @@ def main():
 
     st.write("""
              <center>
-             <a href="https://github.com/mlcommons/ck/tree/master/platform">Read about this free, open-source and technology-agnostic platform</a>
+             <a href="https://github.com/mlcommons/ck/blob/master/platform/get-started.md">Gettings Started</a>
+             &nbsp;&nbsp;&nbsp;
+             <a href="https://github.com/mlcommons/ck/tree/master/platform">About</a>
              </center>
              """,  
              unsafe_allow_html=True)

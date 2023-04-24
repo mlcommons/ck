@@ -15,7 +15,7 @@ target platform properties and software dependencies and then compile and run a 
 with any compatible dataset and model in a unified way. 
 
 Note that such approach also supports our [reproducibility initiatives at ML&systems conferences](https://cTuning.org/ae)
-to share portable workflows along with [published papers](https://cKnowledge.io/reproduced-papers).
+to share portable workflows along with [published papers](https://cknow.io/reproduced-papers).
 Our goal is to make it easier for the community to reproduce research techniques, compare them, 
 build upon them, and adopt them in production.
 
@@ -92,7 +92,7 @@ You can update any above key from the command line by adding "--" to it. If you 
 
 When compiling program, CK will first attempt to automatically detect the properties of the platform
 and all required software dependencies such as compilers and libraries that are already installed on this platform. 
-CK uses [multiple plugins](https://cKnowledge.io/soft) describing how to detect different software, models, and datasets.
+CK uses [multiple plugins](https://cknow.io/soft) describing how to detect different software, models, and datasets.
 
 Users can add their own plugins either in their own CK repositories or in already existing ones.
 
@@ -151,7 +151,7 @@ instead of rewriting complex infrastructure from scratch in each research projec
 
 Note, that if a given software dependency is not resolved, 
 CK will attempt to automatically install it using CK meta packages
-(see the list of shared CK packages at [cKnowledge.io](https://cKnowledge.io/packages)).
+(see the list of shared CK packages at [cKnowledge.io](https://cknow.io/packages)).
 Such meta packages contain JSON meta information and scripts
 to install and potentially rebuild a given package 
 for a given target platform while reusing existing
