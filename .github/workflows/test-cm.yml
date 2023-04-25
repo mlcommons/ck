@@ -16,8 +16,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        python-version: ["3.7", "3.8", "3.9", "3.10"]
-        on: [ubuntu-latest, windows-latest]
+        python-version: ["3.9", "3.10"]
+        on: [ubuntu-latest]
     runs-on: "${{ matrix.on }}"
     steps:
     - uses: actions/checkout@v3
@@ -29,6 +29,7 @@ jobs:
       run: |
         python -m pip install --upgrade pip
         python -m pip install flake8 pytest
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
         python -m pip install --ignore-installed --verbose pip setuptools
         cd cm
         python setup.py install
@@ -43,3 +44,26 @@ jobs:
     - name: Test
       run: |
         python tests/test_cm.py
+
+  test_cm:
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ["3.7", "3.8", "3.9", "3.10"]
+        on: [ubuntu-latest, windows-latest]
+    runs-on: "${{ matrix.on }}"
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        python -m pip install cmind
+        cm pull repo --url=${{ github.event.pull_request.head.repo.html_url }} --checkout=${{ github.event.pull_request.head.ref }}
+    - name: Test CM
+      run: |
+        python tests/test_cm.py
+
