@@ -5,10 +5,14 @@
   "cache": "true",
   "tags": [
     "get",
-    "aocl"
+    "lib",
+    "aocl",
+    "amd"
   ],
   "new_env_keys": [
-    "CM_AOCL_PATH",
+    "CM_AOCL_BUILD_PATH",
+    "CM_AOCL_SRC_PATH",
+    "CM_AOCL_LIB_PATH",
     "+LD_LIBRARY_PATH",
     "+LIBRARY_PATH"
   ],

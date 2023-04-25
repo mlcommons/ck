@@ -12,7 +12,6 @@
   * [ CM modular Docker container](#cm-modular-docker-container)
 * [Customization](#customization)
   * [ Default environment](#default-environment)
-* [Versions](#versions)
 * [Script workflow, dependencies and native scripts](#script-workflow-dependencies-and-native-scripts)
 * [Script output](#script-output)
 * [New environment keys (filter)](#new-environment-keys-(filter))
@@ -31,10 +30,10 @@ See [more info](README-extra.md).
 #### Information
 
 * CM GitHub repository: *[mlcommons@ck](https://github.com/mlcommons/ck/tree/master/cm-mlops)*
-* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl)*
+* GitHub directory for this script: *[GitHub](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zendnn)*
 * CM meta description for this script: *[_cm.json](_cm.json)*
-* CM "database" tags to find this script: *get,lib,aocl,amd*
-* Output cached?: *true*
+* CM "database" tags to find this script: *get,zendnn,amd,from.src*
+* Output cached?: *True*
 ___
 ### Usage
 
@@ -52,11 +51,11 @@ ___
 
 #### CM CLI
 
-1. `cm run script --tags=get,lib,aocl,amd `
+1. `cm run script --tags=get,zendnn,amd,from.src `
 
-2. `cm run script "get lib aocl amd" `
+2. `cm run script "get zendnn amd from.src" `
 
-3. `cm run script a65d3088f57d413d `
+3. `cm run script d1c6feb0ee684b09 `
 
 * `variations` can be seen [here](#variations)
 
@@ -73,7 +72,7 @@ import cmind
 
 r = cmind.access({'action':'run'
                   'automation':'script',
-                  'tags':'get,lib,aocl,amd'
+                  'tags':'get,zendnn,amd,from.src'
                   'out':'con',
                   ...
                   (other input keys for this script)
@@ -90,9 +89,9 @@ if r['return']>0:
 
 #### CM GUI
 
-```cm run script --tags=gui --script="get,lib,aocl,amd"```
+```cm run script --tags=gui --script="get,zendnn,amd,from.src"```
 
-Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,lib,aocl,amd) to generate CM CMD.
+Use this [online GUI](https://cKnowledge.org/cm-gui/?tags=get,zendnn,amd,from.src) to generate CM CMD.
 
 #### CM modular Docker container
 
@@ -111,47 +110,38 @@ These keys can be updated via `--env.KEY=VALUE` or `env` dictionary in `@input.j
 
 </details>
 
-#### Versions
-Default version: `4.0`
-
-* `4.0`
-* `master`
 ___
 ### Script workflow, dependencies and native scripts
 
 <details>
 <summary>Click here to expand this section.</summary>
 
-  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/_cm.json)***
-     * get,generic,sys-util,_libmpfr-dev
-       - CM script: [get-generic-sys-util](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-sys-util)
-     * get,generic-python-lib,_scons
-       - CM script: [get-generic-python-lib](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-generic-python-lib)
-     * get,git,_repo.https://github.com/amd/aocl-libm-ose
+  1. ***Read "deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zendnn/_cm.json)***
+     * get,amd,aocl
+       * CM names: `--adr.['aocl']...`
+       - CM script: [get-aocl](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl)
+     * get,lib,blis,_amd
+       - CM script: [get-blis](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-blis)
+     * detect,cpu
+       - CM script: [detect-cpu](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/detect-cpu)
+     * get,git,_repo.https://github.com/amd/ZenDNN.git
        - CM script: [get-git-repo](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-git-repo)
-  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/customize.py)***
-  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/_cm.json)
+  1. ***Run "preprocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zendnn/customize.py)***
+  1. Read "prehook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zendnn/_cm.json)
   1. ***Run native script if exists***
-     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/run.sh)
-  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/_cm.json)
-  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/customize.py)***
-  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-aocl/_cm.json)
+     * [run.bat](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zendnn/run.bat)
+     * [run.sh](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zendnn/run.sh)
+  1. Read "posthook_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zendnn/_cm.json)
+  1. ***Run "postrocess" function from [customize.py](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zendnn/customize.py)***
+  1. Read "post_deps" on other CM scripts from [meta](https://github.com/mlcommons/ck/tree/master/cm-mlops/script/get-zendnn/_cm.json)
 </details>
 
 ___
 ### Script output
 #### New environment keys (filter)
 
-* `+LD_LIBRARY_PATH`
-* `+LIBRARY_PATH`
-* `CM_AOCL_BUILD_PATH`
-* `CM_AOCL_LIB_PATH`
-* `CM_AOCL_SRC_PATH`
 #### New environment keys auto-detected from customize
 
-* `CM_AOCL_BUILD_PATH`
-* `CM_AOCL_LIB_PATH`
-* `CM_AOCL_SRC_PATH`
 ___
 ### Maintainers
 

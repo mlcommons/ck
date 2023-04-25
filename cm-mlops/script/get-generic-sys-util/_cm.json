@@ -126,6 +126,19 @@
           "brew": ""
         }
       }
+    },
+    "screen": {
+      "env": {
+        "CM_SYS_UTIL_NAME": "screen"
+      },
+      "state": {
+        "screen": {
+          "apt": "screen",
+          "dnf": "screen",
+          "yum": "screen",
+          "brew": "screen"
+        }
+      }
     }
   }
 }
