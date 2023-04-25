@@ -215,5 +215,8 @@ else:
         with open(code_path, "wb") as file:
             file.write(code)
 
+    with open(os.path.join(os.getcwd(), "tvm_executor"), "w") as file:
+        file.write("virtual_machine" if use_vm else "graph_executor")
+
     lib.export_library(compiled_model)
     print('TVM compiled model: ' + compiled_model)
